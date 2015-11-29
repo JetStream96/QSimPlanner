@@ -1,0 +1,119 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using QSP.AviationTools;
+
+namespace QSP.RouteFinding.Tracks.Common
+{
+
+    public static class Utilities
+    {
+
+        public static int ChooseSubsequentWpt(double prevLat, double prevLon, List<int> candidates)
+        {
+
+            if (candidates == null || candidates.Count == 0)
+            {
+                throw new ArgumentException("List cannot be nothing or empty.");
+            }
+
+            double minDis = 99999.0;
+            int minIndex = 0;
+
+            double dis = 0;
+
+
+            for (int i = 0; i <= candidates.Count - 1; i++)
+            {
+                var wpt = RouteFindingCore.WptList.WaypointAt(candidates[i]);
+                dis = MathTools.MathTools.GreatCircleDistance(prevLat, prevLon, wpt.Lat, wpt.Lon);
+
+
+                if (dis < minDis)
+                {
+                    minIndex = i;
+                    minDis = dis;
+
+                }
+
+            }
+
+            return candidates[minIndex];
+
+        }
+
+
+        public static void ConvertLatLonFormat(string[] item)
+        {
+
+            for (int i = 0; i <= item.Length - 1; i++)
+            {
+                if (LatLonConversion.Is7DigitFormat(item[i]))
+                {
+                    item[i] = LatLonConversion.Convert7DigitTo5Digit(item[i]);
+                }
+
+            }
+
+        }
+
+        /// <summary>
+        /// Returns the indices of waypoints which are closest to a specific lat/lon. 
+        /// </summary>
+        public static List<int> NearbyWaypointsInWptList(int count, double lat, double lon)
+        {
+            var x = RouteFinding.Utilities.sidStarToAirwayConnection("", new LatLon(lat, lon), 0.0);
+            List<int> result = new List<int>();
+
+            foreach (var i in x)
+            {
+                result.Add(i.Index);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Remove any array which is null, or has less elements than minLength.
+        /// </summary>
+        public static void RemoveTinyArray<T>(this List<T[]> item, int minLength)
+        {
+            int lastIndex = item.Count - 1;
+
+            if (lastIndex < 0)
+            {
+                return;
+            }
+
+            for (int i = lastIndex; i >= 0; i --)
+            {
+                if (item[i] == null || item[i].Length < minLength)
+                {
+                    item.RemoveAt(i);
+                }
+            }
+
+        }
+
+        public static List<string[]> SelectDistinct(List<string[]> item)
+        {
+            return item.Distinct(new StringArrayComparer()).ToList();
+        }
+
+        private class StringArrayComparer : IEqualityComparer<string[]>
+        {
+
+            public bool Equals(string[] x, string[] y)
+            {
+                return Enumerable.SequenceEqual(x, y);
+            }
+
+            public int GetHashCode(string[] obj)
+            {
+                return this.GetHashCode();
+            }
+
+        }
+
+    }
+
+}

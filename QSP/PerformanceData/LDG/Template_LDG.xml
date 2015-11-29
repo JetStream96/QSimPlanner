@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LandingData>
+		<Pamameters>
+				
+				<LengthUnit></LengthUnit>
+				<!-- FT or M -->
+				
+				<WeightRef></WeightRef>
+				<!-- All in KG -->
+				<!-- i.e. First column in the table, "50000 KG Landing Weight". -->
+				
+				<WeightStep></WeightStep>
+				<!-- All in KG -->
+				<!-- i.e. "PER 5000 KG ABOVE/BELOW 50000KG". -->
+				
+				<Autobrakes>
+						<Dry>MAX MANUAL;MAX AUTO;AUTOBRAKE 3;AUTOBRAKE 2;AUTOBRAKE 1</Dry>
+						<Wet>MAX MANUAL;MAX AUTO;AUTOBRAKE 3;AUTOBRAKE 2</Wet>
+				</Autobrakes>
+		</Pamameters>
+		<Data>
+				<Flaps>15</Flaps>
+				<Dry></Dry>
+				<Good></Good>
+				<Medium></Medium>
+				<Poor></Poor>
+		</Data>
+		
+
+</LandingData>

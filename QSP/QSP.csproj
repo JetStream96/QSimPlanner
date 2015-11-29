@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{182CA73B-6911-4D37-BA34-C86232FE37F1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QSP</RootNamespace>
+    <AssemblyName>QSimPlanner</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>0.6.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>QSP.Core.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\VORTAC.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationEvents.cs" />
+    <Compile Include="AviationTools\AviationConstants.cs" />
+    <Compile Include="AviationTools\CoversionTools.cs" />
+    <Compile Include="AviationTools\LatLon.cs" />
+    <Compile Include="AviationTools\LatLonConversion.cs" />
+    <Compile Include="Core\AppOptions.cs" />
+    <Compile Include="Core\EnumConversionTools.cs" />
+    <Compile Include="Core\Enums.cs" />
+    <Compile Include="LibraryExtension\MinHeapModifiable.cs" />
+    <Compile Include="UI\Forms\OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ErrorLogger.cs" />
+    <Compile Include="Core\Exceptions.cs" />
+    <Compile Include="UI\FormStateSaver.cs" />
+    <Compile Include="Utilities\IeEmulationChecker.cs" />
+    <Compile Include="Core\PerformanceDatabase.cs" />
+    <Compile Include="Core\Core.cs" />
+    <Compile Include="LibraryExtension\SequentialAsyncTaskHandler.cs" />
+    <Compile Include="UI\Utilities.cs" />
+    <Compile Include="UI\ViewManager.cs" />
+    <Compile Include="Utilities\AiracTools.cs" />
+    <Compile Include="FuelCalculation\FlightTimeCalculator.cs" />
+    <Compile Include="FuelCalculation\FuelCalculationParameters.cs" />
+    <Compile Include="FuelCalculation\FuelCalculator.cs" />
+    <Compile Include="FuelCalculation\FuelReportResult.cs" />
+    <Compile Include="FuelCalculation\OptCrzCalculator.cs" />
+    <Compile Include="LibraryExtension\Arrays.cs" />
+    <Compile Include="LandingPerfCalculation\LoadedData.cs" />
+    <Compile Include="LandingPerfCalculation\PerfImporter.cs" />
+    <Compile Include="LandingPerfCalculation\Enums.cs" />
+    <Compile Include="LandingPerfCalculation\LandingCalcResult.cs" />
+    <Compile Include="LandingPerfCalculation\LandingParaImporter.cs" />
+    <Compile Include="LandingPerfCalculation\LandingParameters.cs" />
+    <Compile Include="LandingPerfCalculation\PerfData.cs" />
+    <Compile Include="LibraryExtension\BinarySearchForAll.cs" />
+    <Compile Include="LibraryExtension\DictionaryDup.cs" />
+    <Compile Include="LibraryExtension\LibraryExtension.cs" />
+    <Compile Include="LibraryExtension\Lists.cs" />
+    <Compile Include="LibraryExtension\MinHeap.cs" />
+    <Compile Include="LibraryExtension\Pair.cs" />
+    <Compile Include="LibraryExtension\StringUtilities.cs" />
+    <Compile Include="LibraryExtension\TimeFormat.cs" />
+    <Compile Include="MathTools\Interpolation.cs" />
+    <Compile Include="MathTools\MathTools.cs" />
+    <Compile Include="MathTools\Matrix2by2.cs" />
+    <Compile Include="MathTools\RealValuedFunction.cs" />
+    <Compile Include="MathTools\Tables.cs" />
+    <Compile Include="MathTools\Vector2D.cs" />
+    <Compile Include="MathTools\Vector3D.cs" />
+    <Compile Include="Core\Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RouteFinding\AirwayConnectionFinder.cs" />
+    <Compile Include="RouteFinding\AlternateFinder.cs" />
+    <Compile Include="RouteFinding\AnalyzerWithCommands.cs" />
+    <Compile Include="RouteFinding\Exceptions.cs" />
+    <Compile Include="RouteFinding\FlightPlanExport.cs" />
+    <Compile Include="RouteFinding\MapDrawing.cs" />
+    <Compile Include="RouteFinding\RandomRouteFinder.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzer.cs" />
+    <Compile Include="RouteFinding\RouteFileWriter.cs" />
+    <Compile Include="RouteFinding\RouteFinder.cs" />
+    <Compile Include="RouteFinding\Containers\ChangeTracker.cs" />
+    <Compile Include="RouteFinding\Containers\Neighbor.cs" />
+    <Compile Include="RouteFinding\Containers\Route.cs" />
+    <Compile Include="RouteFinding\Containers\TrackedWptList.cs" />
+    <Compile Include="RouteFinding\Containers\Waypoint.cs" />
+    <Compile Include="RouteFinding\Containers\WptNeighbor.cs" />
+    <Compile Include="RouteFinding\Data\AirportData.cs" />
+    <Compile Include="RouteFinding\Data\AirportDatabase.cs" />
+    <Compile Include="RouteFinding\Data\DatabaseLoader.cs" />
+    <Compile Include="RouteFinding\Data\LatLonSearchUtility.cs" />
+    <Compile Include="RouteFinding\Data\RwyData.cs" />
+    <Compile Include="RouteFinding\Tracks\Exceptions.cs" />
+    <Compile Include="RouteFinding\Tracks\Ausots\AusotsDownloader.cs" />
+    <Compile Include="RouteFinding\Tracks\Ausots\AusotsHandler.cs" />
+    <Compile Include="RouteFinding\Tracks\Ausots\AusTrack.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\Enums.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\ITrack.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TrackHandler.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TrackReader.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\Utilities.cs" />
+    <Compile Include="RouteFinding\Tracks\Interaction\Interactions.cs" />
+    <Compile Include="RouteFinding\Tracks\Interaction\StatusRecorder.cs" />
+    <Compile Include="RouteFinding\Tracks\Nats\NatHandler.cs" />
+    <Compile Include="RouteFinding\Tracks\Nats\NATsMessage.cs" />
+    <Compile Include="RouteFinding\Tracks\Nats\NorthAtlanticTrack.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\EastTracksParser.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\Enums.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\PacificTrack.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\PacotsDownloader.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\PacotsHandler.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\PacotsMessage.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\TrackValidPeriod.cs" />
+    <Compile Include="RouteFinding\Tracks\WptPair.cs" />
+    <Compile Include="RouteFinding\RouteFindingCore.cs" />
+    <Compile Include="RouteFinding\SidHandler.cs" />
+    <Compile Include="RouteFinding\SimpleRouteAnalyzer.cs" />
+    <Compile Include="RouteFinding\StarHandler.cs" />
+    <Compile Include="RouteFinding\Utilities.cs" />
+    <Compile Include="TakeOffPerfCalculation\AircraftParameters.cs" />
+    <Compile Include="TakeOffPerfCalculation\AlternateThrustTable.cs" />
+    <Compile Include="TakeOffPerfCalculation\Enums.cs" />
+    <Compile Include="TakeOffPerfCalculation\InfoRequest.cs" />
+    <Compile Include="TakeOffPerfCalculation\LoadedData.cs" />
+    <Compile Include="TakeOffPerfCalculation\ParameterImporter.cs" />
+    <Compile Include="TakeOffPerfCalculation\PerfTableImporter.cs" />
+    <Compile Include="TakeOffPerfCalculation\TOPerfCalcResult.cs" />
+    <Compile Include="TakeOffPerfCalculation\TOPerfCalculator.cs" />
+    <Compile Include="TakeOffPerfCalculation\TOPerfParameters.cs" />
+    <Compile Include="UIElement\TablessControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\about.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\about.Designer.cs">
+      <DependentUpon>about.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\FindAltnForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\FindAltnForm.Designer.cs">
+      <DependentUpon>FindAltnForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\metarDownload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\metarDownload.Designer.cs">
+      <DependentUpon>metarDownload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Splash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Splash.Designer.cs">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\TracksForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\TracksForm.Designer.cs">
+      <DependentUpon>TracksForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\WeightManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\WeightManagement.Designer.cs">
+      <DependentUpon>WeightManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WindAloft\AvgWindCalculator.cs" />
+    <Compile Include="WindAloft\DescendForcastGenerator.cs" />
+    <Compile Include="WindAloft\Exceptions.cs" />
+    <Compile Include="WindAloft\GribConverter.cs" />
+    <Compile Include="WindAloft\GribDownloader.cs" />
+    <Compile Include="WindAloft\LastestDataSetFinder.cs" />
+    <Compile Include="WindAloft\Wind.cs" />
+    <Compile Include="WindAloft\WindAloft.cs" />
+    <Compile Include="WindAloft\WindManager.cs" />
+    <Compile Include="WindAloft\WindTable.cs" />
+    <Compile Include="WindAloft\WxFileLoader.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="UI\Forms\about.resx">
+      <DependentUpon>about.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\FindAltnForm.resx">
+      <DependentUpon>FindAltnForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\metarDownload.resx">
+      <DependentUpon>metarDownload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Splash.resx">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\TracksForm.resx">
+      <DependentUpon>TracksForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\WeightManagement.resx">
+      <DependentUpon>WeightManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="degrib\degrib.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\LDG\737600_LDG.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\LDG\737700_LDG.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\LDG\737800_LDG.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\LDG\737900_LDG.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\LDG\777200LR_LDG.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\LDG\777F_LDG.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\LDG\Template_LDG.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\TO\737600_TO.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\TO\737700_TO.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\TO\737800_TO.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\TO\737900_TO.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\TO\777200LR_TO.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\TO\777F_TO.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\TO\TOPerf_Template.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\delete-icon.png" />
+    <None Include="Resources\Warning_m4.png" />
+    <None Include="Resources\VORTAC.ico" />
+    <None Include="Resources\Triangle_128.png" />
+    <None Include="Resources\processing9.png" />
+    <None Include="Resources\PfdNgx.png" />
+    <None Include="Resources\Okay_m4.png" />
+    <None Include="Resources\check-icon.png" />
+    <None Include="Resources\Caution_m4.png" />
+    <None Include="Resources\arrow3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

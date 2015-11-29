@@ -1,0 +1,8 @@
+*.suo
+*.psess
+
+QSP/bin
+QSP/obj
+/TestResults
+UnitTest/bin
+UnitTest/obj

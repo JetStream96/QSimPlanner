@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TOPerf>
+
+<WeightUnit></WeightUnit>
+<!-- 1000KG or 1000LB -->
+
+<LengthUnit></LengthUnit>
+<!-- FT or M -->
+
+<Adjustments>
+<!-- In KG-->
+<!-- performance adjustments for packs off, anti-ice, etc -->
+<Packs>
+<!-- With engine bleed for packs off, increase field limit weight 
+by 550 kg and climb limit weight by 1300 kg. 
+First 550 is for dry rwy, second for wet. -->
+<Dry></Dry>
+<Wet></Wet> 
+<Climb></Climb>
+</Packs>
+
+<AntiIce>
+<EngineOnly>
+<!-- With engine anti-ice on, decrease field limit weight by 150 kg 
+and climb limit weight by 200 kg.
+First 150 is for dry rwy, second for wet.-->
+<Dry></Dry>
+<Wet></Wet>
+<Climb></Climb>
+</EngineOnly>
+
+<EngineAndWing>
+<!-- With engine and wing anti-ice on (optional system), decrease 
+field limit weight by 600 kg and climb limit weight by 1050 kg.
+600 is for dry rwy, 550 for wet.-->
+<Dry></Dry>
+<Wet></Wet>
+<Climb></Climb>
+</EngineAndWing>
+
+</AntiIce>
+
+</Adjustments>
+
+<Dry>
+
+<SlopeCorrection>
+</SlopeCorrection>
+
+<WindCorrection>
+</WindCorrection>
+
+<!-- Copy this section to add WeightTable:
+
+<WeightTable>
+<Altitude></Altitude>
+
+<Table>
+</Table>
+
+<Climb></Climb>
+</WeightTable>
+
+-->
+
+<WeightTable>
+
+<Altitude></Altitude>
+<!-- In feet -->
+
+<Table>
+</Table>
+
+<Climb></Climb>
+<!-- CLIMB LIMIT WT -->
+</WeightTable>
+
+<WeightTable>
+<Altitude></Altitude>
+
+<Table>
+</Table>
+
+<Climb></Climb>
+</WeightTable>
+
+<WeightTable>
+<Altitude></Altitude>
+
+<Table>
+</Table>
+
+<Climb></Climb>
+</WeightTable>
+
+<WeightTable>
+<Altitude></Altitude>
+
+<Table>
+</Table>
+
+<Climb></Climb>
+</WeightTable>
+
+<WeightTable>
+<Altitude></Altitude>
+
+<Table>
+</Table>
+
+<Climb></Climb>
+</WeightTable>
+
+<WeightTable>
+<Altitude></Altitude>
+
+<Table>
+</Table>
+
+<Climb></Climb>
+</WeightTable>
+
+</Dry> 
+
+<Wet>
+
+<SlopeCorrection>
+</SlopeCorrection>
+
+<WindCorrection>
+</WindCorrection>
+
+<WeightTable>
+
+<Altitude></Altitude>
+<!-- In feet -->
+
+<Table>
+</Table>
+
+<Climb></Climb>
+<!-- CLIMB LIMIT WT -->
+</WeightTable>
+
+<WeightTable>
+<Altitude></Altitude>
+
+<Table>
+</Table>
+
+<Climb></Climb>
+</WeightTable>
+
+<WeightTable>
+<Altitude></Altitude>
+
+<Table>
+</Table>
+
+<Climb></Climb>
+</WeightTable>
+
+<WeightTable>
+<Altitude></Altitude>
+
+<Table>
+</Table>
+
+<Climb></Climb>
+</WeightTable>
+
+<WeightTable>
+<Altitude></Altitude>
+
+<Table>
+</Table>
+
+<Climb></Climb>
+</WeightTable>
+
+<WeightTable>
+<Altitude></Altitude>
+
+<Table>
+</Table>
+
+<Climb></Climb>
+</WeightTable>
+
+<!-- Derated takeoff 
+Remove if not applicable. -->
+<TO1>
+</TO1>
+
+<TO2>
+</TO2>
+
+</Wet> 
+</TOPerf>
