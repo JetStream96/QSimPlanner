@@ -25,7 +25,6 @@ namespace QSP
 {
     public partial class MainForm
     {
-
         public int OperatingEmptyWtKg;
         //OperatingEmptyWt = Basic Operating Wt
         public int MissedAppFuelKG;
@@ -153,8 +152,6 @@ namespace QSP
 
         private static string insufficientFuelMsg(double fuelReqKG, double fuelCapacityKG, WeightUnit unit)
         {
-
-
             if (unit == WeightUnit.KG)
             {
                 return "Insufficient fuel" + Environment.NewLine + "Fuel required for this flight is " + fuelReqKG + " KG. Maximum fuel tank capacity is " + fuelCapacityKG + " KG.";
@@ -163,7 +160,6 @@ namespace QSP
             {
                 return "Insufficient fuel" + Environment.NewLine + "Fuel required for this flight is " + Math.Round(fuelReqKG * AviationConstants.KG_LB) + " LB. Maximum fuel tank capacity is " + Math.Round(fuelCapacityKG * AviationConstants.KG_LB) + " LB.";
             }
-
         }
 
         #endregion
@@ -272,7 +268,6 @@ namespace QSP
                 LblTrackDownloadStatus.Image = Properties.Resources.YellowLight;
                 LblTrackDownloadStatus.Text = "Tracks: Not downloaded";
             }
-
         }
 
         private async Task startWindDlAsReq()
@@ -319,20 +314,22 @@ namespace QSP
                     WindDownloadStatus_Lbl.Text = "Downloading lastest wind ...";
                     WindDownloadStatus_Lbl.Image = null;
                     break;
+
                 case WindDownloadStatus.Finished:
                     WindDownloadStatus_Lbl.Text = "Lastest wind ready";
                     WindDownloadStatus_Lbl.Image = Properties.Resources.GreenLight;
                     break;
+
                 case WindDownloadStatus.Failed:
                     WindDownloadStatus_Lbl.Text = "Failed to download wind data";
                     WindDownloadStatus_Lbl.Image = Properties.Resources.RedLight;
                     break;
+
                 case WindDownloadStatus.WaitingManualDL:
                     WindDownloadStatus_Lbl.Text = "Click here to download wind data";
                     WindDownloadStatus_Lbl.Image = Properties.Resources.YellowLight;
                     break;
             }
-
         }
 
         public void LoadNavDBUpdateStatusStrip(bool startingApp)
@@ -500,9 +497,7 @@ namespace QSP
             var optionForm = new OptionsForm();
             optionForm.Visible = false;
             optionForm.ShowDialog();
-
         }
-
 
         private void setHandCusor(object sender, EventArgs e)
         {
@@ -525,10 +520,8 @@ namespace QSP
             {
                 TakeoffLoadDefaultState();
             }
-
             viewChanger.ShowPage(ViewManager.Pages.TakeoffPerf);
         }
-
 
         private void ShowLDG_Btn_Click(object sender, EventArgs e)
         {
@@ -536,14 +529,12 @@ namespace QSP
             {
                 LDG_Load();
             }
-
             viewChanger.ShowPage(ViewManager.Pages.LandingPerf);
         }
 
-
         private void ShowAPData_Btn_Click(object sender, EventArgs e)
         {
-            if (InitializeFinished_AirportDataFinder == false)
+            if (!InitializeFinished_AirportDataFinder)
             {
                 AirportDataFinder_Load();
             }
@@ -565,15 +556,15 @@ namespace QSP
         {
             var latlon = AirportList.AirportLatlon(icao);
             int[] FLs = { 60, 90, 120, 180, 240, 300, 340, 390, 440, 490 };
-            var forcastGen = new DescendForcastGenerator(latlon.Lat , latlon.Lon , FLs);
+            var forcastGen = new DescendForcastGenerator(latlon.Lat, latlon.Lon, FLs);
 
             Wind[] w = forcastGen.Generate();
             var result = new StringBuilder();
 
             for (int i = 0; i < FLs.Length; i++)
             {
-                result.AppendLine("        FL" + FLs[i].ToString().PadLeft(3, '0') + "   " + w[i].DirectionString() + 
-                    "/" + (int)w[i].Speed );
+                result.AppendLine("        FL" + FLs[i].ToString().PadLeft(3, '0') + "   " + w[i].DirectionString() +
+                    "/" + (int)w[i].Speed);
             }
 
             return result.ToString();
@@ -609,42 +600,42 @@ namespace QSP
 
         private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://flightaware.com/statistics/ifr-route/");
+            Process.Start("http://flightaware.com/statistics/ifr-route/");
         }
 
         private void LinkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://rfinder.asalink.net/free/");
+            Process.Start("http://rfinder.asalink.net/free/");
         }
 
         private void LinkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://aviationweather.gov/adds/metars/");
+            Process.Start("http://aviationweather.gov/adds/metars/");
         }
 
         private void LinkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://aviationweather.gov/webiffdp/page/public?name=iffdp_main");
+            Process.Start("http://aviationweather.gov/webiffdp/page/public?name=iffdp_main");
         }
 
         private void LinkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://aviationweather.gov/iffdp/sgwx");
+            Process.Start("http://aviationweather.gov/iffdp/sgwx");
         }
 
         private void LinkLabel6_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.notams.faa.gov/dinsQueryWeb/");
+            Process.Start("https://www.notams.faa.gov/dinsQueryWeb/");
         }
 
         private void LinkLabel7_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.faa.gov/air_traffic/flight_info/aeronav/digital_products/");
+            Process.Start("http://www.faa.gov/air_traffic/flight_info/aeronav/digital_products/");
         }
 
         private void LinkLabel8_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.ead.eurocontrol.int/eadcms/eadsite/index.php.html");
+            Process.Start("http://www.ead.eurocontrol.int/eadcms/eadsite/index.php.html");
         }
 
 
@@ -670,7 +661,7 @@ namespace QSP
                 Result = MessageBox.Show(Message, Caption, Buttons, Icon);
 
                 // Gets the result of the MessageBox display. 
-                if (Result == System.Windows.Forms.DialogResult.Yes)
+                if (Result == DialogResult.Yes)
                 {
                     // Exit the app 
                     return;
@@ -764,7 +755,6 @@ namespace QSP
                     {
                         sidStar.Add(s);
                     }
-
                 }
             }
             else if (CBox.Text != "NONE")
@@ -927,10 +917,8 @@ namespace QSP
 
         }
 
-
         private void setCBox(TextBox txtBox, ComboBox RwyCBox, ComboBox WptCBox)
         {
-
             if (RadioButton1.Checked || RadioButton2.Checked)
             {
                 RwyCBox.Items.Clear();
@@ -942,21 +930,17 @@ namespace QSP
 
                 var rwyList = AirportList.RwyIdentList(txtBox.Text);
 
-
                 if (rwyList != null)
                 {
                     RwyCBox.Items.AddRange(rwyList);
                     RwyCBox.SelectedIndex = 0;
-
                 }
-
-
             }
             else if (RadioButton3.Checked || RadioButton4.Checked)
             {
                 WptCBox.Items.Clear();
 
-                List<int> indices = RouteFindingCore.WptList.FindAllByID(txtBox.Text);
+                List<int> indices = WptList.FindAllByID(txtBox.Text);
 
                 if (indices == null || indices.Count == 0)
                 {
@@ -965,19 +949,15 @@ namespace QSP
 
                 string[] display = new string[indices.Count];
 
-
-                for (int i = 0; i <= indices.Count - 1; i++)
+                for (int i = 0; i < indices.Count; i++)
                 {
-                    var wpt = RouteFindingCore.WptList.WaypointAt(indices[i]);
+                    var wpt = WptList.WaypointAt(indices[i]);
                     display[i] = "LAT/" + wpt.Lat + "  LON/" + wpt.Lon;
-
                 }
 
                 WptCBox.Items.AddRange(display);
                 WptCBox.SelectedIndex = 0;
-
             }
-
         }
 
         private void FromTxtbox_TextChanged(object sender, EventArgs e)
@@ -990,35 +970,37 @@ namespace QSP
             setCBox(ToTxtbox, ToRwyCBox, WptSelToCBox);
         }
 
+        private void setSidStarList(ComboBox CBox, List<string> sidStarList)
+        {
+            CBox.Items.Clear();
+
+            if (sidStarList.Count == 0)
+            {
+                CBox.Items.Add("NONE");
+                CBox.SelectedIndex = 0;
+                return;
+            }
+            else
+            {
+                CBox.Items.Add("AUTO");
+            }
+
+            foreach (var i in sidStarList)
+            {
+                CBox.Items.Add(i);
+            }
+
+            CBox.SelectedIndex = 0;
+        }
+
         private void FromRwyCBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (RadioButton1.Checked || RadioButton2.Checked)
             {
-                FromSidCBox.Items.Clear();
-
                 try
                 {
                     SidHandler sidFinder = new SidHandler(QspCore.AppSettings.NavDBLocation, FromTxtbox.Text);
-                    List<string> l = sidFinder.GetSidList(FromRwyCBox.Text);
-
-                    if (l.Count == 0)
-                    {
-                        FromSidCBox.Items.Add("NONE");
-                        FromSidCBox.SelectedIndex = 0;
-                        return;
-                    }
-                    else
-                    {
-                        FromSidCBox.Items.Add("AUTO");
-                    }
-
-                    foreach (var i in l)
-                    {
-                        FromSidCBox.Items.Add(i);
-                    }
-
-                    FromSidCBox.SelectedIndex = 0;
-
+                    setSidStarList(FromSidCBox, sidFinder.GetSidList(FromRwyCBox.Text));
                 }
                 catch (Exception ex)
                 {
@@ -1030,33 +1012,12 @@ namespace QSP
 
         private void To_rwy_CBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (RadioButton1.Checked == true | RadioButton3.Checked == true)
+            if (RadioButton1.Checked || RadioButton3.Checked)
             {
-                ToStarCBox.Items.Clear();
-
                 try
                 {
-                    StarHandler starManager = new StarHandler(QspCore.AppSettings.NavDBLocation, ToTxtbox.Text);
-                    List<string> l = starManager.GetStarList(ToRwyCBox.Text);
-
-                    if (l.Count == 0)
-                    {
-                        ToStarCBox.Items.Add("NONE");
-                        ToStarCBox.SelectedIndex = 0;
-                        return;
-                    }
-                    else
-                    {
-                        ToStarCBox.Items.Add("AUTO");
-                    }
-
-                    foreach (var i in l)
-                    {
-                        ToStarCBox.Items.Add(i);
-                    }
-
-                    ToStarCBox.SelectedIndex = 0;
-
+                    var starManager = new StarHandler(QspCore.AppSettings.NavDBLocation, ToTxtbox.Text);
+                    setSidStarList(ToStarCBox, starManager.GetStarList(ToRwyCBox.Text));
                 }
                 catch (Exception ex)
                 {
@@ -1065,13 +1026,12 @@ namespace QSP
             }
         }
 
-
         private void Find_Btn_Click(object sender, EventArgs e)
         {
-            if (RadioButton1.Checked == true)
+            if (RadioButton1.Checked)
             {
-                List<string> sid = new List<string>();
-                List<string> star = new List<string>();
+                var sid = new List<string>();
+                var star = new List<string>();
 
                 if (FromSidCBox.Text == "AUTO")
                 {
@@ -1081,7 +1041,6 @@ namespace QSP
                         {
                             sid.Add(Convert.ToString(i));
                         }
-
                     }
                 }
                 else if (FromSidCBox.Text != "NONE")
@@ -1097,15 +1056,12 @@ namespace QSP
                         {
                             star.Add(Convert.ToString(i));
                         }
-
                     }
                 }
                 else if (ToStarCBox.Text != "NONE")
                 {
                     star.Add(ToStarCBox.Text);
                 }
-
-
 
                 try
                 {
@@ -1148,7 +1104,7 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    Route myRoute = RouteFinder.FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, RouteFindingCore.WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
+                    Route myRoute = RouteFinder.FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(Route.RouteDisplayOption.AirportToWaypoint);
                     double directDis = MathTools.MathTools.GreatCircleDistance(myRoute.Waypoints.First().LatLon, myRoute.Waypoints.Last().LatLon);
@@ -1186,7 +1142,7 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelFromCBox.Text);
 
-                    Route myRoute = RouteFinder.FindRoute(RouteFindingCore.WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, star);
+                    Route myRoute = RouteFinder.FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, star);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(Route.RouteDisplayOption.WaypointToAirport);
                     double directDis = MathTools.MathTools.GreatCircleDistance(myRoute.Waypoints.First().LatLon, myRoute.Waypoints.Last().LatLon);
@@ -1207,7 +1163,7 @@ namespace QSP
                     Vector2D u = extractLatLon(WptSelFromCBox.Text);
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    Route myRoute = RouteFinder.FindRoute(RouteFindingCore.WptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y), RouteFindingCore.WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
+                    Route myRoute = RouteFinder.FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y), WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(Route.RouteDisplayOption.WaypointToWaypoint);
                     double directDis = MathTools.MathTools.GreatCircleDistance(myRoute.Waypoints.First().LatLon, myRoute.Waypoints.Last().LatLon);
@@ -1229,12 +1185,10 @@ namespace QSP
         /// <param name="s">e.g. LAT/22.55201 LON/121.3554</param>
         private static Vector2D extractLatLon(string s)
         {
-
             int i = s.IndexOf("LAT/");
             int j = s.IndexOf("  LON/");
 
             return new Vector2D(Convert.ToDouble(s.Substring(i + 4, j - i - 4)), Convert.ToDouble(s.Substring(j + 6)));
-
         }
 
 
@@ -1363,8 +1317,7 @@ namespace QSP
             }
 
         }
-
-
+        
         private void TakeoffLoadDefaultState()
         {
             ACListTOComboBox.Text = ACList.Text;
@@ -1397,17 +1350,13 @@ namespace QSP
 
             formStateManagerTO.Load();
             InitializeFinished_TO = true;
-
         }
-
-
+        
         private void AC_list_TO_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateFlapsComboBox();
             updateThrustRatingDisplay();
-
         }
-
 
         private void Calculate_Click(object sender, EventArgs e)
         {
@@ -1452,11 +1401,8 @@ namespace QSP
                 {
                     throw;
                 }
-
             }
-
             formStateManagerTO.Save();
-
         }
 
         private Aircraft TOSelectedAC()
@@ -1484,7 +1430,6 @@ namespace QSP
             throw new ArgumentOutOfRangeException("Invalid index for an aircraft.");
         }
 
-
         private void UpdateFlapsComboBox()
         {
             var allowedFlaps = InfoRequest.AllowedFlaps(TOSelectedAC());
@@ -1508,14 +1453,12 @@ namespace QSP
                     break;
                 }
             }
-
         }
 
 
         private void updateThrustRatingDisplay()
         {
             var ac = TOSelectedAC();
-
 
             if (InfoRequest.AltnThrustRatingAvail(ac))
             {
@@ -1529,16 +1472,12 @@ namespace QSP
                 ThrustRating_Lbl.Show();
                 ThrustRating_Box.Show();
                 ThrustRating_Box.SelectedIndex = 0;
-
-
             }
             else
             {
                 ThrustRating_Lbl.Hide();
                 ThrustRating_Box.Hide();
-
             }
-
         }
 
         private void m_ft_SelectedIndexChanged(object sender, EventArgs e)
@@ -1574,7 +1513,6 @@ namespace QSP
                 }
             }
         }
-
 
         private void temp_c_f_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1935,7 +1873,7 @@ namespace QSP
         private void WtUnit_LDG_SelectedIndexChanged(object sender, EventArgs e)
         {
             double weight;
-            if (double.TryParse(Weight_LDG.Text, out weight) & InitializeFinished_LDG)
+            if (double.TryParse(Weight_LDG.Text, out weight) && InitializeFinished_LDG)
             {
                 if (WtUnit_LDG.Text == "KG")
                 {
@@ -1952,24 +1890,20 @@ namespace QSP
         {
             Req_Panel.Show();
             WtUnit_Req_lbl.Text = EnumConversionTools.WeightUnitToString(LDG_fuel_prediction_unit);
-
         }
-
-
+        
         private void Predict_Btn_Click(object sender, EventArgs e)
         {
             ACListLDG.Text = ACList.Text;
             WtUnit_LDG.Text = EnumConversionTools.WeightUnitToString(LDG_fuel_prediction_unit);
             Weight_LDG.Text = Convert.ToString(LDG_ZFW + LDG_fuel_prediction);
             Req_Panel.Hide();
-
         }
 
         private void Cancel_Btn_Click(object sender, EventArgs e)
         {
             Req_Panel.Hide();
         }
-
 
         private void OK_Btn_Click(object sender, EventArgs e)
         {
@@ -2393,8 +2327,7 @@ namespace QSP
                     Label11.Text = "LB";
                     Label13.Text = "LB";
                     Label34.Text = "LB";
-
-
+                    
                     MissedAppFuel.Text = Convert.ToString(Math.Round(missedAppFuel * AviationConstants.KG_LB));
                     ExtraFuel.Text = Convert.ToString(Math.Round(extra * AviationConstants.KG_LB));
                     ZFW.Text = Convert.ToString(Math.Round(zfw * AviationConstants.KG_LB));

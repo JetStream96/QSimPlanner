@@ -45,7 +45,6 @@ namespace QSP.RouteFinding
         {
         }
 
-
         public SimpleRouteAnalyzer(string route, double prefLat, double prefLon)
         {
             routeInput = route.ToUpper().Split(Delimiters, StringSplitOptions.RemoveEmptyEntries).RemoveElements("DCT");
@@ -60,14 +59,13 @@ namespace QSP.RouteFinding
             lastWpt = -1;
             lastAwy = null;
 
-
-            for (int i = 0; i <= routeInput.Length - 1; i++)
+            for (int i = 0; i < routeInput.Length; i++)
             {
                 if (lastAwy == null)
                 {
                     //this one may be awy or wpt
 
-                    if (tryParseAwy(routeInput[i]) == false && tryParseWpt(routeInput[i], result) == false)
+                    if (!tryParseAwy(routeInput[i]) && !tryParseWpt(routeInput[i], result))
                     {
                         throw new InvalidIdentifierException(string.Format("{0} is not a valid waypoint or airway identifier.", routeInput[i]));
                     }
@@ -76,22 +74,17 @@ namespace QSP.RouteFinding
                 else
                 {
                     //this one must be wpt
-                    if (tryParseWpt(routeInput[i], result) == false)
+                    if (!tryParseWpt(routeInput[i], result))
                     {
                         throw new InvalidIdentifierException(string.Format("Cannot find waypoint {0} on airway {1}", routeInput[i], lastAwy));
                     }
-
                 }
-
             }
-
             return result;
-
         }
 
         private bool tryParseWpt(string ident, Route rte)
         {
-
 
             if (lastAwy == null)
             {
@@ -100,34 +93,24 @@ namespace QSP.RouteFinding
                 if (indices == null || indices.Count == 0)
                 {
                     return false;
-
                 }
                 else if (indices.Count == 1)
                 {
                     lastWpt = indices[0];
-
-
                 }
                 else
                 {
                     if (lastWpt == -1)
                     {
-                        lastWpt = QSP.RouteFinding.Tracks.Common.Utilities.ChooseSubsequentWpt(prefLat, prefLon, indices);
-
+                        lastWpt = Tracks.Common.Utilities.ChooseSubsequentWpt(prefLat, prefLon, indices);
                     }
                     else
                     {
                         var wpt = RouteFindingCore.WptList.WaypointAt(lastWpt);
-
-                        lastWpt = QSP.RouteFinding.Tracks.Common.Utilities.ChooseSubsequentWpt(wpt.Lat, wpt.Lon, indices);
-
+                        lastWpt = Tracks.Common.Utilities.ChooseSubsequentWpt(wpt.Lat, wpt.Lon, indices);
                     }
-
                 }
-
                 rte.AppendWaypoint(RouteFindingCore.WptList.WaypointAt(lastWpt));
-
-
             }
             else
             {
@@ -142,23 +125,17 @@ namespace QSP.RouteFinding
                 {
                     rte.AppendWaypoint(i, lastAwy);
                 }
-
                 lastAwy = null;
-
             }
-
             return true;
-
         }
 
         private bool tryParseAwy(string airway)
         {
-
             if (lastWpt == -1)
             {
                 return false;
             }
-
 
             foreach (var i in RouteFindingCore.WptList.ElementAt(lastWpt).Neighbors)
             {
@@ -167,13 +144,9 @@ namespace QSP.RouteFinding
                     lastAwy = i.Airway;
                     return true;
                 }
-
             }
-
             return false;
-
         }
-
     }
 
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding
 {
@@ -15,25 +16,22 @@ namespace QSP.RouteFinding
             const int COUNT = 10;
             const double DIS_INCR = 100;
 
-            List<AirportData> result = new List<AirportData>();
-            var  destLatLon = RouteFindingCore.AirportList.AirportLatlon(dest);
+            var result = new List<AirportData>();
+            var destLatLon = AirportList.AirportLatlon(dest);
 
             double distance = 100.0;
 
             while (result.Count < COUNT)
             {
-                result = filterResults(RouteFindingCore.AirportFinder.Find(destLatLon.Lat, destLatLon.Lon, distance), dest, length);
+                result = filterResults(AirportFinder.Find(destLatLon.Lat, destLatLon.Lon, distance), dest, length);
                 distance += DIS_INCR;
             }
-
             return result;
-
         }
 
         private static List<AirportData> filterResults(List<AirportData> item, string dest, int length)
         {
-
-            List<AirportData> result = new List<AirportData>();
+            var result = new List<AirportData>();
 
             foreach (var i in item)
             {
@@ -42,49 +40,58 @@ namespace QSP.RouteFinding
                     result.Add(i);
                 }
             }
-
             return result;
-
         }
 
-        public static List<Tuple<string, string, int, int>> AltnInfo(string dest, int length)
+        public static List<AlternateInfo> AltnInfo(string dest, int length)
         {
             //return a list of altn, with:
             //icao; name; max rwy length; dis from dest
 
-            var altns = AlternateFinder.GetListAltn(dest, length);
-
-            List<Tuple<string, string, int, int>> result = new List<Tuple<string, string, int, int>>();
+            var altns = GetListAltn(dest, length);
+            var result = new List<AlternateInfo>();
 
             foreach (var i in altns)
             {
-                result.Add(new Tuple<string, string, int, int>(i.Icao, i.Name, i.LongestRwyLength, 
-                    Convert.ToInt32(RouteFindingCore.AirportList.AirportLatlon(dest).Distance(i.Lat, i.Lon))));
+                result.Add(new AlternateInfo(i.Icao, i.Name, i.LongestRwyLength,
+                    (int)AirportList.AirportLatlon(dest).Distance(i.Lat, i.Lon)));
             }
-
-            result.Sort(altnInfoComparer());
-
+            result.Sort(AlternateInfo.AltnDisComparer());
             return result;
-
         }
 
-        private static IComparer<Tuple<string, string, int, int>> altnInfoComparer()
-        {
-            return new altnInfoSortHelper();
-        }
+        #region Container Class
 
-        private class altnInfoSortHelper : IComparer<Tuple<string, string, int, int>>
+        public class AlternateInfo
         {
+            public string Icao { get; set; }
+            public string AirportName { get; set; }
+            public int LongestRwyLength { get; set; }
+            public int Distance { get; set; }
 
-            public int Compare(Tuple<string, string, int, int> x, Tuple<string, string, int, int> y)
+            public AlternateInfo(string Icao, string AirportName, int LongestRwyLength, int Distance)
             {
+                this.Icao = Icao;
+                this.AirportName = AirportName;
+                this.LongestRwyLength = LongestRwyLength;
+                this.Distance = Distance;
+            }
 
-                return x.Item4.CompareTo(y.Item4);
+            public static IComparer<AlternateInfo> AltnDisComparer()
+            {
+                return new altnDisSortHelper();
+            }
 
+            private class altnDisSortHelper : IComparer<AlternateInfo>
+            {
+                public int Compare(AlternateInfo x, AlternateInfo y)
+                {
+                    return x.Distance.CompareTo(y.Distance);
+                }
             }
         }
 
+        #endregion
 
     }
-
 }

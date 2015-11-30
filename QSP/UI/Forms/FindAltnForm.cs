@@ -7,7 +7,6 @@ using static QSP.UI.Utilities;
 
 namespace QSP
 {
-
     public partial class FindAltnForm
     {
         private void OK_Btn_Click(object sender, EventArgs e)
@@ -37,12 +36,12 @@ namespace QSP
                 lengthFt = Convert.ToInt32(Convert.ToInt32(MinRwyLength_Txtbox.Text) * AviationConstants.M_FT_ratio);
             }
 
-            List<Tuple<string, string, int, int>> l = AlternateFinder.AltnInfo(Dest_Txtbox.Text, lengthFt);
+            var altn = AlternateFinder.AltnInfo(Dest_Txtbox.Text, lengthFt);
 
             DataGrid.Columns.Clear();
             DataGrid.Rows.Clear();
             DataGrid.ColumnCount = 4;
-            DataGrid.RowCount = l.Count;
+            DataGrid.RowCount = altn.Count;
 
             DataGrid.Columns[0].Name = "ICAO";
             DataGrid.Columns[1].Name = "Airport Name";
@@ -57,17 +56,17 @@ namespace QSP
 
             DataGrid.Columns[3].Name = "Distance";
 
-            for (int i = 0; i <= l.Count - 1; i++)
+            for (int i = 0; i < altn.Count ; i++)
             {
-                DataGrid[0, i].Value = l[i].Item1;
-                DataGrid[1, i].Value = l[i].Item2;
-                DataGrid[2, i].Value = l[i].Item3;
-                DataGrid[3, i].Value = l[i].Item4;
+                DataGrid[0, i].Value = altn[i].Icao ;
+                DataGrid[1, i].Value = altn[i].AirportName;
+                DataGrid[2, i].Value = altn[i].LongestRwyLength;
+                DataGrid[3, i].Value = altn[i].Distance;
             }
 
             if (m_ft.Text == "M")
             {
-                for (int i = 0; i <= l.Count - 1; i++)
+                for (int i = 0; i < altn.Count; i++)
                 {
                     DataGrid[2, i].Value = Math.Round(Convert.ToDouble(DataGrid[2, i].Value) / AviationConstants.M_FT_ratio);
                 }

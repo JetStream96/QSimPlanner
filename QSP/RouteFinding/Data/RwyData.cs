@@ -19,9 +19,9 @@ namespace QSP.RouteFinding
         public int SurfaceType { get; set; }
         public int RwyStatus { get; set; }
 
-        public RwyData(string RwyIdent, string Heading, int Length, int Width, bool IlsAvail, string IlsFreq, string IlsHeading, double Lat, double Lon, int Elevation,
-
-        double GlideslopeAngle, int ThresholdOverflyHeight, int SurfaceType, int RwyStatus)
+        public RwyData(string RwyIdent, string Heading, int Length, int Width, bool IlsAvail, string IlsFreq, 
+                       string IlsHeading, double Lat, double Lon, int Elevation,
+                       double GlideslopeAngle, int ThresholdOverflyHeight, int SurfaceType, int RwyStatus)
         {
             this.RwyIdent = RwyIdent;
             this.Heading = Heading;
@@ -37,9 +37,7 @@ namespace QSP.RouteFinding
             this.ThresholdOverflyHeight = ThresholdOverflyHeight;
             this.SurfaceType = SurfaceType;
             this.RwyStatus = RwyStatus;
-
         }
-
 
         public RwyData(RwyData item)
         {
@@ -57,9 +55,6 @@ namespace QSP.RouteFinding
             ThresholdOverflyHeight = item.ThresholdOverflyHeight;
             SurfaceType = item.SurfaceType;
             RwyStatus = item.RwyStatus;
-
         }
-
     }
-
 }
