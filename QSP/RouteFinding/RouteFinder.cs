@@ -18,7 +18,6 @@ namespace QSP.RouteFinding
         /// </summary>
         public static Route FindRoute(string origIcao, string origRwy, List<string> origSid, string destIcao, string destRwy, List<string> destStar)
         {
-
             SidHandler sidAdder = new SidHandler(QspCore.AppSettings.NavDBLocation, origIcao);
             int origIndex = sidAdder.AddSidsToWptList(origRwy, origSid);
 
@@ -30,7 +29,6 @@ namespace QSP.RouteFinding
 
             result.SetNat(NatsManager);
             return result;
-
         }
 
         /// <summary>
@@ -71,7 +69,6 @@ namespace QSP.RouteFinding
         /// </summary>
         public static Route FindRoute(int wptIndex, string icao, string rwy, List<string> star)
         {
-
             StarHandler starAdder = new StarHandler(QspCore.AppSettings.NavDBLocation, icao);
             int endIndex = starAdder.AddStarToWptList(star, rwy);
 
@@ -80,7 +77,6 @@ namespace QSP.RouteFinding
 
             result.SetNat(NatsManager);
             return result;
-
         }
 
         /// <summary>
@@ -88,13 +84,11 @@ namespace QSP.RouteFinding
         /// </summary>
         public static Route FindRoute(int wptIndex1, int wptIndex2)
         {
-
             var result = getRoute(wptIndex1, wptIndex2);
             WptList.Restore();
 
             result.SetNat(NatsManager);
             return result;
-
         }
 
         private static Route extractRoute(routeFindingData FindRouteData, int startPtIndex, int endPtIndex)
@@ -123,7 +117,6 @@ namespace QSP.RouteFinding
 
         private static Route getRoute(int startPtIndex, int endPtIndex)
         {
-
             routeFindingData FindRouteData = new routeFindingData(WptList.Count);
             routeSeachRegionPara regionPara = new routeSeachRegionPara(startPtIndex, endPtIndex, 0);
             bool routeFound = false;
@@ -143,7 +136,6 @@ namespace QSP.RouteFinding
                 //TODO: create new exception class
                 throw new Exception();
             }
-
         }
 
         private static bool findRouteAttempt(routeSeachRegionPara regionPara, ref routeFindingData findRouteData)
@@ -232,11 +224,11 @@ namespace QSP.RouteFinding
                 CurrentDis[startPtIndex] = 0.0;
             }
 
-            public void SetValue(int index, int fromIndex, string airway, double distance)
+            public void SetValue(int index, int fromIndex, string airway, double currentDistance)
             {
                 FromWptIndex[index] = fromIndex;
                 FromAirway[index] = airway;
-                CurrentDis[index] = distance;
+                CurrentDis[index] = currentDistance;
             }
         }
 
@@ -247,18 +239,16 @@ namespace QSP.RouteFinding
             public double b;
             public double c;
 
-            public routeSeachRegionPara(int startingPtIndex, int endingPtIndex, double c)
+            public routeSeachRegionPara(int StartPtIndex, int EndPtIndex, double c)
             {
-                StartPtIndex = startingPtIndex;
-                EndPtIndex = endingPtIndex;
+                this.StartPtIndex = StartPtIndex;
+                this.EndPtIndex = EndPtIndex;
                 this.c = c;
-                b = 0.5 * WptList.Distance(StartPtIndex, EndPtIndex);
+                b = 0.5 * WptList.Distance(this.StartPtIndex, this.EndPtIndex);
             }
         }
 
         #endregion
 
     }
-
-
 }
