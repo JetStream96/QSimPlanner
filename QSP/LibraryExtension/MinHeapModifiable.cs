@@ -27,11 +27,6 @@ namespace QSP.LibraryExtension
             valueComp = Comparer<TValue>.Default;
         }
 
-        private void Resize(List<int> item, int newSize)
-        {
-            item.AddRange(Enumerable.Repeat(-1, newSize - item.Count));
-        }
-
         private void BubbleDown(int index)
         {
             int length = content.Count;
@@ -57,12 +52,7 @@ namespace QSP.LibraryExtension
 
             if (minIndex != index)
             {
-                indexInList[content[index].Key] = minIndex;
-                indexInList[content[minIndex].Key] = index;
-
-                var temp = content[index];
-                content[index] = content[minIndex];
-                content[minIndex] = temp;
+                swapNodes(index, minIndex);
                 BubbleDown(minIndex);
             }
         }
@@ -77,12 +67,7 @@ namespace QSP.LibraryExtension
 
             if (valueComp.Compare(content[parentIndex].Value, content[index].Value) > 0)
             {
-                indexInList[content[parentIndex].Key] = index;
-                indexInList[content[index].Key] = parentIndex;
-
-                var temp = content[parentIndex];
-                content[parentIndex] = content[index];
-                content[index] = temp;
+                swapNodes(parentIndex, index);
                 BubbleUp(parentIndex);
             }
         }
@@ -109,19 +94,42 @@ namespace QSP.LibraryExtension
             return content[0];
         }
 
+        private void swapNodes(int index1, int index2)
+        {
+            indexInList[content[index1].Key] = index2;
+            indexInList[content[index2].Key] = index1;
+
+            var temp = content[index1];
+            content[index1] = content[index2];
+            content[index2] = temp;
+        }
+
         public void DeleteMin()
         {
             int length = content.Count;
-            if (length == 0)
+            if (length < 2)
             {
-                return;
-            }
-            indexInList.Remove(content[0].Key);
-            content[0] = content[length - 1];
-            indexInList[content[0].Key] = 0;
+                if (length == 0)
+                {
+                    return;
+                }
+                else  // length ==1
+                {
+                    indexInList.Remove(content[0].Key);
+                    content.RemoveAt(0);
+                    return;
+                }
 
-            content.RemoveAt(length - 1);
-            BubbleDown(0);
+            }
+            else
+            {
+                indexInList.Remove(content[0].Key);
+                content[0] = content[length - 1];
+                indexInList[content[0].Key] = 0;
+
+                content.RemoveAt(length - 1);
+                BubbleDown(0);
+            }
         }
 
         public KeyValuePair<TKey, TValue> PopMin()
