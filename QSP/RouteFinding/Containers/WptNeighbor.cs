@@ -10,8 +10,8 @@ namespace QSP.RouteFinding.Containers
     {
 
         private Waypoint wpt;
-
         private List<Neighbor> neighborList;
+
         public Waypoint Waypoint
         {
             get { return wpt; }
@@ -79,9 +79,9 @@ namespace QSP.RouteFinding.Containers
         {
             if (wpt.Equals(x.wpt) && neighborList.Count == x.neighborList.Count)
             {
-                for (int i = 0; i <= neighborList.Count - 1; i++)
+                for (int i = 0; i < neighborList.Count; i++)
                 {
-                    if (neighborList[i].Equals(x.neighborList[i]) == false)
+                    if (!neighborList[i].Equals(x.neighborList[i]))
                     {
                         return false;
                     }
@@ -134,16 +134,13 @@ namespace QSP.RouteFinding.Containers
 
             public int GetHashCode(WptNeighbor obj)
             {
-
                 int hash = obj.GetHashCode();
-
+                
                 foreach (var i in obj.neighborList)
                 {
                     hash = hash ^ i.GetHashCode();
                 }
-
                 return hash;
-
             }
 
         }

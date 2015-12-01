@@ -1,11 +1,11 @@
+using QSP.AviationTools;
+using QSP.LibraryExtension;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using QSP.LibraryExtension;
-using static QSP.Utilities.ErrorLogger;
 using static QSP.MathTools.MathTools;
-using QSP.AviationTools;
+using static QSP.Utilities.ErrorLogger;
 
 namespace QSP.RouteFinding.Containers
 {
@@ -55,27 +55,25 @@ namespace QSP.RouteFinding.Containers
                 {
                     case TrackChangesOption.Yes:
                         currentTracker = new ChangeTracker(Count, ChangeCategory.Normal);
-
                         break;
+
                     case TrackChangesOption.AddingNATs:
                         currentTracker = new ChangeTracker(Count, ChangeCategory.Nats);
-
                         break;
+
                     case TrackChangesOption.AddingPacots:
                         currentTracker = new ChangeTracker(Count, ChangeCategory.Pacots);
-
                         break;
+
                     case TrackChangesOption.AddingAusots:
                         currentTracker = new ChangeTracker(Count, ChangeCategory.Ausots);
-
                         break;
+
                 }
                 _trackChanges = value;
             }
         }
-
-
-
+        
         private void endCurrentSession()
         {
             if (currentTracker != null)
@@ -85,8 +83,7 @@ namespace QSP.RouteFinding.Containers
                 currentTracker = null;
             }
         }
-
-
+        
         public void ReadAtsFromFile(string filepath)
         {
             try
@@ -110,9 +107,7 @@ namespace QSP.RouteFinding.Containers
                     if (line.Length == 3)
                     {
                         //this line is an airway identifier
-
                         currentAirway = line[1];
-
                     }
                     else if (line.Length >= 10)
                     {
@@ -163,7 +158,6 @@ namespace QSP.RouteFinding.Containers
         /// Loads all waypoints in waypoints.txt.
         /// </summary>
         /// <param name="filepath">Location of waypoints.txt</param>
-
         public void ReadFixesFromFile(string filepath)
         {
             TrackChanges = TrackChangesOption.No;
@@ -192,28 +186,24 @@ namespace QSP.RouteFinding.Containers
             }
             TrackChanges = TrackChangesOption.Yes;
         }
-
-
+        
         public void AddWpt(WptNeighbor item)
         {
             searchHelper.Add(item.Waypoint.ID, content.Count);
             content.Add(item);
             numNodeFrom.Add(0);
         }
-
-
+        
         public void AddNeighbor(int index, Neighbor item)
         {
             if (currentTracker != null)
             {
                 currentTracker.AddNeighborRecord(index);
             }
-
             content[index].GetNeighborList(token).Add(item);
             numNodeFrom[item.Index]++;
         }
-
-
+        
         public void Clear()
         {
             content.Clear();
@@ -226,6 +216,14 @@ namespace QSP.RouteFinding.Containers
         public static bool TokenMatches(object item)
         {
             return token.Equals(item);
+        }
+
+        public WptNeighbor this[int index]
+        {
+            get
+            {
+                return content[index];
+            }
         }
 
         public WptNeighbor ElementAt(int index)
@@ -319,8 +317,7 @@ namespace QSP.RouteFinding.Containers
         {
             return new WptNeighbor(content.Last());
         }
-
-
+        
         private void revertChanges(ChangeCategory para)
         {
             //If _trackChanges is not set to "no" yet, we end current session.

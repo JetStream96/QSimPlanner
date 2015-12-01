@@ -14,8 +14,8 @@ namespace QSP.UI
         private ComboBox[] comboBoxes;
 
         private string filePath;
-
         private string statesDirectory = QspCore.QspAppDataDirectory + "\\SavedStates";
+
         public enum PageOfForm
         {
             FuelCalculation,
@@ -23,14 +23,12 @@ namespace QSP.UI
             Landing
         }
 
-
         public FormStateSaver(PageOfForm item)
         {
             MainForm frm = MainFormInstance();
 
             switch (item)
             {
-
                 case PageOfForm.FuelCalculation:
 
                     txtBoxes = new TextBox[] {
@@ -53,8 +51,8 @@ namespace QSP.UI
                     };
 
                     filePath = statesDirectory + "\\LastRunMain.txt";
-
                     break;
+
                 case PageOfForm.Takeoff:
 
                     txtBoxes = new TextBox[] {
@@ -86,8 +84,8 @@ namespace QSP.UI
                     };
 
                     filePath = statesDirectory + "\\LastRunTO.txt";
-
                     break;
+
                 case PageOfForm.Landing:
 
                     txtBoxes = new TextBox[] {
@@ -118,7 +116,6 @@ namespace QSP.UI
                     };
 
                     filePath = statesDirectory + "\\LastRunLdg.txt";
-
                     break;
             }
 
@@ -152,7 +149,7 @@ namespace QSP.UI
         private void loadLastState()
         {
             string Alltext = null;
-            if (File.Exists(filePath) == false)
+            if (!File.Exists(filePath))
             {
                 return;
             }
@@ -161,16 +158,16 @@ namespace QSP.UI
                 Alltext = File.ReadAllText(filePath);
             }
 
-            string[] load = Alltext.Split(new string[] { ";" }, StringSplitOptions.None);
+            string[] load = Alltext.Split(';');
 
             int x = txtBoxes.Length;
 
-            for (int i = 0; i <= x - 1; i++)
+            for (int i = 0; i < x; i++)
             {
                 txtBoxes[i].Text = load[i];
             }
 
-            for (int j = 0; j <= comboBoxes.Length - 1; j++)
+            for (int j = 0; j < comboBoxes.Length; j++)
             {
                 comboBoxes[j].Text = load[j + x];
             }
@@ -194,7 +191,7 @@ namespace QSP.UI
 
             Directory.CreateDirectory(statesDirectory);
 
-            if (File.Exists(filePath) == false)
+            if (!File.Exists(filePath))
             {
                 using (StreamWriter writer = File.CreateText(filePath))
                 {

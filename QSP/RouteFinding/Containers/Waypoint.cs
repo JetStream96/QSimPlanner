@@ -8,8 +8,8 @@ namespace QSP
 
         private string ident;
         private double latitude;
-
         private double longitude;
+
         public string ID
         {
             get { return ident; }
@@ -36,11 +36,8 @@ namespace QSP
             longitude = Lon;
         }
 
-        public Waypoint(string ID, LatLon latLon)
+        public Waypoint(string ID, LatLon latLon) : this(ID, latLon.Lat, latLon.Lon)
         {
-            ident = ID;
-            latitude = latLon.Lat;
-            longitude = latLon.Lon;
         }
 
         public Waypoint(Waypoint waypoint) : this(waypoint.ID, waypoint.Lat, waypoint.Lon)

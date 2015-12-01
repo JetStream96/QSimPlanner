@@ -2,6 +2,9 @@ using System;
 using System.Text;
 using QSP.TimeFormatTools;
 using QSP.AviationTools;
+using static QSP.AviationTools.AviationConstants;
+using static QSP.TimeFormatTools.TimeFormat;
+
 namespace QSP
 {
 
@@ -9,8 +12,8 @@ namespace QSP
     {
 
         private const int LEFTPAD = 11;
-
         private const int RIGHTPAD = 7;
+
         public double FuelToDestTon;
         public double FuelToAltnTon;
         public double ContKg;
@@ -32,26 +35,25 @@ namespace QSP
 
         public double TotalFuelKG;
 
-        public FuelReportResult(double fuel_dest_ton, double fuel_altn_ton, FuelCalculationParameters para, FuelCalculator fuelCalc)
+        public FuelReportResult(double fuelDestTon, double fuelAltnTon, FuelCalculationParameters para, FuelCalculator fuelCalc)
         {
-            FuelToDestTon = fuel_dest_ton;
-            FuelToAltnTon = fuel_altn_ton;
+            FuelToDestTon = fuelDestTon;
+            FuelToAltnTon = fuelAltnTon;
             ContKg = FuelToDestTon * 1000 * para.ContPerc / 100;
             ExtraKG = para.ExtraFuel_KG;
-            HoldKg = para.HoldingMin * fuelCalc.holding_fuel_per_minute_kg;
+            HoldKg = para.HoldingMin * fuelCalc.holdingFuelPerMinuteKg;
             ApuKg = para.APUTime * fuelCalc.apu_fuel_per_min_kg;
             TaxiKg = para.TaxiTime * fuelCalc.taxi_fuel_per_min_kg;
-            FinalRsvKg = para.FinalRsvMin * fuelCalc.holding_fuel_per_minute_kg;
+            FinalRsvKg = para.FinalRsvMin * fuelCalc.holdingFuelPerMinuteKg;
             TimeToDest = fuelCalc.TimeToDest;
             TimeToAltn = fuelCalc.TimeToAltn;
-            TimeExtra = Convert.ToInt32(para.ExtraFuel_KG / fuelCalc.holding_fuel_per_minute_kg);
-            TimeHold = Convert.ToInt32(para.HoldingMin);
-            TimeFinalRsv = Convert.ToInt32(para.FinalRsvMin);
-            TimeApu = Convert.ToInt32(para.APUTime);
-            TimeTaxi = Convert.ToInt32(para.TaxiTime);
+            TimeExtra = (int)(para.ExtraFuel_KG / fuelCalc.holdingFuelPerMinuteKg);
+            TimeHold = (int)para.HoldingMin;
+            TimeFinalRsv = (int)para.FinalRsvMin;
+            TimeApu = (int)para.APUTime;
+            TimeTaxi = (int)para.TaxiTime;
 
             setAdditionalPara();
-
         }
 
 
@@ -60,7 +62,6 @@ namespace QSP
             TakeoffFuelKg = FuelToDestTon * 1000 + ContKg + HoldKg + ExtraKG + FuelToAltnTon * 1000 + FinalRsvKg;
             LdgFuelKgPredict = TakeoffFuelKg - FuelToDestTon * 1000;
             TotalFuelKG = FuelToDestTon * 1000 + ContKg + HoldKg + ExtraKG + ApuKg + TaxiKg + FuelToAltnTon * 1000 + FinalRsvKg;
-
         }
 
         public string ToString(WeightUnit unit)
@@ -81,30 +82,30 @@ namespace QSP
             {
                 case WeightUnit.KG:
 
-                    TripFuelDisplay = Convert.ToInt32(FuelToDestTon * 1000);
-                    contingency_display = Convert.ToInt32(ContKg);
-                    hold_display = Convert.ToInt32(HoldKg);
-                    extra_display = Convert.ToInt32(ExtraKG);
-                    alternate_display = Convert.ToInt32(FuelToAltnTon * 1000);
-                    final_rsv_display = Convert.ToInt32(FinalRsvKg);
-                    takeoff_display = Convert.ToInt32(TakeoffFuelKg);
-                    apu_display = Convert.ToInt32(ApuKg);
-                    taxi_display = Convert.ToInt32(TaxiKg);
-                    TotalFuelDisplay = Convert.ToInt32(TotalFuelKG);
-
+                    TripFuelDisplay = (int)(FuelToDestTon * 1000);
+                    contingency_display = (int)ContKg;
+                    hold_display = (int)HoldKg;
+                    extra_display = (int)ExtraKG;
+                    alternate_display = (int)(FuelToAltnTon * 1000);
+                    final_rsv_display = (int)FinalRsvKg;
+                    takeoff_display = (int)TakeoffFuelKg;
+                    apu_display = (int)ApuKg;
+                    taxi_display = (int)TaxiKg;
+                    TotalFuelDisplay = (int)TotalFuelKG;
                     break;
+
                 case WeightUnit.LB:
 
-                    TripFuelDisplay = Convert.ToInt32(FuelToDestTon * 1000 * AviationConstants.KG_LB);
-                    contingency_display = Convert.ToInt32(ContKg * AviationConstants.KG_LB);
-                    hold_display = Convert.ToInt32(HoldKg * AviationConstants.KG_LB);
-                    extra_display = Convert.ToInt32(ExtraKG * AviationConstants.KG_LB);
-                    alternate_display = Convert.ToInt32(FuelToAltnTon * 1000 * AviationConstants.KG_LB);
-                    final_rsv_display = Convert.ToInt32(FinalRsvKg * AviationConstants.KG_LB);
-                    takeoff_display = Convert.ToInt32(TakeoffFuelKg * AviationConstants.KG_LB);
-                    apu_display = Convert.ToInt32(ApuKg * AviationConstants.KG_LB);
-                    taxi_display = Convert.ToInt32(TaxiKg * AviationConstants.KG_LB);
-                    TotalFuelDisplay = Convert.ToInt32(TotalFuelKG * AviationConstants.KG_LB);
+                    TripFuelDisplay = (int)(FuelToDestTon * 1000 * KG_LB);
+                    contingency_display = (int)(ContKg * KG_LB);
+                    hold_display = (int)(HoldKg * KG_LB);
+                    extra_display = (int)(ExtraKG * KG_LB);
+                    alternate_display = (int)(FuelToAltnTon * 1000 * KG_LB);
+                    final_rsv_display = (int)(FinalRsvKg * KG_LB);
+                    takeoff_display = (int)(TakeoffFuelKg * KG_LB);
+                    apu_display = (int)(ApuKg * KG_LB);
+                    taxi_display = (int)(TaxiKg * KG_LB);
+                    TotalFuelDisplay = (int)(TotalFuelKG * KG_LB);
 
                     break;
             }
@@ -125,21 +126,21 @@ namespace QSP
             string fmc_rsv_s = null;
             int i = 0;
             fmc_rsv_s = "FMC RSV";
-            while (Math.Truncate(Math.Log10(alternate_display + final_rsv_display)) + i < 11)
+            while (Math.Truncate(Math.Log10(alternate_display + final_rsv_display)) + i < LEFTPAD )
             {
                 fmc_rsv_s += " ";
-                i ++;
+                i++;
             }
 
-            string weight_unit_display = null;
+            string wtUnitDisplay = null;
 
             switch (unit)
             {
                 case WeightUnit.KG:
-                    weight_unit_display = "ALL WEIGHTS IN KG";
+                    wtUnitDisplay = "ALL WEIGHTS IN KG";
                     break;
                 case WeightUnit.LB:
-                    weight_unit_display = "ALL WEIGHTS IN LB";
+                    wtUnitDisplay = "ALL WEIGHTS IN LB";
                     break;
             }
 
@@ -149,37 +150,36 @@ namespace QSP
             fmc_reserve2 = ((alternate_display + final_rsv_display) - fmc_reserve1 * 1000) / 100 + 1;
             if (fmc_reserve2 == 10)
             {
-                fmc_reserve1 ++;
+                fmc_reserve1++;
                 fmc_reserve2 = 0;
             }
             //======================================================
 
-            int time_cont = Convert.ToInt32((TimeToDest / 20));
+            int time_cont = TimeToDest / 20;
             int time_TO = TimeToDest + time_cont + TimeExtra + TimeHold + TimeFinalRsv + TimeToAltn;
             int time_total = time_TO + TimeApu + TimeTaxi;
 
             StringBuilder OutputText = new StringBuilder();
 
-            OutputText.Append(weight_unit_display + Environment.NewLine + Environment.NewLine + "              FUEL  TIME" + Environment.NewLine);
-            OutputText.Append(trip_s + "  " + TimeFormat.MinToHHMM(TimeToDest) + Environment.NewLine);
-            OutputText.Append(contingency_s + "  " + TimeFormat.MinToHHMM(time_cont) + Environment.NewLine);
-            OutputText.Append(hold_s + "  " + TimeFormat.MinToHHMM(TimeHold) + Environment.NewLine);
-            OutputText.Append(extra_s + "  " + TimeFormat.MinToHHMM(TimeExtra) + Environment.NewLine);
-            OutputText.Append(alternate_s + "  " + TimeFormat.MinToHHMM(TimeToAltn) + Environment.NewLine);
-            OutputText.Append(final_rsv_s + "  " + TimeFormat.MinToHHMM(TimeFinalRsv) + Environment.NewLine + Environment.NewLine);
-            OutputText.Append(takeoff_s + "  " + TimeFormat.MinToHHMM(time_TO) + Environment.NewLine + Environment.NewLine);
-            OutputText.Append(apu_s + "  " + TimeFormat.MinToHHMM(TimeApu) + Environment.NewLine);
-            OutputText.Append(taxi_s + "  " + TimeFormat.MinToHHMM(TimeTaxi) + Environment.NewLine + Environment.NewLine);
-            OutputText.Append(total_s + "  " + TimeFormat.MinToHHMM(time_total) + Environment.NewLine);
+            OutputText.AppendLine(wtUnitDisplay + Environment.NewLine + Environment.NewLine + "              FUEL  TIME");
+            OutputText.AppendLine(trip_s + "  " + MinToHHMM(TimeToDest));
+            OutputText.AppendLine(contingency_s + "  " + MinToHHMM(time_cont));
+            OutputText.AppendLine(hold_s + "  " + MinToHHMM(TimeHold));
+            OutputText.AppendLine(extra_s + "  " + MinToHHMM(TimeExtra));
+            OutputText.AppendLine(alternate_s + "  " + MinToHHMM(TimeToAltn));
+            OutputText.AppendLine(final_rsv_s + "  " + MinToHHMM(TimeFinalRsv) + Environment.NewLine);
+            OutputText.AppendLine(takeoff_s + "  " + MinToHHMM(time_TO) + Environment.NewLine);
+            OutputText.AppendLine(apu_s + "  " + MinToHHMM(TimeApu));
+            OutputText.AppendLine(taxi_s + "  " + MinToHHMM(TimeTaxi) + Environment.NewLine);
+            OutputText.AppendLine(total_s + "  " + MinToHHMM(time_total));
             OutputText.Append(fmc_rsv_s + fmc_reserve1 + "." + fmc_reserve2);
 
             return OutputText.ToString();
-
         }
 
         private string lineFormat(string item, int value)
         {
-            return item.PadRight(LEFTPAD, ' ') + Convert.ToString(value).PadLeft(RIGHTPAD, ' ');
+            return item.PadRight(LEFTPAD, ' ') + value.ToString().PadLeft(RIGHTPAD, ' ');
         }
 
     }

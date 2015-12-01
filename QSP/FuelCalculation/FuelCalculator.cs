@@ -10,7 +10,7 @@ namespace QSP
     public class FuelCalculator
     {
 
-        public double holding_fuel_per_minute_kg;
+        public double holdingFuelPerMinuteKg;
         public double max_fuel_kg;
         public double taxi_fuel_per_min_kg;
         public double apu_fuel_per_min_kg;
@@ -49,7 +49,7 @@ namespace QSP
 
                     FuelTableSourceTxt = QspCore.PerfDB.Txt_737600txt;
                     AirDis_Time_OrigFile = QspCore.PerfDB.Txt_737600_time_reqtxt;
-                    holding_fuel_per_minute_kg = 38;
+                    holdingFuelPerMinuteKg = 38;
                     max_fuel_kg = 20896;
                     taxi_fuel_per_min_kg = 12.2;
                     apu_fuel_per_min_kg = 1.8;
@@ -58,7 +58,7 @@ namespace QSP
 
                     FuelTableSourceTxt = QspCore.PerfDB.Txt_737700txt;
                     AirDis_Time_OrigFile = QspCore.PerfDB.Txt_737700_time_reqtxt;
-                    holding_fuel_per_minute_kg = 38;
+                    holdingFuelPerMinuteKg = 38;
                     max_fuel_kg = 20896;
                     taxi_fuel_per_min_kg = 12.2;
                     apu_fuel_per_min_kg = 1.8;
@@ -67,7 +67,7 @@ namespace QSP
 
                     FuelTableSourceTxt = QspCore.PerfDB.Txt_737800txt;
                     AirDis_Time_OrigFile = QspCore.PerfDB.Txt_737800_time_reqtxt;
-                    holding_fuel_per_minute_kg = 38;
+                    holdingFuelPerMinuteKg = 38;
                     max_fuel_kg = 20896;
                     taxi_fuel_per_min_kg = 12.2;
                     apu_fuel_per_min_kg = 1.8;
@@ -76,7 +76,7 @@ namespace QSP
 
                     FuelTableSourceTxt = QspCore.PerfDB.Txt_737900txt;
                     AirDis_Time_OrigFile = QspCore.PerfDB.Txt_737900_time_reqtxt;
-                    holding_fuel_per_minute_kg = 38;
+                    holdingFuelPerMinuteKg = 38;
                     max_fuel_kg = 20896;
                     taxi_fuel_per_min_kg = 12.2;
                     apu_fuel_per_min_kg = 1.8;
@@ -85,7 +85,7 @@ namespace QSP
 
                     FuelTableSourceTxt = QspCore.PerfDB.Txt_777200LRtxt;
                     AirDis_Time_OrigFile = QspCore.PerfDB.Txt_777200LR_time_reqtxt;
-                    holding_fuel_per_minute_kg = 100;
+                    holdingFuelPerMinuteKg = 100;
                     max_fuel_kg = 145752;
                     taxi_fuel_per_min_kg = 36;
                     apu_fuel_per_min_kg = 4;
@@ -94,7 +94,7 @@ namespace QSP
 
                     FuelTableSourceTxt = QspCore.PerfDB.Txt_777Ftxt;
                     AirDis_Time_OrigFile = QspCore.PerfDB.Txt_777F_time_reqtxt;
-                    holding_fuel_per_minute_kg = 100;
+                    holdingFuelPerMinuteKg = 100;
                     max_fuel_kg = 145752;
                     taxi_fuel_per_min_kg = 36;
                     apu_fuel_per_min_kg = 4;
@@ -110,12 +110,12 @@ namespace QSP
 
         private void updateDestLandWt()
         {
-            LandWeightTonDest = LandWeightTonAltn + fuelToAltn + (Parameters.HoldingMin * holding_fuel_per_minute_kg + Parameters.MissedAppFuel_KG) / 1000 + Parameters.ExtraFuel_KG / 1000;
+            LandWeightTonDest = LandWeightTonAltn + fuelToAltn + (Parameters.HoldingMin * holdingFuelPerMinuteKg + Parameters.MissedAppFuel_KG) / 1000 + Parameters.ExtraFuel_KG / 1000;
         }
 
         private void updateAltnLandWt()
         {
-            LandWeightTonAltn = (Parameters.Zfw_KG + Parameters.FinalRsvMin * holding_fuel_per_minute_kg) / 1000;
+            LandWeightTonAltn = (Parameters.Zfw_KG + Parameters.FinalRsvMin * holdingFuelPerMinuteKg) / 1000;
         }
 
 
