@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using QSP.MathTools;
-using QSP.TimeFormatTools;
+using QSP.LibraryExtension;
 using QSP.Core;
 
 namespace QSP
@@ -17,7 +17,7 @@ namespace QSP
             {
                 time_req_table = importFlightTimeTable(sourceTxt);
             }
-            catch 
+            catch
             {
                 throw new InvalidAircraftDatabaseException();
             }
@@ -41,23 +41,22 @@ namespace QSP
                     break;
                 }
             }
-
-            return Convert.ToInt32(Interpolation.Interpolate(time_req_table[0, m], time_req_table[0, m + 1], airDistance, time_req_table[1, m], time_req_table[1, m + 1]));
-
+            return (int)(Interpolation.Interpolate(time_req_table[0, m], time_req_table[0, m + 1], airDistance,
+                                                   time_req_table[1, m], time_req_table[1, m + 1]));
         }
 
         private int[,] importFlightTimeTable(string sourceTxt)
         {
 
-            string[] all_lines = sourceTxt.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            string[] all_lines = sourceTxt.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             List<string> allLines = new List<string>();
 
             //only consider the lines starting with a number
             string[] t = null;
-            for (int i = 0; i <= all_lines.Length - 1; i++)
+            for (int i = 0; i < all_lines.Length; i++)
             {
-                t = all_lines[i].Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                if (t != null && char.IsDigit(t[0][0]) == true)
+                t = all_lines[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                if (t != null && char.IsDigit(t[0][0]))
                 {
                     allLines.Add(all_lines[i]);
                 }
@@ -65,9 +64,10 @@ namespace QSP
 
             //import to a table
             int[,] time_req_table = new int[2, allLines.Count];
-            for (int j = 0; j <= allLines.Count - 1; j++)
+
+            for (int j = 0; j < allLines.Count; j++)
             {
-                t = allLines[j].Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                t = allLines[j].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 time_req_table[0, j] = Convert.ToInt32(t[0]);
                 //e.g. 500
                 time_req_table[1, j] = TimeFormat.HH_Colon_MMToMin(t[t.Length - 1]);

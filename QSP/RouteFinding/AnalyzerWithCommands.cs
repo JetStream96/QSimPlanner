@@ -6,14 +6,13 @@ using QSP.RouteFinding.Containers;
 using QSP.Core;
 using QSP.AviationTools;
 using static QSP.RouteFinding.RouteFindingCore;
+using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding
 {
 
     public class AnalyzerWithCommands
-    {
-
-        private const double MAX_DIS = 99999.0;
+    {        
         private const string autoCommand = "AUTO";
         private const string randCommand = "RAND";
 

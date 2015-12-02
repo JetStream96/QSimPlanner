@@ -5,11 +5,13 @@ using System.Diagnostics.Contracts;
 
 namespace QSP.LibraryExtension
 {
-    public class DictionaryDup<TKey, TValue> : IEnumerable
+    /// <summary>
+    /// A hash map allowing duplicate keys.
+    /// </summary>
+    public class HashMap<TKey, TValue> : IEnumerable
     {
         private struct Entry
         {
-
             // Lower 31 bits of hash code, -1 if unused
             public int hashCode;
             // Index of next entry, -1 if last
@@ -18,7 +20,6 @@ namespace QSP.LibraryExtension
             public TKey key;
             // Value of entry
             public TValue value;
-
         }
 
         private int[] buckets;
@@ -29,28 +30,27 @@ namespace QSP.LibraryExtension
         private IEqualityComparer<TKey> keyComparer;
 
         private IEqualityComparer<TValue> valueComparer;
-        public DictionaryDup() : this(0, null)
+        public HashMap() : this(0, null)
         {
         }
 
-        public DictionaryDup(int capacity) : this(capacity, null)
+        public HashMap(int capacity) : this(capacity, null)
         {
         }
 
-        public DictionaryDup(IEqualityComparer<TKey> comparer) : this(0, comparer)
+        public HashMap(IEqualityComparer<TKey> comparer) : this(0, comparer)
         {
         }
 
-        public DictionaryDup(IEqualityComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer) : this(0, keyComparer, valueComparer)
+        public HashMap(IEqualityComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer) : this(0, keyComparer, valueComparer)
         {
         }
 
-        public DictionaryDup(int capacity, IEqualityComparer<TKey> comparer) : this(capacity, comparer, null)
+        public HashMap(int capacity, IEqualityComparer<TKey> comparer) : this(capacity, comparer, null)
         {
         }
 
-
-        public DictionaryDup(int capacity, IEqualityComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer)
+        public HashMap(int capacity, IEqualityComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer)
         {
             if (capacity < 0)
             {
@@ -460,7 +460,7 @@ namespace QSP.LibraryExtension
         {
 
             [NonSerialized()]
-            private DictionaryDup<TKey, TValue> dictionary;
+            private HashMap<TKey, TValue> dictionary;
             private int index;
             private KeyValuePair<TKey, TValue> m_current;
             private int getEnumeratorRetType;
@@ -468,7 +468,7 @@ namespace QSP.LibraryExtension
             internal const int DictEntry = 1;
 
             internal const int KeyValuePair = 2;
-            internal Enumerator(DictionaryDup<TKey, TValue> dictionary, int getEnumeratorRetType)
+            internal Enumerator(HashMap<TKey, TValue> dictionary, int getEnumeratorRetType)
             {
                 this.dictionary = dictionary;
                 index = 0;

@@ -80,6 +80,7 @@
     <Compile Include="Core\EnumConversionTools.cs" />
     <Compile Include="Core\Enums.cs" />
     <Compile Include="LibraryExtension\MinHeapModifiable.cs" />
+    <Compile Include="RouteFinding\Constants.cs" />
     <Compile Include="UI\Forms\OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,7 +111,7 @@
     <Compile Include="LandingPerfCalculation\LandingParameters.cs" />
     <Compile Include="LandingPerfCalculation\PerfData.cs" />
     <Compile Include="LibraryExtension\BinarySearchForAll.cs" />
-    <Compile Include="LibraryExtension\DictionaryDup.cs" />
+    <Compile Include="LibraryExtension\HashMap.cs" />
     <Compile Include="LibraryExtension\LibraryExtension.cs" />
     <Compile Include="LibraryExtension\Lists.cs" />
     <Compile Include="LibraryExtension\MinHeap.cs" />

@@ -5,16 +5,16 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Tracks.Pacots;
 using QSP.RouteFinding.Tracks.Interaction;
 using static QSP.RouteFinding.Containers.TrackedWptList;
+using static QSP.MathTools.MathTools;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
 
     public abstract class TrackHandler
     {
-
         protected List<ITrack> allTracks;
-
         protected TrackedWptList wptList;
+
         public abstract void GetAllTracks();
         public abstract void GetAllTracksAsync();
         protected abstract string airwayIdent(ITrack trk);
@@ -22,19 +22,15 @@ namespace QSP.RouteFinding.Tracks.Common
         public TrackHandler() : this(RouteFindingCore.WptList)
         {
         }
-
-
+        
         public TrackHandler(TrackedWptList WptList)
         {
             allTracks = new List<ITrack>();
             this.wptList = WptList;
-
         }
-
-
+        
         public void AddToWptList()
         {
-
             if (allTracks.Count > 0)
             {
                 if (allTracks.First() is PacificTrack)
@@ -47,20 +43,16 @@ namespace QSP.RouteFinding.Tracks.Common
                     wptList.DisableAusots();
                     wptList.TrackChanges = TrackChangesOption.AddingAusots;
                 }
-
-
+                
                 foreach (var i in allTracks)
                 {
                     addTrackToWptList(i);
                 }
 
                 wptList.TrackChanges = TrackedWptList.TrackChangesOption.No;
-
             }
-
         }
-
-
+        
         private void addTrackToWptList(ITrack item)
         {
             TrackReader reader = null;
@@ -72,9 +64,9 @@ namespace QSP.RouteFinding.Tracks.Common
             }
             catch 
             {
-                RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution, "Failed to process track " + item.Ident + ".", item is PacificTrack ? TrackType.Pacots : TrackType.Ausots);
+                RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution, "Failed to process track " + 
+                                                              item.Ident + ".", (item is PacificTrack) ? TrackType.Pacots : TrackType.Ausots);
             }
-
 
             if (reader != null)
             {
@@ -97,16 +89,13 @@ namespace QSP.RouteFinding.Tracks.Common
             int indexEnd = addLastWpt(rte.Waypoints.Last());
 
             wptList.AddNeighbor(indexStart, new Neighbor(indexEnd, airwayIdent(trk), TotalDis(rte)));
-
         }
 
         //returns the index of added wpt in wptList
         private int addFirstWpt(Waypoint wpt)
         {
-
             int x = wptList.FindByWaypoint(wpt);
-
-
+            
             if (x >= 0)
             {
                 if (wptList.NumberOfNodeFrom(x) == 0)
@@ -119,22 +108,15 @@ namespace QSP.RouteFinding.Tracks.Common
                     {
                         wptList.AddNeighbor(m, new Neighbor(x, "DCT", wptList.Distance(x, m)));
                     }
-
                 }
-
                 return x;
-
             }
-
             throw new TrackWaypointNotFoundException(string.Format("Waypoint {0} is not found.", wpt.ID));
-
         }
 
         private int addLastWpt(Waypoint wpt)
         {
-
             int x = wptList.FindByWaypoint(wpt);
-
 
             if (x >= 0)
             {
@@ -147,20 +129,14 @@ namespace QSP.RouteFinding.Tracks.Common
                     {
                         wptList.AddNeighbor(x, new Neighbor(m, "DCT", wptList.Distance(x, m)));
                     }
-
                 }
-
                 return x;
-
             }
-
             throw new TrackWaypointNotFoundException(string.Format("Waypoint {0} is not found.", wpt.ID));
-
         }
 
         private static double TotalDis(Route route)
         {
-
             var wpts = route.Waypoints;
 
             if (wpts.Count <= 1)
@@ -172,11 +148,10 @@ namespace QSP.RouteFinding.Tracks.Common
 
             for (int i = 0; i <= wpts.Count - 2; i++)
             {
-                dis += MathTools.MathTools.GreatCircleDistance(wpts[i].Lat, wpts[i].Lon, wpts[i + 1].Lat, wpts[i + 1].Lon);
+                dis += GreatCircleDistance(wpts[i].Lat, wpts[i].Lon, wpts[i + 1].Lat, wpts[i + 1].Lon);
             }
 
             return dis;
-
         }
 
     }

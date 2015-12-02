@@ -9,16 +9,19 @@ using static QSP.Utilities.ErrorLogger;
 
 namespace QSP.RouteFinding.Containers
 {
-
+    /// <summary>
+    /// Representation of the airways and waypoints. 
+    /// This is implemented with a hash table, so searching is by waypoint ident is O(1).
+    /// This class is NOT thread safe.
+    /// </summary>
     public class TrackedWptList
     {
 
         #region "Fields"
-
-        //This is implemented as a hash table, so searching is by waypoint ident is O(1).
-
-        private DictionaryDup<string, int> searchHelper;
+        
+        private HashMap<string, int> searchHelper;
         private List<WptNeighbor> content;
+
         //indicates how many other waypoints have this wpt as neighbor
         private List<int> numNodeFrom;
 
@@ -26,17 +29,17 @@ namespace QSP.RouteFinding.Containers
         private ChangeTracker currentTracker;
 
         private TrackChangesOption _trackChanges;
-        //Used to add neighbor to a WptNeighbor. Do not pass this object outside this class.
 
+        //Used to add neighbor to a WptNeighbor. Do not pass this object outside this class.
         private static readonly object token = new object();
 
         #endregion
-
+        
         public TrackedWptList()
         {
             _trackChanges = TrackChangesOption.No;
             content = new List<WptNeighbor>();
-            searchHelper = new DictionaryDup<string, int>();
+            searchHelper = new HashMap<string, int>();
             numNodeFrom = new List<int>();
             trackerCollection = new List<ChangeTracker>();
             currentTracker = null;
@@ -325,10 +328,8 @@ namespace QSP.RouteFinding.Containers
 
             if (trackerCollection.Count > 0)
             {
-
                 for (int i = trackerCollection.Count - 1; i >= 0; i--)
                 {
-
                     if (trackerCollection[i].Category == para && trackerCollection[i].RegionEnd >= 0)
                     {
                         //remove neighbors first
@@ -341,7 +342,7 @@ namespace QSP.RouteFinding.Containers
                             neighbors.RemoveAt(neighbors.Count - 1);
                         }
 
-                        //remove all wpts after lastIndex, if any wpt is added
+                        // Remove all wpts between regionStart and regionEnd.
                         int regionStart = trackerCollection[i].RegionStart;
                         int regionEnd = trackerCollection[i].RegionEnd;
 
@@ -353,7 +354,7 @@ namespace QSP.RouteFinding.Containers
                                 {
                                     numNodeFrom[m.Index] --;
                                 }
-                                searchHelper.Remove(content[k].Waypoint.ID, k, DictionaryDup<string, int>.RemoveParameter.RemoveFirst);
+                                searchHelper.Remove(content[k].Waypoint.ID, k, HashMap<string, int>.RemoveParameter.RemoveFirst);
                                 RouteFindingCore.WptFinder.Remove(k);
                             }
                             content.RemoveRange(regionStart, regionEnd - regionStart + 1);
@@ -415,8 +416,5 @@ namespace QSP.RouteFinding.Containers
                                        content[index2].Waypoint.Lat, content[index2].Waypoint.Lon);
         }
 
-
     }
-
 }
-

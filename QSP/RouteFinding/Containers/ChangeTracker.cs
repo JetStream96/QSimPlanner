@@ -42,8 +42,7 @@ namespace QSP.RouteFinding.Containers
                 }
             }
         }
-
-
+        
         public ReadOnlyCollection<int> AddedNeighbor
         {
             get { return _addedNeighbor.AsReadOnly(); }

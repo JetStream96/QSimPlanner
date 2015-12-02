@@ -5,14 +5,13 @@ using QSP.RouteFinding.Containers;
 using QSP.Core;
 using static QSP.RouteFinding.RouteFindingCore;
 using QSP.LibraryExtension;
+using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding
 {
 
     public static class RouteFinder
     {
-        private const double MAX_DIS = 99999.0;
-
         /// <summary>
         /// Gets a route between two aiports, from ORIG to DEST.
         /// </summary>

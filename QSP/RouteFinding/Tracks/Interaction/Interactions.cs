@@ -13,7 +13,7 @@ namespace QSP.RouteFinding.Tracks.Interaction
 
             try
             {
-                await Task.Factory.StartNew(() => RouteFindingCore.NatsManager.DownloadNatsMsg());
+                await Task.Factory.StartNew(() => NatsManager.DownloadNatsMsg());
             }
             catch 
             {
@@ -21,8 +21,7 @@ namespace QSP.RouteFinding.Tracks.Interaction
                 return;
             }
 
-            RouteFindingCore.NatsManager.AddToWptList();
-
+            NatsManager.AddToWptList();
         }
 
         public async static Task SetPacots()
@@ -45,7 +44,7 @@ namespace QSP.RouteFinding.Tracks.Interaction
             TrackStatusRecorder.Clear();
 
             //these can be done asynchronously
-            Task taskN = new Task(() => RouteFindingCore.NatsManager.DownloadNatsMsg());
+            Task taskN = new Task(() => NatsManager.DownloadNatsMsg());
             Task taskP = new Task(() => PacotsManager.GetAllTracks());
             Task taskA = new Task(() => AusotsManager.GetAllTracks());
 
@@ -56,7 +55,7 @@ namespace QSP.RouteFinding.Tracks.Interaction
             await Task.WhenAll(taskN, taskP, taskA);
 
             //these tasks MUST be done sequentially, as WptList is not thread-safe
-            RouteFindingCore.NatsManager.AddToWptList();
+            NatsManager.AddToWptList();
             PacotsManager.AddToWptList();
             AusotsManager.AddToWptList();
 

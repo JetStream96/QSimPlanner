@@ -119,7 +119,6 @@ namespace QSP.LibraryExtension
                     content.RemoveAt(0);
                     return;
                 }
-
             }
             else
             {
@@ -186,7 +185,6 @@ namespace QSP.LibraryExtension
                 {
                     return rightChildIndex;
                 }
-
             }
             return -1;
         }

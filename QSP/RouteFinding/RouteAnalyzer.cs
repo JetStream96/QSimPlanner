@@ -4,6 +4,8 @@ using System.Linq;
 using QSP.RouteFinding.Containers;
 using static QSP.LibraryExtension.Arrays;
 using QSP.Core;
+using static QSP.RouteFinding.RouteFindingCore;
+using static QSP.MathTools.MathTools;
 
 namespace QSP.RouteFinding
 {
@@ -63,12 +65,10 @@ namespace QSP.RouteFinding
             this.destRwy = destRwy;
             this.routeInput = routeInput;
             sidLastWpt = null;
-
         }
 
         private enum NodeType
         {
-
             Start,
             Orig,
             Sid,
@@ -76,15 +76,12 @@ namespace QSP.RouteFinding
             Awy,
             Star,
             Dest
-
         }
 
         private NodeType[] nextNode(NodeType currentNode)
         {
-
             switch (currentNode)
             {
-
                 case NodeType.Start:
                     return new NodeType[] { NodeType.Orig, NodeType.Wpt, NodeType.Sid };
 
@@ -109,7 +106,6 @@ namespace QSP.RouteFinding
                 default:
                     throw new ArgumentOutOfRangeException("Enum not supported.");
             }
-
         }
 
         public Route Parse()
@@ -121,9 +117,9 @@ namespace QSP.RouteFinding
             sidLastWpt = null;
 
             //add orig rwy
-            result.Waypoints.Add(new Waypoint(origIcao + origRwy, RouteFindingCore.AirportList.RwyLatLon(origIcao, origRwy)));
-            
-            for (int i = 0; i <= input.Length - 1; i++)
+            result.Waypoints.Add(new Waypoint(origIcao + origRwy, AirportList.RwyLatLon(origIcao, origRwy)));
+
+            for (int i = 0; i < input.Length; i++)
             {
                 NodeType[] nextNodeCandidate = nextNode(currentNode);
 
@@ -131,7 +127,6 @@ namespace QSP.RouteFinding
                 {
                     break;
                 }
-
 
                 for (int j = 0; j <= nextNodeCandidate.Length - 1; j++)
                 {
@@ -151,19 +146,15 @@ namespace QSP.RouteFinding
                         {
                             throw new InvalidIdentifierException(exceptionMsg(input[i], nextNodeCandidate) + WPT_RANGE_ERR);
                         }
-
                     }
-
                 }
-
             }
 
             //add dest rwy
-            addDest(result, new Waypoint(destIcao + destRwy, RouteFindingCore.AirportList.RwyLatLon(destIcao, destRwy)));
-            result.SetNat(RouteFindingCore.NatsManager);
+            addDest(result, new Waypoint(destIcao + destRwy, AirportList.RwyLatLon(destIcao, destRwy)));
+            result.SetNat(NatsManager);
 
             return result;
-
         }
 
 
@@ -172,11 +163,10 @@ namespace QSP.RouteFinding
             if (rte.Waypoints.Count - 1 == rte.Via.Count)
             {
                 rte.Via.Add("DCT");
-                rte.TotalDis += MathTools.MathTools.GreatCircleDistance(rte.Waypoints.Last().LatLon, dest.LatLon);
+                rte.TotalDis += GreatCircleDistance(rte.Waypoints.Last().LatLon, dest.LatLon);
             }
 
             rte.Waypoints.Add(dest);
-
         }
 
         /// <summary>
@@ -264,8 +254,6 @@ namespace QSP.RouteFinding
 
         private bool tryParseSid(Route rte, string text)
         {
-
-
             try
             {
                 SidHandler sidManager = new SidHandler(QspCore.AppSettings.NavDBLocation, origIcao);
@@ -284,7 +272,6 @@ namespace QSP.RouteFinding
             {
                 return false;
             }
-
         }
 
         /// <summary>
@@ -293,8 +280,7 @@ namespace QSP.RouteFinding
         /// </summary>
         private bool tryParseAwy(Route rte, NodeType prevNode, string text)
         {
-
-            int lastWptIndex = RouteFindingCore.WptList.FindByWaypoint(rte.Waypoints.Last());
+            int lastWptIndex = WptList.FindByWaypoint(rte.Waypoints.Last());
 
             if (lastWptIndex < 0)
             {
@@ -302,7 +288,7 @@ namespace QSP.RouteFinding
                 return false;
             }
 
-            var neighbors = RouteFindingCore.WptList.ElementAt(lastWptIndex).Neighbors;
+            var neighbors = WptList.ElementAt(lastWptIndex).Neighbors;
 
 
             foreach (var i in neighbors)
@@ -314,9 +300,7 @@ namespace QSP.RouteFinding
                 }
 
             }
-
             return false;
-
         }
 
         //currentNode = Waypoint
@@ -353,8 +337,7 @@ namespace QSP.RouteFinding
 
         private bool tryFindWptOnAwy(Route rte, string text)
         {
-
-            int lastWptIndex = RouteFindingCore.WptList.FindByWaypoint(rte.Waypoints.Last());
+            int lastWptIndex = WptList.FindByWaypoint(rte.Waypoints.Last());
             var wpts = new AirwayConnectionFinder(lastWptIndex, rte.Via.Last(), text).FindWaypoints();
 
             if (wpts == null)
@@ -363,16 +346,14 @@ namespace QSP.RouteFinding
             }
 
             string airway = rte.Via.Last();
-
             addWptIfNoDuplicate(ref rte, wpts[0], airway);
-
 
             if (wpts.Count >= 2)
             {
 
-                for (int i = 1; i <= wpts.Count - 1; i++)
+                for (int i = 1; i < wpts.Count; i++)
                 {
-                    rte.TotalDis += MathTools.MathTools.GreatCircleDistance(rte.Waypoints.Last().LatLon, wpts[i].LatLon);
+                    rte.TotalDis += GreatCircleDistance(rte.Waypoints.Last().LatLon, wpts[i].LatLon);
                     rte.Via.Add(airway);
                     rte.Waypoints.Add(wpts[i]);
 
@@ -395,7 +376,7 @@ namespace QSP.RouteFinding
             }
             else
             {
-                rte.TotalDis += MathTools.MathTools.GreatCircleDistance(rte.Waypoints.Last().LatLon, wpt.LatLon);
+                rte.TotalDis += GreatCircleDistance(rte.Waypoints.Last().LatLon, wpt.LatLon);
                 addWptIfNoDuplicate(rte, wpt);
                 return true;
             }
@@ -430,7 +411,7 @@ namespace QSP.RouteFinding
                     rte.Via.Add(airway);
                 }
 
-                rte.TotalDis += MathTools.MathTools.GreatCircleDistance(rte.Waypoints.Last().LatLon, wpt.LatLon);
+                rte.TotalDis += GreatCircleDistance(rte.Waypoints.Last().LatLon, wpt.LatLon);
                 rte.Waypoints.Add(wpt);
 
             }

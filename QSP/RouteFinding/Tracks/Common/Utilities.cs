@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using QSP.AviationTools;
+using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
@@ -17,13 +18,13 @@ namespace QSP.RouteFinding.Tracks.Common
                 throw new ArgumentException("List cannot be nothing or empty.");
             }
 
-            double minDis = 99999.0;
+            double minDis = MAX_DIS;
             int minIndex = 0;
 
-            double dis = 0;
+            double dis = 0.0;
 
 
-            for (int i = 0; i <= candidates.Count - 1; i++)
+            for (int i = 0; i < candidates.Count; i++)
             {
                 var wpt = RouteFindingCore.WptList.WaypointAt(candidates[i]);
                 dis = MathTools.MathTools.GreatCircleDistance(prevLat, prevLon, wpt.Lat, wpt.Lon);

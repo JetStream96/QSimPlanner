@@ -766,12 +766,6 @@ namespace QSP
 
         private void FindRouteToDestBtn_Click(object sender, EventArgs e)
         {
-            //TODO: what to check now?
-            //If NatsTaskHandler.IsBusy Then
-            //    MsgBox("Please wait while NATs are being enabled/disabled.")
-            //    Exit Sub
-            //End If
-
             List<string> sid = getSidStarList(OrigSidComboBox);
             List<string> star = getSidStarList(DestStarComboBox);
 
@@ -782,7 +776,6 @@ namespace QSP
 
             double directDis = MathTools.MathTools.GreatCircleDistance(RouteToDest.Waypoints.First().LatLon, RouteToDest.Waypoints.Last().LatLon);
             RouteDisLbl.Text = "Total Dis: " + Math.Round(RouteToDest.TotalDis) + " NM (+" + Convert.ToString(Math.Round((RouteToDest.TotalDis - directDis) / directDis * 1000) / 10) + "%)";
-
         }
 
         private static int computeTailWind(TailWindCalcOptions para, int tas, int Fl)
@@ -799,21 +792,13 @@ namespace QSP
 
         private void GenRteAltnBtnClick(object sender, EventArgs e)
         {
-            //TODO: check for adding wpts
-            //If NatsTaskHandler.IsBusy Then
-            //    MsgBox("Please wait while NATs are being enabled/disabled.")
-            //    Exit Sub
-            //End If
 
             List<string> starAltn = getSidStarList(AltnStarComboBox);
-
             RouteToAltn = RouteFinder.FindRoute(DestTxtBox.Text, AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn);
-
             RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
 
             double directDis = MathTools.MathTools.GreatCircleDistance(RouteToAltn.Waypoints.First().LatLon, RouteToAltn.Waypoints.Last().LatLon);
             RouteDisAltnLbl.Text = "Total Dis: " + Math.Round(RouteToAltn.TotalDis) + " NM (+" + Convert.ToString(Math.Round((RouteToAltn.TotalDis - directDis) / directDis * 1000) / 10) + "%)";
-
         }
 
         private static void ExportRte()
@@ -1317,7 +1302,7 @@ namespace QSP
             }
 
         }
-        
+
         private void TakeoffLoadDefaultState()
         {
             ACListTOComboBox.Text = ACList.Text;
@@ -1351,7 +1336,7 @@ namespace QSP
             formStateManagerTO.Load();
             InitializeFinished_TO = true;
         }
-        
+
         private void AC_list_TO_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateFlapsComboBox();
@@ -1891,7 +1876,7 @@ namespace QSP
             Req_Panel.Show();
             WtUnit_Req_lbl.Text = EnumConversionTools.WeightUnitToString(LDG_fuel_prediction_unit);
         }
-        
+
         private void Predict_Btn_Click(object sender, EventArgs e)
         {
             ACListLDG.Text = ACList.Text;
@@ -2327,7 +2312,7 @@ namespace QSP
                     Label11.Text = "LB";
                     Label13.Text = "LB";
                     Label34.Text = "LB";
-                    
+
                     MissedAppFuel.Text = Convert.ToString(Math.Round(missedAppFuel * AviationConstants.KG_LB));
                     ExtraFuel.Text = Convert.ToString(Math.Round(extra * AviationConstants.KG_LB));
                     ZFW.Text = Convert.ToString(Math.Round(zfw * AviationConstants.KG_LB));

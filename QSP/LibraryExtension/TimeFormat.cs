@@ -1,10 +1,9 @@
 using System;
-namespace QSP.TimeFormatTools
-{
 
+namespace QSP.LibraryExtension
+{
     public static class TimeFormat
     {
-
         public static int HH_Colon_MMToMin(string str)
         {
             //e.g. 1:43 ---> 103
@@ -38,7 +37,7 @@ namespace QSP.TimeFormatTools
         public static string MinToHHMM(int min)
         {
             //return a value with exactly 4 digits
-            if (min >= 60 * 100 | min < 0)
+            if (min >= 60 * 100 || min < 0)
             {
                 return "";
             }

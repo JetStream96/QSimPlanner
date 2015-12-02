@@ -1,16 +1,13 @@
 using System;
 using System.Text;
-using QSP.TimeFormatTools;
-using QSP.AviationTools;
 using static QSP.AviationTools.AviationConstants;
-using static QSP.TimeFormatTools.TimeFormat;
+using static QSP.LibraryExtension.TimeFormat;
 
 namespace QSP
 {
 
     public class FuelReportResult
     {
-
         private const int LEFTPAD = 11;
         private const int RIGHTPAD = 7;
 
@@ -32,7 +29,6 @@ namespace QSP
         //' Additional Results
         public double TakeoffFuelKg;
         public double LdgFuelKgPredict;
-
         public double TotalFuelKG;
 
         public FuelReportResult(double fuelDestTon, double fuelAltnTon, FuelCalculationParameters para, FuelCalculator fuelCalc)
@@ -69,25 +65,25 @@ namespace QSP
 
             int TripFuelDisplay = 0;
             int TotalFuelDisplay = 0;
-            int contingency_display = 0;
-            int hold_display = 0;
-            int extra_display = 0;
-            int alternate_display = 0;
+            int contingencyDisplay = 0;
+            int holdDisplay = 0;
+            int extraDisplay = 0;
+            int alternateDisplay = 0;
             int takeoff_display = 0;
             int apu_display = 0;
             int taxi_display = 0;
-            int final_rsv_display = 0;
+            int finalRsvDisplay = 0;
 
             switch (unit)
             {
                 case WeightUnit.KG:
 
                     TripFuelDisplay = (int)(FuelToDestTon * 1000);
-                    contingency_display = (int)ContKg;
-                    hold_display = (int)HoldKg;
-                    extra_display = (int)ExtraKG;
-                    alternate_display = (int)(FuelToAltnTon * 1000);
-                    final_rsv_display = (int)FinalRsvKg;
+                    contingencyDisplay = (int)ContKg;
+                    holdDisplay = (int)HoldKg;
+                    extraDisplay = (int)ExtraKG;
+                    alternateDisplay = (int)(FuelToAltnTon * 1000);
+                    finalRsvDisplay = (int)FinalRsvKg;
                     takeoff_display = (int)TakeoffFuelKg;
                     apu_display = (int)ApuKg;
                     taxi_display = (int)TaxiKg;
@@ -97,40 +93,29 @@ namespace QSP
                 case WeightUnit.LB:
 
                     TripFuelDisplay = (int)(FuelToDestTon * 1000 * KG_LB);
-                    contingency_display = (int)(ContKg * KG_LB);
-                    hold_display = (int)(HoldKg * KG_LB);
-                    extra_display = (int)(ExtraKG * KG_LB);
-                    alternate_display = (int)(FuelToAltnTon * 1000 * KG_LB);
-                    final_rsv_display = (int)(FinalRsvKg * KG_LB);
+                    contingencyDisplay = (int)(ContKg * KG_LB);
+                    holdDisplay = (int)(HoldKg * KG_LB);
+                    extraDisplay = (int)(ExtraKG * KG_LB);
+                    alternateDisplay = (int)(FuelToAltnTon * 1000 * KG_LB);
+                    finalRsvDisplay = (int)(FinalRsvKg * KG_LB);
                     takeoff_display = (int)(TakeoffFuelKg * KG_LB);
                     apu_display = (int)(ApuKg * KG_LB);
                     taxi_display = (int)(TaxiKg * KG_LB);
                     TotalFuelDisplay = (int)(TotalFuelKG * KG_LB);
-
                     break;
             }
 
             string trip_s = lineFormat("TRIP", TripFuelDisplay);
-            string contingency_s = lineFormat("CONTINGENCY", contingency_display);
-            string hold_s = lineFormat("HOLD", hold_display);
-            string extra_s = lineFormat("EXTRA", extra_display);
-            string alternate_s = lineFormat("ALTERNATE", alternate_display);
-            string final_rsv_s = lineFormat("FINAL RSV", final_rsv_display);
+            string contingency_s = lineFormat("CONTINGENCY", contingencyDisplay);
+            string hold_s = lineFormat("HOLD", holdDisplay);
+            string extra_s = lineFormat("EXTRA", extraDisplay);
+            string alternate_s = lineFormat("ALTERNATE", alternateDisplay);
+            string final_rsv_s = lineFormat("FINAL RSV", finalRsvDisplay);
             string takeoff_s = lineFormat("AT T/O", takeoff_display);
             string apu_s = lineFormat("APU", apu_display);
             string taxi_s = lineFormat("TAXI", taxi_display);
             string total_s = lineFormat("TOTAL", TotalFuelDisplay);
-
-            //This part man ...
-            //=======================================================
-            string fmc_rsv_s = null;
-            int i = 0;
-            fmc_rsv_s = "FMC RSV";
-            while (Math.Truncate(Math.Log10(alternate_display + final_rsv_display)) + i < LEFTPAD )
-            {
-                fmc_rsv_s += " ";
-                i++;
-            }
+            string fmc_rsv_s = lineFormatOneDecimalPlace("FMC RSV", (alternateDisplay + finalRsvDisplay) / 1000);
 
             string wtUnitDisplay = null;
 
@@ -143,17 +128,6 @@ namespace QSP
                     wtUnitDisplay = "ALL WEIGHTS IN LB";
                     break;
             }
-
-            int fmc_reserve1 = 0;
-            int fmc_reserve2 = 0;
-            fmc_reserve1 = (alternate_display + final_rsv_display) / 1000;
-            fmc_reserve2 = ((alternate_display + final_rsv_display) - fmc_reserve1 * 1000) / 100 + 1;
-            if (fmc_reserve2 == 10)
-            {
-                fmc_reserve1++;
-                fmc_reserve2 = 0;
-            }
-            //======================================================
 
             int time_cont = TimeToDest / 20;
             int time_TO = TimeToDest + time_cont + TimeExtra + TimeHold + TimeFinalRsv + TimeToAltn;
@@ -172,7 +146,7 @@ namespace QSP
             OutputText.AppendLine(apu_s + "  " + MinToHHMM(TimeApu));
             OutputText.AppendLine(taxi_s + "  " + MinToHHMM(TimeTaxi) + Environment.NewLine);
             OutputText.AppendLine(total_s + "  " + MinToHHMM(time_total));
-            OutputText.Append(fmc_rsv_s + fmc_reserve1 + "." + fmc_reserve2);
+            OutputText.Append(fmc_rsv_s);
 
             return OutputText.ToString();
         }
@@ -180,6 +154,11 @@ namespace QSP
         private string lineFormat(string item, int value)
         {
             return item.PadRight(LEFTPAD, ' ') + value.ToString().PadLeft(RIGHTPAD, ' ');
+        }
+
+        private string lineFormatOneDecimalPlace(string item, double value)
+        {
+            return item.PadRight(LEFTPAD, ' ') + value.ToString("0.0").PadLeft(RIGHTPAD, ' ');
         }
 
     }
