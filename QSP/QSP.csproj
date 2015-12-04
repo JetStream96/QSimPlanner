@@ -116,7 +116,7 @@
     <Compile Include="LibraryExtension\Lists.cs" />
     <Compile Include="LibraryExtension\MinHeap.cs" />
     <Compile Include="LibraryExtension\Pair.cs" />
-    <Compile Include="LibraryExtension\StringUtilities.cs" />
+    <Compile Include="LibraryExtension\Strings.cs" />
     <Compile Include="LibraryExtension\TimeFormat.cs" />
     <Compile Include="MathTools\Interpolation.cs" />
     <Compile Include="MathTools\MathTools.cs" />

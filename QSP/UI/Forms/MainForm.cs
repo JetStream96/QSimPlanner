@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
+using static QSP.AviationTools.AviationConstants;
 
 namespace QSP
 {
@@ -129,7 +130,7 @@ namespace QSP
 
             string OutputText = fuelCalcResult.ToString(Parameters.WtUnit());
 
-            FuelReport_TxtBox.Text = Environment.NewLine + StringUtilities.ShiftStringToRight(OutputText, 20);
+            FuelReport_TxtBox.Text = Environment.NewLine + Strings.ShiftStringToRight(OutputText, 20);
             formStateManagerFuel.Save();
 
             //send weights to takeoff/ldg calc form 
@@ -137,9 +138,9 @@ namespace QSP
             TOWT_Req_Unit = Parameters.WtUnit();
             LDG_fuel_prediction_unit = Parameters.WtUnit();
 
-            TOWT_Req = Convert.ToInt32(Parameters.Zfw + fuelCalcResult.TakeoffFuelKg * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : AviationConstants.KG_LB));
+            TOWT_Req = Convert.ToInt32(Parameters.Zfw + fuelCalcResult.TakeoffFuelKg * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KG_LB));
             LDG_ZFW = Convert.ToInt32(Parameters.Zfw);
-            LDG_fuel_prediction = Convert.ToInt32(fuelCalcResult.LdgFuelKgPredict * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : AviationConstants.KG_LB));
+            LDG_fuel_prediction = Convert.ToInt32(fuelCalcResult.LdgFuelKgPredict * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KG_LB));
 
             viewChanger.ShowPage(ViewManager.Pages.FuelReport);
         }
@@ -158,7 +159,7 @@ namespace QSP
             }
             else
             {
-                return "Insufficient fuel" + Environment.NewLine + "Fuel required for this flight is " + Math.Round(fuelReqKG * AviationConstants.KG_LB) + " LB. Maximum fuel tank capacity is " + Math.Round(fuelCapacityKG * AviationConstants.KG_LB) + " LB.";
+                return "Insufficient fuel" + Environment.NewLine + "Fuel required for this flight is " + Math.Round(fuelReqKG * KG_LB) + " LB. Maximum fuel tank capacity is " + Math.Round(fuelCapacityKG * KG_LB) + " LB.";
             }
         }
 
@@ -206,7 +207,7 @@ namespace QSP
             }
             else
             {
-                ZFW.Text = Convert.ToString(Math.Round(OperatingEmptyWtKg * AviationConstants.KG_LB));
+                ZFW.Text = Convert.ToString(Math.Round(OperatingEmptyWtKg * KG_LB));
             }
 
             LoadNavDBUpdateStatusStrip(true);
@@ -439,12 +440,12 @@ namespace QSP
             }
             else
             {
-                zfwKg *= AviationConstants.LB_KG;
-                MissedAppFuel.Text = Convert.ToString(Math.Round(MissedAppFuelKG * AviationConstants.KG_LB));
+                zfwKg *= LB_KG;
+                MissedAppFuel.Text = Convert.ToString(Math.Round(MissedAppFuelKG * KG_LB));
 
                 if (zfwKg > MaxZfwKg || zfwKg < OperatingEmptyWtKg)
                 {
-                    ZFW.Text = Convert.ToString(Math.Round(OperatingEmptyWtKg * AviationConstants.KG_LB));
+                    ZFW.Text = Convert.ToString(Math.Round(OperatingEmptyWtKg * KG_LB));
                 }
 
             }
@@ -462,7 +463,7 @@ namespace QSP
             }
             else
             {
-                ZFWKg = Convert.ToDouble(ZFW.Text) * AviationConstants.LB_KG;
+                ZFWKg = Convert.ToDouble(ZFW.Text) * LB_KG;
             }
 
             if (ZFWKg > MaxZfwKg || ZFWKg < OperatingEmptyWtKg)
@@ -1490,11 +1491,11 @@ namespace QSP
             {
                 if (WTunit.Text == "KG")
                 {
-                    Weight.Text = Convert.ToString(Math.Round(weight * AviationConstants.LB_KG));
+                    Weight.Text = Convert.ToString(Math.Round(weight * LB_KG));
                 }
                 else
                 {
-                    Weight.Text = Convert.ToString(Math.Round(weight * AviationConstants.KG_LB));
+                    Weight.Text = Convert.ToString(Math.Round(weight * KG_LB));
                 }
             }
         }
@@ -1862,11 +1863,11 @@ namespace QSP
             {
                 if (WtUnit_LDG.Text == "KG")
                 {
-                    Weight_LDG.Text = Convert.ToString(Math.Round(weight * AviationConstants.LB_KG));
+                    Weight_LDG.Text = Convert.ToString(Math.Round(weight * LB_KG));
                 }
                 else
                 {
-                    Weight_LDG.Text = Convert.ToString(Math.Round(weight * AviationConstants.KG_LB));
+                    Weight_LDG.Text = Convert.ToString(Math.Round(weight * KG_LB));
                 }
             }
         }
@@ -2300,9 +2301,9 @@ namespace QSP
                         ZFW.Text = "0";
                     }
 
-                    MissedAppFuel.Text = Convert.ToString(Math.Round(missedAppFuel * AviationConstants.LB_KG));
-                    ExtraFuel.Text = Convert.ToString(Math.Round(extra * AviationConstants.LB_KG));
-                    ZFW.Text = Convert.ToString(Math.Round(zfw * AviationConstants.LB_KG));
+                    MissedAppFuel.Text = Convert.ToString(Math.Round(missedAppFuel * LB_KG));
+                    ExtraFuel.Text = Convert.ToString(Math.Round(extra * LB_KG));
+                    ZFW.Text = Convert.ToString(Math.Round(zfw * LB_KG));
 
                 }
                 else
@@ -2313,9 +2314,9 @@ namespace QSP
                     Label13.Text = "LB";
                     Label34.Text = "LB";
 
-                    MissedAppFuel.Text = Convert.ToString(Math.Round(missedAppFuel * AviationConstants.KG_LB));
-                    ExtraFuel.Text = Convert.ToString(Math.Round(extra * AviationConstants.KG_LB));
-                    ZFW.Text = Convert.ToString(Math.Round(zfw * AviationConstants.KG_LB));
+                    MissedAppFuel.Text = Convert.ToString(Math.Round(missedAppFuel * KG_LB));
+                    ExtraFuel.Text = Convert.ToString(Math.Round(extra * KG_LB));
+                    ZFW.Text = Convert.ToString(Math.Round(zfw * KG_LB));
                 }
             }
         }

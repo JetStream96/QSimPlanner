@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using QSP.LibraryExtension;
-using static QSP.LibraryExtension.StringUtilities;
+using static QSP.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {

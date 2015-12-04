@@ -4,16 +4,18 @@ namespace QSP.LibraryExtension
 {
     public static class TimeFormat
     {
-        public static int HH_Colon_MMToMin(string str)
+        /// <summary>
+        /// E.g. Input string: "1:43", output: 103.
+        /// </summary>
+        public static int HHColonMMToMin(string str)
         {
-            //e.g. 1:43 ---> 103
             try
             {
                 string str1 = str.Substring(0, str.IndexOf(":"));
                 string str2 = str.Substring(str.IndexOf(":") + 1);
                 return Convert.ToInt32(str1) * 60 + Convert.ToInt32(str2);
             }
-            catch 
+            catch
             {
                 throw new ArgumentException("Bad format.");
             }
@@ -28,7 +30,7 @@ namespace QSP.LibraryExtension
                 string str2 = str.Substring(2);
                 return Convert.ToInt32(str1) * 60 + Convert.ToInt32(str2);
             }
-            catch 
+            catch
             {
                 throw new ArgumentException("Bad format.");
             }
@@ -39,33 +41,12 @@ namespace QSP.LibraryExtension
             //return a value with exactly 4 digits
             if (min >= 60 * 100 || min < 0)
             {
-                return "";
+                throw new ArgumentException("Bad format.");
             }
+
             int h = min / 60;
-            int m = min - 60 * h;
-
-            string HH = null;
-            string MM = null;
-
-            if (h <= 9)
-            {
-                HH = "0" + h.ToString();
-            }
-            else
-            {
-                HH = h.ToString();
-            }
-
-            if (m <= 9)
-            {
-                MM = "0" + m.ToString();
-            }
-            else
-            {
-                MM = m.ToString();
-            }
-
-            return HH + MM;
+            int m = min % 60;
+            return h.ToString().PadLeft(2, '0') + m.ToString().PadLeft(2, '0');
         }
 
     }

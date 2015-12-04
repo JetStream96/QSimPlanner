@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace QSP.LibraryExtension
 {
 
-    public static class StringUtilities
+    public static class Strings
     {
-
         public static string ShiftStringToRight(string str, int steps)
         {
             return new string(' ', steps) + str.Replace("\n", "\n" + new string(' ', steps));
@@ -13,12 +14,10 @@ namespace QSP.LibraryExtension
 
         public enum CutStringOptions
         {
-
             PreserveBoth,
             PreserveStart,
             PreserveEnd,
             PreserveNone
-
         }
 
         /// <summary>
@@ -192,6 +191,41 @@ namespace QSP.LibraryExtension
             }
         }
 
+        /// <summary>
+        /// Returns a new string where all occurence in oldValue is replaced by newValue.
+        /// </summary>
+        public static string ReplaceString(string input, string[] oldValue, string newValue)
+        {
+            string result = input;
+
+            foreach (var elem in oldValue)
+            {
+                result = result.Replace(elem, newValue);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a substring starting with the given index. Total number of elements examined is given by "length". 
+        /// The returning string may be shorter than "length" since any item in ignoredItems is NOT added to resulting string.
+        /// </summary>
+        public static string Substring(this string item, int index, int length, char[] ignoredItems)
+        {
+            int count = 0;
+            char[] result = new char[length];
+
+            for (int i = index; i < index + length ; i++)
+            {
+                if (!ignoredItems.Contains(item[i]))
+                {
+                    result[count] = item[i];
+                    count++;
+                }
+            }
+            return new string(result, 0, count);
+        }
+        
     }
 
 }

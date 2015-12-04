@@ -6,7 +6,7 @@ using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
-using static QSP.LibraryExtension.StringUtilities;
+using static QSP.LibraryExtension.Strings;
 using QSP.AviationTools;
 using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
@@ -72,7 +72,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             if (htmlStr.IndexOf("EGGXZOZX") >= 0)
             {
                 string msg = CutString2(htmlStr, "EGGXZOZX", "</td>", false);
-                msg = LibraryExtension.LibraryExtension.ReplaceString(msg, new string[] {
+                msg = ReplaceString(msg, new string[] {
                     "</font>",
                     "<font color=\"#000099\">",
                     new string((char)2,1),new string((char)3,1),new string((char)11,1)}, "");
@@ -83,7 +83,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             if (htmlStr.IndexOf("CZQXZQZX") >= 0)
             {
                 string msg = CutString2(htmlStr, "CZQXZQZX", "</td>", false);
-                msg = LibraryExtension.LibraryExtension.ReplaceString(msg, new string[]{
+                msg = ReplaceString(msg, new string[]{
                     "</font>",
                     "<font color=\"#000099\">",
                      new string((char)2,1),new string((char)3,1),new string((char)11,1) }, "");

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using QSP.LibraryExtension;
 using System.Collections.ObjectModel;
-using static QSP.LibraryExtension.StringUtilities;
+using static QSP.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
@@ -58,7 +58,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             int index = 0;
 
             //get the general message
-            generalMsg = StringUtilities.StringStartEndWith(htmlFile, "The following are", "</tt>", CutStringOptions.PreserveStart);
+            generalMsg = Strings.StringStartEndWith(htmlFile, "The following are", "</tt>", CutStringOptions.PreserveStart);
 
             //get the time stamp
             var timeInfo = GetTimeStamp(htmlFile, index);

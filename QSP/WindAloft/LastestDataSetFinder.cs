@@ -47,7 +47,7 @@ namespace QSP.WindAloft
         {
             try
             {
-                int i = StringUtilities.NthOccurence(mainPageSource, "<a href=\"", ++numLinksTried) + "<a href=\"".Length;
+                int i = Strings.NthOccurence(mainPageSource, "<a href=\"", ++numLinksTried) + "<a href=\"".Length;
                 int j = mainPageSource.IndexOf("\">", i);
                 return mainPageSource.Substring(i, j - i);
             }

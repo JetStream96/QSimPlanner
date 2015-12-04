@@ -1,5 +1,5 @@
 ﻿using QSP.LibraryExtension;
-using static QSP.LibraryExtension.StringUtilities;
+using static QSP.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {

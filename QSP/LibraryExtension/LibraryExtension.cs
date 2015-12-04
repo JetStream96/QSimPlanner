@@ -14,21 +14,6 @@ namespace QSP.LibraryExtension
             d2 = d1;
             d1 = d;
         }
-        
-        /// <summary>
-        /// Returns a new string where all occurence in oldValue is replaced by newValue.
-        /// </summary>
-        public static string ReplaceString(string input, string[] oldValue, string newValue)
-        {
-            string result = input;
-
-            foreach (var elem in oldValue)
-            {
-                result = result.Replace(elem, newValue);
-            }
-
-            return result;
-        }
 
         public static int MonthEnglishToNum(string month)
         {
@@ -62,48 +47,6 @@ namespace QSP.LibraryExtension
                     throw new ArgumentException("Input string is not a valid month identifier.");
             }
         }
-
-        /// <summary>
-        /// Returns a substring starting with the given index. Total number of elements examined is given by "length". 
-        /// The returning string may be shorter than "length" since any item in ignoredItems is NOT added to resulting string.
-        /// </summary>
-        public static string Substring(this string item, int index, int length, char[] ignoredItems)
-        {
-            int count = 0;
-            char[] result = new char[length];
-
-            for (int i = index; i <= index + length - 1; i++)
-            {
-                if (!ignoredItems.Contains(item[i]))
-                {
-                    result[count] = item[i];
-                    count++;
-                }
-            }
-            return new string(result, 0, count);
-        }
-                
-        public static bool ToBool(this XElement x)
-        {
-            return x.Value.ToBool();
-        }
-
-        public static bool ToBool(this string s)
-        {
-            if (s == "True")
-            {
-                return true;
-            }
-            else if (s == "False")
-            {
-                return false;
-            }
-            else
-            {
-                throw new ArgumentException("Invalid string to represent boolean.");
-            }
-        }
-
     }
 
 }

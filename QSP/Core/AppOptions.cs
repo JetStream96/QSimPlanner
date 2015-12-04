@@ -7,7 +7,6 @@ namespace QSP
 {
     public class AppOptions
     {
-
         public string NavDBLocation { get; set; }
         public bool PromptBeforeExit { get; set; }
         public bool AutoDLTracks { get; set; }
@@ -18,16 +17,15 @@ namespace QSP
         {
             ExportCommands = new List<RouteExportCommand>();
         }
-
-
+        
         public AppOptions(XDocument xmlFile)
         {
             var root = xmlFile.Root;
 
-            NavDBLocation = root.Element("DatabasePath").Value ;
-            PromptBeforeExit = root.Element("PromptBeforeExit").ToBool();
-            AutoDLTracks = root.Element("AutoDLNats").ToBool();
-            AutoDLWind = root.Element("AutoDLWind").ToBool();
+            NavDBLocation = root.Element("DatabasePath").Value;
+            PromptBeforeExit = Convert.ToBoolean(root.Element("PromptBeforeExit").Value);
+            AutoDLTracks = Convert.ToBoolean(root.Element("AutoDLNats").Value);
+            AutoDLWind = Convert.ToBoolean(root.Element("AutoDLWind").Value);
 
             var exports = root.Element("ExportOptions");
 
@@ -36,22 +34,21 @@ namespace QSP
             foreach (var i in exports.Elements())
             {
                 ExportCommands.Add(new RouteExportCommand(i.Name.LocalName,
-                   i.Element("Path").Value, i.Element("Enabled").ToBool()));
+                                                          i.Element("Path").Value,
+                                                          Convert.ToBoolean(i.Element("Enabled").Value)));
             }
-
         }
 
         public XElement ToXml()
         {
             XElement[] exports = new XElement[ExportCommands.Count];
 
-            for (int i = 0; i <= ExportCommands.Count - 1; i++)
+            for (int i = 0; i < ExportCommands.Count ; i++)
             {
                 var command = ExportCommands[i];
                 exports[i] = new XElement(command.Format, new XElement[] {
-                    new XElement("Enabled", Convert.ToString(command.Enabled)),
-                    new XElement("Path", command.FilePath)
-                });
+                                           new XElement("Enabled", Convert.ToString(command.Enabled)),
+                                           new XElement("Path", command.FilePath)});
             }
 
             var exportOptions = new XElement("ExportOptions", exports);
@@ -61,9 +58,7 @@ namespace QSP
                 new XElement("PromptBeforeExit", Convert.ToString(PromptBeforeExit)),
                 new XElement("AutoDLNats", Convert.ToString(AutoDLTracks)),
                 new XElement("AutoDLWind", Convert.ToString(AutoDLWind)),
-                exportOptions
-            });
-
+                exportOptions});
         }
 
         public RouteExportCommand GetExportCommand(string format)
