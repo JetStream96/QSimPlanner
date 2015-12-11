@@ -137,7 +137,7 @@ namespace QSP.RouteFinding
                 return false;
             }
 
-            foreach (var i in RouteFindingCore.WptList.ElementAt(lastWpt).Neighbors)
+            foreach (var i in RouteFindingCore.WptList[lastWpt].Neighbors)
             {
                 if (i.Airway == airway)
                 {

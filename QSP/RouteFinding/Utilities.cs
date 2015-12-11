@@ -149,7 +149,7 @@ namespace QSP.RouteFinding
 
                 foreach (int i in searchResult)
                 {
-                    if (WptList.ElementAt(i).Neighbors.Count > 0)
+                    if (WptList[i].Neighbors.Count > 0)
                     {
                         dctDis = WptList.LatLonAt(i).Distance(latLon);
 

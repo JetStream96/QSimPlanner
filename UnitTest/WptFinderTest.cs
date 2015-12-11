@@ -79,7 +79,7 @@ namespace UnitTest
             {
                 if (GreatCircleDistance(latLon, WptList.LatLonAt(i)) <= dis)
                 {
-                    result.Add(WptList.ElementAt(i).Waypoint.ID);
+                    result.Add(WptList.WaypointAt(i).ID);
                 }
             }
 

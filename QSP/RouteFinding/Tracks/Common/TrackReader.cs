@@ -112,7 +112,7 @@ namespace QSP.RouteFinding.Tracks.Common
         {
 
 
-            foreach (var i in RouteFindingCore.WptList.ElementAt(lastIndex).Neighbors)
+            foreach (var i in RouteFindingCore.WptList[lastIndex].Neighbors)
             {
                 if (i.Airway == airway)
                 {

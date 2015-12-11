@@ -485,7 +485,7 @@ namespace QSP.RouteFinding
 
                 foreach (int i in searchResultWptList)
                 {
-                    wptLatLon = WptList.ElementAt(i).LatLon();
+                    wptLatLon = WptList.LatLonAt(i);
                     elemDis = origLatLon.Distance(wptLatLon) + destLatLon.Distance(wptLatLon);
 
                     if (elemDis < dis)

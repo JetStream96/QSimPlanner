@@ -288,7 +288,7 @@ namespace QSP.RouteFinding
                 return false;
             }
 
-            var neighbors = WptList.ElementAt(lastWptIndex).Neighbors;
+            var neighbors = WptList[lastWptIndex].Neighbors;
 
 
             foreach (var i in neighbors)

@@ -83,7 +83,7 @@ namespace QSP.RouteFinding
 
             int currentIndex = indexStart;
             int prevIndex = -1;
-            WptNeighbor currentWpt = wptList.ElementAt(currentIndex);
+            WptNeighbor currentWpt = wptList[currentIndex];
             bool updated = true;
 
             while (updated)
@@ -98,7 +98,7 @@ namespace QSP.RouteFinding
                         {
                             prevIndex = currentIndex;
                             currentIndex = i.Index;
-                            currentWpt = wptList.ElementAt(currentIndex);
+                            currentWpt = wptList[currentIndex];
                             result.Add(currentIndex);
 
                             if (currentWpt.Waypoint.ID == identEnd)

@@ -218,7 +218,7 @@ namespace QSP.RouteFinding
                     throw new WaypointNotFoundException("Waypoint " + sidWpts.Last() + " is not found.");
                 }
 
-                if (WptList.ElementAt(lastWptSid.Index).Neighbors.Count == 0)
+                if (WptList[lastWptSid.Index].Neighbors.Count == 0)
                 {
                     //case 3: the endpoint is a waypoint, not a vector, but this wpt cannnot be found in ats.txt
                     //in this case we try to find a nearby wpt to direct to 

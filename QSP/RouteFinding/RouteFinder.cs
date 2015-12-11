@@ -97,13 +97,13 @@ namespace QSP.RouteFinding
 
             while (index != startPtIndex)
             {
-                result.Waypoints.Add(WptList.ElementAt(index).Waypoint);
+                result.Waypoints.Add(WptList.WaypointAt(index));
                 result.Via.Add(FindRouteData.FromAirway[index]);
 
                 index = FindRouteData.FromWptIndex[index];
             }
 
-            result.Waypoints.Add(WptList.ElementAt(startPtIndex).Waypoint);
+            result.Waypoints.Add(WptList.WaypointAt(startPtIndex));
 
             result.TotalDis = FindRouteData.CurrentDis[endPtIndex];
             //total distance of the entire route
@@ -160,7 +160,7 @@ namespace QSP.RouteFinding
         private static void updateNeighbors(int currentWptIndex, routeSeachRegionPara regionPara,
             routeFindingData FindRouteData, MinHeap<int, double> unvisited, double currentDis)
         {
-            foreach (var neighbor in WptList.ElementAt(currentWptIndex).Neighbors)
+            foreach (var neighbor in WptList[currentWptIndex].Neighbors)
             {
                 if (wptWithinRange(neighbor.Index, regionPara))
                 {

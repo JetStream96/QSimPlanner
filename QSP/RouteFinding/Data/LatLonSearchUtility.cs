@@ -17,9 +17,9 @@ namespace QSP.RouteFinding
         private LatLonGetter latLonOfT;
         private readonly int GRID_SIZE;
         private readonly int POLAR_REGION_SIZE;
+
         //first index: corresponds to lat; second index: corresponds to lon
         private List<T>[,] content;
-
         private List<T> northPoleContent;
         private List<T> southPoleContent;
 
@@ -134,10 +134,9 @@ namespace QSP.RouteFinding
 
         public List<T> Find(double lat, double lon, double distance)
         {
-            List<T> result = new List<T>();
-            List<Tuple<int, int>> possibleGrids = new List<Tuple<int, int>>();
-
-            Queue<Tuple<int, int>> pending = new Queue<Tuple<int, int>>();
+            var result = new List<T>();
+            var possibleGrids = new List<Tuple<int, int>>();
+            var pending = new Queue<Tuple<int, int>>();
 
             pending.Enqueue(getGrid(lat, lon));
             //(-1,-1) for south pole, (-1,1) for north pole
@@ -153,13 +152,11 @@ namespace QSP.RouteFinding
                     {
                         result.Add(k);
                     }
-
                 }
 
                 //find grids next to current grid
                 //add items within the specified distance into the result
                 //also checks if the node is visited
-
                 foreach (var i in gridNeighbor(current))
                 {
                     if (visited.IsVisited(i) == false && minDis(lat, lon, i) <= distance)

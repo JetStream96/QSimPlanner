@@ -43,7 +43,6 @@ namespace QSP.RouteFinding
             TransAlt = item.TransAlt;
             TransLvl = item.TransLvl;
             Rwys = item.Rwys.ConvertAll(rwy => new RwyData(rwy));
-
         }
 
         public static IComparer<AirportData> CompareIcao()

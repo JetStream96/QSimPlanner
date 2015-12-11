@@ -172,7 +172,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             if (x >= 0)
             {
-                WptNeighbor pt = WptList.ElementAt(x);
+                WptNeighbor pt = WptList[x];
                 Waypoint q = pt.Waypoint;
 
                 latLon.Add(q.LatLon);
@@ -211,7 +211,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             if (x != -1)
             {
-                WptNeighbor pt = WptList.ElementAt(x);
+                WptNeighbor pt = WptList[x];
                 Waypoint q = pt.Waypoint;
 
                 latLon.Add(q.LatLon);
