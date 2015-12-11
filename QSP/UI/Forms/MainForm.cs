@@ -695,11 +695,11 @@ namespace QSP
                 switch (para)
                 {
                     case SidStarSelection.Sid:
-                        proc = new SidHandler(QspCore.AppSettings.NavDBLocation, icao).GetSidList(rwy);
+                        proc = new SidHandler(icao).GetSidList(rwy);
 
                         break;
                     case SidStarSelection.Star:
-                        proc = new StarHandler(QspCore.AppSettings.NavDBLocation, icao).GetStarList(rwy);
+                        proc = new StarHandler(icao).GetStarList(rwy);
 
                         break;
                     default:
@@ -770,7 +770,7 @@ namespace QSP
             List<string> sid = getSidStarList(OrigSidComboBox);
             List<string> star = getSidStarList(DestStarComboBox);
 
-            RouteToDest = RouteFinder.FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid, DestTxtBox.Text, DestRwyComboBox.Text, star);
+            RouteToDest = new RouteFinder().FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid, DestTxtBox.Text, DestRwyComboBox.Text, star);
             PMDGrteFile = FlightPlanExport.GeneratePmdgRteFile(RouteToDest);
 
             RouteDisplayRichTxtBox.Text = RouteToDest.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
@@ -795,7 +795,7 @@ namespace QSP
         {
 
             List<string> starAltn = getSidStarList(AltnStarComboBox);
-            RouteToAltn = RouteFinder.FindRoute(DestTxtBox.Text, AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn);
+            RouteToAltn = new RouteFinder().FindRoute(DestTxtBox.Text, AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn);
             RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
 
             double directDis = MathTools.MathTools.GreatCircleDistance(RouteToAltn.Waypoints.First().LatLon, RouteToAltn.Waypoints.Last().LatLon);
@@ -985,7 +985,7 @@ namespace QSP
             {
                 try
                 {
-                    SidHandler sidFinder = new SidHandler(QspCore.AppSettings.NavDBLocation, FromTxtbox.Text);
+                    SidHandler sidFinder = new SidHandler(FromTxtbox.Text);
                     setSidStarList(FromSidCBox, sidFinder.GetSidList(FromRwyCBox.Text));
                 }
                 catch (Exception ex)
@@ -1002,7 +1002,7 @@ namespace QSP
             {
                 try
                 {
-                    var starManager = new StarHandler(QspCore.AppSettings.NavDBLocation, ToTxtbox.Text);
+                    var starManager = new StarHandler(ToTxtbox.Text);
                     setSidStarList(ToStarCBox, starManager.GetStarList(ToRwyCBox.Text));
                 }
                 catch (Exception ex)
@@ -1051,7 +1051,7 @@ namespace QSP
 
                 try
                 {
-                    Route myRoute = RouteFinder.FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, ToTxtbox.Text, ToRwyCBox.Text, star);
+                    Route myRoute = new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, ToTxtbox.Text, ToRwyCBox.Text, star);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString();
                     double directDis = MathTools.MathTools.GreatCircleDistance(myRoute.Waypoints.First().LatLon, myRoute.Waypoints.Last().LatLon);
@@ -1090,7 +1090,7 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    Route myRoute = RouteFinder.FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
+                    Route myRoute = new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(Route.RouteDisplayOption.AirportToWaypoint);
                     double directDis = MathTools.MathTools.GreatCircleDistance(myRoute.Waypoints.First().LatLon, myRoute.Waypoints.Last().LatLon);

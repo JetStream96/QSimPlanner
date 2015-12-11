@@ -6,26 +6,26 @@ using QSP.RouteFinding.Containers;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.LibraryExtension.Lists;
 using static QSP.Utilities.ErrorLogger;
+using static QSP.Core.QspCore;
 
 namespace QSP.RouteFinding
 {
-
     public class SidHandler
     {
-
         private string filePath;
-
         private string icao;
-        /// <summary>
-        /// Constructor for SidHandler.
-        /// </summary>
-        /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
-        /// <param name="origIcao"></param>
-        /// <remarks></remarks>
-        public SidHandler(string navDBLocation, string origIcao)
+        private TrackedWptList wptList;
+
+        public SidHandler(string icao) : this(AppSettings.NavDBLocation, icao, RouteFindingCore.WptList)
         {
-            filePath = navDBLocation + "\\PROC\\" + origIcao + ".txt";
-            icao = origIcao;
+        }
+
+        /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
+        public SidHandler(string navDBLocation, string icao, TrackedWptList wptList)
+        {
+            filePath = navDBLocation + "\\PROC\\" + icao + ".txt";
+            this.icao = icao;
+            this.wptList = wptList;
         }
 
         /// <summary>
@@ -54,10 +54,8 @@ namespace QSP.RouteFinding
 
                 line = i.Split(',');
 
-
                 if (line.Length >= 3 && line[0] == "SID")
                 {
-
                     if (line[2] == rwy || (line[2] == "ALL" && Utilities.HasRwySpecificPart(allLines, line[1]) == false))
                     {
                         result.Add(line[1]);
@@ -70,11 +68,8 @@ namespace QSP.RouteFinding
 
                         sidsWithTransition.Add(line[1]);
                         result.Add(line[1] + "." + line[2]);
-
                     }
-
                 }
-
             }
 
             result = result.WithoutDuplicates();
@@ -109,10 +104,10 @@ namespace QSP.RouteFinding
                 //if the sid list is empty, find nearby wpts and use DCT
 
                 var rwyLatLon = AirportList.RwyLatLon(icao, rwy);
-                List<Neighbor> nearbyWpts = Utilities.sidStarToAirwayConnection("DCT", rwyLatLon, 0);
+                var nearbyWpts = Utilities.sidStarToAirwayConnection("DCT", rwyLatLon, 0);
 
                 Waypoint wpt = new Waypoint(icao + rwy, rwyLatLon);
-                WptList.AddWpt(new WptNeighbor(wpt, nearbyWpts));
+                wptList.AddWpt(new WptNeighbor(wpt, nearbyWpts));
             }
             else
             {
@@ -134,12 +129,10 @@ namespace QSP.RouteFinding
                 }
 
                 WptNeighbor wptToAdd = new WptNeighbor(new Waypoint(icao + rwy, AirportList.RwyLatLon(icao, rwy)), neighbors);
-                WptList.AddWpt(wptToAdd);
+                wptList.AddWpt(wptToAdd);
 
             }
-
-            return WptList.Count - 1;
-
+            return wptList.Count - 1;
         }
 
         public static Tuple<string, string> SplitSidStarTransition(string sidStar)
@@ -211,14 +204,14 @@ namespace QSP.RouteFinding
             {
                 //case 3, 4
                 Neighbor lastWptSid = new Neighbor();
-                lastWptSid.Index = WptList.FindByWaypoint(sidWpts.Last());
+                lastWptSid.Index = wptList.FindByWaypoint(sidWpts.Last());
 
                 if (lastWptSid.Index < 0)
                 {
                     throw new WaypointNotFoundException("Waypoint " + sidWpts.Last() + " is not found.");
                 }
 
-                if (WptList[lastWptSid.Index].Neighbors.Count == 0)
+                if (wptList[lastWptSid.Index].Neighbors.Count == 0)
                 {
                     //case 3: the endpoint is a waypoint, not a vector, but this wpt cannnot be found in ats.txt
                     //in this case we try to find a nearby wpt to direct to 
@@ -227,7 +220,7 @@ namespace QSP.RouteFinding
                     //the last waypoint is added to WptList, where its neighbors are nearby waypoints connected to an airway
                     foreach (var k in Utilities.sidStarToAirwayConnection("DCT", sidWpts.Last().LatLon, 0))
                     {
-                        WptList.AddNeighbor(lastWptSid.Index, k);
+                        wptList.AddNeighbor(lastWptSid.Index, k);
                     }
                 }
 

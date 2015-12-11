@@ -21,7 +21,6 @@ namespace QSP.MathTools
         {
             return Interpolate(Array, x, f, Order);
         }
-
     }
 
     public class Table2D
@@ -52,10 +51,9 @@ namespace QSP.MathTools
         }
 
     }
-
+    
     public class Table3D
     {
-
         public double[] XArray;
         public double[] YArray;
         public double[] ZArray;

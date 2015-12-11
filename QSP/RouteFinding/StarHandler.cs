@@ -4,34 +4,33 @@ using System.IO;
 using QSP.RouteFinding.Containers;
 using static QSP.LibraryExtension.Lists;
 using QSP.AviationTools;
+using static QSP.Core.QspCore;
 
 namespace QSP.RouteFinding
 {
 
     public class StarHandler
     {
-
         private string filePath;
-
         private string icao;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
-        /// <param name="icaoCode"></param>
-        /// <remarks></remarks>
-        public StarHandler(string navDBLocation, string icaoCode)
+        private TrackedWptList wptList;
+
+        public StarHandler(string icao) : this(AppSettings.NavDBLocation, icao, RouteFindingCore.WptList)
         {
-            filePath = navDBLocation + "\\PROC\\" + icaoCode + ".txt";
-            icao = icaoCode;
+        }
+
+        /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
+        public StarHandler(string navDBLocation, string icao, TrackedWptList wptList)
+        {
+            filePath = navDBLocation + "\\PROC\\" + icao + ".txt";
+            this.icao = icao;
+            this.wptList = wptList;
         }
 
         private List<string> rwyCompatibleStarsNoTrans(string[] allLines, string rwy)
         {
-
-            List<string> result = new List<string>();
+            var result = new List<string>();
             string[] line = null;
-
 
             foreach (var i in allLines)
             {
@@ -39,25 +38,17 @@ namespace QSP.RouteFinding
                 {
                     continue;
                 }
-
                 line = i.Split(',');
-
 
                 if (line.Length >= 3 && line[0] == "STAR")
                 {
-
                     if (line[2] == rwy || (line[2] == "ALL" && Utilities.HasRwySpecificPart(allLines, line[1]) == false))
                     {
                         result.Add(line[1]);
-
                     }
-
                 }
-
             }
-
             return result;
-
         }
 
         public List<string> GetStarList(string rwy)
@@ -66,14 +57,12 @@ namespace QSP.RouteFinding
             //first get all lines starting with "STAR"
             //"ALL" means a common part for all runways that can use that STAR (does not mean the STAR is avail for all rwys)
 
-            List<string> result = new List<string>();
+            var result = new List<string>();
             string[] allLines = File.ReadAllLines(filePath);
             string[] line = null;
 
-            List<string> starWithTransition = new List<string>();
-
+            var starWithTransition = new List<string>();
             result = rwyCompatibleStarsNoTrans(allLines, rwy);
-
 
             foreach (var i in allLines)
             {
@@ -81,22 +70,16 @@ namespace QSP.RouteFinding
                 {
                     continue;
                 }
-
                 line = i.Split(',');
-
 
                 if (line.Length >= 3 && line[0] == "STAR")
                 {
-
                     if (Utilities.IsRwyIdent(line[2]) == false && result.IndexOf(line[1]) != -1 && line[2] != "ALL")
                     {
                         starWithTransition.Add(line[1]);
                         result.Add(line[1] + "." + line[2]);
-
                     }
-
                 }
-
             }
 
             result = result.WithoutDuplicates();
@@ -106,30 +89,23 @@ namespace QSP.RouteFinding
             {
                 result.Remove(i);
             }
-
             return result;
-
         }
 
         /// <summary>
         /// Add necessary waypoints for STAR computation to WptList, and returns the index of Dest. rwy in WptList.
         /// </summary>
-        /// <param name="star"></param>
-        /// <param name="rwy"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
         public int AddStarToWptList(List<string> star, string rwy)
         {
-
             //There are 3 cases:
             //1. No STAR at all. (i.e. the star list is empty)
             //2. The first wpt in star is NOT connected to an airway (and is therefore not in wptList).
             //3. The first wpt in star IS connected to an airway.
 
-            int DEST_RWY_INDEX = RouteFindingCore.WptList.Count;
+            int DEST_RWY_INDEX = wptList.Count;
 
             var rwyLatLon = RouteFindingCore.AirportList.RwyLatLon(icao, rwy);
-            RouteFindingCore.WptList.AddWpt(new WptNeighbor(new Waypoint(icao + rwy, rwyLatLon)));
+            wptList.AddWpt(new WptNeighbor(new Waypoint(icao + rwy, rwyLatLon)));
 
             if (star.Count == 0)
             {
@@ -139,10 +115,8 @@ namespace QSP.RouteFinding
 
                 foreach (var i in nearbyWpts)
                 {
-                    RouteFindingCore.WptList.AddNeighbor(i.Index, new Neighbor(RouteFindingCore.WptList.Count - 1, "DCT", i.Distance));
+                    wptList.AddNeighbor(i.Index, new Neighbor(wptList.Count - 1, "DCT", i.Distance));
                 }
-
-
             }
             else
             {
@@ -151,11 +125,8 @@ namespace QSP.RouteFinding
                 {
                     addStarWpts(i, rwy, DEST_RWY_INDEX);
                 }
-
             }
-
             return DEST_RWY_INDEX;
-
         }
 
 
@@ -165,7 +136,7 @@ namespace QSP.RouteFinding
             Waypoint firstWpt = analysisInfo.Item2;
             double starDis = analysisInfo.Item1;
 
-            int firstWptIndex = RouteFindingCore.WptList.FindByWaypoint(firstWpt);
+            int firstWptIndex = wptList.FindByWaypoint(firstWpt);
             //get index of starting wpt
 
             var destRwyAsNeighbor = new Neighbor(DEST_RWY_INDEX, star, starDis);
@@ -175,8 +146,8 @@ namespace QSP.RouteFinding
                 //case 2: when the connecting wpt(i.e. the first wpt in the star) is not found in ats.txt
 
                 //add the first wpt to wptList
-                RouteFindingCore.WptList.AddWpt(new WptNeighbor(firstWpt));
-                RouteFindingCore.WptList.AddNeighbor(RouteFindingCore.WptList.Count - 1, destRwyAsNeighbor);
+                wptList.AddWpt(new WptNeighbor(firstWpt));
+                wptList.AddNeighbor(wptList.Count - 1, destRwyAsNeighbor);
 
                 //now find nearby waypoints of firstWpt of star
                 var nearbyWpts = Utilities.sidStarToAirwayConnection("DCT", firstWpt.LatLon, 0);
@@ -184,19 +155,15 @@ namespace QSP.RouteFinding
                 foreach (var pt in nearbyWpts)
                 {
                     //each pt directs to the firstWpt of star
-                    RouteFindingCore.WptList.AddNeighbor(pt.Index, new Neighbor(RouteFindingCore.WptList.Count - 1, "DCT", pt.Distance));
+                    wptList.AddNeighbor(pt.Index, new Neighbor(wptList.Count - 1, "DCT", pt.Distance));
                 }
-
-
             }
             else
             {
                 //case 3
                 //add dest rwy as a neighbor of firstWpt of STAR
-                RouteFindingCore.WptList.AddNeighbor(firstWptIndex, destRwyAsNeighbor);
-
+                wptList.AddNeighbor(firstWptIndex, destRwyAsNeighbor);
             }
-
         }
 
         /// <summary>
@@ -204,10 +171,6 @@ namespace QSP.RouteFinding
         /// The text should be a part of, e.g. PROC\RCTP.txt
         /// The second item in the tuple is the first waypoint of the STAR.
         /// </summary>
-        /// <param name="allLines"></param>
-        /// <param name="startLineNum"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
         private Tuple<List<LatLon>, Waypoint> getStarLatLonLineNum(string[] allLines, int startLineNum)
         {
             Waypoint firstWpt = null;
@@ -230,9 +193,7 @@ namespace QSP.RouteFinding
                 }
                 i++;
             }
-
             return new Tuple<List<LatLon>, Waypoint>(latLonList, firstWpt);
-
         }
 
         /// <summary>
@@ -248,7 +209,7 @@ namespace QSP.RouteFinding
             for (int i = 0; i <= allLines.Length - 1; i++)
             {
                 line = allLines[i].Split(',');
-                
+
                 if (line.Length >= 3 && line[0] == "STAR" && line[1] == starNoTransPart && line[2] == rwy)
                 {
                     return getStarLatLonLineNum(allLines, i + 1);
@@ -269,9 +230,9 @@ namespace QSP.RouteFinding
             string starTrans = splitResult.Item2;
 
             //some of these might be Nothing. e.g. if the there is no transition, transPart would be Nothing.
-            Tuple<List<LatLon>, Waypoint> transPart = getStarLatLon(allLines, starNoTransPart, starTrans);
-            Tuple<List<LatLon>, Waypoint> commonPart = getStarLatLon(allLines, starNoTransPart, "ALL");
-            Tuple<List<LatLon>, Waypoint> rwySpecificPart = getStarLatLon(allLines, starNoTransPart, rwy);
+            var transPart = getStarLatLon(allLines, starNoTransPart, starTrans);
+            var commonPart = getStarLatLon(allLines, starNoTransPart, "ALL");
+            var rwySpecificPart = getStarLatLon(allLines, starNoTransPart, rwy);
 
             List<Tuple<List<LatLon>, Waypoint>> nonEmpty = new List<Tuple<List<LatLon>, Waypoint>>();
 

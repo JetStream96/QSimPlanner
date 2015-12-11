@@ -235,7 +235,7 @@ namespace QSP.RouteFinding
 
             try
             {
-                StarHandler starManager = new StarHandler(QspCore.AppSettings.NavDBLocation, destIcao);
+                StarHandler starManager = new StarHandler(destIcao);
                 var starInfo = starManager.InfoForAnalysis(destRwy, text);
 
                 rte.TotalDis += starInfo.Item1;
@@ -256,7 +256,7 @@ namespace QSP.RouteFinding
         {
             try
             {
-                SidHandler sidManager = new SidHandler(QspCore.AppSettings.NavDBLocation, origIcao);
+                SidHandler sidManager = new SidHandler(origIcao);
                 var sidInfo = sidManager.InfoForAnalysis(origRwy, text);
 
                 rte.TotalDis += sidInfo.Item1;

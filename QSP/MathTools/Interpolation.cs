@@ -39,7 +39,7 @@ namespace QSP.MathTools
 
             int len = array.Length;
 
-            for (int i = 0; i <= len - 2; i++)
+            for (int i = 0; i < len - 1; i++)
             {
                 if (value >= array[i] && value <= array[i + 1])
                 {
@@ -59,7 +59,7 @@ namespace QSP.MathTools
 
             int len = array.Length;
 
-            for (int i = 0; i <= len - 2; i++)
+            for (int i = 0; i < len - 1; i++)
             {
                 if (value <= array[i] && value >= array[i + 1])
                 {

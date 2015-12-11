@@ -130,7 +130,7 @@ namespace QSP.RouteFinding
                 string nextWpt = input[index + 1];
 
                 //find all sids
-                SidHandler sidManager = new SidHandler(QspCore.AppSettings.NavDBLocation, origIcao);
+                SidHandler sidManager = new SidHandler(origIcao);
                 var sidList = sidManager.GetSidList(origRwy);
                 string origRwyWpt = origIcao + origRwy;
                 List<Tuple<double, Waypoint>> endPoints = new List<Tuple<double, Waypoint>>();
@@ -180,8 +180,6 @@ namespace QSP.RouteFinding
                 p = selectSidStar(endPoints.ToArray(), nextLatLon);
 
                 return sidList[p] + " " + endPoints[p].Item2.ID + " " + randRouteStr(endPoints[p].Item2.LatLon, nextLatLon);
-
-
             }
 
             //this is not to be parsed as first 
@@ -198,12 +196,13 @@ namespace QSP.RouteFinding
             //auto find STAR 
             //it's possible that last element in input() is dest airport
 
-            if ((index == lastIndex && input.Length >= 2) || (input.Length >= 3 && index == lastIndex - 1 && input[lastIndex] == destIcao))
+            if ((index == lastIndex && input.Length >= 2) || 
+                (input.Length >= 3 && index == lastIndex - 1 && input[lastIndex] == destIcao))
             {
                 string prevWpt = input[index - 1];
 
                 //find all stars
-                StarHandler starManager = new StarHandler(QspCore.AppSettings.NavDBLocation, destIcao);
+                var starManager = new StarHandler(destIcao);
                 var starList = starManager.GetStarList(destRwy);
 
                 Tuple<double, Waypoint>[] endPoints = null;
@@ -403,10 +402,10 @@ namespace QSP.RouteFinding
                 nextWpt = input[index + 1];
 
                 //find all sids
-                SidHandler sidManager = new SidHandler(QspCore.AppSettings.NavDBLocation, origIcao);
+                SidHandler sidManager = new SidHandler(origIcao);
                 var sidList = sidManager.GetSidList(origRwy);
 
-                var rte = RouteFinder.FindRoute(origIcao, origRwy, sidList, selectWptSameIdent(input[index + 1]));
+                var rte = new RouteFinder().FindRoute(origIcao, origRwy, sidList, selectWptSameIdent(input[index + 1]));
                 rte.Waypoints[rte.Waypoints.Count - 1] = emptyWpt;
 
                 return rte.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
@@ -433,7 +432,7 @@ namespace QSP.RouteFinding
                 prevWpt = input[index - 1];
 
                 //find all stars
-                StarHandler starManager = new StarHandler(QspCore.AppSettings.NavDBLocation, destIcao);
+                StarHandler starManager = new StarHandler(destIcao);
                 var starList = starManager.GetStarList(destRwy);
 
                 var rte = RouteFinder.FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy, starList);

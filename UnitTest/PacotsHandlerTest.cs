@@ -37,7 +37,7 @@ namespace UnitTest
 			string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
 			string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).Last();
 
-			var genRoute = RouteFinder.FindRoute(orig, origRwy, new SidHandler(QspCore.AppSettings.NavDBLocation, orig).GetSidList(origRwy), dest, destRwy, new StarHandler(QspCore.AppSettings.NavDBLocation, dest).GetStarList(destRwy));
+			var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
 			string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
 			Debug.WriteLine("Generated route: " + rte);

@@ -114,6 +114,11 @@ namespace QSP.RouteFinding.Containers
             }
         }
 
+        /// <summary>
+        /// Read all waypoints from ats.txt file.
+        /// </summary>
+        /// <param name="filepath">Path of ats.txt</param>
+        /// <exception cref="LoadWaypointFileException"></exception>
         public void ReadAtsFromFile(string filepath)
         {
             try
@@ -180,7 +185,7 @@ namespace QSP.RouteFinding.Containers
             catch (Exception ex)
             {
                 WriteToLog(ex);
-                throw;  //TODO: show to the user
+                throw new LoadWaypointFileException("Failed to load ats.txt.",ex);  //TODO: show to the user
             }
         }
 
@@ -188,6 +193,7 @@ namespace QSP.RouteFinding.Containers
         /// Loads all waypoints in waypoints.txt.
         /// </summary>
         /// <param name="filepath">Location of waypoints.txt</param>
+        /// <exception cref="LoadWaypointFileException"></exception>
         public void ReadFixesFromFile(string filepath)
         {
             TrackChanges = TrackChangesOption.No;
@@ -211,7 +217,7 @@ namespace QSP.RouteFinding.Containers
                 {
                     WriteToLog(ex);
                     //TODO: Write to log file. Show to user, etc.
-                    throw;
+                    throw new LoadWaypointFileException("Failed to load waypoints.txt.", ex);
                 }
             }
             TrackChanges = TrackChangesOption.Yes;

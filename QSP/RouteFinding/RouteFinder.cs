@@ -10,39 +10,51 @@ using static QSP.RouteFinding.Constants;
 namespace QSP.RouteFinding
 {
 
-    public static class RouteFinder
+    public class RouteFinder
     {
+        private string navDBLoation;
+        private TrackedWptList wptList;
+
+        public RouteFinder() : this(QspCore.AppSettings.NavDBLocation, WptList) { }
+
+        public RouteFinder(string navDBLoation, TrackedWptList wptList)
+        {
+            this.navDBLoation = navDBLoation;
+            this.wptList = wptList;
+        }
+
         /// <summary>
         /// Gets a route between two aiports, from ORIG to DEST.
         /// </summary>
-        public static Route FindRoute(string origIcao, string origRwy, List<string> origSid, string destIcao, string destRwy, List<string> destStar)
+        public Route FindRoute(string origIcao, string origRwy, List<string> origSid, string destIcao, string destRwy, List<string> destStar)
         {
-            SidHandler sidAdder = new SidHandler(QspCore.AppSettings.NavDBLocation, origIcao);
+            SidHandler sidAdder = new SidHandler(navDBLoation, origIcao, wptList);
             int origIndex = sidAdder.AddSidsToWptList(origRwy, origSid);
 
-            StarHandler starAdder = new StarHandler(QspCore.AppSettings.NavDBLocation, destIcao);
+            StarHandler starAdder = new StarHandler(navDBLoation, destIcao, wptList);
             int destIndex = starAdder.AddStarToWptList(destStar, destRwy);
 
             var result = getRoute(origIndex, destIndex);
-            WptList.Restore();
+            wptList.Restore();
 
             result.SetNat(NatsManager);
             return result;
         }
 
+        //TODO: This is redundent. Change all methods using this one.
         /// <summary>
         /// Gets a route from DEST to ALTN.
         /// </summary>
-        public static Route FindRoute(string destIcao, string altnIcao, string altnRwy, List<string> altnStar)
+        public Route FindRoute(string destIcao, string altnIcao, string altnRwy, List<string> altnStar)
         {
-            WptList.AddWpt(Utilities.DestWpt_AltnRouteCalcHelper(destIcao, altnIcao));
-            int startIndex = WptList.Count - 1;
+            wptList.AddWpt(Utilities.DestWpt_AltnRouteCalcHelper(destIcao, altnIcao));
+            int startIndex = wptList.Count - 1;
 
-            StarHandler starAdder = new StarHandler(QspCore.AppSettings.NavDBLocation, altnIcao);
+            StarHandler starAdder = new StarHandler(navDBLoation, altnIcao,wptList );
             int endIndex = starAdder.AddStarToWptList(altnStar, altnRwy);
 
             var result = getRoute(startIndex, endIndex);
-            WptList.Restore();
+            wptList.Restore();
 
             result.SetNat(NatsManager);
             return result;
@@ -51,15 +63,15 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from an airport to a waypoint.
         /// </summary>
-        public static Route FindRoute(string icao, string rwy, List<string> sid, int wptIndex)
+        public Route FindRoute(string icao, string rwy, List<string> sid, int wptIndex)
         {
-            SidHandler sidAdder = new SidHandler(QspCore.AppSettings.NavDBLocation, icao);
+            SidHandler sidAdder = new SidHandler(navDBLoation, icao, wptList);
             int origIndex = sidAdder.AddSidsToWptList(rwy, sid);
 
             var result = getRoute(origIndex, wptIndex);
-            WptList.Restore();
+            wptList.Restore();
 
-            result.SetNat(NatsManager);
+            result.SetNat(NatsManager);  //TODO: This need to be set as well.
             return result;
         }
 
@@ -68,7 +80,7 @@ namespace QSP.RouteFinding
         /// </summary>
         public static Route FindRoute(int wptIndex, string icao, string rwy, List<string> star)
         {
-            StarHandler starAdder = new StarHandler(QspCore.AppSettings.NavDBLocation, icao);
+            StarHandler starAdder = new StarHandler(icao);
             int endIndex = starAdder.AddStarToWptList(star, rwy);
 
             var result = getRoute(wptIndex, endIndex);
@@ -114,15 +126,19 @@ namespace QSP.RouteFinding
             return result;
         }
 
+        /// <summary>
+        /// Finds a route from the waypoint in wptList with index startPtIndex, to endPtIndex.
+        /// </summary>
+        /// <exception cref="RouteNotFoundException"></exception>
         private static Route getRoute(int startPtIndex, int endPtIndex)
         {
             routeFindingData FindRouteData = new routeFindingData(WptList.Count);
-            routeSeachRegionPara regionPara = new routeSeachRegionPara(startPtIndex, endPtIndex, 0);
+            routeSeachRegionPara regionPara = new routeSeachRegionPara(startPtIndex, endPtIndex, 0.0);
             bool routeFound = false;
 
-            while (!routeFound && regionPara.c <= 3000)
+            while (!routeFound && regionPara.c <= 3000.0)
             {
-                regionPara.c += 500;
+                regionPara.c += 500.0;
                 routeFound = findRouteAttempt(regionPara, ref FindRouteData);
             }
 
@@ -132,8 +148,7 @@ namespace QSP.RouteFinding
             }
             else
             {
-                //TODO: create new exception class
-                throw new Exception();
+                throw new RouteNotFoundException();
             }
         }
 

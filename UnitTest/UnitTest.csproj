@@ -67,6 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomRouteFinderTest.cs" />
     <Compile Include="RouteAnalyzerTest.cs" />
+    <Compile Include="RouteFindingTest\RouteFinderTest.cs" />
     <Compile Include="SimpleRouteAnalyzerTest.cs" />
     <Compile Include="TOPerfCalcTest.cs" />
     <Compile Include="WindAloft\LastestDataSetFinderTest.cs" />
