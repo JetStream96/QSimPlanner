@@ -6,82 +6,53 @@ using System.Collections.ObjectModel;
 namespace QSP.RouteFinding.Containers
 {
 
-    public class WptNeighbor
+    public class WptNeighbor : Waypoint
     {
-
-        private Waypoint wpt;
-        private List<Neighbor> neighborList;
-
-        public Waypoint Waypoint
-        {
-            get { return wpt; }
-        }
+        protected List<Neighbor> _neighborList;
 
         public ReadOnlyCollection<Neighbor> Neighbors
         {
             // List(Of Neighbor)
-            get { return neighborList.AsReadOnly(); }
+            get { return _neighborList.AsReadOnly(); }
+        }
+        
+        public WptNeighbor(string ID,double Lat,double Lon):base(ID,Lat,Lon)
+        {
+            _neighborList = new List<Neighbor>();
+        }
+
+        public WptNeighbor(Waypoint Waypoint) : this(Waypoint, new List<Neighbor>())
+        {
+            _neighborList = new List<Neighbor>();
+        }
+
+        public WptNeighbor(Waypoint Waypoint, List<Neighbor> neighborList) : base(Waypoint)
+        {
+            _neighborList = neighborList;
         }
 
         /// <summary>
-        /// This method can only be called from TrackedWptList class with the correct token. Otherwise an exception will be thrown.
+        /// Copy the item to construct a new instance.
         /// </summary>
-        /// <param name="token">The token object in TrackedWptList class.</param>
-        public List<Neighbor> GetNeighborList(object token)
+        public WptNeighbor(WptNeighbor item):this(new Waypoint(item), new List<Neighbor>(item.Neighbors))
         {
-
-            if (TrackedWptList.TokenMatches(token))
-            {
-                return neighborList;
-            }
-            else
-            {
-                throw new InvalidOperationException("This method can only be called from TrackedWptList class with the correct token.");
-            }
-
-        }
-
-        public WptNeighbor(Waypoint Waypoint)
-        {
-            this.wpt = Waypoint;
-            this.neighborList = new List<Neighbor>();
-        }
-
-        public WptNeighbor(Waypoint Waypoint, List<Neighbor> neighborList)
-        {
-            this.wpt = Waypoint;
-            this.neighborList = neighborList;
-        }
-
-        /// <summary>
-        /// A deep copy of the item.
-        /// </summary>
-        public WptNeighbor(WptNeighbor item)
-        {
-            this.wpt = new Waypoint(item.Waypoint);
-            this.neighborList = new List<Neighbor>(item.Neighbors);
         }
 
         public void AddNeighbor(int index, string airway, double dis)
         {
-            neighborList.Add(new Neighbor(index, airway, dis));
+            _neighborList.Add(new Neighbor(index, airway, dis));
         }
-
-        public LatLon LatLon()
-        {
-            return wpt.LatLon;
-        }
-
+        
         /// <summary>
         /// Value comparison of two WptNeighbors.
         /// </summary>
         public bool Equals(WptNeighbor x)
         {
-            if (wpt.Equals(x.wpt) && neighborList.Count == x.neighborList.Count)
+            if (base.Equals(x) && _neighborList.Count == x._neighborList.Count)
             {
-                for (int i = 0; i < neighborList.Count; i++)
+                for (int i = 0; i < _neighborList.Count; i++)
                 {
-                    if (!neighborList[i].Equals(x.neighborList[i]))
+                    if (!_neighborList[i].Equals(x._neighborList[i]))
                     {
                         return false;
                     }
@@ -90,43 +61,9 @@ namespace QSP.RouteFinding.Containers
             }
             return false;
         }
-
-        private class sortWptHelper : IComparer<WptNeighbor>
-        {
-
-            public int Compare(WptNeighbor x, WptNeighbor y)
-            {
-                return x.wpt.WptCompare(y.wpt);
-            }
-        }
-
-        private class sortIDHelper : IComparer<WptNeighbor>
-        {
-
-            public int Compare(WptNeighbor x, WptNeighbor y)
-            {
-                return x.wpt.ID.CompareTo(y.wpt.ID);
-            }
-        }
-
-        public static IComparer<WptNeighbor> SortWpt()
-        {
-            return new sortWptHelper();
-        }
-
-        public static IComparer<WptNeighbor> SortID()
-        {
-            return new sortIDHelper();
-        }
-
-        public static LatLon LatLon(WptNeighbor item)
-        {
-            return item.wpt.LatLon;
-        }
-
+               
         public class WptNeighborEqualityComparer : IEqualityComparer<WptNeighbor>
         {
-
             public bool Equals(WptNeighbor x, WptNeighbor y)
             {
                 return x.Equals(y);
@@ -135,14 +72,13 @@ namespace QSP.RouteFinding.Containers
             public int GetHashCode(WptNeighbor obj)
             {
                 int hash = obj.GetHashCode();
-                
-                foreach (var i in obj.neighborList)
+
+                foreach (var i in obj._neighborList)
                 {
                     hash = hash ^ i.GetHashCode();
                 }
                 return hash;
             }
-
         }
 
     }

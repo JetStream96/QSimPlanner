@@ -101,7 +101,7 @@ namespace QSP.RouteFinding
                             currentWpt = wptList[currentIndex];
                             result.Add(currentIndex);
 
-                            if (currentWpt.Waypoint.ID == identEnd)
+                            if (currentWpt.ID == identEnd)
                             {
                                 return result;
                             }

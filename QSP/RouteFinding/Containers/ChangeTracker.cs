@@ -27,6 +27,10 @@ namespace QSP.RouteFinding.Containers
             get { return _regionStart; }
         }
 
+        /// <summary>
+        /// Gets or sets the last index of added waypoint.
+        /// </summary>
+        /// <exception cref="InvalidOperationException"></exception>
         public int RegionEnd
         {
             get { return _regionEnd; }

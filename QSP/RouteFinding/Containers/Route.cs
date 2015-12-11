@@ -6,10 +6,8 @@ using QSP.Core;
 
 namespace QSP.RouteFinding.Containers
 {
-
     public class Route
     {
-
         public List<Waypoint> Waypoints { get; set; }
         public List<string> Via { get; set; }
         public double TotalDis { get; set; }
@@ -21,7 +19,7 @@ namespace QSP.RouteFinding.Containers
 
         private Waypoint[] natWpts;
         //Includes end points. It's set to Nothing if it's not set yet, or not needed for the route.
-        
+
         public Route()
         {
             Waypoints = new List<Waypoint>();
@@ -45,7 +43,6 @@ namespace QSP.RouteFinding.Containers
         /// Append the specified waypoint to the end of the route. 
         /// This waypoint is connected from the previous one by direct-to (DCT).
         /// </summary>
-
         public void AppendWaypoint(Waypoint item)
         {
             if (Waypoints.Count == 0)
@@ -56,17 +53,14 @@ namespace QSP.RouteFinding.Containers
             {
                 AppendWaypoint(item, "DCT");
             }
-
         }
 
         /// <summary>
         /// Set NATs for ExpandNats/CollapseNats.
         /// </summary>
         /// <param name="handler"></param> 
-
         public void SetNat(NatHandler handler)
         {
-
             foreach (var i in Via)
             {
                 if (i.Length == 4 && i[0] == 'N' && i[1] == 'A' && i[2] == 'T')
@@ -74,18 +68,14 @@ namespace QSP.RouteFinding.Containers
                     natIdent = i[3];
                     natWpts = handler.GetTrackWaypointArray(natIdent);
                     return;
-
                 }
-
             }
-
         }
 
         /// <summary>
         /// Set NATs for ExpandNats/CollapseNats.
         /// </summary>
         /// <param name="track"></param> 
-
         public void SetNat(NorthAtlanticTrack track)
         {
             natIdent = track.Ident;
@@ -101,7 +91,6 @@ namespace QSP.RouteFinding.Containers
         /// Collapse the NATs for the route, if not done already.  
         /// </summary>
         /// <remarks></remarks>
-
         public void CollapseNats()
         {
             if (natWpts == null || natExpanded == false)
@@ -117,28 +106,24 @@ namespace QSP.RouteFinding.Containers
             Via[firstWptIndex] = "NAT" + natIdent;
 
             natExpanded = false;
-
         }
 
         private int findWptIndex(string wptName)
         {
 
-            for (int i = 0; i <= Waypoints.Count - 1; i++)
+            for (int i = 0; i < Waypoints.Count; i++)
             {
                 if (Waypoints[i].ID == wptName)
                 {
                     return i;
                 }
             }
-
             return -1;
-
         }
 
         private int findViaIndex(string airwayName)
         {
-
-            for (int i = 0; i <= Via.Count - 1; i++)
+            for (int i = 0; i < Via.Count; i++)
             {
                 if (Via[i] == airwayName)
                 {
@@ -147,7 +132,6 @@ namespace QSP.RouteFinding.Containers
             }
 
             return -1;
-
         }
 
         /// <summary>
@@ -163,24 +147,18 @@ namespace QSP.RouteFinding.Containers
 
             int currentIndex = findViaIndex("NAT" + natIdent);
             Via[currentIndex] = "DCT";
-            currentIndex ++;
-
+            currentIndex++;
 
             if (natWpts.Count() > 2)
             {
-
-                for (int j = 1; j <= natWpts.Count() - 2; j++)
+                for (int j = 1; j < natWpts.Count() - 1; j++)
                 {
                     Waypoints.Insert(currentIndex, natWpts[j]);
                     Via.Insert(currentIndex, "DCT");
-                    currentIndex ++;
-
+                    currentIndex++;
                 }
-
             }
-
             natExpanded = true;
-
         }
 
         /// <summary>
@@ -190,24 +168,19 @@ namespace QSP.RouteFinding.Containers
         {
             return ToString(RouteDisplayOption.WaypointToWaypoint);
         }
-
-
+        
         private void appendRoute(StringBuilder item)
         {
             item.Append(Via[0] + " ");
-
-
-            for (int i = 1; i <= Via.Count - 1; i++)
+            
+            for (int i = 1; i < Via.Count ; i++)
             {
 
                 if (Via[i] == "DCT" || Via[i] != Via[i - 1])
                 {
                     item.Append(Waypoints[i].ID + " " + Via[i] + " ");
-
                 }
-
             }
-
         }
 
         public enum NatsDisplayOption
@@ -218,20 +191,18 @@ namespace QSP.RouteFinding.Containers
 
         public enum RouteDisplayOption
         {
-
             AirportToAirport,
             AirportToWaypoint,
             WaypointToAirport,
             WaypointToWaypoint
-
         }
 
         /// <summary>
         /// A string represents the usual route text with the Nats display option.
         /// </summary>
+        /// <exception cref="InvalidAircraftDatabaseException"></exception>
         public string ToString(NatsDisplayOption para1, RouteDisplayOption para2)
         {
-
             switch (para1)
             {
 
@@ -247,9 +218,7 @@ namespace QSP.RouteFinding.Containers
 
                     throw new InvalidAircraftDatabaseException("Incorrect enum for NatsDisplayOption.");
             }
-
             return this.ToString(para2);
-
         }
 
         /// <summary>
@@ -277,7 +246,6 @@ namespace QSP.RouteFinding.Containers
             }
 
             return result.ToString();
-
         }
 
     }

@@ -3,7 +3,6 @@ namespace QSP.RouteFinding.Containers
 
     public class Neighbor
     {
-
         public int Index { get; set; }
         public string Airway { get; set; }
         public double Distance { get; set; }
@@ -16,7 +15,7 @@ namespace QSP.RouteFinding.Containers
             this.Airway = Airway;
             this.Distance = Distance;
         }
-        
+
         /// <summary>
         /// Value comparison of two Neighbors.
         /// </summary>
@@ -26,11 +25,7 @@ namespace QSP.RouteFinding.Containers
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
-
+            return false;
         }
 
     }

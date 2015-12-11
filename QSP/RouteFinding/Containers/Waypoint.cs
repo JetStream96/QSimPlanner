@@ -54,21 +54,15 @@ namespace QSP
         /// </summary>
         public bool Equals(Waypoint x)
         {
-
             if (ID == x.ID && Lat == x.Lat && Lon == x.Lon)
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
-
+            return false;
         }
 
         public int WptCompare(Waypoint x)
         {
-
             int i = ID.CompareTo(x.ID);
 
             if (i == 0)
@@ -83,7 +77,6 @@ namespace QSP
                 {
                     return j;
                 }
-
             }
             else
             {

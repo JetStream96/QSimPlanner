@@ -173,9 +173,8 @@ namespace QSP.RouteFinding.Tracks.Nats
             if (x >= 0)
             {
                 WptNeighbor pt = WptList[x];
-                Waypoint q = pt.Waypoint;
 
-                latLon.Add(q.LatLon);
+                latLon.Add(pt.LatLon);
                 FirstTrackWptIndex = x;
                 currentTrack.WptIndex.Add(x);
 
@@ -188,7 +187,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                 {
                     //no other wpt have this wpt as a neighbor, need to find nearby wpt to connect
 
-                    List<int> k = Common.Utilities.NearbyWaypointsInWptList(20, q.Lat, q.Lon);
+                    List<int> k = Common.Utilities.NearbyWaypointsInWptList(20, pt.Lat, pt.Lon);
 
                     foreach (int m in k)
                     {
@@ -212,9 +211,8 @@ namespace QSP.RouteFinding.Tracks.Nats
             if (x != -1)
             {
                 WptNeighbor pt = WptList[x];
-                Waypoint q = pt.Waypoint;
 
-                latLon.Add(q.LatLon);
+                latLon.Add(pt.LatLon);
                 LastTrackWptIndex = x;
                 currentTrack.WptIndex.Add(x);
 
@@ -225,7 +223,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                 }
                 else
                 {
-                    List<int> k = Common.Utilities.NearbyWaypointsInWptList(20, q.Lat, q.Lon);
+                    List<int> k = Common.Utilities.NearbyWaypointsInWptList(20, pt.Lat, pt.Lon);
 
                     foreach (int m in k)
                     {
@@ -272,7 +270,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
                 if (y != -1)
                 {
-                    latLon.Add(WptList[y].LatLon());
+                    latLon.Add(WptList[y].LatLon);
                     currentTrack.WptIndex.Add(y);
                 }
                 else
