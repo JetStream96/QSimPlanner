@@ -106,11 +106,11 @@ namespace QSP.RouteFinding
                     }
                     else
                     {
-                        var wpt = RouteFindingCore.WptList.WaypointAt(lastWpt);
+                        var wpt = RouteFindingCore.WptList[lastWpt];
                         lastWpt = Tracks.Common.Utilities.ChooseSubsequentWpt(wpt.Lat, wpt.Lon, indices);
                     }
                 }
-                rte.AppendWaypoint(RouteFindingCore.WptList.WaypointAt(lastWpt));
+                rte.AppendWaypoint(RouteFindingCore.WptList[lastWpt]);
             }
             else
             {

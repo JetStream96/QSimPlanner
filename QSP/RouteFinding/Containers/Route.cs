@@ -83,7 +83,7 @@ namespace QSP.RouteFinding.Containers
 
             for (int i = 0; i <= natWpts.Length - 1; i++)
             {
-                natWpts[i] = RouteFindingCore.WptList.WaypointAt(track.WptIndex[i]);
+                natWpts[i] = RouteFindingCore.WptList[track.WptIndex[i]];
             }
         }
 

@@ -119,7 +119,7 @@ namespace QSP.RouteFinding
             {
                 foreach (int i in matches)
                 {
-                    var wpt = WptList.WaypointAt(i);
+                    var wpt = WptList[i];
 
                     if (lastWpt.LatLon.Distance(wpt.LatLon) <= MAX_LEG_DIS)
                     {
@@ -166,14 +166,8 @@ namespace QSP.RouteFinding
                 }
             }
             return wptsOnAirway;
-        }
-                
-        public static WptNeighbor DestWpt_AltnRouteCalcHelper(string icao_dest, string icao_altn)
-        {
-            var v = AirportList.AirportLatlon(icao_dest);
-            return new WptNeighbor(new Waypoint(icao_dest, v), sidStarToAirwayConnection("", v, 0));
-        }
-
+        }              
+        
     }
 
 }

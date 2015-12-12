@@ -48,7 +48,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                     Waypoint[] result = new Waypoint[i.WptIndex.Count];
                     for (int j = 0; j < result.Length; j++)
                     {
-                        result[j] = WptList.WaypointAt(i.WptIndex[j]);
+                        result[j] = WptList[i.WptIndex[j]];
                     }
                     return result;
                 }
@@ -306,7 +306,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             foreach (int i in findByID)
             {
-                Waypoint p = WptList.WaypointAt(i);
+                Waypoint p = WptList[i];
                 if (WithinNorthAtlanticArea(p.Lat, p.Lon))
                 {
                     wptIndex.Add(i);
@@ -335,7 +335,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             foreach (int i in item)
             {
-                tmp = GreatCircleDistance(CENTER_ATL, WptList.WaypointAt(i).LatLon);
+                tmp = GreatCircleDistance(CENTER_ATL, WptList[i].LatLon);
                 if (tmp < minDisFromCenter)
                 {
                     result = i;

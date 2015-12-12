@@ -70,7 +70,7 @@ namespace QSP.RouteFinding
 
             foreach (int i in indices)
             {
-                result.Add(wptList.WaypointAt(i));
+                result.Add(wptList[i]);
             }
             return result;
         }

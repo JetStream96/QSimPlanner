@@ -65,7 +65,7 @@ namespace UnitTest
 
             foreach (int i in result)
             {
-                stringResult.Add(WptList.WaypointAt(i).ID);
+                stringResult.Add(WptList[i].ID);
             }
 
             return stringResult;
@@ -79,7 +79,7 @@ namespace UnitTest
             {
                 if (GreatCircleDistance(latLon, WptList.LatLonAt(i)) <= dis)
                 {
-                    result.Add(WptList.WaypointAt(i).ID);
+                    result.Add(WptList[i].ID);
                 }
             }
 

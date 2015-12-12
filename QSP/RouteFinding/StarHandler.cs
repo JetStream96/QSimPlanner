@@ -1,10 +1,11 @@
+using QSP.AviationTools;
+using QSP.RouteFinding.Containers;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using QSP.RouteFinding.Containers;
-using static QSP.LibraryExtension.Lists;
-using QSP.AviationTools;
 using static QSP.Core.QspCore;
+using static QSP.LibraryExtension.Lists;
+using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding
 {
@@ -14,17 +15,19 @@ namespace QSP.RouteFinding
         private string filePath;
         private string icao;
         private TrackedWptList wptList;
+        private AirportDatabase airportList;
 
-        public StarHandler(string icao) : this(AppSettings.NavDBLocation, icao, RouteFindingCore.WptList)
+        public StarHandler(string icao) : this(icao, AppSettings.NavDBLocation, WptList, AirportList)
         {
         }
 
         /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
-        public StarHandler(string navDBLocation, string icao, TrackedWptList wptList)
+        public StarHandler(string icao, string navDBLocation, TrackedWptList wptList, AirportDatabase airportList)
         {
             filePath = navDBLocation + "\\PROC\\" + icao + ".txt";
             this.icao = icao;
             this.wptList = wptList;
+            this.airportList = airportList;
         }
 
         private List<string> rwyCompatibleStarsNoTrans(string[] allLines, string rwy)
@@ -95,7 +98,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Add necessary waypoints for STAR computation to WptList, and returns the index of Dest. rwy in WptList.
         /// </summary>
-        public int AddStarToWptList(List<string> star, string rwy)
+        public int AddStarsToWptList(string rwy, List<string> star)
         {
             //There are 3 cases:
             //1. No STAR at all. (i.e. the star list is empty)
@@ -104,14 +107,14 @@ namespace QSP.RouteFinding
 
             int DEST_RWY_INDEX = wptList.Count;
 
-            var rwyLatLon = RouteFindingCore.AirportList.RwyLatLon(icao, rwy);
-            wptList.AddWpt(new WptNeighbor(new Waypoint(icao + rwy, rwyLatLon)));
+            var rwyLatLon = airportList.RwyLatLon(icao, rwy);
+            wptList.AddWpt(icao + rwy, rwyLatLon.Lat, rwyLatLon.Lon);
 
             if (star.Count == 0)
             {
                 //case 1: the star list is empty, find nearby wpts and use DCT
 
-                List<Neighbor> nearbyWpts = Utilities.sidStarToAirwayConnection("", rwyLatLon, 0);
+                var nearbyWpts = Utilities.sidStarToAirwayConnection("", rwyLatLon, 0);
 
                 foreach (var i in nearbyWpts)
                 {
@@ -141,13 +144,12 @@ namespace QSP.RouteFinding
 
             var destRwyAsNeighbor = new Neighbor(DEST_RWY_INDEX, star, starDis);
 
-            if (firstWptIndex < 0)
+            if (wptList.NumberOfNodeFrom(firstWptIndex) == 0)
             {
                 //case 2: when the connecting wpt(i.e. the first wpt in the star) is not found in ats.txt
 
                 //add the first wpt to wptList
-                wptList.AddWpt(new WptNeighbor(firstWpt));
-                wptList.AddNeighbor(wptList.Count - 1, destRwyAsNeighbor);
+                wptList.AddNeighbor(firstWptIndex, destRwyAsNeighbor);
 
                 //now find nearby waypoints of firstWpt of star
                 var nearbyWpts = Utilities.sidStarToAirwayConnection("DCT", firstWpt.LatLon, 0);
@@ -155,7 +157,7 @@ namespace QSP.RouteFinding
                 foreach (var pt in nearbyWpts)
                 {
                     //each pt directs to the firstWpt of star
-                    wptList.AddNeighbor(pt.Index, new Neighbor(wptList.Count - 1, "DCT", pt.Distance));
+                    wptList.AddNeighbor(pt.Index, new Neighbor(firstWptIndex, "DCT", pt.Distance));
                 }
             }
             else
@@ -234,7 +236,7 @@ namespace QSP.RouteFinding
             var commonPart = getStarLatLon(allLines, starNoTransPart, "ALL");
             var rwySpecificPart = getStarLatLon(allLines, starNoTransPart, rwy);
 
-            List<Tuple<List<LatLon>, Waypoint>> nonEmpty = new List<Tuple<List<LatLon>, Waypoint>>();
+            var nonEmpty = new List<Tuple<List<LatLon>, Waypoint>>();
 
             if (transPart != null)
             {
@@ -250,7 +252,7 @@ namespace QSP.RouteFinding
             }
             else
             {
-                //exception
+                //TODO: exception
             }
 
             firstWpt = nonEmpty[0].Item2;
@@ -260,7 +262,7 @@ namespace QSP.RouteFinding
                 latLonList.AddRange(i.Item1);
             }
 
-            latLonList.Add(RouteFindingCore.AirportList.RwyLatLon(icao, rwy));
+            latLonList.Add(airportList.RwyLatLon(icao, rwy));
 
             return new Tuple<double, Waypoint>(Utilities.GetTotalDistance(latLonList), firstWpt);
 

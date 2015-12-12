@@ -271,12 +271,7 @@ namespace QSP.RouteFinding.Containers
         {
             return content[index];
         }
-
-        public Waypoint WaypointAt(int index)
-        {
-            return this[index];
-        }
-
+        
         public LatLon LatLonAt(int index)
         {
             return this[index].LatLon;

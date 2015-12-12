@@ -15,17 +15,19 @@ namespace QSP.RouteFinding
         private string filePath;
         private string icao;
         private TrackedWptList wptList;
+        private AirportDatabase airportList;
 
-        public SidHandler(string icao) : this(AppSettings.NavDBLocation, icao, RouteFindingCore.WptList)
+        public SidHandler(string icao) : this(icao, AppSettings.NavDBLocation, WptList, AirportList)
         {
         }
 
         /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
-        public SidHandler(string navDBLocation, string icao, TrackedWptList wptList)
+        public SidHandler(string icao, string navDBLocation, TrackedWptList wptList, AirportDatabase airportList)
         {
             filePath = navDBLocation + "\\PROC\\" + icao + ".txt";
             this.icao = icao;
             this.wptList = wptList;
+            this.airportList = airportList;
         }
 
         /// <summary>
@@ -38,12 +40,10 @@ namespace QSP.RouteFinding
             //after user selected an rwy, get a list of all sids available
             //first get all lines starting with "SID"
 
-            List<string> result = new List<string>();
+            var result = new List<string>();
             string[] allLines = File.ReadAllLines(filePath);
             string[] line = null;
-
-            List<string> sidsWithTransition = new List<string>();
-
+            var sidsWithTransition = new List<string>();
 
             foreach (var i in allLines)
             {
@@ -59,7 +59,6 @@ namespace QSP.RouteFinding
                     if (line[2] == rwy || (line[2] == "ALL" && Utilities.HasRwySpecificPart(allLines, line[1]) == false))
                     {
                         result.Add(line[1]);
-
                     }
                     else if (Utilities.IsRwyIdent(line[2]) == false && result.IndexOf(line[1]) != -1 && line[2] != "ALL")
                     {
@@ -87,9 +86,6 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Add necessary waypoints for SID computation to WptList, and returns the index of Orig. rwy in WptList.
         /// </summary>
-        /// <param name="rwy"></param>
-        /// <param name="sid"></param>
-        /// <remarks></remarks>
         public int AddSidsToWptList(string rwy, List<string> sid)
         {
             // This breaks down into 4 cases:
@@ -103,16 +99,16 @@ namespace QSP.RouteFinding
                 //case 1
                 //if the sid list is empty, find nearby wpts and use DCT
 
-                var rwyLatLon = AirportList.RwyLatLon(icao, rwy);
+                var rwyLatLon = airportList.RwyLatLon(icao, rwy);
                 var nearbyWpts = Utilities.sidStarToAirwayConnection("DCT", rwyLatLon, 0);
 
-                Waypoint wpt = new Waypoint(icao + rwy, rwyLatLon);
+                var wpt = new Waypoint(icao + rwy, rwyLatLon);
                 wptList.AddWpt(new WptNeighbor(wpt, nearbyWpts));
             }
             else
             {
                 //case 2, 3, 4
-                List<Neighbor> neighbors = new List<Neighbor>();
+                var neighbors = new List<Neighbor>();
                 //now we get a list of neighbors of dep. runway
 
                 foreach (var i in sid)
@@ -128,16 +124,18 @@ namespace QSP.RouteFinding
                     }
                 }
 
-                WptNeighbor wptToAdd = new WptNeighbor(new Waypoint(icao + rwy, AirportList.RwyLatLon(icao, rwy)), neighbors);
+                var wptToAdd = new WptNeighbor(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)), neighbors);
                 wptList.AddWpt(wptToAdd);
 
             }
             return wptList.Count - 1;
         }
 
+        /// <summary>
+        /// Gets a tuple containing the name of SID/STAR and transition.
+        /// </summary>
         public static Tuple<string, string> SplitSidStarTransition(string sidStar)
         {
-
             string sidName = null;
             string transName = null;
 
@@ -151,22 +149,15 @@ namespace QSP.RouteFinding
                 sidName = sidStar;
                 transName = "";
             }
-
             return new Tuple<string, string>(sidName, transName);
-
         }
 
         /// <summary>
         /// Returns a list of waypoints, starting from the dep. runway to the last waypoint of transition (if there is one). 
         /// The boolean indicates whether the last waypoint is a vector.
         /// </summary>
-        /// <param name="rwy"></param>
-        /// <param name="sid"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
         private Tuple<List<Waypoint>, bool> importSidFromFile(string rwy, string sid)
         {
-
             string[] allLines = File.ReadAllLines(filePath);
 
             var sidNameSplit = SplitSidStarTransition(sid);
@@ -174,36 +165,33 @@ namespace QSP.RouteFinding
             var transName = sidNameSplit.Item2;
 
             var sidWptComplete = getAllWptSidComplete(allLines, sidName, transName, rwy);
-            List<Waypoint> sidWpts = new List<Waypoint>();
-            sidWpts.Add(new Waypoint(icao + rwy, AirportList.RwyLatLon(icao, rwy)));
+            var sidWpts = new List<Waypoint>();
+            sidWpts.Add(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
             sidWpts.AddRange(sidWptComplete.Item1);
 
             return new Tuple<List<Waypoint>, bool>(sidWpts, sidWptComplete.Item2);
-
         }
 
         private List<Neighbor> getSidEndPoints(string rwy, string sid)
         {
-
             var importResult = importSidFromFile(rwy, sid);
             var sidWpts = importResult.Item1;
             bool lastWptIsVector = importResult.Item2;
 
-            List<Neighbor> endPoints = new List<Neighbor>();
+            var endPoints = new List<Neighbor>();
 
-            if (lastWptIsVector == true)
+            if (lastWptIsVector)
             {
                 //case 2: the last wpt is a vector
                 //Then find some nearby navaids to join an airway
 
                 endPoints = Utilities.sidStarToAirwayConnection(sid, sidWpts.Last().LatLon, Utilities.GetTotalDistance(sidWpts));
                 // he sid will be displayed like: EWR1 JERSY [airway] ... to the user
-
             }
             else
             {
                 //case 3, 4
-                Neighbor lastWptSid = new Neighbor();
+                var lastWptSid = new Neighbor();
                 lastWptSid.Index = wptList.FindByWaypoint(sidWpts.Last());
 
                 if (lastWptSid.Index < 0)
@@ -240,8 +228,6 @@ namespace QSP.RouteFinding
         /// </summary>
         /// <param name="allLines"></param>
         /// <param name="startLineNum">The particular SID description should starts at this line number.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
         private Tuple<List<Waypoint>, bool> findAllWptInSidLineNum(string[] allLines, int startLineNum)
         {
             //To get all wpts from this section:
@@ -254,7 +240,7 @@ namespace QSP.RouteFinding
 
             bool lastWptIsVector = false;
             int j = 0;
-            List<Waypoint> result = new List<Waypoint>();
+            var result = new List<Waypoint>();
 
             while (allLines[j + startLineNum].IndexOf(",") != -1)
             {
@@ -277,10 +263,10 @@ namespace QSP.RouteFinding
 
         private Tuple<List<Waypoint>, bool> getAllWptSid(string[] allLines, string sid, string rwyIdent)
         {
-            for (int i = 0; i <= allLines.Length - 1; i++)
+            for (int i = 0; i < allLines.Length; i++)
             {
                 //search each line for the desired sid
-                string[] line = allLines[i].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                string[] line = allLines[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
                 if (line.Length >= 3 && line[0] == "SID" && line[1] == sid && line[2] == rwyIdent)
                 {
@@ -294,8 +280,7 @@ namespace QSP.RouteFinding
 
         private Tuple<List<Waypoint>, bool> getAllWptSidComplete(string[] allLines, string sidName, string transName, string rwyIdent)
         {
-
-            List<Waypoint> wpts = new List<Waypoint>();
+            var wpts = new List<Waypoint>();
             bool lastWptIsVector = false;
 
             var sidWptsRwySpecific = getAllWptSid(allLines, sidName, rwyIdent);
@@ -315,26 +300,19 @@ namespace QSP.RouteFinding
                 lastWptIsVector = sidWptsCommon.Item2;
             }
 
-
             if (transName != "")
             {
                 var sidTrans = getAllWptSid(allLines, sidName, transName);
                 wpts.AddRange(sidTrans.Item1);
                 lastWptIsVector = sidTrans.Item2;
-
             }
 
             return new Tuple<List<Waypoint>, bool>(wpts.WithoutDuplicates(), lastWptIsVector);
-
         }
 
         /// <summary>
         /// Returns total distance of the SID and the lat/lon of the last wpt.
         /// </summary>
-        /// <param name="rwy"></param>
-        /// <param name="sid"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
         public Tuple<double, Waypoint> InfoForAnalysis(string rwy, string sid)
         {
             var importResult = importSidFromFile(rwy, sid);

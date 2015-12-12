@@ -55,7 +55,7 @@ namespace UnitTest
             string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
             string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).Last();
 
-            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler( orig).GetSidList(origRwy), dest, destRwy, new StarHandler( dest).GetStarList(destRwy));
+            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
             string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
             Debug.WriteLine("Generated route: " + rte);
@@ -83,7 +83,7 @@ namespace UnitTest
             string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
             string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).Last();
 
-            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler( orig).GetSidList(origRwy), dest, destRwy, new StarHandler( dest).GetStarList(destRwy));
+            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
             string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
             Debug.WriteLine("Generated route: " + rte);
@@ -111,7 +111,7 @@ namespace UnitTest
             string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
             string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).Last();
 
-            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler( orig).GetSidList(origRwy), dest, destRwy, new StarHandler( dest).GetStarList(destRwy));
+            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
             string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
             Debug.WriteLine("Generated route: " + rte);
@@ -139,7 +139,7 @@ namespace UnitTest
             string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
             string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).First();
 
-            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler( orig).GetSidList(origRwy), dest, destRwy, new StarHandler( dest).GetStarList(destRwy));
+            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
             string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
             Debug.WriteLine("Generated route: " + rte);
@@ -168,9 +168,9 @@ namespace UnitTest
             string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig)[6];
             string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).First();
             var sidList = new List<string>();
-            sidList.Add(new SidHandler( orig).GetSidList(origRwy)[0]);
+            sidList.Add(new SidHandler(orig).GetSidList(origRwy)[0]);
 
-            var genRoute = new RouteFinder().FindRoute(orig, origRwy, sidList, dest, destRwy, new StarHandler( dest).GetStarList(destRwy));
+            var genRoute = new RouteFinder().FindRoute(orig, origRwy, sidList, dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
             string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
             Debug.WriteLine("Generated route: " + rte);
@@ -203,7 +203,7 @@ namespace UnitTest
             string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
             string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).Last();
 
-            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler( orig).GetSidList(origRwy), dest, destRwy, new StarHandler( dest).GetStarList(destRwy));
+            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
             string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
             Debug.WriteLine("Generated route: " + rte);
@@ -224,7 +224,7 @@ namespace UnitTest
         private void genRouteRand(Route oldRte)
         {
 
-            for (int i = oldRte.Waypoints.Count - 5; i >= 3; i --)
+            for (int i = oldRte.Waypoints.Count - 5; i >= 3; i--)
             {
                 oldRte.Waypoints.RemoveAt(i + 1);
                 oldRte.Via.RemoveAt(i);
@@ -245,7 +245,7 @@ namespace UnitTest
             string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
             string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).First();
 
-            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler( orig).GetSidList(origRwy), dest, destRwy, new StarHandler( dest).GetStarList(destRwy));
+            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
             string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
             Debug.WriteLine("Generated route: " + rte);

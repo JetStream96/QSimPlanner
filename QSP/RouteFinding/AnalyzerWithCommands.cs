@@ -110,8 +110,8 @@ namespace QSP.RouteFinding
         {
             if (index >= 1 && index + 1 < input.Length)
             {
-                var pt1 = WptList.WaypointAt(selectWptSameIdent(input[index - 1])).LatLon;
-                var pt2 = WptList.WaypointAt(selectWptSameIdent(input[index + 1])).LatLon;
+                var pt1 = WptList[selectWptSameIdent(input[index - 1])].LatLon;
+                var pt2 = WptList[selectWptSameIdent(input[index + 1])].LatLon;
 
                 return randRouteStr(pt1, pt2);
             }
@@ -158,7 +158,7 @@ namespace QSP.RouteFinding
 
                     if (endPoints.Count > 0)
                     {
-                        nextLatLon = WptList.WaypointAt(selectWptSameIdent(nextWpt)).LatLon;
+                        nextLatLon = WptList[selectWptSameIdent(nextWpt)].LatLon;
                         p = selectSidStar(endPoints.ToArray(), nextLatLon);
 
                         return sidList[p] + " " + endPoints[p].Item2.ID + " " + randRouteStr(endPoints[p].Item2.LatLon, nextLatLon);
@@ -173,10 +173,10 @@ namespace QSP.RouteFinding
 
                 for (int k = 0; k <= sidList.Count - 1; k++)
                 {
-                    endPoints.Add(new Tuple<double, Waypoint>(nearbyPts[k].Distance, WptList.WaypointAt(nearbyPts[k].Index)));
+                    endPoints.Add(new Tuple<double, Waypoint>(nearbyPts[k].Distance, WptList[nearbyPts[k].Index]));
                 }
 
-                nextLatLon = WptList.WaypointAt(selectWptSameIdent(nextWpt)).LatLon;
+                nextLatLon = WptList[selectWptSameIdent(nextWpt)].LatLon;
                 p = selectSidStar(endPoints.ToArray(), nextLatLon);
 
                 return sidList[p] + " " + endPoints[p].Item2.ID + " " + randRouteStr(endPoints[p].Item2.LatLon, nextLatLon);
@@ -227,14 +227,14 @@ namespace QSP.RouteFinding
                     var nearbyPts = Utilities.sidStarToAirwayConnection("DCT", destLatLon, 0.0);
                     endPoints = new Tuple<double, Waypoint>[nearbyPts.Count];
 
-                    for (int k = 0; k <= starList.Count - 1; k++)
+                    for (int k = 0; k < starList.Count ; k++)
                     {
-                        endPoints[k] = new Tuple<double, Waypoint>(nearbyPts[k].Distance, WptList.WaypointAt(nearbyPts[k].Index));
+                        endPoints[k] = new Tuple<double, Waypoint>(nearbyPts[k].Distance, WptList[nearbyPts[k].Index]);
                     }
 
                 }
 
-                var prevLatLon = WptList.WaypointAt(selectWptSameIdent(prevWpt)).LatLon;
+                var prevLatLon = WptList[selectWptSameIdent(prevWpt)].LatLon;
                 int p = selectSidStar(endPoints, prevLatLon);
 
                 return randRouteStr(prevLatLon, endPoints[p].Item2.LatLon) + " " + endPoints[p].Item2.ID + " " + starList[p];
@@ -376,7 +376,7 @@ namespace QSP.RouteFinding
 
             if (index >= 1 && index + 1 < input.Length)
             {
-                var rte = RouteFinder.FindRoute(selectWptSameIdent(input[index - 1]), selectWptSameIdent(input[index + 1]));
+                var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), selectWptSameIdent(input[index + 1]));
                 rte.Waypoints[0] = emptyWpt;
                 rte.Waypoints[rte.Waypoints.Count - 1] = emptyWpt;
 
@@ -435,7 +435,7 @@ namespace QSP.RouteFinding
                 StarHandler starManager = new StarHandler(destIcao);
                 var starList = starManager.GetStarList(destRwy);
 
-                var rte = RouteFinder.FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy, starList);
+                var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy, starList);
                 rte.Waypoints[0] = emptyWpt;
 
                 return rte.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);

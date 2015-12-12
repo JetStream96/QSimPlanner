@@ -26,36 +26,27 @@ namespace QSP.RouteFinding.Tracks.Common
 
             for (int i = 0; i < candidates.Count; i++)
             {
-                var wpt = RouteFindingCore.WptList.WaypointAt(candidates[i]);
+                var wpt = RouteFindingCore.WptList[candidates[i]];
                 dis = MathTools.MathTools.GreatCircleDistance(prevLat, prevLon, wpt.Lat, wpt.Lon);
-
-
+                
                 if (dis < minDis)
                 {
                     minIndex = i;
                     minDis = dis;
-
                 }
-
             }
-
             return candidates[minIndex];
-
         }
-
 
         public static void ConvertLatLonFormat(string[] item)
         {
-
-            for (int i = 0; i <= item.Length - 1; i++)
+            for (int i = 0; i < item.Length; i++)
             {
                 if (LatLonConversion.Is7DigitFormat(item[i]))
                 {
                     item[i] = LatLonConversion.Convert7DigitTo5Digit(item[i]);
                 }
-
             }
-
         }
 
         /// <summary>
@@ -64,7 +55,7 @@ namespace QSP.RouteFinding.Tracks.Common
         public static List<int> NearbyWaypointsInWptList(int count, double lat, double lon)
         {
             var x = RouteFinding.Utilities.sidStarToAirwayConnection("", new LatLon(lat, lon), 0.0);
-            List<int> result = new List<int>();
+            var result = new List<int>();
 
             foreach (var i in x)
             {

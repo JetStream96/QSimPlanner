@@ -793,9 +793,13 @@ namespace QSP
 
         private void GenRteAltnBtnClick(object sender, EventArgs e)
         {
+            // Get a list of sids
+            var sids = new SidHandler(DestTxtBox.Text).GetSidList(DestRwyComboBox.Text);
+            var starAltn = getSidStarList(AltnStarComboBox);
 
-            List<string> starAltn = getSidStarList(AltnStarComboBox);
-            RouteToAltn = new RouteFinder().FindRoute(DestTxtBox.Text, AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn);
+            RouteToAltn = new RouteFinder().FindRoute(DestTxtBox.Text, DestRwyComboBox.Text,sids,
+                                                      AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn);
+
             RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
 
             double directDis = MathTools.MathTools.GreatCircleDistance(RouteToAltn.Waypoints.First().LatLon, RouteToAltn.Waypoints.Last().LatLon);
@@ -937,7 +941,7 @@ namespace QSP
 
                 for (int i = 0; i < indices.Count; i++)
                 {
-                    var wpt = WptList.WaypointAt(indices[i]);
+                    var wpt = WptList[indices[i]];
                     display[i] = "LAT/" + wpt.Lat + "  LON/" + wpt.Lon;
                 }
 
@@ -1128,7 +1132,7 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelFromCBox.Text);
 
-                    Route myRoute = RouteFinder.FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, star);
+                    Route myRoute = new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, star);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(Route.RouteDisplayOption.WaypointToAirport);
                     double directDis = MathTools.MathTools.GreatCircleDistance(myRoute.Waypoints.First().LatLon, myRoute.Waypoints.Last().LatLon);
@@ -1149,7 +1153,7 @@ namespace QSP
                     Vector2D u = extractLatLon(WptSelFromCBox.Text);
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    Route myRoute = RouteFinder.FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y), WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
+                    Route myRoute = new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y), WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(Route.RouteDisplayOption.WaypointToWaypoint);
                     double directDis = MathTools.MathTools.GreatCircleDistance(myRoute.Waypoints.First().LatLon, myRoute.Waypoints.Last().LatLon);
