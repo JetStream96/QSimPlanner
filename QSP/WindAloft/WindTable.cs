@@ -12,6 +12,7 @@ namespace QSP
 
         private double[,] uTable = new double[181, 361];
         private double[,] vTable = new double[181, 361];
+
         public void LoadFromFile(string uFilePath, string vFilePath)
         {
             uTable = importWindTable(uFilePath);
@@ -50,7 +51,7 @@ namespace QSP
                 y = 179;
             }
             return Interpolation.Interpolate(x, x + 1, lat, y, y + 1, lon, getUWindHelper(x, y, para), getUWindHelper(x, y + 1, para),
-                getUWindHelper(x + 1, y, para), getUWindHelper(x + 1, y + 1, para));
+                                             getUWindHelper(x + 1, y, para), getUWindHelper(x + 1, y + 1, para));
         }
 
         private double getUWindHelper(int lat, int lon, TableOption para)
@@ -86,7 +87,7 @@ namespace QSP
                 int k = 0;
                 double l = 0;
                 //the first row is the name of the columns, which should be omitted
-                for (int i = 1; i <= allLines.Length - 1; i++)
+                for (int i = 1; i < allLines.Length; i++)
                 {
                     t = allLines[i].Split(',');
                     j = (int)(Math.Round(Convert.ToDouble(t[2])) + 90);

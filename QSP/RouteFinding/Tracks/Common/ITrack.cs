@@ -6,7 +6,6 @@ namespace QSP.RouteFinding.Tracks.Common
 
     public interface ITrack
     {
-
         string Ident { get; }
         ReadOnlyCollection<string> MainRoute { get; }
         string TimeStart { get; }

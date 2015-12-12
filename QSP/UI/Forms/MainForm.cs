@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using QSP.RouteFinding.Airports;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
 using static QSP.AviationTools.AviationConstants;
@@ -1218,7 +1219,7 @@ namespace QSP
         #region "TakeOffPart"
 
 
-        private AirportData takeoffAirport;
+        private Airport takeoffAirport;
         private bool InitializeFinished_TO = false;
         private string AC_Req;
         private WeightUnit TOWT_Req_Unit;
@@ -1573,7 +1574,7 @@ namespace QSP
         public WeightUnit LDG_fuel_prediction_unit;
         private bool InitializeFinished_LDG = false;
 
-        private AirportData landingAirport;
+        private Airport landingAirport;
 
         private void AD_LDG_TextChanged(object sender, EventArgs e)
         {

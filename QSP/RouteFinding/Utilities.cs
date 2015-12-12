@@ -37,7 +37,7 @@ namespace QSP.RouteFinding
                 {
                     if (int.TryParse(str.Substring(0, 2), out i))
                     {
-                        if (i > 0 & i <= 36)
+                        if (i > 0 && i <= 36)
                         {
                             return true;
                         }
@@ -45,7 +45,6 @@ namespace QSP.RouteFinding
                 }
             }
             return false;
-
         }
 
         public static int HasCorrds(string fixType)
@@ -69,9 +68,9 @@ namespace QSP.RouteFinding
             //in nm
             if (latLons.Count < 2)
             {
-                return 0;
+                return 0.0;
             }
-            double dis = 0;
+            double dis = 0.0;
 
             for (int i = 0; i < latLons.Count - 1; i++)
             {
@@ -101,11 +100,11 @@ namespace QSP.RouteFinding
             foreach (var i in allLines)
             {
                 string[] t = i.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
                 if (t.Length >= 3 && t[1] == sidOrStarNameNoTrans && IsRwyIdent(t[2]))
                 {
                     return true;
                 }
-
             }
             return false;
         }

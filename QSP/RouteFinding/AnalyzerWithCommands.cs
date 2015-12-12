@@ -1,12 +1,12 @@
+using QSP.AviationTools;
+using QSP.Core;
+using QSP.RouteFinding.Containers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using QSP.RouteFinding.Containers;
-using QSP.Core;
-using QSP.AviationTools;
-using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.RouteFinding.Constants;
+using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding
 {
@@ -372,8 +372,6 @@ namespace QSP.RouteFinding
         /// <param name="index">Index of "AUTO" in input() array.</param>
         private string tryParseAutoAsMiddle(string[] input, int index)
         {
-
-
             if (index >= 1 && index + 1 < input.Length)
             {
                 var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), selectWptSameIdent(input[index + 1]));
@@ -381,17 +379,13 @@ namespace QSP.RouteFinding
                 rte.Waypoints[rte.Waypoints.Count - 1] = emptyWpt;
 
                 return rte.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
-
             }
-
             return null;
-
         }
 
         /// <param name="index">Index of "AUTO" in input() array.</param>
         private string tryParseAutoAsFirst(string[] input, int index)
         {
-
             string nextWpt = null;
 
             //auto find SID 
@@ -432,7 +426,7 @@ namespace QSP.RouteFinding
                 prevWpt = input[index - 1];
 
                 //find all stars
-                StarHandler starManager = new StarHandler(destIcao);
+                var starManager = new StarHandler(destIcao);
                 var starList = starManager.GetStarList(destRwy);
 
                 var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy, starList);
@@ -451,17 +445,15 @@ namespace QSP.RouteFinding
 
         private List<int> commandLocations(string[] input, string command)
         {
+            var result = new List<int>();
 
-            List<int> result = new List<int>();
-
-            for (int i = 0; i <= input.Length - 1; i++)
+            for (int i = 0; i < input.Length ; i++)
             {
                 if (input[i] == command)
                 {
                     result.Add(i);
                 }
             }
-
             return result;
         }
 
@@ -493,29 +485,24 @@ namespace QSP.RouteFinding
                         chosenIndex = i;
                     }
                 }
-
                 return chosenIndex;
-
             }
             else
             {
                 return -1;
             }
-
         }
-
+               
+        /// <exception cref="InvalidIdentifierException"></exception>
         private int selectWptSameIdent(string ident)
         {
-
             int indexWptList = findWptList(ident);
 
             if (indexWptList >= 0)
             {
                 return indexWptList;
             }
-
             throw new InvalidIdentifierException();
-
         }
 
     }

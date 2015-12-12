@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
+using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding
 {
@@ -14,11 +15,11 @@ namespace QSP.RouteFinding
     {
         private string navDBLoation;
         private TrackedWptList wptList;
-        private AirportDatabase airportList;
+        private AirportManager airportList;
 
         public RouteFinder() : this(QspCore.AppSettings.NavDBLocation, WptList, AirportList) { }
 
-        public RouteFinder(string navDBLoation, TrackedWptList wptList, AirportDatabase airportList)
+        public RouteFinder(string navDBLoation, TrackedWptList wptList, AirportManager airportList)
         {
             this.navDBLoation = navDBLoation;
             this.wptList = wptList;

@@ -6,6 +6,7 @@ using System.IO;
 using static QSP.Core.QspCore;
 using static QSP.LibraryExtension.Lists;
 using static QSP.RouteFinding.RouteFindingCore;
+using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding
 {
@@ -15,14 +16,14 @@ namespace QSP.RouteFinding
         private string filePath;
         private string icao;
         private TrackedWptList wptList;
-        private AirportDatabase airportList;
+        private AirportManager airportList;
 
         public StarHandler(string icao) : this(icao, AppSettings.NavDBLocation, WptList, AirportList)
         {
         }
 
         /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
-        public StarHandler(string icao, string navDBLocation, TrackedWptList wptList, AirportDatabase airportList)
+        public StarHandler(string icao, string navDBLocation, TrackedWptList wptList, AirportManager airportList)
         {
             filePath = navDBLocation + "\\PROC\\" + icao + ".txt";
             this.icao = icao;

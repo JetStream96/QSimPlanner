@@ -3,6 +3,7 @@ using QSP.RouteFinding.Containers;
 using static QSP.RouteFinding.RouteFindingCore;
 using System.Windows.Forms;
 using System;
+using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding.Data
 {
@@ -21,13 +22,12 @@ namespace QSP.RouteFinding.Data
 
             try
             {
-                AirportList.LoadFromFile(path + "\\Airports.txt");
+                AirportList = new AirportManager(path + "\\Airports.txt");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
-            AirportFinder = AirportList.GenerateSearchGrids();
         }
     }
 }

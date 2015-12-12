@@ -1,6 +1,5 @@
-namespace QSP.RouteFinding
+namespace QSP.RouteFinding.Airports
 {
-
     public class RwyData
     {
 

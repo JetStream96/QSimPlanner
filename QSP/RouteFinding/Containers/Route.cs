@@ -81,7 +81,7 @@ namespace QSP.RouteFinding.Containers
             natIdent = track.Ident;
             natWpts = new Waypoint[track.WptIndex.Count];
 
-            for (int i = 0; i <= natWpts.Length - 1; i++)
+            for (int i = 0; i <natWpts.Length; i++)
             {
                 natWpts[i] = RouteFindingCore.WptList[track.WptIndex[i]];
             }

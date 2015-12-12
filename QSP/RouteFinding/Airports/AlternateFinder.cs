@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using static QSP.RouteFinding.RouteFindingCore;
 
-namespace QSP.RouteFinding
+namespace QSP.RouteFinding.Airports
 {
 
     public static class AlternateFinder
     {
 
-        public static List<AirportData> GetListAltn(string dest, int length)
+        public static List<Airport> GetListAltn(string dest, int length)
         {
             //length: if the max rwy length is smaller than this number then the result will not be shown to the user
             //will return all suitable airports within certain distance until more than 10 results are found
@@ -16,22 +16,22 @@ namespace QSP.RouteFinding
             const int COUNT = 10;
             const double DIS_INCR = 100;
 
-            var result = new List<AirportData>();
+            var result = new List<Airport>();
             var destLatLon = AirportList.AirportLatlon(dest);
 
             double distance = 100.0;
 
             while (result.Count < COUNT)
             {
-                result = filterResults(AirportFinder.Find(destLatLon.Lat, destLatLon.Lon, distance), dest, length);
+                result = filterResults(AirportList.Find(destLatLon.Lat, destLatLon.Lon, distance), dest, length);
                 distance += DIS_INCR;
             }
             return result;
         }
 
-        private static List<AirportData> filterResults(List<AirportData> item, string dest, int length)
+        private static List<Airport> filterResults(List<Airport> item, string dest, int length)
         {
-            var result = new List<AirportData>();
+            var result = new List<Airport>();
 
             foreach (var i in item)
             {

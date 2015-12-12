@@ -85,6 +85,35 @@ namespace QSP.AviationTools
             return new string(result);
         }
 
+        public static string To7DigitFormat(int lat, int lon)
+        {
+            char NS;
+
+            if (lat < 0)
+            {
+                lat = -lat;
+                NS = 'S';
+            }
+            else
+            {
+                NS = 'N';
+            }
+
+            char EW;
+
+            if (lon < 0)
+            {
+                lon = -lon;
+                EW = 'W';
+            }
+            else
+            {
+                EW = 'E';
+            }
+
+            return NS + lat.ToString().PadLeft(2,'0') + EW + lon.ToString().PadLeft(3,'0');
+        }
+
     }
 
 }

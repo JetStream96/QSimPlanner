@@ -80,6 +80,8 @@
     <Compile Include="Core\EnumConversionTools.cs" />
     <Compile Include="Core\Enums.cs" />
     <Compile Include="LibraryExtension\MinHeapModifiable.cs" />
+    <Compile Include="RouteFinding\Airports\AirportManager.cs" />
+    <Compile Include="RouteFinding\Airports\Exceptions.cs" />
     <Compile Include="RouteFinding\Constants.cs" />
     <Compile Include="UI\Forms\OptionsForm.cs">
       <SubType>Form</SubType>
@@ -128,7 +130,7 @@
     <Compile Include="Core\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteFinding\AirwayConnectionFinder.cs" />
-    <Compile Include="RouteFinding\AlternateFinder.cs" />
+    <Compile Include="RouteFinding\Airports\AlternateFinder.cs" />
     <Compile Include="RouteFinding\AnalyzerWithCommands.cs" />
     <Compile Include="RouteFinding\Exceptions.cs" />
     <Compile Include="RouteFinding\FlightPlanExport.cs" />
@@ -143,11 +145,11 @@
     <Compile Include="RouteFinding\Containers\TrackedWptList.cs" />
     <Compile Include="RouteFinding\Containers\Waypoint.cs" />
     <Compile Include="RouteFinding\Containers\WptNeighbor.cs" />
-    <Compile Include="RouteFinding\Data\AirportData.cs" />
-    <Compile Include="RouteFinding\Data\AirportDatabase.cs" />
+    <Compile Include="RouteFinding\Airports\Airport.cs" />
+    <Compile Include="RouteFinding\Airports\AirportDatabase.cs" />
     <Compile Include="RouteFinding\Data\DatabaseLoader.cs" />
     <Compile Include="RouteFinding\Data\LatLonSearchUtility.cs" />
-    <Compile Include="RouteFinding\Data\RwyData.cs" />
+    <Compile Include="RouteFinding\Airports\RwyData.cs" />
     <Compile Include="RouteFinding\Tracks\Exceptions.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsDownloader.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsHandler.cs" />
@@ -360,6 +362,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

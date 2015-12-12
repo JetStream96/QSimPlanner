@@ -86,26 +86,22 @@ namespace QSP.RouteFinding
             appendDestAirportPart(icaoDest, result);
 
             return result.ToString();
-
         }
 
         /// <summary>
         /// Appends the ORIG airport part onto the StringBuilder.
         /// </summary>
-        /// <param name="icao"></param>
-        /// <param name="result"></param>
-
         private static void appendOrigAirportPart(int numWpts, string icao, StringBuilder result)
         {
-            var latLonAlt = RouteFindingCore.AirportList.AirportLatLonAltIcao(icao);
+            var ad = RouteFindingCore.AirportList.Find(icao);
 
             result.AppendLine("Flight plan is built by QSimPlanner.");
             result.AppendLine();
 
             result.Append(numWpts + Environment.NewLine + Environment.NewLine);
             result.Append(icao + Environment.NewLine + "1" + Environment.NewLine + "DIRECT" + Environment.NewLine + "1 ");
-            result.Append(latLonToPMDGRteFormat(latLonAlt.x, latLonAlt.y) + " " + latLonAlt.z);
-            result.AppendLine(Environment.NewLine + "-----" + Environment.NewLine + "1" + Environment.NewLine + "0" + Environment.NewLine + Environment.NewLine + "1" + Environment.NewLine + latLonAlt.z);
+            result.Append(latLonToPMDGRteFormat(ad.Lat, ad.Lon) + " " + ad.Elevation);
+            result.AppendLine(Environment.NewLine + "-----" + Environment.NewLine + "1" + Environment.NewLine + "0" + Environment.NewLine + Environment.NewLine + "1" + Environment.NewLine + ad.Elevation);
             result.Append("-" + Environment.NewLine + "-1000000" + Environment.NewLine + "-1000000" + Environment.NewLine + Environment.NewLine);
 
         }
@@ -113,16 +109,13 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Appends the DEST airport part onto the StringBuilder.
         /// </summary>
-        /// <param name="icao"></param>
-        /// <param name="result"></param>
-
         private static void appendDestAirportPart(string icao, StringBuilder result)
         {
-            Vector3D latLonAlt = RouteFindingCore.AirportList.AirportLatLonAltIcao(icao);
+            var ad = RouteFindingCore.AirportList.Find(icao);
 
             result.Append(icao + Environment.NewLine + "1" + Environment.NewLine + "-" + Environment.NewLine + "1 ");
-            result.Append(latLonToPMDGRteFormat(latLonAlt.x, latLonAlt.y) + " " + latLonAlt.z);
-            result.AppendLine(Environment.NewLine + "-----" + Environment.NewLine + "0" + Environment.NewLine + "0" + Environment.NewLine + Environment.NewLine + "1" + Environment.NewLine + latLonAlt.z);
+            result.Append(latLonToPMDGRteFormat(ad.Lat, ad.Lon) + " " + ad.Elevation);
+            result.AppendLine(Environment.NewLine + "-----" + Environment.NewLine + "0" + Environment.NewLine + "0" + Environment.NewLine + Environment.NewLine + "1" + Environment.NewLine + ad.Elevation);
             result.Append("-" + Environment.NewLine + "-1000000" + Environment.NewLine + "-1000000" + Environment.NewLine + Environment.NewLine);
 
         }

@@ -7,6 +7,7 @@ using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.LibraryExtension.Lists;
 using static QSP.Utilities.ErrorLogger;
 using static QSP.Core.QspCore;
+using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding
 {
@@ -15,14 +16,14 @@ namespace QSP.RouteFinding
         private string filePath;
         private string icao;
         private TrackedWptList wptList;
-        private AirportDatabase airportList;
+        private AirportManager airportList;
 
         public SidHandler(string icao) : this(icao, AppSettings.NavDBLocation, WptList, AirportList)
         {
         }
 
         /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
-        public SidHandler(string icao, string navDBLocation, TrackedWptList wptList, AirportDatabase airportList)
+        public SidHandler(string icao, string navDBLocation, TrackedWptList wptList, AirportManager airportList)
         {
             filePath = navDBLocation + "\\PROC\\" + icao + ".txt";
             this.icao = icao;
@@ -139,10 +140,10 @@ namespace QSP.RouteFinding
             string sidName = null;
             string transName = null;
 
-            if (sidStar.IndexOf(".") != -1)
+            if (sidStar.IndexOf('.') != -1)
             {
-                sidName = sidStar.Substring(0, sidStar.IndexOf("."));
-                transName = sidStar.Substring(sidStar.IndexOf(".") + 1);
+                sidName = sidStar.Substring(0, sidStar.IndexOf('.'));
+                transName = sidStar.Substring(sidStar.IndexOf('.') + 1);
             }
             else
             {
@@ -311,7 +312,7 @@ namespace QSP.RouteFinding
         }
 
         /// <summary>
-        /// Returns total distance of the SID and the lat/lon of the last wpt.
+        /// Returns total distance of the SID and the last wpt.
         /// </summary>
         public Tuple<double, Waypoint> InfoForAnalysis(string rwy, string sid)
         {
