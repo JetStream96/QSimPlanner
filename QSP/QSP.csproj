@@ -85,6 +85,7 @@
     <Compile Include="RouteFinding\Airports\Exceptions.cs" />
     <Compile Include="RouteFinding\Airports\FileLoader.cs" />
     <Compile Include="RouteFinding\Constants.cs" />
+    <Compile Include="RouteFinding\Containers\AtsFileLoader.cs" />
     <Compile Include="RouteFinding\Containers\WptSeachWrapper.cs" />
     <Compile Include="RouteFinding\Data\ICoordinate.cs" />
     <Compile Include="UI\Forms\OptionsForm.cs">

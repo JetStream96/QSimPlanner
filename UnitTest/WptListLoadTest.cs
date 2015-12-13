@@ -5,33 +5,33 @@ namespace UnitTest
 {
 
     [TestClass()]
-	public class WptListLoadTest
-	{
+    public class WptListLoadTest
+    {
 
-		//<TestMethod()> Public Sub WptListLoadOldMethodTest()
+        //<TestMethod()> Public Sub WptListLoadOldMethodTest()
 
-		//    'Dim sw As New Stopwatch
-		//    'sw.Start()
-		//    'DatabaseLoader.loadWptList("F:\FSX\aerosoft\Airbus_Fallback\Navigraph\ats.txt")
-		//    'sw.Stop()
+        //    'Dim sw As New Stopwatch
+        //    'sw.Start()
+        //    'DatabaseLoader.loadWptList("F:\FSX\aerosoft\Airbus_Fallback\Navigraph\ats.txt")
+        //    'sw.Stop()
 
-		//    'Debug.WriteLine("Took {0} ms.", sw.ElapsedMilliseconds)
+        //    'Debug.WriteLine("Took {0} ms.", sw.ElapsedMilliseconds)
 
-		//End Sub
+        //End Sub
 
-		[TestMethod()]
+        [TestMethod()]
 
-		public void WptListLoadNewMethodTest()
-		{
-			Stopwatch sw = new Stopwatch();
-			sw.Start();
-			TrackedWptList t = new TrackedWptList();
-			t.ReadAtsFromFile("F:\\FSX\\aerosoft\\Airbus_Fallback\\Navigraph\\ats.txt");
-			sw.Stop();
+        public void WptListLoadNewMethodTest()
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            TrackedWptList t = new TrackedWptList();
+            new AtsFileLoader(t).ReadAtsFromFile("F:\\FSX\\aerosoft\\Airbus_Fallback\\Navigraph\\ats.txt");
+            sw.Stop();
 
-			Debug.WriteLine("Took {0} ms.", sw.ElapsedMilliseconds);
+            Debug.WriteLine("Took {0} ms.", sw.ElapsedMilliseconds);
 
-		}
+        }
 
-	}
+    }
 }

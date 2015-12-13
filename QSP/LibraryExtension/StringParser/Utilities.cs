@@ -8,6 +8,11 @@ namespace QSP.LibraryExtension.StringParser
 {
     public static class Utilities
     {
+        /// <summary>
+        /// Returns a substring starting from the given position. 
+        /// The last char of this substring is the one before the next appearance of endChar.
+        /// Finally position is moved to the char after endChar.
+        /// </summary>
         public static string ReadString(string item, ref int position, char endChar)
         {
             int x = item.IndexOf(endChar, position);
@@ -16,6 +21,9 @@ namespace QSP.LibraryExtension.StringParser
             return s;
         }
 
+        /// <summary>
+        /// Parse the part of string between startindex and endIndex (inclusive).
+        /// </summary>
         public static int ParseInt(string item, int startindex, int endIndex)
         {
             int result = 0;
@@ -40,6 +48,11 @@ namespace QSP.LibraryExtension.StringParser
             return result * negate;
         }
 
+        /// <summary>
+        /// Parse the part of string starting from the given position, 
+        /// and ends at the char before the next appearance of endChar (or the last char of string).
+        /// Finally position is moved to the char after endChar.
+        /// </summary>
         public static int ParseInt(string item, ref int position, char endChar)
         {
             int result = 0;
@@ -73,6 +86,11 @@ namespace QSP.LibraryExtension.StringParser
             return result * negate;
         }
 
+        /// <summary>
+        /// Parse the part of string starting from the given position, 
+        /// and ends at the char before the next appearance of endChar.
+        /// Finally position is moved to the char after endChar.
+        /// </summary>
         public static double ParseDouble(string item, ref int position, char endChar)
         {
             int endIndex = item.IndexOf(endChar, position + 1);
@@ -81,6 +99,9 @@ namespace QSP.LibraryExtension.StringParser
             return result;
         }
 
+        /// <summary>
+        /// Parse the part of string between startindex and endIndex (inclusive).
+        /// </summary>
         public static double ParseDouble(string item, int startindex, int endIndex)
         {
             double result = 0.0;

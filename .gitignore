@@ -1,5 +1,6 @@
 *.suo
 *.psess
+*.vsp
 
 QSP/bin
 QSP/obj

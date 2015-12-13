@@ -8,6 +8,9 @@ using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.RouteFinding.Airports
 {
+    /// <summary>
+    /// Read from file and reads the airport.txt into an instance of AirportDatabase.
+    /// </summary>
     public class FileLoader
     {
         private string filepath;
@@ -55,8 +58,6 @@ namespace QSP.RouteFinding.Airports
                         continue;
                     }
 
-                    int pos = 0;
-
                     if (i[0] == 'A')
                     {
                         if (isFirst == false)
@@ -72,7 +73,8 @@ namespace QSP.RouteFinding.Airports
                             isFirst = false;
                         }
 
-                        pos = i.IndexOf(',') + 1;
+                        int pos = i.IndexOf(',') + 1;
+
                         icao = ReadString(i, ref pos, ',');
                         name = ReadString(i, ref pos, ',');
                         lat = ParseDouble(i, ref pos, ',');
@@ -93,6 +95,9 @@ namespace QSP.RouteFinding.Airports
                     throw new RwyDatabaseFormatException("Incorrect format in runway database is found.", ex);
                 }
             }
+            // Add the last airport.
+            airportDB.Add(new Airport(icao, name, lat, lon, elevation, transAlt, transLvl, longestRwyLength, rwys));
+
             return airportDB;
         }
 

@@ -7,6 +7,7 @@ using System.Linq;
 using static QSP.MathTools.MathTools;
 using static QSP.Utilities.ErrorLogger;
 using QSP.RouteFinding.Data;
+using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.RouteFinding.Containers
 {
@@ -114,82 +115,7 @@ namespace QSP.RouteFinding.Containers
                 currentTracker = null;
             }
         }
-
-        /// <summary>
-        /// Read all waypoints from ats.txt file.
-        /// </summary>
-        /// <param name="filepath">Path of ats.txt</param>
-        /// <exception cref="LoadWaypointFileException"></exception>
-        public void ReadAtsFromFile(string filepath)
-        {
-            try
-            {
-                TrackChanges = TrackChangesOption.No;
-
-                //add error handling
-                string[] allLines = File.ReadAllLines(filepath);
-                string[] line = null;
-                string currentAirway = "";
-
-                foreach (var i in allLines)
-                {
-                    if (i == "")
-                    {
-                        continue;
-                    }
-
-                    line = i.Split(',');
-
-                    if (line.Length == 3)
-                    {
-                        //this line is an airway identifier
-                        currentAirway = line[1];
-                    }
-                    else if (line.Length >= 10)
-                    {
-                        //this line is waypoint
-
-                        Waypoint secondWpt = new Waypoint((line[4]), Convert.ToDouble(line[5]), Convert.ToDouble(line[6]));
-                        Neighbor secondWptAsNeighbor = null;
-                        Waypoint firstWpt = new Waypoint(line[1], Convert.ToDouble(line[2]), Convert.ToDouble(line[3]));
-
-                        int index1 = FindByWaypoint(firstWpt);
-                        int index2 = FindByWaypoint(secondWpt);
-
-                        //add second waypoint as required
-                        if (index2 >= 0)
-                        {
-                            secondWptAsNeighbor = new Neighbor(index2, currentAirway, Convert.ToDouble(line[9]));
-                        }
-                        else
-                        {
-                            secondWptAsNeighbor = new Neighbor(this.Count, currentAirway, Convert.ToDouble(line[9]));
-                            AddWpt(secondWpt);
-                        }
-
-                        //add first waypoint as required
-                        if (index1 >= 0)
-                        {
-                            AddNeighbor(index1, secondWptAsNeighbor);
-                        }
-                        else
-                        {
-                            AddWpt(firstWpt);
-                            AddNeighbor(this.Count - 1, secondWptAsNeighbor);
-                        }
-                    }
-                }
-
-                TrackChanges = TrackChangesOption.Yes;
-
-            }
-            catch (Exception ex)
-            {
-                WriteToLog(ex);
-                throw new LoadWaypointFileException("Failed to load ats.txt.", ex);  //TODO: show to the user
-            }
-        }
-
+               
         /// <summary>
         /// Loads all waypoints in waypoints.txt.
         /// </summary>
@@ -200,19 +126,22 @@ namespace QSP.RouteFinding.Containers
             TrackChanges = TrackChangesOption.No;
 
             string[] allLines = File.ReadAllLines(filepath);
-            string[] line = null;
 
             foreach (var i in allLines)
             {
                 try
                 {
-                    line = i.Split(',');
-
-                    if (line.Length >= 3)
+                    if (i.Length == 0 || i[0] == ' ')
                     {
-                        AddWpt(line[0], Convert.ToDouble(line[1]), Convert.ToDouble(line[2]));
+                        continue;
                     }
+                    int pos = 0;
 
+                    string id = ReadString(i, ref pos, ',');
+                    double lat = ParseDouble(i, ref pos, ',');
+                    double lon = ParseDouble(i, ref pos, ',');
+
+                    AddWpt(id, lat, lon);
                 }
                 catch (Exception ex)
                 {
