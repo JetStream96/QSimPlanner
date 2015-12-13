@@ -2,7 +2,6 @@ namespace QSP.RouteFinding.Airports
 {
     public class RwyData
     {
-
         public string RwyIdent { get; set; }
         public string Heading { get; set; }
         public int Length { get; set; }

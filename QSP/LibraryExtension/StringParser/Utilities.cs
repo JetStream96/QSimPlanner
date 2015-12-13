@@ -8,6 +8,14 @@ namespace QSP.LibraryExtension.StringParser
 {
     public static class Utilities
     {
+        public static string ReadString(string item, ref int position, char endChar)
+        {
+            int x = item.IndexOf(endChar, position);
+            var s = item.Substring(position, x - position);
+            position = x + 1;
+            return s;
+        }
+
         public static int ParseInt(string item, int startindex, int endIndex)
         {
             int result = 0;
@@ -20,7 +28,7 @@ namespace QSP.LibraryExtension.StringParser
                     result *= 10;
                     result += item[i] - '0';
                 }
-                else if (item[i] == '-' && i==startindex )
+                else if (item[i] == '-' && i == startindex)
                 {
                     negate = -1;
                 }
@@ -30,6 +38,47 @@ namespace QSP.LibraryExtension.StringParser
                 }
             }
             return result * negate;
+        }
+
+        public static int ParseInt(string item, ref int position, char endChar)
+        {
+            int result = 0;
+            short negate = 1;
+
+            for (int i = position; i < item.Length; i++)
+            {
+                if (item[i] >= '0' && item[i] <= '9')
+                {
+                    result *= 10;
+                    result += item[i] - '0';
+                }
+                else if (item[i] == '-' && i == position)
+                {
+                    negate = -1;
+                }
+                else
+                {
+                    if (endChar == item[i])
+                    {
+                        position = i + 1;
+                        return result * negate;
+                    }
+                    else
+                    {
+                        throw new ArgumentException();
+                    }
+                }
+            }
+            position = item.Length;
+            return result * negate;
+        }
+
+        public static double ParseDouble(string item, ref int position, char endChar)
+        {
+            int endIndex = item.IndexOf(endChar, position + 1);
+            double result = ParseDouble(item, position, endIndex - 1);
+            position = endIndex + 1;
+            return result;
         }
 
         public static double ParseDouble(string item, int startindex, int endIndex)
@@ -44,7 +93,7 @@ namespace QSP.LibraryExtension.StringParser
                     result *= 10;
                     result += item[i] - '0';
                 }
-                else if (item[i] == '-' && i == startindex )
+                else if (item[i] == '-' && i == startindex)
                 {
                     negate = -1;
                 }
