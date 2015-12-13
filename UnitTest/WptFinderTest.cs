@@ -1,12 +1,9 @@
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.RouteFinding;
-using QSP;
+using QSP.AviationTools;
+using System.Collections.Generic;
 using static QSP.MathTools.MathTools;
 using static QSP.RouteFinding.RouteFindingCore;
 using static UnitTest.Common.Utilities;
-using QSP.AviationTools;
 
 namespace UnitTest
 {
@@ -44,34 +41,31 @@ namespace UnitTest
                         found = true;
                         break;
                     }
-
                 }
 
                 if (found == false)
                 {
                     return false;
                 }
-
             }
-
             return true;
-
         }
-
+        
         public static List<string> fastMethod(LatLon latLon, double dis)
         {
             var result = WptFinder.Find(latLon.Lat, latLon.Lon, dis);
             List<string> stringResult = new List<string>();
 
-            foreach (int i in result)
+            foreach (var item in result)
             {
-                stringResult.Add(WptList[i].ID);
+                stringResult.Add(WptList[item.Index].ID);
             }
 
             return stringResult;
         }
 
-        public static List<string> slowMethod(LatLon latLon, double dis)
+        
+        public static  List<string> slowMethod(LatLon latLon, double dis)
         {
             List<string> result = new List<string>();
 

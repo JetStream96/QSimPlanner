@@ -1,11 +1,12 @@
 using QSP.AviationTools;
 using System;
 using System.Collections.Generic;
+using QSP.RouteFinding.Data;
+
 namespace QSP
 {
-    public class Waypoint : IComparable<Waypoint>
+    public class Waypoint : IComparable<Waypoint>,ICoordinate  
     {
-
         private string ident;
         private double latitude;
         private double longitude;

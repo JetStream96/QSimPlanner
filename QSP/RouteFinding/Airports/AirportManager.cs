@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static QSP.RouteFinding.LatLonSearchUtility<QSP.RouteFinding.Airports.Airport>;
+using static QSP.RouteFinding.Data.LatLonSearchUtility<QSP.RouteFinding.Airports.Airport>;
 using System.IO;
 using QSP.AviationTools;
+using QSP.RouteFinding.Data;
 
 namespace QSP.RouteFinding.Airports
 {
@@ -25,13 +26,19 @@ namespace QSP.RouteFinding.Airports
         public AirportManager(string filepath)
         {
             airportDB = new AirportDatabase();
+
+            var sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
             LoadFromFile(filepath);
+            sw.Stop();
+            //System.Windows.Forms.MessageBox.Show (string.Format("Took {0} ms.", sw.ElapsedMilliseconds));
+
             generateSearchGrids();
         }
 
         private void generateSearchGrids()
         {
-            airportFinder = new LatLonSearchUtility<Airport>(GridSizeOption.Small, Airport.LatLon);
+            airportFinder = new LatLonSearchUtility<Airport>(GridSizeOption.Small);
             int count = airportDB.Count;
 
             for (int i = 0; i < count; i++)
@@ -45,7 +52,7 @@ namespace QSP.RouteFinding.Airports
         private void LoadFromFile(string filepath)
         {
             string[] allLines = null;
-
+            
             try
             {
                 allLines = File.ReadAllLines(filepath);

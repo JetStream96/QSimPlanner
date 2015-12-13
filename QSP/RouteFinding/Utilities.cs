@@ -146,8 +146,10 @@ namespace QSP.RouteFinding
                 var searchResult = WptFinder.Find(latLon.Lat, latLon.Lon, searchRange);
                 double dctDis = 0;
 
-                foreach (int i in searchResult)
+                foreach (var item in searchResult)
                 {
+                    int i = item.Index;
+
                     if (WptList[i].Neighbors.Count > 0)
                     {
                         dctDis = WptList.LatLonAt(i).Distance(latLon);

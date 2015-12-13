@@ -1,20 +1,16 @@
+using QSP.AviationTools;
+using QSP.LibraryExtension;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.AviationTools;
-using static QSP.MathTools.MathTools;
 using static QSP.AviationTools.AviationConstants;
+using static QSP.MathTools.MathTools;
 
-namespace QSP.RouteFinding
+namespace QSP.RouteFinding.Data
 {
 
-    public class LatLonSearchUtility<T>
+    public class LatLonSearchUtility<T> where T : ICoordinate
     {
-        //lat, lon must be defined on T
-
-        public delegate LatLon LatLonGetter(T item);
-
-        private LatLonGetter latLonOfT;
         private readonly int GRID_SIZE;
         private readonly int POLAR_REGION_SIZE;
 
@@ -24,22 +20,29 @@ namespace QSP.RouteFinding
         private List<T> southPoleContent;
 
         private VisitedList visited;
+        private IEqualityComparer<T> equalComp;
 
-        public LatLonSearchUtility(int gridSize, int polarRegSize, LatLonGetter latLonDelegate)
+        public LatLonSearchUtility(int gridSize, int polarRegSize) : this(gridSize, polarRegSize, EqualityComparer<T>.Default)
+        {
+        }
+
+        public LatLonSearchUtility(int gridSize, int polarRegSize, IEqualityComparer<T> equalComp)
         {
             GRID_SIZE = gridSize;
             POLAR_REGION_SIZE = polarRegSize;
-            latLonOfT = latLonDelegate;
-
+            this.equalComp = equalComp;
             prepareSearch();
         }
 
-        public LatLonSearchUtility(GridSizeOption para, LatLonGetter latLonDelegate)
+        public LatLonSearchUtility(GridSizeOption para) : this(para, EqualityComparer<T>.Default)
+        {
+        }
+
+        public LatLonSearchUtility(GridSizeOption para, IEqualityComparer<T> equalComp)
         {
             switch (para)
             {
                 case GridSizeOption.Small:
-
                     GRID_SIZE = 2;
                     POLAR_REGION_SIZE = 5;
                     break;
@@ -49,8 +52,7 @@ namespace QSP.RouteFinding
                     POLAR_REGION_SIZE = 15;
                     break;
             }
-
-            latLonOfT = latLonDelegate;
+            this.equalComp = equalComp;
             prepareSearch();
         }
 
@@ -85,46 +87,44 @@ namespace QSP.RouteFinding
 
         public void Add(T item)
         {
-            var latLon = latLonOfT(item);
-
-            if (latLon.Lat >= 90 - POLAR_REGION_SIZE)
+            if (item.Lat >= 90 - POLAR_REGION_SIZE)
             {
                 northPoleContent.Add(item);
             }
-            else if (latLon.Lat < -90 + POLAR_REGION_SIZE)
+            else if (item.Lat < -90 + POLAR_REGION_SIZE)
             {
                 southPoleContent.Add(item);
             }
             else
             {
-                addContent(indicesInContent(latLon.Lat, latLon.Lon), item);
+                addContent(indicesInContent(item.Lat, item.Lon), item);
             }
         }
 
-        private void addContent(Tuple<int, int> indices, T item)
+        private void addContent(Pair<int, int> indices, T item)
         {
             content[indices.Item1, indices.Item2].Add(item);
         }
 
-        private Tuple<int, int> indicesInContent(double lat, double lon)
+        private Pair <int, int> indicesInContent(double lat, double lon)
         {
             if (lon == 180.0)
             {
                 lon = -180.0;
             }
-            return new Tuple<int, int>((int)(Math.Floor((lat + 90.0 - POLAR_REGION_SIZE) / GRID_SIZE)),
-                                       (int)(Math.Floor((lon + 180.0) / GRID_SIZE)));
+            return new Pair<int, int>((int)((lat + 90.0 - POLAR_REGION_SIZE) / GRID_SIZE),
+                                       (int)((lon + 180.0) / GRID_SIZE));
         }
 
-        private Tuple<int, int> getGrid(double lat, double lon)
+        private Pair<int, int> getGrid(double lat, double lon)
         {
             if (lat >= 90 - POLAR_REGION_SIZE)
             {
-                return new Tuple<int, int>(-1, 1);
+                return new Pair<int, int>(-1, 1);
             }
             else if (lat < -90 + POLAR_REGION_SIZE)
             {
-                return new Tuple<int, int>(-1, -1);
+                return new Pair<int, int>(-1, -1);
             }
             else
             {
@@ -135,8 +135,8 @@ namespace QSP.RouteFinding
         public List<T> Find(double lat, double lon, double distance)
         {
             var result = new List<T>();
-            var possibleGrids = new List<Tuple<int, int>>();
-            var pending = new Queue<Tuple<int, int>>();
+            var possibleGrids = new List<Pair<int, int>>();
+            var pending = new Queue<Pair<int, int>>();
 
             pending.Enqueue(getGrid(lat, lon));
             //(-1,-1) for south pole, (-1,1) for north pole
@@ -148,7 +148,7 @@ namespace QSP.RouteFinding
 
                 foreach (var k in itemsInGrid(current))
                 {
-                    if (GreatCircleDistance(new LatLon(lat, lon), latLonOfT(k)) <= distance)
+                    if (GreatCircleDistance(lat, lon, k.Lat, k.Lon) <= distance)
                     {
                         result.Add(k);
                     }
@@ -166,12 +166,11 @@ namespace QSP.RouteFinding
                     }
                 }
             }
-
             visited.Undo();
             return result;
         }
 
-        private List<T> itemsInGrid(Tuple<int, int> item)
+        private List<T> itemsInGrid(Pair<int, int> item)
         {
             if (item.Item1 == -1)
             {
@@ -192,8 +191,7 @@ namespace QSP.RouteFinding
 
         public bool Remove(T item)
         {
-            var latlon = latLonOfT(item);
-            var gridItems = itemsInGrid(getGrid(latlon.Lat, latlon.Lon));
+            var gridItems = itemsInGrid(getGrid(item.Lat, item.Lon));
 
             for (int i = 0; i < gridItems.Count; i++)
             {
@@ -209,7 +207,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Among all points in the grid, finds the smallest distance from the given lat/lon (in NM).
         /// </summary>
-        private double minDis(double lat, double lon, Tuple<int, int> grid)
+        private double minDis(double lat, double lon, Pair<int, int> grid)
         {
             var pt = new LatLon(lat, lon);
             var center = gridCenterLatLon(grid);
@@ -235,7 +233,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private LatLon gridCenterLatLon(Tuple<int, int> item)
+        private LatLon gridCenterLatLon(Pair<int, int> item)
         {
             if (item.Item1 == -1)
             {
@@ -254,7 +252,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private List<Tuple<int, int>> gridNeighbor(Tuple<int, int> item)
+        private List<Pair<int, int>> gridNeighbor(Pair<int, int> item)
         {
             if (item.Item1 == -1)
             {
@@ -270,35 +268,35 @@ namespace QSP.RouteFinding
             }
             else
             {
-                List<Tuple<int, int>> result = new List<Tuple<int, int>>();
+                var result = new List<Pair<int, int>>();
 
                 int x = content.GetLength(0);
                 int y = content.GetLength(1);
 
-                result.Add(new Tuple<int, int>(item.Item1, (item.Item2 + 1) % y));
+                result.Add(new Pair<int, int>(item.Item1, (item.Item2 + 1) % y));
                 //east
-                result.Add(new Tuple<int, int>(item.Item1, (item.Item2 - 1 + y) % y));
+                result.Add(new Pair<int, int>(item.Item1, (item.Item2 - 1 + y) % y));
                 //west
 
                 if (item.Item1 + 1 == x)
                 {
-                    result.Add(new Tuple<int, int>(-1, 1));
+                    result.Add(new Pair<int, int>(-1, 1));
                     //north pole
                 }
                 else
                 {
-                    result.Add(new Tuple<int, int>(item.Item1 + 1, item.Item2));
+                    result.Add(new Pair<int, int>(item.Item1 + 1, item.Item2));
                     //north
                 }
 
                 if (item.Item1 == 0)
                 {
-                    result.Add(new Tuple<int, int>(-1, -1));
+                    result.Add(new Pair<int, int>(-1, -1));
                     //south pole
                 }
                 else
                 {
-                    result.Add(new Tuple<int, int>(item.Item1 - 1, item.Item2));
+                    result.Add(new Pair<int, int>(item.Item1 - 1, item.Item2));
                     //south
                 }
                 return result;
@@ -311,9 +309,9 @@ namespace QSP.RouteFinding
             North
         }
 
-        private List<Tuple<int, int>> getPoleNeighbor(poleType para)
+        private List<Pair<int, int>> getPoleNeighbor(poleType para)
         {
-            List<Tuple<int, int>> result = new List<Tuple<int, int>>();
+            var result = new List<Pair<int, int>>();
             int firstIndex = 0;
 
             if (para == poleType.North)
@@ -325,9 +323,9 @@ namespace QSP.RouteFinding
                 firstIndex = 0;
             }
 
-            for (int i = 0; i <= content.GetLength(1) - 1; i++)
+            for (int i = 0; i < content.GetLength(1); i++)
             {
-                result.Add(new Tuple<int, int>(firstIndex, i));
+                result.Add(new Pair<int, int>(firstIndex, i));
             }
             return result;
         }
@@ -336,25 +334,23 @@ namespace QSP.RouteFinding
 
         private class VisitedList
         {
-
             private bool[,] visited;
             private bool northPoleVisted;
             private bool southPoleVisited;
-            private List<Tuple<int, int>> changedItems;
+            private List<Pair<int, int>> changedItems;
 
             public VisitedList(int item1, int item2)
             {
                 visited = new bool[item1 + 1, item2 + 1];
                 setVisitedFlag();
-                changedItems = new List<Tuple<int, int>>();
+                changedItems = new List<Pair<int, int>>();
             }
-
 
             private void setVisitedFlag()
             {
-                for (int i = 0; i <= visited.GetLength(0) - 1; i++)
+                for (int i = 0; i < visited.GetLength(0); i++)
                 {
-                    for (int j = 0; j <= visited.GetLength(1) - 1; j++)
+                    for (int j = 0; j < visited.GetLength(1); j++)
                     {
                         visited[i, j] = false;
                     }
@@ -363,15 +359,13 @@ namespace QSP.RouteFinding
                 southPoleVisited = false;
             }
 
-
-            public void SetVisited(Tuple<int, int> item)
+            public void SetVisited(Pair<int, int> item)
             {
                 setVisitedProperty(item, true);
                 changedItems.Add(item);
             }
 
-
-            private void setVisitedProperty(Tuple<int, int> item, bool value)
+            private void setVisitedProperty(Pair<int, int> item, bool value)
             {
                 if (item.Item1 == -1)
                 {
@@ -383,14 +377,12 @@ namespace QSP.RouteFinding
                     {
                         southPoleVisited = value;
                     }
-
                 }
                 else
                 {
                     visited[item.Item1, item.Item2] = value;
                 }
             }
-
 
             public void Undo()
             {
@@ -401,7 +393,7 @@ namespace QSP.RouteFinding
                 changedItems.Clear();
             }
 
-            public bool IsVisited(Tuple<int, int> item)
+            public bool IsVisited(Pair<int, int> item)
             {
                 if (item.Item1 == -1)
                 {

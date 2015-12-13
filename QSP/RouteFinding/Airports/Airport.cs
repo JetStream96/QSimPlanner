@@ -1,11 +1,11 @@
 using QSP.AviationTools;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using QSP.RouteFinding.Data;
 
 namespace QSP.RouteFinding.Airports
 {
-
-    public class Airport
+    public class Airport : ICoordinate
     {
         #region Fields
 
@@ -42,8 +42,8 @@ namespace QSP.RouteFinding.Airports
 
         #endregion
 
-        public Airport(string Icao, string Name, double Lat, double Lon, int Elevation, int TransAlt, 
-                       int TransLvl, int LongestRwyLength,List<RwyData> Rwys)
+        public Airport(string Icao, string Name, double Lat, double Lon, int Elevation, int TransAlt,
+                       int TransLvl, int LongestRwyLength, List<RwyData> Rwys)
         {
             _icao = Icao;
             _name = Name;

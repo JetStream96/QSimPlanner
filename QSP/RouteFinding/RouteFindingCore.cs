@@ -4,6 +4,7 @@ using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Pacots;
 using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Data;
 
 namespace QSP.RouteFinding
 {
@@ -13,7 +14,7 @@ namespace QSP.RouteFinding
 		//All DB used is Aerosoft Airbus X v1.22 or later
 
 		public static TrackedWptList WptList;
-		public static LatLonSearchUtility<int> WptFinder;
+		public static LatLonSearchUtility<WptSeachWrapper> WptFinder;
 
 		public static AirportManager AirportList;
 

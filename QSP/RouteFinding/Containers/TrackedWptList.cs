@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using static QSP.MathTools.MathTools;
 using static QSP.Utilities.ErrorLogger;
+using QSP.RouteFinding.Data;
 
 namespace QSP.RouteFinding.Containers
 {
@@ -185,7 +186,7 @@ namespace QSP.RouteFinding.Containers
             catch (Exception ex)
             {
                 WriteToLog(ex);
-                throw new LoadWaypointFileException("Failed to load ats.txt.",ex);  //TODO: show to the user
+                throw new LoadWaypointFileException("Failed to load ats.txt.", ex);  //TODO: show to the user
             }
         }
 
@@ -271,7 +272,7 @@ namespace QSP.RouteFinding.Containers
         {
             return content[index];
         }
-        
+
         public LatLon LatLonAt(int index)
         {
             return this[index].LatLon;
@@ -388,7 +389,7 @@ namespace QSP.RouteFinding.Containers
                                     content[m.Index].NumNodeFrom--;
                                 }
                                 searchHelper.Remove(this[k].ID, k, HashMap<string, int>.RemoveParameter.RemoveFirst);
-                                RouteFindingCore.WptFinder.Remove(k);
+                                RouteFindingCore.WptFinder.Remove(new WptSeachWrapper(k));
                             }
                             content.RemoveRange(regionStart, regionEnd - regionStart + 1);
                         }
@@ -430,13 +431,13 @@ namespace QSP.RouteFinding.Containers
             AddingAusots
         }
 
-        public LatLonSearchUtility<int> GenerateSearchGrids()
+        public LatLonSearchUtility<WptSeachWrapper> GenerateSearchGrids()
         {
-            LatLonSearchUtility<int> searchGrid = new LatLonSearchUtility<int>(1, 5, RouteFindingCore.WptList.LatLonAt);
+            var searchGrid = new LatLonSearchUtility<WptSeachWrapper>(1, 5);
 
             for (int i = 0; i < content.Count; i++)
             {
-                searchGrid.Add(i);
+                searchGrid.Add(new WptSeachWrapper(i, content[i].Lat, content[i].Lon));
             }
 
             return searchGrid;

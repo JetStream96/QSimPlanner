@@ -79,10 +79,13 @@
     <Compile Include="Core\AppOptions.cs" />
     <Compile Include="Core\EnumConversionTools.cs" />
     <Compile Include="Core\Enums.cs" />
+    <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
     <Compile Include="LibraryExtension\MinHeapModifiable.cs" />
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
     <Compile Include="RouteFinding\Airports\Exceptions.cs" />
     <Compile Include="RouteFinding\Constants.cs" />
+    <Compile Include="RouteFinding\Containers\WptSeachWrapper.cs" />
+    <Compile Include="RouteFinding\Data\ICoordinate.cs" />
     <Compile Include="UI\Forms\OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
