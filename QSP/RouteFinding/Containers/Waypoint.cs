@@ -5,8 +5,10 @@ using QSP.RouteFinding.Data;
 
 namespace QSP
 {
-    public class Waypoint : IComparable<Waypoint>,ICoordinate  
+    public class Waypoint : IComparable<Waypoint>, ICoordinate
     {
+        private const double TOLERANCE = 0.00001;
+
         private string ident;
         private double latitude;
         private double longitude;
@@ -55,7 +57,7 @@ namespace QSP
         /// </summary>
         public bool Equals(Waypoint x)
         {
-            if (ID == x.ID && Lat == x.Lat && Lon == x.Lon)
+            if (ID == x.ID && Math.Abs(Lat - x.Lat) < TOLERANCE && Math.Abs(Lon - x.Lon) < TOLERANCE)
             {
                 return true;
             }
