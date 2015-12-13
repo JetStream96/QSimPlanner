@@ -2,9 +2,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Tracks.Common;
 using System.IO;
-using static UnitTest.Common.Utilities;
+using static Test.Common.Utilities;
  
-namespace UnitTest
+namespace Test
 {
 
     [TestClass()]

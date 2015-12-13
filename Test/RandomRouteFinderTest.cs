@@ -4,7 +4,7 @@ using QSP.RouteFinding;
 using QSP;
 using QSP.AviationTools;
 
-namespace UnitTest
+namespace Test
 {
 
     [TestClass()]

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using QSP.RouteFinding.Containers;
 using static QSP.AviationTools.LatLonConversion;
 
-namespace UnitTest.RouteFindingTest.DataGenerators
+namespace Test.RouteFindingTest.DataGenerators
 {
     class WptListGenerator
     {

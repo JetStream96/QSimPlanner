@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.AviationTools;
 
-namespace UnitTest.AviationToolsTest
+namespace Test.AviationToolsTest
 {
     [TestClass()]
 	public class LatLonConversionTest

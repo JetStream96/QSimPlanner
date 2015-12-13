@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.WindAloft;
 using System.Diagnostics;
 
-namespace UnitTest.WindAloft
+namespace Test.WindAloft
 {    
     [TestClass]
     public class LastestDataSetFinderTest

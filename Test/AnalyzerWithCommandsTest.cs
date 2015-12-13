@@ -5,10 +5,10 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Containers;
-using static UnitTest.Common.Utilities;
+using static Test.Common.Utilities;
 using QSP.Core;
 
-namespace UnitTest
+namespace Test
 {
     [TestClass()]
     public class AnalyzerWithCommandsTest

@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.LandingPerfCalculation;
-namespace UnitTest
+namespace Test
 {
 
     [TestClass()]

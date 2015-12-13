@@ -6,7 +6,7 @@ using QSP.RouteFinding.Data;
 using QSP;
 using QSP.Core;
 
-namespace UnitTest.Common
+namespace Test.Common
 {
     public static class Utilities
     {

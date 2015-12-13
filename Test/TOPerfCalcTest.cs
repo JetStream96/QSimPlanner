@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP;
 using QSP.TakeOffPerfCalculation;
-namespace UnitTest
+namespace Test
 {
     [TestClass()]
 	public class TOPerfCalcTest

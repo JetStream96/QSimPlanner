@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static QSP.AviationTools.CoversionTools;
-using static UnitTest.Common.Utilities;
+using static Test.Common.Utilities;
 
-namespace UnitTest.AviationToolsTest
+namespace Test.AviationToolsTest
 {
     [TestClass]
     public class CoversionToolsTest

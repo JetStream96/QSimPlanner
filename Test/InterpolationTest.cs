@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.MathTools;
 using static QSP.MathTools.Interpolation;
 
-namespace UnitTest
+namespace Test
 {
 
     [TestClass()]

@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.LibraryExtension;
 
-namespace UnitTest
+namespace Test
 {
 
     [TestClass()]

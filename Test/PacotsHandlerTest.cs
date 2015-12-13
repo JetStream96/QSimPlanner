@@ -5,10 +5,10 @@ using QSP.RouteFinding.Tracks.Pacots;
 using QSP.RouteFinding;
 using QSP;
 using QSP.RouteFinding.Containers;
-using static UnitTest.Common.Utilities;
+using static Test.Common.Utilities;
 using QSP.Core;
 
-namespace UnitTest
+namespace Test
 {
 
     [TestClass()]

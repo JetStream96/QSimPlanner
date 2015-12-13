@@ -1,13 +1,13 @@
+using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Containers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using QSP.RouteFinding.Containers;
-using static QSP.RouteFinding.RouteFindingCore;
-using static QSP.LibraryExtension.Lists;
-using static QSP.Utilities.ErrorLogger;
 using static QSP.Core.QspCore;
-using QSP.RouteFinding.Airports;
+using static QSP.LibraryExtension.Lists;
+using static QSP.RouteFinding.RouteFindingCore;
+using static QSP.Utilities.ErrorLogger;
 
 namespace QSP.RouteFinding
 {
@@ -81,7 +81,6 @@ namespace QSP.RouteFinding
             }
 
             return result;
-
         }
 
         /// <summary>

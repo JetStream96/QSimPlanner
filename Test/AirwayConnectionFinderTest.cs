@@ -4,10 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Containers;
 using QSP;
-using static UnitTest.Common.Utilities;
+using static Test.Common.Utilities;
 using System.Linq;
 
-namespace UnitTest
+namespace Test
 {
 
     [TestClass()]

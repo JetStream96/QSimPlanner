@@ -3,9 +3,9 @@ using QSP.AviationTools;
 using System.Collections.Generic;
 using static QSP.MathTools.MathTools;
 using static QSP.RouteFinding.RouteFindingCore;
-using static UnitTest.Common.Utilities;
+using static Test.Common.Utilities;
 
-namespace UnitTest
+namespace Test
 {
 
     [TestClass()]

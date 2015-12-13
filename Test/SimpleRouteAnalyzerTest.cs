@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding;
-using static UnitTest.Common.Utilities;
+using static Test.Common.Utilities;
 
-namespace UnitTest
+namespace Test
 {
 
     [TestClass()]

@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding.Tracks.Nats;
 using System.IO;
 
-namespace UnitTest
+namespace Test
 {
 
     [TestClass()]
