@@ -5,5 +5,5 @@
 QSP/bin
 QSP/obj
 /TestResults
-UnitTest/bin
-UnitTest/obj
+Test/bin
+Test/obj
