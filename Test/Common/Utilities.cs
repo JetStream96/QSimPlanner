@@ -28,6 +28,15 @@ namespace Test.Common
             return false;
         }
 
+        public static bool IsBetween(int num,int upper,int lower)
+        {
+            if(num>=upper && num <=lower)
+            {
+                return true;
+            }
+            return false;
+        }
+
         //
         public const string navDBLoc = "F:\\FSX\\aerosoft\\Airbus_Fallback\\Navigraph";
 

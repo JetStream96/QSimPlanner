@@ -15,16 +15,13 @@ using static QSP.UI.Utilities;
 
 namespace QSP
 {
-
     public partial class TracksForm
     {
-
         private MainForm frmMain;
-
         private ImageList myImageList;
+
         private Severity natsAvail;
         private Severity pacotsAvail;
-
         private Severity ausotsAvail;
 
         private void initImages()
@@ -37,38 +34,32 @@ namespace QSP
             myImageList.Images.Add(Properties.Resources.deleteIconLarge);
 
             ListView1.SmallImageList = myImageList;
-
         }
-
 
         private void initCBox()
         {
             CBoxNatsEnabled.SelectedIndex = 0;
             CBoxPacotsEnabled.SelectedIndex = 0;
             CBoxAusotsEnabled.SelectedIndex = 0;
-
         }
 
         public static string TrackString(TrackType item)
         {
-
             switch (item)
             {
                 case TrackType.Nats:
-
                     return "NATs";
+
                 case TrackType.Pacots:
-
                     return "PACOTs";
-                case TrackType.Ausots:
 
+                case TrackType.Ausots:
                     return "AUSOTs";
+
                 default:
                     throw new EnumNotSupportedException();
             }
-
         }
-
 
         private void refreshStatus(TrackType type)
         {
@@ -76,31 +67,25 @@ namespace QSP
             var items = ListView1.Items;
             var text = TrackString(type);
 
-
-            for (int i = items.Count - 1; i >= 0; i --)
+            for (int i = items.Count - 1; i >= 0; i--)
             {
                 if (items[i].Text == text)
                 {
                     items.RemoveAt(i);
                 }
-
             }
 
             addToListView(RouteFindingCore.TrackStatusRecorder.Records, type);
             setPBox(type);
             setMainFormTrackStatus();
-
         }
-
 
         private void initPBoxes()
         {
             PBoxNats.Image = null;
             PBoxPacots.Image = null;
             PBoxAusots.Image = null;
-
         }
-
 
         private void setPBox(TrackType type)
         {
@@ -108,23 +93,20 @@ namespace QSP
             {
                 case TrackType.Nats:
                     PBoxNats.Image = myImageList.Images[(int)natsAvail];
-
                     break;
+
                 case TrackType.Pacots:
                     PBoxPacots.Image = myImageList.Images[(int)pacotsAvail];
-
                     break;
+
                 case TrackType.Ausots:
                     PBoxAusots.Image = myImageList.Images[(int)ausotsAvail];
-
                     break;
-                default:
 
+                default:
                     throw new EnumNotSupportedException();
             }
-
         }
-
 
         private void setAvail(TrackType trkType, Severity severity)
         {
@@ -146,11 +128,9 @@ namespace QSP
 
                     throw new EnumNotSupportedException();
             }
-
         }
-
-
-        private void addToListView(ReadOnlyCollection<QSP.RouteFinding.Tracks.Interaction.StatusRecorder.Entry> records, TrackType para)
+        
+        private void addToListView(ReadOnlyCollection<Entry> records, TrackType para)
         {
             bool noError = true;
 
@@ -181,7 +161,6 @@ namespace QSP
 
         private void setMainFormTrackStatus()
         {
-
             if (natsAvail == Severity.Advisory && pacotsAvail == Severity.Advisory && ausotsAvail == Severity.Advisory)
             {
                 frmMain.LblTrackDownloadStatus.Image = Properties.Resources.GreenLight;
@@ -199,10 +178,8 @@ namespace QSP
                 frmMain.LblTrackDownloadStatus.Image = Properties.Resources.YellowLight;
                 frmMain.LblTrackDownloadStatus.Text = "Tracks: Partly Ready";
             }
-
         }
-
-
+        
         private void TracksForm_Load(object sender, EventArgs e)
         {
             frmMain = MainFormInstance();
@@ -216,10 +193,10 @@ namespace QSP
             pacotsAvail = Severity.Advisory;
             ausotsAvail = Severity.Advisory;
 
+            // The event handlers are added after the form is created. This way the events won't fire at form creation.
             CBoxNatsEnabled.SelectedIndexChanged += CBoxNatsEnabled_SelectedIndexChanged;
             CBoxPacotsEnabled.SelectedIndexChanged += CBoxPacotsEnabled_SelectedIndexChanged;
             CBoxAusotsEnabled.SelectedIndexChanged += CBoxAusotsEnabled_SelectedIndexChanged;
-
         }
 
         private async void BtnNatsDn_Click(object sender, EventArgs e)
@@ -237,7 +214,6 @@ namespace QSP
             await dnAusots();
         }
 
-
         private void CBoxNatsEnabled_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CBoxNatsEnabled.SelectedIndex == 0)
@@ -250,7 +226,6 @@ namespace QSP
                 RouteFindingCore.WptList.DisableNATs();
             }
         }
-
 
         private void CBoxPacotsEnabled_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -265,7 +240,6 @@ namespace QSP
             }
 
         }
-
 
         private void CBoxAusotsEnabled_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -323,13 +297,11 @@ namespace QSP
 
         }
 
-
         private void closeForm(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //Do NOT close this form
             e.Cancel = true;
             this.Hide();
-
         }
 
         private static void initManagers()

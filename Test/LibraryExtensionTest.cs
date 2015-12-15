@@ -5,7 +5,7 @@ namespace Test
 {
 
     [TestClass()]
-    public class LibraryExtensionTest
+    public class LibraryExtensionTesting
     {
 
         [TestMethod()]
