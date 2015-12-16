@@ -13,7 +13,7 @@ namespace QSP.RouteFinding
 {
     public class SidHandler
     {
-        private string filePath;
+        private string[] terminalProcedures;  // The lines of the entire file of, e.g KLAX.txt in \PROC folder.
         private string icao;
         private TrackedWptList wptList;
         private AirportManager airportList;
@@ -23,9 +23,28 @@ namespace QSP.RouteFinding
         }
 
         /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
+        /// <exception cref="LoadSidFileException"></exception>
         public SidHandler(string icao, string navDBLocation, TrackedWptList wptList, AirportManager airportList)
         {
-            filePath = navDBLocation + "\\PROC\\" + icao + ".txt";
+            string fileLocation = navDBLocation + "\\PROC\\" + icao + ".txt";
+
+            try
+            {
+                this.terminalProcedures = File.ReadAllLines(fileLocation);
+            }
+            catch (Exception ex)
+            {
+                throw new LoadSidFileException("Failed to read " + fileLocation + ".", ex);
+            }
+            this.icao = icao;
+            this.wptList = wptList;
+            this.airportList = airportList;
+        }
+
+        /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
+        public SidHandler(string icao, string[] terminalProcedures, TrackedWptList wptList, AirportManager airportList)
+        {
+            this.terminalProcedures = terminalProcedures;
             this.icao = icao;
             this.wptList = wptList;
             this.airportList = airportList;
@@ -42,7 +61,7 @@ namespace QSP.RouteFinding
             //first get all lines starting with "SID"
 
             var result = new List<string>();
-            string[] allLines = File.ReadAllLines(filePath);
+            string[] allLines = terminalProcedures; 
             string[] line = null;
             var sidsWithTransition = new List<string>();
 
@@ -158,7 +177,7 @@ namespace QSP.RouteFinding
         /// </summary>
         private Tuple<List<Waypoint>, bool> importSidFromFile(string rwy, string sid)
         {
-            string[] allLines = File.ReadAllLines(filePath);
+            string[] allLines = terminalProcedures;
 
             var sidNameSplit = SplitSidStarTransition(sid);
             var sidName = sidNameSplit.Item1;
@@ -311,7 +330,9 @@ namespace QSP.RouteFinding
         }
 
         /// <summary>
-        /// Returns total distance of the SID and the last wpt.
+        /// Returns total distance of the SID and the last wpt, regardless whether the last wpt is in wptList.
+        /// If there isn't any waypoint in the SID (e.g. a vector after takeoff), this returns 0 for distance 
+        /// and runway for waypoint (e.g. KLAX25L).
         /// </summary>
         public Tuple<double, Waypoint> InfoForAnalysis(string rwy, string sid)
         {

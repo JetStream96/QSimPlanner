@@ -94,4 +94,15 @@ namespace QSP.RouteFinding
     }
 
 
+    [Serializable]
+    public class LoadSidFileException : Exception
+    {
+        public LoadSidFileException() { }
+        public LoadSidFileException(string message) : base(message) { }
+        public LoadSidFileException(string message, Exception inner) : base(message, inner) { }
+        protected LoadSidFileException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        { }
+    }
 }

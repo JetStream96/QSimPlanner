@@ -27,11 +27,7 @@ namespace QSP.RouteFinding.Containers
 
         public bool Equals(WptSeachWrapper x, WptSeachWrapper y)
         {
-            if (x.Index == y.Index)
-            {
-                return true;
-            }
-            return false;
+            return (x.Index == y.Index);           
         }
 
         public int GetHashCode(WptSeachWrapper obj)

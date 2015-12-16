@@ -66,11 +66,18 @@
     <Compile Include="PacotsHandlerTest.cs" />
     <Compile Include="PacotsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RandomRouteFinderTest.cs" />
     <Compile Include="RouteAnalyzerTest.cs" />
     <Compile Include="RouteFindingTest\RouteFinderTest.cs" />
     <Compile Include="RouteFindingTest\SidHandlerTest.cs" />
-    <Compile Include="RouteFindingTest\DataGenerators\WptListGenerator.cs" />
+    <Compile Include="RouteFindingTest\TestDataGenerators\AirportManagerGenerator.cs" />
+    <Compile Include="RouteFindingTest\TestDataGenerators\WptListGenerator.cs" />
+    <Compile Include="RouteFindingTest\TestDataGenerators\WptListInstance.cs" />
     <Compile Include="SimpleRouteAnalyzerTest.cs" />
     <Compile Include="TOPerfCalcTest.cs" />
     <Compile Include="WindAloft\LastestDataSetFinderTest.cs" />
@@ -84,8 +91,15 @@
     <Content Include="pacotsSample.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RouteFindingTest\TestData\airports.txt" />
-    <Content Include="RouteFindingTest\TestData\PROC\AXYZ.txt" />
+    <Content Include="RouteFindingTest\TestData\airports.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RouteFindingTest\TestData\PROC\AXYZ.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RouteFindingTest\TestData\PROC\AXYZ_WithComments.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Westbound.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -96,7 +110,12 @@
       <Name>QSP</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

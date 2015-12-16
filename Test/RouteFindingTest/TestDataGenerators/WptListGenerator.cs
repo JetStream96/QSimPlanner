@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using QSP.RouteFinding.Containers;
 using static QSP.AviationTools.LatLonConversion;
 
-namespace Test.RouteFindingTest.DataGenerators
+namespace Test.RouteFindingTest.TestDataGenerators
 {
-    class WptListGenerator
+    public class WptListGenerator
     {
         TrackedWptList wptlist = new TrackedWptList();
-
+        
         public TrackedWptList Generate()
         {
             addWpt(90, 0);

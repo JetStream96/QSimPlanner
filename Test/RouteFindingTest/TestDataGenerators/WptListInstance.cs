@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using QSP.RouteFinding.Containers;
+
+namespace Test.RouteFindingTest.TestDataGenerators
+{
+    public static class WptListInstance
+    {
+        public static TrackedWptList WptList = new WptListGenerator().Generate();
+    }
+}
