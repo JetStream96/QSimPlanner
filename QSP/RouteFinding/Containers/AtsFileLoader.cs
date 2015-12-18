@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using static QSP.LibraryExtension.StringParser.Utilities;
 using System.IO;
-using static QSP.RouteFinding.Containers.TrackedWptList;
+using static QSP.RouteFinding.Containers.WaypointList;
 using static QSP.Utilities.ErrorLogger;
 
 namespace QSP.RouteFinding.Containers
 {
     public class AtsFileLoader
     {
-        private TrackedWptList wptList;
+        private WaypointList wptList;
 
-        public AtsFileLoader(TrackedWptList wptList)
+        public AtsFileLoader(WaypointList wptList)
         {
             this.wptList = wptList;
         }

@@ -16,48 +16,11 @@ namespace QSP.RouteFinding.Containers
     /// This is implemented with a hash table, so searching is by waypoint ident is O(1).
     /// This class is NOT thread safe.
     /// </summary>
-    public class TrackedWptList
+    public class WaypointList
     {
-        #region Container
-
-        private class WptData : WptNeighbor
-        {
-            public int NumNodeFrom { get; set; }  //indicates how many other waypoints have this wpt as neighbor
-
-            public List<Neighbor> NeighborList
-            {
-                get
-                {
-                    return _neighborList;
-                }
-                set
-                {
-                    _neighborList = value;
-                }
-            }
-
-            public WptData(string ID, double Lat, double Lon, int NumNodeFrom) : base(ID, Lat, Lon)
-            {
-                this.NumNodeFrom = NumNodeFrom;
-            }
-
-            public WptData(Waypoint waypoint, int NumNodeFrom) : base(waypoint)
-            {
-                this.NumNodeFrom = NumNodeFrom;
-            }
-
-            public WptData(WptNeighbor WptNeighbor, int NumNodeFrom) : base(WptNeighbor)
-            {
-                this.NumNodeFrom = NumNodeFrom;
-            }
-        }
-
-        #endregion
-
         #region Fields
 
-        private HashMap<string, int> searchHelper;
-        private List<WptData> content;
+        private WaypointContainer content;
 
         private List<ChangeTracker> trackerCollection;
         private ChangeTracker currentTracker;
@@ -65,11 +28,10 @@ namespace QSP.RouteFinding.Containers
 
         #endregion
 
-        public TrackedWptList()
+        public WaypointList()
         {
             _trackChanges = TrackChangesOption.No;
-            content = new List<WptData>();
-            searchHelper = new HashMap<string, int>();
+            content = new WaypointContainer(); 
             trackerCollection = new List<ChangeTracker>();
             currentTracker = null;
         }
@@ -155,20 +117,17 @@ namespace QSP.RouteFinding.Containers
 
         public void AddWpt(string ID, double Lat, double Lon)
         {
-            searchHelper.Add(ID, content.Count);
-            content.Add(new WptData(ID, Lat, Lon, 0));
+            content.AddWpt(ID, Lat, Lon);
         }
 
         public void AddWpt(Waypoint item)
         {
-            searchHelper.Add(item.ID, content.Count);
-            content.Add(new WptData(item, 0));
+            content.AddWpt(item);
         }
 
         public void AddWpt(WptNeighbor item)
         {
-            searchHelper.Add(item.ID, content.Count);
-            content.Add(new WptData(item, 0));
+            content.AddWpt(item);
         }
 
         public void AddNeighbor(int index, Neighbor item)
@@ -177,14 +136,12 @@ namespace QSP.RouteFinding.Containers
             {
                 currentTracker.AddNeighborRecord(index);
             }
-            content[index].NeighborList.Add(item);
-            content[item.Index].NumNodeFrom++;
+            content.AddNeighbor(index, item);
         }
 
         public void Clear()
         {
             content.Clear();
-            searchHelper.Clear();
             trackerCollection.Clear();
             currentTracker = null;
         }
@@ -209,7 +166,7 @@ namespace QSP.RouteFinding.Containers
 
         public int NumberOfNodeFrom(int index)
         {
-            return content[index].NumNodeFrom;
+            return content.NumberOfNodeFrom(index);
         }
 
         public int Count
@@ -222,7 +179,7 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public int FindByID(string ident)
         {
-            return searchHelper[ident];
+            return content.FindByID(ident); 
         }
 
         /// <summary>
@@ -230,7 +187,7 @@ namespace QSP.RouteFinding.Containers
         /// </summary> 
         public List<int> FindAllByID(string ident)
         {
-            return searchHelper.AllMatches(ident);
+            return content .FindAllByID (ident);
         }
 
         /// <summary>
@@ -246,19 +203,7 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public int FindByWaypoint(Waypoint wpt)
         {
-            var candidates = searchHelper.AllMatches(wpt.ID);
-
-            if (candidates != null)
-            {
-                foreach (int i in candidates)
-                {
-                    if (this[i].Equals(wpt))
-                    {
-                        return i;
-                    }
-                }
-            }
-            return -1;
+            return content.FindByWaypoint(wpt);
         }
 
         /// <summary>
@@ -266,24 +211,9 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public List<int> FindAllByWaypoint(Waypoint wpt)
         {
-            var candidates = searchHelper.AllMatches(wpt.ID);
-            List<int> results = new List<int>();
-
-            foreach (int i in candidates)
-            {
-                if (content[i].Equals(wpt))
-                {
-                    results.Add(i);
-                }
-            }
-            return results;
+            return content.FindAllByWaypoint(wpt);
         }
-
-        public WptNeighbor Last()
-        {
-            return new WptNeighbor(content.Last());
-        }
-
+        
         private void revertChanges(ChangeCategory para)
         {
             //If _trackChanges is not set to "no" yet, we end current session.

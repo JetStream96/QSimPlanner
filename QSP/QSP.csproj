@@ -80,6 +80,8 @@
     <Compile Include="Core\EnumConversionTools.cs" />
     <Compile Include="Core\Enums.cs" />
     <Compile Include="LibraryExtension\FlexibleList.cs" />
+    <Compile Include="LibraryExtension\ReadOnlyStack.cs" />
+    <Compile Include="LibraryExtension\Stacks.cs" />
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
     <Compile Include="LibraryExtension\MinHeapModifiable.cs" />
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
@@ -87,6 +89,9 @@
     <Compile Include="RouteFinding\Airports\FileLoader.cs" />
     <Compile Include="RouteFinding\Constants.cs" />
     <Compile Include="RouteFinding\Containers\AtsFileLoader.cs" />
+    <Compile Include="RouteFinding\Containers\Enums.cs" />
+    <Compile Include="RouteFinding\Containers\TrackerItem.cs" />
+    <Compile Include="RouteFinding\Containers\WaypointContainer.cs" />
     <Compile Include="RouteFinding\Containers\WptSeachWrapper.cs" />
     <Compile Include="RouteFinding\Data\ICoordinate.cs" />
     <Compile Include="UI\Forms\OptionsForm.cs">
@@ -148,7 +153,7 @@
     <Compile Include="RouteFinding\Containers\ChangeTracker.cs" />
     <Compile Include="RouteFinding\Containers\Neighbor.cs" />
     <Compile Include="RouteFinding\Containers\Route.cs" />
-    <Compile Include="RouteFinding\Containers\TrackedWptList.cs" />
+    <Compile Include="RouteFinding\Containers\WaypointList.cs" />
     <Compile Include="RouteFinding\Containers\Waypoint.cs" />
     <Compile Include="RouteFinding\Containers\WptNeighbor.cs" />
     <Compile Include="RouteFinding\Airports\Airport.cs" />

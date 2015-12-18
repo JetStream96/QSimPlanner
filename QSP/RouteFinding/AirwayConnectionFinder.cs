@@ -13,12 +13,12 @@ namespace QSP.RouteFinding
         private string airway;
         private string identEnd;
 
-        private TrackedWptList wptList;
+        private WaypointList wptList;
         public AirwayConnectionFinder(int indexStart, string airway, string identEnd) : this(indexStart, airway, identEnd, RouteFindingCore.WptList)
         {
         }
 
-        public AirwayConnectionFinder(int indexStart, string airway, string identEnd, TrackedWptList wptList)
+        public AirwayConnectionFinder(int indexStart, string airway, string identEnd, WaypointList wptList)
         {
             this.indexStart = indexStart;
             this.airway = airway;

@@ -15,7 +15,7 @@ namespace QSP.RouteFinding
     {
         private string filePath;
         private string icao;
-        private TrackedWptList wptList;
+        private WaypointList wptList;
         private AirportManager airportList;
 
         public StarHandler(string icao) : this(icao, AppSettings.NavDBLocation, WptList, AirportList)
@@ -23,7 +23,7 @@ namespace QSP.RouteFinding
         }
 
         /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
-        public StarHandler(string icao, string navDBLocation, TrackedWptList wptList, AirportManager airportList)
+        public StarHandler(string icao, string navDBLocation, WaypointList wptList, AirportManager airportList)
         {
             filePath = navDBLocation + "\\PROC\\" + icao + ".txt";
             this.icao = icao;

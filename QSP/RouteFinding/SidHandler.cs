@@ -15,7 +15,7 @@ namespace QSP.RouteFinding
     {
         private string[] terminalProcedures;  // The lines of the entire file of, e.g KLAX.txt in \PROC folder.
         private string icao;
-        private TrackedWptList wptList;
+        private WaypointList wptList;
         private AirportManager airportList;
 
         public SidHandler(string icao) : this(icao, AppSettings.NavDBLocation, WptList, AirportList)
@@ -24,7 +24,7 @@ namespace QSP.RouteFinding
 
         /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
         /// <exception cref="LoadSidFileException"></exception>
-        public SidHandler(string icao, string navDBLocation, TrackedWptList wptList, AirportManager airportList)
+        public SidHandler(string icao, string navDBLocation, WaypointList wptList, AirportManager airportList)
         {
             string fileLocation = navDBLocation + "\\PROC\\" + icao + ".txt";
 
@@ -42,7 +42,7 @@ namespace QSP.RouteFinding
         }
 
         /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
-        public SidHandler(string icao, string[] terminalProcedures, TrackedWptList wptList, AirportManager airportList)
+        public SidHandler(string icao, string[] terminalProcedures, WaypointList wptList, AirportManager airportList)
         {
             this.terminalProcedures = terminalProcedures;
             this.icao = icao;
@@ -103,7 +103,7 @@ namespace QSP.RouteFinding
         }
 
         /// <summary>
-        /// Add necessary waypoints for SID computation to WptList, and returns the index of Orig. rwy in WptList.
+        /// Add necessary waypoints and neighbors for SID computation to WptList, and returns the index of Orig. rwy in WptList.
         /// </summary>
         public int AddSidsToWptList(string rwy, List<string> sid)
         {
@@ -143,7 +143,8 @@ namespace QSP.RouteFinding
                     }
                 }
 
-                var wptToAdd = new WptNeighbor(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)), neighbors);
+                var wptToAdd = new WptNeighbor(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)), 
+                                               neighbors);
                 wptList.AddWpt(wptToAdd);
 
             }
@@ -190,7 +191,8 @@ namespace QSP.RouteFinding
 
             return new Tuple<List<Waypoint>, bool>(sidWpts, sidWptComplete.Item2);
         }
-
+               
+        /// <exception cref="WaypointNotFoundException"></exception>
         private List<Neighbor> getSidEndPoints(string rwy, string sid)
         {
             var importResult = importSidFromFile(rwy, sid);

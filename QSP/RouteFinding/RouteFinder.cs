@@ -14,12 +14,12 @@ namespace QSP.RouteFinding
     public class RouteFinder
     {
         private string navDBLoation;
-        private TrackedWptList wptList;
+        private WaypointList wptList;
         private AirportManager airportList;
 
         public RouteFinder() : this(QspCore.AppSettings.NavDBLocation, WptList, AirportList) { }
 
-        public RouteFinder(string navDBLoation, TrackedWptList wptList, AirportManager airportList)
+        public RouteFinder(string navDBLoation, WaypointList wptList, AirportManager airportList)
         {
             this.navDBLoation = navDBLoation;
             this.wptList = wptList;
@@ -248,7 +248,7 @@ namespace QSP.RouteFinding
             public double b;
             public double c;
 
-            public routeSeachRegionPara(int StartPtIndex, int EndPtIndex, double c, TrackedWptList wptList)
+            public routeSeachRegionPara(int StartPtIndex, int EndPtIndex, double c, WaypointList wptList)
             {
                 this.StartPtIndex = StartPtIndex;
                 this.EndPtIndex = EndPtIndex;

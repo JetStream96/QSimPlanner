@@ -10,9 +10,9 @@ namespace Test.RouteFindingTest.TestDataGenerators
 {
     public class WptListGenerator
     {
-        TrackedWptList wptlist = new TrackedWptList();
+        WaypointList wptlist = new WaypointList();
         
-        public TrackedWptList Generate()
+        public WaypointList Generate()
         {
             addWpt(90, 0);
             addWpt(-90, 0);

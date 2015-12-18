@@ -117,5 +117,15 @@ namespace Test.RouteFindingTest
             Assert.IsTrue(info.Item2.Equals(new QSP.Waypoint("N22E049", 22.0, 49.0)));
         }
 
+        [TestMethod]
+        public void AddToWptList_NoSid()
+        {
+            var manager = GetHandlerAXYZ();
+            manager.AddSidsToWptList("03", new List<string>());
+
+            // Check the nearby waypoints are added
+
+        }
+
     }
 }

@@ -13,7 +13,7 @@ namespace QSP.RouteFinding
 		//===================================== These are critical data for route finding =====================================
 		//All DB used is Aerosoft Airbus X v1.22 or later
 
-		public static TrackedWptList WptList;
+		public static WaypointList WptList;
 		public static LatLonSearchUtility<WptSeachWrapper> WptFinder;
 
 		public static AirportManager AirportList;

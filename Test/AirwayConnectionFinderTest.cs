@@ -84,10 +84,10 @@ namespace Test
 
         }
 
-        private TrackedWptList genOneWayAirway()
+        private WaypointList genOneWayAirway()
         {
 
-            TrackedWptList wpts = new TrackedWptList();
+            WaypointList wpts = new WaypointList();
 
             //index = 0
             wpts.AddWpt(new WptNeighbor(new Waypoint(wptIDGenerator(1))));
@@ -106,10 +106,10 @@ namespace Test
 
         }
 
-        private TrackedWptList genTwoWayAirway()
+        private WaypointList genTwoWayAirway()
         {
 
-            TrackedWptList wpts = new TrackedWptList();
+            WaypointList wpts = new WaypointList();
 
             //index = 0
             wpts.AddWpt(new WptNeighbor(new Waypoint(wptIDGenerator(1))));

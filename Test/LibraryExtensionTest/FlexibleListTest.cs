@@ -215,5 +215,36 @@ namespace Test.LibraryExtensionTest
                 }
             }
         }
+
+        [TestMethod]
+        public void CountPropertyTest()
+        {
+            // New instance
+            var x = new FlexibleList<int>();
+            Assert.AreEqual(0, x.Count);
+
+            // Add elements
+            for (int i = 0; i < 580; i++)
+            {
+                x.Add(i % 10);
+            }
+            Assert.AreEqual(580, x.Count);
+
+            // Remove elements
+            for (int i = 0; i < 8; i++)
+            {
+                x.RemoveAt(i * 15);
+            }
+            Assert.AreEqual(572, x.Count);
+
+            // Add into previously removed spots
+            for (int i = 0; i < 3; i++)
+            {
+                x.Add(i * i);
+            }
+            Assert.AreEqual(575, x.Count);
+            
+        }
+
     }
 }

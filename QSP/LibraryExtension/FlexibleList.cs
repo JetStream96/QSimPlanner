@@ -24,8 +24,6 @@ namespace QSP.LibraryExtension
     /// <summary>
     /// A generic list such that each element added would never change index, unless removed.
     /// Implemeted using an array.
-    /// Total number of elements is NOT known at any time, although 
-    /// it's guranteed that no element has index larger or equal to MaxSize().
     /// </summary>
     public class FlexibleList<T>
     {
@@ -35,6 +33,7 @@ namespace QSP.LibraryExtension
         private Entry[] _items;
         private int _size;
         private int _free;
+        private int _count;
 
         private struct Entry
         {
@@ -53,6 +52,7 @@ namespace QSP.LibraryExtension
             _items = emptyArray;
             _size = 0;
             _free = -1;
+            _count = 0;
         }
 
         public FlexibleList(int capacity)
@@ -64,6 +64,7 @@ namespace QSP.LibraryExtension
             _items = new Entry[capacity];
             _size = 0;
             _free = -1;
+            _count = 0;
         }
 
         public int Add(T item)
@@ -82,6 +83,7 @@ namespace QSP.LibraryExtension
                 increaseCapacity(1);
             }
             _items[_size] = new Entry(-1, item);
+            _count++;
             return _size++;
         }
 
@@ -100,14 +102,15 @@ namespace QSP.LibraryExtension
         /// </summary>
         private int tryFillDeletedSpot(T item)
         {
-            while (_free>=0)
+            while (_free >= 0)
             {
                 if (_free < _size)
                 {
                     int tmp = _free;
                     _free = _items[_free].next;
                     _items[tmp] = new Entry(-1, item);
-                   
+                    _count++;
+
                     return tmp;
                 }
                 else
@@ -136,6 +139,17 @@ namespace QSP.LibraryExtension
             }
         }
 
+        public int Count
+        {
+            get
+            {
+                return _count;
+            }
+        }
+
+        /// <summary>
+        /// The upper bound of indices of elements plus one. 
+        /// </summary>
         public int MaxSize
         {
             get
@@ -169,11 +183,12 @@ namespace QSP.LibraryExtension
             _items = emptyArray;
             _free = -1;
             _size = 0;
+            _count = 0;
         }
 
         private bool isRemoved(int index)
         {
-            if( _items[index].next >=0 || index == _free )
+            if (_items[index].next >= 0 || index == _free)
             {
                 return true;
             }
@@ -182,13 +197,14 @@ namespace QSP.LibraryExtension
 
         public void RemoveAt(int index)
         {
-            if(isRemoved(index))
+            if (isRemoved(index))
             {
                 return;
             }
-            
+
             _items[index].next = _free;
             _free = index;
+            _count--;
         }
 
     }

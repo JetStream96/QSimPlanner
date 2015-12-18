@@ -90,7 +90,8 @@ namespace QSP.RouteFinding
 
             for (int i = 0; i < wpts.Count - 1; i++)
             {
-                dis += wpts[i].LatLon.Distance(wpts[i + 1].LatLon);
+                dis += GreatCircleDistance(wpts[i].Lat, wpts[i].Lon,
+                                           wpts[i + 1].Lat, wpts[i + 1].Lon);
             }
             return dis;
         }
@@ -108,8 +109,7 @@ namespace QSP.RouteFinding
             }
             return false;
         }
-
-
+        
         public static Waypoint FindWpt(string ID, Waypoint lastWpt)
         {
             var matches = WptList.FindAllByID(ID);
@@ -132,7 +132,7 @@ namespace QSP.RouteFinding
         public static List<Neighbor> sidStarToAirwayConnection(string sidStarName, LatLon latLon, double initDis)
         {
             const double SEARCH_RANGE_INCR = 20.0;
-            const double MAX_SEARCH_RANGE = 1000.0;
+            const double MAX_SEARCH_RANGE = MAX_LEG_DIS;
             const int TARGET_NUM = 30;
 
             double searchRange = 0;
@@ -167,8 +167,8 @@ namespace QSP.RouteFinding
                 }
             }
             return wptsOnAirway;
-        }              
-        
+        }
+
     }
 
 }

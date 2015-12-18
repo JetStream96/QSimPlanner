@@ -4,7 +4,7 @@ using System.Linq;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Tracks.Pacots;
 using QSP.RouteFinding.Tracks.Interaction;
-using static QSP.RouteFinding.Containers.TrackedWptList;
+using static QSP.RouteFinding.Containers.WaypointList;
 using static QSP.MathTools.MathTools;
 
 namespace QSP.RouteFinding.Tracks.Common
@@ -13,7 +13,7 @@ namespace QSP.RouteFinding.Tracks.Common
     public abstract class TrackHandler
     {
         protected List<ITrack> allTracks;
-        protected TrackedWptList wptList;
+        protected WaypointList wptList;
 
         public abstract void GetAllTracks();
         public abstract void GetAllTracksAsync();
@@ -23,7 +23,7 @@ namespace QSP.RouteFinding.Tracks.Common
         {
         }
         
-        public TrackHandler(TrackedWptList WptList)
+        public TrackHandler(WaypointList WptList)
         {
             allTracks = new List<ITrack>();
             this.wptList = WptList;
@@ -49,7 +49,7 @@ namespace QSP.RouteFinding.Tracks.Common
                     addTrackToWptList(i);
                 }
 
-                wptList.TrackChanges = TrackedWptList.TrackChangesOption.No;
+                wptList.TrackChanges = WaypointList.TrackChangesOption.No;
             }
         }
         

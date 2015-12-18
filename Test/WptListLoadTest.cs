@@ -25,7 +25,7 @@ namespace Test
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            TrackedWptList t = new TrackedWptList();
+            WaypointList t = new WaypointList();
             new AtsFileLoader(t).ReadAtsFromFile("F:\\FSX\\aerosoft\\Airbus_Fallback\\Navigraph\\ats.txt");
             sw.Stop();
 

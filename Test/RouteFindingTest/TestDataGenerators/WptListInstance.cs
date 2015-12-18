@@ -9,6 +9,6 @@ namespace Test.RouteFindingTest.TestDataGenerators
 {
     public static class WptListInstance
     {
-        public static TrackedWptList WptList = new WptListGenerator().Generate();
+        public static WaypointList WptList = new WptListGenerator().Generate();
     }
 }

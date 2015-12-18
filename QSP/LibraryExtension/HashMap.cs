@@ -27,9 +27,10 @@ namespace QSP.LibraryExtension
         private int elemCount;
         private int freeList;
         private int freeCount;
-        private IEqualityComparer<TKey> keyComparer;
 
+        private IEqualityComparer<TKey> keyComparer;
         private IEqualityComparer<TValue> valueComparer;
+
         public HashMap() : this(0, null)
         {
         }
@@ -64,7 +65,6 @@ namespace QSP.LibraryExtension
 
             this.keyComparer = keyComparer ?? EqualityComparer<TKey>.Default;
             this.valueComparer = valueComparer ?? EqualityComparer<TValue>.Default;
-
         }
 
         public int Count
@@ -74,43 +74,33 @@ namespace QSP.LibraryExtension
 
         public TValue this[TKey key]
         {
-
-
             get
             {
                 int i = FindEntry(key);
+
                 if (i >= 0)
                 {
                     return entries[i].value;
                 }
-
                 return default(TValue);
-
             }
         }
-
-
+        
         public List<TValue> AllMatches(TKey key)
         {
-
             var i = FindAllEntries(key);
-
 
             if (i.Count > 0)
             {
-                List<TValue> result = new List<TValue>(i.Count);
+                var result = new List<TValue>(i.Count);
 
                 foreach (int j in i)
                 {
                     result.Add(entries[j].value);
                 }
-
                 return result;
-
             }
-
             return null;
-
         }
 
         public void Add(TKey key, TValue value)
@@ -224,13 +214,11 @@ namespace QSP.LibraryExtension
 
         public TValue FindEntry(TKey key, TValue value)
         {
-
             if (key == null)
             {
                 throw new ArgumentNullException();
             }
-
-
+            
             if (buckets != null)
             {
                 int hashCode = keyComparer.GetHashCode(key) & 0x7fffffff;
@@ -242,15 +230,10 @@ namespace QSP.LibraryExtension
                     {
                         return entries[i].value;
                     }
-
                     i = entries[i].nextIndex;
-
                 }
-
             }
-
             return default(TValue);
-
         }
 
         private void Initialize(int capacity)
@@ -264,8 +247,7 @@ namespace QSP.LibraryExtension
             entries = new Entry[size];
             freeList = -1;
         }
-
-
+        
         private void Insert(TKey key, TValue value)
         {
             if (key == null)
@@ -306,7 +288,6 @@ namespace QSP.LibraryExtension
             entries[index].key = key;
             entries[index].value = value;
             buckets[targetBucket] = index;
-
         }
 
         private void Resize()
@@ -373,7 +354,6 @@ namespace QSP.LibraryExtension
 
         private bool Remove(TKey key, TValue value, RemoveOption para)
         {
-
             if (key == null)
             {
                 throw new ArgumentNullException();
@@ -393,7 +373,9 @@ namespace QSP.LibraryExtension
                 while (i >= 0)
                 {
 
-                    if (entries[i].hashCode == hashCode && keyComparer.Equals(entries[i].key, key) && para < 0 ? true : valueComparer.Equals(entries[i].value, value))
+                    if (entries[i].hashCode == hashCode && 
+                        keyComparer.Equals(entries[i].key, key) && 
+                        para < 0 ? true : valueComparer.Equals(entries[i].value, value))
                     {
                         if (last < 0)
                         {
@@ -428,16 +410,10 @@ namespace QSP.LibraryExtension
                     {
                         last = i;
                         i = entries[i].nextIndex;
-
                     }
-
-
                 }
-
             }
-
             return removed;
-
         }
 
         internal TValue GetValueOrDefault(TKey key)
@@ -478,7 +454,6 @@ namespace QSP.LibraryExtension
 
             public bool MoveNext()
             {
-
                 // Use unsigned comparison since we set index to dictionary.count+1 when the enumeration ends.
                 // dictionary.count+1 could be negative if dictionary.count is Int32.MaxValue
                 while (Convert.ToUInt32(index) < Convert.ToUInt32(dictionary.elemCount))
@@ -530,18 +505,15 @@ namespace QSP.LibraryExtension
                 get { return IEnumerator_Current; }
             }
 
-
             private void IEnumerator_Reset()
             {
                 index = 0;
                 m_current = new KeyValuePair<TKey, TValue>();
-
             }
             void IEnumerator.Reset()
             {
                 IEnumerator_Reset();
             }
-
         }
 
         internal sealed class HashHelpers
@@ -638,13 +610,9 @@ namespace QSP.LibraryExtension
                 return GetPrime(newSize);
             }
 
-
             // This is the maximum prime smaller than Array.MaxArrayLength
 
             public const int MaxPrimeArrayLength = 0x7feffffd;
         }
-
-
     }
-
 }

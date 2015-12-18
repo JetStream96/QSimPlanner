@@ -14,7 +14,7 @@ namespace QSP.RouteFinding.Data
             //e.g. path can be "E:\Aviation\Projects\Integrated Flight Planner\AIRAC\Aerosoft Airbus X 1.22_later\Navigraph"
 
             // Import the texts in ats.txt into WptList.
-            WptList = new TrackedWptList();
+            WptList = new WaypointList();
 
             WptList.ReadFixesFromFile(path + "\\waypoints.txt");            
             new AtsFileLoader(WptList).ReadAtsFromFile(path + "\\ats.txt");

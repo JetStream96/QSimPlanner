@@ -144,7 +144,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             WptList.DisableNATs();
 
             //add wpts
-            WptList.TrackChanges = TrackedWptList.TrackChangesOption.AddingNATs;
+            WptList.TrackChanges = WaypointList.TrackChangesOption.AddingNATs;
 
             foreach (var t in NatTrackCollection)
             {
@@ -159,7 +159,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                 }
             }
 
-            WptList.TrackChanges = TrackedWptList.TrackChangesOption.No;
+            WptList.TrackChanges = WaypointList.TrackChangesOption.No;
 
         }
 
