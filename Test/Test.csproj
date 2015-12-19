@@ -61,7 +61,8 @@
     <Compile Include="LandingPerfCalcTest.cs" />
     <Compile Include="AviationToolsTest\LatLonConversionTest.cs" />
     <Compile Include="LibraryExtensionTest.cs" />
-    <Compile Include="LibraryExtensionTest\FlexibleListTest.cs" />
+    <Compile Include="LibraryExtensionTest\FixedIndexListTest.cs" />
+    <Compile Include="LibraryExtensionTest\GraphTest.cs" />
     <Compile Include="NatsWebAppTest.cs" />
     <Compile Include="PacotsHandlerTest.cs" />
     <Compile Include="PacotsTest.cs" />

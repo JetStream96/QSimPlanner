@@ -22,26 +22,14 @@ namespace QSP.LibraryExtension
                 next = new FixedIndexList<int>();
             }
         }
-
-        private class Edge
-        {
-            public TEdge value;
-            public int FromNodeIndex;
-            public int FromIndexInList;
-            public int ToNodeIndex;
-            public int ToIndexInList;
-
-            public Edge() { }
-
-        }
-
+        
         private FixedIndexList<Node> _nodes;
-        private FixedIndexList<Edge> _edges;
+        private FixedIndexList<Edge<TEdge>> _edges;
 
         public Graph()
         {
             _nodes = new FixedIndexList<Node>();
-            _edges = new FixedIndexList<Edge>();
+            _edges = new FixedIndexList<Edge<TEdge>>();
         }
 
         public int AddNode(TNode node)
@@ -51,7 +39,7 @@ namespace QSP.LibraryExtension
 
         public void AddEdge(int nodeFromIndex, int nodeToIndex, TEdge edge)
         {
-            var edgeToAdd = new Edge();
+            var edgeToAdd = new Edge<TEdge>();
             int edgeIndex = _edges.Add(edgeToAdd);
 
             // Add edge index to nodes
@@ -62,7 +50,8 @@ namespace QSP.LibraryExtension
             edgeToAdd.FromIndexInList = fromListIndex;
             edgeToAdd.FromNodeIndex = nodeFromIndex;
             edgeToAdd.ToIndexInList = toListIndex;
-            edgeToAdd.ToIndexInList = nodeToIndex;
+            edgeToAdd.ToNodeIndex = nodeToIndex;
+            edgeToAdd.value = edge;
         }
 
         public void RemoveNode(int index)
@@ -95,18 +84,18 @@ namespace QSP.LibraryExtension
             return _nodes[index].value;
         }
 
-        public TEdge GetEdge(int edgeIndex)
+        public IEdge<TEdge> GetEdge(int edgeIndex)
         {
-            return _edges[edgeIndex].value;
+            return _edges[edgeIndex];
         }
 
         /// <summary>
         /// The indices of edges which the given node connects with. 
         /// </summary>
-        public IEnumerable <int> NextNodes(int index)
+        public IEnumerable<int> EdgesFrom(int index)
         {
             return _nodes[index].next;
-        }       
+        }
 
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.LibraryExtension;
 using static Test.Common.Utilities;
@@ -10,7 +7,7 @@ using static Test.Common.Utilities;
 namespace Test.LibraryExtensionTest
 {
     [TestClass()]
-    public class FlexibleListTest
+    public class FixedIndexListTest
     {
         [TestMethod]
         public void CreateListTest()
