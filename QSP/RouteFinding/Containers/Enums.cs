@@ -13,4 +13,13 @@ namespace QSP.RouteFinding.Containers
         Pacots,
         Ausots
     }
+
+    public enum TrackChangesOption
+    {
+        Yes,
+        No,
+        AddingNATs,
+        AddingPacots,
+        AddingAusots
+    }
 }

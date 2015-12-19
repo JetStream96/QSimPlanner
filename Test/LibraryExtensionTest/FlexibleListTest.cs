@@ -15,14 +15,14 @@ namespace Test.LibraryExtensionTest
         [TestMethod]
         public void CreateListTest()
         {
-            var item = new FlexibleList<double>();
+            var item = new FixedIndexList<double>();
             Assert.AreEqual(0, item.Capacity);
             Assert.AreEqual(0, item.MaxSize);
         }
 
-        private FlexibleList<double> createList()
+        private FixedIndexList<double> createList()
         {
-            var item = new FlexibleList<double>();
+            var item = new FixedIndexList<double>();
 
             for (int i = 0; i < 100000; i++)
             {
@@ -31,9 +31,9 @@ namespace Test.LibraryExtensionTest
             return item;
         }
 
-        private FlexibleList<double> createList(int count)
+        private FixedIndexList<double> createList(int count)
         {
-            var item = new FlexibleList<double>();
+            var item = new FixedIndexList<double>();
 
             for (int i = 0; i < count; i++)
             {
@@ -207,7 +207,7 @@ namespace Test.LibraryExtensionTest
             {
                 if (i % 100 == 0)
                 {
-                    Assert.IsTrue(WithinPrecision(-i/100, item[indices[i/100]], 0.000001));
+                    Assert.IsTrue(WithinPrecision(-i / 100, item[indices[i / 100]], 0.000001));
                 }
                 else
                 {
@@ -220,7 +220,7 @@ namespace Test.LibraryExtensionTest
         public void CountPropertyTest()
         {
             // New instance
-            var x = new FlexibleList<int>();
+            var x = new FixedIndexList<int>();
             Assert.AreEqual(0, x.Count);
 
             // Add elements
@@ -243,7 +243,43 @@ namespace Test.LibraryExtensionTest
                 x.Add(i * i);
             }
             Assert.AreEqual(575, x.Count);
-            
+
+        }
+
+        [TestMethod]
+        public void ForeachTest()
+        {
+            // Add and then remove some items.
+            var x = new FixedIndexList<int>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                x.Add(i);
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                x.RemoveAt(i * 10);
+            }
+
+            int counter = 0;
+
+            foreach (var item in x)
+            {
+                Assert.AreEqual(counter, item);
+
+                if (counter % 10 == 9)
+                {
+                    counter += 2;
+                }
+                else
+                {
+                    counter++;
+                }
+            }
+
+            // Check the number of loop excution is correct.
+            Assert.AreEqual(101, counter);
         }
 
     }

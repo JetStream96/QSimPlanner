@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using static QSP.RouteFinding.Tracks.Interaction.Interactions;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.UI.Utilities;
+using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP
 {
@@ -75,7 +76,7 @@ namespace QSP
                 }
             }
 
-            addToListView(RouteFindingCore.TrackStatusRecorder.Records, type);
+            addToListView(TrackStatusRecorder.Records, type);
             setPBox(type);
             setMainFormTrackStatus();
         }
@@ -129,7 +130,7 @@ namespace QSP
                     throw new EnumNotSupportedException();
             }
         }
-        
+
         private void addToListView(ReadOnlyCollection<Entry> records, TrackType para)
         {
             bool noError = true;
@@ -179,7 +180,7 @@ namespace QSP
                 frmMain.LblTrackDownloadStatus.Text = "Tracks: Partly Ready";
             }
         }
-        
+
         private void TracksForm_Load(object sender, EventArgs e)
         {
             frmMain = MainFormInstance();
@@ -219,11 +220,11 @@ namespace QSP
             if (CBoxNatsEnabled.SelectedIndex == 0)
             {
                 //enabled
-                RouteFindingCore.NatsManager.AddToWptList();
+                NatsManager.AddToWptList();
             }
             else
             {
-                RouteFindingCore.WptList.DisableNATs();
+                WptList.DisableTrack(TrackType.Nats);
             }
         }
 
@@ -232,11 +233,11 @@ namespace QSP
             if (CBoxPacotsEnabled.SelectedIndex == 0)
             {
                 //enabled
-                RouteFindingCore.PacotsManager.AddToWptList();
+                PacotsManager.AddToWptList();
             }
             else
             {
-                RouteFindingCore.WptList.DisablePacots();
+                WptList.DisableTrack(TrackType.Pacots);
             }
 
         }
@@ -246,11 +247,11 @@ namespace QSP
             if (CBoxAusotsEnabled.SelectedIndex == 0)
             {
                 //enabled
-                RouteFindingCore.AusotsManager.AddToWptList();
+                AusotsManager.AddToWptList();
             }
             else
             {
-                RouteFindingCore.WptList.DisableAusots();
+                WptList.DisableTrack(TrackType.Ausots);
             }
 
         }
@@ -306,9 +307,9 @@ namespace QSP
 
         private static void initManagers()
         {
-            RouteFindingCore.NatsManager = new NatHandler();
-            RouteFindingCore.PacotsManager = new PacotsHandler();
-            RouteFindingCore.AusotsManager = new AusotsHandler();
+            NatsManager = new NatHandler();
+            PacotsManager = new PacotsHandler();
+            AusotsManager = new AusotsHandler();
         }
         public TracksForm()
         {

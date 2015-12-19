@@ -14,8 +14,6 @@ namespace QSP.RouteFinding
 		//All DB used is Aerosoft Airbus X v1.22 or later
 
 		public static WaypointList WptList;
-		public static LatLonSearchUtility<WptSeachWrapper> WptFinder;
-
 		public static AirportManager AirportList;
 
 		public static Route RouteToDest;

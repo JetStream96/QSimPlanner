@@ -9,17 +9,38 @@ using Test.RouteFindingTest.TestDataGenerators;
 using static QSP.RouteFinding.Utilities;
 using QSP.AviationTools;
 using static Test.Common.Utilities;
+using QSP.RouteFinding.Containers;
 
 namespace Test.RouteFindingTest
 {
     [TestClass]
     public class SidHandlerTest
     {
+        #region Test Setup
+
+        private static SidHandler handler;
+        private static WaypointList WptList;
+
+        public static void SetWptList()
+        {
+            if(WptList==null)
+            {
+                WptList= new WptListGenerator().Generate();
+            }
+        }
 
         public static SidHandler GetHandlerAXYZ()
         {
-            return new SidHandler("AXYZ", "RouteFindingTest\\TestData", WptListInstance.WptList, AirportManagerGenerator.AirportList);
+            SetWptList();
+
+            if (handler == null)
+            {
+                handler = new SidHandler("AXYZ", "RouteFindingTest\\TestData", WptList, AirportManagerGenerator.AirportList);
+            }
+            return handler;
         }
+
+        #endregion
 
         [TestMethod]
         public void GetSidListWithTransitionTest1()

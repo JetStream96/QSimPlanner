@@ -11,11 +11,11 @@ namespace Test
     public class AusotsTest
     {
 
-        [TestMethod()]
-        public void DownloaderTest()
-        {
-            File.WriteAllText("ausots.txt", AusotsDownloader.DownloadMsg());
-        }
+        //[TestMethod()]
+        //public void DownloaderTest()
+        //{
+        //    File.WriteAllText("ausots.txt", AusotsDownloader.DownloadMsg());
+        //}
 
         [TestMethod()]
         public void AusotsConstructorTest()

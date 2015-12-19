@@ -35,13 +35,13 @@ namespace QSP.RouteFinding.Tracks.Common
             {
                 if (allTracks.First() is PacificTrack)
                 {
-                    wptList.DisablePacots();
-                    wptList.TrackChanges = TrackChangesOption.AddingPacots;
+                    wptList.DisableTrack(TrackType.Ausots);
+                    wptList.CurrentlyTracked = TrackChangesOption.AddingPacots;
                 }
                 else
                 {
-                    wptList.DisableAusots();
-                    wptList.TrackChanges = TrackChangesOption.AddingAusots;
+                    wptList.DisableTrack(TrackType.Ausots);
+                    wptList.CurrentlyTracked = TrackChangesOption.AddingAusots;
                 }
                 
                 foreach (var i in allTracks)
@@ -49,7 +49,7 @@ namespace QSP.RouteFinding.Tracks.Common
                     addTrackToWptList(i);
                 }
 
-                wptList.TrackChanges = WaypointList.TrackChangesOption.No;
+                wptList.CurrentlyTracked = TrackChangesOption.No;
             }
         }
         

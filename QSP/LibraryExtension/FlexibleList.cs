@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace QSP.LibraryExtension
@@ -25,10 +26,10 @@ namespace QSP.LibraryExtension
     /// A generic list such that each element added would never change index, unless removed.
     /// Implemeted using an array.
     /// </summary>
-    public class FlexibleList<T>
+    public class FixedIndexList<T> : IEnumerable<T>, IEnumerable
     {
         private const int initCapacity = 4;
-        static readonly Entry[] emptyArray = new Entry[0];
+        private static readonly Entry[] emptyArray = new Entry[0];
 
         private Entry[] _items;
         private int _size;
@@ -47,7 +48,7 @@ namespace QSP.LibraryExtension
             }
         }
 
-        public FlexibleList()
+        public FixedIndexList()
         {
             _items = emptyArray;
             _size = 0;
@@ -55,7 +56,7 @@ namespace QSP.LibraryExtension
             _count = 0;
         }
 
-        public FlexibleList(int capacity)
+        public FixedIndexList(int capacity)
         {
             if (capacity < 0)
             {
@@ -207,6 +208,79 @@ namespace QSP.LibraryExtension
             _count--;
         }
 
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator : IEnumerator<T>, IEnumerator
+        {
+            private FixedIndexList<T> list;
+            private int index;
+            private T current;
+
+            public Enumerator(FixedIndexList<T> item)
+            {
+                list = item;
+                index = 0;
+                current = default(T);
+            }
+
+            public T Current
+            {
+                get
+                {
+                    return current;
+                }
+            }
+
+            object IEnumerator.Current
+            {
+                get
+                {
+                    if (index == 0 || index == list._size + 1)
+                    {
+                        throw new InvalidOperationException("Cannot enumerate.");
+                    }
+                    return Current;
+                }
+            }
+
+            public void Dispose()
+            {
+            }
+
+            public bool MoveNext()
+            {
+                FixedIndexList<T> localList = list;
+
+                while (((uint)index < (uint)localList._size))
+                {
+                    if (localList.isRemoved(index) == false)
+                    {
+                        current = localList._items[index].value;
+                        index++;
+                        return true;
+                    }
+                    else
+                    {
+                        index++;
+                    }
+                }
+                return false;
+            }
+
+            public void Reset()
+            {
+                index = 0;
+                current = default(T);
+            }
+        }
     }
 }
 

@@ -106,10 +106,8 @@ namespace QSP.RouteFinding
             //2. The first wpt in star is NOT connected to an airway (and is therefore not in wptList).
             //3. The first wpt in star IS connected to an airway.
 
-            int DEST_RWY_INDEX = wptList.Count;
-
             var rwyLatLon = airportList.RwyLatLon(icao, rwy);
-            wptList.AddWpt(icao + rwy, rwyLatLon.Lat, rwyLatLon.Lon);
+            int DEST_RWY_INDEX = wptList.AddWpt(icao + rwy, rwyLatLon.Lat, rwyLatLon.Lon);
 
             if (star.Count == 0)
             {
@@ -119,7 +117,7 @@ namespace QSP.RouteFinding
 
                 foreach (var i in nearbyWpts)
                 {
-                    wptList.AddNeighbor(i.Index, new Neighbor(wptList.Count - 1, "DCT", i.Distance));
+                    wptList.AddNeighbor(i.Index, new Neighbor(DEST_RWY_INDEX, "DCT", i.Distance));
                 }
             }
             else

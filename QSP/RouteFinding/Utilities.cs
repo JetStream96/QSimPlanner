@@ -143,7 +143,7 @@ namespace QSP.RouteFinding
                 wptsOnAirway.Clear();
                 searchRange += SEARCH_RANGE_INCR;
 
-                var searchResult = WptFinder.Find(latLon.Lat, latLon.Lon, searchRange);
+                var searchResult = WptList .Find(latLon.Lat, latLon.Lon, searchRange);
                 double dctDis = 0;
 
                 foreach (var item in searchResult)

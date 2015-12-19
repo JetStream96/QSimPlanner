@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace QSP.RouteFinding.Containers
 {
-    public class WaypointContainer
+    public class WaypointContainer : IEnumerable<WptNeighbor>, IEnumerable
     {
         #region Container
 
@@ -48,36 +49,36 @@ namespace QSP.RouteFinding.Containers
         #region Fields
 
         private HashMap<string, int> searchHelper;
-        private FlexibleList <WptData> content;
+        private FixedIndexList<WptData> content;
 
         #endregion
 
         public WaypointContainer()
         {
-            content = new FlexibleList <WptData>();
+            content = new FixedIndexList<WptData>();
             searchHelper = new HashMap<string, int>();
         }
-        
-        public void AddWpt(string ID, double Lat, double Lon)
+
+        public int AddWpt(string ID, double Lat, double Lon)
         {
             searchHelper.Add(ID, content.Count);
-            content.Add(new WptData(ID, Lat, Lon, 0));
+            return content.Add(new WptData(ID, Lat, Lon, 0));
         }
 
-        public void AddWpt(Waypoint item)
+        public int AddWpt(Waypoint item)
         {
             searchHelper.Add(item.ID, content.Count);
-            content.Add(new WptData(item, 0));
+            return content.Add(new WptData(item, 0));
         }
 
-        public void AddWpt(WptNeighbor item)
+        public int AddWpt(WptNeighbor item)
         {
             searchHelper.Add(item.ID, content.Count);
-            content.Add(new WptData(item, 0));
+            return content.Add(new WptData(item, 0));
         }
 
         public void AddNeighbor(int index, Neighbor item)
-        {           
+        {
             content[index].NeighborList.Add(item);
             content[item.Index].NumNodeFrom++;
         }
@@ -95,7 +96,7 @@ namespace QSP.RouteFinding.Containers
                 return content[index];
             }
         }
-        
+
         public int NumberOfNodeFrom(int index)
         {
             return content[index].NumNodeFrom;
@@ -104,6 +105,17 @@ namespace QSP.RouteFinding.Containers
         public int Count
         {
             get { return content.Count; }
+        }
+
+        /// <summary>
+        /// The upper bound of indices of elements plus one. 
+        /// </summary>
+        public int MaxSize
+        {
+            get
+            {
+                return content.MaxSize;
+            }
         }
 
         /// <summary>
@@ -167,6 +179,27 @@ namespace QSP.RouteFinding.Containers
             }
             return results;
         }
-        
+
+        public void RemoveAt(int index)
+        {
+            content.RemoveAt(index);
+            searchHelper.Remove(content[index].ID, index, HashMap<string, int>.RemoveParameter.RemoveFirst);
+        }
+
+        public void RemoveNeighbor(int wptIndex, Neighbor neighbor)
+        {
+            content[neighbor.Index].NumNodeFrom--;
+            content[wptIndex].NeighborList.Remove(neighbor);
+        }
+
+        public IEnumerator<WptNeighbor> GetEnumerator()
+        {
+            return content.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return content.GetEnumerator();
+        }
     }
 }

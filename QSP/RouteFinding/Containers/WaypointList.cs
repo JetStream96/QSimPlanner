@@ -8,6 +8,8 @@ using System.Linq;
 using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.MathTools.MathTools;
 using static QSP.Utilities.ErrorLogger;
+using QSP.RouteFinding.Tracks.Common;
+using QSP.Core;
 
 namespace QSP.RouteFinding.Containers
 {
@@ -20,64 +22,42 @@ namespace QSP.RouteFinding.Containers
     {
         #region Fields
 
-        private WaypointContainer content;
-
-        private List<ChangeTracker> trackerCollection;
-        private ChangeTracker currentTracker;
-        private TrackChangesOption _trackChanges;
+        private WaypointContainer _content;
+        private ChangeTracker _changeTracker;
+        private LatLonSearchUtility<WptSeachWrapper> _finder;
 
         #endregion
 
         public WaypointList()
         {
-            _trackChanges = TrackChangesOption.No;
-            content = new WaypointContainer(); 
-            trackerCollection = new List<ChangeTracker>();
-            currentTracker = null;
+            _content = new WaypointContainer();
+            _changeTracker = new ChangeTracker(this);
+            _finder = new LatLonSearchUtility<WptSeachWrapper>(1, 5);
         }
 
-        public TrackChangesOption TrackChanges
+        public TrackChangesOption CurrentlyTracked
         {
-            get { return _trackChanges; }
+            get
+            {
+                return _changeTracker.CurrentlyTracked;
+            }
 
             set
             {
-                //First, stop current tracking session.
-                endCurrentSession();
-
-                switch (value)
-                {
-                    case TrackChangesOption.Yes:
-                        currentTracker = new ChangeTracker(Count, ChangeCategory.Normal);
-                        break;
-
-                    case TrackChangesOption.AddingNATs:
-                        currentTracker = new ChangeTracker(Count, ChangeCategory.Nats);
-                        break;
-
-                    case TrackChangesOption.AddingPacots:
-                        currentTracker = new ChangeTracker(Count, ChangeCategory.Pacots);
-                        break;
-
-                    case TrackChangesOption.AddingAusots:
-                        currentTracker = new ChangeTracker(Count, ChangeCategory.Ausots);
-                        break;
-
-                }
-                _trackChanges = value;
+                _changeTracker.CurrentlyTracked = value;
             }
         }
 
-        private void endCurrentSession()
+        /// <summary>
+        /// Read all waypoints from ats.txt file.
+        /// </summary>
+        /// <param name="filepath">Path of ats.txt</param>
+        /// <exception cref="LoadWaypointFileException"></exception>
+        public void ReadAtsFromFile(string filepath)
         {
-            if (currentTracker != null)
-            {
-                currentTracker.RegionEnd = Count - 1;
-                trackerCollection.Add(currentTracker);
-                currentTracker = null;
-            }
+            new AtsFileLoader(this).ReadAtsFromFile(filepath);
         }
-               
+
         /// <summary>
         /// Loads all waypoints in waypoints.txt.
         /// </summary>
@@ -85,7 +65,7 @@ namespace QSP.RouteFinding.Containers
         /// <exception cref="LoadWaypointFileException"></exception>
         public void ReadFixesFromFile(string filepath)
         {
-            TrackChanges = TrackChangesOption.No;
+            CurrentlyTracked = TrackChangesOption.No;
 
             string[] allLines = File.ReadAllLines(filepath);
 
@@ -112,53 +92,56 @@ namespace QSP.RouteFinding.Containers
                     throw new LoadWaypointFileException("Failed to load waypoints.txt.", ex);
                 }
             }
-            TrackChanges = TrackChangesOption.Yes;
+            CurrentlyTracked = TrackChangesOption.Yes;
         }
 
-        public void AddWpt(string ID, double Lat, double Lon)
+        private void addWptChanges(int index)
         {
-            content.AddWpt(ID, Lat, Lon);
+            if (_changeTracker.CurrentlyTracked != TrackChangesOption.No)
+            {
+                _changeTracker.TrackWaypointAddition(index);
+            }
+            _finder.Add(new WptSeachWrapper(index, _content[index].Lat, _content[index].Lon));
         }
 
-        public void AddWpt(Waypoint item)
+        public int AddWpt(string ID, double Lat, double Lon)
         {
-            content.AddWpt(item);
+            int index = _content.AddWpt(ID, Lat, Lon);
+            addWptChanges(index);
+            return index;
         }
 
-        public void AddWpt(WptNeighbor item)
+        public int AddWpt(Waypoint item)
         {
-            content.AddWpt(item);
+            int index = _content.AddWpt(item);
+            addWptChanges(index);
+            return index;
+        }
+
+        public int AddWpt(WptNeighbor item)
+        {
+            int index = _content.AddWpt(item);
+            addWptChanges(index);
+            return index;
         }
 
         public void AddNeighbor(int index, Neighbor item)
         {
-            if (currentTracker != null)
+            if (_changeTracker.CurrentlyTracked != TrackChangesOption.No)
             {
-                currentTracker.AddNeighborRecord(index);
+                _changeTracker.TrackNeighborAddition(index, item);
             }
-            content.AddNeighbor(index, item);
-        }
-
-        public void Clear()
-        {
-            content.Clear();
-            trackerCollection.Clear();
-            currentTracker = null;
+            _content.AddNeighbor(index, item);
         }
 
         public WptNeighbor this[int index]
         {
             get
             {
-                return ElementAt(index);
+                return _content[index];
             }
         }
-
-        public WptNeighbor ElementAt(int index)
-        {
-            return content[index];
-        }
-
+        
         public LatLon LatLonAt(int index)
         {
             return this[index].LatLon;
@@ -166,12 +149,23 @@ namespace QSP.RouteFinding.Containers
 
         public int NumberOfNodeFrom(int index)
         {
-            return content.NumberOfNodeFrom(index);
+            return _content.NumberOfNodeFrom(index);
         }
 
         public int Count
         {
-            get { return content.Count; }
+            get { return _content.Count; }
+        }
+
+        /// <summary>
+        /// The upper bound of indices of elements plus one. 
+        /// </summary>
+        public int MaxSize
+        {
+            get
+            {
+                return _content.MaxSize;
+            }
         }
 
         /// <summary>
@@ -179,7 +173,7 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public int FindByID(string ident)
         {
-            return content.FindByID(ident); 
+            return _content.FindByID(ident);
         }
 
         /// <summary>
@@ -187,7 +181,7 @@ namespace QSP.RouteFinding.Containers
         /// </summary> 
         public List<int> FindAllByID(string ident)
         {
-            return content .FindAllByID (ident);
+            return _content.FindAllByID(ident);
         }
 
         /// <summary>
@@ -203,7 +197,7 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public int FindByWaypoint(Waypoint wpt)
         {
-            return content.FindByWaypoint(wpt);
+            return _content.FindByWaypoint(wpt);
         }
 
         /// <summary>
@@ -211,101 +205,54 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public List<int> FindAllByWaypoint(Waypoint wpt)
         {
-            return content.FindAllByWaypoint(wpt);
+            return _content.FindAllByWaypoint(wpt);
         }
         
-        private void revertChanges(ChangeCategory para)
-        {
-            //If _trackChanges is not set to "no" yet, we end current session.
-            TrackChanges = TrackChangesOption.No;
-
-            if (trackerCollection.Count > 0)
-            {
-                for (int i = trackerCollection.Count - 1; i >= 0; i--)
-                {
-                    if (trackerCollection[i].Category == para && trackerCollection[i].RegionEnd >= 0)
-                    {
-                        //remove neighbors first
-                        var addedNeighbor = trackerCollection[i].AddedNeighbor;
-
-                        for (int j = addedNeighbor.Count - 1; j >= 0; j--)
-                        {
-                            var neighbors = content[addedNeighbor[j]].NeighborList;
-                            content[neighbors[neighbors.Count - 1].Index].NumNodeFrom--;
-                            neighbors.RemoveAt(neighbors.Count - 1);
-                        }
-
-                        // Remove all wpts between regionStart and regionEnd.
-                        int regionStart = trackerCollection[i].RegionStart;
-                        int regionEnd = trackerCollection[i].RegionEnd;
-
-                        if (regionEnd <= content.Count - 1)
-                        {
-                            for (int k = regionStart; k <= regionEnd; k++)
-                            {
-                                foreach (var m in content[k].NeighborList)
-                                {
-                                    content[m.Index].NumNodeFrom--;
-                                }
-                                searchHelper.Remove(this[k].ID, k, HashMap<string, int>.RemoveParameter.RemoveFirst);
-                                RouteFindingCore.WptFinder.Remove(new WptSeachWrapper(k));
-                            }
-                            content.RemoveRange(regionStart, regionEnd - regionStart + 1);
-                        }
-
-                        trackerCollection.RemoveAt(i);
-                    }
-                }
-            }
-
-            TrackChanges = TrackChangesOption.Yes;
-        }
-
         public void Restore()
         {
-            revertChanges(ChangeCategory.Normal);
+            _changeTracker.RevertChanges(ChangeCategory.Normal);
         }
 
-        public void DisableNATs()
+        public void DisableTrack(TrackType type)
         {
-            revertChanges(ChangeCategory.Nats);
-        }
-
-        public void DisablePacots()
-        {
-            revertChanges(ChangeCategory.Pacots);
-        }
-
-        public void DisableAusots()
-        {
-            revertChanges(ChangeCategory.Ausots);
-        }
-
-        public enum TrackChangesOption
-        {
-            Yes,
-            No,
-            AddingNATs,
-            AddingPacots,
-            AddingAusots
-        }
-
-        public LatLonSearchUtility<WptSeachWrapper> GenerateSearchGrids()
-        {
-            var searchGrid = new LatLonSearchUtility<WptSeachWrapper>(1, 5);
-
-            for (int i = 0; i < content.Count; i++)
+            switch (type)
             {
-                searchGrid.Add(new WptSeachWrapper(i, content[i].Lat, content[i].Lon));
-            }
+                case TrackType.Nats:
+                    _changeTracker.RevertChanges(ChangeCategory.Nats);
+                    break;
 
-            return searchGrid;
+                case TrackType.Pacots:
+                    _changeTracker.RevertChanges(ChangeCategory.Pacots);
+                    break;
+
+                case TrackType.Ausots:
+                    _changeTracker.RevertChanges(ChangeCategory.Ausots);
+                    break;
+
+                default:
+                    throw new EnumNotSupportedException();
+            }
+        }
+
+        public List<WptSeachWrapper> Find(double lat, double lon, double distance)
+        {
+            return _finder.Find(lat, lon, distance);
         }
 
         public double Distance(int index1, int index2)
         {
             return GreatCircleDistance(this[index1].Lat, this[index1].Lon,
                                        this[index2].Lat, this[index2].Lon);
+        }
+
+        public void RemoveAt(int index)
+        {
+
+        }
+
+        public void RemoveNeighbor(int wptIndex, Neighbor neighbor)
+        {
+
         }
 
     }

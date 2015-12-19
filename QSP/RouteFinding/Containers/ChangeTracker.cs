@@ -4,77 +4,116 @@ using System.Collections.ObjectModel;
 
 namespace QSP.RouteFinding.Containers
 {
-
+    /// <summary>
+    /// Track all changes in WaypointList class. Provides methods to revert changes.
+    /// </summary>
     public class ChangeTracker
     {
-        private int _regionStart;
-        private int _regionEnd;
-        //index of wpt whose neighbor is added (to the end of neighbor list, of course)
-        private List<int> _addedNeighbor;
+        private WaypointList  _content;
+        private List<TrackerItem> _trackerCollection;
+        private TrackerItem _currentTracker;
+        private TrackChangesOption _currentlyTracked;  // The category of change currently tracking.
 
-        private ChangeCategory _category;
-
-        public ChangeTracker(int regionStart, ChangeCategory category)
+        public ChangeTracker(WaypointList content)
         {
-            _regionStart = regionStart;
-            _category = category;
-            _addedNeighbor = new List<int>();
-            _regionEnd = -1;
+            _content = content;
+            _trackerCollection = new List<TrackerItem>();
+            createNewSession(TrackChangesOption.Yes);
         }
 
-        public int RegionStart
+        public TrackChangesOption CurrentlyTracked
         {
-            get { return _regionStart; }
-        }
+            get { return _currentlyTracked; }
 
-        /// <summary>
-        /// Gets or sets the last index of added waypoint.
-        /// </summary>
-        /// <exception cref="InvalidOperationException"></exception>
-        public int RegionEnd
-        {
-            get { return _regionEnd; }
             set
             {
-                if (_regionEnd < 0)
+                // Repeatedly setting the same value.
+                if (_currentlyTracked == value)
                 {
-                    _regionEnd = value;
+                    return;
                 }
-                else
-                {
-                    throw new InvalidOperationException("RegionEnd is already set and cannot be changed after set.");
-                }
+
+                endCurrentSession();
+                createNewSession(value);
             }
         }
-        
-        public ReadOnlyCollection<int> AddedNeighbor
+
+        private void createNewSession(TrackChangesOption value)
         {
-            get { return _addedNeighbor.AsReadOnly(); }
+            switch (value)
+            {
+                case TrackChangesOption.Yes:
+                    _currentTracker = new TrackerItem(ChangeCategory.Normal);
+                    break;
+
+                case TrackChangesOption.AddingNATs:
+                    _currentTracker = new TrackerItem(ChangeCategory.Nats);
+                    break;
+
+                case TrackChangesOption.AddingPacots:
+                    _currentTracker = new TrackerItem(ChangeCategory.Pacots);
+                    break;
+
+                case TrackChangesOption.AddingAusots:
+                    _currentTracker = new TrackerItem(ChangeCategory.Ausots);
+                    break;
+            }
+            _currentlyTracked = value;
         }
 
-        public ChangeCategory Category
+        private void endCurrentSession()
         {
-            get { return _category; }
+            if (_currentTracker != null)
+            {
+                _trackerCollection.Add(_currentTracker);
+                _currentTracker = null;
+            }
         }
 
-        public void AddNeighborRecord(int indexWpt)
+        public void TrackWaypointAddition(int index)
         {
-            _addedNeighbor.Add(indexWpt);
+            _currentTracker.AddWaypointRecord(index);
         }
 
-        public void SetRegionEnd(int index)
+        public void TrackNeighborAddition(int wptIndex, Neighbor neighbor)
         {
-            _regionEnd = index;
+            _currentTracker.AddNeighborRecord(wptIndex, neighbor);
         }
 
-    }
+        public void RevertChanges(ChangeCategory para)
+        {
+            // There's no need to check the value of _currentlyTracked.
+            if (_trackerCollection.Count > 0)
+            {
+                for (int i = _trackerCollection.Count - 1; i >= 0; i--)
+                {
+                    if (_trackerCollection[i].Category == para)
+                    {
+                        var item = _trackerCollection[i];
 
-    public enum ChangeCategory
-    {
-        Normal,
-        Nats,
-        Pacots,
-        Ausots
+                        //remove neighbors first
+
+                        foreach (var j in item.AddedNeighbor)
+                        {
+                            _content.RemoveNeighbor(j.index, j.neighbor);
+                        }
+
+                        // Remove all wpts between regionStart and regionEnd.
+
+                        foreach (var k in item.AddedWaypoint)
+                        {
+                            _content.RemoveAt(k);
+                        }
+
+                        // Remove TrackerItem from collection.
+                        _trackerCollection.RemoveAt(i);
+                    }
+                }
+            }
+
+            // Set to track changes automatically.
+            CurrentlyTracked = TrackChangesOption.Yes;
+        }
     }
 
 }

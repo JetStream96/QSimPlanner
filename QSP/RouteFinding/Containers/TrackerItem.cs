@@ -33,6 +33,7 @@ namespace QSP.RouteFinding.Containers
         {
             _addedWpt = new Stack<int>();
             _addedNeighbor = new Stack<NeighborRecord>();
+            _category = category;
         }
 
         public ReadOnlyStack<int> AddedWaypoint
@@ -49,7 +50,7 @@ namespace QSP.RouteFinding.Containers
         {
             get { return _category; }
         }
-
+         
         public void AddWaypointRecord(int index)
         {
             _addedWpt.Push(index);

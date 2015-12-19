@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static QSP.LibraryExtension.StringParser.Utilities;
 using System.IO;
-using static QSP.RouteFinding.Containers.WaypointList;
+using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.Utilities.ErrorLogger;
 
 namespace QSP.RouteFinding.Containers
@@ -28,7 +23,7 @@ namespace QSP.RouteFinding.Containers
         {
             try
             {
-                wptList.TrackChanges = TrackChangesOption.No;
+                wptList.CurrentlyTracked = TrackChangesOption.No;
 
                 //add error handling
                 string[] allLines = File.ReadAllLines(filepath);
@@ -62,7 +57,7 @@ namespace QSP.RouteFinding.Containers
                         pos = i.IndexOf(',', pos) + 1;
                         pos = i.IndexOf(',', pos) + 1;
 
-                        double dis = ParseDouble(i,pos,i.Length-1);
+                        double dis = ParseDouble(i, pos, i.Length - 1);
 
                         //add second waypoint as required
                         if (index2 >= 0)
@@ -71,8 +66,7 @@ namespace QSP.RouteFinding.Containers
                         }
                         else
                         {
-                            secondWptAsNeighbor = new Neighbor(wptList.Count, currentAirway, dis);
-                            wptList.AddWpt(secondWpt);
+                            secondWptAsNeighbor = new Neighbor(wptList.AddWpt(secondWpt), currentAirway, dis);
                         }
 
                         //add first waypoint as required
@@ -82,13 +76,12 @@ namespace QSP.RouteFinding.Containers
                         }
                         else
                         {
-                            wptList.AddWpt(firstWpt);
-                            wptList.AddNeighbor(wptList.Count - 1, secondWptAsNeighbor);
+                            wptList.AddNeighbor(wptList.AddWpt(firstWpt), secondWptAsNeighbor);
                         }
                     }
                 }
 
-                wptList.TrackChanges = TrackChangesOption.Yes;
+                wptList.CurrentlyTracked = TrackChangesOption.Yes;
 
             }
             catch (Exception ex)

@@ -128,7 +128,7 @@ namespace QSP.RouteFinding
         /// <exception cref="RouteNotFoundException"></exception>
         private Route getRoute(int startPtIndex, int endPtIndex)
         {
-            var FindRouteData = new routeFindingData(wptList.Count);
+            var FindRouteData = new routeFindingData(wptList.MaxSize);
             var regionPara = new routeSeachRegionPara(startPtIndex, endPtIndex, 0.0, wptList);
             bool routeFound = false;
 

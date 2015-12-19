@@ -50,10 +50,10 @@ namespace Test
             }
             return true;
         }
-        
+
         public static List<string> fastMethod(LatLon latLon, double dis)
         {
-            var result = WptFinder.Find(latLon.Lat, latLon.Lon, dis);
+            var result = WptList.Find(latLon.Lat, latLon.Lon, dis);
             List<string> stringResult = new List<string>();
 
             foreach (var item in result)
@@ -64,8 +64,8 @@ namespace Test
             return stringResult;
         }
 
-        
-        public static  List<string> slowMethod(LatLon latLon, double dis)
+
+        public static List<string> slowMethod(LatLon latLon, double dis)
         {
             List<string> result = new List<string>();
 

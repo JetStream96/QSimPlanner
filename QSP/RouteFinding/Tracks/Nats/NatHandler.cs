@@ -141,10 +141,10 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
 
             //prevent adding the same set of tracks multiple times, if this method is called repeatedly
-            WptList.DisableNATs();
+            WptList.DisableTrack(TrackType.Nats); 
 
             //add wpts
-            WptList.TrackChanges = WaypointList.TrackChangesOption.AddingNATs;
+            WptList.CurrentlyTracked = TrackChangesOption.AddingNATs;
 
             foreach (var t in NatTrackCollection)
             {
@@ -159,8 +159,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                 }
             }
 
-            WptList.TrackChanges = WaypointList.TrackChangesOption.No;
-
+            WptList.CurrentlyTracked = TrackChangesOption.No;
         }
 
         /// <summary>

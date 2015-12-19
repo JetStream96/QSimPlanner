@@ -16,11 +16,9 @@ namespace QSP.RouteFinding.Data
             // Import the texts in ats.txt into WptList.
             WptList = new WaypointList();
 
-            WptList.ReadFixesFromFile(path + "\\waypoints.txt");            
-            new AtsFileLoader(WptList).ReadAtsFromFile(path + "\\ats.txt");
-
-            WptFinder = WptList.GenerateSearchGrids();
-
+            WptList.ReadFixesFromFile(path + "\\waypoints.txt");
+            WptList.ReadAtsFromFile(path + "\\ats.txt"); 
+             
             try
             {
                 AirportList = new AirportManager(path + "\\Airports.txt");

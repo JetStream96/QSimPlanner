@@ -61,7 +61,7 @@ namespace QSP.RouteFinding
             //first get all lines starting with "SID"
 
             var result = new List<string>();
-            string[] allLines = terminalProcedures; 
+            string[] allLines = terminalProcedures;
             string[] line = null;
             var sidsWithTransition = new List<string>();
 
@@ -122,7 +122,7 @@ namespace QSP.RouteFinding
                 var nearbyWpts = Utilities.sidStarToAirwayConnection("DCT", rwyLatLon, 0);
 
                 var wpt = new Waypoint(icao + rwy, rwyLatLon);
-                wptList.AddWpt(new WptNeighbor(wpt, nearbyWpts));
+                return wptList.AddWpt(new WptNeighbor(wpt, nearbyWpts));
             }
             else
             {
@@ -143,12 +143,10 @@ namespace QSP.RouteFinding
                     }
                 }
 
-                var wptToAdd = new WptNeighbor(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)), 
+                var wptToAdd = new WptNeighbor(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)),
                                                neighbors);
-                wptList.AddWpt(wptToAdd);
-
+                return wptList.AddWpt(wptToAdd);
             }
-            return wptList.Count - 1;
         }
 
         /// <summary>
@@ -191,7 +189,7 @@ namespace QSP.RouteFinding
 
             return new Tuple<List<Waypoint>, bool>(sidWpts, sidWptComplete.Item2);
         }
-               
+
         /// <exception cref="WaypointNotFoundException"></exception>
         private List<Neighbor> getSidEndPoints(string rwy, string sid)
         {

@@ -80,6 +80,7 @@
     <Compile Include="Core\EnumConversionTools.cs" />
     <Compile Include="Core\Enums.cs" />
     <Compile Include="LibraryExtension\FlexibleList.cs" />
+    <Compile Include="LibraryExtension\Graph.cs" />
     <Compile Include="LibraryExtension\ReadOnlyStack.cs" />
     <Compile Include="LibraryExtension\Stacks.cs" />
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
