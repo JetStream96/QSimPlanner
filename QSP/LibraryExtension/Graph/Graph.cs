@@ -22,7 +22,7 @@ namespace QSP.LibraryExtension.Graph
                 next = new FixedIndexList<int>();
             }
         }
-        
+
         private FixedIndexList<Node> _nodes;
         private FixedIndexList<Edge<TEdge>> _edges;
 
