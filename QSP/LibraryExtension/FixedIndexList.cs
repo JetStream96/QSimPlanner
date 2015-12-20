@@ -165,7 +165,7 @@ namespace QSP.LibraryExtension
             {
                 if (isRemoved(index))
                 {
-                    throw new ArgumentException("The element at given index is already removed.");
+                    throw new IndexOutOfRangeException ("The element at given index is already removed.");
                 }
                 return _items[index].value;
             }
@@ -173,7 +173,7 @@ namespace QSP.LibraryExtension
             {
                 if (isRemoved(index))
                 {
-                    throw new ArgumentException("The element at given index is already removed.");
+                    throw new IndexOutOfRangeException("The element at given index is already removed.");
                 }
                 _items[index].value = value;
             }

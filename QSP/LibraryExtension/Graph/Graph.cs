@@ -37,7 +37,11 @@ namespace QSP.LibraryExtension
             return _nodes.Add(new Node(node));
         }
 
-        public void AddEdge(int nodeFromIndex, int nodeToIndex, TEdge edge)
+        /// <summary>
+        /// Add an edge from one node to another.
+        /// </summary>
+        /// <exception cref="IndexOutOfRangeException"></exception>
+        public int AddEdge(int nodeFromIndex, int nodeToIndex, TEdge edge)
         {
             var edgeToAdd = new Edge<TEdge>();
             int edgeIndex = _edges.Add(edgeToAdd);
@@ -52,8 +56,14 @@ namespace QSP.LibraryExtension
             edgeToAdd.ToIndexInList = toListIndex;
             edgeToAdd.ToNodeIndex = nodeToIndex;
             edgeToAdd.value = edge;
+
+            return edgeIndex;
         }
 
+        /// <summary>
+        /// Remove the node with the given index.
+        /// </summary>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public void RemoveNode(int index)
         {
             var node = _nodes[index];
@@ -71,6 +81,10 @@ namespace QSP.LibraryExtension
             _nodes.RemoveAt(index);
         }
 
+        /// <summary>
+        /// Remove the edge with given index.
+        /// </summary>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public void RemoveEdge(int edgeIndex)
         {
             var edge = _edges[edgeIndex];
@@ -79,11 +93,13 @@ namespace QSP.LibraryExtension
             _edges.RemoveAt(edgeIndex);
         }
 
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public TNode GetNode(int index)
         {
             return _nodes[index].value;
         }
 
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public IEdge<TEdge> GetEdge(int edgeIndex)
         {
             return _edges[edgeIndex];
@@ -92,6 +108,7 @@ namespace QSP.LibraryExtension
         /// <summary>
         /// The indices of edges which the given node connects with. 
         /// </summary>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public IEnumerable<int> EdgesFrom(int index)
         {
             return _nodes[index].next;
