@@ -119,22 +119,27 @@ namespace QSP.RouteFinding
                 //if the sid list is empty, find nearby wpts and use DCT
 
                 var rwyLatLon = airportList.RwyLatLon(icao, rwy);
-                var nearbyWpts = Utilities.sidStarToAirwayConnection("DCT", rwyLatLon, 0);
+                var nearbyWpts = Utilities.FindAirwayConnection(rwyLatLon,wptList );
 
-                var wpt = new Waypoint(icao + rwy, rwyLatLon);
-                return wptList.AddWpt(new WptNeighbor(wpt, nearbyWpts));
+                int index = wptList.AddWpt(new Waypoint(icao + rwy, rwyLatLon));
+
+                foreach (var i in nearbyWpts)
+                {
+                    wptList.AddNeighbor(index, i.Index, new Neighbor("DCT", i.Distance));
+                }
+
+                return index;
             }
             else
             {
                 //case 2, 3, 4
-                var neighbors = new List<Neighbor>();
-                //now we get a list of neighbors of dep. runway
+                int index = wptList.AddWpt(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
 
                 foreach (var i in sid)
                 {
                     try
                     {
-                        neighbors.AddRange(getSidEndPoints(rwy, i));
+                        addToWptList(index, rwy, i);
                         // this is where case 2, 3, 4 are handled.
                     }
                     catch (WaypointNotFoundException ex)
@@ -143,9 +148,7 @@ namespace QSP.RouteFinding
                     }
                 }
 
-                var wptToAdd = new WptNeighbor(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)),
-                                               neighbors);
-                return wptList.AddWpt(wptToAdd);
+                return index;
             }
         }
 
@@ -191,53 +194,52 @@ namespace QSP.RouteFinding
         }
 
         /// <exception cref="WaypointNotFoundException"></exception>
-        private List<Neighbor> getSidEndPoints(string rwy, string sid)
+        private void addToWptList(int rwyIndex, string rwy, string sid)
         {
             var importResult = importSidFromFile(rwy, sid);
             var sidWpts = importResult.Item1;
             bool lastWptIsVector = importResult.Item2;
-
-            var endPoints = new List<Neighbor>();
+            double disAdd = Utilities.GetTotalDistance(sidWpts);
 
             if (lastWptIsVector)
             {
                 //case 2: the last wpt is a vector
                 //Then find some nearby navaids to join an airway
+                var endPoints = Utilities.FindAirwayConnection(sidWpts.Last().Lat, sidWpts.Last().Lon,wptList );
 
-                endPoints = Utilities.sidStarToAirwayConnection(sid, sidWpts.Last().LatLon, Utilities.GetTotalDistance(sidWpts));
-                // he sid will be displayed like: EWR1 JERSY [airway] ... to the user
+                // The sid will be displayed like: EWR1 JERSY [airway] ... to the user
+
+                foreach (var i in endPoints)
+                {
+                    wptList.AddNeighbor(rwyIndex, i.Index, new Neighbor(sid, i.Distance + disAdd));
+                }
             }
             else
             {
                 //case 3, 4
-                var lastWptSid = new Neighbor();
-                lastWptSid.Index = wptList.FindByWaypoint(sidWpts.Last());
+                int lastWptIndex = wptList.FindByWaypoint(sidWpts.Last());
 
-                if (lastWptSid.Index < 0)
+                if (lastWptIndex < 0)
                 {
                     throw new WaypointNotFoundException("Waypoint " + sidWpts.Last() + " is not found.");
                 }
 
-                if (wptList[lastWptSid.Index].Neighbors.Count == 0)
+                if (wptList.EdgesFromCount(lastWptIndex) == 0)
                 {
                     //case 3: the endpoint is a waypoint, not a vector, but this wpt cannnot be found in ats.txt
                     //in this case we try to find a nearby wpt to direct to 
                     //the sid should be displayed, as [sid name] [endpoint] DCT [the nearby wpt we find] [airway] ...
 
                     //the last waypoint is added to WptList, where its neighbors are nearby waypoints connected to an airway
-                    foreach (var k in Utilities.sidStarToAirwayConnection("DCT", sidWpts.Last().LatLon, 0))
+                    foreach (var k in Utilities.FindAirwayConnection(sidWpts.Last().Lat, sidWpts.Last().Lon,wptList ))
                     {
-                        wptList.AddNeighbor(lastWptSid.Index, k);
+                        wptList.AddNeighbor(lastWptIndex, k.Index, new Neighbor("DCT", k.Distance));
                     }
                 }
 
                 //for both case 3 and 4
-                lastWptSid.Distance = Utilities.GetTotalDistance(sidWpts);
-                lastWptSid.Airway = sid;
-
-                endPoints.Add(lastWptSid);
+                wptList.AddNeighbor(rwyIndex, lastWptIndex, new Neighbor(sid, disAdd));
             }
-            return endPoints;
         }
 
         /// <summary>

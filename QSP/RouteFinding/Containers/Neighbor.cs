@@ -3,17 +3,31 @@ namespace QSP.RouteFinding.Containers
 
     public class Neighbor
     {
-        public int Index { get; set; }
-        public string Airway { get; set; }
-        public double Distance { get; set; }
+        // This class is immutable.
 
-        public Neighbor() { }
+        private string _airway;
+        private double _distance;
 
-        public Neighbor(int Index, string Airway, double Distance)
+        public string Airway
         {
-            this.Index = Index;
-            this.Airway = Airway;
-            this.Distance = Distance;
+            get
+            {
+                return _airway;
+            }
+        }
+
+        public double Distance
+        {
+            get
+            {
+                return _distance;
+            }
+        }
+
+        public Neighbor(string Airway, double Distance)
+        {
+            _airway = Airway;
+            _distance = Distance;
         }
 
         /// <summary>
@@ -21,11 +35,7 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public bool Equals(Neighbor x)
         {
-            if (Index == x.Index && Airway == x.Airway && Distance == x.Distance)
-            {
-                return true;
-            }
-            return false;
+            return (_airway == x.Airway && _distance == x.Distance);
         }
 
     }

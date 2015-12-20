@@ -32,7 +32,7 @@ namespace Test
             AirwayConnectionFinder finder2 = new AirwayConnectionFinder(6, "A001", "WP002", genTwoWayAirway());
             List<int> exp2 = new List<int>();
 
-            for (int i = 5; i >= 2; i --)
+            for (int i = 5; i >= 2; i--)
             {
                 exp2.Add(i);
             }
@@ -48,40 +48,33 @@ namespace Test
 
             List<int> expected = new List<int>();
 
-            for (int i = 8; i >= 4; i --)
+            for (int i = 8; i >= 4; i--)
             {
                 expected.Add(i);
             }
 
             Assert.AreEqual(true, Enumerable.SequenceEqual(expected, finder.FindWaypointIndices()));
-
         }
 
         [TestMethod()]
         public void OneWayAirway_WrongDir_CannotFind()
         {
             AirwayConnectionFinder finder = new AirwayConnectionFinder(4, "A001", "WP009", genOneWayAirway());
-
             Assert.IsNull(finder.FindWaypointIndices());
-
         }
 
         [TestMethod()]
         public void TwoWayAirway_AirwayDoesnotExist()
         {
             AirwayConnectionFinder finder = new AirwayConnectionFinder(4, "B123", "WP008", genTwoWayAirway());
-
             Assert.IsNull(finder.FindWaypointIndices());
-
         }
 
         [TestMethod()]
         public void TwoWayAirway_TargetWptID_DoesnotExist()
         {
             AirwayConnectionFinder finder = new AirwayConnectionFinder(4, "A001", "WP128", genTwoWayAirway());
-
             Assert.IsNull(finder.FindWaypointIndices());
-
         }
 
         private WaypointList genOneWayAirway()
@@ -90,20 +83,19 @@ namespace Test
             WaypointList wpts = new WaypointList();
 
             //index = 0
-            wpts.AddWpt(new WptNeighbor(new Waypoint(wptIDGenerator(1))));
+            wpts.AddWpt(new Waypoint(wptIDGenerator(1)));
 
             for (int i = 1; i <= 10; i++)
             {
-                wpts.AddWpt(new WptNeighbor(new Waypoint(wptIDGenerator(i))));
+                wpts.AddWpt(new Waypoint(wptIDGenerator(i)));
             }
 
             for (int i = 1; i <= 10; i++)
             {
-                wpts.AddNeighbor(i, new Neighbor(i - 1, "A001", 10));
+                wpts.AddNeighbor(i, i - 1, new Neighbor("A001", 10));
             }
 
             return wpts;
-
         }
 
         private WaypointList genTwoWayAirway()
@@ -112,21 +104,21 @@ namespace Test
             WaypointList wpts = new WaypointList();
 
             //index = 0
-            wpts.AddWpt(new WptNeighbor(new Waypoint(wptIDGenerator(1))));
+            wpts.AddWpt(new Waypoint(wptIDGenerator(1)));
 
             for (int i = 1; i <= 10; i++)
             {
-                wpts.AddWpt(new WptNeighbor(new Waypoint(wptIDGenerator(i))));
+                wpts.AddWpt(new Waypoint(wptIDGenerator(i)));
             }
 
             for (int i = 1; i <= 10; i++)
             {
-                wpts.AddNeighbor(i, new Neighbor(i - 1, "A001", 10));
+                wpts.AddNeighbor(i, i - 1, new Neighbor("A001", 10));
             }
 
             for (int i = 0; i <= 9; i++)
             {
-                wpts.AddNeighbor(i, new Neighbor(i + 1, "A001", 10));
+                wpts.AddNeighbor(i, i + 1, new Neighbor("A001", 10));
             }
 
             return wpts;

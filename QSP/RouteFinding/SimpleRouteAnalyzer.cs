@@ -65,11 +65,10 @@ namespace QSP.RouteFinding
                 {
                     //this one may be awy or wpt
 
-                    if (!tryParseAwy(routeInput[i]) && !tryParseWpt(routeInput[i], result))
+                    if (tryParseAwy(routeInput[i]) == false && tryParseWpt(routeInput[i], result) == false)
                     {
                         throw new InvalidIdentifierException(string.Format("{0} is not a valid waypoint or airway identifier.", routeInput[i]));
                     }
-
                 }
                 else
                 {
@@ -137,11 +136,13 @@ namespace QSP.RouteFinding
                 return false;
             }
 
-            foreach (var i in RouteFindingCore.WptList[lastWpt].Neighbors)
+            var wptList = RouteFindingCore.WptList;
+
+            foreach (var i in wptList.EdgesFrom(lastWpt))
             {
-                if (i.Airway == airway)
+                if (wptList.GetEdge(i).value.Airway == airway)
                 {
-                    lastAwy = i.Airway;
+                    lastAwy = airway;
                     return true;
                 }
             }

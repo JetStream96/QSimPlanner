@@ -83,21 +83,25 @@ namespace QSP.RouteFinding
 
             int currentIndex = indexStart;
             int prevIndex = -1;
-            WptNeighbor currentWpt = wptList[currentIndex];
+            var currentWpt = wptList[currentIndex];
             bool updated = true;
 
             while (updated)
             {
                 updated = false;
-                
-                foreach (var i in currentWpt.Neighbors)
+
+                foreach (int i in wptList.EdgesFrom(currentIndex))
                 {
-                    if (i.Airway == airway && i.Index != prevIndex)
+                    var edge = wptList.GetEdge(i);
+                    var n = edge.value;
+                    int index = edge.ToNodeIndex;
+
+                    if (n.Airway == airway && index != prevIndex)
                     {
                         if (x == 0)
                         {
                             prevIndex = currentIndex;
-                            currentIndex = i.Index;
+                            currentIndex = index;
                             currentWpt = wptList[currentIndex];
                             result.Add(currentIndex);
 
@@ -108,13 +112,12 @@ namespace QSP.RouteFinding
                             else
                             {
                                 updated = true;
-                                break; 
+                                break;
                             }
-
                         }
                         else
                         {
-                            x --;
+                            x--;
                         }
                     }
                 }

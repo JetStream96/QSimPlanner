@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using QSP.AviationTools;
 using static QSP.RouteFinding.Constants;
+using QSP.RouteFinding.Containers;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
@@ -28,7 +29,7 @@ namespace QSP.RouteFinding.Tracks.Common
             {
                 var wpt = RouteFindingCore.WptList[candidates[i]];
                 dis = MathTools.MathTools.GreatCircleDistance(prevLat, prevLon, wpt.Lat, wpt.Lon);
-                
+
                 if (dis < minDis)
                 {
                     minIndex = i;
@@ -52,10 +53,10 @@ namespace QSP.RouteFinding.Tracks.Common
         /// <summary>
         /// Returns the indices of waypoints which are closest to a specific lat/lon. 
         /// </summary>
-        public static List<int> NearbyWaypointsInWptList(int count, double lat, double lon)
+        public static List<int> NearbyWaypointsInWptList(int count, double lat, double lon, WaypointList wptList)
         {
-            var x = RouteFinding.Utilities.sidStarToAirwayConnection("", new LatLon(lat, lon), 0.0);
-            var result = new List<int>();
+            var x = RouteFinding.Utilities.FindAirwayConnection(lat, lon, wptList);
+            var result = new List<int>(x.Count);
 
             foreach (var i in x)
             {
@@ -76,7 +77,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 return;
             }
 
-            for (int i = lastIndex; i >= 0; i --)
+            for (int i = lastIndex; i >= 0; i--)
             {
                 if (item[i] == null || item[i].Length < minLength)
                 {

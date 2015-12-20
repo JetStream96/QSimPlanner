@@ -9,22 +9,10 @@ namespace QSP.RouteFinding.Containers
 {
     public class TrackerItem
     {
-        public struct NeighborRecord
-        {
-            public int index; // The index of waypoint
-            public Neighbor neighbor; // The instance of neighbor
-
-            public NeighborRecord(int index, Neighbor neighbor)
-            {
-                this.index = index;
-                this.neighbor = neighbor;
-            }
-        }
-
         #region Fields
 
         private Stack<int> _addedWpt;
-        private Stack<NeighborRecord> _addedNeighbor;
+        private Stack<int> _addedNeighbor;
         private ChangeCategory _category;
 
         #endregion
@@ -32,7 +20,7 @@ namespace QSP.RouteFinding.Containers
         public TrackerItem(ChangeCategory category)
         {
             _addedWpt = new Stack<int>();
-            _addedNeighbor = new Stack<NeighborRecord>();
+            _addedNeighbor = new Stack<int>();
             _category = category;
         }
 
@@ -41,7 +29,7 @@ namespace QSP.RouteFinding.Containers
             get { return _addedWpt.AsReadOnly(); }
         }
 
-        public ReadOnlyStack<NeighborRecord> AddedNeighbor
+        public ReadOnlyStack<int> AddedNeighbor
         {
             get { return _addedNeighbor.AsReadOnly(); }
         }
@@ -50,15 +38,15 @@ namespace QSP.RouteFinding.Containers
         {
             get { return _category; }
         }
-         
+
         public void AddWaypointRecord(int index)
         {
             _addedWpt.Push(index);
         }
 
-        public void AddNeighborRecord(int indexWpt, Neighbor neighbor)
+        public void AddNeighborRecord(int edgeIndex)
         {
-            _addedNeighbor.Push(new NeighborRecord(indexWpt, neighbor));
+            _addedNeighbor.Push(edgeIndex);
         }
     }
 }

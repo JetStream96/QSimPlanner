@@ -11,7 +11,7 @@ namespace Test.RouteFindingTest.TestDataGenerators
     public class WptListGenerator
     {
         WaypointList wptlist = new WaypointList();
-        
+
         public WaypointList Generate()
         {
             addWpt(90, 0);
@@ -69,7 +69,7 @@ namespace Test.RouteFindingTest.TestDataGenerators
             int index1 = wptlist.FindByID(To7DigitFormat(lat, lon));
             string awy = airwayName(lon, false);
             double dis = wptlist.Distance(index, index1);
-            wptlist.AddNeighbor(index, new Neighbor(index1, awy, dis));
+            wptlist.AddNeighbor(index, index1, new Neighbor(awy, dis));
         }
 
         private void addEastWestNeighbor(int index, int lat, int lon, bool isWest)
@@ -87,7 +87,7 @@ namespace Test.RouteFindingTest.TestDataGenerators
             int index1 = wptlist.FindByID(To7DigitFormat(lat, lon));
             string awy = airwayName(lat, true);
             double dis = wptlist.Distance(index, index1);
-            wptlist.AddNeighbor(index, new Neighbor(index1, awy, dis));
+            wptlist.AddNeighbor(index, index1, new Neighbor(awy, dis));
         }
 
         private void addPoleNeighbor(bool isNorthPole)
@@ -105,7 +105,7 @@ namespace Test.RouteFindingTest.TestDataGenerators
                 string awy = airwayName(i, false);
                 double dis = wptlist.Distance(index, secondWpt);
 
-                wptlist.AddNeighbor(index, new Neighbor(secondWpt, awy, dis));
+                wptlist.AddNeighbor(index, secondWpt, new Neighbor(awy, dis));
             }
         }
 

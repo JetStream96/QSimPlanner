@@ -12,7 +12,7 @@ namespace QSP.RouteFinding
 {
 
     public class AnalyzerWithCommands
-    {        
+    {
         private const string autoCommand = "AUTO";
         private const string randCommand = "RAND";
 
@@ -121,7 +121,6 @@ namespace QSP.RouteFinding
         /// <param name="index">Index of "RAND" in input() array.</param>
         private string tryParseRandAsFirst(string[] input, int index)
         {
-
             //auto find SID (approximately optimum solution)
             //it's possible that first element in input() is orig airport
 
@@ -152,9 +151,7 @@ namespace QSP.RouteFinding
                         {
                             endPoints.Add(analysisInfo);
                         }
-
                     }
-
 
                     if (endPoints.Count > 0)
                     {
@@ -162,15 +159,14 @@ namespace QSP.RouteFinding
                         p = selectSidStar(endPoints.ToArray(), nextLatLon);
 
                         return sidList[p] + " " + endPoints[p].Item2.ID + " " + randRouteStr(endPoints[p].Item2.LatLon, nextLatLon);
-
                     }
-
                 }
 
                 //no sid for the rwy/airport, e.g. KORD
                 //or sid contains nothing but a vector
-                var nearbyPts = Utilities.sidStarToAirwayConnection("DCT", origLatLon, 0.0);
+                var nearbyPts = Utilities.FindAirwayConnection(origLatLon,WptList);
 
+                // TODO: This is not quite correct.
                 for (int k = 0; k <= sidList.Count - 1; k++)
                 {
                     endPoints.Add(new Tuple<double, Waypoint>(nearbyPts[k].Distance, WptList[nearbyPts[k].Index]));
@@ -196,7 +192,7 @@ namespace QSP.RouteFinding
             //auto find STAR 
             //it's possible that last element in input() is dest airport
 
-            if ((index == lastIndex && input.Length >= 2) || 
+            if ((index == lastIndex && input.Length >= 2) ||
                 (input.Length >= 3 && index == lastIndex - 1 && input[lastIndex] == destIcao))
             {
                 string prevWpt = input[index - 1];
@@ -207,10 +203,11 @@ namespace QSP.RouteFinding
 
                 Tuple<double, Waypoint>[] endPoints = null;
 
-                //if star is avail.
 
                 if (starList.Count > 0)
                 {
+                    //if star is avail.
+
                     endPoints = new Tuple<double, Waypoint>[starList.Count];
 
                     for (int k = 0; k <= starList.Count - 1; k++)
@@ -222,23 +219,21 @@ namespace QSP.RouteFinding
                 else
                 {
                     //no star for the rwy/airport
-                    //not sure whether this case exists, but still ...
 
-                    var nearbyPts = Utilities.sidStarToAirwayConnection("DCT", destLatLon, 0.0);
+                    var nearbyPts = Utilities.FindAirwayConnection(destLatLon,WptList );
                     endPoints = new Tuple<double, Waypoint>[nearbyPts.Count];
 
-                    for (int k = 0; k < starList.Count ; k++)
+                    // TODO: This is not quite correct.
+                    for (int k = 0; k < starList.Count; k++)
                     {
                         endPoints[k] = new Tuple<double, Waypoint>(nearbyPts[k].Distance, WptList[nearbyPts[k].Index]);
                     }
-
                 }
 
                 var prevLatLon = WptList[selectWptSameIdent(prevWpt)].LatLon;
                 int p = selectSidStar(endPoints, prevLatLon);
 
                 return randRouteStr(prevLatLon, endPoints[p].Item2.LatLon) + " " + endPoints[p].Item2.ID + " " + starList[p];
-
             }
 
             return null;
@@ -447,7 +442,7 @@ namespace QSP.RouteFinding
         {
             var result = new List<int>();
 
-            for (int i = 0; i < input.Length ; i++)
+            for (int i = 0; i < input.Length; i++)
             {
                 if (input[i] == command)
                 {
@@ -492,7 +487,7 @@ namespace QSP.RouteFinding
                 return -1;
             }
         }
-               
+
         /// <exception cref="InvalidIdentifierException"></exception>
         private int selectWptSameIdent(string ident)
         {

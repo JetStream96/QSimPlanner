@@ -58,7 +58,7 @@ namespace QSP.RouteFinding
             result.SetNat(NatsManager);
             return result;
         }
-                
+
         /// <summary>
         /// Gets a route from an airport to a waypoint.
         /// </summary>
@@ -168,25 +168,27 @@ namespace QSP.RouteFinding
             return false; //Route not found.            
         }
 
-        private void updateNeighbors(int currentWptIndex, routeSeachRegionPara regionPara,routeFindingData FindRouteData, 
+        private void updateNeighbors(int currentWptIndex, routeSeachRegionPara regionPara, routeFindingData FindRouteData,
                                      MinHeap<int, double> unvisited, double currentDis)
         {
-            foreach (var neighbor in wptList[currentWptIndex].Neighbors)
+            foreach (var edgeIndex in wptList.EdgesFrom(currentWptIndex))
             {
-                if (wptWithinRange(neighbor.Index, regionPara))
+                var edge = wptList.GetEdge(edgeIndex);
+                int index = edge.ToNodeIndex;
+
+                if (wptWithinRange(index, regionPara))
                 {
-                    int index = neighbor.Index;
-                    double newDis = currentDis + neighbor.Distance;
+                    double newDis = currentDis + edge.value.Distance;
 
                     if (FindRouteData.CurrentDis[index] == MAX_DIS && newDis < MAX_DIS)
                     {
                         unvisited.Insert(index, newDis);
-                        FindRouteData.SetValue(index, currentWptIndex, neighbor.Airway, newDis);
+                        FindRouteData.SetValue(index, currentWptIndex, edge.value.Airway, newDis);
                     }
                     else if (unvisited.ItemExists(index) && newDis < unvisited.GetElement(index).Value)
                     {
                         unvisited.ReplaceValue(index, newDis);
-                        FindRouteData.SetValue(index, currentWptIndex, neighbor.Airway, newDis);
+                        FindRouteData.SetValue(index, currentWptIndex, edge.value.Airway, newDis);
                     }
                 }
             }

@@ -1,5 +1,5 @@
 using QSP.AviationTools;
-using QSP.LibraryExtension;
+using QSP.LibraryExtension.Graph;
 using QSP.RouteFinding.Data;
 using System;
 using System.Collections.Generic;
@@ -106,9 +106,7 @@ namespace QSP.RouteFinding.Containers
 
         public int AddWpt(string ID, double Lat, double Lon)
         {
-            int index = _content.AddWpt(ID, Lat, Lon);
-            addWptChanges(index);
-            return index;
+            return AddWpt(new Waypoint(ID, Lat, Lon));
         }
 
         public int AddWpt(Waypoint item)
@@ -118,38 +116,34 @@ namespace QSP.RouteFinding.Containers
             return index;
         }
 
-        public int AddWpt(WptNeighbor item)
-        {
-            int index = _content.AddWpt(item);
-            addWptChanges(index);
-            return index;
-        }
-
-        public void AddNeighbor(int index, Neighbor item)
+        public void AddNeighbor(int indexFrom, int indexTo, Neighbor item)
         {
             if (_changeTracker.CurrentlyTracked != TrackChangesOption.No)
             {
-                _changeTracker.TrackNeighborAddition(index, item);
+                _changeTracker.TrackNeighborAddition(_content.AddNeighbor(indexFrom, indexTo, item));
             }
-            _content.AddNeighbor(index, item);
+            else
+            {
+                _content.AddNeighbor(indexFrom, indexTo, item);
+            }
         }
 
-        public WptNeighbor this[int index]
+        public Waypoint this[int index]
         {
             get
             {
                 return _content[index];
             }
         }
-        
+
         public LatLon LatLonAt(int index)
         {
             return this[index].LatLon;
         }
 
-        public int NumberOfNodeFrom(int index)
+        public int EdgesFromCount(int index)
         {
-            return _content.NumberOfNodeFrom(index);
+            return _content.EdgesFromCount(index);
         }
 
         public int Count
@@ -193,7 +187,7 @@ namespace QSP.RouteFinding.Containers
         }
 
         /// <summary>
-        /// Find the index of WptNeighbor matching the waypoint.
+        /// Find the index of WptNeighbor matching the waypoint. Returns -1 if no match is found.
         /// </summary>
         public int FindByWaypoint(Waypoint wpt)
         {
@@ -207,7 +201,7 @@ namespace QSP.RouteFinding.Containers
         {
             return _content.FindAllByWaypoint(wpt);
         }
-        
+
         public void Restore()
         {
             _changeTracker.RevertChanges(ChangeCategory.Normal);
@@ -247,12 +241,22 @@ namespace QSP.RouteFinding.Containers
 
         public void RemoveAt(int index)
         {
-
+            _content.RemoveAt(index);
         }
 
-        public void RemoveNeighbor(int wptIndex, Neighbor neighbor)
+        public void RemoveNeighbor(int edgeIndex)
         {
+            _content.RemoveNeighbor(edgeIndex);
+        }
 
+        public IEnumerable<int> EdgesFrom(int index)
+        {
+            return _content.EdgesFrom(index);
+        }
+
+        public IEdge<Neighbor> GetEdge(int edgeIndex)
+        {
+            return _content.GetEdge(edgeIndex);
         }
 
     }

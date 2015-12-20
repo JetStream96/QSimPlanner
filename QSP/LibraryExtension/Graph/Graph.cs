@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QSP.LibraryExtension
+namespace QSP.LibraryExtension.Graph
 {
     public class Graph<TNode, TEdge>
     {
@@ -112,6 +112,33 @@ namespace QSP.LibraryExtension
         public IEnumerable<int> EdgesFrom(int index)
         {
             return _nodes[index].next;
+        }
+
+        public int EdgesFromCount(int index)
+        {
+            return _nodes[index].next.Count();
+        }
+
+        public int NodeCount
+        {
+            get
+            {
+                return _nodes.Count;
+            }
+        }
+
+        public void Clear()
+        {
+            _nodes.Clear();
+            _edges.Clear();
+        }
+
+        public int MaxSizeNode
+        {
+            get
+            {
+                return _nodes.MaxSize;
+            }
         }
 
     }

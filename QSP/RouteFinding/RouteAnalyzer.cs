@@ -268,11 +268,9 @@ namespace QSP.RouteFinding
                 return false;
             }
 
-            var neighbors = WptList[lastWptIndex].Neighbors;
-
-            foreach (var i in neighbors)
+            foreach (var i in WptList.EdgesFrom(lastWptIndex))
             {
-                if (i.Airway == text)
+                if (WptList.GetEdge(i).value.Airway == text)
                 {
                     rte.Via.Add(text);
                     return true;

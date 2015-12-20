@@ -109,7 +109,7 @@ namespace QSP.RouteFinding
             }
             return false;
         }
-        
+
         public static Waypoint FindWpt(string ID, Waypoint lastWpt)
         {
             var matches = WptList.FindAllByID(ID);
@@ -129,44 +129,55 @@ namespace QSP.RouteFinding
             return null;
         }
 
-        public static List<Neighbor> sidStarToAirwayConnection(string sidStarName, LatLon latLon, double initDis)
+        /// <summary>
+        /// Finds a list of waypoints which is near the given Lat/Lon, and are connected to at least one other waypoint.
+        /// </summary>
+        public static List<IndexDistancePair> FindAirwayConnection(LatLon LatLon, WaypointList wptList)
+        {
+            return FindAirwayConnection(LatLon.Lat, LatLon.Lon, wptList);
+        }
+
+        /// <summary>
+        /// Finds a list of waypoints which is near the given Lat/Lon, and are connected to at least one other waypoint.
+        /// </summary>
+        public static List<IndexDistancePair> FindAirwayConnection(double Lat, double Lon, WaypointList wptList)
         {
             const double SEARCH_RANGE_INCR = 20.0;
             const double MAX_SEARCH_RANGE = MAX_LEG_DIS;
             const int TARGET_NUM = 30;
 
             double searchRange = 0;
-            List<Neighbor> wptsOnAirway = new List<Neighbor>();
+            var result = new List<IndexDistancePair>();
 
             while (searchRange <= MAX_SEARCH_RANGE)
             {
-                wptsOnAirway.Clear();
+                result.Clear();
                 searchRange += SEARCH_RANGE_INCR;
 
-                var searchResult = WptList .Find(latLon.Lat, latLon.Lon, searchRange);
+                var searchResult = wptList.Find(Lat, Lon, searchRange);
                 double dctDis = 0;
 
                 foreach (var item in searchResult)
                 {
                     int i = item.Index;
 
-                    if (WptList[i].Neighbors.Count > 0)
+                    if (wptList.EdgesFromCount(i) > 0)
                     {
-                        dctDis = WptList.LatLonAt(i).Distance(latLon);
+                        dctDis = GreatCircleDistance(wptList[i].Lat, wptList[i].Lon, Lat, Lon);
 
                         if (dctDis <= searchRange)
                         {
-                            wptsOnAirway.Add(new Neighbor(i, sidStarName, dctDis + initDis));
+                            result.Add(new IndexDistancePair(i, dctDis));
                         }
                     }
                 }
 
-                if (wptsOnAirway.Count >= TARGET_NUM)
+                if (result.Count >= TARGET_NUM)
                 {
-                    return wptsOnAirway;
+                    return result;
                 }
             }
-            return wptsOnAirway;
+            return result;
         }
 
     }

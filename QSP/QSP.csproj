@@ -93,6 +93,7 @@
     <Compile Include="RouteFinding\Constants.cs" />
     <Compile Include="RouteFinding\Containers\AtsFileLoader.cs" />
     <Compile Include="RouteFinding\Containers\Enums.cs" />
+    <Compile Include="RouteFinding\Containers\IndexDistancePair.cs" />
     <Compile Include="RouteFinding\Containers\TrackerItem.cs" />
     <Compile Include="RouteFinding\Containers\WaypointContainer.cs" />
     <Compile Include="RouteFinding\Containers\WptSeachWrapper.cs" />
@@ -158,7 +159,6 @@
     <Compile Include="RouteFinding\Containers\Route.cs" />
     <Compile Include="RouteFinding\Containers\WaypointList.cs" />
     <Compile Include="RouteFinding\Containers\Waypoint.cs" />
-    <Compile Include="RouteFinding\Containers\WptNeighbor.cs" />
     <Compile Include="RouteFinding\Airports\Airport.cs" />
     <Compile Include="RouteFinding\Airports\AirportDatabase.cs" />
     <Compile Include="RouteFinding\Data\DatabaseLoader.cs" />

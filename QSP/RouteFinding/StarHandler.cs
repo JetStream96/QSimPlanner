@@ -111,13 +111,10 @@ namespace QSP.RouteFinding
 
             if (star.Count == 0)
             {
-                //case 1: the star list is empty, find nearby wpts and use DCT
-
-                var nearbyWpts = Utilities.sidStarToAirwayConnection("", rwyLatLon, 0);
-
-                foreach (var i in nearbyWpts)
+                //case 1: the star list is empty, find nearby wpts and use DCT                
+                foreach (var i in Utilities.FindAirwayConnection(rwyLatLon,wptList ))
                 {
-                    wptList.AddNeighbor(i.Index, new Neighbor(DEST_RWY_INDEX, "DCT", i.Distance));
+                    wptList.AddNeighbor(i.Index, DEST_RWY_INDEX, new Neighbor("DCT", i.Distance));
                 }
             }
             else
@@ -131,7 +128,6 @@ namespace QSP.RouteFinding
             return DEST_RWY_INDEX;
         }
 
-
         private void addStarWpts(string star, string rwy, int DEST_RWY_INDEX)
         {
             var analysisInfo = InfoForAnalysis(rwy, star);
@@ -141,30 +137,22 @@ namespace QSP.RouteFinding
             int firstWptIndex = wptList.FindByWaypoint(firstWpt);
             //get index of starting wpt
 
-            var destRwyAsNeighbor = new Neighbor(DEST_RWY_INDEX, star, starDis);
+            var destRwyAsNeighbor = new Neighbor(star, starDis);
 
-            if (wptList.NumberOfNodeFrom(firstWptIndex) == 0)
+            if (wptList.EdgesFromCount(firstWptIndex) == 0)
             {
                 //case 2: when the connecting wpt(i.e. the first wpt in the star) is not found in ats.txt
 
-                //add the first wpt to wptList
-                wptList.AddNeighbor(firstWptIndex, destRwyAsNeighbor);
-
                 //now find nearby waypoints of firstWpt of star
-                var nearbyWpts = Utilities.sidStarToAirwayConnection("DCT", firstWpt.LatLon, 0);
-
-                foreach (var pt in nearbyWpts)
+                foreach (var pt in Utilities.FindAirwayConnection(firstWpt.Lat, firstWpt.Lon,wptList ))
                 {
                     //each pt directs to the firstWpt of star
-                    wptList.AddNeighbor(pt.Index, new Neighbor(firstWptIndex, "DCT", pt.Distance));
+                    wptList.AddNeighbor(pt.Index, firstWptIndex, new Neighbor("DCT", pt.Distance));
                 }
             }
-            else
-            {
-                //case 3
-                //add dest rwy as a neighbor of firstWpt of STAR
-                wptList.AddNeighbor(firstWptIndex, destRwyAsNeighbor);
-            }
+            // For both case 2 and 3
+            //add dest rwy as a neighbor of firstWpt of STAR
+            wptList.AddNeighbor(firstWptIndex, DEST_RWY_INDEX, destRwyAsNeighbor);
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ namespace QSP.RouteFinding.Containers
     /// </summary>
     public class ChangeTracker
     {
-        private WaypointList  _content;
+        private WaypointList _content;
         private List<TrackerItem> _trackerCollection;
         private TrackerItem _currentTracker;
         private TrackChangesOption _currentlyTracked;  // The category of change currently tracking.
@@ -75,9 +75,9 @@ namespace QSP.RouteFinding.Containers
             _currentTracker.AddWaypointRecord(index);
         }
 
-        public void TrackNeighborAddition(int wptIndex, Neighbor neighbor)
+        public void TrackNeighborAddition(int edgeIndex )
         {
-            _currentTracker.AddNeighborRecord(wptIndex, neighbor);
+            _currentTracker.AddNeighborRecord(edgeIndex);
         }
 
         public void RevertChanges(ChangeCategory para)
@@ -92,14 +92,12 @@ namespace QSP.RouteFinding.Containers
                         var item = _trackerCollection[i];
 
                         //remove neighbors first
-
                         foreach (var j in item.AddedNeighbor)
                         {
-                            _content.RemoveNeighbor(j.index, j.neighbor);
+                            _content.RemoveNeighbor(j);
                         }
 
-                        // Remove all wpts between regionStart and regionEnd.
-
+                        // Remove all wpts.
                         foreach (var k in item.AddedWaypoint)
                         {
                             _content.RemoveAt(k);

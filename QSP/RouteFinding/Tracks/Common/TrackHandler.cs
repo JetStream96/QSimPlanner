@@ -22,13 +22,13 @@ namespace QSP.RouteFinding.Tracks.Common
         public TrackHandler() : this(RouteFindingCore.WptList)
         {
         }
-        
+
         public TrackHandler(WaypointList WptList)
         {
             allTracks = new List<ITrack>();
             this.wptList = WptList;
         }
-        
+
         public void AddToWptList()
         {
             if (allTracks.Count > 0)
@@ -43,7 +43,7 @@ namespace QSP.RouteFinding.Tracks.Common
                     wptList.DisableTrack(TrackType.Ausots);
                     wptList.CurrentlyTracked = TrackChangesOption.AddingAusots;
                 }
-                
+
                 foreach (var i in allTracks)
                 {
                     addTrackToWptList(i);
@@ -52,19 +52,19 @@ namespace QSP.RouteFinding.Tracks.Common
                 wptList.CurrentlyTracked = TrackChangesOption.No;
             }
         }
-        
+
         private void addTrackToWptList(ITrack item)
         {
             TrackReader reader = null;
-            
+
             try
             {
                 reader = new TrackReader(item);
                 addMainRoute(reader.MainRoute, item);
             }
-            catch 
+            catch
             {
-                RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution, "Failed to process track " + 
+                RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution, "Failed to process track " +
                                                               item.Ident + ".", (item is PacificTrack) ? TrackType.Pacots : TrackType.Ausots);
             }
 
@@ -79,34 +79,33 @@ namespace QSP.RouteFinding.Tracks.Common
 
         private void addPairs(WptPair item)
         {
-            wptList.AddNeighbor(item.IndexFrom, new Neighbor(item.IndexTo, "DCT", wptList.Distance(item.IndexFrom, item.IndexTo)));
+            wptList.AddNeighbor(item.IndexFrom, item.IndexTo, new Neighbor("DCT", wptList.Distance(item.IndexFrom, item.IndexTo)));
         }
-
 
         private void addMainRoute(Route rte, ITrack trk)
         {
             int indexStart = addFirstWpt(rte.Waypoints.First());
             int indexEnd = addLastWpt(rte.Waypoints.Last());
 
-            wptList.AddNeighbor(indexStart, new Neighbor(indexEnd, airwayIdent(trk), TotalDis(rte)));
+            wptList.AddNeighbor(indexStart, indexEnd, new Neighbor(airwayIdent(trk), TotalDis(rte)));
         }
 
         //returns the index of added wpt in wptList
         private int addFirstWpt(Waypoint wpt)
         {
             int x = wptList.FindByWaypoint(wpt);
-            
+
             if (x >= 0)
             {
-                if (wptList.NumberOfNodeFrom(x) == 0)
+                if (wptList.EdgesFromCount(x) == 0)
                 {
                     //no other wpt have this wpt as a neighbor, need to find nearby wpt to connect
 
-                    List<int> k = Utilities.NearbyWaypointsInWptList(20, wpt.Lat, wpt.Lon);
+                    List<int> k = Utilities.NearbyWaypointsInWptList(20, wpt.Lat, wpt.Lon, wptList);
 
                     foreach (var m in k)
                     {
-                        wptList.AddNeighbor(m, new Neighbor(x, "DCT", wptList.Distance(x, m)));
+                        wptList.AddNeighbor(m, x, new Neighbor("DCT", wptList.Distance(x, m)));
                     }
                 }
                 return x;
@@ -121,13 +120,13 @@ namespace QSP.RouteFinding.Tracks.Common
             if (x >= 0)
             {
 
-                if (wptList[x].Neighbors.Count == 0)
+                if (wptList.EdgesFromCount(x) == 0)
                 {
-                    List<int> k = Utilities.NearbyWaypointsInWptList(20, wpt.Lat, wpt.Lon);
+                    List<int> k = Utilities.NearbyWaypointsInWptList(20, wpt.Lat, wpt.Lon, wptList);
 
                     foreach (var m in k)
                     {
-                        wptList.AddNeighbor(x, new Neighbor(m, "DCT", wptList.Distance(x, m)));
+                        wptList.AddNeighbor(x, m, new Neighbor("DCT", wptList.Distance(x, m)));
                     }
                 }
                 return x;

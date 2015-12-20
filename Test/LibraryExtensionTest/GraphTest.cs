@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.LibraryExtension;
+using QSP.LibraryExtension.Graph;
 using System.Collections.Generic;
 using System.Linq;
 

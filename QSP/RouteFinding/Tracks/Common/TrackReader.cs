@@ -11,7 +11,6 @@ namespace QSP.RouteFinding.Tracks.Common
 
     public class TrackReader
     {
-
         //Read the track waypoints as strings, and try to find each waypoints in WptList
 
         private List<WptPair> routeFromTo;
@@ -36,7 +35,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 routeFromTo.AddRange(findWptAllRouteTo(trk.RouteTo));
                 routeFromTo = routeFromTo.Distinct().ToList();
             }
-            catch 
+            catch
             {
                 routeFromTo = new List<WptPair>();
             }
@@ -110,19 +109,15 @@ namespace QSP.RouteFinding.Tracks.Common
 
         private bool isAirway(int lastIndex, string airway)
         {
-
-
-            foreach (var i in RouteFindingCore.WptList[lastIndex].Neighbors)
+            var wptList = RouteFindingCore.WptList;
+            foreach (var i in wptList.EdgesFrom(lastIndex))
             {
-                if (i.Airway == airway)
+                if (wptList.GetEdge(i).value.Airway == airway)
                 {
                     return true;
                 }
-
             }
-
             return false;
-
         }
 
         private List<WptPair> findWptAllRouteFrom(ReadOnlyCollection<string[]> rteFrom)

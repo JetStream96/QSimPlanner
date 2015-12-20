@@ -1,110 +1,67 @@
 ﻿using QSP.LibraryExtension;
+using QSP.LibraryExtension.Graph;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using static QSP.LibraryExtension.HashMap<string, int>;
 
 namespace QSP.RouteFinding.Containers
 {
-    public class WaypointContainer : IEnumerable<WptNeighbor>, IEnumerable
+    public class WaypointContainer
     {
-        #region Container
-
-        private class WptData : WptNeighbor
-        {
-            public int NumNodeFrom { get; set; }  //indicates how many other waypoints have this wpt as neighbor
-
-            public List<Neighbor> NeighborList
-            {
-                get
-                {
-                    return _neighborList;
-                }
-                set
-                {
-                    _neighborList = value;
-                }
-            }
-
-            public WptData(string ID, double Lat, double Lon, int NumNodeFrom) : base(ID, Lat, Lon)
-            {
-                this.NumNodeFrom = NumNodeFrom;
-            }
-
-            public WptData(Waypoint waypoint, int NumNodeFrom) : base(waypoint)
-            {
-                this.NumNodeFrom = NumNodeFrom;
-            }
-
-            public WptData(WptNeighbor WptNeighbor, int NumNodeFrom) : base(WptNeighbor)
-            {
-                this.NumNodeFrom = NumNodeFrom;
-            }
-        }
-
-        #endregion
-
         #region Fields
 
+        private Graph<Waypoint, Neighbor> graph;
         private HashMap<string, int> searchHelper;
-        private FixedIndexList<WptData> content;
 
         #endregion
 
         public WaypointContainer()
         {
-            content = new FixedIndexList<WptData>();
+            graph = new Graph<Waypoint, Neighbor>();
             searchHelper = new HashMap<string, int>();
-        }
-
-        public int AddWpt(string ID, double Lat, double Lon)
-        {
-            searchHelper.Add(ID, content.Count);
-            return content.Add(new WptData(ID, Lat, Lon, 0));
         }
 
         public int AddWpt(Waypoint item)
         {
-            searchHelper.Add(item.ID, content.Count);
-            return content.Add(new WptData(item, 0));
+            int index = graph.AddNode(item);
+            searchHelper.Add(item.ID, index);
+            return index;
         }
 
-        public int AddWpt(WptNeighbor item)
+        public int AddNeighbor(int indexFrom, int indexTo, Neighbor item)
         {
-            searchHelper.Add(item.ID, content.Count);
-            return content.Add(new WptData(item, 0));
-        }
-
-        public void AddNeighbor(int index, Neighbor item)
-        {
-            content[index].NeighborList.Add(item);
-            content[item.Index].NumNodeFrom++;
+            return graph.AddEdge(indexFrom, indexTo, item);
         }
 
         public void Clear()
         {
-            content.Clear();
+            graph.Clear();
             searchHelper.Clear();
         }
 
-        public WptNeighbor this[int index]
+        public Waypoint this[int index]
         {
             get
             {
-                return content[index];
+                return graph.GetNode(index);
             }
         }
 
-        public int NumberOfNodeFrom(int index)
+        public int EdgesFromCount(int index)
         {
-            return content[index].NumNodeFrom;
+            return graph.EdgesFromCount(index);
         }
 
         public int Count
         {
-            get { return content.Count; }
+            get
+            {
+                return graph.NodeCount;
+            }
         }
 
         /// <summary>
@@ -114,7 +71,7 @@ namespace QSP.RouteFinding.Containers
         {
             get
             {
-                return content.MaxSize;
+                return graph.MaxSizeNode;
             }
         }
 
@@ -143,7 +100,7 @@ namespace QSP.RouteFinding.Containers
         }
 
         /// <summary>
-        /// Find the index of WptNeighbor matching the waypoint.
+        /// Find the index of WptNeighbor matching the waypoint. Returns -1 if no match is found.
         /// </summary>
         public int FindByWaypoint(Waypoint wpt)
         {
@@ -172,7 +129,7 @@ namespace QSP.RouteFinding.Containers
 
             foreach (int i in candidates)
             {
-                if (content[i].Equals(wpt))
+                if (graph.GetNode(i).Equals(wpt))
                 {
                     results.Add(i);
                 }
@@ -182,24 +139,24 @@ namespace QSP.RouteFinding.Containers
 
         public void RemoveAt(int index)
         {
-            content.RemoveAt(index);
-            searchHelper.Remove(content[index].ID, index, HashMap<string, int>.RemoveParameter.RemoveFirst);
+            searchHelper.Remove(graph.GetNode(index).ID, index, RemoveParameter.RemoveFirst);
+            graph.RemoveNode(index);
         }
 
-        public void RemoveNeighbor(int wptIndex, Neighbor neighbor)
+        public void RemoveNeighbor(int edgeIndex)
         {
-            content[neighbor.Index].NumNodeFrom--;
-            content[wptIndex].NeighborList.Remove(neighbor);
+            graph.RemoveEdge(edgeIndex);
         }
 
-        public IEnumerator<WptNeighbor> GetEnumerator()
+        public IEnumerable<int> EdgesFrom(int index)
         {
-            return content.GetEnumerator();
+            return graph.EdgesFrom(index);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public IEdge<Neighbor> GetEdge(int edgeIndex)
         {
-            return content.GetEnumerator();
+            return graph.GetEdge(edgeIndex);
         }
+
     }
 }

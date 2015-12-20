@@ -141,7 +141,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
 
             //prevent adding the same set of tracks multiple times, if this method is called repeatedly
-            WptList.DisableTrack(TrackType.Nats); 
+            WptList.DisableTrack(TrackType.Nats);
 
             //add wpts
             WptList.CurrentlyTracked = TrackChangesOption.AddingNATs;
@@ -171,13 +171,13 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             if (x >= 0)
             {
-                WptNeighbor pt = WptList[x];
+                var pt = WptList[x];
 
                 latLon.Add(pt.LatLon);
                 FirstTrackWptIndex = x;
                 currentTrack.WptIndex.Add(x);
 
-                if (WptList.NumberOfNodeFrom(x) > 0)
+                if (WptList.EdgesFromCount(x) > 0)
                 {
                     //some other wpt have this wpt as a neighbor
                     return;
@@ -186,11 +186,11 @@ namespace QSP.RouteFinding.Tracks.Nats
                 {
                     //no other wpt have this wpt as a neighbor, need to find nearby wpt to connect
 
-                    List<int> k = Common.Utilities.NearbyWaypointsInWptList(20, pt.Lat, pt.Lon);
+                    List<int> k = Common.Utilities.NearbyWaypointsInWptList(20, pt.Lat, pt.Lon,WptList );
 
                     foreach (int m in k)
                     {
-                        WptList.AddNeighbor(m, new Neighbor(x, "DCT", WptList.Distance(x, m)));
+                        WptList.AddNeighbor(m, x, new Neighbor("DCT", WptList.Distance(x, m)));
                     }
 
                     return;
@@ -209,24 +209,23 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             if (x != -1)
             {
-                WptNeighbor pt = WptList[x];
+                var pt = WptList[x];
 
                 latLon.Add(pt.LatLon);
                 LastTrackWptIndex = x;
                 currentTrack.WptIndex.Add(x);
 
-                if (pt.Neighbors.Count > 0)
+                if (WptList.EdgesFromCount(x) > 0)
                 {
                     return;
-
                 }
                 else
                 {
-                    List<int> k = Common.Utilities.NearbyWaypointsInWptList(20, pt.Lat, pt.Lon);
+                    List<int> k = Common.Utilities.NearbyWaypointsInWptList(20, pt.Lat, pt.Lon,WptList );
 
                     foreach (int m in k)
                     {
-                        WptList.AddNeighbor(x, new Neighbor(m, "DCT", WptList.Distance(x, m)));
+                        WptList.AddNeighbor(x, m, new Neighbor("DCT", WptList.Distance(x, m)));
                     }
 
                     return;
@@ -237,10 +236,11 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         private void addTracksIntoWptList(NorthAtlanticTrack currentTrack)
         {
+            //The first and last waypoints in the track. Index in WptList.
             int FirstTrackWptIndex = 0;
             int LastTrackWptIndex = 0;
-            //The first and last waypoints in the track. Index in WptList.
-            double track_dis = 0;
+
+            double trackDis = 0;
             var latLon = new List<LatLon>();
 
             for (int i = 0; i < currentTrack.WptIdent.Count; i++)
@@ -281,10 +281,10 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             for (int i = 0; i <= latLon.Count - 2; i++)
             {
-                track_dis += GreatCircleDistance(latLon[i], latLon[i + 1]);
+                trackDis += GreatCircleDistance(latLon[i], latLon[i + 1]);
             }
 
-            WptList.AddNeighbor(FirstTrackWptIndex, new Neighbor(LastTrackWptIndex, "NAT" + currentTrack.Ident, track_dis));
+            WptList.AddNeighbor(FirstTrackWptIndex, LastTrackWptIndex, new Neighbor("NAT" + currentTrack.Ident, trackDis));
         }
 
         /// <summary>

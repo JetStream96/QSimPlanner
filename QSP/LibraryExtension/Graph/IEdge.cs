@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QSP.LibraryExtension
+namespace QSP.LibraryExtension.Graph
 {
     public interface IEdge<TEdge>
     {

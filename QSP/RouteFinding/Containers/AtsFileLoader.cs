@@ -48,7 +48,6 @@ namespace QSP.RouteFinding.Containers
                         //this line is waypoint
                         Waypoint firstWpt = getWpt(i, ref pos);
                         Waypoint secondWpt = getWpt(i, ref pos);
-                        Neighbor secondWptAsNeighbor = null;
 
                         int index1 = wptList.FindByWaypoint(firstWpt);
                         int index2 = wptList.FindByWaypoint(secondWpt);
@@ -59,25 +58,20 @@ namespace QSP.RouteFinding.Containers
 
                         double dis = ParseDouble(i, pos, i.Length - 1);
 
-                        //add second waypoint as required
-                        if (index2 >= 0)
+                        // Add second waypoint as required
+                        if (index2 <= 0)
                         {
-                            secondWptAsNeighbor = new Neighbor(index2, currentAirway, dis);
-                        }
-                        else
-                        {
-                            secondWptAsNeighbor = new Neighbor(wptList.AddWpt(secondWpt), currentAirway, dis);
+                            index2 = wptList.AddWpt(secondWpt);
                         }
 
-                        //add first waypoint as required
-                        if (index1 >= 0)
+                        // Add first waypoint as required
+                        if (index1 < 0)
                         {
-                            wptList.AddNeighbor(index1, secondWptAsNeighbor);
+                            index1 = wptList.AddWpt(firstWpt);
                         }
-                        else
-                        {
-                            wptList.AddNeighbor(wptList.AddWpt(firstWpt), secondWptAsNeighbor);
-                        }
+
+                        // Add the connection.
+                        wptList.AddNeighbor(index1, index2, new Neighbor(currentAirway, dis));
                     }
                 }
 
