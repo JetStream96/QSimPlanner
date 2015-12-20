@@ -7,7 +7,7 @@ using QSP.RouteFinding.Data;
 
 namespace QSP.RouteFinding.Containers
 {
-    public class WptSeachWrapper : ICoordinate, IEqualityComparer<WptSeachWrapper>
+    public class WptSeachWrapper : ICoordinate, IEquatable<WptSeachWrapper>
     {
         public int Index;
         public double Lat { get; set; }
@@ -25,14 +25,14 @@ namespace QSP.RouteFinding.Containers
             this.Lon = lon;
         }
 
-        public bool Equals(WptSeachWrapper x, WptSeachWrapper y)
-        {
-            return (x.Index == y.Index);           
-        }
-
         public int GetHashCode(WptSeachWrapper obj)
         {
             return Index.GetHashCode();
+        }
+
+        public bool Equals(WptSeachWrapper other)
+        {
+            return (this.Index == other.Index);
         }
     }
 }

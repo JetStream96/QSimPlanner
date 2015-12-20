@@ -9,7 +9,7 @@ using static QSP.MathTools.MathTools;
 namespace QSP.RouteFinding.Data
 {
 
-    public class LatLonSearchUtility<T> where T : ICoordinate
+    public class LatLonSearchUtility<T> where T : ICoordinate, IEquatable<T>
     {
         private readonly int GRID_SIZE;
         private readonly int POLAR_REGION_SIZE;
@@ -106,7 +106,7 @@ namespace QSP.RouteFinding.Data
             content[indices.Item1, indices.Item2].Add(item);
         }
 
-        private Pair <int, int> indicesInContent(double lat, double lon)
+        private Pair<int, int> indicesInContent(double lat, double lon)
         {
             if (lon == 180.0)
             {

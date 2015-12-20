@@ -259,7 +259,7 @@ namespace Test.LibraryExtensionTest
                 x.RemoveAt(i * 10);
             }
 
-            int counter = 0;
+            int counter = 1;
 
             foreach (var item in x)
             {

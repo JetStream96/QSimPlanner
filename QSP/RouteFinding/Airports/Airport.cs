@@ -2,10 +2,11 @@ using QSP.AviationTools;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using QSP.RouteFinding.Data;
+using System;
 
 namespace QSP.RouteFinding.Airports
 {
-    public class Airport : ICoordinate
+    public class Airport : ICoordinate, IEquatable<Airport>
     {
         #region Fields
 
@@ -87,6 +88,10 @@ namespace QSP.RouteFinding.Airports
             return new LatLon(item.Lat, item.Lon);
         }
 
+        public bool Equals(Airport other)
+        {
+            return (this.Icao == other.Icao);
+        }
     }
 
 }

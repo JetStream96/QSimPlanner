@@ -33,7 +33,7 @@ namespace QSP.LibraryExtension
 
         private Entry[] _items;
         private int _size;
-        private int _free;
+        private int _free;  // Either -2, or the index of a removed item.
         private int _count;
 
         private struct Entry
@@ -43,7 +43,11 @@ namespace QSP.LibraryExtension
 
             public Entry(int next, T value)
             {
+                // If >=0, it's the index of the next removed item.
+                // If -1, it indicates this item is not removed.
+                // If -2, this item is already removed, but there isn't a next removed item.
                 this.next = next;
+
                 this.value = value;
             }
         }
@@ -52,7 +56,7 @@ namespace QSP.LibraryExtension
         {
             _items = emptyArray;
             _size = 0;
-            _free = -1;
+            _free = -2;
             _count = 0;
         }
 
@@ -64,7 +68,7 @@ namespace QSP.LibraryExtension
             }
             _items = new Entry[capacity];
             _size = 0;
-            _free = -1;
+            _free = -2;
             _count = 0;
         }
 
@@ -165,7 +169,7 @@ namespace QSP.LibraryExtension
             {
                 if (isRemoved(index))
                 {
-                    throw new IndexOutOfRangeException ("The element at given index is already removed.");
+                    throw new IndexOutOfRangeException("The element at given index is already removed.");
                 }
                 return _items[index].value;
             }
@@ -182,18 +186,14 @@ namespace QSP.LibraryExtension
         public void Clear()
         {
             _items = emptyArray;
-            _free = -1;
+            _free = -2;
             _size = 0;
             _count = 0;
         }
 
         private bool isRemoved(int index)
         {
-            if (_items[index].next >= 0 || index == _free)
-            {
-                return true;
-            }
-            return false;
+            return !(_items[index].next == -1);
         }
 
         public void RemoveAt(int index)
@@ -203,6 +203,7 @@ namespace QSP.LibraryExtension
                 return;
             }
 
+            _items[index].value = default(T);
             _items[index].next = _free;
             _free = index;
             _count--;

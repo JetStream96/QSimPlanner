@@ -241,6 +241,7 @@ namespace QSP.RouteFinding.Containers
 
         public void RemoveAt(int index)
         {
+            _finder.Remove(new WptSeachWrapper(index, _content[index].Lat, _content[index].Lon));
             _content.RemoveAt(index);
         }
 
