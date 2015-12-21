@@ -11,6 +11,7 @@ using QSP.AviationTools;
 using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.MathTools.MathTools;
+using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {

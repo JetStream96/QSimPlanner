@@ -2,72 +2,57 @@ using System;
 namespace QSP.RouteFinding
 {
 
-    [Serializable()]
-    public class SidNotFoundException : System.Exception
+    [Serializable]
+    public class SidNotFoundException : Exception
     {
-
-        public SidNotFoundException()
-        {
-        }
-
-        public SidNotFoundException(string message) : base(message)
-        {
-        }
-
-        public SidNotFoundException(string message, Exception inner) : base(message, inner)
-        {
-        }
+        public SidNotFoundException() { }
+        public SidNotFoundException(string message) : base(message) { }
+        public SidNotFoundException(string message, Exception inner) : base(message, inner) { }
+        protected SidNotFoundException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        { }
     }
 
-    [Serializable()]
-    public class WaypointNotFoundException : System.Exception
+
+    [Serializable]
+    public class WaypointNotFoundException : Exception
     {
-
-        public WaypointNotFoundException()
-        {
-        }
-
-        public WaypointNotFoundException(string message) : base(message)
-        {
-        }
-
-        public WaypointNotFoundException(string message, Exception inner) : base(message, inner)
-        {
-        }
+        public WaypointNotFoundException() { }
+        public WaypointNotFoundException(string message) : base(message) { }
+        public WaypointNotFoundException(string message, Exception inner) : base(message, inner) { }
+        protected WaypointNotFoundException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        { }
     }
 
-    [Serializable()]
-    public class RwyDatabaseFormatException : System.Exception
+
+    [Serializable]
+    public class RwyDatabaseFormatException : Exception
     {
-
-        public RwyDatabaseFormatException(string message) : base(message)
-        {
-        }
-
-        public RwyDatabaseFormatException(string message, Exception inner) : base(message, inner)
-        {
-        }
-
+        public RwyDatabaseFormatException() { }
+        public RwyDatabaseFormatException(string message) : base(message) { }
+        public RwyDatabaseFormatException(string message, Exception inner) : base(message, inner) { }
+        protected RwyDatabaseFormatException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        { }
     }
 
-    [Serializable()]
+
+    [Serializable]
     public class InvalidIdentifierException : Exception
     {
-
-        public InvalidIdentifierException()
-        {
-        }
-
-        public InvalidIdentifierException(string message) : base(message)
-        {
-        }
-
-        public InvalidIdentifierException(string message, Exception inner) : base(message, inner)
-        {
-        }
+        public InvalidIdentifierException() { }
+        public InvalidIdentifierException(string message) : base(message) { }
+        public InvalidIdentifierException(string message, Exception inner) : base(message, inner) { }
+        protected InvalidIdentifierException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        { }
     }
-
-
+    
     [Serializable]
     public class LoadWaypointFileException : Exception
     {

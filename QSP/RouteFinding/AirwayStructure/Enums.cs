@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QSP.RouteFinding.Containers
+namespace QSP.RouteFinding.AirwayStructure
 {
     public enum ChangeCategory
     {

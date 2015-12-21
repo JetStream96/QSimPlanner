@@ -5,15 +5,14 @@ using static QSP.RouteFinding.RouteFinder;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.MathTools.MathTools;
 using QSP.AviationTools;
+using QSP.RouteFinding.AirwayStructure;
+using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding
 {
 
     public static class Utilities
     {
-
-        private const double MAX_LEG_DIS = 500.0;
-
         /// <summary>
         /// Determines whether the input string is a valid rwy identifier.
         /// </summary>

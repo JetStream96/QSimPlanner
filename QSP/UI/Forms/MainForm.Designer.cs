@@ -81,9 +81,9 @@ namespace QSP
             this.TableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Label25 = new System.Windows.Forms.Label();
             this.HoldTime_TxtBox = new System.Windows.Forms.TextBox();
+            this.Label11 = new System.Windows.Forms.Label();
             this.Label12 = new System.Windows.Forms.Label();
             this.WtUnitSel_ComboBox = new System.Windows.Forms.ComboBox();
-            this.Label11 = new System.Windows.Forms.Label();
             this.ContPercentToDest = new System.Windows.Forms.ComboBox();
             this.Label112 = new System.Windows.Forms.Label();
             this.MissedAppFuel = new System.Windows.Forms.TextBox();
@@ -292,8 +292,6 @@ namespace QSP
             this.Return_Btn = new System.Windows.Forms.Button();
             this.MapDisWebBrowser = new System.Windows.Forms.WebBrowser();
             this.TabPage14 = new System.Windows.Forms.TabPage();
-            this.GroupBox4 = new System.Windows.Forms.GroupBox();
-            this.DisableNATs_CheckBox = new System.Windows.Forms.CheckBox();
             this.Return_AdvancedTool_Btn = new System.Windows.Forms.Button();
             this.GroupBox8 = new System.Windows.Forms.GroupBox();
             this.Label56 = new System.Windows.Forms.Label();
@@ -367,7 +365,6 @@ namespace QSP
             this.GroupBox7.SuspendLayout();
             this.TabPage13.SuspendLayout();
             this.TabPage14.SuspendLayout();
-            this.GroupBox4.SuspendLayout();
             this.GroupBox8.SuspendLayout();
             this.TabPage3.SuspendLayout();
             this.GroupBox3.SuspendLayout();
@@ -947,6 +944,18 @@ namespace QSP
             this.HoldTime_TxtBox.Size = new System.Drawing.Size(89, 27);
             this.HoldTime_TxtBox.TabIndex = 27;
             // 
+            // Label11
+            // 
+            this.Label11.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Label11.AutoSize = true;
+            this.Label11.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label11.Location = new System.Drawing.Point(293, 35);
+            this.Label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Label11.Name = "Label11";
+            this.Label11.Size = new System.Drawing.Size(32, 19);
+            this.Label11.TabIndex = 18;
+            this.Label11.Text = "KG";
+            // 
             // Label12
             // 
             this.Label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -973,18 +982,6 @@ namespace QSP
             this.WtUnitSel_ComboBox.Size = new System.Drawing.Size(89, 27);
             this.WtUnitSel_ComboBox.TabIndex = 34;
             this.WtUnitSel_ComboBox.SelectedIndexChanged += new System.EventHandler(this.WtUnitSel_ComboBox_SelectedIndexChanged);
-            // 
-            // Label11
-            // 
-            this.Label11.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Label11.AutoSize = true;
-            this.Label11.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label11.Location = new System.Drawing.Point(293, 35);
-            this.Label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.Label11.Name = "Label11";
-            this.Label11.Size = new System.Drawing.Size(32, 19);
-            this.Label11.TabIndex = 18;
-            this.Label11.Text = "KG";
             // 
             // ContPercentToDest
             // 
@@ -3624,7 +3621,6 @@ namespace QSP
             // 
             // TabPage14
             // 
-            this.TabPage14.Controls.Add(this.GroupBox4);
             this.TabPage14.Controls.Add(this.Return_AdvancedTool_Btn);
             this.TabPage14.Controls.Add(this.GroupBox8);
             this.TabPage14.Location = new System.Drawing.Point(4, 25);
@@ -3635,34 +3631,13 @@ namespace QSP
             this.TabPage14.Text = "Advanced Tool For Routes";
             this.TabPage14.UseVisualStyleBackColor = true;
             // 
-            // GroupBox4
-            // 
-            this.GroupBox4.Controls.Add(this.DisableNATs_CheckBox);
-            this.GroupBox4.Location = new System.Drawing.Point(6, 10);
-            this.GroupBox4.Name = "GroupBox4";
-            this.GroupBox4.Size = new System.Drawing.Size(1099, 64);
-            this.GroupBox4.TabIndex = 18;
-            this.GroupBox4.TabStop = false;
-            this.GroupBox4.Text = "Options";
-            // 
-            // DisableNATs_CheckBox
-            // 
-            this.DisableNATs_CheckBox.AutoSize = true;
-            this.DisableNATs_CheckBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DisableNATs_CheckBox.Location = new System.Drawing.Point(98, 24);
-            this.DisableNATs_CheckBox.Name = "DisableNATs_CheckBox";
-            this.DisableNATs_CheckBox.Size = new System.Drawing.Size(126, 23);
-            this.DisableNATs_CheckBox.TabIndex = 0;
-            this.DisableNATs_CheckBox.Text = "Disable NATs";
-            this.DisableNATs_CheckBox.UseVisualStyleBackColor = true;
-            // 
             // Return_AdvancedTool_Btn
             // 
             this.Return_AdvancedTool_Btn.BackColor = System.Drawing.Color.Green;
             this.Return_AdvancedTool_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Return_AdvancedTool_Btn.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Return_AdvancedTool_Btn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Return_AdvancedTool_Btn.Location = new System.Drawing.Point(905, 338);
+            this.Return_AdvancedTool_Btn.Location = new System.Drawing.Point(905, 280);
             this.Return_AdvancedTool_Btn.Name = "Return_AdvancedTool_Btn";
             this.Return_AdvancedTool_Btn.Size = new System.Drawing.Size(200, 40);
             this.Return_AdvancedTool_Btn.TabIndex = 17;
@@ -3691,7 +3666,7 @@ namespace QSP
             this.GroupBox8.Controls.Add(this.ToTxtbox);
             this.GroupBox8.Controls.Add(this.Label66);
             this.GroupBox8.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBox8.Location = new System.Drawing.Point(6, 80);
+            this.GroupBox8.Location = new System.Drawing.Point(6, 18);
             this.GroupBox8.Name = "GroupBox8";
             this.GroupBox8.Size = new System.Drawing.Size(1099, 225);
             this.GroupBox8.TabIndex = 15;
@@ -4033,8 +4008,6 @@ namespace QSP
             this.GroupBox7.PerformLayout();
             this.TabPage13.ResumeLayout(false);
             this.TabPage14.ResumeLayout(false);
-            this.GroupBox4.ResumeLayout(false);
-            this.GroupBox4.PerformLayout();
             this.GroupBox8.ResumeLayout(false);
             this.GroupBox8.PerformLayout();
             this.TabPage3.ResumeLayout(false);
@@ -4318,8 +4291,6 @@ namespace QSP
         internal System.Windows.Forms.Label Label112;
         internal System.Windows.Forms.TabPage TabPage3;
         internal System.Windows.Forms.Button Return2_Btn;
-        internal System.Windows.Forms.GroupBox GroupBox4;
-        internal System.Windows.Forms.CheckBox DisableNATs_CheckBox;
         internal System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel3;
         internal System.Windows.Forms.ToolStripStatusLabel LblTrackDownloadStatus;
         internal System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel2;

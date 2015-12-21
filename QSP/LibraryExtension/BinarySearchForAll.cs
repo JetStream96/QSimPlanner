@@ -10,10 +10,10 @@ namespace QSP.LibraryExtension
         public static Tuple<int, int> BinarySearchAllMatches<T>(List<T> lst, T target, IComparer<T> comparer)
         {
             //returns the indices of first and last match
-            return BinarySearchAllMatches(lst, 0, lst.Count, ref target, ref comparer);
+            return BinarySearchAllMatches(lst, 0, lst.Count, target, comparer);
         }
 
-        public static Tuple<int, int> BinarySearchAllMatches<T>(List<T> lst, int index, int count, ref T target, ref IComparer<T> comparer)
+        public static Tuple<int, int> BinarySearchAllMatches<T>(List<T> lst, int index, int count, T target, IComparer<T> comparer)
         {
             //returns the indices of first and last match
 
@@ -33,7 +33,7 @@ namespace QSP.LibraryExtension
         public static Tuple<int, int> BinarySearchAllMatches<T>(List<T> lst, int index, int count, ref T target)
         {
             IComparer<T> comp = Comparer<T>.Default;
-            return BinarySearchAllMatches(lst, index, count, ref target, ref comp);
+            return BinarySearchAllMatches(lst, index, count, target, comp);
         }
 
         public static Tuple<int, int> BinarySearchAllMatches<T>(List<T> lst, T target)

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.AirwayStructure;
+
 namespace Tests
 {
 
@@ -23,9 +24,9 @@ namespace Tests
 
         public void WptListLoadNewMethodTest()
         {
-            Stopwatch sw = new Stopwatch();
+            var sw = new Stopwatch();
             sw.Start();
-            WaypointList t = new WaypointList();
+            var t = new WaypointList();
             new AtsFileLoader(t).ReadAtsFromFile("F:\\FSX\\aerosoft\\Airbus_Fallback\\Navigraph\\ats.txt");
             sw.Stop();
 

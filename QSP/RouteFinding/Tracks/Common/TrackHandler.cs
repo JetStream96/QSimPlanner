@@ -4,8 +4,9 @@ using System.Linq;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Tracks.Pacots;
 using QSP.RouteFinding.Tracks.Interaction;
-using static QSP.RouteFinding.Containers.WaypointList;
+using static QSP.RouteFinding.AirwayStructure.WaypointList;
 using static QSP.MathTools.MathTools;
+using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP.RouteFinding.Tracks.Common
 {

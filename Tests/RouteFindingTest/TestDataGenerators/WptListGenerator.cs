@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using QSP.RouteFinding.Containers;
 using static QSP.AviationTools.LatLonConversion;
+using QSP.RouteFinding.AirwayStructure;
 
 namespace Tests.RouteFindingTest.TestDataGenerators
 {

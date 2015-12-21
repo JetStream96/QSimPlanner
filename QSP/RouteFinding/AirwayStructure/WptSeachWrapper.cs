@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using QSP.RouteFinding.Data;
 
-namespace QSP.RouteFinding.Containers
+namespace QSP.RouteFinding.AirwayStructure
 {
     public class WptSeachWrapper : ICoordinate, IEquatable<WptSeachWrapper>
     {

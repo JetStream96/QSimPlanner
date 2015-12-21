@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace QSP.RouteFinding.Containers
+namespace QSP.RouteFinding.AirwayStructure
 {
     /// <summary>
     /// Track all changes in WaypointList class. Provides methods to revert changes.

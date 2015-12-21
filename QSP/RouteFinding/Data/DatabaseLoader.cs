@@ -4,6 +4,7 @@ using static QSP.RouteFinding.RouteFindingCore;
 using System.Windows.Forms;
 using System;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP.RouteFinding.Data
 {

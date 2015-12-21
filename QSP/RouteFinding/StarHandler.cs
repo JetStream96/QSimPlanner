@@ -7,6 +7,7 @@ using static QSP.Core.QspCore;
 using static QSP.LibraryExtension.Lists;
 using static QSP.RouteFinding.RouteFindingCore;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP.RouteFinding
 {

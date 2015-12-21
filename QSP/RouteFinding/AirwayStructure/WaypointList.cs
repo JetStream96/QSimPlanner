@@ -10,8 +10,9 @@ using static QSP.MathTools.MathTools;
 using static QSP.Utilities.ErrorLogger;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.Core;
+using QSP.RouteFinding.Containers;
 
-namespace QSP.RouteFinding.Containers
+namespace QSP.RouteFinding.AirwayStructure
 {
     /// <summary>
     /// Representation of the airways and waypoints. 

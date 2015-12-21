@@ -1,6 +1,7 @@
 using QSP.AviationTools;
 using QSP.Core;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.AirwayStructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;

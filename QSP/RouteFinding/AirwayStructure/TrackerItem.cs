@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using QSP.LibraryExtension;
 
-namespace QSP.RouteFinding.Containers
+namespace QSP.RouteFinding.AirwayStructure
 {
     public class TrackerItem
     {

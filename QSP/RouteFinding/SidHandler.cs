@@ -8,6 +8,7 @@ using static QSP.Core.QspCore;
 using static QSP.LibraryExtension.Lists;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
+using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP.RouteFinding
 {

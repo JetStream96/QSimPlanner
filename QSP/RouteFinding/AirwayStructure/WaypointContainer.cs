@@ -7,8 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using static QSP.LibraryExtension.HashMap<string, int>;
+using QSP.RouteFinding.Containers;
 
-namespace QSP.RouteFinding.Containers
+namespace QSP.RouteFinding.AirwayStructure
 {
     public class WaypointContainer
     {

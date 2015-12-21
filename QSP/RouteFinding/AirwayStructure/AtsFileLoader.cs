@@ -2,8 +2,9 @@
 using System.IO;
 using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.Utilities.ErrorLogger;
+using QSP.RouteFinding.Containers;
 
-namespace QSP.RouteFinding.Containers
+namespace QSP.RouteFinding.AirwayStructure
 {
     public class AtsFileLoader
     {

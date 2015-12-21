@@ -2,13 +2,12 @@ using QSP.AviationTools;
 using System;
 using System.Collections.Generic;
 using QSP.RouteFinding.Data;
+using static QSP.RouteFinding.Constants;
 
 namespace QSP
 {
     public class Waypoint : IComparable<Waypoint>, ICoordinate, IEquatable<Waypoint>
     {
-        private const double TOLERANCE = 0.00001;
-
         private string ident;
         private double latitude;
         private double longitude;
@@ -57,7 +56,7 @@ namespace QSP
         /// </summary>
         public bool Equals(Waypoint x)
         {
-            return (ID == x.ID && Math.Abs(Lat - x.Lat) < TOLERANCE && Math.Abs(Lon - x.Lon) < TOLERANCE);
+            return (ID == x.ID && Math.Abs(Lat - x.Lat) < LATLON_TOLERANCE && Math.Abs(Lon - x.Lon) < LATLON_TOLERANCE);
         }
 
         public int WptCompare(Waypoint x)
