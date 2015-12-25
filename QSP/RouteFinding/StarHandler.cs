@@ -8,6 +8,7 @@ using static QSP.LibraryExtension.Lists;
 using static QSP.RouteFinding.RouteFindingCore;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.TerminalProcedures.Sid;
 
 namespace QSP.RouteFinding
 {

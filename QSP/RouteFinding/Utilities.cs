@@ -20,28 +20,14 @@ namespace QSP.RouteFinding
         {
             int i = 0;
 
-            if (str.Length == 2)
+            if (str.Length == 2 && int.TryParse(str, out i) && (i > 0 && i <= 36))
             {
-                if (int.TryParse(str, out i))
-                {
-                    if (i > 0 && i <= 36)
-                    {
-                        return true;
-                    }
-                }
+                return true;
             }
-            else if (str.Length == 3)
+            else if (str.Length == 3 && (str[2] == 'L' || str[2] == 'R' || str[2] == 'C') && int.TryParse(str.Substring(0, 2), out i)
+                      && (i > 0 && i <= 36))
             {
-                if (str[2] == 'L' || str[2] == 'R' || str[2] == 'C')
-                {
-                    if (int.TryParse(str.Substring(0, 2), out i))
-                    {
-                        if (i > 0 && i <= 36)
-                        {
-                            return true;
-                        }
-                    }
-                }
+                return true;
             }
             return false;
         }

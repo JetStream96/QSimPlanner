@@ -10,7 +10,7 @@ using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
 using QSP.RouteFinding.AirwayStructure;
 
-namespace QSP.RouteFinding
+namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
     public class SidHandler
     {
@@ -222,16 +222,17 @@ namespace QSP.RouteFinding
 
                 if (lastWptIndex < 0)
                 {
+                    // TODO: In case 3, the last wpt is NOT necessarily in the WptList.
                     throw new WaypointNotFoundException("Waypoint " + sidWpts.Last() + " is not found.");
                 }
 
                 if (wptList.EdgesFromCount(lastWptIndex) == 0)
-                {
-                    //case 3: the endpoint is a waypoint, not a vector, but this wpt cannnot be found in ats.txt
+                {                  
+                    //case 3: the endpoint is a waypoint, not a vector, but this wpt is not connected to another one by an airway
                     //in this case we try to find a nearby wpt to direct to 
                     //the sid should be displayed, as [sid name] [endpoint] DCT [the nearby wpt we find] [airway] ...
 
-                    //the last waypoint is added to WptList, where its neighbors are nearby waypoints connected to an airway
+                    //the last waypoint is connected to neighbors that are connected to an airway
                     foreach (var k in Utilities.FindAirwayConnection(sidWpts.Last().Lat, sidWpts.Last().Lon,wptList ))
                     {
                         wptList.AddNeighbor(lastWptIndex, k.Index, new Neighbor("DCT", k.Distance));

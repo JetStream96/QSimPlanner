@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QSP;
 using QSP.AviationTools;
 using QSP.RouteFinding;
 using QSP.RouteFinding.AirwayStructure;
@@ -8,10 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tests.RouteFindingTest.TestDataGenerators;
+using static QSP.MathTools.MathTools;
 using static QSP.RouteFinding.Utilities;
 using static Tests.Common.Utilities;
-using QSP;
-using static QSP.MathTools.MathTools;
+using QSP.RouteFinding.TerminalProcedures.Sid;
 
 namespace Tests.RouteFindingTest
 {
@@ -113,7 +114,7 @@ namespace Tests.RouteFindingTest
             double dis = GetTotalDistance(latLons);
 
             Assert.IsTrue(WithinPrecisionPercent(info.Item1, dis, 0.1));
-            Assert.IsTrue(info.Item2.Equals(new Waypoint("WPT04", 24.6, 50.0)));
+            Assert.IsTrue(info.Item2.Equals(new Waypoint("WPT304", 24.6, 50.0)));
         }
 
         [TestMethod]
@@ -150,24 +151,6 @@ namespace Tests.RouteFindingTest
 
         #region Testing AddSidsToWptList
 
-        private List<Waypoint> addedWpts()
-        {
-            // for 25,50
-            var result = new List<Waypoint>();
-
-            for (int lat = 20; lat < 30; lat++)
-            {
-                for (int lon = 45; lon < 55; lon++)
-                {
-                    if (GreatCircleDistance(lat, lon, 25, 50) < Constants.MAX_LEG_DIS)
-                    {
-                        result.Add(new Waypoint(LatLonConversion.To7DigitFormat(lat, lon), lat, lon));
-                    }
-                }
-            }
-            return result;
-        }
-
         [TestMethod]
         public void AddToWptList_NoSid_Case1()
         {
@@ -176,16 +159,8 @@ namespace Tests.RouteFindingTest
             var manager = GetHandlerAXYZ();
             int rwyIndex = manager.AddSidsToWptList("03", new List<string>());
 
-            var neighborList = addedWpts();
-
-            // Check the nearby waypoints are added
-            foreach (var i in neighborList)
-            {
-                Assert.IsTrue(WptList.FindByWaypoint(i) >= 0);
-            }
-
             // Check the SID is added as an edge
-            Assert.AreEqual(neighborList.Count, WptList.EdgesFromCount(rwyIndex));
+            Assert.IsTrue(WptList.EdgesFromCount(rwyIndex) > 0);
 
             foreach (var j in WptList.EdgesFrom(rwyIndex))
             {
@@ -199,6 +174,18 @@ namespace Tests.RouteFindingTest
             }
         }
 
+        private double sid3_Dis()
+        {
+            var latLons = new List<LatLon>();
+            latLons.Add(new LatLon(25.0003, 50.0001));  // Rwy 18 
+            latLons.Add(new LatLon(24.9, 50.0));
+            latLons.Add(new LatLon(24.8, 50.0));
+            latLons.Add(new LatLon(24.7, 50.0));
+            latLons.Add(new LatLon(24.6, 50.0));
+
+            return GetTotalDistance(latLons);
+        }
+
         [TestMethod]
         public void AddToWptList_Case2()
         {
@@ -208,16 +195,88 @@ namespace Tests.RouteFindingTest
             var sids = new List<string>();
             sids.Add("SID3");
 
-            manager.AddSidsToWptList("18", sids);
+            // distance           
+            double dis = sid3_Dis();
 
-            // Check the nearby waypoints are added
-            foreach (var i in addedWpts())
+            int rwyIndex = manager.AddSidsToWptList("18", sids);
+
+            // Check the SID3 has been added with correct total distance.
+            Assert.IsTrue(WptList.EdgesFromCount(rwyIndex) > 0);
+
+            // Check the edges of last wpt 
+
+            foreach (var i in WptList.EdgesFrom(rwyIndex))
             {
-                Assert.IsTrue(WptList.FindByWaypoint(i) >= 0);
+                var edge = WptList.GetEdge(i);
+                Assert.AreEqual("SID3", edge.value.Airway);
+                Assert.IsTrue(
+                    WithinPrecisionPercent(edge.value.Distance, 
+                                           dis + new LatLon(24.6, 50.0).Distance(WptList[edge.ToNodeIndex].LatLon), 
+                                           0.1));
             }
+        }
+
+        private double sid1_Dis()
+        {
+            var latLons = new List<LatLon>();
+            latLons.Add(new LatLon(25.0003, 50.0001));  // Rwy 18 
+            latLons.Add(new LatLon(25.0125,50.0300));
+            latLons.Add(new LatLon(25.0150,50.0800));
+            latLons.Add(new LatLon(25.0175,50.1300));
+            latLons.Add(new LatLon(25.0225,50.1800));
+
+            return GetTotalDistance(latLons);
+        }
+
+        [TestMethod]
+        public void AddToWptList_Case3()
+        {
+            // Case 3
+
+
+            var manager = GetHandlerAXYZ();
+            var sids = new List<string>();
+            sids.Add("SID1");
+
+            // distance           
+            double dis = sid1_Dis();
+
+            int rwyIndex = manager.AddSidsToWptList("18", sids);
+
+            // Check the SID1 has been added with correct total distance.
+            Assert.IsTrue(WptList.EdgesFromCount(rwyIndex) > 0);
+            Assert.IsTrue(sidIsAdded(rwyIndex, "SID1", dis));
+
+            // Check the edges of last wpt 
+            int index = WptList.FindByWaypoint("WPT104", 25.0225, 50.1800);
+
+            foreach (var i in WptList.EdgesFrom(index))
+            {
+                var edge = WptList.GetEdge(i);
+                Assert.AreEqual("DCT", edge.value.Airway);
+                Assert.IsTrue(
+                    WithinPrecisionPercent(edge.value.Distance,
+                                           new LatLon(25.0225, 50.1800).Distance(WptList[edge.ToNodeIndex].LatLon),
+                                           0.1));
+            }
+
+        }
+
+        private bool sidIsAdded(int rwyIndex, string name, double dis)
+        {
+            foreach (var i in WptList.EdgesFrom(rwyIndex))
+            {
+                var edge = WptList.GetEdge(i);
+
+                if (edge.value.Airway == name && WithinPrecisionPercent(edge.value.Distance, dis, 0.1))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         #endregion
 
     }
-}
+    }

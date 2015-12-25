@@ -98,6 +98,8 @@
     <Compile Include="RouteFinding\AirwayStructure\WaypointContainer.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WptSeachWrapper.cs" />
     <Compile Include="RouteFinding\Data\ICoordinate.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Sid\SidCollection.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Sid\SidEntry.cs" />
     <Compile Include="UI\Forms\OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,7 +189,7 @@
     <Compile Include="RouteFinding\Tracks\Pacots\TrackValidPeriod.cs" />
     <Compile Include="RouteFinding\Tracks\WptPair.cs" />
     <Compile Include="RouteFinding\RouteFindingCore.cs" />
-    <Compile Include="RouteFinding\SidHandler.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Sid\SidHandler.cs" />
     <Compile Include="RouteFinding\SimpleRouteAnalyzer.cs" />
     <Compile Include="RouteFinding\StarHandler.cs" />
     <Compile Include="RouteFinding\Utilities.cs" />

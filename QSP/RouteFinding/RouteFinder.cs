@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
+using QSP.RouteFinding.TerminalProcedures.Sid;
 
 namespace QSP.RouteFinding
 {
