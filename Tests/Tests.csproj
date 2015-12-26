@@ -76,7 +76,9 @@
     <Compile Include="RouteAnalyzerTest.cs" />
     <Compile Include="RouteFindingTest\RouteFinderTest.cs" />
     <Compile Include="RouteFindingTest\SidHandlerTest.cs" />
+    <Compile Include="RouteFindingTest\TerminalProceduresTest\Sids\SidReaderTest.cs" />
     <Compile Include="RouteFindingTest\TestDataGenerators\AirportManagerGenerator.cs" />
+    <Compile Include="RouteFindingTest\TestDataGenerators\CommentLineRemover.cs" />
     <Compile Include="RouteFindingTest\TestDataGenerators\WptListGenerator.cs" />
     <Compile Include="RouteFindingTest\TestDataGenerators\WptListInstance.cs" />
     <Compile Include="SimpleRouteAnalyzerTest.cs" />
@@ -93,9 +95,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="RouteFindingTest\TestData\airports.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="RouteFindingTest\TestData\PROC\AXYZ.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="RouteFindingTest\TestData\PROC\AXYZ_WithComments.txt">

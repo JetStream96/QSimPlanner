@@ -270,7 +270,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 //record all the lines in this sid
                 string[] line = allLines[j + startLineNum].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                if (Utilities.HasCorrds(line[0]) == 0)
+                if (Utilities.HasCorrds(line[0]))
                 {
                     lastWptIsVector = false;
                     result.Add(new Waypoint(line[1], Convert.ToDouble(line[2]), Convert.ToDouble(line[3])));

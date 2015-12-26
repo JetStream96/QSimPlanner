@@ -13,6 +13,10 @@ namespace QSP.RouteFinding
 
     public static class Utilities
     {
+        private static string[] correctFixType = { "IF", "DF", "TF", "FD", "CF" };
+        //, "AF", "RF", "CD", "FA", "FC", "FM", "VD", "PI", "HF", "HA", "HM"}
+        //this lists all kinds of fixes with coordinates located in t(2) and t(3)
+
         /// <summary>
         /// Determines whether the input string is a valid rwy identifier.
         /// </summary>
@@ -32,20 +36,16 @@ namespace QSP.RouteFinding
             return false;
         }
 
-        public static int HasCorrds(string fixType)
+        public static bool HasCorrds(string fixType)
         {
-            string[] correct_fix_type = { "IF", "DF", "TF", "FD", "CF" };
-            //, "AF", "RF", "CD", "FA", "FC", "FM", "VD", "PI", "HF", "HA", "HM"}
-            //this lists all kinds of fixes with coordinates located in t(2) and t(3)
-
-            foreach (var i in correct_fix_type)
+            foreach (var i in correctFixType)
             {
                 if (i == fixType)
                 {
-                    return 0;
+                    return true;
                 }
             }
-            return -1;
+            return false;
         }
 
         public static double GetTotalDistance(List<LatLon> latLons)

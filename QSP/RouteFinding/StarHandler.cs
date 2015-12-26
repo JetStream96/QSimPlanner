@@ -173,7 +173,7 @@ namespace QSP.RouteFinding
             {
                 line = allLines[startLineNum + i].Split(',');
 
-                if (Utilities.HasCorrds(line[0]) == 0)
+                if (Utilities.HasCorrds(line[0]))
                 {
                     if (latLonList.Count == 0)
                     {
