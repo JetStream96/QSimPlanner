@@ -7,7 +7,7 @@ namespace Tests.Common
 {
     public static class Utilities
     {
-        public static bool WithinPrecisionPercent(double actual, double expected, double tolerancePercent)
+        public static bool WithinPrecisionPercent(double expected, double actual, double tolerancePercent)
         {
             if (Math.Abs(actual - expected) <= actual * tolerancePercent / 100)
             {

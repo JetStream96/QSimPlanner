@@ -76,6 +76,7 @@
     <Compile Include="RouteAnalyzerTest.cs" />
     <Compile Include="RouteFindingTest\RouteFinderTest.cs" />
     <Compile Include="RouteFindingTest\SidHandlerTest.cs" />
+    <Compile Include="RouteFindingTest\TerminalProceduresTest\Sids\SidCollectionTest.cs" />
     <Compile Include="RouteFindingTest\TerminalProceduresTest\Sids\SidReaderTest.cs" />
     <Compile Include="RouteFindingTest\TestDataGenerators\AirportManagerGenerator.cs" />
     <Compile Include="RouteFindingTest\TestDataGenerators\CommentLineRemover.cs" />

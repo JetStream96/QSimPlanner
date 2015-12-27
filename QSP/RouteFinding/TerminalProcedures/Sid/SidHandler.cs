@@ -9,12 +9,14 @@ using static QSP.LibraryExtension.Lists;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
 using QSP.RouteFinding.AirwayStructure;
+using static QSP.RouteFinding.Utilities;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
     public class SidHandler
     {
         private string[] terminalProcedures;  // The lines of the entire file of, e.g KLAX.txt in \PROC folder.
+        
         private string icao;
         private WaypointList wptList;
         private AirportManager airportList;
@@ -77,11 +79,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
                 if (line.Length >= 3 && line[0] == "SID")
                 {
-                    if (line[2] == rwy || (line[2] == "ALL" && Utilities.HasRwySpecificPart(allLines, line[1]) == false))
+                    if (line[2] == rwy || (line[2] == "ALL" && HasRwySpecificPart(allLines, line[1]) == false))
                     {
                         result.Add(line[1]);
                     }
-                    else if (Utilities.IsRwyIdent(line[2]) == false && result.IndexOf(line[1]) != -1 && line[2] != "ALL")
+                    else if (IsRwyIdent(line[2]) == false && result.IndexOf(line[1]) != -1 && line[2] != "ALL")
                     {
                         //since the records of transitions come AFTER the rwy specific and common part,
                         //only transitions with their main SID already in result list are considered
@@ -120,7 +122,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 //if the sid list is empty, find nearby wpts and use DCT
 
                 var rwyLatLon = airportList.RwyLatLon(icao, rwy);
-                var nearbyWpts = Utilities.FindAirwayConnection(rwyLatLon,wptList );
+                var nearbyWpts = FindAirwayConnection(rwyLatLon,wptList );
 
                 int index = wptList.AddWpt(new Waypoint(icao + rwy, rwyLatLon));
 
@@ -200,13 +202,13 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             var importResult = importSidFromFile(rwy, sid);
             var sidWpts = importResult.Item1;
             bool lastWptIsVector = importResult.Item2;
-            double disAdd = Utilities.GetTotalDistance(sidWpts);
+            double disAdd = GetTotalDistance(sidWpts);
 
             if (lastWptIsVector)
             {
                 //case 2: the last wpt is a vector
                 //Then find some nearby navaids to join an airway
-                var endPoints = Utilities.FindAirwayConnection(sidWpts.Last().Lat, sidWpts.Last().Lon,wptList );
+                var endPoints = FindAirwayConnection(sidWpts.Last().Lat, sidWpts.Last().Lon,wptList );
 
                 // The sid will be displayed like: EWR1 JERSY [airway] ... to the user
 
@@ -233,7 +235,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                     //the sid should be displayed, as [sid name] [endpoint] DCT [the nearby wpt we find] [airway] ...
 
                     //the last waypoint is connected to neighbors that are connected to an airway
-                    foreach (var k in Utilities.FindAirwayConnection(sidWpts.Last().Lat, sidWpts.Last().Lon,wptList ))
+                    foreach (var k in FindAirwayConnection(sidWpts.Last().Lat, sidWpts.Last().Lon,wptList ))
                     {
                         wptList.AddNeighbor(lastWptIndex, k.Index, new Neighbor("DCT", k.Distance));
                     }
@@ -270,7 +272,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 //record all the lines in this sid
                 string[] line = allLines[j + startLineNum].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                if (Utilities.HasCorrds(line[0]))
+                if (HasCorrds(line[0]))
                 {
                     lastWptIsVector = false;
                     result.Add(new Waypoint(line[1], Convert.ToDouble(line[2]), Convert.ToDouble(line[3])));
@@ -341,7 +343,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         public Tuple<double, Waypoint> InfoForAnalysis(string rwy, string sid)
         {
             var importResult = importSidFromFile(rwy, sid);
-            return new Tuple<double, Waypoint>(Utilities.GetTotalDistance(importResult.Item1), importResult.Item1.Last());
+            return new Tuple<double, Waypoint>(GetTotalDistance(importResult.Item1), importResult.Item1.Last());
         }
     }
 }

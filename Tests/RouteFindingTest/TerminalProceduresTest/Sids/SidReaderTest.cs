@@ -89,7 +89,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
         {
             foreach (var i in collection.SidList)
             {
-                if (i.Name == sid && i.Runway == rwy && Enumerable.SequenceEqual(i.Waypoints, wpts) &&
+                if (i.Name == sid && i.RunwayOrTransition == rwy && Enumerable.SequenceEqual(i.Waypoints, wpts) &&
                     i.Type == type && i.EndWithVector == endWithVector)
                 {
                     return true;

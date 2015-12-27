@@ -113,7 +113,7 @@ namespace Tests.RouteFindingTest
 
             double dis = GetTotalDistance(latLons);
 
-            Assert.IsTrue(WithinPrecisionPercent(info.Item1, dis, 0.1));
+            Assert.IsTrue(WithinPrecisionPercent(dis, info.Item1, 0.1));
             Assert.IsTrue(info.Item2.Equals(new Waypoint("WPT304", 24.6, 50.0)));
         }
 
@@ -123,7 +123,7 @@ namespace Tests.RouteFindingTest
             var manager = GetHandlerAXYZ();
             var info = manager.InfoForAnalysis("18", "SID6");
 
-            Assert.IsTrue(WithinPrecisionPercent(info.Item1, 0.0, 0.1));
+            Assert.IsTrue(WithinPrecisionPercent(0.0, info.Item1, 0.1));
             Assert.IsTrue(info.Item2.Equals(new Waypoint("AXYZ18", 25.0003, 50.0001)));  // Rwy 18 
         }
 
@@ -143,7 +143,7 @@ namespace Tests.RouteFindingTest
 
             double dis = GetTotalDistance(latLons);
 
-            Assert.IsTrue(WithinPrecisionPercent(info.Item1, dis, 0.1));
+            Assert.IsTrue(WithinPrecisionPercent(dis, info.Item1, 0.1));
             Assert.IsTrue(info.Item2.Equals(new Waypoint("N22E049", 22.0, 49.0)));
         }
 
@@ -170,7 +170,7 @@ namespace Tests.RouteFindingTest
                 Assert.AreEqual("DCT", edge.value.Airway);
 
                 // Distance is correct
-                Assert.IsTrue(WithinPrecisionPercent(edge.value.Distance, WptList.Distance(rwyIndex, edge.ToNodeIndex), 0.1));
+                Assert.IsTrue(WithinPrecisionPercent(WptList.Distance(rwyIndex, edge.ToNodeIndex), edge.value.Distance, 0.1));
             }
         }
 
@@ -210,9 +210,9 @@ namespace Tests.RouteFindingTest
                 var edge = WptList.GetEdge(i);
                 Assert.AreEqual("SID3", edge.value.Airway);
                 Assert.IsTrue(
-                    WithinPrecisionPercent(edge.value.Distance, 
-                                           dis + new LatLon(24.6, 50.0).Distance(WptList[edge.ToNodeIndex].LatLon), 
-                                           0.1));
+                    WithinPrecisionPercent(dis + new LatLon(24.6, 50.0).Distance(WptList[edge.ToNodeIndex].LatLon),
+                        edge.value.Distance,
+                        0.1));
             }
         }
 
@@ -255,9 +255,9 @@ namespace Tests.RouteFindingTest
                 var edge = WptList.GetEdge(i);
                 Assert.AreEqual("DCT", edge.value.Airway);
                 Assert.IsTrue(
-                    WithinPrecisionPercent(edge.value.Distance,
-                                           new LatLon(25.0225, 50.1800).Distance(WptList[edge.ToNodeIndex].LatLon),
-                                           0.1));
+                    WithinPrecisionPercent(new LatLon(25.0225, 50.1800).Distance(WptList[edge.ToNodeIndex].LatLon),
+                        edge.value.Distance,
+                        0.1));
             }
 
         }
@@ -268,7 +268,7 @@ namespace Tests.RouteFindingTest
             {
                 var edge = WptList.GetEdge(i);
 
-                if (edge.value.Airway == name && WithinPrecisionPercent(edge.value.Distance, dis, 0.1))
+                if (edge.value.Airway == name && WithinPrecisionPercent(dis, edge.value.Distance, 0.1))
                 {
                     return true;
                 }

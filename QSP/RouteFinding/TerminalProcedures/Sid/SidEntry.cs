@@ -25,7 +25,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         private EntryType _type;
         private bool _endWithVector;
 
-        public string Runway
+        public string RunwayOrTransition
         {
             get
             {
