@@ -128,5 +128,111 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
 
         #endregion
 
+        #region Testing GetSidList
+
+        [TestMethod]
+        public void GetSidListNoTransition()
+        {
+            var entries = new List<SidEntry>();
+
+            // Waypoints are not important hence an empty list is passed.
+            entries.Add(new SidEntry("05", "SID1", new List<Waypoint>(), EntryType.RwySpecific, false));
+
+            entries.Add(new SidEntry("05", "SID2", new List<Waypoint>(), EntryType.RwySpecific, false));
+            entries.Add(new SidEntry("ALL", "SID2", new List<Waypoint>(), EntryType.Common, false));
+
+            entries.Add(new SidEntry("23", "SID3", new List<Waypoint>(), EntryType.RwySpecific, false));
+            entries.Add(new SidEntry("ALL", "SID3", new List<Waypoint>(), EntryType.Common, false));
+
+            entries.Add(new SidEntry("ALL", "SID4", new List<Waypoint>(), EntryType.Common, false));
+
+            var collection = new SidCollection(entries);
+
+            var sids = collection.GetSidList("05");
+
+            Assert.IsTrue(sids.Contains("SID1"));
+            Assert.IsTrue(sids.Contains("SID2"));
+            Assert.IsFalse(sids.Contains("SID3"));
+            Assert.IsTrue(sids.Contains("SID4"));
+        }
+
+        [TestMethod]
+        public void GetSidListWithTransitionTest1()
+        {
+            var entries = new List<SidEntry>();
+
+            // Waypoints are not important hence an empty list is passed.
+            entries.Add(new SidEntry("05", "SID1", new List<Waypoint>(), EntryType.RwySpecific, false));
+
+            entries.Add(new SidEntry("05", "SID2", new List<Waypoint>(), EntryType.RwySpecific, false));
+            entries.Add(new SidEntry("ALL", "SID2", new List<Waypoint>(), EntryType.Common, false));
+
+            entries.Add(new SidEntry("23", "SID3", new List<Waypoint>(), EntryType.RwySpecific, false));
+            entries.Add(new SidEntry("ALL", "SID3", new List<Waypoint>(), EntryType.Common, false));
+
+            entries.Add(new SidEntry("ALL", "SID4", new List<Waypoint>(), EntryType.Common, false));
+
+            var collection = new SidCollection(entries);
+
+            var sids = collection.GetSidList("05");
+
+            Assert.IsTrue(sids.Contains("SID1"));
+            Assert.IsTrue(sids.Contains("SID2"));
+            Assert.IsFalse(sids.Contains("SID3"));
+            Assert.IsTrue(sids.Contains("SID4"));
+
+
+            //var manager = GetHandlerAXYZ();
+            //var sids = manager.GetSidList("18");
+
+            //Assert.AreEqual(7, sids.Count);
+
+            //Assert.IsTrue(sids.Contains("SID1"));
+            //Assert.IsTrue(sids.Contains("SID2"));
+            //Assert.IsTrue(sids.Contains("SID3"));
+            //Assert.IsTrue(sids.Contains("SID4"));
+            //Assert.IsTrue(sids.Contains("SID5.TRANS1"));
+            //Assert.IsTrue(sids.Contains("SID5.TRANS2"));
+            //Assert.IsTrue(sids.Contains("SID6"));
+        }
+
+        [TestMethod]
+        public void GetSidListWithTransitionTest2()
+        {
+            var manager = GetHandlerAXYZ();
+            var sids = manager.GetSidList("36");
+
+            Assert.AreEqual(2, sids.Count);
+
+            Assert.IsTrue(sids.Contains("SID5.TRANS1"));
+            Assert.IsTrue(sids.Contains("SID5.TRANS2"));
+        }
+
+        [TestMethod]
+        public void GetSidListNoSidAvail()
+        {
+            // Empty collection
+            var collection = new SidCollection(new List<SidEntry>());
+            var sids = collection.GetSidList("03");
+
+            Assert.AreEqual(0, sids.Count);
+        }
+
+        [TestMethod]
+        public void GetSidListWrongInputRwy()
+        {
+            var entries = new List<SidEntry>();
+
+            // Waypoints are not important hence an empty list is passed.
+            entries.Add(new SidEntry("05", "SID1", new List<Waypoint>(), EntryType.RwySpecific, false));
+            entries.Add(new SidEntry("05", "SID2", new List<Waypoint>(), EntryType.RwySpecific, false));
+
+            var collection = new SidCollection(entries);
+            var sids = collection.GetSidList("23");
+
+            Assert.AreEqual(0, sids.Count);
+        }
+
+        #endregion
     }
 }

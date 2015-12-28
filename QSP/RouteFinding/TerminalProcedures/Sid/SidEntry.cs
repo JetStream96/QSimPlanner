@@ -15,7 +15,13 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
     // Each SidEntry belongs to one of the following types:
     // (1) A SID for a runway. (Runway-specific)
     // (2) A common part. i.e. This SID is avail. for multiple runways, and all runways shared a common route.
+    //     See the note below.     
     // (3) A transition for a SID.
+    //
+    // Note:
+    // (1) If, for a SID, no runway-specific part exists and a common part exist, then this SID is avail. for all runways.
+    //     On the other hand, for a SID which has both runway-specific and common part, then this SID is only available for
+    //     the runways mentioned in the  runway-specific part.
 
     public class SidEntry
     {

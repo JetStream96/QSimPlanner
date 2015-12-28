@@ -63,7 +63,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
         /// <summary>
         /// Find all SID available for the runway. Two SIDs only different in transitions are regarded as different. 
-        /// If non is available a empty list is returned.
+        /// If none is available an empty list is returned.
         /// </summary>
         /// <param name="rwy">Runway Ident</param>
         public List<string> GetSidList(string rwy)
@@ -71,23 +71,52 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             var noTrans = new List<string>();
             var trans = new List<TerminalProcedureName>();
 
-            foreach (var i in _sids)
-            {
-                if (i.Type == EntryType.Transition)
-                {
-                    trans.Add(new TerminalProcedureName(i.Name, i.RunwayOrTransition));
-                }
-                else
-                {
-                    noTrans.Add(i.Name);
-                }
-            }
+            classifySids(noTrans, trans);
 
             // Remove duplicates, from runway specific part and common part
             noTrans = noTrans.Distinct().ToList();
 
             //  SIDs which have transition(s), should not appear as one without transition.
-            for (int i = noTrans.Count-1; i >=0; i--)
+            removeSidWithoutTransition(noTrans, trans);
+
+            // Merge the two lists
+            foreach (var k in trans)
+            {
+                noTrans.Add(k.ProcedureName);
+            }
+            return noTrans;
+        }
+
+        private void classifySids(List<string> noTrans, List<TerminalProcedureName> trans)
+        {
+            foreach (var i in _sids)
+            {
+                if (i.Type == EntryType.Transition) //TODO: a transition not applicable to the rwy?
+                {
+                    trans.Add(new TerminalProcedureName(i.Name, i.RunwayOrTransition));
+                }
+                else if (i.Type == EntryType.RwySpecific || runwaySpecificPartExists(i.Name))
+                {
+                    noTrans.Add(i.Name);               
+                }
+            }
+        }
+
+        private bool runwaySpecificPartExists(string sidName)
+        {
+            foreach (var i in _sids)
+            {
+                if (i.Name == sidName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static void removeSidWithoutTransition(List<string> noTrans, List<TerminalProcedureName> trans)
+        {
+            for (int i = noTrans.Count - 1; i >= 0; i--)
             {
                 foreach (var j in trans)
                 {
@@ -97,13 +126,6 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                     }
                 }
             }
-
-            // Merge the two lists
-            foreach (var k in trans)
-            {
-                noTrans.Add(k.ProcedureName);
-            }
-            return noTrans;
         }
 
         public List<Waypoint> SidWaypoints(string sid, string rwy, Waypoint origRwy)
@@ -129,6 +151,12 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 wpts.AddRange(commonPart.Waypoints);
             }
 
+            addTransitionIfNeeded(sidTrans, rwySpecificPart, commonPart, wpts);
+            return wpts;
+        }
+
+        private void addTransitionIfNeeded(TerminalProcedureName sidTrans, SidEntry rwySpecificPart, SidEntry commonPart, List<Waypoint> wpts)
+        {
             if (sidTrans.TransitionName != "")
             {
                 // There is transition
@@ -148,7 +176,6 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 // No transition, both part are null
                 throw new SidNotFoundException();
             }
-            return wpts;
         }
 
         /// <summary>
