@@ -13,21 +13,54 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
     [TestClass]
     public class SidReaderTest
     {
-        [TestMethod]
-        public void ParseTest()
+        private static SidCollection Sids = null;
+
+        private static void prepareTestIfNeeded()
         {
-            var allTxt = CommentLineRemover.RemoveComments(File.ReadAllText("RouteFindingTest\\TestData\\PROC\\AXYZ_WithComments.txt"));
-            var reader = new SidReader(allTxt);
+            if (Sids == null)
+            {
+                var allTxt = CommentLineRemover.RemoveComments(File.ReadAllText("RouteFindingTest\\TestData\\PROC\\AXYZ_WithComments.txt"));
+                var reader = new SidReader(allTxt);
 
-            var sids = reader.Parse();
-
-            Assert.IsTrue(containResult(sids, "SID6", "18", new List<Waypoint>(), EntryType.RwySpecific, true));
-            Assert.IsTrue(containResult(sids, "SID1", "18", sid1_Wpts(), EntryType.RwySpecific, false));
-            Assert.IsTrue(containResult(sids, "SID3", "18", sid3_Wpts(), EntryType.RwySpecific, true));
-            Assert.IsTrue(containResult_Common(sids, "SID5", sid5_Wpts(), false));
-            Assert.IsTrue(containResult(sids, "SID5", "TRANS2", sid5_Trans2_Wpts(), EntryType.Transition, false));
+                Sids = reader.Parse();
+            }
         }
 
+        [TestMethod]
+        public void SidContainsOnlyVector()
+        {
+            prepareTestIfNeeded();
+            Assert.IsTrue(containResult(Sids, "SID6", "18", new List<Waypoint>(), EntryType.RwySpecific, true));
+        }
+
+        [TestMethod]
+        public void SidIsRwySpecificNotEndingWithVector()
+        {
+            prepareTestIfNeeded();
+            Assert.IsTrue(containResult(Sids, "SID1", "18", sid1_Wpts(), EntryType.RwySpecific, false));
+        }
+
+        [TestMethod]
+        public void SidRwySpecificEndsWithVector()
+        {
+            prepareTestIfNeeded();
+            Assert.IsTrue(containResult(Sids, "SID3", "18", sid3_Wpts(), EntryType.RwySpecific, true));
+        }
+
+        [TestMethod]
+        public void SidCommonPart()
+        {
+            prepareTestIfNeeded();
+            Assert.IsTrue(containResult_Common(Sids, "SID5", sid5_Wpts(), false));
+        }
+
+        [TestMethod]
+        public void SidTransitionPart()
+        {
+            prepareTestIfNeeded();
+            Assert.IsTrue(containResult(Sids, "SID5", "TRANS2", sid5_Trans2_Wpts(), EntryType.Transition, false));
+        }
+        
         private List<Waypoint> sid5_Trans2_Wpts()
         {
             var result = new List<Waypoint>();

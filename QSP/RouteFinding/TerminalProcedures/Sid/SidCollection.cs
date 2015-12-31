@@ -68,66 +68,9 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// <param name="rwy">Runway Ident</param>
         public List<string> GetSidList(string rwy)
         {
-            var noTrans = new List<string>();
-            var trans = new List<TerminalProcedureName>();
-
-            classifySids(noTrans, trans);
-
-            // Remove duplicates, from runway specific part and common part
-            noTrans = noTrans.Distinct().ToList();
-
-            //  SIDs which have transition(s), should not appear as one without transition.
-            removeSidWithoutTransition(noTrans, trans);
-
-            // Merge the two lists
-            foreach (var k in trans)
-            {
-                noTrans.Add(k.ProcedureName);
-            }
-            return noTrans;
+            return new SidSelector(_sids, rwy).GetSidList();            
         }
-
-        private void classifySids(List<string> noTrans, List<TerminalProcedureName> trans)
-        {
-            foreach (var i in _sids)
-            {
-                if (i.Type == EntryType.Transition) //TODO: a transition not applicable to the rwy?
-                {
-                    trans.Add(new TerminalProcedureName(i.Name, i.RunwayOrTransition));
-                }
-                else if (i.Type == EntryType.RwySpecific || runwaySpecificPartExists(i.Name))
-                {
-                    noTrans.Add(i.Name);               
-                }
-            }
-        }
-
-        private bool runwaySpecificPartExists(string sidName)
-        {
-            foreach (var i in _sids)
-            {
-                if (i.Name == sidName)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private static void removeSidWithoutTransition(List<string> noTrans, List<TerminalProcedureName> trans)
-        {
-            for (int i = noTrans.Count - 1; i >= 0; i--)
-            {
-                foreach (var j in trans)
-                {
-                    if (noTrans[i] == j.ProcedureName)
-                    {
-                        noTrans.RemoveAt(i);
-                    }
-                }
-            }
-        }
-
+        
         public List<Waypoint> SidWaypoints(string sid, string rwy, Waypoint origRwy)
         {
             var sidTrans = Utilities.SplitSidStarTransition(sid);

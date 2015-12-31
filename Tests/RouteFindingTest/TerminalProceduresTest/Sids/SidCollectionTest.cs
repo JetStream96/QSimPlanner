@@ -180,26 +180,13 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
             Assert.IsTrue(sids.Contains("SID2"));
             Assert.IsFalse(sids.Contains("SID3"));
             Assert.IsTrue(sids.Contains("SID4"));
-
-
-            //var manager = GetHandlerAXYZ();
-            //var sids = manager.GetSidList("18");
-
-            //Assert.AreEqual(7, sids.Count);
-
-            //Assert.IsTrue(sids.Contains("SID1"));
-            //Assert.IsTrue(sids.Contains("SID2"));
-            //Assert.IsTrue(sids.Contains("SID3"));
-            //Assert.IsTrue(sids.Contains("SID4"));
-            //Assert.IsTrue(sids.Contains("SID5.TRANS1"));
-            //Assert.IsTrue(sids.Contains("SID5.TRANS2"));
-            //Assert.IsTrue(sids.Contains("SID6"));
+            
         }
 
         [TestMethod]
         public void GetSidListWithTransitionTest2()
         {
-            var manager = GetHandlerAXYZ();
+            var manager = SidHandlerTest.GetHandlerAXYZ();
             var sids = manager.GetSidList("36");
 
             Assert.AreEqual(2, sids.Count);

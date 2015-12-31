@@ -8,51 +8,11 @@ namespace QSP.LibraryExtension.Graph
 {
     public class Edge<TEdge> : IEdge<TEdge>
     {
-        public TEdge value;
-        public int FromNodeIndex;
-        public int FromIndexInList;
-        public int ToNodeIndex;
-        public int ToIndexInList;
-
-        TEdge IEdge<TEdge>.value
-        {
-            get
-            {
-                return value;
-            }
-        }
-
-        int IEdge<TEdge>.FromNodeIndex
-        {
-            get
-            {
-                return FromNodeIndex;
-            }
-        }
-
-        int IEdge<TEdge>.FromIndexInList
-        {
-            get
-            {
-                return FromIndexInList;
-            }
-        }
-
-        int IEdge<TEdge>.ToNodeIndex
-        {
-            get
-            {
-                return ToNodeIndex;
-            }
-        }
-
-        int IEdge<TEdge>.ToIndexInList
-        {
-            get
-            {
-                return ToIndexInList;
-            }
-        }
+        public TEdge value { get; set; }
+        public int FromNodeIndex { get; set; }
+        public int FromIndexInList { get; set; }
+        public int ToNodeIndex { get; set; }
+        public int ToIndexInList { get; set; }               
 
         public Edge() { }
 
