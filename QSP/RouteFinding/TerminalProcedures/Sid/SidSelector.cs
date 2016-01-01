@@ -7,7 +7,20 @@ using static QSP.RouteFinding.TerminalProcedures.Sid.Utilities;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
-    //Find all SID available for the runway.
+    // Find all SID available for the runway.
+    //
+    // Given a list of SidEntries and a runway, the following conditions have to be met:
+    // (1) An entry which is runway-specific and matches the given runway is selected.
+    // (2) An entry with a SID that does not have a runway-specific part in the list, is usable by any runway.
+    //     Therefore it's selected.
+    // (3) An entry with a SID that have a runway-specific part in the list, but none of the runway-specific parts
+    //     matches the given runway, is not selected.
+    // (4) An entry which is a transition is selected iff at least one entry with the same SID name (ProcedureName) is selected by
+    //     the criterions above.
+    // (5) If a SID has transitions then it cannot appear as one without transition. 
+    //     e.g. If the selected SIDs are SID1, SID1.TRANS1, then the final selected items should only contain SID1.TRANS1.
+    //
+
     public class SidSelector
     {
         private List<SidEntry> sidEntries;

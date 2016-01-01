@@ -8,29 +8,15 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
     public class SidInfo
     {
-        private double _totalDis;
-        private Waypoint _lastWpt;
+        public double TotalDistance { get; private set; }
+        public Waypoint LastWaypoint { get; private set; }
+        public bool EndsWithVector { get; private set; }
 
-        public double TotalDistance
+        public SidInfo(double TotalDistance, Waypoint LastWaypoint, bool EndsWithVector)
         {
-            get
-            {
-                return _totalDis;
-            }
-        }
-
-        public Waypoint LastWaypoint
-        {
-            get
-            {
-                return _lastWpt;
-            }
-        }
-
-        public SidInfo(double totalDistance, Waypoint lastWaypoint)
-        {
-            _totalDis = totalDistance;
-            _lastWpt = lastWaypoint;
+            this.TotalDistance = TotalDistance;
+            this.LastWaypoint = LastWaypoint;
+            this.EndsWithVector = EndsWithVector;
         }
     }
 }

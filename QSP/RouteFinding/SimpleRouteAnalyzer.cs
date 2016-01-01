@@ -113,7 +113,7 @@ namespace QSP.RouteFinding
             }
             else
             {
-                var intermediateWpt = new AirwayConnectionFinder(lastWpt, lastAwy, ident).FindWaypoints();
+                var intermediateWpt = new AirwayNodeFinder(lastWpt, lastAwy, ident).FindWaypoints();
 
                 if (intermediateWpt == null)
                 {

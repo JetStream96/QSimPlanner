@@ -10,78 +10,74 @@ using System.Linq;
 
 namespace Tests
 {
-
     [TestClass()]
-    public class AirwayConnectionFinderTest
+    public class AirwayNodeFinderTest
     {
 
         [TestMethod()]
         public void TwoWayAirway_FindBothDirections()
         {
-            AirwayConnectionFinder finder = new AirwayConnectionFinder(4, "A001", "WP008", genTwoWayAirway());
-
-            List<int> expected = new List<int>();
+            var finder = new AirwayNodeFinder(4, "A001", "WP008", genTwoWayAirway());
+            var expected = new List<int>();
 
             for (int i = 5; i <= 8; i++)
             {
                 expected.Add(i);
             }
 
-            Assert.AreEqual(true, Enumerable.SequenceEqual(expected, finder.FindWaypointIndices()));
+            Assert.IsTrue(Enumerable.SequenceEqual(expected, finder.GetWaypointIndices()));
 
             //'another dir
-            AirwayConnectionFinder finder2 = new AirwayConnectionFinder(6, "A001", "WP002", genTwoWayAirway());
-            List<int> exp2 = new List<int>();
+            var finder2 = new AirwayNodeFinder(6, "A001", "WP002", genTwoWayAirway());
+            var exp2 = new List<int>();
 
             for (int i = 5; i >= 2; i--)
             {
                 exp2.Add(i);
             }
 
-            Assert.AreEqual(true, Enumerable.SequenceEqual(exp2, finder2.FindWaypointIndices()));
+            Assert.IsTrue(Enumerable.SequenceEqual(exp2, finder2.GetWaypointIndices()));
 
         }
 
         [TestMethod()]
         public void OneWayAirway_FindResult()
         {
-            AirwayConnectionFinder finder = new AirwayConnectionFinder(9, "A001", "WP004", genOneWayAirway());
-
-            List<int> expected = new List<int>();
+            var finder = new AirwayNodeFinder(9, "A001", "WP004", genOneWayAirway());
+            var expected = new List<int>();
 
             for (int i = 8; i >= 4; i--)
             {
                 expected.Add(i);
             }
 
-            Assert.AreEqual(true, Enumerable.SequenceEqual(expected, finder.FindWaypointIndices()));
+            Assert.IsTrue(Enumerable.SequenceEqual(expected, finder.GetWaypointIndices()));
         }
 
         [TestMethod()]
         public void OneWayAirway_WrongDir_CannotFind()
         {
-            AirwayConnectionFinder finder = new AirwayConnectionFinder(4, "A001", "WP009", genOneWayAirway());
-            Assert.IsNull(finder.FindWaypointIndices());
+            var finder = new AirwayNodeFinder(4, "A001", "WP009", genOneWayAirway());
+            Assert.IsNull(finder.GetWaypointIndices());
         }
 
         [TestMethod()]
         public void TwoWayAirway_AirwayDoesnotExist()
         {
-            AirwayConnectionFinder finder = new AirwayConnectionFinder(4, "B123", "WP008", genTwoWayAirway());
-            Assert.IsNull(finder.FindWaypointIndices());
+            var finder = new AirwayNodeFinder(4, "B123", "WP008", genTwoWayAirway());
+            Assert.IsNull(finder.GetWaypointIndices());
         }
 
         [TestMethod()]
         public void TwoWayAirway_TargetWptID_DoesnotExist()
         {
-            AirwayConnectionFinder finder = new AirwayConnectionFinder(4, "A001", "WP128", genTwoWayAirway());
-            Assert.IsNull(finder.FindWaypointIndices());
+            var finder = new AirwayNodeFinder(4, "A001", "WP128", genTwoWayAirway());
+            Assert.IsNull(finder.GetWaypointIndices());
         }
 
         private WaypointList genOneWayAirway()
         {
-
-            WaypointList wpts = new WaypointList();
+            var wpts = new WaypointList();
 
             //index = 0
             wpts.AddWpt(new Waypoint(wptIDGenerator(1)));
@@ -101,8 +97,7 @@ namespace Tests
 
         private WaypointList genTwoWayAirway()
         {
-
-            WaypointList wpts = new WaypointList();
+            var wpts = new WaypointList();
 
             //index = 0
             wpts.AddWpt(new Waypoint(wptIDGenerator(1)));
@@ -123,12 +118,11 @@ namespace Tests
             }
 
             return wpts;
-
         }
 
         private string wptIDGenerator(int x)
         {
-            return "WP" + Convert.ToString(x).PadLeft(3, '0');
+            return "WP" + x.ToString().PadLeft(3, '0');
         }
 
     }

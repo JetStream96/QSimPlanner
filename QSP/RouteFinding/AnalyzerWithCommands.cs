@@ -131,10 +131,10 @@ namespace QSP.RouteFinding
                 string nextWpt = input[index + 1];
 
                 //find all sids
-                SidHandler sidManager = new SidHandler(origIcao);
+                var sidManager = new SidHandler(origIcao);
                 var sidList = sidManager.GetSidList(origRwy);
                 string origRwyWpt = origIcao + origRwy;
-                List<Tuple<double, Waypoint>> endPoints = new List<Tuple<double, Waypoint>>();
+                var endPoints = new List<Tuple<double, Waypoint>>();
                 LatLon nextLatLon = null;
                 int p = 0;
 
@@ -142,16 +142,15 @@ namespace QSP.RouteFinding
 
                 if (sidList.Count > 0)
                 {
-                    Tuple<double, Waypoint> analysisInfo = null;
-
+                    SidInfo analysisInfo = null;
 
                     foreach (var k in sidList)
                     {
                         analysisInfo = sidManager.InfoForAnalysis(origRwy, k);
 
-                        if (analysisInfo.Item2.ID != origRwyWpt)
+                        if (analysisInfo.LastWaypoint.ID != origRwyWpt)
                         {
-                            endPoints.Add(analysisInfo);
+                            endPoints.Add(new Tuple<double, Waypoint>(analysisInfo.TotalDistance, analysisInfo.LastWaypoint));
                         }
                     }
 
@@ -166,7 +165,7 @@ namespace QSP.RouteFinding
 
                 //no sid for the rwy/airport, e.g. KORD
                 //or sid contains nothing but a vector
-                var nearbyPts = Utilities.FindAirwayConnection(origLatLon,WptList);
+                var nearbyPts = WaypointAirwayConnector.FindAirwayConnection(origLatLon, WptList);
 
                 // TODO: This is not quite correct.
                 for (int k = 0; k <= sidList.Count - 1; k++)
@@ -222,7 +221,7 @@ namespace QSP.RouteFinding
                 {
                     //no star for the rwy/airport
 
-                    var nearbyPts = Utilities.FindAirwayConnection(destLatLon,WptList );
+                    var nearbyPts = WaypointAirwayConnector.FindAirwayConnection(destLatLon, WptList);
                     endPoints = new Tuple<double, Waypoint>[nearbyPts.Count];
 
                     // TODO: This is not quite correct.
@@ -393,7 +392,7 @@ namespace QSP.RouteFinding
                 nextWpt = input[index + 1];
 
                 //find all sids
-                SidHandler sidManager = new SidHandler(origIcao);
+                var sidManager = new SidHandler(origIcao);
                 var sidList = sidManager.GetSidList(origRwy);
 
                 var rte = new RouteFinder().FindRoute(origIcao, origRwy, sidList, selectWptSameIdent(input[index + 1]));

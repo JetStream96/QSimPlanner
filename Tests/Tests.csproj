@@ -75,14 +75,14 @@
     <Compile Include="RandomRouteFinderTest.cs" />
     <Compile Include="RouteAnalyzerTest.cs" />
     <Compile Include="RouteFindingTest\RouteFinderTest.cs" />
-    <Compile Include="RouteFindingTest\SidHandlerTest.cs" />
+    <Compile Include="RouteFindingTest\TerminalProceduresTest\Sids\SidAdderTest.cs" />
     <Compile Include="RouteFindingTest\TerminalProceduresTest\Sids\SidCollectionTest.cs" />
     <Compile Include="RouteFindingTest\TerminalProceduresTest\Sids\SidReaderTest.cs" />
     <Compile Include="RouteFindingTest\TerminalProceduresTest\Sids\SidSelectorTest.cs" />
     <Compile Include="RouteFindingTest\TestDataGenerators\AirportManagerGenerator.cs" />
     <Compile Include="RouteFindingTest\TestDataGenerators\CommentLineRemover.cs" />
+    <Compile Include="RouteFindingTest\TestDataGenerators\TestDataProvider.cs" />
     <Compile Include="RouteFindingTest\TestDataGenerators\WptListGenerator.cs" />
-    <Compile Include="RouteFindingTest\TestDataGenerators\WptListInstance.cs" />
     <Compile Include="SimpleRouteAnalyzerTest.cs" />
     <Compile Include="TOPerfCalcTest.cs" />
     <Compile Include="WindAloft\LastestDataSetFinderTest.cs" />

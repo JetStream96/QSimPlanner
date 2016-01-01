@@ -89,7 +89,7 @@ namespace Tests.LibraryExtensionTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(IndexOutOfRangeException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void AccessRemovedItemThrowException()
         {
             var item = createList(58200);
@@ -115,7 +115,7 @@ namespace Tests.LibraryExtensionTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(IndexOutOfRangeException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void SetRemovedItemThrowException()
         {
             var item = createList(58200);

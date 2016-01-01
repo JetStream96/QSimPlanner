@@ -68,16 +68,17 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// <param name="rwy">Runway Ident</param>
         public List<string> GetSidList(string rwy)
         {
-            return new SidSelector(_sids, rwy).GetSidList();            
+            return new SidSelector(_sids, rwy).GetSidList();
         }
-        
-        public List<Waypoint> SidWaypoints(string sid, string rwy, Waypoint origRwy)
+
+        public SidWaypoints SidWaypoints(string sid, string rwy, Waypoint origRwy)
         {
             var sidTrans = Utilities.SplitSidStarTransition(sid);
 
             var rwySpecificPart = GetSid(sidTrans.ProcedureName, rwy);
             var commonPart = GetSid(sidTrans.ProcedureName);
 
+            bool endsWithVector = false;
             var wpts = new List<Waypoint>();
             wpts.Add(origRwy);
 
@@ -85,6 +86,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             if (rwySpecificPart != null)
             {
                 wpts.AddRange(rwySpecificPart.Waypoints);
+                endsWithVector = rwySpecificPart.EndWithVector;
             }
 
             if (commonPart != null)
@@ -92,13 +94,15 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 // The last wpt of runway specific part should be the same as the first one of the common part.
                 wpts.TryRemoveLast();
                 wpts.AddRange(commonPart.Waypoints);
+                endsWithVector = commonPart.EndWithVector;
             }
 
-            addTransitionIfNeeded(sidTrans, rwySpecificPart, commonPart, wpts);
-            return wpts;
+            addTransitionIfNeeded(sidTrans, rwySpecificPart, ref endsWithVector, commonPart, wpts);
+            return new SidWaypoints(wpts, endsWithVector);
         }
 
-        private void addTransitionIfNeeded(TerminalProcedureName sidTrans, SidEntry rwySpecificPart, SidEntry commonPart, List<Waypoint> wpts)
+        private void addTransitionIfNeeded(TerminalProcedureName sidTrans, SidEntry rwySpecificPart, ref bool endsWithVector,
+                                           SidEntry commonPart, List<Waypoint> wpts)
         {
             if (sidTrans.TransitionName != "")
             {
@@ -113,6 +117,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 // The last wpt of (runway specific + common part) should be the same as the first one of the transition part.
                 wpts.TryRemoveLast();
                 wpts.AddRange(transitionPart.Waypoints);
+                endsWithVector = transitionPart.EndWithVector;
             }
             else if (rwySpecificPart == null && commonPart == null)
             {
@@ -131,8 +136,9 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// <exception cref="SidNotFoundException"></exception>
         public SidInfo GetSidInfo(string sid, string rwy, Waypoint origRwy)
         {
-            var wpts = SidWaypoints(sid, rwy, origRwy);
-            return new SidInfo(GetTotalDistance(wpts), wpts.Last());
+            var sidWpts = SidWaypoints(sid, rwy, origRwy);
+            var wpts = sidWpts.Waypoints;
+            return new SidInfo(GetTotalDistance(wpts), wpts.Last(), sidWpts.EndsWithVector);
         }
     }
 }

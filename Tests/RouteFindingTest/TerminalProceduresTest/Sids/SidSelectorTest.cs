@@ -4,14 +4,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP;
 using QSP.RouteFinding.TerminalProcedures;
-using static QSP.RouteFinding.Utilities;
-using static Tests.Common.Utilities;
 
 namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
 {
     [TestClass]
     public class SidSelectorTest
     {
+
         [TestMethod]
         public void WhenThereIsNoSidThenReturnEmptyList()
         {
@@ -22,9 +21,8 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
         [TestMethod]
         public void WhenSidIsRwySpecific()
         {
-            var sids = new List<SidEntry>();
-            sids.Add(new SidEntry("14", "SID1", new List<Waypoint>(), EntryType.RwySpecific, false));
-            sids.Add(new SidEntry("25", "SID1", new List<Waypoint>(), EntryType.RwySpecific, false));
+            var sids = sidEntryCreateHelper(new sidData("14", "SID1", EntryType.RwySpecific),
+                                            new sidData("25", "SID1", EntryType.RwySpecific));
 
             var avaliableSids = new SidSelector(sids, "14").GetSidList();
             Assert.AreEqual(1, avaliableSids.Count);
@@ -34,8 +32,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
         [TestMethod]
         public void WhenCommonPartExists()
         {
-            var sids = new List<SidEntry>();
-            sids.Add(new SidEntry("14", "SID1", new List<Waypoint>(), EntryType.Common, false));
+            var sids = sidEntryCreateHelper(new sidData("14", "SID1", EntryType.Common));
 
             var avaliableSids = new SidSelector(sids, "14").GetSidList();
             Assert.AreEqual(1, avaliableSids.Count);
@@ -45,10 +42,9 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
         [TestMethod]
         public void WhenCommonPartIsNotForTheInterestedRwy()
         {
-            var sids = new List<SidEntry>();
-            sids.Add(new SidEntry("ALL", "SID1", new List<Waypoint>(), EntryType.Common, false));
-            sids.Add(new SidEntry("25", "SID1", new List<Waypoint>(), EntryType.RwySpecific, false));
-            sids.Add(new SidEntry("14", "SID2", new List<Waypoint>(), EntryType.RwySpecific, false));
+            var sids = sidEntryCreateHelper(new sidData("ALL", "SID1", EntryType.Common),
+                                            new sidData("25", "SID1", EntryType.RwySpecific),
+                                            new sidData("14", "SID2", EntryType.RwySpecific));
 
             var avaliableSids = new SidSelector(sids, "14").GetSidList();
             Assert.AreEqual(1, avaliableSids.Count);
@@ -58,10 +54,9 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
         [TestMethod]
         public void WhenTransitionIsAvailableThenNoTransitionPartIsIgnored()
         {
-            var sids = new List<SidEntry>();
-            sids.Add(new SidEntry("14", "SID1", new List<Waypoint>(), EntryType.RwySpecific, false));
-            sids.Add(new SidEntry("TRANS1", "SID1", new List<Waypoint>(), EntryType.Transition, false));
-            sids.Add(new SidEntry("TRANS2", "SID1", new List<Waypoint>(), EntryType.Transition, false));
+            var sids = sidEntryCreateHelper(new sidData("14", "SID1", EntryType.RwySpecific),
+                                            new sidData("TRANS1", "SID1", EntryType.Transition),
+                                            new sidData("TRANS2", "SID1", EntryType.Transition));
 
             var avaliableSids = new SidSelector(sids, "14").GetSidList();
             Assert.AreEqual(2, avaliableSids.Count);
@@ -72,12 +67,37 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
         [TestMethod]
         public void WhenTransitionIsForWrongRwyThenDoesNotAddToResult()
         {
-            var sids = new List<SidEntry>();
-            sids.Add(new SidEntry("25", "SID2", new List<Waypoint>(), EntryType.RwySpecific, false));
-            sids.Add(new SidEntry("TRANS2", "SID2", new List<Waypoint>(), EntryType.Transition, false));
+            var sids = sidEntryCreateHelper(new sidData("25", "SID2", EntryType.RwySpecific),
+                                            new sidData("TRANS2", "SID2", EntryType.Transition));
 
             var avaliableSids = new SidSelector(sids, "14").GetSidList();
             Assert.AreEqual(0, avaliableSids.Count);
+        }
+
+        private static List<SidEntry> sidEntryCreateHelper(params sidData[] data)
+        {
+            var emptyList = new List<Waypoint>();
+            var sids = new List<SidEntry>();
+
+            foreach (var i in data)
+            {
+                sids.Add(new SidEntry(i.rwy, i.sidName, emptyList, i.type, false));
+            }
+            return sids;
+        }
+
+        private class sidData
+        {
+            public string rwy;
+            public string sidName;
+            public EntryType type;
+
+            public sidData(string rwy, string sidName, EntryType type)
+            {
+                this.rwy = rwy;
+                this.sidName = sidName;
+                this.type = type;
+            }
         }
 
     }

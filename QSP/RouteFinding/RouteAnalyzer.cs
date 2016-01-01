@@ -241,11 +241,11 @@ namespace QSP.RouteFinding
                 var sidManager = new SidHandler(origIcao);
                 var sidInfo = sidManager.InfoForAnalysis(origRwy, text);
 
-                rte.TotalDis += sidInfo.Item1;
+                rte.TotalDis += sidInfo.TotalDistance;
                 rte.Via.Add(text);
-                addWptIfNoDuplicate(rte, sidInfo.Item2);
+                addWptIfNoDuplicate(rte, sidInfo.LastWaypoint);
 
-                sidLastWpt = sidInfo.Item2;
+                sidLastWpt = sidInfo.LastWaypoint;
 
                 return true;
             }
@@ -313,7 +313,7 @@ namespace QSP.RouteFinding
         private bool tryFindWptOnAwy(Route rte, string text)
         {
             int lastWptIndex = WptList.FindByWaypoint(rte.Waypoints.Last());
-            var wpts = new AirwayConnectionFinder(lastWptIndex, rte.Via.Last(), text).FindWaypoints();
+            var wpts = new AirwayNodeFinder(lastWptIndex, rte.Via.Last(), text).FindWaypoints();
 
             if (wpts == null)
             {

@@ -114,7 +114,7 @@ namespace QSP.RouteFinding
             if (star.Count == 0)
             {
                 //case 1: the star list is empty, find nearby wpts and use DCT                
-                foreach (var i in Utilities.FindAirwayConnection(rwyLatLon,wptList ))
+                foreach (var i in WaypointAirwayConnector.FindAirwayConnection(rwyLatLon,wptList ))
                 {
                     wptList.AddNeighbor(i.Index, DEST_RWY_INDEX, new Neighbor("DCT", i.Distance));
                 }
@@ -146,7 +146,7 @@ namespace QSP.RouteFinding
                 //case 2: when the connecting wpt(i.e. the first wpt in the star) is not found in ats.txt
 
                 //now find nearby waypoints of firstWpt of star
-                foreach (var pt in Utilities.FindAirwayConnection(firstWpt.Lat, firstWpt.Lon,wptList ))
+                foreach (var pt in WaypointAirwayConnector.FindAirwayConnection(firstWpt.Lat, firstWpt.Lon,wptList ))
                 {
                     //each pt directs to the firstWpt of star
                     wptList.AddNeighbor(pt.Index, firstWptIndex, new Neighbor("DCT", pt.Distance));

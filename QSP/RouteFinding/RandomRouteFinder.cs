@@ -4,14 +4,13 @@ using System.Linq;
 using QSP.AviationTools;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.MathTools.MathTools;
+using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding
 {
-    // Some magic number (500) here to be fixed.
-
     public class RandomRouteFinder
     {
-        private static readonly double MAX_ANGLE_DEG = ToDegree(500 / AviationConstants.RADIUS_EARTH_NM);
+        private static readonly double MAX_ANGLE_DEG = ToDegree(MAX_LEG_DIS / AviationConstants.RADIUS_EARTH_NM);
         private static readonly double MAX_ANGLE_DEG_INT = Math.Floor(MAX_ANGLE_DEG);
 
         private LatLon latLon1;
@@ -182,7 +181,6 @@ namespace QSP.RouteFinding
 
         private double getNextLon(double currentLon, FindLonDirection dir)
         {
-
             if (dir == FindLonDirection.East)
             {
                 return trimLon(Math.Floor(currentLon + 1));
@@ -191,7 +189,6 @@ namespace QSP.RouteFinding
             {
                 return trimLon(Math.Ceiling(currentLon - 1));
             }
-
         }
 
         private static double ModFunction(double n, int x)
@@ -238,7 +235,6 @@ namespace QSP.RouteFinding
                 lonInt[2] = trimLon(Math.Floor(lon.Item2));
                 lonInt[3] = trimLon(Math.Ceiling(lon.Item2));
 
-
                 foreach (double i in lonInt)
                 {
                     if (u.Distance(lat, i) <= 500)
@@ -246,13 +242,9 @@ namespace QSP.RouteFinding
                         candidates.Add(new LatLon(lat, i));
                         exitLoop = false;
                     }
-
                 }
-
             }
-
             return candidates;
-
         }
 
         private List<LatLon> candidatesMeridianIntersection(LatLon u, LatLon v2)
@@ -321,7 +313,6 @@ namespace QSP.RouteFinding
 
         private Tuple<double, double> getLonCircleOfLatIntersection(LatLon u, LatLon v2, double lat)
         {
-
             Vector3D w = LatLonToVector3D(u).CrossProductWith(LatLonToVector3D(v2));
             double latRad = ToRadian(lat);
             double a = Math.Sin(latRad) * w.z;
@@ -331,12 +322,10 @@ namespace QSP.RouteFinding
             double g = Math.Acos(-a / Math.Sqrt(b * b + c * c));
 
             return new Tuple<double, double>(trimLon(ToDegree(d + g)), trimLon(ToDegree(d - g)));
-
         }
 
         private LatLon chooseCandidates(List<LatLon> candidates, LatLon startLatLon)
         {
-
             if (candidates.Count == 1)
             {
                 return candidates[0];
@@ -351,7 +340,6 @@ namespace QSP.RouteFinding
             }
 
             return candidates[innerProducts.MaxIndex()];
-
         }
 
         private Vector3D getTangent(Vector3D v, Vector3D w)
@@ -385,7 +373,6 @@ namespace QSP.RouteFinding
 
         private double getNextLat(double lat, FindLatDirection dir)
         {
-
             if (dir == FindLatDirection.North)
             {
                 return Math.Floor(lat + 1);
@@ -394,9 +381,6 @@ namespace QSP.RouteFinding
             {
                 return Math.Ceiling(lat - 1);
             }
-
         }
-
     }
-
 }

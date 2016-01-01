@@ -99,7 +99,7 @@ namespace Tests.LibraryExtensionTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(IndexOutOfRangeException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void AccessNonExistingNode_Exception()
         {
             var graph = createGraph0();
@@ -153,7 +153,7 @@ namespace Tests.LibraryExtensionTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(IndexOutOfRangeException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void RemoveNode_CheckNodeRemoved()
         {
             var graph = createGraph1();

@@ -55,7 +55,7 @@ namespace QSP.RouteFinding.Tracks.Common
         /// </summary>
         public static List<int> NearbyWaypointsInWptList(int count, double lat, double lon, WaypointList wptList)
         {
-            var x = RouteFinding.Utilities.FindAirwayConnection(lat, lon, wptList);
+            var x = RouteFinding.WaypointAirwayConnector.FindAirwayConnection(lat, lon, wptList);
             var result = new List<int>(x.Count);
 
             foreach (var i in x)

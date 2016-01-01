@@ -32,8 +32,7 @@ namespace QSP.RouteFinding
         /// </summary>
         private int addSid(string icao, string rwy, List<string> sid)
         {
-            var sidAdder = new SidHandler(icao, navDBLoation, wptList, airportList);
-            return sidAdder.AddSidsToWptList(rwy, sid);
+            return new SidHandler(icao, navDBLoation, wptList, airportList).AddSidsToWptList(rwy, sid);
         }
 
         /// <summary>
