@@ -25,27 +25,10 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
     public class SidEntry
     {
-        private string _rwy;
-        private string _sidName;
         private List<Waypoint> _wpts;
-        private EntryType _type;
-        private bool _endWithVector;
 
-        public string RunwayOrTransition
-        {
-            get
-            {
-                return _rwy;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return _sidName;
-            }
-        }
+        public string RunwayOrTransition { get; private set; }
+        public string Name { get; private set; }
 
         public ReadOnlyCollection<Waypoint> Waypoints
         {
@@ -55,30 +38,16 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             }
         }
 
-        public EntryType Type
-        {
-            get
-            {
-                return _type;
-            }
-        }
-
-        public bool EndWithVector
-        {
-            get
-            {
-                return _endWithVector;
-            }
-        }
+        public EntryType Type { get; private set; }
+        public bool EndWithVector { get; private set; }
 
         public SidEntry(string rwy, string sidName, List<Waypoint> wpts, EntryType type, bool endWithVector)
         {
-            _rwy = rwy;
-            _sidName = sidName;
-            _wpts = wpts;
-            _type = type;
-            _endWithVector = endWithVector;
+            this.RunwayOrTransition = rwy;
+            this.Name = sidName;
+            this._wpts = wpts;
+            this.Type = type;
+            this.EndWithVector = endWithVector;
         }
-
     }
 }

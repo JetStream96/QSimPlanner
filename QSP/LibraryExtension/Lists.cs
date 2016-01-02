@@ -42,5 +42,10 @@ namespace QSP.LibraryExtension
             item.RemoveAt(item.Count - 1);
             return true;
         }
+
+        public static List<T> CreateList<T>(params T[] items)
+        {
+            return new List<T>(items);            
+        }
     }
 }

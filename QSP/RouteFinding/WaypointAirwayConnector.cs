@@ -37,9 +37,10 @@ namespace QSP.RouteFinding
         /// Finds a list of waypoints which is near the given Lat/Lon, and are connected to at least one other waypoint.
         /// </summary>
         public static List<IndexDistancePair> FindAirwayConnection(double Lat, double Lon, WaypointList wptList,
-                                                                   double maxSearchRange, double targetNumber) {
+                                                                   double maxSearchRange, double targetNumber)
+        {
             return FindAirwayConnection(Lat, Lon, wptList, maxSearchRange, targetNumber, SEARCH_RANGE_INCR);
-        }         
+        }
 
         /// <summary>
         /// Finds a list of waypoints which is near the given Lat/Lon, and are connected to at least one other waypoint.
@@ -65,11 +66,7 @@ namespace QSP.RouteFinding
                     if (wptList.EdgesFromCount(i) > 0)
                     {
                         dctDis = GreatCircleDistance(wptList[i].Lat, wptList[i].Lon, Lat, Lon);
-
-                        if (dctDis <= searchRange)
-                        {
-                            result.Add(new IndexDistancePair(i, dctDis));
-                        }
+                        result.Add(new IndexDistancePair(i, dctDis));
                     }
                 }
             }

@@ -64,7 +64,7 @@ namespace QSP.RouteFinding
             return dis;
         }
 
-        public static double GetTotalDistance(List<Waypoint> wpts)
+        public static double GetTotalDistance<T>(T wpts) where T : IReadOnlyCollection<Waypoint>, IReadOnlyList<Waypoint>
         {
             //in nm
             if (wpts.Count < 2)
@@ -112,7 +112,7 @@ namespace QSP.RouteFinding
                 }
             }
             return null;
-        }        
+        }
     }
 }
 
