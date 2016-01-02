@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
+using QSP.RouteFinding.TerminalProcedures.Star;
 
 namespace QSP.RouteFinding
 {
@@ -134,7 +135,7 @@ namespace QSP.RouteFinding
                 var sidManager = new SidHandler(origIcao);
                 var sidList = sidManager.GetSidList(origRwy);
                 string origRwyWpt = origIcao + origRwy;
-                var endPoints = new List<Tuple<double, Waypoint>>();
+                var endPoints = new List<SidInfo>();
                 LatLon nextLatLon = null;
                 int p = 0;
 
@@ -150,16 +151,16 @@ namespace QSP.RouteFinding
 
                         if (analysisInfo.LastWaypoint.ID != origRwyWpt)
                         {
-                            endPoints.Add(new Tuple<double, Waypoint>(analysisInfo.TotalDistance, analysisInfo.LastWaypoint));
+                            endPoints.Add(analysisInfo);
                         }
                     }
 
                     if (endPoints.Count > 0)
                     {
                         nextLatLon = WptList[selectWptSameIdent(nextWpt)].LatLon;
-                        p = selectSidStar(endPoints.ToArray(), nextLatLon);
+                        p = selectSid(endPoints.ToArray(), nextLatLon);
 
-                        return sidList[p] + " " + endPoints[p].Item2.ID + " " + randRouteStr(endPoints[p].Item2.LatLon, nextLatLon);
+                        return sidList[p] + " " + endPoints[p].LastWaypoint.ID + " " + randRouteStr(endPoints[p].LastWaypoint.LatLon, nextLatLon);
                     }
                 }
 
@@ -170,13 +171,13 @@ namespace QSP.RouteFinding
                 // TODO: This is not quite correct.
                 for (int k = 0; k <= sidList.Count - 1; k++)
                 {
-                    endPoints.Add(new Tuple<double, Waypoint>(nearbyPts[k].Distance, WptList[nearbyPts[k].Index]));
+                    endPoints.Add(new SidInfo(nearbyPts[k].Distance, WptList[nearbyPts[k].Index], false));
                 }
 
                 nextLatLon = WptList[selectWptSameIdent(nextWpt)].LatLon;
-                p = selectSidStar(endPoints.ToArray(), nextLatLon);
+                p = selectSid(endPoints.ToArray(), nextLatLon);
 
-                return sidList[p] + " " + endPoints[p].Item2.ID + " " + randRouteStr(endPoints[p].Item2.LatLon, nextLatLon);
+                return sidList[p] + " " + endPoints[p].LastWaypoint.ID + " " + randRouteStr(endPoints[p].LastWaypoint.LatLon, nextLatLon);
             }
 
             //this is not to be parsed as first 
@@ -187,7 +188,6 @@ namespace QSP.RouteFinding
         /// <param name="index">Index of "RAND" in input() array.</param>
         private string tryParseRandAsLast(string[] input, int index)
         {
-
             int lastIndex = input.Length - 1;
 
             //auto find STAR 
@@ -202,39 +202,38 @@ namespace QSP.RouteFinding
                 var starManager = new StarHandler(destIcao);
                 var starList = starManager.GetStarList(destRwy);
 
-                Tuple<double, Waypoint>[] endPoints = null;
-
+                StarInfo[] endPoints = null;
 
                 if (starList.Count > 0)
                 {
                     //if star is avail.
 
-                    endPoints = new Tuple<double, Waypoint>[starList.Count];
+                    endPoints = new StarInfo[starList.Count];
 
                     for (int k = 0; k <= starList.Count - 1; k++)
                     {
                         endPoints[k] = starManager.InfoForAnalysis(destRwy, starList[k]);
                     }
-
                 }
                 else
                 {
                     //no star for the rwy/airport
 
                     var nearbyPts = WaypointAirwayConnector.FindAirwayConnection(destLatLon, WptList);
-                    endPoints = new Tuple<double, Waypoint>[nearbyPts.Count];
+                    endPoints = new StarInfo[nearbyPts.Count];
 
                     // TODO: This is not quite correct.
                     for (int k = 0; k < starList.Count; k++)
                     {
-                        endPoints[k] = new Tuple<double, Waypoint>(nearbyPts[k].Distance, WptList[nearbyPts[k].Index]);
+                        endPoints[k] = new StarInfo(nearbyPts[k].Distance, WptList[nearbyPts[k].Index]);
                     }
                 }
 
                 var prevLatLon = WptList[selectWptSameIdent(prevWpt)].LatLon;
-                int p = selectSidStar(endPoints, prevLatLon);
+                int p = selectStar(endPoints, prevLatLon);
+                var firstPt = endPoints[p].FirstWaypoint;
 
-                return randRouteStr(prevLatLon, endPoints[p].Item2.LatLon) + " " + endPoints[p].Item2.ID + " " + starList[p];
+                return randRouteStr(prevLatLon, firstPt.LatLon) + " " + firstPt.ID + " " + starList[p];
             }
 
             return null;
@@ -244,8 +243,7 @@ namespace QSP.RouteFinding
 
         private string randRouteStr(List<LatLon> item)
         {
-
-            StringBuilder s = new StringBuilder();
+            var s = new StringBuilder();
 
             for (int i = 1; i <= item.Count - 2; i++)
             {
@@ -261,17 +259,35 @@ namespace QSP.RouteFinding
 
         #endregion
 
-        private int selectSidStar(Tuple<double, Waypoint>[] procCollection, LatLon nextPtLatLon)
+        private static int selectStar(StarInfo[] procCollection, LatLon prevPtLatLon)
         {
             int result = 0;
             double minDis = MAX_DIS;
-            Tuple<double, Waypoint> proc = null;
-            double dis = 0;
+            double dis = 0.0;
 
             for (int i = 0; i <= procCollection.Count() - 1; i++)
             {
-                proc = procCollection[i];
-                dis = proc.Item1 + nextPtLatLon.Distance(proc.Item2.LatLon);
+                var proc = procCollection[i];
+                dis = proc.TotalDistance + prevPtLatLon.Distance(proc.FirstWaypoint.Lat, proc.FirstWaypoint.Lon);
+                if (dis < minDis)
+                {
+                    result = i;
+                    minDis = dis;
+                }
+            }
+            return result;
+        }
+
+        private static int selectSid(SidInfo[] procCollection, LatLon prevPtLatLon)
+        {
+            int result = 0;
+            double minDis = MAX_DIS;
+            double dis = 0.0;
+
+            for (int i = 0; i <= procCollection.Count() - 1; i++)
+            {
+                var proc = procCollection[i];
+                dis = proc.TotalDistance + prevPtLatLon.Distance(proc.LastWaypoint.Lat, proc.LastWaypoint.Lon);
                 if (dis < minDis)
                 {
                     result = i;
@@ -289,10 +305,7 @@ namespace QSP.RouteFinding
                 {
                     return 'E';
                 }
-                else
-                {
-                    return 'N';
-                }
+                return 'N';
             }
             else
             {
@@ -300,26 +313,26 @@ namespace QSP.RouteFinding
                 {
                     return 'S';
                 }
-                else
-                {
-                    return 'W';
-                }
+                return 'W';
             }
         }
 
+        // TODO: potential rounding error issue.
         private static string ToWptIdent(LatLon latLon)
         {
             if (latLon.Lat % 1 == 0.0 && latLon.Lon % 1 == 0.0)
             {
                 if (Math.Abs(latLon.Lon) >= 100)
                 {
-                    return Math.Abs(latLon.Lat).ToString().PadLeft(2, '0') + StandardIdent(latLon.Lat, latLon.Lon) +
-                       (Math.Abs(latLon.Lon) - 100).ToString().PadLeft(2, '0');
+                    return Math.Abs(latLon.Lat).ToString().PadLeft(2, '0') +
+                           StandardIdent(latLon.Lat, latLon.Lon) +
+                           (Math.Abs(latLon.Lon) - 100).ToString().PadLeft(2, '0');
                 }
                 else
                 {
-                    return Convert.ToString(Math.Abs(latLon.Lat)).PadLeft(2, '0') + Convert.ToString(Math.Abs(latLon.Lon)).PadLeft(2, '0') +
-                        StandardIdent(latLon.Lat, latLon.Lon);
+                    return Math.Abs(latLon.Lat).ToString().PadLeft(2, '0') +
+                           Math.Abs(latLon.Lon).ToString().PadLeft(2, '0') +
+                           StandardIdent(latLon.Lat, latLon.Lon);
                 }
             }
             else

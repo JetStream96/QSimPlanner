@@ -9,6 +9,7 @@ using System.Linq;
 using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using QSP.RouteFinding.TerminalProcedures.Sid;
+using QSP.RouteFinding.TerminalProcedures.Star;
 
 namespace QSP.RouteFinding
 {

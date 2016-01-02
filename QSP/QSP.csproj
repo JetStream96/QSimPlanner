@@ -99,14 +99,20 @@
     <Compile Include="RouteFinding\AirwayStructure\WptSeachWrapper.cs" />
     <Compile Include="RouteFinding\Data\ICoordinate.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\EntryType.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\IProcedureEntry.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidAdder.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidCollection.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidEntry.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidInfo.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidReader.cs" />
-    <Compile Include="RouteFinding\TerminalProcedures\Sid\SidSelector.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\ProcedureSelector.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidWaypoints.cs" />
-    <Compile Include="RouteFinding\TerminalProcedures\Sid\Utilities.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Star\StarAdder.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Star\StarCollection.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Star\StarEntry.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Star\StarInfo.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Star\StarReader.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Utilities.cs" />
     <Compile Include="RouteFinding\WaypointAirwayConnector.cs" />
     <Compile Include="UI\Forms\OptionsForm.cs">
       <SubType>Form</SubType>
@@ -199,7 +205,7 @@
     <Compile Include="RouteFinding\RouteFindingCore.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidHandler.cs" />
     <Compile Include="RouteFinding\SimpleRouteAnalyzer.cs" />
-    <Compile Include="RouteFinding\StarHandler.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Star\StarHandler.cs" />
     <Compile Include="RouteFinding\Utilities.cs" />
     <Compile Include="TakeOffPerfCalculation\AircraftParameters.cs" />
     <Compile Include="TakeOffPerfCalculation\AlternateThrustTable.cs" />

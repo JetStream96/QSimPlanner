@@ -62,7 +62,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         // (In all cases, origin runway is added to wptList.)
         //
         // Case 1. Adds neighbors* (use DCT as airway) to the origin runway.      
-        // Case 2. Finds neighbors and add them as neighbors of the origin runway (use SID name as airway).
+        // Case 2. Finds neighbors of the last waypoint in SID and add them as neighbors of the origin runway (use SID name as airway).
         // Case 3. Same as case 4. But also finds neighbors of the last waypoint, and add them as neighbors (use DCT as airway).
         // Case 4. Adds the last waypoint as a neighbor of the origin runway (use SID name as airway).
         // Case 5. Same as case 3. But also adds the last waypoint to wptList.

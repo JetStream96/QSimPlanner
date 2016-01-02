@@ -1,13 +1,12 @@
-﻿using System;
+﻿using QSP.LibraryExtension;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
-using static QSP.RouteFinding.TerminalProcedures.Sid.SidHandler;
+using static QSP.RouteFinding.TerminalProcedures.Utilities;
 using static QSP.RouteFinding.Utilities;
-using QSP.LibraryExtension;
-using static QSP.RouteFinding.TerminalProcedures.Sid.Utilities;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
@@ -68,12 +67,12 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// <param name="rwy">Runway Ident</param>
         public List<string> GetSidList(string rwy)
         {
-            return new SidSelector(_sids, rwy).GetSidList();
+            return new ProcedureSelector<SidEntry>(_sids, rwy).GetProcedureList();
         }
 
         public SidWaypoints SidWaypoints(string sid, string rwy, Waypoint origRwy)
         {
-            var sidTrans = Utilities.SplitSidStarTransition(sid);
+            var sidTrans = SplitSidStarTransition(sid);
 
             var rwySpecificPart = GetSid(sidTrans.ProcedureName, rwy);
             var commonPart = GetSid(sidTrans.ProcedureName);

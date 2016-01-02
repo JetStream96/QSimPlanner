@@ -14,7 +14,18 @@ namespace QSP.RouteFinding
         { }
     }
 
-
+    [Serializable]
+    public class StarNotFoundException : Exception
+    {
+        public StarNotFoundException() { }
+        public StarNotFoundException(string message) : base(message) { }
+        public StarNotFoundException(string message, Exception inner) : base(message, inner) { }
+        protected StarNotFoundException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        { }
+    }
+    
     [Serializable]
     public class WaypointNotFoundException : Exception
     {
@@ -86,6 +97,18 @@ namespace QSP.RouteFinding
         public LoadSidFileException(string message) : base(message) { }
         public LoadSidFileException(string message, Exception inner) : base(message, inner) { }
         protected LoadSidFileException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        { }
+    }
+
+    [Serializable]
+    public class LoadStarFileException : Exception
+    {
+        public LoadStarFileException() { }
+        public LoadStarFileException(string message) : base(message) { }
+        public LoadStarFileException(string message, Exception inner) : base(message, inner) { }
+        protected LoadStarFileException(
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }

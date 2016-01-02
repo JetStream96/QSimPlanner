@@ -7,32 +7,15 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using System.Collections.Generic;
-using Tests.RouteFindingTest.TestDataGenerators;
 using static QSP.LibraryExtension.Lists;
 using static QSP.RouteFinding.Utilities;
 using static Tests.Common.Utilities;
-using static Tests.RouteFindingTest.TestDataGenerators.TestDataProvider;
 
 namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
 {
     [TestClass]
     public class SidAdderTest
     {
-        #region Test Setup
-
-        private static SidAdder adder;
-
-        public static SidAdder GetSidAdder()
-        {
-            if (adder == null)
-            {
-                adder = new SidAdder("AXYZ", GetSidCollection(), GetWptList(), AirportManagerGenerator.AirportList);
-            }
-            return adder;
-        }
-
-        #endregion
-
         [TestMethod]
         public void AddToWptListCase1()
         {
@@ -72,19 +55,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
 
             return wptList;
         }
-
-        private double sid3_Dis()
-        {
-            var latLons = new List<LatLon>();
-            latLons.Add(new LatLon(25.0003, 50.0001));  // Rwy 18 
-            latLons.Add(new LatLon(24.9, 50.0));
-            latLons.Add(new LatLon(24.8, 50.0));
-            latLons.Add(new LatLon(24.7, 50.0));
-            latLons.Add(new LatLon(24.6, 50.0));
-
-            return GetTotalDistance(latLons);
-        }
-
+        
         private WaypointList Case2WptList()
         {
             var wptList = new WaypointList();

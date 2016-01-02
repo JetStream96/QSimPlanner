@@ -1,12 +1,12 @@
+using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.TerminalProcedures.Sid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.RouteFinding.Containers;
 using static QSP.LibraryExtension.Arrays;
-using QSP.Core;
-using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.MathTools.MathTools;
-using QSP.RouteFinding.TerminalProcedures.Sid;
+using static QSP.RouteFinding.RouteFindingCore;
+using QSP.RouteFinding.TerminalProcedures.Star;
 
 namespace QSP.RouteFinding
 {
@@ -111,7 +111,7 @@ namespace QSP.RouteFinding
 
         public Route Parse()
         {
-            Route result = new Route();
+            var result = new Route();
             string[] input = routeInput.ToUpper().Split(Delimiters, StringSplitOptions.RemoveEmptyEntries).RemoveElements("DCT");
             NodeType currentNode = NodeType.Start;
 
@@ -177,26 +177,10 @@ namespace QSP.RouteFinding
             switch (currentNode)
             {
                 case NodeType.Orig:
-
-                    if (text == origIcao)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return (text == origIcao);
 
                 case NodeType.Dest:
-
-                    if (text == destIcao)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return (text == destIcao);
 
                 case NodeType.Sid:
                     return tryParseSid(rte, text);
@@ -222,8 +206,8 @@ namespace QSP.RouteFinding
                 StarHandler starManager = new StarHandler(destIcao);
                 var starInfo = starManager.InfoForAnalysis(destRwy, text);
 
-                rte.TotalDis += starInfo.Item1;
-                addWptIfNoDuplicate(rte, starInfo.Item2);
+                rte.TotalDis += starInfo.TotalDistance;
+                addWptIfNoDuplicate(rte, starInfo.FirstWaypoint);
                 rte.Via.Add(text);
 
                 return true;
@@ -285,7 +269,6 @@ namespace QSP.RouteFinding
         {
             switch (prevNode)
             {
-
                 case NodeType.Awy:
                     return tryFindWptOnAwy(rte, text);
 
@@ -300,17 +283,14 @@ namespace QSP.RouteFinding
                     {
                         return tryAddWpt(rte, text);
                     }
-                    else
-                    {
-                        return true;
-                    }
+                    return true;
 
                 default:
                     throw new ArgumentOutOfRangeException("Enum not supported.");
             }
         }
 
-        private bool tryFindWptOnAwy(Route rte, string text)
+        private static bool tryFindWptOnAwy(Route rte, string text)
         {
             int lastWptIndex = WptList.FindByWaypoint(rte.Waypoints.Last());
             var wpts = new AirwayNodeFinder(lastWptIndex, rte.Via.Last(), text).FindWaypoints();
@@ -335,7 +315,7 @@ namespace QSP.RouteFinding
             return true;
         }
 
-        private bool tryAddWpt(Route rte, string ID)
+        private static bool tryAddWpt(Route rte, string ID)
         {
             Waypoint wpt = Utilities.FindWpt(ID, rte.Waypoints.Last());
 
@@ -351,7 +331,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private void addWptIfNoDuplicate(Route rte, Waypoint wpt)
+        private static void addWptIfNoDuplicate(Route rte, Waypoint wpt)
         {
             if (!wpt.Equals(rte.Waypoints.Last()))
             {
@@ -363,7 +343,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private void addWptIfNoDuplicate(ref Route rte, Waypoint wpt, string airway)
+        private static void addWptIfNoDuplicate(ref Route rte, Waypoint wpt, string airway)
         {
             if (!wpt.Equals(rte.Waypoints.Last()))
             {
@@ -377,7 +357,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private string exceptionMsg(string text, NodeType[] nodes)
+        private static string exceptionMsg(string text, NodeType[] nodes)
         {
             List<string> names = new List<string>();
 
@@ -415,26 +395,26 @@ namespace QSP.RouteFinding
 
         }
 
-        private string nameInException(NodeType item)
+        private static string nameInException(NodeType item)
         {
             switch (item)
             {
                 case NodeType.Orig:
                 case NodeType.Dest:
-
                     return "airport";
+
                 case NodeType.Sid:
-
                     return "SID";
+
                 case NodeType.Wpt:
-
                     return "waypoint";
+
                 case NodeType.Awy:
-
                     return "airway";
-                case NodeType.Star:
 
+                case NodeType.Star:
                     return "STAR";
+
                 default:
                     throw new ArgumentOutOfRangeException("Enum not supported.");
             }

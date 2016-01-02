@@ -65,8 +65,9 @@ namespace QSP.RouteFinding.Tracks.Common
             }
             catch
             {
-                RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution, "Failed to process track " +
-                                                              item.Ident + ".", (item is PacificTrack) ? TrackType.Pacots : TrackType.Ausots);
+                RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution,
+                                                             "Failed to process track " + item.Ident + ".",
+                                                             (item is PacificTrack) ? TrackType.Pacots : TrackType.Ausots);
             }
 
             if (reader != null)

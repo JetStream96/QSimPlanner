@@ -6,7 +6,6 @@ using QSP.RouteFinding.Tracks.Interaction;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-
     public class PacotsHandler : TrackHandler
     {
         private PacotsMessage msg;
@@ -18,13 +17,11 @@ namespace QSP.RouteFinding.Tracks.Pacots
             try
             {
                 htmlFile = PacotsDownloader.GetHtml();
-
             }
             catch 
             {
                 RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download Pacots.", TrackType.Pacots);
                 throw;
-
             }
 
             try

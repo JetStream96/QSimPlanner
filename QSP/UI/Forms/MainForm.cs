@@ -23,6 +23,7 @@ using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
 using static QSP.AviationTools.AviationConstants;
 using QSP.RouteFinding.TerminalProcedures.Sid;
+using QSP.RouteFinding.TerminalProcedures.Star;
 
 namespace QSP
 {

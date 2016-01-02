@@ -3,45 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static QSP.RouteFinding.TerminalProcedures.Sid.Utilities;
+using static QSP.RouteFinding.TerminalProcedures.Utilities;
 
-namespace QSP.RouteFinding.TerminalProcedures.Sid
+namespace QSP.RouteFinding.TerminalProcedures
 {
-    // Find all SID available for the runway.
+    // 'Procedure' refers to a SID or a STAR in the following paragraph.
     //
-    // Given a list of SidEntries and a runway, the following conditions have to be met:
+    // Find all procedures available for the runway.ProcedureSelector
+    //
+    // Given a list of ProcedureEntries and a runway, the following conditions have to be met:
     // (1) An entry which is runway-specific and matches the given runway is selected.
-    // (2) An entry with a SID that does not have a runway-specific part in the list, is usable by any runway.
+    // (2) An entry with a procedure that does not have a runway-specific part in the list, is usable by any runway.
     //     Therefore it's selected.
-    // (3) An entry with a SID that have a runway-specific part in the list, but none of the runway-specific parts
+    // (3) An entry with a procedure that have a runway-specific part in the list, but none of the runway-specific parts
     //     matches the given runway, is not selected.
-    // (4) An entry which is a transition is selected iff at least one entry with the same SID name (ProcedureName) is selected by
+    // (4) An entry which is a transition is selected iff at least one entry with the same procedure name (ProcedureName) is selected by
     //     the criterions above.
-    // (5) If a SID has transitions then it cannot appear as one without transition. 
-    //     e.g. If the selected SIDs are SID1, SID1.TRANS1, then the final selected items should only contain SID1.TRANS1.
+    // (5) If a procedure has transitions then it cannot appear as one without transition. 
+    //     e.g. If the selected procedures are SID1, SID1.TRANS1, then the final selected items should only contain SID1.TRANS1.
     //
 
-    public class SidSelector
+    public class ProcedureSelector<T> where T : IProcedureEntry
     {
-        private List<SidEntry> sidEntries;
+        private List<T> procedureEntries;
         private string rwy;
 
-        public SidSelector(List<SidEntry> sidEntries, string rwy)
+        public ProcedureSelector(List<T> procedureEntries, string rwy)
         {
-            this.sidEntries = sidEntries;
+            this.procedureEntries = procedureEntries;
             this.rwy = rwy;
         }
 
         /// <summary>
-        /// Find all SID available for the runway. Two SIDs only different in transitions are regarded as different. 
+        /// Find all procedure available for the runway. Two procedures only different in transitions are regarded as different. 
         /// If none is available an empty list is returned.
         /// </summary>
-        public List<string> GetSidList()
+        public List<string> GetProcedureList()
         {
             var noTrans = new List<string>();
             var trans = new List<TerminalProcedureName>();
 
-            classifySids(noTrans, trans);
+            classifyProcedures(noTrans, trans);
 
             // Remove duplicates, from runway specific part and common part
             noTrans = noTrans.Distinct().ToList();
@@ -49,8 +51,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             // Remove transitions that are not available for the runway.
             removeTransitionWrongRunway(noTrans, trans);
 
-            // SIDs which have transition(s), should not appear as one without transition.
-            removeSidWithoutTransition(noTrans, trans);
+            // Procedures which have transition(s), should not appear as one without transition.
+            removeProcedureWithoutTransition(noTrans, trans);
 
             // Merge the two lists
             foreach (var k in trans)
@@ -60,11 +62,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             return noTrans;
         }
 
-        private void classifySids(List<string> noTrans, List<TerminalProcedureName> trans)
+        private void classifyProcedures(List<string> noTrans, List<TerminalProcedureName> trans)
         {
-            foreach (var i in sidEntries)
+            foreach (var i in procedureEntries)
             {
-                if (i.Type == EntryType.Transition) 
+                if (i.Type == EntryType.Transition)
                 {
                     trans.Add(new TerminalProcedureName(i.Name, i.RunwayOrTransition));     // All transitions
                 }
@@ -76,11 +78,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             }
         }
 
-        private bool runwaySpecificPartExists(string sidName)
+        private bool runwaySpecificPartExists(string procedureName)
         {
-            foreach (var i in sidEntries)
+            foreach (var i in procedureEntries)
             {
-                if (i.Type==EntryType.RwySpecific && i.Name == sidName)
+                if (i.Type == EntryType.RwySpecific && i.Name == procedureName)
                 {
                     return true;
                 }
@@ -110,7 +112,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             }
         }
 
-        private static void removeSidWithoutTransition(List<string> noTrans, List<TerminalProcedureName> trans)
+        private static void removeProcedureWithoutTransition(List<string> noTrans, List<TerminalProcedureName> trans)
         {
             for (int i = noTrans.Count - 1; i >= 0; i--)
             {

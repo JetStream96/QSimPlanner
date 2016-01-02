@@ -111,7 +111,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             }
         }
 
-        private static Waypoint GetWpt(string item, ref int index)
+        public static Waypoint GetWpt(string item, ref int index)
         {
             index = item.IndexOf(',', index) + 1;
             var ident = ReadString(item, ref index, ',');
@@ -126,13 +126,13 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             return (index + 2 < item.Length && item[index] == 'S' && item[index + 1] == 'I' && item[index + 2] == 'D');
         }
 
-        private static bool IsEmptyLine(string item, int index)
+        public static bool IsEmptyLine(string item, int index)
         {
             char firstChar = item[index];
             return (firstChar == '\n' || firstChar == '\r');
         }
 
-        private static bool SkipToNextNonEmptyLine(string item, ref int index)
+        public static bool SkipToNextNonEmptyLine(string item, ref int index)
         {
             while (true)
             {

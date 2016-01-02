@@ -1,16 +1,10 @@
 using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.AirwayStructure;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using static QSP.Core.QspCore;
-using static QSP.LibraryExtension.Lists;
 using static QSP.RouteFinding.RouteFindingCore;
-using static QSP.Utilities.ErrorLogger;
-using QSP.RouteFinding.AirwayStructure;
-using static QSP.RouteFinding.Utilities;
-using static QSP.RouteFinding.WaypointAirwayConnector;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
@@ -69,35 +63,14 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         {
             return new SidAdder(icao, sidCollection).AddSidsToWptList(rwy, sid);
         }
-
-        /// <summary>
-        /// Gets a tuple containing the name of SID/STAR and transition.
-        /// </summary>
-        public static Tuple<string, string> SplitSidStarTransition(string sidStar)
-        {
-            string sidName = null;
-            string transName = null;
-
-            if (sidStar.IndexOf('.') != -1)
-            {
-                sidName = sidStar.Substring(0, sidStar.IndexOf('.'));
-                transName = sidStar.Substring(sidStar.IndexOf('.') + 1);
-            }
-            else
-            {
-                sidName = sidStar;
-                transName = "";
-            }
-            return new Tuple<string, string>(sidName, transName);
-        }
-
+        
         /// <summary>
         /// Returns total distance of the SID and the last wpt, regardless whether the last wpt is in wptList.
         /// If there isn't any waypoint in the SID (e.g. a vector after takeoff), this returns a distance of 0.0   
-        /// and the origin runway (e.g. KLAX25L).
+        /// and the origin runway (e.g. KLAX25L).       
+        /// </summary>
         /// <param name="rwy">The runway identifier. e.g. 25R </param>
         /// <param name="origRwy">The waypoint representing the origin runway.</param>
-        /// </summary>
         /// <exception cref="SidNotFoundException"></exception>
         public SidInfo InfoForAnalysis(string rwy, string sid)
         {
