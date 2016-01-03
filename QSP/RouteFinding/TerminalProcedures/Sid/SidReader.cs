@@ -52,10 +52,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 index = Math.Min(1, allText.Length - 1);
             }
 
-            while (SkipToNextNonEmptyLine(allText, ref index))
+            while (true)
             {
-                // This line is non-empty
-
                 if (LineStartsWithSid(allText, index))
                 {
                     var entry = ReadSid(allText, ref index);
@@ -64,6 +62,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                     {
                         sids.Add(entry);
                     }
+                }
+
+                if (SkipToNextNonEmptyLine(allText, ref index) == false)
+                {
+                    break;
                 }
             }
 
@@ -87,7 +90,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 {
                     index = item.IndexOf('\n', index) + 1;
 
-                    if (index <= 0 || (index <= item.Length && IsEmptyLine(item, index)))
+                    if (index <= 0 || index >= item.Length || IsEmptyLine(item, index))
                     {
                         return new SidEntry(rwy, name, wpts, GetEntryType.GetType(rwy), endWithVector);
                     }

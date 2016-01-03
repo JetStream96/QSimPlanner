@@ -1,14 +1,13 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.RouteFinding.TerminalProcedures.Sid;
-using System.IO;
-using Tests.RouteFindingTest.TestDataGenerators;
-using QSP.RouteFinding.TerminalProcedures;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP;
+using QSP.RouteFinding.TerminalProcedures;
+using QSP.RouteFinding.TerminalProcedures.Sid;
 using System.Collections.Generic;
 using System.Linq;
+using Tests.RouteFindingTest.TestDataGenerators;
+using static QSP.LibraryExtension.Lists;
 
-namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
+namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
 {
     [TestClass]
     public class SidReaderTest
@@ -42,49 +41,33 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
         {
             Assert.IsTrue(containResult(TestDataProvider.GetSidCollection(), "SID5", "TRANS2", sid5_Trans2_Wpts(), EntryType.Transition, false));
         }
-        
+
         private List<Waypoint> sid5_Trans2_Wpts()
         {
-            var result = new List<Waypoint>();
-
-            result.Add(new Waypoint("N23E049", 23.0, 49.0));
-            result.Add(new Waypoint("N24E049", 24.0, 49.0));
-
-            return result;
+            return CreateList(new Waypoint("N23E049", 23.0, 49.0),
+                              new Waypoint("N24E049", 24.0, 49.0));
         }
 
         private List<Waypoint> sid5_Wpts()
         {
-            var result = new List<Waypoint>();
-
-            result.Add(new Waypoint("N24E049", 24.0, 49.0));
-            result.Add(new Waypoint("N23E049", 23.0, 49.0));
-
-            return result;
+            return CreateList(new Waypoint("N24E049", 24.0, 49.0),
+                              new Waypoint("N23E049", 23.0, 49.0));
         }
 
         private List<Waypoint> sid3_Wpts()
         {
-            var result = new List<Waypoint>();
-
-            result.Add(new Waypoint("WPT301", 24.9, 50.0));
-            result.Add(new Waypoint("WPT302", 24.8, 50.0));
-            result.Add(new Waypoint("WPT303", 24.7, 50.0));
-            result.Add(new Waypoint("WPT304", 24.6, 50.0));
-
-            return result;
+            return CreateList(new Waypoint("WPT301", 24.9, 50.0),
+                              new Waypoint("WPT302", 24.8, 50.0),
+                              new Waypoint("WPT303", 24.7, 50.0),
+                              new Waypoint("WPT304", 24.6, 50.0));
         }
 
         private List<Waypoint> sid1_Wpts()
         {
-            var result = new List<Waypoint>();
-
-            result.Add(new Waypoint("WPT101", 25.0125, 50.0300));
-            result.Add(new Waypoint("WPT102", 25.0150, 50.0800));
-            result.Add(new Waypoint("WPT103", 25.0175, 50.1300));
-            result.Add(new Waypoint("WPT104", 25.0225, 50.1800));
-
-            return result;
+            return CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
+                              new Waypoint("WPT102", 25.0150, 50.0800),
+                              new Waypoint("WPT103", 25.0175, 50.1300),
+                              new Waypoint("WPT104", 25.0225, 50.1800));
         }
 
         private bool containResult_Common(SidCollection collection, string sid, List<Waypoint> wpts, bool endWithVector)

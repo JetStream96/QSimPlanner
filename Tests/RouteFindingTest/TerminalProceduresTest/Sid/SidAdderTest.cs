@@ -11,7 +11,7 @@ using static QSP.LibraryExtension.Lists;
 using static QSP.RouteFinding.Utilities;
 using static Tests.Common.Utilities;
 
-namespace Tests.RouteFindingTest.TerminalProceduresTest.Sids
+namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
 {
     [TestClass]
     public class SidAdderTest

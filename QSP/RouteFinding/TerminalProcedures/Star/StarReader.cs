@@ -1,13 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static QSP.Utilities.ErrorLogger;
+using System.IO;
 using static QSP.LibraryExtension.StringParser.Utilities;
-using static QSP.RouteFinding.Utilities;
 using static QSP.RouteFinding.TerminalProcedures.Sid.SidReader;
+using static QSP.RouteFinding.Utilities;
+using static QSP.Utilities.ErrorLogger;
 
 namespace QSP.RouteFinding.TerminalProcedures.Star
 {
@@ -53,10 +50,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
                 index = Math.Min(1, allText.Length - 1);
             }
 
-            while (SkipToNextNonEmptyLine(allText, ref index))
+            while (true)
             {
-                // This line is non-empty
-
                 if (LineStartsWithStar(allText, index))
                 {
                     var entry = ReadStar(allText, ref index);
@@ -66,8 +61,13 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
                         stars.Add(entry);
                     }
                 }
-            }
 
+                if (SkipToNextNonEmptyLine(allText, ref index) == false)
+                {
+                    break;
+                }
+            }
+            
             return new StarCollection(stars);
         }
 
@@ -87,7 +87,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
                 {
                     index = item.IndexOf('\n', index) + 1;
 
-                    if (index <= 0 || (index <= item.Length && IsEmptyLine(item, index)))
+                    if (index <= 0 || index >= item.Length || IsEmptyLine(item, index))
                     {
                         return new StarEntry(rwy, name, wpts, GetEntryType.GetType(rwy));
                     }

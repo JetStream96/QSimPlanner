@@ -14,7 +14,6 @@ namespace Tests.RouteFindingTest.TestDataGenerators
     {
         private static string AXYZAllTxt;
         private static SidCollection SidCollection;
-        private static WaypointList WptList;
 
         public static string GetAXYZAllTxt()
         {
@@ -35,15 +34,6 @@ namespace Tests.RouteFindingTest.TestDataGenerators
                 SidCollection = reader.Parse();
             }
             return SidCollection;
-        }
-
-        public static WaypointList GetWptList()
-        {
-            if (WptList == null)
-            {
-                WptList = new WptListGenerator().Generate();
-            }
-            return WptList;
-        }
+        }        
     }
 }

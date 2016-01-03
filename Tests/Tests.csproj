@@ -75,10 +75,11 @@
     <Compile Include="RandomRouteFinderTest.cs" />
     <Compile Include="RouteAnalyzerTest.cs" />
     <Compile Include="RouteFindingTest\RouteFinderTest.cs" />
-    <Compile Include="RouteFindingTest\TerminalProceduresTest\Sids\SidAdderTest.cs" />
-    <Compile Include="RouteFindingTest\TerminalProceduresTest\Sids\SidCollectionTest.cs" />
-    <Compile Include="RouteFindingTest\TerminalProceduresTest\Sids\SidReaderTest.cs" />
+    <Compile Include="RouteFindingTest\TerminalProceduresTest\Sid\SidAdderTest.cs" />
+    <Compile Include="RouteFindingTest\TerminalProceduresTest\Sid\SidCollectionTest.cs" />
+    <Compile Include="RouteFindingTest\TerminalProceduresTest\Sid\SidReaderTest.cs" />
     <Compile Include="RouteFindingTest\TerminalProceduresTest\ProcedureSelectorTest.cs" />
+    <Compile Include="RouteFindingTest\TerminalProceduresTest\Star\StarReaderTest.cs" />
     <Compile Include="RouteFindingTest\TestDataGenerators\AirportManagerGenerator.cs" />
     <Compile Include="RouteFindingTest\TestDataGenerators\CommentLineRemover.cs" />
     <Compile Include="RouteFindingTest\TestDataGenerators\TestDataProvider.cs" />
@@ -118,6 +119,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
