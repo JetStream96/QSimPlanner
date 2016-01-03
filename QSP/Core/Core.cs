@@ -1,5 +1,4 @@
 using System;
-using QSP.LibraryExtension;
 using QSP.WindAloft;
 
 namespace QSP.Core

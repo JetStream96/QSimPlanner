@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
+﻿using System.IO;
 using QSP.RouteFinding.TerminalProcedures.Sid;
-using QSP.RouteFinding.AirwayStructure;
-using QSP.RouteFinding.Airports;
 
 namespace Tests.RouteFindingTest.TestDataGenerators
 {

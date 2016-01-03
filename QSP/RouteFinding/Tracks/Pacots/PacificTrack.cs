@@ -15,35 +15,24 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         #region "Fields"
 
-        private string id;
-        private PacotDirection dir;
-        private string _timeStart;
-        private string _timeEnd;
         private string[] _mainRoute;
         private List<string[]> _routeFrom;
         private List<string[]> _routeTo;
 
-        private string rmk;
         private static char[] CHANGELINE_CHAR = { '\r', '\n' };
         private static string[] Delimiters = { " ", "\r\n", "\r", "\n", "\t" };
         //UPR means upper (airway). This should be ignored when parsing routeFrom/To.
         private static string[] SPECIAL_WORD = { "UPR" };
-        private static readonly LatLon JAPAN_LATLON = new LatLon(38, 147);
 
+        private static readonly LatLon JAPAN_LATLON = new LatLon(38, 147);
         private static readonly LatLon US_LATLON = new LatLon(41, -138);
+
         #endregion
 
         #region "Properties"
 
-        public string Ident
-        {
-            get { return id; }
-        }
-
-        public PacotDirection Direction
-        {
-            get { return dir; }
-        }
+        public string Ident { get; private set; }
+        public PacotDirection Direction { get; private set; }
 
         public ReadOnlyCollection<string> MainRoute
         {
@@ -60,33 +49,22 @@ namespace QSP.RouteFinding.Tracks.Pacots
             get { return _routeTo.AsReadOnly(); }
         }
 
-        public string TimeStart
-        {
-            get { return _timeStart; }
-        }
+        public string TimeStart { get; private set; }
+        public string TimeEnd { get; private set; }
+        public string Remarks { get; private set; }
 
-        public string TimeEnd
-        {
-            get { return _timeEnd; }
-        }
-
-        public string Remarks
-        {
-            get { return rmk; }
-        }
-        
         public LatLon PreferredFirstLatLon
         {
             get
             {
-                switch (dir)
+                switch (Direction)
                 {
                     case PacotDirection.Eastbound:
-
                         return JAPAN_LATLON;
-                    case PacotDirection.Westbound:
 
+                    case PacotDirection.Westbound:
                         return US_LATLON;
+
                     default:
                         throw new EnumNotSupportedException();
                 }
@@ -95,12 +73,11 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         #endregion
 
-
         public PacificTrack(string trackMsg, PacotDirection direction)
         {
             _routeFrom = new List<string[]>();
             _routeTo = new List<string[]>();
-            dir = direction;
+            this.Direction = direction;
 
             switch (direction)
             {
@@ -121,51 +98,46 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         }
 
-
-        public PacificTrack(string ident, PacotDirection direction, string timeStart, string timeEnd, string[] mainRoute, List<string[]> routeFrom, List<string[]> routeTo, string remark)
+        public PacificTrack(string ident, PacotDirection direction, string timeStart, string timeEnd, string[] mainRoute,
+                            List<string[]> routeFrom, List<string[]> routeTo, string remark)
         {
-            id = ident;
-            dir = direction;
-            this._timeStart = timeStart;
-            this._timeEnd = timeEnd;
-            _mainRoute = mainRoute;
+            this.Ident = ident;
+            this.Direction = direction;
+            this.TimeStart = timeStart;
+            this.TimeEnd = timeEnd;
+            this._mainRoute = mainRoute;
             this._routeFrom = routeFrom;
             this._routeTo = routeTo;
-            rmk = remark;
+            this.Remarks = remark;
 
             removeRedundentFromList();
             convertAllLatLonFormat();
-
         }
-
 
         private void convertAllLatLonFormat()
         {
-            QSP.RouteFinding.Tracks.Common.Utilities.ConvertLatLonFormat(_mainRoute);
+            Common.Utilities.ConvertLatLonFormat(_mainRoute);
 
             foreach (var i in _routeFrom)
             {
-                QSP.RouteFinding.Tracks.Common.Utilities.ConvertLatLonFormat(i);
+                Common.Utilities.ConvertLatLonFormat(i);
             }
 
             foreach (var j in _routeTo)
             {
-                QSP.RouteFinding.Tracks.Common.Utilities.ConvertLatLonFormat(j);
+                Common.Utilities.ConvertLatLonFormat(j);
             }
-
         }
-
 
         private void removeRedundentFromList()
         {
             //choose distinct items
-            _routeFrom = QSP.RouteFinding.Tracks.Common.Utilities.SelectDistinct(_routeFrom);
-            _routeTo = QSP.RouteFinding.Tracks.Common.Utilities.SelectDistinct(_routeTo);
+            _routeFrom = Common.Utilities.SelectDistinct(_routeFrom);
+            _routeTo = Common.Utilities.SelectDistinct(_routeTo);
 
             //remove routes containing only 1 waypoint
             _routeFrom.RemoveTinyArray(2);
             _routeTo.RemoveTinyArray(2);
-
         }
 
         #region "Parse West"
@@ -187,19 +159,18 @@ namespace QSP.RouteFinding.Tracks.Pacots
             //RMK/ TRK ADVISORY IN EFFECT FOR TRK C 
             //). 05 NOV 19:00 2015 UNTIL 06 NOV 08:00 2015. CREATED: 05 NOV 02:15 2015
 
-
             //get ident
             int x = message.IndexOf("(TDM TRK") + "(TDM TRK".Length;
             int y = message.IndexOf(' ', x);
             x = message.IndexOf(' ', y + 1);
-            id = message.StringBetween(y, x);
+            Ident = message.StringBetween(y, x);
 
             //get time start/end
             x = message.IndexOfAny(CHANGELINE_CHAR, x);
             y = message.IndexOf(' ', x);
-            _timeStart = message.StringBetween(x, y);
+            TimeStart = message.StringBetween(x, y);
             x = message.IndexOfAny(CHANGELINE_CHAR, y);
-            _timeEnd = message.StringBetween(y, x);
+            TimeEnd = message.StringBetween(y, x);
 
             //get main route
             //TODO: what if RTS or RMK does not exist?
@@ -211,7 +182,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
             int z = message.IndexOf("RMK/");
 
-
             while (y < z)
             {
                 x = y;
@@ -221,19 +191,15 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 {
                     addTrack(message.StringBetween(x, y));
                 }
-
             }
 
             //get remarks
-            rmk = message.Substring(z + "RMK/".Length);
-
+            Remarks = message.Substring(z + "RMK/".Length);
         }
-
 
         private void addTrack(string line)
         {
             var words = line.Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
-
 
             if (words.Length > 0)
             {
@@ -265,17 +231,12 @@ namespace QSP.RouteFinding.Tracks.Pacots
                         _routeTo.Add(words.Exclude(SPECIAL_WORD));
                         return;
                     }
-
                 }
-
             }
-
             throw new ArgumentException("Bad format.");
-
         }
 
         #endregion
 
     }
-
 }

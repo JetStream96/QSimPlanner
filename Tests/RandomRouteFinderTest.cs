@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding;
-using QSP;
 using QSP.AviationTools;
 
 namespace Tests

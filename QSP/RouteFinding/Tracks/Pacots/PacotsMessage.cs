@@ -9,11 +9,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
     public class PacotsMessage
     {
-
-        private string generalMsg;
-        private string timeStamp;
         private List<string> tracksKZAK;
-
         private List<string> tracksRJJJ;
 
         public PacotsMessage(string htmlFile)
@@ -29,7 +25,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
             {
                 throw new ArgumentException("Unable to parse the message.", ex);
             }
-
         }
 
         public ReadOnlyCollection<string> WestboundTracks
@@ -42,34 +37,25 @@ namespace QSP.RouteFinding.Tracks.Pacots
             get { return tracksRJJJ.AsReadOnly(); }
         }
 
-        public string MsgTimeStamp
-        {
-            get { return timeStamp; }
-        }
-
-        public string MsgGeneral
-        {
-            get { return generalMsg; }
-        }
-
+        public string TimeStamp { get; private set; }
+        public string GeneralMsg { get; private set; }
 
         private void ParseHtml(string htmlFile)
         {
             int index = 0;
 
             //get the general message
-            generalMsg = Strings.StringStartEndWith(htmlFile, "The following are", "</tt>", CutStringOptions.PreserveStart);
+            GeneralMsg = Strings.StringStartEndWith(htmlFile, "The following are", "</tt>", CutStringOptions.PreserveStart);
 
             //get the time stamp
             var timeInfo = GetTimeStamp(htmlFile, index);
-            timeStamp = timeInfo.Item1;
+            TimeStamp = timeInfo.Item1;
             index = timeInfo.Item2;
 
             //KZAK part comes before RJJJ
             //goes to a line like this: "KZAK   OAKLAND OCA/FIR"
             int KZAK_Part_Index = htmlFile.IndexOf("OAKLAND OCA/FIR", index);
             int RJJJ_Part_Index = htmlFile.IndexOf("FUKUOKA/JCAB AIR TRAFFIC FLOW MANAGEMENT CENTRE", index);
-
 
             if (KZAK_Part_Index < RJJJ_Part_Index)
             {
@@ -78,7 +64,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
                 //get RJJJ part
                 getTDM(htmlFile, RJJJ_Part_Index, htmlFile.Length - 1, 1);
-
             }
             else
             {
@@ -87,11 +72,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
                 //get track definition message (TDM) for KZAK part
                 getTDM(htmlFile, KZAK_Part_Index, htmlFile.Length - 1, 0);
-
             }
-
         }
-
 
         private void getTDM(string htmlFile, int startIndex, int endIndex, int part)
         {
@@ -110,11 +92,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 trackList = tracksRJJJ;
             }
 
-
             while (index <= endIndex)
             {
                 index = htmlFile.IndexOf(findTarget, index);
-                
+
                 if (index >= 0)
                 {
                     int nextIndex = htmlFile.IndexOf("</PRE>", index);
@@ -124,15 +105,13 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 }
                 else
                 {
-                    break; 
+                    break;
                 }
             }
         }
 
         private Pair<string, int> GetTimeStamp(string htmlFile, int startIndex)
         {
-
-
             try
             {
                 var index1 = htmlFile.IndexOf("Data Current as of", startIndex);
@@ -142,15 +121,11 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 var ignore2 = htmlFile.IndexOf(">", ignore1);
 
                 return new Pair<string, int>(htmlFile.Substring(index1, ignore1 - index1) + htmlFile.Substring(ignore2 + 1, index2 - ignore2 - 1), index2);
-
             }
             catch (Exception ex)
             {
                 throw new ArgumentException("Unable to find the time stamp.", ex);
             }
-
         }
-
     }
-
 }

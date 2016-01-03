@@ -4,7 +4,6 @@ using QSP.RouteFinding.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.MathTools.MathTools;
 using static QSP.Utilities.ErrorLogger;

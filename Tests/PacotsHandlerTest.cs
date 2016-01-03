@@ -1,12 +1,4 @@
-using System.Diagnostics;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.RouteFinding.Tracks.Pacots;
-using QSP.RouteFinding;
-using QSP;
-using QSP.RouteFinding.Containers;
-using static Tests.Common.Utilities;
-using QSP.Core;
 
 namespace Tests
 {

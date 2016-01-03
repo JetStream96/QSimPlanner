@@ -57,7 +57,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
                         currentIndex++;
                         matchCount++;
                     }
-
                 }
                 else
                 {
@@ -80,11 +79,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             if (matchCount < 8)
             {
-                if (currentChar >= '0' && currentChar <= '9')
-                {
-                    return true;
-                }
-                return false;
+                return (currentChar >= '0' && currentChar <= '9');
             }
             else if (matchCount == 8 && currentChar == 'U')
             {

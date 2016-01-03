@@ -1,12 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.WindAloft;
-using System.Diagnostics;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.WindAloft
-{    
+{
     [TestClass]
     public class LastestDataSetFinderTest
     {

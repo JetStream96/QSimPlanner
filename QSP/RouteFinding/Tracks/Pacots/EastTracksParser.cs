@@ -2,23 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using QSP.LibraryExtension;
-using static QSP.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
     public static class EastTracksParser
     {
-
         private static char[] Delimiters = { ' ', '\r', '\n', '\t' };
         private static char[] CHANGE_LINE_CHAR = { '\r', '\n' };
         //UPR means upper (airway). This should be ignored when parsing routeFrom/To.
 
         private static string[] SPECIAL_WORD = { "UPR" };
+
         public static List<PacificTrack> CreateEastboundTracks(PacotsMessage item)
         {
-
-            List<PacificTrack> result = new List<PacificTrack>();
-
+            var result = new List<PacificTrack>();
 
             foreach (var i in item.EastboundTracks)
             {
@@ -26,7 +23,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
 
             return result;
-
         }
 
         private static PacificTrack[] CreateEastboundTracks(string item)
@@ -114,18 +110,14 @@ namespace QSP.RouteFinding.Tracks.Pacots
                     item[i] += item[i + 1];
                     item.RemoveAt(i + 1);
                 }
-
             }
-
         }
 
         private static Tuple<List<string[]>, List<string[]>> getTrack(string[] mainRoute, List<string> allToFromRoutes)
         {
-
             List<string[]> listTo = new List<string[]>();
             List<string[]> listFrom = new List<string[]>();
             Tuple<string[], int> m = null;
-
 
             foreach (var i in allToFromRoutes)
             {
@@ -140,16 +132,12 @@ namespace QSP.RouteFinding.Tracks.Pacots
                     listTo.Add(m.Item1);
                 }
             }
-
             return new Tuple<List<string[]>, List<string[]>>(listFrom, listTo);
-
         }
 
         private static Tuple<string[], int> getTrack(string[] mainRoute, string line)
         {
-
             var words = line.Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
-
 
             if (words.Length > 0)
             {
@@ -159,14 +147,11 @@ namespace QSP.RouteFinding.Tracks.Pacots
                     if (RouteFindingCore.AirportList.Find(words[0]) != null)
                     {
                         return new Tuple<string[], int>(words.SubArray(1, words.Length - 1, SPECIAL_WORD), 0);
-
                     }
                     else
                     {
                         return new Tuple<string[], int>(words.Exclude(SPECIAL_WORD), 0);
                     }
-
-
                 }
                 else if (words[0] == mainRoute.Last() && words.Length > 1)
                 {
@@ -178,13 +163,9 @@ namespace QSP.RouteFinding.Tracks.Pacots
                     {
                         return new Tuple<string[], int>(words.Exclude(SPECIAL_WORD), 1);
                     }
-
                 }
-
             }
-
             throw new ArgumentException("Bad format.");
-
         }
 
         private static List<string> getLinesRouteToFrom(string item, int startIndex, int endIndex)
@@ -283,7 +264,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
                     }
                 }
             }
-
             return -1;
         }
 
@@ -417,11 +397,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 this.ID = ID;
                 this.startIndex = startIndex;
                 this.nextIndexSearch = nextIndexSearch;
-
             }
-
         }
-
     }
-
 }

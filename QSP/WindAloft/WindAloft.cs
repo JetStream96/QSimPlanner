@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using QSP.AviationTools;
 using QSP.RouteFinding.Containers;
 using QSP.Core;

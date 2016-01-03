@@ -1,11 +1,6 @@
 ﻿using QSP.AviationTools;
 using QSP.RouteFinding.Data;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static QSP.RouteFinding.Data.LatLonSearchUtility<QSP.RouteFinding.Airports.Airport>;
 
 namespace QSP.RouteFinding.Airports

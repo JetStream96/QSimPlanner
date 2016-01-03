@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using QSP.RouteFinding.Containers;
-using static QSP.RouteFinding.RouteFinder;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.MathTools.MathTools;
 using QSP.AviationTools;
-using QSP.RouteFinding.AirwayStructure;
 using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding

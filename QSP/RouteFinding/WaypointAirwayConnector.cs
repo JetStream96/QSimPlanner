@@ -1,10 +1,6 @@
 ﻿using QSP.AviationTools;
 using QSP.RouteFinding.AirwayStructure;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static QSP.RouteFinding.Constants;
 using static QSP.MathTools.MathTools;
 

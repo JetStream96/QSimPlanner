@@ -9,25 +9,18 @@ using static QSP.RouteFinding.Tracks.Common.Utilities;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
-
     public class AusTrack : ITrack
     {
-
         private string textMsg;
-        private static char[] Delimiters = {' ','\r','\n','\t'};
-        private static char[] Delimiters2 = {  '\r', '\n', '\t' };
-        private bool connectionRoutesExist;
+        private static char[] Delimiters = { ' ', '\r', '\n', '\t' };
+        private static char[] Delimiters2 = { '\r', '\n', '\t' };
 
+        private bool connectionRoutesExist;
         private bool rmkExist;
-        private string _ident;
-        private string _timeStart;
-        private string _timeEnd;
         private string[] _mainRoute;
         private List<string[]> _routeFrom;
         private List<string[]> _routeTo;
-        private string _rmks;
 
-        private bool _noTrack;
         /// <summary>
         /// Sample input:
         /// TDM TRK MY15 151112233001 
@@ -38,7 +31,6 @@ namespace QSP.RouteFinding.Tracks.Ausots
         /// 
         /// </summary>
         /// <param name="textMsg"></param>
-
         public AusTrack(string textMsg)
         {
             this.textMsg = textMsg;
@@ -50,25 +42,13 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
             convertAllLatLonFormat();
             removeRedundentFromList();
-
         }
 
         #region "Properties"
 
-        public string Ident
-        {
-            get { return _ident; }
-        }
-
-        public string TimeStart
-        {
-            get { return _timeStart; }
-        }
-
-        public string TimeEnd
-        {
-            get { return _timeEnd; }
-        }
+        public string Ident { get; private set; }
+        public string TimeStart { get; private set; }
+        public string TimeEnd { get; private set; }
 
         public ReadOnlyCollection<string> MainRoute
         {
@@ -85,37 +65,21 @@ namespace QSP.RouteFinding.Tracks.Ausots
             get { return _routeTo.AsReadOnly(); }
         }
 
-        public string Remarks
-        {
-            get { return _rmks; }
-        }
+        public string Remarks { get; private set; }
 
         public LatLon PreferredFirstLatLon
         {
             get { return new LatLon(-25, 133); }
         }
 
-        public bool Available
-        {
-            get { return !_noTrack; }
-        }
+        public bool Available { get; private set; }
 
         #endregion
 
-
         private void checkTrackExist()
         {
-            if (_mainRoute.Contains(_ident) || _mainRoute.Contains("-"))
-            {
-                _noTrack = true;
-            }
-            else
-            {
-                _noTrack = false;
-            }
-
+            Available = !(_mainRoute.Contains(Ident) || _mainRoute.Contains("-"));
         }
-
 
         private void parse()
         {
@@ -125,14 +89,14 @@ namespace QSP.RouteFinding.Tracks.Ausots
             index = textMsg.IndexOf("TDM TRK", index);
             index += "TDM TRK".Length;
             skipConsectiveChars(textMsg, ref index);
-            _ident = readToNextDelim(textMsg, ref index);
+            Ident = readToNextDelim(textMsg, ref index);
 
             //goto next line
             index = textMsg.IndexOf('\n', index) + 1;
             skipConsectiveChars(textMsg, ref index);
-            _timeStart = readToNextDelim(textMsg, ref index);
+            TimeStart = readToNextDelim(textMsg, ref index);
             skipConsectiveChars(textMsg, ref index);
-            _timeEnd = readToNextDelim(textMsg, ref index);
+            TimeEnd = readToNextDelim(textMsg, ref index);
 
             //goto next line
             index = textMsg.IndexOf('\n', index) + 1;
@@ -155,16 +119,14 @@ namespace QSP.RouteFinding.Tracks.Ausots
             if (rmkExist)
             {
                 index += "RMK/".Length;
-                _rmks = textMsg.Substring(index);
+                Remarks = textMsg.Substring(index);
             }
-
         }
-
 
         private void getMainRoute(ref int index)
         {
             int x = textMsg.IndexOf("RTS/", index);
-            
+
             if (x < 0)
             {
                 x = textMsg.IndexOf("RMK/", index);
@@ -183,9 +145,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
             _mainRoute = textMsg.Substring(index, x - index).Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
             index = x;
-
         }
-
 
         private void gotoRmkSection(ref int index)
         {
@@ -200,9 +160,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             {
                 rmkExist = true;
             }
-
         }
-
 
         private void getConnectionRoute(ref int index)
         {
@@ -218,9 +176,8 @@ namespace QSP.RouteFinding.Tracks.Ausots
                 rmkExist = true;
             }
 
-            List<string[]> allRoutes = new List<string[]>();
+            var allRoutes = new List<string[]>();
             int nextLine = 0;
-
 
             while (index < x)
             {
@@ -233,9 +190,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
                 allRoutes.Add(textMsg.Substring(index, nextLine - index).Split(Delimiters, StringSplitOptions.RemoveEmptyEntries));
                 index = nextLine;
-
             }
-
 
             for (int i = 0; i <= allRoutes.Count - 1; i++)
             {
@@ -254,8 +209,6 @@ namespace QSP.RouteFinding.Tracks.Ausots
                         {
                             _routeTo.Add(rte);
                         }
-
-
                     }
                     else if (rte.Last() == _mainRoute.First())
                     {
@@ -267,15 +220,10 @@ namespace QSP.RouteFinding.Tracks.Ausots
                         {
                             _routeFrom.Add(rte);
                         }
-
                     }
-
                 }
-
             }
-
             index = x;
-
         }
 
         private string readToNextDelim(string item, ref int index)
@@ -288,25 +236,21 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         }
 
-
         private void skipConsectiveChars(string item, ref int index)
         {
-
             while (index < item.Length)
             {
                 if (Delimiters.Contains(item[index]))
                 {
-                    index ++;
+                    index++;
                 }
                 else
                 {
                     return;
                 }
-
             }
-
         }
-        
+
         private void convertAllLatLonFormat()
         {
             ConvertLatLonFormat(_mainRoute);
@@ -321,7 +265,6 @@ namespace QSP.RouteFinding.Tracks.Ausots
             }
         }
 
-
         private void removeRedundentFromList()
         {
             //choose distinct items
@@ -332,7 +275,5 @@ namespace QSP.RouteFinding.Tracks.Ausots
             _routeFrom.RemoveTinyArray(2);
             _routeTo.RemoveTinyArray(2);
         }
-
     }
-
 }

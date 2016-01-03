@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
+using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
@@ -18,9 +18,9 @@ namespace QSP.RouteFinding.Tracks.Pacots
             {
                 htmlFile = PacotsDownloader.GetHtml();
             }
-            catch 
+            catch
             {
-                RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download Pacots.", TrackType.Pacots);
+                TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download Pacots.", TrackType.Pacots);
                 throw;
             }
 
@@ -30,7 +30,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
             catch
             {
-                RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to interpret Pacots message.", TrackType.Pacots);
+                TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to interpret Pacots message.", TrackType.Pacots);
                 throw;
             }
 
@@ -44,22 +44,19 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 }
                 catch
                 {
-                    RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution, "Unable to interpret one westbound track.", TrackType.Pacots);
+                    TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution, "Unable to interpret one westbound track.", TrackType.Pacots);
                 }
             }
 
             try
             {
                 allTracks.AddRange(EastTracksParser.CreateEastboundTracks(msg));
-
             }
-            catch 
+            catch
             {
-                RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution, "Unable to interpret eastbound tracks.", TrackType.Pacots);
+                TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution, "Unable to interpret eastbound tracks.", TrackType.Pacots);
 
             }
-
-
         }
 
         public override async void GetAllTracksAsync()
@@ -71,7 +68,5 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             return "PACOT" + trk.Ident;
         }
-
     }
-
 }

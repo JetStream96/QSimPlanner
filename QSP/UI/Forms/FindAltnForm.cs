@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using QSP.AviationTools;
-using QSP.RouteFinding;
 using static QSP.UI.Utilities;
 using QSP.RouteFinding.Airports;
 

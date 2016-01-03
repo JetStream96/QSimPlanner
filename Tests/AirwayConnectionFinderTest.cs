@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.AirwayStructure;
 using QSP;
-using static Tests.Common.Utilities;
 using System.Linq;
 
 namespace Tests

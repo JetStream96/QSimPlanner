@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using QSP.RouteFinding.Data;
 
 namespace QSP.RouteFinding.AirwayStructure
 {
     public class WptSeachWrapper : ICoordinate, IEquatable<WptSeachWrapper>
     {
-        public int Index;
-        public double Lat { get; set; }
-        public double Lon { get; set; }
+        public int Index { get; private set; }
+        public double Lat { get; private set; }
+        public double Lon { get; private set; }
 
         public WptSeachWrapper(int index)
         {
