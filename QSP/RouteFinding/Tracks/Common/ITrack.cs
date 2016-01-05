@@ -3,7 +3,6 @@ using QSP.AviationTools;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
-
     public interface ITrack
     {
         string Ident { get; }
@@ -16,5 +15,4 @@ namespace QSP.RouteFinding.Tracks.Common
 
         LatLon PreferredFirstLatLon { get; }
     }
-
 }

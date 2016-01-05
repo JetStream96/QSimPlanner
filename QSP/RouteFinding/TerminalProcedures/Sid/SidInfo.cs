@@ -1,4 +1,6 @@
-﻿namespace QSP.RouteFinding.TerminalProcedures.Sid
+﻿using QSP.RouteFinding.Containers;
+
+namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
     public class SidInfo
     {

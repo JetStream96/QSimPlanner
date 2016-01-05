@@ -3,34 +3,17 @@ using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding.Containers
 {
-
     public class Neighbor
     {
         // This class is immutable.
 
-        private string _airway;
-        private double _distance;
-
-        public string Airway
-        {
-            get
-            {
-                return _airway;
-            }
-        }
-
-        public double Distance
-        {
-            get
-            {
-                return _distance;
-            }
-        }
+        public string Airway { get; private set; }
+        public double Distance { get; private set; }
 
         public Neighbor(string Airway, double Distance)
         {
-            _airway = Airway;
-            _distance = Distance;
+            this.Airway = Airway;
+            this.Distance = Distance;
         }
 
         /// <summary>
@@ -38,9 +21,8 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public bool Equals(Neighbor x)
         {
-            return (_airway == x.Airway && Math.Abs(_distance - x.Distance) < LATLON_TOLERANCE);
+            return (Airway == x.Airway && Math.Abs(Distance - x.Distance) < LATLON_TOLERANCE);
         }
 
     }
-
 }

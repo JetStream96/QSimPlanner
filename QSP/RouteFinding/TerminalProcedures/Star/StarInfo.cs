@@ -1,4 +1,6 @@
-﻿namespace QSP.RouteFinding.TerminalProcedures.Star
+﻿using QSP.RouteFinding.Containers;
+
+namespace QSP.RouteFinding.TerminalProcedures.Star
 {
     public class StarInfo
     {

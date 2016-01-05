@@ -10,13 +10,13 @@ namespace QSP.LibraryExtension
         private List<KeyValuePair<TKey, TValue>> content;
         private Dictionary<TKey, int> indexInList;
 
-        private IComparer<TValue> valueComp;
+        private Comparer<TValue> valueComp;
 
         public MinHeap() : this(Comparer<TValue>.Default)
         {
         }
 
-        public MinHeap(IComparer<TValue> item)
+        public MinHeap(Comparer<TValue> item)
         {
             content = new List<KeyValuePair<TKey, TValue>>();
             indexInList = new Dictionary<TKey, int>();

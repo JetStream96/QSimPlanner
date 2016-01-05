@@ -6,7 +6,7 @@ using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public class PacotsHandler : TrackHandler
+    public class PacotsHandler : TrackHandler<PacificTrack>
     {
         private PacotsMessage msg;
 
@@ -34,7 +34,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 throw;
             }
 
-            allTracks = new List<ITrack>();
+            allTracks = new List<PacificTrack>();
 
             foreach (var i in msg.WestboundTracks)
             {
@@ -64,7 +64,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             await Task.Run(() => GetAllTracks());
         }
 
-        protected override string airwayIdent(ITrack trk)
+        protected override string airwayIdent(PacificTrack trk)
         {
             return "PACOT" + trk.Ident;
         }

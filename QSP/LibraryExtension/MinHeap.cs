@@ -6,15 +6,15 @@ namespace QSP.LibraryExtension
     {
         //TODO: This class is not used in the project (yet). It is not fully tested and may contain bugs.
         private List<T> content;
-        private IComparer<T> customComparer;
-        
+        private Comparer<T> customComparer;
+
         public MinHeap()
         {
             content = new List<T>();
             customComparer = Comparer<T>.Default;
         }
 
-        public MinHeap(List<T> item, IComparer<T> comparer)
+        public MinHeap(List<T> item, Comparer<T> comparer)
         {
             content = new List<T>(item);
             this.customComparer = comparer;
@@ -38,14 +38,14 @@ namespace QSP.LibraryExtension
             T left = content[leftChildIndex];
             T right = content[rightChildIndex];
 
-            if (customComparer.Compare (val, left) > 0)
+            if (customComparer.Compare(val, left) > 0)
             {
                 minIndex = leftChildIndex;
             }
 
             T min = content[minIndex];
 
-            if ((rightChildIndex < length) && customComparer.Compare (min, right) > 0)
+            if ((rightChildIndex < length) && customComparer.Compare(min, right) > 0)
             {
                 minIndex = rightChildIndex;
             }
@@ -71,7 +71,7 @@ namespace QSP.LibraryExtension
             T parent = content[parentIndex];
             T val = content[index];
 
-            if (customComparer.Compare (parent, val) > 0)
+            if (customComparer.Compare(parent, val) > 0)
             {
                 T temp = content[parentIndex];
                 content[parentIndex] = content[index];

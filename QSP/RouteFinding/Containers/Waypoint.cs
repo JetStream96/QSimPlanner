@@ -4,28 +4,13 @@ using System.Collections.Generic;
 using QSP.RouteFinding.Data;
 using static QSP.RouteFinding.Constants;
 
-namespace QSP
+namespace QSP.RouteFinding.Containers
 {
     public class Waypoint : IComparable<Waypoint>, ICoordinate, IEquatable<Waypoint>
     {
-        private string ident;
-        private double latitude;
-        private double longitude;
-
-        public string ID
-        {
-            get { return ident; }
-        }
-
-        public double Lat
-        {
-            get { return latitude; }
-        }
-
-        public double Lon
-        {
-            get { return longitude; }
-        }
+        public string ID { get; private set; }
+        public double Lat { get; private set; }
+        public double Lon { get; private set; }
 
         public Waypoint(string ID) : this(ID, 0.0, 0.0)
         {
@@ -33,9 +18,9 @@ namespace QSP
 
         public Waypoint(string ID, double Lat, double Lon)
         {
-            ident = ID;
-            latitude = Lat;
-            longitude = Lon;
+            this.ID = ID;
+            this.Lat = Lat;
+            this.Lon = Lon;
         }
 
         public Waypoint(string ID, LatLon latLon) : this(ID, latLon.Lat, latLon.Lon)
@@ -58,8 +43,8 @@ namespace QSP
         {
             return (ID == x.ID && Math.Abs(Lat - x.Lat) < LATLON_TOLERANCE && Math.Abs(Lon - x.Lon) < LATLON_TOLERANCE);
         }
-
-        public int WptCompare(Waypoint x)
+        
+        public int CompareTo(Waypoint x)
         {
             int i = ID.CompareTo(x.ID);
 
@@ -82,20 +67,15 @@ namespace QSP
             }
         }
 
-        public int CompareTo(Waypoint x)
+        private class sortIDHelper : Comparer<Waypoint>
         {
-            return WptCompare(x);
-        }
-
-        private class sortIDHelper : IComparer<Waypoint>
-        {
-            public int Compare(Waypoint x, Waypoint y)
+            public override int Compare(Waypoint x, Waypoint y)
             {
                 return x.ID.CompareTo(y.ID);
             }
         }
 
-        public static IComparer<Waypoint> SortID()
+        public static Comparer<Waypoint> SortID()
         {
             return new sortIDHelper();
         }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Tests.RouteFindingTest.TestDataGenerators;
 using static QSP.LibraryExtension.Lists;
+using QSP.RouteFinding.Containers;
 
 namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
 {

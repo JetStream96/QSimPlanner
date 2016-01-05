@@ -9,14 +9,14 @@ using QSP.RouteFinding.AirwayStructure;
 namespace QSP.RouteFinding.Tracks.Common
 {
 
-    public abstract class TrackHandler
+    public abstract class TrackHandler<T> where T : ITrack
     {
-        protected List<ITrack> allTracks;
+        protected List<T> allTracks;
         protected WaypointList wptList;
 
         public abstract void GetAllTracks();
         public abstract void GetAllTracksAsync();
-        protected abstract string airwayIdent(ITrack trk);
+        protected abstract string airwayIdent(T trk);
 
         public TrackHandler() : this(RouteFindingCore.WptList)
         {
@@ -24,7 +24,7 @@ namespace QSP.RouteFinding.Tracks.Common
 
         public TrackHandler(WaypointList WptList)
         {
-            allTracks = new List<ITrack>();
+            allTracks = new List<T>();
             this.wptList = WptList;
         }
 
@@ -52,7 +52,7 @@ namespace QSP.RouteFinding.Tracks.Common
             }
         }
 
-        private void addTrackToWptList(ITrack item)
+        private void addTrackToWptList(T item)
         {
             TrackReader reader = null;
 
@@ -82,7 +82,7 @@ namespace QSP.RouteFinding.Tracks.Common
             wptList.AddNeighbor(item.IndexFrom, item.IndexTo, new Neighbor("DCT", wptList.Distance(item.IndexFrom, item.IndexTo)));
         }
 
-        private void addMainRoute(Route rte, ITrack trk)
+        private void addMainRoute(Route rte, T trk)
         {
             int indexStart = addFirstWpt(rte.Waypoints.First());
             int indexEnd = addLastWpt(rte.Waypoints.Last());

@@ -8,7 +8,7 @@ using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
-    public class AusotsHandler : TrackHandler
+    public class AusotsHandler : TrackHandler<AusTrack>
     {
         private string trkMsg;
 
@@ -72,7 +72,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             item.Add(x < 0 ? trkMsg.Length : x);
         }
 
-        protected override string airwayIdent(ITrack trk)
+        protected override string airwayIdent(AusTrack trk)
         {
             return "AUSOT" + trk.Ident;
         }
