@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using QSP.AviationTools;
 using static QSP.LibraryExtension.Arrays;
-using static QSP.MathTools.MathTools;
+using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding

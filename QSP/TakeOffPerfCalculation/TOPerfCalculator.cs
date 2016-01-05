@@ -416,7 +416,7 @@ namespace QSP.TakeOffPerfCalculation
         private double headwindComp()
         {
             //knots
-            return toPara.WindSpeed * Math.Cos(MathTools.MathTools.ToRadian(toPara.RwyHeading - toPara.WindHeading));
+            return toPara.WindSpeed * Math.Cos(MathTools.Utilities.ToRadian(toPara.RwyHeading - toPara.WindHeading));
         }
 
         private double rwyPressureAltFt()

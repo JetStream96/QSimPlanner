@@ -2,7 +2,7 @@
 using QSP.RouteFinding.AirwayStructure;
 using System.Collections.Generic;
 using static QSP.RouteFinding.Constants;
-using static QSP.MathTools.MathTools;
+using static QSP.MathTools.Utilities;
 
 namespace QSP.RouteFinding
 {
@@ -43,7 +43,7 @@ namespace QSP.RouteFinding
         /// </summary>
         public static List<IndexDistancePair> FindAirwayConnection(double Lat, double Lon, WaypointList wptList, double maxSearchRange,
                                                                    double targetNumber, double searchRangeIncrement)
-        {
+        {   
             double searchRange = 0.0;
             var result = new List<IndexDistancePair>();
 
@@ -59,7 +59,7 @@ namespace QSP.RouteFinding
                 {
                     int i = item.Index;
 
-                    if (wptList.EdgesFromCount(i) > 0)
+                    if (wptList.EdgesFromCount(i) > 0)  // TODO: SID, STAR should be treated seperately
                     {
                         dctDis = GreatCircleDistance(wptList[i].Lat, wptList[i].Lon, Lat, Lon);
                         result.Add(new IndexDistancePair(i, dctDis));

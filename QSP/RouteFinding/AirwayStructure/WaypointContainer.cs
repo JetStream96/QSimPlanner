@@ -52,6 +52,11 @@ namespace QSP.RouteFinding.AirwayStructure
             return graph.EdgesFromCount(index);
         }
 
+        public int EdgesToCount(int index)
+        {
+            return graph.EdgesToCount(index);
+        }
+
         public int Count
         {
             get
@@ -147,6 +152,11 @@ namespace QSP.RouteFinding.AirwayStructure
         public IEnumerable<int> EdgesFrom(int index)
         {
             return graph.EdgesFrom(index);
+        }
+
+        public IEnumerable<int> EdgesTo(int index)
+        {
+            return graph.EdgesTo(index);
         }
 
         public IEdge<Neighbor> GetEdge(int edgeIndex)

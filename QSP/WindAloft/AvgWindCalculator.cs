@@ -1,7 +1,7 @@
 using System;
 using QSP.AviationTools;
 using QSP.MathTools;
-using static QSP.MathTools.MathTools;
+using static QSP.MathTools.Utilities;
 using static QSP.AviationTools.AviationConstants;
 
 namespace QSP.WindAloft

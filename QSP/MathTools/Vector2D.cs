@@ -1,9 +1,9 @@
 using System;
+
 namespace QSP
 {
     public class Vector2D
     {
-
         public double x { get; set; }
         public double y { get; set; }
 
@@ -13,8 +13,8 @@ namespace QSP
 
         public Vector2D()
         {
-            x = 0;
-            y = 0;
+            x = 0.0;
+            y = 0.0;
         }
 
         public Vector2D(double x, double y)
@@ -55,7 +55,7 @@ namespace QSP
 
         public Vector2D Normalize()
         {
-            return Multiply(1 / r);
+            return Multiply(1.0 / r);
         }
 
         public double InnerProductWith(Vector2D v)
@@ -63,19 +63,9 @@ namespace QSP
             return v.x * x + v.y * y;
         }
 
-        public bool IsEqualTo(Vector2D v)
+        public bool Equals(Vector2D v)
         {
-
-            if (v.x == x && v.y == y)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+            return (v.x == x && v.y == y);
         }
-
     }
 }

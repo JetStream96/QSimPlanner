@@ -1,9 +1,9 @@
 using System;
+
 namespace QSP
 {
     public class Vector3D
     {
-
         public double x { get; set; }
         public double y { get; set; }
         public double z { get; set; }
@@ -15,9 +15,9 @@ namespace QSP
 
         public Vector3D()
         {
-            x = 0;
-            y = 0;
-            z = 0;
+            x = 0.0;
+            y = 0.0;
+            z = 0.0;
         }
 
         public Vector3D(double x, double y, double z)

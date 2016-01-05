@@ -58,14 +58,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
         
         private WaypointList Case2WptList()
         {
-            var wptList = new WaypointList();
-
-            int index1 = wptList.AddWpt(new Waypoint("25N050E", 25.0, 50.0));
-            int index2 = wptList.AddWpt(new Waypoint("27N050E", 27.0, 50.0));
-            wptList.AddNeighbor(index1, index2, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
-            wptList.AddNeighbor(index2, index1, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
-
-            return wptList;
+            return Case1WptList();
         }
 
         [TestMethod]

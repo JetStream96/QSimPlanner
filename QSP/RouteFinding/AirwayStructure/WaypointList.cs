@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using static QSP.LibraryExtension.StringParser.Utilities;
-using static QSP.MathTools.MathTools;
+using static QSP.MathTools.Utilities;
 using static QSP.Utilities.ErrorLogger;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.Core;
@@ -146,6 +146,11 @@ namespace QSP.RouteFinding.AirwayStructure
             return _content.EdgesFromCount(index);
         }
 
+        public int EdgesToCount(int index)
+        {
+            return _content.EdgesToCount(index);
+        }
+
         public int Count
         {
             get { return _content.Count; }
@@ -253,6 +258,11 @@ namespace QSP.RouteFinding.AirwayStructure
         public IEnumerable<int> EdgesFrom(int index)
         {
             return _content.EdgesFrom(index);
+        }
+
+        public IEnumerable<int> EdgesTo(int index)
+        {
+            return _content.EdgesTo(index);
         }
 
         public IEdge<Neighbor> GetEdge(int edgeIndex)

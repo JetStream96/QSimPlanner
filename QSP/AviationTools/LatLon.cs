@@ -22,7 +22,7 @@ namespace QSP.AviationTools
         /// </summary>
         public double Distance(double lat, double lon)
         {
-            return MathTools.MathTools.GreatCircleDistance(this.Lat, this.Lon, lat, lon);
+            return MathTools.Utilities.GreatCircleDistance(this.Lat, this.Lon, lat, lon);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace QSP.AviationTools
         /// </summary>
         public double Distance(LatLon LatLon)
         {
-            return MathTools.MathTools.GreatCircleDistance(this.Lat, this.Lon, LatLon.Lat, LatLon.Lon);
+            return MathTools.Utilities.GreatCircleDistance(this.Lat, this.Lon, LatLon.Lat, LatLon.Lon);
         }
 
     }

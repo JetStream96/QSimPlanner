@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using static QSP.LibraryExtension.Strings;
-using static QSP.MathTools.MathTools;
+using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 
@@ -177,7 +177,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                 FirstTrackWptIndex = x;
                 currentTrack.WptIndex.Add(x);
 
-                if (WptList.EdgesFromCount(x) > 0)
+                if (WptList.EdgesToCount(x) > 0)
                 {
                     //some other wpt have this wpt as a neighbor
                     return;

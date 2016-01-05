@@ -152,7 +152,7 @@
     <Compile Include="LibraryExtension\Strings.cs" />
     <Compile Include="LibraryExtension\TimeFormat.cs" />
     <Compile Include="MathTools\Interpolation.cs" />
-    <Compile Include="MathTools\MathTools.cs" />
+    <Compile Include="MathTools\Utilities.cs" />
     <Compile Include="MathTools\Matrix2by2.cs" />
     <Compile Include="MathTools\RealValuedFunction.cs" />
     <Compile Include="MathTools\Tables.cs" />

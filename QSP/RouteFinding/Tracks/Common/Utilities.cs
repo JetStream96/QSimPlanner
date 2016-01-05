@@ -28,7 +28,7 @@ namespace QSP.RouteFinding.Tracks.Common
             for (int i = 0; i < candidates.Count; i++)
             {
                 var wpt = RouteFindingCore.WptList[candidates[i]];
-                dis = MathTools.MathTools.GreatCircleDistance(prevLat, prevLon, wpt.Lat, wpt.Lon);
+                dis = MathTools.Utilities.GreatCircleDistance(prevLat, prevLon, wpt.Lat, wpt.Lon);
 
                 if (dis < minDis)
                 {

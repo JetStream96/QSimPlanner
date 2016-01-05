@@ -3,8 +3,7 @@ using QSP.AviationTools;
 
 namespace QSP.MathTools
 {
-
-    public static class MathTools
+    public static class Utilities
     {
 
         public static double ToRadian(double t)
@@ -46,14 +45,13 @@ namespace QSP.MathTools
 
         public static double GreatCircleDistance(double lat1, double lat2, double deltaLon)
         {
-
             if (Math.Abs(deltaLon) < 1E-08 && Math.Abs(lat1 - lat2) < 1E-08)
             {
                 return 0.0;
             }
 
             double a = Math.Sin(ToRadian(lat1)) * Math.Sin(ToRadian(lat2)) +
-                Math.Cos(ToRadian(lat1)) * Math.Cos(ToRadian(lat2)) * Math.Cos(ToRadian(deltaLon));
+                       Math.Cos(ToRadian(lat1)) * Math.Cos(ToRadian(lat2)) * Math.Cos(ToRadian(deltaLon));
 
             return AviationConstants.RADIUS_EARTH_NM * Math.Acos(a);
         }

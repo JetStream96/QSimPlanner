@@ -124,7 +124,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
                 firstWptIndex = wptList.AddWpt(firstWpt);
             }
 
-            if (wptList.EdgesFromCount(firstWptIndex) == 0)
+            if (wptList.EdgesToCount(firstWptIndex) == 0)
             {
                 // Case 2                                 
                 foreach (var k in findAirwayConnectionHelper(firstWpt.Lat, firstWpt.Lon))

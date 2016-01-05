@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.RouteFinding.TerminalProcedures.Sid;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP;
+using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.TerminalProcedures;
+using QSP.RouteFinding.TerminalProcedures.Sid;
+using System.Collections.Generic;
+using static QSP.LibraryExtension.Lists;
 using static QSP.RouteFinding.Utilities;
 using static Tests.Common.Utilities;
-using static QSP.LibraryExtension.Lists;
-using QSP.RouteFinding.Containers;
 
 namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
 {
@@ -84,13 +84,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
         }
 
         private double distanceRwySpecificAndCommonPart()
-        {
-            var wpts = new List<Waypoint>();
-            wpts.Add(runway05);
-            wpts.Add(new Waypoint("WPT01", 10.0, 20.0));
-            wpts.Add(new Waypoint("WPT02", 11.0, 20.0));
-            wpts.Add(new Waypoint("WPTA", 12.0, 21.0));
-
+        {            
             return GetTotalDistance(CreateList(runway05,
                                                new Waypoint("WPT01", 10.0, 20.0),
                                                new Waypoint("WPT02", 11.0, 20.0),

@@ -85,7 +85,7 @@ namespace QSP.LandingPerfCalculation
 
             try
             {
-                HeadwindKts = Convert.ToInt32(Math.Cos(MathTools.MathTools.ToRadian(Convert.ToInt32(frm.RwyHeading_LDG.Text) - Convert.ToInt32(frm.winddir_LDG.Text))) * Convert.ToInt32(frm.windspd_LDG.Text));
+                HeadwindKts = Convert.ToInt32(Math.Cos(MathTools.Utilities.ToRadian(Convert.ToInt32(frm.RwyHeading_LDG.Text) - Convert.ToInt32(frm.winddir_LDG.Text))) * Convert.ToInt32(frm.windspd_LDG.Text));
 
             }
             catch

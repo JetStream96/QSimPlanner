@@ -126,12 +126,12 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         /// If there isn't any waypoint in the STAR (e.g. a vector after takeoff), this returns a distance of 0.0   
         /// and the origin runway (e.g. KLAX25L).
         /// <param name="rwy">The runway identifier. e.g. 25R </param>
-        /// <param name="origRwy">The waypoint representing the origin runway.</param>
+        /// <param name="destRwy">The waypoint representing the destination runway.</param>
         /// </summary>
         /// <exception cref="StarNotFoundException"></exception>
-        public StarInfo GetStarInfo(string star, string rwy, Waypoint origRwy)
+        public StarInfo GetStarInfo(string star, string rwy, Waypoint destRwy)
         {
-            var starWpts = StarWaypoints(star, rwy, origRwy);
+            var starWpts = StarWaypoints(star, rwy, destRwy);
             return new StarInfo(GetTotalDistance(starWpts), starWpts.First());
         }
     }

@@ -102,7 +102,7 @@ namespace QSP.LibraryExtension.Graph
         }
 
         /// <summary>
-        /// The indices of edges which the given node connects with. 
+        /// The indices of edges which leaves from the given node. 
         /// </summary>
         /// <exception cref="IndexOutOfRangeException"></exception>
         public IEnumerable<int> EdgesFrom(int index)
@@ -110,9 +110,23 @@ namespace QSP.LibraryExtension.Graph
             return _nodes[index].next;
         }
 
+        /// <summary>
+        /// The indices of edges which points to the given node. 
+        /// </summary>
+        /// <exception cref="IndexOutOfRangeException"></exception>
+        public IEnumerable<int> EdgesTo(int index)
+        {
+            return _nodes[index].prev;
+        }
+
         public int EdgesFromCount(int index)
         {
             return _nodes[index].next.Count();
+        }
+
+        public int EdgesToCount(int index)
+        {
+            return _nodes[index].prev.Count();
         }
 
         public int NodeCount

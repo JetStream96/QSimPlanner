@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using static QSP.AviationTools.AviationConstants;
-using static QSP.MathTools.MathTools;
+using static QSP.MathTools.Utilities;
 
 namespace QSP.RouteFinding.Data
 {

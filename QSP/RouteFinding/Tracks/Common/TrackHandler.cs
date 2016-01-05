@@ -3,7 +3,7 @@ using System.Linq;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Tracks.Pacots;
 using QSP.RouteFinding.Tracks.Interaction;
-using static QSP.MathTools.MathTools;
+using static QSP.MathTools.Utilities;
 using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP.RouteFinding.Tracks.Common
@@ -97,7 +97,7 @@ namespace QSP.RouteFinding.Tracks.Common
 
             if (x >= 0)
             {
-                if (wptList.EdgesFromCount(x) == 0)
+                if (wptList.EdgesToCount(x) == 0)
                 {
                     //no other wpt have this wpt as a neighbor, need to find nearby wpt to connect
 
