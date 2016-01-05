@@ -3,10 +3,8 @@ using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding.Airports
 {
-
     public static class AlternateFinder
     {
-
         public static List<Airport> GetListAltn(string dest, int length)
         {
             //length: if the max rwy length is smaller than this number then the result will not be shown to the user
@@ -53,7 +51,7 @@ namespace QSP.RouteFinding.Airports
             foreach (var i in altns)
             {
                 result.Add(new AlternateInfo(i.Icao, i.Name, i.LongestRwyLength,
-                    (int)AirportList.AirportLatlon(dest).Distance(i.Lat, i.Lon)));
+                                             (int)AirportList.AirportLatlon(dest).Distance(i.Lat, i.Lon)));
             }
             result.Sort(AlternateInfo.AltnDisComparer());
             return result;
@@ -76,14 +74,14 @@ namespace QSP.RouteFinding.Airports
                 this.Distance = Distance;
             }
 
-            public static IComparer<AlternateInfo> AltnDisComparer()
+            public static Comparer<AlternateInfo> AltnDisComparer()
             {
                 return new altnDisSortHelper();
             }
 
-            private class altnDisSortHelper : IComparer<AlternateInfo>
+            private class altnDisSortHelper : Comparer<AlternateInfo>
             {
-                public int Compare(AlternateInfo x, AlternateInfo y)
+                public override int Compare(AlternateInfo x, AlternateInfo y)
                 {
                     return x.Distance.CompareTo(y.Distance);
                 }

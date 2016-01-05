@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+
 namespace QSP.RouteFinding.Tracks.Nats
 {
-
-    public enum NATsDir
+    public enum NatsDir
     {
         East,
         West
@@ -12,19 +12,17 @@ namespace QSP.RouteFinding.Tracks.Nats
 
     public class NATsMessage
     {
+        public string LastUpdated { get; private set; }
+        public string GeneralInfo { get; private set; }
+        public NatsDir Direction { get; private set; }
+        public string Message { get; private set; }
 
-        public string LastUpdated { get; set; }
-        public string GeneralInfo { get; set; }
-        public NATsDir Direction { get; set; }
-        public string Message { get; set; }
-
-        public NATsMessage(string LastUpdated, string GeneralInfo, NATsDir Direction, string Message)
+        public NATsMessage(string LastUpdated, string GeneralInfo, NatsDir Direction, string Message)
         {
             this.LastUpdated = LastUpdated;
             this.GeneralInfo = GeneralInfo;
             this.Direction = Direction;
             this.Message = Message;
-
         }
 
         /// <summary>
@@ -36,82 +34,61 @@ namespace QSP.RouteFinding.Tracks.Nats
         {
             var root = XDocument.Parse(str).Root;
 
-            LastUpdated = root.Element("LastUpdated").Value ;
-            //getProperty(str, "LastUpdated")
+            LastUpdated = root.Element("LastUpdated").Value;
             GeneralInfo = root.Element("GeneralInfo").Value;
-            //getProperty(str, "GeneralInfo")
-            Message =root.Element("Message").Value;
-            //getProperty(str, "Message")
+            Message = root.Element("Message").Value;
 
             string s = root.Element("Direction").Value;
-            //getProperty(str, "Direction")
+
             if (s == "East")
             {
-                Direction = NATsDir.East;
+                Direction = NatsDir.East;
             }
             else
             {
-                Direction = NATsDir.West;
+                Direction = NatsDir.West;
             }
-
         }
 
         private string getProperty(string str, string name)
         {
-
-            int x = 0;
-            int y = 0;
-
-            x = str.IndexOf("<" + name + ">");
-            y = str.IndexOf("</" + name + ">");
+            int x = str.IndexOf("<" + name + ">");
+            int y = str.IndexOf("</" + name + ">");
             return str.Substring(x + name.Length + 2, y - x - name.Length - 2);
+        }
 
+        private string NatsDirectionString()
+        {
+            if (Direction == NatsDir.East)
+            {
+                return "East";
+            }
+            else
+            {
+                return "West";
+            }
         }
 
         public XElement ConvertToXml()
         {
-
-            string s = null;
-
-            if ((Direction == NATsDir.East))
-            {
-                s = "East";
-            }
-            else
-            {
-                s = "West";
-            }
-
             return new XElement("Content", new XElement[] {
-                new XElement("LastUpdated", LastUpdated),
-                new XElement("GeneralInfo", GeneralInfo),
-                new XElement("Direction", s),
-                new XElement("Message", Message)
-            });
-
+                                                    new XElement("LastUpdated", LastUpdated),
+                                                    new XElement("GeneralInfo", GeneralInfo),
+                                                    new XElement("Direction", NatsDirectionString()),
+                                                    new XElement("Message", Message)});
         }
+
+
 
         public List<NorthAtlanticTrack> ConvertToTracks()
         {
+            char trkStartChar = (Direction == NatsDir.West ? 'A' : 'N');
 
-            int startAscii = 0;
+            var tracks = new List<NorthAtlanticTrack>();
 
-            switch (Direction)
+            for (int i = trkStartChar; i <= trkStartChar + 12; i++)
             {
-                case NATsDir.West:
-                    startAscii = 65;
-                    break;
-                case NATsDir.East:
-                    startAscii = 78;
-                    break;
-            }
-
-            List<NorthAtlanticTrack> tracks = new List<NorthAtlanticTrack>();
-
-
-            for (int i = startAscii; i <= startAscii + 12; i++)
-            {
-                int j = Message.IndexOf("\n" + new string((char)i,1)  + " ");
+                int j = Message.IndexOf("\n" + (char)i + " ");
 
                 if (j == -1)
                 {
@@ -121,15 +98,9 @@ namespace QSP.RouteFinding.Tracks.Nats
                 int k = Message.IndexOf('\n', j + 3);
 
                 string str = Message.Substring(j + 3, k - j - 3);
-                string[] wp = str.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                string[] wp = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-                NorthAtlanticTrack t = new NorthAtlanticTrack();
-                t.Direction = Direction;
-                t.Ident =(char)i;
-                t.WptIdent.AddRange(wp);
-
-                tracks.Add(t);
-
+                tracks.Add(new NorthAtlanticTrack(Direction, (char)i, new List<string>(wp), new List<int>()));
             }
 
             return tracks;

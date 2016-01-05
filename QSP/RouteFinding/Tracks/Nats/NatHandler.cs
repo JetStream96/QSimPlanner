@@ -77,7 +77,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                     "<font color=\"#000099\">",
                     new string((char)2,1),new string((char)3,1),new string((char)11,1)}, "");
 
-                result.Add(new NATsMessage(time_updated, general_info, NATsDir.West, msg));
+                result.Add(new NATsMessage(time_updated, general_info, NatsDir.West, msg));
             }
 
             if (htmlStr.IndexOf("CZQXZQZX") >= 0)
@@ -88,7 +88,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                     "<font color=\"#000099\">",
                      new string((char)2,1),new string((char)3,1),new string((char)11,1) }, "");
 
-                result.Add(new NATsMessage(time_updated, general_info, NATsDir.East, msg));
+                result.Add(new NATsMessage(time_updated, general_info, NatsDir.East, msg));
             }
 
             return result;
@@ -106,7 +106,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             {
                 string downloadAdditional = null;
 
-                if (natMsg[0].Direction == NATsDir.East)
+                if (natMsg[0].Direction == NatsDir.East)
                 {
                     downloadAdditional = natsWest;
                 }
@@ -135,7 +135,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                 catch
                 {
                     TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution,
-                        string.Format("Unable to interpret {0} tracks.", (i.Direction == NATsDir.East) ? "eastbound" : "westbound"), TrackType.Nats);
+                        string.Format("Unable to interpret {0} tracks.", (i.Direction == NatsDir.East) ? "eastbound" : "westbound"), TrackType.Nats);
                 }
 
             }

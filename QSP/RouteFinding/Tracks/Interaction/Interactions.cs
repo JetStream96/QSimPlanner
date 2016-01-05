@@ -39,7 +39,6 @@ namespace QSP.RouteFinding.Tracks.Interaction
 
         public async static Task SetAllTracksAsync()
         {
-
             TrackStatusRecorder.Clear();
 
             //these can be done asynchronously
@@ -57,9 +56,6 @@ namespace QSP.RouteFinding.Tracks.Interaction
             NatsManager.AddToWptList();
             PacotsManager.AddToWptList();
             AusotsManager.AddToWptList();
-
         }
-
     }
-
 }

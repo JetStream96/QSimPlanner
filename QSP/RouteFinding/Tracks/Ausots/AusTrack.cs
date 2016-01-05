@@ -49,6 +49,8 @@ namespace QSP.RouteFinding.Tracks.Ausots
         public string Ident { get; private set; }
         public string TimeStart { get; private set; }
         public string TimeEnd { get; private set; }
+        public string Remarks { get; private set; }
+        public bool Available { get; private set; }
 
         public ReadOnlyCollection<string> MainRoute
         {
@@ -65,14 +67,10 @@ namespace QSP.RouteFinding.Tracks.Ausots
             get { return _routeTo.AsReadOnly(); }
         }
 
-        public string Remarks { get; private set; }
-
         public LatLon PreferredFirstLatLon
         {
             get { return new LatLon(-25, 133); }
         }
-
-        public bool Available { get; private set; }
 
         #endregion
 
@@ -136,7 +134,6 @@ namespace QSP.RouteFinding.Tracks.Ausots
                 {
                     x = textMsg.Length - 1;
                 }
-
             }
             else
             {
@@ -228,12 +225,10 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         private string readToNextDelim(string item, ref int index)
         {
-
             int x = item.IndexOfAny(Delimiters, index);
             string str = item.Substring(index, x - index);
             index = x;
             return str;
-
         }
 
         private void skipConsectiveChars(string item, ref int index)

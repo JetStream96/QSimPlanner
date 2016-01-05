@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP;
-using System.Linq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.AviationTools;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -10,15 +7,17 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using System.Collections.Generic;
 using static QSP.LibraryExtension.Lists;
+using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.Utilities;
 using static Tests.Common.Utilities;
-using static QSP.MathTools.Utilities;
 
 namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
 {
     [TestClass]
     public class StarAdderTest
     {
+
+
         [TestMethod]
         public void AddToWptListCase1()
         {
@@ -70,12 +69,12 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
             var adder = new StarAdder("AXYZ",
                                      new StarCollection(
                                                     CreateList(new StarEntry("18",
-                                                                            "STAR1",
-                                                                            CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
-                                                                                       new Waypoint("WPT102", 25.0150, 50.0800),
-                                                                                       new Waypoint("WPT103", 25.0175, 50.1300),
-                                                                                       new Waypoint("WPT104", 25.0225, 50.1800)),
-                                                                            EntryType.RwySpecific))),
+                                                                             "STAR1",
+                                                                             CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
+                                                                                        new Waypoint("WPT102", 25.0150, 50.0800),
+                                                                                        new Waypoint("WPT103", 25.0175, 50.1300),
+                                                                                        new Waypoint("WPT104", 25.0225, 50.1800)),
+                                                                             EntryType.RwySpecific))),
                                      wptList,
                                      GetAirportManager());
 
@@ -136,14 +135,14 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
             var adder = new StarAdder("AXYZ",
                                       new StarCollection(
                                                     CreateList(new StarEntry("18",
-                                                                            "STAR1",
-                                                                            CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
-                                                                                       new Waypoint("WPT102", 25.0150, 50.0800),
-                                                                                       new Waypoint("WPT103", 25.0175, 50.1300),
-                                                                                       new Waypoint("WPT104", 25.0225, 50.1800)),
-                                                                            EntryType.RwySpecific))),
-                                     wptList,
-                                     GetAirportManager());
+                                                                             "STAR1",
+                                                                             CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
+                                                                                        new Waypoint("WPT102", 25.0150, 50.0800),
+                                                                                        new Waypoint("WPT103", 25.0175, 50.1300),
+                                                                                        new Waypoint("WPT104", 25.0225, 50.1800)),
+                                                                             EntryType.RwySpecific))),
+                                      wptList,
+                                      GetAirportManager());
 
             int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
 
@@ -179,14 +178,14 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
         {
             var wptList = Case4WptList();
             var adder = new StarAdder("AXYZ",
-                                     new StarCollection(
+                                      new StarCollection(
                                                     CreateList(new StarEntry("18",
-                                                                            "STAR1",
-                                                                            CreateList(new Waypoint("26N050E", 26.0, 50.0),
-                                                                                       new Waypoint("WPT01", 25.0, 50.0)),
-                                                                            EntryType.RwySpecific))),
-                                     wptList,
-                                     GetAirportManager());
+                                                                             "STAR1",
+                                                                             CreateList(new Waypoint("26N050E", 26.0, 50.0),
+                                                                                        new Waypoint("WPT01", 25.0, 50.0)),
+                                                                             EntryType.RwySpecific))),
+                                      wptList,
+                                      GetAirportManager());
 
             int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
 

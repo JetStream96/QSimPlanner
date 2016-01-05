@@ -7,13 +7,10 @@ using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
-
     public static class Utilities
     {
-
         public static int ChooseSubsequentWpt(double prevLat, double prevLon, List<int> candidates)
         {
-
             if (candidates == null || candidates.Count == 0)
             {
                 throw new ArgumentException("List cannot be nothing or empty.");
@@ -21,9 +18,7 @@ namespace QSP.RouteFinding.Tracks.Common
 
             double minDis = MAX_DIS;
             int minIndex = 0;
-
             double dis = 0.0;
-
 
             for (int i = 0; i < candidates.Count; i++)
             {
@@ -55,7 +50,7 @@ namespace QSP.RouteFinding.Tracks.Common
         /// </summary>
         public static List<int> NearbyWaypointsInWptList(int count, double lat, double lon, WaypointList wptList)
         {
-            var x = RouteFinding.WaypointAirwayConnector.FindAirwayConnection(lat, lon, wptList);
+            var x = WaypointAirwayConnector.FindAirwayConnection(lat, lon, wptList);
             var result = new List<int>(x.Count);
 
             foreach (var i in x)
@@ -92,21 +87,17 @@ namespace QSP.RouteFinding.Tracks.Common
             return item.Distinct(new StringArrayComparer()).ToList();
         }
 
-        private class StringArrayComparer : IEqualityComparer<string[]>
+        private class StringArrayComparer : EqualityComparer<string[]>
         {
-
-            public bool Equals(string[] x, string[] y)
+            public override bool Equals(string[] x, string[] y)
             {
                 return Enumerable.SequenceEqual(x, y);
             }
 
-            public int GetHashCode(string[] obj)
+            public override int GetHashCode(string[] obj)
             {
                 return this.GetHashCode();
             }
-
         }
-
     }
-
 }
