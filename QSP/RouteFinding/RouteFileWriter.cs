@@ -5,6 +5,7 @@ using QSP.RouteFinding.Containers;
 using System.IO;
 using System.Windows.Forms;
 using QSP.Core;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding
 {

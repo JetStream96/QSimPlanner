@@ -7,20 +7,20 @@ namespace QSP.LibraryExtension
     // Test result of adding 10000000 integers:
     //
     // Initial capacity not set:
-    //      FlexibleList: 216ms
-    //      List:         130ms
+    //      FixedIndexList: 216ms
+    //      List:           130ms
     // 
     // Initial capacity set to 10000000:
-    //      FlexibleList: 85ms
-    //      List:         60ms
+    //      FixedIndexList: 85ms
+    //      List:           60ms
     //
     // Result for adding without resize (increase number of elements from 2^24+1 to 2^25):
-    //      FlexibleList: 138ms
-    //      List:         99ms
+    //      FixedIndexList: 138ms
+    //      List:           99ms
     //
     // Remove the element in the middle, with 100000 integers in the list:
-    //      FlexibleList: 4.84ms/100000 times (tested with 10000000 times)
-    //      List:         2857ms/100000 times (tested with 100000 times)
+    //      FixedIndexList: 4.84ms/100000 times (tested with 10000000 times)
+    //      List:           2857ms/100000 times (tested with 100000 times)
 
     /// <summary>
     /// A generic list such that each element added would never change index, unless removed.

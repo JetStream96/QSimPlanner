@@ -110,8 +110,8 @@ namespace QSP
             tryImportPattern1(ref APUTime, frm.APUTime.Text, "Invalid APU time.");
             tryImportPattern1(ref TaxiTime, frm.TaxiTime.Text, "Invalid taxi time.");
             tryImportPattern1(ref FinalRsvMin, frm.FinalRsv.Text, "Invalid time for final reserve.");
-            DisToDest = RouteFindingCore.RouteToDest.TotalDis;
-            DisToAltn = RouteFindingCore.RouteToAltn.TotalDis;
+            DisToDest = RouteFindingCore.RouteToDest.TotalDistance;
+            DisToAltn = RouteFindingCore.RouteToAltn.TotalDistance;
 
             AvgWindToDest = 0;
             AvgWindToAltn = 0;

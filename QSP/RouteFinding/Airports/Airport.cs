@@ -8,30 +8,18 @@ namespace QSP.RouteFinding.Airports
 {
     public class Airport : ICoordinate, IEquatable<Airport>
     {
-        #region Fields
-
-        private string _icao;
-        private string _name;
-        private double _lat;
-        private double _lon;
-        private int _elevation;
-        private int _transAlt;
-        private int _transLvl;
-        private int _longestRwyLength;
         private List<RwyData> _rwys;
-
-        #endregion
 
         #region Properties
 
-        public string Icao { get { return _icao; } }
-        public string Name { get { return _name; } }
-        public double Lat { get { return _lat; } }
-        public double Lon { get { return _lon; } }
-        public int Elevation { get { return _elevation; } }
-        public int TransAlt { get { return _transAlt; } }
-        public int TransLvl { get { return _transLvl; } }
-        public int LongestRwyLength { get { return _longestRwyLength; } }
+        public string Icao { get; private set; }
+        public string Name { get; private set; }
+        public double Lat { get; private set; }
+        public double Lon { get; private set; }
+        public int Elevation { get; private set; }
+        public int TransAlt { get; private set; }
+        public int TransLvl { get; private set; }
+        public int LongestRwyLength { get; private set; }
 
         public ReadOnlyCollection<RwyData> Rwys
         {
@@ -46,27 +34,27 @@ namespace QSP.RouteFinding.Airports
         public Airport(string Icao, string Name, double Lat, double Lon, int Elevation, int TransAlt,
                        int TransLvl, int LongestRwyLength, List<RwyData> Rwys)
         {
-            _icao = Icao;
-            _name = Name;
-            _lat = Lat;
-            _lon = Lon;
-            _elevation = Elevation;
-            _transAlt = TransAlt;
-            _transLvl = TransLvl;
-            _longestRwyLength = LongestRwyLength;
+            this.Icao = Icao;
+            this.Name = Name;
+            this.Lat = Lat;
+            this.Lon = Lon;
+            this.Elevation = Elevation;
+            this.TransAlt = TransAlt;
+            this.TransLvl = TransLvl;
+            this.LongestRwyLength = LongestRwyLength;
             _rwys = Rwys;
         }
 
         public Airport(Airport item)
         {
-            _icao = item.Icao;
-            _name = item.Name;
-            _lat = item.Lat;
-            _lon = item.Lon;
-            _elevation = item.Elevation;
-            _transAlt = item.TransAlt;
-            _transLvl = item.TransLvl;
-            _longestRwyLength = item.LongestRwyLength;
+            this.Icao = item.Icao;
+            this.Name = item.Name;
+            this.Lat = item.Lat;
+            this.Lon = item.Lon;
+            this.Elevation = item.Elevation;
+            this.TransAlt = item.TransAlt;
+            this.TransLvl = item.TransLvl;
+            this.LongestRwyLength = item.LongestRwyLength;
             _rwys = new List<RwyData>(item.Rwys);
         }
 

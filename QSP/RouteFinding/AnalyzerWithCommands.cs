@@ -8,6 +8,7 @@ using System.Text;
 using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding
 {
@@ -102,7 +103,7 @@ namespace QSP.RouteFinding
             {
                 return "DCT";
             }
-            RandomRouteFinder randFinder = new RandomRouteFinder(pt1, pt2);
+            var randFinder = new RandomRouteFinder(pt1, pt2);
             return randRouteStr(randFinder.Find());
         }
 

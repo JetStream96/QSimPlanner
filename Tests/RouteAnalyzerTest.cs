@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using static Tests.Common.Utilities;
+using QSP.RouteFinding.Routes;
 
 namespace Tests
 {
@@ -31,11 +32,11 @@ namespace Tests
 
             string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
             Debug.WriteLine("Generated route: " + rte);
-            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDis);
+            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
             var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
             Debug.WriteLine("Analyzed Route: " + rteA.ToString());
-            Debug.WriteLine("Distance = {0} nm", rteA.TotalDis);
+            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
 
         }
 
@@ -55,11 +56,11 @@ namespace Tests
 
             string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
             Debug.WriteLine("Generated route: " + rte);
-            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDis);
+            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
             var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
             Debug.WriteLine("Analyzed Route: " + rteA.ToString());
-            Debug.WriteLine("Distance = {0} nm", rteA.TotalDis);
+            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
 
         }
 
@@ -79,11 +80,11 @@ namespace Tests
 
             string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
             Debug.WriteLine("Generated route: " + rte);
-            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDis);
+            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
             var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
             Debug.WriteLine("Analyzed Route: " + rteA.ToString());
-            Debug.WriteLine("Distance = {0} nm", rteA.TotalDis);
+            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
 
         }
 
@@ -103,11 +104,11 @@ namespace Tests
 
             string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
             Debug.WriteLine("Generated route: " + rte);
-            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDis);
+            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
             var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
             Debug.WriteLine("Analyzed Route: " + rteA.ToString());
-            Debug.WriteLine("Distance = {0} nm", rteA.TotalDis);
+            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
 
         }
 
@@ -129,11 +130,11 @@ namespace Tests
 
             string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
             Debug.WriteLine("Generated route: " + rte);
-            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDis);
+            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
             var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
             Debug.WriteLine("Analyzed Route: " + rteA.ToString());
-            Debug.WriteLine("Distance = {0} nm", rteA.TotalDis);
+            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
 
         }
 

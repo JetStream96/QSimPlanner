@@ -2,14 +2,13 @@ using System;
 
 namespace QSP.LibraryExtension
 {
-
-    public static class LibraryExtension
+    public static class Utilities
     {
-        public static void Swap<T>(ref T d1, ref T d2)
+        public static void Swap<T>(ref T item1, ref T item2)
         {
-            var d = d2;
-            d2 = d1;
-            d1 = d;
+            var tmp = item2;
+            item2 = item1;
+            item1 = tmp;
         }
 
         public static int MonthEnglishToNum(string month)

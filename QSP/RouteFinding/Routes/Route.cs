@@ -3,30 +3,64 @@ using System.Linq;
 using System.Text;
 using QSP.RouteFinding.Tracks.Nats;
 using QSP.Core;
+using QSP.RouteFinding.Containers;
+using static QSP.MathTools.Utilities;
+using System;
+using System.Collections;
+using QSP.LibraryExtension;
 
-namespace QSP.RouteFinding.Containers
+namespace QSP.RouteFinding.Routes
 {
-    public class Route
+    public class Route : IEnumerable<RouteNode>, IEnumerable
     {
-        public List<Waypoint> Waypoints { get; set; }
-        public List<string> Via { get; set; }
-        public double TotalDis { get; set; }
+        private LinkedList<RouteNode> links;
+        private RouteToggler toggler;
 
-        //TODO: possibility of multiple NATs
-        private bool natExpanded;
-        //e.g. C (for Nat track C)
-        private char natIdent;
+        public double TotalDistance
+        {
+            get
+            {
+                if (links.Count == 0)
+                {
+                    throw new InvalidOperationException("The route is empty.");
+                }
 
-        private Waypoint[] natWpts;
-        //Includes end points. It's set to Nothing if it's not set yet, or not needed for the route.
+                double totalDis = 0.0;
+                var first = links.First;
+                var node = first;
+                var next = node.Next;
+
+                while (next != first)
+                {
+                    totalDis += node.Value.DistanceToNext;
+                    node = next;
+                    next = node.Next;
+                }
+
+                return totalDis;
+            }
+        }
 
         public Route()
         {
-            Waypoints = new List<Waypoint>();
-            Via = new List<string>();
-            TotalDis = 0;
-            natWpts = null;
-            natExpanded = false;
+            links = new LinkedList<RouteNode>();
+            toggler = new RouteToggler(links);
+        }
+
+        /// <summary>
+        /// Append the specified waypoint to the end of the route. 
+        /// This waypoint is connected from the previous one by the airway specified, with the given distance.       
+        /// </summary>
+        /// <param name="viaAirway">Airway or SID/STAR name.</param>
+        public void AppendWaypoint(Waypoint item, string viaAirway, double distanceFromPrev)
+        {
+            var last = links.Last;
+
+            if (last != null)  // Route is non-empty.
+            {
+                last.Value.DistanceToNext = distanceFromPrev;
+            }
+            links.AddLast(new RouteNode(item, viaAirway, 0.0));
         }
 
         /// <summary>
@@ -35,8 +69,22 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public void AppendWaypoint(Waypoint item, string viaAirway)
         {
-            Waypoints.Add(item);
-            Via.Add(viaAirway);
+            var last = links.Last;
+            double distance;
+
+            if (last != null)  // Route is non-empty.
+            {
+                var lastWpt = last.Value.Waypoint;
+                distance = GreatCircleDistance(item.Lat, item.Lon, lastWpt.Lat, lastWpt.Lon);
+            }
+            else
+            {
+                distance = 0.0;
+            }
+
+            AppendWaypoint(item,
+                           viaAirway,
+                           distance);
         }
 
         /// <summary>
@@ -45,16 +93,14 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public void AppendWaypoint(Waypoint item)
         {
-            if (Waypoints.Count == 0)
-            {
-                Waypoints.Add(item);
-            }
-            else
-            {
-                AppendWaypoint(item, "DCT");
-            }
+            AppendWaypoint(item, "DCT");
         }
 
+        //public void AddAfter(LinkedListNode<RouteNode> node, RouteNode nodeToAdd)
+        //{
+        //    links.AddAfter(node, nodeToAdd);
+        //}
+        
         /// <summary>
         /// Set NATs for ExpandNats/CollapseNats.
         /// </summary>
@@ -81,84 +127,26 @@ namespace QSP.RouteFinding.Containers
             natIdent = track.Ident;
             natWpts = new Waypoint[track.WptIndex.Count];
 
-            for (int i = 0; i <natWpts.Length; i++)
+            for (int i = 0; i < natWpts.Length; i++)
             {
                 natWpts[i] = RouteFindingCore.WptList[track.WptIndex[i]];
             }
         }
 
         /// <summary>
-        /// Collapse the NATs for the route, if not done already.  
+        /// Collapse the tracks for the route, if not done already.  
         /// </summary>
-        /// <remarks></remarks>
-        public void CollapseNats()
+        public void Collapse()
         {
-            if (natWpts == null || natExpanded == false)
-            {
-                return;
-            }
-
-            int numWptToRemove = natWpts.Count() - 2;
-            int firstWptIndex = findWptIndex(natWpts[0].ID);
-
-            Waypoints.RemoveRange(firstWptIndex + 1, numWptToRemove);
-            Via.RemoveRange(firstWptIndex + 1, numWptToRemove);
-            Via[firstWptIndex] = "NAT" + natIdent;
-
-            natExpanded = false;
+            toggler.Collapse();
         }
-
-        private int findWptIndex(string wptName)
-        {
-
-            for (int i = 0; i < Waypoints.Count; i++)
-            {
-                if (Waypoints[i].ID == wptName)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        private int findViaIndex(string airwayName)
-        {
-            for (int i = 0; i < Via.Count; i++)
-            {
-                if (Via[i] == airwayName)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
+        
         /// <summary>
-        /// Expand the NATs for the route, if not already expanded. Must call SetNats before otherwise nothing will be done.
+        /// Expand the Tracks for the route, if not already expanded. 
         /// </summary>
-
-        public void ExpandNats()
+        public void Expand()
         {
-            if (natWpts == null || natExpanded)
-            {
-                return;
-            }
-
-            int currentIndex = findViaIndex("NAT" + natIdent);
-            Via[currentIndex] = "DCT";
-            currentIndex++;
-
-            if (natWpts.Count() > 2)
-            {
-                for (int j = 1; j < natWpts.Count() - 1; j++)
-                {
-                    Waypoints.Insert(currentIndex, natWpts[j]);
-                    Via.Insert(currentIndex, "DCT");
-                    currentIndex++;
-                }
-            }
-            natExpanded = true;
+            toggler.Expand();
         }
 
         /// <summary>
@@ -168,12 +156,12 @@ namespace QSP.RouteFinding.Containers
         {
             return ToString(RouteDisplayOption.WaypointToWaypoint);
         }
-        
+
         private void appendRoute(StringBuilder item)
         {
             item.Append(Via[0] + " ");
-            
-            for (int i = 1; i < Via.Count ; i++)
+
+            for (int i = 1; i < Via.Count; i++)
             {
 
                 if (Via[i] == "DCT" || Via[i] != Via[i - 1])
@@ -207,11 +195,11 @@ namespace QSP.RouteFinding.Containers
             {
 
                 case NatsDisplayOption.Expand:
-                    this.ExpandNats();
+                    this.Expand();
 
                     break;
                 case NatsDisplayOption.Collapse:
-                    this.CollapseNats();
+                    this.Collapse();
 
                     break;
                 default:
@@ -248,6 +236,15 @@ namespace QSP.RouteFinding.Containers
             return result.ToString();
         }
 
+        public IEnumerator<RouteNode> GetEnumerator()
+        {
+            return links.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 
 }

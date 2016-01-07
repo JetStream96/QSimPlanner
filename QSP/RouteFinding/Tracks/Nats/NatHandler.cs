@@ -45,7 +45,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             {
                 if (i.Ident == identLetter)
                 {
-                    Waypoint[] result = new Waypoint[i.WptIndex.Count];
+                    var result = new Waypoint[i.WptIndex.Count];
                     for (int j = 0; j < result.Length; j++)
                     {
                         result[j] = WptList[i.WptIndex[j]];

@@ -1,5 +1,5 @@
 using System;
-using static QSP.LibraryExtension.LibraryExtension;
+using static QSP.LibraryExtension.Utilities;
 
 namespace QSP.Utilities
 {

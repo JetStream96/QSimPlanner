@@ -7,6 +7,7 @@ using static QSP.LibraryExtension.Arrays;
 using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.RouteFindingCore;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding
 {
@@ -79,7 +80,7 @@ namespace QSP.RouteFinding
             Dest
         }
 
-        private NodeType[] nextNode(NodeType currentNode)
+        private static NodeType[] nextNode(NodeType currentNode)
         {
             switch (currentNode)
             {
@@ -163,7 +164,7 @@ namespace QSP.RouteFinding
             if (rte.Waypoints.Count - 1 == rte.Via.Count)
             {
                 rte.Via.Add("DCT");
-                rte.TotalDis += GreatCircleDistance(rte.Waypoints.Last().LatLon, dest.LatLon);
+                rte.TotalDistance += GreatCircleDistance(rte.Waypoints.Last().LatLon, dest.LatLon);
             }
 
             rte.Waypoints.Add(dest);
@@ -203,10 +204,10 @@ namespace QSP.RouteFinding
         {
             try
             {
-                StarHandler starManager = new StarHandler(destIcao);
+                var starManager = new StarHandler(destIcao);
                 var starInfo = starManager.InfoForAnalysis(destRwy, text);
 
-                rte.TotalDis += starInfo.TotalDistance;
+                rte.TotalDistance += starInfo.TotalDistance;
                 addWptIfNoDuplicate(rte, starInfo.FirstWaypoint);
                 rte.Via.Add(text);
 
@@ -225,7 +226,7 @@ namespace QSP.RouteFinding
                 var sidManager = new SidHandler(origIcao);
                 var sidInfo = sidManager.InfoForAnalysis(origRwy, text);
 
-                rte.TotalDis += sidInfo.TotalDistance;
+                rte.TotalDistance += sidInfo.TotalDistance;
                 rte.Via.Add(text);
                 addWptIfNoDuplicate(rte, sidInfo.LastWaypoint);
 
@@ -307,7 +308,7 @@ namespace QSP.RouteFinding
             {
                 for (int i = 1; i < wpts.Count; i++)
                 {
-                    rte.TotalDis += GreatCircleDistance(rte.Waypoints.Last().LatLon, wpts[i].LatLon);
+                    rte.TotalDistance += GreatCircleDistance(rte.Waypoints.Last().LatLon, wpts[i].LatLon);
                     rte.Via.Add(airway);
                     rte.Waypoints.Add(wpts[i]);
                 }
@@ -325,7 +326,7 @@ namespace QSP.RouteFinding
             }
             else
             {
-                rte.TotalDis += GreatCircleDistance(rte.Waypoints.Last().LatLon, wpt.LatLon);
+                rte.TotalDistance += GreatCircleDistance(rte.Waypoints.Last().LatLon, wpt.LatLon);
                 addWptIfNoDuplicate(rte, wpt);
                 return true;
             }
@@ -352,14 +353,14 @@ namespace QSP.RouteFinding
                     rte.Via.Add(airway);
                 }
 
-                rte.TotalDis += GreatCircleDistance(rte.Waypoints.Last().LatLon, wpt.LatLon);
+                rte.TotalDistance += GreatCircleDistance(rte.Waypoints.Last().LatLon, wpt.LatLon);
                 rte.Waypoints.Add(wpt);
             }
         }
 
         private static string exceptionMsg(string text, NodeType[] nodes)
         {
-            List<string> names = new List<string>();
+            var names = new List<string>();
 
             foreach (var i in nodes)
             {
@@ -375,8 +376,6 @@ namespace QSP.RouteFinding
             if (names.Count == 1)
             {
                 result += names[0];
-
-
             }
             else
             {
@@ -386,13 +385,11 @@ namespace QSP.RouteFinding
                 }
 
                 result += "or " + names.Last();
-
             }
 
             result += ".";
 
             return result;
-
         }
 
         private static string nameInException(NodeType item)

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding
 {
@@ -52,7 +53,7 @@ namespace QSP.RouteFinding
         public static string GeneratePmdgRteFile(Route rte)
         {
 
-            rte.ExpandNats();
+            rte.Expand();
 
             int numWpts = rte.Waypoints.Count;
             //including dep/arr airports

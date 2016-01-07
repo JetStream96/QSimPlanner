@@ -8,6 +8,7 @@ using QSP.RouteFinding.Containers;
 using static Tests.Common.Utilities;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using QSP.RouteFinding.Routes;
 
 namespace Tests
 {

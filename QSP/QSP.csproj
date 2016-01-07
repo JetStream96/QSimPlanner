@@ -97,6 +97,10 @@
     <Compile Include="RouteFinding\AirwayStructure\TrackerItem.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointContainer.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WptSeachWrapper.cs" />
+    <Compile Include="RouteFinding\Routes\RouteCollapse.cs" />
+    <Compile Include="RouteFinding\Routes\RouteExpand.cs" />
+    <Compile Include="RouteFinding\Routes\RouteNode.cs" />
+    <Compile Include="RouteFinding\Routes\RouteToggler.cs" />
     <Compile Include="RouteFinding\Data\ICoordinate.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\EntryType.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\IProcedureEntry.cs" />
@@ -145,7 +149,7 @@
     <Compile Include="LandingPerfCalculation\PerfData.cs" />
     <Compile Include="LibraryExtension\BinarySearchForAll.cs" />
     <Compile Include="LibraryExtension\HashMap.cs" />
-    <Compile Include="LibraryExtension\LibraryExtension.cs" />
+    <Compile Include="LibraryExtension\Utilities.cs" />
     <Compile Include="LibraryExtension\Lists.cs" />
     <Compile Include="LibraryExtension\MinHeap.cs" />
     <Compile Include="LibraryExtension\Pair.cs" />
@@ -172,7 +176,7 @@
     <Compile Include="RouteFinding\RouteFinder.cs" />
     <Compile Include="RouteFinding\AirwayStructure\ChangeTracker.cs" />
     <Compile Include="RouteFinding\Containers\Neighbor.cs" />
-    <Compile Include="RouteFinding\Containers\Route.cs" />
+    <Compile Include="RouteFinding\Routes\Route.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointList.cs" />
     <Compile Include="RouteFinding\Containers\Waypoint.cs" />
     <Compile Include="RouteFinding\Airports\Airport.cs" />

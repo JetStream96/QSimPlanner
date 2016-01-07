@@ -32,7 +32,7 @@ namespace QSP.MathTools
         {
             return GreatCircleDistance(latLon1.Lat, latLon1.Lon, latLon2.Lat, latLon2.Lon);
         }
-
+        
         public static double GreatCircleDistance(Tuple<double, double> latLon1, Tuple<double, double> latLon2)
         {
             return GreatCircleDistance(latLon1.Item1, latLon1.Item2, latLon2.Item1, latLon2.Item2);

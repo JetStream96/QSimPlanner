@@ -2,8 +2,8 @@
 {
     public struct IndexDistancePair
     {
-        public int Index;
-        public double Distance;
+        public int Index { get; private set; }
+        public double Distance { get; private set; }
 
         public IndexDistancePair(int Index, double Distance)
         {

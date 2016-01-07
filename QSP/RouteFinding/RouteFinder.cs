@@ -10,6 +10,7 @@ using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding
 {
@@ -114,7 +115,7 @@ namespace QSP.RouteFinding
 
             result.Waypoints.Add(wptList[startPtIndex]);
 
-            result.TotalDis = FindRouteData.CurrentDis[endPtIndex];
+            result.TotalDistance = FindRouteData.CurrentDis[endPtIndex];
             //total distance of the entire route
 
             result.Via.Reverse();

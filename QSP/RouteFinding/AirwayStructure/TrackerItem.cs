@@ -9,7 +9,6 @@ namespace QSP.RouteFinding.AirwayStructure
 
         private Stack<int> _addedWpt;
         private Stack<int> _addedNeighbor;
-        private ChangeCategory _category;
 
         #endregion
 
@@ -17,7 +16,7 @@ namespace QSP.RouteFinding.AirwayStructure
         {
             _addedWpt = new Stack<int>();
             _addedNeighbor = new Stack<int>();
-            _category = category;
+            this.Category = category;
         }
 
         public ReadOnlyStack<int> AddedWaypoint
@@ -30,11 +29,8 @@ namespace QSP.RouteFinding.AirwayStructure
             get { return _addedNeighbor.AsReadOnly(); }
         }
 
-        public ChangeCategory Category
-        {
-            get { return _category; }
-        }
-
+        public ChangeCategory Category { get; private set; }
+      
         public void AddWaypointRecord(int index)
         {
             _addedWpt.Push(index);

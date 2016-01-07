@@ -2,17 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding
 {
-
     public static class MapDrawing
     {
-
         public static StringBuilder MapDrawString(Route rte, int width, int height)
         {
-
-            rte.ExpandNats();
+            rte.Expand();
             var waypoints = rte.Waypoints;
             StringBuilder mapHtml = new StringBuilder();
             
