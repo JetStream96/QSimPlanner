@@ -8,6 +8,7 @@ using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.RouteFindingCore;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.RouteFinding.Routes;
+using QSP.Core;
 
 namespace QSP.RouteFinding
 {
@@ -106,7 +107,7 @@ namespace QSP.RouteFinding
                     return new NodeType[] { };
 
                 default:
-                    throw new ArgumentOutOfRangeException("Enum not supported.");
+                    throw new EnumNotSupportedException("Enum not supported.");
             }
         }
 
@@ -119,7 +120,7 @@ namespace QSP.RouteFinding
             sidLastWpt = null;
 
             //add orig rwy
-            result.Waypoints.Add(new Waypoint(origIcao + origRwy, AirportList.RwyLatLon(origIcao, origRwy)));
+            result.AppendWaypoint(new Waypoint(origIcao + origRwy, AirportList.RwyLatLon(origIcao, origRwy)));
 
             for (int i = 0; i < input.Length; i++)
             {
@@ -141,7 +142,8 @@ namespace QSP.RouteFinding
                     {
                         if (currentNode == NodeType.Awy)
                         {
-                            throw new InvalidIdentifierException("\"" + input[i] + "\" is not a waypoint of airway " + result.Via.Last() + ".");
+                            throw new InvalidIdentifierException("\"" + input[i] + "\" is not a waypoint of airway " +
+                                                                 result.LastNode.Previous.Value.AirwayToNext + ".");
                         }
                         else
                         {
@@ -157,7 +159,6 @@ namespace QSP.RouteFinding
 
             return result;
         }
-
 
         private void addDest(Route rte, Waypoint dest)
         {
@@ -246,7 +247,7 @@ namespace QSP.RouteFinding
         /// </summary>
         private bool tryParseAwy(Route rte, NodeType prevNode, string text)
         {
-            int lastWptIndex = WptList.FindByWaypoint(rte.Waypoints.Last());
+            int lastWptIndex = WptList.FindByWaypoint(rte.Last.Waypoint);
 
             if (lastWptIndex < 0)
             {
@@ -318,7 +319,7 @@ namespace QSP.RouteFinding
 
         private static bool tryAddWpt(Route rte, string ID)
         {
-            Waypoint wpt = Utilities.FindWpt(ID, rte.Waypoints.Last());
+            Waypoint wpt = Utilities.FindWpt(ID, rte.Last.Waypoint);
 
             if (wpt == null)
             {
@@ -326,7 +327,6 @@ namespace QSP.RouteFinding
             }
             else
             {
-                rte.TotalDistance += GreatCircleDistance(rte.Waypoints.Last().LatLon, wpt.LatLon);
                 addWptIfNoDuplicate(rte, wpt);
                 return true;
             }

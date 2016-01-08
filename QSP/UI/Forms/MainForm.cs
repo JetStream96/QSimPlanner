@@ -777,7 +777,7 @@ namespace QSP
             RouteToDest = new RouteFinder().FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid, DestTxtBox.Text, DestRwyComboBox.Text, star);
             PMDGrteFile = FlightPlanExport.GeneratePmdgRteFile(RouteToDest);
 
-            RouteDisplayRichTxtBox.Text = RouteToDest.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
+            RouteDisplayRichTxtBox.Text = RouteToDest.ToString(Route.TracksDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
 
             double directDis = MathTools.Utilities.GreatCircleDistance(RouteToDest.Waypoints.First().LatLon, RouteToDest.Waypoints.Last().LatLon);
             RouteDisLbl.Text = "Total Dis: " + Math.Round(RouteToDest.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToDest.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
@@ -804,7 +804,7 @@ namespace QSP
             RouteToAltn = new RouteFinder().FindRoute(DestTxtBox.Text, DestRwyComboBox.Text,sids,
                                                       AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn);
 
-            RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
+            RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(Route.TracksDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
 
             double directDis = MathTools.Utilities.GreatCircleDistance(RouteToAltn.Waypoints.First().LatLon, RouteToAltn.Waypoints.Last().LatLon);
             RouteDisAltnLbl.Text = "Total Dis: " + Math.Round(RouteToAltn.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToAltn.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
@@ -1199,7 +1199,7 @@ namespace QSP
                 RouteToDest = rteAnalyzer.Parse();
 
                 PMDGrteFile = FlightPlanExport.GeneratePmdgRteFile(RouteToDest);
-                RouteDisplayRichTxtBox.Text = RouteToDest.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
+                RouteDisplayRichTxtBox.Text = RouteToDest.ToString(Route.TracksDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
 
                 double directDis = MathTools.Utilities.GreatCircleDistance(RouteToDest.Waypoints.First().LatLon, RouteToDest.Waypoints.Last().LatLon);
                 RouteDisLbl.Text = "Total Dis: " + Math.Round(RouteToDest.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToDest.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";

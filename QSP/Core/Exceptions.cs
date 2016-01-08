@@ -5,7 +5,6 @@ namespace QSP.Core
     [Serializable()]
     public class InvalidAircraftDatabaseException : ApplicationException
     {
-
         public InvalidAircraftDatabaseException()
         {
         }
@@ -17,14 +16,12 @@ namespace QSP.Core
         public InvalidAircraftDatabaseException(string message, Exception inner) : base(message, inner)
         {
         }
-
     }
 
 
     [Serializable()]
     public class InvalidUserInputException : ApplicationException
     {
-
         public InvalidUserInputException()
         {
         }
@@ -36,14 +33,12 @@ namespace QSP.Core
         public InvalidUserInputException(string message, Exception inner) : base(message, inner)
         {
         }
-
     }
 
 
     [Serializable()]
     public class RunwayTooShortException : System.Exception
     {
-
         public RunwayTooShortException()
         {
         }

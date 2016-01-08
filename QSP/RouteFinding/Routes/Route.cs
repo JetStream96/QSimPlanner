@@ -1,13 +1,14 @@
+using QSP;
+using QSP.Core;
+using QSP.LibraryExtension;
+using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Tracks.Nats;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using QSP.RouteFinding.Tracks.Nats;
-using QSP.Core;
-using QSP.RouteFinding.Containers;
 using static QSP.MathTools.Utilities;
-using System;
-using System.Collections;
-using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.Routes
 {
@@ -41,12 +42,44 @@ namespace QSP.RouteFinding.Routes
             }
         }
 
+        public RouteNode First
+        {
+            get
+            {
+                return links.First.Value;
+            }
+        }
+
+        public RouteNode Last
+        {
+            get
+            {
+                return links.Last.Value;
+            }
+        }
+
+        public LinkedListNode< RouteNode> LastNode
+        {
+            get
+            {
+                return links.Last;
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                return links.Count;
+            }
+        }
+
         public Route()
         {
             links = new LinkedList<RouteNode>();
             toggler = new RouteToggler(links);
         }
-
+        
         /// <summary>
         /// Append the specified waypoint to the end of the route. 
         /// This waypoint is connected from the previous one by the airway specified, with the given distance.       
@@ -59,8 +92,9 @@ namespace QSP.RouteFinding.Routes
             if (last != null)  // Route is non-empty.
             {
                 last.Value.DistanceToNext = distanceFromPrev;
+                last.Value.AirwayToNext = viaAirway;
             }
-            links.AddLast(new RouteNode(item, viaAirway, 0.0));
+            links.AddLast(new RouteNode(item));
         }
 
         /// <summary>
@@ -96,43 +130,6 @@ namespace QSP.RouteFinding.Routes
             AppendWaypoint(item, "DCT");
         }
 
-        //public void AddAfter(LinkedListNode<RouteNode> node, RouteNode nodeToAdd)
-        //{
-        //    links.AddAfter(node, nodeToAdd);
-        //}
-        
-        /// <summary>
-        /// Set NATs for ExpandNats/CollapseNats.
-        /// </summary>
-        /// <param name="handler"></param> 
-        public void SetNat(NatHandler handler)
-        {
-            foreach (var i in Via)
-            {
-                if (i.Length == 4 && i[0] == 'N' && i[1] == 'A' && i[2] == 'T')
-                {
-                    natIdent = i[3];
-                    natWpts = handler.GetTrackWaypointArray(natIdent);
-                    return;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Set NATs for ExpandNats/CollapseNats.
-        /// </summary>
-        /// <param name="track"></param> 
-        public void SetNat(NorthAtlanticTrack track)
-        {
-            natIdent = track.Ident;
-            natWpts = new Waypoint[track.WptIndex.Count];
-
-            for (int i = 0; i < natWpts.Length; i++)
-            {
-                natWpts[i] = RouteFindingCore.WptList[track.WptIndex[i]];
-            }
-        }
-
         /// <summary>
         /// Collapse the tracks for the route, if not done already.  
         /// </summary>
@@ -140,7 +137,7 @@ namespace QSP.RouteFinding.Routes
         {
             toggler.Collapse();
         }
-        
+
         /// <summary>
         /// Expand the Tracks for the route, if not already expanded. 
         /// </summary>
@@ -154,83 +151,61 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public override string ToString()
         {
-            return ToString(RouteDisplayOption.WaypointToWaypoint);
+            return ToString(false, false);
         }
 
-        private void appendRoute(StringBuilder item)
-        {
-            item.Append(Via[0] + " ");
-
-            for (int i = 1; i < Via.Count; i++)
-            {
-
-                if (Via[i] == "DCT" || Via[i] != Via[i - 1])
-                {
-                    item.Append(Waypoints[i].ID + " " + Via[i] + " ");
-                }
-            }
-        }
-
-        public enum NatsDisplayOption
+        public enum TracksDisplayOption
         {
             Expand,
             Collapse
         }
 
-        public enum RouteDisplayOption
-        {
-            AirportToAirport,
-            AirportToWaypoint,
-            WaypointToAirport,
-            WaypointToWaypoint
-        }
-
         /// <summary>
         /// A string represents the usual route text with the Nats display option.
         /// </summary>
-        /// <exception cref="InvalidAircraftDatabaseException"></exception>
-        public string ToString(NatsDisplayOption para1, RouteDisplayOption para2)
+        /// <exception cref="EnumNotSupportedException"></exception>
+        public string ToString(bool ShowFirstWaypoint, bool ShowLastWaypoint, TracksDisplayOption para1)
         {
             switch (para1)
             {
-
-                case NatsDisplayOption.Expand:
-                    this.Expand();
-
+                case TracksDisplayOption.Expand:
+                    Expand();
                     break;
-                case NatsDisplayOption.Collapse:
-                    this.Collapse();
 
+                case TracksDisplayOption.Collapse:
+                    Collapse();
                     break;
+
                 default:
-
-                    throw new InvalidAircraftDatabaseException("Incorrect enum for NatsDisplayOption.");
+                    throw new EnumNotSupportedException("Incorrect enum for NatsDisplayOption.");
             }
-            return this.ToString(para2);
+            return ToString(ShowFirstWaypoint, ShowLastWaypoint);
         }
 
         /// <summary>
         /// A string represents the usual route text with options.
         /// </summary>
-        /// <param name="para">AirportToAirport: Both first and last waypoint will not be shown.
-        /// AirportToWaypoint: First waypoint will not be shown.
-        /// WaypointToAirport: Last waypoint will not be shown.
-        /// WaypointToWaypoint: Both first and last waypoint are shown.</param>
-        public string ToString(RouteDisplayOption para)
+        public string ToString(bool ShowFirstWaypoint, bool ShowLastWaypoint)
         {
-
-            StringBuilder result = new StringBuilder();
-
-            if (para == RouteDisplayOption.WaypointToAirport || para == RouteDisplayOption.WaypointToWaypoint)
+            if (links.Count < 2)
             {
-                result.Append(Waypoints[0].ID + " ");
+                throw new InvalidOperationException("Number of waypoints in the route cannot be less than 2.");
             }
 
-            appendRoute(result);
+            var result = new StringBuilder();
+            var node = links.First;
+            var last = links.Last;
 
-            if (para == RouteDisplayOption.WaypointToWaypoint || para == RouteDisplayOption.AirportToWaypoint)
+            if (ShowFirstWaypoint)
             {
-                result.Append(Waypoints.Last().ID + " ");
+                result.Append(node.Value.Waypoint.ID + ' ');
+            }
+
+            while (node != last)
+            {
+                result.Append(node.Value.AirwayToNext + ' ');
+                node = node.Next;
+                result.Append(node.Value.Waypoint.ID + ' ');
             }
 
             return result.ToString();

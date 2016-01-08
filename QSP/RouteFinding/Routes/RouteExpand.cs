@@ -9,7 +9,7 @@ namespace QSP.RouteFinding.Routes
     public static class RouteExpand
     {
         private static List<LinkedListNode<RouteNode>> findAllNodes(LinkedList<RouteNode> links, LinkedList<RouteNode> Route,
-                                                                             string OriginalAirway)
+                                                                    string OriginalAirway)
         {
             var result = new List<LinkedListNode<RouteNode>>();
             var node = links.First;
@@ -29,7 +29,7 @@ namespace QSP.RouteFinding.Routes
         }
 
         private static LinkedListNode<RouteNode> findNode(LinkedList<RouteNode> Route, string OriginalAirway,
-                                                                   LinkedListNode<RouteNode> nodeStart)
+                                                          LinkedListNode<RouteNode> nodeStart)
         {
             var node = nodeStart;
 

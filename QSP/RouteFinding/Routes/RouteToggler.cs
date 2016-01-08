@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace QSP.RouteFinding.Routes
 {
@@ -20,13 +21,13 @@ namespace QSP.RouteFinding.Routes
     public class RouteToggler
     {
         private LinkedList<RouteNode> route;
-        private List<RouteEntry> entries;
+        private TrackEntries tracks;
         private bool Expanded;
 
         public RouteToggler(LinkedList<RouteNode> route)
         {
             this.route = route;
-            entries = new List<RouteEntry>();
+            tracks = new TrackEntries();
         }
 
         public void Expand()
@@ -36,7 +37,7 @@ namespace QSP.RouteFinding.Routes
                 return;
             }
 
-            foreach (var i in entries)
+            foreach (var i in tracks.AllEntries)
             {
                 RouteExpand.InsertRoute(route, i.Route, i.RouteName);
             }
@@ -50,11 +51,36 @@ namespace QSP.RouteFinding.Routes
                 return;
             }
 
-            foreach (var i in entries)
+            foreach (var i in tracks.AllEntries)
             {
                 RouteCollapse.Collapse(route, i.Route, i.RouteName);
             }
             Expanded = false;
+        }
+
+        private class TrackEntries
+        {           
+            private List<RouteEntry> Nats;
+            private List<RouteEntry> Pacots;
+            private List<RouteEntry> Ausots;
+
+            public TrackEntries()
+            {
+                Nats = new List<RouteEntry>();
+                Pacots = new List<RouteEntry>();
+                Ausots = new List<RouteEntry>();
+            }
+
+            public ReadOnlyCollection<RouteEntry> AllEntries
+            {
+                get
+                {
+                    var result = new List<RouteEntry>(Nats);
+                    result.AddRange(Pacots);
+                    result.AddRange(Ausots);
+                    return result.AsReadOnly();
+                }
+            }
         }
 
         private struct RouteEntry

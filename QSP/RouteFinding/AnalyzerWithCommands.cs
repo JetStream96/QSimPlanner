@@ -386,7 +386,7 @@ namespace QSP.RouteFinding
                 rte.Waypoints[0] = emptyWpt;
                 rte.Waypoints[rte.Waypoints.Count - 1] = emptyWpt;
 
-                return rte.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
+                return rte.ToString(Route.TracksDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
             }
             return null;
         }
@@ -410,7 +410,7 @@ namespace QSP.RouteFinding
                 var rte = new RouteFinder().FindRoute(origIcao, origRwy, sidList, selectWptSameIdent(input[index + 1]));
                 rte.Waypoints[rte.Waypoints.Count - 1] = emptyWpt;
 
-                return rte.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
+                return rte.ToString(Route.TracksDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
 
             }
 
@@ -440,7 +440,7 @@ namespace QSP.RouteFinding
                 var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy, starList);
                 rte.Waypoints[0] = emptyWpt;
 
-                return rte.ToString(Route.NatsDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
+                return rte.ToString(Route.TracksDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
 
             }
 

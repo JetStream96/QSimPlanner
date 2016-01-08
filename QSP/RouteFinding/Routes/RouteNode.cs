@@ -9,6 +9,11 @@ namespace QSP.RouteFinding.Routes
         public string AirwayToNext { get; set; }
         public double DistanceToNext { get; set; }
 
+        public RouteNode(Waypoint Waypoint)
+        {
+            this.Waypoint = Waypoint;
+        }
+
         public RouteNode(Waypoint Waypoint, string AirwayToNext, double DistanceToNext)
         {
             this.Waypoint = Waypoint;
