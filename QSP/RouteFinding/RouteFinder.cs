@@ -103,24 +103,49 @@ namespace QSP.RouteFinding
         private Route extractRoute(routeFindingData FindRouteData, int startPtIndex, int endPtIndex)
         {
             Route result = new Route();
+
+            var waypoints = new List<Waypoint>();
+            var airways = new List<string>();
+            var totalDistances = new List<double>();
+
             int index = endPtIndex;
 
             while (index != startPtIndex)
             {
-                result.Waypoints.Add(wptList[index]);
-                result.Via.Add(FindRouteData.FromAirway[index]);
+                waypoints.Add(wptList[index]);
+                airways.Add(FindRouteData.FromAirway[index]);
+                totalDistances.Add(FindRouteData.CurrentDis[index]);
 
                 index = FindRouteData.FromWptIndex[index];
             }
 
-            result.Waypoints.Add(wptList[startPtIndex]);
+            waypoints.Add(wptList[startPtIndex]);
+            ConvertToNeighborDistance(totalDistances);
 
-            result.TotalDistance = FindRouteData.CurrentDis[endPtIndex];
-            //total distance of the entire route
+            return BuildRoute(waypoints, airways, totalDistances);
+        }
 
-            result.Via.Reverse();
-            result.Waypoints.Reverse();
+        private static void ConvertToNeighborDistance(List<double> totalDistances)
+        {
+            for (int i = totalDistances.Count - 1; i > 0; i--)
+            {
+                totalDistances[i] -= totalDistances[i - 1];
+            }
+        }
 
+        private static Route BuildRoute(List<Waypoint> waypoints, List<string> airways, List<double> totalDistances)
+        {
+            var result = new Route();
+            int edgeCount = airways.Count;
+
+            result.AppendWaypoint(waypoints[edgeCount]);
+
+            for (int i = edgeCount - 1; i >= 0; i--)
+            {
+                result.AppendWaypoint(waypoints[i],
+                                      airways[i],
+                                      totalDistances[i]);
+            }
             return result;
         }
 
