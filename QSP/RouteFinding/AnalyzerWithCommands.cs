@@ -386,7 +386,7 @@ namespace QSP.RouteFinding
                 rte.Waypoints[0] = emptyWpt;
                 rte.Waypoints[rte.Waypoints.Count - 1] = emptyWpt;
 
-                return rte.ToString(Route.TracksDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
+                return rte.ToString(false, false,Route.TracksDisplayOption.Collapse);
             }
             return null;
         }
@@ -410,7 +410,7 @@ namespace QSP.RouteFinding
                 var rte = new RouteFinder().FindRoute(origIcao, origRwy, sidList, selectWptSameIdent(input[index + 1]));
                 rte.Waypoints[rte.Waypoints.Count - 1] = emptyWpt;
 
-                return rte.ToString(Route.TracksDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
+                return rte.ToString(false, false, Route.TracksDisplayOption.Collapse);
 
             }
 
@@ -422,7 +422,6 @@ namespace QSP.RouteFinding
         /// <param name="index">Index of "AUTO" in input() array.</param>
         private string tryParseAutoAsLast(string[] input, int index)
         {
-
             int lastIndex = input.Length - 1;
             string prevWpt = null;
 
@@ -438,15 +437,11 @@ namespace QSP.RouteFinding
                 var starList = starManager.GetStarList(destRwy);
 
                 var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy, starList);
-                rte.Waypoints[0] = emptyWpt;
+                rte.First.Waypoint = emptyWpt;
 
-                return rte.ToString(Route.TracksDisplayOption.Collapse, Route.RouteDisplayOption.AirportToAirport);
-
+                return rte.ToString(false, false, Route.TracksDisplayOption.Collapse);
             }
-
-            return null;
-            //this is not to be parsed as last
-
+            return null;        //this is not to be parsed as last         
         }
 
         #endregion

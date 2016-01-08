@@ -31,14 +31,14 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
 
             genRoute.Via[Math.Min(4, genRoute.Via.Count - 1)] = "AUTO";
 
-            rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            rte = genRoute.ToString(false, false);
             Debug.WriteLine("Route with \"AUTO\": " + rte);
-            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(Route.RouteDisplayOption.AirportToAirport));
+            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(false, false));
 
             var result = commandAnalyzer.Parse();
 
@@ -59,14 +59,14 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
 
             genRoute.Via[0] = "AUTO";
 
-            rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            rte = genRoute.ToString(false, false);
             Debug.WriteLine("Route with \"AUTO\": " + rte);
-            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(Route.RouteDisplayOption.AirportToAirport));
+            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(false, false));
 
             var result = commandAnalyzer.Parse();
 
@@ -87,14 +87,14 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
 
             genRoute.Via[0] = "AUTO";
 
-            rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            rte = genRoute.ToString(false, false);
             Debug.WriteLine("Route with \"AUTO\": " + rte);
-            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(Route.RouteDisplayOption.AirportToAirport));
+            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(false, false));
 
             var result = commandAnalyzer.Parse();
 
@@ -115,14 +115,14 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
 
             genRoute.Via[genRoute.Via.Count - 1] = "AUTO";
 
-            rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            rte = genRoute.ToString(false, false);
             Debug.WriteLine("Route with \"AUTO\": " + rte);
-            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(Route.RouteDisplayOption.AirportToAirport));
+            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(false, false));
 
             var result = commandAnalyzer.Parse();
 
@@ -143,15 +143,15 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
 
             genRoute.Via[0] = "AUTO";
             genRoute.Via[genRoute.Via.Count - 1] = "AUTO";
 
-            rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            rte = genRoute.ToString(false, false);
             Debug.WriteLine("Route with \"AUTO\": " + rte);
-            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(Route.RouteDisplayOption.AirportToAirport));
+            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(false, false));
 
             var result = commandAnalyzer.Parse();
 
@@ -174,15 +174,15 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, sidList, dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
 
             genRoute.Via[0] = "AUTO";
             genRoute.Via[genRoute.Via.Count - 1] = "AUTO";
 
-            rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            rte = genRoute.ToString(false, false);
             Debug.WriteLine("Route with \"AUTO\": " + rte);
-            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(Route.RouteDisplayOption.AirportToAirport));
+            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(false, false));
 
             var result = commandAnalyzer.Parse();
 
@@ -207,14 +207,14 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
 
             genRouteRand(genRoute);
 
-            rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            rte = genRoute.ToString(false, false);
             Debug.WriteLine("Route with \"RAND\": " + rte);
-            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(Route.RouteDisplayOption.AirportToAirport));
+            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(false, false));
 
             var result = commandAnalyzer.Parse();
 
@@ -249,15 +249,15 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
 
             genRoute.Via[0] = "RAND";
             genRoute.Via[genRoute.Via.Count - 1] = "RAND";
 
-            rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            rte = genRoute.ToString(false, false);
             Debug.WriteLine("Route with \"RAND\": " + rte);
-            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(Route.RouteDisplayOption.AirportToAirport));
+            AnalyzerWithCommands commandAnalyzer = new AnalyzerWithCommands(orig, origRwy, dest, destRwy, genRoute.ToString(false, false));
 
             var result = commandAnalyzer.Parse();
 

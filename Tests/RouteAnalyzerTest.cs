@@ -30,7 +30,7 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
             Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
@@ -54,7 +54,7 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
             Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
@@ -78,7 +78,7 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
             Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
@@ -102,7 +102,7 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
             Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
@@ -128,7 +128,7 @@ namespace Tests
 
             var genRoute = new RouteFinder().FindRoute(orig, origRwy, sidList, dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            string rte = genRoute.ToString(Route.RouteDisplayOption.AirportToAirport);
+            string rte = genRoute.ToString(false, false);
             Debug.WriteLine("Generated route: " + rte);
             Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
