@@ -58,7 +58,7 @@ namespace QSP.RouteFinding.Routes
             }
         }
 
-        public LinkedListNode< RouteNode> LastNode
+        public LinkedListNode<RouteNode> LastNode
         {
             get
             {
@@ -79,7 +79,7 @@ namespace QSP.RouteFinding.Routes
             links = new LinkedList<RouteNode>();
             toggler = new RouteToggler(links);
         }
-        
+
         /// <summary>
         /// Append the specified waypoint to the end of the route. 
         /// This waypoint is connected from the previous one by the airway specified, with the given distance.       
@@ -97,37 +97,56 @@ namespace QSP.RouteFinding.Routes
             links.AddLast(new RouteNode(item));
         }
 
+        public void AppendWaypoint(Waypoint item, string viaAirway, bool AutoComputeDistance)
+        {
+            if (AutoComputeDistance && links.Last != null)
+            {
+                var lastWpt = links.Last.Value.Waypoint;
+                AppendWaypoint(item,
+                               viaAirway,
+                               GreatCircleDistance(item.Lat, item.Lon, lastWpt.Lat, lastWpt.Lon));
+            }
+            else
+            {
+                AppendWaypoint(item, viaAirway);
+            }
+        }
+
         /// <summary>
         /// Append the specified waypoint to the end of the route. 
         /// This waypoint is connected from the previous one by the airway specified.
         /// </summary>
         public void AppendWaypoint(Waypoint item, string viaAirway)
         {
-            var last = links.Last;
-            double distance;
-
-            if (last != null)  // Route is non-empty.
+            if (links.Last != null)
             {
-                var lastWpt = last.Value.Waypoint;
-                distance = GreatCircleDistance(item.Lat, item.Lon, lastWpt.Lat, lastWpt.Lon);
+                links.Last.Value.AirwayToNext = viaAirway;
             }
-            else
-            {
-                distance = 0.0;
-            }
-
-            AppendWaypoint(item,
-                           viaAirway,
-                           distance);
+            links.AddLast(new RouteNode(item));
         }
 
         /// <summary>
         /// Append the specified waypoint to the end of the route. 
         /// This waypoint is connected from the previous one by direct-to (DCT).
         /// </summary>
+        public void AppendWaypoint(Waypoint item, bool AutoConnectToPrev)
+        {
+            if (AutoConnectToPrev)
+            {
+                AppendWaypoint(item, "DCT", true);
+            }
+            else
+            {
+                links.AddLast(new RouteNode(item));
+            }
+        }
+
+        /// <summary>
+        /// Append the specified waypoint to the end of the route. 
+        /// </summary>
         public void AppendWaypoint(Waypoint item)
         {
-            AppendWaypoint(item, "DCT");
+            links.AddLast(new RouteNode(item));
         }
 
         /// <summary>

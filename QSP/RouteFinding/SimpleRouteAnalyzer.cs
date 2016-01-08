@@ -85,7 +85,6 @@ namespace QSP.RouteFinding
 
         private bool tryParseWpt(string ident, Route rte)
         {
-
             if (lastAwy == null)
             {
                 var indices = RouteFindingCore.WptList.FindAllByID(ident);

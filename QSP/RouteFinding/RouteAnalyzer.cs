@@ -72,7 +72,6 @@ namespace QSP.RouteFinding
 
         private enum NodeType
         {
-            Start,
             Orig,
             Sid,
             Wpt,
@@ -85,9 +84,6 @@ namespace QSP.RouteFinding
         {
             switch (currentNode)
             {
-                case NodeType.Start:
-                    return new NodeType[] { NodeType.Orig, NodeType.Wpt, NodeType.Sid };
-
                 case NodeType.Orig:
                     return new NodeType[] { NodeType.Wpt, NodeType.Sid };
 
@@ -115,7 +111,7 @@ namespace QSP.RouteFinding
         {
             var result = new Route();
             string[] input = routeInput.ToUpper().Split(Delimiters, StringSplitOptions.RemoveEmptyEntries).RemoveElements("DCT");
-            NodeType currentNode = NodeType.Start;
+            NodeType currentNode = NodeType.Orig;
 
             sidLastWpt = null;
 
@@ -154,21 +150,10 @@ namespace QSP.RouteFinding
             }
 
             //add dest rwy
-            addDest(result, new Waypoint(destIcao + destRwy, AirportList.RwyLatLon(destIcao, destRwy)));
+            result.AppendWaypoint(new Waypoint(destIcao + destRwy, AirportList.RwyLatLon(destIcao, destRwy)));
             result.SetNat(NatsManager);
 
             return result;
-        }
-
-        private void addDest(Route rte, Waypoint dest)
-        {
-            if (rte.Waypoints.Count - 1 == rte.Via.Count)
-            {
-                rte.Via.Add("DCT");
-                rte.TotalDistance += GreatCircleDistance(rte.Waypoints.Last().LatLon, dest.LatLon);
-            }
-
-            rte.Waypoints.Add(dest);
         }
 
         /// <summary>
@@ -208,9 +193,11 @@ namespace QSP.RouteFinding
                 var starManager = new StarHandler(destIcao);
                 var starInfo = starManager.InfoForAnalysis(destRwy, text);
 
-                rte.TotalDistance += starInfo.TotalDistance;
-                addWptIfNoDuplicate(rte, starInfo.FirstWaypoint);
-                rte.Via.Add(text);
+                // If the last waypoint is not the first waypoint of the STAR, we automatically correct this by
+                // inserting the first waypoint of STAR.
+                rte.Last.DistanceToNext = starInfo.TotalDistance;
+                rte.Last.AirwayToNext = text;
+                directToWptIfNoDuplicate(rte, starInfo.FirstWaypoint);
 
                 return true;
             }
@@ -227,10 +214,7 @@ namespace QSP.RouteFinding
                 var sidManager = new SidHandler(origIcao);
                 var sidInfo = sidManager.InfoForAnalysis(origRwy, text);
 
-                rte.TotalDistance += sidInfo.TotalDistance;
-                rte.Via.Add(text);
-                addWptIfNoDuplicate(rte, sidInfo.LastWaypoint);
-
+                rte.AppendWaypoint(sidInfo.LastWaypoint, text, sidInfo.TotalDistance);
                 sidLastWpt = sidInfo.LastWaypoint;
 
                 return true;
@@ -259,7 +243,7 @@ namespace QSP.RouteFinding
             {
                 if (WptList.GetEdge(i).value.Airway == text)
                 {
-                    rte.Via.Add(text);
+                    rte.Last.AirwayToNext = text;
                     return true;
                 }
             }
@@ -274,7 +258,6 @@ namespace QSP.RouteFinding
                 case NodeType.Awy:
                     return tryFindWptOnAwy(rte, text);
 
-                case NodeType.Start:
                 case NodeType.Orig:
                 case NodeType.Wpt:
                     return tryAddWpt(rte, text);
@@ -294,24 +277,23 @@ namespace QSP.RouteFinding
 
         private static bool tryFindWptOnAwy(Route rte, string text)
         {
-            int lastWptIndex = WptList.FindByWaypoint(rte.Waypoints.Last());
-            var wpts = new AirwayNodeFinder(lastWptIndex, rte.Via.Last(), text).FindWaypoints();
+            int lastWptIndex = WptList.FindByWaypoint(rte.Last.Waypoint);
+            string airway = rte.LastNode.Previous.Value.AirwayToNext;
+
+            var wpts = new AirwayNodeFinder(lastWptIndex, airway, text).FindWaypoints();
 
             if (wpts == null)
             {
                 return false;
             }
 
-            string airway = rte.Via.Last();
-            addWptIfNoDuplicate(ref rte, wpts[0], airway);
+            addWptIfNoDuplicate(rte, wpts[0], airway,true);
 
             if (wpts.Count >= 2)
             {
                 for (int i = 1; i < wpts.Count; i++)
                 {
-                    rte.TotalDistance += GreatCircleDistance(rte.Waypoints.Last().LatLon, wpts[i].LatLon);
-                    rte.Via.Add(airway);
-                    rte.Waypoints.Add(wpts[i]);
+                    rte.AppendWaypoint(wpts[i], airway, true);
                 }
             }
             return true;
@@ -327,34 +309,24 @@ namespace QSP.RouteFinding
             }
             else
             {
-                addWptIfNoDuplicate(rte, wpt);
+                directToWptIfNoDuplicate(rte, wpt);
                 return true;
             }
         }
 
-        private static void addWptIfNoDuplicate(Route rte, Waypoint wpt)
+        private static void directToWptIfNoDuplicate(Route rte, Waypoint wpt)
         {
-            if (!wpt.Equals(rte.Waypoints.Last()))
+            if (wpt.Equals(rte.Last.Waypoint) == false)
             {
-                if (rte.Waypoints.Count == rte.Via.Count + 1)
-                {
-                    rte.Via.Add("DCT");
-                }
-                rte.Waypoints.Add(wpt);
+                rte.AppendWaypoint(wpt, true);
             }
         }
 
-        private static void addWptIfNoDuplicate(ref Route rte, Waypoint wpt, string airway)
+        private static void addWptIfNoDuplicate(Route rte, Waypoint wpt, string airway,bool AutoComputeDistance)
         {
-            if (!wpt.Equals(rte.Waypoints.Last()))
+            if (wpt.Equals(rte.Last.Waypoint) == false)
             {
-                if (rte.Waypoints.Count == rte.Via.Count + 1)
-                {
-                    rte.Via.Add(airway);
-                }
-
-                rte.TotalDistance += GreatCircleDistance(rte.Waypoints.Last().LatLon, wpt.LatLon);
-                rte.Waypoints.Add(wpt);
+                rte.AppendWaypoint(wpt, airway, AutoComputeDistance);
             }
         }
 
