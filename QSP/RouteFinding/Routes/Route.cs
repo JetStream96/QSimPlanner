@@ -29,13 +29,11 @@ namespace QSP.RouteFinding.Routes
                 double totalDis = 0.0;
                 var first = links.First;
                 var node = first;
-                var next = node.Next;
 
-                while (next != first)
+                while (node != links.Last)
                 {
                     totalDis += node.Value.DistanceToNext;
-                    node = next;
-                    next = node.Next;
+                    node = node.Next;
                 }
 
                 return totalDis;
@@ -228,11 +226,24 @@ namespace QSP.RouteFinding.Routes
                 result.Append(node.Value.Waypoint.ID + ' ');
             }
 
-            while (node != last)
+            while (node.Next != last)
             {
-                result.Append(node.Value.AirwayToNext + ' ');
-                node = node.Next;
-                result.Append(node.Value.Waypoint.ID + ' ');
+                if (node.Previous == null || node.Previous.Value.AirwayToNext != node.Value.AirwayToNext)
+                {
+                    result.Append(node.Value.AirwayToNext + ' ');
+                    node = node.Next;
+                    result.Append(node.Value.Waypoint.ID + ' ');
+                }
+                else
+                {
+                    node = node.Next;
+                }
+            }
+            result.Append(node.Value.AirwayToNext);
+
+            if (ShowLastWaypoint)
+            {
+                result.Append(last.Value.Waypoint.ID);
             }
 
             return result.ToString();

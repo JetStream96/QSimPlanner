@@ -124,7 +124,7 @@ namespace QSP.RouteFinding.Tracks.Common
         {
 
             List<WptPair> result = new List<WptPair>();
-            var firstWpt = _mainRoute.Waypoints.First();
+            var firstWpt = _mainRoute.First.Waypoint;
 
             foreach (var i in rteFrom)
             {
@@ -139,7 +139,7 @@ namespace QSP.RouteFinding.Tracks.Common
         {
 
             List<WptPair> result = new List<WptPair>();
-            var lastWpt = _mainRoute.Waypoints.Last();
+            var lastWpt = _mainRoute.Last.Waypoint;
 
             foreach (var i in rteTo)
             {

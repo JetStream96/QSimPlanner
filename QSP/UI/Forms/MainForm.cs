@@ -779,7 +779,7 @@ namespace QSP
 
             RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, Route.TracksDisplayOption.Collapse);
 
-            double directDis = MathTools.Utilities.GreatCircleDistance(RouteToDest.First.Waypoint.LatLon, RouteToDest.First.Waypoint.LatLon);
+            double directDis = MathTools.Utilities.GreatCircleDistance(RouteToDest.First.Waypoint.LatLon, RouteToDest.Last.Waypoint.LatLon);
             RouteDisLbl.Text = "Total Dis: " + Math.Round(RouteToDest.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToDest.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
         }
 

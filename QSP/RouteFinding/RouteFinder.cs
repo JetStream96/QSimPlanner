@@ -56,8 +56,8 @@ namespace QSP.RouteFinding
 
             var result = getRoute(origIndex, destIndex);
             wptList.Restore();
-
-            result.SetNat(NatsManager);
+            // TODO: Renable this functionality. 
+            //            result.SetNat(NatsManager);
             return result;
         }
 
@@ -70,8 +70,8 @@ namespace QSP.RouteFinding
 
             var result = getRoute(origIndex, wptIndex);
             wptList.Restore();
-
-            result.SetNat(NatsManager);  //TODO: This need to be set as well.
+            // TODO: Renable this functionality. 
+            //            result.SetNat(NatsManager);  //TODO: This need to be set as well.
             return result;
         }
 
@@ -83,8 +83,8 @@ namespace QSP.RouteFinding
             int endIndex = addStar(icao, rwy, star);
             var result = getRoute(wptIndex, endIndex);
             wptList.Restore();
-
-            result.SetNat(NatsManager);
+            // TODO: Renable this functionality. 
+            //            result.SetNat(NatsManager);
             return result;
         }
 
@@ -95,8 +95,8 @@ namespace QSP.RouteFinding
         {
             var result = getRoute(wptIndex1, wptIndex2);
             wptList.Restore();
-
-            result.SetNat(NatsManager);
+            // TODO: Renable this functionality. 
+            //            result.SetNat(NatsManager);
             return result;
         }
 
@@ -127,9 +127,9 @@ namespace QSP.RouteFinding
 
         private static void ConvertToNeighborDistance(List<double> totalDistances)
         {
-            for (int i = totalDistances.Count - 1; i > 0; i--)
+            for (int i = 0; i < totalDistances.Count - 1; i++)
             {
-                totalDistances[i] -= totalDistances[i - 1];
+                totalDistances[i] -= totalDistances[i + 1];
             }
         }
 

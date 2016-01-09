@@ -87,7 +87,7 @@ flightPath.setMap(map);");
             foreach (var i in rte)
             {
                 mapHtml.Append(string.Format(
-@"var marker{0}  = new MarkerWithLabel({
+@"var marker{0}  = new MarkerWithLabel({{
 position: wpt{1},
 icon:'pixel_trans.gif',
 draggable: false,
@@ -96,12 +96,12 @@ map: map,
 labelContent: ""{2}"",
 labelAnchor: new google.maps.Point(0, 0),
 labelClass: ""labels"", // the CSS class for the label
-labelStyle: {opacity: 0.75}
-});
+labelStyle: {{opacity: 0.75}}
+}});
 
-var iw{3} = new google.maps.InfoWindow({
+var iw{3} = new google.maps.InfoWindow({{
 content: ""Home For Sale""
-});
+}});
 
 ", counter, counter, wptIdDisplay(rte, i.Waypoint, counter), counter++));
 

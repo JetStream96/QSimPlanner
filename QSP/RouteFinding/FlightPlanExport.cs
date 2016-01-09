@@ -52,36 +52,32 @@ namespace QSP.RouteFinding
         /// <param name="rte"></param>
         public static string GeneratePmdgRteFile(Route rte)
         {
-
             rte.Expand();
 
-            int numWpts = rte.Waypoints.Count;
+            int numWpts = rte.Count;
             //including dep/arr airports
-            string icaoOrig = rte.Waypoints[0].ID.Substring(0, 4);
-            string icaoDest = rte.Waypoints.Last().ID.Substring(0, 4);
+            string icaoOrig = rte.First.Waypoint.ID.Substring(0, 4);
+            string icaoDest = rte.Last.Waypoint.ID.Substring(0, 4);
 
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             appendOrigAirportPart(numWpts, icaoOrig, result);
+            
+            var node = rte.FirstNode.Next;
 
-            string viaStr = null;
-
-
-            for (int i = 1; i <= numWpts - 2; i++)
+            while (node != rte.LastNode)
             {
-                if (i == numWpts - 2 || rte.Via[i] == "DCT")
+                var airway = node.Value.AirwayToNext;
+                var wpt = node.Value.Waypoint;
+
+                if (airway == "DCT" || node.Next == rte.LastNode)
                 {
-                    viaStr = "DIRECT";
-                }
-                else
-                {
-                    viaStr = rte.Via[i];
+                    airway = "DIRECT";
                 }
 
-                Waypoint w = rte.Waypoints[i];
-                result.Append(w.ID + Environment.NewLine + "5" + Environment.NewLine + viaStr + Environment.NewLine + "1 ");
-                result.AppendLine(latLonToPMDGRteFormat(w.Lat, w.Lon) + " 0" + Environment.NewLine + "0" + Environment.NewLine + "0" + Environment.NewLine + "0");
+                result.Append(wpt.ID + Environment.NewLine + "5" + Environment.NewLine + airway + Environment.NewLine + "1 ");
+                result.AppendLine(latLonToPMDGRteFormat(wpt.Lat, wpt.Lon) + " 0" + Environment.NewLine + "0" + Environment.NewLine + "0" + Environment.NewLine + "0");
                 result.AppendLine();
-
+                node = node.Next;
             }
 
             appendDestAirportPart(icaoDest, result);

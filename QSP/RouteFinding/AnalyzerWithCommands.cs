@@ -383,10 +383,8 @@ namespace QSP.RouteFinding
             if (index >= 1 && index + 1 < input.Length)
             {
                 var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), selectWptSameIdent(input[index + 1]));
-                rte.Waypoints[0] = emptyWpt;
-                rte.Waypoints[rte.Waypoints.Count - 1] = emptyWpt;
 
-                return rte.ToString(false, false,Route.TracksDisplayOption.Collapse);
+                return rte.ToString(false, false, Route.TracksDisplayOption.Collapse);
             }
             return null;
         }
@@ -406,9 +404,7 @@ namespace QSP.RouteFinding
                 //find all sids
                 var sidManager = new SidHandler(origIcao);
                 var sidList = sidManager.GetSidList(origRwy);
-
                 var rte = new RouteFinder().FindRoute(origIcao, origRwy, sidList, selectWptSameIdent(input[index + 1]));
-                rte.Waypoints[rte.Waypoints.Count - 1] = emptyWpt;
 
                 return rte.ToString(false, false, Route.TracksDisplayOption.Collapse);
 
@@ -435,9 +431,7 @@ namespace QSP.RouteFinding
                 //find all stars
                 var starManager = new StarHandler(destIcao);
                 var starList = starManager.GetStarList(destRwy);
-
                 var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy, starList);
-                rte.First.Waypoint = emptyWpt;
 
                 return rte.ToString(false, false, Route.TracksDisplayOption.Collapse);
             }
