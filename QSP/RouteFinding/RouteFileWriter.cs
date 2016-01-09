@@ -22,8 +22,8 @@ namespace QSP.RouteFinding
         {
             this.commands = commands;
             this.txtToWrite = txtToWrite;
-            var orig = route.Waypoints.First().ID.Substring(0, 4);
-            var dest = route.Waypoints.Last().ID.Substring(0, 4);
+            var orig = route.First.Waypoint.ID.Substring(0, 4);
+            var dest = route.Last.Waypoint.ID.Substring(0, 4);
             origDest = orig + dest;
         }
 
@@ -97,13 +97,13 @@ namespace QSP.RouteFinding
             }
         }
 
-        private  void writeFiles()
+        private void writeFiles()
         {
-  //if nothing is going to be exported, i.e. user didn't select any export option, then abort
+            //if nothing is going to be exported, i.e. user didn't select any export option, then abort
             if (FilesToWrite.Count == 0)
             {
                 MessageBox.Show("No route file to be exported. Please select select export settings in options page.",
-                    "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -142,12 +142,12 @@ namespace QSP.RouteFinding
                 MessageBox.Show("Company route " + FilesToWrite.First() + " exported.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        
+
         public void Export()
         {
             createBackup();
             findAppropriateFileName();
             writeFiles();
-        } 
+        }
     }
 }

@@ -11,63 +11,102 @@ namespace QSP.RouteFinding
         public static StringBuilder MapDrawString(Route rte, int width, int height)
         {
             rte.Expand();
-            var waypoints = rte.Waypoints;
-            StringBuilder mapHtml = new StringBuilder();
-            
-            mapHtml.Append(@"<!DOCTYPE html>
-            <html>
-            <head>
-            <meta http-equiv=""content-type"" content=""text/html; charset=utf-8"" />
-             <style type=""text/css"">
-               .labels {
-                 color: red;
-                 background-color: white;
-                 font-family: ""Lucida Grande"", ""Arial"", sans-serif;
-                 font-size: 10px;
-                 font-weight: bold;
-                 text-align: center;
-                 width: 40px;
-                 border: 2px solid black;
-                 white-space: nowrap;
-               }
-             </style>
-             <script type=""text/javascript"" src=""http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=False""></script>
-             <script type = ""text/javascript"" src=""http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.9/src/markerwithlabel.js""></script>
-             <script type=""text/javascript"">
-            function initialize()
-            {
-            ");
+            var mapHtml = new StringBuilder();
 
-            for (int i = 0; i <= waypoints.Count - 1; i++)
+            mapHtml.Append(
+@"<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv=""content-type"" content=""text/html; charset=utf-8"" />
+    <style type=""text/css"">
+    .labels {
+        color: red;
+        background-color: white;
+        font-family: ""Lucida Grande"", ""Arial"", sans-serif;
+        font-size: 10px;
+        font-weight: bold;
+        text-align: center;
+        width: 40px;
+        border: 2px solid black;
+        white-space: nowrap;
+    }
+    </style>
+    <script type=""text/javascript"" src=""http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=False""></script>
+    <script type = ""text/javascript"" src=""http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.9/src/markerwithlabel.js""></script>
+    <script type=""text/javascript"">
+function initialize()
+{
+");
+
+            int counter = 0;
+            foreach (var i in rte)
             {
-                mapHtml.Append("var wpt" + i.ToString() + "=new google.maps.LatLng(" + waypoints[i].Lat + "," + waypoints[i].Lon + ");" + Environment.NewLine);
+                mapHtml.AppendLine("var wpt" + (counter++).ToString() + "=new google.maps.LatLng(" +
+                                   i.Waypoint.Lat + "," + i.Waypoint.Lon + ");");
             }
 
             //now the center of map
-            double c_lat = 0;
-            double c_lon = 0;
-            c_lat = (waypoints[0].Lat + waypoints[waypoints.Count - 1].Lat) / 2;
-            c_lon = (waypoints[0].Lon + waypoints[waypoints.Count - 1].Lon) / 2;
+            double centerLat = (rte.First.Waypoint.Lat + rte.Last.Waypoint.Lat) / 2;
+            double centerLon = (rte.First.Waypoint.Lon + rte.Last.Waypoint.Lon) / 2;
 
-            mapHtml.Append("var centerP" + "=new google.maps.LatLng(" + Convert.ToString(c_lat) + "," + Convert.ToString(c_lon) + ");" + Environment.NewLine);
+            mapHtml.AppendLine(string.Format("var centerP=new google.maps.LatLng({0},{1});", centerLat, centerLon));
 
             int zoomlevel = 6;
 
-            mapHtml.Append("var mapProp = {" + Environment.NewLine + "  center:centerP," + Environment.NewLine + "  zoom:" + zoomlevel.ToString() + "," + Environment.NewLine + "  mapTypeId:google.maps.MapTypeId.ROADMAP" + Environment.NewLine + "  };" + Environment.NewLine + "var map=new google.maps.Map(document.getElementById(\"googleMap\"),mapProp);" + Environment.NewLine + "var myTrip=[");
+            mapHtml.Append(
+@"var mapProp = {
+center:centerP,
+zoom:" + zoomlevel.ToString() + @",
+mapTypeId:google.maps.MapTypeId.ROADMAP
+};
+var map=new google.maps.Map(document.getElementById(""googleMap""),mapProp);
+var myTrip=[");
 
-            for (int i = 0; i <= waypoints.Count - 2; i++)
+            counter = 0;
+            foreach (var i in rte)
             {
-                mapHtml.Append("wpt" + i.ToString() + ",");
+                if (counter != rte.Count - 1)
+                {
+                    mapHtml.Append("wpt" + (counter++).ToString() + ",");
+                }
+                else
+                {
+                    mapHtml.AppendLine("wpt" + (counter++).ToString() + @"];
+var flightPath=new google.maps.Polyline({
+path:myTrip,
+strokeColor:""#000000"",
+strokeOpacity:1.0,
+strokeWeight:3,
+geodesic: true
+});
+flightPath.setMap(map);");
+                }
             }
-            mapHtml.Append("wpt" + (waypoints.Count - 1).ToString() + "];" + Environment.NewLine + "var flightPath=new google.maps.Polyline({" + Environment.NewLine + "  path:myTrip," + Environment.NewLine + "  strokeColor:\"#000000\"," + Environment.NewLine + "  strokeOpacity:1.0," + Environment.NewLine + "  strokeWeight:3," + Environment.NewLine + "  geodesic: true" + Environment.NewLine + "  });" + Environment.NewLine + "flightPath.setMap(map);" + Environment.NewLine);
 
-
-            for (int i = 0; i <= waypoints.Count - 1; i++)
+            counter = 0;
+            foreach (var i in rte)
             {
-                mapHtml.Append("var marker" + i.ToString() + " = new MarkerWithLabel({" + Environment.NewLine + "       position: " + "wpt" + i.ToString() + "," + Environment.NewLine + "icon:'pixel_trans.gif'," + Environment.NewLine + "       draggable: false," + Environment.NewLine + "       raiseOnDrag: true," + Environment.NewLine + "       map: map," + Environment.NewLine + "       labelContent: \"" + wptIdDisplay(waypoints, i) + "\"," + Environment.NewLine + "       labelAnchor: new google.maps.Point(0, 0)," + Environment.NewLine + "       labelClass: \"labels\", // the CSS class for the label" + Environment.NewLine + "       labelStyle: {opacity: 0.75}" + Environment.NewLine + "     });" + Environment.NewLine + "" + Environment.NewLine + "var iw" + i.ToString() + " = new google.maps.InfoWindow({" + Environment.NewLine + "       content: \"Home For Sale\"" + Environment.NewLine + "     });" + Environment.NewLine + "" + Environment.NewLine);
+                mapHtml.Append(string.Format(
+@"var marker{0}  = new MarkerWithLabel({
+position: wpt{1},
+icon:'pixel_trans.gif',
+draggable: false,
+raiseOnDrag: true,
+map: map,
+labelContent: ""{2}"",
+labelAnchor: new google.maps.Point(0, 0),
+labelClass: ""labels"", // the CSS class for the label
+labelStyle: {opacity: 0.75}
+});
+
+var iw{3} = new google.maps.InfoWindow({
+content: ""Home For Sale""
+});
+
+", counter, counter, wptIdDisplay(rte, i.Waypoint, counter), counter++));
 
             }
-            
+
             mapHtml.Append(@"}
             
             google.maps.event.addDomListener(window, 'load', initialize);
@@ -83,18 +122,16 @@ namespace QSP.RouteFinding
 
         }
 
-        private static string wptIdDisplay(List<Waypoint> item, int index)
+        private static string wptIdDisplay(Route rte, Waypoint waypoint, int index)
         {
-            if (index == 0 || index == item.Count - 1)
+            if (index == 0 || index == rte.Count - 1)
             {
-                return item[index].ID.Substring(0, 4);
+                return waypoint.ID.Substring(0, 4);
             }
             else
             {
-                return item[index].ID;
+                return waypoint.ID;
             }
         }
-
     }
-
 }

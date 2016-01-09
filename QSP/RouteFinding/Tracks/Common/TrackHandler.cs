@@ -85,10 +85,10 @@ namespace QSP.RouteFinding.Tracks.Common
 
         private void addMainRoute(Route rte, T trk)
         {
-            int indexStart = addFirstWpt(rte.Waypoints.First());
-            int indexEnd = addLastWpt(rte.Waypoints.Last());
+            int indexStart = addFirstWpt(rte.First.Waypoint);
+            int indexEnd = addLastWpt(rte.Last.Waypoint);
 
-            wptList.AddNeighbor(indexStart, indexEnd, new Neighbor(airwayIdent(trk), TotalDis(rte)));
+            wptList.AddNeighbor(indexStart, indexEnd, new Neighbor(airwayIdent(trk), rte.TotalDistance));
         }
 
         //returns the index of added wpt in wptList
@@ -134,26 +134,5 @@ namespace QSP.RouteFinding.Tracks.Common
             }
             throw new TrackWaypointNotFoundException(string.Format("Waypoint {0} is not found.", wpt.ID));
         }
-
-        private static double TotalDis(Route route)
-        {
-            var wpts = route.Waypoints;
-
-            if (wpts.Count <= 1)
-            {
-                return 0;
-            }
-
-            double dis = 0;
-
-            for (int i = 0; i <= wpts.Count - 2; i++)
-            {
-                dis += GreatCircleDistance(wpts[i].Lat, wpts[i].Lon, wpts[i + 1].Lat, wpts[i + 1].Lon);
-            }
-
-            return dis;
-        }
-
     }
-
 }

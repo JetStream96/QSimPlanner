@@ -11,10 +11,9 @@ namespace QSP.WindAloft
     {
         public static int[] FullWindDataSet = { 100, 200, 250, 300, 350, 400, 500, 600, 700, 850 };
         public static string wxFileDirectory = QspCore.QspLocalDirectory + "\\Wx\\tmp";
-        
+
         public static int AvgTailWind(Route rte, int cruizeLevel, int tas)
         {
-
             //returns the avg tailwind to dest and altn, respectifully
             //based on the route generated/built from RouteGen page
             //assuming all wx are downloaded and decoded from grib2
@@ -23,15 +22,16 @@ namespace QSP.WindAloft
             double AirDisToDest = 0.0;
             double GrdDisToDest = 0.0;
 
-            for (int i = 0; i < rte.Waypoints.Count - 1; i++)
+            var node = rte.FirstNode;
+
+            while (node != rte.LastNode)
             {
-                var t = GetAirDisGrdDis(rte.Waypoints[i].LatLon, rte.Waypoints[i + 1].LatLon, tas, cruizeLevel);
+                var t = GetAirDisGrdDis(node.Value.Waypoint.LatLon, node.Next.Value.Waypoint.LatLon, tas, cruizeLevel);
                 AirDisToDest += t.Item1;
                 GrdDisToDest += t.Item2;
             }
 
             return (int)(tas * (GrdDisToDest / AirDisToDest - 1));
-
         }
 
         public static Tuple<double, double> GetAirDisGrdDis(LatLon latlon1, LatLon latlon2, int tas, double FL)

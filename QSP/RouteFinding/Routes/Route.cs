@@ -50,6 +50,14 @@ namespace QSP.RouteFinding.Routes
             }
         }
 
+        public LinkedListNode<RouteNode> FirstNode
+        {
+            get
+            {
+                return links.First;
+            }
+        }
+
         public RouteNode Last
         {
             get
