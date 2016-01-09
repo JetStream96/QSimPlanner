@@ -62,11 +62,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
         public override async void GetAllTracksAsync()
         {
             await Task.Run(() => GetAllTracks());
-        }
-
-        protected override string airwayIdent(PacificTrack trk)
-        {
-            return "PACOT" + trk.Ident;
-        }
+        }        
     }
 }

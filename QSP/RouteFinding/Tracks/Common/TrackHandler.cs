@@ -14,10 +14,12 @@ namespace QSP.RouteFinding.Tracks.Common
         protected List<T> allTracks;
         protected WaypointList wptList;
 
+        /// <summary>
+        /// Download and parse all track messages.
+        /// </summary>
         public abstract void GetAllTracks();
         public abstract void GetAllTracksAsync();
-        protected abstract string airwayIdent(T trk);
-
+        
         public TrackHandler() : this(RouteFindingCore.WptList)
         {
         }
@@ -87,7 +89,7 @@ namespace QSP.RouteFinding.Tracks.Common
             int indexStart = addFirstWpt(rte.First.Waypoint);
             int indexEnd = addLastWpt(rte.Last.Waypoint);
 
-            wptList.AddNeighbor(indexStart, indexEnd, new Neighbor(airwayIdent(trk), rte.TotalDistance));
+            wptList.AddNeighbor(indexStart, indexEnd, new Neighbor(trk.AirwayIdent, rte.TotalDistance));
         }
 
         //returns the index of added wpt in wptList

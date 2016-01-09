@@ -72,6 +72,14 @@ namespace QSP.RouteFinding.Tracks.Ausots
             get { return new LatLon(-25, 133); }
         }
 
+        public string AirwayIdent
+        {
+            get
+            {
+                return  "AUSOT" + Ident;
+            }
+        }
+
         #endregion
 
         private void checkTrackExist()
@@ -270,5 +278,6 @@ namespace QSP.RouteFinding.Tracks.Ausots
             _routeFrom.RemoveTinyArray(2);
             _routeTo.RemoveTinyArray(2);
         }
+        
     }
 }

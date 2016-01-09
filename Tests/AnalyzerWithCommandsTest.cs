@@ -17,7 +17,7 @@ namespace Tests
     {
         // TODO: Disabled currently.
 
-        #region "Auto command test"
+        //#region "Auto command test"
 
         //[TestMethod()]
         //public void AutoCommandMiddleTest()
@@ -266,7 +266,7 @@ namespace Tests
 
         //}
 
-        #endregion
+        //#endregion
 
     }
 }

@@ -14,7 +14,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private string trkMsg;
 
         /// <summary>
-        /// 
+        /// Download and parse all track messages.
         /// </summary>
         public override void GetAllTracks()
         {
@@ -56,7 +56,6 @@ namespace QSP.RouteFinding.Tracks.Ausots
             try
             {
                 trkMsg = AusotsDownloader.DownloadTrackMessage();
-
             }
             catch(Exception ex)
             {
@@ -75,10 +74,6 @@ namespace QSP.RouteFinding.Tracks.Ausots
             int x = trkMsg.IndexOf("</pre>", item.Last());
             item.Add(x < 0 ? trkMsg.Length : x);
         }
-
-        protected override string airwayIdent(AusTrack trk)
-        {
-            return "AUSOT" + trk.Ident;
-        }
+        
     }
 }

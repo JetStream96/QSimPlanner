@@ -50,7 +50,7 @@ namespace QSP.RouteFinding.Routes
             {
                 return;
             }
-
+            
             foreach (var i in tracks.AllEntries)
             {
                 RouteCollapse.Collapse(route, i.Route, i.RouteName);

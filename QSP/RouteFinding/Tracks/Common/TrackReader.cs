@@ -9,23 +9,22 @@ using QSP.RouteFinding.RouteAnalyzers;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
-
+    // Read the track waypoints as strings, and try to find each waypoints in WptList
     public class TrackReader<T> where T : ITrack
     {
-        //Read the track waypoints as strings, and try to find each waypoints in WptList
-
         private List<WptPair> routeFromTo;
         private Route mainRoute;
         private T trk;
 
-        public TrackReader(T item) 
+        /// <exception cref="InvalidRouteException"></exception>
+        /// <exception cref="WaypointNotFoundException"></exception>
+        public TrackReader(T item)
         {
             trk = item;
             mainRoute = readMainRoute(trk.MainRoute);
 
             //The format of this part is rather unpredictable. For example, a route can even start with an airway:
             //RTS/CYVR V317 QQ YZT JOWEN 
-            //KSEA TOU FINGS JOWEN 
             //...
             //Since this part is not that important, we can allow it to fail and still ignore it.
             try
@@ -137,6 +136,8 @@ namespace QSP.RouteFinding.Tracks.Common
 
         #region "Method for main route"
 
+        /// <exception cref="InvalidRouteException"></exception>
+        /// <exception cref="WaypointNotFoundException"></exception>
         private Route readMainRoute(ReadOnlyCollection<string> rte)
         {
             LatLon latLon = trk.PreferredFirstLatLon;

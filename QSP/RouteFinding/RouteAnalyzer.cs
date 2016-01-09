@@ -345,7 +345,6 @@ namespace QSP.RouteFinding
 
             string result = "\"" + text + "\" is not a valid ";
 
-
             if (names.Count == 1)
             {
                 result += names[0];

@@ -6,10 +6,8 @@ using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding
 {
-
-    static class FlightPlanExport
+    public static class FlightPlanExport
     {
-
         private static string latLonToPMDGRteFormat(Vector2D latlon)
         {
             return latLonToPMDGRteFormat(latlon.x, latlon.y);
@@ -17,33 +15,26 @@ namespace QSP.RouteFinding
 
         private static string latLonToPMDGRteFormat(double lat, double lon)
         {
-
             string s = null;
 
-            //N
-            if (lat > 0)
+            if (lat > 0.0)
             {
                 s = "N " + lat;
-                //S
             }
             else
             {
                 s = "S " + (-lat);
             }
 
-            //E
-            if (lon > 0)
+            if (lon > 0.0)
             {
                 s += " E " + lon;
-                //W
             }
             else
             {
                 s += " W " + (-lon);
             }
-
             return s;
-
         }
 
         /// <summary>
@@ -61,7 +52,7 @@ namespace QSP.RouteFinding
 
             var result = new StringBuilder();
             appendOrigAirportPart(numWpts, icaoOrig, result);
-            
+
             var node = rte.FirstNode.Next;
 
             while (node != rte.LastNode)
@@ -116,7 +107,5 @@ namespace QSP.RouteFinding
             result.Append("-" + Environment.NewLine + "-1000000" + Environment.NewLine + "-1000000" + Environment.NewLine + Environment.NewLine);
 
         }
-
     }
-
 }

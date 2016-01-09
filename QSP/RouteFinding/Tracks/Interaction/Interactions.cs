@@ -12,7 +12,7 @@ namespace QSP.RouteFinding.Tracks.Interaction
 
             try
             {
-                await Task.Factory.StartNew(() => NatsManager.DownloadNatsMsg());
+                await Task.Factory.StartNew(NatsManager.DownloadNatsMsg);
             }
             catch 
             {
@@ -26,14 +26,14 @@ namespace QSP.RouteFinding.Tracks.Interaction
         public async static Task SetPacots()
         {
             TrackStatusRecorder.Clear(TrackType.Pacots);
-            await Task.Factory.StartNew(() => PacotsManager.GetAllTracks());
+            await Task.Factory.StartNew(PacotsManager.GetAllTracks);
             PacotsManager.AddToWptList();
         }
 
         public async static Task SetAusots()
         {
             TrackStatusRecorder.Clear(TrackType.Ausots);
-            await Task.Factory.StartNew(() => AusotsManager.GetAllTracks());
+            await Task.Factory.StartNew(AusotsManager.GetAllTracks);
             AusotsManager.AddToWptList();
         }
 

@@ -71,6 +71,14 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
         }
 
+        public string AirwayIdent
+        {
+            get
+            {
+                return "PACOT" + Ident;
+            }
+        }
+
         #endregion
 
         public PacificTrack(string trackMsg, PacotDirection direction)

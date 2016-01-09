@@ -40,10 +40,21 @@ namespace QSP.RouteFinding.RouteAnalyzers
             this.wptList = wptList;
         }
 
+        /// <exception cref="InvalidRouteException"></exception>
+        /// <exception cref="WaypointNotFoundException"></exception>
         public Route Parse()
         {
             var firstWptCandidates = wptList.FindAllByID(firstWptID());
-            firstWptCandidates.Sort(CompareDistance());
+
+            if (firstWptCandidates.Count == 0)
+            {
+                throw new WaypointNotFoundException();
+            }
+
+            if (firstWptCandidates.Count > 1)
+            {
+                firstWptCandidates.Sort(CompareDistance());
+            }
 
             foreach (var i in firstWptCandidates)
             {
@@ -51,8 +62,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 {
                     return new SimpleRouteAnalyzer(route, i, wptList).Parse();
                 }
-                catch
-                { }
+                catch { }
             }
             throw new InvalidRouteException();
         }

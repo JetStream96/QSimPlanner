@@ -78,8 +78,6 @@ namespace QSP.RouteFinding.Tracks.Nats
                                                     new XElement("Message", Message)});
         }
 
-
-
         public List<NorthAtlanticTrack> ConvertToTracks()
         {
             char trkStartChar = (Direction == NatsDir.West ? 'A' : 'N');

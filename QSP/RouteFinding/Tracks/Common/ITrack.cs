@@ -6,6 +6,7 @@ namespace QSP.RouteFinding.Tracks.Common
     public interface ITrack
     {
         string Ident { get; }
+        string AirwayIdent { get; }
         string TimeStart { get; }
         string TimeEnd { get; }
         string Remarks { get; }
@@ -14,5 +15,6 @@ namespace QSP.RouteFinding.Tracks.Common
         ReadOnlyCollection<string[]> RouteTo { get; }
 
         LatLon PreferredFirstLatLon { get; }
+        
     }
 }

@@ -156,14 +156,12 @@ namespace QSP.LibraryExtension
 
         private List<int> FindAllEntries(TKey key)
         {
-
             if (key == null)
             {
                 throw new ArgumentNullException();
             }
 
-            List<int> result = new List<int>();
-
+            var result = new List<int>();
 
             if (buckets != null)
             {
@@ -177,21 +175,16 @@ namespace QSP.LibraryExtension
                     }
                     i = entries[i].nextIndex;
                 }
-
             }
-
             return result;
-
         }
 
         private int FindEntry(TKey key)
         {
-
             if (key == null)
             {
                 throw new ArgumentNullException();
             }
-
 
             if (buckets != null)
             {
@@ -205,11 +198,8 @@ namespace QSP.LibraryExtension
                     }
                     i = entries[i].nextIndex;
                 }
-
             }
-
             return -1;
-
         }
 
         public TValue FindEntry(TKey key, TValue value)

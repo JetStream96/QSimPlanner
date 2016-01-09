@@ -250,7 +250,7 @@ namespace QSP.RouteFinding
         private List<LatLon> candidatesMeridianIntersection(LatLon u, LatLon v2)
         {
             var candidates = new List<LatLon>();
-            FindLonDirection dir = default(FindLonDirection);
+            var dir = default(FindLonDirection);
 
             if (Math.Abs(u.Lon - v2.Lon) < 180)
             {
@@ -315,9 +315,10 @@ namespace QSP.RouteFinding
         {
             Vector3D w = LatLonToVector3D(u).CrossProductWith(LatLonToVector3D(v2));
             double latRad = ToRadian(lat);
+            double cosLat = Math.Cos(latRad);
             double a = Math.Sin(latRad) * w.z;
-            double b = Math.Cos(latRad) * w.x;
-            double c = Math.Cos(latRad) * w.y;
+            double b = cosLat * w.x;
+            double c = cosLat * w.y;
             double d = Math.Atan2(c, b);
             double g = Math.Acos(-a / Math.Sqrt(b * b + c * c));
 
@@ -354,7 +355,7 @@ namespace QSP.RouteFinding
             return getTangent(LatLonToVector3D(v), LatLonToVector3D(w));
         }
 
-        public enum FindLatDirection
+        private enum FindLatDirection
         {
             North,
             South
