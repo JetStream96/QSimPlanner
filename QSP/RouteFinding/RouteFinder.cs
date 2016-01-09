@@ -113,10 +113,10 @@ namespace QSP.RouteFinding
             while (index != startPtIndex)
             {
                 waypoints.Add(wptList[index]);
-                airways.Add(FindRouteData.FromAirway[index]);
-                totalDistances.Add(FindRouteData.CurrentDis[index]);
+                airways.Add(FindRouteData.WaypointData[index].FromAirway);
+                totalDistances.Add(FindRouteData.WaypointData[index].CurrentDistance);
 
-                index = FindRouteData.FromWptIndex[index];
+                index = FindRouteData.WaypointData[index].FromWptIndex;
             }
 
             waypoints.Add(wptList[startPtIndex]);
@@ -177,7 +177,7 @@ namespace QSP.RouteFinding
 
         private bool findRouteAttempt(routeSeachRegionPara regionPara, routeFindingData findRouteData)
         {
-            findRouteData.InitializeCurrentDis(regionPara.StartPtIndex);
+            findRouteData.InitializeDistance(regionPara.StartPtIndex);
 
             var unvisited = new MinHeap<int, double>();
             unvisited.Insert(regionPara.StartPtIndex, 0.0);
@@ -200,6 +200,7 @@ namespace QSP.RouteFinding
         {
             foreach (var edgeIndex in wptList.EdgesFrom(currentWptIndex))
             {
+                var wptData = FindRouteData.WaypointData;
                 var edge = wptList.GetEdge(edgeIndex);
                 int index = edge.ToNodeIndex;
 
@@ -207,15 +208,15 @@ namespace QSP.RouteFinding
                 {
                     double newDis = currentDis + edge.value.Distance;
 
-                    if (FindRouteData.CurrentDis[index] == MAX_DIS && newDis < MAX_DIS)
+                    if (Math.Abs(wptData[index].CurrentDistance - MAX_DIS) < 1E-3 && newDis < MAX_DIS)
                     {
                         unvisited.Insert(index, newDis);
-                        FindRouteData.SetValue(index, currentWptIndex, edge.value.Airway, newDis);
+                        wptData[index] = new routeFindingData.WaypointStatus(currentWptIndex, edge.value.Airway, newDis);
                     }
                     else if (unvisited.ItemExists(index) && newDis < unvisited.GetElement(index).Value)
                     {
                         unvisited.ReplaceValue(index, newDis);
-                        FindRouteData.SetValue(index, currentWptIndex, edge.value.Airway, newDis);
+                        wptData[index] = new routeFindingData.WaypointStatus(currentWptIndex, edge.value.Airway, newDis);
                     }
                 }
             }
@@ -224,49 +225,49 @@ namespace QSP.RouteFinding
         private bool wptWithinRange(int wptIndex, routeSeachRegionPara regionPara)
         {
             //suppose the orig and dest rwys are already in the wptList
-            if (wptList.Distance(regionPara.StartPtIndex, wptIndex) + wptList.Distance(regionPara.EndPtIndex, wptIndex) >
-                2 * Math.Sqrt(regionPara.b * regionPara.b + regionPara.c * regionPara.c))
-            {
-                return false;
-            }
-            return true;
+            return (wptList.Distance(regionPara.StartPtIndex, wptIndex) + wptList.Distance(regionPara.EndPtIndex, wptIndex) <
+                    2 * Math.Sqrt(regionPara.b * regionPara.b + regionPara.c * regionPara.c));
         }
 
         #region Helper Classes
 
         private class routeFindingData
         {
-            public int[] FromWptIndex;
-            public string[] FromAirway;
-            public double[] CurrentDis;
+            public WaypointStatus[] WaypointData { get; private set; }
 
             public routeFindingData()
             {
             }
 
-            /// <param name="waypointCount">Total number of waypoints</param>
-            public routeFindingData(int waypointCount)
+            /// <param name="Count">Total number of waypoints</param>
+            public routeFindingData(int Count)
             {
-                FromWptIndex = new int[waypointCount];
-                FromAirway = new string[waypointCount];
-                CurrentDis = new double[waypointCount];
+                WaypointData = new WaypointStatus[Count];
             }
 
-            public void InitializeCurrentDis(int startPtIndex)
+            public void InitializeDistance(int startPtIndex)
             {
-                int len = CurrentDis.Count();
+                int len = WaypointData.Length;
+
                 for (int i = 0; i < len; i++)
                 {
-                    CurrentDis[i] = MAX_DIS;
+                    WaypointData[i].CurrentDistance = MAX_DIS;
                 }
-                CurrentDis[startPtIndex] = 0.0;
+                WaypointData[startPtIndex].CurrentDistance = 0.0;
             }
 
-            public void SetValue(int index, int fromIndex, string airway, double currentDistance)
+            public struct WaypointStatus
             {
-                FromWptIndex[index] = fromIndex;
-                FromAirway[index] = airway;
-                CurrentDis[index] = currentDistance;
+                public int FromWptIndex { get; set; }
+                public string FromAirway { get; set; }
+                public double CurrentDistance { get; set; }
+
+                public WaypointStatus(int FromWptIndex, string FromAirway, double CurrentDistance)
+                {
+                    this.FromWptIndex = FromWptIndex;
+                    this.FromAirway = FromAirway;
+                    this.CurrentDistance = CurrentDistance;
+                }
             }
         }
 
