@@ -13,7 +13,7 @@ namespace Tests
         [TestMethod()]
         public void PacotsDownloaderTest()
         {
-            File.WriteAllText("pacotsDownloadTest.html", PacotsDownloader.GetHtml());
+            File.WriteAllText("pacotsDownloadTest.html", PacotsDownloader.DownloadTrackMessage());
         }
 
         [TestMethod()]

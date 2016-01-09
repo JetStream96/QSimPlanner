@@ -38,7 +38,7 @@ namespace Tests
 			RTS/YBBN BN V179 IBUNA Q473 HAWKE V129 EML 
 			RMK/AUSOTS GROUP A");
 
-            TrackReader reader = new TrackReader(trk);
+            var reader = new TrackReader<AusTrack>(trk);
 
         }
 

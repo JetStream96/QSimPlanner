@@ -8,12 +8,12 @@ namespace QSP.RouteFinding.Tracks.Ausots
 	{
 		private const string address = "https://www.airservicesaustralia.com/flextracks/text.asp?ver=1";
 
-		public static string DownloadMsg()
+		public static string DownloadTrackMessage()
 		{
 			return (new WebClient()).DownloadString(address);
 		}
 
-		public async static Task<string> DownloadMsgAsync()
+		public async static Task<string> DownloadTrackMessageAsync()
 		{
 			return await(new WebClient()).DownloadStringTaskAsync(new Uri(address));
 		}

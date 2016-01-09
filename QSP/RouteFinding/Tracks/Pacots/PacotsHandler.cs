@@ -16,7 +16,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
             try
             {
-                htmlFile = PacotsDownloader.GetHtml();
+                htmlFile = PacotsDownloader.DownloadTrackMessage();
             }
             catch
             {

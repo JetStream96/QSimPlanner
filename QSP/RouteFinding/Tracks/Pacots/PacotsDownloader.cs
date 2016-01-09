@@ -7,12 +7,18 @@ namespace QSP.RouteFinding.Tracks.Pacots
 {
     public static class PacotsDownloader
     {
-        public static string GetHtml()
+        /// <summary>
+        /// Returns the html file of PACOTs web page.
+        /// </summary>
+        public static string DownloadTrackMessage()
         {
             return StartPost();
         }
 
-        public async static Task<string> GetHtmlAsync()
+        /// <summary>
+        /// Returns the html file of PACOTs web page.
+        /// </summary>
+        public async static Task<string> DownloadTrackMessageAsync()
         {
             return await Task.Factory.StartNew(StartPost);
         }
@@ -39,7 +45,5 @@ namespace QSP.RouteFinding.Tracks.Pacots
             return _Answer.ReadToEnd();
 
         }
-
     }
-
 }

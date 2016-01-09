@@ -100,8 +100,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         public void DownloadNatsMsg()
         {
             natMsg = DownloadFromWeb(natsUrl);
-
-
+            
             if (natMsg.Count == 1)
             {
                 string downloadAdditional = null;
@@ -135,9 +134,10 @@ namespace QSP.RouteFinding.Tracks.Nats
                 catch
                 {
                     TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution,
-                        string.Format("Unable to interpret {0} tracks.", (i.Direction == NatsDir.East) ? "eastbound" : "westbound"), TrackType.Nats);
+                                                 string.Format("Unable to interpret {0} tracks.", 
+                                                 (i.Direction == NatsDir.East) ? "eastbound" : "westbound"),
+                                                 TrackType.Nats);
                 }
-
             }
 
             //prevent adding the same set of tracks multiple times, if this method is called repeatedly

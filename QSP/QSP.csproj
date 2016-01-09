@@ -97,6 +97,8 @@
     <Compile Include="RouteFinding\AirwayStructure\TrackerItem.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointContainer.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WptSeachWrapper.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectFirstWaypointAnalyzer.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\Exceptions.cs" />
     <Compile Include="RouteFinding\Routes\RouteCollapse.cs" />
     <Compile Include="RouteFinding\Routes\RouteExpand.cs" />
     <Compile Include="RouteFinding\Routes\RouteNode.cs" />
@@ -208,7 +210,7 @@
     <Compile Include="RouteFinding\Tracks\WptPair.cs" />
     <Compile Include="RouteFinding\RouteFindingCore.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidHandler.cs" />
-    <Compile Include="RouteFinding\SimpleRouteAnalyzer.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\SimpleRouteAnalyzer.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarHandler.cs" />
     <Compile Include="RouteFinding\Utilities.cs" />
     <Compile Include="TakeOffPerfCalculation\AircraftParameters.cs" />

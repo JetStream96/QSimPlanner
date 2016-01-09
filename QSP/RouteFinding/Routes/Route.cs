@@ -228,7 +228,7 @@ namespace QSP.RouteFinding.Routes
 
             while (node.Next != last)
             {
-                if (node.Previous == null || node.Previous.Value.AirwayToNext != node.Value.AirwayToNext)
+                if (node.Value.AirwayToNext != node.Next.Value.AirwayToNext)
                 {
                     result.Append(node.Value.AirwayToNext + ' ');
                     node = node.Next;
@@ -239,7 +239,7 @@ namespace QSP.RouteFinding.Routes
                     node = node.Next;
                 }
             }
-            result.Append(node.Value.AirwayToNext);
+            result.Append(node.Value.AirwayToNext + ' ');
 
             if (ShowLastWaypoint)
             {

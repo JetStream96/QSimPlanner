@@ -1,13 +1,13 @@
 using System;
-using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.AirwayStructure;
 using static QSP.LibraryExtension.Arrays;
 using QSP.RouteFinding.Routes;
 
-namespace QSP.RouteFinding
+namespace QSP.RouteFinding.RouteAnalyzers
 {
 
     // Designed to analyze a route consisting of a series of strings, containing only waypoints and airways.
-    // For more sophisticated analyzer, use RouteAnalyzer class.
+    // For a more sophisticated analyzer, use RouteAnalyzer class.
     //
     // 1. Input: The string, consisting of waypoint (WPT), airway (AWY), and/or direct (DCT) sysbols.
     //           These should be seperated by at least one of the following char/strings:
@@ -27,46 +27,54 @@ namespace QSP.RouteFinding
     // 5. It's not allowed to direct from one waypoint to another which is more than 500 nm away.
     //    Otherwise an exception will be thrown indicating that the latter waypoint is not a valid waypoint.
     //
-    // 6. It's highly recommended to specify preferred lat/lon in the constructor. When there are multiple waypoints matching the 
-    //    ident of the first waypoint in route, the one closest to this lat/lon will be used. 
+    // 6. It's neccesay to specify the index of first waypoint in WptList. If the ident of specified waypoint is different from
+    //    the first word in route input string, an exception will be thrown.
+    //
 
     public class SimpleRouteAnalyzer
     {
         //DCT is ignored altogether, before parsing.
+
         private static string[] Delimiters = { " ", "\r", "\n", "\t" };
         private string[] routeInput;
+        private WaypointList wptList;
+
         private int lastWpt;
-        //if this is null, it indicates that the last element in the input array is a wpt
-        private string lastAwy;
+        private string lastAwy; // If this is null, it indicates that the last element in the input array is a wpt.
+        private Route rte;  // Returning value
 
-        private double prefLat;
-        private double prefLon;
+        public SimpleRouteAnalyzer(string route, int firstWaypointIndex) : this(route, firstWaypointIndex, RouteFindingCore.WptList) { }
 
-        public SimpleRouteAnalyzer(string route) : this(route, 0, 0)
+        public SimpleRouteAnalyzer(string route, int firstWaypointIndex, WaypointList wptList)
         {
+            this.wptList = wptList;
+            rte = new Route();
+            routeInput = route.ToUpper().Split(Delimiters, StringSplitOptions.RemoveEmptyEntries).RemoveElements("DCT");
+            validateFirstWpt(firstWaypointIndex);
         }
 
-        public SimpleRouteAnalyzer(string route, double prefLat, double prefLon)
+        private void validateFirstWpt(int index)
         {
-            routeInput = route.ToUpper().Split(Delimiters, StringSplitOptions.RemoveEmptyEntries).RemoveElements("DCT");
-            this.prefLat = prefLat;
-            this.prefLon = prefLon;
+            var wpt = wptList[index];
+            if (routeInput[0] != wpt.ID)
+            {
+                throw new ArgumentException("The first waypoint of the route does not match the specified index in WptList.");
+            }
+            lastWpt = index;
+            rte.AppendWaypoint(wpt);
         }
 
         public Route Parse()
         {
-            Route result = new Route();
-
-            lastWpt = -1;
             lastAwy = null;
 
-            for (int i = 0; i < routeInput.Length; i++)
+            for (int i = 1; i < routeInput.Length; i++)
             {
                 if (lastAwy == null)
                 {
                     //this one may be awy or wpt
 
-                    if (tryParseAwy(routeInput[i]) == false && tryParseWpt(routeInput[i], result) == false)
+                    if (tryParseAwy(routeInput[i]) == false && tryParseWpt(routeInput[i]) == false)
                     {
                         throw new InvalidIdentifierException(string.Format("{0} is not a valid waypoint or airway identifier.", routeInput[i]));
                     }
@@ -74,20 +82,20 @@ namespace QSP.RouteFinding
                 else
                 {
                     //this one must be wpt
-                    if (!tryParseWpt(routeInput[i], result))
+                    if (tryParseWpt(routeInput[i]) == false)
                     {
                         throw new InvalidIdentifierException(string.Format("Cannot find waypoint {0} on airway {1}", routeInput[i], lastAwy));
                     }
                 }
             }
-            return result;
+            return rte;
         }
 
-        private bool tryParseWpt(string ident, Route rte)
+        private bool tryParseWpt(string ident)
         {
             if (lastAwy == null)
             {
-                var indices = RouteFindingCore.WptList.FindAllByID(ident);
+                var indices = wptList.FindAllByID(ident);
 
                 if (indices == null || indices.Count == 0)
                 {
@@ -99,17 +107,10 @@ namespace QSP.RouteFinding
                 }
                 else
                 {
-                    if (lastWpt == -1)
-                    {
-                        lastWpt = Tracks.Common.Utilities.ChooseSubsequentWpt(prefLat, prefLon, indices);
-                    }
-                    else
-                    {
-                        var wpt = RouteFindingCore.WptList[lastWpt];
-                        lastWpt = Tracks.Common.Utilities.ChooseSubsequentWpt(wpt.Lat, wpt.Lon, indices);
-                    }
+                    var wpt = wptList[lastWpt];
+                    lastWpt = Tracks.Common.Utilities.ChooseSubsequentWpt(wpt.Lat, wpt.Lon, indices);
                 }
-                rte.AppendWaypoint(RouteFindingCore.WptList[lastWpt]);
+                rte.AppendWaypoint(wptList[lastWpt], true);
             }
             else
             {
@@ -122,7 +123,7 @@ namespace QSP.RouteFinding
 
                 foreach (var i in intermediateWpt)
                 {
-                    rte.AppendWaypoint(i, lastAwy);
+                    rte.AppendWaypoint(i, lastAwy, true);
                 }
                 lastAwy = null;
             }
@@ -136,8 +137,6 @@ namespace QSP.RouteFinding
                 return false;
             }
 
-            var wptList = RouteFindingCore.WptList;
-
             foreach (var i in wptList.EdgesFrom(lastWpt))
             {
                 if (wptList.GetEdge(i).value.Airway == airway)
@@ -149,5 +148,4 @@ namespace QSP.RouteFinding
             return false;
         }
     }
-
 }

@@ -9,7 +9,6 @@ using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
-
     public abstract class TrackHandler<T> where T : ITrack
     {
         protected List<T> allTracks;
@@ -55,11 +54,11 @@ namespace QSP.RouteFinding.Tracks.Common
 
         private void addTrackToWptList(T item)
         {
-            TrackReader reader = null;
+            TrackReader<T> reader = null;
 
             try
             {
-                reader = new TrackReader(item);
+                reader = new TrackReader<T>(item);
                 addMainRoute(reader.MainRoute, item);
             }
             catch

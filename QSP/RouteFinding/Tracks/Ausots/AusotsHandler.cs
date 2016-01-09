@@ -5,6 +5,7 @@ using QSP.LibraryExtension;
 using System.Threading.Tasks;
 using QSP.RouteFinding.Tracks.Interaction;
 using static QSP.RouteFinding.RouteFindingCore;
+using System;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
@@ -12,6 +13,9 @@ namespace QSP.RouteFinding.Tracks.Ausots
     {
         private string trkMsg;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public override void GetAllTracks()
         {
             tryDownloadMsg();
@@ -51,13 +55,13 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             try
             {
-                trkMsg = AusotsDownloader.DownloadMsg();
+                trkMsg = AusotsDownloader.DownloadTrackMessage();
 
             }
-            catch
+            catch(Exception ex)
             {
                 TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download Ausots.", TrackType.Ausots);
-                throw;
+                throw new TrackDownloadException("Failed to download Ausots.",ex);
             }
         }
 
