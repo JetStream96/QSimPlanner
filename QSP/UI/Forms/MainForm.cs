@@ -777,7 +777,7 @@ namespace QSP
             RouteToDest = new RouteFinder().FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid, DestTxtBox.Text, DestRwyComboBox.Text, star);
             PMDGrteFile = FlightPlanExport.GeneratePmdgRteFile(RouteToDest);
 
-            RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, Route.TracksDisplayOption.Collapse);
+            RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
             double directDis = MathTools.Utilities.GreatCircleDistance(RouteToDest.First.Waypoint.LatLon, RouteToDest.Last.Waypoint.LatLon);
             RouteDisLbl.Text = "Total Dis: " + Math.Round(RouteToDest.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToDest.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
@@ -804,7 +804,7 @@ namespace QSP
             RouteToAltn = new RouteFinder().FindRoute(DestTxtBox.Text, DestRwyComboBox.Text, sids,
                                                       AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn);
 
-            RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(false, false, Route.TracksDisplayOption.Collapse);
+            RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
             double directDis = MathTools.Utilities.GreatCircleDistance(RouteToAltn.First.Waypoint.LatLon, RouteToAltn.First.Waypoint.LatLon);
             RouteDisAltnLbl.Text = "Total Dis: " + Math.Round(RouteToAltn.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToAltn.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
@@ -1059,7 +1059,7 @@ namespace QSP
 
                 try
                 {
-                    Route myRoute = new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, ToTxtbox.Text, ToRwyCBox.Text, star);
+                    ManagedRoute myRoute = new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, ToTxtbox.Text, ToRwyCBox.Text, star);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString();
                     double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
@@ -1098,7 +1098,7 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    Route myRoute = new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
+                    ManagedRoute myRoute = new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(false, true);
                     double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
@@ -1136,7 +1136,7 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelFromCBox.Text);
 
-                    Route myRoute = new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, star);
+                    ManagedRoute myRoute = new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, star);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, false);
                     double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
@@ -1157,7 +1157,7 @@ namespace QSP
                     Vector2D u = extractLatLon(WptSelFromCBox.Text);
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    Route myRoute = new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y), WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
+                    ManagedRoute myRoute = new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y), WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, true);
                     double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
@@ -1199,7 +1199,7 @@ namespace QSP
                 RouteToDest = rteAnalyzer.Parse();
 
                 PMDGrteFile = FlightPlanExport.GeneratePmdgRteFile(RouteToDest);
-                RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, Route.TracksDisplayOption.Collapse);
+                RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
                 double directDis = MathTools.Utilities.GreatCircleDistance(RouteToDest.First.Waypoint.LatLon, RouteToDest.Last.Waypoint.LatLon);
                 RouteDisLbl.Text = "Total Dis: " + Math.Round(RouteToDest.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToDest.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";

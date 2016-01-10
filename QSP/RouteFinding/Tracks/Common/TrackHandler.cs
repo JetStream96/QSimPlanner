@@ -84,7 +84,7 @@ namespace QSP.RouteFinding.Tracks.Common
             wptList.AddNeighbor(item.IndexFrom, item.IndexTo, new Neighbor("DCT", wptList.Distance(item.IndexFrom, item.IndexTo)));
         }
 
-        private void addMainRoute(Route rte, T trk)
+        private void addMainRoute(ManagedRoute rte, T trk)
         {
             int indexStart = addFirstWpt(rte.First.Waypoint);
             int indexEnd = addLastWpt(rte.Last.Waypoint);

@@ -17,8 +17,8 @@ namespace QSP.RouteFinding
 		public static WaypointList WptList;
 		public static AirportManager AirportList;
 
-		public static Route RouteToDest;
-		public static Route RouteToAltn;
+		public static ManagedRoute RouteToDest;
+		public static ManagedRoute RouteToAltn;
 
 		public static StatusRecorder TrackStatusRecorder = new StatusRecorder();
 		public static NatHandler NatsManager;

@@ -90,6 +90,7 @@
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
     <Compile Include="RouteFinding\Airports\Exceptions.cs" />
     <Compile Include="RouteFinding\Airports\FileLoader.cs" />
+    <Compile Include="RouteFinding\Communication\TogglerTrackCommunicator.cs" />
     <Compile Include="RouteFinding\Constants.cs" />
     <Compile Include="RouteFinding\AirwayStructure\AtsFileLoader.cs" />
     <Compile Include="RouteFinding\AirwayStructure\Enums.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="RouteFinding\AirwayStructure\WptSeachWrapper.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectFirstWaypointAnalyzer.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Exceptions.cs" />
+    <Compile Include="RouteFinding\Routes\Route.cs" />
     <Compile Include="RouteFinding\Routes\RouteCollapse.cs" />
     <Compile Include="RouteFinding\Routes\RouteExpand.cs" />
     <Compile Include="RouteFinding\Routes\RouteNode.cs" />
@@ -119,6 +121,12 @@
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarInfo.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarReader.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Utilities.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\IXmlConvertible.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TrackAdder.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TrackDownloader.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TrackNodes.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TrackParser.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TrackRawData.cs" />
     <Compile Include="RouteFinding\WaypointAirwayConnector.cs" />
     <Compile Include="UI\Forms\OptionsForm.cs">
       <SubType>Form</SubType>
@@ -178,7 +186,7 @@
     <Compile Include="RouteFinding\RouteFinder.cs" />
     <Compile Include="RouteFinding\AirwayStructure\ChangeTracker.cs" />
     <Compile Include="RouteFinding\Containers\Neighbor.cs" />
-    <Compile Include="RouteFinding\Routes\Route.cs" />
+    <Compile Include="RouteFinding\Routes\ManagedRoute.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointList.cs" />
     <Compile Include="RouteFinding\Containers\Waypoint.cs" />
     <Compile Include="RouteFinding\Airports\Airport.cs" />

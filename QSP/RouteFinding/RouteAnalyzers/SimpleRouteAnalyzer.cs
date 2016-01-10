@@ -41,14 +41,14 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private int lastWpt;
         private string lastAwy; // If this is null, it indicates that the last element in the input array is a wpt.
-        private Route rte;  // Returning value
+        private ManagedRoute rte;  // Returning value
 
         public SimpleRouteAnalyzer(string route, int firstWaypointIndex) : this(route, firstWaypointIndex, RouteFindingCore.WptList) { }
 
         public SimpleRouteAnalyzer(string route, int firstWaypointIndex, WaypointList wptList)
         {
             this.wptList = wptList;
-            rte = new Route();
+            rte = new ManagedRoute();
             routeInput = route.ToUpper().Split(Delimiters, StringSplitOptions.RemoveEmptyEntries).RemoveElements("DCT");
             validateFirstWpt(firstWaypointIndex);
         }
@@ -64,7 +64,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             rte.AppendWaypoint(wpt);
         }
 
-        public Route Parse()
+        public ManagedRoute Parse()
         {
             lastAwy = null;
 

@@ -46,7 +46,7 @@ namespace QSP.RouteFinding
             destLatLon = AirportList.AirportLatlon(destIcao);
         }
 
-        public Route Parse()
+        public ManagedRoute Parse()
         {
 
             string[] input = routeInput.Split(RouteAnalyzer.Delimiters, StringSplitOptions.RemoveEmptyEntries);
@@ -384,7 +384,7 @@ namespace QSP.RouteFinding
             {
                 var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), selectWptSameIdent(input[index + 1]));
 
-                return rte.ToString(false, false, Route.TracksDisplayOption.Collapse);
+                return rte.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
             }
             return null;
         }
@@ -406,7 +406,7 @@ namespace QSP.RouteFinding
                 var sidList = sidManager.GetSidList(origRwy);
                 var rte = new RouteFinder().FindRoute(origIcao, origRwy, sidList, selectWptSameIdent(input[index + 1]));
 
-                return rte.ToString(false, false, Route.TracksDisplayOption.Collapse);
+                return rte.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
             }
 
@@ -433,7 +433,7 @@ namespace QSP.RouteFinding
                 var starList = starManager.GetStarList(destRwy);
                 var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy, starList);
 
-                return rte.ToString(false, false, Route.TracksDisplayOption.Collapse);
+                return rte.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
             }
             return null;        //this is not to be parsed as last         
         }

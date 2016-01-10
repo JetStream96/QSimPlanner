@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using QSP.RouteFinding.Communication;
+using QSP.RouteFinding.Tracks.Common;
+using QSP.Core;
 
 namespace QSP.RouteFinding.Routes
 {
@@ -30,6 +33,37 @@ namespace QSP.RouteFinding.Routes
             tracks = new TrackEntries();
         }
 
+        public void UpdateTracks(List<TrackNodes> AllNodes, TrackType type)
+        {
+            var list = new List<RouteEntry>();
+
+            foreach (var i in AllNodes)
+            {
+                list.Add(new RouteEntry(i.MainRoute.FirstNode.List, i.AirwayIdent));
+            }
+
+            var listToUpdate = selectList(type);
+            listToUpdate = list;
+        }
+
+        private List<RouteEntry> selectList(TrackType type)
+        {
+            switch (type)
+            {
+                case TrackType.Nats:
+                    return tracks.Nats;
+
+                case TrackType.Pacots:
+                    return tracks.Pacots;
+
+                case TrackType.Ausots:
+                    return tracks.Ausots;
+
+                default:
+                    throw new EnumNotSupportedException();
+            }
+        }
+
         public void Expand()
         {
             if (Expanded)
@@ -39,7 +73,10 @@ namespace QSP.RouteFinding.Routes
 
             foreach (var i in tracks.AllEntries)
             {
-                RouteExpand.InsertRoute(route, i.Route, i.RouteName);
+                foreach (var j in i)
+                {
+                    RouteExpand.InsertRoute(route, j.Route, j.RouteName);
+                }
             }
             Expanded = true;
         }
@@ -50,19 +87,22 @@ namespace QSP.RouteFinding.Routes
             {
                 return;
             }
-            
+
             foreach (var i in tracks.AllEntries)
             {
-                RouteCollapse.Collapse(route, i.Route, i.RouteName);
+                foreach (var j in i)
+                {
+                    RouteCollapse.Collapse(route, j.Route, j.RouteName);
+                }
             }
             Expanded = false;
         }
 
         private class TrackEntries
-        {           
-            private List<RouteEntry> Nats;
-            private List<RouteEntry> Pacots;
-            private List<RouteEntry> Ausots;
+        {
+            public List<RouteEntry> Nats;
+            public List<RouteEntry> Pacots;
+            public List<RouteEntry> Ausots;
 
             public TrackEntries()
             {
@@ -71,14 +111,11 @@ namespace QSP.RouteFinding.Routes
                 Ausots = new List<RouteEntry>();
             }
 
-            public ReadOnlyCollection<RouteEntry> AllEntries
+            public List<RouteEntry>[] AllEntries
             {
                 get
                 {
-                    var result = new List<RouteEntry>(Nats);
-                    result.AddRange(Pacots);
-                    result.AddRange(Ausots);
-                    return result.AsReadOnly();
+                    return new List<RouteEntry>[3] { Nats, Pacots, Ausots };
                 }
             }
         }
@@ -87,6 +124,12 @@ namespace QSP.RouteFinding.Routes
         {
             public LinkedList<RouteNode> Route;
             public string RouteName;
+
+            public RouteEntry(LinkedList<RouteNode> Route, string RouteName)
+            {
+                this.Route = Route;
+                this.RouteName = RouteName;
+            }
         }
     }
 }

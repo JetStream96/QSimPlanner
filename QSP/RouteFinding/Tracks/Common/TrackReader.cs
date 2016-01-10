@@ -13,7 +13,7 @@ namespace QSP.RouteFinding.Tracks.Common
     public class TrackReader<T> where T : ITrack
     {
         private List<WptPair> routeFromTo;
-        private Route mainRoute;
+        private ManagedRoute mainRoute;
         private T trk;
 
         /// <exception cref="InvalidRouteException"></exception>
@@ -39,7 +39,7 @@ namespace QSP.RouteFinding.Tracks.Common
             }
         }
 
-        public Route MainRoute
+        public ManagedRoute MainRoute
         {
             get { return mainRoute; }
         }
@@ -138,7 +138,7 @@ namespace QSP.RouteFinding.Tracks.Common
 
         /// <exception cref="InvalidRouteException"></exception>
         /// <exception cref="WaypointNotFoundException"></exception>
-        private Route readMainRoute(ReadOnlyCollection<string> rte)
+        private ManagedRoute readMainRoute(ReadOnlyCollection<string> rte)
         {
             LatLon latLon = trk.PreferredFirstLatLon;
             return new AutoSelectFirstWaypointAnalyzer(combineArr(rte), latLon.Lat, latLon.Lon).Parse();

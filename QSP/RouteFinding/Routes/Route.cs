@@ -1,12 +1,7 @@
-using QSP;
-using QSP.Core;
-using QSP.LibraryExtension;
-using QSP.RouteFinding.Containers;
-using QSP.RouteFinding.Tracks.Nats;
+﻿using QSP.RouteFinding.Containers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using static QSP.MathTools.Utilities;
 
@@ -14,8 +9,7 @@ namespace QSP.RouteFinding.Routes
 {
     public class Route : IEnumerable<RouteNode>, IEnumerable
     {
-        private LinkedList<RouteNode> links;
-        private RouteToggler toggler;
+        protected LinkedList<RouteNode> links;
 
         public double TotalDistance
         {
@@ -83,7 +77,11 @@ namespace QSP.RouteFinding.Routes
         public Route()
         {
             links = new LinkedList<RouteNode>();
-            toggler = new RouteToggler(links);
+        }
+
+        public Route(Route item)
+        {
+            links = new LinkedList<RouteNode>(item);
         }
 
         /// <summary>
@@ -156,55 +154,11 @@ namespace QSP.RouteFinding.Routes
         }
 
         /// <summary>
-        /// Collapse the tracks for the route, if not done already.  
-        /// </summary>
-        public void Collapse()
-        {
-            toggler.Collapse();
-        }
-
-        /// <summary>
-        /// Expand the Tracks for the route, if not already expanded. 
-        /// </summary>
-        public void Expand()
-        {
-            toggler.Expand();
-        }
-
-        /// <summary>
         /// A string represents the usual route text.
         /// </summary>
         public override string ToString()
         {
             return ToString(false, false);
-        }
-
-        public enum TracksDisplayOption
-        {
-            Expand,
-            Collapse
-        }
-
-        /// <summary>
-        /// A string represents the usual route text with the Nats display option.
-        /// </summary>
-        /// <exception cref="EnumNotSupportedException"></exception>
-        public string ToString(bool ShowFirstWaypoint, bool ShowLastWaypoint, TracksDisplayOption para1)
-        {
-            switch (para1)
-            {
-                case TracksDisplayOption.Expand:
-                    Expand();
-                    break;
-
-                case TracksDisplayOption.Collapse:
-                    Collapse();
-                    break;
-
-                default:
-                    throw new EnumNotSupportedException("Incorrect enum for NatsDisplayOption.");
-            }
-            return ToString(ShowFirstWaypoint, ShowLastWaypoint);
         }
 
         /// <summary>
@@ -259,5 +213,4 @@ namespace QSP.RouteFinding.Routes
             return GetEnumerator();
         }
     }
-
 }

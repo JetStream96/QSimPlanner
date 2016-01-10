@@ -41,7 +41,7 @@ namespace QSP.RouteFinding
         /// Returns a string represents the PMDG .rte file. SIDs, STARs are not included.
         /// </summary>
         /// <param name="rte"></param>
-        public static string GeneratePmdgRteFile(Route rte)
+        public static string GeneratePmdgRteFile(ManagedRoute rte)
         {
             rte.Expand();
 

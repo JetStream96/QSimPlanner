@@ -49,7 +49,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route between two aiports, from ORIG to DEST.
         /// </summary>
-        public Route FindRoute(string origIcao, string origRwy, List<string> origSid, string destIcao, string destRwy, List<string> destStar)
+        public ManagedRoute FindRoute(string origIcao, string origRwy, List<string> origSid, string destIcao, string destRwy, List<string> destStar)
         {
             int origIndex = addSid(origIcao, origRwy, origSid);
             int destIndex = addStar(destIcao, destRwy, destStar);
@@ -64,7 +64,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from an airport to a waypoint.
         /// </summary>
-        public Route FindRoute(string icao, string rwy, List<string> sid, int wptIndex)
+        public ManagedRoute FindRoute(string icao, string rwy, List<string> sid, int wptIndex)
         {
             int origIndex = addSid(icao, rwy, sid);
 
@@ -78,7 +78,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from a waypoint to an airport.
         /// </summary>
-        public Route FindRoute(int wptIndex, string icao, string rwy, List<string> star)
+        public ManagedRoute FindRoute(int wptIndex, string icao, string rwy, List<string> star)
         {
             int endIndex = addStar(icao, rwy, star);
             var result = getRoute(wptIndex, endIndex);
@@ -91,7 +91,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from a waypoint to a waypoint.
         /// </summary>
-        public Route FindRoute(int wptIndex1, int wptIndex2)
+        public ManagedRoute FindRoute(int wptIndex1, int wptIndex2)
         {
             var result = getRoute(wptIndex1, wptIndex2);
             wptList.Restore();
@@ -100,9 +100,9 @@ namespace QSP.RouteFinding
             return result;
         }
 
-        private Route extractRoute(routeFindingData FindRouteData, int startPtIndex, int endPtIndex)
+        private ManagedRoute extractRoute(routeFindingData FindRouteData, int startPtIndex, int endPtIndex)
         {
-            Route result = new Route();
+            ManagedRoute result = new ManagedRoute();
 
             var waypoints = new List<Waypoint>();
             var airways = new List<string>();
@@ -133,9 +133,9 @@ namespace QSP.RouteFinding
             }
         }
 
-        private static Route BuildRoute(List<Waypoint> waypoints, List<string> airways, List<double> totalDistances)
+        private static ManagedRoute BuildRoute(List<Waypoint> waypoints, List<string> airways, List<double> totalDistances)
         {
-            var result = new Route();
+            var result = new ManagedRoute();
             int edgeCount = airways.Count;
 
             result.AppendWaypoint(waypoints[edgeCount]);
@@ -153,7 +153,7 @@ namespace QSP.RouteFinding
         /// Finds a route from the waypoint in wptList with index startPtIndex, to endPtIndex.
         /// </summary>
         /// <exception cref="RouteNotFoundException"></exception>
-        private Route getRoute(int startPtIndex, int endPtIndex)
+        private ManagedRoute getRoute(int startPtIndex, int endPtIndex)
         {
             var FindRouteData = new routeFindingData(wptList.MaxSize);
             var regionPara = new routeSeachRegionPara(startPtIndex, endPtIndex, 0.0, wptList);

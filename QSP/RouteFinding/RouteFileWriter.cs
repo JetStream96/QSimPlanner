@@ -18,7 +18,7 @@ namespace QSP.RouteFinding
 
         public RouteFileWriter(string txtToWrite) : this(RouteFindingCore.RouteToDest, QspCore.AppSettings.ExportCommands, txtToWrite) { }
 
-        public RouteFileWriter(Route route, List<RouteExportCommand> commands, string txtToWrite)
+        public RouteFileWriter(ManagedRoute route, List<RouteExportCommand> commands, string txtToWrite)
         {
             this.commands = commands;
             this.txtToWrite = txtToWrite;

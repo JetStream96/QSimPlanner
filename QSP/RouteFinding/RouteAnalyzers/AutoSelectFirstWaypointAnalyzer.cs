@@ -42,7 +42,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         /// <exception cref="InvalidRouteException"></exception>
         /// <exception cref="WaypointNotFoundException"></exception>
-        public Route Parse()
+        public ManagedRoute Parse()
         {
             var firstWptCandidates = wptList.FindAllByID(firstWptID());
 

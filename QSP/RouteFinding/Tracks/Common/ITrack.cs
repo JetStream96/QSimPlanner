@@ -14,7 +14,6 @@ namespace QSP.RouteFinding.Tracks.Common
         ReadOnlyCollection<string[]> RouteFrom { get; }
         ReadOnlyCollection<string[]> RouteTo { get; }
 
-        LatLon PreferredFirstLatLon { get; }
-        
+        LatLon PreferredFirstLatLon { get; }        
     }
 }

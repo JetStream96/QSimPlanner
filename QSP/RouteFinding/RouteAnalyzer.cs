@@ -107,9 +107,9 @@ namespace QSP.RouteFinding
             }
         }
 
-        public Route Parse()
+        public ManagedRoute Parse()
         {
-            var result = new Route();
+            var result = new ManagedRoute();
             string[] input = routeInput.ToUpper().Split(Delimiters, StringSplitOptions.RemoveEmptyEntries).RemoveElements("DCT");
             NodeType currentNode = NodeType.Orig;
 
@@ -160,7 +160,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// This function modifies the route. Returns a bool indicates whether the parse was successful.
         /// </summary>
-        private bool tryParse(Route rte, NodeType prevNode, NodeType currentNode, string text)
+        private bool tryParse(ManagedRoute rte, NodeType prevNode, NodeType currentNode, string text)
         {
             switch (currentNode)
             {
@@ -187,7 +187,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private bool tryParseStar(Route rte, string text)
+        private bool tryParseStar(ManagedRoute rte, string text)
         {
             try
             {
@@ -208,7 +208,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private bool tryParseSid(Route rte, string text)
+        private bool tryParseSid(ManagedRoute rte, string text)
         {
             try
             {
@@ -230,7 +230,7 @@ namespace QSP.RouteFinding
         /// Trys to parse current node as airway (including, e.g. NATs). The return value indicates whether the parsing was successful.
         /// currentNode = Airway
         /// </summary>
-        private bool tryParseAwy(Route rte, NodeType prevNode, string text)
+        private bool tryParseAwy(ManagedRoute rte, NodeType prevNode, string text)
         {
             int lastWptIndex = WptList.FindByWaypoint(rte.Last.Waypoint);
 
@@ -252,7 +252,7 @@ namespace QSP.RouteFinding
         }
 
         //currentNode = Waypoint
-        private bool tryParseWpt(Route rte, NodeType prevNode, string text)
+        private bool tryParseWpt(ManagedRoute rte, NodeType prevNode, string text)
         {
             switch (prevNode)
             {
@@ -276,7 +276,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private static bool tryFindWptOnAwy(Route rte, string text)
+        private static bool tryFindWptOnAwy(ManagedRoute rte, string text)
         {
             int lastWptIndex = WptList.FindByWaypoint(rte.Last.Waypoint);
             string airway = rte.LastNode.Previous.Value.AirwayToNext;
@@ -300,7 +300,7 @@ namespace QSP.RouteFinding
             return true;
         }
 
-        private static bool tryAddWpt(Route rte, string ID)
+        private static bool tryAddWpt(ManagedRoute rte, string ID)
         {
             Waypoint wpt = Utilities.FindWpt(ID, rte.Last.Waypoint);
 
@@ -315,7 +315,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private static void directToWptIfNoDuplicate(Route rte, Waypoint wpt)
+        private static void directToWptIfNoDuplicate(ManagedRoute rte, Waypoint wpt)
         {
             if (wpt.Equals(rte.Last.Waypoint) == false)
             {
@@ -323,7 +323,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private static void addWptIfNoDuplicate(Route rte, Waypoint wpt, string airway,bool AutoComputeDistance)
+        private static void addWptIfNoDuplicate(ManagedRoute rte, Waypoint wpt, string airway,bool AutoComputeDistance)
         {
             if (wpt.Equals(rte.Last.Waypoint) == false)
             {
