@@ -82,7 +82,6 @@
     <Compile Include="LibraryExtension\Graph\Edge.cs" />
     <Compile Include="LibraryExtension\FixedIndexList.cs" />
     <Compile Include="LibraryExtension\Graph\Graph.cs" />
-    <Compile Include="LibraryExtension\Graph\IEdge.cs" />
     <Compile Include="LibraryExtension\ReadOnlyStack.cs" />
     <Compile Include="LibraryExtension\Stacks.cs" />
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />

@@ -265,7 +265,7 @@ namespace QSP.RouteFinding.AirwayStructure
             return _content.EdgesTo(index);
         }
 
-        public IEdge<Neighbor> GetEdge(int edgeIndex)
+        public Edge<Neighbor> GetEdge(int edgeIndex)
         {
             return _content.GetEdge(edgeIndex);
         }

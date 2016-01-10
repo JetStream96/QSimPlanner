@@ -21,6 +21,7 @@ namespace QSP.LibraryExtension.Graph
 
         private FixedIndexList<Node> _nodes;
         private FixedIndexList<Edge<TEdge>> _edges;
+        private static Edge<TEdge> dummyEdge = new Edge<TEdge>();
 
         public Graph()
         {
@@ -40,19 +41,15 @@ namespace QSP.LibraryExtension.Graph
         public int AddEdge(int nodeFromIndex, int nodeToIndex, TEdge edge)
         {
             var edgeToAdd = new Edge<TEdge>();
-            int edgeIndex = _edges.Add(edgeToAdd);
+            int edgeIndex = _edges.Add(dummyEdge);
 
             // Add edge index to nodes
             int fromListIndex = _nodes[nodeFromIndex].next.Add(edgeIndex);
             int toListIndex = _nodes[nodeToIndex].prev.Add(edgeIndex);
 
             // Set correct index.
-            edgeToAdd.FromIndexInList = fromListIndex;
-            edgeToAdd.FromNodeIndex = nodeFromIndex;
-            edgeToAdd.ToIndexInList = toListIndex;
-            edgeToAdd.ToNodeIndex = nodeToIndex;
-            edgeToAdd.value = edge;
-
+            _edges[edgeIndex] = new Edge<TEdge>(edge, nodeFromIndex, fromListIndex, nodeToIndex, toListIndex);
+            
             return edgeIndex;
         }
 
@@ -96,7 +93,7 @@ namespace QSP.LibraryExtension.Graph
         }
 
         /// <exception cref="IndexOutOfRangeException"></exception>
-        public IEdge<TEdge> GetEdge(int edgeIndex)
+        public Edge<TEdge> GetEdge(int edgeIndex)
         {
             return _edges[edgeIndex];
         }

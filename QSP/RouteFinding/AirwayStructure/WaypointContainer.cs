@@ -159,7 +159,7 @@ namespace QSP.RouteFinding.AirwayStructure
             return graph.EdgesTo(index);
         }
 
-        public IEdge<Neighbor> GetEdge(int edgeIndex)
+        public Edge<Neighbor> GetEdge(int edgeIndex)
         {
             return graph.GetEdge(edgeIndex);
         }
