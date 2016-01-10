@@ -19,7 +19,7 @@ namespace QSP.RouteFinding.Tracks.Common
         /// </summary>
         public abstract void GetAllTracks();
         public abstract void GetAllTracksAsync();
-        
+
         public TrackHandler() : this(RouteFindingCore.WptList)
         {
         }
@@ -56,26 +56,24 @@ namespace QSP.RouteFinding.Tracks.Common
 
         private void addTrackToWptList(T item)
         {
-            TrackReader<T> reader = null;
-
             try
             {
-                reader = new TrackReader<T>(item);
+                var reader = new TrackReader<T>(item).Read();
                 addMainRoute(reader.MainRoute, item);
+
+                if (reader != null)
+                {
+                    foreach (var i in reader.PairsToAdd)
+                    {
+                        addPairs(i);
+                    }
+                }
             }
             catch
             {
                 RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution,
                                                              "Failed to process track " + item.Ident + ".",
                                                              (item is PacificTrack) ? TrackType.Pacots : TrackType.Ausots);
-            }
-
-            if (reader != null)
-            {
-                foreach (var i in reader.PairsToAdd)
-                {
-                    addPairs(i);
-                }
             }
         }
 
@@ -84,7 +82,7 @@ namespace QSP.RouteFinding.Tracks.Common
             wptList.AddNeighbor(item.IndexFrom, item.IndexTo, new Neighbor("DCT", wptList.Distance(item.IndexFrom, item.IndexTo)));
         }
 
-        private void addMainRoute(ManagedRoute rte, T trk)
+        private void addMainRoute(Route rte, T trk)
         {
             int indexStart = addFirstWpt(rte.First.Waypoint);
             int indexEnd = addLastWpt(rte.Last.Waypoint);

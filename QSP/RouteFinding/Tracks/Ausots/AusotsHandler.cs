@@ -55,7 +55,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             try
             {
-                trkMsg = AusotsDownloader.DownloadTrackMessage();
+                trkMsg = AusotsDownloader.Download();
             }
             catch(Exception ex)
             {

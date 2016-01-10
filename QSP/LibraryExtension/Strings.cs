@@ -66,11 +66,11 @@ namespace QSP.LibraryExtension
 
             while (x > 0)
             {
-                x --;
+                x--;
                 if (original[x] == '\n')
                 {
-                    x ++;
-                    break; 
+                    x++;
+                    break;
                 }
 
             }
@@ -126,7 +126,7 @@ namespace QSP.LibraryExtension
             {
                 startIndex += STR_LENGTH;
                 startIndex = input.IndexOf(target, startIndex);
-                count ++;
+                count++;
 
                 if (count == n)
                 {
@@ -138,12 +138,12 @@ namespace QSP.LibraryExtension
             return -1;
 
         }
-        
+
         public static string StringBetween(this string item, int index1, int index2)
         {
             return item.Substring(index1 + 1, index2 - index1 - 1);
         }
-        
+
         public static List<int> IndicesOf(this string item, string target, int index, int count)
         {
 
@@ -164,27 +164,27 @@ namespace QSP.LibraryExtension
                     result.Add(index);
                 }
 
-                index ++;
+                index++;
 
             }
 
             return result;
 
         }
-        
+
         public static List<int> IndicesOf(this string item, string target, int index)
         {
             return item.IndicesOf(target, index, item.Length - index);
         }
-        
+
         public static List<int> IndicesOf(this string item, string target)
         {
             return item.IndicesOf(target, 0, item.Length);
         }
-        
+
         public static void SetEmptyIfNull(ref string item)
         {
-            if (item==null)
+            if (item == null)
             {
                 item = string.Empty;
             }
@@ -214,7 +214,7 @@ namespace QSP.LibraryExtension
             int count = 0;
             char[] result = new char[length];
 
-            for (int i = index; i < index + length ; i++)
+            for (int i = index; i < index + length; i++)
             {
                 if (!ignoredItems.Contains(item[i]))
                 {
@@ -224,7 +224,34 @@ namespace QSP.LibraryExtension
             }
             return new string(result, 0, count);
         }
-        
+
+        public static string RemoveHtmlTags(this string item)
+        {
+            var array = new char[item.Length];
+            bool copyChar = true;
+            int index = 0;
+
+            foreach (var i in item)
+            {
+                if (i == '<')
+                {
+                    copyChar = false;
+                }
+                else if (i == '>')
+                {
+                    copyChar = true;
+                }
+                else
+                {
+                    if (copyChar)
+                    {
+                        array[index++] = i;
+                    }
+                }
+            }
+            return new string(array, 0, index);
+        }
+
     }
 
 }

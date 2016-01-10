@@ -1,21 +1,21 @@
-using System;
 using System.Net;
 using System.Threading.Tasks;
+using QSP.RouteFinding.Tracks.Common;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
-    public static class AusotsDownloader
-	{
-		private const string address = "https://www.airservicesaustralia.com/flextracks/text.asp?ver=1";
+    public class AusotsDownloader : TrackDownloader<AusTrack>
+    {
+        private const string address = "https://www.airservicesaustralia.com/flextracks/text.asp?ver=1";
 
-		public static string DownloadTrackMessage()
-		{
-			return (new WebClient()).DownloadString(address);
-		}
+        public override TrackRawData<AusTrack> Download()
+        {
+            return new AusotsRawData(new WebClient().DownloadString(address));
+        }
 
-		public async static Task<string> DownloadTrackMessageAsync()
-		{
-			return await(new WebClient()).DownloadStringTaskAsync(new Uri(address));
-		}
-	}
+        public async override Task<TrackRawData<AusTrack>> DownloadAsync()
+        {
+            return await Task.Run(() => Download());
+        }
+    }
 }

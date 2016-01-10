@@ -30,4 +30,16 @@ namespace QSP.RouteFinding.Tracks
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }
     }
+            
+    [Serializable]
+    public class TrackParseException : Exception
+    {
+        public TrackParseException() { }
+        public TrackParseException(string message) : base(message) { }
+        public TrackParseException(string message, Exception inner) : base(message, inner) { }
+        protected TrackParseException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        { }
+    }
 }

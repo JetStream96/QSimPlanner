@@ -13,14 +13,18 @@ namespace QSP.RouteFinding.Tracks.Common
     public class TrackReader<T> where T : ITrack
     {
         private List<WptPair> routeFromTo;
-        private ManagedRoute mainRoute;
+        private Route mainRoute;
         private T trk;
 
-        /// <exception cref="InvalidRouteException"></exception>
-        /// <exception cref="WaypointNotFoundException"></exception>
         public TrackReader(T item)
         {
             trk = item;
+        }
+
+        /// <exception cref="InvalidRouteException"></exception>
+        /// <exception cref="WaypointNotFoundException"></exception>
+        public TrackNodes Read()
+        {
             mainRoute = readMainRoute(trk.MainRoute);
 
             //The format of this part is rather unpredictable. For example, a route can even start with an airway:
@@ -37,16 +41,8 @@ namespace QSP.RouteFinding.Tracks.Common
             {
                 routeFromTo = new List<WptPair>();
             }
-        }
 
-        public ManagedRoute MainRoute
-        {
-            get { return mainRoute; }
-        }
-
-        public ReadOnlyCollection<WptPair> PairsToAdd
-        {
-            get { return routeFromTo.AsReadOnly(); }
+            return new TrackNodes(trk.AirwayIdent, mainRoute, routeFromTo);
         }
 
         #region "Method for routeFrom/To"
