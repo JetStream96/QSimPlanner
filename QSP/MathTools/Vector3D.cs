@@ -42,11 +42,13 @@ namespace QSP
             get { return Math.Sqrt(x * x + y * y + z * z); }
         }
 
-        public void SetSphericalCoords(double r, double phi, double theta)
+        public static Vector3D GetFromSphericalCoords(double r, double phi, double theta)
         {
-            x = r * Math.Sin(phi) * Math.Cos(theta);
-            y = r * Math.Sin(phi) * Math.Sin(theta);
-            z = r * Math.Cos(phi);
+            double RSinPhi = r * Math.Sin(phi);
+
+            return new Vector3D(RSinPhi * Math.Cos(theta),
+                                RSinPhi * Math.Sin(theta),
+                                r * Math.Cos(phi));
         }
 
         public Vector3D Add(Vector3D v)
@@ -66,7 +68,7 @@ namespace QSP
 
         public Vector3D Normalize()
         {
-            return Multiply(1 / r);
+            return Multiply(1.0 / r);
         }
 
         public double InnerProductWith(Vector3D v)
