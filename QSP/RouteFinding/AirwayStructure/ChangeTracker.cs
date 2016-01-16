@@ -38,24 +38,7 @@ namespace QSP.RouteFinding.AirwayStructure
 
         private void createNewSession(TrackChangesOption value)
         {
-            switch (value)
-            {
-                case TrackChangesOption.Yes:
-                    _currentTracker = new TrackerItem(ChangeCategory.Normal);
-                    break;
-
-                case TrackChangesOption.AddingNATs:
-                    _currentTracker = new TrackerItem(ChangeCategory.Nats);
-                    break;
-
-                case TrackChangesOption.AddingPacots:
-                    _currentTracker = new TrackerItem(ChangeCategory.Pacots);
-                    break;
-
-                case TrackChangesOption.AddingAusots:
-                    _currentTracker = new TrackerItem(ChangeCategory.Ausots);
-                    break;
-            }
+            _currentTracker = new TrackerItem(Utilities.ToChangeCategory(value));
             _currentlyTracked = value;
         }
 

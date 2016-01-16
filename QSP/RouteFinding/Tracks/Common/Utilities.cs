@@ -4,6 +4,9 @@ using System.Linq;
 using QSP.AviationTools;
 using static QSP.RouteFinding.Constants;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Tracks.Ausots;
+using QSP.RouteFinding.Tracks.Pacots;
+using QSP.RouteFinding.Tracks.Nats;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
@@ -96,8 +99,26 @@ namespace QSP.RouteFinding.Tracks.Common
 
             public override int GetHashCode(string[] obj)
             {
-                return this.GetHashCode();
+                return GetHashCode();
             }
+        }
+
+        /// <exception cref="ArgumentException"></exception>
+        public static TrackType TrackToEnum<T>() where T : ITrack
+        {
+            if (typeof(T) == typeof(AusTrack))
+            {
+                return TrackType.Ausots;
+            }
+            else if (typeof(T) == typeof(PacificTrack))
+            {
+                return TrackType.Pacots;
+            }
+            else if (typeof(T) == typeof(NorthAtlanticTrack))
+            {
+                return TrackType.Nats;
+            }
+            throw new ArgumentException();
         }
     }
 }

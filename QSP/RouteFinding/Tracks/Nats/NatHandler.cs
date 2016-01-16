@@ -144,7 +144,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             WptList.DisableTrack(TrackType.Nats);
 
             //add wpts
-            WptList.CurrentlyTracked = TrackChangesOption.AddingNATs;
+            WptList.CurrentlyTracked = TrackChangesOption.AddingNats;
 
             foreach (var t in NatTrackCollection)
             {

@@ -9,129 +9,20 @@ using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
+    /// <summary>
+    /// Provides some easy-to-use methods to manage tracks.
+    /// </summary>
     public abstract class TrackHandler<T> where T : ITrack
     {
-        protected List<T> allTracks;
-        protected WaypointList wptList;
-
         /// <summary>
         /// Download and parse all track messages.
         /// </summary>
         public abstract void GetAllTracks();
         public abstract void GetAllTracksAsync();
 
-        public TrackHandler() : this(RouteFindingCore.WptList)
-        {
-        }
-
-        public TrackHandler(WaypointList WptList)
-        {
-            allTracks = new List<T>();
-            this.wptList = WptList;
-        }
-
-        public void AddToWptList()
-        {
-            if (allTracks.Count > 0)
-            {
-                if (allTracks.First() is PacificTrack)
-                {
-                    wptList.DisableTrack(TrackType.Ausots);
-                    wptList.CurrentlyTracked = TrackChangesOption.AddingPacots;
-                }
-                else
-                {
-                    wptList.DisableTrack(TrackType.Ausots);
-                    wptList.CurrentlyTracked = TrackChangesOption.AddingAusots;
-                }
-
-                foreach (var i in allTracks)
-                {
-                    addTrackToWptList(i);
-                }
-
-                wptList.CurrentlyTracked = TrackChangesOption.No;
-            }
-        }
-
-        private void addTrackToWptList(T item)
-        {
-            try
-            {
-                var reader = new TrackReader<T>(item).Read();
-                addMainRoute(reader.MainRoute, item);
-
-                if (reader != null)
-                {
-                    foreach (var i in reader.PairsToAdd)
-                    {
-                        addPairs(i);
-                    }
-                }
-            }
-            catch
-            {
-                RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution,
-                                                             "Failed to process track " + item.Ident + ".",
-                                                             (item is PacificTrack) ? TrackType.Pacots : TrackType.Ausots);
-            }
-        }
-
-        private void addPairs(WptPair item)
-        {
-            wptList.AddNeighbor(item.IndexFrom, item.IndexTo, new Neighbor("DCT", wptList.Distance(item.IndexFrom, item.IndexTo)));
-        }
-
-        private void addMainRoute(Route rte, T trk)
-        {
-            int indexStart = addFirstWpt(rte.First.Waypoint);
-            int indexEnd = addLastWpt(rte.Last.Waypoint);
-
-            wptList.AddNeighbor(indexStart, indexEnd, new Neighbor(trk.AirwayIdent, rte.TotalDistance));
-        }
-
-        //returns the index of added wpt in wptList
-        private int addFirstWpt(Waypoint wpt)
-        {
-            int x = wptList.FindByWaypoint(wpt);
-
-            if (x >= 0)
-            {
-                if (wptList.EdgesToCount(x) == 0)
-                {
-                    //no other wpt have this wpt as a neighbor, need to find nearby wpt to connect
-
-                    List<int> k = Utilities.NearbyWaypointsInWptList(20, wpt.Lat, wpt.Lon, wptList);
-
-                    foreach (var m in k)
-                    {
-                        wptList.AddNeighbor(m, x, new Neighbor("DCT", wptList.Distance(x, m)));
-                    }
-                }
-                return x;
-            }
-            throw new TrackWaypointNotFoundException(string.Format("Waypoint {0} is not found.", wpt.ID));
-        }
-
-        private int addLastWpt(Waypoint wpt)
-        {
-            int x = wptList.FindByWaypoint(wpt);
-
-            if (x >= 0)
-            {
-
-                if (wptList.EdgesFromCount(x) == 0)
-                {
-                    List<int> k = Utilities.NearbyWaypointsInWptList(20, wpt.Lat, wpt.Lon, wptList);
-
-                    foreach (var m in k)
-                    {
-                        wptList.AddNeighbor(x, m, new Neighbor("DCT", wptList.Distance(x, m)));
-                    }
-                }
-                return x;
-            }
-            throw new TrackWaypointNotFoundException(string.Format("Waypoint {0} is not found.", wpt.ID));
-        }
+        /// <summary>
+        /// Add the downloaded tracks to WaypointList.
+        /// </summary>
+        public abstract void AddToWaypointList();        
     }
 }

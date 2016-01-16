@@ -12,7 +12,7 @@
     {
         Yes,
         No,
-        AddingNATs,
+        AddingNats,
         AddingPacots,
         AddingAusots
     }

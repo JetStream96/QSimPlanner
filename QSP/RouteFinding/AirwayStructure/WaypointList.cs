@@ -214,23 +214,7 @@ namespace QSP.RouteFinding.AirwayStructure
 
         public void DisableTrack(TrackType type)
         {
-            switch (type)
-            {
-                case TrackType.Nats:
-                    _changeTracker.RevertChanges(ChangeCategory.Nats);
-                    break;
-
-                case TrackType.Pacots:
-                    _changeTracker.RevertChanges(ChangeCategory.Pacots);
-                    break;
-
-                case TrackType.Ausots:
-                    _changeTracker.RevertChanges(ChangeCategory.Ausots);
-                    break;
-
-                default:
-                    throw new EnumNotSupportedException();
-            }
+            _changeTracker.RevertChanges(Utilities.ToChangeCategory(type));
         }
 
         public List<WptSeachWrapper> Find(double lat, double lon, double distance)

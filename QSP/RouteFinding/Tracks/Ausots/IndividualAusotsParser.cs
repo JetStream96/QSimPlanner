@@ -29,9 +29,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private string[] mainRoute;
         private List<string[]> routeFrom;
         private List<string[]> routeTo;
-
-        public IndividualAusotsParser(string text) : this(text, RouteFindingCore.AirportList) { }
-
+        
         /// <summary>
         /// Sample input:
         /// TDM TRK MY15 151112233001 

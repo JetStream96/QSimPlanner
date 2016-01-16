@@ -12,16 +12,15 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private AirportManager airportList;
         private string allTxt;
         private List<AusTrack> allTracks;
-
-        public AusotsParser(AusotsRawData data) : this(data, RouteFindingCore.TrackStatusRecorder, RouteFindingCore.AirportList) { }
-
+        
         public AusotsParser(AusotsRawData data, StatusRecorder statusRecorder, AirportManager airportList)
         {
             allTxt = data.AllText;
             this.statusRecorder = statusRecorder;
             this.airportList = airportList;
         }
-
+        
+        /// <exception cref="TrackParseException"></exception>
         public override List<AusTrack> Parse()
         {
             allTracks = new List<AusTrack>();

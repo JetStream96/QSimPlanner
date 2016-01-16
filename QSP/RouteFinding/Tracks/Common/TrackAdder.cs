@@ -1,74 +1,55 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using QSP.RouteFinding.AirwayStructure;
+﻿using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
-using QSP.RouteFinding.Tracks.Pacots;
-using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Tracks.Interaction;
+using QSP.RouteFinding.Tracks.Pacots;
+using System.Collections.Generic;
+using System.Linq;
+using static QSP.RouteFinding.AirwayStructure.Utilities;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
-    public class TrackAdder<T> where T :ITrack
+    public class TrackAdder<T> where T : ITrack
     {
-        protected List<T> allTracks;
         private WaypointList wptList;
-
-        public TrackAdder() : this(RouteFindingCore.WptList) { }
-
-        public TrackAdder(WaypointList wptList)
+        private StatusRecorder recorder;
+        private TrackType type;
+        
+        public TrackAdder(WaypointList wptList, StatusRecorder recorder)
         {
             this.wptList = wptList;
+            this.recorder = recorder;
+            type = Utilities.TrackToEnum<T>();
         }
 
-        public void AddToWaypointList(TrackNodes nodes)
+        public void AddToWaypointList<U>(U nodes) where U : IEnumerable<TrackNodes>
         {
+            wptList.DisableTrack(type);
+            wptList.CurrentlyTracked = ToTrackChangesOption(type);
 
-        }
-
-        public void AddToWptList()
-        {
-            if (allTracks.Count > 0)
+            foreach (var i in nodes)
             {
-                if (allTracks.First() is PacificTrack)
-                {
-                    wptList.DisableTrack(TrackType.Ausots);
-                    wptList.CurrentlyTracked = TrackChangesOption.AddingPacots;
-                }
-                else
-                {
-                    wptList.DisableTrack(TrackType.Ausots);
-                    wptList.CurrentlyTracked = TrackChangesOption.AddingAusots;
-                }
-
-                foreach (var i in allTracks)
-                {
-                    addTrackToWptList(i);
-                }
-
-                wptList.CurrentlyTracked = TrackChangesOption.No;
+                addTrackToWptList(i);
             }
+            wptList.CurrentlyTracked = TrackChangesOption.No;
         }
 
-        private void addTrackToWptList(T item)
+        private void addTrackToWptList(TrackNodes item)
         {
             try
             {
-                var reader = new TrackReader<T>(item).Read();
-                addMainRoute(reader.MainRoute, item);
+                addMainRoute(item);
 
-                if (reader != null)
+                foreach (var i in item.PairsToAdd)
                 {
-                    foreach (var i in reader.PairsToAdd)
-                    {
-                        addPairs(i);
-                    }
+                    addPairs(i);
                 }
             }
             catch
             {
-                RouteFindingCore.TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution,
-                                                             "Failed to process track " + item.Ident + ".",
-                                                             (item is PacificTrack) ? TrackType.Pacots : TrackType.Ausots);
+                recorder.AddEntry(StatusRecorder.Severity.Caution,
+                                  "Failed to process track " + item.Ident + ".",
+                                  type);
             }
         }
 
@@ -77,12 +58,14 @@ namespace QSP.RouteFinding.Tracks.Common
             wptList.AddNeighbor(item.IndexFrom, item.IndexTo, new Neighbor("DCT", wptList.Distance(item.IndexFrom, item.IndexTo)));
         }
 
-        private void addMainRoute(Route rte, T trk)
+        private void addMainRoute(TrackNodes nodes)
         {
+            var rte = nodes.MainRoute;
+
             int indexStart = addFirstWpt(rte.First.Waypoint);
             int indexEnd = addLastWpt(rte.Last.Waypoint);
 
-            wptList.AddNeighbor(indexStart, indexEnd, new Neighbor(trk.AirwayIdent, rte.TotalDistance));
+            wptList.AddNeighbor(indexStart, indexEnd, new Neighbor(nodes.AirwayIdent, rte.TotalDistance));
         }
 
         //returns the index of added wpt in wptList

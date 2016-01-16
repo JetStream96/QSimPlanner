@@ -6,74 +6,85 @@ using System.Threading.Tasks;
 using QSP.RouteFinding.Tracks.Interaction;
 using static QSP.RouteFinding.RouteFindingCore;
 using System;
+using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Communication;
+using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
     public class AusotsHandler : TrackHandler<AusTrack>
     {
-        private string trkMsg;
 
+        #region Fields
+
+        private WaypointList wptList;
+        private StatusRecorder recorder;
+        private AirportManager airportList;
+        private TogglerTrackCommunicator communicator;
+
+        private AusotsRawData rawData;
+        private List<TrackNodes> nodes;
+
+        #endregion
+                
         /// <summary>
         /// Download and parse all track messages.
         /// </summary>
         public override void GetAllTracks()
         {
-            tryDownloadMsg();
-            var indices = trkMsg.IndicesOf("TDM TRK");
-            fixLastEntry(indices);
+            tryDownload();
+            var trks = tryParse();
 
-            if (indices.Count < 2)
+            var reader = new TrackReader<AusTrack>();
+            nodes = new List<TrackNodes>();
+
+            foreach (var i in trks)
             {
-                TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to interpret Ausots message.", TrackType.Ausots);
-                return;
-            }
-
-            for (int i = 0; i <= indices.Count - 2; i++)
-            {
-                tryAddTrk(indices, i);
-            }
-        }
-
-        private void tryAddTrk(List<int> indices, int index)
-        {
-            try
-            {
-                var trk = new AusTrack(trkMsg.Substring(indices[index], indices[index + 1] - indices[index]));
-
-                if (trk.Available)
+                try
                 {
-                    allTracks.Add(trk);
+                    nodes.Add(reader.Read(i));
+                }
+                catch
+                {
+                    recorder.AddEntry(StatusRecorder.Severity.Caution, "Unable to interpret one track.", TrackType.Ausots);
                 }
             }
-            catch
-            {
-                TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution, "Unable to interpret one track.", TrackType.Ausots);
-            }
         }
 
-        private void tryDownloadMsg()
+        private List<AusTrack> tryParse()
         {
             try
             {
-                trkMsg = AusotsDownloader.Download();
+                return new AusotsParser(rawData, recorder, airportList).Parse();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download Ausots.", TrackType.Ausots);
-                throw new TrackDownloadException("Failed to download Ausots.",ex);
+                recorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to parse AUSOTs.", TrackType.Ausots);
+                throw new TrackParseException("Failed to parse Ausots.", ex);
             }
         }
 
-        public override async void GetAllTracksAsync()
+        private void tryDownload()
         {
-            await Task.Run(() => GetAllTracks());
-        }
-
-        private void fixLastEntry(List<int> item)
-        {
-            int x = trkMsg.IndexOf("</pre>", item.Last());
-            item.Add(x < 0 ? trkMsg.Length : x);
+            try
+            {
+                rawData = (AusotsRawData)new AusotsDownloader().Download();
+            }
+            catch (Exception ex)
+            {
+                recorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download AUSOTs.", TrackType.Ausots);
+                throw new TrackDownloadException("Failed to download Ausots.", ex);
+            }
         }
         
+        public override async void GetAllTracksAsync()
+        {
+            await Task.Factory.StartNew(GetAllTracks);
+        }
+
+        public override void AddToWaypointList()
+        {
+            new TrackAdder<AusTrack>(wptList, recorder).AddToWaypointList(nodes);
+        }
     }
 }

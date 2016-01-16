@@ -146,10 +146,8 @@ namespace QSP.LibraryExtension
 
         public static List<int> IndicesOf(this string item, string target, int index, int count)
         {
-
             List<int> result = new List<int>();
             int len = index + count - 1;
-
 
             while (index < len)
             {
@@ -163,13 +161,9 @@ namespace QSP.LibraryExtension
                 {
                     result.Add(index);
                 }
-
                 index++;
-
             }
-
             return result;
-
         }
 
         public static List<int> IndicesOf(this string item, string target, int index)
