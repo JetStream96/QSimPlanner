@@ -146,5 +146,10 @@ namespace QSP.LibraryExtension
             return result.ToArray();
         }
 
+        public static T Last<T> (this T[] array)
+        {
+            return array[array.Length - 1];
+        }
+
     }
 }

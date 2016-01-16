@@ -9,11 +9,11 @@ using static QSP.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
-    public class AusotsRawData : TrackRawData<AusTrack>
+    public class AusotsMessage : TrackMessage<AusTrack>
     {
         public string AllText { get; private set; }
 
-        public AusotsRawData(string HtmlSource)
+        public AusotsMessage(string HtmlSource)
         {
             AllText = HtmlSource.RemoveHtmlTags();
         }

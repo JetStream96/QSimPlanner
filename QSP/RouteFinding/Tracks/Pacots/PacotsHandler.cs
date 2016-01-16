@@ -3,65 +3,99 @@ using System.Threading.Tasks;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using static QSP.RouteFinding.RouteFindingCore;
+using QSP.LibraryExtension;
+using System;
+using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Communication;
+using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
     public class PacotsHandler : TrackHandler<PacificTrack>
     {
+        #region Fields
+
+        private WaypointList wptList;
+        private StatusRecorder recorder;
+        private AirportManager airportList;
+        private TogglerTrackCommunicator communicator;
+
+        private PacotsMessage rawData;
+        private List<TrackNodes> nodes;
+
+        #endregion
+
         private PacotsMessage msg;
 
+        // TODO: Maybe have different exception messages to distinguish west/east parse error?
+        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()
         {
-            string htmlFile = null;
+            tryDownload();
+            var trks = tryParse();
 
-            try
-            {
-                htmlFile = PacotsDownloader.DownloadTrackMessage();
-            }
-            catch
-            {
-                TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download Pacots.", TrackType.Pacots);
-                throw;
-            }
+            var reader = new TrackReader<PacificTrack>(wptList);
+            nodes = new List<TrackNodes>();
 
-            try
-            {
-                msg = new PacotsMessage(htmlFile);
-            }
-            catch
-            {
-                TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to interpret Pacots message.", TrackType.Pacots);
-                throw;
-            }
-
-            allTracks = new List<PacificTrack>();
-
-            foreach (var i in msg.WestboundTracks)
+            foreach (var i in trks)
             {
                 try
                 {
-                    allTracks.Add(new PacificTrack(i, PacotDirection.Westbound));
+                    nodes.Add(reader.Read(i));
                 }
                 catch
                 {
-                    TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution, "Unable to interpret one westbound track.", TrackType.Pacots);
+                    recorder.AddEntry(StatusRecorder.Severity.Caution, "Unable to interpret one track.", TrackType.Pacots);
                 }
-            }
-
-            try
-            {
-                allTracks.AddRange(EastTracksParser.CreateEastboundTracks(msg));
-            }
-            catch
-            {
-                TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution, "Unable to interpret eastbound tracks.", TrackType.Pacots);
-
             }
         }
 
+        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="TrackParseException"></exception>
+        private void tryDownload()
+        {
+            try
+            {
+                rawData = (PacotsMessage)new PacotsDownloader().Download();
+            }
+            catch
+            {
+                recorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download PACOTs.", TrackType.Pacots);
+                throw;
+            }
+        }
+
+        /// <exception cref="TrackParseException"></exception>
+        private List<PacificTrack> tryParse()
+        {
+            try
+            {
+                return new PacotsParser(rawData, recorder, airportList).Parse();
+            }
+            catch (Exception ex)
+            {
+                recorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to parse PACOTs.", TrackType.Pacots);
+                throw new TrackParseException("Failed to parse Ausots.", ex);
+            }
+        }
+
+        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="TrackParseException"></exception>
         public override async void GetAllTracksAsync()
         {
-            await Task.Run(() => GetAllTracks());
-        }        
+            await Task.Factory.StartNew(GetAllTracks);
+        }
+
+        public override void AddToWaypointList()
+        {
+            new TrackAdder<PacificTrack>(wptList, recorder).AddToWaypointList(nodes);
+
+            foreach (var i in nodes)
+            {
+                communicator.StageTrackData(i);
+            }
+            communicator.PushAllData(TrackType.Pacots);
+        }
     }
 }

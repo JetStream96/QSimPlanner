@@ -27,14 +27,14 @@ namespace QSP.RouteFinding.Tracks.Interaction
         {
             TrackStatusRecorder.Clear(TrackType.Pacots);
             await Task.Factory.StartNew(PacotsManager.GetAllTracks);
-            PacotsManager.AddToWptList();
+            PacotsManager.AddToWaypointList();
         }
 
         public async static Task SetAusots()
         {
             TrackStatusRecorder.Clear(TrackType.Ausots);
             await Task.Factory.StartNew(AusotsManager.GetAllTracks);
-            AusotsManager.AddToWptList();
+            AusotsManager.AddToWaypointList();
         }
 
         public async static Task SetAllTracksAsync()
@@ -54,8 +54,8 @@ namespace QSP.RouteFinding.Tracks.Interaction
 
             //these tasks MUST be done sequentially, as WptList is not thread-safe
             NatsManager.AddToWptList();
-            PacotsManager.AddToWptList();
-            AusotsManager.AddToWptList();
+            PacotsManager.AddToWaypointList();
+            AusotsManager.AddToWaypointList();
         }
     }
 }

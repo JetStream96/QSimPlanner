@@ -6,6 +6,7 @@ using QSP.RouteFinding.Tracks.Common;
 using QSP.AviationTools;
 using static QSP.RouteFinding.Tracks.Common.Utilities;
 using QSP.RouteFinding.Airports;
+using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
@@ -20,8 +21,6 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private string text;
         private AirportManager airportList;
 
-        private static char[] Delimiters = { ' ', '\r', '\n', '\t' };
-        private static char[] Delimiters2 = { '\r', '\n', '\t' };
         private static LatLon PreferredFirstLatLon = new LatLon(-25, 133);
 
         private bool connectionRoutesExist;
@@ -29,7 +28,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private string[] mainRoute;
         private List<string[]> routeFrom;
         private List<string[]> routeTo;
-        
+
         /// <summary>
         /// Sample input:
         /// TDM TRK MY15 151112233001 
@@ -63,7 +62,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
                                     TimeStart,
                                     TimeEnd,
                                     Remarks,
-                                     Array.AsReadOnly(mainRoute),
+                                    Array.AsReadOnly(mainRoute),
                                     routeFrom.AsReadOnly(),
                                     routeTo.AsReadOnly(),
                                     PreferredFirstLatLon);
@@ -140,7 +139,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
                 connectionRoutesExist = true;
             }
 
-            mainRoute = text.Substring(index, x - index).Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
+            mainRoute = text.Substring(index, x - index).Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
             index = x;
         }
 
@@ -185,7 +184,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
                     nextLine = x;
                 }
 
-                allRoutes.Add(text.Substring(index, nextLine - index).Split(Delimiters, StringSplitOptions.RemoveEmptyEntries));
+                allRoutes.Add(text.Substring(index, nextLine - index).Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries));
                 index = nextLine;
             }
 
@@ -225,7 +224,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         private string readToNextDelim(string item, ref int index)
         {
-            int x = item.IndexOfAny(Delimiters, index);
+            int x = item.IndexOfAny(DelimiterWords, index);
             string str = item.Substring(index, x - index);
             index = x;
             return str;
@@ -235,7 +234,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             while (index < item.Length)
             {
-                if (Delimiters.Contains(item[index]))
+                if (DelimiterWords.Contains(item[index]))
                 {
                     index++;
                 }

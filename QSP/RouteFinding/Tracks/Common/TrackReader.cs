@@ -6,17 +6,23 @@ using QSP.AviationTools;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.RouteAnalyzers;
+using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
     // Read the track waypoints as strings, and try to find each waypoints in WptList
     public class TrackReader<T> where T : ITrack
     {
+        private WaypointList wptList;
+
         private List<WptPair> routeFromTo;
         private Route mainRoute;
         private T trk;
 
-        public TrackReader() { }
+        public TrackReader(WaypointList wptList)
+        {
+            this.wptList = wptList;
+        }
 
         /// <exception cref="InvalidRouteException"></exception>
         /// <exception cref="WaypointNotFoundException"></exception>
@@ -76,7 +82,7 @@ namespace QSP.RouteFinding.Tracks.Common
 
         private int selectWpt(double prevLat, double prevLon, string ident)
         {
-            var candidates = RouteFindingCore.WptList.FindAllByID(ident);
+            var candidates = wptList.FindAllByID(ident);
 
             if (candidates == null || candidates.Count == 0)
             {
@@ -88,8 +94,6 @@ namespace QSP.RouteFinding.Tracks.Common
 
         private bool isAirway(int lastIndex, string airway)
         {
-            var wptList = RouteFindingCore.WptList;
-
             foreach (var i in wptList.EdgesFrom(lastIndex))
             {
                 if (wptList.GetEdge(i).value.Airway == airway)

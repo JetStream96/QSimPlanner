@@ -22,20 +22,22 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private AirportManager airportList;
         private TogglerTrackCommunicator communicator;
 
-        private AusotsRawData rawData;
+        private AusotsMessage rawData;
         private List<TrackNodes> nodes;
 
         #endregion
-                
+
         /// <summary>
         /// Download and parse all track messages.
         /// </summary>
+        /// <exception cref="TrackParseException"></exception>
+        /// <exception cref="TrackDownloadException"></exception>
         public override void GetAllTracks()
         {
             tryDownload();
             var trks = tryParse();
 
-            var reader = new TrackReader<AusTrack>();
+            var reader = new TrackReader<AusTrack>(wptList);
             nodes = new List<TrackNodes>();
 
             foreach (var i in trks)
@@ -50,7 +52,8 @@ namespace QSP.RouteFinding.Tracks.Ausots
                 }
             }
         }
-
+        
+        /// <exception cref="TrackParseException"></exception>
         private List<AusTrack> tryParse()
         {
             try
@@ -64,11 +67,12 @@ namespace QSP.RouteFinding.Tracks.Ausots
             }
         }
 
+        /// <exception cref="TrackDownloadException"></exception>
         private void tryDownload()
         {
             try
             {
-                rawData = (AusotsRawData)new AusotsDownloader().Download();
+                rawData = (AusotsMessage)new AusotsDownloader().Download();
             }
             catch (Exception ex)
             {
@@ -76,15 +80,23 @@ namespace QSP.RouteFinding.Tracks.Ausots
                 throw new TrackDownloadException("Failed to download Ausots.", ex);
             }
         }
-        
+
+        /// <exception cref="TrackParseException"></exception>
+        /// <exception cref="TrackDownloadException"></exception>
         public override async void GetAllTracksAsync()
         {
             await Task.Factory.StartNew(GetAllTracks);
         }
-
+        
         public override void AddToWaypointList()
         {
             new TrackAdder<AusTrack>(wptList, recorder).AddToWaypointList(nodes);
+
+            foreach (var i in nodes)
+            {
+                communicator.StageTrackData(i);
+            }
+            communicator.PushAllData(TrackType.Ausots);
         }
     }
 }

@@ -4,6 +4,9 @@ namespace QSP.LibraryExtension.StringParser
 {
     public static class Utilities
     {
+        public static readonly char[] DelimiterWords = { ' ', '\n', '\r', '\t' };
+        public static readonly char[] DelimiterLines = { '\n', '\r' };
+
         /// <summary>
         /// Returns a substring starting from the given position. 
         /// The last char of this substring is the one before the next appearance of endChar.
@@ -146,13 +149,13 @@ namespace QSP.LibraryExtension.StringParser
         {
             int index = currentIndex;
 
-            while(true)
+            while (true)
             {
                 index = item.IndexOf('\n', index) + 1;
 
-                if(index < item.Length && index > 0)
+                if (index < item.Length && index > 0)
                 {
-                    if(item[index] != '\n' && item[index] != '\r')
+                    if (item[index] != '\n' && item[index] != '\r')
                     {
                         currentIndex = index;
                         return true;
@@ -162,7 +165,7 @@ namespace QSP.LibraryExtension.StringParser
                 {
                     return false;
                 }
-            }            
+            }
         }
     }
 }

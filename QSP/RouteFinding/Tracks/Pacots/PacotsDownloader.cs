@@ -2,27 +2,48 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using QSP.RouteFinding.Tracks.Common;
+using System;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public static class PacotsDownloader
+    public class PacotsDownloader : TrackDownloader<PacificTrack>
     {
-        /// <summary>
-        /// Returns the html file of PACOTs web page.
-        /// </summary>
-        public static string DownloadTrackMessage()
+        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="TrackParseException"></exception>
+        public override TrackMessage<PacificTrack> Download()
         {
-            return StartPost();
+            string html;
+
+            try
+            {
+                html = StartPost();
+            }
+            catch (Exception ex)
+            {
+                throw new TrackDownloadException("Failed to download PACOTs.", ex);
+            }
+
+            try
+            {
+                return new PacotsMessage(html);
+            }
+            catch (Exception ex)
+            {
+                throw new TrackParseException("Failed to parse PACOTs.", ex);
+            }
+        }
+
+        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="TrackParseException"></exception>
+        public async override Task<TrackMessage<PacificTrack>> DownloadAsync()
+        {
+            return await Task.Factory.StartNew(Download);
         }
 
         /// <summary>
         /// Returns the html file of PACOTs web page.
         /// </summary>
-        public async static Task<string> DownloadTrackMessageAsync()
-        {
-            return await Task.Factory.StartNew(StartPost);
-        }
-
         private static string StartPost()
         {
             byte[] buffer = Encoding.ASCII.GetBytes("queryType=pacificTracks&actionType=advancedNOTAMFunctions");

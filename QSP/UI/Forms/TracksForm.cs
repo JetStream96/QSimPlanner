@@ -232,7 +232,7 @@ namespace QSP
             if (CBoxPacotsEnabled.SelectedIndex == 0)
             {
                 //enabled
-                PacotsManager.AddToWptList();
+                PacotsManager.AddToWaypointList();
             }
             else
             {
@@ -246,7 +246,7 @@ namespace QSP
             if (CBoxAusotsEnabled.SelectedIndex == 0)
             {
                 //enabled
-                AusotsManager.AddToWptList();
+                AusotsManager.AddToWaypointList();
             }
             else
             {

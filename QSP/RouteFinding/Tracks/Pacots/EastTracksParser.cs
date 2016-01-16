@@ -2,18 +2,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using QSP.LibraryExtension;
+using QSP.AviationTools;
+using static QSP.RouteFinding.Tracks.Pacots.Constants;
+using static QSP.LibraryExtension.StringParser.Utilities;
+using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public static class EastTracksParser
+    public class EastTracksParser
     {
-        private static char[] Delimiters = { ' ', '\r', '\n', '\t' };
-        private static char[] CHANGE_LINE_CHAR = { '\r', '\n' };
         //UPR means upper (airway). This should be ignored when parsing routeFrom/To.
-
         private static string[] SPECIAL_WORD = { "UPR" };
 
-        public static List<PacificTrack> CreateEastboundTracks(PacotsMessage item)
+        private AirportManager airportList;
+
+        public EastTracksParser(AirportManager airportList)
+        {
+            this.airportList = airportList;
+        }
+
+        public List<PacificTrack> CreateEastboundTracks(PacotsMessage item)
         {
             var result = new List<PacificTrack>();
 
@@ -25,9 +33,9 @@ namespace QSP.RouteFinding.Tracks.Pacots
             return result;
         }
 
-        private static PacificTrack[] CreateEastboundTracks(string item)
+        private PacificTrack[] CreateEastboundTracks(string item)
         {
-            var timeInfo = TrackValidPeriod.GetValidPeriod (item);
+            var timeInfo = TrackValidPeriod.GetValidPeriod(item);
 
             var tracksStr = SplitTrackMsg(item);
             //each string is like:
@@ -57,7 +65,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 x = lastLineBeforeColon(str, y + 1);
 
                 string flexRoute = str.Substring(y + 1, x - y);
-                var mainRoute = flexRoute.Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
+                var mainRoute = flexRoute.Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
 
                 //remarks, may not exist for some tracks
                 int z = str.IndexOf("RMK");
@@ -67,7 +75,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 if (z >= 0)
                 {
                     remarks = str.Substring(z);
-                    z --;
+                    z--;
                 }
                 else
                 {
@@ -82,9 +90,14 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
                 var lists = getTrack(mainRoute, allToFromRoutes);
 
-                result[i] = new PacificTrack(tracksStr[i].Item1, PacotDirection.Eastbound,
-                                             timeInfo.Item1, timeInfo.Item2,
-                                             mainRoute, lists.Item1, lists.Item2, remarks);
+                result[i] = new PacificTrack(tracksStr[i].Item1,
+                                             PacotDirection.Eastbound,
+                                             timeInfo.Item1,
+                                             timeInfo.Item2,
+                                             Array.AsReadOnly(mainRoute),
+                                             lists.Item1.AsReadOnly(),
+                                             lists.Item2.AsReadOnly(),
+                                             remarks);
             }
             return result;
         }
@@ -101,9 +114,9 @@ namespace QSP.RouteFinding.Tracks.Pacots
             //the RCTP/VHHH route is not contained in one single line and need fixing
 
 
-            for (int i = item.Count - 2; i >= 0; i --)
+            for (int i = item.Count - 2; i >= 0; i--)
             {
-                var s = item[i].Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
+                var s = item[i].Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
 
                 if (s.First() != mainRoute.Last() && s.Last() != mainRoute.First())
                 {
@@ -113,7 +126,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        private static Tuple<List<string[]>, List<string[]>> getTrack(string[] mainRoute, List<string> allToFromRoutes)
+        private Tuple<List<string[]>, List<string[]>> getTrack(string[] mainRoute, List<string> allToFromRoutes)
         {
             List<string[]> listTo = new List<string[]>();
             List<string[]> listFrom = new List<string[]>();
@@ -135,16 +148,16 @@ namespace QSP.RouteFinding.Tracks.Pacots
             return new Tuple<List<string[]>, List<string[]>>(listFrom, listTo);
         }
 
-        private static Tuple<string[], int> getTrack(string[] mainRoute, string line)
+        private Tuple<string[], int> getTrack(string[] mainRoute, string line)
         {
-            var words = line.Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
+            var words = line.Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
 
             if (words.Length > 0)
             {
 
                 if (words.Last() == mainRoute.First())
                 {
-                    if (RouteFindingCore.AirportList.Find(words[0]) != null)
+                    if (airportList.Find(words[0]) != null)
                     {
                         return new Tuple<string[], int>(words.SubArray(1, words.Length - 1, SPECIAL_WORD), 0);
                     }
@@ -155,7 +168,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 }
                 else if (words[0] == mainRoute.Last() && words.Length > 1)
                 {
-                    if (RouteFindingCore.AirportList.Find(words.Last()) != null)
+                    if (airportList.Find(words.Last()) != null)
                     {
                         return new Tuple<string[], int>(words.SubArray(0, words.Length - 1, SPECIAL_WORD), 1);
                     }
@@ -256,7 +269,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
             if (result >= 0)
             {
-                for (int i = result; i >= index; i --)
+                for (int i = result; i >= index; i--)
                 {
                     if (item[i] == '\r' || item[i] == '\n')
                     {
@@ -281,7 +294,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 index = indices[i].nextIndexSearch;
                 len = ((i == indices.Count - 1) ? msg.Length : indices[i + 1].startIndex) - index;
 
-                result.Add(new Pair<string, string>(Convert.ToString(indices[i].ID), msg.Substring(index, len)));
+                result.Add(new Pair<string, string>(indices[i].ID.ToString(), msg.Substring(index, len)));
             }
             return result;
         }
@@ -351,20 +364,20 @@ namespace QSP.RouteFinding.Tracks.Pacots
                     flag = false;
                     trackId *= 10;
                     trackId += n;
-                    index ++;
+                    index++;
                 }
                 else
                 {
                     if (flag)
                     {
-                        if (Delimiters.Contains(msg[index]) == false)
+                        if (DelimiterWords.Contains(msg[index]) == false)
                         {
                             //nothing is found
                             return null;
                         }
                         else
                         {
-                            index ++;
+                            index++;
                         }
                     }
                     else

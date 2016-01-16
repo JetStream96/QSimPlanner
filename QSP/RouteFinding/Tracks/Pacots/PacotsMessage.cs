@@ -3,20 +3,28 @@ using System.Collections.Generic;
 using QSP.LibraryExtension;
 using System.Collections.ObjectModel;
 using static QSP.LibraryExtension.Strings;
+using System.Xml.Linq;
+using QSP.RouteFinding.Tracks.Common;
+using System.Text;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-
-    public class PacotsMessage
+    public class PacotsMessage : TrackMessage<PacificTrack>
     {
+        private static string HeaderKZAK = "KZAK OAKLAND OCA/FIR";
+        private static string HeaderRJJJ = "RJJJ FUKUOKA/JCAB AIR TRAFFIC FLOW MANAGEMENT CENTRE";
+
         private List<string> tracksKZAK;
         private List<string> tracksRJJJ;
 
-        public PacotsMessage(string htmlFile)
+        public PacotsMessage()
         {
             tracksKZAK = new List<string>();
             tracksRJJJ = new List<string>();
+        }
 
+        public PacotsMessage(string htmlFile) : this()
+        {
             try
             {
                 ParseHtml(htmlFile);
@@ -26,6 +34,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 throw new ArgumentException("Unable to parse the message.", ex);
             }
         }
+
+        #region Properties
 
         public ReadOnlyCollection<string> WestboundTracks
         {
@@ -38,14 +48,16 @@ namespace QSP.RouteFinding.Tracks.Pacots
         }
 
         public string TimeStamp { get; private set; }
-        public string GeneralMsg { get; private set; }
+        public string Header { get; private set; }
+
+        #endregion
 
         private void ParseHtml(string htmlFile)
         {
             int index = 0;
 
             //get the general message
-            GeneralMsg = Strings.StringStartEndWith(htmlFile, "The following are", "</tt>", CutStringOptions.PreserveStart);
+            Header = Strings.StringStartEndWith(htmlFile, "The following are", "</tt>", CutStringOptions.PreserveStart);
 
             //get the time stamp
             var timeInfo = GetTimeStamp(htmlFile, index);
@@ -126,6 +138,72 @@ namespace QSP.RouteFinding.Tracks.Pacots
             {
                 throw new ArgumentException("Unable to find the time stamp.", ex);
             }
+        }
+
+        public override void LoadFromXml(XDocument doc)
+        {
+            var root = doc.Root;
+            Header = doc.Element("Header").Value;
+            TimeStamp = doc.Element("TimeStamp").Value;
+
+            tracksKZAK = new List<string>();
+            tracksRJJJ = new List<string>();
+
+            foreach (var i in doc.Element("KZAK").Elements("Track"))
+            {
+                tracksKZAK.Add(i.Value);
+            }
+
+            foreach (var i in doc.Element("RJJJ").Elements("Track"))
+            {
+                tracksRJJJ.Add(i.Value);
+            }
+        }
+
+        public override string ToString()
+        {
+            var s = new StringBuilder();
+            s.AppendLine(Header);
+            s.AppendLine("Data Current as of" + TimeStamp);
+            s.AppendLine(GetStringTracks(HeaderKZAK, tracksKZAK));
+            s.AppendLine(GetStringTracks(HeaderRJJJ, tracksRJJJ));
+
+            return s.ToString();
+        }
+
+        public override XDocument ToXml()
+        {
+            var doc = new XElement("Content", new XElement[]{
+                                                             new XElement("TrackSystem","PACOTs"),
+                                                             new XElement("Header",Header),
+                                                             new XElement("TimeStamp",TimeStamp),
+                                                             new XElement("KZAK",GetXElement(tracksKZAK)),
+                                                             new XElement("RJJJ",GetXElement(tracksRJJJ))
+                                                            });
+            return new XDocument(doc);
+        }
+
+        private static XElement[] GetXElement(List<string> tracks)
+        {
+            var array = new XElement[tracks.Count];
+
+            for (int i = 0; i < tracks.Count; i++)
+            {
+                array[i] = new XElement("Track", tracks[i]);
+            }
+            return array;
+        }
+
+        private static string GetStringTracks(string header, List<string> tracks)
+        {
+            var s = new StringBuilder();
+            s.AppendLine(header);
+
+            foreach (var i in tracks)
+            {
+                s.AppendLine(i);
+            }
+            return s.ToString();
         }
     }
 }

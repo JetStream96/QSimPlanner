@@ -13,7 +13,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private string allTxt;
         private List<AusTrack> allTracks;
         
-        public AusotsParser(AusotsRawData data, StatusRecorder statusRecorder, AirportManager airportList)
+        public AusotsParser(AusotsMessage data, StatusRecorder statusRecorder, AirportManager airportList)
         {
             allTxt = data.AllText;
             this.statusRecorder = statusRecorder;

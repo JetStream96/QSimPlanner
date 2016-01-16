@@ -122,14 +122,17 @@
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarReader.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Utilities.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsParser.cs" />
-    <Compile Include="RouteFinding\Tracks\Ausots\AusotsRawData.cs" />
+    <Compile Include="RouteFinding\Tracks\Ausots\AusotsMessage.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\IndividualAusotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Common\IXmlConvertible.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackAdder.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackDownloader.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackNodes.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackParser.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\TrackRawData.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TrackMessage.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\Constants.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\PacotsParser.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\WestTrackParser.cs" />
     <Compile Include="RouteFinding\WaypointAirwayConnector.cs" />
     <Compile Include="UI\Forms\OptionsForm.cs">
       <SubType>Form</SubType>
