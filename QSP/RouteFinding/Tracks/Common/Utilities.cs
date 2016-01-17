@@ -114,7 +114,7 @@ namespace QSP.RouteFinding.Tracks.Common
             {
                 return TrackType.Pacots;
             }
-            else if (typeof(T) == typeof(NorthAtlanticTrack))
+            else if (typeof(T) == typeof(NorthAtlanticTrackOld))
             {
                 return TrackType.Nats;
             }

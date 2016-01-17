@@ -11,29 +11,29 @@ using static QSP.LibraryExtension.Strings;
 using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
+using System.Xml.Linq;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
 
     public class NatHandler
     {
-
         public const string natsUrl = "https://www.notams.faa.gov/common/nat.html?";
         private const string natsWest = "http://qsimplan.somee.com/nats/Westbound.xml";
         private const string natsEast = "http://qsimplan.somee.com/nats/Eastbound.xml";
 
-        private static readonly LatLon CENTER_ATL = new LatLon(55, -45);
+        private static readonly LatLon CENTER_ATL = new LatLon(55.0, -45.0);
 
-        private List<NATsMessage> natMsg;
-        private List<NorthAtlanticTrack> NatTrackCollection = new List<NorthAtlanticTrack>();
+        private List<IndividualNatsMessage> natMsg;
+        private List<NorthAtlanticTrackOld> NatTrackCollection = new List<NorthAtlanticTrackOld>();
 
-        public NorthAtlanticTrack GetTrack(char identLetter)
+        public NorthAtlanticTrackOld GetTrack(char identLetter)
         {
             foreach (var i in NatTrackCollection)
             {
                 if (i.Ident == identLetter)
                 {
-                    return new NorthAtlanticTrack(i);
+                    return new NorthAtlanticTrackOld(i);
                 }
             }
             return null;
@@ -56,74 +56,11 @@ namespace QSP.RouteFinding.Tracks.Nats
             return null;
         }
 
-        public static List<NATsMessage> DownloadFromWeb(string url)
-        {
-            //the list contains either 1 or 2 item(s)
-            List<NATsMessage> result = new List<NATsMessage>();
-            string htmlStr = null;
-
-            using (WebClient wc = new WebClient())
-            {
-                htmlStr = wc.DownloadString(url);
-            }
-
-            string time_updated = StringStartEndWith(htmlStr, "Last updated", "</i>", CutStringOptions.PreserveStart);
-            string general_info = StringStartEndWith(htmlStr, "The following are active North Atlantic Tracks", "</th>", CutStringOptions.PreserveStart);
-            if (htmlStr.IndexOf("EGGXZOZX") >= 0)
-            {
-                string msg = CutString2(htmlStr, "EGGXZOZX", "</td>", false);
-                msg = ReplaceString(msg, new string[] {
-                    "</font>",
-                    "<font color=\"#000099\">",
-                    new string((char)2,1),new string((char)3,1),new string((char)11,1)}, "");
-
-                result.Add(new NATsMessage(time_updated, general_info, NatsDir.West, msg));
-            }
-
-            if (htmlStr.IndexOf("CZQXZQZX") >= 0)
-            {
-                string msg = CutString2(htmlStr, "CZQXZQZX", "</td>", false);
-                msg = ReplaceString(msg, new string[]{
-                    "</font>",
-                    "<font color=\"#000099\">",
-                     new string((char)2,1),new string((char)3,1),new string((char)11,1) }, "");
-
-                result.Add(new NATsMessage(time_updated, general_info, NatsDir.East, msg));
-            }
-
-            return result;
-
-        }
-
-        //Repeated downloads is okay and will not cause any problem.
-
-        public void DownloadNatsMsg()
-        {
-            natMsg = DownloadFromWeb(natsUrl);
-            
-            if (natMsg.Count == 1)
-            {
-                string downloadAdditional = null;
-
-                if (natMsg[0].Direction == NatsDir.East)
-                {
-                    downloadAdditional = natsWest;
-                }
-                else
-                {
-                    downloadAdditional = natsEast;
-                }
-
-                using (WebClient wc = new WebClient())
-                {
-                    natMsg.Add(new NATsMessage(wc.DownloadString(downloadAdditional)));
-                }
-            }
-        }
+      
 
         public void AddToWptList()
         {
-            NatTrackCollection = new List<NorthAtlanticTrack>();
+            NatTrackCollection = new List<NorthAtlanticTrackOld>();
 
             foreach (var i in natMsg)
             {
@@ -134,8 +71,8 @@ namespace QSP.RouteFinding.Tracks.Nats
                 catch
                 {
                     TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Caution,
-                                                 string.Format("Unable to interpret {0} tracks.", 
-                                                 (i.Direction == NatsDir.East) ? "eastbound" : "westbound"),
+                                                 string.Format("Unable to interpret {0} tracks.",
+                                                 (i.Direction == NatsDirection.East) ? "eastbound" : "westbound"),
                                                  TrackType.Nats);
                 }
             }
@@ -165,7 +102,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// <summary>
         /// Add the first waypoint in NAT to WptList, while modifying latLon and FirstTrackWptIndex.
         /// </summary>
-        private void addFirstWpt(NorthAtlanticTrack currentTrack, List<LatLon> latLon, ref int FirstTrackWptIndex)
+        private void addFirstWpt(NorthAtlanticTrackOld currentTrack, List<LatLon> latLon, ref int FirstTrackWptIndex)
         {
             int x = findInWptListNorthAtlantic(currentTrack.WptIdent[0]);
 
@@ -186,7 +123,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                 {
                     //no other wpt have this wpt as a neighbor, need to find nearby wpt to connect
 
-                    List<int> k = Common.Utilities.NearbyWaypointsInWptList(20, pt.Lat, pt.Lon,WptList );
+                    List<int> k = Common.Utilities.NearbyWaypointsInWptList(20, pt.Lat, pt.Lon, WptList);
 
                     foreach (int m in k)
                     {
@@ -203,7 +140,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// <summary>
         /// Add the last waypoint in NAT to WptList, while modifying latLon and LastTrackWptIndex.
         /// </summary>
-        private void addLastWpt(NorthAtlanticTrack currentTrack, List<LatLon> latLon, ref int LastTrackWptIndex)
+        private void addLastWpt(NorthAtlanticTrackOld currentTrack, List<LatLon> latLon, ref int LastTrackWptIndex)
         {
             int x = findInWptListNorthAtlantic(currentTrack.WptIdent.Last());
 
@@ -221,7 +158,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                 }
                 else
                 {
-                    List<int> k = Common.Utilities.NearbyWaypointsInWptList(20, pt.Lat, pt.Lon,WptList );
+                    List<int> k = Common.Utilities.NearbyWaypointsInWptList(20, pt.Lat, pt.Lon, WptList);
 
                     foreach (int m in k)
                     {
@@ -234,7 +171,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             throw new TrackWaypointNotFoundException("Waypoint ident \"" + currentTrack.WptIdent.Last() + "\" not found.");
         }
 
-        private void addTracksIntoWptList(NorthAtlanticTrack currentTrack)
+        private void addTracksIntoWptList(NorthAtlanticTrackOld currentTrack)
         {
             //The first and last waypoints in the track. Index in WptList.
             int FirstTrackWptIndex = 0;
@@ -314,10 +251,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             if (wptIndex.Count > 1)
             {
-                //TODO: possibly change the algorithm to find the wpt closest to the last one
                 return chooseWptAtlantic(wptIndex);
-
-                //Throw New Exception("Multiple waypoints with ident """ & ident & """ found in north atlantic region.")
             }
             else if (wptIndex.Count == 1)
             {
@@ -354,28 +288,23 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         public static Waypoint NatsLatLonToWaypoint(string s)
         {
-            return new Waypoint(NatsLatLonToIdent(s), Convert.ToDouble(s[0] + s[1]), -1 * Convert.ToDouble(s[3] + s[4]));
+            return new Waypoint(NatsLatLonToIdent(s), Convert.ToDouble(s[0] + s[1]), -( Convert.ToDouble(s[3] + s[4])));
         }
 
         public static bool IsNatsLatLonFormat(string s)
         {
-            if (s.Length == 5 && s[2] == '/' && char.IsDigit(s[0]) && char.IsDigit(s[1]) && char.IsDigit(s[3]) && char.IsDigit(s[4]))
-            {
-                return true;
-            }
-            return false;
+            return (s.Length == 5 &&
+                    s[2] == '/' &&
+                    char.IsDigit(s[0]) &&
+                    char.IsDigit(s[1]) &&
+                    char.IsDigit(s[3]) &&
+                    char.IsDigit(s[4]));
         }
 
         public static bool WithinNorthAtlanticArea(double lat, double lon)
         {
-            if (lat > 20.0 && lat < 75.0 && lon < 0.0 && lon > -80.0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (lat > 20.0 && lat < 75.0 &&
+                    lon < 0.0 && lon > -80.0);
         }
     }
 

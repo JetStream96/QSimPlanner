@@ -64,7 +64,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
             var _Answer = new StreamReader(Answer);
 
             return _Answer.ReadToEnd();
-
         }
     }
 }

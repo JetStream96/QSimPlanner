@@ -1,34 +1,70 @@
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using QSP.AviationTools;
+using QSP.RouteFinding.Tracks.Common;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
-    public class NorthAtlanticTrack
+    public class NorthAtlanticTrack : ITrack
     {
-        public NatsDir Direction { get; private set; }
-        public char Ident { get; private set; }     // A, B, C, etc        
-        public List<string> WptIdent;       // Indices of each waypoint in trackedWptList        
-        public List<int> WptIndex;          //TODO: This seems bad. Should have a list of Waypoints instead.
+        private static readonly ReadOnlyCollection<string[]> EmptyCollection = new List<string[]>().AsReadOnly();
 
-        public NorthAtlanticTrack()
+        #region Properties
+
+        public NatsDirection Direction { get; private set; }
+        public string Ident { get; private set; }
+        public ReadOnlyCollection<string> MainRoute { get; private set; }
+        public LatLon PreferredFirstLatLon { get; private set; }
+        public string Remarks { get; private set; }
+        public string TimeEnd { get; private set; }
+        public string TimeStart { get; private set; }
+
+        public ReadOnlyCollection<string[]> RouteFrom
         {
-            WptIdent = new List<string>();
-            WptIndex = new List<int>();
+            get
+            {
+                return EmptyCollection;
+            }
         }
 
-        public NorthAtlanticTrack(NatsDir Direction, char Ident, List<string> WptIdent, List<int> WptIndex)
+        public ReadOnlyCollection<string[]> RouteTo
+        {
+            get
+            {
+                return EmptyCollection;
+            }
+        }
+
+        public string AirwayIdent
+        {
+            get
+            {
+                return "NAT" + Ident;
+            }
+        }
+
+        #endregion
+
+        public NorthAtlanticTrack(NatsDirection Direction,
+                                  string Ident,
+                                  ReadOnlyCollection<string> MainRoute,
+                                  LatLon PreferredFirstLatLon,
+                                  string Remarks,
+                                  string TimeStart,
+                                  string TimeEnd)
         {
             this.Direction = Direction;
             this.Ident = Ident;
-            this.WptIdent = WptIdent;
-            this.WptIndex = WptIndex;
+            this.MainRoute = MainRoute;
+            this.PreferredFirstLatLon = PreferredFirstLatLon;
+            this.Remarks = Remarks;
+            this.TimeStart = TimeStart;
+            this.TimeEnd = TimeEnd;
         }
 
-        public NorthAtlanticTrack(NorthAtlanticTrack item)
-        {
-            Direction = item.Direction;
-            Ident = item.Ident;
-            WptIdent = new List<string>(item.WptIdent);
-            WptIndex = new List<int>(item.WptIndex);
-        }
     }
 }

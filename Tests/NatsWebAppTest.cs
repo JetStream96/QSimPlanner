@@ -14,10 +14,10 @@ namespace Tests
 		{
 			string str = File.ReadAllText("Westbound.xml");
 
-			NATsMessage n = new NATsMessage(str);
+			IndividualNatsMessage n = new IndividualNatsMessage(str);
 
 			Debug.WriteLine(n.Direction);
-			Debug.WriteLine(n.GeneralInfo);
+			Debug.WriteLine(n.Header);
 			Debug.WriteLine(n.LastUpdated);
 			Debug.WriteLine(n.Message);
 		}
