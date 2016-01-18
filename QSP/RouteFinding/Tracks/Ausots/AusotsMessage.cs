@@ -4,6 +4,9 @@ using static QSP.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
+    /// <summary>
+    /// Contains all text of TDM (track definition message), but with html tags removed.
+    /// </summary>
     public class AusotsMessage : TrackMessage<AusTrack>
     {
         public string AllText { get; private set; }
@@ -11,6 +14,11 @@ namespace QSP.RouteFinding.Tracks.Ausots
         public AusotsMessage(string HtmlSource)
         {
             AllText = HtmlSource.RemoveHtmlTags();
+        }
+
+        public AusotsMessage(XDocument doc)
+        {
+            LoadFromXml(doc);
         }
 
         public override void LoadFromXml(XDocument doc)

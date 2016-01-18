@@ -15,6 +15,11 @@ namespace QSP.RouteFinding.Tracks.Nats
             this.EastMessage = EastMessage;
         }
 
+        public NatsMessage(XDocument doc)
+        {
+            LoadFromXml(doc);
+        }
+
         public override void LoadFromXml(XDocument doc)
         {
             var root = doc.Root;

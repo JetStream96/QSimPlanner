@@ -5,7 +5,8 @@ using System.IO;
 
 namespace Tests
 {
-
+    //TODO: Enable this when possible.
+    /*
     [TestClass()]
 	public class NatsWebAppTest
 	{
@@ -22,5 +23,5 @@ namespace Tests
 			Debug.WriteLine(n.Message);
 		}
 
-	}
+	}*/
 }

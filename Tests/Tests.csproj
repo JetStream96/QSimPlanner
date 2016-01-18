@@ -36,6 +36,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -55,14 +57,15 @@
     <Compile Include="AirwayConnectionFinderTest.cs" />
     <Compile Include="AnalyzerWithCommandsTest.cs" />
     <Compile Include="AusotsTest.cs" />
-    <Compile Include="AviationToolsTest\CoversionToolsTest.cs" />
+    <Compile Include="AviationTools\CoversionToolsTest.cs" />
     <Compile Include="Common\Utilities.cs" />
     <Compile Include="InterpolationTest.cs" />
     <Compile Include="LandingPerfCalcTest.cs" />
-    <Compile Include="AviationToolsTest\LatLonConversionTest.cs" />
+    <Compile Include="AviationTools\LatLonConversionTest.cs" />
     <Compile Include="LibraryExtensionTest.cs" />
-    <Compile Include="LibraryExtensionTest\FixedIndexListTest.cs" />
-    <Compile Include="LibraryExtensionTest\GraphTest.cs" />
+    <Compile Include="LibraryExtension\FixedIndexListTest.cs" />
+    <Compile Include="LibraryExtension\GraphTest.cs" />
+    <Compile Include="LibraryExtension\StringsTest.cs" />
     <Compile Include="NatsWebAppTest.cs" />
     <Compile Include="PacotsHandlerTest.cs" />
     <Compile Include="PacotsTest.cs" />
@@ -74,18 +77,19 @@
     </Compile>
     <Compile Include="RandomRouteFinderTest.cs" />
     <Compile Include="RouteAnalyzerTest.cs" />
-    <Compile Include="RouteFindingTest\RouteFinderTest.cs" />
-    <Compile Include="RouteFindingTest\TerminalProceduresTest\Sid\SidAdderTest.cs" />
-    <Compile Include="RouteFindingTest\TerminalProceduresTest\Sid\SidCollectionTest.cs" />
-    <Compile Include="RouteFindingTest\TerminalProceduresTest\Sid\SidReaderTest.cs" />
-    <Compile Include="RouteFindingTest\TerminalProceduresTest\ProcedureSelectorTest.cs" />
-    <Compile Include="RouteFindingTest\TerminalProceduresTest\Star\StarAdderTest.cs" />
-    <Compile Include="RouteFindingTest\TerminalProceduresTest\Star\StarCollectionTest.cs" />
-    <Compile Include="RouteFindingTest\TerminalProceduresTest\Star\StarReaderTest.cs" />
-    <Compile Include="RouteFindingTest\TestDataGenerators\AirportManagerGenerator.cs" />
-    <Compile Include="RouteFindingTest\TestDataGenerators\CommentLineRemover.cs" />
-    <Compile Include="RouteFindingTest\TestDataGenerators\TestDataProvider.cs" />
-    <Compile Include="RouteFindingTest\TestDataGenerators\WptListGenerator.cs" />
+    <Compile Include="RouteFinding\RouteFinderTest.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Sid\SidAdderTest.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Sid\SidCollectionTest.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Sid\SidReaderTest.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\ProcedureSelectorTest.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Star\StarAdderTest.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Star\StarCollectionTest.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Star\StarReaderTest.cs" />
+    <Compile Include="RouteFinding\TestDataGenerators\AirportManagerGenerator.cs" />
+    <Compile Include="RouteFinding\TestDataGenerators\CommentLineRemover.cs" />
+    <Compile Include="RouteFinding\TestDataGenerators\TestDataProvider.cs" />
+    <Compile Include="RouteFinding\TestDataGenerators\WptListGenerator.cs" />
+    <Compile Include="RouteFinding\Tracks\Ausots\AusotsMessageTest.cs" />
     <Compile Include="SimpleRouteAnalyzerTest.cs" />
     <Compile Include="TOPerfCalcTest.cs" />
     <Compile Include="WindAloft\LastestDataSetFinderTest.cs" />
@@ -99,10 +103,10 @@
     <Content Include="pacotsSample.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RouteFindingTest\TestData\airports.txt">
+    <Content Include="RouteFinding\TestData\airports.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RouteFindingTest\TestData\PROC\AXYZ_WithComments.txt">
+    <Content Include="RouteFinding\TestData\PROC\AXYZ_WithComments.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Westbound.xml">

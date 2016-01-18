@@ -116,11 +116,9 @@ namespace QSP.LibraryExtension
 
         public static int NthOccurence(string input, string target, int n)
         {
-
             int count = 0;
             int STR_LENGTH = target.Length;
             int startIndex = -STR_LENGTH;
-
 
             while (startIndex != -1)
             {
@@ -132,11 +130,8 @@ namespace QSP.LibraryExtension
                 {
                     return startIndex;
                 }
-
             }
-
             return -1;
-
         }
 
         public static string StringBetween(this string item, int index1, int index2)
@@ -245,8 +240,6 @@ namespace QSP.LibraryExtension
             }
             return new string(array, 0, index);
         }
-
     }
-
 }
 
