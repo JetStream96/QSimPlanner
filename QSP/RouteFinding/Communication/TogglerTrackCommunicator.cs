@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
-using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Routes.Toggler;
 using QSP.RouteFinding.Tracks.Common;
 
 namespace QSP.RouteFinding.Communication
 {
-    public class TogglerTrackCommunicator
+    public class RouteTrackCommunicator
     {
-        private RouteToggler toggler;
+        private TrackInUseCollection tracksInUse;
         private List<TrackNodes> allNodes;
 
-        public TogglerTrackCommunicator(RouteToggler toggler)
+        public RouteTrackCommunicator(TrackInUseCollection tracksInUse)
         {
-            this.toggler = toggler;
+            this.tracksInUse = tracksInUse;
             allNodes = new List<TrackNodes>();
         }
 
@@ -22,7 +22,7 @@ namespace QSP.RouteFinding.Communication
 
         public void PushAllData(TrackType type)
         {
-            toggler.UpdateTracks(allNodes, type);
+            tracksInUse.UpdateTracks(allNodes, type);
         }
     }
 }

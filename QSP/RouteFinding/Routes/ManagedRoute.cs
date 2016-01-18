@@ -1,4 +1,5 @@
 using QSP.Core;
+using QSP.RouteFinding.Routes.Toggler;
 
 namespace QSP.RouteFinding.Routes
 {
@@ -6,9 +7,9 @@ namespace QSP.RouteFinding.Routes
     {
         private RouteToggler toggler;
 
-        public ManagedRoute() : base()
+        public ManagedRoute(TrackInUseCollection tracksInUse) : base()
         {
-            toggler = new RouteToggler(links);
+            toggler = new RouteToggler(links, tracksInUse);
         }
 
         /// <summary>

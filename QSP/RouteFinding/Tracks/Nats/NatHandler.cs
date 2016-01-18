@@ -17,14 +17,14 @@ namespace QSP.RouteFinding.Tracks.Nats
         private WaypointList wptList;
         private StatusRecorder recorder;
         private AirportManager airportList;
-        private TogglerTrackCommunicator communicator;
+        private RouteTrackCommunicator communicator;
 
         private NatsMessage rawData;
         private List<TrackNodes> nodes;
 
         #endregion
 
-        public NatsHandler(WaypointList wptList, StatusRecorder recorder, AirportManager airportList, TogglerTrackCommunicator communicator)
+        public NatsHandler(WaypointList wptList, StatusRecorder recorder, AirportManager airportList, RouteTrackCommunicator communicator)
         {
             this.wptList = wptList;
             this.recorder = recorder;

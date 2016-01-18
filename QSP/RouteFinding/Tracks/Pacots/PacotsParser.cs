@@ -10,7 +10,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private StatusRecorder statusRecorder;
         private AirportManager airportList;
         private PacotsMessage message;
-        private List<PacificTrack> allTracks;
 
         public PacotsParser(PacotsMessage message, StatusRecorder statusRecorder, AirportManager airportList)
         {

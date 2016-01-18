@@ -104,8 +104,10 @@
     <Compile Include="RouteFinding\Routes\RouteCollapse.cs" />
     <Compile Include="RouteFinding\Routes\RouteExpand.cs" />
     <Compile Include="RouteFinding\Routes\RouteNode.cs" />
-    <Compile Include="RouteFinding\Routes\RouteToggler.cs" />
+    <Compile Include="RouteFinding\Routes\Toggler\RouteEntry.cs" />
+    <Compile Include="RouteFinding\Routes\Toggler\RouteToggler.cs" />
     <Compile Include="RouteFinding\Data\ICoordinate.cs" />
+    <Compile Include="RouteFinding\Routes\Toggler\TrackInUseCollection.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\EntryType.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\IProcedureEntry.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidAdder.cs" />

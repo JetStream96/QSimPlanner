@@ -11,7 +11,6 @@ namespace QSP.RouteFinding.Tracks.Nats
         private StatusRecorder statusRecorder;
         private AirportManager airportList;
         private NatsMessage message;
-        private List<NorthAtlanticTrack> allTracks;
 
         public NatsParser(NatsMessage message, StatusRecorder statusRecorder, AirportManager airportList)
         {

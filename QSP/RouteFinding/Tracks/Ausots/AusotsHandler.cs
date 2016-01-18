@@ -17,14 +17,14 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private WaypointList wptList;
         private StatusRecorder recorder;
         private AirportManager airportList;
-        private TogglerTrackCommunicator communicator;
+        private RouteTrackCommunicator communicator;
 
         private AusotsMessage rawData;
         private List<TrackNodes> nodes;
 
         #endregion
 
-        public AusotsHandler(WaypointList wptList, StatusRecorder recorder, AirportManager airportList, TogglerTrackCommunicator communicator)
+        public AusotsHandler(WaypointList wptList, StatusRecorder recorder, AirportManager airportList, RouteTrackCommunicator communicator)
         {
             this.wptList = wptList;
             this.recorder = recorder;

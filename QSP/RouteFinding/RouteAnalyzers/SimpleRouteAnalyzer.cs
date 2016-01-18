@@ -48,7 +48,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
         public SimpleRouteAnalyzer(string route, int firstWaypointIndex, WaypointList wptList)
         {
             this.wptList = wptList;
-            rte = new ManagedRoute();
+            rte = new ManagedRoute(RouteFindingCore. TracksInUse);
             routeInput = route.ToUpper().Split(Delimiters, StringSplitOptions.RemoveEmptyEntries).RemoveElements("DCT");
             validateFirstWpt(firstWaypointIndex);
         }

@@ -101,7 +101,7 @@ namespace QSP.RouteFinding
 
         private ManagedRoute extractRoute(routeFindingData FindRouteData, int startPtIndex, int endPtIndex)
         {
-            ManagedRoute result = new ManagedRoute();
+            var result = new ManagedRoute(TracksInUse);
 
             var waypoints = new List<Waypoint>();
             var airways = new List<string>();
@@ -134,7 +134,7 @@ namespace QSP.RouteFinding
 
         private static ManagedRoute BuildRoute(List<Waypoint> waypoints, List<string> airways, List<double> totalDistances)
         {
-            var result = new ManagedRoute();
+            var result = new ManagedRoute(TracksInUse);
             int edgeCount = airways.Count;
 
             result.AppendWaypoint(waypoints[edgeCount]);

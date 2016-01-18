@@ -108,7 +108,7 @@ namespace QSP.RouteFinding
 
         public ManagedRoute Parse()
         {
-            var result = new ManagedRoute();
+            var result = new ManagedRoute(TracksInUse);
             string[] input = routeInput.ToUpper().Split(Delimiters, StringSplitOptions.RemoveEmptyEntries).RemoveElements("DCT");
             NodeType currentNode = NodeType.Orig;
 

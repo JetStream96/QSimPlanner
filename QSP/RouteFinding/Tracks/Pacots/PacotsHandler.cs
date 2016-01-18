@@ -16,14 +16,14 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private WaypointList wptList;
         private StatusRecorder recorder;
         private AirportManager airportList;
-        private TogglerTrackCommunicator communicator;
+        private RouteTrackCommunicator communicator;
 
         private PacotsMessage rawData;
         private List<TrackNodes> nodes;
 
         #endregion
 
-        public PacotsHandler(WaypointList wptList, StatusRecorder recorder, AirportManager airportList, TogglerTrackCommunicator communicator)
+        public PacotsHandler(WaypointList wptList, StatusRecorder recorder, AirportManager airportList, RouteTrackCommunicator communicator)
         {
             this.wptList = wptList;
             this.recorder = recorder;
