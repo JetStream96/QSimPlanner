@@ -56,35 +56,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                                                     new XElement("Header", Header),
                                                     new XElement("Direction", NatsDirectionString()),
                                                     new XElement("Message", Message)}));
-        }
-
-        public List<NorthAtlanticTrackOld> ConvertToTracks()
-        {
-            char trkStartChar = (Direction == NatsDirection.West ? 'A' : 'N');
-
-            var tracks = new List<NorthAtlanticTrackOld>();
-
-            for (int i = trkStartChar; i <= trkStartChar + 12; i++)
-            {
-                int j = Message.IndexOf("\n" + (char)i + " ");
-
-                if (j == -1)
-                {
-                    continue;
-                }
-
-                int k = Message.IndexOf('\n', j + 3);
-
-                string str = Message.Substring(j + 3, k - j - 3);
-                string[] wp = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                tracks.Add(new NorthAtlanticTrackOld(Direction, (char)i, new List<string>(wp), new List<int>()));
-            }
-
-            return tracks;
-        }
-
+        }        
     }
-
 }
 

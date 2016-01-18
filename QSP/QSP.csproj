@@ -130,9 +130,11 @@
     <Compile Include="RouteFinding\Tracks\Common\TrackNodes.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackParser.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackMessage.cs" />
+    <Compile Include="RouteFinding\Tracks\Nats\Constants.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Enums.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NatsDownloader.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NatsMessage.cs" />
+    <Compile Include="RouteFinding\Tracks\Nats\NatsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NorthAtlanticTrack.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Constants.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsParser.cs" />

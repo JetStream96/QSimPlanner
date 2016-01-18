@@ -25,7 +25,13 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         #endregion
 
-        private PacotsMessage msg;
+        public PacotsHandler(WaypointList wptList, StatusRecorder recorder, AirportManager airportList, TogglerTrackCommunicator communicator)
+        {
+            this.wptList = wptList;
+            this.recorder = recorder;
+            this.airportList = airportList;
+            this.communicator = communicator;
+        }
 
         // TODO: Maybe have different exception messages to distinguish west/east parse error?
         /// <exception cref="TrackDownloadException"></exception>
@@ -76,13 +82,13 @@ namespace QSP.RouteFinding.Tracks.Pacots
             catch (Exception ex)
             {
                 recorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to parse PACOTs.", TrackType.Pacots);
-                throw new TrackParseException("Failed to parse Ausots.", ex);
+                throw new TrackParseException("Failed to parse Pacots.", ex);
             }
         }
 
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        public override async void GetAllTracksAsync()
+        public override async Task GetAllTracksAsync()
         {
             await Task.Factory.StartNew(GetAllTracks);
         }

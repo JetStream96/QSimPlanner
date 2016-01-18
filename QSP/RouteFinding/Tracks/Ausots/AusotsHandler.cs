@@ -27,6 +27,14 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         #endregion
 
+        public AusotsHandler(WaypointList wptList, StatusRecorder recorder, AirportManager airportList, TogglerTrackCommunicator communicator)
+        {
+            this.wptList = wptList;
+            this.recorder = recorder;
+            this.airportList = airportList;
+            this.communicator = communicator;
+        }
+
         /// <summary>
         /// Download and parse all track messages.
         /// </summary>
@@ -83,7 +91,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         /// <exception cref="TrackParseException"></exception>
         /// <exception cref="TrackDownloadException"></exception>
-        public override async void GetAllTracksAsync()
+        public override async Task GetAllTracksAsync()
         {
             await Task.Factory.StartNew(GetAllTracks);
         }

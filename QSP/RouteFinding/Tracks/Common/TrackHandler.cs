@@ -6,6 +6,7 @@ using QSP.RouteFinding.Tracks.Interaction;
 using static QSP.MathTools.Utilities;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes;
+using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
@@ -18,7 +19,7 @@ namespace QSP.RouteFinding.Tracks.Common
         /// Download and parse all track messages.
         /// </summary>
         public abstract void GetAllTracks();
-        public abstract void GetAllTracksAsync();
+        public abstract Task GetAllTracksAsync();
 
         /// <summary>
         /// Add the downloaded tracks to WaypointList.

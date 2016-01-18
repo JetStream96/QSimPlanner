@@ -6,6 +6,7 @@ using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Communication;
 
 namespace QSP.RouteFinding
 {
@@ -21,9 +22,10 @@ namespace QSP.RouteFinding
 		public static ManagedRoute RouteToAltn;
 
 		public static StatusRecorder TrackStatusRecorder = new StatusRecorder();
-		public static NatHandler NatsManager;
+		public static NatsHandler NatsManager;
 		public static PacotsHandler PacotsManager;
 		public static AusotsHandler AusotsManager;
+        public static TogglerTrackCommunicator TogglerTrackCommunicator;
 	}
 
 }

@@ -7,7 +7,7 @@ namespace QSP.RouteFinding.Tracks.Common
     {
         string Ident { get; }
         string AirwayIdent { get; }
-        string TimeStart { get; }
+        string TimeStart { get; }  
         string TimeEnd { get; }
         string Remarks { get; }
         ReadOnlyCollection<string> MainRoute { get; }

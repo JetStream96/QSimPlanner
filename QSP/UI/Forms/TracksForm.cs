@@ -219,7 +219,7 @@ namespace QSP
             if (CBoxNatsEnabled.SelectedIndex == 0)
             {
                 //enabled
-                NatsManager.AddToWptList();
+                NatsManager.AddToWaypointList();
             }
             else
             {
@@ -306,9 +306,9 @@ namespace QSP
 
         private static void initManagers()
         {
-            NatsManager = new NatHandler();
-            PacotsManager = new PacotsHandler();
-            AusotsManager = new AusotsHandler();
+            NatsManager = new NatsHandler(WptList,TrackStatusRecorder,AirportList,);
+            PacotsManager = new PacotsHandler(WptList, TrackStatusRecorder, AirportList,);
+            AusotsManager = new AusotsHandler(WptList, TrackStatusRecorder, AirportList,);
         }
         public TracksForm()
         {

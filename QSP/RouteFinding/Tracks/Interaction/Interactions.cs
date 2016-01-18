@@ -12,28 +12,28 @@ namespace QSP.RouteFinding.Tracks.Interaction
 
             try
             {
-                await Task.Factory.StartNew(NatsManager.DownloadNatsMsg);
+                await NatsManager.GetAllTracksAsync();
             }
-            catch 
+            catch
             {
                 TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download NATs.", TrackType.Nats);
                 return;
             }
 
-            NatsManager.AddToWptList();
+            NatsManager.AddToWaypointList();
         }
 
         public async static Task SetPacots()
         {
             TrackStatusRecorder.Clear(TrackType.Pacots);
-            await Task.Factory.StartNew(PacotsManager.GetAllTracks);
+            await PacotsManager.GetAllTracksAsync();
             PacotsManager.AddToWaypointList();
         }
 
         public async static Task SetAusots()
         {
             TrackStatusRecorder.Clear(TrackType.Ausots);
-            await Task.Factory.StartNew(AusotsManager.GetAllTracks);
+            await AusotsManager.GetAllTracksAsync();
             AusotsManager.AddToWaypointList();
         }
 
@@ -42,9 +42,9 @@ namespace QSP.RouteFinding.Tracks.Interaction
             TrackStatusRecorder.Clear();
 
             //these can be done asynchronously
-            Task taskN = new Task(() => NatsManager.DownloadNatsMsg());
-            Task taskP = new Task(() => PacotsManager.GetAllTracks());
-            Task taskA = new Task(() => AusotsManager.GetAllTracks());
+            Task taskN = NatsManager.GetAllTracksAsync();
+            Task taskP = PacotsManager.GetAllTracksAsync();
+            Task taskA = AusotsManager.GetAllTracksAsync();
 
             taskN.Start();
             taskP.Start();
@@ -53,7 +53,7 @@ namespace QSP.RouteFinding.Tracks.Interaction
             await Task.WhenAll(taskN, taskP, taskA);
 
             //these tasks MUST be done sequentially, as WptList is not thread-safe
-            NatsManager.AddToWptList();
+            NatsManager.AddToWaypointList();
             PacotsManager.AddToWaypointList();
             AusotsManager.AddToWaypointList();
         }
