@@ -8,7 +8,6 @@ using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.MathTools.Utilities;
 using static QSP.Utilities.ErrorLogger;
 using QSP.RouteFinding.Tracks.Common;
-using QSP.Core;
 using QSP.RouteFinding.Containers;
 
 namespace QSP.RouteFinding.AirwayStructure

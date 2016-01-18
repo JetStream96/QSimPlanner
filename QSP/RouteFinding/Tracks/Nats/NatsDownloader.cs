@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using QSP.RouteFinding.Tracks.Common;
 using static QSP.LibraryExtension.Strings;
-using static QSP.MathTools.Utilities;
-using static QSP.RouteFinding.Constants;
-using static QSP.RouteFinding.RouteFindingCore;
 using System.Net;
 using System.Xml.Linq;
 

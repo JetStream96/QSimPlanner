@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using System.Text;
 using QSP.AviationTools;
-using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.AirwayStructure;

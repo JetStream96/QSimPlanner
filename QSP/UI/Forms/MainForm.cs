@@ -2,7 +2,6 @@ using QSP.AviationTools;
 using QSP.Core;
 using QSP.LibraryExtension;
 using QSP.RouteFinding;
-using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
 using QSP.TakeOffPerfCalculation;
 using QSP.UI;

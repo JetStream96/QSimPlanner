@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using QSP.LibraryExtension;
-using QSP.AviationTools;
-using static QSP.RouteFinding.Tracks.Pacots.Constants;
 using static QSP.LibraryExtension.StringParser.Utilities;
 using QSP.RouteFinding.Airports;
 

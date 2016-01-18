@@ -1,18 +1,8 @@
-using QSP.AviationTools;
 using QSP.RouteFinding.AirwayStructure;
-using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using static QSP.LibraryExtension.Strings;
-using static QSP.MathTools.Utilities;
-using static QSP.RouteFinding.Constants;
-using static QSP.RouteFinding.RouteFindingCore;
-using System.Xml.Linq;
-using QSP.LibraryExtension;
 using QSP.RouteFinding.Communication;
 using QSP.RouteFinding.Airports;
 using System.Threading.Tasks;

@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Xml.Linq;
-using QSP.RouteFinding.Tracks.Common;
 
 namespace QSP.RouteFinding.Tracks.Nats
-{    
+{
     public class IndividualNatsMessage
     {
         public string LastUpdated { get; private set; }

@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using QSP.LibraryExtension;
 using static QSP.LibraryExtension.Arrays;
-using System.Collections.ObjectModel;
-using QSP.AviationTools;
 using QSP.RouteFinding.Tracks.Common;
-using QSP.Core;
-using static QSP.RouteFinding.Tracks.Pacots.Constants;
 using static QSP.LibraryExtension.StringParser.Utilities;
 using QSP.RouteFinding.Airports;
 

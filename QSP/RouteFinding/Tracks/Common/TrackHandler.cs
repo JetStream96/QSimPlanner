@@ -1,11 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using QSP.RouteFinding.Containers;
-using QSP.RouteFinding.Tracks.Pacots;
-using QSP.RouteFinding.Tracks.Interaction;
-using static QSP.MathTools.Utilities;
-using QSP.RouteFinding.AirwayStructure;
-using QSP.RouteFinding.Routes;
 using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.Tracks.Common
