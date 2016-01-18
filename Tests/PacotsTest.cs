@@ -17,7 +17,6 @@ namespace Tests
         }
 
         [TestMethod()]
-
         public void PacotsMsgTest()
         {
             PrepareTest();
@@ -29,7 +28,6 @@ namespace Tests
             {
                 trks.Add(new PacificTrack(i, PacotDirection.Westbound));
             }
-
         }
 
         [TestMethod()]

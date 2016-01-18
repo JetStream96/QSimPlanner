@@ -46,7 +46,7 @@ namespace QSP
             {
                 var command = ExportCommands[i];
                 exports[i] = new XElement(command.Format, new XElement[] {
-                                           new XElement("Enabled", Convert.ToString(command.Enabled)),
+                                           new XElement("Enabled", command.Enabled.ToString()),
                                            new XElement("Path", command.FilePath)});
             }
 
@@ -54,9 +54,9 @@ namespace QSP
 
             return new XElement("AppOptions", new XElement[] {
                 new XElement("DatabasePath", NavDBLocation),
-                new XElement("PromptBeforeExit", Convert.ToString(PromptBeforeExit)),
-                new XElement("AutoDLNats", Convert.ToString(AutoDLTracks)),
-                new XElement("AutoDLWind", Convert.ToString(AutoDLWind)),
+                new XElement("PromptBeforeExit", PromptBeforeExit.ToString()),
+                new XElement("AutoDLNats", AutoDLTracks.ToString()),
+                new XElement("AutoDLWind", AutoDLWind.ToString()),
                 exportOptions});
         }
 

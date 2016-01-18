@@ -38,7 +38,10 @@ namespace QSP.RouteFinding.AirwayStructure
 
         private void createNewSession(TrackChangesOption value)
         {
-            _currentTracker = new TrackerItem(Utilities.ToChangeCategory(value));
+            if (value != TrackChangesOption.No)
+            {
+                _currentTracker = new TrackerItem(Utilities.ToChangeCategory(value));
+            }
             _currentlyTracked = value;
         }
 
@@ -56,7 +59,7 @@ namespace QSP.RouteFinding.AirwayStructure
             _currentTracker.AddWaypointRecord(index);
         }
 
-        public void TrackNeighborAddition(int edgeIndex )
+        public void TrackNeighborAddition(int edgeIndex)
         {
             _currentTracker.AddNeighborRecord(edgeIndex);
         }

@@ -101,8 +101,8 @@
     <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectFirstWaypointAnalyzer.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Exceptions.cs" />
     <Compile Include="RouteFinding\Routes\Route.cs" />
-    <Compile Include="RouteFinding\Routes\RouteCollapse.cs" />
-    <Compile Include="RouteFinding\Routes\RouteExpand.cs" />
+    <Compile Include="RouteFinding\Routes\RouteCollapseUtility.cs" />
+    <Compile Include="RouteFinding\Routes\RouteExpandUtility.cs" />
     <Compile Include="RouteFinding\Routes\RouteNode.cs" />
     <Compile Include="RouteFinding\Routes\Toggler\RouteEntry.cs" />
     <Compile Include="RouteFinding\Routes\Toggler\RouteToggler.cs" />
@@ -221,7 +221,6 @@
     <Compile Include="RouteFinding\Tracks\Interaction\StatusRecorder.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NatHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\IndividualNatsMessage.cs" />
-    <Compile Include="RouteFinding\Tracks\Nats\NorthAtlanticTrackOld.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\EastTracksParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Enums.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\PacificTrack.cs" />

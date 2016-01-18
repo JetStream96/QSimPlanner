@@ -35,7 +35,7 @@ namespace QSP.RouteFinding.Routes.Toggler
             {
                 foreach (var j in i)
                 {
-                    RouteExpand.InsertRoute(route, j.Route, j.RouteName);
+                    RouteExpandUtility.InsertRoute(route, j.Route, j.RouteName);
                 }
             }
             Expanded = true;
@@ -52,7 +52,7 @@ namespace QSP.RouteFinding.Routes.Toggler
             {
                 foreach (var j in i)
                 {
-                    RouteCollapse.Collapse(route, j.Route, j.RouteName);
+                    RouteCollapseUtility.Collapse(route, j.Route, j.RouteName);
                 }
             }
             Expanded = false;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Routes
 {
-    public static class RouteExpand
+    public static class RouteExpandUtility
     {
         private static List<LinkedListNode<RouteNode>> findAllNodes(LinkedList<RouteNode> links, LinkedList<RouteNode> Route,
                                                                     string OriginalAirway)

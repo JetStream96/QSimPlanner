@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Routes
 {
-    public static class RouteCollapse
+    public static class RouteCollapseUtility
     {
         private static LinkedListNode<RouteNode> nodesMatch(LinkedList<RouteNode> route, LinkedListNode<RouteNode> nodeStart)
         {

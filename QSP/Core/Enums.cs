@@ -5,9 +5,6 @@ namespace QSP
         KG,
         LB
     }
-}
-namespace QSP
-{
 
     public enum Aircraft
     {
@@ -20,18 +17,12 @@ namespace QSP
         B777F
 
     }
-}
-namespace QSP
-{
 
     public enum LengthUnit
     {
         Meter,
         Feet
     }
-}
-namespace QSP
-{
 
     public enum TemperatureUnit
     {

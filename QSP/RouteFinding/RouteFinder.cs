@@ -55,8 +55,6 @@ namespace QSP.RouteFinding
 
             var result = getRoute(origIndex, destIndex);
             wptList.Restore();
-            // TODO: Renable this functionality. 
-            //            result.SetNat(NatsManager);
             return result;
         }
 
@@ -69,8 +67,6 @@ namespace QSP.RouteFinding
 
             var result = getRoute(origIndex, wptIndex);
             wptList.Restore();
-            // TODO: Renable this functionality. 
-            //            result.SetNat(NatsManager);  //TODO: This need to be set as well.
             return result;
         }
 
@@ -82,8 +78,6 @@ namespace QSP.RouteFinding
             int endIndex = addStar(icao, rwy, star);
             var result = getRoute(wptIndex, endIndex);
             wptList.Restore();
-            // TODO: Renable this functionality. 
-            //            result.SetNat(NatsManager);
             return result;
         }
 
@@ -94,8 +88,6 @@ namespace QSP.RouteFinding
         {
             var result = getRoute(wptIndex1, wptIndex2);
             wptList.Restore();
-            // TODO: Renable this functionality. 
-            //            result.SetNat(NatsManager);
             return result;
         }
 

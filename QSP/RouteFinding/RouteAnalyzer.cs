@@ -150,9 +150,7 @@ namespace QSP.RouteFinding
 
             //add dest rwy
             result.AppendWaypoint(new Waypoint(destIcao + destRwy, AirportList.RwyLatLon(destIcao, destRwy)));
-            // TODO: Renable this functionality. 
-            // result.SetNat(NatsManager);
-
+           
             return result;
         }
 
