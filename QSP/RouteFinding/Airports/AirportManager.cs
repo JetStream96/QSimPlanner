@@ -5,10 +5,9 @@ using static QSP.RouteFinding.Data.LatLonSearchUtility<QSP.RouteFinding.Airports
 
 namespace QSP.RouteFinding.Airports
 {
-    public class AirportManager
+    // This manager class can make sure that the airportDB and airportFinder matches completely.
+    public class AirportManager 
     {
-        // This manager class can make sure that the airportDB and airportFinder matches completely.
-
         private AirportDatabase airportDB;
         private LatLonSearchUtility<Airport> airportFinder;
 
@@ -17,13 +16,7 @@ namespace QSP.RouteFinding.Airports
             this.airportDB = airportDB;
             generateSearchGrids();
         }
-
-        public AirportManager(string filepath)
-        {           
-            airportDB = new FileLoader(filepath).LoadFromFile();
-            generateSearchGrids();
-        }
-
+        
         private void generateSearchGrids()
         {
             airportFinder = new LatLonSearchUtility<Airport>(GridSizeOption.Small);
@@ -34,7 +27,7 @@ namespace QSP.RouteFinding.Airports
                 airportFinder.Add(airportDB[i]);
             }
         }
-        
+
         public Airport Find(string icao)
         {
             return airportDB.Find(icao);

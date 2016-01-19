@@ -9,7 +9,7 @@ using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public class PacotsHandler : TrackHandler<PacificTrack>
+    public class PacotsHandler : TrackHandler
     {
         #region Fields
 
@@ -93,7 +93,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public override void AddToWaypointList()
         {
-            new TrackAdder<PacificTrack>(wptList, recorder).AddToWaypointList(nodes);
+            new TrackAdder(wptList, recorder, TrackType.Pacots).AddToWaypointList(nodes);
 
             foreach (var i in nodes)
             {

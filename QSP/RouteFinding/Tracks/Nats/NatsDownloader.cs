@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
-    public class NatsDownloader : TrackDownloader<NorthAtlanticTrack>
+    public class NatsDownloader : TrackDownloader
     {
         private const string natsUrl = "https://www.notams.faa.gov/common/nat.html?";
         private const string natsWest = "http://qsimplan.somee.com/nats/Westbound.xml";
@@ -96,7 +96,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        public override TrackMessage<NorthAtlanticTrack> Download()
+        public override TrackMessage Download()
         {
             var msgs = DownloadNatsMsg();
             int westIndex = msgs[0].Direction == NatsDirection.West ? 0 : 1;
@@ -106,7 +106,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        public override Task<TrackMessage<NorthAtlanticTrack>> DownloadAsync()
+        public override Task<TrackMessage> DownloadAsync()
         {
             return Task.Factory.StartNew(Download);
         }

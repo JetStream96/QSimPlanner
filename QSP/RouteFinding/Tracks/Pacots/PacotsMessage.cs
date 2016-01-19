@@ -9,7 +9,7 @@ using System.Text;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public class PacotsMessage : TrackMessage<PacificTrack>
+    public class PacotsMessage : TrackMessage
     {
         private static string HeaderKZAK = "KZAK OAKLAND OCA/FIR";
         private static string HeaderRJJJ = "RJJJ FUKUOKA/JCAB AIR TRAFFIC FLOW MANAGEMENT CENTRE";

@@ -3,7 +3,6 @@ using QSP.AviationTools;
 
 namespace QSP.RouteFinding.Airports
 {
-
     public class AirportDatabase
     {
         private List<Airport> airportList;
@@ -125,8 +124,5 @@ namespace QSP.RouteFinding.Airports
             }
             return keyFound;
         }
-
     }
-
 }
-

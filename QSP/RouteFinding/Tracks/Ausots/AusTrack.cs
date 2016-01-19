@@ -1,6 +1,6 @@
+using QSP.AviationTools;
 using QSP.RouteFinding.Tracks.Common;
 using System.Collections.ObjectModel;
-using QSP.AviationTools;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
@@ -29,8 +29,14 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         #endregion
 
-        public AusTrack(string Ident, string TimeStart, string TimeEnd, string Remarks, ReadOnlyCollection<string> MainRoute,
-                        ReadOnlyCollection<string[]> RouteFrom, ReadOnlyCollection<string[]> RouteTo, LatLon PreferredFirstLatLon)
+        public AusTrack(string Ident, 
+                        string TimeStart,
+                        string TimeEnd, 
+                        string Remarks, 
+                        ReadOnlyCollection<string> MainRoute,
+                        ReadOnlyCollection<string[]> RouteFrom, 
+                        ReadOnlyCollection<string[]> RouteTo,
+                        LatLon PreferredFirstLatLon)
         {
             this.Ident = Ident;
             this.TimeStart = TimeStart;

@@ -90,6 +90,8 @@
     <Compile Include="RouteFinding\TestDataGenerators\TestDataProvider.cs" />
     <Compile Include="RouteFinding\TestDataGenerators\WptListGenerator.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsMessageTest.cs" />
+    <Compile Include="RouteFinding\Tracks\Ausots\AusotsParserTest.cs" />
+    <Compile Include="RouteFinding\Tracks\Ausots\Utilities\IndividualAusotsParserTest.cs" />
     <Compile Include="SimpleRouteAnalyzerTest.cs" />
     <Compile Include="TOPerfCalcTest.cs" />
     <Compile Include="WindAloft\LastestDataSetFinderTest.cs" />
@@ -97,7 +99,7 @@
     <Compile Include="WptListLoadTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AusotsSample.txt">
+    <Content Include="RouteFinding\Tracks\Ausots\AusotsSample.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="pacotsSample.html">

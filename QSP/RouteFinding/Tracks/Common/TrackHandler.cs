@@ -5,7 +5,7 @@ namespace QSP.RouteFinding.Tracks.Common
     /// <summary>
     /// Provides some easy-to-use methods to manage tracks.
     /// </summary>
-    public abstract class TrackHandler<T> where T : ITrack
+    public abstract class TrackHandler
     {
         /// <summary>
         /// Download and parse all track messages.

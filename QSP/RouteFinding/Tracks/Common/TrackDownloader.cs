@@ -2,9 +2,9 @@
 
 namespace QSP.RouteFinding.Tracks.Common
 {
-    public abstract class TrackDownloader<T> where T : ITrack
+    public abstract class TrackDownloader
     {
-        public abstract TrackMessage<T> Download();
-        public abstract Task<TrackMessage<T>> DownloadAsync();
+        public abstract TrackMessage Download();
+        public abstract Task<TrackMessage> DownloadAsync();
     }
 }

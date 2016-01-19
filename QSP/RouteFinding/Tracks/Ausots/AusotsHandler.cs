@@ -9,7 +9,7 @@ using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
-    public class AusotsHandler : TrackHandler<AusTrack>
+    public class AusotsHandler : TrackHandler
     {
 
         #region Fields
@@ -57,7 +57,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
                 }
             }
         }
-        
+
         /// <exception cref="TrackParseException"></exception>
         private List<AusTrack> tryParse()
         {
@@ -92,10 +92,10 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             await Task.Factory.StartNew(GetAllTracks);
         }
-        
+
         public override void AddToWaypointList()
         {
-            new TrackAdder<AusTrack>(wptList, recorder).AddToWaypointList(nodes);
+            new TrackAdder(wptList, recorder, TrackType.Ausots).AddToWaypointList(nodes);
 
             foreach (var i in nodes)
             {

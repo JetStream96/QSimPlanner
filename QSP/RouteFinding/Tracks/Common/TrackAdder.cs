@@ -6,20 +6,20 @@ using static QSP.RouteFinding.AirwayStructure.Utilities;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
-    public class TrackAdder<T> where T : ITrack
+    public class TrackAdder 
     {
         private WaypointList wptList;
         private StatusRecorder recorder;
         private TrackType type;
         
-        public TrackAdder(WaypointList wptList, StatusRecorder recorder)
+        public TrackAdder(WaypointList wptList, StatusRecorder recorder,TrackType type)
         {
             this.wptList = wptList;
             this.recorder = recorder;
-            type = Utilities.TrackToEnum<T>();
+            this.type = type;
         }
 
-        public void AddToWaypointList<U>(U nodes) where U : IEnumerable<TrackNodes>
+        public void AddToWaypointList<T>(T nodes) where T : IEnumerable<TrackNodes>
         {
             wptList.DisableTrack(type);
             wptList.CurrentlyTracked = ToTrackChangesOption(type);

@@ -1,7 +1,7 @@
+using QSP.AviationTools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.AviationTools;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.Constants;
@@ -73,17 +73,17 @@ namespace QSP.RouteFinding
 
         private void trimLatLon(List<LatLon> item)
         {
-            foreach (var i in item)
+            for (int i = 0; i < item.Count; i++)
             {
-                if (i.Lat > 90)
+                var x = item[i];
+
+                if (x.Lat > 90)
                 {
-                    i.Lat = 180 - i.Lat;
-                    i.Lon = oppositeLon(i.Lon);
+                    x = new LatLon(180 - x.Lat, oppositeLon(x.Lon));                   
                 }
-                else if (i.Lat < -90)
+                else if (item[i].Lat < -90)
                 {
-                    i.Lat = -180 - i.Lat;
-                    i.Lon = oppositeLon(i.Lon);
+                    x = new LatLon(-180 - x.Lat, oppositeLon(x.Lon));
                 }
             }
         }

@@ -125,7 +125,7 @@
     <Compile Include="RouteFinding\TerminalProcedures\Utilities.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsMessage.cs" />
-    <Compile Include="RouteFinding\Tracks\Ausots\IndividualAusotsParser.cs" />
+    <Compile Include="RouteFinding\Tracks\Ausots\Utilities\IndividualAusotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Common\IXmlConvertible.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackAdder.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackDownloader.cs" />

@@ -1,28 +1,24 @@
+using System;
+
 namespace QSP.AviationTools
 {
-
-    public class LatLon
+    public class LatLon : IEquatable<LatLon>
     {
+        public double Lat { get; private set; }
+        public double Lon { get; private set; }
 
-        public double Lat { get; set; }
-        public double Lon { get; set; }
-
-        public LatLon()
+        public LatLon(double Lat, double Lon)
         {
-        }
-
-        public LatLon(double lat, double lon)
-        {
-            this.Lat = lat;
-            this.Lon = lon;
+            this.Lat = Lat;
+            this.Lon = Lon;
         }
 
         /// <summary>
         /// The great circle distance between two points, in nautical miles.
         /// </summary>
-        public double Distance(double lat, double lon)
+        public double Distance(double Lat, double Lon)
         {
-            return MathTools.Utilities.GreatCircleDistance(this.Lat, this.Lon, lat, lon);
+            return MathTools.Utilities.GreatCircleDistance(this.Lat, this.Lon, Lat, Lon);
         }
 
         /// <summary>
@@ -30,10 +26,12 @@ namespace QSP.AviationTools
         /// </summary>
         public double Distance(LatLon LatLon)
         {
-            return MathTools.Utilities.GreatCircleDistance(this.Lat, this.Lon, LatLon.Lat, LatLon.Lon);
+            return MathTools.Utilities.GreatCircleDistance(Lat, Lon, LatLon.Lat, LatLon.Lon);
         }
 
+        public bool Equals(LatLon other)
+        {
+            return Lat == other.Lat && Lon == other.Lon;
+        }
     }
-
 }
-

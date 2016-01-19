@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace QSP.RouteFinding.Tracks.Nats
 {
 
-    public class NatsHandler : TrackHandler<NorthAtlanticTrack>
+    public class NatsHandler : TrackHandler
     {
         #region Fields
 
@@ -64,7 +64,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         public override void AddToWaypointList()
         {
-            new TrackAdder<NorthAtlanticTrack>(wptList, recorder).AddToWaypointList(nodes);
+            new TrackAdder(wptList, recorder, TrackType.Nats).AddToWaypointList(nodes);
 
             foreach (var i in nodes)
             {

@@ -16,11 +16,13 @@ namespace QSP.RouteFinding.Data
             WptList = new WaypointList();
 
             WptList.ReadFixesFromFile(path + "\\waypoints.txt");
-            WptList.ReadAtsFromFile(path + "\\ats.txt"); 
-             
+            WptList.ReadAtsFromFile(path + "\\ats.txt");
+
             try
             {
-                AirportList = new AirportManager(path + "\\Airports.txt");
+                AirportList = new AirportManager(
+                                   new FileLoader(path + "\\Airports.txt")
+                                   .LoadFromFile());
             }
             catch (Exception ex)
             {

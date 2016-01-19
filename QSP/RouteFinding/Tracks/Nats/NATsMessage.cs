@@ -4,7 +4,7 @@ using QSP.RouteFinding.Tracks.Common;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
-    public class NatsMessage : TrackMessage<NorthAtlanticTrack>
+    public class NatsMessage : TrackMessage
     {
         public IndividualNatsMessage WestMessage { get; private set; }
         public IndividualNatsMessage EastMessage { get; private set; }

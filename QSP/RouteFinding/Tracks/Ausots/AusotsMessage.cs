@@ -1,5 +1,5 @@
-﻿using System.Xml.Linq;
-using QSP.RouteFinding.Tracks.Common;
+﻿using QSP.RouteFinding.Tracks.Common;
+using System.Xml.Linq;
 using static QSP.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Ausots
@@ -7,7 +7,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
     /// <summary>
     /// Contains all text of TDM (track definition message), but with html tags removed.
     /// </summary>
-    public class AusotsMessage : TrackMessage<AusTrack>
+    public class AusotsMessage : TrackMessage
     {
         public string AllText { get; private set; }
 

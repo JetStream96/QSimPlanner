@@ -7,11 +7,11 @@ using System;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public class PacotsDownloader : TrackDownloader<PacificTrack>
+    public class PacotsDownloader : TrackDownloader
     {
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        public override TrackMessage<PacificTrack> Download()
+        public override TrackMessage Download()
         {
             string html;
 
@@ -36,7 +36,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        public async override Task<TrackMessage<PacificTrack>> DownloadAsync()
+        public async override Task<TrackMessage> DownloadAsync()
         {
             return await Task.Factory.StartNew(Download);
         }
