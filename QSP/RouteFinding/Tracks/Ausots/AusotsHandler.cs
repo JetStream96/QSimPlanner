@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using QSP.RouteFinding.Tracks.Common;
-using System.Threading.Tasks;
-using QSP.RouteFinding.Tracks.Interaction;
-using System;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Communication;
-using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Tracks.Common;
+using QSP.RouteFinding.Tracks.Interaction;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
@@ -14,6 +14,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         #region Fields
 
+        private IAusotsDownloader downloader;
         private WaypointList wptList;
         private StatusRecorder recorder;
         private AirportManager airportList;
@@ -24,8 +25,13 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         #endregion
 
-        public AusotsHandler(WaypointList wptList, StatusRecorder recorder, AirportManager airportList, RouteTrackCommunicator communicator)
+        public AusotsHandler(IAusotsDownloader downloader,
+                             WaypointList wptList,
+                             StatusRecorder recorder,
+                             AirportManager airportList,
+                             RouteTrackCommunicator communicator)
         {
+            this.downloader = downloader;
             this.wptList = wptList;
             this.recorder = recorder;
             this.airportList = airportList;
@@ -77,7 +83,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             try
             {
-                rawData = (AusotsMessage)new AusotsDownloader().Download();
+                rawData = downloader.Download();
             }
             catch (Exception ex)
             {

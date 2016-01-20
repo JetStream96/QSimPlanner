@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using QSP.RouteFinding.Tracks.Common;
 using static QSP.LibraryExtension.Strings;
 using System.Net;
 using System.Xml.Linq;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
-    public class NatsDownloader : TrackDownloader
+    public class NatsDownloader : INatsDownloader
     {
         private const string natsUrl = "https://www.notams.faa.gov/common/nat.html?";
         private const string natsWest = "http://qsimplan.somee.com/nats/Westbound.xml";
@@ -96,7 +95,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        public override TrackMessage Download()
+        public NatsMessage Download()
         {
             var msgs = DownloadNatsMsg();
             int westIndex = msgs[0].Direction == NatsDirection.West ? 0 : 1;
@@ -106,7 +105,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        public override Task<TrackMessage> DownloadAsync()
+        public Task<NatsMessage> DownloadAsync()
         {
             return Task.Factory.StartNew(Download);
         }

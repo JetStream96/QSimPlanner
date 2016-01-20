@@ -147,7 +147,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
 
             return index;
         }
-
+         
         private void getMainRoute(ref int index)
         {
             int x = text.IndexOf("RTS/", index);

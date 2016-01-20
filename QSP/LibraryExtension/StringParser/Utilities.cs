@@ -142,30 +142,20 @@ namespace QSP.LibraryExtension.StringParser
         }
 
         /// <summary>
-        /// Change the currentIndex to the start of next non-empty line. The search starts from currentIndex.
+        /// Change the currentIndex to the start of next line if exists. The search starts from currentIndex.
         /// Returns whether the next line exists.
         /// </summary>
         public static bool SkipToNextLine(string item, ref int currentIndex)
         {
-            int index = currentIndex;
+            int index = item.IndexOf('\n', currentIndex);
 
-            while (true)
+            if (index < 0 || index++ == item.Length)
             {
-                index = item.IndexOf('\n', index) + 1;
-
-                if (index < item.Length && index > 0)
-                {
-                    if (item[index] != '\n' && item[index] != '\r')
-                    {
-                        currentIndex = index;
-                        return true;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
+
+            currentIndex = index ;
+            return true;
         }
     }
 }

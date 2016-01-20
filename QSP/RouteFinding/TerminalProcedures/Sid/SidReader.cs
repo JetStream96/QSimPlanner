@@ -86,9 +86,9 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
                 while (true)
                 {
-                    index = item.IndexOf('\n', index) + 1;
+                    bool nextLineExists = SkipToNextLine(item, ref index);
 
-                    if (index <= 0 || index >= item.Length || IsEmptyLine(item, index))
+                    if (nextLineExists == false || IsEmptyLine(item, index))
                     {
                         return new SidEntry(rwy, name, wpts, GetEntryType.GetType(rwy), endWithVector);
                     }

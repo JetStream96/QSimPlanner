@@ -2,16 +2,15 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using QSP.RouteFinding.Tracks.Common;
 using System;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public class PacotsDownloader : TrackDownloader
+    public class PacotsDownloader : IPacotsDownloader
     {
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        public override TrackMessage Download()
+        public PacotsMessage Download()
         {
             string html;
 
@@ -36,7 +35,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        public async override Task<TrackMessage> DownloadAsync()
+        public async Task<PacotsMessage> DownloadAsync()
         {
             return await Task.Factory.StartNew(Download);
         }
