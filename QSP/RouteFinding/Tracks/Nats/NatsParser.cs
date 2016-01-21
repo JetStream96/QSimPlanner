@@ -74,7 +74,13 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             return tracks;
         }
-
+        
+        // TODO: possible input:
+        //D VENER 5530/20 5630/30 5630/40 5530/50 KODIK
+        //EAST LVLS NIL
+        //WEST LVLS 350 360 370 380 390
+        //EUR RTS WEST NIL
+        //NAR NIL-
         /// <summary>
         /// Sample input : "54/20". Sample output : "5420N"
         /// </summary>

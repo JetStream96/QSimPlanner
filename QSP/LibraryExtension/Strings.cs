@@ -92,13 +92,11 @@ namespace QSP.LibraryExtension
 
         public static string CenterString(string item, int totalLength)
         {
-
             int len = item.Length;
 
             if (len <= totalLength)
             {
                 return item;
-
             }
             else
             {
@@ -109,9 +107,7 @@ namespace QSP.LibraryExtension
                 result = result.PadRight(totalLength - len - left, ' ');
 
                 return result;
-
             }
-
         }
 
         public static int NthOccurence(string input, string target, int n)
@@ -133,12 +129,7 @@ namespace QSP.LibraryExtension
             }
             return -1;
         }
-
-        public static string StringBetween(this string item, int index1, int index2)
-        {
-            return item.Substring(index1 + 1, index2 - index1 - 1);
-        }
-
+        
         public static List<int> IndicesOf(this string item, string target, int index, int count)
         {
             List<int> result = new List<int>();

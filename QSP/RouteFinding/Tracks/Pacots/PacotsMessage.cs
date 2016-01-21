@@ -1,18 +1,18 @@
+using QSP.LibraryExtension;
+using QSP.RouteFinding.Tracks.Common;
 using System;
 using System.Collections.Generic;
-using QSP.LibraryExtension;
 using System.Collections.ObjectModel;
-using static QSP.LibraryExtension.Strings;
-using System.Xml.Linq;
-using QSP.RouteFinding.Tracks.Common;
 using System.Text;
+using System.Xml.Linq;
+using static QSP.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
     public class PacotsMessage : TrackMessage
     {
-        private static string HeaderKZAK = "KZAK OAKLAND OCA/FIR";
-        private static string HeaderRJJJ = "RJJJ FUKUOKA/JCAB AIR TRAFFIC FLOW MANAGEMENT CENTRE";
+        private static readonly string HeaderKZAK = "KZAK OAKLAND OCA/FIR";
+        private static readonly string HeaderRJJJ = "RJJJ FUKUOKA/JCAB AIR TRAFFIC FLOW MANAGEMENT CENTRE";
 
         private List<string> tracksKZAK;
         private List<string> tracksRJJJ;
