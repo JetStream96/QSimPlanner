@@ -36,12 +36,12 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
 
         public EntryType Type { get; private set; }
 
-        public StarEntry(string rwy, string starName, List<Waypoint> wpts, EntryType type)
+        public StarEntry(string RunwayOrTransition, string StarName, List<Waypoint> wpts, EntryType Type)
         {
-            this.RunwayOrTransition = rwy;
-            this.Name = starName;
+            this.RunwayOrTransition = RunwayOrTransition;
+            this.Name = StarName;
             this._wpts = wpts;
-            this.Type = type;
+            this.Type = Type;
         }
     }
 }

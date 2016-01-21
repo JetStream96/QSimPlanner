@@ -27,10 +27,10 @@
 
         public class TerminalProcedureName
         {
-            public string ProcedureName { get; set; }
-            public string TransitionName { get; set; }
+            public string ProcedureName { get; private set; }
+            public string TransitionName { get; private set; }
 
-            public TerminalProcedureName(string ProcedureName,string TransitionName)
+            public TerminalProcedureName(string ProcedureName, string TransitionName)
             {
                 this.ProcedureName = ProcedureName;
                 this.TransitionName = TransitionName;

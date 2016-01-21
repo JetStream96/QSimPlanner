@@ -5,7 +5,6 @@ namespace QSP.RouteFinding.AirwayStructure
 {
     public static class Utilities
     {
-
         /// <exception cref="EnumNotSupportedException"></exception>
         public static ChangeCategory ToChangeCategory(TrackChangesOption value)
         {

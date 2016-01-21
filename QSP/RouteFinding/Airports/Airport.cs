@@ -47,14 +47,14 @@ namespace QSP.RouteFinding.Airports
 
         public Airport(Airport item)
         {
-            this.Icao = item.Icao;
-            this.Name = item.Name;
-            this.Lat = item.Lat;
-            this.Lon = item.Lon;
-            this.Elevation = item.Elevation;
-            this.TransAlt = item.TransAlt;
-            this.TransLvl = item.TransLvl;
-            this.LongestRwyLength = item.LongestRwyLength;
+            Icao = item.Icao;
+            Name = item.Name;
+            Lat = item.Lat;
+            Lon = item.Lon;
+            Elevation = item.Elevation;
+            TransAlt = item.TransAlt;
+            TransLvl = item.TransLvl;
+            LongestRwyLength = item.LongestRwyLength;
             _rwys = new List<RwyData>(item.Rwys);
         }
 
@@ -78,8 +78,7 @@ namespace QSP.RouteFinding.Airports
 
         public bool Equals(Airport other)
         {
-            return (this.Icao == other.Icao);
+            return (Icao == other.Icao);
         }
     }
-
 }

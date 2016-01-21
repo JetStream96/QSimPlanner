@@ -61,10 +61,10 @@ namespace QSP.RouteFinding.Airports
 
         public class AlternateInfo
         {
-            public string Icao { get; set; }
-            public string AirportName { get; set; }
-            public int LongestRwyLength { get; set; }
-            public int Distance { get; set; }
+            public string Icao { get; private set; }
+            public string AirportName { get; private set; }
+            public int LongestRwyLength { get; private set; }
+            public int Distance { get; private set; }
 
             public AlternateInfo(string Icao, string AirportName, int LongestRwyLength, int Distance)
             {

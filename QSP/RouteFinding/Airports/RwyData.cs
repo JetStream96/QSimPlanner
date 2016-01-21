@@ -2,22 +2,22 @@ namespace QSP.RouteFinding.Airports
 {
     public class RwyData
     {
-        public string RwyIdent { get; set; }
-        public string Heading { get; set; }
-        public int Length { get; set; }
-        public int Width { get; set; }
-        public bool IlsAvail { get; set; }
-        public string IlsFreq { get; set; }
-        public string IlsHeading { get; set; }
-        public double Lat { get; set; }
-        public double Lon { get; set; }
-        public int Elevation { get; set; }
-        public double GlideslopeAngle { get; set; }
-        public int ThresholdOverflyHeight { get; set; }
-        public int SurfaceType { get; set; }
-        public int RwyStatus { get; set; }
+        public string RwyIdent { get; private set; }
+        public string Heading { get; private set; }
+        public int Length { get; private set; }
+        public int Width { get; private set; }
+        public bool IlsAvail { get; private set; }
+        public string IlsFreq { get; private set; }
+        public string IlsHeading { get; private set; }
+        public double Lat { get; private set; }
+        public double Lon { get; private set; }
+        public int Elevation { get; private set; }
+        public double GlideslopeAngle { get; private set; }
+        public int ThresholdOverflyHeight { get; private set; }
+        public int SurfaceType { get; private set; }
+        public int RwyStatus { get; private set; }
 
-        public RwyData(string RwyIdent, string Heading, int Length, int Width, bool IlsAvail, string IlsFreq, 
+        public RwyData(string RwyIdent, string Heading, int Length, int Width, bool IlsAvail, string IlsFreq,
                        string IlsHeading, double Lat, double Lon, int Elevation,
                        double GlideslopeAngle, int ThresholdOverflyHeight, int SurfaceType, int RwyStatus)
         {

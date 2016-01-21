@@ -41,7 +41,9 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public bool Equals(Waypoint x)
         {
-            return (ID == x.ID && Math.Abs(Lat - x.Lat) < LATLON_TOLERANCE && Math.Abs(Lon - x.Lon) < LATLON_TOLERANCE);
+            return (ID == x.ID && 
+                    Math.Abs(Lat - x.Lat) < LATLON_TOLERANCE && 
+                    Math.Abs(Lon - x.Lon) < LATLON_TOLERANCE);
         }
         
         public int CompareTo(Waypoint x)

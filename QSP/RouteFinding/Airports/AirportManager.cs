@@ -6,7 +6,7 @@ using static QSP.RouteFinding.Data.LatLonSearchUtility<QSP.RouteFinding.Airports
 namespace QSP.RouteFinding.Airports
 {
     // This manager class can make sure that the airportDB and airportFinder matches completely.
-    public class AirportManager 
+    public class AirportManager
     {
         private AirportDatabase airportDB;
         private LatLonSearchUtility<Airport> airportFinder;
@@ -16,7 +16,7 @@ namespace QSP.RouteFinding.Airports
             this.airportDB = airportDB;
             generateSearchGrids();
         }
-        
+
         private void generateSearchGrids()
         {
             airportFinder = new LatLonSearchUtility<Airport>(GridSizeOption.Small);
@@ -74,14 +74,13 @@ namespace QSP.RouteFinding.Airports
             if (ad == null)
             {
                 return false;
-
             }
-            else {
+            else
+            {
                 airportDB.Remove(icao);
                 airportFinder.Remove(ad);
                 return true;
             }
         }
-
     }
 }

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using QSP.RouteFinding.Containers;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using static QSP.Utilities.ErrorLogger;
 using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.RouteFinding.Utilities;
-using QSP.RouteFinding.Containers;
+using static QSP.Utilities.ErrorLogger;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {

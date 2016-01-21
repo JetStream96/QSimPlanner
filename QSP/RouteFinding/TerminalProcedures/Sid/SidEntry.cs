@@ -38,13 +38,13 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         public EntryType Type { get; private set; }
         public bool EndWithVector { get; private set; }
 
-        public SidEntry(string rwy, string sidName, List<Waypoint> wpts, EntryType type, bool endWithVector)
+        public SidEntry(string RunwayOrTransition, string SidName, List<Waypoint> wpts, EntryType Type, bool EndWithVector)
         {
-            this.RunwayOrTransition = rwy;
-            this.Name = sidName;
+            this.RunwayOrTransition = RunwayOrTransition;
+            this.Name = SidName;
             this._wpts = wpts;
-            this.Type = type;
-            this.EndWithVector = endWithVector;
+            this.Type = Type;
+            this.EndWithVector = EndWithVector;
         }
     }
 }
