@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP;
 using QSP.AviationTools;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;

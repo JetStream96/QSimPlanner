@@ -1,9 +1,3 @@
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.RouteFinding.Tracks.Pacots;
-using System.IO;
-using static Tests.Common.Utilities;
-
 namespace Tests
 {
     //TODO: Enable this when possible.

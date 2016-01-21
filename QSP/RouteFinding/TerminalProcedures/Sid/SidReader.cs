@@ -126,10 +126,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         {
             return (index + 2 < item.Length && item[index] == 'S' && item[index + 1] == 'I' && item[index + 2] == 'D');
         }
-
-        public static bool IsEmptyLine(string item, int index)
+        
+        /// <param name="firstCharIndex">Index of the first char of the line.</param>
+        public static bool IsEmptyLine(string item, int firstCharIndex)
         {
-            char firstChar = item[index];
+            char firstChar = item[firstCharIndex];
             return (firstChar == '\n' || firstChar == '\r');
         }
 

@@ -87,7 +87,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
                 using (WebClient wc = new WebClient())
                 {
-                    natMsg.Add(new IndividualNatsMessage(XDocument.Load(wc.DownloadString(downloadAdditional))));
+                    natMsg.Add(new IndividualNatsMessage(XDocument.Parse(wc.DownloadString(downloadAdditional))));
                 }
             }
             return natMsg;

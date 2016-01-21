@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.AirwayStructure;
-using QSP;
 using System.Linq;
 
 namespace Tests

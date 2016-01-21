@@ -19,10 +19,38 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
     // RTS/YMML ML H164 JAMOR 
     // RMK/AUSOTS GROUP A
     //
-    // Notes:
-    // (1) Ident, TimeStart, and TimeEnd must exist.
-    // (2) All LatLon format is assumed to be 7-digit (like 25S133E), and will all be converted to 5-digit.
-    // (3) RTS/ and RMK/ may not exist.
+    // Format:
+    // TDM TRK [Ident] 
+    // [TimeStart] [TimeEnd]
+    // [Main Route]
+    // [Main Route continued]
+    // RTS/[RouteFrom/To 1]
+    // [RouteFrom/To 2]
+    // [RouteFrom/To 3]
+    // RMK/[Remarks]
+    // [Remarks continued]
+    //
+    //    
+    // Assumptions:
+    // (1) The word after "TDM TRK" is the track ident (MY15 in above example).
+    //
+    // (2) The next line contains two time stamps, indicating TimeStart and TimeEnd respectively.
+    //
+    // (3) The main route starts from the next line, to:
+    //        a. The char before "RTS/" if exists.
+    //        b. The char before "RMK/" if "RTS/" does not exist but "RMK/" exists.
+    //        c. The last char of the string if neither "RMK/" nor "RTS/" exists.
+    //
+    // (4) After main route, the connecting routes contains the part after "RTS/", to:
+    //        a. The char before "RMK/" if exists.
+    //        b. The last char of the string if "RMK/" does not exist. 
+    // 
+    // (5) If "RTS/" does not exist the RouteFrom/To is empty.
+    //
+    // (6) After connecting routes, the remarks contains the part after "RMK/", to the end of string.
+    //     If "RMK/" does not exist the remarks is am empty string.   
+    //
+    // (7) All LatLon format is assumed to be 7-digit (like 25S133E), and will all be converted to 5-digit.
 
     public class IndividualAusotsParser
     {
@@ -102,18 +130,18 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
             //get ident
             index = text.IndexOf("TDM TRK", index);
             index += "TDM TRK".Length;
-            skipConsectiveChars(text, ref index);
-            Ident = readToNextDelim(text, ref index);
+            SkipAny(text, DelimiterWords, ref index);
+            Ident = ReadToNextDelimeter(text,DelimiterWords, ref index);
 
             //goto next line
-            index = text.IndexOf('\n', index) + 1;
-            skipConsectiveChars(text, ref index);
-            TimeStart = readToNextDelim(text, ref index);
-            skipConsectiveChars(text, ref index);
-            TimeEnd = readToNextDelim(text, ref index);
+            SkipToNextLine(text, ref index);
+            SkipAny(text, DelimiterWords, ref index);
+            TimeStart = ReadToNextDelimeter(text, DelimiterWords, ref index);
+            SkipAny(text, DelimiterWords, ref index);
+            TimeEnd = ReadToNextDelimeter(text, DelimiterWords, ref index);
 
             //goto next line
-            index = text.IndexOf('\n', index) + 1;
+            SkipToNextLine(text, ref index);
 
             //get everything before "RTS/", except for special chars
             getMainRoute(ref index);
@@ -264,30 +292,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
             }
             index = x;
         }
-
-        private static string readToNextDelim(string item, ref int index)
-        {
-            int x = item.IndexOfAny(DelimiterWords, index);
-            string str = item.Substring(index, x - index);
-            index = x;
-            return str;
-        }
-
-        private static void skipConsectiveChars(string item, ref int index)
-        {
-            while (index < item.Length)
-            {
-                if (DelimiterWords.Contains(item[index]))
-                {
-                    index++;
-                }
-                else
-                {
-                    return;
-                }
-            }
-        }
-
+        
         private void convertAllLatLonFormat()
         {
             ConvertLatLonFormat(mainRoute);

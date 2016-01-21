@@ -25,7 +25,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private string TimeEnd;
         private string Remarks;
 
-        public WestTrackParser(string text,AirportManager airportList)
+        public WestTrackParser(string text, AirportManager airportList)
         {
             routeFrom = new List<string[]>();
             routeTo = new List<string[]>();
@@ -35,7 +35,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public PacificTrack Parse()
         {
-            parseWest(text);
+            parseWest();
             removeRedundentFromList();
             convertAllLatLonFormat();
 
@@ -75,7 +75,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             routeTo.RemoveTinyArray(2);
         }
 
-        private void parseWest(string message)
+        private void parseWest()
         {
             //input example:
             //
@@ -93,41 +93,40 @@ namespace QSP.RouteFinding.Tracks.Pacots
             //). 05 NOV 19:00 2015 UNTIL 06 NOV 08:00 2015. CREATED: 05 NOV 02:15 2015
 
             //get ident
-            int x = message.IndexOf("(TDM TRK") + "(TDM TRK".Length;
-            int y = message.IndexOf(' ', x);
-            x = message.IndexOf(' ', y + 1);
-            Ident = message.StringBetween(y, x);
-
+            int index = text.IndexOf("TDM TRK") + "TDM TRK".Length;
+            SkipAny(text, DelimiterWords, ref index);
+            Ident = ReadToNextDelimeter(text, DelimiterWords, ref index);
+            
             //get time start/end
-            x = message.IndexOfAny(DelimiterLines, x);
-            y = message.IndexOf(' ', x);
-            TimeStart = message.StringBetween(x, y);
-            x = message.IndexOfAny(DelimiterLines, y);
-            TimeEnd = message.StringBetween(y, x);
-
+            SkipToNextLine(text, ref index);
+            SkipAny(text, DelimiterWords, ref index);
+            TimeStart = ReadToNextDelimeter(text, DelimiterWords, ref index);
+            SkipAny(text, DelimiterWords, ref index);
+            TimeEnd = ReadToNextDelimeter(text, DelimiterWords, ref index);
+            
             //get main route
             //TODO: what if RTS or RMK does not exist?
-            y = message.IndexOf("RTS/", x);
-            mainRoute = message.StringBetween(x, y).Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
+            y = text.IndexOf("RTS/", x);
+            mainRoute = text.StringBetween(x, y).Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
 
             //get route from/to
             y += "RTS/".Length - 1;
 
-            int z = message.IndexOf("RMK/");
+            int z = text.IndexOf("RMK/");
 
             while (y < z)
             {
                 x = y;
-                y = message.IndexOfAny(DelimiterLines, x + 1);
+                y = text.IndexOfAny(DelimiterLines, x + 1);
 
                 if (y < z)
                 {
-                    addTrack(message.StringBetween(x, y));
+                    addTrack(text.StringBetween(x, y));
                 }
             }
 
             //get remarks
-            Remarks = message.Substring(z + "RMK/".Length);
+            Remarks = text.Substring(z + "RMK/".Length);
         }
 
         private void addTrack(string line)

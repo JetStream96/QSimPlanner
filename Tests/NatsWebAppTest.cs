@@ -1,8 +1,3 @@
-using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.RouteFinding.Tracks.Nats;
-using System.IO;
-
 namespace Tests
 {
     //TODO: Enable this when possible.

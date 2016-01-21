@@ -44,7 +44,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
         {
             while (CurrentLineIsEmpty(item, index) == false)
             {
-                index = item.IndexOf('\n',index);
+                index = item.IndexOf('\n', index);
                 if (index < 0)
                 {
                     return item.Length - 1;
