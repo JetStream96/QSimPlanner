@@ -11,7 +11,7 @@ namespace QSP.LibraryExtension
             int index = 0;
             T min = array[0];
 
-            for (int i = 1; i <= array.Length - 1; i++)
+            for (int i = 1; i < array.Length; i++)
             {
                 if (array[i].CompareTo(min) < 0)
                 {
@@ -19,17 +19,15 @@ namespace QSP.LibraryExtension
                     min = array[i];
                 }
             }
-
             return index;
         }
 
         public static int MaxIndex<T>(this T[] array) where T : IComparable<T>
         {
-
             int index = 0;
             T max = array[0];
 
-            for (int i = 1; i <= array.Length - 1; i++)
+            for (int i = 1; i < array.Length; i++)
             {
                 if (array[i].CompareTo(max) > 0)
                 {
@@ -37,7 +35,6 @@ namespace QSP.LibraryExtension
                     max = array[i];
                 }
             }
-
             return index;
         }
 
@@ -45,7 +42,7 @@ namespace QSP.LibraryExtension
         {
             T[] u = new T[array.Length - 1];
 
-            for (int i = 1; i <= array.Length - 1; i++)
+            for (int i = 1; i < array.Length; i++)
             {
                 u[i - 1] = array[i];
             }
@@ -65,16 +62,17 @@ namespace QSP.LibraryExtension
         /// </summary>
         public static T[] SubArray<T>(this T[] data, int index, int length, T[] ignoredItems)
         {
-            List<T> result = new List<T>();
+            var result = new T[length];
+            int currentIndex = 0;
 
-            for (int i = index; i <= index + length - 1; i++)
+            for (int i = index; i < index + length; i++)
             {
                 if (!ignoredItems.Contains(data[i]))
                 {
-                    result.Add(data[i]);
+                    result[currentIndex++] = data[i];
                 }
             }
-            return result.ToArray();
+            return result.SubArray(0, currentIndex);
         }
 
         public static T[] Exclude<T>(this T[] data, T[] ignoredItems)
@@ -134,21 +132,39 @@ namespace QSP.LibraryExtension
 
         public static T[] RemoveElements<T>(this T[] array, T item)
         {
-            var result = new List<T>();
+            var result = new T[array.Length];
+            int currentIndex = 0;
 
             foreach (var i in array)
             {
                 if (!i.Equals(item))
                 {
-                    result.Add(i);
+                    result[currentIndex++] = i;
                 }
             }
-            return result.ToArray();
+            return result.SubArray(0, currentIndex);
         }
 
-        public static T Last<T> (this T[] array)
+        public static T Last<T>(this T[] array)
         {
             return array[array.Length - 1];
-        }        
+        }
+
+        public class ArrayComparer<T> : EqualityComparer<T[]>
+        {
+            public override bool Equals(T[] x, T[] y)
+            {
+                if (x == null || y == null || x.Length != y.Length)
+                {
+                    return false;
+                }
+                return Enumerable.SequenceEqual(x, y);
+            }
+
+            public override int GetHashCode(T[] obj)
+            {
+                return GetHashCode();
+            }
+        }
     }
 }

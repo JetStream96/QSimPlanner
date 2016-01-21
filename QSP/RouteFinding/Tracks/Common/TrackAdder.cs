@@ -94,7 +94,6 @@ namespace QSP.RouteFinding.Tracks.Common
 
             if (x >= 0)
             {
-
                 if (wptList.EdgesFromCount(x) == 0)
                 {
                     List<int> k = Utilities.NearbyWaypointsInWptList(20, wpt.Lat, wpt.Lon, wptList);

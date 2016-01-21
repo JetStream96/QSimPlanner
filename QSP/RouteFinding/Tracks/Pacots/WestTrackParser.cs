@@ -37,7 +37,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public PacificTrack Parse()
         {
-            var Result = new ParserTDM(text, airportList).Parse();
+            var Result = new ParserTDMOld(text, airportList).Parse();
 
             return new PacificTrack(PacotDirection.Westbound,
                                 Result.Ident,

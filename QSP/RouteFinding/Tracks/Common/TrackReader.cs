@@ -55,14 +55,13 @@ namespace QSP.RouteFinding.Tracks.Common
             var result = new List<WptPair>();
             int lastIndex = -1;
 
-            for (int index = 0; index <= rteFrom.Count() - 1; index++)
+            for (int index = 0; index < rteFrom.Length; index++)
             {
                 if (lastIndex >= 0)
                 {
                     if (isAirway(lastIndex, rteFrom[index]))
                     {
                         lastIndex = -1;
-
                     }
                     else
                     {

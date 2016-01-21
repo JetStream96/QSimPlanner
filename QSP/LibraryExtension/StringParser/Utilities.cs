@@ -9,13 +9,18 @@ namespace QSP.LibraryExtension.StringParser
         public static readonly char[] DelimiterLines = { '\n', '\r' };
 
         /// <summary>
-        /// Returns a substring starting from the given position. 
-        /// The last char of this substring is the one before the next appearance of endChar.
+        /// Returns a substring starting from the given position to the char before the next appearance of endChar.
         /// Finally position is moved to the char after endChar.
+        /// If the char is not found, position is unchanged and null is returned.
         /// </summary>
         public static string ReadString(string item, ref int position, char endChar)
         {
             int x = item.IndexOf(endChar, position);
+
+            if (x < 0)
+            {
+                return null;
+            }
             var s = item.Substring(position, x - position);
             position = x + 1;
             return s;
@@ -196,6 +201,22 @@ namespace QSP.LibraryExtension.StringParser
             string str = item.Substring(index, x - index);
             index = x;
             return str;
+        }
+
+        /// <summary>
+        /// Set the index to the next occurence of the given string and returns true, if found.
+        /// Otherwise return false and index is unchanged.
+        /// </summary>
+        public static bool MoveToNextIndexOf(string item, string target, ref int index)
+        {
+            int x = item.IndexOf(target, index);
+
+            if (x < 0)
+            {
+                return false;
+            }
+            index = x;
+            return true;
         }
     }
 }

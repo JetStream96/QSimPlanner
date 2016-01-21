@@ -35,7 +35,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
         /// <exception cref="TrackParseException"></exception>
         public AusTrack Parse()
         {
-            var Result = new ParserTDM(text, airportList).Parse();
+            var Result = new ParserTDMOld(text, airportList).Parse();
 
             if (TrackAvailble(Result))
             {
@@ -58,7 +58,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
         // SVC TRK YS12 NO TRACK - USE PUBLISHED FIXED ROUTES
         // RMK/AUSOTS GROUP A USE KS12
         //
-        private bool TrackAvailble(ParseResult Result )
+        private bool TrackAvailble(ParseResultOld Result )
         {
             return !(Result.MainRoute.Contains(Result.Ident) || Result.MainRoute.Contains("-"));
         }        

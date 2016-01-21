@@ -304,11 +304,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
             //TRACK 1.
 
             List<trackIdent> result = new List<trackIdent>();
-            trackIdent t = null;
-
+           
             while (index < msg.Length)
             {
-                t = tryReadNextNum(msg, index);
+               trackIdent t = tryReadNextNum(msg, index);
 
                 if (t != null)
                 {
@@ -398,10 +397,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         private class trackIdent
         {
-            public int ID;
-            //index of "T" in "TRACKS
-            public int startIndex;
-            //index of the next char of "."
+            public int ID;            //index of "T" in "TRACKS
+            public int startIndex;            //index of the next char of "."
             public int nextIndexSearch;
 
             public trackIdent(int ID, int startIndex, int nextIndexSearch)

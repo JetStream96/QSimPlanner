@@ -21,7 +21,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             LoadFromXml(doc);
         }
 
-        public override void LoadFromXml(XDocument doc)
+        public sealed override void LoadFromXml(XDocument doc)
         {
             AllText = doc.Root.Element("Text").Value;
         }

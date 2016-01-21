@@ -84,6 +84,7 @@
     <Compile Include="LibraryExtension\Graph\Graph.cs" />
     <Compile Include="LibraryExtension\ReadOnlyStack.cs" />
     <Compile Include="LibraryExtension\Stacks.cs" />
+    <Compile Include="LibraryExtension\StringParser\StringParser.cs" />
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
     <Compile Include="LibraryExtension\MinHeapModifiable.cs" />
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
@@ -130,7 +131,9 @@
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\MessageSplitter.cs" />
     <Compile Include="RouteFinding\Tracks\Common\IXmlConvertible.cs" />
     <Compile Include="RouteFinding\Tracks\Common\Parser\ParseResult.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\Parser\ParseResultOld.cs" />
     <Compile Include="RouteFinding\Tracks\Common\Parser\ParserTDM.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\Parser\TdmParser.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackAdder.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackNodes.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackParser.cs" />

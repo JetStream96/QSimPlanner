@@ -1,9 +1,10 @@
+using QSP.AviationTools;
+using QSP.RouteFinding.AirwayStructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.AviationTools;
+using static QSP.LibraryExtension.Arrays;
 using static QSP.RouteFinding.Constants;
-using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
@@ -79,25 +80,11 @@ namespace QSP.RouteFinding.Tracks.Common
                     item.RemoveAt(i);
                 }
             }
-
         }
 
         public static List<string[]> SelectDistinct(List<string[]> item)
         {
-            return item.Distinct(new StringArrayComparer()).ToList();
-        }
-
-        private class StringArrayComparer : EqualityComparer<string[]>
-        {
-            public override bool Equals(string[] x, string[] y)
-            {
-                return Enumerable.SequenceEqual(x, y);
-            }
-
-            public override int GetHashCode(string[] obj)
-            {
-                return GetHashCode();
-            }
-        }
+            return item.Distinct(new ArrayComparer<string>()).ToList();
+        }        
     }
 }

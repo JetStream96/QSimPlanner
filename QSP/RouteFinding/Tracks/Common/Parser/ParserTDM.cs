@@ -5,6 +5,7 @@ using System.Linq;
 using QSP.LibraryExtension;
 using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.RouteFinding.Tracks.Common.Utilities;
+using QSP.LibraryExtension.StringParser;
 
 namespace QSP.RouteFinding.Tracks.Common.Parser
 {
@@ -50,30 +51,33 @@ namespace QSP.RouteFinding.Tracks.Common.Parser
     //
     // (7) All LatLon format is assumed to be 7-digit (like 25S133E), and will all be converted to 5-digit.
 
-    public class ParserTDM
+    public class ParserTDMOld
     {
-
         private string text;
         private AirportManager airportList;
+
+        private bool rtsExist;
+        private bool rmkExist;
+
+        private int rtsIndex;
+        private int rmkIndex;
 
         private string Ident;
         private string TimeStart;
         private string TimeEnd;
         private string Remarks;
-        private bool connectionRoutesExist;
-        private bool rmkExist;
         private string[] mainRoute;
         private List<string[]> routeFrom;
         private List<string[]> routeTo;
 
-        public ParserTDM(string text, AirportManager airportList)
+        public ParserTDMOld(string text, AirportManager airportList)
         {
             this.text = text;
             this.airportList = airportList;
         }
 
         /// <exception cref="TrackParseException"></exception>
-        public ParseResult Parse()
+        public ParseResultOld Parse()
         {
             routeFrom = new List<string[]>();
             routeTo = new List<string[]>();
@@ -86,11 +90,11 @@ namespace QSP.RouteFinding.Tracks.Common.Parser
             {
                 throw new TrackParseException();
             }
-            
+
             convertAllLatLonFormat();
             removeRedundentFromList();
 
-            return new ParseResult(Ident,
+            return new ParseResultOld(Ident,
                                    TimeStart,
                                    TimeEnd,
                                    Remarks,
@@ -99,33 +103,40 @@ namespace QSP.RouteFinding.Tracks.Common.Parser
                                    routeTo);
 
         }
-        
+
         // Exception may occur if the input string format is not as expected (especially IndexOutOfRangeException).
         private void parse()
         {
-            int index = 0;
+            var sp = new StringParser(text);
+            var d = DelimiterWords;
 
-            //get ident
-            index = text.IndexOf("TDM TRK", index);
-            index += "TDM TRK".Length;
-            SkipAny(text, DelimiterWords, ref index);
-            Ident = ReadToNextDelimeter(text, DelimiterWords, ref index);
+            sp.MoveToNextIndexOf("TDM TRK");
+            sp.MoveRight("TDM TRK".Length);
+            sp.SkipAny(d);
 
-            //goto next line
-            SkipToNextLine(text, ref index);
-            SkipAny(text, DelimiterWords, ref index);
-            TimeStart = ReadToNextDelimeter(text, DelimiterWords, ref index);
-            SkipAny(text, DelimiterWords, ref index);
-            TimeEnd = ReadToNextDelimeter(text, DelimiterWords, ref index);
+            Ident = sp.ReadToNextDelimeter(d);
 
-            //goto next line
-            SkipToNextLine(text, ref index);
+            sp.SkipToNextLine();
+            sp.SkipAny(d);
 
-            //get everything before "RTS/", except for special chars
-            getMainRoute(ref index);
+            TimeStart = sp.ReadToNextDelimeter(d);
+            sp.SkipAny(d);
+            TimeEnd = sp.ReadToNextDelimeter(d);
 
+            sp.SkipToNextLine();
+            mainRoute=sp.ReadString(mainRouteEndIndex()).Split(d, StringSplitOptions.RemoveEmptyEntries);
+
+            if (rtsIndex >= 0)
+            {
+                sp.MoveRight("RTS/".Length);
+
+            }
+            
+
+            int index = sp.CurrentIndex;
+            
             //get everything before "RMK/", except for special chars
-            if (connectionRoutesExist)
+            if (rtsExist)
             {
                 index += "RTS/".Length;
                 getConnectionRoute(ref index);
@@ -137,6 +148,46 @@ namespace QSP.RouteFinding.Tracks.Common.Parser
 
             //get remarks
             index = getRemarks(index);
+        }
+
+        private void getRtsRmkIndices(int index)
+        {
+            rtsIndex = text.IndexOf("RTS/", index);
+            rmkIndex = text.IndexOf("RMK/", index);
+        }
+
+        private int mainRouteEndIndex()
+        {
+            int EndIndexPlusOne;
+
+            if (rtsIndex >= 0)
+            {
+                EndIndexPlusOne = rtsIndex;
+            }
+            else if (rmkIndex >= 0)
+            {
+                EndIndexPlusOne = rmkIndex;
+            }
+            else
+            {
+                EndIndexPlusOne = text.Length;
+            }
+            return EndIndexPlusOne - 1;
+        }
+
+        private int rtsEndIndex()
+        {
+            int EndIndexPlusOne;
+
+            if (rmkIndex >= 0)
+            {
+                EndIndexPlusOne = rmkIndex;
+            }
+            else
+            {
+                EndIndexPlusOne = text.Length;
+            }
+            return EndIndexPlusOne - 1;
         }
 
         private int getRemarks(int index)
@@ -153,33 +204,7 @@ namespace QSP.RouteFinding.Tracks.Common.Parser
 
             return index;
         }
-
-        private void getMainRoute(ref int index)
-        {
-            int x = text.IndexOf("RTS/", index);
-
-            if (x < 0)
-            {
-                // RTS/ may not exist.
-
-                x = text.IndexOf("RMK/", index);
-                connectionRoutesExist = false;
-
-                if (x < 0)
-                {
-                    // RMK/ may not exist.
-                    x = text.Length - 1;
-                }
-            }
-            else
-            {
-                connectionRoutesExist = true;
-            }
-
-            mainRoute = text.Substring(index, x - index).Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
-            index = x;
-        }
-
+        
         private void gotoRmkSection(ref int index)
         {
             index = text.IndexOf("RMK/", index);
@@ -237,11 +262,11 @@ namespace QSP.RouteFinding.Tracks.Common.Parser
                 index = nextLine;
             }
 
-            for (int i = 0; i <= allRoutes.Count - 1; i++)
+            for (int i = 0; i < allRoutes.Count; i++)
             {
                 var rte = allRoutes[i];
 
-                if (rte != null && rte.Count() > 1)
+                if (rte != null && rte.Length > 1)
                 {
                     if (rte[0] == mainRoute.Last())
                     {

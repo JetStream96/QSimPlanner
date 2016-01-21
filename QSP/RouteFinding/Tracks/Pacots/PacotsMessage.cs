@@ -22,12 +22,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             tracksKZAK = new List<string>();
             tracksRJJJ = new List<string>();
         }
-
-        public PacotsMessage(XDocument doc)
-        {
-            LoadFromXml(doc);
-        }
-
+        
         public PacotsMessage(string htmlFile) : this()
         {
             try
