@@ -47,7 +47,6 @@ namespace QSP
             }
         }
 
-
         private void setPropertyKG()
         {
             if (_WtUnit == WeightUnit.KG)
@@ -62,9 +61,7 @@ namespace QSP
                 MissedAppFuel_KG = MissedAppFuel * AviationConstants.LB_KG;
                 ExtraFuel_KG = ExtraFuel * AviationConstants.LB_KG;
             }
-
         }
-
 
         private void setAircraftType()
         {
@@ -92,9 +89,7 @@ namespace QSP
             {
                 AC = Aircraft.B777F;
             }
-
         }
-
 
         public void ImportValues()
         {
@@ -131,15 +126,12 @@ namespace QSP
                 {
                     throw new Exception(exceptionMsg);
                 }
-
             }
             catch
             {
                 throw new Exception(exceptionMsg);
             }
-
         }
-
 
         private void tryImportPattern2(ref double var, string str, string exceptionMsg)
         {
@@ -147,7 +139,7 @@ namespace QSP
             {
                 var = Convert.ToDouble(str);
 
-                if (var < -400 | var > 400)
+                if (var < -400 || var > 400)
                 {
                     throw new Exception(exceptionMsg);
                 }
@@ -157,7 +149,6 @@ namespace QSP
             {
                 throw new Exception(exceptionMsg);
             }
-
         }
 
         public void FillInDefaultValueIfLeftBlank()
@@ -191,9 +182,7 @@ namespace QSP
             {
                 frm.HoldTime_TxtBox.Text = "0";
             }
-
         }
-
     }
 }
 

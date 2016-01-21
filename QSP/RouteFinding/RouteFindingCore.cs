@@ -25,7 +25,7 @@ namespace QSP.RouteFinding
         public static NatsHandler NatsManager;
         public static PacotsHandler PacotsManager;
         public static AusotsHandler AusotsManager;
-        public static TrackInUseCollection TracksInUse=new TrackInUseCollection();
+        public static TrackInUseCollection TracksInUse = new TrackInUseCollection();
         public static RouteTrackCommunicator RouteTrackCommunicator = new RouteTrackCommunicator(TracksInUse);
     }
 

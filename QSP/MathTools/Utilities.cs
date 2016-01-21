@@ -5,15 +5,17 @@ namespace QSP.MathTools
 {
     public static class Utilities
     {
+        private static double PIOver180 = Math.PI / 180.0;
+        private static double _180OverPI = 180.0 / Math.PI;
 
         public static double ToRadian(double t)
         {
-            return t * Math.PI / 180.0;
+            return t * PIOver180;
         }
 
         public static double ToDegree(double t)
         {
-            return t * 180.0 / Math.PI;
+            return t * _180OverPI;
         }
 
         public static Vector3D LatLonToVector3D(double lat, double lon)
@@ -74,14 +76,4 @@ namespace QSP.MathTools
         }
 
     }
-
 }
-
-
-
-
-
-
-
-
-

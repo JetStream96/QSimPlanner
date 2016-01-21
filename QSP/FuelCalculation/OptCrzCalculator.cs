@@ -6,11 +6,9 @@ using static QSP.MathTools.Interpolation;
 namespace QSP
 {
     public class OptCrzCalculator
-    {
-        //1000KG
-        private double[] weight;
-        //ft
-        private double[] alt;
+    {        
+        private double[] weight;  //1000KG       
+        private double[] alt;    //ft
 
         private Tuple<double, double, double> CrzTas;
 

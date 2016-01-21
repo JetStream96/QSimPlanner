@@ -17,7 +17,7 @@ namespace QSP.WindAloft
 
         public async Task DownloadWindAsync()
         {
-            await Task.Factory.StartNew(() => DownloadWind());
+            await Task.Factory.StartNew(DownloadWind);
         }
     }
 }

@@ -1,10 +1,10 @@
+using QSP.AviationTools;
+using QSP.RouteFinding.Containers;
 using System;
 using System.Collections.Generic;
-using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.MathTools.Utilities;
-using QSP.AviationTools;
 using static QSP.RouteFinding.Constants;
-using QSP.RouteFinding.Containers;
+using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding
 {

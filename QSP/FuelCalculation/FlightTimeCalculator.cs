@@ -6,22 +6,20 @@ using QSP.Core;
 
 namespace QSP
 {
-
     public class FlightTimeCalculator
     {
-        private int[,] time_req_table;
+        private int[,] TimeRequiredTable;
 
         public FlightTimeCalculator(string sourceTxt)
         {
             try
             {
-                time_req_table = importFlightTimeTable(sourceTxt);
+                TimeRequiredTable = importFlightTimeTable(sourceTxt);
             }
             catch
             {
                 throw new InvalidAircraftDatabaseException();
             }
-
         }
 
         public int GetTimeMin(double airDistance)
@@ -32,22 +30,21 @@ namespace QSP
             //  "MIN", will return, e.g. 156     (156 min)
             //  "HHMM", will return, e.g. 0236   (2 hours and 36 min)
 
-            int m = time_req_table.GetLength(1) - 2;
-            for (int k = 1; k <= time_req_table.GetLength(1) - 1; k++)
+            int m = TimeRequiredTable.GetLength(1) - 2;
+            for (int k = 1; k <= TimeRequiredTable.GetLength(1) - 1; k++)
             {
-                if (airDistance <= time_req_table[0, k])
+                if (airDistance <= TimeRequiredTable[0, k])
                 {
                     m = k - 1;
                     break;
                 }
             }
-            return (int)(Interpolation.Interpolate(time_req_table[0, m], time_req_table[0, m + 1], airDistance,
-                                                   time_req_table[1, m], time_req_table[1, m + 1]));
+            return (int)(Interpolation.Interpolate(TimeRequiredTable[0, m], TimeRequiredTable[0, m + 1], airDistance,
+                                                   TimeRequiredTable[1, m], TimeRequiredTable[1, m + 1]));
         }
 
         private int[,] importFlightTimeTable(string sourceTxt)
         {
-
             string[] all_lines = sourceTxt.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             List<string> allLines = new List<string>();
 
@@ -75,8 +72,6 @@ namespace QSP
             }
 
             return time_req_table;
-
         }
-
     }
 }

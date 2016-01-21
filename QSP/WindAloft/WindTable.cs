@@ -5,7 +5,6 @@ using QSP.AviationTools;
 
 namespace QSP
 {
-
     public class WindTable
     {
         //The unit is knots
@@ -78,21 +77,17 @@ namespace QSP
             //hence the size of returning array will be 181 * 361
             try
             {
-                string str = File.ReadAllText(filename);
-                var allLines = str.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                var allLines = File.ReadAllLines(filename);
                 double[,] table = new double[181, 361];
                 //lat, lon
-                string[] t = null;
-                int j = 0;
-                int k = 0;
-                double l = 0;
+
                 //the first row is the name of the columns, which should be omitted
                 for (int i = 1; i < allLines.Length; i++)
                 {
-                    t = allLines[i].Split(',');
-                    j = (int)(Math.Round(Convert.ToDouble(t[2])) + 90);
-                    k = (int)(Math.Round(Convert.ToDouble(t[3])) + 180);
-                    l = Convert.ToDouble(t[4]) / AviationConstants.KT_MPS;
+                    string[] t = allLines[i].Split(',');
+                    int j = (int)(Math.Round(Convert.ToDouble(t[2])) + 90);
+                    int k = (int)(Math.Round(Convert.ToDouble(t[3])) + 180);
+                    double l = Convert.ToDouble(t[4]) / AviationConstants.KT_MPS;
                     table[j, k] = l;
                 }
 
@@ -108,8 +103,6 @@ namespace QSP
                 Utilities.ErrorLogger.WriteToLog(ex);
                 throw new Exception("Unable to retreive wind data from " + filename);
             }
-
         }
-
     }
 }

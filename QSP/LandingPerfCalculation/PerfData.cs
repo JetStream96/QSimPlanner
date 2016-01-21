@@ -2,13 +2,11 @@ using QSP.Core;
 
 namespace QSP.LandingPerfCalculation
 {
-
     /// <summary>
     /// Every aircraft should have a unique instance of this class.
     /// </summary>
     public class PerfData
     {
-
         //All length in meter, all weights in KG.
         private double weightRef;
         private double weightStep;
@@ -28,8 +26,7 @@ namespace QSP.LandingPerfCalculation
         //third index = corresponding index in autoBrkDry
         //forth index = parameters
 
-
-        public PerfData(double weightRef, double weightStep, string[] autoBrkDry, string[] autoBrkWet, string[] flaps, 
+        public PerfData(double weightRef, double weightStep, string[] autoBrkDry, string[] autoBrkWet, string[] flaps,
             string[] reversers, double[,,] mainDataDry, double[,,,] mainDataWet)
         {
             this.weightRef = weightRef;
@@ -40,12 +37,10 @@ namespace QSP.LandingPerfCalculation
             this.reversers = reversers;
             this.mainDataDry = mainDataDry;
             this.mainDataWet = mainDataWet;
-
         }
 
         public string[] BrakesAvailable(SurfaceCondition item)
         {
-
             if (item == SurfaceCondition.Dry)
             {
                 return autoBrkDry;
@@ -54,7 +49,6 @@ namespace QSP.LandingPerfCalculation
             {
                 return autoBrkWet;
             }
-
         }
 
         public string[] FlapsAvailable()
@@ -69,7 +63,6 @@ namespace QSP.LandingPerfCalculation
 
         private enum dataColumn
         {
-
             RefDis = 0,
             WtAdjustAbove = 1,
             WtAdjustBelow = 2,
@@ -84,7 +77,6 @@ namespace QSP.LandingPerfCalculation
             AppSpdAdjust = 11,
             OneRev = 12,
             NoRev = 13
-
         }
 
         /// <summary>
@@ -92,24 +84,17 @@ namespace QSP.LandingPerfCalculation
         /// </summary>
         /// <param name="para">Landing parameters</param>
         /// <param name="request">Requested data</param>
-        /// <param name="brakeSetting"></param>
         private double reqData(LandingParameters para, dataColumn request, int brakeSetting)
         {
-
             if (para.SurfaceCondition == SurfaceCondition.Dry)
             {
                 return mainDataDry[para.FlapsIndex, brakeSetting, (int)request];
             }
-            else
-            {
-                return mainDataWet[(int)para.SurfaceCondition - 1, para.FlapsIndex, brakeSetting, (int)request];
-            }
-
+            return mainDataWet[(int)para.SurfaceCondition - 1, para.FlapsIndex, brakeSetting, (int)request];
         }
 
         public LandingCalcResult GetLandingReport(LandingParameters para)
         {
-
             LandingCalcResult result = new LandingCalcResult();
             var brkList = para.SurfaceCondition == SurfaceCondition.Dry ? autoBrkDry : autoBrkWet;
             int disReqMeter = 0;
@@ -130,12 +115,11 @@ namespace QSP.LandingPerfCalculation
 
             //compute all possible brake settings
 
-            for (int i = 0; i <= brkList.Length - 1; i++)
+            for (int i = 0; i < brkList.Length; i++)
             {
                 if (i == para.AutoBrakeIndex)
                 {
                     result.AddOtherResult();
-
                 }
                 else
                 {
@@ -150,13 +134,9 @@ namespace QSP.LandingPerfCalculation
                     {
                         return result;
                     }
-
                 }
-
             }
-
             return result;
-
         }
 
         /// <summary>
@@ -168,13 +148,13 @@ namespace QSP.LandingPerfCalculation
 
             double wtExcessSteps = (para.WeightKG - weightRef) / weightStep;
 
-            double totalDisMeter = reqData(para, dataColumn.RefDis, brakeSetting) + 
-                wtExcessSteps * 
+            double totalDisMeter = reqData(para, dataColumn.RefDis, brakeSetting) +
+                wtExcessSteps *
                 (wtExcessSteps >= 0 ? reqData(para, dataColumn.WtAdjustAbove, brakeSetting) : -reqData(para, dataColumn.WtAdjustBelow, brakeSetting))
-                + para.ElevationFT / 1000 * reqData(para, dataColumn.AltAdjust, brakeSetting) 
-                + para.HeadwindKts / 10 * 
+                + para.ElevationFT / 1000 * reqData(para, dataColumn.AltAdjust, brakeSetting)
+                + para.HeadwindKts / 10 *
                 (para.HeadwindKts >= 0 ? reqData(para, dataColumn.HeadwindCorr, brakeSetting) : -reqData(para, dataColumn.TailwindCorr, brakeSetting))
-                + para.SlopePercent * 
+                + para.SlopePercent *
                 (para.SlopePercent <= 0 ? -reqData(para, dataColumn.DownhillCorr, brakeSetting) : reqData(para, dataColumn.UphillCorr, brakeSetting));
 
             double tempExcess = para.TempCelsius - AviationTools.CoversionTools.IsaTemp(para.ElevationFT);
@@ -203,7 +183,5 @@ namespace QSP.LandingPerfCalculation
         {
             return GetLandingDistanceMeter(para, para.AutoBrakeIndex);
         }
-
     }
-
 }

@@ -111,7 +111,7 @@ namespace QSP.AviationTools
                 EW = 'E';
             }
 
-            return NS + lat.ToString().PadLeft(2,'0') + EW + lon.ToString().PadLeft(3,'0');
+            return NS + lat.ToString().PadLeft(2, '0') + EW + lon.ToString().PadLeft(3, '0');
         }
 
     }
