@@ -1,43 +1,14 @@
 using System.Collections.ObjectModel;
 using QSP.AviationTools;
 using QSP.RouteFinding.Tracks.Common;
-using QSP.Core;
-using static QSP.RouteFinding.Tracks.Pacots.Constants;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public class PacificTrack : ITrack
-    {      
-        #region "Properties"
-
-        public string Ident { get; private set; }
+    public class PacificTrack : Track
+    {
         public PacotDirection Direction { get; private set; }
-        public ReadOnlyCollection<string> MainRoute { get; private set; }
-        public ReadOnlyCollection<string[]> RouteFrom { get; private set; }
-        public ReadOnlyCollection<string[]> RouteTo { get; private set; }
-        public string TimeStart { get; private set; }
-        public string TimeEnd { get; private set; }
-        public string Remarks { get; private set; }
 
-        public LatLon PreferredFirstLatLon
-        {
-            get
-            {
-                switch (Direction)
-                {
-                    case PacotDirection.Eastbound:
-                        return JAPAN_LATLON;
-
-                    case PacotDirection.Westbound:
-                        return US_LATLON;
-
-                    default:
-                        throw new EnumNotSupportedException();
-                }
-            }
-        }
-
-        public string AirwayIdent
+        public sealed override string AirwayIdent
         {
             get
             {
@@ -45,25 +16,18 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        #endregion
-
-        public PacificTrack(string Ident, 
-                            PacotDirection Direction, 
-                            string TimeStart, 
-                            string TimeEnd, 
+        public PacificTrack(PacotDirection Direction,
+                            string Ident,
+                            string TimeStart,
+                            string TimeEnd, string Remarks,
                             ReadOnlyCollection<string> MainRoute,
                             ReadOnlyCollection<string[]> RouteFrom,
-                            ReadOnlyCollection<string[]> RouteTo, 
-                            string Remarks)
+                            ReadOnlyCollection<string[]> RouteTo,
+                            LatLon PreferredFirstLatLon)
+
+             : base(Ident, TimeStart, TimeEnd, Remarks, MainRoute, RouteFrom, RouteTo, PreferredFirstLatLon)
         {
-            this.Ident = Ident;
             this.Direction = Direction;
-            this.TimeStart = TimeStart;
-            this.TimeEnd = TimeEnd;
-            this.MainRoute = MainRoute;
-            this.RouteFrom = RouteFrom;
-            this.RouteTo = RouteTo;
-            this.Remarks = Remarks;
         }
     }
 }

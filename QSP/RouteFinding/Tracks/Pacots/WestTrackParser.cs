@@ -39,14 +39,15 @@ namespace QSP.RouteFinding.Tracks.Pacots
             removeRedundentFromList();
             convertAllLatLonFormat();
 
-            return new PacificTrack(Ident,
-                                    PacotDirection.Westbound,
+            return new PacificTrack(PacotDirection.Westbound,
+                                    Ident,
                                     TimeStart,
                                     TimeEnd,
+                                    Remarks,
                                     Array.AsReadOnly(mainRoute),
                                     routeFrom.AsReadOnly(),
                                     routeTo.AsReadOnly(),
-                                    Remarks);
+                                    Constants.US_LATLON);
         }
 
         private void convertAllLatLonFormat()
@@ -96,14 +97,14 @@ namespace QSP.RouteFinding.Tracks.Pacots
             int index = text.IndexOf("TDM TRK") + "TDM TRK".Length;
             SkipAny(text, DelimiterWords, ref index);
             Ident = ReadToNextDelimeter(text, DelimiterWords, ref index);
-            
+
             //get time start/end
             SkipToNextLine(text, ref index);
             SkipAny(text, DelimiterWords, ref index);
             TimeStart = ReadToNextDelimeter(text, DelimiterWords, ref index);
             SkipAny(text, DelimiterWords, ref index);
             TimeEnd = ReadToNextDelimeter(text, DelimiterWords, ref index);
-            
+
             //get main route
             //TODO: what if RTS or RMK does not exist?
             y = text.IndexOf("RTS/", x);

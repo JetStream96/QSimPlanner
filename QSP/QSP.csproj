@@ -216,7 +216,7 @@
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusTrack.cs" />
     <Compile Include="RouteFinding\Tracks\Common\Enums.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\ITrack.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\Track.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackReader.cs" />
     <Compile Include="RouteFinding\Tracks\Common\Utilities.cs" />

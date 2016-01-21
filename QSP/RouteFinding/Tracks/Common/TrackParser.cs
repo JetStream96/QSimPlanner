@@ -2,7 +2,7 @@
 
 namespace QSP.RouteFinding.Tracks.Common
 {
-    public abstract class TrackParser<T> where T : ITrack
+    public abstract class TrackParser<T> where T : Track
     {
         public abstract List<T> Parse();
     }    

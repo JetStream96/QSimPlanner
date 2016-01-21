@@ -104,7 +104,7 @@ namespace QSP.RouteFinding.Tracks.Common
         }
 
         /// <exception cref="ArgumentException"></exception>
-        public static TrackType TrackToEnum<T>() where T : ITrack
+        public static TrackType TrackToEnum<T>() where T : Track
         {
             if (typeof(T) == typeof(AusTrack))
             {

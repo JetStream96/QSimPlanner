@@ -66,11 +66,11 @@ namespace QSP.RouteFinding.Tracks.Nats
 
                 tracks.Add(new NorthAtlanticTrack(msg.Direction,
                                                   ((char)i).ToString(),
+                                                  "",
+                                                  "",
+                                                  "",
                                                   new List<string>(wp).AsReadOnly(),
-                                                  Constants.CENTER_ATL,
-                                                  "",
-                                                  "",
-                                                  ""));
+                                                  Constants.CENTER_ATL));
             }
             return tracks;
         }

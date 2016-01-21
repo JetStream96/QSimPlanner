@@ -88,14 +88,15 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
                 var lists = getTrack(mainRoute, allToFromRoutes);
 
-                result[i] = new PacificTrack(tracksStr[i].Item1,
-                                             PacotDirection.Eastbound,
+                result[i] = new PacificTrack(PacotDirection.Eastbound,
+                                             tracksStr[i].Item1,
                                              timeInfo.Item1,
                                              timeInfo.Item2,
+                                             remarks,
                                              Array.AsReadOnly(mainRoute),
                                              lists.Item1.AsReadOnly(),
                                              lists.Item2.AsReadOnly(),
-                                             remarks);
+                                             Constants.JAPAN_LATLON);
             }
             return result;
         }

@@ -10,7 +10,7 @@ using QSP.RouteFinding.AirwayStructure;
 namespace QSP.RouteFinding.Tracks.Common
 {
     // Read the track waypoints as strings, and try to find each waypoints in WptList
-    public class TrackReader<T> where T : ITrack
+    public class TrackReader<T> where T : Track
     {
         private WaypointList wptList;
 
