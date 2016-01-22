@@ -1,6 +1,6 @@
 using System;
 
-namespace QSP.AviationTools
+namespace QSP.AviationTools.Coordinates
 {
     public class LatLon : IEquatable<LatLon>
     {
@@ -31,7 +31,26 @@ namespace QSP.AviationTools
 
         public bool Equals(LatLon other)
         {
-            return Lat == other.Lat && Lon == other.Lon;
+            return Math.Abs(Lat - other.Lat) < Constants.LatLon_TOLERENCE &&
+                   Math.Abs(Lon - other.Lon) < Constants.LatLon_TOLERENCE;
+        }
+
+        /// <summary>
+        /// Output examples: 36N170W 34N080E
+        /// Returns null if either Lat or Lon is not an integer.
+        /// </summary>
+        public string To7DigitFormat()
+        {
+            return Conversion7Digit.To7DigitFormat(Lat, Lon);
+        }
+
+        /// <summary>
+        /// Output examples: 36N70, 3480E.
+        /// Returns null if either Lat or Lon is not an integer.
+        /// </summary>
+        public string To5DigitFormat()
+        {
+            return Conversion5Digit.To5DigitFormat(Lat, Lon);
         }
     }
 }

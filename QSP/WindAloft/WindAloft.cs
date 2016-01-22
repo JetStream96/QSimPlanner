@@ -1,7 +1,7 @@
 using System;
-using QSP.AviationTools;
 using QSP.Core;
 using QSP.RouteFinding.Routes;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.WindAloft
 {

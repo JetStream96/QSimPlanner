@@ -1,10 +1,5 @@
-﻿using QSP.RouteFinding.Airports;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using QSP.LibraryExtension;
+﻿using System;
 using static QSP.LibraryExtension.StringParser.Utilities;
-using static QSP.RouteFinding.Tracks.Common.Utilities;
 using QSP.LibraryExtension.StringParser;
 
 namespace QSP.RouteFinding.Tracks.Common.Parser

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 using static QSP.LibraryExtension.Arrays;
-using static QSP.AviationTools.AviationConstants;
+using static QSP.AviationTools.Constants;
 
 namespace QSP.LandingPerfCalculation
 {

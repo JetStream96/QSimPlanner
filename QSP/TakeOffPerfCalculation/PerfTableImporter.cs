@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 using QSP.MathTools;
-using static QSP.AviationTools.AviationConstants;
+using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.Arrays;
 
 namespace QSP.TakeOffPerfCalculation

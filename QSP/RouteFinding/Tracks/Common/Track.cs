@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using QSP.AviationTools;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.Tracks.Common
 {

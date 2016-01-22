@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using QSP.MathTools;
-using QSP.AviationTools;
+using static QSP.AviationTools.Constants;
 
 namespace QSP
 {
@@ -87,7 +87,7 @@ namespace QSP
                     string[] t = allLines[i].Split(',');
                     int j = (int)(Math.Round(Convert.ToDouble(t[2])) + 90);
                     int k = (int)(Math.Round(Convert.ToDouble(t[3])) + 180);
-                    double l = Convert.ToDouble(t[4]) / AviationConstants.KT_MPS;
+                    double l = Convert.ToDouble(t[4]) / KT_MPS;
                     table[j, k] = l;
                 }
 

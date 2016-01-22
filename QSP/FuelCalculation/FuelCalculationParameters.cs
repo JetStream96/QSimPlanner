@@ -1,5 +1,4 @@
 using System;
-using QSP.AviationTools;
 using QSP.RouteFinding;
 using static QSP.UI.Utilities;
 
@@ -57,9 +56,9 @@ namespace QSP
             }
             else
             {
-                Zfw_KG = Zfw * AviationConstants.LB_KG;
-                MissedAppFuel_KG = MissedAppFuel * AviationConstants.LB_KG;
-                ExtraFuel_KG = ExtraFuel * AviationConstants.LB_KG;
+                Zfw_KG = Zfw * AviationTools.Constants.LB_KG;
+                MissedAppFuel_KG = MissedAppFuel * AviationTools.Constants.LB_KG;
+                ExtraFuel_KG = ExtraFuel * AviationTools.Constants.LB_KG;
             }
         }
 

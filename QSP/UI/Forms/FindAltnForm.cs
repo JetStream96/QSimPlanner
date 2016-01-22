@@ -32,7 +32,7 @@ namespace QSP
             }
             else
             {
-                lengthFt = Convert.ToInt32(Convert.ToInt32(MinRwyLength_Txtbox.Text) * AviationConstants.M_FT_ratio);
+                lengthFt = Convert.ToInt32(Convert.ToInt32(MinRwyLength_Txtbox.Text) * Constants.M_FT_ratio);
             }
 
             var altn = AlternateFinder.AltnInfo(Dest_Txtbox.Text, lengthFt);
@@ -67,7 +67,7 @@ namespace QSP
             {
                 for (int i = 0; i < altn.Count; i++)
                 {
-                    DataGrid[2, i].Value = Math.Round(Convert.ToDouble(DataGrid[2, i].Value) / AviationConstants.M_FT_ratio);
+                    DataGrid[2, i].Value = Math.Round(Convert.ToDouble(DataGrid[2, i].Value) / Constants.M_FT_ratio);
                 }
             }
 

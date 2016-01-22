@@ -1,8 +1,8 @@
-using QSP.AviationTools;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using QSP.RouteFinding.Data;
 using System;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.Airports
 {

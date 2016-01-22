@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using QSP.AviationTools;
 using QSP.RouteFinding.Tracks.Common;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {

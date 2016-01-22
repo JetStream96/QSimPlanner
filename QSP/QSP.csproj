@@ -72,10 +72,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.cs" />
-    <Compile Include="AviationTools\AviationConstants.cs" />
+    <Compile Include="AviationTools\Constants.cs" />
     <Compile Include="AviationTools\CoversionTools.cs" />
-    <Compile Include="AviationTools\LatLon.cs" />
-    <Compile Include="AviationTools\LatLonConversion.cs" />
+    <Compile Include="AviationTools\Coordinates\Constants.cs" />
+    <Compile Include="AviationTools\Coordinates\Conversion5Digit.cs" />
+    <Compile Include="AviationTools\Coordinates\Conversion7Digit.cs" />
+    <Compile Include="AviationTools\Coordinates\LatLon.cs" />
+    <Compile Include="AviationTools\Coordinates\Utilities.cs" />
     <Compile Include="Core\AppOptions.cs" />
     <Compile Include="Core\EnumConversionTools.cs" />
     <Compile Include="Core\Enums.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="LibraryExtension\StringParser\StringParser.cs" />
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
     <Compile Include="LibraryExtension\MinHeapModifiable.cs" />
+    <Compile Include="MathTools\Constants.cs" />
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
     <Compile Include="RouteFinding\Airports\Exceptions.cs" />
     <Compile Include="RouteFinding\Airports\FileLoader.cs" />
@@ -130,6 +134,7 @@
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\IndividualAusotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\MessageSplitter.cs" />
     <Compile Include="RouteFinding\Tracks\Common\IXmlConvertible.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\Parser\MainRouteInterpreter.cs" />
     <Compile Include="RouteFinding\Tracks\Common\Parser\ParseResult.cs" />
     <Compile Include="RouteFinding\Tracks\Common\Parser\ParseResultOld.cs" />
     <Compile Include="RouteFinding\Tracks\Common\Parser\ParserTDM.cs" />
@@ -145,6 +150,7 @@
     <Compile Include="RouteFinding\Tracks\Nats\NatsMessage.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NatsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NorthAtlanticTrack.cs" />
+    <Compile Include="RouteFinding\Tracks\Nats\Utilities\LatLonConverter.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Constants.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\IPacotsDownloader.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsParser.cs" />
@@ -156,6 +162,7 @@
     <Compile Include="UI\Forms\OptionsForm.Designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\ConditionChecker.cs" />
     <Compile Include="Utilities\ErrorLogger.cs" />
     <Compile Include="Core\Exceptions.cs" />
     <Compile Include="UI\FormStateSaver.cs" />

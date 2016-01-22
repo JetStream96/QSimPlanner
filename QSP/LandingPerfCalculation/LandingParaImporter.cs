@@ -29,7 +29,7 @@ namespace QSP.LandingPerfCalculation
                 WeightKG = Convert.ToDouble(frm.Weight_LDG.Text);
                 if (frm.WtUnit_LDG.Text == "LB")
                 {
-                    WeightKG *= AviationTools.AviationConstants.LB_KG;
+                    WeightKG *= AviationTools.Constants.LB_KG;
                 }
 
                 if (WeightKG < 0)
@@ -42,17 +42,14 @@ namespace QSP.LandingPerfCalculation
             {
                 throw new InvalidUserInputException("Landing weight is not valid.");
             }
-
-
-
-
+            
             try
             {
                 RwyLengthMeter = Convert.ToDouble(frm.length_LDG.Text);
 
                 if (frm.m_ft_LDG.Text == "FT")
                 {
-                    RwyLengthMeter *= AviationTools.AviationConstants.FT_M_ratio;
+                    RwyLengthMeter *= AviationTools.Constants.FT_M_ratio;
                 }
 
                 if (RwyLengthMeter < 0)
@@ -71,7 +68,7 @@ namespace QSP.LandingPerfCalculation
             {
                 ElevationFT = Convert.ToInt32(frm.elevation_LDG.Text);
 
-                if (ElevationFT < -2000 | ElevationFT > 20000)
+                if (ElevationFT < -2000 || ElevationFT > 20000)
                 {
                     throw new InvalidUserInputException("Runway elevation is not valid.");
                 }

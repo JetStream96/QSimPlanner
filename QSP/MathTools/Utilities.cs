@@ -1,13 +1,13 @@
+using QSP.AviationTools.Coordinates;
 using System;
-using QSP.AviationTools;
+using static QSP.AviationTools.Constants;
+using static QSP.MathTools.Constants;
+using static QSP.AviationTools.Coordinates.Constants;
 
 namespace QSP.MathTools
 {
     public static class Utilities
-    {
-        private static double PIOver180 = Math.PI / 180.0;
-        private static double _180OverPI = 180.0 / Math.PI;
-
+    {       
         public static double ToRadian(double t)
         {
             return t * PIOver180;
@@ -45,7 +45,7 @@ namespace QSP.MathTools
 
         public static double GreatCircleDistance(double lat1, double lat2, double deltaLon)
         {
-            if (Math.Abs(deltaLon) < 1E-08 && Math.Abs(lat1 - lat2) < 1E-08)
+            if (Math.Abs(deltaLon) < LatLon_TOLERENCE && Math.Abs(lat1 - lat2) < LatLon_TOLERENCE)
             {
                 return 0.0;
             }
@@ -57,7 +57,7 @@ namespace QSP.MathTools
             double a = Math.Sin(lat1Rad) * Math.Sin(lat2Rad) +
                        Math.Cos(lat1Rad) * Math.Cos(lat2Rad) * Math.Cos(deltaLonRad);
 
-            return AviationConstants.RADIUS_EARTH_NM * Math.Acos(a);
+            return RADIUS_EARTH_NM * Math.Acos(a);
         }
 
         public static int Mod(this int item, int x)

@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding;
-using QSP.AviationTools;
+using QSP.AviationTools.Coordinates;
 
 namespace Tests
 {

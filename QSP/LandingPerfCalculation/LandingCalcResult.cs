@@ -68,7 +68,7 @@ namespace QSP.LandingPerfCalculation
 
         private int convertToFTIfNeeded(int disMeter, LengthUnit unit)
         {
-            return unit == LengthUnit.Meter ? disMeter : Convert.ToInt32(disMeter * AviationTools.AviationConstants.M_FT_ratio);
+            return unit == LengthUnit.Meter ? disMeter : Convert.ToInt32(disMeter * AviationTools.Constants.M_FT_ratio);
         }
 
         private class dataRow

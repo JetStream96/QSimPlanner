@@ -1,8 +1,8 @@
-using QSP.AviationTools;
 using System;
 using System.Collections.Generic;
 using QSP.RouteFinding.Data;
 using static QSP.RouteFinding.Constants;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.Containers
 {

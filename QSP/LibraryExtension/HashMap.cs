@@ -85,7 +85,7 @@ namespace QSP.LibraryExtension
                 return default(TValue);
             }
         }
-        
+
         public List<TValue> AllMatches(TKey key)
         {
             var i = FindAllEntries(key);
@@ -208,7 +208,7 @@ namespace QSP.LibraryExtension
             {
                 throw new ArgumentNullException();
             }
-            
+
             if (buckets != null)
             {
                 int hashCode = keyComparer.GetHashCode(key) & 0x7fffffff;
@@ -237,7 +237,7 @@ namespace QSP.LibraryExtension
             entries = new Entry[size];
             freeList = -1;
         }
-        
+
         private void Insert(TKey key, TValue value)
         {
             if (key == null)
@@ -260,7 +260,7 @@ namespace QSP.LibraryExtension
             {
                 index = freeList;
                 freeList = entries[index].nextIndex;
-                freeCount --;
+                freeCount--;
             }
             else
             {
@@ -270,7 +270,7 @@ namespace QSP.LibraryExtension
                     targetBucket = hashCode % buckets.Length;
                 }
                 index = elemCount;
-                elemCount ++;
+                elemCount++;
             }
 
             entries[index].hashCode = hashCode;
@@ -358,13 +358,11 @@ namespace QSP.LibraryExtension
                 int bucket = hashCode % buckets.Length;
                 int last = -1;
                 int i = buckets[bucket];
-
-
+                
                 while (i >= 0)
                 {
-
-                    if (entries[i].hashCode == hashCode && 
-                        keyComparer.Equals(entries[i].key, key) && 
+                    if (entries[i].hashCode == hashCode &&
+                        keyComparer.Equals(entries[i].key, key) &&
                         para < 0 ? true : valueComparer.Equals(entries[i].value, value))
                     {
                         if (last < 0)
@@ -383,7 +381,7 @@ namespace QSP.LibraryExtension
                         entries[i].key = default(TKey);
                         entries[i].value = default(TValue);
                         freeList = i;
-                        freeCount ++;
+                        freeCount++;
 
                         last = i;
                         i = j;
@@ -451,10 +449,10 @@ namespace QSP.LibraryExtension
                     if (dictionary.entries[index].hashCode >= 0)
                     {
                         m_current = new KeyValuePair<TKey, TValue>(dictionary.entries[index].key, dictionary.entries[index].value);
-                        index ++;
+                        index++;
                         return true;
                     }
-                    index ++;
+                    index++;
                 }
 
                 index = dictionary.elemCount + 1;
@@ -482,7 +480,7 @@ namespace QSP.LibraryExtension
 
                     if (getEnumeratorRetType == DictEntry)
                     {
-                        return new System.Collections.DictionaryEntry(m_current.Key, m_current.Value);
+                        return new DictionaryEntry(m_current.Key, m_current.Value);
                     }
                     else
                     {

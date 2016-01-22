@@ -1,9 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.AviationTools;
 using System.Collections.Generic;
 using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.RouteFindingCore;
 using static Tests.Common.Utilities;
+using QSP.AviationTools.Coordinates;
 
 namespace Tests
 {

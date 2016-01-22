@@ -1,8 +1,8 @@
-﻿using QSP.AviationTools;
-using QSP.RouteFinding.Airports;
+﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Tracks.Common.Parser;
 using System;
 using System.Linq;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.Tracks.Ausots.Utilities
 {

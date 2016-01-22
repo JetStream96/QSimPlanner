@@ -1,8 +1,8 @@
-﻿using QSP.AviationTools;
-using QSP.RouteFinding.AirwayStructure;
+﻿using QSP.RouteFinding.AirwayStructure;
 using System.Collections.Generic;
 using static QSP.RouteFinding.Constants;
 using static QSP.MathTools.Utilities;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding
 {

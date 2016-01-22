@@ -1,4 +1,5 @@
 using QSP.AviationTools;
+using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.AirwayStructure;
 using System;
 using System.Collections.Generic;
@@ -39,9 +40,10 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             for (int i = 0; i < item.Length; i++)
             {
-                if (LatLonConversion.Is7DigitFormat(item[i]))
+                if (Conversion7Digit.Is7DigitFormat(item[i]))
                 {
-                    item[i] = LatLonConversion.Convert7DigitTo5Digit(item[i]);
+                    item[i] = Conversion7Digit.ReadFrom7DigitFormat(item[i])
+                                              .To5DigitFormat();
                 }
             }
         }
@@ -85,6 +87,6 @@ namespace QSP.RouteFinding.Tracks.Common
         public static List<string[]> SelectDistinct(List<string[]> item)
         {
             return item.Distinct(new ArrayComparer<string>()).ToList();
-        }        
+        }
     }
 }

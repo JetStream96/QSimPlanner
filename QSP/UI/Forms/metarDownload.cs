@@ -281,7 +281,7 @@ namespace QSP
             }
             else
             {
-                windspd = Convert.ToString(Math.Round(Convert.ToDouble(str_wind.Substring(3, 2)) / AviationConstants.KT_MPS));
+                windspd = Convert.ToString(Math.Round(Convert.ToDouble(str_wind.Substring(3, 2)) / Constants.KT_MPS));
             }
 
             if (str_press[0] == 'Q')

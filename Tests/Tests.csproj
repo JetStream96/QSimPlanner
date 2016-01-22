@@ -57,6 +57,7 @@
     <Compile Include="AirwayConnectionFinderTest.cs" />
     <Compile Include="AnalyzerWithCommandsTest.cs" />
     <Compile Include="AviationTools\CoversionToolsTest.cs" />
+    <Compile Include="AviationTools\Coordinates\Conversion7DigitTest.cs" />
     <Compile Include="Common\Utilities.cs" />
     <Compile Include="InterpolationTest.cs" />
     <Compile Include="LandingPerfCalcTest.cs" />

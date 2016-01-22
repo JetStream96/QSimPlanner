@@ -1,7 +1,7 @@
-﻿using QSP.AviationTools;
-using QSP.RouteFinding.Data;
+﻿using QSP.RouteFinding.Data;
 using System.Collections.Generic;
 using static QSP.RouteFinding.Data.LatLonSearchUtility<QSP.RouteFinding.Airports.Airport>;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.Airports
 {

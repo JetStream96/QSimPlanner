@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.AviationTools;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
@@ -9,6 +8,7 @@ using System.Collections.Generic;
 using static QSP.LibraryExtension.Lists;
 using static QSP.RouteFinding.Utilities;
 using static Tests.Common.Utilities;
+using QSP.AviationTools.Coordinates;
 
 namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
 {

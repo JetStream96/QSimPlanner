@@ -1,6 +1,6 @@
 using System;
 using System.Text;
-using static QSP.AviationTools.AviationConstants;
+using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.TimeFormat;
 
 namespace QSP

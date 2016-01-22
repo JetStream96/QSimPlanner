@@ -1,6 +1,6 @@
-using QSP.AviationTools;
 using QSP.RouteFinding.Tracks.Common;
 using System.Collections.ObjectModel;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {

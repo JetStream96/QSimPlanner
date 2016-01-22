@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding.Tracks.Ausots.Utilities;
 using QSP.RouteFinding.Airports;
 using System.Linq;
-using QSP.AviationTools;
+using QSP.AviationTools.Coordinates;
 
 namespace Tests.RouteFinding.Tracks.Ausots.Utilities
 {

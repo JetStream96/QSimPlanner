@@ -1,16 +1,16 @@
-using QSP.AviationTools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.Constants;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding
 {
     public class RandomRouteFinder
     {
-        private static readonly double MAX_ANGLE_DEG = ToDegree(MAX_LEG_DIS / AviationConstants.RADIUS_EARTH_NM);
+        private static readonly double MAX_ANGLE_DEG = ToDegree(MAX_LEG_DIS / AviationTools.Constants.RADIUS_EARTH_NM);
         private static readonly double MAX_ANGLE_DEG_INT = Math.Floor(MAX_ANGLE_DEG);
 
         private LatLon latLon1;

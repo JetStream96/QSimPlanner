@@ -1,10 +1,10 @@
-using QSP.AviationTools;
 using QSP.LibraryExtension;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static QSP.AviationTools.AviationConstants;
+using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Utilities;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.Data
 {

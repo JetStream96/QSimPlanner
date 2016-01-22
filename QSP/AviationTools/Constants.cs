@@ -1,6 +1,6 @@
 namespace QSP.AviationTools
 {
-    public static class AviationConstants
+    public static class Constants
     {
         public const double KG_LB = 2.20462;
         public const double LB_KG = 0.453592;

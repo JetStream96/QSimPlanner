@@ -67,7 +67,7 @@ namespace QSP.TakeOffPerfCalculation
 
 		private int lengthConvertUnit(int lengthMeter, LengthUnit unit)
 		{
-			return unit == LengthUnit.Feet ? Convert.ToInt32(lengthMeter * AviationConstants.M_FT_ratio) : lengthMeter;
+			return unit == LengthUnit.Feet ? Convert.ToInt32(lengthMeter * Constants.M_FT_ratio) : lengthMeter;
 		}
 
 		private class dataRow

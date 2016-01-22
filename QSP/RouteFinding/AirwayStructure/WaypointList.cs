@@ -1,4 +1,3 @@
-using QSP.AviationTools;
 using QSP.LibraryExtension.Graph;
 using QSP.RouteFinding.Data;
 using System;
@@ -9,6 +8,7 @@ using static QSP.MathTools.Utilities;
 using static QSP.Utilities.ErrorLogger;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Containers;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.AirwayStructure
 {

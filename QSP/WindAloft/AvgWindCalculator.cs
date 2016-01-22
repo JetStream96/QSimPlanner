@@ -1,8 +1,8 @@
 using System;
-using QSP.AviationTools;
 using QSP.MathTools;
 using static QSP.MathTools.Utilities;
-using static QSP.AviationTools.AviationConstants;
+using static QSP.AviationTools.Constants;
+using QSP.AviationTools.Coordinates;
 
 namespace QSP.WindAloft
 {

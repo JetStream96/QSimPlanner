@@ -20,7 +20,7 @@ using System.Xml.Linq;
 using QSP.RouteFinding.Airports;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
-using static QSP.AviationTools.AviationConstants;
+using static QSP.AviationTools.Constants;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.RouteFinding.Routes;
@@ -1273,7 +1273,7 @@ namespace QSP
             switch (m_ft.Text)
             {
                 case "M":
-                    length.Text = Convert.ToString((int)(lengthFt * AviationConstants.FT_M_ratio));
+                    length.Text = Convert.ToString((int)(lengthFt * AviationTools.Constants.FT_M_ratio));
                     break;
                 case "FT":
                     length.Text = Convert.ToString(lengthFt);
@@ -1481,11 +1481,11 @@ namespace QSP
             {
                 if (m_ft.Text == "M")
                 {
-                    length.Text = Convert.ToString(Math.Round(len / AviationConstants.M_FT_ratio));
+                    length.Text = Convert.ToString(Math.Round(len / AviationTools.Constants.M_FT_ratio));
                 }
                 else
                 {
-                    length.Text = Convert.ToString(Math.Round(len * AviationConstants.M_FT_ratio));
+                    length.Text = Convert.ToString(Math.Round(len * AviationTools.Constants.M_FT_ratio));
                 }
             }
         }
@@ -1623,7 +1623,7 @@ namespace QSP
             switch (m_ft_LDG.Text)
             {
                 case "M":
-                    length_LDG.Text = Convert.ToString((int)(lengthFt * AviationConstants.FT_M_ratio));
+                    length_LDG.Text = Convert.ToString((int)(lengthFt * AviationTools.Constants.FT_M_ratio));
                     break;
                 case "FT":
                     length_LDG.Text = Convert.ToString(lengthFt);
@@ -1822,11 +1822,11 @@ namespace QSP
             {
                 if (m_ft_LDG.Text == "M")
                 {
-                    length_LDG.Text = Convert.ToString(Math.Round(len / AviationConstants.M_FT_ratio));
+                    length_LDG.Text = Convert.ToString(Math.Round(len / AviationTools.Constants.M_FT_ratio));
                 }
                 else
                 {
-                    length_LDG.Text = Convert.ToString(Math.Round(len * AviationConstants.M_FT_ratio));
+                    length_LDG.Text = Convert.ToString(Math.Round(len * AviationTools.Constants.M_FT_ratio));
                 }
             }
         }
