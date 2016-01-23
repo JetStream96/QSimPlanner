@@ -1,48 +1,66 @@
-﻿using 
+﻿using QSP.AviationTools.Coordinates;
+using QSP.Utilities;
+using System;
+
 namespace QSP.RouteFinding.Tracks.Nats.Utilities
 {
     public static class LatLonConverter
     {
         /// <summary>
-        /// Sample input : "54/20", "5530/20". Sample output : "5420N","55.5N20W".
+        /// Sample input : "54/20", "5530/20", "5530/2050". 
         /// If the input is not the correct format, an exception is thrown.
         /// </summary>        
-        public static string NatsLatLonToIdent(string s)
+        public static LatLon ConvertNatsCoordinate(string s)
         {
             int x = s.IndexOf('/');
+            ConditionChecker.ThrowWhenNegative(x);
 
-            if (x < 0)
+            double Lat = Convert.ToDouble(s.Substring(0, 2));
+            double Lon = Convert.ToDouble(s.Substring(x + 1, 2));
+
+            if (x > 2)
             {
-                return null;
+                double addLat = Convert.ToDouble(s.Substring(2, x - 2));
+                ConditionChecker.Ensure(addLat >= 0.0 && addLat <= 60.0);
+                Lat += addLat / 60;
             }
 
-            string LatS = s.Substring(0, x);
-
-        }
-        
-        public static bool IsNatsLatLonFormat(string s)
-        {
-            int x = s.IndexOf('/');
-
-
-
-            return (s.Length == 5 &&
-                    s[2] == '/' &&
-                    char.IsDigit(s[0]) &&
-                    char.IsDigit(s[1]) &&
-                    char.IsDigit(s[3]) &&
-                    char.IsDigit(s[4]));
-        }
-
-        private static void tryConvertNatsLatLon(string[] wpts)
-        {
-            for (int i = 0; i < wpts.Length; i++)
+            if (s.Length - x - 1 > 2)
             {
-                if (IsNatsLatLonFormat(wpts[i]))
-                {
-                    wpts[i] = NatsLatLonToIdent(wpts[i]);
-                }
+                double addLon = Convert.ToDouble(s.Substring(x + 3));
+                ConditionChecker.Ensure(addLon >= 0.0 && addLon <= 60.0);
+                Lon += addLon / 60;
             }
+
+            ConditionChecker.Ensure(Lat >= 0.0 && Lat <= 90.0);
+            ConditionChecker.Ensure(Lon >= 0 && Lon <= 180);
+
+            return new LatLon(Lat, -Lon);
+        }
+
+        public static bool TryConvertNatsCoordinate(string s, out LatLon result)
+        {
+            try
+            {
+                result = ConvertNatsCoordinate(s);
+                return true;
+            }
+            catch
+            {
+                result = null;
+                return false;
+            }
+        }
+
+        public static string AutoChooseFormat(this LatLon item)
+        {
+            string result = Format5Digit.To5DigitFormat(item.Lat, item.Lon);
+
+            if (result != null)
+            {
+                return result;
+            }
+            return FormatDecimal.ToDecimalFormat(item.Lat, item.Lon);
         }
     }
 }

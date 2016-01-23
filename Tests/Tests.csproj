@@ -91,6 +91,7 @@
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsParserTest.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\IndividualAusotsParserTest.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\MessageSplitterTest.cs" />
+    <Compile Include="RouteFinding\Tracks\Nats\Utilities\LatLonConverterTest.cs" />
     <Compile Include="SimpleRouteAnalyzerTest.cs" />
     <Compile Include="TOPerfCalcTest.cs" />
     <Compile Include="WindAloft\LastestDataSetFinderTest.cs" />

@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
-using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Tracks.Nats.Utilities;
+using System;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
@@ -75,37 +77,15 @@ namespace QSP.RouteFinding.Tracks.Nats
             return tracks;
         }
         
-        // TODO: possible input:
-        //D VENER 5530/20 5630/30 5630/40 5530/50 KODIK
-        //EAST LVLS NIL
-        //WEST LVLS 350 360 370 380 390
-        //EUR RTS WEST NIL
-        //NAR NIL-
-        /// <summary>
-        /// Sample input : "54/20". Sample output : "5420N"
-        /// </summary>
-        private static string NatsLatLonToIdent(string s)
-        {
-            return new string(new char[] { s[0], s[1], s[3], s[4], 'N' });
-        }
-
-        private static bool IsNatsLatLonFormat(string s)
-        {
-            return (s.Length == 5 &&
-                    s[2] == '/' &&
-                    char.IsDigit(s[0]) &&
-                    char.IsDigit(s[1]) &&
-                    char.IsDigit(s[3]) &&
-                    char.IsDigit(s[4]));
-        }
-
         private static void tryConvertNatsLatLon(string[] wpts)
         {
             for (int i = 0; i < wpts.Length; i++)
             {
-                if (IsNatsLatLonFormat(wpts[i]))
+                LatLon latLon;
+
+                if (LatLonConverter.TryConvertNatsCoordinate(wpts[i],out latLon))     
                 {
-                    wpts[i] = NatsLatLonToIdent(wpts[i]);
+                    wpts[i] = latLon.AutoChooseFormat(); 
                 }
             }
         }
