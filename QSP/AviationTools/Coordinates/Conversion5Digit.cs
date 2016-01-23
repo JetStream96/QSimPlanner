@@ -1,11 +1,14 @@
 ﻿using System;
-using static QSP.AviationTools.Coordinates.Utilities;
+using QSP.Utilities;
 using System.Linq;
+using static QSP.AviationTools.Coordinates.Utilities;
 
 namespace QSP.AviationTools.Coordinates
 {
     public static class Conversion5Digit
     {
+        private static char[] NSEW = new char[] { 'N', 'S', 'E', 'W' };
+
         /// <summary>
         /// Output examples: 36N70, 3480E.
         /// Returns null if either Lat or Lon is not an integer.
@@ -55,25 +58,36 @@ namespace QSP.AviationTools.Coordinates
             }
             else
             {
-                return lat.ToString() + c + lon.ToString();
+                return lat.ToString() + c + (lon - 100).ToString();
             }
         }
 
         private static int AlphabetPosition(string s)
         {
-            if (new char[] { 'N', 'S', 'E', 'W' }.Contains(s[2]))
+            if (NSEW.Contains(s[2]))
             {
                 return 2;
             }
             return 4;
         }
 
+        public static bool TryReadFrom5DigitFormat(string item, out LatLon result)
+        {
+            try
+            {
+                result = ReadFrom5DigitFormat(item);
+                return true;
+            }
+            catch
+            {
+                result = null;
+                return false;
+            }
+        }
+
         public static LatLon ReadFrom5DigitFormat(string item)
         {
-            if (item.Length != 5)
-            {
-                return null;
-            }
+            ConditionChecker.Ensure(item.Length == 5);
 
             int pos = AlphabetPosition(item);
 
@@ -82,6 +96,8 @@ namespace QSP.AviationTools.Coordinates
                       ? Convert.ToInt32(item.Substring(3, 2)) + 100
                       : Convert.ToInt32(item.Substring(2, 2));
 
+            ConditionChecker.Ensure(lat >= 0 && lat <= 90);
+            ConditionChecker.Ensure(lon >= 0 && lon <= 180);
 
             switch (item[pos])
             {

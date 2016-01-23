@@ -67,7 +67,7 @@ namespace QSP
                 t = allLines[j].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 time_req_table[0, j] = Convert.ToInt32(t[0]);
                 //e.g. 500
-                time_req_table[1, j] = TimeFormat.HHColonMMToMin(t[t.Length - 1]);
+                time_req_table[1, j] = TimeFormat.HourColonMinToMin(t[t.Length - 1]);
                 //e.g. 1:43 -> 103
             }
 

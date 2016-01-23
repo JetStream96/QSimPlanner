@@ -1,4 +1,5 @@
 using System;
+using QSP.Utilities;
 
 namespace QSP.AviationTools
 {
@@ -12,17 +13,15 @@ namespace QSP.AviationTools
 
         public static double IsaTemp(double AltFt)
         {
+            ConditionChecker.Ensure(AltFt <= 65000.0);
+
             if (AltFt <= 36000.0)
             {
-                return 15 - 1.98 * AltFt / 1000;
-            }
-            else if (AltFt > 36000.0 && AltFt <= 65000.0)
-            {
-                return -56.5;
+                return 15.0 - 1.98 * AltFt / 1000;
             }
             else
             {
-                throw new ArgumentOutOfRangeException("Altitude too high.");
+                return -56.5;
             }
         }
 
@@ -102,8 +101,6 @@ namespace QSP.AviationTools
         {
             return temp * 9 / 5 + 32;
         }
-
     }
-
 }
 

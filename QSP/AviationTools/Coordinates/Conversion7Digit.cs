@@ -1,6 +1,6 @@
-﻿using System;
-using static QSP.AviationTools.Coordinates.Utilities;
+﻿using static QSP.AviationTools.Coordinates.Utilities;
 using QSP.Utilities;
+using System;
 
 namespace QSP.AviationTools.Coordinates
 {
@@ -51,24 +51,18 @@ namespace QSP.AviationTools.Coordinates
             return lat.ToString().PadLeft(2, '0') + NS + lon.ToString().PadLeft(3, '0') + EW;
         }
 
-        public static bool Is7DigitFormat(string item)
+        public static bool TryReadFrom7DigitFormat(string item, out LatLon result)
         {
-            if (item != null &&
-                item.Length == 7 &&
-                (item[2] == 'N' || item[2] == 'S') &&
-                (item[6] == 'E' || item[6] == 'W'))
+            try
             {
-                int lat;
-                int lon;
-
-                return int.TryParse(item.Substring(0, 2), out lat) &&
-                       int.TryParse(item.Substring(3, 3), out lon) &&
-                       lat >= 0 &&
-                       lat <= 90 &&
-                       lon >= 0 &&
-                       lon <= 180;
+                result = ReadFrom7DigitFormat(item);
+                return true;
             }
-            return false;
+            catch
+            {
+                result = null;
+                return false;
+            }
         }
 
         public static LatLon ReadFrom7DigitFormat(string item)
@@ -81,8 +75,7 @@ namespace QSP.AviationTools.Coordinates
             int lat = Convert.ToInt32(item.Substring(0, 2));
             int lon = Convert.ToInt32(item.Substring(3, 3));
 
-            ConditionChecker.Ensure(lat >= 0 && lat <= 90);
-            ConditionChecker.Ensure(lon >= 0 && lon <= 180);
+            ConditionChecker.Ensure(lat >= 0 && lat <= 90 && lon >= 0 && lon <= 180);
 
             if (NS == 'N')
             {

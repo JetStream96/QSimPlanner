@@ -1,4 +1,5 @@
 using System;
+using QSP.Utilities;
 
 namespace QSP.LibraryExtension
 {
@@ -7,49 +8,37 @@ namespace QSP.LibraryExtension
         /// <summary>
         /// E.g. Input string: "1:43", output: 103.
         /// </summary>
-        public static int HHColonMMToMin(string str)
+        public static int HourColonMinToMin(string s)
         {
-            try
-            {
-                string str1 = str.Substring(0, str.IndexOf(":"));
-                string str2 = str.Substring(str.IndexOf(":") + 1);
-                return Convert.ToInt32(str1) * 60 + Convert.ToInt32(str2);
-            }
-            catch
-            {
-                throw new ArgumentException("Bad format.");
-            }
+            int colonIndex = s.IndexOf(':');
+            ConditionChecker.ThrowWhenNegative(colonIndex);
+            return stringsToMin(s.Substring(0, colonIndex), s.Substring(colonIndex + 1));
         }
 
-        public static int HHMMToMin(string str)
+        //e.g. 0143 ---> 103
+        public static int HHMMToMin(string s)
         {
-            //e.g. 0143 ---> 103
-            try
-            {
-                string str1 = str.Substring(0, 2);
-                string str2 = str.Substring(2);
-                return Convert.ToInt32(str1) * 60 + Convert.ToInt32(str2);
-            }
-            catch
-            {
-                throw new ArgumentException("Bad format.");
-            }
+            ConditionChecker.Ensure(s.Length == 4);
+            return stringsToMin(s.Substring(0, 2), s.Substring(2));
+        }
+
+        private static int stringsToMin(string hour, string min)
+        {
+            int h = Convert.ToInt32(hour);
+            int m = Convert.ToInt32(min);
+
+            ConditionChecker.Ensure(h >= 0 && m >= 0 && m <= 60);
+            return 60 * h + m;
         }
 
         public static string MinToHHMM(int min)
         {
             //return a value with exactly 4 digits
-            if (min >= 60 * 100 || min < 0)
-            {
-                throw new ArgumentException("Bad format.");
-            }
+            ConditionChecker.Ensure(min > 60 * 100 || min >= 0);
 
             int h = min / 60;
             int m = min % 60;
             return h.ToString().PadLeft(2, '0') + m.ToString().PadLeft(2, '0');
         }
-
     }
-
 }
-

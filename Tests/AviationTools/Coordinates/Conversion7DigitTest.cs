@@ -10,18 +10,22 @@ namespace Tests.AviationTools.Coordinates
         [TestMethod()]
         public void WhenFormatIsWrongReturnFalse()
         {
-            Assert.IsFalse(Is7DigitFormat("37U055E"));
-            Assert.IsFalse(Is7DigitFormat("37S155S"));
-            Assert.IsFalse(Is7DigitFormat("37S15AW"));
-            Assert.IsFalse(Is7DigitFormat("37S155"));
-            Assert.IsFalse(Is7DigitFormat("37N200E"));
+            LatLon r;
+
+            Assert.IsFalse(TryReadFrom7DigitFormat("37U055E", out r));
+            Assert.IsFalse(TryReadFrom7DigitFormat("37S155S", out r));
+            Assert.IsFalse(TryReadFrom7DigitFormat("37S15AW", out r));
+            Assert.IsFalse(TryReadFrom7DigitFormat("37S155", out r));
+            Assert.IsFalse(TryReadFrom7DigitFormat("37N200E", out r));
         }
 
         [TestMethod()]
         public void WhenFormatIsCorrectReturnTrue()
         {
-            Assert.IsTrue(Is7DigitFormat("37N055E"));
-            Assert.IsTrue(Is7DigitFormat("37S155W"));
+            LatLon r;
+
+            Assert.IsTrue(TryReadFrom7DigitFormat("37N055E", out r));
+            Assert.IsTrue(TryReadFrom7DigitFormat("37S155W", out r));
         }
 
         [TestMethod()]

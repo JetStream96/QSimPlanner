@@ -40,10 +40,11 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             for (int i = 0; i < item.Length; i++)
             {
-                if (Conversion7Digit.Is7DigitFormat(item[i]))
+                LatLon result;
+
+                if (Conversion7Digit.TryReadFrom7DigitFormat(item[i], out result))
                 {
-                    item[i] = Conversion7Digit.ReadFrom7DigitFormat(item[i])
-                                              .To5DigitFormat();
+                    item[i] = result.To5DigitFormat();
                 }
             }
         }

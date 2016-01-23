@@ -22,6 +22,11 @@ namespace QSP.Utilities
 
         public static void Ensure(bool x)
         {
+            ThrowWhenFalse(x);
+        }
+
+        public static void ThrowWhenFalse(bool x)
+        {
             if (x == false)
             {
                 throw new ArgumentException();
