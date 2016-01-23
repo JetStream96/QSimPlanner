@@ -7,6 +7,7 @@ using static QSP.MathTools.Utilities;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
+    // Automatically select the first waypoint when there are many with the same ident.
     // Utilizes the SimpleRouteAnalyzer to analyze a route represented as a string.
     // 
     // Because we only know the ident of the first waypoint and there is likely to be multiple waypoints with the 
@@ -17,7 +18,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
     //
     // It will try all waypoints with matching ident until the route is successfully parsed. 
 
-    public class AutoSelectFirstWaypointAnalyzer
+    public class AutoSelectAnalyzer
     {
         private static char[] Delimiters = { ' ', '\r', '\n', '\t' };
 
@@ -26,11 +27,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
         private double preferredLon;
         private WaypointList wptList;
 
-        public AutoSelectFirstWaypointAnalyzer(string route, double preferredLat, double preferredLon) :
+        public AutoSelectAnalyzer(string route, double preferredLat, double preferredLon) :
                this(route, preferredLat, preferredLon, RouteFindingCore.WptList)
         { }
 
-        public AutoSelectFirstWaypointAnalyzer(string route, double preferredLat, double preferredLon, WaypointList wptList)
+        public AutoSelectAnalyzer(string route, double preferredLat, double preferredLon, WaypointList wptList)
         {
             this.route = route;
             this.preferredLat = preferredLat;

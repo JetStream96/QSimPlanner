@@ -1,7 +1,7 @@
-using System;
 using QSP.RouteFinding.AirwayStructure;
-using static QSP.LibraryExtension.Arrays;
 using QSP.RouteFinding.Routes;
+using System;
+using static QSP.LibraryExtension.Arrays;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {

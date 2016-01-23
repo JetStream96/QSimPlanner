@@ -137,7 +137,7 @@ namespace QSP.RouteFinding.Tracks.Common
         private ManagedRoute readMainRoute(ReadOnlyCollection<string> rte)
         {
             LatLon latLon = trk.PreferredFirstLatLon;
-            return new AutoSelectFirstWaypointAnalyzer(combineArr(rte), latLon.Lat, latLon.Lon).Parse();
+            return new AutoSelectAnalyzer(combineArr(rte), latLon.Lat, latLon.Lon).Parse();
         }
 
         private string combineArr(ReadOnlyCollection<string> item)

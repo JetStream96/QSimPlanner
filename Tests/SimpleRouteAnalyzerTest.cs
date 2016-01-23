@@ -14,7 +14,7 @@ namespace Tests
         {
             PrepareTest();
 
-            var rte = new AutoSelectFirstWaypointAnalyzer("HLG A1 ELATO CONGA", 25.0, 125.0).Parse();
+            var rte = new AutoSelectAnalyzer("HLG A1 ELATO CONGA", 25.0, 125.0).Parse();
             Debug.WriteLine(rte.ToString(true, true));
         }
     }

@@ -1,10 +1,11 @@
-﻿namespace QSP.RouteFinding.Tracks.Nats.Utilities
+﻿using 
+namespace QSP.RouteFinding.Tracks.Nats.Utilities
 {
     public static class LatLonConverter
     {
         /// <summary>
         /// Sample input : "54/20", "5530/20". Sample output : "5420N","55.5N20W".
-        /// If the input is not the correct format, null is returned.
+        /// If the input is not the correct format, an exception is thrown.
         /// </summary>        
         public static string NatsLatLonToIdent(string s)
         {
@@ -16,7 +17,7 @@
             }
 
             string LatS = s.Substring(0, x);
-            throw new System.Exception();//TODO:
+
         }
         
         public static bool IsNatsLatLonFormat(string s)

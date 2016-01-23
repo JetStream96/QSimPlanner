@@ -104,7 +104,7 @@
     <Compile Include="RouteFinding\AirwayStructure\TrackerItem.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointContainer.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WptSeachWrapper.cs" />
-    <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectFirstWaypointAnalyzer.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectAnalyzer.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Exceptions.cs" />
     <Compile Include="RouteFinding\Routes\Route.cs" />
     <Compile Include="RouteFinding\Routes\RouteCollapseUtility.cs" />
@@ -135,11 +135,11 @@
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\IndividualAusotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\MessageSplitter.cs" />
     <Compile Include="RouteFinding\Tracks\Common\IXmlConvertible.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\Parser\MainRouteInterpreter.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\Parser\ParseResult.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\Parser\ParseResultOld.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\Parser\ParserTDM.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\Parser\TdmParser.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\MainRouteInterpreter.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\ParseResult.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\ParseResultOld.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\ParserTDM.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\TdmParser.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackAdder.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackNodes.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackParser.cs" />
