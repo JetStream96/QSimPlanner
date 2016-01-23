@@ -42,7 +42,7 @@ namespace QSP.RouteFinding.Tracks.Common
             {
                 LatLon result;
 
-                if (Conversion7Digit.TryReadFrom7DigitFormat(item[i], out result))
+                if (Format7Digit.TryReadFrom7DigitFormat(item[i], out result))
                 {
                     item[i] = result.To5DigitFormat();
                 }

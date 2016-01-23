@@ -5,7 +5,7 @@ using static QSP.AviationTools.Coordinates.Utilities;
 
 namespace QSP.AviationTools.Coordinates
 {
-    public static class Conversion5Digit
+    public static class Format5Digit
     {
         private static char[] NSEW = new char[] { 'N', 'S', 'E', 'W' };
 

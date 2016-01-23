@@ -73,10 +73,11 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.cs" />
     <Compile Include="AviationTools\Constants.cs" />
+    <Compile Include="AviationTools\Coordinates\FormatDecimal.cs" />
     <Compile Include="AviationTools\CoversionTools.cs" />
     <Compile Include="AviationTools\Coordinates\Constants.cs" />
-    <Compile Include="AviationTools\Coordinates\Conversion5Digit.cs" />
-    <Compile Include="AviationTools\Coordinates\Conversion7Digit.cs" />
+    <Compile Include="AviationTools\Coordinates\Format5Digit.cs" />
+    <Compile Include="AviationTools\Coordinates\Format7Digit.cs" />
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="AviationTools\Coordinates\Utilities.cs" />
     <Compile Include="Core\AppOptions.cs" />

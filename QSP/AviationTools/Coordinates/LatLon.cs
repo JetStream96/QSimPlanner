@@ -41,7 +41,7 @@ namespace QSP.AviationTools.Coordinates
         /// </summary>
         public string To7DigitFormat()
         {
-            return Conversion7Digit.To7DigitFormat(Lat, Lon);
+            return Format7Digit.To7DigitFormat(Lat, Lon);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace QSP.AviationTools.Coordinates
         /// </summary>
         public string To5DigitFormat()
         {
-            return Conversion5Digit.To5DigitFormat(Lat, Lon);
+            return Format5Digit.To5DigitFormat(Lat, Lon);
         }
     }
 }

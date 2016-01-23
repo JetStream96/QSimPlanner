@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.AviationTools.Coordinates;
-using static QSP.AviationTools.Coordinates.Conversion7Digit;
+using static QSP.AviationTools.Coordinates.Format7Digit;
 
 namespace Tests.AviationTools.Coordinates
 {
     [TestClass]
-    public class Conversion7DigitTest
+    public class Format7DigitTest
     {
         [TestMethod()]
         public void WhenFormatIsWrongReturnFalse()

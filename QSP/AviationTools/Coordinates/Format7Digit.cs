@@ -1,10 +1,10 @@
-﻿using static QSP.AviationTools.Coordinates.Utilities;
-using QSP.Utilities;
+﻿using QSP.Utilities;
 using System;
+using static QSP.AviationTools.Coordinates.Utilities;
 
 namespace QSP.AviationTools.Coordinates
 {
-    public static class Conversion7Digit
+    public static class Format7Digit
     {
         /// <summary>
         /// Output examples: 36N170W 34N080E

@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.AviationTools.Coordinates;
-using static QSP.AviationTools.Coordinates.Conversion5Digit;
+using static QSP.AviationTools.Coordinates.Format5Digit;
 
 namespace Tests.AviationTools.Coordinates
 {
     [TestClass]
-    public class Conversion5DigitTest
+    public class Format5DigitTest
     {
         [TestMethod()]
         public void WhenFormatIsWrongReturnFalse()

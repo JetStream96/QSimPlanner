@@ -56,9 +56,10 @@
   <ItemGroup>
     <Compile Include="AirwayConnectionFinderTest.cs" />
     <Compile Include="AnalyzerWithCommandsTest.cs" />
-    <Compile Include="AviationTools\Coordinates\Conversion5DigitTest.cs" />
+    <Compile Include="AviationTools\Coordinates\Format5DigitTest.cs" />
+    <Compile Include="AviationTools\Coordinates\FormatDecimalTest.cs" />
     <Compile Include="AviationTools\CoversionToolsTest.cs" />
-    <Compile Include="AviationTools\Coordinates\Conversion7DigitTest.cs" />
+    <Compile Include="AviationTools\Coordinates\Format7DigitTest.cs" />
     <Compile Include="Common\Utilities.cs" />
     <Compile Include="InterpolationTest.cs" />
     <Compile Include="LandingPerfCalcTest.cs" />
