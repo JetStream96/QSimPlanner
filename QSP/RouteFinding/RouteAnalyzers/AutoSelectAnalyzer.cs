@@ -55,7 +55,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
             {
                 try
                 {
-                    return new BasicRouteAnalyzer(route, i, wptList).Analyze();
+                    return null;
+                    //TODO: reenable this line
+                   // return new BasicRouteAnalyzer(route,wptList ,i ).Analyze();
                 }
                 catch { }
             }

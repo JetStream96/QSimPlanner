@@ -1,8 +1,13 @@
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes;
 using System;
-using QSP.RouteFinding.Routes.Toggler;
+using static QSP.LibraryExtension.Lists;
 using static QSP.LibraryExtension.Arrays;
+using QSP.AviationTools.Coordinates;
+using QSP.Utilities;
+using QSP.RouteFinding.Containers;
+using static QSP.MathTools.Utilities;
+using QSP.AviationTools;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -47,7 +52,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
     // 4. If the format is wrong, an InvalidIdentifierException will be thrown with an message describing the place where the problem occurs.
     //
     // 5. It's not allowed to direct from one waypoint to another which is more than 500 nm away.
-    //    Otherwise a WaypointTooFar will be thrown indicating that the latter waypoint is not a valid waypoint.
+    //    Otherwise a WaypointTooFarException is thrown.
     //
     // 6. It's necessary to specify the index of first waypoint in WptList. 
     //    If the first entry is lat/lon (not in wptList), specifiy a negative index.
@@ -56,14 +61,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
     public class BasicRouteAnalyzer
     {
-        private static char[] Delimiters = { ' ', '\r', '\n', '\t' };
         private WaypointList wptList;
 
         private string[] routeInput;
-        private int lastWpt;
-        private string lastAwy; // If this is null, it indicates that the last element in the input array is a wpt.
-        private Route rte;  // Returning value
-                
+        private int lastWpt;         // Index in WptList. -1 if the last wpt is lat/lon.
+        private string lastAwy;      // If this is null, it indicates that the last element in the input array is a wpt.
+        private Route rte;           // Returning value
+
         /// <param name="firstWaypointIndex">Use a negative value if the first waypoint is a lat/lon.</param>
         /// <exception cref="ArgumentException"></exception>
         public BasicRouteAnalyzer(string[] routeInput, WaypointList wptList, int firstWaypointIndex)
@@ -74,22 +78,19 @@ namespace QSP.RouteFinding.RouteAnalyzers
             validateFirstWpt(firstWaypointIndex);
         }
 
-        public BasicRouteAnalyzer(string route, int firstWaypointIndex, WaypointList wptList)
-        {
-            this.wptList = wptList;
-            rte = new Route();
-            routeInput = route.ToUpper().Split(Delimiters, StringSplitOptions.RemoveEmptyEntries).RemoveElements("DCT");
-            validateFirstWpt(firstWaypointIndex);
-        }
-
         private void validateFirstWpt(int index)
         {
             if (index == -1)
             {
-                return;
+                if (tryParseCoord(routeInput[0]))
+                {
+                    return;
+                }
+                throw new ArgumentException("The first waypoint is not a valid lat/lon.");
             }
 
             var wpt = wptList[index];
+
             if (routeInput[0] != wpt.ID)
             {
                 throw new ArgumentException("The first waypoint of the route does not match the specified index in WptList.");
@@ -110,7 +111,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
                     if (tryParseAwy(routeInput[i]) == false && tryParseWpt(routeInput[i]) == false)
                     {
-                        throw new InvalidIdentifierException(string.Format("{0} is not a valid waypoint or airway identifier.", routeInput[i]));
+                        throw new InvalidIdentifierException(string.Format("{0} is not a valid waypoint or airway identifier", routeInput[i]));
                     }
                 }
                 else
@@ -125,6 +126,35 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return rte;
         }
 
+        private bool tryParseCoord(string ident)
+        {
+            LatLon coord;
+
+            if (FormatDecimal.TryReadFromDecimalFormat(ident, out coord))
+            {
+                lastWpt = -1;
+                appendWpt(new Waypoint(coord.ToDecimalFormat(), coord.Lat, coord.Lon));
+                return true;
+            }
+            return false;
+        }
+
+        private void appendWpt(Waypoint wpt)
+        {
+            if (rte.Count > 0)
+            {
+                var last = rte.Last.Waypoint;
+
+                if (GreatCircleDistance(wpt.Lat, wpt.Lon, last.Lat, last.Lon) > Constants.MAX_LEG_DIS)
+                {
+                    throw new WaypointTooFarException(string.Format("Error: {0} is more than 500nm from the last waypoint, {1}",
+                                                                    last.ID,
+                                                                    wpt.ID));
+                }
+            }
+            rte.AppendWaypoint(wpt, true);
+        }
+
         private bool tryParseWpt(string ident)
         {
             if (lastAwy == null)
@@ -133,7 +163,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
                 if (indices == null || indices.Count == 0)
                 {
-                    return false;
+                    return tryParseCoord(ident);
                 }
                 else if (indices.Count == 1)
                 {
@@ -144,11 +174,12 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     var wpt = wptList[lastWpt];
                     lastWpt = Tracks.Common.Utilities.ChooseSubsequentWpt(wpt.Lat, wpt.Lon, indices);
                 }
-                rte.AppendWaypoint(wptList[lastWpt], true);
+
+                appendWpt(wptList[lastWpt]);
             }
             else
             {
-                var intermediateWpt = new AirwayNodeFinder(lastWpt, lastAwy, ident).FindWaypoints();
+                var intermediateWpt = new AirwayNodeFinder(lastWpt, lastAwy, ident, wptList).FindWaypoints();
 
                 if (intermediateWpt == null)
                 {
@@ -159,6 +190,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 {
                     rte.AppendWaypoint(i, lastAwy, true);
                 }
+
+                lastWpt = wptList.FindByWaypoint(intermediateWpt.Last());
                 lastAwy = null;
             }
             return true;

@@ -44,5 +44,10 @@ namespace QSP.LibraryExtension
         {
             return new List<T>(items);            
         }
+
+        public static T Last<T>(this List<T> item)
+        {
+            return item[item.Count - 1];
+        }
     }
 }

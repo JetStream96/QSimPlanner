@@ -52,5 +52,10 @@ namespace QSP.AviationTools.Coordinates
         {
             return Format5Letter.To5LetterFormat(Lat, Lon);
         }
+
+        public string ToDecimalFormat()
+        {
+            return FormatDecimal.ToDecimalFormat(Lat, Lon);
+        }
     }
 }

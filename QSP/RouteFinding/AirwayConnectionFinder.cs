@@ -12,11 +12,7 @@ namespace QSP.RouteFinding
         private string airway;
         private string identEnd;
         private WaypointList wptList;
-
-        public AirwayNodeFinder(int indexStart, string airway, string identEnd) : this(indexStart, airway, identEnd, RouteFindingCore.WptList)
-        {
-        }
-
+        
         public AirwayNodeFinder(int indexStart, string airway, string identEnd, WaypointList wptList)
         {
             this.indexStart = indexStart;

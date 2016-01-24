@@ -278,7 +278,7 @@ namespace QSP.RouteFinding
             int lastWptIndex = WptList.FindByWaypoint(rte.Last.Waypoint);
             string airway = rte.LastNode.Previous.Value.AirwayToNext;
 
-            var wpts = new AirwayNodeFinder(lastWptIndex, airway, text).FindWaypoints();
+            var wpts = new AirwayNodeFinder(lastWptIndex, airway, text,WptList).FindWaypoints();
 
             if (wpts == null)
             {

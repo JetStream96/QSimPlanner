@@ -15,9 +15,10 @@ namespace QSP.RouteFinding.RouteAnalyzers
         { }
     }
 
+
     [Serializable]
     public class WaypointTooFarException : Exception
-    {
+    {   
         public WaypointTooFarException() { }
         public WaypointTooFarException(string message) : base(message) { }
         public WaypointTooFarException(string message, Exception inner) : base(message, inner) { }

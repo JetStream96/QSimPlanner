@@ -1,7 +1,7 @@
 using System;
+
 namespace QSP.RouteFinding
 {
-
     [Serializable]
     public class SidNotFoundException : Exception
     {
