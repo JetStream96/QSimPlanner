@@ -47,12 +47,12 @@ namespace QSP.RouteFinding.RouteAnalyzers
     // 4. If the format is wrong, an InvalidIdentifierException will be thrown with an message describing the place where the problem occurs.
     //
     // 5. It's not allowed to direct from one waypoint to another which is more than 500 nm away.
-    //    Otherwise an exception will be thrown indicating that the latter waypoint is not a valid waypoint.
+    //    Otherwise a WaypointTooFar will be thrown indicating that the latter waypoint is not a valid waypoint.
     //
-    // 6. It's necessary to specify the index of first waypoint in WptList. If the ident of specified waypoint is different from
-    //    the first word in route input string, an exception will be thrown.
+    // 6. It's necessary to specify the index of first waypoint in WptList. 
     //    If the first entry is lat/lon (not in wptList), specifiy a negative index.
-    //
+    //    If the ident of specified waypoint is different from the first word in route input string, an ArgumentException will be thrown.
+    //    
 
     public class BasicRouteAnalyzer
     {
@@ -63,10 +63,15 @@ namespace QSP.RouteFinding.RouteAnalyzers
         private int lastWpt;
         private string lastAwy; // If this is null, it indicates that the last element in the input array is a wpt.
         private Route rte;  // Returning value
-
-        public BasicRouteAnalyzer(string[] route, WaypointList wptList, int firstWaypointIndex)
+                
+        /// <param name="firstWaypointIndex">Use a negative value if the first waypoint is a lat/lon.</param>
+        /// <exception cref="ArgumentException"></exception>
+        public BasicRouteAnalyzer(string[] routeInput, WaypointList wptList, int firstWaypointIndex)
         {
-
+            this.wptList = wptList;
+            rte = new Route();
+            this.routeInput = routeInput;
+            validateFirstWpt(firstWaypointIndex);
         }
 
         public BasicRouteAnalyzer(string route, int firstWaypointIndex, WaypointList wptList)
@@ -79,6 +84,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private void validateFirstWpt(int index)
         {
+            if (index == -1)
+            {
+                return;
+            }
+
             var wpt = wptList[index];
             if (routeInput[0] != wpt.ID)
             {

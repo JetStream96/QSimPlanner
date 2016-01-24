@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.RouteFinding.RouteAnalyzers;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.RouteAnalyzers;
+using System.Collections.Generic;
 using static QSP.MathTools.Utilities;
 using static Tests.Common.Utilities;
 
@@ -35,8 +34,8 @@ namespace Tests.RouteFinding.RouteAnalyzers
             wptList.AddNeighbor(indices[1], indices[3], new Neighbor("A03", wptList.Distance(indices[1], indices[3])));
 
             var analyzer = new BasicRouteAnalyzer(new string[] { "P01", "A01", "P02", "A02", "P03" },
-                wptList,
-                wptList.FindByID("P01"));
+                                                  wptList,
+                                                  wptList.FindByID("P01"));
             // invoke 
             var route = analyzer.Analyze();
 
@@ -67,8 +66,8 @@ namespace Tests.RouteFinding.RouteAnalyzers
             var wptList = new WaypointList();
 
             var analyzer = new BasicRouteAnalyzer(new string[] { "P01", "P02", "P03" },
-                wptList,
-                wptList.FindByID("P01"));
+                                                  wptList,
+                                                  wptList.FindByID("P01"));
             // invoke 
             var route = analyzer.Analyze();
 
@@ -110,8 +109,9 @@ namespace Tests.RouteFinding.RouteAnalyzers
                           WithinPrecision(node.Value.Waypoint.Lon, -50.55, 1E-8) &&
                           node == route.LastNode);
         }
-
+        
         [TestMethod]
+        [ExpectedException(typeof(WaypointTooFarException))]
         public void WhenDistanceTooFarShouldThrowException()
         {
             // setup
