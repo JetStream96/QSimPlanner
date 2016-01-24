@@ -26,11 +26,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
         private double preferredLat;
         private double preferredLon;
         private WaypointList wptList;
-
-        public AutoSelectAnalyzer(string route, double preferredLat, double preferredLon) :
-               this(route, preferredLat, preferredLon, RouteFindingCore.WptList)
-        { }
-
+        
         public AutoSelectAnalyzer(string route, double preferredLat, double preferredLon, WaypointList wptList)
         {
             this.route = route;
@@ -41,7 +37,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         /// <exception cref="InvalidRouteException"></exception>
         /// <exception cref="WaypointNotFoundException"></exception>
-        public ManagedRoute Parse()
+        public Route Analyze()
         {
             var firstWptCandidates = wptList.FindAllByID(firstWptID());
 
@@ -59,7 +55,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             {
                 try
                 {
-                    return new SimpleRouteAnalyzer(route, i, wptList).Parse();
+                    return new BasicRouteAnalyzer(route, i, wptList).Analyze();
                 }
                 catch { }
             }

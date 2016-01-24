@@ -1,54 +1,78 @@
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes;
 using System;
+using QSP.RouteFinding.Routes.Toggler;
 using static QSP.LibraryExtension.Arrays;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
 
-    // Designed to analyze a route consisting of a series of strings, containing only waypoints and airways.
-    // For a more sophisticated analyzer, use RouteAnalyzer class.
+    ////// Designed to analyze a route consisting of a series of strings, containing only waypoints, lat/lon entries and airways.
+    ////// For a more sophisticated analyzer, use StandardRouteAnalyzer class.
+    //////
+    ////// 1. Input: The string, consisting of waypoint (WPT), airway (AWY), and/or direct (DCT) sysbols.
+    //////           These should be seperated by at least one of the following char/strings:
+    //////           (1) space
+    //////           (2) Tab
+    //////           (3) LF
+    //////           (4) CR
+    //////
+    ////// 2. Not case-sensitive to input string. They get converted to upper case before parsing.
+    //////
+    ////// 3. Format: WPT AWY WPT ... WPT
+    //////    (1) Any AWY can be replaced by DCT. The route will be a direct between the two waypoints.
+    //////    (2) Any DCT can be omitted.
+    //////
+    ////// 4. If the format is wrong, an InvalidIdentifierException will be thrown with an message describing the place where the problem occurs.
+    //////
+    ////// 5. It's not allowed to direct from one waypoint to another which is more than 500 nm away.
+    //////    Otherwise an exception will be thrown indicating that the latter waypoint is not a valid waypoint.
+    //////
+    ////// 6. It's neccesay to specify the index of first waypoint in WptList. If the ident of specified waypoint is different from
+    //////    the first word in route input string, an exception will be thrown.
+    //////
+
+
+    // Designed to analyze a route consisting of a series of strings, containing only waypoints, lat/lon entries and airways.
+    // For a more sophisticated analyzer, use StandardRouteAnalyzer class.
     //
-    // 1. Input: The string, consisting of waypoint (WPT), airway (AWY), and/or direct (DCT) sysbols.
-    //           These should be seperated by at least one of the following char/strings:
-    //           (1) space
-    //           (2) Tab
-    //           (3) LF
-    //           (4) CR
+    // 1. Input: An array of strings, consisting of waypoint (WPT), lat/lon (COORD), and airway (AWY) sysbols.
     //
-    // 2. Not case-sensitive to input string. They get converted to upper case before parsing.
+    // 2. All characters should be capital. 
     //
     // 3. Format: WPT AWY WPT ... WPT
-    //    (1) Any AWY can be replaced by DCT. The route will be a direct between the two waypoints.
-    //    (2) Any DCT can be omitted.
+    //    (1) If an airway is DCT, it should be omitted.
+    //    (2) A lat/lon must be in decimal representation (e.g. N32.665W122.1265).
     //
     // 4. If the format is wrong, an InvalidIdentifierException will be thrown with an message describing the place where the problem occurs.
     //
     // 5. It's not allowed to direct from one waypoint to another which is more than 500 nm away.
     //    Otherwise an exception will be thrown indicating that the latter waypoint is not a valid waypoint.
     //
-    // 6. It's neccesay to specify the index of first waypoint in WptList. If the ident of specified waypoint is different from
+    // 6. It's necessary to specify the index of first waypoint in WptList. If the ident of specified waypoint is different from
     //    the first word in route input string, an exception will be thrown.
+    //    If the first entry is lat/lon (not in wptList), specifiy a negative index.
     //
 
-    public class SimpleRouteAnalyzer
+    public class BasicRouteAnalyzer
     {
-        //DCT is ignored altogether, before parsing.
-
-        private static string[] Delimiters = { " ", "\r", "\n", "\t" };
-        private string[] routeInput;
+        private static char[] Delimiters = { ' ', '\r', '\n', '\t' };
         private WaypointList wptList;
 
+        private string[] routeInput;
         private int lastWpt;
         private string lastAwy; // If this is null, it indicates that the last element in the input array is a wpt.
-        private ManagedRoute rte;  // Returning value
+        private Route rte;  // Returning value
 
-        public SimpleRouteAnalyzer(string route, int firstWaypointIndex) : this(route, firstWaypointIndex, RouteFindingCore.WptList) { }
+        public BasicRouteAnalyzer(string[] route, WaypointList wptList, int firstWaypointIndex)
+        {
 
-        public SimpleRouteAnalyzer(string route, int firstWaypointIndex, WaypointList wptList)
+        }
+
+        public BasicRouteAnalyzer(string route, int firstWaypointIndex, WaypointList wptList)
         {
             this.wptList = wptList;
-            rte = new ManagedRoute(RouteFindingCore. TracksInUse);
+            rte = new Route();
             routeInput = route.ToUpper().Split(Delimiters, StringSplitOptions.RemoveEmptyEntries).RemoveElements("DCT");
             validateFirstWpt(firstWaypointIndex);
         }
@@ -64,7 +88,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             rte.AppendWaypoint(wpt);
         }
 
-        public ManagedRoute Parse()
+        public Route Analyze()
         {
             lastAwy = null;
 

@@ -13,7 +13,7 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
         public static LatLon ConvertNatsCoordinate(string s)
         {
             int x = s.IndexOf('/');
-            ConditionChecker.ThrowWhenNegative(x);
+            ConditionChecker.ThrowWhenNegative<ArgumentException>(x);
 
             double Lat = Convert.ToDouble(s.Substring(0, 2));
             double Lon = Convert.ToDouble(s.Substring(x + 1, 2));
@@ -21,19 +21,19 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
             if (x > 2)
             {
                 double addLat = Convert.ToDouble(s.Substring(2, x - 2));
-                ConditionChecker.Ensure(addLat >= 0.0 && addLat <= 60.0);
+                ConditionChecker.Ensure<ArgumentException>(addLat >= 0.0 && addLat <= 60.0);
                 Lat += addLat / 60;
             }
 
             if (s.Length - x - 1 > 2)
             {
                 double addLon = Convert.ToDouble(s.Substring(x + 3));
-                ConditionChecker.Ensure(addLon >= 0.0 && addLon <= 60.0);
+                ConditionChecker.Ensure<ArgumentException>(addLon >= 0.0 && addLon <= 60.0);
                 Lon += addLon / 60;
             }
 
-            ConditionChecker.Ensure(Lat >= 0.0 && Lat <= 90.0);
-            ConditionChecker.Ensure(Lon >= 0 && Lon <= 180);
+            ConditionChecker.Ensure<ArgumentException>(Lat >= 0.0 && Lat <= 90.0);
+            ConditionChecker.Ensure<ArgumentException>(Lon >= 0 && Lon <= 180);
 
             return new LatLon(Lat, -Lon);
         }
@@ -54,7 +54,7 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
 
         public static string AutoChooseFormat(this LatLon item)
         {
-            string result = Format5Digit.To5DigitFormat(item.Lat, item.Lon);
+            string result = Format5Letter.To5LetterFormat(item.Lat, item.Lon);
 
             if (result != null)
             {

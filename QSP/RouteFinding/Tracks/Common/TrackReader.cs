@@ -134,10 +134,10 @@ namespace QSP.RouteFinding.Tracks.Common
 
         /// <exception cref="InvalidRouteException"></exception>
         /// <exception cref="WaypointNotFoundException"></exception>
-        private ManagedRoute readMainRoute(ReadOnlyCollection<string> rte)
+        private Route readMainRoute(ReadOnlyCollection<string> rte)
         {
             LatLon latLon = trk.PreferredFirstLatLon;
-            return new AutoSelectAnalyzer(combineArr(rte), latLon.Lat, latLon.Lon).Parse();
+            return new AutoSelectAnalyzer(combineArr(rte), latLon.Lat, latLon.Lon, wptList).Analyze();
         }
 
         private string combineArr(ReadOnlyCollection<string> item)

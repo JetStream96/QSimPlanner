@@ -76,8 +76,8 @@
     <Compile Include="AviationTools\Coordinates\FormatDecimal.cs" />
     <Compile Include="AviationTools\CoversionTools.cs" />
     <Compile Include="AviationTools\Coordinates\Constants.cs" />
-    <Compile Include="AviationTools\Coordinates\Format5Digit.cs" />
-    <Compile Include="AviationTools\Coordinates\Format7Digit.cs" />
+    <Compile Include="AviationTools\Coordinates\Format5Letter.cs" />
+    <Compile Include="AviationTools\Coordinates\Format7Letter.cs" />
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="AviationTools\Coordinates\Utilities.cs" />
     <Compile Include="Core\AppOptions.cs" />
@@ -247,7 +247,7 @@
     <Compile Include="RouteFinding\Tracks\WptPair.cs" />
     <Compile Include="RouteFinding\RouteFindingCore.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidHandler.cs" />
-    <Compile Include="RouteFinding\RouteAnalyzers\SimpleRouteAnalyzer.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\BasicRouteAnalyzer.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarHandler.cs" />
     <Compile Include="RouteFinding\Utilities.cs" />
     <Compile Include="TakeOffPerfCalculation\AircraftParameters.cs" />
@@ -351,7 +351,6 @@
       <DependentUpon>WeightManagement.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

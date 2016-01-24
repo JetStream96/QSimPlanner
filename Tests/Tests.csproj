@@ -56,10 +56,10 @@
   <ItemGroup>
     <Compile Include="AirwayConnectionFinderTest.cs" />
     <Compile Include="AnalyzerWithCommandsTest.cs" />
-    <Compile Include="AviationTools\Coordinates\Format5DigitTest.cs" />
+    <Compile Include="AviationTools\Coordinates\Format5LetterTest.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDecimalTest.cs" />
     <Compile Include="AviationTools\CoversionToolsTest.cs" />
-    <Compile Include="AviationTools\Coordinates\Format7DigitTest.cs" />
+    <Compile Include="AviationTools\Coordinates\Format7LetterTest.cs" />
     <Compile Include="Common\Utilities.cs" />
     <Compile Include="InterpolationTest.cs" />
     <Compile Include="LandingPerfCalcTest.cs" />
@@ -79,6 +79,7 @@
     </Compile>
     <Compile Include="RandomRouteFinderTest.cs" />
     <Compile Include="RouteAnalyzerTest.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\BasicRouteAnalyzerTest.cs" />
     <Compile Include="RouteFinding\RouteFinderTest.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidAdderTest.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidCollectionTest.cs" />
@@ -103,9 +104,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="pacotsSample.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="RouteFinding\TestData\airports.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="RouteFinding\TerminalProcedures\Sid\AXYZ_WithComments.txt">

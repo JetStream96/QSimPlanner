@@ -114,7 +114,7 @@ namespace QSP.RouteFinding.AirwayStructure
             addWptChanges(index);
             return index;
         }
-
+        
         public void AddNeighbor(int indexFrom, int indexTo, Neighbor item)
         {
             if (_changeTracker.CurrentlyTracked != TrackChangesOption.No)

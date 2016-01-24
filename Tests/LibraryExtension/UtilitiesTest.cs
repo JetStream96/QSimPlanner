@@ -3,11 +3,9 @@ using QSP.LibraryExtension;
 
 namespace Tests
 {
-
     [TestClass()]
     public class LibraryExtensionTesting
     {
-
         [TestMethod()]
         public void NthOccurenceCorrectnessTest()
         {
@@ -61,7 +59,6 @@ namespace Tests
             Assert.AreEqual(6, result[2]);
             Assert.AreEqual(9, result[3]);
             Assert.AreEqual(12, result[4]);
-
         }
 
         [TestMethod()]
@@ -71,7 +68,6 @@ namespace Tests
             var result = str.IndicesOf("abc", 0, str.Length - 1);
 
             Assert.AreEqual(0, result.Count);
-
         }
 
         [TestMethod()]
@@ -95,10 +91,7 @@ namespace Tests
             var result = str.IndicesOf("10", 0, 3);
 
             Assert.AreEqual(1, result.Count);
-
             Assert.AreEqual(1, result[0]);
-
         }
-
     }
 }

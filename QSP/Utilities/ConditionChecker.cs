@@ -12,32 +12,32 @@ namespace QSP.Utilities
             }
         }
 
-        public static void ThrowWhenNegative(int x)
+        public static void ThrowWhenNegative<TException>(int x) where TException : Exception, new()
         {
             if (x < 0)
             {
-                throw new ArgumentException();
+                throw new TException();
             }
         }
 
-        public static void Ensure(bool x)
+        public static void Ensure<TException>(bool x) where TException : Exception, new()
         {
-            ThrowWhenFalse(x);
+            ThrowWhenFalse<TException>(x);
         }
-
-        public static void ThrowWhenFalse(bool x)
+        
+        public static void ThrowWhenFalse<TException>(bool x) where TException : Exception, new()
         {
             if (x == false)
             {
-                throw new ArgumentException();
+                throw new TException();
             }
         }
 
-        public static void ThrowWhenTrue(bool x)
+        public static void ThrowWhenTrue<TException>(bool x) where TException : Exception, new()
         {
             if (x)
             {
-                throw new ArgumentException();
+                throw new TException();
             }
         }
     }

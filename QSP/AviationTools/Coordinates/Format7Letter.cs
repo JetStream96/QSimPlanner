@@ -4,13 +4,13 @@ using static QSP.AviationTools.Coordinates.Utilities;
 
 namespace QSP.AviationTools.Coordinates
 {
-    public static class Format7Digit
+    public static class Format7Letter
     {
         /// <summary>
         /// Output examples: 36N170W 34N080E
         /// Returns null if either Lat or Lon is not an integer.
         /// </summary>
-        public static string To7DigitFormat(double Lat, double Lon)
+        public static string To7LetterFormat(double Lat, double Lon)
         {
             int latInt = 0;
             int lonInt = 0;
@@ -19,10 +19,10 @@ namespace QSP.AviationTools.Coordinates
             {
                 return null;
             }
-            return To7DigitFormat(latInt, lonInt);
+            return To7LetterFormat(latInt, lonInt);
         }
 
-        public static string To7DigitFormat(int lat, int lon)
+        public static string To7LetterFormat(int lat, int lon)
         {
             char NS;
 
@@ -51,11 +51,11 @@ namespace QSP.AviationTools.Coordinates
             return lat.ToString().PadLeft(2, '0') + NS + lon.ToString().PadLeft(3, '0') + EW;
         }
 
-        public static bool TryReadFrom7DigitFormat(string item, out LatLon result)
+        public static bool TryReadFrom7LetterFormat(string item, out LatLon result)
         {
             try
             {
-                result = ReadFrom7DigitFormat(item);
+                result = ReadFrom7LetterFormat(item);
                 return true;
             }
             catch
@@ -65,9 +65,9 @@ namespace QSP.AviationTools.Coordinates
             }
         }
 
-        public static LatLon ReadFrom7DigitFormat(string item)
+        public static LatLon ReadFrom7LetterFormat(string item)
         {
-            ConditionChecker.Ensure(item.Length == 7);
+            ConditionChecker.Ensure<ArgumentException>(item.Length == 7);
 
             char NS = item[2];
             char EW = item[6];
@@ -75,7 +75,7 @@ namespace QSP.AviationTools.Coordinates
             int lat = Convert.ToInt32(item.Substring(0, 2));
             int lon = Convert.ToInt32(item.Substring(3, 3));
 
-            ConditionChecker.Ensure(lat >= 0 && lat <= 90 && lon >= 0 && lon <= 180);
+            ConditionChecker.Ensure<ArgumentException>(lat >= 0 && lat <= 90 && lon >= 0 && lon <= 180);
 
             if (NS == 'N')
             {
