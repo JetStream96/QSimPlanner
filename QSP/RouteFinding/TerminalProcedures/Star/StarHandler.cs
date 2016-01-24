@@ -1,11 +1,11 @@
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Containers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using static QSP.Core.QspCore;
 using static QSP.RouteFinding.RouteFindingCore;
-using QSP.RouteFinding.Containers;
 
 namespace QSP.RouteFinding.TerminalProcedures.Star
 {
@@ -17,6 +17,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         private AirportManager airportList;
         private StarCollection starCollection;
 
+        //TODO: remove this
         public StarHandler(string icao) : this(icao, AppSettings.NavDBLocation, WptList, AirportList)
         {
         }

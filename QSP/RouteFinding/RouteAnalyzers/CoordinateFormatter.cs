@@ -1,6 +1,7 @@
 ﻿using QSP.AviationTools.Coordinates;
 using System;
 using static QSP.LibraryExtension.StringParser.Utilities;
+using static QSP.LibraryExtension.Arrays;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -9,6 +10,18 @@ namespace QSP.RouteFinding.RouteAnalyzers
     //
     // This is mainly used to convert all supported lat/lon formats to decimal format.
     //
+    // 1. Input: The string, consisting of waypoint(WPT), airway(AWY), etc.
+    //           These should be seperated by at least one of the following char/strings:
+    //           (1) space
+    //           (2) Tab
+    //           (3) LF
+    //           (4) CR
+    //
+    // 2. Not case-sensitive to input string. They get converted to upper case before parsing.
+    //
+    // 3. Format:
+    //    (1) Any AWY can be replaced by DCT. The route will be a direct between the two waypoints.
+    //    (2) Any DCT can be omitted.
 
     public class CoordinateFormatter
     {
@@ -21,7 +34,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         public string[] Split()
         {
-            var s = route.Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
+            var s = route.ToUpper()
+                         .Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries)
+                         .RemoveElements("DCT");
 
             for (int i = 0; i < s.Length; i++)
             {

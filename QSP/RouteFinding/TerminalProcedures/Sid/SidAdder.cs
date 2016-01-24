@@ -29,11 +29,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         private double SEARCH_RANGE_INCR;
         private double MAX_SEARCH_RANGE;
         private int TARGET_NUM;
-
-        public SidAdder(string icao, SidCollection sids) : this(icao, sids, WptList, AirportList)
-        {
-        }
-
+        
         public SidAdder(string icao, SidCollection sids, WaypointList wptList, AirportManager airportList)
             : this(icao, sids, wptList, airportList, WaypointAirwayConnector.MAX_SEARCH_RANGE, WaypointAirwayConnector.TARGET_NUM)
         {

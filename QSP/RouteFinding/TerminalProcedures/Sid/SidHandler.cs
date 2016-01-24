@@ -16,6 +16,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         private AirportManager airportList;
         private SidCollection sidCollection;
 
+        // TODO: this should be removed
         public SidHandler(string icao) : this(icao, AppSettings.NavDBLocation, WptList, AirportList)
         {
         }
@@ -27,7 +28,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             this.airportList = airportList;
             ReadFromFile(navDBLocation);
         }
-        
+
         /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
         /// <exception cref="LoadSidFileException"></exception>
         private void ReadFromFile(string navDBLocation)
@@ -62,9 +63,9 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// </summary>
         public int AddSidsToWptList(string rwy, List<string> sid)
         {
-            return new SidAdder(icao, sidCollection).AddSidsToWptList(rwy, sid);
+            return new SidAdder(icao, sidCollection, wptList, airportList).AddSidsToWptList(rwy, sid);
         }
-        
+
         /// <summary>
         /// Returns total distance of the SID and the last wpt, regardless whether the last wpt is in wptList.
         /// If there isn't any waypoint in the SID (e.g. a vector after takeoff), this returns a distance of 0.0   
