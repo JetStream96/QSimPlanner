@@ -196,6 +196,11 @@ namespace QSP.LibraryExtension
             return !(_items[index].next == -1);
         }
 
+        public bool ItemExists(int index)
+        {
+            return !isRemoved(index);
+        }
+
         public void RemoveAt(int index)
         {
             if (isRemoved(index))

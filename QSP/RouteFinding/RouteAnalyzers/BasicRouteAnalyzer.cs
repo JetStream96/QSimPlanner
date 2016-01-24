@@ -87,6 +87,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 throw new ArgumentException("The first waypoint is not a valid lat/lon.");
             }
 
+            if (wptList.WaypointExists(index) == false)
+            {
+                throw new ArgumentException("Wrong first waypoint index.");
+            }
+
             var wpt = wptList[index];
 
             if (routeInput[0] != wpt.ID)

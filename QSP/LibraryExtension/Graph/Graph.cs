@@ -92,6 +92,11 @@ namespace QSP.LibraryExtension.Graph
             return _nodes[index].value;
         }
 
+        public bool NodeExists(int NodeIndex)
+        {
+            return _nodes.ItemExists(NodeIndex);
+        }
+
         /// <exception cref="IndexOutOfRangeException"></exception>
         public Edge<TEdge> GetEdge(int edgeIndex)
         {

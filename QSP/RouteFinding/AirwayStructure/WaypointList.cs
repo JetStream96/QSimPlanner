@@ -135,6 +135,11 @@ namespace QSP.RouteFinding.AirwayStructure
             }
         }
 
+        public bool WaypointExists(int WaypointIndex)
+        {
+            return _content.ItemExists(WaypointIndex);
+        }
+
         public LatLon LatLonAt(int index)
         {
             return this[index].LatLon;

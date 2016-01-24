@@ -39,6 +39,11 @@ namespace QSP.RouteFinding.AirwayStructure
             searchHelper.Clear();
         }
 
+        public bool ItemExists(int index)
+        {
+            return graph.NodeExists(index);
+        }
+
         public Waypoint this[int index]
         {
             get
