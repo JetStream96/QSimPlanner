@@ -1,4 +1,3 @@
-using QSP.AviationTools;
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.AirwayStructure;
 using System;

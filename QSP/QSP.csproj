@@ -106,6 +106,7 @@
     <Compile Include="RouteFinding\AirwayStructure\WptSeachWrapper.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectAnalyzer.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Exceptions.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\CoordinateFormatter.cs" />
     <Compile Include="RouteFinding\Routes\Route.cs" />
     <Compile Include="RouteFinding\Routes\RouteCollapseUtility.cs" />
     <Compile Include="RouteFinding\Routes\RouteExpandUtility.cs" />

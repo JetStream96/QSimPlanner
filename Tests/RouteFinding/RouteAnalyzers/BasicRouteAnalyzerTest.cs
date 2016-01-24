@@ -3,10 +3,10 @@ using QSP.RouteFinding;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.RouteAnalyzers;
+using System;
 using System.Collections.Generic;
 using static QSP.MathTools.Utilities;
 using static Tests.Common.Utilities;
-using System;
 
 namespace Tests.RouteFinding.RouteAnalyzers
 {

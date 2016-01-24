@@ -63,7 +63,6 @@
     <Compile Include="Common\Utilities.cs" />
     <Compile Include="InterpolationTest.cs" />
     <Compile Include="LandingPerfCalcTest.cs" />
-    <Compile Include="AviationTools\LatLonConversionTest.cs" />
     <Compile Include="LibraryExtension\UtilitiesTest.cs" />
     <Compile Include="LibraryExtension\FixedIndexListTest.cs" />
     <Compile Include="LibraryExtension\GraphTest.cs" />
@@ -79,6 +78,7 @@
     </Compile>
     <Compile Include="RandomRouteFinderTest.cs" />
     <Compile Include="RouteAnalyzerTest.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectAnalyzerTest.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\BasicRouteAnalyzerTest.cs" />
     <Compile Include="RouteFinding\RouteFinderTest.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidAdderTest.cs" />
