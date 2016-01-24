@@ -1,13 +1,11 @@
+using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Routes;
 using System;
-using static QSP.LibraryExtension.Lists;
 using static QSP.LibraryExtension.Arrays;
-using QSP.AviationTools.Coordinates;
-using QSP.Utilities;
-using QSP.RouteFinding.Containers;
+using static QSP.LibraryExtension.Lists;
 using static QSP.MathTools.Utilities;
-using QSP.AviationTools;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -98,7 +96,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
             lastWpt = index;
             rte.AppendWaypoint(wpt);
         }
-
+        
+        /// <exception cref="InvalidIdentifierException"></exception>
+        /// <exception cref="WaypointTooFarException"></exception>
         public Route Analyze()
         {
             lastAwy = null;

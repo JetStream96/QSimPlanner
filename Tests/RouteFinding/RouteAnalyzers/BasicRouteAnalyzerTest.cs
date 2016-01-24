@@ -6,6 +6,7 @@ using QSP.RouteFinding.RouteAnalyzers;
 using System.Collections.Generic;
 using static QSP.MathTools.Utilities;
 using static Tests.Common.Utilities;
+using System;
 
 namespace Tests.RouteFinding.RouteAnalyzers
 {
@@ -126,6 +127,37 @@ namespace Tests.RouteFinding.RouteAnalyzers
             var analyzer = new BasicRouteAnalyzer(new string[] { "N41W050", "N41W070" },
                                                   new WaypointList(),
                                                   -1);
+            // invoke 
+            var route = analyzer.Analyze();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidIdentifierException))]
+        public void WhenIdentDoesNotExistShouldThrowException()
+        {
+            // setup
+            var wptList = new WaypointList();
+            wptList.AddWpt(new Waypoint("P01", 3.051, 20.0));
+
+            var analyzer = new BasicRouteAnalyzer(new string[] { "P01", "P02" },
+                                                  wptList,
+                                                  0);
+            // invoke 
+            var route = analyzer.Analyze();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void WhenFirstWptIndexIsWrongShouldThrowException()
+        {
+            // setup
+            var wptList = new WaypointList();
+            wptList.AddWpt(new Waypoint("P00", 3.051, 20.0));
+            wptList.AddWpt(new Waypoint("P00", 3.051, 20.0));
+
+            var analyzer = new BasicRouteAnalyzer(new string[] { "P01", "P02" },
+                                                  wptList,
+                                                  0);
             // invoke 
             var route = analyzer.Analyze();
         }
