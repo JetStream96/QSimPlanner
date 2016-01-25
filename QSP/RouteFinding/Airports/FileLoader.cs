@@ -19,9 +19,9 @@ namespace QSP.RouteFinding.Airports
 
         /// <exception cref="RwyDatabaseFormatException"></exception>
         /// <exception cref="ReadAirportDBFileException"></exception>
-        public AirportDatabase LoadFromFile()
+        public AirportCollection LoadFromFile()
         {
-            var airportDB = new AirportDatabase();
+            var airportDB = new AirportCollection();
             string[] allLines = null;
 
             try

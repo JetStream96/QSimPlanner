@@ -211,7 +211,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
 
         private AirportManager GetAirportManager()
         {
-            var airportDB = new AirportDatabase();
+            var airportDB = new AirportCollection();
             airportDB.Add(new Airport("AXYZ",
                                       "Test Airport 01",
                                       25.0,

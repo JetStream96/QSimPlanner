@@ -18,7 +18,7 @@ namespace Tests.RouteFinding.Tracks.Ausots.Utilities
 1511132330 1511141400 
 SVC TRK MY16 NO TRACK - USE PUBLISHED FIXED ROUTES 
 RMK/AUSOTS GROUP A",
-                new AirportManager(new AirportDatabase()));
+                new AirportManager(new AirportCollection()));
 
             Assert.IsTrue(parser.Parse() == null);
         }
@@ -53,7 +53,7 @@ getAirportList(new List<string> { "YSSY" }));
 
         private static AirportManager getAirportList(List<string> icao)
         {
-            var db = new AirportDatabase();
+            var db = new AirportCollection();
 
             foreach (var i in icao)
             {

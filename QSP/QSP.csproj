@@ -223,7 +223,7 @@
     <Compile Include="RouteFinding\AirwayStructure\WaypointList.cs" />
     <Compile Include="RouteFinding\Containers\Waypoint.cs" />
     <Compile Include="RouteFinding\Airports\Airport.cs" />
-    <Compile Include="RouteFinding\Airports\AirportDatabase.cs" />
+    <Compile Include="RouteFinding\Airports\AirportCollection.cs" />
     <Compile Include="RouteFinding\Data\DatabaseLoader.cs" />
     <Compile Include="RouteFinding\Data\LatLonSearchUtility.cs" />
     <Compile Include="RouteFinding\Airports\RwyData.cs" />

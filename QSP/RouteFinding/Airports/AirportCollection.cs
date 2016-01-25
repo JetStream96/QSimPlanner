@@ -3,12 +3,12 @@ using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.Airports
 {
-    public class AirportDatabase
+    public class AirportCollection
     {
         private List<Airport> airportList;
         private Dictionary<string, int> airportFinder;   // Uses the ICAO code to find the index in the airportList.
 
-        public AirportDatabase()
+        public AirportCollection()
         {
             airportList = new List<Airport>();
             airportFinder = new Dictionary<string, int>();

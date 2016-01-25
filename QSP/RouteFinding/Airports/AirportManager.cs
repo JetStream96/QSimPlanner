@@ -8,10 +8,10 @@ namespace QSP.RouteFinding.Airports
     // This manager class can make sure that the airportDB and airportFinder matches completely.
     public class AirportManager
     {
-        private AirportDatabase airportDB;
+        private AirportCollection airportDB;
         private LatLonSearchUtility<Airport> airportFinder;
 
-        public AirportManager(AirportDatabase airportDB)
+        public AirportManager(AirportCollection airportDB)
         {
             this.airportDB = airportDB;
             generateSearchGrids();

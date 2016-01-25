@@ -14,15 +14,24 @@ namespace Tests.RouteFinding.RouteAnalyzers
     [TestClass]
     public class StandardRouteAnalyzerTest
     {
+        private AirportManager airportList;
+        private SidCollection sids;
+        private StarCollection stars;
+
+        private void initObjects()
+        {
+
+        }
+
         [TestMethod]
         public void EmptyRouteShouldReturnDirect()
         {
             // Setup
-            var db = new AirportDatabase();
+            var ac = new AirportCollection();
 
-            db.Add(new Airport("RCTP", "", 0.0, 0.0, 0, 0, 0, 0,
+            ac.Add(new Airport("RCTP", "", 0.0, 0.0, 0, 0, 0, 0,
                                new List<RwyData>() { new RwyData("05L", "", 0, 0, true, "", "", 25.072894, 121.215986, 0, 0.0, 0, 0, 0) }));
-            db.Add(new Airport("VHHH", "", 0.0, 0.0, 0, 0, 0, 0,
+            ac.Add(new Airport("VHHH", "", 0.0, 0.0, 0, 0, 0, 0,
                                new List<RwyData>() { new RwyData("07L", "", 0, 0, true, "", "", 22.310917, 113.897964, 0, 0.0, 0, 0, 0) }));
 
             var analyzer = new StandardRouteAnalyzer(new string[] {},
@@ -30,7 +39,7 @@ namespace Tests.RouteFinding.RouteAnalyzers
                                                    "05L",
                                                    "VHHH",
                                                    "07L",
-                                                   new AirportManager(db),
+                                                   new AirportManager(ac),
                                                    null,
                                                    new SidCollection(new List<SidEntry>()),
                                                    new StarCollection(new List<StarEntry>()));

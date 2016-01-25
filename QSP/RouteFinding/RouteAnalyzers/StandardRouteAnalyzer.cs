@@ -27,8 +27,10 @@ namespace QSP.RouteFinding.RouteAnalyzers
     // 3. Format: {ICAO, SID, WPT, AWY, WPT, ... , WPT, STAR, ICAO}
     //    (1) First ICAO must be identical to origin icao code. Last ICAO must be identical to dest icao code.
     //    (2) Both ICAO can be omitted.
-    //    (3) If an airway is DCT, it should be omitted. The route will be a direct between the two waypoints.
+    //    (3) If an airway is DCT (direct), it have to be omitted. The route will be a direct between the two waypoints.
     //    (4) SID/STAR can be omitted. The route will be a direct from/to airport.
+    //    (5) Suppose the last waypoint of SID1 is P1 and P2 is a waypoint. "SID1 P1 P2 ..." is equivalent to
+    //        "SID1 P2 ...". STAR is simlilar.
     //
     // 4. All cases of SID/STAR are handled. These cases are handled by SidHandler and StarHandler.
     //    The last waypoint of SID and first one of STAR can be omitted.
@@ -161,12 +163,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     // SID has at least one waypoint.
                     origPart.Last.AirwayToNext = sidName;
                     origPart.Last.DistanceToNext = sid.TotalDistance;
-                    origPart.AddLastWaypoint(sid.LastWaypoint);
-
-                    if (sid.LastWaypoint.ID != route.First.Value)
-                    {
-                        route.AddFirst(sid.LastWaypoint.ID);
-                    }
+                    origPart.AddLastWaypoint(sid.LastWaypoint);                    
                 }
             }
         }
@@ -223,11 +220,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 {
                     // STAR has at least one waypoint.
                     destPart.AddFirstWaypoint(star.FirstWaypoint, starName, star.TotalDistance);
-
-                    if (route.Last.Value != star.FirstWaypoint.ID)
-                    {
-                        route.AddLast(star.FirstWaypoint.ID);
-                    }
                 }
             }
         }
