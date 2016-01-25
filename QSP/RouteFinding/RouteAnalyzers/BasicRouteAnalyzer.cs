@@ -80,7 +80,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 throw new ArgumentException("The first waypoint of the route does not match the specified index in WptList.");
             }
             lastWpt = index;
-            rte.AppendWaypoint(wpt);
+            rte.AddLastWaypoint(wpt);
         }
 
         /// <exception cref="InvalidIdentifierException"></exception>
@@ -140,7 +140,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                                       wpt.ID));
                 }
             }
-            rte.AppendWaypoint(wpt, true);
+            rte.AddLastWaypoint(wpt,"DCT", true);
             return true;
         }
 
@@ -169,7 +169,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             foreach (var i in intermediateWpt)
             {
-                rte.AppendWaypoint(i, lastAwy, true);
+                rte.AddLastWaypoint(i, lastAwy, true);
             }
 
             lastWpt = wptList.FindByWaypoint(intermediateWpt.Last());

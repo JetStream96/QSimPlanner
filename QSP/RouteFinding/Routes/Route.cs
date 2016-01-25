@@ -1,10 +1,10 @@
 ﻿using QSP.RouteFinding.Containers;
+using QSP.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using static QSP.MathTools.Utilities;
-using QSP.Utilities;
 
 namespace QSP.RouteFinding.Routes
 {
@@ -86,11 +86,20 @@ namespace QSP.RouteFinding.Routes
         }
 
         /// <summary>
+        /// Add the specified waypoint as the first in the route. 
+        /// This waypoint is connected to the next one by the airway specified, with the given distance.       
+        /// </summary>
+        public void AddFirstWaypoint(Waypoint item, string AirwayToNext, double distanceToNext)
+        {
+            links.AddFirst(new RouteNode(item, AirwayToNext, distanceToNext));
+        }
+
+        /// <summary>
         /// Append the specified waypoint to the end of the route. 
         /// This waypoint is connected from the previous one by the airway specified, with the given distance.       
         /// </summary>
         /// <param name="viaAirway">Airway or SID/STAR name.</param>
-        public void AppendWaypoint(Waypoint item, string viaAirway, double distanceFromPrev)
+        public void AddLastWaypoint(Waypoint item, string viaAirway, double distanceFromPrev)
         {
             var last = links.Last;
 
@@ -102,54 +111,29 @@ namespace QSP.RouteFinding.Routes
             links.AddLast(new RouteNode(item));
         }
 
-        public void AppendWaypoint(Waypoint item, string viaAirway, bool AutoComputeDistance)
+        public void AddLastWaypoint(Waypoint item, string viaAirway, bool AutoComputeDistance)
         {
             if (AutoComputeDistance && links.Last != null)
             {
                 var lastWpt = links.Last.Value.Waypoint;
-                AppendWaypoint(item,
-                               viaAirway,
-                               GreatCircleDistance(item.Lat, item.Lon, lastWpt.Lat, lastWpt.Lon));
+                AddLastWaypoint(item,
+                                viaAirway,
+                                GreatCircleDistance(item.Lat, item.Lon, lastWpt.Lat, lastWpt.Lon));
             }
             else
             {
-                AppendWaypoint(item, viaAirway);
-            }
-        }
-
-        /// <summary>
-        /// Append the specified waypoint to the end of the route. 
-        /// This waypoint is connected from the previous one by the airway specified.
-        /// </summary>
-        public void AppendWaypoint(Waypoint item, string viaAirway)
-        {
-            if (links.Last != null)
-            {
-                links.Last.Value.AirwayToNext = viaAirway;
-            }
-            links.AddLast(new RouteNode(item));
-        }
-
-        /// <summary>
-        /// Append the specified waypoint to the end of the route. 
-        /// This waypoint is connected from the previous one by direct-to (DCT).
-        /// </summary>
-        public void AppendWaypoint(Waypoint item, bool AutoConnectToPrev)
-        {
-            if (AutoConnectToPrev)
-            {
-                AppendWaypoint(item, "DCT", true);
-            }
-            else
-            {
+                if (links.Last != null)
+                {
+                    links.Last.Value.AirwayToNext = viaAirway;
+                }
                 links.AddLast(new RouteNode(item));
             }
         }
-
+        
         /// <summary>
         /// Append the specified waypoint to the end of the route. 
         /// </summary>
-        public void AppendWaypoint(Waypoint item)
+        public void AddLastWaypoint(Waypoint item)
         {
             links.AddLast(new RouteNode(item));
         }
@@ -177,7 +161,7 @@ namespace QSP.RouteFinding.Routes
                  node != null;
                  node = node.Next)
             {
-                links.AddLast(node);
+                links.AddLast(node.Value);
             }
         }
 

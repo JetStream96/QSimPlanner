@@ -129,11 +129,11 @@ namespace QSP.RouteFinding
             var result = new ManagedRoute(TracksInUse);
             int edgeCount = airways.Count;
 
-            result.AppendWaypoint(waypoints[edgeCount]);
+            result.AddLastWaypoint(waypoints[edgeCount]);
 
             for (int i = edgeCount - 1; i >= 0; i--)
             {
-                result.AppendWaypoint(waypoints[i],
+                result.AddLastWaypoint(waypoints[i],
                                       airways[i],
                                       totalDistances[i]);
             }

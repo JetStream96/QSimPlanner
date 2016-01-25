@@ -115,7 +115,7 @@ namespace QSP.RouteFinding
             sidLastWpt = null;
 
             //add orig rwy
-            result.AppendWaypoint(new Waypoint(origIcao + origRwy, AirportList.RwyLatLon(origIcao, origRwy)));
+            result.AddLastWaypoint(new Waypoint(origIcao + origRwy, AirportList.RwyLatLon(origIcao, origRwy)));
 
             for (int i = 0; i < input.Length; i++)
             {
@@ -149,7 +149,7 @@ namespace QSP.RouteFinding
             }
 
             //add dest rwy
-            result.AppendWaypoint(new Waypoint(destIcao + destRwy, AirportList.RwyLatLon(destIcao, destRwy)));
+            result.AddLastWaypoint(new Waypoint(destIcao + destRwy, AirportList.RwyLatLon(destIcao, destRwy)));
            
             return result;
         }
@@ -212,7 +212,7 @@ namespace QSP.RouteFinding
                 var sidManager = new SidHandler(origIcao);
                 var sidInfo = sidManager.InfoForAnalysis(origRwy, text);
 
-                rte.AppendWaypoint(sidInfo.LastWaypoint, text, sidInfo.TotalDistance);
+                rte.AddLastWaypoint(sidInfo.LastWaypoint, text, sidInfo.TotalDistance);
                 sidLastWpt = sidInfo.LastWaypoint;
 
                 return true;
@@ -291,7 +291,7 @@ namespace QSP.RouteFinding
             {
                 for (int i = 1; i < wpts.Count; i++)
                 {
-                    rte.AppendWaypoint(wpts[i], airway, true);
+                    rte.AddLastWaypoint(wpts[i], airway, true);
                 }
             }
             return true;
@@ -316,7 +316,7 @@ namespace QSP.RouteFinding
         {
             if (wpt.Equals(rte.Last.Waypoint) == false)
             {
-                rte.AppendWaypoint(wpt, true);
+                rte.AddLastWaypoint(wpt,"DCT", true);
             }
         }
 
@@ -324,7 +324,7 @@ namespace QSP.RouteFinding
         {
             if (wpt.Equals(rte.Last.Waypoint) == false)
             {
-                rte.AppendWaypoint(wpt, airway, AutoComputeDistance);
+                rte.AddLastWaypoint(wpt, airway, AutoComputeDistance);
             }
         }
 

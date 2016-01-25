@@ -23,7 +23,7 @@ namespace Tests.RouteFinding.RouteAnalyzers
             db.Add(new Airport("RCTP", "", 0.0, 0.0, 0, 0, 0, 0,
                                new List<RwyData>() { new RwyData("05L", "", 0, 0, true, "", "", 25.072894, 121.215986, 0, 0.0, 0, 0, 0) }));
             db.Add(new Airport("VHHH", "", 0.0, 0.0, 0, 0, 0, 0,
-                                    new List<RwyData>() { new RwyData("07L", "", 0, 0, true, "", "", 22.310917, 113.897964, 0, 0.0, 0, 0, 0) }));
+                               new List<RwyData>() { new RwyData("07L", "", 0, 0, true, "", "", 22.310917, 113.897964, 0, 0.0, 0, 0, 0) }));
 
             var analyzer = new StandardRouteAnalyzer(new string[] {},
                                                    "RCTP",
@@ -46,8 +46,9 @@ namespace Tests.RouteFinding.RouteAnalyzers
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("VHHH07L", 22.310917, 113.897964)) &&
                           node == route.LastNode);
-
         }
+
+
 
     }
 }
