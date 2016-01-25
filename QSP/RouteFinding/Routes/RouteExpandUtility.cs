@@ -46,7 +46,7 @@ namespace QSP.RouteFinding.Routes
         // If the given Route is (Q B1 X B2 Y R) while the OriginalAirway is A2, then the route will be modified to
         // (P A1 Q B1 X B2 Y R A3 S). i.e. All occurrences of (Q A2 R) are replaced by the given Route.       
         //  
-        // Note: R must be the next node of R.
+        // Note: R must be the next node of Q.
         //
         public static void InsertRoute(LinkedList<RouteNode> links, LinkedList<RouteNode> Route, string OriginalAirway)
         {

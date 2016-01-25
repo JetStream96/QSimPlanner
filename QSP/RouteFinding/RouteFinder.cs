@@ -113,7 +113,7 @@ namespace QSP.RouteFinding
             waypoints.Add(wptList[startPtIndex]);
             ConvertToNeighborDistance(totalDistances);
 
-            return BuildRoute(waypoints, airways, totalDistances);
+            return buildRoute(waypoints, airways, totalDistances);
         }
 
         private static void ConvertToNeighborDistance(List<double> totalDistances)
@@ -124,7 +124,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private static ManagedRoute BuildRoute(List<Waypoint> waypoints, List<string> airways, List<double> totalDistances)
+        private static ManagedRoute buildRoute(List<Waypoint> waypoints, List<string> airways, List<double> totalDistances)
         {
             var result = new ManagedRoute(TracksInUse);
             int edgeCount = airways.Count;

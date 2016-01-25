@@ -87,7 +87,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 throw new TrackWaypointNotFoundException("Waypoint not found.");
             }
 
-            return Utilities.ChooseSubsequentWpt(prevLat, prevLon, candidates);
+            return Utilities.ChooseSubsequentWpt(prevLat, prevLon, candidates,wptList);
         }
 
         private bool isAirway(int lastIndex, string airway)

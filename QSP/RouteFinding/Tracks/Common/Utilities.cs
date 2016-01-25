@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.RouteFinding.Constants;
+using static QSP.MathTools.Utilities;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
     public static class Utilities
     {
-        public static int ChooseSubsequentWpt(double prevLat, double prevLon, List<int> candidates)
+        public static int ChooseSubsequentWpt(double prevLat, double prevLon, List<int> candidates,WaypointList wptList)
         {
             if (candidates == null || candidates.Count == 0)
             {
@@ -23,8 +24,8 @@ namespace QSP.RouteFinding.Tracks.Common
 
             for (int i = 0; i < candidates.Count; i++)
             {
-                var wpt = RouteFindingCore.WptList[candidates[i]];
-                dis = MathTools.Utilities.GreatCircleDistance(prevLat, prevLon, wpt.Lat, wpt.Lon);
+                var wpt = wptList[candidates[i]];
+                dis = GreatCircleDistance(prevLat, prevLon, wpt.Lat, wpt.Lon);
 
                 if (dis < minDis)
                 {

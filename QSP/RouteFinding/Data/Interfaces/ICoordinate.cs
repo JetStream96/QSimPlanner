@@ -1,4 +1,4 @@
-﻿namespace QSP.RouteFinding.Data
+﻿namespace QSP.RouteFinding.Data.Interfaces
 {
     /// <summary>
     /// Represents any data that has latitude and longitude property.

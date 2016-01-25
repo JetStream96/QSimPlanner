@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using static QSP.MathTools.Utilities;
+using QSP.Utilities;
 
 namespace QSP.RouteFinding.Routes
 {
@@ -151,6 +152,50 @@ namespace QSP.RouteFinding.Routes
         public void AppendWaypoint(Waypoint item)
         {
             links.AddLast(new RouteNode(item));
+        }
+
+        /// <summary>
+        /// Append the given route at the end of the current one.
+        /// </summary>
+        public void AppendRoute(Route item, string airway)
+        {
+            var lastWpt = Last.Waypoint;
+            var firstWpt = item.First.Waypoint;
+
+            AppendRoute(item, airway, GreatCircleDistance(lastWpt.Lat, lastWpt.Lon, firstWpt.Lat, firstWpt.Lon));
+        }
+
+        /// <summary>
+        /// Append the given route at the end of the current one.
+        /// </summary>
+        public void AppendRoute(Route item,string airway,double distance)
+        {
+            links.Last.Value.AirwayToNext = airway;
+            links.Last.Value.DistanceToNext = distance;
+
+            for (var node = item.FirstNode;
+                 node != null;
+                 node = node.Next)
+            {
+                links.AddLast(node);
+            }
+        }
+
+        /// <summary>
+        /// Connect the given route at the end of the current one.
+        /// The last waypoint of current route must be the same as the first one in item.
+        /// </summary>
+        public void ConnectRoute(Route item)
+        {
+            ConditionChecker.Ensure<ArgumentException>(Last.Waypoint.Equals(item.First.Waypoint));
+            links.RemoveLast();
+
+            for (var node = item.FirstNode; 
+                 node != null; 
+                 node = node.Next)
+            {
+                links.AddLast(node);
+            }
         }
 
         /// <summary>

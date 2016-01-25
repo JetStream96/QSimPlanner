@@ -123,8 +123,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
 
         /// <summary>
         /// Returns total distance of the STAR and the last wpt, regardless whether the last wpt is in wptList.
-        /// If there isn't any waypoint in the STAR (e.g. a vector after takeoff), this returns a distance of 0.0   
-        /// and the origin runway (e.g. KLAX25L).
+        /// If there isn't any waypoint in the STAR, this returns a distance of 0.0 and the dest runway (e.g. KLAX25L).
         /// <param name="rwy">The runway identifier. e.g. 25R </param>
         /// <param name="destRwy">The waypoint representing the destination runway.</param>
         /// </summary>

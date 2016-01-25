@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using QSP.RouteFinding.Data;
 using static QSP.RouteFinding.Constants;
 using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.RouteFinding.Containers
 {

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using QSP.RouteFinding.Data;
 using System;
 using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.RouteFinding.Airports
 {

@@ -46,6 +46,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
         /// <exception cref="ArgumentException"></exception>
         public BasicRouteAnalyzer(string[] routeInput, WaypointList wptList, int firstWaypointIndex)
         {
+            if (routeInput.Length < 2)
+            {
+                throw new ArgumentException("Route input should have at least 2 elements.");
+            }
+
             this.wptList = wptList;
             rte = new Route();
             this.routeInput = routeInput;
@@ -187,7 +192,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             else
             {
                 var wpt = wptList[lastWpt];
-                lastWpt = Tracks.Common.Utilities.ChooseSubsequentWpt(wpt.Lat, wpt.Lon, indices);
+                lastWpt = Tracks.Common.Utilities.ChooseSubsequentWpt(wpt.Lat, wpt.Lon, indices,wptList);
             }
 
             return tryappendWpt(wptList[lastWpt]);

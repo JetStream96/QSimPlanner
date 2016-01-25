@@ -104,6 +104,7 @@
     <Compile Include="RouteFinding\AirwayStructure\TrackerItem.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointContainer.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WptSeachWrapper.cs" />
+    <Compile Include="RouteFinding\Data\Interfaces\ExtensionMethods.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectAnalyzer.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Exceptions.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\CoordinateFormatter.cs" />
@@ -114,7 +115,7 @@
     <Compile Include="RouteFinding\Routes\RouteNode.cs" />
     <Compile Include="RouteFinding\Routes\Toggler\RouteEntry.cs" />
     <Compile Include="RouteFinding\Routes\Toggler\RouteToggler.cs" />
-    <Compile Include="RouteFinding\Data\ICoordinate.cs" />
+    <Compile Include="RouteFinding\Data\Interfaces\ICoordinate.cs" />
     <Compile Include="RouteFinding\Routes\Toggler\TrackInUseCollection.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\EntryType.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\IProcedureEntry.cs" />
