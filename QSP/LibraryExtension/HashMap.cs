@@ -86,21 +86,19 @@ namespace QSP.LibraryExtension
             }
         }
 
+        /// <summary>
+        /// Returns an empty List if none is found.
+        /// </summary>
         public List<TValue> AllMatches(TKey key)
         {
             var i = FindAllEntries(key);
+            var result = new List<TValue>(i.Count);
 
-            if (i.Count > 0)
+            foreach (int j in i)
             {
-                var result = new List<TValue>(i.Count);
-
-                foreach (int j in i)
-                {
-                    result.Add(entries[j].value);
-                }
-                return result;
+                result.Add(entries[j].value);
             }
-            return null;
+            return result;
         }
 
         public void Add(TKey key, TValue value)
@@ -358,7 +356,7 @@ namespace QSP.LibraryExtension
                 int bucket = hashCode % buckets.Length;
                 int last = -1;
                 int i = buckets[bucket];
-                
+
                 while (i >= 0)
                 {
                     if (entries[i].hashCode == hashCode &&

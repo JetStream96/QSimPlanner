@@ -6,7 +6,7 @@ namespace QSP.RouteFinding.AirwayStructure
     public class TrackerItem
     {
         #region Fields
-
+        // TODO: maybe use List instead.
         private Stack<int> _addedWpt;
         private Stack<int> _addedNeighbor;
 

@@ -91,6 +91,7 @@ namespace QSP.RouteFinding.AirwayStructure
 
         /// <summary>
         /// Find all WptNeighbors by ident of a waypoint.
+        /// Returns an empty list if none is found.
         /// </summary> 
         public List<int> FindAllByID(string ident)
         {
@@ -112,14 +113,11 @@ namespace QSP.RouteFinding.AirwayStructure
         {
             var candidates = searchHelper.AllMatches(wpt.ID);
 
-            if (candidates != null)
+            foreach (int i in candidates)
             {
-                foreach (int i in candidates)
+                if (this[i].Equals(wpt))
                 {
-                    if (this[i].Equals(wpt))
-                    {
-                        return i;
-                    }
+                    return i;
                 }
             }
             return -1;
@@ -127,6 +125,7 @@ namespace QSP.RouteFinding.AirwayStructure
 
         /// <summary>
         /// Find all occurences of WptNeighbor matching the waypoint.
+        /// Returns an empty list if none is found.
         /// </summary>
         public List<int> FindAllByWaypoint(Waypoint wpt)
         {
