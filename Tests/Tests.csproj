@@ -78,6 +78,7 @@
     </Compile>
     <Compile Include="RandomRouteFinderTest.cs" />
     <Compile Include="RouteAnalyzerTest.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\AnalyzerWithCommandsTest.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectAnalyzerTest.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\BasicRouteAnalyzerTest.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Extractors\SidExtractorTest.cs" />

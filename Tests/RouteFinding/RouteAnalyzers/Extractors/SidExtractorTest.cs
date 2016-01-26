@@ -81,7 +81,7 @@ namespace Tests.RouteFinding.RouteAnalyzers.Extractors
         public void WhenSidLastWptNotInWptListShouldRemoveFromRoute()
         {
             // Setup
-            var route = new LinkedList<string>(new string[] { "SID1", "P1","HLG", "A1", "MKG" });
+            var route = new LinkedList<string>(new string[] { "SID1", "P1", "HLG", "A1", "MKG" });
             var wptList = new WaypointList();
             wptList.AddWpt("HLG", 22.0, 122.0);
 

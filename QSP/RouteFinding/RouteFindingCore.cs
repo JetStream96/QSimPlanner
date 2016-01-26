@@ -13,7 +13,7 @@ namespace QSP.RouteFinding
     public static class RouteFindingCore
     {
         //===================================== These are critical data for route finding =====================================
-        //All DB used is Aerosoft Airbus X v1.22 or later
+        // Data used is Navigraph - Aerosoft Airbus X v1.22 or later
 
         public static WaypointList WptList;
         public static AirportManager AirportList;
@@ -21,10 +21,10 @@ namespace QSP.RouteFinding
         public static ManagedRoute RouteToDest;
         public static ManagedRoute RouteToAltn;
 
-        public static StatusRecorder TrackStatusRecorder = new StatusRecorder();
         public static NatsHandler NatsManager;
         public static PacotsHandler PacotsManager;
         public static AusotsHandler AusotsManager;
+        public static StatusRecorder TrackStatusRecorder = new StatusRecorder();
         public static TrackInUseCollection TracksInUse = new TrackInUseCollection();
         public static RouteTrackCommunicator RouteTrackCommunicator = new RouteTrackCommunicator(TracksInUse);
     }

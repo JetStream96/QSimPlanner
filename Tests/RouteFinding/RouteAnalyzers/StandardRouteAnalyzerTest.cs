@@ -1,15 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Airports;
-using System.Collections.Generic;
+using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.RouteAnalyzers;
+using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
-using QSP.RouteFinding.Containers;
+using System.Collections.Generic;
 using static QSP.MathTools.Utilities;
 using static Tests.Common.Utilities;
-using QSP.RouteFinding.TerminalProcedures;
-using QSP.RouteFinding.AirwayStructure;
-using QSP.RouteFinding.Routes;
 
 namespace Tests.RouteFinding.RouteAnalyzers
 {
@@ -94,13 +94,39 @@ namespace Tests.RouteFinding.RouteAnalyzers
         public void FullSidStarWithIcaosShouldGetCorrectRoute()
         {
             // Setup
-            var analyzer = createAnalyzer1(new string[] { "RCTP", "SID1", "P1", "Q1", "STAR1", "VHHH" });
+            initObjects();
+            var analyzer = new StandardRouteAnalyzer(new string[] { "RCTP", "SID1", "P1", "Q1", "STAR1", "VHHH" },
+                                             "RCTP",
+                                             "05L",
+                                             "VHHH",
+                                             "07L",
+                                             airportList,
+                                             new WaypointList(),
+                                             sids,
+                                             stars); 
 
             // Invoke
             var route = analyzer.Analyze();
 
             // Assert
-            assertRoute1(route);
+            var node = route.FirstNode;
+            Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("RCTP05L", 25.072894, 121.215986)) &&
+                          node.Value.AirwayToNext == "SID1" &&
+                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(25.072894, 121.215986, 25.1, 121.3), 1E-8));
+
+            node = node.Next;
+            Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("P1", 25.1, 121.3)) &&
+                          node.Value.AirwayToNext == "DCT" &&
+                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(25.1, 121.3, 22.4, 113.5), 1E-8));
+
+            node = node.Next;
+            Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("Q1", 22.4, 113.5)) &&
+                          node.Value.AirwayToNext == "STAR1" &&
+                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(22.4, 113.5, 22.310917, 113.897964), 1E-8));
+
+            node = node.Next;
+            Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("VHHH07L", 22.310917, 113.897964)) &&
+                          node == route.LastNode);
         }
 
         private StandardRouteAnalyzer createAnalyzer1(string[] route)

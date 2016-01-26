@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using static QSP.LibraryExtension.Arrays;
+using static QSP.LibraryExtension.Lists;
 using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.Constants;
 using static System.Math;
@@ -109,8 +110,8 @@ namespace QSP.RouteFinding
 
             var route = new List<LatLon>();
             route.Add(latLon1);
-
-            while (route.Last().Distance(latLon2) > 500)
+            
+            while (route.Last().Distance(latLon2) > 500.0)
             {
                 route.Add(chooseCandidates(getCandidates(route.Last(), latLon2), route.Last()));
             }

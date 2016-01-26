@@ -1,14 +1,14 @@
+using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Sid;
+using QSP.RouteFinding.TerminalProcedures.Star;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
-using QSP.RouteFinding.TerminalProcedures.Star;
-using QSP.RouteFinding.Routes;
-using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding
 {
