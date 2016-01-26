@@ -1,5 +1,4 @@
 ﻿using System;
-using QSP.RouteFinding.Data;
 using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.RouteFinding.AirwayStructure

@@ -108,6 +108,8 @@
     <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectAnalyzer.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Exceptions.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\CoordinateFormatter.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\Extractors\SidExtractor.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\Extractors\StarExtractor.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\StandardRouteAnalyzer.cs" />
     <Compile Include="RouteFinding\Routes\Route.cs" />
     <Compile Include="RouteFinding\Routes\RouteCollapseUtility.cs" />

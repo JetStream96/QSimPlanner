@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QSP.AviationTools.Coordinates;
+﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using QSP.RouteFinding.Routes;
-using QSP.RouteFinding.Airports;
-using static QSP.LibraryExtension.Arrays;
-using static QSP.LibraryExtension.Lists;
-using static QSP.MathTools.Utilities;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using System.Collections.Generic;
+using System.Linq;
 using static QSP.RouteFinding.Tracks.Common.Utilities;
 
 namespace QSP.RouteFinding.RouteAnalyzers
@@ -55,11 +49,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
         private string destRwy;
         private LinkedList<string> route;
 
-        private Route origPart = new Route();
-        private Route destPart = new Route();
-
-        Waypoint origRwyWpt;
-        Waypoint destRwyWpt;
+        private Waypoint origRwyWpt;
+        private Waypoint destRwyWpt;
 
         public StandardRouteAnalyzer(string[] route,
                                      string origIcao,
@@ -91,8 +82,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
         public Route Analyze()
         {
             setRwyWpts();
-            createOrigRoute();
-            createDestRoute();
+
+            Route origPart = new SidExtractor(route, origIcao, origRwy, origRwyWpt, wptList, sids).Extract();
+            Route destPart = new StarExtractor(route, destIcao, destRwy, destRwyWpt, wptList, stars).Extract();
 
             var mainRoute = route.ToArray();
 
@@ -122,58 +114,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return origPart;
         }
 
-        private bool tryGetSid(string sidName, Waypoint origRwyWpt, out SidInfo result)
-        {
-            try
-            {
-                result = sids.GetSidInfo(sidName, origRwy, origRwyWpt);
-                return true;
-            }
-            catch
-            {
-                // no SID in route
-                result = null;
-                return false;
-            }
-        }
-
-        private void createOrigRoute()
-        {
-            origPart.AddLastWaypoint(origRwyWpt);
-
-            if (route.Count == 0)
-            {
-                return;
-            }
-
-            if (route.First.Value == origIcao)
-            {
-                route.RemoveFirst();
-            }
-
-            string sidName = route.First.Value;
-            SidInfo sid;
-
-            if (tryGetSid(sidName, origRwyWpt, out sid))
-            {
-                route.RemoveFirst();
-                origPart.Last.AirwayToNext = sidName;
-
-                if (Math.Abs(sid.TotalDistance) > 1E-8)
-                {
-                    // SID has at least one waypoint.                    
-                    origPart.Last.DistanceToNext = sid.TotalDistance;
-                    origPart.AddLastWaypoint(sid.LastWaypoint);
-
-                    if (route.First.Value == sid.LastWaypoint.ID &&
-                        wptList.FindAllByWaypoint(sid.LastWaypoint).Count == 0)
-                    {
-                        route.RemoveFirst();
-                    }
-                }
-            }
-        }
-
         private void mergeRoutes(Route original, Route RouteToMerge)
         {
             if (original.Last.Equals(RouteToMerge.First))
@@ -183,52 +123,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
             else
             {
                 original.AppendRoute(RouteToMerge, "DCT");
-            }
-        }
-
-        private bool tryGetStar(string StarName, Waypoint destRwyWpt, out StarInfo result)
-        {
-            try
-            {
-                result = stars.GetStarInfo(StarName, destRwy, destRwyWpt);
-                return true;
-            }
-            catch
-            {
-                // no Star in route
-                result = null;
-                return false;
-            }
-        }
-
-        private void createDestRoute()
-        {
-            destPart.AddLastWaypoint(destRwyWpt);
-
-            if (route.Count == 0)
-            {
-                return;
-            }
-
-            if (route.Last.Value == destIcao)
-            {
-                route.RemoveLast();
-            }
-
-            string starName = route.Last.Value;
-            StarInfo star;
-
-            if (tryGetStar(starName, destRwyWpt, out star))
-            {
-                route.RemoveLast();
-                // STAR has at least one waypoint.
-                destPart.AddFirstWaypoint(star.FirstWaypoint, starName, star.TotalDistance);
-
-                if (route.Last.Value == star.FirstWaypoint.ID &&
-                    wptList.FindAllByWaypoint(star.FirstWaypoint).Count == 0)
-                {
-                    route.RemoveLast();
-                }
             }
         }
     }

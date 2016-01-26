@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Airports;
 using System.Collections.Generic;

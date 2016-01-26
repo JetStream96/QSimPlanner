@@ -2,7 +2,6 @@
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using System.Collections.Generic;
-using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.RouteFinding.WaypointAirwayConnector;
 using static QSP.Utilities.ErrorLogger;
 
