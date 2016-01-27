@@ -82,6 +82,11 @@ namespace QSP.RouteFinding
             }
         }
 
+        /// <summary>
+        /// Returns a List of LatLon, which includes each point of the random route.
+        /// First and last points are also included.
+        /// </summary>
+        /// <returns></returns>
         public List<LatLon> Find()
         {
             //lat and lon of the random route

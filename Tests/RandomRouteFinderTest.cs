@@ -12,11 +12,11 @@ namespace Tests
         [TestMethod()]
         public void RandomRouteFinderTest1()
         {
-            RandomRouteFinder x = new RandomRouteFinder(new LatLon(34.53, -118.72), new LatLon(31.5, 123.5));
+            RandomRouteFinder x = new RandomRouteFinder(new LatLon(25.0, 120.0), new LatLon(43.0, 107.0));
 
             foreach (var i in x.Find())
             {
-                Debug.WriteLine(i.Lat  + " " + i.Lon);
+                Debug.WriteLine(i.Lat + " " + i.Lon);
             }
         }
 

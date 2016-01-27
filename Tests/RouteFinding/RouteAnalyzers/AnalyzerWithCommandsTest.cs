@@ -11,6 +11,7 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using System.Collections.Generic;
 using static QSP.MathTools.Utilities;
 using static Tests.Common.Utilities;
+using QSP.AviationTools.Coordinates;
 
 namespace Tests.RouteFinding.RouteAnalyzers
 {
@@ -135,39 +136,89 @@ namespace Tests.RouteFinding.RouteAnalyzers
             var ac = new AirportCollection();
 
             ac.Add(new Airport("ABCD", "", 0.0, 0.0, 0, 0, 0, 0,
-                               new List<RwyData>() { new RwyData("05L", "", 0, 0, true, "", "", 25.0, 121.0, 0, 0.0, 0, 0, 0) }));
+                               new List<RwyData>() { new RwyData("05L", "", 0, 0, true, "", "", 25.0, 120.0, 0, 0.0, 0, 0, 0) }));
             ac.Add(new Airport("EFGH", "", 0.0, 0.0, 0, 0, 0, 0,
-                               new List<RwyData>() { new RwyData("07L", "", 0, 0, true, "", "", 22.0, 113.0, 0, 0.0, 0, 0, 0) }));
+                               new List<RwyData>() { new RwyData("07L", "", 0, 0, true, "", "", 43.0, 107.0, 0, 0.0, 0, 0, 0) }));
             airportList = new AirportManager(ac);
+        }
 
-            sids = new SidCollection(new List<SidEntry>() { });
+        private void assert2(Route route)
+        {
+            var node = route.FirstNode;
+            Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("ABCD05L", 25.0, 120.0)) &&
+                          node.Value.AirwayToNext == "DCT" &&
+                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(25.0, 121.0, 30.0, 117.0), 1E-8));
 
-            stars = new StarCollection(new List<StarEntry>() {});
+            node = node.Next;
+            Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(30.0, 117.0)) &&
+                          node.Value.AirwayToNext == "DCT" &&
+                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(30.0, 117.0, 33.0, 115.0), 1E-8));
+
+            node = node.Next;
+            Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(33.0, 115.0)) &&
+                          node.Value.AirwayToNext == "DCT" &&
+                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(33.0, 115.0, 37.0, 112.0), 1E-8));
+
+            node = node.Next;
+            Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(37.0, 112.0)) &&
+                          node.Value.AirwayToNext == "DCT" &&
+                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(37.0, 112.0, 43.0, 107.0), 1E-8));
+
+            node = node.Next;
+            Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("EFGH07L", 43.0, 107.0)) &&
+                          node == route.LastNode);
+        }
+
+        private AnalyzerWithCommands getAnalyzer2(string[] route)
+        {
+            return new AnalyzerWithCommands(route,
+                                            "ABCD",
+                                            "05L",
+                                            "EFGH",
+                                            "07L",
+                                            airportList,
+                                            new WaypointList(),
+                                            new SidCollection(new List<SidEntry>()),
+                                            new StarCollection(new List<StarEntry>()));
         }
 
         [TestMethod]
         public void RandAtFirstShouldDirectFromRwy()
         {
             // Setup            
-            var analyzer = getAnalyzer1(new string[] { "RAND", "P1", "AUTO", "Q1", "STAR1" });
+            var analyzer = getAnalyzer2(new string[] { "RAND", "N37E112" });
 
             // Invoke
             var route = analyzer.Analyze();
 
             // Assert
-            assert1(route);
+            assert2(route);
         }
 
         [TestMethod]
         public void RandAtLastShouldDirectToRwy()
         {
+            // Setup            
+            var analyzer = getAnalyzer2(new string[] { "N30E117",  "RAND" });
 
+            // Invoke
+            var route = analyzer.Analyze();
+
+            // Assert
+            assert2(route);
         }
 
         [TestMethod]
         public void RandAtMiddleShouldFindRandomRoute()
         {
+            // Setup            
+            var analyzer = getAnalyzer2(new string[] { "N30E117", "RAND", "N37E112" });
 
+            // Invoke
+            var route = analyzer.Analyze();
+
+            // Assert
+            assert2(route);
         }
 
         #endregion
