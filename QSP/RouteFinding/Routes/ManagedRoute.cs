@@ -12,6 +12,11 @@ namespace QSP.RouteFinding.Routes
             toggler = new RouteToggler(links, tracksInUse);
         }
 
+        public ManagedRoute(Route route, TrackInUseCollection tracksInUse) : base(route)
+        {
+            toggler = new RouteToggler(links, tracksInUse);
+        }
+
         /// <summary>
         /// Collapse the tracks for the route, if not done already.  
         /// </summary>

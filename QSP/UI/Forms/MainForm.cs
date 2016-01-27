@@ -776,7 +776,8 @@ namespace QSP
             List<string> sid = getSidStarList(OrigSidComboBox);
             List<string> star = getSidStarList(DestStarComboBox);
 
-            RouteToDest = new RouteFinder().FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid, DestTxtBox.Text, DestRwyComboBox.Text, star);
+            RouteToDest = new ManagedRoute(new RouteFinder().FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid, DestTxtBox.Text, DestRwyComboBox.Text, star),
+                                           TracksInUse);
             PMDGrteFile = FlightPlanExport.GeneratePmdgRteFile(RouteToDest);
 
             RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
@@ -804,8 +805,9 @@ namespace QSP
                                         .GetSidList(DestRwyComboBox.Text);
             var starAltn = getSidStarList(AltnStarComboBox);
 
-            RouteToAltn = new RouteFinder().FindRoute(DestTxtBox.Text, DestRwyComboBox.Text, sids,
-                                                      AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn);
+            RouteToAltn =new ManagedRoute( new RouteFinder().FindRoute(DestTxtBox.Text, DestRwyComboBox.Text, sids,
+                                                      AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn),
+                                                      TracksInUse);
 
             RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
@@ -1062,7 +1064,8 @@ namespace QSP
 
                 try
                 {
-                    ManagedRoute myRoute = new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, ToTxtbox.Text, ToRwyCBox.Text, star);
+                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, ToTxtbox.Text, ToRwyCBox.Text, star),
+                        TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString();
                     double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
@@ -1101,7 +1104,8 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    ManagedRoute myRoute = new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
+                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
+                        TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(false, true);
                     double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
@@ -1139,7 +1143,8 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelFromCBox.Text);
 
-                    ManagedRoute myRoute = new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, star);
+                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, star),
+                        TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, false);
                     double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
@@ -1160,7 +1165,8 @@ namespace QSP
                     Vector2D u = extractLatLon(WptSelFromCBox.Text);
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    ManagedRoute myRoute = new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y), WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y));
+                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y), WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
+                        TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, true);
                     double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);

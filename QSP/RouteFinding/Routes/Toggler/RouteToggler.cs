@@ -24,6 +24,7 @@ namespace QSP.RouteFinding.Routes.Toggler
             this.route = route;
             this.tracks = new TrackInUseCollection(tracks);
         }
+
         public void Expand()
         {
             if (Expanded)
