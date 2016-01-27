@@ -44,7 +44,7 @@ namespace Tests.RouteFinding.RouteAnalyzers.Extractors
             // Setup
             var route = new LinkedList<string>(new string[] { "SID1", "HLG", "A1", "MKG" });
             var wptList = new WaypointList();
-            wptList.AddWpt("HLG", 22.0, 122.0);
+            wptList.AddWaypoint( new Waypoint("HLG", 22.0, 122.0));
 
             var extractor = new SidExtractor(route,
                                              "RCTP",
@@ -83,7 +83,7 @@ namespace Tests.RouteFinding.RouteAnalyzers.Extractors
             // Setup
             var route = new LinkedList<string>(new string[] { "SID1", "P1", "HLG", "A1", "MKG" });
             var wptList = new WaypointList();
-            wptList.AddWpt("HLG", 22.0, 122.0);
+            wptList.AddWaypoint(new Waypoint("HLG", 22.0, 122.0));
 
             var extractor = new SidExtractor(route,
                                              "RCTP",

@@ -47,7 +47,7 @@ namespace Tests.Common
 
             if (navDBready == false)
             {
-                DatabaseLoader.LoadAllDB(navDBLoc);
+                NavDataLoader.LoadAllDB(navDBLoc);
                 navDBready = true;
 
             }

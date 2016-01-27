@@ -2,7 +2,11 @@ using QSP.AviationTools;
 using QSP.Core;
 using QSP.LibraryExtension;
 using QSP.RouteFinding;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Data;
+using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.TerminalProcedures.Sid;
+using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.TakeOffPerfCalculation;
 using QSP.UI;
 using QSP.Utilities;
@@ -17,13 +21,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using QSP.RouteFinding.Airports;
+using static QSP.AviationTools.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
-using static QSP.AviationTools.Constants;
-using QSP.RouteFinding.TerminalProcedures.Sid;
-using QSP.RouteFinding.TerminalProcedures.Star;
-using QSP.RouteFinding.Routes;
 
 namespace QSP
 {
@@ -343,7 +343,7 @@ namespace QSP
                 //loading the navigation database
                 QspCore.AppSettings = new AppOptions(XDocument.Load(QspCore.QspAppDataDirectory + "\\SavedStates\\options.xml"));
 
-                DatabaseLoader.LoadAllDB(QspCore.AppSettings.NavDBLocation);
+                NavDataLoader.LoadAllDB(QspCore.AppSettings.NavDBLocation);
                 //if success, update the status strip
 
                 Tuple<string, string> t = OptionsForm.AiracCyclePeriod(QspCore.AppSettings.NavDBLocation);

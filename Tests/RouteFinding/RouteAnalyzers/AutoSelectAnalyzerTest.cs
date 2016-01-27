@@ -24,7 +24,7 @@ namespace Tests.RouteFinding.RouteAnalyzers
 
             for (int i = 0; i < wpts.Length; i++)
             {
-                indices.Add(wptList.AddWpt(wpts[i]));
+                indices.Add(wptList.AddWaypoint(wpts[i]));
             }
 
             wptList.AddNeighbor(indices[0], indices[1], new Neighbor("A01", wptList.Distance(indices[0], indices[1])));
@@ -70,7 +70,7 @@ namespace Tests.RouteFinding.RouteAnalyzers
 
             for (int i = 0; i < wpts.Length; i++)
             {
-                indices.Add(wptList.AddWpt(wpts[i]));
+                indices.Add(wptList.AddWaypoint(wpts[i]));
             }
             
             var analyzer = new AutoSelectAnalyzer(new string[] { "P01", "P02"},

@@ -20,21 +20,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         {
             this.allText = allText;
         }
-
-        /// <exception cref="LoadStarFileException"></exception>
-        public void ReadFromFile(string path)
-        {
-            try
-            {
-                allText = File.ReadAllText(path);
-            }
-            catch (Exception ex)
-            {
-                WriteToLog(ex.ToString());
-                throw new LoadStarFileException();
-            }
-        }
-
+        
         public StarCollection Parse()
         {
             if (allText == null || allText.Length == 0)

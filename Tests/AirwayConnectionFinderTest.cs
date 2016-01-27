@@ -77,11 +77,11 @@ namespace Tests
             var wpts = new WaypointList();
 
             //index = 0
-            wpts.AddWpt(new Waypoint(wptIDGenerator(1)));
+            wpts.AddWaypoint(new Waypoint(wptIDGenerator(1)));
 
             for (int i = 1; i <= 10; i++)
             {
-                wpts.AddWpt(new Waypoint(wptIDGenerator(i)));
+                wpts.AddWaypoint(new Waypoint(wptIDGenerator(i)));
             }
 
             for (int i = 1; i <= 10; i++)
@@ -97,11 +97,11 @@ namespace Tests
             var wpts = new WaypointList();
 
             //index = 0
-            wpts.AddWpt(new Waypoint(wptIDGenerator(1)));
+            wpts.AddWaypoint(new Waypoint(wptIDGenerator(1)));
 
             for (int i = 1; i <= 10; i++)
             {
-                wpts.AddWpt(new Waypoint(wptIDGenerator(i)));
+                wpts.AddWaypoint(new Waypoint(wptIDGenerator(i)));
             }
 
             for (int i = 1; i <= 10; i++)

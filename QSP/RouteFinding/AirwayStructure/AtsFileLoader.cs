@@ -1,8 +1,8 @@
-﻿using System;
+﻿using QSP.RouteFinding.Containers;
+using System;
 using System.IO;
 using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.Utilities.ErrorLogger;
-using QSP.RouteFinding.Containers;
 
 namespace QSP.RouteFinding.AirwayStructure
 {
@@ -62,13 +62,13 @@ namespace QSP.RouteFinding.AirwayStructure
                         // Add second waypoint as required
                         if (index2 <= 0)
                         {
-                            index2 = wptList.AddWpt(secondWpt);
+                            index2 = wptList.AddWaypoint(secondWpt);
                         }
 
                         // Add first waypoint as required
                         if (index1 < 0)
                         {
-                            index1 = wptList.AddWpt(firstWpt);
+                            index1 = wptList.AddWaypoint(firstWpt);
                         }
 
                         // Add the connection.

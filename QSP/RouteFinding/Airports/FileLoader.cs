@@ -105,7 +105,7 @@ namespace QSP.RouteFinding.Airports
             string Heading = ReadString(i, ref pos, ',');
             int Length = ParseInt(i, ref pos, ',');
             int Width = ParseInt(i, ref pos, ',');
-            bool IlsAvail = ParseInt(i, ref pos, ',') == 1 ? true : false;
+            bool IlsAvail = ParseInt(i, ref pos, ',') == 1;
             string IlsFreq = ReadString(i, ref pos, ',');
             string IlsHeading = ReadString(i, ref pos, ',');
             double Lat = ParseDouble(i, ref pos, ',');

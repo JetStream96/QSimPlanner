@@ -44,7 +44,7 @@ namespace Tests.RouteFinding.RouteAnalyzers.Extractors
             // Setup
             var route = new LinkedList<string>(new string[] { "ELATO", "SIERA", "STAR1" });
             var wptList = new WaypointList();
-            wptList.AddWpt("SIERA", 18.0, 115.0);
+            wptList.AddWaypoint(new Waypoint("SIERA", 18.0, 115.0));
 
             var extractor = new StarExtractor(route,
                                              "VHHH",
@@ -82,7 +82,7 @@ namespace Tests.RouteFinding.RouteAnalyzers.Extractors
             // Setup
             var route = new LinkedList<string>(new string[] { "ELATO", "SIERA", "P1", "STAR1" });
             var wptList = new WaypointList();
-            wptList.AddWpt("SIERA", 18.0, 115.0);
+            wptList.AddWaypoint(new Waypoint("SIERA", 18.0, 115.0));
 
             var extractor = new StarExtractor(route,
                                               "VHHH",

@@ -19,21 +19,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         {
             this.allText = allText;
         }
-
-        /// <exception cref="LoadSidFileException"></exception>
-        public void ReadFromFile(string path)
-        {
-            try
-            {
-                allText = File.ReadAllText(path);
-            }
-            catch (Exception ex)
-            {
-                WriteToLog(ex.ToString());
-                throw new LoadSidFileException();
-            }
-        }
-
+        
         public SidCollection Parse()
         {
             if (allText == null || allText.Length == 0)

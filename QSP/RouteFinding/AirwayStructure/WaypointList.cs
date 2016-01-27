@@ -1,14 +1,14 @@
+using QSP.AviationTools.Coordinates;
 using QSP.LibraryExtension.Graph;
+using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
+using QSP.RouteFinding.Tracks.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.MathTools.Utilities;
 using static QSP.Utilities.ErrorLogger;
-using QSP.RouteFinding.Tracks.Common;
-using QSP.RouteFinding.Containers;
-using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.AirwayStructure
 {
@@ -52,7 +52,7 @@ namespace QSP.RouteFinding.AirwayStructure
         /// </summary>
         /// <param name="filepath">Path of ats.txt</param>
         /// <exception cref="LoadWaypointFileException"></exception>
-        public void ReadAtsFromFile(string filepath)
+        public void ReadAtsFromFile(string filepath) //TODO: pass a string[] instead.
         {
             new AtsFileLoader(this).ReadAtsFromFile(filepath);
         }
@@ -82,7 +82,7 @@ namespace QSP.RouteFinding.AirwayStructure
                     double lat = ParseDouble(i, ref pos, ',');
                     double lon = ParseDouble(i, ref pos, ',');
 
-                    AddWpt(id, lat, lon);
+                    AddWaypoint(new Waypoint( id, lat, lon));
                 }
                 catch (Exception ex)
                 {
@@ -102,13 +102,8 @@ namespace QSP.RouteFinding.AirwayStructure
             }
             _finder.Add(new WptSeachWrapper(index, _content[index].Lat, _content[index].Lon));
         }
-
-        public int AddWpt(string ID, double Lat, double Lon)
-        {
-            return AddWpt(new Waypoint(ID, Lat, Lon));
-        }
-
-        public int AddWpt(Waypoint item)
+        
+        public int AddWaypoint(Waypoint item)
         {
             int index = _content.AddWpt(item);
             addWptChanges(index);

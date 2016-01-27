@@ -28,7 +28,7 @@ namespace Tests.RouteFinding.RouteAnalyzers
 
             for (int i = 0; i < wpts.Length; i++)
             {
-                indices.Add(wptList.AddWpt(wpts[i]));
+                indices.Add(wptList.AddWaypoint(wpts[i]));
             }
 
             wptList.AddNeighbor(indices[0], indices[1], new Neighbor("A01", wptList.Distance(indices[0], indices[1])));
@@ -71,7 +71,7 @@ namespace Tests.RouteFinding.RouteAnalyzers
 
             foreach (var i in wpts)
             {
-                wptList.AddWpt(i);
+                wptList.AddWaypoint(i);
             }
 
             var analyzer = new BasicRouteAnalyzer(new string[] { "P01", "P02", "P03" },
@@ -137,7 +137,7 @@ namespace Tests.RouteFinding.RouteAnalyzers
         {
             // setup
             var wptList = new WaypointList();
-            wptList.AddWpt(new Waypoint("P01", 3.051, 20.0));
+            wptList.AddWaypoint(new Waypoint("P01", 3.051, 20.0));
 
             var analyzer = new BasicRouteAnalyzer(new string[] { "P01", "P02" },
                                                   wptList,
@@ -152,8 +152,8 @@ namespace Tests.RouteFinding.RouteAnalyzers
         {
             // setup
             var wptList = new WaypointList();
-            wptList.AddWpt(new Waypoint("P00", 3.051, 20.0));
-            wptList.AddWpt(new Waypoint("P00", 3.051, 20.0));
+            wptList.AddWaypoint(new Waypoint("P00", 3.051, 20.0));
+            wptList.AddWaypoint(new Waypoint("P00", 3.051, 20.0));
 
             var analyzer = new BasicRouteAnalyzer(new string[] { "P01", "P02" },
                                                   wptList,

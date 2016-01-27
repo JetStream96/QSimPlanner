@@ -79,7 +79,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             else
             {
                 // Case 2, 3, 4
-                int index = wptList.AddWpt(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
+                int index = wptList.AddWaypoint(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
 
                 foreach (var i in starsToAdd)
                 {
@@ -101,7 +101,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             var rwyLatLon = airportList.RwyLatLon(icao, rwy);
             var nearbyWpts = findAirwayConnectionHelper(rwyLatLon.Lat, rwyLatLon.Lon);
 
-            int index = wptList.AddWpt(new Waypoint(icao + rwy, rwyLatLon));
+            int index = wptList.AddWaypoint(new Waypoint(icao + rwy, rwyLatLon));
 
             foreach (var i in nearbyWpts)
             {
@@ -121,7 +121,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             if (firstWptIndex < 0)
             {
                 // Case 4
-                firstWptIndex = wptList.AddWpt(firstWpt);
+                firstWptIndex = wptList.AddWaypoint(firstWpt);
             }
 
             if (wptList.EdgesToCount(firstWptIndex) == 0)

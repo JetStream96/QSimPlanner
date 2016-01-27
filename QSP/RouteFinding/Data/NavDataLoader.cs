@@ -6,7 +6,7 @@ using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP.RouteFinding.Data
 {
-    public static class DatabaseLoader
+    public static class NavDataLoader
     {
         public static void LoadAllDB(string path)
         {

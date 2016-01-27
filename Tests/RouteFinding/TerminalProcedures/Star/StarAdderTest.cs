@@ -54,8 +54,8 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
         {
             var wptList = new WaypointList();
 
-            int index1 = wptList.AddWpt(new Waypoint("25N050E", 25.0, 50.0));
-            int index2 = wptList.AddWpt(new Waypoint("27N050E", 27.0, 50.0));
+            int index1 = wptList.AddWaypoint(new Waypoint("25N050E", 25.0, 50.0));
+            int index2 = wptList.AddWaypoint(new Waypoint("27N050E", 27.0, 50.0));
             wptList.AddNeighbor(index1, index2, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
             wptList.AddNeighbor(index2, index1, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
 
@@ -107,10 +107,10 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
         private WaypointList Case2WptList()
         {
             var wptList = new WaypointList();
-            wptList.AddWpt(new Waypoint("WPT101", 25.0125, 50.0300));
+            wptList.AddWaypoint(new Waypoint("WPT101", 25.0125, 50.0300));
 
-            int index1 = wptList.AddWpt(new Waypoint("25N050E", 25.0, 50.0));
-            int index2 = wptList.AddWpt(new Waypoint("27N050E", 27.0, 50.0));
+            int index1 = wptList.AddWaypoint(new Waypoint("25N050E", 25.0, 50.0));
+            int index2 = wptList.AddWaypoint(new Waypoint("27N050E", 27.0, 50.0));
             wptList.AddNeighbor(index1, index2, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
             wptList.AddNeighbor(index2, index1, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
 
@@ -120,8 +120,8 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
         private WaypointList Case4WptList()
         {
             var wptList = new WaypointList();
-            int index1 = wptList.AddWpt(new Waypoint("25N050E", 25.0, 50.0));
-            int index2 = wptList.AddWpt(new Waypoint("27N050E", 27.0, 50.0));
+            int index1 = wptList.AddWaypoint(new Waypoint("25N050E", 25.0, 50.0));
+            int index2 = wptList.AddWaypoint(new Waypoint("27N050E", 27.0, 50.0));
             wptList.AddNeighbor(index1, index2, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
             wptList.AddNeighbor(index2, index1, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
 
@@ -202,8 +202,8 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
         private WaypointList Case3WptList()
         {
             var wptList = new WaypointList();
-            int index = wptList.AddWpt(new Waypoint("26N050E", 26.0, 50.0));
-            int indexNeighbor = wptList.AddWpt(new Waypoint("27N050E", 27.0, 50.0));
+            int index = wptList.AddWaypoint(new Waypoint("26N050E", 26.0, 50.0));
+            int indexNeighbor = wptList.AddWaypoint(new Waypoint("27N050E", 27.0, 50.0));
 
             wptList.AddNeighbor(index, indexNeighbor, new Neighbor("AIRWAY1", wptList.Distance(index, indexNeighbor)));
             return wptList;

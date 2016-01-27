@@ -21,7 +21,7 @@ namespace Tests.RouteFinding.RouteAnalyzers
         private SidCollection sids;
         private StarCollection stars;
 
-        private void initObjects()
+        private void initObjects1()
         {
             var ac = new AirportCollection();
 
@@ -50,8 +50,8 @@ namespace Tests.RouteFinding.RouteAnalyzers
         private AnalyzerWithCommands getAnalyzer1(string[] route)
         {
             var wptList = new WaypointList();
-            int p1 = wptList.AddWpt(new Waypoint("P1", 24.0, 120.0));
-            int q1 = wptList.AddWpt(new Waypoint("Q1", 23.0, 114.0));
+            int p1 = wptList.AddWaypoint(new Waypoint("P1", 24.0, 120.0));
+            int q1 = wptList.AddWaypoint(new Waypoint("Q1", 23.0, 114.0));
             wptList.AddNeighbor(p1, q1, new Neighbor("A1", GreatCircleDistance(24.0, 120.0, 23.0, 114.0)));
 
             return new AnalyzerWithCommands(route,
@@ -129,6 +129,21 @@ namespace Tests.RouteFinding.RouteAnalyzers
         #endregion
 
         #region Group 2 - Same route
+
+        private void initObjects2()
+        {
+            var ac = new AirportCollection();
+
+            ac.Add(new Airport("ABCD", "", 0.0, 0.0, 0, 0, 0, 0,
+                               new List<RwyData>() { new RwyData("05L", "", 0, 0, true, "", "", 25.0, 121.0, 0, 0.0, 0, 0, 0) }));
+            ac.Add(new Airport("EFGH", "", 0.0, 0.0, 0, 0, 0, 0,
+                               new List<RwyData>() { new RwyData("07L", "", 0, 0, true, "", "", 22.0, 113.0, 0, 0.0, 0, 0, 0) }));
+            airportList = new AirportManager(ac);
+
+            sids = new SidCollection(new List<SidEntry>() { });
+
+            stars = new StarCollection(new List<StarEntry>() {});
+        }
 
         [TestMethod]
         public void RandAtFirstShouldDirectFromRwy()
