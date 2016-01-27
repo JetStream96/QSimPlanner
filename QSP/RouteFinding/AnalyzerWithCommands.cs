@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
+using static QSP.Core.QspCore;
 
 namespace QSP.RouteFinding
 {
@@ -131,7 +132,7 @@ namespace QSP.RouteFinding
                 string nextWpt = input[index + 1];
 
                 //find all sids
-                var sidManager = new SidHandler(origIcao);
+                var sidManager = SidHandlerFactory.GetHandler(origIcao, AppSettings.NavDBLocation, WptList, AirportList); 
                 var sidList = sidManager.GetSidList(origRwy);
                 string origRwyWpt = origIcao + origRwy;
                 var endPoints = new List<SidInfo>();
@@ -198,7 +199,7 @@ namespace QSP.RouteFinding
                 string prevWpt = input[index - 1];
 
                 //find all stars
-                var starManager = new StarHandler(destIcao);
+                var starManager =StarHandlerFactory.GetHandler(destIcao,AppSettings.NavDBLocation,WptList,AirportList);
                 var starList = starManager.GetStarList(destRwy);
 
                 StarInfo[] endPoints = null;
@@ -402,7 +403,7 @@ namespace QSP.RouteFinding
                 nextWpt = input[index + 1];
 
                 //find all sids
-                var sidManager = new SidHandler(origIcao);
+                var sidManager = SidHandlerFactory.GetHandler(origIcao, AppSettings.NavDBLocation, WptList, AirportList);
                 var sidList = sidManager.GetSidList(origRwy);
                 var rte = new RouteFinder().FindRoute(origIcao, origRwy, sidList, selectWptSameIdent(input[index + 1]));
 
@@ -429,7 +430,7 @@ namespace QSP.RouteFinding
                 prevWpt = input[index - 1];
 
                 //find all stars
-                var starManager = new StarHandler(destIcao);
+                var starManager = StarHandlerFactory.GetHandler(destIcao, AppSettings.NavDBLocation, WptList, AirportList);
                 var starList = starManager.GetStarList(destRwy);
                 var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy, starList);
 

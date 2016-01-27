@@ -8,7 +8,7 @@ using QSP.RouteFinding.Containers;
 
 namespace QSP.RouteFinding.TerminalProcedures.Star
 {
-    // Collection of StarEntry for a particular airport.
+    // A immutable collection of StarEntry for a particular airport.
     public class StarCollection
     {
         private List<StarEntry> _stars;

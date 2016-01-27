@@ -9,29 +9,17 @@ namespace Tests.Common
     {
         public static bool WithinPrecisionPercent(double expected, double actual, double tolerancePercent)
         {
-            if (Math.Abs(actual - expected) <= actual * tolerancePercent / 100)
-            {
-                return true;
-            }
-            return false;
+            return (Math.Abs(actual - expected) <= actual * tolerancePercent / 100.0);
         }
 
         public static bool WithinPrecision(double actual, double expected, double tolerance)
         {
-            if (Math.Abs(actual - expected) <=  tolerance)
-            {
-                return true;
-            }
-            return false;
+            return (Math.Abs(actual - expected) <= tolerance);
         }
 
-        public static bool IsBetween(int num,int upper,int lower)
+        public static bool IsBetween(int num, int upper, int lower)
         {
-            if(num>=upper && num <=lower)
-            {
-                return true;
-            }
-            return false;
+            return (num >= upper && num <= lower);
         }
 
         //
@@ -47,12 +35,12 @@ namespace Tests.Common
 
             if (navDBready == false)
             {
-                NavDataLoader.LoadAllDB(navDBLoc);
+                new NavDataLoader(navDBLoc).LoadAllData();
                 navDBready = true;
 
             }
 
         }
-        
+
     }
 }

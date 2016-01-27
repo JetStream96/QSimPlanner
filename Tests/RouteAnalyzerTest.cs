@@ -1,140 +1,142 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.RouteFinding;
-using QSP.RouteFinding.TerminalProcedures.Sid;
-using QSP.RouteFinding.TerminalProcedures.Star;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using static Tests.Common.Utilities;
+//TODO: no longer needed
 
-namespace Tests
-{
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using QSP.RouteFinding;
+//using QSP.RouteFinding.TerminalProcedures.Sid;
+//using QSP.RouteFinding.TerminalProcedures.Star;
+//using System.Collections.Generic;
+//using System.Diagnostics;
+//using System.Linq;
+//using static Tests.Common.Utilities;
 
-    [TestClass()]
-    public class RouteAnalyzerTest
-    {
+//namespace Tests
+//{
 
-        [TestMethod()]
+//    [TestClass()]
+//    public class RouteAnalyzerTest
+//    {
 
-        public void SID_Case2_STAR_Case3()
-        {
-            PrepareTest();
+//        [TestMethod()]
 
-            const string orig = "RCTP";
-            const string dest = "RJAA";
+//        public void SID_Case2_STAR_Case3()
+//        {
+//            PrepareTest();
 
-            string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
-            string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).Last();
+//            const string orig = "RCTP";
+//            const string dest = "RJAA";
 
-            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
+//            string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
+//            string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).Last();
 
-            string rte = genRoute.ToString(false, false);
-            Debug.WriteLine("Generated route: " + rte);
-            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
+//            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
-            Debug.WriteLine("Analyzed Route: " + rteA.ToString());
-            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
+//            string rte = genRoute.ToString(false, false);
+//            Debug.WriteLine("Generated route: " + rte);
+//            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
-        }
+//            var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
+//            Debug.WriteLine("Analyzed Route: " + rteA.ToString());
+//            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
 
-        [TestMethod()]
+//        }
 
-        public void SID_Case1()
-        {
-            PrepareTest();
+//        [TestMethod()]
 
-            const string orig = "KORD";
-            const string dest = "KSLC";
+//        public void SID_Case1()
+//        {
+//            PrepareTest();
 
-            string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
-            string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).First();
+//            const string orig = "KORD";
+//            const string dest = "KSLC";
 
-            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
+//            string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
+//            string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).First();
 
-            string rte = genRoute.ToString(false, false);
-            Debug.WriteLine("Generated route: " + rte);
-            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
+//            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
-            Debug.WriteLine("Analyzed Route: " + rteA.ToString());
-            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
+//            string rte = genRoute.ToString(false, false);
+//            Debug.WriteLine("Generated route: " + rte);
+//            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
-        }
+//            var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
+//            Debug.WriteLine("Analyzed Route: " + rteA.ToString());
+//            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
 
-        [TestMethod()]
+//        }
 
-        public void STAR_Case1()
-        {
-            PrepareTest();
+//        [TestMethod()]
 
-            const string orig = "VHHH";
-            const string dest = "RCYU";
+//        public void STAR_Case1()
+//        {
+//            PrepareTest();
 
-            string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
-            string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).First();
+//            const string orig = "VHHH";
+//            const string dest = "RCYU";
 
-            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
+//            string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
+//            string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).First();
 
-            string rte = genRoute.ToString(false, false);
-            Debug.WriteLine("Generated route: " + rte);
-            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
+//            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
-            Debug.WriteLine("Analyzed Route: " + rteA.ToString());
-            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
+//            string rte = genRoute.ToString(false, false);
+//            Debug.WriteLine("Generated route: " + rte);
+//            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
-        }
+//            var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
+//            Debug.WriteLine("Analyzed Route: " + rteA.ToString());
+//            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
 
-        [TestMethod()]
+//        }
 
-        public void SID_Case4_STAR_Case2()
-        {
-            PrepareTest();
+//        [TestMethod()]
 
-            const string orig = "VHHH";
-            const string dest = "RCKH";
+//        public void SID_Case4_STAR_Case2()
+//        {
+//            PrepareTest();
 
-            string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
-            string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).First();
+//            const string orig = "VHHH";
+//            const string dest = "RCKH";
 
-            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
+//            string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig).First();
+//            string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).First();
 
-            string rte = genRoute.ToString(false, false);
-            Debug.WriteLine("Generated route: " + rte);
-            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
+//            var genRoute = new RouteFinder().FindRoute(orig, origRwy, new SidHandler(orig).GetSidList(origRwy), dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
-            Debug.WriteLine("Analyzed Route: " + rteA.ToString());
-            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
+//            string rte = genRoute.ToString(false, false);
+//            Debug.WriteLine("Generated route: " + rte);
+//            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
-        }
+//            var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
+//            Debug.WriteLine("Analyzed Route: " + rteA.ToString());
+//            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
 
-        [TestMethod()]
+//        }
 
-        public void SID_Case3_STAR_Case2()
-        {
-            PrepareTest();
+//        [TestMethod()]
 
-            const string orig = "KBOS";
-            const string dest = "KSFO";
+//        public void SID_Case3_STAR_Case2()
+//        {
+//            PrepareTest();
 
-            string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig)[6];
-            string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).First();
-            var sidList = new List<string>();
-            sidList.Add(new SidHandler(orig).GetSidList(origRwy)[0]);
+//            const string orig = "KBOS";
+//            const string dest = "KSFO";
 
-            var genRoute = new RouteFinder().FindRoute(orig, origRwy, sidList, dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
+//            string origRwy = RouteFindingCore.AirportList.RwyIdentList(orig)[6];
+//            string destRwy = RouteFindingCore.AirportList.RwyIdentList(dest).First();
+//            var sidList = new List<string>();
+//            sidList.Add(new SidHandler(orig).GetSidList(origRwy)[0]);
 
-            string rte = genRoute.ToString(false, false);
-            Debug.WriteLine("Generated route: " + rte);
-            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
+//            var genRoute = new RouteFinder().FindRoute(orig, origRwy, sidList, dest, destRwy, new StarHandler(dest).GetStarList(destRwy));
 
-            var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
-            Debug.WriteLine("Analyzed Route: " + rteA.ToString());
-            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
+//            string rte = genRoute.ToString(false, false);
+//            Debug.WriteLine("Generated route: " + rte);
+//            Debug.WriteLine("Distance = {0} nm\n", genRoute.TotalDistance);
 
-        }
+//            var rteA = new RouteAnalyzer(orig, origRwy, dest, destRwy, rte).Parse();
+//            Debug.WriteLine("Analyzed Route: " + rteA.ToString());
+//            Debug.WriteLine("Distance = {0} nm", rteA.TotalDistance);
 
-    }
-}
+//        }
+
+//    }
+//}

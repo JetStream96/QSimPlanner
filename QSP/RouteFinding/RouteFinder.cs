@@ -33,7 +33,7 @@ namespace QSP.RouteFinding
         /// </summary>
         private int addSid(string icao, string rwy, List<string> sid)
         {
-            return new SidHandler(icao, navDBLoation, wptList, airportList).AddSidsToWptList(rwy, sid);
+            return SidHandlerFactory.GetHandler(icao, navDBLoation, wptList, airportList).AddSidsToWptList(rwy, sid);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace QSP.RouteFinding
         /// </summary>
         private int addStar(string icao, string rwy, List<string> star)
         {
-            var starAdder = new StarHandler(icao, navDBLoation, wptList, airportList);
+            var starAdder = StarHandlerFactory.GetHandler(icao, navDBLoation, wptList, airportList);
             return starAdder.AddStarsToWptList(rwy, star);
         }
 

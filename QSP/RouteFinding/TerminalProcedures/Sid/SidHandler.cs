@@ -1,11 +1,7 @@
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using static QSP.Core.QspCore;
-using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
@@ -14,40 +10,17 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         private string icao;
         private WaypointList wptList;
         private AirportManager airportList;
-        private SidCollection sidCollection;
 
-        // TODO: this should be removed
-        public SidHandler(string icao) : this(icao, AppSettings.NavDBLocation, WptList, AirportList)
-        {
-        }
-
-        public SidHandler(string icao, string navDBLocation, WaypointList wptList, AirportManager airportList)
+        public SidCollection SidCollection { get; private set; }
+        
+        public SidHandler(string icao, string allTxt, WaypointList wptList, AirportManager airportList)
         {
             this.icao = icao;
             this.wptList = wptList;
             this.airportList = airportList;
-            ReadFromFile(navDBLocation);
+            SidCollection = new SidReader(allTxt).Parse();
         }
-
-        /// <param name="navDBLocation">The file path, which is e.g., PROC\RCTP.txt\</param>
-        /// <exception cref="LoadSidFileException"></exception>
-        private void ReadFromFile(string navDBLocation)
-        {
-            string fileLocation = navDBLocation + "\\PROC\\" + icao + ".txt";
-            string allTxt = null;
-
-            try
-            {
-                allTxt = File.ReadAllText(fileLocation);
-            }
-            catch (Exception ex)
-            {
-                throw new LoadSidFileException("Failed to read " + fileLocation + ".", ex);
-            }
-
-            sidCollection = new SidReader(allTxt).Parse();
-        }
-
+        
         /// <summary>
         /// Find all SID available for the runway. Two SIDs only different in transitions are regarded as different. 
         /// If none is available an empty list is returned.
@@ -55,7 +28,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// <param name="rwy">Runway Ident</param>
         public List<string> GetSidList(string rwy)
         {
-            return sidCollection.GetSidList(rwy);
+            return SidCollection.GetSidList(rwy);
         }
 
         /// <summary>
@@ -63,7 +36,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// </summary>
         public int AddSidsToWptList(string rwy, List<string> sid)
         {
-            return new SidAdder(icao, sidCollection, wptList, airportList).AddSidsToWptList(rwy, sid);
+            return new SidAdder(icao, SidCollection, wptList, airportList).AddSidsToWptList(rwy, sid);
         }
 
         /// <summary>
@@ -76,7 +49,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// <exception cref="SidNotFoundException"></exception>
         public SidInfo InfoForAnalysis(string rwy, string sid)
         {
-            return sidCollection.GetSidInfo(sid, rwy, new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
+            return SidCollection.GetSidInfo(sid, rwy, new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
         }
     }
 }

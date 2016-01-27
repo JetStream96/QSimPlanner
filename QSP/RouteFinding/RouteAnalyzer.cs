@@ -8,6 +8,7 @@ using static QSP.RouteFinding.RouteFindingCore;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.RouteFinding.Routes;
 using QSP.Core;
+using static QSP.Core.QspCore;
 
 namespace QSP.RouteFinding
 {
@@ -150,7 +151,7 @@ namespace QSP.RouteFinding
 
             //add dest rwy
             result.AddLastWaypoint(new Waypoint(destIcao + destRwy, AirportList.RwyLatLon(destIcao, destRwy)));
-           
+
             return result;
         }
 
@@ -188,7 +189,7 @@ namespace QSP.RouteFinding
         {
             try
             {
-                var starManager = new StarHandler(destIcao);
+                var starManager = StarHandlerFactory.GetHandler(destIcao, AppSettings.NavDBLocation, WptList, AirportList);
                 var starInfo = starManager.InfoForAnalysis(destRwy, text);
 
                 // If the last waypoint is not the first waypoint of the STAR, we automatically correct this by
@@ -209,7 +210,7 @@ namespace QSP.RouteFinding
         {
             try
             {
-                var sidManager = new SidHandler(origIcao);
+                var sidManager = SidHandlerFactory.GetHandler(origIcao, QspCore.AppSettings.NavDBLocation, WptList, AirportList);
                 var sidInfo = sidManager.InfoForAnalysis(origRwy, text);
 
                 rte.AddLastWaypoint(sidInfo.LastWaypoint, text, sidInfo.TotalDistance);
@@ -278,14 +279,14 @@ namespace QSP.RouteFinding
             int lastWptIndex = WptList.FindByWaypoint(rte.Last.Waypoint);
             string airway = rte.LastNode.Previous.Value.AirwayToNext;
 
-            var wpts = new AirwayNodeFinder(lastWptIndex, airway, text,WptList).FindWaypoints();
+            var wpts = new AirwayNodeFinder(lastWptIndex, airway, text, WptList).FindWaypoints();
 
             if (wpts == null)
             {
                 return false;
             }
 
-            addWptIfNoDuplicate(rte, wpts[0], airway,true);
+            addWptIfNoDuplicate(rte, wpts[0], airway, true);
 
             if (wpts.Count >= 2)
             {
@@ -316,11 +317,11 @@ namespace QSP.RouteFinding
         {
             if (wpt.Equals(rte.Last.Waypoint) == false)
             {
-                rte.AddLastWaypoint(wpt,"DCT", true);
+                rte.AddLastWaypoint(wpt, "DCT", true);
             }
         }
 
-        private static void addWptIfNoDuplicate(ManagedRoute rte, Waypoint wpt, string airway,bool AutoComputeDistance)
+        private static void addWptIfNoDuplicate(ManagedRoute rte, Waypoint wpt, string airway, bool AutoComputeDistance)
         {
             if (wpt.Equals(rte.Last.Waypoint) == false)
             {

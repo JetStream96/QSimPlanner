@@ -24,6 +24,7 @@ using System.Xml.Linq;
 using static QSP.AviationTools.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
+using static QSP.Core.QspCore;
 
 namespace QSP
 {
@@ -343,7 +344,7 @@ namespace QSP
                 //loading the navigation database
                 QspCore.AppSettings = new AppOptions(XDocument.Load(QspCore.QspAppDataDirectory + "\\SavedStates\\options.xml"));
 
-                NavDataLoader.LoadAllDB(QspCore.AppSettings.NavDBLocation);
+                new NavDataLoader(QspCore.AppSettings.NavDBLocation).LoadAllData();
                 //if success, update the status strip
 
                 Tuple<string, string> t = OptionsForm.AiracCyclePeriod(QspCore.AppSettings.NavDBLocation);
@@ -698,11 +699,13 @@ namespace QSP
                 switch (para)
                 {
                     case SidStarSelection.Sid:
-                        proc = new SidHandler(icao).GetSidList(rwy);
+                        proc = SidHandlerFactory.GetHandler(icao, AppSettings.NavDBLocation, WptList, AirportList)
+                                                .GetSidList(rwy);
 
                         break;
                     case SidStarSelection.Star:
-                        proc = new StarHandler(icao).GetStarList(rwy);
+                        proc = StarHandlerFactory.GetHandler(icao, AppSettings.NavDBLocation, WptList, AirportList)
+                                                 .GetStarList(rwy);
 
                         break;
                     default:
@@ -797,7 +800,8 @@ namespace QSP
         private void GenRteAltnBtnClick(object sender, EventArgs e)
         {
             // Get a list of sids
-            var sids = new SidHandler(DestTxtBox.Text).GetSidList(DestRwyComboBox.Text);
+            var sids = SidHandlerFactory.GetHandler(DestTxtBox.Text, AppSettings.NavDBLocation, WptList, AirportList)
+                                        .GetSidList(DestRwyComboBox.Text);
             var starAltn = getSidStarList(AltnStarComboBox);
 
             RouteToAltn = new RouteFinder().FindRoute(DestTxtBox.Text, DestRwyComboBox.Text, sids,
@@ -992,7 +996,7 @@ namespace QSP
             {
                 try
                 {
-                    SidHandler sidFinder = new SidHandler(FromTxtbox.Text);
+                    SidHandler sidFinder = SidHandlerFactory.GetHandler(FromTxtbox.Text, AppSettings.NavDBLocation, WptList, AirportList);
                     setSidStarList(FromSidCBox, sidFinder.GetSidList(FromRwyCBox.Text));
                 }
                 catch (Exception ex)
@@ -1009,7 +1013,7 @@ namespace QSP
             {
                 try
                 {
-                    var starManager = new StarHandler(ToTxtbox.Text);
+                    var starManager = StarHandlerFactory.GetHandler(ToTxtbox.Text, AppSettings.NavDBLocation, WptList, AirportList);
                     setSidStarList(ToStarCBox, starManager.GetStarList(ToRwyCBox.Text));
                 }
                 catch (Exception ex)

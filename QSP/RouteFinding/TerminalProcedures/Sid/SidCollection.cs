@@ -1,14 +1,14 @@
 ﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.Containers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using static QSP.RouteFinding.TerminalProcedures.Utilities;
 using static QSP.RouteFinding.Utilities;
-using QSP.RouteFinding.Containers;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
-    // Collection of SidEntry for a particular airport.
+    // A immutable collection of SidEntry for a particular airport.
     public class SidCollection
     {
         private List<SidEntry> _sids;

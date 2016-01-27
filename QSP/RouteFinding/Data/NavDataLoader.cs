@@ -6,22 +6,28 @@ using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP.RouteFinding.Data
 {
-    public static class NavDataLoader
+    public class NavDataLoader
     {
-        public static void LoadAllDB(string path)
-        {
-            //e.g. path can be "E:\Aviation\Projects\Integrated Flight Planner\AIRAC\Aerosoft Airbus X 1.22_later\Navigraph"
+        private string navDataLocation;
 
+        //e.g. path can be "E:\Aviation\Projects\Integrated Flight Planner\AIRAC\Aerosoft Airbus X 1.22_later\Navigraph"
+        public NavDataLoader(string navDataLocation)
+        {
+            this.navDataLocation = navDataLocation;
+        }
+
+        public void LoadAllData()
+        {
             // Import the texts in ats.txt into WptList.
             WptList = new WaypointList();
 
-            WptList.ReadFixesFromFile(path + "\\waypoints.txt");
-            WptList.ReadAtsFromFile(path + "\\ats.txt");
+            WptList.ReadFixesFromFile(waypointsFilePath());
+            WptList.ReadAtsFromFile(atsFilePath());
 
             try
             {
                 AirportList = new AirportManager(
-                                   new FileLoader(path + "\\Airports.txt")
+                                   new FileLoader(airportsFilePath())
                                    .LoadFromFile());
             }
             catch (Exception ex)
@@ -29,6 +35,22 @@ namespace QSP.RouteFinding.Data
                 MessageBox.Show(ex.Message.ToString());
             }
         }
+
+        private string waypointsFilePath()
+        {
+            return navDataLocation + "\\waypoints.txt";
+        }
+
+        private string atsFilePath()
+        {
+            return navDataLocation + "\\ats.txt";
+        }
+
+        private string airportsFilePath()
+        {
+            return navDataLocation + "\\Airports.txt";
+        }
+
     }
 }
 

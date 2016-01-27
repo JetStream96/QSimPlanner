@@ -125,10 +125,12 @@
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidAdder.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidCollection.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidEntry.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Sid\SidHandlerFactory.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidInfo.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidReader.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureSelector.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidWaypoints.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Star\StarHandlerFactory.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarAdder.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarCollection.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarEntry.cs" />
