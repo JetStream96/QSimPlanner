@@ -36,11 +36,16 @@ namespace QSP.RouteFinding.RouteAnalyzers
         /// <exception cref="WaypointNotFoundException"></exception>
         public Route Analyze()
         {
+            if (route.Length == 0)
+            {
+                return new Route();
+            }
+
             var firstWptCandidates = wptList.FindAllByID(route[0]);
 
             if (firstWptCandidates.Count == 0)
             {
-                throw new WaypointNotFoundException();
+                return new BasicRouteAnalyzer(route, wptList, -1).Analyze();
             }
 
             if (firstWptCandidates.Count > 1)

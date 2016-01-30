@@ -1,4 +1,3 @@
-using QSP.Core;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -72,7 +71,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from a waypoint to an airport.
         /// </summary>
-        public Route FindRoute(int wptIndex, string icao, string rwy, StarHandler starHandler, List<string> star)
+        public Route FindRoute(int wptIndex, string icao, string rwy, List<string> star, StarHandler starHandler)
         {
             int endIndex = addStar(icao, rwy, star, starHandler);
             var result = getRoute(wptIndex, endIndex);

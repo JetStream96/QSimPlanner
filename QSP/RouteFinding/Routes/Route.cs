@@ -94,6 +94,21 @@ namespace QSP.RouteFinding.Routes
             links.AddFirst(new RouteNode(item, AirwayToNext, distanceToNext));
         }
 
+        public void AddFirstWaypoint(Waypoint item, string viaAirway, bool AutoComputeDistance)
+        {
+            if (AutoComputeDistance && links.First != null)
+            {
+                var firstWpt = links.First.Value.Waypoint;
+                AddFirstWaypoint(item,
+                                 viaAirway,
+                                 GreatCircleDistance(item.Lat, item.Lon, firstWpt.Lat, firstWpt.Lon));
+            }
+            else
+            {
+                links.AddLast(new RouteNode(item, viaAirway, 0.0));
+            }
+        }
+
         /// <summary>
         /// Append the specified waypoint to the end of the route. 
         /// This waypoint is connected from the previous one by the airway specified, with the given distance.       
@@ -129,7 +144,7 @@ namespace QSP.RouteFinding.Routes
                 links.AddLast(new RouteNode(item));
             }
         }
-        
+
         /// <summary>
         /// Append the specified waypoint to the end of the route. 
         /// </summary>
@@ -152,8 +167,13 @@ namespace QSP.RouteFinding.Routes
         /// <summary>
         /// Append the given route at the end of the current one.
         /// </summary>
-        public void AppendRoute(Route item,string airway,double distance)
+        public void AppendRoute(Route item, string airway, double distance)
         {
+            if (item.Count == 0)
+            {
+                return;
+            }
+
             links.Last.Value.AirwayToNext = airway;
             links.Last.Value.DistanceToNext = distance;
 
@@ -171,14 +191,19 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public void ConnectRoute(Route item)
         {
+            if (item.Count == 0)
+            {
+                return;
+            }
+
             ConditionChecker.Ensure<ArgumentException>(Last.Waypoint.Equals(item.First.Waypoint));
             links.RemoveLast();
 
-            for (var node = item.FirstNode; 
-                 node != null; 
+            for (var node = item.FirstNode;
+                 node != null;
                  node = node.Next)
             {
-                links.AddLast(node);
+                links.AddLast(node.Value);
             }
         }
 

@@ -14,13 +14,17 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         public SidCollection SidCollection { get; private set; }
         
         public SidHandler(string icao, string allTxt, WaypointList wptList, AirportManager airportList)
+            :this(icao,new SidReader(allTxt).Parse(), wptList, airportList)
+        { }
+        
+        public SidHandler(string icao, SidCollection SidCollection, WaypointList wptList, AirportManager airportList)
         {
             this.icao = icao;
             this.wptList = wptList;
             this.airportList = airportList;
-            SidCollection = new SidReader(allTxt).Parse();
+            this.SidCollection = SidCollection;
         }
-        
+
         /// <summary>
         /// Find all SID available for the runway. Two SIDs only different in transitions are regarded as different. 
         /// If none is available an empty list is returned.

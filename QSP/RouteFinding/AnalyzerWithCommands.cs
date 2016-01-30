@@ -431,7 +431,7 @@ namespace QSP.RouteFinding
                 //find all stars
                 var starManager = StarHandlerFactory.GetHandler(destIcao, AppSettings.NavDBLocation, WptList, AirportList);
                 var starList = starManager.GetStarList(destRwy);
-                var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy,StarHandlerFactory.GetHandler(destIcao,AppSettings.NavDBLocation,WptList, AirportList), starList);
+                var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy, starList, StarHandlerFactory.GetHandler(destIcao, AppSettings.NavDBLocation, WptList, AirportList));
 
                 return new ManagedRoute( rte, TracksInUse).ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
             }

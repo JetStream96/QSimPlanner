@@ -46,9 +46,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
         /// <exception cref="ArgumentException"></exception>
         public BasicRouteAnalyzer(string[] routeInput, WaypointList wptList, int firstWaypointIndex)
         {
-            if (routeInput.Length < 2)
+            if (routeInput.Length == 0)
             {
-                throw new ArgumentException("Route input should have at least 2 elements.");
+                throw new ArgumentException("Route input should have at least 1 elements.");
             }
 
             this.wptList = wptList;
@@ -140,7 +140,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                                       wpt.ID));
                 }
             }
-            rte.AddLastWaypoint(wpt,"DCT", true);
+            rte.AddLastWaypoint(wpt, "DCT", true);
             return true;
         }
 
@@ -192,7 +192,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             else
             {
                 var wpt = wptList[lastWpt];
-                lastWpt = Tracks.Common.Utilities.ChooseSubsequentWpt(wpt.Lat, wpt.Lon, indices,wptList);
+                lastWpt = Tracks.Common.Utilities.ChooseSubsequentWpt(wpt.Lat, wpt.Lon, indices, wptList);
             }
 
             return tryappendWpt(wptList[lastWpt]);

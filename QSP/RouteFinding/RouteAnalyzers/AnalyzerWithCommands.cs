@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using QSP.AviationTools.Coordinates;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
-using QSP.RouteFinding.RouteAnalyzers.Extractors;
+using System.Collections.Generic;
 using System.Linq;
-using QSP.AviationTools.Coordinates;
-using static QSP.RouteFinding.RouteAnalyzers.Utilities;
-using QSP.LibraryExtension;
-using QSP.Core;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -31,8 +28,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
     {
         private WaypointList wptList;
         private AirportManager airportList;
-        private SidHandler sids;
-        private StarHandler stars;
+        private SidHandler sidHandler;
+        private StarHandler starHandler;
 
         private string origIcao;
         private string origRwy;
@@ -50,8 +47,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
                                      string destRwy,
                                      AirportManager airportList,
                                      WaypointList wptList,
-                                     SidHandler sids,
-                                     StarHandler stars)
+                                     SidHandler sidHandler,
+                                     StarHandler starHandler)
         {
             this.route = route;
             this.origIcao = origIcao;
@@ -60,8 +57,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
             this.destRwy = destRwy;
             this.airportList = airportList;
             this.wptList = wptList;
-            this.sids = sids;
-            this.stars = stars;
+            this.sidHandler = sidHandler;
+            this.starHandler = starHandler;
         }
 
         public Route Analyze()
@@ -70,6 +67,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             var subRoutes = splitEntries(route);
             var analyzed = computeRoutes(subRoutes);
             fillCommands(subRoutes, analyzed);
+            return connectAll(analyzed);
         }
 
         private static List<List<string>> splitEntries(string[] route)
@@ -129,13 +127,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
                     if (i == 0)
                     {
-                        origRoute = new SidExtractor(route, origIcao, origRwy, origRwyWpt, wptList, sids.SidCollection)
+                        origRoute = new SidExtractor(route, origIcao, origRwy, origRwyWpt, wptList, sidHandler.SidCollection)
                                     .Extract();
                     }
 
                     if (i == subRoutes.Count - 1)
                     {
-                        destRoute = new StarExtractor(route, destIcao, destRwy, destRwyWpt, wptList, stars.StarCollection)
+                        destRoute = new StarExtractor(route, destIcao, destRwy, destRwyWpt, wptList, starHandler.StarCollection)
                                     .Extract();
                     }
 
@@ -174,14 +172,16 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
                     if (subRoutes[i][0] == "AUTO")
                     {
-
+                        analyzed[i] = findRoute(analyzed, i);
                     }
                     else
                     {
                         // RAND
-                        analyzed[i] = randRouteToRoute(new RandomRouteFinder(startEnd.Item1.LatLon,
-                                                             startEnd.Item2.LatLon)
+                        var randRoute = randRouteToRoute(new RandomRouteFinder(startEnd.Item1.LatLon,
+                                                                             startEnd.Item2.LatLon)
                                                        .Find());
+                        randRouteAddOrigDest(randRoute, analyzed, i);
+                        analyzed[i] = randRoute;
                     }
                 }
             }
@@ -189,14 +189,55 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private Route findRoute(List<Route> analyzed, int index)
         {
+            var routeFinder = new RouteFinder(wptList, airportList);
+
             if (index == 0)
             {
                 if (index == analyzed.Count - 1)
                 {
-                    return new RouteFinder(QspCore.AppSettings.NavDBLocation, wptList, airportList)
-                               .FindRoute(origIcao, origRwy, new List<string>(sids.SidList), destIcao, destRwy, stars)
+                    return routeFinder
+                          .FindRoute(origIcao, origRwy, sidHandler.SidCollection.GetSidList(origRwy), sidHandler,
+                                     destIcao, destRwy, starHandler.StarCollection.GetStarList(destRwy), starHandler);
                 }
+                else
+                {
+                    int wptTo = wptList.FindByWaypoint(analyzed[index + 1].First.Waypoint);
 
+                    return routeFinder
+                           .FindRoute(origIcao, origRwy, sidHandler.SidCollection.GetSidList(origRwy), sidHandler,
+                                      wptTo);
+                }
+            }
+            else
+            {
+                if (index == analyzed.Count - 1)
+                {
+                    int wptFrom = wptList.FindByWaypoint(analyzed[index - 1].Last.Waypoint);
+
+                    return routeFinder
+                          .FindRoute(wptFrom,
+                                     destIcao, destRwy, starHandler.StarCollection.GetStarList(destRwy), starHandler);
+                }
+                else
+                {
+                    int wptFrom = wptList.FindByWaypoint(analyzed[index - 1].Last.Waypoint);
+                    int wptTo = wptList.FindByWaypoint(analyzed[index + 1].First.Waypoint);
+
+                    return routeFinder.FindRoute(wptFrom, wptTo);
+                }
+            }
+        }
+
+        private void randRouteAddOrigDest(Route route, List<Route> analyzed, int index)
+        {
+            if (index == 0)
+            {
+                route.AddFirstWaypoint(origRwyWpt, "DCT", true);
+            }
+
+            if (index == analyzed.Count - 1)
+            {
+                route.AddLastWaypoint(destRwyWpt, "DCT", true);
             }
         }
 
@@ -211,7 +252,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     double lat = randRoute[i].Lat;
                     double lon = randRoute[i].Lon;
 
-                    result.AddLastWaypoint(new Waypoint(Format5Letter.To5LetterFormat(lat, lon), lat, lon));
+                    result.AddLastWaypoint(new Waypoint(Format5Letter.To5LetterFormat(lat, lon), lat, lon), "DCT", true);
                 }
             }
             return result;
@@ -228,6 +269,17 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 : subRoutes[index + 1].First.Waypoint;
 
             return new Pair<Waypoint, Waypoint>(start, end);
+        }
+
+        private static Route connectAll(List<Route> subRoutes)
+        {
+            var route = subRoutes[0];
+
+            for (int i = 1; i < subRoutes.Count; i++)
+            {
+                route.MergeWith(subRoutes[i]);
+            }
+            return route;
         }
     }
 }

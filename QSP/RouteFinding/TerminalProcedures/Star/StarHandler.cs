@@ -13,16 +13,19 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         private AirportManager airportList;
 
         public StarCollection StarCollection { get; private set; }
-        
+
         public StarHandler(string icao, string allTxt, WaypointList wptList, AirportManager airportList)
+            : this(icao, new StarReader(allTxt).Parse(), wptList, airportList)
+        { }
+
+        public StarHandler(string icao, StarCollection StarCollection, WaypointList wptList, AirportManager airportList)
         {
             this.icao = icao;
             this.wptList = wptList;
             this.airportList = airportList;
-
-            StarCollection = new StarReader(allTxt).Parse();
+            this.StarCollection = StarCollection;
         }
-        
+
         /// <summary>
         /// Find all STARs available for the runway. Two STARs only different in transitions are regarded as different. 
         /// If none is available an empty list is returned.
@@ -38,7 +41,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         /// </summary>
         public int AddStarsToWptList(string rwy, List<string> star)
         {
-            return new StarAdder(icao, StarCollection).AddStarsToWptList(rwy, star);
+            return new StarAdder(icao, StarCollection, wptList, airportList).AddStarsToWptList(rwy, star);
         }
 
         /// <summary>

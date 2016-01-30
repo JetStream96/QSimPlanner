@@ -1145,7 +1145,7 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelFromCBox.Text);
 
-                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, StarHandlerFactory.GetHandler(ToTxtbox.Text, AppSettings.NavDBLocation, WptList, AirportList), star),
+                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, star, StarHandlerFactory.GetHandler(ToTxtbox.Text, AppSettings.NavDBLocation, WptList, AirportList)),
                         TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, false);

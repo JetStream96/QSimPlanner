@@ -1,9 +1,4 @@
 ﻿using QSP.RouteFinding.Routes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -15,7 +10,12 @@ namespace QSP.RouteFinding.RouteAnalyzers
         /// </summary>
         public static void MergeWith(this Route item, Route RouteToMerge)
         {
-            if (item.Last.Equals(RouteToMerge.First))
+            if (RouteToMerge.Count == 0)
+            {
+                return;
+            }
+
+            if (item.Last.Waypoint.Equals(RouteToMerge.First.Waypoint))
             {
                 item.ConnectRoute(RouteToMerge);
             }

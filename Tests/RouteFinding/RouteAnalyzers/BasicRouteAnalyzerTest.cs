@@ -13,6 +13,23 @@ namespace Tests.RouteFinding.RouteAnalyzers
     [TestClass]
     public class BasicRouteAnalyzerTest
     {
+        [TestMethod]
+        public void SingleEntryInRoute()
+        {
+            // setup
+            var wptList = new WaypointList();
+            wptList.AddWaypoint(new Waypoint("P", 20.0, 100.0));
+
+            var analyzer = new BasicRouteAnalyzer(new string[] { "P" },
+                                                  wptList,
+                                                  wptList.FindByID("P"));
+            // invoke
+            var route = analyzer.Analyze();
+
+            // assert
+            Assert.AreEqual(1, route.Count);
+            Assert.IsTrue(route.First.Waypoint.Equals(new Waypoint("P", 20.0, 100.0)));
+        }
 
         [TestMethod]
         public void WhenRouteUseAirwaysAnalyzeCorrectness()
