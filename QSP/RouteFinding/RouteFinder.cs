@@ -15,16 +15,14 @@ namespace QSP.RouteFinding
 {
     public class RouteFinder
     {
-        private string navDBLoation;
         private WaypointList wptList;
         private AirportManager airportList;
 
         // TODO: remove this
-        public RouteFinder() : this(QspCore.AppSettings.NavDBLocation, WptList, AirportList) { }
+        public RouteFinder() : this(WptList, AirportList) { }
 
-        public RouteFinder(string navDBLoation, WaypointList wptList, AirportManager airportList)
+        public RouteFinder(WaypointList wptList, AirportManager airportList)
         {
-            this.navDBLoation = navDBLoation;
             this.wptList = wptList;
             this.airportList = airportList;
         }
@@ -32,27 +30,27 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Add SID to wptList and returns the index of origin rwy.
         /// </summary>
-        private int addSid(string icao, string rwy, List<string> sid)
+        private int addSid(string icao, string rwy, List<string> sid, SidHandler sidHandler)
         {
-            return SidHandlerFactory.GetHandler(icao, navDBLoation, wptList, airportList).AddSidsToWptList(rwy, sid);
+            return sidHandler.AddSidsToWptList(rwy, sid);
         }
 
         /// <summary>
         /// Add STAR to wptList and returns the index of destination rwy.
         /// </summary>
-        private int addStar(string icao, string rwy, List<string> star)
+        private int addStar(string icao, string rwy, List<string> star, StarHandler starHandler)
         {
-            var starAdder = StarHandlerFactory.GetHandler(icao, navDBLoation, wptList, airportList);
-            return starAdder.AddStarsToWptList(rwy, star);
+            return starHandler.AddStarsToWptList(rwy, star);
         }
 
         /// <summary>
         /// Gets a route between two aiports, from ORIG to DEST.
         /// </summary>
-        public Route FindRoute(string origIcao, string origRwy, List<string> origSid, string destIcao, string destRwy, List<string> destStar)
+        public Route FindRoute(string origIcao, string origRwy, List<string> origSid, SidHandler sidHandler,
+                               string destIcao, string destRwy, List<string> destStar, StarHandler starHandler)
         {
-            int origIndex = addSid(origIcao, origRwy, origSid);
-            int destIndex = addStar(destIcao, destRwy, destStar);
+            int origIndex = addSid(origIcao, origRwy, origSid, sidHandler);
+            int destIndex = addStar(destIcao, destRwy, destStar, starHandler);
 
             var result = getRoute(origIndex, destIndex);
             wptList.Restore();
@@ -62,9 +60,9 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from an airport to a waypoint.
         /// </summary>
-        public Route FindRoute(string icao, string rwy, List<string> sid, int wptIndex)
+        public Route FindRoute(string icao, string rwy, List<string> sid, SidHandler sidHandler, int wptIndex)
         {
-            int origIndex = addSid(icao, rwy, sid);
+            int origIndex = addSid(icao, rwy, sid, sidHandler);
 
             var result = getRoute(origIndex, wptIndex);
             wptList.Restore();
@@ -74,9 +72,9 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from a waypoint to an airport.
         /// </summary>
-        public Route FindRoute(int wptIndex, string icao, string rwy, List<string> star)
+        public Route FindRoute(int wptIndex, string icao, string rwy, StarHandler starHandler, List<string> star)
         {
-            int endIndex = addStar(icao, rwy, star);
+            int endIndex = addStar(icao, rwy, star, starHandler);
             var result = getRoute(wptIndex, endIndex);
             wptList.Restore();
             return result;

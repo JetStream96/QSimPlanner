@@ -776,7 +776,9 @@ namespace QSP
             List<string> sid = getSidStarList(OrigSidComboBox);
             List<string> star = getSidStarList(DestStarComboBox);
 
-            RouteToDest = new ManagedRoute(new RouteFinder().FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid, DestTxtBox.Text, DestRwyComboBox.Text, star),
+            RouteToDest = new ManagedRoute(new RouteFinder().FindRoute(
+                                    OrigTxtBox.Text, OrigRwyComboBox.Text, sid, SidHandlerFactory.GetHandler(OrigTxtBox.Text, AppSettings.NavDBLocation, WptList, AirportList),
+                                    DestTxtBox.Text, DestRwyComboBox.Text, star, StarHandlerFactory.GetHandler(DestTxtBox.Text, AppSettings.NavDBLocation, WptList, AirportList)),
                                            TracksInUse);
             PMDGrteFile = FlightPlanExport.GeneratePmdgRteFile(RouteToDest);
 
@@ -805,8 +807,8 @@ namespace QSP
                                         .GetSidList(DestRwyComboBox.Text);
             var starAltn = getSidStarList(AltnStarComboBox);
 
-            RouteToAltn =new ManagedRoute( new RouteFinder().FindRoute(DestTxtBox.Text, DestRwyComboBox.Text, sids,
-                                                      AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn),
+            RouteToAltn =new ManagedRoute( new RouteFinder().FindRoute(DestTxtBox.Text, DestRwyComboBox.Text, sids, SidHandlerFactory.GetHandler(DestTxtBox.Text, AppSettings.NavDBLocation, WptList, AirportList),
+                                                      AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn, StarHandlerFactory.GetHandler(AltnTxtBox.Text, AppSettings.NavDBLocation, WptList, AirportList)),
                                                       TracksInUse);
 
             RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
@@ -1064,7 +1066,7 @@ namespace QSP
 
                 try
                 {
-                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, ToTxtbox.Text, ToRwyCBox.Text, star),
+                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid,SidHandlerFactory.GetHandler(FromTxtbox.Text,AppSettings.NavDBLocation,WptList, AirportList), ToTxtbox.Text, ToRwyCBox.Text, star,StarHandlerFactory.GetHandler(ToTxtbox.Text, AppSettings.NavDBLocation, WptList, AirportList)),
                         TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString();
@@ -1104,7 +1106,7 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
+                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, SidHandlerFactory.GetHandler(FromTxtbox.Text, AppSettings.NavDBLocation, WptList, AirportList),WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
                         TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(false, true);
@@ -1143,7 +1145,7 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelFromCBox.Text);
 
-                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, star),
+                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, StarHandlerFactory.GetHandler(ToTxtbox.Text, AppSettings.NavDBLocation, WptList, AirportList), star),
                         TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, false);

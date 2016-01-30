@@ -404,7 +404,7 @@ namespace QSP.RouteFinding
                 //find all sids
                 var sidManager = SidHandlerFactory.GetHandler(origIcao, AppSettings.NavDBLocation, WptList, AirportList);
                 var sidList = sidManager.GetSidList(origRwy);
-                var rte = new RouteFinder().FindRoute(origIcao, origRwy, sidList, selectWptSameIdent(input[index + 1]));
+                var rte = new RouteFinder().FindRoute(origIcao, origRwy, sidList,SidHandlerFactory.GetHandler(origIcao,AppSettings.NavDBLocation,WptList,AirportList), selectWptSameIdent(input[index + 1]));
 
                 return new ManagedRoute( rte, TracksInUse).ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
@@ -431,7 +431,7 @@ namespace QSP.RouteFinding
                 //find all stars
                 var starManager = StarHandlerFactory.GetHandler(destIcao, AppSettings.NavDBLocation, WptList, AirportList);
                 var starList = starManager.GetStarList(destRwy);
-                var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy, starList);
+                var rte = new RouteFinder().FindRoute(selectWptSameIdent(input[index - 1]), destIcao, destRwy,StarHandlerFactory.GetHandler(destIcao,AppSettings.NavDBLocation,WptList, AirportList), starList);
 
                 return new ManagedRoute( rte, TracksInUse).ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
             }
