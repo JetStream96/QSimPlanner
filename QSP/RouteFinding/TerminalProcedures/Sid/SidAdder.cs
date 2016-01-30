@@ -67,7 +67,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// <summary>
         /// Add necessary waypoints and neighbors for SID computation to WptList, and returns the index of Orig. rwy in WptList.
         /// </summary>
-        public int AddSidsToWptList(string rwy, List<string> sidsToAdd)
+        public int AddSidsToWptList(string rwy, List<string> sidsToAdd) 
         {
             if (sidsToAdd.Count == 0)  
             {

@@ -19,6 +19,7 @@ namespace QSP.RouteFinding
         private WaypointList wptList;
         private AirportManager airportList;
 
+        // TODO: remove this
         public RouteFinder() : this(QspCore.AppSettings.NavDBLocation, WptList, AirportList) { }
 
         public RouteFinder(string navDBLoation, WaypointList wptList, AirportManager airportList)

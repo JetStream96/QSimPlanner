@@ -19,10 +19,7 @@ namespace QSP.MathTools
 
         public Vector2D MultiplyVector2D(Vector2D v)
         {
-            Vector2D w = new Vector2D();
-            w.x = a11 * v.x + a12 * v.y;
-            w.y = a21 * v.x + a22 * v.y;
-            return w;
+            return new Vector2D(a11 * v.x + a12 * v.y, a21 * v.x + a22 * v.y);
         }
 
         public Matrix2by2 MultiplyConst(double c)

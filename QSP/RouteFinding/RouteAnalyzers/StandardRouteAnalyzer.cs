@@ -108,23 +108,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 else
                 {
                     var mainPart = new BasicRouteAnalyzer(mainRoute, wptList, chosenIndex).Analyze();
-                    mergeRoutes(origPart, mainPart);
-                    mergeRoutes(origPart, destPart);
+                    origPart.MergeWith(mainPart);
+                    origPart.MergeWith(destPart);
                 }
             }
             return origPart;
-        }
-
-        private void mergeRoutes(Route original, Route RouteToMerge)
-        {
-            if (original.Last.Equals(RouteToMerge.First))
-            {
-                original.ConnectRoute(RouteToMerge);
-            }
-            else
-            {
-                original.AppendRoute(RouteToMerge, "DCT");
-            }
         }
     }
 }

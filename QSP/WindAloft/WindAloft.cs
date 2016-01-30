@@ -30,7 +30,7 @@ namespace QSP.WindAloft
                 GrdDisToDest += t.Item2;
             }
 
-            return (int)(tas * (GrdDisToDest / AirDisToDest - 1));
+            return (int)(tas * (GrdDisToDest / AirDisToDest - 1.0));
         }
 
         public static Tuple<double, double> GetAirDisGrdDis(LatLon latlon1, LatLon latlon2, int tas, double FL)

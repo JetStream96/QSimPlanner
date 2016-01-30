@@ -4,21 +4,18 @@ namespace QSP
 {
     public class Vector3D
     {
-        public double x { get; set; }
-        public double y { get; set; }
-        public double z { get; set; }
+        public double x { get; private set; }
+        public double y { get; private set; }
+        public double z { get; private set; }
 
         //Using these relations:
         //x=rsin(phi)cos(theta)
         //y=rsin(phi)sin(theta)
         //z=rcos(phi)
 
-        public Vector3D()
-        {
-            x = 0.0;
-            y = 0.0;
-            z = 0.0;
-        }
+        public Vector3D() : this(0.0, 0.0, 0.0) { }
+
+        public Vector3D(Vector3D item) : this(item.x, item.y, item.z) { }
 
         public Vector3D(double x, double y, double z)
         {
@@ -51,24 +48,50 @@ namespace QSP
                                 r * Math.Cos(phi));
         }
 
-        public Vector3D Add(Vector3D v)
+        public void Add(Vector3D v)
         {
-            return new Vector3D(v.x + x, v.y + y, v.z + z);
+            x += v.x;
+            y += v.y;
+            z += v.z;
         }
 
-        public Vector3D Multiply(double c)
+        public void Subtract(Vector3D v)
         {
-            return new Vector3D(x * c, y * c, z * c);
+            x -= v.x;
+            y -= v.y;
+            z -= v.z;
         }
 
-        public Vector3D Subtract(Vector3D v)
+        public void Multiply(double c)
         {
-            return new Vector3D(x - v.x, y - v.y, z - v.z);
+            x *= c;
+            y *= c;
+            z *= c;
+        }
+
+        public static Vector3D operator +(Vector3D v1, Vector3D v2)
+        {
+            return new Vector3D(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+        }
+
+        public static Vector3D operator -(Vector3D v1, Vector3D v2)
+        {
+            return new Vector3D(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
+        }
+
+        public static Vector3D operator *(Vector3D v, double c)
+        {
+            return new Vector3D(v.x * c, v.y * c, v.z * c);
+        }
+
+        public static Vector3D operator *(double c, Vector3D v)
+        {
+            return v * c;
         }
 
         public Vector3D Normalize()
         {
-            return Multiply(1.0 / r);
+            return new Vector3D(this) * (1.0 / r);
         }
 
         public double InnerProductWith(Vector3D v)

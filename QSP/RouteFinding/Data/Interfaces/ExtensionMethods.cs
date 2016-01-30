@@ -1,13 +1,13 @@
-﻿using System;
+﻿using QSP.Utilities;
+using System;
 using System.Collections.Generic;
 using static QSP.MathTools.Utilities;
-using QSP.Utilities;
 
 namespace QSP.RouteFinding.Data.Interfaces
 {
     public static class ExtensionMethods
     {
-        public static T GetClosest<T>(IEnumerable<T> items, double Lat, double Lon) where T : ICoordinate
+        public static T GetClosest<T>(this IEnumerable<T> items, double Lat, double Lon) where T : ICoordinate
         {
             int count = 0;
             T closest = default(T);

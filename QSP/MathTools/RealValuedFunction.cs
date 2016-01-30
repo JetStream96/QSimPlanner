@@ -38,9 +38,9 @@ namespace QSP
             double sum = 0.0;
             int numIntervals = (int)Math.Ceiling((upperLimit - lowerLimit) / delta);
 
-            for (int i = 0; i <= numIntervals - 2; i++)
+            for (int i = 0; i < numIntervals - 1; i++)
             {
-                sum += delta * f(lowerLimit + (i + 1.0 / 2) * delta);
+                sum += delta * f(lowerLimit + (i + 0.5) * delta);
             }
 
             sum += f((lowerLimit + (numIntervals - 1)) * delta) * (upperLimit - lowerLimit - (numIntervals - 1) * delta);
