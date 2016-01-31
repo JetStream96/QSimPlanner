@@ -138,14 +138,14 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             LatLon latLon = trk.PreferredFirstLatLon;
             return new AutoSelectAnalyzer(new CoordinateFormatter(
-                                                 combineArr(rte)).Split(), 
+                                                 combineArray(rte)).Split(), 
                                                  latLon.Lat, 
                                                  latLon.Lon, 
                                                  wptList)
                                           .Analyze();
         }
 
-        private string combineArr(ReadOnlyCollection<string> item)
+        private string combineArray(ReadOnlyCollection<string> item)
         {
             var result = new StringBuilder();
 

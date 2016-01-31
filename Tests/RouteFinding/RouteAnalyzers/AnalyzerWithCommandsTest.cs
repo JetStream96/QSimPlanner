@@ -130,7 +130,7 @@ namespace Tests.RouteFinding.RouteAnalyzers
 
         #endregion
 
-        #region Group 2 - Same route
+        #region Group 2 - Only coordinates
 
         private void initObjects2()
         {

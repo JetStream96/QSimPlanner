@@ -25,7 +25,7 @@ namespace QSP.RouteFinding
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }
     }
-    
+
     [Serializable]
     public class WaypointNotFoundException : Exception
     {
@@ -40,12 +40,12 @@ namespace QSP.RouteFinding
 
 
     [Serializable]
-    public class RwyDatabaseFormatException : Exception
+    public class RwyDataFormatException : Exception
     {
-        public RwyDatabaseFormatException() { }
-        public RwyDatabaseFormatException(string message) : base(message) { }
-        public RwyDatabaseFormatException(string message, Exception inner) : base(message, inner) { }
-        protected RwyDatabaseFormatException(
+        public RwyDataFormatException() { }
+        public RwyDataFormatException(string message) : base(message) { }
+        public RwyDataFormatException(string message, Exception inner) : base(message, inner) { }
+        protected RwyDataFormatException(
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }
@@ -63,7 +63,7 @@ namespace QSP.RouteFinding
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }
     }
-    
+
     [Serializable]
     public class LoadWaypointFileException : Exception
     {
@@ -76,7 +76,6 @@ namespace QSP.RouteFinding
         { }
     }
 
-
     [Serializable]
     public class RouteNotFoundException : Exception
     {
@@ -88,7 +87,6 @@ namespace QSP.RouteFinding
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }
     }
-
 
     [Serializable]
     public class LoadSidFileException : Exception

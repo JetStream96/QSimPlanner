@@ -54,11 +54,11 @@ namespace QSP.AviationTools.Coordinates
 
             if (lon < 100)
             {
-                return lat.ToString() + lon.ToString() + c;
+                return lat.ToString().PadLeft(2,'0') + lon.ToString().PadLeft(2, '0') + c;
             }
             else
             {
-                return lat.ToString() + c + (lon - 100).ToString();
+                return lat.ToString().PadLeft(2, '0') + c + (lon - 100).ToString().PadLeft(2, '0');
             }
         }
 

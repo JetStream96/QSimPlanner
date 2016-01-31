@@ -42,6 +42,7 @@ namespace Tests.AviationTools.Coordinates
             Assert.IsTrue(ReadFrom5LetterFormat("4334E").Equals(new LatLon(43.0, 34.0)));
             Assert.IsTrue(ReadFrom5LetterFormat("55S13").Equals(new LatLon(-55.0, 113.0)));
             Assert.IsTrue(ReadFrom5LetterFormat("55W10").Equals(new LatLon(-55.0, -110.0)));
+            Assert.IsTrue(ReadFrom5LetterFormat("05W05").Equals(new LatLon(-5.0, -105.0)));
         }
 
         [TestMethod]

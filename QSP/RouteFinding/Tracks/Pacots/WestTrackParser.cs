@@ -1,6 +1,6 @@
 ﻿using System;
 using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.Tracks.Common.Parser;
+using QSP.RouteFinding.Tracks.Common.TDM.Parser;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
@@ -37,16 +37,18 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public PacificTrack Parse()
         {
-            var Result = new ParserTDMOld(text, airportList).Parse();
+            var result = new TdmParser(text).Parse();
+            var mainRoute = new MainRouteInterpreter(result.MainRoute).Convert();
+            var connectRoutes = new ConnectionRouteInterpreter(mainRoute, result.ConnectionRoutes, airportList).Convert();
 
             return new PacificTrack(PacotDirection.Westbound,
-                                Result.Ident,
-                                Result.TimeStart,
-                                Result.TimeEnd,
-                                cutOffTextAfterParenthesis(Result.Remarks),
-                                Array.AsReadOnly(Result.MainRoute),
-                                Result.RouteFrom.AsReadOnly(),
-                                Result.RouteTo.AsReadOnly(),
+                                result.Ident,
+                                result.TimeStart,
+                                result.TimeEnd,
+                                cutOffTextAfterParenthesis(result.Remarks),
+                                Array.AsReadOnly(mainRoute),
+                                connectRoutes.RouteFrom.AsReadOnly(),
+                                connectRoutes.RouteTo.AsReadOnly(),
                                 Constants.US_LATLON);
         }
 

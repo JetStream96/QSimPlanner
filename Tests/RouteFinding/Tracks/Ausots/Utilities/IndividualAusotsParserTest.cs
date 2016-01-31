@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.RouteFinding.Tracks.Ausots.Utilities;
-using QSP.RouteFinding.Airports;
-using System.Linq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Tracks.Ausots.Utilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Tests.RouteFinding.Tracks.Ausots.Utilities
 {
@@ -38,7 +38,7 @@ getAirportList(new List<string> { "YSSY" }));
 
             Assert.AreEqual("SY16", trk.Ident);
             Assert.IsTrue(Enumerable.SequenceEqual(trk.MainRoute,
-                                                   new string[] { "PKS", "WILLY", "BHI", "30S35", "27S29", "24S24",
+                                                   new string[] { "PKS", "WILLY", "BHI", "30S135E", "27S129E", "24S124E",
                                                                     "PD", "OSOTO", "DOMOM", "SAPDA" }));
             Assert.AreEqual(1, trk.RouteFrom.Count);
             Assert.IsTrue(Enumerable.SequenceEqual(trk.RouteFrom[0],
@@ -76,7 +76,7 @@ null);
 
             Assert.AreEqual("SY16", trk.Ident);
             Assert.IsTrue(Enumerable.SequenceEqual(trk.MainRoute,
-                                                   new string[] { "PKS", "WILLY", "BHI", "30S35", "27S29", "24S24",
+                                                   new string[] { "PKS", "WILLY", "BHI", "30S135E", "27S129E", "24S124E",
                                                                     "PD", "OSOTO", "DOMOM", "SAPDA" }));
             Assert.AreEqual(0, trk.RouteFrom.Count);
             Assert.AreEqual(0, trk.RouteTo.Count);
@@ -98,7 +98,7 @@ getAirportList(new List<string> { "YSSY" }));
 
             Assert.AreEqual("SY16", trk.Ident);
             Assert.IsTrue(Enumerable.SequenceEqual(trk.MainRoute,
-                                                   new string[] { "PKS", "WILLY", "BHI", "30S35", "27S29", "24S24",
+                                                   new string[] { "PKS", "WILLY", "BHI", "30S135E", "27S129E", "24S124E",
                                                                     "PD", "OSOTO", "DOMOM", "SAPDA" }));
             Assert.AreEqual(1, trk.RouteFrom.Count);
             Assert.IsTrue(Enumerable.SequenceEqual(trk.RouteFrom[0],
@@ -121,7 +121,7 @@ null);
 
             Assert.AreEqual("SY16", trk.Ident);
             Assert.IsTrue(Enumerable.SequenceEqual(trk.MainRoute,
-                                                   new string[] { "PKS", "WILLY", "BHI", "30S35", "27S29", "24S24",
+                                                   new string[] { "PKS", "WILLY", "BHI", "30S135E", "27S129E", "24S124E",
                                                                     "PD", "OSOTO", "DOMOM", "SAPDA" }));
             Assert.AreEqual(0, trk.RouteFrom.Count);
             Assert.AreEqual(0, trk.RouteTo.Count);
@@ -144,7 +144,7 @@ getAirportList(new List<string> { "YBBN", "YPPH" }));
 
             Assert.AreEqual("PB13", trk.Ident);
             Assert.IsTrue(Enumerable.SequenceEqual(trk.MainRoute,
-                                                   new string[] { "NSM", "CAG", "32S30", "WR", "EVIEC", "IDODA", "AROLI", "CRANE" }));
+                                                   new string[] { "NSM", "CAG", "32S130E", "WR", "EVIEC", "IDODA", "AROLI", "CRANE" }));
             Assert.AreEqual(1, trk.RouteFrom.Count);
             Assert.IsTrue(Enumerable.SequenceEqual(trk.RouteFrom[0],
                                                    new string[] { "PH", "H18", "BURGU", "H18", "NSM" }));

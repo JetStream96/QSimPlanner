@@ -9,7 +9,7 @@ using static QSP.RouteFinding.Utilities;
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
     // A immutable collection of SidEntry for a particular airport.
-    public class SidCollection
+    public sealed class SidCollection
     {
         private List<SidEntry> _sids;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using static QSP.LibraryExtension.StringParser.Utilities;
 
-namespace QSP.RouteFinding.Tracks.Common.Parser
+namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
     public class MainRouteInterpreter
     {
@@ -14,8 +14,7 @@ namespace QSP.RouteFinding.Tracks.Common.Parser
 
         public string[] Convert()
         {
-            var routeSplit = route.Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
-            throw new NotImplementedException();
+            return route.Split(DelimiterWords,StringSplitOptions.RemoveEmptyEntries);          
         }
     }
 }

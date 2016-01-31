@@ -17,7 +17,7 @@ namespace QSP.RouteFinding.Airports
             this.filepath = filepath;
         }
 
-        /// <exception cref="RwyDatabaseFormatException"></exception>
+        /// <exception cref="RwyDataFormatException"></exception>
         /// <exception cref="ReadAirportDBFileException"></exception>
         public AirportCollection LoadFromFile()
         {
@@ -89,7 +89,7 @@ namespace QSP.RouteFinding.Airports
                 }
                 catch (Exception ex)
                 {
-                    throw new RwyDatabaseFormatException("Incorrect format in runway database is found.", ex);
+                    throw new RwyDataFormatException("Incorrect format in runway database is found.", ex);
                 }
             }
             // Add the last airport.

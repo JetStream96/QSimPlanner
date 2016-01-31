@@ -1,8 +1,8 @@
-﻿using System;
+﻿using QSP.LibraryExtension.StringParser;
+using System;
 using static QSP.LibraryExtension.StringParser.Utilities;
-using QSP.LibraryExtension.StringParser;
 
-namespace QSP.RouteFinding.Tracks.Common.Parser
+namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
     // Parse the string which represents a single track, into a temporary format.
     //
@@ -44,7 +44,7 @@ namespace QSP.RouteFinding.Tracks.Common.Parser
     // (6) After connecting routes, the remarks contains the part after "RMK/", to the end of string.
     //     If "RMK/" does not exist the remarks is am empty string.   
     //
-    // (7) All LatLon format is assumed to be 7-digit (like 25S133E), and will all be converted to 5-digit.
+    // (7) All LatLon format is assumed to be 7-letter (like 25S133E), and will all be converted to 5-letter.
 
     public class TdmParser
     {
@@ -106,6 +106,7 @@ namespace QSP.RouteFinding.Tracks.Common.Parser
             TimeEnd = sp.ReadToNextDelimeter(d);
 
             sp.SkipToNextLine();
+            getRtsRmkIndices(sp.CurrentIndex);
             MainRoute = sp.ReadString(mainRouteEndIndex());
 
             addRts(sp);

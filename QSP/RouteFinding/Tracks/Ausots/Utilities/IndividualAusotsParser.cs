@@ -1,8 +1,8 @@
-﻿using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.Tracks.Common.Parser;
+﻿using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Tracks.Common.TDM.Parser;
 using System;
 using System.Linq;
-using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.Tracks.Ausots.Utilities
 {
@@ -22,7 +22,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
 
         private string text;
         private AirportManager airportList;
-        
+
         public IndividualAusotsParser(string text, AirportManager airportList)
         {
             this.text = text;
@@ -35,17 +35,19 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
         /// <exception cref="TrackParseException"></exception>
         public AusTrack Parse()
         {
-            var Result = new ParserTDMOld(text, airportList).Parse();
+            var result = new TdmParser(text).Parse();
+            var mainRoute = new MainRouteInterpreter(result.MainRoute).Convert();
+            var connectRoutes = new ConnectionRouteInterpreter(mainRoute, result.ConnectionRoutes, airportList).Convert();
 
-            if (TrackAvailble(Result))
+            if (TrackAvailble(mainRoute, result.Ident))
             {
-                return new AusTrack(Result.Ident,
-                                    Result.TimeStart,
-                                    Result.TimeEnd,
-                                    Result.Remarks,
-                                    Array.AsReadOnly(Result.MainRoute),
-                                    Result.RouteFrom.AsReadOnly(),
-                                    Result.RouteTo.AsReadOnly(),
+                return new AusTrack(result.Ident,
+                                    result.TimeStart,
+                                    result.TimeEnd,
+                                    result.Remarks,
+                                    Array.AsReadOnly(mainRoute),
+                                    connectRoutes.RouteFrom.AsReadOnly(),
+                                    connectRoutes.RouteTo.AsReadOnly(),
                                     PreferredFirstLatLon);
             }
             return null;
@@ -58,9 +60,9 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
         // SVC TRK YS12 NO TRACK - USE PUBLISHED FIXED ROUTES
         // RMK/AUSOTS GROUP A USE KS12
         //
-        private bool TrackAvailble(ParseResultOld Result )
+        private bool TrackAvailble(string[] mainRoute, string ident)
         {
-            return !(Result.MainRoute.Contains(Result.Ident) || Result.MainRoute.Contains("-"));
-        }        
+            return !(mainRoute.Contains(ident) || mainRoute.Contains("-"));
+        }
     }
 }

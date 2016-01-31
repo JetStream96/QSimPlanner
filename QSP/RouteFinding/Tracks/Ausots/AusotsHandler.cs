@@ -59,7 +59,9 @@ namespace QSP.RouteFinding.Tracks.Ausots
                 }
                 catch
                 {
-                    recorder.AddEntry(StatusRecorder.Severity.Caution, "Unable to interpret one track.", TrackType.Ausots);
+                    recorder.AddEntry(StatusRecorder.Severity.Caution,
+                                      string.Format("Unable to interpret track {0}.", i.Ident),
+                                      TrackType.Ausots);
                 }
             }
         }

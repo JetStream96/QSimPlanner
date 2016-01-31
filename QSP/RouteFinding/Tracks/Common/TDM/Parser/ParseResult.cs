@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace QSP.RouteFinding.Tracks.Common.Parser
+namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
     public sealed class ParseResult
     {

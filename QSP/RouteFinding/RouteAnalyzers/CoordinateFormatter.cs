@@ -44,7 +44,14 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
                 if (Format7Letter.TryReadFrom7LetterFormat(s[i], out coord))
                 {
-                    s[i] = coord.ToDecimalFormat();
+                    try
+                    {
+                        s[i] = coord.To5LetterFormat();
+                    }
+                    catch
+                    {
+                        s[i] = coord.ToDecimalFormat();
+                    }
                 }
             }
             return s;

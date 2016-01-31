@@ -44,6 +44,7 @@ namespace Tests.AviationTools.Coordinates
             Assert.IsTrue(To7LetterFormat(36.0, 170.0).Equals("36N170E"));
             Assert.IsTrue(To7LetterFormat(-36.0, -170.0).Equals("36S170W"));
             Assert.IsTrue(To7LetterFormat(-36.0, 170.0).Equals("36S170E"));
+            Assert.IsTrue(To7LetterFormat(-6.0, 7.0).Equals("06S007E"));
         }
     }
 }
