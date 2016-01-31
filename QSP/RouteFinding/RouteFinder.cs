@@ -29,7 +29,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Add SID to wptList and returns the index of origin rwy.
         /// </summary>
-        private int addSid(string icao, string rwy, List<string> sid, SidHandler sidHandler)
+        private int addSid(string rwy, List<string> sid, SidHandler sidHandler)
         {
             return sidHandler.AddSidsToWptList(rwy, sid);
         }
@@ -37,7 +37,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Add STAR to wptList and returns the index of destination rwy.
         /// </summary>
-        private int addStar(string icao, string rwy, List<string> star, StarHandler starHandler)
+        private int addStar(string rwy, List<string> star, StarHandler starHandler)
         {
             return starHandler.AddStarsToWptList(rwy, star);
         }
@@ -45,11 +45,11 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route between two aiports, from ORIG to DEST.
         /// </summary>
-        public Route FindRoute(string origIcao, string origRwy, List<string> origSid, SidHandler sidHandler,
-                               string destIcao, string destRwy, List<string> destStar, StarHandler starHandler)
+        public Route FindRoute(string origRwy, List<string> origSid, SidHandler sidHandler,
+                               string destRwy, List<string> destStar, StarHandler starHandler)
         {
-            int origIndex = addSid(origIcao, origRwy, origSid, sidHandler);
-            int destIndex = addStar(destIcao, destRwy, destStar, starHandler);
+            int origIndex = addSid(origRwy, origSid, sidHandler);
+            int destIndex = addStar(destRwy, destStar, starHandler);
 
             var result = getRoute(origIndex, destIndex);
             wptList.Restore();
@@ -59,9 +59,9 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from an airport to a waypoint.
         /// </summary>
-        public Route FindRoute(string icao, string rwy, List<string> sid, SidHandler sidHandler, int wptIndex)
+        public Route FindRoute(string rwy, List<string> sid, SidHandler sidHandler, int wptIndex)
         {
-            int origIndex = addSid(icao, rwy, sid, sidHandler);
+            int origIndex = addSid(rwy, sid, sidHandler);
 
             var result = getRoute(origIndex, wptIndex);
             wptList.Restore();
@@ -71,9 +71,9 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from a waypoint to an airport.
         /// </summary>
-        public Route FindRoute(int wptIndex, string icao, string rwy, List<string> star, StarHandler starHandler)
+        public Route FindRoute(int wptIndex, string rwy, List<string> star, StarHandler starHandler)
         {
-            int endIndex = addStar(icao, rwy, star, starHandler);
+            int endIndex = addStar(rwy, star, starHandler);
             var result = getRoute(wptIndex, endIndex);
             wptList.Restore();
             return result;
@@ -222,9 +222,7 @@ namespace QSP.RouteFinding
         {
             public WaypointStatus[] WaypointData { get; private set; }
 
-            public routeFindingData()
-            {
-            }
+            public routeFindingData() { }
 
             /// <param name="Count">Total number of waypoints</param>
             public routeFindingData(int Count)

@@ -39,7 +39,7 @@ namespace QSP.RouteFinding.Routes
         {
             get
             {
-                return links.First.Value;
+                return links.First?.Value;
             }
         }
 
@@ -55,7 +55,7 @@ namespace QSP.RouteFinding.Routes
         {
             get
             {
-                return links.Last.Value;
+                return links.Last?.Value;
             }
         }
 

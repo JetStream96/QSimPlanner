@@ -42,8 +42,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             {
                 LatLon coord;
 
-                if (Format5Letter.TryReadFrom5LetterFormat(s[i], out coord) ||
-                    Format7Letter.TryReadFrom7LetterFormat(s[i], out coord))
+                if (Format7Letter.TryReadFrom7LetterFormat(s[i], out coord))
                 {
                     s[i] = coord.ToDecimalFormat();
                 }

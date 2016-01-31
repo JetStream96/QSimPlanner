@@ -5,6 +5,7 @@ using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Data;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.TakeOffPerfCalculation;
@@ -776,10 +777,11 @@ namespace QSP
             List<string> sid = getSidStarList(OrigSidComboBox);
             List<string> star = getSidStarList(DestStarComboBox);
 
-            RouteToDest = new ManagedRoute(new RouteFinder().FindRoute(
-                                    OrigTxtBox.Text, OrigRwyComboBox.Text, sid, SidHandlerFactory.GetHandler(OrigTxtBox.Text, AppSettings.NavDBLocation, WptList, AirportList),
-                                    DestTxtBox.Text, DestRwyComboBox.Text, star, StarHandlerFactory.GetHandler(DestTxtBox.Text, AppSettings.NavDBLocation, WptList, AirportList)),
+            RouteToDest = new ManagedRoute(new RouteFinderFacade(WptList, AirportList, AppSettings.NavDBLocation)
+                                           .FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid,
+                                                      DestTxtBox.Text, DestRwyComboBox.Text, star),
                                            TracksInUse);
+
             PMDGrteFile = FlightPlanExport.GeneratePmdgRteFile(RouteToDest);
 
             RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
@@ -807,9 +809,10 @@ namespace QSP
                                         .GetSidList(DestRwyComboBox.Text);
             var starAltn = getSidStarList(AltnStarComboBox);
 
-            RouteToAltn =new ManagedRoute( new RouteFinder().FindRoute(DestTxtBox.Text, DestRwyComboBox.Text, sids, SidHandlerFactory.GetHandler(DestTxtBox.Text, AppSettings.NavDBLocation, WptList, AirportList),
-                                                      AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn, StarHandlerFactory.GetHandler(AltnTxtBox.Text, AppSettings.NavDBLocation, WptList, AirportList)),
-                                                      TracksInUse);
+            RouteToAltn = new ManagedRoute(new RouteFinderFacade(WptList, AirportList, AppSettings.NavDBLocation)
+                                           .FindRoute(DestTxtBox.Text, DestRwyComboBox.Text, sids,
+                                                      AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn),
+                                           TracksInUse);
 
             RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
@@ -1066,8 +1069,10 @@ namespace QSP
 
                 try
                 {
-                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid,SidHandlerFactory.GetHandler(FromTxtbox.Text,AppSettings.NavDBLocation,WptList, AirportList), ToTxtbox.Text, ToRwyCBox.Text, star,StarHandlerFactory.GetHandler(ToTxtbox.Text, AppSettings.NavDBLocation, WptList, AirportList)),
-                        TracksInUse);
+                    ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(WptList, AirportList, AppSettings.NavDBLocation)
+                                                            .FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid,
+                                                                       ToTxtbox.Text, ToRwyCBox.Text, star),
+                                                            TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString();
                     double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
@@ -1106,8 +1111,10 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid, SidHandlerFactory.GetHandler(FromTxtbox.Text, AppSettings.NavDBLocation, WptList, AirportList),WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
-                        TracksInUse);
+                    ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(WptList, AirportList, AppSettings.NavDBLocation)
+                                                            .FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid,
+                                                                       WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
+                                                            TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(false, true);
                     double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
@@ -1145,8 +1152,10 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelFromCBox.Text);
 
-                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y), ToTxtbox.Text, ToRwyCBox.Text, star, StarHandlerFactory.GetHandler(ToTxtbox.Text, AppSettings.NavDBLocation, WptList, AirportList)),
-                        TracksInUse);
+                    ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(WptList, AirportList, AppSettings.NavDBLocation)
+                                                            .FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y),
+                                                                       ToTxtbox.Text, ToRwyCBox.Text, star),
+                                                            TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, false);
                     double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
@@ -1167,7 +1176,10 @@ namespace QSP
                     Vector2D u = extractLatLon(WptSelFromCBox.Text);
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    ManagedRoute myRoute =new ManagedRoute( new RouteFinder().FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y), WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
+                    ManagedRoute myRoute = new ManagedRoute(
+                        new RouteFinder(WptList,AirportList)
+                        .FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y),
+                                   WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
                         TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, true);
@@ -1204,10 +1216,17 @@ namespace QSP
             {
 
                 RouteDisplayRichTxtBox.Text = RouteDisplayRichTxtBox.Text.ToUpper();
-
-                AnalyzerWithCommands rteAnalyzer = new AnalyzerWithCommands(OrigTxtBox.Text, OrigRwyComboBox.Text, DestTxtBox.Text, DestRwyComboBox.Text, RouteDisplayRichTxtBox.Text);
-
-                RouteToDest = rteAnalyzer.Parse();
+                
+                RouteToDest = new ManagedRoute(
+                                    RouteAnalyzerFacade.AnalyzeWithCommands(RouteDisplayRichTxtBox.Text,
+                                                                            OrigTxtBox.Text,
+                                                                            OrigRwyComboBox.Text,
+                                                                            DestTxtBox.Text,
+                                                                            DestRwyComboBox.Text,
+                                                                            AppSettings.NavDBLocation,
+                                                                            AirportList,
+                                                                            WptList),
+                                    TracksInUse);
 
                 PMDGrteFile = FlightPlanExport.GeneratePmdgRteFile(RouteToDest);
                 RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);

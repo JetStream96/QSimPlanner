@@ -41,14 +41,14 @@ namespace QSP.RouteFinding.RouteAnalyzers
         private Waypoint destRwyWpt;
 
         public AnalyzerWithCommands(string[] route,
-                                     string origIcao,
-                                     string origRwy,
-                                     string destIcao,
-                                     string destRwy,
-                                     AirportManager airportList,
-                                     WaypointList wptList,
-                                     SidHandler sidHandler,
-                                     StarHandler starHandler)
+                                    string origIcao,
+                                    string origRwy,
+                                    string destIcao,
+                                    string destRwy,
+                                    AirportManager airportList,
+                                    WaypointList wptList,
+                                    SidHandler sidHandler,
+                                    StarHandler starHandler)
         {
             this.route = route;
             this.origIcao = origIcao;
@@ -196,16 +196,15 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 if (index == analyzed.Count - 1)
                 {
                     return routeFinder
-                          .FindRoute(origIcao, origRwy, sidHandler.SidCollection.GetSidList(origRwy), sidHandler,
-                                     destIcao, destRwy, starHandler.StarCollection.GetStarList(destRwy), starHandler);
+                           .FindRoute(origRwy, sidHandler.SidCollection.GetSidList(origRwy), sidHandler,
+                                      destRwy, starHandler.StarCollection.GetStarList(destRwy), starHandler);
                 }
                 else
                 {
                     int wptTo = wptList.FindByWaypoint(analyzed[index + 1].First.Waypoint);
 
                     return routeFinder
-                           .FindRoute(origIcao, origRwy, sidHandler.SidCollection.GetSidList(origRwy), sidHandler,
-                                      wptTo);
+                           .FindRoute(origRwy, sidHandler.SidCollection.GetSidList(origRwy), sidHandler, wptTo);
                 }
             }
             else
@@ -216,7 +215,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
                     return routeFinder
                           .FindRoute(wptFrom,
-                                     destIcao, destRwy, starHandler.StarCollection.GetStarList(destRwy), starHandler);
+                        destRwy, starHandler.StarCollection.GetStarList(destRwy), starHandler);
                 }
                 else
                 {

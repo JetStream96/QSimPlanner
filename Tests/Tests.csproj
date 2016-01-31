@@ -55,7 +55,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AirwayConnectionFinderTest.cs" />
-    <Compile Include="AnalyzerWithCommandsTest.cs" />
     <Compile Include="AviationTools\Coordinates\Format5LetterTest.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDecimalTest.cs" />
     <Compile Include="AviationTools\CoversionToolsTest.cs" />
@@ -77,7 +76,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RandomRouteFinderTest.cs" />
-    <Compile Include="RouteAnalyzerTest.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\AnalyzerWithCommandsTest.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectAnalyzerTest.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\BasicRouteAnalyzerTest.cs" />
