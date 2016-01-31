@@ -22,12 +22,13 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
             var adder = new SidAdder("AXYZ",
                                      new SidCollection(new List<SidEntry>()),
                                      wptList,
+                                     wptList.GetEditor(),
                                      GetAirportManager());
 
             int rwyIndex = adder.AddSidsToWptList("18", new List<string>());
-            
+
             // Check the SID is added as an edge
-            Assert.AreEqual(2,wptList.EdgesFromCount(rwyIndex));
+            Assert.AreEqual(2, wptList.EdgesFromCount(rwyIndex));
 
             foreach (var j in wptList.EdgesFrom(rwyIndex))
             {
@@ -37,8 +38,8 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
                 Assert.AreEqual("DCT", edge.value.Airway);
 
                 // Distance is correct
-                Assert.IsTrue(WithinPrecisionPercent(wptList.Distance(rwyIndex, edge.ToNodeIndex), 
-                                                     edge.value.Distance, 
+                Assert.IsTrue(WithinPrecisionPercent(wptList.Distance(rwyIndex, edge.ToNodeIndex),
+                                                     edge.value.Distance,
                                                      0.1));
             }
         }
@@ -54,7 +55,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
 
             return wptList;
         }
-        
+
         private WaypointList Case2WptList()
         {
             return Case1WptList();
@@ -73,6 +74,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
                                                                             EntryType.RwySpecific,
                                                                             true))),
                                      wptList,
+                                     wptList.GetEditor(),
                                      GetAirportManager());
 
             int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
@@ -82,7 +84,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
                                                        new LatLon(25.0150, 50.0800)));
 
             // Check the SID3 has been added with correct total distance.
-            Assert.AreEqual(2,wptList.EdgesFromCount(rwyIndex));
+            Assert.AreEqual(2, wptList.EdgesFromCount(rwyIndex));
 
             // Check the edges of last wpt 
 
@@ -95,7 +97,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
                                                      0.1));
             }
         }
-        
+
         [TestMethod]
         public void AddToWptListCase3()
         {
@@ -111,6 +113,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
                                                                             EntryType.RwySpecific,
                                                                             false))),
                                      wptList,
+                                     wptList.GetEditor(),
                                      GetAirportManager());
 
             int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
@@ -179,6 +182,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
                                                                             EntryType.RwySpecific,
                                                                             false))),
                                      wptList,
+                                     wptList.GetEditor(),
                                      GetAirportManager());
 
             int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
@@ -223,6 +227,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
                                                                             EntryType.RwySpecific,
                                                                             false))),
                                      wptList,
+                                     wptList.GetEditor(),
                                      GetAirportManager());
 
             int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
@@ -276,6 +281,6 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
             }
             return false;
         }
-        
+
     }
 }

@@ -21,33 +21,31 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
     {
         private string icao;
         private WaypointList wptList;
+        private WaypointListEditor editor;
         private AirportManager airportList;
         private StarCollection stars;
 
         private double SEARCH_RANGE_INCR;
         private double MAX_SEARCH_RANGE;
         private int TARGET_NUM;
-
-        public StarAdder(string icao, StarCollection stars) : this(icao, stars, WptList, AirportList)
+        
+        public StarAdder(string icao, StarCollection stars, WaypointList wptList, WaypointListEditor editor, AirportManager airportList)
+            : this(icao, stars, wptList,editor, airportList, WaypointAirwayConnector.MAX_SEARCH_RANGE, WaypointAirwayConnector.TARGET_NUM)
         {
         }
 
-        public StarAdder(string icao, StarCollection stars, WaypointList wptList, AirportManager airportList)
-            : this(icao, stars, wptList, airportList, WaypointAirwayConnector.MAX_SEARCH_RANGE, WaypointAirwayConnector.TARGET_NUM)
+        public StarAdder(string icao, StarCollection stars, WaypointList wptList, WaypointListEditor editor, AirportManager airportList, double maxSearchRange, int targetNumber)
+            : this(icao, stars, wptList,editor, airportList, maxSearchRange, targetNumber, WaypointAirwayConnector.SEARCH_RANGE_INCR)
         {
         }
 
-        public StarAdder(string icao, StarCollection stars, WaypointList wptList, AirportManager airportList, double maxSearchRange, int targetNumber)
-            : this(icao, stars, wptList, airportList, maxSearchRange, targetNumber, WaypointAirwayConnector.SEARCH_RANGE_INCR)
-        {
-        }
-
-        public StarAdder(string icao, StarCollection stars, WaypointList wptList, AirportManager airportList,
+        public StarAdder(string icao, StarCollection stars, WaypointList wptList, WaypointListEditor editor, AirportManager airportList,
                         double maxSearchRange, int targetNumber, double searchRangeIncrement)
         {
             this.icao = icao;
             this.stars = stars;
             this.wptList = wptList;
+            this.editor = editor;
             this.airportList = airportList;
             this.MAX_SEARCH_RANGE = maxSearchRange;
             this.TARGET_NUM = targetNumber;
@@ -79,7 +77,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             else
             {
                 // Case 2, 3, 4
-                int index = wptList.AddWaypoint(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
+                int index = editor.AddWaypoint(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
 
                 foreach (var i in starsToAdd)
                 {
@@ -101,11 +99,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             var rwyLatLon = airportList.RwyLatLon(icao, rwy);
             var nearbyWpts = findAirwayConnectionHelper(rwyLatLon.Lat, rwyLatLon.Lon);
 
-            int index = wptList.AddWaypoint(new Waypoint(icao + rwy, rwyLatLon));
+            int index = editor.AddWaypoint(new Waypoint(icao + rwy, rwyLatLon));
 
             foreach (var i in nearbyWpts)
             {
-                wptList.AddNeighbor(i.Index, index, new Neighbor("DCT", i.Distance));
+                editor.AddNeighbor(i.Index, index, new Neighbor("DCT", i.Distance));
             }
 
             return index;
@@ -121,7 +119,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             if (firstWptIndex < 0)
             {
                 // Case 4
-                firstWptIndex = wptList.AddWaypoint(firstWpt);
+                firstWptIndex = editor.AddWaypoint(firstWpt);
             }
 
             if (wptList.EdgesToCount(firstWptIndex) == 0)
@@ -129,11 +127,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
                 // Case 2                                 
                 foreach (var k in findAirwayConnectionHelper(firstWpt.Lat, firstWpt.Lon))
                 {
-                    wptList.AddNeighbor(k.Index, firstWptIndex, new Neighbor("DCT", k.Distance));
+                    editor.AddNeighbor(k.Index, firstWptIndex, new Neighbor("DCT", k.Distance));
                 }
             }
             // For case 2, 3 and 4
-            wptList.AddNeighbor(firstWptIndex, rwyIndex, new Neighbor(star, starInfo.TotalDistance));
+            editor.AddNeighbor(firstWptIndex, rwyIndex, new Neighbor(star, starInfo.TotalDistance));
 
         }
 
@@ -143,7 +141,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
 
             foreach (var i in endPoints)
             {
-                wptList.AddNeighbor(i.Index, rwyIndex, new Neighbor(star, i.Distance + disAdd));
+                editor.AddNeighbor(i.Index, rwyIndex, new Neighbor(star, i.Distance + disAdd));
             }
         }
 

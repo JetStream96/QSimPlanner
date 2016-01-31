@@ -12,11 +12,10 @@ namespace QSP.RouteFinding.AirwayStructure
 
         #endregion
 
-        public TrackerItem(ChangeCategory category)
+        public TrackerItem()
         {
             _addedWpt = new Stack<int>();
             _addedNeighbor = new Stack<int>();
-            this.Category = category;
         }
 
         public ReadOnlyStack<int> AddedWaypoint
@@ -28,9 +27,7 @@ namespace QSP.RouteFinding.AirwayStructure
         {
             get { return _addedNeighbor.AsReadOnly(); }
         }
-
-        public ChangeCategory Category { get; private set; }
-      
+        
         public void AddWaypointRecord(int index)
         {
             _addedWpt.Push(index);

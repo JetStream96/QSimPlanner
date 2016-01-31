@@ -9,18 +9,20 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
     {
         private string icao;
         private WaypointList wptList;
+        private WaypointListEditor editor;
         private AirportManager airportList;
 
         public SidCollection SidCollection { get; private set; }
-        
-        public SidHandler(string icao, string allTxt, WaypointList wptList, AirportManager airportList)
-            :this(icao,new SidReader(allTxt).Parse(), wptList, airportList)
+
+        public SidHandler(string icao, string allTxt, WaypointList wptList, WaypointListEditor editor, AirportManager airportList)
+            : this(icao, new SidReader(allTxt).Parse(), wptList, editor, airportList)
         { }
-        
-        public SidHandler(string icao, SidCollection SidCollection, WaypointList wptList, AirportManager airportList)
+
+        public SidHandler(string icao, SidCollection SidCollection, WaypointList wptList, WaypointListEditor editor, AirportManager airportList)
         {
             this.icao = icao;
             this.wptList = wptList;
+            this.editor = editor;
             this.airportList = airportList;
             this.SidCollection = SidCollection;
         }
@@ -40,7 +42,12 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// </summary>
         public int AddSidsToWptList(string rwy, List<string> sid)
         {
-            return new SidAdder(icao, SidCollection, wptList, airportList).AddSidsToWptList(rwy, sid);
+            return new SidAdder(icao, SidCollection, wptList, editor, airportList).AddSidsToWptList(rwy, sid);
+        }
+
+        public void UndoEdit()
+        {
+            editor.Undo();
         }
 
         /// <summary>

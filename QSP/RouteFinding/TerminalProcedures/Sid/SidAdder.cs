@@ -22,6 +22,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
     {
         private string icao;
         private WaypointList wptList;
+        private WaypointListEditor editor;
         private AirportManager airportList;
         private SidCollection sids;
 
@@ -29,22 +30,23 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         private double MAX_SEARCH_RANGE;
         private int TARGET_NUM;
         
-        public SidAdder(string icao, SidCollection sids, WaypointList wptList, AirportManager airportList)
-            : this(icao, sids, wptList, airportList, WaypointAirwayConnector.MAX_SEARCH_RANGE, WaypointAirwayConnector.TARGET_NUM)
+        public SidAdder(string icao, SidCollection sids, WaypointList wptList,WaypointListEditor editor, AirportManager airportList)
+            : this(icao, sids, wptList,editor, airportList, WaypointAirwayConnector.MAX_SEARCH_RANGE, WaypointAirwayConnector.TARGET_NUM)
         {
         }
 
-        public SidAdder(string icao, SidCollection sids, WaypointList wptList, AirportManager airportList, double maxSearchRange, int targetNumber)
-            : this(icao, sids, wptList, airportList, maxSearchRange, targetNumber, WaypointAirwayConnector.SEARCH_RANGE_INCR)
+        public SidAdder(string icao, SidCollection sids, WaypointList wptList, WaypointListEditor editor, AirportManager airportList, double maxSearchRange, int targetNumber)
+            : this(icao, sids, wptList,editor, airportList, maxSearchRange, targetNumber, WaypointAirwayConnector.SEARCH_RANGE_INCR)
         {
         }
 
-        public SidAdder(string icao, SidCollection sids, WaypointList wptList, AirportManager airportList,
+        public SidAdder(string icao, SidCollection sids, WaypointList wptList, WaypointListEditor editor, AirportManager airportList,
                         double maxSearchRange, int targetNumber, double searchRangeIncrement)
         {
             this.icao = icao;
             this.sids = sids;
             this.wptList = wptList;
+            this.editor = editor;
             this.airportList = airportList;
             this.MAX_SEARCH_RANGE = maxSearchRange;
             this.TARGET_NUM = targetNumber;
@@ -77,7 +79,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             else    
             {        
                 // Case 2, 3, 4, 5
-                int index = wptList.AddWaypoint(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
+                int index = editor.AddWaypoint(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
 
                 foreach (var i in sidsToAdd)
                 {
@@ -99,11 +101,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             var rwyLatLon = airportList.RwyLatLon(icao, rwy);
             var nearbyWpts = findAirwayConnectionHelper(rwyLatLon.Lat, rwyLatLon.Lon);
 
-            int index = wptList.AddWaypoint(new Waypoint(icao + rwy, rwyLatLon));
+            int index = editor.AddWaypoint(new Waypoint(icao + rwy, rwyLatLon));
 
             foreach (var i in nearbyWpts)
             {
-                wptList.AddNeighbor(index, i.Index, new Neighbor("DCT", i.Distance));
+                editor.AddNeighbor(index, i.Index, new Neighbor("DCT", i.Distance));
             }
 
             return index;
@@ -128,7 +130,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 if (lastWptIndex < 0)    
                 {                 
                     // Case 5
-                    lastWptIndex= wptList.AddWaypoint(lastWpt);
+                    lastWptIndex= editor.AddWaypoint(lastWpt);
                 }
 
                 if (wptList.EdgesFromCount(lastWptIndex) == 0)
@@ -136,11 +138,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                     // Case 3                                  
                     foreach (var k in findAirwayConnectionHelper(lastWpt.Lat, lastWpt.Lon))
                     {
-                        wptList.AddNeighbor(lastWptIndex, k.Index, new Neighbor("DCT", k.Distance));
+                        editor.AddNeighbor(lastWptIndex, k.Index, new Neighbor("DCT", k.Distance));
                     }
                 }
                 // Forcase 3, 4 and 5
-                wptList.AddNeighbor(rwyIndex, lastWptIndex, new Neighbor(sid, sidInfo.TotalDistance));
+                editor.AddNeighbor(rwyIndex, lastWptIndex, new Neighbor(sid, sidInfo.TotalDistance));
             }
         }
 
@@ -150,7 +152,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
             foreach (var i in endPoints)
             {
-                wptList.AddNeighbor(rwyIndex, i.Index, new Neighbor(sid, i.Distance + disAdd));
+                editor.AddNeighbor(rwyIndex, i.Index, new Neighbor(sid, i.Distance + disAdd));
             }
         }
 

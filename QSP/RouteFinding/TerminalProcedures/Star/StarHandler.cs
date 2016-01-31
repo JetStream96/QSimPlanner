@@ -10,18 +10,20 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
     {
         private string icao;
         private WaypointList wptList;
+        private WaypointListEditor editor;
         private AirportManager airportList;
 
         public StarCollection StarCollection { get; private set; }
 
-        public StarHandler(string icao, string allTxt, WaypointList wptList, AirportManager airportList)
-            : this(icao, new StarReader(allTxt).Parse(), wptList, airportList)
+        public StarHandler(string icao, string allTxt, WaypointList wptList, WaypointListEditor editor, AirportManager airportList)
+            : this(icao, new StarReader(allTxt).Parse(), wptList, editor, airportList)
         { }
 
-        public StarHandler(string icao, StarCollection StarCollection, WaypointList wptList, AirportManager airportList)
+        public StarHandler(string icao, StarCollection StarCollection, WaypointList wptList, WaypointListEditor editor, AirportManager airportList)
         {
             this.icao = icao;
             this.wptList = wptList;
+            this.editor = editor;
             this.airportList = airportList;
             this.StarCollection = StarCollection;
         }
@@ -41,7 +43,12 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         /// </summary>
         public int AddStarsToWptList(string rwy, List<string> star)
         {
-            return new StarAdder(icao, StarCollection, wptList, airportList).AddStarsToWptList(rwy, star);
+            return new StarAdder(icao, StarCollection, wptList, editor, airportList).AddStarsToWptList(rwy, star);
+        }
+
+        public void UndoEdit()
+        {
+            editor.Undo();
         }
 
         /// <summary>

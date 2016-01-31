@@ -24,8 +24,6 @@ namespace QSP.RouteFinding.AirwayStructure
         {
             try
             {
-                wptList.CurrentlyTracked = TrackChangesOption.No;
-
                 //add error handling
                 string[] allLines = File.ReadAllLines(filepath);
                 string currentAirway = "";
@@ -75,9 +73,6 @@ namespace QSP.RouteFinding.AirwayStructure
                         wptList.AddNeighbor(index1, index2, new Neighbor(currentAirway, dis));
                     }
                 }
-
-                wptList.CurrentlyTracked = TrackChangesOption.Yes;
-
             }
             catch (Exception ex)
             {

@@ -96,6 +96,7 @@
     <Compile Include="RouteFinding\Airports\Exceptions.cs" />
     <Compile Include="RouteFinding\Airports\FileLoader.cs" />
     <Compile Include="RouteFinding\AirwayStructure\Utilities.cs" />
+    <Compile Include="RouteFinding\AirwayStructure\WaypointListEditor.cs" />
     <Compile Include="RouteFinding\Communication\TogglerTrackCommunicator.cs" />
     <Compile Include="RouteFinding\Constants.cs" />
     <Compile Include="RouteFinding\AirwayStructure\AtsFileLoader.cs" />
@@ -223,7 +224,6 @@
     <Compile Include="RouteFinding\RandomRouteFinder.cs" />
     <Compile Include="RouteFinding\RouteFileWriter.cs" />
     <Compile Include="RouteFinding\RouteFinder.cs" />
-    <Compile Include="RouteFinding\AirwayStructure\ChangeTracker.cs" />
     <Compile Include="RouteFinding\Containers\Neighbor.cs" />
     <Compile Include="RouteFinding\Routes\ManagedRoute.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointList.cs" />

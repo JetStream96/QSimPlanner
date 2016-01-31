@@ -14,7 +14,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             try
             {
                 string allTxt = File.ReadAllText(fileLocation);
-                return new StarHandler(icao, allTxt, wptList, airportList);
+                return new StarHandler(icao, allTxt, wptList,wptList.GetEditor(), airportList);
             }
             catch (Exception ex)
             {

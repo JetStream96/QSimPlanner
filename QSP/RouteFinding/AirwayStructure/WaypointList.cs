@@ -22,7 +22,6 @@ namespace QSP.RouteFinding.AirwayStructure
         #region Fields
 
         private WaypointContainer _content;
-        private ChangeTracker _changeTracker;
         private LatLonSearchUtility<WptSeachWrapper> _finder;
 
         #endregion
@@ -30,21 +29,7 @@ namespace QSP.RouteFinding.AirwayStructure
         public WaypointList()
         {
             _content = new WaypointContainer();
-            _changeTracker = new ChangeTracker(this);
             _finder = new LatLonSearchUtility<WptSeachWrapper>(1, 5);
-        }
-
-        public TrackChangesOption CurrentlyTracked
-        {
-            get
-            {
-                return _changeTracker.CurrentlyTracked;
-            }
-
-            set
-            {
-                _changeTracker.CurrentlyTracked = value;
-            }
         }
 
         /// <summary>
@@ -64,8 +49,6 @@ namespace QSP.RouteFinding.AirwayStructure
         /// <exception cref="LoadWaypointFileException"></exception>
         public void ReadFixesFromFile(string filepath)
         {
-            CurrentlyTracked = TrackChangesOption.No;
-
             string[] allLines = File.ReadAllLines(filepath);
 
             foreach (var i in allLines)
@@ -82,7 +65,7 @@ namespace QSP.RouteFinding.AirwayStructure
                     double lat = ParseDouble(i, ref pos, ',');
                     double lon = ParseDouble(i, ref pos, ',');
 
-                    AddWaypoint(new Waypoint( id, lat, lon));
+                    AddWaypoint(new Waypoint(id, lat, lon));
                 }
                 catch (Exception ex)
                 {
@@ -91,35 +74,18 @@ namespace QSP.RouteFinding.AirwayStructure
                     throw new LoadWaypointFileException("Failed to load waypoints.txt.", ex);
                 }
             }
-            CurrentlyTracked = TrackChangesOption.Yes;
         }
 
-        private void addWptChanges(int index)
-        {
-            if (_changeTracker.CurrentlyTracked != TrackChangesOption.No)
-            {
-                _changeTracker.TrackWaypointAddition(index);
-            }
-            _finder.Add(new WptSeachWrapper(index, _content[index].Lat, _content[index].Lon));
-        }
-        
         public int AddWaypoint(Waypoint item)
         {
             int index = _content.AddWpt(item);
-            addWptChanges(index);
+            _finder.Add(new WptSeachWrapper(index, item.Lat, item.Lon));
             return index;
         }
-        
-        public void AddNeighbor(int indexFrom, int indexTo, Neighbor item)
+
+        public int AddNeighbor(int indexFrom, int indexTo, Neighbor item)
         {
-            if (_changeTracker.CurrentlyTracked != TrackChangesOption.No)
-            {
-                _changeTracker.TrackNeighborAddition(_content.AddNeighbor(indexFrom, indexTo, item));
-            }
-            else
-            {
-                _content.AddNeighbor(indexFrom, indexTo, item);
-            }
+            return _content.AddNeighbor(indexFrom, indexTo, item);
         }
 
         public Waypoint this[int index]
@@ -206,19 +172,14 @@ namespace QSP.RouteFinding.AirwayStructure
             return _content.FindAllByWaypoint(wpt);
         }
 
-        public void Restore()
-        {
-            _changeTracker.RevertChanges(ChangeCategory.Normal);
-        }
-
-        public void DisableTrack(TrackType type)
-        {
-            _changeTracker.RevertChanges(Utilities.ToChangeCategory(type));
-        }
-
         public List<WptSeachWrapper> Find(double lat, double lon, double distance)
         {
             return _finder.Find(lat, lon, distance);
+        }
+
+        public WaypointListEditor GetEditor()
+        {
+            return new WaypointListEditor(this);
         }
 
         public double Distance(int index1, int index2)

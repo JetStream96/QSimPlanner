@@ -52,7 +52,8 @@ namespace QSP.RouteFinding
             int destIndex = addStar(destRwy, destStar, starHandler);
 
             var result = getRoute(origIndex, destIndex);
-            wptList.Restore();
+            sidHandler.UndoEdit();
+            starHandler.UndoEdit();
             return result;
         }
 
@@ -64,7 +65,7 @@ namespace QSP.RouteFinding
             int origIndex = addSid(rwy, sid, sidHandler);
 
             var result = getRoute(origIndex, wptIndex);
-            wptList.Restore();
+            sidHandler.UndoEdit();
             return result;
         }
 
@@ -75,7 +76,7 @@ namespace QSP.RouteFinding
         {
             int endIndex = addStar(rwy, star, starHandler);
             var result = getRoute(wptIndex, endIndex);
-            wptList.Restore();
+            starHandler.UndoEdit();
             return result;
         }
 
@@ -85,7 +86,6 @@ namespace QSP.RouteFinding
         public Route FindRoute(int wptIndex1, int wptIndex2)
         {
             var result = getRoute(wptIndex1, wptIndex2);
-            wptList.Restore();
             return result;
         }
 

@@ -25,6 +25,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
             var adder = new StarAdder("AXYZ",
                                       new StarCollection(new List<StarEntry>()),
                                       wptList,
+                                      wptList.GetEditor(),
                                       GetAirportManager());
 
             int rwyIndex = adder.AddStarsToWptList("18", new List<string>());
@@ -76,6 +77,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
                                                                                         new Waypoint("WPT104", 25.0225, 50.1800)),
                                                                              EntryType.RwySpecific))),
                                      wptList,
+                                     wptList.GetEditor(),
                                      GetAirportManager());
 
             int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
@@ -142,6 +144,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
                                                                                         new Waypoint("WPT104", 25.0225, 50.1800)),
                                                                              EntryType.RwySpecific))),
                                       wptList,
+                                      wptList.GetEditor(),
                                       GetAirportManager());
 
             int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
@@ -185,6 +188,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
                                                                                         new Waypoint("WPT01", 25.0, 50.0)),
                                                                              EntryType.RwySpecific))),
                                       wptList,
+                                      wptList.GetEditor(),
                                       GetAirportManager());
 
             int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
