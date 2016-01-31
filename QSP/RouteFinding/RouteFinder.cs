@@ -8,18 +8,18 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using System;
 using System.Collections.Generic;
 using static QSP.RouteFinding.Constants;
-using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding
 {
+    // The distance computed by RouteFinder is based on the the values of edges in graph, 
+    // which directly comes from the text file and is only accurate to 2 decimal places.
+    // Therefore it may not be completely accurate. 
+    // 
     public class RouteFinder
     {
         private WaypointList wptList;
         private AirportManager airportList;
-
-        // TODO: remove this
-        public RouteFinder() : this(WptList, AirportList) { }
-
+        
         public RouteFinder(WaypointList wptList, AirportManager airportList)
         {
             this.wptList = wptList;
