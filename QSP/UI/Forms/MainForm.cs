@@ -5,6 +5,7 @@ using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Data;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
@@ -344,6 +345,8 @@ namespace QSP
             {
                 //loading the navigation database
                 QspCore.AppSettings = new AppOptions(XDocument.Load(QspCore.QspAppDataDirectory + "\\SavedStates\\options.xml"));
+
+                ServiceInitializer.Initailize();
 
                 new NavDataLoader(QspCore.AppSettings.NavDBLocation).LoadAllData();
                 //if success, update the status strip
@@ -1177,7 +1180,7 @@ namespace QSP
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
                     ManagedRoute myRoute = new ManagedRoute(
-                        new RouteFinder(WptList,AirportList)
+                        new RouteFinder(WptList, AirportList)
                         .FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y),
                                    WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
                         TracksInUse);
@@ -1216,7 +1219,7 @@ namespace QSP
             {
 
                 RouteDisplayRichTxtBox.Text = RouteDisplayRichTxtBox.Text.ToUpper();
-                
+
                 RouteToDest = new ManagedRoute(
                                     RouteAnalyzerFacade.AnalyzeWithCommands(RouteDisplayRichTxtBox.Text,
                                                                             OrigTxtBox.Text,

@@ -23,10 +23,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
     // 4. If the format is wrong, an InvalidIdentifierException will be thrown with an message 
     //    describing the place where the problem occurs.
     //
-    ////////// 5. It's not allowed to direct from one waypoint to another which is more than 500 nm away.
-    //////////    Otherwise a WaypointTooFarException is thrown.
-    //
-    // 6. It's necessary to specify the index of first waypoint in WptList. 
+    // 5. It's necessary to specify the index of first waypoint in WptList. 
     //    If the first entry is lat/lon (not in wptList), specifiy a negative index.
     //    If the ident of specified waypoint is different from the first word in route input string, 
     //    an ArgumentException will be thrown.
@@ -127,20 +124,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private bool tryappendWpt(Waypoint wpt)
         {
-            if (rte.Count > 0)
-            {
-                var last = rte.Last.Waypoint;
-
-                // Disabled currently
-
-                //if (GreatCircleDistance(wpt.Lat, wpt.Lon, last.Lat, last.Lon) > Constants.MAX_LEG_DIS)
-                //{
-                //    throw new WaypointTooFarException(
-                //        string.Format("Error: {0} is more than 500nm from the last waypoint, {1}",
-                //                      last.ID,
-                //                      wpt.ID));
-                //}
-            }
             rte.AddLastWaypoint(wpt, "DCT", true);
             return true;
         }

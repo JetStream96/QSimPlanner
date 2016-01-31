@@ -24,9 +24,10 @@ namespace QSP.RouteFinding
         public static NatsHandler NatsManager;
         public static PacotsHandler PacotsManager;
         public static AusotsHandler AusotsManager;
-        public static StatusRecorder TrackStatusRecorder = new StatusRecorder();
-        public static TrackInUseCollection TracksInUse = new TrackInUseCollection();
-        public static RouteTrackCommunicator RouteTrackCommunicator = new RouteTrackCommunicator(TracksInUse); //TODO: order of instantiation problem?
+
+        public static StatusRecorder TrackStatusRecorder;
+        public static TrackInUseCollection TracksInUse;
+        public static RouteTrackCommunicator RTCommunicator;
     }
 
 }

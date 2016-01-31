@@ -306,9 +306,9 @@ namespace QSP
 
         private static void initManagers()
         {
-            NatsManager = new NatsHandler(WptList, TrackStatusRecorder, AirportList, RouteTrackCommunicator);
-            PacotsManager = new PacotsHandler(WptList, TrackStatusRecorder, AirportList, RouteTrackCommunicator);
-            AusotsManager = new AusotsHandler(new AusotsDownloader(), WptList, TrackStatusRecorder, AirportList, RouteTrackCommunicator);
+            NatsManager = new NatsHandler(WptList, TrackStatusRecorder, AirportList, RTCommunicator);
+            PacotsManager = new PacotsHandler(WptList, TrackStatusRecorder, AirportList, RTCommunicator);
+            AusotsManager = new AusotsHandler(new AusotsDownloader(), WptList, TrackStatusRecorder, AirportList, RTCommunicator);
         }
         public TracksForm()
         {
