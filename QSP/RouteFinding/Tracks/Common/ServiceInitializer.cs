@@ -1,6 +1,9 @@
 ﻿using QSP.RouteFinding.Communication;
 using QSP.RouteFinding.Routes.Toggler;
+using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Tracks.Interaction;
+using QSP.RouteFinding.Tracks.Nats;
+using QSP.RouteFinding.Tracks.Pacots;
 using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding.Tracks.Common
@@ -9,9 +12,17 @@ namespace QSP.RouteFinding.Tracks.Common
     {
         public static void Initailize()
         {
+            initManagers();
             TrackStatusRecorder = new StatusRecorder();
             TracksInUse = new TrackInUseCollection();
             RTCommunicator = new RouteTrackCommunicator(TracksInUse);
+        }
+
+        private static void initManagers()
+        {
+            NatsManager = new NatsHandler(WptList, WptList.GetEditor(), TrackStatusRecorder, AirportList, RTCommunicator);
+            PacotsManager = new PacotsHandler(WptList, WptList.GetEditor(), TrackStatusRecorder, AirportList, RTCommunicator);
+            AusotsManager = new AusotsHandler(new AusotsDownloader(), WptList, WptList.GetEditor(), TrackStatusRecorder, AirportList, RTCommunicator);
         }
     }
 }

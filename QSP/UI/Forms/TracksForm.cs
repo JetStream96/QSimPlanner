@@ -1,8 +1,5 @@
 using QSP.Core;
-using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Tracks.Common;
-using QSP.RouteFinding.Tracks.Nats;
-using QSP.RouteFinding.Tracks.Pacots;
 using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
@@ -186,7 +183,6 @@ namespace QSP
             initImages();
             initCBox();
             initPBoxes();
-            initManagers();
 
             //initialize enums
             natsAvail = Severity.Advisory;
@@ -223,7 +219,7 @@ namespace QSP
             }
             else
             {
-                WptList.DisableTrack(TrackType.Nats);
+                NatsManager.UndoEdit();
             }
         }
 
@@ -236,7 +232,7 @@ namespace QSP
             }
             else
             {
-                WptList.DisableTrack(TrackType.Pacots);
+                PacotsManager.UndoEdit();
             }
 
         }
@@ -250,14 +246,12 @@ namespace QSP
             }
             else
             {
-                WptList.DisableTrack(TrackType.Ausots);
+               AusotsManager.UndoEdit();
             }
-
         }
 
         private async Task dnNats()
         {
-
             BtnNatsDn.Enabled = false;
             BtnNatsDn.Text = "Downloading";
 
@@ -266,12 +260,10 @@ namespace QSP
 
             BtnNatsDn.Enabled = true;
             BtnNatsDn.Text = "Download";
-
         }
 
         private async Task dnPacots()
         {
-
             BtnPacotsDn.Enabled = false;
             BtnPacotsDn.Text = "Downloading";
 
@@ -280,12 +272,10 @@ namespace QSP
 
             BtnPacotsDn.Enabled = true;
             BtnPacotsDn.Text = "Download";
-
         }
 
         private async Task dnAusots()
         {
-
             BtnAusotsDn.Enabled = false;
             BtnAusotsDn.Text = "Downloading";
 
@@ -294,7 +284,6 @@ namespace QSP
 
             BtnAusotsDn.Enabled = true;
             BtnAusotsDn.Text = "Download";
-
         }
 
         private void closeForm(object sender, System.ComponentModel.CancelEventArgs e)
@@ -303,13 +292,7 @@ namespace QSP
             e.Cancel = true;
             this.Hide();
         }
-
-        private static void initManagers()
-        {
-            NatsManager = new NatsHandler(WptList, TrackStatusRecorder, AirportList, RTCommunicator);
-            PacotsManager = new PacotsHandler(WptList, TrackStatusRecorder, AirportList, RTCommunicator);
-            AusotsManager = new AusotsHandler(new AusotsDownloader(), WptList, TrackStatusRecorder, AirportList, RTCommunicator);
-        }
+        
         public TracksForm()
         {
             Closing += closeForm;

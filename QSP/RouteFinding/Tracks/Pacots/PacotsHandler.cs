@@ -14,6 +14,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         #region Fields
 
         private WaypointList wptList;
+        private WaypointListEditor editor;
         private StatusRecorder recorder;
         private AirportManager airportList;
         private RouteTrackCommunicator communicator;
@@ -23,9 +24,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         #endregion
 
-        public PacotsHandler(WaypointList wptList, StatusRecorder recorder, AirportManager airportList, RouteTrackCommunicator communicator)
+        public PacotsHandler(WaypointList wptList, WaypointListEditor editor, StatusRecorder recorder, AirportManager airportList, RouteTrackCommunicator communicator)
         {
             this.wptList = wptList;
+            this.editor = editor;
             this.recorder = recorder;
             this.airportList = airportList;
             this.communicator = communicator;
@@ -93,13 +95,18 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public override void AddToWaypointList()
         {
-            new TrackAdder(wptList, recorder, TrackType.Pacots).AddToWaypointList(nodes);
+            new TrackAdder(wptList, editor, recorder, TrackType.Pacots).AddToWaypointList(nodes);
 
             foreach (var i in nodes)
             {
                 communicator.StageTrackData(i);
             }
             communicator.PushAllData(TrackType.Pacots);
+        }
+
+        public void UndoEdit()
+        {
+            editor.Undo();
         }
     }
 }

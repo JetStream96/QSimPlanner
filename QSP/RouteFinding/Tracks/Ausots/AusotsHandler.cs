@@ -16,6 +16,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         private IAusotsDownloader downloader;
         private WaypointList wptList;
+        private WaypointListEditor editor;
         private StatusRecorder recorder;
         private AirportManager airportList;
         private RouteTrackCommunicator communicator;
@@ -27,12 +28,14 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         public AusotsHandler(IAusotsDownloader downloader,
                              WaypointList wptList,
+                             WaypointListEditor editor,
                              StatusRecorder recorder,
                              AirportManager airportList,
                              RouteTrackCommunicator communicator)
         {
             this.downloader = downloader;
             this.wptList = wptList;
+            this.editor = editor;
             this.recorder = recorder;
             this.airportList = airportList;
             this.communicator = communicator;
@@ -103,13 +106,18 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         public override void AddToWaypointList()
         {
-            new TrackAdder(wptList, recorder, TrackType.Ausots).AddToWaypointList(nodes);
+            new TrackAdder(wptList,editor, recorder, TrackType.Ausots).AddToWaypointList(nodes);
 
             foreach (var i in nodes)
             {
                 communicator.StageTrackData(i);
             }
             communicator.PushAllData(TrackType.Ausots);
+        }
+
+        public void UndoEdit()
+        {
+            editor.Undo();
         }
     }
 }

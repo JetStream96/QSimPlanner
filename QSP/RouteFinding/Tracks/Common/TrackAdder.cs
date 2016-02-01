@@ -2,33 +2,30 @@
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Collections.Generic;
-using static QSP.RouteFinding.AirwayStructure.Utilities;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
-    public class TrackAdder 
+    public class TrackAdder
     {
         private WaypointList wptList;
+        private WaypointListEditor editor;
         private StatusRecorder recorder;
         private TrackType type;
-        
-        public TrackAdder(WaypointList wptList, StatusRecorder recorder,TrackType type)
+
+        public TrackAdder(WaypointList wptList, WaypointListEditor editor, StatusRecorder recorder, TrackType type)
         {
             this.wptList = wptList;
+            this.editor = editor;
             this.recorder = recorder;
             this.type = type;
         }
 
         public void AddToWaypointList<T>(T nodes) where T : IEnumerable<TrackNodes>
         {
-            wptList.DisableTrack(type);
-            wptList.CurrentlyTracked = ToTrackChangesOption(type);
-
             foreach (var i in nodes)
             {
                 addTrackToWptList(i);
             }
-            wptList.CurrentlyTracked = TrackChangesOption.No;
         }
 
         private void addTrackToWptList(TrackNodes item)
@@ -52,7 +49,7 @@ namespace QSP.RouteFinding.Tracks.Common
 
         private void addPairs(WptPair item)
         {
-            wptList.AddNeighbor(item.IndexFrom, item.IndexTo, new Neighbor("DCT", wptList.Distance(item.IndexFrom, item.IndexTo)));
+            editor.AddNeighbor(item.IndexFrom, item.IndexTo, new Neighbor("DCT", wptList.Distance(item.IndexFrom, item.IndexTo)));
         }
 
         private void addMainRoute(TrackNodes nodes)
@@ -62,7 +59,7 @@ namespace QSP.RouteFinding.Tracks.Common
             int indexStart = addFirstWpt(rte.First.Waypoint);
             int indexEnd = addLastWpt(rte.Last.Waypoint);
 
-            wptList.AddNeighbor(indexStart, indexEnd, new Neighbor(nodes.AirwayIdent, rte.TotalDistance));
+            editor.AddNeighbor(indexStart, indexEnd, new Neighbor(nodes.AirwayIdent, rte.TotalDistance));
         }
 
         //returns the index of added wpt in wptList
@@ -80,7 +77,7 @@ namespace QSP.RouteFinding.Tracks.Common
 
                     foreach (var m in k)
                     {
-                        wptList.AddNeighbor(m, x, new Neighbor("DCT", wptList.Distance(x, m)));
+                        editor.AddNeighbor(m, x, new Neighbor("DCT", wptList.Distance(x, m)));
                     }
                 }
                 return x;
@@ -100,7 +97,7 @@ namespace QSP.RouteFinding.Tracks.Common
 
                     foreach (var m in k)
                     {
-                        wptList.AddNeighbor(x, m, new Neighbor("DCT", wptList.Distance(x, m)));
+                        editor.AddNeighbor(x, m, new Neighbor("DCT", wptList.Distance(x, m)));
                     }
                 }
                 return x;

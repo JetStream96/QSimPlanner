@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QSP.RouteFinding.Containers;
+﻿using QSP.RouteFinding.Containers;
 
 namespace QSP.RouteFinding.AirwayStructure
 {
-   public class WaypointListEditor
+    public class WaypointListEditor
     {
         private WaypointList wptList;
         private TrackerItem tracker;
@@ -45,6 +40,9 @@ namespace QSP.RouteFinding.AirwayStructure
             {
                 wptList.RemoveAt(k);
             }
+
+            // Clear the tracker
+            tracker = new TrackerItem();
         }
     }
 }

@@ -95,12 +95,10 @@
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
     <Compile Include="RouteFinding\Airports\Exceptions.cs" />
     <Compile Include="RouteFinding\Airports\FileLoader.cs" />
-    <Compile Include="RouteFinding\AirwayStructure\Utilities.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointListEditor.cs" />
     <Compile Include="RouteFinding\Communication\TogglerTrackCommunicator.cs" />
     <Compile Include="RouteFinding\Constants.cs" />
     <Compile Include="RouteFinding\AirwayStructure\AtsFileLoader.cs" />
-    <Compile Include="RouteFinding\AirwayStructure\Enums.cs" />
     <Compile Include="RouteFinding\AirwayStructure\IndexDistancePair.cs" />
     <Compile Include="RouteFinding\AirwayStructure\TrackerItem.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointContainer.cs" />

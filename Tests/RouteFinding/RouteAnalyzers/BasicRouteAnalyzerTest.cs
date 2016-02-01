@@ -135,19 +135,7 @@ namespace Tests.RouteFinding.RouteAnalyzers
                           WithinPrecision(node.Value.Waypoint.Lon, -50.55, 1E-8) &&
                           node == route.LastNode);
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(WaypointTooFarException))]
-        public void WhenDistanceTooFarShouldThrowException()
-        {
-            // setup
-            var analyzer = new BasicRouteAnalyzer(new string[] { "N41W050", "N41W070" },
-                                                  new WaypointList(),
-                                                  -1);
-            // invoke 
-            var route = analyzer.Analyze();
-        }
-
+        
         [TestMethod]
         [ExpectedException(typeof(InvalidIdentifierException))]
         public void WhenIdentDoesNotExistShouldThrowException()

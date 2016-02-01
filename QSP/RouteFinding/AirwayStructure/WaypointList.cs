@@ -2,7 +2,6 @@ using QSP.AviationTools.Coordinates;
 using QSP.LibraryExtension.Graph;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
-using QSP.RouteFinding.Tracks.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;

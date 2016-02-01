@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using QSP.LibraryExtension;
+﻿using QSP.LibraryExtension;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.AirwayStructure
 {

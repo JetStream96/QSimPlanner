@@ -15,6 +15,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         #region Fields
 
         private WaypointList wptList;
+        private WaypointListEditor editor;
         private StatusRecorder recorder;
         private AirportManager airportList;
         private RouteTrackCommunicator communicator;
@@ -24,9 +25,10 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         #endregion
 
-        public NatsHandler(WaypointList wptList, StatusRecorder recorder, AirportManager airportList, RouteTrackCommunicator communicator)
+        public NatsHandler(WaypointList wptList, WaypointListEditor editor, StatusRecorder recorder, AirportManager airportList, RouteTrackCommunicator communicator)
         {
             this.wptList = wptList;
+            this.editor = editor;
             this.recorder = recorder;
             this.airportList = airportList;
             this.communicator = communicator;
@@ -64,7 +66,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         public override void AddToWaypointList()
         {
-            new TrackAdder(wptList, recorder, TrackType.Nats).AddToWaypointList(nodes);
+            new TrackAdder(wptList, editor, recorder, TrackType.Nats).AddToWaypointList(nodes);
 
             foreach (var i in nodes)
             {
@@ -100,6 +102,11 @@ namespace QSP.RouteFinding.Tracks.Nats
                 recorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to parse NATs.", TrackType.Nats);
                 throw new TrackParseException("Failed to parse Nats.", ex);
             }
+        }
+
+        public void UndoEdit()
+        {
+            editor.Undo();
         }
     }
 }
