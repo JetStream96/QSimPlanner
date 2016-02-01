@@ -37,8 +37,11 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         public override XDocument ToXml()
         {
-            return new XDocument(new XElement("Content", new XElement[] { new XElement("Westbound",WestMessage.ConvertToXml().Root),
-                                                                          new XElement("Eastbound",EastMessage.ConvertToXml().Root)}));
+            return new XDocument(
+                new XElement("Content", 
+                    new XElement[] {
+                        new XElement("Westbound",WestMessage.ConvertToXml().Root),
+                        new XElement("Eastbound",EastMessage.ConvertToXml().Root)}));
         }
     }
 }

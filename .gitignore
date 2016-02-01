@@ -8,3 +8,7 @@ QSP/obj
 Tests/bin
 Tests/obj
 ProfileReports/
+TrackBackupApp/bin
+TrackBackupApp/obj
+TrackBackupApp/nats
+TrackBackupApp/log.txt

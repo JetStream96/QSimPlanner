@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
-
     public class NatsHandler : TrackHandler
     {
         #region Fields
 
+        private INatsDownloader downloader;
         private WaypointList wptList;
         private WaypointListEditor editor;
         private StatusRecorder recorder;
@@ -25,8 +25,14 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         #endregion
 
-        public NatsHandler(WaypointList wptList, WaypointListEditor editor, StatusRecorder recorder, AirportManager airportList, RouteTrackCommunicator communicator)
+        public NatsHandler(INatsDownloader downloader,
+                            WaypointList wptList,
+                            WaypointListEditor editor,
+                            StatusRecorder recorder,
+                            AirportManager airportList,
+                            RouteTrackCommunicator communicator)
         {
+            this.downloader = downloader;
             this.wptList = wptList;
             this.editor = editor;
             this.recorder = recorder;
@@ -81,7 +87,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         {
             try
             {
-                rawData = (NatsMessage)new NatsDownloader().Download();
+                rawData = downloader.Download();
             }
             catch
             {

@@ -13,6 +13,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
     {
         #region Fields
 
+        private IPacotsDownloader downloader;
         private WaypointList wptList;
         private WaypointListEditor editor;
         private StatusRecorder recorder;
@@ -24,8 +25,14 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         #endregion
 
-        public PacotsHandler(WaypointList wptList, WaypointListEditor editor, StatusRecorder recorder, AirportManager airportList, RouteTrackCommunicator communicator)
+        public PacotsHandler(IPacotsDownloader downloader, 
+                            WaypointList wptList,
+                            WaypointListEditor editor,
+                            StatusRecorder recorder, 
+                            AirportManager airportList,
+                            RouteTrackCommunicator communicator)
         {
+            this.downloader = downloader;
             this.wptList = wptList;
             this.editor = editor;
             this.recorder = recorder;
@@ -52,7 +59,9 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 }
                 catch
                 {
-                    recorder.AddEntry(StatusRecorder.Severity.Caution, "Unable to interpret one track.", TrackType.Pacots);
+                    recorder.AddEntry(StatusRecorder.Severity.Caution, 
+                                      "Unable to interpret one track.",
+                                      TrackType.Pacots);
                 }
             }
         }
@@ -63,11 +72,13 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             try
             {
-                rawData = (PacotsMessage)new PacotsDownloader().Download();
+                rawData = downloader.Download();
             }
             catch
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download PACOTs.", TrackType.Pacots);
+                recorder.AddEntry(StatusRecorder.Severity.Critical, 
+                                  "Failed to download PACOTs.", 
+                                  TrackType.Pacots);
                 throw;
             }
         }
@@ -81,7 +92,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
             catch (Exception ex)
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to parse PACOTs.", TrackType.Pacots);
+                recorder.AddEntry(StatusRecorder.Severity.Critical, 
+                                  "Failed to parse PACOTs.", 
+                                  TrackType.Pacots);
+
                 throw new TrackParseException("Failed to parse Pacots.", ex);
             }
         }
@@ -95,7 +109,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public override void AddToWaypointList()
         {
-            new TrackAdder(wptList, editor, recorder, TrackType.Pacots).AddToWaypointList(nodes);
+            new TrackAdder(wptList, editor, recorder, TrackType.Pacots)
+                    .AddToWaypointList(nodes);
 
             foreach (var i in nodes)
             {

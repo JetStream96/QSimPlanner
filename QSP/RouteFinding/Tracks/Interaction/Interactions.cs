@@ -17,7 +17,9 @@ namespace QSP.RouteFinding.Tracks.Interaction
             }
             catch
             {
-                TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download NATs.", TrackType.Nats);
+                TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical,
+                                             "Failed to download NATs.", 
+                                             TrackType.Nats);
                 return;
             }
 

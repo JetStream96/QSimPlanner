@@ -20,9 +20,26 @@ namespace QSP.RouteFinding.Tracks.Common
 
         private static void initManagers()
         {
-            NatsManager = new NatsHandler(WptList, WptList.GetEditor(), TrackStatusRecorder, AirportList, RTCommunicator);
-            PacotsManager = new PacotsHandler(WptList, WptList.GetEditor(), TrackStatusRecorder, AirportList, RTCommunicator);
-            AusotsManager = new AusotsHandler(new AusotsDownloader(), WptList, WptList.GetEditor(), TrackStatusRecorder, AirportList, RTCommunicator);
+            NatsManager = new NatsHandler(new NatsDownloader(), 
+                                          WptList, 
+                                          WptList.GetEditor(), 
+                                          TrackStatusRecorder, 
+                                          AirportList, 
+                                          RTCommunicator);
+
+            PacotsManager = new PacotsHandler(new PacotsDownloader(),
+                                              WptList,
+                                              WptList.GetEditor(),
+                                              TrackStatusRecorder,
+                                              AirportList, 
+                                              RTCommunicator);
+
+            AusotsManager = new AusotsHandler(new AusotsDownloader(),
+                                              WptList, 
+                                              WptList.GetEditor(),
+                                              TrackStatusRecorder,
+                                              AirportList, 
+                                              RTCommunicator);
         }
     }
 }

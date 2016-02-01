@@ -48,11 +48,13 @@ namespace QSP.RouteFinding.Tracks.Nats
         public XDocument ConvertToXml()
         {
             return new XDocument(
-                        new XElement("Content", new XElement[] {
-                                                    new XElement("LastUpdated", LastUpdated),
-                                                    new XElement("Header", Header),
-                                                    new XElement("Direction", NatsDirectionString()),
-                                                    new XElement("Message", Message)}));
+                        new XElement(
+                            "Content", 
+                            new XElement[] {
+                                new XElement("LastUpdated", LastUpdated),
+                                new XElement("Header", Header),
+                                new XElement("Direction", NatsDirectionString()),
+                                new XElement("Message", Message)}));
         }        
     }
 }

@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using static QSP.LibraryExtension.Strings;
 using System.Net;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+using static QSP.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
     public class NatsDownloader : INatsDownloader
     {
-        private const string natsUrl = "https://www.notams.faa.gov/common/nat.html?";
+        public const string natsUrl = "https://www.notams.faa.gov/common/nat.html?";
         private const string natsWest = "http://qsimplan.somee.com/nats/Westbound.xml";
         private const string natsEast = "http://qsimplan.somee.com/nats/Eastbound.xml";
 
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        private static List<IndividualNatsMessage> DownloadFromWeb(string url)
+        public static List<IndividualNatsMessage> DownloadFromWeb(string url)
         {
             //the list contains either 1 or 2 item(s)
             var result = new List<IndividualNatsMessage>();
