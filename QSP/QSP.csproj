@@ -162,6 +162,7 @@
     <Compile Include="RouteFinding\Tracks\Nats\NatsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NorthAtlanticTrack.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Utilities\LatLonConverter.cs" />
+    <Compile Include="RouteFinding\Tracks\Nats\Utilities\MessageSplitter.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Constants.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\IPacotsDownloader.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsParser.cs" />

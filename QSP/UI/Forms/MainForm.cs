@@ -217,6 +217,7 @@ namespace QSP
             }
 
             LoadNavDBUpdateStatusStrip(true);
+            ServiceInitializer.Initailize();
             TakeOffPerfCalculation.LoadedData.Load();
             LandingPerfCalculation.LoadedData.Load();
 
@@ -345,9 +346,7 @@ namespace QSP
             {
                 //loading the navigation database
                 QspCore.AppSettings = new AppOptions(XDocument.Load(QspCore.QspAppDataDirectory + "\\SavedStates\\options.xml"));
-
-                ServiceInitializer.Initailize();
-
+                                
                 new NavDataLoader(QspCore.AppSettings.NavDBLocation).LoadAllData();
                 //if success, update the status strip
 

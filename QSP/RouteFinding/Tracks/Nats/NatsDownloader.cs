@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using static QSP.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
@@ -17,8 +16,9 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// <exception cref="TrackParseException"></exception>
         public static List<IndividualNatsMessage> DownloadFromWeb(string url)
         {
-            //the list contains either 1 or 2 item(s)
-            var result = new List<IndividualNatsMessage>();
+            // The list should normally contains either 1 or 2 item(s).
+            // But it's ok if it contains no item.
+
             string htmlStr;
 
             try
@@ -35,31 +35,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             try
             {
-                string time_updated = StringStartEndWith(htmlStr, "Last updated", "</i>", CutStringOptions.PreserveStart);
-                string general_info = StringStartEndWith(htmlStr, "The following are active North Atlantic Tracks", "</th>", CutStringOptions.PreserveStart);
-                if (htmlStr.IndexOf("EGGXZOZX") >= 0)
-                {
-                    string msg = CutString2(htmlStr, "EGGXZOZX", "</td>", false);
-                    msg = ReplaceString(msg, new string[] {
-                    "</font>",
-                    "<font color=\"#000099\">",
-                    new string((char)2,1),new string((char)3,1),new string((char)11,1)}, "");
-
-                    result.Add(new IndividualNatsMessage(time_updated, general_info, NatsDirection.West, msg));
-                }
-
-                if (htmlStr.IndexOf("CZQXZQZX") >= 0)
-                {
-                    string msg = CutString2(htmlStr, "CZQXZQZX", "</td>", false);
-                    msg = ReplaceString(msg, new string[]{
-                    "</font>",
-                    "<font color=\"#000099\">",
-                     new string((char)2,1),new string((char)3,1),new string((char)11,1) }, "");
-
-                    result.Add(new IndividualNatsMessage(time_updated, general_info, NatsDirection.East, msg));
-                }
-
-                return result;
+                return new Utilities.MessageSplitter(htmlStr).Split();
             }
             catch (Exception ex)
             {
@@ -67,27 +43,31 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
         }
 
-        //Repeated downloads is okay and will not cause any problem.
         private static List<IndividualNatsMessage> DownloadNatsMsg()
         {
             var natMsg = DownloadFromWeb(natsUrl);
 
-            if (natMsg.Count == 1)
+            if (natMsg.Count == 0)
             {
-                string downloadAdditional = null;
+                using (WebClient wc = new WebClient())
+                {
+                    natMsg.Add(new IndividualNatsMessage(
+                         XDocument.Parse(wc.DownloadString(natsWest))));
 
-                if (natMsg[0].Direction == NatsDirection.East)
-                {
-                    downloadAdditional = natsWest;
+                    natMsg.Add(new IndividualNatsMessage(
+                         XDocument.Parse(wc.DownloadString(natsEast))));
                 }
-                else
-                {
-                    downloadAdditional = natsEast;
-                }
+            }
+            else if (natMsg.Count == 1)
+            {
+                string downloadAdditional = natMsg[0].Direction == NatsDirection.East
+                    ? natsWest
+                    : natsEast;
 
                 using (WebClient wc = new WebClient())
                 {
-                    natMsg.Add(new IndividualNatsMessage(XDocument.Parse(wc.DownloadString(downloadAdditional))));
+                    natMsg.Add(new IndividualNatsMessage(
+                        XDocument.Parse(wc.DownloadString(downloadAdditional))));
                 }
             }
             return natMsg;

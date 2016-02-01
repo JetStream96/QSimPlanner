@@ -12,33 +12,33 @@ namespace QSP.RouteFinding.Tracks.Common
     {
         public static void Initailize()
         {
-            initManagers();
             TrackStatusRecorder = new StatusRecorder();
             TracksInUse = new TrackInUseCollection();
             RTCommunicator = new RouteTrackCommunicator(TracksInUse);
+            initManagers();
         }
 
         private static void initManagers()
         {
-            NatsManager = new NatsHandler(new NatsDownloader(), 
-                                          WptList, 
-                                          WptList.GetEditor(), 
-                                          TrackStatusRecorder, 
-                                          AirportList, 
+            NatsManager = new NatsHandler(new NatsDownloader(),
+                                          WptList,
+                                          WptList.GetEditor(),
+                                          TrackStatusRecorder,
+                                          AirportList,
                                           RTCommunicator);
 
             PacotsManager = new PacotsHandler(new PacotsDownloader(),
                                               WptList,
                                               WptList.GetEditor(),
                                               TrackStatusRecorder,
-                                              AirportList, 
+                                              AirportList,
                                               RTCommunicator);
 
             AusotsManager = new AusotsHandler(new AusotsDownloader(),
-                                              WptList, 
+                                              WptList,
                                               WptList.GetEditor(),
                                               TrackStatusRecorder,
-                                              AirportList, 
+                                              AirportList,
                                               RTCommunicator);
         }
     }

@@ -46,50 +46,7 @@ namespace QSP.LibraryExtension
             return s;
 
         }
-
-        /// <summary>
-        ///   Returns the substring such that:
-        ///     (1) the first line contains startStr 
-        ///     (2) ends with endStr
-        /// </summary>
-        public static string CutString2(string original, string startStr, string endStr, bool preserveEnd)
-        {
-
-            int x = original.IndexOf(startStr);
-            int y = original.IndexOf(endStr, x);
-
-            if (x == -1 | y == -1)
-            {
-                return null;
-            }
-
-
-            while (x > 0)
-            {
-                x--;
-                if (original[x] == '\n')
-                {
-                    x++;
-                    break;
-                }
-
-            }
-
-            string s = null;
-
-            if (preserveEnd == false)
-            {
-                s = original.Substring(x, y - x);
-            }
-            else
-            {
-                s = original.Substring(x, y - x + endStr.Length);
-            }
-
-            return s;
-
-        }
-
+        
         public static string CenterString(string item, int totalLength)
         {
             int len = item.Length;
@@ -173,7 +130,7 @@ namespace QSP.LibraryExtension
         /// <summary>
         /// Returns a new string where all occurence in oldValue is replaced by newValue.
         /// </summary>
-        public static string ReplaceString(string input, string[] oldValue, string newValue)
+        public static string ReplaceAny(this string input, string[] oldValue, string newValue)
         {
             string result = input;
 
@@ -184,7 +141,7 @@ namespace QSP.LibraryExtension
 
             return result;
         }
-
+                
         /// <summary>
         /// Returns a substring starting with the given index. Total number of elements examined is given by "length". 
         /// The returning string may be shorter than "length" since any item in ignoredItems is NOT added to resulting string.
