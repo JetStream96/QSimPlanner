@@ -2,10 +2,8 @@ using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.AirwayStructure;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using static QSP.LibraryExtension.Arrays;
-using static QSP.RouteFinding.Constants;
 using static QSP.MathTools.Utilities;
+using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
@@ -83,11 +81,6 @@ namespace QSP.RouteFinding.Tracks.Common
                     item.RemoveAt(i);
                 }
             }
-        }
-
-        public static List<string[]> SelectDistinct(List<string[]> item)
-        {
-            return item.Distinct(new ArrayComparer<string>()).ToList();
         }
     }
 }

@@ -225,7 +225,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 throw new ArgumentOutOfRangeException("The index is out of the bound of string.");
             }
 
-            for (int i = index; i <= len - 2; i++)
+            for (int i = index; i < len - 1; i++)
             {
                 if (item[i] == '\r' && item[i + 1] == '\n')
                 {

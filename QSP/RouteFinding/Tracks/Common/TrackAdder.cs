@@ -12,7 +12,10 @@ namespace QSP.RouteFinding.Tracks.Common
         private StatusRecorder recorder;
         private TrackType type;
 
-        public TrackAdder(WaypointList wptList, WaypointListEditor editor, StatusRecorder recorder, TrackType type)
+        public TrackAdder(WaypointList wptList, 
+                          WaypointListEditor editor, 
+                          StatusRecorder recorder, 
+                          TrackType type)
         {
             this.wptList = wptList;
             this.editor = editor;
@@ -49,7 +52,10 @@ namespace QSP.RouteFinding.Tracks.Common
 
         private void addPairs(WptPair item)
         {
-            editor.AddNeighbor(item.IndexFrom, item.IndexTo, new Neighbor("DCT", wptList.Distance(item.IndexFrom, item.IndexTo)));
+            editor.AddNeighbor(
+                item.IndexFrom, 
+                item.IndexTo, 
+                new Neighbor("DCT", wptList.Distance(item.IndexFrom, item.IndexTo)));
         }
 
         private void addMainRoute(TrackNodes nodes)
@@ -59,7 +65,9 @@ namespace QSP.RouteFinding.Tracks.Common
             int indexStart = addFirstWpt(rte.First.Waypoint);
             int indexEnd = addLastWpt(rte.Last.Waypoint);
 
-            editor.AddNeighbor(indexStart, indexEnd, new Neighbor(nodes.AirwayIdent, rte.TotalDistance));
+            editor.AddNeighbor(indexStart,
+                               indexEnd, 
+                               new Neighbor(nodes.AirwayIdent, rte.TotalDistance));
         }
 
         //returns the index of added wpt in wptList

@@ -15,11 +15,7 @@ namespace QSP.RouteFinding.Tracks.Common
             TrackStatusRecorder = new StatusRecorder();
             TracksInUse = new TrackInUseCollection();
             RTCommunicator = new RouteTrackCommunicator(TracksInUse);
-            initManagers();
-        }
 
-        private static void initManagers()
-        {
             NatsManager = new NatsHandler(new NatsDownloader(),
                                           WptList,
                                           WptList.GetEditor(),
@@ -40,6 +36,7 @@ namespace QSP.RouteFinding.Tracks.Common
                                               TrackStatusRecorder,
                                               AirportList,
                                               RTCommunicator);
-        }
+            
+        }        
     }
 }

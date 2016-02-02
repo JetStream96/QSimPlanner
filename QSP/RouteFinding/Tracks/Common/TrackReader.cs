@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Collections.ObjectModel;
-using System.Text;
-using QSP.RouteFinding.Routes;
-using QSP.RouteFinding.RouteAnalyzers;
-using QSP.RouteFinding.AirwayStructure;
 using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.RouteAnalyzers;
+using QSP.RouteFinding.Routes;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
 
 namespace QSP.RouteFinding.Tracks.Common
 {

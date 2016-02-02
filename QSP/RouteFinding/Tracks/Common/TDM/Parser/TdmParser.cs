@@ -44,7 +44,6 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
     // (6) After connecting routes, the remarks contains the part after "RMK/", to the end of string.
     //     If "RMK/" does not exist the remarks is am empty string.   
     //
-    // (7) All LatLon format is assumed to be 7-letter (like 25S133E), and will all be converted to 5-letter.
 
     public class TdmParser
     {

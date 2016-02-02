@@ -15,7 +15,10 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
         private ReadOnlyCollection<string> connectRoutes;
         private AirportManager airportList;
 
-        public ConnectionRouteInterpreter(string[] mainRoute, ReadOnlyCollection<string> connectRoutes, AirportManager airportList)
+        public ConnectionRouteInterpreter(
+                            string[] mainRoute, 
+                            ReadOnlyCollection<string> connectRoutes, 
+                            AirportManager airportList)
         {
             this.mainRoute = mainRoute;
             this.connectRoutes = connectRoutes;

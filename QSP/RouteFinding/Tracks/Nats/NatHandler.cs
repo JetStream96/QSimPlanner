@@ -1,10 +1,10 @@
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Communication;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using System;
 using System.Collections.Generic;
-using QSP.RouteFinding.Communication;
-using QSP.RouteFinding.Airports;
 using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.Tracks.Nats
@@ -58,7 +58,9 @@ namespace QSP.RouteFinding.Tracks.Nats
                 }
                 catch
                 {
-                    recorder.AddEntry(StatusRecorder.Severity.Caution, "Unable to interpret one track.", TrackType.Nats);
+                    recorder.AddEntry(StatusRecorder.Severity.Caution, 
+                                      "Unable to interpret one track.", 
+                                      TrackType.Nats);
                 }
             }
         }
@@ -91,7 +93,9 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             catch
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download NATs.", TrackType.Nats);
+                recorder.AddEntry(StatusRecorder.Severity.Critical, 
+                                  "Failed to download NATs.", 
+                                  TrackType.Nats);
                 throw;
             }
         }
