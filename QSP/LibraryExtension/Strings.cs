@@ -1,50 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace QSP.LibraryExtension
 {
-
     public static class Strings
     {
         public static string ShiftStringToRight(string str, int steps)
         {
             return new string(' ', steps) + str.Replace("\n", "\n" + new string(' ', steps));
-        }
-
-        public enum CutStringOptions
-        {
-            PreserveBoth,
-            PreserveStart,
-            PreserveEnd,
-            PreserveNone
-        }
-
-        /// <summary>
-        /// Returns the first occurence of string starting with startStr and ending with endStr.
-        /// </summary>
-        public static string StringStartEndWith(string original, string startStr, string endStr, CutStringOptions options)
-        {
-
-            int x = original.IndexOf(startStr);
-            int y = original.IndexOf(endStr, x);
-            string s = original.Substring(x, y - x + endStr.Length);
-
-            switch (options)
-            {
-                case CutStringOptions.PreserveStart:
-                    s = s.Replace(endStr, "");
-                    break;
-                case CutStringOptions.PreserveEnd:
-                    s = s.Replace(startStr, "");
-                    break;
-                case CutStringOptions.PreserveNone:
-                    s = s.Replace(endStr, "");
-                    s = s.Replace(startStr, "");
-                    break;
-            }
-
-            return s;
-
         }
         
         public static string CenterString(string item, int totalLength)
@@ -71,22 +35,26 @@ namespace QSP.LibraryExtension
         {
             int count = 0;
             int STR_LENGTH = target.Length;
-            int startIndex = -STR_LENGTH;
+            int index = 0;
 
-            while (startIndex != -1)
+            while (true)
             {
-                startIndex += STR_LENGTH;
-                startIndex = input.IndexOf(target, startIndex);
+                index = input.IndexOf(target, index);
+
+                if (index < 0)
+                {
+                    return -1;
+                }
                 count++;
 
                 if (count == n)
                 {
-                    return startIndex;
+                    return index;
                 }
+                index += STR_LENGTH;
             }
-            return -1;
         }
-        
+
         public static List<int> IndicesOf(this string item, string target, int index, int count)
         {
             List<int> result = new List<int>();
@@ -141,10 +109,36 @@ namespace QSP.LibraryExtension
 
             return result;
         }
-                
+
+        public static string ReplaceAny(this string input, char[] oldValue, string newValue)
+        {
+            var sb = new StringBuilder(input.Length);
+            int index = 0;
+
+            while (index < input.Length)
+            {
+                int tmp = input.IndexOfAny(oldValue, index);
+
+                if (tmp >= 0)
+                {
+                    sb.Append(input, index, tmp - index);
+                    sb.Append(newValue);
+                    index = tmp + 1;
+                }
+                else
+                {
+                    sb.Append(input, index, input.Length - index);
+                    break;
+                }
+            }
+            return sb.ToString();
+        }
+
         /// <summary>
-        /// Returns a substring starting with the given index. Total number of elements examined is given by "length". 
-        /// The returning string may be shorter than "length" since any item in ignoredItems is NOT added to resulting string.
+        /// Returns a substring starting with the given index. 
+        /// Total number of elements examined is given by "length". 
+        /// The returning string may be shorter than "length" since 
+        /// any item in ignoredItems is NOT added to resulting string.
         /// </summary>
         public static string Substring(this string item, int index, int length, char[] ignoredItems)
         {

@@ -25,18 +25,31 @@ namespace QSP.RouteFinding
         public Route FindRoute(string origIcao, string origRwy, List<string> sids,
                                string destIcao, string destRwy, List<string> stars)
         {
-            return finder.FindRoute(origRwy, sids, SidHandlerFactory.GetHandler(origIcao, navDataLocation, wptList, airportList),
-                                    destRwy, stars, StarHandlerFactory.GetHandler(destIcao, navDataLocation, wptList, airportList));
+            return finder.FindRoute(
+                origRwy, 
+                sids, 
+                SidHandlerFactory.GetHandler(origIcao, navDataLocation, wptList, airportList),
+                destRwy, 
+                stars, 
+                StarHandlerFactory.GetHandler(destIcao, navDataLocation, wptList, airportList));
         }
 
         public Route FindRoute(string icao, string rwy, List<string> sid, int wptIndex)
         {
-            return finder.FindRoute(rwy, sid, SidHandlerFactory.GetHandler(icao, navDataLocation, wptList, airportList), wptIndex);
+            return finder.FindRoute(
+                rwy,
+                sid, 
+                SidHandlerFactory.GetHandler(icao, navDataLocation, wptList, airportList), 
+                wptIndex);
         }
 
         public Route FindRoute(int wptIndex, string icao, string rwy, List<string> star)
         {
-            return finder.FindRoute(wptIndex, rwy, star, StarHandlerFactory.GetHandler(icao, navDataLocation, wptList, airportList));
+            return finder.FindRoute(
+                wptIndex,
+                rwy, 
+                star, 
+                StarHandlerFactory.GetHandler(icao, navDataLocation, wptList, airportList));
         }
     }
 }

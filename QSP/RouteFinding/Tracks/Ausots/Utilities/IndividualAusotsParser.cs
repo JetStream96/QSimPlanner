@@ -37,7 +37,11 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
         {
             var result = new TdmParser(text).Parse();
             var mainRoute = new MainRouteInterpreter(result.MainRoute).Convert();
-            var connectRoutes = new ConnectionRouteInterpreter(mainRoute, result.ConnectionRoutes, airportList).Convert();
+            var connectRoutes = new ConnectionRouteInterpreter(
+                                    mainRoute, 
+                                    result.ConnectionRoutes,
+                                    airportList)
+                                .Convert();
 
             if (TrackAvailble(mainRoute, result.Ident))
             {

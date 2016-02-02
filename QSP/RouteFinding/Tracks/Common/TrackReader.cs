@@ -30,10 +30,11 @@ namespace QSP.RouteFinding.Tracks.Common
             trk = item;
             mainRoute = readMainRoute(trk.MainRoute);
 
-            //The format of this part is rather unpredictable. For example, a route can even start with an airway:
-            //RTS/CYVR V317 QQ YZT JOWEN 
-            //...
-            //Since this part is not that important, we can allow it to fail and still ignore it.
+            // The format of this part is rather unpredictable. 
+            // For example, a route can even start with an airway:
+            // RTS/CYVR V317 QQ YZT JOWEN 
+            // ...
+            // Since this part is not that important, we can allow it to fail and still ignore it.
             try
             {
                 routeFromTo = findWptAllRouteFrom(trk.RouteFrom);

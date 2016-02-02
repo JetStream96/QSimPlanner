@@ -33,9 +33,10 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         public override XDocument ToXml()
         {
-            var doc = new XElement("Content", new XElement[]{
-                                                             new XElement("TrackSystem","AUSOTs"),
-                                                             new XElement("Text",AllText)});
+            var doc = new XElement(
+                        "Content", new XElement[]{
+                                new XElement("TrackSystem","AUSOTs"),
+                                new XElement("Text",AllText)});
             return new XDocument(doc);
         }
     }

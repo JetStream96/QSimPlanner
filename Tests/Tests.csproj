@@ -67,7 +67,6 @@
     <Compile Include="LibraryExtension\FixedIndexListTest.cs" />
     <Compile Include="LibraryExtension\GraphTest.cs" />
     <Compile Include="LibraryExtension\StringsTest.cs" />
-    <Compile Include="NatsWebAppTest.cs" />
     <Compile Include="PacotsHandlerTest.cs" />
     <Compile Include="PacotsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

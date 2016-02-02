@@ -39,17 +39,21 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             var result = new TdmParser(text).Parse();
             var mainRoute = new MainRouteInterpreter(result.MainRoute).Convert();
-            var connectRoutes = new ConnectionRouteInterpreter(mainRoute, result.ConnectionRoutes, airportList).Convert();
+
+            var connectRoutes = new ConnectionRouteInterpreter(mainRoute, 
+                                                               result.ConnectionRoutes,
+                                                               airportList)
+                                .Convert();
 
             return new PacificTrack(PacotDirection.Westbound,
-                                result.Ident,
-                                result.TimeStart,
-                                result.TimeEnd,
-                                cutOffTextAfterParenthesis(result.Remarks),
-                                Array.AsReadOnly(mainRoute),
-                                connectRoutes.RouteFrom.AsReadOnly(),
-                                connectRoutes.RouteTo.AsReadOnly(),
-                                Constants.US_LATLON);
+                                    result.Ident,
+                                    result.TimeStart,
+                                    result.TimeEnd,
+                                    cutOffTextAfterParenthesis(result.Remarks),
+                                    Array.AsReadOnly(mainRoute),
+                                    connectRoutes.RouteFrom.AsReadOnly(),
+                                    connectRoutes.RouteTo.AsReadOnly(),
+                                    Constants.US_LATLON);
         }
 
         private static string cutOffTextAfterParenthesis(string item)

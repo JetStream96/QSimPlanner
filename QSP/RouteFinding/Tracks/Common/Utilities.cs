@@ -11,7 +11,7 @@ namespace QSP.RouteFinding.Tracks.Common
 {
     public static class Utilities
     {
-        public static int ChooseSubsequentWpt(double prevLat, double prevLon, List<int> candidates,WaypointList wptList)
+        public static int ChooseSubsequentWpt(double prevLat, double prevLon, List<int> candidates, WaypointList wptList)
         {
             if (candidates == null || candidates.Count == 0)
             {

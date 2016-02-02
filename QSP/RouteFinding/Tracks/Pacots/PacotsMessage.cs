@@ -22,7 +22,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             tracksKZAK = new List<string>();
             tracksRJJJ = new List<string>();
         }
-        
+
         public PacotsMessage(string htmlFile) : this()
         {
             try
@@ -56,8 +56,9 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             int index = 0;
 
-            //get the general message
-            Header = Strings.StringStartEndWith(htmlFile, "The following are", "</tt>", CutStringOptions.PreserveStart);
+            //get the general message  
+            index = htmlFile.IndexOf("The following are");
+            Header = htmlFile.Substring(index, htmlFile.IndexOf("</") - index);
 
             //get the time stamp
             var timeInfo = GetTimeStamp(htmlFile, index);
