@@ -58,8 +58,8 @@ namespace QSP.RouteFinding.Tracks.Nats
                 }
                 catch
                 {
-                    recorder.AddEntry(StatusRecorder.Severity.Caution, 
-                                      "Unable to interpret one track.", 
+                    recorder.AddEntry(StatusRecorder.Severity.Caution,
+                                      string.Format("Unable to interpret track {0}.", i.Ident),
                                       TrackType.Nats);
                 }
             }
@@ -93,8 +93,8 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             catch
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical, 
-                                  "Failed to download NATs.", 
+                recorder.AddEntry(StatusRecorder.Severity.Critical,
+                                  "Failed to download NATs.",
                                   TrackType.Nats);
                 throw;
             }

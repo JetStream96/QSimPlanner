@@ -78,7 +78,9 @@ namespace QSP.RouteFinding.Tracks.Ausots
             }
             catch (Exception ex)
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to parse AUSOTs.", TrackType.Ausots);
+                recorder.AddEntry(StatusRecorder.Severity.Critical, 
+                                  "Failed to parse AUSOTs.", 
+                                  TrackType.Ausots);
                 throw new TrackParseException("Failed to parse Ausots.", ex);
             }
         }
@@ -92,7 +94,9 @@ namespace QSP.RouteFinding.Tracks.Ausots
             }
             catch (Exception ex)
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to download AUSOTs.", TrackType.Ausots);
+                recorder.AddEntry(StatusRecorder.Severity.Critical, 
+                                  "Failed to download AUSOTs.", 
+                                  TrackType.Ausots);
                 throw new TrackDownloadException("Failed to download Ausots.", ex);
             }
         }

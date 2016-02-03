@@ -14,32 +14,41 @@ namespace QSP.RouteFinding.Tracks.Interaction
             try
             {
                 await NatsManager.GetAllTracksAsync();
+                NatsManager.AddToWaypointList();
             }
             catch
             {
-                TrackStatusRecorder.AddEntry(StatusRecorder.Severity.Critical,
-                                             "Failed to download NATs.", 
-                                             TrackType.Nats);
-                return;
             }
-
-            NatsManager.AddToWaypointList();
         }
 
         public async static Task SetPacots()
         {
             TrackStatusRecorder.Clear(TrackType.Pacots);
             PacotsManager.UndoEdit();
-            await PacotsManager.GetAllTracksAsync();
-            PacotsManager.AddToWaypointList();
+
+            try
+            {
+                await PacotsManager.GetAllTracksAsync();
+                PacotsManager.AddToWaypointList();
+            }
+            catch
+            {
+            }
         }
 
         public async static Task SetAusots()
         {
             TrackStatusRecorder.Clear(TrackType.Ausots);
             AusotsManager.UndoEdit();
-            await AusotsManager.GetAllTracksAsync();
-            AusotsManager.AddToWaypointList();
+
+            try
+            {
+                await AusotsManager.GetAllTracksAsync();
+                AusotsManager.AddToWaypointList();
+            }
+            catch
+            {
+            }
         }
 
         public async static Task SetAllTracksAsync()
@@ -54,16 +63,56 @@ namespace QSP.RouteFinding.Tracks.Interaction
             Task taskP = PacotsManager.GetAllTracksAsync();
             Task taskA = AusotsManager.GetAllTracksAsync();
 
-            taskN.Start();
-            taskP.Start();
-            taskA.Start();
+            bool dnNats = true;
+            bool dnPacots = true;
+            bool dnAusots = true;
+
+            try
+            {
+                taskN.Start();
+            }
+            catch
+            {
+                dnNats = false;
+            }
+
+            try
+            {
+                taskP.Start();
+            }
+            catch
+            {
+                dnPacots = false;
+            }
+
+            try
+            {
+                taskA.Start();
+            }
+            catch
+            {
+                dnAusots = false;
+            }
 
             await Task.WhenAll(taskN, taskP, taskA);
 
-            // These tasks MUST be done sequentially, since WptList is not thread-safe
-            NatsManager.AddToWaypointList();
-            PacotsManager.AddToWaypointList();
-            AusotsManager.AddToWaypointList();
+            // AddToWaypointList methods MUST be done on main thread, 
+            // since WaypointList is not thread-safe.
+
+            if (dnNats)
+            {
+                NatsManager.AddToWaypointList();
+            }
+
+            if (dnPacots)
+            {
+                PacotsManager.AddToWaypointList();
+            }
+
+            if (dnAusots)
+            {
+                AusotsManager.AddToWaypointList();
+            }
         }
     }
 }

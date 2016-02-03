@@ -58,7 +58,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
             //get the general message  
             index = htmlFile.IndexOf("The following are");
-            Header = htmlFile.Substring(index, htmlFile.IndexOf("</") - index);
+            Header = htmlFile.Substring(index, htmlFile.IndexOf("</", index) - index);
 
             //get the time stamp
             var timeInfo = GetTimeStamp(htmlFile, index);
