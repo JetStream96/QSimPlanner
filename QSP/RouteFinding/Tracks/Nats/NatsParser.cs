@@ -5,6 +5,8 @@ using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Nats.Utilities;
 using System;
 using System.Collections.Generic;
+using QSP.LibraryExtension.StringParser;
+using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
@@ -51,19 +53,20 @@ namespace QSP.RouteFinding.Tracks.Nats
             var Message = msg.Message;
             var tracks = new List<NorthAtlanticTrack>();
 
-            for (int i = trkStartChar; i <= trkStartChar + 12; i++)
+            for (int i = trkStartChar; i < trkStartChar + 13; i++)
             {
                 int j = Message.IndexOf("\n" + (char)i + " ");
 
-                if (j == -1)
+                if (j < 0)
                 {
                     continue;
                 }
 
-                int k = Message.IndexOf('\n', j + 3);
+                var sp = new StringParser(Message);
+                sp.CurrentIndex = j + 2;
+                string s = sp.ReadString('\n');
 
-                string str = Message.Substring(j + 3, k - j - 3);
-                string[] wp = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] wp = s.Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
                 tryConvertNatsLatLon(wp);
 
                 tracks.Add(new NorthAtlanticTrack(msg.Direction,
@@ -76,16 +79,16 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             return tracks;
         }
-        
+
         private static void tryConvertNatsLatLon(string[] wpts)
         {
             for (int i = 0; i < wpts.Length; i++)
             {
                 LatLon latLon;
 
-                if (LatLonConverter.TryConvertNatsCoordinate(wpts[i],out latLon))     
+                if (LatLonConverter.TryConvertNatsCoordinate(wpts[i], out latLon))
                 {
-                    wpts[i] = latLon.AutoChooseFormat(); 
+                    wpts[i] = latLon.AutoChooseFormat();
                 }
             }
         }

@@ -109,7 +109,9 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             catch (Exception ex)
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical, "Failed to parse NATs.", TrackType.Nats);
+                recorder.AddEntry(StatusRecorder.Severity.Critical, 
+                                  "Failed to parse NATs.", 
+                                  TrackType.Nats);
                 throw new TrackParseException("Failed to parse Nats.", ex);
             }
         }
