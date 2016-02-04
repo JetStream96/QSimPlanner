@@ -1,11 +1,9 @@
-using QSP.LibraryExtension;
 using QSP.RouteFinding.Tracks.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Xml.Linq;
-using static QSP.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
@@ -61,83 +59,74 @@ namespace QSP.RouteFinding.Tracks.Pacots
             Header = htmlFile.Substring(index, htmlFile.IndexOf("</", index) - index);
 
             //get the time stamp
-            var timeInfo = GetTimeStamp(htmlFile, index);
-            TimeStamp = timeInfo.Item1;
-            index = timeInfo.Item2;
+            TimeStamp = GetTimeStamp(htmlFile, index);
 
             //KZAK part comes before RJJJ
             //goes to a line like this: "KZAK   OAKLAND OCA/FIR"
-            int KZAK_Part_Index = htmlFile.IndexOf("OAKLAND OCA/FIR", index);
-            int RJJJ_Part_Index = htmlFile.IndexOf("FUKUOKA/JCAB AIR TRAFFIC FLOW MANAGEMENT CENTRE", index);
+            int indexKZAK = htmlFile.IndexOf("OAKLAND OCA/FIR", index);
+            int indexRJJJ = htmlFile.IndexOf("FUKUOKA/JCAB AIR TRAFFIC FLOW MANAGEMENT CENTRE", index);
 
-            if (KZAK_Part_Index < RJJJ_Part_Index)
+            if (indexKZAK < indexRJJJ)
             {
                 //get track definition message (TDM) for KZAK part
-                getTDM(htmlFile, KZAK_Part_Index, RJJJ_Part_Index - 1, 0);
+                tracksKZAK = getTdm(htmlFile, indexKZAK, indexRJJJ, true);
 
                 //get RJJJ part
-                getTDM(htmlFile, RJJJ_Part_Index, htmlFile.Length - 1, 1);
+                tracksRJJJ = getTdm(htmlFile, indexRJJJ, htmlFile.Length - 1, false);
             }
             else
             {
                 //get RJJJ part
-                getTDM(htmlFile, RJJJ_Part_Index, KZAK_Part_Index - 1, 1);
+                tracksRJJJ = getTdm(htmlFile, indexRJJJ, indexKZAK, false);
 
                 //get track definition message (TDM) for KZAK part
-                getTDM(htmlFile, KZAK_Part_Index, htmlFile.Length - 1, 0);
+                tracksKZAK = getTdm(htmlFile, indexKZAK, htmlFile.Length - 1, true);
             }
         }
 
-        private void getTDM(string htmlFile, int startIndex, int endIndex, int part)
+        private List<string> getTdm(string htmlFile,
+                                             int startIndex,
+                                             int endIndex,
+                                             bool isWestbound)
         {
+            var tracks = new List<string>();
             int index = startIndex;
-            string findTarget = null;
-            List<string> trackList = null;
+            string searchWord = isWestbound ? "(TDM TRK" : "EASTBOUND";
 
-            if (part == 0)
+            while (true)
             {
-                findTarget = "(TDM TRK";
-                trackList = tracksKZAK;
-            }
-            else
-            {
-                findTarget = "EASTBOUND";
-                trackList = tracksRJJJ;
-            }
+                index = htmlFile.IndexOf(searchWord, index);
 
-            while (index <= endIndex)
-            {
-                index = htmlFile.IndexOf(findTarget, index);
-
-                if (index >= 0)
+                if (index >= 0 && index <= endIndex)
                 {
-                    int nextIndex = htmlFile.IndexOf("</PRE>", index);
-                    string tdm = htmlFile.Substring(index, nextIndex - index);
-                    trackList.Add(tdm);
-                    index = nextIndex;
+                    int end = htmlFile.IndexOf("</", index);
+
+                    if (end < 0)
+                    {
+                        end = htmlFile.Length - 1;
+                    }
+
+                    tracks.Add(htmlFile.Substring(index, end - index));
+                    index = end;
                 }
                 else
                 {
-                    break;
+                    return tracks;
                 }
             }
         }
 
-        private Pair<string, int> GetTimeStamp(string htmlFile, int startIndex)
+        private string GetTimeStamp(string htmlFile, int index)
         {
             try
             {
-                var index1 = htmlFile.IndexOf("Data Current as of", startIndex);
-                var index2 = htmlFile.IndexOf("</span>", index1);
-
-                var ignore1 = htmlFile.IndexOf("<", index1);
-                var ignore2 = htmlFile.IndexOf(">", ignore1);
-
-                return new Pair<string, int>(htmlFile.Substring(index1, ignore1 - index1) + htmlFile.Substring(ignore2 + 1, index2 - ignore2 - 1), index2);
+                index = htmlFile.IndexOf("Data Current as of:", index);
+                index = htmlFile.IndexOf('>', index) + 1;
+                return htmlFile.Substring(index, htmlFile.IndexOf("</", index));
             }
-            catch (Exception ex)
+            catch
             {
-                throw new ArgumentException("Unable to find the time stamp.", ex);
+                return "";
             }
         }
 
@@ -174,13 +163,14 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public override XDocument ToXml()
         {
-            var doc = new XElement("Content", new XElement[]{
-                                                             new XElement("TrackSystem","PACOTs"),
-                                                             new XElement("Header",Header),
-                                                             new XElement("TimeStamp",TimeStamp),
-                                                             new XElement("KZAK",GetXElement(tracksKZAK)),
-                                                             new XElement("RJJJ",GetXElement(tracksRJJJ))
-                                                            });
+            var doc = new XElement(
+                "Content", new XElement[]{
+                                new XElement("TrackSystem","PACOTs"),
+                                new XElement("Header",Header),
+                                new XElement("TimeStamp",TimeStamp),
+                                new XElement("KZAK",GetXElement(tracksKZAK)),
+                                new XElement("RJJJ",GetXElement(tracksRJJJ))
+                            });
             return new XDocument(doc);
         }
 

@@ -8,7 +8,7 @@ namespace Tests.RouteFinding.Tracks.Ausots
     public class AusotsMessageTest
     {
         [TestMethod]
-        public void WhenCallToStringHtmlTagShouldNotAppear()
+        public void ToStringHtmlTagShouldNotAppear()
         {
             var msg = new AusotsMessage(
 @"<pre>
@@ -22,7 +22,7 @@ TDM should appear here.
         }
 
         [TestMethod]
-        public void WhenCallToXmlFormatShouldBeCorrect()
+        public void ToXmlFormatShouldBeCorrect()
         {
             var msg = new AusotsMessage(
 @"<pre>

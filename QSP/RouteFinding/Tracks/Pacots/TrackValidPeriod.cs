@@ -39,7 +39,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             //returning string format: 11061200UTC
             int currentIndex = index;
             int matchCount = 0;
-            int ALL_MATCH_LEN = 11;
+            const int ALL_MATCH_LEN = 11;
 
             while (currentIndex >= 0 && currentIndex < item.Length)
             {
@@ -80,20 +80,12 @@ namespace QSP.RouteFinding.Tracks.Pacots
             {
                 return (currentChar >= '0' && currentChar <= '9');
             }
-            else if (matchCount == 8 && currentChar == 'U')
+            else
             {
-                return true;
-            }
-            else if (matchCount == 9 && currentChar == 'T')
-            {
-                return true;
-            }
-            else if (matchCount == 10 && currentChar == 'C')
-            {
-                return true;
-            }
-            return false;
+                return (matchCount == 8 && currentChar == 'U') ||
+                       (matchCount == 9 && currentChar == 'T') ||
+                       (matchCount == 10 && currentChar == 'C');
+            }            
         }
-
     }
 }

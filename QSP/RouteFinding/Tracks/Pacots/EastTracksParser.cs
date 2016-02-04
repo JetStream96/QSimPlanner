@@ -351,11 +351,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
             index += "TRACK".Length;
 
             bool flag = true;
-            int n = 0;
-
+           
             while (index >= 0 && index < msg.Length)
             {
-                n = msg[index] - 48;
+               int n = msg[index] - '0';
 
                 if (n >= 0 && n <= 9)
                 {

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding.Tracks.Nats.Utilities;
 using QSP.RouteFinding.Tracks.Nats;
 using System.Collections.Generic;
