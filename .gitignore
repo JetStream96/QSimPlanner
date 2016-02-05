@@ -2,8 +2,8 @@
 *.psess
 *.vsp
 
-*/bin
-*/obj
+bin/
+obj/
 /TestResults
 ProfileReports/
 TrackBackupApp/nats

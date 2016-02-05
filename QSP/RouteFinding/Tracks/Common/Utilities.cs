@@ -3,7 +3,6 @@ using QSP.RouteFinding.AirwayStructure;
 using System;
 using System.Collections.Generic;
 using static QSP.MathTools.Utilities;
-using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
