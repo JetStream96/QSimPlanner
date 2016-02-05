@@ -22,10 +22,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
     public class WestTrackParser
     {
-        // TODO:
-        // UPR means upper (airway). This should be ignored when parsing routeFrom/To.
-        private static string[] SPECIAL_WORD = { "UPR" };
-
         private AirportManager airportList;
         private string text;
 

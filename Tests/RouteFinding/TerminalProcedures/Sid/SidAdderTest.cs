@@ -35,11 +35,11 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
                 var edge = wptList.GetEdge(j);
 
                 // Name is DCT 
-                Assert.AreEqual("DCT", edge.value.Airway);
+                Assert.AreEqual("DCT", edge.Value.Airway);
 
                 // Distance is correct
                 Assert.IsTrue(WithinPrecisionPercent(wptList.Distance(rwyIndex, edge.ToNodeIndex),
-                                                     edge.value.Distance,
+                                                     edge.Value.Distance,
                                                      0.1));
             }
         }
@@ -91,9 +91,9 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
             foreach (var i in wptList.EdgesFrom(rwyIndex))
             {
                 var edge = wptList.GetEdge(i);
-                Assert.AreEqual("SID1", edge.value.Airway);
+                Assert.AreEqual("SID1", edge.Value.Airway);
                 Assert.IsTrue(WithinPrecisionPercent(distance + new LatLon(25.0150, 50.0800).Distance(wptList[edge.ToNodeIndex].LatLon),
-                                                     edge.value.Distance,
+                                                     edge.Value.Distance,
                                                      0.1));
             }
         }
@@ -136,9 +136,9 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
             foreach (var i in wptList.EdgesFrom(index))
             {
                 var edge = wptList.GetEdge(i);
-                Assert.AreEqual("DCT", edge.value.Airway);
+                Assert.AreEqual("DCT", edge.Value.Airway);
                 Assert.IsTrue(WithinPrecisionPercent(new LatLon(25.0225, 50.1800).Distance(wptList[edge.ToNodeIndex].LatLon),
-                                                     edge.value.Distance,
+                                                     edge.Value.Distance,
                                                      0.1));
             }
         }
@@ -207,9 +207,9 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
             foreach (var i in wptList.EdgesFrom(index))
             {
                 var edge = wptList.GetEdge(i);
-                Assert.AreEqual("DCT", edge.value.Airway);
+                Assert.AreEqual("DCT", edge.Value.Airway);
                 Assert.IsTrue(WithinPrecisionPercent(new LatLon(25.0225, 50.1800).Distance(wptList[edge.ToNodeIndex].LatLon),
-                                                     edge.value.Distance,
+                                                     edge.Value.Distance,
                                                      0.1));
             }
         }
@@ -274,7 +274,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Sid
             {
                 var edge = wptList.GetEdge(i);
 
-                if (edge.value.Airway == name && WithinPrecisionPercent(dis, edge.value.Distance, 0.0001))
+                if (edge.Value.Airway == name && WithinPrecisionPercent(dis, edge.Value.Distance, 0.0001))
                 {
                     return true;
                 }

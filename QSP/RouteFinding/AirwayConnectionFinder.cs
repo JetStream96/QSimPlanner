@@ -86,7 +86,7 @@ namespace QSP.RouteFinding
                 foreach (int i in wptList.EdgesFrom(currentIndex))
                 {
                     var edge = wptList.GetEdge(i);
-                    var n = edge.value;
+                    var n = edge.Value;
                     int index = edge.ToNodeIndex;
 
                     if (n.Airway == airway && index != prevIndex)

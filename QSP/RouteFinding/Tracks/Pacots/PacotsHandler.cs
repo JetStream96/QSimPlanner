@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
+    // TODO: Sometimes one track may have 2 simliar entries in the html code.
+    // One of them may be correctly parsed and the other can fail.
+    // 
     public class PacotsHandler : TrackHandler
     {
         #region Fields
@@ -25,10 +28,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         #endregion
 
-        public PacotsHandler(IPacotsDownloader downloader, 
+        public PacotsHandler(IPacotsDownloader downloader,
                             WaypointList wptList,
                             WaypointListEditor editor,
-                            StatusRecorder recorder, 
+                            StatusRecorder recorder,
                             AirportManager airportList,
                             RouteTrackCommunicator communicator)
         {
@@ -59,8 +62,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 }
                 catch
                 {
-                    recorder.AddEntry(StatusRecorder.Severity.Caution, 
-                                      "Unable to interpret one track.",
+                    recorder.AddEntry(StatusRecorder.Severity.Caution,
+                                      string.Format("Unable to interpret track {0}.", i.Ident),
                                       TrackType.Pacots);
                 }
             }
@@ -76,8 +79,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
             catch
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical, 
-                                  "Failed to download PACOTs.", 
+                recorder.AddEntry(StatusRecorder.Severity.Critical,
+                                  "Failed to download PACOTs.",
                                   TrackType.Pacots);
                 throw;
             }
@@ -92,8 +95,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
             catch (Exception ex)
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical, 
-                                  "Failed to parse PACOTs.", 
+                recorder.AddEntry(StatusRecorder.Severity.Critical,
+                                  "Failed to parse PACOTs.",
                                   TrackType.Pacots);
 
                 throw new TrackParseException("Failed to parse Pacots.", ex);

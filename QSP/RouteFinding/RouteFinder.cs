@@ -193,17 +193,17 @@ namespace QSP.RouteFinding
 
                 if (wptWithinRange(index, regionPara))
                 {
-                    double newDis = currentDis + edge.value.Distance;
+                    double newDis = currentDis + edge.Value.Distance;
 
                     if (Math.Abs(wptData[index].CurrentDistance - MAX_DIS) < 1E-3 && newDis < MAX_DIS)
                     {
                         unvisited.Insert(index, newDis);
-                        wptData[index] = new routeFindingData.WaypointStatus(currentWptIndex, edge.value.Airway, newDis);
+                        wptData[index] = new routeFindingData.WaypointStatus(currentWptIndex, edge.Value.Airway, newDis);
                     }
                     else if (unvisited.ItemExists(index) && newDis < unvisited.GetElement(index).Value)
                     {
                         unvisited.ReplaceValue(index, newDis);
-                        wptData[index] = new routeFindingData.WaypointStatus(currentWptIndex, edge.value.Airway, newDis);
+                        wptData[index] = new routeFindingData.WaypointStatus(currentWptIndex, edge.Value.Airway, newDis);
                     }
                 }
             }

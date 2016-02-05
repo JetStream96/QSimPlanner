@@ -94,6 +94,7 @@
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\MessageSplitterTest.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\ConnectionRouteInterpreterTest.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\TdmParserTest.cs.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TrackAdderTest.cs" />
     <Compile Include="RouteFinding\Tracks\Interaction\StatusRecorderTest.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Utilities\LatLonConverterTest.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Utilities\MessageSplitterTest.cs" />

@@ -1,17 +1,14 @@
+using QSP.LibraryExtension;
+using QSP.RouteFinding.Airports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.LibraryExtension;
 using static QSP.LibraryExtension.StringParser.Utilities;
-using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
     public class EastTracksParser
     {
-        //UPR means upper (airway). This should be ignored when parsing routeFrom/To.
-        private static string[] SPECIAL_WORD = { "UPR" };
-
         private AirportManager airportList;
 
         public EastTracksParser(AirportManager airportList)
@@ -158,22 +155,22 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 {
                     if (airportList.Find(words[0]) != null)
                     {
-                        return new Tuple<string[], int>(words.SubArray(1, words.Length - 1, SPECIAL_WORD), 0);
+                        return new Tuple<string[], int>(words.SubArray(1, words.Length - 1), 0);
                     }
                     else
                     {
-                        return new Tuple<string[], int>(words.Exclude(SPECIAL_WORD), 0);
+                        return new Tuple<string[], int>(words, 0);
                     }
                 }
                 else if (words[0] == mainRoute.Last() && words.Length > 1)
                 {
                     if (airportList.Find(words.Last()) != null)
                     {
-                        return new Tuple<string[], int>(words.SubArray(0, words.Length - 1, SPECIAL_WORD), 1);
+                        return new Tuple<string[], int>(words.SubArray(0, words.Length - 1), 1);
                     }
                     else
                     {
-                        return new Tuple<string[], int>(words.Exclude(SPECIAL_WORD), 1);
+                        return new Tuple<string[], int>(words, 1);
                     }
                 }
             }
@@ -304,10 +301,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
             //TRACK 1.
 
             List<trackIdent> result = new List<trackIdent>();
-           
+
             while (index < msg.Length)
             {
-               trackIdent t = tryReadNextNum(msg, index);
+                trackIdent t = tryReadNextNum(msg, index);
 
                 if (t != null)
                 {
@@ -351,10 +348,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
             index += "TRACK".Length;
 
             bool flag = true;
-           
+
             while (index >= 0 && index < msg.Length)
             {
-               int n = msg[index] - '0';
+                int n = msg[index] - '0';
 
                 if (n >= 0 && n <= 9)
                 {

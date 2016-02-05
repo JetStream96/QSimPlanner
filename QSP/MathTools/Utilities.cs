@@ -7,7 +7,7 @@ using static QSP.AviationTools.Coordinates.Constants;
 namespace QSP.MathTools
 {
     public static class Utilities
-    {       
+    {
         public static double ToRadian(double t)
         {
             return t * PIOver180;

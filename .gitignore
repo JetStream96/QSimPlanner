@@ -2,13 +2,9 @@
 *.psess
 *.vsp
 
-QSP/bin
-QSP/obj
+*/bin
+*/obj
 /TestResults
-Tests/bin
-Tests/obj
 ProfileReports/
-TrackBackupApp/bin
-TrackBackupApp/obj
 TrackBackupApp/nats
 TrackBackupApp/log.txt

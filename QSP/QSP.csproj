@@ -103,6 +103,7 @@
     <Compile Include="RouteFinding\AirwayStructure\TrackerItem.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointContainer.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WptSeachWrapper.cs" />
+    <Compile Include="RouteFinding\Containers\ExtensionMethods.cs" />
     <Compile Include="RouteFinding\Data\Interfaces\ExtensionMethods.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\AnalyzerWithCommands.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectAnalyzer.cs" />

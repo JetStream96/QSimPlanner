@@ -191,7 +191,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             foreach (var i in wptList.EdgesFrom(lastWpt))
             {
-                if (wptList.GetEdge(i).value.Airway == airway)
+                if (wptList.GetEdge(i).Value.Airway == airway)
                 {
                     lastAwy = airway;
                     return true;

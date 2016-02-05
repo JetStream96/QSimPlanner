@@ -85,9 +85,9 @@ namespace QSP.RouteFinding.Tracks.Pacots
         }
 
         private List<string> getTdm(string htmlFile,
-                                             int startIndex,
-                                             int endIndex,
-                                             bool isWestbound)
+                                    int startIndex,
+                                    int endIndex,
+                                    bool isWestbound)
         {
             var tracks = new List<string>();
             int index = startIndex;

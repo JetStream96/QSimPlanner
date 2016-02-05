@@ -166,5 +166,26 @@ namespace QSP.LibraryExtension
                 return GetHashCode();
             }
         }
+
+        /// <summary>
+        /// Remove any array which is null, or has less elements than minLength.
+        /// </summary>
+        public static void RemoveTinyArray<T>(this List<T[]> item, int minLength)
+        {
+            int lastIndex = item.Count - 1;
+
+            if (lastIndex < 0)
+            {
+                return;
+            }
+
+            for (int i = lastIndex; i >= 0; i--)
+            {
+                if (item[i] == null || item[i].Length < minLength)
+                {
+                    item.RemoveAt(i);
+                }
+            }
+        }
     }
 }

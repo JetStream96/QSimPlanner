@@ -87,15 +87,19 @@ namespace QSP.RouteFinding.Tracks.Common
             {
                 throw new TrackWaypointNotFoundException("Waypoint not found.");
             }
-
-            return Utilities.ChooseSubsequentWpt(prevLat, prevLon, candidates,wptList);
+            return Utilities.ChooseSubsequentWpt(prevLat, prevLon, candidates, wptList);
         }
 
         private bool isAirway(int lastIndex, string airway)
         {
+            if (airway == "UPR")
+            {
+                return true;
+            }
+
             foreach (var i in wptList.EdgesFrom(lastIndex))
             {
-                if (wptList.GetEdge(i).value.Airway == airway)
+                if (wptList.GetEdge(i).Value.Airway == airway)
                 {
                     return true;
                 }
@@ -139,14 +143,14 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             LatLon latLon = trk.PreferredFirstLatLon;
             return new AutoSelectAnalyzer(new CoordinateFormatter(
-                                                 combineArray(rte)).Split(), 
-                                                 latLon.Lat, 
-                                                 latLon.Lon, 
+                                                 combineArray(rte)).Split(),
+                                                 latLon.Lat,
+                                                 latLon.Lon,
                                                  wptList)
                                           .Analyze();
         }
 
-        private string combineArray(ReadOnlyCollection<string> item)
+        private static string combineArray(ReadOnlyCollection<string> item)
         {
             var result = new StringBuilder();
 
@@ -154,7 +158,6 @@ namespace QSP.RouteFinding.Tracks.Common
             {
                 result.Append(i + " ");
             }
-
             return result.ToString();
         }
 

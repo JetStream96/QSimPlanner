@@ -40,9 +40,9 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
             foreach (var i in wptList.EdgesFrom(wptList.FindByWaypoint(wpt)))
             {
                 var edge = wptList.GetEdge(i);
-                if (edge.value.Airway == "DCT" &&
+                if (edge.Value.Airway == "DCT" &&
                     WithinPrecisionPercent(GreatCircleDistance(wpt.LatLon, wptList[rwyIndex].LatLon),
-                                           edge.value.Distance,
+                                           edge.Value.Distance,
                                            0.1))
                 {
                     return true;
@@ -99,9 +99,9 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
             foreach (var i in wptList.EdgesTo(index))
             {
                 var edge = wptList.GetEdge(i);
-                Assert.AreEqual("DCT", edge.value.Airway);
+                Assert.AreEqual("DCT", edge.Value.Airway);
                 Assert.IsTrue(WithinPrecisionPercent(new LatLon(25.0125, 50.0300).Distance(wptList[edge.FromNodeIndex].LatLon),
-                                                     edge.value.Distance,
+                                                     edge.Value.Distance,
                                                      0.0001));
             }
         }
@@ -169,9 +169,9 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
             foreach (var i in wptList.EdgesTo(index))
             {
                 var edge = wptList.GetEdge(i);
-                Assert.AreEqual("DCT", edge.value.Airway);
+                Assert.AreEqual("DCT", edge.Value.Airway);
                 Assert.IsTrue(WithinPrecisionPercent(new LatLon(25.0125, 50.0300).Distance(wptList[edge.FromNodeIndex].LatLon),
-                                                     edge.value.Distance,
+                                                     edge.Value.Distance,
                                                      0.1));
             }
         }
@@ -235,7 +235,7 @@ namespace Tests.RouteFindingTest.TerminalProceduresTest.Star
             {
                 var edge = wptList.GetEdge(i);
 
-                if (edge.value.Airway == name && WithinPrecisionPercent(dis, edge.value.Distance, 0.0001))
+                if (edge.Value.Airway == name && WithinPrecisionPercent(dis, edge.Value.Distance, 0.0001))
                 {
                     return true;
                 }
