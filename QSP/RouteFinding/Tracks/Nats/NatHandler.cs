@@ -47,7 +47,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             tryDownload();
             var trks = tryParse();
 
-            var reader = new TrackReader<NorthAtlanticTrack>(wptList);
+            var reader = new TrackReader<NorthAtlanticTrack>(wptList,airportList);
             nodes = new List<TrackNodes>();
 
             foreach (var i in trks)

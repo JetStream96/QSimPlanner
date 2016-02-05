@@ -24,7 +24,7 @@ namespace UnitTest
 
             Assert.IsTrue(Enumerable.SequenceEqual(expected, finder.GetWaypointIndices()));
 
-            //'another dir
+            // another dir
             var finder2 = new AirwayNodeFinder(6, "A001", "WP002", genTwoWayAirway());
             var exp2 = new List<int>();
 

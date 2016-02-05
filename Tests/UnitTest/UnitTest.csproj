@@ -97,6 +97,7 @@
     <Compile Include="RouteFinding\Tracks\Common\TrackAdderTest.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackReaderTest.cs" />
     <Compile Include="RouteFinding\Tracks\Interaction\StatusRecorderTest.cs" />
+    <Compile Include="RouteFinding\Tracks\Nats\NatsParserTest.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Utilities\LatLonConverterTest.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Utilities\MessageSplitterTest.cs" />
     <Compile Include="TOPerfCalcTest.cs" />
@@ -119,7 +120,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QSP\QSP.csproj">
+    <ProjectReference Include="..\..\QSP\QSP.csproj">
       <Project>{182ca73b-6911-4d37-ba34-c86232fe37f1}</Project>
       <Name>QSP</Name>
     </ProjectReference>

@@ -2,6 +2,7 @@ using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Airports;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,14 +14,16 @@ namespace QSP.RouteFinding.Tracks.Common
     public class TrackReader<T> where T : Track
     {
         private WaypointList wptList;
+        private AirportManager airportList;
 
         private List<WptPair> routeFromTo;
         private Route mainRoute;
         private T trk;
 
-        public TrackReader(WaypointList wptList)
+        public TrackReader(WaypointList wptList, AirportManager airportList)
         {
             this.wptList = wptList;
+            this.airportList = airportList;
         }
 
         /// <exception cref="InvalidRouteException"></exception>
@@ -150,13 +153,19 @@ namespace QSP.RouteFinding.Tracks.Common
                                           .Analyze();
         }
 
-        private static string combineArray(ReadOnlyCollection<string> item)
+        private string combineArray(ReadOnlyCollection<string> item)
         {
             var result = new StringBuilder();
 
-            foreach (var i in item)
+            for (int i = 0; i < item.Count; i++)
             {
-                result.Append(i + " ");
+                string s = item[i];
+
+                if ((i != 0 && i != item.Count - 1) ||
+                    airportList.Find(s) == null)
+                {
+                    result.Append(s + " ");
+                }
             }
             return result.ToString();
         }

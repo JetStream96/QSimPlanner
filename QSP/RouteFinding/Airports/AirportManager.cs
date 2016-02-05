@@ -8,29 +8,29 @@ namespace QSP.RouteFinding.Airports
     // This manager class can make sure that the airportDB and airportFinder matches completely.
     public class AirportManager
     {
-        private AirportCollection airportDB;
+        private AirportCollection airportData;
         private LatLonSearchUtility<Airport> airportFinder;
 
         public AirportManager(AirportCollection airportDB)
         {
-            this.airportDB = airportDB;
+            this.airportData = airportDB;
             generateSearchGrids();
         }
 
         private void generateSearchGrids()
         {
             airportFinder = new LatLonSearchUtility<Airport>(GridSizeOption.Small);
-            int count = airportDB.Count;
+            int count = airportData.Count;
 
             for (int i = 0; i < count; i++)
             {
-                airportFinder.Add(airportDB[i]);
+                airportFinder.Add(airportData[i]);
             }
         }
 
         public Airport Find(string icao)
         {
-            return airportDB.Find(icao);
+            return airportData.Find(icao);
         }
 
         public List<Airport> Find(double lat, double lon, double distance)
@@ -40,36 +40,36 @@ namespace QSP.RouteFinding.Airports
 
         public string[] RwyIdentList(string icao)
         {
-            return airportDB.RwyIdentList(icao);
+            return airportData.RwyIdentList(icao);
         }
 
         public LatLon RwyLatLon(string icao, string rwy)
         {
-            return airportDB.RwyLatLon(icao, rwy);
+            return airportData.RwyLatLon(icao, rwy);
         }
 
         public LatLon AirportLatlon(string icao)
         {
-            return airportDB.AirportLatlon(icao);
+            return airportData.AirportLatlon(icao);
         }
 
         public int Count
         {
             get
             {
-                return airportDB.Count;
+                return airportData.Count;
             }
         }
 
         public void Add(Airport item)
         {
-            airportDB.Add(item);
+            airportData.Add(item);
             airportFinder.Add(item);
         }
 
         public bool Remove(string icao)
         {
-            var ad = airportDB.Find(icao);
+            var ad = airportData.Find(icao);
 
             if (ad == null)
             {
@@ -77,7 +77,7 @@ namespace QSP.RouteFinding.Airports
             }
             else
             {
-                airportDB.Remove(icao);
+                airportData.Remove(icao);
                 airportFinder.Remove(ad);
                 return true;
             }

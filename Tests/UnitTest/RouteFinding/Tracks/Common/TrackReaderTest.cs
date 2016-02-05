@@ -6,6 +6,7 @@ using QSP.RouteFinding.AirwayStructure;
 using System.Linq;
 using QSP.RouteFinding.Tracks.Pacots;
 using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Airports;
 
 namespace UnitTest.RouteFinding.Tracks.Common
 {
@@ -23,7 +24,9 @@ namespace UnitTest.RouteFinding.Tracks.Common
             wptList.AddWaypoint(p1);
             wptList.AddWaypoint(p2);
 
-            var reader = new TrackReader<PacificTrack>(wptList);
+            var reader = new TrackReader<PacificTrack>(
+                wptList, 
+                new AirportManager(new AirportCollection()));
 
             // Act
             var nodes = reader.Read(new PacificTrack(
@@ -67,7 +70,10 @@ namespace UnitTest.RouteFinding.Tracks.Common
             int q3Index = wptList.AddWaypoint(q3);
             wptList.AddNeighbor(q1Index, q2Index, new Neighbor("A1", q1.DistanceFrom(q2)));
 
-            var reader = new TrackReader<PacificTrack>(wptList);
+            var reader = new TrackReader<PacificTrack>(
+                wptList,
+                new AirportManager(new AirportCollection()));
+
             string[] routeFrom = new string[] { "Q1", "A1", "Q2", "UPR", "Q3", "P1" };
 
             // Act

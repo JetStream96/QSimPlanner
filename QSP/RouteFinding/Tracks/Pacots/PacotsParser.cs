@@ -11,8 +11,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private AirportManager airportList;
         private PacotsMessage message;
 
-        public PacotsParser(PacotsMessage message, 
-                            StatusRecorder statusRecorder, 
+        public PacotsParser(PacotsMessage message,
+                            StatusRecorder statusRecorder,
                             AirportManager airportList)
         {
             this.message = message;
@@ -26,9 +26,9 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
             foreach (var i in message.WestboundTracks)
             {
-                tracks.Add(new WestTrackParser(i,airportList).Parse());
+                tracks.Add(new WestTrackParser(i, airportList).Parse());
             }
-            return tracks;            
+            return tracks;
         }
     }
 }

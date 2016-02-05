@@ -9,9 +9,6 @@ using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    // TODO: Sometimes one track may have 2 simliar entries in the html code.
-    // One of them may be correctly parsed and the other can fail.
-    // 
     public class PacotsHandler : TrackHandler
     {
         #region Fields
@@ -51,7 +48,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             tryDownload();
             var trks = tryParse();
 
-            var reader = new TrackReader<PacificTrack>(wptList);
+            var reader = new TrackReader<PacificTrack>(wptList,airportList);
             nodes = new List<TrackNodes>();
 
             foreach (var i in trks)
