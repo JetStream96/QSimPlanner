@@ -45,11 +45,6 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             return new SidAdder(icao, SidCollection, wptList, editor, airportList).AddSidsToWptList(rwy, sid);
         }
 
-        public void UndoEdit()
-        {
-            editor.Undo();
-        }
-
         /// <summary>
         /// Returns total distance of the SID and the last wpt, regardless whether the last wpt is in wptList.
         /// If there isn't any waypoint in the SID (e.g. a vector after takeoff), this returns a distance of 0.0   

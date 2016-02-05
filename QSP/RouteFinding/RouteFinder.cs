@@ -46,37 +46,45 @@ namespace QSP.RouteFinding
         /// Gets a route between two aiports, from ORIG to DEST.
         /// </summary>
         public Route FindRoute(string origRwy, List<string> origSid, SidHandler sidHandler,
-                               string destRwy, List<string> destStar, StarHandler starHandler)
+                               string destRwy, List<string> destStar, StarHandler starHandler,
+                               WaypointListEditor editor)
         {
             int origIndex = addSid(origRwy, origSid, sidHandler);
             int destIndex = addStar(destRwy, destStar, starHandler);
 
             var result = getRoute(origIndex, destIndex);
-            sidHandler.UndoEdit();
-            starHandler.UndoEdit();
+            editor.Undo();
             return result;
         }
 
         /// <summary>
         /// Gets a route from an airport to a waypoint.
         /// </summary>
-        public Route FindRoute(string rwy, List<string> sid, SidHandler sidHandler, int wptIndex)
+        public Route FindRoute(string rwy, 
+                               List<string> sid, 
+                               SidHandler sidHandler, 
+                               int wptIndex,
+                               WaypointListEditor editor)
         {
             int origIndex = addSid(rwy, sid, sidHandler);
 
             var result = getRoute(origIndex, wptIndex);
-            sidHandler.UndoEdit();
+            editor.Undo();
             return result;
         }
 
         /// <summary>
         /// Gets a route from a waypoint to an airport.
         /// </summary>
-        public Route FindRoute(int wptIndex, string rwy, List<string> star, StarHandler starHandler)
+        public Route FindRoute(int wptIndex, 
+                               string rwy, 
+                               List<string> star,
+                               StarHandler starHandler,
+                               WaypointListEditor editor)
         {
             int endIndex = addStar(rwy, star, starHandler);
             var result = getRoute(wptIndex, endIndex);
-            starHandler.UndoEdit();
+            editor.Undo();
             return result;
         }
 

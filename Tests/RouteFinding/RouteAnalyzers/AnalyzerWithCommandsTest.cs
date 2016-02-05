@@ -63,8 +63,8 @@ namespace Tests.RouteFinding.RouteAnalyzers
                                             "07L",
                                             airportList,
                                             wptList,
-                                            new SidHandler("ABCD", sids, wptList, wptList.GetEditor(), airportList),
-                                            new StarHandler("EFGH", stars, wptList, wptList.GetEditor(), airportList));
+                                            sids,
+                                            stars);
         }
 
         private void assert1(Route route)
@@ -156,8 +156,8 @@ namespace Tests.RouteFinding.RouteAnalyzers
                                             "07L",
                                             airportList,
                                             new WaypointList(),
-                                            new SidHandler("ABCD", new SidCollection(new List<SidEntry>()), wptList, wptList.GetEditor(), airportList),
-                                            new StarHandler("EFGH", new StarCollection(new List<StarEntry>()), wptList, wptList.GetEditor(), airportList));
+                                            new SidCollection(new List<SidEntry>()),
+                                            new StarCollection(new List<StarEntry>()));
         }
 
         [TestMethod]

@@ -27,6 +27,7 @@ using static QSP.AviationTools.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
 using static QSP.Core.QspCore;
+using QSP.RouteFinding.Containers;
 
 namespace QSP
 {
@@ -346,7 +347,7 @@ namespace QSP
             {
                 //loading the navigation database
                 QspCore.AppSettings = new AppOptions(XDocument.Load(QspCore.QspAppDataDirectory + "\\SavedStates\\options.xml"));
-                                
+
                 new NavDataLoader(QspCore.AppSettings.NavDBLocation).LoadAllData();
                 //if success, update the status strip
 
@@ -702,12 +703,12 @@ namespace QSP
                 switch (para)
                 {
                     case SidStarSelection.Sid:
-                        proc = SidHandlerFactory.GetHandler(icao, AppSettings.NavDBLocation, WptList, AirportList)
+                        proc = SidHandlerFactory.GetHandler(icao, AppSettings.NavDBLocation, WptList, WptList.GetEditor(), AirportList)
                                                 .GetSidList(rwy);
 
                         break;
                     case SidStarSelection.Star:
-                        proc = StarHandlerFactory.GetHandler(icao, AppSettings.NavDBLocation, WptList, AirportList)
+                        proc = StarHandlerFactory.GetHandler(icao, AppSettings.NavDBLocation, WptList, WptList.GetEditor(), AirportList)
                                                  .GetStarList(rwy);
 
                         break;
@@ -807,7 +808,7 @@ namespace QSP
         private void GenRteAltnBtnClick(object sender, EventArgs e)
         {
             // Get a list of sids
-            var sids = SidHandlerFactory.GetHandler(DestTxtBox.Text, AppSettings.NavDBLocation, WptList, AirportList)
+            var sids = SidHandlerFactory.GetHandler(DestTxtBox.Text, AppSettings.NavDBLocation, WptList, WptList.GetEditor(), AirportList)
                                         .GetSidList(DestRwyComboBox.Text);
             var starAltn = getSidStarList(AltnStarComboBox);
 
@@ -818,7 +819,7 @@ namespace QSP
 
             RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
-            double directDis = MathTools.Utilities.GreatCircleDistance(RouteToAltn.First.Waypoint.LatLon, RouteToAltn.First.Waypoint.LatLon);
+            double directDis = RouteToAltn.First.Waypoint.DistanceFrom(RouteToAltn.Last.Waypoint);
             RouteDisAltnLbl.Text = "Total Dis: " + Math.Round(RouteToAltn.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToAltn.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
         }
 
@@ -1005,7 +1006,7 @@ namespace QSP
             {
                 try
                 {
-                    SidHandler sidFinder = SidHandlerFactory.GetHandler(FromTxtbox.Text, AppSettings.NavDBLocation, WptList, AirportList);
+                    SidHandler sidFinder = SidHandlerFactory.GetHandler(FromTxtbox.Text, AppSettings.NavDBLocation, WptList, WptList.GetEditor(), AirportList);
                     setSidStarList(FromSidCBox, sidFinder.GetSidList(FromRwyCBox.Text));
                 }
                 catch (Exception ex)
@@ -1022,7 +1023,7 @@ namespace QSP
             {
                 try
                 {
-                    var starManager = StarHandlerFactory.GetHandler(ToTxtbox.Text, AppSettings.NavDBLocation, WptList, AirportList);
+                    var starManager = StarHandlerFactory.GetHandler(ToTxtbox.Text, AppSettings.NavDBLocation, WptList, WptList.GetEditor(), AirportList);
                     setSidStarList(ToStarCBox, starManager.GetStarList(ToRwyCBox.Text));
                 }
                 catch (Exception ex)

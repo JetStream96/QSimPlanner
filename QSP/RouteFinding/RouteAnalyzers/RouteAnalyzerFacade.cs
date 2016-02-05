@@ -24,8 +24,18 @@ namespace QSP.RouteFinding.RouteAnalyzers
                                             destRwy,
                                             airportList,
                                             wptList,
-                                            SidHandlerFactory.GetHandler(origIcao, navDataLocation, wptList, airportList),
-                                            StarHandlerFactory.GetHandler(destIcao, navDataLocation, wptList, airportList))
+                                            SidHandlerFactory.GetHandler(origIcao,
+                                                                         navDataLocation,
+                                                                         wptList,
+                                                                         wptList.GetEditor(),
+                                                                         airportList)
+                                                             .SidCollection,
+                                            StarHandlerFactory.GetHandler(destIcao,
+                                                                          navDataLocation,
+                                                                          wptList,
+                                                                          wptList.GetEditor(),
+                                                                          airportList)
+                                                              .StarCollection)
                    .Analyze();
         }
 
@@ -45,8 +55,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
                                              destRwy,
                                              airportList,
                                              wptList,
-                                             SidHandlerFactory.GetHandler(origIcao, navDataLocation, wptList, airportList).SidCollection,
-                                             StarHandlerFactory.GetHandler(destIcao, navDataLocation, wptList, airportList).StarCollection)
+                                             SidHandlerFactory.GetHandler(origIcao, navDataLocation, wptList, wptList.GetEditor(), airportList).SidCollection,
+                                             StarHandlerFactory.GetHandler(destIcao, navDataLocation, wptList, wptList.GetEditor(), airportList).StarCollection)
                   .Analyze();
         }
 
