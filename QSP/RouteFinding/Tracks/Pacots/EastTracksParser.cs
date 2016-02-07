@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using static QSP.LibraryExtension.StringParser.Utilities;
+using static QSP.LibraryExtension.Arrays;
+using static QSP.LibraryExtension.Lists;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
@@ -114,7 +116,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             {
                 var s = item[i].Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
 
-                if (s.First() != mainRoute.Last() && s.Last() != mainRoute.First())
+                if (s[0] != mainRoute.Last() && s.Last() != mainRoute[0])
                 {
                     item[i] += item[i + 1];
                     item.RemoveAt(i + 1);
@@ -285,7 +287,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             int index = 0;
             int len = 0;
 
-            for (int i = 0; i <= indices.Count - 1; i++)
+            for (int i = 0; i < indices.Count ; i++)
             {
                 index = indices[i].nextIndexSearch;
                 len = ((i == indices.Count - 1) ? msg.Length : indices[i + 1].startIndex) - index;

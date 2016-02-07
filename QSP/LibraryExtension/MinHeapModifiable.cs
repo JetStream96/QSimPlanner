@@ -41,7 +41,8 @@ namespace QSP.LibraryExtension
                 minIndex = leftChildIndex;
             }
 
-            if ((rightChildIndex < length) && valueComp.Compare(content[minIndex].Value, content[rightChildIndex].Value) > 0)
+            if ((rightChildIndex < length) && 
+                valueComp.Compare(content[minIndex].Value, content[rightChildIndex].Value) > 0)
             {
                 minIndex = rightChildIndex;
             }
@@ -172,12 +173,14 @@ namespace QSP.LibraryExtension
                 leftChildIndex = 2 * index + 1;
                 rightChildIndex = 2 * index + 2;
 
-                if (leftChildIndex < length && valueComp.Compare(content[leftChildIndex].Value, content[index].Value) < 0)
+                if (leftChildIndex < length && 
+                    valueComp.Compare(content[leftChildIndex].Value, content[index].Value) < 0)
                 {
                     return leftChildIndex;
                 }
 
-                if (rightChildIndex < length && valueComp.Compare(content[rightChildIndex].Value, content[index].Value) < 0)
+                if (rightChildIndex < length && 
+                    valueComp.Compare(content[rightChildIndex].Value, content[index].Value) < 0)
                 {
                     return rightChildIndex;
                 }

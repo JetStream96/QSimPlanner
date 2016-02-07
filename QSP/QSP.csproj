@@ -165,6 +165,9 @@
     <Compile Include="RouteFinding\Tracks\Nats\Utilities\LatLonConverter.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Utilities\MessageSplitter.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Constants.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\EastboundParser.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\Interpreter.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\Splitter.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\IPacotsDownloader.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\WestTrackParser.cs" />
@@ -444,9 +447,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="RouteFinding\Tracks\Pacots\Eastbound\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

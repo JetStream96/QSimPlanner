@@ -270,6 +270,7 @@ namespace QSP
         {
             if (QspCore.AppSettings.AutoDLTracks)
             {
+                //RouteFinding.Tracks.Interaction.Interactions.SetAllTracksAsync();
                 //TODO: add code to start download tracks automatically.
             }
             else

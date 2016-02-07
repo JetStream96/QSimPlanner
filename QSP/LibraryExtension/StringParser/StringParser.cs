@@ -5,7 +5,9 @@ namespace QSP.LibraryExtension.StringParser
     public class StringParser
     {
         private string text;
-        private int _currentIndex = 0;  // Still need this because property cannot be passed with ref keyword.
+
+        // Still need this because property cannot be passed with ref keyword.
+        private int _currentIndex;
 
         public int CurrentIndex
         {
@@ -35,6 +37,13 @@ namespace QSP.LibraryExtension.StringParser
         public StringParser(string text)
         {
             this.text = text;
+            _currentIndex = 0;
+        }
+
+        public StringParser(StringParser sp)
+        {
+            text = sp.text;
+            CurrentIndex = sp.CurrentIndex;
         }
 
         public string ReadString(char endChar)
@@ -42,11 +51,26 @@ namespace QSP.LibraryExtension.StringParser
             return Utilities.ReadString(text, ref _currentIndex, endChar);
         }
 
+        public string ReadString(string target)
+        {
+            return Utilities.ReadString(text, ref _currentIndex, target);
+        }
+
         public string ReadString(int index)
         {
-            var s= text.Substring(CurrentIndex, index - CurrentIndex + 1);
+            var s = text.Substring(CurrentIndex, index - CurrentIndex + 1);
             CurrentIndex = index;
             return s;
+        }
+
+        public int NextIndexOf(char c)
+        {
+            return text.IndexOf(c, CurrentIndex);
+        }
+
+        public int NextIndexOf(string s)
+        {
+            return text.IndexOf(s, CurrentIndex);
         }
 
         public bool SkipToNextLine()
@@ -65,6 +89,11 @@ namespace QSP.LibraryExtension.StringParser
         }
 
         public bool MoveToNextIndexOf(string target)
+        {
+            return Utilities.MoveToNextIndexOf(text, target, ref _currentIndex);
+        }
+
+        public bool MoveToNextIndexOf(char target)
         {
             return Utilities.MoveToNextIndexOf(text, target, ref _currentIndex);
         }
@@ -91,6 +120,24 @@ namespace QSP.LibraryExtension.StringParser
                 return true;
             }
             return false;
+        }
+
+        public bool MoveToNextDigit()
+        {
+            for (int i = CurrentIndex; i < text.Length; i++)
+            {
+                if (text[i] >= '0' && text[i] <= '9')
+                {
+                    CurrentIndex = i;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public int ParseInt()
+        {
+            return Utilities.ParseInt(text, CurrentIndex, out _currentIndex);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using QSP.Utilities;
 
 namespace QSP.LibraryExtension.StringParser
 {
@@ -9,7 +10,8 @@ namespace QSP.LibraryExtension.StringParser
         public static readonly char[] DelimiterLines = { '\n', '\r' };
 
         /// <summary>
-        /// Returns a substring starting from the given position to the char before the next appearance of endChar.
+        /// Returns a substring starting from the given position to the char 
+        /// before the next appearance of endChar.
         /// Finally position is moved to the char after endChar.
         /// If the char is not found, position is unchanged and null is returned.
         /// </summary>
@@ -26,13 +28,58 @@ namespace QSP.LibraryExtension.StringParser
             return s;
         }
 
+        public static string ReadString(string item, ref int position, string target)
+        {
+            int x = item.IndexOf(target, position);
+
+            if (x < 0)
+            {
+                return null;
+            }
+            var s = item.Substring(position, x - position);
+            position = x + 1;
+            return s;
+        }
+
+        /// <summary>
+        /// Parse the part of string from startindex to the last char that is a digit.       
+        /// </summary>
+        /// <param name="endIndex">Last index which is a digit.</param>
+        public static int ParseInt(string item, int startindex, out int endIndex)
+        {
+            ConditionChecker.Ensure<ArgumentException>(item[startindex] >= '0' &&
+                                                       item[startindex] <= '9');
+            int result = item[startindex] - '0';
+            int negate = 1;
+
+            for (int i = startindex + 1; i < item.Length; i++)
+            {
+                if (item[i] >= '0' && item[i] <= '9')
+                {
+                    result *= 10;
+                    result += item[i] - '0';
+                }
+                else if (item[i] == '-' && i == startindex)
+                {
+                    negate = -1;
+                }
+                else
+                {
+                    endIndex = i - 1;
+                    return result * negate;
+                }
+            }
+            endIndex = item.Length - 1;
+            return result * negate;
+        }
+
         /// <summary>
         /// Parse the part of string between startindex and endIndex (inclusive).
         /// </summary>
         public static int ParseInt(string item, int startindex, int endIndex)
         {
             int result = 0;
-            short negate = 1;
+            int negate = 1;
 
             for (int i = startindex; i <= endIndex; i++)
             {
@@ -61,7 +108,7 @@ namespace QSP.LibraryExtension.StringParser
         public static int ParseInt(string item, ref int position, char endChar)
         {
             int result = 0;
-            short negate = 1;
+            int negate = 1;
 
             for (int i = position; i < item.Length; i++)
             {
@@ -110,7 +157,7 @@ namespace QSP.LibraryExtension.StringParser
         public static double ParseDouble(string item, int startindex, int endIndex)
         {
             double result = 0.0;
-            short negate = 1;
+            int negate = 1;
 
             for (int i = startindex; i <= endIndex; i++)
             {
@@ -208,6 +255,22 @@ namespace QSP.LibraryExtension.StringParser
         /// Otherwise return false and index is unchanged.
         /// </summary>
         public static bool MoveToNextIndexOf(string item, string target, ref int index)
+        {
+            int x = item.IndexOf(target, index);
+
+            if (x < 0)
+            {
+                return false;
+            }
+            index = x;
+            return true;
+        }
+
+        /// <summary>
+        /// Set the index to the next occurence of the given string and returns true, if found.
+        /// Otherwise return false and index is unchanged.
+        /// </summary>
+        public static bool MoveToNextIndexOf(string item, char target, ref int index)
         {
             int x = item.IndexOf(target, index);
 
