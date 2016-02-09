@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using QSP.LibraryExtension.StringParser;
 using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.LibraryExtension.Lists;
+using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
 {
@@ -65,45 +66,31 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
 
         private List<int> getIndices()
         {
-            var indices = new List<int>();
-            int index = 0;
+            var indices = text.IndicesOf("TRACK");
 
-            while (true)
+            for (int i = indices.Count - 1; i >= 0; i--)
             {
-                index = indexNextTrack(index + "TRACK".Length);
-
-                if (index < 0)
+                if (isValid(indices[i]) == false)
                 {
-                    return indices;
+                    indices.RemoveAt(i);
                 }
-                indices.Add(index);
             }
+            return indices;
         }
 
-        // Gets the start index of "TRACK 1".
-        // Returns -1 if nothing is found.
-        //
-        private int indexNextTrack(int index)
+        private bool isValid(int index)
         {
             var sp = new StringParser(text);
             sp.CurrentIndex = index;
+            bool inBound = sp.MoveRight("TRACK".Length);
 
-            bool found = sp.MoveToNextIndexOf("TRACK");
-            int result = sp.CurrentIndex;
-
-            if (found == false)
+            if (inBound == false)
             {
-                return -1;
+                return false;
             }
             sp.SkipAny(DelimiterWords);
-            sp.MoveToNextDigit();
             char c = text[sp.CurrentIndex];
-
-            if (c < '0' || c > '9')
-            {
-                return -1;
-            }
-            return result;
+            return (c >= '0' && c <= '9');
         }
     }
 }

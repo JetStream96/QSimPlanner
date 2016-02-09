@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace QSP.LibraryExtension
         {
             return new string(' ', steps) + str.Replace("\n", "\n" + new string(' ', steps));
         }
-        
+
         public static string CenterString(string item, int totalLength)
         {
             int len = item.Length;
@@ -181,6 +182,11 @@ namespace QSP.LibraryExtension
                 }
             }
             return new string(array, 0, index);
+        }
+
+        public static string[] Lines(this string item)
+        {
+            return item.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
         }
     }
 }

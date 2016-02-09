@@ -14,7 +14,7 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 
         public string[] Convert()
         {
-            return route.Split(DelimiterWords,StringSplitOptions.RemoveEmptyEntries);          
+            return route.Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

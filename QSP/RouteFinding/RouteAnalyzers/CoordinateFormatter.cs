@@ -1,7 +1,7 @@
-﻿using QSP.AviationTools.Coordinates;
-using System;
-using static QSP.LibraryExtension.StringParser.Utilities;
+﻿using System;
+using static QSP.AviationTools.Coordinates.Utilities;
 using static QSP.LibraryExtension.Arrays;
+using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -38,22 +38,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                          .Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries)
                          .RemoveElements("DCT");
 
-            for (int i = 0; i < s.Length; i++)
-            {
-                LatLon coord;
-
-                if (Format7Letter.TryReadFrom7LetterFormat(s[i], out coord))
-                {
-                    try
-                    {
-                        s[i] = coord.To5LetterFormat();
-                    }
-                    catch
-                    {
-                        s[i] = coord.ToDecimalFormat();
-                    }
-                }
-            }
+            ConvertTo5LetterFormat(s);
             return s;
         }
     }

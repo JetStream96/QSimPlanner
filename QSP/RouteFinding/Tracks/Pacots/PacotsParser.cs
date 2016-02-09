@@ -22,7 +22,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public override List<PacificTrack> Parse()
         {
-            var tracks = new EastTracksParser(airportList).CreateEastboundTracks(message);
+            var tracks = new Eastbound.EastboundParser(airportList).Parse(message);
 
             foreach (var i in message.WestboundTracks)
             {

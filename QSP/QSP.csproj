@@ -165,6 +165,7 @@
     <Compile Include="RouteFinding\Tracks\Nats\Utilities\LatLonConverter.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Utilities\MessageSplitter.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Constants.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\ConnectionRouteSeperator.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\EastboundParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\Interpreter.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\Splitter.cs" />
@@ -249,7 +250,6 @@
     <Compile Include="RouteFinding\Tracks\Interaction\StatusRecorder.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NatHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\IndividualNatsMessage.cs" />
-    <Compile Include="RouteFinding\Tracks\Pacots\EastTracksParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Enums.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\PacificTrack.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsDownloader.cs" />

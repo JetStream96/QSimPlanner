@@ -21,6 +21,17 @@ namespace QSP.RouteFinding.Tracks.Pacots
             tracksRJJJ = new List<string>();
         }
 
+        public PacotsMessage(List<string> tracksKZAK,
+                             List<string> tracksRJJJ,
+                             string TimeStamp,
+                             string Header)
+        {
+            this.tracksKZAK = tracksKZAK;
+            this.tracksRJJJ = tracksRJJJ;
+            this.TimeStamp = TimeStamp;
+            this.Header = Header;
+        }
+
         public PacotsMessage(string htmlFile) : this()
         {
             try

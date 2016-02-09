@@ -1,10 +1,10 @@
+using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Containers;
 using System;
 using System.Collections.Generic;
 using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
-using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding
 {
@@ -26,8 +26,10 @@ namespace QSP.RouteFinding
             {
                 return true;
             }
-            else if (str.Length == 3 && (str[2] == 'L' || str[2] == 'R' || str[2] == 'C') && int.TryParse(str.Substring(0, 2), out i)
-                      && (i > 0 && i <= 36))
+            else if (str.Length == 3 &&
+                     (str[2] == 'L' || str[2] == 'R' || str[2] == 'C') &&
+                     int.TryParse(str.Substring(0, 2), out i) &&
+                     (i > 0 && i <= 36))
             {
                 return true;
             }
@@ -62,7 +64,8 @@ namespace QSP.RouteFinding
             return dis;
         }
 
-        public static double GetTotalDistance<T>(T wpts) where T : IReadOnlyCollection<Waypoint>, IReadOnlyList<Waypoint>
+        public static double GetTotalDistance<T>(T wpts) 
+            where T : IReadOnlyCollection<Waypoint>, IReadOnlyList<Waypoint>
         {
             //in nm
             if (wpts.Count < 2)

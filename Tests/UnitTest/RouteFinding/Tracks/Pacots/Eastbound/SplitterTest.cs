@@ -10,7 +10,7 @@ namespace UnitTest.RouteFinding.Tracks.Pacots.Eastbound
         [TestMethod]
         public void SplitTest()
         {
-            var text = @"   ...
+            var text = @" EASTBOUND TRACKS  ...
    TRACK 1.
     FLEX ROUTE : KALNA 42N160E 45N170E 47N180E 49N170W 50N160W 51N150W
                  51N140W ORNAI
