@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace UnitTest.LibraryExtension.StringParser

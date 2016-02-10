@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding.Tracks.Pacots.Eastbound;
 
 namespace UnitTest.RouteFinding.Tracks.Pacots.Eastbound

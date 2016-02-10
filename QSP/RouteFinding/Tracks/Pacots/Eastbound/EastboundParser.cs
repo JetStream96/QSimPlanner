@@ -1,13 +1,7 @@
-﻿using QSP.LibraryExtension;
-using QSP.RouteFinding.Airports;
+﻿using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Tracks.Common.TDM.Parser;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using static QSP.LibraryExtension.StringParser.Utilities;
-using static QSP.LibraryExtension.Arrays;
-using static QSP.LibraryExtension.Lists;
-using System.Threading.Tasks;
-using QSP.RouteFinding.Tracks.Common.TDM.Parser;
 
 namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
 {

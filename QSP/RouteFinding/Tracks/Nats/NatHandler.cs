@@ -26,11 +26,11 @@ namespace QSP.RouteFinding.Tracks.Nats
         #endregion
 
         public NatsHandler(INatsDownloader downloader,
-                            WaypointList wptList,
-                            WaypointListEditor editor,
-                            StatusRecorder recorder,
-                            AirportManager airportList,
-                            RouteTrackCommunicator communicator)
+                           WaypointList wptList,
+                           WaypointListEditor editor,
+                           StatusRecorder recorder,
+                           AirportManager airportList,
+                           RouteTrackCommunicator communicator)
         {
             this.downloader = downloader;
             this.wptList = wptList;
@@ -47,7 +47,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             tryDownload();
             var trks = tryParse();
 
-            var reader = new TrackReader<NorthAtlanticTrack>(wptList,airportList);
+            var reader = new TrackReader<NorthAtlanticTrack>(wptList, airportList);
             nodes = new List<TrackNodes>();
 
             foreach (var i in trks)
@@ -109,8 +109,8 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             catch (Exception ex)
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical, 
-                                  "Failed to parse NATs.", 
+                recorder.AddEntry(StatusRecorder.Severity.Critical,
+                                  "Failed to parse NATs.",
                                   TrackType.Nats);
                 throw new TrackParseException("Failed to parse Nats.", ex);
             }

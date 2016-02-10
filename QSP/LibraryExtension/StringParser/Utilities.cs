@@ -18,20 +18,17 @@ namespace QSP.LibraryExtension.StringParser
         public static string ReadString(string item, ref int position, char endChar)
         {
             int x = item.IndexOf(endChar, position);
-
-            if (x < 0)
-            {
-                return null;
-            }
-            var s = item.Substring(position, x - position);
-            position = x + 1;
-            return s;
+            return readString(item, ref position, x);
         }
 
         public static string ReadString(string item, ref int position, string target)
         {
             int x = item.IndexOf(target, position);
+            return readString(item, ref position, x);
+        }
 
+        private static string readString(string item, ref int position, int x)
+        {
             if (x < 0)
             {
                 return null;
@@ -39,7 +36,7 @@ namespace QSP.LibraryExtension.StringParser
             var s = item.Substring(position, x - position);
             position = x + 1;
             return s;
-        }
+        }        
 
         /// <summary>
         /// Parse the part of string from startindex to the last char that is a digit.       
@@ -203,7 +200,7 @@ namespace QSP.LibraryExtension.StringParser
             int index = item.IndexOf('\n', currentIndex) + 1;
 
             if (index <= 0 ||                // '\n' not found
-                index == item.Length)     // '\n' is the last char of string
+                index == item.Length)        // '\n' is the last char of string
             {
                 return false;
             }
