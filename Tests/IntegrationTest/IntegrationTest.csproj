@@ -58,16 +58,20 @@
     <Compile Include="QSP\RouteFinding\Tracks\Ausots\AusotsHandlerTest.cs" />
     <Compile Include="QSP\RouteFinding\Tracks\Nats\NatsHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QSP\RouteFinding\Tracks\Pacots\PacotsHandlerTest.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="QSP\RouteFinding\Tracks\Pacots\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="QSP\RouteFinding\Tracks\Ausots\text.asp.html" />
+    <Content Include="QSP\RouteFinding\Tracks\Ausots\text.asp.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="QSP\RouteFinding\Tracks\Nats\North Atlantic Tracks.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="QSP\RouteFinding\Tracks\Nats\North Atlantic Tracks_files\advisories.css" />
+    <Content Include="QSP\RouteFinding\Tracks\Pacots\Defense Internet NOTAM Service.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\QSP\QSP.csproj">

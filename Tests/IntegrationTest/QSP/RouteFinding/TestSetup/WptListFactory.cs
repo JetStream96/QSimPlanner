@@ -19,7 +19,7 @@ namespace IntegrationTest.QSP.RouteFinding.TestSetup
 
         private static void addWpts(WaypointList wptList, IEnumerable<string> Idents)
         {
-            var rd = new Random();
+            var rd = new Random(123);
 
             foreach (var i in Idents)
             {
