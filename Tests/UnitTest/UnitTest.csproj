@@ -61,7 +61,6 @@
     <Compile Include="AviationTools\CoversionToolsTest.cs" />
     <Compile Include="AviationTools\Coordinates\Format7LetterTest.cs" />
     <Compile Include="Common\Utilities.cs" />
-    <Compile Include="InterpolationTest.cs" />
     <Compile Include="LandingPerfCalcTest.cs" />
     <Compile Include="LibraryExtension\StringParser\UtilitiesTest.cs" />
     <Compile Include="LibraryExtension\UtilitiesTest.cs" />

@@ -28,6 +28,7 @@ namespace QSP.WindAloft
                 var t = GetAirDisGrdDis(node.Value.Waypoint.LatLon, node.Next.Value.Waypoint.LatLon, tas, cruizeLevel);
                 AirDisToDest += t.Item1;
                 GrdDisToDest += t.Item2;
+                node = node.Next;
             }
 
             return (int)(tas * (GrdDisToDest / AirDisToDest - 1.0));

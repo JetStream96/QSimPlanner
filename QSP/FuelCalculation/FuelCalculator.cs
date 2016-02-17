@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using QSP.MathTools;
-using static QSP.MathTools.InterpolationOld;
+using QSP.MathTools.Interpolation;
 using QSP.Core;
+using QSP.LibraryExtension;
 
 namespace QSP
 {
@@ -18,8 +18,8 @@ namespace QSP
 
         private string AirDis_Time_OrigFile;
 
-        private double[,] GroundToAirDisTable;
-        private double[,] AirDisToFuelTable;
+        private double[][] GroundToAirDisTable;
+        private double[][] AirDisToFuelTable;
         private double[] airDis;
 
         private double[] LandingWt;
@@ -118,7 +118,6 @@ namespace QSP
             LandWeightTonAltn = (Parameters.Zfw_KG + Parameters.FinalRsvMin * holdingFuelPerMinuteKg) / 1000;
         }
 
-
         private void loadFuelTable(string sourceTxt)
         {
             int p = sourceTxt.IndexOf("[Fuel]");
@@ -137,12 +136,12 @@ namespace QSP
             }
 
             int numCol = validLine[0].Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries).Length;
-            double[,] table = new double[numCol - 1, validLine.Count];
+            var table = JaggedArrays.CreateJaggedArray<double[][]>(numCol - 1, validLine.Count);
             double[] airDisCol = new double[validLine.Count];
             double[] landingWtRow = new double[numCol];
             string[] numbers = null;
 
-            for (int i = 0; i <= validLine.Count - 1; i++)
+            for (int i = 0; i < validLine.Count; i++)
             {
                 numbers = validLine[i].Split(new string[] {
                     " ",
@@ -153,9 +152,8 @@ namespace QSP
 
                 for (int j = 1; j <= numbers.Length - 1; j++)
                 {
-                    table[j - 1, i] = Convert.ToDouble(numbers[j]);
+                    table[j - 1][i] = Convert.ToDouble(numbers[j]);
                 }
-
             }
 
             airDis = airDisCol;
@@ -180,21 +178,18 @@ namespace QSP
                     }, StringSplitOptions.RemoveEmptyEntries);
                     double[] wt = new double[numbers.Length];
 
-                    for (int j = 0; j <= wt.Length - 1; j++)
+                    for (int j = 0; j < wt.Length; j++)
                     {
                         wt[j] = Convert.ToDouble(numbers[j]);
                     }
 
                     LandingWt = wt;
-
                 }
             }
-
         }
 
-        private double[,] loadGTATable(string sourceTxt)
+        private double[][] loadGTATable(string sourceTxt)
         {
-
             string gtaStr = sourceTxt.Substring(0, sourceTxt.IndexOf("[Fuel]"));
             string[] lines = gtaStr.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             List<string> validLine = new List<string>();
@@ -207,28 +202,26 @@ namespace QSP
                 }
             }
 
-            int numCol = validLine[0].Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Length;
-            double[,] table = new double[numCol, validLine.Count];
+            int numCol = validLine[0].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length;
+            var table = JaggedArrays.CreateJaggedArray<double[][]>(numCol, validLine.Count);
             string[] numbers = null;
 
-            for (int i = 0; i <= validLine.Count - 1; i++)
+            for (int i = 0; i < validLine.Count; i++)
             {
-                numbers = validLine[i].Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                numbers = validLine[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-                for (int j = 0; j <= numbers.Length - 1; j++)
+                for (int j = 0; j < numbers.Length; j++)
                 {
-                    table[j, i] = Convert.ToDouble(numbers[j]);
+                    table[j][i] = Convert.ToDouble(numbers[j]);
                 }
 
             }
 
             return table;
-
         }
 
         private double getAirDis(double tailwind, double groundDis)
         {
-
             double[] wind = {
                 -100,
                 -80,
@@ -242,38 +235,33 @@ namespace QSP
                 80,
                 100
             };
-            int NUM_ROW = GroundToAirDisTable.GetLength(1);
-            double[] grdDis = new double[NUM_ROW];
+            int rowCount = GroundToAirDisTable[0].Length;
+            double[] grdDis = new double[rowCount];
 
-            for (int i = 0; i <= NUM_ROW - 1; i++)
+            for (int i = 0; i < rowCount; i++)
             {
-                grdDis[i] = GroundToAirDisTable[5, i];
+                grdDis[i] = GroundToAirDisTable[5][i];
             }
-
-            return InterpolationOld.Interpolate(wind, grdDis, tailwind, groundDis, GroundToAirDisTable, ArrayOrder.Increasing, ArrayOrder.Increasing);
-
+            return Interpolate2D.Interpolate(wind, grdDis, tailwind, groundDis, GroundToAirDisTable);
         }
 
         private double getFuelBurn(double landingWeight, double airDistance)
         {
-            return InterpolationOld.Interpolate(LandingWt, airDis, landingWeight, airDistance, AirDisToFuelTable, ArrayOrder.Increasing, ArrayOrder.Increasing);
+            return Interpolate2D.Interpolate(LandingWt, airDis, landingWeight, airDistance, AirDisToFuelTable);
         }
 
         public double GetAltnFuelTon()
         {
-
             double airDistance = getAirDis(Parameters.AvgWindToAltn, Parameters.DisToAltn);
             TimeToAltn = TimeCalc.GetTimeMin(airDistance);
             fuelToAltn = getFuelBurn(LandWeightTonAltn, airDistance);
             altnFuelComputed = true;
 
             return fuelToAltn;
-
         }
 
         public double GetDestFuelTon()
         {
-
             if (altnFuelComputed == false)
             {
                 GetAltnFuelTon();
@@ -284,7 +272,6 @@ namespace QSP
             double airDistance = getAirDis(Parameters.AvgWindToDest, Parameters.DisToDest);
             TimeToDest = TimeCalc.GetTimeMin(airDistance);
             return getFuelBurn(LandWeightTonDest, airDistance);
-
         }
 
     }
