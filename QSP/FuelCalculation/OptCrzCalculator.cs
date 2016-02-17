@@ -1,7 +1,7 @@
 using QSP.AviationTools;
 using QSP.Core;
 using System;
-using static QSP.MathTools.Interpolation;
+using static QSP.MathTools.InterpolationOld;
 
 namespace QSP
 {

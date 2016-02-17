@@ -3,7 +3,7 @@ using System;
 
 namespace QSP.MathTools
 {
-    public static class Interpolation
+    public static class InterpolationOld
     {
         #region Common Tools
 

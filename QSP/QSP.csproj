@@ -92,6 +92,10 @@
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
     <Compile Include="LibraryExtension\MinHeapModifiable.cs" />
     <Compile Include="MathTools\Constants.cs" />
+    <Compile Include="MathTools\Interpolation\Common.cs" />
+    <Compile Include="MathTools\Interpolation\Interpolate1D.cs" />
+    <Compile Include="MathTools\Interpolation\Interpolate2D.cs" />
+    <Compile Include="MathTools\Interpolation\Interpolate3D.cs" />
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
     <Compile Include="RouteFinding\Airports\Exceptions.cs" />
     <Compile Include="RouteFinding\Airports\FileLoader.cs" />

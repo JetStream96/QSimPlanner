@@ -39,7 +39,7 @@ namespace QSP
                     break;
                 }
             }
-            return (int)(Interpolation.Interpolate(TimeRequiredTable[0, m], TimeRequiredTable[0, m + 1], airDistance,
+            return (int)(InterpolationOld.Interpolate(TimeRequiredTable[0, m], TimeRequiredTable[0, m + 1], airDistance,
                                                    TimeRequiredTable[1, m], TimeRequiredTable[1, m + 1]));
         }
 

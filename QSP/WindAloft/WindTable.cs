@@ -49,7 +49,7 @@ namespace QSP
             {
                 y = 179;
             }
-            return Interpolation.Interpolate(x, x + 1, lat, y, y + 1, lon, getUWindHelper(x, y, para), getUWindHelper(x, y + 1, para),
+            return InterpolationOld.Interpolate(x, x + 1, lat, y, y + 1, lon, getUWindHelper(x, y, para), getUWindHelper(x, y + 1, para),
                                              getUWindHelper(x + 1, y, para), getUWindHelper(x + 1, y + 1, para));
         }
 

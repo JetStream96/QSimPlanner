@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using QSP.MathTools;
-using static QSP.MathTools.Interpolation;
+using static QSP.MathTools.InterpolationOld;
 using QSP.Core;
 
 namespace QSP
@@ -250,13 +250,13 @@ namespace QSP
                 grdDis[i] = GroundToAirDisTable[5, i];
             }
 
-            return Interpolation.Interpolate(wind, grdDis, tailwind, groundDis, GroundToAirDisTable, ArrayOrder.Increasing, ArrayOrder.Increasing);
+            return InterpolationOld.Interpolate(wind, grdDis, tailwind, groundDis, GroundToAirDisTable, ArrayOrder.Increasing, ArrayOrder.Increasing);
 
         }
 
         private double getFuelBurn(double landingWeight, double airDistance)
         {
-            return Interpolation.Interpolate(LandingWt, airDis, landingWeight, airDistance, AirDisToFuelTable, ArrayOrder.Increasing, ArrayOrder.Increasing);
+            return InterpolationOld.Interpolate(LandingWt, airDis, landingWeight, airDistance, AirDisToFuelTable, ArrayOrder.Increasing, ArrayOrder.Increasing);
         }
 
         public double GetAltnFuelTon()

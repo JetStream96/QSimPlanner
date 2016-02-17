@@ -1,4 +1,4 @@
-using static QSP.MathTools.Interpolation;
+using static QSP.MathTools.InterpolationOld;
 
 namespace QSP.MathTools
 {

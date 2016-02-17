@@ -37,8 +37,8 @@ namespace QSP.WindAloft
             double press = CoversionTools.AltToPressureMb(FL * 100);
             int index = getIndicesForInterpolation(press);
 
-            double uWind = Interpolation.Interpolate(Utilities.FullWindDataSet[index], Utilities.FullWindDataSet[index + 1], press, windTables[index].GetUWind(lat, lon), windTables[index + 1].GetUWind(lat, lon));
-            double vWind = Interpolation.Interpolate(Utilities.FullWindDataSet[index], Utilities.FullWindDataSet[index + 1], press, windTables[index].GetVWind(lat, lon), windTables[index + 1].GetVWind(lat, lon));
+            double uWind = InterpolationOld.Interpolate(Utilities.FullWindDataSet[index], Utilities.FullWindDataSet[index + 1], press, windTables[index].GetUWind(lat, lon), windTables[index + 1].GetUWind(lat, lon));
+            double vWind = InterpolationOld.Interpolate(Utilities.FullWindDataSet[index], Utilities.FullWindDataSet[index + 1], press, windTables[index].GetVWind(lat, lon), windTables[index + 1].GetVWind(lat, lon));
 
             return new Tuple<double, double>(uWind, vWind);
         }

@@ -202,7 +202,7 @@ namespace QSP.TakeOffPerfCalculation
                 fieldLength[i] = slopeTable.ValueAt(slopeTable.XArray[i], slope);
             }
 
-            return new Table1D(fieldLength, Interpolation.ArrayOrder.Increasing, slopeTable.XArray);
+            return new Table1D(fieldLength, InterpolationOld.ArrayOrder.Increasing, slopeTable.XArray);
         }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace QSP.TakeOffPerfCalculation
                 slopeCorrLength[i] = windTable.ValueAt(windTable.XArray[i], headwindComponent);
             }
 
-            return new Table1D(slopeCorrLength, Interpolation.ArrayOrder.Increasing, windTable.XArray);
+            return new Table1D(slopeCorrLength, InterpolationOld.ArrayOrder.Increasing, windTable.XArray);
 
         }
 
@@ -439,7 +439,7 @@ namespace QSP.TakeOffPerfCalculation
                 weights[i] = weightTable.ValueAt(altitudeFt, weightTable.YArray[i], oat);
             }
 
-            return new Table1D(weights, Interpolation.ArrayOrder.Increasing, weightTable.YArray);
+            return new Table1D(weights, InterpolationOld.ArrayOrder.Increasing, weightTable.YArray);
 
         }
 
