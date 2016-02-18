@@ -6,7 +6,7 @@ namespace QSP.Core
 {
     public class AppOptions
     {
-        public string NavDBLocation { get; set; }
+        public string NavDataLocation { get; set; }
         public bool PromptBeforeExit { get; set; }
         public bool AutoDLTracks { get; set; }
         public bool AutoDLWind { get; set; }
@@ -16,12 +16,12 @@ namespace QSP.Core
         {
             ExportCommands = new List<RouteExportCommand>();
         }
-        
+
         public AppOptions(XDocument xmlFile)
         {
             var root = xmlFile.Root;
 
-            NavDBLocation = root.Element("DatabasePath").Value;
+            NavDataLocation = root.Element("DatabasePath").Value;
             PromptBeforeExit = Convert.ToBoolean(root.Element("PromptBeforeExit").Value);
             AutoDLTracks = Convert.ToBoolean(root.Element("AutoDLNats").Value);
             AutoDLWind = Convert.ToBoolean(root.Element("AutoDLWind").Value);
@@ -42,7 +42,7 @@ namespace QSP.Core
         {
             XElement[] exports = new XElement[ExportCommands.Count];
 
-            for (int i = 0; i < ExportCommands.Count ; i++)
+            for (int i = 0; i < ExportCommands.Count; i++)
             {
                 var command = ExportCommands[i];
                 exports[i] = new XElement(command.Format, new XElement[] {
@@ -53,7 +53,7 @@ namespace QSP.Core
             var exportOptions = new XElement("ExportOptions", exports);
 
             return new XElement("AppOptions", new XElement[] {
-                new XElement("DatabasePath", NavDBLocation),
+                new XElement("DatabasePath", NavDataLocation),
                 new XElement("PromptBeforeExit", PromptBeforeExit.ToString()),
                 new XElement("AutoDLNats", AutoDLTracks.ToString()),
                 new XElement("AutoDLWind", AutoDLWind.ToString()),
@@ -77,9 +77,9 @@ namespace QSP.Core
 
     public class RouteExportCommand
     {
-        public string Format { get; set; }
-        public string FilePath { get; set; }
-        public bool Enabled { get; set; }
+        public string Format { get; private set; }
+        public string FilePath { get; private set; }
+        public bool Enabled { get; private set; }
 
         public RouteExportCommand(string Format, string FilePath, bool Enabled)
         {

@@ -9,7 +9,10 @@ namespace QSP.Core
 		public static AppOptions AppSettings = new AppOptions();
 		
 		public static WxFileLoader WxReader;
-		public static string QspLocalDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\QSimPlanner";
-		public static string QspAppDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\QSimPlanner";
+		public static string QspLocalDirectory = Environment.GetFolderPath(
+            Environment.SpecialFolder.LocalApplicationData) + "\\QSimPlanner";
+
+		public static string QspAppDataDirectory = Environment.GetFolderPath(
+            Environment.SpecialFolder.ApplicationData) + "\\QSimPlanner";
 	}
 }

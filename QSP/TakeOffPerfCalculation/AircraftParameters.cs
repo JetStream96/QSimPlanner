@@ -1,4 +1,4 @@
-﻿using QSP.MathTools;
+﻿using QSP.MathTools.Tables;
 
 namespace QSP.TakeOffPerfCalculation
 {

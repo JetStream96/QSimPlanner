@@ -1,17 +1,14 @@
-using System;
-using System.Linq;
-using QSP.MathTools;
 using QSP.AviationTools;
 using QSP.Core;
+using QSP.MathTools.Tables;
+using System;
+using System.Linq;
 
 namespace QSP.TakeOffPerfCalculation
 {
-
     public class TOPerfCalculator
     {
-
         private TOPerfParameters toPara;
-
         private AircraftParameters acPara;
 
         public TOPerfCalculator(TOPerfParameters item, Aircraft ac)
@@ -23,11 +20,12 @@ namespace QSP.TakeOffPerfCalculation
         /// <summary>
         /// Computes runway length required for take off, for user input and all available assumed temperatures.
         /// </summary>
-        /// <exception cref="RunwayTooShortException">The runway length in the parameters is not sufficient.</exception>
-        /// <exception cref="PoorClimbPerformanceException">Aircraft cannot meet the required climb performance.</exception>
+        /// <exception cref="RunwayTooShortException">
+        /// The runway length in the parameters is not sufficient.</exception>
+        /// <exception cref="PoorClimbPerformanceException">
+        /// Aircraft cannot meet the required climb performance.</exception>
         public TOPerfResult TakeOffReport()
         {
-            
             TOPerfResult result = new TOPerfResult();
 
             Table2D slopeTable = null;
@@ -53,18 +51,15 @@ namespace QSP.TakeOffPerfCalculation
             double slopeCorrLength = 0;
             int rwyReq = 0;
 
-
             for (int oat = toPara.OatCelsius; oat <= maxOat; oat += TEMP_INCREMENT)
             {
                 rwyLengthRequired = tableComputeRwyRequired(rwyPressureAltFt(), oat, weightTable);
                 corrLength = rwyLengthRequired.ValueAt(equivWtTon);
                 slopeCorrLength = slopeCorrTable.ValueAt(corrLength);
-                rwyReq = Convert.ToInt32(fieldLengthTable.ValueAt(slopeCorrLength));
-
+                rwyReq = (int)fieldLengthTable.ValueAt(slopeCorrLength);
 
                 if (oat == toPara.OatCelsius)
                 {
-
                     if (rwyReq <= toPara.RwyLengthMeter)
                     {
                         if (climbLimitWeightTon(oat) * 1000 >= toPara.TOWT_KG)
@@ -75,14 +70,11 @@ namespace QSP.TakeOffPerfCalculation
                         {
                             throw new PoorClimbPerformanceException();
                         }
-
                     }
                     else
                     {
                         throw new RunwayTooShortException();
                     }
-
-
                 }
                 else
                 {
@@ -94,13 +86,10 @@ namespace QSP.TakeOffPerfCalculation
                     {
                         return result;
                     }
-
                 }
-
             }
 
             return result;
-
         }
 
         /// <summary>
@@ -109,7 +98,6 @@ namespace QSP.TakeOffPerfCalculation
         /// </summary>
         private double equivalentWeightKG()
         {
-
             double correctedWtKG = toPara.TOWT_KG;
 
             //correct weight for TO1/TO2, if applicable
@@ -122,7 +110,6 @@ namespace QSP.TakeOffPerfCalculation
             correctedWtKG -= fieldLimitModificationKG();
 
             return correctedWtKG;
-
         }
 
         /// <summary>
@@ -130,7 +117,6 @@ namespace QSP.TakeOffPerfCalculation
         /// </summary>
         public double TakeoffDistanceMeter()
         {
-
             Table2D slopeTable = null;
             Table2D windTable = null;
             Table3D weightTable = null;
@@ -140,12 +126,10 @@ namespace QSP.TakeOffPerfCalculation
             var rwyLengthRequired = tableComputeRwyRequired(rwyPressureAltFt(), toPara.OatCelsius, weightTable);
 
             //this is the slope and wind corrected length
-            double corrLength = rwyLengthRequired.ValueAt(equivalentWeightKG() / 1000);
-
+            double corrLength = rwyLengthRequired.ValueAt(equivalentWeightKG() / 1000.0);
             double slopeCorrLength = tableSlopeCorrLength(windTable, headwindComp()).ValueAt(corrLength);
 
             return tableFieldLength(slopeTable, toPara.RwySlope).ValueAt(slopeCorrLength);
-
         }
 
         private enum AltnThrustOption
@@ -161,7 +145,6 @@ namespace QSP.TakeOffPerfCalculation
         /// <param name="fullRatedWtTon">Full rated thrust weight, in TON.</param>
         private double thrustRatingFieldCorrWt(double fullRatedWtTon, AltnThrustOption para)
         {
-
             AlternateThrustTable altnRatingTable = null;
 
             if (toPara.ThrustRating == ThrustRatingOption.TO1)
@@ -175,15 +158,12 @@ namespace QSP.TakeOffPerfCalculation
 
             switch (para)
             {
-
                 case AltnThrustOption.GetEquivFullThrustWeight:
-
                     return altnRatingTable.EquivalentFullThrustWeight(fullRatedWtTon, toPara.SurfaceWet ? AlternateThrustTable.WeightProperty.Wet : AlternateThrustTable.WeightProperty.Dry);
-                default:
 
+                default:
                     return altnRatingTable.CorrectedLimitWeight(fullRatedWtTon, toPara.SurfaceWet ? AlternateThrustTable.WeightProperty.Wet : AlternateThrustTable.WeightProperty.Dry);
             }
-
         }
 
         /// <summary>
@@ -197,12 +177,12 @@ namespace QSP.TakeOffPerfCalculation
         {
             double[] fieldLength = new double[slopeTable.XArray.Length];
 
-            for (int i = 0; i <= fieldLength.Length - 1; i++)
+            for (int i = 0; i < fieldLength.Length; i++)
             {
                 fieldLength[i] = slopeTable.ValueAt(slopeTable.XArray[i], slope);
             }
 
-            return new Table1D(fieldLength, InterpolationOld.ArrayOrder.Increasing, slopeTable.XArray);
+            return new Table1D(fieldLength, slopeTable.XArray);
         }
 
         /// <summary>
@@ -214,16 +194,14 @@ namespace QSP.TakeOffPerfCalculation
         /// <param name="headwindComponent"></param>
         private Table1D tableSlopeCorrLength(Table2D windTable, double headwindComponent)
         {
+            var slopeCorrLength = new double[windTable.XArray.Length];
 
-            double[] slopeCorrLength = new double[windTable.XArray.Length];
-
-            for (int i = 0; i <= slopeCorrLength.Length - 1; i++)
+            for (int i = 0; i < slopeCorrLength.Length; i++)
             {
                 slopeCorrLength[i] = windTable.ValueAt(windTable.XArray[i], headwindComponent);
             }
 
-            return new Table1D(slopeCorrLength, InterpolationOld.ArrayOrder.Increasing, windTable.XArray);
-
+            return new Table1D(slopeCorrLength, windTable.XArray);
         }
 
         /// <summary>
@@ -231,7 +209,6 @@ namespace QSP.TakeOffPerfCalculation
         /// </summary>
         public double FieldLimitWeightTon()
         {
-
             Table2D slopeTable = null;
             Table2D windTable = null;
             Table3D weightTable = null;
@@ -294,30 +271,20 @@ namespace QSP.TakeOffPerfCalculation
         /// <summary>
         /// Based on runway condition (dry or wet), sets the tables for further computation.
         /// </summary>
-        /// <param name="slopeTable"></param>
-        /// <param name="windTable"></param>
-        /// <param name="weightTable"></param>
-        /// <remarks></remarks>
-
         private void setTables(ref Table2D slopeTable, ref Table2D windTable, ref Table3D weightTable)
         {
-
             if (toPara.SurfaceWet)
             {
                 slopeTable = acPara.SlopeCorrWet;
                 windTable = acPara.WindCorrWet;
                 weightTable = acPara.WeightTableWet;
-
-
             }
             else
             {
                 slopeTable = acPara.SlopeCorrDry;
                 windTable = acPara.WindCorrDry;
                 weightTable = acPara.WeightTableDry;
-
             }
-
         }
 
         /// <summary>
@@ -325,8 +292,7 @@ namespace QSP.TakeOffPerfCalculation
         /// </summary>
         private double fieldLimitModificationKG()
         {
-
-            double result = 0;
+            double result = 0.0;
 
             //correction for packs
 
@@ -340,7 +306,6 @@ namespace QSP.TakeOffPerfCalculation
                 {
                     result += acPara.PacksOffDry;
                 }
-
             }
 
             //correction for anti-ice
@@ -349,36 +314,29 @@ namespace QSP.TakeOffPerfCalculation
             {
                 switch (toPara.AntiIce)
                 {
-
                     case AntiIceOption.Engine:
                         result -= acPara.AIEngWet;
                         break;
+
                     case AntiIceOption.EngAndWing:
                         result -= acPara.AIBothWet;
-
                         break;
                 }
-
-
             }
             else
             {
                 switch (toPara.AntiIce)
                 {
-
                     case AntiIceOption.Engine:
                         result -= acPara.AIEngDry;
                         break;
+
                     case AntiIceOption.EngAndWing:
                         result -= acPara.AIBothDry;
-
                         break;
                 }
-
             }
-
             return result;
-
         }
 
         /// <summary>
@@ -386,8 +344,7 @@ namespace QSP.TakeOffPerfCalculation
         /// </summary>
         private double climbLimitModificationKG()
         {
-
-            double result = 0;
+            double result = 0.0;
 
             //correction for packs
             if (toPara.PacksOn == false)
@@ -399,18 +356,16 @@ namespace QSP.TakeOffPerfCalculation
 
             switch (toPara.AntiIce)
             {
-
                 case AntiIceOption.Engine:
                     result -= acPara.AIEngClimb;
                     break;
+
                 case AntiIceOption.EngAndWing:
                     result -= acPara.AIBothClimb;
-
                     break;
             }
 
             return result;
-
         }
 
         private double headwindComp()
@@ -431,18 +386,14 @@ namespace QSP.TakeOffPerfCalculation
         /// </summary>
         private Table1D tableComputeRwyRequired(double altitudeFt, double oat, Table3D weightTable)
         {
-
             double[] weights = new double[weightTable.YArray.Length];
 
-            for (int i = 0; i <= weights.Length - 1; i++)
+            for (int i = 0; i < weights.Length; i++)
             {
                 weights[i] = weightTable.ValueAt(altitudeFt, weightTable.YArray[i], oat);
             }
 
-            return new Table1D(weights, InterpolationOld.ArrayOrder.Increasing, weightTable.YArray);
-
+            return new Table1D(weights, weightTable.YArray);
         }
-
     }
-
 }

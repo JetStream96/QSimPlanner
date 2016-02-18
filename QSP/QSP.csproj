@@ -97,9 +97,11 @@
     <Compile Include="MathTools\Interpolation\Interpolate1D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate2D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate3D.cs" />
+    <Compile Include="MathTools\Interpolation\Interpolate4D.cs" />
     <Compile Include="MathTools\Tables\Table1D.cs" />
     <Compile Include="MathTools\Tables\Table2D.cs" />
     <Compile Include="MathTools\Tables\Table3D.cs" />
+    <Compile Include="MathTools\Tables\Table4D.cs" />
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
     <Compile Include="RouteFinding\Airports\Exceptions.cs" />
     <Compile Include="RouteFinding\Airports\FileLoader.cs" />

@@ -2,6 +2,25 @@
 {
     public static class Interpolate2D
     {
+
+        /// <summary>
+        /// Computes f(x,y) using interpolation.
+        /// </summary>
+        /// <param name="f00">f(x0,y0)</param>
+        /// <param name="f01">f(x0,y1)</param>
+        /// <param name="f10">f(x1,y0)</param>
+        /// <param name="f11">f(x1,y1)</param>
+        public static double Interpolate(
+            double x0, double x1, double x,
+            double y0, double y1, double y,
+            double f00, double f01, double f10, double f11)
+        {
+            double p = Interpolate1D.Interpolate(x0, x1, x, f00, f10);
+            double q = Interpolate1D.Interpolate(x0, x1, x, f01, f11);
+
+            return Interpolate1D.Interpolate(y0, y1, y, p, q);
+        }
+
         public static double Interpolate(double[] xArray, int XIndex,
                                          double[] yArray, int YIndex,
                                          double x, double y, double[][] f)

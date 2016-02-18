@@ -30,7 +30,7 @@ namespace UnitTest.Common
 
         public static void PrepareTest()
         {
-            QspCore.AppSettings.NavDBLocation = navDBLoc;
+            QspCore.AppSettings.NavDataLocation = navDBLoc;
 
 
             if (navDBready == false)

@@ -80,7 +80,7 @@ namespace QSP.LibraryExtension
             return SubArray(data, 0, data.Length, ignoredItems);
         }
 
-        public static void multiply(this double[] item, double c)
+        public static void Multiply(this double[] item, double c)
         {
             for (int i = 0; i < item.Length; i++)
             {
@@ -88,26 +88,26 @@ namespace QSP.LibraryExtension
             }
         }
 
-        public static void multiply(this double[,] item, double c)
+        public static void multiply(this double[][] item, double c)
         {
-            for (int i = 0; i < item.GetLength(0); i++)
+            for (int i = 0; i < item.Length; i++)
             {
-                for (int j = 0; j < item.GetLength(1); j++)
+                for (int j = 0; j < item[i].Length; j++)
                 {
-                    item[i, j] *= c;
+                    item[i][j] *= c;
                 }
             }
         }
 
-        public static void multiply(this double[,,] item, double c)
+        public static void multiply(this double[][][] item, double c)
         {
-            for (int i = 0; i < item.GetLength(0); i++)
+            for (int i = 0; i < item.Length; i++)
             {
-                for (int j = 0; j < item.GetLength(1); j++)
+                for (int j = 0; j < item[i].Length; j++)
                 {
-                    for (int k = 0; k < item.GetLength(2); k++)
+                    for (int k = 0; k < item[i][j].Length; k++)
                     {
-                        item[i, j, k] *= c;
+                        item[i][j][k] *= c;
                     }
                 }
             }

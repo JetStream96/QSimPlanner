@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using QSP.MathTools;
 using static QSP.AviationTools.Constants;
+using QSP.MathTools.Interpolation;
 
 namespace QSP
 {
@@ -49,11 +50,14 @@ namespace QSP
             {
                 y = 179;
             }
-            return InterpolationOld.Interpolate(x, x + 1, lat, y, y + 1, lon, getUWindHelper(x, y, para), getUWindHelper(x, y + 1, para),
-                                             getUWindHelper(x + 1, y, para), getUWindHelper(x + 1, y + 1, para));
+            return Interpolate2D.Interpolate(
+                x, x + 1, lat, 
+                y, y + 1, lon, 
+                getWindHelper(x, y, para), getWindHelper(x, y + 1, para),
+                getWindHelper(x + 1, y, para), getWindHelper(x + 1, y + 1, para));
         }
 
-        private double getUWindHelper(int lat, int lon, TableOption para)
+        private double getWindHelper(int lat, int lon, TableOption para)
         {
             if (para == TableOption.U)
             {

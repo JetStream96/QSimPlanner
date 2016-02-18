@@ -117,7 +117,7 @@ namespace QSP
 
             if (SaveOptions())
             {
-                QspCore.AppSettings.NavDBLocation = DBPath_TxtBox.Text;
+                QspCore.AppSettings.NavDataLocation = DBPath_TxtBox.Text;
                 MainFormInstance().LoadNavDBUpdateStatusStrip(false);
             }
             this.Close();
@@ -139,13 +139,13 @@ namespace QSP
             QspCore.AppSettings.AutoDLTracks = AutoDLNats_CheckBox.Checked;
             QspCore.AppSettings.AutoDLWind = AutoDLWind_CheckBox.Checked;
 
-            if (QspCore.AppSettings.NavDBLocation == DBPath_TxtBox.Text)
+            if (QspCore.AppSettings.NavDataLocation == DBPath_TxtBox.Text)
             {
                 return false;
             }
             else
             {
-                QspCore.AppSettings.NavDBLocation = DBPath_TxtBox.Text;
+                QspCore.AppSettings.NavDataLocation = DBPath_TxtBox.Text;
                 return true;
             }
 
@@ -209,7 +209,7 @@ namespace QSP
         {
             AutoDLNats_CheckBox.Checked = QspCore.AppSettings.AutoDLTracks;
             AutoDLWind_CheckBox.Checked = QspCore.AppSettings.AutoDLWind;
-            DBPath_TxtBox.Text = QspCore.AppSettings.NavDBLocation;
+            DBPath_TxtBox.Text = QspCore.AppSettings.NavDataLocation;
             DoubleCheckWhenExit_CheckBox.Checked = QspCore.AppSettings.PromptBeforeExit;
 
             var command = QspCore.AppSettings.GetExportCommand("PmdgCommon");

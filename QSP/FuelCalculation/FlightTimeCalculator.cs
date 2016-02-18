@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using QSP.MathTools;
+using QSP.MathTools.Interpolation;
 using QSP.LibraryExtension;
 using QSP.Core;
 
@@ -31,7 +31,7 @@ namespace QSP
             //  "HHMM", will return, e.g. 0236   (2 hours and 36 min)
 
             int m = TimeRequiredTable.GetLength(1) - 2;
-            for (int k = 1; k <= TimeRequiredTable.GetLength(1) - 1; k++)
+            for (int k = 1; k < TimeRequiredTable.GetLength(1); k++)
             {
                 if (airDistance <= TimeRequiredTable[0, k])
                 {
@@ -39,39 +39,40 @@ namespace QSP
                     break;
                 }
             }
-            return (int)(InterpolationOld.Interpolate(TimeRequiredTable[0, m], TimeRequiredTable[0, m + 1], airDistance,
-                                                   TimeRequiredTable[1, m], TimeRequiredTable[1, m + 1]));
+            return (int)(Interpolate1D.Interpolate(
+                TimeRequiredTable[0, m], TimeRequiredTable[0, m + 1], airDistance,
+                TimeRequiredTable[1, m], TimeRequiredTable[1, m + 1]));
         }
 
         private int[,] importFlightTimeTable(string sourceTxt)
         {
-            string[] all_lines = sourceTxt.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            List<string> allLines = new List<string>();
+            var lines = sourceTxt.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var allLines = new List<string>();
 
             //only consider the lines starting with a number
             string[] t = null;
-            for (int i = 0; i < all_lines.Length; i++)
+            for (int i = 0; i < lines.Length; i++)
             {
-                t = all_lines[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                t = lines[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 if (t != null && char.IsDigit(t[0][0]))
                 {
-                    allLines.Add(all_lines[i]);
+                    allLines.Add(lines[i]);
                 }
             }
 
             //import to a table
-            int[,] time_req_table = new int[2, allLines.Count];
+            int[,] timeReqTable = new int[2, allLines.Count];
 
             for (int j = 0; j < allLines.Count; j++)
             {
                 t = allLines[j].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                time_req_table[0, j] = Convert.ToInt32(t[0]);
+                timeReqTable[0, j] = Convert.ToInt32(t[0]);
                 //e.g. 500
-                time_req_table[1, j] = TimeFormat.HourColonMinToMin(t[t.Length - 1]);
+                timeReqTable[1, j] = TimeFormat.HourColonMinToMin(t[t.Length - 1]);
                 //e.g. 1:43 -> 103
             }
 
-            return time_req_table;
+            return timeReqTable;
         }
     }
 }

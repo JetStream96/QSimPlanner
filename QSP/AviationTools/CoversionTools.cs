@@ -89,17 +89,17 @@ namespace QSP.AviationTools
 
         public static double PressureAltitudeFt(double elevationFt, double QNH)
         {
-            return elevationFt + 30 * (1013.0 - QNH);
+            return elevationFt + 30.0 * (1013.0 - QNH);
         }
 
         public static double ToCelsius(double temp)
         {
-            return (temp - 32.0) * 5 / 9;
+            return (temp - 32.0) * 5.0 / 9.0;
         }
 
         public static double ToFahrenheit(double temp)
         {
-            return temp * 9 / 5 + 32;
+            return temp * 9.0 / 5.0 + 32;
         }
     }
 }

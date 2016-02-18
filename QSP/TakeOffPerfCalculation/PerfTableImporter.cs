@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Xml.Linq;
-using QSP.MathTools;
+using QSP.MathTools.Tables;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.Arrays;
+using QSP.LibraryExtension;
 
 namespace QSP.TakeOffPerfCalculation
 {
@@ -111,8 +112,8 @@ namespace QSP.TakeOffPerfCalculation
 
             int yLen = lines.Length - 1; //Num of lengths
             int zLen = words.Length;  //Num of OAT
-            var fieldLim = new double[altitudes.Length, yLen, zLen];
-            var climbLim = new double[altitudes.Length, zLen];
+            var fieldLim = JaggedArrays.CreateJaggedArray<double[][][]>(altitudes.Length, yLen, zLen);
+            var climbLim = JaggedArrays.CreateJaggedArray<double[][]>(altitudes.Length, zLen);
 
             // First line is OAT
             var oats = new double[zLen];
@@ -144,7 +145,7 @@ namespace QSP.TakeOffPerfCalculation
 
                     for (int k = 0; k < words.Length - 1; k++)
                     {
-                        fieldLim[index, j, k] = Convert.ToDouble(words[k + 1]);
+                        fieldLim[index][j][k] = Convert.ToDouble(words[k + 1]);
                     }
                 }
 
@@ -154,7 +155,7 @@ namespace QSP.TakeOffPerfCalculation
 
                 for (int m = 0; m < words.Length; m++)
                 {
-                    climbLim[index, m] = Convert.ToDouble(words[m]);
+                    climbLim[index][m] = Convert.ToDouble(words[m]);
                 }
 
                 index++;
@@ -163,7 +164,7 @@ namespace QSP.TakeOffPerfCalculation
             // Now check units
             if (!lenthIsMeter)
             {
-                lengths.multiply(FT_M_ratio);
+                lengths.Multiply(FT_M_ratio);
             }
 
             if (!WtIsKG)
@@ -193,7 +194,7 @@ namespace QSP.TakeOffPerfCalculation
 
             // From second line
             var lengths = new double[lines.Length - 1];
-            var table = new double[lengths.Length, slope.Length];
+            var table = JaggedArrays.CreateJaggedArray<double[][]>(lengths.Length, slope.Length);
 
             for (int j = 0; j < lines.Length - 1; j++)
             {
@@ -202,14 +203,14 @@ namespace QSP.TakeOffPerfCalculation
 
                 for (int k = 0; k < slope.Length; k++)
                 {
-                    table[j,k] = Convert.ToDouble(words[k + 1]);
+                    table[j][k] = Convert.ToDouble(words[k + 1]);
                 }
             }
 
             // If length unit is feet, convert them to meter.
             if (!lengthIsMeter)
             {
-                lengths.multiply(FT_M_ratio);
+                lengths.Multiply(FT_M_ratio);
                 table.multiply(FT_M_ratio);
             }
 
@@ -284,10 +285,10 @@ namespace QSP.TakeOffPerfCalculation
 
             if (!wtUnitIsKG)
             {
-                fullThrust.multiply(LB_KG);
-                dry.multiply(LB_KG);
-                wet.multiply(LB_KG);
-                climb.multiply(LB_KG);
+                fullThrust.Multiply(LB_KG);
+                dry.Multiply(LB_KG);
+                wet.Multiply(LB_KG);
+                climb.Multiply(LB_KG);
             }
             return new AlternateThrustTable(fullThrust, dry, wet, climb);
         }
