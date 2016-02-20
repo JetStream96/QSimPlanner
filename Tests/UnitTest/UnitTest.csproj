@@ -62,6 +62,7 @@
     <Compile Include="AviationTools\Coordinates\Format7LetterTest.cs" />
     <Compile Include="Common\Utilities.cs" />
     <Compile Include="LandingPerfCalcTest.cs" />
+    <Compile Include="LibraryExtension\JaggedArraysTest.cs" />
     <Compile Include="LibraryExtension\StringParser\UtilitiesTest.cs" />
     <Compile Include="LibraryExtension\UtilitiesTest.cs" />
     <Compile Include="LibraryExtension\FixedIndexListTest.cs" />
