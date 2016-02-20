@@ -13,7 +13,7 @@ namespace QSP.LibraryExtension
             return (T)InitializeJaggedArray(typeof(T).GetElementType(), 0, lengths);
         }
 
-        public static object InitializeJaggedArray(Type type, int index, int[] lengths)
+        private static object InitializeJaggedArray(Type type, int index, int[] lengths)
         {
             Array array = Array.CreateInstance(type, lengths[index]);
             Type elementType = type.GetElementType();
@@ -28,6 +28,26 @@ namespace QSP.LibraryExtension
             }
 
             return array;
+        }
+
+        public static void Multiply(this object jaggedArray, double c)
+        {
+            var array = (Array)jaggedArray;
+
+            if (array.GetType().GetElementType().IsArray == false)
+            {
+                for (int i = 0; i < array.Length; i++)
+                {
+                    array.SetValue((double)(array.GetValue(i)) * c, i);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < array.Length; i++)
+                {
+                    array.GetValue(i).Multiply(c);
+                }
+            }
         }
     }
 }
