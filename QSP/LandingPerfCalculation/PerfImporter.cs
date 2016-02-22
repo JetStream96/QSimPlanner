@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.AviationTools.Constants;
+using QSP.LibraryExtension;
 
 namespace QSP.LandingPerfCalculation
 {
@@ -28,8 +29,14 @@ namespace QSP.LandingPerfCalculation
             var data = root.Elements("Data").ToArray();
             int LEN = data.Length;
             string[] flaps = new string[LEN];
-            var tableDry = new double[LEN, autoBrkDry.Length, COL_NUM];
-            var tableWet = new double[LEN, NUM_SURF_CON, autoBrkWet.Length, COL_NUM];
+
+            var tableDry =
+                JaggedArrays.CreateJaggedArray<double[][][]>
+                (LEN, autoBrkDry.Length, COL_NUM);
+
+            var tableWet =
+                JaggedArrays.CreateJaggedArray<double[][][][]>
+                (LEN, NUM_SURF_CON, autoBrkWet.Length, COL_NUM);
 
             for (int i = 0; i < LEN; i++)
             {
@@ -43,43 +50,43 @@ namespace QSP.LandingPerfCalculation
 
             if (!lenUnitIsMeter)
             {
-                tableDry.multiply(FT_M_ratio);
-                tableWet.multiply(FT_M_ratio);
+                tableDry.Multiply(FT_M_ratio);
+                tableWet.Multiply(FT_M_ratio);
             }
 
             return new PerfData(wtRefKg, wtStepKg, autoBrkDry, autoBrkWet, flaps, REVERSERS, tableDry, tableWet);
         }
 
-        private static void readTableDry(double[,,] item, int firstIndex, string value)
+        private static void readTableDry(double[][][] item, int firstIndex, string value)
         {
             string[] lines = value.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            int LEN1 = Math.Min(item.GetLength(1), lines.Length);
+            int LEN1 = Math.Min(item[0].Length, lines.Length);
 
             for (int i = 0; i < LEN1; i++)
             {
                 var words = lines[i].Split(new char[] { ' ', '/' }, StringSplitOptions.RemoveEmptyEntries);
 
-                int LEN2 = Math.Min(item.GetLength(2), words.Length);
+                int LEN2 = Math.Min(item[0][0].Length, words.Length);
                 for (int j = 0; j < LEN2; j++)
                 {
-                    item[firstIndex, i, j] = Convert.ToDouble(words[j]);
+                    item[firstIndex][i][j] = Convert.ToDouble(words[j]);
                 }
             }
         }
 
-        private static void readTableWet(double[,,,] item, int firstIndex, int secondIndex, string value)
+        private static void readTableWet(double[][][][] item, int firstIndex, int secondIndex, string value)
         {
             string[] lines = value.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            int LEN1 = Math.Min(item.GetLength(2), lines.Length);
+            int LEN1 = Math.Min(item[0][0].Length, lines.Length);
 
             for (int i = 0; i < LEN1; i++)
             {
                 var words = lines[i].Split(new char[] { ' ', '/' }, StringSplitOptions.RemoveEmptyEntries);
 
-                int LEN2 = Math.Min(item.GetLength(3), words.Length);
+                int LEN2 = Math.Min(item[0][0][0].Length, words.Length);
                 for (int j = 0; j < LEN2; j++)
                 {
-                    item[firstIndex, secondIndex, i, j] = Convert.ToDouble(words[j]);
+                    item[firstIndex][secondIndex][i][j] = Convert.ToDouble(words[j]);
                 }
             }
         }

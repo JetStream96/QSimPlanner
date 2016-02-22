@@ -88,48 +88,6 @@ namespace QSP.LibraryExtension
             }
         }
 
-        public static void multiply(this double[][] item, double c)
-        {
-            for (int i = 0; i < item.Length; i++)
-            {
-                for (int j = 0; j < item[i].Length; j++)
-                {
-                    item[i][j] *= c;
-                }
-            }
-        }
-
-        public static void multiply(this double[][][] item, double c)
-        {
-            for (int i = 0; i < item.Length; i++)
-            {
-                for (int j = 0; j < item[i].Length; j++)
-                {
-                    for (int k = 0; k < item[i][j].Length; k++)
-                    {
-                        item[i][j][k] *= c;
-                    }
-                }
-            }
-        }
-
-        public static void multiply(this double[,,,] item, double c)
-        {
-            for (int i = 0; i < item.GetLength(0); i++)
-            {
-                for (int j = 0; j < item.GetLength(1); j++)
-                {
-                    for (int k = 0; k < item.GetLength(2); k++)
-                    {
-                        for (int m = 0; m < item.GetLength(3); m++)
-                        {
-                            item[i, j, k, m] *= c;
-                        }
-                    }
-                }
-            }
-        }
-
         public static T[] RemoveElements<T>(this T[] array, T item)
         {
             var result = new T[array.Length];

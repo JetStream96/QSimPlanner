@@ -4,30 +4,26 @@ namespace QSP.LibraryExtension
 {
     public static class JaggedArrays
     {
-        // Usage: int[][][] my3DArray = CreateJaggedArray<int[][][]>(1, 2, 3);
-        // from: http://stackoverflow.com/questions/1738990/initializing-jagged-arrays
-        // TODO: modify when possible (license issue)
-
-        public static T CreateJaggedArray<T>(params int[] lengths)
+        // Usage: var array = CreateJaggedArray<double[][]>(3, 5);
+        public static T CreateJaggedArray<T>(params int[] arrayLengths)
         {
-            return (T)InitializeJaggedArray(typeof(T).GetElementType(), 0, lengths);
+            return (T)getJaggedArray(typeof(T).GetElementType(), 0, arrayLengths);
         }
 
-        private static object InitializeJaggedArray(Type type, int index, int[] lengths)
+        private static object getJaggedArray(Type type, int index, params int[] lengths)
         {
-            Array array = Array.CreateInstance(type, lengths[index]);
-            Type elementType = type.GetElementType();
+            var result = Array.CreateInstance(type, lengths[index]);
+            var elementType = type.GetElementType();
 
             if (elementType != null)
             {
                 for (int i = 0; i < lengths[index]; i++)
                 {
-                    array.SetValue(
-                        InitializeJaggedArray(elementType, index + 1, lengths), i);
+                    result.SetValue(
+                        getJaggedArray(elementType, index + 1, lengths), i);
                 }
             }
-
-            return array;
+            return result;
         }
 
         public static void Multiply(this object jaggedArray, double c)

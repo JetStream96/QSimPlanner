@@ -15,10 +15,10 @@
             double y0, double y1, double y,
             double f00, double f01, double f10, double f11)
         {
-            double p = Interpolate1D.Interpolate(x0, x1, x, f00, f10);
-            double q = Interpolate1D.Interpolate(x0, x1, x, f01, f11);
+            double p = Interpolate1D.Interpolate(x0, x1, f00, f10, x);
+            double q = Interpolate1D.Interpolate(x0, x1, f01, f11, x);
 
-            return Interpolate1D.Interpolate(y0, y1, y, p, q);
+            return Interpolate1D.Interpolate(y0, y1, p, q, y);
         }
 
         public static double Interpolate(double[] xArray, int XIndex,

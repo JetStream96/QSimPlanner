@@ -43,7 +43,7 @@ namespace QSP.TakeOffPerfCalculation
             // f(x): Field length available. 
             var fieldLengthTable = tableFieldLength(slopeTable, toPara.RwySlope);
 
-            int maxOat = Convert.ToInt32(weightTable.ZArray.Last());
+            int maxOat = Convert.ToInt32(weightTable.z.Last());
             const int TEMP_INCREMENT = 1;
 
             Table1D rwyLengthRequired = null;
@@ -175,14 +175,14 @@ namespace QSP.TakeOffPerfCalculation
         /// <param name="slope"></param> 
         private Table1D tableFieldLength(Table2D slopeTable, double slope)
         {
-            double[] fieldLength = new double[slopeTable.XArray.Length];
+            double[] fieldLength = new double[slopeTable.x.Length];
 
             for (int i = 0; i < fieldLength.Length; i++)
             {
-                fieldLength[i] = slopeTable.ValueAt(slopeTable.XArray[i], slope);
+                fieldLength[i] = slopeTable.ValueAt(slopeTable.x[i], slope);
             }
 
-            return new Table1D(fieldLength, slopeTable.XArray);
+            return new Table1D(fieldLength, slopeTable.x);
         }
 
         /// <summary>
@@ -194,14 +194,14 @@ namespace QSP.TakeOffPerfCalculation
         /// <param name="headwindComponent"></param>
         private Table1D tableSlopeCorrLength(Table2D windTable, double headwindComponent)
         {
-            var slopeCorrLength = new double[windTable.XArray.Length];
+            var slopeCorrLength = new double[windTable.x.Length];
 
             for (int i = 0; i < slopeCorrLength.Length; i++)
             {
-                slopeCorrLength[i] = windTable.ValueAt(windTable.XArray[i], headwindComponent);
+                slopeCorrLength[i] = windTable.ValueAt(windTable.x[i], headwindComponent);
             }
 
-            return new Table1D(slopeCorrLength, windTable.XArray);
+            return new Table1D(slopeCorrLength, windTable.x);
         }
 
         /// <summary>
@@ -386,14 +386,14 @@ namespace QSP.TakeOffPerfCalculation
         /// </summary>
         private Table1D tableComputeRwyRequired(double altitudeFt, double oat, Table3D weightTable)
         {
-            double[] weights = new double[weightTable.YArray.Length];
+            double[] weights = new double[weightTable.y.Length];
 
             for (int i = 0; i < weights.Length; i++)
             {
-                weights[i] = weightTable.ValueAt(altitudeFt, weightTable.YArray[i], oat);
+                weights[i] = weightTable.ValueAt(altitudeFt, weightTable.y[i], oat);
             }
 
-            return new Table1D(weights, weightTable.YArray);
+            return new Table1D(weights, weightTable.y);
         }
     }
 }

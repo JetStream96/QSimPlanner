@@ -183,6 +183,22 @@
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\WestTrackParser.cs" />
     <Compile Include="RouteFinding\WaypointAirwayConnector.cs" />
+    <Compile Include="UI\Controls\ComboBoxWithBorder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\LandingPerf\CustomFuelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\LandingPerf\CustomFuelControl.Designer.cs">
+      <DependentUpon>CustomFuelControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\LandingPerf\FormController.cs" />
+    <Compile Include="UI\Forms\LandingPerf\LandingPerfControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\LandingPerf\LandingPerfControl.Designer.cs">
+      <DependentUpon>LandingPerfControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,11 +237,9 @@
     <Compile Include="LibraryExtension\Pair.cs" />
     <Compile Include="LibraryExtension\Strings.cs" />
     <Compile Include="LibraryExtension\TimeFormat.cs" />
-    <Compile Include="MathTools\Interpolation.cs" />
     <Compile Include="MathTools\Utilities.cs" />
     <Compile Include="MathTools\Matrix2by2.cs" />
     <Compile Include="MathTools\RealValuedFunction.cs" />
-    <Compile Include="MathTools\Tables.cs" />
     <Compile Include="MathTools\Vectors\Vector2D.cs" />
     <Compile Include="MathTools\Vectors\Vector3D.cs" />
     <Compile Include="Core\Program.cs" />
@@ -354,6 +368,12 @@
     <EmbeddedResource Include="UI\Forms\FindAltnForm.resx">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\LandingPerf\CustomFuelControl.resx">
+      <DependentUpon>CustomFuelControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\LandingPerf\LandingPerfControl.resx">
+      <DependentUpon>LandingPerfControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -392,6 +412,7 @@
     </Content>
     <Content Include="PerformanceData\LDG\737600_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\LDG\737700_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

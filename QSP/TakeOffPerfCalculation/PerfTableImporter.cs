@@ -169,8 +169,8 @@ namespace QSP.TakeOffPerfCalculation
 
             if (!WtIsKG)
             {
-                climbLim.multiply(LB_KG);
-                fieldLim.multiply(LB_KG);
+                climbLim.Multiply(LB_KG);
+                fieldLim.Multiply(LB_KG);
             }
 
             return new Tuple<Table3D, Table2D>
@@ -211,7 +211,7 @@ namespace QSP.TakeOffPerfCalculation
             if (!lengthIsMeter)
             {
                 lengths.Multiply(FT_M_ratio);
-                table.multiply(FT_M_ratio);
+                table.Multiply(FT_M_ratio);
             }
 
             return new Table2D(lengths, slope, table);

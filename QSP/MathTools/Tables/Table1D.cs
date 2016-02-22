@@ -4,9 +4,9 @@ namespace QSP.MathTools.Tables
 {
     public class Table1D
     {
-        private double[] x;
-        private double[] f;
-        
+        public double[] x { get; set; }
+        public double[] f { get; set; }
+
         public Table1D(double[] x, double[] f)
         {
             this.x = x;

@@ -1,7 +1,7 @@
 using QSP.AviationTools;
 using QSP.Core;
 using System;
-using static QSP.MathTools.InterpolationOld;
+using QSP.MathTools.Interpolation;
 
 namespace QSP
 {
@@ -81,7 +81,7 @@ namespace QSP
         public double OptimumAltitude(double wt)
         {
             //FT
-            return Interpolate(weight, wt, alt, ArrayOrder.Decreasing);
+            return Interpolate1D.Interpolate(weight, alt, wt);
         }
 
         public double DisLimitedAlt(double disNm)

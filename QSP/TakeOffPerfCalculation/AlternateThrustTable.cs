@@ -1,28 +1,19 @@
 using QSP.MathTools;
-using static QSP.MathTools.InterpolationOld;
+using QSP.MathTools.Interpolation;
 
 namespace QSP.TakeOffPerfCalculation
 {
 
     public class AlternateThrustTable
     {
-
         private double[] FullThrustWeight;
-        private ArrayOrder Order;
         private double[] Dry;
         private double[] Wet;
-
         private double[] Climb;
 
-        public AlternateThrustTable(double[] fullThrustWeight,double[] dryWeight, double[] wetWeight, double[] climbWeight)
-            :this(fullThrustWeight,fullThrustWeight.GetOrder(),dryWeight,wetWeight,climbWeight )
-        {
-        }
-
-        public AlternateThrustTable(double[] fullThrustWeight, ArrayOrder arrayOrder, double[] dryWeight, double[] wetWeight, double[] climbWeight)
+        public AlternateThrustTable(double[] fullThrustWeight, double[] dryWeight, double[] wetWeight, double[] climbWeight)
         {
             this.FullThrustWeight = fullThrustWeight;
-            this.Order = arrayOrder;
             this.Dry = dryWeight;
             this.Wet = wetWeight;
             this.Climb = climbWeight;
@@ -45,12 +36,14 @@ namespace QSP.TakeOffPerfCalculation
             switch (para)
             {
                 case WeightProperty.Dry:
-                    return Interpolate(Dry, weight, FullThrustWeight, Order);
+                    return Interpolate1D.Interpolate(Dry, FullThrustWeight, weight);
+
                 case WeightProperty.Wet:
-                    return Interpolate(Wet, weight, FullThrustWeight, Order);
+                    return Interpolate1D.Interpolate(Wet, FullThrustWeight, weight);
+
                 default:
                     //i.e. Climb
-                    return Interpolate(Climb, weight, FullThrustWeight, Order);
+                    return Interpolate1D.Interpolate(Climb, FullThrustWeight, weight);
             }
         }
 
@@ -59,12 +52,12 @@ namespace QSP.TakeOffPerfCalculation
             switch (para)
             {
                 case WeightProperty.Dry:
-                    return Interpolate(FullThrustWeight, fullRatedWt, Dry, Order);
+                    return Interpolate1D.Interpolate(FullThrustWeight, Dry, fullRatedWt);
                 case WeightProperty.Wet:
-                    return Interpolate(FullThrustWeight, fullRatedWt, Wet, Order);
+                    return Interpolate1D.Interpolate(FullThrustWeight, Wet, fullRatedWt);
                 default:
                     //i.e. Climb
-                    return Interpolate(FullThrustWeight, fullRatedWt, Climb, Order);
+                    return Interpolate1D.Interpolate(FullThrustWeight, Climb, fullRatedWt);
             }
         }
 

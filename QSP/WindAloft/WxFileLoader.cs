@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using QSP.MathTools;
 using QSP.AviationTools;
+using QSP.MathTools.Interpolation;
 
 namespace QSP.WindAloft
 {
@@ -37,8 +38,15 @@ namespace QSP.WindAloft
             double press = CoversionTools.AltToPressureMb(FL * 100);
             int index = getIndicesForInterpolation(press);
 
-            double uWind = InterpolationOld.Interpolate(Utilities.FullWindDataSet[index], Utilities.FullWindDataSet[index + 1], press, windTables[index].GetUWind(lat, lon), windTables[index + 1].GetUWind(lat, lon));
-            double vWind = InterpolationOld.Interpolate(Utilities.FullWindDataSet[index], Utilities.FullWindDataSet[index + 1], press, windTables[index].GetVWind(lat, lon), windTables[index + 1].GetVWind(lat, lon));
+            double uWind = Interpolate1D.Interpolate(
+                Utilities.FullWindDataSet[index], Utilities.FullWindDataSet[index + 1],
+                windTables[index].GetUWind(lat, lon), windTables[index + 1].GetUWind(lat, lon),
+                press);
+
+            double vWind = Interpolate1D.Interpolate(
+                Utilities.FullWindDataSet[index], Utilities.FullWindDataSet[index + 1],
+                windTables[index].GetVWind(lat, lon), windTables[index + 1].GetVWind(lat, lon),
+                press);
 
             return new Tuple<double, double>(uWind, vWind);
         }

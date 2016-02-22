@@ -15,19 +15,19 @@ namespace QSP.LandingPerfCalculation
         private string[] flaps;
 
         private string[] reversers;
-        private double[,,] mainDataDry;
+        private double[][][] mainDataDry;
         //first index = corresponding index in flaps
         //second index = corresponding index in autoBrkDry
         //third index = parameters
 
-        private double[,,,] mainDataWet;
+        private double[][][][] mainDataWet;
         //first index = corresponding index in flaps
         //second index : good = 0, medium = 1, poor =2 
         //third index = corresponding index in autoBrkDry
         //forth index = parameters
 
         public PerfData(double weightRef, double weightStep, string[] autoBrkDry, string[] autoBrkWet, string[] flaps,
-            string[] reversers, double[,,] mainDataDry, double[,,,] mainDataWet)
+            string[] reversers, double[][][] mainDataDry, double[][][][] mainDataWet)
         {
             this.weightRef = weightRef;
             this.weightStep = weightStep;
@@ -88,9 +88,9 @@ namespace QSP.LandingPerfCalculation
         {
             if (para.SurfaceCondition == SurfaceCondition.Dry)
             {
-                return mainDataDry[para.FlapsIndex, brakeSetting, (int)request];
+                return mainDataDry[para.FlapsIndex][brakeSetting][(int)request];
             }
-            return mainDataWet[(int)para.SurfaceCondition - 1, para.FlapsIndex, brakeSetting, (int)request];
+            return mainDataWet[(int)para.SurfaceCondition - 1][para.FlapsIndex][brakeSetting][(int)request];
         }
 
         public LandingCalcResult GetLandingReport(LandingParameters para)

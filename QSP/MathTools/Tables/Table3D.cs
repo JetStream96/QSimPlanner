@@ -4,11 +4,11 @@ namespace QSP.MathTools.Tables
 {
     public class Table3D
     {
-        private double[] x;
-        private double[] y;
-        private double[] z;
-        private double[][][] f;
-        
+        public double[] x { get; set; }
+        public double[] y { get; set; }
+        public double[] z { get; set; }
+        public double[][][] f { get; set; }
+
         public Table3D(double[] x, double[] y, double[] z, double[][][] f)
         {
             this.x = x;
