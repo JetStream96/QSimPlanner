@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LandingData>
 		<Pamameters>
-				
+        <Aircraft>B777F</Aircraft>
+        <Description></Description>
+        <Designator>B77L</Designator>
+              
 				<LengthUnit>M</LengthUnit>
 				<!-- FT or M -->
 				

@@ -1,24 +1,44 @@
-﻿using System;
-using System.Linq;
-using System.Xml.Linq;
-using static QSP.LibraryExtension.Arrays;
-using static QSP.AviationTools.Constants;
+﻿using QSP.LandingPerfCalculation.Boeing.PerfData;
 using QSP.LibraryExtension;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using static QSP.AviationTools.Constants;
+using static QSP.LibraryExtension.Arrays;
 
-namespace QSP.LandingPerfCalculation
+namespace QSP.LandingPerfCalculation.Boeing
 {
-    public static class PerfImporter
+    public class DataLoader
     {
-        public static PerfDataOld ReadFromXml(string filePath)
+        private const int ColumnCount = 14;
+        private const int SurfaceCondCount = 3;
+
+        public PerfTable ReadFromXml(string filePath)
         {
-            const int COL_NUM = 14;
-            const int NUM_SURF_CON = 3;
+            XDocument doc = XDocument.Load(filePath);
+            return new PerfTable(GetItem(doc), GetEntry(filePath, doc));
+        }
+
+        public Entry GetEntry(string path, XDocument doc)
+        {
+            return new Entry(
+                new Uri(path).MakeRelativeUri(new Uri(Constants.Path)).ToString(),
+                doc.Element("Aircraft").Value,
+                doc.Element("Description").Value,
+                doc.Element("Designator").Value);
+        }
+
+        public PerfTableItem GetItem(XDocument doc)
+        {
+            // TODO:
             var REVERSERS = new string[] { "BOTH", "ONE REV", "NO REV" };
 
-            XDocument doc = XDocument.Load(filePath);
             var root = doc.Root;
             var para = root.Element("Pamameters");
-            bool lenUnitIsMeter = para.Element("LengthUnit").Value == "M" ? true : false;
+            bool lenUnitIsMeter = para.Element("LengthUnit").Value == "M";
             double wtRefKg = Convert.ToDouble(para.Element("WeightRef").Value);
             double wtStepKg = Convert.ToDouble(para.Element("WeightStep").Value);
 
@@ -32,11 +52,11 @@ namespace QSP.LandingPerfCalculation
 
             var tableDry =
                 JaggedArrays.CreateJaggedArray<double[][][]>
-                (LEN, autoBrkDry.Length, COL_NUM);
+                (LEN, autoBrkDry.Length, ColumnCount);
 
             var tableWet =
                 JaggedArrays.CreateJaggedArray<double[][][][]>
-                (LEN, NUM_SURF_CON, autoBrkWet.Length, COL_NUM);
+                (LEN, SurfaceCondCount, autoBrkWet.Length, ColumnCount);
 
             for (int i = 0; i < LEN; i++)
             {
@@ -48,25 +68,37 @@ namespace QSP.LandingPerfCalculation
                 readTableWet(tableWet, i, 2, data[i].Element("Poor").Value);
             }
 
-            if (!lenUnitIsMeter)
+            if (lenUnitIsMeter == false)
             {
                 tableDry.Multiply(FT_M_ratio);
                 tableWet.Multiply(FT_M_ratio);
             }
 
-            return new PerfDataOld(wtRefKg, wtStepKg, autoBrkDry, autoBrkWet, flaps, REVERSERS, tableDry, tableWet);
+            return new PerfTableItem(
+                        wtRefKg,
+                        wtStepKg,
+                        autoBrkDry,
+                        autoBrkWet,
+                        flaps,
+                        REVERSERS,
+                        new TableDry(tableDry),
+                        new TableWet(tableWet));
         }
 
-        private static void readTableDry(double[][][] item, int firstIndex, string value)
+        private void readTableDry(double[][][] item, int firstIndex, string value)
         {
-            string[] lines = value.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = value.Split(new char[] { '\r', '\n' },
+                StringSplitOptions.RemoveEmptyEntries);
+
             int LEN1 = Math.Min(item[0].Length, lines.Length);
 
             for (int i = 0; i < LEN1; i++)
             {
-                var words = lines[i].Split(new char[] { ' ', '/' }, StringSplitOptions.RemoveEmptyEntries);
+                var words = lines[i].Split(new char[] { ' ', '\t', '/' },
+                    StringSplitOptions.RemoveEmptyEntries);
 
                 int LEN2 = Math.Min(item[0][0].Length, words.Length);
+
                 for (int j = 0; j < LEN2; j++)
                 {
                     item[firstIndex][i][j] = Convert.ToDouble(words[j]);
@@ -74,14 +106,17 @@ namespace QSP.LandingPerfCalculation
             }
         }
 
-        private static void readTableWet(double[][][][] item, int firstIndex, int secondIndex, string value)
+        private void readTableWet(double[][][][] item, int firstIndex, int secondIndex, string value)
         {
-            string[] lines = value.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = value.Split(new char[] { '\r', '\n' },
+                StringSplitOptions.RemoveEmptyEntries);
+
             int LEN1 = Math.Min(item[0][0].Length, lines.Length);
 
             for (int i = 0; i < LEN1; i++)
             {
-                var words = lines[i].Split(new char[] { ' ', '/' }, StringSplitOptions.RemoveEmptyEntries);
+                var words = lines[i].Split(new char[] { ' ', '\t', '/' },
+                    StringSplitOptions.RemoveEmptyEntries);
 
                 int LEN2 = Math.Min(item[0][0][0].Length, words.Length);
                 for (int j = 0; j < LEN2; j++)
@@ -90,6 +125,5 @@ namespace QSP.LandingPerfCalculation
                 }
             }
         }
-
     }
 }

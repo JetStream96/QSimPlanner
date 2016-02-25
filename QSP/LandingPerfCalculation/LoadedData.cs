@@ -8,9 +8,9 @@ namespace QSP.LandingPerfCalculation
         private struct acPara
         {
             public Aircraft ac;
-            public PerfData para;
+            public PerfDataOld para;
 
-            public acPara(Aircraft ac, PerfData para)
+            public acPara(Aircraft ac, PerfDataOld para)
             {
                 this.ac = ac;
                 this.para = para;
@@ -30,7 +30,7 @@ namespace QSP.LandingPerfCalculation
             para.Add(new acPara(Aircraft.B777F, PerfImporter.ReadFromXml(@"PerformanceData\LDG\777F_LDG.xml")));
         }
 
-        public static PerfData GetPara(Aircraft ac)
+        public static PerfDataOld GetPara(Aircraft ac)
         {
             foreach (var i in para)
             {

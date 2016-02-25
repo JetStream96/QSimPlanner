@@ -83,6 +83,16 @@
     <Compile Include="Core\AppOptions.cs" />
     <Compile Include="Core\EnumConversionTools.cs" />
     <Compile Include="Core\Enums.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\Calculator.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\DataLoader.cs" />
+    <Compile Include="LandingPerfCalculation\Constants.cs" />
+    <Compile Include="LandingPerfCalculation\InstanceInitializer.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\PerfData\Entry.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\PerfData\PerfTable.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\PerfData\PerfTableItem.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\PerfData\Enums.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\PerfData\TableDry.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\PerfData\TableWet.cs" />
     <Compile Include="LibraryExtension\Graph\Edge.cs" />
     <Compile Include="LibraryExtension\FixedIndexList.cs" />
     <Compile Include="LibraryExtension\Graph\Graph.cs" />
@@ -227,8 +237,8 @@
     <Compile Include="LandingPerfCalculation\Enums.cs" />
     <Compile Include="LandingPerfCalculation\LandingCalcResult.cs" />
     <Compile Include="LandingPerfCalculation\LandingParaImporter.cs" />
-    <Compile Include="LandingPerfCalculation\LandingParameters.cs" />
-    <Compile Include="LandingPerfCalculation\PerfData.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\LandingParameters.cs" />
+    <Compile Include="LandingPerfCalculation\PerfDataOld.cs" />
     <Compile Include="LibraryExtension\BinarySearchForAll.cs" />
     <Compile Include="LibraryExtension\HashMap.cs" />
     <Compile Include="LibraryExtension\Utilities.cs" />

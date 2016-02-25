@@ -1,4 +1,6 @@
-namespace QSP.LandingPerfCalculation
+using QSP.LandingPerfCalculation.Boeing.PerfData;
+
+namespace QSP.LandingPerfCalculation.Boeing
 {
     public class LandingParameters
     {
@@ -38,7 +40,6 @@ namespace QSP.LandingPerfCalculation
             this.SurfaceCondition = SurfaceCondition;
             this.FlapsIndex = FlapsIndex;
             this.AutoBrakeIndex = AutoBrakeIndex;
-
         }
     }
 }

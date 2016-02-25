@@ -32,22 +32,25 @@ namespace QSP.Core
 
             foreach (var i in exports.Elements())
             {
-                ExportCommands.Add(new RouteExportCommand(i.Name.LocalName,
-                                                          i.Element("Path").Value,
-                                                          Convert.ToBoolean(i.Element("Enabled").Value)));
+                ExportCommands.Add(
+                    new RouteExportCommand(i.Name.LocalName,
+                                           i.Element("Path").Value,
+                                           Convert.ToBoolean(i.Element("Enabled").Value)));
             }
         }
 
         public XElement ToXml()
         {
-            XElement[] exports = new XElement[ExportCommands.Count];
+            var exports = new XElement[ExportCommands.Count];
 
             for (int i = 0; i < ExportCommands.Count; i++)
             {
                 var command = ExportCommands[i];
-                exports[i] = new XElement(command.Format, new XElement[] {
-                                           new XElement("Enabled", command.Enabled.ToString()),
-                                           new XElement("Path", command.FilePath)});
+
+                exports[i] = new XElement(
+                    command.Format, new XElement[] {
+                                        new XElement("Enabled", command.Enabled.ToString()),
+                                        new XElement("Path", command.FilePath)});
             }
 
             var exportOptions = new XElement("ExportOptions", exports);

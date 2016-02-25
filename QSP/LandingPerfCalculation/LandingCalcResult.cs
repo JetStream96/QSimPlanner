@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace QSP.LandingPerfCalculation
 {
@@ -33,13 +33,19 @@ namespace QSP.LandingPerfCalculation
 
         public string ToString(LengthUnit lengthUnit)
         {
-
-            var unitStr = lengthUnit == QSP.LengthUnit.Meter ? "M" : "FT";
-            System.Text.StringBuilder result = new System.Text.StringBuilder();
+            var unitStr = lengthUnit == LengthUnit.Meter ? "M" : "FT";
+            var result = new StringBuilder();
 
             result.AppendLine();
-            result.AppendLine("           Actual landing distance    " + convertToFTIfNeeded(selectedBrks.ActualDisMeter, lengthUnit) + " " + unitStr);
-            result.AppendLine("           Runway remaining           " + convertToFTIfNeeded(selectedBrks.DisRemainMeter, lengthUnit) + " " + unitStr);
+
+            result.AppendLine("           Actual landing distance    " +
+                convertToFeetIfNeeded(selectedBrks.ActualDisMeter, lengthUnit)
+                + " " + unitStr);
+
+            result.AppendLine("           Runway remaining           " +
+                convertToFeetIfNeeded(selectedBrks.DisRemainMeter, lengthUnit)
+                + " " + unitStr);
+
             result.AppendLine();
             result.AppendLine(new string('-', 60));
             result.AppendLine("                    (OTHER BRK SETTINGS)");
@@ -50,14 +56,14 @@ namespace QSP.LandingPerfCalculation
             {
                 result.Append(("   " + i.BrkSetting).PadRight(18, ' '));
 
-                result.Append((convertToFTIfNeeded(i.ActualDisMeter, lengthUnit)
+                result.Append((convertToFeetIfNeeded(i.ActualDisMeter, lengthUnit)
                                .ToString() +
                                " " +
                                unitStr)
                                .PadLeft(12, ' ')
                                .PadRight(19, ' '));
 
-                result.AppendLine(((convertToFTIfNeeded(i.DisRemainMeter, lengthUnit) +
+                result.AppendLine(((convertToFeetIfNeeded(i.DisRemainMeter, lengthUnit) +
                                     " " +
                                     unitStr)
                                     .ToString())
@@ -66,9 +72,11 @@ namespace QSP.LandingPerfCalculation
             return result.ToString();
         }
 
-        private int convertToFTIfNeeded(int disMeter, LengthUnit unit)
+        private int convertToFeetIfNeeded(int disMeter, LengthUnit unit)
         {
-            return unit == LengthUnit.Meter ? disMeter : Convert.ToInt32(disMeter * AviationTools.Constants.M_FT_ratio);
+            return unit == LengthUnit.Meter ?
+                disMeter :
+                (int)(disMeter * AviationTools.Constants.M_FT_ratio);
         }
 
         private class dataRow
