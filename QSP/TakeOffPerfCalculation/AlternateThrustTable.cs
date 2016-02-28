@@ -1,4 +1,3 @@
-using QSP.MathTools;
 using QSP.MathTools.Interpolation;
 
 namespace QSP.TakeOffPerfCalculation

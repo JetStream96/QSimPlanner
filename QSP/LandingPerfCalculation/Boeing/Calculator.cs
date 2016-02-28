@@ -1,18 +1,13 @@
 ﻿using QSP.Core;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QSP.LandingPerfCalculation.Boeing
 {
     public class Calculator
     {
-        private PerfTableItem perfTable;
+        private BoeingPerfTable perfTable;
 
-        public Calculator(PerfTableItem perfTable)
+        public Calculator(BoeingPerfTable perfTable)
         {
             this.perfTable = perfTable;
         }

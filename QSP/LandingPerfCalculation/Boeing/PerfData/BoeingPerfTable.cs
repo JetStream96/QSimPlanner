@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace QSP.LandingPerfCalculation.Boeing.PerfData
+﻿namespace QSP.LandingPerfCalculation.Boeing.PerfData
 {
     // Landing performance table for various runway surface conditions, 
     // flap setting, etc.
     //
     // Every aircraft corresponds to one PerfTable.
     //
-    public class PerfTableItem
+    public class BoeingPerfTable : PerfTableItem
     {
         // All lengths in meter, all weights in KG.
         public double weightRef { get; private set; }
         public double weightStep { get; private set; }
+
         private string[] autoBrkDry;
         private string[] autoBrkWet;
         private string[] flaps;
@@ -46,7 +41,7 @@ namespace QSP.LandingPerfCalculation.Boeing.PerfData
             return reversers;
         }
 
-        public PerfTableItem(
+        public BoeingPerfTable(
             double weightRef,
             double weightStep,
             string[] autoBrkDry,

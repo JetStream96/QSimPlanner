@@ -1,10 +1,7 @@
 ﻿using QSP.LandingPerfCalculation.Boeing.PerfData;
 using QSP.LibraryExtension;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.Arrays;
@@ -31,7 +28,7 @@ namespace QSP.LandingPerfCalculation.Boeing
                 doc.Element("Designator").Value);
         }
 
-        public PerfTableItem GetItem(XDocument doc)
+        public BoeingPerfTable GetItem(XDocument doc)
         {
             // TODO:
             var REVERSERS = new string[] { "BOTH", "ONE REV", "NO REV" };
@@ -74,7 +71,7 @@ namespace QSP.LandingPerfCalculation.Boeing
                 tableWet.Multiply(FT_M_ratio);
             }
 
-            return new PerfTableItem(
+            return new BoeingPerfTable(
                         wtRefKg,
                         wtStepKg,
                         autoBrkDry,

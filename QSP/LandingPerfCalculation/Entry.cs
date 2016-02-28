@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace QSP.LandingPerfCalculation.Boeing.PerfData
+﻿namespace QSP.LandingPerfCalculation
 {
     public sealed class Entry
     {

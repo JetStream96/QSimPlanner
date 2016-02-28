@@ -87,12 +87,13 @@
     <Compile Include="LandingPerfCalculation\Boeing\DataLoader.cs" />
     <Compile Include="LandingPerfCalculation\Constants.cs" />
     <Compile Include="LandingPerfCalculation\InstanceInitializer.cs" />
-    <Compile Include="LandingPerfCalculation\Boeing\PerfData\Entry.cs" />
-    <Compile Include="LandingPerfCalculation\Boeing\PerfData\PerfTable.cs" />
-    <Compile Include="LandingPerfCalculation\Boeing\PerfData\PerfTableItem.cs" />
+    <Compile Include="LandingPerfCalculation\Entry.cs" />
+    <Compile Include="LandingPerfCalculation\PerfTable.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\PerfData\BoeingPerfTable.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\PerfData\Enums.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\PerfData\TableDry.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\PerfData\TableWet.cs" />
+    <Compile Include="LandingPerfCalculation\PerfTableItem.cs" />
     <Compile Include="LibraryExtension\Graph\Edge.cs" />
     <Compile Include="LibraryExtension\FixedIndexList.cs" />
     <Compile Include="LibraryExtension\Graph\Graph.cs" />
@@ -202,13 +203,15 @@
     <Compile Include="UI\Forms\LandingPerf\CustomFuelControl.Designer.cs">
       <DependentUpon>CustomFuelControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\LandingPerf\FormController.cs" />
+    <Compile Include="UI\Forms\LandingPerf\FormControllers\BoeingController.cs" />
+    <Compile Include="UI\Forms\LandingPerf\FormControllers\FormController.cs" />
     <Compile Include="UI\Forms\LandingPerf\LandingPerfControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\Forms\LandingPerf\LandingPerfControl.Designer.cs">
       <DependentUpon>LandingPerfControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\LandingPerf\LandingPerfElements.cs" />
     <Compile Include="UI\Forms\OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>

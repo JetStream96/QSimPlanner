@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using QSP.MathTools;
 using QSP.AviationTools;
 using QSP.MathTools.Interpolation;
 

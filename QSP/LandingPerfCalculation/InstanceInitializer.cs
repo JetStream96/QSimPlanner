@@ -1,11 +1,6 @@
 ﻿using QSP.LandingPerfCalculation.Boeing;
-using QSP.LandingPerfCalculation.Boeing.PerfData;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QSP.LandingPerfCalculation
 {
