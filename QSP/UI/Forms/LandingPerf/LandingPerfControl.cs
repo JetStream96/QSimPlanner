@@ -1,8 +1,8 @@
-﻿using System.Windows.Forms;
-using System.Drawing;
-using QSP.LandingPerfCalculation;
-using System.Collections.Generic;
+﻿using QSP.LandingPerfCalculation;
 using QSP.UI.Forms.LandingPerf.FormControllers;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace QSP.UI.Forms.LandingPerf
 {
@@ -17,7 +17,37 @@ namespace QSP.UI.Forms.LandingPerf
         public LandingPerfControl()
         {
             InitializeComponent();
+
+            // Create the reference to the UI controls.
             initailzeElements();
+
+            // Set default values for the controls.
+            initializeControls();
+        }
+
+        private void initializeControls()
+        {
+            airportNameLbl.Text = "";
+            lengthUnitComboBox.SelectedIndex = 0; // Meter
+            tempUnitComboBox.SelectedIndex = 0; // Celsius
+            pressUnitComboBox.SelectedIndex = 0; // hPa
+            windSpdTxtBox.Text = "0";
+            windDirTxtBox.Text = "0";
+            appSpdIncTxtBox.Text = "5";
+            wtUnitComboBox.SelectedIndex = 0; // KG
+            setSlopes();
+        }
+
+        private void setSlopes()
+        {
+            slopeComboBox.Items.Clear();
+
+            for (int i = -20; i <= 20; i++)
+            {
+                slopeComboBox.Items.Add((i * 0.1).ToString("0.0"));
+            }
+
+            slopeComboBox.SelectedIndex = 20;
         }
 
         private void initailzeElements()
@@ -63,6 +93,8 @@ namespace QSP.UI.Forms.LandingPerf
             }
         }
 
+        // The request button is not visible by default.
+        // Call this method to enable it.
         public void EnableWeightRequest(double zfwKg, double fuelKg)
         {
             requestBtn.Visible = true;
@@ -92,7 +124,13 @@ namespace QSP.UI.Forms.LandingPerf
             if (tables != null && tables.Count > 0)
             {
                 currentTable = tables[acListComboBox.SelectedIndex];
-                controller = new FormController(currentTable, elements);// TODO: not right
+
+                controller = FormControllerFactory.GetController(
+                    ControllerType.Boeing,
+                    currentTable,
+                    elements);
+                // TODO: not completely right
+
                 subscribe(controller);
             }
         }

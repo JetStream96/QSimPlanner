@@ -21,11 +21,13 @@ namespace QSP.LandingPerfCalculation.Boeing
 
         public Entry GetEntry(string path, XDocument doc)
         {
+            var elem = doc.Root.Element("Parameters");
+
             return new Entry(
-                new Uri(path).MakeRelativeUri(new Uri(Constants.Path)).ToString(),
-                doc.Element("Aircraft").Value,
-                doc.Element("Description").Value,
-                doc.Element("Designator").Value);
+                path.Substring(path.LastIndexOfAny(new char[] { '\\', '/' }) + 1), //TODO:
+                elem.Element("Aircraft").Value,
+                elem.Element("Description").Value,
+                elem.Element("Designator").Value);
         }
 
         public BoeingPerfTable GetItem(XDocument doc)
@@ -34,7 +36,7 @@ namespace QSP.LandingPerfCalculation.Boeing
             var REVERSERS = new string[] { "BOTH", "ONE REV", "NO REV" };
 
             var root = doc.Root;
-            var para = root.Element("Pamameters");
+            var para = root.Element("Parameters");
             bool lenUnitIsMeter = para.Element("LengthUnit").Value == "M";
             double wtRefKg = Convert.ToDouble(para.Element("WeightRef").Value);
             double wtStepKg = Convert.ToDouble(para.Element("WeightStep").Value);

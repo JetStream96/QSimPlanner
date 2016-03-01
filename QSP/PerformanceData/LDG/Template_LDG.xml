@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LandingData>
-		<Pamameters>
+    <Parameters>
 				
 				<LengthUnit></LengthUnit>
 				<!-- FT or M -->
@@ -17,7 +17,7 @@
 						<Dry>MAX MANUAL;MAX AUTO;AUTOBRAKE 3;AUTOBRAKE 2;AUTOBRAKE 1</Dry>
 						<Wet>MAX MANUAL;MAX AUTO;AUTOBRAKE 3;AUTOBRAKE 2</Wet>
 				</Autobrakes>
-		</Pamameters>
+		</Parameters>
 		<Data>
 				<Flaps>15</Flaps>
 				<Dry></Dry>

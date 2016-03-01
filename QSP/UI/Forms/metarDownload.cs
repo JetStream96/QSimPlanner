@@ -305,16 +305,16 @@ namespace QSP
                 frm.altimeter.Text = altimeter;
                 //usr_message = "Weather successfully sent for takeoff calculation.";
             }
-            else if (FromFormName == "LDG")
-            {
-                frm.windspd_LDG.Text = windspd;
-                frm.winddir_LDG.Text = winddir;
-                frm.temp_c_f_LDG.Text = "°C";
-                frm.oat_LDG.Text = oat;
-                frm.hpa_inhg_LDG.Text = hPa_inHg;
-                frm.altimeter_LDG.Text = altimeter;
-                //usr_message = "Weather successfully sent for landing calculation.";
-            }
+            //else if (FromFormName == "LDG")
+            //{
+            //    frm.windspd_LDG.Text = windspd;
+            //    frm.winddir_LDG.Text = winddir;
+            //    frm.temp_c_f_LDG.Text = "°C";
+            //    frm.oat_LDG.Text = oat;
+            //    frm.hpa_inhg_LDG.Text = hPa_inHg;
+            //    frm.altimeter_LDG.Text = altimeter;
+            //    //usr_message = "Weather successfully sent for landing calculation.";
+            //}
 
             //complete message
             PicBox.Image =Properties .Resources.checkIconLarge;

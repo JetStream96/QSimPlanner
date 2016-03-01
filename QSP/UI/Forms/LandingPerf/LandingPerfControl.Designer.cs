@@ -39,7 +39,7 @@
             this.rwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.Label89 = new System.Windows.Forms.Label();
             this.Label87 = new System.Windows.Forms.Label();
-            this.GetMetar_LDG = new System.Windows.Forms.Button();
+            this.getMetarBtn = new System.Windows.Forms.Button();
             this.Label94 = new System.Windows.Forms.Label();
             this.Label88 = new System.Windows.Forms.Label();
             this.Label93 = new System.Windows.Forms.Label();
@@ -127,7 +127,7 @@
             this.tableLayoutPanel1.Controls.Add(this.rwyComboBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.Label89, 2, 5);
             this.tableLayoutPanel1.Controls.Add(this.Label87, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.GetMetar_LDG, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.getMetarBtn, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.Label94, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.Label88, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.Label93, 0, 4);
@@ -272,20 +272,20 @@
             this.Label87.TabIndex = 32;
             this.Label87.Text = "FT";
             // 
-            // GetMetar_LDG
+            // getMetarBtn
             // 
-            this.GetMetar_LDG.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.GetMetar_LDG.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.GetMetar_LDG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GetMetar_LDG.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GetMetar_LDG.ForeColor = System.Drawing.Color.White;
-            this.GetMetar_LDG.Location = new System.Drawing.Point(359, 43);
-            this.GetMetar_LDG.Margin = new System.Windows.Forms.Padding(0);
-            this.GetMetar_LDG.Name = "GetMetar_LDG";
-            this.GetMetar_LDG.Size = new System.Drawing.Size(97, 31);
-            this.GetMetar_LDG.TabIndex = 35;
-            this.GetMetar_LDG.Text = "Get METAR";
-            this.GetMetar_LDG.UseVisualStyleBackColor = false;
+            this.getMetarBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.getMetarBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.getMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.getMetarBtn.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.getMetarBtn.ForeColor = System.Drawing.Color.White;
+            this.getMetarBtn.Location = new System.Drawing.Point(359, 43);
+            this.getMetarBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.getMetarBtn.Name = "getMetarBtn";
+            this.getMetarBtn.Size = new System.Drawing.Size(97, 31);
+            this.getMetarBtn.TabIndex = 35;
+            this.getMetarBtn.Text = "Get METAR";
+            this.getMetarBtn.UseVisualStyleBackColor = false;
             // 
             // Label94
             // 
@@ -410,7 +410,7 @@
             this.tableLayoutPanel7.ColumnCount = 3;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.8764F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.1236F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 172F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 173F));
             this.tableLayoutPanel7.Controls.Add(this.brakeComboBox, 1, 4);
             this.tableLayoutPanel7.Controls.Add(this.revThrustComboBox, 1, 3);
             this.tableLayoutPanel7.Controls.Add(this.wtUnitComboBox, 2, 1);
@@ -490,13 +490,9 @@
             this.wtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wtUnitComboBox.FormattingEnabled = true;
             this.wtUnitComboBox.Items.AddRange(new object[] {
-            "737-600",
-            "737-700",
-            "737-800",
-            "737-900",
-            "777-200LR",
-            "777F"});
-            this.wtUnitComboBox.Location = new System.Drawing.Point(364, 44);
+            "KG",
+            "LB"});
+            this.wtUnitComboBox.Location = new System.Drawing.Point(363, 44);
             this.wtUnitComboBox.Name = "wtUnitComboBox";
             this.wtUnitComboBox.Size = new System.Drawing.Size(141, 31);
             this.wtUnitComboBox.TabIndex = 43;
@@ -550,7 +546,7 @@
             this.requestBtn.BackColor = System.Drawing.SystemColors.Control;
             this.requestBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.requestBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.requestBtn.Location = new System.Drawing.Point(364, 4);
+            this.requestBtn.Location = new System.Drawing.Point(363, 4);
             this.requestBtn.Name = "requestBtn";
             this.requestBtn.Size = new System.Drawing.Size(141, 31);
             this.requestBtn.TabIndex = 38;
@@ -576,7 +572,7 @@
             this.Label96.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label96.AutoSize = true;
             this.Label96.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label96.Location = new System.Drawing.Point(352, 208);
+            this.Label96.Location = new System.Drawing.Point(351, 208);
             this.Label96.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label96.Name = "Label96";
             this.Label96.Size = new System.Drawing.Size(31, 23);
@@ -599,7 +595,7 @@
             // 
             this.appSpdIncTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.appSpdIncTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.appSpdIncTxtBox.Location = new System.Drawing.Point(216, 205);
+            this.appSpdIncTxtBox.Location = new System.Drawing.Point(215, 205);
             this.appSpdIncTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.appSpdIncTxtBox.Name = "appSpdIncTxtBox";
             this.appSpdIncTxtBox.Size = new System.Drawing.Size(86, 30);
@@ -866,7 +862,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.36313F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.63687F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 127F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 69F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tableLayoutPanel4.Controls.Add(this.windSpdTxtBox, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.Label103, 3, 0);
             this.tableLayoutPanel4.Controls.Add(this.windDirTxtBox, 0, 0);
@@ -883,7 +879,7 @@
             // 
             this.windSpdTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.windSpdTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.windSpdTxtBox.Location = new System.Drawing.Point(185, 5);
+            this.windSpdTxtBox.Location = new System.Drawing.Point(184, 5);
             this.windSpdTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.windSpdTxtBox.Name = "windSpdTxtBox";
             this.windSpdTxtBox.Size = new System.Drawing.Size(98, 30);
@@ -894,7 +890,7 @@
             this.Label103.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Label103.AutoSize = true;
             this.Label103.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label103.Location = new System.Drawing.Point(314, 8);
+            this.Label103.Location = new System.Drawing.Point(313, 8);
             this.Label103.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label103.Name = "Label103";
             this.Label103.Size = new System.Drawing.Size(38, 23);
@@ -905,7 +901,7 @@
             // 
             this.windDirTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.windDirTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.windDirTxtBox.Location = new System.Drawing.Point(7, 5);
+            this.windDirTxtBox.Location = new System.Drawing.Point(6, 5);
             this.windDirTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.windDirTxtBox.Name = "windDirTxtBox";
             this.windDirTxtBox.Size = new System.Drawing.Size(98, 30);
@@ -916,7 +912,7 @@
             this.Label104.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Label104.AutoSize = true;
             this.Label104.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label104.Location = new System.Drawing.Point(129, 8);
+            this.Label104.Location = new System.Drawing.Point(128, 8);
             this.Label104.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label104.Name = "Label104";
             this.Label104.Size = new System.Drawing.Size(25, 23);
@@ -983,7 +979,7 @@
         #endregion
         internal System.Windows.Forms.GroupBox GroupBox13;
         internal System.Windows.Forms.Button reqAirportBtn;
-        internal System.Windows.Forms.Button GetMetar_LDG;
+        internal System.Windows.Forms.Button getMetarBtn;
         internal System.Windows.Forms.Label airportNameLbl;
         internal System.Windows.Forms.Label Label87;
         internal System.Windows.Forms.TextBox elevationTxtBox;

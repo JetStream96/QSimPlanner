@@ -143,12 +143,12 @@ namespace QSP
             //send weights to takeoff/ldg calc form 
             AC_Req = ACList.Text;
             TOWT_Req_Unit = Parameters.WtUnit();
-            LDG_fuel_prediction_unit = Parameters.WtUnit();
+    //TODO:        LDG_fuel_prediction_unit = Parameters.WtUnit();
 
             TOWT_Req = Convert.ToInt32(Parameters.Zfw + fuelCalcResult.TakeoffFuelKg * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KG_LB));
-            LDG_ZFW = Convert.ToInt32(Parameters.Zfw);
-            LDG_fuel_prediction = Convert.ToInt32(fuelCalcResult.LdgFuelKgPredict * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KG_LB));
-
+            //TODO:       LDG_ZFW = Convert.ToInt32(Parameters.Zfw);
+            //TODO:  LDG_fuel_prediction = Convert.ToInt32(fuelCalcResult.LdgFuelKgPredict * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KG_LB));
+          
             viewChanger.ShowPage(ViewManager.Pages.FuelReport);
         }
 
@@ -220,7 +220,7 @@ namespace QSP
             LoadNavDBUpdateStatusStrip(true);
             ServiceInitializer.Initailize();
             TakeOffPerfCalculation.LoadedData.Load();
-            LandingPerfCalculation.LoadedData.Load();
+            //TODO: LandingPerfCalculation.LoadedData.Load();
 
             //load previous form states
             formStateManagerFuel = new FormStateSaver(FormStateSaver.PageOfForm.FuelCalculation);
@@ -537,7 +537,7 @@ namespace QSP
         {
             if (InitializeFinished_LDG == false)
             {
-                LDG_Load();
+                landingPerfControl.InitializeAircrafts();
             }
             viewChanger.ShowPage(ViewManager.Pages.LandingPerf);
         }
@@ -1516,11 +1516,11 @@ namespace QSP
             {
                 if (m_ft.Text == "M")
                 {
-                    length.Text = Convert.ToString(Math.Round(len / AviationTools.Constants.M_FT_ratio));
+                    length.Text = Convert.ToString(Math.Round(len / M_FT_ratio));
                 }
                 else
                 {
-                    length.Text = Convert.ToString(Math.Round(len * AviationTools.Constants.M_FT_ratio));
+                    length.Text = Convert.ToString(Math.Round(len * M_FT_ratio));
                 }
             }
         }
@@ -1603,356 +1603,356 @@ namespace QSP
 
         #endregion
 
-        #region "LandingPart"
+        //#region "LandingPart"
 
-        public int LDG_fuel_prediction;
-        public int LDG_ZFW;
+        //public int LDG_fuel_prediction;
+        //public int LDG_ZFW;
 
-        public WeightUnit LDG_fuel_prediction_unit;
+        //public WeightUnit LDG_fuel_prediction_unit;
         private bool InitializeFinished_LDG = false;
 
-        private Airport landingAirport;
-
-        private void AD_LDG_TextChanged(object sender, EventArgs e)
-        {
-            AD_name_LDG.Text = "";
-            RWY_LDG.Items.Clear();
-            RWY_LDG.Enabled = false;
-
-            if (AD_LDG.Text.Length != 4)
-            {
-                return;
-            }
-
-            landingAirport = AirportList.Find(AD_LDG.Text);
+        //private Airport landingAirport;
+
+        //private void AD_LDG_TextChanged(object sender, EventArgs e)
+        //{
+        //    AD_name_LDG.Text = "";
+        //    RWY_LDG.Items.Clear();
+        //    RWY_LDG.Enabled = false;
+
+        //    if (AD_LDG.Text.Length != 4)
+        //    {
+        //        return;
+        //    }
+
+        //    landingAirport = AirportList.Find(AD_LDG.Text);
 
 
-            if (landingAirport != null && landingAirport.Rwys.Count > 0)
-            {
-                AD_name_LDG.Text = landingAirport.Name.PadLeft(24, ' ');
+        //    if (landingAirport != null && landingAirport.Rwys.Count > 0)
+        //    {
+        //        AD_name_LDG.Text = landingAirport.Name.PadLeft(24, ' ');
 
-                foreach (var i in landingAirport.Rwys)
-                {
-                    RWY_LDG.Items.Add(i.RwyIdent);
-                }
+        //        foreach (var i in landingAirport.Rwys)
+        //        {
+        //            RWY_LDG.Items.Add(i.RwyIdent);
+        //        }
 
-                RWY_LDG.SelectedIndex = 0;
-                RWY_LDG.Enabled = true;
-
-            }
-
-        }
+        //        RWY_LDG.SelectedIndex = 0;
+        //        RWY_LDG.Enabled = true;
+
+        //    }
+
+        //}
 
 
-        private void RWY_LDG_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int elevationFt = 0;
-            int elevationOppositeRwyFt = 0;
-            int lengthFt = 0;
+        //private void RWY_LDG_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    int elevationFt = 0;
+        //    int elevationOppositeRwyFt = 0;
+        //    int lengthFt = 0;
 
-            int i = RWY_LDG.SelectedIndex;
+        //    int i = RWY_LDG.SelectedIndex;
 
-            elevationFt = landingAirport.Rwys[i].Elevation;
-            lengthFt = landingAirport.Rwys[i].Length;
+        //    elevationFt = landingAirport.Rwys[i].Elevation;
+        //    lengthFt = landingAirport.Rwys[i].Length;
 
-            switch (m_ft_LDG.Text)
-            {
-                case "M":
-                    length_LDG.Text = Convert.ToString((int)(lengthFt * AviationTools.Constants.FT_M_ratio));
-                    break;
-                case "FT":
-                    length_LDG.Text = Convert.ToString(lengthFt);
-                    break;
-                case "":
-                    m_ft_LDG.Text = "FT";
-                    length_LDG.Text = Convert.ToString(lengthFt);
-                    break;
-            }
+        //    switch (m_ft_LDG.Text)
+        //    {
+        //        case "M":
+        //            length_LDG.Text = Convert.ToString((int)(lengthFt * AviationTools.Constants.FT_M_ratio));
+        //            break;
+        //        case "FT":
+        //            length_LDG.Text = Convert.ToString(lengthFt);
+        //            break;
+        //        case "":
+        //            m_ft_LDG.Text = "FT";
+        //            length_LDG.Text = Convert.ToString(lengthFt);
+        //            break;
+        //    }
 
-            elevation_LDG.Text = Convert.ToString(elevationFt);
-            RwyHeading_LDG.Text = landingAirport.Rwys[i].Heading;
+        //    elevation_LDG.Text = Convert.ToString(elevationFt);
+        //    RwyHeading_LDG.Text = landingAirport.Rwys[i].Heading;
 
-            int oppositeRwyIndex = -1;
-            string oppRwyIdent = CoversionTools.RwyIdentOppositeDir(RWY_LDG.Text);
+        //    int oppositeRwyIndex = -1;
+        //    string oppRwyIdent = CoversionTools.RwyIdentOppositeDir(RWY_LDG.Text);
 
-            for (int j = 0; j <= landingAirport.Rwys.Count - 1; j++)
-            {
-                if (landingAirport.Rwys[j].RwyIdent == oppRwyIdent)
-                {
-                    oppositeRwyIndex = j;
-                }
-            }
+        //    for (int j = 0; j <= landingAirport.Rwys.Count - 1; j++)
+        //    {
+        //        if (landingAirport.Rwys[j].RwyIdent == oppRwyIdent)
+        //        {
+        //            oppositeRwyIndex = j;
+        //        }
+        //    }
 
-            elevationOppositeRwyFt = landingAirport.Rwys[oppositeRwyIndex].Elevation;
+        //    elevationOppositeRwyFt = landingAirport.Rwys[oppositeRwyIndex].Elevation;
 
-            if (oppositeRwyIndex == -1)
-            {
-                Slope_LDG.Text = "0";
-            }
-            else
-            {
-                Slope_LDG.Text = Convert.ToString(Math.Round((double)(elevationOppositeRwyFt - elevationFt) / lengthFt * 100 * 10) / 10);
-            }
+        //    if (oppositeRwyIndex == -1)
+        //    {
+        //        Slope_LDG.Text = "0";
+        //    }
+        //    else
+        //    {
+        //        Slope_LDG.Text = Convert.ToString(Math.Round((double)(elevationOppositeRwyFt - elevationFt) / lengthFt * 100 * 10) / 10);
+        //    }
 
-        }
+        //}
 
-        private void ACListLDG_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateFlapsRev();
-            updateBrks();
-        }
+        //private void ACListLDG_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    updateFlapsRev();
+        //    updateBrks();
+        //}
 
 
-        private void updateBrks()
-        {
-            string oldSetting = BrakeSel_LDG.Text;
+        //private void updateBrks()
+        //{
+        //    string oldSetting = BrakeSel_LDG.Text;
 
-            BrakeSel_LDG.Items.Clear();
-            var perfData = LandingPerfCalculation.LoadedData.GetPara(ComboBoxIndexToAC(ACListLDG.SelectedIndex));
-            BrakeSel_LDG.Items.AddRange(perfData.BrakesAvailable((LandingPerfCalculation.SurfaceCondition)SurfCond_LDG.SelectedIndex));
-
-            for (int i = 0; i <= BrakeSel_LDG.Items.Count - 1; i++)
-            {
-                if (Convert.ToString(BrakeSel_LDG.Items[i]) == oldSetting)
-                {
-                    BrakeSel_LDG.SelectedIndex = i;
-                    return;
-                }
-            }
-
-            BrakeSel_LDG.SelectedIndex = BrakeSel_LDG.Items.Count - 1;
-
-        }
-
-
-        private void updateFlapsRev()
-        {
-            var perfData = LandingPerfCalculation.LoadedData.GetPara(ComboBoxIndexToAC(ACListLDG.SelectedIndex));
-
-            //flaps
-            Flaps_LDG.Items.Clear();
-            Flaps_LDG.Items.AddRange(perfData.FlapsAvailable());
-            Flaps_LDG.SelectedIndex = Flaps_LDG.Items.Count - 1;
-
-            //reverser
-            REVSel_LDG.Items.Clear();
-            REVSel_LDG.Items.AddRange(perfData.RevAvailable());
-            REVSel_LDG.SelectedIndex = 0;
-
-        }
-
-        private void RwyCond_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateBrks();
-        }
-
-
-        private void Calc_Click(object sender, EventArgs e)
-        {
-            LandingPerfCalculation.LandingParameters landingPara = null;
-
-            try
-            {
-                landingPara = LandingPerfCalculation.ParameterImporter.Import();
-
-            }
-            catch (InvalidUserInputException ex)
-            {
-                Results_LDG.ForeColor = Color.Red;
-                Results_LDG.Text = ex.ToString();
-
-            }
-
-            var ac = ComboBoxIndexToAC(ACListLDG.SelectedIndex);
-            var perfData = LandingPerfCalculation.LoadedData.GetPara(ac);
-
-            LandingPerfCalculation.LandingCalcResult calcResult = null;
-
-            try
-            {
-                calcResult = perfData.GetLandingReport(landingPara);
-            }
-            catch (RunwayTooShortException)
-            {
-                Results_LDG.ForeColor = Color.Red;
-                Results_LDG.Text = "Runway length is insufficient for landing.";
-                return;
-            }
-
-            Results_LDG.ForeColor = Color.Black;
-            Results_LDG.Text = calcResult.ToString(m_ft_LDG.Text == "M" ? LengthUnit.Meter : LengthUnit.Feet);
-
-            formStateManagerLDG.Save();
-
-        }
-
-        private int flapsDefaultSelectIndex()
-        {
-            return Flaps_LDG.Items.Count - 1;
-        }
-
-        private int revDefaultSelectIndex()
-        {
-            return 0;
-        }
-
-        private int brksDefaultSelectIndex()
-        {
-            return BrakeSel_LDG.Items.Count - 1;
-        }
-
-
-        private void LDG_Load()
-        {
-            ACListLDG.Text = ACList.Text;
-            AD_name_LDG.Text = "";
-            m_ft_LDG.SelectedIndex = 0;
-            temp_c_f_LDG.SelectedIndex = 0;
-            hpa_inhg_LDG.SelectedIndex = 0;
-            SurfCond_LDG.SelectedIndex = 0;
-            Flaps_LDG.SelectedIndex = flapsDefaultSelectIndex();
-            REVSel_LDG.SelectedIndex = revDefaultSelectIndex();
-            BrakeSel_LDG.SelectedIndex = brksDefaultSelectIndex();
-            windspd_LDG.Text = "0";
-            winddir_LDG.Text = "0";
-            AppSpdInc_LDG.Text = "5";
-
-            if (WtUnitSel_ComboBox.Text == "KG")
-            {
-                WtUnit_LDG.Text = "KG";
-            }
-            else
-            {
-                WtUnit_LDG.Text = "LB";
-            }
-
-            Slope_LDG.Items.Clear();
-            for (int i = -20; i <= 20; i++)
-            {
-                Slope_LDG.Items.Add(Convert.ToString((double)i / 10));
-            }
-
-            formStateManagerLDG.Load();
-            InitializeFinished_LDG = true;
-
-        }
-
-
-        private void GetMetar_LDG_Click(object sender, EventArgs e)
-        {
-            METAR metarForm = new METAR();
-
-            metarForm.icao_code.Text = AD_LDG.Text;
-            metarForm.FromFormName = "LDG";
-            metarForm.icao_code.Enabled = false;
-
-            metarForm.ShowDialog();
-
-        }
-
-        private void m_ft_LDG_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            double len;
-            if (double.TryParse(length_LDG.Text, out len))
-            {
-                if (m_ft_LDG.Text == "M")
-                {
-                    length_LDG.Text = Convert.ToString(Math.Round(len / AviationTools.Constants.M_FT_ratio));
-                }
-                else
-                {
-                    length_LDG.Text = Convert.ToString(Math.Round(len * AviationTools.Constants.M_FT_ratio));
-                }
-            }
-        }
-
-        private void temp_c_f_LDG_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            double oat;
-            if (double.TryParse(oat_LDG.Text, out oat) & InitializeFinished_LDG)
-            {
-                if (temp_c_f_LDG.Text == "°C")
-                {
-                    oat_LDG.Text = Convert.ToString(Math.Round((oat - 32) * 5 / 9));
-                }
-                else
-                {
-                    oat_LDG.Text = Convert.ToString(Math.Round(oat * 9 / 5 + 32));
-                }
-            }
-        }
-
-        private void hpa_inhg_LDG_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            double press;
-            if (double.TryParse(altimeter_LDG.Text, out press) & InitializeFinished_LDG)
-            {
-                if (hpa_inhg_LDG.Text == "hPa")
-                {
-                    altimeter_LDG.Text = Convert.ToString(Math.Round(press * 1013 / 29.92));
-                }
-                else
-                {
-                    altimeter_LDG.Text = Convert.ToString(Math.Round((press * 29.92 / 1013) * 100) / 100);
-                }
-            }
-        }
-
-        private void WtUnit_LDG_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            double weight;
-            if (double.TryParse(Weight_LDG.Text, out weight) && InitializeFinished_LDG)
-            {
-                if (WtUnit_LDG.Text == "KG")
-                {
-                    Weight_LDG.Text = Convert.ToString(Math.Round(weight * LB_KG));
-                }
-                else
-                {
-                    Weight_LDG.Text = Convert.ToString(Math.Round(weight * KG_LB));
-                }
-            }
-        }
-
-        private void RequestBtn_LDG_Click(object sender, EventArgs e)
-        {
-            Req_Panel.Show();
-            WtUnit_Req_lbl.Text = EnumConversionTools.WeightUnitToString(LDG_fuel_prediction_unit);
-        }
-
-        private void Predict_Btn_Click(object sender, EventArgs e)
-        {
-            ACListLDG.Text = ACList.Text;
-            WtUnit_LDG.Text = EnumConversionTools.WeightUnitToString(LDG_fuel_prediction_unit);
-            Weight_LDG.Text = Convert.ToString(LDG_ZFW + LDG_fuel_prediction);
-            Req_Panel.Hide();
-        }
-
-        private void Cancel_Btn_Click(object sender, EventArgs e)
-        {
-            Req_Panel.Hide();
-        }
-
-        private void OK_Btn_Click(object sender, EventArgs e)
-        {
-            double acturalLdgFuel;
-            if (double.TryParse(ActualLDGFuel.Text, out acturalLdgFuel) && acturalLdgFuel >= 0)
-            {
-                ACListLDG.Text = AC_Req;
-                WtUnit_LDG.Text = EnumConversionTools.WeightUnitToString(LDG_fuel_prediction_unit);
-                Weight_LDG.Text = Convert.ToString(LDG_ZFW + acturalLdgFuel);
-            }
-
-            Req_Panel.Hide();
-
-        }
-
-        private void ReqAirport_Btn_Click_LDG(object sender, EventArgs e)
-        {
-            AD_LDG.Text = DestTxtBox.Text;
-        }
-
-        #endregion
+        //    BrakeSel_LDG.Items.Clear();
+        //    var perfData = LandingPerfCalculation.LoadedData.GetPara(ComboBoxIndexToAC(ACListLDG.SelectedIndex));
+        //    BrakeSel_LDG.Items.AddRange(perfData.BrakesAvailable((LandingPerfCalculation.SurfaceCondition)SurfCond_LDG.SelectedIndex));
+
+        //    for (int i = 0; i <= BrakeSel_LDG.Items.Count - 1; i++)
+        //    {
+        //        if (Convert.ToString(BrakeSel_LDG.Items[i]) == oldSetting)
+        //        {
+        //            BrakeSel_LDG.SelectedIndex = i;
+        //            return;
+        //        }
+        //    }
+
+        //    BrakeSel_LDG.SelectedIndex = BrakeSel_LDG.Items.Count - 1;
+
+        //}
+
+
+        //private void updateFlapsRev()
+        //{
+        //    var perfData = LandingPerfCalculation.LoadedData.GetPara(ComboBoxIndexToAC(ACListLDG.SelectedIndex));
+
+        //    //flaps
+        //    Flaps_LDG.Items.Clear();
+        //    Flaps_LDG.Items.AddRange(perfData.FlapsAvailable());
+        //    Flaps_LDG.SelectedIndex = Flaps_LDG.Items.Count - 1;
+
+        //    //reverser
+        //    REVSel_LDG.Items.Clear();
+        //    REVSel_LDG.Items.AddRange(perfData.RevAvailable());
+        //    REVSel_LDG.SelectedIndex = 0;
+
+        //}
+
+        //private void RwyCond_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    updateBrks();
+        //}
+
+
+        //private void Calc_Click(object sender, EventArgs e)
+        //{
+        //    LandingPerfCalculation.LandingParameters landingPara = null;
+
+        //    try
+        //    {
+        //        landingPara = LandingPerfCalculation.ParameterImporter.Import();
+
+        //    }
+        //    catch (InvalidUserInputException ex)
+        //    {
+        //        Results_LDG.ForeColor = Color.Red;
+        //        Results_LDG.Text = ex.ToString();
+
+        //    }
+
+        //    var ac = ComboBoxIndexToAC(ACListLDG.SelectedIndex);
+        //    var perfData = LandingPerfCalculation.LoadedData.GetPara(ac);
+
+        //    LandingPerfCalculation.LandingCalcResult calcResult = null;
+
+        //    try
+        //    {
+        //        calcResult = perfData.GetLandingReport(landingPara);
+        //    }
+        //    catch (RunwayTooShortException)
+        //    {
+        //        Results_LDG.ForeColor = Color.Red;
+        //        Results_LDG.Text = "Runway length is insufficient for landing.";
+        //        return;
+        //    }
+
+        //    Results_LDG.ForeColor = Color.Black;
+        //    Results_LDG.Text = calcResult.ToString(m_ft_LDG.Text == "M" ? LengthUnit.Meter : LengthUnit.Feet);
+
+        //    formStateManagerLDG.Save();
+
+        //}
+
+        //private int flapsDefaultSelectIndex()
+        //{
+        //    return Flaps_LDG.Items.Count - 1;
+        //}
+
+        //private int revDefaultSelectIndex()
+        //{
+        //    return 0;
+        //}
+
+        //private int brksDefaultSelectIndex()
+        //{
+        //    return BrakeSel_LDG.Items.Count - 1;
+        //}
+
+
+        //private void LDG_Load()
+        //{
+        //    ACListLDG.Text = ACList.Text;
+        //    AD_name_LDG.Text = "";
+        //    m_ft_LDG.SelectedIndex = 0;
+        //    temp_c_f_LDG.SelectedIndex = 0;
+        //    hpa_inhg_LDG.SelectedIndex = 0;
+        //    SurfCond_LDG.SelectedIndex = 0;
+        //    Flaps_LDG.SelectedIndex = flapsDefaultSelectIndex();
+        //    REVSel_LDG.SelectedIndex = revDefaultSelectIndex();
+        //    BrakeSel_LDG.SelectedIndex = brksDefaultSelectIndex();
+        //    windspd_LDG.Text = "0";
+        //    winddir_LDG.Text = "0";
+        //    AppSpdInc_LDG.Text = "5";
+
+        //    if (WtUnitSel_ComboBox.Text == "KG")
+        //    {
+        //        WtUnit_LDG.Text = "KG";
+        //    }
+        //    else
+        //    {
+        //        WtUnit_LDG.Text = "LB";
+        //    }
+
+        //    Slope_LDG.Items.Clear();
+        //    for (int i = -20; i <= 20; i++)
+        //    {
+        //        Slope_LDG.Items.Add(Convert.ToString((double)i / 10));
+        //    }
+
+        //    formStateManagerLDG.Load();
+        //    InitializeFinished_LDG = true;
+
+        //}
+
+
+        //private void GetMetar_LDG_Click(object sender, EventArgs e)
+        //{
+        //    METAR metarForm = new METAR();
+
+        //    metarForm.icao_code.Text = AD_LDG.Text;
+        //    metarForm.FromFormName = "LDG";
+        //    metarForm.icao_code.Enabled = false;
+
+        //    metarForm.ShowDialog();
+
+        //}
+
+        //private void m_ft_LDG_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    double len;
+        //    if (double.TryParse(length_LDG.Text, out len))
+        //    {
+        //        if (m_ft_LDG.Text == "M")
+        //        {
+        //            length_LDG.Text = Convert.ToString(Math.Round(len / M_FT_ratio));
+        //        }
+        //        else
+        //        {
+        //            length_LDG.Text = Convert.ToString(Math.Round(len * M_FT_ratio));
+        //        }
+        //    }
+        //}
+
+        //private void temp_c_f_LDG_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    double oat;
+        //    if (double.TryParse(oat_LDG.Text, out oat) & InitializeFinished_LDG)
+        //    {
+        //        if (temp_c_f_LDG.Text == "°C")
+        //        {
+        //            oat_LDG.Text = Convert.ToString(Math.Round((oat - 32) * 5 / 9));
+        //        }
+        //        else
+        //        {
+        //            oat_LDG.Text = Convert.ToString(Math.Round(oat * 9 / 5 + 32));
+        //        }
+        //    }
+        //}
+
+        //private void hpa_inhg_LDG_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    double press;
+        //    if (double.TryParse(altimeter_LDG.Text, out press) & InitializeFinished_LDG)
+        //    {
+        //        if (hpa_inhg_LDG.Text == "hPa")
+        //        {
+        //            altimeter_LDG.Text = Convert.ToString(Math.Round(press * 1013 / 29.92));
+        //        }
+        //        else
+        //        {
+        //            altimeter_LDG.Text = Convert.ToString(Math.Round((press * 29.92 / 1013) * 100) / 100);
+        //        }
+        //    }
+        //}
+
+        //private void WtUnit_LDG_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    double weight;
+        //    if (double.TryParse(Weight_LDG.Text, out weight) && InitializeFinished_LDG)
+        //    {
+        //        if (WtUnit_LDG.Text == "KG")
+        //        {
+        //            Weight_LDG.Text = Convert.ToString(Math.Round(weight * LB_KG));
+        //        }
+        //        else
+        //        {
+        //            Weight_LDG.Text = Convert.ToString(Math.Round(weight * KG_LB));
+        //        }
+        //    }
+        //}
+
+        //private void RequestBtn_LDG_Click(object sender, EventArgs e)
+        //{
+        //    Req_Panel.Show();
+        //    WtUnit_Req_lbl.Text = EnumConversionTools.WeightUnitToString(LDG_fuel_prediction_unit);
+        //}
+
+        //private void Predict_Btn_Click(object sender, EventArgs e)
+        //{
+        //    ACListLDG.Text = ACList.Text;
+        //    WtUnit_LDG.Text = EnumConversionTools.WeightUnitToString(LDG_fuel_prediction_unit);
+        //    Weight_LDG.Text = Convert.ToString(LDG_ZFW + LDG_fuel_prediction);
+        //    Req_Panel.Hide();
+        //}
+
+        //private void Cancel_Btn_Click(object sender, EventArgs e)
+        //{
+        //    Req_Panel.Hide();
+        //}
+
+        //private void OK_Btn_Click(object sender, EventArgs e)
+        //{
+        //    double acturalLdgFuel;
+        //    if (double.TryParse(ActualLDGFuel.Text, out acturalLdgFuel) && acturalLdgFuel >= 0)
+        //    {
+        //        ACListLDG.Text = AC_Req;
+        //        WtUnit_LDG.Text = EnumConversionTools.WeightUnitToString(LDG_fuel_prediction_unit);
+        //        Weight_LDG.Text = Convert.ToString(LDG_ZFW + acturalLdgFuel);
+        //    }
+
+        //    Req_Panel.Hide();
+
+        //}
+
+        //private void ReqAirport_Btn_Click_LDG(object sender, EventArgs e)
+        //{
+        //    AD_LDG.Text = DestTxtBox.Text;
+        //}
+
+        //#endregion
         //========================================= Misc Part ==========================================
 
         bool InitializeFinished_AirportDataFinder = false;

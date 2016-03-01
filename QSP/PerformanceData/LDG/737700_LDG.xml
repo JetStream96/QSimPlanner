@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LandingData>
-		<Pamameters>
+    <Parameters>
         <Aircraft>B737-700</Aircraft>
         <Description></Description>
         <Designator>B737</Designator>
@@ -20,7 +20,7 @@
 						<Dry>MAX MANUAL;MAX AUTO;AUTOBRAKE 3;AUTOBRAKE 2;AUTOBRAKE 1</Dry>
 						<Wet>MAX MANUAL;MAX AUTO;AUTOBRAKE 3;AUTOBRAKE 2</Wet>
 				</Autobrakes>
-		</Pamameters>
+		</Parameters>
 		<Data>
 				<Flaps>15</Flaps>
 				<Dry>2910 210/-140 60/90 -110 380 30 -30 60 -60 220 60 130

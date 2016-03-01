@@ -205,6 +205,7 @@
     </Compile>
     <Compile Include="UI\Forms\LandingPerf\FormControllers\BoeingController.cs" />
     <Compile Include="UI\Forms\LandingPerf\FormControllers\FormController.cs" />
+    <Compile Include="UI\Forms\LandingPerf\FormControllers\FormControllerFactory.cs" />
     <Compile Include="UI\Forms\LandingPerf\LandingPerfControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -236,12 +237,10 @@
     <Compile Include="FuelCalculation\OptCrzCalculator.cs" />
     <Compile Include="LibraryExtension\Arrays.cs" />
     <Compile Include="LandingPerfCalculation\LoadedData.cs" />
-    <Compile Include="LandingPerfCalculation\PerfImporter.cs" />
     <Compile Include="LandingPerfCalculation\Enums.cs" />
     <Compile Include="LandingPerfCalculation\LandingCalcResult.cs" />
     <Compile Include="LandingPerfCalculation\LandingParaImporter.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingParameters.cs" />
-    <Compile Include="LandingPerfCalculation\PerfDataOld.cs" />
     <Compile Include="LibraryExtension\BinarySearchForAll.cs" />
     <Compile Include="LibraryExtension\HashMap.cs" />
     <Compile Include="LibraryExtension\Utilities.cs" />

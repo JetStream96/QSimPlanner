@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LandingData>
-		<Pamameters>
+    <Parameters>
         <Aircraft>B777-200LR</Aircraft>
         <Description></Description>
         <Designator>B77L</Designator>
@@ -20,7 +20,7 @@
 						<Dry>MAX MANUAL;MAX AUTO;AUTOBRAKE 4;AUTOBRAKE 3;AUTOBRAKE 2;AUTOBRAKE 1</Dry>
 						<Wet>MAX MANUAL;MAX AUTO;AUTOBRAKE 4;AUTOBRAKE 3</Wet>
 				</Autobrakes>
-		</Pamameters>
+		</Parameters>
 		<Data>
 				<Flaps>20</Flaps>
 				<Dry>3035 +80/-35 70/70 -120 410 30 -30 60 -60 220 70 170

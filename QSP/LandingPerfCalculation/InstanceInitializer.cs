@@ -1,11 +1,12 @@
 ﻿using QSP.LandingPerfCalculation.Boeing;
 using System.Collections.Generic;
 using System.IO;
+using System;
 
 namespace QSP.LandingPerfCalculation
 {
     public static class InstanceInitializer
-    {      
+    {
         /// <summary>
         /// Load all xml in the landing performance data folder.
         /// </summary>
@@ -15,7 +16,14 @@ namespace QSP.LandingPerfCalculation
 
             foreach (var i in Directory.GetFiles(Constants.Path))
             {
-                result.Add(new DataLoader().ReadFromXml(i));
+                try
+                {
+                    result.Add(new DataLoader().ReadFromXml(i));
+                }
+                catch (Exception)
+                {
+                    // TODO:
+                }
             }
 
             return result;
