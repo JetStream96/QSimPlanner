@@ -190,6 +190,7 @@ namespace QSP
             this.GroupBox12 = new System.Windows.Forms.GroupBox();
             this.Results = new System.Windows.Forms.RichTextBox();
             this.TabPage10 = new System.Windows.Forms.TabPage();
+            this.landingPerfControl = new QSP.UI.Forms.LandingPerf.LandingPerfControl();
             this.TabPage11 = new System.Windows.Forms.TabPage();
             this.PanelAirportData = new System.Windows.Forms.Panel();
             this.TabControl1 = new System.Windows.Forms.TabControl();
@@ -256,7 +257,6 @@ namespace QSP
             this.Return2_Btn = new System.Windows.Forms.Button();
             this.GroupBox3 = new System.Windows.Forms.GroupBox();
             this.FuelReport_TxtBox = new System.Windows.Forms.RichTextBox();
-            this.landingPerfControl = new QSP.UI.Forms.LandingPerf.LandingPerfControl();
             this.MenuStrip1.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
             this.WindowSelPanel.SuspendLayout();
@@ -2322,6 +2322,14 @@ namespace QSP
             this.TabPage10.Text = "LDG Perf";
             this.TabPage10.UseVisualStyleBackColor = true;
             // 
+            // landingPerfControl
+            // 
+            this.landingPerfControl.BackColor = System.Drawing.Color.White;
+            this.landingPerfControl.Location = new System.Drawing.Point(-25, -11);
+            this.landingPerfControl.Name = "landingPerfControl";
+            this.landingPerfControl.Size = new System.Drawing.Size(1144, 818);
+            this.landingPerfControl.TabIndex = 0;
+            // 
             // TabPage11
             // 
             this.TabPage11.Controls.Add(this.PanelAirportData);
@@ -3095,14 +3103,6 @@ namespace QSP
             this.FuelReport_TxtBox.Size = new System.Drawing.Size(982, 422);
             this.FuelReport_TxtBox.TabIndex = 1;
             this.FuelReport_TxtBox.Text = "";
-            // 
-            // landingPerfControl
-            // 
-            this.landingPerfControl.BackColor = System.Drawing.Color.White;
-            this.landingPerfControl.Location = new System.Drawing.Point(-25, -11);
-            this.landingPerfControl.Name = "landingPerfControl";
-            this.landingPerfControl.Size = new System.Drawing.Size(1144, 818);
-            this.landingPerfControl.TabIndex = 0;
             // 
             // MainForm
             // 

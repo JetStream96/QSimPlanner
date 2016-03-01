@@ -1,19 +1,21 @@
-﻿using QSP.RouteFinding.Data;
+﻿using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Data;
 using System.Collections.Generic;
 using static QSP.RouteFinding.Data.LatLonSearchUtility<QSP.RouteFinding.Airports.Airport>;
-using QSP.AviationTools.Coordinates;
 
 namespace QSP.RouteFinding.Airports
 {
-    // This manager class can make sure that the airportDB and airportFinder matches completely.
+    // This manager class can make sure that the airportData 
+    // and airportFinder matches completely.
+    //
     public class AirportManager
     {
         private AirportCollection airportData;
         private LatLonSearchUtility<Airport> airportFinder;
 
-        public AirportManager(AirportCollection airportDB)
+        public AirportManager(AirportCollection airportData)
         {
-            this.airportData = airportDB;
+            this.airportData = airportData;
             generateSearchGrids();
         }
 

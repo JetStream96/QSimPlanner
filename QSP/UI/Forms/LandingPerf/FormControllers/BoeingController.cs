@@ -1,4 +1,5 @@
-﻿using QSP.LandingPerfCalculation;
+﻿using System;
+using QSP.LandingPerfCalculation;
 
 namespace QSP.UI.Forms.LandingPerf.FormControllers
 {
@@ -8,6 +9,9 @@ namespace QSP.UI.Forms.LandingPerf.FormControllers
             : base(acPerf, elements)
         { }
 
-
+        public override void AirportChanged(object sender, EventArgs e)
+        {
+           
+        }
     }
 }
