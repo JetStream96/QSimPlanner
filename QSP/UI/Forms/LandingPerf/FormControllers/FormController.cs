@@ -1,5 +1,4 @@
 ﻿using QSP.LandingPerfCalculation;
-using System.Windows.Forms;
 using System;
 
 namespace QSP.UI.Forms.LandingPerf.FormControllers
@@ -14,13 +13,7 @@ namespace QSP.UI.Forms.LandingPerf.FormControllers
             this.acPerf = acPerf;
             this.elements = elements;
         }
-
-        public virtual void AirportChanged(object sender, EventArgs e) { }
-
-        public virtual void RunwayChanged(object sender, EventArgs e) { }
-
-        public virtual void LengthUnitChanged(object sender, EventArgs e) { }
-
+        
         public virtual void TempUnitChanged(object sender, EventArgs e) { }
 
         public virtual void PressureUnitChanged(object sender, EventArgs e) { }

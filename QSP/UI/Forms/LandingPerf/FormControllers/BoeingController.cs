@@ -8,10 +8,6 @@ namespace QSP.UI.Forms.LandingPerf.FormControllers
         public BoeingController(PerfTable acPerf, LandingPerfElements elements)
             : base(acPerf, elements)
         { }
-
-        public override void AirportChanged(object sender, EventArgs e)
-        {
-           
-        }
+        
     }
 }

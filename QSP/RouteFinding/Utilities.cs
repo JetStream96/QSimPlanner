@@ -1,10 +1,7 @@
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Containers;
-using System;
 using System.Collections.Generic;
 using static QSP.MathTools.Utilities;
-using static QSP.RouteFinding.Constants;
-using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding
 {
@@ -80,40 +77,7 @@ namespace QSP.RouteFinding
                                            wpts[i + 1].Lat, wpts[i + 1].Lon);
             }
             return dis;
-        }
-
-        public static bool HasRwySpecificPart(string[] allLines, string sidOrStarNameNoTrans)
-        {
-            foreach (var i in allLines)
-            {
-                string[] t = i.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                if (t.Length >= 3 && t[1] == sidOrStarNameNoTrans && IsRwyIdent(t[2]))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public static Waypoint FindWpt(string ID, Waypoint lastWpt)
-        {
-            var matches = WptList.FindAllByID(ID);
-
-            if (matches != null)
-            {
-                foreach (int i in matches)
-                {
-                    var wpt = WptList[i];
-
-                    if (lastWpt.LatLon.Distance(wpt.LatLon) <= MAX_LEG_DIS)
-                    {
-                        return wpt;
-                    }
-                }
-            }
-            return null;
-        }
+        }        
     }
 }
 

@@ -8,9 +8,9 @@ namespace QSP.RouteFinding.Tracks.Common
 {
     public static class Utilities
     {
-        public static int ChooseSubsequentWpt(double prevLat, 
-                                              double prevLon, 
-                                              List<int> candidates, 
+        public static int ChooseSubsequentWpt(double prevLat,
+                                              double prevLon,
+                                              List<int> candidates,
                                               WaypointList wptList)
         {
             if (candidates == null || candidates.Count == 0)
@@ -52,9 +52,9 @@ namespace QSP.RouteFinding.Tracks.Common
         /// <summary>
         /// Returns the indices of waypoints which are closest to a specific lat/lon. 
         /// </summary>
-        public static List<int> NearbyWaypointsInWptList(int count, 
-                                                         double lat, 
-                                                         double lon, 
+        public static List<int> NearbyWaypointsInWptList(int count,
+                                                         double lat,
+                                                         double lon,
                                                          WaypointList wptList)
         {
             var x = WaypointAirwayConnector.FindAirwayConnection(lat, lon, wptList);

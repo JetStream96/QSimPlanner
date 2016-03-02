@@ -29,16 +29,13 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lengthUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.slopeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.Label92 = new System.Windows.Forms.Label();
             this.reqAirportBtn = new System.Windows.Forms.Button();
             this.Label91 = new System.Windows.Forms.Label();
-            this.rwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.Label89 = new System.Windows.Forms.Label();
             this.Label87 = new System.Windows.Forms.Label();
-            this.getMetarBtn = new System.Windows.Forms.Button();
+            this.GetMetarBtn = new System.Windows.Forms.Button();
             this.Label94 = new System.Windows.Forms.Label();
             this.Label88 = new System.Windows.Forms.Label();
             this.Label93 = new System.Windows.Forms.Label();
@@ -48,6 +45,9 @@
             this.rwyHeadingTxtBox = new System.Windows.Forms.TextBox();
             this.lengthTxtBox = new System.Windows.Forms.TextBox();
             this.airportNameLbl = new System.Windows.Forms.Label();
+            this.lengthUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.slopeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.rwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +65,7 @@
             this.tableLayoutPanel1.Controls.Add(this.rwyComboBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.Label89, 2, 5);
             this.tableLayoutPanel1.Controls.Add(this.Label87, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.getMetarBtn, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.GetMetarBtn, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.Label94, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.Label88, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.Label93, 0, 4);
@@ -87,37 +87,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(517, 240);
             this.tableLayoutPanel1.TabIndex = 42;
-            // 
-            // lengthUnitComboBox
-            // 
-            this.lengthUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lengthUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.lengthUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.lengthUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.lengthUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lengthUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lengthUnitComboBox.FormattingEnabled = true;
-            this.lengthUnitComboBox.Items.AddRange(new object[] {
-            "M",
-            "FT"});
-            this.lengthUnitComboBox.Location = new System.Drawing.Point(358, 82);
-            this.lengthUnitComboBox.Name = "lengthUnitComboBox";
-            this.lengthUnitComboBox.Size = new System.Drawing.Size(98, 31);
-            this.lengthUnitComboBox.TabIndex = 42;
-            // 
-            // slopeComboBox
-            // 
-            this.slopeComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.slopeComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.slopeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.slopeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.slopeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.slopeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.slopeComboBox.FormattingEnabled = true;
-            this.slopeComboBox.Location = new System.Drawing.Point(193, 202);
-            this.slopeComboBox.Name = "slopeComboBox";
-            this.slopeComboBox.Size = new System.Drawing.Size(98, 31);
-            this.slopeComboBox.TabIndex = 41;
             // 
             // tableLayoutPanel2
             // 
@@ -172,22 +141,6 @@
             this.Label91.TabIndex = 24;
             this.Label91.Text = "RWY";
             // 
-            // rwyComboBox
-            // 
-            this.rwyComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.rwyComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.rwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.rwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.rwyComboBox.Enabled = false;
-            this.rwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rwyComboBox.FormattingEnabled = true;
-            this.rwyComboBox.Location = new System.Drawing.Point(193, 43);
-            this.rwyComboBox.Name = "rwyComboBox";
-            this.rwyComboBox.Size = new System.Drawing.Size(98, 31);
-            this.rwyComboBox.TabIndex = 40;
-            this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.rwyComboBox_SelectedIndexChanged);
-            // 
             // Label89
             // 
             this.Label89.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -212,20 +165,21 @@
             this.Label87.TabIndex = 32;
             this.Label87.Text = "FT";
             // 
-            // getMetarBtn
+            // GetMetarBtn
             // 
-            this.getMetarBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.getMetarBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.getMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.getMetarBtn.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.getMetarBtn.ForeColor = System.Drawing.Color.White;
-            this.getMetarBtn.Location = new System.Drawing.Point(359, 43);
-            this.getMetarBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.getMetarBtn.Name = "getMetarBtn";
-            this.getMetarBtn.Size = new System.Drawing.Size(97, 31);
-            this.getMetarBtn.TabIndex = 35;
-            this.getMetarBtn.Text = "Get METAR";
-            this.getMetarBtn.UseVisualStyleBackColor = false;
+            this.GetMetarBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.GetMetarBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.GetMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GetMetarBtn.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GetMetarBtn.ForeColor = System.Drawing.Color.White;
+            this.GetMetarBtn.Location = new System.Drawing.Point(359, 43);
+            this.GetMetarBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.GetMetarBtn.Name = "GetMetarBtn";
+            this.GetMetarBtn.Size = new System.Drawing.Size(97, 31);
+            this.GetMetarBtn.TabIndex = 35;
+            this.GetMetarBtn.Text = "Get METAR";
+            this.GetMetarBtn.UseVisualStyleBackColor = false;
+            this.GetMetarBtn.Click += new System.EventHandler(this.getMetarBtn_Click);
             // 
             // Label94
             // 
@@ -332,6 +286,54 @@
             this.airportNameLbl.TabIndex = 34;
             this.airportNameLbl.Text = "   TAIWAN TAOYUAN INTL   ";
             // 
+            // lengthUnitComboBox
+            // 
+            this.lengthUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lengthUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.lengthUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.lengthUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.lengthUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lengthUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lengthUnitComboBox.FormattingEnabled = true;
+            this.lengthUnitComboBox.Items.AddRange(new object[] {
+            "M",
+            "FT"});
+            this.lengthUnitComboBox.Location = new System.Drawing.Point(358, 82);
+            this.lengthUnitComboBox.Name = "lengthUnitComboBox";
+            this.lengthUnitComboBox.Size = new System.Drawing.Size(98, 31);
+            this.lengthUnitComboBox.TabIndex = 42;
+            this.lengthUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.lengthUnitComboBox_SelectedIndexChanged);
+            // 
+            // slopeComboBox
+            // 
+            this.slopeComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.slopeComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.slopeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.slopeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.slopeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.slopeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.slopeComboBox.FormattingEnabled = true;
+            this.slopeComboBox.Location = new System.Drawing.Point(193, 202);
+            this.slopeComboBox.Name = "slopeComboBox";
+            this.slopeComboBox.Size = new System.Drawing.Size(98, 31);
+            this.slopeComboBox.TabIndex = 41;
+            // 
+            // rwyComboBox
+            // 
+            this.rwyComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.rwyComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.rwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.rwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rwyComboBox.Enabled = false;
+            this.rwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rwyComboBox.FormattingEnabled = true;
+            this.rwyComboBox.Location = new System.Drawing.Point(193, 43);
+            this.rwyComboBox.Name = "rwyComboBox";
+            this.rwyComboBox.Size = new System.Drawing.Size(98, 31);
+            this.rwyComboBox.TabIndex = 40;
+            this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.rwyComboBox_SelectedIndexChanged);
+            // 
             // AirportInfoControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -351,16 +353,13 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private Controls.ComboBoxWithBorder lengthUnitComboBox;
-        private Controls.ComboBoxWithBorder slopeComboBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         internal System.Windows.Forms.Label Label92;
         internal System.Windows.Forms.Button reqAirportBtn;
         internal System.Windows.Forms.Label Label91;
-        private Controls.ComboBoxWithBorder rwyComboBox;
         internal System.Windows.Forms.Label Label89;
         internal System.Windows.Forms.Label Label87;
-        internal System.Windows.Forms.Button getMetarBtn;
+        internal System.Windows.Forms.Button GetMetarBtn;
         internal System.Windows.Forms.Label Label94;
         internal System.Windows.Forms.Label Label88;
         internal System.Windows.Forms.Label Label93;
@@ -370,5 +369,8 @@
         internal System.Windows.Forms.TextBox rwyHeadingTxtBox;
         internal System.Windows.Forms.TextBox lengthTxtBox;
         internal System.Windows.Forms.Label airportNameLbl;
+        internal Controls.ComboBoxWithBorder rwyComboBox;
+        internal Controls.ComboBoxWithBorder lengthUnitComboBox;
+        internal Controls.ComboBoxWithBorder slopeComboBox;
     }
 }

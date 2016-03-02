@@ -6,7 +6,9 @@ namespace QSP.RouteFinding.Airports
     public class AirportCollection
     {
         private List<Airport> airportList;
-        private Dictionary<string, int> airportFinder;   // Uses the ICAO code to find the index in the airportList.
+
+        // Uses the ICAO code to find the index in the airportList.
+        private Dictionary<string, int> airportFinder;
 
         public AirportCollection()
         {
@@ -89,7 +91,7 @@ namespace QSP.RouteFinding.Airports
                 return new LatLon(airportList[index].Lat, airportList[index].Lon);
             }
         }
-              
+
         public Airport this[int index]
         {
             get
