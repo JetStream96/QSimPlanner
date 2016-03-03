@@ -226,6 +226,12 @@
     <Compile Include="UI\Forms\OptionsForm.Designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\WeatherInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\WeatherInfoControl.Designer.cs">
+      <DependentUpon>WeatherInfoControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\ConditionChecker.cs" />
     <Compile Include="Utilities\ErrorLogger.cs" />
     <Compile Include="Core\Exceptions.cs" />
@@ -409,10 +415,15 @@
     <EmbeddedResource Include="UI\Forms\TracksForm.resx">
       <DependentUpon>TracksForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\WeatherInfoControl.resx">
+      <DependentUpon>WeatherInfoControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\WeightManagement.resx">
       <DependentUpon>WeightManagement.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.manifest" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
