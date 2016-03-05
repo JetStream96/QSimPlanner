@@ -538,6 +538,7 @@ namespace QSP
             if (InitializeFinished_LDG == false)
             {
                 landingPerfControl.InitializeAircrafts();
+                landingPerfControl.Airports = AirportList;
             }
             viewChanger.ShowPage(ViewManager.Pages.LandingPerf);
         }
@@ -555,7 +556,6 @@ namespace QSP
             ICAO_ComboBox.Items.Add(OrigTxtBox.Text);
             ICAO_ComboBox.Items.Add(DestTxtBox.Text);
             ICAO_ComboBox.Items.Add(AltnTxtBox.Text);
-
         }
 
         private bool tabRefreshed = false;

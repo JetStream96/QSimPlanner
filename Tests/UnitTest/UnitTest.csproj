@@ -109,6 +109,7 @@
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\InterpreterTest.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\SplitterTest.cs" />
     <Compile Include="TOPerfCalcTest.cs" />
+    <Compile Include="UI\AirportInfo\SlopeComboBoxControllerTest.cs" />
     <Compile Include="WindAloft\LastestDataSetFinderTest.cs" />
     <Compile Include="WptFinderTest.cs" />
     <Compile Include="WptListLoadTest.cs" />

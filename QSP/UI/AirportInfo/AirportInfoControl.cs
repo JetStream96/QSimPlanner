@@ -1,13 +1,15 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using QSP.AviationTools;
 using QSP.RouteFinding.Airports;
-using QSP.AviationTools;
+using System;
+using System.Windows.Forms;
 
-namespace QSP.UI.Forms
+namespace QSP.UI.AirportInfo
 {
     public partial class AirportInfoControl : UserControl
     {
-        public AirportCollection Airports { get; set; }
+        private SlopeComboBoxController slopeController;
+
+        public AirportManager Airports { get; set; }
 
         public AirportInfoControl()
         {
@@ -19,37 +21,32 @@ namespace QSP.UI.Forms
         {
             airportNameLbl.Text = "";
             lengthUnitComboBox.SelectedIndex = 0; // Meter
-            setSlopeRange(-2.0, 2.0);
+            slopeController = new SlopeComboBoxController(-2.0, 2.0);
+            updateSlopeItems();
         }
 
-        private void setSlopeRange(double min, double max)
+        private void updateSlopeItems()
         {
             slopeComboBox.Items.Clear();
 
-            int start = (int)Math.Round(min * 10);
-            int end = (int)Math.Round(max * 10);
-
-            for (int i = start; i <= end; i++)
+            foreach (var i in slopeController.items)
             {
-                slopeComboBox.Items.Add((i * 0.1).ToString("0.0"));
+                slopeComboBox.Items.Add(i.ToString("0.0"));
             }
 
-            slopeComboBox.SelectedIndex = 20;
+            slopeComboBox.SelectedIndex = slopeController.NearestIndex(0.0);
         }
 
         private void setSlope(double slope)
         {
-            slope = Math.Round(slope, 1);
-            var items = slopeComboBox.Items;
-
-            if (slope + 0.05 < (double)items[0] ||
-                slope - 0.05 > (double)items[items.Count - 1])
+            if (slopeController.ResizeRequired(slope))
             {
-                slope = Math.Abs(slope);
-                setSlopeRange(-slope, slope);
+                double slopeAbs = Math.Abs(slope);
+                slopeController.SetItems(-slopeAbs, slopeAbs);
+                updateSlopeItems();
             }
 
-            slopeComboBox.SelectedIndex = (int)Math.Round((slope - (double)items[0]) * 10);
+            slopeComboBox.SelectedIndex = slopeController.NearestIndex(slope);
         }
 
         private void airportTxtBox_TextChanged(object sender, EventArgs e)
@@ -107,12 +104,12 @@ namespace QSP.UI.Forms
 
                 setLength(lengthFt);
                 elevationTxtBox.Text = elevationFt.ToString();
-                rwyHeadingTxtBox.Text = takeoffAirport.Rwys[index].Heading;
+                rwyHeadingTxtBox.Text = takeoffAirport.Rwys[index].Heading.ToString().PadLeft(3, '0');
 
                 int elevationOppositeRwyFt = takeoffAirport.RwyElevationFt(
                     CoversionTools.RwyIdentOppositeDir(rwyComboBox.Text));
 
-                setSlope((elevationOppositeRwyFt - elevationFt) / lengthFt * 100);
+                setSlope((elevationOppositeRwyFt - elevationFt) * 100.0 / lengthFt);
             }
         }
 
@@ -137,7 +134,7 @@ namespace QSP.UI.Forms
                     len *= Constants.M_FT_ratio;
                 }
 
-                lengthTxtBox.Text = ((int)len).ToString();
+                lengthTxtBox.Text = ((int)Math.Round(len)).ToString();
             }
         }
     }

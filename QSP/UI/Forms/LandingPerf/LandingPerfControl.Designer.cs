@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.GroupBox13 = new System.Windows.Forms.GroupBox();
-            this.airportInfoControl = new QSP.UI.Forms.AirportInfoControl();
+            this.airportInfoControl = new QSP.UI.AirportInfo.AirportInfoControl();
             this.GroupBox14 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.brakeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
@@ -49,23 +49,10 @@
             this.weightTxtBox = new System.Windows.Forms.TextBox();
             this.calculateBtn = new System.Windows.Forms.Button();
             this.GroupBox15 = new System.Windows.Forms.GroupBox();
+            this.weatherInfoControl = new QSP.UI.Forms.WeatherInfoControl();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.surfCondComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.pressUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.pressTxtBox = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.tempUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.oatTxtBox = new System.Windows.Forms.TextBox();
-            this.Label108 = new System.Windows.Forms.Label();
-            this.Label107 = new System.Windows.Forms.Label();
-            this.Label106 = new System.Windows.Forms.Label();
             this.Label105 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.windSpdTxtBox = new System.Windows.Forms.TextBox();
-            this.Label103 = new System.Windows.Forms.Label();
-            this.windDirTxtBox = new System.Windows.Forms.TextBox();
-            this.Label104 = new System.Windows.Forms.Label();
             this.GroupBox16 = new System.Windows.Forms.GroupBox();
             this.resultsRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.GroupBox13.SuspendLayout();
@@ -73,9 +60,6 @@
             this.tableLayoutPanel7.SuspendLayout();
             this.GroupBox15.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
             this.GroupBox16.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -121,7 +105,7 @@
             this.tableLayoutPanel7.ColumnCount = 3;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.8764F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.1236F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 188F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 191F));
             this.tableLayoutPanel7.Controls.Add(this.brakeComboBox, 1, 4);
             this.tableLayoutPanel7.Controls.Add(this.revThrustComboBox, 1, 3);
             this.tableLayoutPanel7.Controls.Add(this.wtUnitComboBox, 2, 1);
@@ -165,7 +149,7 @@
             "737-900",
             "777-200LR",
             "777F"});
-            this.brakeComboBox.Location = new System.Drawing.Point(171, 164);
+            this.brakeComboBox.Location = new System.Drawing.Point(169, 164);
             this.brakeComboBox.Name = "brakeComboBox";
             this.brakeComboBox.Size = new System.Drawing.Size(151, 31);
             this.brakeComboBox.TabIndex = 45;
@@ -186,7 +170,7 @@
             "737-900",
             "777-200LR",
             "777F"});
-            this.revThrustComboBox.Location = new System.Drawing.Point(171, 124);
+            this.revThrustComboBox.Location = new System.Drawing.Point(169, 124);
             this.revThrustComboBox.Name = "revThrustComboBox";
             this.revThrustComboBox.Size = new System.Drawing.Size(151, 31);
             this.revThrustComboBox.TabIndex = 44;
@@ -203,7 +187,7 @@
             this.wtUnitComboBox.Items.AddRange(new object[] {
             "KG",
             "LB"});
-            this.wtUnitComboBox.Location = new System.Drawing.Point(356, 44);
+            this.wtUnitComboBox.Location = new System.Drawing.Point(354, 44);
             this.wtUnitComboBox.Name = "wtUnitComboBox";
             this.wtUnitComboBox.Size = new System.Drawing.Size(141, 31);
             this.wtUnitComboBox.TabIndex = 43;
@@ -224,7 +208,7 @@
             "737-900",
             "777-200LR",
             "777F"});
-            this.flapsComboBox.Location = new System.Drawing.Point(171, 84);
+            this.flapsComboBox.Location = new System.Drawing.Point(169, 84);
             this.flapsComboBox.Name = "flapsComboBox";
             this.flapsComboBox.Size = new System.Drawing.Size(151, 31);
             this.flapsComboBox.TabIndex = 42;
@@ -245,7 +229,7 @@
             "737-900",
             "777-200LR",
             "777F"});
-            this.acListComboBox.Location = new System.Drawing.Point(171, 4);
+            this.acListComboBox.Location = new System.Drawing.Point(169, 4);
             this.acListComboBox.Name = "acListComboBox";
             this.acListComboBox.Size = new System.Drawing.Size(151, 31);
             this.acListComboBox.TabIndex = 41;
@@ -257,7 +241,7 @@
             this.requestBtn.BackColor = System.Drawing.SystemColors.Control;
             this.requestBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.requestBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.requestBtn.Location = new System.Drawing.Point(356, 4);
+            this.requestBtn.Location = new System.Drawing.Point(354, 4);
             this.requestBtn.Name = "requestBtn";
             this.requestBtn.Size = new System.Drawing.Size(141, 31);
             this.requestBtn.TabIndex = 38;
@@ -283,7 +267,7 @@
             this.Label96.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label96.AutoSize = true;
             this.Label96.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label96.Location = new System.Drawing.Point(336, 208);
+            this.Label96.Location = new System.Drawing.Point(333, 208);
             this.Label96.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label96.Name = "Label96";
             this.Label96.Size = new System.Drawing.Size(31, 23);
@@ -306,7 +290,7 @@
             // 
             this.appSpdIncTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.appSpdIncTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.appSpdIncTxtBox.Location = new System.Drawing.Point(204, 205);
+            this.appSpdIncTxtBox.Location = new System.Drawing.Point(202, 205);
             this.appSpdIncTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.appSpdIncTxtBox.Name = "appSpdIncTxtBox";
             this.appSpdIncTxtBox.Size = new System.Drawing.Size(86, 30);
@@ -364,7 +348,7 @@
             // 
             this.weightTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.weightTxtBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.weightTxtBox.Location = new System.Drawing.Point(171, 46);
+            this.weightTxtBox.Location = new System.Drawing.Point(169, 46);
             this.weightTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.weightTxtBox.Name = "weightTxtBox";
             this.weightTxtBox.Size = new System.Drawing.Size(151, 27);
@@ -388,37 +372,40 @@
             // 
             this.GroupBox15.BackColor = System.Drawing.Color.Transparent;
             this.GroupBox15.Controls.Add(this.tableLayoutPanel3);
+            this.GroupBox15.Controls.Add(this.weatherInfoControl);
             this.GroupBox15.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupBox15.Location = new System.Drawing.Point(42, 305);
             this.GroupBox15.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.GroupBox15.Name = "GroupBox15";
             this.GroupBox15.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.GroupBox15.Size = new System.Drawing.Size(531, 190);
+            this.GroupBox15.Size = new System.Drawing.Size(531, 224);
             this.GroupBox15.TabIndex = 26;
             this.GroupBox15.TabStop = false;
             this.GroupBox15.Text = "Weather";
+            // 
+            // weatherInfoControl
+            // 
+            this.weatherInfoControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.weatherInfoControl.Location = new System.Drawing.Point(7, 20);
+            this.weatherInfoControl.Name = "weatherInfoControl";
+            this.weatherInfoControl.Size = new System.Drawing.Size(517, 160);
+            this.weatherInfoControl.TabIndex = 0;
             // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.98876F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.01124F));
-            this.tableLayoutPanel3.Controls.Add(this.surfCondComboBox, 1, 3);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel6, 1, 2);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.Label108, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.Label107, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.Label106, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.Label105, 0, 3);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 1, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(7, 22);
+            this.tableLayoutPanel3.Controls.Add(this.surfCondComboBox, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.Label105, 0, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(7, 180);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 4;
+            this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(517, 160);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(517, 40);
             this.tableLayoutPanel3.TabIndex = 33;
             // 
             // surfCondComboBox
@@ -430,214 +417,31 @@
             this.surfCondComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.surfCondComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.surfCondComboBox.FormattingEnabled = true;
-            this.surfCondComboBox.Location = new System.Drawing.Point(209, 124);
+            this.surfCondComboBox.Location = new System.Drawing.Point(209, 4);
             this.surfCondComboBox.Name = "surfCondComboBox";
             this.surfCondComboBox.Size = new System.Drawing.Size(247, 31);
             this.surfCondComboBox.TabIndex = 42;
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.79348F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.20652F));
-            this.tableLayoutPanel6.Controls.Add(this.pressUnitComboBox, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.pressTxtBox, 0, 0);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(149, 80);
-            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(368, 40);
-            this.tableLayoutPanel6.TabIndex = 34;
-            // 
-            // pressUnitComboBox
-            // 
-            this.pressUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pressUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.pressUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.pressUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.pressUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.pressUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pressUnitComboBox.FormattingEnabled = true;
-            this.pressUnitComboBox.Items.AddRange(new object[] {
-            "hPa",
-            "inHg"});
-            this.pressUnitComboBox.Location = new System.Drawing.Point(193, 4);
-            this.pressUnitComboBox.Name = "pressUnitComboBox";
-            this.pressUnitComboBox.Size = new System.Drawing.Size(98, 31);
-            this.pressUnitComboBox.TabIndex = 42;
-            // 
-            // pressTxtBox
-            // 
-            this.pressTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pressTxtBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pressTxtBox.Location = new System.Drawing.Point(9, 6);
-            this.pressTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pressTxtBox.Name = "pressTxtBox";
-            this.pressTxtBox.Size = new System.Drawing.Size(98, 27);
-            this.pressTxtBox.TabIndex = 17;
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.79348F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.20652F));
-            this.tableLayoutPanel5.Controls.Add(this.tempUnitComboBox, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.oatTxtBox, 0, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(149, 40);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(368, 40);
-            this.tableLayoutPanel5.TabIndex = 33;
-            // 
-            // tempUnitComboBox
-            // 
-            this.tempUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tempUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.tempUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.tempUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tempUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.tempUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tempUnitComboBox.FormattingEnabled = true;
-            this.tempUnitComboBox.Items.AddRange(new object[] {
-            "°C",
-            "°F"});
-            this.tempUnitComboBox.Location = new System.Drawing.Point(193, 4);
-            this.tempUnitComboBox.Name = "tempUnitComboBox";
-            this.tempUnitComboBox.Size = new System.Drawing.Size(98, 31);
-            this.tempUnitComboBox.TabIndex = 41;
-            // 
-            // oatTxtBox
-            // 
-            this.oatTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.oatTxtBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.oatTxtBox.Location = new System.Drawing.Point(9, 6);
-            this.oatTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.oatTxtBox.Name = "oatTxtBox";
-            this.oatTxtBox.Size = new System.Drawing.Size(98, 27);
-            this.oatTxtBox.TabIndex = 16;
-            // 
-            // Label108
-            // 
-            this.Label108.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Label108.AutoSize = true;
-            this.Label108.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label108.Location = new System.Drawing.Point(4, 8);
-            this.Label108.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Label108.Name = "Label108";
-            this.Label108.Size = new System.Drawing.Size(50, 23);
-            this.Label108.TabIndex = 8;
-            this.Label108.Text = "Wind";
-            // 
-            // Label107
-            // 
-            this.Label107.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Label107.AutoSize = true;
-            this.Label107.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label107.Location = new System.Drawing.Point(4, 48);
-            this.Label107.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Label107.Name = "Label107";
-            this.Label107.Size = new System.Drawing.Size(43, 23);
-            this.Label107.TabIndex = 9;
-            this.Label107.Text = "OAT";
-            // 
-            // Label106
-            // 
-            this.Label106.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Label106.AutoSize = true;
-            this.Label106.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label106.Location = new System.Drawing.Point(4, 88);
-            this.Label106.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Label106.Name = "Label106";
-            this.Label106.Size = new System.Drawing.Size(74, 23);
-            this.Label106.TabIndex = 10;
-            this.Label106.Text = "Pressure";
             // 
             // Label105
             // 
             this.Label105.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label105.AutoSize = true;
             this.Label105.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label105.Location = new System.Drawing.Point(4, 128);
+            this.Label105.Location = new System.Drawing.Point(4, 8);
             this.Label105.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label105.Name = "Label105";
             this.Label105.Size = new System.Drawing.Size(106, 23);
             this.Label105.TabIndex = 11;
             this.Label105.Text = "RWY Surface";
             // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 4;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.10169F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.8983F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 132F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 66F));
-            this.tableLayoutPanel4.Controls.Add(this.windSpdTxtBox, 2, 0);
-            this.tableLayoutPanel4.Controls.Add(this.Label103, 3, 0);
-            this.tableLayoutPanel4.Controls.Add(this.windDirTxtBox, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.Label104, 1, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(149, 0);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(368, 40);
-            this.tableLayoutPanel4.TabIndex = 40;
-            // 
-            // windSpdTxtBox
-            // 
-            this.windSpdTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.windSpdTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.windSpdTxtBox.Location = new System.Drawing.Point(186, 5);
-            this.windSpdTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.windSpdTxtBox.Name = "windSpdTxtBox";
-            this.windSpdTxtBox.Size = new System.Drawing.Size(98, 30);
-            this.windSpdTxtBox.TabIndex = 18;
-            // 
-            // Label103
-            // 
-            this.Label103.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Label103.AutoSize = true;
-            this.Label103.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label103.Location = new System.Drawing.Point(315, 8);
-            this.Label103.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Label103.Name = "Label103";
-            this.Label103.Size = new System.Drawing.Size(38, 23);
-            this.Label103.TabIndex = 36;
-            this.Label103.Text = "KTS";
-            // 
-            // windDirTxtBox
-            // 
-            this.windDirTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.windDirTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.windDirTxtBox.Location = new System.Drawing.Point(7, 5);
-            this.windDirTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.windDirTxtBox.Name = "windDirTxtBox";
-            this.windDirTxtBox.Size = new System.Drawing.Size(98, 30);
-            this.windDirTxtBox.TabIndex = 15;
-            // 
-            // Label104
-            // 
-            this.Label104.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Label104.AutoSize = true;
-            this.Label104.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label104.Location = new System.Drawing.Point(128, 8);
-            this.Label104.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Label104.Name = "Label104";
-            this.Label104.Size = new System.Drawing.Size(25, 23);
-            this.Label104.TabIndex = 8;
-            this.Label104.Text = "at";
-            // 
             // GroupBox16
             // 
             this.GroupBox16.BackColor = System.Drawing.Color.Transparent;
             this.GroupBox16.Controls.Add(this.resultsRichTxtBox);
             this.GroupBox16.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBox16.Location = new System.Drawing.Point(42, 503);
+            this.GroupBox16.Location = new System.Drawing.Point(42, 537);
             this.GroupBox16.Name = "GroupBox16";
-            this.GroupBox16.Size = new System.Drawing.Size(1084, 272);
+            this.GroupBox16.Size = new System.Drawing.Size(1084, 238);
             this.GroupBox16.TabIndex = 32;
             this.GroupBox16.TabStop = false;
             this.GroupBox16.Text = "Results";
@@ -672,12 +476,6 @@
             this.GroupBox15.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
             this.GroupBox16.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -698,31 +496,18 @@
         internal System.Windows.Forms.Label Label102;
         internal System.Windows.Forms.Button calculateBtn;
         internal System.Windows.Forms.GroupBox GroupBox15;
-        internal System.Windows.Forms.Label Label103;
-        internal System.Windows.Forms.Label Label104;
-        internal System.Windows.Forms.TextBox windSpdTxtBox;
-        internal System.Windows.Forms.TextBox pressTxtBox;
-        internal System.Windows.Forms.TextBox oatTxtBox;
-        internal System.Windows.Forms.TextBox windDirTxtBox;
         internal System.Windows.Forms.Label Label105;
-        internal System.Windows.Forms.Label Label106;
-        internal System.Windows.Forms.Label Label107;
-        internal System.Windows.Forms.Label Label108;
         internal System.Windows.Forms.GroupBox GroupBox16;
         internal System.Windows.Forms.RichTextBox resultsRichTxtBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private Controls.ComboBoxWithBorder surfCondComboBox;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private Controls.ComboBoxWithBorder pressUnitComboBox;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private Controls.ComboBoxWithBorder tempUnitComboBox;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private Controls.ComboBoxWithBorder brakeComboBox;
         private Controls.ComboBoxWithBorder revThrustComboBox;
         private Controls.ComboBoxWithBorder wtUnitComboBox;
         private Controls.ComboBoxWithBorder flapsComboBox;
         private Controls.ComboBoxWithBorder acListComboBox;
-        private AirportInfoControl airportInfoControl;
+        private QSP.UI.AirportInfo.AirportInfoControl airportInfoControl;
+        private WeatherInfoControl weatherInfoControl;
     }
 }

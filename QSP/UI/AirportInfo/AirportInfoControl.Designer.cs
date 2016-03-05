@@ -1,4 +1,4 @@
-﻿namespace QSP.UI.Forms
+﻿namespace QSP.UI.AirportInfo
 {
     partial class AirportInfoControl
     {
@@ -29,13 +29,10 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lengthUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.slopeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.Label92 = new System.Windows.Forms.Label();
             this.reqAirportBtn = new System.Windows.Forms.Button();
             this.Label91 = new System.Windows.Forms.Label();
-            this.rwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.Label89 = new System.Windows.Forms.Label();
             this.Label87 = new System.Windows.Forms.Label();
             this.Label94 = new System.Windows.Forms.Label();
@@ -47,6 +44,9 @@
             this.rwyHeadingTxtBox = new System.Windows.Forms.TextBox();
             this.lengthTxtBox = new System.Windows.Forms.TextBox();
             this.airportNameLbl = new System.Windows.Forms.Label();
+            this.lengthUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.slopeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.rwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -85,38 +85,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(517, 240);
             this.tableLayoutPanel1.TabIndex = 42;
-            // 
-            // lengthUnitComboBox
-            // 
-            this.lengthUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lengthUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.lengthUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.lengthUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.lengthUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lengthUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lengthUnitComboBox.FormattingEnabled = true;
-            this.lengthUnitComboBox.Items.AddRange(new object[] {
-            "M",
-            "FT"});
-            this.lengthUnitComboBox.Location = new System.Drawing.Point(358, 82);
-            this.lengthUnitComboBox.Name = "lengthUnitComboBox";
-            this.lengthUnitComboBox.Size = new System.Drawing.Size(98, 31);
-            this.lengthUnitComboBox.TabIndex = 42;
-            this.lengthUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.lengthUnitComboBox_SelectedIndexChanged);
-            // 
-            // slopeComboBox
-            // 
-            this.slopeComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.slopeComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.slopeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.slopeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.slopeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.slopeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.slopeComboBox.FormattingEnabled = true;
-            this.slopeComboBox.Location = new System.Drawing.Point(193, 202);
-            this.slopeComboBox.Name = "slopeComboBox";
-            this.slopeComboBox.Size = new System.Drawing.Size(98, 31);
-            this.slopeComboBox.TabIndex = 41;
             // 
             // tableLayoutPanel2
             // 
@@ -170,22 +138,6 @@
             this.Label91.Size = new System.Drawing.Size(45, 23);
             this.Label91.TabIndex = 24;
             this.Label91.Text = "RWY";
-            // 
-            // rwyComboBox
-            // 
-            this.rwyComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.rwyComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.rwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.rwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.rwyComboBox.Enabled = false;
-            this.rwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rwyComboBox.FormattingEnabled = true;
-            this.rwyComboBox.Location = new System.Drawing.Point(193, 43);
-            this.rwyComboBox.Name = "rwyComboBox";
-            this.rwyComboBox.Size = new System.Drawing.Size(98, 31);
-            this.rwyComboBox.TabIndex = 40;
-            this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.rwyComboBox_SelectedIndexChanged);
             // 
             // Label89
             // 
@@ -315,6 +267,54 @@
             this.airportNameLbl.Size = new System.Drawing.Size(185, 19);
             this.airportNameLbl.TabIndex = 34;
             this.airportNameLbl.Text = "   TAIWAN TAOYUAN INTL   ";
+            // 
+            // lengthUnitComboBox
+            // 
+            this.lengthUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lengthUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.lengthUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.lengthUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.lengthUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lengthUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lengthUnitComboBox.FormattingEnabled = true;
+            this.lengthUnitComboBox.Items.AddRange(new object[] {
+            "M",
+            "FT"});
+            this.lengthUnitComboBox.Location = new System.Drawing.Point(358, 82);
+            this.lengthUnitComboBox.Name = "lengthUnitComboBox";
+            this.lengthUnitComboBox.Size = new System.Drawing.Size(98, 31);
+            this.lengthUnitComboBox.TabIndex = 42;
+            this.lengthUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.lengthUnitComboBox_SelectedIndexChanged);
+            // 
+            // slopeComboBox
+            // 
+            this.slopeComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.slopeComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.slopeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.slopeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.slopeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.slopeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.slopeComboBox.FormattingEnabled = true;
+            this.slopeComboBox.Location = new System.Drawing.Point(193, 202);
+            this.slopeComboBox.Name = "slopeComboBox";
+            this.slopeComboBox.Size = new System.Drawing.Size(98, 31);
+            this.slopeComboBox.TabIndex = 41;
+            // 
+            // rwyComboBox
+            // 
+            this.rwyComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.rwyComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.rwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.rwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rwyComboBox.Enabled = false;
+            this.rwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rwyComboBox.FormattingEnabled = true;
+            this.rwyComboBox.Location = new System.Drawing.Point(193, 43);
+            this.rwyComboBox.Name = "rwyComboBox";
+            this.rwyComboBox.Size = new System.Drawing.Size(98, 31);
+            this.rwyComboBox.TabIndex = 40;
+            this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.rwyComboBox_SelectedIndexChanged);
             // 
             // AirportInfoControl
             // 

@@ -14,10 +14,6 @@ namespace QSP.UI.Forms.LandingPerf.FormControllers
             this.elements = elements;
         }
         
-        public virtual void TempUnitChanged(object sender, EventArgs e) { }
-
-        public virtual void PressureUnitChanged(object sender, EventArgs e) { }
-
         public virtual void SurfCondChanged(object sender, EventArgs e) { }
 
         public virtual void WeightUnitChanged(object sender, EventArgs e) { }

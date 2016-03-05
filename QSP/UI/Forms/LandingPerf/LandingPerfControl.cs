@@ -1,9 +1,10 @@
 ﻿using QSP.LandingPerfCalculation;
+using QSP.RouteFinding.Airports;
 using QSP.UI.Forms.LandingPerf.FormControllers;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using QSP.RouteFinding.Airports;
+using QSP.UI.AirportInfo;
 
 namespace QSP.UI.Forms.LandingPerf
 {
@@ -15,7 +16,7 @@ namespace QSP.UI.Forms.LandingPerf
         private PerfTable currentTable;
         private LandingPerfElements elements;
 
-        private AirportCollection Airports
+        public AirportManager Airports
         {
             get { return airportInfoControl.Airports; }
             set { airportInfoControl.Airports = value; }
@@ -34,10 +35,6 @@ namespace QSP.UI.Forms.LandingPerf
 
         private void initializeControls()
         {
-            tempUnitComboBox.SelectedIndex = 0; // Celsius
-            pressUnitComboBox.SelectedIndex = 0; // hPa
-            windSpdTxtBox.Text = "0";
-            windDirTxtBox.Text = "0";
             appSpdIncTxtBox.Text = "5";
             wtUnitComboBox.SelectedIndex = 0; // KG
         }
@@ -50,19 +47,19 @@ namespace QSP.UI.Forms.LandingPerf
                 airportInfoControl.lengthTxtBox,
                 airportInfoControl.elevationTxtBox,
                 airportInfoControl.rwyHeadingTxtBox,
-                windDirTxtBox,
-                windSpdTxtBox,
-                oatTxtBox,
-                pressTxtBox,
+                weatherInfoControl.windDirTxtBox,
+                weatherInfoControl.windSpdTxtBox,
+                weatherInfoControl.oatTxtBox,
+                weatherInfoControl.pressTxtBox,
                 weightTxtBox,
                 appSpdIncTxtBox,
                 airportInfoControl.rwyComboBox,
                 airportInfoControl.lengthUnitComboBox,
                 airportInfoControl.slopeComboBox,
-                tempUnitComboBox,
+                weatherInfoControl.tempUnitComboBox,
                 brakeComboBox,
                 surfCondComboBox,
-                pressUnitComboBox,
+                weatherInfoControl.pressUnitComboBox,
                 wtUnitComboBox,
                 flapsComboBox,
                 revThrustComboBox,
@@ -129,8 +126,6 @@ namespace QSP.UI.Forms.LandingPerf
 
         private void subscribe(FormController controller)
         {
-            tempUnitComboBox.SelectedIndexChanged += controller.TempUnitChanged;
-            pressUnitComboBox.SelectedIndexChanged += controller.PressureUnitChanged;
             surfCondComboBox.SelectedIndexChanged += controller.SurfCondChanged;
             wtUnitComboBox.SelectedIndexChanged += controller.WeightUnitChanged;
             flapsComboBox.SelectedIndexChanged += controller.FlapsChanged;
@@ -141,8 +136,6 @@ namespace QSP.UI.Forms.LandingPerf
 
         private void unSubscribe(FormController controller)
         {
-            tempUnitComboBox.SelectedIndexChanged -= controller.TempUnitChanged;
-            pressUnitComboBox.SelectedIndexChanged -= controller.PressureUnitChanged;
             surfCondComboBox.SelectedIndexChanged -= controller.SurfCondChanged;
             wtUnitComboBox.SelectedIndexChanged -= controller.WeightUnitChanged;
             flapsComboBox.SelectedIndexChanged -= controller.FlapsChanged;
