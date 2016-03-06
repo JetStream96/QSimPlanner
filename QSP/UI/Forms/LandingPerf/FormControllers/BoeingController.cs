@@ -1,11 +1,9 @@
-﻿using System;
+﻿using QSP.Core;
 using QSP.LandingPerfCalculation;
-using QSP.AviationTools;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
-using System.Linq;
-using QSP.Core;
-using System.Windows.Forms;
+using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace QSP.UI.Forms.LandingPerf.FormControllers
 {

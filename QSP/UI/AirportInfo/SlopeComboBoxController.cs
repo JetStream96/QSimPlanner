@@ -1,5 +1,5 @@
-﻿using System;
-using QSP.Utilities;
+﻿using QSP.Utilities;
+using System;
 
 namespace QSP.UI.AirportInfo
 {
