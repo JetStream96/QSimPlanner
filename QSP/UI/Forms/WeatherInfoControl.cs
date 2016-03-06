@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.AviationTools.CoversionTools;
 
@@ -21,10 +14,16 @@ namespace QSP.UI.Forms
 
         private void initializeControls()
         {
-            tempUnitComboBox.SelectedIndex = 0; // Celsius
-            pressUnitComboBox.SelectedIndex = 0; // hPa
             windSpdTxtBox.Text = "0";
             windDirTxtBox.Text = "0";
+
+            tempUnitComboBox.Items.Clear();
+            tempUnitComboBox.Items.AddRange(new object[] { "°C", "°F" });
+            tempUnitComboBox.SelectedIndex = 0; // Celsius
+
+            pressUnitComboBox.Items.Clear();
+            pressUnitComboBox.Items.AddRange(new object[] { "hPa", "inHg" });
+            pressUnitComboBox.SelectedIndex = 0; // hPa
         }
 
         public virtual void GetMetarBtn_Click(object sender, EventArgs e)

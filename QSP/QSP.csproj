@@ -212,6 +212,7 @@
       <DependentUpon>CustomFuelControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\LandingPerf\FormControllers\BoeingController.cs" />
+    <Compile Include="UI\Forms\LandingPerf\FormControllers\BoeingParameterValidator.cs" />
     <Compile Include="UI\Forms\LandingPerf\FormControllers\FormController.cs" />
     <Compile Include="UI\Forms\LandingPerf\FormControllers\FormControllerFactory.cs" />
     <Compile Include="UI\Forms\LandingPerf\LandingPerfControl.cs">

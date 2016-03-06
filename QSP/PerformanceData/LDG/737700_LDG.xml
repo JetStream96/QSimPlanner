@@ -20,6 +20,9 @@
 						<Dry>MAX MANUAL;MAX AUTO;AUTOBRAKE 3;AUTOBRAKE 2;AUTOBRAKE 1</Dry>
 						<Wet>MAX MANUAL;MAX AUTO;AUTOBRAKE 3;AUTOBRAKE 2</Wet>
 				</Autobrakes>
+
+        <Reversers>Both;One Rev;No Rev</Reversers>
+      
 		</Parameters>
 		<Data>
 				<Flaps>15</Flaps>

@@ -4,7 +4,6 @@ using QSP.UI.Forms.LandingPerf.FormControllers;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using QSP.UI.AirportInfo;
 
 namespace QSP.UI.Forms.LandingPerf
 {
@@ -121,6 +120,7 @@ namespace QSP.UI.Forms.LandingPerf
                 // TODO: not completely right
 
                 subscribe(controller);
+                controller.Initialize();
             }
         }
 

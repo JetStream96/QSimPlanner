@@ -16,7 +16,7 @@ namespace QSP.LibraryExtension
         {
             int len = item.Length;
 
-            if (len <= totalLength)
+            if (len >= totalLength)
             {
                 return item;
             }

@@ -32,9 +32,6 @@ namespace QSP.LandingPerfCalculation.Boeing
 
         public BoeingPerfTable GetItem(XDocument doc)
         {
-            // TODO:
-            var REVERSERS = new string[] { "BOTH", "ONE REV", "NO REV" };
-
             var root = doc.Root;
             var para = root.Element("Parameters");
             bool lenUnitIsMeter = para.Element("LengthUnit").Value == "M";
@@ -42,8 +39,9 @@ namespace QSP.LandingPerfCalculation.Boeing
             double wtStepKg = Convert.ToDouble(para.Element("WeightStep").Value);
 
             var brks = para.Element("Autobrakes");
-            string[] autoBrkDry = brks.Element("Dry").Value.Split(';');
-            string[] autoBrkWet = brks.Element("Wet").Value.Split(';');
+            var autoBrkDry = brks.Element("Dry").Value.Split(';');
+            var autoBrkWet = brks.Element("Wet").Value.Split(';');
+            var reversers = para.Element("Reversers").Value.Split(';'); 
 
             var data = root.Elements("Data").ToArray();
             int LEN = data.Length;
@@ -79,7 +77,7 @@ namespace QSP.LandingPerfCalculation.Boeing
                         autoBrkDry,
                         autoBrkWet,
                         flaps,
-                        REVERSERS,
+                        reversers,
                         new TableDry(tableDry),
                         new TableWet(tableWet));
         }

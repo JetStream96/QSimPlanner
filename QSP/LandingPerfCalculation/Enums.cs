@@ -8,10 +8,5 @@ namespace QSP.LandingPerfCalculation
 	//	Poor = 3
 	//}
 
-	public enum ReverserOption
-	{
-		Both = 0,
-		HalfRev = 1,		//one reverser for twin-engined aircraft, two reversers for four-engined aircraft
-		NoRev = 2
-	}
+	
 }

@@ -4,28 +4,28 @@ namespace QSP.UI.Forms.LandingPerf
 {
     public class LandingPerfElements
     {
-        private Label airportName;
-        private TextBox airport;
-        private TextBox length;
-        private TextBox elevation;
-        private TextBox rwyHeading;
-        private TextBox windDirection;
-        private TextBox windSpeed;
-        private TextBox oat;
-        private TextBox pressure;
-        private TextBox weight;
-        private TextBox appSpeedIncrease;
-        private ComboBox runway;
-        private ComboBox lengthUnit;
-        private ComboBox slope;
-        private ComboBox tempUnit;
-        private ComboBox brake;
-        private ComboBox surfCond;
-        private ComboBox pressureUnit;
-        private ComboBox wtUnit;
-        private ComboBox flaps;
-        private ComboBox reverser;
-        private RichTextBox result;
+        public Label AirportName { get; private set; }
+        public TextBox Airport { get; private set; }
+        public TextBox Length { get; private set; }
+        public TextBox Elevation { get; private set; }
+        public TextBox rwyHeading { get; private set; }
+        public TextBox windDirection { get; private set; }
+        public TextBox windSpeed { get; private set; }
+        public TextBox oat { get; private set; }
+        public TextBox pressure { get; private set; }
+        public TextBox weight { get; private set; }
+        public TextBox appSpeedIncrease { get; private set; }
+        public ComboBox runway { get; private set; }
+        public ComboBox lengthUnit { get; private set; }
+        public ComboBox slope { get; private set; }
+        public ComboBox tempUnit { get; private set; }
+        public ComboBox brake { get; private set; }
+        public ComboBox surfCond { get; private set; }
+        public ComboBox pressureUnit { get; private set; }
+        public ComboBox wtUnit { get; private set; }
+        public ComboBox flaps { get; private set; }
+        public ComboBox reverser { get; private set; }
+        public RichTextBox result { get; private set; }
 
         public LandingPerfElements(
             Label airportName,
@@ -51,10 +51,10 @@ namespace QSP.UI.Forms.LandingPerf
             ComboBox reverser,
             RichTextBox result)
         {
-            this.airportName = airportName;
-            this.airport = airport;
-            this.length = length;
-            this.elevation = elevation;
+            this.AirportName = airportName;
+            this.Airport = airport;
+            this.Length = length;
+            this.Elevation = elevation;
             this.rwyHeading = rwyHeading;
             this.windDirection = windDirection;
             this.windSpeed = windSpeed;

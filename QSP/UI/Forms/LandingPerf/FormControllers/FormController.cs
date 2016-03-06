@@ -14,6 +14,11 @@ namespace QSP.UI.Forms.LandingPerf.FormControllers
             this.elements = elements;
         }
         
+        /// <summary>
+        /// Initialize the states of UI controls.
+        /// </summary>
+        public virtual void Initialize() { }
+
         public virtual void SurfCondChanged(object sender, EventArgs e) { }
 
         public virtual void WeightUnitChanged(object sender, EventArgs e) { }

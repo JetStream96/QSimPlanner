@@ -20,9 +20,12 @@ namespace QSP.UI.AirportInfo
         private void initializeControls()
         {
             airportNameLbl.Text = "";
-            lengthUnitComboBox.SelectedIndex = 0; // Meter
             slopeController = new SlopeComboBoxController(-2.0, 2.0);
             updateSlopeItems();
+
+            lengthUnitComboBox.Items.Clear();
+            lengthUnitComboBox.Items.AddRange(new object[] { "M", "FT" });
+            lengthUnitComboBox.SelectedIndex = 0; // Meter
         }
 
         private void updateSlopeItems()
@@ -66,7 +69,7 @@ namespace QSP.UI.AirportInfo
 
             if (takeoffAirport != null && takeoffAirport.Rwys.Count > 0)
             {
-                airportNameLbl.Text = takeoffAirport.Name.PadLeft(24, ' ');
+                airportNameLbl.Text = takeoffAirport.Name;
 
                 foreach (var i in takeoffAirport.Rwys)
                 {

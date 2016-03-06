@@ -109,7 +109,7 @@ namespace QSP.LandingPerfCalculation.Boeing
 
             if (para.Reverser == ReverserOption.HalfRev)
             {
-                totalDisMeter += reqData(para, DataColumn.OneRev, brakeSetting);
+                totalDisMeter += reqData(para, DataColumn.HalfRev, brakeSetting);
             }
             else if (para.Reverser == ReverserOption.NoRev)
             {

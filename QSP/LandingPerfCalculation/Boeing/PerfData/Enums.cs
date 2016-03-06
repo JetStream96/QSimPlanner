@@ -22,7 +22,18 @@
         TempAboveISA = 9,
         TempBelowISA = 10,
         AppSpdAdjust = 11,
-        OneRev = 12,
+        HalfRev = 12,
         NoRev = 13
+    }
+
+    public enum ReverserOption
+    {
+        Both = 0,
+
+        // One reverser for twin-engined aircraft, 
+        // two reversers for four-engined aircraft.
+        HalfRev = 1,
+
+        NoRev = 2
     }
 }
