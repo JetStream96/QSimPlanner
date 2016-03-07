@@ -5,7 +5,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace QSP.UI.Forms.LandingPerf.FormControllers
+namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 {
     public class BoeingController : FormController
     {

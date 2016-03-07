@@ -190,7 +190,7 @@ namespace QSP
             this.GroupBox12 = new System.Windows.Forms.GroupBox();
             this.Results = new System.Windows.Forms.RichTextBox();
             this.TabPage10 = new System.Windows.Forms.TabPage();
-            this.landingPerfControl = new QSP.UI.Forms.LandingPerf.LandingPerfControl();
+            this.landingPerfControl = new QSP.UI.ToLdgModule.LandingPerf.LandingPerfControl();
             this.TabPage11 = new System.Windows.Forms.TabPage();
             this.PanelAirportData = new System.Windows.Forms.Panel();
             this.TabControl1 = new System.Windows.Forms.TabControl();
@@ -3421,6 +3421,6 @@ namespace QSP
             InitializeComponent();
         }
 
-        private UI.Forms.LandingPerf.LandingPerfControl landingPerfControl;
+        private UI.ToLdgModule.LandingPerf.LandingPerfControl landingPerfControl;
     }
 }

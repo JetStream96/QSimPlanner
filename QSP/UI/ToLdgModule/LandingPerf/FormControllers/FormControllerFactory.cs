@@ -1,7 +1,7 @@
 ﻿using QSP.LandingPerfCalculation;
 using QSP.Core;
 
-namespace QSP.UI.Forms.LandingPerf.FormControllers
+namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 {
     public enum ControllerType
     {

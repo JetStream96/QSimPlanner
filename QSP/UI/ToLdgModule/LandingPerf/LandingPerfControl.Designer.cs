@@ -1,4 +1,4 @@
-﻿namespace QSP.UI.Forms.LandingPerf
+﻿namespace QSP.UI.ToLdgModule.LandingPerf
 {
     partial class LandingPerfControl
     {
@@ -47,14 +47,14 @@
             this.Label105 = new System.Windows.Forms.Label();
             this.GroupBox16 = new System.Windows.Forms.GroupBox();
             this.resultsRichTxtBox = new System.Windows.Forms.RichTextBox();
-            this.airportInfoControl = new QSP.UI.AirportInfo.AirportInfoControl();
+            this.airportInfoControl = new QSP.UI.ToLdgModule.Common.AirportInfo.AirportInfoControl();
             this.brakeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.revThrustComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.flapsComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.surfCondComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.weatherInfoControl = new QSP.UI.Forms.WeatherInfoControl();
+            this.weatherInfoControl = new QSP.UI.ToLdgModule.Common.WeatherInfoControl();
             this.GroupBox13.SuspendLayout();
             this.GroupBox14.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
@@ -507,7 +507,7 @@
         private Controls.ComboBoxWithBorder wtUnitComboBox;
         private Controls.ComboBoxWithBorder flapsComboBox;
         private Controls.ComboBoxWithBorder acListComboBox;
-        private QSP.UI.AirportInfo.AirportInfoControl airportInfoControl;
-        private WeatherInfoControl weatherInfoControl;
+        private QSP.UI.ToLdgModule.Common.AirportInfo.AirportInfoControl airportInfoControl;
+        private QSP.UI.ToLdgModule.Common.WeatherInfoControl weatherInfoControl;
     }
 }

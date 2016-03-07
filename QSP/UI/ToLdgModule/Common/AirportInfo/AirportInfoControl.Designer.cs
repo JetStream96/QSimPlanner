@@ -1,4 +1,4 @@
-﻿namespace QSP.UI.AirportInfo
+﻿namespace QSP.UI.ToLdgModule.Common.AirportInfo
 {
     partial class AirportInfoControl
     {

@@ -195,43 +195,44 @@
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\WestTrackParser.cs" />
     <Compile Include="RouteFinding\WaypointAirwayConnector.cs" />
-    <Compile Include="UI\AirportInfo\SlopeComboBoxController.cs" />
+    <Compile Include="UI\ToLdgModule\Common\AirportInfo\SlopeComboBoxController.cs" />
     <Compile Include="UI\Controls\ComboBoxWithBorder.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\AirportInfo\AirportInfoControl.cs">
+    <Compile Include="UI\ToLdgModule\Common\AirportInfo\AirportInfoControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\AirportInfo\AirportInfoControl.Designer.cs">
+    <Compile Include="UI\ToLdgModule\Common\AirportInfo\AirportInfoControl.Designer.cs">
       <DependentUpon>AirportInfoControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\LandingPerf\CustomFuelControl.cs">
+    <Compile Include="UI\FormStates\StateManager.cs" />
+    <Compile Include="UI\ToLdgModule\LandingPerf\CustomFuelControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Forms\LandingPerf\CustomFuelControl.Designer.cs">
+    <Compile Include="UI\ToLdgModule\LandingPerf\CustomFuelControl.Designer.cs">
       <DependentUpon>CustomFuelControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\LandingPerf\FormControllers\BoeingController.cs" />
-    <Compile Include="UI\Forms\LandingPerf\FormControllers\BoeingParameterValidator.cs" />
-    <Compile Include="UI\Forms\LandingPerf\FormControllers\FormController.cs" />
-    <Compile Include="UI\Forms\LandingPerf\FormControllers\FormControllerFactory.cs" />
-    <Compile Include="UI\Forms\LandingPerf\LandingPerfControl.cs">
+    <Compile Include="UI\ToLdgModule\LandingPerf\FormControllers\BoeingController.cs" />
+    <Compile Include="UI\ToLdgModule\LandingPerf\FormControllers\BoeingParameterValidator.cs" />
+    <Compile Include="UI\ToLdgModule\LandingPerf\FormControllers\FormController.cs" />
+    <Compile Include="UI\ToLdgModule\LandingPerf\FormControllers\FormControllerFactory.cs" />
+    <Compile Include="UI\ToLdgModule\LandingPerf\LandingPerfControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Forms\LandingPerf\LandingPerfControl.Designer.cs">
+    <Compile Include="UI\ToLdgModule\LandingPerf\LandingPerfControl.Designer.cs">
       <DependentUpon>LandingPerfControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\LandingPerf\LandingPerfElements.cs" />
+    <Compile Include="UI\ToLdgModule\LandingPerf\LandingPerfElements.cs" />
     <Compile Include="UI\Forms\OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\Forms\OptionsForm.Designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\WeatherInfoControl.cs">
+    <Compile Include="UI\ToLdgModule\Common\WeatherInfoControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Forms\WeatherInfoControl.Designer.cs">
+    <Compile Include="UI\ToLdgModule\Common\WeatherInfoControl.Designer.cs">
       <DependentUpon>WeatherInfoControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\ConditionChecker.cs" />
@@ -251,7 +252,6 @@
     <Compile Include="FuelCalculation\FuelReportResult.cs" />
     <Compile Include="FuelCalculation\OptCrzCalculator.cs" />
     <Compile Include="LibraryExtension\Arrays.cs" />
-    <Compile Include="LandingPerfCalculation\Enums.cs" />
     <Compile Include="LandingPerfCalculation\LandingCalcResult.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingParameters.cs" />
     <Compile Include="LibraryExtension\BinarySearchForAll.cs" />
@@ -390,16 +390,16 @@
     <EmbeddedResource Include="UI\Forms\about.resx">
       <DependentUpon>about.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\AirportInfo\AirportInfoControl.resx">
+    <EmbeddedResource Include="UI\ToLdgModule\Common\AirportInfo\AirportInfoControl.resx">
       <DependentUpon>AirportInfoControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FindAltnForm.resx">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\LandingPerf\CustomFuelControl.resx">
+    <EmbeddedResource Include="UI\ToLdgModule\LandingPerf\CustomFuelControl.resx">
       <DependentUpon>CustomFuelControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\LandingPerf\LandingPerfControl.resx">
+    <EmbeddedResource Include="UI\ToLdgModule\LandingPerf\LandingPerfControl.resx">
       <DependentUpon>LandingPerfControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\MainForm.resx">
@@ -417,7 +417,7 @@
     <EmbeddedResource Include="UI\Forms\TracksForm.resx">
       <DependentUpon>TracksForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\WeatherInfoControl.resx">
+    <EmbeddedResource Include="UI\ToLdgModule\Common\WeatherInfoControl.resx">
       <DependentUpon>WeatherInfoControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\WeightManagement.resx">

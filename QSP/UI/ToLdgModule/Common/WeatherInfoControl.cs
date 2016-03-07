@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using static QSP.AviationTools.CoversionTools;
 
-namespace QSP.UI.Forms
+namespace QSP.UI.ToLdgModule.Common
 {
     public partial class WeatherInfoControl : UserControl
     {

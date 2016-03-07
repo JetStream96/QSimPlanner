@@ -3,7 +3,7 @@ using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 using System;
 
-namespace QSP.UI.Forms.LandingPerf.FormControllers
+namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 {
     public class BoeingParameterValidator
     {

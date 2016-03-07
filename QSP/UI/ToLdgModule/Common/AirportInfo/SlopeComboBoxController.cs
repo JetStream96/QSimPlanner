@@ -1,7 +1,7 @@
 ﻿using QSP.Utilities;
 using System;
 
-namespace QSP.UI.AirportInfo
+namespace QSP.UI.ToLdgModule.Common.AirportInfo
 {
     // Keep a collection of doubles, representing the items inside
     // the comboBox. The increment is 0.1.

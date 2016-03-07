@@ -3,7 +3,7 @@ using QSP.RouteFinding.Airports;
 using System;
 using System.Windows.Forms;
 
-namespace QSP.UI.AirportInfo
+namespace QSP.UI.ToLdgModule.Common.AirportInfo
 {
     public partial class AirportInfoControl : UserControl
     {

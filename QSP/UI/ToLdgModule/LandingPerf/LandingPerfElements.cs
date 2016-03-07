@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace QSP.UI.Forms.LandingPerf
+namespace QSP.UI.ToLdgModule.LandingPerf
 {
     public class LandingPerfElements
     {

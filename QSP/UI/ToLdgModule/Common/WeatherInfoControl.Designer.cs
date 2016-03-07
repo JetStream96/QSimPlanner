@@ -1,4 +1,4 @@
-﻿namespace QSP.UI.Forms
+﻿namespace QSP.UI.ToLdgModule.Common
 {
     partial class WeatherInfoControl
     {

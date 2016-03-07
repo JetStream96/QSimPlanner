@@ -1,4 +1,4 @@
-﻿namespace QSP.UI.Forms.LandingPerf
+﻿namespace QSP.UI.ToLdgModule.LandingPerf
 {
     partial class CustomFuelControl
     {

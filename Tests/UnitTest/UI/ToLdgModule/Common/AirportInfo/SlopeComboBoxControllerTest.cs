@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.UI.AirportInfo;
+using QSP.UI.ToLdgModule.Common.AirportInfo;
 
-namespace UnitTest.UI.AirportInfo
+namespace UnitTest.UI.ToLdgModule.Common.AirportInfo
 {
     [TestClass]
     public class SlopeComboBoxControllerTest

@@ -1,11 +1,11 @@
 ﻿using QSP.LandingPerfCalculation;
 using QSP.RouteFinding.Airports;
-using QSP.UI.Forms.LandingPerf.FormControllers;
+using QSP.UI.ToLdgModule.LandingPerf.FormControllers;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace QSP.UI.Forms.LandingPerf
+namespace QSP.UI.ToLdgModule.LandingPerf
 {
     public partial class LandingPerfControl : UserControl
     {

@@ -1,7 +1,7 @@
 ﻿using QSP.LandingPerfCalculation;
 using System;
 
-namespace QSP.UI.Forms.LandingPerf.FormControllers
+namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 {
     public class FormController
     {

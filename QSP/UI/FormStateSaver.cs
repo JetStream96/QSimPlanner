@@ -1,15 +1,13 @@
+using QSP.Core;
 using System;
 using System.IO;
 using System.Windows.Forms;
 using static QSP.UI.Utilities;
-using QSP.Core;
 
 namespace QSP.UI
 {
-
     public class FormStateSaver
     {
-
         private TextBox[] txtBoxes;
         private ComboBox[] comboBoxes;
 
@@ -86,37 +84,37 @@ namespace QSP.UI
                     filePath = statesDirectory + "\\LastRunTO.txt";
                     break;
 
-                //case PageOfForm.Landing:
+                    //case PageOfForm.Landing:
 
-                //    txtBoxes = new TextBox[] {
-                //        frm.AD_LDG,
-                //        frm.elevation_LDG,
-                //        frm.RwyHeading_LDG,
-                //        frm.winddir_LDG,
-                //        frm.windspd_LDG,
-                //        frm.oat_LDG,
-                //        frm.altimeter_LDG,
-                //        frm.Weight_LDG,
-                //        frm.AppSpdInc_LDG,
-                //        frm.Weight_LDG
-                //    };
+                    //    txtBoxes = new TextBox[] {
+                    //        frm.AD_LDG,
+                    //        frm.elevation_LDG,
+                    //        frm.RwyHeading_LDG,
+                    //        frm.winddir_LDG,
+                    //        frm.windspd_LDG,
+                    //        frm.oat_LDG,
+                    //        frm.altimeter_LDG,
+                    //        frm.Weight_LDG,
+                    //        frm.AppSpdInc_LDG,
+                    //        frm.Weight_LDG
+                    //    };
 
-                //    comboBoxes = new ComboBox[]{
-                //        frm.RWY_LDG,
-                //        frm.m_ft_LDG,
-                //        frm.temp_c_f_LDG,
-                //        frm.WtUnit_LDG,
-                //        frm.Flaps_LDG,
-                //        frm.REVSel_LDG,
-                //        frm.BrakeSel_LDG,
-                //        frm.ACListLDG,
-                //        frm.Flaps_LDG,
-                //        frm.SurfCond_LDG,
-                //        frm.hpa_inhg_LDG
-                //    };
+                    //    comboBoxes = new ComboBox[]{
+                    //        frm.RWY_LDG,
+                    //        frm.m_ft_LDG,
+                    //        frm.temp_c_f_LDG,
+                    //        frm.WtUnit_LDG,
+                    //        frm.Flaps_LDG,
+                    //        frm.REVSel_LDG,
+                    //        frm.BrakeSel_LDG,
+                    //        frm.ACListLDG,
+                    //        frm.Flaps_LDG,
+                    //        frm.SurfCond_LDG,
+                    //        frm.hpa_inhg_LDG
+                    //    };
 
-                //    filePath = statesDirectory + "\\LastRunLdg.txt";
-                //    break;
+                    //    filePath = statesDirectory + "\\LastRunLdg.txt";
+                    //    break;
             }
 
         }
@@ -145,10 +143,10 @@ namespace QSP.UI
             }
         }
 
-
         private void loadLastState()
         {
             string Alltext = null;
+
             if (!File.Exists(filePath))
             {
                 return;
@@ -205,7 +203,5 @@ namespace QSP.UI
             }
 
         }
-
     }
 }
-
