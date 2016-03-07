@@ -7,13 +7,14 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
     {
         protected PerfTable acPerf;
         protected LandingPerfElements elements;
+        public event EventHandler CalculationCompleted;
 
         public FormController(PerfTable acPerf, LandingPerfElements elements)
         {
             this.acPerf = acPerf;
             this.elements = elements;
         }
-        
+
         /// <summary>
         /// Initialize the states of UI controls.
         /// </summary>
@@ -30,5 +31,13 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
         public virtual void BrakesChanged(object sender, EventArgs e) { }
 
         public virtual void Compute(object sender, EventArgs e) { }
+
+        protected virtual void OnCalculationComplete(EventArgs e)
+        {
+            if (CalculationCompleted != null)
+            {
+                CalculationCompleted(this, e);
+            }
+        }
     }
 }

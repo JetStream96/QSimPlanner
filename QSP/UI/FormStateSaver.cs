@@ -82,39 +82,7 @@ namespace QSP.UI
                     };
 
                     filePath = statesDirectory + "\\LastRunTO.txt";
-                    break;
-
-                    //case PageOfForm.Landing:
-
-                    //    txtBoxes = new TextBox[] {
-                    //        frm.AD_LDG,
-                    //        frm.elevation_LDG,
-                    //        frm.RwyHeading_LDG,
-                    //        frm.winddir_LDG,
-                    //        frm.windspd_LDG,
-                    //        frm.oat_LDG,
-                    //        frm.altimeter_LDG,
-                    //        frm.Weight_LDG,
-                    //        frm.AppSpdInc_LDG,
-                    //        frm.Weight_LDG
-                    //    };
-
-                    //    comboBoxes = new ComboBox[]{
-                    //        frm.RWY_LDG,
-                    //        frm.m_ft_LDG,
-                    //        frm.temp_c_f_LDG,
-                    //        frm.WtUnit_LDG,
-                    //        frm.Flaps_LDG,
-                    //        frm.REVSel_LDG,
-                    //        frm.BrakeSel_LDG,
-                    //        frm.ACListLDG,
-                    //        frm.Flaps_LDG,
-                    //        frm.SurfCond_LDG,
-                    //        frm.hpa_inhg_LDG
-                    //    };
-
-                    //    filePath = statesDirectory + "\\LastRunLdg.txt";
-                    //    break;
+                    break;                    
             }
 
         }

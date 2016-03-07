@@ -42,7 +42,6 @@ namespace QSP
         public bool AppExitOverride = false;
         private FormStateSaver formStateManagerFuel;
         private FormStateSaver formStateManagerTO;
-        private FormStateSaver formStateManagerLDG;
 
         private ViewManager viewChanger;
 
@@ -143,12 +142,12 @@ namespace QSP
             //send weights to takeoff/ldg calc form 
             AC_Req = ACList.Text;
             TOWT_Req_Unit = Parameters.WtUnit();
-    //TODO:        LDG_fuel_prediction_unit = Parameters.WtUnit();
+            //TODO:        LDG_fuel_prediction_unit = Parameters.WtUnit();
 
             TOWT_Req = Convert.ToInt32(Parameters.Zfw + fuelCalcResult.TakeoffFuelKg * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KG_LB));
             //TODO:       LDG_ZFW = Convert.ToInt32(Parameters.Zfw);
             //TODO:  LDG_fuel_prediction = Convert.ToInt32(fuelCalcResult.LdgFuelKgPredict * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KG_LB));
-          
+
             viewChanger.ShowPage(ViewManager.Pages.FuelReport);
         }
 
@@ -225,7 +224,6 @@ namespace QSP
             //load previous form states
             formStateManagerFuel = new FormStateSaver(FormStateSaver.PageOfForm.FuelCalculation);
             formStateManagerTO = new FormStateSaver(FormStateSaver.PageOfForm.Takeoff);
-            formStateManagerLDG = new FormStateSaver(FormStateSaver.PageOfForm.Landing);
 
             formStateManagerFuel.Load();
 
@@ -539,6 +537,7 @@ namespace QSP
             {
                 landingPerfControl.InitializeAircrafts();
                 landingPerfControl.Airports = AirportList;
+                landingPerfControl.TryLoadState();
             }
             viewChanger.ShowPage(ViewManager.Pages.LandingPerf);
         }
@@ -1604,9 +1603,9 @@ namespace QSP
         #endregion
 
         #region "LandingPart"
-        
+
         private bool InitializeFinished_LDG = false;
-        
+
 
         //private void RequestBtn_LDG_Click(object sender, EventArgs e)
         //{

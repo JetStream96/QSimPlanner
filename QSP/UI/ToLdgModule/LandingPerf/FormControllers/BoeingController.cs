@@ -120,7 +120,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
                     LengthUnit.Meter :
                     LengthUnit.Feet);
 
-                //    formStateManagerLDG.Save();
+                OnCalculationComplete(EventArgs.Empty);
             }
             catch (InvalidUserInputException ex)
             {

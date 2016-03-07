@@ -195,6 +195,7 @@
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\WestTrackParser.cs" />
     <Compile Include="RouteFinding\WaypointAirwayConnector.cs" />
+    <Compile Include="UI\ControlStates\StateManager.cs" />
     <Compile Include="UI\ToLdgModule\Common\AirportInfo\SlopeComboBoxController.cs" />
     <Compile Include="UI\Controls\ComboBoxWithBorder.cs">
       <SubType>Component</SubType>
@@ -205,7 +206,7 @@
     <Compile Include="UI\ToLdgModule\Common\AirportInfo\AirportInfoControl.Designer.cs">
       <DependentUpon>AirportInfoControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FormStates\StateManager.cs" />
+    <Compile Include="UI\ToLdgModule\LandingPerf\ControlState.cs" />
     <Compile Include="UI\ToLdgModule\LandingPerf\CustomFuelControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -1,16 +1,15 @@
+using QSP.Core;
+using QSP.Utilities;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using QSP.Utilities;
 using static QSP.UI.Utilities;
 using static QSP.Utilities.ErrorLogger;
-using QSP.Core;
 
 namespace QSP
 {
-
     public partial class OptionsForm
     {
 
@@ -35,10 +34,10 @@ namespace QSP
             };
             foreach (var i in FilesToCheck)
             {
-                if (!File.Exists(DBFilepath + "\\" + i) )
+                if (!File.Exists(DBFilepath + "\\" + i))
                 {
                     DBFound = false;
-                    break; 
+                    break;
                 }
             }
 
@@ -100,10 +99,10 @@ namespace QSP
 
         private void browseFolderBtn_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog MyFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            FolderBrowserDialog MyFolderBrowser = new FolderBrowserDialog();
             DialogResult dlgResult = MyFolderBrowser.ShowDialog();
 
-            if (dlgResult == System.Windows.Forms.DialogResult.OK)
+            if (dlgResult == DialogResult.OK)
             {
                 DBPath_TxtBox.Text = MyFolderBrowser.SelectedPath;
             }
@@ -156,24 +155,23 @@ namespace QSP
         /// </summary>
         public bool SaveOptions()
         {
-
             var returnVal = SetAppOptions();
 
             //database path
-            System.IO.Directory.CreateDirectory(QspCore.QspAppDataDirectory + "\\SavedStates");
+            Directory.CreateDirectory(QspCore.QspAppDataDirectory + "\\SavedStates");
 
-            using (StreamWriter writer = new StreamWriter(QspCore.QspAppDataDirectory + "\\SavedStates\\options.xml"))
+            using (var writer =
+                new StreamWriter(QspCore.QspAppDataDirectory + "\\SavedStates\\options.xml"))
             {
                 writer.Write(QspCore.AppSettings.ToXml());
             }
 
             return returnVal;
-
         }
 
         private void cancel_button_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void InitializeForm()
@@ -196,14 +194,12 @@ namespace QSP
             AutoDLWind_CheckBox.Checked = true;
 
             LoadOptions();
-
         }
 
         private void options_2_Load(object sender, EventArgs e)
         {
             InitializeForm();
         }
-
 
         public void SetControlsAsInOptions()
         {
@@ -223,9 +219,7 @@ namespace QSP
             command = QspCore.AppSettings.GetExportCommand("Pmdg777");
             TextBox3.Text = command.FilePath;
             CheckBox3.Checked = command.Enabled;
-
         }
-
 
         public void LoadOptions()
         {
@@ -238,15 +232,14 @@ namespace QSP
             {
                 WriteToLog(ex);
             }
-
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog MyFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            FolderBrowserDialog MyFolderBrowser = new FolderBrowserDialog();
             DialogResult dlgResult = MyFolderBrowser.ShowDialog();
 
-            if (dlgResult == System.Windows.Forms.DialogResult.OK)
+            if (dlgResult == DialogResult.OK)
             {
                 TextBox1.Text = MyFolderBrowser.SelectedPath;
             }
@@ -254,10 +247,10 @@ namespace QSP
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog MyFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            FolderBrowserDialog MyFolderBrowser = new FolderBrowserDialog();
             DialogResult dlgResult = MyFolderBrowser.ShowDialog();
 
-            if (dlgResult == System.Windows.Forms.DialogResult.OK)
+            if (dlgResult == DialogResult.OK)
             {
                 TextBox2.Text = MyFolderBrowser.SelectedPath;
             }
@@ -265,10 +258,10 @@ namespace QSP
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog MyFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            FolderBrowserDialog MyFolderBrowser = new FolderBrowserDialog();
             DialogResult dlgResult = MyFolderBrowser.ShowDialog();
 
-            if (dlgResult == System.Windows.Forms.DialogResult.OK)
+            if (dlgResult == DialogResult.OK)
             {
                 TextBox3.Text = MyFolderBrowser.SelectedPath;
             }
@@ -276,39 +269,19 @@ namespace QSP
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckBox1.Checked == true)
-            {
-                TextBox1.Enabled = true;
-            }
-            else
-            {
-                TextBox1.Enabled = false;
-            }
+            TextBox1.Enabled = CheckBox1.Checked;
         }
 
         private void CheckBox2_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckBox2.Checked == true)
-            {
-                TextBox2.Enabled = true;
-            }
-            else
-            {
-                TextBox2.Enabled = false;
-            }
+            TextBox2.Enabled = CheckBox2.Checked;
         }
 
         private void CheckBox3_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckBox3.Checked == true)
-            {
-                TextBox3.Enabled = true;
-            }
-            else
-            {
-                TextBox3.Enabled = false;
-            }
+            TextBox3.Enabled = CheckBox3.Checked;
         }
+
         public OptionsForm()
         {
             Load += options_2_Load;

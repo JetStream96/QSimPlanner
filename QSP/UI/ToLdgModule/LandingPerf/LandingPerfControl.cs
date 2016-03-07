@@ -1,5 +1,6 @@
 ﻿using QSP.LandingPerfCalculation;
 using QSP.RouteFinding.Airports;
+using QSP.UI.ControlStates;
 using QSP.UI.ToLdgModule.LandingPerf.FormControllers;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,6 +10,8 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 {
     public partial class LandingPerfControl : UserControl
     {
+        private const string fileName = "LandingPerfControl.xml";
+
         private CustomFuelControl fuelImportPanel;
         private FormController controller;
         private List<PerfTable> tables;
@@ -35,7 +38,26 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         private void initializeControls()
         {
             appSpdIncTxtBox.Text = "5";
-            wtUnitComboBox.SelectedIndex = 0; // KG
+            wtUnitComboBox.SelectedIndex = 0; // KG           
+        }
+
+        public void TryLoadState()
+        {
+            var doc = StateManager.Load(fileName);
+            if (doc != null)
+            {
+                new ControlState(this).Load(doc);
+            }
+        }
+
+        private void trySaveState()
+        {
+            StateManager.Save(fileName, new ControlState(this).Save());
+        }
+
+        private void saveState(object sender, System.EventArgs e)
+        {
+            trySaveState();
         }
 
         private void initailzeElements()
@@ -132,6 +154,8 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             revThrustComboBox.SelectedIndexChanged += controller.ReverserChanged;
             brakeComboBox.SelectedIndexChanged += controller.BrakesChanged;
             calculateBtn.Click += controller.Compute;
+
+            controller.CalculationCompleted += saveState;
         }
 
         private void unSubscribe(FormController controller)
@@ -142,6 +166,8 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             revThrustComboBox.SelectedIndexChanged -= controller.ReverserChanged;
             brakeComboBox.SelectedIndexChanged -= controller.BrakesChanged;
             calculateBtn.Click -= controller.Compute;
+
+            controller.CalculationCompleted -= saveState;
         }
     }
 }
