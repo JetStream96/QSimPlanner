@@ -599,7 +599,7 @@ namespace QSP
             // 
             // UpdateAll_Btn
             // 
-            this.UpdateAll_Btn.BackgroundImage = global::QSP.Properties.Resources.processing;
+            this.UpdateAll_Btn.BackgroundImage = global::QSP.Properties.Resources.processing9;
             this.UpdateAll_Btn.Location = new System.Drawing.Point(1043, 22);
             this.UpdateAll_Btn.Name = "UpdateAll_Btn";
             this.UpdateAll_Btn.Size = new System.Drawing.Size(33, 33);

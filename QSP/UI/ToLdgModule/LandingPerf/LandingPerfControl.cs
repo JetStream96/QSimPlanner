@@ -38,7 +38,12 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         private void initializeControls()
         {
             appSpdIncTxtBox.Text = "5";
-            wtUnitComboBox.SelectedIndex = 0; // KG           
+            wtUnitComboBox.SelectedIndex = 0; // KG  
+
+            if (acListComboBox.Items.Count > 0)
+            {
+                acListComboBox.SelectedIndex = 0;
+            }
         }
 
         public void TryLoadState()

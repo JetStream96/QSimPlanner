@@ -113,6 +113,7 @@
     <Compile Include="MathTools\Tables\Table2D.cs" />
     <Compile Include="MathTools\Tables\Table3D.cs" />
     <Compile Include="MathTools\Tables\Table4D.cs" />
+    <Compile Include="Metar\MetarDownloader.cs" />
     <Compile Include="RouteFinding\Airports\AirportExtensions.cs" />
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
     <Compile Include="RouteFinding\Airports\Exceptions.cs" />
@@ -343,11 +344,11 @@
     <Compile Include="UI\Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\metarDownload.cs">
+    <Compile Include="UI\Forms\MetarForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\metarDownload.Designer.cs">
-      <DependentUpon>metarDownload.cs</DependentUpon>
+    <Compile Include="UI\Forms\MetarForm.Designer.cs">
+      <DependentUpon>MetarForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\Splash.cs">
       <SubType>Form</SubType>
@@ -406,8 +407,8 @@
     <EmbeddedResource Include="UI\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\metarDownload.resx">
-      <DependentUpon>metarDownload.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Forms\MetarForm.resx">
+      <DependentUpon>MetarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>

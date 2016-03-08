@@ -1,106 +1,43 @@
+using QSP.AviationTools;
+using QSP.Metar;
 using System;
 using System.Net;
-using QSP.AviationTools;
 using static QSP.UI.Utilities;
 
 namespace QSP
 {
-
-    public partial class METAR
+    public partial class MetarForm
     {
-
         //e.g. "Takeoff"
+        //TODO:
         public string FromFormName = "";
 
-        string result_metar;
+        public string Metar { get; private set; }
+        public string Taf { get; private set; }
 
-        string result_taf;
-        private void download_btn_Click(object sender, EventArgs e)
+        private void downloadBtn_Click(object sender, EventArgs e)
         {
             //result_box.Text = "Downloading METAR/TAF..."
-            DownloadMetarTafAndShow();
+            downloadMetarTafAndShow();
         }
 
-        public void DownloadMetarTafAndShow()
+        private void downloadMetarTafAndShow()
         {
-            result_metar = "";
-            result_taf = "";
-            string icao = icao_code.Text.Replace(" ", "");
-            try
+            if (getTafCheckBox.Checked)
             {
-                using (var client = new WebClient())
-                {
-                    result_metar = client.DownloadString("http://weather.noaa.gov/pub/data/observations/metar/stations/" + icao + ".TXT");
-                    if (TAF_download.Checked )
-                    {
-                        result_taf = client.DownloadString("http://weather.noaa.gov/pub/data/forecasts/taf/stations/" + icao + ".TXT");
-                    }
-                }
+                resultRichTxtBox.Text = MetarDownloader.TryGetMetarTaf(icaoTxtBox.Text);
             }
-            catch
+            else
             {
-                result_box.Text = "Downloading Metar/TAF failed.";
-                return;
-            }
-
-            result_box.Text = result_metar + Environment.NewLine + Environment.NewLine + result_taf;
+                resultRichTxtBox.Text = MetarDownloader.TryGetMetar(icaoTxtBox.Text);
+            }            
         }
 
-        public static  string GetMetarTAF(string icao)
-        {
-
-            string metar = "";
-            string taf = "";
-            icao = icao.Replace(" ", "");
-            icao = icao.ToUpper();
-
-            using (var client = new WebClient())
-            {
-
-                try
-                {
-                    metar = client.DownloadString("http://weather.noaa.gov/pub/data/observations/metar/stations/" + icao + ".TXT");
-                }
-                catch
-                {
-                    metar = "Downloading Metar failed.";
-                }
-
-                try
-                {
-                    taf = client.DownloadString("http://weather.noaa.gov/pub/data/forecasts/taf/stations/" + icao + ".TXT");
-                }
-                catch
-                {
-                    taf = "Downloading TAF failed.";
-                }
-
-            }
-
-            return metar + Environment.NewLine + taf + Environment.NewLine;
-
-        }
-
-        public static string GetMetar(string icao)
-        {
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    return client.DownloadString("http://weather.noaa.gov/pub/data/observations/metar/stations/" + icao.ToUpper() + ".TXT");
-                }
-            }
-            catch
-            {
-                return "Downloading Metar failed.";
-            }
-        }
-
-        private void METAR_Load(object sender, EventArgs e)
+        private void MetarForm_Load(object sender, EventArgs e)
         {
             PicBox.Hide();
-            metar_download.Checked = true;
-            TAF_download.Checked = false;
+            getMetarCheckBox.Checked = true;
+            getTafCheckBox.Checked = false;
         }
 
         public string WindInfo(string metar)
@@ -121,14 +58,14 @@ namespace QSP
                     meetCondition = true;
                     for (int j = 0; j <= 4; j++)
                     {
-                        if (!char.IsDigit(metar[i + j]) )
+                        if (!char.IsDigit(metar[i + j]))
                         {
                             meetCondition = false;
-                            break; 
+                            break;
                         }
                     }
 
-                    if (meetCondition )
+                    if (meetCondition)
                     {
                         if (metar[i + 5] == 'G' && char.IsDigit(metar[i + 6]) && char.IsDigit(metar[i + 7]))
                         {
@@ -232,31 +169,19 @@ namespace QSP
             }
             return "NA";
         }
-
-        public bool IsNumeric(char c)
-        {
-            if (c >= 48 & c <= 57)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private void send_btn_Click(object sender, EventArgs e)
+        
+        private void sendBtn_Click(object sender, EventArgs e)
         {
             var frm = MainFormInstance();
 
-            if (string.IsNullOrEmpty( result_metar))
+            if (string.IsNullOrEmpty(Metar))
             {
-                DownloadMetarTafAndShow();
+                downloadMetarTafAndShow();
             }
 
-            string str_wind = WindInfo(result_metar);
-            string str_temp = TempInfo(result_metar);
-            string str_press = PressInfo(result_metar);
+            string str_wind = WindInfo(Metar);
+            string str_temp = TempInfo(Metar);
+            string str_press = PressInfo(Metar);
             string winddir = null;
             string windspd = null;
             string oat = null;
@@ -267,7 +192,7 @@ namespace QSP
             if (str_wind == "NA" || str_temp == "NA" || str_press == "NA")
             {
                 //usr_message = "Failed to send weather.";
-                PicBox.Image = Properties .Resources.deleteIconLarge;
+                PicBox.Image = Properties.Resources.deleteIconLarge;
                 PicBox.Show();
                 return;
             }
@@ -317,14 +242,14 @@ namespace QSP
             //}
 
             //complete message
-            PicBox.Image =Properties .Resources.checkIconLarge;
+            PicBox.Image = Properties.Resources.checkIconLarge;
             PicBox.Show();
 
         }
 
-        public METAR()
+        public MetarForm()
         {
-            Load += METAR_Load;
+            Load += MetarForm_Load;
             InitializeComponent();
         }
 

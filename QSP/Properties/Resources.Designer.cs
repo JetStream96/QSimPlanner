@@ -123,9 +123,9 @@ namespace QSP.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap processing {
+        internal static System.Drawing.Bitmap processing9 {
             get {
-                object obj = ResourceManager.GetObject("processing", resourceCulture);
+                object obj = ResourceManager.GetObject("processing9", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

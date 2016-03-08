@@ -12,6 +12,7 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.TakeOffPerfCalculation;
 using QSP.UI;
+using QSP.Metar;
 using QSP.Utilities;
 using QSP.WindAloft;
 using System;
@@ -1578,11 +1579,11 @@ namespace QSP
 
         private void GetMetar_Click(object sender, EventArgs e)
         {
-            METAR metarForm = new METAR();
+            MetarForm metarForm = new MetarForm();
 
-            metarForm.icao_code.Text = AD.Text;
+            metarForm.icaoTxtBox.Text = AD.Text;
             metarForm.FromFormName = "Takeoff";
-            metarForm.icao_code.Enabled = false;
+            metarForm.icaoTxtBox.Enabled = false;
 
             metarForm.ShowDialog();
 
@@ -1647,7 +1648,7 @@ namespace QSP
         metar_monitor metarMonitor = new metar_monitor();
         private void metar_Lbl_Click(object sender, EventArgs e)
         {
-            metar_Lbl.Text = METAR.GetMetar(ICAO_ComboBox.Text.ToUpper());
+            metar_Lbl.Text = MetarDownloader.TryGetMetar(ICAO_ComboBox.Text);
         }
 
         public class metar_monitor
@@ -1674,26 +1675,26 @@ namespace QSP
             public void updateOrig(string new_orig)
             {
                 orig = new_orig;
-                orig_mt = METAR.GetMetarTAF(orig);
+                orig_mt = MetarDownloader.TryGetMetarTaf(orig);
             }
 
             public void updateDest(string new_dest)
             {
                 dest = new_dest;
-                dest_mt = METAR.GetMetarTAF(dest);
+                dest_mt = MetarDownloader.TryGetMetarTaf(dest);
             }
 
             public void updateAltn(string new_altn)
             {
                 altn = new_altn;
-                altn_mt = METAR.GetMetarTAF(altn);
+                altn_mt = MetarDownloader.TryGetMetarTaf(altn);
             }
 
             public void refreshAll()
             {
-                orig_mt = METAR.GetMetarTAF(orig);
-                dest_mt = METAR.GetMetarTAF(dest);
-                altn_mt = METAR.GetMetarTAF(altn);
+                orig_mt = MetarDownloader.TryGetMetarTaf(orig);
+                dest_mt = MetarDownloader.TryGetMetarTaf(dest);
+                altn_mt = MetarDownloader.TryGetMetarTaf(altn);
             }
 
         }
@@ -1716,7 +1717,7 @@ namespace QSP
         private void DownloadMetar_Btn_Click(object sender, EventArgs e)
         {
             MetarToFindTxtBox.Text = MetarToFindTxtBox.Text.ToUpper();
-            RichTextBox1.Text = METAR.GetMetarTAF(MetarToFindTxtBox.Text);
+            RichTextBox1.Text = MetarDownloader.TryGetMetarTaf(MetarToFindTxtBox.Text);
         }
 
         private void find_airport_btn_Click(object sender, EventArgs e)
@@ -1736,7 +1737,7 @@ namespace QSP
 
             if (airport != null && airport.Rwys.Count > 0)
             {
-                metar_Lbl.Text = METAR.GetMetar(icao);
+                metar_Lbl.Text = MetarDownloader.TryGetMetar(icao);
 
                 airport_name_Lbl.Text = airport.Name;
                 LatLon_Lbl2.Text = airport.Lat + " / " + airport.Lon;
