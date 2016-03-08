@@ -1,9 +1,12 @@
 ﻿using QSP.LandingPerfCalculation;
+using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using QSP.UI.ControlStates;
 using QSP.UI.ToLdgModule.LandingPerf.FormControllers;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QSP.UI.ToLdgModule.LandingPerf
@@ -173,6 +176,27 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             calculateBtn.Click -= controller.Compute;
 
             controller.CalculationCompleted -= saveState;
+        }
+
+        // Get metar functions.
+        private async void getMetarClicked(object sender, EventArgs e)
+        {
+            var btn = weatherInfoControl.GetMetarBtn;
+
+            btn.Enabled = false;
+            btn.ForeColor = Color.Gray;
+            btn.Text = "Downloading ...";
+
+            string icao = airportInfoControl.airportTxtBox.Text;
+            string metar;
+
+            bool metarAcquired =
+                 await Task.Run(() => MetarDownloader.TryGetMetar(icao, out metar));
+
+            if (metarAcquired)
+            {
+
+            }
         }
     }
 }

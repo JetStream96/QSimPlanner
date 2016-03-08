@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net;
+﻿using System.Net;
 
 namespace QSP.Metar
 {
@@ -33,6 +28,34 @@ namespace QSP.Metar
             using (var client = new WebClient())
             {
                 return client.DownloadString(tafUrl + trimIcao(icao) + ".TXT");
+            }
+        }
+
+        public static bool TryGetMetar(string icao, out string metar)
+        {
+            try
+            {
+                metar = GetMetar(icao);
+                return true;
+            }
+            catch
+            {
+                metar = null;
+                return false;
+            }
+        }
+
+        public static bool TryGetTaf(string icao, out string taf)
+        {
+            try
+            {
+                taf = GetTaf(icao);
+                return true;
+            }
+            catch
+            {
+                taf = null;
+                return false;
             }
         }
 

@@ -115,7 +115,7 @@ namespace QSP
             // sendBtn
             // 
             this.sendBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sendBtn.Location = new System.Drawing.Point(931, 39);
+            this.sendBtn.Location = new System.Drawing.Point(889, 39);
             this.sendBtn.Name = "sendBtn";
             this.sendBtn.Size = new System.Drawing.Size(235, 36);
             this.sendBtn.TabIndex = 6;
@@ -127,7 +127,7 @@ namespace QSP
             // 
             this.PicBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.PicBox.Image = global::QSP.Properties.Resources.checkIconLarge;
-            this.PicBox.Location = new System.Drawing.Point(1173, 39);
+            this.PicBox.Location = new System.Drawing.Point(1131, 39);
             this.PicBox.Name = "PicBox";
             this.PicBox.Size = new System.Drawing.Size(37, 36);
             this.PicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;

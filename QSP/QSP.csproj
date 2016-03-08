@@ -114,6 +114,7 @@
     <Compile Include="MathTools\Tables\Table3D.cs" />
     <Compile Include="MathTools\Tables\Table4D.cs" />
     <Compile Include="Metar\MetarDownloader.cs" />
+    <Compile Include="Metar\ParaExtractor.cs" />
     <Compile Include="RouteFinding\Airports\AirportExtensions.cs" />
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
     <Compile Include="RouteFinding\Airports\Exceptions.cs" />

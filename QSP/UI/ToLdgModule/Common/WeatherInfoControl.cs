@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using static QSP.AviationTools.CoversionTools;
+using System.Drawing;
+using System.Threading.Tasks;
+using QSP.Metar;
 
 namespace QSP.UI.ToLdgModule.Common
 {
@@ -25,11 +28,7 @@ namespace QSP.UI.ToLdgModule.Common
             pressUnitComboBox.Items.AddRange(new object[] { "hPa", "inHg" });
             pressUnitComboBox.SelectedIndex = 0; // hPa
         }
-
-        public virtual void GetMetarBtn_Click(object sender, EventArgs e)
-        {
-        }
-
+        
         private void tempUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             double temp;
