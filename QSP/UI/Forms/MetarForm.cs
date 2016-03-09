@@ -2,6 +2,7 @@ using QSP.AviationTools;
 using QSP.Metar;
 using System;
 using static QSP.UI.Utilities;
+using QSP.MathTools;
 
 namespace QSP
 {
@@ -49,36 +50,18 @@ namespace QSP
                 downloadMetarTafAndShow();
             }
 
-            string wind = ParaExtractor.WindInfo(Metar);
-            string temp = ParaExtractor.TempInfo(Metar);
+            var wind = ParaExtractor.GetWind(Metar);
+            int temp = ParaExtractor.GetTemp(Metar);
             string press = ParaExtractor.PressInfo(Metar);
-            string winddir = null;
-            string windspd = null;
-            string oat = null;
             string altimeter = null;
             bool isHpa;
-            //string usr_message;
 
-            if (wind == "NA" || temp == "NA" || press == "NA")
+            if (wind == null || temp == int.MinValue || press == "NA")
             {
                 //usr_message = "Failed to send weather.";
                 PicBox.Image = Properties.Resources.deleteIconLarge;
                 PicBox.Show();
                 return;
-            }
-
-            oat = temp.Substring(0, temp.IndexOf("/"));
-            winddir = wind.Substring(0, 3);
-
-            if (wind[wind.Length - 1] == 'T')
-            {
-                windspd = wind.Substring(3, 2);
-            }
-            else
-            {
-                windspd = Math.Round(
-                    Convert.ToDouble(wind.Substring(3, 2)) / Constants.KT_MPS)
-                    .ToString();
             }
 
             if (press[0] == 'Q')
@@ -94,10 +77,10 @@ namespace QSP
 
             if (FromFormName == "Takeoff")
             {
-                frm.windspd.Text = windspd;
-                frm.winddir.Text = winddir;
+                frm.windspd.Text = ((int)Math.Round(wind.Speed)).ToString();
+                frm.winddir.Text = (((int)wind.Direction - 1).Mod(360) + 1).ToString();
                 frm.temp_c_f.Text = "°C";
-                frm.OAT.Text = oat;
+                frm.OAT.Text = temp.ToString();
                 frm.hpa_inHg.SelectedIndex = isHpa ? 0 : 1;
                 frm.altimeter.Text = altimeter;
             }

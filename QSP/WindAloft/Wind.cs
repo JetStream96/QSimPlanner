@@ -5,10 +5,8 @@ namespace QSP.WindAloft
 {
     public class Wind
     {
-        private double _direction;
-        private double _speed;
-        //dir: 001 to 360
-        //speed: in kts
+        private double _direction; // 0 - 360 deg
+        private double _speed;     // knots
 
         public Wind()
         {
@@ -16,10 +14,10 @@ namespace QSP.WindAloft
             _speed = 0.0;
         }
 
-        public Wind(double direction, double speed)
+        public Wind(double Direction, double Speed)
         {
-            this.Direction = direction;
-            this.Speed = speed;
+            this.Direction = Direction;
+            this.Speed = Speed;
         }
 
         /// <summary>
@@ -59,8 +57,8 @@ namespace QSP.WindAloft
 
         public void SetUV(double uWind, double vWind)
         {
-            this.Direction = -Math.Atan2(vWind, uWind) / Math.PI * 180 + 90 + 180;
-            this.Speed = Math.Sqrt(uWind * uWind + vWind * vWind);
+            Direction = -Math.Atan2(vWind, uWind) / Math.PI * 180 + 90 + 180;
+            Speed = Math.Sqrt(uWind * uWind + vWind * vWind);
         }
 
         public string DirectionString()
