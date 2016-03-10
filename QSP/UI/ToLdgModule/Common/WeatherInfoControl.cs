@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using static QSP.AviationTools.CoversionTools;
-using System.Drawing;
-using System.Threading.Tasks;
-using QSP.Metar;
 
 namespace QSP.UI.ToLdgModule.Common
 {

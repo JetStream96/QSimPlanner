@@ -27,4 +27,10 @@ namespace QSP
         Celsius,
         Fahrenheit
     }
+
+    public enum PressureUnit
+    {
+        Mb = 0,
+        inHg = 1
+    }
 }

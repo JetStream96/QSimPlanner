@@ -1,8 +1,8 @@
-using QSP.AviationTools;
+using QSP.MathTools;
 using QSP.Metar;
 using System;
 using static QSP.UI.Utilities;
-using QSP.MathTools;
+using QSP.Utilities;
 
 namespace QSP
 {
@@ -22,14 +22,34 @@ namespace QSP
 
         private void downloadMetarTafAndShow()
         {
+            Metar = null;
+            Taf = null;
+
             if (getTafCheckBox.Checked)
             {
-                resultRichTxtBox.Text = MetarDownloader.TryGetMetarTaf(icaoTxtBox.Text);
+                try
+                {
+                    Taf = MetarDownloader.GetTaf(icaoTxtBox.Text);
+                }
+                catch (Exception ex)
+                {
+                    ErrorLogger.WriteToLog(ex);
+                }
             }
-            else
+
+            try
             {
-                resultRichTxtBox.Text = MetarDownloader.TryGetMetar(icaoTxtBox.Text);
+                Metar = MetarDownloader.GetMetar(icaoTxtBox.Text);
             }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToLog(ex);
+            }
+
+            resultRichTxtBox.Text =
+                Metar ?? "Downloading Metar failed." +
+                "\n\n" +
+                Taf ?? "Downloading TAF failed.";
         }
 
         private void MetarForm_Load(object sender, EventArgs e)
@@ -52,37 +72,28 @@ namespace QSP
 
             var wind = ParaExtractor.GetWind(Metar);
             int temp = ParaExtractor.GetTemp(Metar);
-            string press = ParaExtractor.PressInfo(Metar);
-            string altimeter = null;
-            bool isHpa;
+            var press = ParaExtractor.GetPressure(Metar);
 
-            if (wind == null || temp == int.MinValue || press == "NA")
+            if (wind == null ||
+                temp == int.MinValue ||
+                press == null)
             {
-                //usr_message = "Failed to send weather.";
                 PicBox.Image = Properties.Resources.deleteIconLarge;
                 PicBox.Show();
                 return;
             }
 
-            if (press[0] == 'Q')
-            {
-                isHpa = true;
-                altimeter = press.Substring(1, 4);
-            }
-            else
-            {
-                isHpa = false;
-                altimeter = press.Substring(1, 2) + "." + press.Substring(3);
-            }
-
             if (FromFormName == "Takeoff")
             {
                 frm.windspd.Text = ((int)Math.Round(wind.Speed)).ToString();
-                frm.winddir.Text = (((int)wind.Direction - 1).Mod(360) + 1).ToString();
+                frm.winddir.Text = (((int)wind.Direction - 1).Mod(360) + 1).ToString().PadLeft(3, '0');
                 frm.temp_c_f.Text = "°C";
                 frm.OAT.Text = temp.ToString();
-                frm.hpa_inHg.SelectedIndex = isHpa ? 0 : 1;
-                frm.altimeter.Text = altimeter;
+                frm.hpa_inHg.SelectedIndex = (int)press.PressUnit;
+                frm.altimeter.Text =
+                    press.PressUnit == PressureUnit.inHg ?
+                    Math.Round(press.Value, 2).ToString() :
+                    ((int)press.Value).ToString();
             }
 
             //complete message
