@@ -1,6 +1,6 @@
 using System;
 using QSP.AviationTools;
-using static QSP.UI.Utilities;
+using static QSP.UI.FormInstanceGetter;
 using QSP.Core;
 
 namespace QSP.TakeOffPerfCalculation

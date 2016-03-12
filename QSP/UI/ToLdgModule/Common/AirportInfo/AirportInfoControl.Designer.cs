@@ -88,7 +88,7 @@
             // 
             // lengthUnitComboBox
             // 
-            this.lengthUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lengthUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lengthUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
             this.lengthUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
             this.lengthUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -98,7 +98,7 @@
             this.lengthUnitComboBox.Items.AddRange(new object[] {
             "M",
             "FT"});
-            this.lengthUnitComboBox.Location = new System.Drawing.Point(326, 82);
+            this.lengthUnitComboBox.Location = new System.Drawing.Point(264, 82);
             this.lengthUnitComboBox.Name = "lengthUnitComboBox";
             this.lengthUnitComboBox.Size = new System.Drawing.Size(98, 31);
             this.lengthUnitComboBox.TabIndex = 42;
@@ -189,10 +189,10 @@
             // 
             // Label89
             // 
-            this.Label89.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Label89.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label89.AutoSize = true;
             this.Label89.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label89.Location = new System.Drawing.Point(363, 206);
+            this.Label89.Location = new System.Drawing.Point(266, 206);
             this.Label89.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Label89.Name = "Label89";
             this.Label89.Size = new System.Drawing.Size(24, 23);
@@ -295,10 +295,10 @@
             // 
             // Label87
             // 
-            this.Label87.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Label87.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label87.AutoSize = true;
             this.Label87.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label87.Location = new System.Drawing.Point(362, 47);
+            this.Label87.Location = new System.Drawing.Point(266, 47);
             this.Label87.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Label87.Name = "Label87";
             this.Label87.Size = new System.Drawing.Size(27, 23);

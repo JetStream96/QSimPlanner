@@ -1,5 +1,5 @@
 using System.Windows.Forms;
-using static QSP.UI.Utilities;
+using static QSP.UI.FormInstanceGetter;
 
 namespace QSP.UI
 {

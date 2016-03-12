@@ -1,6 +1,6 @@
 using System;
 using System.Drawing;
-using static QSP.UI.Utilities;
+using static QSP.UI.FormInstanceGetter;
 using static QSP.Utilities.ErrorLogger;
 
 namespace QSP

@@ -1,6 +1,6 @@
 using System;
 using QSP.RouteFinding;
-using static QSP.UI.Utilities;
+using static QSP.UI.FormInstanceGetter;
 
 namespace QSP
 {

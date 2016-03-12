@@ -1,41 +1,53 @@
+using QSP.AviationTools;
+using QSP.RouteFinding.Airports;
 using System;
 using System.Windows.Forms;
-using QSP.AviationTools;
-using static QSP.UI.Utilities;
-using QSP.RouteFinding.Airports;
+using static QSP.UI.FormInstanceGetter;
 
 namespace QSP
 {
     public partial class FindAltnForm
     {
-        private void OK_Btn_Click(object sender, EventArgs e)
+        private void OkBtn_Click(object sender, EventArgs e)
         {
-            MainFormInstance().AltnTxtBox.Text = Convert.ToString(DataGrid[0, DataGrid.SelectedRows[0].Index].Value);
-            this.Close();
+            MainFormInstance().AltnTxtBox.Text =
+                DataGrid[0, DataGrid.SelectedRows[0].Index].Value.ToString();
+
+            Close();
         }
 
         private void AltnFinder_Load(object sender, EventArgs e)
         {
-            Dest_Txtbox.Text = MainFormInstance().DestTxtBox.Text;
-            m_ft.SelectedIndex = 0;
-            MinRwyLength_Txtbox.Text = "2500";
+            DestTxtbox.Text = MainFormInstance().DestTxtBox.Text;
+            lengthUnitComboBox.SelectedIndex = 0;
+            MinRwyLengthTxtbox.Text = "2500";
         }
 
-
-        private void Find_Btn_Click(object sender, EventArgs e)
+        private bool tryGetLength(out double lengthFt)
         {
-            int lengthFt = 0;
-            //in feet
-            if (m_ft.Text == "FT")
+            if (double.TryParse(MinRwyLengthTxtbox.Text, out lengthFt))
             {
-                lengthFt = Convert.ToInt32(MinRwyLength_Txtbox.Text);
+                if (lengthUnitComboBox.SelectedIndex == 0)
+                {
+                    lengthFt *= Constants.M_FT_ratio;
+                }
+
+                return true;
             }
-            else
+            return false;
+        }
+
+        private void FindBtn_Click(object sender, EventArgs e)
+        {
+            double lengthFt;
+
+            if (tryGetLength(out lengthFt) == false)
             {
-                lengthFt = Convert.ToInt32(Convert.ToInt32(MinRwyLength_Txtbox.Text) * Constants.M_FT_ratio);
+                MessageBox.Show("Invalid runway length.");
+                return;
             }
 
-            var altn = AlternateFinder.AltnInfo(Dest_Txtbox.Text, lengthFt);
+            var altn = AlternateFinder.AltnInfo(DestTxtbox.Text, (int)lengthFt);
 
             DataGrid.Columns.Clear();
             DataGrid.Rows.Clear();
@@ -44,30 +56,26 @@ namespace QSP
 
             DataGrid.Columns[0].Name = "ICAO";
             DataGrid.Columns[1].Name = "Airport Name";
-            if (m_ft.Text == "FT")
-            {
-                DataGrid.Columns[2].Name = "Max RWY Length(FT)";
-            }
-            else
-            {
-                DataGrid.Columns[2].Name = "Max RWY Length(M)";
-            }
+            DataGrid.Columns[2].Name = "Max RWY Length(" +
+                                       lengthUnitComboBox.Text +
+                                       ")";
 
             DataGrid.Columns[3].Name = "Distance";
 
-            for (int i = 0; i < altn.Count ; i++)
+            for (int i = 0; i < altn.Count; i++)
             {
-                DataGrid[0, i].Value = altn[i].Icao ;
+                DataGrid[0, i].Value = altn[i].Icao;
                 DataGrid[1, i].Value = altn[i].AirportName;
                 DataGrid[2, i].Value = altn[i].LongestRwyLength;
                 DataGrid[3, i].Value = altn[i].Distance;
             }
 
-            if (m_ft.Text == "M")
+            if (lengthUnitComboBox.SelectedIndex == 0)
             {
                 for (int i = 0; i < altn.Count; i++)
                 {
-                    DataGrid[2, i].Value = Math.Round(Convert.ToDouble(DataGrid[2, i].Value) / Constants.M_FT_ratio);
+                    DataGrid[2, i].Value = (int)Math.Round(
+                        Convert.ToDouble(DataGrid[2, i].Value) * Constants.FT_M_ratio);
                 }
             }
 
@@ -84,15 +92,21 @@ namespace QSP
 
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void CancelBtn_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         public FindAltnForm()
         {
             Load += AltnFinder_Load;
             InitializeComponent();
+            initControls();
+        }
+
+        private void initControls()
+        {
+            lengthUnitComboBox.SelectedIndex = 0;
         }
     }
 }

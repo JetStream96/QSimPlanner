@@ -2,7 +2,7 @@ using QSP.Core;
 using System;
 using System.IO;
 using System.Windows.Forms;
-using static QSP.UI.Utilities;
+using static QSP.UI.FormInstanceGetter;
 
 namespace QSP.UI
 {

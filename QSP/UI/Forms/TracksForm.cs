@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.RouteFinding.Tracks.Interaction.Interactions;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
-using static QSP.UI.Utilities;
+using static QSP.UI.FormInstanceGetter;
 using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP

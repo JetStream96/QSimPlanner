@@ -1,7 +1,7 @@
 using QSP.MathTools;
 using QSP.Metar;
 using System;
-using static QSP.UI.Utilities;
+using static QSP.UI.FormInstanceGetter;
 using QSP.Utilities;
 
 namespace QSP

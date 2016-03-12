@@ -5,7 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using static QSP.UI.Utilities;
+using static QSP.UI.FormInstanceGetter;
 using static QSP.Utilities.ErrorLogger;
 
 namespace QSP

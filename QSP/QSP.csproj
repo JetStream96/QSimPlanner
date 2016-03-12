@@ -247,7 +247,7 @@
     <Compile Include="Core\PerformanceDatabase.cs" />
     <Compile Include="Core\Core.cs" />
     <Compile Include="LibraryExtension\SequentialAsyncTaskHandler.cs" />
-    <Compile Include="UI\Utilities.cs" />
+    <Compile Include="UI\FormInstanceGetter.cs" />
     <Compile Include="UI\ViewManager.cs" />
     <Compile Include="Utilities\AiracTools.cs" />
     <Compile Include="FuelCalculation\FlightTimeCalculator.cs" />
