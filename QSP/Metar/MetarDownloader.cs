@@ -12,7 +12,7 @@ namespace QSP.Metar
 
         private static string trimIcao(string icao)
         {
-            return icao.Replace(" ", "").ToUpper();
+            return icao.Trim().ToUpper();
         }
 
         public static string GetMetar(string icao)

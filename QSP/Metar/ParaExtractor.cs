@@ -12,19 +12,19 @@ namespace QSP.Metar
         /// </summary>
         public static Wind GetWind(string metar)
         {
-            if (Regex.Match(metar, @"\sVRB\d{1,3}(KTS?|MPS)\s").Success)
+            if (Regex.Match(metar, @"(^|\s)VRB\d{1,3}(KTS?|MPS)(\s|$)").Success)
             {
                 return new Wind(0.0, 0.0);
             }
 
-            var match = Regex.Match(metar, @"\s\d{3}/?\d{1,3}(KTS?|MPS)\s");
+            var match = Regex.Match(metar, @"(^|\s)\d{3}/?\d{1,3}(KTS?|MPS)(\s|$)");
 
             if (match.Success)
             {
-                var val = match.Value;
-                int direction = int.Parse(val.Substring(1, 3));
+                var val = match.Value.Trim();
+                int direction = int.Parse(val.Substring(0, 3));
                 double speed = int.Parse(
-                    Regex.Match(val.Substring(4), @"^\d{1,3}").Value);
+                    Regex.Match(val.Substring(3), @"^\d{1,3}").Value);
 
                 if (val.Contains("MPS"))
                 {
@@ -42,19 +42,19 @@ namespace QSP.Metar
         /// </summary>
         public static int GetTemp(string metar)
         {
-            var match = Regex.Match(metar, @"\sM?\d{1,3}/M?\d{1,3}\s");
+            var match = Regex.Match(metar, @"(^|\s)M?\d{1,3}/M?\d{1,3}(\s|$)");
 
             if (match.Success)
             {
-                var val = match.Value;
+                var val = match.Value.Trim();
 
                 if (val[0] == 'M')
                 {
-                    return -int.Parse(val.Substring(2, val.IndexOf('/') - 2));
+                    return -int.Parse(val.Substring(1, val.IndexOf('/') - 1));
                 }
                 else
                 {
-                    return int.Parse(val.Substring(1, val.IndexOf('/') - 1));
+                    return int.Parse(val.Substring(0, val.IndexOf('/')));
                 }
             }
             else
@@ -68,14 +68,16 @@ namespace QSP.Metar
         /// </summary>
         public static PressureSetting GetPressure(string metar)
         {
-            var match = Regex.Match(metar, @"\s[AQ]\d{4}\s");
+            var match = Regex.Match(metar, @"(^|\s)[AQ]\d{4}(\s|$)");
 
             if (match.Success)
             {
-                var val = match.Value;
-                return new PressureSetting(
-                    val.Contains("A") ? PressureUnit.inHg : PressureUnit.Mb,
-                    double.Parse(val.Substring(2, 4)) / 100.0);
+                var val = match.Value.Trim();
+                var unit = val.Contains("A") ? PressureUnit.inHg : PressureUnit.Mb;
+
+                return new PressureSetting(unit,
+                    double.Parse(val.Substring(1, 4)) *
+                    (unit == PressureUnit.inHg ? 0.01 : 1.0));
             }
 
             return null;
