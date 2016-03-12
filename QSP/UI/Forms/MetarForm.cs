@@ -11,10 +11,10 @@ namespace QSP
         //e.g. "Takeoff"
         //TODO:
         public string FromFormName = "";
-
+        
         public string Metar { get; private set; }
         public string Taf { get; private set; }
-
+        
         private void downloadBtn_Click(object sender, EventArgs e)
         {
             downloadMetarTafAndShow();

@@ -2,6 +2,7 @@
 using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using QSP.UI.ControlStates;
+using QSP.UI.ToLdgModule.Common;
 using QSP.UI.ToLdgModule.LandingPerf.FormControllers;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         private List<PerfTable> tables;
         private PerfTable currentTable;
         private LandingPerfElements elements;
+        private string metar;
 
         public AirportManager Airports
         {
@@ -36,6 +38,14 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
             // Set default values for the controls.
             initializeControls();
+
+            setWeatherBtnHandlers();
+        }
+
+        private void setWeatherBtnHandlers()
+        {
+            weatherInfoControl.GetMetarBtn.Click += getMetarClicked;
+            weatherInfoControl.ViewMetarBtn.Click += viewMetarClicked;
         }
 
         private void initializeControls()
@@ -63,7 +73,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             StateManager.Save(fileName, new ControlState(this).Save());
         }
 
-        private void saveState(object sender, System.EventArgs e)
+        private void saveState(object sender, EventArgs e)
         {
             trySaveState();
         }
@@ -120,7 +130,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             fuelImportPanel.Location = new Point(253, 61);
         }
 
-        private void requestBtn_Click(object sender, System.EventArgs e)
+        private void requestBtn_Click(object sender, EventArgs e)
         {
             if (fuelImportPanel != null)
             {
@@ -128,7 +138,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             }
         }
 
-        private void acListComboBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void acListComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // unsubsribe all event handlers
             if (controller != null)
@@ -178,24 +188,68 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             controller.CalculationCompleted -= saveState;
         }
 
-        // Get metar functions.
-        private async void getMetarClicked(object sender, EventArgs e)
+        private void enableDnBtn()
+        {
+            var btn = weatherInfoControl.GetMetarBtn;
+
+            btn.Enabled = true;
+            btn.BackColor = Color.DarkSlateGray;
+            btn.Text = "Import METAR";
+        }
+
+        private void disableDnBtn()
         {
             var btn = weatherInfoControl.GetMetarBtn;
 
             btn.Enabled = false;
-            btn.ForeColor = Color.Gray;
+            btn.BackColor = Color.Gray;
             btn.Text = "Downloading ...";
+        }
+
+        private void viewMetarClicked(object sender, EventArgs e)
+        {
+            var frm = new MetarForm();
+            frm.icaoTxtBox.Text = airportInfoControl.airportTxtBox.Text;
+            frm.icaoTxtBox.Enabled = false;
+            frm.resultRichTxtBox.Text = metar ?? "";
+            frm.sendBtn.Visible = false;
+            frm.downloadBtn.Visible = false;
+            frm.getTafCheckBox.Visible = false;
+            frm.ShowDialog();
+        }
+
+        // Get metar functions.
+        private async void getMetarClicked(object sender, EventArgs e)
+        {
+            disableDnBtn();
+            weatherInfoControl.pictureBox1.Visible = false;
 
             string icao = airportInfoControl.airportTxtBox.Text;
-            string metar;
+            metar = null;
 
             bool metarAcquired =
                  await Task.Run(() => MetarDownloader.TryGetMetar(icao, out metar));
 
             if (metarAcquired)
             {
+                var w = weatherInfoControl;
 
+                if (WeatherAutoFiller.Fill(
+                    metar,
+                    w.windDirTxtBox,
+                    w.windSpdTxtBox,
+                    w.oatTxtBox,
+                    w.tempUnitComboBox,
+                    w.pressTxtBox,
+                    w.pressUnitComboBox))
+                {
+                    enableDnBtn();
+                    w.pictureBox1.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show(@"Unable to fill the weather information automatically.");
+                }
             }
         }
     }

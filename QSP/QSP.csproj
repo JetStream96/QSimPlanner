@@ -208,6 +208,7 @@
     <Compile Include="UI\ToLdgModule\Common\AirportInfo\AirportInfoControl.Designer.cs">
       <DependentUpon>AirportInfoControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ToLdgModule\Common\WeatherAutoFiller.cs" />
     <Compile Include="UI\ToLdgModule\LandingPerf\ControlState.cs" />
     <Compile Include="UI\ToLdgModule\LandingPerf\CustomFuelControl.cs">
       <SubType>UserControl</SubType>

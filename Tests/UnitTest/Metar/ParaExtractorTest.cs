@@ -2,7 +2,6 @@
 using QSP;
 using QSP.MathTools;
 using QSP.Metar;
-using System;
 
 namespace UnitTest.Metar
 {
