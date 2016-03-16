@@ -5,7 +5,7 @@ namespace QSP.WindAloft
 {
     public class WindManager
     {
-        public static readonly string SaveFileLocation = Utilities.wxFileDirectory + "\\wx.grib2";
+        public static readonly string SaveFileLocation = Utilities.WxFileDirectory + "\\wx.grib2";
 
         public void DownloadWind()
         {

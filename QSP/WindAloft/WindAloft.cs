@@ -9,7 +9,7 @@ namespace QSP.WindAloft
     public static class Utilities
     {
         public static int[] FullWindDataSet = { 100, 200, 250, 300, 350, 400, 500, 600, 700, 850 };
-        public static string wxFileDirectory = QspCore.QspLocalDirectory + "\\Wx\\tmp";
+        public static string WxFileDirectory = "Wx\\tmp";
 
         public static int AvgTailWind(ManagedRoute rte, int cruizeLevel, int tas)
         {
@@ -25,7 +25,11 @@ namespace QSP.WindAloft
 
             while (node != rte.LastNode)
             {
-                var t = GetAirDisGrdDis(node.Value.Waypoint.LatLon, node.Next.Value.Waypoint.LatLon, tas, cruizeLevel);
+                var t = GetAirDisGrdDis(node.Value.Waypoint.LatLon,
+                    node.Next.Value.Waypoint.LatLon, 
+                    tas, 
+                    cruizeLevel);
+
                 AirDisToDest += t.Item1;
                 GrdDisToDest += t.Item2;
                 node = node.Next;

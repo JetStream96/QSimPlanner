@@ -298,13 +298,13 @@ namespace QSP
             try
             {
                 await new WindManager().DownloadWindAsync();
+                ShowWindDownloadStatus(WindDownloadStatus.Finished);
             }
             catch (Exception ex)
             {
                 WriteToLog(ex);
                 ShowWindDownloadStatus(WindDownloadStatus.Failed);
             }
-            ShowWindDownloadStatus(WindDownloadStatus.Finished);
         }
 
         public enum WindDownloadStatus

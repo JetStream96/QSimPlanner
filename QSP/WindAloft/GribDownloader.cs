@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Net;
+using System.IO;
 
 namespace QSP.WindAloft
 {
@@ -19,6 +20,7 @@ namespace QSP.WindAloft
 
             using (var client = new WebClient())
             {
+                Directory.CreateDirectory(new FileInfo(filePath).DirectoryName);
                 client.DownloadFile(fileUrl(), filePath);
             }
         }

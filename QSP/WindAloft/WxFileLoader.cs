@@ -21,8 +21,8 @@ namespace QSP.WindAloft
             {
                 WindTable table = new WindTable();
 
-                string u = Utilities.wxFileDirectory + "\\wx" + Convert.ToString(i * 2 + 1) + ".csv";
-                string v = Utilities.wxFileDirectory + "\\wx" + Convert.ToString(i * 2 + 2) + ".csv";
+                string u = Utilities.WxFileDirectory + "\\wx" + Convert.ToString(i * 2 + 1) + ".csv";
+                string v = Utilities.WxFileDirectory + "\\wx" + Convert.ToString(i * 2 + 2) + ".csv";
 
                 table.LoadFromFile(u, v);
 
