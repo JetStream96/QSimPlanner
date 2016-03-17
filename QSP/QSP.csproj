@@ -239,6 +239,12 @@
     <Compile Include="UI\ToLdgModule\Common\WeatherInfoControl.Designer.cs">
       <DependentUpon>WeatherInfoControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ToLdgModule\TOPerf\TOPerfControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ToLdgModule\TOPerf\TOPerfControl.Designer.cs">
+      <DependentUpon>TOPerfControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\ConditionChecker.cs" />
     <Compile Include="Utilities\ErrorLogger.cs" />
     <Compile Include="Core\Exceptions.cs" />
@@ -427,6 +433,9 @@
     <EmbeddedResource Include="UI\Forms\WeightManagement.resx">
       <DependentUpon>WeightManagement.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ToLdgModule\TOPerf\TOPerfControl.resx">
+      <DependentUpon>TOPerfControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
@@ -516,7 +525,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UI\ToLdgModule\TOPerf\Controllers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

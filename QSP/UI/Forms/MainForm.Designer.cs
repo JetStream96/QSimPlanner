@@ -2328,7 +2328,7 @@ namespace QSP
             this.landingPerfControl.BackColor = System.Drawing.Color.White;
             this.landingPerfControl.Location = new System.Drawing.Point(0, 0);
             this.landingPerfControl.Name = "landingPerfControl";
-            this.landingPerfControl.Size = new System.Drawing.Size(1144, 818);
+            this.landingPerfControl.Size = new System.Drawing.Size(1024, 683);
             this.landingPerfControl.TabIndex = 0;
             // 
             // TabPage11

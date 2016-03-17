@@ -138,13 +138,6 @@
             this.brakeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.brakeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.brakeComboBox.FormattingEnabled = true;
-            this.brakeComboBox.Items.AddRange(new object[] {
-            "737-600",
-            "737-700",
-            "737-800",
-            "737-900",
-            "777-200LR",
-            "777F"});
             this.brakeComboBox.Location = new System.Drawing.Point(163, 142);
             this.brakeComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.brakeComboBox.Name = "brakeComboBox";
@@ -160,13 +153,6 @@
             this.revThrustComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.revThrustComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.revThrustComboBox.FormattingEnabled = true;
-            this.revThrustComboBox.Items.AddRange(new object[] {
-            "737-600",
-            "737-700",
-            "737-800",
-            "737-900",
-            "777-200LR",
-            "777F"});
             this.revThrustComboBox.Location = new System.Drawing.Point(163, 107);
             this.revThrustComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.revThrustComboBox.Name = "revThrustComboBox";
@@ -200,13 +186,6 @@
             this.flapsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.flapsComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flapsComboBox.FormattingEnabled = true;
-            this.flapsComboBox.Items.AddRange(new object[] {
-            "737-600",
-            "737-700",
-            "737-800",
-            "737-900",
-            "777-200LR",
-            "777F"});
             this.flapsComboBox.Location = new System.Drawing.Point(163, 72);
             this.flapsComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.flapsComboBox.Name = "flapsComboBox";

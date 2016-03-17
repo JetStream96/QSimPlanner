@@ -97,7 +97,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
                 airportInfoControl.slopeComboBox,
                 weatherInfoControl.tempUnitComboBox,
                 brakeComboBox,
-               weatherInfoControl.surfCondComboBox,
+                weatherInfoControl.surfCondComboBox,
                 weatherInfoControl.pressUnitComboBox,
                 wtUnitComboBox,
                 flapsComboBox,
