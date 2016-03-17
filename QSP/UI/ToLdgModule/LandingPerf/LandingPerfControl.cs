@@ -16,7 +16,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
     {
         private const string fileName = "LandingPerfControl.xml";
 
-        private CustomFuelControl fuelImportPanel;
+        // private CustomFuelControlOld fuelImportPanel;
         private FormController controller;
         private List<PerfTable> tables;
         private PerfTable currentTable;
@@ -97,7 +97,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
                 airportInfoControl.slopeComboBox,
                 weatherInfoControl.tempUnitComboBox,
                 brakeComboBox,
-                surfCondComboBox,
+               weatherInfoControl.surfCondComboBox,
                 weatherInfoControl.pressUnitComboBox,
                 wtUnitComboBox,
                 flapsComboBox,
@@ -126,16 +126,16 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         public void EnableWeightRequest(double zfwKg, double fuelKg)
         {
             requestBtn.Visible = true;
-            fuelImportPanel = new CustomFuelControl(zfwKg, fuelKg);
-            fuelImportPanel.Location = new Point(253, 61);
+            // fuelImportPanel = new CustomFuelControlOld(zfwKg, fuelKg);
+            // fuelImportPanel.Location = new Point(253, 61);
         }
 
         private void requestBtn_Click(object sender, EventArgs e)
         {
-            if (fuelImportPanel != null)
-            {
-                fuelImportPanel.Visible = true;
-            }
+            //if (fuelImportPanel != null)
+            //{
+            //    fuelImportPanel.Visible = true;
+            //}
         }
 
         private void acListComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -166,7 +166,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private void subscribe(FormController controller)
         {
-            surfCondComboBox.SelectedIndexChanged += controller.SurfCondChanged;
+            weatherInfoControl.surfCondComboBox.SelectedIndexChanged += controller.SurfCondChanged;
             wtUnitComboBox.SelectedIndexChanged += controller.WeightUnitChanged;
             flapsComboBox.SelectedIndexChanged += controller.FlapsChanged;
             revThrustComboBox.SelectedIndexChanged += controller.ReverserChanged;
@@ -178,7 +178,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private void unSubscribe(FormController controller)
         {
-            surfCondComboBox.SelectedIndexChanged -= controller.SurfCondChanged;
+            weatherInfoControl.surfCondComboBox.SelectedIndexChanged -= controller.SurfCondChanged;
             wtUnitComboBox.SelectedIndexChanged -= controller.WeightUnitChanged;
             flapsComboBox.SelectedIndexChanged -= controller.FlapsChanged;
             revThrustComboBox.SelectedIndexChanged -= controller.ReverserChanged;

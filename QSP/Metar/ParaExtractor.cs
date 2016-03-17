@@ -12,12 +12,17 @@ namespace QSP.Metar
         /// </summary>
         public static Wind GetWind(string metar)
         {
-            if (Regex.Match(metar, @"(^|\s)VRB\d{1,3}(KTS?|MPS)(\s|$)").Success)
+            if (Regex.Match(metar,
+                @"(^|\s)VRB\d{1,3}(KTS?|MPS)(\s|$)",
+                RegexOptions.Multiline)
+                .Success)
             {
                 return new Wind(0.0, 0.0);
             }
 
-            var match = Regex.Match(metar, @"(^|\s)\d{3}/?\d{1,3}(KTS?|MPS)(\s|$)");
+            var match = Regex.Match(metar,
+                @"(^|\s)\d{3}/?\d{1,3}(KTS?|MPS)(\s|$)",
+                RegexOptions.Multiline);
 
             if (match.Success)
             {
@@ -42,7 +47,9 @@ namespace QSP.Metar
         /// </summary>
         public static int GetTemp(string metar)
         {
-            var match = Regex.Match(metar, @"(^|\s)M?\d{1,3}/M?\d{1,3}(\s|$)");
+            var match = Regex.Match(metar,
+                @"(^|\s)M?\d{1,3}/M?\d{1,3}(\s|$)",
+                RegexOptions.Multiline);
 
             if (match.Success)
             {
@@ -68,7 +75,9 @@ namespace QSP.Metar
         /// </summary>
         public static PressureSetting GetPressure(string metar)
         {
-            var match = Regex.Match(metar, @"(^|\s)[AQ]\d{4}(\s|$)");
+            var match = Regex.Match(metar,
+                @"(^|\s)[AQ]\d{4}(\s|$)",
+                RegexOptions.Multiline);
 
             if (match.Success)
             {

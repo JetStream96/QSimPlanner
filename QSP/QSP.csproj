@@ -210,11 +210,11 @@
     </Compile>
     <Compile Include="UI\ToLdgModule\Common\WeatherAutoFiller.cs" />
     <Compile Include="UI\ToLdgModule\LandingPerf\ControlState.cs" />
-    <Compile Include="UI\ToLdgModule\LandingPerf\CustomFuelControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="UI\ToLdgModule\LandingPerf\CustomFuelForm.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ToLdgModule\LandingPerf\CustomFuelControl.Designer.cs">
-      <DependentUpon>CustomFuelControl.cs</DependentUpon>
+    <Compile Include="UI\ToLdgModule\LandingPerf\CustomFuelForm.Designer.cs">
+      <DependentUpon>CustomFuelForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ToLdgModule\LandingPerf\FormControllers\BoeingController.cs" />
     <Compile Include="UI\ToLdgModule\LandingPerf\FormControllers\BoeingParameterValidator.cs" />
@@ -400,8 +400,8 @@
     <EmbeddedResource Include="UI\Forms\FindAltnForm.resx">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ToLdgModule\LandingPerf\CustomFuelControl.resx">
-      <DependentUpon>CustomFuelControl.cs</DependentUpon>
+    <EmbeddedResource Include="UI\ToLdgModule\LandingPerf\CustomFuelForm.resx">
+      <DependentUpon>CustomFuelForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ToLdgModule\LandingPerf\LandingPerfControl.resx">
       <DependentUpon>LandingPerfControl.cs</DependentUpon>
@@ -447,6 +447,7 @@
     <Content Include="degrib\degrib.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="PerformanceData\Aircrafts\737600Default.xml" />
     <Content Include="PerformanceData\LDG\737600_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -466,7 +467,7 @@
     <Content Include="PerformanceData\LDG\777F_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\LDG\Template_LDG.xml">
+    <Content Include="PerformanceData\Templates\LDG\Template_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\TO\737600_TO.xml">
@@ -489,7 +490,7 @@
     <Content Include="PerformanceData\TO\777F_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\TO\TOPerf_Template.xml">
+    <Content Include="PerformanceData\Templates\TO\TOPerf_Template.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\delete-icon.png" />

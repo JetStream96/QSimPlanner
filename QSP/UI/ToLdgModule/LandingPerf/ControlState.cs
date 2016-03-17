@@ -46,7 +46,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
                 new XElement(oat,weather.oatTxtBox.Text),
                 new XElement(pressUnit,weather.pressUnitComboBox.Text),
                 new XElement(pressure,weather.pressTxtBox.Text),
-                new XElement(surfCond,control.surfCondComboBox.Text),
+                new XElement(surfCond,control.weatherInfoControl.surfCondComboBox.Text),
                 new XElement(aircraft,control.acListComboBox.Text),
                 new XElement(wtUnit,control.wtUnitComboBox.Text),
                 new XElement(ldgWt,control.weightTxtBox.Text),
@@ -75,7 +75,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             weather.oatTxtBox.Text = root.Element(oat).Value;
             weather.pressUnitComboBox.Text = root.Element(pressUnit).Value;
             weather.pressTxtBox.Text = root.Element(pressure).Value;
-            control.surfCondComboBox.Text = root.Element(surfCond).Value;
+            control.weatherInfoControl.surfCondComboBox.Text = root.Element(surfCond).Value;
             control.acListComboBox.Text = root.Element(aircraft).Value;
             control.wtUnitComboBox.Text = root.Element(wtUnit).Value;
             control.weightTxtBox.Text = root.Element(ldgWt).Value;
