@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TOPerf>
-
+  <IndividualTable>
+    <Flaps>5</Flaps>
+    
 <WeightUnit>1000KG</WeightUnit>
 <!-- 1000KG or 1000LB -->
 
@@ -430,4 +432,5 @@ field limit weight by 600 kg and climb limit weight by 1050 kg.
 </WeightTable>
  
 </Wet> 
+    </IndividualTable>
 </TOPerf>

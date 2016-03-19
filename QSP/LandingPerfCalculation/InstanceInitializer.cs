@@ -18,7 +18,7 @@ namespace QSP.LandingPerfCalculation
             {
                 try
                 {
-                    result.Add(new DataLoader().ReadFromXml(i));
+                    result.Add(new PerfDataLoader().ReadFromXml(i));
                 }
                 catch (Exception)
                 {

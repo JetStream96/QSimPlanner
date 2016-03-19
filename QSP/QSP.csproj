@@ -83,8 +83,8 @@
     <Compile Include="Core\AppOptions.cs" />
     <Compile Include="Core\EnumConversionTools.cs" />
     <Compile Include="Core\Enums.cs" />
-    <Compile Include="LandingPerfCalculation\Boeing\Calculator.cs" />
-    <Compile Include="LandingPerfCalculation\Boeing\DataLoader.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\LandingCalculator.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\PerfDataLoader.cs" />
     <Compile Include="LandingPerfCalculation\Constants.cs" />
     <Compile Include="LandingPerfCalculation\InstanceInitializer.cs" />
     <Compile Include="LandingPerfCalculation\Entry.cs" />
@@ -109,6 +109,7 @@
     <Compile Include="MathTools\Interpolation\Interpolate2D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate3D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate4D.cs" />
+    <Compile Include="MathTools\NumericalArrays.cs" />
     <Compile Include="MathTools\Tables\Table1D.cs" />
     <Compile Include="MathTools\Tables\Table2D.cs" />
     <Compile Include="MathTools\Tables\Table3D.cs" />
@@ -197,6 +198,17 @@
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\WestTrackParser.cs" />
     <Compile Include="RouteFinding\WaypointAirwayConnector.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\PerfDataLoader.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\PerfData\AlternateThrustTable.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\PerfData\BoeingPerfTable.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\PerfData\IndividualPerfTable.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\PerfData\ClimbLimitWtTable.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\PerfData\Enums.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\PerfData\FieldLimitWtTable.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\PerfData\SlopeCorrTable.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\PerfData\WindCorrTable.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\TOCalculator.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\TOParameters.cs" />
     <Compile Include="TOPerfCalculation\Constants.cs" />
     <Compile Include="TOPerfCalculation\Entry.cs" />
     <Compile Include="TOPerfCalculation\PerfTable.cs" />
@@ -332,7 +344,7 @@
     <Compile Include="TakeOffPerfCalculation\LoadedData.cs" />
     <Compile Include="TakeOffPerfCalculation\ParameterImporter.cs" />
     <Compile Include="TakeOffPerfCalculation\PerfTableImporter.cs" />
-    <Compile Include="TakeOffPerfCalculation\TOPerfCalcResult.cs" />
+    <Compile Include="TOPerfCalculation\TOCalcResult.cs" />
     <Compile Include="TakeOffPerfCalculation\TOPerfCalculator.cs" />
     <Compile Include="TakeOffPerfCalculation\TOPerfParameters.cs" />
     <Compile Include="UIElement\TablessControl.cs">

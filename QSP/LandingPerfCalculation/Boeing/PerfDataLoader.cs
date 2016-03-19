@@ -8,7 +8,7 @@ using static QSP.LibraryExtension.Arrays;
 
 namespace QSP.LandingPerfCalculation.Boeing
 {
-    public class DataLoader
+    public class PerfDataLoader
     {
         private const int ColumnCount = 14;
         private const int SurfaceCondCount = 3;

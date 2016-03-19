@@ -3,11 +3,11 @@ using QSP.LandingPerfCalculation.Boeing.PerfData;
 
 namespace QSP.LandingPerfCalculation.Boeing
 {
-    public class Calculator
+    public class LandingCalculator
     {
         private BoeingPerfTable perfTable;
 
-        public Calculator(BoeingPerfTable perfTable)
+        public LandingCalculator(BoeingPerfTable perfTable)
         {
             this.perfTable = perfTable;
         }
