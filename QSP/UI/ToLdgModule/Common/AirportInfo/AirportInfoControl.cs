@@ -86,7 +86,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
             switch (lengthUnitComboBox.SelectedIndex)
             {
                 case 0: // meter
-                    lengthTxtBox.Text = ((int)(lengthFt * Constants.FT_M_ratio)).ToString();
+                    lengthTxtBox.Text = ((int)(lengthFt * Constants.FtMeterRatio)).ToString();
                     break;
 
                 case 1: // ft
@@ -129,12 +129,12 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
                 if (lengthUnitComboBox.SelectedIndex == 0)
                 {
                     // ft -> m
-                    len *= Constants.FT_M_ratio;
+                    len *= Constants.FtMeterRatio;
                 }
                 else
                 {
                     // m -> ft
-                    len *= Constants.M_FT_ratio;
+                    len *= Constants.MeterFtRatio;
                 }
 
                 lengthTxtBox.Text = ((int)Math.Round(len)).ToString();

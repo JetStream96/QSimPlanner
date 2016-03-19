@@ -28,7 +28,7 @@ namespace QSP.TakeOffPerfCalculation
 
             try
             {
-                lengthMeter = (int)(Convert.ToDouble(frm.length.Text) * (frm.m_ft.Text == "M" ? 1.0 : Constants.FT_M_ratio));
+                lengthMeter = (int)(Convert.ToDouble(frm.length.Text) * (frm.m_ft.Text == "M" ? 1.0 : Constants.FtMeterRatio));
                 if (lengthMeter < 0)
                 {
                     throw new InvalidUserInputException("Runway length is not valid.");
@@ -152,7 +152,7 @@ namespace QSP.TakeOffPerfCalculation
                 towtKG = Convert.ToInt32(frm.Weight.Text);
                 if (frm.WTunit.Text == "LB")
                 {
-                    towtKG = (int)(towtKG * Constants.LB_KG);
+                    towtKG = (int)(towtKG * Constants.LbKgRatio);
                 }
 
                 if (towtKG < 0)

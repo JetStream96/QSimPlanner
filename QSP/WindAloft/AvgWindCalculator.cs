@@ -76,17 +76,17 @@ namespace QSP.WindAloft
             double r = 0.0;
             //total distance
 
-            r = RADIUS_EARTH_NM * Math.Acos(v1.InnerProductWith(v2));
+            r = EarthRadiusNm * Math.Acos(v1.InnerProductWith(v2));
 
             var g = new RealValuedFunction(GetOneOverGS);
 
-            T = g.Integrate(0, r, delta_alpha * RADIUS_EARTH_NM);
+            T = g.Integrate(0, r, delta_alpha * EarthRadiusNm);
             return r / T - tas;
         }
 
         private double GetOneOverGS(double r)
         {
-            Vector3D v = Get_v(v1, v2, r / RADIUS_EARTH_NM);
+            Vector3D v = Get_v(v1, v2, r / EarthRadiusNm);
             return 1.0 / GetGS(v);
         }
 

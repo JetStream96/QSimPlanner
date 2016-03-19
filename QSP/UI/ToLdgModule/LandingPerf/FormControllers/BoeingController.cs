@@ -22,12 +22,12 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
                 if (elements.wtUnit.SelectedIndex == 0)
                 {
                     // LB -> KG 
-                    wt *= AviationTools.Constants.LB_KG;
+                    wt *= AviationTools.Constants.LbKgRatio;
                 }
                 else
                 {
                     // KG -> LB
-                    wt *= AviationTools.Constants.KG_LB;
+                    wt *= AviationTools.Constants.KgLbRatio;
                 }
 
                 elements.weight.Text = ((int)Math.Round(wt)).ToString();

@@ -197,6 +197,10 @@
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\WestTrackParser.cs" />
     <Compile Include="RouteFinding\WaypointAirwayConnector.cs" />
+    <Compile Include="TOPerfCalculation\Constants.cs" />
+    <Compile Include="TOPerfCalculation\Entry.cs" />
+    <Compile Include="TOPerfCalculation\PerfTable.cs" />
+    <Compile Include="TOPerfCalculation\PerfTableItem.cs" />
     <Compile Include="UI\ControlStates\StateManager.cs" />
     <Compile Include="UI\ToLdgModule\Common\AirportInfo\SlopeComboBoxController.cs" />
     <Compile Include="UI\Controls\ComboBoxWithBorder.cs">

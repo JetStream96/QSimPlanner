@@ -67,8 +67,8 @@ namespace QSP.LandingPerfCalculation.Boeing
 
             if (lenUnitIsMeter == false)
             {
-                tableDry.Multiply(FT_M_ratio);
-                tableWet.Multiply(FT_M_ratio);
+                tableDry.Multiply(FtMeterRatio);
+                tableWet.Multiply(FtMeterRatio);
             }
 
             return new BoeingPerfTable(

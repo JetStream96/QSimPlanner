@@ -34,7 +34,7 @@ namespace QSP
             for (int i = 1; i < lines.Length ; i++)
             {
                 x = lines[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                weight[i - 1] = Convert.ToDouble(x[0]) * (wtUnitIsKG ? 1.0 : Constants.LB_KG);
+                weight[i - 1] = Convert.ToDouble(x[0]) * (wtUnitIsKG ? 1.0 : Constants.LbKgRatio);
                 alt[i - 1] = Convert.ToDouble(x[1]);
             }
         }

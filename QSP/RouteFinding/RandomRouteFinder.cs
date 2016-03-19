@@ -13,7 +13,7 @@ namespace QSP.RouteFinding
     public class RandomRouteFinder
     {
         private static readonly double MAX_ANGLE_DEG = 
-            ToDegree(MAX_LEG_DIS / AviationTools.Constants.RADIUS_EARTH_NM);
+            ToDegree(MAX_LEG_DIS / AviationTools.Constants.EarthRadiusNm);
         private static readonly double MAX_ANGLE_DEG_INT = Floor(MAX_ANGLE_DEG);
 
         private LatLon latLon1;

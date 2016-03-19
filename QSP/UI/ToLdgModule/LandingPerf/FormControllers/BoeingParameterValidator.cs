@@ -35,7 +35,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 
                 if (elements.wtUnit.SelectedIndex == 1) //LB
                 {
-                    WeightKG *= AviationTools.Constants.LB_KG;
+                    WeightKG *= AviationTools.Constants.LbKgRatio;
                 }
 
                 if (WeightKG < 0)
@@ -55,7 +55,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 
                 if (elements.lengthUnit.SelectedIndex == 1) // FT
                 {
-                    RwyLengthMeter *= AviationTools.Constants.FT_M_ratio;
+                    RwyLengthMeter *= AviationTools.Constants.FtMeterRatio;
                 }
 
                 if (RwyLengthMeter < 0)

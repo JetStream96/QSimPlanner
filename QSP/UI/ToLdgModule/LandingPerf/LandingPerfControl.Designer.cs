@@ -387,7 +387,7 @@
             // resultsRichTxtBox
             // 
             this.resultsRichTxtBox.BackColor = System.Drawing.SystemColors.Control;
-            this.resultsRichTxtBox.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resultsRichTxtBox.Font = new System.Drawing.Font("Courier New", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resultsRichTxtBox.Location = new System.Drawing.Point(6, 20);
             this.resultsRichTxtBox.Name = "resultsRichTxtBox";
             this.resultsRichTxtBox.ReadOnly = true;

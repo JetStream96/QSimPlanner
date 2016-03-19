@@ -226,11 +226,11 @@ namespace QSP.RouteFinding.Data
             }
             else if (grid.Item2 == -1)
             {
-                return RADIUS_EARTH_NM * ToRadian(center.Lat - (-90 + POLAR_REGION_SIZE));
+                return EarthRadiusNm * ToRadian(center.Lat - (-90 + POLAR_REGION_SIZE));
             }
             else
             {
-                return RADIUS_EARTH_NM * ToRadian((90 - POLAR_REGION_SIZE) - center.Lat);
+                return EarthRadiusNm * ToRadian((90 - POLAR_REGION_SIZE) - center.Lat);
             }
         }
 

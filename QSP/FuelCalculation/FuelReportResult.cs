@@ -92,16 +92,16 @@ namespace QSP
 
                 case WeightUnit.LB:
 
-                    TripFuelDisplay = (int)(FuelToDestTon * 1000 * KG_LB);
-                    contingencyDisplay = (int)(ContKg * KG_LB);
-                    holdDisplay = (int)(HoldKg * KG_LB);
-                    extraDisplay = (int)(ExtraKG * KG_LB);
-                    alternateDisplay = (int)(FuelToAltnTon * 1000 * KG_LB);
-                    finalRsvDisplay = (int)(FinalRsvKg * KG_LB);
-                    takeoff_display = (int)(TakeoffFuelKg * KG_LB);
-                    apu_display = (int)(ApuKg * KG_LB);
-                    taxi_display = (int)(TaxiKg * KG_LB);
-                    TotalFuelDisplay = (int)(TotalFuelKG * KG_LB);
+                    TripFuelDisplay = (int)(FuelToDestTon * 1000 * KgLbRatio);
+                    contingencyDisplay = (int)(ContKg * KgLbRatio);
+                    holdDisplay = (int)(HoldKg * KgLbRatio);
+                    extraDisplay = (int)(ExtraKG * KgLbRatio);
+                    alternateDisplay = (int)(FuelToAltnTon * 1000 * KgLbRatio);
+                    finalRsvDisplay = (int)(FinalRsvKg * KgLbRatio);
+                    takeoff_display = (int)(TakeoffFuelKg * KgLbRatio);
+                    apu_display = (int)(ApuKg * KgLbRatio);
+                    taxi_display = (int)(TaxiKg * KgLbRatio);
+                    TotalFuelDisplay = (int)(TotalFuelKG * KgLbRatio);
                     break;
             }
 

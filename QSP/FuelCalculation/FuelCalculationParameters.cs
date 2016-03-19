@@ -56,9 +56,9 @@ namespace QSP
             }
             else
             {
-                Zfw_KG = Zfw * AviationTools.Constants.LB_KG;
-                MissedAppFuel_KG = MissedAppFuel * AviationTools.Constants.LB_KG;
-                ExtraFuel_KG = ExtraFuel * AviationTools.Constants.LB_KG;
+                Zfw_KG = Zfw * AviationTools.Constants.LbKgRatio;
+                MissedAppFuel_KG = MissedAppFuel * AviationTools.Constants.LbKgRatio;
+                ExtraFuel_KG = ExtraFuel * AviationTools.Constants.LbKgRatio;
             }
         }
 

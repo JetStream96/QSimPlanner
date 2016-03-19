@@ -57,7 +57,7 @@ namespace QSP.MathTools
             double a = Math.Sin(lat1Rad) * Math.Sin(lat2Rad) +
                        Math.Cos(lat1Rad) * Math.Cos(lat2Rad) * Math.Cos(deltaLonRad);
 
-            return RADIUS_EARTH_NM * Math.Acos(a);
+            return EarthRadiusNm * Math.Acos(a);
         }
 
         public static int Mod(this int item, int x)

@@ -29,7 +29,7 @@ namespace QSP
             {
                 if (lengthUnitComboBox.SelectedIndex == 0)
                 {
-                    lengthFt *= Constants.M_FT_ratio;
+                    lengthFt *= Constants.MeterFtRatio;
                 }
 
                 return true;
@@ -75,7 +75,7 @@ namespace QSP
                 for (int i = 0; i < altn.Count; i++)
                 {
                     DataGrid[2, i].Value = (int)Math.Round(
-                        Convert.ToDouble(DataGrid[2, i].Value) * Constants.FT_M_ratio);
+                        Convert.ToDouble(DataGrid[2, i].Value) * Constants.FtMeterRatio);
                 }
             }
 

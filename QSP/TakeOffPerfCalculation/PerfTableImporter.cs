@@ -164,13 +164,13 @@ namespace QSP.TakeOffPerfCalculation
             // Now check units
             if (!lenthIsMeter)
             {
-                lengths.Multiply(FT_M_ratio);
+                lengths.Multiply(FtMeterRatio);
             }
 
             if (!WtIsKG)
             {
-                climbLim.Multiply(LB_KG);
-                fieldLim.Multiply(LB_KG);
+                climbLim.Multiply(LbKgRatio);
+                fieldLim.Multiply(LbKgRatio);
             }
 
             return new Tuple<Table3D, Table2D>
@@ -210,8 +210,8 @@ namespace QSP.TakeOffPerfCalculation
             // If length unit is feet, convert them to meter.
             if (!lengthIsMeter)
             {
-                lengths.Multiply(FT_M_ratio);
-                table.Multiply(FT_M_ratio);
+                lengths.Multiply(FtMeterRatio);
+                table.Multiply(FtMeterRatio);
             }
 
             return new Table2D(lengths, slope, table);
@@ -285,10 +285,10 @@ namespace QSP.TakeOffPerfCalculation
 
             if (!wtUnitIsKG)
             {
-                fullThrust.Multiply(LB_KG);
-                dry.Multiply(LB_KG);
-                wet.Multiply(LB_KG);
-                climb.Multiply(LB_KG);
+                fullThrust.Multiply(LbKgRatio);
+                dry.Multiply(LbKgRatio);
+                wet.Multiply(LbKgRatio);
+                climb.Multiply(LbKgRatio);
             }
             return new AlternateThrustTable(fullThrust, dry, wet, climb);
         }

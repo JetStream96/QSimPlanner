@@ -46,7 +46,7 @@ namespace QSP.AviationTools
 
         public static double Ktas(double Kias, double altFt)
         {
-            return Kias * Math.Sqrt(Constants.SEALEVEL_AIR_DENSITY / AirDensity(altFt));
+            return Kias * Math.Sqrt(Constants.AirDensitySeaLevel / AirDensity(altFt));
         }
 
         public static string RwyIdentOppositeDir(string rwy)

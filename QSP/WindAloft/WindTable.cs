@@ -90,7 +90,7 @@ namespace QSP
                     string[] t = allLines[i].Split(',');
                     int j = (int)(Math.Round(Convert.ToDouble(t[2])) + 90);
                     int k = (int)(Math.Round(Convert.ToDouble(t[3])) + 180);
-                    double l = Convert.ToDouble(t[4]) / KT_MPS;
+                    double l = Convert.ToDouble(t[4]) / KnotMpsRatio;
                     table[j, k] = l;
                 }
 

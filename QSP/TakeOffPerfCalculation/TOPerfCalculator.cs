@@ -190,8 +190,6 @@ namespace QSP.TakeOffPerfCalculation
         /// x: Wind and slope corrected runway length. 
         /// f(x): Slope corrected runway length. 
         /// </summary>
-        /// <param name="windTable"></param>
-        /// <param name="headwindComponent"></param>
         private Table1D tableSlopeCorrLength(Table2D windTable, double headwindComponent)
         {
             var slopeCorrLength = new double[windTable.x.Length];

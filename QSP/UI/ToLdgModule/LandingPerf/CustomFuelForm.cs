@@ -41,7 +41,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             {
                 return ZfwKg +
                     double.Parse(landingFuelTxtBox.Text) *
-                    (_wtUnit == WeightUnit.KG ? 1.0 : Constants.LB_KG);
+                    (_wtUnit == WeightUnit.KG ? 1.0 : Constants.LbKgRatio);
             }
         }
 
@@ -60,7 +60,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         private void importFuelBtn_Click(object sender, EventArgs e)
         {
             double fuelDisplay = PredictedFuelKg *
-                (_wtUnit == WeightUnit.KG ? 1.0 : Constants.KG_LB);
+                (_wtUnit == WeightUnit.KG ? 1.0 : Constants.KgLbRatio);
 
             landingFuelTxtBox.Text = ((int)Math.Round(fuelDisplay)).ToString();
         }
