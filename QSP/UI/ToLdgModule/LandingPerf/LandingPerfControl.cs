@@ -1,13 +1,10 @@
 ﻿using QSP.LandingPerfCalculation;
-using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using QSP.UI.ControlStates;
 using QSP.UI.ToLdgModule.Common;
 using QSP.UI.ToLdgModule.LandingPerf.FormControllers;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QSP.UI.ToLdgModule.LandingPerf
