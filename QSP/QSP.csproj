@@ -109,7 +109,6 @@
     <Compile Include="MathTools\Interpolation\Interpolate2D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate3D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate4D.cs" />
-    <Compile Include="MathTools\NumericalArrays.cs" />
     <Compile Include="MathTools\Tables\Table1D.cs" />
     <Compile Include="MathTools\Tables\Table2D.cs" />
     <Compile Include="MathTools\Tables\Table3D.cs" />
@@ -211,6 +210,7 @@
     <Compile Include="TOPerfCalculation\Boeing\TOParameters.cs" />
     <Compile Include="TOPerfCalculation\Constants.cs" />
     <Compile Include="TOPerfCalculation\Entry.cs" />
+    <Compile Include="TOPerfCalculation\InstanceInitializer.cs" />
     <Compile Include="TOPerfCalculation\PerfTable.cs" />
     <Compile Include="TOPerfCalculation\PerfTableItem.cs" />
     <Compile Include="UI\ControlStates\StateManager.cs" />
@@ -255,6 +255,11 @@
     <Compile Include="UI\ToLdgModule\Common\WeatherInfoControl.Designer.cs">
       <DependentUpon>WeatherInfoControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ToLdgModule\TOPerf\Controllers\BoeingController.cs" />
+    <Compile Include="UI\ToLdgModule\TOPerf\Controllers\BoeingParameterValidator.cs" />
+    <Compile Include="UI\ToLdgModule\TOPerf\Controllers\FormController.cs" />
+    <Compile Include="UI\ToLdgModule\TOPerf\Controllers\FormControllerFactory.cs" />
+    <Compile Include="UI\ToLdgModule\TOPerf\TOPerfElements.cs" />
     <Compile Include="UI\ToLdgModule\TOPerf\TOPerfControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -541,9 +546,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\ToLdgModule\TOPerf\Controllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

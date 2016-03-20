@@ -19,7 +19,7 @@ namespace QSP.TOPerfCalculation.Boeing
         public double QNH { get; private set; }
         public bool SurfaceWet { get; private set; }
         public double WeightKg { get; private set; }
-        public ThrustRatingOption ThrustRating { get; private set; }
+        public int ThrustRating { get; private set; }
         public AntiIceOption AntiIce { get; private set; }
         public bool PacksOn { get; private set; }
         public int FlapsIndex { get; private set; }
@@ -35,7 +35,7 @@ namespace QSP.TOPerfCalculation.Boeing
             double QNH,
             bool SurfaceWet,
             double WeightKg,
-            ThrustRatingOption ThrustRating,
+            int ThrustRating,
             AntiIceOption AntiIce,
             bool PacksOn,
             int FlapsIndex)

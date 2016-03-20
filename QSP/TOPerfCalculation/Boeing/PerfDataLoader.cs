@@ -13,24 +13,41 @@ using static QSP.LibraryExtension.Arrays;
 namespace QSP.TOPerfCalculation.Boeing
 {
     public class PerfDataLoader
-    {        
+    {
         private static char[] lineChangeChars = { '\r', '\n' };
         private static char[] spaceChars = { ' ', '\t' };
+
+        private List<string> thrustRatings;
+        private List<AlternateThrustTable> derateTables;
 
         /// <summary>
         /// Load an aircraft data from specified Xml file.
         /// </summary>
-        public static BoeingPerfTable ReadFromXml(string filepath)
+        public PerfTable ReadFromXml(string filepath)
         {
             XDocument doc = XDocument.Load(filepath);
-            var root = doc.Root;
+            return new PerfTable(readTable(doc.Root), GetEntry(filepath, doc));
+        }
 
+        private BoeingPerfTable readTable(XElement root)
+        {
             return new BoeingPerfTable(root.Elements("IndividualTable")
                                        .Select(x => readIndividualTable(x))
                                        .ToArray());
         }
 
-        private static IndividualPerfTable readIndividualTable(XElement node)
+        public static Entry GetEntry(string path, XDocument doc)
+        {
+            var elem = doc.Root.Element("Parameters");
+
+            return new Entry(
+                path.Substring(path.LastIndexOfAny(new char[] { '\\', '/' }) + 1), //TODO:
+                elem.Element("Aircraft").Value,
+                elem.Element("Description").Value,
+                elem.Element("Designator").Value);
+        }
+
+        private IndividualPerfTable readIndividualTable(XElement node)
         {
             string flaps = node.Element("Flaps").Value;
 
@@ -69,25 +86,7 @@ namespace QSP.TOPerfCalculation.Boeing
             var WeightTableWet = getFieldClimbLimitWt(wetNode, lengthUnitIsMeter, wtUnitIsTon).Item1;
 
             // Derates (TO1, TO2)
-            var altnRating = importAltnRating(node, wtUnitIsTon);
-            bool AltnRatingAvail = false;
-            ThrustRatingOption[] ThrustRatings = null;
-            AlternateThrustTable[] AlternateThrustTables = null;
-
-            if (altnRating == null)
-            {
-                AltnRatingAvail = false;
-                ThrustRatings = new ThrustRatingOption[] { ThrustRatingOption.Normal };
-            }
-            else
-            {
-                AltnRatingAvail = true;
-                AlternateThrustTables = altnRating;
-                ThrustRatings = new ThrustRatingOption[] {
-                    ThrustRatingOption.Normal,
-                    ThrustRatingOption.TO1,
-                    ThrustRatingOption.TO2 };
-            }
+            importAltnRating(node, wtUnitIsTon);
 
             return new IndividualPerfTable(
                 PacksOffDry,
@@ -100,9 +99,9 @@ namespace QSP.TOPerfCalculation.Boeing
                 AIEngWet,
                 AIEngClimb,
                 flaps,
-                AltnRatingAvail,
-                AlternateThrustTables,
-                ThrustRatings,
+                thrustRatings.Count > 0,
+                derateTables.ToArray(),
+                thrustRatings.ToArray(),
                 new SlopeCorrTable(SlopeCorrDry),
                 new SlopeCorrTable(SlopeCorrWet),
                 new WindCorrTable(WindCorrDry),
@@ -232,19 +231,23 @@ namespace QSP.TOPerfCalculation.Boeing
             return new Table2D(lengths, slope, table);
         }
 
-        private static AlternateThrustTable[] importAltnRating(XElement rootNode, bool wtUnitIsKG)
+        private void importAltnRating(XElement individualNode, bool wtUnitIsKG)
         {
-            // TO1 / TO2 
-            var TO1 = rootNode.Element("TO1");
-            var TO2 = rootNode.Element("TO2");
+            thrustRatings = new List<string>();
+            derateTables = new List<AlternateThrustTable>();
 
-            if (TO1 == null || TO2 == null)
+            foreach (var i in individualNode.Elements())
             {
-                return null;
+                if (i.Name.ToString() == "FullThrustName")
+                {
+                    thrustRatings.Insert(0, i.Value);
+                }
+                else
+                {
+                    thrustRatings.Add(i.Name.ToString());
+                    derateTables.Add(loadAltnRatingTable(i.Value, wtUnitIsKG));
+                }
             }
-            return new AlternateThrustTable[] {
-                loadAltnRatingTable(TO1.Value, wtUnitIsKG),
-                loadAltnRatingTable(TO2.Value, wtUnitIsKG) };
         }
 
         private static AlternateThrustTable loadAltnRatingTable(string item, bool wtUnitIsKG)

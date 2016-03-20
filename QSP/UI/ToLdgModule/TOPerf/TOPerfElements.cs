@@ -1,10 +1,11 @@
 ﻿using System.Windows.Forms;
 
-namespace QSP.UI.ToLdgModule.LandingPerf
+namespace QSP.UI.ToLdgModule.TOPerf
 {
-    public class LandingPerfElements
+    public class TOPerfElements
     {
         public Label AirportName { get; private set; }
+        public Label ThrustRatingLbl { get; private set; }
         public TextBox Airport { get; private set; }
         public TextBox Length { get; private set; }
         public TextBox Elevation { get; private set; }
@@ -14,21 +15,22 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         public TextBox oat { get; private set; }
         public TextBox pressure { get; private set; }
         public TextBox weight { get; private set; }
-        public TextBox appSpeedIncrease { get; private set; }
         public ComboBox runway { get; private set; }
         public ComboBox lengthUnit { get; private set; }
         public ComboBox slope { get; private set; }
         public ComboBox tempUnit { get; private set; }
-        public ComboBox brake { get; private set; }
         public ComboBox surfCond { get; private set; }
         public ComboBox pressureUnit { get; private set; }
         public ComboBox wtUnit { get; private set; }
         public ComboBox flaps { get; private set; }
-        public ComboBox reverser { get; private set; }
+        public ComboBox thrustRating { get; private set; }
+        public ComboBox AntiIce { get; private set; }
+        public ComboBox Packs { get; private set; }
         public RichTextBox result { get; private set; }
 
-        public LandingPerfElements(
+        public TOPerfElements(
             Label AirportName,
+            Label ThrustRatingLbl,
             TextBox Airport,
             TextBox Length,
             TextBox Elevation,
@@ -38,20 +40,21 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             TextBox oat,
             TextBox pressure,
             TextBox weight,
-            TextBox appSpeedIncrease,
             ComboBox runway,
             ComboBox lengthUnit,
             ComboBox slope,
             ComboBox tempUnit,
-            ComboBox brake,
             ComboBox surfCond,
             ComboBox pressureUnit,
             ComboBox wtUnit,
             ComboBox flaps,
-            ComboBox reverser,
+            ComboBox thrustRating,
+            ComboBox AntiIce,
+            ComboBox Packs,
             RichTextBox result)
         {
             this.AirportName = AirportName;
+            this.ThrustRatingLbl = ThrustRatingLbl;
             this.Airport = Airport;
             this.Length = Length;
             this.Elevation = Elevation;
@@ -61,17 +64,17 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             this.oat = oat;
             this.pressure = pressure;
             this.weight = weight;
-            this.appSpeedIncrease = appSpeedIncrease;
             this.runway = runway;
             this.lengthUnit = lengthUnit;
             this.slope = slope;
             this.tempUnit = tempUnit;
-            this.brake = brake;
             this.surfCond = surfCond;
             this.pressureUnit = pressureUnit;
             this.wtUnit = wtUnit;
             this.flaps = flaps;
-            this.reverser = reverser;
+            this.thrustRating = thrustRating;
+            this.AntiIce = AntiIce;
+            this.Packs = Packs;
             this.result = result;
         }
     }

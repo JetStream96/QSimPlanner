@@ -1,10 +1,10 @@
-﻿using System;
+﻿using QSP.MathTools.Tables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using QSP.MathTools.Tables;
-using static QSP.MathTools.NumericalArrays;
+using static  QSP.LibraryExtension.Arrays;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
@@ -17,25 +17,38 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
             this.table = table;
         }
 
+        public double MaxOat
+        {
+            get
+            {
+                return table.z.Last();
+            }
+        }
+
         // All weights in ton.
         public double FieldLimitWeight(double pressAlt, double correctedLength, double oat)
         {
             return table.ValueAt(pressAlt, correctedLength, oat);
         }
-                
+
         public double CorrectedLengthRequired(double altFt,
                                               double oat,
                                               double correctedWtTon)
         {
-            var lengthArray = table.y;
-            bool lengthIsIncreasing = lengthArray.IsIncreasing();
-            double limitWt;
+            return tableComputeRwyRequired(altFt, oat).ValueAt(correctedWtTon);
+        }
 
-            for (int i = 0; i < lengthArray.Length; i++)
+        // A table maps TO weights (ton) to rwy length required.
+        private Table1D tableComputeRwyRequired(double altitudeFt, double oat)
+        {
+            double[] weights = new double[table.y.Length];
+
+            for (int i = 0; i < weights.Length; i++)
             {
-                limitWt = FieldLimitWeight(altFt, lengthArray[i], oat);
-
+                weights[i] = FieldLimitWeight(altitudeFt, table.y[i], oat);
             }
+
+            return new Table1D(weights, table.y);
         }
     }
 }

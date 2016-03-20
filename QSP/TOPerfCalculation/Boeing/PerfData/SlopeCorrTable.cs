@@ -20,5 +20,23 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         {
             return table.ValueAt(physicalLength, slope);
         }
+
+        public double FieldLengthRequired(double slope,double slopeCorrectedLength)
+        {
+            return tableFieldLength(slope).ValueAt(slopeCorrectedLength);
+        }
+
+        // Maps sloped corrected length into field length.
+        private Table1D tableFieldLength(double slope)
+        {
+            double[] fieldLength = new double[table.x.Length];
+
+            for (int i = 0; i < fieldLength.Length; i++)
+            {
+                fieldLength[i] = table.ValueAt(table.x[i], slope);
+            }
+
+            return new Table1D(fieldLength, table.x);
+        }
     }
 }

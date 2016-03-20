@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TOPerf>
+  <Parameters>
+    <Aircraft>B777-200LR</Aircraft>
+    <Description></Description>
+    <Designator>B77L</Designator>
+  </Parameters>
+  
   <IndividualTable>
     <Flaps>5</Flaps>
     
@@ -431,8 +437,10 @@ field limit weight by 600 kg and climb limit weight by 1050 kg.
 <Climb>273.7 273.7 270.5 262.7 256.7 253.2 243.8 234.7 222.5 213.2 204.0</Climb>
 </WeightTable>
 
-</Wet> 
-
+</Wet>
+ <Derates>
+   <FullThrustName>TO</FullThrustName>
+   
 <TO1>160 180 200 220 240 260 280 300 320 340 360
 151.5 170.2 188.9 207.6 226.3 245.0 263.7 282.4 301.1 319.8 338.5
 152.2 170.5 188.9 207.2 225.6 243.9 262.3 280.6 299.0 317.3 335.6
@@ -449,6 +457,8 @@ field limit weight by 600 kg and climb limit weight by 1050 kg.
 134.0 149.5 165.0 180.5 196.0 211.5 227.0 242.5 258.0 273.5 289.0
 160.0 180.0 200.0 220.0 240.0 260.0 280.0 300.0 320.0 340.0 360.0
 160.0 180.0 200.0 220.0 240.0 260.0 280.0 300.0 320.0 340.0 360.0
-</TO2>
+</TO2> 
+   </Derates>
 </IndividualTable>
+ 
 </TOPerf>

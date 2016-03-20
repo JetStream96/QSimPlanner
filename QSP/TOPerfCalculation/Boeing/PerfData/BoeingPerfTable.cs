@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
-    public class BoeingPerfTable
+    public class BoeingPerfTable : PerfTableItem
     {
         private IndividualPerfTable[] tables;
 

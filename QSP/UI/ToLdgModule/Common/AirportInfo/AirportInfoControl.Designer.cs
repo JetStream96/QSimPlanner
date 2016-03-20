@@ -71,8 +71,8 @@
             this.tableLayoutPanel1.Controls.Add(this.elevationTxtBox, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.rwyHeadingTxtBox, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.lengthTxtBox, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.Label87, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.airportNameLbl, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.Label87, 2, 3);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -302,7 +302,7 @@
             this.Label87.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label87.AutoSize = true;
             this.Label87.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label87.Location = new System.Drawing.Point(266, 41);
+            this.Label87.Location = new System.Drawing.Point(266, 111);
             this.Label87.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Label87.Name = "Label87";
             this.Label87.Size = new System.Drawing.Size(27, 23);

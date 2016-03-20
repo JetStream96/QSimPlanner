@@ -20,5 +20,25 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         {
             return table.ValueAt(slopeCorrectedLength, wind);
         }
+
+        public double SlopeCorrectedLength(double headwind, double WindAndSlopeCorrectedLength)
+        {
+            return tableSlopeCorrLength(headwind).ValueAt(WindAndSlopeCorrectedLength);
+        }
+
+        // A table maps (Wind and slope corrected runway length) to 
+        // (Slope corrected runway length).
+        //
+        private Table1D tableSlopeCorrLength(double headwindComponent)
+        {
+            var slopeCorrLength = new double[table.x.Length];
+
+            for (int i = 0; i < slopeCorrLength.Length; i++)
+            {
+                slopeCorrLength[i] = table.ValueAt(table.x[i], headwindComponent);
+            }
+
+            return new Table1D(slopeCorrLength, table.x);
+        }
     }
 }

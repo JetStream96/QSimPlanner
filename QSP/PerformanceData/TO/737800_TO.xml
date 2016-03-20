@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TOPerf>
+  <Parameters>
+    <Aircraft>B737-800</Aircraft>
+    <Description></Description>
+    <Designator>B738</Designator>
+  </Parameters>
+  
   <IndividualTable>
     <Flaps>5</Flaps>
 <WeightUnit>1000KG</WeightUnit>
