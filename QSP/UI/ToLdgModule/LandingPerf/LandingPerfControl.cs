@@ -34,7 +34,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             InitializeComponent();
 
             // Create the reference to the UI controls.
-            initailzeElements();
+            initializeElements();
 
             // Set default values for the controls.
             initializeControls();
@@ -78,7 +78,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             trySaveState();
         }
 
-        private void initailzeElements()
+        private void initializeElements()
         {
             elements = new LandingPerfElements(
                 airportInfoControl.airportNameLbl,

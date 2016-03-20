@@ -53,7 +53,7 @@
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.packsComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.aiComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.antiIceComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.weatherInfoControl = new QSP.UI.ToLdgModule.Common.WeatherInfoControl();
             this.GroupBox13.SuspendLayout();
             this.GroupBox14.SuspendLayout();
@@ -99,13 +99,13 @@
             this.tableLayoutPanel7.ColumnCount = 3;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.87032F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.12968F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 135F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137F));
             this.tableLayoutPanel7.Controls.Add(this.thrustRatingComboBox, 2, 1);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel4, 1, 1);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel1, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel3, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.packsComboBox, 1, 3);
-            this.tableLayoutPanel7.Controls.Add(this.aiComboBox, 1, 2);
+            this.tableLayoutPanel7.Controls.Add(this.antiIceComboBox, 1, 2);
             this.tableLayoutPanel7.Controls.Add(this.requestBtn, 2, 0);
             this.tableLayoutPanel7.Controls.Add(this.Label101, 0, 1);
             this.tableLayoutPanel7.Controls.Add(this.Label100, 0, 2);
@@ -129,12 +129,12 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.76786F));
             this.tableLayoutPanel4.Controls.Add(this.thrustRatingLbl, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.flapsComboBox, 0, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(120, 70);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(119, 70);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(224, 35);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(223, 35);
             this.tableLayoutPanel4.TabIndex = 38;
             // 
             // thrustRatingLbl
@@ -157,7 +157,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.acListComboBox, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(122, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(120, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -239,7 +239,7 @@
             this.requestBtn.BackColor = System.Drawing.SystemColors.Control;
             this.requestBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.requestBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.requestBtn.Location = new System.Drawing.Point(357, 19);
+            this.requestBtn.Location = new System.Drawing.Point(356, 19);
             this.requestBtn.Margin = new System.Windows.Forms.Padding(0);
             this.requestBtn.Name = "requestBtn";
             this.requestBtn.Size = new System.Drawing.Size(110, 31);
@@ -357,7 +357,7 @@
             "TO",
             "TO1",
             "TO2"});
-            this.thrustRatingComboBox.Location = new System.Drawing.Point(357, 72);
+            this.thrustRatingComboBox.Location = new System.Drawing.Point(356, 72);
             this.thrustRatingComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.thrustRatingComboBox.Name = "thrustRatingComboBox";
             this.thrustRatingComboBox.Size = new System.Drawing.Size(110, 31);
@@ -437,30 +437,30 @@
             this.packsComboBox.Items.AddRange(new object[] {
             "ON",
             "OFF"});
-            this.packsComboBox.Location = new System.Drawing.Point(156, 142);
+            this.packsComboBox.Location = new System.Drawing.Point(155, 142);
             this.packsComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.packsComboBox.Name = "packsComboBox";
             this.packsComboBox.Size = new System.Drawing.Size(151, 31);
             this.packsComboBox.TabIndex = 45;
             // 
-            // aiComboBox
+            // antiIceComboBox
             // 
-            this.aiComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.aiComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.aiComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.aiComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.aiComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.aiComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aiComboBox.FormattingEnabled = true;
-            this.aiComboBox.Items.AddRange(new object[] {
+            this.antiIceComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.antiIceComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.antiIceComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.antiIceComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.antiIceComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.antiIceComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.antiIceComboBox.FormattingEnabled = true;
+            this.antiIceComboBox.Items.AddRange(new object[] {
             "OFF",
             "ONLY ENG A/I",
             "BOTH ENG AND WING A/I"});
-            this.aiComboBox.Location = new System.Drawing.Point(156, 107);
-            this.aiComboBox.Margin = new System.Windows.Forms.Padding(0);
-            this.aiComboBox.Name = "aiComboBox";
-            this.aiComboBox.Size = new System.Drawing.Size(151, 31);
-            this.aiComboBox.TabIndex = 44;
+            this.antiIceComboBox.Location = new System.Drawing.Point(155, 107);
+            this.antiIceComboBox.Margin = new System.Windows.Forms.Padding(0);
+            this.antiIceComboBox.Name = "antiIceComboBox";
+            this.antiIceComboBox.Size = new System.Drawing.Size(151, 31);
+            this.antiIceComboBox.TabIndex = 44;
             // 
             // weatherInfoControl
             // 
@@ -506,7 +506,7 @@
         internal System.Windows.Forms.GroupBox GroupBox14;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         internal Controls.ComboBoxWithBorder packsComboBox;
-        internal Controls.ComboBoxWithBorder aiComboBox;
+        internal Controls.ComboBoxWithBorder antiIceComboBox;
         internal Controls.ComboBoxWithBorder wtUnitComboBox;
         internal Controls.ComboBoxWithBorder flapsComboBox;
         internal Controls.ComboBoxWithBorder acListComboBox;

@@ -15,7 +15,6 @@ namespace QSP.UI.ToLdgModule.TOPerf
         public TextBox oat { get; private set; }
         public TextBox pressure { get; private set; }
         public TextBox weight { get; private set; }
-        public ComboBox runway { get; private set; }
         public ComboBox lengthUnit { get; private set; }
         public ComboBox slope { get; private set; }
         public ComboBox tempUnit { get; private set; }
@@ -40,7 +39,6 @@ namespace QSP.UI.ToLdgModule.TOPerf
             TextBox oat,
             TextBox pressure,
             TextBox weight,
-            ComboBox runway,
             ComboBox lengthUnit,
             ComboBox slope,
             ComboBox tempUnit,
@@ -64,7 +62,6 @@ namespace QSP.UI.ToLdgModule.TOPerf
             this.oat = oat;
             this.pressure = pressure;
             this.weight = weight;
-            this.runway = runway;
             this.lengthUnit = lengthUnit;
             this.slope = slope;
             this.tempUnit = tempUnit;
