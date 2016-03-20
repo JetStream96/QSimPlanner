@@ -21,7 +21,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         private List<PerfTable> tables;
         private PerfTable currentTable;
         private LandingPerfElements elements;
-        private string metar;
+        private AutoWeatherSetter wxSetter;
 
         public AirportManager Airports
         {
@@ -44,8 +44,8 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private void setWeatherBtnHandlers()
         {
-            weatherInfoControl.GetMetarBtn.Click += getMetarClicked;
-            weatherInfoControl.ViewMetarBtn.Click += viewMetarClicked;
+            wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl);
+            wxSetter.Subscribe();
         }
 
         private void initializeControls()
@@ -186,71 +186,6 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             calculateBtn.Click -= controller.Compute;
 
             controller.CalculationCompleted -= saveState;
-        }
-
-        private void enableDnBtn()
-        {
-            var btn = weatherInfoControl.GetMetarBtn;
-
-            btn.Enabled = true;
-            btn.BackColor = Color.DarkSlateGray;
-            btn.Text = "Import METAR";
-        }
-
-        private void disableDnBtn()
-        {
-            var btn = weatherInfoControl.GetMetarBtn;
-
-            btn.Enabled = false;
-            btn.BackColor = Color.Gray;
-            btn.Text = "Downloading ...";
-        }
-
-        private void viewMetarClicked(object sender, EventArgs e)
-        {
-            var frm = new MetarForm();
-            frm.icaoTxtBox.Text = airportInfoControl.airportTxtBox.Text;
-            frm.icaoTxtBox.Enabled = false;
-            frm.resultRichTxtBox.Text = metar ?? "";
-            frm.sendBtn.Visible = false;
-            frm.downloadBtn.Visible = false;
-            frm.getTafCheckBox.Visible = false;
-            frm.ShowDialog();
-        }
-
-        // Get metar functions.
-        private async void getMetarClicked(object sender, EventArgs e)
-        {
-            disableDnBtn();
-            weatherInfoControl.pictureBox1.Visible = false;
-
-            string icao = airportInfoControl.airportTxtBox.Text;
-            metar = null;
-
-            bool metarAcquired =
-                 await Task.Run(() => MetarDownloader.TryGetMetar(icao, out metar));
-
-            if (metarAcquired)
-            {
-                var w = weatherInfoControl;
-
-                if (WeatherAutoFiller.Fill(
-                    metar,
-                    w.windDirTxtBox,
-                    w.windSpdTxtBox,
-                    w.oatTxtBox,
-                    w.tempUnitComboBox,
-                    w.pressTxtBox,
-                    w.pressUnitComboBox))
-                {
-                    enableDnBtn();
-                    w.pictureBox1.Visible = true;
-                }
-                else
-                {
-                    MessageBox.Show(@"Unable to fill the weather information automatically.");
-                }
-            }
         }
     }
 }
