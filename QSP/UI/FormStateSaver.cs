@@ -51,38 +51,38 @@ namespace QSP.UI
                     filePath = statesDirectory + "\\LastRunMain.txt";
                     break;
 
-                case PageOfForm.Takeoff:
+                //case PageOfForm.Takeoff:
 
-                    txtBoxes = new TextBox[] {
-                        frm.AD,
-                        frm.elevation,
-                        frm.RwyHeading,
-                        frm.windspd,
-                        frm.winddir,
-                        frm.OAT,
-                        frm.altimeter,
-                        frm.Weight
-                    };
+                //    txtBoxes = new TextBox[] {
+                //        frm.AD,
+                //        frm.elevation,
+                //        frm.RwyHeading,
+                //        frm.windspd,
+                //        frm.winddir,
+                //        frm.OAT,
+                //        frm.altimeter,
+                //        frm.Weight
+                //    };
 
-                    comboBoxes = new ComboBox[] {
-                        frm.RWY,
-                        frm.m_ft,
-                        frm.temp_c_f,
-                        frm.hpa_inHg,
-                        frm.surf_cond,
-                        frm.ACListTOComboBox,
-                        frm.WTunit,
-                        frm.Flaps,
-                        frm.AISel,
-                        frm.PacksSel,
-                        frm.ThrustRating_Box,
-                        frm.Flaps,
-                        frm.AISel,
-                        frm.PacksSel
-                    };
+                //    comboBoxes = new ComboBox[] {
+                //        frm.RWY,
+                //        frm.m_ft,
+                //        frm.temp_c_f,
+                //        frm.hpa_inHg,
+                //        frm.surf_cond,
+                //        frm.ACListTOComboBox,
+                //        frm.WTunit,
+                //        frm.Flaps,
+                //        frm.AISel,
+                //        frm.PacksSel,
+                //        frm.ThrustRating_Box,
+                //        frm.Flaps,
+                //        frm.AISel,
+                //        frm.PacksSel
+                //    };
 
-                    filePath = statesDirectory + "\\LastRunTO.txt";
-                    break;                    
+                //    filePath = statesDirectory + "\\LastRunTO.txt";
+                //    break;                    
             }
 
         }

@@ -171,7 +171,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             {
                 thrustRating = elements.thrustRating.SelectedIndex;
 
-                if (thrustRating < 0)
+                if (elements.thrustRating.Visible && thrustRating < 0)
                 {
                     throw new InvalidUserInputException("Thrust rating is invalid.");
                 }

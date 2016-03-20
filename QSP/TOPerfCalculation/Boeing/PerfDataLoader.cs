@@ -4,8 +4,6 @@ using QSP.TOPerfCalculation.Boeing.PerfData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.Arrays;
@@ -235,17 +233,21 @@ namespace QSP.TOPerfCalculation.Boeing
         {
             thrustRatings = new List<string>();
             derateTables = new List<AlternateThrustTable>();
+            var elements = individualNode.Element("Derates")?.Elements();
 
-            foreach (var i in individualNode.Elements())
+            if (elements != null)
             {
-                if (i.Name.ToString() == "FullThrustName")
+                foreach (var i in elements)
                 {
-                    thrustRatings.Insert(0, i.Value);
-                }
-                else
-                {
-                    thrustRatings.Add(i.Name.ToString());
-                    derateTables.Add(loadAltnRatingTable(i.Value, wtUnitIsKG));
+                    if (i.Name.ToString() == "FullThrustName")
+                    {
+                        thrustRatings.Insert(0, i.Value);
+                    }
+                    else
+                    {
+                        thrustRatings.Add(i.Name.ToString());
+                        derateTables.Add(loadAltnRatingTable(i.Value, wtUnitIsKG));
+                    }
                 }
             }
         }

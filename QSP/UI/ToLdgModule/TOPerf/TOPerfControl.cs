@@ -1,23 +1,21 @@
-﻿using System;
+﻿using QSP.Metar;
+using QSP.RouteFinding.Airports;
+using QSP.TOPerfCalculation;
+using QSP.UI.ControlStates;
+using QSP.UI.ToLdgModule.Common;
+using QSP.UI.ToLdgModule.TOPerf.Controllers;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.RouteFinding.Airports;
-using QSP.UI.ToLdgModule.TOPerf;
-using QSP.Metar;
-using QSP.UI.ToLdgModule.Common;
-using QSP.TOPerfCalculation;
-using QSP.UI.ToLdgModule.TOPerf.Controllers;
 
 namespace QSP.UI.ToLdgModule.TOPerf
 {
     public partial class TOPerfControl : UserControl
     {
+        private const string fileName = "TakeoffPerfControl.xml";
+
         private FormController controller;
         private TOPerfElements elements;
         private List<PerfTable> tables;
@@ -57,6 +55,25 @@ namespace QSP.UI.ToLdgModule.TOPerf
             {
                 acListComboBox.Items.Add(i.Entry.Aircraft);
             }
+        }
+
+        public void TryLoadState()
+        {
+            var doc = StateManager.Load(fileName);
+            if (doc != null)
+            {
+                new ControlState(this).Load(doc);
+            }
+        }
+
+        private void trySaveState()
+        {
+            StateManager.Save(fileName, new ControlState(this).Save());
+        }
+
+        private void saveState(object sender, EventArgs e)
+        {
+            trySaveState();
         }
 
         // TODO: Extract common codes.
@@ -205,7 +222,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
             flapsComboBox.SelectedIndexChanged += controller.FlapsChanged;
             calculateBtn.Click += controller.Compute;
 
-            //controller.CalculationCompleted += saveState;
+            controller.CalculationCompleted += saveState;
         }
 
         private void unSubscribe(FormController controller)
@@ -214,7 +231,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
             flapsComboBox.SelectedIndexChanged -= controller.FlapsChanged;
             calculateBtn.Click -= controller.Compute;
 
-            //controller.CalculationCompleted -= saveState;
+            controller.CalculationCompleted -= saveState;
         }
     }
 }

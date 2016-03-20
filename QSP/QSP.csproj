@@ -259,6 +259,7 @@
     <Compile Include="UI\ToLdgModule\TOPerf\Controllers\BoeingParameterValidator.cs" />
     <Compile Include="UI\ToLdgModule\TOPerf\Controllers\FormController.cs" />
     <Compile Include="UI\ToLdgModule\TOPerf\Controllers\FormControllerFactory.cs" />
+    <Compile Include="UI\ToLdgModule\TOPerf\ControlState.cs" />
     <Compile Include="UI\ToLdgModule\TOPerf\TOPerfElements.cs" />
     <Compile Include="UI\ToLdgModule\TOPerf\TOPerfControl.cs">
       <SubType>UserControl</SubType>
@@ -342,16 +343,7 @@
     <Compile Include="RouteFinding\RouteAnalyzers\BasicRouteAnalyzer.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarHandler.cs" />
     <Compile Include="RouteFinding\Utilities.cs" />
-    <Compile Include="TakeOffPerfCalculation\AircraftParameters.cs" />
-    <Compile Include="TakeOffPerfCalculation\AlternateThrustTable.cs" />
-    <Compile Include="TakeOffPerfCalculation\Enums.cs" />
-    <Compile Include="TakeOffPerfCalculation\InfoRequest.cs" />
-    <Compile Include="TakeOffPerfCalculation\LoadedData.cs" />
-    <Compile Include="TakeOffPerfCalculation\ParameterImporter.cs" />
-    <Compile Include="TakeOffPerfCalculation\PerfTableImporter.cs" />
     <Compile Include="TOPerfCalculation\TOCalcResult.cs" />
-    <Compile Include="TakeOffPerfCalculation\TOPerfCalculator.cs" />
-    <Compile Include="TakeOffPerfCalculation\TOPerfParameters.cs" />
     <Compile Include="UIElement\TablessControl.cs">
       <SubType>Component</SubType>
     </Compile>

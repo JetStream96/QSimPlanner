@@ -29,16 +29,23 @@
         private void InitializeComponent()
         {
             this.GroupBox13 = new System.Windows.Forms.GroupBox();
+            this.airportInfoControl = new QSP.UI.ToLdgModule.Common.AirportInfo.AirportInfoControl();
             this.GroupBox14 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.thrustRatingComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.thrustRatingLbl = new System.Windows.Forms.Label();
+            this.flapsComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.weightTxtBox = new System.Windows.Forms.TextBox();
+            this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.Label97 = new System.Windows.Forms.Label();
             this.Label102 = new System.Windows.Forms.Label();
+            this.packsComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.antiIceComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.requestBtn = new System.Windows.Forms.Button();
             this.Label101 = new System.Windows.Forms.Label();
             this.Label100 = new System.Windows.Forms.Label();
@@ -47,13 +54,6 @@
             this.GroupBox16 = new System.Windows.Forms.GroupBox();
             this.resultsRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.GroupBox15 = new System.Windows.Forms.GroupBox();
-            this.airportInfoControl = new QSP.UI.ToLdgModule.Common.AirportInfo.AirportInfoControl();
-            this.thrustRatingComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.flapsComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.packsComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.antiIceComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.weatherInfoControl = new QSP.UI.ToLdgModule.Common.WeatherInfoControl();
             this.GroupBox13.SuspendLayout();
             this.GroupBox14.SuspendLayout();
@@ -80,6 +80,15 @@
             this.GroupBox13.TabStop = false;
             this.GroupBox13.Text = "Runway";
             // 
+            // airportInfoControl
+            // 
+            this.airportInfoControl.Airports = null;
+            this.airportInfoControl.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.airportInfoControl.Location = new System.Drawing.Point(7, 20);
+            this.airportInfoControl.Name = "airportInfoControl";
+            this.airportInfoControl.Size = new System.Drawing.Size(490, 210);
+            this.airportInfoControl.TabIndex = 33;
+            // 
             // GroupBox14
             // 
             this.GroupBox14.BackColor = System.Drawing.Color.Transparent;
@@ -99,7 +108,7 @@
             this.tableLayoutPanel7.ColumnCount = 3;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.87032F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.12968F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 138F));
             this.tableLayoutPanel7.Controls.Add(this.thrustRatingComboBox, 2, 1);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel4, 1, 1);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel1, 1, 0);
@@ -121,6 +130,25 @@
             this.tableLayoutPanel7.Size = new System.Drawing.Size(480, 175);
             this.tableLayoutPanel7.TabIndex = 33;
             // 
+            // thrustRatingComboBox
+            // 
+            this.thrustRatingComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.thrustRatingComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.thrustRatingComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.thrustRatingComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.thrustRatingComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.thrustRatingComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.thrustRatingComboBox.FormattingEnabled = true;
+            this.thrustRatingComboBox.Items.AddRange(new object[] {
+            "TO",
+            "TO1",
+            "TO2"});
+            this.thrustRatingComboBox.Location = new System.Drawing.Point(355, 72);
+            this.thrustRatingComboBox.Margin = new System.Windows.Forms.Padding(0);
+            this.thrustRatingComboBox.Name = "thrustRatingComboBox";
+            this.thrustRatingComboBox.Size = new System.Drawing.Size(110, 31);
+            this.thrustRatingComboBox.TabIndex = 46;
+            // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -134,7 +162,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(223, 35);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(222, 35);
             this.tableLayoutPanel4.TabIndex = 38;
             // 
             // thrustRatingLbl
@@ -142,12 +170,34 @@
             this.thrustRatingLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.thrustRatingLbl.AutoSize = true;
             this.thrustRatingLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.thrustRatingLbl.Location = new System.Drawing.Point(120, 6);
+            this.thrustRatingLbl.Location = new System.Drawing.Point(119, 6);
             this.thrustRatingLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.thrustRatingLbl.Name = "thrustRatingLbl";
             this.thrustRatingLbl.Size = new System.Drawing.Size(95, 23);
             this.thrustRatingLbl.TabIndex = 43;
             this.thrustRatingLbl.Text = "THR Rating";
+            // 
+            // flapsComboBox
+            // 
+            this.flapsComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.flapsComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.flapsComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.flapsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.flapsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.flapsComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.flapsComboBox.FormattingEnabled = true;
+            this.flapsComboBox.Items.AddRange(new object[] {
+            "737-600",
+            "737-700",
+            "737-800",
+            "737-900",
+            "777-200LR",
+            "777F"});
+            this.flapsComboBox.Location = new System.Drawing.Point(8, 2);
+            this.flapsComboBox.Margin = new System.Windows.Forms.Padding(0);
+            this.flapsComboBox.Name = "flapsComboBox";
+            this.flapsComboBox.Size = new System.Drawing.Size(98, 31);
+            this.flapsComboBox.TabIndex = 42;
             // 
             // tableLayoutPanel1
             // 
@@ -193,6 +243,47 @@
             this.weightTxtBox.TabIndex = 16;
             this.weightTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // wtUnitComboBox
+            // 
+            this.wtUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.wtUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.wtUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.wtUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.wtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.wtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.wtUnitComboBox.FormattingEnabled = true;
+            this.wtUnitComboBox.Items.AddRange(new object[] {
+            "KG",
+            "LB"});
+            this.wtUnitComboBox.Location = new System.Drawing.Point(112, 2);
+            this.wtUnitComboBox.Margin = new System.Windows.Forms.Padding(0);
+            this.wtUnitComboBox.Name = "wtUnitComboBox";
+            this.wtUnitComboBox.Size = new System.Drawing.Size(98, 31);
+            this.wtUnitComboBox.TabIndex = 43;
+            // 
+            // acListComboBox
+            // 
+            this.acListComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.acListComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.acListComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.acListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.acListComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.acListComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acListComboBox.FormattingEnabled = true;
+            this.acListComboBox.Items.AddRange(new object[] {
+            "737-600",
+            "737-700",
+            "737-800",
+            "737-900",
+            "777-200LR",
+            "777F"});
+            this.acListComboBox.Location = new System.Drawing.Point(7, 2);
+            this.acListComboBox.Margin = new System.Windows.Forms.Padding(0);
+            this.acListComboBox.Name = "acListComboBox";
+            this.acListComboBox.Size = new System.Drawing.Size(205, 31);
+            this.acListComboBox.TabIndex = 41;
+            this.acListComboBox.SelectedIndexChanged += new System.EventHandler(this.acListComboBox_SelectedIndexChanged);
+            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 1;
@@ -233,13 +324,50 @@
             this.Label102.TabIndex = 8;
             this.Label102.Text = "TOWT";
             // 
+            // packsComboBox
+            // 
+            this.packsComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.packsComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.packsComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.packsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.packsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.packsComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.packsComboBox.FormattingEnabled = true;
+            this.packsComboBox.Items.AddRange(new object[] {
+            "ON",
+            "OFF"});
+            this.packsComboBox.Location = new System.Drawing.Point(154, 142);
+            this.packsComboBox.Margin = new System.Windows.Forms.Padding(0);
+            this.packsComboBox.Name = "packsComboBox";
+            this.packsComboBox.Size = new System.Drawing.Size(151, 31);
+            this.packsComboBox.TabIndex = 45;
+            // 
+            // antiIceComboBox
+            // 
+            this.antiIceComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.antiIceComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.antiIceComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.antiIceComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.antiIceComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.antiIceComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.antiIceComboBox.FormattingEnabled = true;
+            this.antiIceComboBox.Items.AddRange(new object[] {
+            "OFF",
+            "ONLY ENG A/I",
+            "BOTH ENG AND WING A/I"});
+            this.antiIceComboBox.Location = new System.Drawing.Point(154, 107);
+            this.antiIceComboBox.Margin = new System.Windows.Forms.Padding(0);
+            this.antiIceComboBox.Name = "antiIceComboBox";
+            this.antiIceComboBox.Size = new System.Drawing.Size(151, 31);
+            this.antiIceComboBox.TabIndex = 44;
+            // 
             // requestBtn
             // 
             this.requestBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.requestBtn.BackColor = System.Drawing.SystemColors.Control;
             this.requestBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.requestBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.requestBtn.Location = new System.Drawing.Point(356, 19);
+            this.requestBtn.Location = new System.Drawing.Point(355, 19);
             this.requestBtn.Margin = new System.Windows.Forms.Padding(0);
             this.requestBtn.Name = "requestBtn";
             this.requestBtn.Size = new System.Drawing.Size(110, 31);
@@ -334,133 +462,6 @@
             this.GroupBox15.TabIndex = 34;
             this.GroupBox15.TabStop = false;
             this.GroupBox15.Text = "Weather";
-            // 
-            // airportInfoControl
-            // 
-            this.airportInfoControl.Airports = null;
-            this.airportInfoControl.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.airportInfoControl.Location = new System.Drawing.Point(7, 20);
-            this.airportInfoControl.Name = "airportInfoControl";
-            this.airportInfoControl.Size = new System.Drawing.Size(490, 210);
-            this.airportInfoControl.TabIndex = 33;
-            // 
-            // thrustRatingComboBox
-            // 
-            this.thrustRatingComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.thrustRatingComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.thrustRatingComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.thrustRatingComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.thrustRatingComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.thrustRatingComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.thrustRatingComboBox.FormattingEnabled = true;
-            this.thrustRatingComboBox.Items.AddRange(new object[] {
-            "TO",
-            "TO1",
-            "TO2"});
-            this.thrustRatingComboBox.Location = new System.Drawing.Point(356, 72);
-            this.thrustRatingComboBox.Margin = new System.Windows.Forms.Padding(0);
-            this.thrustRatingComboBox.Name = "thrustRatingComboBox";
-            this.thrustRatingComboBox.Size = new System.Drawing.Size(110, 31);
-            this.thrustRatingComboBox.TabIndex = 46;
-            // 
-            // flapsComboBox
-            // 
-            this.flapsComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.flapsComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.flapsComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.flapsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.flapsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.flapsComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flapsComboBox.FormattingEnabled = true;
-            this.flapsComboBox.Items.AddRange(new object[] {
-            "737-600",
-            "737-700",
-            "737-800",
-            "737-900",
-            "777-200LR",
-            "777F"});
-            this.flapsComboBox.Location = new System.Drawing.Point(9, 2);
-            this.flapsComboBox.Margin = new System.Windows.Forms.Padding(0);
-            this.flapsComboBox.Name = "flapsComboBox";
-            this.flapsComboBox.Size = new System.Drawing.Size(98, 31);
-            this.flapsComboBox.TabIndex = 42;
-            // 
-            // wtUnitComboBox
-            // 
-            this.wtUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.wtUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.wtUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.wtUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.wtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.wtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wtUnitComboBox.FormattingEnabled = true;
-            this.wtUnitComboBox.Items.AddRange(new object[] {
-            "KG",
-            "LB"});
-            this.wtUnitComboBox.Location = new System.Drawing.Point(112, 2);
-            this.wtUnitComboBox.Margin = new System.Windows.Forms.Padding(0);
-            this.wtUnitComboBox.Name = "wtUnitComboBox";
-            this.wtUnitComboBox.Size = new System.Drawing.Size(98, 31);
-            this.wtUnitComboBox.TabIndex = 43;
-            // 
-            // acListComboBox
-            // 
-            this.acListComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.acListComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.acListComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.acListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.acListComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.acListComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acListComboBox.FormattingEnabled = true;
-            this.acListComboBox.Items.AddRange(new object[] {
-            "737-600",
-            "737-700",
-            "737-800",
-            "737-900",
-            "777-200LR",
-            "777F"});
-            this.acListComboBox.Location = new System.Drawing.Point(7, 2);
-            this.acListComboBox.Margin = new System.Windows.Forms.Padding(0);
-            this.acListComboBox.Name = "acListComboBox";
-            this.acListComboBox.Size = new System.Drawing.Size(205, 31);
-            this.acListComboBox.TabIndex = 41;
-            // 
-            // packsComboBox
-            // 
-            this.packsComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.packsComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.packsComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.packsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.packsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.packsComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.packsComboBox.FormattingEnabled = true;
-            this.packsComboBox.Items.AddRange(new object[] {
-            "ON",
-            "OFF"});
-            this.packsComboBox.Location = new System.Drawing.Point(155, 142);
-            this.packsComboBox.Margin = new System.Windows.Forms.Padding(0);
-            this.packsComboBox.Name = "packsComboBox";
-            this.packsComboBox.Size = new System.Drawing.Size(151, 31);
-            this.packsComboBox.TabIndex = 45;
-            // 
-            // antiIceComboBox
-            // 
-            this.antiIceComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.antiIceComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.antiIceComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.antiIceComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.antiIceComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.antiIceComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.antiIceComboBox.FormattingEnabled = true;
-            this.antiIceComboBox.Items.AddRange(new object[] {
-            "OFF",
-            "ONLY ENG A/I",
-            "BOTH ENG AND WING A/I"});
-            this.antiIceComboBox.Location = new System.Drawing.Point(155, 107);
-            this.antiIceComboBox.Margin = new System.Windows.Forms.Padding(0);
-            this.antiIceComboBox.Name = "antiIceComboBox";
-            this.antiIceComboBox.Size = new System.Drawing.Size(151, 31);
-            this.antiIceComboBox.TabIndex = 44;
             // 
             // weatherInfoControl
             // 

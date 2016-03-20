@@ -1,12 +1,7 @@
 ﻿using QSP.AviationTools;
 using QSP.Core;
-using QSP.MathTools.Tables;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static QSP.MathTools.Utilities;
 
 namespace QSP.TOPerfCalculation.Boeing

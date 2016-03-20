@@ -1,4 +1,3 @@
-using QSP.AviationTools;
 using QSP.Core;
 using QSP.LibraryExtension;
 using QSP.RouteFinding;
@@ -10,7 +9,6 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.RouteFinding.Tracks.Common;
-using QSP.TakeOffPerfCalculation;
 using QSP.UI;
 using QSP.Metar;
 using QSP.Utilities;
@@ -219,7 +217,7 @@ namespace QSP
 
             LoadNavDBUpdateStatusStrip(true);
             ServiceInitializer.Initailize();
-            TakeOffPerfCalculation.LoadedData.Load();
+            //TakeOffPerfCalculation.LoadedData.Load();
             //TODO: LandingPerfCalculation.LoadedData.Load();
 
             //load previous form states
@@ -525,17 +523,21 @@ namespace QSP
 
         private void ShowTO_Btn_Click(object sender, EventArgs e)
         {
-            if (InitializeFinished_TO == false)
+            if (takeoffControlInitialized == false)
             {
-                TakeoffLoadDefaultState();
+                takeoffControlInitialized = true;
+                toPerfControl.InitializeAircrafts();
+                toPerfControl.Airports = AirportList;
+                toPerfControl.TryLoadState();
             }
             viewChanger.ShowPage(ViewManager.Pages.TakeoffPerf);
         }
 
         private void ShowLDG_Btn_Click(object sender, EventArgs e)
         {
-            if (InitializeFinished_LDG == false)
+            if (landingControlInitialized == false)
             {
+                landingControlInitialized = true;
                 landingPerfControl.InitializeAircrafts();
                 landingPerfControl.Airports = AirportList;
                 landingPerfControl.TryLoadState();
@@ -1255,357 +1257,17 @@ namespace QSP
 
         #region "TakeOffPart"
 
-
-        private Airport takeoffAirport;
-        private bool InitializeFinished_TO = false;
+        private bool takeoffControlInitialized = false;
         private string AC_Req;
         private WeightUnit TOWT_Req_Unit;
 
         private int TOWT_Req;
-
-        private void AD_TextChanged(object sender, EventArgs e)
-        {
-            ADName.Text = "";
-            RWY.Items.Clear();
-            RWY.Enabled = false;
-
-            if (AD.Text.Length != 4)
-            {
-                return;
-            }
-
-            takeoffAirport = AirportList.Find(AD.Text);
-
-
-            if (takeoffAirport != null && takeoffAirport.Rwys.Count > 0)
-            {
-                ADName.Text = takeoffAirport.Name.PadLeft(24, ' ');
-
-                foreach (var i in takeoffAirport.Rwys)
-                {
-                    RWY.Items.Add(i.RwyIdent);
-                }
-
-                RWY.SelectedIndex = 0;
-                RWY.Enabled = true;
-
-            }
-
-        }
-
-
-        private void RWY_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int elevationFt = 0;
-            int elevationOppositeRwyFt = 0;
-            int lengthFt = 0;
-
-            int i = RWY.SelectedIndex;
-
-            elevationFt = takeoffAirport.Rwys[i].Elevation;
-            lengthFt = takeoffAirport.Rwys[i].Length;
-
-            switch (m_ft.Text)
-            {
-                case "M":
-                    length.Text = Convert.ToString((int)(lengthFt * AviationTools.Constants.FtMeterRatio));
-                    break;
-                case "FT":
-                    length.Text = Convert.ToString(lengthFt);
-                    break;
-                case "":
-                    m_ft.Text = "FT";
-                    length.Text = Convert.ToString(lengthFt);
-                    break;
-            }
-
-            elevation.Text = Convert.ToString(elevationFt);
-            RwyHeading.Text = takeoffAirport.Rwys[i].Heading;
-
-            int oppositeRwyIndex = -1;
-            string oppRwyIdent = CoversionTools.RwyIdentOppositeDir(RWY.Text);
-
-            for (int j = 0; j <= takeoffAirport.Rwys.Count - 1; j++)
-            {
-                if (takeoffAirport.Rwys[j].RwyIdent == oppRwyIdent)
-                {
-                    oppositeRwyIndex = j;
-                }
-            }
-
-            elevationOppositeRwyFt = takeoffAirport.Rwys[oppositeRwyIndex].Elevation;
-
-            if (oppositeRwyIndex == -1)
-            {
-                Slope.Text = "0";
-            }
-            else
-            {
-                Slope.Text = Convert.ToString(Math.Round((double)(elevationOppositeRwyFt - elevationFt) / lengthFt * 100 * 10) / 10);
-            }
-
-        }
-
-        private void TakeoffLoadDefaultState()
-        {
-            ACListTOComboBox.Text = ACList.Text;
-            ADName.Text = "";
-            m_ft.SelectedIndex = 0;
-            temp_c_f.SelectedIndex = 0;
-            hpa_inHg.SelectedIndex = 0;
-            surf_cond.SelectedIndex = 0;
-            Flaps.SelectedIndex = 0;
-            AISel.SelectedIndex = 0;
-            PacksSel.SelectedIndex = 0;
-            winddir.Text = "0";
-            windspd.Text = "0";
-            Slope.Text = "0";
-
-            if (WtUnitSel_ComboBox.Text == "KG")
-            {
-                WTunit.Text = "KG";
-            }
-            else
-            {
-                WTunit.Text = "LB";
-            }
-
-            Slope.Items.Clear();
-            for (int i = -20; i <= 20; i++)
-            {
-                Slope.Items.Add(Convert.ToString((double)i / 10));
-            }
-
-            formStateManagerTO.Load();
-            InitializeFinished_TO = true;
-        }
-
-        private void AC_list_TO_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateFlapsComboBox();
-            updateThrustRatingDisplay();
-        }
-
-        private void Calculate_Click(object sender, EventArgs e)
-        {
-            Aircraft ac = TOSelectedAC();
-            TOPerfParameters toPara = null;
-
-            try
-            {
-                toPara = QSP.TakeOffPerfCalculation.ParameterImporter.Import();
-            }
-            catch (InvalidUserInputException ex)
-            {
-                Results.ForeColor = Color.Red;
-                Results.Text = ex.Message;
-            }
-
-            TOPerfCalculator perfCalc = new TOPerfCalculator(toPara, ac);
-
-            try
-            {
-                Results.ForeColor = Color.Black;
-                Results.Text = perfCalc.TakeOffReport().ToString(temp_c_f.SelectedIndex == 0 ? TemperatureUnit.Celsius : TemperatureUnit.Fahrenheit, m_ft.Text == "M" ? LengthUnit.Meter : LengthUnit.Feet);
-
-            }
-            catch (Exception ex)
-            {
-
-                if ((ex) is RunwayTooShortException)
-                {
-                    Results.ForeColor = Color.Red;
-                    Results.Text = "Runway length is insufficient for take off.";
-
-
-                }
-                else if ((ex) is PoorClimbPerformanceException)
-                {
-                    Results.ForeColor = Color.Red;
-                    Results.Text = "Aircraft is too heavy to meet climb performance requirement.";
-
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            formStateManagerTO.Save();
-        }
-
-        private Aircraft TOSelectedAC()
-        {
-            return ComboBoxIndexToAC(ACListTOComboBox.SelectedIndex);
-        }
-
-        private Aircraft ComboBoxIndexToAC(int index)
-        {
-            switch (index)
-            {
-                case 0:
-                    return Aircraft.B737600;
-                case 1:
-                    return Aircraft.B737700;
-                case 2:
-                    return Aircraft.B737800;
-                case 3:
-                    return Aircraft.B737900;
-                case 4:
-                    return Aircraft.B777200LR;
-                case 5:
-                    return Aircraft.B777F;
-            }
-            throw new ArgumentOutOfRangeException("Invalid index for an aircraft.");
-        }
-
-        private void UpdateFlapsComboBox()
-        {
-            var allowedFlaps = InfoRequest.AllowedFlaps(TOSelectedAC());
-            string FlapsOld = Flaps.Text;
-
-            Flaps.Items.Clear();
-
-            foreach (var i in allowedFlaps)
-            {
-                Flaps.Items.Add(i);
-            }
-
-            Flaps.SelectedIndex = 0;
-
-            //do not clean the box if the original entry is still valid for the new aircraft
-            foreach (var j in allowedFlaps)
-            {
-                if (FlapsOld == j)
-                {
-                    Flaps.Text = FlapsOld;
-                    break;
-                }
-            }
-        }
-
-
-        private void updateThrustRatingDisplay()
-        {
-            var ac = TOSelectedAC();
-
-            if (InfoRequest.AltnThrustRatingAvail(ac))
-            {
-                ThrustRating_Box.Items.Clear();
-
-                foreach (var i in InfoRequest.AvailThrustRating(ac))
-                {
-                    ThrustRating_Box.Items.Add(InfoRequest.ThrustRatingToString(i));
-                }
-
-                ThrustRating_Lbl.Show();
-                ThrustRating_Box.Show();
-                ThrustRating_Box.SelectedIndex = 0;
-            }
-            else
-            {
-                ThrustRating_Lbl.Hide();
-                ThrustRating_Box.Hide();
-            }
-        }
-
-        private void m_ft_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            double len;
-
-            if (double.TryParse(length.Text, out len) == true)
-            {
-                if (m_ft.Text == "M")
-                {
-                    length.Text = Convert.ToString(Math.Round(len / MeterFtRatio));
-                }
-                else
-                {
-                    length.Text = Convert.ToString(Math.Round(len * MeterFtRatio));
-                }
-            }
-        }
-
-        private void WTunit_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            double weight;
-
-            if (double.TryParse(Weight.Text, out weight) && InitializeFinished_TO)
-            {
-                if (WTunit.Text == "KG")
-                {
-                    Weight.Text = Convert.ToString(Math.Round(weight * LbKgRatio));
-                }
-                else
-                {
-                    Weight.Text = Convert.ToString(Math.Round(weight * KgLbRatio));
-                }
-            }
-        }
-
-        private void temp_c_f_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            double oat;
-
-            if (double.TryParse(OAT.Text, out oat) & InitializeFinished_TO)
-            {
-                if (temp_c_f.Text == "°C")
-                {
-                    OAT.Text = Convert.ToString((int)CoversionTools.ToCelsius(oat));
-                }
-                else
-                {
-                    OAT.Text = Convert.ToString((int)CoversionTools.ToFahrenheit(oat));
-                }
-            }
-
-        }
-
-        private void hpa_inHg_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            double press;
-            if (double.TryParse(altimeter.Text, out press) & InitializeFinished_TO)
-            {
-                if (hpa_inHg.Text == "hPa")
-                {
-                    altimeter.Text = Convert.ToString(Math.Round(press * 1013 / 29.92));
-                }
-                else
-                {
-                    altimeter.Text = Convert.ToString(Math.Round((press * 29.92 / 1013) * 100) / 100);
-                }
-            }
-        }
-
-
-        private void GetMetar_Click(object sender, EventArgs e)
-        {
-            MetarForm metarForm = new MetarForm();
-
-            metarForm.icaoTxtBox.Text = AD.Text;
-            metarForm.FromFormName = "Takeoff";
-            metarForm.icaoTxtBox.Enabled = false;
-
-            metarForm.ShowDialog();
-
-        }
-
-        private void RequestBtn_Click(object sender, EventArgs e)
-        {
-            ACListTOComboBox.Text = AC_Req;
-            WTunit.Text = EnumConversionTools.WeightUnitToString(TOWT_Req_Unit);
-            Weight.Text = Convert.ToString(TOWT_Req);
-        }
-
-        private void ReqAirport_Btn_Click(object sender, EventArgs e)
-        {
-            AD.Text = OrigTxtBox.Text;
-        }
-
+        
         #endregion
 
         #region "LandingPart"
 
-        private bool InitializeFinished_LDG = false;
+        private bool landingControlInitialized = false;
 
 
         //private void RequestBtn_LDG_Click(object sender, EventArgs e)

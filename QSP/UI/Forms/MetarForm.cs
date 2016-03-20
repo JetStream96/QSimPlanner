@@ -1,4 +1,3 @@
-using QSP.MathTools;
 using QSP.Metar;
 using System;
 using static QSP.UI.FormInstanceGetter;
@@ -83,18 +82,18 @@ namespace QSP
                 return;
             }
 
-            if (FromFormName == "Takeoff")
-            {
-                frm.windspd.Text = ((int)Math.Round(wind.Speed)).ToString();
-                frm.winddir.Text = (((int)wind.Direction - 1).Mod(360) + 1).ToString().PadLeft(3, '0');
-                frm.temp_c_f.Text = "°C";
-                frm.OAT.Text = temp.ToString();
-                frm.hpa_inHg.SelectedIndex = (int)press.PressUnit;
-                frm.altimeter.Text =
-                    press.PressUnit == PressureUnit.inHg ?
-                    Math.Round(press.Value, 2).ToString() :
-                    ((int)press.Value).ToString();
-            }
+            //if (FromFormName == "Takeoff")
+            //{
+            //    frm.windspd.Text = ((int)Math.Round(wind.Speed)).ToString();
+            //    frm.winddir.Text = (((int)wind.Direction - 1).Mod(360) + 1).ToString().PadLeft(3, '0');
+            //    frm.temp_c_f.Text = "°C";
+            //    frm.OAT.Text = temp.ToString();
+            //    frm.hpa_inHg.SelectedIndex = (int)press.PressUnit;
+            //    frm.altimeter.Text =
+            //        press.PressUnit == PressureUnit.inHg ?
+            //        Math.Round(press.Value, 2).ToString() :
+            //        ((int)press.Value).ToString();
+            //}
 
             //complete message
             PicBox.Image = Properties.Resources.checkIconLarge;

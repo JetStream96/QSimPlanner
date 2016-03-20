@@ -39,6 +39,8 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             setDefaultSurfCond();
             setDefaultFlaps();
             setDerate();
+            elements.AntiIce.SelectedIndex = 0;
+            elements.Packs.SelectedIndex = 0;
         }
 
         public override void FlapsChanged(object sender, EventArgs e)
@@ -128,7 +130,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             catch(PoorClimbPerformanceException)
             {
                 elements.result.ForeColor = Color.Red;
-                elements.result.Text = "Climb performance is insufficient for takeoff.";
+                elements.result.Text = "Aircraft too heavy to meet climb performance requirement.";
             }
         }
     }
