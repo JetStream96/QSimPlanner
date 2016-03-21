@@ -1,6 +1,6 @@
-﻿using System;
+﻿using QSP.Core;
+using System;
 using System.IO;
-using QSP.Core;
 
 namespace QSP.Utilities
 {
@@ -23,8 +23,6 @@ namespace QSP.Utilities
                 }
             }
             finally { }
-
         }
-
     }
 }

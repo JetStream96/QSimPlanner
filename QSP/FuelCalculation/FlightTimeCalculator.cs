@@ -40,8 +40,8 @@ namespace QSP
                 }
             }
             return (int)(Interpolate1D.Interpolate(
-                TimeRequiredTable[0, m], TimeRequiredTable[0, m + 1], airDistance,
-                TimeRequiredTable[1, m], TimeRequiredTable[1, m + 1]));
+                TimeRequiredTable[0, m], TimeRequiredTable[0, m + 1],
+                TimeRequiredTable[1, m], TimeRequiredTable[1, m + 1], airDistance));
         }
 
         private int[,] importFlightTimeTable(string sourceTxt)

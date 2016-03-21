@@ -4,16 +4,14 @@ using Microsoft.Win32;
 
 namespace QSP.Utilities
 {
-
     public class IeEmulationChecker
     {
         public void Run()
         {
-            if (!RegKeyExists())
+            if (RegKeyExists() == false)
             {
                 AddRegistry();
             }
-
         }
 
         public void AddRegistry()
@@ -37,45 +35,44 @@ namespace QSP.Utilities
             //11001: Force IE11 Emulation
 
             int ver = getIEVersion();
-            int emulation_num = 0;
+            int emulationNum = 0;
 
             if (ver <= 6)
             {
                 //not supported, no emulation avail
                 throw new Exception("Versions of IE6 or earlier is not supported.");
-
             }
             else if (ver == 7)
             {
-                emulation_num = 7000;
+                emulationNum = 7000;
             }
             else if (ver == 8)
             {
-                emulation_num = 8888;
+                emulationNum = 8888;
             }
             else if (ver == 9)
             {
-                emulation_num = 9999;
+                emulationNum = 9999;
             }
             else if (ver == 10)
             {
-                emulation_num = 10001;
+                emulationNum = 10001;
             }
             else
             {
                 //IE 11 or above
-                emulation_num = 11001;
+                emulationNum = 11001;
             }
 
             try
             {
-                Registry.SetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" + "\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION", exeName, emulation_num);
+                Registry.SetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" +
+                    "\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION", exeName, emulationNum);
             }
             catch
             {
                 throw new Exception("Failed to add registry. Please restart the application as administrator.");
             }
-
         }
 
         private int getIEVersion()
@@ -83,7 +80,9 @@ namespace QSP.Utilities
 
             try
             {
-                string version = Convert.ToString(Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer", "Version", ""));
+                string version =
+                    Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer",
+                    "Version", "").ToString();
 
                 if (version == "")
                 {
@@ -104,47 +103,40 @@ namespace QSP.Utilities
                     }
                     else
                     {
-                        version = Convert.ToString(Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer", "svcVersion", ""));
+                        version = Convert.ToString(
+                            Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer",
+                            "svcVersion", ""));
+
                         a = version.Split('.');
                         return Convert.ToInt32(a[0]);
                     }
-
                 }
                 else
                 {
                     return v;
                 }
-
             }
             catch
             {
                 throw new Exception("Failed to get the version of IE.");
             }
-
         }
 
         public bool RegKeyExists()
         {
-
-            if (Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" + "\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION", Assembly.GetEntryAssembly().GetName().Name + ".exe", "") == null)
-            {
-                return false;
-            }
-
-            return true;
-
+            return (Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" +
+                "\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION",
+                Assembly.GetEntryAssembly().GetName().Name + ".exe", "") != null);
         }
 
 #if DEBUG
 
-
         public void DebugRun()
         {
-            if (!DebugRegKeyExists())
+            if (DebugRegKeyExists() == false)
             {
                 DebugAddRegistry();
             }
-
         }
 
         public void DebugAddRegistry()
@@ -154,18 +146,13 @@ namespace QSP.Utilities
 
         public bool DebugRegKeyExists()
         {
-
-            if (Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" + "\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION", Assembly.GetEntryAssembly().GetName().Name + ".vshost.exe", "") == null)
-            {
-                return false;
-            }
-
-            return true;
-
+            return (Registry.GetValue(
+                "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" +
+                "\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION",
+                Assembly.GetEntryAssembly().GetName().Name + ".vshost.exe", "") != null);
         }
 
 #endif
-
 
     }
 }

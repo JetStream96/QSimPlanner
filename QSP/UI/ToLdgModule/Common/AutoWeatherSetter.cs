@@ -10,8 +10,8 @@ namespace QSP.UI.ToLdgModule.Common
     public class AutoWeatherSetter
     {
         private WeatherInfoControl wxControl;
-        private string metar;
         private AirportInfoControl airportControl;
+        private string metar;
 
         public AutoWeatherSetter(WeatherInfoControl wxControl, AirportInfoControl airportControl)
         {

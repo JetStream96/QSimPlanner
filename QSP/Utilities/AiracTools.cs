@@ -3,10 +3,8 @@ using static QSP.LibraryExtension.Utilities;
 
 namespace QSP.Utilities
 {
-
-    static class AiracTools
+    public static class AiracTools
     {
-
         /// <summary>
         /// Determines whether the AIRAC cycle is within valid period.
         /// </summary>
@@ -41,19 +39,11 @@ namespace QSP.Utilities
             {
                 yearEnd = yearStart;
             }
-            
+
             DateTime dateStart = new DateTime(2000 + yearStart, monthStart, dayStart);
             DateTime dateEnd = new DateTime(2000 + yearEnd, monthEnd, dayEnd);
 
-            if (DateTime.Today >= dateStart && DateTime.Today <= dateEnd)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (DateTime.Today >= dateStart && DateTime.Today <= dateEnd);
         }
     }
-
 }
