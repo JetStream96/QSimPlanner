@@ -14,7 +14,7 @@ namespace QSP.LandingPerfCalculation.Boeing
         public ReverserOption Reverser { get; private set; }
         public SurfaceCondition SurfaceCondition { get; private set; }
         public int FlapsIndex { get; private set; }
-        public int AutoBrakeIndex { get; private set; }
+        public int BrakeIndex { get; private set; }
 
         public LandingParameters(
             int WeightKG, 
@@ -39,7 +39,7 @@ namespace QSP.LandingPerfCalculation.Boeing
             this.Reverser = Reverser;
             this.SurfaceCondition = SurfaceCondition;
             this.FlapsIndex = FlapsIndex;
-            this.AutoBrakeIndex = AutoBrakeIndex;
+            this.BrakeIndex = AutoBrakeIndex;
         }
     }
 }

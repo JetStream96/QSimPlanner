@@ -45,8 +45,8 @@
             this.elevationTxtBox = new System.Windows.Forms.TextBox();
             this.rwyHeadingTxtBox = new System.Windows.Forms.TextBox();
             this.lengthTxtBox = new System.Windows.Forms.TextBox();
-            this.Label87 = new System.Windows.Forms.Label();
             this.airportNameLbl = new System.Windows.Forms.Label();
+            this.Label87 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -297,6 +297,16 @@
             this.lengthTxtBox.TabIndex = 19;
             this.lengthTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // airportNameLbl
+            // 
+            this.airportNameLbl.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.airportNameLbl.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.airportNameLbl.Location = new System.Drawing.Point(283, 8);
+            this.airportNameLbl.Name = "airportNameLbl";
+            this.airportNameLbl.Size = new System.Drawing.Size(185, 19);
+            this.airportNameLbl.TabIndex = 34;
+            this.airportNameLbl.Text = "   TAIWAN TAOYUAN INTL   ";
+            // 
             // Label87
             // 
             this.Label87.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -308,16 +318,6 @@
             this.Label87.Size = new System.Drawing.Size(27, 23);
             this.Label87.TabIndex = 32;
             this.Label87.Text = "FT";
-            // 
-            // airportNameLbl
-            // 
-            this.airportNameLbl.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.airportNameLbl.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.airportNameLbl.Location = new System.Drawing.Point(283, 8);
-            this.airportNameLbl.Name = "airportNameLbl";
-            this.airportNameLbl.Size = new System.Drawing.Size(185, 19);
-            this.airportNameLbl.TabIndex = 34;
-            this.airportNameLbl.Text = "   TAIWAN TAOYUAN INTL   ";
             // 
             // AirportInfoControl
             // 

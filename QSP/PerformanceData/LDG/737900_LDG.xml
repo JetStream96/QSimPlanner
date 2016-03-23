@@ -15,11 +15,11 @@
 				<WeightStep>4536</WeightStep>
 				<!-- All in KG -->
 				<!-- i.e. "PER 5000 KG ABOVE/BELOW 50000KG". -->
-				
-				<Autobrakes>
+
+      <Brakes>
 						<Dry>MAX MANUAL;MAX AUTO;AUTOBRAKE 3;AUTOBRAKE 2;AUTOBRAKE 1</Dry>
 						<Wet>MAX MANUAL;MAX AUTO;AUTOBRAKE 3;AUTOBRAKE 2</Wet>
-				</Autobrakes>
+				</Brakes>
 
         <Reversers>Both;One Rev;No Rev</Reversers>
 

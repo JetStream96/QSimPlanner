@@ -27,7 +27,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
             ReverserOption Reverser = default(ReverserOption);
             SurfaceCondition SurfaceCondition = default(SurfaceCondition);
             int FlapsIndex = 0;
-            int AutoBrakeIndex = 0;
+            int BrakeIndex = 0;
 
             try
             {
@@ -149,7 +149,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 
 
             FlapsIndex = elements.flaps.SelectedIndex;
-            AutoBrakeIndex = elements.brake.SelectedIndex;
+            BrakeIndex = elements.brake.SelectedIndex;
 
             return new LandingParameters(
                 (int)WeightKG,
@@ -162,7 +162,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
                 Reverser,
                 SurfaceCondition,
                 FlapsIndex,
-                AutoBrakeIndex);
+                BrakeIndex);
         }
     }
 }

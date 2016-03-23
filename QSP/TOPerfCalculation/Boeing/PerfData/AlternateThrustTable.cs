@@ -1,27 +1,27 @@
 using QSP.MathTools.Interpolation;
+using QSP.Core;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
-
     public class AlternateThrustTable
     {
-        private double[] FullThrustWeight;
-        private double[] Dry;
-        private double[] Wet;
-        private double[] Climb;
+        private double[] FullThrustWeights;
+        private double[] DryWeights;
+        private double[] WetWeights;
+        private double[] ClimbWeights;
 
-        public AlternateThrustTable(double[] fullThrustWeight, 
-            double[] dryWeight, 
-            double[] wetWeight, 
-            double[] climbWeight)
+        public AlternateThrustTable(double[] FullThrustWeights,
+            double[] DryWeights,
+            double[] WetWeights,
+            double[] ClimbWeights)
         {
-            this.FullThrustWeight = fullThrustWeight;
-            this.Dry = dryWeight;
-            this.Wet = wetWeight;
-            this.Climb = climbWeight;
+            this.FullThrustWeights = FullThrustWeights;
+            this.DryWeights = DryWeights;
+            this.WetWeights = WetWeights;
+            this.ClimbWeights = ClimbWeights;
         }
 
-        public enum WeightProperty
+        public enum TableType
         {
             Dry,
             Wet,
@@ -32,36 +32,39 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         /// Gets the corresponding full thrust limit weight, for the given condition (dry/wet/climb).
         /// </summary>
         /// <param name="weight">Field limit weight for dry/wet runway, or the climb limit weight.</param>
-        /// <param name="para">Specifies the type of parameter of "weight".</param>
-        public double EquivalentFullThrustWeight(double weight, WeightProperty para)
+        public double EquivalentFullThrustWeight(double weight, TableType para)
         {
             switch (para)
             {
-                case WeightProperty.Dry:
-                    return Interpolate1D.Interpolate(Dry, FullThrustWeight, weight);
+                case TableType.Dry:
+                    return Interpolate1D.Interpolate(DryWeights, FullThrustWeights, weight);
 
-                case WeightProperty.Wet:
-                    return Interpolate1D.Interpolate(Wet, FullThrustWeight, weight);
+                case TableType.Wet:
+                    return Interpolate1D.Interpolate(WetWeights, FullThrustWeights, weight);
+
+                case TableType.Climb:
+                    return Interpolate1D.Interpolate(ClimbWeights, FullThrustWeights, weight);
 
                 default:
-                    //i.e. Climb
-                    return Interpolate1D.Interpolate(Climb, FullThrustWeight, weight);
+                    throw new EnumNotSupportedException();
             }
         }
 
-        public double CorrectedLimitWeight(double fullRatedWt, WeightProperty para)
+        public double CorrectedLimitWeight(double fullRatedWt, TableType para)
         {
             switch (para)
             {
-                case WeightProperty.Dry:
-                    return Interpolate1D.Interpolate(FullThrustWeight, Dry, fullRatedWt);
+                case TableType.Dry:
+                    return Interpolate1D.Interpolate(FullThrustWeights, DryWeights, fullRatedWt);
 
-                case WeightProperty.Wet:
-                    return Interpolate1D.Interpolate(FullThrustWeight, Wet, fullRatedWt);
+                case TableType.Wet:
+                    return Interpolate1D.Interpolate(FullThrustWeights, WetWeights, fullRatedWt);
+
+                case TableType.Climb:
+                    return Interpolate1D.Interpolate(FullThrustWeights, ClimbWeights, fullRatedWt);
 
                 default:
-                    //i.e. Climb
-                    return Interpolate1D.Interpolate(FullThrustWeight, Climb, fullRatedWt);
+                    throw new EnumNotSupportedException();
             }
         }
     }

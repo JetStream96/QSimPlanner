@@ -38,24 +38,24 @@ namespace QSP.LandingPerfCalculation.Boeing
             double wtRefKg = Convert.ToDouble(para.Element("WeightRef").Value);
             double wtStepKg = Convert.ToDouble(para.Element("WeightStep").Value);
 
-            var brks = para.Element("Autobrakes");
-            var autoBrkDry = brks.Element("Dry").Value.Split(';');
-            var autoBrkWet = brks.Element("Wet").Value.Split(';');
-            var reversers = para.Element("Reversers").Value.Split(';'); 
+            var brks = para.Element("Brakes");
+            var brkSettingDry = brks.Element("Dry").Value.Split(';');
+            var brkSettingWet = brks.Element("Wet").Value.Split(';');
+            var reversers = para.Element("Reversers").Value.Split(';');
 
             var data = root.Elements("Data").ToArray();
-            int LEN = data.Length;
-            string[] flaps = new string[LEN];
+            int flapsCount = data.Length;
+            string[] flaps = new string[flapsCount];
 
             var tableDry =
                 JaggedArrays.CreateJaggedArray<double[][][]>
-                (LEN, autoBrkDry.Length, ColumnCount);
+                (flapsCount, brkSettingDry.Length, ColumnCount);
 
             var tableWet =
                 JaggedArrays.CreateJaggedArray<double[][][][]>
-                (LEN, SurfaceCondCount, autoBrkWet.Length, ColumnCount);
+                (flapsCount, SurfaceCondCount, brkSettingWet.Length, ColumnCount);
 
-            for (int i = 0; i < LEN; i++)
+            for (int i = 0; i < flapsCount; i++)
             {
                 flaps[i] = data[i].Element("Flaps").Value;
                 readTableDry(tableDry, i, data[i].Element("Dry").Value);
@@ -74,8 +74,8 @@ namespace QSP.LandingPerfCalculation.Boeing
             return new BoeingPerfTable(
                         wtRefKg,
                         wtStepKg,
-                        autoBrkDry,
-                        autoBrkWet,
+                        brkSettingDry,
+                        brkSettingWet,
                         flaps,
                         reversers,
                         new TableDry(tableDry),
@@ -87,16 +87,16 @@ namespace QSP.LandingPerfCalculation.Boeing
             string[] lines = value.Split(new char[] { '\r', '\n' },
                 StringSplitOptions.RemoveEmptyEntries);
 
-            int LEN1 = Math.Min(item[0].Length, lines.Length);
+            int brakeSettingCount = Math.Min(item[0].Length, lines.Length);
 
-            for (int i = 0; i < LEN1; i++)
+            for (int i = 0; i < brakeSettingCount; i++)
             {
                 var words = lines[i].Split(new char[] { ' ', '\t', '/' },
                     StringSplitOptions.RemoveEmptyEntries);
 
-                int LEN2 = Math.Min(item[0][0].Length, words.Length);
+                int columnCount = Math.Min(item[0][0].Length, words.Length);
 
-                for (int j = 0; j < LEN2; j++)
+                for (int j = 0; j < columnCount; j++)
                 {
                     item[firstIndex][i][j] = Convert.ToDouble(words[j]);
                 }
@@ -108,15 +108,15 @@ namespace QSP.LandingPerfCalculation.Boeing
             string[] lines = value.Split(new char[] { '\r', '\n' },
                 StringSplitOptions.RemoveEmptyEntries);
 
-            int LEN1 = Math.Min(item[0][0].Length, lines.Length);
+            int brakeSettingCount = Math.Min(item[0][0].Length, lines.Length);
 
-            for (int i = 0; i < LEN1; i++)
+            for (int i = 0; i < brakeSettingCount; i++)
             {
                 var words = lines[i].Split(new char[] { ' ', '\t', '/' },
                     StringSplitOptions.RemoveEmptyEntries);
 
-                int LEN2 = Math.Min(item[0][0][0].Length, words.Length);
-                for (int j = 0; j < LEN2; j++)
+                int columnCount = Math.Min(item[0][0][0].Length, words.Length);
+                for (int j = 0; j < columnCount; j++)
                 {
                     item[firstIndex][secondIndex][i][j] = Convert.ToDouble(words[j]);
                 }

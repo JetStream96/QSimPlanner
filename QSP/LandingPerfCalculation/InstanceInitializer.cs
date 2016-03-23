@@ -1,7 +1,8 @@
 ﻿using QSP.LandingPerfCalculation.Boeing;
+using QSP.Utilities;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System;
 
 namespace QSP.LandingPerfCalculation
 {
@@ -20,9 +21,9 @@ namespace QSP.LandingPerfCalculation
                 {
                     result.Add(new PerfDataLoader().ReadFromXml(i));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // TODO:
+                    ErrorLogger.WriteToLog(ex);
                 }
             }
 

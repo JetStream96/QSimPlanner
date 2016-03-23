@@ -24,10 +24,10 @@ namespace QSP.TOPerfCalculation.Boeing
         public PerfTable ReadFromXml(string filepath)
         {
             XDocument doc = XDocument.Load(filepath);
-            return new PerfTable(readTable(doc.Root), GetEntry(filepath, doc));
+            return new PerfTable(ReadTable(doc.Root), GetEntry(filepath, doc));
         }
 
-        private BoeingPerfTable readTable(XElement root)
+        public BoeingPerfTable ReadTable(XElement root)
         {
             return new BoeingPerfTable(root.Elements("IndividualTable")
                                        .Select(x => readIndividualTable(x))
@@ -110,7 +110,8 @@ namespace QSP.TOPerfCalculation.Boeing
         }
 
         // node should be "Dry" or "Wet" node
-        private static Tuple<Table3D, Table2D> getFieldClimbLimitWt(XElement node, bool lenthIsMeter, bool WtIsKG)
+        private static Pair<Table3D, Table2D> getFieldClimbLimitWt(
+            XElement node, bool lenthIsMeter, bool WtIsKG)
         {
             var tables = node.Elements("WeightTable");
 
@@ -185,7 +186,7 @@ namespace QSP.TOPerfCalculation.Boeing
                 fieldLim.Multiply(LbKgRatio);
             }
 
-            return new Tuple<Table3D, Table2D>(
+            return new Pair<Table3D, Table2D>(
                  new Table3D(altitudes, lengths, oats, fieldLim),
                  new Table2D(altitudes, oats, climbLim));
 
@@ -255,18 +256,16 @@ namespace QSP.TOPerfCalculation.Boeing
         private static AlternateThrustTable loadAltnRatingTable(string item, bool wtUnitIsKG)
         {
             var lines = item.Split(lineChangeChars, StringSplitOptions.RemoveEmptyEntries);
-            string[] words = lines[0].Split(spaceChars, StringSplitOptions.RemoveEmptyEntries);
-            int len = words.Length;
             int flag = 0;
 
-            var fullThrust = new double[len];
-            var dry = new double[len];
-            var wet = new double[len];
-            var climb = new double[len];
+            double[] fullThrust = null;
+            double[] dry = null;
+            double[] wet = null;
+            double[] climb = null;
 
             foreach (string i in lines)
             {
-                words = i.Split(spaceChars, StringSplitOptions.RemoveEmptyEntries);
+                var words = i.Split(spaceChars, StringSplitOptions.RemoveEmptyEntries);
 
                 if (words.Length > 0 && flag <= 3)
                 {

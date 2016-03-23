@@ -3,7 +3,7 @@
     public class IndividualPerfTable
     {
         // All Rwy lengths in meter.
-        // All Weights in KG
+        // In tables, all Weights are in ton.
         // All wind speeds in knots.
 
         // Corrections for limit weights.
@@ -17,6 +17,8 @@
         public double AIEngDry { get; private set; }
         public double AIEngWet { get; private set; }
         public double AIEngClimb { get; private set; }
+        //
+
         public string Flaps { get; private set; }
         public bool AltnRatingAvail { get; private set; }
         public AlternateThrustTable[] AlternateThrustTables { get; private set; }

@@ -1,4 +1,5 @@
 ﻿using QSP.TOPerfCalculation.Boeing;
+using QSP.Utilities;
 using System.Collections.Generic;
 using System.IO;
 using System;
@@ -20,9 +21,9 @@ namespace QSP.TOPerfCalculation
                 {
                     result.Add(new PerfDataLoader().ReadFromXml(i));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // TODO:
+                    ErrorLogger.WriteToLog(ex);
                 }
             }
 

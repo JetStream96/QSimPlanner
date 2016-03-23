@@ -135,7 +135,8 @@ namespace QSP.TOPerfCalculation.Boeing
         }
 
         /// <summary>
-        /// Returns the corrected weight (for field) for TO1 or TO2, in ton. The aircraft MUST have alternate rating available.
+        /// Returns the corrected weight (for field) for TO1 or TO2, in ton. 
+        /// The aircraft MUST have alternate rating available.
         /// It's NECESSARY that either TO1 or TO2 is selected in toPara.
         /// </summary>
         /// <param name="fullRatedWtTon">Full rated thrust weight, in ton.</param>
@@ -146,10 +147,18 @@ namespace QSP.TOPerfCalculation.Boeing
             switch (para)
             {
                 case AltnThrustOption.GetEquivFullThrustWeight:
-                    return altnRatingTable.EquivalentFullThrustWeight(fullRatedWtTon, this.para.SurfaceWet ? AlternateThrustTable.WeightProperty.Wet : AlternateThrustTable.WeightProperty.Dry);
+                    return altnRatingTable.EquivalentFullThrustWeight(
+                        fullRatedWtTon, 
+                        this.para.SurfaceWet ? 
+                        AlternateThrustTable.TableType.Wet : 
+                        AlternateThrustTable.TableType.Dry);
 
                 default:
-                    return altnRatingTable.CorrectedLimitWeight(fullRatedWtTon, this.para.SurfaceWet ? AlternateThrustTable.WeightProperty.Wet : AlternateThrustTable.WeightProperty.Dry);
+                    return altnRatingTable.CorrectedLimitWeight(
+                        fullRatedWtTon, 
+                        this.para.SurfaceWet ? 
+                        AlternateThrustTable.TableType.Wet : 
+                        AlternateThrustTable.TableType.Dry);
             }
         }
 
@@ -203,7 +212,7 @@ namespace QSP.TOPerfCalculation.Boeing
             {
                 return table.AlternateThrustTables[para.ThrustRating - 1]
                     .CorrectedLimitWeight(limitWtTon,
-                             AlternateThrustTable.WeightProperty.Climb);
+                             AlternateThrustTable.TableType.Climb);
             }
             else
             {
