@@ -60,7 +60,10 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
 
             if (table.AltnRatingAvail)
             {
-                items.AddRange(table.ThrustRatings);
+                foreach (var i in table.ThrustRatings)
+                {
+                    items.Add(i);
+                }
 
                 thrustComboBox.SelectedIndex = 0;
                 thrustComboBox.Text = text;
@@ -127,7 +130,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
                 elements.result.ForeColor = Color.Red;
                 elements.result.Text = "Runway length is insufficient for takeoff.";
             }
-            catch(PoorClimbPerformanceException)
+            catch (PoorClimbPerformanceException)
             {
                 elements.result.ForeColor = Color.Red;
                 elements.result.Text = "Aircraft too heavy to meet climb performance requirement.";

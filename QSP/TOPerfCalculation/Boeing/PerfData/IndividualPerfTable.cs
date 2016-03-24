@@ -1,4 +1,9 @@
-﻿namespace QSP.TOPerfCalculation.Boeing.PerfData
+﻿using System.Collections.ObjectModel;
+using System.Collections;
+using System.Collections.Generic;
+using System;
+
+namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
     public class IndividualPerfTable
     {
@@ -21,8 +26,25 @@
 
         public string Flaps { get; private set; }
         public bool AltnRatingAvail { get; private set; }
-        public AlternateThrustTable[] AlternateThrustTables { get; private set; }
-        public string[] ThrustRatings { get; private set; }
+
+        private AlternateThrustTable[] _alternateThrustTables;
+        public ReadOnlyCollection<AlternateThrustTable> AlternateThrustTables
+        {
+            get
+            {
+                return Array.AsReadOnly(_alternateThrustTables);
+            }
+        }
+
+        private string[] _thrustRatings;
+        public ReadOnlyCollection<string> ThrustRatings
+        {
+            get
+            {
+                return Array.AsReadOnly(_thrustRatings);
+            }
+        }
+
         public SlopeCorrTable SlopeCorrDry { get; private set; }
         public SlopeCorrTable SlopeCorrWet { get; private set; }
         public WindCorrTable WindCorrDry { get; private set; }
@@ -64,8 +86,8 @@
             this.AIEngClimb = AIEngClimb;
             this.Flaps = Flaps;
             this.AltnRatingAvail = AltnRatingAvail;
-            this.AlternateThrustTables = AlternateThrustTables;
-            this.ThrustRatings = ThrustRatings;
+            _alternateThrustTables = AlternateThrustTables;
+            _thrustRatings = ThrustRatings;
             this.SlopeCorrDry = SlopeCorrDry;
             this.SlopeCorrWet = SlopeCorrWet;
             this.WindCorrDry = WindCorrDry;

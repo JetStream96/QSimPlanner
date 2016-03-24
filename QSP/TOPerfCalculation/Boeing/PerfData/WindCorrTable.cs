@@ -1,10 +1,19 @@
 ﻿using QSP.MathTools.Tables;
+using QSP.MathTools.Tables.ReadOnlyTables;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
     public class WindCorrTable
     {
         private Table2D table;
+
+        public ReadOnlyTable2D Table
+        {
+            get
+            {
+                return new ReadOnlyTable2D(table);
+            }
+        }
 
         public WindCorrTable(Table2D table)
         {

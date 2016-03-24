@@ -2,13 +2,19 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.TOPerfCalculation.Boeing;
 using System.Xml.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using QSP.TOPerfCalculation.Boeing.PerfData;
 
 namespace UnitTest.TOPerfCalculation.Boeing
 {
     [TestClass]
     public class PerfDataLoaderTest
     {
-        public static readonly string perfXml =
+        private const double delta = 1E-3;
+
+        public static readonly string PerfXml =
             @"<?xml version=""1.0"" encoding=""UTF-8""?>
 <TOPerf>
   <Parameters>
@@ -27,12 +33,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
 <!-- FT or M -->
 
 <Adjustments>
-<!-- In KG-->
-<!-- performance adjustments for packs off, anti-ice, etc -->
 <Packs>
-<!-- With engine bleed for packs off, increase field limit weight
-by 550 kg and climb limit weight by 1300 kg.
-First 550 is for dry rwy, second for wet. -->
 <Dry>500</Dry>
 <Wet>500</Wet> 
 <Climb>1700</Climb>
@@ -40,18 +41,12 @@ First 550 is for dry rwy, second for wet. -->
 
 <AntiIce>
 <EngineOnly>
-<!-- With engine anti-ice on, decrease field limit weight by 150 kg
-and climb limit weight by 200 kg.
-First 150 is for dry rwy, second for wet.-->
 <Dry>0</Dry>
 <Wet>0</Wet>
 <Climb>0</Climb>
 </EngineOnly>
 
 <EngineAndWing>
-<!-- With engine and wing anti-ice on(optional system), decrease
-field limit weight by 600 kg and climb limit weight by 1050 kg.
-600 is for dry rwy, 550 for wet.-->
 <Dry>2050</Dry>
 <Wet>2200</Wet>
 <Climb>2100</Climb>
@@ -302,10 +297,61 @@ field limit weight by 600 kg and climb limit weight by 1050 kg.
         [TestMethod]
         public void ReadTableTest()
         {
-            var table = new PerfDataLoader().ReadTable(
-                 XDocument.Parse(perfXml).Root);
+            var allTables = new PerfDataLoader().ReadTable(
+                 XDocument.Parse(PerfXml).Root);
+
+            Assert.AreEqual(1, allTables.Flaps.Length);
+
+            var table = allTables.GetTable(0);
+
+            Assert.AreEqual(500.0, table.PacksOffDry, delta);
+            Assert.AreEqual(500.0, table.PacksOffWet, delta);
+            Assert.AreEqual(1700.0, table.PacksOffClimb, delta);
+            Assert.AreEqual(0.0, table.AIBothDry, delta);
+            Assert.AreEqual(0.0, table.AIBothWet, delta);
+            Assert.AreEqual(0.0, table.AIBothClimb, delta);
+            Assert.AreEqual(2050.0, table.AIEngDry, delta);
+            Assert.AreEqual(2200.0, table.AIEngWet, delta);
+            Assert.AreEqual(2100.0, table.AIEngClimb, delta);
+            Assert.IsTrue(table.Flaps == "5");
+            Assert.IsTrue(table.AltnRatingAvail);
+            Assert.AreEqual(2, table.AlternateThrustTables.Count);
+
+            assertAltnThrustTables(table.AlternateThrustTables[0],
+                new AlternateThrustTable(
+                    new double[] { 160, 180, 200, 220, 240, 260,
+                        280, 300, 320, 340, 360 },
+                    new double[] { 151.5, 170.2, 188.9, 207.6, 226.3, 245.0,
+                        263.7, 282.4, 301.1, 319.8, 338.5 },
+                    new double[] { 152.2, 170.5, 188.9, 207.2, 225.6, 243.9,
+                        262.3, 280.6, 299.0, 317.3, 335.6 },
+                    new double[] { 145.1, 162.5, 180.0, 197.4, 214.8, 232.3,
+                        249.7, 267.1, 284.5, 302.0, 319.4 }));
+
+            assertAltnThrustTables(table.AlternateThrustTables[1],
+                new AlternateThrustTable(
+                    new double[] { 160, 180, 200, 220, 240, 260,
+                        280, 300, 320, 340, 360 },
+                    new double[] { 142.6, 159.8, 177.0, 194.2, 211.4, 228.6,
+                        245.8, 263.0, 280.2, 297.5, 314.7 },
+                    new double[] { 144.3, 161.4, 178.4, 195.5, 212.5, 229.6,
+                        246.6, 263.7, 280.7, 297.8, 314.8 },
+                    new double[] { 128.5, 144.1, 159.7, 175.3, 191.0, 206.6,
+                        222.2, 237.8, 253.5, 269.1, 284.7 }));
+
+            Assert.IsTrue(Enumerable.SequenceEqual(table.ThrustRatings,
+                new string[] { "TO", "TO1", "TO2" }));
 
 
+        }
+
+        private void assertAltnThrustTables(AlternateThrustTable item,
+            AlternateThrustTable other)
+        {
+            Assert.IsTrue(Enumerable.SequenceEqual(item.FullThrustWeights, other.FullThrustWeights));
+            Assert.IsTrue(Enumerable.SequenceEqual(item.DryWeights, other.DryWeights));
+            Assert.IsTrue(Enumerable.SequenceEqual(item.WetWeights, other.WetWeights));
+            Assert.IsTrue(Enumerable.SequenceEqual(item.ClimbWeights, other.ClimbWeights));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using QSP.MathTools.Tables;
+using QSP.MathTools.Tables.ReadOnlyTables;
 using System.Linq;
 using static QSP.LibraryExtension.Arrays;
 
@@ -7,6 +8,14 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
     public class FieldLimitWtTable
     {
         private Table3D table;
+
+        public ReadOnlyTable3D Table
+        {
+            get
+            {
+                return new ReadOnlyTable3D(table);
+            }
+        }
 
         public FieldLimitWtTable(Table3D table)
         {

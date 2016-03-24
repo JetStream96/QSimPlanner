@@ -5,10 +5,10 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
     public class AlternateThrustTable
     {
-        private double[] FullThrustWeights;
-        private double[] DryWeights;
-        private double[] WetWeights;
-        private double[] ClimbWeights;
+        public double[] FullThrustWeights { get; private set; }
+        public double[] DryWeights { get; private set; }
+        public double[] WetWeights { get; private set; }
+        public double[] ClimbWeights { get; private set; }
 
         public AlternateThrustTable(double[] FullThrustWeights,
             double[] DryWeights,
