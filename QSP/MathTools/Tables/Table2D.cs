@@ -1,4 +1,6 @@
-﻿using QSP.MathTools.Interpolation;
+﻿using QSP.LibraryExtension;
+using QSP.MathTools.Interpolation;
+using System.Linq;
 
 namespace QSP.MathTools.Tables
 {
@@ -11,13 +13,20 @@ namespace QSP.MathTools.Tables
         public Table2D(double[] x, double[] y, double[][] f)
         {
             this.x = x;
-            this.y = y;            
+            this.y = y;
             this.f = f;
         }
 
         public double ValueAt(double x, double y)
         {
             return Interpolate2D.Interpolate(this.x, this.y, x, y, f);
+        }
+        
+        public bool Equals(Table2D item, double delta)
+        {
+            return DoubleArrayCompare.Equals(x, item.x, delta) &&
+                   DoubleArrayCompare.Equals(y, item.y, delta) &&
+                   DoubleArrayCompare.Equals(f, item.f, delta);
         }
     }
 }

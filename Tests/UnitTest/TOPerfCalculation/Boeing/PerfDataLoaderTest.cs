@@ -1,9 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.TOPerfCalculation.Boeing;
 using System.Xml.Linq;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 
@@ -12,7 +9,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
     [TestClass]
     public class PerfDataLoaderTest
     {
-        private const double delta = 1E-3;
+        private const double delta = 1E-7;
 
         public static readonly string PerfXml =
             @"<?xml version=""1.0"" encoding=""UTF-8""?>
@@ -315,7 +312,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             Assert.AreEqual(2100.0, table.AIEngClimb, delta);
             Assert.IsTrue(table.Flaps == "5");
             Assert.IsTrue(table.AltnRatingAvail);
-            Assert.AreEqual(2, table.AlternateThrustTables.Count);
+            Assert.AreEqual(2, table.AlternateThrustTables.Length);
 
             assertAltnThrustTables(table.AlternateThrustTables[0],
                 new AlternateThrustTable(

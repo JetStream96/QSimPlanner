@@ -72,16 +72,21 @@ namespace QSP.TOPerfCalculation.Boeing
 
             //Import tables
             var dryNode = node.Element("Dry");
-            var SlopeCorrDry = getSlopeCorr(dryNode.Element("SlopeCorrection").Value, lengthUnitIsMeter);
-            var WindCorrDry = getSlopeCorr(dryNode.Element("WindCorrection").Value, lengthUnitIsMeter);
-            var tables = getFieldClimbLimitWt(dryNode, lengthUnitIsMeter, wtUnitIsTon);
+
+            var slopeCorrDry = getSlopeOrWindTable(
+                dryNode.Element("SlopeCorrection").Value, lengthUnitIsMeter);
+
+            var windCorrDry = getSlopeOrWindTable(
+                dryNode.Element("WindCorrection").Value, lengthUnitIsMeter);
+
+            var tables = setFieldClimbLimitWt(dryNode, lengthUnitIsMeter, wtUnitIsTon);
             var WeightTableDry = tables.Item1;
             var ClimbLimitWt = tables.Item2;
 
             var wetNode = node.Element("Wet");
-            var SlopeCorrWet = getSlopeCorr(wetNode.Element("SlopeCorrection").Value, lengthUnitIsMeter);
-            var WindCorrWet = getSlopeCorr(wetNode.Element("WindCorrection").Value, lengthUnitIsMeter);
-            var WeightTableWet = getFieldClimbLimitWt(wetNode, lengthUnitIsMeter, wtUnitIsTon).Item1;
+            var SlopeCorrWet = getSlopeOrWindTable(wetNode.Element("SlopeCorrection").Value, lengthUnitIsMeter);
+            var WindCorrWet = getSlopeOrWindTable(wetNode.Element("WindCorrection").Value, lengthUnitIsMeter);
+            var WeightTableWet = setFieldClimbLimitWt(wetNode, lengthUnitIsMeter, wtUnitIsTon).Item1;
 
             // Derates (TO1, TO2)
             importAltnRating(node, wtUnitIsTon);
@@ -100,17 +105,17 @@ namespace QSP.TOPerfCalculation.Boeing
                 thrustRatings.Count > 0,
                 derateTables.ToArray(),
                 thrustRatings.ToArray(),
-                new SlopeCorrTable(SlopeCorrDry),
-                new SlopeCorrTable(SlopeCorrWet),
-                new WindCorrTable(WindCorrDry),
-                new WindCorrTable(WindCorrWet),
-                new FieldLimitWtTable(WeightTableDry),
-                new FieldLimitWtTable(WeightTableWet),
-                new ClimbLimitWtTable(ClimbLimitWt));
+                new SlopeCorrTable(slopeCorrDry.x, slopeCorrDry.y, slopeCorrDry.f),
+                new SlopeCorrTable(SlopeCorrWet.x, SlopeCorrWet.y, SlopeCorrWet.f),
+                new WindCorrTable(windCorrDry.x, windCorrDry.y, windCorrDry.f),
+                new WindCorrTable(WindCorrWet.x, WindCorrWet.y, WindCorrWet.f),
+                WeightTableDry, 
+                WeightTableWet,
+                ClimbLimitWt);
         }
 
         // node should be "Dry" or "Wet" node
-        private static Pair<Table3D, Table2D> getFieldClimbLimitWt(
+        private static Pair<FieldLimitWtTable, ClimbLimitWtTable> setFieldClimbLimitWt(
             XElement node, bool lenthIsMeter, bool WtIsKG)
         {
             var tables = node.Elements("WeightTable");
@@ -186,14 +191,13 @@ namespace QSP.TOPerfCalculation.Boeing
                 fieldLim.Multiply(LbKgRatio);
             }
 
-            return new Pair<Table3D, Table2D>(
-                 new Table3D(altitudes, lengths, oats, fieldLim),
-                 new Table2D(altitudes, oats, climbLim));
-
+            return new Pair<FieldLimitWtTable, ClimbLimitWtTable>(
+                 new FieldLimitWtTable(altitudes, lengths, oats, fieldLim),
+                 new ClimbLimitWtTable(altitudes, oats, climbLim));
         }
 
         // This also works for wind correction tables.
-        private static Table2D getSlopeCorr(string item, bool lengthIsMeter)
+        private static Table2D getSlopeOrWindTable(string item, bool lengthIsMeter)
         {
             string[] lines = item.Split(lineChangeChars, StringSplitOptions.RemoveEmptyEntries);
             string[] words = lines[0].Split(spaceChars, StringSplitOptions.RemoveEmptyEntries);

@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.TOPerfCalculation.Boeing;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest.TOPerfCalculation.Boeing
 {

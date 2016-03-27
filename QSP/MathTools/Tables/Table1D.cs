@@ -1,4 +1,5 @@
 ﻿using QSP.MathTools.Interpolation;
+using QSP.LibraryExtension;
 
 namespace QSP.MathTools.Tables
 {
@@ -16,6 +17,12 @@ namespace QSP.MathTools.Tables
         public double ValueAt(double x)
         {
             return Interpolate1D.Interpolate(this.x, f, x);
+        }
+
+        public bool Equals(Table1D item,double delta)
+        {
+            return DoubleArrayCompare.Equals(x, item.x, delta) &&
+                   DoubleArrayCompare.Equals(f, item.f, delta);
         }
     }
 }

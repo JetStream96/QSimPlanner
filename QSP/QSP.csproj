@@ -97,9 +97,8 @@
     <Compile Include="LibraryExtension\Graph\Edge.cs" />
     <Compile Include="LibraryExtension\FixedIndexList.cs" />
     <Compile Include="LibraryExtension\Graph\Graph.cs" />
+    <Compile Include="LibraryExtension\DoubleArrayCompare.cs" />
     <Compile Include="LibraryExtension\JaggedArrays.cs" />
-    <Compile Include="LibraryExtension\JaggedArray\ReadOnlyJaggedArray2D.cs" />
-    <Compile Include="LibraryExtension\JaggedArray\ReadOnlyJaggedArray3D.cs" />
     <Compile Include="LibraryExtension\ReadOnlyStack.cs" />
     <Compile Include="LibraryExtension\Stacks.cs" />
     <Compile Include="LibraryExtension\StringParser\StringParser.cs" />
@@ -111,9 +110,6 @@
     <Compile Include="MathTools\Interpolation\Interpolate2D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate3D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate4D.cs" />
-    <Compile Include="MathTools\Tables\ReadOnlyTables\ReadOnlyTable1D.cs" />
-    <Compile Include="MathTools\Tables\ReadOnlyTables\ReadOnlyTable2D.cs" />
-    <Compile Include="MathTools\Tables\ReadOnlyTables\ReadOnlyTable3D.cs" />
     <Compile Include="MathTools\Tables\Table1D.cs" />
     <Compile Include="MathTools\Tables\Table2D.cs" />
     <Compile Include="MathTools\Tables\Table3D.cs" />

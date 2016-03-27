@@ -1,28 +1,19 @@
 ﻿using QSP.MathTools.Tables;
-using QSP.MathTools.Tables.ReadOnlyTables;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
-    public class WindCorrTable
+    public class WindCorrTable : Table2D
     {
-        private Table2D table;
-
-        public ReadOnlyTable2D Table
-        {
-            get
-            {
-                return new ReadOnlyTable2D(table);
-            }
-        }
-
-        public WindCorrTable(Table2D table)
-        {
-            this.table = table;
-        }
+        public WindCorrTable(
+            double[] slopeCorrectedLengths,
+            double[] winds,
+            double[][] windCorrectedLength)
+            : base(slopeCorrectedLengths, winds, windCorrectedLength)
+        { }
 
         public double CorrectedLength(double slopeCorrectedLength, double wind)
         {
-            return table.ValueAt(slopeCorrectedLength, wind);
+            return ValueAt(slopeCorrectedLength, wind);
         }
 
         public double SlopeCorrectedLength(double headwind, double WindAndSlopeCorrectedLength)
@@ -35,14 +26,14 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         //
         private Table1D tableSlopeCorrLength(double headwindComponent)
         {
-            var slopeCorrLength = new double[table.x.Length];
+            var slopeCorrLength = new double[x.Length];
 
             for (int i = 0; i < slopeCorrLength.Length; i++)
             {
-                slopeCorrLength[i] = table.ValueAt(table.x[i], headwindComponent);
+                slopeCorrLength[i] = ValueAt(x[i], headwindComponent);
             }
 
-            return new Table1D(slopeCorrLength, table.x);
+            return new Table1D(slopeCorrLength, x);
         }
     }
 }
