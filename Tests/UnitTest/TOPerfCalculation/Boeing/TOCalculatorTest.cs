@@ -1,7 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QSP.MathTools;
 using QSP.TOPerfCalculation.Boeing;
 using QSP.TOPerfCalculation.Boeing.PerfData;
+using System;
 using System.Xml.Linq;
+using static QSP.AviationTools.CoversionTools;
 
 namespace UnitTest.TOPerfCalculation.Boeing
 {
@@ -35,83 +38,162 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
             double distanceMeter = calc.TakeoffDistanceMeter();
 
-           // Assert.AreEqual(expectedDistance(para), distanceMeter, 1E-7);
+            Assert.AreEqual(expectedDistance1(para),
+                distanceMeter, 1E-7);
         }
 
-        //private static double expectedDistance(TOParameters para)
-        //{
-        //    double headWind = para.WindSpeed *
-        //        Math.Cos(Utilities.ToRadian(para.WindHeading - para.RwyHeading));
+        private static double expectedDistance1(TOParameters para)
+        {
+            return expectedDistance1(para, para.WeightKg / 1000.0);
+        }
 
-        //    double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
-        //    double correctedDis=new FieldLimitWtTable(
-        //        new double[]{ 0.0,2000.0},
-        //        new double[] { 5550.0 * FtMeterRatio, 5800.0 * FtMeterRatio },
-        //        new double[] {-40.0,14.0 },
-        //        new double[][][] {
-        //            new double[][]
-        //            {
-        //                new double[] { 280.1, 252.3 },
-        //                new double[] { 287.3, 258.8 }
-        //            },
-        //            new double[][]
-        //            {
-        //                new double[] {262.6, 239.1 },
-        //                new double[] { 269.4, 245.3}
-        //            }
-        //        }).
+        private static double expectedDistance1(TOParameters para, double wtTon)
+        {
+            double headWind = para.WindSpeed *
+                Math.Cos(Utilities.ToRadian(para.WindHeading - para.RwyHeading));
 
+            double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
+            var table = perfTable.GetTable(para.FlapsIndex);
 
-        //    double length0ft14deg = Interpolate1D.Interpolate(
-        //        252.3, 258.8, 5550.0 * FtMeterRatio,
-        //        5800.0 * FtMeterRatio, para.WeightKg / 1000.0);
+            double correctedLength = table.WeightTableDry.CorrectedLengthRequired(
+                pressAlt, para.OatCelsius, wtTon);
 
-        //    double length0ftM40deg = Interpolate1D.Interpolate(
-        //        280.1, 287.3, 5550.0 * FtMeterRatio,
-        //        5800.0 * FtMeterRatio, para.WeightKg / 1000.0);
+            double slopeCorrectedLength = table.WindCorrDry.SlopeCorrectedLength(
+                headWind, correctedLength);
 
-        //    double length2000ft14deg = Interpolate1D.Interpolate(
-        //        239.1, 245.3, 5550.0 * FtMeterRatio,
-        //        5800.0 * FtMeterRatio, para.WeightKg / 1000.0);
+            return table.SlopeCorrDry.FieldLengthRequired(
+                para.RwySlope, slopeCorrectedLength);
+        }
 
-        //    double length2000ftM40deg = Interpolate1D.Interpolate(
-        //        262.6, 269.4, 5550.0 * FtMeterRatio,
-        //        5800.0 * FtMeterRatio, para.WeightKg / 1000.0);
+        [TestMethod]
+        public void TODistancePackAICorrectionTest()
+        {
+            var para = new TOParameters(
+                    0.0,
+                    1000.0,                 // elevation
+                    210.0,                  // rwy heading
+                    -1.8,                   // slope
+                    240.0,                  // wind direction
+                    10.0,                   // wind speed
+                    4.0,                    // oat
+                    1000.0,                 // QHN
+                    true,                   // surface is wet?
+                    250.0 * 1000.0,         // weight kg
+                    0,                      // thrust rating
+                    AntiIceOption.EngAndWing,
+                    false,                  // packs on
+                    0);                     // flaps
 
-        //    double correctedDistance0ft = Interpolate1D.Interpolate(
-        //        14.0, -40.0, length0ft14deg, length0ftM40deg, para.OatCelsius);
+            var calc = new TOCalculator(perfTable, para);
 
-        //    double correctedDistance2000ft = Interpolate1D.Interpolate(
-        //        14.0, -40.0, length2000ft14deg, length2000ftM40deg, para.OatCelsius);
+            double distanceMeter = calc.TakeoffDistanceMeter();
 
-        //    double correctedDis = Interpolate1D.Interpolate(
-        //        0.0, 2000.0, correctedDistance0ft, correctedDistance2000ft, pressAlt);
+            Assert.AreEqual(expectedDistance2(para),
+                distanceMeter, 1E-7);
+        }
 
-        //    double disPreWindCorrectionM10kts = Interpolate1D.Interpolate(
-        //        3480.0 * FtMeterRatio, 3840.0 * FtMeterRatio,
-        //        4200.0 * FtMeterRatio, 4600.0 * FtMeterRatio, correctedDis);
+        private static double expectedDistance2(TOParameters para)
+        {
+            double headWind = para.WindSpeed *
+                Math.Cos(Utilities.ToRadian(para.WindHeading - para.RwyHeading));
 
-        //    double disPreWindCorrectionM15kts = Interpolate1D.Interpolate(
-        //        3120.0 * FtMeterRatio, 3460.0 * FtMeterRatio,
-        //        4200.0 * FtMeterRatio, 4600.0 * FtMeterRatio, correctedDis);
+            double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
+            double wtTon = (para.WeightKg + 2200.0 - 500.0) / 1000.0;
 
-        //    double disPreWindCorrection = Interpolate1D.Interpolate(
-        //        -15.0, -10.0, disPreWindCorrectionM15kts,
-        //        disPreWindCorrectionM10kts, headWind);
+            var table = perfTable.GetTable(para.FlapsIndex);
 
-        //    double disPreSlopeCorrectionM1p5 = Interpolate1D.Interpolate(
-        //        4330.0 * FtMeterRatio, 4760.0 * FtMeterRatio,
-        //        4200.0 * FtMeterRatio, 4600.0 * FtMeterRatio, disPreWindCorrection);
+            double correctedLength = table.WeightTableWet.CorrectedLengthRequired(
+                pressAlt, para.OatCelsius, wtTon);
 
-        //    double disPreSlopeCorrectionM2 = Interpolate1D.Interpolate(
-        //        4370.0 * FtMeterRatio, 4810.0 * FtMeterRatio,
-        //        4200.0 * FtMeterRatio, 4600.0 * FtMeterRatio, disPreWindCorrection);
+            double slopeCorrectedLength = table.WindCorrWet.SlopeCorrectedLength(
+                headWind, correctedLength);
 
-        //    double disPreSlopeCorrection = Interpolate1D.Interpolate(
-        //        -2.0, -1.5, disPreSlopeCorrectionM2,
-        //        disPreSlopeCorrectionM1p5, para.RwySlope);
+            return table.SlopeCorrWet.FieldLengthRequired(
+                para.RwySlope, slopeCorrectedLength);
+        }
 
-        //    return disPreSlopeCorrection;
-        //}
+        [TestMethod]
+        public void TODistanceDerateTest()
+        {
+            var para = new TOParameters(
+                   0.0,
+                   1000.0,             // elevation
+                   210.0,              // rwy heading
+                   -1.8,               // slope
+                   240.0,              // wind direction
+                   10.0,               // wind speed
+                   4.0,                // oat
+                   1000.0,             // QHN
+                   false,              // surface is wet?
+                   250.0 * 1000.0,     // weight kg
+                   2,                  // thrust rating
+                   AntiIceOption.Off,
+                   true,               // packs on
+                   0);                 // flaps
+
+            var calc = new TOCalculator(perfTable, para);
+
+            double distanceMeter = calc.TakeoffDistanceMeter();
+
+            Assert.AreEqual(
+                expectedDistance1(
+                    para,
+                    perfTable.GetTable(para.FlapsIndex)
+                    .AlternateThrustTables[para.ThrustRating - 1]
+                    .EquivalentFullThrustWeight(
+                        para.WeightKg / 1000.0,
+                        AlternateThrustTable.TableType.Dry)),
+                distanceMeter, 1E-7);
+        }
+
+        [TestMethod]
+        public void FieldLimitWtTest()
+        {
+            var para = new TOParameters(
+                   2500.0,             // rwy length
+                   1000.0,             // elevation
+                   210.0,              // rwy heading
+                   -1.8,               // slope
+                   240.0,              // wind direction
+                   10.0,               // wind speed
+                   4.0,                // oat
+                   1000.0,             // QHN
+                   false,              // surface is wet?
+                   250.0 * 1000.0,     // weight kg
+                   2,                  // thrust rating
+                   AntiIceOption.Off,
+                   true,               // packs on
+                   0);                 // flaps
+
+            var calc = new TOCalculator(perfTable, para);
+
+            double distanceMeter = calc.FieldLimitWeightTon();
+
+            Assert.AreEqual(
+                perfTable.GetTable(para.FlapsIndex)
+                    .AlternateThrustTables[para.ThrustRating - 1]
+                    .CorrectedLimitWeight(expectedLimitWt1(para),
+                    AlternateThrustTable.TableType.Dry),
+                distanceMeter, 1E-7);
+        }
+
+        private static double expectedLimitWt1(TOParameters para)
+        {
+            var table = perfTable.GetTable(para.FlapsIndex);
+            double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
+            double windSpd = para.WindSpeed *
+                Math.Cos(Utilities.ToRadian(para.WindHeading - para.RwyHeading));
+
+            double slopeCorrectedLength = table.SlopeCorrDry.CorrectedLength(
+                            para.RwyLengthMeter, para.RwySlope);
+
+            double windCorrectedLength = table.WindCorrDry.CorrectedLength(
+                        slopeCorrectedLength, windSpd);
+
+            return table.WeightTableDry.FieldLimitWeight(
+                        pressAlt,
+                        windCorrectedLength,
+                        para.OatCelsius);
+        }
     }
 }

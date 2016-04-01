@@ -29,9 +29,9 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
 
         public double CorrectedLengthRequired(double altFt,
                                               double oat,
-                                              double correctedWtTon)
+                                              double fieldLimitWtTon)
         {
-            return tableComputeRwyRequired(altFt, oat).ValueAt(correctedWtTon);
+            return tableComputeRwyRequired(altFt, oat).ValueAt(fieldLimitWtTon);
         }
 
         // A table maps TO weights (ton) to rwy length required.
