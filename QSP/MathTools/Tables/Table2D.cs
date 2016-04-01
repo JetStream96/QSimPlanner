@@ -1,6 +1,5 @@
 ﻿using QSP.LibraryExtension;
 using QSP.MathTools.Interpolation;
-using System.Linq;
 
 namespace QSP.MathTools.Tables
 {

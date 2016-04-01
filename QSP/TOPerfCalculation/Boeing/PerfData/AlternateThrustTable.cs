@@ -1,5 +1,6 @@
 using QSP.Core;
 using QSP.MathTools.Interpolation;
+using QSP.LibraryExtension;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
@@ -67,5 +68,22 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
                     throw new EnumNotSupportedException();
             }
         }
+
+        public bool Equals(AlternateThrustTable item, double delta)
+        {
+            return
+                DoubleArrayCompare.Equals(
+                    FullThrustWeights, item.FullThrustWeights, delta) &&
+
+                DoubleArrayCompare.Equals(
+                    item.DryWeights, item.DryWeights, delta) &&
+
+                DoubleArrayCompare.Equals(
+                    item.WetWeights, item.WetWeights, delta) &&
+
+                DoubleArrayCompare.Equals(
+                    item.ClimbWeights, item.ClimbWeights, delta);
+        }
     }
 }
+

@@ -31,6 +31,6 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
             }
 
             return new Table1D(fieldLength, x);
-        }
+        }        
     }
 }

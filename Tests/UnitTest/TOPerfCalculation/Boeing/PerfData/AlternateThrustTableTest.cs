@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using static QSP.TOPerfCalculation.Boeing.PerfData.AlternateThrustTable;
 

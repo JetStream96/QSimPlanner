@@ -116,6 +116,7 @@
     <Compile Include="TOPerfCalculation\Boeing\PerfData\FieldLimitWtTableTest.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfData\SlopeCorrTableTest.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfData\WindCorrTableTest.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\TestData.cs" />
     <Compile Include="TOPerfCalculation\Boeing\TOCalculatorTest.cs" />
     <Compile Include="UI\ToLdgModule\Common\AirportInfo\SlopeComboBoxControllerTest.cs" />
     <Compile Include="WindAloft\LastestDataSetFinderTest.cs" />
