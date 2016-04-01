@@ -1,5 +1,5 @@
-using QSP.MathTools.Interpolation;
 using QSP.Core;
+using QSP.MathTools.Interpolation;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
