@@ -11,10 +11,15 @@ namespace QSP.TOPerfCalculation.Boeing
         private IndividualPerfTable table;
         private TOParameters para;
 
+        private SlopeCorrTable slopeTable;
+        private WindCorrTable windTable;
+        private FieldLimitWtTable weightTable;
+
         public TOCalculator(BoeingPerfTable item, TOParameters para)
         {
             table = item.GetTable(para.FlapsIndex);
             this.para = para;
+            setTables();
         }
 
         /// <summary>
@@ -25,14 +30,7 @@ namespace QSP.TOPerfCalculation.Boeing
         /// <exception cref="PoorClimbPerformanceException">
         public TOPerfResult TakeOffReport()
         {
-            TOPerfResult result = new TOPerfResult();
-
-            SlopeCorrTable slopeTable;
-            WindCorrTable windTable;
-            FieldLimitWtTable weightTable;
-
-            setTables(out slopeTable, out windTable, out weightTable);
-            double equivWtTon = equivalentWeightKG() / 1000.0;
+            var result = new TOPerfResult();
 
             int maxOat = (int)Math.Round(weightTable.MaxOat);
             const int tempIncrement = 1;
@@ -41,14 +39,7 @@ namespace QSP.TOPerfCalculation.Boeing
                  oat <= maxOat;
                  oat += tempIncrement)
             {
-                double corrLength = weightTable.CorrectedLengthRequired(
-                    rwyPressureAltFt(), oat, equivWtTon);
-
-                double slopeCorrLength = windTable.SlopeCorrectedLength(
-                    headwindComp(), corrLength);
-
-                double rwyReq = slopeTable.FieldLengthRequired(
-                    para.RwySlope, slopeCorrLength);
+                double rwyReq = takeoffDisMeterOverrideOat(oat);
 
                 if (oat == para.OatCelsius)
                 {
@@ -56,9 +47,10 @@ namespace QSP.TOPerfCalculation.Boeing
                     {
                         if (climbLimitWeightTon(oat) * 1000.0 >= para.WeightKg)
                         {
-                            result.SetPrimaryResult((int)para.OatCelsius,
-                                                    (int)rwyReq,
-                                                    (int)(para.RwyLengthMeter - rwyReq));
+                            result.SetPrimaryResult(
+                                (int)para.OatCelsius,
+                                (int)rwyReq,
+                                (int)(para.RwyLengthMeter - rwyReq));
                         }
                         else
                         {
@@ -72,7 +64,8 @@ namespace QSP.TOPerfCalculation.Boeing
                 }
                 else
                 {
-                    if (rwyReq <= para.RwyLengthMeter && climbLimitWeightTon(oat) * 1000 >= para.WeightKg)
+                    if (rwyReq <= para.RwyLengthMeter &&
+                        climbLimitWeightTon(oat) * 1000 >= para.WeightKg)
                     {
                         result.AddAssumedTemp(oat,
                                               (int)rwyReq,
@@ -99,7 +92,7 @@ namespace QSP.TOPerfCalculation.Boeing
             //correct weight for TO1/TO2, if applicable
             if (table.AltnRatingAvail && para.ThrustRating != 0)
             {
-                correctedWtKG = 1000 * thrustRatingFieldCorrWt(correctedWtKG / 1000,
+                correctedWtKG = 1000 * thrustRatingFieldCorrWt(correctedWtKG / 1000.0,
                     AltnThrustOption.GetEquivFullThrustWeight);
             }
 
@@ -114,16 +107,16 @@ namespace QSP.TOPerfCalculation.Boeing
         /// </summary>
         public double TakeoffDistanceMeter()
         {
-            SlopeCorrTable slopeTable;
-            WindCorrTable windTable;
-            FieldLimitWtTable weightTable;
+            return takeoffDisMeterOverrideOat(para.OatCelsius);
+        }
 
-            setTables(out slopeTable, out windTable, out weightTable);
-
+        private double takeoffDisMeterOverrideOat(double oat)
+        {
             double corrLength = weightTable.CorrectedLengthRequired(
-                rwyPressureAltFt(), para.OatCelsius, equivalentWeightKG() / 1000.0);
+                rwyPressureAltFt(), oat, equivalentWeightKG() / 1000.0);
 
-            double slopeCorrLength = windTable.SlopeCorrectedLength(headwindComp(), corrLength);
+            double slopeCorrLength = windTable.SlopeCorrectedLength(
+                headwindComp(), corrLength);
 
             return slopeTable.FieldLengthRequired(para.RwySlope, slopeCorrLength);
         }
@@ -148,16 +141,16 @@ namespace QSP.TOPerfCalculation.Boeing
             {
                 case AltnThrustOption.GetEquivFullThrustWeight:
                     return altnRatingTable.EquivalentFullThrustWeight(
-                        fullRatedWtTon, 
-                        this.para.SurfaceWet ? 
-                        AlternateThrustTable.TableType.Wet : 
+                        fullRatedWtTon,
+                        this.para.SurfaceWet ?
+                        AlternateThrustTable.TableType.Wet :
                         AlternateThrustTable.TableType.Dry);
 
                 default:
                     return altnRatingTable.CorrectedLimitWeight(
-                        fullRatedWtTon, 
-                        this.para.SurfaceWet ? 
-                        AlternateThrustTable.TableType.Wet : 
+                        fullRatedWtTon,
+                        this.para.SurfaceWet ?
+                        AlternateThrustTable.TableType.Wet :
                         AlternateThrustTable.TableType.Dry);
             }
         }
@@ -167,14 +160,11 @@ namespace QSP.TOPerfCalculation.Boeing
         /// </summary>
         public double FieldLimitWeightTon()
         {
-            SlopeCorrTable slopeTable;
-            WindCorrTable windTable;
-            FieldLimitWtTable weightTable;
+            double slopeCorrLength = slopeTable.CorrectedLength(
+                para.RwyLengthMeter, para.RwySlope);
 
-            setTables(out slopeTable, out windTable, out weightTable);
-
-            double slopeCorrLength = slopeTable.CorrectedLength(para.RwyLengthMeter, para.RwySlope);
-            double windCorrLength = windTable.CorrectedLength(slopeCorrLength, headwindComp());
+            double windCorrLength = windTable.CorrectedLength(
+                slopeCorrLength, headwindComp());
 
             var limitWtTon = weightTable.FieldLimitWeight(rwyPressureAltFt(),
                 windCorrLength,
@@ -221,10 +211,7 @@ namespace QSP.TOPerfCalculation.Boeing
         }
 
         // Based on runway condition (dry or wet), sets the tables for further computation.      
-        private void setTables(
-            out SlopeCorrTable slopeTable,
-            out WindCorrTable windTable,
-            out FieldLimitWtTable weightTable)
+        private void setTables()
         {
             if (para.SurfaceWet)
             {
@@ -323,7 +310,8 @@ namespace QSP.TOPerfCalculation.Boeing
         //knots
         private double headwindComp()
         {
-            return para.WindSpeed * Math.Cos(ToRadian(para.RwyHeading - para.WindHeading));
+            return para.WindSpeed *
+                Math.Cos(ToRadian(para.RwyHeading - para.WindHeading));
         }
 
         private double rwyPressureAltFt()
