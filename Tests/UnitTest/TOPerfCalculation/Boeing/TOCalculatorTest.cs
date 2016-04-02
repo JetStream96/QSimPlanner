@@ -167,14 +167,14 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
             var calc = new TOCalculator(perfTable, para);
 
-            double distanceMeter = calc.FieldLimitWeightTon();
+            double limitWt = calc.FieldLimitWeightTon();
 
-            Assert.AreEqual(
-                perfTable.GetTable(para.FlapsIndex)
+            double expectedLimitWt = perfTable.GetTable(para.FlapsIndex)
                     .AlternateThrustTables[para.ThrustRating - 1]
                     .CorrectedLimitWeight(expectedLimitWt1(para),
-                    AlternateThrustTable.TableType.Dry),
-                distanceMeter, 1E-7);
+                    AlternateThrustTable.TableType.Dry);
+
+            Assert.AreEqual(expectedLimitWt, limitWt, 1E-7);
         }
 
         private static double expectedLimitWt1(TOParameters para)
@@ -194,6 +194,48 @@ namespace UnitTest.TOPerfCalculation.Boeing
                         pressAlt,
                         windCorrectedLength,
                         para.OatCelsius);
+        }
+
+        [TestMethod]
+        public void ClimbLimitWtTest()
+        {
+            var para = new TOParameters(
+                   2500.0,             // rwy length
+                   1000.0,             // elevation
+                   210.0,              // rwy heading
+                   -1.8,               // slope
+                   240.0,              // wind direction
+                   10.0,               // wind speed
+                   4.0,                // oat
+                   1000.0,             // QHN
+                   false,              // surface is wet?
+                   250.0 * 1000.0,     // weight kg
+                   2,                  // thrust rating
+                   AntiIceOption.Off,
+                   false,              // packs on
+                   0);                 // flaps
+
+            var calc = new TOCalculator(perfTable, para);
+
+            double distanceMeter = calc.ClimbLimitWeightTon();
+
+            double wtWithPackCorrection = expectedClimbLimit1(para) + 1.7;
+
+            double expectedLimitWt = perfTable.GetTable(para.FlapsIndex)
+                .AlternateThrustTables[para.ThrustRating - 1]
+                .CorrectedLimitWeight(
+                wtWithPackCorrection, AlternateThrustTable.TableType.Climb);
+
+            Assert.AreEqual(expectedLimitWt, distanceMeter, 1E-7);
+        }
+
+        private static double expectedClimbLimit1(TOParameters para)
+        {
+            var table = perfTable.GetTable(para.FlapsIndex);
+            double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
+
+            return table.ClimbLimitWt
+                .ClimbLimitWeight(pressAlt, para.OatCelsius);
         }
     }
 }

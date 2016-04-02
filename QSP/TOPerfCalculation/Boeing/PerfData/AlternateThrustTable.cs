@@ -30,21 +30,26 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         }
 
         /// <summary>
-        /// Gets the corresponding full thrust limit weight, for the given condition (dry/wet/climb).
+        /// Gets the corresponding full thrust limit weight, for the given
+        /// condition (dry/wet/climb).
         /// </summary>
-        /// <param name="weight">Field limit weight for dry/wet runway, or the climb limit weight.</param>
+        /// <param name="weight">Field limit weight for dry/wet runway,
+        /// or the climb limit weight.</param>
         public double EquivalentFullThrustWeight(double weight, TableType para)
         {
             switch (para)
             {
                 case TableType.Dry:
-                    return Interpolate1D.Interpolate(DryWeights, FullThrustWeights, weight);
+                    return Interpolate1D.Interpolate(DryWeights,
+                    FullThrustWeights, weight);
 
                 case TableType.Wet:
-                    return Interpolate1D.Interpolate(WetWeights, FullThrustWeights, weight);
+                    return Interpolate1D.Interpolate(WetWeights,
+                    FullThrustWeights, weight);
 
                 case TableType.Climb:
-                    return Interpolate1D.Interpolate(ClimbWeights, FullThrustWeights, weight);
+                    return Interpolate1D.Interpolate(ClimbWeights,
+                    FullThrustWeights, weight);
 
                 default:
                     throw new EnumNotSupportedException();
@@ -56,13 +61,16 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
             switch (para)
             {
                 case TableType.Dry:
-                    return Interpolate1D.Interpolate(FullThrustWeights, DryWeights, fullRatedWt);
+                    return Interpolate1D.Interpolate(FullThrustWeights,
+                    DryWeights, fullRatedWt);
 
                 case TableType.Wet:
-                    return Interpolate1D.Interpolate(FullThrustWeights, WetWeights, fullRatedWt);
+                    return Interpolate1D.Interpolate(FullThrustWeights,
+                    WetWeights, fullRatedWt);
 
                 case TableType.Climb:
-                    return Interpolate1D.Interpolate(FullThrustWeights, ClimbWeights, fullRatedWt);
+                    return Interpolate1D.Interpolate(FullThrustWeights,
+                    ClimbWeights, fullRatedWt);
 
                 default:
                     throw new EnumNotSupportedException();
@@ -86,4 +94,3 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         }
     }
 }
-
