@@ -110,7 +110,6 @@
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\EastboundParserTest.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\InterpreterTest.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\SplitterTest.cs" />
-    <Compile Include="TOPerfCalcTest.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfDataLoaderTest.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfData\AlternateThrustTableTest.cs" />
     <Compile Include="TOPerfCalculation\Boeing\PerfData\FieldLimitWtTableTest.cs" />
