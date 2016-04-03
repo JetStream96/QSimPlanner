@@ -1,8 +1,7 @@
 ﻿using QSP.AviationTools;
-using QSP.Core;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using System;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.Angles;
 
 namespace QSP.TOPerfCalculation.Boeing
 {
@@ -20,65 +19,6 @@ namespace QSP.TOPerfCalculation.Boeing
             table = item.GetTable(para.FlapsIndex);
             this.para = para;
             setTables();
-        }
-
-        /// <summary>
-        /// Computes runway length required for take off, 
-        /// for user input and all available assumed temperatures.
-        /// </summary>
-        /// <exception cref="RunwayTooShortException">
-        /// <exception cref="PoorClimbPerformanceException">
-        public TOPerfResult TakeOffReport()
-        {
-            var result = new TOPerfResult();
-
-            int maxOat = (int)Math.Round(weightTable.MaxOat);
-            const int tempIncrement = 1;
-
-            for (int oat = (int)Math.Round(para.OatCelsius);
-                 oat <= maxOat;
-                 oat += tempIncrement)
-            {
-                double rwyReq = takeoffDisMeterOverrideOat(oat);
-
-                if (oat == para.OatCelsius)
-                {
-                    if (rwyReq <= para.RwyLengthMeter)
-                    {
-                        if (climbLimitWeightTon(oat) * 1000.0 >= para.WeightKg)
-                        {
-                            result.SetPrimaryResult(
-                                (int)para.OatCelsius,
-                                (int)rwyReq,
-                                (int)(para.RwyLengthMeter - rwyReq));
-                        }
-                        else
-                        {
-                            throw new PoorClimbPerformanceException();
-                        }
-                    }
-                    else
-                    {
-                        throw new RunwayTooShortException();
-                    }
-                }
-                else
-                {
-                    if (rwyReq <= para.RwyLengthMeter &&
-                        climbLimitWeightTon(oat) * 1000 >= para.WeightKg)
-                    {
-                        result.AddAssumedTemp(oat,
-                                              (int)rwyReq,
-                                              (int)(para.RwyLengthMeter - rwyReq));
-                    }
-                    else
-                    {
-                        return result;
-                    }
-                }
-            }
-
-            return result;
         }
 
         /// <summary>
@@ -107,10 +47,14 @@ namespace QSP.TOPerfCalculation.Boeing
         /// </summary>
         public double TakeoffDistanceMeter()
         {
-            return takeoffDisMeterOverrideOat(para.OatCelsius);
+            return TakeoffDistanceMeter(para.OatCelsius);
         }
 
-        private double takeoffDisMeterOverrideOat(double oat)
+        /// <summary>
+        /// Find the minimum (physical) runway length for the takeoff (meter).
+        /// OAT is overriden by the provided parameter.
+        /// </summary>
+        public double TakeoffDistanceMeter(double oat)
         {
             double corrLength = weightTable.CorrectedLengthRequired(
                 rwyPressureAltFt(), oat, equivalentWeightKG() / 1000.0);
@@ -183,17 +127,20 @@ namespace QSP.TOPerfCalculation.Boeing
         }
 
         /// <summary>
-        /// Gets the climb limit weight based on the aircraft and take off environment.
+        /// Gets the climb limit weight based on the aircraft 
+        /// and take off environment.
         /// </summary>
         public double ClimbLimitWeightTon()
         {
-            return climbLimitWeightTon(para.OatCelsius);
+            return ClimbLimitWeightTon(para.OatCelsius);
         }
 
-        // Gets the climb limit weight based on the aircraft and 
-        // take off environment, for the given OAT.
-        //
-        private double climbLimitWeightTon(double oat)
+        /// <summary>
+        /// Gets the climb limit weight based on the aircraft 
+        /// and take off environment.
+        /// OAT is overriden by the provided parameter.
+        /// </summary>
+        public double ClimbLimitWeightTon(double oat)
         {
             var limitWtTon = table.ClimbLimitWt.ClimbLimitWeight(rwyPressureAltFt(), oat)
                 + climbLimitModificationKG() / 1000.0;

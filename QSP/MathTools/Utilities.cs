@@ -1,23 +1,13 @@
 using QSP.AviationTools.Coordinates;
 using System;
 using static QSP.AviationTools.Constants;
-using static QSP.MathTools.Constants;
 using static QSP.AviationTools.Coordinates.Constants;
+using static QSP.MathTools.Angles;
 
 namespace QSP.MathTools
 {
     public static class Utilities
-    {
-        public static double ToRadian(double t)
-        {
-            return t * PIOver180;
-        }
-
-        public static double ToDegree(double t)
-        {
-            return t * _180OverPI;
-        }
-
+    {      
         public static Vector3D LatLonToVector3D(double lat, double lon)
         {
             return Vector3D.GetFromSphericalCoords(1.0, Math.PI / 2 - ToRadian(lat), ToRadian(lon));
@@ -59,21 +49,5 @@ namespace QSP.MathTools
 
             return EarthRadiusNm * Math.Acos(a);
         }
-
-        public static int Mod(this int item, int x)
-        {
-            return (item % x + x) % x;
-        }
-
-        public static double Mod(this double item, int x)
-        {
-            return (item % x + x) % x;
-        }
-
-        public static double Mod(this double item, double x)
-        {
-            return (item % x + x) % x;
-        }
-
     }
 }

@@ -1,11 +1,12 @@
+using QSP.AviationTools.Coordinates;
 using QSP.LibraryExtension;
+using QSP.RouteFinding.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using static QSP.AviationTools.Constants;
+using static QSP.MathTools.Angles;
 using static QSP.MathTools.Utilities;
-using QSP.AviationTools.Coordinates;
-using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.RouteFinding.Data
 {

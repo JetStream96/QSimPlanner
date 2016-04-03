@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.MathTools;
 using QSP.TOPerfCalculation.Boeing;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using System;
 using System.Xml.Linq;
 using static QSP.AviationTools.CoversionTools;
+using static QSP.MathTools.Angles;
 
 namespace UnitTest.TOPerfCalculation.Boeing
 {
@@ -50,7 +50,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
         private static double expectedDistance1(TOParameters para, double wtTon)
         {
             double headWind = para.WindSpeed *
-                Math.Cos(Utilities.ToRadian(para.WindHeading - para.RwyHeading));
+                Math.Cos(ToRadian(para.WindHeading - para.RwyHeading));
 
             double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
             var table = perfTable.GetTable(para.FlapsIndex);
@@ -95,7 +95,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
         private static double expectedDistance2(TOParameters para)
         {
             double headWind = para.WindSpeed *
-                Math.Cos(Utilities.ToRadian(para.WindHeading - para.RwyHeading));
+                Math.Cos(ToRadian(para.WindHeading - para.RwyHeading));
 
             double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
             double wtTon = (para.WeightKg + 2200.0 - 500.0) / 1000.0;
@@ -182,7 +182,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             var table = perfTable.GetTable(para.FlapsIndex);
             double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
             double windSpd = para.WindSpeed *
-                Math.Cos(Utilities.ToRadian(para.WindHeading - para.RwyHeading));
+                Math.Cos(ToRadian(para.WindHeading - para.RwyHeading));
 
             double slopeCorrectedLength = table.SlopeCorrDry.CorrectedLength(
                             para.RwyLengthMeter, para.RwySlope);

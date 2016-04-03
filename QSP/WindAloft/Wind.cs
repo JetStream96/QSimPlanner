@@ -1,5 +1,5 @@
 using System;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.Modulo;
 
 namespace QSP.WindAloft
 {

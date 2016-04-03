@@ -6,25 +6,30 @@ using static QSP.AviationTools.Constants;
 
 namespace QSP.TOPerfCalculation
 {
-
     public class TOPerfResult
     {
-        private dataRow primaryResult;
-        private List<dataRow> assumedTemp;
+        public DataRow PrimaryResult { get; private set; }
+        public List<DataRow> AssumedTemp { get; private set; }
 
         public TOPerfResult()
         {
-            assumedTemp = new List<dataRow>();
+            AssumedTemp = new List<DataRow>();
         }
 
-        public void SetPrimaryResult(int OatCelsius, int RwyRequiredMeter, int RwyRemainingMeter)
+        public void SetPrimaryResult(int OatCelsius,
+            int RwyRequiredMeter,
+            int RwyRemainingMeter)
         {
-            primaryResult = new dataRow(OatCelsius, RwyRequiredMeter, RwyRemainingMeter);
+            PrimaryResult =
+                new DataRow(OatCelsius, RwyRequiredMeter, RwyRemainingMeter);
         }
 
-        public void AddAssumedTemp(int OatCelsius, int RwyRequiredMeter, int RwyRemainingMeter)
+        public void AddAssumedTemp(int OatCelsius,
+            int RwyRequiredMeter,
+            int RwyRemainingMeter)
         {
-            assumedTemp.Add(new dataRow(OatCelsius, RwyRequiredMeter, RwyRemainingMeter));
+            AssumedTemp.Add(
+                new DataRow(OatCelsius, RwyRequiredMeter, RwyRemainingMeter));
         }
 
         public string ToString(TemperatureUnit tempUnit, LengthUnit lenUnit)
@@ -35,18 +40,29 @@ namespace QSP.TOPerfCalculation
             var str = new StringBuilder();
 
             str.AppendLine();
-            str.AppendLine("                (   OAT " + tempConvertUnit(primaryResult.OatCelsius, tempUnit) + tUnit + "   )");
-            str.AppendLine("          Required distance     " + lengthConvertUnit(primaryResult.RwyRequiredMeter, lenUnit) + lUnit);
-            str.AppendLine("          Runway remaining      " + lengthConvertUnit(primaryResult.RwyRemainingMeter, lenUnit) + lUnit);
+
+            str.AppendLine("                (   OAT " +
+                tempConvertUnit(PrimaryResult.OatCelsius, tempUnit) +
+                tUnit + "   )");
+
+            str.AppendLine("          Required distance     " +
+                lengthConvertUnit(PrimaryResult.RwyRequiredMeter, lenUnit)
+                + lUnit);
+
+            str.AppendLine("          Runway remaining      " +
+                lengthConvertUnit(PrimaryResult.RwyRemainingMeter, lenUnit)
+                + lUnit);
+
             str.AppendLine();
             str.AppendLine(new string('-', 50));
 
-            if (assumedTemp.Count > 0)
+            if (AssumedTemp.Count > 0)
             {
                 str.AppendLine("             ( ASSUMED TEMPERATURE )");
-                str.AppendLine("  Temp(" + tUnit + ")  Required distance   Runway remaining");
+                str.AppendLine("  Temp(" + tUnit +
+                    ")  Required distance   Runway remaining");
 
-                foreach (var i in assumedTemp)
+                foreach (var i in AssumedTemp)
                 {
                     str.Append(tempConvertUnit(i.OatCelsius, tempUnit)
                                 .ToString()
@@ -81,13 +97,15 @@ namespace QSP.TOPerfCalculation
                 lengthMeter;
         }
 
-        private class dataRow
+        public class DataRow
         {
             public int OatCelsius { get; private set; }
             public int RwyRequiredMeter { get; private set; }
             public int RwyRemainingMeter { get; private set; }
 
-            public dataRow(int OatCelsius, int RwyRequiredMeter, int RwyRemainingMeter)
+            public DataRow(int OatCelsius,
+                int RwyRequiredMeter,
+                int RwyRemainingMeter)
             {
                 this.OatCelsius = OatCelsius;
                 this.RwyRequiredMeter = RwyRequiredMeter;

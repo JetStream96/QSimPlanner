@@ -108,7 +108,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             {
                 var para = new BoeingParameterValidator(elements).Validate();
 
-                var result = new TOPerfCalculation.Boeing.TOCalculator(
+                var result = new TOPerfCalculation.Boeing.TOReportGenerator(
                     (BoeingPerfTable)acPerf.Item, para).TakeOffReport();
 
                 elements.result.Text = result.ToString(

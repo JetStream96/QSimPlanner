@@ -7,6 +7,8 @@ using static QSP.LibraryExtension.Lists;
 using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.Constants;
 using static System.Math;
+using static QSP.MathTools.Angles;
+using static QSP.MathTools.Modulo;
 
 namespace QSP.RouteFinding
 {

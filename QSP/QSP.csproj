@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -104,12 +105,15 @@
     <Compile Include="LibraryExtension\StringParser\StringParser.cs" />
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
     <Compile Include="LibraryExtension\MinHeapModifiable.cs" />
+    <Compile Include="MathTools\Angles.cs" />
     <Compile Include="MathTools\Constants.cs" />
+    <Compile Include="MathTools\Doubles.cs" />
     <Compile Include="MathTools\Interpolation\Common.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate1D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate2D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate3D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate4D.cs" />
+    <Compile Include="MathTools\Modulo.cs" />
     <Compile Include="MathTools\Tables\Table1D.cs" />
     <Compile Include="MathTools\Tables\Table2D.cs" />
     <Compile Include="MathTools\Tables\Table3D.cs" />
@@ -209,6 +213,7 @@
     <Compile Include="TOPerfCalculation\Boeing\PerfData\WindCorrTable.cs" />
     <Compile Include="TOPerfCalculation\Boeing\TOCalculator.cs" />
     <Compile Include="TOPerfCalculation\Boeing\TOParameters.cs" />
+    <Compile Include="TOPerfCalculation\Boeing\TOReportGenerator.cs" />
     <Compile Include="TOPerfCalculation\Constants.cs" />
     <Compile Include="TOPerfCalculation\Entry.cs" />
     <Compile Include="TOPerfCalculation\InstanceInitializer.cs" />
@@ -345,7 +350,7 @@
     <Compile Include="RouteFinding\RouteAnalyzers\BasicRouteAnalyzer.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarHandler.cs" />
     <Compile Include="RouteFinding\Utilities.cs" />
-    <Compile Include="TOPerfCalculation\TOCalcResult.cs" />
+    <Compile Include="TOPerfCalculation\TOPerfResult.cs" />
     <Compile Include="UIElement\TablessControl.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -2,6 +2,7 @@
 using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 using System;
+using static QSP.MathTools.Angles;
 
 namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 {
@@ -87,7 +88,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
             {
                 HeadwindKts = (int)(
                     Math.Cos(
-                        MathTools.Utilities.ToRadian(
+                        ToRadian(
                             Convert.ToDouble(elements.rwyHeading.Text) -
                             Convert.ToDouble(elements.windDirection.Text)))
                             * Convert.ToDouble(elements.windSpeed.Text));

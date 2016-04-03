@@ -3,6 +3,7 @@ using QSP.MathTools;
 using System;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Utilities;
+using static QSP.MathTools.Angles;
 
 namespace QSP.WindAloft
 {

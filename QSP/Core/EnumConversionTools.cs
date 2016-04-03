@@ -65,10 +65,13 @@ namespace QSP.Core
             {
                 case "KG":
                     return WeightUnit.KG;
+
                 case "LB":
                     return WeightUnit.LB;
+
+                default:
+                    throw new ArgumentOutOfRangeException("Invalid weight unit.");
             }
-            throw new ArgumentOutOfRangeException("Invalid weight unit.");
         }
     }
 }
