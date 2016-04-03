@@ -63,5 +63,25 @@ namespace QSP.LibraryExtension
 
             return true;
         }
+
+        public static bool Equals(this double[][][][] item, double[][][][] other, double delta)
+        {
+            if (item == null ||
+                other == null ||
+                item.Length != other.Length)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < item.Length; i++)
+            {
+                if (Equals(item[i], other[i], delta) == false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

@@ -65,7 +65,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
             var items = elements.flaps.Items;
             items.Clear();
 
-            foreach (var i in ((BoeingPerfTable)acPerf.Item).FlapsAvailable())
+            foreach (var i in ((BoeingPerfTable)acPerf.Item).Flaps)
             {
                 items.Add(i);
             }
@@ -79,7 +79,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
             var items = elements.reverser.Items;
             items.Clear();
 
-            foreach (var i in ((BoeingPerfTable)acPerf.Item).RevAvailable())
+            foreach (var i in ((BoeingPerfTable)acPerf.Item).Reversers)
             {
                 items.Add(i);
             }

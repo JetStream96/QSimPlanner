@@ -1,4 +1,6 @@
-﻿namespace QSP.LandingPerfCalculation.Boeing.PerfData
+﻿using QSP.LibraryExtension;
+
+namespace QSP.LandingPerfCalculation.Boeing.PerfData
 {
     public class TableWet
     {
@@ -16,6 +18,11 @@
             DataColumn column)
         {
             return dataWet[FlapIndex][(int)SurfCond - 1][BrakeIndex][(int)column];
+        }
+
+        public bool Equals(TableWet item, double delta)
+        {
+            return DoubleArrayCompare.Equals(dataWet, item.dataWet, delta);
         }
     }
 }

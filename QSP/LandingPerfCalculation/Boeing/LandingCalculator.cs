@@ -114,7 +114,7 @@ namespace QSP.LandingPerfCalculation.Boeing
 
         private double wtCorrection(LandingParameters para, int brakeSetting)
         {
-            double wtExcessSteps = (para.WeightKG - perfTable.weightRef) / perfTable.weightStep;
+            double wtExcessSteps = (para.WeightKG - perfTable.WeightRef) / perfTable.WeightStep;
 
             return wtExcessSteps *
 

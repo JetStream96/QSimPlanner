@@ -6,7 +6,6 @@ using QSP.TOPerfCalculation.Boeing.PerfData;
 
 namespace UnitTest.TOPerfCalculation.Boeing
 {
-    [TestClass]
     public class TestData
     {
         public string PerfXml
