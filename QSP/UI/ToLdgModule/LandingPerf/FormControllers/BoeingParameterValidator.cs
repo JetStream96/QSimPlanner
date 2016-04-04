@@ -21,10 +21,10 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
             double WeightKG = 0.0;
             double RwyLengthMeter = 0.0;
             double ElevationFT = 0.0;
-            int HeadwindKts = 0;
+            double HeadwindKts = 0.0;
             double SlopePercent = 0.0;
             double TempCelsius = 0.0;
-            int AppSpeedIncrease = 0;
+            double AppSpeedIncrease = 0.0;
             ReverserOption Reverser = default(ReverserOption);
             SurfaceCondition SurfaceCondition = default(SurfaceCondition);
             int FlapsIndex = 0;
@@ -86,12 +86,12 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 
             try
             {
-                HeadwindKts = (int)(
+                HeadwindKts =
                     Math.Cos(
                         ToRadian(
                             Convert.ToDouble(elements.rwyHeading.Text) -
                             Convert.ToDouble(elements.windDirection.Text)))
-                            * Convert.ToDouble(elements.windSpeed.Text));
+                            * Convert.ToDouble(elements.windSpeed.Text);
             }
             catch
             {
@@ -123,7 +123,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 
             try
             {
-                AppSpeedIncrease = (int)Convert.ToDouble(elements.appSpeedIncrease.Text);
+                AppSpeedIncrease = Convert.ToDouble(elements.appSpeedIncrease.Text);
             }
             catch
             {
@@ -153,17 +153,17 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
             BrakeIndex = elements.brake.SelectedIndex;
 
             return new LandingParameters(
-                (int)WeightKG,
-                (int)RwyLengthMeter,
-                (int)ElevationFT,
-                HeadwindKts,
-                SlopePercent,
-                (int)TempCelsius,
-                AppSpeedIncrease,
-                Reverser,
-                SurfaceCondition,
-                FlapsIndex,
-                BrakeIndex);
+                            WeightKG,
+                            RwyLengthMeter,
+                            ElevationFT,
+                            HeadwindKts,
+                            SlopePercent,
+                            TempCelsius,
+                            AppSpeedIncrease,
+                            Reverser,
+                            SurfaceCondition,
+                            FlapsIndex,
+                            BrakeIndex);
         }
     }
 }

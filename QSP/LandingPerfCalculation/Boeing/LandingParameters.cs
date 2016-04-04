@@ -4,30 +4,30 @@ namespace QSP.LandingPerfCalculation.Boeing
 {
     public class LandingParameters
     {
-        public int WeightKG { get; private set; }
-        public int RwyLengthMeter { get; private set; }
-        public int ElevationFT { get; private set; }
-        public int HeadwindKts { get; private set; }
+        public double WeightKG { get; private set; }
+        public double RwyLengthMeter { get; private set; }
+        public double ElevationFT { get; private set; }
+        public double HeadwindKts { get; private set; }
         public double SlopePercent { get; private set; }
-        public int TempCelsius { get; private set; }
-        public int AppSpeedIncrease { get; private set; }
+        public double TempCelsius { get; private set; }
+        public double AppSpeedIncrease { get; private set; }
         public ReverserOption Reverser { get; private set; }
         public SurfaceCondition SurfaceCondition { get; private set; }
         public int FlapsIndex { get; private set; }
         public int BrakeIndex { get; private set; }
 
         public LandingParameters(
-            int WeightKG, 
-            int RwyLengthMeter, 
-            int ElevationFT, 
-            int HeadwindKts, 
+            double WeightKG,
+            double RwyLengthMeter,
+            double ElevationFT,
+            double HeadwindKts, 
             double SlopePercent,
-            int TempCelsius, 
-            int AppSpeedIncrease, 
+            double TempCelsius,
+            double AppSpeedIncrease, 
             ReverserOption Reverser,
             SurfaceCondition SurfaceCondition, 
             int FlapsIndex, 
-            int AutoBrakeIndex)
+            int BrakeIndex)
         {
             this.WeightKG = WeightKG;
             this.RwyLengthMeter = RwyLengthMeter;
@@ -39,7 +39,7 @@ namespace QSP.LandingPerfCalculation.Boeing
             this.Reverser = Reverser;
             this.SurfaceCondition = SurfaceCondition;
             this.FlapsIndex = FlapsIndex;
-            this.BrakeIndex = AutoBrakeIndex;
+            this.BrakeIndex = BrakeIndex;
         }
     }
 }

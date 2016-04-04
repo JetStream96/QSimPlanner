@@ -36,20 +36,22 @@ namespace QSP.LandingPerfCalculation.Boeing
         }
 
         /// <exception cref="RunwayTooShortException"></exception>
-        public LandingCalcResult GetLandingReport()
+        public LandingCalcResult LandingReport()
         {
             var result = new LandingCalcResult();
             var brkList = perfTable.BrakesAvailable(para.SurfaceCondition);
 
             //compute the user input
-            int disReqMeter = RoundToInt(GetLandingDistanceMeter());
+            double disReqMeter = DistanceRequiredMeter();
 
-            int disRemainMeter = para.RwyLengthMeter - disReqMeter;
+            double disRemainMeter = para.RwyLengthMeter - disReqMeter;
 
             if (disRemainMeter >= 0)
             {
                 result.SetSelectedBrakesResult(
-                    brkList[para.BrakeIndex], disReqMeter, disRemainMeter);
+                    brkList[para.BrakeIndex],
+                    RoundToInt(disReqMeter),
+                    RoundToInt(disRemainMeter));
             }
             else
             {
@@ -66,14 +68,14 @@ namespace QSP.LandingPerfCalculation.Boeing
                 }
                 else
                 {
-                    disReqMeter = RoundToInt(GetLandingDistanceMeter(i));
+                    disReqMeter = RoundToInt(DistanceRequiredMeter(i));
                     disRemainMeter = para.RwyLengthMeter - disReqMeter;
 
                     if (disRemainMeter >= 0)
                     {
                         result.AddOtherResult(brkList[i],
-                                              disReqMeter,
-                                              disRemainMeter);
+                                              RoundToInt(disReqMeter),
+                                              RoundToInt(disRemainMeter));
                     }
                     else
                     {
@@ -87,22 +89,16 @@ namespace QSP.LandingPerfCalculation.Boeing
         /// <summary>
         /// Gets the landing distance for the given landing parameters.
         /// </summary>
-        public double GetLandingDistanceMeter(int brakeSetting)
+        public double DistanceRequiredMeter(int brakeSetting)
         {
             double totalDisMeter =
                 reqData(DataColumn.RefDis, brakeSetting) +
                 wtCorrection(brakeSetting) +
                 elevationCorrection(brakeSetting) +
                 windCorrection(brakeSetting) +
-                slopeCorrection(para, brakeSetting);
-
-            double tempExcess = para.TempCelsius - IsaTemp(para.ElevationFT);
-
-            totalDisMeter += tempExcess / 10 * tempExcess >= 0 ?
-                reqData(DataColumn.TempAboveISA, brakeSetting) :
-                -reqData(DataColumn.TempBelowISA, brakeSetting);
-
-            totalDisMeter += para.AppSpeedIncrease / 10;
+                slopeCorrection(brakeSetting) +
+                tempCorrection(brakeSetting) +
+                appSpdCorrection(brakeSetting);
 
             if (para.Reverser == ReverserOption.HalfRev)
             {
@@ -144,7 +140,7 @@ namespace QSP.LandingPerfCalculation.Boeing
             return para.HeadwindKts / 10.0 * corrPer10kts;
         }
 
-        private double slopeCorrection(LandingParameters para, int brake)
+        private double slopeCorrection(int brake)
         {
             double corrPerDegree =
                 para.SlopePercent <= 0 ?
@@ -154,12 +150,28 @@ namespace QSP.LandingPerfCalculation.Boeing
             return para.SlopePercent * corrPerDegree;
         }
 
+        private double tempCorrection(int brake)
+        {
+            double tempExcess = para.TempCelsius - IsaTemp(para.ElevationFT);
+            double corrPer10deg = tempExcess >= 0.0 ?
+                   reqData(DataColumn.TempAboveISA, brake) :
+                   -reqData(DataColumn.TempBelowISA, brake);
+
+            return tempExcess / 10.0 * corrPer10deg;
+        }
+
+        private double appSpdCorrection(int brake)
+        {
+            return para.AppSpeedIncrease / 10.0 *
+                reqData(DataColumn.AppSpdAdjust, brake);
+        }
+
         /// <summary>
         /// Gets the landing distance for the given landing parameters.
         /// </summary>
-        public double GetLandingDistanceMeter()
+        public double DistanceRequiredMeter()
         {
-            return GetLandingDistanceMeter(para.BrakeIndex);
+            return DistanceRequiredMeter(para.BrakeIndex);
         }
     }
 }
