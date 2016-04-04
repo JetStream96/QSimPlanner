@@ -6,6 +6,7 @@ using QSP.TOPerfCalculation.Boeing.PerfData;
 using System;
 using System.Reflection;
 using System.Xml.Linq;
+using UnitTest.Common;
 
 namespace UnitTest.TOPerfCalculation.Boeing
 {
@@ -43,8 +44,9 @@ namespace UnitTest.TOPerfCalculation.Boeing
             assertReport(report, calc, para);
         }
 
-        private static void assertReport(TOPerfResult report,
-            TOCalculator calc, TOParameters para)
+        private static void assertReport(TOReport report,
+                                         TOCalculator calc,
+                                         TOParameters para)
         {
             // Rwy remaining
             assertRwyRemaining(report, calc, para);
@@ -64,8 +66,9 @@ namespace UnitTest.TOPerfCalculation.Boeing
             }
         }
 
-        private static void assertRwyRemaining(TOPerfResult report,
-            TOCalculator calc, TOParameters para)
+        private static void assertRwyRemaining(TOReport report,
+                                               TOCalculator calc,
+                                               TOParameters para)
         {
             var primary = report.PrimaryResult;
             double expectedRemaining = para.RwyLengthMeter -
@@ -130,19 +133,11 @@ namespace UnitTest.TOPerfCalculation.Boeing
             double wt = calc.ClimbLimitWeightTon();
 
             // Make it heavier than climb limit weight.
-            setProperty(para, "WeightKg", wt * 1000.0 + 1.0);
+            PropertySetter.Set(para, "WeightKg", wt * 1000.0 + 1.0);
 
             var report = new TOReportGenerator(perfTable, para)
                          .TakeOffReport();
 
-        }
-
-        private static void setProperty(object target, string propertyName,
-            object propertyValue)
-        {
-            Type type = target.GetType();
-            PropertyInfo prop = type.GetProperty(propertyName);
-            prop.SetValue(target, propertyValue, null);
         }
     }
 }

@@ -34,58 +34,7 @@ namespace QSP.LandingPerfCalculation.Boeing
                               brakeSetting,
                               column);
         }
-
-        /// <exception cref="RunwayTooShortException"></exception>
-        public LandingCalcResult LandingReport()
-        {
-            var result = new LandingCalcResult();
-            var brkList = perfTable.BrakesAvailable(para.SurfaceCondition);
-
-            //compute the user input
-            double disReqMeter = DistanceRequiredMeter();
-
-            double disRemainMeter = para.RwyLengthMeter - disReqMeter;
-
-            if (disRemainMeter >= 0)
-            {
-                result.SetSelectedBrakesResult(
-                    brkList[para.BrakeIndex],
-                    RoundToInt(disReqMeter),
-                    RoundToInt(disRemainMeter));
-            }
-            else
-            {
-                throw new RunwayTooShortException();
-            }
-
-            //compute all possible brake settings
-
-            for (int i = 0; i < brkList.Length; i++)
-            {
-                if (i == para.BrakeIndex)
-                {
-                    result.AddOtherResult();
-                }
-                else
-                {
-                    disReqMeter = RoundToInt(DistanceRequiredMeter(i));
-                    disRemainMeter = para.RwyLengthMeter - disReqMeter;
-
-                    if (disRemainMeter >= 0)
-                    {
-                        result.AddOtherResult(brkList[i],
-                                              RoundToInt(disReqMeter),
-                                              RoundToInt(disRemainMeter));
-                    }
-                    else
-                    {
-                        return result;
-                    }
-                }
-            }
-            return result;
-        }
-
+        
         /// <summary>
         /// Gets the landing distance for the given landing parameters.
         /// </summary>

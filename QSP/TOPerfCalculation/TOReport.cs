@@ -6,12 +6,12 @@ using static QSP.AviationTools.Constants;
 
 namespace QSP.TOPerfCalculation
 {
-    public class TOPerfResult
+    public class TOReport
     {
         public DataRow PrimaryResult { get; private set; }
         public List<DataRow> AssumedTemp { get; private set; }
 
-        public TOPerfResult()
+        public TOReport()
         {
             AssumedTemp = new List<DataRow>();
         }

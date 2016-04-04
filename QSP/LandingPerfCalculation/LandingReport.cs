@@ -3,24 +3,24 @@ using System.Text;
 
 namespace QSP.LandingPerfCalculation
 {
-    public class LandingCalcResult
+    public class LandingReport
     {
-        private dataRow selectedBrks;
-        private List<dataRow> allSettings;
+        public DataRow SelectedBrks { get; private set; }
+        public List<DataRow> AllSettings { get; private set; }
 
-        public LandingCalcResult()
+        public LandingReport()
         {
-            allSettings = new List<dataRow>();
+            AllSettings = new List<DataRow>();
         }
 
         public void SetSelectedBrakesResult(string BrkSetting, int ActualDisMeter, int DisRemainMeter)
         {
-            selectedBrks = new dataRow(BrkSetting, ActualDisMeter, DisRemainMeter);
+            SelectedBrks = new DataRow(BrkSetting, ActualDisMeter, DisRemainMeter);
         }
 
         public void AddOtherResult(string BrkSetting, int ActualDisMeter, int DisRemainMeter)
         {
-            allSettings.Add(new dataRow(BrkSetting, ActualDisMeter, DisRemainMeter));
+            AllSettings.Add(new DataRow(BrkSetting, ActualDisMeter, DisRemainMeter));
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace QSP.LandingPerfCalculation
         /// </summary>
         public void AddOtherResult()
         {
-            allSettings.Add(selectedBrks);
+            AllSettings.Add(SelectedBrks);
         }
 
         public string ToString(LengthUnit lengthUnit)
@@ -39,11 +39,11 @@ namespace QSP.LandingPerfCalculation
             result.AppendLine();
 
             result.AppendLine("           Actual landing distance    " +
-                convertToFeetIfNeeded(selectedBrks.ActualDisMeter, lengthUnit)
+                convertToFeetIfNeeded(SelectedBrks.ActualDisMeter, lengthUnit)
                 + " " + unitStr);
 
             result.AppendLine("           Runway remaining           " +
-                convertToFeetIfNeeded(selectedBrks.DisRemainMeter, lengthUnit)
+                convertToFeetIfNeeded(SelectedBrks.DisRemainMeter, lengthUnit)
                 + " " + unitStr);
 
             result.AppendLine();
@@ -52,7 +52,7 @@ namespace QSP.LandingPerfCalculation
             result.AppendLine("                  Landing distance   Runway remaining");
 
 
-            foreach (var i in allSettings)
+            foreach (var i in AllSettings)
             {
                 result.Append(("   " + i.BrkSetting).PadRight(18, ' '));
 
@@ -79,13 +79,13 @@ namespace QSP.LandingPerfCalculation
                 (int)(disMeter * AviationTools.Constants.MeterFtRatio);
         }
 
-        private class dataRow
+        public class DataRow
         {
             public string BrkSetting { get; private set; }
             public int ActualDisMeter { get; private set; }
             public int DisRemainMeter { get; private set; }
 
-            public dataRow(string BrkSetting, int ActualDisMeter, int DisRemainMeter)
+            public DataRow(string BrkSetting, int ActualDisMeter, int DisRemainMeter)
             {
                 this.BrkSetting = BrkSetting;
                 this.ActualDisMeter = ActualDisMeter;

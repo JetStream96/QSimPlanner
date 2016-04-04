@@ -23,9 +23,9 @@ namespace QSP.TOPerfCalculation.Boeing
         /// </summary>
         /// <exception cref="RunwayTooShortException">
         /// <exception cref="PoorClimbPerformanceException">
-        public TOPerfResult TakeOffReport()
+        public TOReport TakeOffReport()
         {
-            var result = new TOPerfResult();
+            var result = new TOReport();
 
             var fieldLimitWtTable = para.SurfaceWet ?
                 table.WeightTableWet :
@@ -53,8 +53,9 @@ namespace QSP.TOPerfCalculation.Boeing
             return result;
         }
 
-        private void validateMainResult(TOPerfResult result, int oat,
-            double rwyRequired)
+        private void validateMainResult(TOReport result, 
+                                        int oat,
+                                        double rwyRequired)
         {
             if (rwyRequired <= para.RwyLengthMeter)
             {
@@ -77,11 +78,11 @@ namespace QSP.TOPerfCalculation.Boeing
         }
 
         // returns whether the result was successfully added.
-        private bool tryAddResult(TOPerfResult result, int oat,
+        private bool tryAddResult(TOReport result, int oat,
             double rwyRequired)
         {
             if (rwyRequired <= para.RwyLengthMeter &&
-                calc.ClimbLimitWeightTon(oat) * 1000 >= para.WeightKg)
+                calc.ClimbLimitWeightTon(oat) * 1000.0 >= para.WeightKg)
             {
                 result.AddAssumedTemp(
                     oat,

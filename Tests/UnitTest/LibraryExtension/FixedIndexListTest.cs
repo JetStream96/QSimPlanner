@@ -172,11 +172,11 @@ namespace UnitTest.LibraryExtensionTest
             {
                 if (i % 100 == 0)
                 {
-                    Assert.IsTrue(WithinPrecision(10.0, item[i], 0.000001));
+                    Assert.AreEqual(10.0, item[i], 0.000001);
                 }
                 else
                 {
-                    Assert.IsTrue(WithinPrecision(i, item[i], 0.000001));
+                    Assert.AreEqual(i, item[i], 0.000001);
                 }
             }
         }
@@ -204,11 +204,11 @@ namespace UnitTest.LibraryExtensionTest
             {
                 if (i % 100 == 0)
                 {
-                    Assert.IsTrue(WithinPrecision(-i / 100, item[indices[i / 100]], 0.000001));
+                    Assert.AreEqual(-i / 100, item[indices[i / 100]], 0.000001);
                 }
                 else
                 {
-                    Assert.IsTrue(WithinPrecision(i, item[i], 0.000001));
+                    Assert.AreEqual(i, item[i], 0.000001);
                 }
             }
         }

@@ -18,8 +18,8 @@ namespace UnitTest.AviationToolsTest
         [TestMethod]
         public void IsaTempTest()
         {
-            Assert.IsTrue(WithinPrecision(IsaTemp(20000.0), -24.624, 1.0));
-            Assert.IsTrue(WithinPrecision(IsaTemp(41000.0), -56.5, 1.0));
+            Assert.AreEqual(IsaTemp(20000.0), -24.624, 1.0);
+            Assert.AreEqual(IsaTemp(41000.0), -56.5, 1.0);
         }
 
         [TestMethod]
@@ -70,13 +70,13 @@ namespace UnitTest.AviationToolsTest
         [TestMethod]
         public void ToCelsiusTest()
         {
-            Assert.IsTrue(WithinPrecision(ToCelsius(50.0), 10.0, 0.1));
+            Assert.AreEqual(ToCelsius(50.0), 10.0, 0.1);
         }
 
         [TestMethod]
         public void ToFahrenheitTest()
         {
-            Assert.IsTrue(WithinPrecision(ToFahrenheit(-50.0), -58.0, 0.1));
+            Assert.AreEqual(ToFahrenheit(-50.0), -58.0, 0.1);
         }
 
     }

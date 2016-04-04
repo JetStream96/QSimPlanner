@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
@@ -9,7 +10,6 @@ using static QSP.LibraryExtension.Lists;
 using static QSP.MathTools.Utilities;
 using static QSP.RouteFinding.Utilities;
 using static UnitTest.Common.Utilities;
-using QSP.AviationTools.Coordinates;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 {

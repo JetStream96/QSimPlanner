@@ -85,6 +85,7 @@
     <Compile Include="Core\EnumConversionTools.cs" />
     <Compile Include="Core\Enums.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingCalculator.cs" />
+    <Compile Include="LandingPerfCalculation\Boeing\LandingReportGenerator.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\PerfDataLoader.cs" />
     <Compile Include="LandingPerfCalculation\Constants.cs" />
     <Compile Include="LandingPerfCalculation\InstanceInitializer.cs" />
@@ -291,7 +292,7 @@
     <Compile Include="FuelCalculation\FuelReportResult.cs" />
     <Compile Include="FuelCalculation\OptCrzCalculator.cs" />
     <Compile Include="LibraryExtension\Arrays.cs" />
-    <Compile Include="LandingPerfCalculation\LandingCalcResult.cs" />
+    <Compile Include="LandingPerfCalculation\LandingReport.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingParameters.cs" />
     <Compile Include="LibraryExtension\BinarySearchForAll.cs" />
     <Compile Include="LibraryExtension\HashMap.cs" />
@@ -350,7 +351,7 @@
     <Compile Include="RouteFinding\RouteAnalyzers\BasicRouteAnalyzer.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarHandler.cs" />
     <Compile Include="RouteFinding\Utilities.cs" />
-    <Compile Include="TOPerfCalculation\TOPerfResult.cs" />
+    <Compile Include="TOPerfCalculation\TOReport.cs" />
     <Compile Include="UIElement\TablessControl.cs">
       <SubType>Component</SubType>
     </Compile>

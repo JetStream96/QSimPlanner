@@ -125,17 +125,20 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             // assert
             var node = route.FirstNode;
-            Assert.IsTrue(WithinPrecision(node.Value.Waypoint.Lat, 41.0, 1E-8) &&
-                          WithinPrecision(node.Value.Waypoint.Lon, -50.0, 1E-8) &&
-                          node.Value.AirwayToNext == "DCT" &&
-                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(41.0, -50.0, 41.3, -50.55), 1E-8));
+            Assert.AreEqual(node.Value.Waypoint.Lat, 41.0, 1E-8);
+
+            Assert.AreEqual(node.Value.Waypoint.Lon, -50.0, 1E-8);
+            Assert.IsTrue(node.Value.AirwayToNext == "DCT");
+            Assert.AreEqual(node.Value.DistanceToNext, 
+                            GreatCircleDistance(41.0, -50.0, 41.3, -50.55), 
+                            1E-8);
 
             node = node.Next;
-            Assert.IsTrue(WithinPrecision(node.Value.Waypoint.Lat, 41.3, 1E-8) &&
-                          WithinPrecision(node.Value.Waypoint.Lon, -50.55, 1E-8) &&
-                          node == route.LastNode);
+            Assert.AreEqual(node.Value.Waypoint.Lat, 41.3, 1E-8);
+            Assert.AreEqual(node.Value.Waypoint.Lon, -50.55, 1E-8);
+            Assert.IsTrue(node == route.LastNode);
         }
-        
+
         [TestMethod]
         [ExpectedException(typeof(InvalidIdentifierException))]
         public void WhenIdentDoesNotExistShouldThrowException()
