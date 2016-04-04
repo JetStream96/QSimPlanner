@@ -113,7 +113,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
                 var para = new BoeingParameterValidator(elements).Validate();
 
                 var result = new LandingPerfCalculation.Boeing.LandingCalculator(
-                    (BoeingPerfTable)acPerf.Item).GetLandingReport(para);
+                    (BoeingPerfTable)acPerf.Item, para).GetLandingReport();
 
                 elements.result.Text = result.ToString(
                     elements.lengthUnit.SelectedIndex == 0 ?
