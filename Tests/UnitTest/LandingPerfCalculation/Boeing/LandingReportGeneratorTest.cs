@@ -5,6 +5,7 @@ using QSP.LandingPerfCalculation.Boeing.PerfData;
 using System;
 using System.Xml.Linq;
 using UnitTest.Common;
+using QSP.Core;
 
 namespace UnitTest.LandingPerfCalculation.Boeing
 {
@@ -82,6 +83,30 @@ namespace UnitTest.LandingPerfCalculation.Boeing
                 double disRemain = para.RwyLengthMeter - rwyRequired;
                 Assert.AreEqual(disRemain, i.DisRemainMeter, 0.5);
             }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RunwayTooShortException))]
+        public void WhenRwyIsTooShortShouldThrowException()
+        {
+            string text = new TestData().AllText;
+            var doc = XDocument.Parse(text);
+            var table = new PerfDataLoader().GetItem(doc);
+
+            var para = new LandingParameters(
+                55000.0,
+                0.0,        // Too short runway
+                1000.0,
+                -10.0,
+                -1.0,
+                15.0,
+                5.0,
+                ReverserOption.NoRev,
+                SurfaceCondition.Good,
+                0,
+                0);
+
+            var report = new LandingReportGenerator(table, para).GetReport();
         }
     }
 }
