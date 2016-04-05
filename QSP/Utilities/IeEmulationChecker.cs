@@ -124,9 +124,13 @@ namespace QSP.Utilities
 
         public bool RegKeyExists()
         {
-            return (Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" +
+            object defaultVal = new object();
+
+            var keyValue = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" +
                 "\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION",
-                Assembly.GetEntryAssembly().GetName().Name + ".exe", "") != null);
+                Assembly.GetEntryAssembly().GetName().Name + ".exe", defaultVal);
+
+            return (keyValue != null && keyValue != defaultVal);
         }
 
 #if DEBUG
@@ -146,10 +150,14 @@ namespace QSP.Utilities
 
         public bool DebugRegKeyExists()
         {
-            return (Registry.GetValue(
+            object defaultVal = new object();
+
+            var keyValue = Registry.GetValue(
                 "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" +
                 "\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION",
-                Assembly.GetEntryAssembly().GetName().Name + ".vshost.exe", "") != null);
+                Assembly.GetEntryAssembly().GetName().Name + ".vshost.exe", defaultVal);
+
+            return (keyValue != null && keyValue != defaultVal);
         }
 
 #endif
