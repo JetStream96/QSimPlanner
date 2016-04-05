@@ -62,7 +62,6 @@
     <Compile Include="AviationTools\Coordinates\Format7LetterTest.cs" />
     <Compile Include="Common\PropertySetter.cs" />
     <Compile Include="Common\Utilities.cs" />
-    <Compile Include="LandingPerfCalcTest.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingCalculatorTest.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingReportGeneratorTest.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\PerfDataLoaderTest.cs" />
