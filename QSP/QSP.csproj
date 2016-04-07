@@ -221,6 +221,12 @@
     <Compile Include="TOPerfCalculation\PerfTable.cs" />
     <Compile Include="TOPerfCalculation\PerfTableItem.cs" />
     <Compile Include="UI\ControlStates\StateManager.cs" />
+    <Compile Include="UI\ToLdgModule\AirportMap\AirportMapControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ToLdgModule\AirportMap\AirportMapControl.Designer.cs">
+      <DependentUpon>AirportMapControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ToLdgModule\Common\AirportInfo\SlopeComboBoxController.cs" />
     <Compile Include="UI\Controls\ComboBoxWithBorder.cs">
       <SubType>Component</SubType>
@@ -420,6 +426,9 @@
     </Compile>
     <EmbeddedResource Include="UI\Forms\about.resx">
       <DependentUpon>about.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ToLdgModule\AirportMap\AirportMapControl.resx">
+      <DependentUpon>AirportMapControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ToLdgModule\Common\AirportInfo\AirportInfoControl.resx">
       <DependentUpon>AirportInfoControl.cs</DependentUpon>

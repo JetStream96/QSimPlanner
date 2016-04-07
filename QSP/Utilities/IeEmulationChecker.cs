@@ -21,18 +21,18 @@ namespace QSP.Utilities
 
         private void addExeWithIEEmulationMode(string exeName)
         {
-            //e.g. exeName = "IFP_Test.exe"
+            // e.g. exeName = "abc.exe"
 
-            //reference:
-            //7000:   IE7 Emulation
-            //8000:   IE8 Emulation
-            //8888: Force IE8 Emulation
-            //9000:   IE9 Emulation
-            //9999: Force IE9 Emulation
-            //10000:  IE10 Emulation
-            //10001: Force IE10 Emulation
-            //11000:  IE11 Emulation
-            //11001: Force IE11 Emulation
+            // emulationNum:
+            // 7000:        IE7 Emulation
+            // 8000:        IE8 Emulation
+            // 8888:  Force IE8 Emulation
+            // 9000:        IE9 Emulation
+            // 9999:  Force IE9 Emulation
+            // 10000:       IE10 Emulation
+            // 10001: Force IE10 Emulation
+            // 11000:       IE11 Emulation
+            // 11001: Force IE11 Emulation
 
             int ver = getIEVersion();
             int emulationNum = 0;
@@ -77,7 +77,6 @@ namespace QSP.Utilities
 
         private int getIEVersion()
         {
-
             try
             {
                 string version =
