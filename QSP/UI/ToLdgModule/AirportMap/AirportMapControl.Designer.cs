@@ -194,6 +194,7 @@
             this.updateBtn.Size = new System.Drawing.Size(33, 33);
             this.updateBtn.TabIndex = 81;
             this.updateBtn.UseVisualStyleBackColor = true;
+            this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
             // 
             // label1
             // 
@@ -216,7 +217,7 @@
             this.icaoComboBox.Size = new System.Drawing.Size(118, 31);
             this.icaoComboBox.TabIndex = 15;
             // 
-            // AirportInfoControl
+            // AirportMapControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -228,7 +229,7 @@
             this.Controls.Add(this.airportDataGrid);
             this.Controls.Add(this.mapDisplayWebBrowser);
             this.Controls.Add(this.metarLbl);
-            this.Name = "AirportInfoControl";
+            this.Name = "AirportMapControl";
             this.Size = new System.Drawing.Size(1024, 670);
             ((System.ComponentModel.ISupportInitialize)(this.airportDataGrid)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);

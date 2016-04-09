@@ -59,6 +59,8 @@ namespace QSP
             this.ShowLDG_Btn = new System.Windows.Forms.Button();
             this.ShowTO_Btn = new System.Windows.Forms.Button();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.metar_Lbl = new System.Windows.Forms.Label();
+            this.UpdateAll_Btn = new System.Windows.Forms.Button();
             this.MainWin_TablessControl = new QSP.TablessControl();
             this.Route_TabPage = new System.Windows.Forms.TabPage();
             this.FuelReportView_Btn = new System.Windows.Forms.Button();
@@ -150,12 +152,10 @@ namespace QSP
             this.LatLon_Lbl2 = new System.Windows.Forms.Label();
             this.airport_name_Lbl = new System.Windows.Forms.Label();
             this.TATL_Lbl1 = new System.Windows.Forms.Label();
-            this.metar_Lbl = new System.Windows.Forms.Label();
             this.LatLon_lbl1 = new System.Windows.Forms.Label();
             this.TATL_Lbl2 = new System.Windows.Forms.Label();
             this.TabPage2 = new System.Windows.Forms.TabPage();
             this.GroupBox18 = new System.Windows.Forms.GroupBox();
-            this.UpdateAll_Btn = new System.Windows.Forms.Button();
             this.RichTextBox2 = new System.Windows.Forms.RichTextBox();
             this.GroupBox17 = new System.Windows.Forms.GroupBox();
             this.MetarToFindTxtBox = new System.Windows.Forms.TextBox();
@@ -524,6 +524,31 @@ namespace QSP
             this.ShowTO_Btn.Text = "T/O Perf";
             this.ShowTO_Btn.UseVisualStyleBackColor = false;
             this.ShowTO_Btn.Click += new System.EventHandler(this.ShowTO_Btn_Click);
+            // 
+            // metar_Lbl
+            // 
+            this.metar_Lbl.AutoSize = true;
+            this.metar_Lbl.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.metar_Lbl.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.metar_Lbl.Location = new System.Drawing.Point(280, 4);
+            this.metar_Lbl.Name = "metar_Lbl";
+            this.metar_Lbl.Size = new System.Drawing.Size(671, 38);
+            this.metar_Lbl.TabIndex = 13;
+            this.metar_Lbl.Text = "2015/02/20 09:00\r\nRCTP 200900Z 36003KT 310V030 9999 FEW010 BKN040 18/13 Q1018 NOS" +
+    "IG RMK A3006";
+            this.ToolTip1.SetToolTip(this.metar_Lbl, "Click to refresh Metar");
+            this.metar_Lbl.Click += new System.EventHandler(this.metar_Lbl_Click);
+            // 
+            // UpdateAll_Btn
+            // 
+            this.UpdateAll_Btn.BackgroundImage = global::QSP.Properties.Resources.processing9;
+            this.UpdateAll_Btn.Location = new System.Drawing.Point(1043, 22);
+            this.UpdateAll_Btn.Name = "UpdateAll_Btn";
+            this.UpdateAll_Btn.Size = new System.Drawing.Size(33, 33);
+            this.UpdateAll_Btn.TabIndex = 80;
+            this.ToolTip1.SetToolTip(this.UpdateAll_Btn, "Refresh all Metar/TAF");
+            this.UpdateAll_Btn.UseVisualStyleBackColor = true;
+            this.UpdateAll_Btn.Click += new System.EventHandler(this.UpdateAll_Btn_Click);
             // 
             // MainWin_TablessControl
             // 
@@ -1724,20 +1749,6 @@ namespace QSP
             this.TATL_Lbl1.TabIndex = 11;
             this.TATL_Lbl1.Text = "TA/TL:";
             // 
-            // metar_Lbl
-            // 
-            this.metar_Lbl.AutoSize = true;
-            this.metar_Lbl.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.metar_Lbl.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metar_Lbl.Location = new System.Drawing.Point(280, 4);
-            this.metar_Lbl.Name = "metar_Lbl";
-            this.metar_Lbl.Size = new System.Drawing.Size(671, 38);
-            this.metar_Lbl.TabIndex = 13;
-            this.metar_Lbl.Text = "2015/02/20 09:00\r\nRCTP 200900Z 36003KT 310V030 9999 FEW010 BKN040 18/13 Q1018 NOS" +
-    "IG RMK A3006";
-            this.ToolTip1.SetToolTip(this.metar_Lbl, "Click to refresh Metar");
-            this.metar_Lbl.Click += new System.EventHandler(this.metar_Lbl_Click);
-            // 
             // LatLon_lbl1
             // 
             this.LatLon_lbl1.AutoSize = true;
@@ -1780,17 +1791,6 @@ namespace QSP
             this.GroupBox18.TabIndex = 80;
             this.GroupBox18.TabStop = false;
             this.GroupBox18.Text = "Monitor";
-            // 
-            // UpdateAll_Btn
-            // 
-            this.UpdateAll_Btn.BackgroundImage = global::QSP.Properties.Resources.processing9;
-            this.UpdateAll_Btn.Location = new System.Drawing.Point(1043, 22);
-            this.UpdateAll_Btn.Name = "UpdateAll_Btn";
-            this.UpdateAll_Btn.Size = new System.Drawing.Size(33, 33);
-            this.UpdateAll_Btn.TabIndex = 80;
-            this.ToolTip1.SetToolTip(this.UpdateAll_Btn, "Refresh all Metar/TAF");
-            this.UpdateAll_Btn.UseVisualStyleBackColor = true;
-            this.UpdateAll_Btn.Click += new System.EventHandler(this.UpdateAll_Btn_Click);
             // 
             // RichTextBox2
             // 
