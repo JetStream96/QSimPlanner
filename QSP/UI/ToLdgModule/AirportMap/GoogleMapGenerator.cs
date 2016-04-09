@@ -46,8 +46,8 @@ namespace QSP.UI.ToLdgModule.AirportMap
             return originalHtml
                    .Replace("51.508742,-0.120850", lat.ToString() + "," + lon.ToString())
                    .Replace("width:500px;height:380px",
-                            "width:" + (windowWidth - 20).ToString() +
-                            "px;height:" + (windowHeight - 30).ToString() + "px");
+                            "width:" + (windowWidth - 10).ToString() +
+                            "px;height:" + (windowHeight - 20).ToString() + "px");
         }
     }
 }

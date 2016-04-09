@@ -208,9 +208,9 @@ namespace QSP.UI.ToLdgModule.AirportMap
         {
             var wb = new WebBrowser();
             
-            wb.Location = new Point(5, 270);
-            wb.Size = new Size(1011, 384);
-
+            wb.Location = new Point(-3, 270);
+            wb.Size = new Size(1021, 384);
+            
             Controls.Add(wb);
             browser = wb;
         }
