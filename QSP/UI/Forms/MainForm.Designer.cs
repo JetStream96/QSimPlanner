@@ -59,7 +59,6 @@ namespace QSP
             this.ShowLDG_Btn = new System.Windows.Forms.Button();
             this.ShowTO_Btn = new System.Windows.Forms.Button();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.metar_Lbl = new System.Windows.Forms.Label();
             this.UpdateAll_Btn = new System.Windows.Forms.Button();
             this.MainWin_TablessControl = new QSP.TablessControl();
             this.Route_TabPage = new System.Windows.Forms.TabPage();
@@ -143,17 +142,7 @@ namespace QSP
             this.PanelAirportData = new System.Windows.Forms.Panel();
             this.TabControl1 = new System.Windows.Forms.TabControl();
             this.TabPage1 = new System.Windows.Forms.TabPage();
-            this.ICAO_ComboBox = new System.Windows.Forms.ComboBox();
-            this.Airport_DataGrid = new System.Windows.Forms.DataGridView();
-            this.Elevation_Lbl1 = new System.Windows.Forms.Label();
-            this.find_airport_btn = new System.Windows.Forms.Button();
-            this.Elevation_Lbl2 = new System.Windows.Forms.Label();
-            this.MapDisplay_WebBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.LatLon_Lbl2 = new System.Windows.Forms.Label();
-            this.airport_name_Lbl = new System.Windows.Forms.Label();
-            this.TATL_Lbl1 = new System.Windows.Forms.Label();
-            this.LatLon_lbl1 = new System.Windows.Forms.Label();
-            this.TATL_Lbl2 = new System.Windows.Forms.Label();
+            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabPage2 = new System.Windows.Forms.TabPage();
             this.GroupBox18 = new System.Windows.Forms.GroupBox();
             this.RichTextBox2 = new System.Windows.Forms.RichTextBox();
@@ -165,7 +154,6 @@ namespace QSP
             this.GroupBox19 = new System.Windows.Forms.GroupBox();
             this.DesForcast_RTextBox = new System.Windows.Forms.RichTextBox();
             this.Label86 = new System.Windows.Forms.Label();
-            this.Err_show_lbl = new System.Windows.Forms.Label();
             this.TabPage7 = new System.Windows.Forms.TabPage();
             this.GroupBox7 = new System.Windows.Forms.GroupBox();
             this.LinkLabel8 = new System.Windows.Forms.LinkLabel();
@@ -232,7 +220,6 @@ namespace QSP
             this.PanelAirportData.SuspendLayout();
             this.TabControl1.SuspendLayout();
             this.TabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Airport_DataGrid)).BeginInit();
             this.TabPage2.SuspendLayout();
             this.GroupBox18.SuspendLayout();
             this.GroupBox17.SuspendLayout();
@@ -524,20 +511,6 @@ namespace QSP
             this.ShowTO_Btn.Text = "T/O Perf";
             this.ShowTO_Btn.UseVisualStyleBackColor = false;
             this.ShowTO_Btn.Click += new System.EventHandler(this.ShowTO_Btn_Click);
-            // 
-            // metar_Lbl
-            // 
-            this.metar_Lbl.AutoSize = true;
-            this.metar_Lbl.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.metar_Lbl.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metar_Lbl.Location = new System.Drawing.Point(280, 4);
-            this.metar_Lbl.Name = "metar_Lbl";
-            this.metar_Lbl.Size = new System.Drawing.Size(671, 38);
-            this.metar_Lbl.TabIndex = 13;
-            this.metar_Lbl.Text = "2015/02/20 09:00\r\nRCTP 200900Z 36003KT 310V030 9999 FEW010 BKN040 18/13 Q1018 NOS" +
-    "IG RMK A3006";
-            this.ToolTip1.SetToolTip(this.metar_Lbl, "Click to refresh Metar");
-            this.metar_Lbl.Click += new System.EventHandler(this.metar_Lbl_Click);
             // 
             // UpdateAll_Btn
             // 
@@ -1610,7 +1583,6 @@ namespace QSP
             // PanelAirportData
             // 
             this.PanelAirportData.Controls.Add(this.TabControl1);
-            this.PanelAirportData.Controls.Add(this.Err_show_lbl);
             this.PanelAirportData.Location = new System.Drawing.Point(0, 0);
             this.PanelAirportData.Name = "PanelAirportData";
             this.PanelAirportData.Size = new System.Drawing.Size(1114, 785);
@@ -1630,18 +1602,7 @@ namespace QSP
             // 
             // TabPage1
             // 
-            this.TabPage1.Controls.Add(this.ICAO_ComboBox);
-            this.TabPage1.Controls.Add(this.Airport_DataGrid);
-            this.TabPage1.Controls.Add(this.Elevation_Lbl1);
-            this.TabPage1.Controls.Add(this.find_airport_btn);
-            this.TabPage1.Controls.Add(this.Elevation_Lbl2);
-            this.TabPage1.Controls.Add(this.MapDisplay_WebBrowser1);
-            this.TabPage1.Controls.Add(this.LatLon_Lbl2);
-            this.TabPage1.Controls.Add(this.airport_name_Lbl);
-            this.TabPage1.Controls.Add(this.TATL_Lbl1);
-            this.TabPage1.Controls.Add(this.metar_Lbl);
-            this.TabPage1.Controls.Add(this.LatLon_lbl1);
-            this.TabPage1.Controls.Add(this.TATL_Lbl2);
+            this.TabPage1.Controls.Add(this.airportMapControl);
             this.TabPage1.Location = new System.Drawing.Point(4, 25);
             this.TabPage1.Name = "TabPage1";
             this.TabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -1650,124 +1611,14 @@ namespace QSP
             this.TabPage1.Text = "Airport Data";
             this.TabPage1.UseVisualStyleBackColor = true;
             // 
-            // ICAO_ComboBox
+            // airportMapControl
             // 
-            this.ICAO_ComboBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ICAO_ComboBox.FormattingEnabled = true;
-            this.ICAO_ComboBox.Location = new System.Drawing.Point(6, 9);
-            this.ICAO_ComboBox.Name = "ICAO_ComboBox";
-            this.ICAO_ComboBox.Size = new System.Drawing.Size(99, 27);
-            this.ICAO_ComboBox.TabIndex = 42;
-            this.ICAO_ComboBox.SelectedIndexChanged += new System.EventHandler(this.ICAO_ComboBox_SelectedIndexChanged);
-            // 
-            // Airport_DataGrid
-            // 
-            this.Airport_DataGrid.AllowUserToAddRows = false;
-            this.Airport_DataGrid.AllowUserToDeleteRows = false;
-            this.Airport_DataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.Airport_DataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Airport_DataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Airport_DataGrid.Location = new System.Drawing.Point(2, 87);
-            this.Airport_DataGrid.Name = "Airport_DataGrid";
-            this.Airport_DataGrid.ReadOnly = true;
-            this.Airport_DataGrid.RowHeadersVisible = false;
-            this.Airport_DataGrid.RowTemplate.Height = 24;
-            this.Airport_DataGrid.Size = new System.Drawing.Size(1086, 196);
-            this.Airport_DataGrid.TabIndex = 0;
-            // 
-            // Elevation_Lbl1
-            // 
-            this.Elevation_Lbl1.AutoSize = true;
-            this.Elevation_Lbl1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Elevation_Lbl1.Location = new System.Drawing.Point(584, 59);
-            this.Elevation_Lbl1.Name = "Elevation_Lbl1";
-            this.Elevation_Lbl1.Size = new System.Drawing.Size(87, 19);
-            this.Elevation_Lbl1.TabIndex = 9;
-            this.Elevation_Lbl1.Text = "Elevation:";
-            // 
-            // find_airport_btn
-            // 
-            this.find_airport_btn.BackColor = System.Drawing.SystemColors.Control;
-            this.find_airport_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.find_airport_btn.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.find_airport_btn.Location = new System.Drawing.Point(126, 8);
-            this.find_airport_btn.Name = "find_airport_btn";
-            this.find_airport_btn.Size = new System.Drawing.Size(117, 27);
-            this.find_airport_btn.TabIndex = 3;
-            this.find_airport_btn.Text = "Find";
-            this.find_airport_btn.UseVisualStyleBackColor = false;
-            this.find_airport_btn.Click += new System.EventHandler(this.find_airport_btn_Click);
-            // 
-            // Elevation_Lbl2
-            // 
-            this.Elevation_Lbl2.AutoSize = true;
-            this.Elevation_Lbl2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Elevation_Lbl2.Location = new System.Drawing.Point(694, 59);
-            this.Elevation_Lbl2.Name = "Elevation_Lbl2";
-            this.Elevation_Lbl2.Size = new System.Drawing.Size(61, 19);
-            this.Elevation_Lbl2.TabIndex = 10;
-            this.Elevation_Lbl2.Text = "105 FT";
-            // 
-            // MapDisplay_WebBrowser1
-            // 
-            this.MapDisplay_WebBrowser1.Location = new System.Drawing.Point(2, 289);
-            this.MapDisplay_WebBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.MapDisplay_WebBrowser1.Name = "MapDisplay_WebBrowser1";
-            this.MapDisplay_WebBrowser1.ScriptErrorsSuppressed = true;
-            this.MapDisplay_WebBrowser1.ScrollBarsEnabled = false;
-            this.MapDisplay_WebBrowser1.Size = new System.Drawing.Size(1086, 454);
-            this.MapDisplay_WebBrowser1.TabIndex = 14;
-            this.MapDisplay_WebBrowser1.Url = new System.Uri("", System.UriKind.Relative);
-            // 
-            // LatLon_Lbl2
-            // 
-            this.LatLon_Lbl2.AutoSize = true;
-            this.LatLon_Lbl2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LatLon_Lbl2.Location = new System.Drawing.Point(364, 59);
-            this.LatLon_Lbl2.Name = "LatLon_Lbl2";
-            this.LatLon_Lbl2.Size = new System.Drawing.Size(187, 19);
-            this.LatLon_Lbl2.TabIndex = 8;
-            this.LatLon_Lbl2.Text = "25.080167 / 121.232222";
-            // 
-            // airport_name_Lbl
-            // 
-            this.airport_name_Lbl.AutoSize = true;
-            this.airport_name_Lbl.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.airport_name_Lbl.Location = new System.Drawing.Point(2, 59);
-            this.airport_name_Lbl.Name = "airport_name_Lbl";
-            this.airport_name_Lbl.Size = new System.Drawing.Size(196, 19);
-            this.airport_name_Lbl.TabIndex = 4;
-            this.airport_name_Lbl.Text = "TAIWAN TAOYUAN INTL";
-            // 
-            // TATL_Lbl1
-            // 
-            this.TATL_Lbl1.AutoSize = true;
-            this.TATL_Lbl1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TATL_Lbl1.Location = new System.Drawing.Point(823, 59);
-            this.TATL_Lbl1.Name = "TATL_Lbl1";
-            this.TATL_Lbl1.Size = new System.Drawing.Size(60, 19);
-            this.TATL_Lbl1.TabIndex = 11;
-            this.TATL_Lbl1.Text = "TA/TL:";
-            // 
-            // LatLon_lbl1
-            // 
-            this.LatLon_lbl1.AutoSize = true;
-            this.LatLon_lbl1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LatLon_lbl1.Location = new System.Drawing.Point(262, 59);
-            this.LatLon_lbl1.Name = "LatLon_lbl1";
-            this.LatLon_lbl1.Size = new System.Drawing.Size(85, 19);
-            this.LatLon_lbl1.TabIndex = 7;
-            this.LatLon_lbl1.Text = "LAT/LON:";
-            // 
-            // TATL_Lbl2
-            // 
-            this.TATL_Lbl2.AutoSize = true;
-            this.TATL_Lbl2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TATL_Lbl2.Location = new System.Drawing.Point(910, 59);
-            this.TATL_Lbl2.Name = "TATL_Lbl2";
-            this.TATL_Lbl2.Size = new System.Drawing.Size(115, 19);
-            this.TATL_Lbl2.TabIndex = 12;
-            this.TATL_Lbl2.Text = "11000 / FL130";
+            this.airportMapControl.AirportList = null;
+            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.airportMapControl.Location = new System.Drawing.Point(6, 6);
+            this.airportMapControl.Name = "airportMapControl";
+            this.airportMapControl.Size = new System.Drawing.Size(1024, 670);
+            this.airportMapControl.TabIndex = 0;
             // 
             // TabPage2
             // 
@@ -1883,18 +1734,6 @@ namespace QSP
             this.Label86.Size = new System.Drawing.Size(110, 19);
             this.Label86.TabIndex = 0;
             this.Label86.Text = "DEST / RCTP";
-            // 
-            // Err_show_lbl
-            // 
-            this.Err_show_lbl.AutoSize = true;
-            this.Err_show_lbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Err_show_lbl.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Err_show_lbl.ForeColor = System.Drawing.Color.Red;
-            this.Err_show_lbl.Location = new System.Drawing.Point(451, 200);
-            this.Err_show_lbl.Name = "Err_show_lbl";
-            this.Err_show_lbl.Size = new System.Drawing.Size(120, 22);
-            this.Err_show_lbl.TabIndex = 6;
-            this.Err_show_lbl.Text = "Err_show_lbl";
             // 
             // TabPage7
             // 
@@ -2421,11 +2260,8 @@ namespace QSP
             this.TabPage10.ResumeLayout(false);
             this.TabPage11.ResumeLayout(false);
             this.PanelAirportData.ResumeLayout(false);
-            this.PanelAirportData.PerformLayout();
             this.TabControl1.ResumeLayout(false);
             this.TabPage1.ResumeLayout(false);
-            this.TabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Airport_DataGrid)).EndInit();
             this.TabPage2.ResumeLayout(false);
             this.GroupBox18.ResumeLayout(false);
             this.GroupBox17.ResumeLayout(false);
@@ -2543,19 +2379,6 @@ namespace QSP
         internal System.Windows.Forms.Label Label66;
         internal System.Windows.Forms.Panel PanelTO;
         internal System.Windows.Forms.Panel PanelAirportData;
-        internal System.Windows.Forms.Label Err_show_lbl;
-        internal System.Windows.Forms.ComboBox ICAO_ComboBox;
-        internal System.Windows.Forms.Button find_airport_btn;
-        internal System.Windows.Forms.WebBrowser MapDisplay_WebBrowser1;
-        internal System.Windows.Forms.Label airport_name_Lbl;
-        internal System.Windows.Forms.Label metar_Lbl;
-        internal System.Windows.Forms.Label TATL_Lbl2;
-        internal System.Windows.Forms.Label LatLon_lbl1;
-        internal System.Windows.Forms.Label TATL_Lbl1;
-        internal System.Windows.Forms.Label LatLon_Lbl2;
-        internal System.Windows.Forms.Label Elevation_Lbl2;
-        internal System.Windows.Forms.Label Elevation_Lbl1;
-        internal System.Windows.Forms.DataGridView Airport_DataGrid;
         internal System.Windows.Forms.TableLayoutPanel TableLayoutPanel16;
         internal System.Windows.Forms.TableLayoutPanel TableLayoutPanel17;
         internal System.Windows.Forms.PictureBox PictureBox_Icon_APData;
@@ -2624,5 +2447,6 @@ namespace QSP
 
         private UI.ToLdgModule.LandingPerf.LandingPerfControl landingPerfControl;
         private UI.ToLdgModule.TOPerf.TOPerfControl toPerfControl;
+        private UI.ToLdgModule.AirportMap.AirportMapControl airportMapControl;
     }
 }

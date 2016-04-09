@@ -31,7 +31,6 @@
             this.airportDataGrid = new System.Windows.Forms.DataGridView();
             this.Elevation_Lbl1 = new System.Windows.Forms.Label();
             this.elevationLbl = new System.Windows.Forms.Label();
-            this.mapDisplayWebBrowser = new System.Windows.Forms.WebBrowser();
             this.latLonLbl = new System.Windows.Forms.Label();
             this.airportNameLbl = new System.Windows.Forms.Label();
             this.TATL_Lbl1 = new System.Windows.Forms.Label();
@@ -83,17 +82,6 @@
             this.elevationLbl.TabIndex = 10;
             this.elevationLbl.Text = "105 FT";
             // 
-            // mapDisplayWebBrowser
-            // 
-            this.mapDisplayWebBrowser.Location = new System.Drawing.Point(5, 270);
-            this.mapDisplayWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.mapDisplayWebBrowser.Name = "mapDisplayWebBrowser";
-            this.mapDisplayWebBrowser.ScriptErrorsSuppressed = true;
-            this.mapDisplayWebBrowser.ScrollBarsEnabled = false;
-            this.mapDisplayWebBrowser.Size = new System.Drawing.Size(1011, 384);
-            this.mapDisplayWebBrowser.TabIndex = 14;
-            this.mapDisplayWebBrowser.Url = new System.Uri("", System.UriKind.Relative);
-            // 
             // latLonLbl
             // 
             this.latLonLbl.AutoSize = true;
@@ -138,6 +126,7 @@
             this.metarLbl.TabIndex = 13;
             this.metarLbl.Text = "2015/02/20 09:00\r\nRCTP 200900Z 36003KT 310V030 9999 FEW010 BKN040 18/13 Q1018 NOS" +
     "IG RMK A3006";
+            this.metarLbl.Click += new System.EventHandler(this.metarLbl_Click);
             // 
             // LatLon_lbl1
             // 
@@ -216,6 +205,7 @@
             this.icaoComboBox.Name = "icaoComboBox";
             this.icaoComboBox.Size = new System.Drawing.Size(118, 31);
             this.icaoComboBox.TabIndex = 15;
+            this.icaoComboBox.TextChanged += new System.EventHandler(this.icaoComboBox_TextChanged);
             // 
             // AirportMapControl
             // 
@@ -227,7 +217,6 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.icaoComboBox);
             this.Controls.Add(this.airportDataGrid);
-            this.Controls.Add(this.mapDisplayWebBrowser);
             this.Controls.Add(this.metarLbl);
             this.Name = "AirportMapControl";
             this.Size = new System.Drawing.Size(1024, 670);
@@ -243,16 +232,15 @@
         internal System.Windows.Forms.DataGridView airportDataGrid;
         internal System.Windows.Forms.Label Elevation_Lbl1;
         internal System.Windows.Forms.Label elevationLbl;
-        internal System.Windows.Forms.WebBrowser mapDisplayWebBrowser;
         internal System.Windows.Forms.Label latLonLbl;
         internal System.Windows.Forms.Label airportNameLbl;
         internal System.Windows.Forms.Label TATL_Lbl1;
         internal System.Windows.Forms.Label metarLbl;
         internal System.Windows.Forms.Label LatLon_lbl1;
         internal System.Windows.Forms.Label transAltLbl;
-        private Controls.ComboBoxWithBorder icaoComboBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         internal System.Windows.Forms.Button updateBtn;
         private System.Windows.Forms.Label label1;
+        internal Controls.ComboBoxWithBorder icaoComboBox;
     }
 }

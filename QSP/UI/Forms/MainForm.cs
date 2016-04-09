@@ -553,11 +553,7 @@ namespace QSP
             }
 
             viewChanger.ShowPage(ViewManager.Pages.Misc);
-
-            ICAO_ComboBox.Items.Clear();
-            ICAO_ComboBox.Items.Add(OrigTxtBox.Text);
-            ICAO_ComboBox.Items.Add(DestTxtBox.Text);
-            ICAO_ComboBox.Items.Add(AltnTxtBox.Text);
+            UpdateComboBoxList();
         }
 
         private bool tabRefreshed = false;
@@ -1262,56 +1258,19 @@ namespace QSP
         private WeightUnit TOWT_Req_Unit;
 
         private int TOWT_Req;
-        
+
         #endregion
 
         #region "LandingPart"
 
         private bool landingControlInitialized = false;
 
-
-        //private void RequestBtn_LDG_Click(object sender, EventArgs e)
-        //{
-        //    Req_Panel.Show();
-        //    WtUnit_Req_lbl.Text = EnumConversionTools.WeightUnitToString(LDG_fuel_prediction_unit);
-        //}
-
-        //private void Predict_Btn_Click(object sender, EventArgs e)
-        //{
-        //    ACListLDG.Text = ACList.Text;
-        //    WtUnit_LDG.Text = EnumConversionTools.WeightUnitToString(LDG_fuel_prediction_unit);
-        //    Weight_LDG.Text = Convert.ToString(LDG_ZFW + LDG_fuel_prediction);
-        //    Req_Panel.Hide();
-        //}
-
-        //private void Cancel_Btn_Click(object sender, EventArgs e)
-        //{
-        //    Req_Panel.Hide();
-        //}
-
-        //private void OK_Btn_Click(object sender, EventArgs e)
-        //{
-        //    double acturalLdgFuel;
-        //    if (double.TryParse(ActualLDGFuel.Text, out acturalLdgFuel) && acturalLdgFuel >= 0)
-        //    {
-        //        ACListLDG.Text = AC_Req;
-        //        WtUnit_LDG.Text = EnumConversionTools.WeightUnitToString(LDG_fuel_prediction_unit);
-        //        Weight_LDG.Text = Convert.ToString(LDG_ZFW + acturalLdgFuel);
-        //    }
-
-        //    Req_Panel.Hide();
-
-        //}
         #endregion
         //========================================= Misc Part ==========================================
 
         bool InitializeFinished_AirportDataFinder = false;
 
         metar_monitor metarMonitor = new metar_monitor();
-        private void metar_Lbl_Click(object sender, EventArgs e)
-        {
-            metar_Lbl.Text = MetarDownloader.TryGetMetar(ICAO_ComboBox.Text);
-        }
 
         public class metar_monitor
         {
@@ -1382,115 +1341,11 @@ namespace QSP
             RichTextBox1.Text = MetarDownloader.TryGetMetarTaf(MetarToFindTxtBox.Text);
         }
 
-        private void find_airport_btn_Click(object sender, EventArgs e)
-        {
-            ICAO_ComboBox.Text = ICAO_ComboBox.Text.ToUpper();
-            findAirport();
-        }
-
-        private void findAirport()
-        {
-            Err_show_lbl.Hide();
-            airport_name_Lbl.Text = "";
-
-            string icao = ICAO_ComboBox.Text.Replace(" ", "");
-            var airport = AirportList.Find(icao);
-
-
-            if (airport != null && airport.Rwys.Count > 0)
-            {
-                metar_Lbl.Text = MetarDownloader.TryGetMetar(icao);
-
-                airport_name_Lbl.Text = airport.Name;
-                LatLon_Lbl2.Text = airport.Lat + " / " + airport.Lon;
-                Elevation_Lbl2.Text = airport.Elevation + " FT";
-
-                //if TL shows 0 then that means it's not a fixed value
-                //show "-" instead
-                if (Convert.ToInt32(airport.TransLvl) == 0)
-                {
-                    TATL_Lbl2.Text = Convert.ToString(airport.TransAlt) + " / -";
-                }
-                else
-                {
-                    TATL_Lbl2.Text = Convert.ToString(airport.TransAlt) + " / FL" + Convert.ToString(Math.Round((double)airport.TransLvl / 100));
-                }
-
-                LatLon_lbl1.Text = "LAT/LON:";
-                Elevation_Lbl1.Text = "Elevation:";
-                TATL_Lbl1.Text = "TA/TL:";
-
-                Airport_DataGrid.Columns.Clear();
-                Airport_DataGrid.Rows.Clear();
-                Airport_DataGrid.ColumnCount = 10;
-                Airport_DataGrid.RowCount = airport.Rwys.Count;
-                setColumnsLables();
-
-                RwyData rwy = null;
-
-
-                for (int i = 0; i <= airport.Rwys.Count - 1; i++)
-                {
-                    rwy = airport.Rwys[i];
-
-                    Airport_DataGrid[0, i].Value = rwy.RwyIdent;
-                    Airport_DataGrid[1, i].Value = rwy.Length;
-                    Airport_DataGrid[2, i].Value = rwy.Heading;
-                    Airport_DataGrid[3, i].Value = rwy.Lat;
-                    Airport_DataGrid[4, i].Value = rwy.Lon;
-
-                    if (rwy.IlsAvail == true)
-                    {
-                        Airport_DataGrid[5, i].Value = rwy.IlsFreq;
-                        Airport_DataGrid[6, i].Value = rwy.IlsHeading;
-                    }
-                    else
-                    {
-                        Airport_DataGrid[5, i].Value = "";
-                        Airport_DataGrid[6, i].Value = "";
-                    }
-
-                    Airport_DataGrid[7, i].Value = rwy.ThresholdOverflyHeight;
-                    Airport_DataGrid[8, i].Value = rwy.GlideslopeAngle.ToString("0.0");
-
-                    switch (rwy.SurfaceType)
-                    {
-                        case 0:
-                            Airport_DataGrid[9, i].Value = "Concrete";
-                            break;
-                        case 1:
-                            Airport_DataGrid[9, i].Value = "Asphalt or Bitumen";
-                            break;
-                        case 2:
-                            Airport_DataGrid[9, i].Value = "Gravel, Coral Or Ice";
-                            break;
-                        case 3:
-                            Airport_DataGrid[9, i].Value = "Other";
-                            break;
-                    }
-                }
-                ShowMap(airport.Lat, airport.Lon);
-            }
-            else
-            {
-                Err_show_lbl.Text = "Airport not found.";
-                Err_show_lbl.Show();
-            }
-        }
-
         private void AirportDataFinder_Load()
         {
-            Err_show_lbl.Hide();
-
-            airport_name_Lbl.Text = "";
-            LatLon_lbl1.Text = "";
-            LatLon_Lbl2.Text = "";
-            Elevation_Lbl1.Text = "";
-            Elevation_Lbl2.Text = "";
-            TATL_Lbl1.Text = "";
-            TATL_Lbl2.Text = "";
-            metar_Lbl.Text = "";
-
+            airportMapControl.AirportList = AirportList;
+            airportMapControl.InitializeControls();
+            airportMapControl.EnableBrowser();
             UpdateComboBoxList();
 
             InitializeFinished_AirportDataFinder = true;
@@ -1498,80 +1353,13 @@ namespace QSP
 
         public void UpdateComboBoxList()
         {
-            ICAO_ComboBox.Items.Clear();
-            ICAO_ComboBox.Items.Add(OrigTxtBox.Text);
-            ICAO_ComboBox.Items.Add(DestTxtBox.Text);
-            ICAO_ComboBox.Items.Add(AltnTxtBox.Text);
+            var icaoList = airportMapControl.icaoComboBox.Items;
+
+            icaoList.Clear();
+            icaoList.Add(OrigTxtBox.Text);
+            icaoList.Add(DestTxtBox.Text);
+            icaoList.Add(AltnTxtBox.Text);
         }
-
-        private void setColumnsLables()
-        {
-            Airport_DataGrid.Columns[0].Name = "RWY";
-            Airport_DataGrid.Columns[1].Name = "Length(FT)";
-            Airport_DataGrid.Columns[2].Name = "Heading";
-            Airport_DataGrid.Columns[3].Name = "LAT";
-            Airport_DataGrid.Columns[4].Name = "LON";
-            Airport_DataGrid.Columns[5].Name = "ILS freq";
-            Airport_DataGrid.Columns[6].Name = "ILS course";
-            Airport_DataGrid.Columns[7].Name = "Threshold altitude(FT)";
-            Airport_DataGrid.Columns[8].Name = "Glideslope angle";
-            Airport_DataGrid.Columns[9].Name = "Surface Type";
-        }
-
-        public string GoogleMapHtml(double lat, double lon, int window_width, int window_height)
-        {
-            //will return a string containg the HTML code, showing in Google Map the desired airport
-
-            string s = GoogleMapHtmlOriginal;
-            // GoogleMapSample()
-
-            s = s.Replace("51.508742,-0.120850", lat.ToString() + "," + lon.ToString());
-            s = s.Replace("width:500px;height:380px", "width:" + (window_width - 20).ToString() + "px;height:" + (window_height - 30).ToString() + "px");
-
-            return s;
-        }
-
-        private void ShowMap(double lat, double lon)
-        {
-            //this requires a registry fix
-            //note that added registry has no effect when running in debug mode 
-
-            MapDisplay_WebBrowser1.DocumentText = GoogleMapHtml(lat, lon, MapDisplay_WebBrowser1.Width, MapDisplay_WebBrowser1.Height);
-        }
-
-        private void ICAO_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            findAirport();
-        }
-
-        //==========================================  Text Data ==================================================
-
-        string GoogleMapHtmlOriginal = @"<!DOCTYPE html>
-        <html>
-        <head>
-        <script
-        src=""http://maps.googleapis.com/maps/api/js"">
-        </script>
-        
-        <script>
-        function initialize() {
-          var mapProp = {
-            center:new google.maps.LatLng(51.508742,-0.120850),
-            zoom:13,
-            mapTypeId:google.maps.MapTypeId.ROADMAP
-          };
-          var map=new google.maps.Map(document.getElementById(""googleMap""), mapProp);
-        }
-        google.maps.event.addDomListener(window, 'load', initialize);
-        </script>
-        </head>
-        
-        <body>
-        <div id=""googleMap"" style=""width:500px;height:380px;""></div>
-        
-        </body>
-        </html>";
-
 
         private void DrawRouteToDest()
         {

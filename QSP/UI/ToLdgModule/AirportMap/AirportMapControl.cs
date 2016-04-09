@@ -17,18 +17,38 @@ namespace QSP.UI.ToLdgModule.AirportMap
     {
         public AirportManager AirportList { get; set; }
 
+        private string CurrentIcao
+        {
+            get
+            {
+                return icaoComboBox.Text.Trim().ToUpper();
+            }
+        }
+
+        private WebBrowser browser { get; set; }
+
         public AirportMapControl()
         {
             InitializeComponent();
-
-            initializeControls();
         }
 
-        private void initializeControls()
+        public void InitializeControls()
         {
             resetAirport();
+            setEmptyDataGrid();
+
             icaoComboBox.Items.Clear();
             icaoComboBox.Text = "";
+        }
+
+        private void setEmptyDataGrid()
+        {
+            airportDataGrid.Columns.Clear();
+            airportDataGrid.Rows.Clear();
+            airportDataGrid.ColumnCount = 10;
+            airportDataGrid.RowCount = 0;
+
+            setColumnsLables();
         }
 
         private void resetAirport()
@@ -38,12 +58,17 @@ namespace QSP.UI.ToLdgModule.AirportMap
             elevationLbl.Text = "";
             transAltLbl.Text = "";
             metarLbl.Text = "";
+            metarLbl.Visible = false;
+            updateBtn.Visible = false;
         }
 
         private async void setMetar(string icao)
         {
+            metarLbl.Text = "Updating ...";
             metarLbl.Text = await Task.Factory.StartNew(
                 () => MetarDownloader.TryGetMetar(icao));
+            metarLbl.Visible = true;
+            updateBtn.Visible = true;
         }
 
         private void setAirport(Airport airport)
@@ -58,8 +83,8 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         private string transitionAlts(Airport airport)
         {
-            // If TL shows 0 then that means it's not a fixed value
-            // show "-" instead
+            // If TL is 0, that means it's not a fixed value.
+            // Show "-" instead.
             if (airport.TransLvl == 0)
             {
                 return airport.TransAlt.ToString() + " / -";
@@ -145,20 +170,71 @@ namespace QSP.UI.ToLdgModule.AirportMap
         private void findAirport()
         {
             resetAirport();
+            setEmptyDataGrid();
 
-            string icao = icaoComboBox.Text.Trim();
-            var airport = AirportList.Find(icao);
+            var airport = AirportList.Find(CurrentIcao);
 
             if (airport != null && airport.Rwys.Count > 0)
             {
                 setAirport(airport);
                 updateDataGrid(airport);
+                ShowMap(airport.Lat, airport.Lon);
             }
         }
 
         private void updateBtn_Click(object sender, EventArgs e)
         {
-            setMetar(icaoComboBox.Text.Trim());
+            setMetar(CurrentIcao);
+        }
+
+        private void icaoComboBox_TextChanged(object sender, EventArgs e)
+        {
+            findAirport();
+        }
+
+        private void metarLbl_Click(object sender, EventArgs e)
+        {
+            var frm = new MetarForm();
+            frm.icaoTxtBox.Text = CurrentIcao;
+            frm.icaoTxtBox.Enabled = false;
+            frm.resultRichTxtBox.Text = metarLbl.Text ?? "";
+            frm.sendBtn.Visible = false;
+            frm.downloadBtn.Visible = false;
+            frm.getTafCheckBox.Visible = false;
+            frm.ShowDialog();
+        }
+
+        public void EnableBrowser()
+        {
+            var wb = new WebBrowser();
+            
+            wb.Location = new Point(5, 270);
+            wb.Size = new Size(1011, 384);
+
+            Controls.Add(wb);
+            browser = wb;
+        }
+
+        public void DisableBrowser()
+        {
+            Controls.Remove(browser);
+            browser = null;
+        }
+
+        public void ShowMap(double lat, double lon)
+        {
+            if (browser != null)
+            {
+                showMapBrowser(lat, lon);
+            }
+        }
+
+        private void showMapBrowser(double lat, double lon)
+        {
+            // This requires a registry fix. (IE emulation)
+
+            browser.DocumentText = GoogleMapGenerator.GetHtml(
+                lat, lon, browser.Width, browser.Height);
         }
     }
 }

@@ -227,6 +227,7 @@
     <Compile Include="UI\ToLdgModule\AirportMap\AirportMapControl.Designer.cs">
       <DependentUpon>AirportMapControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ToLdgModule\AirportMap\GoogleMapGenerator.cs" />
     <Compile Include="UI\ToLdgModule\Common\AirportInfo\SlopeComboBoxController.cs" />
     <Compile Include="UI\Controls\ComboBoxWithBorder.cs">
       <SubType>Component</SubType>
