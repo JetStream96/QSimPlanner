@@ -286,6 +286,10 @@ namespace QSP.UI.ToLdgModule.AirportMap
             pb.Size = new Size(1011, 384);
             pb.BackgroundImageLayout = ImageLayout.None;
 
+            // Added so that it doesn't display the default image, 
+            // when the first time LoadAsync is called. 
+            pb.Image = new Bitmap(1, 1);
+
             Controls.Add(pb);
             picBox = pb;
         }
@@ -298,7 +302,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         private void showStaticMap(double lat, double lon)
         {
-            picBox.Load(
+            picBox.LoadAsync(
                 GoogleMapStatic.GetMapUrl(
                     lat, lon, picBox.Width, picBox.Height));
         }
