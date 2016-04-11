@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.AviationTools;
+﻿using QSP.AviationTools;
 using QSP.LibraryExtension;
 using QSP.MathTools.Tables;
 using QSP.TOPerfCalculation.Boeing.PerfData;

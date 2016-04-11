@@ -1,12 +1,7 @@
 ﻿using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
@@ -25,7 +20,48 @@ namespace QSP.UI.ToLdgModule.AirportMap
             }
         }
 
-        private WebBrowser browser { get; set; }
+        public bool BrowserEnabled
+        {
+            get
+            {
+                return browser != null;
+            }
+
+            set
+            {
+                if (value && BrowserEnabled == false)
+                {
+                    enableBrowser();
+                }
+                else if (value == false && BrowserEnabled)
+                {
+                    disableBrowser();
+                }
+            }
+        }
+
+        public bool StaticMapEnabled
+        {
+            get
+            {
+                return picBox != null;
+            }
+
+            set
+            {
+                if (value && StaticMapEnabled == false)
+                {
+                    enableStaticMap();
+                }
+                else if (value == false && StaticMapEnabled)
+                {
+                    disableStaticMap();
+                }
+            }
+        }
+
+        private PictureBox picBox;
+        private WebBrowser browser;
 
         public AirportMapControl()
         {
@@ -205,18 +241,18 @@ namespace QSP.UI.ToLdgModule.AirportMap
             frm.ShowDialog();
         }
 
-        public void EnableBrowser()
+        private void enableBrowser()
         {
             var wb = new WebBrowser();
-            
+
             wb.Location = new Point(-3, 270);
             wb.Size = new Size(1021, 384);
-            
+
             Controls.Add(wb);
             browser = wb;
         }
 
-        public void DisableBrowser()
+        private void disableBrowser()
         {
             Controls.Remove(browser);
             browser = null;
@@ -224,9 +260,13 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         public void ShowMap(double lat, double lon)
         {
-            if (browser != null)
+            if (BrowserEnabled)
             {
                 showMapBrowser(lat, lon);
+            }
+            else if (StaticMapEnabled)
+            {
+                showStaticMap(lat, lon);
             }
         }
 
@@ -234,8 +274,33 @@ namespace QSP.UI.ToLdgModule.AirportMap
         {
             // This requires a registry fix. (IE emulation)
 
-            browser.DocumentText = GoogleMapGenerator.GetHtml(
+            browser.DocumentText = GoogleMapDynamic.GetHtml(
                 lat, lon, browser.Width, browser.Height);
+        }
+
+        private void enableStaticMap()
+        {
+            var pb = new PictureBox();
+
+            pb.Location = new Point(5, 270);
+            pb.Size = new Size(1011, 384);
+            pb.BackgroundImageLayout = ImageLayout.None;
+
+            Controls.Add(pb);
+            picBox = pb;
+        }
+
+        private void disableStaticMap()
+        {
+            Controls.Remove(picBox);
+            picBox = null;
+        }
+
+        private void showStaticMap(double lat, double lon)
+        {
+            picBox.Load(
+                GoogleMapStatic.GetMapUrl(
+                    lat, lon, picBox.Width, picBox.Height));
         }
     }
 }

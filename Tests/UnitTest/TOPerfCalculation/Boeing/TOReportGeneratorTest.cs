@@ -3,8 +3,6 @@ using QSP.Core;
 using QSP.TOPerfCalculation;
 using QSP.TOPerfCalculation.Boeing;
 using QSP.TOPerfCalculation.Boeing.PerfData;
-using System;
-using System.Reflection;
 using System.Xml.Linq;
 using UnitTest.Common;
 

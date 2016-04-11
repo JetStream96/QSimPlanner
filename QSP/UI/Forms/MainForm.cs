@@ -1,7 +1,6 @@
 using QSP.Core;
 using QSP.LibraryExtension;
 using QSP.RouteFinding;
-using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
 using QSP.RouteFinding.RouteAnalyzers;
@@ -1345,7 +1344,7 @@ namespace QSP
         {
             airportMapControl.AirportList = AirportList;
             airportMapControl.InitializeControls();
-            airportMapControl.EnableBrowser();
+            airportMapControl.BrowserEnabled = true;
             UpdateComboBoxList();
 
             InitializeFinished_AirportDataFinder = true;

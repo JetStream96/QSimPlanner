@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace QSP.UI.ToLdgModule.AirportMap
+﻿namespace QSP.UI.ToLdgModule.AirportMap
 {
-    public static class GoogleMapGenerator
+    public static class GoogleMapDynamic
     {
         private static string originalHtml = @"<!DOCTYPE html>
         <html>

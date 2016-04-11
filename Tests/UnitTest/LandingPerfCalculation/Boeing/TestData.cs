@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UnitTest.LandingPerfCalculation.Boeing
+﻿namespace UnitTest.LandingPerfCalculation.Boeing
 {
-   public class TestData
+    public class TestData
     {
         public string AllText
         {
