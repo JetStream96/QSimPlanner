@@ -17,13 +17,14 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 
         /// <exception cref="InvalidUserInputException"></exception>
         public LandingParameters Validate()
-        {//TODO: QNH??
+        {
             double WeightKG = 0.0;
             double RwyLengthMeter = 0.0;
             double ElevationFT = 0.0;
             double HeadwindKts = 0.0;
             double SlopePercent = 0.0;
             double TempCelsius = 0.0;
+            double QNH = 0.0;
             double AppSpeedIncrease = 0.0;
             ReverserOption Reverser = default(ReverserOption);
             SurfaceCondition SurfaceCondition = default(SurfaceCondition);
@@ -123,6 +124,25 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 
             try
             {
+                QNH = Convert.ToDouble(elements.pressure.Text);
+
+                if (elements.pressureUnit.SelectedIndex == 1)
+                {
+                    QNH *= 1013.0 / 29.92;
+                }
+
+                if (QNH < 900.0 | QNH > 1100.0)
+                {
+                    throw new InvalidUserInputException("Altimeter setting is not valid.");
+                }
+            }
+            catch
+            {
+                throw new InvalidUserInputException("Altimeter setting is not valid.");
+            }
+
+            try
+            {
                 AppSpeedIncrease = Convert.ToDouble(elements.appSpeedIncrease.Text);
             }
             catch
@@ -159,6 +179,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
                             HeadwindKts,
                             SlopePercent,
                             TempCelsius,
+                            QNH,
                             AppSpeedIncrease,
                             Reverser,
                             SurfaceCondition,

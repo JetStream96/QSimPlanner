@@ -46,7 +46,7 @@ namespace QSP.UI.ToLdgModule.Common
         private void viewMetarClicked(object sender, EventArgs e)
         {
             var frm = new MetarForm();
-            frm.icaoTxtBox.Text = airportControl.airportTxtBox.Text;
+            frm.icaoTxtBox.Text = airportControl.Icao;
             frm.icaoTxtBox.Enabled = false;
             frm.resultRichTxtBox.Text = metar ?? "";
             frm.sendBtn.Visible = false;
@@ -61,7 +61,7 @@ namespace QSP.UI.ToLdgModule.Common
             disableDnBtn();
             wxControl.pictureBox1.Visible = false;
 
-            string icao = airportControl.airportTxtBox.Text;
+            string icao = airportControl.Icao;
             metar = null;
 
             bool metarAcquired =

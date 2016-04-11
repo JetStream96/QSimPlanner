@@ -25,7 +25,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             double rwyHeading = 0;
             double windHeading = 0;
             double windSpeed = 0;
-            double QHH = 0;
+            double QNH = 0;
             int thrustRating = 0;
             bool surfaceWet = false;
             int FlapsIndex = 0;
@@ -118,14 +118,14 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
 
             try
             {
-                QHH = Convert.ToDouble(elements.pressure.Text);
+                QNH = Convert.ToDouble(elements.pressure.Text);
 
                 if (elements.pressureUnit.SelectedIndex == 1)
                 {
-                    QHH *= 1013.0 / 29.92;
+                    QNH *= 1013.0 / 29.92;
                 }
 
-                if (QHH < 900.0 | QHH > 1100.0)
+                if (QNH < 900.0 | QNH > 1100.0)
                 {
                     throw new InvalidUserInputException("Altimeter setting is not valid.");
                 }
@@ -225,7 +225,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
                 windHeading,
                 windSpeed,
                 TempCelsius,
-                QHH,
+                QNH,
                 surfaceWet,
                 WeightKG,
                 thrustRating,

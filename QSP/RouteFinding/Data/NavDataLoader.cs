@@ -38,17 +38,17 @@ namespace QSP.RouteFinding.Data
 
         private string waypointsFilePath()
         {
-            return navDataLocation + "\\waypoints.txt";
+            return navDataLocation + @"\waypoints.txt";
         }
 
         private string atsFilePath()
         {
-            return navDataLocation + "\\ats.txt";
+            return navDataLocation + @"\ats.txt";
         }
 
         private string airportsFilePath()
         {
-            return navDataLocation + "\\Airports.txt";
+            return navDataLocation + @"\Airports.txt";
         }
 
     }

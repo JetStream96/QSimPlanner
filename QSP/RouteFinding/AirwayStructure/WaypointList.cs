@@ -36,7 +36,7 @@ namespace QSP.RouteFinding.AirwayStructure
         /// </summary>
         /// <param name="filepath">Path of ats.txt</param>
         /// <exception cref="LoadWaypointFileException"></exception>
-        public void ReadAtsFromFile(string filepath) //TODO: pass a string[] instead.
+        public void ReadAtsFromFile(string filepath)
         {
             new AtsFileLoader(this).ReadAtsFromFile(filepath);
         }

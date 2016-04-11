@@ -10,6 +10,7 @@ namespace QSP.LandingPerfCalculation.Boeing
         public double HeadwindKts { get; private set; }
         public double SlopePercent { get; private set; }
         public double TempCelsius { get; private set; }
+        public double QNH { get; private set; }
         public double AppSpeedIncrease { get; private set; }
         public ReverserOption Reverser { get; private set; }
         public SurfaceCondition SurfaceCondition { get; private set; }
@@ -23,6 +24,7 @@ namespace QSP.LandingPerfCalculation.Boeing
             double HeadwindKts, 
             double SlopePercent,
             double TempCelsius,
+            double QNH,
             double AppSpeedIncrease, 
             ReverserOption Reverser,
             SurfaceCondition SurfaceCondition, 
@@ -35,6 +37,7 @@ namespace QSP.LandingPerfCalculation.Boeing
             this.HeadwindKts = HeadwindKts;
             this.SlopePercent = SlopePercent;
             this.TempCelsius = TempCelsius;
+            this.QNH = QNH;
             this.AppSpeedIncrease = AppSpeedIncrease;
             this.Reverser = Reverser;
             this.SurfaceCondition = SurfaceCondition;

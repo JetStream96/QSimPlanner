@@ -11,6 +11,14 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
 
         public AirportManager Airports { get; set; }
 
+        public string Icao
+        {
+            get
+            {
+                return airportTxtBox.Text.Trim().ToUpper();
+            }
+        }
+
         public AirportInfoControl()
         {
             InitializeComponent();
@@ -58,14 +66,14 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
             rwyComboBox.Items.Clear();
             rwyComboBox.Enabled = false;
 
-            var icao = airportTxtBox.Text; // TODO: trim this
+            var airportIcao = Icao;
 
-            if (icao.Length != 4)
+            if (airportIcao.Length != 4)
             {
                 return;
             }
 
-            var takeoffAirport = Airports.Find(icao);
+            var takeoffAirport = Airports.Find(airportIcao);
 
             if (takeoffAirport != null && takeoffAirport.Rwys.Count > 0)
             {
@@ -99,7 +107,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
         {
             if (rwyComboBox.Items.Count > 0)
             {
-                var takeoffAirport = Airports.Find(airportTxtBox.Text);
+                var takeoffAirport = Airports.Find(Icao);
                 int index = rwyComboBox.SelectedIndex;
 
                 int elevationFt = takeoffAirport.Rwys[index].Elevation;

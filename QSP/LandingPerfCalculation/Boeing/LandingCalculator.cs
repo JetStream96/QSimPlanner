@@ -34,7 +34,7 @@ namespace QSP.LandingPerfCalculation.Boeing
                               brakeSetting,
                               column);
         }
-        
+
         /// <summary>
         /// Gets the landing distance for the given landing parameters.
         /// </summary>
@@ -76,7 +76,8 @@ namespace QSP.LandingPerfCalculation.Boeing
         private double elevationCorrection(int brake)
         {
             double corrPer1000ft = reqData(DataColumn.AltAdjust, brake);
-            return para.ElevationFT / 1000.0 * corrPer1000ft;
+            double pressAlt = PressureAltitudeFt(para.ElevationFT, para.QNH);
+            return pressAlt / 1000.0 * corrPer1000ft;
         }
 
         private double windCorrection(int brake)
