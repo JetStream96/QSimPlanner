@@ -55,6 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AircraftProfiles\AcConfigManagerTest.cs" />
     <Compile Include="AirwayConnectionFinderTest.cs" />
     <Compile Include="AviationTools\Coordinates\Format5LetterTest.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDecimalTest.cs" />

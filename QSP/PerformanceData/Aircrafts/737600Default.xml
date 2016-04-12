@@ -1,4 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Aircraft>
+  <AC>B737-600</AC>
+  <Registration>B-13066</Registration>
+  <TOPerfFile></TOPerfFile>
   <ZfwKg></ZfwKg>
+  
 </Aircraft>

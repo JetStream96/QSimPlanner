@@ -72,6 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AircraftProfiles\AcConfigManager.cs" />
+    <Compile Include="AircraftProfiles\AircraftConfig.cs" />
+    <Compile Include="AircraftProfiles\Exceptions.cs" />
     <Compile Include="AviationTools\Constants.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDecimal.cs" />
     <Compile Include="AviationTools\CoversionTools.cs" />
@@ -489,7 +492,9 @@
     <Content Include="degrib\degrib.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\737600Default.xml" />
+    <Content Include="PerformanceData\Aircrafts\737600Default.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="PerformanceData\LDG\737600_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
