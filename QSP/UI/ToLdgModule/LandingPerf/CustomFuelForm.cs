@@ -1,6 +1,7 @@
 ﻿using QSP.AviationTools;
 using System;
 using System.Windows.Forms;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.UI.ToLdgModule.LandingPerf
 {
@@ -54,7 +55,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             double fuelDisplay = PredictedFuelKg *
                 (_wtUnit == WeightUnit.KG ? 1.0 : Constants.KgLbRatio);
 
-            landingFuelTxtBox.Text = ((int)Math.Round(fuelDisplay)).ToString();
+            landingFuelTxtBox.Text = RoundToInt(fuelDisplay).ToString();
         }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QSP.Core
+namespace QSimPlanner
 {
     static class Program
     {
@@ -13,7 +16,7 @@ namespace QSP.Core
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new QSP.MainForm());
         }
     }
 }

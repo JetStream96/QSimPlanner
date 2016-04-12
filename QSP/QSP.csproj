@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{182CA73B-6911-4D37-BA34-C86232FE37F1}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QSP</RootNamespace>
     <AssemblyName>QSimPlanner</AssemblyName>
@@ -50,14 +50,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>QSP.Core.Program</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\VORTAC.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -72,7 +72,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationEvents.cs" />
     <Compile Include="AviationTools\Constants.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDecimal.cs" />
     <Compile Include="AviationTools\CoversionTools.cs" />
@@ -221,6 +220,12 @@
     <Compile Include="TOPerfCalculation\PerfTable.cs" />
     <Compile Include="TOPerfCalculation\PerfTableItem.cs" />
     <Compile Include="UI\ControlStates\StateManager.cs" />
+    <Compile Include="UI\ToLdgModule\AircraftMenu\AircraftMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ToLdgModule\AircraftMenu\AircraftMenuControl.Designer.cs">
+      <DependentUpon>AircraftMenuControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ToLdgModule\AirportMap\AirportMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -315,7 +320,6 @@
     <Compile Include="MathTools\RealValuedFunction.cs" />
     <Compile Include="MathTools\Vectors\Vector2D.cs" />
     <Compile Include="MathTools\Vectors\Vector3D.cs" />
-    <Compile Include="Core\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteFinding\AirwayConnectionFinder.cs" />
     <Compile Include="RouteFinding\Airports\AlternateFinder.cs" />
@@ -429,6 +433,9 @@
     <EmbeddedResource Include="UI\Forms\about.resx">
       <DependentUpon>about.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ToLdgModule\AircraftMenu\AircraftMenuControl.resx">
+      <DependentUpon>AircraftMenuControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ToLdgModule\AirportMap\AirportMapControl.resx">
       <DependentUpon>AirportMapControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -468,9 +475,6 @@
     <EmbeddedResource Include="UI\ToLdgModule\TOPerf\TOPerfControl.resx">
       <DependentUpon>TOPerfControl.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.manifest">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -480,9 +484,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="degrib\degrib.exe">
