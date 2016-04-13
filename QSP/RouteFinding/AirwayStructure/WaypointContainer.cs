@@ -1,8 +1,8 @@
 ﻿using QSP.LibraryExtension;
 using QSP.LibraryExtension.Graph;
+using QSP.RouteFinding.Containers;
 using System.Collections.Generic;
 using static QSP.LibraryExtension.HashMap<string, int>;
-using QSP.RouteFinding.Containers;
 
 namespace QSP.RouteFinding.AirwayStructure
 {

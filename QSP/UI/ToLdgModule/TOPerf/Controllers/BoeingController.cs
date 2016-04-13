@@ -128,12 +128,14 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             catch (RunwayTooShortException)
             {//TODO:
                 elements.result.ForeColor = Color.Red;
-                elements.result.Text = "Runway length is insufficient for takeoff.";
+                elements.result.Text = 
+                    "Runway length is insufficient for takeoff.";
             }
             catch (PoorClimbPerformanceException)
             {
                 elements.result.ForeColor = Color.Red;
-                elements.result.Text = "Aircraft too heavy to meet climb performance requirement.";
+                elements.result.Text = 
+                  "Aircraft too heavy to meet climb performance requirement.";
             }
         }
     }
