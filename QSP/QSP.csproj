@@ -102,7 +102,8 @@
     <Compile Include="LibraryExtension\FixedIndexList.cs" />
     <Compile Include="LibraryExtension\Graph\Graph.cs" />
     <Compile Include="LibraryExtension\DoubleArrayCompare.cs" />
-    <Compile Include="LibraryExtension\JaggedArrays.cs" />
+    <Compile Include="LibraryExtension\JaggedArrays\JaggedArray.cs" />
+    <Compile Include="LibraryExtension\JaggedArrays\LengthChecker.cs" />
     <Compile Include="LibraryExtension\ReadOnlyStack.cs" />
     <Compile Include="LibraryExtension\Stacks.cs" />
     <Compile Include="LibraryExtension\StringParser\StringParser.cs" />

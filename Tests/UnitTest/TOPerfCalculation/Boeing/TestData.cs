@@ -2,6 +2,7 @@
 using QSP.LibraryExtension;
 using QSP.MathTools.Tables;
 using QSP.TOPerfCalculation.Boeing.PerfData;
+using QSP.LibraryExtension.JaggedArrays;
 
 namespace UnitTest.TOPerfCalculation.Boeing
 {

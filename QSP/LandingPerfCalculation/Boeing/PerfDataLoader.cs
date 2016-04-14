@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml.Linq;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.Arrays;
+using QSP.LibraryExtension.JaggedArrays;
 
 namespace QSP.LandingPerfCalculation.Boeing
 {
@@ -48,11 +49,11 @@ namespace QSP.LandingPerfCalculation.Boeing
             string[] flaps = new string[flapsCount];
 
             var tableDry =
-                JaggedArrays.CreateJaggedArray<double[][][]>
+                JaggedArray.Create<double[][][]>
                 (flapsCount, brkSettingDry.Length, ColumnCount);
 
             var tableWet =
-                JaggedArrays.CreateJaggedArray<double[][][][]>
+                JaggedArray.Create<double[][][][]>
                 (flapsCount, SurfaceCondCount, brkSettingWet.Length, ColumnCount);
 
             for (int i = 0; i < flapsCount; i++)

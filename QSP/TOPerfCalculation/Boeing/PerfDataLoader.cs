@@ -7,6 +7,7 @@ using System.Linq;
 using System.Xml.Linq;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.Arrays;
+using QSP.LibraryExtension.JaggedArrays;
 
 namespace QSP.TOPerfCalculation.Boeing
 {
@@ -130,8 +131,8 @@ namespace QSP.TOPerfCalculation.Boeing
 
             int yLen = lines.Length - 1; //Num of lengths
             int zLen = words.Length;  //Num of OAT
-            var fieldLim = JaggedArrays.CreateJaggedArray<double[][][]>(altitudes.Length, yLen, zLen);
-            var climbLim = JaggedArrays.CreateJaggedArray<double[][]>(altitudes.Length, zLen);
+            var fieldLim = JaggedArray.Create<double[][][]>(altitudes.Length, yLen, zLen);
+            var climbLim = JaggedArray.Create<double[][]>(altitudes.Length, zLen);
 
             // First line is OAT
             var oats = new double[zLen];
@@ -211,7 +212,7 @@ namespace QSP.TOPerfCalculation.Boeing
 
             // From second line
             var lengths = new double[lines.Length - 1];
-            var table = JaggedArrays.CreateJaggedArray<double[][]>(lengths.Length, slope.Length);
+            var table = JaggedArray.Create<double[][]>(lengths.Length, slope.Length);
 
             for (int j = 0; j < lines.Length - 1; j++)
             {

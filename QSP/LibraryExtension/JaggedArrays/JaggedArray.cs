@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace QSP.LibraryExtension
+namespace QSP.LibraryExtension.JaggedArrays
 {
-    public static class JaggedArrays
+    public static class JaggedArray
     {
         // Usage: var array = CreateJaggedArray<double[][]>(3, 5);
-        public static T CreateJaggedArray<T>(params int[] arrayLengths)
+        public static T Create<T>(params int[] arrayLengths)
         {
             return (T)getJaggedArray(typeof(T).GetElementType(), 0, arrayLengths);
         }

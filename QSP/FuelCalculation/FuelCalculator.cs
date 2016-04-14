@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using QSP.MathTools.Interpolation;
 using QSP.Core;
 using QSP.LibraryExtension;
+using QSP.LibraryExtension.JaggedArrays;
 
 namespace QSP
 {
@@ -136,7 +137,7 @@ namespace QSP
             }
 
             int numCol = validLine[0].Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries).Length;
-            var table = JaggedArrays.CreateJaggedArray<double[][]>(numCol - 1, validLine.Count);
+            var table = JaggedArray.Create<double[][]>(numCol - 1, validLine.Count);
             double[] airDisCol = new double[validLine.Count];
             double[] landingWtRow = new double[numCol];
             string[] numbers = null;
@@ -203,7 +204,7 @@ namespace QSP
             }
 
             int numCol = validLine[0].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length;
-            var table = JaggedArrays.CreateJaggedArray<double[][]>(numCol, validLine.Count);
+            var table = JaggedArray.Create<double[][]>(numCol, validLine.Count);
             string[] numbers = null;
 
             for (int i = 0; i < validLine.Count; i++)

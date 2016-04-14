@@ -10,7 +10,8 @@ namespace QSP.MathTools.Tables
         private double[] t;
         private double[][][][] f;
 
-        public Table4D(double[] x, double[] y, double[] z, double[] t, double[][][][] f)
+        public Table4D(double[] x, double[] y, double[] z, double[] t,
+                       double[][][][] f)
         {
             this.x = x;
             this.y = y;
@@ -21,7 +22,8 @@ namespace QSP.MathTools.Tables
 
         public double ValueAt(double x, double y, double z, double t)
         {
-            return Interpolate4D.Interpolate(this.x, this.y, this.z, this.t, x, y, z, t, f);
+            return Interpolate4D.Interpolate(
+                this.x, this.y, this.z, this.t, x, y, z, t, f);
         }
     }
 }
