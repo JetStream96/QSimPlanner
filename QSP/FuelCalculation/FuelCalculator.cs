@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using QSP.MathTools.Interpolation;
 using QSP.Core;
-using QSP.LibraryExtension;
 using QSP.LibraryExtension.JaggedArrays;
 
 namespace QSP

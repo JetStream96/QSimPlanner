@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QSP.Core;
-
-namespace QSP.AircraftProfiles
+﻿namespace QSP.AircraftProfiles
 {
     public class AircraftConfig
     {
