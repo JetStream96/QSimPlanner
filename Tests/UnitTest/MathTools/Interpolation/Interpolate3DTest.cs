@@ -6,7 +6,7 @@ namespace UnitTest.MathTools.Interpolation
     [TestClass]
     public class Interpolate3DTest
     {
-        double[][][] a = new double[][][] {
+        private double[][][] a = new double[][][] {
                                 new double[][] {
                                     new double[] {-5.0,3.5,4.5},
                                     new double[] {-8.0,1.0,2.8},
