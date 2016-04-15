@@ -68,6 +68,7 @@
     <Compile Include="LandingPerfCalculation\Boeing\PerfDataLoaderTest.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\TestData.cs" />
     <Compile Include="LibraryExtension\DoubleArrayCompareTest.cs" />
+    <Compile Include="LibraryExtension\DoubleArraysTest.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\JaggedArraysTest.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\LengthCheckerTest.cs" />
     <Compile Include="LibraryExtension\StringParser\UtilitiesTest.cs" />

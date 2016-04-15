@@ -1,4 +1,7 @@
-﻿using QSP.MathTools.Interpolation;
+﻿using QSP.LibraryExtension.JaggedArrays;
+using QSP.MathTools.Interpolation;
+using QSP.Utilities;
+using System;
 
 namespace QSP.MathTools.Tables
 {
@@ -24,6 +27,19 @@ namespace QSP.MathTools.Tables
         {
             return Interpolate4D.Interpolate(
                 this.x, this.y, this.z, this.t, x, y, z, t, f);
+        }
+
+        private void validate()
+        {
+            bool hasLen = LengthChecker.HasLength<double>(
+                    f, x.Length, y.Length, z.Length, t.Length);
+
+            ConditionChecker.Ensure<ArgumentException>(
+                hasLen &&
+                x.IsValidAxis() &&
+                y.IsValidAxis() &&
+                z.IsValidAxis() &&
+                t.IsValidAxis());
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using QSP.MathTools.Interpolation;
 using QSP.LibraryExtension;
+using QSP.Utilities;
+using System;
 
 namespace QSP.MathTools.Tables
 {
@@ -19,10 +21,17 @@ namespace QSP.MathTools.Tables
             return Interpolate1D.Interpolate(this.x, f, x);
         }
 
-        public bool Equals(Table1D item,double delta)
+        public bool Equals(Table1D item, double delta)
         {
             return DoubleArrayCompare.Equals(x, item.x, delta) &&
                    DoubleArrayCompare.Equals(f, item.f, delta);
+        }
+
+        private void validate()
+        {
+            ConditionChecker.Ensure<ArgumentException>(
+                f.Length >= x.Length &&
+                x.IsValidAxis());
         }
     }
 }

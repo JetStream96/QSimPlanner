@@ -57,10 +57,15 @@ namespace QSP.LibraryExtension
         }
 
         /// <summary>
-        /// Returns a subarray starting with the given index. Total number of elements examined is given by "length". 
-        /// The returning array may have fewer elements than "length" since any item in ignoredItems is NOT added to resulting array.
+        /// Returns a subarray starting with the given index. 
+        /// Total number of elements examined is given by "length". 
+        /// The returning array may have fewer elements than "length" 
+        /// since any item in ignoredItems is NOT added to resulting array.
         /// </summary>
-        public static T[] SubArray<T>(this T[] data, int index, int length, T[] ignoredItems)
+        public static T[] SubArray<T>(this T[] data, 
+                                      int index, 
+                                      int length, 
+                                      T[] ignoredItems)
         {
             var result = new T[length];
             int currentIndex = 0;
@@ -126,9 +131,11 @@ namespace QSP.LibraryExtension
         }
 
         /// <summary>
-        /// Remove any array which is null, or has less elements than minLength.
+        /// Remove any array which is null, or has less elements 
+        /// than minLength.
         /// </summary>
-        public static void RemoveTinyArray<T>(this List<T[]> item, int minLength)
+        public static void RemoveTinyArray<T>(this List<T[]> item, 
+                                              int minLength)
         {
             int lastIndex = item.Count - 1;
 

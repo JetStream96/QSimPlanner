@@ -1,5 +1,8 @@
 ﻿using QSP.LibraryExtension;
+using QSP.LibraryExtension.JaggedArrays;
 using QSP.MathTools.Interpolation;
+using QSP.Utilities;
+using System;
 
 namespace QSP.MathTools.Tables
 {
@@ -30,6 +33,18 @@ namespace QSP.MathTools.Tables
                    DoubleArrayCompare.Equals(y, item.y, delta) &&
                    DoubleArrayCompare.Equals(z, item.z, delta) &&
                    DoubleArrayCompare.Equals(f, item.f, delta);
+        }
+
+        private void validate()
+        {
+            bool hasLen = LengthChecker.HasLength<double>(
+                    f, x.Length, y.Length, z.Length);
+
+            ConditionChecker.Ensure<ArgumentException>(
+                hasLen &&
+                x.IsValidAxis() &&
+                y.IsValidAxis() &&
+                z.IsValidAxis());
         }
     }
 }
