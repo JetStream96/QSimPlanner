@@ -10,10 +10,13 @@ namespace QSP.MathTools.Tables
         public double[] x { get; set; }
         public double[] f { get; set; }
 
+        /// <exception cref="ArgumentException"></exception>
         public Table1D(double[] x, double[] f)
         {
             this.x = x;
             this.f = f;
+
+            Validate();
         }
 
         public double ValueAt(double x)
@@ -27,7 +30,8 @@ namespace QSP.MathTools.Tables
                    DoubleArrayCompare.Equals(f, item.f, delta);
         }
 
-        private void validate()
+        /// <exception cref="ArgumentException"></exception>
+        public void Validate()
         {
             ConditionChecker.Ensure<ArgumentException>(
                 f.Length >= x.Length &&

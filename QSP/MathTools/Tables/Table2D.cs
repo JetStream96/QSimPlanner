@@ -12,11 +12,14 @@ namespace QSP.MathTools.Tables
         public double[] y { get; set; }
         public double[][] f { get; set; }
 
+        /// <exception cref="ArgumentException"></exception>
         public Table2D(double[] x, double[] y, double[][] f)
         {
             this.x = x;
             this.y = y;
             this.f = f;
+
+            Validate();
         }
 
         public double ValueAt(double x, double y)
@@ -31,7 +34,8 @@ namespace QSP.MathTools.Tables
                    DoubleArrayCompare.Equals(f, item.f, delta);
         }
 
-        private void validate()
+        /// <exception cref="ArgumentException"></exception>
+        public void Validate()
         {
             ConditionChecker.Ensure<ArgumentException>(
                 LengthChecker.HasLength<double>(f, x.Length, y.Length) &&

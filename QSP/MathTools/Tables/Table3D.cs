@@ -13,12 +13,15 @@ namespace QSP.MathTools.Tables
         public double[] z { get; set; }
         public double[][][] f { get; set; }
 
+        /// <exception cref="ArgumentException"></exception>
         public Table3D(double[] x, double[] y, double[] z, double[][][] f)
         {
             this.x = x;
             this.y = y;
             this.z = z;
             this.f = f;
+
+            Validate();
         }
 
         public double ValueAt(double x, double y, double z)
@@ -35,7 +38,8 @@ namespace QSP.MathTools.Tables
                    DoubleArrayCompare.Equals(f, item.f, delta);
         }
 
-        private void validate()
+        /// <exception cref="ArgumentException"></exception>
+        public void Validate()
         {
             bool hasLen = LengthChecker.HasLength<double>(
                     f, x.Length, y.Length, z.Length);
