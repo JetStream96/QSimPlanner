@@ -4,7 +4,7 @@
 
 bin/
 obj/
-/TestResults
-ProfileReports/
-TrackBackupApp/nats
-TrackBackupApp/log.txt
+src/TestResults
+src/ProfileReports/
+src/TrackBackupApp/nats
+src/TrackBackupApp/log.txt
