@@ -80,6 +80,7 @@
     <Compile Include="MathTools\Interpolation\Interpolate1DTest.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate2DTest.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate3DTest.cs" />
+    <Compile Include="MathTools\Tables\Readers\TableReader2DTest.cs" />
     <Compile Include="MathTools\Tables\Table1DTest.cs" />
     <Compile Include="MathTools\Tables\Table2DTest.cs" />
     <Compile Include="MathTools\Tables\Table3DTest.cs" />

@@ -1,12 +1,57 @@
-﻿using System;
+﻿using QSP.LibraryExtension;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QSP.MathTools.Tables.Readers
 {
-    class TableReader2D
+    public static class TableReader2D
     {
+        private static char[] spaces = new char[] { ' ', '\t' };
+
+        // See unit test for examples.
+        public static Table2D Read(string source)
+        {
+            var lines = source.Lines();
+
+            int lineNum = 0;
+            var y = getNextLine(lines, ref lineNum).ToDoubles();
+
+            var x = new List<double>();
+            var f = new List<double[]>();
+
+            while (true)
+            {
+                var currentLine = getNextLine(lines, ref lineNum);
+
+                if (currentLine == null)
+                {
+                    return new Table2D(x.ToArray(), y.ToArray(), f.ToArray());
+                }
+                else if (currentLine.Length >= 2)
+                {
+                    x.Add(double.Parse(currentLine[0]));
+                    f.Add(currentLine.SubArray(1).ToDoubles());
+                }
+            }
+        }
+
+        private static string[] getNextLine(string[] lines, ref int lineNum)
+        {
+            while (lineNum < lines.Length)
+            {
+                var words = lines[lineNum].Split(
+                    spaces, StringSplitOptions.RemoveEmptyEntries);
+
+                lineNum++;
+
+                if (words.Length > 0)
+                {
+                    return words;
+                }
+            }
+
+            return null;
+        }
     }
 }

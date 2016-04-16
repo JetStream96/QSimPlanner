@@ -107,6 +107,7 @@
     <Compile Include="LibraryExtension\JaggedArrays\LengthChecker.cs" />
     <Compile Include="LibraryExtension\ReadOnlyStack.cs" />
     <Compile Include="LibraryExtension\Stacks.cs" />
+    <Compile Include="LibraryExtension\StringArrays.cs" />
     <Compile Include="LibraryExtension\StringParser\StringParser.cs" />
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
     <Compile Include="LibraryExtension\MinHeapModifiable.cs" />
@@ -123,7 +124,6 @@
     <Compile Include="MathTools\Tables\Table1D.cs" />
     <Compile Include="MathTools\Tables\Table2D.cs" />
     <Compile Include="MathTools\Tables\Table3D.cs" />
-    <Compile Include="MathTools\Tables\Validator.cs" />
     <Compile Include="Metar\MetarDownloader.cs" />
     <Compile Include="Metar\ParaExtractor.cs" />
     <Compile Include="RouteFinding\Airports\AirportExtensions.cs" />

@@ -49,6 +49,11 @@ namespace QSP.LibraryExtension
             return u;
         }
 
+        public static T[] SubArray<T>(this T[] data, int index)
+        {
+            return data.SubArray(index, data.Length - index);
+        }
+
         public static T[] SubArray<T>(this T[] data, int index, int length)
         {
             T[] result = new T[length];

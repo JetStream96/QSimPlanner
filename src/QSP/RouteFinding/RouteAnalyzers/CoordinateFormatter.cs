@@ -2,6 +2,7 @@
 using static QSP.AviationTools.Coordinates.Utilities;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.LibraryExtension.StringParser.Utilities;
+using System.Linq;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -35,8 +36,10 @@ namespace QSP.RouteFinding.RouteAnalyzers
         public string[] Split()
         {
             var s = route.ToUpper()
-                         .Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries)
-                         .RemoveElements("DCT");
+                         .Split(DelimiterWords, 
+                                StringSplitOptions.RemoveEmptyEntries)
+                         .Where(x => x != "DCT")
+                         .ToArray();
 
             ConvertTo5LetterFormat(s);
             return s;
