@@ -7,7 +7,8 @@ namespace QSP.Metar
     public static class ParaExtractor
     {
         /// <summary>
-        /// E.g. matches "VRB", "02013KT", or "14007MPS".
+        /// E.g. matches "VRB", "02013KT", "020/13KT", "02013G20KT"
+        /// or "14007MPS".
         /// If not found, returns null.
         /// </summary>
         public static Wind GetWind(string metar)
@@ -49,20 +50,20 @@ namespace QSP.Metar
         public static int GetTemp(string metar)
         {
             var match = Regex.Match(metar,
-                @"(^|\s)M?\d{1,3}/M?\d{1,3}(\s|$)",
+                @"(^|\s)(?<temp>M?\d{1,3})/M?\d{1,3}(\s|$)",
                 RegexOptions.Multiline);
 
             if (match.Success)
             {
-                var val = match.Value.Trim();
+                var val = match.Groups["temp"].Value;
 
                 if (val[0] == 'M')
                 {
-                    return -int.Parse(val.Substring(1, val.IndexOf('/') - 1));
+                    return -int.Parse(val.Substring(1));
                 }
                 else
                 {
-                    return int.Parse(val.Substring(0, val.IndexOf('/')));
+                    return int.Parse(val);
                 }
             }
             else
@@ -83,7 +84,8 @@ namespace QSP.Metar
             if (match.Success)
             {
                 var val = match.Value.Trim();
-                var unit = val.Contains("A") ? PressureUnit.inHg : PressureUnit.Mb;
+                var unit = val.Contains("A") ?
+                    PressureUnit.inHg : PressureUnit.Mb;
 
                 return new PressureSetting(unit,
                     double.Parse(val.Substring(1, 4)) *
