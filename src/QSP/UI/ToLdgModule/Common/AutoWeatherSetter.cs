@@ -13,7 +13,8 @@ namespace QSP.UI.ToLdgModule.Common
         private AirportInfoControl airportControl;
         private string metar;
 
-        public AutoWeatherSetter(WeatherInfoControl wxControl, AirportInfoControl airportControl)
+        public AutoWeatherSetter(WeatherInfoControl wxControl, 
+                                 AirportInfoControl airportControl)
         {
             this.wxControl = wxControl;
             this.airportControl = airportControl;
@@ -65,7 +66,8 @@ namespace QSP.UI.ToLdgModule.Common
             metar = null;
 
             bool metarAcquired =
-                 await Task.Run(() => MetarDownloader.TryGetMetar(icao, out metar));
+                 await Task.Run(
+                     () => MetarDownloader.TryGetMetar(icao, out metar));
 
             if (metarAcquired)
             {
@@ -78,15 +80,13 @@ namespace QSP.UI.ToLdgModule.Common
                     w.oatTxtBox,
                     w.tempUnitComboBox,
                     w.pressTxtBox,
-                    w.pressUnitComboBox))
+                    w.pressUnitComboBox) == false)
                 {
-                    enableDnBtn();
-                    w.pictureBox1.Visible = true;
+                    MessageBox.Show(
+                       @"Unable to fill the weather information automatically.");
                 }
-                else
-                {
-                    MessageBox.Show(@"Unable to fill the weather information automatically.");
-                }
+                enableDnBtn();
+                w.pictureBox1.Visible = true;
             }
         }
     }

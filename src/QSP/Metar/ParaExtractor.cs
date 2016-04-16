@@ -21,7 +21,7 @@ namespace QSP.Metar
             }
 
             var match = Regex.Match(metar,
-                @"(^|\s)\d{3}/?\d{1,3}(KTS?|MPS)(\s|$)",
+                @"(^|\s)\d{3}/?\d{1,3}(G\d{1,3})?(KTS?|MPS)(\s|$)",
                 RegexOptions.Multiline);
 
             if (match.Success)
@@ -29,7 +29,8 @@ namespace QSP.Metar
                 var val = match.Value.Trim();
                 int direction = int.Parse(val.Substring(0, 3));
                 double speed = int.Parse(
-                    Regex.Match(val.Substring(3), @"^\d{1,3}").Value);
+                    Regex.Match(val.Substring(3), @"^/?(?<wind>\d{1,3})")
+                    .Groups["wind"].Value);
 
                 if (val.Contains("MPS"))
                 {
