@@ -1,8 +1,7 @@
 ﻿using System;
-using static QSP.AviationTools.Coordinates.Utilities;
-using static QSP.LibraryExtension.Arrays;
-using static QSP.LibraryExtension.StringParser.Utilities;
 using System.Linq;
+using static QSP.AviationTools.Coordinates.Utilities;
+using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {

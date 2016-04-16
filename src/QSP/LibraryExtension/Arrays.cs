@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace QSP.LibraryExtension
@@ -38,17 +37,6 @@ namespace QSP.LibraryExtension
             return index;
         }
 
-        public static T[] RemoveFirstElement<T>(T[] array)
-        {
-            T[] u = new T[array.Length - 1];
-
-            for (int i = 1; i < array.Length; i++)
-            {
-                u[i - 1] = array[i];
-            }
-            return u;
-        }
-
         public static T[] SubArray<T>(this T[] data, int index)
         {
             return data.SubArray(index, data.Length - index);
@@ -85,11 +73,6 @@ namespace QSP.LibraryExtension
             return result.SubArray(0, currentIndex);
         }
 
-        public static T[] Exclude<T>(this T[] data, T[] ignoredItems)
-        {
-            return SubArray(data, 0, data.Length, ignoredItems);
-        }
-
         public static void Multiply(this double[] item, double c)
         {
             for (int i = 0; i < item.Length; i++)
@@ -97,65 +80,10 @@ namespace QSP.LibraryExtension
                 item[i] *= c;
             }
         }
-
-        public static T[] RemoveElements<T>(this T[] array, T item)
-        {
-            var result = new T[array.Length];
-            int currentIndex = 0;
-
-            foreach (var i in array)
-            {
-                if (!i.Equals(item))
-                {
-                    result[currentIndex++] = i;
-                }
-            }
-            return result.SubArray(0, currentIndex);
-        }
-
+        
         public static T Last<T>(this T[] array)
         {
             return array[array.Length - 1];
-        }
-
-        public class ArrayComparer<T> : EqualityComparer<T[]>
-        {
-            public override bool Equals(T[] x, T[] y)
-            {
-                if (x == null || y == null || x.Length != y.Length)
-                {
-                    return false;
-                }
-                return Enumerable.SequenceEqual(x, y);
-            }
-
-            public override int GetHashCode(T[] obj)
-            {
-                return GetHashCode();
-            }
-        }
-
-        /// <summary>
-        /// Remove any array which is null, or has less elements 
-        /// than minLength.
-        /// </summary>
-        public static void RemoveTinyArray<T>(this List<T[]> item, 
-                                              int minLength)
-        {
-            int lastIndex = item.Count - 1;
-
-            if (lastIndex < 0)
-            {
-                return;
-            }
-
-            for (int i = lastIndex; i >= 0; i--)
-            {
-                if (item[i] == null || item[i].Length < minLength)
-                {
-                    item.RemoveAt(i);
-                }
-            }
-        }
+        }        
     }
 }

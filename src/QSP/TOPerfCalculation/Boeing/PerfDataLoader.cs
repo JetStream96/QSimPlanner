@@ -1,6 +1,7 @@
 ﻿using QSP.LibraryExtension;
 using QSP.LibraryExtension.JaggedArrays;
 using QSP.MathTools.Tables;
+using QSP.MathTools.Tables.Readers;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using System;
 using System.Collections.Generic;
@@ -73,20 +74,22 @@ namespace QSP.TOPerfCalculation.Boeing
 
             //Import tables
             var dryNode = node.Element("Dry");
+            var wetNode = node.Element("Wet");
 
-            var slopeCorrDry = getSlopeOrWindTable(
-                dryNode.Element("SlopeCorrection").Value, lengthUnitIsMeter);
+            var slopeCorrDry = TableReader2D.Read(dryNode.Element("SlopeCorrection").Value);
+            var windCorrDry = TableReader2D.Read(dryNode.Element("WindCorrection").Value);
+            var SlopeCorrWet = TableReader2D.Read(wetNode.Element("SlopeCorrection").Value);
+            var WindCorrWet = TableReader2D.Read(wetNode.Element("WindCorrection").Value);
 
-            var windCorrDry = getSlopeOrWindTable(
-                dryNode.Element("WindCorrection").Value, lengthUnitIsMeter);
+            setUnitSlopeOrWindTable(slopeCorrDry, lengthUnitIsMeter);
+            setUnitSlopeOrWindTable(windCorrDry, lengthUnitIsMeter);
+            setUnitSlopeOrWindTable(SlopeCorrWet, lengthUnitIsMeter);
+            setUnitSlopeOrWindTable(WindCorrWet, lengthUnitIsMeter);
 
             var tables = setFieldClimbLimitWt(dryNode, lengthUnitIsMeter, wtUnitIsTon);
             var WeightTableDry = tables.Item1;
             var ClimbLimitWt = tables.Item2;
 
-            var wetNode = node.Element("Wet");
-            var SlopeCorrWet = getSlopeOrWindTable(wetNode.Element("SlopeCorrection").Value, lengthUnitIsMeter);
-            var WindCorrWet = getSlopeOrWindTable(wetNode.Element("WindCorrection").Value, lengthUnitIsMeter);
             var WeightTableWet = setFieldClimbLimitWt(wetNode, lengthUnitIsMeter, wtUnitIsTon).Item1;
 
             // Derates (TO1, TO2)
@@ -110,7 +113,7 @@ namespace QSP.TOPerfCalculation.Boeing
                 new SlopeCorrTable(SlopeCorrWet.x, SlopeCorrWet.y, SlopeCorrWet.f),
                 new WindCorrTable(windCorrDry.x, windCorrDry.y, windCorrDry.f),
                 new WindCorrTable(WindCorrWet.x, WindCorrWet.y, WindCorrWet.f),
-                WeightTableDry, 
+                WeightTableDry,
                 WeightTableWet,
                 ClimbLimitWt);
         }
@@ -119,66 +122,20 @@ namespace QSP.TOPerfCalculation.Boeing
         private static Pair<FieldLimitWtTable, ClimbLimitWtTable> setFieldClimbLimitWt(
             XElement node, bool lenthIsMeter, bool WtIsKG)
         {
-            var tables = node.Elements("WeightTable");
+            var wtTables = node.Elements("WeightTable");
 
             // x
-            var altitudes = new double[tables.Count()];
+            var altitudes = wtTables.Select(x => x.Element("Altitude").Value)
+                .ToDoubles();
 
-            //trying to get dimesions of the table
-            string s = tables.First().Element("Table").Value;
-            var lines = s.Split(lineChangeChars, StringSplitOptions.RemoveEmptyEntries);
-            var words = lines[0].Split(spaceChars, StringSplitOptions.RemoveEmptyEntries);
+            var fieldLimTables = wtTables.Select(
+                x => TableReader2D.Read(x.Element("Table").Value));
 
-            int yLen = lines.Length - 1; //Num of lengths
-            int zLen = words.Length;  //Num of OAT
-            var fieldLim = JaggedArray.Create<double[][][]>(altitudes.Length, yLen, zLen);
-            var climbLim = JaggedArray.Create<double[][]>(altitudes.Length, zLen);
+            var lengths = fieldLimTables.First().x;
+            var oats = fieldLimTables.First().y;
+            var fieldlimitWt = fieldLimTables.Select(t => t.f).ToArray();
 
-            // First line is OAT
-            var oats = new double[zLen];
-            for (int i = 0; i < oats.Length; i++)
-            {
-                oats[i] = Convert.ToDouble(words[i]);
-            }
-
-            var lengths = new double[yLen];
-
-            int index = 0;
-            foreach (var i in tables)
-            {
-                altitudes[index] = Convert.ToDouble(i.Element("Altitude").Value);
-
-                //Import fieldLim
-                s = i.Element("Table").Value;
-                lines = s.Split(lineChangeChars, StringSplitOptions.RemoveEmptyEntries);
-
-                for (int j = 0; j < lines.Length - 1; j++)
-                {
-                    words = lines[j + 1].Split(spaceChars, StringSplitOptions.RemoveEmptyEntries);
-
-                    // Length
-                    if (index == 1)
-                    {
-                        lengths[j] = Convert.ToDouble(words[0]);
-                    }
-
-                    for (int k = 0; k < words.Length - 1; k++)
-                    {
-                        fieldLim[index][j][k] = Convert.ToDouble(words[k + 1]);
-                    }
-                }
-
-                // Import climbLim
-                s = i.Element("Climb").Value;
-                words = s.Split(spaceChars, StringSplitOptions.RemoveEmptyEntries);
-
-                for (int m = 0; m < words.Length; m++)
-                {
-                    climbLim[index][m] = Convert.ToDouble(words[m]);
-                }
-
-                index++;
-            }
+            double[][] climbLimWt = getClimbLimit(wtTables);
 
             // Now check units
             if (lenthIsMeter == false)
@@ -188,51 +145,34 @@ namespace QSP.TOPerfCalculation.Boeing
 
             if (WtIsKG == false)
             {
-                climbLim.Multiply(LbKgRatio);
-                fieldLim.Multiply(LbKgRatio);
+                climbLimWt.Multiply(LbKgRatio);
+                fieldlimitWt.Multiply(LbKgRatio);
             }
 
             return new Pair<FieldLimitWtTable, ClimbLimitWtTable>(
-                 new FieldLimitWtTable(altitudes, lengths, oats, fieldLim),
-                 new ClimbLimitWtTable(altitudes, oats, climbLim));
+                 new FieldLimitWtTable(altitudes, lengths, oats, fieldlimitWt),
+                 new ClimbLimitWtTable(altitudes, oats, climbLimWt));
         }
 
-        // This also works for wind correction tables.
-        private static Table2D getSlopeOrWindTable(string item, bool lengthIsMeter)
+        private static double[][] getClimbLimit(IEnumerable<XElement> elem)
         {
-            string[] lines = item.Split(lineChangeChars, StringSplitOptions.RemoveEmptyEntries);
-            string[] words = lines[0].Split(spaceChars, StringSplitOptions.RemoveEmptyEntries);
-            // first line is slope
-            var slope = new double[words.Length];
-
-            for (int i = 0; i < slope.Length; i++)
-            {
-                slope[i] = Convert.ToDouble(words[i]);
-            }
-
-            // From second line
-            var lengths = new double[lines.Length - 1];
-            var table = JaggedArray.Create<double[][]>(lengths.Length, slope.Length);
-
-            for (int j = 0; j < lines.Length - 1; j++)
-            {
-                words = lines[j + 1].Split(spaceChars, StringSplitOptions.RemoveEmptyEntries);
-                lengths[j] = Convert.ToDouble(words[0]);
-
-                for (int k = 0; k < slope.Length; k++)
-                {
-                    table[j][k] = Convert.ToDouble(words[k + 1]);
-                }
-            }
-
+            return elem.Select(
+                        x => x.Element("Climb")
+                                .Value
+                                .Split(spaceChars,
+                                        StringSplitOptions.RemoveEmptyEntries)
+                                .ToDoubles())
+                            .ToArray();
+        }
+        
+        private static void setUnitSlopeOrWindTable(Table2D table, bool lengthIsMeter)
+        {
             // If length unit is feet, convert them to meter.
             if (lengthIsMeter == false)
             {
-                lengths.Multiply(FtMeterRatio);
-                table.Multiply(FtMeterRatio);
+                table.f.Multiply(FtMeterRatio);
+                table.x.Multiply(FtMeterRatio);
             }
-
-            return new Table2D(lengths, slope, table);
         }
 
         private void importAltnRating(XElement individualNode, bool wtUnitIsKG)
