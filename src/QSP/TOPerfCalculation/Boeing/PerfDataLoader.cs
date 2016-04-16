@@ -1,4 +1,5 @@
 ﻿using QSP.LibraryExtension;
+using QSP.LibraryExtension.JaggedArrays;
 using QSP.MathTools.Tables;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using System;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Xml.Linq;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.Arrays;
-using QSP.LibraryExtension.JaggedArrays;
 
 namespace QSP.TOPerfCalculation.Boeing
 {

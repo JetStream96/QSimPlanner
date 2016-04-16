@@ -37,14 +37,5 @@ namespace UnitTest.MathTools.Tables
 
             table.Validate();
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ZAxisNotValid()
-        {
-            var table = new Table3D(x, y, new double[] { 1.0, 1.0, 2.0 }, f);
-
-            table.Validate();
-        }
     }
 }

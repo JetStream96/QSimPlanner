@@ -25,25 +25,5 @@ namespace UnitTest.MathTools.Tables
 
             table.Validate();
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void XAxisNotValid1()
-        {
-            var table = new Table1D(new double[] { 3.0, 2.0, 5.0 },
-                new double[] { 8.0, -7.5, 1.35 });
-
-            table.Validate();
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void XAxisNotValid2()
-        {
-            var table = new Table1D(new double[] { 3.0, 3.0, 5.0 },
-                new double[] { 8.0, -7.5, 1.35 });
-
-            table.Validate();
-        }
     }
 }

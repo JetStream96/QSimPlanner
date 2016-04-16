@@ -33,9 +33,7 @@ namespace QSP.MathTools.Tables
         /// <exception cref="ArgumentException"></exception>
         public void Validate()
         {
-            ConditionChecker.Ensure<ArgumentException>(
-                f.Length >= x.Length &&
-                x.IsValidAxis());
+            ConditionChecker.Ensure<ArgumentException>(f.Length >= x.Length);
         }
     }
 }

@@ -38,9 +38,7 @@ namespace QSP.MathTools.Tables
         public void Validate()
         {
             ConditionChecker.Ensure<ArgumentException>(
-                LengthChecker.HasLength<double>(f, x.Length, y.Length) &&
-                x.IsValidAxis() &&
-                y.IsValidAxis());
+                LengthChecker.HasLength<double>(f, x.Length, y.Length));
         }
     }
 }

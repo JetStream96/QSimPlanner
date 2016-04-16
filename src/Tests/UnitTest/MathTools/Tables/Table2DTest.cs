@@ -32,14 +32,5 @@ namespace UnitTest.MathTools.Tables
 
             table.Validate();
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void YAxisNotValid()
-        {
-            var table = new Table2D(x, new double[] { 1.0, 1.0, 2.0 }, f);
-
-            table.Validate();
-        }
     }
 }

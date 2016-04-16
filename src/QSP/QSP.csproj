@@ -119,6 +119,7 @@
     <Compile Include="MathTools\Interpolation\Interpolate3D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate4D.cs" />
     <Compile Include="MathTools\Modulo.cs" />
+    <Compile Include="MathTools\Tables\Readers\TableReader2D.cs" />
     <Compile Include="MathTools\Tables\Table1D.cs" />
     <Compile Include="MathTools\Tables\Table2D.cs" />
     <Compile Include="MathTools\Tables\Table3D.cs" />
