@@ -14,13 +14,13 @@ namespace QSP.LandingPerfCalculation
         /// </summary>
         public static TableImportResult Initialize()
         {
-            var result = new List<PerfTable>();
+            var tables = new List<PerfTable>();
 
             foreach (var i in Directory.GetFiles(Constants.Path))
             {
                 try
                 {
-                    result.Add(new PerfDataLoader().ReadFromXml(i));
+                    tables.Add(new PerfDataLoader().ReadFromXml(i));
                 }
                 catch (Exception ex)
                 {
@@ -28,8 +28,11 @@ namespace QSP.LandingPerfCalculation
                 }
             }
 
-            return new TableImportResult(result.Distinct().ToList(),
-                                         message(result));
+            var groups = tables.GroupBy(x => x.Entry.ProfileName);
+
+            return new TableImportResult(
+                groups.Select(g => g.First()).ToList(),
+                message(tables));
         }
 
         private static string message(List<PerfTable> item)

@@ -74,8 +74,9 @@ namespace QSP.AircraftProfiles
         /// for all aircraft configs. 
         /// </summary>
         /// <exception cref="PerfFileNotFoundException"></exception>
-        public void Validate(List<TOPerfCalculation.PerfTable> takeoffTables,
-                             List<LandingPerfCalculation.PerfTable> ldgTables)
+        public void Validate(
+            IEnumerable<TOPerfCalculation.PerfTable> takeoffTables,
+            IEnumerable<LandingPerfCalculation.PerfTable> ldgTables)
         {
             var invalidAc = new List<AircraftConfig>();
 
