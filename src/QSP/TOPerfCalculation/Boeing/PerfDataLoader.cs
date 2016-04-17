@@ -41,9 +41,8 @@ namespace QSP.TOPerfCalculation.Boeing
             var elem = doc.Root.Element("Parameters");
 
             return new Entry(
-                path.Substring(path.LastIndexOfAny(new char[] { '\\', '/' }) + 1), //TODO:
-                elem.Element("Aircraft").Value,
-                elem.Element("Description").Value,
+                elem.Element("Aircraft").Value, 
+                elem.Element("ProfileName").Value,
                 elem.Element("Designator").Value);
         }
 

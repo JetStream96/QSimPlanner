@@ -2,7 +2,7 @@
 <LandingData>
    <Parameters>
         <Aircraft>B737-800</Aircraft>
-        <Description></Description>
+        <ProfileName>Boeing 737-800</ProfileName>
         <Designator>B738</Designator>
       
 				<LengthUnit>M</LengthUnit>

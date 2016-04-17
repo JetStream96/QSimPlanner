@@ -83,10 +83,10 @@ namespace QSP.AircraftProfiles
             {
                 var config = i.Value;
                 bool toNotFound = takeoffTables.FirstOrDefault(
-                    x => x.Entry.FilePath == config.TOPerfFile) == null;
+                    x => x.Entry.ProfileName == config.TOProfile) == null;
 
                 bool ldgNotFound = ldgTables.FirstOrDefault(
-                    x => x.Entry.FilePath == config.LdgPerfFile) == null;
+                    x => x.Entry.ProfileName == config.LdgProfile) == null;
 
                 if (toNotFound || ldgNotFound)
                 {

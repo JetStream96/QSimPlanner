@@ -2,7 +2,7 @@
 <LandingData>
     <Parameters>
         <Aircraft>B777-200LR</Aircraft>
-        <Description></Description>
+        <ProfileName>Boeing 777-200LR</ProfileName>
         <Designator>B77L</Designator>
       
 				<LengthUnit>FT</LengthUnit>

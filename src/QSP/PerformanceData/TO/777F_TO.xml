@@ -2,7 +2,7 @@
 <TOPerf>
   <Parameters>
     <Aircraft>B777F</Aircraft>
-    <Description></Description>
+    <ProfileName>Boeing 777F</ProfileName>
     <Designator>B77L</Designator>
   </Parameters>
 

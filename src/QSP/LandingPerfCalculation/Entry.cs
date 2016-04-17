@@ -2,16 +2,14 @@
 {
     public sealed class Entry
     {
-        public string FilePath { get; private set; }
         public string Aircraft { get; private set; }
-        public string Description { get; private set; }
+        public string ProfileName { get; private set; }
         public string Designator { get; private set; }
 
-        public Entry(string FilePath, string Aircraft, string Description, string Designator)
+        public Entry(string Aircraft, string ProfileName, string Designator)
         {
-            this.FilePath = FilePath;
             this.Aircraft = Aircraft;
-            this.Description = Description;
+            this.ProfileName = ProfileName;
             this.Designator = Designator;
         }
     }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP;
 using QSP.AircraftProfiles;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,8 +12,8 @@ namespace UnitTest.AircraftProfiles
         private static AircraftConfig config1 =
             new AircraftConfig("B777-300ER",
                                "B-12345",
-                               @"123/myConfig.xml",
-                               @"456/myConfig.xml",
+                               "Boeing 777-300ER",
+                               "Boeing 777-300ER",
                                123456.0,
                                234567.0,
                                345678.0,
@@ -23,8 +22,8 @@ namespace UnitTest.AircraftProfiles
         private static AircraftConfig config2 =
             new AircraftConfig("B777-300ER",
                                "B-9876",
-                               @"a/myConfig.xml",
-                               @"b/myConfig.xml",
+                               "Boeing 777-300ER custom",
+                               "Boeing 777-300ER custom",
                                23456.0,
                                34567.0,
                                45678.0,
@@ -97,13 +96,13 @@ namespace UnitTest.AircraftProfiles
             manager.Add(config1);
 
             var toFile =
-                new QSP.TOPerfCalculation.Entry(config1.TOPerfFile, "", "", "");
+                new QSP.TOPerfCalculation.Entry("", "Boeing 777-300ER", "");
 
             var toTable = new QSP.TOPerfCalculation.PerfTable(null, toFile);
 
             var ldgFile =
-                new QSP.LandingPerfCalculation.Entry(config1.LdgPerfFile,
-                                                     "", "", "");
+                new QSP.LandingPerfCalculation.Entry("",
+                    "Boeing 777-300ER", "");
             var ldgTable =
                 new QSP.LandingPerfCalculation.PerfTable(null, ldgFile);
 
