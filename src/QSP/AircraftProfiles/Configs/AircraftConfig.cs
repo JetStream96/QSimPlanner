@@ -1,4 +1,4 @@
-﻿namespace QSP.AircraftProfiles
+﻿namespace QSP.AircraftProfiles.Configs
 {
     public class AircraftConfig
     {

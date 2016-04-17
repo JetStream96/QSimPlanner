@@ -5,10 +5,10 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.RouteFinding.Tracks.Interaction.Interactions;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.UI.FormInstanceGetter;
-using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP
 {
@@ -158,22 +158,28 @@ namespace QSP
 
         private void setMainFormTrackStatus()
         {
-            if (natsAvail == Severity.Advisory && pacotsAvail == Severity.Advisory && ausotsAvail == Severity.Advisory)
+            var mainFrmStatus = frmMain.LblTrackDownloadStatus;
+
+            if (natsAvail == Severity.Advisory && 
+                pacotsAvail == Severity.Advisory && 
+                ausotsAvail == Severity.Advisory)
             {
-                frmMain.LblTrackDownloadStatus.Image = Properties.Resources.GreenLight;
-                frmMain.LblTrackDownloadStatus.Text = "Tracks: Ready";
+                mainFrmStatus.Image = Properties.Resources.GreenLight;
+                mainFrmStatus.Text = "Tracks: Ready";
 
             }
-            else if (natsAvail == Severity.Critical && pacotsAvail == Severity.Critical && ausotsAvail == Severity.Critical)
+            else if (natsAvail == Severity.Critical && 
+                pacotsAvail == Severity.Critical && 
+                ausotsAvail == Severity.Critical)
             {
-                frmMain.LblTrackDownloadStatus.Image = Properties.Resources.RedLight;
-                frmMain.LblTrackDownloadStatus.Text = "Tracks: Not Available";
+                mainFrmStatus.Image = Properties.Resources.RedLight;
+                mainFrmStatus.Text = "Tracks: Not Available";
 
             }
             else
             {
-                frmMain.LblTrackDownloadStatus.Image = Properties.Resources.YellowLight;
-                frmMain.LblTrackDownloadStatus.Text = "Tracks: Partly Ready";
+                mainFrmStatus.Image = Properties.Resources.YellowLight;
+                mainFrmStatus.Text = "Tracks: Partly Ready";
             }
         }
 
@@ -189,7 +195,8 @@ namespace QSP
             pacotsAvail = Severity.Advisory;
             ausotsAvail = Severity.Advisory;
 
-            // The event handlers are added after the form is created. This way the events won't fire at form creation.
+            // The event handlers are added after the form is created. 
+            // This way the events won't fire at form creation.
             CBoxNatsEnabled.SelectedIndexChanged += CBoxNatsEnabled_SelectedIndexChanged;
             CBoxPacotsEnabled.SelectedIndexChanged += CBoxPacotsEnabled_SelectedIndexChanged;
             CBoxAusotsEnabled.SelectedIndexChanged += CBoxAusotsEnabled_SelectedIndexChanged;

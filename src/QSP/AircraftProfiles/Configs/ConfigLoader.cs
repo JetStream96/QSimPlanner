@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using static QSP.Core.EnumConversionTools;
 
-namespace QSP.AircraftProfiles
+namespace QSP.AircraftProfiles.Configs
 {
     public static class ConfigLoader
     {

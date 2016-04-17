@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QSP.AircraftProfiles
+namespace QSP.AircraftProfiles.Configs
 {
     [Serializable]
     public class PerfFileNotFoundException : Exception

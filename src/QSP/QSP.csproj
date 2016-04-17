@@ -76,11 +76,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AircraftProfiles\AcConfigManager.cs" />
-    <Compile Include="AircraftProfiles\AircraftConfig.cs" />
-    <Compile Include="AircraftProfiles\ConfigLoader.cs" />
-    <Compile Include="AircraftProfiles\ConfigSaver.cs" />
-    <Compile Include="AircraftProfiles\Exceptions.cs" />
+    <Compile Include="AircraftProfiles\Configs\AcConfigManager.cs" />
+    <Compile Include="AircraftProfiles\Configs\AircraftConfig.cs" />
+    <Compile Include="AircraftProfiles\Configs\ConfigLoader.cs" />
+    <Compile Include="AircraftProfiles\Configs\ConfigSaver.cs" />
+    <Compile Include="AircraftProfiles\Configs\Exceptions.cs" />
+    <Compile Include="AircraftProfiles\ProfileManager.cs" />
     <Compile Include="AviationTools\Constants.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDecimal.cs" />
     <Compile Include="AviationTools\CoversionTools.cs" />

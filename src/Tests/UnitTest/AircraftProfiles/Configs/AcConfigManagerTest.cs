@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP;
-using QSP.AircraftProfiles;
+using QSP.AircraftProfiles.Configs;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UnitTest.AircraftProfiles
+namespace UnitTest.AircraftProfiles.Configs
 {
     [TestClass]
     public class AcConfigManagerTest

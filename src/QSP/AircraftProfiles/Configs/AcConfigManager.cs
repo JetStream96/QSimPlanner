@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace QSP.AircraftProfiles
+namespace QSP.AircraftProfiles.Configs
 {
     public class AcConfigManager
     {
@@ -13,6 +15,14 @@ namespace QSP.AircraftProfiles
         {
             aircrafts = new Dictionary<string, List<AircraftConfig>>();
             registrations = new Dictionary<string, AircraftConfig>();
+        }
+
+        public IEnumerable<AircraftConfig> Aircrafts
+        {
+            get
+            {
+                return registrations.Values;
+            }
         }
 
         public int Count

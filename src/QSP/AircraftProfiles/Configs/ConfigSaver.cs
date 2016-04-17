@@ -2,7 +2,7 @@
 using IniParser.Model;
 using static QSP.Core.EnumConversionTools;
 
-namespace QSP.AircraftProfiles
+namespace QSP.AircraftProfiles.Configs
 {
     public static class ConfigSaver
     {

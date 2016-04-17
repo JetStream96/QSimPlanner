@@ -4,6 +4,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 {
     public class AcMenuElements
     {
+        public ListView acListView { get; private set; }
         public ComboBox acType { get; private set; }
         public ComboBox registration { get; private set; }
         public ComboBox toProfile { get; private set; }
@@ -16,6 +17,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public ComboBox maxLdgWtUnit { get; private set; }
 
         public AcMenuElements(
+             ListView acListView,
              ComboBox acType,
              ComboBox registration,
              ComboBox toProfile,
@@ -27,6 +29,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
              ComboBox maxToWtUnit,
              ComboBox maxLdgWtUnit)
         {
+            this.acListView = acListView;
             this.acType = acType;
             this.registration = registration;
             this.toProfile = toProfile;
