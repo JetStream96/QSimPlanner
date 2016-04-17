@@ -89,7 +89,7 @@ namespace QSP.AircraftProfiles
                 bool ldgNotFound = ldgTables.FirstOrDefault(
                     x => x.Entry.ProfileName == config.LdgProfile) == null;
 
-                if (toNotFound || ldgNotFound)
+                if (toNotFound || ldgNotFound) // TODO: use && instead?
                 {
                     invalidAc.Add(config);
                 }

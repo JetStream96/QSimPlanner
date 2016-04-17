@@ -40,7 +40,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
         public void InitializeAircrafts()
         {
-            var result = TOPerfCollection.Initialize();
+            var result = CollectionLoader.Initialize();
             tables = result.Tables;
 
             if (result.Message != null)

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace QSP.TOPerfCalculation
 {
-    public static class TOPerfCollection
+    public static class CollectionLoader
     {
         /// <summary>
         /// Load all xml in the landing performance data folder.

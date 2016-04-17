@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace QSP.LandingPerfCalculation
 {
-    public static class LdgPerfCollection
+    public static class CollectionLoader
     {
         /// <summary>
         /// Load all xml in the landing performance data folder.
