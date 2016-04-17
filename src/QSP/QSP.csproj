@@ -90,7 +90,7 @@
     <Compile Include="LandingPerfCalculation\Boeing\LandingReportGenerator.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\PerfDataLoader.cs" />
     <Compile Include="LandingPerfCalculation\Constants.cs" />
-    <Compile Include="LandingPerfCalculation\InstanceInitializer.cs" />
+    <Compile Include="LandingPerfCalculation\LdgPerfCollection.cs" />
     <Compile Include="LandingPerfCalculation\Entry.cs" />
     <Compile Include="LandingPerfCalculation\PerfTable.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\PerfData\BoeingPerfTable.cs" />
@@ -222,7 +222,7 @@
     <Compile Include="TOPerfCalculation\Boeing\TOReportGenerator.cs" />
     <Compile Include="TOPerfCalculation\Constants.cs" />
     <Compile Include="TOPerfCalculation\Entry.cs" />
-    <Compile Include="TOPerfCalculation\InstanceInitializer.cs" />
+    <Compile Include="TOPerfCalculation\TOPerfCollection.cs" />
     <Compile Include="TOPerfCalculation\PerfTable.cs" />
     <Compile Include="TOPerfCalculation\PerfTableItem.cs" />
     <Compile Include="UI\ControlStates\StateManager.cs" />

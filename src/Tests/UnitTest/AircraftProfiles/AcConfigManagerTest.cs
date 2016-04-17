@@ -96,13 +96,14 @@ namespace UnitTest.AircraftProfiles
             manager.Add(config1);
 
             var toFile =
-                new QSP.TOPerfCalculation.Entry("", "Boeing 777-300ER", "");
+                new QSP.TOPerfCalculation.Entry("", 
+                "Boeing 777-300ER", "", "");
 
             var toTable = new QSP.TOPerfCalculation.PerfTable(null, toFile);
 
             var ldgFile =
                 new QSP.LandingPerfCalculation.Entry("",
-                    "Boeing 777-300ER", "");
+                    "Boeing 777-300ER", "", "");
             var ldgTable =
                 new QSP.LandingPerfCalculation.PerfTable(null, ldgFile);
 

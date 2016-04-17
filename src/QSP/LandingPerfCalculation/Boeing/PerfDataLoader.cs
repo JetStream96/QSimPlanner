@@ -27,7 +27,8 @@ namespace QSP.LandingPerfCalculation.Boeing
             return new Entry(
                 elem.Element("Aircraft").Value,
                 elem.Element("ProfileName").Value,
-                elem.Element("Designator").Value);
+                elem.Element("Designator").Value,
+                path);
         }
 
         public BoeingPerfTable GetItem(XDocument doc)

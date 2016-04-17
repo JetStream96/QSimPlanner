@@ -104,7 +104,14 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         public void InitializeAircrafts()
         {
-            tables = InstanceInitializer.Initialize();
+            var result = LdgPerfCollection.Initialize();
+            tables = result.Tables;
+
+            if (result.Message != null)
+            {
+                MessageBox.Show(result.Message);
+            }
+
             updateAircraftList();
         }
 

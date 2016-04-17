@@ -23,10 +23,10 @@ namespace QSP.TOPerfCalculation.Boeing
         /// <summary>
         /// Load an aircraft data from specified Xml file.
         /// </summary>
-        public PerfTable ReadFromXml(string filepath)
+        public PerfTable ReadFromXml(string filePath)
         {
-            XDocument doc = XDocument.Load(filepath);
-            return new PerfTable(ReadTable(doc.Root), GetEntry(filepath, doc));
+            XDocument doc = XDocument.Load(filePath);
+            return new PerfTable(ReadTable(doc.Root), GetEntry(filePath, doc));
         }
 
         public BoeingPerfTable ReadTable(XElement root)
@@ -41,9 +41,10 @@ namespace QSP.TOPerfCalculation.Boeing
             var elem = doc.Root.Element("Parameters");
 
             return new Entry(
-                elem.Element("Aircraft").Value, 
+                elem.Element("Aircraft").Value,
                 elem.Element("ProfileName").Value,
-                elem.Element("Designator").Value);
+                elem.Element("Designator").Value,
+                path);
         }
 
         private IndividualPerfTable readIndividualTable(XElement node)
@@ -118,8 +119,8 @@ namespace QSP.TOPerfCalculation.Boeing
         }
 
         // node should be "Dry" or "Wet" node
-        private static Pair<FieldLimitWtTable, ClimbLimitWtTable> setFieldClimbLimitWt(
-            XElement node, bool lenthIsMeter, bool WtIsKG)
+        private static Pair<FieldLimitWtTable, ClimbLimitWtTable>
+            setFieldClimbLimitWt(XElement node, bool lenthIsMeter, bool WtIsKG)
         {
             var wtTables = node.Elements("WeightTable");
 
@@ -163,7 +164,7 @@ namespace QSP.TOPerfCalculation.Boeing
                                 .ToDoubles())
                             .ToArray();
         }
-        
+
         private static void setUnitSlopeOrWindTable(Table2D table, bool lengthIsMeter)
         {
             // If length unit is feet, convert them to meter.
