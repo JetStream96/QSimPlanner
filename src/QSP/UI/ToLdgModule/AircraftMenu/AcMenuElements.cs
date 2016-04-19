@@ -6,7 +6,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
     {
         public ListView AcListView { get; private set; }
         public ComboBox AcType { get; private set; }
-        public ComboBox Registration { get; private set; }
+        public TextBox Registration { get; private set; }
         public ComboBox ToProfile { get; private set; }
         public ComboBox LdgProfile { get; private set; }
         public TextBox Zfw { get; private set; }
@@ -19,7 +19,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public AcMenuElements(
              ListView AcListView,
              ComboBox AcType,
-             ComboBox Registration,
+             TextBox Registration,
              ComboBox ToProfile,
              ComboBox LdgProfile,
              TextBox Zfw,

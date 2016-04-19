@@ -1,12 +1,12 @@
-﻿using System;
+﻿using QSP.AircraftProfiles;
+using QSP.AircraftProfiles.Configs;
+using QSP.AviationTools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using QSP.AircraftProfiles;
-using QSP.AircraftProfiles.Configs;
 using System.Windows.Forms;
-using QSP.AviationTools;
 using static QSP.MathTools.Doubles;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu

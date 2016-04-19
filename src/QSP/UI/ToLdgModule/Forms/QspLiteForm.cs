@@ -13,10 +13,17 @@ namespace QSP.UI.ToLdgModule.Forms
 {
     public partial class QspLiteForm : Form
     {
+        private AircraftMenuControl acMenu;
+
         public QspLiteForm()
         {
             InitializeComponent();
             addControls();
+        }
+
+        public void Initialize()
+        {
+            // acMenu.Initialize()
         }
 
         private void addControls()
@@ -26,6 +33,7 @@ namespace QSP.UI.ToLdgModule.Forms
             acMenu.Location = new Point(30, 30);
 
             Controls.Add(acMenu);
+            this.acMenu = acMenu;
         }
     }
 }
