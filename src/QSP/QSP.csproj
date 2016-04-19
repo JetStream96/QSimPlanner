@@ -261,6 +261,12 @@
     </Compile>
     <Compile Include="UI\ToLdgModule\Common\AutoWeatherSetter.cs" />
     <Compile Include="UI\ToLdgModule\Common\WeatherAutoFiller.cs" />
+    <Compile Include="UI\ToLdgModule\Forms\QspLiteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ToLdgModule\Forms\QspLiteForm.Designer.cs">
+      <DependentUpon>QspLiteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ToLdgModule\LandingPerf\ControlState.cs" />
     <Compile Include="UI\ToLdgModule\LandingPerf\CustomFuelForm.cs">
       <SubType>Form</SubType>
@@ -459,6 +465,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FindAltnForm.resx">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ToLdgModule\Forms\QspLiteForm.resx">
+      <DependentUpon>QspLiteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ToLdgModule\LandingPerf\CustomFuelForm.resx">
       <DependentUpon>CustomFuelForm.cs</DependentUpon>
