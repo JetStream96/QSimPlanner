@@ -104,7 +104,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         public void InitializeAircrafts()
         {
-            var result = CollectionLoader.Initialize();
+            var result = new LdgTableLoader().Load();
             tables = result.Tables;
 
             if (result.Message != null)

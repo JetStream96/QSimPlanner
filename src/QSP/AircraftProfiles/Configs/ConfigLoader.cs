@@ -8,9 +8,17 @@ using static QSP.Core.EnumConversionTools;
 
 namespace QSP.AircraftProfiles.Configs
 {
-    public static class ConfigLoader
+    public class ConfigLoader
     {
-        public static ConfigImportResult LoadAll(string folderPath)
+        private string folderPath;
+        private const string defaultFolderPath = @"PerformanceData\Aircrafts";
+
+        public ConfigLoader(string folderPath = defaultFolderPath)
+        {
+            this.folderPath = folderPath;
+        }
+
+        public ConfigImportResult LoadAll()
         {
             var configs = new List<acConfigItem>();
 

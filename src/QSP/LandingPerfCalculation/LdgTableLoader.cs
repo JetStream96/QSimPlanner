@@ -7,16 +7,24 @@ using System.Linq;
 
 namespace QSP.LandingPerfCalculation
 {
-    public static class CollectionLoader
+    public class LdgTableLoader
     {
+        private string folderPath;
+        private const string defaultFolderPath = @"PerformanceData\LDG";
+
+        public LdgTableLoader(string folderPath = defaultFolderPath)
+        {
+            this.folderPath = folderPath;
+        }
+
         /// <summary>
         /// Load all xml in the landing performance data folder.
         /// </summary>
-        public static TableImportResult Initialize()
+        public TableImportResult Load()
         {
             var tables = new List<PerfTable>();
 
-            foreach (var i in Directory.GetFiles(Constants.Path))
+            foreach (var i in Directory.GetFiles(folderPath))
             {
                 try
                 {

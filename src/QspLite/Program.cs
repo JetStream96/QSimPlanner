@@ -15,6 +15,8 @@ namespace QspLite
         [STAThread]
         static void Main()
         {
+            Data.AircraftProfiles.Initialize();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new QspLiteForm());
