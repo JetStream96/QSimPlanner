@@ -1,8 +1,10 @@
 ﻿using QSP.AircraftProfiles;
 using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
+using QSP.Core;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +19,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private AcMenuElements elem;
         private ProfileManager profiles;
-        private AircraftConfig selectedConfig;
+        private AircraftConfig config;
 
         public AcMenuController(AcMenuElements elem, ProfileManager profiles)
         {
@@ -27,13 +29,14 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         public void InitializeControls()
         {
-            initListView();
-            initAcType();
-            initToLdgCBox();
+            elem.SelectionBox.Location = new Point(0, 0);
+            elem.PropertyBox.Location = new Point(0, 0);
+            showSelectionGroupBox();
+                        
             initWtUnitCBox();
         }
 
-        private void initToLdgCBox()
+        private void fillToLdgCBox()
         {
             var toItems = elem.ToProfile.Items;
             toItems.Clear();
@@ -128,7 +131,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
-        private void initAcType()
+        private void fillAcTypes()
         {
             var acItems = elem.AcType.Items;
             acItems.Clear();
@@ -136,7 +139,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             acItems.AddRange(profiles.AcConfigs.Aircrafts.ToArray());
         }
 
-        private void initListView()
+        private void refreshListView()
         {
             var listItems = elem.AcListView.Items;
             listItems.Clear();
@@ -150,27 +153,35 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
-        public void SelectedAcChanged(object sender, EventArgs e)
-        {
-            selectedConfig = profiles.AcConfigs.Aircrafts
-                .ElementAt(elem.AcListView.SelectedIndices[0]);
+        //public void SelectedAcChanged(object sender, EventArgs e)
+        //{
+        //    selectedConfig = profiles.AcConfigs.Aircrafts
+        //        .ElementAt(elem.AcListView.SelectedIndices[0]);
 
-            fillProperties();
-        }
+        //    fillProperties();
+        //}
 
-        private void fillProperties()
+        private void fillProperties(AircraftConfig config)
         {
             var e = elem;
-            var s = selectedConfig;
+            var c = config;
 
-            e.AcType.Text = s.AC;
-            e.Registration.Text = s.Registration;
-            e.ToProfile.Text = s.TOProfile;
-            e.LdgProfile.Text = s.LdgProfile;
-            e.ZfwUnit.SelectedIndex = s.WtUnit == WeightUnit.KG ? 0 : 1;
-            e.Zfw.Text = wtDisplay(s.ZfwKg);
-            e.MaxToWt.Text = wtDisplay(s.MaxTOWtKg);
-            e.MaxLdgWt.Text = wtDisplay(s.MaxLdgWtKg);
+            e.AcType.Text = c.AC;
+            e.Registration.Text = c.Registration;
+            e.ToProfile.Text = c.TOProfile;
+            e.LdgProfile.Text = c.LdgProfile;
+            e.ZfwUnit.SelectedIndex = c.WtUnit == WeightUnit.KG ? 0 : 1;
+            e.Zfw.Text = wtDisplay(c.ZfwKg);
+            e.MaxToWt.Text = wtDisplay(c.MaxTOWtKg);
+            e.MaxLdgWt.Text = wtDisplay(c.MaxLdgWtKg);
+        }
+
+        private void showDefaultConfig()
+        {
+            config = new AircraftConfig("", "", NoToLdgProfileText,
+                NoToLdgProfileText, 0.0, 0.0, 0.0, WeightUnit.KG);
+
+            fillProperties(config);
         }
 
         private string wtDisplay(double weightKg)
@@ -189,38 +200,61 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         public void CreateConfig(object sender, EventArgs e)
         {
-            profiles.AcConfigs.Add(new AircraftConfig("", "",
-                NoToLdgProfileText, NoToLdgProfileText, 0.0, 0.0, 0.0, WeightUnit.KG));
-
-            var listItems = elem.AcListView.Items;
-
-            var lvi = new ListViewItem("");
-            lvi.SubItems.Add("");
-            // lvi.ImageIndex = (int)i.Severity;
-            lvi.Selected = false;
-
-            listItems.Add(lvi);
-            listItems[listItems.Count - 1].Selected = true;
+            showPropertyGroupBox();
+            showDefaultConfig();
         }
 
-        public void AcTypeChanged(object sender, EventArgs e)
-        {
-            var lvi = elem.AcListView.SelectedItems[0];
-            lvi.Text = elem.AcType.Text;
-        }
+        //public void AcTypeChanged(object sender, EventArgs e)
+        //{
+        //    var lvi = elem.AcListView.SelectedItems[0];
+        //    lvi.Text = elem.AcType.Text;
+        //}
 
         public void RegistrationChanged(object sender, EventArgs e)
         {
-            var lvi = elem.AcListView.SelectedItems[0];
-            var si = lvi.SubItems;
+            //var lvi = elem.AcListView.SelectedItems[0];
+            //var si = lvi.SubItems;
 
-            si.RemoveAt(si.Count - 1);
-            si.Add(elem.Registration.Text);
+            //si.RemoveAt(si.Count - 1);
+            //si.Add(elem.Registration.Text);
         }
 
         private void showSelectionGroupBox()
         {
             elem.SelectionBox.Visible = true;
+            elem.PropertyBox.Visible = false;
+
+            refreshListView();
+        }
+
+        private void showPropertyGroupBox()
+        {
+            elem.PropertyBox.Visible = true;
+            elem.SelectionBox.Visible = false;
+
+            fillAcTypes();
+            fillToLdgCBox();
+        }
+
+        public void SaveConfig(object sender, EventArgs e)
+        {
+            try
+            {
+                var config = new AcConfigValidator(elem).Validate();
+
+                profiles.AcConfigs.Add(config);
+
+                showSelectionGroupBox();
+            }
+            catch (InvalidUserInputException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch(ArgumentException)
+            {
+                MessageBox.Show(
+                    "Registration already exists. Please use another one.");
+            }
         }
     }
 }

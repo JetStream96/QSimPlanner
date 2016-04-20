@@ -58,18 +58,16 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private void subsribe()
         {
-            acListView.SelectedIndexChanged += controller.SelectedAcChanged;
             newBtn.Click += controller.CreateConfig;
-            acTypeComboBox.TextChanged += controller.AcTypeChanged;
             registrationTxtBox.TextChanged += controller.RegistrationChanged;
+            saveBtn.Click += controller.SaveConfig;
         }
 
         private void unSubsribe()
         {
-            acListView.SelectedIndexChanged -= controller.SelectedAcChanged;
             newBtn.Click -= controller.CreateConfig;
-            acTypeComboBox.TextChanged -= controller.AcTypeChanged;
             registrationTxtBox.TextChanged -= controller.RegistrationChanged;
+            saveBtn.Click -= controller.SaveConfig;
         }
     }
 }
