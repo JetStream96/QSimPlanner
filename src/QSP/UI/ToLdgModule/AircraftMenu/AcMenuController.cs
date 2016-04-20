@@ -89,7 +89,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         private void wtUnitChanged(object sender, EventArgs e)
         {
             var c = new ComboBox[] { elem.ZfwUnit,
-                elem.MaxToWtUnit, elem.MaxToWtUnit };
+                elem.MaxToWtUnit, elem.MaxLdgWtUnit };
 
             wtUnitDisconnect();
 
@@ -185,6 +185,42 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 // LB
                 return RoundToInt(weightKg * Constants.KgLbRatio).ToString();
             }
+        }
+
+        public void CreateConfig(object sender, EventArgs e)
+        {
+            profiles.AcConfigs.Add(new AircraftConfig("", "",
+                NoToLdgProfileText, NoToLdgProfileText, 0.0, 0.0, 0.0, WeightUnit.KG));
+
+            var listItems = elem.AcListView.Items;
+
+            var lvi = new ListViewItem("");
+            lvi.SubItems.Add("");
+            // lvi.ImageIndex = (int)i.Severity;
+            lvi.Selected = false;
+
+            listItems.Add(lvi);
+            listItems[listItems.Count - 1].Selected = true;
+        }
+
+        public void AcTypeChanged(object sender, EventArgs e)
+        {
+            var lvi = elem.AcListView.SelectedItems[0];
+            lvi.Text = elem.AcType.Text;
+        }
+
+        public void RegistrationChanged(object sender, EventArgs e)
+        {
+            var lvi = elem.AcListView.SelectedItems[0];
+            var si = lvi.SubItems;
+
+            si.RemoveAt(si.Count - 1);
+            si.Add(elem.Registration.Text);
+        }
+
+        private void showSelectionGroupBox()
+        {
+            elem.SelectionBox.Visible = true;
         }
     }
 }

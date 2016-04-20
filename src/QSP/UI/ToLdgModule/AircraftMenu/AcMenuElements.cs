@@ -15,6 +15,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public ComboBox ZfwUnit { get; private set; }
         public ComboBox MaxToWtUnit { get; private set; }
         public ComboBox MaxLdgWtUnit { get; private set; }
+        public GroupBox SelectionBox { get; private set; }
+        public GroupBox PropertyBox { get; private set; }
 
         public AcMenuElements(
              ListView AcListView,
@@ -27,7 +29,9 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
              TextBox MaxLdgWt,
              ComboBox ZfwUnit,
              ComboBox MaxToWtUnit,
-             ComboBox MaxLdgWtUnit)
+             ComboBox MaxLdgWtUnit,
+             GroupBox SelectionBox,
+             GroupBox PropertyBox)
         {
             this.AcListView = AcListView;
             this.AcType = AcType;
@@ -40,6 +44,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             this.ZfwUnit = ZfwUnit;
             this.MaxToWtUnit = MaxToWtUnit;
             this.MaxLdgWtUnit = MaxLdgWtUnit;
+            this.SelectionBox = SelectionBox;
+            this.PropertyBox = PropertyBox;
         }
     }
 }

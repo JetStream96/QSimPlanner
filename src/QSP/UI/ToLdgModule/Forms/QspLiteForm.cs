@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QSP.UI.ToLdgModule.AircraftMenu;
+using QSP.AircraftProfiles;
 
 namespace QSP.UI.ToLdgModule.Forms
 {
@@ -21,9 +22,9 @@ namespace QSP.UI.ToLdgModule.Forms
             addControls();
         }
 
-        public void Initialize()
+        public void Initialize(ProfileManager manager)
         {
-            // acMenu.Initialize()
+            acMenu.Initialize(manager);
         }
 
         private void addControls()

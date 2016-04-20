@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QSP.UI.ToLdgModule.Forms;
+using QspLite.Data;
 
 namespace QspLite
 {
@@ -15,11 +16,15 @@ namespace QspLite
         [STAThread]
         static void Main()
         {
-            Data.AircraftProfiles.Initialize();
+            AircraftProfiles.Initialize();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new QspLiteForm());
+
+            var frm = new QspLiteForm();
+            frm.Initialize(AircraftProfiles.Profiles);
+
+            Application.Run(frm);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using QSP.UI.ToLdgModule.AircraftMenu;
 using QSP.AircraftProfiles;
+using System.Linq;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu
 {
@@ -8,7 +9,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
     {
         private AcMenuController controller;
         private AcMenuElements elements;
-        
+
         public AircraftMenuControl()
         {
             InitializeComponent();
@@ -18,6 +19,17 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         {
             setElements();
             initController(profiles);
+            showErrors(profiles);
+        }
+
+        private void showErrors(ProfileManager profiles)
+        {
+            var errors = profiles.Errors;
+
+            if (errors.Count() > 0)
+            {
+                MessageBox.Show(string.Join("\n\n\n", errors));
+            }
         }
 
         private void initController(ProfileManager profiles)
@@ -39,17 +51,25 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 maxLdgWtTxtBox,
                 zfwUnitComboBox,
                 maxTOWtUnitComboBox,
-                maxLdgWtUnitComboBox);
+                maxLdgWtUnitComboBox,
+                selectionGroupBox,
+                propertyGroupBox);
         }
 
         private void subsribe()
         {
             acListView.SelectedIndexChanged += controller.SelectedAcChanged;
+            newBtn.Click += controller.CreateConfig;
+            acTypeComboBox.TextChanged += controller.AcTypeChanged;
+            registrationTxtBox.TextChanged += controller.RegistrationChanged;
         }
 
         private void unSubsribe()
         {
             acListView.SelectedIndexChanged -= controller.SelectedAcChanged;
+            newBtn.Click -= controller.CreateConfig;
+            acTypeComboBox.TextChanged -= controller.AcTypeChanged;
+            registrationTxtBox.TextChanged -= controller.RegistrationChanged;
         }
     }
 }

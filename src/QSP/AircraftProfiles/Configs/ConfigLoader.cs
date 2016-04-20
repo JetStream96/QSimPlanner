@@ -30,7 +30,7 @@ namespace QSP.AircraftProfiles.Configs
                 }
                 catch (Exception ex)
                 {
-                    ErrorLogger.WriteToLog(ex);
+                    ErrorLogger.WriteToLog(ex); // TODO: 
                 }
             }
 

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.selectionGroupBox = new System.Windows.Forms.GroupBox();
             this.acListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -37,43 +37,45 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.registrationTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.acTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.propertyGroupBox = new System.Windows.Forms.GroupBox();
             this.resetBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.maxLdgWtTxtBox = new System.Windows.Forms.TextBox();
             this.maxTOWtTxtBox = new System.Windows.Forms.TextBox();
             this.zfwTxtBox = new System.Windows.Forms.TextBox();
-            this.maxLdgWtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.zfwUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.label7 = new System.Windows.Forms.Label();
-            this.ldgProfileComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.label3 = new System.Windows.Forms.Label();
-            this.toProfileComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.acTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.maxLdgWtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.zfwUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.ldgProfileComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.toProfileComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.maxTOWtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.groupBox1.SuspendLayout();
+            this.editBtn = new System.Windows.Forms.Button();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.selectionGroupBox.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.propertyGroupBox.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // selectionGroupBox
             // 
-            this.groupBox1.Controls.Add(this.acListView);
-            this.groupBox1.Controls.Add(this.deleteBtn);
-            this.groupBox1.Controls.Add(this.newBtn);
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(6, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(399, 296);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Aircraft";
+            this.selectionGroupBox.Controls.Add(this.tableLayoutPanel3);
+            this.selectionGroupBox.Controls.Add(this.acListView);
+            this.selectionGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectionGroupBox.Location = new System.Drawing.Point(0, 0);
+            this.selectionGroupBox.Name = "selectionGroupBox";
+            this.selectionGroupBox.Size = new System.Drawing.Size(399, 296);
+            this.selectionGroupBox.TabIndex = 0;
+            this.selectionGroupBox.TabStop = false;
+            this.selectionGroupBox.Text = "Aircraft";
             // 
             // acListView
             // 
@@ -103,9 +105,10 @@
             // 
             // deleteBtn
             // 
+            this.deleteBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.deleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteBtn.Location = new System.Drawing.Point(223, 247);
+            this.deleteBtn.Location = new System.Drawing.Point(222, 7);
             this.deleteBtn.Name = "deleteBtn";
             this.deleteBtn.Size = new System.Drawing.Size(78, 31);
             this.deleteBtn.TabIndex = 2;
@@ -114,9 +117,10 @@
             // 
             // newBtn
             // 
+            this.newBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.newBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.newBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newBtn.Location = new System.Drawing.Point(68, 247);
+            this.newBtn.Location = new System.Drawing.Point(13, 7);
             this.newBtn.Name = "newBtn";
             this.newBtn.Size = new System.Drawing.Size(78, 31);
             this.newBtn.TabIndex = 1;
@@ -161,19 +165,6 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Registration";
             // 
-            // acTypeComboBox
-            // 
-            this.acTypeComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.acTypeComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.acTypeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.acTypeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.acTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acTypeComboBox.FormattingEnabled = true;
-            this.acTypeComboBox.Location = new System.Drawing.Point(126, 3);
-            this.acTypeComboBox.Name = "acTypeComboBox";
-            this.acTypeComboBox.Size = new System.Drawing.Size(170, 31);
-            this.acTypeComboBox.TabIndex = 1;
-            // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -185,19 +176,19 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Aircraft Type";
             // 
-            // groupBox2
+            // propertyGroupBox
             // 
-            this.groupBox2.Controls.Add(this.resetBtn);
-            this.groupBox2.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox2.Controls.Add(this.saveBtn);
-            this.groupBox2.Controls.Add(this.tableLayoutPanel2);
-            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(411, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(521, 339);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Properties";
+            this.propertyGroupBox.Controls.Add(this.resetBtn);
+            this.propertyGroupBox.Controls.Add(this.tableLayoutPanel1);
+            this.propertyGroupBox.Controls.Add(this.saveBtn);
+            this.propertyGroupBox.Controls.Add(this.tableLayoutPanel2);
+            this.propertyGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.propertyGroupBox.Location = new System.Drawing.Point(410, 0);
+            this.propertyGroupBox.Name = "propertyGroupBox";
+            this.propertyGroupBox.Size = new System.Drawing.Size(521, 339);
+            this.propertyGroupBox.TabIndex = 3;
+            this.propertyGroupBox.TabStop = false;
+            this.propertyGroupBox.Text = "Properties";
             // 
             // resetBtn
             // 
@@ -226,7 +217,7 @@
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.89855F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.10145F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 98F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 115F));
             this.tableLayoutPanel2.Controls.Add(this.maxLdgWtTxtBox, 1, 4);
             this.tableLayoutPanel2.Controls.Add(this.maxTOWtTxtBox, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.zfwTxtBox, 1, 2);
@@ -256,9 +247,9 @@
             this.maxLdgWtTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.maxLdgWtTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.maxLdgWtTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxLdgWtTxtBox.Location = new System.Drawing.Point(209, 143);
+            this.maxLdgWtTxtBox.Location = new System.Drawing.Point(198, 143);
             this.maxLdgWtTxtBox.Name = "maxLdgWtTxtBox";
-            this.maxLdgWtTxtBox.Size = new System.Drawing.Size(170, 30);
+            this.maxLdgWtTxtBox.Size = new System.Drawing.Size(167, 30);
             this.maxLdgWtTxtBox.TabIndex = 2;
             this.maxLdgWtTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -267,9 +258,9 @@
             this.maxTOWtTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.maxTOWtTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.maxTOWtTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxTOWtTxtBox.Location = new System.Drawing.Point(209, 108);
+            this.maxTOWtTxtBox.Location = new System.Drawing.Point(198, 108);
             this.maxTOWtTxtBox.Name = "maxTOWtTxtBox";
-            this.maxTOWtTxtBox.Size = new System.Drawing.Size(170, 30);
+            this.maxTOWtTxtBox.Size = new System.Drawing.Size(167, 30);
             this.maxTOWtTxtBox.TabIndex = 3;
             this.maxTOWtTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -278,39 +269,11 @@
             this.zfwTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.zfwTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.zfwTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zfwTxtBox.Location = new System.Drawing.Point(209, 73);
+            this.zfwTxtBox.Location = new System.Drawing.Point(198, 73);
             this.zfwTxtBox.Name = "zfwTxtBox";
-            this.zfwTxtBox.Size = new System.Drawing.Size(170, 30);
+            this.zfwTxtBox.Size = new System.Drawing.Size(167, 30);
             this.zfwTxtBox.TabIndex = 4;
             this.zfwTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // maxLdgWtUnitComboBox
-            // 
-            this.maxLdgWtUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.maxLdgWtUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.maxLdgWtUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.maxLdgWtUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.maxLdgWtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.maxLdgWtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxLdgWtUnitComboBox.FormattingEnabled = true;
-            this.maxLdgWtUnitComboBox.Location = new System.Drawing.Point(398, 143);
-            this.maxLdgWtUnitComboBox.Name = "maxLdgWtUnitComboBox";
-            this.maxLdgWtUnitComboBox.Size = new System.Drawing.Size(73, 31);
-            this.maxLdgWtUnitComboBox.TabIndex = 8;
-            // 
-            // zfwUnitComboBox
-            // 
-            this.zfwUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.zfwUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.zfwUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.zfwUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.zfwUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.zfwUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zfwUnitComboBox.FormattingEnabled = true;
-            this.zfwUnitComboBox.Location = new System.Drawing.Point(398, 73);
-            this.zfwUnitComboBox.Name = "zfwUnitComboBox";
-            this.zfwUnitComboBox.Size = new System.Drawing.Size(73, 31);
-            this.zfwUnitComboBox.TabIndex = 4;
             // 
             // label7
             // 
@@ -323,20 +286,6 @@
             this.label7.TabIndex = 6;
             this.label7.Text = "Max landing weight";
             // 
-            // ldgProfileComboBox
-            // 
-            this.ldgProfileComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ldgProfileComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.ldgProfileComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.ldgProfileComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ldgProfileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ldgProfileComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ldgProfileComboBox.FormattingEnabled = true;
-            this.ldgProfileComboBox.Location = new System.Drawing.Point(209, 38);
-            this.ldgProfileComboBox.Name = "ldgProfileComboBox";
-            this.ldgProfileComboBox.Size = new System.Drawing.Size(170, 31);
-            this.ldgProfileComboBox.TabIndex = 3;
-            // 
             // label3
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -347,20 +296,6 @@
             this.label3.Size = new System.Drawing.Size(172, 23);
             this.label3.TabIndex = 2;
             this.label3.Text = "Landing profile name";
-            // 
-            // toProfileComboBox
-            // 
-            this.toProfileComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.toProfileComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.toProfileComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.toProfileComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toProfileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.toProfileComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toProfileComboBox.FormattingEnabled = true;
-            this.toProfileComboBox.Location = new System.Drawing.Point(209, 3);
-            this.toProfileComboBox.Name = "toProfileComboBox";
-            this.toProfileComboBox.Size = new System.Drawing.Size(170, 31);
-            this.toProfileComboBox.TabIndex = 1;
             // 
             // label4
             // 
@@ -395,6 +330,75 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "Max takeoff weight";
             // 
+            // acTypeComboBox
+            // 
+            this.acTypeComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.acTypeComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.acTypeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.acTypeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.acTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acTypeComboBox.FormattingEnabled = true;
+            this.acTypeComboBox.Location = new System.Drawing.Point(126, 3);
+            this.acTypeComboBox.Name = "acTypeComboBox";
+            this.acTypeComboBox.Size = new System.Drawing.Size(170, 31);
+            this.acTypeComboBox.TabIndex = 1;
+            // 
+            // maxLdgWtUnitComboBox
+            // 
+            this.maxLdgWtUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.maxLdgWtUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.maxLdgWtUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.maxLdgWtUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.maxLdgWtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.maxLdgWtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.maxLdgWtUnitComboBox.FormattingEnabled = true;
+            this.maxLdgWtUnitComboBox.Location = new System.Drawing.Point(389, 143);
+            this.maxLdgWtUnitComboBox.Name = "maxLdgWtUnitComboBox";
+            this.maxLdgWtUnitComboBox.Size = new System.Drawing.Size(73, 31);
+            this.maxLdgWtUnitComboBox.TabIndex = 8;
+            // 
+            // zfwUnitComboBox
+            // 
+            this.zfwUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.zfwUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.zfwUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.zfwUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.zfwUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.zfwUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.zfwUnitComboBox.FormattingEnabled = true;
+            this.zfwUnitComboBox.Location = new System.Drawing.Point(389, 73);
+            this.zfwUnitComboBox.Name = "zfwUnitComboBox";
+            this.zfwUnitComboBox.Size = new System.Drawing.Size(73, 31);
+            this.zfwUnitComboBox.TabIndex = 4;
+            // 
+            // ldgProfileComboBox
+            // 
+            this.ldgProfileComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ldgProfileComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.ldgProfileComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.ldgProfileComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ldgProfileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ldgProfileComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ldgProfileComboBox.FormattingEnabled = true;
+            this.ldgProfileComboBox.Location = new System.Drawing.Point(198, 38);
+            this.ldgProfileComboBox.Name = "ldgProfileComboBox";
+            this.ldgProfileComboBox.Size = new System.Drawing.Size(167, 31);
+            this.ldgProfileComboBox.TabIndex = 3;
+            // 
+            // toProfileComboBox
+            // 
+            this.toProfileComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.toProfileComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.toProfileComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.toProfileComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toProfileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.toProfileComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toProfileComboBox.FormattingEnabled = true;
+            this.toProfileComboBox.Location = new System.Drawing.Point(198, 3);
+            this.toProfileComboBox.Name = "toProfileComboBox";
+            this.toProfileComboBox.Size = new System.Drawing.Size(167, 31);
+            this.toProfileComboBox.TabIndex = 1;
+            // 
             // maxTOWtUnitComboBox
             // 
             this.maxTOWtUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -404,40 +408,69 @@
             this.maxTOWtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.maxTOWtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maxTOWtUnitComboBox.FormattingEnabled = true;
-            this.maxTOWtUnitComboBox.Location = new System.Drawing.Point(398, 108);
+            this.maxTOWtUnitComboBox.Location = new System.Drawing.Point(389, 108);
             this.maxTOWtUnitComboBox.Name = "maxTOWtUnitComboBox";
             this.maxTOWtUnitComboBox.Size = new System.Drawing.Size(73, 31);
             this.maxTOWtUnitComboBox.TabIndex = 7;
+            // 
+            // editBtn
+            // 
+            this.editBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.editBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.editBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.editBtn.Location = new System.Drawing.Point(117, 7);
+            this.editBtn.Name = "editBtn";
+            this.editBtn.Size = new System.Drawing.Size(78, 31);
+            this.editBtn.TabIndex = 4;
+            this.editBtn.Text = "Edit";
+            this.editBtn.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 3;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.Controls.Add(this.editBtn, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.deleteBtn, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.newBtn, 0, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(42, 238);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(315, 45);
+            this.tableLayoutPanel3.TabIndex = 4;
             // 
             // AircraftMenuControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.propertyGroupBox);
+            this.Controls.Add(this.selectionGroupBox);
             this.Name = "AircraftMenuControl";
             this.Size = new System.Drawing.Size(1024, 676);
-            this.groupBox1.ResumeLayout(false);
+            this.selectionGroupBox.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
+            this.propertyGroupBox.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox selectionGroupBox;
         private System.Windows.Forms.Label label1;
         private Controls.ComboBoxWithBorder acTypeComboBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button deleteBtn;
         private System.Windows.Forms.Button newBtn;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox propertyGroupBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private Controls.ComboBoxWithBorder ldgProfileComboBox;
         private System.Windows.Forms.Label label3;
@@ -458,5 +491,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.TextBox registrationTxtBox;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Button editBtn;
     }
 }
