@@ -14,7 +14,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         }
 
         /// <exception cref="InvalidUserInputException"></exception>
-        public AircraftConfig Validate()
+        public AircraftConfigItem Validate()
         {
             string acType = elem.AcType.Text.Trim();
 
@@ -65,7 +65,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             maxToWt *= wtUnitFactor;
             maxLdgWt *= wtUnitFactor;
 
-            return new AircraftConfig(acType,
+            return new AircraftConfigItem(acType,
                 reg,
                 elem.ToProfile.Text,
                 elem.LdgProfile.Text,

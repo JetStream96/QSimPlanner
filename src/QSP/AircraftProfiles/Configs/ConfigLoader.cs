@@ -20,13 +20,13 @@ namespace QSP.AircraftProfiles.Configs
 
         public ConfigImportResult LoadAll()
         {
-            var configs = new List<acConfigItem>();
+            var configs = new List<AircraftConfig>();
 
             foreach (var i in Directory.GetFiles(folderPath))
             {
                 try
                 {
-                    configs.Add(new acConfigItem(Load(i), i));
+                    configs.Add(new AircraftConfig(Load(i), i));
                 }
                 catch (Exception ex)
                 {
@@ -35,23 +35,23 @@ namespace QSP.AircraftProfiles.Configs
             }
 
             var groups = configs.GroupBy(c => c.Config.Registration);
-            var result = groups.Select(g => g.First().Config).ToList();
+            var result = groups.Select(g => g.First()).ToList();
 
             return new ConfigImportResult(result, message(configs));
         }
 
-        public static AircraftConfig Load(string filePath)
+        public static AircraftConfigItem Load(string filePath)
         {
             return Parse(File.ReadAllText(filePath));
         }
 
-        public static AircraftConfig Parse(string text)
+        public static AircraftConfigItem Parse(string text)
         {
             var parser = new IniDataParser();
             var data = parser.Parse(text);
             var section = data["Data"];
 
-            return new AircraftConfig(
+            return new AircraftConfigItem(
                 section["AC"],
                 section["Registration"],
                 section["TOProfile"],
@@ -62,7 +62,7 @@ namespace QSP.AircraftProfiles.Configs
                 StringToWeightUnit(section["WtUnit"]));
         }
 
-        private static string message(List<acConfigItem> item)
+        private static string message(List<AircraftConfig> item)
         {
             var groups = item.GroupBy(x => x.Config.Registration);
 
@@ -81,19 +81,7 @@ namespace QSP.AircraftProfiles.Configs
                 return null;
             }
         }
-
-        private class acConfigItem
-        {
-            public AircraftConfig Config { get; private set; }
-            public string FilePath { get; private set; }
-
-            public acConfigItem(AircraftConfig Config, string FilePath)
-            {
-                this.Config = Config;
-                this.FilePath = FilePath;
-            }
-        }
-
+        
         public class ConfigImportResult
         {
             public List<AircraftConfig> Configs { get; private set; }

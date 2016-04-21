@@ -10,24 +10,28 @@ namespace UnitTest.AircraftProfiles.Configs
     public class AcConfigManagerTest
     {
         private static AircraftConfig config1 =
-            new AircraftConfig("B777-300ER",
-                               "B-12345",
-                               "Boeing 777-300ER",
-                               "Boeing 777-300ER",
-                               123456.0,
-                               234567.0,
-                               345678.0,
-                               WeightUnit.KG);
+            new AircraftConfig(
+                new AircraftConfigItem("B777-300ER",
+                                   "B-12345",
+                                   "Boeing 777-300ER",
+                                   "Boeing 777-300ER",
+                                   123456.0,
+                                   234567.0,
+                                   345678.0,
+                                   WeightUnit.KG),
+                "path")            ;
 
         private static AircraftConfig config2 =
-            new AircraftConfig("B777-300ER",
-                               "B-9876",
-                               "Boeing 777-300ER custom",
-                               "Boeing 777-300ER custom",
-                               23456.0,
-                               34567.0,
-                               45678.0,
-                               WeightUnit.KG);
+            new AircraftConfig(
+                new AircraftConfigItem("B777-300ER",
+                                   "B-9876",
+                                   "Boeing 777-300ER custom",
+                                   "Boeing 777-300ER custom",
+                                   23456.0,
+                                   34567.0,
+                                   45678.0,
+                                   WeightUnit.KG),
+                "path");
 
         [TestMethod]
         public void AddTest()
@@ -46,7 +50,7 @@ namespace UnitTest.AircraftProfiles.Configs
             manager.Add(config1);
             manager.Add(config2);
 
-            var result = manager.FindAircraft(config1.AC);
+            var result = manager.FindAircraft(config1.Config.AC);
 
             Assert.AreEqual(2, result.Count());
             Assert.IsTrue(result.Contains(config1));
@@ -59,7 +63,7 @@ namespace UnitTest.AircraftProfiles.Configs
             var manager = new AcConfigManager();
             manager.Add(config1);
 
-            var result = manager.FindRegistration(config1.Registration);
+            var result = manager.FindRegistration(config1.Config.Registration);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(config1, result);
@@ -71,11 +75,11 @@ namespace UnitTest.AircraftProfiles.Configs
             var manager = new AcConfigManager();
             manager.Add(config1);
             manager.Add(config2);
-            manager.Remove(config1.Registration);
+            manager.Remove(config1.Config.Registration);
 
             Assert.AreEqual(1, manager.Count);
 
-            var ac2 = manager.FindRegistration(config2.Registration);
+            var ac2 = manager.FindRegistration(config2.Config.Registration);
             Assert.AreEqual(config2, ac2);
         }
 
@@ -96,7 +100,7 @@ namespace UnitTest.AircraftProfiles.Configs
             manager.Add(config1);
 
             var toFile =
-                new QSP.TOPerfCalculation.Entry("", 
+                new QSP.TOPerfCalculation.Entry("",
                 "Boeing 777-300ER", "", "");
 
             var toTable = new QSP.TOPerfCalculation.PerfTable(null, toFile);

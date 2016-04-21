@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="AircraftProfiles\Configs\AcConfigManager.cs" />
     <Compile Include="AircraftProfiles\Configs\AircraftConfig.cs" />
+    <Compile Include="AircraftProfiles\Configs\AircraftConfigItem.cs" />
     <Compile Include="AircraftProfiles\Configs\ConfigLoader.cs" />
     <Compile Include="AircraftProfiles\Configs\ConfigSaver.cs" />
     <Compile Include="AircraftProfiles\Configs\Exceptions.cs" />

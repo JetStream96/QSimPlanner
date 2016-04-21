@@ -38,7 +38,7 @@ namespace QSP.AircraftProfiles.Configs
         /// <exception cref="ArgumentNullException"></exception>
         public void Add(AircraftConfig item)
         {
-            registrations.Add(item.Registration, item);
+            registrations.Add(item.Config.Registration, item);
             addToAircraft(item);
         }
 
@@ -46,13 +46,14 @@ namespace QSP.AircraftProfiles.Configs
         {
             List<AircraftConfig> acSameType;
 
-            if (aircrafts.TryGetValue(item.AC, out acSameType))
+            if (aircrafts.TryGetValue(item.Config.AC, out acSameType))
             {
                 acSameType.Add(item);
             }
             else
             {
-                aircrafts.Add(item.AC, new List<AircraftConfig>() { item });
+                aircrafts.Add(item.Config.AC,
+                    new List<AircraftConfig>() { item });
             }
         }
 
@@ -66,7 +67,7 @@ namespace QSP.AircraftProfiles.Configs
             if (registrations.TryGetValue(registration, out config))
             {
                 registrations.Remove(registration);
-                aircrafts[config.AC].Remove(config);
+                aircrafts[config.Config.AC].Remove(config);
                 return true;
             }
 
@@ -94,10 +95,10 @@ namespace QSP.AircraftProfiles.Configs
             {
                 var config = i.Value;
                 bool toNotFound = takeoffTables.FirstOrDefault(
-                    x => x.Entry.ProfileName == config.TOProfile) == null;
+                    x => x.Entry.ProfileName == config.Config.TOProfile) == null;
 
                 bool ldgNotFound = ldgTables.FirstOrDefault(
-                    x => x.Entry.ProfileName == config.LdgProfile) == null;
+                    x => x.Entry.ProfileName == config.Config.LdgProfile) == null;
 
                 if (toNotFound || ldgNotFound) // TODO: use && instead?
                 {
@@ -119,7 +120,8 @@ namespace QSP.AircraftProfiles.Configs
 
             foreach (var i in invalidItems)
             {
-                msg.AppendLine(i.Registration + " (" + i.AC + ")");
+                var c = i.Config;
+                msg.AppendLine(c.Registration + " (" + c.AC + ")");
             }
 
             return msg.ToString();

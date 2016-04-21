@@ -6,7 +6,7 @@ namespace QSP.AircraftProfiles.Configs
 {
     public static class ConfigSaver
     {
-        public static void Save(AircraftConfig config, string filePath)
+        public static void Save(AircraftConfigItem config, string filePath)
         {
             var keys = new KeyDataCollection();
             keys.AddKey("AC", config.AC);

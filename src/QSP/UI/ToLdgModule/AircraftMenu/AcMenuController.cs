@@ -19,7 +19,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private AcMenuElements elem;
         private ProfileManager profiles;
-        private AircraftConfig config;
+        private AircraftConfigItem config;
 
         public AcMenuController(AcMenuElements elem, ProfileManager profiles)
         {
@@ -146,8 +146,10 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             foreach (var i in profiles.AcConfigs.Aircrafts)
             {
-                var lvi = new ListViewItem(i.AC);
-                lvi.SubItems.Add(i.Registration);
+                var c = i.Config;
+
+                var lvi = new ListViewItem(c.AC);
+                lvi.SubItems.Add(c.Registration);
                 // lvi.ImageIndex = (int)i.Severity;
                 listItems.Add(lvi);
             }
@@ -161,7 +163,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         //    fillProperties();
         //}
 
-        private void fillProperties(AircraftConfig config)
+        private void fillProperties(AircraftConfigItem config)
         {
             var e = elem;
             var c = config;
@@ -178,7 +180,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private void showDefaultConfig()
         {
-            config = new AircraftConfig("", "", NoToLdgProfileText,
+            config = new AircraftConfigItem("", "", NoToLdgProfileText,
                 NoToLdgProfileText, 0.0, 0.0, 0.0, WeightUnit.KG);
 
             fillProperties(config);
@@ -242,7 +244,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             {
                 var config = new AcConfigValidator(elem).Validate();
 
-                profiles.AcConfigs.Add(config);
+              //  profiles.AcConfigs.Add(config);
 
                 showSelectionGroupBox();
             }
