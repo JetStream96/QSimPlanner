@@ -4,7 +4,7 @@ namespace QSP.AircraftProfiles.Configs
 {
     public static class FileNameGenerator
     {
-        /// <exception cref="IOException"></exception>
+        /// <exception cref="NoFileNameAvailException"></exception>
         public static string Generate(string directory,
             string ac, string registration)
         {
@@ -28,7 +28,8 @@ namespace QSP.AircraftProfiles.Configs
                 }
             }
 
-            throw new IOException("No suitable file name can be generated.");
+            throw new NoFileNameAvailException(
+                "No suitable file name can be generated.");
         }
     }
 }

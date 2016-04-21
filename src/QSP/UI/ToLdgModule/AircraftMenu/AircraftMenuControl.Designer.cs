@@ -258,7 +258,7 @@
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.89855F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.10145F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 123F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 124F));
             this.tableLayoutPanel2.Controls.Add(this.maxLdgWtTxtBox, 1, 4);
             this.tableLayoutPanel2.Controls.Add(this.maxTOWtTxtBox, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.zfwTxtBox, 1, 2);
@@ -290,7 +290,7 @@
             this.maxLdgWtTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maxLdgWtTxtBox.Location = new System.Drawing.Point(193, 143);
             this.maxLdgWtTxtBox.Name = "maxLdgWtTxtBox";
-            this.maxLdgWtTxtBox.Size = new System.Drawing.Size(164, 30);
+            this.maxLdgWtTxtBox.Size = new System.Drawing.Size(163, 30);
             this.maxLdgWtTxtBox.TabIndex = 2;
             this.maxLdgWtTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -301,7 +301,7 @@
             this.maxTOWtTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maxTOWtTxtBox.Location = new System.Drawing.Point(193, 108);
             this.maxTOWtTxtBox.Name = "maxTOWtTxtBox";
-            this.maxTOWtTxtBox.Size = new System.Drawing.Size(164, 30);
+            this.maxTOWtTxtBox.Size = new System.Drawing.Size(163, 30);
             this.maxTOWtTxtBox.TabIndex = 3;
             this.maxTOWtTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -312,7 +312,7 @@
             this.zfwTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.zfwTxtBox.Location = new System.Drawing.Point(193, 73);
             this.zfwTxtBox.Name = "zfwTxtBox";
-            this.zfwTxtBox.Size = new System.Drawing.Size(164, 30);
+            this.zfwTxtBox.Size = new System.Drawing.Size(163, 30);
             this.zfwTxtBox.TabIndex = 4;
             this.zfwTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -366,7 +366,7 @@
             this.ldgProfileComboBox.FormattingEnabled = true;
             this.ldgProfileComboBox.Location = new System.Drawing.Point(193, 38);
             this.ldgProfileComboBox.Name = "ldgProfileComboBox";
-            this.ldgProfileComboBox.Size = new System.Drawing.Size(164, 31);
+            this.ldgProfileComboBox.Size = new System.Drawing.Size(163, 31);
             this.ldgProfileComboBox.TabIndex = 3;
             // 
             // label3
@@ -391,7 +391,7 @@
             this.toProfileComboBox.FormattingEnabled = true;
             this.toProfileComboBox.Location = new System.Drawing.Point(193, 3);
             this.toProfileComboBox.Name = "toProfileComboBox";
-            this.toProfileComboBox.Size = new System.Drawing.Size(164, 31);
+            this.toProfileComboBox.Size = new System.Drawing.Size(163, 31);
             this.toProfileComboBox.TabIndex = 1;
             // 
             // label4

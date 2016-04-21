@@ -32,7 +32,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             elem.SelectionBox.Location = new Point(0, 0);
             elem.PropertyBox.Location = new Point(0, 0);
             showSelectionGroupBox();
-                        
+
             initWtUnitCBox();
         }
 
@@ -238,24 +238,54 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             fillToLdgCBox();
         }
 
+        private bool trySaveConfig(AircraftConfigItem config, string filePath)
+        {
+            try
+            {
+                ConfigSaver.Save(config, filePath);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public void SaveConfig(object sender, EventArgs e)
         {
             try
             {
                 var config = new AcConfigValidator(elem).Validate();
 
-              //  profiles.AcConfigs.Add(config);
+                string fn = FileNameGenerator.Generate(
+                    ConfigLoader.DefaultFolderPath,
+                    elem.AcType.Text,
+                    elem.Registration.Text);
 
-                showSelectionGroupBox();
+                profiles.AcConfigs.Add(new AircraftConfig(config, fn));
+
+                if (trySaveConfig(config, fn))
+                {
+                    showSelectionGroupBox();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to save config file.");
+                }
             }
             catch (InvalidUserInputException ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            catch(ArgumentException)
+            catch (ArgumentException)
             {
                 MessageBox.Show(
                     "Registration already exists. Please use another one.");
+            }
+            catch (NoFileNameAvailException)
+            {
+                // FileNameGenerator cannot generate a file name.
+                MessageBox.Show("Unable to save config file.");
             }
         }
     }
