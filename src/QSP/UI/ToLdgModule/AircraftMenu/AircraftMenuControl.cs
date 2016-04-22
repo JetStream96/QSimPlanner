@@ -59,15 +59,15 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         private void subsribe()
         {
             newBtn.Click += controller.CreateConfig;
-            registrationTxtBox.TextChanged += controller.RegistrationChanged;
             saveBtn.Click += controller.SaveConfig;
+            editBtn.Click += controller.EditConfig;
         }
 
         private void unSubsribe()
         {
             newBtn.Click -= controller.CreateConfig;
-            registrationTxtBox.TextChanged -= controller.RegistrationChanged;
             saveBtn.Click -= controller.SaveConfig;
+            editBtn.Click -= controller.EditConfig;
         }
     }
 }

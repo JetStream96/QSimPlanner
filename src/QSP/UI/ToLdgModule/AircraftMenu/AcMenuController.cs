@@ -19,7 +19,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private AcMenuElements elem;
         private ProfileManager profiles;
-        private AircraftConfigItem config;
+        private AircraftConfig currentConfig;
 
         public AcMenuController(AcMenuElements elem, ProfileManager profiles)
         {
@@ -136,7 +136,9 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             var acItems = elem.AcType.Items;
             acItems.Clear();
 
-            acItems.AddRange(profiles.AcConfigs.Aircrafts.ToArray());
+            var ac = profiles.AcConfigs.Aircrafts;
+            var acTypes = ac.Select(x => x.Config.AC).Distinct().ToArray();
+            acItems.AddRange(acTypes);
         }
 
         private void refreshListView()
@@ -155,14 +157,6 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
-        //public void SelectedAcChanged(object sender, EventArgs e)
-        //{
-        //    selectedConfig = profiles.AcConfigs.Aircrafts
-        //        .ElementAt(elem.AcListView.SelectedIndices[0]);
-
-        //    fillProperties();
-        //}
-
         private void fillProperties(AircraftConfigItem config)
         {
             var e = elem;
@@ -180,10 +174,10 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private void showDefaultConfig()
         {
-            config = new AircraftConfigItem("", "", NoToLdgProfileText,
-                NoToLdgProfileText, 0.0, 0.0, 0.0, WeightUnit.KG);
+            var defaultConfig = new AircraftConfigItem("", "", NoToLdgProfileText,
+                 NoToLdgProfileText, 0.0, 0.0, 0.0, WeightUnit.KG);
 
-            fillProperties(config);
+            fillProperties(defaultConfig);
         }
 
         private string wtDisplay(double weightKg)
@@ -204,21 +198,22 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         {
             showPropertyGroupBox();
             showDefaultConfig();
+            currentConfig = null;
         }
 
-        //public void AcTypeChanged(object sender, EventArgs e)
-        //{
-        //    var lvi = elem.AcListView.SelectedItems[0];
-        //    lvi.Text = elem.AcType.Text;
-        //}
-
-        public void RegistrationChanged(object sender, EventArgs e)
+        private string selectedRegistration
         {
-            //var lvi = elem.AcListView.SelectedItems[0];
-            //var si = lvi.SubItems;
+            get
+            {
+                var selected = elem.AcListView.SelectedItems;
 
-            //si.RemoveAt(si.Count - 1);
-            //si.Add(elem.Registration.Text);
+                if (selected.Count == 0)
+                {
+                    return null;
+                }
+
+                return selected[0].SubItems[1].Text;
+            }
         }
 
         private void showSelectionGroupBox()
@@ -251,26 +246,67 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
+        public void EditConfig(object sender, EventArgs e)
+        {
+            var reg = selectedRegistration;
+
+            if (reg != null)
+            {
+                currentConfig = profiles.AcConfigs.FindRegistration(reg);
+
+                fillProperties(currentConfig.Config);
+                showPropertyGroupBox();
+            }
+        }
+
+        private void removeOldConfig()
+        {
+            if (inEditMode)
+            {
+                profiles.AcConfigs.Remove(currentConfig.Config.Registration);
+            }
+        }
+
+        // If false, then user is creating a new config.
+        private bool inEditMode
+        {
+            get
+            {
+                return currentConfig != null;
+            }
+        }
+
+        private string getFileName()
+        {
+            if (inEditMode == false)
+            {
+                return FileNameGenerator.Generate(
+                    ConfigLoader.DefaultFolderPath,
+                    elem.AcType.Text,
+                    elem.Registration.Text);
+            }
+            else
+            {
+                return currentConfig.FilePath;
+            }
+        }
+
         public void SaveConfig(object sender, EventArgs e)
         {
             try
             {
                 var config = new AcConfigValidator(elem).Validate();
-
-                string fn = FileNameGenerator.Generate(
-                    ConfigLoader.DefaultFolderPath,
-                    elem.AcType.Text,
-                    elem.Registration.Text);
-
-                profiles.AcConfigs.Add(new AircraftConfig(config, fn));
+                string fn = getFileName();
 
                 if (trySaveConfig(config, fn))
                 {
+                    removeOldConfig();
+                    profiles.AcConfigs.Add(new AircraftConfig(config, fn));
                     showSelectionGroupBox();
                 }
                 else
                 {
-                    MessageBox.Show("Unable to save config file.");
+                    MessageBox.Show("Failed to save config file.");
                 }
             }
             catch (InvalidUserInputException ex)
@@ -285,7 +321,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             catch (NoFileNameAvailException)
             {
                 // FileNameGenerator cannot generate a file name.
-                MessageBox.Show("Unable to save config file.");
+                MessageBox.Show("Failed to save config file.");
             }
         }
     }
