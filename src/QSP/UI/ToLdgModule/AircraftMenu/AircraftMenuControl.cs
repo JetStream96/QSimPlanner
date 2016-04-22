@@ -1,7 +1,7 @@
-﻿using System.Windows.Forms;
-using QSP.UI.ToLdgModule.AircraftMenu;
-using QSP.AircraftProfiles;
+﻿using QSP.AircraftProfiles;
+using System;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu
 {
@@ -61,6 +61,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             newBtn.Click += controller.CreateConfig;
             saveBtn.Click += controller.SaveConfig;
             editBtn.Click += controller.EditConfig;
+            deleteBtn.Click += controller.DeleteConfig;
+            cancelBtn.Click += controller.CancelBtnClicked;
         }
 
         private void unSubsribe()
@@ -68,6 +70,22 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             newBtn.Click -= controller.CreateConfig;
             saveBtn.Click -= controller.SaveConfig;
             editBtn.Click -= controller.EditConfig;
+            deleteBtn.Click -= controller.DeleteConfig;
+            cancelBtn.Click -= controller.CancelBtnClicked;
+        }
+
+        private void acListViewSelectedChanged(object sender, EventArgs e)
+        {
+            if (acListView.SelectedIndices.Count == 0)
+            {
+                editBtn.Enabled = false;
+                deleteBtn.Enabled = false;
+            }
+            else
+            {
+                editBtn.Enabled = true;
+                deleteBtn.Enabled = true;
+            }
         }
     }
 }

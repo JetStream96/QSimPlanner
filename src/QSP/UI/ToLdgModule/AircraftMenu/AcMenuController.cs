@@ -3,11 +3,9 @@ using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
 using QSP.Core;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
 
@@ -137,7 +135,13 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             acItems.Clear();
 
             var ac = profiles.AcConfigs.Aircrafts;
-            var acTypes = ac.Select(x => x.Config.AC).Distinct().ToArray();
+
+            var acTypes =
+                ac.Select(x => x.Config.AC)
+                .Distinct()
+                .OrderBy(s => s)
+                .ToArray();
+
             acItems.AddRange(acTypes);
         }
 
@@ -146,7 +150,10 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             var listItems = elem.AcListView.Items;
             listItems.Clear();
 
-            foreach (var i in profiles.AcConfigs.Aircrafts)
+            var ac = profiles.AcConfigs.Aircrafts.ToList();
+            ac.Sort(new ConfigComparer());
+
+            foreach (var i in ac)
             {
                 var c = i.Config;
 
@@ -254,8 +261,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             {
                 currentConfig = profiles.AcConfigs.FindRegistration(reg);
 
-                fillProperties(currentConfig.Config);
                 showPropertyGroupBox();
+                fillProperties(currentConfig.Config);
             }
         }
 
@@ -322,6 +329,66 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             {
                 // FileNameGenerator cannot generate a file name.
                 MessageBox.Show("Failed to save config file.");
+            }
+        }
+
+        public void DeleteConfig(object sender, EventArgs e)
+        {
+            var reg = selectedRegistration;
+
+            if (reg == null)
+            {
+                return;
+            }
+
+            var configs = profiles.AcConfigs;
+            var item = configs.FindRegistration(reg);
+            var path = item.FilePath;
+            var ac = item.Config.AC;
+
+            var result =
+                MessageBox.Show(
+                    "Permanently delete " + reg + " (" + ac + ") ?",
+                    "",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning,
+                    MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.Yes &&
+                tryDeleteConfig(path))
+            {
+                configs.Remove(reg);
+                refreshListView();
+            }
+        }
+
+        private bool tryDeleteConfig(string path)
+        {
+            try
+            {
+                File.Delete(path);
+                return true;
+            }
+            catch
+            {
+                MessageBox.Show("Failed to delete the selected config.");
+                return false;
+            }
+        }
+
+        public void CancelBtnClicked(object sender,EventArgs e)
+        {
+            var result =
+                MessageBox.Show(
+                    "Discard the changes to config?",
+                    "",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning,
+                    MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.Yes)
+            {
+                showSelectionGroupBox();
             }
         }
     }
