@@ -1,5 +1,4 @@
 ﻿using QSP.AircraftProfiles;
-using System;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -20,7 +19,6 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             setElements();
             initController(profiles);
             showErrors(profiles);
-            acListViewSelectedChanged(null, null);
         }
 
         private void showErrors(ProfileManager profiles)
@@ -55,7 +53,10 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 maxTOWtUnitComboBox,
                 maxLdgWtUnitComboBox,
                 selectionGroupBox,
-                propertyGroupBox);
+                propertyGroupBox,
+                newBtn,
+                editBtn,
+                deleteBtn);
         }
 
         private void subsribe()
@@ -65,6 +66,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             editBtn.Click += controller.EditConfig;
             deleteBtn.Click += controller.DeleteConfig;
             cancelBtn.Click += controller.CancelBtnClicked;
+            acListView.SelectedIndexChanged +=
+                controller.ListViewSelectedChanged;
         }
 
         private void unSubsribe()
@@ -74,20 +77,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             editBtn.Click -= controller.EditConfig;
             deleteBtn.Click -= controller.DeleteConfig;
             cancelBtn.Click -= controller.CancelBtnClicked;
-        }
-
-        private void acListViewSelectedChanged(object sender, EventArgs e)
-        {
-            if (acListView.SelectedIndices.Count == 0)
-            {
-                editBtn.Enabled = false;
-                deleteBtn.Enabled = false;
-            }
-            else
-            {
-                editBtn.Enabled = true;
-                deleteBtn.Enabled = true;
-            }
+            acListView.SelectedIndexChanged -=
+                controller.ListViewSelectedChanged;
         }
     }
 }

@@ -17,6 +17,9 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public ComboBox MaxLdgWtUnit { get; private set; }
         public GroupBox SelectionBox { get; private set; }
         public GroupBox PropertyBox { get; private set; }
+        public Button NewBtn { get; private set; }
+        public Button EditBtn { get; private set; }
+        public Button DeleteBtn { get; private set; }
 
         public AcMenuElements(
              ListView AcListView,
@@ -31,7 +34,10 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
              ComboBox MaxToWtUnit,
              ComboBox MaxLdgWtUnit,
              GroupBox SelectionBox,
-             GroupBox PropertyBox)
+             GroupBox PropertyBox,
+             Button NewBtn,
+             Button EditBtn,
+             Button DeleteBtn)
         {
             this.AcListView = AcListView;
             this.AcType = AcType;
@@ -46,6 +52,9 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             this.MaxLdgWtUnit = MaxLdgWtUnit;
             this.SelectionBox = SelectionBox;
             this.PropertyBox = PropertyBox;
+            this.NewBtn = NewBtn;
+            this.EditBtn = EditBtn;
+            this.DeleteBtn = DeleteBtn;
         }
     }
 }

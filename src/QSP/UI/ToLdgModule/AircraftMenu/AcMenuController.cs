@@ -162,6 +162,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 // lvi.ImageIndex = (int)i.Severity;
                 listItems.Add(lvi);
             }
+
+            ListViewSelectedChanged(null, null);
         }
 
         private void fillProperties(AircraftConfigItem config)
@@ -181,8 +183,9 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private void showDefaultConfig()
         {
-            var defaultConfig = new AircraftConfigItem("", "", NoToLdgProfileText,
-                 NoToLdgProfileText, 0.0, 0.0, 0.0, WeightUnit.KG);
+            var defaultConfig = 
+                new AircraftConfigItem("", "", NoToLdgProfileText,
+                    NoToLdgProfileText, 0.0, 0.0, 0.0, WeightUnit.KG);
 
             fillProperties(defaultConfig);
         }
@@ -389,6 +392,27 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             if (result == DialogResult.Yes)
             {
                 showSelectionGroupBox();
+            }
+        }
+
+        public void ListViewSelectedChanged(object sender, EventArgs e)
+        {
+            var edit = elem.EditBtn;
+            var del = elem.DeleteBtn;
+
+            if (elem.AcListView.SelectedIndices.Count == 0)
+            {
+                edit.ForeColor = Color.White;
+                edit.Enabled = false;
+                del.ForeColor = Color.White;
+                del.Enabled = false;
+            }
+            else
+            {
+                edit.Enabled = true;
+                edit.ForeColor = Color.Black;
+                del.Enabled = true;
+                del.ForeColor = Color.Black;
             }
         }
     }
