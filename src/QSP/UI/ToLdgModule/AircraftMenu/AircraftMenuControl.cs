@@ -20,6 +20,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             setElements();
             initController(profiles);
             showErrors(profiles);
+            acListViewSelectedChanged(null, null);
         }
 
         private void showErrors(ProfileManager profiles)
@@ -41,7 +42,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private void setElements()
         {
-            elements = new AcMenuElements(acListView,
+            elements = new AcMenuElements(
+                acListView,
                 acTypeComboBox,
                 registrationTxtBox,
                 toProfileComboBox,

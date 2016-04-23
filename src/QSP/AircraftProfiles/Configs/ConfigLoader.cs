@@ -11,6 +11,7 @@ namespace QSP.AircraftProfiles.Configs
     public class ConfigLoader
     {
         private string folderPath;
+
         public const string DefaultFolderPath = @"PerformanceData\Aircrafts";
 
         public ConfigLoader(string folderPath = DefaultFolderPath)
@@ -35,7 +36,12 @@ namespace QSP.AircraftProfiles.Configs
             }
 
             var groups = configs.GroupBy(c => c.Config.Registration);
-            var result = groups.Select(g => g.First()).ToList();
+
+            var result =
+                groups
+                .Where(g => g.Count() == 1)
+                .Select(g => g.First())
+                .ToList();
 
             return new ConfigImportResult(result, message(configs));
         }
@@ -77,11 +83,11 @@ namespace QSP.AircraftProfiles.Configs
             }
             catch (InvalidOperationException)
             {
-                // There is not duplicate.
+                // There is no duplicate.
                 return null;
             }
         }
-        
+
         public class ConfigImportResult
         {
             public List<AircraftConfig> Configs { get; private set; }
