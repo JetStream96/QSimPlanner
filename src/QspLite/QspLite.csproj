@@ -90,7 +90,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="QspLiteIcon_6.png.ico" />
     <None Include="Resources\QspLiteIcon.ico" />
   </ItemGroup>
   <ItemGroup />
