@@ -334,7 +334,7 @@
     <Compile Include="LandingPerfCalculation\LandingReport.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingParameters.cs" />
     <Compile Include="LibraryExtension\BinarySearchForAll.cs" />
-    <Compile Include="LibraryExtension\HashMap.cs" />
+    <Compile Include="LibraryExtension\MultiMap.cs" />
     <Compile Include="LibraryExtension\Utilities.cs" />
     <Compile Include="LibraryExtension\Lists.cs" />
     <Compile Include="LibraryExtension\MinHeap.cs" />

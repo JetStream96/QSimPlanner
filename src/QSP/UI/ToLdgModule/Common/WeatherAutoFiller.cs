@@ -2,6 +2,7 @@
 using QSP.Metar;
 using System;
 using System.Windows.Forms;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.UI.ToLdgModule.Common
 {
@@ -31,15 +32,21 @@ namespace QSP.UI.ToLdgModule.Common
             }
             else
             {
-                windSpeed.Text = ((int)Math.Round(wind.Speed)).ToString();
-                windDirection.Text = (((int)wind.Direction - 1).Mod(360) + 1).ToString().PadLeft(3, '0');
+                windSpeed.Text = RoundToInt(wind.Speed).ToString();
+
+                windDirection.Text = 
+                    ((RoundToInt( wind.Direction) - 1)
+                    .Mod(360) + 1)
+                    .ToString()
+                    .PadLeft(3, '0');
+
                 tempUnit.SelectedIndex = 0;
                 oat.Text = temp.ToString();
                 pressUnit.SelectedIndex = (int)press.PressUnit;
                 altimeter.Text =
                     press.PressUnit == PressureUnit.inHg ?
                     Math.Round(press.Value, 2).ToString() :
-                    ((int)press.Value).ToString();
+                    RoundToInt(press.Value).ToString();
 
                 return true;
             }

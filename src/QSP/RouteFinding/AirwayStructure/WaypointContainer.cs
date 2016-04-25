@@ -1,8 +1,9 @@
 ﻿using QSP.LibraryExtension;
 using QSP.LibraryExtension.Graph;
 using QSP.RouteFinding.Containers;
+using System;
 using System.Collections.Generic;
-using static QSP.LibraryExtension.HashMap<string, int>;
+using static QSP.LibraryExtension.MultiMap<string, int>;
 
 namespace QSP.RouteFinding.AirwayStructure
 {
@@ -11,14 +12,14 @@ namespace QSP.RouteFinding.AirwayStructure
         #region Fields
 
         private Graph<Waypoint, Neighbor> graph;
-        private HashMap<string, int> searchHelper;
+        private MultiMap<string, int> searchHelper;
 
         #endregion
 
         public WaypointContainer()
         {
             graph = new Graph<Waypoint, Neighbor>();
-            searchHelper = new HashMap<string, int>();
+            searchHelper = new MultiMap<string, int>();
         }
 
         public int AddWpt(Waypoint item)
@@ -83,10 +84,19 @@ namespace QSP.RouteFinding.AirwayStructure
 
         /// <summary>
         /// Find the index of WptNeighbor by ident of a waypoint.
+        /// Returns -1 if not found.
         /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
         public int FindByID(string ident)
         {
-            return searchHelper[ident];
+            try
+            {
+                return searchHelper.FindAny(ident);
+            }
+            catch (ArgumentException)
+            {
+                return -1;
+            }
         }
 
         /// <summary>
@@ -95,7 +105,7 @@ namespace QSP.RouteFinding.AirwayStructure
         /// </summary> 
         public List<int> FindAllByID(string ident)
         {
-            return searchHelper.AllMatches(ident);
+            return searchHelper.FindAll(ident);
         }
 
         /// <summary>
@@ -111,7 +121,7 @@ namespace QSP.RouteFinding.AirwayStructure
         /// </summary>
         public int FindByWaypoint(Waypoint wpt)
         {
-            var candidates = searchHelper.AllMatches(wpt.ID);
+            var candidates = searchHelper.FindAll(wpt.ID);
 
             foreach (int i in candidates)
             {
@@ -129,7 +139,7 @@ namespace QSP.RouteFinding.AirwayStructure
         /// </summary>
         public List<int> FindAllByWaypoint(Waypoint wpt)
         {
-            var candidates = searchHelper.AllMatches(wpt.ID);
+            var candidates = searchHelper.FindAll(wpt.ID);
             var results = new List<int>();
 
             foreach (int i in candidates)

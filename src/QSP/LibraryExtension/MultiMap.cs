@@ -8,7 +8,7 @@ namespace QSP.LibraryExtension
     /// <summary>
     /// A hash map allowing duplicate keys.
     /// </summary>
-    public class HashMap<TKey, TValue> : IEnumerable
+    public class MultiMap<TKey, TValue> : IEnumerable
     {
         private struct Entry
         {
@@ -31,31 +31,34 @@ namespace QSP.LibraryExtension
         private IEqualityComparer<TKey> keyComparer;
         private IEqualityComparer<TValue> valueComparer;
 
-        public HashMap() : this(0, null)
-        {
-        }
+        public MultiMap() : this(0, null)
+        { }
 
-        public HashMap(int capacity) : this(capacity, null)
-        {
-        }
+        public MultiMap(int capacity) : this(capacity, null)
+        { }
 
-        public HashMap(IEqualityComparer<TKey> comparer) : this(0, comparer)
-        {
-        }
+        public MultiMap(IEqualityComparer<TKey> comparer) : this(0, comparer)
+        { }
 
-        public HashMap(IEqualityComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer) : this(0, keyComparer, valueComparer)
-        {
-        }
+        public MultiMap(
+            IEqualityComparer<TKey> keyComparer,
+            IEqualityComparer<TValue> valueComparer)
+            : this(0, keyComparer, valueComparer)
+        { }
 
-        public HashMap(int capacity, IEqualityComparer<TKey> comparer) : this(capacity, comparer, null)
-        {
-        }
+        public MultiMap(int capacity, IEqualityComparer<TKey> comparer)
+            : this(capacity, comparer, null)
+        { }
 
-        public HashMap(int capacity, IEqualityComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer)
+        public MultiMap(
+            int capacity,
+            IEqualityComparer<TKey> keyComparer,
+            IEqualityComparer<TValue> valueComparer)
         {
             if (capacity < 0)
             {
-                throw new ArgumentOutOfRangeException("Capacity cannot be smaller than 0.");
+                throw new ArgumentOutOfRangeException(
+                    "Capacity cannot be smaller than 0.");
             }
 
             if (capacity > 0)
@@ -64,7 +67,9 @@ namespace QSP.LibraryExtension
             }
 
             this.keyComparer = keyComparer ?? EqualityComparer<TKey>.Default;
-            this.valueComparer = valueComparer ?? EqualityComparer<TValue>.Default;
+
+            this.valueComparer =
+                valueComparer ?? EqualityComparer<TValue>.Default;
         }
 
         public int Count
@@ -72,33 +77,21 @@ namespace QSP.LibraryExtension
             get { return elemCount - freeCount; }
         }
 
-        public TValue this[TKey key]
-        {
-            get
-            {
-                int i = FindEntry(key);
-
-                if (i >= 0)
-                {
-                    return entries[i].value;
-                }
-                return default(TValue);
-            }
-        }
-
         /// <summary>
-        /// Returns an empty List if none is found.
+        /// Find any entry with the given key.
         /// </summary>
-        public List<TValue> AllMatches(TKey key)
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        public TValue FindAny(TKey key)
         {
-            var i = FindAllEntries(key);
-            var result = new List<TValue>(i.Count);
+            int i = FindEntry(key);
 
-            foreach (int j in i)
+            if (i >= 0)
             {
-                result.Add(entries[j].value);
+                return entries[i].value;
             }
-            return result;
+
+            throw new ArgumentException("Key not found.");
         }
 
         public void Add(TKey key, TValue value)
@@ -110,7 +103,7 @@ namespace QSP.LibraryExtension
         {
             if (elemCount > 0)
             {
-                for (int i = 0; i <= buckets.Length - 1; i++)
+                for (int i = 0; i < buckets.Length; i++)
                 {
                     buckets[i] = -1;
                 }
@@ -130,7 +123,7 @@ namespace QSP.LibraryExtension
         {
             if (value == null)
             {
-                for (int i = 0; i <= elemCount - 1; i++)
+                for (int i = 0; i < elemCount; i++)
                 {
                     if (entries[i].hashCode >= 0 && entries[i].value == null)
                     {
@@ -140,10 +133,12 @@ namespace QSP.LibraryExtension
             }
             else
             {
-                EqualityComparer<TValue> c = EqualityComparer<TValue>.Default;
-                for (int i = 0; i <= elemCount - 1; i++)
+                var c = EqualityComparer<TValue>.Default;
+
+                for (int i = 0; i < elemCount; i++)
                 {
-                    if (entries[i].hashCode >= 0 && c.Equals(entries[i].value, value))
+                    if (entries[i].hashCode >= 0 &&
+                        c.Equals(entries[i].value, value))
                     {
                         return true;
                     }
@@ -152,28 +147,36 @@ namespace QSP.LibraryExtension
             return false;
         }
 
-        private List<int> FindAllEntries(TKey key)
+        /// <summary>
+        /// Finds all entries with the given key.
+        /// Returns an empty List if none is found.
+        /// </summary>
+        public List<TValue> FindAll(TKey key)
         {
             if (key == null)
             {
                 throw new ArgumentNullException();
             }
 
-            var result = new List<int>();
+            var result = new List<TValue>();
 
             if (buckets != null)
             {
                 int hashCode = keyComparer.GetHashCode(key) & 0x7fffffff;
                 int i = buckets[hashCode % buckets.Length];
+
                 while (i >= 0)
                 {
-                    if (entries[i].hashCode == hashCode && keyComparer.Equals(entries[i].key, key))
+                    if (entries[i].hashCode == hashCode &&
+                        keyComparer.Equals(entries[i].key, key))
                     {
-                        result.Add(i);
+                        result.Add(entries[i].value);
                     }
+
                     i = entries[i].nextIndex;
                 }
             }
+
             return result;
         }
 
@@ -188,19 +191,27 @@ namespace QSP.LibraryExtension
             {
                 int hashCode = keyComparer.GetHashCode(key) & 0x7fffffff;
                 int i = buckets[hashCode % buckets.Length];
+
                 while (i >= 0)
                 {
-                    if (entries[i].hashCode == hashCode && keyComparer.Equals(entries[i].key, key))
+                    if (entries[i].hashCode == hashCode &&
+                        keyComparer.Equals(entries[i].key, key))
                     {
                         return i;
                     }
+
                     i = entries[i].nextIndex;
                 }
             }
             return -1;
         }
 
-        public TValue FindEntry(TKey key, TValue value)
+        /// <summary>
+        /// Finds the entry with the given key and value.
+        /// </summary>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        public TValue Find(TKey key, TValue value)
         {
             if (key == null)
             {
@@ -214,14 +225,18 @@ namespace QSP.LibraryExtension
 
                 while (i >= 0)
                 {
-                    if (entries[i].hashCode == hashCode && keyComparer.Equals(entries[i].key, key) && valueComparer.Equals(entries[i].value, value))
+                    if (entries[i].hashCode == hashCode &&
+                        keyComparer.Equals(entries[i].key, key) &&
+                        valueComparer.Equals(entries[i].value, value))
                     {
                         return entries[i].value;
                     }
+
                     i = entries[i].nextIndex;
                 }
             }
-            return default(TValue);
+
+            throw new ArgumentException("Not found.");
         }
 
         private void Initialize(int capacity)
@@ -287,23 +302,28 @@ namespace QSP.LibraryExtension
         {
             Contract.Assert(newSize >= entries.Length);
             int[] newBuckets = new int[newSize];
-            for (int i = 0; i <= newBuckets.Length - 1; i++)
+
+            for (int i = 0; i < newBuckets.Length; i++)
             {
                 newBuckets[i] = -1;
             }
+
             Entry[] newEntries = new Entry[newSize];
             Array.Copy(entries, 0, newEntries, 0, elemCount);
+
             if (forceNewHashCodes)
             {
-                for (int i = 0; i <= elemCount - 1; i++)
+                for (int i = 0; i < elemCount; i++)
                 {
                     if (newEntries[i].hashCode != -1)
                     {
-                        newEntries[i].hashCode = (keyComparer.GetHashCode(newEntries[i].key) & 0x7fffffff);
+                        newEntries[i].hashCode =
+                            keyComparer.GetHashCode(newEntries[i].key) &
+                            0x7fffffff;
                     }
                 }
             }
-            for (int i = 0; i <= elemCount - 1; i++)
+            for (int i = 0; i < elemCount; i++)
             {
                 if (newEntries[i].hashCode >= 0)
                 {
@@ -422,7 +442,7 @@ namespace QSP.LibraryExtension
         {
 
             [NonSerialized()]
-            private HashMap<TKey, TValue> dictionary;
+            private MultiMap<TKey, TValue> dictionary;
             private int index;
             private KeyValuePair<TKey, TValue> m_current;
             private int getEnumeratorRetType;
@@ -430,7 +450,7 @@ namespace QSP.LibraryExtension
             internal const int DictEntry = 1;
 
             internal const int KeyValuePair = 2;
-            internal Enumerator(HashMap<TKey, TValue> dictionary, int getEnumeratorRetType)
+            internal Enumerator(MultiMap<TKey, TValue> dictionary, int getEnumeratorRetType)
             {
                 this.dictionary = dictionary;
                 index = 0;
@@ -521,7 +541,7 @@ namespace QSP.LibraryExtension
             // h1(key) + i*h2(key), 0 <= i < size.  h2 and the size must be relatively prime.
 
 
-            const Int32 HashPrime = 101;
+            const int HashPrime = 101;
             public static readonly int[] primes =
                 {3,7,11,17,23,29,37,47,59,71,89,107,131,163,197,239,293,353,431,521,631,761,919,1103,
                  1327,1597,1931,2333,2801,3371,4049,4861,5839,7013,8419,10103,12143,14591,
@@ -554,7 +574,7 @@ namespace QSP.LibraryExtension
                 }
                 Contract.EndContractBlock();
 
-                for (int i = 0; i <= primes.Length - 1; i++)
+                for (int i = 0; i < primes.Length; i++)
                 {
                     int prime = primes[i];
                     if (prime >= min)
@@ -565,7 +585,7 @@ namespace QSP.LibraryExtension
 
                 //outside of our predefined table. 
                 //compute the hard way. 
-                for (int i = (min | 1); i <= Int32.MaxValue - 1; i += 2)
+                for (int i = (min | 1); i < int.MaxValue; i += 2)
                 {
                     if (IsPrime(i) && ((i - 1) % HashPrime != 0))
                     {

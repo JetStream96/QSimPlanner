@@ -116,7 +116,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1160, 713);
+            this.ClientSize = new System.Drawing.Size(1160, 753);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "QspLiteForm";
             this.ShowIcon = false;
