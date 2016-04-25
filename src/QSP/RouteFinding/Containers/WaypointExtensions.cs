@@ -2,7 +2,7 @@
 
 namespace QSP.RouteFinding.Containers
 {
-    public static class ExtensionMethods
+    public static class WaypointExtensions
     {
         public static double DistanceFrom(this Waypoint wpt, Waypoint item)
         {

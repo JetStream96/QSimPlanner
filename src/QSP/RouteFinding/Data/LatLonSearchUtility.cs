@@ -13,8 +13,8 @@ namespace QSP.RouteFinding.Data
 
     public class LatLonSearchUtility<T> where T : ICoordinate, IEquatable<T>
     {
-        private readonly int GRID_SIZE;
-        private readonly int POLAR_REGION_SIZE;
+        private readonly int GridSize;
+        private readonly int PolarRegionSize;
 
         //first index: corresponds to lat; second index: corresponds to lon
         private List<T>[,] content;
@@ -30,8 +30,8 @@ namespace QSP.RouteFinding.Data
 
         public LatLonSearchUtility(int gridSize, int polarRegSize, IEqualityComparer<T> equalComp)
         {
-            GRID_SIZE = gridSize;
-            POLAR_REGION_SIZE = polarRegSize;
+            GridSize = gridSize;
+            PolarRegionSize = polarRegSize;
             this.equalComp = equalComp;
             prepareSearch();
         }
@@ -45,13 +45,13 @@ namespace QSP.RouteFinding.Data
             switch (para)
             {
                 case GridSizeOption.Small:
-                    GRID_SIZE = 2;
-                    POLAR_REGION_SIZE = 5;
+                    GridSize = 2;
+                    PolarRegionSize = 5;
                     break;
 
                 case GridSizeOption.Large:
-                    GRID_SIZE = 10;
-                    POLAR_REGION_SIZE = 15;
+                    GridSize = 10;
+                    PolarRegionSize = 15;
                     break;
             }
             this.equalComp = equalComp;
@@ -61,8 +61,8 @@ namespace QSP.RouteFinding.Data
 
         private void prepareSearch()
         {
-            content = new List<T>[(int)(Math.Ceiling(((double)(180 - 2 * POLAR_REGION_SIZE))) / GRID_SIZE),
-                                  (int)(Math.Ceiling((360.0 / GRID_SIZE)))];
+            content = new List<T>[(int)(Math.Ceiling(((double)(180 - 2 * PolarRegionSize))) / GridSize),
+                                  (int)(Math.Ceiling((360.0 / GridSize)))];
             initContent();
 
             visited = new VisitedList(content.GetLength(0), content.GetLength(1));
@@ -89,11 +89,11 @@ namespace QSP.RouteFinding.Data
 
         public void Add(T item)
         {
-            if (item.Lat >= 90 - POLAR_REGION_SIZE)
+            if (item.Lat >= 90 - PolarRegionSize)
             {
                 northPoleContent.Add(item);
             }
-            else if (item.Lat < -90 + POLAR_REGION_SIZE)
+            else if (item.Lat < -90 + PolarRegionSize)
             {
                 southPoleContent.Add(item);
             }
@@ -114,17 +114,17 @@ namespace QSP.RouteFinding.Data
             {
                 lon = -180.0;
             }
-            return new Pair<int, int>((int)((lat + 90.0 - POLAR_REGION_SIZE) / GRID_SIZE),
-                                       (int)((lon + 180.0) / GRID_SIZE));
+            return new Pair<int, int>((int)((lat + 90.0 - PolarRegionSize) / GridSize),
+                                       (int)((lon + 180.0) / GridSize));
         }
 
         private Pair<int, int> getGrid(double lat, double lon)
         {
-            if (lat >= 90 - POLAR_REGION_SIZE)
+            if (lat >= 90 - PolarRegionSize)
             {
                 return new Pair<int, int>(-1, 1);
             }
-            else if (lat < -90 + POLAR_REGION_SIZE)
+            else if (lat < -90 + PolarRegionSize)
             {
                 return new Pair<int, int>(-1, -1);
             }
@@ -218,20 +218,20 @@ namespace QSP.RouteFinding.Data
             {
                 //not north/south pole
 
-                double latTop = center.Lat + ((double)GRID_SIZE) / 2;
-                double latBottom = center.Lat - ((double)GRID_SIZE) / 2;
+                double latTop = center.Lat + ((double)GridSize) / 2;
+                double latBottom = center.Lat - ((double)GridSize) / 2;
 
                 double latMaxDis = (Math.Abs(latTop) >= Math.Abs(latBottom)) ? latTop : latBottom;
 
-                return GreatCircleDistance(pt, center) - GreatCircleDistance(center.Lat, latMaxDis, ((double)GRID_SIZE) / 2);
+                return GreatCircleDistance(pt, center) - GreatCircleDistance(center.Lat, latMaxDis, ((double)GridSize) / 2);
             }
             else if (grid.Item2 == -1)
             {
-                return EarthRadiusNm * ToRadian(center.Lat - (-90 + POLAR_REGION_SIZE));
+                return EarthRadiusNm * ToRadian(center.Lat - (-90 + PolarRegionSize));
             }
             else
             {
-                return EarthRadiusNm * ToRadian((90 - POLAR_REGION_SIZE) - center.Lat);
+                return EarthRadiusNm * ToRadian((90 - PolarRegionSize) - center.Lat);
             }
         }
 
@@ -250,7 +250,7 @@ namespace QSP.RouteFinding.Data
             }
             else
             {
-                return new LatLon(-90.0 + POLAR_REGION_SIZE + (item.Item1 + 0.5) * GRID_SIZE, -180.0 + (item.Item2 + 0.5) * GRID_SIZE);
+                return new LatLon(-90.0 + PolarRegionSize + (item.Item1 + 0.5) * GridSize, -180.0 + (item.Item2 + 0.5) * GridSize);
             }
         }
 

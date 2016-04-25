@@ -20,7 +20,7 @@ namespace UnitTest
 
         //End Sub
 
-        [TestMethod()]
+        //[TestMethod()]
 
         public void WptListLoadNewMethodTest()
         {
