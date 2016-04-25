@@ -34,6 +34,9 @@ namespace QSP.UI.ToLdgModule.Forms
             toMenu.InitializeAircrafts(
                 manager.AcConfigs, manager.TOTables.ToList());
 
+            ldgMenu.InitializeAircrafts(
+                manager.AcConfigs, manager.LdgTables.ToList());
+
             enableBtnColorControls();
             enableViewControl();
         }

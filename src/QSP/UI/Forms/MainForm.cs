@@ -1,5 +1,7 @@
+using QSP.AircraftProfiles;
 using QSP.Core;
 using QSP.LibraryExtension;
+using QSP.Metar;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
@@ -9,7 +11,6 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.UI;
-using QSP.Metar;
 using QSP.Utilities;
 using QSP.WindAloft;
 using System;
@@ -26,7 +27,6 @@ using static QSP.AviationTools.Constants;
 using static QSP.Core.QspCore;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
-using QSP.AircraftProfiles;
 
 namespace QSP
 {
@@ -97,6 +97,11 @@ namespace QSP
 
             // TODO: toPerfControl.Airports = AirportList;
             //toPerfControl.TryLoadState();
+
+            landingPerfControl.InitializeAircrafts(
+                profiles.AcConfigs,profiles.LdgTables.ToList());
+            //landingPerfControl.Airports = AirportList;
+            //landingPerfControl.TryLoadState();
         }
 
         private void Calculate(object sender, EventArgs e)
@@ -546,7 +551,7 @@ namespace QSP
             if (landingControlInitialized == false)
             {
                 landingControlInitialized = true;
-                landingPerfControl.InitializeAircrafts();
+                //landingPerfControl.InitializeAircrafts();
                 landingPerfControl.Airports = AirportList;
                 landingPerfControl.TryLoadState();
             }

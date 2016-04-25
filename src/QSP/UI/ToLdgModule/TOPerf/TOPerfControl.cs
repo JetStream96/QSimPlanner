@@ -148,11 +148,6 @@ namespace QSP.UI.ToLdgModule.TOPerf
             wtUnitComboBox.SelectedIndex = 0; // KG  
             thrustRatingLbl.Visible = false;
             thrustRatingComboBox.Visible = false;
-
-            if (acListComboBox.Items.Count > 0)
-            {
-                acListComboBox.SelectedIndex = 0;
-            }
         }
 
         private void initializeElements()

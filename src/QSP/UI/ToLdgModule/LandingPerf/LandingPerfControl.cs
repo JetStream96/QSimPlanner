@@ -1,10 +1,12 @@
-﻿using QSP.LandingPerfCalculation;
+﻿using QSP.AircraftProfiles.Configs;
+using QSP.LandingPerfCalculation;
 using QSP.RouteFinding.Airports;
 using QSP.UI.ControlStates;
 using QSP.UI.ToLdgModule.Common;
 using QSP.UI.ToLdgModule.LandingPerf.FormControllers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace QSP.UI.ToLdgModule.LandingPerf
@@ -15,9 +17,11 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         // private CustomFuelControlOld fuelImportPanel;
         private FormController controller;
-        private List<PerfTable> tables;
-        private PerfTable currentTable;
         private LandingPerfElements elements;
+        private List<PerfTable> tables;
+        private AcConfigManager aircrafts;
+
+        private PerfTable currentTable;
         private AutoWeatherSetter wxSetter;
 
         public AirportManager Airports
@@ -48,12 +52,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         private void initializeControls()
         {
             appSpdIncTxtBox.Text = "5";
-            wtUnitComboBox.SelectedIndex = 0; // KG  
-
-            if (acListComboBox.Items.Count > 0)
-            {
-                acListComboBox.SelectedIndex = 0;
-            }
+            wtUnitComboBox.SelectedIndex = 0; // KG 
         }
 
         public void TryLoadState()
@@ -102,26 +101,77 @@ namespace QSP.UI.ToLdgModule.LandingPerf
                 resultsRichTxtBox);
         }
 
-        public void InitializeAircrafts()
+        public void InitializeAircrafts(
+            AcConfigManager aircrafts,
+            List<PerfTable> tables)
         {
-            var result = new LdgTableLoader().Load();
-            tables = result.Tables;
+            this.aircrafts = aircrafts;
+            this.tables = tables;
+            updateAircraftList();
+        }
 
-            if (result.Message != null)
+        private string[] availAircraftTypes()
+        {
+            var avail = new List<string>();
+
+            foreach (var i in tables)
             {
-                MessageBox.Show(result.Message);
+                if (aircrafts
+                    .Aircrafts
+                    .Where(c => c.Config.LdgProfile == i.Entry.ProfileName)
+                    .Count()
+                    > 0)
+                {
+                    avail.Add(i.Entry.Aircraft);
+                }
             }
 
-            updateAircraftList();
+            return avail.ToArray();
+        }
+
+        private bool landingProfileExists(string profileName)
+        {
+            var searchResults =
+                tables.Where(c => c.Entry.ProfileName == profileName);
+
+            return searchResults.Count() > 0;
         }
 
         private void updateAircraftList()
         {
-            acListComboBox.Items.Clear();
+            var items = acListComboBox.Items;
 
-            foreach (var i in tables)
+            items.Clear();
+            items.AddRange(availAircraftTypes());
+
+            if (items.Count > 0)
             {
-                acListComboBox.Items.Add(i.Entry.Aircraft);
+                acListComboBox.SelectedIndex = 0;
+            }
+        }
+
+        private void refreshRegistrations(object sender, EventArgs e)
+        {
+            if (acListComboBox.SelectedIndex >= 0)
+            {
+                var ac =
+                    aircrafts
+                    .FindAircraft(acListComboBox.Text);
+
+                var items = regComboBox.Items;
+
+                items.Clear();
+
+                items.AddRange(
+                    ac
+                    .Where(c => landingProfileExists(c.Config.LdgProfile))
+                    .Select(c => c.Config.Registration)
+                    .ToArray());
+
+                if (items.Count > 0)
+                {
+                    regComboBox.SelectedIndex = 0;
+                }
             }
         }
 
@@ -142,8 +192,13 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             //}
         }
 
-        private void acListComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void registrationSelectedChanged(object sender, EventArgs e)
         {
+            if (regComboBox.SelectedIndex < 0)
+            {
+                return;
+            }
+
             // unsubsribe all event handlers
             if (controller != null)
             {
@@ -155,7 +210,14 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             // set currentTable and controller
             if (tables != null && tables.Count > 0)
             {
-                currentTable = tables[acListComboBox.SelectedIndex];
+                var profileName =
+                      aircrafts
+                      .FindRegistration(regComboBox.Text)
+                      .Config
+                      .LdgProfile;
+
+                currentTable =
+                    tables.First(t => t.Entry.ProfileName == profileName);
 
                 controller = FormControllerFactory.GetController(
                     ControllerType.Boeing,
