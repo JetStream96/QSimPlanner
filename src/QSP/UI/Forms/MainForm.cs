@@ -26,6 +26,7 @@ using static QSP.AviationTools.Constants;
 using static QSP.Core.QspCore;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
+using QSP.AircraftProfiles;
 
 namespace QSP
 {
@@ -89,6 +90,14 @@ namespace QSP
             return FuelCalc;
         }
 
+        public void InitializeAircraftData(ProfileManager profiles)
+        {
+            toPerfControl.InitializeAircrafts(
+                profiles.AcConfigs, profiles.TOTables.ToList());
+
+            // TODO: toPerfControl.Airports = AirportList;
+            //toPerfControl.TryLoadState();
+        }
 
         private void Calculate(object sender, EventArgs e)
         {
@@ -525,7 +534,7 @@ namespace QSP
             if (takeoffControlInitialized == false)
             {
                 takeoffControlInitialized = true;
-                toPerfControl.InitializeAircrafts();
+                //toPerfControl.InitializeAircrafts(null, null);//TODO: load the data here.
                 toPerfControl.Airports = AirportList;
                 toPerfControl.TryLoadState();
             }

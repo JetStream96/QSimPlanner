@@ -1,10 +1,12 @@
-﻿using QSP.RouteFinding.Airports;
+﻿using QSP.AircraftProfiles.Configs;
+using QSP.RouteFinding.Airports;
 using QSP.TOPerfCalculation;
 using QSP.UI.ControlStates;
 using QSP.UI.ToLdgModule.Common;
 using QSP.UI.ToLdgModule.TOPerf.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace QSP.UI.ToLdgModule.TOPerf
@@ -15,7 +17,9 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
         private FormController controller;
         private TOPerfElements elements;
+        private AcConfigManager aircrafts;
         private List<PerfTable> tables;
+
         private PerfTable currentTable;
         private AutoWeatherSetter wxSetter;
 
@@ -38,26 +42,77 @@ namespace QSP.UI.ToLdgModule.TOPerf
             setWeatherBtnHandlers();
         }
 
-        public void InitializeAircrafts()
+        public void InitializeAircrafts(
+            AcConfigManager aircrafts,
+            List<PerfTable> tables)
         {
-            var result = new TOTableLoader().Load();
-            tables = result.Tables;
-
-            if (result.Message != null)
-            {
-                MessageBox.Show(result.Message);
-            }
-
+            this.aircrafts = aircrafts;
+            this.tables = tables;
             updateAircraftList();
         }
 
         private void updateAircraftList()
         {
-            acListComboBox.Items.Clear();
+            var items = acListComboBox.Items;
+
+            items.Clear();
+            items.AddRange(availAircraftTypes());
+
+            if (items.Count > 0)
+            {
+                acListComboBox.SelectedIndex = 0;
+            }
+        }
+
+        private string[] availAircraftTypes()
+        {
+            var avail = new List<string>();
 
             foreach (var i in tables)
             {
-                acListComboBox.Items.Add(i.Entry.Aircraft);
+                if (aircrafts
+                    .Aircrafts
+                    .Where(c => c.Config.TOProfile == i.Entry.ProfileName)
+                    .Count()
+                    > 0)
+                {
+                    avail.Add(i.Entry.Aircraft);
+                }
+            }
+
+            return avail.ToArray();
+        }
+
+        private bool takeoffProfileExists(string profileName)
+        {
+            var searchResults =
+                tables.Where(c => c.Entry.ProfileName == profileName);
+
+            return searchResults.Count() > 0;
+        }
+
+        private void refreshRegistrations(object sender, EventArgs e)
+        {
+            if (acListComboBox.SelectedIndex >= 0)
+            {
+                var ac =
+                    aircrafts
+                    .FindAircraft(acListComboBox.Text);
+
+                var items = regComboBox.Items;
+
+                items.Clear();
+
+                items.AddRange(
+                    ac
+                    .Where(c => takeoffProfileExists(c.Config.TOProfile))
+                    .Select(c => c.Config.Registration)
+                    .ToArray());
+
+                if (items.Count > 0)
+                {
+                    regComboBox.SelectedIndex = 0;
+                }
             }
         }
 
@@ -82,7 +137,9 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
         private void setWeatherBtnHandlers()
         {
-            wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl);
+            wxSetter = new AutoWeatherSetter(
+                weatherInfoControl, airportInfoControl);
+
             wxSetter.Subscribe();
         }
 
@@ -128,8 +185,13 @@ namespace QSP.UI.ToLdgModule.TOPerf
                 resultsRichTxtBox);
         }
 
-        private void acListComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void registrationSelectedChanged(object sender, EventArgs e)
         {
+            if (regComboBox.SelectedIndex < 0)
+            {
+                return;
+            }
+
             // unsubsribe all event handlers
             if (controller != null)
             {
@@ -141,13 +203,20 @@ namespace QSP.UI.ToLdgModule.TOPerf
             // set currentTable and controller
             if (tables != null && tables.Count > 0)
             {
-                currentTable = tables[acListComboBox.SelectedIndex];
+                var profileName =
+                    aircrafts
+                    .FindRegistration(regComboBox.Text)
+                    .Config
+                    .TOProfile;
+
+                currentTable =
+                    tables.First(t => t.Entry.ProfileName == profileName);
 
                 controller = FormControllerFactory.GetController(
                     ControllerType.Boeing,
                     currentTable,
                     elements);
-                // TODO: not completely right
+                // TODO: only correct for Boeing. 
 
                 subscribe(controller);
                 controller.Initialize();

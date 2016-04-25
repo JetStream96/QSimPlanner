@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using QSimPlanner.Data;
 
 namespace QSimPlanner
 {
@@ -11,9 +12,15 @@ namespace QSimPlanner
         [STAThread]
         static void Main()
         {
+            AircraftProfiles.Initialize();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new QSP.MainForm());
+
+            var mainFrm = new QSP.MainForm();
+            mainFrm.InitializeAircraftData(AircraftProfiles.Profiles);
+
+            Application.Run(mainFrm);
         }
     }
 }

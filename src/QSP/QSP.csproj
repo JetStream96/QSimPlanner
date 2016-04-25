@@ -235,6 +235,7 @@
     <Compile Include="TOPerfCalculation\PerfTableItem.cs" />
     <Compile Include="UI\Controllers\ButtonGroup\BtnColorController.cs" />
     <Compile Include="UI\Controllers\ButtonGroup\BtnGroupController.cs" />
+    <Compile Include="UI\Controllers\ButtonGroup\ControlSwitcher.cs" />
     <Compile Include="UI\ControlStates\StateManager.cs" />
     <Compile Include="UI\ToLdgModule\AircraftMenu\AcConfigValidator.cs" />
     <Compile Include="UI\ToLdgModule\AircraftMenu\AcMenuController.cs" />
