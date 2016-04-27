@@ -184,7 +184,13 @@ namespace QSP.UI.ToLdgModule.AirportMap
                 }
 
                 airportDataGrid[7, i].Value = rwy.ThresholdOverflyHeight;
-                airportDataGrid[8, i].Value = rwy.GlideslopeAngle.ToString("0.0");
+
+                airportDataGrid[8, i].Value =
+                    rwy.IlsAvail ?
+                    rwy.GlideslopeAngle.ToString("0.0"):
+                    "";
+
+
                 airportDataGrid[9, i].Value = surfaceType(rwy.SurfaceType);
             }
         }

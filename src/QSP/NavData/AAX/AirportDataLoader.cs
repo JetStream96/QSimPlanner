@@ -1,24 +1,26 @@
-﻿using System;
+﻿using QSP.RouteFinding.Airports;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using static QSP.LibraryExtension.StringParser.Utilities;
 
-namespace QSP.RouteFinding.Airports
+namespace QSP.NavData.AAX
 {
     /// <summary>
-    /// Read from file and reads the airport.txt into an instance of AirportDatabase.
+    /// Read from file and reads the airport.txt into 
+    /// an instance of AirportDatabase.
     /// </summary>
-    public class FileLoader
+    public class AirportDataLoader
     {
         private string filepath;
 
-        public FileLoader(string filepath)
+        public AirportDataLoader(string filepath)
         {
             this.filepath = filepath;
         }
 
         /// <exception cref="RwyDataFormatException"></exception>
-        /// <exception cref="ReadAirportDBFileException"></exception>
+        /// <exception cref="ReadAirportFileException"></exception>
         public AirportCollection LoadFromFile()
         {
             var airportDB = new AirportCollection();
@@ -30,7 +32,8 @@ namespace QSP.RouteFinding.Airports
             }
             catch (Exception ex)
             {
-                throw new ReadAirportDBFileException("Unable to read from " + filepath + ".", ex);
+                throw new ReadAirportFileException(
+                    "Unable to read from " + filepath + ".", ex);
             }
 
             bool isFirst = true;
@@ -44,7 +47,7 @@ namespace QSP.RouteFinding.Airports
             int transAlt = 0;
             int transLvl = 0;
             int longestRwyLength = 0;
-            List<RwyData> rwys = new List<RwyData>();
+            var rwys = new List<RwyData>();
 
             foreach (var i in allLines)
             {
@@ -60,7 +63,17 @@ namespace QSP.RouteFinding.Airports
                         if (isFirst == false)
                         {
                             // Add the previously read airport.
-                            airportDB.Add(new Airport(icao, name, lat, lon, elevation, transAlt, transLvl, longestRwyLength, rwys));
+                            airportDB.Add(
+                                new Airport(
+                                    icao,
+                                    name,
+                                    lat,
+                                    lon,
+                                    elevation,
+                                    transAlt,
+                                    transLvl,
+                                    longestRwyLength,
+                                    rwys));
 
                             // Create a new list of runways.
                             rwys = new List<RwyData>();
@@ -89,11 +102,23 @@ namespace QSP.RouteFinding.Airports
                 }
                 catch (Exception ex)
                 {
-                    throw new RwyDataFormatException("Incorrect format in runway database is found.", ex);
+                    throw new RwyDataFormatException(
+                        "Incorrect format in runway database is found.", ex);
                 }
             }
+
             // Add the last airport.
-            airportDB.Add(new Airport(icao, name, lat, lon, elevation, transAlt, transLvl, longestRwyLength, rwys));
+            airportDB.Add(
+                new Airport(
+                    icao,
+                    name,
+                    lat,
+                    lon,
+                    elevation,
+                    transAlt,
+                    transLvl,
+                    longestRwyLength,
+                    rwys));
 
             return airportDB;
         }
@@ -116,8 +141,21 @@ namespace QSP.RouteFinding.Airports
             int SurfaceType = ParseInt(i, ref pos, ',');
             int RwyStatus = ParseInt(i, ref pos, ',');
 
-            return new RwyData(RwyIdent, Heading, Length, Width, IlsAvail, IlsFreq, IlsHeading, Lat, Lon, Elevation,
-                                  GlideslopeAngle, ThresholdOverflyHeight, SurfaceType, RwyStatus);
+            return new RwyData(
+                RwyIdent,
+                Heading,
+                Length,
+                Width,
+                IlsAvail,
+                IlsFreq,
+                IlsHeading,
+                Lat,
+                Lon,
+                Elevation,
+                GlideslopeAngle,
+                ThresholdOverflyHeight,
+                SurfaceType,
+                RwyStatus);
         }
     }
 }

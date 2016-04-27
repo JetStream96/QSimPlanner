@@ -1,10 +1,11 @@
-﻿using QSP.RouteFinding.Containers;
+﻿using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Containers;
 using System;
 using System.IO;
 using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.Utilities.ErrorLogger;
 
-namespace QSP.RouteFinding.AirwayStructure
+namespace QSP.NavData.AAX
 {
     public class AtsFileLoader
     {
@@ -20,7 +21,7 @@ namespace QSP.RouteFinding.AirwayStructure
         /// </summary>
         /// <param name="filepath">Path of ats.txt</param>
         /// <exception cref="LoadWaypointFileException"></exception>
-        public void ReadAtsFromFile(string filepath)
+        public void ReadFromFile(string filepath)
         {
             try
             {
@@ -51,7 +52,8 @@ namespace QSP.RouteFinding.AirwayStructure
                         int index1 = wptList.FindByWaypoint(firstWpt);
                         int index2 = wptList.FindByWaypoint(secondWpt);
 
-                        // The next two are headings between two wpts. Will be skipped.
+                        // The next two are headings between two wpts. 
+                        // Will be skipped.
                         pos = i.IndexOf(',', pos) + 1;
                         pos = i.IndexOf(',', pos) + 1;
 
@@ -70,14 +72,16 @@ namespace QSP.RouteFinding.AirwayStructure
                         }
 
                         // Add the connection.
-                        wptList.AddNeighbor(index1, index2, new Neighbor(currentAirway, dis));
+                        wptList.AddNeighbor(
+                            index1, index2, new Neighbor(currentAirway, dis));
                     }
                 }
             }
             catch (Exception ex)
             {
                 WriteToLog(ex);
-                throw new LoadWaypointFileException("Failed to load ats.txt.", ex);  //TODO: show to the user
+                throw new LoadWaypointFileException(
+                    "Failed to load ats.txt.", ex);  //TODO: show to the user
             }
         }
 

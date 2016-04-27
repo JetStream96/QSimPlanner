@@ -1,8 +1,9 @@
-using static QSP.RouteFinding.RouteFindingCore;
-using System.Windows.Forms;
-using System;
+using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using System;
+using System.Windows.Forms;
+using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding.Data
 {
@@ -27,7 +28,7 @@ namespace QSP.RouteFinding.Data
             try
             {
                 AirportList = new AirportManager(
-                                   new FileLoader(airportsFilePath())
+                                   new AirportDataLoader(airportsFilePath())
                                    .LoadFromFile());
             }
             catch (Exception ex)

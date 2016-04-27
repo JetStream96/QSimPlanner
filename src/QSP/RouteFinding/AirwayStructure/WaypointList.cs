@@ -1,5 +1,7 @@
 using QSP.AviationTools.Coordinates;
 using QSP.LibraryExtension.Graph;
+using QSP.NavData;
+using QSP.NavData.AAX;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
 using System;
@@ -13,17 +15,14 @@ namespace QSP.RouteFinding.AirwayStructure
 {
     /// <summary>
     /// Representation of the airways and waypoints. 
-    /// This is implemented with a hash table, so searching is by waypoint ident is O(1).
+    /// This is implemented with a hash table, so searching by 
+    /// waypoint ident is O(1).
     /// This class is NOT thread safe.
     /// </summary>
     public class WaypointList
     {
-        #region Fields
-
         private WaypointContainer _content;
         private LatLonSearchUtility<WptSeachWrapper> _finder;
-
-        #endregion
 
         public WaypointList()
         {
@@ -38,7 +37,7 @@ namespace QSP.RouteFinding.AirwayStructure
         /// <exception cref="LoadWaypointFileException"></exception>
         public void ReadAtsFromFile(string filepath)
         {
-            new AtsFileLoader(this).ReadAtsFromFile(filepath);
+            new AtsFileLoader(this).ReadFromFile(filepath);
         }
 
         /// <summary>
@@ -48,31 +47,7 @@ namespace QSP.RouteFinding.AirwayStructure
         /// <exception cref="LoadWaypointFileException"></exception>
         public void ReadFixesFromFile(string filepath)
         {
-            string[] allLines = File.ReadAllLines(filepath);
-
-            foreach (var i in allLines)
-            {
-                try
-                {
-                    if (i.Length == 0 || i[0] == ' ')
-                    {
-                        continue;
-                    }
-                    int pos = 0;
-
-                    string id = ReadString(i, ref pos, ',');
-                    double lat = ParseDouble(i, ref pos, ',');
-                    double lon = ParseDouble(i, ref pos, ',');
-
-                    AddWaypoint(new Waypoint(id, lat, lon));
-                }
-                catch (Exception ex)
-                {
-                    WriteToLog(ex);
-                    //TODO: Write to log file. Show to user, etc.
-                    throw new LoadWaypointFileException("Failed to load waypoints.txt.", ex);
-                }
-            }
+            new FixesLoader(this).ReadFromFile(filepath);
         }
 
         public int AddWaypoint(Waypoint item)
@@ -158,7 +133,8 @@ namespace QSP.RouteFinding.AirwayStructure
         }
 
         /// <summary>
-        /// Find the index of WptNeighbor matching the waypoint. Returns -1 if no match is found.
+        /// Find the index of WptNeighbor matching the waypoint. 
+        /// Returns -1 if no match is found.
         /// </summary>
         public int FindByWaypoint(Waypoint wpt)
         {
@@ -173,7 +149,8 @@ namespace QSP.RouteFinding.AirwayStructure
             return _content.FindAllByWaypoint(wpt);
         }
 
-        public List<WptSeachWrapper> Find(double lat, double lon, double distance)
+        public List<WptSeachWrapper> Find(
+            double lat, double lon, double distance)
         {
             return _finder.Find(lat, lon, distance);
         }
@@ -191,7 +168,10 @@ namespace QSP.RouteFinding.AirwayStructure
 
         public void RemoveAt(int index)
         {
-            _finder.Remove(new WptSeachWrapper(index, _content[index].Lat, _content[index].Lon));
+            _finder.Remove(
+                new WptSeachWrapper(
+                    index, _content[index].Lat, _content[index].Lon));
+
             _content.RemoveAt(index);
         }
 

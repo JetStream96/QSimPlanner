@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.NavData.AAX;
 
 namespace UnitTest
 {
@@ -27,7 +28,7 @@ namespace UnitTest
             var sw = new Stopwatch();
             sw.Start();
             var t = new WaypointList();
-            new AtsFileLoader(t).ReadAtsFromFile("F:\\FSX\\aerosoft\\Airbus_Fallback\\Navigraph\\ats.txt");
+            new AtsFileLoader(t).ReadFromFile("F:\\FSX\\aerosoft\\Airbus_Fallback\\Navigraph\\ats.txt");
             sw.Stop();
 
             Debug.WriteLine("Took {0} ms.", sw.ElapsedMilliseconds);
