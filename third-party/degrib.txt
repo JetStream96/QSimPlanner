@@ -1,0 +1,98 @@
+To QUOTE: "http://www.weather.gov/im/softa.htm"
+
+ DISCLAIMER The United States Government makes no warranty, expressed or
+ implied, as to the usefulness of the software and documentation for any
+ purpose. The U.S. Government, its instrumentalities, officers, employees,
+ and agents assumes no responsibility (1) for the use of the software and
+ documentation listed below, or (2) to provide technical support to users.
+
+To QUOTE: "http://www.weather.gov/disclaimer.php"
+
+ The information on government servers are in the public domain, unless
+ specifically annotated otherwise, and may be used freely by the public.
+ Before using information obtained from this server special attention should
+ be given to the date & time of the data and products being displayed.  This
+ information shall not be modified in content and then presented as official
+ government material.
+
+ The user assumes the entire risk related to its use of this data.  NWS is
+ providing this data "as is," and NWS disclaims any and all warranties,
+ whether express or implied, including (without limitation) any implied
+ warranties of merchantability or fitness for a particular purpose.  In no
+ event will NWS be liable to you or to any third party for any direct,
+ indirect, incidental, consequential, special or exemplary damages or lost
+ profit resulting from any use or misuse of this data.
+
+ As required by 17 U.S.C. 403, third parties producing copyrighted works
+ consisting predominantly of the material appearing in NWS Web pages must
+ provide notice with such work(s) identifying the NWS material incorporated
+ and stating that such material is not subject to copyright protection.
+
+************************************
+This software uses several different libraries, and as such may be subject to
+their licenses...
+************************************
+
+----- Government libraries: (The above probably applies to them)
+
+A) grib2_unpacker:
+To QUOTE: "http://www.nws.noaa.gov/mdl/iwt/grib2/decoder.htm"
+ The latest version of the MDL GRIB2 product decoder can be downloaded and
+ utilized free of charge, subject to the usual NWS disclaimer.
+
+B) emapf-c: See "http://www.arl.noaa.gov/ss/models/cmapf.html"
+
+C) g2clib-1.0.4: See "http://www.nco.ncep.noaa.gov/pmb/codes/GRIB2/"
+
+D) dwmllib: (only needed if you want to output NDFD at a point to DWML
+(a flavor of XML))
+
+----- Non-Government libraries:
+
+E) Zlib: To QUOTE: "http://www.zlib.net/zlib_license.html"
+  version 1.2.3, July 18th, 2005
+  Copyright (C) 1995-2005 Jean-loup Gailly and Mark Adler
+
+  This software is provided 'as-is', without any express or implied
+  warranty.  In no event will the authors be held liable for any damages
+  arising from the use of this software.
+
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would be
+     appreciated but is not required.
+  2. Altered source versions must be plainly marked as such, and must not be
+     misrepresented as being the original software.
+  3. This notice may not be removed or altered from any source distribution.
+
+  Jean-loup Gailly jloup@gzip.org
+  Mark Adler madler@alumni.caltech.edu
+
+F) libpng: See "http://www.libpng.org/pub/png/src/libpng-LICENSE.txt"
+
+G) jpeg2000 (aka JasPer Software):
+See "http://www.ece.uvic.ca/~mdadams/jasper/LICENSE"
+
+----- Libraries that aren't critical to the core "degrib", but are needed for
+some of the output flavors.  Degrib probably could be compiled without them.
+
+H) NetCDF: (added to support -NetCDF output option)
+See "http://www.unidata.ucar.edu/software/netcdf/copyright.html"
+
+I) libxml: (added to support "-P -XML 1" or "-DP -XML 1"
+See ftp://xmlsoft.org/libxml, or /degrib/src/libxml/Copyright
+
+J) Gd: (added to support "-C -Map")
+See "http://www.libgd.org/Main_Page"
+
+----- Libraries that aren't used by degrib, but are used by tcldegrib or
+tkdegrib.
+
+K) Tcl/Tk: (both "tcldegrib" and "tkdegrib" use)
+See "http://www.tcl.tk/software/tcltk/license.html"
+
+L) mkwidgets: "http://mkextensions.sourceforge.net/" (only "tkdegrib" uses).
