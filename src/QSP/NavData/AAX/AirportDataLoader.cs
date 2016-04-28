@@ -18,7 +18,7 @@ namespace QSP.NavData.AAX
         {
             this.filepath = filepath;
         }
-
+        
         /// <exception cref="RwyDataFormatException"></exception>
         /// <exception cref="ReadAirportFileException"></exception>
         public AirportCollection LoadFromFile()

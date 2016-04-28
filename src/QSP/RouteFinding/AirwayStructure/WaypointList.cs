@@ -1,15 +1,9 @@
 using QSP.AviationTools.Coordinates;
 using QSP.LibraryExtension.Graph;
-using QSP.NavData;
-using QSP.NavData.AAX;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.MathTools.Utilities;
-using static QSP.Utilities.ErrorLogger;
 
 namespace QSP.RouteFinding.AirwayStructure
 {
@@ -29,27 +23,7 @@ namespace QSP.RouteFinding.AirwayStructure
             _content = new WaypointContainer();
             _finder = new LatLonSearchUtility<WptSeachWrapper>(1, 5);
         }
-
-        /// <summary>
-        /// Read all waypoints from ats.txt file.
-        /// </summary>
-        /// <param name="filepath">Path of ats.txt</param>
-        /// <exception cref="LoadWaypointFileException"></exception>
-        public void ReadAtsFromFile(string filepath)
-        {
-            new AtsFileLoader(this).ReadFromFile(filepath);
-        }
-
-        /// <summary>
-        /// Loads all waypoints in waypoints.txt.
-        /// </summary>
-        /// <param name="filepath">Location of waypoints.txt</param>
-        /// <exception cref="LoadWaypointFileException"></exception>
-        public void ReadFixesFromFile(string filepath)
-        {
-            new FixesLoader(this).ReadFromFile(filepath);
-        }
-
+        
         public int AddWaypoint(Waypoint item)
         {
             int index = _content.AddWpt(item);

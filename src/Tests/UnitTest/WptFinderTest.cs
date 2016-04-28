@@ -16,7 +16,7 @@ namespace UnitTest
         // [TestMethod()]
         public void WptFinderTest_ResultSameAsSlowMethod()
         {
-            PrepareTest();
+            //PrepareTest();
 
             var v = new LatLon(-80.0, 55.6685);
             double dis = 1000.0;

@@ -13,13 +13,13 @@ namespace QspLite
         [STAThread]
         static void Main()
         {
-            AircraftProfiles.Initialize();
+            DataProvider.Initialize();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             var frm = new QspLiteForm();
-            frm.Initialize(AircraftProfiles.Profiles);
+            frm.Initialize(DataProvider.Profiles);
 
             Application.Run(frm);
         }

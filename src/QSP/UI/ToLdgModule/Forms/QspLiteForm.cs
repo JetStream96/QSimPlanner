@@ -5,10 +5,10 @@ using QSP.UI.ToLdgModule.AirportMap;
 using QSP.UI.ToLdgModule.LandingPerf;
 using QSP.UI.ToLdgModule.TOPerf;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using static QSP.UI.Controllers.ButtonGroup.BtnGroupController;
 using static QSP.UI.Controllers.ButtonGroup.ControlSwitcher;
-using System.Linq;
 
 namespace QSP.UI.ToLdgModule.Forms
 {
@@ -40,7 +40,7 @@ namespace QSP.UI.ToLdgModule.Forms
             enableBtnColorControls();
             enableViewControl();
         }
-        
+
         private void enableViewControl()
         {
             viewControl = new ControlSwitcher(

@@ -363,7 +363,6 @@
     <Compile Include="RouteFinding\Containers\Waypoint.cs" />
     <Compile Include="RouteFinding\Airports\Airport.cs" />
     <Compile Include="RouteFinding\Airports\AirportCollection.cs" />
-    <Compile Include="RouteFinding\Data\NavDataLoader.cs" />
     <Compile Include="RouteFinding\Data\LatLonSearchUtility.cs" />
     <Compile Include="RouteFinding\Airports\RwyData.cs" />
     <Compile Include="RouteFinding\Tracks\Exceptions.cs" />

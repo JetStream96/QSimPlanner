@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.LibraryExtension;
-using static UnitTest.Common.Utilities;
+using System;
+using System.Collections.Generic;
 
 namespace UnitTest.LibraryExtensionTest
 {
@@ -68,8 +67,11 @@ namespace UnitTest.LibraryExtensionTest
         [TestMethod]
         public void LargeListCorrectSizeTest()
         {
-            Assert.IsTrue(IsBetween(createList(150000).Capacity, 150000, 150000 * 2));
-            Assert.IsTrue(IsBetween(createList(31000).Capacity, 31000, 31000 * 2));
+            int capacity = createList(150000).Capacity;
+            Assert.IsTrue(capacity >= 150000 && capacity <= 150000 * 2);
+
+            capacity = createList(31000).Capacity;
+            Assert.IsTrue(capacity >= 31000 && capacity <= 31000 * 2);
         }
 
         [TestMethod]

@@ -2,9 +2,10 @@ using QSP.AircraftProfiles;
 using QSP.Core;
 using QSP.LibraryExtension;
 using QSP.Metar;
+using QSP.NavData.AAX;
 using QSP.RouteFinding;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Containers;
-using QSP.RouteFinding.Data;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Sid;
@@ -99,7 +100,7 @@ namespace QSP
             //toPerfControl.TryLoadState();
 
             landingPerfControl.InitializeAircrafts(
-                profiles.AcConfigs,profiles.LdgTables.ToList());
+                profiles.AcConfigs, profiles.LdgTables.ToList());
             //landingPerfControl.Airports = AirportList;
             //landingPerfControl.TryLoadState();
         }
@@ -359,7 +360,17 @@ namespace QSP
                 //loading the navigation database
                 QspCore.AppSettings = new AppOptions(XDocument.Load(QspCore.QspAppDataDirectory + "\\SavedStates\\options.xml"));
 
-                new NavDataLoader(QspCore.AppSettings.NavDataLocation).LoadAllData();
+                string navDataPath = AppSettings.NavDataLocation;
+
+                WptList =
+                    new WptListLoader(navDataPath)
+                    .LoadFromFile();
+
+                AirportList =
+                    new AirportManager(
+                        new AirportDataLoader(navDataPath + @"\Airports.txt")
+                        .LoadFromFile());
+                
                 //if success, update the status strip
 
                 Tuple<string, string> t = OptionsForm.AiracCyclePeriod(QspCore.AppSettings.NavDataLocation);
