@@ -1,32 +1,47 @@
+using QSP.MathTools;
 using System.Collections.Generic;
-using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding.Airports
 {
-    public static class AlternateFinder
+    public class AlternateFinder
     {
-        public static List<Airport> GetListAltn(string dest, int length)
-        {
-            //length: if the max rwy length is smaller than this number then the result will not be shown to the user
-            //will return all suitable airports within certain distance until more than 10 results are found
+        private AirportManager airportList;
 
-            const int COUNT = 10;
-            const double DIS_INCR = 100;
+        public AlternateFinder(AirportManager airportList)
+        {
+            this.airportList = airportList;
+        }
+
+        // length: if the max rwy length is smaller than this number then 
+        // the result will not be shown to the user
+        //
+        // will return all suitable airports within certain distance until 
+        // more than 10 results are found
+        public List<Airport> GetListAltn(string dest, int length)
+        {
+            const int count = 10;
+            const double disIncrement = 100;
 
             var result = new List<Airport>();
-            var destLatLon = AirportList.AirportLatlon(dest);
+            var destLatLon = airportList.AirportLatlon(dest);
 
             double distance = 100.0;
 
-            while (result.Count < COUNT)
+            while (result.Count < count)
             {
-                result = filterResults(AirportList.Find(destLatLon.Lat, destLatLon.Lon, distance), dest, length);
-                distance += DIS_INCR;
+                result = filterResults(
+                    airportList.Find(
+                        destLatLon.Lat, destLatLon.Lon, distance),
+                    dest,
+                    length);
+
+                distance += disIncrement;
             }
             return result;
         }
 
-        private static List<Airport> filterResults(List<Airport> item, string dest, int length)
+        private List<Airport> filterResults(
+            List<Airport> item, string dest, int length)
         {
             var result = new List<Airport>();
 
@@ -40,19 +55,25 @@ namespace QSP.RouteFinding.Airports
             return result;
         }
 
-        public static List<AlternateInfo> AltnInfo(string dest, int length)
+        // return a list of altn, with:
+        // icao; name; max rwy length; dis from dest
+        public List<AlternateInfo> AltnInfo(string dest, int length)
         {
-            //return a list of altn, with:
-            //icao; name; max rwy length; dis from dest
 
             var altns = GetListAltn(dest, length);
             var result = new List<AlternateInfo>();
 
             foreach (var i in altns)
             {
-                result.Add(new AlternateInfo(i.Icao, i.Name, i.LongestRwyLength,
-                                             (int)AirportList.AirportLatlon(dest).Distance(i.Lat, i.Lon)));
+                var latLon = airportList.AirportLatlon(dest);
+                double distance = latLon.Distance(i.Lat, i.Lon);
+
+                result.Add(
+                    new AlternateInfo(
+                        i.Icao, i.Name, i.LongestRwyLength,
+                        Doubles.RoundToInt(distance)));
             }
+
             result.Sort(AlternateInfo.AltnDisComparer());
             return result;
         }
@@ -66,7 +87,11 @@ namespace QSP.RouteFinding.Airports
             public int LongestRwyLength { get; private set; }
             public int Distance { get; private set; }
 
-            public AlternateInfo(string Icao, string AirportName, int LongestRwyLength, int Distance)
+            public AlternateInfo(
+                string Icao,
+                string AirportName,
+                int LongestRwyLength,
+                int Distance)
             {
                 this.Icao = Icao;
                 this.AirportName = AirportName;

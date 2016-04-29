@@ -20,8 +20,11 @@ namespace QSimPlanner
             Application.SetCompatibleTextRenderingDefault(false);
 
             var mainFrm = new QSP.MainForm();
-            mainFrm.Initialize(Information.Profiles);
-            mainFrm.AppSettings = Information.AppSettings;
+
+            mainFrm.Initialize(
+                Information.Profiles, 
+                Information.AppSettings,
+                Information.AirportList);
 
             Application.Run(mainFrm);
         }
@@ -30,12 +33,12 @@ namespace QSimPlanner
         {
             // Aircraft data
             // This does not throw exception.
-            Information.InitializeProfiles();
+            Information.InitProfiles();
 
             // Load options.
             try
             {
-                Information.InitializeSettings();
+                Information.InitSettings();
             }
             catch (Exception ex)
             {
@@ -47,6 +50,10 @@ namespace QSimPlanner
                     "Cannot load options.", "",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            // Airports and waypoints
+            Information.InitAirportList();
+            //Information.InitializeWptList();
         }
     }
 }

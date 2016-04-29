@@ -3,7 +3,6 @@ using QSP.Core.Options;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
-using QSP.Utilities;
 
 namespace QSimPlanner.GlobalInfo
 {
@@ -11,7 +10,7 @@ namespace QSimPlanner.GlobalInfo
     {
         public static ProfileManager Profiles { get; private set; }
 
-        public static void InitializeProfiles()
+        public static void InitProfiles()
         {
             Profiles = new ProfileManager();
             Profiles.Initialize();
@@ -19,7 +18,7 @@ namespace QSimPlanner.GlobalInfo
 
         public static WaypointList WptList { get; private set; }
 
-        public static void InitializeWptList()
+        public static void InitWptList()
         {
             string navDataPath = AppSettings.NavDataLocation;
 
@@ -30,7 +29,7 @@ namespace QSimPlanner.GlobalInfo
 
         public static AirportManager AirportList { get; private set; }
 
-        public static void InitializeAirportList()
+        public static void InitAirportList()
         {
             string navDataPath = AppSettings.NavDataLocation;
 
@@ -42,7 +41,7 @@ namespace QSimPlanner.GlobalInfo
         
         public static AppOptions AppSettings { get; set; }
 
-        public static void InitializeSettings()
+        public static void InitSettings()
         {
             AppSettings = OptionManager.ReadFromFile();
         }        

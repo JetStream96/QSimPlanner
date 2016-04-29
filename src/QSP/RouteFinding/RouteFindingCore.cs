@@ -16,7 +16,7 @@ namespace QSP.RouteFinding
         // Data used is Navigraph - Aerosoft Airbus X v1.22 or later
 
         public static WaypointList WptList;
-        public static AirportManager AirportList;
+        //public static AirportManager AirportList;
 
         public static ManagedRoute RouteToDest;
         public static ManagedRoute RouteToAltn;

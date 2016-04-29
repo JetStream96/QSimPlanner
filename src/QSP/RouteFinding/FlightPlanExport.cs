@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding
 {
@@ -39,7 +40,8 @@ namespace QSP.RouteFinding
         /// Returns a string represents the PMDG .rte file. SIDs, STARs are not included.
         /// </summary>
         /// <param name="rte"></param>
-        public static string GeneratePmdgRteFile(ManagedRoute rte)
+        public static string GeneratePmdgRteFile(
+            ManagedRoute rte, AirportManager airportList)
         {
             rte.Expand();
 
@@ -49,7 +51,7 @@ namespace QSP.RouteFinding
             string icaoDest = rte.Last.Waypoint.ID.Substring(0, 4);
 
             var result = new StringBuilder();
-            appendOrigAirportPart(numWpts, icaoOrig, result);
+            appendOrigAirportPart(numWpts, icaoOrig, airportList, result);
 
             var node = rte.FirstNode.Next;
 
@@ -63,13 +65,14 @@ namespace QSP.RouteFinding
                     airway = "DIRECT";
                 }
 
-                result.Append(wpt.ID + Environment.NewLine + "5" + Environment.NewLine + airway + Environment.NewLine + "1 ");
-                result.AppendLine(latLonToPMDGRteFormat(wpt.Lat, wpt.Lon) + " 0" + Environment.NewLine + "0" + Environment.NewLine + "0" + Environment.NewLine + "0");
+                result.Append(wpt.ID + "\n" + "5" + "\n" + airway + "\n" + "1 ");
+                result.AppendLine(latLonToPMDGRteFormat(wpt.Lat, wpt.Lon) +
+                    " 0\n0\n0\n0");
                 result.AppendLine();
                 node = node.Next;
             }
 
-            appendDestAirportPart(icaoDest, result);
+            appendDestAirportPart(icaoDest, airportList, result);
 
             return result.ToString();
         }
@@ -77,32 +80,39 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Appends the ORIG airport part onto the StringBuilder.
         /// </summary>
-        private static void appendOrigAirportPart(int numWpts, string icao, StringBuilder result)
+        private static void appendOrigAirportPart(
+            int numWpts,
+            string icao,
+            AirportManager airportList,
+            StringBuilder result)
         {
-            var ad = RouteFindingCore.AirportList.Find(icao);
+            var ad = airportList.Find(icao);
 
             result.AppendLine("Flight plan is built by QSimPlanner.");
             result.AppendLine();
 
-            result.Append(numWpts + Environment.NewLine + Environment.NewLine);
-            result.Append(icao + Environment.NewLine + "1" + Environment.NewLine + "DIRECT" + Environment.NewLine + "1 ");
+            result.Append(numWpts + "\n\n");
+            result.Append(icao + "\n1\nDIRECT\n1 ");
             result.Append(latLonToPMDGRteFormat(ad.Lat, ad.Lon) + " " + ad.Elevation);
-            result.AppendLine(Environment.NewLine + "-----" + Environment.NewLine + "1" + Environment.NewLine + "0" + Environment.NewLine + Environment.NewLine + "1" + Environment.NewLine + ad.Elevation);
-            result.Append("-" + Environment.NewLine + "-1000000" + Environment.NewLine + "-1000000" + Environment.NewLine + Environment.NewLine);
+            result.AppendLine("\n" + "-----" + "\n1\n0\n\n1\n" + ad.Elevation);
+            result.Append("-" + "\n" + "-1000000" + "\n" + "-1000000" + "\n\n");
 
         }
 
         /// <summary>
         /// Appends the DEST airport part onto the StringBuilder.
         /// </summary>
-        private static void appendDestAirportPart(string icao, StringBuilder result)
+        private static void appendDestAirportPart(
+            string icao,
+            AirportManager airportList,
+            StringBuilder result)
         {
-            var ad = RouteFindingCore.AirportList.Find(icao);
+            var ad = airportList.Find(icao);
 
-            result.Append(icao + Environment.NewLine + "1" + Environment.NewLine + "-" + Environment.NewLine + "1 ");
+            result.Append(icao + "\n1\n-\n1 ");
             result.Append(latLonToPMDGRteFormat(ad.Lat, ad.Lon) + " " + ad.Elevation);
-            result.AppendLine(Environment.NewLine + "-----" + Environment.NewLine + "0" + Environment.NewLine + "0" + Environment.NewLine + Environment.NewLine + "1" + Environment.NewLine + ad.Elevation);
-            result.Append("-" + Environment.NewLine + "-1000000" + Environment.NewLine + "-1000000" + Environment.NewLine + Environment.NewLine);
+            result.AppendLine("\n-----\n0\n0\n\n1\n" + ad.Elevation);
+            result.Append("-\n" + "-1000000" + "\n" + "-1000000" + "\n" + "\n");
 
         }
     }

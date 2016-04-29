@@ -8,6 +8,8 @@ namespace QSP
 {
     public partial class FindAltnForm
     {
+        private AirportManager airportList;
+
         private void OkBtn_Click(object sender, EventArgs e)
         {
             MainFormInstance().AltnTxtBox.Text =
@@ -47,7 +49,9 @@ namespace QSP
                 return;
             }
 
-            var altn = AlternateFinder.AltnInfo(DestTxtbox.Text, (int)lengthFt);
+            var altn =
+                new AlternateFinder(airportList)
+                .AltnInfo(DestTxtbox.Text, (int)lengthFt);
 
             DataGrid.Columns.Clear();
             DataGrid.Rows.Clear();
@@ -86,9 +90,14 @@ namespace QSP
             DataGrid.Columns[2].Width = 100;
             DataGrid.Columns[3].Width = 100;
 
-            DataGrid.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DataGrid.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            DataGrid.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGrid.Columns[0].DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            DataGrid.Columns[2].DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleRight;
+
+            DataGrid.Columns[3].DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleRight;
 
         }
 
@@ -101,6 +110,11 @@ namespace QSP
         {
             Load += AltnFinder_Load;
             InitializeComponent();
+        }
+
+        public void Initialize(AirportManager airportList)
+        {
+            this.airportList = airportList;
             initControls();
         }
 
