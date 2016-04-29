@@ -7,7 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static QSP.UI.FormInstanceGetter;
-using static QSP.Utilities.ErrorLogger;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP
 {

@@ -3,7 +3,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using System.Collections.Generic;
 using static QSP.RouteFinding.WaypointAirwayConnector;
-using static QSP.Utilities.ErrorLogger;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.RouteFinding.TerminalProcedures.Star
 {

@@ -3,7 +3,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using System.Collections.Generic;
 using static QSP.RouteFinding.WaypointAirwayConnector;
-using static QSP.Utilities.ErrorLogger;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
@@ -26,17 +26,17 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         private AirportManager airportList;
         private SidCollection sids;
 
-        private double SEARCH_RANGE_INCR;
-        private double MAX_SEARCH_RANGE;
-        private int TARGET_NUM;
-        
-        public SidAdder(string icao, SidCollection sids, WaypointList wptList,WaypointListEditor editor, AirportManager airportList)
-            : this(icao, sids, wptList,editor, airportList, WaypointAirwayConnector.MAX_SEARCH_RANGE, WaypointAirwayConnector.TARGET_NUM)
+        private double searchRangeIncrement;
+        private double maxSearchRange;
+        private int targetNumber;
+
+        public SidAdder(string icao, SidCollection sids, WaypointList wptList, WaypointListEditor editor, AirportManager airportList)
+            : this(icao, sids, wptList, editor, airportList, MAX_SEARCH_RANGE, TARGET_NUM)
         {
         }
 
         public SidAdder(string icao, SidCollection sids, WaypointList wptList, WaypointListEditor editor, AirportManager airportList, double maxSearchRange, int targetNumber)
-            : this(icao, sids, wptList,editor, airportList, maxSearchRange, targetNumber, WaypointAirwayConnector.SEARCH_RANGE_INCR)
+            : this(icao, sids, wptList, editor, airportList, maxSearchRange, targetNumber, SEARCH_RANGE_INCR)
         {
         }
 
@@ -48,9 +48,9 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             this.wptList = wptList;
             this.editor = editor;
             this.airportList = airportList;
-            this.MAX_SEARCH_RANGE = maxSearchRange;
-            this.TARGET_NUM = targetNumber;
-            this.SEARCH_RANGE_INCR = searchRangeIncrement;
+            this.maxSearchRange = maxSearchRange;
+            this.targetNumber = targetNumber;
+            this.searchRangeIncrement = searchRangeIncrement;
         }
 
         // The 5 different cases are treated seperately.
@@ -59,25 +59,31 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         // (In all cases, origin runway is added to wptList.)
         //
         // Case 1. Adds neighbors* (use DCT as airway) to the origin runway.      
-        // Case 2. Finds neighbors of the last waypoint in SID and add them as neighbors of the origin runway (use SID name as airway).
-        // Case 3. Same as case 4. But also finds neighbors of the last waypoint, and add them as neighbors (use DCT as airway).
-        // Case 4. Adds the last waypoint as a neighbor of the origin runway (use SID name as airway).
+        // Case 2. Finds neighbors of the last waypoint in SID and add them 
+        //         as neighbors of the origin runway (use SID name as airway).
+        // Case 3. Same as case 4. But also finds neighbors of the last 
+        //         waypoint, and add them as neighbors (use DCT as airway).
+        // Case 4. Adds the last waypoint as a neighbor of the origin runway
+        //         (use SID name as airway).
         // Case 5. Same as case 3. But also adds the last waypoint to wptList.
         //
-        // * Adds at least TARGET_NUM neighbors which are connected to airway(s), unless there isn't enough ones within MAX_SEARCH_RANGE.
+        // * Adds at least TARGET_NUM neighbors which are connected to 
+        //   airway(s), unless there isn't enough ones within MAX_SEARCH_RANGE.
         //
+
         /// <summary>
-        /// Add necessary waypoints and neighbors for SID computation to WptList, and returns the index of Orig. rwy in WptList.
+        /// Add necessary waypoints and neighbors for SID computation to 
+        /// WptList, and returns the index of Orig. rwy in WptList.
         /// </summary>
-        public int AddSidsToWptList(string rwy, List<string> sidsToAdd) 
+        public int AddSidsToWptList(string rwy, List<string> sidsToAdd)
         {
-            if (sidsToAdd.Count == 0)  
+            if (sidsToAdd.Count == 0)
             {
                 // Case 1
                 return processCase1(rwy);
             }
-            else    
-            {        
+            else
+            {
                 // Case 2, 3, 4, 5
                 int index = editor.AddWaypoint(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
 
@@ -117,20 +123,20 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             var sidInfo = sids.GetSidInfo(sid, rwy, wptList[rwyIndex]);
             var lastWpt = sidInfo.LastWaypoint;
 
-            if (sidInfo.EndsWithVector)    
-            {        
+            if (sidInfo.EndsWithVector)
+            {
                 // Case 2 
                 processCase2(rwyIndex, sid, lastWpt, sidInfo.TotalDistance);
             }
-            else       
+            else
             {
                 // Case 3, 4, 5
                 int lastWptIndex = wptList.FindByWaypoint(lastWpt);
 
-                if (lastWptIndex < 0)    
-                {                 
+                if (lastWptIndex < 0)
+                {
                     // Case 5
-                    lastWptIndex= editor.AddWaypoint(lastWpt);
+                    lastWptIndex = editor.AddWaypoint(lastWpt);
                 }
 
                 if (wptList.EdgesFromCount(lastWptIndex) == 0)
@@ -158,7 +164,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
         private List<IndexDistancePair> findAirwayConnectionHelper(double lat, double lon)
         {
-            return FindAirwayConnection(lat, lon, wptList, MAX_SEARCH_RANGE, TARGET_NUM, SEARCH_RANGE_INCR);
+            return FindAirwayConnection(lat, lon, wptList, maxSearchRange, targetNumber, searchRangeIncrement);
         }
 
     }

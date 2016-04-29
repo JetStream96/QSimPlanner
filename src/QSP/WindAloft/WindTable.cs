@@ -103,7 +103,7 @@ namespace QSP
             }
             catch (Exception ex)
             {
-                Utilities.ErrorLogger.WriteToLog(ex);
+                Utilities.LoggerInstance.WriteToLog(ex);
                 throw new Exception("Unable to retreive wind data from " + filename);
             }
         }

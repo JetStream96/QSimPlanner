@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.AviationTools.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
-using static QSP.Utilities.ErrorLogger;
+using static QSP.Utilities.LoggerInstance;
 using System.ComponentModel;
 
 namespace QSP
@@ -74,7 +74,6 @@ namespace QSP
                 Debug.WriteLine("TO ALTN, CRZ ALT {0} FT, TAS {1} KTS, TAILWIND {2} KTS", crzAltFt, tas, tailwind);
             }
 
-
             for (uint i = 0; i <= precisionLevel; i++)
             {
                 fuelTon = FuelCalc.GetDestFuelTon();
@@ -90,7 +89,13 @@ namespace QSP
             return FuelCalc;
         }
 
-        public void InitializeAircraftData(ProfileManager profiles)
+        public void Initialize(ProfileManager profiles)
+        {
+            initAircraftData(profiles);
+
+        }
+
+        private void initAircraftData(ProfileManager profiles)
         {
             toPerfControl.InitializeAircrafts(
                 profiles.AcConfigs, profiles.TOTables.ToList());
@@ -1020,7 +1025,7 @@ namespace QSP
                 }
                 catch (Exception ex)
                 {
-                    ErrorLogger.WriteToLog(ex.ToString());
+                    LoggerInstance.WriteToLog(ex.ToString());
                 }
             }
 

@@ -32,7 +32,7 @@ namespace QSP
                 }
                 catch (Exception ex)
                 {
-                    ErrorLogger.WriteToLog(ex);
+                    LoggerInstance.WriteToLog(ex);
                 }
             }
 
@@ -42,7 +42,7 @@ namespace QSP
             }
             catch (Exception ex)
             {
-                ErrorLogger.WriteToLog(ex);
+                LoggerInstance.WriteToLog(ex);
             }
 
             resultRichTxtBox.Text =

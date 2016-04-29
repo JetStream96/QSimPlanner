@@ -3,7 +3,7 @@ using QSP.RouteFinding.Containers;
 using System;
 using System.IO;
 using static QSP.LibraryExtension.StringParser.Utilities;
-using static QSP.Utilities.ErrorLogger;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.NavData.AAX
 {

@@ -32,7 +32,7 @@ namespace QSP.LandingPerfCalculation
                 }
                 catch (Exception ex)
                 {
-                    ErrorLogger.WriteToLog(ex);
+                    LoggerInstance.WriteToLog(ex);
                 }
             }
 

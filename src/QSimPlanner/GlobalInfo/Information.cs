@@ -3,10 +3,11 @@ using QSP.Core.Options;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.Utilities;
 
-namespace QSimPlanner.Data
+namespace QSimPlanner.GlobalInfo
 {
-    public static class DataProvider
+    public static class Information
     {
         public static ProfileManager Profiles { get; private set; }
 
@@ -44,6 +45,6 @@ namespace QSimPlanner.Data
         public static void InitializeSettings()
         {
             AppSettings = OptionManager.ReadFromFile();
-        }
+        }        
     }
 }

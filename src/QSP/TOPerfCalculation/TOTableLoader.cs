@@ -32,7 +32,7 @@ namespace QSP.TOPerfCalculation
                 }
                 catch (Exception ex)
                 {
-                    ErrorLogger.WriteToLog(ex);
+                    LoggerInstance.WriteToLog(ex);
                 }
             }
 

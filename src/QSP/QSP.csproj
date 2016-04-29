@@ -115,6 +115,7 @@
     <Compile Include="LibraryExtension\DoubleArrayCompare.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\JaggedArray.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\LengthChecker.cs" />
+    <Compile Include="LibraryExtension\SequentialTaskRunner.cs" />
     <Compile Include="LibraryExtension\StringArrays.cs" />
     <Compile Include="LibraryExtension\StringParser\StringParser.cs" />
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
@@ -316,7 +317,7 @@
       <DependentUpon>TOPerfControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\ConditionChecker.cs" />
-    <Compile Include="Utilities\ErrorLogger.cs" />
+    <Compile Include="Utilities\LoggerInstance.cs" />
     <Compile Include="Core\Exceptions.cs" />
     <Compile Include="UI\FormStateSaver.cs" />
     <Compile Include="Utilities\IeEmulationChecker.cs" />
@@ -433,6 +434,7 @@
     <Compile Include="UI\Forms\WeightManagement.Designer.cs">
       <DependentUpon>WeightManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Logger.cs" />
     <Compile Include="WindAloft\AvgWindCalculator.cs" />
     <Compile Include="WindAloft\DescendForcastGenerator.cs" />
     <Compile Include="WindAloft\Exceptions.cs" />

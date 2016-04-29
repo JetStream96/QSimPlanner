@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 using static QSP.UI.FormInstanceGetter;
-using static QSP.Utilities.ErrorLogger;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP
 {
