@@ -115,8 +115,6 @@
     <Compile Include="LibraryExtension\DoubleArrayCompare.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\JaggedArray.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\LengthChecker.cs" />
-    <Compile Include="LibraryExtension\ReadOnlyStack.cs" />
-    <Compile Include="LibraryExtension\Stacks.cs" />
     <Compile Include="LibraryExtension\StringArrays.cs" />
     <Compile Include="LibraryExtension\StringParser\StringParser.cs" />
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
@@ -324,7 +322,6 @@
     <Compile Include="Utilities\IeEmulationChecker.cs" />
     <Compile Include="Core\PerformanceDatabase.cs" />
     <Compile Include="Core\Core.cs" />
-    <Compile Include="LibraryExtension\SequentialAsyncTaskHandler.cs" />
     <Compile Include="UI\FormInstanceGetter.cs" />
     <Compile Include="UI\ViewManager.cs" />
     <Compile Include="Utilities\AiracTools.cs" />
@@ -336,7 +333,6 @@
     <Compile Include="LibraryExtension\Arrays.cs" />
     <Compile Include="LandingPerfCalculation\LandingReport.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingParameters.cs" />
-    <Compile Include="LibraryExtension\BinarySearchForAll.cs" />
     <Compile Include="LibraryExtension\MultiMap.cs" />
     <Compile Include="LibraryExtension\Utilities.cs" />
     <Compile Include="LibraryExtension\Lists.cs" />

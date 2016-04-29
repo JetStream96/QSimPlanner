@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using static QSP.AviationTools.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
+using System.ComponentModel;
 
 namespace QSP
 {
@@ -34,10 +35,8 @@ namespace QSP
         public int OperatingEmptyWtKg;
         //OperatingEmptyWt = Basic Operating Wt
         public int MissedAppFuelKG;
-
         public int MaxZfwKg;
-
-        public bool AppExitOverride = false;
+        
         private FormStateSaver formStateManagerFuel;
         private FormStateSaver formStateManagerTO;
 
@@ -670,40 +669,27 @@ namespace QSP
         }
 
 
-        private void CloseMain(object sender, System.ComponentModel.CancelEventArgs e)
+        private void CloseMain(object sender, CancelEventArgs e)
         {
-            if (AppExitOverride)
-            {
-                return;
-            }
-
             if (AppSettings.PromptBeforeExit)
             {
                 // Initializes variables to pass to the MessageBox.Show method. 
 
                 string Message = "Exit the application?";
                 string Caption = "";
-                MessageBoxButtons Buttons = MessageBoxButtons.YesNo;
-                MessageBoxIcon Icon = MessageBoxIcon.Question;
-
-                DialogResult Result = default(DialogResult);
+                var Buttons = MessageBoxButtons.YesNo;
+                var Icon = MessageBoxIcon.Question;
 
                 //Displays the MessageBox
-                Result = MessageBox.Show(Message, Caption, Buttons, Icon);
+                var Result = MessageBox.Show(Message, Caption, Buttons, Icon);
 
                 // Gets the result of the MessageBox display. 
-                if (Result == DialogResult.Yes)
+                if (Result == DialogResult.No)
                 {
-                    // Exit the app 
-                    return;
+                    // Do not exit the app.
+                    e.Cancel = true;
                 }
             }
-            else
-            {
-                return;
-            }
-
-            e.Cancel = true;
         }
 
         #region "RouteGen"

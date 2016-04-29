@@ -14,8 +14,7 @@ namespace QSimPlanner
         static void Main()
         {
             importData();
-
-
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
