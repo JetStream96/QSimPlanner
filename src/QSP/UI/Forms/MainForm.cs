@@ -27,6 +27,7 @@ using static QSP.AviationTools.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.LoggerInstance;
 using System.ComponentModel;
+using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP
 {
@@ -44,6 +45,7 @@ namespace QSP
 
         private AppOptions appSettings;
         private AirportManager airportList;
+        private WaypointList wptList;
 
         #region "FuelCalculation"
 
@@ -93,12 +95,14 @@ namespace QSP
         public void Initialize(
             ProfileManager profiles,
             AppOptions appSettings,
-            AirportManager airportList)
+            AirportManager airportList,
+            WaypointList wptList)
         {
             initAircraftData(profiles);
 
             this.appSettings = appSettings;
             this.airportList = airportList;
+            this.wptList = wptList;
         }
 
         private void initAircraftData(ProfileManager profiles)
@@ -240,7 +244,7 @@ namespace QSP
             }
 
             LoadNavDBUpdateStatusStrip(true);
-            ServiceInitializer.Initailize(airportList);
+            ServiceInitializer.Initailize(airportList, wptList);
             //TakeOffPerfCalculation.LoadedData.Load();
             //TODO: LandingPerfCalculation.LoadedData.Load();
 
@@ -367,16 +371,9 @@ namespace QSP
         {
             try
             {
-                //loading the navigation database
-                string navDataPath = appSettings.NavDataLocation;
-
-                WptList =
-                    new WptListLoader(navDataPath)
-                    .LoadFromFile();
-
                 //if success, update the status strip
 
-                Tuple<string, string> t = OptionsForm.AiracCyclePeriod(appSettings.NavDataLocation);
+                var t = OptionsForm.AiracCyclePeriod(appSettings.NavDataLocation);
                 //this returns, for example, (1407,26JUN23JUL/14)
 
                 bool expired = !AiracTools.AiracValid(t.Item2);
@@ -717,12 +714,12 @@ namespace QSP
                 switch (para)
                 {
                     case SidStarSelection.Sid:
-                        proc = SidHandlerFactory.GetHandler(icao, appSettings.NavDataLocation, WptList, WptList.GetEditor(), airportList)
+                        proc = SidHandlerFactory.GetHandler(icao, appSettings.NavDataLocation, wptList, wptList.GetEditor(), airportList)
                                                 .GetSidList(rwy);
 
                         break;
                     case SidStarSelection.Star:
-                        proc = StarHandlerFactory.GetHandler(icao, appSettings.NavDataLocation, WptList, WptList.GetEditor(), airportList)
+                        proc = StarHandlerFactory.GetHandler(icao, appSettings.NavDataLocation, wptList, wptList.GetEditor(), airportList)
                                                  .GetStarList(rwy);
 
                         break;
@@ -794,7 +791,7 @@ namespace QSP
             List<string> sid = getSidStarList(OrigSidComboBox);
             List<string> star = getSidStarList(DestStarComboBox);
 
-            RouteToDest = new ManagedRoute(new RouteFinderFacade(WptList, airportList, appSettings.NavDataLocation)
+            RouteToDest = new ManagedRoute(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                            .FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid,
                                                       DestTxtBox.Text, DestRwyComboBox.Text, star),
                                            TracksInUse);
@@ -823,11 +820,11 @@ namespace QSP
         private void GenRteAltnBtnClick(object sender, EventArgs e)
         {
             // Get a list of sids
-            var sids = SidHandlerFactory.GetHandler(DestTxtBox.Text, appSettings.NavDataLocation, WptList, WptList.GetEditor(), airportList)
+            var sids = SidHandlerFactory.GetHandler(DestTxtBox.Text, appSettings.NavDataLocation, wptList, wptList.GetEditor(), airportList)
                                         .GetSidList(DestRwyComboBox.Text);
             var starAltn = getSidStarList(AltnStarComboBox);
 
-            RouteToAltn = new ManagedRoute(new RouteFinderFacade(WptList, airportList, appSettings.NavDataLocation)
+            RouteToAltn = new ManagedRoute(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                            .FindRoute(DestTxtBox.Text, DestRwyComboBox.Text, sids,
                                                       AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn),
                                            TracksInUse);
@@ -963,7 +960,7 @@ namespace QSP
             {
                 WptCBox.Items.Clear();
 
-                List<int> indices = WptList.FindAllByID(txtBox.Text);
+                List<int> indices = wptList.FindAllByID(txtBox.Text);
 
                 if (indices == null || indices.Count == 0)
                 {
@@ -974,7 +971,7 @@ namespace QSP
 
                 for (int i = 0; i < indices.Count; i++)
                 {
-                    var wpt = WptList[indices[i]];
+                    var wpt = wptList[indices[i]];
                     display[i] = "LAT/" + wpt.Lat + "  LON/" + wpt.Lon;
                 }
 
@@ -1022,7 +1019,7 @@ namespace QSP
             {
                 try
                 {
-                    SidHandler sidFinder = SidHandlerFactory.GetHandler(FromTxtbox.Text, appSettings.NavDataLocation, WptList, WptList.GetEditor(), airportList);
+                    SidHandler sidFinder = SidHandlerFactory.GetHandler(FromTxtbox.Text, appSettings.NavDataLocation, wptList, wptList.GetEditor(), airportList);
                     setSidStarList(FromSidCBox, sidFinder.GetSidList(FromRwyCBox.Text));
                 }
                 catch (Exception ex)
@@ -1039,7 +1036,7 @@ namespace QSP
             {
                 try
                 {
-                    var starManager = StarHandlerFactory.GetHandler(ToTxtbox.Text, appSettings.NavDataLocation, WptList, WptList.GetEditor(), airportList);
+                    var starManager = StarHandlerFactory.GetHandler(ToTxtbox.Text, appSettings.NavDataLocation, wptList, wptList.GetEditor(), airportList);
                     setSidStarList(ToStarCBox, starManager.GetStarList(ToRwyCBox.Text));
                 }
                 catch (Exception ex)
@@ -1088,7 +1085,7 @@ namespace QSP
 
                 try
                 {
-                    ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(WptList, airportList, appSettings.NavDataLocation)
+                    ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                                             .FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid,
                                                                        ToTxtbox.Text, ToRwyCBox.Text, star),
                                                             TracksInUse);
@@ -1130,9 +1127,9 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(WptList, airportList, appSettings.NavDataLocation)
+                    ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                                             .FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid,
-                                                                       WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
+                                                                       wptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
                                                             TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(false, true);
@@ -1171,8 +1168,8 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelFromCBox.Text);
 
-                    ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(WptList, airportList, appSettings.NavDataLocation)
-                                                            .FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y),
+                    ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
+                                                            .FindRoute(wptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y),
                                                                        ToTxtbox.Text, ToRwyCBox.Text, star),
                                                             TracksInUse);
 
@@ -1196,9 +1193,9 @@ namespace QSP
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
                     ManagedRoute myRoute = new ManagedRoute(
-                        new RouteFinder(WptList, airportList)
-                        .FindRoute(WptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y),
-                                   WptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
+                        new RouteFinder(wptList, airportList)
+                        .FindRoute(wptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y),
+                                   wptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
                         TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, true);
@@ -1244,7 +1241,7 @@ namespace QSP
                                                                             DestRwyComboBox.Text,
                                                                             appSettings.NavDataLocation,
                                                                             airportList,
-                                                                            WptList),
+                                                                            wptList),
                                     TracksInUse);
 
                 PMDGrteFile = FlightPlanExport.GeneratePmdgRteFile(

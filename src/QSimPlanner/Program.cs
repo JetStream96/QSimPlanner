@@ -24,7 +24,8 @@ namespace QSimPlanner
             mainFrm.Initialize(
                 Information.Profiles, 
                 Information.AppSettings,
-                Information.AirportList);
+                Information.AirportList,
+                Information.WptList);
 
             Application.Run(mainFrm);
         }
@@ -52,8 +53,9 @@ namespace QSimPlanner
             }
 
             // Airports and waypoints
+            // TODO: exceptions?
             Information.InitAirportList();
-            //Information.InitializeWptList();
+            Information.InitWptList();
         }
     }
 }
