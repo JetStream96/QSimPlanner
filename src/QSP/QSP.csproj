@@ -93,9 +93,10 @@
     <Compile Include="AviationTools\Coordinates\Format7Letter.cs" />
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="AviationTools\Coordinates\Utilities.cs" />
-    <Compile Include="Core\AppOptions.cs" />
+    <Compile Include="Core\Options\AppOptions.cs" />
     <Compile Include="Core\EnumConversionTools.cs" />
     <Compile Include="Core\Enums.cs" />
+    <Compile Include="Core\Options\OptionManager.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingCalculator.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingReportGenerator.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\PerfDataLoader.cs" />

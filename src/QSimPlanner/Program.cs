@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using QSimPlanner.Data;
+using QSP.Core.Options;
 
 namespace QSimPlanner
 {
@@ -12,15 +13,39 @@ namespace QSimPlanner
         [STAThread]
         static void Main()
         {
-            AircraftProfiles.Initialize();
+            importData();
+
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             var mainFrm = new QSP.MainForm();
-            mainFrm.InitializeAircraftData(AircraftProfiles.Profiles);
+            mainFrm.InitializeAircraftData(DataProvider.Profiles);
+            mainFrm.AppSettings = DataProvider.AppSettings;
 
             Application.Run(mainFrm);
+        }
+
+        private static void importData()
+        {
+            // Aircraft data
+            // This does not throw exception.
+            DataProvider.InitializeProfiles();
+
+            // Load options.
+            try
+            {
+                DataProvider.InitializeSettings();
+            }
+            catch (Exception ex)
+            {
+                // TODO: log
+                DataProvider.AppSettings = new AppOptions();
+
+                MessageBox.Show(
+                    "Cannot load options.", "",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

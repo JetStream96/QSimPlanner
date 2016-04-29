@@ -13,7 +13,7 @@ namespace QspLite
         [STAThread]
         static void Main()
         {
-            DataProvider.Initialize();
+            DataProvider.InitializeProfiles();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -22,6 +22,6 @@ namespace QspLite
             frm.Initialize(DataProvider.Profiles);
 
             Application.Run(frm);
-        }
+        }        
     }
 }

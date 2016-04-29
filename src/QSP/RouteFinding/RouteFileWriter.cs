@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using QSP.Core;
 using QSP.RouteFinding.Routes;
+using QSP.Core.Options;
 
 namespace QSP.RouteFinding
 {
@@ -14,9 +15,7 @@ namespace QSP.RouteFinding
         private string origDest;
         private List<RouteExportCommand> commands;
         private List<string> FilesToWrite;
-
-        public RouteFileWriter(string txtToWrite) : this(RouteFindingCore.RouteToDest, QspCore.AppSettings.ExportCommands, txtToWrite) { }
-
+        
         public RouteFileWriter(ManagedRoute route, List<RouteExportCommand> commands, string txtToWrite)
         {
             this.commands = commands;

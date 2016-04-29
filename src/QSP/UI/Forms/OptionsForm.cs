@@ -1,4 +1,5 @@
 using QSP.Core;
+using QSP.Core.Options;
 using QSP.Utilities;
 using System;
 using System.Drawing;
@@ -12,6 +13,7 @@ namespace QSP
 {
     public partial class OptionsForm
     {
+        public AppOptions AppSettings { get; set; }
 
         private void DBPath_TxtBox_TextChanged(object sender, EventArgs e)
         {
@@ -95,8 +97,7 @@ namespace QSP
             return new Tuple<string, string>(s[0], s[1]);
 
         }
-
-
+        
         private void browseFolderBtn_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog MyFolderBrowser = new FolderBrowserDialog();
@@ -108,18 +109,18 @@ namespace QSP
             }
 
         }
-
-
-        private void ok_button_Click(object sender, EventArgs e)
+        
+        private void okBtnClick(object sender, EventArgs e)
         {
             //if the database path is changed, then load the database. Otherwise do not reload the same database.
 
-            if (SaveOptions())
+            if (OptionManager.TrySaveFile(AppSettings))
             {
-                QspCore.AppSettings.NavDataLocation = DBPath_TxtBox.Text;
+                AppSettings.NavDataLocation = DBPath_TxtBox.Text;
                 MainFormInstance().LoadNavDBUpdateStatusStrip(false);
             }
-            this.Close();
+
+            Close();
         }
 
         /// <summary>
@@ -128,48 +129,29 @@ namespace QSP
         public bool SetAppOptions()
         {
 
-            QspCore.AppSettings.ExportCommands.Clear();
+            AppSettings.ExportCommands.Clear();
 
-            QspCore.AppSettings.ExportCommands.Add(new RouteExportCommand("PmdgCommon", TextBox1.Text, CheckBox1.Checked));
-            QspCore.AppSettings.ExportCommands.Add(new RouteExportCommand("PmdgNGX", TextBox2.Text, CheckBox2.Checked));
-            QspCore.AppSettings.ExportCommands.Add(new RouteExportCommand("Pmdg777", TextBox3.Text, CheckBox3.Checked));
+            AppSettings.ExportCommands.Add(new RouteExportCommand("PmdgCommon", TextBox1.Text, CheckBox1.Checked));
+            AppSettings.ExportCommands.Add(new RouteExportCommand("PmdgNGX", TextBox2.Text, CheckBox2.Checked));
+            AppSettings.ExportCommands.Add(new RouteExportCommand("Pmdg777", TextBox3.Text, CheckBox3.Checked));
 
-            QspCore.AppSettings.PromptBeforeExit = DoubleCheckWhenExit_CheckBox.Checked;
-            QspCore.AppSettings.AutoDLTracks = AutoDLNats_CheckBox.Checked;
-            QspCore.AppSettings.AutoDLWind = AutoDLWind_CheckBox.Checked;
+            AppSettings.PromptBeforeExit = DoubleCheckWhenExit_CheckBox.Checked;
+            AppSettings.AutoDLTracks = AutoDLNats_CheckBox.Checked;
+            AppSettings.AutoDLWind = AutoDLWind_CheckBox.Checked;
 
-            if (QspCore.AppSettings.NavDataLocation == DBPath_TxtBox.Text)
+            if (AppSettings.NavDataLocation == DBPath_TxtBox.Text)
             {
                 return false;
             }
             else
             {
-                QspCore.AppSettings.NavDataLocation = DBPath_TxtBox.Text;
+                AppSettings.NavDataLocation = DBPath_TxtBox.Text;
                 return true;
             }
 
         }
-
-        /// <summary>
-        /// Returns a boolean indicates whether the nav database location was modified.
-        /// </summary>
-        public bool SaveOptions()
-        {
-            var returnVal = SetAppOptions();
-
-            //database path
-            Directory.CreateDirectory(QspCore.QspAppDataDirectory + "\\SavedStates");
-
-            using (var writer =
-                new StreamWriter(QspCore.QspAppDataDirectory + "\\SavedStates\\options.xml"))
-            {
-                writer.Write(QspCore.AppSettings.ToXml());
-            }
-
-            return returnVal;
-        }
-
-        private void cancel_button_Click(object sender, EventArgs e)
+        
+        private void cancelBtnClick(object sender, EventArgs e)
         {
             Close();
         }
@@ -183,7 +165,7 @@ namespace QSP
             TextBox1.Enabled = false;
             TextBox2.Enabled = false;
             TextBox3.Enabled = false;
-            QspCore.AppSettings.PromptBeforeExit = true;
+            AppSettings.PromptBeforeExit = true;
 
             DBFound_Lbl.Text = "";
             Airac_Lbl.Text = "";
@@ -193,51 +175,38 @@ namespace QSP
             AutoDLNats_CheckBox.Checked = true;
             AutoDLWind_CheckBox.Checked = true;
 
-            LoadOptions();
+            SetControlsAsInOptions();
         }
 
-        private void options_2_Load(object sender, EventArgs e)
+        private void optionsLoad(object sender, EventArgs e)
         {
             InitializeForm();
         }
 
         public void SetControlsAsInOptions()
         {
-            AutoDLNats_CheckBox.Checked = QspCore.AppSettings.AutoDLTracks;
-            AutoDLWind_CheckBox.Checked = QspCore.AppSettings.AutoDLWind;
-            DBPath_TxtBox.Text = QspCore.AppSettings.NavDataLocation;
-            DoubleCheckWhenExit_CheckBox.Checked = QspCore.AppSettings.PromptBeforeExit;
+            AutoDLNats_CheckBox.Checked = AppSettings.AutoDLTracks;
+            AutoDLWind_CheckBox.Checked = AppSettings.AutoDLWind;
+            DBPath_TxtBox.Text = AppSettings.NavDataLocation;
+            DoubleCheckWhenExit_CheckBox.Checked = AppSettings.PromptBeforeExit;
 
-            var command = QspCore.AppSettings.GetExportCommand("PmdgCommon");
+            var command = AppSettings.GetExportCommand("PmdgCommon");
             TextBox1.Text = command.FilePath;
             CheckBox1.Checked = command.Enabled;
 
-            command = QspCore.AppSettings.GetExportCommand("PmdgNGX");
+            command = AppSettings.GetExportCommand("PmdgNGX");
             TextBox2.Text = command.FilePath;
             CheckBox2.Checked = command.Enabled;
 
-            command = QspCore.AppSettings.GetExportCommand("Pmdg777");
+            command = AppSettings.GetExportCommand("Pmdg777");
             TextBox3.Text = command.FilePath;
             CheckBox3.Checked = command.Enabled;
         }
-
-        public void LoadOptions()
-        {
-            try
-            {
-                QspCore.AppSettings = new AppOptions(XDocument.Load(QspCore.QspAppDataDirectory + "\\SavedStates\\options.xml"));
-                SetControlsAsInOptions();
-            }
-            catch (Exception ex)
-            {
-                WriteToLog(ex);
-            }
-        }
-
+        
         private void Button1_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog MyFolderBrowser = new FolderBrowserDialog();
-            DialogResult dlgResult = MyFolderBrowser.ShowDialog();
+            var MyFolderBrowser = new FolderBrowserDialog();
+            var dlgResult = MyFolderBrowser.ShowDialog();
 
             if (dlgResult == DialogResult.OK)
             {
@@ -247,8 +216,8 @@ namespace QSP
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog MyFolderBrowser = new FolderBrowserDialog();
-            DialogResult dlgResult = MyFolderBrowser.ShowDialog();
+            var MyFolderBrowser = new FolderBrowserDialog();
+            var dlgResult = MyFolderBrowser.ShowDialog();
 
             if (dlgResult == DialogResult.OK)
             {
@@ -258,8 +227,8 @@ namespace QSP
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog MyFolderBrowser = new FolderBrowserDialog();
-            DialogResult dlgResult = MyFolderBrowser.ShowDialog();
+            var MyFolderBrowser = new FolderBrowserDialog();
+            var dlgResult = MyFolderBrowser.ShowDialog();
 
             if (dlgResult == DialogResult.OK)
             {
@@ -284,7 +253,7 @@ namespace QSP
 
         public OptionsForm()
         {
-            Load += options_2_Load;
+            Load += optionsLoad;
             InitializeComponent();
         }
     }

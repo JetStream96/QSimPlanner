@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace QSP.Core
+namespace QSP.Core.Options
 {
     public class AppOptions
     {
@@ -14,6 +14,11 @@ namespace QSP.Core
 
         public AppOptions()
         {
+            // Default options.
+            NavDataLocation = "";
+            PromptBeforeExit = true;
+            AutoDLTracks = true;
+            AutoDLWind = true;
             ExportCommands = new List<RouteExportCommand>();
         }
 
@@ -22,7 +27,8 @@ namespace QSP.Core
             var root = xmlFile.Root;
 
             NavDataLocation = root.Element("DatabasePath").Value;
-            PromptBeforeExit = Convert.ToBoolean(root.Element("PromptBeforeExit").Value);
+            PromptBeforeExit = Convert.ToBoolean(
+                root.Element("PromptBeforeExit").Value);
             AutoDLTracks = Convert.ToBoolean(root.Element("AutoDLNats").Value);
             AutoDLWind = Convert.ToBoolean(root.Element("AutoDLWind").Value);
 
@@ -33,9 +39,10 @@ namespace QSP.Core
             foreach (var i in exports.Elements())
             {
                 ExportCommands.Add(
-                    new RouteExportCommand(i.Name.LocalName,
-                                           i.Element("Path").Value,
-                                           Convert.ToBoolean(i.Element("Enabled").Value)));
+                    new RouteExportCommand(
+                        i.Name.LocalName,
+                        i.Element("Path").Value,
+                        Convert.ToBoolean(i.Element("Enabled").Value)));
             }
         }
 
@@ -48,9 +55,10 @@ namespace QSP.Core
                 var command = ExportCommands[i];
 
                 exports[i] = new XElement(
-                    command.Format, new XElement[] {
-                                        new XElement("Enabled", command.Enabled.ToString()),
-                                        new XElement("Path", command.FilePath)});
+                    command.Format, 
+                    new XElement[] {
+                        new XElement("Enabled", command.Enabled.ToString()),
+                        new XElement("Path", command.FilePath)});
             }
 
             var exportOptions = new XElement("ExportOptions", exports);

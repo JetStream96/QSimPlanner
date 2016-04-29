@@ -1,12 +1,12 @@
 using System;
 using QSP.WindAloft;
+using QSP.Core.Options;
 
 namespace QSP.Core
 {
     public static class QspCore
 	{
 		public static PerformanceData PerfDB = new PerformanceData();
-		public static AppOptions AppSettings = new AppOptions();
 		
 		public static WxFileLoader WxReader;
 		public static string QspLocalDirectory = Environment.GetFolderPath(

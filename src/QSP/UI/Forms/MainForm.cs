@@ -1,5 +1,5 @@
 using QSP.AircraftProfiles;
-using QSP.Core;
+using QSP.Core.Options;
 using QSP.LibraryExtension;
 using QSP.Metar;
 using QSP.NavData.AAX;
@@ -23,9 +23,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using static QSP.AviationTools.Constants;
-using static QSP.Core.QspCore;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.ErrorLogger;
 
@@ -44,6 +42,8 @@ namespace QSP
         private FormStateSaver formStateManagerTO;
 
         private ViewManager viewChanger;
+
+        public AppOptions AppSettings { get; set; }
 
         #region "FuelCalculation"
 
@@ -279,7 +279,7 @@ namespace QSP
 
         private void startTracksDlAsReq()
         {
-            if (QspCore.AppSettings.AutoDLTracks)
+            if (AppSettings.AutoDLTracks)
             {
                 //RouteFinding.Tracks.Interaction.Interactions.SetAllTracksAsync();
                 //TODO: add code to start download tracks automatically.
@@ -293,7 +293,7 @@ namespace QSP
 
         private async Task startWindDlAsReq()
         {
-            if (QspCore.AppSettings.AutoDLWind)
+            if (AppSettings.AutoDLWind)
             {
                 await downloadWind();
             }
@@ -358,8 +358,6 @@ namespace QSP
             try
             {
                 //loading the navigation database
-                QspCore.AppSettings = new AppOptions(XDocument.Load(QspCore.QspAppDataDirectory + "\\SavedStates\\options.xml"));
-
                 string navDataPath = AppSettings.NavDataLocation;
 
                 WptList =
@@ -370,10 +368,10 @@ namespace QSP
                     new AirportManager(
                         new AirportDataLoader(navDataPath + @"\Airports.txt")
                         .LoadFromFile());
-                
+
                 //if success, update the status strip
 
-                Tuple<string, string> t = OptionsForm.AiracCyclePeriod(QspCore.AppSettings.NavDataLocation);
+                Tuple<string, string> t = OptionsForm.AiracCyclePeriod(AppSettings.NavDataLocation);
                 //this returns, for example, (1407,26JUN23JUL/14)
 
                 bool expired = !AiracTools.AiracValid(t.Item2);
@@ -526,6 +524,7 @@ namespace QSP
         private void OptionsToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             var optionForm = new OptionsForm();
+            optionForm.AppSettings = AppSettings;
             optionForm.Visible = false;
             optionForm.ShowDialog();
         }
@@ -678,7 +677,7 @@ namespace QSP
                 return;
             }
 
-            if (QspCore.AppSettings.PromptBeforeExit)
+            if (AppSettings.PromptBeforeExit)
             {
                 // Initializes variables to pass to the MessageBox.Show method. 
 
@@ -846,9 +845,10 @@ namespace QSP
             RouteDisAltnLbl.Text = "Total Dis: " + Math.Round(RouteToAltn.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToAltn.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
         }
 
-        private static void ExportRte()
+        private void ExportRte()
         {
-            var writer = new RouteFileWriter(PMDGrteFile);
+            var writer = new RouteFileWriter(
+                RouteToDest, AppSettings.ExportCommands, PMDGrteFile);
             writer.Export();
         }
 
