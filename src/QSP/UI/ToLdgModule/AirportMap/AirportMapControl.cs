@@ -1,6 +1,7 @@
 ﻿using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using System;
+using System.Linq;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -115,7 +116,17 @@ namespace QSP.UI.ToLdgModule.AirportMap
             airportNameLbl.Text = airport.Name;
             latLonLbl.Text = airport.Lat + " / " + airport.Lon;
             elevationLbl.Text = airport.Elevation + " FT";
-            transAltLbl.Text = transitionAlts(airport);
+
+            if (airport.TransAvail)
+            {
+                transExistLbl.Visible = true;
+                transAltLbl.Text = transitionAlts(airport);
+            }
+            else
+            {
+                transExistLbl.Visible = false;
+                transAltLbl.Text = "";
+            }
         }
 
         private string transitionAlts(Airport airport)
@@ -156,15 +167,16 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         private void updateDataGrid(Airport airport)
         {
+            var runways = airport.Rwys;
             airportDataGrid.Columns.Clear();
             airportDataGrid.Rows.Clear();
             airportDataGrid.ColumnCount = 10;
-            airportDataGrid.RowCount = airport.Rwys.Count;
+            airportDataGrid.RowCount = runways.Count;
             setColumnsLables();
 
-            for (int i = 0; i < airport.Rwys.Count; i++)
+            for (int i = 0; i < runways.Count; i++)
             {
-                var rwy = airport.Rwys[i];
+                var rwy = runways[i];
 
                 airportDataGrid[0, i].Value = rwy.RwyIdent;
                 airportDataGrid[1, i].Value = rwy.Length;
@@ -172,29 +184,31 @@ namespace QSP.UI.ToLdgModule.AirportMap
                 airportDataGrid[3, i].Value = rwy.Lat;
                 airportDataGrid[4, i].Value = rwy.Lon;
 
-                if (rwy.IlsAvail)
+                if (rwy.HasIlsInfo && rwy.IlsAvail)
                 {
                     airportDataGrid[5, i].Value = rwy.IlsFreq;
                     airportDataGrid[6, i].Value = rwy.IlsHeading;
+                    airportDataGrid[7, i].Value =
+                        rwy.GlideslopeAngle.ToString("0.0");
                 }
                 else
                 {
                     airportDataGrid[5, i].Value = "";
                     airportDataGrid[6, i].Value = "";
+                    airportDataGrid[7, i].Value = "";
                 }
 
-                airportDataGrid[7, i].Value = rwy.ThresholdOverflyHeight;
-
-                airportDataGrid[8, i].Value =
-                    rwy.IlsAvail ?
-                    rwy.GlideslopeAngle.ToString("0.0"):
-                    "";
-
-
+                airportDataGrid[8, i].Value = rwy.Elevation;
                 airportDataGrid[9, i].Value = surfaceType(rwy.SurfaceType);
             }
-        }
 
+            if (runways.Where(r => r.HasIlsInfo == false).Count() > 0)
+            {
+                airportDataGrid.Columns.RemoveAt(7);
+                airportDataGrid.Columns.RemoveAt(6);
+                airportDataGrid.Columns.RemoveAt(5);
+            }
+        }
 
         private void setColumnsLables()
         {
@@ -205,15 +219,15 @@ namespace QSP.UI.ToLdgModule.AirportMap
             airportDataGrid.Columns[4].Name = "LON";
             airportDataGrid.Columns[5].Name = "ILS freq";
             airportDataGrid.Columns[6].Name = "ILS course";
-            airportDataGrid.Columns[7].Name = "Threshold altitude(FT)";
-            airportDataGrid.Columns[8].Name = "Glideslope angle";
+            airportDataGrid.Columns[7].Name = "Glideslope angle";
+            airportDataGrid.Columns[8].Name = "Threshold altitude(FT)";
             airportDataGrid.Columns[9].Name = "Surface Type";
         }
 
         private void findAirport()
         {
             resetAirport();
-            setEmptyDataGrid();
+            airportDataGrid.Rows.Clear();
 
             var airport = AirportList.Find(CurrentIcao);
 

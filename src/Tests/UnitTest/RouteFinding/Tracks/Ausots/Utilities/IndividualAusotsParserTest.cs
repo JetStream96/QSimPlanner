@@ -57,7 +57,7 @@ getAirportList(new List<string> { "YSSY" }));
 
             foreach (var i in icao)
             {
-                db.Add(new Airport(i, "", 0.0, 0.0, 0, 0, 0, 0, null));
+                db.Add(new Airport(i, "", 0.0, 0.0, 0, true, 0, 0, 0, null));
             }
             return new AirportManager(db);
         }

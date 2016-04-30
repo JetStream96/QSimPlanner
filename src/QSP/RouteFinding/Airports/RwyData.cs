@@ -6,6 +6,7 @@ namespace QSP.RouteFinding.Airports
         public string Heading { get; private set; }
         public int Length { get; private set; }
         public int Width { get; private set; }
+        public bool HasIlsInfo { get; private set; }
         public bool IlsAvail { get; private set; }
         public string IlsFreq { get; private set; }
         public string IlsHeading { get; private set; }
@@ -17,14 +18,28 @@ namespace QSP.RouteFinding.Airports
         public int SurfaceType { get; private set; }
         public int RwyStatus { get; private set; }
 
-        public RwyData(string RwyIdent, string Heading, int Length, int Width, bool IlsAvail, string IlsFreq,
-                       string IlsHeading, double Lat, double Lon, int Elevation,
-                       double GlideslopeAngle, int ThresholdOverflyHeight, int SurfaceType, int RwyStatus)
+        public RwyData(
+            string RwyIdent,
+            string Heading,
+            int Length,
+            int Width,
+            bool HasIlsInfo,
+            bool IlsAvail,
+            string IlsFreq,
+            string IlsHeading,
+            double Lat,
+            double Lon,
+            int Elevation,
+            double GlideslopeAngle,
+            int ThresholdOverflyHeight,
+            int SurfaceType,
+            int RwyStatus)
         {
             this.RwyIdent = RwyIdent;
             this.Heading = Heading;
             this.Length = Length;
             this.Width = Width;
+            this.HasIlsInfo = HasIlsInfo;
             this.IlsAvail = IlsAvail;
             this.IlsFreq = IlsFreq;
             this.IlsHeading = IlsHeading;

@@ -25,10 +25,10 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         {
             var ac = new AirportCollection();
 
-            ac.Add(new Airport("ABCD", "", 0.0, 0.0, 0, 0, 0, 0,
-                               new List<RwyData>() { new RwyData("05L", "", 0, 0, true, "", "", 25.0, 121.0, 0, 0.0, 0, 0, 0) }));
-            ac.Add(new Airport("EFGH", "", 0.0, 0.0, 0, 0, 0, 0,
-                               new List<RwyData>() { new RwyData("07L", "", 0, 0, true, "", "", 22.0, 113.0, 0, 0.0, 0, 0, 0) }));
+            ac.Add(new Airport("ABCD", "", 0.0, 0.0, 0,true, 0, 0, 0,
+                               new List<RwyData>() { new RwyData("05L", "", 0, 0, true, true, "", "", 25.0, 121.0, 0, 0.0, 0, 0, 0) }));
+            ac.Add(new Airport("EFGH", "", 0.0, 0.0, 0,true, 0, 0, 0,
+                               new List<RwyData>() { new RwyData("07L", "", 0, 0, true, true, "", "", 22.0, 113.0, 0, 0.0, 0, 0, 0) }));
             airportList = new AirportManager(ac);
 
             sids = new SidCollection(new List<SidEntry>() {
@@ -136,10 +136,10 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         {
             var ac = new AirportCollection();
 
-            ac.Add(new Airport("ABCD", "", 0.0, 0.0, 0, 0, 0, 0,
-                               new List<RwyData>() { new RwyData("05L", "", 0, 0, true, "", "", 25.0, 120.0, 0, 0.0, 0, 0, 0) }));
-            ac.Add(new Airport("EFGH", "", 0.0, 0.0, 0, 0, 0, 0,
-                               new List<RwyData>() { new RwyData("07L", "", 0, 0, true, "", "", 43.0, 107.0, 0, 0.0, 0, 0, 0) }));
+            ac.Add(new Airport("ABCD", "", 0.0, 0.0, 0, true, 0, 0, 0,
+                               new List<RwyData>() { new RwyData("05L", "", 0, 0, true, true, "", "", 25.0, 120.0, 0, 0.0, 0, 0, 0) }));
+            ac.Add(new Airport("EFGH", "", 0.0, 0.0, 0, true, 0, 0, 0,
+                               new List<RwyData>() { new RwyData("07L", "", 0, 0, true, true, "", "", 43.0, 107.0, 0, 0.0, 0, 0, 0) }));
             airportList = new AirportManager(ac);
         }
 

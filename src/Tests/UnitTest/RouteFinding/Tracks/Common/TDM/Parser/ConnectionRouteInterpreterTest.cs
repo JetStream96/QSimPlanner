@@ -35,8 +35,8 @@ namespace UnitTest.RouteFinding.Tracks.Common.TDM.Parser
         public void RemovesAirportsCorrectly()
         {
             var airports = new AirportCollection();
-            airports.Add(new Airport("ABCD", "", 0.0, 0.0, 0, 0, 0, 0, null));
-            airports.Add(new Airport("EFGH", "", 0.0, 0.0, 0, 0, 0, 0, null));
+            airports.Add(new Airport("ABCD", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
+            airports.Add(new Airport("EFGH", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
 
             var interpreter = new ConnectionRouteInterpreter(
                 new string[] { "P1", "P2", "P3" },

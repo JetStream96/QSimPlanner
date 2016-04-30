@@ -33,7 +33,7 @@
             this.elevationLbl = new System.Windows.Forms.Label();
             this.latLonLbl = new System.Windows.Forms.Label();
             this.airportNameLbl = new System.Windows.Forms.Label();
-            this.TATL_Lbl1 = new System.Windows.Forms.Label();
+            this.transExistLbl = new System.Windows.Forms.Label();
             this.metarLbl = new System.Windows.Forms.Label();
             this.LatLon_lbl1 = new System.Windows.Forms.Label();
             this.transAltLbl = new System.Windows.Forms.Label();
@@ -57,6 +57,7 @@
             this.airportDataGrid.ReadOnly = true;
             this.airportDataGrid.RowHeadersVisible = false;
             this.airportDataGrid.RowTemplate.Height = 24;
+            this.airportDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.airportDataGrid.Size = new System.Drawing.Size(1011, 150);
             this.airportDataGrid.TabIndex = 0;
             // 
@@ -104,16 +105,17 @@
             this.airportNameLbl.TabIndex = 4;
             this.airportNameLbl.Text = "TAIWAN TAOYUAN INTL";
             // 
-            // TATL_Lbl1
+            // transExistLbl
             // 
-            this.TATL_Lbl1.AutoSize = true;
-            this.TATL_Lbl1.Font = new System.Drawing.Font("Arial", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TATL_Lbl1.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.TATL_Lbl1.Location = new System.Drawing.Point(751, 0);
-            this.TATL_Lbl1.Name = "TATL_Lbl1";
-            this.TATL_Lbl1.Size = new System.Drawing.Size(60, 19);
-            this.TATL_Lbl1.TabIndex = 11;
-            this.TATL_Lbl1.Text = "TA/TL:";
+            this.transExistLbl.AutoSize = true;
+            this.transExistLbl.Font = new System.Drawing.Font("Arial", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.transExistLbl.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.transExistLbl.Location = new System.Drawing.Point(751, 0);
+            this.transExistLbl.Name = "transExistLbl";
+            this.transExistLbl.Size = new System.Drawing.Size(60, 19);
+            this.transExistLbl.TabIndex = 11;
+            this.transExistLbl.Text = "TA/TL:";
+            this.transExistLbl.Visible = false;
             // 
             // metarLbl
             // 
@@ -166,7 +168,7 @@
             this.tableLayoutPanel1.Controls.Add(this.Elevation_Lbl1, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.transAltLbl, 6, 0);
             this.tableLayoutPanel1.Controls.Add(this.elevationLbl, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.TATL_Lbl1, 5, 0);
+            this.tableLayoutPanel1.Controls.Add(this.transExistLbl, 5, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(5, 79);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
@@ -234,7 +236,7 @@
         internal System.Windows.Forms.Label elevationLbl;
         internal System.Windows.Forms.Label latLonLbl;
         internal System.Windows.Forms.Label airportNameLbl;
-        internal System.Windows.Forms.Label TATL_Lbl1;
+        internal System.Windows.Forms.Label transExistLbl;
         internal System.Windows.Forms.Label metarLbl;
         internal System.Windows.Forms.Label LatLon_lbl1;
         internal System.Windows.Forms.Label transAltLbl;

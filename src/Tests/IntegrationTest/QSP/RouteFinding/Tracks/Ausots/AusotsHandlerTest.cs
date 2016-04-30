@@ -202,7 +202,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
             foreach (var i in airports)
             {
-                collection.Add(new Airport(i, "", 0.0, 0.0, 0, 0, 0, 0, new List<RwyData>()));
+                collection.Add(new Airport(i, "", 0.0, 0.0, 0,true, 0, 0, 0, new List<RwyData>()));
             }
 
             return new AirportManager(collection);

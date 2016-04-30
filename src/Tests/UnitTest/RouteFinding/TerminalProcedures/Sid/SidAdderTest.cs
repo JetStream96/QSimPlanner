@@ -260,10 +260,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                                       25.0,
                                       50.0,
                                       15,
+                                      true,
                                       5000,
                                       8000,
                                       3500,
-                                      CreateList(new RwyData("18", "180", 3500, 60, false, "0.000", "0", 25.0003, 50.0001, 15, 3.00, 50, 1, 0))));
+                                      CreateList(new RwyData("18", "180", 3500, 60, true, false, "0.000", "0", 25.0003, 50.0001, 15, 3.00, 50, 1, 0))));
 
             return new AirportManager(airportDB);
         }

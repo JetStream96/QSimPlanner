@@ -24,10 +24,10 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         {
             var ac = new AirportCollection();
 
-            ac.Add(new Airport("RCTP", "", 0.0, 0.0, 0, 0, 0, 0,
-                               new List<RwyData>() { new RwyData("05L", "", 0, 0, true, "", "", 25.072894, 121.215986, 0, 0.0, 0, 0, 0) }));
-            ac.Add(new Airport("VHHH", "", 0.0, 0.0, 0, 0, 0, 0,
-                               new List<RwyData>() { new RwyData("07L", "", 0, 0, true, "", "", 22.310917, 113.897964, 0, 0.0, 0, 0, 0) }));
+            ac.Add(new Airport("RCTP", "", 0.0, 0.0, 0, true, 0, 0, 0,
+                               new List<RwyData>() { new RwyData("05L", "", 0, 0, true, true, "", "", 25.072894, 121.215986, 0, 0.0, 0, 0, 0) }));
+            ac.Add(new Airport("VHHH", "", 0.0, 0.0, 0, true, 0, 0, 0,
+                               new List<RwyData>() { new RwyData("07L", "", 0, 0, true, true, "", "", 22.310917, 113.897964, 0, 0.0, 0, 0, 0) }));
             airportList = new AirportManager(ac);
 
             sids = new SidCollection(new List<SidEntry>() {
