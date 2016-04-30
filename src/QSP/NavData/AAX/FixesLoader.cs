@@ -3,7 +3,6 @@ using QSP.RouteFinding.Containers;
 using System;
 using System.IO;
 using static QSP.LibraryExtension.StringParser.Utilities;
-using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.NavData.AAX
 {
@@ -20,10 +19,20 @@ namespace QSP.NavData.AAX
         /// Loads all waypoints in waypoints.txt.
         /// </summary>
         /// <param name="filepath">Location of waypoints.txt</param>
-        /// <exception cref="LoadWaypointFileException"></exception>
+        /// <exception cref="WaypointFileReadException"></exception>
+        /// <exception cref="WaypointFileParseException"></exception>
         public void ReadFromFile(string filepath)
         {
-            string[] allLines = File.ReadAllLines(filepath);
+            string[] allLines = null;
+
+            try
+            {
+                allLines = File.ReadAllLines(filepath);
+            }
+            catch (Exception ex)
+            {
+                throw new WaypointFileReadException("", ex);
+            }
 
             foreach (var i in allLines)
             {
@@ -33,22 +42,27 @@ namespace QSP.NavData.AAX
                     {
                         continue;
                     }
-                    int pos = 0;
 
-                    string id = ReadString(i, ref pos, ',');
-                    double lat = ParseDouble(i, ref pos, ',');
-                    double lon = ParseDouble(i, ref pos, ',');
-
-                    wptList.AddWaypoint(new Waypoint(id, lat, lon));
+                    readWpt(i);
                 }
-                catch (Exception ex)
+                catch
                 {
-                    WriteToLog(ex);
-                    //TODO: Write to log file. Show to user, etc.
-                    throw new LoadWaypointFileException(
-                        "Failed to load waypoints.txt.", ex);
+                    throw new WaypointFileParseException(
+                       "This line in waypoints.txt cannot be parsed:\n" +
+                       i + "\n(Reason: Wrong format)");
                 }
             }
+        }
+
+        private void readWpt(string i)
+        {
+            int pos = 0;
+
+            string id = ReadString(i, ref pos, ',');
+            double lat = ParseDouble(i, ref pos, ',');
+            double lon = ParseDouble(i, ref pos, ',');
+
+            wptList.AddWaypoint(new Waypoint(id, lat, lon));
         }
     }
 }

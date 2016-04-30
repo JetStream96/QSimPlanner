@@ -27,14 +27,25 @@ namespace QSP.NavData
     }
 
     [Serializable]
-    public class LoadWaypointFileException : Exception
+    public class WaypointFileReadException : Exception
     {
-        public LoadWaypointFileException() { }
-        public LoadWaypointFileException(string message) : base(message) { }
-        public LoadWaypointFileException(string message, Exception inner) : base(message, inner) { }
-        protected LoadWaypointFileException(
+        public WaypointFileReadException() { }
+        public WaypointFileReadException(string message) : base(message) { }
+        public WaypointFileReadException(string message, Exception inner) : base(message, inner) { }
+        protected WaypointFileReadException(
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }
+    }
+    
+    [Serializable]
+    public class WaypointFileParseException : Exception
+    {
+        public WaypointFileParseException() { }
+        public WaypointFileParseException(string message) : base(message) { }
+        public WaypointFileParseException(string message, Exception inner) : base(message, inner) { }
+        protected WaypointFileParseException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 }

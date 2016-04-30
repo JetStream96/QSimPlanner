@@ -20,7 +20,7 @@ namespace QSP.NavData.AAX
         /// Read all waypoints from ats.txt file.
         /// </summary>
         /// <param name="filepath">Path of ats.txt</param>
-        /// <exception cref="LoadWaypointFileException"></exception>
+        /// <exception cref="WaypointFileReadException"></exception>
         public void ReadFromFile(string filepath)
         {
             try
@@ -81,7 +81,7 @@ namespace QSP.NavData.AAX
             {
                 WriteToLog(ex);
 
-                throw new LoadWaypointFileException(
+                throw new WaypointFileReadException(
                     "Failed to load ats.txt.", ex);  //TODO: show to the user
             }
         }

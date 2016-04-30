@@ -14,20 +14,30 @@ namespace QSimPlanner
         [STAThread]
         static void Main()
         {
-            initData();
-            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             var mainFrm = new QSP.MainForm();
+            prepareApp(mainFrm);
+
+            Application.Run(mainFrm);
+        }
+
+        private static void prepareApp(QSP.MainForm mainFrm)
+        {
+            var splash = new QSP.Splash();
+            splash.Show();
+            splash.Refresh();
+
+            initData();
 
             mainFrm.Initialize(
-                Information.Profiles, 
+                Information.Profiles,
                 Information.AppSettings,
                 Information.AirportList,
                 Information.WptList);
 
-            Application.Run(mainFrm);
+            splash.Close();
         }
 
         private static void initData()
@@ -54,8 +64,16 @@ namespace QSimPlanner
 
             // Airports and waypoints
             // TODO: exceptions?
-            Information.InitAirportList();
-            Information.InitWptList();
+            try
+            {
+                Information.InitAirportList();
+                Information.InitWptList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

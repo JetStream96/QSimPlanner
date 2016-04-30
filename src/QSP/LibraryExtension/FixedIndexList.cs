@@ -14,7 +14,8 @@ namespace QSP.LibraryExtension
     //      FixedIndexList: 85ms
     //      List:           60ms
     //
-    // Result for adding without resize (increase number of elements from 2^24+1 to 2^25):
+    // Result for adding without resize (increase number of elements 
+    // from 2^24+1 to 2^25):
     //      FixedIndexList: 138ms
     //      List:           99ms
     //
@@ -23,7 +24,8 @@ namespace QSP.LibraryExtension
     //      List:           2857ms/100000 times (tested with 100000 times)
 
     /// <summary>
-    /// A generic list such that each element added would never change index, unless removed.
+    /// A generic list such that each element added would never 
+    /// change index, unless removed.
     /// Implemeted using an array.
     /// </summary>
     public class FixedIndexList<T> : IEnumerable<T>, IEnumerable
@@ -45,7 +47,8 @@ namespace QSP.LibraryExtension
             {
                 // If >=0, it's the index of the next removed item.
                 // If -1, it indicates this item is not removed.
-                // If -2, this item is already removed, but there isn't a next removed item.
+                // If -2, this item is already removed, 
+                // but there isn't a next removed item.
                 this.next = next;
 
                 this.value = value;
@@ -97,7 +100,9 @@ namespace QSP.LibraryExtension
             int minimumSize = _size + newCount;
             if (minimumSize > _items.Length)
             {
-                Capacity = Math.Max(Math.Max(Capacity * 2, initCapacity), minimumSize);
+                Capacity = 
+                    Math.Max(
+                        Math.Max(Capacity * 2, initCapacity), minimumSize);
             }
         }
 
@@ -169,7 +174,8 @@ namespace QSP.LibraryExtension
             {
                 if (isRemoved(index))
                 {
-                    throw new ArgumentOutOfRangeException("The element at given index is already removed.");
+                    throw new ArgumentOutOfRangeException(
+                        "The element at given index is already removed.");
                 }
                 return _items[index].value;
             }
@@ -177,7 +183,8 @@ namespace QSP.LibraryExtension
             {
                 if (isRemoved(index))
                 {
-                    throw new ArgumentOutOfRangeException("The element at given index is already removed.");
+                    throw new ArgumentOutOfRangeException(
+                        "The element at given index is already removed.");
                 }
                 _items[index].value = value;
             }
@@ -251,7 +258,8 @@ namespace QSP.LibraryExtension
                 {
                     if (index == 0 || index == list._size + 1)
                     {
-                        throw new InvalidOperationException("Cannot enumerate.");
+                        throw new InvalidOperationException(
+                            "Cannot enumerate.");
                     }
                     return Current;
                 }

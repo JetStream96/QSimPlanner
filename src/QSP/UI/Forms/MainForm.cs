@@ -2,9 +2,9 @@ using QSP.AircraftProfiles;
 using QSP.Core.Options;
 using QSP.LibraryExtension;
 using QSP.Metar;
-using QSP.NavData.AAX;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
@@ -16,6 +16,7 @@ using QSP.Utilities;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -26,8 +27,6 @@ using System.Windows.Forms;
 using static QSP.AviationTools.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.LoggerInstance;
-using System.ComponentModel;
-using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP
 {
@@ -226,11 +225,7 @@ namespace QSP
         }
 
         private async void Startup(object sender, EventArgs e)
-        {
-            var splash = new Splash();
-            splash.Show();
-            splash.Refresh();
-
+        {            
             checkRegistry();
             LoadDefaultState();
 
@@ -254,9 +249,8 @@ namespace QSP
 
             formStateManagerFuel.Load();
 
-            this.Size = new Size(1280, 900);
-            splash.Close();
-
+            Size = new Size(1280, 900);
+            
             viewChanger = new ViewManager();
             viewChanger.ShowPage(ViewManager.Pages.FuelCalculation);
 
@@ -1024,7 +1018,7 @@ namespace QSP
                 }
                 catch (Exception ex)
                 {
-                    LoggerInstance.WriteToLog(ex.ToString());
+                    WriteToLog(ex.ToString());
                 }
             }
 

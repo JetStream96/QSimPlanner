@@ -1,10 +1,9 @@
 ﻿using QSP.AircraftProfiles;
 using QSP.RouteFinding.Airports;
-using QSP.Core;
 
-namespace QspLite.Data
+namespace QspLite.GlobalInfo
 {
-    public static class DataProvider
+    public static class Information
     {
         public static ProfileManager Profiles { get; private set; }
         public static AirportManager AirportList { get; private set; }
