@@ -1,0 +1,3 @@
+"id","ident","type","name","latitude_deg","longitude_deg","elevation_ft","continent","iso_country","iso_region","municipality","scheduled_service","gps_code","iata_code","local_code","home_link","wikipedia_link","keywords"
+10244,"37NJ","heliport","Deepwater Heliport",39.697601318359375,-75.49490356445312,,"NA","US","US-NJ","Deepwater","no","37NJ",,"37NJ",,,
+26535,"VHHH","large_airport","Chek Lap Kok International Airport",22.3089008331,113.915000916,28,"AS","HK","HK-U-A","Hong Kong","yes","VHHH","HKG",,"http://www.hongkongairport.com/","http://en.wikipedia.org/wiki/Hong_Kong_International_Airport","Chek Lap Kok Airport, 赤鱲角機場"

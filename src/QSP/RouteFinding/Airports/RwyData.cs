@@ -15,7 +15,7 @@ namespace QSP.RouteFinding.Airports
         public int Elevation { get; private set; }
         public double GlideslopeAngle { get; private set; }
         public int ThresholdOverflyHeight { get; private set; }
-        public int SurfaceType { get; private set; }
+        public string SurfaceType { get; private set; }
         public int RwyStatus { get; private set; }
 
         public RwyData(
@@ -32,7 +32,7 @@ namespace QSP.RouteFinding.Airports
             int Elevation,
             double GlideslopeAngle,
             int ThresholdOverflyHeight,
-            int SurfaceType,
+            string SurfaceType,
             int RwyStatus)
         {
             this.RwyIdent = RwyIdent;

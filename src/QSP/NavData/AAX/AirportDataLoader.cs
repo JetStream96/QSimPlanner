@@ -18,7 +18,7 @@ namespace QSP.NavData.AAX
         {
             this.filepath = filepath;
         }
-        
+
         /// <exception cref="RwyDataFormatException"></exception>
         /// <exception cref="ReadAirportFileException"></exception>
         public AirportCollection LoadFromFile()
@@ -125,6 +125,14 @@ namespace QSP.NavData.AAX
             return airportDB;
         }
 
+        private static string[] surfTypes = new string[]
+        {
+            "Concrete",
+            "Asphalt or Bitumen",
+            "Gravel, Coral Or Ice",
+            "Other"
+        };
+
         private static RwyData readRwy(List<RwyData> rwys, string i)
         {
             int pos = i.IndexOf(',') + 1;
@@ -157,7 +165,7 @@ namespace QSP.NavData.AAX
                 Elevation,
                 GlideslopeAngle,
                 ThresholdOverflyHeight,
-                SurfaceType,
+                surfTypes[SurfaceType],
                 RwyStatus);
         }
     }

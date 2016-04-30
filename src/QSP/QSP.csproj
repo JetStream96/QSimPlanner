@@ -137,6 +137,7 @@
     <Compile Include="Metar\ParaExtractor.cs" />
     <Compile Include="NavData\AAX\FixesLoader.cs" />
     <Compile Include="NavData\AAX\WptListLoader.cs" />
+    <Compile Include="NavData\OpenData\AirportDataLoader.cs" />
     <Compile Include="RouteFinding\Airports\AirportExtensions.cs" />
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
     <Compile Include="NavData\Exceptions.cs" />
@@ -590,9 +591,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NavData\OpenData\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

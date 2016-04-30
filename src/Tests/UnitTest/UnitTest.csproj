@@ -86,6 +86,7 @@
     <Compile Include="MathTools\Tables\Table2DTest.cs" />
     <Compile Include="MathTools\Tables\Table3DTest.cs" />
     <Compile Include="Metar\ParaExtractorTest.cs" />
+    <Compile Include="NavData\OpenData\AirportDataLoaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -156,6 +157,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <None Include="NavData\OpenData\airports.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NavData\OpenData\runways.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

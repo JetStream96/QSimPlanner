@@ -143,28 +143,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
                     RoundToInt(airport.TransLvl / 100.0).ToString();
             }
         }
-
-        private string surfaceType(int type)
-        {
-            switch (type)
-            {
-                case 0:
-                    return "Concrete";
-
-                case 1:
-                    return "Asphalt or Bitumen";
-
-                case 2:
-                    return "Gravel, Coral Or Ice";
-
-                case 3:
-                    return "Other";
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
+        
         private void updateDataGrid(Airport airport)
         {
             var runways = airport.Rwys;
@@ -199,7 +178,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
                 }
 
                 airportDataGrid[8, i].Value = rwy.Elevation;
-                airportDataGrid[9, i].Value = surfaceType(rwy.SurfaceType);
+                airportDataGrid[9, i].Value = rwy.SurfaceType;
             }
 
             if (runways.Where(r => r.HasIlsInfo == false).Count() > 0)
