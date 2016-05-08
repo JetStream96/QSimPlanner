@@ -136,6 +136,7 @@
     <Compile Include="Metar\ParaExtractor.cs" />
     <Compile Include="NavData\AAX\FixesLoader.cs" />
     <Compile Include="NavData\AAX\WptListLoader.cs" />
+    <Compile Include="NavData\DataSource.cs" />
     <Compile Include="NavData\OpenData\AirportDataLoader.cs" />
     <Compile Include="RouteFinding\Airports\AirportExtensions.cs" />
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
@@ -304,12 +305,14 @@
     <Compile Include="UI\ToLdgModule\Common\WeatherInfoControl.Designer.cs">
       <DependentUpon>WeatherInfoControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ToLdgModule\Options\OptionManager.cs" />
     <Compile Include="UI\ToLdgModule\Options\OptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\ToLdgModule\Options\OptionsControl.Designer.cs">
       <DependentUpon>OptionsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ToLdgModule\Options\UserOption.cs" />
     <Compile Include="UI\ToLdgModule\TOPerf\Controllers\BoeingController.cs" />
     <Compile Include="UI\ToLdgModule\TOPerf\Controllers\BoeingParameterValidator.cs" />
     <Compile Include="UI\ToLdgModule\TOPerf\Controllers\FormController.cs" />

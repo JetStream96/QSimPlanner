@@ -28,10 +28,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
 
         protected virtual void OnCalculationComplete(EventArgs e)
         {
-            if (CalculationCompleted != null)
-            {
-                CalculationCompleted(this, e);
-            }
+            CalculationCompleted?.Invoke(this, e);
         }
     }
 }

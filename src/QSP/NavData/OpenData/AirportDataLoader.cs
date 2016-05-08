@@ -35,11 +35,17 @@ namespace QSP.NavData.OpenData
             {
                 try
                 {
-                    var words = lines[i].Split(',');
+                    bool success = true;
 
+                    var words = lines[i].Split(',');
                     var icao = words[2].Trim('"');
-                    var len = double.Parse(words[3]) * FtMeterRatio;
-                    var width = double.Parse(words[4]) * FtMeterRatio;
+                    double len = 0.0;
+                    double width = 0.0;
+
+                    success &= double.TryParse(words[3], out len);
+                    success &= double.TryParse(words[4], out width);
+                    len *= FtMeterRatio;
+                    width *= FtMeterRatio;
 
                     // Reduce memory usage by sharing these strings.
                     var surface = words[5].Trim('"');
@@ -49,10 +55,21 @@ namespace QSP.NavData.OpenData
                     }
 
                     var id = words[8].Trim('"');
-                    double lat = double.Parse(words[9]);
-                    double lon = double.Parse(words[10]);
-                    double elev = double.Parse(words[11]);
-                    double heading = double.Parse(words[13]);
+                    double lat = 0.0;
+                    double lon = 0.0;
+                    double elev = 0.0;
+                    double heading = 0.0;
+
+                    success &=
+                       double.TryParse(words[9], out lat) &&
+                       double.TryParse(words[10], out lon) &&
+                       double.TryParse(words[11], out elev) &&
+                       double.TryParse(words[13], out heading);
+
+                    if (success == false)
+                    {
+                        continue;
+                    }
 
                     rwys.Add(
                         icao,
@@ -74,10 +91,17 @@ namespace QSP.NavData.OpenData
                             -1));
 
                     id = words[15].Trim('"');
-                    lat = double.Parse(words[16]);
-                    lon = double.Parse(words[17]);
-                    elev = double.Parse(words[18]);
-                    heading = double.Parse(words[20]);
+
+                    success =
+                       double.TryParse(words[16], out lat) &&
+                       double.TryParse(words[17], out lon) &&
+                       double.TryParse(words[18], out elev) &&
+                       double.TryParse(words[20], out heading);
+
+                    if (success == false)
+                    {
+                        continue;
+                    }
 
                     rwys.Add(
                         icao,
@@ -141,12 +165,19 @@ namespace QSP.NavData.OpenData
 
                     string icao = words[1].Trim('"');
                     string name = words[3].Trim('"');
-                    double lat = double.Parse(words[4]);
-                    double lon = double.Parse(words[5]);
-                    double elevation = double.Parse(words[6]);
+
+                    double lat = 0.0;
+                    double lon = 0.0;
+                    double elevation = 0.0;
+
+                    bool success =
+                        double.TryParse(words[4], out lat) &&
+                        double.TryParse(words[5], out lon) &&
+                        double.TryParse(words[6], out elevation);
+
                     var rwys = rwyList.FindAll(icao);
 
-                    if (rwys.Count == 0)
+                    if (rwys.Count == 0 || success == false)
                     {
                         continue;
                     }

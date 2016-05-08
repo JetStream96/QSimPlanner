@@ -33,6 +33,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.airportBtn = new System.Windows.Forms.Button();
             this.ldgBtn = new System.Windows.Forms.Button();
+            this.optionsBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -112,11 +113,21 @@
             this.ldgBtn.Text = "Landing";
             this.ldgBtn.UseVisualStyleBackColor = false;
             // 
+            // optionsBtn
+            // 
+            this.optionsBtn.Location = new System.Drawing.Point(694, 13);
+            this.optionsBtn.Name = "optionsBtn";
+            this.optionsBtn.Size = new System.Drawing.Size(38, 38);
+            this.optionsBtn.TabIndex = 3;
+            this.optionsBtn.Text = "button1";
+            this.optionsBtn.UseVisualStyleBackColor = true;
+            // 
             // QspLiteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1160, 753);
+            this.Controls.Add(this.optionsBtn);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "QspLiteForm";
             this.ShowIcon = false;
@@ -134,5 +145,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button airportBtn;
         private System.Windows.Forms.Button ldgBtn;
+        private System.Windows.Forms.Button optionsBtn;
     }
 }
