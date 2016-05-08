@@ -579,6 +579,7 @@
     <Content Include="PerformanceData\Templates\TO\TOPerf_Template.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\noun_1329.png" />
     <None Include="Resources\delete-icon.png" />
     <None Include="Resources\Warning_m4.png" />
     <None Include="Resources\VORTAC.ico" />

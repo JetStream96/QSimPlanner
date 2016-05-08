@@ -34,7 +34,9 @@
             this.airportBtn = new System.Windows.Forms.Button();
             this.ldgBtn = new System.Windows.Forms.Button();
             this.optionsBtn = new System.Windows.Forms.Button();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // acConfigBtn
@@ -72,7 +74,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 153F));
             this.tableLayoutPanel1.Controls.Add(this.airportBtn, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.ldgBtn, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.acConfigBtn, 0, 0);
@@ -115,25 +117,44 @@
             // 
             // optionsBtn
             // 
-            this.optionsBtn.Location = new System.Drawing.Point(694, 13);
+            this.optionsBtn.BackColor = System.Drawing.Color.Purple;
+            this.optionsBtn.BackgroundImage = global::QSP.Properties.Resources.noun_1329;
+            this.optionsBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.optionsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optionsBtn.Location = new System.Drawing.Point(2, 2);
+            this.optionsBtn.Margin = new System.Windows.Forms.Padding(1);
             this.optionsBtn.Name = "optionsBtn";
-            this.optionsBtn.Size = new System.Drawing.Size(38, 38);
+            this.optionsBtn.Size = new System.Drawing.Size(36, 36);
             this.optionsBtn.TabIndex = 3;
-            this.optionsBtn.Text = "button1";
-            this.optionsBtn.UseVisualStyleBackColor = true;
+            this.optionsBtn.UseVisualStyleBackColor = false;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.optionsBtn, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(642, 13);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(40, 40);
+            this.tableLayoutPanel2.TabIndex = 4;
             // 
             // QspLiteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1160, 753);
-            this.Controls.Add(this.optionsBtn);
+            this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "QspLiteForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QSP Lite";
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -146,5 +167,6 @@
         private System.Windows.Forms.Button airportBtn;
         private System.Windows.Forms.Button ldgBtn;
         private System.Windows.Forms.Button optionsBtn;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
 }

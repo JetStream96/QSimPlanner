@@ -42,7 +42,7 @@ namespace QSP.UI.ToLdgModule.Options
             {
                 LoggerInstance.WriteToLog(ex);
 
-                bool notFound = 
+                bool notFound =
                     ex is FileNotFoundException ||
                     ex is DirectoryNotFoundException;
 
@@ -84,10 +84,19 @@ namespace QSP.UI.ToLdgModule.Options
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
+            saveBtn.ForeColor = Color.Black;
+            saveBtn.BackColor = Color.LightGray;
+            saveBtn.Text = "Saving ...";
+            Refresh();
+
             if (tryLoadAirports() && trySaveOptions())
             {
                 SaveAirportsCompleted?.Invoke(this, EventArgs.Empty);
             }
+
+            saveBtn.ForeColor = Color.White;
+            saveBtn.BackColor = Color.Green;
+            saveBtn.Text = "Save";
         }
 
         private bool trySaveOptions()

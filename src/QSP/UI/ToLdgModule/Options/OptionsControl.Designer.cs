@@ -83,7 +83,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.67164F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.32836F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             this.tableLayoutPanel1.Controls.Add(this.button1, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.pathTxtBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
@@ -101,7 +101,7 @@
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(333, 38);
+            this.button1.Location = new System.Drawing.Point(318, 38);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(34, 28);
             this.button1.TabIndex = 3;
@@ -114,7 +114,7 @@
             this.pathTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pathTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pathTxtBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pathTxtBox.Location = new System.Drawing.Point(87, 39);
+            this.pathTxtBox.Location = new System.Drawing.Point(84, 39);
             this.pathTxtBox.Name = "pathTxtBox";
             this.pathTxtBox.Size = new System.Drawing.Size(218, 27);
             this.pathTxtBox.TabIndex = 3;
@@ -143,14 +143,16 @@
             // saveBtn
             // 
             this.saveBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.saveBtn.BackColor = System.Drawing.Color.Green;
             this.saveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saveBtn.Location = new System.Drawing.Point(61, 5);
+            this.saveBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.saveBtn.Location = new System.Drawing.Point(56, 5);
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(109, 32);
+            this.saveBtn.Size = new System.Drawing.Size(120, 45);
             this.saveBtn.TabIndex = 4;
             this.saveBtn.Text = "Save";
-            this.saveBtn.UseVisualStyleBackColor = true;
+            this.saveBtn.UseVisualStyleBackColor = false;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
             // cancelBtn
@@ -158,9 +160,9 @@
             this.cancelBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelBtn.Location = new System.Drawing.Point(293, 5);
+            this.cancelBtn.Location = new System.Drawing.Point(288, 5);
             this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(109, 32);
+            this.cancelBtn.Size = new System.Drawing.Size(120, 45);
             this.cancelBtn.TabIndex = 5;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
@@ -173,11 +175,11 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.saveBtn, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.cancelBtn, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(7, 308);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(7, 296);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(464, 43);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(464, 55);
             this.tableLayoutPanel2.TabIndex = 6;
             // 
             // sourceComboBox
@@ -192,7 +194,7 @@
             this.sourceComboBox.Items.AddRange(new object[] {
             "Open data",
             "NavData Pro/Navigraph"});
-            this.sourceComboBox.Location = new System.Drawing.Point(87, 3);
+            this.sourceComboBox.Location = new System.Drawing.Point(84, 3);
             this.sourceComboBox.Name = "sourceComboBox";
             this.sourceComboBox.Size = new System.Drawing.Size(218, 28);
             this.sourceComboBox.TabIndex = 1;
