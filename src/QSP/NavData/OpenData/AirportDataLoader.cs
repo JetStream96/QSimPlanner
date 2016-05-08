@@ -52,7 +52,7 @@ namespace QSP.NavData.OpenData
                     double lat = double.Parse(words[9]);
                     double lon = double.Parse(words[10]);
                     double elev = double.Parse(words[11]);
-                    double heading = double.Parse(words[12]);//TODO:
+                    double heading = double.Parse(words[13]);
 
                     rwys.Add(
                         icao,
@@ -73,11 +73,11 @@ namespace QSP.NavData.OpenData
                             surface,
                             -1));
 
-                    id = words[14].Trim('"');
-                    lat = double.Parse(words[15]);
-                    lon = double.Parse(words[16]);
-                    elev = double.Parse(words[17]);
-                    heading = double.Parse(words[18]);//TODO:
+                    id = words[15].Trim('"');
+                    lat = double.Parse(words[16]);
+                    lon = double.Parse(words[17]);
+                    elev = double.Parse(words[18]);
+                    heading = double.Parse(words[20]);
 
                     rwys.Add(
                         icao,

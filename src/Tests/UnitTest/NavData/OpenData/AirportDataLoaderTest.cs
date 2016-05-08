@@ -41,42 +41,42 @@ namespace UnitTest.NavData.OpenData
             var rwys = vhhh.Rwys;
 
             var _7L = rwys.Where(r => r.RwyIdent == "07L").First();
-            Assert.IsTrue(_7L.Heading == "");//TODO:
+            Assert.IsTrue(_7L.Heading == "74");
             Assert.AreEqual(3800, _7L.Length);
             Assert.AreEqual(60, _7L.Width);
             Assert.AreEqual(false, _7L.HasIlsInfo);
-            Assert.AreEqual(22.3104, vhhh.Lat, delta);
-            Assert.AreEqual(113.896, vhhh.Lon, delta);
+            Assert.AreEqual(22.3104, _7L.Lat, delta);
+            Assert.AreEqual(113.896, _7L.Lon, delta);
             Assert.AreEqual(22, _7L.Elevation);
             Assert.IsTrue("ASP" == _7L.SurfaceType);
 
             var _7R = rwys.Where(r => r.RwyIdent == "07R").First();
-            Assert.IsTrue(_7R.Heading == "");//TODO:
+            Assert.IsTrue(_7R.Heading == "74");
             Assert.AreEqual(3800, _7R.Length);
             Assert.AreEqual(60, _7R.Width);
             Assert.AreEqual(false, _7R.HasIlsInfo);
-            Assert.AreEqual(22.2962, vhhh.Lat, delta);
-            Assert.AreEqual(113.898, vhhh.Lon, delta);
+            Assert.AreEqual(22.2962, _7R.Lat, delta);
+            Assert.AreEqual(113.898, _7R.Lon, delta);
             Assert.AreEqual(28, _7R.Elevation);
             Assert.IsTrue("ASP" == _7R.SurfaceType);
 
             var _25R = rwys.Where(r => r.RwyIdent == "25R").First();
-            Assert.IsTrue(_25R.Heading == "");//TODO:
+            Assert.IsTrue(_25R.Heading == "254");
             Assert.AreEqual(3800, _25R.Length);
             Assert.AreEqual(60, _25R.Width);
             Assert.AreEqual(false, _25R.HasIlsInfo);
-            Assert.AreEqual(22.3216, vhhh.Lat, delta);
-            Assert.AreEqual(113.931, vhhh.Lon, delta);
+            Assert.AreEqual(22.3216, _25R.Lat, delta);
+            Assert.AreEqual(113.931, _25R.Lon, delta);
             Assert.AreEqual(23, _25R.Elevation);
             Assert.IsTrue("ASP" == _25R.SurfaceType);
 
             var _25L = rwys.Where(r => r.RwyIdent == "25L").First();
-            Assert.IsTrue(_25L.Heading == "");//TODO:
+            Assert.IsTrue(_25L.Heading == "254");
             Assert.AreEqual(3800, _25L.Length);
             Assert.AreEqual(60, _25L.Width);
             Assert.AreEqual(false, _25L.HasIlsInfo);
-            Assert.AreEqual(22.3074, vhhh.Lat, delta);
-            Assert.AreEqual(113.933, vhhh.Lon, delta);
+            Assert.AreEqual(22.3074, _25L.Lat, delta);
+            Assert.AreEqual(113.933, _25L.Lon, delta);
             Assert.AreEqual(27, _25L.Elevation);
             Assert.IsTrue("ASP" == _25L.SurfaceType);
         }

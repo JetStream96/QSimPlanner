@@ -1,4 +1,5 @@
-"id","airport_ref","airport_ident","length_ft","width_ft","surface","lighted","closed","le_ident","le_latitude_deg","le_longitude_deg","le_elevation_ft","le_heading_degT","le_displaced_threshold_ft","he_ident","he_latitude_deg","he_longitude_deg","he_elevation_ft","he_heading_degT","he_displaced_threshold_ft",
-270007,10244,"37NJ",51,51,"ASPH",0,0,"H1",,,,,,,,,,,
-236412,26535,"VHHH",12467,197,"ASP",1,0,"07L",22.3104,113.896,22,70.9,565,"25R",22.3216,113.931,23,250.9,580
-236411,26535,"VHHH",12467,197,"ASP",1,0,"07R",22.2962,113.898,28,70.9,525,"25L",22.3074,113.933,27,250.9,
+"id","airport_ref","airport_ident","length_ft","width_ft","surface","lighted","closed","le_ident","le_latitude_deg","le_longitude_deg","le_elevation_ft","le_heading_degT","le_heading_degM","le_displaced_threshold_ft","he_ident","he_latitude_deg","he_longitude_deg","he_elevation_ft","he_heading_degT","he_heading_degM","he_displaced_threshold_ft",
+270007,10244,"37NJ",51,51,"ASPH",0,0,"H1",,,,,,,,,,,,,
+236412,26535,"VHHH",12467,197,"ASP",1,0,"07L",22.3104,113.896,22,70.9,73.60000000000001,565,"25R",22.3216,113.931,23,250.9,253.6,580
+236411,26535,"VHHH",12467,197,"ASP",1,0,"07R",22.2962,113.898,28,70.9,73.58333333333334,525,"25L",22.3074,113.933,27,250.9,253.6,
+
