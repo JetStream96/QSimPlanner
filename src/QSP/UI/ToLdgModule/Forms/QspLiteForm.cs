@@ -60,15 +60,27 @@ namespace QSP.UI.ToLdgModule.Forms
 
         private void enableBtnColorControls()
         {
+            var acConfigPair = new BtnColorPair(acConfigBtn, Color.Black,
+                Color.WhiteSmoke, Color.White, Color.FromArgb(192, 0, 0));
+
+            var toPair = new BtnColorPair(toBtn, Color.Black,
+                Color.WhiteSmoke, Color.White, Color.DarkOrange);
+
+            var ldgPair = new BtnColorPair(ldgBtn, Color.Black,
+            Color.WhiteSmoke, Color.White, Color.ForestGreen);
+
+            var airportPair = new BtnColorPair(airportBtn, Color.Black,
+            Color.WhiteSmoke, Color.White, Color.DodgerBlue);
+
+            var optionPair = new BtnColorPair(optionsBtn, Color.Black,
+            Color.Black, Color.White, Color.Purple);
+
             btnControl = new BtnGroupController(
-                Color.Black,
-                Color.WhiteSmoke,
-                Color.White,
-                new BtnColorPair(acConfigBtn, Color.FromArgb(192, 0, 0)),
-                new BtnColorPair(toBtn, Color.DarkOrange),
-                new BtnColorPair(ldgBtn, Color.ForestGreen),
-                new BtnColorPair(airportBtn, Color.DodgerBlue),
-                new BtnColorPair(optionsBtn, Color.Purple));
+                acConfigPair,
+                toPair,
+                ldgPair,
+                airportPair,
+                optionPair);
 
             btnControl.Initialize();
             btnControl.SetSelected(acConfigBtn);
@@ -93,7 +105,7 @@ namespace QSP.UI.ToLdgModule.Forms
             Controls.Add(airportMenu);
 
             optionsMenu = new OptionsControl();
-            optionsMenu.Location= new Point(12, 60);
+            optionsMenu.Location = new Point(12, 60);
             Controls.Add(optionsMenu);
         }
     }

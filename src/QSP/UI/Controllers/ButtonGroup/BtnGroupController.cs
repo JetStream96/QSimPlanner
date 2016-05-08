@@ -8,11 +8,7 @@ namespace QSP.UI.Controllers.ButtonGroup
     {
         private BtnColorController[] controllers;
 
-        public BtnGroupController(
-            Color foreInactive,
-            Color backInactive,
-            Color foreActive,
-            params BtnColorPair[] btnColors)
+        public BtnGroupController(params BtnColorPair[] btnColors)
         {
             controllers = new BtnColorController[btnColors.Length];
 
@@ -20,13 +16,13 @@ namespace QSP.UI.Controllers.ButtonGroup
             {
                 controllers[i] = new BtnColorController(
                     btnColors[i].Btn,
-                    foreInactive,
-                    backInactive,
-                    foreActive,
+                    btnColors[i].ForeInactive,
+                    btnColors[i].BackInactive,
+                    btnColors[i].ForeActive,
                     btnColors[i].BackActive);
             }
         }
-        
+
         public void Initialize()
         {
             foreach (var i in controllers)
@@ -63,12 +59,19 @@ namespace QSP.UI.Controllers.ButtonGroup
         public class BtnColorPair
         {
             public Button Btn { get; private set; }
+            public Color ForeInactive { get; private set; }
+            public Color BackInactive { get; private set; }
+            public Color ForeActive { get; private set; }
             public Color BackActive { get; private set; }
 
-            public BtnColorPair(Button Btn,Color Color)
+            public BtnColorPair(Button Btn, Color ForeInactive,
+                Color BackInactive, Color ForeActive, Color BackActive)
             {
                 this.Btn = Btn;
-                this.BackActive = Color;
+                this.ForeInactive = ForeInactive;
+                this.BackInactive = BackInactive;
+                this.ForeActive = ForeActive;
+                this.BackActive = BackActive;
             }
         }
     }
