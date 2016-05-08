@@ -115,7 +115,6 @@
     <Compile Include="LibraryExtension\DoubleArrayCompare.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\JaggedArray.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\LengthChecker.cs" />
-    <Compile Include="LibraryExtension\SequentialTaskRunner.cs" />
     <Compile Include="LibraryExtension\StringArrays.cs" />
     <Compile Include="LibraryExtension\StringParser\StringParser.cs" />
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
@@ -304,6 +303,12 @@
     </Compile>
     <Compile Include="UI\ToLdgModule\Common\WeatherInfoControl.Designer.cs">
       <DependentUpon>WeatherInfoControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ToLdgModule\Options\OptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ToLdgModule\Options\OptionsControl.Designer.cs">
+      <DependentUpon>OptionsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ToLdgModule\TOPerf\Controllers\BoeingController.cs" />
     <Compile Include="UI\ToLdgModule\TOPerf\Controllers\BoeingParameterValidator.cs" />
@@ -501,6 +506,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\WeightManagement.resx">
       <DependentUpon>WeightManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ToLdgModule\Options\OptionsControl.resx">
+      <DependentUpon>OptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ToLdgModule\TOPerf\TOPerfControl.resx">
       <DependentUpon>TOPerfControl.cs</DependentUpon>

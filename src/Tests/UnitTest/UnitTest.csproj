@@ -71,7 +71,6 @@
     <Compile Include="LibraryExtension\DoubleArraysTest.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\JaggedArraysTest.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\LengthCheckerTest.cs" />
-    <Compile Include="LibraryExtension\SequentialTaskRunnerTest.cs" />
     <Compile Include="LibraryExtension\StringParser\UtilitiesTest.cs" />
     <Compile Include="LibraryExtension\UtilitiesTest.cs" />
     <Compile Include="LibraryExtension\FixedIndexListTest.cs" />
