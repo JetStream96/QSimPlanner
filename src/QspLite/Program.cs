@@ -14,7 +14,7 @@ namespace QspLite
         static void Main()
         {
             Information.InitializeProfiles();
-
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

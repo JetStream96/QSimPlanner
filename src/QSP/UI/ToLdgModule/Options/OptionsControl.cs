@@ -1,24 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using QSP.RouteFinding.Airports;
+﻿using QSP.Core;
 using QSP.NavData;
-using System.Threading;
-using QSP.Core;
+using QSP.RouteFinding.Airports;
 using QSP.Utilities;
-using System.IO;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace QSP.UI.ToLdgModule.Options
 {
     public partial class OptionsControl : UserControl
     {
-        public AirportManager airports { get; private set; }
+        public AirportManager Airports { get; private set; }
 
         public event EventHandler SaveAirportsCompleted;
         public event EventHandler HideControlRequested;
@@ -31,30 +23,21 @@ namespace QSP.UI.ToLdgModule.Options
         public void Initialize()
         {
             sourceComboBox.SelectedIndex = 0;
-            UserOption options = new UserOption(0, "");
-
+            var options = new UserOption(0, "");
+            
             try
             {
                 options = OptionManager.ReadFromFile();
-
             }
             catch (Exception ex)
             {
                 LoggerInstance.WriteToLog(ex);
-
-                bool notFound =
-                    ex is FileNotFoundException ||
-                    ex is DirectoryNotFoundException;
-
-                if (notFound == false)
-                {
-                    MessageBox.Show("Unable to read options file.");
-                    // TODO: Exit app.
-                }
             }
 
             sourceComboBox.SelectedIndex = options.SourceType;
             pathTxtBox.Text = options.SourcePath;
+
+            tryLoadAirports();
         }
 
         private void loadAirports(DataSource source)
@@ -79,7 +62,7 @@ namespace QSP.UI.ToLdgModule.Options
                     throw new EnumNotSupportedException();
             }
 
-            airports = new AirportManager(col);
+            Airports = new AirportManager(col);
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -145,7 +128,7 @@ namespace QSP.UI.ToLdgModule.Options
             HideControlRequested?.Invoke(this, EventArgs.Empty);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void broserBtn_Click(object sender, EventArgs e)
         {
             var folderBrowser = new FolderBrowserDialog();
             folderBrowser.SelectedPath = pathTxtBox.Text;

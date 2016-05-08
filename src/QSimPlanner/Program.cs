@@ -73,7 +73,6 @@ namespace QSimPlanner
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
     }
 }

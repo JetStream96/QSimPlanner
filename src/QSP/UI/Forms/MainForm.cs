@@ -106,14 +106,14 @@ namespace QSP
 
         private void initAircraftData(ProfileManager profiles)
         {
-            toPerfControl.InitializeAircrafts(
-                profiles.AcConfigs, profiles.TOTables.ToList());
+            toPerfControl.Initialize(
+                profiles.AcConfigs, profiles.TOTables.ToList(),null);
 
             // TODO: toPerfControl.Airports = AirportList;
             //toPerfControl.TryLoadState();
 
             landingPerfControl.InitializeAircrafts(
-                profiles.AcConfigs, profiles.LdgTables.ToList());
+                profiles.AcConfigs, profiles.LdgTables.ToList(),null);
             //landingPerfControl.Airports = AirportList;
             //landingPerfControl.TryLoadState();
         }
@@ -546,7 +546,7 @@ namespace QSP
             {
                 takeoffControlInitialized = true;
                 //toPerfControl.InitializeAircrafts(null, null);//TODO: load the data here.
-                toPerfControl.Airports = airportList;
+                toPerfControl.airports = airportList;
                 toPerfControl.TryLoadState();
             }
             viewChanger.ShowPage(ViewManager.Pages.TakeoffPerf);
@@ -1352,8 +1352,7 @@ namespace QSP
 
         private void AirportDataFinder_Load()
         {
-            airportMapControl.AirportList = airportList;
-            airportMapControl.InitializeControls();
+            airportMapControl.InitializeControls(airportList);
             airportMapControl.BrowserEnabled = true;
             UpdateComboBoxList();
 

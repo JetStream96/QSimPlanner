@@ -103,11 +103,13 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         public void InitializeAircrafts(
             AcConfigManager aircrafts,
-            List<PerfTable> tables)
+            List<PerfTable> tables,
+            AirportManager airports)
         {
             this.aircrafts = aircrafts;
             this.tables = tables;
             updateAircraftList();
+            this.Airports = airports;
         }
 
         private string[] availAircraftTypes()

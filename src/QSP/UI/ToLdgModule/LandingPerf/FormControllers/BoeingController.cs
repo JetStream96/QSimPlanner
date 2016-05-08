@@ -125,6 +125,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
                     LengthUnit.Feet);
 
                 OnCalculationComplete(EventArgs.Empty);
+                elements.result.ForeColor = Color.Black;
             }
             catch (InvalidUserInputException ex)
             {

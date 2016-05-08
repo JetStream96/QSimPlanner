@@ -11,7 +11,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
 {
     public partial class AirportMapControl : UserControl
     {
-        public AirportManager AirportList { get; set; }
+        private AirportManager airports;
 
         private string CurrentIcao
         {
@@ -69,13 +69,14 @@ namespace QSP.UI.ToLdgModule.AirportMap
             InitializeComponent();
         }
 
-        public void InitializeControls()
+        public void InitializeControls(AirportManager airports)
         {
             resetAirport();
             setEmptyDataGrid();
 
             icaoComboBox.Items.Clear();
             icaoComboBox.Text = "";
+            this.airports = airports;
         }
 
         private void setEmptyDataGrid()
@@ -208,7 +209,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             resetAirport();
             airportDataGrid.Rows.Clear();
 
-            var airport = AirportList.Find(CurrentIcao);
+            var airport = airports.Find(CurrentIcao);
 
             if (airport != null && airport.Rwys.Count > 0)
             {

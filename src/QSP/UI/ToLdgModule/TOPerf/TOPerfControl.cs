@@ -22,8 +22,8 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
         private PerfTable currentTable;
         private AutoWeatherSetter wxSetter;
-
-        public AirportManager Airports
+        
+        public AirportManager airports
         {
             get { return airportInfoControl.Airports; }
             set { airportInfoControl.Airports = value; }
@@ -42,13 +42,15 @@ namespace QSP.UI.ToLdgModule.TOPerf
             setWeatherBtnHandlers();
         }
 
-        public void InitializeAircrafts(
+        public void Initialize(
             AcConfigManager aircrafts,
-            List<PerfTable> tables)
+            List<PerfTable> tables,
+            AirportManager airports)
         {
             this.aircrafts = aircrafts;
             this.tables = tables;
             updateAircraftList();
+            this.airports = airports;
         }
 
         private void updateAircraftList()

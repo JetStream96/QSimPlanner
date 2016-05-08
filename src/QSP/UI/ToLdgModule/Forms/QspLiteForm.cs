@@ -15,11 +15,11 @@ namespace QSP.UI.ToLdgModule.Forms
 {
     public partial class QspLiteForm : Form
     {
-        private AircraftMenuControl acMenu;
-        private TOPerfControl toMenu;
-        private LandingPerfControl ldgMenu;
-        private AirportMapControl airportMenu;
-        private OptionsControl optionsMenu;
+        public AircraftMenuControl AcMenu { get; private set; }
+        public TOPerfControl ToMenu { get; private set; }
+        public LandingPerfControl LdgMenu { get; private set; }
+        public AirportMapControl AirportMenu { get; private set; }
+        public OptionsControl OptionsMenu { get; private set; }
 
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
@@ -32,16 +32,19 @@ namespace QSP.UI.ToLdgModule.Forms
 
         public void Initialize(ProfileManager manager)
         {
-            acMenu.Initialize(manager);
-            toMenu.InitializeAircrafts(
-                manager.AcConfigs, manager.TOTables.ToList());
+            OptionsMenu.Initialize();
 
-            ldgMenu.InitializeAircrafts(
-                manager.AcConfigs, manager.LdgTables.ToList());
+            var airports = OptionsMenu.Airports;
+            AcMenu.Initialize(manager);
 
-            airportMenu.InitializeControls();
-            optionsMenu.Initialize();
+            ToMenu.Initialize(manager.AcConfigs,
+                manager.TOTables.ToList(), airports);
 
+            LdgMenu.InitializeAircrafts(manager.AcConfigs,
+                manager.LdgTables.ToList(), airports);
+
+            AirportMenu.InitializeControls(airports);
+            
             enableBtnColorControls();
             enableViewControl();
         }
@@ -49,11 +52,11 @@ namespace QSP.UI.ToLdgModule.Forms
         private void enableViewControl()
         {
             viewControl = new ControlSwitcher(
-                new BtnControlPair(acConfigBtn, acMenu),
-                new BtnControlPair(toBtn, toMenu),
-                new BtnControlPair(ldgBtn, ldgMenu),
-                new BtnControlPair(airportBtn, airportMenu),
-                new BtnControlPair(optionsBtn, optionsMenu));
+                new BtnControlPair(acConfigBtn, AcMenu),
+                new BtnControlPair(toBtn, ToMenu),
+                new BtnControlPair(ldgBtn, LdgMenu),
+                new BtnControlPair(airportBtn, AirportMenu),
+                new BtnControlPair(optionsBtn, OptionsMenu));
 
             viewControl.Subscribed = true;
         }
@@ -88,25 +91,25 @@ namespace QSP.UI.ToLdgModule.Forms
 
         private void addControls()
         {
-            acMenu = new AircraftMenuControl();
-            acMenu.Location = new Point(12, 60);
-            Controls.Add(acMenu);
+            AcMenu = new AircraftMenuControl();
+            AcMenu.Location = new Point(12, 60);
+            Controls.Add(AcMenu);
 
-            toMenu = new TOPerfControl();
-            toMenu.Location = new Point(12, 60);
-            Controls.Add(toMenu);
+            ToMenu = new TOPerfControl();
+            ToMenu.Location = new Point(12, 60);
+            Controls.Add(ToMenu);
 
-            ldgMenu = new LandingPerfControl();
-            ldgMenu.Location = new Point(12, 60);
-            Controls.Add(ldgMenu);
+            LdgMenu = new LandingPerfControl();
+            LdgMenu.Location = new Point(12, 60);
+            Controls.Add(LdgMenu);
 
-            airportMenu = new AirportMapControl();
-            airportMenu.Location = new Point(12, 60);
-            Controls.Add(airportMenu);
+            AirportMenu = new AirportMapControl();
+            AirportMenu.Location = new Point(12, 60);
+            Controls.Add(AirportMenu);
 
-            optionsMenu = new OptionsControl();
-            optionsMenu.Location = new Point(12, 60);
-            Controls.Add(optionsMenu);
+            OptionsMenu = new OptionsControl();
+            OptionsMenu.Location = new Point(12, 60);
+            Controls.Add(OptionsMenu);
         }
     }
 }
