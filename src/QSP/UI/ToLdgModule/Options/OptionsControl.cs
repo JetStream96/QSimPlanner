@@ -10,7 +10,7 @@ namespace QSP.UI.ToLdgModule.Options
 {
     public partial class OptionsControl : UserControl
     {
-        public AirportManager Airports { get; private set; }
+        public AirportManager Airports { get; set; }
 
         public event EventHandler SaveAirportsCompleted;
         public event EventHandler HideControlRequested;
@@ -23,8 +23,8 @@ namespace QSP.UI.ToLdgModule.Options
         public void Initialize()
         {
             sourceComboBox.SelectedIndex = 0;
-            var options = new UserOption(0, "");
-            
+            UserOption options = null;
+
             try
             {
                 options = OptionManager.ReadFromFile();
@@ -32,6 +32,15 @@ namespace QSP.UI.ToLdgModule.Options
             catch (Exception ex)
             {
                 LoggerInstance.WriteToLog(ex);
+                MessageBox.Show(
+                    "Failed to read options.ini. " +
+                    "Please make sure it is not opened by other programs." +
+                    "\nThe application will quit now.",
+                    "File read error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                Environment.Exit(0);
             }
 
             sourceComboBox.SelectedIndex = options.SourceType;

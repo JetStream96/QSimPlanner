@@ -78,8 +78,9 @@ namespace QSP.AircraftProfiles.Configs
 
                 return
                     "The following aircrafts have" +
-                    " identical registrations:\n" +
-                    string.Join("\n", duplicate.Select(x => x.FilePath));
+                    " identical registrations:\n\n" +
+                    string.Join("\n", duplicate.Select(x => x.FilePath)) +
+                    "\n\nNone of these profiles will be loaded.";
             }
             catch (InvalidOperationException)
             {

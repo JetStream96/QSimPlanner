@@ -1541,7 +1541,7 @@ namespace QSP
             // 
             // toPerfControl
             // 
-            this.toPerfControl.airports = null;
+            this.toPerfControl.Airports = null;
             this.toPerfControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.toPerfControl.Location = new System.Drawing.Point(0, 0);
             this.toPerfControl.Name = "toPerfControl";
@@ -1612,6 +1612,7 @@ namespace QSP
             // 
             // airportMapControl
             // 
+            this.airportMapControl.Airports = null;
             this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.airportMapControl.BrowserEnabled = false;
             this.airportMapControl.Location = new System.Drawing.Point(6, 6);

@@ -54,8 +54,8 @@ namespace QSP
             //smaller num = less precise
             //0 = disregard wind completely, 1 is good enough
 
-            FuelCalculator FuelCalc = new FuelCalculator(para);
-            OptCrzCalculator OptCrzCalc = new OptCrzCalculator(para.AC);
+            var FuelCalc = new FuelCalculator(para);
+            var OptCrzCalc = new OptCrzCalculator(para.AC);
 
             //calculate altn first
             double fuelTon = 0;
@@ -89,33 +89,6 @@ namespace QSP
 
             }
             return FuelCalc;
-        }
-
-        public void Initialize(
-            ProfileManager profiles,
-            AppOptions appSettings,
-            AirportManager airportList,
-            WaypointList wptList)
-        {
-            initAircraftData(profiles);
-
-            this.appSettings = appSettings;
-            this.airportList = airportList;
-            this.wptList = wptList;
-        }
-
-        private void initAircraftData(ProfileManager profiles)
-        {
-            toPerfControl.Initialize(
-                profiles.AcConfigs, profiles.TOTables.ToList(),null);
-
-            // TODO: toPerfControl.Airports = AirportList;
-            //toPerfControl.TryLoadState();
-
-            landingPerfControl.InitializeAircrafts(
-                profiles.AcConfigs, profiles.LdgTables.ToList(),null);
-            //landingPerfControl.Airports = AirportList;
-            //landingPerfControl.TryLoadState();
         }
 
         private void Calculate(object sender, EventArgs e)
@@ -197,6 +170,33 @@ namespace QSP
 
         #endregion
 
+        public void Initialize(
+            ProfileManager profiles,
+            AppOptions appSettings,
+            AirportManager airportList,
+            WaypointList wptList)
+        {
+            initAircraftData(profiles);
+
+            this.appSettings = appSettings;
+            this.airportList = airportList;
+            this.wptList = wptList;
+        }
+
+        private void initAircraftData(ProfileManager profiles)
+        {
+            toPerfControl.Initialize(
+                profiles.AcConfigs, profiles.TOTables.ToList(), null);
+
+            // TODO: toPerfControl.Airports = AirportList;
+            //toPerfControl.TryLoadState();
+
+            landingPerfControl.InitializeAircrafts(
+                profiles.AcConfigs, profiles.LdgTables.ToList(), null);
+            //landingPerfControl.Airports = AirportList;
+            //landingPerfControl.TryLoadState();
+        }
+
         private void LoadDefaultState()
         {
             ACList.SelectedIndex = 0;
@@ -225,7 +225,7 @@ namespace QSP
         }
 
         private async void Startup(object sender, EventArgs e)
-        {            
+        {
             checkRegistry();
             LoadDefaultState();
 
@@ -250,7 +250,7 @@ namespace QSP
             formStateManagerFuel.Load();
 
             Size = new Size(1280, 900);
-            
+
             viewChanger = new ViewManager();
             viewChanger.ShowPage(ViewManager.Pages.FuelCalculation);
 
@@ -260,29 +260,21 @@ namespace QSP
 
         private static void checkRegistry()
         {
-            //try to check/add registry so that google map works properly 
-            IeEmulationChecker RegChecker = new IeEmulationChecker();
+            // Try to check/add registry so that google map works properly. 
+            var regChecker = new IeEmulationChecker();
 
             try
             {
-                RegChecker.Run();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
 #if DEBUG
-            try
-            {
-                RegChecker.DebugRun();
+                regChecker.DebugRun();
+#else
+                regChecker.Run();
+#endif                
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                WriteToLog(ex);
             }
-#endif
-
         }
 
         private void startTracksDlAsReq()
@@ -546,7 +538,7 @@ namespace QSP
             {
                 takeoffControlInitialized = true;
                 //toPerfControl.InitializeAircrafts(null, null);//TODO: load the data here.
-                toPerfControl.airports = airportList;
+                toPerfControl.Airports = airportList;
                 toPerfControl.TryLoadState();
             }
             viewChanger.ShowPage(ViewManager.Pages.TakeoffPerf);

@@ -4,6 +4,9 @@ using Microsoft.Win32;
 
 namespace QSP.Utilities
 {
+    // Does not need admin privilege. Since no admin right is required
+    // to read registry key, or write to HKEY_CURRENT_USER.
+    //
     public class IeEmulationChecker
     {
         public void Run()
@@ -16,7 +19,8 @@ namespace QSP.Utilities
 
         public void AddRegistry()
         {
-            addExeWithIEEmulationMode(Assembly.GetEntryAssembly().GetName().Name + ".exe");
+            addExeWithIEEmulationMode(
+                Assembly.GetEntryAssembly().GetName().Name + ".exe");
         }
 
         private void addExeWithIEEmulationMode(string exeName)
@@ -39,8 +43,9 @@ namespace QSP.Utilities
 
             if (ver <= 6)
             {
-                //not supported, no emulation avail
-                throw new Exception("Versions of IE6 or earlier is not supported.");
+                // Not supported, no emulation avail.
+                throw new Exception(
+                    "Versions of IE6 or earlier is not supported.");
             }
             else if (ver == 7)
             {
@@ -66,12 +71,15 @@ namespace QSP.Utilities
 
             try
             {
-                Registry.SetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" +
-                    "\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION", exeName, emulationNum);
+                Registry.SetValue(
+                    @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Internet Explorer" +
+                    @"\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION",
+                    exeName,
+                    emulationNum);
             }
             catch
             {
-                throw new Exception("Failed to add registry. Please restart the application as administrator.");
+                throw new Exception("Failed to add registry.");
             }
         }
 
@@ -80,8 +88,9 @@ namespace QSP.Utilities
             try
             {
                 string version =
-                    Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer",
-                    "Version", "").ToString();
+                    Registry.GetValue(
+                        @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer",
+                        "Version", "").ToString();
 
                 if (version == "")
                 {
@@ -103,8 +112,9 @@ namespace QSP.Utilities
                     else
                     {
                         version = Convert.ToString(
-                            Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer",
-                            "svcVersion", ""));
+                            Registry.GetValue(
+                                @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer",
+                                "svcVersion", ""));
 
                         a = version.Split('.');
                         return Convert.ToInt32(a[0]);
@@ -125,8 +135,9 @@ namespace QSP.Utilities
         {
             object defaultVal = new object();
 
-            var keyValue = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" +
-                "\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION",
+            var keyValue = Registry.GetValue(
+                @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Internet Explorer" +
+                @"\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION",
                 Assembly.GetEntryAssembly().GetName().Name + ".exe", defaultVal);
 
             return (keyValue != null && keyValue != defaultVal);
@@ -152,8 +163,8 @@ namespace QSP.Utilities
             object defaultVal = new object();
 
             var keyValue = Registry.GetValue(
-                "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" +
-                "\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION",
+                @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Internet Explorer" +
+                @"\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION",
                 Assembly.GetEntryAssembly().GetName().Name + ".vshost.exe", defaultVal);
 
             return (keyValue != null && keyValue != defaultVal);

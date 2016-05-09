@@ -4,8 +4,8 @@ namespace QSP.RouteFinding.Airports
     {
         public string RwyIdent { get; private set; }
         public string Heading { get; private set; }
-        public int Length { get; private set; }
-        public int Width { get; private set; }
+        public int Length { get; private set; }     // Feet
+        public int Width { get; private set; }      // Feet
         public bool HasIlsInfo { get; private set; }
         public bool IlsAvail { get; private set; }
         public string IlsFreq { get; private set; }

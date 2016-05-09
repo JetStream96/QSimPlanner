@@ -15,5 +15,13 @@
             this.SourceType = SourceType;
             this.SourcePath = SourcePath;
         }
+
+        public static UserOption Default
+        {
+            get
+            {
+                return new UserOption(0, "");//TODO: change the path
+            }
+        }
     }
 }

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using static QSP.MathTools.Doubles;
-using static QSP.AviationTools.Constants;
 
 namespace QSP.NavData.OpenData
 {
@@ -44,8 +43,6 @@ namespace QSP.NavData.OpenData
 
                     success &= double.TryParse(words[3], out len);
                     success &= double.TryParse(words[4], out width);
-                    len *= FtMeterRatio;
-                    width *= FtMeterRatio;
 
                     // Reduce memory usage by sharing these strings.
                     var surface = words[5].Trim('"');
@@ -186,16 +183,16 @@ namespace QSP.NavData.OpenData
 
                     airportDB.Add(
                         new Airport(
-                                    icao,
-                                    name,
-                                    lat,
-                                    lon,
-                                    RoundToInt(elevation),
-                                    false,
-                                    0,
-                                    0,
-                                    longestRwyLength,
-                                    rwys));
+                            icao,
+                            name,
+                            lat,
+                            lon,
+                            RoundToInt(elevation),
+                            false,
+                            0,
+                            0,
+                            longestRwyLength,
+                            rwys));
                 }
                 catch { }
             }

@@ -27,7 +27,11 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             if (errors.Count() > 0)
             {
-                MessageBox.Show(string.Join("\n\n\n", errors));
+                MessageBox.Show(
+                    string.Join("\n\n\n", errors),
+                    "",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
             }
         }
 

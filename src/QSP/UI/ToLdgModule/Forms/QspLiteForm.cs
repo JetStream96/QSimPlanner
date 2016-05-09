@@ -1,10 +1,13 @@
 ﻿using QSP.AircraftProfiles;
+using QSP.RouteFinding.Airports;
 using QSP.UI.Controllers.ButtonGroup;
 using QSP.UI.ToLdgModule.AircraftMenu;
 using QSP.UI.ToLdgModule.AirportMap;
 using QSP.UI.ToLdgModule.LandingPerf;
-using QSP.UI.ToLdgModule.TOPerf;
 using QSP.UI.ToLdgModule.Options;
+using QSP.UI.ToLdgModule.TOPerf;
+using QSP.Utilities;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -23,6 +26,7 @@ namespace QSP.UI.ToLdgModule.Forms
 
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
+        private AirportManager _airports;
 
         public QspLiteForm()
         {
@@ -32,6 +36,8 @@ namespace QSP.UI.ToLdgModule.Forms
 
         public void Initialize(ProfileManager manager)
         {
+            checkRegistry();
+            subscribeEvents();
             OptionsMenu.Initialize();
 
             var airports = OptionsMenu.Airports;
@@ -39,14 +45,41 @@ namespace QSP.UI.ToLdgModule.Forms
 
             ToMenu.Initialize(manager.AcConfigs,
                 manager.TOTables.ToList(), airports);
+            ToMenu.TryLoadState();
 
             LdgMenu.InitializeAircrafts(manager.AcConfigs,
                 manager.LdgTables.ToList(), airports);
+            LdgMenu.TryLoadState();
 
             AirportMenu.InitializeControls(airports);
-            
+            AirportMenu.BrowserEnabled = true;
+
             enableBtnColorControls();
             enableViewControl();
+        }
+
+        private void subscribeEvents()
+        {
+            OptionsMenu.SaveAirportsCompleted += (sender, e) =>
+            {
+                Airports = OptionsMenu.Airports;
+            };
+        }
+
+        public AirportManager Airports
+        {
+            get
+            {
+                return _airports;
+            }
+            set
+            {
+                _airports = value;
+                ToMenu.Airports = _airports;
+                LdgMenu.Airports = _airports;
+                AirportMenu.Airports = _airports;
+                OptionsMenu.Airports = _airports;
+            }
         }
 
         private void enableViewControl()
@@ -110,6 +143,25 @@ namespace QSP.UI.ToLdgModule.Forms
             OptionsMenu = new OptionsControl();
             OptionsMenu.Location = new Point(12, 60);
             Controls.Add(OptionsMenu);
+        }
+
+        private static void checkRegistry()
+        {
+            //try to check/add registry so that google map works properly 
+            var regChecker = new IeEmulationChecker();
+
+            try
+            {
+#if DEBUG
+                regChecker.DebugRun();
+#else
+                regChecker.Run();
+#endif
+            }
+            catch (Exception ex)
+            {
+                LoggerInstance.WriteToLog(ex);
+            }
         }
     }
 }

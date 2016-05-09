@@ -2,6 +2,7 @@
 using QSP.RouteFinding.Airports;
 using System;
 using System.Windows.Forms;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.UI.ToLdgModule.Common.AirportInfo
 {
@@ -68,7 +69,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
 
             var airportIcao = Icao;
 
-            if (airportIcao.Length != 4)
+            if (airportIcao.Length != 4 || Airports == null)
             {
                 return;
             }
@@ -94,7 +95,8 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
             switch (lengthUnitComboBox.SelectedIndex)
             {
                 case 0: // meter
-                    lengthTxtBox.Text = ((int)(lengthFt * Constants.FtMeterRatio)).ToString();
+                    int len = RoundToInt(lengthFt * Constants.FtMeterRatio);
+                    lengthTxtBox.Text = len.ToString();
                     break;
 
                 case 1: // ft

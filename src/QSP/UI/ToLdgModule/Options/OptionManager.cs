@@ -1,6 +1,7 @@
 ﻿using IniParser;
 using IniParser.Model;
 using IniParser.Parser;
+using System;
 using System.IO;
 
 namespace QSP.UI.ToLdgModule.Options
@@ -9,6 +10,22 @@ namespace QSP.UI.ToLdgModule.Options
     {
         private static string path = @"preference\options.cfg";
 
+        // If the file does not exist, create one.
+        // Then read the file into an UserOption instance.
+        public static UserOption ReadOrCreateFile()
+        {
+            try
+            {
+                return ReadFromFile();
+            }
+            catch (Exception)
+            {
+                Save(UserOption.Default);
+                return ReadFromFile();
+            }
+        }
+
+        // throws exceptions
         public static UserOption ReadFromFile()
         {
             var text = File.ReadAllText(path);
