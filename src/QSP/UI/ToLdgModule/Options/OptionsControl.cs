@@ -77,7 +77,8 @@ namespace QSP.UI.ToLdgModule.Options
         private void saveBtn_Click(object sender, EventArgs e)
         {
             saveBtn.ForeColor = Color.Black;
-            saveBtn.BackColor = Color.LightGray;
+            saveBtn.Enabled = false;
+            saveBtn.BackColor = Color.FromArgb(224, 224, 224);
             saveBtn.Text = "Saving ...";
             Refresh();
 
@@ -89,6 +90,7 @@ namespace QSP.UI.ToLdgModule.Options
             saveBtn.ForeColor = Color.White;
             saveBtn.BackColor = Color.Green;
             saveBtn.Text = "Save";
+            saveBtn.Enabled = true;
         }
 
         private bool trySaveOptions()
@@ -121,12 +123,20 @@ namespace QSP.UI.ToLdgModule.Options
             catch (ReadAirportFileException ex)
             {
                 LoggerInstance.WriteToLog(ex);
-                MessageBox.Show("Cannot read nav data file.");
+                MessageBox.Show(
+                    "Cannot read nav data file.",
+                    "",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
             catch (RwyDataFormatException ex)
             {
                 LoggerInstance.WriteToLog(ex);
-                MessageBox.Show("Nav data format is wrong.");
+                MessageBox.Show(
+                    "Nav data format is wrong.",
+                    "",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
 
             return false;
