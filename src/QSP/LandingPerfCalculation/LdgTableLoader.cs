@@ -39,7 +39,10 @@ namespace QSP.LandingPerfCalculation
             var groups = tables.GroupBy(x => x.Entry.ProfileName);
 
             return new TableImportResult(
-                groups.Select(g => g.First()).ToList(),
+                groups
+                .Where(g => g.Count()==1)
+                .Select(g => g.First())
+                .ToList(),
                 message(tables));
         }
 
@@ -53,8 +56,9 @@ namespace QSP.LandingPerfCalculation
 
                 return
                     "The following aircrafts have" +
-                    " identical profile names:\n" +
-                    string.Join("\n", duplicate.Select(x => x.Entry.FilePath));
+                    " identical profile names:\n\n" +
+                    string.Join("\n", duplicate.Select(x => x.Entry.FilePath)) +
+                    "\n\nNone of these profiles will be loaded.";
             }
             catch (InvalidOperationException)
             {
