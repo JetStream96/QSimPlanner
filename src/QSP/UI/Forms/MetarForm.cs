@@ -1,7 +1,7 @@
 using QSP.Metar;
+using QSP.Utilities;
 using System;
 using static QSP.UI.FormInstanceGetter;
-using QSP.Utilities;
 
 namespace QSP
 {
@@ -72,7 +72,7 @@ namespace QSP
             var wind = ParaExtractor.GetWind(Metar);
             int temp = ParaExtractor.GetTemp(Metar);
             var press = ParaExtractor.GetPressure(Metar);
-
+            
             if (wind == null ||
                 temp == int.MinValue ||
                 press == null)

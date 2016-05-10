@@ -73,5 +73,24 @@ namespace UnitTest.Metar
             Assert.AreEqual(PressureUnit.inHg, q.PressUnit);
             Assert.AreEqual(30.01, q.Value, 1E-6);
         }
+
+        [TestMethod]
+        public void PrecipitationExistsTest()
+        {
+            var noRain = ParaExtractor.PrecipitationExists("EDDM CAVOK");
+            Assert.IsFalse(noRain);
+
+            var lightRain = ParaExtractor.PrecipitationExists("EDDM -RA");
+            Assert.IsTrue(lightRain);
+
+            var rain = ParaExtractor.PrecipitationExists("EDDM RA");
+            Assert.IsTrue(rain);
+
+            var heavyRain = ParaExtractor.PrecipitationExists("EDDM +RA");
+            Assert.IsTrue(heavyRain);
+
+            var lightSnow = ParaExtractor.PrecipitationExists("EDDM -SN");
+            Assert.IsTrue(lightSnow);
+        }
     }
 }

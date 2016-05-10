@@ -80,7 +80,8 @@ namespace QSP.UI.ToLdgModule.Common
                     w.oatTxtBox,
                     w.tempUnitComboBox,
                     w.pressTxtBox,
-                    w.pressUnitComboBox) == false)
+                    w.pressUnitComboBox,
+                    w.surfCondComboBox) == false)
                 {
                     MessageBox.Show(
                        @"Unable to fill the weather information automatically.");

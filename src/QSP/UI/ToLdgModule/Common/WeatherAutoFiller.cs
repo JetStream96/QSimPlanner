@@ -18,11 +18,13 @@ namespace QSP.UI.ToLdgModule.Common
             TextBox oat,
             ComboBox tempUnit,
             TextBox altimeter,
-            ComboBox pressUnit)
+            ComboBox pressUnit,
+            ComboBox surfCond)
         {
             var wind = ParaExtractor.GetWind(metar);
             int temp = ParaExtractor.GetTemp(metar);
             var press = ParaExtractor.GetPressure(metar);
+            bool precip = ParaExtractor.PrecipitationExists(metar);
 
             if (wind == null ||
                 temp == int.MinValue ||
@@ -47,6 +49,11 @@ namespace QSP.UI.ToLdgModule.Common
                     press.PressUnit == PressureUnit.inHg ?
                     Math.Round(press.Value, 2).ToString() :
                     RoundToInt(press.Value).ToString();
+
+                surfCond.SelectedIndex =
+                    precip ?
+                    1 :
+                    0;
 
                 return true;
             }
