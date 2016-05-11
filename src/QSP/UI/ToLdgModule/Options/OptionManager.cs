@@ -34,15 +34,17 @@ namespace QSP.UI.ToLdgModule.Options
             var section = data["Options"];
 
             return new UserOption(
-                int.Parse(section["DataType"]),
-                section["DataPath"]);
+                int.Parse(section["SourceType"]),
+                section["OpenDataPath"],
+                section["PaywarePath"]);
         }
 
         public static void Save(UserOption option)
         {
             var keys = new KeyDataCollection();
-            keys.AddKey("DataType", option.SourceType.ToString());
-            keys.AddKey("DataPath", option.SourcePath);
+            keys.AddKey("SourceType", option.SourceType.ToString());
+            keys.AddKey("OpenDataPath", option.OpenDataPath);
+            keys.AddKey("PaywarePath", option.PaywarePath);
 
             var secData = new SectionData("Options");
             secData.Keys = keys;

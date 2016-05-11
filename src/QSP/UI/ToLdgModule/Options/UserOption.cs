@@ -2,10 +2,15 @@
 {
     public class UserOption
     {
-        public int SourceType { get; private set; }
-        public string SourcePath { get; private set; }
+        // 0: Open data
+        // 1: AAX (payware)
+        public int SourceType { get; set; }
 
-        public UserOption(int SourceType, string SourcePath)
+        public string OpenDataPath { get; set; }
+        public string PaywarePath { get; set; }
+
+        public UserOption(
+            int SourceType, string OpenDataPath, string PaywarePath)
         {
             if (SourceType != 0 && SourceType != 1)
             {
@@ -13,14 +18,18 @@
             }
 
             this.SourceType = SourceType;
-            this.SourcePath = SourcePath;
+            this.OpenDataPath = OpenDataPath;
+            this.PaywarePath = PaywarePath;
         }
 
         public static UserOption Default
         {
             get
             {
-                return new UserOption(0, "");//TODO: change the path
+                return new UserOption(
+                    0, 
+                    @"NavData\OpenData",
+                    "");//TODO: change the path
             }
         }
     }

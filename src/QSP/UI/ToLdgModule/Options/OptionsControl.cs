@@ -10,6 +10,8 @@ namespace QSP.UI.ToLdgModule.Options
 {
     public partial class OptionsControl : UserControl
     {
+        private UserOption options;
+
         public AirportManager Airports { get; set; }
 
         public event EventHandler SaveAirportsCompleted;
@@ -23,11 +25,10 @@ namespace QSP.UI.ToLdgModule.Options
         public void Initialize()
         {
             sourceComboBox.SelectedIndex = 0;
-            UserOption options = null;
 
             try
             {
-                options = OptionManager.ReadFromFile();
+                options = OptionManager.ReadOrCreateFile();
             }
             catch (Exception ex)
             {
@@ -44,9 +45,21 @@ namespace QSP.UI.ToLdgModule.Options
             }
 
             sourceComboBox.SelectedIndex = options.SourceType;
-            pathTxtBox.Text = options.SourcePath;
-
+            setPathDisplay();
             tryLoadAirports();
+        }
+
+        private void setPathDisplay()
+        {
+            if (options.SourceType == 0)
+            {
+                pathTxtBox.Text = options.OpenDataPath;
+            }
+            else
+            {
+                // 1
+                pathTxtBox.Text = options.PaywarePath;
+            }
         }
 
         private void loadAirports(DataSource source)
@@ -98,10 +111,17 @@ namespace QSP.UI.ToLdgModule.Options
         {
             try
             {
-                var option = new UserOption(
-                    sourceComboBox.SelectedIndex, pathTxtBox.Text);
+                if (sourceComboBox.SelectedIndex == 0)
+                {
+                    options.OpenDataPath = pathTxtBox.Text;
+                }
+                else
+                {
+                    // 1
+                    options.PaywarePath = pathTxtBox.Text;
+                }
 
-                OptionManager.Save(option);
+                OptionManager.Save(options);
                 return true;
             }
             catch (Exception ex)
@@ -162,7 +182,34 @@ namespace QSP.UI.ToLdgModule.Options
 
         private void sourceComboBox_IndexChanged(object sender, EventArgs e)
         {
-            pathTxtBox.Text = "";
-        }        
+            if (options != null)
+            {
+                if (sourceComboBox.SelectedIndex == 0)
+                {
+                    pathTxtBox.Text = options.OpenDataPath;
+                }
+                else
+                {
+                    // 1
+                    pathTxtBox.Text = options.PaywarePath;
+                }
+            }
+        }
+
+        private void pathTxtBox_TextChanged(object sender, EventArgs e)
+        {
+            if (options != null)
+            {
+                if (sourceComboBox.SelectedIndex == 0)
+                {
+                    options.OpenDataPath = pathTxtBox.Text;
+                }
+                else
+                {
+                    // 1
+                    options.PaywarePath = pathTxtBox.Text;
+                }
+            }
+        }
     }
 }

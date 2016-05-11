@@ -81,7 +81,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.67164F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.32836F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 67F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 69F));
             this.tableLayoutPanel1.Controls.Add(this.button1, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.pathTxtBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
@@ -99,7 +99,7 @@
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(312, 38);
+            this.button1.Location = new System.Drawing.Point(310, 38);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(34, 28);
             this.button1.TabIndex = 3;
@@ -116,6 +116,7 @@
             this.pathTxtBox.Name = "pathTxtBox";
             this.pathTxtBox.Size = new System.Drawing.Size(218, 27);
             this.pathTxtBox.TabIndex = 3;
+            this.pathTxtBox.TextChanged += new System.EventHandler(this.pathTxtBox_TextChanged);
             // 
             // label2
             // 
@@ -144,6 +145,7 @@
             this.sourceComboBox.Name = "sourceComboBox";
             this.sourceComboBox.Size = new System.Drawing.Size(218, 28);
             this.sourceComboBox.TabIndex = 1;
+            this.sourceComboBox.SelectedIndexChanged += new System.EventHandler(this.sourceComboBox_IndexChanged);
             // 
             // saveBtn
             // 
