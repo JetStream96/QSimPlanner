@@ -126,7 +126,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
                 LengthUnit.Feet);
 
                 // To center the text in the richTxtBox
-                elements.result.Text = text.MoveRight(14);
+                elements.result.Text = text.ShiftToRight(14);
 
                 OnCalculationComplete(EventArgs.Empty);
                 elements.result.ForeColor = Color.Black;

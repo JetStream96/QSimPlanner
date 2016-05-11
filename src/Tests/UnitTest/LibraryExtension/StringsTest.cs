@@ -57,22 +57,7 @@ namespace UnitTest.LibraryExtensionTest
             Assert.AreEqual(-1, NthOccurence(str, target, 1));
             Assert.AreEqual(-1, NthOccurence(str, target, 2));
         }
-
-        [TestMethod()]
-        public void SubStringTest()
-        {
-            var str = "blablabla  123 4568 88 !! #$4832";
-
-            Assert.AreEqual("blablabla123456888!!#$4832", 
-                str.Substring(0, str.Length, new char[] { ' ' }));
-
-            Assert.AreEqual("blblbl  ", 
-                str.Substring(0, 11, new char[] { 'a' }));
-
-            Assert.AreEqual("blablabla123456888#$4832", 
-                str.Substring(0, str.Length, new char[] { '!', ' ' }));
-        }
-
+        
         [TestMethod()]
         public void IndicesOfTest_Found()
         {
@@ -122,7 +107,7 @@ namespace UnitTest.LibraryExtensionTest
         }
 
         [TestMethod]
-        public void MoveRightValidCount()
+        public void ShiftToRightValidCount()
         {
             string s = @"123
 456
@@ -132,15 +117,15 @@ namespace UnitTest.LibraryExtensionTest
    456
    789";
 
-            Assert.IsTrue(s.MoveRight(3) == expected);
+            Assert.IsTrue(s.ShiftToRight(3) == expected);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void MoveRightInvalidCount()
+        public void ShiftToRightInvalidCount()
         {
             string s = @"123";
-            s.MoveRight(-5);
+            s.ShiftToRight(-5);
         }
     }
 }

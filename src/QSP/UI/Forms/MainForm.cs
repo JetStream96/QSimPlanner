@@ -135,7 +135,7 @@ namespace QSP
 
             string OutputText = fuelCalcResult.ToString(Parameters.WtUnit());
 
-            FuelReport_TxtBox.Text = Environment.NewLine + Strings.ShiftStringToRight(OutputText, 20);
+            FuelReport_TxtBox.Text = Environment.NewLine + Strings.ShiftToRight(OutputText, 20);
             formStateManagerFuel.Save();
 
             //send weights to takeoff/ldg calc form 

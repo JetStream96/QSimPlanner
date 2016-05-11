@@ -7,29 +7,10 @@ namespace QSP.LibraryExtension
 {
     public static class Strings
     {
-        public static string ShiftStringToRight(string str, int steps)
+        public static string ShiftToRight(this string str, int steps)
         {
-            return new string(' ', steps) + str.Replace("\n", "\n" + new string(' ', steps));
-        }
-
-        public static string CenterString(string item, int totalLength)
-        {
-            int len = item.Length;
-
-            if (len >= totalLength)
-            {
-                return item;
-            }
-            else
-            {
-                string result = null;
-                int left = (totalLength - len) / 2;
-
-                result = item.PadLeft(left, ' ');
-                result = result.PadRight(totalLength - len - left, ' ');
-
-                return result;
-            }
+            return new string(' ', steps) + 
+                str.Replace("\n", "\n" + new string(' ', steps));
         }
 
         public static int NthOccurence(string input, string target, int n)
@@ -56,7 +37,8 @@ namespace QSP.LibraryExtension
             }
         }
 
-        public static List<int> IndicesOf(this string item, string target, int index, int count)
+        public static List<int> IndicesOf(this string item, 
+            string target, int index, int count)
         {
             var result = new List<int>();
             int len = index + count - 1;
@@ -77,12 +59,7 @@ namespace QSP.LibraryExtension
             }
             return result;
         }
-
-        public static List<int> IndicesOf(this string item, string target, int index)
-        {
-            return item.IndicesOf(target, index, item.Length - index);
-        }
-
+        
         public static List<int> IndicesOf(this string item, string target)
         {
             return item.IndicesOf(target, 0, item.Length);
@@ -97,9 +74,11 @@ namespace QSP.LibraryExtension
         }
 
         /// <summary>
-        /// Returns a new string where all occurence in oldValue is replaced by newValue.
+        /// Returns a new string where all occurence in oldValue 
+        /// is replaced by newValue.
         /// </summary>
-        public static string ReplaceAny(this string input, string[] oldValue, string newValue)
+        public static string ReplaceAny(this string input, 
+            string[] oldValue, string newValue)
         {
             string result = input;
 
@@ -111,7 +90,8 @@ namespace QSP.LibraryExtension
             return result;
         }
 
-        public static string ReplaceAny(this string input, char[] oldValue, string newValue)
+        public static string ReplaceAny(this string input, 
+            char[] oldValue, string newValue)
         {
             var sb = new StringBuilder(input.Length);
             int index = 0;
@@ -134,29 +114,7 @@ namespace QSP.LibraryExtension
             }
             return sb.ToString();
         }
-
-        /// <summary>
-        /// Returns a substring starting with the given index. 
-        /// Total number of elements examined is given by "length". 
-        /// The returning string may be shorter than "length" since 
-        /// any item in ignoredItems is NOT added to resulting string.
-        /// </summary>
-        public static string Substring(this string item, int index, int length, char[] ignoredItems)
-        {
-            int count = 0;
-            char[] result = new char[length];
-
-            for (int i = index; i < index + length; i++)
-            {
-                if (!ignoredItems.Contains(item[i]))
-                {
-                    result[count] = item[i];
-                    count++;
-                }
-            }
-            return new string(result, 0, count);
-        }
-
+        
         public static string RemoveHtmlTags(this string item)
         {
             var array = new char[item.Length];
@@ -188,31 +146,7 @@ namespace QSP.LibraryExtension
         {
             return item.Split(
                 new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-        }
-
-        public static string MoveRight(this string item, int count)
-        {
-            if (count < 0)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-            else if (count == 0)
-            {
-                return item;
-            }
-
-            var s = new StringBuilder();
-            string spaces = new string(' ', count);
-            var lines = item.Split('\n');
-
-            for (int i = 0; i < lines.Length - 1; i++)
-            {
-                s.Append(spaces + lines[i] + "\n");
-            }
-
-            s.Append(spaces + lines.Last());
-            return s.ToString();
-        }
+        }        
     }
 }
 
