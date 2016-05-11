@@ -1,6 +1,7 @@
 ﻿using QSP.Core;
 using QSP.TOPerfCalculation;
 using QSP.TOPerfCalculation.Boeing.PerfData;
+using QSP.LibraryExtension;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -108,16 +109,19 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             {
                 var para = new BoeingParameterValidator(elements).Validate();
 
-                var result = new TOPerfCalculation.Boeing.TOReportGenerator(
+                var report = new TOPerfCalculation.Boeing.TOReportGenerator(
                     (BoeingPerfTable)acPerf.Item, para).TakeOffReport();
 
-                elements.result.Text = result.ToString(
+                var text = report.ToString(
                     elements.tempUnit.SelectedIndex == 0 ?
                     TemperatureUnit.Celsius :
                     TemperatureUnit.Fahrenheit,
                     elements.lengthUnit.SelectedIndex == 0 ?
                     LengthUnit.Meter :
                     LengthUnit.Feet);
+
+                // To center the text in the richTxtBox
+                elements.result.Text = text.MoveRight(15);
 
                 OnCalculationComplete(EventArgs.Empty);
                 elements.result.ForeColor = Color.Black;

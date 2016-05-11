@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static QSP.LibraryExtension.Strings;
 using QSP.LibraryExtension;
+using System;
+using static QSP.LibraryExtension.Strings;
 
 namespace UnitTest.LibraryExtensionTest
 {
@@ -11,10 +12,13 @@ namespace UnitTest.LibraryExtensionTest
         public void ReplaceAnyTest()
         {
             Assert.IsTrue("".ReplaceAny(new char[] { '0', '1' }, "abc") == "");
-            Assert.IsTrue("0123456789".ReplaceAny(new char[] { '0', '1', '9' }, "ab")
-                            == "abab2345678ab");
-            Assert.IsTrue("0123456789".ReplaceAny(new char[] { '9', '1', '9', '0' }, "ab")
-                            == "abab2345678ab");
+
+            Assert.IsTrue(
+                "0123456789".ReplaceAny(new char[] { '0', '1', '9' }, "ab")
+                == "abab2345678ab");
+            Assert.IsTrue(
+                "0123456789".ReplaceAny(new char[] { '9', '1', '9', '0' }, "ab")
+                == "abab2345678ab");
         }
 
         [TestMethod]
@@ -30,16 +34,16 @@ namespace UnitTest.LibraryExtensionTest
             string str = "1235444abc4565656abc456566abc5651561abc15";
             string target = "abc";
 
-            Assert.AreEqual(7, Strings.NthOccurence(str, target, 1));
-            Assert.AreEqual(17, Strings.NthOccurence(str, target, 2));
+            Assert.AreEqual(7, NthOccurence(str, target, 1));
+            Assert.AreEqual(17, NthOccurence(str, target, 2));
 
             str = "1234a1234aa1234bb1234";
             target = "1234";
 
-            Assert.AreEqual(0, Strings.NthOccurence(str, target, 1));
-            Assert.AreEqual(5, Strings.NthOccurence(str, target, 2));
-            Assert.AreEqual(11, Strings.NthOccurence(str, target, 3));
-            Assert.AreEqual(17, Strings.NthOccurence(str, target, 4));
+            Assert.AreEqual(0, NthOccurence(str, target, 1));
+            Assert.AreEqual(5, NthOccurence(str, target, 2));
+            Assert.AreEqual(11, NthOccurence(str, target, 3));
+            Assert.AreEqual(17, NthOccurence(str, target, 4));
 
         }
 
@@ -49,9 +53,9 @@ namespace UnitTest.LibraryExtensionTest
             string str = "1235444abc4565656abc456566abc5651561abc15";
             string target = "123456";
 
-            Assert.AreEqual(-1, Strings.NthOccurence(str, target, 0));
-            Assert.AreEqual(-1, Strings.NthOccurence(str, target, 1));
-            Assert.AreEqual(-1, Strings.NthOccurence(str, target, 2));
+            Assert.AreEqual(-1, NthOccurence(str, target, 0));
+            Assert.AreEqual(-1, NthOccurence(str, target, 1));
+            Assert.AreEqual(-1, NthOccurence(str, target, 2));
         }
 
         [TestMethod()]
@@ -59,9 +63,14 @@ namespace UnitTest.LibraryExtensionTest
         {
             var str = "blablabla  123 4568 88 !! #$4832";
 
-            Assert.AreEqual("blablabla123456888!!#$4832", str.Substring(0, str.Length, new char[] { ' ' }));
-            Assert.AreEqual("blblbl  ", str.Substring(0, 11, new char[] { 'a' }));
-            Assert.AreEqual("blablabla123456888#$4832", str.Substring(0, str.Length, new char[] { '!', ' ' }));
+            Assert.AreEqual("blablabla123456888!!#$4832", 
+                str.Substring(0, str.Length, new char[] { ' ' }));
+
+            Assert.AreEqual("blblbl  ", 
+                str.Substring(0, 11, new char[] { 'a' }));
+
+            Assert.AreEqual("blablabla123456888#$4832", 
+                str.Substring(0, str.Length, new char[] { '!', ' ' }));
         }
 
         [TestMethod()]
@@ -110,6 +119,28 @@ namespace UnitTest.LibraryExtensionTest
 
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual(1, result[0]);
+        }
+
+        [TestMethod]
+        public void MoveRightValidCount()
+        {
+            string s = @"123
+456
+789";
+
+            string expected = @"   123
+   456
+   789";
+
+            Assert.IsTrue(s.MoveRight(3) == expected);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void MoveRightInvalidCount()
+        {
+            string s = @"123";
+            s.MoveRight(-5);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using QSP.Core;
 using QSP.LandingPerfCalculation;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
+using QSP.LibraryExtension;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -119,10 +120,13 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
                                  para)
                              .GetReport();
 
-                elements.result.Text = report.ToString(
-                    elements.lengthUnit.SelectedIndex == 0 ?
-                    LengthUnit.Meter :
-                    LengthUnit.Feet);
+                var text = report.ToString(
+                elements.lengthUnit.SelectedIndex == 0 ?
+                LengthUnit.Meter :
+                LengthUnit.Feet);
+
+                // To center the text in the richTxtBox
+                elements.result.Text = text.MoveRight(14);
 
                 OnCalculationComplete(EventArgs.Empty);
                 elements.result.ForeColor = Color.Black;

@@ -35,7 +35,7 @@ namespace QSP.LibraryExtension
         public static int NthOccurence(string input, string target, int n)
         {
             int count = 0;
-            int STR_LENGTH = target.Length;
+            int len = target.Length;
             int index = 0;
 
             while (true)
@@ -52,13 +52,13 @@ namespace QSP.LibraryExtension
                 {
                     return index;
                 }
-                index += STR_LENGTH;
+                index += len;
             }
         }
 
         public static List<int> IndicesOf(this string item, string target, int index, int count)
         {
-            List<int> result = new List<int>();
+            var result = new List<int>();
             int len = index + count - 1;
 
             while (index < len)
@@ -186,7 +186,32 @@ namespace QSP.LibraryExtension
 
         public static string[] Lines(this string item)
         {
-            return item.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+            return item.Split(
+                new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+        }
+
+        public static string MoveRight(this string item, int count)
+        {
+            if (count < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else if (count == 0)
+            {
+                return item;
+            }
+
+            var s = new StringBuilder();
+            string spaces = new string(' ', count);
+            var lines = item.Split('\n');
+
+            for (int i = 0; i < lines.Length - 1; i++)
+            {
+                s.Append(spaces + lines[i] + "\n");
+            }
+
+            s.Append(spaces + lines.Last());
+            return s.ToString();
         }
     }
 }
