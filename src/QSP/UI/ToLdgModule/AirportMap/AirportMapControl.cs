@@ -61,6 +61,64 @@ namespace QSP.UI.ToLdgModule.AirportMap
             }
         }
 
+        private string _orig;
+
+        public string Orig
+        {
+            get
+            {
+                return _orig;
+            }
+
+            set
+            {
+                _orig = value;
+                setIcaoItems();
+            }
+        }
+
+        private string _dest;
+
+        public string Dest
+        {
+            get
+            {
+                return _dest;
+            }
+
+            set
+            {
+                _dest = value;
+                setIcaoItems();
+            }
+        }
+
+        private string _altn;
+
+        public string Altn
+        {
+            get
+            {
+                return _altn;
+            }
+
+            set
+            {
+                _altn = value;
+                setIcaoItems();
+            }
+        }
+
+        private void setIcaoItems()
+        {
+            icaoComboBox.Items.Clear();
+
+            icaoComboBox.Items.AddRange(
+                new string[] { _orig, _dest, _altn }
+                .Where(s => s != null && s != "")
+                .ToArray());  
+        }
+
         private PictureBox picBox;
         private WebBrowser browser;
 
@@ -73,8 +131,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
         {
             resetAirport();
             setEmptyDataGrid();
-
-            icaoComboBox.Items.Clear();
+            
             icaoComboBox.Text = "";
             this.Airports = airports;
         }

@@ -63,7 +63,8 @@ namespace QSP.UI.ToLdgModule.Options
 
                 case DataSource.Type.Navigraph:
                     var loader2 =
-                        new NavData.AAX.AirportDataLoader(source.Path);
+                        new NavData.AAX.AirportDataLoader(
+                            source.Path + @"\airports.txt");
                     col = loader2.LoadFromFile();
                     break;
 
@@ -158,5 +159,10 @@ namespace QSP.UI.ToLdgModule.Options
                 pathTxtBox.Text = folderBrowser.SelectedPath;
             }
         }
+
+        private void sourceComboBox_IndexChanged(object sender, EventArgs e)
+        {
+            pathTxtBox.Text = "";
+        }        
     }
 }

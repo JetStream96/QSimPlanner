@@ -64,8 +64,22 @@ namespace QSP.UI.ToLdgModule.Forms
             {
                 Airports = OptionsMenu.Airports;
             };
-        }
 
+            var origTxtBox = ToMenu.airportInfoControl.airportTxtBox;
+
+            origTxtBox.TextChanged += (sender, e) =>
+            {
+                AirportMenu.Orig = origTxtBox.Text;
+            };
+
+            var destTxtBox = LdgMenu.airportInfoControl.airportTxtBox;
+
+            destTxtBox.TextChanged += (sender, e) =>
+            {
+                AirportMenu.Dest = destTxtBox.Text;
+            };
+        }
+        
         public AirportManager Airports
         {
             get
@@ -154,9 +168,8 @@ namespace QSP.UI.ToLdgModule.Forms
             {
 #if DEBUG
                 regChecker.DebugRun();
-#else
-                regChecker.Run();
 #endif
+                regChecker.Run();
             }
             catch (Exception ex)
             {

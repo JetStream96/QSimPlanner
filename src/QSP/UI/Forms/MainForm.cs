@@ -267,9 +267,8 @@ namespace QSP
             {
 #if DEBUG
                 regChecker.DebugRun();
-#else
-                regChecker.Run();
 #endif                
+                regChecker.Run();
             }
             catch (Exception ex)
             {
