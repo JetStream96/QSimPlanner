@@ -172,7 +172,8 @@ namespace QSP.UI.ToLdgModule.AirportMap
             setMetar(airport.Icao);
 
             airportNameLbl.Text = airport.Name;
-            latLonLbl.Text = airport.Lat + " / " + airport.Lon;
+            latLonLbl.Text = airport.Lat.ToString("#.######") + " / " + 
+                airport.Lon.ToString("#.######");
             elevationLbl.Text = airport.Elevation + " FT";
 
             if (airport.TransAvail)

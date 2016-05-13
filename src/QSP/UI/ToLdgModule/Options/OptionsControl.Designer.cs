@@ -105,7 +105,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "..";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.broserBtn_Click);
+            this.button1.Click += new System.EventHandler(this.broserBtnClick);
             // 
             // pathTxtBox
             // 
@@ -116,7 +116,7 @@
             this.pathTxtBox.Name = "pathTxtBox";
             this.pathTxtBox.Size = new System.Drawing.Size(218, 27);
             this.pathTxtBox.TabIndex = 3;
-            this.pathTxtBox.TextChanged += new System.EventHandler(this.pathTxtBox_TextChanged);
+            this.pathTxtBox.TextChanged += new System.EventHandler(this.pathTxtBoxTextChanged);
             // 
             // label2
             // 
@@ -145,7 +145,7 @@
             this.sourceComboBox.Name = "sourceComboBox";
             this.sourceComboBox.Size = new System.Drawing.Size(218, 28);
             this.sourceComboBox.TabIndex = 1;
-            this.sourceComboBox.SelectedIndexChanged += new System.EventHandler(this.sourceComboBox_IndexChanged);
+            this.sourceComboBox.SelectedIndexChanged += new System.EventHandler(this.sourceComboBoxIndexChanged);
             // 
             // saveBtn
             // 
@@ -173,7 +173,7 @@
             this.cancelBtn.TabIndex = 5;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
-            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtnClick);
             // 
             // tableLayoutPanel2
             // 

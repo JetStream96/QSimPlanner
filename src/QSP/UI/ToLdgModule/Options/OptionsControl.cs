@@ -15,7 +15,6 @@ namespace QSP.UI.ToLdgModule.Options
         public AirportManager Airports { get; set; }
 
         public event EventHandler SaveAirportsCompleted;
-        public event EventHandler HideControlRequested;
 
         public OptionsControl()
         {
@@ -44,13 +43,14 @@ namespace QSP.UI.ToLdgModule.Options
                 Environment.Exit(0);
             }
 
-            sourceComboBox.SelectedIndex = options.SourceType;
-            setPathDisplay();
+            displayOptions();
             tryLoadAirports();
         }
 
-        private void setPathDisplay()
+        private void displayOptions()
         {
+            sourceComboBox.SelectedIndex = options.SourceType;
+
             if (options.SourceType == 0)
             {
                 pathTxtBox.Text = options.OpenDataPath;
@@ -163,12 +163,12 @@ namespace QSP.UI.ToLdgModule.Options
             return false;
         }
 
-        private void cancelBtn_Click(object sender, EventArgs e)
+        private void cancelBtnClick(object sender, EventArgs e)
         {
-            HideControlRequested?.Invoke(this, EventArgs.Empty);
+            displayOptions();
         }
 
-        private void broserBtn_Click(object sender, EventArgs e)
+        private void broserBtnClick(object sender, EventArgs e)
         {
             var folderBrowser = new FolderBrowserDialog();
             folderBrowser.SelectedPath = pathTxtBox.Text;
@@ -180,7 +180,7 @@ namespace QSP.UI.ToLdgModule.Options
             }
         }
 
-        private void sourceComboBox_IndexChanged(object sender, EventArgs e)
+        private void sourceComboBoxIndexChanged(object sender, EventArgs e)
         {
             if (options != null)
             {
@@ -196,7 +196,7 @@ namespace QSP.UI.ToLdgModule.Options
             }
         }
 
-        private void pathTxtBox_TextChanged(object sender, EventArgs e)
+        private void pathTxtBoxTextChanged(object sender, EventArgs e)
         {
             if (options != null)
             {
