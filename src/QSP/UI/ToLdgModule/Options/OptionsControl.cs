@@ -88,7 +88,7 @@ namespace QSP.UI.ToLdgModule.Options
             Airports = new AirportManager(col);
         }
 
-        private void saveBtn_Click(object sender, EventArgs e)
+        private void saveBtnClick(object sender, EventArgs e)
         {
             saveBtn.ForeColor = Color.Black;
             saveBtn.Enabled = false;
