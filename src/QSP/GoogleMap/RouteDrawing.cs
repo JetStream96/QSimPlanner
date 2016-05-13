@@ -1,15 +1,21 @@
-using System.Text;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Routes;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
-namespace QSP.RouteFinding
+namespace QSP.GoogleMap
 {
-    public static class MapDrawing
+    public static class RouteDrawing
     {
         public static StringBuilder MapDrawString(ManagedRoute rte, int width, int height)
         {
             rte.Expand();
             var mapHtml = new StringBuilder();
+
+            string path = Assembly.GetExecutingAssembly().Location;
+            var scriptPath = Path.GetDirectoryName(path) +
+                @"\GoogleMap\Library\markerwithlabel.js";
 
             mapHtml.Append(
 @"<!DOCTYPE html>
@@ -29,9 +35,10 @@ namespace QSP.RouteFinding
         white-space: nowrap;
     }
     </style>
-    <script type=""text/javascript"" src=""http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=False""></script>
-    <script type = ""text/javascript"" src=""http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.9/src/markerwithlabel.js""></script>
-    <script type=""text/javascript"">
+    <script type = ""text/javascript"" src=""http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=False""></script>
+    <script type = ""text/javascript"" src=""" + scriptPath + @"""></script>
+    <script type = ""text/javascript"">
+
 function initialize()
 {
 ");
@@ -70,14 +77,14 @@ var myTrip=[");
                 else
                 {
                     mapHtml.AppendLine("wpt" + (counter++).ToString() + @"];
-var flightPath=new google.maps.Polyline({
-path:myTrip,
-strokeColor:""#000000"",
-strokeOpacity:1.0,
-strokeWeight:3,
-geodesic: true
-});
-flightPath.setMap(map);");
+    var flightPath=new google.maps.Polyline({
+    path:myTrip,
+    strokeColor:""#000000"",
+    strokeOpacity:1.0,
+    strokeWeight:3,
+    geodesic: true
+    });
+    flightPath.setMap(map);");
                 }
             }
 
@@ -85,21 +92,22 @@ flightPath.setMap(map);");
             foreach (var i in rte)
             {
                 mapHtml.Append(string.Format(
-@"var marker{0}  = new MarkerWithLabel({{
-position: wpt{1},
-icon:'pixel_trans.gif',
-draggable: false,
-raiseOnDrag: true,
-map: map,
-labelContent: ""{2}"",
-labelAnchor: new google.maps.Point(0, 0),
-labelClass: ""labels"", // the CSS class for the label
-labelStyle: {{opacity: 0.75}}
-}});
+    @"
+    var marker{0}  = new MarkerWithLabel({{
+    position: wpt{1},
+    icon:'pixel_trans.gif',
+    draggable: false,
+    raiseOnDrag: true,
+    map: map,
+    labelContent: ""{2}"",
+    labelAnchor: new google.maps.Point(0, 0),
+    labelClass: ""labels"", // the CSS class for the label
+    labelStyle: {{opacity: 0.75}}
+    }});
 
-var iw{3} = new google.maps.InfoWindow({{
-content: ""Home For Sale""
-}});
+    var iw{3} = new google.maps.InfoWindow({{
+    content: ""Home For Sale""
+    }});
 
 ", counter, counter, wptIdDisplay(rte, i.Waypoint, counter), counter++));
 

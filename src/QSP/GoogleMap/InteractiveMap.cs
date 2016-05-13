@@ -1,6 +1,6 @@
-﻿namespace QSP.UI.ToLdgModule.AirportMap
+﻿namespace QSP.GoogleMap
 {
-    public static class GoogleMapDynamic
+    public static class InteractiveMap
     {
         private static string originalHtml = @"<!DOCTYPE html>
         <html>

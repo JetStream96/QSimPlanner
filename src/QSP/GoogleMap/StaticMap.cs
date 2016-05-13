@@ -1,6 +1,6 @@
-﻿namespace QSP.UI.ToLdgModule.AirportMap
+﻿namespace QSP.GoogleMap
 {
-    public static class GoogleMapStatic
+    public static class StaticMap
     {
 
         public static string GetMapUrl(double lat,

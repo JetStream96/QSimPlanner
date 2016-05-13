@@ -1,8 +1,9 @@
-﻿using QSP.Metar;
+﻿using QSP.GoogleMap;
+using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using System;
-using System.Linq;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
@@ -337,7 +338,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
         {
             // This requires a registry fix. (IE emulation)
 
-            browser.DocumentText = GoogleMapDynamic.GetHtml(
+            browser.DocumentText = InteractiveMap.GetHtml(
                 lat, lon, browser.Width, browser.Height);
         }
 
@@ -366,7 +367,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
         private void showStaticMap(double lat, double lon)
         {
             picBox.LoadAsync(
-                GoogleMapStatic.GetMapUrl(
+                StaticMap.GetMapUrl(
                     lat, lon, picBox.Width, picBox.Height));
         }
     }

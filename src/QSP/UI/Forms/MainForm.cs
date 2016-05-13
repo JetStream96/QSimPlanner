@@ -1,5 +1,6 @@
 using QSP.AircraftProfiles;
 using QSP.Core.Options;
+using QSP.GoogleMap;
 using QSP.LibraryExtension;
 using QSP.Metar;
 using QSP.RouteFinding;
@@ -1367,7 +1368,7 @@ namespace QSP
                 return;
             }
 
-            StringBuilder GoogleMapDrawRoute = MapDrawing.MapDrawString(RouteToDest, MapDisWebBrowser.Width - 20, MapDisWebBrowser.Height - 30);
+            StringBuilder GoogleMapDrawRoute = RouteDrawing.MapDrawString(RouteToDest, MapDisWebBrowser.Width - 20, MapDisWebBrowser.Height - 30);
 
             var mapStr = GoogleMapDrawRoute.ToString();
 
