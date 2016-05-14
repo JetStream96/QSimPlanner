@@ -54,7 +54,7 @@ namespace QSP
             // 
             this.Label1.AutoSize = true;
             this.Label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label1.Location = new System.Drawing.Point(65, 46);
+            this.Label1.Location = new System.Drawing.Point(31, 30);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(92, 23);
             this.Label1.TabIndex = 0;
@@ -64,7 +64,7 @@ namespace QSP
             // 
             this.icaoTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.icaoTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.icaoTxtBox.Location = new System.Drawing.Point(193, 43);
+            this.icaoTxtBox.Location = new System.Drawing.Point(159, 27);
             this.icaoTxtBox.Name = "icaoTxtBox";
             this.icaoTxtBox.Size = new System.Drawing.Size(90, 30);
             this.icaoTxtBox.TabIndex = 1;
@@ -74,7 +74,7 @@ namespace QSP
             this.getMetarCheckBox.AutoSize = true;
             this.getMetarCheckBox.Enabled = false;
             this.getMetarCheckBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.getMetarCheckBox.Location = new System.Drawing.Point(379, 47);
+            this.getMetarCheckBox.Location = new System.Drawing.Point(345, 31);
             this.getMetarCheckBox.Name = "getMetarCheckBox";
             this.getMetarCheckBox.Size = new System.Drawing.Size(88, 27);
             this.getMetarCheckBox.TabIndex = 2;
@@ -85,7 +85,7 @@ namespace QSP
             // 
             this.getTafCheckBox.AutoSize = true;
             this.getTafCheckBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.getTafCheckBox.Location = new System.Drawing.Point(510, 47);
+            this.getTafCheckBox.Location = new System.Drawing.Point(476, 31);
             this.getTafCheckBox.Name = "getTafCheckBox";
             this.getTafCheckBox.Size = new System.Drawing.Size(60, 27);
             this.getTafCheckBox.TabIndex = 3;
@@ -95,7 +95,7 @@ namespace QSP
             // resultRichTxtBox
             // 
             this.resultRichTxtBox.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resultRichTxtBox.Location = new System.Drawing.Point(69, 102);
+            this.resultRichTxtBox.Location = new System.Drawing.Point(35, 86);
             this.resultRichTxtBox.Name = "resultRichTxtBox";
             this.resultRichTxtBox.Size = new System.Drawing.Size(1103, 394);
             this.resultRichTxtBox.TabIndex = 4;
@@ -104,7 +104,7 @@ namespace QSP
             // downloadBtn
             // 
             this.downloadBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.downloadBtn.Location = new System.Drawing.Point(627, 39);
+            this.downloadBtn.Location = new System.Drawing.Point(593, 23);
             this.downloadBtn.Name = "downloadBtn";
             this.downloadBtn.Size = new System.Drawing.Size(209, 36);
             this.downloadBtn.TabIndex = 5;
@@ -115,19 +115,19 @@ namespace QSP
             // sendBtn
             // 
             this.sendBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sendBtn.Location = new System.Drawing.Point(889, 39);
+            this.sendBtn.Location = new System.Drawing.Point(855, 23);
             this.sendBtn.Name = "sendBtn";
             this.sendBtn.Size = new System.Drawing.Size(235, 36);
             this.sendBtn.TabIndex = 6;
             this.sendBtn.Text = "Send Weather";
             this.sendBtn.UseVisualStyleBackColor = true;
-            this.sendBtn.Click += new System.EventHandler(this.sendBtn_Click);
+            this.sendBtn.Click += new System.EventHandler(this.sendBtnClick);
             // 
             // PicBox
             // 
             this.PicBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.PicBox.Image = global::QSP.Properties.Resources.checkIconLarge;
-            this.PicBox.Location = new System.Drawing.Point(1131, 39);
+            this.PicBox.Location = new System.Drawing.Point(1097, 23);
             this.PicBox.Name = "PicBox";
             this.PicBox.Size = new System.Drawing.Size(37, 36);
             this.PicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -140,7 +140,7 @@ namespace QSP
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1242, 508);
+            this.ClientSize = new System.Drawing.Size(1182, 508);
             this.Controls.Add(this.PicBox);
             this.Controls.Add(this.sendBtn);
             this.Controls.Add(this.downloadBtn);

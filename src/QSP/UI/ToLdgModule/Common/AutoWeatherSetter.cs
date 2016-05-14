@@ -18,12 +18,25 @@ namespace QSP.UI.ToLdgModule.Common
         {
             this.wxControl = wxControl;
             this.airportControl = airportControl;
+            disableViewBtn();
         }
 
         public void Subscribe()
         {
             wxControl.GetMetarBtn.Click += getMetarClicked;
             wxControl.ViewMetarBtn.Click += viewMetarClicked;
+        }
+
+        private void enableViewBtn()
+        {
+            wxControl.ViewMetarBtn.Enabled = true;
+            wxControl.ViewMetarBtn.BackColor = SystemColors.MenuHighlight;
+        }
+
+        private void disableViewBtn()
+        {
+            wxControl.ViewMetarBtn.Enabled = false;
+            wxControl.ViewMetarBtn.BackColor = Color.FromArgb(224,224,224);
         }
 
         private void enableDnBtn()
@@ -84,7 +97,8 @@ namespace QSP.UI.ToLdgModule.Common
                     w.surfCondComboBox) == false)
                 {
                     MessageBox.Show(
-                       @"Unable to fill the weather information automatically.",
+                       @"Metar has been downloaded but the weather " +
+                       "information cannot be filled automatically.",
                        "",
                        MessageBoxButtons.OK,
                        MessageBoxIcon.Error);
@@ -93,6 +107,8 @@ namespace QSP.UI.ToLdgModule.Common
                 {
                     w.pictureBox1.Image = Properties.Resources.checkIconLarge;
                 }
+
+                enableViewBtn();
             }
 
             w.pictureBox1.Visible = true;

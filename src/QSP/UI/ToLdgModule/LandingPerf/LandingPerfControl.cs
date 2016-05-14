@@ -1,4 +1,5 @@
 ﻿using QSP.AircraftProfiles.Configs;
+using QSP.AviationTools;
 using QSP.LandingPerfCalculation;
 using QSP.RouteFinding.Airports;
 using QSP.UI.ControlStates;
@@ -6,6 +7,7 @@ using QSP.UI.ToLdgModule.Common;
 using QSP.UI.ToLdgModule.LandingPerf.FormControllers;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -254,6 +256,34 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             calculateBtn.Click -= controller.Compute;
 
             controller.CalculationCompleted -= saveState;
+        }
+
+        private void weightTxtBoxChanged(object sender, EventArgs e)
+        {
+            var ac = aircrafts?.FindRegistration(regComboBox.Text);
+            var config = ac?.Config;
+            double wtKg;
+
+            if (config != null && double.TryParse(weightTxtBox.Text, out wtKg))
+            {
+                if (wtUnitComboBox.SelectedIndex == 1)
+                {
+                    wtKg *= Constants.LbKgRatio;
+                }
+
+                if (wtKg > config.MaxLdgWtKg || wtKg < config.ZfwKg)
+                {
+                    weightTxtBox.ForeColor = Color.Red;
+                }
+                else
+                {
+                    weightTxtBox.ForeColor = Color.Green;
+                }
+            }
+            else
+            {
+                weightTxtBox.ForeColor = Color.Black;
+            }
         }
     }
 }

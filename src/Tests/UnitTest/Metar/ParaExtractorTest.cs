@@ -53,7 +53,7 @@ namespace UnitTest.Metar
         [TestMethod]
         public void GetTempTestNotFound()
         {
-            Assert.AreEqual(int.MinValue, ParaExtractor.GetTemp("RCTP ... ..."));
+            Assert.AreEqual(null, ParaExtractor.GetTemp("RCTP ... ..."));
         }
 
         [TestMethod]

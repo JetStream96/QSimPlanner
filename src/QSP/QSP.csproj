@@ -529,7 +529,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="degrib\degrib.exe">
+    <Content Include="Degrib\degrib.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GoogleMap\Library\markerwithlabel.js">

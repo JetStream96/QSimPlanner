@@ -22,12 +22,12 @@ namespace QSP.UI.ToLdgModule.Common
             ComboBox surfCond)
         {
             var wind = ParaExtractor.GetWind(metar);
-            int temp = ParaExtractor.GetTemp(metar);
+            int? temp = ParaExtractor.GetTemp(metar);
             var press = ParaExtractor.GetPressure(metar);
             bool precip = ParaExtractor.PrecipitationExists(metar);
 
             if (wind == null ||
-                temp == int.MinValue ||
+                temp == null ||
                 press == null)
             {
                 return false;

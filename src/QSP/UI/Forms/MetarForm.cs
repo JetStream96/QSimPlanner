@@ -60,7 +60,7 @@ namespace QSP
             getTafCheckBox.Checked = false;
         }
 
-        private void sendBtn_Click(object sender, EventArgs e)
+        private void sendBtnClick(object sender, EventArgs e)
         {
             var frm = MainFormInstance();
 
@@ -70,31 +70,18 @@ namespace QSP
             }
 
             var wind = ParaExtractor.GetWind(Metar);
-            int temp = ParaExtractor.GetTemp(Metar);
+            int? temp = ParaExtractor.GetTemp(Metar);
             var press = ParaExtractor.GetPressure(Metar);
             
             if (wind == null ||
-                temp == int.MinValue ||
+                temp == null ||
                 press == null)
             {
                 PicBox.Image = Properties.Resources.deleteIconLarge;
                 PicBox.Show();
                 return;
             }
-
-            //if (FromFormName == "Takeoff")
-            //{
-            //    frm.windspd.Text = ((int)Math.Round(wind.Speed)).ToString();
-            //    frm.winddir.Text = (((int)wind.Direction - 1).Mod(360) + 1).ToString().PadLeft(3, '0');
-            //    frm.temp_c_f.Text = "°C";
-            //    frm.OAT.Text = temp.ToString();
-            //    frm.hpa_inHg.SelectedIndex = (int)press.PressUnit;
-            //    frm.altimeter.Text =
-            //        press.PressUnit == PressureUnit.inHg ?
-            //        Math.Round(press.Value, 2).ToString() :
-            //        ((int)press.Value).ToString();
-            //}
-
+            
             //complete message
             PicBox.Image = Properties.Resources.checkIconLarge;
             PicBox.Show();

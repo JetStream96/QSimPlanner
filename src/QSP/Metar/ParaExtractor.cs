@@ -43,9 +43,9 @@ namespace QSP.Metar
 
         /// <summary>
         /// Matches 12/09, 01/M01, M04/M06, etc.
-        /// Returns int.Min if no match is found.
+        /// Returns null if no match is found.
         /// </summary>
-        public static int GetTemp(string metar)
+        public static int? GetTemp(string metar)
         {
             var match = Regex.Match(
                 metar, @"\b(?<temp>M?\d{1,3})/M?\d{1,3}\b");
@@ -65,7 +65,7 @@ namespace QSP.Metar
             }
             else
             {
-                return int.MinValue;
+                return null;
             }
         }
 

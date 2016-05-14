@@ -161,6 +161,7 @@
             this.reqAirportBtn.TabIndex = 39;
             this.reqAirportBtn.Text = "Req";
             this.reqAirportBtn.UseVisualStyleBackColor = false;
+            this.reqAirportBtn.Visible = false;
             // 
             // Label91
             // 

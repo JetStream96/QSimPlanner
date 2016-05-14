@@ -362,6 +362,7 @@
             this.weightTxtBox.Size = new System.Drawing.Size(151, 30);
             this.weightTxtBox.TabIndex = 16;
             this.weightTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.weightTxtBox.TextChanged += new System.EventHandler(this.weightTxtBoxChanged);
             // 
             // calculateBtn
             // 

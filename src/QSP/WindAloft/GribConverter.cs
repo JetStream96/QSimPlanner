@@ -15,7 +15,7 @@ namespace QSP.WindAloft
 
             //TODO: This code is not completely error free.
             //Better to check whether all .wx files can be read.
-            while ((numProcessRunning(gribConverterName) > numAlreadyRunning))
+            while (numProcessRunning(gribConverterName) > numAlreadyRunning)
             {
                 Thread.Sleep(100);
             }
@@ -23,14 +23,15 @@ namespace QSP.WindAloft
 
         private static void Grib2ToCsv(string filepath)
         {
-            ProcessStartInfo ProcessProperties = new ProcessStartInfo();
+            var ProcessProperties = new ProcessStartInfo();
 
             for (int i = 1; i <= Utilities.FullWindDataSet.Length * 2; i++)
             {
-                string filepath_out = filepath.Replace(".grib2", i + ".csv");
+                string filepathOut = filepath.Replace(".grib2", i + ".csv");
 
-                ProcessProperties.FileName = ".\\degrib\\degrib.exe";
-                ProcessProperties.Arguments = "-in " + filepath + " -C -msg " + i + " -Csv -out " + filepath_out;
+                ProcessProperties.FileName = @".\Degrib\degrib.exe";
+                ProcessProperties.Arguments = "-in " + filepath + " -C -msg "
+                    + i + " -Csv -out " + filepathOut;
                 //command line arguments
                 ProcessProperties.WindowStyle = ProcessWindowStyle.Hidden;
                 Process myProcess = Process.Start(ProcessProperties);
@@ -41,6 +42,5 @@ namespace QSP.WindAloft
         {
             return Process.GetProcessesByName(processName).Count();
         }
-
     }
 }

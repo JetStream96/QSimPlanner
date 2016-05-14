@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using static QSP.AviationTools.CoversionTools;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.UI.ToLdgModule.Common
 {
@@ -18,11 +19,11 @@ namespace QSP.UI.ToLdgModule.Common
             windDirTxtBox.Text = "0";
 
             tempUnitComboBox.Items.Clear();
-            tempUnitComboBox.Items.AddRange(new object[] { "°C", "°F" });
+            tempUnitComboBox.Items.AddRange(new string[] { "°C", "°F" });
             tempUnitComboBox.SelectedIndex = 0; // Celsius
 
             pressUnitComboBox.Items.Clear();
-            pressUnitComboBox.Items.AddRange(new object[] { "hPa", "inHg" });
+            pressUnitComboBox.Items.AddRange(new string[] { "hPa", "inHg" });
             pressUnitComboBox.SelectedIndex = 0; // hPa
         }
         
@@ -43,7 +44,7 @@ namespace QSP.UI.ToLdgModule.Common
                     temp = ToFahrenheit(temp);
                 }
 
-                oatTxtBox.Text = ((int)Math.Round(temp)).ToString();
+                oatTxtBox.Text = RoundToInt(temp).ToString();
             }
         }
 
@@ -56,13 +57,13 @@ namespace QSP.UI.ToLdgModule.Common
                 if (pressUnitComboBox.SelectedIndex == 0)
                 {
                     // inHg -> hPa
-                    press *= 1013 / 29.92;
-                    pressTxtBox.Text = ((int)Math.Round(press)).ToString();
+                    press *= 1013.0 / 29.92;
+                    pressTxtBox.Text = RoundToInt(press).ToString();
                 }
                 else
                 {
                     // hPa -> inHg
-                    press *= 29.92 / 1013;
+                    press *= 29.92 / 1013.0;
                     pressTxtBox.Text = Math.Round(press, 2).ToString("0.00");
                 }
             }
