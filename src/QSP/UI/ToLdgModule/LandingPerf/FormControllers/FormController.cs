@@ -34,10 +34,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 
         protected virtual void OnCalculationComplete(EventArgs e)
         {
-            if (CalculationCompleted != null)
-            {
-                CalculationCompleted(this, e);
-            }
+            CalculationCompleted?.Invoke(this, e);
         }
     }
 }

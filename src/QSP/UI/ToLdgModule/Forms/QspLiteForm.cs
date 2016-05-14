@@ -42,6 +42,8 @@ namespace QSP.UI.ToLdgModule.Forms
 
             var airports = OptionsMenu.Airports;
             AcMenu.Initialize(manager);
+            AcMenu.AircraftsChanged += ToMenu.RefreshAircrafts;
+            AcMenu.AircraftsChanged += LdgMenu.RefreshAircrafts;
 
             ToMenu.Initialize(manager.AcConfigs,
                 manager.TOTables.ToList(), airports);
@@ -175,6 +177,6 @@ namespace QSP.UI.ToLdgModule.Forms
             {
                 LoggerInstance.WriteToLog(ex);
             }
-        }
+        }        
     }
 }

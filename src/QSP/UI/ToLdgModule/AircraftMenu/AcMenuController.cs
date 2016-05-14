@@ -8,12 +8,15 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
+using static QSP.UI.Utilities.MsgBoxHelper;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu
 {
     public class AcMenuController
     {
-        public static string NoToLdgProfileText = "None";
+        public const string NoToLdgProfileText = "None";
+
+        public event EventHandler AircraftsChanged;
 
         private AcMenuElements elem;
         private ProfileManager profiles;
@@ -94,17 +97,17 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             wtUnitDisconnect();
 
-            int selIndex = ((ComboBox)sender).SelectedIndex;
+            int index = ((ComboBox)sender).SelectedIndex;
 
             foreach (var i in c)
             {
                 if (i != sender)
                 {
-                    i.SelectedIndex = selIndex;
+                    i.SelectedIndex = index;
                 }
             }
 
-            convertWeights(selIndex);
+            convertWeights(index);
 
             wtUnitConnect();
         }
@@ -159,7 +162,6 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
                 var lvi = new ListViewItem(c.AC);
                 lvi.SubItems.Add(c.Registration);
-                // lvi.ImageIndex = (int)i.Severity;
                 listItems.Add(lvi);
             }
 
@@ -183,7 +185,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private void showDefaultConfig()
         {
-            var defaultConfig = 
+            var defaultConfig =
                 new AircraftConfigItem("", "", NoToLdgProfileText,
                     NoToLdgProfileText, 0.0, 0.0, 0.0, WeightUnit.KG);
 
@@ -313,25 +315,26 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                     removeOldConfig();
                     profiles.AcConfigs.Add(new AircraftConfig(config, fn));
                     showSelectionGroupBox();
+                    AircraftsChanged?.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
-                    MessageBox.Show("Failed to save config file.");
+                    ShowError("Failed to save config file.");
                 }
             }
             catch (InvalidUserInputException ex)
             {
-                MessageBox.Show(ex.Message);
+                ShowWarning(ex.Message);
             }
             catch (ArgumentException)
             {
-                MessageBox.Show(
+                ShowWarning(
                     "Registration already exists. Please use another one.");
             }
             catch (NoFileNameAvailException)
             {
                 // FileNameGenerator cannot generate a file name.
-                MessageBox.Show("Failed to save config file.");
+                ShowError("Failed to save config file.");
             }
         }
 
@@ -362,6 +365,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             {
                 configs.Remove(reg);
                 refreshListView();
+                AircraftsChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -374,13 +378,24 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
             catch
             {
-                MessageBox.Show("Failed to delete the selected config.");
+                ShowError("Failed to delete the selected config.");
                 return false;
             }
         }
 
-        public void CancelBtnClicked(object sender,EventArgs e)
+        public void CancelBtnClicked(object sender, EventArgs e)
         {
+            try
+            {
+                var config = new AcConfigValidator(elem).Validate();
+                if (config.Equals(currentConfig.Config))
+                {
+                    showSelectionGroupBox();
+                    return;
+                }
+            }
+            catch { }
+
             var result =
                 MessageBox.Show(
                     "Discard the changes to config?",

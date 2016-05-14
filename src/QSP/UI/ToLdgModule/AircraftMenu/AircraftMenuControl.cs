@@ -1,4 +1,5 @@
 ﻿using QSP.AircraftProfiles;
+using System;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -8,6 +9,19 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
     {
         private AcMenuController controller;
         private AcMenuElements elements;
+
+        public event EventHandler AircraftsChanged
+        {
+            add
+            {
+                controller.AircraftsChanged += value;
+            }
+
+            remove
+            {
+                controller.AircraftsChanged -= value;
+            }
+        }
 
         public AircraftMenuControl()
         {

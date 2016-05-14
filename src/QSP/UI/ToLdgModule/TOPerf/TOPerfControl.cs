@@ -267,5 +267,23 @@ namespace QSP.UI.ToLdgModule.TOPerf
                 weightTxtBox.ForeColor = Color.Black;
             }
         }
+
+        /// <summary>
+        /// Refresh the aircraft and registration comboBoxes,
+        /// after the AcConfigManager is updated.
+        /// </summary>
+        public void RefreshAircrafts(object sender, EventArgs e)
+        {
+            // Set the selected aircraft/registration.
+            string ac = acListComboBox.Text;
+            string reg = regComboBox.Text;
+
+            updateAircraftList();
+            acListComboBox.Text = ac;
+            regComboBox.Text = reg;
+
+            // Set the color of weight.
+            weightTxtBoxChanged(this, EventArgs.Empty);
+        }
     }
 }

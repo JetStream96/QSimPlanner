@@ -256,7 +256,7 @@
             this.requestBtn.Text = "Request";
             this.requestBtn.UseVisualStyleBackColor = false;
             this.requestBtn.Visible = false;
-            this.requestBtn.Click += new System.EventHandler(this.requestBtn_Click);
+            this.requestBtn.Click += new System.EventHandler(this.requestBtnClick);
             // 
             // Label97
             // 

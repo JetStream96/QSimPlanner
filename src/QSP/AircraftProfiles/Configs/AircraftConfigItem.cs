@@ -30,5 +30,18 @@
             this.MaxLdgWtKg = MaxLdgWtKg;
             this.WtUnit = WtUnit;
         }
+
+        public bool Equals(AircraftConfigItem other)
+        {
+            return
+                other.AC == AC &&
+                other.Registration == Registration &&
+                other.TOProfile == TOProfile &&
+                other.LdgProfile == LdgProfile &&
+                other.ZfwKg == ZfwKg &&
+                other.MaxTOWtKg == MaxTOWtKg &&
+                other.MaxLdgWtKg == MaxLdgWtKg &&
+                other.WtUnit == WtUnit;
+        }
     }
 }

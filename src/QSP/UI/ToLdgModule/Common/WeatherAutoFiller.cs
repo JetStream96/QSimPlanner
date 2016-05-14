@@ -36,8 +36,8 @@ namespace QSP.UI.ToLdgModule.Common
             {
                 windSpeed.Text = RoundToInt(wind.Speed).ToString();
 
-                windDirection.Text = 
-                    ((RoundToInt( wind.Direction) - 1)
+                windDirection.Text =
+                    ((RoundToInt(wind.Direction) - 1)
                     .Mod(360) + 1)
                     .ToString()
                     .PadLeft(3, '0');
@@ -47,15 +47,20 @@ namespace QSP.UI.ToLdgModule.Common
                 pressUnit.SelectedIndex = (int)press.PressUnit;
                 altimeter.Text =
                     press.PressUnit == PressureUnit.inHg ?
-                    Math.Round(press.Value, 2).ToString() :
+                    Math.Round(press.Value, 2).ToString("0.00") :
                     RoundToInt(press.Value).ToString();
 
-                surfCond.SelectedIndex =
-                    precip ?
-                    1 :
-                    0;
+                setSurfCond(surfCond, precip);
 
                 return true;
+            }
+        }
+
+        private static void setSurfCond(ComboBox surfCond, bool precip)
+        {
+            if (surfCond.Items.Count >= 2)
+            {
+                surfCond.SelectedIndex = precip ? 1 : 0;
             }
         }
     }

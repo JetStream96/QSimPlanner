@@ -25,6 +25,11 @@ namespace QSP.UI.ToLdgModule.Common
         {
             wxControl.GetMetarBtn.Click += getMetarClicked;
             wxControl.ViewMetarBtn.Click += viewMetarClicked;
+            airportControl.airportTxtBox.TextChanged += (sender, e) =>
+            {
+                wxControl.pictureBox1.Visible = false;
+                disableViewBtn();
+            };
         }
 
         private void enableViewBtn()

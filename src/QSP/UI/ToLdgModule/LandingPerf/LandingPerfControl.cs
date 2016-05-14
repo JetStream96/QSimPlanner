@@ -188,7 +188,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             // fuelImportPanel.Location = new Point(253, 61);
         }
 
-        private void requestBtn_Click(object sender, EventArgs e)
+        private void requestBtnClick(object sender, EventArgs e)
         {
             //if (fuelImportPanel != null)
             //{
@@ -284,6 +284,24 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             {
                 weightTxtBox.ForeColor = Color.Black;
             }
+        }
+
+        /// <summary>
+        /// Refresh the aircraft and registration comboBoxes,
+        /// after the AcConfigManager is updated.
+        /// </summary>
+        public void RefreshAircrafts(object sender, EventArgs e)
+        {
+            // Set the selected aircraft/registration.
+            string ac = acListComboBox.Text;
+            string reg = regComboBox.Text;
+
+            updateAircraftList();
+            acListComboBox.Text = ac;
+            regComboBox.Text = reg;
+
+            // Set the color of weight.
+            weightTxtBoxChanged(this, EventArgs.Empty);
         }
     }
 }
