@@ -9,7 +9,7 @@ namespace QSP.LibraryExtension
     {
         public static string ShiftToRight(this string str, int steps)
         {
-            return new string(' ', steps) + 
+            return new string(' ', steps) +
                 str.Replace("\n", "\n" + new string(' ', steps));
         }
 
@@ -37,7 +37,7 @@ namespace QSP.LibraryExtension
             }
         }
 
-        public static List<int> IndicesOf(this string item, 
+        public static List<int> IndicesOf(this string item,
             string target, int index, int count)
         {
             var result = new List<int>();
@@ -59,7 +59,7 @@ namespace QSP.LibraryExtension
             }
             return result;
         }
-        
+
         public static List<int> IndicesOf(this string item, string target)
         {
             return item.IndicesOf(target, 0, item.Length);
@@ -77,7 +77,7 @@ namespace QSP.LibraryExtension
         /// Returns a new string where all occurence in oldValue 
         /// is replaced by newValue.
         /// </summary>
-        public static string ReplaceAny(this string input, 
+        public static string ReplaceAny(this string input,
             string[] oldValue, string newValue)
         {
             string result = input;
@@ -90,31 +90,26 @@ namespace QSP.LibraryExtension
             return result;
         }
 
-        public static string ReplaceAny(this string input, 
+        public static string ReplaceAny(this string input,
             char[] oldValue, string newValue)
         {
             var sb = new StringBuilder(input.Length);
-            int index = 0;
 
-            while (index < input.Length)
+            foreach (var c in input)
             {
-                int tmp = input.IndexOfAny(oldValue, index);
-
-                if (tmp >= 0)
+                if (oldValue.Contains(c))
                 {
-                    sb.Append(input, index, tmp - index);
                     sb.Append(newValue);
-                    index = tmp + 1;
                 }
                 else
                 {
-                    sb.Append(input, index, input.Length - index);
-                    break;
+                    sb.Append(c);
                 }
             }
+
             return sb.ToString();
         }
-        
+
         public static string RemoveHtmlTags(this string item)
         {
             var array = new char[item.Length];
@@ -146,7 +141,7 @@ namespace QSP.LibraryExtension
         {
             return item.Split(
                 new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-        }        
+        }
     }
 }
 
