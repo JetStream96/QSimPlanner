@@ -2,6 +2,7 @@
 using QSP.WindAloft;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System;
 
 namespace QSP.Metar
 {
@@ -21,7 +22,8 @@ namespace QSP.Metar
             }
 
             var match = Regex.Match(metar,
-                @"\b\d{3}/?\d{1,3}(G\d{1,3})?(KTS?|MPS)\b");
+                @"(^|\s)\d{3}/?\d{1,3}(G\d{1,3})?(KTS?|MPS)($|\s)",
+                RegexOptions.Multiline);
 
             if (match.Success)
             {
@@ -48,7 +50,8 @@ namespace QSP.Metar
         public static int? GetTemp(string metar)
         {
             var match = Regex.Match(
-                metar, @"\b(?<temp>M?\d{1,3})/M?\d{1,3}\b");
+                metar, @"(^|\s)(?<temp>M?\d{1,3})/M?\d{1,3}($|\s)",
+                RegexOptions.Multiline);
 
             if (match.Success)
             {
@@ -74,7 +77,8 @@ namespace QSP.Metar
         /// </summary>
         public static PressureSetting GetPressure(string metar)
         {
-            var match = Regex.Match(metar, @"\b[AQ]\d{4}\b");
+            var match = Regex.Match(
+                metar, @"(^|\s)[AQ]\d{4}($|\s)", RegexOptions.Multiline);
 
             if (match.Success)
             {
@@ -104,13 +108,17 @@ namespace QSP.Metar
                 "GS", // Small Hail and/or Snow Pellets
                 "UP", // Unknown Precipitation
             };
-
+            
             return wordList
-                .Select(w => Regex.Match(metar, @"\b[+-]?" + w + @"\b")
+                .Select(w => 
+                Regex.Match(
+                    metar,
+                    @"(^|\s)[+-]?" + w + @"($|\s)", 
+                    RegexOptions.Multiline)
                 .Success)
                 .Contains(true);
         }
-
+        
         public class PressureSetting
         {
             public PressureUnit PressUnit { get; private set; }

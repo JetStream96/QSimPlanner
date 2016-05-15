@@ -43,11 +43,19 @@ namespace UnitTest.Metar
         }
 
         [TestMethod]
-        public void GetTempTest()
+        public void GetTempTest1()
         {
             Assert.AreEqual(15, ParaExtractor.GetTemp("RCTP ... 15/12"));
             Assert.AreEqual(-5, ParaExtractor.GetTemp("EDDF ... M05/M06"));
             Assert.AreEqual(1, ParaExtractor.GetTemp("RJAA ... 01/M01"));
+        }
+
+        [TestMethod]
+        public void GetTempTest2()
+        {
+            Assert.AreEqual(37, ParaExtractor.GetTemp(
+                @"2016/05/15 06:30
+VVTS 150630Z 16004KT 090V170 9999 BKN017 FEW020TCU 37/22 Q1006 NOSIG "));
         }
 
         [TestMethod]
