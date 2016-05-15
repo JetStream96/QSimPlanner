@@ -8,7 +8,7 @@ namespace QSP.UI.ToLdgModule.Options
 {
     public static class OptionManager
     {
-        private static string path = @"preference\options.cfg";
+        private static readonly string path = @"Preference\options.cfg";
 
         // If the file does not exist, create one.
         // Then read the file into an UserOption instance.

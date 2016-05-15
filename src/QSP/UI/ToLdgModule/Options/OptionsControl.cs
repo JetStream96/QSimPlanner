@@ -5,6 +5,7 @@ using QSP.Utilities;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using static QSP.UI.Utilities.MsgBoxHelper;
 
 namespace QSP.UI.ToLdgModule.Options
 {
@@ -129,7 +130,7 @@ namespace QSP.UI.ToLdgModule.Options
             catch (Exception ex)
             {
                 LoggerInstance.WriteToLog(ex);
-                MessageBox.Show("Failed to save options.");
+                ShowError("Failed to save options.");
                 return false;
             }
         }
@@ -146,20 +147,12 @@ namespace QSP.UI.ToLdgModule.Options
             catch (ReadAirportFileException ex)
             {
                 LoggerInstance.WriteToLog(ex);
-                MessageBox.Show(
-                    "Cannot read nav data file.",
-                    "",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                ShowError("Cannot read nav data file.");
             }
             catch (RwyDataFormatException ex)
             {
                 LoggerInstance.WriteToLog(ex);
-                MessageBox.Show(
-                    "Nav data format is wrong.",
-                    "",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                ShowError("Nav data format is wrong.");
             }
 
             return false;

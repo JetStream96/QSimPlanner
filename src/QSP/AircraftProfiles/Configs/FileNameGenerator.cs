@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using QSP.LibraryExtension;
 
 namespace QSP.AircraftProfiles.Configs
 {
@@ -8,7 +9,8 @@ namespace QSP.AircraftProfiles.Configs
         public static string Generate(string directory,
             string ac, string registration)
         {
-            string fileNameBase = ac + "_" + registration;
+            string fileNameBase =
+                (ac + "_" + registration).RemoveIllegalChars();
             string fn = Path.Combine(directory, fileNameBase + ".ini");
 
             if (Directory.Exists(directory) == false ||

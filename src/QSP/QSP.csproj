@@ -116,6 +116,7 @@
     <Compile Include="LibraryExtension\IEnumerables.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\JaggedArray.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\LengthChecker.cs" />
+    <Compile Include="LibraryExtension\Paths.cs" />
     <Compile Include="LibraryExtension\StringArrays.cs" />
     <Compile Include="LibraryExtension\StringParser\StringParser.cs" />
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
