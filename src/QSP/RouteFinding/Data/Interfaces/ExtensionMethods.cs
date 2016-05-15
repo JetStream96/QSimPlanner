@@ -7,7 +7,9 @@ namespace QSP.RouteFinding.Data.Interfaces
 {
     public static class ExtensionMethods
     {
-        public static T GetClosest<T>(this IEnumerable<T> items, double Lat, double Lon) where T : ICoordinate
+        public static T GetClosest<T>(
+            this IEnumerable<T> items, double Lat, double Lon)
+            where T : ICoordinate
         {
             int count = 0;
             T closest = default(T);
@@ -24,6 +26,7 @@ namespace QSP.RouteFinding.Data.Interfaces
                     closest = i;
                 }
             }
+
             ConditionChecker.Ensure<ArgumentException>(count > 0);
             return closest;
         }

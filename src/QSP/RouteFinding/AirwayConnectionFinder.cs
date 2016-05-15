@@ -4,15 +4,17 @@ using QSP.RouteFinding.Containers;
 
 namespace QSP.RouteFinding
 {
-    // Given an waypoint and the airway it is situated, gets all intermediate waypoints connecting to the target waypoint.
+    // Given an waypoint and the airway it is situated, gets all 
+    // intermediate waypoints connecting to the target waypoint.
     // Requires WptList.
+    //
     public class AirwayNodeFinder
     {
         private int indexStart;
         private string airway;
         private string identEnd;
         private WaypointList wptList;
-        
+
         public AirwayNodeFinder(int indexStart, string airway, string identEnd, WaypointList wptList)
         {
             this.indexStart = indexStart;
@@ -28,8 +30,10 @@ namespace QSP.RouteFinding
         }
 
         /// <summary>
-        /// Finds the list of indices connecting the start wpt to the end wpt, via the specified airway.
-        /// In the returning list, start wpt is NOT included while the end wpt is included. 
+        /// Finds the list of indices connecting the start wpt to the 
+        /// end wpt, via the specified airway.
+        /// In the returning list, start wpt is NOT included while the 
+        /// end wpt is included. 
         /// Wpts appears in the same order as the way they are visited.
         /// </summary>
         public List<int> GetWaypointIndices()
@@ -47,8 +51,10 @@ namespace QSP.RouteFinding
         }
 
         /// <summary>
-        /// Finds the list of waypoints connecting the start wpt to the end wpt, via the specified airway.
-        /// In the returning list, start wpt is NOT included while the end wpt is included. 
+        /// Finds the list of waypoints connecting the start wpt to the 
+        /// end wpt, via the specified airway.
+        /// In the returning list, start wpt is NOT included while the 
+        /// end wpt is included. 
         /// Wpts appears in the same order as the way they are visited.
         /// </summary>
         public List<Waypoint> FindWaypoints()
@@ -71,7 +77,7 @@ namespace QSP.RouteFinding
         private List<int> findWptOnAirwayOneDir(FindOnAwyOption para)
         {
             var result = new List<int>();
-            int x =( para == FindOnAwyOption.First) ? 0 : 1;
+            int x = (para == FindOnAwyOption.First) ? 0 : 1;
             //when x hit 0, start the search
 
             int currentIndex = indexStart;

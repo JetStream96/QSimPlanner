@@ -16,12 +16,12 @@ namespace QSP.RouteFinding.AirwayStructure
     public class WaypointList
     {
         private WaypointContainer _content;
-        private LatLonSearchUtility<WptSeachWrapper> _finder;
+        private LatLonSearcher<WptSeachWrapper> _finder;
 
         public WaypointList()
         {
             _content = new WaypointContainer();
-            _finder = new LatLonSearchUtility<WptSeachWrapper>(1, 5);
+            _finder = new LatLonSearcher<WptSeachWrapper>(1, 5);
         }
         
         public int AddWaypoint(Waypoint item)

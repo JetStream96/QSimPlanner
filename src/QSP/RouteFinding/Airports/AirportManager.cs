@@ -1,7 +1,7 @@
 ﻿using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Data;
 using System.Collections.Generic;
-using static QSP.RouteFinding.Data.LatLonSearchUtility<QSP.RouteFinding.Airports.Airport>;
+using static QSP.RouteFinding.Data.LatLonSearcher<QSP.RouteFinding.Airports.Airport>;
 
 namespace QSP.RouteFinding.Airports
 {
@@ -11,7 +11,7 @@ namespace QSP.RouteFinding.Airports
     public class AirportManager
     {
         private AirportCollection airportData;
-        private LatLonSearchUtility<Airport> airportFinder;
+        private LatLonSearcher<Airport> airportFinder;
 
         public AirportManager(AirportCollection airportData)
         {
@@ -21,7 +21,7 @@ namespace QSP.RouteFinding.Airports
 
         private void generateSearchGrids()
         {
-            airportFinder = new LatLonSearchUtility<Airport>(GridSizeOption.Small);
+            airportFinder = new LatLonSearcher<Airport>(GridSizeOption.Small);
             int count = airportData.Count;
 
             for (int i = 0; i < count; i++)

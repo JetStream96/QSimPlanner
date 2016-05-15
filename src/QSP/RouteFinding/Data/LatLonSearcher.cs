@@ -1,4 +1,5 @@
 using QSP.AviationTools.Coordinates;
+using QSP.Core;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
@@ -10,8 +11,7 @@ using static QSP.MathTools.Utilities;
 
 namespace QSP.RouteFinding.Data
 {
-
-    public class LatLonSearchUtility<T> where T : ICoordinate, IEquatable<T>
+    public class LatLonSearcher<T> where T : ICoordinate, IEquatable<T>
     {
         private readonly int GridSize;
         private readonly int PolarRegionSize;
@@ -24,11 +24,12 @@ namespace QSP.RouteFinding.Data
         private VisitedList visited;
         private IEqualityComparer<T> equalComp;
 
-        public LatLonSearchUtility(int gridSize, int polarRegSize) : this(gridSize, polarRegSize, EqualityComparer<T>.Default)
+        public LatLonSearcher(int gridSize, int polarRegSize)
+            : this(gridSize, polarRegSize, EqualityComparer<T>.Default)
         {
         }
 
-        public LatLonSearchUtility(int gridSize, int polarRegSize, IEqualityComparer<T> equalComp)
+        public LatLonSearcher(int gridSize, int polarRegSize, IEqualityComparer<T> equalComp)
         {
             GridSize = gridSize;
             PolarRegionSize = polarRegSize;
@@ -36,11 +37,10 @@ namespace QSP.RouteFinding.Data
             prepareSearch();
         }
 
-        public LatLonSearchUtility(GridSizeOption para) : this(para, EqualityComparer<T>.Default)
-        {
-        }
+        public LatLonSearcher(GridSizeOption para) : this(para, EqualityComparer<T>.Default)
+        { }
 
-        public LatLonSearchUtility(GridSizeOption para, IEqualityComparer<T> equalComp)
+        public LatLonSearcher(GridSizeOption para, IEqualityComparer<T> equalComp)
         {
             switch (para)
             {
@@ -53,7 +53,11 @@ namespace QSP.RouteFinding.Data
                     GridSize = 10;
                     PolarRegionSize = 15;
                     break;
+
+                default:
+                    throw new EnumNotSupportedException();
             }
+
             this.equalComp = equalComp;
             prepareSearch();
         }
@@ -218,12 +222,13 @@ namespace QSP.RouteFinding.Data
             {
                 //not north/south pole
 
-                double latTop = center.Lat + ((double)GridSize) / 2;
-                double latBottom = center.Lat - ((double)GridSize) / 2;
+                double latTop = center.Lat + GridSize / 2.0;
+                double latBottom = center.Lat - GridSize / 2.0;
 
                 double latMaxDis = (Math.Abs(latTop) >= Math.Abs(latBottom)) ? latTop : latBottom;
 
-                return GreatCircleDistance(pt, center) - GreatCircleDistance(center.Lat, latMaxDis, ((double)GridSize) / 2);
+                return GreatCircleDistance(pt, center) - GreatCircleDistance(center.Lat, latMaxDis,
+                    GridSize / 2.0);
             }
             else if (grid.Item2 == -1)
             {
