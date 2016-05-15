@@ -188,6 +188,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
         {
             if (regComboBox.SelectedIndex < 0)
             {
+                refreshWtColor();
                 return;
             }
 
@@ -219,6 +220,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
                 subscribe(controller);
                 controller.Initialize();
+                refreshWtColor();
             }
         }
 
@@ -240,7 +242,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
             controller.CalculationCompleted -= saveState;
         }
 
-        private void weightTxtBoxChanged(object sender, EventArgs e)
+        private void refreshWtColor()
         {
             var ac = aircrafts?.FindRegistration(regComboBox.Text);
             var config = ac?.Config;
@@ -253,7 +255,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
                     wtKg *= Constants.LbKgRatio;
                 }
 
-                if (wtKg > config.MaxTOWtKg || wtKg < config.ZfwKg)
+                if (wtKg > config.MaxTOWtKg || wtKg < config.OewKg)
                 {
                     weightTxtBox.ForeColor = Color.Red;
                 }
@@ -266,6 +268,11 @@ namespace QSP.UI.ToLdgModule.TOPerf
             {
                 weightTxtBox.ForeColor = Color.Black;
             }
+        }
+
+        private void weightTxtBoxChanged(object sender, EventArgs e)
+        {
+            refreshWtColor();
         }
 
         /// <summary>
@@ -283,7 +290,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
             regComboBox.Text = reg;
 
             // Set the color of weight.
-            weightTxtBoxChanged(this, EventArgs.Empty);
+            refreshWtColor();
         }
     }
 }

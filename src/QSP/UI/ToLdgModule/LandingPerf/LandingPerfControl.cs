@@ -271,7 +271,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
                     wtKg *= Constants.LbKgRatio;
                 }
 
-                if (wtKg > config.MaxLdgWtKg || wtKg < config.ZfwKg)
+                if (wtKg > config.MaxLdgWtKg || wtKg < config.OewKg)
                 {
                     weightTxtBox.ForeColor = Color.Red;
                 }

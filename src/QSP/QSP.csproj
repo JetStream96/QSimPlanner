@@ -519,6 +519,24 @@
       <DependentUpon>TOPerfControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <Content Include="PerformanceData\Aircrafts\B737-600_LN-RRX.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\Aircrafts\B737-700_B-5256.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\Aircrafts\B737-800_EI-EFX.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\Aircrafts\B737-900_N844DN.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\Aircrafts\B777-200LR_A6-EWE.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\Aircrafts\B777F_A7-BFA.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -534,9 +552,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GoogleMap\Library\markerwithlabel.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PerformanceData\Aircrafts\737600Default.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\LDG\737600_LDG.xml">

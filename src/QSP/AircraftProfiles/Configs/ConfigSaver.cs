@@ -13,7 +13,7 @@ namespace QSP.AircraftProfiles.Configs
             keys.AddKey("Registration", config.Registration);
             keys.AddKey("TOProfile", config.TOProfile);
             keys.AddKey("LdgProfile", config.LdgProfile);
-            keys.AddKey("ZfwKg", config.ZfwKg.ToString());
+            keys.AddKey("OewKg", config.OewKg.ToString());
             keys.AddKey("MaxTOWtKg", config.MaxTOWtKg.ToString());
             keys.AddKey("MaxLdgWtKg", config.MaxLdgWtKg.ToString());
             keys.AddKey("WtUnit", WeightUnitToString(config.WtUnit));

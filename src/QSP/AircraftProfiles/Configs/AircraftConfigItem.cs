@@ -6,7 +6,7 @@
         public string Registration { get; private set; }
         public string TOProfile { get; private set; }
         public string LdgProfile { get; private set; }
-        public double ZfwKg { get; private set; }
+        public double OewKg { get; private set; }
         public double MaxTOWtKg { get; private set; }
         public double MaxLdgWtKg { get; private set; }
         public WeightUnit WtUnit { get; private set; }
@@ -16,7 +16,7 @@
             string Registration,
             string TOProfile,
             string LdgProfile,
-            double ZfwKg,
+            double OewKg,
             double MaxTOWtKg,
             double MaxLdgWtKg,
             WeightUnit WtUnit)
@@ -25,7 +25,7 @@
             this.Registration = Registration;
             this.TOProfile = TOProfile;
             this.LdgProfile = LdgProfile;
-            this.ZfwKg = ZfwKg;
+            this.OewKg = OewKg;
             this.MaxTOWtKg = MaxTOWtKg;
             this.MaxLdgWtKg = MaxLdgWtKg;
             this.WtUnit = WtUnit;
@@ -38,7 +38,7 @@
                 other.Registration == Registration &&
                 other.TOProfile == TOProfile &&
                 other.LdgProfile == LdgProfile &&
-                other.ZfwKg == ZfwKg &&
+                other.OewKg == OewKg &&
                 other.MaxTOWtKg == MaxTOWtKg &&
                 other.MaxLdgWtKg == MaxLdgWtKg &&
                 other.WtUnit == WtUnit;

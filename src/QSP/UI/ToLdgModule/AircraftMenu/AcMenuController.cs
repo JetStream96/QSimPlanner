@@ -178,7 +178,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             e.ToProfile.Text = c.TOProfile;
             e.LdgProfile.Text = c.LdgProfile;
             e.ZfwUnit.SelectedIndex = c.WtUnit == WeightUnit.KG ? 0 : 1;
-            e.Zfw.Text = wtDisplay(c.ZfwKg);
+            e.Zfw.Text = wtDisplay(c.OewKg);
             e.MaxToWt.Text = wtDisplay(c.MaxTOWtKg);
             e.MaxLdgWt.Text = wtDisplay(c.MaxLdgWtKg);
         }
