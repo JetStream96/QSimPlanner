@@ -184,7 +184,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
                 resultsRichTxtBox);
         }
 
-        private void registrationSelectedChanged(object sender, EventArgs e)
+        private void registrationChanged(object sender, EventArgs e)
         {
             if (regComboBox.SelectedIndex < 0)
             {

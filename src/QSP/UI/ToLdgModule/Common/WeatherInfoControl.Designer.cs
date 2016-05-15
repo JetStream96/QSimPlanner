@@ -43,7 +43,7 @@
             this.Label104 = new System.Windows.Forms.Label();
             this.GetMetarBtn = new System.Windows.Forms.Button();
             this.ViewMetarBtn = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.picBox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.Label105 = new System.Windows.Forms.Label();
             this.surfCondComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
@@ -53,7 +53,7 @@
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -260,14 +260,14 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::QSP.Properties.Resources.checkIconLarge;
-            this.pictureBox1.Location = new System.Drawing.Point(203, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(27, 27);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 43;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
+            this.picBox.Image = global::QSP.Properties.Resources.checkIconLarge;
+            this.picBox.Location = new System.Drawing.Point(203, 4);
+            this.picBox.Name = "pictureBox1";
+            this.picBox.Size = new System.Drawing.Size(27, 27);
+            this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBox.TabIndex = 43;
+            this.picBox.TabStop = false;
+            this.picBox.Visible = false;
             // 
             // tableLayoutPanel3
             // 
@@ -358,7 +358,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Controls.Add(this.tableLayoutPanel3);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.picBox);
             this.Controls.Add(this.ViewMetarBtn);
             this.Controls.Add(this.GetMetarBtn);
             this.Controls.Add(this.tableLayoutPanel);
@@ -372,7 +372,7 @@
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.ResumeLayout(false);
@@ -398,7 +398,7 @@
         internal Controls.ComboBoxWithBorder tempUnitComboBox;
         internal Controls.ComboBoxWithBorder pressUnitComboBox;
         internal System.Windows.Forms.Button ViewMetarBtn;
-        internal System.Windows.Forms.PictureBox pictureBox1;
+        internal System.Windows.Forms.PictureBox picBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         internal Controls.ComboBoxWithBorder surfCondComboBox;
         internal System.Windows.Forms.Label Label105;

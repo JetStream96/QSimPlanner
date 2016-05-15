@@ -288,6 +288,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
+        /// <exception cref="NoFileNameAvailException"></exception>
         private string getFileName()
         {
             if (inEditMode == false)
@@ -303,37 +304,66 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
-        public void SaveConfig(object sender, EventArgs e)
+        private AircraftConfigItem tryValidate()
         {
             try
             {
-                var config = new AcConfigValidator(elem).Validate();
-                string fn = getFileName();
-
-                if (trySaveConfig(config, fn))
-                {
-                    removeOldConfig();
-                    profiles.AcConfigs.Add(new AircraftConfig(config, fn));
-                    showSelectionGroupBox();
-                    AircraftsChanged?.Invoke(this, EventArgs.Empty);
-                }
-                else
-                {
-                    ShowError("Failed to save config file.");
-                }
+                return new AcConfigValidator(elem).Validate();
             }
             catch (InvalidUserInputException ex)
             {
                 ShowWarning(ex.Message);
+                return null;
             }
-            catch (ArgumentException)
+        }
+
+        private string tryGetFileName()
+        {
+            try
             {
-                ShowWarning(
-                    "Registration already exists. Please use another one.");
+                return getFileName();
             }
             catch (NoFileNameAvailException)
             {
                 // FileNameGenerator cannot generate a file name.
+                ShowError("Failed to save config file.");
+                return null;
+            }
+        }
+
+        public void SaveConfig(object sender, EventArgs e)
+        {
+            var config = tryValidate();
+
+            if (config == null)
+            {
+                return;
+            }
+
+            if (profiles.AcConfigs.FindRegistration(config.Registration)
+                != null)
+            {
+                ShowWarning(
+                   "Registration already exists. Please use another one.");
+                return;
+            }
+
+            var fn = tryGetFileName();
+
+            if (fn == null)
+            {
+                return;
+            }
+
+            if (trySaveConfig(config, fn))
+            {
+                removeOldConfig();
+                profiles.AcConfigs.Add(new AircraftConfig(config, fn));
+                showSelectionGroupBox();
+                AircraftsChanged?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
                 ShowError("Failed to save config file.");
             }
         }

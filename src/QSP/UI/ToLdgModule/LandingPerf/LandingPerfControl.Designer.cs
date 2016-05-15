@@ -149,7 +149,7 @@
             this.regComboBox.Name = "regComboBox";
             this.regComboBox.Size = new System.Drawing.Size(151, 31);
             this.regComboBox.TabIndex = 42;
-            this.regComboBox.SelectedIndexChanged += new System.EventHandler(this.registrationSelectedChanged);
+            this.regComboBox.TextChanged += new System.EventHandler(this.registrationChanged);
             // 
             // label1
             // 

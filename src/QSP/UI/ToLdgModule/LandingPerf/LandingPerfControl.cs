@@ -78,25 +78,28 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private void initializeElements()
         {
+            var ap = airportInfoControl;
+            var wx = weatherInfoControl;
+
             elements = new LandingPerfElements(
-                airportInfoControl.airportNameLbl,
-                airportInfoControl.airportTxtBox,
-                airportInfoControl.lengthTxtBox,
-                airportInfoControl.elevationTxtBox,
-                airportInfoControl.rwyHeadingTxtBox,
-                weatherInfoControl.windDirTxtBox,
-                weatherInfoControl.windSpdTxtBox,
-                weatherInfoControl.oatTxtBox,
-                weatherInfoControl.pressTxtBox,
+                ap.airportNameLbl,
+                ap.airportTxtBox,
+                ap.lengthTxtBox,
+                ap.elevationTxtBox,
+                ap.rwyHeadingTxtBox,
+                wx.windDirTxtBox,
+                wx.windSpdTxtBox,
+                wx.oatTxtBox,
+                wx.pressTxtBox,
                 weightTxtBox,
                 appSpdIncTxtBox,
-                airportInfoControl.rwyComboBox,
-                airportInfoControl.lengthUnitComboBox,
-                airportInfoControl.slopeComboBox,
-                weatherInfoControl.tempUnitComboBox,
+                ap.rwyComboBox,
+                ap.lengthUnitComboBox,
+                ap.slopeComboBox,
+                wx.tempUnitComboBox,
                 brakeComboBox,
-                weatherInfoControl.surfCondComboBox,
-                weatherInfoControl.pressUnitComboBox,
+                wx.surfCondComboBox,
+                wx.pressUnitComboBox,
                 wtUnitComboBox,
                 flapsComboBox,
                 revThrustComboBox,
@@ -196,10 +199,11 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             //}
         }
 
-        private void registrationSelectedChanged(object sender, EventArgs e)
+        private void registrationChanged(object sender, EventArgs e)
         {
             if (regComboBox.SelectedIndex < 0)
             {
+                refreshWtColor();
                 return;
             }
 
@@ -231,6 +235,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
                 subscribe(controller);
                 controller.Initialize();
+                refreshWtColor();
             }
         }
 
@@ -258,7 +263,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             controller.CalculationCompleted -= saveState;
         }
 
-        private void weightTxtBoxChanged(object sender, EventArgs e)
+        private void refreshWtColor()
         {
             var ac = aircrafts?.FindRegistration(regComboBox.Text);
             var config = ac?.Config;
@@ -284,6 +289,11 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             {
                 weightTxtBox.ForeColor = Color.Black;
             }
+        }
+
+        private void weightTxtBoxChanged(object sender, EventArgs e)
+        {
+            refreshWtColor();
         }
 
         /// <summary>

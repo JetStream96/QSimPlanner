@@ -27,7 +27,7 @@ namespace QSP.UI.ToLdgModule.Common
             wxControl.ViewMetarBtn.Click += viewMetarClicked;
             airportControl.airportTxtBox.TextChanged += (sender, e) =>
             {
-                wxControl.pictureBox1.Visible = false;
+                wxControl.picBox.Visible = false;
                 disableViewBtn();
             };
         }
@@ -79,8 +79,8 @@ namespace QSP.UI.ToLdgModule.Common
         {
             disableDnBtn();
             var w = wxControl;
-            w.pictureBox1.Visible = false;
-            w.pictureBox1.Image = Properties.Resources.deleteIconLarge;
+            w.picBox.Visible = false;
+            w.picBox.Image = Properties.Resources.deleteIconLarge;
 
             string icao = airportControl.Icao;
             metar = null;
@@ -110,13 +110,13 @@ namespace QSP.UI.ToLdgModule.Common
                 }
                 else
                 {
-                    w.pictureBox1.Image = Properties.Resources.checkIconLarge;
+                    w.picBox.Image = Properties.Resources.checkIconLarge;
                 }
 
                 enableViewBtn();
             }
 
-            w.pictureBox1.Visible = true;
+            w.picBox.Visible = true;
             enableDnBtn();
         }
     }

@@ -49,6 +49,7 @@
             // 
             this.airportDataGrid.AllowUserToAddRows = false;
             this.airportDataGrid.AllowUserToDeleteRows = false;
+            this.airportDataGrid.AllowUserToResizeRows = false;
             this.airportDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.airportDataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.airportDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

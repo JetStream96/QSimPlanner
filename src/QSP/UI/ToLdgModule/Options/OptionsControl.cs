@@ -111,7 +111,9 @@ namespace QSP.UI.ToLdgModule.Options
         {
             try
             {
-                if (sourceComboBox.SelectedIndex == 0)
+                options.SourceType = sourceComboBox.SelectedIndex;
+
+                if (options.SourceType == 0)
                 {
                     options.OpenDataPath = pathTxtBox.Text;
                 }
