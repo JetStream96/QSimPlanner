@@ -177,8 +177,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     else
                     {
                         // RAND
-                        var randRoute = randRouteToRoute(new RandomRouteFinder(startEnd.Item1.LatLon,
-                                                                             startEnd.Item2.LatLon)
+                        var randRoute = randRouteToRoute(new RandomRouteFinder(startEnd.Start.LatLon,
+                                                                             startEnd.End.LatLon)
                                                        .Find());
                         randRouteAddOrigDest(randRoute, analyzed, i);
                         analyzed[i] = randRoute;
@@ -256,7 +256,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return result;
         }
 
-        private Pair<Waypoint, Waypoint> getStartEndWpts(List<Route> subRoutes, int index)
+        private WptPair getStartEndWpts(List<Route> subRoutes, int index)
         {
             var start = index == 0
                 ? origRwyWpt
@@ -266,7 +266,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 ? destRwyWpt
                 : subRoutes[index + 1].First.Waypoint;
 
-            return new Pair<Waypoint, Waypoint>(start, end);
+            return new WptPair(start, end);
         }
 
         private static Route connectAll(List<Route> subRoutes)
@@ -278,6 +278,18 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 route.MergeWith(subRoutes[i]);
             }
             return route;
+        }
+
+        private class WptPair
+        {
+            public Waypoint Start { get; private set; }
+            public Waypoint End { get; private set; }
+
+            public WptPair(Waypoint Start, Waypoint End)
+            {
+                this.Start = Start;
+                this.End = End;
+            }
         }
     }
 }

@@ -133,7 +133,6 @@
     <Compile Include="TOPerfCalculation\Boeing\TOReportGeneratorTest.cs" />
     <Compile Include="UI\ToLdgModule\Common\AirportInfo\SlopeComboBoxControllerTest.cs" />
     <Compile Include="WindAloft\LastestDataSetFinderTest.cs" />
-    <Compile Include="WptFinderTest.cs" />
     <Compile Include="WptListLoadTest.cs" />
   </ItemGroup>
   <ItemGroup>

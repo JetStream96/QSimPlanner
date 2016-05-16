@@ -46,8 +46,8 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
                 
                 result[i] = new PacificTrack(PacotDirection.Eastbound,
                                              trk.ID.ToString(),
-                                             timeInfo.Item1,
-                                             timeInfo.Item2,
+                                             timeInfo.Start,
+                                             timeInfo.End,
                                              trk.Remark,
                                              Array.AsReadOnly(mainRoute),
                                              connectionRoutes.RouteFrom.AsReadOnly(),

@@ -87,10 +87,10 @@ namespace QSP.TOPerfCalculation.Boeing
             setUnitSlopeOrWindTable(WindCorrWet, lengthUnitIsMeter);
 
             var tables = setFieldClimbLimitWt(dryNode, lengthUnitIsMeter, wtUnitIsTon);
-            var WeightTableDry = tables.Item1;
-            var ClimbLimitWt = tables.Item2;
+            var WeightTableDry = tables.Field;
+            var ClimbLimitWt = tables.Climb;
 
-            var WeightTableWet = setFieldClimbLimitWt(wetNode, lengthUnitIsMeter, wtUnitIsTon).Item1;
+            var WeightTableWet = setFieldClimbLimitWt(wetNode, lengthUnitIsMeter, wtUnitIsTon).Field;
 
             // Derates (TO1, TO2)
             importAltnRating(node, wtUnitIsTon);
@@ -119,7 +119,7 @@ namespace QSP.TOPerfCalculation.Boeing
         }
 
         // node should be "Dry" or "Wet" node
-        private static Pair<FieldLimitWtTable, ClimbLimitWtTable>
+        private static WtTables
             setFieldClimbLimitWt(XElement node, bool lenthIsMeter, bool WtIsKG)
         {
             var wtTables = node.Elements("WeightTable");
@@ -149,7 +149,7 @@ namespace QSP.TOPerfCalculation.Boeing
                 fieldlimitWt.Multiply(LbKgRatio);
             }
 
-            return new Pair<FieldLimitWtTable, ClimbLimitWtTable>(
+            return new WtTables(
                  new FieldLimitWtTable(altitudes, lengths, oats, fieldlimitWt),
                  new ClimbLimitWtTable(altitudes, oats, climbLimWt));
         }
@@ -248,6 +248,18 @@ namespace QSP.TOPerfCalculation.Boeing
                 climb.Multiply(LbKgRatio);
             }
             return new AlternateThrustTable(fullThrust, dry, wet, climb);
+        }
+
+        public struct WtTables
+        {
+            public FieldLimitWtTable Field { get; private set; }
+            public ClimbLimitWtTable Climb { get; private set; }
+            
+            public WtTables(FieldLimitWtTable Field, ClimbLimitWtTable Climb)
+            {
+                this.Field = Field;
+                this.Climb = Climb;
+            }
         }
     }
 }

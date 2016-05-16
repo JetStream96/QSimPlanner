@@ -111,30 +111,31 @@ namespace QSP.RouteFinding.Data
             }
         }
 
-        private void addContent(Pair<int, int> indices, T item)
+        private void addContent(Grid indices, T item)
         {
-            content[indices.Item1, indices.Item2].Add(item);
+            content[indices.X, indices.Y].Add(item);
         }
 
-        private Pair<int, int> indicesInContent(double lat, double lon)
+        private Grid indicesInContent(double lat, double lon)
         {
             if (lon == 180.0)
             {
                 lon = -180.0;
             }
-            return new Pair<int, int>((int)((lat + 90.0 - polarRegionSize) / gridSize),
-                                       (int)((lon + 180.0) / gridSize));
+            return new Grid(
+                (int)((lat + 90.0 - polarRegionSize) / gridSize),
+                (int)((lon + 180.0) / gridSize));
         }
 
-        private Pair<int, int> getGrid(double lat, double lon)
+        private Grid getGrid(double lat, double lon)
         {
             if (lat >= 90 - polarRegionSize)
             {
-                return new Pair<int, int>(-1, 1);
+                return new Grid(true);
             }
             else if (lat < -90 + polarRegionSize)
             {
-                return new Pair<int, int>(-1, -1);
+                return new Grid(false);
             }
             else
             {
@@ -145,11 +146,10 @@ namespace QSP.RouteFinding.Data
         public List<T> Find(double lat, double lon, double distance)
         {
             var result = new List<T>();
-            var possibleGrids = new List<Pair<int, int>>();
-            var pending = new Queue<Pair<int, int>>();
+            var possibleGrids = new List<Grid>();
+            var pending = new Queue<Grid>();
 
             pending.Enqueue(getGrid(lat, lon));
-            //(-1,-1) for south pole, (-1,1) for north pole
             visited.SetVisited(pending.First());
 
             while (pending.Count > 0)
@@ -180,22 +180,19 @@ namespace QSP.RouteFinding.Data
             return result;
         }
 
-        private List<T> itemsInGrid(Pair<int, int> item)
+        private List<T> itemsInGrid(Grid item)
         {
-            if (item.Item1 == -1)
+            if (item.IsNorthPole)
             {
-                if (item.Item2 == 1)
-                {
-                    return northPoleContent;
-                }
-                else
-                {
-                    return southPoleContent;
-                }
+                return northPoleContent;
+            }
+            else if (item.IsSouthPole)
+            {
+                return southPoleContent;
             }
             else
             {
-                return content[item.Item1, item.Item2];
+                return content[item.X, item.Y];
             }
         }
 
@@ -218,15 +215,21 @@ namespace QSP.RouteFinding.Data
         /// Among all points in the grid, finds the smallest distance 
         /// from the given lat/lon (in NM).
         /// </summary>
-        private double minDis(double lat, double lon, Pair<int, int> grid)
+        private double minDis(double lat, double lon, Grid grid)
         {
             var pt = new LatLon(lat, lon);
             var center = gridCenterLatLon(grid);
 
-            if (grid.Item1 != -1)
+            if (grid.IsNorthPole)
             {
-                //not north/south pole
-
+                return EarthRadiusNm * ToRadian((90 - polarRegionSize) - center.Lat);
+            }
+            else if (grid.IsSouthPole)
+            {
+                return EarthRadiusNm * ToRadian(center.Lat - (-90 + polarRegionSize));
+            }
+            else
+            {
                 double latTop = center.Lat + gridSize / 2.0;
                 double latBottom = center.Lat - gridSize / 2.0;
 
@@ -235,98 +238,79 @@ namespace QSP.RouteFinding.Data
                 return GreatCircleDistance(pt, center) - GreatCircleDistance(center.Lat, latMaxDis,
                     gridSize / 2.0);
             }
-            else if (grid.Item2 == -1)
+        }
+
+        private LatLon gridCenterLatLon(Grid item)
+        {
+            if (item.IsNorthPole)
             {
-                return EarthRadiusNm * ToRadian(center.Lat - (-90 + polarRegionSize));
+                return new LatLon(90.0, 0.0);
+            }
+            else if (item.IsSouthPole)
+            {
+                return new LatLon(-90.0, 0.0);
             }
             else
             {
-                return EarthRadiusNm * ToRadian((90 - polarRegionSize) - center.Lat);
+                return new LatLon(
+                    -90.0 + polarRegionSize + (item.X + 0.5) * gridSize,
+                    -180.0 + (item.Y + 0.5) * gridSize);
             }
         }
 
-        private LatLon gridCenterLatLon(Pair<int, int> item)
+        private List<Grid> gridNeighbor(Grid item)
         {
-            if (item.Item1 == -1)
+            if (item.IsNorthPole)
             {
-                if (item.Item2 == 1)
-                {
-                    return new LatLon(90.0, 0.0);
-                }
-                else
-                {
-                    return new LatLon(-90.0, 0.0);
-                }
+                return getPoleNeighbor(true);
+            }
+            else if (item.IsSouthPole)
+            {
+                return getPoleNeighbor(false);
             }
             else
             {
-                return new LatLon(-90.0 + polarRegionSize + (item.Item1 + 0.5) * gridSize, -180.0 + (item.Item2 + 0.5) * gridSize);
-            }
-        }
-
-        private List<Pair<int, int>> gridNeighbor(Pair<int, int> item)
-        {
-            if (item.Item1 == -1)
-            {
-                if (item.Item2 == -1)
-                {
-                    return getPoleNeighbor(poleType.South);
-                }
-                else
-                {
-                    //i.e. item.Item2 = 1 
-                    return getPoleNeighbor(poleType.North);
-                }
-            }
-            else
-            {
-                var result = new List<Pair<int, int>>();
+                var result = new List<Grid>();
 
                 int x = content.GetLength(0);
                 int y = content.GetLength(1);
 
-                result.Add(new Pair<int, int>(item.Item1, (item.Item2 + 1) % y));
+                result.Add(new Grid(item.X, (item.Y + 1) % y));
                 //east
-                result.Add(new Pair<int, int>(item.Item1, (item.Item2 - 1 + y) % y));
+                result.Add(new Grid(item.X, (item.Y - 1 + y) % y));
                 //west
 
-                if (item.Item1 + 1 == x)
+                if (item.X + 1 == x)
                 {
-                    result.Add(new Pair<int, int>(-1, 1));
+                    result.Add(new Grid(true));
                     //north pole
                 }
                 else
                 {
-                    result.Add(new Pair<int, int>(item.Item1 + 1, item.Item2));
+                    result.Add(new Grid(item.X + 1, item.Y));
                     //north
                 }
 
-                if (item.Item1 == 0)
+                if (item.X == 0)
                 {
-                    result.Add(new Pair<int, int>(-1, -1));
+                    result.Add(new Grid(false));
                     //south pole
                 }
                 else
                 {
-                    result.Add(new Pair<int, int>(item.Item1 - 1, item.Item2));
+                    result.Add(new Grid(item.X - 1, item.Y));
                     //south
                 }
                 return result;
             }
         }
-
-        private enum poleType
+        
+        private List<Grid> getPoleNeighbor(bool isNorthPole)
         {
-            South,
-            North
-        }
-
-        private List<Pair<int, int>> getPoleNeighbor(poleType para)
-        {
-            var result = new List<Pair<int, int>>();
+            var result = new List<Grid>();
             int firstIndex = 0;
 
-            if (para == poleType.North)
+            if (isNorthPole)
             {
                 firstIndex = content.GetLength(0) - 1;
             }
@@ -337,7 +321,7 @@ namespace QSP.RouteFinding.Data
 
             for (int i = 0; i < content.GetLength(1); i++)
             {
-                result.Add(new Pair<int, int>(firstIndex, i));
+                result.Add(new Grid(firstIndex, i));
             }
             return result;
         }
@@ -360,12 +344,12 @@ namespace QSP.RouteFinding.Data
                 if (IsNorthPole)
                 {
                     X = -1;
-                    Y = 1;
+                    Y = 0;
                 }
                 else
                 {
-                    X = -1;
-                    Y = -1;
+                    X = -2;
+                    Y = 0;
                 }
             }
 
@@ -373,7 +357,7 @@ namespace QSP.RouteFinding.Data
             {
                 get
                 {
-                    return X == -1 && Y == 1;
+                    return X == -1;
                 }
             }
 
@@ -381,7 +365,7 @@ namespace QSP.RouteFinding.Data
             {
                 get
                 {
-                    return X == -1 && Y == -1;
+                    return X == -2;
                 }
             }
         }
@@ -391,13 +375,13 @@ namespace QSP.RouteFinding.Data
             private bool[,] visited;
             private bool northPoleVisted;
             private bool southPoleVisited;
-            private List<Pair<int, int>> changedItems;
+            private List<Grid> changedItems;
 
             public VisitedList(int item1, int item2)
             {
                 visited = new bool[item1 + 1, item2 + 1];
                 setVisitedFlag();
-                changedItems = new List<Pair<int, int>>();
+                changedItems = new List<Grid>();
             }
 
             private void setVisitedFlag()
@@ -413,28 +397,25 @@ namespace QSP.RouteFinding.Data
                 southPoleVisited = false;
             }
 
-            public void SetVisited(Pair<int, int> item)
+            public void SetVisited(Grid item)
             {
                 setVisitedProperty(item, true);
                 changedItems.Add(item);
             }
 
-            private void setVisitedProperty(Pair<int, int> item, bool value)
+            private void setVisitedProperty(Grid item, bool value)
             {
-                if (item.Item1 == -1)
+                if (item.IsNorthPole)
                 {
-                    if (item.Item2 == 1)
-                    {
-                        northPoleVisted = value;
-                    }
-                    else
-                    {
-                        southPoleVisited = value;
-                    }
+                    northPoleVisted = value;
+                }
+                else if (item.IsSouthPole)
+                {
+                    southPoleVisited = value;
                 }
                 else
                 {
-                    visited[item.Item1, item.Item2] = value;
+                    visited[item.X, item.Y] = value;
                 }
             }
 
@@ -447,22 +428,19 @@ namespace QSP.RouteFinding.Data
                 changedItems.Clear();
             }
 
-            public bool IsVisited(Pair<int, int> item)
+            public bool IsVisited(Grid item)
             {
-                if (item.Item1 == -1)
+                if (item.IsNorthPole)
                 {
-                    if (item.Item2 == -1)
-                    {
-                        return southPoleVisited;
-                    }
-                    else
-                    {
-                        return northPoleVisted;
-                    }
+                    return northPoleVisted;
+                }
+                else if (item.IsSouthPole)
+                {
+                    return southPoleVisited;
                 }
                 else
                 {
-                    return visited[item.Item1, item.Item2];
+                    return visited[item.X, item.Y];
                 }
             }
         }
