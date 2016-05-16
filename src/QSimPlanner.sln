@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSimPlanner", "QSimPlanner\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QspLite", "QspLite\QspLite.csproj", "{F7D791E4-7457-4348-8ACF-3FBEA01C34A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostBuilt", "PostBuilt\PostBuilt.csproj", "{8D3DA33D-5D1D-4D7A-B64B-BBBE486C49DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{F7D791E4-7457-4348-8ACF-3FBEA01C34A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7D791E4-7457-4348-8ACF-3FBEA01C34A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7D791E4-7457-4348-8ACF-3FBEA01C34A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D3DA33D-5D1D-4D7A-B64B-BBBE486C49DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D3DA33D-5D1D-4D7A-B64B-BBBE486C49DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D3DA33D-5D1D-4D7A-B64B-BBBE486C49DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D3DA33D-5D1D-4D7A-B64B-BBBE486C49DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
