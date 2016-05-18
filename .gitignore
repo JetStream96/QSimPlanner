@@ -8,3 +8,5 @@ src/TestResults
 src/ProfileReports/
 src/TrackBackupApp/nats
 src/TrackBackupApp/log.txt
+src/QspLiteSetup/Debug
+src/QspLiteSetup/Release

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QspLite", "QspLite\QspLite.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostBuild", "PostBuild\PostBuild.csproj", "{8D3DA33D-5D1D-4D7A-B64B-BBBE486C49DC}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "QspLiteSetup", "QspLiteSetup\QspLiteSetup.vdproj", "{277357F4-536D-47C2-97E0-F58D94A1CACE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,8 @@ Global
 		{8D3DA33D-5D1D-4D7A-B64B-BBBE486C49DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D3DA33D-5D1D-4D7A-B64B-BBBE486C49DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D3DA33D-5D1D-4D7A-B64B-BBBE486C49DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{277357F4-536D-47C2-97E0-F58D94A1CACE}.Debug|Any CPU.ActiveCfg = Debug
+		{277357F4-536D-47C2-97E0-F58D94A1CACE}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
