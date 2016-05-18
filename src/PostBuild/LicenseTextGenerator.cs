@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace PostBuilt
+namespace PostBuild
 {
     public static class LicenseTextGenerator
     {

@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSimPlanner", "QSimPlanner\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QspLite", "QspLite\QspLite.csproj", "{F7D791E4-7457-4348-8ACF-3FBEA01C34A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostBuilt", "PostBuilt\PostBuilt.csproj", "{8D3DA33D-5D1D-4D7A-B64B-BBBE486C49DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostBuild", "PostBuild\PostBuild.csproj", "{8D3DA33D-5D1D-4D7A-B64B-BBBE486C49DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

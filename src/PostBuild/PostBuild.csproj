@@ -7,8 +7,8 @@
     <ProjectGuid>{8D3DA33D-5D1D-4D7A-B64B-BBBE486C49DC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PostBuilt</RootNamespace>
-    <AssemblyName>PostBuilt</AssemblyName>
+    <RootNamespace>PostBuild</RootNamespace>
+    <AssemblyName>PostBuild</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
