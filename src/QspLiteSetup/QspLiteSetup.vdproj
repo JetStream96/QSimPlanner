@@ -27,14 +27,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9C1B5011DBA5453A4E65590259AEDCC7"
+        "MsmKey" = "8:_65A44F52DD4F7B5876985D1E7B141694"
         "OwnerKey" = "8:_38E9DEAE47E0428397A413C74D698CD1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9C1B5011DBA5453A4E65590259AEDCC7"
-        "OwnerKey" = "8:_E8783BB4006CE7B74CC3DFF518CFFFF4"
+        "MsmKey" = "8:_65A44F52DD4F7B5876985D1E7B141694"
+        "OwnerKey" = "8:_C42158346713B50726425D5396CA23A3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C42158346713B50726425D5396CA23A3"
+        "OwnerKey" = "8:_38E9DEAE47E0428397A413C74D698CD1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -45,32 +51,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E8783BB4006CE7B74CC3DFF518CFFFF4"
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_38E9DEAE47E0428397A413C74D698CD1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C42158346713B50726425D5396CA23A3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_65A44F52DD4F7B5876985D1E7B141694"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D924B7853E339AE39750E35C61C016AB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E8783BB4006CE7B74CC3DFF518CFFFF4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_38E9DEAE47E0428397A413C74D698CD1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9C1B5011DBA5453A4E65590259AEDCC7"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -91,6 +91,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -107,6 +123,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -156,20 +188,51 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9C1B5011DBA5453A4E65590259AEDCC7"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_65A44F52DD4F7B5876985D1E7B141694"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:INIFileParser, Version=2.2.4.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_9C1B5011DBA5453A4E65590259AEDCC7"
+                    "_65A44F52DD4F7B5876985D1E7B141694"
                     {
                     "Name" = "8:INIFileParser.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:INIFileParser.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D0F16B05A31146A0BB70BC3CBA71C690"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C42158346713B50726425D5396CA23A3"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:QSP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_C42158346713B50726425D5396CA23A3"
+                    {
+                    "Name" = "8:QSP.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:QSP.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D0F16B05A31146A0BB70BC3CBA71C690"
@@ -201,37 +264,6 @@
                     }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D0F16B05A31146A0BB70BC3CBA71C690"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E8783BB4006CE7B74CC3DFF518CFFFF4"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:QSP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_E8783BB4006CE7B74CC3DFF518CFFFF4"
-                    {
-                    "Name" = "8:QSP.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:QSP.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D0F16B05A31146A0BB70BC3CBA71C690"
@@ -306,7 +338,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QspLite"
         "ProductCode" = "8:{9DA12A33-E6CA-400B-B1E8-F0270597F333}"
-        "PackageCode" = "8:{F0A25FE0-1CB5-4F66-B85F-9418B51C4E38}"
+        "PackageCode" = "8:{08046D61-107F-4358-B046-C84C50EED58C}"
         "UpgradeCode" = "8:{4BECDD68-7997-4883-A2ED-079F13BF5E0A}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -426,32 +458,18 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_3FDCB9A1543E4C8388D94EA05D4ED489"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_61680E2AE63646329C956D4B3DC300AB"
             {
-            "Name" = "8:QspLite"
+            "Name" = "8:QSP Lite"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_38E9DEAE47E0428397A413C74D698CD1"
-            "Folder" = "8:_E339A1CA52444D768A477C0417E57470"
-            "WorkingFolder" = "8:_D0F16B05A31146A0BB70BC3CBA71C690"
-            "Icon" = "8:"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_AE624BE1B1164C0491C6BAE99F41701C"
-            {
-            "Name" = "8:QspLite"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
+            "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
             "Target" = "8:_38E9DEAE47E0428397A413C74D698CD1"
             "Folder" = "8:_1617CEC7FDF94F66A1A7E521CF063B18"
             "WorkingFolder" = "8:_D0F16B05A31146A0BB70BC3CBA71C690"
-            "Icon" = "8:"
+            "Icon" = "8:_38E9DEAE47E0428397A413C74D698CD1"
             "Feature" = "8:"
             }
         }
@@ -855,7 +873,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_38E9DEAE47E0428397A413C74D698CD1"
             {
-            "SourcePath" = "8:..\\QspLite\\obj\\Debug\\QspLite.exe"
+            "SourcePath" = "8:..\\QspLite\\obj\\Release\\QspLite.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D0F16B05A31146A0BB70BC3CBA71C690"
