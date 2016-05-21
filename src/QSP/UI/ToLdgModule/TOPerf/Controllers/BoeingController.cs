@@ -2,6 +2,7 @@
 using QSP.TOPerfCalculation;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using QSP.LibraryExtension;
+using static QSP.UI.Utilities.MsgBoxHelper;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -83,10 +84,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             var items = elements.surfCond.Items;
 
             items.Clear();
-            items.AddRange(new object[] {
-                "Dry",
-                "Wet"});
-
+            items.AddRange(new string[] { "Dry", "Wet" });
             elements.surfCond.SelectedIndex = 0;
         }
 
@@ -131,15 +129,13 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
                 MessageBox.Show(ex.Message);
             }
             catch (RunwayTooShortException)
-            {//TODO:
-                elements.result.ForeColor = Color.Red;
-                elements.result.Text = 
-                    "Runway length is insufficient for takeoff.";
+            {
+                ShowWarning("Runway length is insufficient for takeoff.");
             }
             catch (PoorClimbPerformanceException)
             {
                 elements.result.ForeColor = Color.Red;
-                elements.result.Text = 
+                elements.result.Text =
                   "Aircraft too heavy to meet climb performance requirement.";
             }
         }

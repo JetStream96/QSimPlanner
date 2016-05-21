@@ -34,17 +34,17 @@ namespace QSP.TOPerfCalculation.Boeing
             int maxOat = Doubles.RoundToInt(fieldLimitWtTable.MaxOat);
             const int tempIncrement = 1;
 
-            for (int oat = Doubles.RoundToInt(para.OatCelsius);
+            int mainOat = Doubles.RoundToInt(para.OatCelsius);
+            double rwyRequired = calc.TakeoffDistanceMeter(mainOat);
+            validateMainResult(result, mainOat, rwyRequired);
+
+            for (int oat = mainOat + 1;
                  oat <= maxOat;
                  oat += tempIncrement)
             {
-                double rwyRequired = calc.TakeoffDistanceMeter(oat);
+                rwyRequired = calc.TakeoffDistanceMeter(oat);
 
-                if (oat == para.OatCelsius)
-                {
-                    validateMainResult(result, oat, rwyRequired);
-                }
-                else if (tryAddResult(result, oat, rwyRequired) == false)
+                if (tryAddResult(result, oat, rwyRequired) == false)
                 {
                     return result;
                 }
