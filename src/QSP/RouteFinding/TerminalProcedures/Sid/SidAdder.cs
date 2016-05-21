@@ -36,7 +36,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         }
 
         public SidAdder(string icao, SidCollection sids, WaypointList wptList, WaypointListEditor editor, AirportManager airportList, double maxSearchRange, int targetNumber)
-            : this(icao, sids, wptList, editor, airportList, maxSearchRange, targetNumber, SEARCH_RANGE_INCR)
+            : this(icao, sids, wptList, editor, airportList, maxSearchRange, targetNumber, SearchRangeIncr)
         {
         }
 

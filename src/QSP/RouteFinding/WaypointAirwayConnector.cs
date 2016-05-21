@@ -6,10 +6,12 @@ using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding
 {
-    // Helps to connect isolated waypoints to an airway, by finding nearby waypoints which are connected to airway(s). 
+    // Connect isolated waypoints to an airway, by finding 
+    // nearby waypoints which are connected to airway(s).
+    //
     public static class WaypointAirwayConnector
     {
-        public const double SEARCH_RANGE_INCR = 20.0;
+        public const double SearchRangeIncr = 20.0;
         public const double MAX_SEARCH_RANGE = MAX_LEG_DIS;
         public const int TARGET_NUM = 30;
 
@@ -26,7 +28,7 @@ namespace QSP.RouteFinding
         /// </summary>
         public static List<IndexDistancePair> FindAirwayConnection(double Lat, double Lon, WaypointList wptList)
         {
-            return FindAirwayConnection(Lat, Lon, wptList, MAX_SEARCH_RANGE, TARGET_NUM, SEARCH_RANGE_INCR);
+            return FindAirwayConnection(Lat, Lon, wptList, MAX_SEARCH_RANGE, TARGET_NUM, SearchRangeIncr);
         }
 
         /// <summary>
@@ -35,7 +37,7 @@ namespace QSP.RouteFinding
         public static List<IndexDistancePair> FindAirwayConnection(double Lat, double Lon, WaypointList wptList,
                                                                    double maxSearchRange, double targetNumber)
         {
-            return FindAirwayConnection(Lat, Lon, wptList, maxSearchRange, targetNumber, SEARCH_RANGE_INCR);
+            return FindAirwayConnection(Lat, Lon, wptList, maxSearchRange, targetNumber, SearchRangeIncr);
         }
 
         /// <summary>

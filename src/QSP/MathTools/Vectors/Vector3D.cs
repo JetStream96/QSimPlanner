@@ -8,10 +8,10 @@ namespace QSP
         public double y { get; private set; }
         public double z { get; private set; }
 
-        //Using these relations:
-        //x=rsin(phi)cos(theta)
-        //y=rsin(phi)sin(theta)
-        //z=rcos(phi)
+        // Using these relations:
+        // x = r * sin(phi) * cos(theta)
+        // y = r * sin(phi) * sin(theta)
+        // z = r * cos(phi)
 
         public Vector3D() : this(0.0, 0.0, 0.0) { }
 
@@ -43,30 +43,10 @@ namespace QSP
         {
             double RSinPhi = r * Math.Sin(phi);
 
-            return new Vector3D(RSinPhi * Math.Cos(theta),
-                                RSinPhi * Math.Sin(theta),
-                                r * Math.Cos(phi));
-        }
-
-        public void Add(Vector3D v)
-        {
-            x += v.x;
-            y += v.y;
-            z += v.z;
-        }
-
-        public void Subtract(Vector3D v)
-        {
-            x -= v.x;
-            y -= v.y;
-            z -= v.z;
-        }
-
-        public void Multiply(double c)
-        {
-            x *= c;
-            y *= c;
-            z *= c;
+            return new Vector3D(
+                RSinPhi * Math.Cos(theta),
+                RSinPhi * Math.Sin(theta),
+                r * Math.Cos(phi));
         }
 
         public static Vector3D operator +(Vector3D v1, Vector3D v2)
@@ -101,7 +81,10 @@ namespace QSP
 
         public Vector3D CrossProductWith(Vector3D v)
         {
-            return new Vector3D(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
+            return new Vector3D(
+                y * v.z - z * v.y,
+                z * v.x - x * v.z,
+                x * v.y - y * v.x);
         }
 
     }

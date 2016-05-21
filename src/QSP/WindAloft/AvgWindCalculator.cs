@@ -10,8 +10,8 @@ namespace QSP.WindAloft
 
     public class AvgWindCalculator
     {
-        private Vector3D v1 = new Vector3D();
-        private Vector3D v2 = new Vector3D();
+        private Vector3D v1;
+        private Vector3D v2;
         private WxFileLoader windData;
         private double FL;
         private int tas;
@@ -20,7 +20,8 @@ namespace QSP.WindAloft
         private double lat2;
         private double lon2;
 
-        public AvgWindCalculator(WxFileLoader item, int trueAirspd, double flightLevel)
+        public AvgWindCalculator(
+            WxFileLoader item, int trueAirspd, double flightLevel)
         {
             windData = item;
             tas = trueAirspd;

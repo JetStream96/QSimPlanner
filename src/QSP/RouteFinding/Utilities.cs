@@ -8,7 +8,8 @@ namespace QSP.RouteFinding
 
     public static class Utilities
     {
-        private static string[] correctFixType = { "IF", "DF", "TF", "FD", "CF" };
+        private static readonly string[] correctFixType =
+            { "IF", "DF", "TF", "FD", "CF" };
         //, "AF", "RF", "CD", "FA", "FC", "FM", "VD", "PI", "HF", "HA", "HM"}
         //this lists all kinds of fixes with coordinates located in t(2) and t(3)
 
@@ -17,19 +18,22 @@ namespace QSP.RouteFinding
         /// </summary>
         public static bool IsRwyIdent(string str)
         {
-            int i = 0;
+            int rwyNum;
 
-            if (str.Length == 2 && int.TryParse(str, out i) && (i > 0 && i <= 36))
+            if (str.Length == 2)
             {
-                return true;
+                return
+                    int.TryParse(str, out rwyNum) &&
+                    (rwyNum > 0 && rwyNum <= 36);
             }
-            else if (str.Length == 3 &&
-                     (str[2] == 'L' || str[2] == 'R' || str[2] == 'C') &&
-                     int.TryParse(str.Substring(0, 2), out i) &&
-                     (i > 0 && i <= 36))
+            else if (str.Length == 3)
             {
-                return true;
+                return
+                    (str[2] == 'L' || str[2] == 'R' || str[2] == 'C') &&
+                    int.TryParse(str.Substring(0, 2), out rwyNum) &&
+                    (rwyNum > 0 && rwyNum <= 36);
             }
+
             return false;
         }
 
@@ -61,7 +65,7 @@ namespace QSP.RouteFinding
             return dis;
         }
 
-        public static double GetTotalDistance<T>(T wpts) 
+        public static double GetTotalDistance<T>(T wpts)
             where T : IReadOnlyCollection<Waypoint>, IReadOnlyList<Waypoint>
         {
             //in nm
@@ -77,7 +81,7 @@ namespace QSP.RouteFinding
                                            wpts[i + 1].Lat, wpts[i + 1].Lon);
             }
             return dis;
-        }        
+        }
     }
 }
 

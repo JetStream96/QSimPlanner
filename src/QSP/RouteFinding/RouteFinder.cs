@@ -11,15 +11,16 @@ using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding
 {
-    // The distance computed by RouteFinder is based on the the values of edges in graph, 
-    // which directly comes from the text file and is only accurate to 2 decimal places.
+    // The distance computed by RouteFinder is based on the the 
+    // values of edges in graph, which directly comes from the 
+    // text file and is only accurate to 2 decimal places.
     // Therefore it may not be completely accurate. 
     // 
     public class RouteFinder
     {
         private WaypointList wptList;
         private AirportManager airportList;
-        
+
         public RouteFinder(WaypointList wptList, AirportManager airportList)
         {
             this.wptList = wptList;
@@ -29,7 +30,8 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Add SID to wptList and returns the index of origin rwy.
         /// </summary>
-        private int addSid(string rwy, List<string> sid, SidHandler sidHandler)
+        private int addSid(
+            string rwy, List<string> sid, SidHandler sidHandler)
         {
             return sidHandler.AddSidsToWptList(rwy, sid);
         }
@@ -37,7 +39,8 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Add STAR to wptList and returns the index of destination rwy.
         /// </summary>
-        private int addStar(string rwy, List<string> star, StarHandler starHandler)
+        private int addStar(
+            string rwy, List<string> star, StarHandler starHandler)
         {
             return starHandler.AddStarsToWptList(rwy, star);
         }
@@ -45,9 +48,10 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route between two aiports, from ORIG to DEST.
         /// </summary>
-        public Route FindRoute(string origRwy, List<string> origSid, SidHandler sidHandler,
-                               string destRwy, List<string> destStar, StarHandler starHandler,
-                               WaypointListEditor editor)
+        public Route FindRoute(
+            string origRwy, List<string> origSid, SidHandler sidHandler,
+            string destRwy, List<string> destStar, StarHandler starHandler,
+            WaypointListEditor editor)
         {
             int origIndex = addSid(origRwy, origSid, sidHandler);
             int destIndex = addStar(destRwy, destStar, starHandler);
@@ -60,9 +64,9 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from an airport to a waypoint.
         /// </summary>
-        public Route FindRoute(string rwy, 
-                               List<string> sid, 
-                               SidHandler sidHandler, 
+        public Route FindRoute(string rwy,
+                               List<string> sid,
+                               SidHandler sidHandler,
                                int wptIndex,
                                WaypointListEditor editor)
         {
@@ -76,8 +80,8 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from a waypoint to an airport.
         /// </summary>
-        public Route FindRoute(int wptIndex, 
-                               string rwy, 
+        public Route FindRoute(int wptIndex,
+                               string rwy,
                                List<string> star,
                                StarHandler starHandler,
                                WaypointListEditor editor)
@@ -97,7 +101,8 @@ namespace QSP.RouteFinding
             return result;
         }
 
-        private Route extractRoute(routeFindingData FindRouteData, int startPtIndex, int endPtIndex)
+        private Route extractRoute(
+            routeFindingData FindRouteData, int startPtIndex, int endPtIndex)
         {
             var waypoints = new List<Waypoint>();
             var airways = new List<string>();
@@ -120,7 +125,8 @@ namespace QSP.RouteFinding
             return buildRoute(waypoints, airways, totalDistances);
         }
 
-        private static void ConvertToNeighborDistance(List<double> totalDistances)
+        private static void ConvertToNeighborDistance(
+            List<double> totalDistances)
         {
             for (int i = 0; i < totalDistances.Count - 1; i++)
             {
@@ -128,7 +134,10 @@ namespace QSP.RouteFinding
             }
         }
 
-        private static Route buildRoute(List<Waypoint> waypoints, List<string> airways, List<double> totalDistances)
+        private static Route buildRoute(
+            List<Waypoint> waypoints,
+            List<string> airways,
+            List<double> totalDistances)
         {
             var result = new Route();
             int edgeCount = airways.Count;
@@ -137,9 +146,10 @@ namespace QSP.RouteFinding
 
             for (int i = edgeCount - 1; i >= 0; i--)
             {
-                result.AddLastWaypoint(waypoints[i],
-                                      airways[i],
-                                      totalDistances[i]);
+                result.AddLastWaypoint(
+                    waypoints[i],
+                    airways[i],
+                    totalDistances[i]);
             }
             return result;
         }
@@ -190,8 +200,12 @@ namespace QSP.RouteFinding
             return false; //Route not found.            
         }
 
-        private void updateNeighbors(int currentWptIndex, routeSeachRegionPara regionPara, routeFindingData FindRouteData,
-                                     MinHeap<int, double> unvisited, double currentDis)
+        private void updateNeighbors(
+            int currentWptIndex,
+            routeSeachRegionPara regionPara,
+            routeFindingData FindRouteData,
+            MinHeap<int, double> unvisited,
+            double currentDis)
         {
             foreach (var edgeIndex in wptList.EdgesFrom(currentWptIndex))
             {

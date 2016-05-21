@@ -34,7 +34,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         }
 
         public StarAdder(string icao, StarCollection stars, WaypointList wptList, WaypointListEditor editor, AirportManager airportList, double maxSearchRange, int targetNumber)
-            : this(icao, stars, wptList,editor, airportList, maxSearchRange, targetNumber, WaypointAirwayConnector.SEARCH_RANGE_INCR)
+            : this(icao, stars, wptList,editor, airportList, maxSearchRange, targetNumber, WaypointAirwayConnector.SearchRangeIncr)
         {
         }
 
