@@ -4,7 +4,7 @@ using QSP.LandingPerfCalculation.Boeing.PerfData;
 using QSP.LibraryExtension;
 using System;
 using System.Drawing;
-using System.Windows.Forms;
+using static QSP.UI.Utilities.MsgBoxHelper;
 
 namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 {
@@ -133,12 +133,11 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
             }
             catch (InvalidUserInputException ex)
             {
-                MessageBox.Show(ex.Message);
+                ShowWarning(ex.Message);
             }
             catch (RunwayTooShortException)
             {
-                elements.result.ForeColor = Color.Red;
-                elements.result.Text = "Runway length is insufficient for landing.";
+                ShowWarning("Runway length is insufficient for landing.");
             }
         }
     }

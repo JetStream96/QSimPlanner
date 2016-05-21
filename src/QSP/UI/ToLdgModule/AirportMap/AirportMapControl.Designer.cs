@@ -60,7 +60,7 @@
             this.airportDataGrid.RowTemplate.Height = 24;
             this.airportDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.airportDataGrid.Size = new System.Drawing.Size(1011, 150);
-            this.airportDataGrid.TabIndex = 0;
+            this.airportDataGrid.TabIndex = 4;
             // 
             // Elevation_Lbl1
             // 
@@ -70,7 +70,7 @@
             this.Elevation_Lbl1.Location = new System.Drawing.Point(554, 0);
             this.Elevation_Lbl1.Name = "Elevation_Lbl1";
             this.Elevation_Lbl1.Size = new System.Drawing.Size(85, 19);
-            this.Elevation_Lbl1.TabIndex = 9;
+            this.Elevation_Lbl1.TabIndex = 3;
             this.Elevation_Lbl1.Text = "Elevation:";
             // 
             // elevationLbl
@@ -81,7 +81,7 @@
             this.elevationLbl.Location = new System.Drawing.Point(651, 0);
             this.elevationLbl.Name = "elevationLbl";
             this.elevationLbl.Size = new System.Drawing.Size(61, 19);
-            this.elevationLbl.TabIndex = 10;
+            this.elevationLbl.TabIndex = 4;
             this.elevationLbl.Text = "105 FT";
             // 
             // latLonLbl
@@ -92,7 +92,7 @@
             this.latLonLbl.Location = new System.Drawing.Point(347, 0);
             this.latLonLbl.Name = "latLonLbl";
             this.latLonLbl.Size = new System.Drawing.Size(187, 19);
-            this.latLonLbl.TabIndex = 8;
+            this.latLonLbl.TabIndex = 2;
             this.latLonLbl.Text = "25.080167 / 121.232222";
             // 
             // airportNameLbl
@@ -103,7 +103,7 @@
             this.airportNameLbl.Location = new System.Drawing.Point(3, 0);
             this.airportNameLbl.Name = "airportNameLbl";
             this.airportNameLbl.Size = new System.Drawing.Size(196, 19);
-            this.airportNameLbl.TabIndex = 4;
+            this.airportNameLbl.TabIndex = 0;
             this.airportNameLbl.Text = "TAIWAN TAOYUAN INTL";
             // 
             // transExistLbl
@@ -114,7 +114,7 @@
             this.transExistLbl.Location = new System.Drawing.Point(751, 0);
             this.transExistLbl.Name = "transExistLbl";
             this.transExistLbl.Size = new System.Drawing.Size(60, 19);
-            this.transExistLbl.TabIndex = 11;
+            this.transExistLbl.TabIndex = 5;
             this.transExistLbl.Text = "TA/TL:";
             this.transExistLbl.Visible = false;
             // 
@@ -126,7 +126,7 @@
             this.metarLbl.Location = new System.Drawing.Point(174, 8);
             this.metarLbl.Name = "metarLbl";
             this.metarLbl.Size = new System.Drawing.Size(786, 60);
-            this.metarLbl.TabIndex = 13;
+            this.metarLbl.TabIndex = 1;
             this.metarLbl.Text = "2015/02/20 09:00\r\nRCTP 200900Z 36003KT 310V030 9999 FEW010 BKN040 18/13 Q1018 NOS" +
     "IG RMK A3006";
             this.metarLbl.Click += new System.EventHandler(this.metarLbl_Click);
@@ -139,7 +139,7 @@
             this.LatLon_lbl1.Location = new System.Drawing.Point(253, 0);
             this.LatLon_lbl1.Name = "LatLon_lbl1";
             this.LatLon_lbl1.Size = new System.Drawing.Size(85, 19);
-            this.LatLon_lbl1.TabIndex = 7;
+            this.LatLon_lbl1.TabIndex = 1;
             this.LatLon_lbl1.Text = "LAT/LON:";
             // 
             // transAltLbl
@@ -150,7 +150,7 @@
             this.transAltLbl.Location = new System.Drawing.Point(840, 0);
             this.transAltLbl.Name = "transAltLbl";
             this.transAltLbl.Size = new System.Drawing.Size(115, 19);
-            this.transAltLbl.TabIndex = 12;
+            this.transAltLbl.TabIndex = 6;
             this.transAltLbl.Text = "11000 / FL130";
             // 
             // tableLayoutPanel1
@@ -175,7 +175,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1011, 28);
-            this.tableLayoutPanel1.TabIndex = 16;
+            this.tableLayoutPanel1.TabIndex = 3;
             // 
             // updateBtn
             // 
@@ -184,7 +184,7 @@
             this.updateBtn.Location = new System.Drawing.Point(972, 19);
             this.updateBtn.Name = "updateBtn";
             this.updateBtn.Size = new System.Drawing.Size(33, 33);
-            this.updateBtn.TabIndex = 81;
+            this.updateBtn.TabIndex = 2;
             this.updateBtn.UseVisualStyleBackColor = true;
             this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
             // 
@@ -195,7 +195,7 @@
             this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(42, 19);
-            this.label1.TabIndex = 82;
+            this.label1.TabIndex = 5;
             this.label1.Text = "ICAO";
             // 
             // icaoComboBox
@@ -207,7 +207,7 @@
             this.icaoComboBox.Location = new System.Drawing.Point(12, 31);
             this.icaoComboBox.Name = "icaoComboBox";
             this.icaoComboBox.Size = new System.Drawing.Size(118, 31);
-            this.icaoComboBox.TabIndex = 15;
+            this.icaoComboBox.TabIndex = 0;
             this.icaoComboBox.TextChanged += new System.EventHandler(this.icaoComboBox_TextChanged);
             // 
             // AirportMapControl

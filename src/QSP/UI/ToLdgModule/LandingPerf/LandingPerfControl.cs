@@ -47,7 +47,8 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private void setWeatherBtnHandlers()
         {
-            wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl);
+            wxSetter = new AutoWeatherSetter(
+                weatherInfoControl, airportInfoControl);
             wxSetter.Subscribe();
         }
 
@@ -241,10 +242,16 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private void subscribe(FormController controller)
         {
-            weatherInfoControl.surfCondComboBox.SelectedIndexChanged += controller.SurfCondChanged;
-            wtUnitComboBox.SelectedIndexChanged += controller.WeightUnitChanged;
+            weatherInfoControl.surfCondComboBox.SelectedIndexChanged += 
+                controller.SurfCondChanged;
+
+            wtUnitComboBox.SelectedIndexChanged += 
+                controller.WeightUnitChanged;
+
             flapsComboBox.SelectedIndexChanged += controller.FlapsChanged;
-            revThrustComboBox.SelectedIndexChanged += controller.ReverserChanged;
+            revThrustComboBox.SelectedIndexChanged += 
+                controller.ReverserChanged;
+
             brakeComboBox.SelectedIndexChanged += controller.BrakesChanged;
             calculateBtn.Click += controller.Compute;
 
@@ -253,10 +260,16 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private void unSubscribe(FormController controller)
         {
-            weatherInfoControl.surfCondComboBox.SelectedIndexChanged -= controller.SurfCondChanged;
-            wtUnitComboBox.SelectedIndexChanged -= controller.WeightUnitChanged;
+            weatherInfoControl.surfCondComboBox.SelectedIndexChanged -= 
+                controller.SurfCondChanged;
+
+            wtUnitComboBox.SelectedIndexChanged -= 
+                controller.WeightUnitChanged;
+
             flapsComboBox.SelectedIndexChanged -= controller.FlapsChanged;
-            revThrustComboBox.SelectedIndexChanged -= controller.ReverserChanged;
+            revThrustComboBox.SelectedIndexChanged -= 
+                controller.ReverserChanged;
+
             brakeComboBox.SelectedIndexChanged -= controller.BrakesChanged;
             calculateBtn.Click -= controller.Compute;
 

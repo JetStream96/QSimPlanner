@@ -74,7 +74,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 154F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 155F));
             this.tableLayoutPanel1.Controls.Add(this.airportBtn, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.ldgBtn, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.acConfigBtn, 0, 0);
@@ -85,7 +85,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(605, 41);
-            this.tableLayoutPanel1.TabIndex = 2;
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // airportBtn
             // 
@@ -111,7 +111,7 @@
             this.ldgBtn.Margin = new System.Windows.Forms.Padding(0);
             this.ldgBtn.Name = "ldgBtn";
             this.ldgBtn.Size = new System.Drawing.Size(150, 38);
-            this.ldgBtn.TabIndex = 4;
+            this.ldgBtn.TabIndex = 2;
             this.ldgBtn.Text = "Landing";
             this.ldgBtn.UseVisualStyleBackColor = false;
             // 
@@ -126,7 +126,7 @@
             this.optionsBtn.Margin = new System.Windows.Forms.Padding(1);
             this.optionsBtn.Name = "optionsBtn";
             this.optionsBtn.Size = new System.Drawing.Size(30, 30);
-            this.optionsBtn.TabIndex = 3;
+            this.optionsBtn.TabIndex = 0;
             this.optionsBtn.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel2
@@ -140,7 +140,7 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(40, 40);
-            this.tableLayoutPanel2.TabIndex = 4;
+            this.tableLayoutPanel2.TabIndex = 1;
             // 
             // QspLiteForm
             // 

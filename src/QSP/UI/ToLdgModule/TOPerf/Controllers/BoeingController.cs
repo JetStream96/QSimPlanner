@@ -126,7 +126,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             }
             catch (InvalidUserInputException ex)
             {
-                MessageBox.Show(ex.Message);
+                ShowWarning(ex.Message);
             }
             catch (RunwayTooShortException)
             {
@@ -134,9 +134,8 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             }
             catch (PoorClimbPerformanceException)
             {
-                elements.result.ForeColor = Color.Red;
-                elements.result.Text =
-                  "Aircraft too heavy to meet climb performance requirement.";
+                ShowWarning("Aircraft too heavy to meet "+
+                    "climb performance requirement.");
             }
         }
     }

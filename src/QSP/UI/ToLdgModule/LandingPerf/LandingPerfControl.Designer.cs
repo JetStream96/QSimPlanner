@@ -71,7 +71,7 @@
             this.GroupBox13.Name = "GroupBox13";
             this.GroupBox13.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.GroupBox13.Size = new System.Drawing.Size(509, 234);
-            this.GroupBox13.TabIndex = 27;
+            this.GroupBox13.TabIndex = 0;
             this.GroupBox13.TabStop = false;
             this.GroupBox13.Text = "Runway";
             // 
@@ -82,7 +82,7 @@
             this.airportInfoControl.Location = new System.Drawing.Point(7, 20);
             this.airportInfoControl.Name = "airportInfoControl";
             this.airportInfoControl.Size = new System.Drawing.Size(490, 210);
-            this.airportInfoControl.TabIndex = 33;
+            this.airportInfoControl.TabIndex = 0;
             // 
             // GroupBox14
             // 
@@ -94,7 +94,7 @@
             this.GroupBox14.Name = "GroupBox14";
             this.GroupBox14.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.GroupBox14.Size = new System.Drawing.Size(494, 267);
-            this.GroupBox14.TabIndex = 11;
+            this.GroupBox14.TabIndex = 2;
             this.GroupBox14.TabStop = false;
             this.GroupBox14.Text = "A/C Configuration";
             // 
@@ -133,7 +133,7 @@
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(480, 245);
-            this.tableLayoutPanel7.TabIndex = 33;
+            this.tableLayoutPanel7.TabIndex = 0;
             // 
             // regComboBox
             // 
@@ -148,7 +148,7 @@
             this.regComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.regComboBox.Name = "regComboBox";
             this.regComboBox.Size = new System.Drawing.Size(151, 31);
-            this.regComboBox.TabIndex = 42;
+            this.regComboBox.TabIndex = 2;
             this.regComboBox.TextChanged += new System.EventHandler(this.registrationChanged);
             // 
             // label1
@@ -176,7 +176,7 @@
             this.brakeComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.brakeComboBox.Name = "brakeComboBox";
             this.brakeComboBox.Size = new System.Drawing.Size(151, 31);
-            this.brakeComboBox.TabIndex = 45;
+            this.brakeComboBox.TabIndex = 7;
             // 
             // revThrustComboBox
             // 
@@ -191,7 +191,7 @@
             this.revThrustComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.revThrustComboBox.Name = "revThrustComboBox";
             this.revThrustComboBox.Size = new System.Drawing.Size(151, 31);
-            this.revThrustComboBox.TabIndex = 44;
+            this.revThrustComboBox.TabIndex = 6;
             // 
             // wtUnitComboBox
             // 
@@ -209,7 +209,7 @@
             this.wtUnitComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.wtUnitComboBox.Name = "wtUnitComboBox";
             this.wtUnitComboBox.Size = new System.Drawing.Size(141, 31);
-            this.wtUnitComboBox.TabIndex = 43;
+            this.wtUnitComboBox.TabIndex = 4;
             // 
             // flapsComboBox
             // 
@@ -224,7 +224,7 @@
             this.flapsComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.flapsComboBox.Name = "flapsComboBox";
             this.flapsComboBox.Size = new System.Drawing.Size(151, 31);
-            this.flapsComboBox.TabIndex = 42;
+            this.flapsComboBox.TabIndex = 5;
             // 
             // acListComboBox
             // 
@@ -239,7 +239,7 @@
             this.acListComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.acListComboBox.Name = "acListComboBox";
             this.acListComboBox.Size = new System.Drawing.Size(151, 31);
-            this.acListComboBox.TabIndex = 41;
+            this.acListComboBox.TabIndex = 0;
             this.acListComboBox.SelectedIndexChanged += new System.EventHandler(this.refreshRegistrations);
             // 
             // requestBtn
@@ -252,7 +252,7 @@
             this.requestBtn.Margin = new System.Windows.Forms.Padding(0);
             this.requestBtn.Name = "requestBtn";
             this.requestBtn.Size = new System.Drawing.Size(141, 31);
-            this.requestBtn.TabIndex = 38;
+            this.requestBtn.TabIndex = 1;
             this.requestBtn.Text = "Request";
             this.requestBtn.UseVisualStyleBackColor = false;
             this.requestBtn.Visible = false;
@@ -302,7 +302,7 @@
             this.appSpdIncTxtBox.Margin = new System.Windows.Forms.Padding(0);
             this.appSpdIncTxtBox.Name = "appSpdIncTxtBox";
             this.appSpdIncTxtBox.Size = new System.Drawing.Size(86, 30);
-            this.appSpdIncTxtBox.TabIndex = 26;
+            this.appSpdIncTxtBox.TabIndex = 8;
             // 
             // Label101
             // 
@@ -360,7 +360,7 @@
             this.weightTxtBox.Margin = new System.Windows.Forms.Padding(0);
             this.weightTxtBox.Name = "weightTxtBox";
             this.weightTxtBox.Size = new System.Drawing.Size(151, 30);
-            this.weightTxtBox.TabIndex = 16;
+            this.weightTxtBox.TabIndex = 3;
             this.weightTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.weightTxtBox.TextChanged += new System.EventHandler(this.weightTxtBoxChanged);
             // 
@@ -374,7 +374,7 @@
             this.calculateBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.calculateBtn.Name = "calculateBtn";
             this.calculateBtn.Size = new System.Drawing.Size(380, 50);
-            this.calculateBtn.TabIndex = 28;
+            this.calculateBtn.TabIndex = 3;
             this.calculateBtn.Text = "Calculate";
             this.calculateBtn.UseVisualStyleBackColor = false;
             // 
@@ -388,7 +388,7 @@
             this.GroupBox15.Name = "GroupBox15";
             this.GroupBox15.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.GroupBox15.Size = new System.Drawing.Size(509, 200);
-            this.GroupBox15.TabIndex = 26;
+            this.GroupBox15.TabIndex = 1;
             this.GroupBox15.TabStop = false;
             this.GroupBox15.Text = "Weather";
             // 
@@ -408,7 +408,7 @@
             this.GroupBox16.Location = new System.Drawing.Point(0, 432);
             this.GroupBox16.Name = "GroupBox16";
             this.GroupBox16.Size = new System.Drawing.Size(1011, 238);
-            this.GroupBox16.TabIndex = 32;
+            this.GroupBox16.TabIndex = 4;
             this.GroupBox16.TabStop = false;
             this.GroupBox16.Text = "Results";
             // 
@@ -420,7 +420,7 @@
             this.resultsRichTxtBox.Name = "resultsRichTxtBox";
             this.resultsRichTxtBox.ReadOnly = true;
             this.resultsRichTxtBox.Size = new System.Drawing.Size(998, 211);
-            this.resultsRichTxtBox.TabIndex = 33;
+            this.resultsRichTxtBox.TabIndex = 0;
             this.resultsRichTxtBox.Text = "";
             // 
             // LandingPerfControl

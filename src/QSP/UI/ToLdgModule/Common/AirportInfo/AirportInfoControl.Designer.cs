@@ -84,7 +84,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(490, 210);
-            this.tableLayoutPanel1.TabIndex = 42;
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // lengthUnitComboBox
             // 
@@ -102,7 +102,7 @@
             this.lengthUnitComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.lengthUnitComboBox.Name = "lengthUnitComboBox";
             this.lengthUnitComboBox.Size = new System.Drawing.Size(93, 31);
-            this.lengthUnitComboBox.TabIndex = 42;
+            this.lengthUnitComboBox.TabIndex = 4;
             this.lengthUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.lengthUnitComboBox_SelectedIndexChanged);
             // 
             // slopeComboBox
@@ -118,7 +118,7 @@
             this.slopeComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.slopeComboBox.Name = "slopeComboBox";
             this.slopeComboBox.Size = new System.Drawing.Size(93, 31);
-            this.slopeComboBox.TabIndex = 41;
+            this.slopeComboBox.TabIndex = 7;
             // 
             // tableLayoutPanel2
             // 
@@ -134,7 +134,7 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(158, 35);
-            this.tableLayoutPanel2.TabIndex = 33;
+            this.tableLayoutPanel2.TabIndex = 0;
             // 
             // Label92
             // 
@@ -158,7 +158,7 @@
             this.reqAirportBtn.Margin = new System.Windows.Forms.Padding(0);
             this.reqAirportBtn.Name = "reqAirportBtn";
             this.reqAirportBtn.Size = new System.Drawing.Size(64, 32);
-            this.reqAirportBtn.TabIndex = 39;
+            this.reqAirportBtn.TabIndex = 0;
             this.reqAirportBtn.Text = "Req";
             this.reqAirportBtn.UseVisualStyleBackColor = false;
             this.reqAirportBtn.Visible = false;
@@ -189,7 +189,7 @@
             this.rwyComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.rwyComboBox.Name = "rwyComboBox";
             this.rwyComboBox.Size = new System.Drawing.Size(93, 31);
-            this.rwyComboBox.TabIndex = 40;
+            this.rwyComboBox.TabIndex = 2;
             this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.rwyComboBox_SelectedIndexChanged);
             // 
             // Label89
@@ -261,7 +261,7 @@
             this.airportTxtBox.Margin = new System.Windows.Forms.Padding(0);
             this.airportTxtBox.Name = "airportTxtBox";
             this.airportTxtBox.Size = new System.Drawing.Size(93, 30);
-            this.airportTxtBox.TabIndex = 23;
+            this.airportTxtBox.TabIndex = 1;
             this.airportTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.airportTxtBox.TextChanged += new System.EventHandler(this.airportTxtBox_TextChanged);
             // 
@@ -273,7 +273,7 @@
             this.elevationTxtBox.Margin = new System.Windows.Forms.Padding(0);
             this.elevationTxtBox.Name = "elevationTxtBox";
             this.elevationTxtBox.Size = new System.Drawing.Size(93, 30);
-            this.elevationTxtBox.TabIndex = 31;
+            this.elevationTxtBox.TabIndex = 5;
             this.elevationTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // rwyHeadingTxtBox
@@ -284,7 +284,7 @@
             this.rwyHeadingTxtBox.Margin = new System.Windows.Forms.Padding(0);
             this.rwyHeadingTxtBox.Name = "rwyHeadingTxtBox";
             this.rwyHeadingTxtBox.Size = new System.Drawing.Size(93, 30);
-            this.rwyHeadingTxtBox.TabIndex = 21;
+            this.rwyHeadingTxtBox.TabIndex = 6;
             this.rwyHeadingTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lengthTxtBox
@@ -295,7 +295,7 @@
             this.lengthTxtBox.Margin = new System.Windows.Forms.Padding(0);
             this.lengthTxtBox.Name = "lengthTxtBox";
             this.lengthTxtBox.Size = new System.Drawing.Size(93, 30);
-            this.lengthTxtBox.TabIndex = 19;
+            this.lengthTxtBox.TabIndex = 3;
             this.lengthTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // airportNameLbl
