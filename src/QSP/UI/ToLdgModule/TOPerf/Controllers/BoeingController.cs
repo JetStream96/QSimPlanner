@@ -1,11 +1,10 @@
 ﻿using QSP.Core;
+using QSP.LibraryExtension;
 using QSP.TOPerfCalculation;
 using QSP.TOPerfCalculation.Boeing.PerfData;
-using QSP.LibraryExtension;
-using static QSP.UI.Utilities.MsgBoxHelper;
 using System;
 using System.Drawing;
-using System.Windows.Forms;
+using static QSP.UI.Utilities.MsgBoxHelper;
 
 namespace QSP.UI.ToLdgModule.TOPerf.Controllers
 {
@@ -41,8 +40,29 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             setDefaultSurfCond();
             setDefaultFlaps();
             setDerate();
-            elements.AntiIce.SelectedIndex = 0;
+            setPackOptions();
+            setAIOptions();
+        }
+
+        private void setPackOptions()
+        {
+            var items = elements.Packs.Items;
+            items.Clear();
+            items.AddRange(new string[] { "ON", "OFF" });
             elements.Packs.SelectedIndex = 0;
+        }
+
+        private void setAIOptions()
+        {
+            var items = elements.AntiIce.Items;
+            items.Clear();
+            items.AddRange(new string[]
+            {
+                "OFF",
+                "ONLY ENG A/I",
+                "ENG AND WING A/I"
+            });
+            elements.AntiIce.SelectedIndex = 0;
         }
 
         public override void FlapsChanged(object sender, EventArgs e)
@@ -134,7 +154,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             }
             catch (PoorClimbPerformanceException)
             {
-                ShowWarning("Aircraft too heavy to meet "+
+                ShowWarning("Aircraft too heavy to meet " +
                     "climb performance requirement.");
             }
         }
