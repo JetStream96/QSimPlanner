@@ -1,4 +1,6 @@
 ﻿using QSP.UI.ToLdgModule.Forms;
+using QSP.Utilities;
+using QSP.UI.Utilities;
 using QspLite.GlobalInfo;
 using System;
 using System.Windows.Forms;
@@ -13,6 +15,17 @@ namespace QspLite
         [STAThread]
         static void Main()
         {
+            var domain = AppDomain.CurrentDomain;
+            domain.UnhandledException += (sender, e) =>
+            {
+                var msg = ((Exception)e.ExceptionObject).Message;
+                LoggerInstance.WriteToLog(msg);
+                MsgBoxHelper.ShowError(
+                    "An unexpected error occurred. " +
+                    "The application will now quit.");
+                Environment.Exit(0);
+            };
+
             Information.InitializeProfiles();
             
             Application.EnableVisualStyles();
