@@ -7,7 +7,7 @@
   </Parameters>
 
   <IndividualTable>
-    <Flaps>5</Flaps>
+    <Flaps>15</Flaps>
 
     <WeightUnit>1000KG</WeightUnit>
     <!-- 1000KG or 1000LB -->
