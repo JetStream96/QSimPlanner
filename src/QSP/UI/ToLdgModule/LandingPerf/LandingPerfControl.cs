@@ -221,7 +221,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             {
                 var profileName =
                       aircrafts
-                      .FindRegistration(regComboBox.Text)
+                      .Find(regComboBox.Text)
                       .Config
                       .LdgProfile;
 
@@ -278,7 +278,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private void refreshWtColor()
         {
-            var ac = aircrafts?.FindRegistration(regComboBox.Text);
+            var ac = aircrafts?.Find(regComboBox.Text);
             var config = ac?.Config;
             double wtKg;
 

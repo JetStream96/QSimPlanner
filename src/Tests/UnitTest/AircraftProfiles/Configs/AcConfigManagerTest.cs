@@ -63,7 +63,7 @@ namespace UnitTest.AircraftProfiles.Configs
             var manager = new AcConfigManager();
             manager.Add(config1);
 
-            var result = manager.FindRegistration(config1.Config.Registration);
+            var result = manager.Find(config1.Config.Registration);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(config1, result);
@@ -79,7 +79,7 @@ namespace UnitTest.AircraftProfiles.Configs
 
             Assert.AreEqual(1, manager.Count);
 
-            var ac2 = manager.FindRegistration(config2.Config.Registration);
+            var ac2 = manager.Find(config2.Config.Registration);
             Assert.AreEqual(config2, ac2);
         }
 

@@ -264,7 +264,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             if (reg != null)
             {
-                currentConfig = profiles.AcConfigs.FindRegistration(reg);
+                currentConfig = profiles.AcConfigs.Find(reg);
 
                 showPropertyGroupBox();
                 fillProperties(currentConfig.Config);
@@ -340,8 +340,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 return;
             }
 
-            if (profiles.AcConfigs.FindRegistration(config.Registration)
-                != null)
+            if (inEditMode == false &&
+                profiles.AcConfigs.Find(config.Registration) != null)
             {
                 ShowWarning(
                    "Registration already exists. Please use another one.");
@@ -378,7 +378,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
 
             var configs = profiles.AcConfigs;
-            var item = configs.FindRegistration(reg);
+            var item = configs.Find(reg);
             var path = item.FilePath;
             var ac = item.Config.AC;
 

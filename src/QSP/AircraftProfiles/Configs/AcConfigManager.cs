@@ -128,7 +128,7 @@ namespace QSP.AircraftProfiles.Configs
         /// <summary>
         /// Returns null if not found.
         /// </summary>
-        public AircraftConfig FindRegistration(string registration)
+        public AircraftConfig Find(string registration)
         {
             AircraftConfig config;
 
