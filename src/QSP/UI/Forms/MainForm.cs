@@ -1344,7 +1344,7 @@ namespace QSP
 
         private void AirportDataFinder_Load()
         {
-            airportMapControl.InitializeControls(airportList);
+            airportMapControl.Initialize(airportList);
             airportMapControl.BrowserEnabled = true;
             UpdateComboBoxList();
 

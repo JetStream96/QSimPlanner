@@ -53,20 +53,26 @@ namespace QSP.UI.ToLdgModule.Forms
                 manager.LdgTables.ToList(), airports);
             LdgMenu.TryLoadState();
 
-            AirportMenu.InitializeControls(airports);
+            AirportMenu.Initialize(airports);
             AirportMenu.BrowserEnabled = true;
 
             enableBtnColorControls();
             enableViewControl();
         }
 
+        private void refreshItemsRequireAirportList()
+        {
+            Airports = OptionsMenu.Airports;
+            ToMenu.airportInfoControl.RefreshAirportInfo();
+            LdgMenu.airportInfoControl.RefreshAirportInfo();
+            AirportMenu.FindAirport();
+        }
+
         private void subscribeEvents()
         {
             OptionsMenu.SaveAirportsCompleted += (sender, e) =>
             {
-                Airports = OptionsMenu.Airports;
-                ToMenu.airportInfoControl.RefreshAirportInfo();
-                LdgMenu.airportInfoControl.RefreshAirportInfo();
+                refreshItemsRequireAirportList();
             };
 
             var origTxtBox = ToMenu.airportInfoControl.airportTxtBox;
@@ -83,7 +89,7 @@ namespace QSP.UI.ToLdgModule.Forms
                 AirportMenu.Dest = destTxtBox.Text;
             };
         }
-        
+
         public AirportManager Airports
         {
             get
@@ -179,6 +185,6 @@ namespace QSP.UI.ToLdgModule.Forms
             {
                 LoggerInstance.WriteToLog(ex);
             }
-        }        
+        }
     }
 }

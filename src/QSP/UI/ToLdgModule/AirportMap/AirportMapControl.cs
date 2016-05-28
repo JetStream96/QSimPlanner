@@ -128,7 +128,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             InitializeComponent();
         }
 
-        public void InitializeControls(AirportManager airports)
+        public void Initialize(AirportManager airports)
         {
             resetAirport();
             setEmptyDataGrid();
@@ -263,7 +263,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             airportDataGrid.Columns[9].Name = "Surface Type";
         }
 
-        private void findAirport()
+        public void FindAirport()
         {
             resetAirport();
             airportDataGrid.Rows.Clear();
@@ -290,7 +290,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         private void icaoComboBox_TextChanged(object sender, EventArgs e)
         {
-            findAirport();
+            FindAirport();
         }
 
         private void metarLbl_Click(object sender, EventArgs e)
