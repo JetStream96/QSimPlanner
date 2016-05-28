@@ -6,9 +6,9 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using System.Collections.Generic;
 using static QSP.LibraryExtension.Lists;
-using static QSP.RouteFinding.Utilities;
 using static UnitTest.Common.Utilities;
 using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 {
@@ -79,9 +79,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 
             int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
 
-            var distance = GetTotalDistance(CreateList(new LatLon(25.0003, 50.0001),
-                                                       new LatLon(25.0125, 50.0300),
-                                                       new LatLon(25.0150, 50.0800)));
+            var distance = CreateList(
+                new LatLon(25.0003, 50.0001),
+                new LatLon(25.0125, 50.0300),
+                new LatLon(25.0150, 50.0800))
+                .TotalDistance();
 
             // Check the SID3 has been added with correct total distance.
             Assert.AreEqual(2, wptList.EdgesFromCount(rwyIndex));
@@ -102,16 +104,21 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
         public void AddToWptListCase3()
         {
             var wptList = Case3WptList();
-            var adder = new SidAdder("AXYZ",
-                                     new SidCollection(
-                                                    CreateList(new SidEntry("18",
-                                                                            "SID1",
-                                                                            CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
-                                                                                       new Waypoint("WPT102", 25.0150, 50.0800),
-                                                                                       new Waypoint("WPT103", 25.0175, 50.1300),
-                                                                                       new Waypoint("WPT104", 25.0225, 50.1800)),
-                                                                            EntryType.RwySpecific,
-                                                                            false))),
+            var adder =
+                new SidAdder(
+                    "AXYZ",
+                    new SidCollection(
+                        CreateList(
+                            new SidEntry(
+                                "18",
+                                "SID1",
+                                CreateList(
+                                    new Waypoint("WPT101", 25.0125, 50.0300),
+                                    new Waypoint("WPT102", 25.0150, 50.0800),
+                                    new Waypoint("WPT103", 25.0175, 50.1300),
+                                    new Waypoint("WPT104", 25.0225, 50.1800)),
+                                EntryType.RwySpecific,
+                                false))),
                                      wptList,
                                      wptList.GetEditor(),
                                      GetAirportManager());
@@ -122,11 +129,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             Assert.IsTrue(wptList.EdgesFromCount(rwyIndex) > 0);
             Assert.IsTrue(sidIsAdded(rwyIndex,
                                      "SID1",
-                                     GetTotalDistance(CreateList(new Waypoint("AXYZ18", 25.0003, 50.0001),
-                                                                 new Waypoint("WPT101", 25.0125, 50.0300),
-                                                                 new Waypoint("WPT102", 25.0150, 50.0800),
-                                                                 new Waypoint("WPT103", 25.0175, 50.1300),
-                                                                 new Waypoint("WPT104", 25.0225, 50.1800))),
+                                     CreateList(new Waypoint("AXYZ18", 25.0003, 50.0001),
+                                                new Waypoint("WPT101", 25.0125, 50.0300),
+                                                new Waypoint("WPT102", 25.0150, 50.0800),
+                                                new Waypoint("WPT103", 25.0175, 50.1300),
+                                                new Waypoint("WPT104", 25.0225, 50.1800)).TotalDistance(),
                                      wptList));
 
             // Check the edges of last wpt 
@@ -191,11 +198,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             Assert.IsTrue(wptList.EdgesFromCount(rwyIndex) > 0);
             Assert.IsTrue(sidIsAdded(rwyIndex,
                                      "SID1",
-                                     GetTotalDistance(CreateList(new Waypoint("AXYZ18", 25.0003, 50.0001),
-                                                                 new Waypoint("WPT101", 25.0125, 50.0300),
-                                                                 new Waypoint("WPT102", 25.0150, 50.0800),
-                                                                 new Waypoint("WPT103", 25.0175, 50.1300),
-                                                                 new Waypoint("WPT104", 25.0225, 50.1800))),
+                                     CreateList(new Waypoint("AXYZ18", 25.0003, 50.0001),
+                                                new Waypoint("WPT101", 25.0125, 50.0300),
+                                                new Waypoint("WPT102", 25.0150, 50.0800),
+                                                new Waypoint("WPT103", 25.0175, 50.1300),
+                                                new Waypoint("WPT104", 25.0225, 50.1800)).TotalDistance(),
                                      wptList));
 
             // Check the edges of last wpt 
@@ -236,9 +243,9 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             Assert.IsTrue(wptList.EdgesFromCount(rwyIndex) > 0);
             Assert.IsTrue(sidIsAdded(rwyIndex,
                                      "SID1",
-                                     GetTotalDistance(CreateList(new Waypoint("AXYZ18", 25.0003, 50.0001),
-                                                                 new Waypoint("WPT01", 25.0, 50.0),
-                                                                 new Waypoint("26N050E", 26.0, 50.0))),
+                                     CreateList(new Waypoint("AXYZ18", 25.0003, 50.0001),
+                                                new Waypoint("WPT01", 25.0, 50.0),
+                                                new Waypoint("26N050E", 26.0, 50.0)).TotalDistance(),
                                      wptList));
         }
 

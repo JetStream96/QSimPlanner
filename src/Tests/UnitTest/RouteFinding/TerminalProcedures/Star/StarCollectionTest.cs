@@ -3,8 +3,8 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using static QSP.LibraryExtension.Lists;
-using static QSP.RouteFinding.Utilities;
 using static UnitTest.Common.Utilities;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 {
@@ -26,9 +26,9 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 
         private double distanceRwySpecificPart()
         {
-            return GetTotalDistance(CreateList(new Waypoint("WPT01", 11.0, 20.0),
-                                               new Waypoint("WPT02", 10.0, 20.0),
-                                               runway05));
+            return CreateList(new Waypoint("WPT01", 11.0, 20.0),
+                              new Waypoint("WPT02", 10.0, 20.0),
+                              runway05).TotalDistance();
         }
 
         private StarEntry rwySpecificPart()
@@ -67,10 +67,10 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 
         private double distanceRwySpecificAndCommonPart()
         {
-            return GetTotalDistance(CreateList(new Waypoint("WPTA", 12.0, 21.0),
-                                               new Waypoint("WPT01", 11.0, 20.0),
-                                               new Waypoint("WPT02", 10.0, 20.0),
-                                               runway05));
+            return CreateList(new Waypoint("WPTA", 12.0, 21.0),
+                            new Waypoint("WPT01", 11.0, 20.0),
+                            new Waypoint("WPT02", 10.0, 20.0),
+                            runway05).TotalDistance();
         }
 
         #endregion
@@ -101,12 +101,12 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 
         private double distanceRwySpecificAndCommonAndTransitionPart()
         {
-            return GetTotalDistance(CreateList(new Waypoint("WPTBB", 12.0, 22.0),
-                                               new Waypoint("WPTCC", 13.0, 22.0),
-                                               new Waypoint("WPTA", 12.0, 21.0),
-                                               new Waypoint("WPT01", 11.0, 20.0),
-                                               new Waypoint("WPT02", 10.0, 20.0),
-                                               runway05));
+            return CreateList(new Waypoint("WPTBB", 12.0, 22.0),
+                            new Waypoint("WPTCC", 13.0, 22.0),
+                            new Waypoint("WPTA", 12.0, 21.0),
+                            new Waypoint("WPT01", 11.0, 20.0),
+                            new Waypoint("WPT02", 10.0, 20.0),
+                            runway05).TotalDistance();
         }
 
         #endregion

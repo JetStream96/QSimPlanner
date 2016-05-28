@@ -1,9 +1,10 @@
 using QSP.MathTools;
+using QSP.RouteFinding.Data.Interfaces;
 using System;
 
 namespace QSP.AviationTools.Coordinates
 {
-    public class LatLon : IEquatable<LatLon>
+    public class LatLon : IEquatable<LatLon>, ICoordinate
     {
         public double Lat { get; private set; }
         public double Lon { get; private set; }

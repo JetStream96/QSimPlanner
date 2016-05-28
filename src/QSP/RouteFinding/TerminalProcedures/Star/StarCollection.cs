@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using static QSP.RouteFinding.TerminalProcedures.Utilities;
-using static QSP.RouteFinding.Utilities;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.RouteFinding.TerminalProcedures.Star
 {
@@ -131,7 +131,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         public StarInfo GetStarInfo(string star, string rwy, Waypoint destRwy)
         {
             var starWpts = StarWaypoints(star, rwy, destRwy);
-            return new StarInfo(GetTotalDistance(starWpts), starWpts.First());
+            return new StarInfo(starWpts.TotalDistance(), starWpts.First());
         }
     }
 }

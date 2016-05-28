@@ -8,8 +8,8 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using System.Collections.Generic;
 using static QSP.LibraryExtension.Lists;
 using static QSP.MathTools.GCDis;
-using static QSP.RouteFinding.Utilities;
 using static UnitTest.Common.Utilities;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 {
@@ -86,11 +86,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             // Check the STAR1 has been added with correct total distance.
             Assert.IsTrue(starIsAdded(wptList.FindByWaypoint(new Waypoint("WPT101", 25.0125, 50.0300)),
                                       "STAR1",
-                                      GetTotalDistance(CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
-                                                                  new Waypoint("WPT102", 25.0150, 50.0800),
-                                                                  new Waypoint("WPT103", 25.0175, 50.1300),
-                                                                  new Waypoint("WPT104", 25.0225, 50.1800),
-                                                                  new Waypoint("AXYZ18", 25.0003, 50.0001))),
+                                      CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
+                                                new Waypoint("WPT102", 25.0150, 50.0800),
+                                                new Waypoint("WPT103", 25.0175, 50.1300),
+                                                new Waypoint("WPT104", 25.0225, 50.1800),
+                                                new Waypoint("AXYZ18", 25.0003, 50.0001)).TotalDistance(),
                                       wptList));
 
             // Check the edges of first wpt            
@@ -153,11 +153,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             Assert.IsTrue(wptList.EdgesToCount(rwyIndex) > 0);
             Assert.IsTrue(starIsAdded(wptList.FindByWaypoint(new Waypoint("WPT101", 25.0125, 50.0300)),
                                       "STAR1",
-                                      GetTotalDistance(CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
-                                                                  new Waypoint("WPT102", 25.0150, 50.0800),
-                                                                  new Waypoint("WPT103", 25.0175, 50.1300),
-                                                                  new Waypoint("WPT104", 25.0225, 50.1800),
-                                                                  new Waypoint("AXYZ18", 25.0003, 50.0001))),
+                                      CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
+                                                new Waypoint("WPT102", 25.0150, 50.0800),
+                                                new Waypoint("WPT103", 25.0175, 50.1300),
+                                                new Waypoint("WPT104", 25.0225, 50.1800),
+                                                new Waypoint("AXYZ18", 25.0003, 50.0001)).TotalDistance(),
                                       wptList));
 
             // Check the edges of first wpt 
@@ -197,9 +197,9 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             Assert.IsTrue(wptList.EdgesToCount(rwyIndex) == 1);
             Assert.IsTrue(starIsAdded(wptList.FindByWaypoint(new Waypoint("26N050E", 26.0, 50.0)),
                                      "STAR1",
-                                     GetTotalDistance(CreateList(new Waypoint("26N050E", 26.0, 50.0),
-                                                                 new Waypoint("WPT01", 25.0, 50.0),
-                                                                 new Waypoint("AXYZ18", 25.0003, 50.0001))),
+                                     CreateList(new Waypoint("26N050E", 26.0, 50.0),
+                                                new Waypoint("WPT01", 25.0, 50.0),
+                                                new Waypoint("AXYZ18", 25.0003, 50.0001)).TotalDistance(),
                                      wptList));
         }
 

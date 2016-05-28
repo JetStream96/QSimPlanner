@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using static QSP.RouteFinding.Utilities;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 {
@@ -56,7 +56,6 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
             // Distance
             Assert.AreEqual(
-                GetTotalDistance(
                     new List<LatLon>
                     {
                       wptList[ wptList.FindByID("JAMOR")].LatLon,
@@ -67,7 +66,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
                       wptList[ wptList.FindByID("KEXIM")].LatLon,
                       wptList[ wptList.FindByID("CIN")].LatLon,
                       wptList[ wptList.FindByID("ATMAP")].LatLon
-                    }),
+                    }.TotalDistance(),
                 edge.Value.Distance,
                 0.01);
 
@@ -89,7 +88,6 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
             // Distance
             Assert.AreEqual(
-                GetTotalDistance(
                     new List<LatLon>
                     {
                       wptList[ wptList.FindByID("TAXEG")].LatLon,
@@ -99,7 +97,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
                       wptList[ wptList.FindByID("ENTRE")].LatLon,
                       wptList[ wptList.FindByID("MALLY")].LatLon,
                       wptList[ wptList.FindByID("NSM")].LatLon
-                    }),
+                    }.TotalDistance(),
                 edge.Value.Distance,
                 0.01);
 

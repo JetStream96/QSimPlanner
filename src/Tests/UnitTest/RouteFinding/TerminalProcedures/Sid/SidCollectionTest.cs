@@ -3,8 +3,8 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using static QSP.LibraryExtension.Lists;
-using static QSP.RouteFinding.Utilities;
 using static UnitTest.Common.Utilities;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 {
@@ -33,9 +33,9 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 
         private double distanceRwySpecificPart()
         {
-            return GetTotalDistance(CreateList(runway05,
+            return CreateList(runway05,
                                                new Waypoint("WPT01", 10.0, 20.0),
-                                               new Waypoint("WPT02", 11.0, 20.0)));
+                                               new Waypoint("WPT02", 11.0, 20.0)).TotalDistance();
         }
 
         private SidEntry rwySpecificPart(bool hasVector)
@@ -83,10 +83,10 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 
         private double distanceRwySpecificAndCommonPart()
         {            
-            return GetTotalDistance(CreateList(runway05,
+            return CreateList(runway05,
                                                new Waypoint("WPT01", 10.0, 20.0),
                                                new Waypoint("WPT02", 11.0, 20.0),
-                                               new Waypoint("WPTA", 12.0, 21.0)));
+                                               new Waypoint("WPTA", 12.0, 21.0)).TotalDistance();
         }
 
         #endregion
@@ -125,12 +125,12 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 
         private double distanceRwySpecificAndCommonAndTransitionPart()
         {
-            return GetTotalDistance(CreateList(runway05,
+            return CreateList(runway05,
                                                new Waypoint("WPT01", 10.0, 20.0),
                                                new Waypoint("WPT02", 11.0, 20.0),
                                                new Waypoint("WPTA", 12.0, 21.0),
                                                new Waypoint("WPTBB", 12.0, 22.0),
-                                               new Waypoint("WPTCC", 13.0, 22.0)));
+                                               new Waypoint("WPTCC", 13.0, 22.0)).TotalDistance();
         }
 
         #endregion

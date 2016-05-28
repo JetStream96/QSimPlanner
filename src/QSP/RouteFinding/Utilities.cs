@@ -1,11 +1,5 @@
-using QSP.AviationTools.Coordinates;
-using QSP.RouteFinding.Containers;
-using System.Collections.Generic;
-using static QSP.MathTools.GCDis;
-
 namespace QSP.RouteFinding
 {
-
     public static class Utilities
     {
         private static readonly string[] correctFixType =
@@ -47,40 +41,6 @@ namespace QSP.RouteFinding
                 }
             }
             return false;
-        }
-
-        public static double GetTotalDistance(List<LatLon> latLons)
-        {
-            //in nm
-            if (latLons.Count < 2)
-            {
-                return 0.0;
-            }
-            double dis = 0.0;
-
-            for (int i = 0; i < latLons.Count - 1; i++)
-            {
-                dis += Distance(latLons[i], latLons[i + 1]);
-            }
-            return dis;
-        }
-
-        public static double GetTotalDistance<T>(T wpts)
-            where T : IReadOnlyCollection<Waypoint>, IReadOnlyList<Waypoint>
-        {
-            //in nm
-            if (wpts.Count < 2)
-            {
-                return 0.0;
-            }
-            double dis = 0.0;
-
-            for (int i = 0; i < wpts.Count - 1; i++)
-            {
-                dis += Distance(wpts[i].Lat, wpts[i].Lon,
-                                           wpts[i + 1].Lat, wpts[i + 1].Lon);
-            }
-            return dis;
         }
     }
 }

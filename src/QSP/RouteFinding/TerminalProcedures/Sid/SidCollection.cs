@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using static QSP.RouteFinding.TerminalProcedures.Utilities;
-using static QSP.RouteFinding.Utilities;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
@@ -135,7 +135,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         {
             var sidWpts = SidWaypoints(sid, rwy, origRwy);
             var wpts = sidWpts.Waypoints;
-            return new SidInfo(GetTotalDistance(wpts), wpts.Last(), sidWpts.EndsWithVector);
+            return new SidInfo(wpts.TotalDistance(), wpts.Last(), sidWpts.EndsWithVector);
         }
     }
 }
