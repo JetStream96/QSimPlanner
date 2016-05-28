@@ -1,4 +1,4 @@
-﻿using static QSP.MathTools.Utilities;
+﻿using static QSP.MathTools.GCDis;
 
 namespace QSP.RouteFinding.Containers
 {
@@ -6,7 +6,7 @@ namespace QSP.RouteFinding.Containers
     {
         public static double DistanceFrom(this Waypoint wpt, Waypoint item)
         {
-            return GreatCircleDistance(wpt.Lat, wpt.Lon, item.Lat, item.Lon);
+            return Distance(wpt.Lat, wpt.Lon, item.Lat, item.Lon);
         }
     }
 }

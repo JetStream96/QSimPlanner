@@ -9,7 +9,7 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using System.Collections.Generic;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.GCDis;
 using static UnitTest.Common.Utilities;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
@@ -54,7 +54,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var wptList = new WaypointList();
             int p1 = wptList.AddWaypoint(new Waypoint("P1", 24.0, 120.0));
             int q1 = wptList.AddWaypoint(new Waypoint("Q1", 23.0, 114.0));
-            wptList.AddNeighbor(p1, q1, new Neighbor("A1", GreatCircleDistance(24.0, 120.0, 23.0, 114.0)));
+            wptList.AddNeighbor(p1, q1, new Neighbor("A1", Distance(24.0, 120.0, 23.0, 114.0)));
 
             return new AnalyzerWithCommands(route,
                                             "ABCD",
@@ -72,17 +72,17 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var node = route.FirstNode;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("ABCD05L", 25.0, 121.0)) &&
                           node.Value.AirwayToNext == "SID1");
-            Assert.AreEqual(node.Value.DistanceToNext, GreatCircleDistance(25.0, 121.0, 24.0, 120.0), 1E-8);
+            Assert.AreEqual(node.Value.DistanceToNext, Distance(25.0, 121.0, 24.0, 120.0), 1E-8);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("P1", 24.0, 120.0)) &&
                           node.Value.AirwayToNext == "A1");
-            Assert.AreEqual(node.Value.DistanceToNext, GreatCircleDistance(24.0, 120.0, 23.0, 114.0), 1E-8);
+            Assert.AreEqual(node.Value.DistanceToNext, Distance(24.0, 120.0, 23.0, 114.0), 1E-8);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("Q1", 23.0, 114.0)) &&
                           node.Value.AirwayToNext == "STAR1");
-            Assert.AreEqual(node.Value.DistanceToNext, GreatCircleDistance(23.0, 114.0, 22.0, 113.0), 1E-8);
+            Assert.AreEqual(node.Value.DistanceToNext, Distance(23.0, 114.0, 22.0, 113.0), 1E-8);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("EFGH07L", 22.0, 113.0)) &&
@@ -173,17 +173,17 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var node = route.FirstNode;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("ABCD05L", 25.0, 120.0)) &&
                           node.Value.AirwayToNext == "DCT" &&
-                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(25.0, 120.0, 30.0, 117.0), 1E-8));
+                          WithinPrecision(node.Value.DistanceToNext, Distance(25.0, 120.0, 30.0, 117.0), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(30.0, 117.0)) &&
                           node.Value.AirwayToNext == "DCT" &&
-                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(30.0, 117.0, 37.0, 112.0), 1E-8));
+                          WithinPrecision(node.Value.DistanceToNext, Distance(30.0, 117.0, 37.0, 112.0), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(37.0, 112.0)) &&
                           node.Value.AirwayToNext == "DCT" &&
-                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(37.0, 112.0, 43.0, 107.0), 1E-8));
+                          WithinPrecision(node.Value.DistanceToNext, Distance(37.0, 112.0, 43.0, 107.0), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("EFGH07L", 43.0, 107.0)) &&
@@ -203,22 +203,22 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var node = route.FirstNode;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("ABCD05L", 25.0, 120.0)) &&
                           node.Value.AirwayToNext == "DCT");
-            Assert.AreEqual(node.Value.DistanceToNext, GreatCircleDistance(25.0, 120.0, 30.0, 117.0), 1E-8);
+            Assert.AreEqual(node.Value.DistanceToNext, Distance(25.0, 120.0, 30.0, 117.0), 1E-8);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(30.0, 117.0)) &&
                           node.Value.AirwayToNext == "DCT");
-            Assert.AreEqual(node.Value.DistanceToNext, GreatCircleDistance(30.0, 117.0, 33.0, 115.0), 1E-8);
+            Assert.AreEqual(node.Value.DistanceToNext, Distance(30.0, 117.0, 33.0, 115.0), 1E-8);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(33.0, 115.0)) &&
                           node.Value.AirwayToNext == "DCT");
-            Assert.AreEqual(node.Value.DistanceToNext, GreatCircleDistance(33.0, 115.0, 37.0, 112.0), 1E-8);
+            Assert.AreEqual(node.Value.DistanceToNext, Distance(33.0, 115.0, 37.0, 112.0), 1E-8);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(37.0, 112.0)) &&
                           node.Value.AirwayToNext == "DCT");
-            Assert.AreEqual(node.Value.DistanceToNext, GreatCircleDistance(37.0, 112.0, 43.0, 107.0), 1E-8);
+            Assert.AreEqual(node.Value.DistanceToNext, Distance(37.0, 112.0, 43.0, 107.0), 1E-8);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("EFGH07L", 43.0, 107.0)) &&
@@ -238,17 +238,17 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var node = route.FirstNode;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("ABCD05L", 25.0, 120.0)) &&
                           node.Value.AirwayToNext == "DCT" &&
-                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(25.0, 120.0, 30.0, 117.0), 1E-8));
+                          WithinPrecision(node.Value.DistanceToNext, Distance(25.0, 120.0, 30.0, 117.0), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(30.0, 117.0)) &&
                           node.Value.AirwayToNext == "DCT" &&
-                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(30.0, 117.0, 37.0, 112.0), 1E-8));
+                          WithinPrecision(node.Value.DistanceToNext, Distance(30.0, 117.0, 37.0, 112.0), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(37.0, 112.0)) &&
                           node.Value.AirwayToNext == "DCT" &&
-                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(37.0, 112.0, 43.0, 107.0), 1E-8));
+                          WithinPrecision(node.Value.DistanceToNext, Distance(37.0, 112.0, 43.0, 107.0), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("EFGH07L", 43.0, 107.0)) &&

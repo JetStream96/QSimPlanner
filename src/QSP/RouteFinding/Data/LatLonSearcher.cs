@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Angles;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.GCDis;
 
 namespace QSP.RouteFinding.Data
 {
@@ -156,7 +156,7 @@ namespace QSP.RouteFinding.Data
 
                 foreach (var k in itemsInGrid(current))
                 {
-                    if (GreatCircleDistance(lat, lon, k.Lat, k.Lon) <= distance)
+                    if (Distance(lat, lon, k.Lat, k.Lon) <= distance)
                     {
                         result.Add(k);
                     }
@@ -233,7 +233,7 @@ namespace QSP.RouteFinding.Data
 
                 double latMaxDis = (Math.Abs(latTop) >= Math.Abs(latBottom)) ? latTop : latBottom;
 
-                return GreatCircleDistance(pt, center) - GreatCircleDistance(center.Lat, latMaxDis,
+                return Distance(pt, center) - Distance(center.Lat, latMaxDis,
                     gridSize / 2.0);
             }
         }

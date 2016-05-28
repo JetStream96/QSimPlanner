@@ -15,24 +15,20 @@ namespace QSP.WindAloft
             // For 100mb, u_table = wx1.csv, v_table = wx2.csv
             // For 200mb, u_table = wx3.csv, v_table = wx4.csv
             // ...
-
-
-            for (int i = 0; i <= Utilities.FullWindDataSet.Length - 1; i++)
+            
+            for (int i = 0; i < Utilities.FullWindDataSet.Length; i++)
             {
-                WindTable table = new WindTable();
+                var table = new WindTable();
 
-                string u = Utilities.WxFileDirectory + "\\wx" + Convert.ToString(i * 2 + 1) + ".csv";
-                string v = Utilities.WxFileDirectory + "\\wx" + Convert.ToString(i * 2 + 2) + ".csv";
+                string u = Utilities.WxFileDirectory + @"\wx" + (i * 2 + 1).ToString() + ".csv";
+                string v = Utilities.WxFileDirectory + @"\wx" + (i * 2 + 2).ToString() + ".csv";
 
                 table.LoadFromFile(u, v);
-
                 windTables[i] = table;
-
             }
-
         }
 
-        public Tuple<double, double> GetWindUV(double lat, double lon, double FL)
+        public WindUV GetWindUV(double lat, double lon, double FL)
         {
             double press = CoversionTools.AltToPressureMb(FL * 100);
             int index = getIndicesForInterpolation(press);
@@ -47,7 +43,7 @@ namespace QSP.WindAloft
                 windTables[index].GetVWind(lat, lon), windTables[index + 1].GetVWind(lat, lon),
                 press);
 
-            return new Tuple<double, double>(uWind, vWind);
+            return new WindUV(uWind, vWind);
         }
 
         private int getIndicesForInterpolation(double press)

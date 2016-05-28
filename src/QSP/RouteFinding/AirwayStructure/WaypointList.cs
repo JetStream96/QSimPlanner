@@ -3,7 +3,7 @@ using QSP.LibraryExtension.Graph;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
 using System.Collections.Generic;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.GCDis;
 
 namespace QSP.RouteFinding.AirwayStructure
 {
@@ -136,7 +136,7 @@ namespace QSP.RouteFinding.AirwayStructure
 
         public double Distance(int index1, int index2)
         {
-            return GreatCircleDistance(this[index1].Lat, this[index1].Lon,
+            return MathTools.GCDis.Distance(this[index1].Lat, this[index1].Lon,
                                        this[index2].Lat, this[index2].Lon);
         }
 

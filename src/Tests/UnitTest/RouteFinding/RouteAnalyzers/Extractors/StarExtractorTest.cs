@@ -6,7 +6,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.TerminalProcedures;
 using static UnitTest.Common.Utilities;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.GCDis;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 {
@@ -68,7 +68,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var node = destRoute.FirstNode;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("SIERA", 18.0, 115.0)) &&
                           node.Value.AirwayToNext == "STAR1" &&
-                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(18.0, 115.0, 18.0, 118.0), 1E-8));
+                          WithinPrecision(node.Value.DistanceToNext, Distance(18.0, 115.0, 18.0, 118.0), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("VHHH07L", 18.0, 118.0)) &&
@@ -106,7 +106,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var node = destRoute.FirstNode;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("P1", 19.0, 119.0)) &&
                           node.Value.AirwayToNext == "STAR1" &&
-                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(19.0, 119.0, 18.0, 118.0), 1E-8));
+                          WithinPrecision(node.Value.DistanceToNext, Distance(19.0, 119.0, 18.0, 118.0), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("VHHH07L", 18.0, 118.0)) &&

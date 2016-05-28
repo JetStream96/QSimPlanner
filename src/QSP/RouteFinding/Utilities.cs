@@ -1,7 +1,7 @@
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Containers;
 using System.Collections.Generic;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.GCDis;
 
 namespace QSP.RouteFinding
 {
@@ -60,7 +60,7 @@ namespace QSP.RouteFinding
 
             for (int i = 0; i < latLons.Count - 1; i++)
             {
-                dis += GreatCircleDistance(latLons[i], latLons[i + 1]);
+                dis += Distance(latLons[i], latLons[i + 1]);
             }
             return dis;
         }
@@ -77,7 +77,7 @@ namespace QSP.RouteFinding
 
             for (int i = 0; i < wpts.Count - 1; i++)
             {
-                dis += GreatCircleDistance(wpts[i].Lat, wpts[i].Lon,
+                dis += Distance(wpts[i].Lat, wpts[i].Lon,
                                            wpts[i + 1].Lat, wpts[i + 1].Lon);
             }
             return dis;

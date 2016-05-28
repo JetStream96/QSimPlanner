@@ -18,7 +18,7 @@ namespace QSP.AviationTools.Coordinates
         /// </summary>
         public double Distance(double Lat, double Lon)
         {
-            return MathTools.Utilities.GreatCircleDistance(this.Lat, this.Lon, Lat, Lon);
+            return MathTools.GCDis.Distance(this.Lat, this.Lon, Lat, Lon);
         }
 
         /// <summary>
@@ -26,13 +26,13 @@ namespace QSP.AviationTools.Coordinates
         /// </summary>
         public double Distance(LatLon LatLon)
         {
-            return MathTools.Utilities.GreatCircleDistance(Lat, Lon, LatLon.Lat, LatLon.Lon);
+            return MathTools.GCDis.Distance(Lat, Lon, LatLon.Lat, LatLon.Lon);
         }
 
         public bool Equals(LatLon other)
         {
-            return Math.Abs(Lat - other.Lat) < Constants.LatLon_TOLERENCE &&
-                   Math.Abs(Lon - other.Lon) < Constants.LatLon_TOLERENCE;
+            return Math.Abs(Lat - other.Lat) < Constants.LatLonTolerance &&
+                   Math.Abs(Lon - other.Lon) < Constants.LatLonTolerance;
         }
 
         /// <summary>

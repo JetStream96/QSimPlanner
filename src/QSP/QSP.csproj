@@ -97,6 +97,7 @@
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="AviationTools\Coordinates\Utilities.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
+    <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\AircraftEnums.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />
@@ -355,7 +356,7 @@
     <Compile Include="LibraryExtension\MinHeap.cs" />
     <Compile Include="LibraryExtension\Strings.cs" />
     <Compile Include="LibraryExtension\TimeFormat.cs" />
-    <Compile Include="MathTools\Utilities.cs" />
+    <Compile Include="MathTools\GCDis.cs" />
     <Compile Include="MathTools\Matrix2by2.cs" />
     <Compile Include="MathTools\RealValuedFunction.cs" />
     <Compile Include="MathTools\Vectors\Vector2D.cs" />
@@ -460,6 +461,7 @@
     <Compile Include="WindAloft\WindAloft.cs" />
     <Compile Include="WindAloft\WindManager.cs" />
     <Compile Include="WindAloft\WindTable.cs" />
+    <Compile Include="WindAloft\WindUV.cs" />
     <Compile Include="WindAloft\WxFileLoader.cs" />
     <Content Include="PerformanceData\TO\7878_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

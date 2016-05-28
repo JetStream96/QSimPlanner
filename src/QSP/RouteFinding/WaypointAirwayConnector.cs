@@ -1,7 +1,7 @@
 ﻿using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.AirwayStructure;
 using System.Collections.Generic;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.GCDis;
 using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding
@@ -63,7 +63,7 @@ namespace QSP.RouteFinding
 
                     if (wptList.EdgesFromCount(i) > 0)  // TODO: SID, STAR should be treated seperately
                     {
-                        dctDis = GreatCircleDistance(wptList[i].Lat, wptList[i].Lon, Lat, Lon);
+                        dctDis = Distance(wptList[i].Lat, wptList[i].Lon, Lat, Lon);
                         result.Add(new IndexDistancePair(i, dctDis));
                     }
                 }

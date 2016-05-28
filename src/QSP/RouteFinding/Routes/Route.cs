@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.GCDis;
 
 namespace QSP.RouteFinding.Routes
 {
@@ -101,7 +101,7 @@ namespace QSP.RouteFinding.Routes
                 var firstWpt = links.First.Value.Waypoint;
                 AddFirstWaypoint(item,
                                  viaAirway,
-                                 GreatCircleDistance(item.Lat, item.Lon, firstWpt.Lat, firstWpt.Lon));
+                                 Distance(item.Lat, item.Lon, firstWpt.Lat, firstWpt.Lon));
             }
             else
             {
@@ -133,7 +133,7 @@ namespace QSP.RouteFinding.Routes
                 var lastWpt = links.Last.Value.Waypoint;
                 AddLastWaypoint(item,
                                 viaAirway,
-                                GreatCircleDistance(item.Lat, item.Lon, lastWpt.Lat, lastWpt.Lon));
+                                Distance(item.Lat, item.Lon, lastWpt.Lat, lastWpt.Lon));
             }
             else
             {
@@ -161,7 +161,7 @@ namespace QSP.RouteFinding.Routes
             var lastWpt = Last.Waypoint;
             var firstWpt = item.First.Waypoint;
 
-            AppendRoute(item, airway, GreatCircleDistance(lastWpt.Lat, lastWpt.Lon, firstWpt.Lat, firstWpt.Lon));
+            AppendRoute(item, airway, Distance(lastWpt.Lat, lastWpt.Lon, firstWpt.Lat, firstWpt.Lon));
         }
 
         /// <summary>

@@ -5,7 +5,7 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.RouteAnalyzers;
 using System;
 using System.Collections.Generic;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.GCDis;
 using static UnitTest.Common.Utilities;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
@@ -101,12 +101,12 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var node = route.FirstNode;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpts[0]) &&
                           node.Value.AirwayToNext == "DCT" &&
-                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(0.0, 15.0, 0.0, 16.0), 1E-8));
+                          WithinPrecision(node.Value.DistanceToNext, Distance(0.0, 15.0, 0.0, 16.0), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpts[1]) &&
                           node.Value.AirwayToNext == "DCT" &&
-                          WithinPrecision(node.Value.DistanceToNext, GreatCircleDistance(0.0, 16.0, 0.5, 16.5), 1E-8));
+                          WithinPrecision(node.Value.DistanceToNext, Distance(0.0, 16.0, 0.5, 16.5), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpts[2]) &&
@@ -130,7 +130,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             Assert.AreEqual(node.Value.Waypoint.Lon, -50.0, 1E-8);
             Assert.IsTrue(node.Value.AirwayToNext == "DCT");
             Assert.AreEqual(node.Value.DistanceToNext, 
-                            GreatCircleDistance(41.0, -50.0, 41.3, -50.55), 
+                            Distance(41.0, -50.0, 41.3, -50.55), 
                             1E-8);
 
             node = node.Next;

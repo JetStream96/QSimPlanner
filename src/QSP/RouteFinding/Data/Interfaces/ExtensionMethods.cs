@@ -1,7 +1,7 @@
 ﻿using QSP.Utilities;
 using System;
 using System.Collections.Generic;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.GCDis;
 
 namespace QSP.RouteFinding.Data.Interfaces
 {
@@ -18,7 +18,7 @@ namespace QSP.RouteFinding.Data.Interfaces
             foreach (var i in items)
             {
                 count++;
-                double dis = GreatCircleDistance(i.Lat, i.Lon, Lat, Lon);
+                double dis = Distance(i.Lat, i.Lon, Lat, Lon);
 
                 if (dis < minDis)
                 {

@@ -1,57 +1,62 @@
+using System;
+
 namespace QSP.MathTools
 {
-
     public class Matrix2by2
     {
-        public double a11;
-        public double a12;
-        public double a21;
-        public double a22;
+        public double A11;
+        public double A12;
+        public double A21;
+        public double A22;
+
         //
         //    (a11  a12)
         // A= (        )
         //    (a21  a22)
 
-        public double Det()
+        public Matrix2by2(
+            double A11, double A12, double A21, double A22)
         {
-            return a11 * a22 - a12 * a21;
+            this.A11 = A11;
+            this.A12 = A12;
+            this.A21 = A21;
+            this.A22 = A22;
         }
 
-        public Vector2D MultiplyVector2D(Vector2D v)
+        public double Determinant
         {
-            return new Vector2D(a11 * v.x + a12 * v.y, a21 * v.x + a22 * v.y);
-        }
-
-        public Matrix2by2 MultiplyConst(double c)
-        {
-            Matrix2by2 B = new Matrix2by2();
-            B.a11 = a11 * c;
-            B.a12 = a12 * c;
-            B.a21 = a21 * c;
-            B.a22 = a22 * c;
-            return B;
-        }
-
-        public Matrix2by2 InverseMatrix()
-        {
-            if (Det() == 0)
+            get
             {
-                return null;
+                return A11 * A22 - A12 * A21;
             }
-            Matrix2by2 B = new Matrix2by2();
-            B.a11 = a22;
-            B.a22 = a11;
-            B.a12 = (-1) * a12;
-            B.a21 = (-1) * a21;
-            return B.MultiplyConst(1 / Det());
         }
 
-        public Matrix2by2()
+        public Vector2D Multiply(Vector2D v)
         {
-            a11 = 0;
-            a12 = 0;
-            a21 = 0;
-            a22 = 0;
+            return new Vector2D(A11 * v.X + A12 * v.Y, A21 * v.X + A22 * v.Y);
+        }
+
+        public void Multiply(double c)
+        {
+            A11 *= c;
+            A12 *= c;
+            A21 *= c;
+            A22 *= c;
+        }
+
+        public Matrix2by2 Inverse()
+        {
+            var det = Determinant;
+
+            if (det == 0.0)
+            {
+                throw new ArgumentException();
+            }
+
+            var B = new Matrix2by2(A22, -A12, -A21, A11);
+            B.Multiply(1.0 / det);
+
+            return B;
         }
     }
 

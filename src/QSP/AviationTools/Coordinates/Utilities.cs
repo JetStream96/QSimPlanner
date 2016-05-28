@@ -8,7 +8,7 @@ namespace QSP.AviationTools.Coordinates
         {
             double x = Math.Round(d);
 
-            if (Math.Abs(x - d) < Constants.LatLon_TOLERENCE)
+            if (Math.Abs(x - d) < Constants.LatLonTolerance)
             {
                 result = (int)x;
                 return true;

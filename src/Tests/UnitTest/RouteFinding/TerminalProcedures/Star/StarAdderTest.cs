@@ -7,7 +7,7 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using System.Collections.Generic;
 using static QSP.LibraryExtension.Lists;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.GCDis;
 using static QSP.RouteFinding.Utilities;
 using static UnitTest.Common.Utilities;
 
@@ -41,7 +41,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             {
                 var edge = wptList.GetEdge(i);
                 if (edge.Value.Airway == "DCT" &&
-                    WithinPrecisionPercent(GreatCircleDistance(wpt.LatLon, wptList[rwyIndex].LatLon),
+                    WithinPrecisionPercent(Distance(wpt.LatLon, wptList[rwyIndex].LatLon),
                                            edge.Value.Distance,
                                            0.1))
                 {

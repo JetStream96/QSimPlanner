@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.GCDis;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
 {
@@ -124,7 +124,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
 
             for (int i = 0; i < item.Count - 1; i++)
             {
-                d += GreatCircleDistance(item[i], item[i + 1]);
+                d += Distance(item[i], item[i + 1]);
             }
             return d;
         }

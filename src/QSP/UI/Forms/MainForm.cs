@@ -788,7 +788,7 @@ namespace QSP
 
             RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
-            double directDis = MathTools.Utilities.GreatCircleDistance(RouteToDest.First.Waypoint.LatLon, RouteToDest.Last.Waypoint.LatLon);
+            double directDis = MathTools.GCDis.Distance(RouteToDest.First.Waypoint.LatLon, RouteToDest.Last.Waypoint.LatLon);
             RouteDisLbl.Text = "Total Dis: " + Math.Round(RouteToDest.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToDest.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
         }
 
@@ -1078,7 +1078,7 @@ namespace QSP
                                                             TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString();
-                    double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
+                    double directDis = MathTools.GCDis.Distance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
                     Label56.Text = "Total Dis: " + Math.Round(myRoute.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((myRoute.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
 
@@ -1116,11 +1116,11 @@ namespace QSP
 
                     ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                                             .FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid,
-                                                                       wptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
+                                                                       wptList.FindByWaypoint(ToTxtbox.Text, v.X, v.Y)),
                                                             TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(false, true);
-                    double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
+                    double directDis = MathTools.GCDis.Distance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
                     Label56.Text = "Total Dis: " + Math.Round(myRoute.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((myRoute.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
 
@@ -1156,12 +1156,12 @@ namespace QSP
                     Vector2D v = extractLatLon(WptSelFromCBox.Text);
 
                     ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
-                                                            .FindRoute(wptList.FindByWaypoint(FromTxtbox.Text, v.x, v.y),
+                                                            .FindRoute(wptList.FindByWaypoint(FromTxtbox.Text, v.X, v.Y),
                                                                        ToTxtbox.Text, ToRwyCBox.Text, star),
                                                             TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, false);
-                    double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
+                    double directDis = MathTools.GCDis.Distance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
                     Label56.Text = "Total Dis: " + Math.Round(myRoute.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((myRoute.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
 
@@ -1181,12 +1181,12 @@ namespace QSP
 
                     ManagedRoute myRoute = new ManagedRoute(
                         new RouteFinder(wptList, airportList)
-                        .FindRoute(wptList.FindByWaypoint(FromTxtbox.Text, u.x, u.y),
-                                   wptList.FindByWaypoint(ToTxtbox.Text, v.x, v.y)),
+                        .FindRoute(wptList.FindByWaypoint(FromTxtbox.Text, u.X, u.Y),
+                                   wptList.FindByWaypoint(ToTxtbox.Text, v.X, v.Y)),
                         TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, true);
-                    double directDis = MathTools.Utilities.GreatCircleDistance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
+                    double directDis = MathTools.GCDis.Distance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
                     Label56.Text = "Total Dis: " + Math.Round(myRoute.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((myRoute.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
 
@@ -1235,7 +1235,7 @@ namespace QSP
                     RouteToDest, airportList);
                 RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
-                double directDis = MathTools.Utilities.GreatCircleDistance(RouteToDest.First.Waypoint.LatLon, RouteToDest.Last.Waypoint.LatLon);
+                double directDis = MathTools.GCDis.Distance(RouteToDest.First.Waypoint.LatLon, RouteToDest.Last.Waypoint.LatLon);
                 RouteDisLbl.Text = "Total Dis: " + Math.Round(RouteToDest.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToDest.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
             }

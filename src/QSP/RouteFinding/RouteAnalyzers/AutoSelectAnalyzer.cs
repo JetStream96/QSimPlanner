@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.AirwayStructure;
-using static QSP.MathTools.Utilities;
+using static QSP.MathTools.GCDis;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -84,9 +84,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             public override int Compare(int x, int y)
             {
-                return GreatCircleDistance(preferredLat, preferredLon, wptList[x].Lat, wptList[x].Lon)
+                return Distance(preferredLat, preferredLon, wptList[x].Lat, wptList[x].Lon)
                        .CompareTo(
-                       GreatCircleDistance(preferredLat, preferredLon, wptList[y].Lat, wptList[y].Lon));
+                       Distance(preferredLat, preferredLon, wptList[y].Lat, wptList[y].Lon));
             }
         }
     }

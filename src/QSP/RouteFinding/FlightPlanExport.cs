@@ -8,7 +8,7 @@ namespace QSP.RouteFinding
     {
         private static string latLonToPMDGRteFormat(Vector2D latlon)
         {
-            return latLonToPMDGRteFormat(latlon.x, latlon.y);
+            return latLonToPMDGRteFormat(latlon.X, latlon.Y);
         }
 
         private static string latLonToPMDGRteFormat(double lat, double lon)

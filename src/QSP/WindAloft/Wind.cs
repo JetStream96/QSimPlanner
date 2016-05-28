@@ -7,13 +7,7 @@ namespace QSP.WindAloft
     {
         private double _direction; // 0 - 360 deg
         private double _speed;     // knots
-
-        public Wind()
-        {
-            _direction = 0.0;
-            _speed = 0.0;
-        }
-
+        
         public Wind(double Direction, double Speed)
         {
             this.Direction = Direction;
@@ -50,17 +44,25 @@ namespace QSP.WindAloft
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("Wind speed cannot be negative.");
+                    throw new ArgumentOutOfRangeException(
+                        "Wind speed cannot be negative.");
                 }
             }
         }
 
-        public void SetUV(double uWind, double vWind)
+        public static Wind FromUV(WindUV w)
         {
-            Direction = -Math.Atan2(vWind, uWind) / Math.PI * 180 + 90 + 180;
-            Speed = Math.Sqrt(uWind * uWind + vWind * vWind);
+            return FromUV(w.UComp, w.VComp);
         }
 
+        public static Wind FromUV(double uWind, double vWind)
+        {
+            var Direction =
+                 -Math.Atan2(vWind, uWind) / Math.PI * 180.0 + 90 + 180;
+            var Speed = Math.Sqrt(uWind * uWind + vWind * vWind);
+            return new Wind(Direction, Speed);
+        }
+        
         public string DirectionString()
         {
             return ((int)_direction).ToString().PadLeft(3, '0');

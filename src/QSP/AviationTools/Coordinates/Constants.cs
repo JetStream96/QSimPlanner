@@ -2,6 +2,6 @@
 {
     public static class Constants
     {
-        public static readonly double LatLon_TOLERENCE = 1.0E-8;
+        public static readonly double LatLonTolerance = 1.0E-8;
     }
 }
