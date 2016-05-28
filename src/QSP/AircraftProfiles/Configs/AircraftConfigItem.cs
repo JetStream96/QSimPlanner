@@ -1,4 +1,6 @@
-﻿namespace QSP.AircraftProfiles.Configs
+﻿using QSP.Utilities.Units;
+
+namespace QSP.AircraftProfiles.Configs
 {
     public class AircraftConfigItem
     {

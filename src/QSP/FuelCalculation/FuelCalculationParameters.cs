@@ -1,13 +1,12 @@
 using System;
 using QSP.RouteFinding;
+using QSP.Utilities.Units;
 using static QSP.UI.FormInstanceGetter;
 
 namespace QSP
 {
-
     public class FuelCalculationParameters
     {
-
         public double Zfw;
         public double ContPerc;
         public double MissedAppFuel;
@@ -21,10 +20,9 @@ namespace QSP
         public double AvgWindToDest;
         public double AvgWindToAltn;
         public Aircraft AC;
-        public double Zfw_KG;
-        public double MissedAppFuel_KG;
-
-        public double ExtraFuel_KG;
+        public double ZfwKg;
+        public double MissedAppFuelKg;
+        public double ExtraFuelKg;
 
         private WeightUnit _WtUnit;
         private MainForm frm = MainFormInstance();
@@ -50,15 +48,15 @@ namespace QSP
         {
             if (_WtUnit == WeightUnit.KG)
             {
-                Zfw_KG = Zfw;
-                MissedAppFuel_KG = MissedAppFuel;
-                ExtraFuel_KG = ExtraFuel;
+                ZfwKg = Zfw;
+                MissedAppFuelKg = MissedAppFuel;
+                ExtraFuelKg = ExtraFuel;
             }
             else
             {
-                Zfw_KG = Zfw * AviationTools.Constants.LbKgRatio;
-                MissedAppFuel_KG = MissedAppFuel * AviationTools.Constants.LbKgRatio;
-                ExtraFuel_KG = ExtraFuel * AviationTools.Constants.LbKgRatio;
+                ZfwKg = Zfw * AviationTools.Constants.LbKgRatio;
+                MissedAppFuelKg = MissedAppFuel * AviationTools.Constants.LbKgRatio;
+                ExtraFuelKg = ExtraFuel * AviationTools.Constants.LbKgRatio;
             }
         }
 
@@ -111,9 +109,7 @@ namespace QSP
             AvgWindToAltn = 0;
 
             setPropertyKG();
-
         }
-
 
         private void tryImportPattern1(ref double var, string str, string exceptionMsg)
         {
@@ -142,7 +138,6 @@ namespace QSP
                 {
                     throw new Exception(exceptionMsg);
                 }
-
             }
             catch
             {

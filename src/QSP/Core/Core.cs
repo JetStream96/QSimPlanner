@@ -1,6 +1,5 @@
 using System;
 using QSP.WindAloft;
-using QSP.Core.Options;
 
 namespace QSP.Core
 {

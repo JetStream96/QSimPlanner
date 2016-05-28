@@ -1,6 +1,6 @@
 ﻿using IniParser;
 using IniParser.Model;
-using static QSP.Core.EnumConversionTools;
+using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.AircraftProfiles.Configs
 {

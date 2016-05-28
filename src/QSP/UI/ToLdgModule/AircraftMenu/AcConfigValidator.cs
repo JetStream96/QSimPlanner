@@ -1,6 +1,7 @@
 ﻿using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
 using QSP.Core;
+using QSP.Utilities.Units;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu
 {

@@ -2,6 +2,7 @@
 using QSP.LibraryExtension;
 using QSP.TOPerfCalculation;
 using QSP.TOPerfCalculation.Boeing.PerfData;
+using QSP.Utilities.Units;
 using System;
 using System.Drawing;
 using static QSP.UI.Utilities.MsgBoxHelper;

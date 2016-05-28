@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP;
 using QSP.MathTools;
 using QSP.Metar;
+using QSP.Utilities.Units;
 
 namespace UnitTest.Metar
 {

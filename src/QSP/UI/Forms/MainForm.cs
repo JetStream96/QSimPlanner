@@ -14,6 +14,7 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.UI;
 using QSP.Utilities;
+using QSP.Utilities.Units;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;

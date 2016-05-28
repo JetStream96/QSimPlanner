@@ -1,6 +1,5 @@
 using QSP.AviationTools.Coordinates;
 using QSP.Core;
-using QSP.LibraryExtension;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,6 @@ using System.Linq;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Angles;
 using static QSP.MathTools.Utilities;
-using static QSP.Utilities.ConditionChecker;
 
 namespace QSP.RouteFinding.Data
 {

@@ -1,9 +1,15 @@
 using System;
 
-namespace QSP.Core
+namespace QSP.Utilities.Units
 {
-    public static class EnumConversionTools
+    public static class Conversions
     {
+        // TODO: ???
+        public static string ToString(this WeightUnit item)
+        {
+            return item == WeightUnit.KG ? "KG" : "LB";
+        }
+
         public static string WeightUnitToString(WeightUnit item)
         {
             return item == WeightUnit.KG ? "KG" : "LB";
@@ -20,7 +26,8 @@ namespace QSP.Core
                     return WeightUnit.LB;
 
                 default:
-                    throw new ArgumentOutOfRangeException("Invalid weight unit.");
+                    throw new ArgumentOutOfRangeException(
+                        "Invalid weight unit.");
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP;
 using QSP.AircraftProfiles.Configs;
+using QSP.Utilities.Units;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,7 +19,7 @@ namespace UnitTest.AircraftProfiles.Configs
                                    234567.0,
                                    345678.0,
                                    WeightUnit.KG),
-                "path")            ;
+                "path");
 
         private static AircraftConfig config2 =
             new AircraftConfig(

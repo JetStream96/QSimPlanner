@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Utilities.MsgBoxHelper;
+using QSP.Utilities.Units;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu
 {

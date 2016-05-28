@@ -1,11 +1,9 @@
-using QSP.Core;
 using QSP.Core.Options;
 using QSP.Utilities;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using static QSP.UI.FormInstanceGetter;
 using static QSP.Utilities.LoggerInstance;
 

@@ -110,12 +110,12 @@ namespace QSP
 
         private void updateDestLandWt()
         {
-            LandWeightTonDest = LandWeightTonAltn + fuelToAltn + (Parameters.HoldingMin * holdingFuelPerMinuteKg + Parameters.MissedAppFuel_KG) / 1000 + Parameters.ExtraFuel_KG / 1000;
+            LandWeightTonDest = LandWeightTonAltn + fuelToAltn + (Parameters.HoldingMin * holdingFuelPerMinuteKg + Parameters.MissedAppFuelKg) / 1000 + Parameters.ExtraFuelKg / 1000;
         }
 
         private void updateAltnLandWt()
         {
-            LandWeightTonAltn = (Parameters.Zfw_KG + Parameters.FinalRsvMin * holdingFuelPerMinuteKg) / 1000;
+            LandWeightTonAltn = (Parameters.ZfwKg + Parameters.FinalRsvMin * holdingFuelPerMinuteKg) / 1000;
         }
 
         private void loadFuelTable(string sourceTxt)

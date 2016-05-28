@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.TimeFormat;
+using QSP.Utilities.Units;
 
 namespace QSP
 {
@@ -36,14 +37,14 @@ namespace QSP
             FuelToDestTon = fuelDestTon;
             FuelToAltnTon = fuelAltnTon;
             ContKg = FuelToDestTon * 1000 * para.ContPerc / 100;
-            ExtraKG = para.ExtraFuel_KG;
+            ExtraKG = para.ExtraFuelKg;
             HoldKg = para.HoldingMin * fuelCalc.holdingFuelPerMinuteKg;
             ApuKg = para.APUTime * fuelCalc.apu_fuel_per_min_kg;
             TaxiKg = para.TaxiTime * fuelCalc.taxi_fuel_per_min_kg;
             FinalRsvKg = para.FinalRsvMin * fuelCalc.holdingFuelPerMinuteKg;
             TimeToDest = fuelCalc.TimeToDest;
             TimeToAltn = fuelCalc.TimeToAltn;
-            TimeExtra = (int)(para.ExtraFuel_KG / fuelCalc.holdingFuelPerMinuteKg);
+            TimeExtra = (int)(para.ExtraFuelKg / fuelCalc.holdingFuelPerMinuteKg);
             TimeHold = (int)para.HoldingMin;
             TimeFinalRsv = (int)para.FinalRsvMin;
             TimeApu = (int)para.APUTime;

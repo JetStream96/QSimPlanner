@@ -1,5 +1,4 @@
 ﻿using QSP.AviationTools.Coordinates;
-using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;

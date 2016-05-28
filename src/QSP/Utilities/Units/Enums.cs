@@ -1,21 +1,11 @@
-namespace QSP
+﻿namespace QSP.Utilities.Units
 {
     public enum WeightUnit
     {
-        KG,
-        LB
+        KG = 0,
+        LB = 1
     }
-
-    public enum Aircraft
-    {
-        B737600,
-        B737700,
-        B737800,
-        B737900,
-        B777200LR,
-        B777F
-    }
-
+    
     public enum LengthUnit
     {
         Meter,
@@ -32,5 +22,5 @@ namespace QSP
     {
         Mb = 0,
         inHg = 1
-    }
+    }    
 }

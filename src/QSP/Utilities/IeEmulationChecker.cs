@@ -113,7 +113,8 @@ namespace QSP.Utilities
                     {
                         version = Convert.ToString(
                             Registry.GetValue(
-                                @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer",
+                                @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\" +
+                                "Internet Explorer",
                                 "svcVersion", ""));
 
                         a = version.Split('.');
@@ -138,7 +139,8 @@ namespace QSP.Utilities
             var keyValue = Registry.GetValue(
                 @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Internet Explorer" +
                 @"\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION",
-                Assembly.GetEntryAssembly().GetName().Name + ".exe", defaultVal);
+                Assembly.GetEntryAssembly().GetName().Name + 
+                ".exe", defaultVal);
 
             return (keyValue != null && keyValue != defaultVal);
         }
@@ -155,7 +157,8 @@ namespace QSP.Utilities
 
         public void DebugAddRegistry()
         {
-            addExeWithIEEmulationMode(Assembly.GetEntryAssembly().GetName().Name + ".vshost.exe");
+            addExeWithIEEmulationMode(
+                Assembly.GetEntryAssembly().GetName().Name + ".vshost.exe");
         }
 
         public bool DebugRegKeyExists()
@@ -165,7 +168,8 @@ namespace QSP.Utilities
             var keyValue = Registry.GetValue(
                 @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Internet Explorer" +
                 @"\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION",
-                Assembly.GetEntryAssembly().GetName().Name + ".vshost.exe", defaultVal);
+                Assembly.GetEntryAssembly().GetName().Name + 
+                ".vshost.exe", defaultVal);
 
             return (keyValue != null && keyValue != defaultVal);
         }

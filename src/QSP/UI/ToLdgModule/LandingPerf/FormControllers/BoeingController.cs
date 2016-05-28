@@ -2,6 +2,7 @@
 using QSP.LandingPerfCalculation;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 using QSP.LibraryExtension;
+using QSP.Utilities.Units;
 using System;
 using System.Drawing;
 using static QSP.UI.Utilities.MsgBoxHelper;

@@ -97,8 +97,8 @@
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="AviationTools\Coordinates\Utilities.cs" />
     <Compile Include="Core\Options\AppOptions.cs" />
-    <Compile Include="Core\EnumConversionTools.cs" />
-    <Compile Include="Core\Enums.cs" />
+    <Compile Include="Utilities\Units\Conversions.cs" />
+    <Compile Include="Core\AircraftEnums.cs" />
     <Compile Include="Core\Options\OptionManager.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingCalculator.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingReportGenerator.cs" />
@@ -449,6 +449,7 @@
       <DependentUpon>WeightManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Logger.cs" />
+    <Compile Include="Utilities\Units\Enums.cs" />
     <Compile Include="WindAloft\AvgWindCalculator.cs" />
     <Compile Include="WindAloft\DescendForcastGenerator.cs" />
     <Compile Include="WindAloft\Exceptions.cs" />

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static QSP.Core.EnumConversionTools;
+using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.AircraftProfiles.Configs
 {
