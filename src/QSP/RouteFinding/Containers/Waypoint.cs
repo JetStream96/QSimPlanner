@@ -2,7 +2,7 @@ using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using static QSP.RouteFinding.Constants;
+using static QSP.AviationTools.Coordinates.Constants;
 
 namespace QSP.RouteFinding.Containers
 {
@@ -42,8 +42,8 @@ namespace QSP.RouteFinding.Containers
         public bool Equals(Waypoint x)
         {
             return (ID == x.ID &&
-                    Math.Abs(Lat - x.Lat) < LATLON_TOLERANCE &&
-                    Math.Abs(Lon - x.Lon) < LATLON_TOLERANCE);
+                    Math.Abs(Lat - x.Lat) < LatLonTolerance &&
+                    Math.Abs(Lon - x.Lon) < LatLonTolerance);
         }
 
         public int CompareTo(Waypoint other)

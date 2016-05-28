@@ -1,7 +1,6 @@
-using System;
-using System.Linq;
 using QSP.AviationTools;
 using QSP.MathTools.Interpolation;
+using System.Linq;
 
 namespace QSP.WindAloft
 {
@@ -60,7 +59,8 @@ namespace QSP.WindAloft
 
             for (int i = 0; i < len - 1; i++)
             {
-                if (press >= Utilities.FullWindDataSet[i] && press <= Utilities.FullWindDataSet[i + 1])
+                if (press >= Utilities.FullWindDataSet[i] && 
+                    press <= Utilities.FullWindDataSet[i + 1])
                 {
                     return i;
                 }

@@ -1,3 +1,4 @@
+using QSP.MathTools;
 using System;
 
 namespace QSP.AviationTools.Coordinates
@@ -18,7 +19,7 @@ namespace QSP.AviationTools.Coordinates
         /// </summary>
         public double Distance(double Lat, double Lon)
         {
-            return MathTools.GCDis.Distance(this.Lat, this.Lon, Lat, Lon);
+            return GCDis.Distance(this.Lat, this.Lon, Lat, Lon);
         }
 
         /// <summary>
@@ -26,7 +27,7 @@ namespace QSP.AviationTools.Coordinates
         /// </summary>
         public double Distance(LatLon LatLon)
         {
-            return MathTools.GCDis.Distance(Lat, Lon, LatLon.Lat, LatLon.Lon);
+            return Distance(LatLon.Lat, LatLon.Lon);
         }
 
         public bool Equals(LatLon other)

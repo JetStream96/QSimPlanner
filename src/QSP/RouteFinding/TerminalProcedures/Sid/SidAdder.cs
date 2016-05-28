@@ -1,6 +1,7 @@
 ﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data;
 using System.Collections.Generic;
 using static QSP.RouteFinding.WaypointAirwayConnector;
 using static QSP.Utilities.LoggerInstance;
@@ -25,32 +26,37 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         private WaypointListEditor editor;
         private AirportManager airportList;
         private SidCollection sids;
+        private WptSearchOption option;
 
-        private double searchRangeIncrement;
-        private double maxSearchRange;
-        private int targetNumber;
+        public SidAdder(
+            string icao,
+            SidCollection sids,
+            WaypointList wptList,
+            WaypointListEditor editor,
+            AirportManager airportList)
+            : this(
+                  icao,
+                  sids,
+                  wptList,
+                  editor,
+                  airportList,
+                  new WptSearchOption())
+        { }
 
-        public SidAdder(string icao, SidCollection sids, WaypointList wptList, WaypointListEditor editor, AirportManager airportList)
-            : this(icao, sids, wptList, editor, airportList, MAX_SEARCH_RANGE, TARGET_NUM)
-        {
-        }
-
-        public SidAdder(string icao, SidCollection sids, WaypointList wptList, WaypointListEditor editor, AirportManager airportList, double maxSearchRange, int targetNumber)
-            : this(icao, sids, wptList, editor, airportList, maxSearchRange, targetNumber, SearchRangeIncr)
-        {
-        }
-
-        public SidAdder(string icao, SidCollection sids, WaypointList wptList, WaypointListEditor editor, AirportManager airportList,
-                        double maxSearchRange, int targetNumber, double searchRangeIncrement)
+        public SidAdder(
+            string icao,
+            SidCollection sids,
+            WaypointList wptList,
+            WaypointListEditor editor,
+            AirportManager airportList,
+            WptSearchOption option)
         {
             this.icao = icao;
             this.sids = sids;
             this.wptList = wptList;
             this.editor = editor;
             this.airportList = airportList;
-            this.maxSearchRange = maxSearchRange;
-            this.targetNumber = targetNumber;
-            this.searchRangeIncrement = searchRangeIncrement;
+            this.option = option;
         }
 
         // The 5 different cases are treated seperately.
@@ -67,8 +73,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         //         (use SID name as airway).
         // Case 5. Same as case 3. But also adds the last waypoint to wptList.
         //
-        // * Adds at least TARGET_NUM neighbors which are connected to 
-        //   airway(s), unless there isn't enough ones within MAX_SEARCH_RANGE.
+        // * Using WptSearchOption.
         //
 
         /// <summary>
@@ -85,13 +90,16 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             else
             {
                 // Case 2, 3, 4, 5
-                int index = editor.AddWaypoint(new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
+                var latLon = airportList.RwyLatLon(icao, rwy);
+                var wpt = new Waypoint(icao + rwy, latLon);
+                int index = editor.AddWaypoint(wpt);
 
                 foreach (var i in sidsToAdd)
                 {
                     try
                     {
-                        addToWptList(index, rwy, i);        // this is where case 2, 3, 4, 5 are handled.                       
+                        // this is where case 2, 3, 4, 5 are handled.  
+                        addToWptList(index, rwy, i);
                     }
                     catch (WaypointNotFoundException ex)
                     {
@@ -105,7 +113,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         private int processCase1(string rwy)
         {
             var rwyLatLon = airportList.RwyLatLon(icao, rwy);
-            var nearbyWpts = findAirwayConnectionHelper(rwyLatLon.Lat, rwyLatLon.Lon);
+            var nearbyWpts = airwayConnections(rwyLatLon.Lat, rwyLatLon.Lon);
 
             int index = editor.AddWaypoint(new Waypoint(icao + rwy, rwyLatLon));
 
@@ -142,29 +150,38 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 if (wptList.EdgesFromCount(lastWptIndex) == 0)
                 {
                     // Case 3                                  
-                    foreach (var k in findAirwayConnectionHelper(lastWpt.Lat, lastWpt.Lon))
+                    foreach (var k in airwayConnections(lastWpt.Lat, lastWpt.Lon))
                     {
-                        editor.AddNeighbor(lastWptIndex, k.Index, new Neighbor("DCT", k.Distance));
+                        editor.AddNeighbor(
+                            lastWptIndex,
+                            k.Index,
+                            new Neighbor("DCT", k.Distance));
                     }
                 }
                 // Forcase 3, 4 and 5
-                editor.AddNeighbor(rwyIndex, lastWptIndex, new Neighbor(sid, sidInfo.TotalDistance));
+                editor.AddNeighbor(
+                    rwyIndex,
+                    lastWptIndex,
+                    new Neighbor(sid, sidInfo.TotalDistance));
             }
         }
 
-        private void processCase2(int rwyIndex, string sid, Waypoint lastWpt, double disAdd)
+        private void processCase2(
+            int rwyIndex, string sid, Waypoint lastWpt, double disAdd)
         {
-            var endPoints = findAirwayConnectionHelper(lastWpt.Lat, lastWpt.Lon);
+            var endPoints = airwayConnections(lastWpt.Lat, lastWpt.Lon);
 
             foreach (var i in endPoints)
             {
-                editor.AddNeighbor(rwyIndex, i.Index, new Neighbor(sid, i.Distance + disAdd));
+                editor.AddNeighbor(
+                    rwyIndex, i.Index, new Neighbor(sid, i.Distance + disAdd));
             }
         }
 
-        private List<IndexDistancePair> findAirwayConnectionHelper(double lat, double lon)
+        private List<IndexDistancePair> airwayConnections(
+            double lat, double lon)
         {
-            return FindAirwayConnection(lat, lon, wptList, maxSearchRange, targetNumber, searchRangeIncrement);
+            return FindAirwayConnection(lat, lon, wptList, option);
         }
 
     }

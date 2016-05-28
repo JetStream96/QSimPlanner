@@ -1,5 +1,5 @@
-﻿using QSP.AviationTools.Coordinates;
-using QSP.RouteFinding.AirwayStructure;
+﻿using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Data;
 using System.Collections.Generic;
 using static QSP.MathTools.GCDis;
 using static QSP.RouteFinding.Constants;
@@ -12,47 +12,36 @@ namespace QSP.RouteFinding
     public static class WaypointAirwayConnector
     {
         public const double SearchRangeIncr = 20.0;
-        public const double MAX_SEARCH_RANGE = MAX_LEG_DIS;
-        public const int TARGET_NUM = 30;
+        public const double MaxSearchRange = MaxLegDis;
+        public const int TargetCount = 30;
 
-        /// <summary>
-        /// Finds a list of waypoints which is near the given Lat/Lon, and are connected to at least one other waypoint.
-        /// </summary>
-        public static List<IndexDistancePair> FindAirwayConnection(LatLon LatLon, WaypointList wptList)
+        public static List<IndexDistancePair> FindAirwayConnection(
+            double Lat,
+            double Lon,
+            WaypointList wptList)
         {
-            return FindAirwayConnection(LatLon.Lat, LatLon.Lon, wptList);
+            return FindAirwayConnection(
+                Lat, Lon, wptList, new WptSearchOption());
         }
 
         /// <summary>
-        /// Finds a list of waypoints which is near the given Lat/Lon, and are connected to at least one other waypoint.
+        /// Finds a list of waypoints which is near the given 
+        /// Lat/Lon, and are connected to at least one other waypoint.
         /// </summary>
-        public static List<IndexDistancePair> FindAirwayConnection(double Lat, double Lon, WaypointList wptList)
+        public static List<IndexDistancePair> FindAirwayConnection(
+            double Lat,
+            double Lon,
+            WaypointList wptList,
+            WptSearchOption option)
         {
-            return FindAirwayConnection(Lat, Lon, wptList, MAX_SEARCH_RANGE, TARGET_NUM, SearchRangeIncr);
-        }
-
-        /// <summary>
-        /// Finds a list of waypoints which is near the given Lat/Lon, and are connected to at least one other waypoint.
-        /// </summary>
-        public static List<IndexDistancePair> FindAirwayConnection(double Lat, double Lon, WaypointList wptList,
-                                                                   double maxSearchRange, double targetNumber)
-        {
-            return FindAirwayConnection(Lat, Lon, wptList, maxSearchRange, targetNumber, SearchRangeIncr);
-        }
-
-        /// <summary>
-        /// Finds a list of waypoints which is near the given Lat/Lon, and are connected to at least one other waypoint.
-        /// </summary>
-        public static List<IndexDistancePair> FindAirwayConnection(double Lat, double Lon, WaypointList wptList, double maxSearchRange,
-                                                                   double targetNumber, double searchRangeIncrement)
-        {   
             double searchRange = 0.0;
             var result = new List<IndexDistancePair>();
 
-            while (searchRange <= maxSearchRange && result.Count < targetNumber)
+            while (searchRange <= option.MaxSearchRange && 
+                result.Count < option.TargetCount)
             {
                 result.Clear();
-                searchRange += searchRangeIncrement;
+                searchRange += option.SearchRangeIncr;
 
                 var searchResult = wptList.Find(Lat, Lon, searchRange);
                 double dctDis;

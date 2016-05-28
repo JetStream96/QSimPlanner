@@ -99,6 +99,7 @@
     <Compile Include="Common\Options\AppOptions.cs" />
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
+    <Compile Include="RouteFinding\Data\WptSearchOption.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\AircraftEnums.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />

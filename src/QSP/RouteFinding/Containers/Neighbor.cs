@@ -1,5 +1,5 @@
 using System;
-using static QSP.RouteFinding.Constants;
+using static QSP.AviationTools.Coordinates.Constants;
 
 namespace QSP.RouteFinding.Containers
 {
@@ -21,7 +21,9 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public bool Equals(Neighbor x)
         {
-            return (Airway == x.Airway && Math.Abs(Distance - x.Distance) < LATLON_TOLERANCE);
+            return 
+                Airway == x.Airway && 
+                Math.Abs(Distance - x.Distance) < LatLonTolerance;
         }
 
     }

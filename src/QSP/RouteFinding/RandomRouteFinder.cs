@@ -15,9 +15,9 @@ namespace QSP.RouteFinding
 {
     public class RandomRouteFinder
     {
-        private static readonly double MAX_ANGLE_DEG =
-            ToDegree(MAX_LEG_DIS / AviationTools.Constants.EarthRadiusNm);
-        private static readonly double MAX_ANGLE_DEG_INT = Floor(MAX_ANGLE_DEG);
+        private static readonly double MaxAngleDeg =
+            ToDegree(MaxLegDis / AviationTools.Constants.EarthRadiusNm);
+        private static readonly double MaxAngleDegInt = Floor(MaxAngleDeg);
 
         private LatLon latLon1;
         private LatLon latLon2;
@@ -56,7 +56,7 @@ namespace QSP.RouteFinding
             while (lat < largeLat)
             {
                 route.Add(new LatLon(lat, lon));
-                lat = Floor(lat + MAX_ANGLE_DEG);
+                lat = Floor(lat + MaxAngleDeg);
             }
 
             route.Add(new LatLon(lat2, lon));
@@ -136,11 +136,11 @@ namespace QSP.RouteFinding
 
             if (latNow < latDest)
             {
-                candidates.Add(new LatLon(Floor(latNow + MAX_ANGLE_DEG), lon));
+                candidates.Add(new LatLon(Floor(latNow + MaxAngleDeg), lon));
             }
             else
             {
-                candidates.Add(new LatLon(Ceiling(latNow - MAX_ANGLE_DEG), lon));
+                candidates.Add(new LatLon(Ceiling(latNow - MaxAngleDeg), lon));
             }
             return candidates;
         }
