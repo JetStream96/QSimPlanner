@@ -1,28 +1,17 @@
-using System;
+﻿using System;
 using static QSP.LibraryExtension.Utilities;
 
-namespace QSP
+namespace QSP.MathTools
 {
-    public class RealValuedFunction
+    public static class Integration
     {
-        public delegate double RealFcn(double u);
-        //should be the function returning a real value
-        private RealFcn f;
-
-        public RealValuedFunction(RealFcn func)
+        /// <summary>
+        /// Numerical integration
+        /// </summary>
+        public static double Integrate(
+            Func<double, double> f,
+            double lowerLimit, double upperLimit, double delta)
         {
-            f = func;
-        }
-
-        public double ValueAt(double t)
-        {
-            return f(t);
-        }
-
-        public double Integrate(double lowerLimit, double upperLimit, double delta)
-        {
-            //numerical integration
-
             bool swapped = false;
 
             if (lowerLimit == upperLimit)
@@ -43,7 +32,8 @@ namespace QSP
                 sum += delta * f(lowerLimit + (i + 0.5) * delta);
             }
 
-            sum += f((lowerLimit + (numIntervals - 1)) * delta) * (upperLimit - lowerLimit - (numIntervals - 1) * delta);
+            sum += f((lowerLimit + (numIntervals - 1)) * delta) *
+                (upperLimit - lowerLimit - (numIntervals - 1) * delta);
 
             if (swapped)
             {
@@ -52,6 +42,5 @@ namespace QSP
 
             return sum;
         }
-
     }
 }

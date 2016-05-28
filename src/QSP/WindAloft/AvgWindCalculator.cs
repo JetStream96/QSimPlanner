@@ -4,6 +4,7 @@ using System;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Angles;
 using static QSP.MathTools.Vectors.Vector3DExtension;
+using static QSP.MathTools.Integration;
 
 namespace QSP.WindAloft
 {
@@ -75,10 +76,8 @@ namespace QSP.WindAloft
             double T = 0.0;            //total time required
             double r = 0.0;            //total distance
 
-            r = EarthRadiusNm * Math.Acos(v1.Dot(v2));
-
-            var g = new RealValuedFunction(GetOneOverGS);
-            T = g.Integrate(0, r, deltaAlpha * EarthRadiusNm);
+            r = EarthRadiusNm * Math.Acos(v1.Dot(v2));            
+            T = Integrate(GetOneOverGS, 0.0, r, deltaAlpha * EarthRadiusNm);
 
             return r / T - tas;
         }

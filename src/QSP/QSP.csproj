@@ -97,6 +97,7 @@
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="AviationTools\Coordinates\Utilities.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
+    <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\AircraftEnums.cs" />
@@ -358,7 +359,6 @@
     <Compile Include="LibraryExtension\TimeFormat.cs" />
     <Compile Include="MathTools\GCDis.cs" />
     <Compile Include="MathTools\Matrix2by2.cs" />
-    <Compile Include="MathTools\RealValuedFunction.cs" />
     <Compile Include="MathTools\Vectors\Vector2D.cs" />
     <Compile Include="MathTools\Vectors\Vector3D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
