@@ -3,21 +3,20 @@ using QSP.RouteFinding.AirwayStructure;
 using System;
 using System.Collections.Generic;
 using static QSP.MathTools.GCDis;
+using static QSP.Utilities.ConditionChecker;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
     public static class Utilities
     {
-        public static int ChooseSubsequentWpt(double prevLat,
-                                              double prevLon,
-                                              List<int> candidates,
-                                              WaypointList wptList)
+        public static int ChooseSubsequentWpt(
+            double prevLat,
+            double prevLon,
+            List<int> candidates,
+            WaypointList wptList)
         {
-            if (candidates == null || candidates.Count == 0)
-            {
-                throw new ArgumentException("List cannot be null or empty.");
-            }
-
+            Ensure<ArgumentException>(candidates.Count > 0);
+            
             double minDis = double.MaxValue;
             int minIndex = 0;
             double dis = 0.0;
@@ -33,6 +32,7 @@ namespace QSP.RouteFinding.Tracks.Common
                     minDis = dis;
                 }
             }
+
             return candidates[minIndex];
         }
 
@@ -47,24 +47,6 @@ namespace QSP.RouteFinding.Tracks.Common
                     item[i] = result.To5LetterFormat();
                 }
             }
-        }
-
-        /// <summary>
-        /// Returns the indices of waypoints which are closest to a specific lat/lon. 
-        /// </summary>
-        public static List<int> NearbyWaypointsInWptList(int count,
-                                                         double lat,
-                                                         double lon,
-                                                         WaypointList wptList)
-        {
-            var x = WaypointAirwayConnector.FindAirwayConnection(lat, lon, wptList);
-            var result = new List<int>(x.Count);
-
-            foreach (var i in x)
-            {
-                result.Add(i.Index);
-            }
-            return result;
-        }
+        }        
     }
 }

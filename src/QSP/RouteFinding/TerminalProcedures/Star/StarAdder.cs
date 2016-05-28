@@ -167,7 +167,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         private List<IndexDistancePair> airwayConnections(
             double lat, double lon)
         {
-            return FindAirwayConnection(lat, lon, wptList, option);
+            return FromAirway(lat, lon, wptList, option);
         }
 
     }

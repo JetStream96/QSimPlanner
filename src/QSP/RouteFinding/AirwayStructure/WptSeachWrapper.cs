@@ -1,5 +1,5 @@
-﻿using System;
-using QSP.RouteFinding.Data.Interfaces;
+﻿using QSP.RouteFinding.Data.Interfaces;
+using System;
 
 namespace QSP.RouteFinding.AirwayStructure
 {
@@ -9,16 +9,16 @@ namespace QSP.RouteFinding.AirwayStructure
         public double Lat { get; private set; }
         public double Lon { get; private set; }
 
-        public WptSeachWrapper(int index)
+        public WptSeachWrapper(int Index)
         {
-            this.Index = index;
+            this.Index = Index;
         }
 
-        public WptSeachWrapper(int index, double lat, double lon)
+        public WptSeachWrapper(int Index, double Lat, double Lon)
         {
-            this.Index = index;
-            this.Lat = lat;
-            this.Lon = lon;
+            this.Index = Index;
+            this.Lat = Lat;
+            this.Lon = Lon;
         }
 
         public int GetHashCode(WptSeachWrapper obj)
@@ -28,7 +28,7 @@ namespace QSP.RouteFinding.AirwayStructure
 
         public bool Equals(WptSeachWrapper other)
         {
-            return (this.Index == other.Index);
+            return (Index == other.Index);
         }
     }
 }

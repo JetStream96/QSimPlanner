@@ -181,7 +181,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         private List<IndexDistancePair> airwayConnections(
             double lat, double lon)
         {
-            return FindAirwayConnection(lat, lon, wptList, option);
+            return ToAirway(lat, lon, wptList, option);
         }
 
     }
