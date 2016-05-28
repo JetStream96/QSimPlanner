@@ -145,7 +145,7 @@
             this.sourceComboBox.Name = "sourceComboBox";
             this.sourceComboBox.Size = new System.Drawing.Size(218, 28);
             this.sourceComboBox.TabIndex = 1;
-            this.sourceComboBox.SelectedIndexChanged += new System.EventHandler(this.sourceComboBoxIndexChanged);
+            this.sourceComboBox.SelectedIndexChanged += new System.EventHandler(this.sourceChanged);
             // 
             // saveBtn
             // 

@@ -65,6 +65,8 @@ namespace QSP.UI.ToLdgModule.Forms
             OptionsMenu.SaveAirportsCompleted += (sender, e) =>
             {
                 Airports = OptionsMenu.Airports;
+                ToMenu.airportInfoControl.RefreshAirportInfo();
+                LdgMenu.airportInfoControl.RefreshAirportInfo();
             };
 
             var origTxtBox = ToMenu.airportInfoControl.airportTxtBox;

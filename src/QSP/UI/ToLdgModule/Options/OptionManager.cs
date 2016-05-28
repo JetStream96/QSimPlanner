@@ -12,6 +12,7 @@ namespace QSP.UI.ToLdgModule.Options
 
         // If the file does not exist, create one.
         // Then read the file into an UserOption instance.
+        // Return value is never null.
         public static UserOption ReadOrCreateFile()
         {
             try

@@ -11,6 +11,7 @@ namespace QSP.UI.ToLdgModule.Options
 {
     public partial class OptionsControl : UserControl
     {
+        // Will not be null after Initialize() call.
         private UserOption options;
 
         public AirportManager Airports { get; set; }
@@ -44,23 +45,8 @@ namespace QSP.UI.ToLdgModule.Options
                 Environment.Exit(0);
             }
 
-            displayOptions();
+            refreshNavSource();
             tryLoadAirports();
-        }
-
-        private void displayOptions()
-        {
-            sourceComboBox.SelectedIndex = options.SourceType;
-
-            if (options.SourceType == 0)
-            {
-                pathTxtBox.Text = options.OpenDataPath;
-            }
-            else
-            {
-                // 1
-                pathTxtBox.Text = options.PaywarePath;
-            }
         }
 
         private void loadAirports(DataSource source)
@@ -160,7 +146,7 @@ namespace QSP.UI.ToLdgModule.Options
 
         private void cancelBtnClick(object sender, EventArgs e)
         {
-            displayOptions();
+            refreshNavSource();
         }
 
         private void broserBtnClick(object sender, EventArgs e)
@@ -175,19 +161,33 @@ namespace QSP.UI.ToLdgModule.Options
             }
         }
 
-        private void sourceComboBoxIndexChanged(object sender, EventArgs e)
+        private void refreshNavSource()
+        {
+            refreshNavSource(options.SourceType);
+        }
+
+        private void refreshNavSource(int sourceType)
+        {
+            sourceComboBox.SelectedIndex = sourceType;
+
+            if (sourceType == 0)
+            {
+                pathTxtBox.Text = options.OpenDataPath;
+                pathTxtBox.Enabled = false;
+            }
+            else
+            {
+                // 1
+                pathTxtBox.Text = options.PaywarePath;
+                pathTxtBox.Enabled = true;
+            }
+        }
+
+        private void sourceChanged(object sender, EventArgs e)
         {
             if (options != null)
             {
-                if (sourceComboBox.SelectedIndex == 0)
-                {
-                    pathTxtBox.Text = options.OpenDataPath;
-                }
-                else
-                {
-                    // 1
-                    pathTxtBox.Text = options.PaywarePath;
-                }
+                refreshNavSource(sourceComboBox.SelectedIndex);
             }
         }
 

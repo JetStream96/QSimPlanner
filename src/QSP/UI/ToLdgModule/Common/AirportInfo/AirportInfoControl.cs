@@ -33,7 +33,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
             updateSlopeItems();
 
             lengthUnitComboBox.Items.Clear();
-            lengthUnitComboBox.Items.AddRange(new object[] { "M", "FT" });
+            lengthUnitComboBox.Items.AddRange(new string[] { "M", "FT" });
             lengthUnitComboBox.SelectedIndex = 0; // Meter
         }
 
@@ -61,7 +61,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
             slopeComboBox.SelectedIndex = slopeController.NearestIndex(slope);
         }
 
-        private void airportTxtBox_TextChanged(object sender, EventArgs e)
+        public void RefreshAirportInfo()
         {
             airportNameLbl.Text = "";
             rwyComboBox.Items.Clear();
@@ -88,6 +88,11 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
                 rwyComboBox.SelectedIndex = 0;
                 rwyComboBox.Enabled = true;
             }
+        }
+
+        private void airportTxtBox_TextChanged(object sender, EventArgs e)
+        {
+            RefreshAirportInfo();
         }
 
         private void setLength(int lengthFt)

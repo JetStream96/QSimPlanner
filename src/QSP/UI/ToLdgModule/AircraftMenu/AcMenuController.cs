@@ -166,6 +166,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
 
             ListViewSelectedChanged(null, null);
+            elem.AcListView.Columns[1].Width = -2;
         }
 
         private void fillProperties(AircraftConfigItem config)
