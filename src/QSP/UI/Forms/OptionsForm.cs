@@ -1,4 +1,4 @@
-using QSP.Core.Options;
+using QSP.Common.Options;
 using QSP.Utilities;
 using System;
 using System.Drawing;

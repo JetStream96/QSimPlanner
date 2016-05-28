@@ -1,5 +1,5 @@
 using QSP.AircraftProfiles;
-using QSP.Core.Options;
+using QSP.Common.Options;
 using QSP.GoogleMap;
 using QSP.LibraryExtension;
 using QSP.Metar;
@@ -128,24 +128,24 @@ namespace QSP
             FuelReportResult fuelCalcResult = new FuelReportResult(FuelToDestTon, FuelToAltnTon, Parameters, FuelCalc);
 
 
-            if (fuelCalcResult.TotalFuelKG > FuelCalc.max_fuel_kg)
+            if (fuelCalcResult.TotalFuelKG > FuelCalc.maxFuelKg)
             {
-                MessageBox.Show(insufficientFuelMsg(fuelCalcResult.TotalFuelKG, FuelCalc.max_fuel_kg, Parameters.WtUnit()));
+                MessageBox.Show(insufficientFuelMsg(fuelCalcResult.TotalFuelKG, FuelCalc.maxFuelKg, Parameters.WtUnit));
                 return;
 
             }
 
-            string OutputText = fuelCalcResult.ToString(Parameters.WtUnit());
+            string OutputText = fuelCalcResult.ToString(Parameters.WtUnit);
 
             FuelReport_TxtBox.Text = Environment.NewLine + Strings.ShiftToRight(OutputText, 20);
             formStateManagerFuel.Save();
 
             //send weights to takeoff/ldg calc form 
             AC_Req = ACList.Text;
-            TOWT_Req_Unit = Parameters.WtUnit();
+            TOWT_Req_Unit = Parameters.WtUnit;
             //TODO:        LDG_fuel_prediction_unit = Parameters.WtUnit();
 
-            TOWT_Req = Convert.ToInt32(Parameters.Zfw + fuelCalcResult.TakeoffFuelKg * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KgLbRatio));
+            TOWT_Req = Convert.ToInt32(Parameters.Zfw + fuelCalcResult.TakeoffFuelKg * (Parameters.WtUnit == WeightUnit.KG ? 1.0 : KgLbRatio));
             //TODO:       LDG_ZFW = Convert.ToInt32(Parameters.Zfw);
             //TODO:  LDG_fuel_prediction = Convert.ToInt32(fuelCalcResult.LdgFuelKgPredict * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KG_LB));
 

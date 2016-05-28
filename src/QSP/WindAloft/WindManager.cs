@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using static QSP.Core.QspCore;
+using static QSP.Common.QspCore;
 
 namespace QSP.WindAloft
 {

@@ -1,5 +1,5 @@
 using System;
-using QSP.Core;
+using QSP.Common;
 
 namespace QSP.WindAloft
 {

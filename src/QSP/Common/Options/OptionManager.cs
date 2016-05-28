@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Linq;
 
-namespace QSP.Core.Options
+namespace QSP.Common.Options
 {
     public static class OptionManager
     {

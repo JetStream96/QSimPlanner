@@ -1,4 +1,4 @@
-﻿using QSP.Core;
+﻿using QSP.Common;
 using QSP.LandingPerfCalculation;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 using QSP.LibraryExtension;

@@ -1,5 +1,5 @@
 ﻿using QSP.AircraftProfiles;
-using QSP.Core.Options;
+using QSP.Common.Options;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;

@@ -1,40 +1,32 @@
 using System;
 using System.Collections.Generic;
 using QSP.MathTools.Interpolation;
-using QSP.Core;
+using QSP.Common;
 using QSP.LibraryExtension.JaggedArrays;
 
 namespace QSP
 {
-
     public class FuelCalculator
     {
-
         public double holdingFuelPerMinuteKg;
-        public double max_fuel_kg;
-        public double taxi_fuel_per_min_kg;
-        public double apu_fuel_per_min_kg;
+        public double maxFuelKg;
+        public double taxiFuelPerMinKg;
+        public double apuFuelPerMinKg;
+        public double LandWeightTonAltn;
+        public double LandWeightTonDest;
+        public int TimeToDest;
+        public int TimeToAltn;
+        public FuelCalculationParameters Parameters;
+
         private string FuelTableSourceTxt;
-
-        private string AirDis_Time_OrigFile;
-
+        private string AirDisTimeOrigFile;
         private double[][] GroundToAirDisTable;
         private double[][] AirDisToFuelTable;
         private double[] airDis;
-
         private double[] LandingWt;
-        public double LandWeightTonAltn;
-
-        public double LandWeightTonDest;
         private double fuelToAltn;
         private bool altnFuelComputed;
         private FlightTimeCalculator TimeCalc;
-        public int TimeToDest;
-
-        public int TimeToAltn;
-
-        public FuelCalculationParameters Parameters;
-
 
         public FuelCalculator(FuelCalculationParameters para)
         {
@@ -44,73 +36,72 @@ namespace QSP
 
             switch (para.AC)
             {
-
                 case Aircraft.B737600:
-
                     FuelTableSourceTxt = QspCore.PerfDB.Txt_737600txt;
-                    AirDis_Time_OrigFile = QspCore.PerfDB.Txt_737600_time_reqtxt;
+                    AirDisTimeOrigFile = QspCore.PerfDB.Txt_737600_time_reqtxt;
                     holdingFuelPerMinuteKg = 38;
-                    max_fuel_kg = 20896;
-                    taxi_fuel_per_min_kg = 12.2;
-                    apu_fuel_per_min_kg = 1.8;
+                    maxFuelKg = 20896;
+                    taxiFuelPerMinKg = 12.2;
+                    apuFuelPerMinKg = 1.8;
                     break;
+
                 case Aircraft.B737700:
-
                     FuelTableSourceTxt = QspCore.PerfDB.Txt_737700txt;
-                    AirDis_Time_OrigFile = QspCore.PerfDB.Txt_737700_time_reqtxt;
+                    AirDisTimeOrigFile = QspCore.PerfDB.Txt_737700_time_reqtxt;
                     holdingFuelPerMinuteKg = 38;
-                    max_fuel_kg = 20896;
-                    taxi_fuel_per_min_kg = 12.2;
-                    apu_fuel_per_min_kg = 1.8;
+                    maxFuelKg = 20896;
+                    taxiFuelPerMinKg = 12.2;
+                    apuFuelPerMinKg = 1.8;
                     break;
+
                 case Aircraft.B737800:
-
                     FuelTableSourceTxt = QspCore.PerfDB.Txt_737800txt;
-                    AirDis_Time_OrigFile = QspCore.PerfDB.Txt_737800_time_reqtxt;
+                    AirDisTimeOrigFile = QspCore.PerfDB.Txt_737800_time_reqtxt;
                     holdingFuelPerMinuteKg = 38;
-                    max_fuel_kg = 20896;
-                    taxi_fuel_per_min_kg = 12.2;
-                    apu_fuel_per_min_kg = 1.8;
+                    maxFuelKg = 20896;
+                    taxiFuelPerMinKg = 12.2;
+                    apuFuelPerMinKg = 1.8;
                     break;
+
                 case Aircraft.B737900:
-
                     FuelTableSourceTxt = QspCore.PerfDB.Txt_737900txt;
-                    AirDis_Time_OrigFile = QspCore.PerfDB.Txt_737900_time_reqtxt;
+                    AirDisTimeOrigFile = QspCore.PerfDB.Txt_737900_time_reqtxt;
                     holdingFuelPerMinuteKg = 38;
-                    max_fuel_kg = 20896;
-                    taxi_fuel_per_min_kg = 12.2;
-                    apu_fuel_per_min_kg = 1.8;
+                    maxFuelKg = 20896;
+                    taxiFuelPerMinKg = 12.2;
+                    apuFuelPerMinKg = 1.8;
                     break;
+
                 case Aircraft.B777200LR:
-
                     FuelTableSourceTxt = QspCore.PerfDB.Txt_777200LRtxt;
-                    AirDis_Time_OrigFile = QspCore.PerfDB.Txt_777200LR_time_reqtxt;
+                    AirDisTimeOrigFile = QspCore.PerfDB.Txt_777200LR_time_reqtxt;
                     holdingFuelPerMinuteKg = 100;
-                    max_fuel_kg = 145752;
-                    taxi_fuel_per_min_kg = 36;
-                    apu_fuel_per_min_kg = 4;
+                    maxFuelKg = 145752;
+                    taxiFuelPerMinKg = 36;
+                    apuFuelPerMinKg = 4;
                     break;
+
                 case Aircraft.B777F:
-
                     FuelTableSourceTxt = QspCore.PerfDB.Txt_777Ftxt;
-                    AirDis_Time_OrigFile = QspCore.PerfDB.Txt_777F_time_reqtxt;
+                    AirDisTimeOrigFile = QspCore.PerfDB.Txt_777F_time_reqtxt;
                     holdingFuelPerMinuteKg = 100;
-                    max_fuel_kg = 145752;
-                    taxi_fuel_per_min_kg = 36;
-                    apu_fuel_per_min_kg = 4;
-
+                    maxFuelKg = 145752;
+                    taxiFuelPerMinKg = 36;
+                    apuFuelPerMinKg = 4;
                     break;
             }
 
-            TimeCalc = new FlightTimeCalculator(AirDis_Time_OrigFile);
+            TimeCalc = new FlightTimeCalculator(AirDisTimeOrigFile);
             GroundToAirDisTable = loadGTATable(FuelTableSourceTxt);
             loadFuelTable(FuelTableSourceTxt);
-
         }
 
         private void updateDestLandWt()
         {
-            LandWeightTonDest = LandWeightTonAltn + fuelToAltn + (Parameters.HoldingMin * holdingFuelPerMinuteKg + Parameters.MissedAppFuelKg) / 1000 + Parameters.ExtraFuelKg / 1000;
+            LandWeightTonDest = 
+                LandWeightTonAltn + 
+                fuelToAltn + 
+                (Parameters.HoldingMin * holdingFuelPerMinuteKg + Parameters.MissedAppFuelKg) / 1000 + Parameters.ExtraFuelKg / 1000;
         }
 
         private void updateAltnLandWt()

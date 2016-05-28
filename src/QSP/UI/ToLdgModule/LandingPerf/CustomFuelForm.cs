@@ -23,9 +23,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             set
             {
                 _wtUnit = value;
-                wtUnitLbl.Text = _wtUnit == WeightUnit.KG ?
-                    "KG" :
-                    "LB";
+                wtUnitLbl.Text = Conversions.WeightUnitToString(_wtUnit);                
             }
         }
 

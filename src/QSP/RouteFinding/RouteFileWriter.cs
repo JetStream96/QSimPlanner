@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Windows.Forms;
-using QSP.Core;
+using QSP.Common;
 using QSP.RouteFinding.Routes;
-using QSP.Core.Options;
+using QSP.Common.Options;
 
 namespace QSP.RouteFinding
 {

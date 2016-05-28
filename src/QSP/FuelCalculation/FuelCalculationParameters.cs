@@ -1,6 +1,6 @@
-using System;
 using QSP.RouteFinding;
 using QSP.Utilities.Units;
+using System;
 using static QSP.UI.FormInstanceGetter;
 
 namespace QSP
@@ -23,30 +23,25 @@ namespace QSP
         public double ZfwKg;
         public double MissedAppFuelKg;
         public double ExtraFuelKg;
+        public WeightUnit WtUnit { get; private set; }
 
-        private WeightUnit _WtUnit;
-        private MainForm frm = MainFormInstance();
-
-        public WeightUnit WtUnit()
-        {
-            return _WtUnit;
-        }
+        private MainForm frm = MainFormInstance();        
 
         private void readWtUnit()
         {
             if (frm.WtUnitSel_ComboBox.Text == "KG")
             {
-                _WtUnit = WeightUnit.KG;
+                WtUnit = WeightUnit.KG;
             }
             else
             {
-                _WtUnit = WeightUnit.LB;
+                WtUnit = WeightUnit.LB;
             }
         }
 
         private void setPropertyKG()
         {
-            if (_WtUnit == WeightUnit.KG)
+            if (WtUnit == WeightUnit.KG)
             {
                 ZfwKg = Zfw;
                 MissedAppFuelKg = MissedAppFuel;

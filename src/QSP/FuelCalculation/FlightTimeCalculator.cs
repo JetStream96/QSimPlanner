@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using QSP.MathTools.Interpolation;
 using QSP.LibraryExtension;
-using QSP.Core;
+using QSP.Common;
 
 namespace QSP
 {

@@ -1,4 +1,4 @@
-﻿using QSP.Core;
+﻿using QSP.Common;
 using QSP.NavData;
 using QSP.RouteFinding.Airports;
 using QSP.Utilities;

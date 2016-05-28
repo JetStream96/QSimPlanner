@@ -1,6 +1,6 @@
 using System;
 
-namespace QSP.Core
+namespace QSP.Common
 {
     [Serializable()]
     public class InvalidAircraftDatabaseException : ApplicationException
@@ -63,7 +63,6 @@ namespace QSP.Core
     [Serializable()]
     public class EnumNotSupportedException : NotSupportedException
     {
-
         public EnumNotSupportedException() { }
 
         public EnumNotSupportedException(string message) : base(message)

@@ -1,7 +1,7 @@
 using System;
 using QSP.WindAloft;
 
-namespace QSP.Core
+namespace QSP.Common
 {
     public static class QspCore
 	{

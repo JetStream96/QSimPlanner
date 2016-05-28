@@ -1,5 +1,5 @@
 using QSP.AviationTools.Coordinates;
-using QSP.Core;
+using QSP.Common;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 ﻿using QSimPlanner.GlobalInfo;
-using QSP.Core.Options;
+using QSP.Common.Options;
 using QSP.UI.Utilities;
 using QSP.Utilities;
 using System;

@@ -1,5 +1,5 @@
-using System;
 using QSP.Utilities;
+using System;
 
 namespace QSP.AviationTools
 {
@@ -57,12 +57,12 @@ namespace QSP.AviationTools
 
             if (rwy.Length == 2)
             {
-                numPart = Convert.ToInt32(rwy);
+                numPart = int.Parse(rwy);
                 charPart = ' ';
             }
             else
             {
-                numPart = Convert.ToInt32(rwy.Substring(0, 2));
+                numPart = int.Parse(rwy.Substring(0, 2));
                 charPart = rwy[2];
             }
 
@@ -100,7 +100,7 @@ namespace QSP.AviationTools
 
         public static double ToFahrenheit(double temp)
         {
-            return temp * 9.0 / 5.0 + 32;
+            return temp * 9.0 / 5.0 + 32.0;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QSP.Core;
+using QSP.Common;
 using QSP.TOPerfCalculation;
 using QSP.TOPerfCalculation.Boeing;
 using QSP.TOPerfCalculation.Boeing.PerfData;

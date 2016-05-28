@@ -1,5 +1,5 @@
 ﻿using QSP.LandingPerfCalculation;
-using QSP.Core;
+using QSP.Common;
 
 namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 {

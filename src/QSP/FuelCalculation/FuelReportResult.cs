@@ -39,8 +39,8 @@ namespace QSP
             ContKg = FuelToDestTon * 1000 * para.ContPerc / 100;
             ExtraKG = para.ExtraFuelKg;
             HoldKg = para.HoldingMin * fuelCalc.holdingFuelPerMinuteKg;
-            ApuKg = para.APUTime * fuelCalc.apu_fuel_per_min_kg;
-            TaxiKg = para.TaxiTime * fuelCalc.taxi_fuel_per_min_kg;
+            ApuKg = para.APUTime * fuelCalc.apuFuelPerMinKg;
+            TaxiKg = para.TaxiTime * fuelCalc.taxiFuelPerMinKg;
             FinalRsvKg = para.FinalRsvMin * fuelCalc.holdingFuelPerMinuteKg;
             TimeToDest = fuelCalc.TimeToDest;
             TimeToAltn = fuelCalc.TimeToAltn;

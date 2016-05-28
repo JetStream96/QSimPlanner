@@ -1,4 +1,4 @@
-using QSP.Core;
+using QSP.Common;
 using QSP.RouteFinding.Routes.Toggler;
 
 namespace QSP.RouteFinding.Routes

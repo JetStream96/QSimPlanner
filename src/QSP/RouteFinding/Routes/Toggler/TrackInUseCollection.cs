@@ -1,4 +1,4 @@
-﻿using QSP.Core;
+﻿using QSP.Common;
 using QSP.RouteFinding.Tracks.Common;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

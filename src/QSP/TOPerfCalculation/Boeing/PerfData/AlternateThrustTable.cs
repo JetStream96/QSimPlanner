@@ -1,4 +1,4 @@
-using QSP.Core;
+using QSP.Common;
 using QSP.MathTools.Interpolation;
 using QSP.LibraryExtension;
 

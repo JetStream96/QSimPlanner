@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace QSP.Core.Options
+namespace QSP.Common.Options
 {
     public class AppOptions
     {

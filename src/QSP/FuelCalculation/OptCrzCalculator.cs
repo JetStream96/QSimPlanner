@@ -1,5 +1,5 @@
 using QSP.AviationTools;
-using QSP.Core;
+using QSP.Common;
 using System;
 using QSP.MathTools.Interpolation;
 
