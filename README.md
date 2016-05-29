@@ -17,7 +17,7 @@ A tool for fuel planning and take-off/landing performance calculations.
 - Landing calculation with custom flaps, autobrakes setting, and runway surface conditions.
 
 ### Requirements
-To use QSimPlanner, an AIRAC cycle is required. You can use either Aerosoft's [NavDataPro] or Navigraph's [FMS Data].
+To use QSimPlanner, an AIRAC cycle is required. You can purchase either Aerosoft's [NavDataPro] or Navigraph's [FMS Data]. Use the version of Aerosoft Airbus A318/A319/A320/A321.
 
 Also .NET framework 4.5 is required.
 
