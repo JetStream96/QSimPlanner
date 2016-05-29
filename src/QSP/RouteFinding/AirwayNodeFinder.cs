@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding
 {
@@ -15,7 +15,9 @@ namespace QSP.RouteFinding
         private string identEnd;
         private WaypointList wptList;
 
-        public AirwayNodeFinder(int indexStart, string airway, string identEnd, WaypointList wptList)
+        public AirwayNodeFinder(
+            int indexStart, string airway, 
+            string identEnd, WaypointList wptList)
         {
             this.indexStart = indexStart;
             this.airway = airway;
@@ -78,7 +80,7 @@ namespace QSP.RouteFinding
         {
             var result = new List<int>();
             int x = (para == FindOnAwyOption.First) ? 0 : 1;
-            //when x hit 0, start the search
+            // When x hit 0, start the search
 
             int currentIndex = indexStart;
             int prevIndex = -1;

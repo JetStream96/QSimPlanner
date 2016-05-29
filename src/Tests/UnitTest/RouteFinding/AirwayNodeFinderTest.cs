@@ -2,10 +2,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace UnitTest
+namespace UnitTest.RouteFinding
 {
     [TestClass()]
     public class AirwayNodeFinderTest
@@ -14,38 +13,22 @@ namespace UnitTest
         public void TwoWayAirway_FindBothDirections()
         {
             var finder = new AirwayNodeFinder(4, "A001", "WP008", genTwoWayAirway());
-            var expected = new List<int>();
-
-            for (int i = 5; i <= 8; i++)
-            {
-                expected.Add(i);
-            }
+            var expected = Enumerable.Range(5, 4);
 
             Assert.IsTrue(Enumerable.SequenceEqual(expected, finder.GetWaypointIndices()));
 
             // another dir
             var finder2 = new AirwayNodeFinder(6, "A001", "WP002", genTwoWayAirway());
-            var exp2 = new List<int>();
-
-            for (int i = 5; i >= 2; i--)
-            {
-                exp2.Add(i);
-            }
+            var exp2 = Enumerable.Range(2, 4).Reverse();
 
             Assert.IsTrue(Enumerable.SequenceEqual(exp2, finder2.GetWaypointIndices()));
-
         }
 
         [TestMethod()]
         public void OneWayAirway_FindResult()
         {
             var finder = new AirwayNodeFinder(9, "A001", "WP004", genOneWayAirway());
-            var expected = new List<int>();
-
-            for (int i = 8; i >= 4; i--)
-            {
-                expected.Add(i);
-            }
+            var expected = Enumerable.Range(4, 5).Reverse();
 
             Assert.IsTrue(Enumerable.SequenceEqual(expected, finder.GetWaypointIndices()));
         }
