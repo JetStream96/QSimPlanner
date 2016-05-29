@@ -66,7 +66,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
         //
         private bool TrackAvailble(string[] mainRoute, string ident)
         {
-            return !(mainRoute.Contains(ident) || mainRoute.Contains("-"));
+            return !(mainRoute.Contains(ident) || mainRoute.Contains("NO TRACK"));
         }
     }
 }

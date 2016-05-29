@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding.Data.Interfaces;
+using System;
 using static QSP.MathTools.GCDis;
 
 namespace UnitTest.RouteFinding.Data.Interfaces
@@ -8,6 +9,32 @@ namespace UnitTest.RouteFinding.Data.Interfaces
     public class ICoordinateExtensionTest
     {
         private const double delta = 1E-8;
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GetClosestEmptyCollectionShouldThrow()
+        {
+            var items = new pt[0];
+            items.GetClosest(0.0, 0.0);
+        }
+
+        [TestMethod]
+        public void GetClosestTest()
+        {
+            var items = new pt[] 
+            {
+                new pt(10.0, 20.0),
+                new pt(20.0, 20.0),
+                new pt(30.0, 20.0),
+                new pt(40.0, 20.0),
+                new pt(50.0, 20.0),
+                new pt(60.0, 20.0),
+                new pt(70.0, 20.0),
+            };
+
+            var p = items.GetClosest(42.0, 20.0);
+            Assert.AreEqual(items[3], p);
+        }
 
         [TestMethod]
         public void TotalDistance3Pts()

@@ -9,7 +9,7 @@ namespace QSP.RouteFinding.Tracks.Common
 {
     public static class Utilities
     {
-        public static int ChooseSubsequentWpt(
+        public static int GetClosest(
             double prevLat,
             double prevLon,
             List<int> candidates,

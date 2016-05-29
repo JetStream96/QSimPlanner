@@ -1,4 +1,3 @@
-using QSP.AviationTools.Coordinates;
 using QSP.LibraryExtension.Graph;
 using QSP.MathTools;
 using QSP.RouteFinding.Containers;
@@ -48,12 +47,7 @@ namespace QSP.RouteFinding.AirwayStructure
         {
             return _content.ItemExists(WaypointIndex);
         }
-
-        public LatLon LatLonAt(int index)
-        {
-            return this[index].LatLon;
-        }
-
+        
         public int EdgesFromCount(int index)
         {
             return _content.EdgesFromCount(index);

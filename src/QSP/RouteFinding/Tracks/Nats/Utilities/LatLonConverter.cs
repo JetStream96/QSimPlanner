@@ -1,6 +1,6 @@
 ﻿using QSP.AviationTools.Coordinates;
-using QSP.Utilities;
 using System;
+using static QSP.Utilities.ConditionChecker;
 
 namespace QSP.RouteFinding.Tracks.Nats.Utilities
 {
@@ -13,7 +13,7 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
         public static LatLon ConvertNatsCoordinate(string s)
         {
             int x = s.IndexOf('/');
-            ConditionChecker.ThrowWhenNegative<ArgumentException>(x);
+            ThrowWhenNegative<ArgumentException>(x);
 
             double Lat = Convert.ToDouble(s.Substring(0, 2));
             double Lon = Convert.ToDouble(s.Substring(x + 1, 2));
@@ -21,19 +21,19 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
             if (x > 2)
             {
                 double addLat = Convert.ToDouble(s.Substring(2, x - 2));
-                ConditionChecker.Ensure<ArgumentException>(addLat >= 0.0 && addLat <= 60.0);
+                Ensure<ArgumentException>(addLat >= 0.0 && addLat <= 60.0);
                 Lat += addLat / 60;
             }
 
             if (s.Length - x - 1 > 2)
             {
                 double addLon = Convert.ToDouble(s.Substring(x + 3));
-                ConditionChecker.Ensure<ArgumentException>(addLon >= 0.0 && addLon <= 60.0);
+                Ensure<ArgumentException>(addLon >= 0.0 && addLon <= 60.0);
                 Lon += addLon / 60;
             }
 
-            ConditionChecker.Ensure<ArgumentException>(Lat >= 0.0 && Lat <= 90.0);
-            ConditionChecker.Ensure<ArgumentException>(Lon >= 0 && Lon <= 180);
+            Ensure<ArgumentException>(Lat >= 0.0 && Lat <= 90.0);
+            Ensure<ArgumentException>(Lon >= 0 && Lon <= 180);
 
             return new LatLon(Lat, -Lon);
         }

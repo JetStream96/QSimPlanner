@@ -44,7 +44,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
         {
             if (routeInput.Length == 0)
             {
-                throw new ArgumentException("Route input should have at least 1 elements.");
+                throw new ArgumentException(
+                    "Route input should have at least 1 elements.");
             }
 
             this.wptList = wptList;
@@ -61,7 +62,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 {
                     return;
                 }
-                throw new ArgumentException("The first waypoint is not a valid lat/lon.");
+                throw new ArgumentException(
+                    "The first waypoint is not a valid lat/lon.");
             }
 
             if (wptList.WaypointExists(index) == false)
@@ -73,7 +75,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             if (routeInput[0] != wpt.ID)
             {
-                throw new ArgumentException("The first waypoint of the route does not match the specified index in WptList.");
+                throw new ArgumentException(
+                    "The first waypoint of the route does not match the " +
+                    "specified index in WptList.");
             }
             lastWpt = index;
             rte.AddLastWaypoint(wpt);
@@ -176,7 +180,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             else
             {
                 var wpt = rte.Last.Waypoint; 
-                lastWpt = Tracks.Common.Utilities.ChooseSubsequentWpt(wpt.Lat, wpt.Lon, indices, wptList);
+                lastWpt = Tracks.Common.Utilities.GetClosest(wpt.Lat, wpt.Lon, indices, wptList);
             }
 
             return tryappendWpt(wptList[lastWpt]);

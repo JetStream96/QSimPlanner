@@ -38,7 +38,8 @@ namespace QSP.RouteFinding.Data.Interfaces
 
             return dis;
         }
-
+        
+        /// <exception cref="ArgumentException"></exception>
         public static T GetClosest<T>(
             this IEnumerable<T> items, double Lat, double Lon)
             where T : ICoordinate

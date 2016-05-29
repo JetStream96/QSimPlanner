@@ -95,7 +95,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             }
             else
             {
-                int chosenIndex = ChooseSubsequentWpt(origRwyWpt.Lat,
+                int chosenIndex = GetClosest(origRwyWpt.Lat,
                                                       origRwyWpt.Lon,
                                                       wptList.FindAllByID(mainRoute[0]),
                                                       wptList);

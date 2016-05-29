@@ -29,12 +29,13 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
             var recorder = new StatusRecorder();
 
-            var handler = new AusotsHandler(new downloaderStub(),
-                                            wptList,
-                                            wptList.GetEditor(),
-                                            recorder,
-                                            getAirportList(),
-                                            new RouteTrackCommunicator(new TrackInUseCollection()));
+            var handler = new AusotsHandler(
+                new downloaderStub(),
+                wptList,
+                wptList.GetEditor(),
+                recorder,
+                getAirportList(),
+                new RouteTrackCommunicator(new TrackInUseCollection()));
             // Act
             handler.GetAllTracks();
             handler.AddToWaypointList();
@@ -52,7 +53,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
         private static void assertTrackMY14(WaypointList wptList)
         {
-            var edge = wptList.GetEdge(getEdgeIndex("AUSOTMY14", "JAMOR", wptList));
+            var edge = wptList.GetEdge(
+                getEdgeIndex("AUSOTMY14", "JAMOR", wptList));
 
             // Distance
             Assert.AreEqual(
@@ -84,14 +86,15 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
         private static void assertTrackBP14(WaypointList wptList)
         {
-            var edge = wptList.GetEdge(getEdgeIndex("AUSOTBP14", "TAXEG", wptList));
+            var edge = wptList.GetEdge(
+                getEdgeIndex("AUSOTBP14", "TAXEG", wptList));
 
             // Distance
             Assert.AreEqual(
                     new List<LatLon>
                     {
                       wptList[ wptList.FindByID("TAXEG")].LatLon,
-                      wptList[wptList.FindByID("PASTA")].LatLon,
+                      wptList[ wptList.FindByID("PASTA")].LatLon,
                       wptList[ wptList.FindByID("TAROR")].LatLon,
                       wptList[ wptList.FindByID("WR")].LatLon,
                       wptList[ wptList.FindByID("ENTRE")].LatLon,
@@ -112,8 +115,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             // Airway is correct
             Assert.IsTrue(edge.Value.Airway == "AUSOTBP14");
         }
-        
-        private static int getEdgeIndex(string ID, string firstWpt, WaypointList wptList)
+
+        private static int getEdgeIndex(
+            string ID, string firstWpt, WaypointList wptList)
         {
             foreach (var i in wptList.EdgesFrom(wptList.FindByID(firstWpt)))
             {
@@ -151,7 +155,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             }
         }
 
-        private static void assertTrack(string ID, string firstWpt, WaypointList wptList)
+        private static void assertTrack(
+            string ID, string firstWpt, WaypointList wptList)
         {
             // check the track is added
             if (getEdgeIndex(ID, firstWpt, wptList) < 0)
@@ -200,7 +205,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
             foreach (var i in airports)
             {
-                collection.Add(new Airport(i, "", 0.0, 0.0, 0,true, 0, 0, 0, new List<RwyData>()));
+                collection.Add(
+                    new Airport(
+                        i, "", 0.0, 0.0, 0, true, 0, 0, 0, new List<RwyData>()));
             }
 
             return new AirportManager(collection);
@@ -237,7 +244,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             {
                 int x = tryAddWpt(wptList, i.StartWpt);
                 int y = tryAddWpt(wptList, i.EndWpt);
-                wptList.AddNeighbor(x, y, new Neighbor(i.Airway, wptList.Distance(x, y)));
+                wptList.AddNeighbor(
+                    x, y, new Neighbor(i.Airway, wptList.Distance(x, y)));
             }
         }
 
@@ -259,7 +267,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
         {
             public AusotsMessage Download()
             {
-                return new AusotsMessage(File.ReadAllText("QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
+                return new AusotsMessage(
+                    File.ReadAllText(
+                        "QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
             }
 
             public Task<AusotsMessage> DownloadAsync()

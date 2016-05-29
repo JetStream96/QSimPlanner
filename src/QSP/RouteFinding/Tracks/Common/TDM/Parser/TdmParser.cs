@@ -1,5 +1,7 @@
 ﻿using QSP.LibraryExtension.StringParser;
 using System;
+using System.Linq;
+using QSP.LibraryExtension;
 using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
@@ -85,7 +87,8 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 
         }
 
-        // Exception may occur if the input string format is not as expected (especially IndexOutOfRangeException).
+        // Exception may occur if the input string format is not 
+        // as expected (especially IndexOutOfRangeException).
         private void parse()
         {
             var sp = new StringParser(text);
@@ -130,8 +133,12 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
             if (rtsIndex >= 0)
             {
                 sp.MoveRight("RTS/".Length + 1);
-                ConnectionRoutes = sp.ReadString(rtsEndIndex())
-                                     .Split(DelimiterLines, StringSplitOptions.RemoveEmptyEntries);
+                ConnectionRoutes =
+                    sp
+                    .ReadString(rtsEndIndex())
+                    .Lines()
+                    .Where(x => string.IsNullOrWhiteSpace(x) == false)
+                    .ToArray();
             }
             else
             {

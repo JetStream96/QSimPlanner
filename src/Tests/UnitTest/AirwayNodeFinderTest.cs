@@ -1,8 +1,8 @@
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QSP.RouteFinding;
-using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Containers;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace UnitTest
@@ -10,7 +10,6 @@ namespace UnitTest
     [TestClass()]
     public class AirwayNodeFinderTest
     {
-
         [TestMethod()]
         public void TwoWayAirway_FindBothDirections()
         {

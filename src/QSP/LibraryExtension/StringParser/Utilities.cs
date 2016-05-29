@@ -7,7 +7,6 @@ namespace QSP.LibraryExtension.StringParser
     public static class Utilities
     {
         public static readonly char[] DelimiterWords = { ' ', '\n', '\r', '\t' };
-        public static readonly char[] DelimiterLines = { '\n', '\r' };
 
         /// <summary>
         /// Returns a substring starting from the given position to the char 
