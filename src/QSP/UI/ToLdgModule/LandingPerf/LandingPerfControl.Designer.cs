@@ -414,7 +414,8 @@
             // 
             // resultsRichTxtBox
             // 
-            this.resultsRichTxtBox.BackColor = System.Drawing.SystemColors.Control;
+            this.resultsRichTxtBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.resultsRichTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.resultsRichTxtBox.Font = new System.Drawing.Font("Courier New", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resultsRichTxtBox.Location = new System.Drawing.Point(6, 20);
             this.resultsRichTxtBox.Name = "resultsRichTxtBox";
