@@ -2,10 +2,11 @@
 using QSP.RouteFinding.Data.Interfaces;
 using System;
 using static QSP.MathTools.GCDis;
+using NUnit.Framework;
 
 namespace UnitTest.RouteFinding.Data.Interfaces
 {
-    [TestClass]
+    [TestClass]    
     public class ICoordinateExtensionTest
     {
         private const double delta = 1E-8;

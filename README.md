@@ -44,11 +44,11 @@ These are the projects contained in this repository:
 - 777F
 - 787-8
 
-More aircrafts need to be added, especially the A320 and A330 family. It would be nice if more Boeing aircrafts can be added, but obtaining required performance data may be difficult.
+More aircrafts need to be added, especially the A320 and A330 families. It would be nice if more Boeing aircrafts can be added, but obtaining required performance data may be difficult.
 
 ### Roadmap
 ##### Short term
-- Add unit tests for classes used in the flight planner. Possibly switch to another unit test framework (currently using MSTest).
+- Add unit tests for classes used in the flight planner.
 - Add more aircraft profiles for QspLite, including A320/A330 series.
 - More features for route finder. e.g. Finding shortest route based on wind,  avoiding certain country's airspace.
 - Add ETOPS planning and redispatch.
