@@ -2,7 +2,6 @@
 using QSP.RouteFinding.Data.Interfaces;
 using System;
 using static QSP.MathTools.GCDis;
-using NUnit.Framework;
 
 namespace UnitTest.RouteFinding.Data.Interfaces
 {

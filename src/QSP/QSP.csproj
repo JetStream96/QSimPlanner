@@ -66,6 +66,10 @@
       <HintPath>..\packages\ini-parser.2.2.4\lib\net20\INIFileParser.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MinMaxHeap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\MinMaxHeap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -126,7 +130,6 @@
     <Compile Include="LibraryExtension\StringArrays.cs" />
     <Compile Include="LibraryExtension\StringParser\StringParser.cs" />
     <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
-    <Compile Include="LibraryExtension\MinHeapModifiable.cs" />
     <Compile Include="MathTools\Angles.cs" />
     <Compile Include="MathTools\Constants.cs" />
     <Compile Include="MathTools\Doubles.cs" />
@@ -355,7 +358,6 @@
     <Compile Include="LibraryExtension\MultiMap.cs" />
     <Compile Include="LibraryExtension\Utilities.cs" />
     <Compile Include="LibraryExtension\Lists.cs" />
-    <Compile Include="LibraryExtension\MinHeap.cs" />
     <Compile Include="LibraryExtension\Strings.cs" />
     <Compile Include="LibraryExtension\TimeFormat.cs" />
     <Compile Include="MathTools\GCDis.cs" />
@@ -464,6 +466,9 @@
     <Compile Include="WindAloft\WindTable.cs" />
     <Compile Include="WindAloft\WindUV.cs" />
     <Compile Include="WindAloft\WxFileLoader.cs" />
+    <Content Include="Libraries\MinMaxHeap.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="PerformanceData\TO\7878_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

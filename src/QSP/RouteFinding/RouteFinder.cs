@@ -1,4 +1,4 @@
-using QSP.LibraryExtension;
+using MinMaxHeap;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
@@ -185,11 +185,11 @@ namespace QSP.RouteFinding
             findRouteData.InitializeDistance(regionPara.StartPtIndex);
 
             var unvisited = new MinHeap<int, double>();
-            unvisited.Insert(regionPara.StartPtIndex, 0.0);
+            unvisited.Add(regionPara.StartPtIndex, 0.0);
 
             while (unvisited.Count > 0)
             {
-                var current = unvisited.PopMin();
+                var current = unvisited.ExtractMin();
 
                 if (current.Key == regionPara.EndPtIndex)
                 {
@@ -217,15 +217,20 @@ namespace QSP.RouteFinding
                 {
                     double newDis = currentDis + edge.Value.Distance;
 
-                    if (Math.Abs(wptData[index].CurrentDistance - MAX_DIS) < 1E-3 && newDis < MAX_DIS)
+                    if (Math.Abs(wptData[index].CurrentDistance - MAX_DIS) < 1E-3 &&
+                        newDis < MAX_DIS)
                     {
-                        unvisited.Insert(index, newDis);
-                        wptData[index] = new routeFindingData.WaypointStatus(currentWptIndex, edge.Value.Airway, newDis);
+                        unvisited.Add(index, newDis);
+                        wptData[index] = new routeFindingData.WaypointStatus(
+                            currentWptIndex, edge.Value.Airway, newDis);
                     }
-                    else if (unvisited.ItemExists(index) && newDis < unvisited.GetElement(index).Value)
+                    else if (
+                        unvisited.ContainsKey(index) &&
+                        newDis < unvisited[index].Value)
                     {
-                        unvisited.ReplaceValue(index, newDis);
-                        wptData[index] = new routeFindingData.WaypointStatus(currentWptIndex, edge.Value.Airway, newDis);
+                        unvisited.ChangeValue(index, newDis);
+                        wptData[index] = new routeFindingData.WaypointStatus(
+                            currentWptIndex, edge.Value.Airway, newDis);
                     }
                 }
             }
@@ -234,8 +239,10 @@ namespace QSP.RouteFinding
         private bool wptWithinRange(int wptIndex, routeSeachRegionPara regionPara)
         {
             //suppose the orig and dest rwys are already in the wptList
-            return (wptList.Distance(regionPara.StartPtIndex, wptIndex) + wptList.Distance(regionPara.EndPtIndex, wptIndex) <
-                    2 * Math.Sqrt(regionPara.b * regionPara.b + regionPara.c * regionPara.c));
+            return 
+                (wptList.Distance(regionPara.StartPtIndex, wptIndex) + 
+                wptList.Distance(regionPara.EndPtIndex, wptIndex) <
+                2 * Math.Sqrt(regionPara.b * regionPara.b + regionPara.c * regionPara.c));
         }
 
         #region Helper Classes
