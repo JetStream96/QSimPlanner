@@ -76,6 +76,7 @@
             this.githubBtn.TabIndex = 5;
             this.githubBtn.Text = "Github";
             this.githubBtn.UseVisualStyleBackColor = true;
+            this.githubBtn.Click += new System.EventHandler(this.githubBtn_Click);
             // 
             // siteBtn
             // 
@@ -87,6 +88,7 @@
             this.siteBtn.TabIndex = 4;
             this.siteBtn.Text = "Website";
             this.siteBtn.UseVisualStyleBackColor = true;
+            this.siteBtn.Click += new System.EventHandler(this.siteBtn_Click);
             // 
             // licenseBtn
             // 
@@ -98,6 +100,7 @@
             this.licenseBtn.TabIndex = 3;
             this.licenseBtn.Text = "License";
             this.licenseBtn.UseVisualStyleBackColor = true;
+            this.licenseBtn.Click += new System.EventHandler(this.licenseBtn_Click);
             // 
             // versionLbl
             // 
