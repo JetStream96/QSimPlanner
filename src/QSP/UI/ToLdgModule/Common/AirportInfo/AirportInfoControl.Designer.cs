@@ -326,6 +326,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Controls.Add(this.tableLayoutPanel1);
+            this.DoubleBuffered = true;
             this.Name = "AirportInfoControl";
             this.Size = new System.Drawing.Size(490, 210);
             this.tableLayoutPanel1.ResumeLayout(false);

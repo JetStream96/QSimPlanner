@@ -434,6 +434,7 @@
             this.Controls.Add(this.calculateBtn);
             this.Controls.Add(this.GroupBox16);
             this.Controls.Add(this.GroupBox15);
+            this.DoubleBuffered = true;
             this.Name = "LandingPerfControl";
             this.Size = new System.Drawing.Size(1024, 676);
             this.GroupBox13.ResumeLayout(false);

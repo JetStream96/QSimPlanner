@@ -30,11 +30,11 @@
         {
             this.txtLbl = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.versionLbl = new System.Windows.Forms.Label();
-            this.licenseBtn = new System.Windows.Forms.Button();
-            this.siteBtn = new System.Windows.Forms.Button();
             this.githubBtn = new System.Windows.Forms.Button();
+            this.siteBtn = new System.Windows.Forms.Button();
+            this.licenseBtn = new System.Windows.Forms.Button();
+            this.versionLbl = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,6 +54,7 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.Controls.Add(this.githubBtn);
             this.panel1.Controls.Add(this.siteBtn);
             this.panel1.Controls.Add(this.licenseBtn);
@@ -65,17 +66,38 @@
             this.panel1.Size = new System.Drawing.Size(543, 337);
             this.panel1.TabIndex = 1;
             // 
-            // label1
+            // githubBtn
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(186, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(146, 46);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "QSP Lite";
+            this.githubBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.githubBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.githubBtn.Location = new System.Drawing.Point(299, 243);
+            this.githubBtn.Name = "githubBtn";
+            this.githubBtn.Size = new System.Drawing.Size(81, 33);
+            this.githubBtn.TabIndex = 5;
+            this.githubBtn.Text = "Github";
+            this.githubBtn.UseVisualStyleBackColor = true;
+            // 
+            // siteBtn
+            // 
+            this.siteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.siteBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.siteBtn.Location = new System.Drawing.Point(219, 243);
+            this.siteBtn.Name = "siteBtn";
+            this.siteBtn.Size = new System.Drawing.Size(81, 33);
+            this.siteBtn.TabIndex = 4;
+            this.siteBtn.Text = "Website";
+            this.siteBtn.UseVisualStyleBackColor = true;
+            // 
+            // licenseBtn
+            // 
+            this.licenseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.licenseBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.licenseBtn.Location = new System.Drawing.Point(139, 243);
+            this.licenseBtn.Name = "licenseBtn";
+            this.licenseBtn.Size = new System.Drawing.Size(81, 33);
+            this.licenseBtn.TabIndex = 3;
+            this.licenseBtn.Text = "License";
+            this.licenseBtn.UseVisualStyleBackColor = true;
             // 
             // versionLbl
             // 
@@ -89,38 +111,17 @@
             this.versionLbl.TabIndex = 2;
             this.versionLbl.Text = "v0.1";
             // 
-            // licenseBtn
+            // label1
             // 
-            this.licenseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.licenseBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.licenseBtn.Location = new System.Drawing.Point(139, 243);
-            this.licenseBtn.Name = "licenseBtn";
-            this.licenseBtn.Size = new System.Drawing.Size(81, 33);
-            this.licenseBtn.TabIndex = 3;
-            this.licenseBtn.Text = "License";
-            this.licenseBtn.UseVisualStyleBackColor = true;
-            // 
-            // siteBtn
-            // 
-            this.siteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.siteBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.siteBtn.Location = new System.Drawing.Point(219, 243);
-            this.siteBtn.Name = "siteBtn";
-            this.siteBtn.Size = new System.Drawing.Size(81, 33);
-            this.siteBtn.TabIndex = 4;
-            this.siteBtn.Text = "Website";
-            this.siteBtn.UseVisualStyleBackColor = true;
-            // 
-            // githubBtn
-            // 
-            this.githubBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.githubBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.githubBtn.Location = new System.Drawing.Point(299, 243);
-            this.githubBtn.Name = "githubBtn";
-            this.githubBtn.Size = new System.Drawing.Size(81, 33);
-            this.githubBtn.TabIndex = 5;
-            this.githubBtn.Text = "Github";
-            this.githubBtn.UseVisualStyleBackColor = true;
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(186, 38);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(146, 46);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "QSP Lite";
             // 
             // AboutPageControl
             // 
@@ -130,6 +131,7 @@
             this.BackgroundImage = global::QSP.Properties.Resources.chart3Faa;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Name = "AboutPageControl";
             this.Size = new System.Drawing.Size(1024, 610);
             this.panel1.ResumeLayout(false);

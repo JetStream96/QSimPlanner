@@ -221,6 +221,7 @@
             this.Controls.Add(this.icaoComboBox);
             this.Controls.Add(this.airportDataGrid);
             this.Controls.Add(this.metarLbl);
+            this.DoubleBuffered = true;
             this.Name = "AirportMapControl";
             this.Size = new System.Drawing.Size(1024, 670);
             ((System.ComponentModel.ISupportInitialize)(this.airportDataGrid)).EndInit();
