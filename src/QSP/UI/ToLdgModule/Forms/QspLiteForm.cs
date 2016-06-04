@@ -6,6 +6,7 @@ using QSP.UI.ToLdgModule.AirportMap;
 using QSP.UI.ToLdgModule.LandingPerf;
 using QSP.UI.ToLdgModule.Options;
 using QSP.UI.ToLdgModule.TOPerf;
+using QSP.UI.ToLdgModule.AboutPage;
 using QSP.Utilities;
 using System;
 using System.Drawing;
@@ -23,6 +24,7 @@ namespace QSP.UI.ToLdgModule.Forms
         public LandingPerfControl LdgMenu { get; private set; }
         public AirportMapControl AirportMenu { get; private set; }
         public OptionsControl OptionsMenu { get; private set; }
+        public AboutPageControl AboutMenu { get; private set; }
 
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
@@ -113,7 +115,8 @@ namespace QSP.UI.ToLdgModule.Forms
                 new BtnControlPair(toBtn, ToMenu),
                 new BtnControlPair(ldgBtn, LdgMenu),
                 new BtnControlPair(airportBtn, AirportMenu),
-                new BtnControlPair(optionsBtn, OptionsMenu));
+                new BtnControlPair(optionsBtn, OptionsMenu),
+                new BtnControlPair(aboutBtn, AboutMenu));
 
             viewControl.Subscribed = true;
         }
@@ -135,12 +138,16 @@ namespace QSP.UI.ToLdgModule.Forms
             var optionPair = new BtnColorPair(optionsBtn, Color.Black,
             Color.Black, Color.White, Color.Purple);
 
+            var aboutPair = new BtnColorPair(aboutBtn, Color.Black,
+            Color.Black, Color.White, Color.Turquoise);
+
             btnControl = new BtnGroupController(
                 acConfigPair,
                 toPair,
                 ldgPair,
                 airportPair,
-                optionPair);
+                optionPair,
+                aboutPair);
 
             btnControl.Initialize();
             btnControl.SetSelected(acConfigBtn);
@@ -167,6 +174,10 @@ namespace QSP.UI.ToLdgModule.Forms
             OptionsMenu = new OptionsControl();
             OptionsMenu.Location = new Point(12, 60);
             Controls.Add(OptionsMenu);
+
+            AboutMenu = new AboutPageControl();
+            AboutMenu.Location = new Point(12, 60);
+            Controls.Add(AboutMenu);
         }
 
         private static void checkRegistry()

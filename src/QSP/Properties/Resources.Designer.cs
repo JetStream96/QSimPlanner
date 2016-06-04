@@ -83,6 +83,16 @@ namespace QSP.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap chart3Faa {
+            get {
+                object obj = ResourceManager.GetObject("chart3Faa", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap checkIconLarge {
             get {
                 object obj = ResourceManager.GetObject("checkIconLarge", resourceCulture);
@@ -106,6 +116,16 @@ namespace QSP.Properties {
         internal static System.Drawing.Bitmap GreenLight {
             get {
                 object obj = ResourceManager.GetObject("GreenLight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap info {
+            get {
+                object obj = ResourceManager.GetObject("info", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

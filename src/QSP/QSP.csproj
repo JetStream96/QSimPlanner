@@ -104,6 +104,12 @@
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="RouteFinding\Data\WptSearchOption.cs" />
+    <Compile Include="UI\ToLdgModule\AboutPage\AboutPageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ToLdgModule\AboutPage\AboutPageControl.Designer.cs">
+      <DependentUpon>AboutPageControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\AircraftEnums.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />
@@ -472,6 +478,8 @@
     <Content Include="PerformanceData\TO\7878_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\info.png" />
+    <None Include="Resources\chart3Faa.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -484,6 +492,9 @@
     </Compile>
     <EmbeddedResource Include="UI\Forms\about.resx">
       <DependentUpon>about.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ToLdgModule\AboutPage\AboutPageControl.resx">
+      <DependentUpon>AboutPageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ToLdgModule\AircraftMenu\AircraftMenuControl.resx">
       <DependentUpon>AircraftMenuControl.cs</DependentUpon>
