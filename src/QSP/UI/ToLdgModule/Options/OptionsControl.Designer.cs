@@ -35,10 +35,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.pathTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.sourceComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.saveBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.infoLbl = new System.Windows.Forms.Label();
+            this.sourceComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -78,10 +79,12 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnCount = 4;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.67164F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.32836F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 54F));
+            this.tableLayoutPanel1.Controls.Add(this.infoLbl, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.button1, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.pathTxtBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
@@ -92,7 +95,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(377, 70);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(408, 70);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // button1
@@ -128,24 +131,6 @@
             this.label2.Size = new System.Drawing.Size(45, 23);
             this.label2.TabIndex = 2;
             this.label2.Text = "Path";
-            // 
-            // sourceComboBox
-            // 
-            this.sourceComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.sourceComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.sourceComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.sourceComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.sourceComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.sourceComboBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sourceComboBox.FormattingEnabled = true;
-            this.sourceComboBox.Items.AddRange(new object[] {
-            "Open data",
-            "NavData Pro/Navigraph"});
-            this.sourceComboBox.Location = new System.Drawing.Point(81, 3);
-            this.sourceComboBox.Name = "sourceComboBox";
-            this.sourceComboBox.Size = new System.Drawing.Size(218, 28);
-            this.sourceComboBox.TabIndex = 1;
-            this.sourceComboBox.SelectedIndexChanged += new System.EventHandler(this.sourceChanged);
             // 
             // saveBtn
             // 
@@ -189,6 +174,38 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(464, 55);
             this.tableLayoutPanel2.TabIndex = 6;
             // 
+            // infoLbl
+            // 
+            this.infoLbl.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.infoLbl.AutoSize = true;
+            this.infoLbl.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.infoLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.infoLbl.Location = new System.Drawing.Point(361, 41);
+            this.infoLbl.Name = "infoLbl";
+            this.infoLbl.Size = new System.Drawing.Size(38, 23);
+            this.infoLbl.TabIndex = 3;
+            this.infoLbl.Text = "[ ? ]";
+            this.infoLbl.MouseEnter += new System.EventHandler(this.infoLbl_MouseEnter);
+            this.infoLbl.MouseLeave += new System.EventHandler(this.infoLbl_MouseLeave);
+            // 
+            // sourceComboBox
+            // 
+            this.sourceComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.sourceComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.sourceComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.sourceComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.sourceComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sourceComboBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sourceComboBox.FormattingEnabled = true;
+            this.sourceComboBox.Items.AddRange(new object[] {
+            "Open data",
+            "NavData Pro/Navigraph"});
+            this.sourceComboBox.Location = new System.Drawing.Point(81, 3);
+            this.sourceComboBox.Name = "sourceComboBox";
+            this.sourceComboBox.Size = new System.Drawing.Size(218, 28);
+            this.sourceComboBox.TabIndex = 1;
+            this.sourceComboBox.SelectedIndexChanged += new System.EventHandler(this.sourceChanged);
+            // 
             // OptionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -222,5 +239,6 @@
         private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label infoLbl;
     }
 }

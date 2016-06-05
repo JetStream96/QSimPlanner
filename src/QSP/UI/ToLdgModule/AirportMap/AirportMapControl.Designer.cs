@@ -180,6 +180,7 @@
             // updateBtn
             // 
             this.updateBtn.BackgroundImage = global::QSP.Properties.Resources.processing9;
+            this.updateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.updateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateBtn.Location = new System.Drawing.Point(972, 19);
             this.updateBtn.Name = "updateBtn";

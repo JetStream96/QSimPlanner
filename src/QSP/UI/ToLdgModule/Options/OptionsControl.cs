@@ -13,6 +13,7 @@ namespace QSP.UI.ToLdgModule.Options
     {
         // Will not be null after Initialize() call.
         private UserOption options;
+        private Panel popUpPanel;
 
         public AirportManager Airports { get; set; }
 
@@ -204,6 +205,63 @@ namespace QSP.UI.ToLdgModule.Options
                     // 1
                     options.PaywarePath = pathTxtBox.Text;
                 }
+            }
+        }
+
+        private void infoLbl_MouseEnter(object sender, EventArgs e)
+        {
+            infoLbl.Font = new Font(infoLbl.Font, FontStyle.Underline);
+
+            popUpPanel = infoPanel(
+                (DataSource.Type)sourceComboBox.SelectedIndex);
+            Controls.Add(popUpPanel);
+            popUpPanel.BringToFront();
+        }
+
+        private void infoLbl_MouseLeave(object sender, EventArgs e)
+        {
+            infoLbl.Font = new Font(infoLbl.Font, FontStyle.Regular);
+
+            Controls.Remove(popUpPanel);
+            popUpPanel = null;
+        }
+
+        private Panel infoPanel(DataSource.Type type)
+        {
+            var panel = new Panel();
+            panel.Size = new Size(450, 100);
+            panel.BackColor = Color.FromArgb(216, 244, 215);
+            var pt = infoLbl.Location;
+            panel.Location = new Point(pt.X - 150, pt.Y + 100);
+
+            var lbl = new Label();
+            lbl.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular);
+            lbl.ForeColor = Color.DarkGreen;
+            lbl.Text = lblTxt(type);
+            lbl.Location = new Point(0, 0);
+            lbl.AutoSize = true;
+
+            panel.Controls.Add(lbl);
+            return panel;
+        }
+
+        private string lblTxt(DataSource.Type type)
+        {
+            switch (type)
+            {
+                case DataSource.Type.OpenData:
+                    return
+@"This is the nav data which came with this application.";
+
+                case DataSource.Type.Navigraph:
+                    return
+@"Location of either Aerosoft's NavDataPro or Navigraph's
+FMS Data (both are payware). Use the version of Aerosoft
+Airbus A318/A319/A320/A321. Select the folder which
+contains Airports.txt.";
+
+                default:
+                    throw new EnumNotSupportedException();
             }
         }
     }

@@ -54,10 +54,5 @@ namespace QSP.UI.ToLdgModule.AboutPage
         {
             tryOpenFile("https://github.com/JetStream96/QSimPlanner");
         }
-
-        private void manualBtn_Click(object sender, EventArgs e)
-        {
-            tryOpenFile("a.docx");
-        }
     }
 }
