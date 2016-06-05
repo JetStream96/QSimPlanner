@@ -60,6 +60,20 @@ namespace QSP.UI.ToLdgModule.Forms
 
             enableBtnColorControls();
             enableViewControl();
+            addToolTip();
+        }
+
+        private void addToolTip()
+        {
+            var tp = new ToolTip();
+            
+            tp.AutoPopDelay = 5000;
+            tp.InitialDelay = 1000;
+            tp.ReshowDelay = 500;
+            tp.ShowAlways = true;
+
+            tp.SetToolTip(optionsBtn, "Options");
+            tp.SetToolTip(aboutBtn, "About");
         }
 
         private void refreshItemsRequireAirportList()

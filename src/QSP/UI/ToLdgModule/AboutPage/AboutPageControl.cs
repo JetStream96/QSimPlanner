@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QSP.UI.Utilities;
+using QSP.Utilities;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
@@ -19,25 +21,43 @@ namespace QSP.UI.ToLdgModule.AboutPage
             panel1.BackColor = Color.FromArgb(160, Color.White);
 
             var ver = Assembly.GetEntryAssembly().GetName().Version;
-            versionLbl.Text = 
-                ver.Major.ToString() + "." + 
-                ver.Minor.ToString() + "." + 
+            versionLbl.Text =
+                ver.Major.ToString() + "." +
+                ver.Minor.ToString() + "." +
                 ver.Build.ToString();
+        }
+
+        private void tryOpenFile(string fileName)
+        {
+            try
+            {
+                Process.Start(fileName);
+            }
+            catch (Exception ex)
+            {
+                LoggerInstance.WriteToLog(ex);
+                MsgBoxHelper.ShowWarning("Cannot open the specified file.");
+            }
         }
 
         private void licenseBtn_Click(object sender, EventArgs e)
         {
-            Process.Start("LICENSE.txt");
+            tryOpenFile("LICENSE.txt");
         }
 
         private void siteBtn_Click(object sender, EventArgs e)
         {
-            Process.Start("https://qsimplan.wordpress.com/");
+            tryOpenFile("https://qsimplan.wordpress.com/");
         }
 
         private void githubBtn_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/JetStream96/QSimPlanner");
+            tryOpenFile("https://github.com/JetStream96/QSimPlanner");
+        }
+
+        private void manualBtn_Click(object sender, EventArgs e)
+        {
+            tryOpenFile("a.docx");
         }
     }
 }

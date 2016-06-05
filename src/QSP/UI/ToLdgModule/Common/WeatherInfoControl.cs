@@ -25,8 +25,23 @@ namespace QSP.UI.ToLdgModule.Common
             pressUnitComboBox.Items.Clear();
             pressUnitComboBox.Items.AddRange(new string[] { "hPa", "inHg" });
             pressUnitComboBox.SelectedIndex = 0; // hPa
+
+            addToolTip();
         }
-        
+
+        private void addToolTip()
+        {
+            var tp = new ToolTip();
+
+            tp.AutoPopDelay = 5000;
+            tp.InitialDelay = 1000;
+            tp.ReshowDelay = 500;
+            tp.ShowAlways = true;
+
+            tp.SetToolTip(GetMetarBtn,
+                "Download METAR and fill all weather info.");
+        }
+
         private void tempUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             double temp;

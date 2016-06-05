@@ -116,8 +116,8 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
             icaoComboBox.Items.AddRange(
                 new string[] { _orig, _dest, _altn }
-                .Where(s => s != null && s != "")
-                .ToArray());  
+                .Where(s => string.IsNullOrEmpty(s) == false)
+                .ToArray());
         }
 
         private PictureBox picBox;
@@ -132,9 +132,24 @@ namespace QSP.UI.ToLdgModule.AirportMap
         {
             resetAirport();
             setEmptyDataGrid();
-            
+
             icaoComboBox.Text = "";
             this.Airports = airports;
+
+            addToolTip();
+        }
+
+        private void addToolTip()
+        {
+            var tp = new ToolTip();
+
+            tp.AutoPopDelay = 5000;
+            tp.InitialDelay = 1000;
+            tp.ReshowDelay = 500;
+            tp.ShowAlways = true;
+
+            tp.SetToolTip(metarLbl, "View METAR");
+            tp.SetToolTip(updateBtn, "Refresh METAR");
         }
 
         private void setEmptyDataGrid()
@@ -173,7 +188,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             setMetar(airport.Icao);
 
             airportNameLbl.Text = airport.Name;
-            latLonLbl.Text = airport.Lat.ToString("#.######") + " / " + 
+            latLonLbl.Text = airport.Lat.ToString("#.######") + " / " +
                 airport.Lon.ToString("#.######");
             elevationLbl.Text = airport.Elevation + " FT";
 

@@ -187,11 +187,16 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private void showDefaultConfig()
         {
-            var defaultConfig =
-                new AircraftConfigItem("", "", NoToLdgProfileText,
-                    NoToLdgProfileText, 0.0, 0.0, 0.0, WeightUnit.KG);
+            fillProperties(defaultAcConfig);
+        }
 
-            fillProperties(defaultConfig);
+        private AircraftConfigItem defaultAcConfig
+        {
+            get
+            {
+                return new AircraftConfigItem("", "", NoToLdgProfileText,
+                    NoToLdgProfileText, 0.0, 0.0, 0.0, WeightUnit.KG);
+            }
         }
 
         private string wtDisplay(double weightKg)
@@ -415,18 +420,38 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
-        public void CancelBtnClicked(object sender, EventArgs e)
+        private bool changesMade()
         {
+            AircraftConfigItem config = null;
+
             try
             {
-                var config = new AcConfigValidator(elem).Validate();
-                if (config.Equals(currentConfig.Config))
-                {
-                    showSelectionGroupBox();
-                    return;
-                }
+                config = new AcConfigValidator(elem).Validate();
             }
-            catch { }
+            catch
+            {
+                return true;
+            }
+
+            if (inEditMode)
+            {
+                return !config.Equals(currentConfig.Config);
+            }
+            else
+            {
+                return !config.Equals(defaultAcConfig);
+            }
+        }
+
+        public void CancelBtnClicked(object sender, EventArgs e)
+        {
+            if (changesMade() == false)
+            {
+                // No edit is done.
+                // No need to show messageBox.
+                showSelectionGroupBox();
+                return;
+            }
 
             var result =
                 MessageBox.Show(
