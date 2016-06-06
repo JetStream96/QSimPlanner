@@ -1,14 +1,15 @@
 ﻿using QSP.AircraftProfiles;
 using QSP.RouteFinding.Airports;
 using QSP.UI.Controllers.ButtonGroup;
+using QSP.UI.ToLdgModule.AboutPage;
 using QSP.UI.ToLdgModule.AircraftMenu;
 using QSP.UI.ToLdgModule.AirportMap;
 using QSP.UI.ToLdgModule.LandingPerf;
 using QSP.UI.ToLdgModule.Options;
 using QSP.UI.ToLdgModule.TOPerf;
-using QSP.UI.ToLdgModule.AboutPage;
 using QSP.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -26,9 +27,26 @@ namespace QSP.UI.ToLdgModule.Forms
         public OptionsControl OptionsMenu { get; private set; }
         public AboutPageControl AboutMenu { get; private set; }
 
+        public IEnumerable<UserControl> Pages
+        {
+            get
+            {
+                return new UserControl[]
+                {
+                    AcMenu,
+                    ToMenu,
+                    LdgMenu,
+                    AirportMenu,
+                    OptionsMenu,
+                    AboutMenu
+                };
+            }
+        }
+
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
         private AirportManager _airports;
+        private Point controlDefaultLocation = new Point(12, 60);
 
         public QspLiteForm()
         {
@@ -38,6 +56,7 @@ namespace QSP.UI.ToLdgModule.Forms
 
         public void Initialize(ProfileManager manager)
         {
+            resizeForm();
             checkRegistry();
             subscribeEvents();
             OptionsMenu.Initialize();
@@ -66,7 +85,7 @@ namespace QSP.UI.ToLdgModule.Forms
         private void addToolTip()
         {
             var tp = new ToolTip();
-            
+
             tp.AutoPopDelay = 5000;
             tp.InitialDelay = 1000;
             tp.ReshowDelay = 500;
@@ -170,28 +189,31 @@ namespace QSP.UI.ToLdgModule.Forms
         private void addControls()
         {
             AcMenu = new AircraftMenuControl();
-            AcMenu.Location = new Point(12, 60);
-            Controls.Add(AcMenu);
-
             ToMenu = new TOPerfControl();
-            ToMenu.Location = new Point(12, 60);
-            Controls.Add(ToMenu);
-
             LdgMenu = new LandingPerfControl();
-            LdgMenu.Location = new Point(12, 60);
-            Controls.Add(LdgMenu);
-
             AirportMenu = new AirportMapControl();
-            AirportMenu.Location = new Point(12, 60);
-            Controls.Add(AirportMenu);
-
             OptionsMenu = new OptionsControl();
-            OptionsMenu.Location = new Point(12, 60);
-            Controls.Add(OptionsMenu);
-
             AboutMenu = new AboutPageControl();
-            AboutMenu.Location = new Point(12, 60);
-            Controls.Add(AboutMenu);
+
+            foreach (var i in Pages)
+            {
+                i.Location = controlDefaultLocation;
+                Controls.Add(i);
+            }
+        }
+
+        private void resizeForm()
+        {
+            int maxWidth = Pages.Max(c => c.Width);
+            int maxHeight = Pages.Max(c => c.Height);
+
+            int right = Pages.Where(c => c.Width == maxWidth)
+                .First().Right;
+
+            int bottom = Pages.Where(c => c.Height == maxHeight)
+                .First().Bottom;
+
+            ClientSize = new Size(right + 15, bottom + 15);
         }
 
         private static void checkRegistry()

@@ -2,6 +2,7 @@
 using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
 using QSP.Common;
+using QSP.Utilities.Units;
 using System;
 using System.Drawing;
 using System.IO;
@@ -9,7 +10,6 @@ using System.Linq;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Utilities.MsgBoxHelper;
-using QSP.Utilities.Units;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu
 {
@@ -391,9 +391,9 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             var result =
                 MessageBox.Show(
-                    "Permanently delete " + reg + " (" + ac + ") ?",
+                    $"Permanently delete {reg} ({ac}) ?",
                     "",
-                    MessageBoxButtons.YesNo,
+                    MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Warning,
                     MessageBoxDefaultButton.Button2);
 
@@ -426,7 +426,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             try
             {
-                config = new AcConfigValidator(elem).Validate();
+                config = new AcConfigValidator(elem).Read();
             }
             catch
             {
@@ -457,7 +457,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 MessageBox.Show(
                     "Discard the changes to config?",
                     "",
-                    MessageBoxButtons.YesNo,
+                    MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Warning,
                     MessageBoxDefaultButton.Button2);
 

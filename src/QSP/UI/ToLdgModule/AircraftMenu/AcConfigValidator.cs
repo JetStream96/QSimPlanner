@@ -15,24 +15,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         }
 
         /// <exception cref="InvalidUserInputException"></exception>
-        public AircraftConfigItem Validate()
+        public AircraftConfigItem Read()
         {
-            string acType = elem.AcType.Text.Trim();
-
-            if (acType == "")
-            {
-                throw new InvalidUserInputException(
-                    "Aircraft type cannot be empty.");
-            }
-
-            string reg = elem.Registration.Text.Trim().ToUpper();
-
-            if (reg == "")
-            {
-                throw new InvalidUserInputException(
-                    "Registration cannot be empty.");
-            }
-
             var wtUnit = elem.ZfwUnit.SelectedIndex == 0 ?
                             WeightUnit.KG :
                             WeightUnit.LB;
@@ -66,14 +50,35 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             maxToWt *= wtUnitFactor;
             maxLdgWt *= wtUnitFactor;
 
-            return new AircraftConfigItem(acType,
-                reg,
+            return new AircraftConfigItem(
+                elem.AcType.Text.Trim(),
+                elem.Registration.Text.Trim().ToUpper(),
                 elem.ToProfile.Text,
                 elem.LdgProfile.Text,
                 zfw,
                 maxToWt,
                 maxLdgWt,
                 wtUnit);
+        }
+
+        /// <exception cref="InvalidUserInputException"></exception>
+        public AircraftConfigItem Validate()
+        {
+            var item = Read();
+
+            if (item.AC == "")
+            {
+                throw new InvalidUserInputException(
+                                   "Aircraft type cannot be empty.");
+            }
+
+            if (item.Registration == "")
+            {
+                throw new InvalidUserInputException(
+                    "Registration cannot be empty.");
+            }
+
+            return item;
         }
     }
 }

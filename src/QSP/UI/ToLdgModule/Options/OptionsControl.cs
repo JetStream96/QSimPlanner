@@ -231,6 +231,7 @@ namespace QSP.UI.ToLdgModule.Options
             var panel = new Panel();
             panel.Size = new Size(450, 100);
             panel.BackColor = Color.FromArgb(216, 244, 215);
+            panel.BorderStyle = BorderStyle.FixedSingle;
             var pt = infoLbl.Location;
             panel.Location = new Point(pt.X - 150, pt.Y + 100);
 
