@@ -15,6 +15,18 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_0786E3956B54DBDDFBB73B3BFBE44643"
+        "OwnerKey" = "8:_38E9DEAE47E0428397A413C74D698CD1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0786E3956B54DBDDFBB73B3BFBE44643"
+        "OwnerKey" = "8:_C42158346713B50726425D5396CA23A3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_26B44B3865DD47CA8B35B931364810A8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -59,6 +71,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C42158346713B50726425D5396CA23A3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0786E3956B54DBDDFBB73B3BFBE44643"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -168,6 +186,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0786E3956B54DBDDFBB73B3BFBE44643"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MinMaxHeap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_0786E3956B54DBDDFBB73B3BFBE44643"
+                    {
+                    "Name" = "8:MinMaxHeap.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MinMaxHeap.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D0F16B05A31146A0BB70BC3CBA71C690"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_26B44B3865DD47CA8B35B931364810A8"
             {
             "SourcePath" = "8:..\\QspLite\\bin\\Release\\LICENSE.txt"
@@ -223,7 +272,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:QSP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:QSP, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_C42158346713B50726425D5396CA23A3"
@@ -338,7 +387,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QspLite"
         "ProductCode" = "8:{9DA12A33-E6CA-400B-B1E8-F0270597F333}"
-        "PackageCode" = "8:{08046D61-107F-4358-B046-C84C50EED58C}"
+        "PackageCode" = "8:{7B3F2FFB-426C-4431-BACF-3F389FCBAA5E}"
         "UpgradeCode" = "8:{4BECDD68-7997-4883-A2ED-079F13BF5E0A}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -361,7 +410,7 @@
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
-        "PostBuildEvent" = "8:"
+        "PostBuildEvent" = "8:cd $(ProjectDir) \r\nIExpress /N /Q package_to_single_exe.sed"
         "RunPostBuildEvent" = "3:0"
         }
         "Registry"
