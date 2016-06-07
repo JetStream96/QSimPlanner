@@ -7,7 +7,6 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using System;
 using System.Collections.Generic;
-using static QSP.RouteFinding.Constants;
 
 namespace QSP.RouteFinding
 {
@@ -112,9 +111,11 @@ namespace QSP.RouteFinding
 
             while (index != startPtIndex)
             {
+                var finderData = FindRouteData.WaypointData[index];
+
                 waypoints.Add(wptList[index]);
-                airways.Add(FindRouteData.WaypointData[index].FromAirway);
-                totalDistances.Add(FindRouteData.WaypointData[index].CurrentDistance);
+                airways.Add(finderData.FromAirway);
+                totalDistances.Add(finderData.CurrentDistance);
 
                 index = FindRouteData.WaypointData[index].FromWptIndex;
             }
@@ -155,13 +156,16 @@ namespace QSP.RouteFinding
         }
 
         /// <summary>
-        /// Finds a route from the waypoint in wptList with index startPtIndex, to endPtIndex.
+        /// Finds a route from the waypoint in wptList with 
+        /// index startPtIndex, to endPtIndex.
         /// </summary>
         /// <exception cref="RouteNotFoundException"></exception>
         private Route getRoute(int startPtIndex, int endPtIndex)
         {
             var FindRouteData = new routeFindingData(wptList.MaxSize);
-            var regionPara = new routeSeachRegionPara(startPtIndex, endPtIndex, 0.0, wptList);
+            var regionPara = new routeSeachRegion(
+                startPtIndex, endPtIndex, 0.0, wptList);
+
             bool routeFound = false;
 
             while (routeFound == false && regionPara.c <= 3000.0)
@@ -180,7 +184,8 @@ namespace QSP.RouteFinding
             }
         }
 
-        private bool findRouteAttempt(routeSeachRegionPara regionPara, routeFindingData findRouteData)
+        private bool findRouteAttempt(
+            routeSeachRegion regionPara, routeFindingData findRouteData)
         {
             findRouteData.InitializeDistance(regionPara.StartPtIndex);
 
@@ -195,14 +200,21 @@ namespace QSP.RouteFinding
                 {
                     return true;
                 }
-                updateNeighbors(current.Key, regionPara, findRouteData, unvisited, current.Value);
+
+                updateNeighbors(
+                    current.Key,
+                    regionPara,
+                    findRouteData,
+                    unvisited,
+                    current.Value);
             }
+
             return false; //Route not found.            
         }
 
         private void updateNeighbors(
             int currentWptIndex,
-            routeSeachRegionPara regionPara,
+            routeSeachRegion regionPara,
             routeFindingData FindRouteData,
             MinHeap<int, double> unvisited,
             double currentDis)
@@ -217,9 +229,9 @@ namespace QSP.RouteFinding
                 {
                     double newDis = currentDis + edge.Value.Distance;
 
-                    if (Math.Abs(wptData[index].CurrentDistance - MAX_DIS) < 1E-3 &&
-                        newDis < MAX_DIS)
+                    if (wptData[index].CurrentDistance == double.PositiveInfinity)
                     {
+                        // The node was never touched.
                         unvisited.Add(index, newDis);
                         wptData[index] = new routeFindingData.WaypointStatus(
                             currentWptIndex, edge.Value.Airway, newDis);
@@ -236,13 +248,16 @@ namespace QSP.RouteFinding
             }
         }
 
-        private bool wptWithinRange(int wptIndex, routeSeachRegionPara regionPara)
+        private bool wptWithinRange(
+            int wptIndex, routeSeachRegion regionPara)
         {
             //suppose the orig and dest rwys are already in the wptList
-            return 
-                (wptList.Distance(regionPara.StartPtIndex, wptIndex) + 
-                wptList.Distance(regionPara.EndPtIndex, wptIndex) <
-                2 * Math.Sqrt(regionPara.b * regionPara.b + regionPara.c * regionPara.c));
+            var p = regionPara;
+
+            return
+                wptList.Distance(p.StartPtIndex, wptIndex) +
+                wptList.Distance(p.EndPtIndex, wptIndex) <
+                2 * Math.Sqrt(p.b * p.b + p.c * p.c);
         }
 
         #region Helper Classes
@@ -253,7 +268,7 @@ namespace QSP.RouteFinding
 
             public routeFindingData() { }
 
-            /// <param name="Count">Total number of waypoints</param>
+            // Count: Total number of waypoints
             public routeFindingData(int Count)
             {
                 WaypointData = new WaypointStatus[Count];
@@ -265,8 +280,10 @@ namespace QSP.RouteFinding
 
                 for (int i = 0; i < len; i++)
                 {
-                    WaypointData[i].CurrentDistance = MAX_DIS;
+                    // Initial distance
+                    WaypointData[i].CurrentDistance = double.PositiveInfinity;
                 }
+
                 WaypointData[startPtIndex].CurrentDistance = 0.0;
             }
 
@@ -276,7 +293,10 @@ namespace QSP.RouteFinding
                 public string FromAirway { get; set; }
                 public double CurrentDistance { get; set; }
 
-                public WaypointStatus(int FromWptIndex, string FromAirway, double CurrentDistance)
+                public WaypointStatus(
+                    int FromWptIndex,
+                    string FromAirway,
+                    double CurrentDistance)
                 {
                     this.FromWptIndex = FromWptIndex;
                     this.FromAirway = FromAirway;
@@ -285,14 +305,18 @@ namespace QSP.RouteFinding
             }
         }
 
-        private class routeSeachRegionPara
+        private class routeSeachRegion
         {
             public int StartPtIndex;
             public int EndPtIndex;
             public double b;
             public double c;
 
-            public routeSeachRegionPara(int StartPtIndex, int EndPtIndex, double c, WaypointList wptList)
+            public routeSeachRegion(
+                int StartPtIndex,
+                int EndPtIndex,
+                double c,
+                WaypointList wptList)
             {
                 this.StartPtIndex = StartPtIndex;
                 this.EndPtIndex = EndPtIndex;
