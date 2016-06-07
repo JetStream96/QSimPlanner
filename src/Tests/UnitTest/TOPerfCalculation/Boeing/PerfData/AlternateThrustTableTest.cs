@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using static QSP.TOPerfCalculation.Boeing.PerfData.AlternateThrustTable;
 
 namespace UnitTest.TOPerfCalculation.Boeing.PerfData
 {
-    [TestClass]
+    [TestFixture]
     public class AlternateThrustTableTest
     {
         private const double delta = 1E-7;
@@ -15,7 +15,7 @@ namespace UnitTest.TOPerfCalculation.Boeing.PerfData
             new double[] { 192.0, 242.0 },
             new double[] { 180.0, 230.0 });
 
-        [TestMethod]
+        [Test]
         public void CorrectedLimitWeightTest()
         {
             Assert.AreEqual(202.5,
@@ -31,7 +31,7 @@ namespace UnitTest.TOPerfCalculation.Boeing.PerfData
                 delta);
         }
 
-        [TestMethod]
+        [Test]
         public void EquivalentFullThrustWeightTest()
         {
             Assert.AreEqual(212.5,

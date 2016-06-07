@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 
 namespace UnitTest.TOPerfCalculation.Boeing.PerfData
 {
-    [TestClass]
+    [TestFixture]
     public class SlopeCorrTableTest
     {
         private const double delta = 1E-7;
@@ -16,13 +16,13 @@ namespace UnitTest.TOPerfCalculation.Boeing.PerfData
                     new double[] { 2400.0, 2200.0 }
                 });
 
-        [TestMethod]
+        [Test]
         public void CorrectedLengthTest()
         {
             Assert.AreEqual(2068.75, table.CorrectedLength(2100.0, 0.25), delta);
         }
 
-        [TestMethod]
+        [Test]
         public void FieldLengthRequiredTest()
         {
             Assert.AreEqual(2100.0, table.FieldLengthRequired(0.25, 2068.75), delta);

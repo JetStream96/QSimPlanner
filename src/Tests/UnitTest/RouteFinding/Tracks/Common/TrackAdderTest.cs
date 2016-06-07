@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Containers;
@@ -10,10 +10,10 @@ using System.Linq;
 
 namespace UnitTest.RouteFinding.Tracks.Common
 {
-    [TestClass]
+    [TestFixture]
     public class TrackAdderTest
     {
-        [TestMethod]
+        [Test]
         public void AddsMainRouteCorrectly()
         {
             // Arrange
@@ -48,7 +48,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
 
         }
         
-        [TestMethod]
+        [Test]
         public void WhenMainRouteWptDoesNotExistShouldRecordFailure()
         {
             // Arrange

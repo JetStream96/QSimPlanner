@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using static QSP.AviationTools.Coordinates.Format7Letter;
 
 namespace UnitTest.AviationTools.Coordinates
 {
-    [TestClass]
+    [TestFixture]
     public class Format7LetterTest
     {
-        [TestMethod()]
+        [Test]
         public void WhenFormatIsWrongReturnFalse()
         {
             LatLon r;
@@ -19,7 +19,7 @@ namespace UnitTest.AviationTools.Coordinates
             Assert.IsFalse(TryReadFrom7LetterFormat("37N200E", out r));
         }
 
-        [TestMethod()]
+        [Test]
         public void WhenFormatIsCorrectReturnTrue()
         {
             LatLon r;
@@ -28,7 +28,7 @@ namespace UnitTest.AviationTools.Coordinates
             Assert.IsTrue(TryReadFrom7LetterFormat("37S155W", out r));
         }
 
-        [TestMethod()]
+        [Test]
         public void WhenFormatIsCorrectConvert()
         {
             Assert.IsTrue(ReadFrom7LetterFormat("36N170W").Equals(new LatLon(36.0, -170.0)));
@@ -37,7 +37,7 @@ namespace UnitTest.AviationTools.Coordinates
             Assert.IsTrue(ReadFrom7LetterFormat("57S110W").Equals(new LatLon(-57.0, -110.0)));
         }
 
-        [TestMethod]
+        [Test]
         public void OutputStringAsExpected()
         {
             Assert.IsTrue(To7LetterFormat(36.0, -170.0).Equals("36N170W"));

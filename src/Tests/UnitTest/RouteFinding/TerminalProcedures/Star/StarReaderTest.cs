@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using QSP.RouteFinding.Containers;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 {
-    [TestClass]
+    [TestFixture]
     public class StarReaderTest
     {
         private static string TxtData = @"STAR,STAR1,ALL,2
@@ -24,7 +24,7 @@ TF,WPT00,-49.8486,-120.516,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,
 IF,WPT01,-50.00,-121.000,0.0,0.0,0,0,0,0,0,0,0,0, 
 ";
 
-        [TestMethod]
+        [Test]
         public void StarRwySpecific()
         {
             Assert.IsTrue(containResult(GetStarCollection(),
@@ -35,7 +35,7 @@ IF,WPT01,-50.00,-121.000,0.0,0.0,0,0,0,0,0,0,0,0,
                                         EntryType.RwySpecific));
         }
 
-        [TestMethod]
+        [Test]
         public void StarCommonPart()
         {
             Assert.IsTrue(containResultCommonPart(GetStarCollection(),
@@ -44,7 +44,7 @@ IF,WPT01,-50.00,-121.000,0.0,0.0,0,0,0,0,0,0,0,0,
                                                              new Waypoint("WPT02", -50.0145, -121.015656))));                                                  
         }
 
-        [TestMethod]
+        [Test]
         public void StarTransitionPart()
         {
             Assert.IsTrue(containResult(GetStarCollection(), 

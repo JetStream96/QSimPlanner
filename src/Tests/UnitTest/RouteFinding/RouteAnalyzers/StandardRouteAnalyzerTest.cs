@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
@@ -13,7 +13,7 @@ using static UnitTest.Common.Utilities;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
 {
-    [TestClass]
+    [TestFixture]
     public class StandardRouteAnalyzerTest
     {
         private AirportManager airportList;
@@ -44,7 +44,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                                                       EntryType.RwySpecific) });
         }
 
-        [TestMethod]
+        [Test]
         public void EmptyRouteShouldReturnDirect()
         {
             // Setup
@@ -75,7 +75,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
         #region Group1 - Same route
 
-        [TestMethod]
+        [Test]
         public void FullSidStarShouldGetCorrectRoute()
         {
             // Last wpt of SID and first wpt in STAR not in wptList.
@@ -90,7 +90,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             assertRoute1(route);
         }
 
-        [TestMethod]
+        [Test]
         public void FullSidStarWithIcaosShouldGetCorrectRoute()
         {
             // Setup
@@ -181,7 +181,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             return wptList;
         }
 
-        [TestMethod]
+        [Test]
         public void SidStarAirwayIcao1ShouldGetCorrectRoute()
         {
             // Setup
@@ -194,7 +194,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             assertRoute2(route);
         }
 
-        [TestMethod]
+        [Test]
         public void SidStarAirwayIcao2ShouldGetCorrectRoute()
         {
             // Setup
@@ -207,7 +207,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             assertRoute2(route);
         }
 
-        [TestMethod]
+        [Test]
         public void SidStarAirwayIcao3ShouldGetCorrectRoute()
         {
             // Setup

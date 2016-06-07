@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Pacots.Eastbound;
 
 namespace UnitTest.RouteFinding.Tracks.Pacots.Eastbound
 {
-    [TestClass]
+    [TestFixture]
     public class SplitterTest
     {
-        [TestMethod]
+        [Test]
         public void SplitTest()
         {
             var text = @" EASTBOUND TRACKS  ...

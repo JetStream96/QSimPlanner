@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.TOPerfCalculation.Boeing;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using System;
@@ -8,14 +8,14 @@ using static QSP.MathTools.Angles;
 
 namespace UnitTest.TOPerfCalculation.Boeing
 {
-    [TestClass]
+    [TestFixture]
     public class TOCalculatorTest
     {
         private static BoeingPerfTable perfTable =
             new PerfDataLoader()
             .ReadTable(XDocument.Parse(new TestData().PerfXml).Root);
 
-        [TestMethod]
+        [Test]
         public void TODistanceInterpolationTest()
         {
             var para = new TOParameters(
@@ -65,7 +65,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
                 para.RwySlope, slopeCorrectedLength);
         }
 
-        [TestMethod]
+        [Test]
         public void TODistancePackAICorrectionTest()
         {
             var para = new TOParameters(
@@ -112,7 +112,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
                 para.RwySlope, slopeCorrectedLength);
         }
 
-        [TestMethod]
+        [Test]
         public void TODistanceDerateTest()
         {
             var para = new TOParameters(
@@ -146,7 +146,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
                 distanceMeter, 1E-7);
         }
 
-        [TestMethod]
+        [Test]
         public void FieldLimitWtTest()
         {
             var para = new TOParameters(
@@ -196,7 +196,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
                         para.OatCelsius);
         }
 
-        [TestMethod]
+        [Test]
         public void ClimbLimitWtTest()
         {
             var para = new TOParameters(

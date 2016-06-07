@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Pacots.Eastbound;
 
 namespace UnitTest.RouteFinding.Tracks.Pacots.Eastbound
 {
-    [TestClass]
+    [TestFixture]
     public class ConnectionRouteSeperatorTest
     {
-        [TestMethod]
+        [Test]
         public void SeperateTest()
         {
             var text = @"JAPAN ROUTE : ONION OTR5 KALNA
@@ -25,7 +25,7 @@ namespace UnitTest.RouteFinding.Tracks.Pacots.Eastbound
             Assert.IsTrue(result[3] == "ORNAI SIMLU KEPKO YAZ FOCHE CYVR        ");
         }
 
-        [TestMethod]
+        [Test]
         public void SeperateMultiLineTest()
         {
             var text = @"JAPAN ROUTE : ONION OTR5 KALNA

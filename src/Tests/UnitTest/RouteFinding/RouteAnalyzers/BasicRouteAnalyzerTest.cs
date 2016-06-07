@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
@@ -10,10 +10,10 @@ using static UnitTest.Common.Utilities;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
 {
-    [TestClass]
+    [TestFixture]
     public class BasicRouteAnalyzerTest
     {
-        [TestMethod]
+        [Test]
         public void SingleEntryInRoute()
         {
             // setup
@@ -31,7 +31,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             Assert.IsTrue(route.First.Waypoint.Equals(new Waypoint("P", 20.0, 100.0)));
         }
 
-        [TestMethod]
+        [Test]
         public void WhenRouteUseAirwaysAnalyzeCorrectness()
         {
             // setup
@@ -76,7 +76,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                           node == route.LastNode);
         }
 
-        [TestMethod]
+        [Test]
         public void WhenRouteUseDirectAnalyzeCorrectness()
         {
             // setup
@@ -113,7 +113,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                           node == route.LastNode);
         }
 
-        [TestMethod]
+        [Test]
         public void WhenRouteUseCoordAnalyzeCorrectness()
         {
             // setup
@@ -129,8 +129,8 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             Assert.AreEqual(node.Value.Waypoint.Lon, -50.0, 1E-8);
             Assert.IsTrue(node.Value.AirwayToNext == "DCT");
-            Assert.AreEqual(node.Value.DistanceToNext, 
-                            Distance(41.0, -50.0, 41.3, -50.55), 
+            Assert.AreEqual(node.Value.DistanceToNext,
+                            Distance(41.0, -50.0, 41.3, -50.55),
                             1E-8);
 
             node = node.Next;
@@ -139,8 +139,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             Assert.IsTrue(node == route.LastNode);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidIdentifierException))]
+        [Test]
         public void WhenIdentDoesNotExistShouldThrowException()
         {
             // setup
@@ -151,11 +150,11 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                                                   wptList,
                                                   0);
             // invoke 
-            var route = analyzer.Analyze();
+            Assert.Throws<InvalidIdentifierException>(() =>
+            analyzer.Analyze());
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Test]
         public void WhenFirstWptIndexIsWrongShouldThrowException()
         {
             // setup
@@ -163,11 +162,13 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             wptList.AddWaypoint(new Waypoint("P00", 3.051, 20.0));
             wptList.AddWaypoint(new Waypoint("P00", 3.051, 20.0));
 
-            var analyzer = new BasicRouteAnalyzer(new string[] { "P01", "P02" },
-                                                  wptList,
-                                                  0);
-            // invoke 
-            var route = analyzer.Analyze();
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var analyzer = new BasicRouteAnalyzer(
+                    new string[] { "P01", "P02" },
+                    wptList,
+                    0);
+            });
         }
     }
 }

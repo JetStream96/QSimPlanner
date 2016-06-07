@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
@@ -8,14 +8,14 @@ using QSP.RouteFinding.Data.Interfaces;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 {
-    [TestClass]
+    [TestFixture]
     public class StarCollectionTest
     {
         private Waypoint runway05 = new Waypoint("ABCD05", 10.0, 19.0);
 
         #region OnlyRwySpecificPart
 
-        [TestMethod]
+        [Test]
         public void GetSidInfoTest_OnlyRwySpecificPart()
         {
             var info = new StarCollection(CreateList(rwySpecificPart())).GetStarInfo("STAR1", "05", runway05);
@@ -45,7 +45,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 
         #region RwySpecificAndCommonPart
 
-        [TestMethod]
+        [Test]
         public void GetSidInfoTest_RwySpecificAndCommonPart()
         {
             var info = new StarCollection(CreateList(rwySpecificPart(),
@@ -77,7 +77,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 
         #region RwySpecificAndCommonAndTransitionPart
 
-        [TestMethod]
+        [Test]
         public void GetSidInfoTest_RwySpecificAndCommonAndTransitionPart()
         {
             var info = new StarCollection(CreateList(rwySpecificPart(),

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.AirwayStructure;
@@ -10,10 +10,10 @@ using QSP.RouteFinding.Airports;
 
 namespace UnitTest.RouteFinding.Tracks.Common
 {
-    [TestClass]
+    [TestFixture]
     public class TrackReaderTest
     {
-        [TestMethod]
+        [Test]
         public void AddsMainRouteCorrectly()
         {
             // Arrange
@@ -51,7 +51,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
             Assert.IsTrue(route.Last.Waypoint.Equals(p2));
         }
 
-        [TestMethod]
+        [Test]
         public void ConnectionRoutesAddedCorrectly()
         {
             // Arrange

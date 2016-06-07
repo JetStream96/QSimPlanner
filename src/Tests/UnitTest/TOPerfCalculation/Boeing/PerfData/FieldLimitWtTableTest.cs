@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 
 namespace UnitTest.TOPerfCalculation.Boeing.PerfData
 {
-    [TestClass]
+    [TestFixture]
     public class FieldLimitWtTableTest
     {
         private const double delta = 1E-7;
@@ -25,14 +25,14 @@ namespace UnitTest.TOPerfCalculation.Boeing.PerfData
                     }
                 });
 
-        [TestMethod]
+        [Test]
         public void FieldLimitWeightTest()
         {
             Assert.AreEqual(212.5,
                 table.FieldLimitWeight(1000.0, 2250.0, 15.0), delta);
         }
 
-        [TestMethod]
+        [Test]
         public void CorrectedLengthRequiredTest()
         {
             Assert.AreEqual(2250.0,

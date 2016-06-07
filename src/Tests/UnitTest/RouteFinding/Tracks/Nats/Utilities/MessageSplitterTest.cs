@@ -1,17 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Nats.Utilities;
 using QSP.RouteFinding.Tracks.Nats;
 using System.Collections.Generic;
 
 namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
 {
-    [TestClass]
+    [TestFixture]
     public class MessageSplitterTest
     {
         // Beware that there are strange ASCII characters in the string,
         // which aren't visible unless in a text editor like Sublime.
 
-        [TestMethod]
+        [Test]
         public void BothDirectionExists()
         {
             string html =
@@ -76,7 +76,7 @@ namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
 
         }
 
-        [TestMethod]
+        [Test]
         public void OnlyEastboundExists()
         {
             string html =

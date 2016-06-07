@@ -1,20 +1,20 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Common;
 
 namespace UnitTest.RouteFinding.Tracks.Interaction
 {
-    [TestClass]
+    [TestFixture]
     public class StatusRecorderTest
     {
-        [TestMethod]
+        [Test]
         public void NewRecorderShouldBeEmpty()
         {
             var sr = new StatusRecorder();
             Assert.AreEqual(0, sr.Records.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void AddRecordTest()
         {
             var sr = new StatusRecorder();
@@ -27,7 +27,7 @@ namespace UnitTest.RouteFinding.Tracks.Interaction
             Assert.IsTrue(items[0].Type == TrackType.Pacots);
         }
 
-        [TestMethod]
+        [Test]
         public void AfterClearShouldBeEmpty()
         {
             var sr = new StatusRecorder();

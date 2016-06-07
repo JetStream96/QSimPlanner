@@ -1,18 +1,18 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using QSP.LibraryExtension.Graph;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace UnitTest.LibraryExtensionTest
 {
-    [TestClass]
+    [TestFixture]
     public class GraphTest
     {
         // In writing this test, the mechanism of FixedIndexList is sometimes assumed. 
         // i.e. When adding N elements to a new FixedIndexList, their indices should be 0, 1, ... ,N-1.
 
-        [TestMethod]
+        [Test]
         public void AddThenGetNode()
         {
             var graph = new Graph<int, string>();
@@ -76,7 +76,7 @@ namespace UnitTest.LibraryExtensionTest
             return x;
         }
 
-        [TestMethod]
+        [Test]
         // This method tests EdgesFrom(int), and GetEdge(int).
         public void AddEdge_ReadWithForEach()
         {
@@ -98,23 +98,25 @@ namespace UnitTest.LibraryExtensionTest
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Test]
         public void AccessNonExistingNode_Exception()
         {
             var graph = createGraph0();
-            graph.GetNode(100);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            graph.GetNode(100));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(IndexOutOfRangeException))]
+        [Test]
         public void AccessNonExistingEdge_Exception()
         {
             var graph = createGraph0();
-            graph.GetEdge(0);
+
+            Assert.Throws<IndexOutOfRangeException>(() =>
+            graph.GetEdge(0));
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveEdgeTest()
         {
             var tuple = createGraph2();
@@ -152,8 +154,7 @@ namespace UnitTest.LibraryExtensionTest
             return new Tuple<int, Graph<int, string>>(graph.AddEdge(N, M, (N * M).ToString()), graph);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Test]
         public void RemoveNode_CheckNodeRemoved()
         {
             var graph = createGraph1();
@@ -162,10 +163,11 @@ namespace UnitTest.LibraryExtensionTest
             graph.RemoveNode(N);
 
             // Check the node is removed.
-            graph.GetNode(N);
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            graph.GetNode(N));
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveNode_CheckEdgesRemoved()
         {
             var graph = createGraph1();

@@ -1,19 +1,23 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.NavData.OpenData;
 using QSP.RouteFinding.Airports;
+using System;
 using System.Linq;
 
 namespace UnitTest.NavData.OpenData
 {
-    [TestClass]
+    [TestFixture]
     public class AirportDataLoaderTest
     {
         private const double delta = 0.005;
 
-        [TestMethod]
+        [Test]
         public void LoadFromFileTest()
         {
-            var loader = new AirportDataLoader(@"NavData\OpenData");
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
+            var loader = new AirportDataLoader(
+                directory + @"\NavData\OpenData");
+
             var airports = loader.LoadFromFile();
 
             // Airport parameter incomplete - should not load.

@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace UnitTest.LibraryExtension.StringParser
 {
-    [TestClass]
+    [TestFixture]
     public class UtilitiesTest
     {
-        [TestMethod]
+        [Test]
         public void ParseIntTest()
         {
             int x;

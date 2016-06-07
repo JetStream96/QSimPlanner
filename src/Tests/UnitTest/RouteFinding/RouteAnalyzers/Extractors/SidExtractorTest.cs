@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using System.Collections.Generic;
 using QSP.RouteFinding.TerminalProcedures.Sid;
@@ -10,10 +10,10 @@ using static QSP.MathTools.GCDis;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 {
-    [TestClass]
+    [TestFixture]
     public class SidExtractorTest
     {
-        [TestMethod]
+        [Test]
         public void WhenInputIsEmptyLinkedListShouldReturnRwy()
         {
             var route = new LinkedList<string>();
@@ -26,7 +26,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsTrue(origRoute.First.Waypoint.Equals(rwyWpt));
         }
 
-        [TestMethod]
+        [Test]
         public void WhenExistsShouldRemoveIcao()
         {
             var route = new LinkedList<string>(new string[] { "RCTP", "HLG", "A1", "MKG" });
@@ -38,7 +38,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsFalse(origRoute.First.Waypoint.ID == "RCTP");
         }
 
-        [TestMethod]
+        [Test]
         public void WhenSidExistsShouldRemoveAndAddToOrigRoute()
         {
             // Setup
@@ -77,7 +77,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
         }
 
-        [TestMethod]
+        [Test]
         public void WhenSidLastWptNotInWptListShouldRemoveFromRoute()
         {
             // Setup

@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using QSP.LibraryExtension;
 
 namespace UnitTest.LibraryExtension
 {
-    [TestClass]
+    [TestFixture]
     public class DoubleArraysTest
     {
-        [TestMethod]
+        [Test]
         public void StrictlyIncreasingTest()
         {
             Assert.IsTrue(new double[] { 3.0, 4.0 }
@@ -20,22 +20,21 @@ namespace UnitTest.LibraryExtension
             .IsStrictlyIncreasing());
         }
 
-        [TestMethod]
+        [Test]
         public void OneElementAlwaysStrictlyIncreasing()
         {
             Assert.IsTrue(new double[] { 3.0 }
             .IsStrictlyIncreasing());
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Test]
         public void EmptyArrayIsIncreasingThrowException()
         {
-            Assert.IsTrue(new double[] { }
-            .IsStrictlyIncreasing());
+            Assert.Throws<ArgumentException>(() =>
+            new double[] { }.IsStrictlyIncreasing());
         }
 
-        [TestMethod]
+        [Test]
         public void StrictlyDecreasingTest()
         {
             Assert.IsTrue(new double[] { 3.0, 2.0 }
@@ -48,19 +47,18 @@ namespace UnitTest.LibraryExtension
             .IsStrictlyDecreasing());
         }
 
-        [TestMethod]
+        [Test]
         public void OneElementAlwaysStrictlyDecreasing()
         {
             Assert.IsTrue(new double[] { 3.0 }
             .IsStrictlyDecreasing());
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Test]
         public void EmptyArrayIsDecreasingThrowException()
         {
-            Assert.IsTrue(new double[] { }
-            .IsStrictlyDecreasing());
+            Assert.Throws<ArgumentException>(() =>
+            new double[] { }.IsStrictlyDecreasing());
         }
     }
 }

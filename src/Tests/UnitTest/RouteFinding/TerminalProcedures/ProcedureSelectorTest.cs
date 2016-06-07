@@ -1,23 +1,23 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Containers;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest
 {
-    [TestClass]
+    [TestFixture]
     public class ProcedureSelectorTest
     {
 
-        [TestMethod]
+        [Test]
         public void WhenThereIsNoSidThenReturnEmptyList()
         {
             var avaliableSids = new ProcedureSelector<SidEntry>(new List<SidEntry>(), "14").GetProcedureList();
             Assert.AreEqual(0, avaliableSids.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void WhenSidIsRwySpecific()
         {
             var sids = sidEntryCreateHelper(new sidData("14", "SID1", EntryType.RwySpecific),
@@ -28,7 +28,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
             Assert.IsTrue(avaliableSids[0] == "SID1");
         }
 
-        [TestMethod]
+        [Test]
         public void WhenCommonPartExists()
         {
             var sids = sidEntryCreateHelper(new sidData("14", "SID1", EntryType.Common));
@@ -38,7 +38,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
             Assert.IsTrue(avaliableSids[0] == "SID1");
         }
 
-        [TestMethod]
+        [Test]
         public void WhenCommonPartIsNotForTheInterestedRwy()
         {
             var sids = sidEntryCreateHelper(new sidData("ALL", "SID1", EntryType.Common),
@@ -50,7 +50,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
             Assert.IsTrue(avaliableSids[0] == "SID2");
         }
 
-        [TestMethod]
+        [Test]
         public void WhenTransitionIsAvailableThenNoTransitionPartIsIgnored()
         {
             var sids = sidEntryCreateHelper(new sidData("14", "SID1", EntryType.RwySpecific),
@@ -63,7 +63,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
             Assert.IsTrue(avaliableSids.Contains("SID1.TRANS2"));
         }
 
-        [TestMethod]
+        [Test]
         public void WhenTransitionIsForWrongRwyThenDoesNotAddToResult()
         {
             var sids = sidEntryCreateHelper(new sidData("25", "SID2", EntryType.RwySpecific),

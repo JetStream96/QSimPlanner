@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.LandingPerfCalculation;
 using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
@@ -9,12 +9,12 @@ using QSP.Common;
 
 namespace UnitTest.LandingPerfCalculation.Boeing
 {
-    [TestClass]
+    [TestFixture]
     public class LandingReportGeneratorTest
     {
         private const double delta = 1E-7;
 
-        [TestMethod]
+        [Test]
         public void GetReportTest()
         {
             string text = new TestData().AllText;
@@ -86,8 +86,7 @@ namespace UnitTest.LandingPerfCalculation.Boeing
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(RunwayTooShortException))]
+        [Test]
         public void WhenRwyIsTooShortShouldThrowException()
         {
             string text = new TestData().AllText;
@@ -108,7 +107,10 @@ namespace UnitTest.LandingPerfCalculation.Boeing
                 0,
                 0);
 
-            var report = new LandingReportGenerator(table, para).GetReport();
+            Assert.Throws<RunwayTooShortException>(() =>
+            {
+                var report = new LandingReportGenerator(table, para).GetReport();
+            });
         }
     }
 }

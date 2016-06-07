@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using static QSP.RouteFinding.Tracks.Nats.Utilities.LatLonConverter;
 
 namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
 {
-    [TestClass]
+    [TestFixture]
     public class LatLonConverterTest
     {
-        [TestMethod]
+        [Test]
         public void WrongFormatShouldReturnFalse()
         {
             LatLon x;
@@ -16,7 +16,7 @@ namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
             Assert.IsFalse(TryConvertNatsCoordinate("45/-20", out x));
         }
 
-        [TestMethod]
+        [Test]
         public void CorrectFormatResultMatch()
         {
             Assert.IsTrue(ConvertNatsCoordinate("4550/20").Equals(new LatLon(45.0 + 50.0 / 60, -20.0)));
@@ -26,7 +26,7 @@ namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
             Assert.IsTrue(ConvertNatsCoordinate("4530/2045.5").Equals(new LatLon(45.0 + 30.0 / 60, -(20.0 + 45.5 / 60))));
         }
 
-        [TestMethod]
+        [Test]
         public void AutoChooseFormatCorrectly()
         {
             Assert.IsTrue(new LatLon(50.0, -30.0).AutoChooseFormat() == "5030N");

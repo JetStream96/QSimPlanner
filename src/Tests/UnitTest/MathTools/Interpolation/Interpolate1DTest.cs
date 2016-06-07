@@ -1,32 +1,32 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System;
 using static QSP.MathTools.Interpolation.Interpolate1D;
 
 namespace UnitTest.MathTools.Interpolation
 {
-    [TestClass]
+    [TestFixture]
     public class Interpolate1DTest
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Test]
         public void X0X1AreTheSameThrowException()
         {
-            double val = Interpolate(10.0, 10.0, 3, 5, 10.0);
+            Assert.Throws<ArgumentException>(() =>
+            Interpolate(10.0, 10.0, 3, 5, 10.0));
         }
 
-        [TestMethod]
+        [Test]
         public void X0X1AreTheSameTrivialCase()
         {
             Assert.AreEqual(5.0, Interpolate(10.0, 10.0, 5.0, 5.0, 10.0), 1E-6);
         }
 
-        [TestMethod]
+        [Test]
         public void InterpolateTest1()
         {
             Assert.AreEqual(-4.0, Interpolate(3.0, 5.0, -8.0, 8.0, 3.5), 1E-6);
         }
 
-        [TestMethod]
+        [Test]
         public void InterpolateTest2()
         {
             Assert.AreEqual(12.2,
@@ -36,7 +36,7 @@ namespace UnitTest.MathTools.Interpolation
                             1E-6);
         }
 
-        [TestMethod]
+        [Test]
         public void InterpolateTest3()
         {
             Assert.AreEqual(12.2,

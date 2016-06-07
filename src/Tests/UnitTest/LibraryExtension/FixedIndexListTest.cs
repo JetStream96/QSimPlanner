@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.LibraryExtension;
 using System;
 using System.Collections.Generic;
 
 namespace UnitTest.LibraryExtensionTest
 {
-    [TestClass()]
+    [TestFixture]
     public class FixedIndexListTest
     {
-        [TestMethod]
+        [Test]
         public void CreateListTest()
         {
             var item = new FixedIndexList<double>();
@@ -38,13 +38,13 @@ namespace UnitTest.LibraryExtensionTest
             return item;
         }
 
-        [TestMethod]
+        [Test]
         public void AddItemsTest()
         {
             var item = createList();
         }
 
-        [TestMethod]
+        [Test]
         public void ReadItemCorrectnessTest()
         {
             var item = createList();
@@ -55,7 +55,7 @@ namespace UnitTest.LibraryExtensionTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void SmallListCorrectSizeTest()
         {
             Assert.AreEqual(4, createList(1).Capacity);
@@ -64,7 +64,7 @@ namespace UnitTest.LibraryExtensionTest
             Assert.AreEqual(4, createList(4).Capacity);
         }
 
-        [TestMethod]
+        [Test]
         public void LargeListCorrectSizeTest()
         {
             int capacity = createList(150000).Capacity;
@@ -74,7 +74,7 @@ namespace UnitTest.LibraryExtensionTest
             Assert.IsTrue(capacity >= 31000 && capacity <= 31000 * 2);
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveAtCorrectnessTest()
         {
             var item = createList(58200);
@@ -90,17 +90,19 @@ namespace UnitTest.LibraryExtensionTest
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Test]
         public void AccessRemovedItemThrowException()
         {
             var item = createList(58200);
             item.RemoveAt(35688);
 
-            var x = item[35688];
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                var x = item[35688];
+            });
         }
 
-        [TestMethod]
+        [Test]
         public void SetValueCorrectnessTest()
         {
             var item = createList(1280);
@@ -116,16 +118,19 @@ namespace UnitTest.LibraryExtensionTest
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Test]
         public void SetRemovedItemThrowException()
         {
             var item = createList(58200);
             item.RemoveAt(35688);
-            item[35688] = 123.005;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                item[35688] = 123.005;
+            });
         }
 
-        [TestMethod]
+        [Test]
         public void SetCapacityTest()
         {
             var item = createList(1280);
@@ -142,15 +147,18 @@ namespace UnitTest.LibraryExtensionTest
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Test]
         public void SetCapacityTooSmallThrowException()
         {
             var item = createList(1280);
-            item.Capacity = 1279;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                item.Capacity = 1279;
+            });
         }
 
-        [TestMethod]
+        [Test]
         public void InsertAfterRemovalTest()
         {
             var item = createList(58200);
@@ -183,7 +191,7 @@ namespace UnitTest.LibraryExtensionTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void InsertionAfterRemovalHasCorrectValue()
         {
             var item = createList(58200);
@@ -215,7 +223,7 @@ namespace UnitTest.LibraryExtensionTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CountPropertyTest()
         {
             // New instance
@@ -245,7 +253,7 @@ namespace UnitTest.LibraryExtensionTest
 
         }
 
-        [TestMethod]
+        [Test]
         public void ForeachTest()
         {
             // Add and then remove some items.

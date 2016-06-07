@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.LibraryExtension;
 using System;
 using static QSP.LibraryExtension.Strings;
 
 namespace UnitTest.LibraryExtensionTest
 {
-    [TestClass]
+    [TestFixture]
     public class StringsTest
     {
-        [TestMethod]
+        [Test]
         public void ReplaceAnyTest()
         {
             Assert.IsTrue("".ReplaceAny(new char[] { '0', '1' }, "abc") == "");
@@ -21,14 +21,14 @@ namespace UnitTest.LibraryExtensionTest
                 == "abab2345678ab");
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveHtmlTagsTest()
         {
             Assert.IsTrue("<shouldRemoveThis>".RemoveHtmlTags() == "");
             Assert.IsTrue("123<456>789".RemoveHtmlTags() == "123789");
         }
 
-        [TestMethod()]
+        [Test]
         public void NthOccurenceCorrectnessTest()
         {
             string str = "1235444abc4565656abc456566abc5651561abc15";
@@ -47,7 +47,7 @@ namespace UnitTest.LibraryExtensionTest
 
         }
 
-        [TestMethod()]
+        [Test]
         public void NthOccurenceCannotFoundTest()
         {
             string str = "1235444abc4565656abc456566abc5651561abc15";
@@ -58,7 +58,7 @@ namespace UnitTest.LibraryExtensionTest
             Assert.AreEqual(-1, NthOccurence(str, target, 2));
         }
         
-        [TestMethod()]
+        [Test]
         public void IndicesOfTest_Found()
         {
             string str = "12312312312312";
@@ -73,7 +73,7 @@ namespace UnitTest.LibraryExtensionTest
             Assert.AreEqual(12, result[4]);
         }
 
-        [TestMethod()]
+        [Test]
         public void IndicesOfTest_NotFound()
         {
             string str = "12312312312312";
@@ -82,7 +82,7 @@ namespace UnitTest.LibraryExtensionTest
             Assert.AreEqual(0, result.Count);
         }
 
-        [TestMethod()]
+        [Test]
         public void IndicesOfTest_TestIndex()
         {
             string str = "010101010";
@@ -96,7 +96,7 @@ namespace UnitTest.LibraryExtensionTest
 
         }
 
-        [TestMethod()]
+        [Test]
         public void IndicesOfTest_TestCount()
         {
             string str = "010101010";
@@ -106,7 +106,7 @@ namespace UnitTest.LibraryExtensionTest
             Assert.AreEqual(1, result[0]);
         }
 
-        [TestMethod]
+        [Test]
         public void ShiftToRightValidCount()
         {
             string s = @"123
@@ -120,12 +120,13 @@ namespace UnitTest.LibraryExtensionTest
             Assert.IsTrue(s.ShiftToRight(3) == expected);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Test]
         public void ShiftToRightInvalidCount()
         {
             string s = @"123";
-            s.ShiftToRight(-5);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            s.ShiftToRight(-5));
         }
     }
 }

@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 using System.Xml.Linq;
 
 namespace UnitTest.LandingPerfCalculation.Boeing
 {
-    [TestClass]
+    [TestFixture]
     public class LandingCalculatorTest
     {
-        [TestMethod]
+        [Test]
         public void DistanceRequiredTest()
         {
             string text = new TestData().AllText;

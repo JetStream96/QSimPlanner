@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using static QSP.AviationTools.Coordinates.FormatDecimal;
 
 namespace UnitTest.AviationTools.Coordinates
 {
-    [TestClass]
+    [TestFixture]
     public class FormatDecimalTest
     {
-        [TestMethod()]
+        [Test]
         public void WhenFormatIsWrongReturnFalse()
         {
             LatLon r;
@@ -19,7 +19,7 @@ namespace UnitTest.AviationTools.Coordinates
             Assert.IsFalse(TryReadFromDecimalFormat("S35.11W200.22", out r));
         }
 
-        [TestMethod()]
+        [Test]
         public void WhenFormatIsCorrectReturnTrue()
         {
             LatLon r;
@@ -30,7 +30,7 @@ namespace UnitTest.AviationTools.Coordinates
             Assert.IsTrue(TryReadFromDecimalFormat("S31.54W55.896", out r));
         }
 
-        [TestMethod()]
+        [Test]
         public void WhenFormatIsCorrectConvert()
         {
             Assert.IsTrue(ReadFromDecimalFormat("N31.54E55.896").Equals(new LatLon(31.54, 55.896)));
@@ -39,7 +39,7 @@ namespace UnitTest.AviationTools.Coordinates
             Assert.IsTrue(ReadFromDecimalFormat("S31.54W55.896").Equals(new LatLon(-31.54,-55.896)));
         }
 
-        [TestMethod]
+        [Test]
         public void OutputStringAsExpected()
         {
             Assert.IsTrue(ToDecimalFormat(36.0, -150.0).Equals("N36.000000W150.000000"));

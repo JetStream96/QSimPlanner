@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -13,12 +13,12 @@ using QSP.RouteFinding.Data.Interfaces;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 {
-    [TestClass]
+    [TestFixture]
     public class StarAdderTest
     {
 
 
-        [TestMethod]
+        [Test]
         public void AddToWptListCase1()
         {
             var wptList = Case1WptList();
@@ -63,7 +63,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             return wptList;
         }
 
-        [TestMethod]
+        [Test]
         public void AddToWptListCase2()
         {
             var wptList = Case2WptList();
@@ -130,7 +130,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             return wptList;
         }
 
-        [TestMethod]
+        [Test]
         public void AddToWptListCase4()
         {
             var wptList = Case4WptList();
@@ -176,7 +176,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             }
         }
 
-        [TestMethod]
+        [Test]
         public void AddToWptListCase3()
         {
             var wptList = Case4WptList();

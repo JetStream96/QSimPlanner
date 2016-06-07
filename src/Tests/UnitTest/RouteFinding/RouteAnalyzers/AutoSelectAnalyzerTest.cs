@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
@@ -7,10 +7,10 @@ using static UnitTest.Common.Utilities;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
 {
-    [TestClass]
+    [TestFixture]
     public class AutoSelectAnalyzerTest
     {
-        [TestMethod]
+        [Test]
         public void WhenPreferredLatLonAreBadShouldStillFindsResult()
         {
             // setup
@@ -56,7 +56,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                           node == route.LastNode);
         }
 
-        [TestMethod]
+        [Test]
         public void WhenMultipleWptsHaveSameIdentShouldSortBasedOnDistance()
         {
             // setup

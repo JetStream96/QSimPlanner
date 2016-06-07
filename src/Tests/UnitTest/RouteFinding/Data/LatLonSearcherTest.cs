@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
 using System.Collections.Generic;
 
 namespace UnitTest.RouteFinding.Data
 {
-    [TestClass]
+    [TestFixture]
     public class LatLonSearcherTest
     {
-        [TestMethod]
+        [Test]
         public void FindTest()
         {
             var searcher = new LatLonSearcher<Waypoint>(5, 10);
@@ -55,7 +55,7 @@ namespace UnitTest.RouteFinding.Data
             return result;
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveTest()
         {
             var searcher = new LatLonSearcher<Waypoint>(5, 10);

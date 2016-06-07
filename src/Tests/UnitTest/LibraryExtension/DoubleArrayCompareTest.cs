@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.LibraryExtension;
 
 namespace UnitTest.LibraryExtension
 {
-    [TestClass]
+    [TestFixture]
     public class DoubleArrayCompareTest
     {
         private const double delta = 1E-10;
 
-        [TestMethod]
+        [Test]
         public void OneDimArrayCompareTest()
         {
             double[] a = new double[] { 1.0, 2.0, 3.0 };
@@ -25,7 +25,7 @@ namespace UnitTest.LibraryExtension
             Assert.IsFalse(DoubleArrayCompare.Equals(a, f, delta));
         }
 
-        [TestMethod]
+        [Test]
         public void TwoDimArrayCompareTest()
         {
             double[][] a = new double[][] {
@@ -44,7 +44,7 @@ namespace UnitTest.LibraryExtension
             Assert.IsFalse(DoubleArrayCompare.Equals(a, c, delta));
         }
 
-        [TestMethod]
+        [Test]
         public void ThreeDimArrayCompareTest()
         {
             var a =

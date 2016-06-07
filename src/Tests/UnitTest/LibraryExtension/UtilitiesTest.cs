@@ -1,8 +1,8 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace UnitTest
 {
-    [TestClass()]
+    [TestFixture]
     public class UtilitiesTest
     {
         

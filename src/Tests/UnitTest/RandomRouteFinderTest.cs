@@ -1,15 +1,15 @@
 using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using QSP.RouteFinding;
 using QSP.AviationTools.Coordinates;
 
 namespace UnitTest
 {
 
-    [TestClass()]
+    [TestFixture]
     public class RandomRouteFinderTest
     {
-        [TestMethod()]
+        [Test]
         public void RandomRouteFinderTest1()
         {
             RandomRouteFinder x = new RandomRouteFinder(new LatLon(25.0, 120.0), new LatLon(43.0, 107.0));

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.Common;
 using QSP.TOPerfCalculation;
 using QSP.TOPerfCalculation.Boeing;
@@ -8,14 +8,14 @@ using UnitTest.Common;
 
 namespace UnitTest.TOPerfCalculation.Boeing
 {
-    [TestClass]
+    [TestFixture]
     public class TOReportGeneratorTest
     {
         private static BoeingPerfTable perfTable =
                new PerfDataLoader()
                .ReadTable(XDocument.Parse(new TestData().PerfXml).Root);
 
-        [TestMethod]
+        [Test]
         public void TakeOffReportTest()
         {
             var para = new TOParameters(
@@ -83,8 +83,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(RunwayTooShortException))]
+        [Test]
         public void WhenRwyIsTooShortShouldThrowException()
         {
             var para = new TOParameters(
@@ -103,12 +102,12 @@ namespace UnitTest.TOPerfCalculation.Boeing
                    true,               // packs on
                    0);                 // flaps
 
-            var report = new TOReportGenerator(perfTable, para)
-                         .TakeOffReport();
+            Assert.Throws<RunwayTooShortException>(() =>
+            new TOReportGenerator(perfTable, para)
+            .TakeOffReport());
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(PoorClimbPerformanceException))]
+        [Test]
         public void WhenRwyIsEnoughButUnableToClimbShouldThrowException()
         {
             var para = new TOParameters(
@@ -133,12 +132,12 @@ namespace UnitTest.TOPerfCalculation.Boeing
             // Make it heavier than climb limit weight.
             PropertySetter.Set(para, "WeightKg", wt * 1000.0 + 1.0);
 
-            var report = new TOReportGenerator(perfTable, para)
-                         .TakeOffReport();
-
+            Assert.Throws<PoorClimbPerformanceException>(() =>
+            new TOReportGenerator(perfTable, para)
+            .TakeOffReport());
         }
 
-        [TestMethod]
+        [Test]
         public void HigherThanMaxTempInTableShouldStillCompute()
         {
             var para = new TOParameters(

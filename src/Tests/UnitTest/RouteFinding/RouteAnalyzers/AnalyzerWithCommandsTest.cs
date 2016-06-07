@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -14,7 +14,7 @@ using static UnitTest.Common.Utilities;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
 {
-    [TestClass]
+    [TestFixture]
     public class AnalyzerWithCommandsTest
     {
         private AirportManager airportList;
@@ -89,7 +89,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                           node == route.LastNode);
         }
 
-        [TestMethod]
+        [Test]
         public void AutoAtFirstShouldFindSid()
         {
             // Setup            
@@ -102,7 +102,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             assert1(route);
         }
 
-        [TestMethod]
+        [Test]
         public void AutoAtLastShouldFindStar()
         {
             // Setup            
@@ -115,7 +115,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             assert1(route);
         }
 
-        [TestMethod]
+        [Test]
         public void AutoAtMiddleShouldFindRoute()
         {
             // Setup            
@@ -160,7 +160,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                                             new StarCollection(new List<StarEntry>()));
         }
 
-        [TestMethod]
+        [Test]
         public void RandAtFirstShouldDirectFromRwy()
         {
             // Setup            
@@ -190,7 +190,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                           node == route.LastNode);
         }
 
-        [TestMethod]
+        [Test]
         public void RandAtLastShouldDirectToRwy()
         {
             // Setup            
@@ -225,7 +225,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                           node == route.LastNode);
         }
 
-        [TestMethod]
+        [Test]
         public void RandAtMiddleShouldFindRandomRoute()
         {
             // Setup            

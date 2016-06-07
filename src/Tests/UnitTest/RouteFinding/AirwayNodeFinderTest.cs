@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using QSP.RouteFinding;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace UnitTest.RouteFinding
 {
-    [TestClass()]
+    [TestFixture]
     public class AirwayNodeFinderTest
     {
-        [TestMethod()]
+        [Test]
         public void TwoWayAirway_FindBothDirections()
         {
             var finder = new AirwayNodeFinder(4, "A001", "WP008", genTwoWayAirway());
@@ -24,7 +24,7 @@ namespace UnitTest.RouteFinding
             Assert.IsTrue(Enumerable.SequenceEqual(exp2, finder2.GetWaypointIndices()));
         }
 
-        [TestMethod()]
+        [Test]
         public void OneWayAirway_FindResult()
         {
             var finder = new AirwayNodeFinder(9, "A001", "WP004", genOneWayAirway());
@@ -33,21 +33,21 @@ namespace UnitTest.RouteFinding
             Assert.IsTrue(Enumerable.SequenceEqual(expected, finder.GetWaypointIndices()));
         }
 
-        [TestMethod()]
+        [Test]
         public void OneWayAirway_WrongDir_CannotFind()
         {
             var finder = new AirwayNodeFinder(4, "A001", "WP009", genOneWayAirway());
             Assert.IsNull(finder.GetWaypointIndices());
         }
 
-        [TestMethod()]
+        [Test]
         public void TwoWayAirway_AirwayDoesnotExist()
         {
             var finder = new AirwayNodeFinder(4, "B123", "WP008", genTwoWayAirway());
             Assert.IsNull(finder.GetWaypointIndices());
         }
 
-        [TestMethod()]
+        [Test]
         public void TwoWayAirway_TargetWptID_DoesnotExist()
         {
             var finder = new AirwayNodeFinder(4, "A001", "WP128", genTwoWayAirway());

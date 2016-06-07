@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using System.Collections.Generic;
 using QSP.RouteFinding.TerminalProcedures.Star;
@@ -10,10 +10,10 @@ using static QSP.MathTools.GCDis;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 {
-    [TestClass]
+    [TestFixture]
     public class StarExtractorTest
     {
-        [TestMethod]
+        [Test]
         public void WhenInputIsEmptyLinkedListShouldReturnRwy()
         {
             var route = new LinkedList<string>();
@@ -26,7 +26,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsTrue(destRoute.First.Waypoint.Equals(rwyWpt));
         }
 
-        [TestMethod]
+        [Test]
         public void WhenExistsShouldRemoveIcao()
         {
             var route = new LinkedList<string>(new string[] { "ELATO", "VHHH" });
@@ -38,7 +38,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsFalse(destRoute.Last.Waypoint.ID == "VHHH");
         }
 
-        [TestMethod]
+        [Test]
         public void WhenStarExistsShouldRemoveAndAddToDestRoute()
         {
             // Setup
@@ -76,7 +76,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
         }
 
-        [TestMethod]
+        [Test]
         public void WhenStarLastWptNotInWptListShouldRemoveFromRoute()
         {
             // Setup

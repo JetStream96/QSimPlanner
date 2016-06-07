@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using static QSP.MathTools.Interpolation.Interpolate3D;
 
 namespace UnitTest.MathTools.Interpolation
 {
-    [TestClass]
+    [TestFixture]
     public class Interpolate3DTest
     {
         private double[][][] a = new double[][][] {
@@ -16,7 +16,7 @@ namespace UnitTest.MathTools.Interpolation
                                     new double[] {-0.8,14.0,12.8},
                                     new double[] {-1.0,11.0,4.8}} };
 
-        [TestMethod]
+        [Test]
         public void InterpolateTest1()
         {
             Assert.AreEqual(1.1607142857,
@@ -27,7 +27,7 @@ namespace UnitTest.MathTools.Interpolation
                             1E-6);
         }
 
-        [TestMethod]
+        [Test]
         public void InterpolateTest2()
         {
             Assert.AreEqual(1.1607142857,

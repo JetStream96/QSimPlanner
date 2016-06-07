@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Tracks.Ausots.Utilities;
@@ -7,10 +7,10 @@ using System.Linq;
 
 namespace UnitTest.RouteFinding.Tracks.Ausots.Utilities
 {
-    [TestClass]
+    [TestFixture]
     public class IndividualAusotsParserTest
     {
-        [TestMethod]
+        [Test]
         public void WhenTrackNotAvailReturnNull()
         {
             var parser = new IndividualAusotsParser(
@@ -23,7 +23,7 @@ RMK/AUSOTS GROUP A",
             Assert.IsTrue(parser.Parse() == null);
         }
 
-        [TestMethod]
+        [Test]
         public void RtsRmkExistShouldReturnCorrectAusTrack()
         {
             var parser = new IndividualAusotsParser(
@@ -62,7 +62,7 @@ getAirportList(new List<string> { "YSSY" }));
             return new AirportManager(db);
         }
 
-        [TestMethod]
+        [Test]
         public void RtsDoesNotExist()
         {
             var parser = new IndividualAusotsParser(
@@ -83,7 +83,7 @@ null);
             Assert.AreEqual("AUSOTS GROUP A", trk.Remarks);
         }
 
-        [TestMethod]
+        [Test]
         public void RmkDoesNotExistRemarkShouldBeEmptyString()
         {
             var parser = new IndividualAusotsParser(
@@ -107,7 +107,7 @@ getAirportList(new List<string> { "YSSY" }));
             Assert.AreEqual("", trk.Remarks);
         }
 
-        [TestMethod]
+        [Test]
         public void NeitherRtsRmkExist()
         {
             var parser = new IndividualAusotsParser(
@@ -128,7 +128,7 @@ null);
             Assert.AreEqual("", trk.Remarks);
         }
 
-        [TestMethod]
+        [Test]
         public void MutlipleConnectionRoutes()
         {
             var parser = new IndividualAusotsParser(

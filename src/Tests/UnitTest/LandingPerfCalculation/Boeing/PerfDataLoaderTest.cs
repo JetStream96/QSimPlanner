@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 using System.Linq;
@@ -6,12 +6,12 @@ using System.Xml.Linq;
 
 namespace UnitTest.LandingPerfCalculation.Boeing
 {
-    [TestClass]
+    [TestFixture]
     public class PerfDataLoaderTest
     {
         private const double delta = 1E-7;
 
-        [TestMethod]
+        [Test]
         public void GetItemTest()
         {
             string text = new TestData().AllText;

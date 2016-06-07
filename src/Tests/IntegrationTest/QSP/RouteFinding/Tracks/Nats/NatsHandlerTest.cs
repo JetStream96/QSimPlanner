@@ -1,5 +1,5 @@
 ﻿using IntegrationTest.QSP.RouteFinding.TestSetup;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -16,22 +16,24 @@ using static QSP.MathTools.GCDis;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
 {
-    [TestClass]
+    [TestFixture]
     public class NatsHandlerTest
     {
-        [TestMethod]
+        [Test]
         public void GetAllTracksAndAddToWptListTest()
         {
             // Arrange
             var wptList = WptListFactory.GetWptList(wptIdents());
             var recorder = new StatusRecorder();
 
-            var handler = new NatsHandler(new downloaderStub(),
-                                        wptList,
-                                        wptList.GetEditor(),
-                                        recorder,
-                                        new AirportManager(new AirportCollection()),
-                                        new RouteTrackCommunicator(new TrackInUseCollection()));
+            var handler = new NatsHandler(
+                new downloaderStub(),
+                wptList,
+                wptList.GetEditor(),
+                recorder,
+                new AirportManager(new AirportCollection()),
+                new RouteTrackCommunicator(new TrackInUseCollection()));
+
             // Act
             handler.GetAllTracks();
             handler.AddToWaypointList();
@@ -129,7 +131,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             return d;
         }
 
-        private static int getEdgeIndex(string ID, string firstWpt, WaypointList wptList)
+        private static int getEdgeIndex(
+            string ID, string firstWpt, WaypointList wptList)
         {
             foreach (var i in wptList.EdgesFrom(wptList.FindByID(firstWpt)))
             {
@@ -169,7 +172,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             }
         }
 
-        private static void assertTrack(string ID, string firstWpt, WaypointList wptList)
+        private static void assertTrack(
+            string ID, string firstWpt, WaypointList wptList)
         {
             // check the track is added
             if (getEdgeIndex(ID, firstWpt, wptList) < 0)
@@ -222,9 +226,14 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
         {
             public NatsMessage Download()
             {
-                var htmlSource = File.ReadAllText("QSP/RouteFinding/Tracks/Nats/North Atlantic Tracks.html");
+                var directory = AppDomain.CurrentDomain.BaseDirectory;
+                var htmlSource = File.ReadAllText(
+                    directory +
+                    "/QSP/RouteFinding/Tracks/Nats/North Atlantic Tracks.html");
                 var msgs = new MessageSplitter(htmlSource).Split();
-                int westIndex = msgs[0].Direction == NatsDirection.West ? 0 : 1;
+
+                int westIndex =
+                    msgs[0].Direction == NatsDirection.West ? 0 : 1;
                 int eastIndex = 1 - westIndex;
                 return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
             }

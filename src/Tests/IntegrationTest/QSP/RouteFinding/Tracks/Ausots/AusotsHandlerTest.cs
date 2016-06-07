@@ -1,5 +1,5 @@
 ﻿using IntegrationTest.QSP.RouteFinding.TestSetup;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -17,10 +17,10 @@ using QSP.RouteFinding.Data.Interfaces;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 {
-    [TestClass]
+    [TestFixture]
     public class AusotsHandlerTest
     {
-        [TestMethod]
+        [Test]
         public void GetAllTracksAndAddToWptListTest()
         {
             // Arrange
@@ -207,7 +207,16 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             {
                 collection.Add(
                     new Airport(
-                        i, "", 0.0, 0.0, 0, true, 0, 0, 0, new List<RwyData>()));
+                        i,
+                        "",
+                        0.0,
+                        0.0,
+                        0, 
+                        true,
+                        0, 
+                        0,
+                        0,
+                        new List<RwyData>()));
             }
 
             return new AirportManager(collection);
@@ -267,9 +276,12 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
         {
             public AusotsMessage Download()
             {
+                var directory = AppDomain.CurrentDomain.BaseDirectory;
+
                 return new AusotsMessage(
                     File.ReadAllText(
-                        "QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
+                        directory +
+                        "/QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
             }
 
             public Task<AusotsMessage> DownloadAsync()

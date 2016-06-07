@@ -1,15 +1,15 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Common.TDM.Parser;
 using QSP.RouteFinding.Airports;
 using System.Linq;
 
 namespace UnitTest.RouteFinding.Tracks.Common.TDM.Parser
 {
-    [TestClass]
+    [TestFixture]
     public class ConnectionRouteInterpreterTest
     {
-        [TestMethod]
+        [Test]
         public void RecongnizeToOrFromCorrectly()
         {
             var interpreter = new ConnectionRouteInterpreter(
@@ -31,7 +31,7 @@ namespace UnitTest.RouteFinding.Tracks.Common.TDM.Parser
                 new string[] { "P3", "R" }));
         }
 
-        [TestMethod]
+        [Test]
         public void RemovesAirportsCorrectly()
         {
             var airports = new AirportCollection();

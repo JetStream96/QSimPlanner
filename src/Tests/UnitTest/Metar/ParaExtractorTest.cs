@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.MathTools;
 using QSP.Metar;
 using QSP.Utilities.Units;
 
 namespace UnitTest.Metar
 {
-    [TestClass]
+    [TestFixture]
     public class ParaExtractorTest
     {
-        [TestMethod]
+        [Test]
         public void GetWindTestVRB()
         {
             var w = ParaExtractor.GetWind("RCTP ... VRB05KT");
@@ -16,13 +16,13 @@ namespace UnitTest.Metar
             Assert.AreEqual(0.0, w.Speed, 1E-6);
         }
 
-        [TestMethod]
+        [Test]
         public void GetWindTestNotFound()
         {
             Assert.IsNull(ParaExtractor.GetWind("RCTP ... ..."));
         }
 
-        [TestMethod]
+        [Test]
         public void GetWindTestNormalFormat()
         {
             var w = ParaExtractor.GetWind("RCTP ... 31005KT");
@@ -42,7 +42,7 @@ namespace UnitTest.Metar
             Assert.AreEqual(5.0, w.Speed, 1E-6);
         }
 
-        [TestMethod]
+        [Test]
         public void GetTempTest1()
         {
             Assert.AreEqual(15, ParaExtractor.GetTemp("RCTP ... 15/12"));
@@ -50,7 +50,7 @@ namespace UnitTest.Metar
             Assert.AreEqual(1, ParaExtractor.GetTemp("RJAA ... 01/M01"));
         }
 
-        [TestMethod]
+        [Test]
         public void GetTempTest2()
         {
             Assert.AreEqual(37, ParaExtractor.GetTemp(
@@ -58,19 +58,19 @@ namespace UnitTest.Metar
 VVTS 150630Z 16004KT 090V170 9999 BKN017 FEW020TCU 37/22 Q1006 NOSIG "));
         }
 
-        [TestMethod]
+        [Test]
         public void GetTempTestNotFound()
         {
             Assert.AreEqual(null, ParaExtractor.GetTemp("RCTP ... ..."));
         }
 
-        [TestMethod]
+        [Test]
         public void GetPressTestNotFound()
         {
             Assert.IsNull(ParaExtractor.GetPressure("RCTP ... ..."));
         }
 
-        [TestMethod]
+        [Test]
         public void GetPressTest()
         {
             var p = ParaExtractor.GetPressure("RCTP ... Q1015 ");
@@ -82,7 +82,7 @@ VVTS 150630Z 16004KT 090V170 9999 BKN017 FEW020TCU 37/22 Q1006 NOSIG "));
             Assert.AreEqual(30.01, q.Value, 1E-6);
         }
 
-        [TestMethod]
+        [Test]
         public void PrecipitationExistsTest()
         {
             var noRain = ParaExtractor.PrecipitationExists("EDDM CAVOK");

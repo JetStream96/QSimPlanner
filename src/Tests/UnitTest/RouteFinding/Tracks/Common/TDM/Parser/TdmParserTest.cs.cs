@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Common.TDM.Parser;
 using System.Linq;
 
 namespace UnitTest.RouteFinding.Tracks.Common.TDM.Parser
 {
-    [TestClass]
+    [TestFixture]
     public class TdmParserTest
     {
-        [TestMethod]
+        [Test]
         public void HasBothRtsAndRmk()
         {
             string msg =
@@ -39,7 +39,7 @@ RMK/[Remarks]
 [Remarks continued]");
         }
 
-        [TestMethod]
+        [Test]
         public void HasOnlyRts()
         {
             string msg =
@@ -68,7 +68,7 @@ RTS/[RouteFrom/To 1]
             Assert.IsTrue(result.Remarks == "");
         }
 
-        [TestMethod]
+        [Test]
         public void HasOnlyRmk()
         {
             string msg =
@@ -94,7 +94,7 @@ RMK/[Remarks]
 [Remarks continued]");
         }
 
-        [TestMethod]
+        [Test]
         public void HasNeitherRtsNorRmk()
         {
             string msg =

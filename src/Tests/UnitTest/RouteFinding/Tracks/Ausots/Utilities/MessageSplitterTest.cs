@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Ausots.Utilities;
 
 namespace UnitTest.RouteFinding.Tracks.Ausots.Utilities
 {
-    [TestClass]
+    [TestFixture]
     public  class MessageSplitterTest
     {
-        [TestMethod]
+        [Test]
         public void SplitMessageTest()
         {
             string str =

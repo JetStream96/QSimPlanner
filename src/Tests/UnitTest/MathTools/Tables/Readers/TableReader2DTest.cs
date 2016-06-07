@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.MathTools.Tables;
 using QSP.MathTools.Tables.Readers;
 
 namespace UnitTest.MathTools.Tables.Readers
 {
-    [TestClass]
+    [TestFixture]
     public class TableReader2DTest
     {
         private const double delta = 1E-7;
@@ -31,19 +31,19 @@ namespace UnitTest.MathTools.Tables.Readers
               1600 52.8 48.5 48.1
               1800 55.9 51.3 51.0";
 
-        [TestMethod]
+        [Test]
         public void ReadTest1()
         {
             assertTable(format1);
         }
 
-        [TestMethod]
+        [Test]
         public void ReadTest2()
         {
             assertTable(format2);
         }
 
-        [TestMethod]
+        [Test]
         public void ReadTest3()
         {
             assertTable(format3);

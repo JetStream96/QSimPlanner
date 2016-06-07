@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.AircraftProfiles.Configs;
 using QSP.Utilities.Units;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace UnitTest.AircraftProfiles.Configs
 {
-    [TestClass]
+    [TestFixture]
     public class AcConfigManagerTest
     {
         private static AircraftConfig config1 =
@@ -33,7 +33,7 @@ namespace UnitTest.AircraftProfiles.Configs
                                    WeightUnit.KG),
                 "path");
 
-        [TestMethod]
+        [Test]
         public void AddTest()
         {
             var manager = new AcConfigManager();
@@ -43,7 +43,7 @@ namespace UnitTest.AircraftProfiles.Configs
             Assert.AreEqual(2, manager.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void FindAircraftTest()
         {
             var manager = new AcConfigManager();
@@ -57,7 +57,7 @@ namespace UnitTest.AircraftProfiles.Configs
             Assert.IsTrue(result.Contains(config2));
         }
 
-        [TestMethod]
+        [Test]
         public void FindByRegistrationTest()
         {
             var manager = new AcConfigManager();
@@ -69,7 +69,7 @@ namespace UnitTest.AircraftProfiles.Configs
             Assert.AreEqual(config1, result);
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveTest()
         {
             var manager = new AcConfigManager();
@@ -83,7 +83,7 @@ namespace UnitTest.AircraftProfiles.Configs
             Assert.AreEqual(config2, ac2);
         }
 
-        [TestMethod]
+        [Test]
         public void ClearTest()
         {
             var manager = new AcConfigManager();
@@ -93,7 +93,7 @@ namespace UnitTest.AircraftProfiles.Configs
             Assert.AreEqual(0, manager.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void ValidateFileExistShouldPass()
         {
             var manager = new AcConfigManager();
@@ -116,16 +116,16 @@ namespace UnitTest.AircraftProfiles.Configs
                 new List<QSP.LandingPerfCalculation.PerfTable>() { ldgTable });
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(PerfFileNotFoundException))]
+        [Test]
         public void ValidateFileDoesNotExistShouldThrow()
         {
             var manager = new AcConfigManager();
             manager.Add(config1);
 
+            Assert.Throws<PerfFileNotFoundException>(() => 
             manager.Validate(
                 new List<QSP.TOPerfCalculation.PerfTable>(),
-                new List<QSP.LandingPerfCalculation.PerfTable>());
+                new List<QSP.LandingPerfCalculation.PerfTable>()));
         }
     }
 }

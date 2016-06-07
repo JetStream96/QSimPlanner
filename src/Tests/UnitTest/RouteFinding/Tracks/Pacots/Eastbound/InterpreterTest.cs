@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Pacots.Eastbound;
 
 namespace UnitTest.RouteFinding.Tracks.Pacots.Eastbound
 {
-    [TestClass]
+    [TestFixture]
     public class InterpreterTest
     {
-        [TestMethod]
+        [Test]
         public void ParseTest()
         {
             string text = @"TRACK 1.
@@ -33,7 +33,7 @@ JAPAN ROUTE : ONION OTR5 KALNA
             Assert.IsTrue(result.Remark == " ACFT LDG OTHER DEST--ORNAI SIMLU KEPKO UPR TO DEST");
         }
 
-        [TestMethod]
+        [Test]
         public void ParseTestNoRemark()
         {
             string text = @"TRACK 1.

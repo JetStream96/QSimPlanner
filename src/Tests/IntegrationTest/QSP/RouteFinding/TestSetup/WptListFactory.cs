@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
-using QSP.AviationTools.Coordinates;
+using System;
+using System.Collections.Generic;
 
 namespace IntegrationTest.QSP.RouteFinding.TestSetup
 {
@@ -17,13 +17,15 @@ namespace IntegrationTest.QSP.RouteFinding.TestSetup
             return wptList;
         }
 
-        private static void addWpts(WaypointList wptList, IEnumerable<string> Idents)
+        private static void addWpts(
+            WaypointList wptList, IEnumerable<string> Idents)
         {
             var rd = new Random(123);
 
             foreach (var i in Idents)
             {
-                wptList.AddWaypoint(new Waypoint(i, rd.Next(-90, 91), rd.Next(-180, 181)));
+                wptList.AddWaypoint(
+                    new Waypoint(i, rd.Next(-90, 91), rd.Next(-180, 181)));
             }
         }
 
@@ -34,7 +36,8 @@ namespace IntegrationTest.QSP.RouteFinding.TestSetup
                 for (int lat = -90; lat <= 90; lat++)
                 {
                     wptList.AddWaypoint(
-                        new Waypoint(Format5Letter.To5LetterFormat(lat, lon), lat, lon));
+                        new Waypoint(
+                            Format5Letter.To5LetterFormat(lat, lon), lat, lon));
                 }
             }
         }

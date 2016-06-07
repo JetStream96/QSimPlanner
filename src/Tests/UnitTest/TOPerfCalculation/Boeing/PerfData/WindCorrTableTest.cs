@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 
 namespace UnitTest.TOPerfCalculation.Boeing.PerfData
 {
-    [TestClass]
+    [TestFixture]
     public class WindCorrTableTest
     {
         private const double delta = 1E-7;
@@ -16,13 +16,13 @@ namespace UnitTest.TOPerfCalculation.Boeing.PerfData
                     new double[] { 2400.0, 2600.0 }
                 });
 
-        [TestMethod]
+        [Test]
         public void CorrectedLengthTest()
         {
             Assert.AreEqual(2131.25, table.CorrectedLength(2100.0, 2.5), delta);
         }
 
-        [TestMethod]
+        [Test]
         public void SlopeCorrectedLengthTest()
         {
             Assert.AreEqual(2100.0, table.SlopeCorrectedLength(2.5, 2131.25), delta);

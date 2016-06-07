@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Airports;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,10 @@ using QSP.RouteFinding.Tracks.Pacots.Eastbound;
 
 namespace UnitTest.RouteFinding.Tracks.Pacots.Eastbound
 {
-    [TestClass]
+    [TestFixture]
     public class EastboundParserTest
     {
-        [TestMethod]
+        [Test]
         public void ParseTest()
         {
             // Arrange

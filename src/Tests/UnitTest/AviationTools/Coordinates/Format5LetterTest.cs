@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using static QSP.AviationTools.Coordinates.Format5Letter;
 
 namespace UnitTest.AviationTools.Coordinates
 {
-    [TestClass]
+    [TestFixture]
     public class Format5LetterTest
     {
-        [TestMethod()]
+        [Test]
         public void WhenFormatIsWrongReturnFalse()
         {
             LatLon r;
@@ -19,7 +19,7 @@ namespace UnitTest.AviationTools.Coordinates
             Assert.IsFalse(TryReadFrom5LetterFormat("35N200E", out r));
         }
 
-        [TestMethod()]
+        [Test]
         public void WhenFormatIsCorrectReturnTrue()
         {
             LatLon r;
@@ -35,7 +35,7 @@ namespace UnitTest.AviationTools.Coordinates
             Assert.IsTrue(TryReadFrom5LetterFormat("8565W", out r));
         }
 
-        [TestMethod()]
+        [Test]
         public void WhenFormatIsCorrectConvert()
         {
             Assert.IsTrue(ReadFrom5LetterFormat("36N50").Equals(new LatLon(36.0, -150.0)));
@@ -45,7 +45,7 @@ namespace UnitTest.AviationTools.Coordinates
             Assert.IsTrue(ReadFrom5LetterFormat("05W05").Equals(new LatLon(-5.0, -105.0)));
         }
 
-        [TestMethod]
+        [Test]
         public void OutputStringAsExpected()
         {
             Assert.IsTrue(To5LetterFormat(36.0, -150.0).Equals("36N50"));

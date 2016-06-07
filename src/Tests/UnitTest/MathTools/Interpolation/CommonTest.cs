@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using static QSP.MathTools.Interpolation.Common;
 
 namespace UnitTest.MathTools.Interpolation
 {
-    [TestClass]
+    [TestFixture]
     public class CommonTest
     {
-        [TestMethod]
+        [Test]
         public void GetIndexIncreasingTest()
         {
             double[] a = new double[] { 3.0, 4.0, 5.0, 6.0, 8.0 };
@@ -16,7 +16,7 @@ namespace UnitTest.MathTools.Interpolation
             Assert.AreEqual(3, GetIndex(a, 15.0));
         }
 
-        [TestMethod]
+        [Test]
         public void GetIndexDecreasingTest()
         {
             double[] a = new double[] { 35.0, 21.0, 10.0, 5.0, -2.0 };

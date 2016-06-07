@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using static QSP.LibraryExtension.JaggedArrays.JaggedArray;
 
 namespace UnitTest.LibraryExtension.JaggedArrays
 {
-    [TestClass]
+    [TestFixture]
     public class JaggedArraysTest
     {
-        [TestMethod]
+        [Test]
         public void JaggedArray1DCreateTest()
         {
             var a = Create<int[]>(3);
@@ -14,7 +14,7 @@ namespace UnitTest.LibraryExtension.JaggedArrays
             Assert.AreEqual(3, a.Length);
         }
 
-        [TestMethod]
+        [Test]
         public void JaggedArray3DCreateTest()
         {
             var a = Create<double[][][]>(3, 4, 5);
@@ -31,7 +31,7 @@ namespace UnitTest.LibraryExtension.JaggedArrays
             Assert.IsTrue(a[0][0][0].GetType() == typeof(double));
         }
 
-        [TestMethod]
+        [Test]
         public void JaggedArrayMultiplyTest()
         {
             double[] a = { 1, 2, 3, 4 };

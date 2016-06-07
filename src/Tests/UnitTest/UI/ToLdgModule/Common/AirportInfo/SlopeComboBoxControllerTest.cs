@@ -1,13 +1,13 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.UI.ToLdgModule.Common.AirportInfo;
+using System;
 
 namespace UnitTest.UI.ToLdgModule.Common.AirportInfo
 {
-    [TestClass]
+    [TestFixture]
     public class SlopeComboBoxControllerTest
     {
-        [TestMethod]
+        [Test]
         public void NewControllerRangeCorrect()
         {
             var controller = new SlopeComboBoxController(-2.0, 2.0);
@@ -19,7 +19,7 @@ namespace UnitTest.UI.ToLdgModule.Common.AirportInfo
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ResizeRequiredTest()
         {
             var controller = new SlopeComboBoxController(-3.0, 3.0);
@@ -28,7 +28,7 @@ namespace UnitTest.UI.ToLdgModule.Common.AirportInfo
             Assert.IsTrue(controller.ResizeRequired(-3.02));
         }
 
-        [TestMethod]
+        [Test]
         public void NearestIndexWithInBound()
         {
             var controller = new SlopeComboBoxController(-2.0, 2.0);
@@ -37,12 +37,12 @@ namespace UnitTest.UI.ToLdgModule.Common.AirportInfo
             Assert.AreEqual(0, controller.NearestIndex(-2.04));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Test]
         public void NearestIndexOutOfBoundShouldThrowException()
         {
             var controller = new SlopeComboBoxController(-2.0, 2.0);
-            Assert.AreEqual(20, controller.NearestIndex(2.08));
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            controller.NearestIndex(2.08));
         }
     }
 }

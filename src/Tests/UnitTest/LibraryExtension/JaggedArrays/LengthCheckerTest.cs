@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using QSP.LibraryExtension.JaggedArrays;
 
 namespace UnitTest.LibraryExtension.JaggedArrays
 {
-    [TestClass]
+    [TestFixture]
     public class LengthCheckerTest
     {
-        [TestMethod]
+        [Test]
         public void HasLength1DShouldReturnTrue()
         {
             Assert.IsTrue(LengthChecker.HasLength<double>(
@@ -17,15 +17,15 @@ namespace UnitTest.LibraryExtension.JaggedArrays
                 new double[10], 11));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Test]
         public void HasLength1DWrongLength()
         {
-            Assert.IsFalse(LengthChecker.HasLength<double>(
+            Assert.Throws<ArgumentException>(() =>
+            LengthChecker.HasLength<double>(
                 new double[10], 10, 10));
         }
 
-        [TestMethod]
+        [Test]
         public void HasLengthHigherDimensionTest()
         {
             Assert.IsTrue(LengthChecker.HasLength<double>(

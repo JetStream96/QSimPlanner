@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Ausots;
 using System.Xml.Linq;
 
 namespace UnitTest.RouteFinding.Tracks.Ausots
 {
-    [TestClass]
+    [TestFixture]
     public class AusotsMessageTest
     {
-        [TestMethod]
+        [Test]
         public void ToStringHtmlTagShouldNotAppear()
         {
             var msg = new AusotsMessage(
@@ -21,7 +21,7 @@ TDM should appear here.
 ");
         }
 
-        [TestMethod]
+        [Test]
         public void ToXmlFormatShouldBeCorrect()
         {
             var msg = new AusotsMessage(
@@ -35,7 +35,7 @@ TDM should appear here.
             Assert.IsTrue(xml.Root.Element("Text").Value == msg.AllText);
         }
 
-        [TestMethod]
+        [Test]
         public void LoadFromXmlAcceptsCorrectFormat()
         {
             var doc = XDocument.Parse(

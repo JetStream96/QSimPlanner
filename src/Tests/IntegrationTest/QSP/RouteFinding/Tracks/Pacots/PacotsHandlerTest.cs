@@ -1,26 +1,26 @@
 ﻿using IntegrationTest.QSP.RouteFinding.TestSetup;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Communication;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes.Toggler;
-using QSP.RouteFinding.Tracks.Pacots;
 using QSP.RouteFinding.Tracks.Interaction;
+using QSP.RouteFinding.Tracks.Pacots;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using System.Linq;
-using QSP.RouteFinding.Data.Interfaces;
+using System.Threading.Tasks;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 {
-    [TestClass]
+    [TestFixture]
     public class PacotsHandlerTest
     {
-        [TestMethod]
+        [Test]
         public void GetAllTracksAndAddToWptListTest()
         {
             // Arrange
@@ -29,12 +29,14 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 
             var recorder = new StatusRecorder();
 
-            var handler = new PacotsHandler(new downloaderStub(),
-                                            wptList,
-                                            wptList.GetEditor(),
-                                            recorder,
-                                            getAirportList(),
-                                            new RouteTrackCommunicator(new TrackInUseCollection()));
+            var handler = new PacotsHandler(
+                new downloaderStub(),
+                wptList,
+                wptList.GetEditor(),
+                recorder,
+                getAirportList(),
+                new RouteTrackCommunicator(new TrackInUseCollection()));
+
             // Act
             handler.GetAllTracks();
             handler.AddToWaypointList();
@@ -56,7 +58,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             assertDct(wptList, "BRINY", "ALCOA"); // In track J
         }
 
-        private static void assertDct(WaypointList wptList, string from, string to)
+        private static void assertDct(
+            WaypointList wptList, string from, string to)
         {
             foreach (var i in wptList.EdgesFrom(wptList.FindByID(from)))
             {
@@ -70,7 +73,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 
         private static void assertTrackJ(WaypointList wptList)
         {
-            var edge = wptList.GetEdge(getEdgeIndex("PACOTJ", "ALCOA", wptList));
+            var edge = wptList.GetEdge(
+                getEdgeIndex("PACOTJ", "ALCOA", wptList));
 
             // Distance
             Assert.AreEqual(
@@ -107,7 +111,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 
         private static void assertTrack11(WaypointList wptList)
         {
-            var edge = wptList.GetEdge(getEdgeIndex("PACOT11", "SEALS", wptList));
+            var edge = wptList.GetEdge(
+                getEdgeIndex("PACOT11", "SEALS", wptList));
 
             // Distance
             Assert.AreEqual(
@@ -136,7 +141,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             Assert.IsTrue(edge.Value.Airway == "PACOT11");
         }
 
-        private static int getEdgeIndex(string ID, string firstWpt, WaypointList wptList)
+        private static int getEdgeIndex(
+            string ID, string firstWpt, WaypointList wptList)
         {
             foreach (var i in wptList.EdgesFrom(wptList.FindByID(firstWpt)))
             {
@@ -192,7 +198,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        private static void assertTrack(string ID, string firstWpt, WaypointList wptList)
+        private static void assertTrack(
+            string ID, string firstWpt, WaypointList wptList)
         {
             // check the track is added
             if (getEdgeIndex(ID, firstWpt, wptList) < 0)
@@ -314,7 +321,20 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 
             foreach (var i in airports)
             {
-                collection.Add(new Airport(i, "", 0.0, 0.0, 0,true, 0, 0, 0, new List<RwyData>()));
+                var airport =
+                    new Airport(
+                        i,
+                        "",
+                        0.0,
+                        0.0,
+                        0,
+                        true,
+                        0,
+                        0,
+                        0,
+                        new List<RwyData>());
+
+                collection.Add(airport);
             }
 
             return new AirportManager(collection);
@@ -361,7 +381,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             {
                 int x = tryAddWpt(wptList, i.StartWpt);
                 int y = tryAddWpt(wptList, i.EndWpt);
-                wptList.AddNeighbor(x, y, new Neighbor(i.Airway, wptList.Distance(x, y)));
+                var neighbor = new Neighbor(i.Airway, wptList.Distance(x, y));
+                wptList.AddNeighbor(x, y, neighbor);
             }
         }
 
@@ -383,9 +404,13 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
         {
             public PacotsMessage Download()
             {
+                var directory = AppDomain.CurrentDomain.BaseDirectory;
+
                 return new PacotsMessage(
                     File.ReadAllText(
-                        "QSP/RouteFinding/Tracks/Pacots/Defense Internet NOTAM Service.html"));
+                        directory +
+                        "/QSP/RouteFinding/Tracks/Pacots/" +
+                        "Defense Internet NOTAM Service.html"));
             }
 
             public Task<PacotsMessage> DownloadAsync()

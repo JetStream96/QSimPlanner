@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
@@ -8,14 +8,14 @@ using QSP.RouteFinding.Data.Interfaces;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 {
-    [TestClass]
+    [TestFixture]
     public class SidCollectionTest
     {
         private Waypoint runway05 = new Waypoint("ABCD05", 10.0, 19.0);
 
         #region OnlyRwySpecificPart
 
-        [TestMethod]
+        [Test]
         public void GetSidInfoTest_OnlyRwySpecificPartWithOrWithoutVector()
         {
             GetSidInfoTest_OnlyRwySpecificPart(true);
@@ -53,7 +53,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 
         #region RwySpecificAndCommonPart
 
-        [TestMethod]
+        [Test]
         public void GetSidInfoTest_RwySpecificAndCommonPartWithOrWithoutVector()
         {
             GetSidInfoTest_RwySpecificAndCommonPart(true);
@@ -93,7 +93,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 
         #region RwySpecificAndCommonAndTransitionPart
 
-        [TestMethod]
+        [Test]
         public void GetSidInfoTest_RwySpecificAndCommonAndTransitionPartWithOrWithoutVector()
         {
             GetSidInfoTest_RwySpecificAndCommonAndTransitionPart(true);

@@ -1,16 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.TOPerfCalculation.Boeing;
 using System.Linq;
 using System.Xml.Linq;
 
 namespace UnitTest.TOPerfCalculation.Boeing
 {
-    [TestClass]
+    [TestFixture]
     public class PerfDataLoaderTest
     {
         private const double delta = 1E-7;
 
-        [TestMethod]
+        [Test]
         public void ReadTableTest()
         {
             var data = new TestData();

@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Nats;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace UnitTest.RouteFinding.Tracks.Nats
 {
-    [TestClass]
+    [TestFixture]
     public class NatsParserTest
     {
-        [TestMethod]
+        [Test]
         public void CategorizeWestEastTest()
         {
             // Arrange
@@ -60,7 +60,7 @@ W [WPTS]
             return false;
         }
 
-        [TestMethod]
+        [Test]
         public void SplitWptsTest()
         {
             // Arrange

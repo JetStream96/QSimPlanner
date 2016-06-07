@@ -1,24 +1,25 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
 using static QSP.MathTools.GCDis;
 
 namespace UnitTest.RouteFinding.Data.Interfaces
 {
-    [TestClass]    
+    [TestFixture]    
     public class ICoordinateExtensionTest
     {
         private const double delta = 1E-8;
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Test]
         public void GetClosestEmptyCollectionShouldThrow()
         {
             var items = new pt[0];
-            items.GetClosest(0.0, 0.0);
+
+            Assert.Throws<ArgumentException>(() =>
+            items.GetClosest(0.0, 0.0));
         }
 
-        [TestMethod]
+        [Test]
         public void GetClosestTest()
         {
             var items = new pt[] 
@@ -36,7 +37,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
             Assert.AreEqual(items[3], p);
         }
 
-        [TestMethod]
+        [Test]
         public void TotalDistance3Pts()
         {
             var pts = new pt[]
@@ -53,7 +54,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
             Assert.AreEqual(expected, pts.TotalDistance(), delta);
         }
 
-        [TestMethod]
+        [Test]
         public void TotalDistance2Pts()
         {
             var pts = new pt[]
@@ -68,7 +69,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
             Assert.AreEqual(expected, pts.TotalDistance(), delta);
         }
 
-        [TestMethod]
+        [Test]
         public void TotalDistance1Pt()
         {
             var pts = new pt[]
@@ -79,7 +80,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
             Assert.AreEqual(0.0, pts.TotalDistance(), delta);
         }
 
-        [TestMethod]
+        [Test]
         public void TotalDistance0Pt()
         {
             var pts = new pt[] { };
