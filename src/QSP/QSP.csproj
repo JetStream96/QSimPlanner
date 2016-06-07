@@ -104,6 +104,7 @@
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="RouteFinding\Data\WptSearchOption.cs" />
+    <Compile Include="RouteFinding\FixTypes.cs" />
     <Compile Include="UI\ToLdgModule\AboutPage\AboutPageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -411,7 +412,7 @@
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidHandler.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\BasicRouteAnalyzer.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarHandler.cs" />
-    <Compile Include="RouteFinding\Utilities.cs" />
+    <Compile Include="RouteFinding\RwyIdent.cs" />
     <Compile Include="TOPerfCalculation\TOReport.cs" />
     <Compile Include="UIElement\TablessControl.cs">
       <SubType>Component</SubType>

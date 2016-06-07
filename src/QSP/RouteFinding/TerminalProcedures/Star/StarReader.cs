@@ -1,9 +1,9 @@
-﻿using System;
+﻿using QSP.RouteFinding.Containers;
+using System;
 using System.Collections.Generic;
 using static QSP.LibraryExtension.StringParser.Utilities;
+using static QSP.RouteFinding.FixTypes;
 using static QSP.RouteFinding.TerminalProcedures.Sid.SidReader;
-using static QSP.RouteFinding.Utilities;
-using QSP.RouteFinding.Containers;
 
 namespace QSP.RouteFinding.TerminalProcedures.Star
 {

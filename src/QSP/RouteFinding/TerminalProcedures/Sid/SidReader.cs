@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using static QSP.LibraryExtension.StringParser.Utilities;
-using static QSP.RouteFinding.Utilities;
+using static QSP.RouteFinding.FixTypes;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
