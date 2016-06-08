@@ -77,7 +77,6 @@ namespace QSP.RouteFinding.FileExport.Providers
             }
 
             appendDestAirportPart(icaoDest, result);
-
             return result.ToString();
         }
 

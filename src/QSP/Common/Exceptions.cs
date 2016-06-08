@@ -16,7 +16,6 @@ namespace QSP.Common
         { }
     }
 
-
     [Serializable()]
     public class InvalidUserInputException : ApplicationException
     {
@@ -30,7 +29,6 @@ namespace QSP.Common
         { }
     }
 
-
     [Serializable()]
     public class RunwayTooShortException : Exception
     {
@@ -43,7 +41,6 @@ namespace QSP.Common
             : base(message, inner)
         { }
     }
-
 
     [Serializable()]
     public class PoorClimbPerformanceException : Exception
@@ -59,7 +56,6 @@ namespace QSP.Common
         { }
     }
 
-
     [Serializable()]
     public class EnumNotSupportedException : NotSupportedException
     {
@@ -70,6 +66,21 @@ namespace QSP.Common
 
         public EnumNotSupportedException(string message, Exception inner)
             : base(message, inner)
+        { }
+    }
+
+    [Serializable]
+    public class NoFileNameAvailException : Exception
+    {
+        public NoFileNameAvailException() { }
+        public NoFileNameAvailException(string message) : base(message) { }
+        public NoFileNameAvailException(string message, Exception inner)
+            : base(message, inner)
+        { }
+        protected NoFileNameAvailException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context)
+            : base(info, context)
         { }
     }
 }

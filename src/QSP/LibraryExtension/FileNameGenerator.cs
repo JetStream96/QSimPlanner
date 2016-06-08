@@ -1,17 +1,17 @@
-﻿using System.IO;
-using QSP.LibraryExtension;
+﻿using QSP.Common;
+using System.IO;
 
-namespace QSP.AircraftProfiles.Configs
+namespace QSP.LibraryExtension
 {
     public static class FileNameGenerator
-    {
+    {        
         /// <exception cref="NoFileNameAvailException"></exception>
         public static string Generate(string directory,
-            string ac, string registration)
+            string nameBase, string extension)
         {
-            string fileNameBase =
-                (ac + "_" + registration).RemoveIllegalChars();
-            string fn = Path.Combine(directory, fileNameBase + ".ini");
+            // TODO: throw when encounter illegal chars?
+            nameBase = nameBase.RemoveIllegalChars();
+            string fn = Path.Combine(directory, nameBase + extension);
 
             if (Directory.Exists(directory) == false ||
                 File.Exists(fn) == false)
@@ -22,7 +22,7 @@ namespace QSP.AircraftProfiles.Configs
             for (int i = 0; i <= int.MaxValue; i++)
             {
                 string file = Path.Combine(directory,
-                    fileNameBase + i.ToString() + ".ini");
+                    nameBase + i.ToString() + extension);
 
                 if (File.Exists(file) == false)
                 {

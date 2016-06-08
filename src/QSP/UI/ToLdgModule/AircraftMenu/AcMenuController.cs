@@ -2,6 +2,7 @@
 using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
 using QSP.Common;
+using QSP.LibraryExtension;
 using QSP.Utilities.Units;
 using System;
 using System.Drawing;
@@ -302,8 +303,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             {
                 return FileNameGenerator.Generate(
                     ConfigLoader.DefaultFolderPath,
-                    elem.AcType.Text,
-                    elem.Registration.Text);
+                    elem.AcType.Text + "_" + elem.Registration.Text,
+                    ".ini");
             }
             else
             {

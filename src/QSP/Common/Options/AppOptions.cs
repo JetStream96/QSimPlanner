@@ -1,16 +1,20 @@
+using QSP.RouteFinding.FileExport;
+using QSP.RouteFinding.FileExport.Providers;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using System.Linq;
 
 namespace QSP.Common.Options
 {
     public class AppOptions
     {
+        // TODO: make immutable or at least better encapsulation
         public string NavDataLocation { get; set; }
         public bool PromptBeforeExit { get; set; }
         public bool AutoDLTracks { get; set; }
         public bool AutoDLWind { get; set; }
-        public List<RouteExportCommand> ExportCommands { get; set; }
+        public List<ExportCommandEntry> ExportCommands { get; set; }
 
         public AppOptions()
         {
@@ -19,9 +23,10 @@ namespace QSP.Common.Options
             PromptBeforeExit = true;
             AutoDLTracks = true;
             AutoDLWind = true;
-            ExportCommands = new List<RouteExportCommand>();
+            ExportCommands = new List<ExportCommandEntry>();
         }
 
+        // TODO: exceptions?
         public AppOptions(XDocument xmlFile)
         {
             var root = xmlFile.Root;
@@ -34,15 +39,21 @@ namespace QSP.Common.Options
 
             var exports = root.Element("ExportOptions");
 
-            ExportCommands = new List<RouteExportCommand>();
+            ExportCommands = new List<ExportCommandEntry>();
 
             foreach (var i in exports.Elements())
             {
+                var type = (ProviderType)Enum.Parse(
+                    typeof(ProviderType),
+                    i.Element("Type").Value);
+
+                var cmd = new ExportCommand(
+                    type,
+                    i.Element("Path").Value,
+                    bool.Parse(i.Element("Enabled").Value));
+
                 ExportCommands.Add(
-                    new RouteExportCommand(
-                        i.Name.LocalName,
-                        i.Element("Path").Value,
-                        bool.Parse(i.Element("Enabled").Value)));
+                    new ExportCommandEntry(cmd, i.Name.LocalName));
             }
         }
 
@@ -52,13 +63,15 @@ namespace QSP.Common.Options
 
             for (int i = 0; i < ExportCommands.Count; i++)
             {
-                var command = ExportCommands[i];
+                var entry = ExportCommands[i];
+                var command = entry.Command;
 
                 exports[i] = new XElement(
-                    command.Format,
+                    entry.Key.ToString(),
                     new XElement[] {
+                        new XElement("Type", command.ProviderType.ToString()),
                         new XElement("Enabled", command.Enabled.ToString()),
-                        new XElement("Path", command.FilePath)});
+                        new XElement("Path", command.Directory)});
             }
 
             var exportOptions = new XElement("ExportOptions", exports);
@@ -71,32 +84,11 @@ namespace QSP.Common.Options
                 exportOptions});
         }
 
-        public RouteExportCommand GetExportCommand(string format)
+        // TODO: prevent duplicate key?
+        public ExportCommandEntry GetExportCommand(string key)
         {
-            foreach (var i in ExportCommands)
-            {
-                if (i.Format == format)
-                {
-                    return i;
-                }
-
-            }
-            return null;
+            return ExportCommands.FirstOrDefault(i => i.Key == key);
         }
 
-    }
-
-    public class RouteExportCommand
-    {
-        public string Format { get; private set; }
-        public string FilePath { get; private set; }
-        public bool Enabled { get; private set; }
-
-        public RouteExportCommand(string Format, string FilePath, bool Enabled)
-        {
-            this.Format = Format;
-            this.FilePath = FilePath;
-            this.Enabled = Enabled;
-        }
     }
 }

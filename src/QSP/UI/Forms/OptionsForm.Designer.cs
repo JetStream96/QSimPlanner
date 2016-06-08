@@ -43,15 +43,15 @@ namespace QSP
             this.GroupBox1 = new System.Windows.Forms.GroupBox();
             this.browseFolderBtn = new System.Windows.Forms.Button();
             this.Label13 = new System.Windows.Forms.Label();
-            this.Expired_Lbl = new System.Windows.Forms.Label();
+            this.expiredLbl = new System.Windows.Forms.Label();
             this.navDataPathTxtBox = new System.Windows.Forms.TextBox();
-            this.AiracPeriod_Lbl = new System.Windows.Forms.Label();
+            this.airacPeriodLbl = new System.Windows.Forms.Label();
             this.Label1 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
             this.Label14 = new System.Windows.Forms.Label();
             this.Label6 = new System.Windows.Forms.Label();
-            this.DBFound_Lbl = new System.Windows.Forms.Label();
-            this.Airac_Lbl = new System.Windows.Forms.Label();
+            this.navDataFoundLbl = new System.Windows.Forms.Label();
+            this.airacLbl = new System.Windows.Forms.Label();
             this.ok_button = new System.Windows.Forms.Button();
             this.cancel_button = new System.Windows.Forms.Button();
             this.GroupBox2 = new System.Windows.Forms.GroupBox();
@@ -65,13 +65,13 @@ namespace QSP
             this.CheckBox1 = new System.Windows.Forms.CheckBox();
             this.TextBox1 = new System.Windows.Forms.TextBox();
             this.GroupBox3 = new System.Windows.Forms.GroupBox();
-            this.DoubleCheckWhenExit_CheckBox = new System.Windows.Forms.CheckBox();
+            this.PromptBeforeExit = new System.Windows.Forms.CheckBox();
             this.Options_TabControl = new System.Windows.Forms.TabControl();
             this.TabPage1 = new System.Windows.Forms.TabPage();
             this.TabPage2 = new System.Windows.Forms.TabPage();
             this.GroupBox4 = new System.Windows.Forms.GroupBox();
-            this.AutoDLWind_CheckBox = new System.Windows.Forms.CheckBox();
-            this.AutoDLNats_CheckBox = new System.Windows.Forms.CheckBox();
+            this.AutoDLWindCheckBox = new System.Windows.Forms.CheckBox();
+            this.AutoDLNatsCheckBox = new System.Windows.Forms.CheckBox();
             this.TabPage3 = new System.Windows.Forms.TabPage();
             this.GroupBox1.SuspendLayout();
             this.GroupBox2.SuspendLayout();
@@ -87,15 +87,15 @@ namespace QSP
             // 
             this.GroupBox1.Controls.Add(this.browseFolderBtn);
             this.GroupBox1.Controls.Add(this.Label13);
-            this.GroupBox1.Controls.Add(this.Expired_Lbl);
+            this.GroupBox1.Controls.Add(this.expiredLbl);
             this.GroupBox1.Controls.Add(this.navDataPathTxtBox);
-            this.GroupBox1.Controls.Add(this.AiracPeriod_Lbl);
+            this.GroupBox1.Controls.Add(this.airacPeriodLbl);
             this.GroupBox1.Controls.Add(this.Label1);
             this.GroupBox1.Controls.Add(this.Label5);
             this.GroupBox1.Controls.Add(this.Label14);
             this.GroupBox1.Controls.Add(this.Label6);
-            this.GroupBox1.Controls.Add(this.DBFound_Lbl);
-            this.GroupBox1.Controls.Add(this.Airac_Lbl);
+            this.GroupBox1.Controls.Add(this.navDataFoundLbl);
+            this.GroupBox1.Controls.Add(this.airacLbl);
             this.GroupBox1.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupBox1.Location = new System.Drawing.Point(7, 7);
             this.GroupBox1.Margin = new System.Windows.Forms.Padding(4);
@@ -133,14 +133,14 @@ namespace QSP
             // 
             // Expired_Lbl
             // 
-            this.Expired_Lbl.AutoSize = true;
-            this.Expired_Lbl.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Expired_Lbl.Location = new System.Drawing.Point(277, 234);
-            this.Expired_Lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Expired_Lbl.Name = "Expired_Lbl";
-            this.Expired_Lbl.Size = new System.Drawing.Size(65, 16);
-            this.Expired_Lbl.TabIndex = 21;
-            this.Expired_Lbl.Text = "(Expired)";
+            this.expiredLbl.AutoSize = true;
+            this.expiredLbl.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.expiredLbl.Location = new System.Drawing.Point(277, 234);
+            this.expiredLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.expiredLbl.Name = "Expired_Lbl";
+            this.expiredLbl.Size = new System.Drawing.Size(65, 16);
+            this.expiredLbl.TabIndex = 21;
+            this.expiredLbl.Text = "(Expired)";
             // 
             // navDataPathTxtBox
             // 
@@ -154,14 +154,14 @@ namespace QSP
             // 
             // AiracPeriod_Lbl
             // 
-            this.AiracPeriod_Lbl.AutoSize = true;
-            this.AiracPeriod_Lbl.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AiracPeriod_Lbl.Location = new System.Drawing.Point(134, 234);
-            this.AiracPeriod_Lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.AiracPeriod_Lbl.Name = "AiracPeriod_Lbl";
-            this.AiracPeriod_Lbl.Size = new System.Drawing.Size(119, 16);
-            this.AiracPeriod_Lbl.TabIndex = 20;
-            this.AiracPeriod_Lbl.Text = "OCT16NOV12/14";
+            this.airacPeriodLbl.AutoSize = true;
+            this.airacPeriodLbl.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.airacPeriodLbl.Location = new System.Drawing.Point(134, 234);
+            this.airacPeriodLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.airacPeriodLbl.Name = "AiracPeriod_Lbl";
+            this.airacPeriodLbl.Size = new System.Drawing.Size(119, 16);
+            this.airacPeriodLbl.TabIndex = 20;
+            this.airacPeriodLbl.Text = "OCT16NOV12/14";
             // 
             // Label1
             // 
@@ -209,25 +209,25 @@ namespace QSP
             // 
             // DBFound_Lbl
             // 
-            this.DBFound_Lbl.AutoSize = true;
-            this.DBFound_Lbl.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DBFound_Lbl.Location = new System.Drawing.Point(162, 202);
-            this.DBFound_Lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.DBFound_Lbl.Name = "DBFound_Lbl";
-            this.DBFound_Lbl.Size = new System.Drawing.Size(49, 16);
-            this.DBFound_Lbl.TabIndex = 17;
-            this.DBFound_Lbl.Text = "Ready";
+            this.navDataFoundLbl.AutoSize = true;
+            this.navDataFoundLbl.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.navDataFoundLbl.Location = new System.Drawing.Point(162, 202);
+            this.navDataFoundLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.navDataFoundLbl.Name = "DBFound_Lbl";
+            this.navDataFoundLbl.Size = new System.Drawing.Size(49, 16);
+            this.navDataFoundLbl.TabIndex = 17;
+            this.navDataFoundLbl.Text = "Ready";
             // 
             // Airac_Lbl
             // 
-            this.Airac_Lbl.AutoSize = true;
-            this.Airac_Lbl.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Airac_Lbl.Location = new System.Drawing.Point(371, 202);
-            this.Airac_Lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Airac_Lbl.Name = "Airac_Lbl";
-            this.Airac_Lbl.Size = new System.Drawing.Size(39, 16);
-            this.Airac_Lbl.TabIndex = 15;
-            this.Airac_Lbl.Text = "1411";
+            this.airacLbl.AutoSize = true;
+            this.airacLbl.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.airacLbl.Location = new System.Drawing.Point(371, 202);
+            this.airacLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.airacLbl.Name = "Airac_Lbl";
+            this.airacLbl.Size = new System.Drawing.Size(39, 16);
+            this.airacLbl.TabIndex = 15;
+            this.airacLbl.Text = "1411";
             // 
             // ok_button
             // 
@@ -383,7 +383,7 @@ namespace QSP
             // 
             // GroupBox3
             // 
-            this.GroupBox3.Controls.Add(this.DoubleCheckWhenExit_CheckBox);
+            this.GroupBox3.Controls.Add(this.PromptBeforeExit);
             this.GroupBox3.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupBox3.Location = new System.Drawing.Point(7, 286);
             this.GroupBox3.Name = "GroupBox3";
@@ -394,14 +394,14 @@ namespace QSP
             // 
             // DoubleCheckWhenExit_CheckBox
             // 
-            this.DoubleCheckWhenExit_CheckBox.AutoSize = true;
-            this.DoubleCheckWhenExit_CheckBox.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DoubleCheckWhenExit_CheckBox.Location = new System.Drawing.Point(37, 24);
-            this.DoubleCheckWhenExit_CheckBox.Name = "DoubleCheckWhenExit_CheckBox";
-            this.DoubleCheckWhenExit_CheckBox.Size = new System.Drawing.Size(218, 20);
-            this.DoubleCheckWhenExit_CheckBox.TabIndex = 30;
-            this.DoubleCheckWhenExit_CheckBox.Text = "Ask before closing application";
-            this.DoubleCheckWhenExit_CheckBox.UseVisualStyleBackColor = true;
+            this.PromptBeforeExit.AutoSize = true;
+            this.PromptBeforeExit.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PromptBeforeExit.Location = new System.Drawing.Point(37, 24);
+            this.PromptBeforeExit.Name = "DoubleCheckWhenExit_CheckBox";
+            this.PromptBeforeExit.Size = new System.Drawing.Size(218, 20);
+            this.PromptBeforeExit.TabIndex = 30;
+            this.PromptBeforeExit.Text = "Ask before closing application";
+            this.PromptBeforeExit.UseVisualStyleBackColor = true;
             // 
             // Options_TabControl
             // 
@@ -439,8 +439,8 @@ namespace QSP
             // 
             // GroupBox4
             // 
-            this.GroupBox4.Controls.Add(this.AutoDLWind_CheckBox);
-            this.GroupBox4.Controls.Add(this.AutoDLNats_CheckBox);
+            this.GroupBox4.Controls.Add(this.AutoDLWindCheckBox);
+            this.GroupBox4.Controls.Add(this.AutoDLNatsCheckBox);
             this.GroupBox4.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupBox4.Location = new System.Drawing.Point(6, 18);
             this.GroupBox4.Name = "GroupBox4";
@@ -451,25 +451,25 @@ namespace QSP
             // 
             // AutoDLWind_CheckBox
             // 
-            this.AutoDLWind_CheckBox.AutoSize = true;
-            this.AutoDLWind_CheckBox.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AutoDLWind_CheckBox.Location = new System.Drawing.Point(44, 47);
-            this.AutoDLWind_CheckBox.Name = "AutoDLWind_CheckBox";
-            this.AutoDLWind_CheckBox.Size = new System.Drawing.Size(322, 20);
-            this.AutoDLWind_CheckBox.TabIndex = 31;
-            this.AutoDLWind_CheckBox.Text = "Download upper winds at startup automatically";
-            this.AutoDLWind_CheckBox.UseVisualStyleBackColor = true;
+            this.AutoDLWindCheckBox.AutoSize = true;
+            this.AutoDLWindCheckBox.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AutoDLWindCheckBox.Location = new System.Drawing.Point(44, 47);
+            this.AutoDLWindCheckBox.Name = "AutoDLWind_CheckBox";
+            this.AutoDLWindCheckBox.Size = new System.Drawing.Size(322, 20);
+            this.AutoDLWindCheckBox.TabIndex = 31;
+            this.AutoDLWindCheckBox.Text = "Download upper winds at startup automatically";
+            this.AutoDLWindCheckBox.UseVisualStyleBackColor = true;
             // 
             // AutoDLNats_CheckBox
             // 
-            this.AutoDLNats_CheckBox.AutoSize = true;
-            this.AutoDLNats_CheckBox.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AutoDLNats_CheckBox.Location = new System.Drawing.Point(44, 21);
-            this.AutoDLNats_CheckBox.Name = "AutoDLNats_CheckBox";
-            this.AutoDLNats_CheckBox.Size = new System.Drawing.Size(277, 20);
-            this.AutoDLNats_CheckBox.TabIndex = 30;
-            this.AutoDLNats_CheckBox.Text = "Download NATs at startup automatically";
-            this.AutoDLNats_CheckBox.UseVisualStyleBackColor = true;
+            this.AutoDLNatsCheckBox.AutoSize = true;
+            this.AutoDLNatsCheckBox.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AutoDLNatsCheckBox.Location = new System.Drawing.Point(44, 21);
+            this.AutoDLNatsCheckBox.Name = "AutoDLNats_CheckBox";
+            this.AutoDLNatsCheckBox.Size = new System.Drawing.Size(277, 20);
+            this.AutoDLNatsCheckBox.TabIndex = 30;
+            this.AutoDLNatsCheckBox.Text = "Download NATs at startup automatically";
+            this.AutoDLNatsCheckBox.UseVisualStyleBackColor = true;
             // 
             // TabPage3
             // 
@@ -525,10 +525,10 @@ namespace QSP
         internal System.Windows.Forms.Label Label6;
         internal System.Windows.Forms.Label Label5;
         internal System.Windows.Forms.Label Label14;
-        internal System.Windows.Forms.Label DBFound_Lbl;
-        internal System.Windows.Forms.Label Airac_Lbl;
-        internal System.Windows.Forms.Label Expired_Lbl;
-        internal System.Windows.Forms.Label AiracPeriod_Lbl;
+        internal System.Windows.Forms.Label navDataFoundLbl;
+        internal System.Windows.Forms.Label airacLbl;
+        internal System.Windows.Forms.Label expiredLbl;
+        internal System.Windows.Forms.Label airacPeriodLbl;
         internal System.Windows.Forms.Label Label13;
         internal System.Windows.Forms.GroupBox GroupBox2;
         internal System.Windows.Forms.CheckBox CheckBox1;
@@ -541,13 +541,13 @@ namespace QSP
         internal System.Windows.Forms.Button Button1;
         internal System.Windows.Forms.TextBox TextBox1;
         internal System.Windows.Forms.GroupBox GroupBox3;
-        internal System.Windows.Forms.CheckBox DoubleCheckWhenExit_CheckBox;
+        internal System.Windows.Forms.CheckBox PromptBeforeExit;
         internal System.Windows.Forms.TabControl Options_TabControl;
         internal System.Windows.Forms.TabPage TabPage1;
         internal System.Windows.Forms.TabPage TabPage2;
         internal System.Windows.Forms.GroupBox GroupBox4;
-        internal System.Windows.Forms.CheckBox AutoDLWind_CheckBox;
-        internal System.Windows.Forms.CheckBox AutoDLNats_CheckBox;
+        internal System.Windows.Forms.CheckBox AutoDLWindCheckBox;
+        internal System.Windows.Forms.CheckBox AutoDLNatsCheckBox;
         internal System.Windows.Forms.TabPage TabPage3;
     }
 }

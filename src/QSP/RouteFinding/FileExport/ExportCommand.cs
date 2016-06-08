@@ -1,16 +1,18 @@
-﻿namespace QSP.RouteFinding.FileExport
+﻿using QSP.RouteFinding.FileExport.Providers;
+
+namespace QSP.RouteFinding.FileExport
 {
     public class ExportCommand
     {
-        public IExportProvider Provider { get; private set; }
-        public string FilePath { get; private set; }
+        public ProviderType ProviderType { get; private set; }
+        public string Directory { get; private set; }
         public bool Enabled { get; private set; }
 
         public ExportCommand(
-            IExportProvider Provider, string FilePath, bool Enabled)
+            ProviderType ProviderType, string Directory, bool Enabled)
         {
-            this.Provider = Provider;
-            this.FilePath = FilePath;
+            this.ProviderType = ProviderType;
+            this.Directory = Directory;
             this.Enabled = Enabled;
         }
     }

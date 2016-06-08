@@ -833,9 +833,10 @@ namespace QSP
 
         private void ExportRte()
         {
-            var writer = new RouteFileWriter(
-                RouteToDest, appSettings.ExportCommands, PMDGrteFile);
-            writer.Export();
+            var cmds = appSettings.ExportCommands.Select(x => x.Command);
+            var writer = new FileExporter(RouteToDest, airportList, cmds);
+
+            writer.Export(); // TODO: handle exceptions
         }
 
         private void ResetFromCBoxes()
@@ -1228,7 +1229,7 @@ namespace QSP
             {
                 RouteDisplayRichTxtBox.Text = RouteDisplayRichTxtBox.Text.ToUpper();
 
-                RouteToDest = 
+                RouteToDest =
                     new ManagedRoute(
                         RouteAnalyzerFacade.AnalyzeWithCommands(
                             RouteDisplayRichTxtBox.Text,
