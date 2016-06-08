@@ -13,9 +13,9 @@ namespace QSP
     {
         public AppOptions AppSettings { get; set; }
 
-        private void DBPath_TxtBox_TextChanged(object sender, EventArgs e)
+        private void navDataPathTxtBox_TextChanged(object sender, EventArgs e)
         {
-            LoadDBStatusDisplay(DBPath_TxtBox.Text);
+            LoadDBStatusDisplay(navDataPathTxtBox.Text);
         }
 
         public void LoadDBStatusDisplay(string DBFilepath)
@@ -89,21 +89,19 @@ namespace QSP
         /// <param name="DBFilepath">The folder containing cycle.txt.</param>
         public static Tuple<string, string> AiracCyclePeriod(string DBFilepath)
         {
-
-            string str = File.ReadAllText(DBFilepath + "\\cycle.txt");
+            string str = File.ReadAllText(DBFilepath + "/cycle.txt");
             string[] s = str.Split(',');
             return new Tuple<string, string>(s[0], s[1]);
-
         }
         
         private void browseFolderBtn_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog MyFolderBrowser = new FolderBrowserDialog();
-            DialogResult dlgResult = MyFolderBrowser.ShowDialog();
+            var MyFolderBrowser = new FolderBrowserDialog();
+            var dlgResult = MyFolderBrowser.ShowDialog();
 
             if (dlgResult == DialogResult.OK)
             {
-                DBPath_TxtBox.Text = MyFolderBrowser.SelectedPath;
+                navDataPathTxtBox.Text = MyFolderBrowser.SelectedPath;
             }
 
         }
@@ -114,7 +112,7 @@ namespace QSP
 
             if (OptionManager.TrySaveFile(AppSettings))
             {
-                AppSettings.NavDataLocation = DBPath_TxtBox.Text;
+                AppSettings.NavDataLocation = navDataPathTxtBox.Text;
                 MainFormInstance().LoadNavDBUpdateStatusStrip(false);
             }
 
@@ -137,13 +135,13 @@ namespace QSP
             AppSettings.AutoDLTracks = AutoDLNats_CheckBox.Checked;
             AppSettings.AutoDLWind = AutoDLWind_CheckBox.Checked;
 
-            if (AppSettings.NavDataLocation == DBPath_TxtBox.Text)
+            if (AppSettings.NavDataLocation == navDataPathTxtBox.Text)
             {
                 return false;
             }
             else
             {
-                AppSettings.NavDataLocation = DBPath_TxtBox.Text;
+                AppSettings.NavDataLocation = navDataPathTxtBox.Text;
                 return true;
             }
 
@@ -185,7 +183,7 @@ namespace QSP
         {
             AutoDLNats_CheckBox.Checked = AppSettings.AutoDLTracks;
             AutoDLWind_CheckBox.Checked = AppSettings.AutoDLWind;
-            DBPath_TxtBox.Text = AppSettings.NavDataLocation;
+            navDataPathTxtBox.Text = AppSettings.NavDataLocation;
             DoubleCheckWhenExit_CheckBox.Checked = AppSettings.PromptBeforeExit;
 
             var command = AppSettings.GetExportCommand("PmdgCommon");

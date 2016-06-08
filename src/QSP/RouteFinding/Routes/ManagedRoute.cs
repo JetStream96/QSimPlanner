@@ -12,7 +12,8 @@ namespace QSP.RouteFinding.Routes
             toggler = new RouteToggler(links, tracksInUse);
         }
 
-        public ManagedRoute(Route route, TrackInUseCollection tracksInUse) : base(route)
+        public ManagedRoute(Route route, TrackInUseCollection tracksInUse)
+            : base(route)
         {
             toggler = new RouteToggler(links, tracksInUse);
         }
@@ -40,10 +41,14 @@ namespace QSP.RouteFinding.Routes
         }
 
         /// <summary>
-        /// A string represents the usual route text with the Nats display option.
+        /// A string represents the usual route text with 
+        /// the Nats display option.
         /// </summary>
         /// <exception cref="EnumNotSupportedException"></exception>
-        public string ToString(bool ShowFirstWaypoint, bool ShowLastWaypoint, TracksDisplayOption para1)
+        public string ToString(
+            bool ShowFirstWaypoint,
+            bool ShowLastWaypoint,
+            TracksDisplayOption para1)
         {
             switch (para1)
             {
@@ -58,6 +63,7 @@ namespace QSP.RouteFinding.Routes
                 default:
                     throw new EnumNotSupportedException("Incorrect enum for NatsDisplayOption.");
             }
+
             return ToString(ShowFirstWaypoint, ShowLastWaypoint);
         }
     }

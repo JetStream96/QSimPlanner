@@ -44,7 +44,7 @@ namespace QSP
             this.browseFolderBtn = new System.Windows.Forms.Button();
             this.Label13 = new System.Windows.Forms.Label();
             this.Expired_Lbl = new System.Windows.Forms.Label();
-            this.DBPath_TxtBox = new System.Windows.Forms.TextBox();
+            this.navDataPathTxtBox = new System.Windows.Forms.TextBox();
             this.AiracPeriod_Lbl = new System.Windows.Forms.Label();
             this.Label1 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
@@ -52,7 +52,6 @@ namespace QSP
             this.Label6 = new System.Windows.Forms.Label();
             this.DBFound_Lbl = new System.Windows.Forms.Label();
             this.Airac_Lbl = new System.Windows.Forms.Label();
-            this.FolderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.ok_button = new System.Windows.Forms.Button();
             this.cancel_button = new System.Windows.Forms.Button();
             this.GroupBox2 = new System.Windows.Forms.GroupBox();
@@ -89,7 +88,7 @@ namespace QSP
             this.GroupBox1.Controls.Add(this.browseFolderBtn);
             this.GroupBox1.Controls.Add(this.Label13);
             this.GroupBox1.Controls.Add(this.Expired_Lbl);
-            this.GroupBox1.Controls.Add(this.DBPath_TxtBox);
+            this.GroupBox1.Controls.Add(this.navDataPathTxtBox);
             this.GroupBox1.Controls.Add(this.AiracPeriod_Lbl);
             this.GroupBox1.Controls.Add(this.Label1);
             this.GroupBox1.Controls.Add(this.Label5);
@@ -143,15 +142,15 @@ namespace QSP
             this.Expired_Lbl.TabIndex = 21;
             this.Expired_Lbl.Text = "(Expired)";
             // 
-            // DBPath_TxtBox
+            // navDataPathTxtBox
             // 
-            this.DBPath_TxtBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DBPath_TxtBox.Location = new System.Drawing.Point(89, 158);
-            this.DBPath_TxtBox.Margin = new System.Windows.Forms.Padding(4);
-            this.DBPath_TxtBox.Name = "DBPath_TxtBox";
-            this.DBPath_TxtBox.Size = new System.Drawing.Size(317, 27);
-            this.DBPath_TxtBox.TabIndex = 3;
-            this.DBPath_TxtBox.TextChanged += new System.EventHandler(this.DBPath_TxtBox_TextChanged);
+            this.navDataPathTxtBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.navDataPathTxtBox.Location = new System.Drawing.Point(89, 158);
+            this.navDataPathTxtBox.Margin = new System.Windows.Forms.Padding(4);
+            this.navDataPathTxtBox.Name = "navDataPathTxtBox";
+            this.navDataPathTxtBox.Size = new System.Drawing.Size(317, 27);
+            this.navDataPathTxtBox.TabIndex = 3;
+            this.navDataPathTxtBox.TextChanged += new System.EventHandler(this.navDataPathTxtBox_TextChanged);
             // 
             // AiracPeriod_Lbl
             // 
@@ -489,7 +488,7 @@ namespace QSP
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(541, 617);
+            this.ClientSize = new System.Drawing.Size(533, 609);
             this.ControlBox = false;
             this.Controls.Add(this.Options_TabControl);
             this.Controls.Add(this.cancel_button);
@@ -520,8 +519,7 @@ namespace QSP
         internal System.Windows.Forms.GroupBox GroupBox1;
         internal System.Windows.Forms.Label Label1;
         internal System.Windows.Forms.Button browseFolderBtn;
-        internal System.Windows.Forms.TextBox DBPath_TxtBox;
-        internal System.Windows.Forms.FolderBrowserDialog FolderBrowserDialog1;
+        internal System.Windows.Forms.TextBox navDataPathTxtBox;
         internal System.Windows.Forms.Button ok_button;
         internal System.Windows.Forms.Button cancel_button;
         internal System.Windows.Forms.Label Label6;

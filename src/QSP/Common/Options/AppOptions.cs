@@ -27,10 +27,10 @@ namespace QSP.Common.Options
             var root = xmlFile.Root;
 
             NavDataLocation = root.Element("DatabasePath").Value;
-            PromptBeforeExit = Convert.ToBoolean(
+            PromptBeforeExit = bool.Parse(
                 root.Element("PromptBeforeExit").Value);
-            AutoDLTracks = Convert.ToBoolean(root.Element("AutoDLNats").Value);
-            AutoDLWind = Convert.ToBoolean(root.Element("AutoDLWind").Value);
+            AutoDLTracks = bool.Parse(root.Element("AutoDLNats").Value);
+            AutoDLWind = bool.Parse(root.Element("AutoDLWind").Value);
 
             var exports = root.Element("ExportOptions");
 
@@ -42,7 +42,7 @@ namespace QSP.Common.Options
                     new RouteExportCommand(
                         i.Name.LocalName,
                         i.Element("Path").Value,
-                        Convert.ToBoolean(i.Element("Enabled").Value)));
+                        bool.Parse(i.Element("Enabled").Value)));
             }
         }
 
@@ -55,7 +55,7 @@ namespace QSP.Common.Options
                 var command = ExportCommands[i];
 
                 exports[i] = new XElement(
-                    command.Format, 
+                    command.Format,
                     new XElement[] {
                         new XElement("Enabled", command.Enabled.ToString()),
                         new XElement("Path", command.FilePath)});

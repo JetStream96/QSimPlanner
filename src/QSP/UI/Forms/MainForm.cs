@@ -1,4 +1,5 @@
 using QSP.AircraftProfiles;
+using QSP.Common;
 using QSP.Common.Options;
 using QSP.GoogleMap;
 using QSP.LibraryExtension;
@@ -7,6 +8,8 @@ using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.FileExport;
+using QSP.RouteFinding.FileExport.Providers;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Sid;
@@ -701,17 +704,21 @@ namespace QSP
                 switch (para)
                 {
                     case SidStarSelection.Sid:
-                        proc = SidHandlerFactory.GetHandler(icao, appSettings.NavDataLocation, wptList, wptList.GetEditor(), airportList)
-                                                .GetSidList(rwy);
-
+                        proc = SidHandlerFactory.GetHandler(
+                            icao, appSettings.NavDataLocation, wptList,
+                            wptList.GetEditor(), airportList)
+                            .GetSidList(rwy);
                         break;
+
                     case SidStarSelection.Star:
-                        proc = StarHandlerFactory.GetHandler(icao, appSettings.NavDataLocation, wptList, wptList.GetEditor(), airportList)
-                                                 .GetStarList(rwy);
-
+                        proc = StarHandlerFactory.GetHandler(
+                            icao, appSettings.NavDataLocation, wptList,
+                            wptList.GetEditor(), airportList)
+                            .GetStarList(rwy);
                         break;
+
                     default:
-                        throw new ArgumentException("Invalid Enum.");
+                        throw new EnumNotSupportedException();
                 }
 
             }
@@ -753,13 +760,14 @@ namespace QSP
 
         private List<string> getSidStarList(ComboBox CBox)
         {
-            List<string> sidStar = new List<string>();
+            var sidStar = new List<string>();
 
             if (CBox.Text == "AUTO")
             {
                 foreach (var i in CBox.Items)
                 {
                     string s = Convert.ToString(i);
+
                     if (s != "AUTO")
                     {
                         sidStar.Add(s);
@@ -770,6 +778,7 @@ namespace QSP
             {
                 sidStar.Add(CBox.Text);
             }
+
             return sidStar;
         }
 
@@ -783,8 +792,8 @@ namespace QSP
                                                       DestTxtBox.Text, DestRwyComboBox.Text, star),
                                            TracksInUse);
 
-            PMDGrteFile = FlightPlanExport.GeneratePmdgRteFile(
-                RouteToDest, airportList);
+            PMDGrteFile = new PmdgProvider(RouteToDest, airportList)
+                .GetExportText();
 
             RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
@@ -1217,22 +1226,24 @@ namespace QSP
             //TODO: Need better exception message for AUTO, RAND commands
             try
             {
-
                 RouteDisplayRichTxtBox.Text = RouteDisplayRichTxtBox.Text.ToUpper();
 
-                RouteToDest = new ManagedRoute(
-                                    RouteAnalyzerFacade.AnalyzeWithCommands(RouteDisplayRichTxtBox.Text,
-                                                                            OrigTxtBox.Text,
-                                                                            OrigRwyComboBox.Text,
-                                                                            DestTxtBox.Text,
-                                                                            DestRwyComboBox.Text,
-                                                                            appSettings.NavDataLocation,
-                                                                            airportList,
-                                                                            wptList),
-                                    TracksInUse);
+                RouteToDest = 
+                    new ManagedRoute(
+                        RouteAnalyzerFacade.AnalyzeWithCommands(
+                            RouteDisplayRichTxtBox.Text,
+                            OrigTxtBox.Text,
+                            OrigRwyComboBox.Text,
+                            DestTxtBox.Text,
+                            DestRwyComboBox.Text,
+                            appSettings.NavDataLocation,
+                            airportList,
+                            wptList),
+                        TracksInUse);
 
-                PMDGrteFile = FlightPlanExport.GeneratePmdgRteFile(
-                    RouteToDest, airportList);
+                PMDGrteFile = new PmdgProvider(RouteToDest, airportList)
+                .GetExportText();
+
                 RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
                 double directDis = MathTools.GCDis.Distance(RouteToDest.First.Waypoint.LatLon, RouteToDest.Last.Waypoint.LatLon);
