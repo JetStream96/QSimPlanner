@@ -37,6 +37,11 @@ namespace QSP.RouteFinding.FileExport
 
             foreach (var i in commands)
             {
+                if(i.Enabled == false)
+                {
+                    continue;
+                }
+
                 try
                 {
                     var provider = ProviderFactory.GetProvider(
@@ -49,7 +54,7 @@ namespace QSP.RouteFinding.FileExport
                         getFileName(),
                         ".rte"); // TODO: extension
 
-                    File.WriteAllText(i.Directory, provider.GetExportText());
+                    File.WriteAllText(filePath, provider.GetExportText());
                 }
                 catch (Exception ex)
                 {

@@ -43,7 +43,7 @@ namespace QSimPlanner
 
             initData();
 
-            mainFrm.Initialize(
+            mainFrm.Init(
                 Information.Profiles,
                 Information.AppSettings,
                 Information.AirportList,
@@ -66,9 +66,7 @@ namespace QSimPlanner
             catch (Exception ex)
             {
                 LoggerInstance.WriteToLog(ex);
-
-                Information.AppSettings = new AppOptions();
-
+                
                 MessageBox.Show(
                     "Cannot load options.", "",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);

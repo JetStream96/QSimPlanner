@@ -43,7 +43,7 @@ namespace QSimPlanner.GlobalInfo
 
         public static void InitSettings()
         {
-            AppSettings = OptionManager.ReadFromFile();
+            AppSettings = OptionManager.ReadOrCreateFile();
         }        
     }
 }

@@ -175,7 +175,7 @@ namespace QSP
 
         #endregion
 
-        public void Initialize(
+        public void Init(
             ProfileManager profiles,
             AppOptions appSettings,
             AirportManager airportList,
@@ -380,15 +380,15 @@ namespace QSP
             }
             catch (Exception ex)
             {
-                //if error occurred, the open the option window
+                WriteToLog(ex);
+                // Open the option window
                 StatusLabel1.Image = Properties.Resources.RedLight;
                 StatusLabel1.Text = "Failed to load Nav DB.";
 
                 if (startingApp)
                 {
-                    new OptionsForm().ShowDialog();
+                    showOptionsForm();
                 }
-                WriteToLog(ex);
             }
         }
 
@@ -515,10 +515,18 @@ namespace QSP
 
         private void OptionsToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            var optionForm = new OptionsForm();
-            optionForm.AppSettings = appSettings;
-            optionForm.Visible = false;
-            optionForm.ShowDialog();
+            showOptionsForm();
+        }
+
+        private void showOptionsForm()
+        {
+            var frm = new OptionsForm();
+            frm.Init(appSettings);
+            frm.AppSettingChanged += (sender, e) =>
+              {
+                  appSettings = frm.AppSettings;
+              };
+            frm.ShowDialog();
         }
 
         private void setHandCusor(object sender, EventArgs e)
@@ -533,7 +541,7 @@ namespace QSP
 
         private void StatusLabel1_Click(object sender, EventArgs e)
         {
-            new OptionsForm().ShowDialog();
+            showOptionsForm();
         }
 
         private void ShowTO_Btn_Click(object sender, EventArgs e)

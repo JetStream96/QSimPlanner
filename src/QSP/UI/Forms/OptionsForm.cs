@@ -14,8 +14,16 @@ namespace QSP
 {
     public partial class OptionsForm
     {
+        public event EventHandler AppSettingChanged;
+        public AppOptions AppSettings { get; private set; }
+
         private Dictionary<string, ProviderType> exportTypes =
                new Dictionary<string, ProviderType>();
+
+        public OptionsForm()
+        {
+            InitializeComponent();
+        }
 
         private void initExportTypes()
         {
@@ -23,25 +31,16 @@ namespace QSP
             exportTypes.Add("PmdgNGX", ProviderType.Pmdg);
             exportTypes.Add("Pmdg777", ProviderType.Pmdg);
         }
-        
-        public AppOptions AppSettings { get; set; }
-
-        // TODO: call this after ctor.
-        public void Init()
-        {
-            initExportTypes();
-        }
 
         private void navDataPathTxtBox_TextChanged(object sender, EventArgs e)
         {
-            LoadNavDataStatusDisplay(navDataPathTxtBox.Text);
+            displayNavDataStatus(navDataPathTxtBox.Text);
         }
 
-        public void LoadNavDataStatusDisplay(string DBFilepath)
+        private void displayNavDataStatus(string navDataPath)
         {
-            //DBFilepath = the path in the TxtBox
-
-            //This section is to determine whether the database files are found or not.
+            // This section is to determine whether the database
+            // files are found or not.
             bool navDataFound = true;
 
             string[] FilesToCheck = {
@@ -54,7 +53,7 @@ namespace QSP
 
             foreach (var i in FilesToCheck)
             {
-                if (File.Exists(DBFilepath + @"\" + i) == false)
+                if (File.Exists(navDataPath + @"\" + i) == false)
                 {
                     navDataFound = false;
                     break;
@@ -62,10 +61,10 @@ namespace QSP
             }
 
             navDataFoundLbl.Text = navDataFound ? "Found" : "Not Found";
-            
+
             try
             {
-                Tuple<string, string> t = AiracCyclePeriod(DBFilepath);
+                Tuple<string, string> t = AiracCyclePeriod(navDataPath);
                 airacLbl.Text = t.Item1;
                 airacPeriodLbl.Text = t.Item2;
 
@@ -83,12 +82,12 @@ namespace QSP
             }
             catch (Exception ex)
             {
+                WriteToLog(ex);
+
                 navDataFoundLbl.Text = "Failed to load";
                 airacLbl.Text = "N/A";
                 airacPeriodLbl.Text = "N/A";
                 expiredLbl.Text = "";
-
-                WriteToLog(ex);
             }
         }
 
@@ -115,37 +114,49 @@ namespace QSP
             }
         }
 
+        // TODO: this is totally wrong
         private void okBtnClick(object sender, EventArgs e)
         {
+            var newSetting = validateSetting();
+
+            // TODO:
             // If the database path is changed, then load the database. 
             // Otherwise do not reload the same database.
+            AppSettings = newSetting;
 
             if (OptionManager.TrySaveFile(AppSettings))
             {
                 AppSettings.NavDataLocation = navDataPathTxtBox.Text;
                 MainFormInstance().LoadNavDBUpdateStatusStrip(false);
+                AppSettingChanged?.Invoke(this, e);
             }
 
             Close();
         }
 
-        /// <summary>
-        /// Set the AppSettings as in the option form. Returns whether 
-        /// the nav database location was modified.
-        /// </summary>
-        public bool SetAppOptions()
+        private AppOptions validateSetting()
         {
-            AppSettings.ExportCommands.Clear();
+            return new AppOptions(
+                navDataPathTxtBox.Text,
+                PromptBeforeExit.Checked,
+                AutoDLTracksCheckBox.Checked,
+                AutoDLWindCheckBox.Checked,
+                getCommands());
+        }
 
-            AppSettings.ExportCommands.Add(
+        private List<ExportCommandEntry> getCommands()
+        {
+            var cmds = new List<ExportCommandEntry>();
+
+            cmds.Add(
                 new ExportCommandEntry(
                     new ExportCommand(
                         exportTypes["PmdgCommon"],
-                        TextBox1.Text, 
+                        TextBox1.Text,
                         CheckBox1.Checked),
                     "PmdgCommon"));
 
-            AppSettings.ExportCommands.Add(
+            cmds.Add(
                 new ExportCommandEntry(
                     new ExportCommand(
                         exportTypes["PmdgNGX"],
@@ -153,37 +164,74 @@ namespace QSP
                         CheckBox2.Checked),
                     "PmdgNGX"));
 
-            AppSettings.ExportCommands.Add(
+            cmds.Add(
                 new ExportCommandEntry(
                     new ExportCommand(
                         exportTypes["Pmdg777"],
                         TextBox2.Text,
                         CheckBox2.Checked),
                     "Pmdg777"));
-            
-            AppSettings.PromptBeforeExit = PromptBeforeExit.Checked;
-            AppSettings.AutoDLTracks = AutoDLNatsCheckBox.Checked;
-            AppSettings.AutoDLWind = AutoDLWindCheckBox.Checked;
 
-            if (AppSettings.NavDataLocation == navDataPathTxtBox.Text)
-            {
-                return false;
-            }
-            else
-            {
-                AppSettings.NavDataLocation = navDataPathTxtBox.Text;
-                return true;
-            }
-
+            return cmds;
         }
+
+        /// <summary>
+        /// Set the AppSettings as in the option form. Returns whether 
+        /// the nav database location was modified.
+        /// </summary>
+        //public bool SetAppOptions()
+        //{
+        //    AppSettings.ExportCommands.Clear();
+
+        //    AppSettings.ExportCommands.Add(
+        //        new ExportCommandEntry(
+        //            new ExportCommand(
+        //                exportTypes["PmdgCommon"],
+        //                TextBox1.Text,
+        //                CheckBox1.Checked),
+        //            "PmdgCommon"));
+
+        //    AppSettings.ExportCommands.Add(
+        //        new ExportCommandEntry(
+        //            new ExportCommand(
+        //                exportTypes["PmdgNGX"],
+        //                TextBox2.Text,
+        //                CheckBox2.Checked),
+        //            "PmdgNGX"));
+
+        //    AppSettings.ExportCommands.Add(
+        //        new ExportCommandEntry(
+        //            new ExportCommand(
+        //                exportTypes["Pmdg777"],
+        //                TextBox2.Text,
+        //                CheckBox2.Checked),
+        //            "Pmdg777"));
+
+        //    AppSettings.PromptBeforeExit = PromptBeforeExit.Checked;
+        //    AppSettings.AutoDLTracks = AutoDLTracksCheckBox.Checked;
+        //    AppSettings.AutoDLWind = AutoDLWindCheckBox.Checked;
+
+        //    if (AppSettings.NavDataLocation == navDataPathTxtBox.Text)
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        AppSettings.NavDataLocation = navDataPathTxtBox.Text;
+        //        return true;
+        //    }
+
+        //}
 
         private void cancelBtnClick(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void InitializeForm()
+        public void Init(AppOptions options)
         {
+            this.AppSettings = options;
+
             //default form state
             CheckBox1.Checked = false;
             CheckBox2.Checked = false;
@@ -191,42 +239,50 @@ namespace QSP
             TextBox1.Enabled = false;
             TextBox2.Enabled = false;
             TextBox3.Enabled = false;
-            AppSettings.PromptBeforeExit = true;
+            PromptBeforeExit.Checked = true;
 
             navDataFoundLbl.Text = "";
             airacLbl.Text = "";
             airacPeriodLbl.Text = "";
             expiredLbl.Text = "";
 
-            AutoDLNatsCheckBox.Checked = true;
+            AutoDLTracksCheckBox.Checked = true;
             AutoDLWindCheckBox.Checked = true;
 
             SetControlsAsInOptions();
-        }
-
-        private void optionsLoad(object sender, EventArgs e)
-        {
-            InitializeForm();
+            initExportTypes();
         }
 
         public void SetControlsAsInOptions()
         {
-            AutoDLNatsCheckBox.Checked = AppSettings.AutoDLTracks;
+            AutoDLTracksCheckBox.Checked = AppSettings.AutoDLTracks;
             AutoDLWindCheckBox.Checked = AppSettings.AutoDLWind;
             navDataPathTxtBox.Text = AppSettings.NavDataLocation;
             PromptBeforeExit.Checked = AppSettings.PromptBeforeExit;
 
-            var command = AppSettings.GetExportCommand("PmdgCommon").Command;
-            TextBox1.Text = command.Directory;
-            CheckBox1.Checked = command.Enabled;
+            var command = AppSettings.GetExportCommand("PmdgCommon")?.Command;
 
-            command = AppSettings.GetExportCommand("PmdgNGX").Command;
-            TextBox2.Text = command.Directory;
-            CheckBox2.Checked = command.Enabled;
+            if (command != null)
+            {
+                TextBox1.Text = command.Directory;
+                CheckBox1.Checked = command.Enabled;
+            }
 
-            command = AppSettings.GetExportCommand("Pmdg777").Command;
-            TextBox3.Text = command.Directory;
-            CheckBox3.Checked = command.Enabled;
+            command = AppSettings.GetExportCommand("PmdgNGX")?.Command;
+
+            if (command != null)
+            {
+                TextBox2.Text = command.Directory;
+                CheckBox2.Checked = command.Enabled;
+            }
+
+            command = AppSettings.GetExportCommand("Pmdg777")?.Command;
+
+            if (command != null)
+            {
+                TextBox3.Text = command.Directory;
+                CheckBox3.Checked = command.Enabled;
+            }
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -277,15 +333,9 @@ namespace QSP
             TextBox3.Enabled = CheckBox3.Checked;
         }
 
-        public OptionsForm()
-        {
-            Load += optionsLoad;
-            InitializeComponent();
-        }
-
         private class RouteExportMatching
         {
-            
+
         }
     }
 }

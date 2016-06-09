@@ -15,15 +15,19 @@ namespace QSP.Common.Options
         public bool AutoDLTracks { get; set; }
         public bool AutoDLWind { get; set; }
         public List<ExportCommandEntry> ExportCommands { get; set; }
-
-        public AppOptions()
+        
+        public AppOptions(
+            string NavDataLocation,
+            bool PromptBeforeExit,
+            bool AutoDLTracks,
+            bool AutoDLWind,
+            List<ExportCommandEntry> ExportCommands)
         {
-            // Default options.
-            NavDataLocation = "";
-            PromptBeforeExit = true;
-            AutoDLTracks = true;
-            AutoDLWind = true;
-            ExportCommands = new List<ExportCommandEntry>();
+            this.NavDataLocation = NavDataLocation;
+            this.PromptBeforeExit = PromptBeforeExit;
+            this.AutoDLTracks = AutoDLTracks;
+            this.AutoDLWind = AutoDLWind;
+            this.ExportCommands = ExportCommands;
         }
 
         // TODO: exceptions?
@@ -90,5 +94,13 @@ namespace QSP.Common.Options
             return ExportCommands.FirstOrDefault(i => i.Key == key);
         }
 
+        public static AppOptions Default
+        {
+            get
+            {
+                return new AppOptions(
+                    "", true, true, true, new List<ExportCommandEntry>());
+            }
+        }
     }
 }
