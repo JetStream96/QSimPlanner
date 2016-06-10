@@ -54,6 +54,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AircraftProfiles\Configs\AcConfigManagerTest.cs" />
+    <Compile Include="LibraryExtension\LinkedListsTest.cs" />
     <Compile Include="RouteFinding\AirwayNodeFinderTest.cs" />
     <Compile Include="AviationTools\Coordinates\Format5LetterTest.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDecimalTest.cs" />

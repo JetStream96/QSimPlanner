@@ -9,13 +9,13 @@ namespace QSP.RouteFinding.Routes
 
         public ManagedRoute(TrackInUseCollection tracksInUse) : base()
         {
-            toggler = new RouteToggler(links, tracksInUse);
+            toggler = new RouteToggler(route, tracksInUse);
         }
 
         public ManagedRoute(Route route, TrackInUseCollection tracksInUse)
             : base(route)
         {
-            toggler = new RouteToggler(links, tracksInUse);
+            toggler = new RouteToggler(base.route, tracksInUse);
         }
 
         /// <summary>

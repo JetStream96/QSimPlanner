@@ -128,7 +128,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private bool tryappendWpt(Waypoint wpt)
         {
-            rte.AddLastWaypoint(wpt, "DCT", true);
+            rte.AddLastWaypoint(wpt, "DCT");
             return true;
         }
 
@@ -157,7 +157,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             foreach (var i in intermediateWpt)
             {
-                rte.AddLastWaypoint(i, lastAwy, true);
+                rte.AddLastWaypoint(i, lastAwy);
             }
 
             lastWpt = wptList.FindByWaypoint(intermediateWpt.Last());

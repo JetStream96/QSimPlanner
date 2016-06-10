@@ -9,13 +9,9 @@ namespace QSP.RouteFinding.AirwayStructure
 {
     public class WaypointContainer
     {
-        #region Fields
-
         private Graph<Waypoint, Neighbor> graph;
         private MultiMap<string, int> searchHelper;
-
-        #endregion
-
+        
         public WaypointContainer()
         {
             graph = new Graph<Waypoint, Neighbor>();
@@ -117,7 +113,8 @@ namespace QSP.RouteFinding.AirwayStructure
         }
 
         /// <summary>
-        /// Find the index of WptNeighbor matching the waypoint. Returns -1 if no match is found.
+        /// Find the index of WptNeighbor matching the waypoint.
+        /// Returns -1 if no match is found.
         /// </summary>
         public int FindByWaypoint(Waypoint wpt)
         {
@@ -149,12 +146,17 @@ namespace QSP.RouteFinding.AirwayStructure
                     results.Add(i);
                 }
             }
+
             return results;
         }
 
         public void RemoveAt(int index)
         {
-            searchHelper.Remove(graph.GetNode(index).ID, index, RemoveParameter.RemoveFirst);
+            searchHelper.Remove(
+                graph.GetNode(index).ID,
+                index,
+                RemoveParameter.RemoveFirst);
+
             graph.RemoveNode(index);
         }
 

@@ -336,10 +336,11 @@ namespace QSP.LibraryExtension
             entries = newEntries;
         }
 
+        // TODO: This is a bit messy.
         private enum RemoveOption
         {
+            RemoveAllNoValue = -2,     // Only compare key.
             RemoveFirstNoValue = -1,
-            RemoveAllNoValue = -2,
             RemoveFirst = 1,
             RemoveAll = 2
         }
@@ -368,7 +369,6 @@ namespace QSP.LibraryExtension
             }
 
             bool removed = false;
-
 
             if (buckets != null)
             {
@@ -408,9 +408,8 @@ namespace QSP.LibraryExtension
                         {
                             return true;
                         }
+
                         removed = true;
-
-
                     }
                     else
                     {
@@ -419,16 +418,19 @@ namespace QSP.LibraryExtension
                     }
                 }
             }
+
             return removed;
         }
 
         internal TValue GetValueOrDefault(TKey key)
         {
             int i = FindEntry(key);
+
             if (i >= 0)
             {
                 return entries[i].value;
             }
+
             return default(TValue);
         }
 
@@ -440,7 +442,6 @@ namespace QSP.LibraryExtension
         [Serializable()]
         public struct Enumerator : IEnumerator
         {
-
             [NonSerialized()]
             private MultiMap<TKey, TValue> dictionary;
             private int index;
@@ -448,8 +449,8 @@ namespace QSP.LibraryExtension
             private int getEnumeratorRetType;
             // What should Enumerator.Current return?
             internal const int DictEntry = 1;
-
             internal const int KeyValuePair = 2;
+
             internal Enumerator(MultiMap<TKey, TValue> dictionary, int getEnumeratorRetType)
             {
                 this.dictionary = dictionary;

@@ -247,12 +247,12 @@ namespace QSP.RouteFinding.RouteAnalyzers
         {
             if (index == 0)
             {
-                route.AddFirstWaypoint(origRwyWpt, "DCT", true);
+                route.AddFirstWaypoint(origRwyWpt, "DCT");
             }
 
             if (index == analyzed.Count - 1)
             {
-                route.AddLastWaypoint(destRwyWpt, "DCT", true);
+                route.AddLastWaypoint(destRwyWpt, "DCT");
             }
         }
 
@@ -269,7 +269,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
                     string latLonTxt = Format5Letter.To5LetterFormat(lat, lon);
                     var wpt = new Waypoint(latLonTxt, lat, lon);
-                    result.AddLastWaypoint(wpt, "DCT", true);
+                    result.AddLastWaypoint(wpt, "DCT");
                 }
             }
 

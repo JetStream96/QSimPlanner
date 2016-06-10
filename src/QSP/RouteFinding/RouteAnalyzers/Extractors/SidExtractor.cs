@@ -7,13 +7,13 @@ using System.Collections.Generic;
 
 namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 {
-    // Given a route as a LinkedList<string>, this class removes the 
+    // Given a route as a LinkedList<string>, Extract() method removes the 
     // nodes that are:
     // (1) origin ICAO
     // (2) SID name
     // (3) The last waypoint of SID, if the waypoint is not in wptList.
     //
-    // Returns a route containing the departure runway and 
+    // Also returns a route containing the departure runway and 
     // SID (if SID exists).
     //
 
@@ -80,8 +80,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
                     if (route.First.Value == sid.LastWaypoint.ID &&
                         wptList.FindAllByWaypoint(sid.LastWaypoint).Count == 0)
-                    {
-                        // See rule (1) of 4. above.  
+                    {  
                         route.RemoveFirst();
                     }
                 }

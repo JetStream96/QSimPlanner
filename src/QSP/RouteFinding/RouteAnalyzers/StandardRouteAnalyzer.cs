@@ -128,7 +128,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
                 if (mainRoute.Length == 1)
                 {
-                    origPart.AddLastWaypoint(wptList[chosenIndex], "DCT", true);
+                    origPart.AddLastWaypoint(wptList[chosenIndex], "DCT");
                     origPart.AppendRoute(destPart, "DCT");
                 }
                 else

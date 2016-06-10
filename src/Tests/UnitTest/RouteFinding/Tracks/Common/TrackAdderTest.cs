@@ -26,7 +26,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
 
             var route = new Route();
             route.AddLastWaypoint(p1);
-            route.AddLastWaypoint(p2, "DCT", true);
+            route.AddLastWaypoint(p2, "DCT");
             var nodes = new TrackNodes("A", "NATA", route, new List<WptPair>());
 
             var adder = new TrackAdder(wptList,
@@ -59,7 +59,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
 
             var route = new Route();
             route.AddLastWaypoint(p1);
-            route.AddLastWaypoint(p2, "DCT", true);
+            route.AddLastWaypoint(p2, "DCT");
             var nodes = new TrackNodes("A", "NATA", route, new List<WptPair>());
 
             var recorder = new StatusRecorder();

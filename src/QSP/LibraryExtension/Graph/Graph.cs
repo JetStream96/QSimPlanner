@@ -48,7 +48,8 @@ namespace QSP.LibraryExtension.Graph
             int toListIndex = _nodes[nodeToIndex].prev.Add(edgeIndex);
 
             // Set correct index.
-            _edges[edgeIndex] = new Edge<TEdge>(edge, nodeFromIndex, fromListIndex, nodeToIndex, toListIndex);
+            _edges[edgeIndex] = new Edge<TEdge>(
+                edge, nodeFromIndex, fromListIndex, nodeToIndex, toListIndex);
             
             return edgeIndex;
         }
