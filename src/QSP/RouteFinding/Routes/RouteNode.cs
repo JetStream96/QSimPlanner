@@ -1,13 +1,30 @@
 ﻿using System;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Containers;
 
 namespace QSP.RouteFinding.Routes
 {
-    public class RouteNode : IEquatable<RouteNode>
+    public class RouteNode : IEquatable<RouteNode>, ICoordinate
     {
         public Waypoint Waypoint { get; private set; }
         public string AirwayToNext { get; set; }
         public double DistanceToNext { get; set; }
+
+        public double Lat
+        {
+            get
+            {
+                return Waypoint.Lat;
+            }
+        }
+
+        public double Lon
+        {
+            get
+            {
+                return Waypoint.Lon;
+            }
+        }
 
         public RouteNode(Waypoint Waypoint)
         {

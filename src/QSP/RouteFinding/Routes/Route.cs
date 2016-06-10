@@ -1,4 +1,5 @@
-﻿using QSP.RouteFinding.Containers;
+﻿using QSP.RouteFinding.Data.Interfaces;
+using QSP.RouteFinding.Containers;
 using QSP.Utilities;
 using System;
 using System.Collections;
@@ -13,7 +14,6 @@ namespace QSP.RouteFinding.Routes
 
         public double TotalDistance
         {
-            // TODO: Use the extension method for ICoordinate instead?
             get
             {
                 if (links.Count == 0)
@@ -21,17 +21,7 @@ namespace QSP.RouteFinding.Routes
                     throw new InvalidOperationException("Route is empty.");
                 }
 
-                double totalDis = 0.0;
-                var first = links.First;
-                var node = first;
-
-                while (node != links.Last)
-                {
-                    totalDis += node.Value.DistanceToNext;
-                    node = node.Next;
-                }
-
-                return totalDis;
+                return links.TotalDistance();
             }
         }
 
@@ -131,6 +121,7 @@ namespace QSP.RouteFinding.Routes
                 last.Value.DistanceToNext = distanceFromPrev;
                 last.Value.AirwayToNext = viaAirway;
             }
+
             links.AddLast(new RouteNode(item));
         }
 
@@ -152,6 +143,7 @@ namespace QSP.RouteFinding.Routes
                 {
                     links.Last.Value.AirwayToNext = viaAirway;
                 }
+
                 links.AddLast(new RouteNode(item));
             }
         }

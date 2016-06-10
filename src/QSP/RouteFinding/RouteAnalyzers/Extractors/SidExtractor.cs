@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using QSP.RouteFinding.TerminalProcedures.Sid;
-using QSP.RouteFinding.AirwayStructure;
+﻿using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.TerminalProcedures.Sid;
+using System;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 {
-    // Given a route as a LinkedList<string>, this class removes the nodes that are
-    // origin ICAO, SID, or the last waypoint of SID which is not in wptList.
+    // Given a route as a LinkedList<string>, this class removes the 
+    // nodes that are:
+    // (1) origin ICAO
+    // (2) SID name
+    // (3) The last waypoint of SID, if the waypoint is not in wptList.
     //
-    // Returns a route containing the departure runway and SID (if SID exists).
+    // Returns a route containing the departure runway and 
+    // SID (if SID exists).
     //
 
     public class SidExtractor
@@ -24,12 +28,13 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
         private LinkedList<string> route;
         private Route origRoute;
 
-        public SidExtractor(LinkedList<string> route,
-                            string icao,
-                            string rwy,
-                            Waypoint rwyWpt,
-                            WaypointList wptList,
-                            SidCollection sids)
+        public SidExtractor(
+            LinkedList<string> route,
+            string icao,
+            string rwy,
+            Waypoint rwyWpt,
+            WaypointList wptList,
+            SidCollection sids)
         {
             this.route = route;
             this.icao = icao;
@@ -48,6 +53,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             {
                 createOrigRoute();
             }
+
             return origRoute;
         }
 

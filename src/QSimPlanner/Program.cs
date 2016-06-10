@@ -1,6 +1,5 @@
 ﻿using QSimPlanner.GlobalInfo;
 using QSP.AircraftProfiles.Configs;
-using QSP.Common.Options;
 using QSP.UI.Utilities;
 using QSP.Utilities;
 using System;

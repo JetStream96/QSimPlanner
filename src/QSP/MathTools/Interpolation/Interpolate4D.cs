@@ -1,6 +1,6 @@
 ﻿namespace QSP.MathTools.Interpolation
 {
-    public class Interpolate4D
+    public static class Interpolate4D
     {
         public static double Interpolate(double[] xArray, int XIndex,
                                          double[] yArray, int YIndex,

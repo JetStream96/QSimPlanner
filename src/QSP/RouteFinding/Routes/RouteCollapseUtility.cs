@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Routes
 {
     public static class RouteCollapseUtility
     {
-        private static LinkedListNode<RouteNode> nodesMatch(LinkedList<RouteNode> route, LinkedListNode<RouteNode> nodeStart)
+        private static LinkedListNode<RouteNode> nodesMatch(
+            LinkedList<RouteNode> route, LinkedListNode<RouteNode> nodeStart)
         {
             var node = nodeStart;
             var nodeCompare = route.First;
@@ -26,19 +26,21 @@ namespace QSP.RouteFinding.Routes
                 }
                 else
                 {
-                    if (node.Value.Waypoint.Equals(nodeCompare.Value.Waypoint))
+                    if (node.Value.Waypoint.Equals(
+                        nodeCompare.Value.Waypoint))
                     {
                         return node;
                     }
                 }
             }
+
             return null;
         }
 
-        private static List<Tuple<LinkedListNode<RouteNode>, LinkedListNode<RouteNode>>>
-                    findNode(LinkedList<RouteNode> links, LinkedList<RouteNode> route)
+        private static List<NodePair> findNode(
+            LinkedList<RouteNode> links, LinkedList<RouteNode> route)
         {
-            var result = new List<Tuple<LinkedListNode<RouteNode>, LinkedListNode<RouteNode>>>();
+            var result = new List<NodePair>();
 
             var node = links.First;
 
@@ -52,19 +54,23 @@ namespace QSP.RouteFinding.Routes
                 }
                 else
                 {
-                    result.Add(new Tuple<LinkedListNode<RouteNode>, LinkedListNode<RouteNode>>(node, end));
+                    result.Add(new NodePair(node, end));
                     node = end.Next;
                 }
             }
+
             return result;
         }
 
-        public static void Collapse(LinkedList<RouteNode> links, LinkedList<RouteNode> route, string airway)
+        public static void Collapse(
+            LinkedList<RouteNode> links,
+            LinkedList<RouteNode> route,
+            string airway)
         {
             foreach (var i in findNode(links, route))
             {
-                var node = i.Item1;
-                var end = i.Item2;
+                var node = i.Start;
+                var end = i.End;
 
                 node.Value.AirwayToNext = airway;
 
@@ -72,6 +78,20 @@ namespace QSP.RouteFinding.Routes
                 {
                     links.Remove(node.Next);
                 }
+            }
+        }
+
+        private struct NodePair
+        {
+            public LinkedListNode<RouteNode> Start { get; private set; }
+            public LinkedListNode<RouteNode> End { get; private set; }
+
+            public NodePair(
+                LinkedListNode<RouteNode> Start,
+                LinkedListNode<RouteNode> End)
+            {
+                this.Start = Start;
+                this.End = End;
             }
         }
     }

@@ -27,9 +27,10 @@
             get
             {
                 return new UserOption(
-                    0, 
+                    0,
                     @"NavData\OpenData",
-                    "");//TODO: change the path
+                    "");// TODO: Maybe check registry to 
+                        // find the path automatically?
             }
         }
     }

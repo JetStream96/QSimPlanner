@@ -5,8 +5,10 @@ namespace QSP.RouteFinding.Routes
 {
     public static class RouteExpandUtility
     {
-        private static List<LinkedListNode<RouteNode>> findAllNodes(LinkedList<RouteNode> links, LinkedList<RouteNode> Route,
-                                                                    string OriginalAirway)
+        private static List<LinkedListNode<RouteNode>> findAllNodes(
+            LinkedList<RouteNode> links,
+            LinkedList<RouteNode> Route,
+            string OriginalAirway)
         {
             var result = new List<LinkedListNode<RouteNode>>();
             var node = links.First;
@@ -25,8 +27,10 @@ namespace QSP.RouteFinding.Routes
             return result;
         }
 
-        private static LinkedListNode<RouteNode> findNode(LinkedList<RouteNode> Route, string OriginalAirway,
-                                                          LinkedListNode<RouteNode> nodeStart)
+        private static LinkedListNode<RouteNode> findNode(
+            LinkedList<RouteNode> Route,
+            string OriginalAirway,
+            LinkedListNode<RouteNode> nodeStart)
         {
             var node = nodeStart;
 
@@ -42,13 +46,19 @@ namespace QSP.RouteFinding.Routes
             return null;
         }
 
-        // For example, we have a route: (P A1 Q A2 R A3 S), where P, Q, R, S are waypoints, and A1, A2, A3 are airways.
-        // If the given Route is (Q B1 X B2 Y R) while the OriginalAirway is A2, then the route will be modified to
-        // (P A1 Q B1 X B2 Y R A3 S). i.e. All occurrences of (Q A2 R) are replaced by the given Route.       
+        // For example, we have a route: (P A1 Q A2 R A3 S), where P, Q, R,
+        // S are waypoints, and A1, A2, A3 are airways.
+        // If the given Route is (Q B1 X B2 Y R) while the OriginalAirway 
+        // is A2, then the route will be modified to
+        // (P A1 Q B1 X B2 Y R A3 S). i.e. All occurrences of (Q A2 R) 
+        // are replaced by the given Route.       
         //  
         // Note: R must be the next node of Q.
         //
-        public static void InsertRoute(LinkedList<RouteNode> links, LinkedList<RouteNode> Route, string OriginalAirway)
+        public static void InsertRoute(
+            LinkedList<RouteNode> links,
+            LinkedList<RouteNode> Route,
+            string OriginalAirway)
         {
             foreach (var i in findAllNodes(links, Route, OriginalAirway))
             {
@@ -56,11 +66,15 @@ namespace QSP.RouteFinding.Routes
             }
         }
 
-        private static void InsertRouteGivenNode(LinkedList<RouteNode> links, LinkedList<RouteNode> Route, LinkedListNode<RouteNode> node)
+        private static void InsertRouteGivenNode(
+            LinkedList<RouteNode> links,
+            LinkedList<RouteNode> Route,
+            LinkedListNode<RouteNode> node)
         {
             if (node == null)
             {
-                throw new InvalidOperationException("No matching node in route to expand.");
+                throw new InvalidOperationException(
+                    "No matching node in route to expand.");
             }
 
             links.First.Value = Route.First.Value;
