@@ -288,7 +288,6 @@ namespace QSP
             this.Button3.TabIndex = 29;
             this.Button3.Text = "..";
             this.Button3.UseVisualStyleBackColor = true;
-            this.Button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // CheckBox3
             // 
@@ -300,7 +299,6 @@ namespace QSP
             this.CheckBox3.TabIndex = 28;
             this.CheckBox3.Text = "PMDG 777";
             this.CheckBox3.UseVisualStyleBackColor = true;
-            this.CheckBox3.CheckedChanged += new System.EventHandler(this.CheckBox3_CheckedChanged);
             // 
             // TextBox3
             // 
@@ -323,7 +321,6 @@ namespace QSP
             this.Button2.TabIndex = 26;
             this.Button2.Text = "..";
             this.Button2.UseVisualStyleBackColor = true;
-            this.Button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // CheckBox2
             // 
@@ -335,7 +332,6 @@ namespace QSP
             this.CheckBox2.TabIndex = 25;
             this.CheckBox2.Text = "PMDG NGX";
             this.CheckBox2.UseVisualStyleBackColor = true;
-            this.CheckBox2.CheckedChanged += new System.EventHandler(this.CheckBox2_CheckedChanged);
             // 
             // TextBox2
             // 
@@ -358,7 +354,6 @@ namespace QSP
             this.Button1.TabIndex = 23;
             this.Button1.Text = "..";
             this.Button1.UseVisualStyleBackColor = true;
-            this.Button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // CheckBox1
             // 
@@ -370,7 +365,6 @@ namespace QSP
             this.CheckBox1.TabIndex = 23;
             this.CheckBox1.Text = "PMDG Common";
             this.CheckBox1.UseVisualStyleBackColor = true;
-            this.CheckBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // TextBox1
             // 
@@ -488,7 +482,7 @@ namespace QSP
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(529, 605);
+            this.ClientSize = new System.Drawing.Size(525, 601);
             this.ControlBox = false;
             this.Controls.Add(this.Options_TabControl);
             this.Controls.Add(this.cancel_button);

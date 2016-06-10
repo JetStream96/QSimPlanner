@@ -17,19 +17,52 @@ namespace QSP
         public event EventHandler AppSettingChanged;
         public AppOptions AppSettings { get; private set; }
 
-        private Dictionary<string, ProviderType> exportTypes =
-               new Dictionary<string, ProviderType>();
+        private IEnumerable<RouteExportMatching> exports;
 
         public OptionsForm()
         {
             InitializeComponent();
         }
-
-        private void initExportTypes()
+        
+        public void Init(AppOptions options)
         {
-            exportTypes.Add("PmdgCommon", ProviderType.Pmdg);
-            exportTypes.Add("PmdgNGX", ProviderType.Pmdg);
-            exportTypes.Add("Pmdg777", ProviderType.Pmdg);
+            this.AppSettings = options;
+            initExports();
+            addBrowseBtnHandler();
+            addCheckBoxEventHandler();
+            setDefaultState();
+            SetControlsAsInOptions();            
+        }
+
+        private void initExports()
+        {
+            var exports = new List<RouteExportMatching>();
+
+            exports.Add(
+                new RouteExportMatching(
+                    "PmdgCommon",
+                    ProviderType.Pmdg,
+                    CheckBox1,
+                    TextBox1,
+                    Button1));
+
+            exports.Add(
+               new RouteExportMatching(
+                   "PmdgNGX",
+                   ProviderType.Pmdg,
+                   CheckBox2,
+                   TextBox2,
+                   Button2));
+
+            exports.Add(
+               new RouteExportMatching(
+                   "Pmdg777",
+                   ProviderType.Pmdg,
+                   CheckBox3,
+                   TextBox3,
+                   Button3));
+
+            this.exports = exports;
         }
 
         private void navDataPathTxtBox_TextChanged(object sender, EventArgs e)
@@ -147,23 +180,12 @@ namespace QSP
         {
             var cmds = new Dictionary<string, ExportCommand>();
 
-            cmds.Add("PmdgCommon",
-                new ExportCommand(
-                    exportTypes["PmdgCommon"],
-                    TextBox1.Text,
-                    CheckBox1.Checked));
-
-            cmds.Add("PmdgNGX",
-                new ExportCommand(
-                    exportTypes["PmdgNGX"],
-                    TextBox2.Text,
-                    CheckBox2.Checked));
-
-            cmds.Add("Pmdg777",
-                new ExportCommand(
-                    exportTypes["Pmdg777"],
-                    TextBox2.Text,
-                    CheckBox2.Checked));
+            foreach (var i in exports)
+            {
+                cmds.Add(i.Key,
+                    new ExportCommand(
+                        i.Type, i.TxtBox.Text, i.CheckBox.Checked));
+            }
 
             return cmds;
         }
@@ -221,17 +243,14 @@ namespace QSP
             Close();
         }
 
-        public void Init(AppOptions options)
+        private void setDefaultState()
         {
-            this.AppSettings = options;
+            foreach (var i in exports)
+            {
+                i.CheckBox.Checked = false;
+                i.TxtBox.Enabled = false;
+            }
 
-            //default form state
-            CheckBox1.Checked = false;
-            CheckBox2.Checked = false;
-            CheckBox3.Checked = false;
-            TextBox1.Enabled = false;
-            TextBox2.Enabled = false;
-            TextBox3.Enabled = false;
             PromptBeforeExit.Checked = true;
 
             navDataFoundLbl.Text = "";
@@ -241,9 +260,6 @@ namespace QSP
 
             AutoDLTracksCheckBox.Checked = true;
             AutoDLWindCheckBox.Checked = true;
-
-            SetControlsAsInOptions();
-            initExportTypes();
         }
 
         public void SetControlsAsInOptions()
@@ -252,89 +268,71 @@ namespace QSP
             AutoDLWindCheckBox.Checked = AppSettings.AutoDLWind;
             navDataPathTxtBox.Text = AppSettings.NavDataLocation;
             PromptBeforeExit.Checked = AppSettings.PromptBeforeExit;
-
-            try
-            {
-                var command = AppSettings.ExportCommands["PmdgCommon"];
-                TextBox1.Text = command.Directory;
-                CheckBox1.Checked = command.Enabled;
-            }
-            catch
-            { }
-
-            try
-            {
-                var command = AppSettings.ExportCommands["PmdgNGX"];
-                TextBox2.Text = command.Directory;
-                CheckBox2.Checked = command.Enabled;
-            }
-            catch
-            { }
-
-            try
-            {
-                var command = AppSettings.ExportCommands["Pmdg777"];
-                TextBox3.Text = command.Directory;
-                CheckBox3.Checked = command.Enabled;
-            }
-            catch
-            { }
+            setExports();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void setExports()
         {
-            var MyFolderBrowser = new FolderBrowserDialog();
-            var dlgResult = MyFolderBrowser.ShowDialog();
-
-            if (dlgResult == DialogResult.OK)
+            foreach (var i in exports)
             {
-                TextBox1.Text = MyFolderBrowser.SelectedPath;
+                ExportCommand cmd;
+
+                if (AppSettings.ExportCommands.TryGetValue(i.Key, out cmd))
+                {
+                    i.TxtBox.Text = cmd.Directory;
+                    i.CheckBox.Checked = cmd.Enabled;
+                }
             }
         }
 
-        private void Button2_Click(object sender, EventArgs e)
+        private void addBrowseBtnHandler()
         {
-            var MyFolderBrowser = new FolderBrowserDialog();
-            var dlgResult = MyFolderBrowser.ShowDialog();
-
-            if (dlgResult == DialogResult.OK)
+            foreach (var i in exports)
             {
-                TextBox2.Text = MyFolderBrowser.SelectedPath;
+                i.BrowserBtn.Click += (sender, e) =>
+                {
+                    var MyFolderBrowser = new FolderBrowserDialog();
+                    var dlgResult = MyFolderBrowser.ShowDialog();
+
+                    if (dlgResult == DialogResult.OK)
+                    {
+                        i.TxtBox.Text = MyFolderBrowser.SelectedPath;
+                    }
+                };  
             }
         }
 
-        private void Button3_Click(object sender, EventArgs e)
+        private void addCheckBoxEventHandler()
         {
-            var MyFolderBrowser = new FolderBrowserDialog();
-            var dlgResult = MyFolderBrowser.ShowDialog();
-
-            if (dlgResult == DialogResult.OK)
+            foreach (var i in exports)
             {
-                TextBox3.Text = MyFolderBrowser.SelectedPath;
+                i.CheckBox.CheckedChanged += (sender, e) =>
+                {
+                    i.TxtBox.Enabled = i.CheckBox.Checked;
+                };
             }
         }
-
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            TextBox1.Enabled = CheckBox1.Checked;
-        }
-
-        private void CheckBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            TextBox2.Enabled = CheckBox2.Checked;
-        }
-
-        private void CheckBox3_CheckedChanged(object sender, EventArgs e)
-        {
-            TextBox3.Enabled = CheckBox3.Checked;
-        }
-
+        
         private class RouteExportMatching
         {
-            public class Entry
-            {
-                public string Key { get; private set; }
+            public string Key { get; private set; }
+            public ProviderType Type { get; private set; }
+            public CheckBox CheckBox { get; private set; }
+            public TextBox TxtBox { get; private set; }
+            public Button BrowserBtn { get; private set; }
 
+            public RouteExportMatching(
+                string Key,
+                ProviderType Type,
+                CheckBox CheckBox,
+                TextBox TxtBox,
+                Button BrowserBtn)
+            {
+                this.Key = Key;
+                this.Type = Type;
+                this.CheckBox = CheckBox;
+                this.TxtBox = TxtBox;
+                this.BrowserBtn = BrowserBtn;
             }
         }
     }
