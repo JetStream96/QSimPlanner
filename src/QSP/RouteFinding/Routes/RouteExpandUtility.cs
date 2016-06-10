@@ -46,11 +46,11 @@ namespace QSP.RouteFinding.Routes
             return null;
         }
 
-        // For example, we have a route: (P A1 Q A2 R A3 S), where P, Q, R,
-        // S are waypoints, and A1, A2, A3 are airways.
-        // If the given Route is (Q B1 X B2 Y R) while the OriginalAirway 
-        // is A2, then the route will be modified to
-        // (P A1 Q B1 X B2 Y R A3 S). i.e. All occurrences of (Q A2 R) 
+        // For example, we have a route: (P 1 Q 2 R 3 S), where P, Q, R,
+        // S are waypoints, and 1, 2, 3 are airways.
+        // If the given Route is (Q 4 X 5 R) while the OriginalAirway 
+        // is 2, then the route will be modified to
+        // (P 1 Q 4 X 5 R 3 S). i.e. All occurrences of (Q 2 R) 
         // are replaced by the given Route.       
         //  
         // Note: R must be the next node of Q.
