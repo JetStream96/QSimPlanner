@@ -52,7 +52,7 @@ namespace QSP.RouteFinding.FileExport
                     string filePath = FileNameGenerator.Generate(
                         i.Directory,
                         getFileName(),
-                        ".rte"); // TODO: extension
+                        i.Extension);
 
                     File.WriteAllText(filePath, provider.GetExportText());
                 }
