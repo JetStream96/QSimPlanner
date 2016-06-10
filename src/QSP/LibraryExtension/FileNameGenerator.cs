@@ -1,16 +1,23 @@
 ﻿using QSP.Common;
+using System;
 using System.IO;
 
 namespace QSP.LibraryExtension
 {
     public static class FileNameGenerator
-    {        
+    {
         /// <exception cref="NoFileNameAvailException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public static string Generate(string directory,
             string nameBase, string extension)
         {
-            // TODO: throw when encounter illegal chars?
-            nameBase = nameBase.RemoveIllegalChars();
+            if (directory.ContainIllegalChar() ||
+                nameBase.ContainIllegalChar() ||
+                extension.ContainIllegalChar())
+            {
+                throw new ArgumentException("Illegal chars not allowed.");
+            }
+
             string fn = Path.Combine(directory, nameBase + extension);
 
             if (Directory.Exists(directory) == false ||

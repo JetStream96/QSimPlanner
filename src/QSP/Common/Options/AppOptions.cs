@@ -36,8 +36,7 @@ namespace QSP.Common.Options
             this.AutoDLWind = AutoDLWind;
             this._exportCommands = ExportCommands;
         }
-
-        // TODO: exceptions?
+        
         public AppOptions(XDocument xmlFile)
         {
             var root = xmlFile.Root;
