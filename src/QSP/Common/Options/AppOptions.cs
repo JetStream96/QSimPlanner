@@ -9,12 +9,19 @@ namespace QSP.Common.Options
 {
     public class AppOptions
     {
-        // TODO: make immutable or at least better encapsulation
-        public string NavDataLocation { get; set; }
-        public bool PromptBeforeExit { get; set; }
-        public bool AutoDLTracks { get; set; }
-        public bool AutoDLWind { get; set; }
-        public Dictionary<string, ExportCommand> ExportCommands { get; set; }
+        public string NavDataLocation { get; private set; }
+        public bool PromptBeforeExit { get; private set; }
+        public bool AutoDLTracks { get; private set; }
+        public bool AutoDLWind { get; private set; }
+        private Dictionary<string, ExportCommand> _exportCommands;
+
+        public IReadOnlyDictionary<string, ExportCommand> ExportCommands
+        {
+            get
+            {
+                return _exportCommands;
+            }
+        }
 
         public AppOptions(
             string NavDataLocation,
@@ -27,7 +34,7 @@ namespace QSP.Common.Options
             this.PromptBeforeExit = PromptBeforeExit;
             this.AutoDLTracks = AutoDLTracks;
             this.AutoDLWind = AutoDLWind;
-            this.ExportCommands = ExportCommands;
+            this._exportCommands = ExportCommands;
         }
 
         // TODO: exceptions?
@@ -43,7 +50,7 @@ namespace QSP.Common.Options
 
             var exports = root.Element("ExportOptions");
 
-            ExportCommands = new Dictionary<string, ExportCommand>();
+            _exportCommands = new Dictionary<string, ExportCommand>();
 
             foreach (var i in exports.Elements())
             {
@@ -56,13 +63,13 @@ namespace QSP.Common.Options
                     i.Element("Path").Value,
                     bool.Parse(i.Element("Enabled").Value));
 
-                ExportCommands.Add(i.Name.LocalName, cmd);
+                _exportCommands.Add(i.Name.LocalName, cmd);
             }
         }
 
         public XElement ToXml()
         {
-            var exports = ExportCommands.Select(entry =>
+            var exports = _exportCommands.Select(entry =>
             {
                 var command = entry.Value;
 
@@ -84,12 +91,7 @@ namespace QSP.Common.Options
                 new XElement("AutoDLWind", AutoDLWind.ToString()),
                 exportOptions});
         }
-
-        public ExportCommand GetExportCommand(string key)
-        {
-            return ExportCommands[key];
-        }
-
+        
         public static AppOptions Default
         {
             get

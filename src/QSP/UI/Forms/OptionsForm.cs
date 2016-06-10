@@ -64,7 +64,7 @@ namespace QSP
 
             try
             {
-                Tuple<string, string> t = AiracCyclePeriod(navDataPath);
+                var t = AiracCyclePeriod(navDataPath);
                 airacLbl.Text = t.Item1;
                 airacPeriodLbl.Text = t.Item2;
 
@@ -126,7 +126,6 @@ namespace QSP
 
             if (OptionManager.TrySaveFile(AppSettings))
             {
-                AppSettings.NavDataLocation = navDataPathTxtBox.Text;
                 MainFormInstance().LoadNavDBUpdateStatusStrip(false);
                 AppSettingChanged?.Invoke(this, e);
             }
@@ -256,7 +255,7 @@ namespace QSP
 
             try
             {
-                var command = AppSettings.GetExportCommand("PmdgCommon");
+                var command = AppSettings.ExportCommands["PmdgCommon"];
                 TextBox1.Text = command.Directory;
                 CheckBox1.Checked = command.Enabled;
             }
@@ -265,7 +264,7 @@ namespace QSP
 
             try
             {
-                var command = AppSettings.GetExportCommand("PmdgNGX");
+                var command = AppSettings.ExportCommands["PmdgNGX"];
                 TextBox2.Text = command.Directory;
                 CheckBox2.Checked = command.Enabled;
             }
@@ -274,7 +273,7 @@ namespace QSP
 
             try
             {
-                var command = AppSettings.GetExportCommand("Pmdg777");
+                var command = AppSettings.ExportCommands["Pmdg777"];
                 TextBox3.Text = command.Directory;
                 CheckBox3.Checked = command.Enabled;
             }
@@ -332,7 +331,11 @@ namespace QSP
 
         private class RouteExportMatching
         {
+            public class Entry
+            {
+                public string Key { get; private set; }
 
+            }
         }
     }
 }
