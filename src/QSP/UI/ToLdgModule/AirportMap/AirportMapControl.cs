@@ -314,9 +314,6 @@ namespace QSP.UI.ToLdgModule.AirportMap
             frm.icaoTxtBox.Text = CurrentIcao;
             frm.icaoTxtBox.Enabled = false;
             frm.resultRichTxtBox.Text = metarLbl.Text ?? "";
-            frm.sendBtn.Visible = false;
-            frm.downloadBtn.Visible = false;
-            frm.getTafCheckBox.Visible = false;
             frm.ShowDialog();
         }
 

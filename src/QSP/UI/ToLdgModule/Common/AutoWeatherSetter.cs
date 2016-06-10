@@ -68,9 +68,6 @@ namespace QSP.UI.ToLdgModule.Common
             frm.icaoTxtBox.Text = airportControl.Icao;
             frm.icaoTxtBox.Enabled = false;
             frm.resultRichTxtBox.Text = metar ?? "";
-            frm.sendBtn.Visible = false;
-            frm.downloadBtn.Visible = false;
-            frm.getTafCheckBox.Visible = false;
             frm.ShowDialog();
         }
 

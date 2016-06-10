@@ -41,13 +41,7 @@ namespace QSP
         {
             this.Label1 = new System.Windows.Forms.Label();
             this.icaoTxtBox = new System.Windows.Forms.TextBox();
-            this.getMetarCheckBox = new System.Windows.Forms.CheckBox();
-            this.getTafCheckBox = new System.Windows.Forms.CheckBox();
             this.resultRichTxtBox = new System.Windows.Forms.RichTextBox();
-            this.downloadBtn = new System.Windows.Forms.Button();
-            this.sendBtn = new System.Windows.Forms.Button();
-            this.PicBox = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.PicBox)).BeginInit();
             this.SuspendLayout();
             // 
             // Label1
@@ -69,29 +63,6 @@ namespace QSP
             this.icaoTxtBox.Size = new System.Drawing.Size(90, 30);
             this.icaoTxtBox.TabIndex = 1;
             // 
-            // getMetarCheckBox
-            // 
-            this.getMetarCheckBox.AutoSize = true;
-            this.getMetarCheckBox.Enabled = false;
-            this.getMetarCheckBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.getMetarCheckBox.Location = new System.Drawing.Point(345, 31);
-            this.getMetarCheckBox.Name = "getMetarCheckBox";
-            this.getMetarCheckBox.Size = new System.Drawing.Size(88, 27);
-            this.getMetarCheckBox.TabIndex = 2;
-            this.getMetarCheckBox.Text = "MATAR";
-            this.getMetarCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // getTafCheckBox
-            // 
-            this.getTafCheckBox.AutoSize = true;
-            this.getTafCheckBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.getTafCheckBox.Location = new System.Drawing.Point(476, 31);
-            this.getTafCheckBox.Name = "getTafCheckBox";
-            this.getTafCheckBox.Size = new System.Drawing.Size(60, 27);
-            this.getTafCheckBox.TabIndex = 3;
-            this.getTafCheckBox.Text = "TAF";
-            this.getTafCheckBox.UseVisualStyleBackColor = true;
-            // 
             // resultRichTxtBox
             // 
             this.resultRichTxtBox.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -101,52 +72,13 @@ namespace QSP
             this.resultRichTxtBox.TabIndex = 4;
             this.resultRichTxtBox.Text = "";
             // 
-            // downloadBtn
-            // 
-            this.downloadBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.downloadBtn.Location = new System.Drawing.Point(593, 23);
-            this.downloadBtn.Name = "downloadBtn";
-            this.downloadBtn.Size = new System.Drawing.Size(209, 36);
-            this.downloadBtn.TabIndex = 5;
-            this.downloadBtn.Text = "Download / Refresh";
-            this.downloadBtn.UseVisualStyleBackColor = true;
-            this.downloadBtn.Click += new System.EventHandler(this.downloadBtn_Click);
-            // 
-            // sendBtn
-            // 
-            this.sendBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sendBtn.Location = new System.Drawing.Point(855, 23);
-            this.sendBtn.Name = "sendBtn";
-            this.sendBtn.Size = new System.Drawing.Size(235, 36);
-            this.sendBtn.TabIndex = 6;
-            this.sendBtn.Text = "Send Weather";
-            this.sendBtn.UseVisualStyleBackColor = true;
-            this.sendBtn.Click += new System.EventHandler(this.sendBtnClick);
-            // 
-            // PicBox
-            // 
-            this.PicBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.PicBox.Image = global::QSP.Properties.Resources.checkIconLarge;
-            this.PicBox.Location = new System.Drawing.Point(1097, 23);
-            this.PicBox.Name = "PicBox";
-            this.PicBox.Size = new System.Drawing.Size(37, 36);
-            this.PicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PicBox.TabIndex = 1;
-            this.PicBox.TabStop = false;
-            // 
             // MetarForm
             // 
-            this.AcceptButton = this.downloadBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1182, 508);
-            this.Controls.Add(this.PicBox);
-            this.Controls.Add(this.sendBtn);
-            this.Controls.Add(this.downloadBtn);
             this.Controls.Add(this.resultRichTxtBox);
-            this.Controls.Add(this.getTafCheckBox);
-            this.Controls.Add(this.getMetarCheckBox);
             this.Controls.Add(this.icaoTxtBox);
             this.Controls.Add(this.Label1);
             this.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -155,18 +87,12 @@ namespace QSP
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "METAR";
-            ((System.ComponentModel.ISupportInitialize)(this.PicBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
         internal System.Windows.Forms.Label Label1;
         internal System.Windows.Forms.TextBox icaoTxtBox;
-        internal System.Windows.Forms.CheckBox getMetarCheckBox;
-        internal System.Windows.Forms.CheckBox getTafCheckBox;
         internal System.Windows.Forms.RichTextBox resultRichTxtBox;
-        internal System.Windows.Forms.Button downloadBtn;
-        internal System.Windows.Forms.Button sendBtn;
-        internal System.Windows.Forms.PictureBox PicBox;
     }
 }
