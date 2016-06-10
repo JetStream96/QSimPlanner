@@ -78,7 +78,7 @@ namespace QSP.LibraryExtension
         /// is replaced by newValue.
         /// </summary>
         public static string ReplaceAny(this string input,
-            string[] oldValue, string newValue)
+            IEnumerable<string> oldValue, string newValue)
         {
             string result = input;
 
@@ -91,7 +91,7 @@ namespace QSP.LibraryExtension
         }
 
         public static string ReplaceAny(this string input,
-            char[] oldValue, string newValue)
+            IEnumerable<char> oldValue, string newValue)
         {
             var sb = new StringBuilder(input.Length);
 

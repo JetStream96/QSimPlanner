@@ -52,6 +52,7 @@ namespace QSP.RouteFinding.FileExport
                     string filePath = FileNameGenerator.Generate(
                         i.Directory,
                         getFileName(),
+                        (n) => n.ToString().PadLeft(2, '0'),
                         i.Extension);
 
                     File.WriteAllText(filePath, provider.GetExportText());

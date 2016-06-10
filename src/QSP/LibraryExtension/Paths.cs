@@ -1,17 +1,18 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace QSP.LibraryExtension
 {
     public static class Paths
     {
-        public static char[] IllegalChars = getIllegalChars();
+        public static HashSet<char> IllegalChars = getIllegalChars();
 
-        private static char[] getIllegalChars()
+        private static HashSet<char> getIllegalChars()
         {
-            var invalid = Path.GetInvalidFileNameChars().ToList();
-            invalid.AddRange(Path.GetInvalidPathChars());
-            return invalid.ToArray();
+            var result = new HashSet<char>(Path.GetInvalidFileNameChars());
+            Path.GetInvalidPathChars().ForEach(c => result.Add(c));
+
+            return result;
         }
 
         /// <summary>

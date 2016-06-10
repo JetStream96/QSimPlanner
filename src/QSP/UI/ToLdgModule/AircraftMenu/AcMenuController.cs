@@ -301,9 +301,14 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         {
             if (inEditMode == false)
             {
+                var nameBase =
+                    (elem.AcType.Text + "_" + elem.Registration.Text)
+                    .RemoveIllegalChars();
+
                 return FileNameGenerator.Generate(
                     ConfigLoader.DefaultFolderPath,
-                    elem.AcType.Text + "_" + elem.Registration.Text,
+                    nameBase,
+                    (i) => "_" + i.ToString(),
                     ".ini");
             }
             else
