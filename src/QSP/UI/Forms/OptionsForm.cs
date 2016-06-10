@@ -144,33 +144,27 @@ namespace QSP
                 getCommands());
         }
 
-        private List<ExportCommandEntry> getCommands()
+        private Dictionary<string, ExportCommand> getCommands()
         {
-            var cmds = new List<ExportCommandEntry>();
+            var cmds = new Dictionary<string, ExportCommand>();
 
-            cmds.Add(
-                new ExportCommandEntry(
-                    new ExportCommand(
-                        exportTypes["PmdgCommon"],
-                        TextBox1.Text,
-                        CheckBox1.Checked),
-                    "PmdgCommon"));
+            cmds.Add("PmdgCommon",
+                new ExportCommand(
+                    exportTypes["PmdgCommon"],
+                    TextBox1.Text,
+                    CheckBox1.Checked));
 
-            cmds.Add(
-                new ExportCommandEntry(
-                    new ExportCommand(
-                        exportTypes["PmdgNGX"],
-                        TextBox2.Text,
-                        CheckBox2.Checked),
-                    "PmdgNGX"));
+            cmds.Add("PmdgNGX",
+                new ExportCommand(
+                    exportTypes["PmdgNGX"],
+                    TextBox2.Text,
+                    CheckBox2.Checked));
 
-            cmds.Add(
-                new ExportCommandEntry(
-                    new ExportCommand(
-                        exportTypes["Pmdg777"],
-                        TextBox2.Text,
-                        CheckBox2.Checked),
-                    "Pmdg777"));
+            cmds.Add("Pmdg777",
+                new ExportCommand(
+                    exportTypes["Pmdg777"],
+                    TextBox2.Text,
+                    CheckBox2.Checked));
 
             return cmds;
         }
@@ -260,29 +254,32 @@ namespace QSP
             navDataPathTxtBox.Text = AppSettings.NavDataLocation;
             PromptBeforeExit.Checked = AppSettings.PromptBeforeExit;
 
-            var command = AppSettings.GetExportCommand("PmdgCommon")?.Command;
-
-            if (command != null)
+            try
             {
+                var command = AppSettings.GetExportCommand("PmdgCommon");
                 TextBox1.Text = command.Directory;
                 CheckBox1.Checked = command.Enabled;
             }
+            catch
+            { }
 
-            command = AppSettings.GetExportCommand("PmdgNGX")?.Command;
-
-            if (command != null)
+            try
             {
+                var command = AppSettings.GetExportCommand("PmdgNGX");
                 TextBox2.Text = command.Directory;
                 CheckBox2.Checked = command.Enabled;
             }
+            catch
+            { }
 
-            command = AppSettings.GetExportCommand("Pmdg777")?.Command;
-
-            if (command != null)
+            try
             {
+                var command = AppSettings.GetExportCommand("Pmdg777");
                 TextBox3.Text = command.Directory;
                 CheckBox3.Checked = command.Enabled;
             }
+            catch
+            { }
         }
 
         private void Button1_Click(object sender, EventArgs e)

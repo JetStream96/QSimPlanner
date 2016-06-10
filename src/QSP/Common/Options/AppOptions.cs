@@ -14,14 +14,14 @@ namespace QSP.Common.Options
         public bool PromptBeforeExit { get; set; }
         public bool AutoDLTracks { get; set; }
         public bool AutoDLWind { get; set; }
-        public List<ExportCommandEntry> ExportCommands { get; set; }
-        
+        public Dictionary<string, ExportCommand> ExportCommands { get; set; }
+
         public AppOptions(
             string NavDataLocation,
             bool PromptBeforeExit,
             bool AutoDLTracks,
             bool AutoDLWind,
-            List<ExportCommandEntry> ExportCommands)
+            Dictionary<string, ExportCommand> ExportCommands)
         {
             this.NavDataLocation = NavDataLocation;
             this.PromptBeforeExit = PromptBeforeExit;
@@ -43,7 +43,7 @@ namespace QSP.Common.Options
 
             var exports = root.Element("ExportOptions");
 
-            ExportCommands = new List<ExportCommandEntry>();
+            ExportCommands = new Dictionary<string, ExportCommand>();
 
             foreach (var i in exports.Elements())
             {
@@ -56,27 +56,24 @@ namespace QSP.Common.Options
                     i.Element("Path").Value,
                     bool.Parse(i.Element("Enabled").Value));
 
-                ExportCommands.Add(
-                    new ExportCommandEntry(cmd, i.Name.LocalName));
+                ExportCommands.Add(i.Name.LocalName, cmd);
             }
         }
 
         public XElement ToXml()
         {
-            var exports = new XElement[ExportCommands.Count];
-
-            for (int i = 0; i < ExportCommands.Count; i++)
+            var exports = ExportCommands.Select(entry =>
             {
-                var entry = ExportCommands[i];
-                var command = entry.Command;
+                var command = entry.Value;
 
-                exports[i] = new XElement(
+                return
+                new XElement(
                     entry.Key.ToString(),
                     new XElement[] {
                         new XElement("Type", command.ProviderType.ToString()),
                         new XElement("Enabled", command.Enabled.ToString()),
                         new XElement("Path", command.Directory)});
-            }
+            });
 
             var exportOptions = new XElement("ExportOptions", exports);
 
@@ -88,10 +85,9 @@ namespace QSP.Common.Options
                 exportOptions});
         }
 
-        // TODO: prevent duplicate key?
-        public ExportCommandEntry GetExportCommand(string key)
+        public ExportCommand GetExportCommand(string key)
         {
-            return ExportCommands.FirstOrDefault(i => i.Key == key);
+            return ExportCommands[key];
         }
 
         public static AppOptions Default
@@ -99,7 +95,11 @@ namespace QSP.Common.Options
             get
             {
                 return new AppOptions(
-                    "", true, true, true, new List<ExportCommandEntry>());
+                    "",
+                    true,
+                    true,
+                    true,
+                    new Dictionary<string, ExportCommand>());
             }
         }
     }

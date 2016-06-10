@@ -841,7 +841,7 @@ namespace QSP
 
         private void ExportRte()
         {
-            var cmds = appSettings.ExportCommands.Select(x => x.Command);
+            var cmds = appSettings.ExportCommands.Values;
             var writer = new FileExporter(RouteToDest, airportList, cmds);
 
             writer.Export(); // TODO: handle exceptions
