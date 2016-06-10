@@ -1,4 +1,3 @@
-using QSP.Common;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -12,7 +11,7 @@ namespace QSP.UI
         private ComboBox[] comboBoxes;
 
         private string filePath;
-        private string statesDirectory = QspCore.QspAppDataDirectory + "\\SavedStates";
+        private string statesDirectory = "SavedStates";
 
         public enum PageOfForm
         {
