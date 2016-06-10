@@ -15,7 +15,7 @@ namespace QSP.RouteFinding.FileExport
         private AirportManager airports;
 
         private IEnumerable<ExportCommand> commands;
-        private List<string> _errors;
+        private List<Status> _reports;
 
         public FileExporter(
             ManagedRoute route,
@@ -31,13 +31,13 @@ namespace QSP.RouteFinding.FileExport
         /// Returns the error messages of the operation.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> Export()
+        public IEnumerable<Status> Export()
         {
-            _errors = new List<string>();
+            _reports = new List<Status>();
 
             foreach (var i in commands)
             {
-                if(i.Enabled == false)
+                if (i.Enabled == false)
                 {
                     continue;
                 }
@@ -56,22 +56,38 @@ namespace QSP.RouteFinding.FileExport
                         i.Extension);
 
                     File.WriteAllText(filePath, provider.GetExportText());
+
+                    _reports.Add(new Status(filePath, true, ""));
                 }
                 catch (Exception ex)
                 {
                     LoggerInstance.WriteToLog(ex);
-                    _errors.Add(ex.Message);
+                    _reports.Add(new Status(i.Directory, false, ex.Message));
                 }
             }
 
-            return _errors;
-        }      
-        
+            return _reports;
+        }
+
         private string getFileName()
         {
             var orig = route.First.Waypoint.ID.Substring(0, 4);
             var dest = route.Last.Waypoint.ID.Substring(0, 4);
             return orig.ToUpper() + dest.ToUpper();
-        }  
+        }
+
+        public class Status
+        {
+            public string FilePath { get; private set; }
+            public bool Successful { get; private set; }
+            public string Message { get; private set; }
+
+            public Status(string FilePath, bool Successful, string Message)
+            {
+                this.FilePath = FilePath;
+                this.Successful = Successful;
+                this.Message = Message;
+            }
+        }
     }
 }

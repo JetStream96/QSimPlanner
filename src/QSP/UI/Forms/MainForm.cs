@@ -839,12 +839,66 @@ namespace QSP
             RouteDisAltnLbl.Text = "Total Dis: " + Math.Round(RouteToAltn.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToAltn.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
         }
 
-        private void ExportRte()
+        private void ExportRouteFiles()
         {
             var cmds = appSettings.ExportCommands.Values;
             var writer = new FileExporter(RouteToDest, airportList, cmds);
 
-            writer.Export(); // TODO: handle exceptions
+            var reports = writer.Export();
+            showReports(reports);
+        }
+
+        private static void showReports(IEnumerable<FileExporter.Status> reports)
+        {
+            if (reports.Count() == 0)
+            {
+                MessageBox.Show(
+                    "No route file to be exported. " +
+                    "Please select select export settings in options page.",
+                    "",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            else
+            {
+                var msg = new StringBuilder();
+                var success = reports.Where(r => r.Successful);
+
+                if (success.Count() > 0)
+                {
+                    msg.AppendLine(
+                        $"{success.Count()} company route(s) exported:");
+
+                    foreach (var i in success)
+                    {
+                        msg.AppendLine(i.FilePath);
+                    }
+                }
+
+                var errors = reports.Where(r => r.Successful == false);
+
+                if (errors.Count() > 0)
+                {
+                    msg.AppendLine(
+                        $"\n\nFailed to export {errors.Count()} file(s) into:");
+
+                    foreach (var j in errors)
+                    {
+                        msg.AppendLine(j.FilePath);
+                    }
+                }
+
+                var icon =
+                    errors.Count() > 0 ?
+                    MessageBoxIcon.Warning :
+                    MessageBoxIcon.Information;
+
+                MessageBox.Show(
+                    msg.ToString(),
+                    "",
+                    MessageBoxButtons.OK,
+                    icon);
+            }
         }
 
         private void ResetFromCBoxes()
@@ -1554,7 +1608,7 @@ namespace QSP
 
         private void ExportBtn_Click(object sender, EventArgs e)
         {
-            ExportRte();
+            ExportRouteFiles();
         }
 
     }
