@@ -1,6 +1,7 @@
-﻿using QSP.UI.ToLdgModule.Forms;
-using QSP.Utilities;
+﻿using QSP.AircraftProfiles.Configs;
+using QSP.UI.ToLdgModule.Forms;
 using QSP.UI.Utilities;
+using QSP.Utilities;
 using QspLite.GlobalInfo;
 using System;
 using System.Windows.Forms;
@@ -26,8 +27,16 @@ namespace QspLite
                 Environment.Exit(0);
             };
 
-            Information.InitializeProfiles();
-            
+            try
+            {
+                Information.InitializeProfiles();
+            }
+            catch (PerfFileNotFoundException ex)
+            {
+                LoggerInstance.WriteToLog(ex);
+                MsgBoxHelper.ShowWarning(ex.Message);
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -35,6 +44,6 @@ namespace QspLite
             frm.Initialize(Information.Profiles);
 
             Application.Run(frm);
-        }        
+        }
     }
 }

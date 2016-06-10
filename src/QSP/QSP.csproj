@@ -100,7 +100,6 @@
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="AviationTools\Coordinates\Utilities.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
-    <Compile Include="Common\Options\ExportGroup.cs" />
     <Compile Include="LibraryExtension\FileNameGenerator.cs" />
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />

@@ -1,4 +1,5 @@
 ﻿using QSimPlanner.GlobalInfo;
+using QSP.AircraftProfiles.Configs;
 using QSP.Common.Options;
 using QSP.UI.Utilities;
 using QSP.Utilities;
@@ -54,9 +55,16 @@ namespace QSimPlanner
 
         private static void initData()
         {
-            // Aircraft data
-            // This does not throw exception.
-            Information.InitProfiles();
+            try
+            {
+                // Aircraft data
+                Information.InitProfiles();
+            }
+            catch (PerfFileNotFoundException ex)
+            {
+                LoggerInstance.WriteToLog(ex);
+                MsgBoxHelper.ShowWarning(ex.Message);
+            }
 
             // Load options.
             try
@@ -66,7 +74,7 @@ namespace QSimPlanner
             catch (Exception ex)
             {
                 LoggerInstance.WriteToLog(ex);
-                
+
                 MessageBox.Show(
                     "Cannot load options.", "",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);

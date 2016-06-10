@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using QSP.AircraftProfiles.Configs;
 
 namespace QSP.AircraftProfiles.Configs
 {
@@ -92,13 +93,20 @@ namespace QSP.AircraftProfiles.Configs
             foreach (var i in registrations)
             {
                 var config = i.Value;
-                bool toNotFound = takeoffTables.FirstOrDefault(
-                    x => x.Entry.ProfileName == config.Config.TOProfile) == null;
+                var to = config.Config.TOProfile;
+                var ldg = config.Config.LdgProfile;
 
-                bool ldgNotFound = ldgTables.FirstOrDefault(
-                    x => x.Entry.ProfileName == config.Config.LdgProfile) == null;
+                bool toNotFound =
+                    to != AircraftConfigItem.NoToLdgProfileText &&
+                    takeoffTables.FirstOrDefault(
+                    x => x.Entry.ProfileName == to) == null;
 
-                if (toNotFound || ldgNotFound) // TODO: use && instead?
+                bool ldgNotFound =
+                    ldg != AircraftConfigItem.NoToLdgProfileText &&
+                    ldgTables.FirstOrDefault(
+                    x => x.Entry.ProfileName == ldg) == null;
+
+                if (toNotFound || ldgNotFound)
                 {
                     invalidAc.Add(config);
                 }

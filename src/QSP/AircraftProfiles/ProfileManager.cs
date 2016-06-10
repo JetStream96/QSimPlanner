@@ -24,14 +24,17 @@ namespace QSP.AircraftProfiles
                 return _errors;
             }
         }
-
+        
+        /// <exception cref="PerfFileNotFoundException"></exception>
         public void Initialize()
         {
             _errors = new List<string>();
 
-            AcConfigs = loadConfig();
             TOTables = loadTOTables();
             LdgTables = loadLdgTables();
+            AcConfigs = loadConfig();
+
+            AcConfigs.Validate(TOTables, LdgTables);
         }
 
         private AcConfigManager loadConfig()

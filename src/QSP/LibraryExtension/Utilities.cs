@@ -40,7 +40,8 @@ namespace QSP.LibraryExtension
                 case "DEC":
                     return 12;
                 default:
-                    throw new ArgumentException("Input string is not a valid month identifier.");
+                    throw new ArgumentException(
+                        "Input string is not a valid month identifier.");
             }
         }
     }

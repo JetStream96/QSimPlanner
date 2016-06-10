@@ -31,7 +31,7 @@ namespace QSP.AircraftProfiles.Configs
                 }
                 catch (Exception ex)
                 {
-                    LoggerInstance.WriteToLog(ex); // TODO: 
+                    LoggerInstance.WriteToLog(ex); 
                 }
             }
 

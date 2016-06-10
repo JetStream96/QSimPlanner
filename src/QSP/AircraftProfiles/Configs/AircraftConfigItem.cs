@@ -4,6 +4,8 @@ namespace QSP.AircraftProfiles.Configs
 {
     public class AircraftConfigItem
     {
+        public static readonly string NoToLdgProfileText = "None";
+
         public string AC { get; private set; }
         public string Registration { get; private set; }
         public string TOProfile { get; private set; }
