@@ -1,6 +1,6 @@
 using QSP.RouteFinding.Communication;
 using QSP.RouteFinding.Routes;
-using QSP.RouteFinding.Routes.Toggler;
+using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Nats;
@@ -13,8 +13,8 @@ namespace QSP.RouteFinding
         //===================================== These are critical data for route finding =====================================
         // Data used is Navigraph - Aerosoft Airbus X v1.22 or later
         
-        public static ManagedRoute RouteToDest;
-        public static ManagedRoute RouteToAltn;
+        public static RouteGroup RouteToDest;
+        public static RouteGroup RouteToAltn;
 
         public static NatsHandler NatsManager;
         public static PacotsHandler PacotsManager;

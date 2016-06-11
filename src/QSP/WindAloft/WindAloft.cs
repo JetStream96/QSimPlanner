@@ -11,7 +11,7 @@ namespace QSP.WindAloft
         public static int[] FullWindDataSet = { 100, 200, 250, 300, 350, 400, 500, 600, 700, 850 };
         public static string WxFileDirectory = "Wx\\tmp";
 
-        public static int AvgTailWind(ManagedRoute rte, int cruizeLevel, int tas)
+        public static int AvgTailWind(Route rte, int cruizeLevel, int tas)
         {
             //returns the avg tailwind to dest and altn, respectifully
             //based on the route generated/built from RouteGen page

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace QSP.RouteFinding.Routes.Toggler
+namespace QSP.RouteFinding.Routes.TrackInUse
 {
     public struct RouteEntry
     {

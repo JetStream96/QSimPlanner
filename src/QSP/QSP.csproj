@@ -113,6 +113,7 @@
     <Compile Include="RouteFinding\FileExport\Providers\Types.cs" />
     <Compile Include="RouteFinding\FixTypes.cs" />
     <Compile Include="RouteFinding\Routes\RouteExtensions.cs" />
+    <Compile Include="RouteFinding\Routes\RouteGroup.cs" />
     <Compile Include="UI\ToLdgModule\AboutPage\AboutPageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -189,12 +190,10 @@
     <Compile Include="RouteFinding\RouteAnalyzers\Utilities.cs" />
     <Compile Include="RouteFinding\RouteFinderFacade.cs" />
     <Compile Include="RouteFinding\Routes\Route.cs" />
-    <Compile Include="RouteFinding\Routes\RouteCollapseUtility.cs" />
     <Compile Include="RouteFinding\Routes\RouteNode.cs" />
-    <Compile Include="RouteFinding\Routes\Toggler\RouteEntry.cs" />
-    <Compile Include="RouteFinding\Routes\Toggler\RouteToggler.cs" />
+    <Compile Include="RouteFinding\Routes\TrackInUse\RouteEntry.cs" />
     <Compile Include="RouteFinding\Data\Interfaces\ICoordinate.cs" />
-    <Compile Include="RouteFinding\Routes\Toggler\TrackInUseCollection.cs" />
+    <Compile Include="RouteFinding\Routes\TrackInUse\TrackInUseCollection.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\EntryType.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\IProcedureEntry.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidAdder.cs" />
@@ -386,7 +385,6 @@
     <Compile Include="RouteFinding\RandomRouteFinder.cs" />
     <Compile Include="RouteFinding\RouteFinder.cs" />
     <Compile Include="RouteFinding\Containers\Neighbor.cs" />
-    <Compile Include="RouteFinding\Routes\ManagedRoute.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointList.cs" />
     <Compile Include="RouteFinding\Containers\Waypoint.cs" />
     <Compile Include="RouteFinding\Airports\Airport.cs" />

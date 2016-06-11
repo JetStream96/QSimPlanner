@@ -11,18 +11,18 @@ namespace QSP.RouteFinding.Routes
 {
     public class Route : IEnumerable<RouteNode>, IEnumerable
     {
-        protected LinkedList<RouteNode> route;
+        public LinkedList<RouteNode> Nodes { get; private set; }
 
         public double TotalDistance
         {
             get
             {
-                if (route.Count == 0)
+                if (Nodes.Count == 0)
                 {
                     throw new InvalidOperationException("Route is empty.");
                 }
 
-                return route.TotalDistance();
+                return Nodes.TotalDistance();
             }
         }
 
@@ -48,7 +48,7 @@ namespace QSP.RouteFinding.Routes
         {
             get
             {
-                return route.First;
+                return Nodes.First;
             }
         }
 
@@ -56,7 +56,7 @@ namespace QSP.RouteFinding.Routes
         {
             get
             {
-                return route.Last;
+                return Nodes.Last;
             }
         }
 
@@ -64,18 +64,18 @@ namespace QSP.RouteFinding.Routes
         {
             get
             {
-                return route.Count;
+                return Nodes.Count;
             }
         }
 
         public Route()
         {
-            route = new LinkedList<RouteNode>();
+            Nodes = new LinkedList<RouteNode>();
         }
 
         public Route(Route item)
         {
-            route = new LinkedList<RouteNode>(item);
+            Nodes = new LinkedList<RouteNode>(item);
         }
 
         /// <summary>
@@ -87,12 +87,12 @@ namespace QSP.RouteFinding.Routes
             Waypoint item, string viaAirway, double distanceToNext)
         {
             var node = new RouteNode(item, viaAirway, distanceToNext);
-            route.AddFirst(node);
+            Nodes.AddFirst(node);
         }
 
         public void AddFirstWaypoint(Waypoint item, string viaAirway)
         {
-            var first = route.First;
+            var first = Nodes.First;
 
             double distance =
                 first == null ?
@@ -101,21 +101,6 @@ namespace QSP.RouteFinding.Routes
 
             AddFirstWaypoint(item, viaAirway, distance);
         }
-
-        //public void AddAfter(
-        //    LinkedListNode<RouteNode> node,
-        //    Waypoint item, string viaAirway, double distanceToNext)
-        //{
-        //    var newNode = new RouteNode(item, viaAirway, distanceToNext);
-        //    route.AddAfter(node, newNode);
-        //}
-
-        //public void AddAfter(LinkedListNode<RouteNode> node,
-        //    Waypoint item, string viaAirway)
-        //{
-        //    double distance = item.DistanceFrom(node.Value.Waypoint);
-        //    AddAfter(node, item, viaAirway, distance);
-        //}
 
         /// <summary>
         /// Append the specified waypoint to the end of the route. 
@@ -126,7 +111,7 @@ namespace QSP.RouteFinding.Routes
         public void AddLastWaypoint(
             Waypoint item, string viaAirway, double distanceFromPrev)
         {
-            var last = route.Last;
+            var last = Nodes.Last;
 
             if (last != null)  // Route is non-empty.
             {
@@ -134,12 +119,12 @@ namespace QSP.RouteFinding.Routes
                 last.Value.AirwayToNext = viaAirway;
             }
 
-            route.AddLast(new RouteNode(item));
+            Nodes.AddLast(new RouteNode(item));
         }
 
         public void AddLastWaypoint(Waypoint item, string viaAirway)
         {
-            var last = route.Last;
+            var last = Nodes.Last;
 
             double distance =
                Last == null ?
@@ -154,7 +139,7 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public void AddLastWaypoint(Waypoint item)
         {
-            route.AddLast(new RouteNode(item));
+            Nodes.AddLast(new RouteNode(item));
         }
 
         // TODO: Does it work when Last is null?
@@ -174,9 +159,9 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public void AppendRoute(Route item, string airway, double distance)
         {
-            route.Last.Value.AirwayToNext = airway;
-            route.Last.Value.DistanceToNext = distance;
-            route.AddLast(item.route);
+            Nodes.Last.Value.AirwayToNext = airway;
+            Nodes.Last.Value.DistanceToNext = distance;
+            Nodes.AddLast(item.Nodes);
         }
 
         /// <summary>
@@ -193,8 +178,8 @@ namespace QSP.RouteFinding.Routes
 
             ConditionChecker.Ensure<ArgumentException>(
                 LastWaypoint.Equals(item.FirstWaypoint));
-            route.RemoveLast();
-            route.AddLast(item.route);
+            Nodes.RemoveLast();
+            Nodes.AddLast(item.Nodes);
         }
 
         /// <summary>
@@ -210,15 +195,15 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public string ToString(bool ShowFirstWaypoint, bool ShowLastWaypoint)
         {
-            if (route.Count < 2)
+            if (Nodes.Count < 2)
             {
                 throw new InvalidOperationException(
                     "Number of waypoints in the route is less than 2.");
             }
 
             var result = new StringBuilder();
-            var node = route.First;
-            var last = route.Last;
+            var node = Nodes.First;
+            var last = Nodes.Last;
 
             if (ShowFirstWaypoint)
             {
@@ -227,7 +212,8 @@ namespace QSP.RouteFinding.Routes
 
             while (node.Next != last)
             {
-                if (node.Value.AirwayToNext != node.Next.Value.AirwayToNext)
+                if (node.Value.AirwayToNext != node.Next.Value.AirwayToNext ||
+                    node.Value.AirwayToNext == "DCT")
                 {
                     result.Append(node.Value.AirwayToNext + ' ');
                     node = node.Next;
@@ -250,7 +236,7 @@ namespace QSP.RouteFinding.Routes
 
         public IEnumerator<RouteNode> GetEnumerator()
         {
-            return route.GetEnumerator();
+            return Nodes.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

@@ -11,14 +11,14 @@ namespace QSP.RouteFinding.FileExport
 {
     public class FileExporter
     {
-        private ManagedRoute route;
+        private Route route;
         private AirportManager airports;
 
         private IEnumerable<ExportCommand> commands;
         private List<Status> _reports;
 
         public FileExporter(
-            ManagedRoute route,
+            Route route,
             AirportManager airports,
             IEnumerable<ExportCommand> commands)
         {

@@ -8,7 +8,7 @@ namespace QSP.RouteFinding.FileExport.Providers
     {
         public static IExportProvider GetProvider(
             ProviderType type,
-            ManagedRoute route, 
+            Route route, 
             AirportManager airports)
         {
             switch (type)

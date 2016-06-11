@@ -8,9 +8,8 @@ namespace QSP.GoogleMap
 {
     public static class RouteDrawing
     {
-        public static StringBuilder MapDrawString(ManagedRoute rte, int width, int height)
+        public static StringBuilder MapDrawString(Route rte, int width, int height)
         {
-            rte.Expand();
             var mapHtml = new StringBuilder();
 
             string path = Assembly.GetExecutingAssembly().Location;
@@ -128,7 +127,7 @@ var myTrip=[");
 
         }
 
-        private static string wptIdDisplay(ManagedRoute rte, Waypoint waypoint, int index)
+        private static string wptIdDisplay(Route rte, Waypoint waypoint, int index)
         {
             if (index == 0 || index == rte.Count - 1)
             {

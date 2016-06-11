@@ -3,7 +3,7 @@ using QSP.RouteFinding.Tracks.Common;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace QSP.RouteFinding.Routes.Toggler
+namespace QSP.RouteFinding.Routes.TrackInUse
 {
     public class TrackInUseCollection
     {

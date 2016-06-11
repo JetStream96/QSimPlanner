@@ -795,29 +795,31 @@ namespace QSP
             List<string> sid = getSidStarList(OrigSidComboBox);
             List<string> star = getSidStarList(DestStarComboBox);
 
-            RouteToDest = new ManagedRoute(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
+            RouteToDest = new RouteGroup(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                            .FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid,
                                                       DestTxtBox.Text, DestRwyComboBox.Text, star),
                                            TracksInUse);
 
-            PMDGrteFile = new PmdgProvider(RouteToDest, airportList)
+            var route = RouteToDest.Expanded;
+
+            PMDGrteFile = new PmdgProvider(route, airportList)
                 .GetExportText();
 
-            RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
+            RouteDisplayRichTxtBox.Text = route.ToString(false, false);
 
-            double directDis = MathTools.GCDis.Distance(RouteToDest.FirstWaypoint.LatLon, RouteToDest.LastWaypoint.LatLon);
-            RouteDisLbl.Text = "Total Dis: " + Math.Round(RouteToDest.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToDest.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
+            double directDis = MathTools.GCDis.Distance(route.FirstWaypoint.LatLon, route.LastWaypoint.LatLon);
+            RouteDisLbl.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
         }
 
         private static int computeTailWind(TailWindCalcOptions para, int tas, int Fl)
         {
             if (para == TailWindCalcOptions.OrigToDest)
             {
-                return WindAloft.Utilities.AvgTailWind(RouteToDest, Fl, tas);
+                return WindAloft.Utilities.AvgTailWind(RouteToDest.Expanded, Fl, tas);
             }
             else
             {
-                return WindAloft.Utilities.AvgTailWind(RouteToAltn, Fl, tas);
+                return WindAloft.Utilities.AvgTailWind(RouteToAltn.Expanded, Fl, tas);
             }
         }
 
@@ -828,21 +830,23 @@ namespace QSP
                                         .GetSidList(DestRwyComboBox.Text);
             var starAltn = getSidStarList(AltnStarComboBox);
 
-            RouteToAltn = new ManagedRoute(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
+            RouteToAltn = new RouteGroup(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                            .FindRoute(DestTxtBox.Text, DestRwyComboBox.Text, sids,
                                                       AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn),
                                            TracksInUse);
 
-            RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
+            var route = RouteToAltn.Expanded;
 
-            double directDis = RouteToAltn.FirstWaypoint.DistanceFrom(RouteToAltn.LastWaypoint);
-            RouteDisAltnLbl.Text = "Total Dis: " + Math.Round(RouteToAltn.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToAltn.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
+            RouteDisplayAltnRichTxtBox.Text = route.ToString(false, false);
+
+            double directDis = route.FirstWaypoint.DistanceFrom(route.LastWaypoint);
+            RouteDisAltnLbl.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
         }
 
         private void ExportRouteFiles()
         {
             var cmds = appSettings.ExportCommands.Values;
-            var writer = new FileExporter(RouteToDest, airportList, cmds);
+            var writer = new FileExporter(RouteToDest.Expanded, airportList, cmds);
 
             var reports = writer.Export();
             showReports(reports);
@@ -1144,14 +1148,17 @@ namespace QSP
 
                 try
                 {
-                    ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
+                    var myRoute = new RouteGroup(
+                        new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                                             .FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid,
                                                                        ToTxtbox.Text, ToRwyCBox.Text, star),
                                                             TracksInUse);
 
-                    RouteAdvancedRichTxtBox.Text = myRoute.ToString();
-                    double directDis = MathTools.GCDis.Distance(myRoute.FirstWaypoint.LatLon, myRoute.LastWaypoint.LatLon);
-                    Label56.Text = "Total Dis: " + Math.Round(myRoute.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((myRoute.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
+                    var route = myRoute.Expanded;
+
+                    RouteAdvancedRichTxtBox.Text = route.ToString();
+                    double directDis = MathTools.GCDis.Distance(route.FirstWaypoint.LatLon, route.LastWaypoint.LatLon);
+                    Label56.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
 
                 }
@@ -1186,14 +1193,16 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
+                    var myRoute = new RouteGroup(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                                             .FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid,
                                                                        wptList.FindByWaypoint(ToTxtbox.Text, v.X, v.Y)),
                                                             TracksInUse);
 
-                    RouteAdvancedRichTxtBox.Text = myRoute.ToString(false, true);
-                    double directDis = MathTools.GCDis.Distance(myRoute.FirstWaypoint.LatLon, myRoute.LastWaypoint.LatLon);
-                    Label56.Text = "Total Dis: " + Math.Round(myRoute.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((myRoute.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
+                    var route = myRoute.Expanded;
+
+                    RouteAdvancedRichTxtBox.Text = route.ToString(false, true);
+                    double directDis = MathTools.GCDis.Distance(route.FirstWaypoint.LatLon, route.LastWaypoint.LatLon);
+                    Label56.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
 
                 }
@@ -1227,14 +1236,16 @@ namespace QSP
                 {
                     Vector2D v = extractLatLon(WptSelFromCBox.Text);
 
-                    ManagedRoute myRoute = new ManagedRoute(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
+                    var myRoute = new RouteGroup(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                                             .FindRoute(wptList.FindByWaypoint(FromTxtbox.Text, v.X, v.Y),
                                                                        ToTxtbox.Text, ToRwyCBox.Text, star),
                                                             TracksInUse);
 
-                    RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, false);
-                    double directDis = MathTools.GCDis.Distance(myRoute.FirstWaypoint.LatLon, myRoute.LastWaypoint.LatLon);
-                    Label56.Text = "Total Dis: " + Math.Round(myRoute.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((myRoute.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
+                    var route = myRoute.Expanded;
+
+                    RouteAdvancedRichTxtBox.Text = route.ToString(true, false);
+                    double directDis = MathTools.GCDis.Distance(route.FirstWaypoint.LatLon, route.LastWaypoint.LatLon);
+                    Label56.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
 
                 }
@@ -1251,15 +1262,17 @@ namespace QSP
                     Vector2D u = extractLatLon(WptSelFromCBox.Text);
                     Vector2D v = extractLatLon(WptSelToCBox.Text);
 
-                    ManagedRoute myRoute = new ManagedRoute(
+                    var myRoute = new RouteGroup(
                         new RouteFinder(wptList, airportList)
                         .FindRoute(wptList.FindByWaypoint(FromTxtbox.Text, u.X, u.Y),
                                    wptList.FindByWaypoint(ToTxtbox.Text, v.X, v.Y)),
                         TracksInUse);
 
-                    RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, true);
-                    double directDis = MathTools.GCDis.Distance(myRoute.FirstWaypoint.LatLon, myRoute.LastWaypoint.LatLon);
-                    Label56.Text = "Total Dis: " + Math.Round(myRoute.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((myRoute.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
+                    var route = myRoute.Expanded;
+
+                    RouteAdvancedRichTxtBox.Text = route.ToString(true, true);
+                    double directDis = MathTools.GCDis.Distance(route.FirstWaypoint.LatLon, route.LastWaypoint.LatLon);
+                    Label56.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
 
                 }
@@ -1292,7 +1305,7 @@ namespace QSP
                 RouteDisplayRichTxtBox.Text = RouteDisplayRichTxtBox.Text.ToUpper();
 
                 RouteToDest =
-                    new ManagedRoute(
+                    new RouteGroup(
                         RouteAnalyzerFacade.AnalyzeWithCommands(
                             RouteDisplayRichTxtBox.Text,
                             OrigTxtBox.Text,
@@ -1304,13 +1317,15 @@ namespace QSP
                             wptList),
                         TracksInUse);
 
-                PMDGrteFile = new PmdgProvider(RouteToDest, airportList)
+                var route = RouteToDest.Expanded;
+
+                PMDGrteFile = new PmdgProvider(route, airportList)
                 .GetExportText();
 
-                RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
+                RouteDisplayRichTxtBox.Text = route.ToString(false, false);
 
-                double directDis = MathTools.GCDis.Distance(RouteToDest.FirstWaypoint.LatLon, RouteToDest.LastWaypoint.LatLon);
-                RouteDisLbl.Text = "Total Dis: " + Math.Round(RouteToDest.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToDest.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
+                double directDis = MathTools.GCDis.Distance(route.FirstWaypoint.LatLon, route.LastWaypoint.LatLon);
+                RouteDisLbl.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
             }
             catch (Exception ex)
@@ -1443,7 +1458,7 @@ namespace QSP
                 return;
             }
 
-            StringBuilder GoogleMapDrawRoute = RouteDrawing.MapDrawString(RouteToDest, MapDisWebBrowser.Width - 20, MapDisWebBrowser.Height - 30);
+            StringBuilder GoogleMapDrawRoute = RouteDrawing.MapDrawString(RouteToDest.Expanded, MapDisWebBrowser.Width - 20, MapDisWebBrowser.Height - 30);
 
             var mapStr = GoogleMapDrawRoute.ToString();
 

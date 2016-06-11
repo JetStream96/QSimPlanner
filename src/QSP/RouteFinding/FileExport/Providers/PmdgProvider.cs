@@ -6,10 +6,10 @@ namespace QSP.RouteFinding.FileExport.Providers
 {
     public class PmdgProvider : IExportProvider
     {
-        private ManagedRoute route;
+        private Route route;
         private AirportManager airports;
 
-        public PmdgProvider(ManagedRoute route, AirportManager airports)
+        public PmdgProvider(Route route, AirportManager airports)
         {
             this.route = route;
             this.airports = airports;
@@ -46,8 +46,6 @@ namespace QSP.RouteFinding.FileExport.Providers
         /// </summary>
         public string GetExportText()
         {
-            route.Expand();
-
             int numWpts = route.Count;
 
             // Including dep/arr airports
