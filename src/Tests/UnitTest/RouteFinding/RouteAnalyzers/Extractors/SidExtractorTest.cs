@@ -23,7 +23,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var origRoute = extractor.Extract();
 
             Assert.AreEqual(1, origRoute.Count);
-            Assert.IsTrue(origRoute.First.Waypoint.Equals(rwyWpt));
+            Assert.IsTrue(origRoute.FirstWaypoint.Equals(rwyWpt));
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var origRoute = extractor.Extract();
 
             Assert.AreEqual(3, route.Count);
-            Assert.IsFalse(origRoute.First.Waypoint.ID == "RCTP");
+            Assert.IsFalse(origRoute.FirstWaypoint.ID == "RCTP");
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             Assert.AreEqual(2, origRoute.Count);
 
-            var node = origRoute.FirstNode;
+            var node = origRoute.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(node.Value.AirwayToNext == "SID1");
             Assert.AreEqual(
@@ -88,7 +88,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));
-            Assert.IsTrue(node == origRoute.LastNode);
+            Assert.IsTrue(node == origRoute.Last);
         }
 
         [Test]
@@ -126,7 +126,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             Assert.AreEqual(2, origRoute.Count);
 
-            var node = origRoute.FirstNode;
+            var node = origRoute.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(node.Value.AirwayToNext == "SID1");
             Assert.AreEqual(
@@ -137,7 +137,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(
                 new Waypoint("P1", 21.0, 121.0)));
-            Assert.IsTrue(node == origRoute.LastNode);
+            Assert.IsTrue(node == origRoute.Last);
         }
     }
 }

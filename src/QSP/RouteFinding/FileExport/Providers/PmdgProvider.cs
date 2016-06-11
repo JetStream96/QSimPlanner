@@ -51,20 +51,20 @@ namespace QSP.RouteFinding.FileExport.Providers
             int numWpts = route.Count;
 
             // Including dep/arr airports
-            string icaoOrig = route.First.Waypoint.ID.Substring(0, 4);
-            string icaoDest = route.Last.Waypoint.ID.Substring(0, 4);
+            string icaoOrig = route.FirstWaypoint.ID.Substring(0, 4);
+            string icaoDest = route.LastWaypoint.ID.Substring(0, 4);
 
             var result = new StringBuilder();
             appendOrigAirportPart(numWpts, icaoOrig, result);
 
-            var node = route.FirstNode.Next;
+            var node = route.First.Next;
 
-            while (node != route.LastNode)
+            while (node != route.Last)
             {
                 var airway = node.Value.AirwayToNext;
                 var wpt = node.Value.Waypoint;
 
-                if (airway == "DCT" || node.Next == route.LastNode)
+                if (airway == "DCT" || node.Next == route.Last)
                 {
                     airway = "DIRECT";
                 }

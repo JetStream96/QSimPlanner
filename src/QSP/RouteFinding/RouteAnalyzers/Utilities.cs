@@ -22,13 +22,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 return;
             }
 
-            if (item.Last.Waypoint.Equals(RouteToMerge.First.Waypoint))
+            if (item.LastWaypoint.Equals(RouteToMerge.FirstWaypoint))
             {
                 item.ConnectRoute(RouteToMerge);
             }
             else
             {
-                item.AppendRoute(RouteToMerge, item.Last.AirwayToNext ?? "DCT");
+                item.AppendRoute(RouteToMerge, item.Last.Value.AirwayToNext ?? "DCT");
             }
         }
     }

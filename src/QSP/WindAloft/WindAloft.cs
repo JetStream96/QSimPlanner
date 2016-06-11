@@ -21,9 +21,9 @@ namespace QSP.WindAloft
             double AirDisToDest = 0.0;
             double GrdDisToDest = 0.0;
 
-            var node = rte.FirstNode;
+            var node = rte.First;
 
-            while (node != rte.LastNode)
+            while (node != rte.Last)
             {
                 var t = GetAirDisGrdDis(node.Value.Waypoint.LatLon,
                     node.Next.Value.Waypoint.LatLon, 

@@ -65,8 +65,8 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             var rte = nodes.MainRoute;
 
-            int indexStart = addFirstWpt(rte.First.Waypoint);
-            int indexEnd = addLastWpt(rte.Last.Waypoint);
+            int indexStart = addFirstWpt(rte.FirstWaypoint);
+            int indexEnd = addLastWpt(rte.LastWaypoint);
 
             editor.AddNeighbor(
                 indexStart,

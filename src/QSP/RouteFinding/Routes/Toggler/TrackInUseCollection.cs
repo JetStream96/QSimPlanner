@@ -66,7 +66,7 @@ namespace QSP.RouteFinding.Routes.Toggler
 
             foreach (var i in AllNodes)
             {
-                list.Add(new RouteEntry(i.MainRoute.FirstNode.List, i.AirwayIdent));
+                list.Add(new RouteEntry(i.MainRoute.First.List, i.AirwayIdent));
             }
 
             var listToUpdate = selectList(type);

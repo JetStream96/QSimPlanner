@@ -218,7 +218,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 }
                 else
                 {
-                    int wptTo = wptList.FindByWaypoint(analyzed[index + 1].First.Waypoint);
+                    int wptTo = wptList.FindByWaypoint(analyzed[index + 1].FirstWaypoint);
 
                     return new RouteFinderFacade(wptList, airportList, "")
                           .FindRoute(origIcao, origRwy, sids, sids.GetSidList(origRwy), wptTo);
@@ -228,15 +228,15 @@ namespace QSP.RouteFinding.RouteAnalyzers
             {
                 if (index == analyzed.Count - 1)
                 {
-                    int wptFrom = wptList.FindByWaypoint(analyzed[index - 1].Last.Waypoint);
+                    int wptFrom = wptList.FindByWaypoint(analyzed[index - 1].LastWaypoint);
 
                     return new RouteFinderFacade(wptList, airportList, "")
                          .FindRoute(wptFrom, destIcao, destRwy, stars, stars.GetStarList(destRwy));
                 }
                 else
                 {
-                    int wptFrom = wptList.FindByWaypoint(analyzed[index - 1].Last.Waypoint);
-                    int wptTo = wptList.FindByWaypoint(analyzed[index + 1].First.Waypoint);
+                    int wptFrom = wptList.FindByWaypoint(analyzed[index - 1].LastWaypoint);
+                    int wptTo = wptList.FindByWaypoint(analyzed[index + 1].FirstWaypoint);
 
                     return routeFinder.FindRoute(wptFrom, wptTo);
                 }
@@ -280,11 +280,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
         {
             var start = index == 0
                 ? origRwyWpt
-                : subRoutes[index - 1].Last.Waypoint;
+                : subRoutes[index - 1].LastWaypoint;
 
             var end = index == subRoutes.Count - 1
                 ? destRwyWpt
-                : subRoutes[index + 1].First.Waypoint;
+                : subRoutes[index + 1].FirstWaypoint;
 
             return new WptPair(start, end);
         }

@@ -26,31 +26,31 @@ namespace QSP.RouteFinding.Routes
             }
         }
 
-        public RouteNode First
+        public Waypoint FirstWaypoint
         {
             get
             {
-                return route.First?.Value;
+                return First.Value?.Waypoint;
             }
         }
 
-        public LinkedListNode<RouteNode> FirstNode
+        public Waypoint LastWaypoint
+        {
+            get
+            {
+                return Last.Value?.Waypoint;
+            }
+        }
+        
+        public LinkedListNode<RouteNode> First
         {
             get
             {
                 return route.First;
             }
         }
-
-        public RouteNode Last
-        {
-            get
-            {
-                return route.Last?.Value;
-            }
-        }
-
-        public LinkedListNode<RouteNode> LastNode
+        
+        public LinkedListNode<RouteNode> Last
         {
             get
             {
@@ -146,8 +146,8 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public void AppendRoute(Route item, string airway)
         {
-            var lastWpt = Last.Waypoint;
-            var firstWpt = item.First.Waypoint;
+            var lastWpt = LastWaypoint;
+            var firstWpt = item.FirstWaypoint;
 
             AppendRoute(item, airway, lastWpt.DistanceFrom(firstWpt));
         }
@@ -175,7 +175,7 @@ namespace QSP.RouteFinding.Routes
             }
 
             ConditionChecker.Ensure<ArgumentException>(
-                Last.Waypoint.Equals(item.First.Waypoint));
+                LastWaypoint.Equals(item.FirstWaypoint));
             route.RemoveLast();
             route.Append(item.route);
         }

@@ -179,7 +179,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             }
             else
             {
-                var wpt = rte.Last.Waypoint; 
+                var wpt = rte.LastWaypoint; 
                 lastWpt = Tracks.Common.Utilities.GetClosest(wpt.Lat, wpt.Lon, indices, wptList);
             }
 

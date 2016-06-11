@@ -23,7 +23,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var destRoute = extractor.Extract();
 
             Assert.AreEqual(1, destRoute.Count);
-            Assert.IsTrue(destRoute.First.Waypoint.Equals(rwyWpt));
+            Assert.IsTrue(destRoute.FirstWaypoint.Equals(rwyWpt));
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var destRoute = extractor.Extract();
 
             Assert.AreEqual(1, route.Count);
-            Assert.IsFalse(destRoute.Last.Waypoint.ID == "VHHH");
+            Assert.IsFalse(destRoute.LastWaypoint.ID == "VHHH");
         }
 
         [Test]
@@ -65,14 +65,14 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             Assert.AreEqual(2, destRoute.Count);
 
-            var node = destRoute.FirstNode;
+            var node = destRoute.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("SIERA", 18.0, 115.0)) &&
                           node.Value.AirwayToNext == "STAR1" &&
                           WithinPrecision(node.Value.DistanceToNext, Distance(18.0, 115.0, 18.0, 118.0), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("VHHH07L", 18.0, 118.0)) &&
-                          node == destRoute.LastNode);
+                          node == destRoute.Last);
 
         }
 
@@ -103,14 +103,14 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             Assert.AreEqual(2, destRoute.Count);
 
-            var node = destRoute.FirstNode;
+            var node = destRoute.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("P1", 19.0, 119.0)) &&
                           node.Value.AirwayToNext == "STAR1" &&
                           WithinPrecision(node.Value.DistanceToNext, Distance(19.0, 119.0, 18.0, 118.0), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("VHHH07L", 18.0, 118.0)) &&
-                          node == destRoute.LastNode);
+                          node == destRoute.Last);
         }
     }
 }

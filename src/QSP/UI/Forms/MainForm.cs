@@ -805,7 +805,7 @@ namespace QSP
 
             RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
-            double directDis = MathTools.GCDis.Distance(RouteToDest.First.Waypoint.LatLon, RouteToDest.Last.Waypoint.LatLon);
+            double directDis = MathTools.GCDis.Distance(RouteToDest.FirstWaypoint.LatLon, RouteToDest.LastWaypoint.LatLon);
             RouteDisLbl.Text = "Total Dis: " + Math.Round(RouteToDest.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToDest.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
         }
 
@@ -835,7 +835,7 @@ namespace QSP
 
             RouteDisplayAltnRichTxtBox.Text = RouteToAltn.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
-            double directDis = RouteToAltn.First.Waypoint.DistanceFrom(RouteToAltn.Last.Waypoint);
+            double directDis = RouteToAltn.FirstWaypoint.DistanceFrom(RouteToAltn.LastWaypoint);
             RouteDisAltnLbl.Text = "Total Dis: " + Math.Round(RouteToAltn.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToAltn.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
         }
 
@@ -1150,7 +1150,7 @@ namespace QSP
                                                             TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString();
-                    double directDis = MathTools.GCDis.Distance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
+                    double directDis = MathTools.GCDis.Distance(myRoute.FirstWaypoint.LatLon, myRoute.LastWaypoint.LatLon);
                     Label56.Text = "Total Dis: " + Math.Round(myRoute.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((myRoute.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
 
@@ -1192,7 +1192,7 @@ namespace QSP
                                                             TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(false, true);
-                    double directDis = MathTools.GCDis.Distance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
+                    double directDis = MathTools.GCDis.Distance(myRoute.FirstWaypoint.LatLon, myRoute.LastWaypoint.LatLon);
                     Label56.Text = "Total Dis: " + Math.Round(myRoute.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((myRoute.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
 
@@ -1233,7 +1233,7 @@ namespace QSP
                                                             TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, false);
-                    double directDis = MathTools.GCDis.Distance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
+                    double directDis = MathTools.GCDis.Distance(myRoute.FirstWaypoint.LatLon, myRoute.LastWaypoint.LatLon);
                     Label56.Text = "Total Dis: " + Math.Round(myRoute.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((myRoute.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
 
@@ -1258,7 +1258,7 @@ namespace QSP
                         TracksInUse);
 
                     RouteAdvancedRichTxtBox.Text = myRoute.ToString(true, true);
-                    double directDis = MathTools.GCDis.Distance(myRoute.First.Waypoint.LatLon, myRoute.Last.Waypoint.LatLon);
+                    double directDis = MathTools.GCDis.Distance(myRoute.FirstWaypoint.LatLon, myRoute.LastWaypoint.LatLon);
                     Label56.Text = "Total Dis: " + Math.Round(myRoute.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((myRoute.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
 
@@ -1309,7 +1309,7 @@ namespace QSP
 
                 RouteDisplayRichTxtBox.Text = RouteToDest.ToString(false, false, ManagedRoute.TracksDisplayOption.Collapse);
 
-                double directDis = MathTools.GCDis.Distance(RouteToDest.First.Waypoint.LatLon, RouteToDest.Last.Waypoint.LatLon);
+                double directDis = MathTools.GCDis.Distance(RouteToDest.FirstWaypoint.LatLon, RouteToDest.LastWaypoint.LatLon);
                 RouteDisLbl.Text = "Total Dis: " + Math.Round(RouteToDest.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((RouteToDest.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
 
             }

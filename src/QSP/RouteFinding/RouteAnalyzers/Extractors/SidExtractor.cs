@@ -70,12 +70,13 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             if (tryGetSid(sidName, rwyWpt, out sid))
             {
                 route.RemoveFirst();
-                origRoute.Last.AirwayToNext = sidName;
+                var last = origRoute.Last.Value;
+                last.AirwayToNext = sidName;
 
                 if (Math.Abs(sid.TotalDistance) > 1E-8)
                 {
                     // SID has at least one waypoint.                    
-                    origRoute.Last.DistanceToNext = sid.TotalDistance;
+                    last.DistanceToNext = sid.TotalDistance;
                     origRoute.AddLastWaypoint(sid.LastWaypoint);
 
                     if (route.First.Value == sid.LastWaypoint.ID &&

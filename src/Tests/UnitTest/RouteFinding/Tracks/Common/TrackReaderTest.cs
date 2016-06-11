@@ -44,11 +44,11 @@ namespace UnitTest.RouteFinding.Tracks.Common
 
             Assert.AreEqual(2, route.Count);
 
-            var n = route.First;
+            var n = route.First.Value;
 
             Assert.IsTrue(n.Waypoint.Equals(p1));
             Assert.IsTrue(n.AirwayToNext == "DCT" && n.DistanceToNext == p1.DistanceFrom(p2));
-            Assert.IsTrue(route.Last.Waypoint.Equals(p2));
+            Assert.IsTrue(route.LastWaypoint.Equals(p2));
         }
 
         [Test]

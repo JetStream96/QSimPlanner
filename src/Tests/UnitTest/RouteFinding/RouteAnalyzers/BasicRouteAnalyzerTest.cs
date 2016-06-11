@@ -28,7 +28,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             // assert
             Assert.AreEqual(1, route.Count);
-            Assert.IsTrue(route.First.Waypoint.Equals(new Waypoint("P", 20.0, 100.0)));
+            Assert.IsTrue(route.FirstWaypoint.Equals(new Waypoint("P", 20.0, 100.0)));
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // assert
-            var node = route.FirstNode;
+            var node = route.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpts[0]) &&
                           node.Value.AirwayToNext == "A01" &&
                           WithinPrecision(node.Value.DistanceToNext, wptList.Distance(indices[0], indices[1]), 1E-8));
@@ -73,7 +73,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpts[2]) &&
-                          node == route.LastNode);
+                          node == route.Last);
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // assert
-            var node = route.FirstNode;
+            var node = route.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpts[0]) &&
                           node.Value.AirwayToNext == "DCT" &&
                           WithinPrecision(node.Value.DistanceToNext, Distance(0.0, 15.0, 0.0, 16.0), 1E-8));
@@ -110,7 +110,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpts[2]) &&
-                          node == route.LastNode);
+                          node == route.Last);
         }
 
         [Test]
@@ -124,7 +124,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // assert
-            var node = route.FirstNode;
+            var node = route.First;
             Assert.AreEqual(node.Value.Waypoint.Lat, 41.0, 1E-8);
 
             Assert.AreEqual(node.Value.Waypoint.Lon, -50.0, 1E-8);
@@ -136,7 +136,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             node = node.Next;
             Assert.AreEqual(node.Value.Waypoint.Lat, 41.3, 1E-8);
             Assert.AreEqual(node.Value.Waypoint.Lon, -50.55, 1E-8);
-            Assert.IsTrue(node == route.LastNode);
+            Assert.IsTrue(node == route.Last);
         }
 
         [Test]

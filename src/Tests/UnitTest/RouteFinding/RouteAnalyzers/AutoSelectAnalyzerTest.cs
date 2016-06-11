@@ -41,7 +41,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // assert
-            var node = route.FirstNode;
+            var node = route.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpts[0]) &&
                           node.Value.AirwayToNext == "A01" &&
                           WithinPrecision(node.Value.DistanceToNext, wptList.Distance(indices[0], indices[1]), 1E-8));
@@ -53,7 +53,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpts[2]) &&
-                          node == route.LastNode);
+                          node == route.Last);
         }
 
         [Test]
@@ -81,14 +81,14 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // assert
-            var node = route.FirstNode;
+            var node = route.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpts[1]) &&
                           node.Value.AirwayToNext == "DCT" &&
                           WithinPrecision(node.Value.DistanceToNext, wptList.Distance(indices[1], indices[3]), 1E-8));
             
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpts[3]) &&
-                          node == route.LastNode);
+                          node == route.Last);
         }
     }
 }

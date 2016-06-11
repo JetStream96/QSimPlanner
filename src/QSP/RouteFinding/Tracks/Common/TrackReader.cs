@@ -113,7 +113,7 @@ namespace QSP.RouteFinding.Tracks.Common
         private List<WptPair> findWptAllRouteFrom(ReadOnlyCollection<string[]> rteFrom)
         {
             var result = new List<WptPair>();
-            var firstWpt = mainRoute.First.Waypoint;
+            var firstWpt = mainRoute.FirstWaypoint;
 
             foreach (var i in rteFrom)
             {
@@ -126,7 +126,7 @@ namespace QSP.RouteFinding.Tracks.Common
         private List<WptPair> findWptAllRouteTo(ReadOnlyCollection<string[]> rteTo)
         {
             var result = new List<WptPair>();
-            var lastWpt = mainRoute.Last.Waypoint;
+            var lastWpt = mainRoute.LastWaypoint;
 
             foreach (var i in rteTo)
             {
@@ -145,12 +145,14 @@ namespace QSP.RouteFinding.Tracks.Common
         private Route readMainRoute(ReadOnlyCollection<string> rte)
         {
             LatLon latLon = trk.PreferredFirstLatLon;
-            return new AutoSelectAnalyzer(new CoordinateFormatter(
-                                                 combineArray(rte)).Split(),
-                                                 latLon.Lat,
-                                                 latLon.Lon,
-                                                 wptList)
-                                          .Analyze();
+
+            return new AutoSelectAnalyzer(
+                new CoordinateFormatter(
+                    combineArray(rte)).Split(),
+                    latLon.Lat,
+                    latLon.Lon,
+                    wptList)
+                .Analyze();
         }
 
         private string combineArray(ReadOnlyCollection<string> item)

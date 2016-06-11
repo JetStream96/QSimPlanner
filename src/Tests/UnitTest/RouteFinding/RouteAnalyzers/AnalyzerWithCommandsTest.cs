@@ -69,7 +69,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
         private void assert1(Route route)
         {
-            var node = route.FirstNode;
+            var node = route.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("ABCD05L", 25.0, 121.0)) &&
                           node.Value.AirwayToNext == "SID1");
             Assert.AreEqual(node.Value.DistanceToNext, Distance(25.0, 121.0, 24.0, 120.0), 1E-8);
@@ -86,7 +86,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("EFGH07L", 22.0, 113.0)) &&
-                          node == route.LastNode);
+                          node == route.Last);
         }
 
         [Test]
@@ -170,7 +170,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // Assert
-            var node = route.FirstNode;
+            var node = route.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("ABCD05L", 25.0, 120.0)) &&
                           node.Value.AirwayToNext == "DCT" &&
                           WithinPrecision(node.Value.DistanceToNext, Distance(25.0, 120.0, 30.0, 117.0), 1E-8));
@@ -187,7 +187,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("EFGH07L", 43.0, 107.0)) &&
-                          node == route.LastNode);
+                          node == route.Last);
         }
 
         [Test]
@@ -200,7 +200,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // Assert
-            var node = route.FirstNode;
+            var node = route.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("ABCD05L", 25.0, 120.0)) &&
                           node.Value.AirwayToNext == "DCT");
             Assert.AreEqual(node.Value.DistanceToNext, Distance(25.0, 120.0, 30.0, 117.0), 1E-8);
@@ -222,7 +222,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("EFGH07L", 43.0, 107.0)) &&
-                          node == route.LastNode);
+                          node == route.Last);
         }
 
         [Test]
@@ -235,7 +235,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // Assert
-            var node = route.FirstNode;
+            var node = route.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("ABCD05L", 25.0, 120.0)) &&
                           node.Value.AirwayToNext == "DCT" &&
                           WithinPrecision(node.Value.DistanceToNext, Distance(25.0, 120.0, 30.0, 117.0), 1E-8));
@@ -252,7 +252,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("EFGH07L", 43.0, 107.0)) &&
-                          node == route.LastNode);
+                          node == route.Last);
         }
 
         #endregion

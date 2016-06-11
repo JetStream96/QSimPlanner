@@ -51,8 +51,8 @@ function initialize()
             }
 
             //now the center of map
-            double centerLat = (rte.First.Waypoint.Lat + rte.Last.Waypoint.Lat) / 2;
-            double centerLon = (rte.First.Waypoint.Lon + rte.Last.Waypoint.Lon) / 2;
+            double centerLat = (rte.FirstWaypoint.Lat + rte.LastWaypoint.Lat) / 2;
+            double centerLon = (rte.FirstWaypoint.Lon + rte.LastWaypoint.Lon) / 2;
 
             mapHtml.AppendLine(string.Format("var centerP=new google.maps.LatLng({0},{1});", centerLat, centerLon));
 
