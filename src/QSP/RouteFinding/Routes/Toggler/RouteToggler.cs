@@ -41,8 +41,7 @@ namespace QSP.RouteFinding.Routes.Toggler
             {
                 foreach (var j in i)
                 {
-                    RouteExpandUtility.InsertRoute(
-                        route, j.Route, j.RouteName);
+                    route.InsertRoute(j.Route, j.RouteName);
                 }
             }
 

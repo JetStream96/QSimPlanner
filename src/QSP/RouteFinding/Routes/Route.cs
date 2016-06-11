@@ -43,7 +43,7 @@ namespace QSP.RouteFinding.Routes
                 return Last.Value.Waypoint;
             }
         }
-        
+
         public LinkedListNode<RouteNode> First
         {
             get
@@ -51,7 +51,7 @@ namespace QSP.RouteFinding.Routes
                 return route.First;
             }
         }
-        
+
         public LinkedListNode<RouteNode> Last
         {
             get
@@ -101,6 +101,21 @@ namespace QSP.RouteFinding.Routes
 
             AddFirstWaypoint(item, viaAirway, distance);
         }
+
+        //public void AddAfter(
+        //    LinkedListNode<RouteNode> node,
+        //    Waypoint item, string viaAirway, double distanceToNext)
+        //{
+        //    var newNode = new RouteNode(item, viaAirway, distanceToNext);
+        //    route.AddAfter(node, newNode);
+        //}
+
+        //public void AddAfter(LinkedListNode<RouteNode> node,
+        //    Waypoint item, string viaAirway)
+        //{
+        //    double distance = item.DistanceFrom(node.Value.Waypoint);
+        //    AddAfter(node, item, viaAirway, distance);
+        //}
 
         /// <summary>
         /// Append the specified waypoint to the end of the route. 

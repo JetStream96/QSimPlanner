@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using QSP.RouteFinding.Routes.Toggler;
+﻿using QSP.RouteFinding.Routes.Toggler;
 using QSP.RouteFinding.Tracks.Common;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Communication
 {
@@ -23,6 +23,7 @@ namespace QSP.RouteFinding.Communication
         public void PushAllData(TrackType type)
         {
             tracksInUse.UpdateTracks(allNodes, type);
+            allNodes.Clear();
         }
     }
 }

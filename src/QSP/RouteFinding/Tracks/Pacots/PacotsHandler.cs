@@ -11,8 +11,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
 {
     public class PacotsHandler : TrackHandler
     {
-        #region Fields
-
         private IPacotsDownloader downloader;
         private WaypointList wptList;
         private WaypointListEditor editor;
@@ -22,9 +20,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         private PacotsMessage rawData;
         private List<TrackNodes> nodes;
-
-        #endregion
-
+        
         public PacotsHandler(IPacotsDownloader downloader,
                             WaypointList wptList,
                             WaypointListEditor editor,
@@ -59,9 +55,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 }
                 catch
                 {
-                    recorder.AddEntry(StatusRecorder.Severity.Caution,
-                                      string.Format("Unable to interpret track {0}.", i.Ident),
-                                      TrackType.Pacots);
+                    recorder.AddEntry(
+                        StatusRecorder.Severity.Caution,
+                        string.Format("Unable to interpret track {0}.", i.Ident),
+                        TrackType.Pacots);
                 }
             }
         }
@@ -116,6 +113,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             {
                 communicator.StageTrackData(i);
             }
+
             communicator.PushAllData(TrackType.Pacots);
         }
 

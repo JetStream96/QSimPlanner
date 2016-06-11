@@ -26,7 +26,7 @@ namespace QSP.RouteFinding.Routes.Toggler
                 return _pacots.AsReadOnly();
             }
         }
-    
+
         public ReadOnlyCollection<RouteEntry> Ausots
         {
             get
@@ -34,7 +34,7 @@ namespace QSP.RouteFinding.Routes.Toggler
                 return _ausots.AsReadOnly();
             }
         }
-        
+
         public TrackInUseCollection()
         {
             _nats = new List<RouteEntry>();
@@ -59,7 +59,7 @@ namespace QSP.RouteFinding.Routes.Toggler
                 return new ReadOnlyCollection<RouteEntry>[3] { Nats, Pacots, Ausots };
             }
         }
-        
+
         public void UpdateTracks(List<TrackNodes> AllNodes, TrackType type)
         {
             var list = new List<RouteEntry>();
@@ -69,22 +69,25 @@ namespace QSP.RouteFinding.Routes.Toggler
                 list.Add(new RouteEntry(i.MainRoute.First.List, i.AirwayIdent));
             }
 
-            var listToUpdate = selectList(type);
-            listToUpdate = list;
+            updateList(list, type);
         }
 
-        private List<RouteEntry> selectList(TrackType type)
+        private void updateList(
+            List<RouteEntry> entries, TrackType type)
         {
             switch (type)
             {
                 case TrackType.Nats:
-                    return _nats;
+                    _nats = entries;
+                    break;
 
                 case TrackType.Pacots:
-                    return _pacots;
+                    _pacots = entries;
+                    break;
 
                 case TrackType.Ausots:
-                    return _ausots;
+                    _ausots = entries;
+                    break;
 
                 default:
                     throw new EnumNotSupportedException();
