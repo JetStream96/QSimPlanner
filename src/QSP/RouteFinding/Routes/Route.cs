@@ -26,19 +26,21 @@ namespace QSP.RouteFinding.Routes
             }
         }
 
+        /// <exception cref="NullReferenceException"></exception>
         public Waypoint FirstWaypoint
         {
             get
             {
-                return First.Value?.Waypoint;
+                return First.Value.Waypoint;
             }
         }
 
+        /// <exception cref="NullReferenceException"></exception>
         public Waypoint LastWaypoint
         {
             get
             {
-                return Last.Value?.Waypoint;
+                return Last.Value.Waypoint;
             }
         }
         
@@ -159,7 +161,7 @@ namespace QSP.RouteFinding.Routes
         {
             route.Last.Value.AirwayToNext = airway;
             route.Last.Value.DistanceToNext = distance;
-            route.Append(item.route);
+            route.AddLast(item.route);
         }
 
         /// <summary>
@@ -177,7 +179,7 @@ namespace QSP.RouteFinding.Routes
             ConditionChecker.Ensure<ArgumentException>(
                 LastWaypoint.Equals(item.FirstWaypoint));
             route.RemoveLast();
-            route.Append(item.route);
+            route.AddLast(item.route);
         }
 
         /// <summary>

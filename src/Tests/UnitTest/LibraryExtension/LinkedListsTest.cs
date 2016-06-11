@@ -14,7 +14,7 @@ namespace UnitTest.LibraryExtension
             var x = new LinkedList<int>(new int[] { 1, 2, 3 });
             var y = new LinkedList<int>(new int[] { 4, 5 });
 
-            x.Append(y);
+            x.AddLast(y);
 
             Assert.IsTrue(
                 Enumerable.SequenceEqual(x, new int[] { 1, 2, 3, 4, 5 }));
@@ -24,9 +24,9 @@ namespace UnitTest.LibraryExtension
         public void AppendEmptyList()
         {
             var x = new LinkedList<int>(new int[] { 1, 2, 3 });
-            var y = new LinkedList<int>(new int[] { });
+            var y = new int[] { };
 
-            x.Append(y);
+            x.AddLast(y);
 
             Assert.IsTrue(
                 Enumerable.SequenceEqual(x, new int[] { 1, 2, 3 }));
@@ -36,9 +36,9 @@ namespace UnitTest.LibraryExtension
         public void EmptyListAppend()
         {
             var x = new LinkedList<int>(new int[] { });
-            var y = new LinkedList<int>(new int[] { 4, 5, 6 });
+            var y = new int[] { 4, 5, 6 };
 
-            x.Append(y);
+            x.AddLast(y);
 
             Assert.IsTrue(
                 Enumerable.SequenceEqual(x, new int[] { 4, 5, 6 }));

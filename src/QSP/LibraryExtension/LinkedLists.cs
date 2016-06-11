@@ -4,14 +4,12 @@ namespace QSP.LibraryExtension
 {
     public static class LinkedLists
     {
-        public static void Append<T>(
-            this LinkedList<T> item, LinkedList<T> other)
+        public static void AddLast<T>(
+            this LinkedList<T> item, IEnumerable<T> other)
         {
-            for (var node = other.First;
-                 node != null;
-                 node = node.Next)
+            foreach (var i in other)
             {
-                item.AddLast(node.Value);
+                item.AddLast(i);
             }
         }
     }

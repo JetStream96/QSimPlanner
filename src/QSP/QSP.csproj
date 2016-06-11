@@ -112,7 +112,6 @@
     <Compile Include="RouteFinding\FileExport\Providers\ProviderFactory.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Types.cs" />
     <Compile Include="RouteFinding\FixTypes.cs" />
-    <Compile Include="RouteFinding\Routes\RouteExtensions.cs" />
     <Compile Include="UI\ToLdgModule\AboutPage\AboutPageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
