@@ -120,6 +120,12 @@
     <Compile Include="UI\ToLdgModule\AboutPage\AboutPageControl.Designer.cs">
       <DependentUpon>AboutPageControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserControls\AdvancedRouteTool.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\AdvancedRouteTool.Designer.cs">
+      <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\AircraftEnums.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />
@@ -482,6 +488,9 @@
     <Content Include="PerformanceData\TO\7878_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="UI\UserControls\AdvancedRouteTool.resx">
+      <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Resources\question_mark.png" />
     <None Include="Resources\info.png" />
     <None Include="Resources\chart3Faa.png" />
