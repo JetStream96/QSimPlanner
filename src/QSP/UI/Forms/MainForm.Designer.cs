@@ -1365,7 +1365,6 @@ namespace QSP
             this.AltnTxtBox.Size = new System.Drawing.Size(73, 27);
             this.AltnTxtBox.TabIndex = 54;
             this.AltnTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.AltnTxtBox.TextChanged += new System.EventHandler(this.AltnIcao_TextChanged);
             // 
             // AltnRwyComboBox
             // 
@@ -1378,7 +1377,6 @@ namespace QSP
             this.AltnRwyComboBox.Name = "AltnRwyComboBox";
             this.AltnRwyComboBox.Size = new System.Drawing.Size(84, 27);
             this.AltnRwyComboBox.TabIndex = 26;
-            this.AltnRwyComboBox.SelectedIndexChanged += new System.EventHandler(this.AltnRwyComboBox_SelectedIndexChanged);
             // 
             // OrigRwyComboBox
             // 
@@ -1391,7 +1389,6 @@ namespace QSP
             this.OrigRwyComboBox.Name = "OrigRwyComboBox";
             this.OrigRwyComboBox.Size = new System.Drawing.Size(84, 27);
             this.OrigRwyComboBox.TabIndex = 10;
-            this.OrigRwyComboBox.SelectedIndexChanged += new System.EventHandler(this.OrigRwyComboBox_SelectedIndexChanged);
             // 
             // DestRwyComboBox
             // 
@@ -1404,7 +1401,6 @@ namespace QSP
             this.DestRwyComboBox.Name = "DestRwyComboBox";
             this.DestRwyComboBox.Size = new System.Drawing.Size(84, 27);
             this.DestRwyComboBox.TabIndex = 11;
-            this.DestRwyComboBox.SelectedIndexChanged += new System.EventHandler(this.DestRwyComboBox_SelectedIndexChanged);
             // 
             // DestTxtBox
             // 
@@ -1417,7 +1413,6 @@ namespace QSP
             this.DestTxtBox.Size = new System.Drawing.Size(73, 27);
             this.DestTxtBox.TabIndex = 53;
             this.DestTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.DestTxtBox.TextChanged += new System.EventHandler(this.DestIcao_TextChanged);
             // 
             // OrigTxtBox
             // 
@@ -1430,7 +1425,6 @@ namespace QSP
             this.OrigTxtBox.Size = new System.Drawing.Size(73, 27);
             this.OrigTxtBox.TabIndex = 52;
             this.OrigTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.OrigTxtBox.TextChanged += new System.EventHandler(this.OrigIcao_TextChanged);
             // 
             // Label26
             // 

@@ -17,6 +17,7 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.UI;
+using QSP.UI.Controllers;
 using QSP.Utilities;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
@@ -51,6 +52,10 @@ namespace QSP
         private AppOptions appSettings;
         private AirportManager airportList;
         private WaypointList wptList;
+
+        private RouteFinderSelection origAirport;
+        private RouteFinderSelection destAirport;
+        private RouteFinderSelection altnAirport;
 
         #region "FuelCalculation"
 
@@ -187,6 +192,44 @@ namespace QSP
             this.appSettings = appSettings;
             this.airportList = airportList;
             this.wptList = wptList;
+
+            initRouteFinderSelections();
+        }
+
+        private void initRouteFinderSelections()
+        {
+            origAirport = new RouteFinderSelection(
+                OrigTxtBox,
+                true,
+                OrigRwyComboBox,
+                OrigSidComboBox,
+                appSettings,
+                airportList,
+                wptList);
+
+            origAirport.Subscribe();
+
+            destAirport = new RouteFinderSelection(
+                DestTxtBox,
+                false,
+                DestRwyComboBox,
+                DestStarComboBox,
+                appSettings,
+                airportList,
+                wptList);
+
+            destAirport.Subscribe();
+
+            altnAirport = new RouteFinderSelection(
+                AltnTxtBox,
+                false,
+                AltnRwyComboBox,
+                AltnStarComboBox,
+                appSettings,
+                airportList,
+                wptList);
+
+            altnAirport.Subscribe();
         }
 
         private void initAircraftData(ProfileManager profiles)
@@ -697,76 +740,7 @@ namespace QSP
         #region "RouteGen"
 
         private static string PMDGrteFile;
-        private enum SidStarSelection
-        {
-            Sid,
-            Star
-        }
-
-        private void setSidStar(string icao, string rwy, ComboBox CBox, SidStarSelection para)
-        {
-            CBox.Items.Clear();
-            List<string> proc = null;
-
-            try
-            {
-                switch (para)
-                {
-                    case SidStarSelection.Sid:
-                        proc = SidHandlerFactory.GetHandler(
-                            icao, appSettings.NavDataLocation, wptList,
-                            wptList.GetEditor(), airportList)
-                            .GetSidList(rwy);
-                        break;
-
-                    case SidStarSelection.Star:
-                        proc = StarHandlerFactory.GetHandler(
-                            icao, appSettings.NavDataLocation, wptList,
-                            wptList.GetEditor(), airportList)
-                            .GetStarList(rwy);
-                        break;
-
-                    default:
-                        throw new EnumNotSupportedException();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-
-            if (proc == null || proc.Count == 0)
-            {
-                CBox.Items.Add("NONE");
-            }
-            else
-            {
-                CBox.Items.Add("AUTO");
-
-                foreach (var i in proc)
-                {
-                    CBox.Items.Add(i);
-                }
-            }
-            CBox.SelectedIndex = 0;
-        }
-
-        private void OrigRwyComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            setSidStar(OrigTxtBox.Text, OrigRwyComboBox.Text, OrigSidComboBox, SidStarSelection.Sid);
-        }
-
-        private void DestRwyComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            setSidStar(DestTxtBox.Text, DestRwyComboBox.Text, DestStarComboBox, SidStarSelection.Star);
-        }
-
-        private void AltnRwyComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            setSidStar(AltnTxtBox.Text, AltnRwyComboBox.Text, AltnStarComboBox, SidStarSelection.Star);
-        }
-
+       
         private List<string> getSidStarList(ComboBox CBox)
         {
             var sidStar = new List<string>();
@@ -1474,44 +1448,7 @@ namespace QSP
             altnFrm.Initialize(airportList);
             altnFrm.ShowDialog();
         }
-
-        private void setRwyCBox(string icao, ComboBox combobox)
-        {
-            combobox.Items.Clear();
-
-            if (icao.Length != 4)
-            {
-                return;
-            }
-
-            var rwyList = airportList.RwyIdentList(icao);
-
-            if (rwyList != null && rwyList.Count() > 0)
-            {
-                foreach (var i in rwyList)
-                {
-                    combobox.Items.Add(i);
-                }
-
-                combobox.SelectedIndex = 0;
-            }
-        }
-
-        private void OrigIcao_TextChanged(object sender, EventArgs e)
-        {
-            setRwyCBox(OrigTxtBox.Text, OrigRwyComboBox);
-        }
-
-        private void DestIcao_TextChanged(object sender, EventArgs e)
-        {
-            setRwyCBox(DestTxtBox.Text, DestRwyComboBox);
-        }
-
-        private void AltnIcao_TextChanged(object sender, EventArgs e)
-        {
-            setRwyCBox(AltnTxtBox.Text, AltnRwyComboBox);
-        }
-
+        
         private void ShowMap_Btn_Click(object sender, EventArgs e)
         {
             DrawRouteToDest();

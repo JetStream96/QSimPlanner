@@ -1,12 +1,13 @@
-﻿using System;
-using QSP.RouteFinding.Airports;
+﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using System;
 using System.IO;
 
 namespace QSP.RouteFinding.TerminalProcedures.Star
 {
     public static class StarHandlerFactory
     {
+        /// <exception cref="LoadStarFileException"></exception>
         public static StarHandler GetHandler(string icao,
                                              string navDataLocation,
                                              WaypointList wptList,
@@ -22,7 +23,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             }
             catch (Exception ex)
             {
-                throw new LoadStarFileException("Failed to read " + fileLocation + ".", ex);
+                throw new LoadStarFileException(
+                    "Failed to read " + fileLocation + ".", ex);
             }
         }
     }
