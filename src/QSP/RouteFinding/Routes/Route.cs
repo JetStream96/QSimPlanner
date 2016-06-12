@@ -1,5 +1,4 @@
 ﻿using QSP.LibraryExtension;
-using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Containers;
 using QSP.Utilities;
 using System;
@@ -12,19 +11,6 @@ namespace QSP.RouteFinding.Routes
     public class Route : IEnumerable<RouteNode>, IEnumerable
     {
         public LinkedList<RouteNode> Nodes { get; private set; }
-
-        public double TotalDistance
-        {
-            get
-            {
-                if (Nodes.Count == 0)
-                {
-                    throw new InvalidOperationException("Route is empty.");
-                }
-
-                return Nodes.TotalDistance();
-            }
-        }
 
         /// <exception cref="NullReferenceException"></exception>
         public Waypoint FirstWaypoint
@@ -76,6 +62,25 @@ namespace QSP.RouteFinding.Routes
         public Route(Route item)
         {
             Nodes = new LinkedList<RouteNode>(item);
+        }
+
+        public double GetTotalDistance()
+        {
+            if (Nodes.Count == 0)
+            {
+                throw new InvalidOperationException("Route is empty.");
+            }
+
+            double dis = 0.0;
+            var node = First;
+
+            while (node != Last)
+            {
+                dis += node.Value.DistanceToNext;
+                node = node.Next;
+            }
+
+            return dis;
         }
 
         /// <summary>

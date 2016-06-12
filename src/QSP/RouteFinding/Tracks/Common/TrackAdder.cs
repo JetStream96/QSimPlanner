@@ -71,7 +71,7 @@ namespace QSP.RouteFinding.Tracks.Common
             editor.AddNeighbor(
                 indexStart,
                 indexEnd,
-                new Neighbor(nodes.AirwayIdent, rte.TotalDistance));
+                new Neighbor(nodes.AirwayIdent, rte.GetTotalDistance()));
         }
 
         //returns the index of added wpt in wptList

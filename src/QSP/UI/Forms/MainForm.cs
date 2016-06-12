@@ -4,6 +4,7 @@ using QSP.Common.Options;
 using QSP.GoogleMap;
 using QSP.LibraryExtension;
 using QSP.Metar;
+using QSP.MathTools;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -806,9 +807,19 @@ namespace QSP
                 .GetExportText();
 
             RouteDisplayRichTxtBox.Text = route.ToString(false, false);
+            updateRouteDistanceLbl(RouteDisLbl, route);
+        }
 
-            double directDis = MathTools.GCDis.Distance(route.FirstWaypoint.LatLon, route.LastWaypoint.LatLon);
-            RouteDisLbl.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
+        private void updateRouteDistanceLbl(Label lbl, Route route)
+        {
+            double totalDis = route.GetTotalDistance();
+            int disInt = Doubles.RoundToInt(totalDis);
+            double directDis =
+                route.FirstWaypoint.DistanceFrom(route.LastWaypoint);
+            double percentDiff = (totalDis - directDis) / directDis * 100;
+            string diffStr = percentDiff.ToString("0.0");
+
+            lbl.Text = $"Total Dis: {disInt} NM (+{diffStr}%)";
         }
 
         private static int computeTailWind(TailWindCalcOptions para, int tas, int Fl)
@@ -838,9 +849,7 @@ namespace QSP
             var route = RouteToAltn.Expanded;
 
             RouteDisplayAltnRichTxtBox.Text = route.ToString(false, false);
-
-            double directDis = route.FirstWaypoint.DistanceFrom(route.LastWaypoint);
-            RouteDisAltnLbl.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
+            updateRouteDistanceLbl(RouteDisAltnLbl, route);
         }
 
         private void ExportRouteFiles()
@@ -1157,10 +1166,7 @@ namespace QSP
                     var route = myRoute.Expanded;
 
                     RouteAdvancedRichTxtBox.Text = route.ToString();
-                    double directDis = MathTools.GCDis.Distance(route.FirstWaypoint.LatLon, route.LastWaypoint.LatLon);
-                    Label56.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
-
-
+                    updateRouteDistanceLbl(Label56, route);
                 }
                 catch (Exception ex)
                 {
@@ -1201,10 +1207,7 @@ namespace QSP
                     var route = myRoute.Expanded;
 
                     RouteAdvancedRichTxtBox.Text = route.ToString(false, true);
-                    double directDis = MathTools.GCDis.Distance(route.FirstWaypoint.LatLon, route.LastWaypoint.LatLon);
-                    Label56.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
-
-
+                    updateRouteDistanceLbl(Label56, route);
                 }
                 catch (Exception ex)
                 {
@@ -1244,10 +1247,7 @@ namespace QSP
                     var route = myRoute.Expanded;
 
                     RouteAdvancedRichTxtBox.Text = route.ToString(true, false);
-                    double directDis = MathTools.GCDis.Distance(route.FirstWaypoint.LatLon, route.LastWaypoint.LatLon);
-                    Label56.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
-
-
+                    updateRouteDistanceLbl(Label56, route);
                 }
                 catch (Exception ex)
                 {
@@ -1271,10 +1271,7 @@ namespace QSP
                     var route = myRoute.Expanded;
 
                     RouteAdvancedRichTxtBox.Text = route.ToString(true, true);
-                    double directDis = MathTools.GCDis.Distance(route.FirstWaypoint.LatLon, route.LastWaypoint.LatLon);
-                    Label56.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
-
-
+                    updateRouteDistanceLbl(Label56, route);
                 }
                 catch (Exception ex)
                 {
@@ -1323,10 +1320,7 @@ namespace QSP
                 .GetExportText();
 
                 RouteDisplayRichTxtBox.Text = route.ToString(false, false);
-
-                double directDis = MathTools.GCDis.Distance(route.FirstWaypoint.LatLon, route.LastWaypoint.LatLon);
-                RouteDisLbl.Text = "Total Dis: " + Math.Round(route.TotalDistance) + " NM (+" + Convert.ToString(Math.Round((route.TotalDistance - directDis) / directDis * 1000) / 10) + "%)";
-
+                updateRouteDistanceLbl(RouteDisLbl, route);
             }
             catch (Exception ex)
             {
