@@ -193,7 +193,7 @@ namespace QSP.UI.UserControls
 
                         var route = myRoute.Expanded;
 
-                        routeRichTxtBox.Text = route.ToString();
+                        routeRichTxtBox.Text = route.ToString(true, false);
                         UpdateRouteDistanceLbl(routeSummaryLbl, route);
                     }
                     catch (Exception ex)
@@ -221,7 +221,7 @@ namespace QSP.UI.UserControls
 
                         var route = myRoute.Expanded;
 
-                        routeRichTxtBox.Text = route.ToString();
+                        routeRichTxtBox.Text = route.ToString(true, true);
                         UpdateRouteDistanceLbl(routeSummaryLbl, route);
                     }
                     catch (Exception ex)
