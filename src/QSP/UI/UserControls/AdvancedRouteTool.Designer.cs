@@ -30,19 +30,11 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.fromTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.toTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.fromRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.fromRwyLbl = new System.Windows.Forms.Label();
-            this.sidComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.sidLbl = new System.Windows.Forms.Label();
-            this.fromWptComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.fromWptLbl = new System.Windows.Forms.Label();
-            this.toWptComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.toWptLbl = new System.Windows.Forms.Label();
-            this.starComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.starLbl = new System.Windows.Forms.Label();
-            this.toRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.toRwyLbl = new System.Windows.Forms.Label();
             this.routeRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.findRouteBtn = new System.Windows.Forms.Button();
@@ -51,6 +43,14 @@
             this.fromIdentTxtBox = new System.Windows.Forms.TextBox();
             this.toIdentTxtBox = new System.Windows.Forms.TextBox();
             this.toIdentLbl = new System.Windows.Forms.Label();
+            this.toWptComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.starComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.toRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.fromWptComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.sidComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.fromRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.toTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.fromTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.SuspendLayout();
             // 
             // label1
@@ -73,39 +73,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "To";
             // 
-            // fromTypeComboBox
-            // 
-            this.fromTypeComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.fromTypeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.fromTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fromTypeComboBox.FormattingEnabled = true;
-            this.fromTypeComboBox.Location = new System.Drawing.Point(95, 65);
-            this.fromTypeComboBox.Name = "fromTypeComboBox";
-            this.fromTypeComboBox.Size = new System.Drawing.Size(129, 31);
-            this.fromTypeComboBox.TabIndex = 2;
-            // 
-            // toTypeComboBox
-            // 
-            this.toTypeComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.toTypeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.toTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toTypeComboBox.FormattingEnabled = true;
-            this.toTypeComboBox.Location = new System.Drawing.Point(95, 143);
-            this.toTypeComboBox.Name = "toTypeComboBox";
-            this.toTypeComboBox.Size = new System.Drawing.Size(129, 31);
-            this.toTypeComboBox.TabIndex = 3;
-            // 
-            // fromRwyComboBox
-            // 
-            this.fromRwyComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.fromRwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.fromRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fromRwyComboBox.FormattingEnabled = true;
-            this.fromRwyComboBox.Location = new System.Drawing.Point(356, 65);
-            this.fromRwyComboBox.Name = "fromRwyComboBox";
-            this.fromRwyComboBox.Size = new System.Drawing.Size(79, 31);
-            this.fromRwyComboBox.TabIndex = 5;
-            // 
             // fromRwyLbl
             // 
             this.fromRwyLbl.AutoSize = true;
@@ -115,17 +82,6 @@
             this.fromRwyLbl.Size = new System.Drawing.Size(60, 20);
             this.fromRwyLbl.TabIndex = 4;
             this.fromRwyLbl.Text = "Runway";
-            // 
-            // sidComboBox
-            // 
-            this.sidComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.sidComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.sidComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sidComboBox.FormattingEnabled = true;
-            this.sidComboBox.Location = new System.Drawing.Point(457, 65);
-            this.sidComboBox.Name = "sidComboBox";
-            this.sidComboBox.Size = new System.Drawing.Size(113, 31);
-            this.sidComboBox.TabIndex = 7;
             // 
             // sidLbl
             // 
@@ -137,17 +93,6 @@
             this.sidLbl.TabIndex = 6;
             this.sidLbl.Text = "SID";
             // 
-            // fromWptComboBox
-            // 
-            this.fromWptComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.fromWptComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.fromWptComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fromWptComboBox.FormattingEnabled = true;
-            this.fromWptComboBox.Location = new System.Drawing.Point(593, 65);
-            this.fromWptComboBox.Name = "fromWptComboBox";
-            this.fromWptComboBox.Size = new System.Drawing.Size(286, 31);
-            this.fromWptComboBox.TabIndex = 9;
-            // 
             // fromWptLbl
             // 
             this.fromWptLbl.AutoSize = true;
@@ -157,17 +102,6 @@
             this.fromWptLbl.Size = new System.Drawing.Size(73, 20);
             this.fromWptLbl.TabIndex = 8;
             this.fromWptLbl.Text = "Waypoint";
-            // 
-            // toWptComboBox
-            // 
-            this.toWptComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.toWptComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.toWptComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toWptComboBox.FormattingEnabled = true;
-            this.toWptComboBox.Location = new System.Drawing.Point(593, 143);
-            this.toWptComboBox.Name = "toWptComboBox";
-            this.toWptComboBox.Size = new System.Drawing.Size(286, 31);
-            this.toWptComboBox.TabIndex = 15;
             // 
             // toWptLbl
             // 
@@ -179,17 +113,6 @@
             this.toWptLbl.TabIndex = 14;
             this.toWptLbl.Text = "Waypoint";
             // 
-            // starComboBox
-            // 
-            this.starComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.starComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.starComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.starComboBox.FormattingEnabled = true;
-            this.starComboBox.Location = new System.Drawing.Point(457, 143);
-            this.starComboBox.Name = "starComboBox";
-            this.starComboBox.Size = new System.Drawing.Size(113, 31);
-            this.starComboBox.TabIndex = 13;
-            // 
             // starLbl
             // 
             this.starLbl.AutoSize = true;
@@ -199,17 +122,6 @@
             this.starLbl.Size = new System.Drawing.Size(44, 20);
             this.starLbl.TabIndex = 12;
             this.starLbl.Text = "STAR";
-            // 
-            // toRwyComboBox
-            // 
-            this.toRwyComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.toRwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.toRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toRwyComboBox.FormattingEnabled = true;
-            this.toRwyComboBox.Location = new System.Drawing.Point(356, 143);
-            this.toRwyComboBox.Name = "toRwyComboBox";
-            this.toRwyComboBox.Size = new System.Drawing.Size(79, 31);
-            this.toRwyComboBox.TabIndex = 11;
             // 
             // toRwyLbl
             // 
@@ -290,6 +202,94 @@
             this.toIdentLbl.TabIndex = 21;
             this.toIdentLbl.Text = "ICAO";
             // 
+            // toWptComboBox
+            // 
+            this.toWptComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.toWptComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.toWptComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toWptComboBox.FormattingEnabled = true;
+            this.toWptComboBox.Location = new System.Drawing.Point(593, 143);
+            this.toWptComboBox.Name = "toWptComboBox";
+            this.toWptComboBox.Size = new System.Drawing.Size(286, 31);
+            this.toWptComboBox.TabIndex = 15;
+            // 
+            // starComboBox
+            // 
+            this.starComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.starComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.starComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.starComboBox.FormattingEnabled = true;
+            this.starComboBox.Location = new System.Drawing.Point(457, 143);
+            this.starComboBox.Name = "starComboBox";
+            this.starComboBox.Size = new System.Drawing.Size(113, 31);
+            this.starComboBox.TabIndex = 13;
+            // 
+            // toRwyComboBox
+            // 
+            this.toRwyComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.toRwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.toRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toRwyComboBox.FormattingEnabled = true;
+            this.toRwyComboBox.Location = new System.Drawing.Point(356, 143);
+            this.toRwyComboBox.Name = "toRwyComboBox";
+            this.toRwyComboBox.Size = new System.Drawing.Size(79, 31);
+            this.toRwyComboBox.TabIndex = 11;
+            // 
+            // fromWptComboBox
+            // 
+            this.fromWptComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.fromWptComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.fromWptComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fromWptComboBox.FormattingEnabled = true;
+            this.fromWptComboBox.Location = new System.Drawing.Point(593, 65);
+            this.fromWptComboBox.Name = "fromWptComboBox";
+            this.fromWptComboBox.Size = new System.Drawing.Size(286, 31);
+            this.fromWptComboBox.TabIndex = 9;
+            // 
+            // sidComboBox
+            // 
+            this.sidComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.sidComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.sidComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sidComboBox.FormattingEnabled = true;
+            this.sidComboBox.Location = new System.Drawing.Point(457, 65);
+            this.sidComboBox.Name = "sidComboBox";
+            this.sidComboBox.Size = new System.Drawing.Size(113, 31);
+            this.sidComboBox.TabIndex = 7;
+            // 
+            // fromRwyComboBox
+            // 
+            this.fromRwyComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.fromRwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.fromRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fromRwyComboBox.FormattingEnabled = true;
+            this.fromRwyComboBox.Location = new System.Drawing.Point(356, 65);
+            this.fromRwyComboBox.Name = "fromRwyComboBox";
+            this.fromRwyComboBox.Size = new System.Drawing.Size(79, 31);
+            this.fromRwyComboBox.TabIndex = 5;
+            // 
+            // toTypeComboBox
+            // 
+            this.toTypeComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.toTypeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.toTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toTypeComboBox.FormattingEnabled = true;
+            this.toTypeComboBox.Location = new System.Drawing.Point(95, 143);
+            this.toTypeComboBox.Name = "toTypeComboBox";
+            this.toTypeComboBox.Size = new System.Drawing.Size(129, 31);
+            this.toTypeComboBox.TabIndex = 3;
+            // 
+            // fromTypeComboBox
+            // 
+            this.fromTypeComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.fromTypeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.fromTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fromTypeComboBox.FormattingEnabled = true;
+            this.fromTypeComboBox.Location = new System.Drawing.Point(95, 65);
+            this.fromTypeComboBox.Name = "fromTypeComboBox";
+            this.fromTypeComboBox.Size = new System.Drawing.Size(129, 31);
+            this.fromTypeComboBox.TabIndex = 2;
+            // 
             // AdvancedRouteTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -318,6 +318,7 @@
             this.Controls.Add(this.fromTypeComboBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.Name = "AdvancedRouteTool";
             this.Size = new System.Drawing.Size(993, 392);
             this.ResumeLayout(false);
