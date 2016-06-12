@@ -1,14 +1,18 @@
-﻿using System;
+﻿using QSP.AviationTools.Coordinates;
+using QSP.Common.Options;
+using QSP.RouteFinding;
+using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Routes.TrackInUse;
+using QSP.UI.Controllers;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.TerminalProcedures.Sid;
+using static QSP.MainForm;
 
 namespace QSP.UI.UserControls
 {
@@ -17,26 +21,37 @@ namespace QSP.UI.UserControls
         private ControlGroup fromGroup;
         private ControlGroup toGroup;
 
+        private AppOptions appSettings;
+        private WaypointList wptList;
         private AirportManager airportList;
+        private TrackInUseCollection tracksInUse;
 
         public AdvancedRouteTool()
         {
             InitializeComponent();
         }
 
-        public void Init(AirportManager airportList)
+        public void Init(
+            AppOptions appSettings,
+            WaypointList wptList,
+            AirportManager airportList,
+            TrackInUseCollection tracksInUse)
         {
+            this.appSettings = appSettings;
+            this.wptList = wptList;
             this.airportList = airportList;
+            this.tracksInUse = tracksInUse;
 
             setControlGroups();
             attachEventHandlers();
             setDefaultState();
-            
+
         }
 
         private void setControlGroups()
         {
             fromGroup = new ControlGroup(
+                this,
                 fromTypeComboBox,
                 fromIdentLbl,
                 fromIdentTxtBox,
@@ -45,9 +60,11 @@ namespace QSP.UI.UserControls
                 sidLbl,
                 sidComboBox,
                 fromWptLbl,
-                fromWptComboBox);
+                fromWptComboBox,
+                true);
 
             toGroup = new ControlGroup(
+                this,
                toTypeComboBox,
                toIdentLbl,
                toIdentTxtBox,
@@ -56,78 +73,14 @@ namespace QSP.UI.UserControls
                starLbl,
                starComboBox,
                toWptLbl,
-               toWptComboBox);
+               toWptComboBox,
+               false);
         }
 
         private void attachEventHandlers()
         {
-            attachHandlers(fromGroup);
-            attachHandlers(toGroup);
-        }
-
-        private void attachHandlers(ControlGroup group)
-        {
-            group.TypeSelection.SelectedIndexChanged +=
-                (sender, e) => typeChanged(group);
-
-            group.Ident.TextChanged +=
-                (sender, e) => identChanged(group);
-
-            group.Rwy.SelectedIndexChanged +=
-                (sender, e) => rwyChanged(group);
-        }
-
-        private void identChanged(ControlGroup group)
-        {
-            if (group.TypeSelection.SelectedIndex == 0)
-            {
-                // Airport
-                var rwyCBox = group.Rwy;
-                rwyCBox.Items.Clear();
-
-                var icao = group.Ident.Text.Trim().ToUpper();
-                var rwyList = airportList.RwyIdentList(icao);
-
-                if (rwyList != null)
-                {
-                    rwyCBox.Items.AddRange(rwyList);
-                    rwyCBox.SelectedIndex = 0;
-                }
-            }
-            else
-            {
-               
-            }
-        }
-        
-        private void rwyChanged(ControlGroup group)
-        {
-
-        }
-
-        private void typeChanged(ControlGroup group)
-        {
-            if (group.TypeSelection.SelectedIndex == 0)
-            {
-                // Airport
-                group.IdentLbl.Text = "ICAO";
-                group.RwyLbl.Enabled = true;
-                group.Rwy.Enabled = true;
-                group.TerminalProcedureLbl.Enabled = true;
-                group.TerminalProcedure.Enabled = true;
-                group.WptLbl.Enabled = false;
-                group.Waypoint.Enabled = false;
-            }
-            else
-            {
-                group.IdentLbl.Text = "Ident";
-                group.RwyLbl.Enabled = false;
-                group.Rwy.Enabled = false;
-                group.TerminalProcedureLbl.Enabled = false;
-                group.TerminalProcedure.Enabled = false;
-                group.WptLbl.Enabled = true;
-                group.Waypoint.Enabled = true;
-            }
+            fromGroup.Subsribe();
+            toGroup.Subsribe();
         }
 
         private void setDefaultState()
@@ -145,8 +98,156 @@ namespace QSP.UI.UserControls
             cbox.SelectedIndex = 0;
         }
 
+        private void findRouteBtnClick(object sender, EventArgs e)
+        {
+            if (fromTypeComboBox.SelectedIndex == 0)
+            {
+                if (toTypeComboBox.SelectedIndex == 0)
+                {
+                    // Airport to airport
+                    var sids = fromGroup.controller.GetSelectedProcedures();
+                    var stars = toGroup.controller.GetSelectedProcedures();
+
+                    try
+                    {
+                        var myRoute = new RouteGroup(
+                            new RouteFinderFacade(
+                                wptList,
+                                airportList,
+                                appSettings.NavDataLocation)
+                                .FindRoute(
+                                    fromIdentTxtBox.Text,
+                                    fromRwyComboBox.Text,
+                                    sids,
+                                    toIdentTxtBox.Text,
+                                    toRwyComboBox.Text,
+                                    stars),
+                                tracksInUse);
+
+                        var route = myRoute.Expanded;
+
+                        routeRichTxtBox.Text = route.ToString();
+                        UpdateRouteDistanceLbl(routeSummaryLbl, route);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
+                else
+                {
+                    // Airport to waypoint
+                    try
+                    {
+                        var sids = fromGroup.controller.GetSelectedProcedures();
+                        var latLon = extractLatLon(toWptComboBox.Text);
+                        var wpt = wptList.FindByWaypoint(
+                            toIdentTxtBox.Text, latLon.Lat, latLon.Lon);
+
+                        var myRoute = new RouteGroup(
+                            new RouteFinderFacade(
+                                wptList,
+                                airportList,
+                                appSettings.NavDataLocation)
+                                .FindRoute(
+                                    fromIdentTxtBox.Text,
+                                    fromRwyComboBox.Text,
+                                    sids,
+                                    wpt),
+                                tracksInUse);
+
+                        var route = myRoute.Expanded;
+
+                        routeRichTxtBox.Text = route.ToString(false, true);
+                        UpdateRouteDistanceLbl(routeSummaryLbl, route);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
+            }
+            else
+            {
+                if (toTypeComboBox.SelectedIndex == 0)
+                {
+                    // Waypoint to airport
+                    var latLon = extractLatLon(fromWptComboBox.Text);
+                    var wpt = wptList.FindByWaypoint(
+                        fromIdentTxtBox.Text, latLon.Lat, latLon.Lon);
+                    var stars = toGroup.controller.GetSelectedProcedures();
+
+                    try
+                    {
+                        var myRoute = new RouteGroup(
+                            new RouteFinderFacade(
+                                wptList,
+                                airportList,
+                                appSettings.NavDataLocation)
+                                .FindRoute(
+                                    wpt,
+                                    toIdentTxtBox.Text,
+                                    toRwyComboBox.Text,
+                                    stars),
+                                tracksInUse);
+
+                        var route = myRoute.Expanded;
+
+                        routeRichTxtBox.Text = route.ToString();
+                        UpdateRouteDistanceLbl(routeSummaryLbl, route);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
+                else
+                {
+                    // Waypoint to waypoint
+                    var latLonFrom = extractLatLon(fromWptComboBox.Text);
+                    var wptFrom = wptList.FindByWaypoint(
+                        fromIdentTxtBox.Text, latLonFrom.Lat, latLonFrom.Lon);
+
+                    var latLonTo = extractLatLon(toWptComboBox.Text);
+                    var wptTo = wptList.FindByWaypoint(
+                        toIdentTxtBox.Text, latLonTo.Lat, latLonTo.Lon);
+
+                    try
+                    {
+                        var myRoute = new RouteGroup(
+                            new RouteFinder(wptList, airportList)
+                                .FindRoute(wptFrom, wptTo),
+                                tracksInUse);
+
+                        var route = myRoute.Expanded;
+
+                        routeRichTxtBox.Text = route.ToString();
+                        UpdateRouteDistanceLbl(routeSummaryLbl, route);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
+            }
+        }
+
+        // Gets the lat and lon.
+        // Inpute sample: "LAT/22.55201 LON/121.3554"
+        private static LatLon extractLatLon(string s)
+        {
+            var matchLat = Regex.Match(s, @"LAT/([\d.]+) ");
+            double lat = double.Parse(matchLat.Groups[1].Value);
+
+            var matchLon = Regex.Match(s, @"LON/([\d.]+)");
+            double lon = double.Parse(matchLon.Groups[1].Value);
+
+            return new LatLon(lat, lon);
+        }
+
         private class ControlGroup
         {
+            public AdvancedRouteTool owner;
             public ComboBox TypeSelection;
             public Label IdentLbl;
             public TextBox Ident;
@@ -155,9 +256,13 @@ namespace QSP.UI.UserControls
             public Label TerminalProcedureLbl;
             public ComboBox TerminalProcedure;
             public Label WptLbl;
-            public ComboBox Waypoint;
+            public ComboBox Waypoints;
+            public bool IsDepartureAirport;
+
+            public RouteFinderSelection controller;
 
             public ControlGroup(
+                AdvancedRouteTool owner,
                 ComboBox TypeSelection,
                 Label IdentLbl,
                 TextBox Ident,
@@ -166,8 +271,10 @@ namespace QSP.UI.UserControls
                 Label TerminalProcedureLbl,
                 ComboBox TerminalProcedure,
                 Label WptLbl,
-                ComboBox Waypoint)
+                ComboBox Waypoints,
+                bool IsDepartureAirport)
             {
+                this.owner = owner;
                 this.TypeSelection = TypeSelection;
                 this.IdentLbl = IdentLbl;
                 this.Ident = Ident;
@@ -176,7 +283,91 @@ namespace QSP.UI.UserControls
                 this.TerminalProcedureLbl = TerminalProcedureLbl;
                 this.TerminalProcedure = TerminalProcedure;
                 this.WptLbl = WptLbl;
-                this.Waypoint = Waypoint;
+                this.Waypoints = Waypoints;
+                this.IsDepartureAirport = IsDepartureAirport;
+            }
+
+            public void Subsribe()
+            {
+                controller = new RouteFinderSelection(
+                    Ident,
+                    IsDepartureAirport,
+                    Rwy,
+                    TerminalProcedure,
+                    owner.appSettings,
+                    owner.airportList,
+                    owner.wptList);
+
+                TypeSelection.SelectedIndexChanged += typeChanged;
+            }
+
+            public void UnSubsribe()
+            {
+                TypeSelection.SelectedIndexChanged -= typeChanged;
+            }
+
+            private void showWpts(object sender, EventArgs e)
+            {
+                Waypoints.Items.Clear();
+
+                List<int> indices = owner.wptList.FindAllByID(Ident.Text);
+
+                if (indices.Count == 0)
+                {
+                    return;
+                }
+
+                Waypoints.Items.AddRange(
+                    indices.Select(i =>
+                    {
+                        var wpt = owner.wptList[i];
+                        return "LAT/" + wpt.Lat + "  LON/" + wpt.Lon;
+                    }).ToArray());
+
+                Waypoints.SelectedIndex = 0;
+            }
+
+            private void forceRefresh()
+            {
+                var txt = Ident.Text;
+                Ident.Text = txt + " ";
+                Ident.Text = txt;
+            }
+
+            private void typeChanged(object sender, EventArgs e)
+            {
+                if (TypeSelection.SelectedIndex == 0)
+                {
+                    // Airport
+                    IdentLbl.Text = "ICAO";
+                    RwyLbl.Enabled = true;
+                    Rwy.Enabled = true;
+                    TerminalProcedureLbl.Enabled = true;
+                    TerminalProcedure.Enabled = true;
+                    WptLbl.Enabled = false;
+                    Waypoints.Enabled = false;
+
+                    controller.Subscribe();
+                    Ident.TextChanged -= showWpts;
+                    forceRefresh();
+                    Waypoints.Items.Clear();
+                }
+                else
+                {
+                    IdentLbl.Text = "Ident";
+                    RwyLbl.Enabled = false;
+                    Rwy.Enabled = false;
+                    TerminalProcedureLbl.Enabled = false;
+                    TerminalProcedure.Enabled = false;
+                    WptLbl.Enabled = true;
+                    Waypoints.Enabled = true;
+
+                    controller.UnSubsribe();
+                    Ident.TextChanged += showWpts;
+                    forceRefresh();
+                    Rwy.Items.Clear();
+                    TerminalProcedure.Items.Clear();
+                }
             }
         }
     }

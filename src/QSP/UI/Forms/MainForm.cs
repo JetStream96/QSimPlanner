@@ -1,10 +1,9 @@
 using QSP.AircraftProfiles;
-using QSP.Common;
 using QSP.Common.Options;
 using QSP.GoogleMap;
 using QSP.LibraryExtension;
-using QSP.Metar;
 using QSP.MathTools;
+using QSP.Metar;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -13,8 +12,8 @@ using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures.Sid;
-using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.UI;
 using QSP.UI.Controllers;
@@ -194,6 +193,8 @@ namespace QSP
             this.wptList = wptList;
 
             initRouteFinderSelections();
+            advancedRouteTool.Init(
+                appSettings, wptList, airportList, new TrackInUseCollection()); //TODO: track in use is wrong
         }
 
         private void initRouteFinderSelections()
@@ -260,9 +261,6 @@ namespace QSP
 
             RouteDisLbl.Text = "";
             RouteDisAltnLbl.Text = "";
-            Label56.Text = "0";
-
-            RadioButton1.Checked = true;
         }
 
         private bool IsRunAsAdministrator()
@@ -781,10 +779,10 @@ namespace QSP
                 .GetExportText();
 
             RouteDisplayRichTxtBox.Text = route.ToString(false, false);
-            updateRouteDistanceLbl(RouteDisLbl, route);
+            UpdateRouteDistanceLbl(RouteDisLbl, route);
         }
 
-        private void updateRouteDistanceLbl(Label lbl, Route route)
+        public static void UpdateRouteDistanceLbl(Label lbl, Route route)
         {
             double totalDis = route.GetTotalDistance();
             int disInt = Doubles.RoundToInt(totalDis);
@@ -823,7 +821,7 @@ namespace QSP
             var route = RouteToAltn.Expanded;
 
             RouteDisplayAltnRichTxtBox.Text = route.ToString(false, false);
-            updateRouteDistanceLbl(RouteDisAltnLbl, route);
+            UpdateRouteDistanceLbl(RouteDisAltnLbl, route);
         }
 
         private void ExportRouteFiles()
@@ -887,387 +885,7 @@ namespace QSP
                     icon);
             }
         }
-
-        private void ResetFromCBoxes()
-        {
-            FromRwyCBox.Items.Clear();
-            FromSidCBox.Items.Clear();
-        }
-
-        private void ResetToCBoxes()
-        {
-            ToRwyCBox.Items.Clear();
-            ToStarCBox.Items.Clear();
-        }
-
-        private void RadioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RadioButton1.Checked == true)
-            {
-                RadioButton2.Checked = false;
-                RadioButton3.Checked = false;
-                RadioButton4.Checked = false;
-
-                FromRwyCBox.Enabled = true;
-                FromSidCBox.Enabled = true;
-                ToRwyCBox.Enabled = true;
-                ToStarCBox.Enabled = true;
-
-                WptSelFromCBox.Enabled = false;
-                WptSelToCBox.Enabled = false;
-            }
-
-        }
-
-        private void RadioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RadioButton2.Checked == true)
-            {
-                RadioButton1.Checked = false;
-                RadioButton3.Checked = false;
-                RadioButton4.Checked = false;
-
-                FromRwyCBox.Enabled = true;
-                FromSidCBox.Enabled = true;
-                ToRwyCBox.Enabled = false;
-                ToStarCBox.Enabled = false;
-
-                WptSelFromCBox.Enabled = false;
-                WptSelToCBox.Enabled = true;
-
-                ResetToCBoxes();
-            }
-
-        }
-
-        private void RadioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RadioButton3.Checked == true)
-            {
-                RadioButton1.Checked = false;
-                RadioButton2.Checked = false;
-                RadioButton4.Checked = false;
-
-                FromRwyCBox.Enabled = false;
-                FromSidCBox.Enabled = false;
-                ToRwyCBox.Enabled = true;
-                ToStarCBox.Enabled = true;
-
-                WptSelFromCBox.Enabled = true;
-                WptSelToCBox.Enabled = false;
-
-                ResetFromCBoxes();
-            }
-
-        }
-
-        private void RadioButton4_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RadioButton4.Checked == true)
-            {
-                RadioButton1.Checked = false;
-                RadioButton2.Checked = false;
-                RadioButton3.Checked = false;
-
-                FromRwyCBox.Enabled = false;
-                FromSidCBox.Enabled = false;
-                ToRwyCBox.Enabled = false;
-                ToStarCBox.Enabled = false;
-
-                WptSelFromCBox.Enabled = true;
-                WptSelToCBox.Enabled = true;
-
-                ResetFromCBoxes();
-                ResetToCBoxes();
-            }
-
-        }
-
-        private void setCBox(TextBox txtBox, ComboBox RwyCBox, ComboBox WptCBox)
-        {
-            if (RadioButton1.Checked || RadioButton2.Checked)
-            {
-                RwyCBox.Items.Clear();
-
-                if (txtBox.Text.Length != 4)
-                {
-                    return;
-                }
-
-                var rwyList = airportList.RwyIdentList(txtBox.Text);
-
-                if (rwyList != null)
-                {
-                    RwyCBox.Items.AddRange(rwyList);
-                    RwyCBox.SelectedIndex = 0;
-                }
-            }
-            else if (RadioButton3.Checked || RadioButton4.Checked)
-            {
-                WptCBox.Items.Clear();
-
-                List<int> indices = wptList.FindAllByID(txtBox.Text);
-
-                if (indices == null || indices.Count == 0)
-                {
-                    return;
-                }
-
-                string[] display = new string[indices.Count];
-
-                for (int i = 0; i < indices.Count; i++)
-                {
-                    var wpt = wptList[indices[i]];
-                    display[i] = "LAT/" + wpt.Lat + "  LON/" + wpt.Lon;
-                }
-
-                WptCBox.Items.AddRange(display);
-                WptCBox.SelectedIndex = 0;
-            }
-        }
-
-        private void FromTxtbox_TextChanged(object sender, EventArgs e)
-        {
-            setCBox(FromTxtbox, FromRwyCBox, WptSelFromCBox);
-        }
-
-        private void ToTxtbox_TextChanged(object sender, EventArgs e)
-        {
-            setCBox(ToTxtbox, ToRwyCBox, WptSelToCBox);
-        }
-
-        private void setSidStarList(ComboBox CBox, List<string> sidStarList)
-        {
-            CBox.Items.Clear();
-
-            if (sidStarList.Count == 0)
-            {
-                CBox.Items.Add("NONE");
-                CBox.SelectedIndex = 0;
-                return;
-            }
-            else
-            {
-                CBox.Items.Add("AUTO");
-            }
-
-            foreach (var i in sidStarList)
-            {
-                CBox.Items.Add(i);
-            }
-
-            CBox.SelectedIndex = 0;
-        }
-
-        private void FromRwyCBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (RadioButton1.Checked || RadioButton2.Checked)
-            {
-                try
-                {
-                    SidHandler sidFinder = SidHandlerFactory.GetHandler(FromTxtbox.Text, appSettings.NavDataLocation, wptList, wptList.GetEditor(), airportList);
-                    setSidStarList(FromSidCBox, sidFinder.GetSidList(FromRwyCBox.Text));
-                }
-                catch (Exception ex)
-                {
-                    WriteToLog(ex.ToString());
-                }
-            }
-
-        }
-
-        private void To_rwy_CBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (RadioButton1.Checked || RadioButton3.Checked)
-            {
-                try
-                {
-                    var starManager = StarHandlerFactory.GetHandler(ToTxtbox.Text, appSettings.NavDataLocation, wptList, wptList.GetEditor(), airportList);
-                    setSidStarList(ToStarCBox, starManager.GetStarList(ToRwyCBox.Text));
-                }
-                catch (Exception ex)
-                {
-                    WriteToLog(ex);
-                }
-            }
-        }
-
-        private void Find_Btn_Click(object sender, EventArgs e)
-        {
-            if (RadioButton1.Checked)
-            {
-                var sid = new List<string>();
-                var star = new List<string>();
-
-                if (FromSidCBox.Text == "AUTO")
-                {
-                    foreach (var i in FromSidCBox.Items)
-                    {
-                        if (Convert.ToString(i) != "AUTO")
-                        {
-                            sid.Add(Convert.ToString(i));
-                        }
-                    }
-                }
-                else if (FromSidCBox.Text != "NONE")
-                {
-                    sid.Add(FromSidCBox.Text);
-                }
-
-                if (ToStarCBox.Text == "AUTO")
-                {
-                    foreach (var i in ToStarCBox.Items)
-                    {
-                        if (Convert.ToString(i) != "AUTO")
-                        {
-                            star.Add(Convert.ToString(i));
-                        }
-                    }
-                }
-                else if (ToStarCBox.Text != "NONE")
-                {
-                    star.Add(ToStarCBox.Text);
-                }
-
-                try
-                {
-                    var myRoute = new RouteGroup(
-                        new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
-                                                            .FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid,
-                                                                       ToTxtbox.Text, ToRwyCBox.Text, star),
-                                                            TracksInUse);
-
-                    var route = myRoute.Expanded;
-
-                    RouteAdvancedRichTxtBox.Text = route.ToString();
-                    updateRouteDistanceLbl(Label56, route);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
-
-            }
-            else if (RadioButton2.Checked)
-            {
-                List<string> sid = new List<string>();
-
-                if (FromSidCBox.Text == "AUTO")
-                {
-                    foreach (var i in FromSidCBox.Items)
-                    {
-                        if (Convert.ToString(i) != "AUTO")
-                        {
-                            sid.Add(Convert.ToString(i));
-                        }
-
-                    }
-                }
-                else if (FromSidCBox.Text != "NONE")
-                {
-                    sid.Add(FromSidCBox.Text);
-                }
-
-
-                try
-                {
-                    Vector2D v = extractLatLon(WptSelToCBox.Text);
-
-                    var myRoute = new RouteGroup(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
-                                                            .FindRoute(FromTxtbox.Text, FromRwyCBox.Text, sid,
-                                                                       wptList.FindByWaypoint(ToTxtbox.Text, v.X, v.Y)),
-                                                            TracksInUse);
-
-                    var route = myRoute.Expanded;
-
-                    RouteAdvancedRichTxtBox.Text = route.ToString(false, true);
-                    updateRouteDistanceLbl(Label56, route);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
-
-            }
-            else if (RadioButton3.Checked)
-            {
-                List<string> star = new List<string>();
-
-                if (ToStarCBox.Text == "AUTO")
-                {
-                    foreach (var i in ToStarCBox.Items)
-                    {
-                        if (Convert.ToString(i) != "AUTO")
-                        {
-                            star.Add(Convert.ToString(i));
-                        }
-
-                    }
-                }
-                else if (ToStarCBox.Text != "NONE")
-                {
-                    star.Add(ToStarCBox.Text);
-                }
-
-                try
-                {
-                    Vector2D v = extractLatLon(WptSelFromCBox.Text);
-
-                    var myRoute = new RouteGroup(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
-                                                            .FindRoute(wptList.FindByWaypoint(FromTxtbox.Text, v.X, v.Y),
-                                                                       ToTxtbox.Text, ToRwyCBox.Text, star),
-                                                            TracksInUse);
-
-                    var route = myRoute.Expanded;
-
-                    RouteAdvancedRichTxtBox.Text = route.ToString(true, false);
-                    updateRouteDistanceLbl(Label56, route);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
-
-            }
-            else if (RadioButton4.Checked == true)
-            {
-                try
-                {
-                    Vector2D u = extractLatLon(WptSelFromCBox.Text);
-                    Vector2D v = extractLatLon(WptSelToCBox.Text);
-
-                    var myRoute = new RouteGroup(
-                        new RouteFinder(wptList, airportList)
-                        .FindRoute(wptList.FindByWaypoint(FromTxtbox.Text, u.X, u.Y),
-                                   wptList.FindByWaypoint(ToTxtbox.Text, v.X, v.Y)),
-                        TracksInUse);
-
-                    var route = myRoute.Expanded;
-
-                    RouteAdvancedRichTxtBox.Text = route.ToString(true, true);
-                    updateRouteDistanceLbl(Label56, route);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
-            }
-
-        }
-
-        /// <summary>
-        /// Gets the lat and lon.
-        /// </summary>
-        /// <param name="s">e.g. LAT/22.55201 LON/121.3554</param>
-        private static Vector2D extractLatLon(string s)
-        {
-            int i = s.IndexOf("LAT/");
-            int j = s.IndexOf("  LON/");
-
-            return new Vector2D(Convert.ToDouble(s.Substring(i + 4, j - i - 4)), Convert.ToDouble(s.Substring(j + 6)));
-        }
-
-
+        
         private void Analyze_RteToDest_Click(object sender, EventArgs e)
         {
             //TODO: Need better exception message for AUTO, RAND commands
@@ -1294,7 +912,7 @@ namespace QSP
                 .GetExportText();
 
                 RouteDisplayRichTxtBox.Text = route.ToString(false, false);
-                updateRouteDistanceLbl(RouteDisLbl, route);
+                UpdateRouteDistanceLbl(RouteDisLbl, route);
             }
             catch (Exception ex)
             {

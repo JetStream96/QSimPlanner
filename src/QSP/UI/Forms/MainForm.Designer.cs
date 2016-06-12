@@ -58,7 +58,6 @@ namespace QSP
             this.ShowLDG_Btn = new System.Windows.Forms.Button();
             this.ShowTO_Btn = new System.Windows.Forms.Button();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.UpdateAll_Btn = new System.Windows.Forms.Button();
             this.MainWin_TablessControl = new QSP.TablessControl();
             this.Route_TabPage = new System.Windows.Forms.TabPage();
             this.FuelReportView_Btn = new System.Windows.Forms.Button();
@@ -144,6 +143,7 @@ namespace QSP
             this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabPage2 = new System.Windows.Forms.TabPage();
             this.GroupBox18 = new System.Windows.Forms.GroupBox();
+            this.UpdateAll_Btn = new System.Windows.Forms.Button();
             this.RichTextBox2 = new System.Windows.Forms.RichTextBox();
             this.GroupBox17 = new System.Windows.Forms.GroupBox();
             this.MetarToFindTxtBox = new System.Windows.Forms.TextBox();
@@ -168,26 +168,8 @@ namespace QSP
             this.Return_Btn = new System.Windows.Forms.Button();
             this.MapDisWebBrowser = new System.Windows.Forms.WebBrowser();
             this.TabPage14 = new System.Windows.Forms.TabPage();
+            this.advancedRouteTool = new QSP.UI.UserControls.AdvancedRouteTool();
             this.Return_AdvancedTool_Btn = new System.Windows.Forms.Button();
-            this.GroupBox8 = new System.Windows.Forms.GroupBox();
-            this.Label56 = new System.Windows.Forms.Label();
-            this.Find_Btn = new System.Windows.Forms.Button();
-            this.RouteAdvancedRichTxtBox = new System.Windows.Forms.RichTextBox();
-            this.WptSelToCBox = new System.Windows.Forms.ComboBox();
-            this.WptSelFromCBox = new System.Windows.Forms.ComboBox();
-            this.RadioButton4 = new System.Windows.Forms.RadioButton();
-            this.RadioButton3 = new System.Windows.Forms.RadioButton();
-            this.RadioButton2 = new System.Windows.Forms.RadioButton();
-            this.RadioButton1 = new System.Windows.Forms.RadioButton();
-            this.Label64 = new System.Windows.Forms.Label();
-            this.ToStarCBox = new System.Windows.Forms.ComboBox();
-            this.FromSidCBox = new System.Windows.Forms.ComboBox();
-            this.ToRwyCBox = new System.Windows.Forms.ComboBox();
-            this.FromRwyCBox = new System.Windows.Forms.ComboBox();
-            this.Label65 = new System.Windows.Forms.Label();
-            this.FromTxtbox = new System.Windows.Forms.TextBox();
-            this.ToTxtbox = new System.Windows.Forms.TextBox();
-            this.Label66 = new System.Windows.Forms.Label();
             this.TabPage3 = new System.Windows.Forms.TabPage();
             this.Return2_Btn = new System.Windows.Forms.Button();
             this.GroupBox3 = new System.Windows.Forms.GroupBox();
@@ -228,7 +210,6 @@ namespace QSP
             this.GroupBox7.SuspendLayout();
             this.TabPage13.SuspendLayout();
             this.TabPage14.SuspendLayout();
-            this.GroupBox8.SuspendLayout();
             this.TabPage3.SuspendLayout();
             this.GroupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -510,17 +491,6 @@ namespace QSP
             this.ShowTO_Btn.Text = "T/O Perf";
             this.ShowTO_Btn.UseVisualStyleBackColor = false;
             this.ShowTO_Btn.Click += new System.EventHandler(this.ShowTO_Btn_Click);
-            // 
-            // UpdateAll_Btn
-            // 
-            this.UpdateAll_Btn.BackgroundImage = global::QSP.Properties.Resources.processing9;
-            this.UpdateAll_Btn.Location = new System.Drawing.Point(1043, 22);
-            this.UpdateAll_Btn.Name = "UpdateAll_Btn";
-            this.UpdateAll_Btn.Size = new System.Drawing.Size(33, 33);
-            this.UpdateAll_Btn.TabIndex = 80;
-            this.ToolTip1.SetToolTip(this.UpdateAll_Btn, "Refresh all Metar/TAF");
-            this.UpdateAll_Btn.UseVisualStyleBackColor = true;
-            this.UpdateAll_Btn.Click += new System.EventHandler(this.UpdateAll_Btn_Click);
             // 
             // MainWin_TablessControl
             // 
@@ -1641,6 +1611,17 @@ namespace QSP
             this.GroupBox18.TabStop = false;
             this.GroupBox18.Text = "Monitor";
             // 
+            // UpdateAll_Btn
+            // 
+            this.UpdateAll_Btn.BackgroundImage = global::QSP.Properties.Resources.processing9;
+            this.UpdateAll_Btn.Location = new System.Drawing.Point(1043, 22);
+            this.UpdateAll_Btn.Name = "UpdateAll_Btn";
+            this.UpdateAll_Btn.Size = new System.Drawing.Size(33, 33);
+            this.UpdateAll_Btn.TabIndex = 80;
+            this.ToolTip1.SetToolTip(this.UpdateAll_Btn, "Refresh all Metar/TAF");
+            this.UpdateAll_Btn.UseVisualStyleBackColor = true;
+            this.UpdateAll_Btn.Click += new System.EventHandler(this.UpdateAll_Btn_Click);
+            // 
             // RichTextBox2
             // 
             this.RichTextBox2.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1909,8 +1890,8 @@ namespace QSP
             // 
             // TabPage14
             // 
+            this.TabPage14.Controls.Add(this.advancedRouteTool);
             this.TabPage14.Controls.Add(this.Return_AdvancedTool_Btn);
-            this.TabPage14.Controls.Add(this.GroupBox8);
             this.TabPage14.Location = new System.Drawing.Point(4, 25);
             this.TabPage14.Name = "TabPage14";
             this.TabPage14.Padding = new System.Windows.Forms.Padding(3);
@@ -1919,241 +1900,27 @@ namespace QSP
             this.TabPage14.Text = "Advanced Tool For Routes";
             this.TabPage14.UseVisualStyleBackColor = true;
             // 
+            // advancedRouteTool
+            // 
+            this.advancedRouteTool.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.advancedRouteTool.Location = new System.Drawing.Point(20, 10);
+            this.advancedRouteTool.Name = "advancedRouteTool";
+            this.advancedRouteTool.Size = new System.Drawing.Size(814, 338);
+            this.advancedRouteTool.TabIndex = 18;
+            // 
             // Return_AdvancedTool_Btn
             // 
             this.Return_AdvancedTool_Btn.BackColor = System.Drawing.Color.Green;
             this.Return_AdvancedTool_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Return_AdvancedTool_Btn.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Return_AdvancedTool_Btn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Return_AdvancedTool_Btn.Location = new System.Drawing.Point(905, 280);
+            this.Return_AdvancedTool_Btn.Location = new System.Drawing.Point(616, 363);
             this.Return_AdvancedTool_Btn.Name = "Return_AdvancedTool_Btn";
             this.Return_AdvancedTool_Btn.Size = new System.Drawing.Size(200, 40);
             this.Return_AdvancedTool_Btn.TabIndex = 17;
             this.Return_AdvancedTool_Btn.Text = "Return";
             this.Return_AdvancedTool_Btn.UseVisualStyleBackColor = false;
             this.Return_AdvancedTool_Btn.Click += new System.EventHandler(this.Return_Btn_Click);
-            // 
-            // GroupBox8
-            // 
-            this.GroupBox8.Controls.Add(this.Label56);
-            this.GroupBox8.Controls.Add(this.Find_Btn);
-            this.GroupBox8.Controls.Add(this.RouteAdvancedRichTxtBox);
-            this.GroupBox8.Controls.Add(this.WptSelToCBox);
-            this.GroupBox8.Controls.Add(this.WptSelFromCBox);
-            this.GroupBox8.Controls.Add(this.RadioButton4);
-            this.GroupBox8.Controls.Add(this.RadioButton3);
-            this.GroupBox8.Controls.Add(this.RadioButton2);
-            this.GroupBox8.Controls.Add(this.RadioButton1);
-            this.GroupBox8.Controls.Add(this.Label64);
-            this.GroupBox8.Controls.Add(this.ToStarCBox);
-            this.GroupBox8.Controls.Add(this.FromSidCBox);
-            this.GroupBox8.Controls.Add(this.ToRwyCBox);
-            this.GroupBox8.Controls.Add(this.FromRwyCBox);
-            this.GroupBox8.Controls.Add(this.Label65);
-            this.GroupBox8.Controls.Add(this.FromTxtbox);
-            this.GroupBox8.Controls.Add(this.ToTxtbox);
-            this.GroupBox8.Controls.Add(this.Label66);
-            this.GroupBox8.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBox8.Location = new System.Drawing.Point(6, 18);
-            this.GroupBox8.Name = "GroupBox8";
-            this.GroupBox8.Size = new System.Drawing.Size(1099, 225);
-            this.GroupBox8.TabIndex = 15;
-            this.GroupBox8.TabStop = false;
-            this.GroupBox8.Text = "Advanced Tool For Routes";
-            // 
-            // Label56
-            // 
-            this.Label56.AutoSize = true;
-            this.Label56.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label56.Location = new System.Drawing.Point(871, 171);
-            this.Label56.Name = "Label56";
-            this.Label56.Size = new System.Drawing.Size(201, 19);
-            this.Label56.TabIndex = 45;
-            this.Label56.Text = "Total Dis: 459 NM (+3.5%)";
-            // 
-            // Find_Btn
-            // 
-            this.Find_Btn.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Find_Btn.Location = new System.Drawing.Point(998, 66);
-            this.Find_Btn.Name = "Find_Btn";
-            this.Find_Btn.Size = new System.Drawing.Size(89, 59);
-            this.Find_Btn.TabIndex = 28;
-            this.Find_Btn.Text = "Find Route";
-            this.Find_Btn.UseVisualStyleBackColor = true;
-            this.Find_Btn.Click += new System.EventHandler(this.Find_Btn_Click);
-            // 
-            // RouteAdvancedRichTxtBox
-            // 
-            this.RouteAdvancedRichTxtBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RouteAdvancedRichTxtBox.Location = new System.Drawing.Point(25, 144);
-            this.RouteAdvancedRichTxtBox.Name = "RouteAdvancedRichTxtBox";
-            this.RouteAdvancedRichTxtBox.Size = new System.Drawing.Size(827, 65);
-            this.RouteAdvancedRichTxtBox.TabIndex = 34;
-            this.RouteAdvancedRichTxtBox.Text = "";
-            // 
-            // WptSelToCBox
-            // 
-            this.WptSelToCBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.WptSelToCBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WptSelToCBox.FormattingEnabled = true;
-            this.WptSelToCBox.Location = new System.Drawing.Point(595, 98);
-            this.WptSelToCBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.WptSelToCBox.Name = "WptSelToCBox";
-            this.WptSelToCBox.Size = new System.Drawing.Size(391, 27);
-            this.WptSelToCBox.TabIndex = 43;
-            // 
-            // WptSelFromCBox
-            // 
-            this.WptSelFromCBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.WptSelFromCBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WptSelFromCBox.FormattingEnabled = true;
-            this.WptSelFromCBox.Location = new System.Drawing.Point(595, 64);
-            this.WptSelFromCBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.WptSelFromCBox.Name = "WptSelFromCBox";
-            this.WptSelFromCBox.Size = new System.Drawing.Size(391, 27);
-            this.WptSelFromCBox.TabIndex = 42;
-            // 
-            // RadioButton4
-            // 
-            this.RadioButton4.AutoSize = true;
-            this.RadioButton4.Location = new System.Drawing.Point(674, 36);
-            this.RadioButton4.Name = "RadioButton4";
-            this.RadioButton4.Size = new System.Drawing.Size(168, 20);
-            this.RadioButton4.TabIndex = 41;
-            this.RadioButton4.Text = "Waypoint To Waypoint";
-            this.RadioButton4.UseVisualStyleBackColor = true;
-            this.RadioButton4.CheckedChanged += new System.EventHandler(this.RadioButton4_CheckedChanged);
-            // 
-            // RadioButton3
-            // 
-            this.RadioButton3.AutoSize = true;
-            this.RadioButton3.Location = new System.Drawing.Point(497, 36);
-            this.RadioButton3.Name = "RadioButton3";
-            this.RadioButton3.Size = new System.Drawing.Size(155, 20);
-            this.RadioButton3.TabIndex = 40;
-            this.RadioButton3.Text = "Waypoint To Airport ";
-            this.RadioButton3.UseVisualStyleBackColor = true;
-            this.RadioButton3.CheckedChanged += new System.EventHandler(this.RadioButton3_CheckedChanged);
-            // 
-            // RadioButton2
-            // 
-            this.RadioButton2.AutoSize = true;
-            this.RadioButton2.Location = new System.Drawing.Point(324, 36);
-            this.RadioButton2.Name = "RadioButton2";
-            this.RadioButton2.Size = new System.Drawing.Size(152, 20);
-            this.RadioButton2.TabIndex = 39;
-            this.RadioButton2.Text = "Airport To Waypoint";
-            this.RadioButton2.UseVisualStyleBackColor = true;
-            this.RadioButton2.CheckedChanged += new System.EventHandler(this.RadioButton2_CheckedChanged);
-            // 
-            // RadioButton1
-            // 
-            this.RadioButton1.AutoSize = true;
-            this.RadioButton1.Checked = true;
-            this.RadioButton1.Location = new System.Drawing.Point(157, 36);
-            this.RadioButton1.Name = "RadioButton1";
-            this.RadioButton1.Size = new System.Drawing.Size(135, 20);
-            this.RadioButton1.TabIndex = 38;
-            this.RadioButton1.TabStop = true;
-            this.RadioButton1.Text = "Airport To Airport";
-            this.RadioButton1.UseVisualStyleBackColor = true;
-            this.RadioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
-            // 
-            // Label64
-            // 
-            this.Label64.AutoSize = true;
-            this.Label64.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label64.Location = new System.Drawing.Point(21, 37);
-            this.Label64.Name = "Label64";
-            this.Label64.Size = new System.Drawing.Size(113, 19);
-            this.Label64.TabIndex = 37;
-            this.Label64.Text = "Find route for:";
-            // 
-            // ToStarCBox
-            // 
-            this.ToStarCBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ToStarCBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ToStarCBox.FormattingEnabled = true;
-            this.ToStarCBox.Location = new System.Drawing.Point(392, 98);
-            this.ToStarCBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ToStarCBox.Name = "ToStarCBox";
-            this.ToStarCBox.Size = new System.Drawing.Size(184, 27);
-            this.ToStarCBox.TabIndex = 36;
-            // 
-            // FromSidCBox
-            // 
-            this.FromSidCBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.FromSidCBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FromSidCBox.FormattingEnabled = true;
-            this.FromSidCBox.Location = new System.Drawing.Point(392, 64);
-            this.FromSidCBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.FromSidCBox.Name = "FromSidCBox";
-            this.FromSidCBox.Size = new System.Drawing.Size(184, 27);
-            this.FromSidCBox.TabIndex = 35;
-            // 
-            // ToRwyCBox
-            // 
-            this.ToRwyCBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ToRwyCBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ToRwyCBox.FormattingEnabled = true;
-            this.ToRwyCBox.Location = new System.Drawing.Point(270, 98);
-            this.ToRwyCBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ToRwyCBox.Name = "ToRwyCBox";
-            this.ToRwyCBox.Size = new System.Drawing.Size(98, 27);
-            this.ToRwyCBox.TabIndex = 34;
-            this.ToRwyCBox.SelectedIndexChanged += new System.EventHandler(this.To_rwy_CBox_SelectedIndexChanged);
-            // 
-            // FromRwyCBox
-            // 
-            this.FromRwyCBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.FromRwyCBox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FromRwyCBox.FormattingEnabled = true;
-            this.FromRwyCBox.Location = new System.Drawing.Point(270, 64);
-            this.FromRwyCBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.FromRwyCBox.Name = "FromRwyCBox";
-            this.FromRwyCBox.Size = new System.Drawing.Size(98, 27);
-            this.FromRwyCBox.TabIndex = 33;
-            this.FromRwyCBox.SelectedIndexChanged += new System.EventHandler(this.FromRwyCBox_SelectedIndexChanged);
-            // 
-            // Label65
-            // 
-            this.Label65.AutoSize = true;
-            this.Label65.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label65.Location = new System.Drawing.Point(34, 72);
-            this.Label65.Name = "Label65";
-            this.Label65.Size = new System.Drawing.Size(55, 19);
-            this.Label65.TabIndex = 31;
-            this.Label65.Text = "FROM";
-            // 
-            // FromTxtbox
-            // 
-            this.FromTxtbox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.FromTxtbox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FromTxtbox.Location = new System.Drawing.Point(130, 67);
-            this.FromTxtbox.Name = "FromTxtbox";
-            this.FromTxtbox.Size = new System.Drawing.Size(123, 27);
-            this.FromTxtbox.TabIndex = 29;
-            this.FromTxtbox.TextChanged += new System.EventHandler(this.FromTxtbox_TextChanged);
-            // 
-            // ToTxtbox
-            // 
-            this.ToTxtbox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.ToTxtbox.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ToTxtbox.Location = new System.Drawing.Point(130, 96);
-            this.ToTxtbox.Name = "ToTxtbox";
-            this.ToTxtbox.Size = new System.Drawing.Size(123, 27);
-            this.ToTxtbox.TabIndex = 30;
-            this.ToTxtbox.TextChanged += new System.EventHandler(this.ToTxtbox_TextChanged);
-            // 
-            // Label66
-            // 
-            this.Label66.AutoSize = true;
-            this.Label66.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label66.Location = new System.Drawing.Point(34, 101);
-            this.Label66.Name = "Label66";
-            this.Label66.Size = new System.Drawing.Size(30, 19);
-            this.Label66.TabIndex = 32;
-            this.Label66.Text = "TO";
             // 
             // TabPage3
             // 
@@ -2273,8 +2040,6 @@ namespace QSP
             this.GroupBox7.PerformLayout();
             this.TabPage13.ResumeLayout(false);
             this.TabPage14.ResumeLayout(false);
-            this.GroupBox8.ResumeLayout(false);
-            this.GroupBox8.PerformLayout();
             this.TabPage3.ResumeLayout(false);
             this.GroupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -2357,25 +2122,6 @@ namespace QSP
         internal System.Windows.Forms.Label RouteDisLbl;
         internal System.Windows.Forms.RichTextBox RouteDisplayAltnRichTxtBox;
         internal System.Windows.Forms.Label RouteDisAltnLbl;
-        internal System.Windows.Forms.GroupBox GroupBox8;
-        internal System.Windows.Forms.Label Label56;
-        internal System.Windows.Forms.Button Find_Btn;
-        internal System.Windows.Forms.RichTextBox RouteAdvancedRichTxtBox;
-        internal System.Windows.Forms.ComboBox WptSelToCBox;
-        internal System.Windows.Forms.ComboBox WptSelFromCBox;
-        internal System.Windows.Forms.RadioButton RadioButton4;
-        internal System.Windows.Forms.RadioButton RadioButton3;
-        internal System.Windows.Forms.RadioButton RadioButton2;
-        internal System.Windows.Forms.RadioButton RadioButton1;
-        internal System.Windows.Forms.Label Label64;
-        internal System.Windows.Forms.ComboBox ToStarCBox;
-        internal System.Windows.Forms.ComboBox FromSidCBox;
-        internal System.Windows.Forms.ComboBox ToRwyCBox;
-        internal System.Windows.Forms.ComboBox FromRwyCBox;
-        internal System.Windows.Forms.Label Label65;
-        internal System.Windows.Forms.TextBox FromTxtbox;
-        internal System.Windows.Forms.TextBox ToTxtbox;
-        internal System.Windows.Forms.Label Label66;
         internal System.Windows.Forms.Panel PanelTO;
         internal System.Windows.Forms.Panel PanelAirportData;
         internal System.Windows.Forms.TableLayoutPanel TableLayoutPanel16;
@@ -2447,5 +2193,6 @@ namespace QSP
         private UI.ToLdgModule.LandingPerf.LandingPerfControl landingPerfControl;
         private UI.ToLdgModule.TOPerf.TOPerfControl toPerfControl;
         private UI.ToLdgModule.AirportMap.AirportMapControl airportMapControl;
+        private UI.UserControls.AdvancedRouteTool advancedRouteTool;
     }
 }
