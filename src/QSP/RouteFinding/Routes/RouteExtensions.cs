@@ -25,6 +25,7 @@ namespace QSP.RouteFinding.Routes
             {
                 return n.Value.Waypoint.Equals(route.First.Value.Waypoint) &&
                 n.Value.AirwayToNext == airway &&
+                n.Next != null &&
                 n.Next.Value.Waypoint.Equals(route.Last.Value.Waypoint);
             });
 

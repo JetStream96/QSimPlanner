@@ -43,5 +43,29 @@ namespace UnitTest.LibraryExtension
             Assert.IsTrue(
                 Enumerable.SequenceEqual(x, new int[] { 4, 5, 6 }));
         }
+
+        [Test]
+        public void AddAfterTest()
+        {
+            var x = new LinkedList<int>(new int[] { 0, 1, 2 });
+            var y = new int[] { 4, 5 };
+
+            x.AddAfter(x.First.Next, y);
+
+            Assert.IsTrue(
+                Enumerable.SequenceEqual(x, new int[] { 0, 1, 4, 5, 2 }));
+        }
+
+        [Test]
+        public void FindAllTest()
+        {
+            var x = new LinkedList<int>(new int[] { 0, 15, 22, -3, 4 });
+
+            var matches = x.FindAll((n) =>
+            n.Value % 2 == 0 && n.Next != null && n.Next.Value > 0);
+
+            Assert.IsTrue(matches.Count == 1);
+            Assert.AreEqual(0, matches[0].Value);
+        }
     }
 }

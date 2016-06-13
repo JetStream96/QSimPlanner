@@ -23,31 +23,7 @@ namespace QSP.LibraryExtension
                 node = node.Next;
             }
         }
-
-        /// <summary>
-        /// Find the first LinkedListNode matching the given conditions.
-        /// Returns null if no match is found.
-        /// </summary>
-        public static LinkedListNode<T> FindFirst<T>(
-            this LinkedList<T> item,
-            LinkedListNode<T> target,
-            IEqualityComparer<LinkedListNode<T>> comparer)
-        {
-            var n = item.First;
-
-            while (n != null)
-            {
-                if (comparer.Equals(n, target))
-                {
-                    return n;
-                }
-
-                n = n.Next;
-            }
-
-            return null;
-        }
-
+        
         /// <summary>
         /// Find all LinkedListNodes matching the given conditions.
         /// </summary>
