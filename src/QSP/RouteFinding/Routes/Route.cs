@@ -124,7 +124,7 @@ namespace QSP.RouteFinding.Routes
                 last.Value.AirwayToNext = viaAirway;
             }
 
-            Nodes.AddLast(new RouteNode(item));
+            Nodes.AddLast(new RouteNode(item, viaAirway, distanceFromPrev));
         }
 
         public void AddLastWaypoint(Waypoint item, string viaAirway)
@@ -144,7 +144,7 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public void AddLastWaypoint(Waypoint item)
         {
-            Nodes.AddLast(new RouteNode(item));
+            Nodes.AddLast(new RouteNode(item, "", 0.0));
         }
 
         // TODO: Does it work when Last is null?

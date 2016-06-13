@@ -25,12 +25,7 @@ namespace QSP.RouteFinding.Routes
                 return Waypoint.Lon;
             }
         }
-
-        public RouteNode(Waypoint Waypoint)
-        {
-            this.Waypoint = Waypoint;
-        }
-
+        
         public RouteNode(Waypoint Waypoint, string AirwayToNext, double DistanceToNext)
         {
             this.Waypoint = Waypoint;

@@ -28,7 +28,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             }
             else
             {
-                item.AppendRoute(RouteToMerge, item.Last.Value.AirwayToNext ?? "DCT");
+                item.AppendRoute(RouteToMerge, "DCT");
             }
         }
     }

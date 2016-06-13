@@ -50,15 +50,17 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             // Setup
             initObjects();
 
-            var analyzer = new StandardRouteAnalyzer(new string[] { },
-                                                     "RCTP",
-                                                     "05L",
-                                                     "VHHH",
-                                                     "07L",
-                                                     airportList,
-                                                     null,
-                                                     sids,
-                                                     stars);
+            var analyzer = new StandardRouteAnalyzer(
+                new string[] { },
+                "RCTP",
+                "05L",
+                "VHHH",
+                "07L",
+                airportList,
+                null,
+                sids,
+                stars);
+
             // Invoke
             var route = analyzer.Analyze();
 
@@ -224,15 +226,16 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         {
             initObjects();
 
-            return new StandardRouteAnalyzer(route,
-                                             "RCTP",
-                                             "05L",
-                                             "VHHH",
-                                             "07L",
-                                             airportList,
-                                             createOneAirway(),
-                                             sids,
-                                             stars);
+            return new StandardRouteAnalyzer(
+                route,
+                "RCTP",
+                "05L",
+                "VHHH",
+                "07L",
+                airportList,
+                createOneAirway(),
+                sids,
+                stars);
         }
 
         private void assertRoute2(Route route)
