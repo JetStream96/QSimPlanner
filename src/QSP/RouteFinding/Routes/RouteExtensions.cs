@@ -37,5 +37,33 @@ namespace QSP.RouteFinding.Routes
                 items.Remove(j.Previous);
             }
         }
+
+        /// <summary>
+        /// If first waypoint of other and the last one in item are:
+        /// (1) The same: The two routes are connected.
+        /// (2) Different: other is appended after item, with airway "DCT".
+        /// </summary>
+        public static void Merge(this Route item, Route other)
+        {
+            if (item.Count == 0)
+            {
+                item = other;
+                return;
+            }
+
+            if (other.Count == 0)
+            {
+                return;
+            }
+
+            if (item.LastWaypoint.Equals(other.FirstWaypoint))
+            {
+                item.ConnectRoute(other);
+            }
+            else
+            {
+                item.AppendRoute(other, "DCT");
+            }
+        }
     }
 }

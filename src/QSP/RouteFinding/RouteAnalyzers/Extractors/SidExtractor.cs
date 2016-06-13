@@ -88,7 +88,8 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             }
         }
 
-        private bool tryGetSid(string sidName, Waypoint rwyWpt, out SidInfo result)
+        private bool tryGetSid(
+            string sidName, Waypoint rwyWpt, out SidInfo result)
         {
             try
             {

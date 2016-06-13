@@ -140,7 +140,7 @@ namespace QSP.RouteFinding.Routes
         }
 
         /// <summary>
-        /// Append the specified waypoint to the end of the route. 
+        /// Add the waypoint to the end of the route.
         /// </summary>
         public void AddLastWaypoint(Waypoint item)
         {

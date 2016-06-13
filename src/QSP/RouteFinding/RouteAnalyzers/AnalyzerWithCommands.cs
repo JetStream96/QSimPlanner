@@ -171,7 +171,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 return original;
             }
 
-            original.MergeWith(routeToAppend);
+            original.Merge(routeToAppend);
             return original;
         }
 
@@ -295,7 +295,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             for (int i = 1; i < subRoutes.Count; i++)
             {
-                route.MergeWith(subRoutes[i]);
+                route.Merge(subRoutes[i]);
             }
             return route;
         }

@@ -136,8 +136,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     var mainPart = new BasicRouteAnalyzer(
                         mainRoute, wptList, chosenIndex).Analyze();
 
-                    origPart.MergeWith(mainPart);
-                    origPart.MergeWith(destPart);
+                    origPart.Merge(mainPart);
+                    origPart.Merge(destPart);
                 }
             }
 
