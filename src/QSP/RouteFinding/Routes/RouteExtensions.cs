@@ -62,7 +62,7 @@ namespace QSP.RouteFinding.Routes
             }
             else
             {
-                item.AppendRoute(other, "DCT");
+                item.AddLast(other, "DCT");
             }
         }
     }

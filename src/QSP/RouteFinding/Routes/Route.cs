@@ -147,25 +147,30 @@ namespace QSP.RouteFinding.Routes
             Nodes.AddLast(new RouteNode(item, "", 0.0));
         }
 
-        // TODO: Does it work when Last is null?
         /// <summary>
-        /// Append the given route at the end of the current one.
+        /// Append the given route at the end.
         /// </summary>
-        public void AppendRoute(Route item, string airway)
+        public void AddLast(Route item, string airway)
         {
-            var lastWpt = LastWaypoint;
-            var firstWpt = item.FirstWaypoint;
+            double distance =
+                Last == null ?
+                0.0 :
+                LastWaypoint.DistanceFrom(item.FirstWaypoint);
 
-            AppendRoute(item, airway, lastWpt.DistanceFrom(firstWpt));
+            AddLast(item, airway, distance);
         }
 
         /// <summary>
-        /// Append the given route at the end of the current one.
+        /// Append the given route at the end.
         /// </summary>
-        public void AppendRoute(Route item, string airway, double distance)
+        public void AddLast(Route item, string airway, double distance)
         {
-            Nodes.Last.Value.AirwayToNext = airway;
-            Nodes.Last.Value.DistanceToNext = distance;
+            if (Last != null)
+            {
+                Nodes.Last.Value.AirwayToNext = airway;
+                Nodes.Last.Value.DistanceToNext = distance;
+            }
+
             Nodes.AddLast(item.Nodes);
         }
 
@@ -174,6 +179,7 @@ namespace QSP.RouteFinding.Routes
         /// The last waypoint of current route must be the same 
         /// as the first one in item.
         /// </summary>
+        /// <exception cref="ArgumentException"></exception>
         public void ConnectRoute(Route item)
         {
             if (item.Count == 0)
@@ -181,9 +187,14 @@ namespace QSP.RouteFinding.Routes
                 return;
             }
 
-            ConditionChecker.Ensure<ArgumentException>(
-                LastWaypoint.Equals(item.FirstWaypoint));
-            Nodes.RemoveLast();
+            if (Last != null)
+            {
+                // This route is non-empty.
+                ConditionChecker.Ensure<ArgumentException>(
+                    LastWaypoint.Equals(item.FirstWaypoint));
+                Nodes.RemoveLast();
+            }
+
             Nodes.AddLast(item.Nodes);
         }
 
@@ -229,6 +240,7 @@ namespace QSP.RouteFinding.Routes
                     node = node.Next;
                 }
             }
+
             result.Append(node.Value.AirwayToNext + ' ');
 
             if (ShowLastWaypoint)
