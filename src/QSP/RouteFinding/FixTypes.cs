@@ -1,4 +1,6 @@
-﻿namespace QSP.RouteFinding
+﻿using System.Linq;
+
+namespace QSP.RouteFinding
 {
     public static class FixTypes
     {
@@ -20,15 +22,7 @@
         /// <returns></returns>
         public static bool HasCorrds(string fixType)
         {
-            foreach (var i in correctFixType)
-            {
-                if (i == fixType)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return correctFixType.Contains(fixType);
         }
     }
 }
