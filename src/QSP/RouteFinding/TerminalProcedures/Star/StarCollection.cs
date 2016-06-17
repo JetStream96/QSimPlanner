@@ -1,10 +1,9 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using static QSP.RouteFinding.TerminalProcedures.Utilities;
-using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.RouteFinding.TerminalProcedures.Star
 {
@@ -29,8 +28,10 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         /// <summary>
         /// Get the STAR for the specified runway or transition.
         /// </summary>
-        /// <param name="star">The identifier of the STAR, without transition. e.g. GOLDN6. NOT GOLDN6.ENI</param>
-        /// <param name="rwyOrTransition">Either the name of RWY or Transition. e.g. 01L, or ENI.</param>
+        /// <param name="star">The identifier of the STAR, without transition.
+        /// e.g. GOLDN6. NOT GOLDN6.ENI</param>
+        /// <param name="rwyOrTransition">Either the name of RWY or Transition.
+        /// e.g. 01L, or ENI.</param>
         public StarEntry GetStar(string star, string rwyOrTransition)
         {
             foreach (var i in _stars)
@@ -59,18 +60,21 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         }
 
         /// <summary>
-        /// Find all STARs available for the runway. Two STARs only different in transitions are regarded as different. 
+        /// Find all STARs available for the runway. Two STARs only 
+        /// different in transitions are regarded as different. 
         /// If none is available an empty list is returned.
         /// </summary>
         /// <param name="rwy">Runway Ident</param>
         public List<string> GetStarList(string rwy)
         {
-            return new ProcedureSelector<StarEntry>(_stars, rwy).GetProcedureList();
+            return new ProcedureSelector<StarEntry>(_stars, rwy)
+                .GetProcedureList();
         }
 
-        public ReadOnlyCollection<Waypoint> StarWaypoints(string star, string rwy, Waypoint destRwy)
+        public ReadOnlyCollection<Waypoint> StarWaypoints(
+            string star, string rwy, Waypoint destRwy)
         {
-            var starTrans = SplitSidStarTransition(star);
+            var starTrans = new TerminalProcedureName(star);
 
             var rwySpecificPart = GetStar(starTrans.ProcedureName, rwy);
             var commonPart = GetStar(starTrans.ProcedureName);
@@ -80,7 +84,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
 
             if (commonPart != null)
             {
-                // The last wpt of runway specific part should be the same as the first one of the common part.
+                // The last wpt of runway specific part should be the 
+                // same as the first one of the common part.
                 wpts.TryRemoveLast();
                 wpts.AddRange(commonPart.Waypoints);
             }
@@ -103,12 +108,14 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             return new ReadOnlyCollection<Waypoint>(wpts);
         }
 
-        private bool addTransitionIfNeeded(TerminalProcedureName starTrans, List<Waypoint> wpts)
+        private bool addTransitionIfNeeded(
+            TerminalProcedureName starTrans, List<Waypoint> wpts)
         {
             if (starTrans.TransitionName != "")
             {
                 // There is transition
-                var transitionPart = GetStar(starTrans.ProcedureName, starTrans.TransitionName);
+                var transitionPart = GetStar(
+                    starTrans.ProcedureName, starTrans.TransitionName);
 
                 if (transitionPart == null)
                 {
@@ -122,10 +129,13 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         }
 
         /// <summary>
-        /// Returns total distance of the STAR and the last wpt, regardless whether the last wpt is in wptList.
-        /// If there isn't any waypoint in the STAR, this returns a distance of 0.0 and the dest runway (e.g. KLAX25L).
+        /// Returns total distance of the STAR and the last wpt,
+        /// regardless whether the last wpt is in wptList.
+        /// If there isn't any waypoint in the STAR, this returns
+        /// a distance of 0.0 and the dest runway (e.g. KLAX25L).
         /// <param name="rwy">The runway identifier. e.g. 25R </param>
-        /// <param name="destRwy">The waypoint representing the destination runway.</param>
+        /// <param name="destRwy">The waypoint representing the 
+        /// destination runway.</param>
         /// </summary>
         /// <exception cref="StarNotFoundException"></exception>
         public StarInfo GetStarInfo(string star, string rwy, Waypoint destRwy)

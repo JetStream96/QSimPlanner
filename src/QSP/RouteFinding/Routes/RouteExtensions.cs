@@ -45,12 +45,6 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public static void Merge(this Route item, Route other)
         {
-            if (item.Count == 0)
-            {
-                item = other;
-                return;
-            }
-
             if (other.Count == 0)
             {
                 return;

@@ -1,29 +1,33 @@
-﻿using System.Collections.Generic;
-using NUnit.Framework;
-using QSP.RouteFinding.TerminalProcedures.Sid;
-using QSP.RouteFinding.TerminalProcedures;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.TerminalProcedures;
+using QSP.RouteFinding.TerminalProcedures.Sid;
+using System.Collections.Generic;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest
 {
     [TestFixture]
     public class ProcedureSelectorTest
     {
-
         [Test]
         public void WhenThereIsNoSidThenReturnEmptyList()
         {
-            var avaliableSids = new ProcedureSelector<SidEntry>(new List<SidEntry>(), "14").GetProcedureList();
+            var avaliableSids = new ProcedureSelector<SidEntry>(
+                new List<SidEntry>(), "14").GetProcedureList();
+
             Assert.AreEqual(0, avaliableSids.Count);
         }
 
         [Test]
         public void WhenSidIsRwySpecific()
         {
-            var sids = sidEntryCreateHelper(new sidData("14", "SID1", EntryType.RwySpecific),
-                                            new sidData("25", "SID1", EntryType.RwySpecific));
+            var sids = sidEntryCreateHelper(
+                new sidData("14", "SID1", EntryType.RwySpecific),
+                new sidData("25", "SID1", EntryType.RwySpecific));
 
-            var avaliableSids = new ProcedureSelector<SidEntry>(sids, "14").GetProcedureList();
+            var avaliableSids = new ProcedureSelector<SidEntry>(sids, "14")
+                .GetProcedureList();
+
             Assert.AreEqual(1, avaliableSids.Count);
             Assert.IsTrue(avaliableSids[0] == "SID1");
         }
@@ -31,9 +35,12 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
         [Test]
         public void WhenCommonPartExists()
         {
-            var sids = sidEntryCreateHelper(new sidData("14", "SID1", EntryType.Common));
+            var sids = sidEntryCreateHelper(
+                new sidData("14", "SID1", EntryType.Common));
 
-            var avaliableSids = new ProcedureSelector<SidEntry>(sids, "14").GetProcedureList();
+            var avaliableSids = new ProcedureSelector<SidEntry>(sids, "14")
+                .GetProcedureList();
+
             Assert.AreEqual(1, avaliableSids.Count);
             Assert.IsTrue(avaliableSids[0] == "SID1");
         }
@@ -41,11 +48,14 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
         [Test]
         public void WhenCommonPartIsNotForTheInterestedRwy()
         {
-            var sids = sidEntryCreateHelper(new sidData("ALL", "SID1", EntryType.Common),
-                                            new sidData("25", "SID1", EntryType.RwySpecific),
-                                            new sidData("14", "SID2", EntryType.RwySpecific));
+            var sids = sidEntryCreateHelper(
+                new sidData("ALL", "SID1", EntryType.Common),
+                new sidData("25", "SID1", EntryType.RwySpecific),
+                new sidData("14", "SID2", EntryType.RwySpecific));
 
-            var avaliableSids = new ProcedureSelector<SidEntry>(sids, "14").GetProcedureList();
+            var avaliableSids = new ProcedureSelector<SidEntry>(sids, "14")
+                .GetProcedureList();
+
             Assert.AreEqual(1, avaliableSids.Count);
             Assert.IsTrue(avaliableSids[0] == "SID2");
         }
@@ -53,11 +63,13 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
         [Test]
         public void WhenTransitionIsAvailableThenNoTransitionPartIsIgnored()
         {
-            var sids = sidEntryCreateHelper(new sidData("14", "SID1", EntryType.RwySpecific),
-                                            new sidData("TRANS1", "SID1", EntryType.Transition),
-                                            new sidData("TRANS2", "SID1", EntryType.Transition));
+            var sids = sidEntryCreateHelper(
+                new sidData("14", "SID1", EntryType.RwySpecific),
+                new sidData("TRANS1", "SID1", EntryType.Transition),
+                new sidData("TRANS2", "SID1", EntryType.Transition));
 
-            var avaliableSids = new ProcedureSelector<SidEntry>(sids, "14").GetProcedureList();
+            var avaliableSids = new ProcedureSelector<SidEntry>(sids, "14")
+                .GetProcedureList();
             Assert.AreEqual(2, avaliableSids.Count);
             Assert.IsTrue(avaliableSids.Contains("SID1.TRANS1"));
             Assert.IsTrue(avaliableSids.Contains("SID1.TRANS2"));
@@ -66,21 +78,27 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
         [Test]
         public void WhenTransitionIsForWrongRwyThenDoesNotAddToResult()
         {
-            var sids = sidEntryCreateHelper(new sidData("25", "SID2", EntryType.RwySpecific),
-                                            new sidData("TRANS2", "SID2", EntryType.Transition));
+            var sids = sidEntryCreateHelper(
+                new sidData("25", "SID2", EntryType.RwySpecific),
+                new sidData("TRANS2", "SID2", EntryType.Transition));
 
-            var avaliableSids = new ProcedureSelector<SidEntry>(sids, "14").GetProcedureList();
+            var avaliableSids = new ProcedureSelector<SidEntry>(sids, "14")
+                .GetProcedureList();
+
             Assert.AreEqual(0, avaliableSids.Count);
         }
 
-        private static List<SidEntry> sidEntryCreateHelper(params sidData[] data)
+        private static List<SidEntry> sidEntryCreateHelper(
+            params sidData[] data)
         {
             var emptyList = new List<Waypoint>();
             var sids = new List<SidEntry>();
 
             foreach (var i in data)
             {
-                sids.Add(new SidEntry(i.rwy, i.sidName, emptyList, i.type, false));
+                sids.Add(
+                    new SidEntry(
+                        i.rwy, i.sidName, emptyList, i.type, false));
             }
             return sids;
         }

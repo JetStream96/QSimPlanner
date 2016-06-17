@@ -216,7 +216,7 @@
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarEntry.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarInfo.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarReader.cs" />
-    <Compile Include="RouteFinding\TerminalProcedures\Utilities.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\TerminalProcedureName.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsMessage.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\IAusotsDownloader.cs" />
