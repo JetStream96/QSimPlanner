@@ -1,4 +1,5 @@
 using QSP.AviationTools.Coordinates;
+using QSP.LibraryExtension;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,8 @@ namespace QSP.RouteFinding
             latLon2 = latLonEnd;
         }
 
-        private List<LatLon> getRouteSameLon(double lat1, double lat2, double lon)
+        private static List<LatLon> getRouteSameLon(
+            double lat1, double lat2, double lon)
         {
             var route = new List<LatLon>();
 
@@ -64,12 +66,12 @@ namespace QSP.RouteFinding
             return route;
         }
 
-        private double oppositeLon(double lon)
+        private static double oppositeLon(double lon)
         {
             return lon >= 0 ? (lon - 180) : (lon + 180);
         }
 
-        private void trimLatLon(List<LatLon> item)
+        private static void trimLatLon(List<LatLon> item)
         {
             for (int i = 0; i < item.Count; i++)
             {
@@ -87,29 +89,37 @@ namespace QSP.RouteFinding
         }
 
         /// <summary>
-        /// Returns a List of LatLon, which includes each point of the random route.
+        /// Returns a List of LatLon of the random route.
         /// First and last points are also included.
         /// </summary>
-        /// <returns></returns>
         public List<LatLon> Find()
-        {
-            //lat and lon of the random route
-            if ((latLon1.Lon - latLon2.Lon) % 360 == 0 && latLon1.Lon % 1 == 0)
+        {            
+            // TODO: Can special cases be eliminated?
+            if ((latLon1.Lon - latLon2.Lon) % 360 == 0 &&
+                latLon1.Lon % 1 == 0)
             {
+                // Same longitude (integer)
                 return getRouteSameLon(latLon1.Lat, latLon2.Lat, latLon1.Lon);
             }
-            else if ((latLon1.Lon - latLon2.Lon) % 180 == 0 && latLon1.Lon % 1 == 0)
+            else if ((latLon1.Lon - latLon2.Lon) % 180 == 0 &&
+                latLon1.Lon % 1 == 0)
             {
-                double goNorthAngle = 180 - latLon1.Lat - latLon2.Lat;
+                // The total angle to travel through if going through 
+                // north pole.
+                double goNorthAngle = 180.0 - latLon1.Lat - latLon2.Lat;
                 List<LatLon> result = null;
 
-                if (goNorthAngle <= 180)
+                if (goNorthAngle <= 180.0)
                 {
-                    result = getRouteSameLon(latLon1.Lat, 180 - latLon2.Lat, latLon1.Lon);
+                    // Use a trick which transforms (Lat, Lon) to
+                    // (180 - Lat, 180 + Lon)
+                    result = getRouteSameLon(
+                        latLon1.Lat, 180.0 - latLon2.Lat, latLon1.Lon);
                 }
                 else
                 {
-                    result = getRouteSameLon(-180 - latLon1.Lat, latLon2.Lat, latLon2.Lon);
+                    result = getRouteSameLon(
+                        -180.0 - latLon1.Lat, latLon2.Lat, latLon2.Lon);
                 }
 
                 trimLatLon(result);
@@ -120,9 +130,10 @@ namespace QSP.RouteFinding
             var route = new List<LatLon>();
             route.Add(latLon1);
 
-            while (route.Last().Distance(latLon2) > 500.0)
+            while (route.Last().Distance(latLon2) > MaxLegDis)
             {
-                route.Add(chooseCandidates(getCandidates(route.Last(), latLon2), route.Last()));
+                var candidates = getCandidates(route.Last(), latLon2);
+                route.Add(chooseCandidates(candidates, route.Last()));
             }
 
             route.Add(latLon2);
@@ -130,7 +141,7 @@ namespace QSP.RouteFinding
             return route;
         }
 
-        private List<LatLon> candidateSameLon(double latNow, double latDest, double lon)
+        private static List<LatLon> candidateSameLon(double latNow, double latDest, double lon)
         {
             var candidates = new List<LatLon>();
 
@@ -145,7 +156,7 @@ namespace QSP.RouteFinding
             return candidates;
         }
 
-        private List<LatLon> getCandidates(LatLon u, LatLon v2)
+        private static List<LatLon> getCandidates(LatLon u, LatLon v2)
         {
             var candidates = new List<LatLon>();
 
@@ -182,7 +193,7 @@ namespace QSP.RouteFinding
             West
         }
 
-        private double getNextLon(double currentLon, FindLonDirection dir)
+        private static double getNextLon(double currentLon, FindLonDirection dir)
         {
             if (dir == FindLonDirection.East)
             {
@@ -199,7 +210,7 @@ namespace QSP.RouteFinding
             return (lon + 180).Mod(360) - 180;
         }
 
-        private List<LatLon> candidatesCircleOfLatIntersection(LatLon u, LatLon v2)
+        private static List<LatLon> candidatesCircleOfLatIntersection(LatLon u, LatLon v2)
         {
             var candidates = new List<LatLon>();
             FindLatDirection dir = default(FindLatDirection);
@@ -235,7 +246,7 @@ namespace QSP.RouteFinding
 
                 foreach (double i in lonInt)
                 {
-                    if (u.Distance(lat, i) <= 500)
+                    if (u.Distance(lat, i) <= MaxLegDis)
                     {
                         candidates.Add(new LatLon(lat, i));
                         exitLoop = false;
@@ -245,7 +256,7 @@ namespace QSP.RouteFinding
             return candidates;
         }
 
-        private List<LatLon> candidatesMeridianIntersection(LatLon u, LatLon v2)
+        private static List<LatLon> candidatesMeridianIntersection(LatLon u, LatLon v2)
         {
             var candidates = new List<LatLon>();
             var dir = default(FindLonDirection);
@@ -284,32 +295,38 @@ namespace QSP.RouteFinding
                 lon = getNextLon(lon, dir);
                 lat = getLatMeridianIntersection(u, v2, lon);
 
-                if (Floor(lat) >= -90.0 && Distance(u.Lat, u.Lon, Floor(lat), lon) <= 500.0)
+                if (Floor(lat) >= -90.0 &&
+                    Distance(u.Lat, u.Lon, Floor(lat), lon) <= MaxLegDis)
                 {
                     candidates.Add(new LatLon(Floor(lat), lon));
                     exitLoop = false;
                 }
 
-                if (Ceiling(lat) <= 90.0 && Distance(u.Lat, u.Lon, Ceiling(lat), lon) <= 500.0)
+                if (Ceiling(lat) <= 90.0 &&
+                    Distance(u.Lat, u.Lon, Ceiling(lat), lon) <= MaxLegDis)
                 {
                     candidates.Add(new LatLon(Ceiling(lat), lon));
                     exitLoop = false;
                 }
             }
+
             return candidates;
         }
 
-        private double getLatMeridianIntersection(LatLon u, LatLon v2, double lon)
+        private static double getLatMeridianIntersection(
+            LatLon u, LatLon v2, double lon)
         {
             var v3 = u.ToVector3D().Cross(v2.ToVector3D());
             double lonRad = ToRadian(lon);
             double a = Cos(lonRad) * v3.X + Sin(lonRad) * v3.Y;
             double c = a / v3.Z;
 
-            return ToDegree(Asin(Sqrt(c * c / (1 + c * c))) * (c < 0 ? 1.0 : -1.0));
+            return ToDegree(
+                Asin(Sqrt(c * c / (1 + c * c))) * (c < 0 ? 1.0 : -1.0));
         }
 
-        private Tuple<double, double> getLonCircleOfLatIntersection(LatLon u, LatLon v2, double lat)
+        private static Tuple<double, double> getLonCircleOfLatIntersection(
+            LatLon u, LatLon v2, double lat)
         {
             var w = u.ToVector3D().Cross(v2.ToVector3D());
             double latRad = ToRadian(lat);
@@ -320,35 +337,24 @@ namespace QSP.RouteFinding
             double d = Atan2(c, b);
             double g = Acos(-a / Sqrt(b * b + c * c));
 
-            return new Tuple<double, double>(trimLon(ToDegree(d + g)), trimLon(ToDegree(d - g)));
+            return new Tuple<double, double>(
+                trimLon(ToDegree(d + g)), trimLon(ToDegree(d - g)));
         }
 
         private LatLon chooseCandidates(List<LatLon> candidates, LatLon startLatLon)
         {
-            if (candidates.Count == 1)
-            {
-                return candidates[0];
-            }
-
             var w = getTangent(startLatLon, latLon2);
-            double[] innerProducts = new double[candidates.Count];
-
-            for (int i = 0; i < candidates.Count; i++)
-            {
-                innerProducts[i] = getTangent(startLatLon, candidates[i]).Dot(w);
-            }
-
-            return candidates[innerProducts.MaxIndex()];
+            return candidates.MaxBy(i => getTangent(startLatLon, i).Dot(w));
         }
 
-        //returns the unit vector tantgent to the path from v to w at v
-        //
-        private Vector3D getTangent(Vector3D v, Vector3D w)
+        // Returns the unit vector tantgent to the path 
+        // from v to w at v
+        private static Vector3D getTangent(Vector3D v, Vector3D w)
         {
             return v.Cross(w.Cross(v)).Normalize();
         }
 
-        private Vector3D getTangent(LatLon v, LatLon w)
+        private static Vector3D getTangent(LatLon v, LatLon w)
         {
             return getTangent(v.ToVector3D(), w.ToVector3D());
         }
@@ -359,18 +365,18 @@ namespace QSP.RouteFinding
             South
         }
 
-        private double maxLat(LatLon u, LatLon v2)
+        private static double maxLat(LatLon u, LatLon v2)
         {
             return ToDegree(Acos(Cos(u.Lat) * Abs(unitVectorUDir(u.Lon).Dot(getTangent(u, v2)))));
         }
 
-        private Vector3D unitVectorUDir(double lon)
+        private static Vector3D unitVectorUDir(double lon)
         {
             double lonRad = ToRadian(lon);
             return new Vector3D(-Sin(lonRad), Cos(lonRad), 0);
         }
 
-        private double getNextLat(double lat, FindLatDirection dir)
+        private static double getNextLat(double lat, FindLatDirection dir)
         {
             if (dir == FindLatDirection.North)
             {
