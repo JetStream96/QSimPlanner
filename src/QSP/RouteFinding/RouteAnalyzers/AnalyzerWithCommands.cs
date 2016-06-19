@@ -192,10 +192,10 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     {
                         // RAND
                         var randRoute = randRouteToRoute(
-                            new RandomRouteFinder(
-                                startEnd.Start.LatLon,
-                                startEnd.End.LatLon)
-                            .Find());
+                             RandomRoutes.RandomRouteFinderFactory
+                             .GetInstance()
+                            .Find(startEnd.Start, startEnd.End)
+                            .Select(p => p.LatLon).ToList());
 
                         randRouteAddOrigDest(randRoute, analyzed, i);
                         analyzed[i] = randRoute;

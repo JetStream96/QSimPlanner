@@ -21,5 +21,12 @@ namespace QSP.LibraryExtension
             return source.Aggregate((x, y) =>
             selector(x) > selector(y) ? x : y);
         }
+
+        public static T MinBy<T>(
+            this IEnumerable<T> source, Func<T, double> selector)
+        {
+            return source.Aggregate((x, y) =>
+            selector(x) < selector(y) ? x : y);
+        }
     }
 }

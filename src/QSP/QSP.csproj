@@ -390,7 +390,6 @@
     <Compile Include="RouteFinding\Airports\AlternateFinder.cs" />
     <Compile Include="RouteFinding\Exceptions.cs" />
     <Compile Include="GoogleMap\RouteDrawing.cs" />
-    <Compile Include="RouteFinding\RandomRouteFinder.cs" />
     <Compile Include="RouteFinding\RouteFinder.cs" />
     <Compile Include="RouteFinding\Containers\Neighbor.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointList.cs" />
