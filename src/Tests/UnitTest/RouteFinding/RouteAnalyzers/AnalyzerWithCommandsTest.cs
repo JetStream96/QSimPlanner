@@ -8,6 +8,7 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using System.Linq;
 using System.Collections.Generic;
 using static QSP.MathTools.GCDis;
 using static UnitTest.Common.Utilities;
@@ -173,12 +174,12 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var node = route.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("ABCD05L", 25.0, 120.0)) &&
                           node.Value.AirwayToNext == "DCT" &&
-                          WithinPrecision(node.Value.DistanceToNext, Distance(25.0, 120.0, 30.0, 117.0), 1E-8));
+                          WithinPrecision(node.Value.DistanceToNext, Distance(25.0, 120.0, 28.0, 120.0), 1E-8));
 
             node = node.Next;
-            Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(30.0, 117.0)) &&
+            Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(28.0, 120.0)) &&
                           node.Value.AirwayToNext == "DCT" &&
-                          WithinPrecision(node.Value.DistanceToNext, Distance(30.0, 117.0, 37.0, 112.0), 1E-8));
+                          WithinPrecision(node.Value.DistanceToNext, Distance(28.0, 120.0, 37.0, 112.0), 1E-8));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(37.0, 112.0)) &&
@@ -208,17 +209,12 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(30.0, 117.0)) &&
                           node.Value.AirwayToNext == "DCT");
-            Assert.AreEqual(node.Value.DistanceToNext, Distance(30.0, 117.0, 33.0, 115.0), 1E-8);
+            Assert.AreEqual(node.Value.DistanceToNext, Distance(30.0, 117.0, 40.0, 110.0), 1E-8);
 
             node = node.Next;
-            Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(33.0, 115.0)) &&
+            Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(40.0, 110.0)) &&
                           node.Value.AirwayToNext == "DCT");
-            Assert.AreEqual(node.Value.DistanceToNext, Distance(33.0, 115.0, 37.0, 112.0), 1E-8);
-
-            node = node.Next;
-            Assert.IsTrue(node.Value.Waypoint.LatLon.Equals(new LatLon(37.0, 112.0)) &&
-                          node.Value.AirwayToNext == "DCT");
-            Assert.AreEqual(node.Value.DistanceToNext, Distance(37.0, 112.0, 43.0, 107.0), 1E-8);
+            Assert.AreEqual(node.Value.DistanceToNext, Distance(40.0, 110.0, 43.0, 107.0), 1E-8);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(new Waypoint("EFGH07L", 43.0, 107.0)) &&
