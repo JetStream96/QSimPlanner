@@ -155,7 +155,7 @@ namespace QSP.RouteFinding.AirwayStructure
             searchHelper.Remove(
                 graph.GetNode(index).ID,
                 index,
-                RemoveParameter.RemoveFirst);
+                RemoveOption.RemoveFirst);
 
             graph.RemoveNode(index);
         }

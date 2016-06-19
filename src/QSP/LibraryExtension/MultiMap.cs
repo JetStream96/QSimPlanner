@@ -243,7 +243,7 @@ namespace QSP.LibraryExtension
         {
             int size = HashHelpers.GetPrime(capacity);
             buckets = new int[size];
-            for (int i = 0; i <= buckets.Length - 1; i++)
+            for (int i = 0; i < buckets.Length; i++)
             {
                 buckets[i] = -1;
             }
@@ -336,32 +336,37 @@ namespace QSP.LibraryExtension
             entries = newEntries;
         }
 
-        // TODO: This is a bit messy.
-        private enum RemoveOption
+        private enum RemoveParameter
         {
-            RemoveAllNoValue = -2,     // Only compare key.
-            RemoveFirstNoValue = -1,
+            RemoveAllMatchingKey = -2,     // Only compare key.
+            RemoveFirstMatchingKey = -1,
             RemoveFirst = 1,
             RemoveAll = 2
         }
 
-        public enum RemoveParameter
+        public enum RemoveOption
         {
             RemoveFirst = 1,
             RemoveAll = 2
         }
 
-        public bool Remove(TKey key, RemoveParameter para)
+        /// <summary>
+        /// Remove the item(s) with the given key.
+        /// </summary>
+        public bool Remove(TKey key, RemoveOption para)
         {
-            return Remove(key, default(TValue), (RemoveOption)(-((int)para)));
+            return Remove(key, default(TValue), (RemoveParameter)(-((int)para)));
         }
 
-        public bool Remove(TKey key, TValue value, RemoveParameter para)
+        /// <summary>
+        /// Remove the item(s) with the given key and value.
+        /// </summary>
+        public bool Remove(TKey key, TValue value, RemoveOption para)
         {
-            return Remove(key, value, (RemoveOption)para);
+            return Remove(key, value, (RemoveParameter)para);
         }
 
-        private bool Remove(TKey key, TValue value, RemoveOption para)
+        private bool Remove(TKey key, TValue value, RemoveParameter para)
         {
             if (key == null)
             {
@@ -404,7 +409,8 @@ namespace QSP.LibraryExtension
                         last = i;
                         i = j;
 
-                        if (Math.Abs((int)para) == 1)
+                        if (para == RemoveParameter.RemoveFirst ||
+                            para == RemoveParameter.RemoveFirstMatchingKey)
                         {
                             return true;
                         }
@@ -467,7 +473,8 @@ namespace QSP.LibraryExtension
                 {
                     if (dictionary.entries[index].hashCode >= 0)
                     {
-                        m_current = new KeyValuePair<TKey, TValue>(dictionary.entries[index].key, dictionary.entries[index].value);
+                        m_current = new KeyValuePair<TKey, TValue>(
+                            dictionary.entries[index].key, dictionary.entries[index].value);
                         index++;
                         return true;
                     }

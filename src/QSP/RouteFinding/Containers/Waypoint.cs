@@ -1,12 +1,11 @@
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
-using System.Collections.Generic;
-using static QSP.AviationTools.Coordinates.Constants;
 
 namespace QSP.RouteFinding.Containers
 {
-    public class Waypoint : IComparable<Waypoint>, ICoordinate, IEquatable<Waypoint>
+    public class Waypoint :
+        IComparable<Waypoint>, ICoordinate, IEquatable<Waypoint>
     {
         public string ID { get; private set; }
         public double Lat { get; private set; }
@@ -23,11 +22,13 @@ namespace QSP.RouteFinding.Containers
             this.Lon = Lon;
         }
 
-        public Waypoint(string ID, LatLon latLon) : this(ID, latLon.Lat, latLon.Lon)
+        public Waypoint(string ID, LatLon latLon)
+            : this(ID, latLon.Lat, latLon.Lon)
         {
         }
 
-        public Waypoint(Waypoint waypoint) : this(waypoint.ID, waypoint.Lat, waypoint.Lon)
+        public Waypoint(Waypoint waypoint)
+            : this(waypoint.ID, waypoint.Lat, waypoint.Lon)
         {
         }
 
@@ -41,9 +42,13 @@ namespace QSP.RouteFinding.Containers
         /// </summary>
         public bool Equals(Waypoint x)
         {
-            return (ID == x.ID &&
-                    Math.Abs(Lat - x.Lat) < LatLonTolerance &&
-                    Math.Abs(Lon - x.Lon) < LatLonTolerance);
+            return
+                x != null &&
+                ID == x.ID &&
+                Lat == x.Lat &&
+                Lon == x.Lon;
+                //Math.Abs(Lat - x.Lat) < LatLonTolerance &&
+                //Math.Abs(Lon - x.Lon) < LatLonTolerance;
         }
 
         public int CompareTo(Waypoint other)
@@ -69,18 +74,9 @@ namespace QSP.RouteFinding.Containers
             }
         }
 
-        private class sortIDHelper : Comparer<Waypoint>
+        public override int GetHashCode()
         {
-            public override int Compare(Waypoint x, Waypoint y)
-            {
-                return x.ID.CompareTo(y.ID);
-            }
+            return ID.GetHashCode() ^ Lat.GetHashCode() ^ Lon.GetHashCode();
         }
-
-        public static Comparer<Waypoint> SortID()
-        {
-            return new sortIDHelper();
-        }
-
     }
 }

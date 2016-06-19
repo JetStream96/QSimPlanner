@@ -15,25 +15,25 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
             int x = s.IndexOf('/');
             ThrowWhenNegative<ArgumentException>(x);
 
-            double Lat = Convert.ToDouble(s.Substring(0, 2));
-            double Lon = Convert.ToDouble(s.Substring(x + 1, 2));
+            double Lat = double.Parse(s.Substring(0, 2));
+            double Lon = double.Parse(s.Substring(x + 1, 2));
 
             if (x > 2)
             {
-                double addLat = Convert.ToDouble(s.Substring(2, x - 2));
-                Ensure<ArgumentException>(addLat >= 0.0 && addLat <= 60.0);
+                double addLat = double.Parse(s.Substring(2, x - 2));
+                Ensure<ArgumentException>(0.0 <= addLat && addLat <= 60.0);
                 Lat += addLat / 60;
             }
 
             if (s.Length - x - 1 > 2)
             {
-                double addLon = Convert.ToDouble(s.Substring(x + 3));
-                Ensure<ArgumentException>(addLon >= 0.0 && addLon <= 60.0);
+                double addLon = double.Parse(s.Substring(x + 3));
+                Ensure<ArgumentException>(0.0 <= addLon && addLon <= 60.0);
                 Lon += addLon / 60;
             }
 
-            Ensure<ArgumentException>(Lat >= 0.0 && Lat <= 90.0);
-            Ensure<ArgumentException>(Lon >= 0 && Lon <= 180);
+            Ensure<ArgumentException>(0.0 <= Lat && Lat <= 90.0);
+            Ensure<ArgumentException>(0.0 <= Lon && Lon <= 180.0);
 
             return new LatLon(Lat, -Lon);
         }

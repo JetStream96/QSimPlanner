@@ -341,7 +341,8 @@ namespace QSP.RouteFinding
                 trimLon(ToDegree(d + g)), trimLon(ToDegree(d - g)));
         }
 
-        private LatLon chooseCandidates(List<LatLon> candidates, LatLon startLatLon)
+        private LatLon chooseCandidates(
+            List<LatLon> candidates, LatLon startLatLon)
         {
             var w = getTangent(startLatLon, latLon2);
             return candidates.MaxBy(i => getTangent(startLatLon, i).Dot(w));

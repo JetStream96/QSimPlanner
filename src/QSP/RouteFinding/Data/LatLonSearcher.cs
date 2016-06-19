@@ -198,15 +198,7 @@ namespace QSP.RouteFinding.Data
         {
             var gridItems = itemsInGrid(getGrid(item.Lat, item.Lon));
 
-            for (int i = 0; i < gridItems.Count; i++)
-            {
-                if (item.Equals(gridItems[i]))
-                {
-                    gridItems.RemoveAt(i);
-                    return true;
-                }
-            }
-            return false;
+            return gridItems.Remove(item); // TODO: Performance?
         }
 
         /// <summary>

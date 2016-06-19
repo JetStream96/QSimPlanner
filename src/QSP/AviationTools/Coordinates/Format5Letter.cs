@@ -1,5 +1,5 @@
-﻿using System;
-using QSP.Utilities;
+﻿using QSP.Utilities;
+using System;
 using System.Linq;
 using static QSP.AviationTools.Coordinates.Utilities;
 
@@ -18,7 +18,8 @@ namespace QSP.AviationTools.Coordinates
             int latInt = 0;
             int lonInt = 0;
 
-            if (tryConvertInt(Lat, ref latInt) == false || tryConvertInt(Lon, ref lonInt) == false)
+            if (tryConvertInt(Lat, ref latInt) == false || 
+                tryConvertInt(Lon, ref lonInt) == false)
             {
                 return null;
             }
@@ -54,15 +55,17 @@ namespace QSP.AviationTools.Coordinates
 
             if (lon < 100)
             {
-                return lat.ToString().PadLeft(2,'0') + lon.ToString().PadLeft(2, '0') + c;
+                return lat.ToString().PadLeft(2, '0') + 
+                    lon.ToString().PadLeft(2, '0') + c;
             }
             else
             {
-                return lat.ToString().PadLeft(2, '0') + c + (lon - 100).ToString().PadLeft(2, '0');
+                return lat.ToString().PadLeft(2, '0') + c + 
+                    (lon - 100).ToString().PadLeft(2, '0');
             }
         }
 
-        private static int AlphabetPosition(string s)
+        private static int alphabetPosition(string s)
         {
             if (NSEW.Contains(s[2]))
             {
@@ -89,15 +92,15 @@ namespace QSP.AviationTools.Coordinates
         {
             ConditionChecker.Ensure<ArgumentException>(item.Length == 5);
 
-            int pos = AlphabetPosition(item);
+            int pos = alphabetPosition(item);
 
-            int lat = Convert.ToInt32(item.Substring(0, 2));
+            int lat = int.Parse(item.Substring(0, 2));
             int lon = pos == 2
-                      ? Convert.ToInt32(item.Substring(3, 2)) + 100
-                      : Convert.ToInt32(item.Substring(2, 2));
+                      ? int.Parse(item.Substring(3, 2)) + 100
+                      : int.Parse(item.Substring(2, 2));
 
-            ConditionChecker.Ensure<ArgumentException>(lat >= 0 && lat <= 90);
-            ConditionChecker.Ensure<ArgumentException>(lon >= 0 && lon <= 180);
+            ConditionChecker.Ensure<ArgumentException>(0 <= lat && lat <= 90);
+            ConditionChecker.Ensure<ArgumentException>(0 <= lon && lon <= 180);
 
             switch (item[pos])
             {

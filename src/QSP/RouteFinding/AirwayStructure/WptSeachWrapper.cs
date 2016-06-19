@@ -28,7 +28,7 @@ namespace QSP.RouteFinding.AirwayStructure
 
         public bool Equals(WptSeachWrapper other)
         {
-            return (Index == other.Index);
+            return Index == other.Index;
         }
     }
 }
