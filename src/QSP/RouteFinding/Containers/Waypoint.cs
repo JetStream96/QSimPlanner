@@ -47,8 +47,6 @@ namespace QSP.RouteFinding.Containers
                 ID == x.ID &&
                 Lat == x.Lat &&
                 Lon == x.Lon;
-                //Math.Abs(Lat - x.Lat) < LatLonTolerance &&
-                //Math.Abs(Lon - x.Lon) < LatLonTolerance;
         }
 
         public int CompareTo(Waypoint other)

@@ -1,7 +1,7 @@
 ﻿using QSP.Utilities;
 using System;
 using System.Linq;
-using static QSP.AviationTools.Coordinates.Utilities;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.AviationTools.Coordinates
 {
@@ -15,15 +15,13 @@ namespace QSP.AviationTools.Coordinates
         /// </summary>
         public static string To5LetterFormat(double Lat, double Lon)
         {
-            int latInt = 0;
-            int lonInt = 0;
-
-            if (tryConvertInt(Lat, ref latInt) == false || 
-                tryConvertInt(Lon, ref lonInt) == false)
+            if (IsInteger(Lat, Constants.LatLonTolerance) &&
+                IsInteger(Lon, Constants.LatLonTolerance))
             {
-                return null;
+                return To5LetterFormat(RoundToInt(Lat), RoundToInt(Lon));
             }
-            return To5LetterFormat(latInt, lonInt);
+
+            return null;
         }
 
         private static char selectChar(int lat, int lon)
@@ -55,12 +53,12 @@ namespace QSP.AviationTools.Coordinates
 
             if (lon < 100)
             {
-                return lat.ToString().PadLeft(2, '0') + 
+                return lat.ToString().PadLeft(2, '0') +
                     lon.ToString().PadLeft(2, '0') + c;
             }
             else
             {
-                return lat.ToString().PadLeft(2, '0') + c + 
+                return lat.ToString().PadLeft(2, '0') + c +
                     (lon - 100).ToString().PadLeft(2, '0');
             }
         }
@@ -71,10 +69,16 @@ namespace QSP.AviationTools.Coordinates
             {
                 return 2;
             }
-            return 4;
+            else if (NSEW.Contains(s[4]))
+            {
+                return 4;
+            }
+
+            throw new ArgumentException();
         }
 
-        public static bool TryReadFrom5LetterFormat(string item, out LatLon result)
+        public static bool TryReadFrom5LetterFormat(
+            string item, out LatLon result)
         {
             try
             {

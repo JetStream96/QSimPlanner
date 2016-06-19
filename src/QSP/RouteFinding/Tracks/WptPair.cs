@@ -15,7 +15,14 @@ namespace QSP.RouteFinding.Tracks
 
         public bool Equals(WptPair other)
         {
-            return (IndexFrom == other.IndexFrom && IndexTo == other.IndexTo);
+            return other != null &&
+                IndexFrom == other.IndexFrom &&
+                IndexTo == other.IndexTo;
+        }
+
+        public override int GetHashCode()
+        {
+            return IndexFrom.GetHashCode() ^ IndexTo.GetHashCode();
         }
     }
 }

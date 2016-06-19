@@ -1,15 +1,15 @@
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System;
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Data.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace QSP.RouteFinding.Airports
 {
     public class Airport : ICoordinate, IEquatable<Airport>
     {
         private List<RwyData> _rwys;
-        
+
         public string Icao { get; private set; }
         public string Name { get; private set; }
         public double Lat { get; private set; }
@@ -27,17 +27,17 @@ namespace QSP.RouteFinding.Airports
                 return _rwys.AsReadOnly();
             }
         }
-        
+
         public Airport(
-            string Icao, 
-            string Name, 
-            double Lat, 
-            double Lon, 
+            string Icao,
+            string Name,
+            double Lat,
+            double Lon,
             int Elevation,
-            bool TransAvail, 
+            bool TransAvail,
             int TransAlt,
-            int TransLvl, 
-            int LongestRwyLength, 
+            int TransLvl,
+            int LongestRwyLength,
             List<RwyData> Rwys)
         {
             this.Icao = Icao;
@@ -86,7 +86,12 @@ namespace QSP.RouteFinding.Airports
 
         public bool Equals(Airport other)
         {
-            return (Icao == other.Icao);
+            return other != null && Icao == other.Icao;
+        }
+
+        public override int GetHashCode()
+        {
+            return Icao.GetHashCode();
         }
     }
 }

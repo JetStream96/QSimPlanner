@@ -1,21 +1,7 @@
-﻿using System;
-
-namespace QSP.AviationTools.Coordinates
+﻿namespace QSP.AviationTools.Coordinates
 {
     public static class Utilities
     {
-        public static bool tryConvertInt(double d, ref int result)
-        {
-            double x = Math.Round(d);
-
-            if (Math.Abs(x - d) < Constants.LatLonTolerance)
-            {
-                result = (int)x;
-                return true;
-            }
-            return false;
-        }
-        
         public static void ConvertTo5LetterFormat(string[] item)
         {
             for (int i = 0; i < item.Length; i++)

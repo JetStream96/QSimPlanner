@@ -33,8 +33,14 @@ namespace QSP.AviationTools.Coordinates
 
         public bool Equals(LatLon other)
         {
-            return Math.Abs(Lat - other.Lat) < Constants.LatLonTolerance &&
-                   Math.Abs(Lon - other.Lon) < Constants.LatLonTolerance;
+            return other != null &&
+                Math.Abs(Lat - other.Lat) < Constants.LatLonTolerance &&
+                Math.Abs(Lon - other.Lon) < Constants.LatLonTolerance;
+        }
+
+        public override int GetHashCode()
+        {
+            return Lat.GetHashCode() ^ Lon.GetHashCode();
         }
 
         /// <summary>

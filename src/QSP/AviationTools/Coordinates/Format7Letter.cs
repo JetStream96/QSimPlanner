@@ -1,6 +1,6 @@
 ﻿using QSP.Utilities;
 using System;
-using static QSP.AviationTools.Coordinates.Utilities;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.AviationTools.Coordinates
 {
@@ -12,14 +12,13 @@ namespace QSP.AviationTools.Coordinates
         /// </summary>
         public static string To7LetterFormat(double Lat, double Lon)
         {
-            int latInt = 0;
-            int lonInt = 0;
-
-            if (tryConvertInt(Lat, ref latInt) == false || tryConvertInt(Lon, ref lonInt) == false)
+            if (IsInteger(Lat, Constants.LatLonTolerance) &&
+                IsInteger(Lon, Constants.LatLonTolerance))
             {
-                return null;
+                return To7LetterFormat(RoundToInt(Lat), RoundToInt(Lon));
             }
-            return To7LetterFormat(latInt, lonInt);
+
+            return null;
         }
 
         public static string To7LetterFormat(int lat, int lon)
@@ -48,10 +47,12 @@ namespace QSP.AviationTools.Coordinates
                 EW = 'E';
             }
 
-            return lat.ToString().PadLeft(2, '0') + NS + lon.ToString().PadLeft(3, '0') + EW;
+            return lat.ToString().PadLeft(2, '0') + NS +
+                lon.ToString().PadLeft(3, '0') + EW;
         }
 
-        public static bool TryReadFrom7LetterFormat(string item, out LatLon result)
+        public static bool TryReadFrom7LetterFormat(
+            string item, out LatLon result)
         {
             try
             {
@@ -75,7 +76,8 @@ namespace QSP.AviationTools.Coordinates
             int lat = Convert.ToInt32(item.Substring(0, 2));
             int lon = Convert.ToInt32(item.Substring(3, 3));
 
-            ConditionChecker.Ensure<ArgumentException>(lat >= 0 && lat <= 90 && lon >= 0 && lon <= 180);
+            ConditionChecker.Ensure<ArgumentException>(
+                0 <= lat && lat <= 90 && 0 <= lon && lon <= 180);
 
             if (NS == 'N')
             {

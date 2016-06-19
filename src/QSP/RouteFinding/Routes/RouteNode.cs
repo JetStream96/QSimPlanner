@@ -25,7 +25,7 @@ namespace QSP.RouteFinding.Routes
                 return Waypoint.Lon;
             }
         }
-        
+
         public RouteNode(Waypoint Waypoint, string AirwayToNext, double DistanceToNext)
         {
             this.Waypoint = Waypoint;
@@ -35,9 +35,18 @@ namespace QSP.RouteFinding.Routes
 
         public bool Equals(RouteNode other)
         {
-            return (Waypoint.Equals(other.Waypoint) &&
-                    AirwayToNext == other.AirwayToNext &&
-                    Math.Abs(DistanceToNext - other.DistanceToNext) < 1E-3);
+            return
+                other != null &&
+                Waypoint.Equals(other.Waypoint) &&
+                AirwayToNext == other.AirwayToNext &&
+                Math.Abs(DistanceToNext - other.DistanceToNext) < 1E-3;
+        }
+
+        public override int GetHashCode()
+        {
+            return Waypoint.GetHashCode() ^ 
+                AirwayToNext.GetHashCode() ^ 
+                DistanceToNext.GetHashCode();
         }
     }
 }
