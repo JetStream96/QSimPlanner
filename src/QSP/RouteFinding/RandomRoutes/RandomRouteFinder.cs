@@ -1,18 +1,17 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Vectors.Vector3DExtension;
-using static QSP.RouteFinding.Constants;
 using static System.Math;
 
 namespace QSP.RouteFinding.RandomRoutes
 {
     public class RandomRouteFinder
     {
+        private static readonly double MaxLegDis = 700.0;
         private static readonly double MaxAngleRadian =
             MaxLegDis / EarthRadiusNm;
 
@@ -43,26 +42,43 @@ namespace QSP.RouteFinding.RandomRoutes
             }
 
             route.Add(end);
-            return route;
+            return removeRedundentWpts(route);
         }
-        
+
+        // Prevents the route output like this:
+        // ... 160E20N 160E21N 160E22N 160E23N ...
+        private static List<Waypoint> removeRedundentWpts(
+            IEnumerable<Waypoint> items)
+        {
+            var list = new LinkedList<Waypoint>(items);
+            var node = list.First;
+
+            while (node != null)
+            {
+                var prev = node.Previous;
+                var next = node.Next;
+
+                if (prev != null &&
+                    next != null &&
+                    prev.Value.Lon == node.Value.Lon &&
+                    node.Value.Lon == next.Value.Lon &&
+                    prev.Value.DistanceFrom(next.Value) <= MaxLegDis)
+                {
+                    list.Remove(node);
+                }
+
+                node = next;
+            }
+
+            return list.ToList();
+        }
+
         private Waypoint chooseCandidates(
             List<Waypoint> candidates, Waypoint start, Waypoint end)
         {
             return candidates
                 .Where(w => w.Equals(start) == false)
-                .MinBy(getSelector(start, end));
-        }
-
-        private Func<Waypoint, double> getSelector(
-            Waypoint start, Waypoint end)
-        {
-            return (w) =>
-            {
-                var dis = w.DistanceFrom(start);
-                var total = dis + w.DistanceFrom(end);
-                return total - 0.01 * dis;
-            };
+                .MinBy(i => i.DistanceFrom(start) + i.DistanceFrom(end));
         }
 
         private List<Waypoint> getCandidates(Waypoint start, Waypoint end)

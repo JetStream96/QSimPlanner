@@ -81,7 +81,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
                     if (route.First.Value == sid.LastWaypoint.ID &&
                         wptList.FindAllByWaypoint(sid.LastWaypoint).Count == 0)
-                    {  
+                    {
                         route.RemoveFirst();
                     }
                 }
