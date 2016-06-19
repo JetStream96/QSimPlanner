@@ -76,7 +76,7 @@ namespace QSP.WindAloft
             double T = 0.0;            //total time required
             double r = 0.0;            //total distance
 
-            r = EarthRadiusNm * Math.Acos(v1.Dot(v2));            
+            r = EarthRadiusNm * Math.Acos(v1.Dot(v2));
             T = Integrate(GetOneOverGS, 0.0, r, deltaAlpha * EarthRadiusNm);
 
             return r / T - tas;
@@ -102,7 +102,7 @@ namespace QSP.WindAloft
 
         private double GetGS(Vector3D v)
         {
-            double lat = ToDegree(v.Phi);
+            double lat = ToDegree(0.5 * Math.PI - v.Phi);
             double lon = SetAngleLon(ToDegree(v.Theta));
             Vector3D VWind = GetWind(lat, lon);
 
@@ -132,9 +132,9 @@ namespace QSP.WindAloft
             // V_wind=V_u(-sin(theta),cos(theta),0)+V_v(-sin(phi)cos(theta),-sin(phi)sin(theta),cos(phi))
             // lat=phi, lon=theta
             // u=lon,v=lat
-            
+
             var w = windData.GetWindUV(lat, lon, FL);
-            
+
             lat = ToRadian(lat);
             lon = ToRadian(lon);
 

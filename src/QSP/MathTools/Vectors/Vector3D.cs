@@ -12,7 +12,7 @@ namespace QSP
         // X = R * sin(Phi) * cos(Theta)
         // Y = R * sin(Phi) * sin(Theta)
         // Z = R * cos(Phi)
-        
+
         public Vector3D(Vector3D item) : this(item.X, item.Y, item.Z) { }
 
         public Vector3D(double X, double Y, double Z)
@@ -22,9 +22,13 @@ namespace QSP
             this.Z = Z;
         }
 
+        /// <summary>
+        /// The angle is larger or equal to 0, 
+        /// and smaller or equal to PI.
+        /// </summary>
         public double Phi
         {
-            get { return Math.Asin(Z / R); }
+            get { return Math.Acos(Z / R); }
         }
 
         public double Theta
@@ -37,7 +41,8 @@ namespace QSP
             get { return Math.Sqrt(X * X + Y * Y + Z * Z); }
         }
 
-        public static Vector3D FromSphericalCoords(double r, double phi, double theta)
+        public static Vector3D FromSphericalCoords(
+            double r, double phi, double theta)
         {
             double RSinPhi = r * Math.Sin(phi);
 

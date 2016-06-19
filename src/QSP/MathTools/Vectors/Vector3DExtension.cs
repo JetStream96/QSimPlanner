@@ -16,5 +16,10 @@ namespace QSP.MathTools.Vectors
         {
             return LatLonToVector3D(latLon.Lat, latLon.Lon);
         }
+
+        public static LatLon ToLatLon(this Vector3D item)
+        {
+            return new LatLon(Math.PI * 0.5 - item.Phi, item.Theta);
+        }
     }
 }

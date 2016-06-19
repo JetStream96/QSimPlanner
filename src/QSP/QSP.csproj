@@ -112,6 +112,8 @@
     <Compile Include="RouteFinding\FileExport\Providers\ProviderFactory.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Types.cs" />
     <Compile Include="RouteFinding\FixTypes.cs" />
+    <Compile Include="RouteFinding\RandomRoutes\RandomRouteFinderFactory.cs" />
+    <Compile Include="RouteFinding\RandomRoutes\RandomRouteFinder.cs" />
     <Compile Include="RouteFinding\Routes\RouteExtensions.cs" />
     <Compile Include="RouteFinding\Routes\RouteGroup.cs" />
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
