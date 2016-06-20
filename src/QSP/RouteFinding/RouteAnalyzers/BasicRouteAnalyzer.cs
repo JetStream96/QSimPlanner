@@ -8,39 +8,53 @@ using static QSP.LibraryExtension.Lists;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
-    // Designed to analyze a route consisting of a series of strings, containing only waypoints, 
-    // lat/lon entries and airways. For a more sophisticated analyzer, use StandardRouteAnalyzer class.
+    // Designed to analyze a route consisting of a series of strings, 
+    // containing only waypoints, lat/lon entries and airways. 
+    // For a more sophisticated analyzer, use StandardRouteAnalyzer class.
     //
-    // 1. Input: An array of strings, consisting of waypoint (WPT), and airway (AWY) sysbols.
+    // 1. Input: An array of strings, consisting of waypoint (WPT), 
+    //           and airway (AWY) sysbols.
     //
     // 2. All characters should be capital. 
     //
     // 3. Format: {WPT, AWY, WPT, ... , WPT}
     //    (1) If an airway is DCT, it should be omitted.
-    //    (2) A WPT can also be represented with lat/lon (COORD), which has to be in decimal 
-    //        representation (e.g. N32.665W122.1265).
+    //    (2) A WPT can also be represented with lat/lon (COORD), which 
+    //        has to be in decimal representation (e.g. N32.665W122.1265).
     //
-    // 4. If the format is wrong, an InvalidIdentifierException will be thrown with an message 
-    //    describing the place where the problem occurs.
+    // 4. If the format is wrong, an InvalidIdentifierException will be 
+    //    thrown with an message describing the place where the problem occurs.
     //
     // 5. It's necessary to specify the index of first waypoint in WptList. 
-    //    If the first entry is lat/lon (not in wptList), specifiy a negative index.
-    //    If the ident of specified waypoint is different from the first word in route input string, 
-    //    an ArgumentException will be thrown.
+    //    If the first entry is lat/lon (not in wptList), specifiy a 
+    //    negative index.
+    //    If the ident of specified waypoint is different from the first 
+    //    word in route input string, an ArgumentException will be thrown.
     //    
+    // 6. Return value of Analyze():
+    //    (1) If the waypoint is in decimal representation, its waypoint ident 
+    //        in the Route will be the same as the one in input string.
 
     public class BasicRouteAnalyzer
     {
         private WaypointList wptList;
 
         private string[] routeInput;
-        private int lastWpt;         // Index in WptList. -1 if the last wpt is lat/lon.
-        private string lastAwy;      // If this is null, the last element is a wpt.
-        private Route rte;           // Returning value
 
-        /// <param name="firstWaypointIndex">Use a negative value if the first waypoint is a lat/lon.</param>
+        // Index in WptList. -1 if the last wpt is lat/lon.
+        private int lastWpt;
+
+        // If this is null, the last element is a wpt.
+        private string lastAwy;
+
+        // Returning value
+        private Route rte;
+
+        /// <param name="firstWaypointIndex">Use a negative value if the 
+        /// first waypoint is a lat/lon.</param>
         /// <exception cref="ArgumentException"></exception>
-        public BasicRouteAnalyzer(string[] routeInput, WaypointList wptList, int firstWaypointIndex)
+        public BasicRouteAnalyzer(
+            string[] routeInput, WaypointList wptList, int firstWaypointIndex)
         {
             if (routeInput.Length == 0)
             {
@@ -95,7 +109,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 {
                     //this one may be awy or wpt
 
-                    if (tryParseAwy(routeInput[i]) == false && tryParseWpt(routeInput[i]) == false)
+                    if (tryParseAwy(routeInput[i]) == false &&
+                        tryParseWpt(routeInput[i]) == false)
                     {
                         throw new InvalidIdentifierException(
                             string.Format("{0} is not a valid waypoint or airway identifier", routeInput[i]));
@@ -121,7 +136,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             if (FormatDecimal.TryReadFromDecimalFormat(ident, out coord))
             {
                 lastWpt = -1;
-                return tryappendWpt(new Waypoint(coord.ToDecimalFormat(), coord.Lat, coord.Lon));
+                return tryappendWpt(new Waypoint(ident, coord.Lat, coord.Lon));
             }
             return false;
         }
@@ -179,7 +194,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             }
             else
             {
-                var wpt = rte.LastWaypoint; 
+                var wpt = rte.LastWaypoint;
                 lastWpt = Tracks.Common.Utilities.GetClosest(wpt.Lat, wpt.Lon, indices, wptList);
             }
 
