@@ -19,11 +19,12 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
         public void AddToWptListCase1()
         {
             var wptList = Case1WptList();
-            var adder = new SidAdder("AXYZ",
-                                     new SidCollection(new List<SidEntry>()),
-                                     wptList,
-                                     wptList.GetEditor(),
-                                     GetAirportManager());
+            var adder = new SidAdder(
+                "AXYZ",
+                new SidCollection(new List<SidEntry>()),
+                wptList,
+                wptList.GetEditor(),
+                GetAirportManager());
 
             int rwyIndex = adder.AddSidsToWptList("18", new List<string>());
 
@@ -38,9 +39,10 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 Assert.AreEqual("DCT", edge.Value.Airway);
 
                 // Distance is correct
-                Assert.IsTrue(WithinPrecisionPercent(wptList.Distance(rwyIndex, edge.ToNodeIndex),
-                                                     edge.Value.Distance,
-                                                     0.1));
+                Assert.IsTrue(WithinPrecisionPercent(
+                    wptList.Distance(rwyIndex, edge.ToNodeIndex),
+                    edge.Value.Distance,
+                    0.1));
             }
         }
 
@@ -65,17 +67,21 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
         public void AddToWptListCase2()
         {
             var wptList = Case2WptList();
-            var adder = new SidAdder("AXYZ",
-                                     new SidCollection(
-                                                    CreateList(new SidEntry("18",
-                                                                            "SID1",
-                                                                            CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
-                                                                                       new Waypoint("WPT102", 25.0150, 50.0800)),
-                                                                            EntryType.RwySpecific,
-                                                                            true))),
-                                     wptList,
-                                     wptList.GetEditor(),
-                                     GetAirportManager());
+            var adder = new SidAdder(
+                "AXYZ",
+                new SidCollection(
+                    CreateList(
+                        new SidEntry(
+                            "18",
+                            "SID1",
+                            CreateList(
+                                new Waypoint("WPT101", 25.0125, 50.0300),
+                                new Waypoint("WPT102", 25.0150, 50.0800)),
+                            EntryType.RwySpecific,
+                            true))),
+                wptList,
+                wptList.GetEditor(),
+                GetAirportManager());
 
             int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
 
