@@ -92,7 +92,7 @@
     <Compile Include="AircraftProfiles\Configs\Exceptions.cs" />
     <Compile Include="AircraftProfiles\ProfileManager.cs" />
     <Compile Include="AviationTools\Constants.cs" />
-    <Compile Include="AviationTools\Coordinates\Fomatter.cs" />
+    <Compile Include="AviationTools\Coordinates\Formatter.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDecimal.cs" />
     <Compile Include="AviationTools\CoversionTools.cs" />
     <Compile Include="AviationTools\Coordinates\Constants.cs" />

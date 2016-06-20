@@ -7,9 +7,8 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using static UnitTest.RouteFinding.RouteAnalyzers.Common;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
 {
@@ -23,8 +22,8 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         private void initObjects1()
         {
             var ac = new AirportCollection();
-            ac.Add(getAirport("ABCD", getRwyData("05L", 25.0, 121.0)));
-            ac.Add(getAirport("EFGH", getRwyData("07L", 22.0, 113.0)));
+            ac.Add(GetAirport("ABCD", GetRwyData("05L", 25.0, 121.0)));
+            ac.Add(GetAirport("EFGH", GetRwyData("07L", 22.0, 113.0)));
             airportList = new AirportManager(ac);
 
             sids = new SidCollection(
@@ -75,7 +74,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
         private void checkRoute1(Route route)
         {
-            var expected = getRoute(
+            var expected = GetRoute(
                 new Waypoint("ABCD05L", 25.0, 121.0), "SID1", -1.0,
                 new Waypoint("P1", 24.0, 120.0), "A1", -1.0,
                 new Waypoint("Q1", 23.0, 114.0), "STAR1", -1.0,
@@ -131,8 +130,8 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         {
             var ac = new AirportCollection();
 
-            ac.Add(getAirport("ABCD", getRwyData("05L", 25.0, 120.0)));
-            ac.Add(getAirport("EFGH", getRwyData("07L", 43.0, 107.0)));
+            ac.Add(GetAirport("ABCD", GetRwyData("05L", 25.0, 120.0)));
+            ac.Add(GetAirport("EFGH", GetRwyData("07L", 43.0, 107.0)));
 
             airportList = new AirportManager(ac);
         }
@@ -165,7 +164,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // Assert
-            var expected = getRoute(
+            var expected = GetRoute(
                 new Waypoint("ABCD05L", 25.0, 120.0), "DCT", -1.0,
                 new Waypoint("28E20", 28.0, 120.0), "DCT", -1.0,
                 new Waypoint("N37E112", 37.0, 112.0), "DCT", -1.0,
@@ -184,7 +183,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // Assert
-            var expected = getRoute(
+            var expected = GetRoute(
                 new Waypoint("ABCD05L", 25.0, 120.0), "DCT", -1.0,
                 new Waypoint("N30E117", 30.0, 117.0), "DCT", -1.0,
                 new Waypoint("40E10", 40.0, 110.0), "DCT", -1.0,
@@ -203,7 +202,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // Assert
-            var expected = getRoute(
+            var expected = GetRoute(
                 new Waypoint("ABCD05L", 25.0, 120.0), "DCT", -1.0,
                 new Waypoint("N30E117", 30.0, 117.0), "DCT", -1.0,
                 new Waypoint("N37E112", 37.0, 112.0), "DCT", -1.0,
@@ -213,57 +212,6 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         }
 
         #endregion
-
-        // Format: 
-        // Waypoint1, AirwayToNext, Distance,
-        // Waypoint2, AirwayToNext, Distance,
-        // ...
-        // WaypointN
-        //
-        // Use a negative distance for automatic calculation
-        private static Route getRoute(params object[] para)
-        {
-            if (para.Length % 3 != 1)
-            {
-                throw new ArgumentException();
-            }
-
-            var route = new Route();
-            route.AddLastWaypoint((Waypoint)para.Last());
-
-            for (int i = para.Length - 2; i >= 0; i -= 3)
-            {
-                var dis = (double)para[i];
-
-                if (dis < 0.0)
-                {
-                    route.AddFirstWaypoint(
-                        (Waypoint)para[i - 2],
-                        (string)para[i - 1]);
-                }
-                else
-                {
-                    route.AddFirstWaypoint(
-                        (Waypoint)para[i - 2],
-                        (string)para[i - 1],
-                        dis);
-                }
-            }
-
-            return route;
-        }
-
-        private static Airport getAirport(string icao, params RwyData[] rwys)
-        {
-            return new Airport(
-            icao, "", 0.0, 0.0, 0, true, 0, 0, 0, rwys.ToList());
-        }
-
-        private static RwyData getRwyData(string ident, double lat, double lon)
-        {
-            return new RwyData(
-            ident, "", 0, 0, true, true, "", "", lat, lon, 0, 0.0, 0, "", 0);
-        }
 
     }
 }

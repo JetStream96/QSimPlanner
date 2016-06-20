@@ -1,6 +1,6 @@
 ﻿namespace QSP.AviationTools.Coordinates
 {
-    public static class Fomatter
+    public static class Formatter
     {
         public static void TransformCoordinates(string[] item)
         {

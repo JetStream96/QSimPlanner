@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using static QSP.AviationTools.Coordinates.Fomatter;
+using static QSP.AviationTools.Coordinates.Formatter;
 using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.RouteFinding.RouteAnalyzers

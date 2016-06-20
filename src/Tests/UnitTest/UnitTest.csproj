@@ -99,6 +99,7 @@
     <Compile Include="RouteFinding\RouteAnalyzers\AnalyzerWithCommandsTest.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectAnalyzerTest.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\BasicRouteAnalyzerTest.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\Common.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Extractors\SidExtractorTest.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Extractors\StarExtractorTest.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\StandardRouteAnalyzerTest.cs" />

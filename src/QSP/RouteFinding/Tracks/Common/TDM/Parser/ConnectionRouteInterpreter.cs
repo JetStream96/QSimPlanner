@@ -6,7 +6,7 @@ using System.Linq;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.LibraryExtension.Lists;
 using static QSP.LibraryExtension.StringParser.Utilities;
-using static QSP.AviationTools.Coordinates.Fomatter;
+using static QSP.AviationTools.Coordinates.Formatter;
 
 namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
