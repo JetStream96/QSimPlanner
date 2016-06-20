@@ -1,8 +1,8 @@
 ﻿namespace QSP.AviationTools.Coordinates
 {
-    public static class Utilities
+    public static class Fomatter
     {
-        public static void ConvertTo5LetterFormat(string[] item)
+        public static void TransformCoordinates(string[] item)
         {
             for (int i = 0; i < item.Length; i++)
             {

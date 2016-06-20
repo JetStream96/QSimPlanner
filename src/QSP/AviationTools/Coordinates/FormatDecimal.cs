@@ -30,10 +30,12 @@ namespace QSP.AviationTools.Coordinates
             {
                 EW = 'E';
             }
-            return NS + string.Format("{0:0.000000}", Lat) + EW + string.Format("{0:0.000000}", Lon);
+            return NS + string.Format("{0:0.000000}", Lat) + EW + 
+                string.Format("{0:0.000000}", Lon);
         }
 
-        public static bool TryReadFromDecimalFormat(string item, out LatLon result)
+        public static bool TryReadFromDecimalFormat(
+            string item, out LatLon result)
         {
             try
             {
@@ -56,7 +58,8 @@ namespace QSP.AviationTools.Coordinates
             double lat = Convert.ToDouble(item.Substring(1, x - 1));
             double lon = Convert.ToDouble(item.Substring(x + 1));
 
-            ConditionChecker.Ensure<ArgumentException>(lat >= 0.0 && lat <= 90.0 && lon >= 0.0 && lon <= 180.0);
+            ConditionChecker.Ensure<ArgumentException>(
+                0.0 <= lat && lat <= 90.0 && 0.0 <= lon && lon <= 180.0);
 
             if (NS == 'N')
             {

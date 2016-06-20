@@ -4,6 +4,7 @@ using QSP.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace QSP.RouteFinding.Routes
@@ -259,6 +260,14 @@ namespace QSP.RouteFinding.Routes
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public bool Equals(Route other)
+        {
+            return Enumerable.SequenceEqual(
+                this.Reverse().Skip(1),
+                other.Reverse().Skip(1)) &&
+                LastWaypoint.Equals(other.LastWaypoint);
         }
     }
 }

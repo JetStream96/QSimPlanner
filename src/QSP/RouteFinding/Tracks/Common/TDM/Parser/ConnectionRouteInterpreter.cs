@@ -6,7 +6,7 @@ using System.Linq;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.LibraryExtension.Lists;
 using static QSP.LibraryExtension.StringParser.Utilities;
-using static QSP.AviationTools.Coordinates.Utilities;
+using static QSP.AviationTools.Coordinates.Fomatter;
 
 namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
@@ -33,7 +33,7 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
             foreach (var i in connectRoutes)
             {
                 var rte = i.Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
-                ConvertTo5LetterFormat(rte);
+                TransformCoordinates(rte);
 
                 if (rte != null && rte.Length > 1)
                 {

@@ -26,7 +26,8 @@ namespace QSP.RouteFinding.Routes
             }
         }
 
-        public RouteNode(Waypoint Waypoint, string AirwayToNext, double DistanceToNext)
+        public RouteNode(
+            Waypoint Waypoint, string AirwayToNext, double DistanceToNext)
         {
             this.Waypoint = Waypoint;
             this.AirwayToNext = AirwayToNext;
