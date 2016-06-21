@@ -1,4 +1,4 @@
-using QSP.AviationTools;
+﻿using QSP.AviationTools;
 using QSP.Utilities.Units;
 using System;
 using System.Collections.Generic;
@@ -43,15 +43,15 @@ namespace QSP.TOPerfCalculation
             str.AppendLine();
 
             str.AppendLine("                (   OAT " +
-                tempConvertUnit(PrimaryResult.OatCelsius, tempUnit) +
+                TempConvertUnit(PrimaryResult.OatCelsius, tempUnit) +
                 tUnit + "   )");
 
             str.AppendLine("          Required distance     " +
-                lengthConvertUnit(PrimaryResult.RwyRequiredMeter, lenUnit)
+                LengthConvertUnit(PrimaryResult.RwyRequiredMeter, lenUnit)
                 + lUnit);
 
             str.AppendLine("          Runway remaining      " +
-                lengthConvertUnit(PrimaryResult.RwyRemainingMeter, lenUnit)
+                LengthConvertUnit(PrimaryResult.RwyRemainingMeter, lenUnit)
                 + lUnit);
 
             str.AppendLine();
@@ -65,16 +65,16 @@ namespace QSP.TOPerfCalculation
 
                 foreach (var i in AssumedTemp)
                 {
-                    str.Append(tempConvertUnit(i.OatCelsius, tempUnit)
+                    str.Append(TempConvertUnit(i.OatCelsius, tempUnit)
                                 .ToString()
                                 .PadLeft(6, ' '));
 
-                    str.Append(lengthConvertUnit(i.RwyRequiredMeter, lenUnit)
+                    str.Append(LengthConvertUnit(i.RwyRequiredMeter, lenUnit)
                                 .ToString()
                                 .PadLeft(15, ' ')
                                 + " " + lUnit);
 
-                    str.AppendLine(lengthConvertUnit(i.RwyRemainingMeter, lenUnit)
+                    str.AppendLine(LengthConvertUnit(i.RwyRemainingMeter, lenUnit)
                                 .ToString()
                                 .PadLeft(17, ' ')
                                 + " " + lUnit);
@@ -84,14 +84,14 @@ namespace QSP.TOPerfCalculation
             return str.ToString();
         }
 
-        private int tempConvertUnit(int tempCelsuis, TemperatureUnit tempUnit)
+        private int TempConvertUnit(int tempCelsuis, TemperatureUnit tempUnit)
         {
             return tempUnit == TemperatureUnit.Fahrenheit ?
                 Convert.ToInt32(CoversionTools.ToFahrenheit(tempCelsuis)) :
                 tempCelsuis;
         }
 
-        private int lengthConvertUnit(int lengthMeter, LengthUnit unit)
+        private int LengthConvertUnit(int lengthMeter, LengthUnit unit)
         {
             return unit == LengthUnit.Feet ?
                 (int)(lengthMeter * MeterFtRatio) :

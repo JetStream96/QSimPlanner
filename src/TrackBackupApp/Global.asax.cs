@@ -50,7 +50,7 @@ namespace TrackBackupApp
         {
             try
             {
-                saveNats();
+                SaveNats();
             }
             catch (Exception ex)
             {
@@ -94,7 +94,7 @@ namespace TrackBackupApp
             }
         }
         
-        private void saveNats()
+        private void SaveNats()
         {
             var result = NatsDownloader.DownloadFromWeb(NatsDownloader.natsUrl);
 
@@ -126,7 +126,7 @@ namespace TrackBackupApp
         protected void Application_Start(object sender, EventArgs e)
         {
             // Fires when the application is started
-            saveNats();
+            SaveNats();
             RegisterCacheEntry();
             WriteToLog(0);
         }

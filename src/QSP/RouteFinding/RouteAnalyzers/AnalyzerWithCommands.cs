@@ -65,14 +65,14 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         public Route Analyze()
         {
-            setRwyWpts();
-            var subRoutes = splitEntries(route);
-            var analyzed = computeRoutes(subRoutes);
-            fillCommands(subRoutes, analyzed);
-            return connectAll(analyzed);
+            SetRwyWpts();
+            var subRoutes = SplitEntries(route);
+            var analyzed = ComputeRoutes(subRoutes);
+            FillCommands(subRoutes, analyzed);
+            return ConnectAll(analyzed);
         }
 
-        private static List<List<string>> splitEntries(string[] route)
+        private static List<List<string>> SplitEntries(string[] route)
         {
             var subRoutes = new List<List<string>>();
             var tmp = new List<string>();
@@ -81,7 +81,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             {
                 if (i == "AUTO" || i == "RAND")
                 {
-                    addIfNonEmpty(subRoutes, ref tmp);
+                    AddIfNonEmpty(subRoutes, ref tmp);
                     subRoutes.Add(new List<string> { i });
                 }
                 else
@@ -89,12 +89,12 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     tmp.Add(i);
                 }
             }
-            addIfNonEmpty(subRoutes, ref tmp);
+            AddIfNonEmpty(subRoutes, ref tmp);
 
             return subRoutes;
         }
 
-        private static void addIfNonEmpty(
+        private static void AddIfNonEmpty(
             List<List<string>> subRoutes, ref List<string> tmp)
         {
             if (tmp.Count > 0)
@@ -104,7 +104,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             }
         }
 
-        private void setRwyWpts()
+        private void SetRwyWpts()
         {
             origRwyWpt = new Waypoint(
                 origIcao + origRwy,
@@ -115,7 +115,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 airportList.RwyLatLon(destIcao, destRwy));
         }
 
-        private List<Route> computeRoutes(List<List<string>> subRoutes)
+        private List<Route> ComputeRoutes(List<List<string>> subRoutes)
         {
             var result = new List<Route>();
 
@@ -153,13 +153,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
                         .Analyze();
 
                     result.Add(
-                        appendRoute(origRoute, appendRoute(mainRoute, destRoute)));
+                        AppendRoute(origRoute, AppendRoute(mainRoute, destRoute)));
                 }
             }
             return result;
         }
 
-        private static Route appendRoute(Route original, Route routeToAppend)
+        private static Route AppendRoute(Route original, Route routeToAppend)
         {
             if (original == null)
             {
@@ -175,35 +175,35 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return original;
         }
 
-        private void fillCommands(
+        private void FillCommands(
             List<List<string>> subRoutes, List<Route> analyzed)
         {
             for (int i = 0; i < subRoutes.Count; i++)
             {
                 if (analyzed[i] == null)
                 {
-                    var startEnd = getStartEndWpts(analyzed, i);
+                    var startEnd = GetStartEndWpts(analyzed, i);
 
                     if (subRoutes[i][0] == "AUTO")
                     {
-                        analyzed[i] = findRoute(analyzed, i);
+                        analyzed[i] = FindRoute(analyzed, i);
                     }
                     else
                     {
                         // RAND
-                        var randRoute = randRouteToRoute(
+                        var randRoute = RandRouteToRoute(
                              RandomRoutes.Instance.FinderInstance
                             .Find(startEnd.Start, startEnd.End)
                             .Select(p => p.LatLon).ToList());
 
-                        randRouteAddOrigDest(randRoute, analyzed, i);
+                        RandRouteAddOrigDest(randRoute, analyzed, i);
                         analyzed[i] = randRoute;
                     }
                 }
             }
         }
 
-        private Route findRoute(List<Route> analyzed, int index)
+        private Route FindRoute(List<Route> analyzed, int index)
         {
             var routeFinder = new RouteFinder(wptList, airportList);
 
@@ -242,7 +242,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             }
         }
 
-        private void randRouteAddOrigDest(Route route, List<Route> analyzed, int index)
+        private void RandRouteAddOrigDest(Route route, List<Route> analyzed, int index)
         {
             if (index == 0)
             {
@@ -255,7 +255,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             }
         }
 
-        private static Route randRouteToRoute(List<LatLon> randRoute)
+        private static Route RandRouteToRoute(List<LatLon> randRoute)
         {
             var result = new Route();
 
@@ -275,7 +275,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return result;
         }
 
-        private WptPair getStartEndWpts(List<Route> subRoutes, int index)
+        private WptPair GetStartEndWpts(List<Route> subRoutes, int index)
         {
             var start = index == 0
                 ? origRwyWpt
@@ -288,7 +288,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return new WptPair(start, end);
         }
 
-        private static Route connectAll(List<Route> subRoutes)
+        private static Route ConnectAll(List<Route> subRoutes)
         {
             var route = subRoutes[0];
 

@@ -155,7 +155,7 @@
             this.findRouteBtn.TabIndex = 17;
             this.findRouteBtn.Text = "Find Route";
             this.findRouteBtn.UseVisualStyleBackColor = false;
-            this.findRouteBtn.Click += new System.EventHandler(this.findRouteBtnClick);
+            this.findRouteBtn.Click += new System.EventHandler(this.FindRouteBtnClick);
             // 
             // routeSummaryLbl
             // 

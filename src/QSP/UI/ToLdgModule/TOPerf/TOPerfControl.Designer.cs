@@ -226,7 +226,7 @@
             this.regComboBox.Name = "regComboBox";
             this.regComboBox.Size = new System.Drawing.Size(205, 31);
             this.regComboBox.TabIndex = 1;
-            this.regComboBox.TextChanged += new System.EventHandler(this.registrationChanged);
+            this.regComboBox.TextChanged += new System.EventHandler(this.RegistrationChanged);
             // 
             // acListComboBox
             // 
@@ -242,7 +242,7 @@
             this.acListComboBox.Name = "acListComboBox";
             this.acListComboBox.Size = new System.Drawing.Size(205, 31);
             this.acListComboBox.TabIndex = 0;
-            this.acListComboBox.SelectedIndexChanged += new System.EventHandler(this.refreshRegistrations);
+            this.acListComboBox.SelectedIndexChanged += new System.EventHandler(this.RefreshRegistrations);
             // 
             // tableLayoutPanel2
             // 
@@ -270,7 +270,7 @@
             this.weightTxtBox.Size = new System.Drawing.Size(99, 30);
             this.weightTxtBox.TabIndex = 0;
             this.weightTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.weightTxtBox.TextChanged += new System.EventHandler(this.weightTxtBoxChanged);
+            this.weightTxtBox.TextChanged += new System.EventHandler(this.WeightTxtBoxChanged);
             // 
             // wtUnitComboBox
             // 

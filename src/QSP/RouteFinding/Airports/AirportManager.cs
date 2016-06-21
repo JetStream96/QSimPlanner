@@ -16,10 +16,10 @@ namespace QSP.RouteFinding.Airports
         public AirportManager(AirportCollection airportData)
         {
             this.airportData = airportData;
-            generateSearchGrids();
+            GenerateSearchGrids();
         }
 
-        private void generateSearchGrids()
+        private void GenerateSearchGrids()
         {
             airportFinder = new LatLonSearcher<Airport>(GridSizeOption.Small);
             int count = airportData.Count;

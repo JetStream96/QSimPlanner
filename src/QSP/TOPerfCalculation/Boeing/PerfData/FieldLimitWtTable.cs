@@ -31,11 +31,11 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
                                               double oat,
                                               double fieldLimitWtTon)
         {
-            return tableComputeRwyRequired(altFt, oat).ValueAt(fieldLimitWtTon);
+            return TableComputeRwyRequired(altFt, oat).ValueAt(fieldLimitWtTon);
         }
 
         // A table maps TO weights (ton) to rwy length required.
-        private Table1D tableComputeRwyRequired(double altitudeFt, double oat)
+        private Table1D TableComputeRwyRequired(double altitudeFt, double oat)
         {
             double[] weights = new double[y.Length];
 

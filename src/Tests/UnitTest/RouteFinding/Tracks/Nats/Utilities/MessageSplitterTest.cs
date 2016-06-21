@@ -43,8 +43,8 @@ namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
             var msg = new MessageSplitter(html).Split();
 
             Assert.AreEqual(2, msg.Count);
-            var west = getMsg(msg, NatsDirection.West);
-            var east = getMsg(msg, NatsDirection.East);
+            var west = GetMsg(msg, NatsDirection.West);
+            var east = GetMsg(msg, NatsDirection.East);
 
             Assert.IsTrue(west.Header ==
                 "The following are active North Atlantic Tracks issued by Shanwick Center (EGGX) ...");
@@ -100,8 +100,8 @@ namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
             var msg = new MessageSplitter(html).Split();
 
             Assert.AreEqual(1, msg.Count);
-            var west = getMsg(msg, NatsDirection.West);
-            var east = getMsg(msg, NatsDirection.East);
+            var west = GetMsg(msg, NatsDirection.West);
+            var east = GetMsg(msg, NatsDirection.East);
 
             Assert.IsTrue(west == null);
 
@@ -123,7 +123,7 @@ namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
 
         }
 
-        private static IndividualNatsMessage getMsg(
+        private static IndividualNatsMessage GetMsg(
                         IEnumerable<IndividualNatsMessage> msgs, NatsDirection dir)
         {
             foreach (var i in msgs)

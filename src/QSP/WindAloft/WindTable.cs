@@ -14,18 +14,18 @@ namespace QSP
 
         public void LoadFromFile(string uFilePath, string vFilePath)
         {
-            uTable = importWindTable(uFilePath);
-            vTable = importWindTable(vFilePath);
+            uTable = ImportWindTable(uFilePath);
+            vTable = ImportWindTable(vFilePath);
         }
 
         public double GetUWind(double lat, double lon)
         {
-            return getUVWindHelper(lat, lon, TableOption.U);
+            return GetUvWindHelper(lat, lon, TableOption.U);
         }
 
         public double GetVWind(double lat, double lon)
         {
-            return getUVWindHelper(lat, lon, TableOption.V);
+            return GetUvWindHelper(lat, lon, TableOption.V);
         }
 
         public enum TableOption
@@ -34,7 +34,7 @@ namespace QSP
             V
         }
 
-        private double getUVWindHelper(double lat, double lon, TableOption para)
+        private double GetUvWindHelper(double lat, double lon, TableOption para)
         {
             int x = (int)(Math.Floor(lat));
             int y = (int)(Math.Floor(lon));
@@ -52,11 +52,11 @@ namespace QSP
             return Interpolate2D.Interpolate(
                 x, x + 1, lat, 
                 y, y + 1, lon, 
-                getWindHelper(x, y, para), getWindHelper(x, y + 1, para),
-                getWindHelper(x + 1, y, para), getWindHelper(x + 1, y + 1, para));
+                GetWindHelper(x, y, para), GetWindHelper(x, y + 1, para),
+                GetWindHelper(x + 1, y, para), GetWindHelper(x + 1, y + 1, para));
         }
 
-        private double getWindHelper(int lat, int lon, TableOption para)
+        private double GetWindHelper(int lat, int lon, TableOption para)
         {
             if (para == TableOption.U)
             {
@@ -68,7 +68,7 @@ namespace QSP
             }
         }
 
-        private double[,] importWindTable(string filename)
+        private double[,] ImportWindTable(string filename)
         {
             //file is required to have resolution of 1 degree * 1 degree
             //the file is supposed to be .csv, for either u-comp. or v-comp.

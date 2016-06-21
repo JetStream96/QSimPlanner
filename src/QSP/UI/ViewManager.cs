@@ -31,11 +31,11 @@ namespace QSP.UI
         public void ShowPage(Pages pg)
         {
             frm.MainWin_TablessControl.SelectedIndex = (int)pg;
-            refreshPicBoxIcon(pg);
+            RefreshPicBoxIcon(pg);
         }
 
 
-        private void refreshPicBoxIcon(Pages pg)
+        private void RefreshPicBoxIcon(Pages pg)
         {
             int page = (int)pg;
             if (page <= 3)

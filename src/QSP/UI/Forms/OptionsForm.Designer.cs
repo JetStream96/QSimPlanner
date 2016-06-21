@@ -241,7 +241,7 @@ namespace QSP
             this.ok_button.TabIndex = 1;
             this.ok_button.Text = "OK";
             this.ok_button.UseVisualStyleBackColor = true;
-            this.ok_button.Click += new System.EventHandler(this.okBtnClick);
+            this.ok_button.Click += new System.EventHandler(this.OkBtnClick);
             // 
             // cancel_button
             // 
@@ -255,7 +255,7 @@ namespace QSP
             this.cancel_button.TabIndex = 2;
             this.cancel_button.Text = "Cancel";
             this.cancel_button.UseVisualStyleBackColor = true;
-            this.cancel_button.Click += new System.EventHandler(this.cancelBtnClick);
+            this.cancel_button.Click += new System.EventHandler(this.CancelBtnClick);
             // 
             // GroupBox2
             // 

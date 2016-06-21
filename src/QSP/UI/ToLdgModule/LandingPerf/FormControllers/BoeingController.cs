@@ -38,17 +38,17 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 
         public override void Initialize()
         {
-            setDefaultSurfCond();
-            setDefaultFlaps();
-            setDefaultRevs();
+            SetDefaultSurfCond();
+            SetDefaultFlaps();
+            SetDefaultRevs();
         }
 
         public override void SurfCondChanged(object sender, EventArgs e)
         {
-            updateBrks();
+            UpdateBrks();
         }
 
-        private void setDefaultSurfCond()
+        private void SetDefaultSurfCond()
         {
             var items = elements.surfCond.Items;
 
@@ -62,7 +62,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
             elements.surfCond.SelectedIndex = 0;
         }
 
-        private void setDefaultFlaps()
+        private void SetDefaultFlaps()
         {
             var items = elements.flaps.Items;
             items.Clear();
@@ -76,7 +76,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
         }
 
 
-        private void setDefaultRevs()
+        private void SetDefaultRevs()
         {
             var items = elements.reverser.Items;
             items.Clear();
@@ -89,7 +89,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
             elements.reverser.SelectedIndex = 0;
         }
 
-        private void updateBrks()
+        private void UpdateBrks()
         {
             var brks = elements.brake;
 

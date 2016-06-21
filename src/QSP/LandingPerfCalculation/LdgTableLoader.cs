@@ -43,10 +43,10 @@ namespace QSP.LandingPerfCalculation
                 .Where(g => g.Count()==1)
                 .Select(g => g.First())
                 .ToList(),
-                message(tables));
+                Message(tables));
         }
 
-        private static string message(List<PerfTable> item)
+        private static string Message(List<PerfTable> item)
         {
             var groups = item.GroupBy(x => x.Entry.ProfileName);
 

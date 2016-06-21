@@ -18,33 +18,33 @@ namespace QSP.UI.ToLdgModule.Common
         {
             this.wxControl = wxControl;
             this.airportControl = airportControl;
-            disableViewBtn();
+            DisableViewBtn();
         }
 
         public void Subscribe()
         {
-            wxControl.GetMetarBtn.Click += getMetarClicked;
-            wxControl.ViewMetarBtn.Click += viewMetarClicked;
+            wxControl.GetMetarBtn.Click += GetMetarClicked;
+            wxControl.ViewMetarBtn.Click += ViewMetarClicked;
             airportControl.airportTxtBox.TextChanged += (sender, e) =>
             {
                 wxControl.picBox.Visible = false;
-                disableViewBtn();
+                DisableViewBtn();
             };
         }
 
-        private void enableViewBtn()
+        private void EnableViewBtn()
         {
             wxControl.ViewMetarBtn.Enabled = true;
             wxControl.ViewMetarBtn.BackColor = SystemColors.MenuHighlight;
         }
 
-        private void disableViewBtn()
+        private void DisableViewBtn()
         {
             wxControl.ViewMetarBtn.Enabled = false;
             wxControl.ViewMetarBtn.BackColor = Color.FromArgb(224,224,224);
         }
 
-        private void enableDnBtn()
+        private void EnableDnBtn()
         {
             var btn = wxControl.GetMetarBtn;
 
@@ -53,7 +53,7 @@ namespace QSP.UI.ToLdgModule.Common
             btn.Text = "Import METAR";
         }
 
-        private void disableDnBtn()
+        private void DisableDnBtn()
         {
             var btn = wxControl.GetMetarBtn;
 
@@ -62,7 +62,7 @@ namespace QSP.UI.ToLdgModule.Common
             btn.Text = "Downloading ...";
         }
 
-        private void viewMetarClicked(object sender, EventArgs e)
+        private void ViewMetarClicked(object sender, EventArgs e)
         {
             var frm = new MetarForm();
             frm.icaoTxtBox.Text = airportControl.Icao;
@@ -72,9 +72,9 @@ namespace QSP.UI.ToLdgModule.Common
         }
 
         // Get metar functions.
-        private async void getMetarClicked(object sender, EventArgs e)
+        private async void GetMetarClicked(object sender, EventArgs e)
         {
-            disableDnBtn();
+            DisableDnBtn();
             var w = wxControl;
             w.picBox.Visible = false;
             w.picBox.Image = Properties.Resources.deleteIconLarge;
@@ -110,11 +110,11 @@ namespace QSP.UI.ToLdgModule.Common
                     w.picBox.Image = Properties.Resources.checkIconLarge;
                 }
 
-                enableViewBtn();
+                EnableViewBtn();
             }
 
             w.picBox.Visible = true;
-            enableDnBtn();
+            EnableDnBtn();
         }
     }
 }

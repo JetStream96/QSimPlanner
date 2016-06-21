@@ -45,14 +45,14 @@ namespace QSP.RouteFinding.Tracks.Pacots
                                     result.Ident,
                                     result.TimeStart,
                                     result.TimeEnd,
-                                    cutOffTextAfterParenthesis(result.Remarks),
+                                    CutOffTextAfterParenthesis(result.Remarks),
                                     Array.AsReadOnly(mainRoute),
                                     connectRoutes.RouteFrom.AsReadOnly(),
                                     connectRoutes.RouteTo.AsReadOnly(),
                                     Constants.US_LATLON);
         }
 
-        private static string cutOffTextAfterParenthesis(string item)
+        private static string CutOffTextAfterParenthesis(string item)
         {
             int index = item.IndexOf(')');
 

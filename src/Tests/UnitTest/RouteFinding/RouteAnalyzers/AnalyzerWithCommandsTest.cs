@@ -19,7 +19,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         private SidCollection sids;
         private StarCollection stars;
 
-        private void initObjects1()
+        private void InitObjects1()
         {
             var ac = new AirportCollection();
             ac.Add(GetAirport("ABCD", GetRwyData("05L", 25.0, 121.0)));
@@ -46,9 +46,9 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
         #region Group 1 - Same route
 
-        private AnalyzerWithCommands getAnalyzer1(params string[] route)
+        private AnalyzerWithCommands GetAnalyzer1(params string[] route)
         {
-            initObjects1();
+            InitObjects1();
 
             var wptList = new WaypointList();
 
@@ -72,7 +72,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 stars);
         }
 
-        private void checkRoute1(Route route)
+        private void CheckRoute1(Route route)
         {
             var expected = GetRoute(
                 new Waypoint("ABCD05L", 25.0, 121.0), "SID1", -1.0,
@@ -87,46 +87,46 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         public void AutoAtFirstShouldFindSid()
         {
             // Setup
-            var analyzer = getAnalyzer1("AUTO", "P1", "A1", "Q1", "STAR1");
+            var analyzer = GetAnalyzer1("AUTO", "P1", "A1", "Q1", "STAR1");
 
             // Invoke
             var route = analyzer.Analyze();
 
             // Assert
-            checkRoute1(route);
+            CheckRoute1(route);
         }
 
         [Test]
         public void AutoAtLastShouldFindStar()
         {
             // Setup
-            var analyzer = getAnalyzer1("SID1", "P1", "A1", "Q1", "AUTO");
+            var analyzer = GetAnalyzer1("SID1", "P1", "A1", "Q1", "AUTO");
 
             // Invoke
             var route = analyzer.Analyze();
 
             // Assert
-            checkRoute1(route);
+            CheckRoute1(route);
         }
 
         [Test]
         public void AutoAtMiddleShouldFindRoute()
         {
             // Setup
-            var analyzer = getAnalyzer1("SID1", "P1", "AUTO", "Q1", "STAR1");
+            var analyzer = GetAnalyzer1("SID1", "P1", "AUTO", "Q1", "STAR1");
 
             // Invoke
             var route = analyzer.Analyze();
 
             // Assert
-            checkRoute1(route);
+            CheckRoute1(route);
         }
 
         #endregion
 
         #region Group 2 - Only coordinates
 
-        private void initObjects2()
+        private void InitObjects2()
         {
             var ac = new AirportCollection();
 
@@ -136,9 +136,9 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             airportList = new AirportManager(ac);
         }
 
-        private AnalyzerWithCommands getAnalyzer2(params string[] route)
+        private AnalyzerWithCommands GetAnalyzer2(params string[] route)
         {
-            initObjects2();
+            InitObjects2();
 
             var wptList = new WaypointList();
 
@@ -158,7 +158,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         public void RandAtFirstShouldDirectFromRwy()
         {
             // Setup
-            var analyzer = getAnalyzer2("RAND", "N37E112");
+            var analyzer = GetAnalyzer2("RAND", "N37E112");
 
             // Invoke
             var route = analyzer.Analyze();
@@ -177,7 +177,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         public void RandAtLastShouldDirectToRwy()
         {
             // Setup
-            var analyzer = getAnalyzer2("N30E117", "RAND");
+            var analyzer = GetAnalyzer2("N30E117", "RAND");
 
             // Invoke
             var route = analyzer.Analyze();
@@ -196,7 +196,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         public void RandAtMiddleShouldFindRandomRoute()
         {
             // Setup
-            var analyzer = getAnalyzer2("N30E117", "RAND", "N37E112");
+            var analyzer = GetAnalyzer2("N30E117", "RAND", "N37E112");
 
             // Invoke
             var route = analyzer.Analyze();

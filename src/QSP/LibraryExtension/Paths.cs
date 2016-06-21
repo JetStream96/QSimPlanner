@@ -5,9 +5,9 @@ namespace QSP.LibraryExtension
 {
     public static class Paths
     {
-        public static HashSet<char> IllegalChars = getIllegalChars();
+        public static HashSet<char> IllegalChars = GetIllegalChars();
 
-        private static HashSet<char> getIllegalChars()
+        private static HashSet<char> GetIllegalChars()
         {
             var result = new HashSet<char>(Path.GetInvalidFileNameChars());
             Path.GetInvalidPathChars().ForEach(c => result.Add(c));

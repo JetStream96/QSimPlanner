@@ -14,7 +14,7 @@ namespace QSP
             InitializeComponent();
         }
 
-        private void downloadMetarTafAndShow()
+        private void DownloadMetarTafAndShow()
         {
             Metar = "";
             Taf = "";

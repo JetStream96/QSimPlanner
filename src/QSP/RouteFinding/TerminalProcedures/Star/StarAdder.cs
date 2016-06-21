@@ -83,7 +83,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             if (starsToAdd.Count == 0)
             {
                 // Case 1
-                return processCase1(rwy);
+                return ProcessCase1(rwy);
             }
             else
             {
@@ -97,7 +97,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
                     try
                     {
                         // this is where case 2, 3, 4 are handled.
-                        addToWptList(index, rwy, i);
+                        AddToWptList(index, rwy, i);
                     }
                     catch (WaypointNotFoundException ex)
                     {
@@ -108,10 +108,10 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             }
         }
 
-        private int processCase1(string rwy)
+        private int ProcessCase1(string rwy)
         {
             var rwyLatLon = airportList.RwyLatLon(icao, rwy);
-            var nearbyWpts = airwayConnections(rwyLatLon.Lat, rwyLatLon.Lon);
+            var nearbyWpts = AirwayConnections(rwyLatLon.Lat, rwyLatLon.Lon);
 
             int index = editor.AddWaypoint(new Waypoint(icao + rwy, rwyLatLon));
 
@@ -124,7 +124,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         }
 
         /// <exception cref="WaypointNotFoundException"></exception>
-        private void addToWptList(int rwyIndex, string rwy, string star)
+        private void AddToWptList(int rwyIndex, string rwy, string star)
         {
             var starInfo = stars.GetStarInfo(star, rwy, wptList[rwyIndex]);
             var firstWpt = starInfo.FirstWaypoint;
@@ -139,7 +139,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             if (wptList.EdgesToCount(firstWptIndex) == 0)
             {
                 // Case 2                                 
-                foreach (var k in airwayConnections(firstWpt.Lat, firstWpt.Lon))
+                foreach (var k in AirwayConnections(firstWpt.Lat, firstWpt.Lon))
                 {
                     editor.AddNeighbor(
                         k.Index, firstWptIndex, new Neighbor("DCT", k.Distance));
@@ -152,10 +152,10 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
                 new Neighbor(star, starInfo.TotalDistance));
         }
 
-        private void processCase2(
+        private void ProcessCase2(
             int rwyIndex, string star, Waypoint lastWpt, double disAdd)
         {
-            var endPoints = airwayConnections(lastWpt.Lat, lastWpt.Lon);
+            var endPoints = AirwayConnections(lastWpt.Lat, lastWpt.Lon);
 
             foreach (var i in endPoints)
             {
@@ -164,7 +164,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             }
         }
 
-        private List<IndexDistancePair> airwayConnections(
+        private List<IndexDistancePair> AirwayConnections(
             double lat, double lon)
         {
             return FromAirway(lat, lon, wptList, option);

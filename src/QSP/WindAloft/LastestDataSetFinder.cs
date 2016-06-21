@@ -27,7 +27,7 @@ namespace QSP.WindAloft
                 {
                     try
                     {
-                        url = lastestUrl();
+                        url = LastestUrl();
                         src = client.DownloadString(url);
                     }
                     catch
@@ -39,7 +39,7 @@ namespace QSP.WindAloft
             }
         }
 
-        private string lastestUrl()
+        private string LastestUrl()
         {
             try
             {

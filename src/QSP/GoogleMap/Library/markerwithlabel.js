@@ -42,10 +42,10 @@
  */
 function inherits(childCtor, parentCtor) {
   /* @constructor */
-  function tempCtor() {}
-  tempCtor.prototype = parentCtor.prototype;
+  function TempCtor() {}
+  TempCtor.prototype = parentCtor.prototype;
   childCtor.superClass_ = parentCtor.prototype;
-  childCtor.prototype = new tempCtor();
+  childCtor.prototype = new TempCtor();
   /* @override */
   childCtor.prototype.constructor = childCtor;
 }
@@ -59,7 +59,7 @@ function inherits(childCtor, parentCtor) {
  * @param {string} handCursor The URL of the hand cursor.
  * @private
  */
-function MarkerLabel_(marker, crossURL, handCursorURL) {
+function MarkerLabel_(marker, crossUrl, handCursorUrl) {
   this.marker_ = marker;
   this.handCursorURL_ = marker.handCursorURL;
 
@@ -78,7 +78,7 @@ function MarkerLabel_(marker, crossURL, handCursorURL) {
   this.eventDiv_.setAttribute("ondragstart", "return false;");
 
   // Get the DIV for the "X" to be displayed when the marker is raised.
-  this.crossDiv_ = MarkerLabel_.getSharedCross(crossURL);
+  this.crossDiv_ = MarkerLabel_.getSharedCross(crossUrl);
 }
 
 inherits(MarkerLabel_, google.maps.OverlayView);
@@ -89,7 +89,7 @@ inherits(MarkerLabel_, google.maps.OverlayView);
  * @param {string} crossURL The URL of the cross image =.
  * @private
  */
-MarkerLabel_.getSharedCross = function (crossURL) {
+MarkerLabel_.getSharedCross = function (crossUrl) {
   var div;
   if (typeof MarkerLabel_.getSharedCross.crossDiv === "undefined") {
     div = document.createElement("img");
@@ -97,7 +97,7 @@ MarkerLabel_.getSharedCross = function (crossURL) {
     // Hopefully Google never changes the standard "X" attributes:
     div.style.marginLeft = "-8px";
     div.style.marginTop = "-9px";
-    div.src = crossURL;
+    div.src = crossUrl;
     MarkerLabel_.getSharedCross.crossDiv = div;
   }
   return MarkerLabel_.getSharedCross.crossDiv;
@@ -530,33 +530,33 @@ MarkerLabel_.prototype.setVisible = function () {
  * @constructor
  * @param {MarkerWithLabelOptions} [opt_options] The optional parameters.
  */
-function MarkerWithLabel(opt_options) {
-  opt_options = opt_options || {};
-  opt_options.labelContent = opt_options.labelContent || "";
-  opt_options.labelAnchor = opt_options.labelAnchor || new google.maps.Point(0, 0);
-  opt_options.labelClass = opt_options.labelClass || "markerLabels";
-  opt_options.labelStyle = opt_options.labelStyle || {};
-  opt_options.labelInBackground = opt_options.labelInBackground || false;
-  if (typeof opt_options.labelVisible === "undefined") {
-    opt_options.labelVisible = true;
+function MarkerWithLabel(optOptions) {
+  optOptions = optOptions || {};
+  optOptions.labelContent = optOptions.labelContent || "";
+  optOptions.labelAnchor = optOptions.labelAnchor || new google.maps.Point(0, 0);
+  optOptions.labelClass = optOptions.labelClass || "markerLabels";
+  optOptions.labelStyle = optOptions.labelStyle || {};
+  optOptions.labelInBackground = optOptions.labelInBackground || false;
+  if (typeof optOptions.labelVisible === "undefined") {
+    optOptions.labelVisible = true;
   }
-  if (typeof opt_options.raiseOnDrag === "undefined") {
-    opt_options.raiseOnDrag = true;
+  if (typeof optOptions.raiseOnDrag === "undefined") {
+    optOptions.raiseOnDrag = true;
   }
-  if (typeof opt_options.clickable === "undefined") {
-    opt_options.clickable = true;
+  if (typeof optOptions.clickable === "undefined") {
+    optOptions.clickable = true;
   }
-  if (typeof opt_options.draggable === "undefined") {
-    opt_options.draggable = false;
+  if (typeof optOptions.draggable === "undefined") {
+    optOptions.draggable = false;
   }
-  if (typeof opt_options.optimized === "undefined") {
-    opt_options.optimized = false;
+  if (typeof optOptions.optimized === "undefined") {
+    optOptions.optimized = false;
   }
-  opt_options.crossImage = opt_options.crossImage || "http" + (document.location.protocol === "https:" ? "s" : "") + "://maps.gstatic.com/intl/en_us/mapfiles/drag_cross_67_16.png";
-  opt_options.handCursor = opt_options.handCursor || "http" + (document.location.protocol === "https:" ? "s" : "") + "://maps.gstatic.com/intl/en_us/mapfiles/closedhand_8_8.cur";
-  opt_options.optimized = false; // Optimized rendering is not supported
+  optOptions.crossImage = optOptions.crossImage || "http" + (document.location.protocol === "https:" ? "s" : "") + "://maps.gstatic.com/intl/en_us/mapfiles/drag_cross_67_16.png";
+  optOptions.handCursor = optOptions.handCursor || "http" + (document.location.protocol === "https:" ? "s" : "") + "://maps.gstatic.com/intl/en_us/mapfiles/closedhand_8_8.cur";
+  optOptions.optimized = false; // Optimized rendering is not supported
 
-  this.label = new MarkerLabel_(this, opt_options.crossImage, opt_options.handCursor); // Bind the label to the marker
+  this.label = new MarkerLabel_(this, optOptions.crossImage, optOptions.handCursor); // Bind the label to the marker
 
   // Call the parent constructor. It calls Marker.setValues to initialize, so all
   // the new parameters are conveniently saved and can be accessed with get/set.

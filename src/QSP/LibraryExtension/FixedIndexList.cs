@@ -79,7 +79,7 @@ namespace QSP.LibraryExtension
         {
             if (_free >= 0)
             {
-                int index = tryFillDeletedSpot(item);
+                int index = TryFillDeletedSpot(item);
                 if (index >= 0)
                 {
                     return index;
@@ -88,14 +88,14 @@ namespace QSP.LibraryExtension
 
             if (_size == _items.Length)
             {
-                increaseCapacity(1);
+                IncreaseCapacity(1);
             }
             _items[_size] = new Entry(-1, item);
             _count++;
             return _size++;
         }
 
-        private void increaseCapacity(int newCount)
+        private void IncreaseCapacity(int newCount)
         {
             int minimumSize = _size + newCount;
             if (minimumSize > _items.Length)
@@ -110,7 +110,7 @@ namespace QSP.LibraryExtension
         /// Try to add the item to a previously deleted place.
         /// Returns whether the insertion is successful.
         /// </summary>
-        private int tryFillDeletedSpot(T item)
+        private int TryFillDeletedSpot(T item)
         {
             while (_free >= 0)
             {
@@ -172,7 +172,7 @@ namespace QSP.LibraryExtension
         {
             get
             {
-                if (isRemoved(index))
+                if (IsRemoved(index))
                 {
                     throw new ArgumentOutOfRangeException(
                         "The element at given index is already removed.");
@@ -181,7 +181,7 @@ namespace QSP.LibraryExtension
             }
             set
             {
-                if (isRemoved(index))
+                if (IsRemoved(index))
                 {
                     throw new ArgumentOutOfRangeException(
                         "The element at given index is already removed.");
@@ -198,19 +198,19 @@ namespace QSP.LibraryExtension
             _count = 0;
         }
 
-        private bool isRemoved(int index)
+        private bool IsRemoved(int index)
         {
             return !(_items[index].next == -1);
         }
 
         public bool ItemExists(int index)
         {
-            return !isRemoved(index);
+            return !IsRemoved(index);
         }
 
         public void RemoveAt(int index)
         {
-            if (isRemoved(index))
+            if (IsRemoved(index))
             {
                 return;
             }
@@ -275,7 +275,7 @@ namespace QSP.LibraryExtension
 
                 while (((uint)index < (uint)localList._size))
                 {
-                    if (localList.isRemoved(index) == false)
+                    if (localList.IsRemoved(index) == false)
                     {
                         current = localList._items[index].value;
                         index++;

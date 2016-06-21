@@ -14,7 +14,7 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
 
         public List<string> Seperate()
         {
-            var lineRecords = getLines(route);
+            var lineRecords = GetLines(route);
             var result = new List<string>();
 
             foreach (var i in lineRecords)
@@ -34,14 +34,14 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
             return result;
         }
 
-        private static List<Line> getLines(string route)
+        private static List<Line> GetLines(string route)
         {
             var lineRecords = new List<Line>();
             var lines = route.Lines();
 
             for (int i = 0; i < lines.Length; i++)
             {
-                int x = lineStartIndex(lines[i]);
+                int x = LineStartIndex(lines[i]);
 
                 if (x > lines[i].Length - 1)
                 {
@@ -56,7 +56,7 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
         }
 
         // Index may be larger than s.Length-1
-        private static int lineStartIndex(string s)
+        private static int LineStartIndex(string s)
         {
             int x = s.LastIndexOf("--");
 

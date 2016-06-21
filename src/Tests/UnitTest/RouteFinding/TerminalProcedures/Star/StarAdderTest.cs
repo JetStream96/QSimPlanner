@@ -46,14 +46,14 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             int rwyIndex = adder.AddStarsToWptList("18", new List<string>());
 
             // Check the STAR is added 
-            Assert.IsTrue(directAdded(
+            Assert.IsTrue(DirectAdded(
                 wptList, new Waypoint("25N050E", 25.0, 50.0), rwyIndex));
 
-            Assert.IsTrue(directAdded(
+            Assert.IsTrue(DirectAdded(
                 wptList, new Waypoint("27N050E", 27.0, 50.0), rwyIndex));
         }
 
-        private static bool directAdded(
+        private static bool DirectAdded(
             WaypointList wptList, Waypoint wpt, int rwyIndex)
         {
             foreach (var i in wptList.EdgesFrom(wptList.FindByWaypoint(wpt)))
@@ -133,7 +133,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             double dis = CreateList(wpt101, wpt102, wpt103, wpt104, rwy)
                .TotalDistance();
 
-            Assert.IsTrue(starIsAdded(
+            Assert.IsTrue(StarIsAdded(
                 wptList.FindByWaypoint(wpt101),
                 "STAR1",
                 dis,
@@ -191,7 +191,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 
             double dis = CreateList(wptCorrds, wpt01, rwy).TotalDistance();
 
-            Assert.IsTrue(starIsAdded(
+            Assert.IsTrue(StarIsAdded(
                 wptList.FindByWaypoint(wptCorrds),
                 "STAR1",
                 dis,
@@ -233,7 +233,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             return new AirportManager(airports);
         }
 
-        private bool starIsAdded(
+        private bool StarIsAdded(
             int fromIndex, string name, double dis, WaypointList wptList)
         {
             return wptList.EdgesFrom(fromIndex).Any(i =>

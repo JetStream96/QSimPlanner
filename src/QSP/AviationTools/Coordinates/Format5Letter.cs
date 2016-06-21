@@ -24,7 +24,7 @@ namespace QSP.AviationTools.Coordinates
             return null;
         }
 
-        private static char selectChar(int lat, int lon)
+        private static char SelectChar(int lat, int lon)
         {
             if (lat >= 0)
             {
@@ -46,7 +46,7 @@ namespace QSP.AviationTools.Coordinates
 
         public static string To5LetterFormat(int lat, int lon)
         {
-            char c = selectChar(lat, lon);
+            char c = SelectChar(lat, lon);
 
             lat = Math.Abs(lat);
             lon = Math.Abs(lon);
@@ -63,7 +63,7 @@ namespace QSP.AviationTools.Coordinates
             }
         }
 
-        private static int alphabetPosition(string s)
+        private static int AlphabetPosition(string s)
         {
             if (NSEW.Contains(s[2]))
             {
@@ -96,7 +96,7 @@ namespace QSP.AviationTools.Coordinates
         {
             ConditionChecker.Ensure<ArgumentException>(item.Length == 5);
 
-            int pos = alphabetPosition(item);
+            int pos = AlphabetPosition(item);
 
             int lat = int.Parse(item.Substring(0, 2));
             int lon = pos == 2

@@ -24,15 +24,15 @@ namespace QSP.LandingPerfCalculation.Boeing
             var report = new LandingReport();
 
             //compute the user input           
-            validateMainResult(report);
+            ValidateMainResult(report);
 
             //compute all possible brake settings
-            validateOtherResults(report);
+            ValidateOtherResults(report);
 
             return report;
         }
 
-        private void validateMainResult(LandingReport report)
+        private void ValidateMainResult(LandingReport report)
         {
             var brkList = perfTable.BrakesAvailable(para.SurfaceCondition);
             double disReqMeter = calc.DistanceRequiredMeter();
@@ -51,7 +51,7 @@ namespace QSP.LandingPerfCalculation.Boeing
             }
         }
 
-        private void validateOtherResults(LandingReport report)
+        private void ValidateOtherResults(LandingReport report)
         {
             var brkList = perfTable.BrakesAvailable(para.SurfaceCondition);
 

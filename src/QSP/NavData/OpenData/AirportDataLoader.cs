@@ -21,7 +21,7 @@ namespace QSP.NavData.OpenData
             this.folderpath = folderpath;
         }
 
-        private MultiMap<string, RwyData> loadRwys()
+        private MultiMap<string, RwyData> LoadRwys()
         {
             string rwyFile = folderpath + @"\runways.csv";
             var lines = File.ReadAllLines(rwyFile);
@@ -146,7 +146,7 @@ namespace QSP.NavData.OpenData
             MultiMap<string, RwyData> rwyList;
             try
             {
-                rwyList = loadRwys();
+                rwyList = LoadRwys();
             }
             catch (Exception ex)
             {

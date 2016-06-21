@@ -69,10 +69,10 @@ namespace QSP.RouteFinding.Routes.TrackInUse
                 list.Add(new RouteEntry(i.MainRoute.First.List, i.AirwayIdent));
             }
 
-            updateList(list, type);
+            UpdateList(list, type);
         }
 
-        private void updateList(
+        private void UpdateList(
             List<RouteEntry> entries, TrackType type)
         {
             switch (type)

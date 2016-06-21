@@ -37,7 +37,7 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
             sp.MoveToNextIndexOf(':');
             sp.CurrentIndex++;
             result.FlexRoute = sp.ReadString(
-                indexBeforeNextLineWhichContainsColon(sp.CurrentIndex));
+                IndexBeforeNextLineWhichContainsColon(sp.CurrentIndex));
             sp.CurrentIndex++;
 
             int rmk = sp.NextIndexOf("RMK");
@@ -48,14 +48,14 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
             }
             else
             {
-                result.Remark = getRmk(rmk);
+                result.Remark = GetRmk(rmk);
             }
             result.ConnectionRoute = sp.ReadString(rmk - 1);
 
             return result;
         }
 
-        private int indexBeforeNextLineWhichContainsColon(int index)
+        private int IndexBeforeNextLineWhichContainsColon(int index)
         {
             int x = text.IndexOf(':', index);
 
@@ -73,7 +73,7 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
             return x;
         }
 
-        private string getRmk(int index)
+        private string GetRmk(int index)
         {
             index = text.IndexOf(':', index);
 

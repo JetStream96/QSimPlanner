@@ -35,19 +35,19 @@ namespace QSP.RouteFinding.RandomRoutes
 
             while (current.DistanceFrom(end) > MaxLegDis)
             {
-                var list = getCandidates(current, end);
-                var optimal = chooseCandidates(list, current, end);
+                var list = GetCandidates(current, end);
+                var optimal = ChooseCandidates(list, current, end);
                 route.Add(optimal);
                 current = optimal;
             }
 
             route.Add(end);
-            return removeRedundentWpts(route);
+            return RemoveRedundentWpts(route);
         }
 
         // Prevents the route output like this:
         // ... 160E20N 160E21N 160E22N 160E23N ...
-        private static List<Waypoint> removeRedundentWpts(
+        private static List<Waypoint> RemoveRedundentWpts(
             IEnumerable<Waypoint> items)
         {
             var list = new LinkedList<Waypoint>(items);
@@ -73,7 +73,7 @@ namespace QSP.RouteFinding.RandomRoutes
             return list.ToList();
         }
 
-        private Waypoint chooseCandidates(
+        private Waypoint ChooseCandidates(
             List<Waypoint> candidates, Waypoint start, Waypoint end)
         {
             return candidates
@@ -81,11 +81,11 @@ namespace QSP.RouteFinding.RandomRoutes
                 .MinBy(i => i.DistanceFrom(start) + i.DistanceFrom(end));
         }
 
-        private List<Waypoint> getCandidates(Waypoint start, Waypoint end)
+        private List<Waypoint> GetCandidates(Waypoint start, Waypoint end)
         {
             var startVector = start.LatLon.ToVector3D();
             var endVector = end.LatLon.ToVector3D();
-            var tangent = getTangent(startVector, endVector);
+            var tangent = GetTangent(startVector, endVector);
             var maxDisVector = (startVector + Tan(MaxAngleRadian) * tangent)
                 .Normalize();
 
@@ -105,7 +105,7 @@ namespace QSP.RouteFinding.RandomRoutes
 
         // Returns the unit vector tantgent to the path 
         // from v to w at v
-        private static Vector3D getTangent(Vector3D v, Vector3D w)
+        private static Vector3D GetTangent(Vector3D v, Vector3D w)
         {
             return v.Cross(w.Cross(v)).Normalize();
         }

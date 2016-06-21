@@ -12,17 +12,17 @@ namespace QSP.LibraryExtension
         {
             int colonIndex = s.IndexOf(':');
             ConditionChecker.ThrowWhenNegative<ArgumentException>(colonIndex);
-            return stringsToMin(s.Substring(0, colonIndex), s.Substring(colonIndex + 1));
+            return StringsToMin(s.Substring(0, colonIndex), s.Substring(colonIndex + 1));
         }
 
         //e.g. 0143 ---> 103
-        public static int HHMMToMin(string s)
+        public static int HhmmToMin(string s)
         {
             ConditionChecker.Ensure<ArgumentException>(s.Length == 4);
-            return stringsToMin(s.Substring(0, 2), s.Substring(2));
+            return StringsToMin(s.Substring(0, 2), s.Substring(2));
         }
 
-        private static int stringsToMin(string hour, string min)
+        private static int StringsToMin(string hour, string min)
         {
             int h = Convert.ToInt32(hour);
             int m = Convert.ToInt32(min);
@@ -31,7 +31,7 @@ namespace QSP.LibraryExtension
             return 60 * h + m;
         }
 
-        public static string MinToHHMM(int min)
+        public static string MinToHhmm(int min)
         {
             //return a value with exactly 4 digits
             ConditionChecker.Ensure<ArgumentOutOfRangeException>(min > 60 * 100 || min >= 0);

@@ -79,17 +79,17 @@ namespace QSP.RouteFinding.AirwayStructure
         /// Returns -1 if not found.
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public int FindByID(string ident)
+        public int FindById(string ident)
         {
-            return _content.FindByID(ident);
+            return _content.FindById(ident);
         }
 
         /// <summary>
         /// Find all WptNeighbors by ident of a waypoint.
         /// </summary> 
-        public List<int> FindAllByID(string ident)
+        public List<int> FindAllById(string ident)
         {
-            return _content.FindAllByID(ident);
+            return _content.FindAllById(ident);
         }
 
         /// <summary>

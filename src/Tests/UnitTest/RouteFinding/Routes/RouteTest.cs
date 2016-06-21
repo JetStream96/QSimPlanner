@@ -210,7 +210,7 @@ namespace UnitTest.RouteFinding.Routes
             var route = new Route();
             route.AddLastWaypoint(x);
 
-            route.AddLast(getRoute1(), "0");
+            route.AddLast(GetRoute1(), "0");
 
             Assert.IsTrue(x.Equals(route.FirstWaypoint));
             Assert.IsTrue("0" == route.First.Value.AirwayToNext);
@@ -230,7 +230,7 @@ namespace UnitTest.RouteFinding.Routes
 
             var route = new Route();
 
-            route.AddLast(getRoute1(), "0");
+            route.AddLast(GetRoute1(), "0");
 
             Assert.IsTrue(y.Equals(route.FirstWaypoint));
             Assert.IsTrue("1" == route.First.Value.AirwayToNext);
@@ -251,7 +251,7 @@ namespace UnitTest.RouteFinding.Routes
             var route = new Route();
             route.AddLastWaypoint(x);
 
-            route.AddLast(getRoute1(), "0", 100.0);
+            route.AddLast(GetRoute1(), "0", 100.0);
 
             Assert.IsTrue(x.Equals(route.FirstWaypoint));
             Assert.IsTrue("0" == route.First.Value.AirwayToNext);
@@ -271,7 +271,7 @@ namespace UnitTest.RouteFinding.Routes
 
             var route = new Route();
 
-            route.AddLast(getRoute1(), "0", 100.0);
+            route.AddLast(GetRoute1(), "0", 100.0);
 
             Assert.IsTrue(y.Equals(route.FirstWaypoint));
             Assert.IsTrue("1" == route.First.Value.AirwayToNext);
@@ -283,7 +283,7 @@ namespace UnitTest.RouteFinding.Routes
             Assert.IsTrue(z.Equals(route.First.Next.Value.Waypoint));
         }
 
-        private Route getRoute1()
+        private Route GetRoute1()
         {
             var route = new Route();
 
@@ -306,7 +306,7 @@ namespace UnitTest.RouteFinding.Routes
 
             var expected = new Route(route);
 
-            route.ConnectRoute(getRoute1());
+            route.ConnectRoute(GetRoute1());
 
             expected.AddLastWaypoint(z, "1");
 
@@ -317,10 +317,10 @@ namespace UnitTest.RouteFinding.Routes
         public void ConnectRouteEmptyNodes()
         {
             var route = new Route();
-            route.ConnectRoute(getRoute1());
+            route.ConnectRoute(GetRoute1());
 
             Assert.IsTrue(Enumerable.SequenceEqual(
-                route, getRoute1()));
+                route, GetRoute1()));
         }
 
         [Test]
@@ -334,7 +334,7 @@ namespace UnitTest.RouteFinding.Routes
             route.AddLastWaypoint(x);
 
             Assert.Throws<ArgumentException>(() =>
-            route.ConnectRoute(getRoute1()));
+            route.ConnectRoute(GetRoute1()));
         }
     }
 }

@@ -38,7 +38,7 @@ namespace UnitTest.AviationToolsTest
         [Test]
         public void PressureToAltFtTest()
         {
-            Assert.IsTrue(WithinPrecisionPercent(29272.26, PressureMbToAltFT(311.0), 1.0));
+            Assert.IsTrue(WithinPrecisionPercent(29272.26, PressureMbToAltFt(311.0), 1.0));
         }
 
         [Test]

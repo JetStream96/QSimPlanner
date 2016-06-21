@@ -32,7 +32,7 @@ namespace QSP.AviationTools
             return Math.Pow((1.0 - altFT / 145366.45), (1.0 / 0.190284)) * 1013.25;
         }
 
-        public static double PressureMbToAltFT(double pressMb)
+        public static double PressureMbToAltFt(double pressMb)
         {
             return 145366.45 * (1.0 - Math.Pow((pressMb / 1013.25), 0.190284));
         }

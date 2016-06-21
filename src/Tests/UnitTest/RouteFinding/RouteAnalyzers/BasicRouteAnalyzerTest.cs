@@ -23,7 +23,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var analyzer = new BasicRouteAnalyzer(
                 new string[] { "P" },
                 wptList,
-                wptList.FindByID("P"));
+                wptList.FindById("P"));
 
             // invoke
             var route = analyzer.Analyze();
@@ -60,7 +60,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var analyzer = new BasicRouteAnalyzer(
                 new string[] { "P01", "A01", "P02", "A02", "P03" },
                 wptList,
-                wptList.FindByID("P01"));
+                wptList.FindById("P01"));
 
             // invoke 
             var route = analyzer.Analyze();
@@ -93,7 +93,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var analyzer = new BasicRouteAnalyzer(
                 new string[] { "P01", "P02", "P03" },
                 wptList,
-                wptList.FindByID("P01"));
+                wptList.FindById("P01"));
 
             // invoke 
             var route = analyzer.Analyze();

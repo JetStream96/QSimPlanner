@@ -30,18 +30,18 @@ namespace QSimPlanner
             Application.SetCompatibleTextRenderingDefault(false);
 
             var mainFrm = new QSP.MainForm();
-            prepareApp(mainFrm);
+            PrepareApp(mainFrm);
 
             Application.Run(mainFrm);
         }
 
-        private static void prepareApp(QSP.MainForm mainFrm)
+        private static void PrepareApp(QSP.MainForm mainFrm)
         {
             var splash = new QSP.Splash();
             splash.Show();
             splash.Refresh();
 
-            initData();
+            InitData();
 
             mainFrm.Init(
                 Information.Profiles,
@@ -52,7 +52,7 @@ namespace QSimPlanner
             splash.Close();
         }
 
-        private static void initData()
+        private static void InitData()
         {
             try
             {

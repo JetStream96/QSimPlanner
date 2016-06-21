@@ -28,19 +28,19 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             foreach (var i in nodes)
             {
-                addTrackToWptList(i);
+                AddTrackToWptList(i);
             }
         }
 
-        private void addTrackToWptList(TrackNodes item)
+        private void AddTrackToWptList(TrackNodes item)
         {
             try
             {
-                addMainRoute(item);
+                AddMainRoute(item);
 
                 foreach (var i in item.PairsToAdd)
                 {
-                    addPairs(i);
+                    AddPairs(i);
                 }
             }
             catch
@@ -52,7 +52,7 @@ namespace QSP.RouteFinding.Tracks.Common
             }
         }
 
-        private void addPairs(WptPair item)
+        private void AddPairs(WptPair item)
         {
             double dis = wptList.Distance(item.IndexFrom, item.IndexTo);
             editor.AddNeighbor(
@@ -61,12 +61,12 @@ namespace QSP.RouteFinding.Tracks.Common
                 new Neighbor("DCT", dis));
         }
 
-        private void addMainRoute(TrackNodes nodes)
+        private void AddMainRoute(TrackNodes nodes)
         {
             var rte = nodes.MainRoute;
 
-            int indexStart = addFirstWpt(rte.FirstWaypoint);
-            int indexEnd = addLastWpt(rte.LastWaypoint);
+            int indexStart = AddFirstWpt(rte.FirstWaypoint);
+            int indexEnd = AddLastWpt(rte.LastWaypoint);
 
             editor.AddNeighbor(
                 indexStart,
@@ -75,7 +75,7 @@ namespace QSP.RouteFinding.Tracks.Common
         }
 
         //returns the index of added wpt in wptList
-        private int addFirstWpt(Waypoint wpt)
+        private int AddFirstWpt(Waypoint wpt)
         {
             int x = wptList.FindByWaypoint(wpt);
 
@@ -107,7 +107,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 string.Format("Waypoint {0} is not found.", wpt.ID));
         }
 
-        private int addLastWpt(Waypoint wpt)
+        private int AddLastWpt(Waypoint wpt)
         {
             int x = wptList.FindByWaypoint(wpt);
 

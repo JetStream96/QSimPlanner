@@ -9,7 +9,7 @@ namespace UnitTest.Metar
     public class ParaExtractorTest
     {
         [Test]
-        public void GetWindTestVRB()
+        public void GetWindTestVrb()
         {
             var w = ParaExtractor.GetWind("RCTP ... VRB05KT");
             Assert.AreEqual(0.0, (w.Direction - 360.0).Mod(360.0), 1E-6);

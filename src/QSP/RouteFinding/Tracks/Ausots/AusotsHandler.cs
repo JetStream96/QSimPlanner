@@ -48,8 +48,8 @@ namespace QSP.RouteFinding.Tracks.Ausots
         /// <exception cref="TrackDownloadException"></exception>
         public override void GetAllTracks()
         {
-            tryDownload();
-            var trks = tryParse();
+            TryDownload();
+            var trks = TryParse();
 
             var reader = new TrackReader<AusTrack>(wptList, airportList);
             nodes = new List<TrackNodes>();
@@ -70,7 +70,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         }
 
         /// <exception cref="TrackParseException"></exception>
-        private List<AusTrack> tryParse()
+        private List<AusTrack> TryParse()
         {
             try
             {
@@ -86,7 +86,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         }
 
         /// <exception cref="TrackDownloadException"></exception>
-        private void tryDownload()
+        private void TryDownload()
         {
             try
             {

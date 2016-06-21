@@ -53,7 +53,7 @@ JAPAN ROUTE : VACKY OTR13 SEALS
             // Assert
             Assert.AreEqual(3, trks.Count);
 
-            var trk1 = getTrack(trks, "1");
+            var trk1 = GetTrack(trks, "1");
             Assert.AreEqual(PacotDirection.Eastbound, trk1.Direction);
 
             Assert.IsTrue(Enumerable.SequenceEqual(trk1.MainRoute,
@@ -79,7 +79,7 @@ JAPAN ROUTE : VACKY OTR13 SEALS
 ");
         }
 
-        private PacificTrack getTrack(IEnumerable<PacificTrack> trks, string ID)
+        private PacificTrack GetTrack(IEnumerable<PacificTrack> trks, string ID)
         {
             foreach (var i in trks)
             {

@@ -25,7 +25,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
         {
             // Arrange
             var wptList = WptListFactory.GetWptList(wptIdents);
-            addAirways(wptList);
+            AddAirways(wptList);
 
             var recorder = new StatusRecorder();
 
@@ -34,7 +34,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
                 wptList,
                 wptList.GetEditor(),
                 recorder,
-                getAirportList(),
+                GetAirportList(),
                 new RouteTrackCommunicator(new TrackInUseCollection()));
 
             // Act
@@ -45,23 +45,23 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             Assert.AreEqual(0, recorder.Records.Count);
 
             // Verify all tracks are added.
-            assertAllTracks(wptList);
+            AssertAllTracks(wptList);
 
             // Check one westbound track.
-            assertTrackJ(wptList);
+            AssertTrackJ(wptList);
 
             // Check one eastbound track.
-            assertTrack11(wptList);
+            AssertTrack11(wptList);
 
             // Check connection routes
-            assertDct(wptList, "DANNO", "BOOKE"); // In track 11
-            assertDct(wptList, "BRINY", "ALCOA"); // In track J
+            AssertDct(wptList, "DANNO", "BOOKE"); // In track 11
+            AssertDct(wptList, "BRINY", "ALCOA"); // In track J
         }
 
-        private static void assertDct(
+        private static void AssertDct(
             WaypointList wptList, string from, string to)
         {
-            foreach (var i in wptList.EdgesFrom(wptList.FindByID(from)))
+            foreach (var i in wptList.EdgesFrom(wptList.FindById(from)))
             {
                 if (wptList[wptList.GetEdge(i).ToNodeIndex].ID == to)
                 {
@@ -71,18 +71,18 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             Assert.Fail("{0} is not connected to {1}", from, to);
         }
 
-        private static void assertTrackJ(WaypointList wptList)
+        private static void AssertTrackJ(WaypointList wptList)
         {
             var edge = wptList.GetEdge(
-                getEdgeIndex("PACOTJ", "ALCOA", wptList));
+                GetEdgeIndex("PACOTJ", "ALCOA", wptList));
 
             // Distance
             Assert.AreEqual(
                     new List<LatLon>
                     {
-                      wptList[ wptList.FindByID("ALCOA")].LatLon,
-                      wptList[ wptList.FindByID("CEPAS")].LatLon,
-                      wptList[ wptList.FindByID("COBAD")].LatLon,
+                      wptList[ wptList.FindById("ALCOA")].LatLon,
+                      wptList[ wptList.FindById("CEPAS")].LatLon,
+                      wptList[ wptList.FindById("COBAD")].LatLon,
                       new LatLon(41,-140),
                       new LatLon(42,-150),
                       new LatLon(40,-160),
@@ -92,7 +92,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
                       new LatLon(27,160),
                       new LatLon(26,150),
                       new LatLon(27,140),
-                      wptList[ wptList.FindByID("BIXAK")].LatLon
+                      wptList[ wptList.FindById("BIXAK")].LatLon
                     }.TotalDistance(),
                 edge.Value.Distance,
                 0.01);
@@ -109,22 +109,22 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             Assert.IsTrue(edge.Value.Airway == "PACOTJ");
         }
 
-        private static void assertTrack11(WaypointList wptList)
+        private static void AssertTrack11(WaypointList wptList)
         {
             var edge = wptList.GetEdge(
-                getEdgeIndex("PACOT11", "SEALS", wptList));
+                GetEdgeIndex("PACOT11", "SEALS", wptList));
 
             // Distance
             Assert.AreEqual(
                     new List<LatLon>
                     {
-                      wptList[ wptList.FindByID("SEALS")].LatLon,
+                      wptList[ wptList.FindById("SEALS")].LatLon,
                       new LatLon(36,150),
                       new LatLon(37,160),
                       new LatLon(36,170),
                       new LatLon(33,180),
                       new LatLon(29,-170),
-                      wptList[wptList.FindByID("DANNO")].LatLon
+                      wptList[wptList.FindById("DANNO")].LatLon
                     }.TotalDistance(),
                 edge.Value.Distance,
                 0.01);
@@ -141,10 +141,10 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             Assert.IsTrue(edge.Value.Airway == "PACOT11");
         }
 
-        private static int getEdgeIndex(
+        private static int GetEdgeIndex(
             string ID, string firstWpt, WaypointList wptList)
         {
-            foreach (var i in wptList.EdgesFrom(wptList.FindByID(firstWpt)))
+            foreach (var i in wptList.EdgesFrom(wptList.FindById(firstWpt)))
             {
                 if (wptList.GetEdge(i).Value.Airway == ID)
                 {
@@ -154,7 +154,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             return -1;
         }
 
-        private static void assertAllTracks(WaypointList wptList)
+        private static void AssertAllTracks(WaypointList wptList)
         {
             var id = new string[]
             {
@@ -194,15 +194,15 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 
             for (int i = 0; i < id.Length; i++)
             {
-                assertTrack("PACOT" + id[i], firstWpt[i], wptList);
+                AssertTrack("PACOT" + id[i], firstWpt[i], wptList);
             }
         }
 
-        private static void assertTrack(
+        private static void AssertTrack(
             string ID, string firstWpt, WaypointList wptList)
         {
             // check the track is added
-            if (getEdgeIndex(ID, firstWpt, wptList) < 0)
+            if (GetEdgeIndex(ID, firstWpt, wptList) < 0)
             {
                 Assert.Fail("Track not found.");
             }
@@ -315,7 +315,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             "KPDX"
         };
 
-        private static AirportManager getAirportList()
+        private static AirportManager GetAirportList()
         {
             var collection = new AirportCollection();
 
@@ -361,9 +361,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             new airwayEntry("KAGIS", "OTR11", "LEPKI")
         };
 
-        private static int tryAddWpt(WaypointList wptList, string id)
+        private static int TryAddWpt(WaypointList wptList, string id)
         {
-            int x = wptList.FindByID(id);
+            int x = wptList.FindById(id);
 
             if (x < 0)
             {
@@ -375,12 +375,12 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             return x;
         }
 
-        private static void addAirways(WaypointList wptList)
+        private static void AddAirways(WaypointList wptList)
         {
             foreach (var i in airwayEntries)
             {
-                int x = tryAddWpt(wptList, i.StartWpt);
-                int y = tryAddWpt(wptList, i.EndWpt);
+                int x = TryAddWpt(wptList, i.StartWpt);
+                int y = TryAddWpt(wptList, i.EndWpt);
                 var neighbor = new Neighbor(i.Airway, wptList.Distance(x, y));
                 wptList.AddNeighbor(x, y, neighbor);
             }

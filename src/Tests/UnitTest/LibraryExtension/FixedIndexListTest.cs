@@ -16,7 +16,7 @@ namespace UnitTest.LibraryExtensionTest
             Assert.AreEqual(0, item.MaxSize);
         }
 
-        private FixedIndexList<double> createList()
+        private FixedIndexList<double> CreateList()
         {
             var item = new FixedIndexList<double>();
 
@@ -27,7 +27,7 @@ namespace UnitTest.LibraryExtensionTest
             return item;
         }
 
-        private FixedIndexList<double> createList(int count)
+        private FixedIndexList<double> CreateList(int count)
         {
             var item = new FixedIndexList<double>();
 
@@ -41,13 +41,13 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void AddItemsTest()
         {
-            var item = createList();
+            var item = CreateList();
         }
 
         [Test]
         public void ReadItemCorrectnessTest()
         {
-            var item = createList();
+            var item = CreateList();
 
             for (int i = 0; i < 100000; i++)
             {
@@ -58,26 +58,26 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void SmallListCorrectSizeTest()
         {
-            Assert.AreEqual(4, createList(1).Capacity);
-            Assert.AreEqual(4, createList(2).Capacity);
-            Assert.AreEqual(4, createList(3).Capacity);
-            Assert.AreEqual(4, createList(4).Capacity);
+            Assert.AreEqual(4, CreateList(1).Capacity);
+            Assert.AreEqual(4, CreateList(2).Capacity);
+            Assert.AreEqual(4, CreateList(3).Capacity);
+            Assert.AreEqual(4, CreateList(4).Capacity);
         }
 
         [Test]
         public void LargeListCorrectSizeTest()
         {
-            int capacity = createList(150000).Capacity;
+            int capacity = CreateList(150000).Capacity;
             Assert.IsTrue(capacity >= 150000 && capacity <= 150000 * 2);
 
-            capacity = createList(31000).Capacity;
+            capacity = CreateList(31000).Capacity;
             Assert.IsTrue(capacity >= 31000 && capacity <= 31000 * 2);
         }
 
         [Test]
         public void RemoveAtCorrectnessTest()
         {
-            var item = createList(58200);
+            var item = CreateList(58200);
 
             item.RemoveAt(35688);
 
@@ -93,7 +93,7 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void AccessRemovedItemThrowException()
         {
-            var item = createList(58200);
+            var item = CreateList(58200);
             item.RemoveAt(35688);
 
             Assert.Throws<ArgumentOutOfRangeException>(() =>
@@ -105,7 +105,7 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void SetValueCorrectnessTest()
         {
-            var item = createList(1280);
+            var item = CreateList(1280);
 
             for (int i = 0; i < 1280; i++)
             {
@@ -121,7 +121,7 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void SetRemovedItemThrowException()
         {
-            var item = createList(58200);
+            var item = CreateList(58200);
             item.RemoveAt(35688);
 
             Assert.Throws<ArgumentOutOfRangeException>(() =>
@@ -133,7 +133,7 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void SetCapacityTest()
         {
-            var item = createList(1280);
+            var item = CreateList(1280);
             item.Capacity = 1280;
 
             for (int i = 0; i < 1280; i++)
@@ -150,7 +150,7 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void SetCapacityTooSmallThrowException()
         {
-            var item = createList(1280);
+            var item = CreateList(1280);
 
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
@@ -161,7 +161,7 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void InsertAfterRemovalTest()
         {
-            var item = createList(58200);
+            var item = CreateList(58200);
             item.Capacity = 58200;
 
             for (int i = 0; i < 582; i++)
@@ -194,7 +194,7 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void InsertionAfterRemovalHasCorrectValue()
         {
-            var item = createList(58200);
+            var item = CreateList(58200);
             item.Capacity = 58200;
 
             for (int i = 0; i < 582; i++)

@@ -32,7 +32,7 @@ namespace QSP.TOPerfCalculation.Boeing
         public BoeingPerfTable ReadTable(XElement root)
         {
             return new BoeingPerfTable(root.Elements("IndividualTable")
-                                       .Select(x => readIndividualTable(x))
+                                       .Select(x => ReadIndividualTable(x))
                                        .ToArray());
         }
 
@@ -47,7 +47,7 @@ namespace QSP.TOPerfCalculation.Boeing
                 path);
         }
 
-        private IndividualPerfTable readIndividualTable(XElement node)
+        private IndividualPerfTable ReadIndividualTable(XElement node)
         {
             string flaps = node.Element("Flaps").Value;
 
@@ -81,19 +81,19 @@ namespace QSP.TOPerfCalculation.Boeing
             var SlopeCorrWet = TableReader2D.Read(wetNode.Element("SlopeCorrection").Value);
             var WindCorrWet = TableReader2D.Read(wetNode.Element("WindCorrection").Value);
 
-            setUnitSlopeOrWindTable(slopeCorrDry, lengthUnitIsMeter);
-            setUnitSlopeOrWindTable(windCorrDry, lengthUnitIsMeter);
-            setUnitSlopeOrWindTable(SlopeCorrWet, lengthUnitIsMeter);
-            setUnitSlopeOrWindTable(WindCorrWet, lengthUnitIsMeter);
+            SetUnitSlopeOrWindTable(slopeCorrDry, lengthUnitIsMeter);
+            SetUnitSlopeOrWindTable(windCorrDry, lengthUnitIsMeter);
+            SetUnitSlopeOrWindTable(SlopeCorrWet, lengthUnitIsMeter);
+            SetUnitSlopeOrWindTable(WindCorrWet, lengthUnitIsMeter);
 
-            var tables = setFieldClimbLimitWt(dryNode, lengthUnitIsMeter, wtUnitIsTon);
+            var tables = SetFieldClimbLimitWt(dryNode, lengthUnitIsMeter, wtUnitIsTon);
             var WeightTableDry = tables.Field;
             var ClimbLimitWt = tables.Climb;
 
-            var WeightTableWet = setFieldClimbLimitWt(wetNode, lengthUnitIsMeter, wtUnitIsTon).Field;
+            var WeightTableWet = SetFieldClimbLimitWt(wetNode, lengthUnitIsMeter, wtUnitIsTon).Field;
 
             // Derates (TO1, TO2)
-            importAltnRating(node, wtUnitIsTon);
+            ImportAltnRating(node, wtUnitIsTon);
 
             return new IndividualPerfTable(
                 PacksOffDry,
@@ -120,7 +120,7 @@ namespace QSP.TOPerfCalculation.Boeing
 
         // node should be "Dry" or "Wet" node
         private static WtTables
-            setFieldClimbLimitWt(XElement node, bool lenthIsMeter, bool WtIsKG)
+            SetFieldClimbLimitWt(XElement node, bool lenthIsMeter, bool WtIsKG)
         {
             var wtTables = node.Elements("WeightTable");
 
@@ -135,7 +135,7 @@ namespace QSP.TOPerfCalculation.Boeing
             var oats = fieldLimTables.First().y;
             var fieldlimitWt = fieldLimTables.Select(t => t.f).ToArray();
 
-            double[][] climbLimWt = getClimbLimit(wtTables);
+            double[][] climbLimWt = GetClimbLimit(wtTables);
 
             // Now check units
             if (lenthIsMeter == false)
@@ -154,7 +154,7 @@ namespace QSP.TOPerfCalculation.Boeing
                  new ClimbLimitWtTable(altitudes, oats, climbLimWt));
         }
 
-        private static double[][] getClimbLimit(IEnumerable<XElement> elem)
+        private static double[][] GetClimbLimit(IEnumerable<XElement> elem)
         {
             return elem.Select(
                         x => x.Element("Climb")
@@ -165,7 +165,7 @@ namespace QSP.TOPerfCalculation.Boeing
                             .ToArray();
         }
 
-        private static void setUnitSlopeOrWindTable(Table2D table, bool lengthIsMeter)
+        private static void SetUnitSlopeOrWindTable(Table2D table, bool lengthIsMeter)
         {
             // If length unit is feet, convert them to meter.
             if (lengthIsMeter == false)
@@ -175,7 +175,7 @@ namespace QSP.TOPerfCalculation.Boeing
             }
         }
 
-        private void importAltnRating(XElement individualNode, bool wtUnitIsKG)
+        private void ImportAltnRating(XElement individualNode, bool wtUnitIsKG)
         {
             thrustRatings = new List<string>();
             derateTables = new List<AlternateThrustTable>();
@@ -192,13 +192,13 @@ namespace QSP.TOPerfCalculation.Boeing
                     else
                     {
                         thrustRatings.Add(i.Name.ToString());
-                        derateTables.Add(loadAltnRatingTable(i.Value, wtUnitIsKG));
+                        derateTables.Add(LoadAltnRatingTable(i.Value, wtUnitIsKG));
                     }
                 }
             }
         }
 
-        private static AlternateThrustTable loadAltnRatingTable(string item, bool wtUnitIsKG)
+        private static AlternateThrustTable LoadAltnRatingTable(string item, bool wtUnitIsKG)
         {
             var lines = item.Split(lineChangeChars, StringSplitOptions.RemoveEmptyEntries);
             int flag = 0;

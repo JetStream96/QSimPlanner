@@ -37,10 +37,10 @@ namespace QSP.AircraftProfiles.Configs
         public void Add(AircraftConfig item)
         {
             registrations.Add(item.Config.Registration, item);
-            addToAircraft(item);
+            AddToAircraft(item);
         }
 
-        private void addToAircraft(AircraftConfig item)
+        private void AddToAircraft(AircraftConfig item)
         {
             List<AircraftConfig> acSameType;
 
@@ -113,11 +113,11 @@ namespace QSP.AircraftProfiles.Configs
 
             if (invalidAc.Count > 0)
             {
-                throw new PerfFileNotFoundException(errorMsg(invalidAc));
+                throw new PerfFileNotFoundException(ErrorMsg(invalidAc));
             }
         }
 
-        private static string errorMsg(List<AircraftConfig> invalidItems)
+        private static string ErrorMsg(List<AircraftConfig> invalidItems)
         {
             var msg = new StringBuilder(
                  "Cannot find takeoff/landing performance profiles " +

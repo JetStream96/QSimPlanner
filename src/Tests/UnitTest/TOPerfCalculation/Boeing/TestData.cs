@@ -287,16 +287,16 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
         public TestData()
         {
-            covertUnitSlopeOrWindCorrTable(_slopeCorrDry, false);
-            covertUnitSlopeOrWindCorrTable(_slopeCorrWet, false);
-            covertUnitSlopeOrWindCorrTable(_windCorrDry, false);
-            covertUnitSlopeOrWindCorrTable(_windCorrWet, false);
-            covertUnitFieldLimTable(_wtTableDry, false, true);
-            covertUnitFieldLimTable(_wtTableWet, false, true);
+            CovertUnitSlopeOrWindCorrTable(_slopeCorrDry, false);
+            CovertUnitSlopeOrWindCorrTable(_slopeCorrWet, false);
+            CovertUnitSlopeOrWindCorrTable(_windCorrDry, false);
+            CovertUnitSlopeOrWindCorrTable(_windCorrWet, false);
+            CovertUnitFieldLimTable(_wtTableDry, false, true);
+            CovertUnitFieldLimTable(_wtTableWet, false, true);
         }
 
 
-        private void covertUnitSlopeOrWindCorrTable(Table2D item,
+        private void CovertUnitSlopeOrWindCorrTable(Table2D item,
             bool lengthUnitIsMeter)
         {
             if (lengthUnitIsMeter == false)
@@ -306,7 +306,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             }
         }
 
-        private void covertUnitFieldLimTable(FieldLimitWtTable item,
+        private void CovertUnitFieldLimTable(FieldLimitWtTable item,
             bool lengthUnitIsMeter,
             bool wtUnitIsTon)
         {

@@ -18,26 +18,26 @@ namespace QSP.TOPerfCalculation.Boeing
         {
             table = item.GetTable(para.FlapsIndex);
             this.para = para;
-            setTables();
+            SetTables();
         }
 
         /// <summary>
         /// Based on anti-ice,packs and TO/TO1/TO2, gets the equivalent weight.
         /// e.g. If takeoff weight is 80.0 tons, with packs off it may become 79.5 tons.
         /// </summary>
-        private double equivalentWeightKG()
+        private double EquivalentWeightKg()
         {
             double correctedWtKG = para.WeightKg;
 
             //correct weight for TO1/TO2, if applicable
             if (table.AltnRatingAvail && para.ThrustRating != 0)
             {
-                correctedWtKG = 1000 * thrustRatingFieldCorrWt(correctedWtKG / 1000.0,
+                correctedWtKG = 1000 * ThrustRatingFieldCorrWt(correctedWtKG / 1000.0,
                     AltnThrustOption.GetEquivFullThrustWeight);
             }
 
             //correct weight for packs, anti-ice, etc
-            correctedWtKG -= fieldLimitModificationKG();
+            correctedWtKG -= FieldLimitModificationKg();
 
             return correctedWtKG;
         }
@@ -57,10 +57,10 @@ namespace QSP.TOPerfCalculation.Boeing
         public double TakeoffDistanceMeter(double oat)
         {
             double corrLength = weightTable.CorrectedLengthRequired(
-                rwyPressureAltFt(), oat, equivalentWeightKG() / 1000.0);
+                RwyPressureAltFt(), oat, EquivalentWeightKg() / 1000.0);
 
             double slopeCorrLength = windTable.SlopeCorrectedLength(
-                headwindComp(), corrLength);
+                HeadwindComp(), corrLength);
 
             return slopeTable.FieldLengthRequired(para.RwySlope, slopeCorrLength);
         }
@@ -77,7 +77,7 @@ namespace QSP.TOPerfCalculation.Boeing
         /// It's NECESSARY that either TO1 or TO2 is selected in toPara.
         /// </summary>
         /// <param name="fullRatedWtTon">Full rated thrust weight, in ton.</param>
-        private double thrustRatingFieldCorrWt(double fullRatedWtTon, AltnThrustOption para)
+        private double ThrustRatingFieldCorrWt(double fullRatedWtTon, AltnThrustOption para)
         {
             var altnRatingTable = table.AlternateThrustTables[this.para.ThrustRating - 1];
 
@@ -108,17 +108,17 @@ namespace QSP.TOPerfCalculation.Boeing
                 para.RwyLengthMeter, para.RwySlope);
 
             double windCorrLength = windTable.CorrectedLength(
-                slopeCorrLength, headwindComp());
+                slopeCorrLength, HeadwindComp());
 
-            var limitWtTon = weightTable.FieldLimitWeight(rwyPressureAltFt(),
+            var limitWtTon = weightTable.FieldLimitWeight(RwyPressureAltFt(),
                 windCorrLength,
                 para.OatCelsius) +
-                fieldLimitModificationKG() / 1000.0;
+                FieldLimitModificationKg() / 1000.0;
 
             //correct weight for TO1/TO2, if applicable
             if (table.AltnRatingAvail && para.ThrustRating != 0)
             {
-                return thrustRatingFieldCorrWt(limitWtTon, AltnThrustOption.GetLimitWeight);
+                return ThrustRatingFieldCorrWt(limitWtTon, AltnThrustOption.GetLimitWeight);
             }
             else
             {
@@ -142,8 +142,8 @@ namespace QSP.TOPerfCalculation.Boeing
         /// </summary>
         public double ClimbLimitWeightTon(double oat)
         {
-            var limitWtTon = table.ClimbLimitWt.ClimbLimitWeight(rwyPressureAltFt(), oat)
-                + climbLimitModificationKG() / 1000.0;
+            var limitWtTon = table.ClimbLimitWt.ClimbLimitWeight(RwyPressureAltFt(), oat)
+                + ClimbLimitModificationKg() / 1000.0;
 
             if (table.AltnRatingAvail && para.ThrustRating != 0)
             {
@@ -158,7 +158,7 @@ namespace QSP.TOPerfCalculation.Boeing
         }
 
         // Based on runway condition (dry or wet), sets the tables for further computation.      
-        private void setTables()
+        private void SetTables()
         {
             if (para.SurfaceWet)
             {
@@ -177,7 +177,7 @@ namespace QSP.TOPerfCalculation.Boeing
         /// <summary>
         /// Field limit weight is increased by this amount.
         /// </summary>
-        private double fieldLimitModificationKG()
+        private double FieldLimitModificationKg()
         {
             double correction = 0.0;
 
@@ -228,7 +228,7 @@ namespace QSP.TOPerfCalculation.Boeing
         /// <summary>
         /// Climb limit weight is increased by this amount.
         /// </summary>
-        private double climbLimitModificationKG()
+        private double ClimbLimitModificationKg()
         {
             double result = 0.0;
 
@@ -255,13 +255,13 @@ namespace QSP.TOPerfCalculation.Boeing
         }
 
         //knots
-        private double headwindComp()
+        private double HeadwindComp()
         {
             return para.WindSpeed *
                 Math.Cos(ToRadian(para.RwyHeading - para.WindHeading));
         }
 
-        private double rwyPressureAltFt()
+        private double RwyPressureAltFt()
         {
             return CoversionTools.PressureAltitudeFt(para.RwyElevationFt, para.QNH);
         }

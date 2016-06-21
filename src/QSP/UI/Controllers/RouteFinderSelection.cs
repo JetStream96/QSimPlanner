@@ -61,14 +61,14 @@ namespace QSP.UI.Controllers
 
         public void Subscribe()
         {
-            IcaoTxtBox.TextChanged += icaoChanged;
-            RwyCBox.SelectedIndexChanged += rwyChanged;
+            IcaoTxtBox.TextChanged += IcaoChanged;
+            RwyCBox.SelectedIndexChanged += RwyChanged;
         }
 
         public void UnSubsribe()
         {
-            IcaoTxtBox.TextChanged -= icaoChanged;
-            RwyCBox.SelectedIndexChanged -= rwyChanged;
+            IcaoTxtBox.TextChanged -= IcaoChanged;
+            RwyCBox.SelectedIndexChanged -= RwyChanged;
         }
 
         public List<string> GetSelectedProcedures()
@@ -93,7 +93,7 @@ namespace QSP.UI.Controllers
             return proc;
         }
 
-        private void icaoChanged(object sender, EventArgs e)
+        private void IcaoChanged(object sender, EventArgs e)
         {
             RwyCBox.Items.Clear();
             var rwyList = airportList.RwyIdentList(Icao);
@@ -105,7 +105,7 @@ namespace QSP.UI.Controllers
             }
         }
 
-        private void rwyChanged(object sender, EventArgs e)
+        private void RwyChanged(object sender, EventArgs e)
         {
             TerminalProceduresCBox.Items.Clear();
             List<string> proc = null;

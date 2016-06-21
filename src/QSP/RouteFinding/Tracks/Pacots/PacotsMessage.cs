@@ -80,22 +80,22 @@ namespace QSP.RouteFinding.Tracks.Pacots
             if (indexKZAK < indexRJJJ)
             {
                 //get track definition message (TDM) for KZAK part
-                tracksKZAK = getTdm(htmlFile, indexKZAK, indexRJJJ, true);
+                tracksKZAK = GetTdm(htmlFile, indexKZAK, indexRJJJ, true);
 
                 //get RJJJ part
-                tracksRJJJ = getTdm(htmlFile, indexRJJJ, htmlFile.Length - 1, false);
+                tracksRJJJ = GetTdm(htmlFile, indexRJJJ, htmlFile.Length - 1, false);
             }
             else
             {
                 //get RJJJ part
-                tracksRJJJ = getTdm(htmlFile, indexRJJJ, indexKZAK, false);
+                tracksRJJJ = GetTdm(htmlFile, indexRJJJ, indexKZAK, false);
 
                 //get track definition message (TDM) for KZAK part
-                tracksKZAK = getTdm(htmlFile, indexKZAK, htmlFile.Length - 1, true);
+                tracksKZAK = GetTdm(htmlFile, indexKZAK, htmlFile.Length - 1, true);
             }
         }
 
-        private List<string> getTdm(string htmlFile,
+        private List<string> GetTdm(string htmlFile,
                                     int startIndex,
                                     int endIndex,
                                     bool isWestbound)

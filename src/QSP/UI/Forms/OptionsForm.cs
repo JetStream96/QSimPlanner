@@ -27,14 +27,14 @@ namespace QSP
         public void Init(AppOptions options)
         {
             this.AppSettings = options;
-            initExports();
+            InitExports();
             addBrowseBtnHandler();
             addCheckBoxEventHandler();
-            setDefaultState();
+            SetDefaultState();
             SetControlsAsInOptions();            
         }
 
-        private void initExports()
+        private void InitExports()
         {
             var exports = new List<RouteExportMatching>();
 
@@ -67,10 +67,10 @@ namespace QSP
 
         private void navDataPathTxtBox_TextChanged(object sender, EventArgs e)
         {
-            displayNavDataStatus(navDataPathTxtBox.Text);
+            DisplayNavDataStatus(navDataPathTxtBox.Text);
         }
 
-        private void displayNavDataStatus(string navDataPath)
+        private void DisplayNavDataStatus(string navDataPath)
         {
             // This section is to determine whether the database
             // files are found or not.
@@ -148,9 +148,9 @@ namespace QSP
         }
 
         // TODO: this is totally wrong
-        private void okBtnClick(object sender, EventArgs e)
+        private void OkBtnClick(object sender, EventArgs e)
         {
-            var newSetting = validateSetting();
+            var newSetting = ValidateSetting();
 
             // TODO:
             // If the database path is changed, then load the database. 
@@ -159,24 +159,24 @@ namespace QSP
 
             if (OptionManager.TrySaveFile(AppSettings))
             {
-                MainFormInstance().LoadNavDBUpdateStatusStrip(false);
+                MainFormInstance().LoadNavDbUpdateStatusStrip(false);
                 AppSettingChanged?.Invoke(this, e);
             }
 
             Close();
         }
 
-        private AppOptions validateSetting()
+        private AppOptions ValidateSetting()
         {
             return new AppOptions(
                 navDataPathTxtBox.Text,
                 PromptBeforeExit.Checked,
                 AutoDLTracksCheckBox.Checked,
                 AutoDLWindCheckBox.Checked,
-                getCommands());
+                GetCommands());
         }
 
-        private Dictionary<string, ExportCommand> getCommands()
+        private Dictionary<string, ExportCommand> GetCommands()
         {
             var cmds = new Dictionary<string, ExportCommand>();
 
@@ -238,12 +238,12 @@ namespace QSP
 
         //}
 
-        private void cancelBtnClick(object sender, EventArgs e)
+        private void CancelBtnClick(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void setDefaultState()
+        private void SetDefaultState()
         {
             foreach (var i in exports)
             {
@@ -268,10 +268,10 @@ namespace QSP
             AutoDLWindCheckBox.Checked = AppSettings.AutoDLWind;
             navDataPathTxtBox.Text = AppSettings.NavDataLocation;
             PromptBeforeExit.Checked = AppSettings.PromptBeforeExit;
-            setExports();
+            SetExports();
         }
 
-        private void setExports()
+        private void SetExports()
         {
             foreach (var i in exports)
             {

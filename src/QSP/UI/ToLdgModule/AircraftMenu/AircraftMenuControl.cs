@@ -30,12 +30,12 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         public void Initialize(ProfileManager profiles)
         {
-            setElements();
-            initController(profiles);
-            showErrors(profiles);
+            SetElements();
+            InitController(profiles);
+            ShowErrors(profiles);
         }
 
-        private void showErrors(ProfileManager profiles)
+        private void ShowErrors(ProfileManager profiles)
         {
             var errors = profiles.Errors;
 
@@ -49,14 +49,14 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
-        private void initController(ProfileManager profiles)
+        private void InitController(ProfileManager profiles)
         {
             controller = new AcMenuController(elements, profiles);
             controller.InitializeControls();
-            subsribe();
+            Subsribe();
         }
 
-        private void setElements()
+        private void SetElements()
         {
             elements = new AcMenuElements(
                 acListView,
@@ -77,7 +77,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 deleteBtn);
         }
 
-        private void subsribe()
+        private void Subsribe()
         {
             newBtn.Click += controller.CreateConfig;
             saveBtn.Click += controller.SaveConfig;
@@ -88,7 +88,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 controller.ListViewSelectedChanged;
         }
 
-        private void unSubsribe()
+        private void UnSubsribe()
         {
             newBtn.Click -= controller.CreateConfig;
             saveBtn.Click -= controller.SaveConfig;

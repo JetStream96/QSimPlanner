@@ -51,11 +51,11 @@ namespace QSP
             TimeApu = (int)para.APUTime;
             TimeTaxi = (int)para.TaxiTime;
 
-            setAdditionalPara();
+            SetAdditionalPara();
         }
 
 
-        private void setAdditionalPara()
+        private void SetAdditionalPara()
         {
             TakeoffFuelKg = FuelToDestTon * 1000 + ContKg + HoldKg + ExtraKG + FuelToAltnTon * 1000 + FinalRsvKg;
             LdgFuelKgPredict = TakeoffFuelKg - FuelToDestTon * 1000;
@@ -107,17 +107,17 @@ namespace QSP
                     break;
             }
 
-            string trip_s = lineFormat("TRIP", TripFuelDisplay);
-            string contingency_s = lineFormat("CONTINGENCY", contingencyDisplay);
-            string hold_s = lineFormat("HOLD", holdDisplay);
-            string extra_s = lineFormat("EXTRA", extraDisplay);
-            string alternate_s = lineFormat("ALTERNATE", alternateDisplay);
-            string final_rsv_s = lineFormat("FINAL RSV", finalRsvDisplay);
-            string takeoff_s = lineFormat("AT T/O", takeoff_display);
-            string apu_s = lineFormat("APU", apu_display);
-            string taxi_s = lineFormat("TAXI", taxi_display);
-            string total_s = lineFormat("TOTAL", TotalFuelDisplay);
-            string fmc_rsv_s = lineFormatOneDecimalPlace("FMC RSV", (alternateDisplay + finalRsvDisplay) / 1000);
+            string trip_s = LineFormat("TRIP", TripFuelDisplay);
+            string contingency_s = LineFormat("CONTINGENCY", contingencyDisplay);
+            string hold_s = LineFormat("HOLD", holdDisplay);
+            string extra_s = LineFormat("EXTRA", extraDisplay);
+            string alternate_s = LineFormat("ALTERNATE", alternateDisplay);
+            string final_rsv_s = LineFormat("FINAL RSV", finalRsvDisplay);
+            string takeoff_s = LineFormat("AT T/O", takeoff_display);
+            string apu_s = LineFormat("APU", apu_display);
+            string taxi_s = LineFormat("TAXI", taxi_display);
+            string total_s = LineFormat("TOTAL", TotalFuelDisplay);
+            string fmc_rsv_s = LineFormatOneDecimalPlace("FMC RSV", (alternateDisplay + finalRsvDisplay) / 1000);
 
             string wtUnitDisplay = null;
 
@@ -138,27 +138,27 @@ namespace QSP
             StringBuilder OutputText = new StringBuilder();
 
             OutputText.AppendLine(wtUnitDisplay + Environment.NewLine + Environment.NewLine + "              FUEL  TIME");
-            OutputText.AppendLine(trip_s + "  " + MinToHHMM(TimeToDest));
-            OutputText.AppendLine(contingency_s + "  " + MinToHHMM(time_cont));
-            OutputText.AppendLine(hold_s + "  " + MinToHHMM(TimeHold));
-            OutputText.AppendLine(extra_s + "  " + MinToHHMM(TimeExtra));
-            OutputText.AppendLine(alternate_s + "  " + MinToHHMM(TimeToAltn));
-            OutputText.AppendLine(final_rsv_s + "  " + MinToHHMM(TimeFinalRsv) + Environment.NewLine);
-            OutputText.AppendLine(takeoff_s + "  " + MinToHHMM(time_TO) + Environment.NewLine);
-            OutputText.AppendLine(apu_s + "  " + MinToHHMM(TimeApu));
-            OutputText.AppendLine(taxi_s + "  " + MinToHHMM(TimeTaxi) + Environment.NewLine);
-            OutputText.AppendLine(total_s + "  " + MinToHHMM(time_total));
+            OutputText.AppendLine(trip_s + "  " + MinToHhmm(TimeToDest));
+            OutputText.AppendLine(contingency_s + "  " + MinToHhmm(time_cont));
+            OutputText.AppendLine(hold_s + "  " + MinToHhmm(TimeHold));
+            OutputText.AppendLine(extra_s + "  " + MinToHhmm(TimeExtra));
+            OutputText.AppendLine(alternate_s + "  " + MinToHhmm(TimeToAltn));
+            OutputText.AppendLine(final_rsv_s + "  " + MinToHhmm(TimeFinalRsv) + Environment.NewLine);
+            OutputText.AppendLine(takeoff_s + "  " + MinToHhmm(time_TO) + Environment.NewLine);
+            OutputText.AppendLine(apu_s + "  " + MinToHhmm(TimeApu));
+            OutputText.AppendLine(taxi_s + "  " + MinToHhmm(TimeTaxi) + Environment.NewLine);
+            OutputText.AppendLine(total_s + "  " + MinToHhmm(time_total));
             OutputText.Append(fmc_rsv_s);
 
             return OutputText.ToString();
         }
 
-        private string lineFormat(string item, int value)
+        private string LineFormat(string item, int value)
         {
             return item.PadRight(LEFTPAD, ' ') + value.ToString().PadLeft(RIGHTPAD, ' ');
         }
 
-        private string lineFormatOneDecimalPlace(string item, double value)
+        private string LineFormatOneDecimalPlace(string item, double value)
         {
             return item.PadRight(LEFTPAD, ' ') + value.ToString("0.0").PadLeft(RIGHTPAD, ' ');
         }

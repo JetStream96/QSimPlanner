@@ -59,11 +59,11 @@ namespace QSP.LandingPerfCalculation.Boeing
             for (int i = 0; i < flapsCount; i++)
             {
                 flaps[i] = data[i].Element("Flaps").Value;
-                readTableDry(tableDry, i, data[i].Element("Dry").Value);
+                ReadTableDry(tableDry, i, data[i].Element("Dry").Value);
 
-                readTableWet(tableWet, i, 0, data[i].Element("Good").Value);
-                readTableWet(tableWet, i, 1, data[i].Element("Medium").Value);
-                readTableWet(tableWet, i, 2, data[i].Element("Poor").Value);
+                ReadTableWet(tableWet, i, 0, data[i].Element("Good").Value);
+                ReadTableWet(tableWet, i, 1, data[i].Element("Medium").Value);
+                ReadTableWet(tableWet, i, 2, data[i].Element("Poor").Value);
             }
 
             if (lenUnitIsMeter == false)
@@ -83,7 +83,7 @@ namespace QSP.LandingPerfCalculation.Boeing
                         new TableWet(tableWet));
         }
 
-        private void readTableDry(double[][][] item, int firstIndex, string value)
+        private void ReadTableDry(double[][][] item, int firstIndex, string value)
         {
             string[] lines = value.Split(new char[] { '\r', '\n' },
                 StringSplitOptions.RemoveEmptyEntries);
@@ -104,7 +104,7 @@ namespace QSP.LandingPerfCalculation.Boeing
             }
         }
 
-        private void readTableWet(double[][][][] item, int firstIndex, int secondIndex, string value)
+        private void ReadTableWet(double[][][][] item, int firstIndex, int secondIndex, string value)
         {
             string[] lines = value.Split(new char[] { '\r', '\n' },
                 StringSplitOptions.RemoveEmptyEntries);

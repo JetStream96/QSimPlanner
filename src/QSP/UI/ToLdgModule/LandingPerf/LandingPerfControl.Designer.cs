@@ -149,7 +149,7 @@
             this.regComboBox.Name = "regComboBox";
             this.regComboBox.Size = new System.Drawing.Size(151, 31);
             this.regComboBox.TabIndex = 2;
-            this.regComboBox.TextChanged += new System.EventHandler(this.registrationChanged);
+            this.regComboBox.TextChanged += new System.EventHandler(this.RegistrationChanged);
             // 
             // label1
             // 
@@ -240,7 +240,7 @@
             this.acListComboBox.Name = "acListComboBox";
             this.acListComboBox.Size = new System.Drawing.Size(151, 31);
             this.acListComboBox.TabIndex = 0;
-            this.acListComboBox.SelectedIndexChanged += new System.EventHandler(this.refreshRegistrations);
+            this.acListComboBox.SelectedIndexChanged += new System.EventHandler(this.RefreshRegistrations);
             // 
             // requestBtn
             // 
@@ -256,7 +256,7 @@
             this.requestBtn.Text = "Request";
             this.requestBtn.UseVisualStyleBackColor = false;
             this.requestBtn.Visible = false;
-            this.requestBtn.Click += new System.EventHandler(this.requestBtnClick);
+            this.requestBtn.Click += new System.EventHandler(this.RequestBtnClick);
             // 
             // Label97
             // 
@@ -362,7 +362,7 @@
             this.weightTxtBox.Size = new System.Drawing.Size(151, 30);
             this.weightTxtBox.TabIndex = 3;
             this.weightTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.weightTxtBox.TextChanged += new System.EventHandler(this.weightTxtBoxChanged);
+            this.weightTxtBox.TextChanged += new System.EventHandler(this.WeightTxtBoxChanged);
             // 
             // calculateBtn
             // 

@@ -11,7 +11,7 @@ namespace IntergrationTest.QSP.AircraftProfiles.Configs
     public class AcConfigManagerTest
     {
         [Test]
-        public void ValidateNoTOLdgPerfFileSelectedShouldPass()
+        public void ValidateNoToLdgPerfFileSelectedShouldPass()
         {
             var manager = new AcConfigManager();
             var txt = AircraftConfigItem.NoToLdgProfileText;

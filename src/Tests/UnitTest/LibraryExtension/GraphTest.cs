@@ -29,7 +29,7 @@ namespace UnitTest.LibraryExtensionTest
             }
         }
 
-        private Graph<int, string> createGraph0()
+        private Graph<int, string> CreateGraph0()
         {
             var graph = new Graph<int, string>();
 
@@ -40,7 +40,7 @@ namespace UnitTest.LibraryExtensionTest
             return graph;
         }
 
-        private Graph<int, string> createGraph1()
+        private Graph<int, string> CreateGraph1()
         {
             var graph = new Graph<int, string>();
 
@@ -62,7 +62,7 @@ namespace UnitTest.LibraryExtensionTest
             return graph;
         }
 
-        private List<int> createList(int NUM, int index)
+        private List<int> CreateList(int NUM, int index)
         {
             var x = new List<int>();
 
@@ -80,7 +80,7 @@ namespace UnitTest.LibraryExtensionTest
         // This method tests EdgesFrom(int), and GetEdge(int).
         public void AddEdge_ReadWithForEach()
         {
-            var graph = createGraph1();
+            var graph = CreateGraph1();
 
             for (int i = 0; i < 50; i++)
             {
@@ -94,14 +94,14 @@ namespace UnitTest.LibraryExtensionTest
                 x.Sort();
                 x.Reverse();
 
-                Assert.IsTrue(Enumerable.SequenceEqual(createList(50, i), x));
+                Assert.IsTrue(Enumerable.SequenceEqual(CreateList(50, i), x));
             }
         }
 
         [Test]
         public void AccessNonExistingNode_Exception()
         {
-            var graph = createGraph0();
+            var graph = CreateGraph0();
 
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             graph.GetNode(100));
@@ -110,7 +110,7 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void AccessNonExistingEdge_Exception()
         {
-            var graph = createGraph0();
+            var graph = CreateGraph0();
 
             Assert.Throws<IndexOutOfRangeException>(() =>
             graph.GetEdge(0));
@@ -119,7 +119,7 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void RemoveEdgeTest()
         {
-            var tuple = createGraph2();
+            var tuple = CreateGraph2();
             var graph = tuple.Item2;
             var edgeIndex = tuple.Item1;
 
@@ -131,7 +131,7 @@ namespace UnitTest.LibraryExtensionTest
             }
         }
 
-        private Tuple<int, Graph<int, string>> createGraph2()
+        private Tuple<int, Graph<int, string>> CreateGraph2()
         {
             const int N = 27;
             const int M = 36;
@@ -157,7 +157,7 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void RemoveNode_CheckNodeRemoved()
         {
-            var graph = createGraph1();
+            var graph = CreateGraph1();
             int N = 39;
 
             graph.RemoveNode(N);
@@ -170,7 +170,7 @@ namespace UnitTest.LibraryExtensionTest
         [Test]
         public void RemoveNode_CheckEdgesRemoved()
         {
-            var graph = createGraph1();
+            var graph = CreateGraph1();
             int N = 39;
 
             graph.RemoveNode(N);

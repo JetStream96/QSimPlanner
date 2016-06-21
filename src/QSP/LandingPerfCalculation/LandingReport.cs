@@ -40,11 +40,11 @@ namespace QSP.LandingPerfCalculation
             result.AppendLine();
 
             result.AppendLine("           Actual landing distance    " +
-                convertToFeetIfNeeded(SelectedBrks.ActualDisMeter, lengthUnit)
+                ConvertToFeetIfNeeded(SelectedBrks.ActualDisMeter, lengthUnit)
                 + " " + unitStr);
 
             result.AppendLine("           Runway remaining           " +
-                convertToFeetIfNeeded(SelectedBrks.DisRemainMeter, lengthUnit)
+                ConvertToFeetIfNeeded(SelectedBrks.DisRemainMeter, lengthUnit)
                 + " " + unitStr);
 
             result.AppendLine();
@@ -57,14 +57,14 @@ namespace QSP.LandingPerfCalculation
             {
                 result.Append(("   " + i.BrkSetting).PadRight(18, ' '));
 
-                result.Append((convertToFeetIfNeeded(i.ActualDisMeter, lengthUnit)
+                result.Append((ConvertToFeetIfNeeded(i.ActualDisMeter, lengthUnit)
                                .ToString() +
                                " " +
                                unitStr)
                                .PadLeft(12, ' ')
                                .PadRight(19, ' '));
 
-                result.AppendLine(((convertToFeetIfNeeded(i.DisRemainMeter, lengthUnit) +
+                result.AppendLine(((ConvertToFeetIfNeeded(i.DisRemainMeter, lengthUnit) +
                                     " " +
                                     unitStr)
                                     .ToString())
@@ -73,7 +73,7 @@ namespace QSP.LandingPerfCalculation
             return result.ToString();
         }
 
-        private int convertToFeetIfNeeded(int disMeter, LengthUnit unit)
+        private int ConvertToFeetIfNeeded(int disMeter, LengthUnit unit)
         {
             return unit == LengthUnit.Meter ?
                 disMeter :

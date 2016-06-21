@@ -39,15 +39,15 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
             var calc = new TOCalculator(perfTable, para);
 
-            assertReport(report, calc, para);
+            AssertReport(report, calc, para);
         }
 
-        private static void assertReport(TOReport report,
+        private static void AssertReport(TOReport report,
                                          TOCalculator calc,
                                          TOParameters para)
         {
             // Rwy remaining
-            assertRwyRemaining(report, calc, para);
+            AssertRwyRemaining(report, calc, para);
 
             // Primary result.
             var primary = report.PrimaryResult;
@@ -64,7 +64,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             }
         }
 
-        private static void assertRwyRemaining(TOReport report,
+        private static void AssertRwyRemaining(TOReport report,
                                                TOCalculator calc,
                                                TOParameters para)
         {
@@ -161,7 +161,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
             var calc = new TOCalculator(perfTable, para);
 
-            assertReport(report, calc, para);
+            AssertReport(report, calc, para);
         }
     }
 }

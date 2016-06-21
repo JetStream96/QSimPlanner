@@ -23,21 +23,21 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
         public AirportInfoControl()
         {
             InitializeComponent();
-            initializeControls();
+            InitializeControls();
         }
 
-        private void initializeControls()
+        private void InitializeControls()
         {
             airportNameLbl.Text = "";
             slopeController = new SlopeComboBoxController(-2.0, 2.0);
-            updateSlopeItems();
+            UpdateSlopeItems();
 
             lengthUnitComboBox.Items.Clear();
             lengthUnitComboBox.Items.AddRange(new string[] { "M", "FT" });
             lengthUnitComboBox.SelectedIndex = 0; // Meter
         }
 
-        private void updateSlopeItems()
+        private void UpdateSlopeItems()
         {
             slopeComboBox.Items.Clear();
 
@@ -49,13 +49,13 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
             slopeComboBox.SelectedIndex = slopeController.NearestIndex(0.0);
         }
 
-        private void setSlope(double slope)
+        private void SetSlope(double slope)
         {
             if (slopeController.ResizeRequired(slope))
             {
                 double slopeAbs = Math.Abs(slope);
                 slopeController.SetItems(-slopeAbs, slopeAbs);
-                updateSlopeItems();
+                UpdateSlopeItems();
             }
 
             slopeComboBox.SelectedIndex = slopeController.NearestIndex(slope);
@@ -95,7 +95,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
             RefreshAirportInfo();
         }
 
-        private void setLength(int lengthFt)
+        private void SetLength(int lengthFt)
         {
             switch (lengthUnitComboBox.SelectedIndex)
             {
@@ -120,14 +120,14 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
                 int elevationFt = takeoffAirport.Rwys[index].Elevation;
                 int lengthFt = takeoffAirport.Rwys[index].Length;
 
-                setLength(lengthFt);
+                SetLength(lengthFt);
                 elevationTxtBox.Text = elevationFt.ToString();
                 rwyHeadingTxtBox.Text = takeoffAirport.Rwys[index].Heading.ToString().PadLeft(3, '0');
 
                 int elevationOppositeRwyFt = takeoffAirport.RwyElevationFt(
                     CoversionTools.RwyIdentOppositeDir(rwyComboBox.Text));
 
-                setSlope((elevationOppositeRwyFt - elevationFt) * 100.0 / lengthFt);
+                SetSlope((elevationOppositeRwyFt - elevationFt) * 100.0 / lengthFt);
             }
         }
 

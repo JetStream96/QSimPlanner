@@ -10,7 +10,7 @@ namespace QSP.Metar
         private const string tafUrl =
             "http://weather.noaa.gov/pub/data/forecasts/taf/stations/";
 
-        private static string trimIcao(string icao)
+        private static string TrimIcao(string icao)
         {
             return icao.Trim().ToUpper();
         }
@@ -19,7 +19,7 @@ namespace QSP.Metar
         {
             using (var client = new WebClient())
             {
-                return client.DownloadString(metarUrl + trimIcao(icao) + ".TXT");
+                return client.DownloadString(metarUrl + TrimIcao(icao) + ".TXT");
             }
         }
 
@@ -27,7 +27,7 @@ namespace QSP.Metar
         {
             using (var client = new WebClient())
             {
-                return client.DownloadString(tafUrl + trimIcao(icao) + ".TXT");
+                return client.DownloadString(tafUrl + TrimIcao(icao) + ".TXT");
             }
         }
 

@@ -98,7 +98,7 @@ namespace QSP.NavData.AAX
                     }
                     else if (i[0] == 'R')
                     {
-                        rwys.Add(readRwy(rwys, i));
+                        rwys.Add(ReadRwy(rwys, i));
                     }
                 }
                 catch (Exception ex)
@@ -133,7 +133,7 @@ namespace QSP.NavData.AAX
             "Other"
         };
 
-        private static RwyData readRwy(List<RwyData> rwys, string i)
+        private static RwyData ReadRwy(List<RwyData> rwys, string i)
         {
             int pos = i.IndexOf(',') + 1;
             string RwyIdent = ReadString(i, ref pos, ',');

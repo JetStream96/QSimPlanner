@@ -37,10 +37,10 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             InitializeComponent();
 
             // Create the reference to the UI controls.
-            initializeElements();
+            InitializeElements();
 
             // Set default values for the controls.
-            initializeControls();
+            InitializeControls();
 
             setWeatherBtnHandlers();
         }
@@ -52,7 +52,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             wxSetter.Subscribe();
         }
 
-        private void initializeControls()
+        private void InitializeControls()
         {
             appSpdIncTxtBox.Text = "5";
             wtUnitComboBox.SelectedIndex = 0; // KG 
@@ -67,17 +67,17 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             }
         }
 
-        private void trySaveState()
+        private void TrySaveState()
         {
             StateManager.Save(fileName, new ControlState(this).Save());
         }
 
-        private void saveState(object sender, EventArgs e)
+        private void SaveState(object sender, EventArgs e)
         {
-            trySaveState();
+            TrySaveState();
         }
 
-        private void initializeElements()
+        private void InitializeElements()
         {
             var ap = airportInfoControl;
             var wx = weatherInfoControl;
@@ -114,11 +114,11 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         {
             this.aircrafts = aircrafts;
             this.tables = tables;
-            updateAircraftList();
+            UpdateAircraftList();
             this.Airports = airports;
         }
 
-        private string[] availAircraftTypes()
+        private string[] AvailAircraftTypes()
         {
             var avail = new List<string>();
 
@@ -137,7 +137,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             return avail.ToArray();
         }
 
-        private bool landingProfileExists(string profileName)
+        private bool LandingProfileExists(string profileName)
         {
             var searchResults =
                 tables.Where(c => c.Entry.ProfileName == profileName);
@@ -145,12 +145,12 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             return searchResults.Count() > 0;
         }
 
-        private void updateAircraftList()
+        private void UpdateAircraftList()
         {
             var items = acListComboBox.Items;
 
             items.Clear();
-            items.AddRange(availAircraftTypes());
+            items.AddRange(AvailAircraftTypes());
 
             if (items.Count > 0)
             {
@@ -158,7 +158,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             }
         }
 
-        private void refreshRegistrations(object sender, EventArgs e)
+        private void RefreshRegistrations(object sender, EventArgs e)
         {
             if (acListComboBox.SelectedIndex >= 0)
             {
@@ -172,7 +172,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
                 items.AddRange(
                     ac
-                    .Where(c => landingProfileExists(c.Config.LdgProfile))
+                    .Where(c => LandingProfileExists(c.Config.LdgProfile))
                     .Select(c => c.Config.Registration)
                     .ToArray());
 
@@ -192,7 +192,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             // fuelImportPanel.Location = new Point(253, 61);
         }
 
-        private void requestBtnClick(object sender, EventArgs e)
+        private void RequestBtnClick(object sender, EventArgs e)
         {
             //if (fuelImportPanel != null)
             //{
@@ -200,18 +200,18 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             //}
         }
 
-        private void registrationChanged(object sender, EventArgs e)
+        private void RegistrationChanged(object sender, EventArgs e)
         {
             if (regComboBox.SelectedIndex < 0)
             {
-                refreshWtColor();
+                RefreshWtColor();
                 return;
             }
 
             // unsubsribe all event handlers
             if (controller != null)
             {
-                unSubscribe(controller);
+                UnSubscribe(controller);
                 currentTable = null;
                 controller = null;
             }
@@ -234,13 +234,13 @@ namespace QSP.UI.ToLdgModule.LandingPerf
                     elements);
                 // TODO: not completely right
 
-                subscribe(controller);
+                Subscribe(controller);
                 controller.Initialize();
-                refreshWtColor();
+                RefreshWtColor();
             }
         }
 
-        private void subscribe(FormController controller)
+        private void Subscribe(FormController controller)
         {
             weatherInfoControl.surfCondComboBox.SelectedIndexChanged += 
                 controller.SurfCondChanged;
@@ -255,10 +255,10 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             brakeComboBox.SelectedIndexChanged += controller.BrakesChanged;
             calculateBtn.Click += controller.Compute;
 
-            controller.CalculationCompleted += saveState;
+            controller.CalculationCompleted += SaveState;
         }
 
-        private void unSubscribe(FormController controller)
+        private void UnSubscribe(FormController controller)
         {
             weatherInfoControl.surfCondComboBox.SelectedIndexChanged -= 
                 controller.SurfCondChanged;
@@ -273,10 +273,10 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             brakeComboBox.SelectedIndexChanged -= controller.BrakesChanged;
             calculateBtn.Click -= controller.Compute;
 
-            controller.CalculationCompleted -= saveState;
+            controller.CalculationCompleted -= SaveState;
         }
 
-        private void refreshWtColor()
+        private void RefreshWtColor()
         {
             var ac = aircrafts?.Find(regComboBox.Text);
             var config = ac?.Config;
@@ -304,9 +304,9 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             }
         }
 
-        private void weightTxtBoxChanged(object sender, EventArgs e)
+        private void WeightTxtBoxChanged(object sender, EventArgs e)
         {
-            refreshWtColor();
+            RefreshWtColor();
         }
 
         /// <summary>
@@ -319,12 +319,12 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             string ac = acListComboBox.Text;
             string reg = regComboBox.Text;
 
-            updateAircraftList();
+            UpdateAircraftList();
             acListComboBox.Text = ac;
             regComboBox.Text = reg;
 
             // Set the color of weight.
-            weightTxtBoxChanged(this, EventArgs.Empty);
+            WeightTxtBoxChanged(this, EventArgs.Empty);
         }
     }
 }

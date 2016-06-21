@@ -24,11 +24,11 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
 
         public List<IndividualNatsMessage> Split()
         {
-            getGeneralInfo();
+            GetGeneralInfo();
 
             var msgs = new List<IndividualNatsMessage>();
-            var west = getWestboundTracks();
-            var east = getEastboundTracks();
+            var west = GetWestboundTracks();
+            var east = GetEastboundTracks();
 
             if (west != null)
             {
@@ -42,7 +42,7 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
             return msgs;
         }
 
-        private IndividualNatsMessage getWestboundTracks()
+        private IndividualNatsMessage GetWestboundTracks()
         {
             var sp = new StringParser(html);
             int index = html.IndexOf("EGGXZOZX");
@@ -61,7 +61,7 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
             return new IndividualNatsMessage(timeUpdated, header, NatsDirection.West, message);
         }
 
-        private IndividualNatsMessage getEastboundTracks()
+        private IndividualNatsMessage GetEastboundTracks()
         {
             var sp = new StringParser(html);
             int index = html.IndexOf("CZQXZQZX");
@@ -80,7 +80,7 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
             return new IndividualNatsMessage(timeUpdated, header, NatsDirection.East, message);
         }
 
-        private void getGeneralInfo()
+        private void GetGeneralInfo()
         {
             var sp = new StringParser(html);
             sp.MoveToNextIndexOf("Last updated");

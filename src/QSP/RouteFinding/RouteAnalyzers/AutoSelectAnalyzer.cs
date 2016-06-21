@@ -41,7 +41,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 return new Route();
             }
 
-            var firstWptCandidates = wptList.FindAllByID(route[0]);
+            var firstWptCandidates = wptList.FindAllById(route[0]);
 
             if (firstWptCandidates.Count == 0)
             {

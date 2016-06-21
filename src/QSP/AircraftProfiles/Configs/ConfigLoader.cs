@@ -43,7 +43,7 @@ namespace QSP.AircraftProfiles.Configs
                 .Select(g => g.First())
                 .ToList();
 
-            return new ConfigImportResult(result, message(configs));
+            return new ConfigImportResult(result, Message(configs));
         }
 
         public static AircraftConfigItem Load(string filePath)
@@ -68,7 +68,7 @@ namespace QSP.AircraftProfiles.Configs
                 StringToWeightUnit(section["WtUnit"]));
         }
 
-        private static string message(List<AircraftConfig> item)
+        private static string Message(List<AircraftConfig> item)
         {
             var groups = item.GroupBy(x => x.Config.Registration);
 

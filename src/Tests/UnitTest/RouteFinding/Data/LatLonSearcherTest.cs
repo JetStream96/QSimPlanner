@@ -29,7 +29,7 @@ namespace UnitTest.RouteFinding.Data
             }
 
             var result = searcher.Find(75.0, 120.0, 1000.0);
-            var expectation = expected(allPts);
+            var expectation = Expected(allPts);
 
             Assert.AreEqual(expectation.Count, result.Count);
 
@@ -39,7 +39,7 @@ namespace UnitTest.RouteFinding.Data
             }
         }
 
-        private HashSet<Waypoint> expected(List<Waypoint> items)
+        private HashSet<Waypoint> Expected(List<Waypoint> items)
         {
             var result = new HashSet<Waypoint>();
             var target = new Waypoint("", 75.0, 120.0);

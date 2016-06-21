@@ -15,7 +15,7 @@ namespace QSP.RouteFinding.FileExport.Providers
             this.airports = airports;
         }
 
-        private static string pmdgLatLonFormat(double lat, double lon)
+        private static string PmdgLatLonFormat(double lat, double lon)
         {
             string s = null;
 
@@ -53,7 +53,7 @@ namespace QSP.RouteFinding.FileExport.Providers
             string icaoDest = route.LastWaypoint.ID.Substring(0, 4);
 
             var result = new StringBuilder();
-            appendOrigAirportPart(numWpts, icaoOrig, result);
+            AppendOrigAirportPart(numWpts, icaoOrig, result);
 
             var node = route.First.Next;
 
@@ -68,18 +68,18 @@ namespace QSP.RouteFinding.FileExport.Providers
                 }
 
                 result.Append(wpt.ID + "\n5\n" + airway + "\n1 ");
-                result.AppendLine(pmdgLatLonFormat(wpt.Lat, wpt.Lon) +
+                result.AppendLine(PmdgLatLonFormat(wpt.Lat, wpt.Lon) +
                     " 0\n0\n0\n0");
                 result.AppendLine();
                 node = node.Next;
             }
 
-            appendDestAirportPart(icaoDest, result);
+            AppendDestAirportPart(icaoDest, result);
             return result.ToString();
         }
 
         // Appends the ORIG airport part onto the StringBuilder.
-        private void appendOrigAirportPart(
+        private void AppendOrigAirportPart(
             int numWpts,
             string icao,
             StringBuilder result)
@@ -91,21 +91,21 @@ namespace QSP.RouteFinding.FileExport.Providers
 
             result.Append(numWpts + "\n\n");
             result.Append(icao + "\n1\nDIRECT\n1 ");
-            result.Append(pmdgLatLonFormat(ad.Lat, ad.Lon) +
+            result.Append(PmdgLatLonFormat(ad.Lat, ad.Lon) +
                 " " + ad.Elevation);
             result.AppendLine("\n-----\n1\n0\n\n1\n" + ad.Elevation);
             result.Append("-\n-1000000\n-1000000\n\n");
         }
 
         // Appends the DEST airport part onto the StringBuilder.        
-        private void appendDestAirportPart(
+        private void AppendDestAirportPart(
             string icao,
             StringBuilder result)
         {
             var ad = airports.Find(icao);
 
             result.Append(icao + "\n1\n-\n1 ");
-            result.Append(pmdgLatLonFormat(ad.Lat, ad.Lon) +
+            result.Append(PmdgLatLonFormat(ad.Lat, ad.Lon) +
                 " " + ad.Elevation);
             result.AppendLine("\n-----\n0\n0\n\n1\n" + ad.Elevation);
             result.Append("-\n-1000000\n-1000000\n\n");

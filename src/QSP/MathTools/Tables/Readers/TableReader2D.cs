@@ -15,14 +15,14 @@ namespace QSP.MathTools.Tables.Readers
             var lines = source.Lines();
 
             int lineNum = 0;
-            var y = getNextLine(lines, ref lineNum).ToDoubles();
+            var y = GetNextLine(lines, ref lineNum).ToDoubles();
 
             var x = new List<double>();
             var f = new List<double[]>();
 
             while (true)
             {
-                var currentLine = getNextLine(lines, ref lineNum);
+                var currentLine = GetNextLine(lines, ref lineNum);
 
                 if (currentLine == null)
                 {
@@ -36,7 +36,7 @@ namespace QSP.MathTools.Tables.Readers
             }
         }
 
-        private static string[] getNextLine(string[] lines, ref int lineNum)
+        private static string[] GetNextLine(string[] lines, ref int lineNum)
         {
             while (lineNum < lines.Length)
             {

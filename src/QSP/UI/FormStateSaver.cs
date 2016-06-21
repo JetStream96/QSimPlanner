@@ -57,7 +57,7 @@ namespace QSP.UI
         {
             try
             {
-                saveState();
+                SaveState();
             }
             catch (Exception ex)
             {
@@ -69,7 +69,7 @@ namespace QSP.UI
         {
             try
             {
-                loadLastState();
+                LoadLastState();
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ namespace QSP.UI
             }
         }
 
-        private void loadLastState()
+        private void LoadLastState()
         {
             string Alltext = null;
 
@@ -106,7 +106,7 @@ namespace QSP.UI
 
         }
         
-        private void saveState()
+        private void SaveState()
         {
             string SaveText = "";
 

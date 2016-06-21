@@ -48,15 +48,15 @@ namespace QSP.RouteFinding.TerminalProcedures
             // Rule (1) - (4) satisfied
             var filterd =
                 groups.Where(g =>
-                isRunwaySpecific(g) == false || containDesiredRwy(g));
+                IsRunwaySpecific(g) == false || ContainDesiredRwy(g));
 
             // Rule (5)
-            var names = filterd.SelectMany(f => fullNames(f));
+            var names = filterd.SelectMany(f => FullNames(f));
 
             return names.ToList();
         }
 
-        private IEnumerable<string> fullNames(IGrouping<string, T> group)
+        private IEnumerable<string> FullNames(IGrouping<string, T> group)
         {
             string name = null;
             bool hasTransition = false;
@@ -80,14 +80,14 @@ namespace QSP.RouteFinding.TerminalProcedures
             }
         }
 
-        private bool containDesiredRwy(IGrouping<string, T> group)
+        private bool ContainDesiredRwy(IGrouping<string, T> group)
         {
             return group.Any(
                 x => x.Type == EntryType.RwySpecific &&
                 x.RunwayOrTransition == rwy);
         }
 
-        private bool isRunwaySpecific(IGrouping<string, T> group)
+        private bool IsRunwaySpecific(IGrouping<string, T> group)
         {
             return group.Any(i => i.Type == EntryType.RwySpecific);
         }

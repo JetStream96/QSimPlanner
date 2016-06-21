@@ -29,7 +29,7 @@ namespace QSP.RouteFinding.Airports
 
             while (result.Count < count)
             {
-                result = filterResults(
+                result = FilterResults(
                     airportList.Find(
                         destLatLon.Lat, destLatLon.Lon, distance),
                     dest,
@@ -40,7 +40,7 @@ namespace QSP.RouteFinding.Airports
             return result;
         }
 
-        private List<Airport> filterResults(
+        private List<Airport> FilterResults(
             List<Airport> item, string dest, int length)
         {
             var result = new List<Airport>();

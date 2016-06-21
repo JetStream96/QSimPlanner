@@ -51,14 +51,14 @@ namespace QSP.UI.ToLdgModule.Forms
         public QspLiteForm()
         {
             InitializeComponent();
-            addControls();
+            AddControls();
         }
 
         public void Initialize(ProfileManager manager)
         {
-            resizeForm();
-            checkRegistry();
-            subscribeEvents();
+            ResizeForm();
+            CheckRegistry();
+            SubscribeEvents();
             OptionsMenu.Initialize();
 
             var airports = OptionsMenu.Airports;
@@ -77,12 +77,12 @@ namespace QSP.UI.ToLdgModule.Forms
             AirportMenu.Initialize(airports);
             AirportMenu.BrowserEnabled = true;
 
-            enableBtnColorControls();
-            enableViewControl();
-            addToolTip();
+            EnableBtnColorControls();
+            EnableViewControl();
+            AddToolTip();
         }
 
-        private void addToolTip()
+        private void AddToolTip()
         {
             var tp = new ToolTip();
 
@@ -95,7 +95,7 @@ namespace QSP.UI.ToLdgModule.Forms
             tp.SetToolTip(aboutBtn, "About");
         }
 
-        private void refreshItemsRequireAirportList()
+        private void RefreshItemsRequireAirportList()
         {
             Airports = OptionsMenu.Airports;
             ToMenu.airportInfoControl.RefreshAirportInfo();
@@ -103,11 +103,11 @@ namespace QSP.UI.ToLdgModule.Forms
             AirportMenu.FindAirport();
         }
 
-        private void subscribeEvents()
+        private void SubscribeEvents()
         {
             OptionsMenu.SaveAirportsCompleted += (sender, e) =>
             {
-                refreshItemsRequireAirportList();
+                RefreshItemsRequireAirportList();
             };
 
             var origTxtBox = ToMenu.airportInfoControl.airportTxtBox;
@@ -141,7 +141,7 @@ namespace QSP.UI.ToLdgModule.Forms
             }
         }
 
-        private void enableViewControl()
+        private void EnableViewControl()
         {
             viewControl = new ControlSwitcher(
                 new BtnControlPair(acConfigBtn, AcMenu),
@@ -154,7 +154,7 @@ namespace QSP.UI.ToLdgModule.Forms
             viewControl.Subscribed = true;
         }
 
-        private void enableBtnColorControls()
+        private void EnableBtnColorControls()
         {
             var acConfigPair = new BtnColorPair(acConfigBtn, Color.Black,
                 Color.WhiteSmoke, Color.White, Color.FromArgb(192, 0, 0));
@@ -186,7 +186,7 @@ namespace QSP.UI.ToLdgModule.Forms
             btnControl.SetSelected(acConfigBtn);
         }
 
-        private void addControls()
+        private void AddControls()
         {
             AcMenu = new AircraftMenuControl();
             ToMenu = new TOPerfControl();
@@ -202,7 +202,7 @@ namespace QSP.UI.ToLdgModule.Forms
             }
         }
 
-        private void resizeForm()
+        private void ResizeForm()
         {
             int maxWidth = Pages.Max(c => c.Width);
             int maxHeight = Pages.Max(c => c.Height);
@@ -216,7 +216,7 @@ namespace QSP.UI.ToLdgModule.Forms
             ClientSize = new Size(right + 15, bottom + 15);
         }
 
-        private static void checkRegistry()
+        private static void CheckRegistry()
         {
             //try to check/add registry so that google map works properly 
             var regChecker = new IeEmulationChecker();

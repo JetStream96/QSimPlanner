@@ -21,7 +21,7 @@ namespace QSP
         private Severity pacotsAvail;
         private Severity ausotsAvail;
 
-        private void initImages()
+        private void InitImages()
         {
             myImageList = new ImageList();
 
@@ -33,7 +33,7 @@ namespace QSP
             ListView1.SmallImageList = myImageList;
         }
 
-        private void initCBox()
+        private void InitCBox()
         {
             CBoxNatsEnabled.SelectedIndex = 0;
             CBoxPacotsEnabled.SelectedIndex = 0;
@@ -58,7 +58,7 @@ namespace QSP
             }
         }
 
-        private void refreshStatus(TrackType type)
+        private void RefreshStatus(TrackType type)
         {
             //remove old items for the same type
             var items = ListView1.Items;
@@ -72,19 +72,19 @@ namespace QSP
                 }
             }
 
-            addToListView(TrackStatusRecorder.Records, type);
-            setPBox(type);
-            setMainFormTrackStatus();
+            AddToListView(TrackStatusRecorder.Records, type);
+            SetPBox(type);
+            SetMainFormTrackStatus();
         }
 
-        private void initPBoxes()
+        private void InitPBoxes()
         {
             PBoxNats.Image = null;
             PBoxPacots.Image = null;
             PBoxAusots.Image = null;
         }
 
-        private void setPBox(TrackType type)
+        private void SetPBox(TrackType type)
         {
             switch (type)
             {
@@ -105,7 +105,7 @@ namespace QSP
             }
         }
 
-        private void setAvail(TrackType trkType, Severity severity)
+        private void SetAvail(TrackType trkType, Severity severity)
         {
             switch (trkType)
             {
@@ -127,7 +127,7 @@ namespace QSP
             }
         }
 
-        private void addToListView(ReadOnlyCollection<Entry> records, TrackType para)
+        private void AddToListView(ReadOnlyCollection<Entry> records, TrackType para)
         {
             bool noError = true;
 
@@ -140,7 +140,7 @@ namespace QSP
                     lvi.ImageIndex = (int)i.Severity;
                     ListView1.Items.Add(lvi);
 
-                    setAvail(para, i.Severity);
+                    SetAvail(para, i.Severity);
                     noError = false;
                 }
             }
@@ -152,11 +152,11 @@ namespace QSP
                 lvi.ImageIndex = 0;
                 ListView1.Items.Add(lvi);
 
-                setAvail(para, 0);
+                SetAvail(para, 0);
             }
         }
 
-        private void setMainFormTrackStatus()
+        private void SetMainFormTrackStatus()
         {
             var mainFrmStatus = frmMain.LblTrackDownloadStatus;
 
@@ -186,9 +186,9 @@ namespace QSP
         private void TracksForm_Load(object sender, EventArgs e)
         {
             frmMain = MainFormInstance();
-            initImages();
-            initCBox();
-            initPBoxes();
+            InitImages();
+            InitCBox();
+            InitPBoxes();
 
             //initialize enums
             natsAvail = Severity.Advisory;
@@ -204,17 +204,17 @@ namespace QSP
 
         private async void BtnNatsDn_Click(object sender, EventArgs e)
         {
-            await dnNats();
+            await DnNats();
         }
 
         private async void BtnPacotsDn_Click(object sender, EventArgs e)
         {
-            await dnPacots();
+            await DnPacots();
         }
 
         private async void BtnAusotsDn_Click(object sender, EventArgs e)
         {
-            await dnAusots();
+            await DnAusots();
         }
 
         private void CBoxNatsEnabled_SelectedIndexChanged(object sender, EventArgs e)
@@ -257,43 +257,43 @@ namespace QSP
             }
         }
 
-        private async Task dnNats()
+        private async Task DnNats()
         {
             BtnNatsDn.Enabled = false;
             BtnNatsDn.Text = "Downloading";
 
             await SetNats();
-            refreshStatus(TrackType.Nats);
+            RefreshStatus(TrackType.Nats);
 
             BtnNatsDn.Enabled = true;
             BtnNatsDn.Text = "Download";
         }
 
-        private async Task dnPacots()
+        private async Task DnPacots()
         {
             BtnPacotsDn.Enabled = false;
             BtnPacotsDn.Text = "Downloading";
 
             await SetPacots();
-            refreshStatus(TrackType.Pacots);
+            RefreshStatus(TrackType.Pacots);
 
             BtnPacotsDn.Enabled = true;
             BtnPacotsDn.Text = "Download";
         }
 
-        private async Task dnAusots()
+        private async Task DnAusots()
         {
             BtnAusotsDn.Enabled = false;
             BtnAusotsDn.Text = "Downloading";
 
             await SetAusots();
-            refreshStatus(TrackType.Ausots);
+            RefreshStatus(TrackType.Ausots);
 
             BtnAusotsDn.Enabled = true;
             BtnAusotsDn.Text = "Download";
         }
 
-        private void closeForm(object sender, System.ComponentModel.CancelEventArgs e)
+        private void CloseForm(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //Do NOT close this form
             e.Cancel = true;
@@ -302,7 +302,7 @@ namespace QSP
         
         public TracksForm()
         {
-            Closing += closeForm;
+            Closing += CloseForm;
             Load += TracksForm_Load;
             InitializeComponent();
         }

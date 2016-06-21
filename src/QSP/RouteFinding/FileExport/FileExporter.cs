@@ -51,7 +51,7 @@ namespace QSP.RouteFinding.FileExport
 
                     string filePath = FileNameGenerator.Generate(
                         i.Directory,
-                        getFileName(),
+                        GetFileName(),
                         (n) => n.ToString().PadLeft(2, '0'),
                         i.Extension);
 
@@ -69,7 +69,7 @@ namespace QSP.RouteFinding.FileExport
             return _reports;
         }
 
-        private string getFileName()
+        private string GetFileName()
         {
             var orig = route.FirstWaypoint.ID.Substring(0, 4);
             var dest = route.LastWaypoint.ID.Substring(0, 4);

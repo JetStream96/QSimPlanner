@@ -13,10 +13,10 @@ namespace QSP.UI.ToLdgModule.AboutPage
         public AboutPageControl()
         {
             InitializeComponent();
-            initControls();
+            InitControls();
         }
 
-        private void initControls()
+        private void InitControls()
         {
             panel1.BackColor = Color.FromArgb(160, Color.White);
 
@@ -27,7 +27,7 @@ namespace QSP.UI.ToLdgModule.AboutPage
                 ver.Build.ToString();
         }
 
-        private void tryOpenFile(string fileName)
+        private void TryOpenFile(string fileName)
         {
             try
             {
@@ -42,17 +42,17 @@ namespace QSP.UI.ToLdgModule.AboutPage
 
         private void licenseBtn_Click(object sender, EventArgs e)
         {
-            tryOpenFile("LICENSE.txt");
+            TryOpenFile("LICENSE.txt");
         }
 
         private void siteBtn_Click(object sender, EventArgs e)
         {
-            tryOpenFile("https://qsimplan.wordpress.com/");
+            TryOpenFile("https://qsimplan.wordpress.com/");
         }
 
         private void githubBtn_Click(object sender, EventArgs e)
         {
-            tryOpenFile("https://github.com/JetStream96/QSimPlanner");
+            TryOpenFile("https://github.com/JetStream96/QSimPlanner");
         }
     }
 }

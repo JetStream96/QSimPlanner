@@ -31,7 +31,7 @@ namespace QSP.RouteFinding.Tracks.Common
         public TrackNodes Read(T item)
         {
             trk = item;
-            mainRoute = readMainRoute(trk.MainRoute);
+            mainRoute = ReadMainRoute(trk.MainRoute);
 
             // The format of this part is rather unpredictable. 
             // For example, a route can even start with an airway:
@@ -40,8 +40,8 @@ namespace QSP.RouteFinding.Tracks.Common
             // Since this part is not that important, we can allow it to fail and still ignore it.
             try
             {
-                routeFromTo = findWptAllRouteFrom(trk.RouteFrom);
-                routeFromTo.AddRange(findWptAllRouteTo(trk.RouteTo));
+                routeFromTo = FindWptAllRouteFrom(trk.RouteFrom);
+                routeFromTo.AddRange(FindWptAllRouteTo(trk.RouteTo));
                 routeFromTo = routeFromTo.Distinct().ToList();
             }
             catch
@@ -54,7 +54,7 @@ namespace QSP.RouteFinding.Tracks.Common
 
         #region "Method for routeFrom/To"
 
-        private List<WptPair> getExtraPairs(string[] rteFrom, double prevLat, double prevLon)
+        private List<WptPair> GetExtraPairs(string[] rteFrom, double prevLat, double prevLon)
         {
             var result = new List<WptPair>();
             int lastIndex = -1;
@@ -63,28 +63,28 @@ namespace QSP.RouteFinding.Tracks.Common
             {
                 if (lastIndex >= 0)
                 {
-                    if (isAirway(lastIndex, rteFrom[index]))
+                    if (IsAirway(lastIndex, rteFrom[index]))
                     {
                         lastIndex = -1;
                     }
                     else
                     {
-                        int wpt = selectWpt(prevLat, prevLon, rteFrom[index]);
+                        int wpt = SelectWpt(prevLat, prevLon, rteFrom[index]);
                         result.Add(new WptPair(lastIndex, wpt));
                         lastIndex = wpt;
                     }
                 }
                 else
                 {
-                    lastIndex = selectWpt(prevLat, prevLon, rteFrom[index]);
+                    lastIndex = SelectWpt(prevLat, prevLon, rteFrom[index]);
                 }
             }
             return result;
         }
 
-        private int selectWpt(double prevLat, double prevLon, string ident)
+        private int SelectWpt(double prevLat, double prevLon, string ident)
         {
-            var candidates = wptList.FindAllByID(ident);
+            var candidates = wptList.FindAllById(ident);
 
             if (candidates == null || candidates.Count == 0)
             {
@@ -93,7 +93,7 @@ namespace QSP.RouteFinding.Tracks.Common
             return Utilities.GetClosest(prevLat, prevLon, candidates, wptList);
         }
 
-        private bool isAirway(int lastIndex, string airway)
+        private bool IsAirway(int lastIndex, string airway)
         {
             if (airway == "UPR")
             {
@@ -110,27 +110,27 @@ namespace QSP.RouteFinding.Tracks.Common
             return false;
         }
 
-        private List<WptPair> findWptAllRouteFrom(ReadOnlyCollection<string[]> rteFrom)
+        private List<WptPair> FindWptAllRouteFrom(ReadOnlyCollection<string[]> rteFrom)
         {
             var result = new List<WptPair>();
             var firstWpt = mainRoute.FirstWaypoint;
 
             foreach (var i in rteFrom)
             {
-                result.AddRange(getExtraPairs(i, firstWpt.Lat, firstWpt.Lon));
+                result.AddRange(GetExtraPairs(i, firstWpt.Lat, firstWpt.Lon));
             }
 
             return result;
         }
 
-        private List<WptPair> findWptAllRouteTo(ReadOnlyCollection<string[]> rteTo)
+        private List<WptPair> FindWptAllRouteTo(ReadOnlyCollection<string[]> rteTo)
         {
             var result = new List<WptPair>();
             var lastWpt = mainRoute.LastWaypoint;
 
             foreach (var i in rteTo)
             {
-                result.AddRange(getExtraPairs(i, lastWpt.Lat, lastWpt.Lon));
+                result.AddRange(GetExtraPairs(i, lastWpt.Lat, lastWpt.Lon));
             }
 
             return result;
@@ -142,20 +142,20 @@ namespace QSP.RouteFinding.Tracks.Common
 
         /// <exception cref="InvalidRouteException"></exception>
         /// <exception cref="WaypointNotFoundException"></exception>
-        private Route readMainRoute(ReadOnlyCollection<string> rte)
+        private Route ReadMainRoute(ReadOnlyCollection<string> rte)
         {
             LatLon latLon = trk.PreferredFirstLatLon;
 
             return new AutoSelectAnalyzer(
                 new CoordinateFormatter(
-                    combineArray(rte)).Split(),
+                    CombineArray(rte)).Split(),
                     latLon.Lat,
                     latLon.Lon,
                     wptList)
                 .Analyze();
         }
 
-        private string combineArray(ReadOnlyCollection<string> item)
+        private string CombineArray(ReadOnlyCollection<string> item)
         {
             var result = new StringBuilder();
 

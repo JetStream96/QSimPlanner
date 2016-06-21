@@ -108,14 +108,14 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
             TimeEnd = sp.ReadToNextDelimeter(d);
 
             sp.SkipToNextLine();
-            getRtsRmkIndices(sp.CurrentIndex);
-            MainRoute = sp.ReadString(mainRouteEndIndex());
+            GetRtsRmkIndices(sp.CurrentIndex);
+            MainRoute = sp.ReadString(MainRouteEndIndex());
 
-            addRts(sp);
-            addRmk(sp);
+            AddRts(sp);
+            AddRmk(sp);
         }
 
-        private void addRmk(StringParser sp)
+        private void AddRmk(StringParser sp)
         {
             if (rmkIndex >= 0)
             {
@@ -128,14 +128,14 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
             }
         }
 
-        private void addRts(StringParser sp)
+        private void AddRts(StringParser sp)
         {
             if (rtsIndex >= 0)
             {
                 sp.MoveRight("RTS/".Length + 1);
                 ConnectionRoutes =
                     sp
-                    .ReadString(rtsEndIndex())
+                    .ReadString(RtsEndIndex())
                     .Lines()
                     .Where(x => string.IsNullOrWhiteSpace(x) == false)
                     .ToArray();
@@ -146,7 +146,7 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
             }
         }
 
-        private void getRtsRmkIndices(int index)
+        private void GetRtsRmkIndices(int index)
         {
             rtsIndex = text.IndexOf("RTS/", index);
             rmkIndex = text.IndexOf("RMK/", index);
@@ -164,12 +164,12 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
             throw new ArgumentException();
         }
 
-        private int mainRouteEndIndex()
+        private int MainRouteEndIndex()
         {
             return FirstNonNegativeTerm(new int[] { rtsIndex, rmkIndex, text.Length }) - 1;
         }
 
-        private int rtsEndIndex()
+        private int RtsEndIndex()
         {
             return FirstNonNegativeTerm(new int[] { rmkIndex, text.Length }) - 1;
         }

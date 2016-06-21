@@ -80,7 +80,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             var commonPart = GetStar(starTrans.ProcedureName);
 
             var wpts = new List<Waypoint>();
-            bool addedTrans = addTransitionIfNeeded(starTrans, wpts);
+            bool addedTrans = AddTransitionIfNeeded(starTrans, wpts);
 
             if (commonPart != null)
             {
@@ -108,7 +108,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             return new ReadOnlyCollection<Waypoint>(wpts);
         }
 
-        private bool addTransitionIfNeeded(
+        private bool AddTransitionIfNeeded(
             TerminalProcedureName starTrans, List<Waypoint> wpts)
         {
             if (starTrans.TransitionName != "")

@@ -65,14 +65,14 @@ namespace QSP.RouteFinding.RouteAnalyzers
             this.wptList = wptList;
             rte = new Route();
             this.routeInput = routeInput;
-            validateFirstWpt(firstWaypointIndex);
+            ValidateFirstWpt(firstWaypointIndex);
         }
 
-        private void validateFirstWpt(int index)
+        private void ValidateFirstWpt(int index)
         {
             if (index == -1)
             {
-                if (tryParseCoord(routeInput[0]))
+                if (TryParseCoord(routeInput[0]))
                 {
                     return;
                 }
@@ -109,8 +109,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 {
                     //this one may be awy or wpt
 
-                    if (tryParseAwy(routeInput[i]) == false &&
-                        tryParseWpt(routeInput[i]) == false)
+                    if (TryParseAwy(routeInput[i]) == false &&
+                        TryParseWpt(routeInput[i]) == false)
                     {
                         throw new InvalidIdentifierException(
                             string.Format("{0} is not a valid waypoint or airway identifier", routeInput[i]));
@@ -119,7 +119,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 else
                 {
                     //this one must be wpt
-                    if (tryParseWpt(routeInput[i]) == false)
+                    if (TryParseWpt(routeInput[i]) == false)
                     {
                         throw new InvalidIdentifierException(
                             string.Format("Cannot find waypoint {0} on airway {1}", routeInput[i], lastAwy));
@@ -129,39 +129,39 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return rte;
         }
 
-        private bool tryParseCoord(string ident)
+        private bool TryParseCoord(string ident)
         {
             LatLon coord;
 
             if (FormatDecimal.TryReadFromDecimalFormat(ident, out coord))
             {
                 lastWpt = -1;
-                return tryappendWpt(new Waypoint(ident, coord.Lat, coord.Lon));
+                return TryappendWpt(new Waypoint(ident, coord.Lat, coord.Lon));
             }
             return false;
         }
 
-        private bool tryappendWpt(Waypoint wpt)
+        private bool TryappendWpt(Waypoint wpt)
         {
             rte.AddLastWaypoint(wpt, "DCT");
             return true;
         }
 
-        private bool tryParseWpt(string ident)
+        private bool TryParseWpt(string ident)
         {
             if (lastAwy == null)
             {
                 // Must be DCT.
-                return tryDirectWpt(ident);
+                return TryDirectWpt(ident);
             }
             else
             {
                 // Connected via airway
-                return tryConnectAirway(ident);
+                return TryConnectAirway(ident);
             }
         }
 
-        private bool tryConnectAirway(string ident)
+        private bool TryConnectAirway(string ident)
         {
             var intermediateWpt = new AirwayNodeFinder(lastWpt, lastAwy, ident, wptList).FindWaypoints();
 
@@ -180,13 +180,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return true;
         }
 
-        private bool tryDirectWpt(string ident)
+        private bool TryDirectWpt(string ident)
         {
-            var indices = wptList.FindAllByID(ident);
+            var indices = wptList.FindAllById(ident);
 
             if (indices == null || indices.Count == 0)
             {
-                return tryParseCoord(ident);
+                return TryParseCoord(ident);
             }
             else if (indices.Count == 1)
             {
@@ -198,10 +198,10 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 lastWpt = Tracks.Common.Utilities.GetClosest(wpt.Lat, wpt.Lon, indices, wptList);
             }
 
-            return tryappendWpt(wptList[lastWpt]);
+            return TryappendWpt(wptList[lastWpt]);
         }
 
-        private bool tryParseAwy(string airway)
+        private bool TryParseAwy(string airway)
         {
             if (lastWpt == -1)
             {

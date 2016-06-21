@@ -21,31 +21,31 @@ namespace QSP.WindAloft
             using (var client = new WebClient())
             {
                 Directory.CreateDirectory(new FileInfo(filePath).DirectoryName);
-                client.DownloadFile(fileUrl(), filePath);
+                client.DownloadFile(FileUrl(), filePath);
             }
         }
 
-        private string fileUrl()
+        private string FileUrl()
         {
             var sb = new StringBuilder();
             sb.Append(webPageUrl.Substring(0, webPageUrl.IndexOf('?') + 1));
 
-            foreach (var i in getParaString())
+            foreach (var i in GetParaString())
             {
                 sb.Append(i + '&');
             }
-            sb.Append(getParameters());
+            sb.Append(GetParameters());
 
             return sb.ToString();
         }
 
-        private string getParameters()
+        private string GetParameters()
         {
             int x = webPageUrl.IndexOf('?');
             return webPageUrl.Substring(x + 1, webPageUrl.Length - x - 1);
         }
 
-        private string getFilePara()
+        private string GetFilePara()
         {
             int index = webPageSrc.IndexOf("<select name=\"file\">");
             int x = webPageSrc.IndexOf("<option value=\"", index) + "<option value=\"".Length;
@@ -54,11 +54,11 @@ namespace QSP.WindAloft
             return webPageSrc.Substring(x, y - x);
         }
 
-        private List<string> getParaString()
+        private List<string> GetParaString()
         {
             var items = new List<string>();
 
-            items.Add("file=" + getFilePara());
+            items.Add("file=" + GetFilePara());
             items.Add("leftlon=0");
             items.Add("rightlon=360");
             items.Add("toplat=90");

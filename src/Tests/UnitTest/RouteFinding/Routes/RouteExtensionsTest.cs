@@ -8,7 +8,7 @@ namespace UnitTest.RouteFinding.Routes
     [TestFixture]
     public class RouteExtensionsTest
     {
-        private Route getRoute1()
+        private Route GetRoute1()
         {
             var route = new Route();
 
@@ -19,7 +19,7 @@ namespace UnitTest.RouteFinding.Routes
             return route;
         }
 
-        private Route getRoute2()
+        private Route GetRoute2()
         {
             var route = new Route();
 
@@ -33,9 +33,9 @@ namespace UnitTest.RouteFinding.Routes
         [Test]
         public void InsertRouteTest()
         {
-            var route = getRoute1();
+            var route = GetRoute1();
 
-            route.Nodes.InsertRoute(getRoute2().Nodes, "B");
+            route.Nodes.InsertRoute(GetRoute2().Nodes, "B");
 
             Assert.IsTrue(Enumerable.SequenceEqual(
                 route.Nodes.Select(n => n.Waypoint.ID),
@@ -49,12 +49,12 @@ namespace UnitTest.RouteFinding.Routes
         [Test]
         public void InsertRouteNoMatchShouldLeaveRouteUntouched()
         {
-            var route = getRoute1();
+            var route = GetRoute1();
 
-            route.Nodes.InsertRoute(getRoute2().Nodes, "A");
+            route.Nodes.InsertRoute(GetRoute2().Nodes, "A");
 
             Assert.IsTrue(Enumerable.SequenceEqual(
-                route, getRoute1()));
+                route, GetRoute1()));
         }        
     }
 }

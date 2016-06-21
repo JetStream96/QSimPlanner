@@ -12,7 +12,7 @@ namespace QSP
 
         private Tuple<double, double, double> CrzTas;
 
-        private void loadFromTxt(string s)
+        private void LoadFromTxt(string s)
         {
             string[] lines = s.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             bool wtUnitIsKG = false;
@@ -75,7 +75,7 @@ namespace QSP
                     CrzTas = new Tuple<double, double, double>(250, 310, 0.84);
                     break;
             }
-            loadFromTxt(source);
+            LoadFromTxt(source);
         }
 
         public double OptimumAltitude(double wt)

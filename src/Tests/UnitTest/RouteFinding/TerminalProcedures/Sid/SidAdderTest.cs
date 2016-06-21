@@ -149,7 +149,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             double dis = CreateList(rwy, wpt101, wpt102, wpt103, wpt104)
                 .TotalDistance();
 
-            Assert.IsTrue(sidIsAdded(
+            Assert.IsTrue(SidIsAdded(
                 rwyIndex,
                 "SID1",
                 dis,
@@ -235,7 +235,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 
             var dis = CreateList(rwy, wpt01, wptCoord).TotalDistance();
 
-            Assert.IsTrue(sidIsAdded(
+            Assert.IsTrue(SidIsAdded(
                 rwyIndex,
                 "SID1",
                 dis,
@@ -277,7 +277,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             return new AirportManager(airports);
         }
 
-        private bool sidIsAdded(
+        private bool SidIsAdded(
             int rwyIndex, string name, double dis, WaypointList wptList)
         {
             foreach (var i in wptList.EdgesFrom(rwyIndex))

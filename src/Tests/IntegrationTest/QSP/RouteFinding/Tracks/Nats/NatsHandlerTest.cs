@@ -23,7 +23,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
         public void GetAllTracksAndAddToWptListTest()
         {
             // Arrange
-            var wptList = WptListFactory.GetWptList(wptIdents());
+            var wptList = WptListFactory.GetWptList(WptIdents());
             var recorder = new StatusRecorder();
 
             var handler = new NatsHandler(
@@ -42,30 +42,30 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             Assert.AreEqual(0, recorder.Records.Count);
 
             // Verify all tracks are added.
-            assertAllTracks(wptList);
+            AssertAllTracks(wptList);
 
             // Check one westbound track.
-            assertTrackC(wptList);
+            AssertTrackC(wptList);
 
             // Check one eastbound track.
-            assertTrackZ(wptList);
+            AssertTrackZ(wptList);
         }
 
-        private static void assertTrackC(WaypointList wptList)
+        private static void AssertTrackC(WaypointList wptList)
         {
-            var edge = wptList.GetEdge(getEdgeIndex("NATC", "ETARI", wptList));
+            var edge = wptList.GetEdge(GetEdgeIndex("NATC", "ETARI", wptList));
 
             // Distance
             Assert.AreEqual(
-                getDistance(
+                GetDistance(
                     new List<LatLon>
                     {
-                      wptList[ wptList.FindByID("ETARI")].LatLon,
+                      wptList[ wptList.FindById("ETARI")].LatLon,
                       new LatLon(55.5,-20),
                       new LatLon(55.5,-30),
                       new LatLon(55.5,-40),
                       new LatLon(54.5,-50),
-                      wptList[wptList.FindByID("MELDI")].LatLon
+                      wptList[wptList.FindById("MELDI")].LatLon
                     }),
                 edge.Value.Distance,
                 0.01);
@@ -82,23 +82,23 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             Assert.IsTrue(edge.Value.Airway == "NATC");
         }
 
-        private static void assertTrackZ(WaypointList wptList)
+        private static void AssertTrackZ(WaypointList wptList)
         {
-            var edge = wptList.GetEdge(getEdgeIndex("NATZ", "SOORY", wptList));
+            var edge = wptList.GetEdge(GetEdgeIndex("NATZ", "SOORY", wptList));
 
             // Distance
             Assert.AreEqual(
-                getDistance(
+                GetDistance(
                     new List<LatLon>
                     {
-                      wptList[ wptList.FindByID("SOORY")].LatLon,
+                      wptList[ wptList.FindById("SOORY")].LatLon,
                       new LatLon(42.0,-50.0),
                       new LatLon(44.0,-40.0),
                       new LatLon(44.0,-30.0),
                       new LatLon(46.0,-20.0),
                       new LatLon(46.0,-15.0),
-                      wptList[wptList.FindByID("SEPAL")].LatLon,
-                      wptList[wptList.FindByID("LAPEX")].LatLon
+                      wptList[wptList.FindById("SEPAL")].LatLon,
+                      wptList[wptList.FindById("LAPEX")].LatLon
                     }),
                 edge.Value.Distance,
                 0.01);
@@ -115,7 +115,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             Assert.IsTrue(edge.Value.Airway == "NATZ");
         }
 
-        private static double getDistance(List<LatLon> item)
+        private static double GetDistance(List<LatLon> item)
         {
             if (item.Count < 2)
             {
@@ -131,10 +131,10 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             return d;
         }
 
-        private static int getEdgeIndex(
+        private static int GetEdgeIndex(
             string ID, string firstWpt, WaypointList wptList)
         {
-            foreach (var i in wptList.EdgesFrom(wptList.FindByID(firstWpt)))
+            foreach (var i in wptList.EdgesFrom(wptList.FindById(firstWpt)))
             {
                 if (wptList.GetEdge(i).Value.Airway == ID)
                 {
@@ -144,7 +144,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             return -1;
         }
 
-        private static void assertAllTracks(WaypointList wptList)
+        private static void AssertAllTracks(WaypointList wptList)
         {
             var id = new char[] { 'A', 'B', 'C', 'D', 'E', 'F',
                 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
@@ -168,21 +168,21 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
 
             for (int i = 0; i < id.Length; i++)
             {
-                assertTrack("NAT" + id[i], firstWpt[i], wptList);
+                AssertTrack("NAT" + id[i], firstWpt[i], wptList);
             }
         }
 
-        private static void assertTrack(
+        private static void AssertTrack(
             string ID, string firstWpt, WaypointList wptList)
         {
             // check the track is added
-            if (getEdgeIndex(ID, firstWpt, wptList) < 0)
+            if (GetEdgeIndex(ID, firstWpt, wptList) < 0)
             {
                 Assert.Fail("Track not found.");
             }
         }
 
-        private static List<string> wptIdents()
+        private static List<string> WptIdents()
         {
             return new List<string>
             { "SUNOT",

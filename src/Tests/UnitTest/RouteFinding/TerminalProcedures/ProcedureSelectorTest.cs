@@ -21,7 +21,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
         [Test]
         public void WhenSidIsRwySpecific()
         {
-            var sids = sidEntryCreateHelper(
+            var sids = SidEntryCreateHelper(
                 new sidData("14", "SID1", EntryType.RwySpecific),
                 new sidData("25", "SID1", EntryType.RwySpecific));
 
@@ -35,7 +35,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
         [Test]
         public void WhenCommonPartExists()
         {
-            var sids = sidEntryCreateHelper(
+            var sids = SidEntryCreateHelper(
                 new sidData("14", "SID1", EntryType.Common));
 
             var avaliableSids = new ProcedureSelector<SidEntry>(sids, "14")
@@ -48,7 +48,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
         [Test]
         public void WhenCommonPartIsNotForTheInterestedRwy()
         {
-            var sids = sidEntryCreateHelper(
+            var sids = SidEntryCreateHelper(
                 new sidData("ALL", "SID1", EntryType.Common),
                 new sidData("25", "SID1", EntryType.RwySpecific),
                 new sidData("14", "SID2", EntryType.RwySpecific));
@@ -63,7 +63,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
         [Test]
         public void WhenTransitionIsAvailableThenNoTransitionPartIsIgnored()
         {
-            var sids = sidEntryCreateHelper(
+            var sids = SidEntryCreateHelper(
                 new sidData("14", "SID1", EntryType.RwySpecific),
                 new sidData("TRANS1", "SID1", EntryType.Transition),
                 new sidData("TRANS2", "SID1", EntryType.Transition));
@@ -78,7 +78,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
         [Test]
         public void WhenTransitionIsForWrongRwyThenDoesNotAddToResult()
         {
-            var sids = sidEntryCreateHelper(
+            var sids = SidEntryCreateHelper(
                 new sidData("25", "SID2", EntryType.RwySpecific),
                 new sidData("TRANS2", "SID2", EntryType.Transition));
 
@@ -88,7 +88,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest
             Assert.AreEqual(0, avaliableSids.Count);
         }
 
-        private static List<SidEntry> sidEntryCreateHelper(
+        private static List<SidEntry> SidEntryCreateHelper(
             params sidData[] data)
         {
             var emptyList = new List<Waypoint>();

@@ -33,11 +33,11 @@ namespace QSP.UI.ToLdgModule.AirportMap
             {
                 if (value && BrowserEnabled == false)
                 {
-                    enableBrowser();
+                    EnableBrowser();
                 }
                 else if (value == false && BrowserEnabled)
                 {
-                    disableBrowser();
+                    DisableBrowser();
                 }
             }
         }
@@ -53,11 +53,11 @@ namespace QSP.UI.ToLdgModule.AirportMap
             {
                 if (value && StaticMapEnabled == false)
                 {
-                    enableStaticMap();
+                    EnableStaticMap();
                 }
                 else if (value == false && StaticMapEnabled)
                 {
-                    disableStaticMap();
+                    DisableStaticMap();
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             set
             {
                 _orig = value;
-                setIcaoItems();
+                SetIcaoItems();
             }
         }
 
@@ -90,7 +90,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             set
             {
                 _dest = value;
-                setIcaoItems();
+                SetIcaoItems();
             }
         }
 
@@ -106,11 +106,11 @@ namespace QSP.UI.ToLdgModule.AirportMap
             set
             {
                 _altn = value;
-                setIcaoItems();
+                SetIcaoItems();
             }
         }
 
-        private void setIcaoItems()
+        private void SetIcaoItems()
         {
             icaoComboBox.Items.Clear();
 
@@ -130,16 +130,16 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         public void Initialize(AirportManager airports)
         {
-            resetAirport();
-            setEmptyDataGrid();
+            ResetAirport();
+            SetEmptyDataGrid();
 
             icaoComboBox.Text = "";
             this.Airports = airports;
 
-            addToolTip();
+            AddToolTip();
         }
 
-        private void addToolTip()
+        private void AddToolTip()
         {
             var tp = new ToolTip();
 
@@ -152,17 +152,17 @@ namespace QSP.UI.ToLdgModule.AirportMap
             tp.SetToolTip(updateBtn, "Refresh METAR");
         }
 
-        private void setEmptyDataGrid()
+        private void SetEmptyDataGrid()
         {
             airportDataGrid.Columns.Clear();
             airportDataGrid.Rows.Clear();
             airportDataGrid.ColumnCount = 10;
             airportDataGrid.RowCount = 0;
 
-            setColumnsLables();
+            SetColumnsLables();
         }
 
-        private void resetAirport()
+        private void ResetAirport()
         {
             airportNameLbl.Text = "";
             latLonLbl.Text = "";
@@ -174,7 +174,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
         }
 
         // TODO: Need the ability to cancel the task.
-        private async void setMetar(string icao)
+        private async void SetMetar(string icao)
         {
             metarLbl.Text = "Updating ...";
             metarLbl.Text = await Task.Factory.StartNew(
@@ -183,9 +183,9 @@ namespace QSP.UI.ToLdgModule.AirportMap
             updateBtn.Visible = true;
         }
 
-        private void setAirport(Airport airport)
+        private void SetAirport(Airport airport)
         {
-            setMetar(airport.Icao);
+            SetMetar(airport.Icao);
 
             airportNameLbl.Text = airport.Name;
             latLonLbl.Text = airport.Lat.ToString("#.######") + " / " +
@@ -195,7 +195,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             if (airport.TransAvail)
             {
                 transExistLbl.Visible = true;
-                transAltLbl.Text = transitionAlts(airport);
+                transAltLbl.Text = TransitionAlts(airport);
             }
             else
             {
@@ -204,7 +204,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             }
         }
 
-        private string transitionAlts(Airport airport)
+        private string TransitionAlts(Airport airport)
         {
             // If TL is 0, that means it's not a fixed value.
             // Show "-" instead.
@@ -219,14 +219,14 @@ namespace QSP.UI.ToLdgModule.AirportMap
             }
         }
 
-        private void updateDataGrid(Airport airport)
+        private void UpdateDataGrid(Airport airport)
         {
             var runways = airport.Rwys;
             airportDataGrid.Columns.Clear();
             airportDataGrid.Rows.Clear();
             airportDataGrid.ColumnCount = 10;
             airportDataGrid.RowCount = runways.Count;
-            setColumnsLables();
+            SetColumnsLables();
 
             for (int i = 0; i < runways.Count; i++)
             {
@@ -264,7 +264,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             }
         }
 
-        private void setColumnsLables()
+        private void SetColumnsLables()
         {
             airportDataGrid.Columns[0].Name = "RWY";
             airportDataGrid.Columns[1].Name = "Length(FT)";
@@ -280,7 +280,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         public void FindAirport()
         {
-            resetAirport();
+            ResetAirport();
             airportDataGrid.Rows.Clear();
 
             if (CurrentIcao.Length != 4 || Airports == null)
@@ -292,15 +292,15 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
             if (airport != null && airport.Rwys.Count > 0)
             {
-                setAirport(airport);
-                updateDataGrid(airport);
+                SetAirport(airport);
+                UpdateDataGrid(airport);
                 ShowMap(airport.Lat, airport.Lon);
             }
         }
 
         private void updateBtn_Click(object sender, EventArgs e)
         {
-            setMetar(CurrentIcao);
+            SetMetar(CurrentIcao);
         }
 
         private void icaoComboBox_TextChanged(object sender, EventArgs e)
@@ -317,7 +317,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             frm.ShowDialog();
         }
 
-        private void enableBrowser()
+        private void EnableBrowser()
         {
             var wb = new WebBrowser();
 
@@ -328,7 +328,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             browser = wb;
         }
 
-        private void disableBrowser()
+        private void DisableBrowser()
         {
             Controls.Remove(browser);
             browser = null;
@@ -338,15 +338,15 @@ namespace QSP.UI.ToLdgModule.AirportMap
         {
             if (BrowserEnabled)
             {
-                showMapBrowser(lat, lon);
+                ShowMapBrowser(lat, lon);
             }
             else if (StaticMapEnabled)
             {
-                showStaticMap(lat, lon);
+                ShowStaticMap(lat, lon);
             }
         }
 
-        private void showMapBrowser(double lat, double lon)
+        private void ShowMapBrowser(double lat, double lon)
         {
             // This requires a registry fix. (IE emulation)
 
@@ -354,7 +354,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
                 lat, lon, browser.Width, browser.Height);
         }
 
-        private void enableStaticMap()
+        private void EnableStaticMap()
         {
             var pb = new PictureBox();
 
@@ -370,13 +370,13 @@ namespace QSP.UI.ToLdgModule.AirportMap
             picBox = pb;
         }
 
-        private void disableStaticMap()
+        private void DisableStaticMap()
         {
             Controls.Remove(picBox);
             picBox = null;
         }
 
-        private void showStaticMap(double lat, double lon)
+        private void ShowStaticMap(double lat, double lon)
         {
             picBox.LoadAsync(
                 StaticMap.GetMapUrl(

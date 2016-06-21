@@ -27,10 +27,10 @@ namespace QSP.WindAloft
             }
         }
 
-        public WindUV GetWindUV(double lat, double lon, double FL)
+        public WindUV GetWindUv(double lat, double lon, double FL)
         {
             double press = CoversionTools.AltToPressureMb(FL * 100);
-            int index = getIndicesForInterpolation(press);
+            int index = GetIndicesForInterpolation(press);
 
             double uWind = Interpolate1D.Interpolate(
                 Utilities.FullWindDataSet[index], Utilities.FullWindDataSet[index + 1],
@@ -45,7 +45,7 @@ namespace QSP.WindAloft
             return new WindUV(uWind, vWind);
         }
 
-        private int getIndicesForInterpolation(double press)
+        private int GetIndicesForInterpolation(double press)
         {
             //let the return value be x, use indices x and x+1 for interpolation
             //works for extrapolation as well

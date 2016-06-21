@@ -43,7 +43,7 @@ namespace QSP.NavData.AAX
                         continue;
                     }
 
-                    readWpt(i);
+                    ReadWpt(i);
                 }
                 catch
                 {
@@ -54,7 +54,7 @@ namespace QSP.NavData.AAX
             }
         }
 
-        private void readWpt(string i)
+        private void ReadWpt(string i)
         {
             int pos = 0;
 

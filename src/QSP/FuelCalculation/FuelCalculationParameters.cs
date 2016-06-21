@@ -27,7 +27,7 @@ namespace QSP
 
         private MainForm frm = MainFormInstance();        
 
-        private void readWtUnit()
+        private void ReadWtUnit()
         {
             if (frm.WtUnitSel_ComboBox.Text == "KG")
             {
@@ -39,7 +39,7 @@ namespace QSP
             }
         }
 
-        private void setPropertyKG()
+        private void SetPropertyKg()
         {
             if (WtUnit == WeightUnit.KG)
             {
@@ -55,7 +55,7 @@ namespace QSP
             }
         }
 
-        private void setAircraftType()
+        private void SetAircraftType()
         {
             if (frm.ACList.Text == "737-600")
             {
@@ -85,28 +85,28 @@ namespace QSP
 
         public void ImportValues()
         {
-            readWtUnit();
-            setAircraftType();
+            ReadWtUnit();
+            SetAircraftType();
 
-            tryImportPattern1(ref Zfw, frm.ZFW.Text, "Invalid ZFW.");
+            TryImportPattern1(ref Zfw, frm.ZFW.Text, "Invalid ZFW.");
             //need a better one
-            tryImportPattern1(ref ContPerc, frm.ContPercentToDest.Text, "Invalid contingency fuel.");
-            tryImportPattern1(ref MissedAppFuel, frm.MissedAppFuel.Text, "Invalid missed approach fuel.");
-            tryImportPattern1(ref HoldingMin, frm.HoldTime_TxtBox.Text, "Invalid holding time.");
-            tryImportPattern1(ref ExtraFuel, frm.ExtraFuel.Text, "Invalid extra fuel.");
-            tryImportPattern1(ref APUTime, frm.APUTime.Text, "Invalid APU time.");
-            tryImportPattern1(ref TaxiTime, frm.TaxiTime.Text, "Invalid taxi time.");
-            tryImportPattern1(ref FinalRsvMin, frm.FinalRsv.Text, "Invalid time for final reserve.");
+            TryImportPattern1(ref ContPerc, frm.ContPercentToDest.Text, "Invalid contingency fuel.");
+            TryImportPattern1(ref MissedAppFuel, frm.MissedAppFuel.Text, "Invalid missed approach fuel.");
+            TryImportPattern1(ref HoldingMin, frm.HoldTime_TxtBox.Text, "Invalid holding time.");
+            TryImportPattern1(ref ExtraFuel, frm.ExtraFuel.Text, "Invalid extra fuel.");
+            TryImportPattern1(ref APUTime, frm.APUTime.Text, "Invalid APU time.");
+            TryImportPattern1(ref TaxiTime, frm.TaxiTime.Text, "Invalid taxi time.");
+            TryImportPattern1(ref FinalRsvMin, frm.FinalRsv.Text, "Invalid time for final reserve.");
             DisToDest = RouteFindingCore.RouteToDest.Folded.GetTotalDistance();
             DisToAltn = RouteFindingCore.RouteToAltn.Folded.GetTotalDistance();
 
             AvgWindToDest = 0;
             AvgWindToAltn = 0;
 
-            setPropertyKG();
+            SetPropertyKg();
         }
 
-        private void tryImportPattern1(ref double var, string str, string exceptionMsg)
+        private void TryImportPattern1(ref double var, string str, string exceptionMsg)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace QSP
             }
         }
 
-        private void tryImportPattern2(ref double var, string str, string exceptionMsg)
+        private void TryImportPattern2(ref double var, string str, string exceptionMsg)
         {
             try
             {

@@ -27,7 +27,7 @@ IF,WPT01,-50.00,-121.000,0.0,0.0,0,0,0,0,0,0,0,0,
         [Test]
         public void StarRwySpecific()
         {
-            Assert.IsTrue(containResult(
+            Assert.IsTrue(ContainResult(
                 GetStarCollection(),
                     "STAR1",
                     "05L",
@@ -40,7 +40,7 @@ IF,WPT01,-50.00,-121.000,0.0,0.0,0,0,0,0,0,0,0,0,
         [Test]
         public void StarCommonPart()
         {
-            Assert.IsTrue(containResultCommonPart(
+            Assert.IsTrue(ContainResultCommonPart(
                 GetStarCollection(),
                 "STAR1",
                 CreateList(
@@ -51,7 +51,7 @@ IF,WPT01,-50.00,-121.000,0.0,0.0,0,0,0,0,0,0,0,0,
         [Test]
         public void StarTransitionPart()
         {
-            Assert.IsTrue(containResult(
+            Assert.IsTrue(ContainResult(
                 GetStarCollection(),
                 "STAR1",
                 "TRANS1",
@@ -66,14 +66,14 @@ IF,WPT01,-50.00,-121.000,0.0,0.0,0,0,0,0,0,0,0,0,
             return new StarReader(TxtData).Parse();
         }
 
-        private static bool containResultCommonPart(
+        private static bool ContainResultCommonPart(
             StarCollection collection, string sid, List<Waypoint> wpts)
         {
             return collection.StarList.Any(i =>
             i.Name == sid && Enumerable.SequenceEqual(i.Waypoints, wpts));
         }
 
-        private static bool containResult(
+        private static bool ContainResult(
             StarCollection collection,
             string sid,
             string rwy,

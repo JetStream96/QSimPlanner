@@ -40,15 +40,15 @@ W [WPTS]
 
             // Assert
             Assert.AreEqual(6, result.Count);
-            Assert.IsTrue(containTrack(result, "A", NatsDirection.West));
-            Assert.IsTrue(containTrack(result, "B", NatsDirection.West));
-            Assert.IsTrue(containTrack(result, "C", NatsDirection.West));
-            Assert.IsTrue(containTrack(result, "U", NatsDirection.East));
-            Assert.IsTrue(containTrack(result, "V", NatsDirection.East));
-            Assert.IsTrue(containTrack(result, "W", NatsDirection.East));
+            Assert.IsTrue(ContainTrack(result, "A", NatsDirection.West));
+            Assert.IsTrue(ContainTrack(result, "B", NatsDirection.West));
+            Assert.IsTrue(ContainTrack(result, "C", NatsDirection.West));
+            Assert.IsTrue(ContainTrack(result, "U", NatsDirection.East));
+            Assert.IsTrue(ContainTrack(result, "V", NatsDirection.East));
+            Assert.IsTrue(ContainTrack(result, "W", NatsDirection.East));
         }
 
-        private bool containTrack(IEnumerable<NorthAtlanticTrack> trks, string ident, NatsDirection dir)
+        private bool ContainTrack(IEnumerable<NorthAtlanticTrack> trks, string ident, NatsDirection dir)
         {
             foreach (var i in trks)
             {

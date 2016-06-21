@@ -51,13 +51,13 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
             if (route.Count > 0)
             {
-                createOrigRoute();
+                CreateOrigRoute();
             }
 
             return origRoute;
         }
 
-        private void createOrigRoute()
+        private void CreateOrigRoute()
         {
             if (route.First.Value == icao)
             {
@@ -67,7 +67,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             string sidName = route.First.Value;
             SidInfo sid;
 
-            if (tryGetSid(sidName, rwyWpt, out sid))
+            if (TryGetSid(sidName, rwyWpt, out sid))
             {
                 route.RemoveFirst();
                 var last = origRoute.Last.Value;
@@ -88,7 +88,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             }
         }
 
-        private bool tryGetSid(
+        private bool TryGetSid(
             string sidName, Waypoint rwyWpt, out SidInfo result)
         {
             try

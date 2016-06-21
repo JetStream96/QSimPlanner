@@ -17,12 +17,12 @@ namespace QSP.WindAloft
             this.Speed = Speed;
         }
 
-        public static Wind FromUV(WindUV w)
+        public static Wind FromUv(WindUV w)
         {
-            return FromUV(w.UComp, w.VComp);
+            return FromUv(w.UComp, w.VComp);
         }
 
-        public static Wind FromUV(double uWind, double vWind)
+        public static Wind FromUv(double uWind, double vWind)
         {
             var Direction =
                  -Math.Atan2(vWind, uWind) / Math.PI * 180.0 + 90 + 180;

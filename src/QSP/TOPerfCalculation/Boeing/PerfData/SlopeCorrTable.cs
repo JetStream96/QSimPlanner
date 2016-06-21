@@ -17,11 +17,11 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
 
         public double FieldLengthRequired(double slope, double slopeCorrectedLength)
         {
-            return tableFieldLength(slope).ValueAt(slopeCorrectedLength);
+            return TableFieldLength(slope).ValueAt(slopeCorrectedLength);
         }
 
         // Maps sloped corrected length into field length.
-        private Table1D tableFieldLength(double slope)
+        private Table1D TableFieldLength(double slope)
         {
             double[] fieldLength = new double[x.Length];
 

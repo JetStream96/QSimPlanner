@@ -81,7 +81,7 @@ namespace QSP
                 avgWeightTon = FuelCalc.LandWeightTonAltn + fuelTon / 2;
                 crzAltFt = OptCrzCalc.ActualCrzAlt(avgWeightTon, para.DisToAltn);
                 tas = OptCrzCalc.CruiseTas(crzAltFt);
-                tailwind = computeTailWind(TailWindCalcOptions.DestToAltn, Convert.ToInt32(tas), Convert.ToInt32(crzAltFt / 100));
+                tailwind = ComputeTailWind(TailWindCalcOptions.DestToAltn, Convert.ToInt32(tas), Convert.ToInt32(crzAltFt / 100));
                 para.AvgWindToAltn = tailwind;
 
                 Debug.WriteLine("TO ALTN, CRZ ALT {0} FT, TAS {1} KTS, TAILWIND {2} KTS", crzAltFt, tas, tailwind);
@@ -93,7 +93,7 @@ namespace QSP
                 avgWeightTon = FuelCalc.LandWeightTonDest + fuelTon / 2;
                 crzAltFt = OptCrzCalc.ActualCrzAlt(avgWeightTon, para.DisToDest);
                 tas = OptCrzCalc.CruiseTas(crzAltFt);
-                tailwind = computeTailWind(TailWindCalcOptions.OrigToDest, Convert.ToInt32(tas), Convert.ToInt32(crzAltFt / 100));
+                tailwind = ComputeTailWind(TailWindCalcOptions.OrigToDest, Convert.ToInt32(tas), Convert.ToInt32(crzAltFt / 100));
                 para.AvgWindToDest = tailwind;
 
                 Debug.WriteLine("TO DEST, CRZ ALT {0} FT, TAS {1} KTS, TAILWIND {2} KTS", crzAltFt, tas, tailwind);
@@ -139,7 +139,7 @@ namespace QSP
 
             if (fuelCalcResult.TotalFuelKG > FuelCalc.maxFuelKg)
             {
-                MessageBox.Show(insufficientFuelMsg(fuelCalcResult.TotalFuelKG, FuelCalc.maxFuelKg, parameters.WtUnit));
+                MessageBox.Show(InsufficientFuelMsg(fuelCalcResult.TotalFuelKG, FuelCalc.maxFuelKg, parameters.WtUnit));
                 return;
 
             }
@@ -167,7 +167,7 @@ namespace QSP
             DestToAltn
         }
 
-        private static string insufficientFuelMsg(double fuelReqKG, double fuelCapacityKG, WeightUnit unit)
+        private static string InsufficientFuelMsg(double fuelReqKG, double fuelCapacityKG, WeightUnit unit)
         {
             if (unit == WeightUnit.KG)
             {
@@ -187,18 +187,18 @@ namespace QSP
             AirportManager airportList,
             WaypointList wptList)
         {
-            initAircraftData(profiles);
+            InitAircraftData(profiles);
 
             this.appSettings = appSettings;
             this.airportList = airportList;
             this.wptList = wptList;
 
-            initRouteFinderSelections();
+            InitRouteFinderSelections();
             advancedRouteTool.Init(
                 appSettings, wptList, airportList, new TrackInUseCollection()); //TODO: track in use is wrong
         }
 
-        private void initRouteFinderSelections()
+        private void InitRouteFinderSelections()
         {
             origAirport = new RouteFinderSelection(
                 OrigTxtBox,
@@ -234,7 +234,7 @@ namespace QSP
             altnAirport.Subscribe();
         }
 
-        private void initAircraftData(ProfileManager profiles)
+        private void InitAircraftData(ProfileManager profiles)
         {
             toPerfControl.Initialize(
                 profiles.AcConfigs, profiles.TOTables.ToList(), null);
@@ -274,7 +274,7 @@ namespace QSP
 
         private async void Startup(object sender, EventArgs e)
         {
-            checkRegistry();
+            CheckRegistry();
             LoadDefaultState();
 
             if (WtUnitSel_ComboBox.Text == "KG")
@@ -286,7 +286,7 @@ namespace QSP
                 ZFW.Text = Convert.ToString(Math.Round(OperatingEmptyWtKg * KgLbRatio));
             }
 
-            LoadNavDBUpdateStatusStrip(true);
+            LoadNavDbUpdateStatusStrip(true);
             ServiceInitializer.Initailize(airportList, wptList);
             //TakeOffPerfCalculation.LoadedData.Load();
             //TODO: LandingPerfCalculation.LoadedData.Load();
@@ -302,11 +302,11 @@ namespace QSP
             viewChanger = new ViewManager();
             viewChanger.ShowPage(ViewManager.Pages.FuelCalculation);
 
-            startTracksDlAsReq();
-            await startWindDlAsReq();
+            StartTracksDlAsReq();
+            await StartWindDlAsReq();
         }
 
-        private static void checkRegistry()
+        private static void CheckRegistry()
         {
             // Try to check/add registry so that google map works properly. 
             var regChecker = new IeEmulationChecker();
@@ -324,7 +324,7 @@ namespace QSP
             }
         }
 
-        private void startTracksDlAsReq()
+        private void StartTracksDlAsReq()
         {
             if (appSettings.AutoDLTracks)
             {
@@ -338,11 +338,11 @@ namespace QSP
             }
         }
 
-        private async Task startWindDlAsReq()
+        private async Task StartWindDlAsReq()
         {
             if (appSettings.AutoDLWind)
             {
-                await downloadWind();
+                await DownloadWind();
             }
             else
             {
@@ -350,7 +350,7 @@ namespace QSP
             }
         }
 
-        private async Task downloadWind()
+        private async Task DownloadWind()
         {
             ShowWindDownloadStatus(WindDownloadStatus.Downloading);
 
@@ -400,7 +400,7 @@ namespace QSP
             }
         }
 
-        public void LoadNavDBUpdateStatusStrip(bool startingApp)
+        public void LoadNavDbUpdateStatusStrip(bool startingApp)
         {
             try
             {
@@ -430,7 +430,7 @@ namespace QSP
 
                 if (startingApp)
                 {
-                    showOptionsForm();
+                    ShowOptionsForm();
                 }
             }
         }
@@ -445,7 +445,7 @@ namespace QSP
             FuelReport_TxtBox.Text = "";
         }
 
-        private void updateACWtProperty()
+        private void UpdateAcWtProperty()
         {
             switch (ACList.Text)
             {
@@ -487,7 +487,7 @@ namespace QSP
         private void AC_list_SelectedIndexChanged(object sender, EventArgs e)
         {
             FuelReport_TxtBox.Text = "";
-            updateACWtProperty();
+            UpdateAcWtProperty();
 
             double zfwKg = 0;
             double.TryParse(ZFW.Text, out zfwKg);
@@ -512,11 +512,11 @@ namespace QSP
                 }
 
             }
-            checkZfwInRange();
+            CheckZfwInRange();
         }
 
 
-        private void checkZfwInRange()
+        private void CheckZfwInRange()
         {
             double ZFWKg = 0;
 
@@ -542,7 +542,7 @@ namespace QSP
 
         private void ZFW_TextChanged(object sender, EventArgs e)
         {
-            checkZfwInRange();
+            CheckZfwInRange();
             FuelReport_TxtBox.Text = "";
         }
 
@@ -558,10 +558,10 @@ namespace QSP
 
         private void OptionsToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            showOptionsForm();
+            ShowOptionsForm();
         }
 
-        private void showOptionsForm()
+        private void ShowOptionsForm()
         {
             var frm = new OptionsForm();
             frm.Init(appSettings);
@@ -572,19 +572,19 @@ namespace QSP
             frm.ShowDialog();
         }
 
-        private void setHandCusor(object sender, EventArgs e)
+        private void SetHandCusor(object sender, EventArgs e)
         {
             Cursor = Cursors.Hand;
         }
 
-        private void setDefaultCursor(object sender, EventArgs e)
+        private void SetDefaultCursor(object sender, EventArgs e)
         {
             Cursor = Cursors.Default;
         }
 
         private void StatusLabel1_Click(object sender, EventArgs e)
         {
-            showOptionsForm();
+            ShowOptionsForm();
         }
 
         private void ShowTO_Btn_Click(object sender, EventArgs e)
@@ -648,11 +648,11 @@ namespace QSP
         {
             if (TabControl1.SelectedIndex == 1 && !tabRefreshed)
             {
-                await Task.Factory.StartNew(() => metarMonitor.updateOrig(OrigTxtBox.Text));
-                await Task.Factory.StartNew(() => metarMonitor.updateDest(DestTxtBox.Text));
-                await Task.Factory.StartNew(() => metarMonitor.updateAltn(AltnTxtBox.Text));
+                await Task.Factory.StartNew(() => metarMonitor.UpdateOrig(OrigTxtBox.Text));
+                await Task.Factory.StartNew(() => metarMonitor.UpdateDest(DestTxtBox.Text));
+                await Task.Factory.StartNew(() => metarMonitor.UpdateAltn(AltnTxtBox.Text));
 
-                updateMTDisplay();
+                UpdateMtDisplay();
             }
             else if (TabControl1.SelectedIndex == 2 & DesForcastAirportIcao != DestTxtBox.Text)
             {
@@ -740,7 +740,7 @@ namespace QSP
 
         private static string PMDGrteFile;
        
-        private List<string> getSidStarList(ComboBox CBox)
+        private List<string> GetSidStarList(ComboBox CBox)
         {
             var sidStar = new List<string>();
 
@@ -766,8 +766,8 @@ namespace QSP
 
         private void FindRouteToDestBtn_Click(object sender, EventArgs e)
         {
-            List<string> sid = getSidStarList(OrigSidComboBox);
-            List<string> star = getSidStarList(DestStarComboBox);
+            List<string> sid = GetSidStarList(OrigSidComboBox);
+            List<string> star = GetSidStarList(DestStarComboBox);
 
             RouteToDest = new RouteGroup(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                            .FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid,
@@ -795,7 +795,7 @@ namespace QSP
             lbl.Text = $"Total Dis: {disInt} NM (+{diffStr}%)";
         }
 
-        private static int computeTailWind(TailWindCalcOptions para, int tas, int Fl)
+        private static int ComputeTailWind(TailWindCalcOptions para, int tas, int Fl)
         {
             if (para == TailWindCalcOptions.OrigToDest)
             {
@@ -812,7 +812,7 @@ namespace QSP
             // Get a list of sids
             var sids = SidHandlerFactory.GetHandler(DestTxtBox.Text, appSettings.NavDataLocation, wptList, wptList.GetEditor(), airportList)
                                         .GetSidList(DestRwyComboBox.Text);
-            var starAltn = getSidStarList(AltnStarComboBox);
+            var starAltn = GetSidStarList(AltnStarComboBox);
 
             RouteToAltn = new RouteGroup(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                            .FindRoute(DestTxtBox.Text, DestRwyComboBox.Text, sids,
@@ -831,10 +831,10 @@ namespace QSP
             var writer = new FileExporter(RouteToDest.Expanded, airportList, cmds);
 
             var reports = writer.Export();
-            showReports(reports);
+            ShowReports(reports);
         }
 
-        private static void showReports(IEnumerable<FileExporter.Status> reports)
+        private static void ShowReports(IEnumerable<FileExporter.Status> reports)
         {
             if (reports.Count() == 0)
             {
@@ -971,25 +971,25 @@ namespace QSP
                 altn_mt = "";
             }
 
-            public void updateOrig(string new_orig)
+            public void UpdateOrig(string new_orig)
             {
                 orig = new_orig;
                 orig_mt = MetarDownloader.TryGetMetarTaf(orig);
             }
 
-            public void updateDest(string new_dest)
+            public void UpdateDest(string new_dest)
             {
                 dest = new_dest;
                 dest_mt = MetarDownloader.TryGetMetarTaf(dest);
             }
 
-            public void updateAltn(string new_altn)
+            public void UpdateAltn(string new_altn)
             {
                 altn = new_altn;
                 altn_mt = MetarDownloader.TryGetMetarTaf(altn);
             }
 
-            public void refreshAll()
+            public void RefreshAll()
             {
                 orig_mt = MetarDownloader.TryGetMetarTaf(orig);
                 dest_mt = MetarDownloader.TryGetMetarTaf(dest);
@@ -1000,15 +1000,15 @@ namespace QSP
 
         private void UpdateAll_Btn_Click(object sender, EventArgs e)
         {
-            metarMonitor.updateOrig(OrigTxtBox.Text);
-            metarMonitor.updateDest(DestTxtBox.Text);
-            metarMonitor.updateAltn(AltnTxtBox.Text);
+            metarMonitor.UpdateOrig(OrigTxtBox.Text);
+            metarMonitor.UpdateDest(DestTxtBox.Text);
+            metarMonitor.UpdateAltn(AltnTxtBox.Text);
 
-            metarMonitor.refreshAll();
-            updateMTDisplay();
+            metarMonitor.RefreshAll();
+            UpdateMtDisplay();
         }
 
-        public void updateMTDisplay()
+        public void UpdateMtDisplay()
         {
             RichTextBox2.Text = metarMonitor.orig_mt + metarMonitor.dest_mt + metarMonitor.altn_mt;
         }
@@ -1084,7 +1084,7 @@ namespace QSP
             viewChanger.ShowPage(ViewManager.Pages.RouteTools);
         }
 
-        private void moveBtnDown(int amount, Button btn)
+        private void MoveBtnDown(int amount, Button btn)
         {
             Point pt = btn.Location;
             pt.Y += amount;
@@ -1148,14 +1148,14 @@ namespace QSP
             viewChanger.ShowPage(ViewManager.Pages.FuelReport);
         }
 
-        private TracksForm trkFormInstance()
+        private TracksForm TrkFormInstance()
         {
             return (TracksForm)Application.OpenForms.Cast<Form>().Where(x => x is TracksForm).FirstOrDefault();
         }
 
         private void LblTrackDownloadStatus_Click(object sender, EventArgs e)
         {
-            var trkForm = trkFormInstance();
+            var trkForm = TrkFormInstance();
 
             if (trkForm == null)
             {
@@ -1168,7 +1168,7 @@ namespace QSP
 
         private async void WindDownloadStatus_Lbl_Click(object sender, EventArgs e)
         {
-            await downloadWind();
+            await DownloadWind();
         }
 
         private void ExportBtn_Click(object sender, EventArgs e)

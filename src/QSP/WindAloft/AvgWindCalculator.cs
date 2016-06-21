@@ -35,7 +35,7 @@ namespace QSP.WindAloft
         {
             lat1 = lat;
             lon1 = lon;
-            setV1();
+            SetV1();
         }
 
         public void SetPoint1(LatLon item)
@@ -47,7 +47,7 @@ namespace QSP.WindAloft
         {
             lat2 = lat;
             lon2 = lon;
-            setV2();
+            SetV2();
         }
 
         public void SetPoint2(LatLon item)
@@ -55,12 +55,12 @@ namespace QSP.WindAloft
             SetPoint2(item.Lat, item.Lon);
         }
 
-        private void setV1()
+        private void SetV1()
         {
             v1 = LatLonToVector3D(lat1, lon1);
         }
 
-        private void setV2()
+        private void SetV2()
         {
             v2 = LatLonToVector3D(lat2, lon2);
         }
@@ -77,15 +77,15 @@ namespace QSP.WindAloft
             double r = 0.0;            //total distance
 
             r = EarthRadiusNm * Math.Acos(v1.Dot(v2));
-            T = Integrate(GetOneOverGS, 0.0, r, deltaAlpha * EarthRadiusNm);
+            T = Integrate(GetOneOverGs, 0.0, r, deltaAlpha * EarthRadiusNm);
 
             return r / T - tas;
         }
 
-        private double GetOneOverGS(double r)
+        private double GetOneOverGs(double r)
         {
             var v = GetV(v1, v2, r / EarthRadiusNm);
-            return 1.0 / GetGS(v);
+            return 1.0 / GetGs(v);
         }
 
         private Vector3D GetV(Vector3D v1, Vector3D v2, double alpha)
@@ -100,7 +100,7 @@ namespace QSP.WindAloft
             return v1 * a.X + v2 * a.Y;
         }
 
-        private double GetGS(Vector3D v)
+        private double GetGs(Vector3D v)
         {
             double lat = ToDegree(0.5 * Math.PI - v.Phi);
             double lon = SetAngleLon(ToDegree(v.Theta));
@@ -133,7 +133,7 @@ namespace QSP.WindAloft
             // lat=phi, lon=theta
             // u=lon,v=lat
 
-            var w = windData.GetWindUV(lat, lon, FL);
+            var w = windData.GetWindUv(lat, lon, FL);
 
             lat = ToRadian(lat);
             lon = ToRadian(lon);

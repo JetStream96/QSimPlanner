@@ -12,12 +12,12 @@ namespace IntegrationTest.QSP.RouteFinding.TestSetup
         public static WaypointList GetWptList(IEnumerable<string> Idents)
         {
             var wptList = new WaypointList();
-            addLatLons(wptList);
-            addWpts(wptList, Idents);
+            AddLatLons(wptList);
+            AddWpts(wptList, Idents);
             return wptList;
         }
 
-        private static void addWpts(
+        private static void AddWpts(
             WaypointList wptList, IEnumerable<string> Idents)
         {
             var rd = new Random(123);
@@ -29,7 +29,7 @@ namespace IntegrationTest.QSP.RouteFinding.TestSetup
             }
         }
 
-        private static void addLatLons(WaypointList wptList)
+        private static void AddLatLons(WaypointList wptList)
         {
             for (int lon = -180; lon <= 180; lon++)
             {

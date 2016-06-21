@@ -26,11 +26,11 @@ namespace UnitTest.NavData.OpenData
             var vhhh = airports.Find("VHHH");
             var rwys = vhhh.Rwys;
 
-            assertVhhh(vhhh);
-            assertVhhhRwys(vhhh);
+            AssertVhhh(vhhh);
+            AssertVhhhRwys(vhhh);
         }
 
-        private static void assertVhhh(Airport vhhh)
+        private static void AssertVhhh(Airport vhhh)
         {
             Assert.IsTrue("VHHH" == vhhh.Icao);
             Assert.IsTrue("Chek Lap Kok International Airport" == vhhh.Name);
@@ -40,7 +40,7 @@ namespace UnitTest.NavData.OpenData
             Assert.AreEqual(false, vhhh.TransAvail);
             Assert.AreEqual(12467, vhhh.LongestRwyLength);
         }
-        private static void assertVhhhRwys(Airport vhhh)
+        private static void AssertVhhhRwys(Airport vhhh)
         {
             var rwys = vhhh.Rwys;
 

@@ -36,7 +36,7 @@ namespace QSP.TOPerfCalculation.Boeing
 
             int mainOat = Doubles.RoundToInt(para.OatCelsius);
             double rwyRequired = calc.TakeoffDistanceMeter(mainOat);
-            validateMainResult(result, mainOat, rwyRequired);
+            ValidateMainResult(result, mainOat, rwyRequired);
 
             for (int oat = mainOat + 1;
                  oat <= maxOat;
@@ -44,7 +44,7 @@ namespace QSP.TOPerfCalculation.Boeing
             {
                 rwyRequired = calc.TakeoffDistanceMeter(oat);
 
-                if (tryAddResult(result, oat, rwyRequired) == false)
+                if (TryAddResult(result, oat, rwyRequired) == false)
                 {
                     return result;
                 }
@@ -53,7 +53,7 @@ namespace QSP.TOPerfCalculation.Boeing
             return result;
         }
 
-        private void validateMainResult(TOReport result, 
+        private void ValidateMainResult(TOReport result, 
                                         int oat,
                                         double rwyRequired)
         {
@@ -78,7 +78,7 @@ namespace QSP.TOPerfCalculation.Boeing
         }
 
         // returns whether the result was successfully added.
-        private bool tryAddResult(TOReport result, int oat,
+        private bool TryAddResult(TOReport result, int oat,
             double rwyRequired)
         {
             if (rwyRequired <= para.RwyLengthMeter &&

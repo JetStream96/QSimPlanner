@@ -37,11 +37,11 @@ namespace UnitTest.LandingPerfCalculation.Boeing
 
             var report = new LandingReportGenerator(table, para).GetReport();
 
-            assertMainResult(report, para, table);
-            assertOtherResult(report, para, table);
+            AssertMainResult(report, para, table);
+            AssertOtherResult(report, para, table);
         }
 
-        private void assertMainResult(LandingReport report,
+        private void AssertMainResult(LandingReport report,
                                       LandingParameters para,
                                       BoeingPerfTable table)
         {
@@ -62,7 +62,7 @@ namespace UnitTest.LandingPerfCalculation.Boeing
             Assert.AreEqual(disRemain, entry.DisRemainMeter, 0.5);
         }
 
-        private void assertOtherResult(LandingReport report,
+        private void AssertOtherResult(LandingReport report,
                                        LandingParameters para,
                                        BoeingPerfTable table)
         {

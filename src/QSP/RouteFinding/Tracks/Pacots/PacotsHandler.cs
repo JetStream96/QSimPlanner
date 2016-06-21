@@ -41,8 +41,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
         /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()
         {
-            tryDownload();
-            var trks = tryParse();
+            TryDownload();
+            var trks = TryParse();
 
             var reader = new TrackReader<PacificTrack>(wptList,airportList);
             nodes = new List<TrackNodes>();
@@ -65,7 +65,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        private void tryDownload()
+        private void TryDownload()
         {
             try
             {
@@ -81,7 +81,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         }
 
         /// <exception cref="TrackParseException"></exception>
-        private List<PacificTrack> tryParse()
+        private List<PacificTrack> TryParse()
         {
             try
             {

@@ -44,8 +44,8 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()
         {
-            tryDownload();
-            var trks = tryParse();
+            TryDownload();
+            var trks = TryParse();
 
             var reader = new TrackReader<NorthAtlanticTrack>(wptList, airportList);
             nodes = new List<TrackNodes>();
@@ -85,7 +85,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        private void tryDownload()
+        private void TryDownload()
         {
             try
             {
@@ -101,7 +101,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         }
 
         /// <exception cref="TrackParseException"></exception>
-        private List<NorthAtlanticTrack> tryParse()
+        private List<NorthAtlanticTrack> TryParse()
         {
             try
             {

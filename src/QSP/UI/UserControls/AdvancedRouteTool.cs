@@ -42,13 +42,13 @@ namespace QSP.UI.UserControls
             this.airportList = airportList;
             this.tracksInUse = tracksInUse;
 
-            setControlGroups();
+            SetControlGroups();
             attachEventHandlers();
-            setDefaultState();
+            SetDefaultState();
 
         }
 
-        private void setControlGroups()
+        private void SetControlGroups()
         {
             fromGroup = new ControlGroup(
                 this,
@@ -83,14 +83,14 @@ namespace QSP.UI.UserControls
             toGroup.Subsribe();
         }
 
-        private void setDefaultState()
+        private void SetDefaultState()
         {
-            initTypes(fromTypeComboBox);
-            initTypes(toTypeComboBox);
+            InitTypes(fromTypeComboBox);
+            InitTypes(toTypeComboBox);
             routeSummaryLbl.Text = "";
         }
 
-        private void initTypes(ComboBox cbox)
+        private void InitTypes(ComboBox cbox)
         {
             var items = cbox.Items;
             items.Clear();
@@ -98,7 +98,7 @@ namespace QSP.UI.UserControls
             cbox.SelectedIndex = 0;
         }
 
-        private void findRouteBtnClick(object sender, EventArgs e)
+        private void FindRouteBtnClick(object sender, EventArgs e)
         {
             if (fromTypeComboBox.SelectedIndex == 0)
             {
@@ -140,7 +140,7 @@ namespace QSP.UI.UserControls
                     try
                     {
                         var sids = fromGroup.controller.GetSelectedProcedures();
-                        var latLon = extractLatLon(toWptComboBox.Text);
+                        var latLon = ExtractLatLon(toWptComboBox.Text);
                         var wpt = wptList.FindByWaypoint(
                             toIdentTxtBox.Text, latLon.Lat, latLon.Lon);
 
@@ -172,7 +172,7 @@ namespace QSP.UI.UserControls
                 if (toTypeComboBox.SelectedIndex == 0)
                 {
                     // Waypoint to airport
-                    var latLon = extractLatLon(fromWptComboBox.Text);
+                    var latLon = ExtractLatLon(fromWptComboBox.Text);
                     var wpt = wptList.FindByWaypoint(
                         fromIdentTxtBox.Text, latLon.Lat, latLon.Lon);
                     var stars = toGroup.controller.GetSelectedProcedures();
@@ -204,11 +204,11 @@ namespace QSP.UI.UserControls
                 else
                 {
                     // Waypoint to waypoint
-                    var latLonFrom = extractLatLon(fromWptComboBox.Text);
+                    var latLonFrom = ExtractLatLon(fromWptComboBox.Text);
                     var wptFrom = wptList.FindByWaypoint(
                         fromIdentTxtBox.Text, latLonFrom.Lat, latLonFrom.Lon);
 
-                    var latLonTo = extractLatLon(toWptComboBox.Text);
+                    var latLonTo = ExtractLatLon(toWptComboBox.Text);
                     var wptTo = wptList.FindByWaypoint(
                         toIdentTxtBox.Text, latLonTo.Lat, latLonTo.Lon);
 
@@ -234,7 +234,7 @@ namespace QSP.UI.UserControls
 
         // Gets the lat and lon.
         // Inpute sample: "LAT/22.55201 LON/121.3554"
-        private static LatLon extractLatLon(string s)
+        private static LatLon ExtractLatLon(string s)
         {
             var matchLat = Regex.Match(s, @"LAT/([\d.]+) ");
             double lat = double.Parse(matchLat.Groups[1].Value);
@@ -298,19 +298,19 @@ namespace QSP.UI.UserControls
                     owner.airportList,
                     owner.wptList);
 
-                TypeSelection.SelectedIndexChanged += typeChanged;
+                TypeSelection.SelectedIndexChanged += TypeChanged;
             }
 
             public void UnSubsribe()
             {
-                TypeSelection.SelectedIndexChanged -= typeChanged;
+                TypeSelection.SelectedIndexChanged -= TypeChanged;
             }
 
-            private void showWpts(object sender, EventArgs e)
+            private void ShowWpts(object sender, EventArgs e)
             {
                 Waypoints.Items.Clear();
 
-                List<int> indices = owner.wptList.FindAllByID(Ident.Text);
+                List<int> indices = owner.wptList.FindAllById(Ident.Text);
 
                 if (indices.Count == 0)
                 {
@@ -327,14 +327,14 @@ namespace QSP.UI.UserControls
                 Waypoints.SelectedIndex = 0;
             }
 
-            private void forceRefresh()
+            private void ForceRefresh()
             {
                 var txt = Ident.Text;
                 Ident.Text = txt + " ";
                 Ident.Text = txt;
             }
 
-            private void typeChanged(object sender, EventArgs e)
+            private void TypeChanged(object sender, EventArgs e)
             {
                 if (TypeSelection.SelectedIndex == 0)
                 {
@@ -348,8 +348,8 @@ namespace QSP.UI.UserControls
                     Waypoints.Enabled = false;
 
                     controller.Subscribe();
-                    Ident.TextChanged -= showWpts;
-                    forceRefresh();
+                    Ident.TextChanged -= ShowWpts;
+                    ForceRefresh();
                     Waypoints.Items.Clear();
                 }
                 else
@@ -363,8 +363,8 @@ namespace QSP.UI.UserControls
                     Waypoints.Enabled = true;
 
                     controller.UnSubsribe();
-                    Ident.TextChanged += showWpts;
-                    forceRefresh();
+                    Ident.TextChanged += ShowWpts;
+                    ForceRefresh();
                     Rwy.Items.Clear();
                     TerminalProcedure.Items.Clear();
                 }

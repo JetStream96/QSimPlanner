@@ -32,7 +32,7 @@ namespace QSP.RouteFinding
             WaypointList wptList,
             WptSearchOption option)
         {
-            return find(Lat, Lon, true, wptList, option);
+            return Find(Lat, Lon, true, wptList, option);
         }
 
         public static List<IndexDistancePair> FromAirway(
@@ -41,12 +41,12 @@ namespace QSP.RouteFinding
             WaypointList wptList,
             WptSearchOption option)
         {
-            return find(Lat, Lon, false, wptList, option);
+            return Find(Lat, Lon, false, wptList, option);
         }
 
         // Finds a list of waypoints which is near the given 
         // Lat/Lon, and are connected to at least one other waypoint.
-        private static List<IndexDistancePair> find(
+        private static List<IndexDistancePair> Find(
             double Lat,
             double Lon,
             bool IsSid,

@@ -10,10 +10,10 @@ namespace QSP.UI.ToLdgModule.Common
         public WeatherInfoControl()
         {
             InitializeComponent();
-            initializeControls();
+            InitializeControls();
         }
 
-        private void initializeControls()
+        private void InitializeControls()
         {
             windSpdTxtBox.Text = "0";
             windDirTxtBox.Text = "0";
@@ -26,10 +26,10 @@ namespace QSP.UI.ToLdgModule.Common
             pressUnitComboBox.Items.AddRange(new string[] { "hPa", "inHg" });
             pressUnitComboBox.SelectedIndex = 0; // hPa
 
-            addToolTip();
+            AddToolTip();
         }
 
-        private void addToolTip()
+        private void AddToolTip()
         {
             var tp = new ToolTip();
 

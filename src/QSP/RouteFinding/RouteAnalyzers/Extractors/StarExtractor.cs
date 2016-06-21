@@ -39,12 +39,12 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
             if (route.Count > 0)
             {
-                createDestRoute();
+                CreateDestRoute();
             }
             return destRoute;
         }
 
-        private void createDestRoute()
+        private void CreateDestRoute()
         {
             if (route.Last.Value == icao)
             {
@@ -54,7 +54,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             string starName = route.Last.Value;
             StarInfo star;
 
-            if (tryGetStar(starName, rwyWpt, out star))
+            if (TryGetStar(starName, rwyWpt, out star))
             {
                 route.RemoveLast();
 
@@ -69,7 +69,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             }
         }
 
-        private bool tryGetStar(string StarName, Waypoint rwyWpt, out StarInfo result)
+        private bool TryGetStar(string StarName, Waypoint rwyWpt, out StarInfo result)
         {
             try
             {

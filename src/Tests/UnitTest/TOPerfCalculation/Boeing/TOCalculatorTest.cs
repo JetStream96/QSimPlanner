@@ -16,7 +16,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             .ReadTable(XDocument.Parse(new TestData().PerfXml).Root);
 
         [Test]
-        public void TODistanceInterpolationTest()
+        public void ToDistanceInterpolationTest()
         {
             var para = new TOParameters(
                     0.0,
@@ -38,16 +38,16 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
             double distanceMeter = calc.TakeoffDistanceMeter();
 
-            Assert.AreEqual(expectedDistance1(para),
+            Assert.AreEqual(ExpectedDistance1(para),
                 distanceMeter, 1E-7);
         }
 
-        private static double expectedDistance1(TOParameters para)
+        private static double ExpectedDistance1(TOParameters para)
         {
-            return expectedDistance1(para, para.WeightKg / 1000.0);
+            return ExpectedDistance1(para, para.WeightKg / 1000.0);
         }
 
-        private static double expectedDistance1(TOParameters para, double wtTon)
+        private static double ExpectedDistance1(TOParameters para, double wtTon)
         {
             double headWind = para.WindSpeed *
                 Math.Cos(ToRadian(para.WindHeading - para.RwyHeading));
@@ -66,7 +66,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
         }
 
         [Test]
-        public void TODistancePackAICorrectionTest()
+        public void ToDistancePackAiCorrectionTest()
         {
             var para = new TOParameters(
                     0.0,
@@ -88,11 +88,11 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
             double distanceMeter = calc.TakeoffDistanceMeter();
 
-            Assert.AreEqual(expectedDistance2(para),
+            Assert.AreEqual(ExpectedDistance2(para),
                 distanceMeter, 1E-7);
         }
 
-        private static double expectedDistance2(TOParameters para)
+        private static double ExpectedDistance2(TOParameters para)
         {
             double headWind = para.WindSpeed *
                 Math.Cos(ToRadian(para.WindHeading - para.RwyHeading));
@@ -113,7 +113,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
         }
 
         [Test]
-        public void TODistanceDerateTest()
+        public void ToDistanceDerateTest()
         {
             var para = new TOParameters(
                    0.0,
@@ -136,7 +136,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             double distanceMeter = calc.TakeoffDistanceMeter();
 
             Assert.AreEqual(
-                expectedDistance1(
+                ExpectedDistance1(
                     para,
                     perfTable.GetTable(para.FlapsIndex)
                     .AlternateThrustTables[para.ThrustRating - 1]
@@ -171,13 +171,13 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
             double expectedLimitWt = perfTable.GetTable(para.FlapsIndex)
                     .AlternateThrustTables[para.ThrustRating - 1]
-                    .CorrectedLimitWeight(expectedLimitWt1(para),
+                    .CorrectedLimitWeight(ExpectedLimitWt1(para),
                     AlternateThrustTable.TableType.Dry);
 
             Assert.AreEqual(expectedLimitWt, limitWt, 1E-7);
         }
 
-        private static double expectedLimitWt1(TOParameters para)
+        private static double ExpectedLimitWt1(TOParameters para)
         {
             var table = perfTable.GetTable(para.FlapsIndex);
             double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
@@ -219,7 +219,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
             double distanceMeter = calc.ClimbLimitWeightTon();
 
-            double wtWithPackCorrection = expectedClimbLimit1(para) + 1.7;
+            double wtWithPackCorrection = ExpectedClimbLimit1(para) + 1.7;
 
             double expectedLimitWt = perfTable.GetTable(para.FlapsIndex)
                 .AlternateThrustTables[para.ThrustRating - 1]
@@ -229,7 +229,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             Assert.AreEqual(expectedLimitWt, distanceMeter, 1E-7);
         }
 
-        private static double expectedClimbLimit1(TOParameters para)
+        private static double ExpectedClimbLimit1(TOParameters para)
         {
             var table = perfTable.GetTable(para.FlapsIndex);
             double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);

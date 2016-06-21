@@ -87,7 +87,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             this.stars = stars;
         }
 
-        private void setRwyWpts()
+        private void SetRwyWpts()
         {
             origRwyWpt = new Waypoint(
                     origIcao + origRwy,
@@ -100,7 +100,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         public Route Analyze()
         {
-            setRwyWpts();
+            SetRwyWpts();
 
             Route origPart =
                 new SidExtractor(
@@ -123,7 +123,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 int chosenIndex = GetClosest(
                     origRwyWpt.Lat,
                     origRwyWpt.Lon,
-                    wptList.FindAllByID(mainRoute[0]),
+                    wptList.FindAllById(mainRoute[0]),
                     wptList);
 
                 if (mainRoute.Length == 1)

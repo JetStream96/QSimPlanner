@@ -25,7 +25,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
         private void onlyRwySpecificPart(bool hasVector)
         {
             var sids = new SidCollection(
-                CreateList(rwySpecificPart(hasVector)));
+                CreateList(RwySpecificPart(hasVector)));
 
             var info = sids.GetSidInfo("SID1", "05", runway05);
 
@@ -33,11 +33,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 .Equals(info.LastWaypoint));
 
             Assert.AreEqual(hasVector, info.EndsWithVector);
-            Assert.AreEqual(distanceRwySpecificPart(),
+            Assert.AreEqual(DistanceRwySpecificPart(),
                 info.TotalDistance, 1E-8);
         }
 
-        private double distanceRwySpecificPart()
+        private double DistanceRwySpecificPart()
         {
             return CreateList(
                 runway05,
@@ -46,7 +46,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 .TotalDistance();
         }
 
-        private SidEntry rwySpecificPart(bool hasVector)
+        private SidEntry RwySpecificPart(bool hasVector)
         {
             return new SidEntry(
                 "05",
@@ -73,7 +73,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
         {
             var sids = new SidCollection(
                 CreateList(
-                    rwySpecificPart(!hasVector), commonPart(hasVector)));
+                    RwySpecificPart(!hasVector), CommonPart(hasVector)));
 
             var info = sids.GetSidInfo("SID1", "05", runway05);
 
@@ -81,11 +81,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 .Equals(info.LastWaypoint));
 
             Assert.AreEqual(hasVector, info.EndsWithVector);
-            Assert.AreEqual(distanceRwySpecificAndCommonPart(),
+            Assert.AreEqual(DistanceRwySpecificAndCommonPart(),
                 info.TotalDistance, 1E-8);
         }
 
-        private SidEntry commonPart(bool hasVector)
+        private SidEntry CommonPart(bool hasVector)
         {
             return new SidEntry(
                 "ALL",
@@ -97,7 +97,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 hasVector);
         }
 
-        private double distanceRwySpecificAndCommonPart()
+        private double DistanceRwySpecificAndCommonPart()
         {
             return CreateList(
                 runway05,
@@ -123,9 +123,9 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             var sids =
                 new SidCollection(
                     CreateList(
-                        rwySpecificPart(!hasVector),
-                        commonPart(!hasVector),
-                        transitionPart(hasVector)));
+                        RwySpecificPart(!hasVector),
+                        CommonPart(!hasVector),
+                        TransitionPart(hasVector)));
 
             var info = sids.GetSidInfo("SID1.TRANS1", "05", runway05);
 
@@ -133,11 +133,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 .Equals(info.LastWaypoint));
 
             Assert.AreEqual(hasVector, info.EndsWithVector);
-            Assert.AreEqual(distanceRwySpecificAndCommonAndTransitionPart(),
+            Assert.AreEqual(DistanceRwySpecificAndCommonAndTransitionPart(),
                 info.TotalDistance, 1E-8);
         }
 
-        private SidEntry transitionPart(bool hasVector)
+        private SidEntry TransitionPart(bool hasVector)
         {
             return new SidEntry(
                 "TRANS1",
@@ -150,7 +150,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 hasVector);
         }
 
-        private double distanceRwySpecificAndCommonAndTransitionPart()
+        private double DistanceRwySpecificAndCommonAndTransitionPart()
         {
             return CreateList(
                 runway05,

@@ -45,7 +45,7 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
         public List<string> Split()
         {
             var result = new List<string>();
-            var indices = getIndices();
+            var indices = GetIndices();
 
             if (indices.Count == 0)
             {
@@ -61,13 +61,13 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
             return result;
         }
 
-        private List<int> getIndices()
+        private List<int> GetIndices()
         {
             var indices = text.IndicesOf("TRACK");
 
             for (int i = indices.Count - 1; i >= 0; i--)
             {
-                if (isValid(indices[i]) == false)
+                if (IsValid(indices[i]) == false)
                 {
                     indices.RemoveAt(i);
                 }
@@ -75,7 +75,7 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
             return indices;
         }
 
-        private bool isValid(int index)
+        private bool IsValid(int index)
         {
             var sp = new StringParser(text);
             sp.CurrentIndex = index;

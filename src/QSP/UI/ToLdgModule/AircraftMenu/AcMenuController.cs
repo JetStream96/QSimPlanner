@@ -34,12 +34,12 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         {
             elem.SelectionBox.Location = new Point(0, 0);
             elem.PropertyBox.Location = new Point(0, 0);
-            showSelectionGroupBox();
+            ShowSelectionGroupBox();
 
-            initWtUnitCBox();
+            InitWtUnitCBox();
         }
 
-        private void fillToLdgCBox()
+        private void FillToLdgCBox()
         {
             var toItems = elem.ToProfile.Items;
             toItems.Clear();
@@ -56,7 +56,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             elem.LdgProfile.SelectedIndex = 0;
         }
 
-        private void initWtUnitCBox()
+        private void InitWtUnitCBox()
         {
             var units = new string[] { "KG", "LB" };
 
@@ -75,29 +75,29 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             ldgUnit.Items.AddRange(units);
             ldgUnit.SelectedIndex = 0;
 
-            wtUnitConnect();
+            WtUnitConnect();
         }
 
-        private void wtUnitConnect()
+        private void WtUnitConnect()
         {
-            elem.ZfwUnit.SelectedIndexChanged += wtUnitChanged;
-            elem.MaxToWtUnit.SelectedIndexChanged += wtUnitChanged;
-            elem.MaxLdgWtUnit.SelectedIndexChanged += wtUnitChanged;
+            elem.ZfwUnit.SelectedIndexChanged += WtUnitChanged;
+            elem.MaxToWtUnit.SelectedIndexChanged += WtUnitChanged;
+            elem.MaxLdgWtUnit.SelectedIndexChanged += WtUnitChanged;
         }
 
-        private void wtUnitDisconnect()
+        private void WtUnitDisconnect()
         {
-            elem.ZfwUnit.SelectedIndexChanged -= wtUnitChanged;
-            elem.MaxToWtUnit.SelectedIndexChanged -= wtUnitChanged;
-            elem.MaxLdgWtUnit.SelectedIndexChanged -= wtUnitChanged;
+            elem.ZfwUnit.SelectedIndexChanged -= WtUnitChanged;
+            elem.MaxToWtUnit.SelectedIndexChanged -= WtUnitChanged;
+            elem.MaxLdgWtUnit.SelectedIndexChanged -= WtUnitChanged;
         }
 
-        private void wtUnitChanged(object sender, EventArgs e)
+        private void WtUnitChanged(object sender, EventArgs e)
         {
             var c = new ComboBox[] { elem.ZfwUnit,
                 elem.MaxToWtUnit, elem.MaxLdgWtUnit };
 
-            wtUnitDisconnect();
+            WtUnitDisconnect();
 
             int index = ((ComboBox)sender).SelectedIndex;
 
@@ -109,12 +109,12 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 }
             }
 
-            convertWeights(index);
+            ConvertWeights(index);
 
-            wtUnitConnect();
+            WtUnitConnect();
         }
 
-        private void convertWeights(int selIndex)
+        private void ConvertWeights(int selIndex)
         {
             var factor = selIndex == 0 ?
                             Constants.LbKgRatio :
@@ -134,7 +134,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
-        private void fillAcTypes()
+        private void FillAcTypes()
         {
             var acItems = elem.AcType.Items;
             acItems.Clear();
@@ -150,7 +150,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             acItems.AddRange(acTypes);
         }
 
-        private void refreshListView()
+        private void RefreshListView()
         {
             var listItems = elem.AcListView.Items;
             listItems.Clear();
@@ -171,7 +171,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             elem.AcListView.Columns[1].Width = -2;
         }
 
-        private void fillProperties(AircraftConfigItem config)
+        private void FillProperties(AircraftConfigItem config)
         {
             var e = elem;
             var c = config;
@@ -181,14 +181,14 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             e.ToProfile.Text = c.TOProfile;
             e.LdgProfile.Text = c.LdgProfile;
             e.ZfwUnit.SelectedIndex = c.WtUnit == WeightUnit.KG ? 0 : 1;
-            e.Zfw.Text = wtDisplay(c.OewKg);
-            e.MaxToWt.Text = wtDisplay(c.MaxTOWtKg);
-            e.MaxLdgWt.Text = wtDisplay(c.MaxLdgWtKg);
+            e.Zfw.Text = WtDisplay(c.OewKg);
+            e.MaxToWt.Text = WtDisplay(c.MaxTOWtKg);
+            e.MaxLdgWt.Text = WtDisplay(c.MaxLdgWtKg);
         }
 
-        private void showDefaultConfig()
+        private void ShowDefaultConfig()
         {
-            fillProperties(defaultAcConfig);
+            FillProperties(defaultAcConfig);
         }
 
         private AircraftConfigItem defaultAcConfig
@@ -200,7 +200,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
-        private string wtDisplay(double weightKg)
+        private string WtDisplay(double weightKg)
         {
             if (elem.ZfwUnit.SelectedIndex == 0)
             {
@@ -216,8 +216,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         public void CreateConfig(object sender, EventArgs e)
         {
-            showPropertyGroupBox();
-            showDefaultConfig();
+            ShowPropertyGroupBox();
+            ShowDefaultConfig();
             currentConfig = null;
         }
 
@@ -236,24 +236,24 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
-        private void showSelectionGroupBox()
+        private void ShowSelectionGroupBox()
         {
             elem.SelectionBox.Visible = true;
             elem.PropertyBox.Visible = false;
 
-            refreshListView();
+            RefreshListView();
         }
 
-        private void showPropertyGroupBox()
+        private void ShowPropertyGroupBox()
         {
             elem.PropertyBox.Visible = true;
             elem.SelectionBox.Visible = false;
 
-            fillAcTypes();
-            fillToLdgCBox();
+            FillAcTypes();
+            FillToLdgCBox();
         }
 
-        private bool trySaveConfig(AircraftConfigItem config, string filePath)
+        private bool TrySaveConfig(AircraftConfigItem config, string filePath)
         {
             try
             {
@@ -274,12 +274,12 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             {
                 currentConfig = profiles.AcConfigs.Find(reg);
 
-                showPropertyGroupBox();
-                fillProperties(currentConfig.Config);
+                ShowPropertyGroupBox();
+                FillProperties(currentConfig.Config);
             }
         }
 
-        private void removeOldConfig()
+        private void RemoveOldConfig()
         {
             if (inEditMode)
             {
@@ -297,7 +297,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         }
 
         /// <exception cref="NoFileNameAvailException"></exception>
-        private string getFileName()
+        private string GetFileName()
         {
             if (inEditMode == false)
             {
@@ -317,7 +317,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
-        private AircraftConfigItem tryValidate()
+        private AircraftConfigItem TryValidate()
         {
             try
             {
@@ -330,11 +330,11 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
-        private string tryGetFileName()
+        private string TryGetFileName()
         {
             try
             {
-                return getFileName();
+                return GetFileName();
             }
             catch (NoFileNameAvailException)
             {
@@ -346,7 +346,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         public void SaveConfig(object sender, EventArgs e)
         {
-            var config = tryValidate();
+            var config = TryValidate();
 
             if (config == null)
             {
@@ -361,18 +361,18 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 return;
             }
 
-            var fn = tryGetFileName();
+            var fn = TryGetFileName();
 
             if (fn == null)
             {
                 return;
             }
 
-            if (trySaveConfig(config, fn))
+            if (TrySaveConfig(config, fn))
             {
-                removeOldConfig();
+                RemoveOldConfig();
                 profiles.AcConfigs.Add(new AircraftConfig(config, fn));
-                showSelectionGroupBox();
+                ShowSelectionGroupBox();
                 AircraftsChanged?.Invoke(this, EventArgs.Empty);
             }
             else
@@ -404,15 +404,15 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                     MessageBoxDefaultButton.Button2);
 
             if (result == DialogResult.Yes &&
-                tryDeleteConfig(path))
+                TryDeleteConfig(path))
             {
                 configs.Remove(reg);
-                refreshListView();
+                RefreshListView();
                 AircraftsChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
-        private bool tryDeleteConfig(string path)
+        private bool TryDeleteConfig(string path)
         {
             try
             {
@@ -426,7 +426,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
         }
 
-        private bool changesMade()
+        private bool ChangesMade()
         {
             AircraftConfigItem config = null;
 
@@ -451,11 +451,11 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         public void CancelBtnClicked(object sender, EventArgs e)
         {
-            if (changesMade() == false)
+            if (ChangesMade() == false)
             {
                 // No edit is done.
                 // No need to show messageBox.
-                showSelectionGroupBox();
+                ShowSelectionGroupBox();
                 return;
             }
 
@@ -469,7 +469,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             if (result == DialogResult.Yes)
             {
-                showSelectionGroupBox();
+                ShowSelectionGroupBox();
             }
         }
 

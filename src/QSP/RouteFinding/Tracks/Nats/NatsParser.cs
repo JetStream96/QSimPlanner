@@ -25,12 +25,12 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         public override List<NorthAtlanticTrack> Parse()
         {
-            var NatTrackCollection = tryAddMessage(message.WestMessage);
-            NatTrackCollection.AddRange(tryAddMessage(message.EastMessage));
+            var NatTrackCollection = TryAddMessage(message.WestMessage);
+            NatTrackCollection.AddRange(TryAddMessage(message.EastMessage));
             return NatTrackCollection;
         }
 
-        private List<NorthAtlanticTrack> tryAddMessage(IndividualNatsMessage msg)
+        private List<NorthAtlanticTrack> TryAddMessage(IndividualNatsMessage msg)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                 string s = sp.ReadString('\n');
 
                 string[] wp = s.Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
-                tryConvertNatsLatLon(wp);
+                TryConvertNatsLatLon(wp);
 
                 tracks.Add(new NorthAtlanticTrack(msg.Direction,
                                                   ((char)i).ToString(),
@@ -80,7 +80,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             return tracks;
         }
 
-        private static void tryConvertNatsLatLon(string[] wpts)
+        private static void TryConvertNatsLatLon(string[] wpts)
         {
             for (int i = 0; i < wpts.Length; i++)
             {

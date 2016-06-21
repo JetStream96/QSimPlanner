@@ -46,12 +46,12 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
             foreach (var i in msgs)
             {
-                tryAddTrk(i);
+                TryAddTrk(i);
             }
             return allTracks;
         }
 
-        private void tryAddTrk(string msg)
+        private void TryAddTrk(string msg)
         {
             try
             {

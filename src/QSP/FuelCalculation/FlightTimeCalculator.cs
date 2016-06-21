@@ -14,7 +14,7 @@ namespace QSP.FuelCalculation
         {
             try
             {
-                TimeRequiredTable = importFlightTimeTable(sourceTxt);
+                TimeRequiredTable = ImportFlightTimeTable(sourceTxt);
             }
             catch
             {
@@ -44,7 +44,7 @@ namespace QSP.FuelCalculation
                 TimeRequiredTable[1, m], TimeRequiredTable[1, m + 1], airDistance));
         }
 
-        private int[,] importFlightTimeTable(string sourceTxt)
+        private int[,] ImportFlightTimeTable(string sourceTxt)
         {
             var lines = sourceTxt.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             var allLines = new List<string>();

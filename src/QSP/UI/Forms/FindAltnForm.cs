@@ -25,7 +25,7 @@ namespace QSP
             MinRwyLengthTxtbox.Text = "2500";
         }
 
-        private bool tryGetLength(out double lengthFt)
+        private bool TryGetLength(out double lengthFt)
         {
             if (double.TryParse(MinRwyLengthTxtbox.Text, out lengthFt))
             {
@@ -43,7 +43,7 @@ namespace QSP
         {
             double lengthFt;
 
-            if (tryGetLength(out lengthFt) == false)
+            if (TryGetLength(out lengthFt) == false)
             {
                 MessageBox.Show("Invalid runway length.");
                 return;
@@ -115,10 +115,10 @@ namespace QSP
         public void Initialize(AirportManager airportList)
         {
             this.airportList = airportList;
-            initControls();
+            InitControls();
         }
 
-        private void initControls()
+        private void InitControls()
         {
             lengthUnitComboBox.SelectedIndex = 0;
         }

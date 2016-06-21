@@ -30,14 +30,14 @@ namespace QSP.AircraftProfiles
         {
             _errors = new List<string>();
 
-            TOTables = loadTOTables();
-            LdgTables = loadLdgTables();
-            AcConfigs = loadConfig();
+            TOTables = LoadToTables();
+            LdgTables = LoadLdgTables();
+            AcConfigs = LoadConfig();
 
             AcConfigs.Validate(TOTables, LdgTables);
         }
 
-        private AcConfigManager loadConfig()
+        private AcConfigManager LoadConfig()
         {
             var manager = new AcConfigManager();
             var configs = new ConfigLoader().LoadAll();
@@ -55,7 +55,7 @@ namespace QSP.AircraftProfiles
             return manager;
         }
 
-        private List<TOPerfCalculation.PerfTable> loadTOTables()
+        private List<TOPerfCalculation.PerfTable> LoadToTables()
         {
             var loadResult = new TOPerfCalculation.TOTableLoader().Load();
 
@@ -67,7 +67,7 @@ namespace QSP.AircraftProfiles
             return loadResult.Tables;
         }
 
-        private List<LandingPerfCalculation.PerfTable> loadLdgTables()
+        private List<LandingPerfCalculation.PerfTable> LoadLdgTables()
         {
             var loadResult = new LandingPerfCalculation.LdgTableLoader()
                                  .Load();

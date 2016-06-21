@@ -51,13 +51,13 @@ namespace QSP.UI.ToLdgModule.Common
                     Math.Round(press.Value, 2).ToString("0.00") :
                     RoundToInt(press.Value).ToString();
 
-                setSurfCond(surfCond, precip);
+                SetSurfCond(surfCond, precip);
 
                 return true;
             }
         }
 
-        private static void setSurfCond(ComboBox surfCond, bool precip)
+        private static void SetSurfCond(ComboBox surfCond, bool precip)
         {
             if (surfCond.Items.Count >= 2)
             {

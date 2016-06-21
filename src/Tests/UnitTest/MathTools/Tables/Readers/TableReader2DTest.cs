@@ -34,22 +34,22 @@ namespace UnitTest.MathTools.Tables.Readers
         [Test]
         public void ReadTest1()
         {
-            assertTable(format1);
+            AssertTable(format1);
         }
 
         [Test]
         public void ReadTest2()
         {
-            assertTable(format2);
+            AssertTable(format2);
         }
 
         [Test]
         public void ReadTest3()
         {
-            assertTable(format3);
+            AssertTable(format3);
         }
 
-        private void assertTable(string source)
+        private void AssertTable(string source)
         {
             var table = TableReader2D.Read(source);
 

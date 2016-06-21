@@ -94,7 +94,7 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
         public void SidContainsOnlyVector()
         {
             Assert.IsTrue(
-                containResult(
+                ContainResult(
                     GetSidCollection(), "SID6", "18", new List<Waypoint>(),
                     EntryType.RwySpecific, true));
         }
@@ -103,7 +103,7 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
         public void SidIsRwySpecificNotEndingWithVector()
         {
             Assert.IsTrue(
-                containResult(GetSidCollection(), "SID1", "18", sid1_Wpts(),
+                ContainResult(GetSidCollection(), "SID1", "18", sid1_Wpts(),
                 EntryType.RwySpecific, false));
         }
 
@@ -111,7 +111,7 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
         public void SidRwySpecificEndsWithVector()
         {
             Assert.IsTrue(
-                containResult(GetSidCollection(), "SID3", "18", sid3_Wpts(),
+                ContainResult(GetSidCollection(), "SID3", "18", sid3_Wpts(),
                 EntryType.RwySpecific, true));
         }
 
@@ -127,7 +127,7 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
         public void SidTransitionPart()
         {
             Assert.IsTrue(
-                containResult(GetSidCollection(), "SID5", "TRANS2",
+                ContainResult(GetSidCollection(), "SID5", "TRANS2",
                 sid5_Trans2_Wpts(), EntryType.Transition, false));
         }
 
@@ -176,7 +176,7 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
             i.EndWithVector == endWithVector);
         }
 
-        private bool containResult(
+        private bool ContainResult(
             SidCollection collection, string sid, string rwy,
             List<Waypoint> wpts, EntryType type, bool endWithVector)
         {

@@ -32,7 +32,7 @@ RMK/AUSOTS GROUP A",
 PKS WILLY BHI 30S135E 27S129E 24S124E PD OSOTO DOMOM SAPDA 
 RTS/YSSY TESAT H44 KAT A576 PKS 
 RMK/AUSOTS GROUP A",
-getAirportList(new List<string> { "YSSY" }));
+GetAirportList(new List<string> { "YSSY" }));
 
             var trk = parser.Parse();
 
@@ -51,7 +51,7 @@ getAirportList(new List<string> { "YSSY" }));
             Assert.IsTrue(trk.PreferredFirstLatLon.Equals(new LatLon(-25.0, 133.0)));
         }
 
-        private static AirportManager getAirportList(List<string> icao)
+        private static AirportManager GetAirportList(List<string> icao)
         {
             var db = new AirportCollection();
 
@@ -92,7 +92,7 @@ null);
 PKS WILLY BHI 30S135E 27S129E 24S124E PD OSOTO DOMOM SAPDA 
 RTS/YSSY TESAT H44 KAT A576 PKS 
 ",
-getAirportList(new List<string> { "YSSY" }));
+GetAirportList(new List<string> { "YSSY" }));
 
             var trk = parser.Parse();
 
@@ -138,7 +138,7 @@ NSM CAG 32S130E WR EVIEC IDODA AROLI CRANE
 RTS/YPPH PH H18 BURGU H18 NSM 
 CRANE Y94 PARRY Y195 GLENN BN YBBN 
 RMK/AUSOTS GROUP E",
-getAirportList(new List<string> { "YBBN", "YPPH" }));
+GetAirportList(new List<string> { "YBBN", "YPPH" }));
 
             var trk = parser.Parse();
 

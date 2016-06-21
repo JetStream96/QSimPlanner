@@ -13,12 +13,12 @@ namespace QSP.RouteFinding.Tracks.Pacots
         public static ValidPeriod GetValidPeriod(string item)
         {
             int index = 0;
-            var start = findTimeStamp(item, ref index);
+            var start = FindTimeStamp(item, ref index);
             string end = null;
 
             if (start != null)
             {
-                end = findTimeStamp(item, ref index);
+                end = FindTimeStamp(item, ref index);
 
                 // If end cannot be found, set both start and end to null. 
                 if (end == null)
@@ -33,7 +33,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             return new ValidPeriod(start, end);
         }
 
-        private static string findTimeStamp(string item, ref int index)
+        private static string FindTimeStamp(string item, ref int index)
         {
             //returning string format: 11061200UTC
             int currentIndex = index;
@@ -42,7 +42,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
             while (currentIndex >= 0 && currentIndex < item.Length)
             {
-                if (currentCharMatch(matchCount, item[currentIndex]))
+                if (CurrentCharMatch(matchCount, item[currentIndex]))
                 {
 
                     if (matchCount == ALL_MATCH_LEN - 1)
@@ -73,7 +73,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             return null;
         }
 
-        private static bool currentCharMatch(int matchCount, char currentChar)
+        private static bool CurrentCharMatch(int matchCount, char currentChar)
         {
             if (matchCount < 8)
             {

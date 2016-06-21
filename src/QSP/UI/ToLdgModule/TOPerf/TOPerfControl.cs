@@ -36,10 +36,10 @@ namespace QSP.UI.ToLdgModule.TOPerf
             InitializeComponent();
 
             // Create the reference to the UI controls.
-            initializeElements();
+            InitializeElements();
 
             // Set default values for the controls.
-            initializeControls();
+            InitializeControls();
 
             setWeatherBtnHandlers();
         }
@@ -51,16 +51,16 @@ namespace QSP.UI.ToLdgModule.TOPerf
         {
             this.aircrafts = aircrafts;
             this.tables = tables;
-            updateAircraftList();
+            UpdateAircraftList();
             this.Airports = airports;
         }
 
-        private void updateAircraftList()
+        private void UpdateAircraftList()
         {
             var items = acListComboBox.Items;
 
             items.Clear();
-            items.AddRange(availAircraftTypes());
+            items.AddRange(AvailAircraftTypes());
 
             if (items.Count > 0)
             {
@@ -68,7 +68,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
             }
         }
 
-        private string[] availAircraftTypes()
+        private string[] AvailAircraftTypes()
         {
             var avail = new List<string>();
 
@@ -87,7 +87,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
             return avail.ToArray();
         }
 
-        private bool takeoffProfileExists(string profileName)
+        private bool TakeoffProfileExists(string profileName)
         {
             var searchResults =
                 tables.Where(c => c.Entry.ProfileName == profileName);
@@ -95,7 +95,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
             return searchResults.Count() > 0;
         }
 
-        private void refreshRegistrations(object sender, EventArgs e)
+        private void RefreshRegistrations(object sender, EventArgs e)
         {
             if (acListComboBox.SelectedIndex >= 0)
             {
@@ -109,7 +109,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
                 items.AddRange(
                     ac
-                    .Where(c => takeoffProfileExists(c.Config.TOProfile))
+                    .Where(c => TakeoffProfileExists(c.Config.TOProfile))
                     .Select(c => c.Config.Registration)
                     .ToArray());
 
@@ -129,14 +129,14 @@ namespace QSP.UI.ToLdgModule.TOPerf
             }
         }
 
-        private void trySaveState()
+        private void TrySaveState()
         {
             StateManager.Save(fileName, new ControlState(this).Save());
         }
 
-        private void saveState(object sender, EventArgs e)
+        private void SaveState(object sender, EventArgs e)
         {
-            trySaveState();
+            TrySaveState();
         }
 
         private void setWeatherBtnHandlers()
@@ -147,14 +147,14 @@ namespace QSP.UI.ToLdgModule.TOPerf
             wxSetter.Subscribe();
         }
 
-        private void initializeControls()
+        private void InitializeControls()
         {
             wtUnitComboBox.SelectedIndex = 0; // KG  
             thrustRatingLbl.Visible = false;
             thrustRatingComboBox.Visible = false;
         }
 
-        private void initializeElements()
+        private void InitializeElements()
         {
             var ac = airportInfoControl;
             var wic = weatherInfoControl;
@@ -184,18 +184,18 @@ namespace QSP.UI.ToLdgModule.TOPerf
                 resultsRichTxtBox);
         }
 
-        private void registrationChanged(object sender, EventArgs e)
+        private void RegistrationChanged(object sender, EventArgs e)
         {
             if (regComboBox.SelectedIndex < 0)
             {
-                refreshWtColor();
+                RefreshWtColor();
                 return;
             }
 
             // unsubsribe all event handlers
             if (controller != null)
             {
-                unSubscribe(controller);
+                UnSubscribe(controller);
                 currentTable = null;
                 controller = null;
             }
@@ -218,31 +218,31 @@ namespace QSP.UI.ToLdgModule.TOPerf
                     elements);
                 // TODO: only correct for Boeing. 
 
-                subscribe(controller);
+                Subscribe(controller);
                 controller.Initialize();
-                refreshWtColor();
+                RefreshWtColor();
             }
         }
 
-        private void subscribe(FormController controller)
+        private void Subscribe(FormController controller)
         {
             wtUnitComboBox.SelectedIndexChanged += controller.WeightUnitChanged;
             flapsComboBox.SelectedIndexChanged += controller.FlapsChanged;
             calculateBtn.Click += controller.Compute;
 
-            controller.CalculationCompleted += saveState;
+            controller.CalculationCompleted += SaveState;
         }
 
-        private void unSubscribe(FormController controller)
+        private void UnSubscribe(FormController controller)
         {
             wtUnitComboBox.SelectedIndexChanged -= controller.WeightUnitChanged;
             flapsComboBox.SelectedIndexChanged -= controller.FlapsChanged;
             calculateBtn.Click -= controller.Compute;
 
-            controller.CalculationCompleted -= saveState;
+            controller.CalculationCompleted -= SaveState;
         }
 
-        private void refreshWtColor()
+        private void RefreshWtColor()
         {
             var ac = aircrafts?.Find(regComboBox.Text);
             var config = ac?.Config;
@@ -270,9 +270,9 @@ namespace QSP.UI.ToLdgModule.TOPerf
             }
         }
 
-        private void weightTxtBoxChanged(object sender, EventArgs e)
+        private void WeightTxtBoxChanged(object sender, EventArgs e)
         {
-            refreshWtColor();
+            RefreshWtColor();
         }
 
         /// <summary>
@@ -285,12 +285,12 @@ namespace QSP.UI.ToLdgModule.TOPerf
             string ac = acListComboBox.Text;
             string reg = regComboBox.Text;
 
-            updateAircraftList();
+            UpdateAircraftList();
             acListComboBox.Text = ac;
             regComboBox.Text = reg;
 
             // Set the color of weight.
-            refreshWtColor();
+            RefreshWtColor();
         }
     }
 }

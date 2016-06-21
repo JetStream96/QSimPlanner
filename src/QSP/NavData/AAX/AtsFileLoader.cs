@@ -46,8 +46,8 @@ namespace QSP.NavData.AAX
                     else if (i[0] == 'S')
                     {
                         //this line is waypoint
-                        Waypoint firstWpt = getWpt(i, ref pos);
-                        Waypoint secondWpt = getWpt(i, ref pos);
+                        Waypoint firstWpt = GetWpt(i, ref pos);
+                        Waypoint secondWpt = GetWpt(i, ref pos);
 
                         int index1 = wptList.FindByWaypoint(firstWpt);
                         int index2 = wptList.FindByWaypoint(secondWpt);
@@ -86,7 +86,7 @@ namespace QSP.NavData.AAX
             }
         }
 
-        private Waypoint getWpt(string i, ref int pos)
+        private Waypoint GetWpt(string i, ref int pos)
         {
             string id = ReadString(i, ref pos, ',');
             double lat = ParseDouble(i, ref pos, ',');

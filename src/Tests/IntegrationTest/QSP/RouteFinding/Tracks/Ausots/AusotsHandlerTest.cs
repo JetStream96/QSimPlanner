@@ -25,7 +25,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
         {
             // Arrange
             var wptList = WptListFactory.GetWptList(wptIdents);
-            addAirways(wptList);
+            AddAirways(wptList);
 
             var recorder = new StatusRecorder();
 
@@ -34,7 +34,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
                 wptList,
                 wptList.GetEditor(),
                 recorder,
-                getAirportList(),
+                GetAirportList(),
                 new RouteTrackCommunicator(new TrackInUseCollection()));
             // Act
             handler.GetAllTracks();
@@ -44,30 +44,30 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             Assert.AreEqual(0, recorder.Records.Count);
 
             // Verify all tracks are added.
-            assertAllTracks(wptList);
+            AssertAllTracks(wptList);
 
             // Check the tracks.
-            assertTrackMY14(wptList);
-            assertTrackBP14(wptList);
+            AssertTrackMy14(wptList);
+            AssertTrackBp14(wptList);
         }
 
-        private static void assertTrackMY14(WaypointList wptList)
+        private static void AssertTrackMy14(WaypointList wptList)
         {
             var edge = wptList.GetEdge(
-                getEdgeIndex("AUSOTMY14", "JAMOR", wptList));
+                GetEdgeIndex("AUSOTMY14", "JAMOR", wptList));
 
             // Distance
             Assert.AreEqual(
                     new List<LatLon>
                     {
-                      wptList[ wptList.FindByID("JAMOR")].LatLon,
-                      wptList[ wptList.FindByID("IBABI")].LatLon,
-                      wptList[ wptList.FindByID("LEC")].LatLon,
-                      wptList[ wptList.FindByID("OOD")].LatLon,
-                      wptList[ wptList.FindByID("ARNTU")].LatLon,
-                      wptList[ wptList.FindByID("KEXIM")].LatLon,
-                      wptList[ wptList.FindByID("CIN")].LatLon,
-                      wptList[ wptList.FindByID("ATMAP")].LatLon
+                      wptList[ wptList.FindById("JAMOR")].LatLon,
+                      wptList[ wptList.FindById("IBABI")].LatLon,
+                      wptList[ wptList.FindById("LEC")].LatLon,
+                      wptList[ wptList.FindById("OOD")].LatLon,
+                      wptList[ wptList.FindById("ARNTU")].LatLon,
+                      wptList[ wptList.FindById("KEXIM")].LatLon,
+                      wptList[ wptList.FindById("CIN")].LatLon,
+                      wptList[ wptList.FindById("ATMAP")].LatLon
                     }.TotalDistance(),
                 edge.Value.Distance,
                 0.01);
@@ -84,22 +84,22 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             Assert.IsTrue(edge.Value.Airway == "AUSOTMY14");
         }
 
-        private static void assertTrackBP14(WaypointList wptList)
+        private static void AssertTrackBp14(WaypointList wptList)
         {
             var edge = wptList.GetEdge(
-                getEdgeIndex("AUSOTBP14", "TAXEG", wptList));
+                GetEdgeIndex("AUSOTBP14", "TAXEG", wptList));
 
             // Distance
             Assert.AreEqual(
                     new List<LatLon>
                     {
-                      wptList[ wptList.FindByID("TAXEG")].LatLon,
-                      wptList[ wptList.FindByID("PASTA")].LatLon,
-                      wptList[ wptList.FindByID("TAROR")].LatLon,
-                      wptList[ wptList.FindByID("WR")].LatLon,
-                      wptList[ wptList.FindByID("ENTRE")].LatLon,
-                      wptList[ wptList.FindByID("MALLY")].LatLon,
-                      wptList[ wptList.FindByID("NSM")].LatLon
+                      wptList[ wptList.FindById("TAXEG")].LatLon,
+                      wptList[ wptList.FindById("PASTA")].LatLon,
+                      wptList[ wptList.FindById("TAROR")].LatLon,
+                      wptList[ wptList.FindById("WR")].LatLon,
+                      wptList[ wptList.FindById("ENTRE")].LatLon,
+                      wptList[ wptList.FindById("MALLY")].LatLon,
+                      wptList[ wptList.FindById("NSM")].LatLon
                     }.TotalDistance(),
                 edge.Value.Distance,
                 0.01);
@@ -116,10 +116,10 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             Assert.IsTrue(edge.Value.Airway == "AUSOTBP14");
         }
 
-        private static int getEdgeIndex(
+        private static int GetEdgeIndex(
             string ID, string firstWpt, WaypointList wptList)
         {
-            foreach (var i in wptList.EdgesFrom(wptList.FindByID(firstWpt)))
+            foreach (var i in wptList.EdgesFrom(wptList.FindById(firstWpt)))
             {
                 if (wptList.GetEdge(i).Value.Airway == ID)
                 {
@@ -129,7 +129,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             return -1;
         }
 
-        private static void assertAllTracks(WaypointList wptList)
+        private static void AssertAllTracks(WaypointList wptList)
         {
             var id = new string[]
             {
@@ -151,15 +151,15 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
             for (int i = 0; i < id.Length; i++)
             {
-                assertTrack("AUSOT" + id[i], firstWpt[i], wptList);
+                AssertTrack("AUSOT" + id[i], firstWpt[i], wptList);
             }
         }
 
-        private static void assertTrack(
+        private static void AssertTrack(
             string ID, string firstWpt, WaypointList wptList)
         {
             // check the track is added
-            if (getEdgeIndex(ID, firstWpt, wptList) < 0)
+            if (GetEdgeIndex(ID, firstWpt, wptList) < 0)
             {
                 Assert.Fail("Track not found.");
             }
@@ -199,7 +199,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             "YPPH"
         };
 
-        private static AirportManager getAirportList()
+        private static AirportManager GetAirportList()
         {
             var collection = new AirportCollection();
 
@@ -233,9 +233,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             new airwayEntry("HAMTN", "Q158", "PH")
         };
 
-        private static int tryAddWpt(WaypointList wptList, string id)
+        private static int TryAddWpt(WaypointList wptList, string id)
         {
-            int x = wptList.FindByID(id);
+            int x = wptList.FindById(id);
 
             if (x < 0)
             {
@@ -247,12 +247,12 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             return x;
         }
 
-        private static void addAirways(WaypointList wptList)
+        private static void AddAirways(WaypointList wptList)
         {
             foreach (var i in airwayEntries)
             {
-                int x = tryAddWpt(wptList, i.StartWpt);
-                int y = tryAddWpt(wptList, i.EndWpt);
+                int x = TryAddWpt(wptList, i.StartWpt);
+                int y = TryAddWpt(wptList, i.EndWpt);
                 wptList.AddNeighbor(
                     x, y, new Neighbor(i.Airway, wptList.Distance(x, y)));
             }

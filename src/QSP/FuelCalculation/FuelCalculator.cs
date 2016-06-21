@@ -31,7 +31,7 @@ namespace QSP.FuelCalculation
         public FuelCalculator(FuelCalculationParameters para)
         {
             Parameters = para;
-            updateAltnLandWt();
+            UpdateAltnLandWt();
             altnFuelComputed = false;
 
             switch (para.AC)
@@ -92,11 +92,11 @@ namespace QSP.FuelCalculation
             }
 
             TimeCalc = new FlightTimeCalculator(AirDisTimeOrigFile);
-            GroundToAirDisTable = loadGTATable(FuelTableSourceTxt);
-            loadFuelTable(FuelTableSourceTxt);
+            GroundToAirDisTable = LoadGtaTable(FuelTableSourceTxt);
+            LoadFuelTable(FuelTableSourceTxt);
         }
 
-        private void updateDestLandWt()
+        private void UpdateDestLandWt()
         {
             LandWeightTonDest = 
                 LandWeightTonAltn + 
@@ -104,12 +104,12 @@ namespace QSP.FuelCalculation
                 (Parameters.HoldingMin * holdingFuelPerMinuteKg + Parameters.MissedAppFuelKg) / 1000 + Parameters.ExtraFuelKg / 1000;
         }
 
-        private void updateAltnLandWt()
+        private void UpdateAltnLandWt()
         {
             LandWeightTonAltn = (Parameters.ZfwKg + Parameters.FinalRsvMin * holdingFuelPerMinuteKg) / 1000;
         }
 
-        private void loadFuelTable(string sourceTxt)
+        private void LoadFuelTable(string sourceTxt)
         {
             int p = sourceTxt.IndexOf("[Fuel]");
             int q = sourceTxt.IndexOf("[LDG WT]");
@@ -149,12 +149,12 @@ namespace QSP.FuelCalculation
 
             airDis = airDisCol;
             AirDisToFuelTable = table;
-            loadLandingWt(sourceTxt);
+            LoadLandingWt(sourceTxt);
 
         }
 
 
-        private void loadLandingWt(string sourceTxt)
+        private void LoadLandingWt(string sourceTxt)
         {
             string str = sourceTxt.Substring(sourceTxt.IndexOf("[LDG WT]"));
             string[] lines = str.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -179,7 +179,7 @@ namespace QSP.FuelCalculation
             }
         }
 
-        private double[][] loadGTATable(string sourceTxt)
+        private double[][] LoadGtaTable(string sourceTxt)
         {
             string gtaStr = sourceTxt.Substring(0, sourceTxt.IndexOf("[Fuel]"));
             string[] lines = gtaStr.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -211,7 +211,7 @@ namespace QSP.FuelCalculation
             return table;
         }
 
-        private double getAirDis(double tailwind, double groundDis)
+        private double GetAirDis(double tailwind, double groundDis)
         {
             double[] wind = {
                 -100,
@@ -236,16 +236,16 @@ namespace QSP.FuelCalculation
             return Interpolate2D.Interpolate(wind, grdDis, tailwind, groundDis, GroundToAirDisTable);
         }
 
-        private double getFuelBurn(double landingWeight, double airDistance)
+        private double GetFuelBurn(double landingWeight, double airDistance)
         {
             return Interpolate2D.Interpolate(LandingWt, airDis, landingWeight, airDistance, AirDisToFuelTable);
         }
 
         public double GetAltnFuelTon()
         {
-            double airDistance = getAirDis(Parameters.AvgWindToAltn, Parameters.DisToAltn);
+            double airDistance = GetAirDis(Parameters.AvgWindToAltn, Parameters.DisToAltn);
             TimeToAltn = TimeCalc.GetTimeMin(airDistance);
-            fuelToAltn = getFuelBurn(LandWeightTonAltn, airDistance);
+            fuelToAltn = GetFuelBurn(LandWeightTonAltn, airDistance);
             altnFuelComputed = true;
 
             return fuelToAltn;
@@ -258,11 +258,11 @@ namespace QSP.FuelCalculation
                 GetAltnFuelTon();
             }
 
-            updateDestLandWt();
+            UpdateDestLandWt();
 
-            double airDistance = getAirDis(Parameters.AvgWindToDest, Parameters.DisToDest);
+            double airDistance = GetAirDis(Parameters.AvgWindToDest, Parameters.DisToDest);
             TimeToDest = TimeCalc.GetTimeMin(airDistance);
-            return getFuelBurn(LandWeightTonDest, airDistance);
+            return GetFuelBurn(LandWeightTonDest, airDistance);
         }
 
     }

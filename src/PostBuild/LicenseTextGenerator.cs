@@ -14,7 +14,7 @@ namespace PostBuild
 
         public static string Generate()
         {
-            var output = new StringBuilder(modifiedMainLicense());
+            var output = new StringBuilder(ModifiedMainLicense());
             var files = Directory.GetFiles(thirdParty);
 
             foreach (var i in files)
@@ -32,7 +32,7 @@ namespace PostBuild
             return output.ToString();
         }
 
-        private static string modifiedMainLicense()
+        private static string ModifiedMainLicense()
         {
             var output = new StringBuilder();
             var mainTxt = File.ReadAllText(license);

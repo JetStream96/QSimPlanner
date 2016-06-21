@@ -21,7 +21,7 @@ namespace QSP.UI.Controllers.ButtonGroup
                 {
                     foreach (var i in pairings)
                     {
-                        i.Button.Click -= showControl;
+                        i.Button.Click -= ShowControl;
                     }
                     _subscribed = false;
                 }
@@ -29,7 +29,7 @@ namespace QSP.UI.Controllers.ButtonGroup
                 {
                     foreach (var i in pairings)
                     {
-                        i.Button.Click += showControl;
+                        i.Button.Click += ShowControl;
                     }
                     _subscribed = true;
                 }
@@ -42,7 +42,7 @@ namespace QSP.UI.Controllers.ButtonGroup
             _subscribed = false;
         }
 
-        private void showControl(object sender, EventArgs e)
+        private void ShowControl(object sender, EventArgs e)
         {
             foreach (var i in pairings)
             {

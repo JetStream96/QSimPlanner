@@ -7,10 +7,10 @@ namespace QSP.LibraryExtension.JaggedArrays
         // Usage: var array = CreateJaggedArray<double[][]>(3, 5);
         public static T Create<T>(params int[] arrayLengths)
         {
-            return (T)getJaggedArray(typeof(T).GetElementType(), 0, arrayLengths);
+            return (T)GetJaggedArray(typeof(T).GetElementType(), 0, arrayLengths);
         }
 
-        private static object getJaggedArray(Type type, int index, params int[] lengths)
+        private static object GetJaggedArray(Type type, int index, params int[] lengths)
         {
             var result = Array.CreateInstance(type, lengths[index]);
             var elementType = type.GetElementType();
@@ -20,7 +20,7 @@ namespace QSP.LibraryExtension.JaggedArrays
                 for (int i = 0; i < lengths[index]; i++)
                 {
                     result.SetValue(
-                        getJaggedArray(elementType, index + 1, lengths), i);
+                        GetJaggedArray(elementType, index + 1, lengths), i);
                 }
             }
             return result;

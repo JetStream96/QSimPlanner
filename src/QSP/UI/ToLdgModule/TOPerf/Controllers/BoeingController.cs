@@ -38,14 +38,14 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
 
         public override void Initialize()
         {
-            setDefaultSurfCond();
-            setDefaultFlaps();
-            setDerate();
-            setPackOptions();
-            setAIOptions();
+            SetDefaultSurfCond();
+            SetDefaultFlaps();
+            SetDerate();
+            SetPackOptions();
+            SetAiOptions();
         }
 
-        private void setPackOptions()
+        private void SetPackOptions()
         {
             var items = elements.Packs.Items;
             items.Clear();
@@ -53,7 +53,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             elements.Packs.SelectedIndex = 0;
         }
 
-        private void setAIOptions()
+        private void SetAiOptions()
         {
             var items = elements.AntiIce.Items;
             items.Clear();
@@ -68,10 +68,10 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
 
         public override void FlapsChanged(object sender, EventArgs e)
         {
-            setDerate();
+            SetDerate();
         }
 
-        private void setDerate()
+        private void SetDerate()
         {
             var thrustComboBox = elements.thrustRating;
             string text = thrustComboBox.Text;
@@ -100,7 +100,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             }
         }
 
-        private void setDefaultSurfCond()
+        private void SetDefaultSurfCond()
         {
             var items = elements.surfCond.Items;
 
@@ -109,7 +109,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             elements.surfCond.SelectedIndex = 0;
         }
 
-        private void setDefaultFlaps()
+        private void SetDefaultFlaps()
         {
             var items = elements.flaps.Items;
             items.Clear();

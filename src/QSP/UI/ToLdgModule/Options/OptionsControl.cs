@@ -46,11 +46,11 @@ namespace QSP.UI.ToLdgModule.Options
                 Environment.Exit(0);
             }
 
-            refreshNavSource();
-            tryLoadAirports();
+            RefreshNavSource();
+            TryLoadAirports();
         }
 
-        private void loadAirports(DataSource source)
+        private void LoadAirports(DataSource source)
         {
             AirportCollection col;
 
@@ -76,7 +76,7 @@ namespace QSP.UI.ToLdgModule.Options
             Airports = new AirportManager(col);
         }
 
-        private void saveBtnClick(object sender, EventArgs e)
+        private void SaveBtnClick(object sender, EventArgs e)
         {
             saveBtn.ForeColor = Color.Black;
             saveBtn.Enabled = false;
@@ -84,7 +84,7 @@ namespace QSP.UI.ToLdgModule.Options
             saveBtn.Text = "Saving ...";
             Refresh();
 
-            if (tryLoadAirports() && trySaveOptions())
+            if (TryLoadAirports() && TrySaveOptions())
             {
                 SaveAirportsCompleted?.Invoke(this, EventArgs.Empty);
             }
@@ -95,7 +95,7 @@ namespace QSP.UI.ToLdgModule.Options
             saveBtn.Enabled = true;
         }
 
-        private bool trySaveOptions()
+        private bool TrySaveOptions()
         {
             try
             {
@@ -122,13 +122,13 @@ namespace QSP.UI.ToLdgModule.Options
             }
         }
 
-        private bool tryLoadAirports()
+        private bool TryLoadAirports()
         {
             try
             {
                 var type = (DataSource.Type)sourceComboBox.SelectedIndex;
                 var source = new DataSource(type, pathTxtBox.Text);
-                loadAirports(source);
+                LoadAirports(source);
                 return true;
             }
             catch (ReadAirportFileException ex)
@@ -145,12 +145,12 @@ namespace QSP.UI.ToLdgModule.Options
             return false;
         }
 
-        private void cancelBtnClick(object sender, EventArgs e)
+        private void CancelBtnClick(object sender, EventArgs e)
         {
-            refreshNavSource();
+            RefreshNavSource();
         }
 
-        private void broserBtnClick(object sender, EventArgs e)
+        private void BroserBtnClick(object sender, EventArgs e)
         {
             var folderBrowser = new FolderBrowserDialog();
             folderBrowser.SelectedPath = pathTxtBox.Text;
@@ -162,12 +162,12 @@ namespace QSP.UI.ToLdgModule.Options
             }
         }
 
-        private void refreshNavSource()
+        private void RefreshNavSource()
         {
-            refreshNavSource(options.SourceType);
+            RefreshNavSource(options.SourceType);
         }
 
-        private void refreshNavSource(int sourceType)
+        private void RefreshNavSource(int sourceType)
         {
             sourceComboBox.SelectedIndex = sourceType;
 
@@ -184,15 +184,15 @@ namespace QSP.UI.ToLdgModule.Options
             }
         }
 
-        private void sourceChanged(object sender, EventArgs e)
+        private void SourceChanged(object sender, EventArgs e)
         {
             if (options != null)
             {
-                refreshNavSource(sourceComboBox.SelectedIndex);
+                RefreshNavSource(sourceComboBox.SelectedIndex);
             }
         }
 
-        private void pathTxtBoxTextChanged(object sender, EventArgs e)
+        private void PathTxtBoxTextChanged(object sender, EventArgs e)
         {
             if (options != null)
             {
@@ -212,7 +212,7 @@ namespace QSP.UI.ToLdgModule.Options
         {
             infoLbl.Font = new Font(infoLbl.Font, FontStyle.Underline);
 
-            popUpPanel = infoPanel(
+            popUpPanel = InfoPanel(
                 (DataSource.Type)sourceComboBox.SelectedIndex);
             Controls.Add(popUpPanel);
             popUpPanel.BringToFront();
@@ -226,7 +226,7 @@ namespace QSP.UI.ToLdgModule.Options
             popUpPanel = null;
         }
 
-        private Panel infoPanel(DataSource.Type type)
+        private Panel InfoPanel(DataSource.Type type)
         {
             var panel = new Panel();
             panel.Size = new Size(450, 100);
@@ -238,7 +238,7 @@ namespace QSP.UI.ToLdgModule.Options
             var lbl = new Label();
             lbl.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular);
             lbl.ForeColor = Color.DarkGreen;
-            lbl.Text = lblTxt(type);
+            lbl.Text = LblTxt(type);
             lbl.Location = new Point(0, 0);
             lbl.AutoSize = true;
 
@@ -246,7 +246,7 @@ namespace QSP.UI.ToLdgModule.Options
             return panel;
         }
 
-        private string lblTxt(DataSource.Type type)
+        private string LblTxt(DataSource.Type type)
         {
             switch (type)
             {

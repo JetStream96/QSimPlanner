@@ -19,7 +19,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         private SidCollection sids;
         private StarCollection stars;
 
-        private void initObjects()
+        private void InitObjects()
         {
             var ac = new AirportCollection();
             ac.Add(GetAirport(
@@ -52,7 +52,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         public void EmptyRouteShouldReturnDirect()
         {
             // Setup
-            initObjects();
+            InitObjects();
 
             var analyzer = new StandardRouteAnalyzer(
                 new string[] { },
@@ -85,20 +85,20 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             // Last wpt of SID and first wpt in STAR not in wptList.
 
             // Setup
-            var analyzer = createAnalyzer1("SID1", "P1", "Q1", "STAR1");
+            var analyzer = CreateAnalyzer1("SID1", "P1", "Q1", "STAR1");
 
             // Invoke
             var route = analyzer.Analyze();
 
             // Assert
-            assertRoute1(route);
+            AssertRoute1(route);
         }
 
         [Test]
         public void FullSidStarWithIcaosShouldGetCorrectRoute()
         {
             // Setup
-            initObjects();
+            InitObjects();
             var analyzer = new StandardRouteAnalyzer(
                 new string[] { "RCTP", "SID1", "P1", "Q1", "STAR1", "VHHH" },
                 "RCTP",
@@ -114,12 +114,12 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // Assert
-            assertRoute1(route);
+            AssertRoute1(route);
         }
 
-        private StandardRouteAnalyzer createAnalyzer1(params string[] route)
+        private StandardRouteAnalyzer CreateAnalyzer1(params string[] route)
         {
-            initObjects();
+            InitObjects();
 
             return new StandardRouteAnalyzer(
                 route,
@@ -133,7 +133,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 stars);
         }
 
-        private void assertRoute1(Route route)
+        private void AssertRoute1(Route route)
         {
             var expected = GetRoute(
                 new Waypoint("RCTP05L", 25.072894, 121.215986), "SID1", -1.0,
@@ -148,7 +148,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
         #region Group 2 - Same route
 
-        private WaypointList createOneAirway()
+        private WaypointList CreateOneAirway()
         {
             var wptList = new WaypointList();
 
@@ -164,47 +164,47 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         public void SidStarAirwayIcao1ShouldGetCorrectRoute()
         {
             // Setup
-            var analyzer = createAnalyzer2(
+            var analyzer = CreateAnalyzer2(
                 "RCTP", "SID1", "P1", "X", "A1", "Y", "Q1", "STAR1", "VHHH");
 
             // Invoke
             var route = analyzer.Analyze();
 
             // Assert
-            assertRoute2(route);
+            AssertRoute2(route);
         }
 
         [Test]
         public void SidStarAirwayIcao2ShouldGetCorrectRoute()
         {
             // Setup
-            var analyzer = createAnalyzer2(
+            var analyzer = CreateAnalyzer2(
                 "RCTP", "SID1", "X", "A1", "Y", "STAR1", "VHHH");
 
             // Invoke
             var route = analyzer.Analyze();
 
             // Assert
-            assertRoute2(route);
+            AssertRoute2(route);
         }
 
         [Test]
         public void SidStarAirwayIcao3ShouldGetCorrectRoute()
         {
             // Setup
-            var analyzer = createAnalyzer2(
+            var analyzer = CreateAnalyzer2(
                 "SID1", "X", "A1", "Y", "STAR1");
 
             // Invoke
             var route = analyzer.Analyze();
 
             // Assert
-            assertRoute2(route);
+            AssertRoute2(route);
         }
 
-        private StandardRouteAnalyzer createAnalyzer2(params string[] route)
+        private StandardRouteAnalyzer CreateAnalyzer2(params string[] route)
         {
-            initObjects();
+            InitObjects();
 
             return new StandardRouteAnalyzer(
                 route,
@@ -213,12 +213,12 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 "VHHH",
                 "07L",
                 airportList,
-                createOneAirway(),
+                CreateOneAirway(),
                 sids,
                 stars);
         }
 
-        private void assertRoute2(Route route)
+        private void AssertRoute2(Route route)
         {
             var expected = GetRoute(
                 new Waypoint("RCTP05L", 25.072894, 121.215986), "SID1", -1.0,

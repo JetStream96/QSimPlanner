@@ -10,12 +10,12 @@ namespace QSP.WindAloft
 
         public static void ConvertGrib()
         {
-            int numAlreadyRunning = numProcessRunning(gribConverterName);
+            int numAlreadyRunning = NumProcessRunning(gribConverterName);
             Grib2ToCsv(WindManager.SaveFileLocation);
 
             //TODO: This code is not completely error free.
             //Better to check whether all .wx files can be read.
-            while (numProcessRunning(gribConverterName) > numAlreadyRunning)
+            while (NumProcessRunning(gribConverterName) > numAlreadyRunning)
             {
                 Thread.Sleep(100);
             }
@@ -38,7 +38,7 @@ namespace QSP.WindAloft
             }
         }
 
-        private static int numProcessRunning(string processName)
+        private static int NumProcessRunning(string processName)
         {
             return Process.GetProcessesByName(processName).Count();
         }

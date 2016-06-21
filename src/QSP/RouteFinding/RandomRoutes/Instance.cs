@@ -40,14 +40,14 @@ namespace QSP.RouteFinding.RandomRoutes
 
                 for (int lon = -180; lon < 180; lon += increment)
                 {
-                    coordinates.Add(createWptHelper(lat, lon));
+                    coordinates.Add(CreateWptHelper(lat, lon));
                 }
             }
             
             return coordinates;
         }
 
-        private static Waypoint createWptHelper(int lat, int lon)
+        private static Waypoint CreateWptHelper(int lat, int lon)
         {
             return new Waypoint(To5LetterFormat(lat, lon), lat, lon);
         }
