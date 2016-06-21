@@ -16,26 +16,29 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
     [TestFixture]
     public class StarAdderTest
     {
-
-
         [Test]
         public void AddToWptListCase1()
         {
             var wptList = Case1WptList();
-            var adder = new StarAdder("AXYZ",
-                                      new StarCollection(new List<StarEntry>()),
-                                      wptList,
-                                      wptList.GetEditor(),
-                                      GetAirportManager());
+            var adder = new StarAdder(
+                "AXYZ",
+                new StarCollection(new List<StarEntry>()),
+                wptList,
+                wptList.GetEditor(),
+                GetAirportManager());
 
             int rwyIndex = adder.AddStarsToWptList("18", new List<string>());
 
             // Check the STAR is added 
-            Assert.IsTrue(directAdded(wptList, new Waypoint("25N050E", 25.0, 50.0), rwyIndex));
-            Assert.IsTrue(directAdded(wptList, new Waypoint("27N050E", 27.0, 50.0), rwyIndex));
+            Assert.IsTrue(directAdded(
+                wptList, new Waypoint("25N050E", 25.0, 50.0), rwyIndex));
+
+            Assert.IsTrue(directAdded(
+                wptList, new Waypoint("27N050E", 27.0, 50.0), rwyIndex));
         }
 
-        private static bool directAdded(WaypointList wptList, Waypoint wpt, int rwyIndex)
+        private static bool directAdded(
+            WaypointList wptList, Waypoint wpt, int rwyIndex)
         {
             foreach (var i in wptList.EdgesFrom(wptList.FindByWaypoint(wpt)))
             {
@@ -67,18 +70,25 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
         public void AddToWptListCase2()
         {
             var wptList = Case2WptList();
-            var adder = new StarAdder("AXYZ",
-                                     new StarCollection(
-                                                    CreateList(new StarEntry("18",
-                                                                             "STAR1",
-                                                                             CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
-                                                                                        new Waypoint("WPT102", 25.0150, 50.0800),
-                                                                                        new Waypoint("WPT103", 25.0175, 50.1300),
-                                                                                        new Waypoint("WPT104", 25.0225, 50.1800)),
-                                                                             EntryType.RwySpecific))),
-                                     wptList,
-                                     wptList.GetEditor(),
-                                     GetAirportManager());
+
+            var entry = new StarEntry(
+                "18",
+                "STAR1",
+                CreateList(
+                    new Waypoint("WPT101", 25.0125, 50.0300),
+                    new Waypoint("WPT102", 25.0150, 50.0800),
+                    new Waypoint("WPT103", 25.0175, 50.1300),
+                    new Waypoint("WPT104", 25.0225, 50.1800)),
+                EntryType.RwySpecific);
+
+            var sids = new StarCollection(CreateList(entry));
+
+            var adder = new StarAdder(
+                "AXYZ",
+                sids,
+                wptList,
+                wptList.GetEditor(),
+                GetAirportManager());
 
             int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
             int index = wptList.FindByWaypoint(new Waypoint("WPT101", 25.0125, 50.0300));

@@ -8,13 +8,15 @@ using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
-    // Adds necessary waypoints and neighbors to wptList for automatic route finder or route analyzer,
-    // and returns the index of origin rwy in wptList.
+    // Adds necessary waypoints and neighbors to wptList for automatic 
+    // route finder or route analyzer, and returns the index of origin 
+    // rwy in wptList.
     // 
     // This breaks down into 5 cases:
     // 1. There's no SID at all. 
     // 2. The SID ends with a vector.
-    // 3. The SID ends with a waypoint. The waypoint is in wptList but not connected to an airway.
+    // 3. The SID ends with a waypoint. The waypoint is in wptList but 
+    //    not connected to an airway.
     // 4. The SID ends with a waypoint which is connected to an airway. 
     // 5. The SID ends with a waypoint. The waypoint is NOT in wptList.
     //  
