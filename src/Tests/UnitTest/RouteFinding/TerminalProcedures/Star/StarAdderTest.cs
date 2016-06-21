@@ -3,13 +3,15 @@ using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using System;
 using System.Collections.Generic;
 using static QSP.LibraryExtension.Lists;
 using static QSP.MathTools.GCDis;
+using static UnitTest.Common.Constants;
 using static UnitTest.Common.Utilities;
-using QSP.RouteFinding.Data.Interfaces;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 {
@@ -43,10 +45,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             foreach (var i in wptList.EdgesFrom(wptList.FindByWaypoint(wpt)))
             {
                 var edge = wptList.GetEdge(i);
+                double disDiff = wpt.DistanceFrom(wptList[rwyIndex]) - 
+                    edge.Value.Distance;
+
                 if (edge.Value.Airway == "DCT" &&
-                    WithinPrecisionPercent(Distance(wpt.LatLon, wptList[rwyIndex].LatLon),
-                                           edge.Value.Distance,
-                                           0.1))
+                    Math.Abs(disDiff) < DistanceEpsilon)
                 {
                     return true;
                 }
