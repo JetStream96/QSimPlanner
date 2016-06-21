@@ -120,8 +120,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
         [Test]
         public void AddToWptListCase3()
         {
-            var wptList = Case3WptList();
+            AddToWptListCase3And5(Case3WptList());
+        }
 
+        private void AddToWptListCase3And5(WaypointList wptList)
+        {
             var entry = new SidEntry(
                 "18",
                 "SID1",
@@ -201,57 +204,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
         [Test]
         public void AddToWptListCase5()
         {
-            var wptList = Case5WptList();
-
-            var entry = new SidEntry(
-                "18",
-                "SID1",
-                CreateList(wpt101, wpt102, wpt103, wpt104),
-                EntryType.RwySpecific,
-                false);
-
-            var adder =
-                new SidAdder(
-                    "AXYZ",
-                    new SidCollection(
-                        CreateList(entry)),
-                        wptList,
-                        wptList.GetEditor(),
-                        GetAirportManager());
-
-            int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
-
-            // Check the SID1 has been added with correct total distance.
-            Assert.IsTrue(wptList.EdgesFromCount(rwyIndex) > 0);
-
-            double dis = CreateList(rwy, wpt101, wpt102, wpt103, wpt104)
-                .TotalDistance();
-
-            Assert.IsTrue(sidIsAdded(
-                rwyIndex,
-                "SID1",
-                dis,
-                wptList));
-
-            // Check the edges of last wpt 
-            int index = wptList.FindByWaypoint(wpt104);
-
-            Assert.IsTrue(index >= 0);
-            Assert.AreEqual(2, wptList.EdgesFromCount(index));
-
-            foreach (var i in wptList.EdgesFrom(index))
-            {
-                var edge = wptList.GetEdge(i);
-                Assert.AreEqual("DCT", edge.Value.Airway);
-
-                var expectedDis =
-                    wpt104.DistanceFrom(wptList[edge.ToNodeIndex]);
-
-                Assert.AreEqual(
-                    expectedDis,
-                    edge.Value.Distance,
-                    DistanceEpsilon);
-            }
+            AddToWptListCase3And5(Case5WptList());
         }
 
         [Test]
