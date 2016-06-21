@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
@@ -8,16 +7,31 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static QSP.LibraryExtension.Lists;
-using static QSP.MathTools.GCDis;
 using static UnitTest.Common.Constants;
-using static UnitTest.Common.Utilities;
+using static UnitTest.RouteFinding.RouteAnalyzers.Common;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 {
     [TestFixture]
     public class StarAdderTest
     {
+        private readonly Waypoint wpt101 =
+            new Waypoint("WPT101", 25.0125, 50.0300);
+
+        private readonly Waypoint wpt102 =
+            new Waypoint("WPT102", 25.0150, 50.0800);
+
+        private readonly Waypoint wpt103 =
+            new Waypoint("WPT103", 25.0175, 50.1300);
+
+        private readonly Waypoint wpt104 =
+            new Waypoint("WPT104", 25.0225, 50.1800);
+
+        private readonly Waypoint rwy =
+            new Waypoint("AXYZ18", 25.0003, 50.0001);
+
         [Test]
         public void AddToWptListCase1()
         {
@@ -45,7 +59,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             foreach (var i in wptList.EdgesFrom(wptList.FindByWaypoint(wpt)))
             {
                 var edge = wptList.GetEdge(i);
-                double disDiff = wpt.DistanceFrom(wptList[rwyIndex]) - 
+                double disDiff = wpt.DistanceFrom(wptList[rwyIndex]) -
                     edge.Value.Distance;
 
                 if (edge.Value.Airway == "DCT" &&
@@ -54,17 +68,26 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
                     return true;
                 }
             }
+
             return false;
         }
 
-        private WaypointList Case1WptList()
+        private static WaypointList Case1WptList()
+        {
+            return BasicWptList();
+        }
+
+        private static WaypointList BasicWptList()
         {
             var wptList = new WaypointList();
 
-            int index1 = wptList.AddWaypoint(new Waypoint("25N050E", 25.0, 50.0));
-            int index2 = wptList.AddWaypoint(new Waypoint("27N050E", 27.0, 50.0));
-            wptList.AddNeighbor(index1, index2, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
-            wptList.AddNeighbor(index2, index1, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
+            int index1 = wptList.AddWaypoint(
+                new Waypoint("25N050E", 25.0, 50.0));
+            int index2 = wptList.AddWaypoint(
+                new Waypoint("27N050E", 27.0, 50.0));
+
+            AddNeighbor(wptList, index1, "AIRWAY1", index2);
+            AddNeighbor(wptList, index2, "AIRWAY1", index1);
 
             return wptList;
         }
@@ -72,109 +95,52 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
         [Test]
         public void AddToWptListCase2()
         {
-            var wptList = Case2WptList();
-
-            var entry = new StarEntry(
-                "18",
-                "STAR1",
-                CreateList(
-                    new Waypoint("WPT101", 25.0125, 50.0300),
-                    new Waypoint("WPT102", 25.0150, 50.0800),
-                    new Waypoint("WPT103", 25.0175, 50.1300),
-                    new Waypoint("WPT104", 25.0225, 50.1800)),
-                EntryType.RwySpecific);
-
-            var sids = new StarCollection(CreateList(entry));
-
-            var adder = new StarAdder(
-                "AXYZ",
-                sids,
-                wptList,
-                wptList.GetEditor(),
-                GetAirportManager());
-
-            int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
-            int index = wptList.FindByWaypoint(new Waypoint("WPT101", 25.0125, 50.0300));
-
-            // Check the STAR1 has been added with correct total distance.
-            Assert.IsTrue(starIsAdded(wptList.FindByWaypoint(new Waypoint("WPT101", 25.0125, 50.0300)),
-                                      "STAR1",
-                                      CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
-                                                new Waypoint("WPT102", 25.0150, 50.0800),
-                                                new Waypoint("WPT103", 25.0175, 50.1300),
-                                                new Waypoint("WPT104", 25.0225, 50.1800),
-                                                new Waypoint("AXYZ18", 25.0003, 50.0001)).TotalDistance(),
-                                      wptList));
-
-            // Check the edges of first wpt            
-            Assert.AreEqual(2, wptList.EdgesToCount(index));
-
-            foreach (var i in wptList.EdgesTo(index))
-            {
-                var edge = wptList.GetEdge(i);
-                Assert.AreEqual("DCT", edge.Value.Airway);
-                Assert.IsTrue(WithinPrecisionPercent(new LatLon(25.0125, 50.0300).Distance(wptList[edge.FromNodeIndex].LatLon),
-                                                     edge.Value.Distance,
-                                                     0.0001));
-            }
+            AddToWptListCase2And4(Case2WptList());
         }
 
-        private WaypointList Case2WptList()
+        private static WaypointList Case2WptList()
         {
-            var wptList = new WaypointList();
+            var wptList = BasicWptList();
             wptList.AddWaypoint(new Waypoint("WPT101", 25.0125, 50.0300));
-
-            int index1 = wptList.AddWaypoint(new Waypoint("25N050E", 25.0, 50.0));
-            int index2 = wptList.AddWaypoint(new Waypoint("27N050E", 27.0, 50.0));
-            wptList.AddNeighbor(index1, index2, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
-            wptList.AddNeighbor(index2, index1, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
-
             return wptList;
         }
 
         private WaypointList Case4WptList()
         {
-            var wptList = new WaypointList();
-            int index1 = wptList.AddWaypoint(new Waypoint("25N050E", 25.0, 50.0));
-            int index2 = wptList.AddWaypoint(new Waypoint("27N050E", 27.0, 50.0));
-            wptList.AddNeighbor(index1, index2, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
-            wptList.AddNeighbor(index2, index1, new Neighbor("AIRWAY1", wptList.Distance(index1, index2)));
-
-            return wptList;
+            return BasicWptList();
         }
 
-        [Test]
-        public void AddToWptListCase4()
+        private void AddToWptListCase2And4(WaypointList wptList)
         {
-            var wptList = Case4WptList();
-            var adder = new StarAdder("AXYZ",
-                                      new StarCollection(
-                                                    CreateList(new StarEntry("18",
-                                                                             "STAR1",
-                                                                             CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
-                                                                                        new Waypoint("WPT102", 25.0150, 50.0800),
-                                                                                        new Waypoint("WPT103", 25.0175, 50.1300),
-                                                                                        new Waypoint("WPT104", 25.0225, 50.1800)),
-                                                                             EntryType.RwySpecific))),
-                                      wptList,
-                                      wptList.GetEditor(),
-                                      GetAirportManager());
+            var entry = new StarEntry(
+                "18",
+                "STAR1",
+                CreateList(wpt101, wpt102, wpt103, wpt104),
+                EntryType.RwySpecific);
+
+            var adder = new StarAdder(
+                "AXYZ",
+                new StarCollection(CreateList(entry)),
+                wptList,
+                wptList.GetEditor(),
+                GetAirportManager());
 
             int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
 
             // Check the STAR1 has been added with correct total distance.
             Assert.IsTrue(wptList.EdgesToCount(rwyIndex) > 0);
-            Assert.IsTrue(starIsAdded(wptList.FindByWaypoint(new Waypoint("WPT101", 25.0125, 50.0300)),
-                                      "STAR1",
-                                      CreateList(new Waypoint("WPT101", 25.0125, 50.0300),
-                                                new Waypoint("WPT102", 25.0150, 50.0800),
-                                                new Waypoint("WPT103", 25.0175, 50.1300),
-                                                new Waypoint("WPT104", 25.0225, 50.1800),
-                                                new Waypoint("AXYZ18", 25.0003, 50.0001)).TotalDistance(),
-                                      wptList));
+
+            double dis = CreateList(wpt101, wpt102, wpt103, wpt104, rwy)
+               .TotalDistance();
+
+            Assert.IsTrue(starIsAdded(
+                wptList.FindByWaypoint(wpt101),
+                "STAR1",
+                dis,
+                wptList));
 
             // Check the edges of first wpt 
-            int index = wptList.FindByWaypoint(new Waypoint("WPT101", 25.0125, 50.0300));
+            int index = wptList.FindByWaypoint(wpt101);
 
             Assert.IsTrue(index >= 0);
             Assert.AreEqual(2, wptList.EdgesToCount(index));
@@ -183,78 +149,100 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             {
                 var edge = wptList.GetEdge(i);
                 Assert.AreEqual("DCT", edge.Value.Airway);
-                Assert.IsTrue(WithinPrecisionPercent(new LatLon(25.0125, 50.0300).Distance(wptList[edge.FromNodeIndex].LatLon),
-                                                     edge.Value.Distance,
-                                                     0.1));
+
+                double expectedDis =
+                    wpt101.DistanceFrom(wptList[edge.FromNodeIndex]);
+
+                Assert.AreEqual(
+                    expectedDis, edge.Value.Distance, DistanceEpsilon);
             }
+        }
+
+        [Test]
+        public void AddToWptListCase4()
+        {
+            AddToWptListCase2And4(Case4WptList());
         }
 
         [Test]
         public void AddToWptListCase3()
         {
             var wptList = Case4WptList();
-            var adder = new StarAdder("AXYZ",
-                                      new StarCollection(
-                                                    CreateList(new StarEntry("18",
-                                                                             "STAR1",
-                                                                             CreateList(new Waypoint("26N050E", 26.0, 50.0),
-                                                                                        new Waypoint("WPT01", 25.0, 50.0)),
-                                                                             EntryType.RwySpecific))),
-                                      wptList,
-                                      wptList.GetEditor(),
-                                      GetAirportManager());
+            var wptCorrds = new Waypoint("26N050E", 26.0, 50.0);
+            var wpt01 = new Waypoint("WPT01", 25.0, 50.0);
+
+            var entry = new StarEntry(
+                "18",
+                "STAR1",
+                CreateList(wptCorrds, wpt01),
+                EntryType.RwySpecific);
+
+            var adder = new StarAdder(
+                "AXYZ",
+                new StarCollection(CreateList(entry)),
+                wptList,
+                wptList.GetEditor(),
+                GetAirportManager());
 
             int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
 
             // Check the STAR1 has been added with correct total distance.
             Assert.IsTrue(wptList.EdgesToCount(rwyIndex) == 1);
-            Assert.IsTrue(starIsAdded(wptList.FindByWaypoint(new Waypoint("26N050E", 26.0, 50.0)),
-                                     "STAR1",
-                                     CreateList(new Waypoint("26N050E", 26.0, 50.0),
-                                                new Waypoint("WPT01", 25.0, 50.0),
-                                                new Waypoint("AXYZ18", 25.0003, 50.0001)).TotalDistance(),
-                                     wptList));
+
+            double dis = CreateList(wptCorrds, wpt01, rwy).TotalDistance();
+
+            Assert.IsTrue(starIsAdded(
+                wptList.FindByWaypoint(wptCorrds),
+                "STAR1",
+                dis,
+                wptList));
         }
 
         private WaypointList Case3WptList()
         {
             var wptList = new WaypointList();
-            int index = wptList.AddWaypoint(new Waypoint("26N050E", 26.0, 50.0));
-            int indexNeighbor = wptList.AddWaypoint(new Waypoint("27N050E", 27.0, 50.0));
+            int index = wptList.AddWaypoint(
+                new Waypoint("26N050E", 26.0, 50.0));
+            int indexNeighbor = wptList.AddWaypoint(
+                new Waypoint("27N050E", 27.0, 50.0));
 
-            wptList.AddNeighbor(index, indexNeighbor, new Neighbor("AIRWAY1", wptList.Distance(index, indexNeighbor)));
+            AddNeighbor(wptList, index, "AIRWAY1", indexNeighbor);
             return wptList;
         }
 
         private AirportManager GetAirportManager()
         {
-            var airportDB = new AirportCollection();
-            airportDB.Add(new Airport("AXYZ",
-                                      "Test Airport 01",
-                                      25.0,
-                                      50.0,
-                                      15,
-                                      true,
-                                      5000,
-                                      8000,
-                                      3500,
-                                      CreateList(new RwyData("18", "180", 3500, 60, true, false, "0.000", "0", 25.0003, 50.0001, 15, 3.00, 50, "", 0))));
+            var airports = new AirportCollection();
 
-            return new AirportManager(airportDB);
+            var rwy = new RwyData(
+                "18", "180", 3500, 60, true, false, "0.000", "0",
+                25.0003, 50.0001, 15, 3.00, 50, "", 0);
+
+            airports.Add(new Airport(
+                "AXYZ",
+                "Test Airport 01",
+                25.0,
+                50.0,
+                15,
+                true,
+                5000,
+                8000,
+                3500,
+                CreateList(rwy)));
+
+            return new AirportManager(airports);
         }
 
-        private bool starIsAdded(int fromIndex, string name, double dis, WaypointList wptList)
+        private bool starIsAdded(
+            int fromIndex, string name, double dis, WaypointList wptList)
         {
-            foreach (var i in wptList.EdgesFrom(fromIndex))
+            return wptList.EdgesFrom(fromIndex).Any(i =>
             {
                 var edge = wptList.GetEdge(i);
 
-                if (edge.Value.Airway == name && WithinPrecisionPercent(dis, edge.Value.Distance, 0.0001))
-                {
-                    return true;
-                }
-            }
-            return false;
+                return edge.Value.Airway == name &&
+                Math.Abs(dis - edge.Value.Distance) < DistanceEpsilon;
+            });
         }
     }
 }
