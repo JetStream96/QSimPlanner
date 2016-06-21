@@ -74,11 +74,13 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
                     if (nextLineExists == false || IsEmptyLine(item, index))
                     {
-                        return new SidEntry(rwy, name, wpts, GetEntryType.GetType(rwy), endWithVector);
+                        return new SidEntry(rwy, name, wpts, 
+                            GetEntryType.GetType(rwy), endWithVector);
                     }
                     else
                     {
-                        if (index + 1 < item.Length && HasCorrds(item.Substring(index, 2)))
+                        if (index + 1 < item.Length && 
+                            HasCorrds(item.Substring(index, 2)))
                         {
                             endWithVector = false;
                             wpts.Add(GetWpt(item, ref index));
@@ -108,10 +110,12 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
         private static bool LineStartsWithSid(string item, int index)
         {
-            return (index + 2 < item.Length && item[index] == 'S' && item[index + 1] == 'I' && item[index + 2] == 'D');
+            return index + 2 < item.Length &&
+                item.Substring(index, 3) == "SID";
         }
         
-        /// <param name="firstCharIndex">Index of the first char of the line.</param>
+        /// <param name="firstCharIndex">
+        /// Index of the first char of the line.</param>
         public static bool IsEmptyLine(string item, int firstCharIndex)
         {
             char firstChar = item[firstCharIndex];

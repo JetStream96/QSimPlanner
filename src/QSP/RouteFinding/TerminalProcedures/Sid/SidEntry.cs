@@ -24,6 +24,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
     //     On the other hand, for a SID which has both runway-specific 
     //     and common part, then this SID is only available for
     //     the runways mentioned in the  runway-specific part.
+    // (2) In constructor, the paramerter 'wpts' does not include 
+    //     the runway.
 
     public class SidEntry : IProcedureEntry
     {

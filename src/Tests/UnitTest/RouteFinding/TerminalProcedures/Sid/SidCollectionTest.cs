@@ -4,14 +4,13 @@ using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using static QSP.LibraryExtension.Lists;
-using static UnitTest.Common.Utilities;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 {
     [TestFixture]
     public class SidCollectionTest
     {
-        private readonly Waypoint runway05 = 
+        private readonly Waypoint runway05 =
             new Waypoint("ABCD05", 10.0, 19.0);
 
         #region OnlyRwySpecificPart
@@ -34,8 +33,8 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 .Equals(info.LastWaypoint));
 
             Assert.AreEqual(hasVector, info.EndsWithVector);
-            Assert.AreEqual(distanceRwySpecificPart(), info.TotalDistance, 1E-8);
-            Assert.IsTrue(WithinPrecisionPercent(distanceRwySpecificPart(), info.TotalDistance, 0.001));
+            Assert.AreEqual(distanceRwySpecificPart(),
+                info.TotalDistance, 1E-8);
         }
 
         private double distanceRwySpecificPart()
@@ -53,7 +52,6 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 "05",
                 "SID1",
                 CreateList(
-                    runway05,
                     new Waypoint("WPT01", 10.0, 20.0),
                     new Waypoint("WPT02", 11.0, 20.0)),
                 EntryType.RwySpecific,
@@ -83,7 +81,8 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 .Equals(info.LastWaypoint));
 
             Assert.AreEqual(hasVector, info.EndsWithVector);
-            Assert.IsTrue(WithinPrecisionPercent(distanceRwySpecificAndCommonPart(), info.TotalDistance, 0.001));
+            Assert.AreEqual(distanceRwySpecificAndCommonPart(),
+                info.TotalDistance, 1E-8);
         }
 
         private SidEntry commonPart(bool hasVector)
@@ -91,8 +90,9 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             return new SidEntry(
                 "ALL",
                 "SID1",
-                CreateList(new Waypoint("WPT02", 11.0, 20.0),
-                            new Waypoint("WPTA", 12.0, 21.0)),
+                CreateList(
+                    new Waypoint("WPT02", 11.0, 20.0),
+                    new Waypoint("WPTA", 12.0, 21.0)),
                 EntryType.Common,
                 hasVector);
         }
@@ -133,7 +133,8 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 .Equals(info.LastWaypoint));
 
             Assert.AreEqual(hasVector, info.EndsWithVector);
-            Assert.IsTrue(WithinPrecisionPercent(distanceRwySpecificAndCommonAndTransitionPart(), info.TotalDistance, 0.001));
+            Assert.AreEqual(distanceRwySpecificAndCommonAndTransitionPart(),
+                info.TotalDistance, 1E-8);
         }
 
         private SidEntry transitionPart(bool hasVector)
