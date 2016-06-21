@@ -1,7 +1,7 @@
 *.suo
 *.psess
 *.vsp
-
+.idea*
 bin/
 obj/
 src/TestResults

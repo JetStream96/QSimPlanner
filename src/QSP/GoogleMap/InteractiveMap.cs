@@ -8,7 +8,7 @@
         <script
         src=""http://maps.googleapis.com/maps/api/js"">
         </script>
-        
+
         <script>
         function initialize() {
           var mapProp = {
@@ -21,27 +21,30 @@
         google.maps.event.addDomListener(window, 'load', initialize);
         </script>
         </head>
-        
+
         <body>
         <div id=""googleMap"" style=""width:500px;height:380px;""></div>
-        
+
         </body>
         </html>";
 
 
         /// <summary>
-        /// Return a string containg the HTML code, centered at the given lat/lon.
+        /// Return a string containg the HTML code, centered at the
+        /// given lat/lon.
         /// </summary>
-        public static string GetHtml(double lat,
-                                     double lon,
-                                     int windowWidth,
-                                     int windowHeight)
+        public static string GetHtml(
+            double lat,
+            double lon,
+            int windowWidth,
+            int windowHeight)
         {
+
             return originalHtml
-                   .Replace("51.508742,-0.120850", lat.ToString() + "," + lon.ToString())
+                   .Replace("51.508742,-0.120850", $"{lat},{lon}")
                    .Replace("width:500px;height:380px",
-                            "width:" + (windowWidth - 10).ToString() +
-                            "px;height:" + (windowHeight - 20).ToString() + "px");
+                            $"width:{windowWidth -10}" +
+                            $"px;height:{windowHeight - 20}px");
         }
     }
 }

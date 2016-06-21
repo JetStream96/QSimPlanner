@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using QSP.FuelCalculation;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.TimeFormat;
 using QSP.Utilities.Units;

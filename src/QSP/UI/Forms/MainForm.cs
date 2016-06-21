@@ -30,6 +30,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QSP.FuelCalculation;
 using static QSP.AviationTools.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.LoggerInstance;
@@ -106,12 +107,12 @@ namespace QSP
             FuelReport_TxtBox.ForeColor = Color.Black;
             FuelReport_TxtBox.Text = "";
 
-            FuelCalculationParameters Parameters = new FuelCalculationParameters();
-            Parameters.FillInDefaultValueIfLeftBlank();
+            var parameters = new FuelCalculationParameters();
+            parameters.FillInDefaultValueIfLeftBlank();
 
             try
             {
-                Parameters.ImportValues();
+                parameters.ImportValues();
             }
             catch (Exception ex)
             {
@@ -122,7 +123,7 @@ namespace QSP
             FuelCalculator FuelCalc = null;
             try
             {
-                FuelCalc = ComputeFuelIteration(Parameters, 1);
+                FuelCalc = ComputeFuelIteration(parameters, 1);
             }
             catch (Exception ex)
             {
@@ -130,30 +131,30 @@ namespace QSP
                 return;
             }
 
-            double FuelToAltnTon = FuelCalc.GetAltnFuelTon();
-            double FuelToDestTon = FuelCalc.GetDestFuelTon();
+            double fuelToAltnTon = FuelCalc.GetAltnFuelTon();
+            double fuelToDestTon = FuelCalc.GetDestFuelTon();
 
-            FuelReportResult fuelCalcResult = new FuelReportResult(FuelToDestTon, FuelToAltnTon, Parameters, FuelCalc);
+            FuelReportResult fuelCalcResult = new FuelReportResult(fuelToDestTon, fuelToAltnTon, parameters, FuelCalc);
 
 
             if (fuelCalcResult.TotalFuelKG > FuelCalc.maxFuelKg)
             {
-                MessageBox.Show(insufficientFuelMsg(fuelCalcResult.TotalFuelKG, FuelCalc.maxFuelKg, Parameters.WtUnit));
+                MessageBox.Show(insufficientFuelMsg(fuelCalcResult.TotalFuelKG, FuelCalc.maxFuelKg, parameters.WtUnit));
                 return;
 
             }
 
-            string OutputText = fuelCalcResult.ToString(Parameters.WtUnit);
+            string outputText = fuelCalcResult.ToString(parameters.WtUnit);
 
-            FuelReport_TxtBox.Text = Environment.NewLine + Strings.ShiftToRight(OutputText, 20);
+            FuelReport_TxtBox.Text = Environment.NewLine + outputText.ShiftToRight(20);
             formStateManagerFuel.Save();
 
             //send weights to takeoff/ldg calc form 
             AC_Req = ACList.Text;
-            TOWT_Req_Unit = Parameters.WtUnit;
+            TOWT_Req_Unit = parameters.WtUnit;
             //TODO:        LDG_fuel_prediction_unit = Parameters.WtUnit();
 
-            TOWT_Req = Convert.ToInt32(Parameters.Zfw + fuelCalcResult.TakeoffFuelKg * (Parameters.WtUnit == WeightUnit.KG ? 1.0 : KgLbRatio));
+            TOWT_Req = Convert.ToInt32(parameters.Zfw + fuelCalcResult.TakeoffFuelKg * (parameters.WtUnit == WeightUnit.KG ? 1.0 : KgLbRatio));
             //TODO:       LDG_ZFW = Convert.ToInt32(Parameters.Zfw);
             //TODO:  LDG_fuel_prediction = Convert.ToInt32(fuelCalcResult.LdgFuelKgPredict * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KG_LB));
 

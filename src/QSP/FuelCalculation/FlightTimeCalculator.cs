@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using QSP.MathTools.Interpolation;
-using QSP.LibraryExtension;
 using QSP.Common;
+using QSP.LibraryExtension;
+using QSP.MathTools.Interpolation;
 
-namespace QSP
+namespace QSP.FuelCalculation
 {
     public class FlightTimeCalculator
     {

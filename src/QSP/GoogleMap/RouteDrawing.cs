@@ -53,9 +53,9 @@ function initialize()
             double centerLat = (rte.FirstWaypoint.Lat + rte.LastWaypoint.Lat) / 2;
             double centerLon = (rte.FirstWaypoint.Lon + rte.LastWaypoint.Lon) / 2;
 
-            mapHtml.AppendLine(string.Format("var centerP=new google.maps.LatLng({0},{1});", centerLat, centerLon));
+            mapHtml.AppendLine($"var centerP=new google.maps.LatLng({centerLat},{centerLon});");
 
-            int zoomlevel = 6;
+            const int zoomlevel = 6;
 
             mapHtml.Append(
 @"var mapProp = {
@@ -71,11 +71,11 @@ var myTrip=[");
             {
                 if (counter != rte.Count - 1)
                 {
-                    mapHtml.Append("wpt" + (counter++).ToString() + ",");
+                    mapHtml.Append("wpt" + (counter++) + ",");
                 }
                 else
                 {
-                    mapHtml.AppendLine("wpt" + (counter++).ToString() + @"];
+                    mapHtml.AppendLine("wpt" + (counter++) + @"];
     var flightPath=new google.maps.Polyline({
     path:myTrip,
     strokeColor:""#000000"",
@@ -108,7 +108,7 @@ var myTrip=[");
     content: ""Home For Sale""
     }});
 
-", counter, counter, wptIdDisplay(rte, i.Waypoint, counter), counter++));
+", counter, counter, WptIdDisplay(rte, i.Waypoint, counter), counter++));
 
             }
 
@@ -119,7 +119,7 @@ var myTrip=[");
             </head>
             
             <body>
-            <div id=""googleMap"" style=""width: " + width.ToString() + "px;height:" + height.ToString() + @"px;""></div>
+            <div id=""googleMap"" style=""width: " + width + "px;height:" + height + @"px;""></div>
             </body>
             </html>");
 
@@ -127,7 +127,7 @@ var myTrip=[");
 
         }
 
-        private static string wptIdDisplay(Route rte, Waypoint waypoint, int index)
+        private static string WptIdDisplay(Route rte, Waypoint waypoint, int index)
         {
             if (index == 0 || index == rte.Count - 1)
             {

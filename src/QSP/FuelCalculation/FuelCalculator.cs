@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using QSP.MathTools.Interpolation;
 using QSP.Common;
 using QSP.LibraryExtension.JaggedArrays;
+using QSP.MathTools.Interpolation;
 
-namespace QSP
+namespace QSP.FuelCalculation
 {
     public class FuelCalculator
     {
