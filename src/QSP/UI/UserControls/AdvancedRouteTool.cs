@@ -215,7 +215,7 @@ namespace QSP.UI.UserControls
                     try
                     {
                         var myRoute = new RouteGroup(
-                            new RouteFinder(wptList, airportList)
+                            new RouteFinder(wptList)
                                 .FindRoute(wptFrom, wptTo),
                                 tracksInUse);
 

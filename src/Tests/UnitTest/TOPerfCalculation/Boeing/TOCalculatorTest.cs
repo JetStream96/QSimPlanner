@@ -16,7 +16,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             .ReadTable(XDocument.Parse(new TestData().PerfXml).Root);
 
         [Test]
-        public void ToDistanceInterpolationTest()
+        public void TODistanceInterpolationTest()
         {
             var para = new TOParameters(
                     0.0,
@@ -66,7 +66,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
         }
 
         [Test]
-        public void ToDistancePackAiCorrectionTest()
+        public void TODistancePackAiCorrectionTest()
         {
             var para = new TOParameters(
                     0.0,
@@ -113,7 +113,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
         }
 
         [Test]
-        public void ToDistanceDerateTest()
+        public void TODistanceDerateTest()
         {
             var para = new TOParameters(
                    0.0,

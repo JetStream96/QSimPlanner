@@ -30,7 +30,7 @@ namespace QSP.AircraftProfiles
         {
             _errors = new List<string>();
 
-            TOTables = LoadToTables();
+            TOTables = LoadTOTables();
             LdgTables = LoadLdgTables();
             AcConfigs = LoadConfig();
 
@@ -55,7 +55,7 @@ namespace QSP.AircraftProfiles
             return manager;
         }
 
-        private List<TOPerfCalculation.PerfTable> LoadToTables()
+        private List<TOPerfCalculation.PerfTable> LoadTOTables()
         {
             var loadResult = new TOPerfCalculation.TOTableLoader().Load();
 

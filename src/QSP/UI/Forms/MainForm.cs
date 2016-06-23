@@ -572,7 +572,7 @@ namespace QSP
             frm.ShowDialog();
         }
 
-        private void SetHandCusor(object sender, EventArgs e)
+        private void SetHandCursor(object sender, EventArgs e)
         {
             Cursor = Cursors.Hand;
         }

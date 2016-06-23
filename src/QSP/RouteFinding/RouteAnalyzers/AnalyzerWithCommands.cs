@@ -205,7 +205,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private Route FindRoute(List<Route> analyzed, int index)
         {
-            var routeFinder = new RouteFinder(wptList, airportList);
+            var routeFinder = new RouteFinder(wptList);
 
             if (index == 0)
             {

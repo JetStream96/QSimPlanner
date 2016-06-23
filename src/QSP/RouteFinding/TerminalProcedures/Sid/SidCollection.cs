@@ -99,7 +99,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 endsWithVector = commonPart.EndWithVector;
             }
 
-            addTransitionIfNeeded(
+            AddTransitionIfNeeded(
                 sidTrans,
                 rwySpecificPart,
                 ref endsWithVector,
@@ -109,7 +109,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             return new SidWaypoints(wpts, endsWithVector);
         }
 
-        private void addTransitionIfNeeded(
+        private void AddTransitionIfNeeded(
             TerminalProcedureName sidTrans,
             SidEntry rwySpecificPart,
             ref bool endsWithVector,

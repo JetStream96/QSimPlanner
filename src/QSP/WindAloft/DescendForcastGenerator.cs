@@ -22,7 +22,7 @@ namespace QSP.WindAloft
             for (int i = 0; i < FLs.Length; i++)
             {
                 var UVWind = QspCore.WxReader.GetWindUv(lat, lon, FLs[i]);
-                forcast[i] = Wind.FromUv(UVWind);
+                forcast[i] = Wind.FromUV(UVWind);
             }
 
             return forcast;

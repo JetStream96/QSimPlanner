@@ -18,18 +18,16 @@ namespace QSP.RouteFinding
     public class RouteFinder
     {
         private WaypointList wptList;
-        private AirportManager airportList;
 
-        public RouteFinder(WaypointList wptList, AirportManager airportList)
+        public RouteFinder(WaypointList wptList)
         {
             this.wptList = wptList;
-            this.airportList = airportList;
         }
 
         /// <summary>
         /// Add SID to wptList and returns the index of origin rwy.
         /// </summary>
-        private int addSid(
+        private int AddSid(
             string rwy, List<string> sid, SidHandler sidHandler)
         {
             return sidHandler.AddSidsToWptList(rwy, sid);
@@ -38,7 +36,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Add STAR to wptList and returns the index of destination rwy.
         /// </summary>
-        private int addStar(
+        private int AddStar(
             string rwy, List<string> star, StarHandler starHandler)
         {
             return starHandler.AddStarsToWptList(rwy, star);
@@ -52,10 +50,10 @@ namespace QSP.RouteFinding
             string destRwy, List<string> destStar, StarHandler starHandler,
             WaypointListEditor editor)
         {
-            int origIndex = addSid(origRwy, origSid, sidHandler);
-            int destIndex = addStar(destRwy, destStar, starHandler);
+            int origIndex = AddSid(origRwy, origSid, sidHandler);
+            int destIndex = AddStar(destRwy, destStar, starHandler);
 
-            var result = getRoute(origIndex, destIndex);
+            var result = GetRoute(origIndex, destIndex);
             editor.Undo();
             return result;
         }
@@ -69,9 +67,9 @@ namespace QSP.RouteFinding
                                int wptIndex,
                                WaypointListEditor editor)
         {
-            int origIndex = addSid(rwy, sid, sidHandler);
+            int origIndex = AddSid(rwy, sid, sidHandler);
 
-            var result = getRoute(origIndex, wptIndex);
+            var result = GetRoute(origIndex, wptIndex);
             editor.Undo();
             return result;
         }
@@ -85,8 +83,8 @@ namespace QSP.RouteFinding
                                StarHandler starHandler,
                                WaypointListEditor editor)
         {
-            int endIndex = addStar(rwy, star, starHandler);
-            var result = getRoute(wptIndex, endIndex);
+            int endIndex = AddStar(rwy, star, starHandler);
+            var result = GetRoute(wptIndex, endIndex);
             editor.Undo();
             return result;
         }
@@ -96,11 +94,11 @@ namespace QSP.RouteFinding
         /// </summary>
         public Route FindRoute(int wptIndex1, int wptIndex2)
         {
-            var result = getRoute(wptIndex1, wptIndex2);
+            var result = GetRoute(wptIndex1, wptIndex2);
             return result;
         }
 
-        private Route extractRoute(
+        private Route ExtractRoute(
             routeFindingData FindRouteData, int startPtIndex, int endPtIndex)
         {
             var waypoints = new List<Waypoint>();
@@ -123,7 +121,7 @@ namespace QSP.RouteFinding
             waypoints.Add(wptList[startPtIndex]);
             ConvertToNeighborDistance(totalDistances);
 
-            return buildRoute(waypoints, airways, totalDistances);
+            return BuildRoute(waypoints, airways, totalDistances);
         }
 
         private static void ConvertToNeighborDistance(
@@ -135,7 +133,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private static Route buildRoute(
+        private static Route BuildRoute(
             List<Waypoint> waypoints,
             List<string> airways,
             List<double> totalDistances)
@@ -160,7 +158,7 @@ namespace QSP.RouteFinding
         /// index startPtIndex, to endPtIndex.
         /// </summary>
         /// <exception cref="RouteNotFoundException"></exception>
-        private Route getRoute(int startPtIndex, int endPtIndex)
+        private Route GetRoute(int startPtIndex, int endPtIndex)
         {
             var FindRouteData = new routeFindingData(wptList.MaxSize);
             var regionPara = new routeSeachRegion(
@@ -171,12 +169,12 @@ namespace QSP.RouteFinding
             while (routeFound == false && regionPara.c <= 3000.0)
             {
                 regionPara.c += 500.0;
-                routeFound = findRouteAttempt(regionPara, FindRouteData);
+                routeFound = FindRouteAttempt(regionPara, FindRouteData);
             }
 
             if (routeFound)
             {
-                return extractRoute(FindRouteData, startPtIndex, endPtIndex);
+                return ExtractRoute(FindRouteData, startPtIndex, endPtIndex);
             }
             else
             {
@@ -184,7 +182,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private bool findRouteAttempt(
+        private bool FindRouteAttempt(
             routeSeachRegion regionPara, routeFindingData findRouteData)
         {
             findRouteData.InitializeDistance(regionPara.StartPtIndex);
@@ -201,7 +199,7 @@ namespace QSP.RouteFinding
                     return true;
                 }
 
-                updateNeighbors(
+                UpdateNeighbors(
                     current.Key,
                     regionPara,
                     findRouteData,
@@ -212,7 +210,7 @@ namespace QSP.RouteFinding
             return false; //Route not found.            
         }
 
-        private void updateNeighbors(
+        private void UpdateNeighbors(
             int currentWptIndex,
             routeSeachRegion regionPara,
             routeFindingData FindRouteData,
@@ -225,7 +223,7 @@ namespace QSP.RouteFinding
                 var edge = wptList.GetEdge(edgeIndex);
                 int index = edge.ToNodeIndex;
 
-                if (wptWithinRange(index, regionPara))
+                if (WptWithinRange(index, regionPara))
                 {
                     double newDis = currentDis + edge.Value.Distance;
 
@@ -248,7 +246,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private bool wptWithinRange(
+        private bool WptWithinRange(
             int wptIndex, routeSeachRegion regionPara)
         {
             //suppose the orig and dest rwys are already in the wptList

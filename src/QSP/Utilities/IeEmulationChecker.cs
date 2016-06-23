@@ -19,11 +19,11 @@ namespace QSP.Utilities
 
         public void AddRegistry()
         {
-            AddExeWithIeEmulationMode(
+            AddExeWithIEEmulationMode(
                 Assembly.GetEntryAssembly().GetName().Name + ".exe");
         }
 
-        private void AddExeWithIeEmulationMode(string exeName)
+        private void AddExeWithIEEmulationMode(string exeName)
         {
             // e.g. exeName = "abc.exe"
 
@@ -38,7 +38,7 @@ namespace QSP.Utilities
             // 11000:       IE11 Emulation
             // 11001: Force IE11 Emulation
 
-            int ver = GetIeVersion();
+            int ver = GetIEVersion();
             int emulationNum = 0;
 
             if (ver <= 6)
@@ -83,7 +83,7 @@ namespace QSP.Utilities
             }
         }
 
-        private int GetIeVersion()
+        private int GetIEVersion()
         {
             try
             {
@@ -157,7 +157,7 @@ namespace QSP.Utilities
 
         public void DebugAddRegistry()
         {
-            AddExeWithIeEmulationMode(
+            AddExeWithIEEmulationMode(
                 Assembly.GetEntryAssembly().GetName().Name + ".vshost.exe");
         }
 

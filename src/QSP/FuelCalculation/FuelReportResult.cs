@@ -10,8 +10,8 @@ namespace QSP
 
     public class FuelReportResult
     {
-        private const int LEFTPAD = 11;
-        private const int RIGHTPAD = 7;
+        private const int LeftPad = 11;
+        private const int RightPad = 7;
 
         public double FuelToDestTon;
         public double FuelToAltnTon;
@@ -137,17 +137,17 @@ namespace QSP
 
             StringBuilder OutputText = new StringBuilder();
 
-            OutputText.AppendLine(wtUnitDisplay + Environment.NewLine + Environment.NewLine + "              FUEL  TIME");
-            OutputText.AppendLine(trip_s + "  " + MinToHhmm(TimeToDest));
-            OutputText.AppendLine(contingency_s + "  " + MinToHhmm(time_cont));
-            OutputText.AppendLine(hold_s + "  " + MinToHhmm(TimeHold));
-            OutputText.AppendLine(extra_s + "  " + MinToHhmm(TimeExtra));
-            OutputText.AppendLine(alternate_s + "  " + MinToHhmm(TimeToAltn));
-            OutputText.AppendLine(final_rsv_s + "  " + MinToHhmm(TimeFinalRsv) + Environment.NewLine);
-            OutputText.AppendLine(takeoff_s + "  " + MinToHhmm(time_TO) + Environment.NewLine);
-            OutputText.AppendLine(apu_s + "  " + MinToHhmm(TimeApu));
-            OutputText.AppendLine(taxi_s + "  " + MinToHhmm(TimeTaxi) + Environment.NewLine);
-            OutputText.AppendLine(total_s + "  " + MinToHhmm(time_total));
+            OutputText.AppendLine(wtUnitDisplay + "\n\n              FUEL  TIME");
+            OutputText.AppendLine(trip_s + "  " + MinToHHMM(TimeToDest));
+            OutputText.AppendLine(contingency_s + "  " + MinToHHMM(time_cont));
+            OutputText.AppendLine(hold_s + "  " + MinToHHMM(TimeHold));
+            OutputText.AppendLine(extra_s + "  " + MinToHHMM(TimeExtra));
+            OutputText.AppendLine(alternate_s + "  " + MinToHHMM(TimeToAltn));
+            OutputText.AppendLine(final_rsv_s + "  " + MinToHHMM(TimeFinalRsv) + Environment.NewLine);
+            OutputText.AppendLine(takeoff_s + "  " + MinToHHMM(time_TO) + Environment.NewLine);
+            OutputText.AppendLine(apu_s + "  " + MinToHHMM(TimeApu));
+            OutputText.AppendLine(taxi_s + "  " + MinToHHMM(TimeTaxi) + Environment.NewLine);
+            OutputText.AppendLine(total_s + "  " + MinToHHMM(time_total));
             OutputText.Append(fmc_rsv_s);
 
             return OutputText.ToString();
@@ -155,12 +155,12 @@ namespace QSP
 
         private string LineFormat(string item, int value)
         {
-            return item.PadRight(LEFTPAD, ' ') + value.ToString().PadLeft(RIGHTPAD, ' ');
+            return item.PadRight(LeftPad, ' ') + value.ToString().PadLeft(RightPad, ' ');
         }
 
         private string LineFormatOneDecimalPlace(string item, double value)
         {
-            return item.PadRight(LEFTPAD, ' ') + value.ToString("0.0").PadLeft(RIGHTPAD, ' ');
+            return item.PadRight(LeftPad, ' ') + value.ToString("0.0").PadLeft(RightPad, ' ');
         }
 
     }

@@ -290,7 +290,7 @@ namespace QSP
             this.StatusLabel1.Text = "Database Loaded: PMDG";
             this.StatusLabel1.ToolTipText = "Click to open options page";
             this.StatusLabel1.Click += new System.EventHandler(this.StatusLabel1_Click);
-            this.StatusLabel1.MouseEnter += new System.EventHandler(this.SetHandCusor);
+            this.StatusLabel1.MouseEnter += new System.EventHandler(this.SetHandCursor);
             this.StatusLabel1.MouseLeave += new System.EventHandler(this.SetDefaultCursor);
             // 
             // ToolStripStatusLabel3
@@ -308,7 +308,7 @@ namespace QSP
             this.LblTrackDownloadStatus.Size = new System.Drawing.Size(188, 20);
             this.LblTrackDownloadStatus.Text = "NatDownloadStatus_Lbl";
             this.LblTrackDownloadStatus.Click += new System.EventHandler(this.LblTrackDownloadStatus_Click);
-            this.LblTrackDownloadStatus.MouseEnter += new System.EventHandler(this.SetHandCusor);
+            this.LblTrackDownloadStatus.MouseEnter += new System.EventHandler(this.SetHandCursor);
             this.LblTrackDownloadStatus.MouseLeave += new System.EventHandler(this.SetDefaultCursor);
             // 
             // ToolStripStatusLabel2
@@ -325,7 +325,7 @@ namespace QSP
             this.WindDownloadStatus_Lbl.Size = new System.Drawing.Size(179, 20);
             this.WindDownloadStatus_Lbl.Text = "WindDownloadStatus_Lbl";
             this.WindDownloadStatus_Lbl.Click += new System.EventHandler(this.WindDownloadStatus_Lbl_Click);
-            this.WindDownloadStatus_Lbl.MouseEnter += new System.EventHandler(this.SetHandCusor);
+            this.WindDownloadStatus_Lbl.MouseEnter += new System.EventHandler(this.SetHandCursor);
             this.WindDownloadStatus_Lbl.MouseLeave += new System.EventHandler(this.SetDefaultCursor);
             // 
             // WindowSelPanel

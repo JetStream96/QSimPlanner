@@ -47,11 +47,11 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             AssertAllTracks(wptList);
 
             // Check the tracks.
-            AssertTrackMy14(wptList);
-            AssertTrackBp14(wptList);
+            AssertTrackMY14(wptList);
+            AssertTrackBP14(wptList);
         }
 
-        private static void AssertTrackMy14(WaypointList wptList)
+        private static void AssertTrackMY14(WaypointList wptList)
         {
             var edge = wptList.GetEdge(
                 GetEdgeIndex("AUSOTMY14", "JAMOR", wptList));
@@ -84,7 +84,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             Assert.IsTrue(edge.Value.Airway == "AUSOTMY14");
         }
 
-        private static void AssertTrackBp14(WaypointList wptList)
+        private static void AssertTrackBP14(WaypointList wptList)
         {
             var edge = wptList.GetEdge(
                 GetEdgeIndex("AUSOTBP14", "TAXEG", wptList));

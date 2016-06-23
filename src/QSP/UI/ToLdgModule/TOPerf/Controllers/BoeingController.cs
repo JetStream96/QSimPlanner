@@ -42,7 +42,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             SetDefaultFlaps();
             SetDerate();
             SetPackOptions();
-            SetAiOptions();
+            SetAntiIceOptions();
         }
 
         private void SetPackOptions()
@@ -53,7 +53,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             elements.Packs.SelectedIndex = 0;
         }
 
-        private void SetAiOptions()
+        private void SetAntiIceOptions()
         {
             var items = elements.AntiIce.Items;
             items.Clear();

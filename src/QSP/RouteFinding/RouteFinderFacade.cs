@@ -22,7 +22,7 @@ namespace QSP.RouteFinding
             this.wptList = wptList;
             this.airportList = airportList;
             this.navDataLocation = navDataLocation;
-            finder = new RouteFinder(wptList, airportList);
+            finder = new RouteFinder(wptList);
         }
 
         public Route FindRoute(

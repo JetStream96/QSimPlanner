@@ -77,15 +77,15 @@ namespace QSP.WindAloft
             double r = 0.0;            //total distance
 
             r = EarthRadiusNm * Math.Acos(v1.Dot(v2));
-            T = Integrate(GetOneOverGs, 0.0, r, deltaAlpha * EarthRadiusNm);
+            T = Integrate(GetOneOverGS, 0.0, r, deltaAlpha * EarthRadiusNm);
 
             return r / T - tas;
         }
 
-        private double GetOneOverGs(double r)
+        private double GetOneOverGS(double r)
         {
             var v = GetV(v1, v2, r / EarthRadiusNm);
-            return 1.0 / GetGs(v);
+            return 1.0 / GetGS(v);
         }
 
         private Vector3D GetV(Vector3D v1, Vector3D v2, double alpha)
@@ -100,7 +100,7 @@ namespace QSP.WindAloft
             return v1 * a.X + v2 * a.Y;
         }
 
-        private double GetGs(Vector3D v)
+        private double GetGS(Vector3D v)
         {
             double lat = ToDegree(0.5 * Math.PI - v.Phi);
             double lon = SetAngleLon(ToDegree(v.Theta));

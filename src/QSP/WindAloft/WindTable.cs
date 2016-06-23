@@ -20,12 +20,12 @@ namespace QSP
 
         public double GetUWind(double lat, double lon)
         {
-            return GetUvWindHelper(lat, lon, TableOption.U);
+            return GetUVWindHelper(lat, lon, TableOption.U);
         }
 
         public double GetVWind(double lat, double lon)
         {
-            return GetUvWindHelper(lat, lon, TableOption.V);
+            return GetUVWindHelper(lat, lon, TableOption.V);
         }
 
         public enum TableOption
@@ -34,7 +34,7 @@ namespace QSP
             V
         }
 
-        private double GetUvWindHelper(double lat, double lon, TableOption para)
+        private double GetUVWindHelper(double lat, double lon, TableOption para)
         {
             int x = (int)(Math.Floor(lat));
             int y = (int)(Math.Floor(lon));

@@ -96,12 +96,12 @@ namespace QSP.AircraftProfiles.Configs
                 var ldg = config.Config.LdgProfile;
 
                 bool toNotFound =
-                    to != AircraftConfigItem.NoToLdgProfileText &&
+                    to != AircraftConfigItem.NoTOLdgProfileText &&
                     takeoffTables.FirstOrDefault(
                     x => x.Entry.ProfileName == to) == null;
 
                 bool ldgNotFound =
-                    ldg != AircraftConfigItem.NoToLdgProfileText &&
+                    ldg != AircraftConfigItem.NoTOLdgProfileText &&
                     ldgTables.FirstOrDefault(
                     x => x.Entry.ProfileName == ldg) == null;
 
