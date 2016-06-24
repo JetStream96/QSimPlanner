@@ -7,8 +7,17 @@ namespace QSP.RouteFinding.RandomRoutes
 {
     public static class Instance
     {
-        public static RandomRouteFinder FinderInstance =
-            new RandomRouteFinder(GetWaypoints(), 5, 5);
+        private static RandomRouteFinder finderInstance;
+        
+        public static RandomRouteFinder GetInstance()
+        {
+            if (finderInstance == null)
+            {
+                finderInstance = new RandomRouteFinder(GetWaypoints(), 5, 5);
+            }
+
+            return finderInstance;
+        }
 
         private static List<Waypoint> GetWaypoints()
         {
@@ -43,7 +52,7 @@ namespace QSP.RouteFinding.RandomRoutes
                     coordinates.Add(CreateWptHelper(lat, lon));
                 }
             }
-            
+
             return coordinates;
         }
 

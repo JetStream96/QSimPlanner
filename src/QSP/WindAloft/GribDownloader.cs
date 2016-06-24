@@ -7,7 +7,8 @@ namespace QSP.WindAloft
 {
     public class GribDownloader
     {
-        public static readonly string HomePageUrl = "http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl";
+        public static readonly string HomePageUrl = 
+            "http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl";
 
         private string webPageUrl;
         private string webPageSrc;
@@ -48,7 +49,8 @@ namespace QSP.WindAloft
         private string GetFilePara()
         {
             int index = webPageSrc.IndexOf("<select name=\"file\">");
-            int x = webPageSrc.IndexOf("<option value=\"", index) + "<option value=\"".Length;
+            int x = webPageSrc.IndexOf("<option value=\"", index) + 
+                "<option value=\"".Length;
             int y = webPageSrc.IndexOf("\">", x);
 
             return webPageSrc.Substring(x, y - x);

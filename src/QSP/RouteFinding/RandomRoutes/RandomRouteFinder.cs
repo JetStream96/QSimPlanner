@@ -11,7 +11,7 @@ namespace QSP.RouteFinding.RandomRoutes
 {
     public class RandomRouteFinder
     {
-        private static readonly double MaxLegDis = 700.0;
+        public static readonly double MaxLegDis = 700.0;
         private static readonly double MaxAngleRadian =
             MaxLegDis / EarthRadiusNm;
 
