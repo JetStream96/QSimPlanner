@@ -7,30 +7,35 @@ namespace QSP.RouteFinding.Containers
     public class Waypoint :
         IComparable<Waypoint>, ICoordinate, IEquatable<Waypoint>
     {
+        public const int DefaultCountryCode = -1;
+
         public string ID { get; private set; }
         public double Lat { get; private set; }
         public double Lon { get; private set; }
+        public int CountryCode { get; private set; }
 
-        public Waypoint(string ID) : this(ID, 0.0, 0.0)
-        {
-        }
-
-        public Waypoint(string ID, double Lat, double Lon)
+        public Waypoint(
+            string ID,
+            double Lat = 0.0,
+            double Lon = 0.0,
+            int CountryCode = DefaultCountryCode)
         {
             this.ID = ID;
             this.Lat = Lat;
             this.Lon = Lon;
+            this.CountryCode = CountryCode;
         }
 
         public Waypoint(string ID, LatLon latLon)
             : this(ID, latLon.Lat, latLon.Lon)
-        {
-        }
+        { }
 
         public Waypoint(Waypoint waypoint)
-            : this(waypoint.ID, waypoint.Lat, waypoint.Lon)
-        {
-        }
+            : this(waypoint.ID,
+                  waypoint.Lat,
+                  waypoint.Lon,
+                  waypoint.CountryCode)
+        { }
 
         public LatLon LatLon
         {
