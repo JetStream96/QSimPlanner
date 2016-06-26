@@ -26,7 +26,7 @@ namespace QSP.NavData.AAX
         /// <param name="filepath">Location of waypoints.txt</param>
         /// <exception cref="WaypointFileReadException"></exception>
         /// <exception cref="WaypointFileParseException"></exception>
-        public void ReadFromFile(string filepath)
+        public BiDictionary<int, string> ReadFromFile(string filepath)
         {
             string[] allLines = null;
 
@@ -57,6 +57,8 @@ namespace QSP.NavData.AAX
                        i + "\n(Reason: Wrong format)");
                 }
             }
+
+            return countryCodeLookup;
         }
 
         private void ReadWpt(string i)
@@ -75,6 +77,11 @@ namespace QSP.NavData.AAX
 
         private int GetCountryCode(string letterCode)
         {
+            if (letterCode == "")
+            {
+                return Waypoint.DefaultCountryCode;
+            }
+
             int code;
 
             if (countryCodeLookup.TryGetBySecond(letterCode, out code))

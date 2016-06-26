@@ -111,18 +111,17 @@ namespace QSP
             {
                 case TrackType.Nats:
                     natsAvail = (Severity)Math.Max((int)natsAvail, (int)severity);
-
                     break;
+
                 case TrackType.Pacots:
                     pacotsAvail = (Severity)Math.Max((int)pacotsAvail, (int)severity);
-
                     break;
+
                 case TrackType.Ausots:
                     ausotsAvail = (Severity)Math.Max((int)ausotsAvail, (int)severity);
-
                     break;
-                default:
 
+                default:
                     throw new EnumNotSupportedException();
             }
         }
@@ -160,16 +159,16 @@ namespace QSP
         {
             var mainFrmStatus = frmMain.LblTrackDownloadStatus;
 
-            if (natsAvail == Severity.Advisory && 
-                pacotsAvail == Severity.Advisory && 
+            if (natsAvail == Severity.Advisory &&
+                pacotsAvail == Severity.Advisory &&
                 ausotsAvail == Severity.Advisory)
             {
                 mainFrmStatus.Image = Properties.Resources.GreenLight;
                 mainFrmStatus.Text = "Tracks: Ready";
 
             }
-            else if (natsAvail == Severity.Critical && 
-                pacotsAvail == Severity.Critical && 
+            else if (natsAvail == Severity.Critical &&
+                pacotsAvail == Severity.Critical &&
                 ausotsAvail == Severity.Critical)
             {
                 mainFrmStatus.Image = Properties.Resources.RedLight;
@@ -253,7 +252,7 @@ namespace QSP
             }
             else
             {
-               AusotsManager.UndoEdit();
+                AusotsManager.UndoEdit();
             }
         }
 
@@ -295,11 +294,11 @@ namespace QSP
 
         private void CloseForm(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //Do NOT close this form
+            // Do NOT close this form
             e.Cancel = true;
             this.Hide();
         }
-        
+
         public TracksForm()
         {
             Closing += CloseForm;

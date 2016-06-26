@@ -7,13 +7,29 @@ namespace QSP.LibraryExtension
     // A one-to-one map.
     public class BiDictionary<TFirst, TSecond>
     {
-        private Dictionary<TFirst, TSecond> firstToSecond;
-        private Dictionary<TSecond, TFirst> secondToFirst;
+        private Dictionary<TFirst, TSecond> _firstToSecond;
+        private Dictionary<TSecond, TFirst> _secondToFirst;
+
+        public IReadOnlyDictionary<TFirst, TSecond> FirstToSecond
+        {
+            get
+            {
+                return _firstToSecond;
+            }
+        }
+
+        public IReadOnlyDictionary<TSecond, TFirst> SecondToFirst
+        {
+            get
+            {
+                return _secondToFirst;
+            }
+        }
 
         public BiDictionary()
         {
-            firstToSecond = new Dictionary<TFirst, TSecond>();
-            secondToFirst = new Dictionary<TSecond, TFirst>();
+            _firstToSecond = new Dictionary<TFirst, TSecond>();
+            _secondToFirst = new Dictionary<TSecond, TFirst>();
         }
 
         /// <exception cref="ArgumentException"></exception>
@@ -21,47 +37,75 @@ namespace QSP.LibraryExtension
         public void Add(TFirst first, TSecond second)
         {
             Ensure<ArgumentNullException>(first != null && second != null);
-            firstToSecond.Add(first, second);
+            _firstToSecond.Add(first, second);
 
             try
             {
-                secondToFirst.Add(second, first);
+                _secondToFirst.Add(second, first);
             }
             catch (ArgumentException)
             {
-                firstToSecond.Remove(first);
+                _firstToSecond.Remove(first);
                 throw;
             }
         }
 
+        /// <exception cref="ArgumentNullException"></exception>
+        public void RemoveByFirst(TFirst first)
+        {
+            TSecond second;
+
+            if (TryGetByFirst(first, out second) == false)
+            {
+                return;
+            }
+
+            _firstToSecond.Remove(first);
+            _secondToFirst.Remove(second);
+        }
+
+        /// <exception cref="ArgumentNullException"></exception>
+        public void RemoveBySecond(TSecond second)
+        {
+            TFirst first;
+
+            if (TryGetBySecond(second, out first) == false)
+            {
+                return;
+            }
+
+            _secondToFirst.Remove(second);
+            _firstToSecond.Remove(first);
+        }
+
         public TSecond GetByFirst(TFirst first)
         {
-            return firstToSecond[first];
+            return _firstToSecond[first];
         }
 
         public TFirst GetBySecond(TSecond second)
         {
-            return secondToFirst[second];
+            return _secondToFirst[second];
         }
 
         public bool TryGetByFirst(TFirst first, out TSecond second)
         {
-            return firstToSecond.TryGetValue(first, out second);
+            return _firstToSecond.TryGetValue(first, out second);
         }
 
         public bool TryGetBySecond(TSecond second, out TFirst first)
         {
-            return secondToFirst.TryGetValue(second, out first);
+            return _secondToFirst.TryGetValue(second, out first);
         }
 
         public bool ContainsFirst(TFirst first)
         {
-            return firstToSecond.ContainsKey(first);
+            return _firstToSecond.ContainsKey(first);
         }
 
         public bool ContainsSecond(TSecond second)
         {
-            return secondToFirst.ContainsKey(second);
+            return _secondToFirst.ContainsKey(second);
         }
     }
 }

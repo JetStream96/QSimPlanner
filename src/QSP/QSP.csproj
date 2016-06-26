@@ -121,6 +121,12 @@
     <Compile Include="RouteFinding\Routes\RouteExtensions.cs" />
     <Compile Include="RouteFinding\Routes\RouteGroup.cs" />
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
+    <Compile Include="UI\RoutePlanning\AvoidCountrySelection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\RoutePlanning\AvoidCountrySelection.Designer.cs">
+      <DependentUpon>AvoidCountrySelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ToLdgModule\AboutPage\AboutPageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -493,6 +499,9 @@
     <Content Include="PerformanceData\TO\7878_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="UI\RoutePlanning\AvoidCountrySelection.resx">
+      <DependentUpon>AvoidCountrySelection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\AdvancedRouteTool.resx">
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </EmbeddedResource>

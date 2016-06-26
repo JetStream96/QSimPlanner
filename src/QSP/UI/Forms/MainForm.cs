@@ -726,20 +726,23 @@ namespace QSP
 
                 UpdateMtDisplay();
             }
-            else if (TabControl1.SelectedIndex == 2 & DesForcastAirportIcao != DestTxtBox.Text)
+            else if (TabControl1.SelectedIndex == 2 && DesForcastAirportIcao != DestTxtBox.Text)
             {
                 try
                 {
-                    DesForcast_RTextBox.Text = Environment.NewLine + Environment.NewLine + Environment.NewLine + "           Refreshing ...";
+                    DesForcast_RTextBox.Text = "\n\n\n           Refreshing ...";
                     Label86.Text = "DEST / " + DestTxtBox.Text;
                     DesForcastAirportIcao = DestTxtBox.Text;
 
-                    DesForcast_RTextBox.Text = await Task.Factory.StartNew(() => GenDesForcastString(DestTxtBox.Text));
+                    DesForcast_RTextBox.Text = 
+                        await Task.Factory.StartNew(() => 
+                        GenDesForcastString(DestTxtBox.Text));
                 }
                 catch (Exception ex)
                 {
                     WriteToLog(ex);
-                    DesForcast_RTextBox.Text = Environment.NewLine + Environment.NewLine + Environment.NewLine + "     Unable to get descend forcast for " + DestTxtBox.Text;
+                    DesForcast_RTextBox.Text = 
+                        "\n\n\n     Unable to get descend forcast for " + DestTxtBox.Text;
                 }
             }
         }
@@ -1171,7 +1174,8 @@ namespace QSP
             }
 
             if (double.TryParse(MissedAppFuel.Text, out missedAppFuel) &&
-                    double.TryParse(ExtraFuel.Text, out extra) && double.TryParse(ZFW.Text, out zfw))
+                double.TryParse(ExtraFuel.Text, out extra) && 
+                double.TryParse(ZFW.Text, out zfw))
             {
                 FuelReport_TxtBox.Text = "";
 
@@ -1189,7 +1193,6 @@ namespace QSP
                     MissedAppFuel.Text = Convert.ToString(Math.Round(missedAppFuel * LbKgRatio));
                     ExtraFuel.Text = Convert.ToString(Math.Round(extra * LbKgRatio));
                     ZFW.Text = Convert.ToString(Math.Round(zfw * LbKgRatio));
-
                 }
                 else
                 {
