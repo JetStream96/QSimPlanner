@@ -1,6 +1,7 @@
 using MinMaxHeap;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
@@ -17,10 +18,17 @@ namespace QSP.RouteFinding
     public class RouteFinder
     {
         private WaypointList wptList;
+        private CountryCodeCollection avoidedCountry;
 
         public RouteFinder(WaypointList wptList)
+            : this(wptList, new CountryCodeCollection())
+        { }
+
+        public RouteFinder(
+            WaypointList wptList, CountryCodeCollection avoidedCountry)
         {
             this.wptList = wptList;
+            this.avoidedCountry = avoidedCountry;
         }
 
         /// <summary>
@@ -223,12 +231,15 @@ namespace QSP.RouteFinding
                 var wptData = FindRouteData.WaypointData;
                 var edge = wptList.GetEdge(edgeIndex);
                 int index = edge.ToNodeIndex;
+                var countryCode = wptList[index].CountryCode;
 
-                if (WptWithinRange(index, regionPara))
+                if (WptWithinRange(index, regionPara) &&
+                    avoidedCountry.Contains(countryCode) == false)
                 {
                     double newDis = currentDis + edge.Value.Distance;
 
-                    if (wptData[index].CurrentDistance == double.PositiveInfinity)
+                    if (wptData[index].CurrentDistance ==
+                        double.PositiveInfinity)
                     {
                         // The node was never touched.
                         unvisited.Add(index, newDis);

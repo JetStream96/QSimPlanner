@@ -766,8 +766,8 @@ namespace QSP
 
         private void FindRouteToDestBtn_Click(object sender, EventArgs e)
         {
-            List<string> sid = GetSidStarList(OrigSidComboBox);
-            List<string> star = GetSidStarList(DestStarComboBox);
+            var sid = GetSidStarList(OrigSidComboBox);
+            var star = GetSidStarList(DestStarComboBox);
 
             RouteToDest = new RouteGroup(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
                                            .FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid,

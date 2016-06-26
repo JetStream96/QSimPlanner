@@ -1,5 +1,6 @@
 ﻿using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.LibraryExtension;
 using System;
 using System.IO;
 using static QSP.LibraryExtension.StringParser.Utilities;
@@ -9,10 +10,14 @@ namespace QSP.NavData.AAX
     public class FixesLoader
     {
         private WaypointList wptList;
+        private BiDictionary<int, string> countryCodeLookup;
+        private int countryCode;
 
         public FixesLoader(WaypointList wptList)
         {
             this.wptList = wptList;
+            countryCodeLookup = new BiDictionary<int, string>();
+            countryCode = 0;
         }
 
         /// <summary>
@@ -62,7 +67,28 @@ namespace QSP.NavData.AAX
             double lat = ParseDouble(i, ref pos, ',');
             double lon = ParseDouble(i, ref pos, ',');
 
-            wptList.AddWaypoint(new Waypoint(id, lat, lon));
+            string country = ReadToNextDelimeter(i, DelimiterWords, ref pos);
+            int countryCode = GetCountryCode(country);
+
+            wptList.AddWaypoint(new Waypoint(id, lat, lon, countryCode));
+        }
+
+        private int GetCountryCode(string letterCode)
+        {
+            int code;
+
+            if (countryCodeLookup.TryGetBySecond(letterCode, out code))
+            {
+                return code;
+            }
+
+            do
+            {
+                countryCode++;
+            } while (countryCode == Waypoint.DefaultCountryCode);
+            
+            countryCodeLookup.Add(countryCode, letterCode);
+            return countryCode;
         }
     }
 }

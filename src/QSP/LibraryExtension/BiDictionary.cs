@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static QSP.Utilities.ConditionChecker;
 
 namespace QSP.LibraryExtension
@@ -32,11 +29,8 @@ namespace QSP.LibraryExtension
             }
             catch (ArgumentException)
             {
-                throw;
-            }
-            finally
-            {
                 firstToSecond.Remove(first);
+                throw;
             }
         }
 
@@ -48,6 +42,16 @@ namespace QSP.LibraryExtension
         public TFirst GetBySecond(TSecond second)
         {
             return secondToFirst[second];
+        }
+
+        public bool TryGetByFirst(TFirst first, out TSecond second)
+        {
+            return firstToSecond.TryGetValue(first, out second);
+        }
+
+        public bool TryGetBySecond(TSecond second, out TFirst first)
+        {
+            return secondToFirst.TryGetValue(second, out first);
         }
 
         public bool ContainsFirst(TFirst first)

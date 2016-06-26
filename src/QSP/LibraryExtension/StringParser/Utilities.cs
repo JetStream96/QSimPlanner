@@ -238,7 +238,7 @@ namespace QSP.LibraryExtension.StringParser
 
             if (x < 0)
             {
-                x = item.Length - 1;
+                x = item.Length;
             }
 
             string str = item.Substring(index, x - index);

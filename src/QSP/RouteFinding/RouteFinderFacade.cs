@@ -95,7 +95,7 @@ namespace QSP.RouteFinding
         }
 
         public Route FindRoute(
-            string icao, string rwy, SidCollection sidCol, 
+            string icao, string rwy, SidCollection sidCol,
             List<string> sid, int wptIndex)
         {
             var editor = wptList.GetEditor();
@@ -129,7 +129,7 @@ namespace QSP.RouteFinding
         }
 
         public Route FindRoute(
-            int wptIndex, string icao, string rwy, 
+            int wptIndex, string icao, string rwy,
             StarCollection starCol, List<string> star)
         {
             var editor = wptList.GetEditor();
