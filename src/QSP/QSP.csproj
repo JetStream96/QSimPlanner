@@ -100,11 +100,14 @@
     <Compile Include="AviationTools\Coordinates\Format7Letter.cs" />
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
+    <Compile Include="LibraryExtension\BiDictionary.cs" />
     <Compile Include="LibraryExtension\EqualityComparers.cs" />
     <Compile Include="LibraryExtension\FileNameGenerator.cs" />
     <Compile Include="LibraryExtension\LinkedLists.cs" />
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
+    <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
+    <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeManager.cs" />
     <Compile Include="RouteFinding\Data\WptSearchOption.cs" />
     <Compile Include="RouteFinding\FileExport\ExportCommand.cs" />
     <Compile Include="RouteFinding\FileExport\FileExporter.cs" />
