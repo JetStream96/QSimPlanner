@@ -236,7 +236,7 @@ namespace QSP.UI.ToLdgModule.Forms
 
         private static void CheckRegistry()
         {
-            //try to check/add registry so that google map works properly 
+            // Try to check/add registry so that google map works properly. 
             var regChecker = new IeEmulationChecker();
 
             try

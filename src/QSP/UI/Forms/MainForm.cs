@@ -34,11 +34,16 @@ using QSP.FuelCalculation;
 using static QSP.AviationTools.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.LoggerInstance;
+using QSP.AircraftProfiles.Configs;
+using QSP.UI.Utilities;
+using QSP.NavData.AAX;
 
 namespace QSP
 {
     public partial class MainForm
     {
+        public ProfileManager Profiles { get; private set; }
+
         public int OperatingEmptyWtKg;
         //OperatingEmptyWt = Basic Operating Wt
         public int MissedAppFuelKG;
@@ -49,7 +54,7 @@ namespace QSP
 
         private ViewManager viewChanger;
 
-        private AppOptions appSettings;
+        private AppOptions AppSettings;
         private AirportManager airportList;
         private WaypointList wptList;
 
@@ -181,23 +186,91 @@ namespace QSP
 
         #endregion
 
-        public void Init(
-            ProfileManager profiles,
-            AppOptions appSettings,
-            AirportManager airportList,
-            WaypointList wptList)
+        public void Init()
         {
-            InitAircraftData(profiles);
+            ShowSplashWhile(() =>
+            {
+                InitData();
+                InitAircraftData(Profiles);
+                InitRouteFinderSelections();
 
-            this.appSettings = appSettings;
-            this.airportList = airportList;
-            this.wptList = wptList;
-
-            InitRouteFinderSelections();
-            advancedRouteTool.Init(
-                appSettings, wptList, airportList, new TrackInUseCollection()); //TODO: track in use is wrong
+                //TODO: track in use is wrong
+                advancedRouteTool.Init(
+                    AppSettings,
+                    wptList, 
+                    airportList, 
+                    new TrackInUseCollection());
+            });
         }
 
+        private void InitData()
+        {
+            try
+            {
+                // Aircraft data
+                Profiles = new ProfileManager();
+                Profiles.Initialize();
+            }
+            catch (PerfFileNotFoundException ex)
+            {
+                WriteToLog(ex);
+                MsgBoxHelper.ShowWarning(ex.Message);
+            }
+
+            // Load options.
+            try
+            {
+                AppSettings = OptionManager.ReadOrCreateFile();
+            }
+            catch (Exception ex)
+            {
+                WriteToLog(ex);
+                MsgBoxHelper.ShowError("Cannot load options.");
+            }
+
+            // Airports and waypoints
+            // TODO: exceptions?
+            try
+            {
+                InitAirportList();
+                InitWptList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void InitAirportList()
+        {
+            string navDataPath = AppSettings.NavDataLocation;
+
+            airportList =
+            new AirportManager(
+                new AirportDataLoader(navDataPath + @"\Airports.txt")
+                .LoadFromFile());
+        }
+
+        private void InitWptList()
+        {
+            string navDataPath = AppSettings.NavDataLocation;
+
+            wptList =
+                new WptListLoader(navDataPath)
+                .LoadFromFile();
+        }
+
+        private void ShowSplashWhile(Action action)
+        {
+            var splash = new Splash();
+            splash.Show();
+            splash.Refresh();
+
+            action();
+
+            splash.Close();
+        }
+        
         private void InitRouteFinderSelections()
         {
             origAirport = new RouteFinderSelection(
@@ -205,7 +278,7 @@ namespace QSP
                 true,
                 OrigRwyComboBox,
                 OrigSidComboBox,
-                appSettings,
+                AppSettings,
                 airportList,
                 wptList);
 
@@ -216,7 +289,7 @@ namespace QSP
                 false,
                 DestRwyComboBox,
                 DestStarComboBox,
-                appSettings,
+                AppSettings,
                 airportList,
                 wptList);
 
@@ -227,7 +300,7 @@ namespace QSP
                 false,
                 AltnRwyComboBox,
                 AltnStarComboBox,
-                appSettings,
+                AppSettings,
                 airportList,
                 wptList);
 
@@ -326,7 +399,7 @@ namespace QSP
 
         private void StartTracksDlAsReq()
         {
-            if (appSettings.AutoDLTracks)
+            if (AppSettings.AutoDLTracks)
             {
                 //RouteFinding.Tracks.Interaction.Interactions.SetAllTracksAsync();
                 //TODO: add code to start download tracks automatically.
@@ -340,7 +413,7 @@ namespace QSP
 
         private async Task StartWindDlAsReq()
         {
-            if (appSettings.AutoDLWind)
+            if (AppSettings.AutoDLWind)
             {
                 await DownloadWind();
             }
@@ -406,7 +479,7 @@ namespace QSP
             {
                 //if success, update the status strip
 
-                var t = OptionsForm.AiracCyclePeriod(appSettings.NavDataLocation);
+                var t = OptionsForm.AiracCyclePeriod(AppSettings.NavDataLocation);
                 //this returns, for example, (1407,26JUN23JUL/14)
 
                 bool expired = !AiracTools.AiracValid(t.Item2);
@@ -537,7 +610,6 @@ namespace QSP
             {
                 ZFW.ForeColor = Color.Green;
             }
-
         }
 
         private void ZFW_TextChanged(object sender, EventArgs e)
@@ -564,10 +636,10 @@ namespace QSP
         private void ShowOptionsForm()
         {
             var frm = new OptionsForm();
-            frm.Init(appSettings);
+            frm.Init(AppSettings);
             frm.AppSettingChanged += (sender, e) =>
               {
-                  appSettings = frm.AppSettings;
+                  AppSettings = frm.AppSettings;
               };
             frm.ShowDialog();
         }
@@ -712,22 +784,17 @@ namespace QSP
             Process.Start("http://www.ead.eurocontrol.int/eadcms/eadsite/index.php.html");
         }
 
-
         private void CloseMain(object sender, CancelEventArgs e)
         {
-            if (appSettings.PromptBeforeExit)
+            if (AppSettings.PromptBeforeExit)
             {
-                // Initializes variables to pass to the MessageBox.Show method. 
-
                 string Message = "Exit the application?";
                 string Caption = "";
                 var Buttons = MessageBoxButtons.YesNo;
                 var Icon = MessageBoxIcon.Question;
 
-                //Displays the MessageBox
                 var Result = MessageBox.Show(Message, Caption, Buttons, Icon);
 
-                // Gets the result of the MessageBox display. 
                 if (Result == DialogResult.No)
                 {
                     // Do not exit the app.
@@ -739,7 +806,7 @@ namespace QSP
         #region "RouteGen"
 
         private static string PMDGrteFile;
-       
+
         private List<string> GetSidStarList(ComboBox CBox)
         {
             var sidStar = new List<string>();
@@ -769,7 +836,7 @@ namespace QSP
             var sid = GetSidStarList(OrigSidComboBox);
             var star = GetSidStarList(DestStarComboBox);
 
-            RouteToDest = new RouteGroup(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
+            RouteToDest = new RouteGroup(new RouteFinderFacade(wptList, airportList, AppSettings.NavDataLocation)
                                            .FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid,
                                                       DestTxtBox.Text, DestRwyComboBox.Text, star),
                                            TracksInUse);
@@ -810,11 +877,11 @@ namespace QSP
         private void GenRteAltnBtnClick(object sender, EventArgs e)
         {
             // Get a list of sids
-            var sids = SidHandlerFactory.GetHandler(DestTxtBox.Text, appSettings.NavDataLocation, wptList, wptList.GetEditor(), airportList)
+            var sids = SidHandlerFactory.GetHandler(DestTxtBox.Text, AppSettings.NavDataLocation, wptList, wptList.GetEditor(), airportList)
                                         .GetSidList(DestRwyComboBox.Text);
             var starAltn = GetSidStarList(AltnStarComboBox);
 
-            RouteToAltn = new RouteGroup(new RouteFinderFacade(wptList, airportList, appSettings.NavDataLocation)
+            RouteToAltn = new RouteGroup(new RouteFinderFacade(wptList, airportList, AppSettings.NavDataLocation)
                                            .FindRoute(DestTxtBox.Text, DestRwyComboBox.Text, sids,
                                                       AltnTxtBox.Text, AltnRwyComboBox.Text, starAltn),
                                            TracksInUse);
@@ -827,7 +894,7 @@ namespace QSP
 
         private void ExportRouteFiles()
         {
-            var cmds = appSettings.ExportCommands.Values;
+            var cmds = AppSettings.ExportCommands.Values;
             var writer = new FileExporter(RouteToDest.Expanded, airportList, cmds);
 
             var reports = writer.Export();
@@ -886,7 +953,7 @@ namespace QSP
                     icon);
             }
         }
-        
+
         private void Analyze_RteToDest_Click(object sender, EventArgs e)
         {
             //TODO: Need better exception message for AUTO, RAND commands
@@ -902,7 +969,7 @@ namespace QSP
                             OrigRwyComboBox.Text,
                             DestTxtBox.Text,
                             DestRwyComboBox.Text,
-                            appSettings.NavDataLocation,
+                            AppSettings.NavDataLocation,
                             airportList,
                             wptList),
                         TracksInUse);
@@ -919,7 +986,6 @@ namespace QSP
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void Button8_Click(object sender, EventArgs e)
@@ -948,9 +1014,9 @@ namespace QSP
 
         bool InitializeFinished_AirportDataFinder = false;
 
-        metar_monitor metarMonitor = new metar_monitor();
+        MetarMonitor metarMonitor = new MetarMonitor();
 
-        public class metar_monitor
+        public class MetarMonitor
         {
             public string orig;
             public string dest;
@@ -961,7 +1027,7 @@ namespace QSP
             //orig = icao of origin
             //orig_mt = metar/taf of orig.
 
-            public metar_monitor()
+            public MetarMonitor()
             {
                 orig = "";
                 dest = "";
@@ -1045,15 +1111,12 @@ namespace QSP
                 return;
             }
 
-            StringBuilder GoogleMapDrawRoute = RouteDrawing.MapDrawString(RouteToDest.Expanded, MapDisWebBrowser.Width - 20, MapDisWebBrowser.Height - 30);
+            StringBuilder GoogleMapDrawRoute =
+                RouteDrawing.MapDrawString(
+                    RouteToDest.Expanded, MapDisWebBrowser.Width - 20, MapDisWebBrowser.Height - 30);
 
             var mapStr = GoogleMapDrawRoute.ToString();
-
-            if (MapDisWebBrowser.DocumentText != mapStr)
-            {
-                MapDisWebBrowser.DocumentText = mapStr;
-            }
-
+            MapDisWebBrowser.DocumentText = mapStr;
         }
 
         private void WtManage_Btn_Click(object sender, EventArgs e)
@@ -1067,7 +1130,7 @@ namespace QSP
             altnFrm.Initialize(airportList);
             altnFrm.ShowDialog();
         }
-        
+
         private void ShowMap_Btn_Click(object sender, EventArgs e)
         {
             DrawRouteToDest();
@@ -1163,7 +1226,6 @@ namespace QSP
             }
 
             trkForm.Show();
-
         }
 
         private async void WindDownloadStatus_Lbl_Click(object sender, EventArgs e)

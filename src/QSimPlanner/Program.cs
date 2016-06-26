@@ -1,6 +1,4 @@
-﻿using QSimPlanner.GlobalInfo;
-using QSP.AircraftProfiles.Configs;
-using QSP.UI.Utilities;
+﻿using QSP.UI.Utilities;
 using QSP.Utilities;
 using System;
 using System.Windows.Forms;
@@ -30,66 +28,9 @@ namespace QSimPlanner
             Application.SetCompatibleTextRenderingDefault(false);
 
             var mainFrm = new QSP.MainForm();
-            PrepareApp(mainFrm);
-
+            mainFrm.Init();
+            
             Application.Run(mainFrm);
-        }
-
-        private static void PrepareApp(QSP.MainForm mainFrm)
-        {
-            var splash = new QSP.Splash();
-            splash.Show();
-            splash.Refresh();
-
-            InitData();
-
-            mainFrm.Init(
-                Information.Profiles,
-                Information.AppSettings,
-                Information.AirportList,
-                Information.WptList);
-
-            splash.Close();
-        }
-
-        private static void InitData()
-        {
-            try
-            {
-                // Aircraft data
-                Information.InitProfiles();
-            }
-            catch (PerfFileNotFoundException ex)
-            {
-                LoggerInstance.WriteToLog(ex);
-                MsgBoxHelper.ShowWarning(ex.Message);
-            }
-
-            // Load options.
-            try
-            {
-                Information.InitSettings();
-            }
-            catch (Exception ex)
-            {
-                LoggerInstance.WriteToLog(ex);
-
-                MessageBox.Show(
-                    "Cannot load options.", "",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            // Airports and waypoints
-            // TODO: exceptions?
-            try
-            {
-                Information.InitAirportList();
-                Information.InitWptList();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        }        
     }
 }

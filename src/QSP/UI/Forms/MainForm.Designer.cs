@@ -58,6 +58,7 @@ namespace QSP
             this.ShowLDG_Btn = new System.Windows.Forms.Button();
             this.ShowTO_Btn = new System.Windows.Forms.Button();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.UpdateAll_Btn = new System.Windows.Forms.Button();
             this.MainWin_TablessControl = new QSP.TablessControl();
             this.Route_TabPage = new System.Windows.Forms.TabPage();
             this.FuelReportView_Btn = new System.Windows.Forms.Button();
@@ -143,7 +144,6 @@ namespace QSP
             this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabPage2 = new System.Windows.Forms.TabPage();
             this.GroupBox18 = new System.Windows.Forms.GroupBox();
-            this.UpdateAll_Btn = new System.Windows.Forms.Button();
             this.RichTextBox2 = new System.Windows.Forms.RichTextBox();
             this.GroupBox17 = new System.Windows.Forms.GroupBox();
             this.MetarToFindTxtBox = new System.Windows.Forms.TextBox();
@@ -491,6 +491,17 @@ namespace QSP
             this.ShowTO_Btn.Text = "T/O Perf";
             this.ShowTO_Btn.UseVisualStyleBackColor = false;
             this.ShowTO_Btn.Click += new System.EventHandler(this.ShowTO_Btn_Click);
+            // 
+            // UpdateAll_Btn
+            // 
+            this.UpdateAll_Btn.BackgroundImage = global::QSP.Properties.Resources.processing9;
+            this.UpdateAll_Btn.Location = new System.Drawing.Point(1043, 22);
+            this.UpdateAll_Btn.Name = "UpdateAll_Btn";
+            this.UpdateAll_Btn.Size = new System.Drawing.Size(33, 33);
+            this.UpdateAll_Btn.TabIndex = 80;
+            this.ToolTip1.SetToolTip(this.UpdateAll_Btn, "Refresh all Metar/TAF");
+            this.UpdateAll_Btn.UseVisualStyleBackColor = true;
+            this.UpdateAll_Btn.Click += new System.EventHandler(this.UpdateAll_Btn_Click);
             // 
             // MainWin_TablessControl
             // 
@@ -1610,17 +1621,6 @@ namespace QSP
             this.GroupBox18.TabIndex = 80;
             this.GroupBox18.TabStop = false;
             this.GroupBox18.Text = "Monitor";
-            // 
-            // UpdateAll_Btn
-            // 
-            this.UpdateAll_Btn.BackgroundImage = global::QSP.Properties.Resources.processing9;
-            this.UpdateAll_Btn.Location = new System.Drawing.Point(1043, 22);
-            this.UpdateAll_Btn.Name = "UpdateAll_Btn";
-            this.UpdateAll_Btn.Size = new System.Drawing.Size(33, 33);
-            this.UpdateAll_Btn.TabIndex = 80;
-            this.ToolTip1.SetToolTip(this.UpdateAll_Btn, "Refresh all Metar/TAF");
-            this.UpdateAll_Btn.UseVisualStyleBackColor = true;
-            this.UpdateAll_Btn.Click += new System.EventHandler(this.UpdateAll_Btn_Click);
             // 
             // RichTextBox2
             // 
