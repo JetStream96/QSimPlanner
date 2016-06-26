@@ -1,4 +1,5 @@
 ﻿using QSP.AircraftProfiles;
+using QSP.AircraftProfiles.Configs;
 using QSP.RouteFinding.Airports;
 using QSP.UI.Controllers.ButtonGroup;
 using QSP.UI.ToLdgModule.AboutPage;
@@ -7,6 +8,7 @@ using QSP.UI.ToLdgModule.AirportMap;
 using QSP.UI.ToLdgModule.LandingPerf;
 using QSP.UI.ToLdgModule.Options;
 using QSP.UI.ToLdgModule.TOPerf;
+using QSP.UI.Utilities;
 using QSP.Utilities;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,7 @@ namespace QSP.UI.ToLdgModule.Forms
 {
     public partial class QspLiteForm : Form
     {
+        public ProfileManager Profiles { get; private set; }
         public AircraftMenuControl AcMenu { get; private set; }
         public TOPerfControl ToMenu { get; private set; }
         public LandingPerfControl LdgMenu { get; private set; }
@@ -54,24 +57,39 @@ namespace QSP.UI.ToLdgModule.Forms
             AddControls();
         }
 
-        public void Initialize(ProfileManager manager)
+        private void InitProfiles()
         {
+            try
+            {
+                Profiles = new ProfileManager();
+                Profiles.Initialize();
+            }
+            catch (PerfFileNotFoundException ex)
+            {
+                LoggerInstance.WriteToLog(ex);
+                MsgBoxHelper.ShowWarning(ex.Message);
+            }
+        }
+
+        public void Init()
+        {
+            InitProfiles();
             ResizeForm();
             CheckRegistry();
             SubscribeEvents();
             OptionsMenu.Initialize();
 
             var airports = OptionsMenu.Airports;
-            AcMenu.Initialize(manager);
+            AcMenu.Initialize(Profiles);
             AcMenu.AircraftsChanged += ToMenu.RefreshAircrafts;
             AcMenu.AircraftsChanged += LdgMenu.RefreshAircrafts;
 
-            ToMenu.Initialize(manager.AcConfigs,
-                manager.TOTables.ToList(), airports);
+            ToMenu.Initialize(Profiles.AcConfigs,
+                Profiles.TOTables.ToList(), airports);
             ToMenu.TryLoadState();
 
-            LdgMenu.InitializeAircrafts(manager.AcConfigs,
-                manager.LdgTables.ToList(), airports);
+            LdgMenu.InitializeAircrafts(Profiles.AcConfigs,
+                Profiles.LdgTables.ToList(), airports);
             LdgMenu.TryLoadState();
 
             AirportMenu.Initialize(airports);
