@@ -1,13 +1,17 @@
 using QSP.AircraftProfiles;
+using QSP.AircraftProfiles.Configs;
 using QSP.Common.Options;
+using QSP.FuelCalculation;
 using QSP.GoogleMap;
 using QSP.LibraryExtension;
 using QSP.MathTools;
 using QSP.Metar;
+using QSP.NavData.AAX;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
 using QSP.RouteFinding.RouteAnalyzers;
@@ -17,6 +21,7 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.UI;
 using QSP.UI.Controllers;
+using QSP.UI.Utilities;
 using QSP.Utilities;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
@@ -30,13 +35,9 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.FuelCalculation;
 using static QSP.AviationTools.Constants;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.LoggerInstance;
-using QSP.AircraftProfiles.Configs;
-using QSP.UI.Utilities;
-using QSP.NavData.AAX;
 
 namespace QSP
 {
@@ -57,6 +58,7 @@ namespace QSP
         private AppOptions AppSettings;
         private AirportManager airportList;
         private WaypointList wptList;
+        private CountryCodeManager countryCodes;
 
         private RouteFinderSelection origAirport;
         private RouteFinderSelection destAirport;
@@ -193,14 +195,17 @@ namespace QSP
                 InitData();
                 InitAircraftData(Profiles);
                 InitRouteFinderSelections();
+                avoidCountrySelection.Init(countryCodes);
 
                 //TODO: track in use is wrong
                 advancedRouteTool.Init(
                     AppSettings,
-                    wptList, 
-                    airportList, 
+                    wptList,
+                    airportList,
                     new TrackInUseCollection());
             });
+
+            // avoidCountrySelection.Init(new .CountryCodeManager )
         }
 
         private void InitData()
@@ -255,9 +260,11 @@ namespace QSP
         {
             string navDataPath = AppSettings.NavDataLocation;
 
-            wptList =
-                new WptListLoader(navDataPath)
+            var result = new WptListLoader(navDataPath)
                 .LoadFromFile();
+
+            wptList = result.WptList;
+            countryCodes = result.CountryCodes;
         }
 
         private void ShowSplashWhile(Action action)
@@ -270,7 +277,7 @@ namespace QSP
 
             splash.Close();
         }
-        
+
         private void InitRouteFinderSelections()
         {
             origAirport = new RouteFinderSelection(
@@ -734,14 +741,14 @@ namespace QSP
                     Label86.Text = "DEST / " + DestTxtBox.Text;
                     DesForcastAirportIcao = DestTxtBox.Text;
 
-                    DesForcast_RTextBox.Text = 
-                        await Task.Factory.StartNew(() => 
+                    DesForcast_RTextBox.Text =
+                        await Task.Factory.StartNew(() =>
                         GenDesForcastString(DestTxtBox.Text));
                 }
                 catch (Exception ex)
                 {
                     WriteToLog(ex);
-                    DesForcast_RTextBox.Text = 
+                    DesForcast_RTextBox.Text =
                         "\n\n\n     Unable to get descend forcast for " + DestTxtBox.Text;
                 }
             }
@@ -1174,7 +1181,7 @@ namespace QSP
             }
 
             if (double.TryParse(MissedAppFuel.Text, out missedAppFuel) &&
-                double.TryParse(ExtraFuel.Text, out extra) && 
+                double.TryParse(ExtraFuel.Text, out extra) &&
                 double.TryParse(ZFW.Text, out zfw))
             {
                 FuelReport_TxtBox.Text = "";

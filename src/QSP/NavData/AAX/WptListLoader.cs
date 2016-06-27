@@ -1,4 +1,6 @@
 ﻿using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Containers.CountryCode;
+using System;
 
 namespace QSP.NavData.AAX
 {
@@ -26,16 +28,32 @@ namespace QSP.NavData.AAX
                 return navDataLocation + @"\ats.txt";
             }
         }
-        
+
         /// <exception cref="WaypointFileReadException"></exception>
-        public WaypointList LoadFromFile()
+        public LoadResult LoadFromFile()
         {
             var wptList = new WaypointList();
 
-            new FixesLoader(wptList).ReadFromFile(waypointsFilePath);
+            var countryCodes =
+                new FixesLoader(wptList).ReadFromFile(waypointsFilePath);
+
             new AtsFileLoader(wptList).ReadFromFile(atsFilePath);
 
-            return wptList;
+            var countryFullNames = FullNamesLoader.Load();
+            var countryManager = new CountryCodeManager(
+                countryCodes, countryFullNames);
+
+            return new LoadResult()
+            {
+                WptList = wptList,
+                CountryCodes = countryManager
+            };
+        }
+
+        public struct LoadResult
+        {
+            public WaypointList WptList;
+            public CountryCodeManager CountryCodes;
         }
     }
 }

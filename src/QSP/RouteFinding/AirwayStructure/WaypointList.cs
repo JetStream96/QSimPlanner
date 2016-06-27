@@ -2,6 +2,7 @@ using QSP.LibraryExtension.Graph;
 using QSP.MathTools;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
+using QSP.RouteFinding.Containers.CountryCode;
 using System.Collections.Generic;
 
 namespace QSP.RouteFinding.AirwayStructure
@@ -16,7 +17,7 @@ namespace QSP.RouteFinding.AirwayStructure
     {
         private WaypointContainer _content;
         private LatLonSearcher<WptSeachWrapper> _finder;
-
+        
         public WaypointList()
         {
             _content = new WaypointContainer();

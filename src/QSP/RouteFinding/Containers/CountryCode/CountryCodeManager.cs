@@ -36,6 +36,11 @@ namespace QSP.RouteFinding.Containers.CountryCode
             }
         }
 
+        public CountryCodeManager()
+            : this(new BiDictionary<int, string>(),
+                 new Dictionary<string, string>())
+        { }
+
         /// <exception cref="ArgumentException"></exception>
         public CountryCodeManager(
             BiDictionary<int, string> letterCodeLookup,

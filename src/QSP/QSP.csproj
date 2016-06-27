@@ -108,6 +108,7 @@
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeManager.cs" />
+    <Compile Include="RouteFinding\Containers\CountryCode\FullNamesLoader.cs" />
     <Compile Include="RouteFinding\Data\WptSearchOption.cs" />
     <Compile Include="RouteFinding\FileExport\ExportCommand.cs" />
     <Compile Include="RouteFinding\FileExport\FileExporter.cs" />
@@ -493,6 +494,9 @@
     <Compile Include="WindAloft\WindTable.cs" />
     <Compile Include="WindAloft\WindUV.cs" />
     <Compile Include="WindAloft\WxFileLoader.cs" />
+    <Content Include="NavData\icao_nationality_code.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Libraries\MinMaxHeap.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
