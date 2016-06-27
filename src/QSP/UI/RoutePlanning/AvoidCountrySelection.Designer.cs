@@ -67,7 +67,6 @@
             this.showSelectedCheckBox.TabIndex = 1;
             this.showSelectedCheckBox.Text = "Show Selected";
             this.showSelectedCheckBox.UseVisualStyleBackColor = true;
-            this.showSelectedCheckBox.CheckedChanged += new System.EventHandler(this.showSelectedCheckBoxChanged);
             // 
             // AvoidCountrySelection
             // 

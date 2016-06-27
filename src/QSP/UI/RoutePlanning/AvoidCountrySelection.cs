@@ -1,36 +1,43 @@
-﻿using System;
+﻿using QSP.RouteFinding.Containers.CountryCode;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
-using static System.Windows.Forms.ListView;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.RouteFinding.Containers.CountryCode;
+using static System.Windows.Forms.ListView;
 
 namespace QSP.UI.RoutePlanning
 {
     public partial class AvoidCountrySelection : UserControl
     {
         private CountryCodeManager countryCodes;
-        private ListViewItemCollection listViewItems;
 
         public AvoidCountrySelection()
         {
             InitializeComponent();
         }
 
-        public CountryCodeCollection SelectedCodes
+        public IEnumerable<string> CheckedLetters
         {
             get
             {
                 var items = listView.Items;
+                
+                return items.Cast<ListViewItem>()
+                    .Where(i => i.Checked)
+                    .Select(i => i.Text);
+            }
+        }
 
-                var codes = ((IEnumerable<ListViewItem>)items)
-                    .Where(i => i.Selected)
-                    .Select(i => i.Text)
+        public CountryCodeCollection CheckedCodes
+        {
+            get
+            {
+                var codes = CheckedLetters
                     .Select(s => countryCodes.GetCountryCode(s));
 
                 return new CountryCodeCollection(codes);
@@ -41,15 +48,25 @@ namespace QSP.UI.RoutePlanning
         {
             listView.CheckBoxes = true;
             this.countryCodes = countryCodes;
+            AddItems();
 
+            showSelectedCheckBox.CheckedChanged +=
+                showSelectedCheckBoxChanged;
+
+            listView.ColumnClick += (sender, e) =>
+            {
+
+            };
+        }
+
+        private void AddItems()
+        {
             foreach (var i in GetList())
             {
                 var lvi = new ListViewItem(i.Key);
                 lvi.SubItems.Add(i.Value);
                 listView.Items.Add(lvi);
             }
-
-            listViewItems = listView.Items;
         }
 
         // KeyValuePair of LetterCode and CountryName
@@ -64,7 +81,35 @@ namespace QSP.UI.RoutePlanning
         {
             if (showSelectedCheckBox.Checked)
             {
+                var selected = new HashSet<string>(CheckedLetters);
+                listView.Items.Clear();
 
+                var itemsToAdd = GetList()
+                    .Where(p => selected.Contains(p.Key));
+
+                foreach (var i in itemsToAdd)
+                {
+                    var lvi = new ListViewItem(i.Key);
+                    lvi.SubItems.Add(i.Value);
+                    listView.Items.Add(lvi);
+                    lvi.Checked = true;
+                }                
+            }
+            else
+            {
+                var selected = new HashSet<string>(CheckedLetters);
+                listView.Items.Clear();
+                AddItems();
+
+                foreach (var i in listView.Items)
+                {
+                    var item = (ListViewItem)i;
+
+                    if (selected.Contains(item.Text))
+                    {
+                        item.Checked = true;
+                    }
+                }
             }
         }
     }
