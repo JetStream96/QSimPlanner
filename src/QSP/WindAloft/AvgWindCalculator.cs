@@ -1,85 +1,74 @@
-using QSP.AviationTools.Coordinates;
 using QSP.MathTools;
+using QSP.RouteFinding.Data.Interfaces;
 using System;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Angles;
-using static QSP.MathTools.Vectors.Vector3DExtension;
 using static QSP.MathTools.Integration;
+using static QSP.MathTools.Vectors.Vector3DExtension;
 
 namespace QSP.WindAloft
 {
     public class AvgWindCalculator
     {
+        private WindTableCollection windData;
         private Vector3D v1;
         private Vector3D v2;
-        private WindTableCollection windData;
-        private double FL;
-        private int tas;
         private double lat1;
         private double lon1;
         private double lat2;
         private double lon2;
 
+        public int Tas { get; set; }
+        public double FL { get; set; }
+
         public AvgWindCalculator(
-            WindTableCollection windData, int trueAirspd, double flightLevel)
+            WindTableCollection windData, int trueAirspeed, double flightLevel)
         {
             this.windData = windData;
-            tas = trueAirspd;
+            Tas = trueAirspeed;
             FL = flightLevel;
 
             SetPoint1(0.0, 0.0);
             SetPoint2(0.0, 0.0);
         }
 
-        public void SetPoint1(double lat, double lon)
+        private void SetPoint1(double lat, double lon)
         {
             lat1 = lat;
             lon1 = lon;
-            SetV1();
-        }
-
-        public void SetPoint1(LatLon item)
-        {
-            SetPoint1(item.Lat, item.Lon);
-        }
-
-        public void SetPoint2(double lat, double lon)
-        {
-            lat2 = lat;
-            lon2 = lon;
-            SetV2();
-        }
-
-        public void SetPoint2(LatLon item)
-        {
-            SetPoint2(item.Lat, item.Lon);
-        }
-
-        private void SetV1()
-        {
             v1 = LatLonToVector3D(lat1, lon1);
         }
 
-        private void SetV2()
+        private void SetPoint2(double lat, double lon)
         {
+            lat2 = lat;
+            lon2 = lon;
             v2 = LatLonToVector3D(lat2, lon2);
         }
 
-        public double GetAvgWind(double seperation)
+        public double GetAvgWind(
+            ICoordinate point1,
+            ICoordinate point2,
+            double delta = 1.0)
         {
             // lat/lon 1: "from" point
             // lat/lon 2: "to" point
-            // seperation: calculate a point every () degrees
+            // delta: in degrees
             // airspd: (of the aircraft)
 
-            double deltaAlpha = ToRadian(seperation);
-            double T = 0.0;            //total time required
-            double r = 0.0;            //total distance
+            SetPoint1(point1.Lat, point1.Lon);
+            SetPoint2(point2.Lat, point2.Lon);
 
-            r = EarthRadiusNm * Math.Acos(v1.Dot(v2));
-            T = Integrate(GetOneOverGS, 0.0, r, deltaAlpha * EarthRadiusNm);
+            double deltaAlpha = ToRadian(delta);
 
-            return r / T - tas;
+            //total distance
+            double r = EarthRadiusNm * Math.Acos(v1.Dot(v2));
+
+            //total time required
+            double T = Integrate(
+                GetOneOverGS, 0.0, r, deltaAlpha * EarthRadiusNm);
+
+            return r / T - Tas;
         }
 
         private double GetOneOverGS(double r)
@@ -110,7 +99,7 @@ namespace QSP.WindAloft
             double gamma = Math.Acos((VWind.Normalize()).Dot(w));
             double a = 1;
             double b = -2 * VWind.R * Math.Cos(gamma);
-            double c = VWind.R * VWind.R - tas * tas;
+            double c = VWind.R * VWind.R - Tas * Tas;
             return (-b + Math.Sqrt(b * b - 4 * a * c)) / (2 * a);
         }
 
@@ -129,7 +118,9 @@ namespace QSP.WindAloft
         private Vector3D GetWind(double lat, double lon)
         {
             // Given u-comp, V_u, and v-comp, V_v, then we have
-            // V_wind=V_u(-sin(theta),cos(theta),0)+V_v(-sin(phi)cos(theta),-sin(phi)sin(theta),cos(phi))
+            // V_wind = V_u(-sin(theta),cos(theta),0) +
+            //          V_v(-sin(phi)cos(theta),-sin(phi)sin(theta),cos(phi))
+            // 
             // lat=phi, lon=theta
             // u=lon,v=lat
 
@@ -143,7 +134,8 @@ namespace QSP.WindAloft
             double cosLon = Math.Cos(lon);
 
             var u1 = new Vector3D(-sinLon, cosLon, 0.0);
-            var u2 = new Vector3D(-sinLat * cosLon, -sinLat * sinLon, Math.Cos(lat));
+            var u2 = new Vector3D(
+                -sinLat * cosLon, -sinLat * sinLon, Math.Cos(lat));
 
             return u1 * w.UComp + u2 * w.VComp;
         }

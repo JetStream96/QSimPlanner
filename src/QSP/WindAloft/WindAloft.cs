@@ -1,10 +1,7 @@
-using QSP.AviationTools.Coordinates;
-using QSP.Common;
-using static QSP.MathTools.Doubles;
-using QSP.RouteFinding.Routes;
-using System;
-using System.Collections.Generic;
 using QSP.RouteFinding.Data.Interfaces;
+using QSP.RouteFinding.Routes;
+using System.Collections.Generic;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.WindAloft
 {
@@ -66,12 +63,8 @@ namespace QSP.WindAloft
             //returns airdis and grdDis
 
             double dis = latlon1.Distance(latlon2);
-
             var AvgWindCalc = new AvgWindCalculator(windTables, tas, FL);
-            AvgWindCalc.SetPoint1(latlon1.Lat, latlon1.Lon);
-            AvgWindCalc.SetPoint2(latlon2.Lat, latlon2.Lon);
-
-            double avgWind = AvgWindCalc.GetAvgWind(1.0);
+            double avgWind = AvgWindCalc.GetAvgWind(latlon1, latlon2, 1.0);
 
             return new AirGrdDistance()
             {
