@@ -493,8 +493,9 @@
     <Compile Include="WindAloft\WindAloft.cs" />
     <Compile Include="WindAloft\WindManager.cs" />
     <Compile Include="WindAloft\WindTable.cs" />
+    <Compile Include="WindAloft\WindTableCollection.cs" />
     <Compile Include="WindAloft\WindUV.cs" />
-    <Compile Include="WindAloft\WxFileLoader.cs" />
+    <Compile Include="WindAloft\WindFileLoader.cs" />
     <Content Include="NavData\icao_nationality_code.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

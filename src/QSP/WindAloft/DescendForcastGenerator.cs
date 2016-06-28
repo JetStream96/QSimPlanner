@@ -4,12 +4,18 @@ namespace QSP.WindAloft
 {
     public class DescendForcastGenerator
     {
+        private WindTableCollection windTables;
         private double lat;
         private double lon;
         private int[] FLs;
 
-        public DescendForcastGenerator(double latitude, double longitude, int[] flightLevels)
+        public DescendForcastGenerator(
+            WindTableCollection windTables,
+            double latitude,
+            double longitude,
+            int[] flightLevels)
         {
+            this.windTables = windTables;
             lat = latitude;
             lon = longitude;
             FLs = flightLevels;
@@ -21,7 +27,7 @@ namespace QSP.WindAloft
 
             for (int i = 0; i < FLs.Length; i++)
             {
-                var UVWind = QspCore.WxReader.GetWindUv(lat, lon, FLs[i]);
+                var UVWind = windTables.GetWindUV(lat, lon, FLs[i]);
                 forcast[i] = Wind.FromUV(UVWind);
             }
 

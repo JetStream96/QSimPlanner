@@ -7,7 +7,7 @@ namespace QSP.RouteFinding.Data.Interfaces
 {
     public static class ICoordinateExtension
     {
-        public static double Distance<T>(T x, T y) where T : ICoordinate
+        public static double Distance<T>(this T x, T y) where T : ICoordinate
         {
             return GCDis.Distance(x.Lat, x.Lon, y.Lat, y.Lon);
         }

@@ -1,17 +1,33 @@
-using System;
-using QSP.Common;
-using QSP.RouteFinding.Routes;
 using QSP.AviationTools.Coordinates;
+using QSP.Common;
+using static QSP.MathTools.Doubles;
+using QSP.RouteFinding.Routes;
+using System;
+using System.Collections.Generic;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.WindAloft
 {
-
     public static class Utilities
     {
-        public static int[] FullWindDataSet = { 100, 200, 250, 300, 350, 400, 500, 600, 700, 850 };
-        public static string WxFileDirectory = "Wx\\tmp";
+        private static int[] _fullWindDataSet =
+            { 100, 200, 250, 300, 350, 400, 500, 600, 700, 850 };
 
-        public static int AvgTailWind(Route rte, int cruizeLevel, int tas)
+        public static IReadOnlyList<int> FullWindDataSet
+        {
+            get
+            {
+                return _fullWindDataSet;
+            }
+        }
+
+        public static readonly string WxFileDirectory = @"Wx\tmp";
+
+        public static int AvgTailWind(
+            WindTableCollection windTables,
+            Route route,
+            int cruizeLevel, 
+            int tas)
         {
             //returns the avg tailwind to dest and altn, respectifully
             //based on the route generated/built from RouteGen page
@@ -21,38 +37,52 @@ namespace QSP.WindAloft
             double AirDisToDest = 0.0;
             double GrdDisToDest = 0.0;
 
-            var node = rte.First;
+            var node = route.First;
 
-            while (node != rte.Last)
+            while (node != route.Last)
             {
-                var t = GetAirDisGrdDis(node.Value.Waypoint.LatLon,
-                    node.Next.Value.Waypoint.LatLon, 
-                    tas, 
+                var t = GetAirDisGrdDis(
+                    windTables,
+                    node.Value.Waypoint.LatLon,
+                    node.Next.Value.Waypoint.LatLon,
+                    tas,
                     cruizeLevel);
 
-                AirDisToDest += t.Item1;
-                GrdDisToDest += t.Item2;
+                AirDisToDest += t.AirDis;
+                GrdDisToDest += t.GrdDis;
                 node = node.Next;
             }
 
-            return (int)(tas * (GrdDisToDest / AirDisToDest - 1.0));
+            return RoundToInt(tas * (GrdDisToDest / AirDisToDest - 1.0));
         }
 
-        public static Tuple<double, double> GetAirDisGrdDis(LatLon latlon1, LatLon latlon2, int tas, double FL)
+        public static AirGrdDistance GetAirDisGrdDis(
+            WindTableCollection windTables,
+            ICoordinate latlon1, 
+            ICoordinate latlon2, 
+            int tas,
+            double FL)
         {
             //returns airdis and grdDis
 
             double dis = latlon1.Distance(latlon2);
 
-            var AvgWindCalc = new AvgWindCalculator(QspCore.WxReader, tas, FL);
-            AvgWindCalc.SetPoint1(latlon1);
-            AvgWindCalc.SetPoint2(latlon2);
+            var AvgWindCalc = new AvgWindCalculator(windTables, tas, FL);
+            AvgWindCalc.SetPoint1(latlon1.Lat, latlon1.Lon);
+            AvgWindCalc.SetPoint2(latlon2.Lat, latlon2.Lon);
 
             double avgWind = AvgWindCalc.GetAvgWind(1.0);
 
-            return new Tuple<double, double>(dis * tas / (tas + avgWind), dis);
-
+            return new AirGrdDistance()
+            {
+                AirDis = dis * tas / (tas + avgWind),
+                GrdDis = dis
+            };
         }
 
+        public struct AirGrdDistance
+        {
+            public double AirDis; public double GrdDis;
+        }
     }
 }

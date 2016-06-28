@@ -11,7 +11,7 @@ namespace QSP.WindAloft
 
         public static void ConvertGrib()
         {
-            var processes = Grib2ToCsv(WindManager.SaveFileLocation);
+            var processes = Grib2ToCsv(WindDownloader.SaveFileLocation);
 
             while (processes.Any(p => p.HasExited == false))
             {
@@ -23,7 +23,7 @@ namespace QSP.WindAloft
         {
             var processes = new List<Process>();
 
-            for (int i = 1; i <= Utilities.FullWindDataSet.Length * 2; i++)
+            for (int i = 1; i <= Utilities.FullWindDataSet.Count * 2; i++)
             {
                 var properties = new ProcessStartInfo();
                 string filepathOut = filepath.Replace(".grib2", i + ".csv");

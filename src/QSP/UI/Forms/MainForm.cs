@@ -60,6 +60,7 @@ namespace QSP
         private AirportManager airportList;
         private WaypointList wptList;
         private CountryCodeManager countryCodes;
+        private WindTableCollection windTables;
 
         private RouteFinderSelection origAirport;
         private RouteFinderSelection destAirport;
@@ -67,7 +68,7 @@ namespace QSP
 
         #region "FuelCalculation"
 
-        public static FuelCalculator ComputeFuelIteration(FuelCalculationParameters para, uint precisionLevel)
+        public FuelCalculator ComputeFuelIteration(FuelCalculationParameters para, uint precisionLevel)
         {
             //presisionLevel = 0, 1, 2, ... 
             //smaller num = less precise
@@ -435,7 +436,7 @@ namespace QSP
 
             try
             {
-                await new WindManager().DownloadWindAsync();
+                windTables = await WindDownloader.DownloadWindAsync();
                 ShowWindDownloadStatus(WindDownloadStatus.Finished);
             }
             catch (Exception ex)
@@ -708,7 +709,8 @@ namespace QSP
         {
             var latlon = airportList.AirportLatlon(icao);
             int[] FLs = { 60, 90, 120, 180, 240, 300, 340, 390, 440, 490 };
-            var forcastGen = new DescendForcastGenerator(latlon.Lat, latlon.Lon, FLs);
+            var forcastGen = new DescendForcastGenerator(
+                windTables, latlon.Lat, latlon.Lon, FLs);
 
             Wind[] w = forcastGen.Generate();
             var result = new StringBuilder();
@@ -875,15 +877,15 @@ namespace QSP
             lbl.Text = $"Total Dis: {disInt} NM (+{diffStr}%)";
         }
 
-        private static int ComputeTailWind(TailWindCalcOptions para, int tas, int Fl)
+        private int ComputeTailWind(TailWindCalcOptions para, int tas, int Fl)
         {
             if (para == TailWindCalcOptions.OrigToDest)
             {
-                return WindAloft.Utilities.AvgTailWind(RouteToDest.Expanded, Fl, tas);
+                return WindAloft.Utilities.AvgTailWind(windTables, RouteToDest.Expanded, Fl, tas);
             }
             else
             {
-                return WindAloft.Utilities.AvgTailWind(RouteToAltn.Expanded, Fl, tas);
+                return WindAloft.Utilities.AvgTailWind(windTables, RouteToAltn.Expanded, Fl, tas);
             }
         }
 

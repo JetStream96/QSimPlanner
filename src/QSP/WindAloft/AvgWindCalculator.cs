@@ -12,7 +12,7 @@ namespace QSP.WindAloft
     {
         private Vector3D v1;
         private Vector3D v2;
-        private WxFileLoader windData;
+        private WindTableCollection windData;
         private double FL;
         private int tas;
         private double lat1;
@@ -21,9 +21,9 @@ namespace QSP.WindAloft
         private double lon2;
 
         public AvgWindCalculator(
-            WxFileLoader item, int trueAirspd, double flightLevel)
+            WindTableCollection windData, int trueAirspd, double flightLevel)
         {
-            windData = item;
+            this.windData = windData;
             tas = trueAirspd;
             FL = flightLevel;
 
@@ -133,7 +133,7 @@ namespace QSP.WindAloft
             // lat=phi, lon=theta
             // u=lon,v=lat
 
-            var w = windData.GetWindUv(lat, lon, FL);
+            var w = windData.GetWindUV(lat, lon, FL);
 
             lat = ToRadian(lat);
             lon = ToRadian(lon);

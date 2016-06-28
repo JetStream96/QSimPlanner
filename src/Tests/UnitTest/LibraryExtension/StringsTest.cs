@@ -34,16 +34,16 @@ namespace UnitTest.LibraryExtensionTest
             string str = "1235444abc4565656abc456566abc5651561abc15";
             string target = "abc";
 
-            Assert.AreEqual(7, NthOccurence(str, target, 1));
-            Assert.AreEqual(17, NthOccurence(str, target, 2));
+            Assert.AreEqual(7, str.NthOccurence(target, 1));
+            Assert.AreEqual(17, str.NthOccurence(target, 2));
 
             str = "1234a1234aa1234bb1234";
             target = "1234";
 
-            Assert.AreEqual(0, NthOccurence(str, target, 1));
-            Assert.AreEqual(5, NthOccurence(str, target, 2));
-            Assert.AreEqual(11, NthOccurence(str, target, 3));
-            Assert.AreEqual(17, NthOccurence(str, target, 4));
+            Assert.AreEqual(0, str.NthOccurence(target, 1));
+            Assert.AreEqual(5, str.NthOccurence(target, 2));
+            Assert.AreEqual(11, str.NthOccurence(target, 3));
+            Assert.AreEqual(17, str.NthOccurence(target, 4));
 
         }
 
@@ -53,11 +53,11 @@ namespace UnitTest.LibraryExtensionTest
             string str = "1235444abc4565656abc456566abc5651561abc15";
             string target = "123456";
 
-            Assert.AreEqual(-1, NthOccurence(str, target, 0));
-            Assert.AreEqual(-1, NthOccurence(str, target, 1));
-            Assert.AreEqual(-1, NthOccurence(str, target, 2));
+            Assert.AreEqual(-1, str.NthOccurence(target, 0));
+            Assert.AreEqual(-1, str.NthOccurence(target, 1));
+            Assert.AreEqual(-1, str.NthOccurence(target, 2));
         }
-        
+
         [Test]
         public void IndicesOfTest_Found()
         {

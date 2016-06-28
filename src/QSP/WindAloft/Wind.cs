@@ -1,4 +1,5 @@
 using System;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.WindAloft
 {
@@ -32,7 +33,7 @@ namespace QSP.WindAloft
 
         public string DirectionString()
         {
-            return ((int)Direction).ToString().PadLeft(3, '0');
+            return RoundToInt(Direction).ToString().PadLeft(3, '0');
         }
     }
 }

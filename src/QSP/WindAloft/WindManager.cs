@@ -1,24 +1,24 @@
 ﻿using System.Threading.Tasks;
-using static QSP.Common.QspCore;
 
 namespace QSP.WindAloft
 {
-    public class WindManager
+    public static class WindDownloader
     {
         public static readonly string SaveFileLocation =
             Utilities.WxFileDirectory + "\\wx.grib2";
 
-        public void DownloadWind()
+        // TODO: And what other exceptions?
+        /// <exception cref="ReadWindFileException"></exception>
+        public static WindTableCollection DownloadWind()
         {
             new GribDownloader().DownloadGribFile(SaveFileLocation);
             GribConverter.ConvertGrib();
-            WxReader = new WxFileLoader();
-            WxReader.ImportAllTables();
+            return new WindFileLoader().ImportAllTables();
         }
 
-        public async Task DownloadWindAsync()
+        public static async Task<WindTableCollection> DownloadWindAsync()
         {
-            await Task.Factory.StartNew(DownloadWind);
+            return await Task.Factory.StartNew(DownloadWind);
         }
     }
 }
