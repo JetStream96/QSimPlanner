@@ -20,17 +20,15 @@ namespace QSP.WindAloft
 
         public static readonly string WxFileDirectory = @"Wx\tmp";
 
+        /// <summary>
+        /// The average tailwind of the route.
+        /// </summary>
         public static int AvgTailWind(
             WindTableCollection windTables,
             Route route,
             int cruizeLevel, 
             int tas)
         {
-            //returns the avg tailwind to dest and altn, respectifully
-            //based on the route generated/built from RouteGen page
-            //assuming all wx are downloaded and decoded from grib2
-            //flight levels have to be enered on main page
-
             double AirDisToDest = 0.0;
             double GrdDisToDest = 0.0;
 

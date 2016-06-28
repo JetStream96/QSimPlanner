@@ -122,7 +122,7 @@ namespace QSP.WindAloft
             //          V_v(-sin(phi)cos(theta),-sin(phi)sin(theta),cos(phi))
             // 
             // lat=phi, lon=theta
-            // u=lon,v=lat
+            // u=lon, v=lat
 
             var w = windData.GetWindUV(lat, lon, FL);
 
