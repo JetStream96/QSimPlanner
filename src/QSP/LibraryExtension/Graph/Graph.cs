@@ -146,13 +146,20 @@ namespace QSP.LibraryExtension.Graph
             _edges.Clear();
         }
 
-        public int MaxSizeNode
+        public int NodeIndexUpperBound
         {
             get
             {
-                return _nodes.MaxSize;
+                return _nodes.IndexUpperBound;
             }
         }
 
+        public int EdgeIndexUpperBound
+        {
+            get
+            {
+                return _edges.IndexUpperBound;
+            }
+        }
     }
 }

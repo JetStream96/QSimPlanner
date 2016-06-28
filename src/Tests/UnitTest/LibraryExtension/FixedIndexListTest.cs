@@ -13,7 +13,7 @@ namespace UnitTest.LibraryExtensionTest
         {
             var item = new FixedIndexList<double>();
             Assert.AreEqual(0, item.Capacity);
-            Assert.AreEqual(0, item.MaxSize);
+            Assert.IsTrue(item.IndexUpperBound <= 0);
         }
 
         private FixedIndexList<double> CreateList()

@@ -100,7 +100,7 @@ namespace QSP.LibraryExtension
             int minimumSize = _size + newCount;
             if (minimumSize > _items.Length)
             {
-                Capacity = 
+                Capacity =
                     Math.Max(
                         Math.Max(Capacity * 2, initCapacity), minimumSize);
             }
@@ -158,13 +158,14 @@ namespace QSP.LibraryExtension
         }
 
         /// <summary>
-        /// The upper bound of indices of elements plus one. 
+        /// The upper bound of indices of elements, if the list is non-empty.
+        /// If the list is empty this number can be arbitrary.
         /// </summary>
-        public int MaxSize
+        public int IndexUpperBound
         {
             get
             {
-                return _size;
+                return _size - 1;
             }
         }
 

@@ -65,13 +65,21 @@ namespace QSP.RouteFinding.AirwayStructure
         }
 
         /// <summary>
-        /// The upper bound of indices of elements plus one. 
+        /// The upper bound of indices of nodes. 
         /// </summary>
-        public int MaxSize
+        public int NodeIndexUpperBound
         {
             get
             {
-                return _content.MaxSize;
+                return _content.NodeIndexUpperBound;
+            }
+        }
+
+        public int EdgeIndexUpperBound
+        {
+            get
+            {
+                return _content.EdgeIndexUpperBound;
             }
         }
 
