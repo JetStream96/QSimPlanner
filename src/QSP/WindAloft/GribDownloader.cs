@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Text;
-using System.Net;
 using System.IO;
+using System.Net;
+using System.Text;
 
 namespace QSP.WindAloft
 {
     public class GribDownloader
     {
-        public static readonly string HomePageUrl = 
+        public static readonly string HomePageUrl =
             "http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl";
 
         private string webPageUrl;
@@ -16,12 +16,13 @@ namespace QSP.WindAloft
         public void DownloadGribFile(string filePath)
         {
             var x = new LastestDataSetFinder().Find();
-            webPageUrl = x.Item1;
-            webPageSrc = x.Item2;
+            webPageUrl = x.Url;
+            webPageSrc = x.Source;
 
             using (var client = new WebClient())
             {
-                Directory.CreateDirectory(new FileInfo(filePath).DirectoryName);
+                var dir = new FileInfo(filePath).DirectoryName;
+                Directory.CreateDirectory(dir);
                 client.DownloadFile(FileUrl(), filePath);
             }
         }
@@ -49,7 +50,7 @@ namespace QSP.WindAloft
         private string GetFilePara()
         {
             int index = webPageSrc.IndexOf("<select name=\"file\">");
-            int x = webPageSrc.IndexOf("<option value=\"", index) + 
+            int x = webPageSrc.IndexOf("<option value=\"", index) +
                 "<option value=\"".Length;
             int y = webPageSrc.IndexOf("\">", x);
 

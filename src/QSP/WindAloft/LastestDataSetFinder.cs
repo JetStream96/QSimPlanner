@@ -1,26 +1,28 @@
-﻿using System;
+﻿using QSP.LibraryExtension;
 using System.Net;
-using QSP.LibraryExtension;
 
 namespace QSP.WindAloft
 {
     public class LastestDataSetFinder
     {
-
-        // The source has about 30000 chars for the filter page, and only 700 for a page with file unavailable.
-        // If the html source is longer than this number, it's considered a valid page to return.
+        // If the html source is longer than this number,
+        // it's considered a valid page to return.
+        // (The source of filter page has about 30000 chars, 
+        //  a page with file unavailable has only 700.)
         private const int sourceCodeLenCriteria = 9000;
 
         private int numLinksTried = 0;
         string mainPageSource;
 
-        public Tuple<string, string> Find()
+        public FindResult Find()
         {
             string src = string.Empty;
 
             using (var client = new WebClient())
             {
-                mainPageSource = client.DownloadString(GribDownloader.HomePageUrl);
+                mainPageSource = client.DownloadString(
+                    GribDownloader.HomePageUrl);
+
                 string url = string.Empty;
 
                 while (src.Length < sourceCodeLenCriteria)
@@ -35,15 +37,21 @@ namespace QSP.WindAloft
                         throw new WindNotAvailException();
                     }
                 }
-                return new Tuple<string, string>(url, src);
+
+                return new FindResult() { Url = url, Source = src };
             }
         }
+
+        public struct FindResult { public string Url; public string Source; }
 
         private string LastestUrl()
         {
             try
             {
-                int i = Strings.NthOccurence(mainPageSource, "<a href=\"", ++numLinksTried) + "<a href=\"".Length;
+                int i = mainPageSource.NthOccurence(
+                    "<a href=\"", ++numLinksTried) +
+                    "<a href=\"".Length;
+
                 int j = mainPageSource.IndexOf("\">", i);
                 return mainPageSource.Substring(i, j - i);
             }

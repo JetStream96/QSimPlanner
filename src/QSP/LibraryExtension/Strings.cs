@@ -13,7 +13,7 @@ namespace QSP.LibraryExtension
                 str.Replace("\n", "\n" + new string(' ', steps));
         }
 
-        public static int NthOccurence(string input, string target, int n)
+        public static int NthOccurence(this string input, string target, int n)
         {
             int count = 0;
             int len = target.Length;

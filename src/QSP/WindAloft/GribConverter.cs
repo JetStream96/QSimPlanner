@@ -1,6 +1,7 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading;
 
 namespace QSP.WindAloft
 {
@@ -10,37 +11,34 @@ namespace QSP.WindAloft
 
         public static void ConvertGrib()
         {
-            int numAlreadyRunning = NumProcessRunning(gribConverterName);
-            Grib2ToCsv(WindManager.SaveFileLocation);
+            var processes = Grib2ToCsv(WindManager.SaveFileLocation);
 
-            //TODO: This code is not completely error free.
-            //Better to check whether all .wx files can be read.
-            while (NumProcessRunning(gribConverterName) > numAlreadyRunning)
+            while (processes.Any(p => p.HasExited == false))
             {
                 Thread.Sleep(100);
             }
         }
 
-        private static void Grib2ToCsv(string filepath)
+        private static List<Process> Grib2ToCsv(string filepath)
         {
-            var ProcessProperties = new ProcessStartInfo();
+            var processes = new List<Process>();
 
             for (int i = 1; i <= Utilities.FullWindDataSet.Length * 2; i++)
             {
+                var properties = new ProcessStartInfo();
                 string filepathOut = filepath.Replace(".grib2", i + ".csv");
 
-                ProcessProperties.FileName = @".\Degrib\degrib.exe";
-                ProcessProperties.Arguments = "-in " + filepath + " -C -msg "
-                    + i + " -Csv -out " + filepathOut;
-                //command line arguments
-                ProcessProperties.WindowStyle = ProcessWindowStyle.Hidden;
-                Process myProcess = Process.Start(ProcessProperties);
-            }
-        }
+                properties.FileName = @".\Degrib\degrib.exe";
 
-        private static int NumProcessRunning(string processName)
-        {
-            return Process.GetProcessesByName(processName).Count();
+                // Command line arguments
+                properties.Arguments =
+                    $"-in {filepath} -C -msg {i} -Csv -out {filepathOut}";
+
+                properties.WindowStyle = ProcessWindowStyle.Hidden;
+                processes.Add(Process.Start(properties));
+            }
+
+            return processes;
         }
     }
 }

@@ -36,6 +36,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.AviationTools.Constants;
+using static QSP.MathTools.Doubles;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.LoggerInstance;
 
@@ -204,8 +205,6 @@ namespace QSP
                     airportList,
                     new TrackInUseCollection());
             });
-
-            // avoidCountrySelection.Init(new .CountryCodeManager )
         }
 
         private void InitData()
@@ -716,8 +715,12 @@ namespace QSP
 
             for (int i = 0; i < FLs.Length; i++)
             {
-                result.AppendLine("        FL" + FLs[i].ToString().PadLeft(3, '0') + "   " + w[i].DirectionString() +
-                    "/" + (int)w[i].Speed);
+                var flightLevel = FLs[i].ToString().PadLeft(3, '0');
+                var direction = w[i].DirectionString();
+                int speed = RoundToInt(w[i].Speed);
+
+                result.AppendLine(
+                    $"        FL{flightLevel}   {direction}/{speed}");
             }
 
             return result.ToString();
@@ -863,7 +866,7 @@ namespace QSP
         public static void UpdateRouteDistanceLbl(Label lbl, Route route)
         {
             double totalDis = route.GetTotalDistance();
-            int disInt = Doubles.RoundToInt(totalDis);
+            int disInt = RoundToInt(totalDis);
             double directDis =
                 route.FirstWaypoint.DistanceFrom(route.LastWaypoint);
             double percentDiff = (totalDis - directDis) / directDis * 100;
