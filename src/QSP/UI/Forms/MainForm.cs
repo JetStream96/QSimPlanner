@@ -154,7 +154,7 @@ namespace QSP
 
             string outputText = fuelCalcResult.ToString(parameters.WtUnit);
 
-            FuelReport_TxtBox.Text = Environment.NewLine + outputText.ShiftToRight(20);
+            FuelReport_TxtBox.Text = "\n" + outputText.ShiftToRight(20);
             formStateManagerFuel.Save();
 
             //send weights to takeoff/ldg calc form 
@@ -850,12 +850,16 @@ namespace QSP
             var sid = GetSidStarList(OrigSidComboBox);
             var star = GetSidStarList(DestStarComboBox);
 
+            // TODO: need to be integrated with fuel calculator
+            var windCalc = windTables == null ?
+                null : new AvgWindCalculator(windTables, 460, 370.0);
+
             var finder = new RouteFinderFacade(
                 wptList,
                 airportList,
                 AppSettings.NavDataLocation,
                 null, //TODO: add this
-                new AvgWindCalculator(windTables, 460, 370.0));
+                windCalc);
 
             var result = finder.FindRoute(
                 OrigTxtBox.Text, OrigRwyComboBox.Text, sid,

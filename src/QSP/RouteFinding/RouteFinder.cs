@@ -22,11 +22,7 @@ namespace QSP.RouteFinding
         private WaypointList wptList;
         private CountryCodeCollection avoidedCountry;
         private AvgWindCalculator windCalc;
-
-        public RouteFinder(WaypointList wptList)
-            : this(wptList, new CountryCodeCollection())
-        { }
-
+        
         public RouteFinder(
             WaypointList wptList,
             CountryCodeCollection avoidedCountry = null,
