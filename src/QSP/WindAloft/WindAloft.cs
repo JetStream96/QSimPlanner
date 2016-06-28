@@ -62,11 +62,11 @@ namespace QSP.WindAloft
 
             double dis = latlon1.Distance(latlon2);
             var AvgWindCalc = new AvgWindCalculator(windTables, tas, FL);
-            double avgWind = AvgWindCalc.GetAvgWind(latlon1, latlon2, 1.0);
+            var avgWind = AvgWindCalc.GetAvgWind(latlon1, latlon2, 1.0);
 
             return new AirGrdDistance()
             {
-                AirDis = dis * tas / (tas + avgWind),
+                AirDis = avgWind.AirDis,
                 GrdDis = dis
             };
         }

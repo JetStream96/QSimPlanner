@@ -1,8 +1,10 @@
 ﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using QSP.WindAloft;
 using System.Collections.Generic;
 
 namespace QSP.RouteFinding
@@ -17,12 +19,14 @@ namespace QSP.RouteFinding
         public RouteFinderFacade(
             WaypointList wptList,
             AirportManager airportList,
-            string navDataLocation)
+            string navDataLocation,
+            CountryCodeCollection avoidedCountry = null,
+            AvgWindCalculator windCalc = null)
         {
             this.wptList = wptList;
             this.airportList = airportList;
             this.navDataLocation = navDataLocation;
-            finder = new RouteFinder(wptList);
+            finder = new RouteFinder(wptList, avoidedCountry, windCalc);
         }
 
         public Route FindRoute(

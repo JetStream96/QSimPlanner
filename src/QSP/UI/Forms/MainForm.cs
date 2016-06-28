@@ -850,12 +850,18 @@ namespace QSP
             var sid = GetSidStarList(OrigSidComboBox);
             var star = GetSidStarList(DestStarComboBox);
 
-            MessageBox.Show(
-            TimeIt.GetMilliseconds(() =>
-            RouteToDest = new RouteGroup(new RouteFinderFacade(wptList, airportList, AppSettings.NavDataLocation)
-                                           .FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid,
-                                                      DestTxtBox.Text, DestRwyComboBox.Text, star),
-                                           TracksInUse)).ToString());
+            var finder = new RouteFinderFacade(
+                wptList,
+                airportList,
+                AppSettings.NavDataLocation,
+                null, //TODO: add this
+                new AvgWindCalculator(windTables, 460, 370.0));
+
+            var result = finder.FindRoute(
+                OrigTxtBox.Text, OrigRwyComboBox.Text, sid,
+                DestTxtBox.Text, DestRwyComboBox.Text, star);
+
+            RouteToDest = new RouteGroup(result, TracksInUse);
 
             var route = RouteToDest.Expanded;
 

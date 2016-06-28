@@ -5,8 +5,10 @@ using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
+using QSP.LibraryExtension.Graph;
 
 namespace QSP.RouteFinding
 {
@@ -19,16 +21,21 @@ namespace QSP.RouteFinding
     {
         private WaypointList wptList;
         private CountryCodeCollection avoidedCountry;
+        private AvgWindCalculator windCalc;
 
         public RouteFinder(WaypointList wptList)
             : this(wptList, new CountryCodeCollection())
         { }
 
         public RouteFinder(
-            WaypointList wptList, CountryCodeCollection avoidedCountry)
+            WaypointList wptList,
+            CountryCodeCollection avoidedCountry = null,
+            AvgWindCalculator windCalc = null)
         {
             this.wptList = wptList;
-            this.avoidedCountry = avoidedCountry;
+            this.avoidedCountry = 
+                avoidedCountry ?? new CountryCodeCollection();
+            this.windCalc = windCalc;
         }
 
         /// <summary>
@@ -219,6 +226,19 @@ namespace QSP.RouteFinding
             return false; //Route not found.            
         }
 
+        private double GetEdgeDistance(Edge<Neighbor> edge)
+        {
+            if (windCalc == null)
+            {
+                return edge.Value.Distance;
+            }
+
+            return windCalc.GetAvgWind(
+                wptList[edge.FromNodeIndex],
+                wptList[edge.ToNodeIndex])
+                .AirDis;
+        }
+
         private void UpdateNeighbors(
             int currentWptIndex,
             RouteSeachRegion regionPara,
@@ -236,7 +256,7 @@ namespace QSP.RouteFinding
                 if (WptWithinRange(findRouteData, index, regionPara) &&
                     avoidedCountry.Contains(countryCode) == false)
                 {
-                    double newDis = currentDis + edge.Value.Distance;
+                    double newDis = currentDis + GetEdgeDistance(edge);
 
                     if (wptData[index].CurrentDistance ==
                         double.PositiveInfinity)

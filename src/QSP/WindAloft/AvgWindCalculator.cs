@@ -46,7 +46,7 @@ namespace QSP.WindAloft
             v2 = LatLonToVector3D(lat2, lon2);
         }
 
-        public double GetAvgWind(
+        public CalcResult GetAvgWind(
             ICoordinate point1,
             ICoordinate point2,
             double delta = 1.0)
@@ -65,10 +65,19 @@ namespace QSP.WindAloft
             double r = EarthRadiusNm * Math.Acos(v1.Dot(v2));
 
             //total time required
-            double T = Integrate(
+            double time = Integrate(
                 GetOneOverGS, 0.0, r, deltaAlpha * EarthRadiusNm);
 
-            return r / T - Tas;
+            return new CalcResult()
+            {
+                AvgTailWind = r / time - Tas,
+                AirDis = time * Tas
+            };
+        }
+
+        public struct CalcResult
+        {
+            public double AvgTailWind; public double AirDis;
         }
 
         private double GetOneOverGS(double r)
