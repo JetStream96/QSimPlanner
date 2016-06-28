@@ -4,7 +4,6 @@ using QSP.Common.Options;
 using QSP.FuelCalculation;
 using QSP.GoogleMap;
 using QSP.LibraryExtension;
-using QSP.MathTools;
 using QSP.Metar;
 using QSP.NavData.AAX;
 using QSP.RouteFinding;
@@ -851,10 +850,12 @@ namespace QSP
             var sid = GetSidStarList(OrigSidComboBox);
             var star = GetSidStarList(DestStarComboBox);
 
+            MessageBox.Show(
+            TimeIt.GetMilliseconds(() =>
             RouteToDest = new RouteGroup(new RouteFinderFacade(wptList, airportList, AppSettings.NavDataLocation)
                                            .FindRoute(OrigTxtBox.Text, OrigRwyComboBox.Text, sid,
                                                       DestTxtBox.Text, DestRwyComboBox.Text, star),
-                                           TracksInUse);
+                                           TracksInUse)).ToString());
 
             var route = RouteToDest.Expanded;
 

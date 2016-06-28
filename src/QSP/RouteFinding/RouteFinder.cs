@@ -222,18 +222,18 @@ namespace QSP.RouteFinding
         private void UpdateNeighbors(
             int currentWptIndex,
             RouteSeachRegion regionPara,
-            RouteFindingData FindRouteData,
+            RouteFindingData findRouteData,
             MinHeap<int, double> unvisited,
             double currentDis)
         {
             foreach (var edgeIndex in wptList.EdgesFrom(currentWptIndex))
             {
-                var wptData = FindRouteData.WaypointData;
+                var wptData = findRouteData.WaypointData;
                 var edge = wptList.GetEdge(edgeIndex);
                 int index = edge.ToNodeIndex;
                 var countryCode = wptList[index].CountryCode;
 
-                if (WptWithinRange(index, regionPara) &&
+                if (WptWithinRange(findRouteData, index, regionPara) &&
                     avoidedCountry.Contains(countryCode) == false)
                 {
                     double newDis = currentDis + edge.Value.Distance;
@@ -244,33 +244,55 @@ namespace QSP.RouteFinding
                         // The node was never touched.
                         unvisited.Add(index, newDis);
                         wptData[index] = new RouteFindingData.WaypointStatus(
-                            currentWptIndex, edge.Value.Airway, newDis);
+                            currentWptIndex,
+                            edge.Value.Airway,
+                            newDis,
+                            InRange.Yes);
                     }
-                    else if (
-                        unvisited.ContainsKey(index) &&
+                    else if (unvisited.ContainsKey(index) &&
                         newDis < unvisited[index].Value)
                     {
                         unvisited.ChangeValue(index, newDis);
                         wptData[index] = new RouteFindingData.WaypointStatus(
-                            currentWptIndex, edge.Value.Airway, newDis);
+                            currentWptIndex,
+                            edge.Value.Airway,
+                            newDis,
+                            InRange.Yes);
                     }
                 }
             }
         }
 
-        private bool WptWithinRange(
+        private bool WptWithinRange(RouteFindingData findRouteData,
             int wptIndex, RouteSeachRegion regionPara)
         {
-            //suppose the orig and dest rwys are already in the wptList
-            var p = regionPara;
+            var data = findRouteData.WaypointData;
 
-            return
-                wptList.Distance(p.StartPtIndex, wptIndex) +
-                wptList.Distance(p.EndPtIndex, wptIndex) <
-                2 * Math.Sqrt(p.b * p.b + p.c * p.c);
+            if (data[wptIndex].WithInRange == InRange.Unknown)
+            {
+                // Suppose the orig and dest rwys are already in the wptList
+                var p = regionPara;
+
+                bool inRange =
+                    wptList.Distance(p.StartPtIndex, wptIndex) +
+                    wptList.Distance(p.EndPtIndex, wptIndex) <
+                    2 * Math.Sqrt(p.b * p.b + p.c * p.c);
+
+                data[wptIndex].WithInRange =
+                    inRange ? InRange.Yes : InRange.No;
+            }
+
+            return (int)data[wptIndex].WithInRange == 1;
         }
 
         #region Helper Classes
+
+        public enum InRange
+        {
+            Unknown = 0,
+            Yes = 1,
+            No = 2
+        }
 
         private class RouteFindingData
         {
@@ -302,15 +324,18 @@ namespace QSP.RouteFinding
                 public int FromWptIndex { get; set; }
                 public string FromAirway { get; set; }
                 public double CurrentDistance { get; set; }
+                public InRange WithInRange { get; set; }
 
                 public WaypointStatus(
                     int FromWptIndex,
                     string FromAirway,
-                    double CurrentDistance)
+                    double CurrentDistance,
+                    InRange WithInRange)
                 {
                     this.FromWptIndex = FromWptIndex;
                     this.FromAirway = FromAirway;
                     this.CurrentDistance = CurrentDistance;
+                    this.WithInRange = WithInRange;
                 }
             }
         }

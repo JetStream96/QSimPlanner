@@ -141,6 +141,7 @@
     <Compile Include="UI\UserControls\AdvancedRouteTool.Designer.cs">
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\AircraftEnums.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />
