@@ -1,4 +1,5 @@
 ﻿using QSP.RouteFinding.Containers.CountryCode;
+using QSP.UI.Controllers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,13 +10,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListView;
-using QSP.UI.Controllers;
 
 namespace QSP.UI.RoutePlanning
 {
     public partial class AvoidCountrySelection : UserControl
     {
         private CountryCodeManager countryCodes;
+        private List<ListViewItem> items;
 
         public AvoidCountrySelection()
         {
@@ -27,7 +28,7 @@ namespace QSP.UI.RoutePlanning
             get
             {
                 var items = listView.Items;
-                
+
                 return items.Cast<ListViewItem>()
                     .Where(i => i.Checked)
                     .Select(i => i.Text);
@@ -54,6 +55,9 @@ namespace QSP.UI.RoutePlanning
             showSelectedCheckBox.CheckedChanged +=
                 showSelectedCheckBoxChanged;
 
+            codeTxtBox.TextChanged += codeTxtChanged;
+            countryTxtBox.TextChanged += countryTxtChanged;
+
             new ListViewSortEnabler(listView).EnableSort();
         }
 
@@ -65,6 +69,8 @@ namespace QSP.UI.RoutePlanning
                 lvi.SubItems.Add(i.Value);
                 listView.Items.Add(lvi);
             }
+
+            items = listView.Items.Cast<ListViewItem>().ToList();
         }
 
         // KeyValuePair of LetterCode and CountryName
@@ -75,40 +81,35 @@ namespace QSP.UI.RoutePlanning
             return list;
         }
 
+        private void filter(Func<ListViewItem, bool> predicate)
+        {
+            var selected = items.Where(predicate).ToArray();
+            listView.Items.Clear();
+            listView.Items.AddRange(selected);
+        }
+
         private void showSelectedCheckBoxChanged(object sender, EventArgs e)
         {
             if (showSelectedCheckBox.Checked)
             {
-                var selected = new HashSet<string>(CheckedLetters);
-                listView.Items.Clear();
-
-                var itemsToAdd = GetList()
-                    .Where(p => selected.Contains(p.Key));
-
-                foreach (var i in itemsToAdd)
-                {
-                    var lvi = new ListViewItem(i.Key);
-                    lvi.SubItems.Add(i.Value);
-                    listView.Items.Add(lvi);
-                    lvi.Checked = true;
-                }                
+                filter(i => i.Checked);
             }
             else
             {
-                var selected = new HashSet<string>(CheckedLetters);
-                listView.Items.Clear();
-                AddItems();
-
-                foreach (var i in listView.Items)
-                {
-                    var item = (ListViewItem)i;
-
-                    if (selected.Contains(item.Text))
-                    {
-                        item.Checked = true;
-                    }
-                }
+                filter(i => true);
             }
+        }
+
+        private void codeTxtChanged(object sender, EventArgs e)
+        {
+            var txt = codeTxtBox.Text.Trim().ToUpper();
+            filter(i => i.Text.IndexOf(txt) != -1);
+        }
+
+        private void countryTxtChanged(object sender, EventArgs e)
+        {
+            var txt = countryTxtBox.Text.Trim().ToUpper();
+            filter(i => i.SubItems[1].Text.ToUpper().IndexOf(txt) != -1);
         }
     }
 }

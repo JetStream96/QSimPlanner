@@ -32,6 +32,10 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.showSelectedCheckBox = new System.Windows.Forms.CheckBox();
+            this.codeTxtBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.countryTxtBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // listView
@@ -40,7 +44,7 @@
             this.columnHeader1,
             this.columnHeader2});
             this.listView.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listView.Location = new System.Drawing.Point(64, 125);
+            this.listView.Location = new System.Drawing.Point(12, 64);
             this.listView.Name = "listView";
             this.listView.Size = new System.Drawing.Size(370, 254);
             this.listView.TabIndex = 0;
@@ -61,22 +65,62 @@
             // 
             this.showSelectedCheckBox.AutoSize = true;
             this.showSelectedCheckBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.showSelectedCheckBox.Location = new System.Drawing.Point(306, 95);
+            this.showSelectedCheckBox.Location = new System.Drawing.Point(254, 324);
             this.showSelectedCheckBox.Name = "showSelectedCheckBox";
             this.showSelectedCheckBox.Size = new System.Drawing.Size(128, 24);
             this.showSelectedCheckBox.TabIndex = 1;
             this.showSelectedCheckBox.Text = "Show Selected";
             this.showSelectedCheckBox.UseVisualStyleBackColor = true;
             // 
+            // codeTxtBox
+            // 
+            this.codeTxtBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codeTxtBox.Location = new System.Drawing.Point(12, 31);
+            this.codeTxtBox.Name = "codeTxtBox";
+            this.codeTxtBox.Size = new System.Drawing.Size(100, 27);
+            this.codeTxtBox.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(8, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(104, 19);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Search By Code";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(135, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(122, 19);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Search By Country";
+            // 
+            // countryTxtBox
+            // 
+            this.countryTxtBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.countryTxtBox.Location = new System.Drawing.Point(139, 31);
+            this.countryTxtBox.Name = "countryTxtBox";
+            this.countryTxtBox.Size = new System.Drawing.Size(170, 27);
+            this.countryTxtBox.TabIndex = 4;
+            // 
             // AvoidCountrySelection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.countryTxtBox);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.codeTxtBox);
             this.Controls.Add(this.showSelectedCheckBox);
             this.Controls.Add(this.listView);
             this.Name = "AvoidCountrySelection";
-            this.Size = new System.Drawing.Size(646, 484);
+            this.Size = new System.Drawing.Size(392, 360);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -88,5 +132,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.CheckBox showSelectedCheckBox;
+        private System.Windows.Forms.TextBox codeTxtBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox countryTxtBox;
     }
 }
