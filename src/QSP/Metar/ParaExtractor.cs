@@ -13,7 +13,7 @@ namespace QSP.Metar
         /// or "14007MPS".
         /// If not found, returns null.
         /// </summary>
-        public static Wind GetWind(string metar)
+        public static Wind? GetWind(string metar)
         {
             if (Regex.Match(metar,
                 @"\bVRB\d{1,3}(KTS?|MPS)\b").Success)

@@ -436,7 +436,7 @@ namespace QSP
 
             try
             {
-                windTables = await WindDownloader.DownloadWindAsync();
+                windTables = await WindManager.LoadWindAsync();
                 ShowWindDownloadStatus(WindDownloadStatus.Finished);
             }
             catch (Exception ex)

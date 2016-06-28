@@ -11,7 +11,7 @@ namespace UnitTest.Metar
         [Test]
         public void GetWindTestVRB()
         {
-            var w = ParaExtractor.GetWind("RCTP ... VRB05KT");
+            var w = ParaExtractor.GetWind("RCTP ... VRB05KT").Value;
             Assert.AreEqual(0.0, (w.Direction - 360.0).Mod(360.0), 1E-6);
             Assert.AreEqual(0.0, w.Speed, 1E-6);
         }
@@ -25,21 +25,21 @@ namespace UnitTest.Metar
         [Test]
         public void GetWindTestNormalFormat()
         {
-            var w = ParaExtractor.GetWind("RCTP ... 31005KT");
+            var w = ParaExtractor.GetWind("RCTP ... 31005KT").Value;
             Assert.AreEqual(0.0, (w.Direction - 310.0).Mod(360.0), 1E-6);
             Assert.AreEqual(5.0, w.Speed, 1E-6);
 
-            var v = ParaExtractor.GetWind("ZSSS ... 31008MPS");
+            var v = ParaExtractor.GetWind("ZSSS ... 31008MPS").Value;
             Assert.AreEqual(0.0, (v.Direction - 310.0).Mod(360.0), 1E-6);
             Assert.AreEqual(8.0 / 0.514444444, v.Speed, 1E-6);
 
-            var x = ParaExtractor.GetWind("RCTP ... 310/05KT");
-            Assert.AreEqual(0.0, (w.Direction - 310.0).Mod(360.0), 1E-6);
-            Assert.AreEqual(5.0, w.Speed, 1E-6);
+            var x = ParaExtractor.GetWind("RCTP ... 310/05KT").Value;
+            Assert.AreEqual(0.0, (x.Direction - 310.0).Mod(360.0), 1E-6);
+            Assert.AreEqual(5.0, x.Speed, 1E-6);
 
-            var y = ParaExtractor.GetWind("RCTP ... 31005G15KT");
-            Assert.AreEqual(0.0, (w.Direction - 310.0).Mod(360.0), 1E-6);
-            Assert.AreEqual(5.0, w.Speed, 1E-6);
+            var y = ParaExtractor.GetWind("RCTP ... 31005G15KT").Value;
+            Assert.AreEqual(0.0, (y.Direction - 310.0).Mod(360.0), 1E-6);
+            Assert.AreEqual(5.0, y.Speed, 1E-6);
         }
 
         [Test]

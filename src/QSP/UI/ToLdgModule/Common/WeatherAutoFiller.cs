@@ -35,16 +35,17 @@ namespace QSP.UI.ToLdgModule.Common
             }
             else
             {
-                windSpeed.Text = RoundToInt(wind.Speed).ToString();
+                var w = wind.Value;
+                windSpeed.Text = RoundToInt(w.Speed).ToString();
 
                 windDirection.Text =
-                    ((RoundToInt(wind.Direction) - 1)
+                    ((RoundToInt(w.Direction) - 1)
                     .Mod(360) + 1)
                     .ToString()
                     .PadLeft(3, '0');
 
                 tempUnit.SelectedIndex = 0;
-                oat.Text = temp.ToString();
+                oat.Text = temp.Value.ToString();
                 pressUnit.SelectedIndex = (int)press.PressUnit;
                 altimeter.Text =
                     press.PressUnit == PressureUnit.inHg ?

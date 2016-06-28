@@ -3,7 +3,7 @@ using static QSP.MathTools.Doubles;
 
 namespace QSP.WindAloft
 {
-    public class Wind
+    public struct Wind
     {
         // The direction of the wind. This value is larger than 
         // zero and no greater than 360.
