@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListView;
+using QSP.UI.Controllers;
 
 namespace QSP.UI.RoutePlanning
 {
@@ -53,10 +54,7 @@ namespace QSP.UI.RoutePlanning
             showSelectedCheckBox.CheckedChanged +=
                 showSelectedCheckBoxChanged;
 
-            listView.ColumnClick += (sender, e) =>
-            {
-
-            };
+            new ListViewSortEnabler(listView).EnableSort();
         }
 
         private void AddItems()
