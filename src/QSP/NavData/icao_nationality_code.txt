@@ -3,6 +3,7 @@ AN	Nauru Islands
 AY	Papua New Guinea
 BG	Greenland
 BI	Iceland
+CF	Saint Pierre and Miquelon
 CY	Canada
 DA	Algeria
 DB	Benin
@@ -65,6 +66,7 @@ GU	Guinea
 GV	Cape Verde
 HA	Ethiopia
 HB	Burundi
+HC	Somalia
 HD	Djibouti
 HE	Egypt
 HH	Eritrea
@@ -144,6 +146,7 @@ OR	Iraq
 OS	Syria
 OT	Qatar
 OY	Yemen
+P	Pacific
 PA	Alaska
 PG	Guam
 PH	Hawaii
@@ -162,6 +165,7 @@ SA	Argentina
 SB	Brazil
 SC	Chile
 SE	Equador
+SF	Falkland Islands
 SG	Paraguay
 SK	Colombia
 SL	Bolivia
@@ -188,6 +192,8 @@ TV	U.K Virgin Islands
 TX	Bermuda
 UA	Kazakhstan and Kyrgyzstan
 UB	Azerbiajan
+UC	Kyrgyz Republic
+UD	Armenia
 UE	Russian Federation
 UG	Armenia and Georgia
 UH	Russian Federation
@@ -196,6 +202,7 @@ UK	Ukraine and Moldovia
 UL	Russian Federation
 UM	Belarus, Latvia and Lithuania
 UN	Russian Federation
+UO	Russian Federation
 UR	Russian Federation
 US	Russian Federation
 UT	Uzbekistan, Turkmenistan and Tadjikistan
@@ -212,6 +219,7 @@ VL	Laos
 VM	Macau
 VN	Nepal
 VO	India - South
+VQ	Bhutan
 VR	Maldives
 VT	Thailand
 VV	Vietnam
@@ -220,6 +228,7 @@ WA	Indonesia
 WB	Brunei
 WI	Indonesia
 WM	Malaysia
+WP	Indonesia
 WR	Indonesia - Bali
 WS	Singapore
 YB	Australia
@@ -227,6 +236,7 @@ YM	Australia
 ZB	China
 ZG	China
 ZH	China
+ZJ	China
 ZK	North Korea
 ZL	China
 ZM	Mongolia
