@@ -201,7 +201,7 @@ namespace QSP.RouteFinding
             RouteSeachRegion regionPara,
             RouteFindingData findRouteData)
         {
-            findRouteData.InitializeDistance(regionPara.StartPtIndex);
+            findRouteData.Init(regionPara.StartPtIndex);
 
             var unvisited = new MinHeap<int, double>();
             unvisited.Add(regionPara.StartPtIndex, 0.0);
@@ -327,17 +327,19 @@ namespace QSP.RouteFinding
                 WaypointData = new WaypointStatus[Count];
             }
 
-            public void InitializeDistance(int startPtIndex)
+            public void Init(int startPtIndex)
             {
                 int len = WaypointData.Length;
 
                 for (int i = 0; i < len; i++)
                 {
                     // Initial distance
-                    WaypointData[i].CurrentDistance = double.PositiveInfinity;
+                    WaypointData[i] = new WaypointStatus(
+                        0, null, double.PositiveInfinity, InRange.Unknown);                    
                 }
 
-                WaypointData[startPtIndex].CurrentDistance = 0.0;
+                WaypointData[startPtIndex] = new WaypointStatus(
+                        0, null, 0.0, InRange.Unknown);
             }
 
             public struct WaypointStatus
