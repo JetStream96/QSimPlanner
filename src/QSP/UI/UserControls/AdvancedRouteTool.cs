@@ -6,9 +6,11 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.UI.Controllers;
+using QSP.UI.RoutePlanning;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -369,6 +371,23 @@ namespace QSP.UI.UserControls
                     TerminalProcedure.Items.Clear();
                 }
             }
+        }
+
+        private void filterSidBtnClick(object sender, EventArgs e)
+        {
+            var filter = new SidStarFilter();
+            filter.Init(fromGroup.controller.Procedures.ToList(), true);
+            filter.Location = new Point(0, 0);
+
+            var frm = new Form();
+            frm.Size = filter.Size;
+            frm.FormBorderStyle = FormBorderStyle.None;
+            frm.StartPosition = FormStartPosition.CenterParent;
+            frm.BackColor = Color.White;
+            frm.AutoScaleMode = AutoScaleMode.Dpi;
+            frm.Controls.Add(filter);
+
+            frm.ShowDialog();
         }
     }
 }

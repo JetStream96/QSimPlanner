@@ -25,6 +25,16 @@ namespace QSP.UI.Controllers
         public ComboBox TerminalProceduresCBox { get; private set; }
         public bool IsDepartureAirport { get; private set; }
 
+        public IEnumerable<string> Procedures
+        {
+            get
+            {
+                return TerminalProceduresCBox.Items
+                    .Cast<string>()
+                    .Where(s => s != NoProcedureTxt && s != AutoProcedureTxt);
+            }
+        }
+
         public RouteFinderSelection(
             TextBox IcaoTxtBox,
             bool IsDepartureAirport,

@@ -51,6 +51,8 @@
             this.fromRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.toTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.fromTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.filterSidBtn = new System.Windows.Forms.Button();
+            this.filterStarBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -77,7 +79,7 @@
             // 
             this.fromRwyLbl.AutoSize = true;
             this.fromRwyLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fromRwyLbl.Location = new System.Drawing.Point(270, 6);
+            this.fromRwyLbl.Location = new System.Drawing.Point(248, 6);
             this.fromRwyLbl.Name = "fromRwyLbl";
             this.fromRwyLbl.Size = new System.Drawing.Size(60, 20);
             this.fromRwyLbl.TabIndex = 4;
@@ -87,7 +89,7 @@
             // 
             this.sidLbl.AutoSize = true;
             this.sidLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sidLbl.Location = new System.Drawing.Point(371, 6);
+            this.sidLbl.Location = new System.Drawing.Point(339, 6);
             this.sidLbl.Name = "sidLbl";
             this.sidLbl.Size = new System.Drawing.Size(32, 20);
             this.sidLbl.TabIndex = 6;
@@ -117,7 +119,7 @@
             // 
             this.starLbl.AutoSize = true;
             this.starLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.starLbl.Location = new System.Drawing.Point(371, 84);
+            this.starLbl.Location = new System.Drawing.Point(339, 84);
             this.starLbl.Name = "starLbl";
             this.starLbl.Size = new System.Drawing.Size(44, 20);
             this.starLbl.TabIndex = 12;
@@ -127,7 +129,7 @@
             // 
             this.toRwyLbl.AutoSize = true;
             this.toRwyLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toRwyLbl.Location = new System.Drawing.Point(270, 84);
+            this.toRwyLbl.Location = new System.Drawing.Point(248, 84);
             this.toRwyLbl.Name = "toRwyLbl";
             this.toRwyLbl.Size = new System.Drawing.Size(60, 20);
             this.toRwyLbl.TabIndex = 10;
@@ -171,7 +173,7 @@
             // 
             this.fromIdentLbl.AutoSize = true;
             this.fromIdentLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fromIdentLbl.Location = new System.Drawing.Point(157, 6);
+            this.fromIdentLbl.Location = new System.Drawing.Point(147, 6);
             this.fromIdentLbl.Name = "fromIdentLbl";
             this.fromIdentLbl.Size = new System.Drawing.Size(43, 20);
             this.fromIdentLbl.TabIndex = 19;
@@ -181,7 +183,7 @@
             // 
             this.fromIdentTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.fromIdentTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fromIdentTxtBox.Location = new System.Drawing.Point(161, 30);
+            this.fromIdentTxtBox.Location = new System.Drawing.Point(151, 30);
             this.fromIdentTxtBox.Name = "fromIdentTxtBox";
             this.fromIdentTxtBox.Size = new System.Drawing.Size(91, 30);
             this.fromIdentTxtBox.TabIndex = 20;
@@ -190,7 +192,7 @@
             // 
             this.toIdentTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.toIdentTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toIdentTxtBox.Location = new System.Drawing.Point(161, 108);
+            this.toIdentTxtBox.Location = new System.Drawing.Point(151, 108);
             this.toIdentTxtBox.Name = "toIdentTxtBox";
             this.toIdentTxtBox.Size = new System.Drawing.Size(91, 30);
             this.toIdentTxtBox.TabIndex = 22;
@@ -199,7 +201,7 @@
             // 
             this.toIdentLbl.AutoSize = true;
             this.toIdentLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toIdentLbl.Location = new System.Drawing.Point(157, 84);
+            this.toIdentLbl.Location = new System.Drawing.Point(147, 84);
             this.toIdentLbl.Name = "toIdentLbl";
             this.toIdentLbl.Size = new System.Drawing.Size(43, 20);
             this.toIdentLbl.TabIndex = 21;
@@ -226,7 +228,7 @@
             this.starComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.starComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.starComboBox.FormattingEnabled = true;
-            this.starComboBox.Location = new System.Drawing.Point(375, 107);
+            this.starComboBox.Location = new System.Drawing.Point(343, 107);
             this.starComboBox.Name = "starComboBox";
             this.starComboBox.Size = new System.Drawing.Size(113, 31);
             this.starComboBox.TabIndex = 13;
@@ -239,7 +241,7 @@
             this.toRwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.toRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toRwyComboBox.FormattingEnabled = true;
-            this.toRwyComboBox.Location = new System.Drawing.Point(274, 107);
+            this.toRwyComboBox.Location = new System.Drawing.Point(252, 107);
             this.toRwyComboBox.Name = "toRwyComboBox";
             this.toRwyComboBox.Size = new System.Drawing.Size(79, 31);
             this.toRwyComboBox.TabIndex = 11;
@@ -265,7 +267,7 @@
             this.sidComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sidComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sidComboBox.FormattingEnabled = true;
-            this.sidComboBox.Location = new System.Drawing.Point(375, 29);
+            this.sidComboBox.Location = new System.Drawing.Point(343, 29);
             this.sidComboBox.Name = "sidComboBox";
             this.sidComboBox.Size = new System.Drawing.Size(113, 31);
             this.sidComboBox.TabIndex = 7;
@@ -278,7 +280,7 @@
             this.fromRwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fromRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fromRwyComboBox.FormattingEnabled = true;
-            this.fromRwyComboBox.Location = new System.Drawing.Point(274, 29);
+            this.fromRwyComboBox.Location = new System.Drawing.Point(252, 29);
             this.fromRwyComboBox.Name = "fromRwyComboBox";
             this.fromRwyComboBox.Size = new System.Drawing.Size(79, 31);
             this.fromRwyComboBox.TabIndex = 5;
@@ -309,11 +311,34 @@
             this.fromTypeComboBox.Size = new System.Drawing.Size(129, 31);
             this.fromTypeComboBox.TabIndex = 2;
             // 
+            // filterSidBtn
+            // 
+            this.filterSidBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.filterSidBtn.Location = new System.Drawing.Point(466, 29);
+            this.filterSidBtn.Name = "filterSidBtn";
+            this.filterSidBtn.Size = new System.Drawing.Size(34, 31);
+            this.filterSidBtn.TabIndex = 23;
+            this.filterSidBtn.Text = "button1";
+            this.filterSidBtn.UseVisualStyleBackColor = true;
+            this.filterSidBtn.Click += new System.EventHandler(this.filterSidBtnClick);
+            // 
+            // filterStarBtn
+            // 
+            this.filterStarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.filterStarBtn.Location = new System.Drawing.Point(466, 107);
+            this.filterStarBtn.Name = "filterStarBtn";
+            this.filterStarBtn.Size = new System.Drawing.Size(34, 31);
+            this.filterStarBtn.TabIndex = 24;
+            this.filterStarBtn.Text = "button2";
+            this.filterStarBtn.UseVisualStyleBackColor = true;
+            // 
             // AdvancedRouteTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Controls.Add(this.filterStarBtn);
+            this.Controls.Add(this.filterSidBtn);
             this.Controls.Add(this.toIdentTxtBox);
             this.Controls.Add(this.toIdentLbl);
             this.Controls.Add(this.fromIdentTxtBox);
@@ -370,5 +395,7 @@
         private System.Windows.Forms.TextBox fromIdentTxtBox;
         private System.Windows.Forms.TextBox toIdentTxtBox;
         private System.Windows.Forms.Label toIdentLbl;
+        private System.Windows.Forms.Button filterSidBtn;
+        private System.Windows.Forms.Button filterStarBtn;
     }
 }

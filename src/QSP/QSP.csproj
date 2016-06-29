@@ -129,6 +129,12 @@
     <Compile Include="UI\RoutePlanning\AvoidCountrySelection.Designer.cs">
       <DependentUpon>AvoidCountrySelection.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\RoutePlanning\SidStarFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\RoutePlanning\SidStarFilter.Designer.cs">
+      <DependentUpon>SidStarFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ToLdgModule\AboutPage\AboutPageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -508,6 +514,9 @@
     </Content>
     <EmbeddedResource Include="UI\RoutePlanning\AvoidCountrySelection.resx">
       <DependentUpon>AvoidCountrySelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\RoutePlanning\SidStarFilter.resx">
+      <DependentUpon>SidStarFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\AdvancedRouteTool.resx">
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
