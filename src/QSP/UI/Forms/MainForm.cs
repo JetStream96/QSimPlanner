@@ -16,6 +16,7 @@ using QSP.RouteFinding.FileExport.Providers;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
+using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.UI;
@@ -60,6 +61,7 @@ namespace QSP
         private WaypointList wptList;
         private CountryCodeManager countryCodes;
         private WindTableCollection windTables;
+        private ProcedureFilter procFilter;
 
         private RouteFinderSelection origAirport;
         private RouteFinderSelection destAirport;
@@ -203,7 +205,8 @@ namespace QSP
                     AppSettings,
                     wptList,
                     airportList,
-                    new TrackInUseCollection());
+                    new TrackInUseCollection(),
+                    new ProcedureFilter());
             });
         }
 
@@ -243,6 +246,8 @@ namespace QSP
             {
                 MessageBox.Show(ex.Message);
             }
+
+            procFilter = new ProcedureFilter();
         }
 
         private void InitAirportList()
@@ -286,7 +291,8 @@ namespace QSP
                 OrigSidComboBox,
                 AppSettings,
                 airportList,
-                wptList);
+                wptList,
+                procFilter);
 
             origAirport.Subscribe();
 
@@ -297,7 +303,8 @@ namespace QSP
                 DestStarComboBox,
                 AppSettings,
                 airportList,
-                wptList);
+                wptList,
+                procFilter);
 
             destAirport.Subscribe();
 
@@ -308,7 +315,8 @@ namespace QSP
                 AltnStarComboBox,
                 AppSettings,
                 airportList,
-                wptList);
+                wptList,
+                procFilter);
 
             altnAirport.Subscribe();
         }

@@ -5,6 +5,7 @@ using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
+using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers;
 using QSP.UI.RoutePlanning;
 using System;
@@ -27,6 +28,7 @@ namespace QSP.UI.UserControls
         private WaypointList wptList;
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
+        private ProcedureFilter procFilter;
 
         public AdvancedRouteTool()
         {
@@ -37,17 +39,18 @@ namespace QSP.UI.UserControls
             AppOptions appSettings,
             WaypointList wptList,
             AirportManager airportList,
-            TrackInUseCollection tracksInUse)
+            TrackInUseCollection tracksInUse,
+            ProcedureFilter procFilter)
         {
             this.appSettings = appSettings;
             this.wptList = wptList;
             this.airportList = airportList;
             this.tracksInUse = tracksInUse;
+            this.procFilter = procFilter;
 
             SetControlGroups();
             attachEventHandlers();
             SetDefaultState();
-
         }
 
         private void SetControlGroups()
@@ -63,7 +66,8 @@ namespace QSP.UI.UserControls
                 sidComboBox,
                 fromWptLbl,
                 fromWptComboBox,
-                true);
+                true,
+                procFilter);
 
             toGroup = new ControlGroup(
                 this,
@@ -76,7 +80,8 @@ namespace QSP.UI.UserControls
                starComboBox,
                toWptLbl,
                toWptComboBox,
-               false);
+               false,
+               procFilter);
         }
 
         private void attachEventHandlers()
@@ -260,6 +265,7 @@ namespace QSP.UI.UserControls
             public Label WptLbl;
             public ComboBox Waypoints;
             public bool IsDepartureAirport;
+            public ProcedureFilter procFilter;
 
             public RouteFinderSelection controller;
 
@@ -274,7 +280,8 @@ namespace QSP.UI.UserControls
                 ComboBox TerminalProcedure,
                 Label WptLbl,
                 ComboBox Waypoints,
-                bool IsDepartureAirport)
+                bool IsDepartureAirport,
+                ProcedureFilter procFilter)
             {
                 this.owner = owner;
                 this.TypeSelection = TypeSelection;
@@ -287,6 +294,7 @@ namespace QSP.UI.UserControls
                 this.WptLbl = WptLbl;
                 this.Waypoints = Waypoints;
                 this.IsDepartureAirport = IsDepartureAirport;
+                this.procFilter = procFilter;
             }
 
             public void Subsribe()
@@ -298,7 +306,8 @@ namespace QSP.UI.UserControls
                     TerminalProcedure,
                     owner.appSettings,
                     owner.airportList,
-                    owner.wptList);
+                    owner.wptList,
+                    procFilter);
 
                 TypeSelection.SelectedIndexChanged += TypeChanged;
             }
@@ -376,7 +385,15 @@ namespace QSP.UI.UserControls
         private void filterSidBtnClick(object sender, EventArgs e)
         {
             var filter = new SidStarFilter();
-            filter.Init(fromGroup.controller.Procedures.ToList(), true);
+            var controller = fromGroup.controller;
+
+            filter.Init(
+                controller.Icao,
+                controller.Rwy,
+                controller.AvailableProcedures,
+                true,
+                procFilter);
+
             filter.Location = new Point(0, 0);
 
             var frm = new Form();
@@ -386,6 +403,12 @@ namespace QSP.UI.UserControls
             frm.BackColor = Color.White;
             frm.AutoScaleMode = AutoScaleMode.Dpi;
             frm.Controls.Add(filter);
+
+            filter.FinishedSelection += (_sender, _e) =>
+            {
+                frm.Close();
+                fromGroup.controller.RefreshProcedureComboBox();
+            };
 
             frm.ShowDialog();
         }

@@ -1,6 +1,7 @@
 ﻿using QSP.Common.Options;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.UI.Utilities;
@@ -16,6 +17,7 @@ namespace QSP.UI.Controllers
         private AppOptions appSettings;
         private WaypointList wptList;
         private AirportManager airportList;
+        private ProcedureFilter procFilter;
 
         public static readonly string NoProcedureTxt = "NONE";
         public static readonly string AutoProcedureTxt = "AUTO";
@@ -24,17 +26,7 @@ namespace QSP.UI.Controllers
         public ComboBox RwyCBox { get; private set; }
         public ComboBox TerminalProceduresCBox { get; private set; }
         public bool IsDepartureAirport { get; private set; }
-
-        public IEnumerable<string> Procedures
-        {
-            get
-            {
-                return TerminalProceduresCBox.Items
-                    .Cast<string>()
-                    .Where(s => s != NoProcedureTxt && s != AutoProcedureTxt);
-            }
-        }
-
+        
         public RouteFinderSelection(
             TextBox IcaoTxtBox,
             bool IsDepartureAirport,
@@ -42,7 +34,8 @@ namespace QSP.UI.Controllers
             ComboBox TerminalProceduresCBox,
             AppOptions appSettings,
             AirportManager airportList,
-            WaypointList wptList)
+            WaypointList wptList,
+            ProcedureFilter procFilter)
         {
             this.IcaoTxtBox = IcaoTxtBox;
             this.IsDepartureAirport = IsDepartureAirport;
@@ -51,9 +44,10 @@ namespace QSP.UI.Controllers
             this.appSettings = appSettings;
             this.airportList = airportList;
             this.wptList = wptList;
+            this.procFilter = procFilter;
         }
 
-        private string Icao
+        public string Icao
         {
             get
             {
@@ -61,7 +55,7 @@ namespace QSP.UI.Controllers
             }
         }
 
-        private string Rwy
+        public string Rwy
         {
             get
             {
@@ -103,6 +97,11 @@ namespace QSP.UI.Controllers
             return proc;
         }
 
+        public void RefreshProcedureComboBox()
+        {
+            RwyChanged(this, EventArgs.Empty);
+        }
+
         private void IcaoChanged(object sender, EventArgs e)
         {
             RwyCBox.Items.Clear();
@@ -114,35 +113,63 @@ namespace QSP.UI.Controllers
                 RwyCBox.SelectedIndex = 0;
             }
         }
-
-        private void RwyChanged(object sender, EventArgs e)
+                
+        /// <exception cref="LoadSidFileException"></exception>
+        /// <exception cref="LoadStarFileException"></exception>
+        public List<string> AvailableProcedures
         {
-            TerminalProceduresCBox.Items.Clear();
-            List<string> proc = null;
-
-            try
+            get
             {
                 if (IsDepartureAirport)
                 {
-                    proc = SidHandlerFactory.GetHandler(
-                        Icao, appSettings.NavDataLocation, wptList,
-                        wptList.GetEditor(), airportList)
-                        .GetSidList(Rwy);
+                    return SidHandlerFactory.GetHandler(
+                         Icao, appSettings.NavDataLocation, wptList,
+                         wptList.GetEditor(), airportList)
+                         .GetSidList(Rwy);
                 }
                 else
                 {
-                    proc = StarHandlerFactory.GetHandler(
+                    return StarHandlerFactory.GetHandler(
                         Icao, appSettings.NavDataLocation, wptList,
                         wptList.GetEditor(), airportList)
                         .GetStarList(Rwy);
                 }
+            }
+        }
+
+        private void RwyChanged(object sender, EventArgs e)
+        {
+            List<string> proc = null;
+
+            try
+            {
+                proc = AvailableProcedures;
             }
             catch (Exception ex)
             {
                 MsgBoxHelper.ShowError(ex.Message.ToString());
             }
 
-            if (proc.Count == 0)
+            SetProcedures(proc.Where(ShouldShow));
+        }
+
+        private bool ShouldShow(string proc)
+        {
+            if (procFilter.Exists(Icao, Rwy) == false)
+            {
+                return true;
+            }
+
+            var info = procFilter[Icao, Rwy];
+
+            return info.Procedures.Contains(proc) ^ info.IsBlackList;
+        }
+
+        private void SetProcedures(IEnumerable<string> proc)
+        {
+            TerminalProceduresCBox.Items.Clear();
+
+            if (proc.Count() == 0)
             {
                 TerminalProceduresCBox.Items.Add(NoProcedureTxt);
             }
@@ -154,6 +181,5 @@ namespace QSP.UI.Controllers
 
             TerminalProceduresCBox.SelectedIndex = 0;
         }
-
     }
 }
