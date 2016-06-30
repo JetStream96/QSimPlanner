@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace QSP.UI.Utilities
+namespace QSP.UI.Factories
 {
     public static class ToolTipFactory
     {

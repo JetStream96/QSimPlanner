@@ -36,6 +36,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.countryTxtBox = new System.Windows.Forms.TextBox();
+            this.cancelBtn = new System.Windows.Forms.Button();
+            this.okBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listView
@@ -108,11 +110,40 @@
             this.countryTxtBox.Size = new System.Drawing.Size(170, 27);
             this.countryTxtBox.TabIndex = 4;
             // 
+            // cancelBtn
+            // 
+            this.cancelBtn.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelBtn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.cancelBtn.Location = new System.Drawing.Point(221, 375);
+            this.cancelBtn.Name = "cancelBtn";
+            this.cancelBtn.Size = new System.Drawing.Size(75, 30);
+            this.cancelBtn.TabIndex = 7;
+            this.cancelBtn.Text = "Cancel";
+            this.cancelBtn.UseVisualStyleBackColor = false;
+            // 
+            // okBtn
+            // 
+            this.okBtn.BackColor = System.Drawing.Color.Green;
+            this.okBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.okBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.okBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.okBtn.Location = new System.Drawing.Point(91, 375);
+            this.okBtn.Name = "okBtn";
+            this.okBtn.Size = new System.Drawing.Size(75, 30);
+            this.okBtn.TabIndex = 6;
+            this.okBtn.Text = "OK";
+            this.okBtn.UseVisualStyleBackColor = false;
+            // 
             // AvoidCountrySelection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.cancelBtn);
+            this.Controls.Add(this.okBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.countryTxtBox);
             this.Controls.Add(this.label1);
@@ -120,7 +151,7 @@
             this.Controls.Add(this.showSelectedCheckBox);
             this.Controls.Add(this.listView);
             this.Name = "AvoidCountrySelection";
-            this.Size = new System.Drawing.Size(392, 360);
+            this.Size = new System.Drawing.Size(390, 419);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,5 +167,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox countryTxtBox;
+        private System.Windows.Forms.Button cancelBtn;
+        private System.Windows.Forms.Button okBtn;
     }
 }

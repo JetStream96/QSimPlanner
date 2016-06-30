@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static QSP.UI.Factories.FormFactory;
 
 namespace QSP.UI.Controllers
 {
@@ -209,12 +210,7 @@ namespace QSP.UI.Controllers
 
             filter.Location = new Point(0, 0);
 
-            var frm = new Form();
-            frm.Size = filter.Size;
-            frm.FormBorderStyle = FormBorderStyle.None;
-            frm.StartPosition = FormStartPosition.CenterParent;
-            frm.BackColor = Color.White;
-            frm.AutoScaleMode = AutoScaleMode.Dpi;
+            var frm = GetForm(filter.Size);
             frm.Controls.Add(filter);
 
             filter.FinishedSelection += (_sender, _e) =>

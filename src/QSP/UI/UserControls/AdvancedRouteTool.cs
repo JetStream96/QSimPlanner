@@ -3,6 +3,7 @@ using QSP.Common.Options;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
@@ -12,16 +13,20 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static QSP.MainForm;
-using static QSP.UI.Utilities.ToolTipFactory;
+using static QSP.UI.Factories.ToolTipFactory;
+using static QSP.UI.Factories.FormFactory;
 
 namespace QSP.UI.UserControls
 {
     public partial class AdvancedRouteTool : UserControl
     {
+        public CountryCodeCollection CheckedCodes { get; private set; }
+
         private ControlGroup fromGroup;
         private ControlGroup toGroup;
 
@@ -30,6 +35,7 @@ namespace QSP.UI.UserControls
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
         private ProcedureFilter procFilter;
+        private CountryCodeManager countryCodes;
 
         public AdvancedRouteTool()
         {
@@ -41,18 +47,38 @@ namespace QSP.UI.UserControls
             WaypointList wptList,
             AirportManager airportList,
             TrackInUseCollection tracksInUse,
-            ProcedureFilter procFilter)
+            ProcedureFilter procFilter,
+            CountryCodeManager countryCodes)
         {
             this.appSettings = appSettings;
             this.wptList = wptList;
             this.airportList = airportList;
             this.tracksInUse = tracksInUse;
             this.procFilter = procFilter;
+            this.countryCodes = countryCodes;
+            CheckedCodes = new CountryCodeCollection();
 
             SetControlGroups();
             attachEventHandlers();
             SetDefaultState();
             AddToolTip();
+            SetImages();
+        }
+
+        private void SetImages()
+        {
+            var width = avoidCountryBtn.Width - 4;
+            var height = avoidCountryBtn.Height - 4;
+            var image = new Bitmap(width, height);
+
+            var graph = Graphics.FromImage(image);
+            graph.InterpolationMode = InterpolationMode.High;
+            graph.CompositingQuality = CompositingQuality.HighQuality;
+            graph.SmoothingMode = SmoothingMode.HighQuality;
+            graph.DrawImage(Properties.Resources.prohibitIcon,
+                new Rectangle(0, 0, width, height));
+
+            avoidCountryBtn.BackgroundImage = image;
         }
 
         private void SetControlGroups()
@@ -132,7 +158,8 @@ namespace QSP.UI.UserControls
                             new RouteFinderFacade(
                                 wptList,
                                 airportList,
-                                appSettings.NavDataLocation)
+                                appSettings.NavDataLocation,
+                                CheckedCodes)
                                 .FindRoute(
                                     fromIdentTxtBox.Text,
                                     fromRwyComboBox.Text,
@@ -166,7 +193,8 @@ namespace QSP.UI.UserControls
                             new RouteFinderFacade(
                                 wptList,
                                 airportList,
-                                appSettings.NavDataLocation)
+                                appSettings.NavDataLocation,
+                                CheckedCodes)
                                 .FindRoute(
                                     fromIdentTxtBox.Text,
                                     fromRwyComboBox.Text,
@@ -201,7 +229,8 @@ namespace QSP.UI.UserControls
                             new RouteFinderFacade(
                                 wptList,
                                 airportList,
-                                appSettings.NavDataLocation)
+                                appSettings.NavDataLocation,
+                                CheckedCodes)
                                 .FindRoute(
                                     wpt,
                                     toIdentTxtBox.Text,
@@ -233,7 +262,7 @@ namespace QSP.UI.UserControls
                     try
                     {
                         var myRoute = new RouteGroup(
-                            new RouteFinder(wptList)
+                            new RouteFinder(wptList, CheckedCodes)
                                 .FindRoute(wptFrom, wptTo),
                                 tracksInUse);
 
@@ -395,6 +424,24 @@ namespace QSP.UI.UserControls
                     TerminalProcedure.Items.Clear();
                 }
             }
-        }       
+        }
+
+        private void avoidCountryBtnClick(object sender, EventArgs e)
+        {
+            var countrySelection = new AvoidCountrySelection();
+            countrySelection.Init(countryCodes);
+            countrySelection.Location = new Point(0, 0);
+
+            var frm = GetForm(countrySelection.Size);
+            frm.Controls.Add(countrySelection);
+
+            countrySelection.FinishedSelection += (_sender, _e) =>
+            {
+                CheckedCodes = countrySelection.CheckedCodes;
+                frm.Close();
+            };
+
+            frm.ShowDialog();
+        }
     }
 }

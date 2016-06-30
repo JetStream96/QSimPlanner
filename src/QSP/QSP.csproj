@@ -124,6 +124,7 @@
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilter.cs" />
     <Compile Include="UI\Controllers\ListViewSortEnabler.cs" />
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
+    <Compile Include="UI\Factories\FormFactory.cs" />
     <Compile Include="UI\RoutePlanning\AvoidCountrySelection.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -148,7 +149,7 @@
     <Compile Include="UI\UserControls\AdvancedRouteTool.Designer.cs">
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Utilities\ToolTipFactory.cs" />
+    <Compile Include="UI\Factories\ToolTipFactory.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\AircraftEnums.cs" />
@@ -514,6 +515,8 @@
     <Content Include="PerformanceData\TO\7878_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\prohibitIcon_small.png" />
+    <None Include="Resources\prohibitIcon.png" />
     <None Include="Resources\filter.png" />
     <EmbeddedResource Include="UI\RoutePlanning\AvoidCountrySelection.resx">
       <DependentUpon>AvoidCountrySelection.cs</DependentUpon>

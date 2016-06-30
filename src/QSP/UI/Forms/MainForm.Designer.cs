@@ -174,7 +174,6 @@ namespace QSP
             this.Return2_Btn = new System.Windows.Forms.Button();
             this.GroupBox3 = new System.Windows.Forms.GroupBox();
             this.FuelReport_TxtBox = new System.Windows.Forms.RichTextBox();
-            this.avoidCountrySelection = new QSP.UI.RoutePlanning.AvoidCountrySelection();
             this.MenuStrip1.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
             this.WindowSelPanel.SuspendLayout();
@@ -1891,7 +1890,6 @@ namespace QSP
             // 
             // TabPage14
             // 
-            this.TabPage14.Controls.Add(this.avoidCountrySelection);
             this.TabPage14.Controls.Add(this.advancedRouteTool);
             this.TabPage14.Controls.Add(this.Return_AdvancedTool_Btn);
             this.TabPage14.Location = new System.Drawing.Point(4, 25);
@@ -1975,14 +1973,6 @@ namespace QSP
             this.FuelReport_TxtBox.Size = new System.Drawing.Size(982, 422);
             this.FuelReport_TxtBox.TabIndex = 1;
             this.FuelReport_TxtBox.Text = "";
-            // 
-            // avoidCountrySelection
-            // 
-            this.avoidCountrySelection.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.avoidCountrySelection.Location = new System.Drawing.Point(32, 339);
-            this.avoidCountrySelection.Name = "avoidCountrySelection";
-            this.avoidCountrySelection.Size = new System.Drawing.Size(449, 389);
-            this.avoidCountrySelection.TabIndex = 19;
             // 
             // MainForm
             // 
@@ -2204,6 +2194,5 @@ namespace QSP
         private UI.ToLdgModule.TOPerf.TOPerfControl toPerfControl;
         private UI.ToLdgModule.AirportMap.AirportMapControl airportMapControl;
         private UI.UserControls.AdvancedRouteTool advancedRouteTool;
-        private UI.RoutePlanning.AvoidCountrySelection avoidCountrySelection;
     }
 }

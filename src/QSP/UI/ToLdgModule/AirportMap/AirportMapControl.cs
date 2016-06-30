@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
-using static QSP.UI.Utilities.ToolTipFactory;
+using static QSP.UI.Factories.ToolTipFactory;
 
 namespace QSP.UI.ToLdgModule.AirportMap
 {

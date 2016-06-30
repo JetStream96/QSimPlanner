@@ -198,7 +198,6 @@ namespace QSP
                 InitData();
                 InitAircraftData(Profiles);
                 InitRouteFinderSelections();
-                avoidCountrySelection.Init(countryCodes);
 
                 //TODO: track in use is wrong
                 advancedRouteTool.Init(
@@ -206,7 +205,8 @@ namespace QSP
                     wptList,
                     airportList,
                     new TrackInUseCollection(),
-                    new ProcedureFilter());
+                    new ProcedureFilter(),
+                    countryCodes);
             });
         }
 

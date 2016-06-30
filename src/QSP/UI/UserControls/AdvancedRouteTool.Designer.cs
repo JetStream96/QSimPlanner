@@ -43,6 +43,9 @@
             this.fromIdentTxtBox = new System.Windows.Forms.TextBox();
             this.toIdentTxtBox = new System.Windows.Forms.TextBox();
             this.toIdentLbl = new System.Windows.Forms.Label();
+            this.avoidCountryBtn = new System.Windows.Forms.Button();
+            this.filterStarBtn = new System.Windows.Forms.Button();
+            this.filterSidBtn = new System.Windows.Forms.Button();
             this.toWptComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.starComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.toRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
@@ -51,8 +54,6 @@
             this.fromRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.toTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.fromTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.filterSidBtn = new System.Windows.Forms.Button();
-            this.filterStarBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -207,6 +208,46 @@
             this.toIdentLbl.TabIndex = 21;
             this.toIdentLbl.Text = "ICAO";
             // 
+            // avoidCountryBtn
+            // 
+            this.avoidCountryBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.avoidCountryBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.avoidCountryBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.avoidCountryBtn.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.avoidCountryBtn.Location = new System.Drawing.Point(208, 160);
+            this.avoidCountryBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.avoidCountryBtn.Name = "avoidCountryBtn";
+            this.avoidCountryBtn.Size = new System.Drawing.Size(34, 34);
+            this.avoidCountryBtn.TabIndex = 25;
+            this.avoidCountryBtn.UseVisualStyleBackColor = true;
+            this.avoidCountryBtn.Click += new System.EventHandler(this.avoidCountryBtnClick);
+            // 
+            // filterStarBtn
+            // 
+            this.filterStarBtn.BackgroundImage = global::QSP.Properties.Resources.filter;
+            this.filterStarBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.filterStarBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.filterStarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.filterStarBtn.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.filterStarBtn.Location = new System.Drawing.Point(466, 107);
+            this.filterStarBtn.Name = "filterStarBtn";
+            this.filterStarBtn.Size = new System.Drawing.Size(34, 31);
+            this.filterStarBtn.TabIndex = 24;
+            this.filterStarBtn.UseVisualStyleBackColor = true;
+            // 
+            // filterSidBtn
+            // 
+            this.filterSidBtn.BackgroundImage = global::QSP.Properties.Resources.filter;
+            this.filterSidBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.filterSidBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.filterSidBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.filterSidBtn.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.filterSidBtn.Location = new System.Drawing.Point(466, 29);
+            this.filterSidBtn.Name = "filterSidBtn";
+            this.filterSidBtn.Size = new System.Drawing.Size(34, 31);
+            this.filterSidBtn.TabIndex = 23;
+            this.filterSidBtn.UseVisualStyleBackColor = true;
+            // 
             // toWptComboBox
             // 
             this.toWptComboBox.BorderColor = System.Drawing.Color.DimGray;
@@ -311,37 +352,12 @@
             this.fromTypeComboBox.Size = new System.Drawing.Size(129, 31);
             this.fromTypeComboBox.TabIndex = 2;
             // 
-            // filterSidBtn
-            // 
-            this.filterSidBtn.BackgroundImage = global::QSP.Properties.Resources.filter;
-            this.filterSidBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.filterSidBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.filterSidBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.filterSidBtn.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.filterSidBtn.Location = new System.Drawing.Point(466, 29);
-            this.filterSidBtn.Name = "filterSidBtn";
-            this.filterSidBtn.Size = new System.Drawing.Size(34, 31);
-            this.filterSidBtn.TabIndex = 23;
-            this.filterSidBtn.UseVisualStyleBackColor = true;
-            // 
-            // filterStarBtn
-            // 
-            this.filterStarBtn.BackgroundImage = global::QSP.Properties.Resources.filter;
-            this.filterStarBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.filterStarBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.filterStarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.filterStarBtn.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.filterStarBtn.Location = new System.Drawing.Point(466, 107);
-            this.filterStarBtn.Name = "filterStarBtn";
-            this.filterStarBtn.Size = new System.Drawing.Size(34, 31);
-            this.filterStarBtn.TabIndex = 24;
-            this.filterStarBtn.UseVisualStyleBackColor = true;
-            // 
             // AdvancedRouteTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Controls.Add(this.avoidCountryBtn);
             this.Controls.Add(this.filterStarBtn);
             this.Controls.Add(this.filterSidBtn);
             this.Controls.Add(this.toIdentTxtBox);
@@ -402,5 +418,6 @@
         private System.Windows.Forms.Label toIdentLbl;
         private System.Windows.Forms.Button filterSidBtn;
         private System.Windows.Forms.Button filterStarBtn;
+        private System.Windows.Forms.Button avoidCountryBtn;
     }
 }
