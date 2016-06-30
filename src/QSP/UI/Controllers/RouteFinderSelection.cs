@@ -4,9 +4,11 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using QSP.UI.RoutePlanning;
 using QSP.UI.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -25,13 +27,15 @@ namespace QSP.UI.Controllers
         public TextBox IcaoTxtBox { get; private set; }
         public ComboBox RwyCBox { get; private set; }
         public ComboBox TerminalProceduresCBox { get; private set; }
+        public Button FilterBtn { get; private set; }
         public bool IsDepartureAirport { get; private set; }
-        
+
         public RouteFinderSelection(
             TextBox IcaoTxtBox,
             bool IsDepartureAirport,
             ComboBox RwyCBox,
             ComboBox TerminalProceduresCBox,
+            Button FilterBtn,
             AppOptions appSettings,
             AirportManager airportList,
             WaypointList wptList,
@@ -41,6 +45,7 @@ namespace QSP.UI.Controllers
             this.IsDepartureAirport = IsDepartureAirport;
             this.RwyCBox = RwyCBox;
             this.TerminalProceduresCBox = TerminalProceduresCBox;
+            this.FilterBtn = FilterBtn;
             this.appSettings = appSettings;
             this.airportList = airportList;
             this.wptList = wptList;
@@ -67,12 +72,16 @@ namespace QSP.UI.Controllers
         {
             IcaoTxtBox.TextChanged += IcaoChanged;
             RwyCBox.SelectedIndexChanged += RwyChanged;
+            FilterBtn.Click += filterSidStar;
+
+            FilterBtn.Enabled = false;
         }
 
         public void UnSubsribe()
         {
             IcaoTxtBox.TextChanged -= IcaoChanged;
             RwyCBox.SelectedIndexChanged -= RwyChanged;
+            FilterBtn.Click -= filterSidStar;
         }
 
         public List<string> GetSelectedProcedures()
@@ -105,6 +114,9 @@ namespace QSP.UI.Controllers
         private void IcaoChanged(object sender, EventArgs e)
         {
             RwyCBox.Items.Clear();
+            TerminalProceduresCBox.Items.Clear();
+            FilterBtn.Enabled = false;
+
             var rwyList = airportList.RwyIdentList(Icao);
 
             if (rwyList != null && rwyList.Count() > 0)
@@ -113,7 +125,7 @@ namespace QSP.UI.Controllers
                 RwyCBox.SelectedIndex = 0;
             }
         }
-                
+
         /// <exception cref="LoadSidFileException"></exception>
         /// <exception cref="LoadStarFileException"></exception>
         public List<string> AvailableProcedures
@@ -139,6 +151,7 @@ namespace QSP.UI.Controllers
 
         private void RwyChanged(object sender, EventArgs e)
         {
+            FilterBtn.Enabled = false;
             List<string> proc = null;
 
             try
@@ -180,6 +193,37 @@ namespace QSP.UI.Controllers
             }
 
             TerminalProceduresCBox.SelectedIndex = 0;
+            FilterBtn.Enabled = true;
+        }
+
+        private void filterSidStar(object sender, EventArgs e)
+        {
+            var filter = new SidStarFilter();
+
+            filter.Init(
+                Icao,
+                Rwy,
+                AvailableProcedures,
+                IsDepartureAirport,
+                procFilter);
+
+            filter.Location = new Point(0, 0);
+
+            var frm = new Form();
+            frm.Size = filter.Size;
+            frm.FormBorderStyle = FormBorderStyle.None;
+            frm.StartPosition = FormStartPosition.CenterParent;
+            frm.BackColor = Color.White;
+            frm.AutoScaleMode = AutoScaleMode.Dpi;
+            frm.Controls.Add(filter);
+
+            filter.FinishedSelection += (_sender, _e) =>
+            {
+                frm.Close();
+                RefreshProcedureComboBox();
+            };
+
+            frm.ShowDialog();
         }
     }
 }

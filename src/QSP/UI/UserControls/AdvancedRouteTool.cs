@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static QSP.MainForm;
+using static QSP.UI.Utilities.ToolTipFactory;
 
 namespace QSP.UI.UserControls
 {
@@ -51,6 +52,7 @@ namespace QSP.UI.UserControls
             SetControlGroups();
             attachEventHandlers();
             SetDefaultState();
+            AddToolTip();
         }
 
         private void SetControlGroups()
@@ -67,7 +69,8 @@ namespace QSP.UI.UserControls
                 fromWptLbl,
                 fromWptComboBox,
                 true,
-                procFilter);
+                procFilter,
+                filterSidBtn);
 
             toGroup = new ControlGroup(
                 this,
@@ -81,7 +84,8 @@ namespace QSP.UI.UserControls
                toWptLbl,
                toWptComboBox,
                false,
-               procFilter);
+               procFilter,
+               filterStarBtn);
         }
 
         private void attachEventHandlers()
@@ -103,6 +107,13 @@ namespace QSP.UI.UserControls
             items.Clear();
             items.AddRange(new string[] { "Airport", "Waypoint" });
             cbox.SelectedIndex = 0;
+        }
+
+        private void AddToolTip()
+        {
+            var tp = GetToolTip();
+            tp.SetToolTip(filterSidBtn, "SID filter");
+            tp.SetToolTip(filterStarBtn, "STAR filter");
         }
 
         private void FindRouteBtnClick(object sender, EventArgs e)
@@ -266,6 +277,7 @@ namespace QSP.UI.UserControls
             public ComboBox Waypoints;
             public bool IsDepartureAirport;
             public ProcedureFilter procFilter;
+            public Button FilterBtn;
 
             public RouteFinderSelection controller;
 
@@ -281,7 +293,8 @@ namespace QSP.UI.UserControls
                 Label WptLbl,
                 ComboBox Waypoints,
                 bool IsDepartureAirport,
-                ProcedureFilter procFilter)
+                ProcedureFilter procFilter,
+                Button FilterBtn)
             {
                 this.owner = owner;
                 this.TypeSelection = TypeSelection;
@@ -295,6 +308,7 @@ namespace QSP.UI.UserControls
                 this.Waypoints = Waypoints;
                 this.IsDepartureAirport = IsDepartureAirport;
                 this.procFilter = procFilter;
+                this.FilterBtn = FilterBtn;
             }
 
             public void Subsribe()
@@ -304,6 +318,7 @@ namespace QSP.UI.UserControls
                     IsDepartureAirport,
                     Rwy,
                     TerminalProcedure,
+                    FilterBtn,
                     owner.appSettings,
                     owner.airportList,
                     owner.wptList,
@@ -380,37 +395,6 @@ namespace QSP.UI.UserControls
                     TerminalProcedure.Items.Clear();
                 }
             }
-        }
-
-        private void filterSidBtnClick(object sender, EventArgs e)
-        {
-            var filter = new SidStarFilter();
-            var controller = fromGroup.controller;
-
-            filter.Init(
-                controller.Icao,
-                controller.Rwy,
-                controller.AvailableProcedures,
-                true,
-                procFilter);
-
-            filter.Location = new Point(0, 0);
-
-            var frm = new Form();
-            frm.Size = filter.Size;
-            frm.FormBorderStyle = FormBorderStyle.None;
-            frm.StartPosition = FormStartPosition.CenterParent;
-            frm.BackColor = Color.White;
-            frm.AutoScaleMode = AutoScaleMode.Dpi;
-            frm.Controls.Add(filter);
-
-            filter.FinishedSelection += (_sender, _e) =>
-            {
-                frm.Close();
-                fromGroup.controller.RefreshProcedureComboBox();
-            };
-
-            frm.ShowDialog();
-        }
+        }       
     }
 }

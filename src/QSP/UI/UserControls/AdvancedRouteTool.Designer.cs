@@ -313,23 +313,28 @@
             // 
             // filterSidBtn
             // 
+            this.filterSidBtn.BackgroundImage = global::QSP.Properties.Resources.filter;
+            this.filterSidBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.filterSidBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.filterSidBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.filterSidBtn.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.filterSidBtn.Location = new System.Drawing.Point(466, 29);
             this.filterSidBtn.Name = "filterSidBtn";
             this.filterSidBtn.Size = new System.Drawing.Size(34, 31);
             this.filterSidBtn.TabIndex = 23;
-            this.filterSidBtn.Text = "button1";
             this.filterSidBtn.UseVisualStyleBackColor = true;
-            this.filterSidBtn.Click += new System.EventHandler(this.filterSidBtnClick);
             // 
             // filterStarBtn
             // 
+            this.filterStarBtn.BackgroundImage = global::QSP.Properties.Resources.filter;
+            this.filterStarBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.filterStarBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.filterStarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.filterStarBtn.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.filterStarBtn.Location = new System.Drawing.Point(466, 107);
             this.filterStarBtn.Name = "filterStarBtn";
             this.filterStarBtn.Size = new System.Drawing.Size(34, 31);
             this.filterStarBtn.TabIndex = 24;
-            this.filterStarBtn.Text = "button2";
             this.filterStarBtn.UseVisualStyleBackColor = true;
             // 
             // AdvancedRouteTool

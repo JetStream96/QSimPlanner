@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
+using static QSP.UI.Utilities.ToolTipFactory;
 
 namespace QSP.UI.ToLdgModule.AirportMap
 {
@@ -141,13 +142,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         private void AddToolTip()
         {
-            var tp = new ToolTip();
-
-            tp.AutoPopDelay = 5000;
-            tp.InitialDelay = 1000;
-            tp.ReshowDelay = 500;
-            tp.ShowAlways = true;
-
+            var tp = GetToolTip();
             tp.SetToolTip(metarLbl, "View METAR");
             tp.SetToolTip(updateBtn, "Refresh METAR");
         }
