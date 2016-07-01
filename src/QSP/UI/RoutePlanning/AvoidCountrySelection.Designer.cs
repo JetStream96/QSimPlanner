@@ -36,8 +36,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.countryTxtBox = new System.Windows.Forms.TextBox();
-            this.cancelBtn = new System.Windows.Forms.Button();
-            this.okBtn = new System.Windows.Forms.Button();
+            this.CancelBtn = new System.Windows.Forms.Button();
+            this.OkBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listView
@@ -110,31 +110,31 @@
             this.countryTxtBox.Size = new System.Drawing.Size(170, 27);
             this.countryTxtBox.TabIndex = 4;
             // 
-            // cancelBtn
+            // CancelBtn
             // 
-            this.cancelBtn.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancelBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelBtn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.cancelBtn.Location = new System.Drawing.Point(221, 375);
-            this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(75, 30);
-            this.cancelBtn.TabIndex = 7;
-            this.cancelBtn.Text = "Cancel";
-            this.cancelBtn.UseVisualStyleBackColor = false;
+            this.CancelBtn.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.CancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CancelBtn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.CancelBtn.Location = new System.Drawing.Point(221, 375);
+            this.CancelBtn.Name = "CancelBtn";
+            this.CancelBtn.Size = new System.Drawing.Size(75, 30);
+            this.CancelBtn.TabIndex = 7;
+            this.CancelBtn.Text = "Cancel";
+            this.CancelBtn.UseVisualStyleBackColor = false;
             // 
-            // okBtn
+            // OkBtn
             // 
-            this.okBtn.BackColor = System.Drawing.Color.Green;
-            this.okBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.okBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.okBtn.Location = new System.Drawing.Point(91, 375);
-            this.okBtn.Name = "okBtn";
-            this.okBtn.Size = new System.Drawing.Size(75, 30);
-            this.okBtn.TabIndex = 6;
-            this.okBtn.Text = "OK";
-            this.okBtn.UseVisualStyleBackColor = false;
+            this.OkBtn.BackColor = System.Drawing.Color.Green;
+            this.OkBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OkBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OkBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.OkBtn.Location = new System.Drawing.Point(91, 375);
+            this.OkBtn.Name = "OkBtn";
+            this.OkBtn.Size = new System.Drawing.Size(75, 30);
+            this.OkBtn.TabIndex = 6;
+            this.OkBtn.Text = "OK";
+            this.OkBtn.UseVisualStyleBackColor = false;
             // 
             // AvoidCountrySelection
             // 
@@ -142,8 +142,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.cancelBtn);
-            this.Controls.Add(this.okBtn);
+            this.Controls.Add(this.CancelBtn);
+            this.Controls.Add(this.OkBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.countryTxtBox);
             this.Controls.Add(this.label1);
@@ -167,7 +167,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox countryTxtBox;
-        private System.Windows.Forms.Button cancelBtn;
-        private System.Windows.Forms.Button okBtn;
+        public System.Windows.Forms.Button OkBtn;
+        public System.Windows.Forms.Button CancelBtn;
     }
 }

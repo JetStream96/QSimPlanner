@@ -13,6 +13,7 @@ namespace QSP.UI.Factories
             frm.StartPosition = FormStartPosition.CenterParent;
             frm.BackColor = Color.White;
             frm.AutoScaleMode = AutoScaleMode.Dpi;
+            frm.ShowInTaskbar = false;
 
             return frm;
         }

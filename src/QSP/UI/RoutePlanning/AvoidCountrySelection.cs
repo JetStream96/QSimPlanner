@@ -10,8 +10,6 @@ namespace QSP.UI.RoutePlanning
 {
     public partial class AvoidCountrySelection : UserControl
     {
-        public event EventHandler FinishedSelection;
-
         private CountryCodeManager countryCodes;
         private List<ListViewItem> items;
 
@@ -41,6 +39,19 @@ namespace QSP.UI.RoutePlanning
 
                 return new CountryCodeCollection(codes);
             }
+
+            set
+            {
+                foreach (var i in items)
+                {
+                    int code = countryCodes.GetCountryCode(i.Text);
+
+                    if (value.Contains(code))
+                    {
+                        i.Checked = true;
+                    }
+                }
+            }
         }
 
         public void Init(CountryCodeManager countryCodes)
@@ -56,10 +67,6 @@ namespace QSP.UI.RoutePlanning
             countryTxtBox.TextChanged += countryTxtChanged;
 
             new ListViewSortEnabler(listView).EnableSort();
-
-            okBtn.Click += (sender, e) => FinishedSelection?.Invoke(sender, e);
-            cancelBtn.Click +=
-                (sender, e) => FinishedSelection?.Invoke(sender, e);
         }
 
         private void AddItems()

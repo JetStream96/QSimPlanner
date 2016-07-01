@@ -94,6 +94,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeManagerTest.cs" />
     <Compile Include="RouteFinding\Data\Interfaces\ICoordinateExtensionTest.cs" />
     <Compile Include="RouteFinding\Data\LatLonSearcherTest.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\PmdgProviderTest.cs" />

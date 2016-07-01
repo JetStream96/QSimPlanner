@@ -56,8 +56,10 @@ namespace QSP.RouteFinding.Containers.CountryCode
             // Make the BiDictionary and the other Dictionary compatible.
             // i.e. The sets of letter codes must be equal.
 
-            var letterBiDict = LetterToCodeLookup.Keys;
-            var letterDict = _fullNameLookup.Keys;
+            // ToList forces the copying, which prevents changes made 
+            // later to affect the value of the Dictionary.KeyCollection.
+            var letterBiDict = LetterToCodeLookup.Keys.ToList();
+            var letterDict = _fullNameLookup.Keys.ToList();
 
             var withoutFullName = letterBiDict.Except(letterDict);
 
@@ -70,7 +72,7 @@ namespace QSP.RouteFinding.Containers.CountryCode
 
             foreach (var j in withoutIntCode)
             {
-                letterCodeLookup.RemoveBySecond(j);
+                _fullNameLookup.Remove(j);
             }
         }
 

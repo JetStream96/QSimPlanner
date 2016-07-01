@@ -431,11 +431,17 @@ namespace QSP.UI.UserControls
             var countrySelection = new AvoidCountrySelection();
             countrySelection.Init(countryCodes);
             countrySelection.Location = new Point(0, 0);
+            countrySelection.CheckedCodes = CheckedCodes;
 
             var frm = GetForm(countrySelection.Size);
             frm.Controls.Add(countrySelection);
 
-            countrySelection.FinishedSelection += (_sender, _e) =>
+            countrySelection.CancelBtn.Click += (_sender, _e) =>
+            {
+                frm.Close();
+            };
+
+            countrySelection.OkBtn.Click += (_sender, _e) =>
             {
                 CheckedCodes = countrySelection.CheckedCodes;
                 frm.Close();
