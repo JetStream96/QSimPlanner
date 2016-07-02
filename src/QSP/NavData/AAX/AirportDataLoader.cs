@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.NavData.AAX
 {
@@ -23,12 +22,12 @@ namespace QSP.NavData.AAX
         /// <exception cref="ReadAirportFileException"></exception>
         public AirportCollection LoadFromFile()
         {
-            var airportDB = new AirportCollection();
-            string[] allLines = null;
+            var airportList = new AirportCollection();
+            IEnumerable<string> allLines = null;
 
             try
             {
-                allLines = File.ReadAllLines(filepath);
+                allLines = File.ReadLines(filepath);
             }
             catch (Exception ex)
             {
@@ -36,69 +35,54 @@ namespace QSP.NavData.AAX
                     "Unable to read from " + filepath + ".", ex);
             }
 
-            bool isFirst = true;
-
-            // Data for an airport
-            string icao = null;
-            string name = null;
-            double lat = 0.0;
-            double lon = 0.0;
-            int elevation = 0;
-            int transAlt = 0;
-            int transLvl = 0;
-            int longestRwyLength = 0;
-            var rwys = new List<RwyData>();
+            Airport airport = null;
+            List<RwyData> rwys = null;
 
             foreach (var i in allLines)
             {
                 try
                 {
-                    if (i.Length == 0)
+                    var words = i.Split(',');
+
+                    if (words.Length == 0)
                     {
                         continue;
                     }
 
-                    if (i[0] == 'A')
+                    if (words[0] == "A")
                     {
-                        if (isFirst == false)
+                        if (airport != null)
                         {
                             // Add the previously read airport.
-                            airportDB.Add(
-                                new Airport(
-                                    icao,
-                                    name,
-                                    lat,
-                                    lon,
-                                    elevation,
-                                    true,
-                                    transAlt,
-                                    transLvl,
-                                    longestRwyLength,
-                                    rwys));
-
-                            // Create a new list of runways.
-                            rwys = new List<RwyData>();
-                        }
-                        else
-                        {
-                            isFirst = false;
+                            airportList.Add(airport);
                         }
 
-                        int pos = i.IndexOf(',') + 1;
-
-                        icao = ReadString(i, ref pos, ',');
-                        name = ReadString(i, ref pos, ',');
-                        lat = ParseDouble(i, ref pos, ',');
-                        lon = ParseDouble(i, ref pos, ',');
-                        elevation = ParseInt(i, ref pos, ',');
-                        transAlt = ParseInt(i, ref pos, ',');
-                        transLvl = ParseInt(i, ref pos, ',');
-                        longestRwyLength = ParseInt(i, ref pos, ',');
+                        var icao = words[1];
+                        var name = words[2];
+                        var lat = double.Parse(words[3]);
+                        var lon = double.Parse(words[4]);
+                        var elevation = int.Parse(words[5]);
+                        var transAlt = int.Parse(words[6]);
+                        var transLvl = int.Parse(words[7]);
+                        var longestRwyLength = int.Parse(words[8]);
                         rwys = new List<RwyData>();
+
+                        // Will be added later
+                        airport = new Airport(
+                            icao,
+                            name,
+                            lat,
+                            lon,
+                            elevation,
+                            true,
+                            transAlt,
+                            transLvl,
+                            longestRwyLength,
+                            rwys);
                     }
-                    else if (i[0] == 'R')
+                    else if (words[0] == "R")
                     {
-                        rwys.Add(ReadRwy(rwys, i));
+                        rwys.Add(ReadRwy(words));
                     }
                 }
                 catch (Exception ex)
@@ -109,20 +93,9 @@ namespace QSP.NavData.AAX
             }
 
             // Add the last airport.
-            airportDB.Add(
-                new Airport(
-                    icao,
-                    name,
-                    lat,
-                    lon,
-                    elevation,
-                    true,
-                    transAlt,
-                    transLvl,
-                    longestRwyLength,
-                    rwys));
+            airportList.Add(airport);
 
-            return airportDB;
+            return airportList;            
         }
 
         private static string[] surfTypes = new string[]
@@ -133,23 +106,22 @@ namespace QSP.NavData.AAX
             "Other"
         };
 
-        private static RwyData ReadRwy(List<RwyData> rwys, string i)
+        private static RwyData ReadRwy(string[] words)
         {
-            int pos = i.IndexOf(',') + 1;
-            string RwyIdent = ReadString(i, ref pos, ',');
-            string Heading = ReadString(i, ref pos, ',');
-            int Length = ParseInt(i, ref pos, ',');
-            int Width = ParseInt(i, ref pos, ',');
-            bool IlsAvail = ParseInt(i, ref pos, ',') == 1;
-            string IlsFreq = ReadString(i, ref pos, ',');
-            string IlsHeading = ReadString(i, ref pos, ',');
-            double Lat = ParseDouble(i, ref pos, ',');
-            double Lon = ParseDouble(i, ref pos, ',');
-            int Elevation = ParseInt(i, ref pos, ',');
-            double GlideslopeAngle = ParseDouble(i, ref pos, ',');
-            int ThresholdOverflyHeight = ParseInt(i, ref pos, ',');
-            int SurfaceType = ParseInt(i, ref pos, ',');
-            int RwyStatus = ParseInt(i, ref pos, ',');
+            string RwyIdent = words[1];
+            string Heading = words[2];
+            int Length = int.Parse(words[3]);
+            int Width = int.Parse(words[4]);
+            bool IlsAvail = int.Parse(words[5]) == 1;
+            string IlsFreq = words[6];
+            string IlsHeading = words[7];
+            double Lat = double.Parse(words[8]);
+            double Lon = double.Parse(words[9]);
+            int Elevation = int.Parse(words[10]);
+            double GlideslopeAngle = double.Parse(words[11]);
+            int ThresholdOverflyHeight = int.Parse(words[12]);
+            int SurfaceType = int.Parse(words[13]);
+            int RwyStatus = int.Parse(words[14]);
 
             return new RwyData(
                 RwyIdent,

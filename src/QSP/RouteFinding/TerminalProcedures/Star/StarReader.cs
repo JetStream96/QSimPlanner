@@ -1,103 +1,100 @@
-﻿using QSP.RouteFinding.Containers;
+﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.Containers;
 using System;
 using System.Collections.Generic;
-using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.RouteFinding.FixTypes;
 using static QSP.RouteFinding.TerminalProcedures.Sid.SidReader;
 
 namespace QSP.RouteFinding.TerminalProcedures.Star
 {
     // Read from file and gets a StarCollection for an airport.
+    //
     public class StarReader
     {
-        private string allText;
+        private IEnumerable<string> allLines;
 
         public StarReader() { }
 
+        /// <exception cref="ArgumentNullException"></exception>
         public StarReader(string allText)
+            : this(allText.Lines())
+        { }
+
+        /// <exception cref="ArgumentNullException"></exception>
+        public StarReader(IEnumerable<string> allLines)
         {
-            this.allText = allText;
+            if (allLines == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            this.allLines = allLines;
         }
-        
+
         public StarCollection Parse()
         {
-            if (allText == null || allText.Length == 0)
-            {
-                throw new ArgumentException();
-            }
-
             var stars = new List<StarEntry>();
 
-            int index = 0;
+            bool isInStarBody = false;
+            string name = null;
+            string rwyOrTransition = null;
+            List<Waypoint> wpts = null;
 
-            if (IsEmptyLine(allText, 0))
+            foreach (var line in allLines)
             {
-                index = Math.Min(1, allText.Length - 1);
-            }
+                var words = line.Split(',');
 
-            while (true)
-            {
-                if (LineStartsWithStar(allText, index))
+                if (words[0] == "STAR")
                 {
-                    var entry = ReadStar(allText, ref index);
+                    isInStarBody = true;
 
-                    if (entry != null)
-                    {
-                        stars.Add(entry);
-                    }
+                    // Add last STAR if exists.
+                    AddLastEntry(stars, name, rwyOrTransition, wpts);
+
+                    // This is a new STAR.
+                    name = words[1];
+                    rwyOrTransition = words[2];
+                    wpts = new List<Waypoint>();
                 }
-
-                if (SkipToNextNonEmptyLine(allText, ref index) == false)
+                else if (isInStarBody)
                 {
-                    break;
-                }
-            }
-            
-            return new StarCollection(stars);
-        }
-
-        private static StarEntry ReadStar(string item, ref int index)
-        {
-            try
-            {
-                // Go to the char after next comma.
-                index = item.IndexOf(',', index) + 1;
-
-                var name = ReadString(item, ref index, ',');
-                var rwy = ReadString(item, ref index, ',');
-
-                var wpts = new List<Waypoint>();
-
-                while (true)
-                {
-                    index = item.IndexOf('\n', index) + 1;
-
-                    if (index <= 0 || index >= item.Length || IsEmptyLine(item, index))
+                    if (IsEmptyLine(line))
                     {
-                        return new StarEntry(rwy, name, wpts, GetEntryType.GetType(rwy));
+                        isInStarBody = false;
                     }
                     else
                     {
-                        if (index + 1 < item.Length && HasCorrds(item.Substring(index, 2)))
+                        // This is a waypoint (or vector, etc) in STAR.
+                        if (HasCorrds(words[0]))
                         {
-                            wpts.Add(GetWpt(item, ref index));
+                            wpts.Add(GetWpt(words));
                         }
                     }
                 }
             }
-            catch
-            {
-                return null;
-            }
+
+            // Add last STAR.
+            AddLastEntry(stars, name, rwyOrTransition, wpts);
+
+            return new StarCollection(stars);
         }
 
-        private static bool LineStartsWithStar(string item, int index)
+        private static void AddLastEntry(
+            List<StarEntry> stars,
+            string name,
+            string rwyOrTransition,
+            List<Waypoint> wpts)
         {
-            return (index + 3 < item.Length &&
-                    item[index] == 'S' &&
-                    item[index + 1] == 'T' &&
-                    item[index + 2] == 'A' &&
-                    item[index + 3] == 'R');
+            if (name != null)
+            {
+                var entry = new StarEntry(
+                    rwyOrTransition,
+                    name,
+                    wpts,
+                    GetEntryType.GetType(rwyOrTransition));
+
+                stars.Add(entry);
+            }
         }
     }
 }

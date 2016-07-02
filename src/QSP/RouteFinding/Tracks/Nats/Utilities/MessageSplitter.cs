@@ -39,6 +39,7 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
             {
                 msgs.Add(east);
             }
+
             return msgs;
         }
 

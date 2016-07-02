@@ -1,8 +1,5 @@
 ﻿using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
-using QSP.Utilities;
-using System;
-using System.Windows.Forms;
 
 namespace QSP.NavData.AAX
 {

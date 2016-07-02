@@ -50,24 +50,14 @@ namespace QSP.LibraryExtension.StringParser
         {
             return Utilities.ReadString(text, ref _currentIndex, endChar);
         }
-
-        public string ReadString(string target)
-        {
-            return Utilities.ReadString(text, ref _currentIndex, target);
-        }
-
+        
         public string ReadString(int index)
         {
             var s = text.Substring(CurrentIndex, index - CurrentIndex + 1);
             CurrentIndex = index;
             return s;
         }
-
-        public int NextIndexOf(char c)
-        {
-            return text.IndexOf(c, CurrentIndex);
-        }
-
+        
         public int NextIndexOf(string s)
         {
             return text.IndexOf(s, CurrentIndex);
@@ -109,19 +99,7 @@ namespace QSP.LibraryExtension.StringParser
             }
             return false;
         }
-
-        public bool MoveLeft(int steps)
-        {
-            int newIndex = CurrentIndex - steps;
-
-            if (newIndex >= 0)
-            {
-                CurrentIndex = newIndex;
-                return true;
-            }
-            return false;
-        }
-
+        
         public bool MoveToNextDigit()
         {
             for (int i = CurrentIndex; i < text.Length; i++)

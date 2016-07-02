@@ -1,7 +1,8 @@
-﻿using QSP.RouteFinding.Containers;
+﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.Containers;
 using System;
 using System.Collections.Generic;
-using static QSP.LibraryExtension.StringParser.Utilities;
+using System.Linq;
 using static QSP.RouteFinding.FixTypes;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
@@ -9,81 +10,66 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
     // Read from file and gets a SidCollection for an airport.
     public class SidReader
     {
-        private string allText;
+        private IEnumerable<string> allLines;
 
         public SidReader() { }
 
+        /// <exception cref="ArgumentNullException"></exception>
         public SidReader(string allText)
+            : this(allText.Lines())
+        { }
+
+        /// <exception cref="ArgumentNullException"></exception>
+        public SidReader(IEnumerable<string> allLines)
         {
-            this.allText = allText;
+            if (allLines == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            this.allLines = allLines;
         }
-        
+
         public SidCollection Parse()
         {
-            if (allText == null || allText.Length == 0)
-            {
-                throw new ArgumentException();
-            }
-
             var sids = new List<SidEntry>();
 
-            int index = 0;
+            bool isInSidBody = false;
+            string name = null;
+            string rwyOrTransition = null;
+            bool endWithVector = false;
+            List<Waypoint> wpts = null;
 
-            if (IsEmptyLine(allText, 0))
+            foreach (var line in allLines)
             {
-                index = Math.Min(1, allText.Length - 1);
-            }
+                var words = line.Split(',');
 
-            while (true)
-            {
-                if (LineStartsWithSid(allText, index))
+                if (words[0] == "SID")
                 {
-                    var entry = ReadSid(allText, ref index);
+                    isInSidBody = true;
 
-                    if (entry != null)
-                    {
-                        sids.Add(entry);
-                    }
+                    // Add last SID if exists.
+                    AddLastEntry(
+                        sids, name, rwyOrTransition, endWithVector, wpts);
+
+                    // This is a new SID.
+                    name = words[1];
+                    rwyOrTransition = words[2];
+                    wpts = new List<Waypoint>();
                 }
-
-                if (SkipToNextNonEmptyLine(allText, ref index) == false)
+                else if (isInSidBody)
                 {
-                    break;
-                }
-            }
-
-            return new SidCollection(sids);
-        }
-
-        private static SidEntry ReadSid(string item, ref int index)
-        {
-            try
-            {
-                // Go to the char after next comma.
-                index = item.IndexOf(',', index) + 1;
-
-                var name = ReadString(item, ref index, ',');
-                var rwy = ReadString(item, ref index, ',');
-
-                var wpts = new List<Waypoint>();
-                bool endWithVector = true;
-
-                while (true)
-                {
-                    bool nextLineExists = SkipToNextLine(item, ref index);
-
-                    if (nextLineExists == false || IsEmptyLine(item, index))
+                    if (IsEmptyLine(line))
                     {
-                        return new SidEntry(rwy, name, wpts, 
-                            GetEntryType.GetType(rwy), endWithVector);
+                        isInSidBody = false;
                     }
                     else
                     {
-                        if (index + 1 < item.Length && 
-                            HasCorrds(item.Substring(index, 2)))
+                        // This is a waypoint (or vector, etc) in SID.
+                        if (HasCorrds(words[0]))
                         {
                             endWithVector = false;
-                            wpts.Add(GetWpt(item, ref index));
+                            wpts.Add(GetWpt(words));
                         }
                         else
                         {
@@ -92,50 +78,46 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                     }
                 }
             }
-            catch
+
+            // Add the last SID.
+            AddLastEntry(
+                sids, name, rwyOrTransition, endWithVector, wpts);
+
+            return new SidCollection(sids);
+        }
+
+        private static void AddLastEntry(
+            List<SidEntry> sids,
+            string name,
+            string rwyOrTransition,
+            bool endWithVector,
+            List<Waypoint> wpts)
+        {
+            if (name != null)
             {
-                return null;
+                var entry = new SidEntry(
+                    rwyOrTransition,
+                    name,
+                    wpts,
+                    GetEntryType.GetType(rwyOrTransition),
+                    endWithVector);
+
+                sids.Add(entry);
             }
         }
 
-        public static Waypoint GetWpt(string item, ref int index)
+        public static Waypoint GetWpt(string[] line)
         {
-            index = item.IndexOf(',', index) + 1;
-            var ident = ReadString(item, ref index, ',');
-            double lat = ParseDouble(item, ref index, ',');
-            double lon = ParseDouble(item, ref index, ',');
+            var ident = line[1];
+            double lat = double.Parse(line[2]);
+            double lon = double.Parse(line[3]);
 
             return new Waypoint(ident, lat, lon);
         }
 
-        private static bool LineStartsWithSid(string item, int index)
+        public static bool IsEmptyLine(string line)
         {
-            return index + 2 < item.Length &&
-                item.Substring(index, 3) == "SID";
-        }
-        
-        /// <param name="firstCharIndex">
-        /// Index of the first char of the line.</param>
-        public static bool IsEmptyLine(string item, int firstCharIndex)
-        {
-            char firstChar = item[firstCharIndex];
-            return (firstChar == '\n' || firstChar == '\r');
-        }
-
-        public static bool SkipToNextNonEmptyLine(string item, ref int index)
-        {
-            while (true)
-            {
-                if (SkipToNextLine(item, ref index) == false)
-                {
-                    return false;
-                }
-
-                if (IsEmptyLine(item, index) == false)
-                {
-                    return true;
-                }
-            }
+            return !line.Contains(',');
         }
     }
 }
