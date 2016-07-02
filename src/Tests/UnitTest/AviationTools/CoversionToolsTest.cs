@@ -59,6 +59,7 @@ namespace UnitTest.AviationToolsTest
             Assert.AreEqual("18", RwyIdentOppositeDir("36"));
             Assert.AreEqual("15", RwyIdentOppositeDir("33"));
             Assert.AreEqual("19", RwyIdentOppositeDir("01"));
+            Assert.AreEqual("23L", RwyIdentOppositeDir("05R"));
         }
 
         [Test]

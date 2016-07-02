@@ -18,8 +18,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static QSP.MainForm;
-using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.UI.Factories.FormFactory;
+using static QSP.UI.Factories.ToolTipFactory;
 
 namespace QSP.UI.UserControls
 {
@@ -140,6 +140,7 @@ namespace QSP.UI.UserControls
             var tp = GetToolTip();
             tp.SetToolTip(filterSidBtn, "SID filter");
             tp.SetToolTip(filterStarBtn, "STAR filter");
+            tp.SetToolTip(avoidCountryBtn, "Avoid counties");
         }
 
         private void FindRouteBtnClick(object sender, EventArgs e)

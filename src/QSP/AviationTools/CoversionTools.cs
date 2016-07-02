@@ -1,5 +1,6 @@
 using QSP.Utilities;
 using System;
+using static QSP.Utilities.ConditionChecker;
 
 namespace QSP.AviationTools
 {
@@ -29,7 +30,7 @@ namespace QSP.AviationTools
         public static double AltToPressureMb(double altFT)
         {
             //mb = hPa
-            return Math.Pow((1.0 - altFT / 145366.45), (1.0 / 0.190284)) * 1013.25;
+            return Math.Pow(1.0 - altFT / 145366.45, 1.0 / 0.190284) * 1013.25;
         }
 
         public static double PressureMbToAltFt(double pressMb)
@@ -42,29 +43,40 @@ namespace QSP.AviationTools
         /// </summary>
         public static double AirDensity(double altFt)
         {
-            return AltToPressureMb(altFt) * 100 * 0.0288 / (8.314 * (273.0 + IsaTemp(altFt)));
+            return AltToPressureMb(altFt) * 100 * 0.0288 /
+                (8.314 * (273.0 + IsaTemp(altFt)));
         }
 
         public static double Ktas(double Kias, double altFt)
         {
-            return Kias * Math.Sqrt(Constants.AirDensitySeaLevel / AirDensity(altFt));
+            return Kias *
+                Math.Sqrt(Constants.AirDensitySeaLevel / AirDensity(altFt));
         }
 
+        /// <summary>
+        /// Input examples: "05", "26", "14R", "25C", "36L"
+        /// </summary>
+        /// <exception cref="ArgumentException"></exception>
         public static string RwyIdentOppositeDir(string rwy)
         {
+            Ensure<ArgumentException>(rwy.Length == 2 || rwy.Length == 3);
+
             int numPart = 0;
-            char charPart;
+            char charPart = '\0';
+            bool hasCharPart = false;
 
             if (rwy.Length == 2)
             {
                 numPart = int.Parse(rwy);
-                charPart = ' ';
             }
             else
             {
                 numPart = int.Parse(rwy.Substring(0, 2));
+                hasCharPart = true;
                 charPart = rwy[2];
             }
+
+            Ensure<ArgumentException>(0 < numPart && numPart <= 36);
 
             if (numPart >= 19)
             {
@@ -77,15 +89,32 @@ namespace QSP.AviationTools
 
             string numPartStr = numPart.ToString().PadLeft(2, '0');
 
-            if (charPart == ' ')
+            if (hasCharPart)
             {
-                return numPartStr;
+                return numPartStr + GetOpposite(charPart);
             }
             else
             {
-                return numPartStr + charPart;
+                return numPartStr;
             }
+        }
 
+        private static char GetOpposite(char c)
+        {
+            switch (c)
+            {
+                case 'R':
+                    return 'L';
+
+                case 'L':
+                    return 'R';
+
+                case 'C':
+                    return 'C';
+
+                default:
+                    throw new ArgumentException();
+            }
         }
 
         public static double PressureAltitudeFt(double elevationFt, double QNH)
