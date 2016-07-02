@@ -1,14 +1,17 @@
-﻿using QSP.RouteFinding.AirwayStructure;
+﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
-using QSP.LibraryExtension;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.NavData.AAX
 {
     public class FixesLoader
     {
+        private static readonly char[] delimiters =
+            new char[] { ',', ' ', '\t'};
+
         private WaypointList wptList;
         private BiDictionary<int, string> countryCodeLookup;
         private int countryCode;
@@ -28,17 +31,17 @@ namespace QSP.NavData.AAX
         /// <exception cref="WaypointFileParseException"></exception>
         public BiDictionary<int, string> ReadFromFile(string filepath)
         {
-            string[] allLines = null;
+            IEnumerable<string> allLines = null;
 
             try
             {
-                allLines = File.ReadAllLines(filepath);
+                allLines = File.ReadLines(filepath);
             }
             catch (Exception ex)
             {
                 throw new WaypointFileReadException("", ex);
             }
-
+            
             foreach (var i in allLines)
             {
                 try
@@ -63,13 +66,14 @@ namespace QSP.NavData.AAX
 
         private void ReadWpt(string i)
         {
-            int pos = 0;
+            var words = i.Split(delimiters,
+                StringSplitOptions.RemoveEmptyEntries);
 
-            string id = ReadString(i, ref pos, ',');
-            double lat = ParseDouble(i, ref pos, ',');
-            double lon = ParseDouble(i, ref pos, ',');
-
-            string country = ReadToNextDelimeter(i, DelimiterWords, ref pos);
+            string id = words[0];
+            double lat = double.Parse(words[1]);
+            double lon = double.Parse(words[2]);
+            string country = words.Length > 3 ?  words[3] : "";
+            
             int countryCode = GetCountryCode(country);
 
             wptList.AddWaypoint(new Waypoint(id, lat, lon, countryCode));
@@ -93,7 +97,7 @@ namespace QSP.NavData.AAX
             {
                 countryCode++;
             } while (countryCode == Waypoint.DefaultCountryCode);
-            
+
             countryCodeLookup.Add(countryCode, letterCode);
             return countryCode;
         }

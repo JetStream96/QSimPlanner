@@ -68,34 +68,7 @@ namespace QSP.LibraryExtension.StringParser
             endIndex = item.Length - 1;
             return result * negate;
         }
-
-        /// <summary>
-        /// Parse the part of string between startindex and endIndex (inclusive).
-        /// </summary>
-        public static int ParseInt(string item, int startindex, int endIndex)
-        {
-            int result = 0;
-            int negate = 1;
-
-            for (int i = startindex; i <= endIndex; i++)
-            {
-                if (item[i] >= '0' && item[i] <= '9')
-                {
-                    result *= 10;
-                    result += item[i] - '0';
-                }
-                else if (item[i] == '-' && i == startindex)
-                {
-                    negate = -1;
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
-            }
-            return result * negate;
-        }
-
+        
         /// <summary>
         /// Parse the part of string starting from the given position, 
         /// and ends at the char before the next appearance of endChar (or the last char of string).

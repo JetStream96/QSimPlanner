@@ -2,13 +2,15 @@
 using QSP.RouteFinding.Containers;
 using System;
 using System.IO;
-using static QSP.LibraryExtension.StringParser.Utilities;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.NavData.AAX
 {
     public class AtsFileLoader
     {
+        private static readonly char[] delimiters =
+               new char[] { ',', ' ', '\t' };
+
         private WaypointList wptList;
 
         public AtsFileLoader(WaypointList wptList)
@@ -26,38 +28,44 @@ namespace QSP.NavData.AAX
             try
             {
                 //add error handling
-                string[] allLines = File.ReadAllLines(filepath);
+                var allLines = File.ReadLines(filepath);
                 string currentAirway = "";
 
                 foreach (var i in allLines)
                 {
-                    if (i.Length == 0)
+                    var words = i.Split(
+                        delimiters, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (words.Length == 0)
                     {
                         continue;
                     }
 
-                    int pos = i.IndexOf(',') + 1;
-
-                    if (i[0] == 'A')
+                    if (words[0] == "A")
                     {
-                        //this line is an airway identifier
-                        currentAirway = ReadString(i, ref pos, ',');
+                        // This line is an airway identifier
+                        currentAirway = words[2];
                     }
-                    else if (i[0] == 'S')
+                    else if (words[0] == "S")
                     {
-                        //this line is waypoint
-                        Waypoint firstWpt = GetWpt(i, ref pos);
-                        Waypoint secondWpt = GetWpt(i, ref pos);
+                        // This line is waypoint
+                        Waypoint firstWpt = new Waypoint(
+                            words[1],
+                            double.Parse(words[2]),
+                            double.Parse(words[3]));
+
+                        Waypoint secondWpt = new Waypoint(
+                            words[4],
+                            double.Parse(words[5]),
+                            double.Parse(words[6]));
 
                         int index1 = wptList.FindByWaypoint(firstWpt);
                         int index2 = wptList.FindByWaypoint(secondWpt);
 
                         // The next two are headings between two wpts. 
                         // Will be skipped.
-                        pos = i.IndexOf(',', pos) + 1;
-                        pos = i.IndexOf(',', pos) + 1;
 
-                        double dis = ParseDouble(i, pos, i.Length - 1);
+                        double dis = double.Parse(words[9]);
 
                         // Add second waypoint as required
                         if (index2 <= 0)
@@ -85,14 +93,5 @@ namespace QSP.NavData.AAX
                     "Failed to load ats.txt.", ex);  //TODO: show to the user
             }
         }
-
-        private Waypoint GetWpt(string i, ref int pos)
-        {
-            string id = ReadString(i, ref pos, ',');
-            double lat = ParseDouble(i, ref pos, ',');
-            double lon = ParseDouble(i, ref pos, ',');
-            return new Waypoint(id, lat, lon);
-        }
-
     }
 }
