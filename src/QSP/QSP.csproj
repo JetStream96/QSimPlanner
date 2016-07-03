@@ -175,8 +175,6 @@
     <Compile Include="LibraryExtension\JaggedArrays\LengthChecker.cs" />
     <Compile Include="LibraryExtension\Paths.cs" />
     <Compile Include="LibraryExtension\StringArrays.cs" />
-    <Compile Include="LibraryExtension\StringParser\StringParser.cs" />
-    <Compile Include="LibraryExtension\StringParser\Utilities.cs" />
     <Compile Include="MathTools\Angles.cs" />
     <Compile Include="MathTools\Constants.cs" />
     <Compile Include="MathTools\Doubles.cs" />

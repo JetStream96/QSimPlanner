@@ -9,7 +9,11 @@ namespace QSP.RouteFinding.Tracks.Nats
         public NatsDirection Direction { get; private set; }
         public string Message { get; private set; }
 
-        public IndividualNatsMessage(string LastUpdated, string Header, NatsDirection Direction, string Message)
+        public IndividualNatsMessage(
+            string LastUpdated,
+            string Header,
+            NatsDirection Direction,
+            string Message)
         {
             this.LastUpdated = LastUpdated;
             this.Header = Header;
@@ -21,7 +25,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// Create an instance of NATsMessage from an xml file.
         /// </summary>
         public IndividualNatsMessage(XDocument doc) : this(doc.Root) { }
-    
+
         public IndividualNatsMessage(XElement elem)
         {
             LastUpdated = elem.Element("LastUpdated").Value;
@@ -30,32 +34,25 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             string s = elem.Element("Direction").Value;
 
-            Direction = (s == "East") ? NatsDirection.East : NatsDirection.West;
+            Direction = s == "East" ? NatsDirection.East : NatsDirection.West;
         }
 
         private string NatsDirectionString()
         {
-            if (Direction == NatsDirection.East)
-            {
-                return "East";
-            }
-            else
-            {
-                return "West";
-            }
+            return Direction == NatsDirection.East ? "East" : "West";
         }
 
         public XDocument ConvertToXml()
         {
             return new XDocument(
-                        new XElement(
-                            "Content", 
-                            new XElement[] {
-                                new XElement("LastUpdated", LastUpdated),
-                                new XElement("Header", Header),
-                                new XElement("Direction", NatsDirectionString()),
-                                new XElement("Message", Message)}));
-        }        
+                new XElement(
+                    "Content",
+                    new XElement[] {
+                        new XElement("LastUpdated", LastUpdated),
+                        new XElement("Header", Header),
+                        new XElement("Direction", NatsDirectionString()),
+                        new XElement("Message", Message)}));
+        }
     }
 }
 

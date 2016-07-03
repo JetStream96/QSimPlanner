@@ -1,10 +1,12 @@
 ﻿using static QSP.LibraryExtension.Strings;
-using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
     public static class TrackValidPeriod
     {
+        private static readonly char[] DelimiterWords =
+               { ' ', '\n', '\r', '\t' };
+
         /// <summary>
         /// Use the given string to to find StartTime and EndTime. 
         /// The given string must contain 2 substrings of form "11061200UTC". 
@@ -38,17 +40,17 @@ namespace QSP.RouteFinding.Tracks.Pacots
             //returning string format: 11061200UTC
             int currentIndex = index;
             int matchCount = 0;
-            const int ALL_MATCH_LEN = 11;
+            const int AllMatchLen = 11;
 
             while (currentIndex >= 0 && currentIndex < item.Length)
             {
                 if (CurrentCharMatch(matchCount, item[currentIndex]))
                 {
 
-                    if (matchCount == ALL_MATCH_LEN - 1)
+                    if (matchCount == AllMatchLen - 1)
                     {
                         index = currentIndex + 1;
-                        return item.Substring(currentIndex - ALL_MATCH_LEN + 1, ALL_MATCH_LEN);
+                        return item.Substring(currentIndex - AllMatchLen + 1, AllMatchLen);
                     }
                     else
                     {

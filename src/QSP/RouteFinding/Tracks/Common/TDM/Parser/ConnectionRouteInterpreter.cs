@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using static QSP.AviationTools.Coordinates.Formatter;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.LibraryExtension.Lists;
-using static QSP.LibraryExtension.StringParser.Utilities;
-using static QSP.AviationTools.Coordinates.Formatter;
 
 namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
@@ -17,9 +16,9 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
         private AirportManager airportList;
 
         public ConnectionRouteInterpreter(
-                            string[] mainRoute, 
-                            ReadOnlyCollection<string> connectRoutes, 
-                            AirportManager airportList)
+            string[] mainRoute, 
+            ReadOnlyCollection<string> connectRoutes, 
+            AirportManager airportList)
         {
             this.mainRoute = mainRoute;
             this.connectRoutes = connectRoutes;
@@ -32,7 +31,10 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 
             foreach (var i in connectRoutes)
             {
-                var rte = i.Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
+                var rte = i.Split(
+                    new char[] { ' ', '\n', '\r', '\t' }, 
+                    StringSplitOptions.RemoveEmptyEntries);
+
                 TransformCoordinates(rte);
 
                 if (rte != null && rte.Length > 1)

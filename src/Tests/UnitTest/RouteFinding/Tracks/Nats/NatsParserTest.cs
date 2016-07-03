@@ -12,27 +12,31 @@ namespace UnitTest.RouteFinding.Tracks.Nats
         public void CategorizeWestEastTest()
         {
             // Arrange
-            var msg = new NatsMessage(
-                new IndividualNatsMessage("",
-                                          "",
-                                          NatsDirection.West,
-                                          @"042049 EGGXZOZX
+            var west = new IndividualNatsMessage(
+                    "",
+                    "",
+                    NatsDirection.West,
+                    @"042049 EGGXZOZX
 A [WPTS]
 ...
 B [WPTS]
 ...
 C [WPTS]
-..."),
-                new IndividualNatsMessage("",
-                                          "",
-                                          NatsDirection.East,
-                                          @"042049 CZQXZQZX
+...");
+
+            var east = new IndividualNatsMessage(
+                    "",
+                    "",
+                    NatsDirection.East,
+                    @"042049 CZQXZQZX
 U [WPTS]
 ...
 V [WPTS]
 ...
 W [WPTS]
-..."));
+...");
+
+            var msg = new NatsMessage(west, east);
 
             // Act
             var parser = new NatsParser(msg, null, null);
@@ -48,16 +52,12 @@ W [WPTS]
             Assert.IsTrue(ContainTrack(result, "W", NatsDirection.East));
         }
 
-        private bool ContainTrack(IEnumerable<NorthAtlanticTrack> trks, string ident, NatsDirection dir)
+        private bool ContainTrack(
+            IEnumerable<NorthAtlanticTrack> trks,
+            string ident,
+            NatsDirection dir)
         {
-            foreach (var i in trks)
-            {
-                if (i.Ident == ident && i.Direction == dir)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return trks.Any(i => i.Ident == ident && i.Direction == dir);
         }
 
         [Test]
@@ -65,16 +65,18 @@ W [WPTS]
         {
             // Arrange
             var msg = new NatsMessage(
-                new IndividualNatsMessage("",
-                                          "",
-                                          NatsDirection.West,
-                                          @"042049 EGGXZOZX
+                new IndividualNatsMessage(
+                    "",
+                    "",
+                    NatsDirection.West,
+                    @"042049 EGGXZOZX
 A [WPTS]
 ..."),
-                new IndividualNatsMessage("",
-                                          "",
-                                          NatsDirection.East,
-                                          @"042049 CZQXZQZX
+                new IndividualNatsMessage(
+                    "",
+                    "",
+                    NatsDirection.East,
+                    @"042049 CZQXZQZX
 U TUDEP 52/50 53/40 54/30 54/20 DOGAL BEXET
 ..."));
 
@@ -89,7 +91,8 @@ U TUDEP 52/50 53/40 54/30 54/20 DOGAL BEXET
 
             Assert.IsTrue(Enumerable.SequenceEqual(
                 trackU.MainRoute,
-                new string[] { "TUDEP", "5250N", "5340N", "5430N", "5420N", "DOGAL", "BEXET" }));
+                new string[] { "TUDEP", "5250N", "5340N", "5430N",
+                    "5420N", "DOGAL", "BEXET" }));
         }
     }
 }

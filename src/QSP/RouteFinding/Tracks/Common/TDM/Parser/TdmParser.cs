@@ -1,12 +1,12 @@
-﻿using QSP.LibraryExtension.StringParser;
+﻿using QSP.LibraryExtension;
 using System;
 using System.Linq;
-using QSP.LibraryExtension;
-using static QSP.LibraryExtension.StringParser.Utilities;
+using System.Text.RegularExpressions;
 
 namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
-    // Parse the string which represents a single track, into a temporary format.
+    // Parse the string which represents a single track, 
+    // into a temporary format.
     //
     // Sample input:
     // TDM TRK MY15 151112233001 
@@ -30,29 +30,31 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
     // Assumptions:
     // (1) The word after "TDM TRK" is the track ident (MY15 in above example).
     //
-    // (2) The next line contains two time stamps, indicating TimeStart and TimeEnd respectively.
+    // (2) The next line contains two time stamps, indicating TimeStart 
+    //     and TimeEnd respectively.
     //
     // (3) The main route starts from the next line, to:
     //        a. The char before "RTS/" if exists.
-    //        b. The char before "RMK/" if "RTS/" does not exist but "RMK/" exists.
-    //        c. The last char of the string if neither "RMK/" nor "RTS/" exists.
+    //        b. The char before "RMK/" if "RTS/" does not exist 
+    //           but "RMK/" exists.
+    //        c. The last char of the string if neither "RMK/" 
+    //           nor "RTS/" exists.
     //
-    // (4) After main route, the connecting routes contains the part after "RTS/", to:
+    // (4) After main route, the connecting routes contains the part 
+    //     after "RTS/", to:
     //        a. The char before "RMK/" if exists.
     //        b. The last char of the string if "RMK/" does not exist. 
     // 
     // (5) If "RTS/" does not exist the RouteFrom/To is empty.
     //
-    // (6) After connecting routes, the remarks contains the part after "RMK/", to the end of string.
+    // (6) After connecting routes, the remarks contains the part 
+    //     after "RMK/", to the end of string.
     //     If "RMK/" does not exist the remarks is am empty string.   
     //
 
     public class TdmParser
     {
         private string text;
-
-        private int rtsIndex;
-        private int rmkIndex;
 
         private string Ident;
         private string TimeStart;
@@ -64,6 +66,20 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
         public TdmParser(string text)
         {
             this.text = text;
+            FixFormat();
+        }
+
+        private void FixFormat()
+        {
+            if (text.Contains("RMK/") == false)
+            {
+                text += "RMK/";
+            }
+
+            if (text.Contains("RTS/") == false)
+            {
+                text = text.Replace("RMK/", "RTS/\nRMK/");
+            }
         }
 
         /// <exception cref="TrackParseException"></exception>
@@ -71,107 +87,54 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
         {
             try
             {
-                parse();
+                ParseTracks();
             }
             catch
             {
                 throw new TrackParseException();
             }
 
-            return new ParseResult(Ident,
-                                   TimeStart,
-                                   TimeEnd,
-                                   Remarks,
-                                   MainRoute,
-                                   ConnectionRoutes);
-
+            return new ParseResult(
+                Ident,
+                TimeStart,
+                TimeEnd,
+                Remarks,
+                MainRoute,
+                ConnectionRoutes);
         }
 
-        // Exception may occur if the input string format is not 
-        // as expected (especially IndexOutOfRangeException).
-        private void parse()
+        private static string GetPattern()
         {
-            var sp = new StringParser(text);
-            var d = DelimiterWords;
+            var matchId = @"TDM TRK\s+?(?<id>\w+).*?\n";
+            var matchTime = @"\W?(?<timeStart>\w+)\W+(?<timeEnd>\w+)";
+            var mainRoute = @"\W+(?<main>.*?)RTS/";
+            var connections = @"(?<connect>.*?)RMK/";
+            var remarks = @"(?<remark>.*)";
 
-            sp.MoveToNextIndexOf("TDM TRK");
-            sp.MoveRight("TDM TRK".Length);
-            sp.SkipAny(d);
-
-            Ident = sp.ReadToNextDelimeter(d);
-
-            sp.SkipToNextLine();
-            sp.SkipAny(d);
-
-            TimeStart = sp.ReadToNextDelimeter(d);
-            sp.SkipAny(d);
-            TimeEnd = sp.ReadToNextDelimeter(d);
-
-            sp.SkipToNextLine();
-            GetRtsRmkIndices(sp.CurrentIndex);
-            MainRoute = sp.ReadString(MainRouteEndIndex());
-
-            AddRts(sp);
-            AddRmk(sp);
+            return matchId + matchTime + mainRoute + connections + remarks;
         }
 
-        private void AddRmk(StringParser sp)
+        private void ParseTracks()
         {
-            if (rmkIndex >= 0)
+            var match = Regex.Match(
+                text, GetPattern(), RegexOptions.Singleline);
+
+            if (match.Success == false)
             {
-                sp.MoveRight("RMK/".Length + 1);
-                Remarks = sp.ReadString(sp.Length - 1);
+                throw new ArgumentException();
             }
-            else
-            {
-                Remarks = "";
-            }
-        }
 
-        private void AddRts(StringParser sp)
-        {
-            if (rtsIndex >= 0)
-            {
-                sp.MoveRight("RTS/".Length + 1);
-                ConnectionRoutes =
-                    sp
-                    .ReadString(RtsEndIndex())
-                    .Lines()
-                    .Where(x => string.IsNullOrWhiteSpace(x) == false)
-                    .ToArray();
-            }
-            else
-            {
-                ConnectionRoutes = new string[0];
-            }
-        }
+            Ident = match.Groups["id"].Value;
+            TimeStart = match.Groups["timeStart"].Value;
+            TimeEnd = match.Groups["timeEnd"].Value;
+            MainRoute = match.Groups["main"].Value;
 
-        private void GetRtsRmkIndices(int index)
-        {
-            rtsIndex = text.IndexOf("RTS/", index);
-            rmkIndex = text.IndexOf("RMK/", index);
-        }
+            ConnectionRoutes = match.Groups["connect"].Value
+                .Lines()
+                .Where(x => string.IsNullOrWhiteSpace(x) == false)
+                .ToArray();
 
-        private static int FirstNonNegativeTerm(int[] array)
-        {
-            foreach (var i in array)
-            {
-                if (i >= 0)
-                {
-                    return i;
-                }
-            }
-            throw new ArgumentException();
-        }
-
-        private int MainRouteEndIndex()
-        {
-            return FirstNonNegativeTerm(new int[] { rtsIndex, rmkIndex, text.Length }) - 1;
-        }
-
-        private int RtsEndIndex()
-        {
-            return FirstNonNegativeTerm(new int[] { rmkIndex, text.Length }) - 1;
+            Remarks = match.Groups["remark"].Value;
         }
     }
 }

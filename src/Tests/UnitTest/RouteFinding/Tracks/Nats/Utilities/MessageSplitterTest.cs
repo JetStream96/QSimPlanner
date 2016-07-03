@@ -2,6 +2,7 @@
 using QSP.RouteFinding.Tracks.Nats.Utilities;
 using QSP.RouteFinding.Tracks.Nats;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
 {
@@ -73,7 +74,6 @@ namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
 [Message E3]
 
 ");
-
         }
 
         [Test]
@@ -120,20 +120,12 @@ namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
 [Message E3]
 
 ");
-
         }
 
         private static IndividualNatsMessage GetMsg(
-                        IEnumerable<IndividualNatsMessage> msgs, NatsDirection dir)
+            IEnumerable<IndividualNatsMessage> msgs, NatsDirection dir)
         {
-            foreach (var i in msgs)
-            {
-                if (i.Direction == dir)
-                {
-                    return i;
-                }
-            }
-            return null;
+            return msgs.FirstOrDefault(i => i.Direction == dir);
         }
     }
 }

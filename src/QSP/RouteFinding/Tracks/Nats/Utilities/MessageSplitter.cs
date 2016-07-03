@@ -1,7 +1,6 @@
 ﻿using QSP.LibraryExtension;
-using QSP.LibraryExtension.StringParser;
-using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace QSP.RouteFinding.Tracks.Nats.Utilities
 {
@@ -13,7 +12,6 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
             new char[] { (char)2, (char)3, (char)11 };
 
         private string html;
-
         private string timeUpdated;
         private string header;
 
@@ -45,50 +43,50 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
 
         private IndividualNatsMessage GetWestboundTracks()
         {
-            var sp = new StringParser(html);
-            int index = html.IndexOf("EGGXZOZX");
+            var match = Regex.Match(html,
+                @"\n([^\n]*?EGGXZOZX.*?)</td>",
+                RegexOptions.Singleline);
 
-            if (index < 0)
+            if (match.Success == false)
             {
                 return null;
             }
-            sp.CurrentIndex = index;
 
-            sp.CurrentIndex = Math.Max(html.LastIndexOf('\n', sp.CurrentIndex), -1) + 1;
-            string message = sp.ReadString(html.IndexOf("</td>", sp.CurrentIndex) - 1)
-                               .RemoveHtmlTags()
-                               .ReplaceAny(specialChars, "");
+            var message = match.Groups[1].Value
+                .RemoveHtmlTags()
+                .ReplaceAny(specialChars, "");
 
-            return new IndividualNatsMessage(timeUpdated, header, NatsDirection.West, message);
+            return new IndividualNatsMessage(
+                timeUpdated, header, NatsDirection.West, message);
         }
 
         private IndividualNatsMessage GetEastboundTracks()
         {
-            var sp = new StringParser(html);
-            int index = html.IndexOf("CZQXZQZX");
+            var match = Regex.Match(html,
+               @"\n([^\n]*?CZQXZQZX.*?)</td>",
+               RegexOptions.Singleline);
 
-            if (index < 0)
+            if (match.Success == false)
             {
                 return null;
             }
-            sp.CurrentIndex = index;
 
-            sp.CurrentIndex = Math.Max(html.LastIndexOf('\n', sp.CurrentIndex), -1) + 1;
-            string message = sp.ReadString(html.IndexOf("</td>", sp.CurrentIndex) - 1)
-                               .RemoveHtmlTags()
-                               .ReplaceAny(specialChars, "");
+            var message = match.Groups[1].Value
+                .RemoveHtmlTags()
+                .ReplaceAny(specialChars, "");
 
-            return new IndividualNatsMessage(timeUpdated, header, NatsDirection.East, message);
+            return new IndividualNatsMessage(
+                timeUpdated, header, NatsDirection.East, message);
         }
 
         private void GetGeneralInfo()
         {
-            var sp = new StringParser(html);
-            sp.MoveToNextIndexOf("Last updated");
-            timeUpdated = sp.ReadString(html.IndexOf("</", sp.CurrentIndex) - 1);
+            var matchTime = Regex.Match(html, @"(Last updated.*?)</");
+            timeUpdated = matchTime.Groups[1].Value;
 
-            sp.MoveToNextIndexOf("The following are active North Atlantic Tracks");
-            header = sp.ReadString(html.IndexOf("</", sp.CurrentIndex) - 1);
+            var matchHeader = Regex.Match(html,
+                @"(The following are active North Atlantic Tracks.*?)</");
+            header = matchHeader.Groups[1].Value;
         }
     }
 }

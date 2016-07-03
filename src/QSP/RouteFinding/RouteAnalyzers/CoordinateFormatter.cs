@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using static QSP.AviationTools.Coordinates.Formatter;
-using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -29,6 +28,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
     public class CoordinateFormatter
     {
+        private static readonly char[] DelimiterWords =
+               { ' ', '\n', '\r', '\t' };
         private string route;
 
         public CoordinateFormatter(string route)

@@ -1,17 +1,18 @@
 ﻿using QSP.AviationTools.Coordinates;
-using QSP.LibraryExtension.StringParser;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Nats.Utilities;
 using System;
 using System.Collections.Generic;
-using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
     public class NatsParser : TrackParser<NorthAtlanticTrack>
     {
+        private static readonly char[] DelimiterWords =
+               { ' ', '\n', '\r', '\t' };
+
         private StatusRecorder statusRecorder;
         private AirportManager airportList;
         private NatsMessage message;
@@ -42,9 +43,9 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             catch
             {
-                var dir = msg.Direction == NatsDirection.East ? 
+                var dir = msg.Direction == NatsDirection.East ?
                 "eastbound" : "westbound";
-                
+
                 statusRecorder.AddEntry(
                     StatusRecorder.Severity.Caution,
                     $"Unable to interpret {dir} tracks.",
@@ -57,35 +58,42 @@ namespace QSP.RouteFinding.Tracks.Nats
         private static List<NorthAtlanticTrack> ConvertToTracks(
             IndividualNatsMessage msg)
         {
-            char trkStartChar = (msg.Direction == NatsDirection.West ? 'A' : 'N');
+            char trkStartChar =
+                msg.Direction == NatsDirection.West ? 'A' : 'N';
+
             var Message = msg.Message;
             var tracks = new List<NorthAtlanticTrack>();
 
             for (int i = trkStartChar; i < trkStartChar + 13; i++)
             {
-                int j = Message.IndexOf("\n" + (char)i + " ");
+                char id = (char)i;
+
+                int j = Message.IndexOf($"\n{id} ");
 
                 if (j < 0)
                 {
                     continue;
                 }
 
-                var sp = new StringParser(Message);
-                sp.CurrentIndex = j + 2;
-                string s = sp.ReadString('\n');
+                j += 2;
+                var newLinePos = Message.IndexOf('\n', j);
 
-                string[] wp = s.Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
-                TryConvertNatsLatLon(wp);
+                var route = Message.Substring(j, newLinePos - j)
+                    .Split(DelimiterWords,
+                    StringSplitOptions.RemoveEmptyEntries);
+
+                TryConvertNatsLatLon(route);
 
                 tracks.Add(new NorthAtlanticTrack(
                     msg.Direction,
-                    ((char)i).ToString(),
+                    id.ToString(),
                     "",
                     "",
                     "",
-                    new List<string>(wp).AsReadOnly(),
-                    Constants.CENTER_ATL));
+                    new List<string>(route).AsReadOnly(),
+                    Constants.CenterAtlantic));
             }
+
             return tracks;
         }
 
@@ -95,7 +103,8 @@ namespace QSP.RouteFinding.Tracks.Nats
             {
                 LatLon latLon;
 
-                if (LatLonConverter.TryConvertNatsCoordinate(wpts[i], out latLon))
+                if (LatLonConverter.TryConvertNatsCoordinate(
+                    wpts[i], out latLon))
                 {
                     wpts[i] = latLon.AutoChooseFormat();
                 }
