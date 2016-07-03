@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using QSP.LibraryExtension;
+using System.Collections.Generic;
 using System.Linq;
-using QSP.LibraryExtension.StringParser;
-using static QSP.LibraryExtension.StringParser.Utilities;
+using System.Text.RegularExpressions;
 using static QSP.LibraryExtension.Lists;
-using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
 {
@@ -45,6 +44,7 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
         public List<string> Split()
         {
             var result = new List<string>();
+            
             var indices = GetIndices();
 
             if (indices.Count == 0)
@@ -54,40 +54,23 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
 
             for (int i = 0; i < indices.Count - 1; i++)
             {
-                result.Add(text.Substring(indices[i], indices[i + 1] - indices[i]));
+                result.Add(text.Substring(
+                    indices[i], indices[i + 1] - indices[i]));
             }
 
-            result.Add(text.Substring(indices.Last(), text.Length - indices.Last()));
+            result.Add(text.Substring(
+                indices.Last(), text.Length - indices.Last()));
+
             return result;
         }
 
         private List<int> GetIndices()
         {
-            var indices = text.IndicesOf("TRACK");
+            var matches = Regex.Matches(text, @"TRACK\s+?\d+");
+            //                                  ^^^^^^^^^^^^
+            //                                 matches "TRACK 1" 
 
-            for (int i = indices.Count - 1; i >= 0; i--)
-            {
-                if (IsValid(indices[i]) == false)
-                {
-                    indices.RemoveAt(i);
-                }
-            }
-            return indices;
-        }
-
-        private bool IsValid(int index)
-        {
-            var sp = new StringParser(text);
-            sp.CurrentIndex = index;
-            bool inBound = sp.MoveRight("TRACK".Length);
-
-            if (inBound == false)
-            {
-                return false;
-            }
-            sp.SkipAny(DelimiterWords);
-            char c = text[sp.CurrentIndex];
-            return (c >= '0' && c <= '9');
-        }
+            return matches.Cast<Match>().Select(m => m.Index).ToList();
+        }        
     }
 }

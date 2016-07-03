@@ -16,7 +16,10 @@ namespace QSP.RouteFinding.Tracks.Nats
         private AirportManager airportList;
         private NatsMessage message;
 
-        public NatsParser(NatsMessage message, StatusRecorder statusRecorder, AirportManager airportList)
+        public NatsParser(
+            NatsMessage message,
+            StatusRecorder statusRecorder,
+            AirportManager airportList)
         {
             this.message = message;
             this.statusRecorder = statusRecorder;
@@ -30,7 +33,8 @@ namespace QSP.RouteFinding.Tracks.Nats
             return NatTrackCollection;
         }
 
-        private List<NorthAtlanticTrack> TryAddMessage(IndividualNatsMessage msg)
+        private List<NorthAtlanticTrack> TryAddMessage(
+            IndividualNatsMessage msg)
         {
             try
             {
@@ -38,16 +42,20 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             catch
             {
-                statusRecorder.AddEntry(StatusRecorder.Severity.Caution,
-                                        string.Format("Unable to interpret {0} tracks.",
-                                        (msg.Direction == NatsDirection.East) ? "eastbound" : "westbound"),
-                                        TrackType.Nats);
+                var dir = msg.Direction == NatsDirection.East ? 
+                "eastbound" : "westbound";
+                
+                statusRecorder.AddEntry(
+                    StatusRecorder.Severity.Caution,
+                    $"Unable to interpret {dir} tracks.",
+                    TrackType.Nats);
 
                 return new List<NorthAtlanticTrack>();
             }
         }
 
-        private static List<NorthAtlanticTrack> ConvertToTracks(IndividualNatsMessage msg)
+        private static List<NorthAtlanticTrack> ConvertToTracks(
+            IndividualNatsMessage msg)
         {
             char trkStartChar = (msg.Direction == NatsDirection.West ? 'A' : 'N');
             var Message = msg.Message;
@@ -69,13 +77,14 @@ namespace QSP.RouteFinding.Tracks.Nats
                 string[] wp = s.Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
                 TryConvertNatsLatLon(wp);
 
-                tracks.Add(new NorthAtlanticTrack(msg.Direction,
-                                                  ((char)i).ToString(),
-                                                  "",
-                                                  "",
-                                                  "",
-                                                  new List<string>(wp).AsReadOnly(),
-                                                  Constants.CENTER_ATL));
+                tracks.Add(new NorthAtlanticTrack(
+                    msg.Direction,
+                    ((char)i).ToString(),
+                    "",
+                    "",
+                    "",
+                    new List<string>(wp).AsReadOnly(),
+                    Constants.CENTER_ATL));
             }
             return tracks;
         }
