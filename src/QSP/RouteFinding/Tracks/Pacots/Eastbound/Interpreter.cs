@@ -1,8 +1,11 @@
-﻿using QSP.LibraryExtension.StringParser;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
 {
     // Interpret this message:
+    // (The final 'RMK' line is optional.)
     //
     //   TRACK 1.
     //    FLEX ROUTE : KALNA 42N160E 45N170E 47N180E 49N170W 50N160W 51N150W
@@ -27,67 +30,50 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
             var result = new EastboundTrackStrings();
 
             // ID
-            var sp = new StringParser(text);
-            sp.MoveToNextIndexOf("TRACK");
-            sp.MoveToNextDigit();
-            result.ID = sp.ParseInt();
+            var matchId = Regex.Match(text, @"TRACK\s+?(\d+)");
+            result.ID = int.Parse(matchId.Groups[1].Value);
 
             // Flex Route
-            sp.MoveToNextIndexOf("FLEX ROUTE");
-            sp.MoveToNextIndexOf(':');
-            sp.CurrentIndex++;
-            result.FlexRoute = sp.ReadString(
-                IndexBeforeNextLineWhichContainsColon(sp.CurrentIndex));
-            sp.CurrentIndex++;
+            var matchFlexRoute = Regex.Match(
+                text,
+                @"FLEX ROUTE\s+?:(.*?)(\n[^\n]*?:)",
+                RegexOptions.Singleline);
 
-            int rmk = sp.NextIndexOf("RMK");
-            if (rmk < 0)
-            {
-                result.Remark = "";
-                rmk = text.Length;
-            }
-            else
-            {
-                result.Remark = GetRmk(rmk);
-            }
-            result.ConnectionRoute = sp.ReadString(rmk - 1);
+            var flexRoute = matchFlexRoute.Groups[1].Value;
+
+            result.FlexRoute = flexRoute.Split(
+                new char[] { ' ', '\t', '\n', '\r' },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            // Remarks (optional)
+            // Get all text after "RMK :"
+            var matchRemarks = Regex.Match(
+                text,
+                @"RMK\s+?:(.+)",
+                RegexOptions.Singleline);
+
+            result.Remark = matchRemarks.Success ?
+                matchRemarks.Groups[1].Value : "";
+
+            // ConnectionRoute
+            // Get text, starting from the line which contains the 
+            // second colon, to the line before remarks (if exists).
+            var pattern = matchRemarks.Success ?
+                @".*?:.*?\n([^\n]*?:.*?)RMK" :
+                @".*?:.*?\n([^\n]*?:.*)";
+
+            var matchConnection =
+                Regex.Match(text, pattern, RegexOptions.Singleline);
+
+            result.ConnectionRoute = matchConnection.Groups[1].Value;
 
             return result;
-        }
-
-        private int IndexBeforeNextLineWhichContainsColon(int index)
-        {
-            int x = text.IndexOf(':', index);
-
-            if (x < 0)
-            {
-                return text.Length - 1;
-            }
-
-            x = text.LastIndexOf('\n', x);
-
-            if (x < 0 || x < index)
-            {
-                return index;
-            }
-            return x;
-        }
-
-        private string GetRmk(int index)
-        {
-            index = text.IndexOf(':', index);
-
-            if (index < 0 || index + 1 > text.Length - 1)
-            {
-                return "";
-            }
-            return text.Substring(index + 1);
         }
 
         public class EastboundTrackStrings
         {
             public int ID;
-            public string FlexRoute;
+            public IEnumerable<string> FlexRoute;
             public string ConnectionRoute;
             public string Remark;
         }

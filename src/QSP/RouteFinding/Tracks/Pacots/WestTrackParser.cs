@@ -49,7 +49,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
                                     Array.AsReadOnly(mainRoute),
                                     connectRoutes.RouteFrom.AsReadOnly(),
                                     connectRoutes.RouteTo.AsReadOnly(),
-                                    Constants.US_LATLON);
+                                    Constants.USLatlon);
         }
 
         private static string CutOffTextAfterParenthesis(string item)

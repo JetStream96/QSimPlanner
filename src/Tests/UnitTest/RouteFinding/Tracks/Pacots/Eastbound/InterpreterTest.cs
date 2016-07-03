@@ -1,11 +1,16 @@
 ﻿using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Pacots.Eastbound;
+using System.Linq;
 
 namespace UnitTest.RouteFinding.Tracks.Pacots.Eastbound
 {
     [TestFixture]
     public class InterpreterTest
     {
+        private string[] flexRoute = new string[] {
+            "KALNA", "42N160E", "45N170E", "47N180E", "49N170W", "50N160W",
+            "51N150W", "51N140W", "ORNAI" };
+
         [Test]
         public void ParseTest()
         {
@@ -22,9 +27,9 @@ JAPAN ROUTE : ONION OTR5 KALNA
             var result = interpreter.Parse();
 
             Assert.AreEqual(1, result.ID);
-            Assert.IsTrue(result.FlexRoute == @" KALNA 42N160E 45N170E 47N180E 49N170W 50N160W 51N150W
-              51N140W ORNAI
-");
+            Assert.IsTrue(Enumerable.SequenceEqual(
+                result.FlexRoute, flexRoute));
+
             Assert.IsTrue(result.ConnectionRoute == @"JAPAN ROUTE : ONION OTR5 KALNA
   NAR ROUTE : ACFT LDG KSEA--ORNAI SIMLU KEPKO TOU MARNR KSEA
               ACFT LDG KPDX--ORNAI SIMLU KEPKO TOU KEIKO KPDX
@@ -48,9 +53,9 @@ JAPAN ROUTE : ONION OTR5 KALNA
             var result = interpreter.Parse();
 
             Assert.AreEqual(1, result.ID);
-            Assert.IsTrue(result.FlexRoute == @" KALNA 42N160E 45N170E 47N180E 49N170W 50N160W 51N150W
-              51N140W ORNAI
-");
+            Assert.IsTrue(Enumerable.SequenceEqual(
+                result.FlexRoute, flexRoute));
+
             Assert.IsTrue(result.ConnectionRoute == @"JAPAN ROUTE : ONION OTR5 KALNA
   NAR ROUTE : ACFT LDG KSEA--ORNAI SIMLU KEPKO TOU MARNR KSEA
               ACFT LDG KPDX--ORNAI SIMLU KEPKO TOU KEIKO KPDX

@@ -16,16 +16,18 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        public PacificTrack(PacotDirection Direction,
-                            string Ident,
-                            string TimeStart,
-                            string TimeEnd, string Remarks,
-                            ReadOnlyCollection<string> MainRoute,
-                            ReadOnlyCollection<string[]> RouteFrom,
-                            ReadOnlyCollection<string[]> RouteTo,
-                            LatLon PreferredFirstLatLon)
+        public PacificTrack(
+            PacotDirection Direction,
+            string Ident,
+            string TimeStart,
+            string TimeEnd, string Remarks,
+            ReadOnlyCollection<string> MainRoute,
+            ReadOnlyCollection<string[]> RouteFrom,
+            ReadOnlyCollection<string[]> RouteTo,
+            LatLon PreferredFirstLatLon)
 
-             : base(Ident, TimeStart, TimeEnd, Remarks, MainRoute, RouteFrom, RouteTo, PreferredFirstLatLon)
+             : base(Ident, TimeStart, TimeEnd, Remarks, MainRoute, 
+                   RouteFrom, RouteTo, PreferredFirstLatLon)
         {
             this.Direction = Direction;
         }

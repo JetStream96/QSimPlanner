@@ -1,5 +1,4 @@
 ﻿using System;
-using static QSP.LibraryExtension.StringParser.Utilities;
 
 namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
@@ -14,7 +13,8 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 
         public string[] Convert()
         {
-            return route.Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
+            return route.Split(new char[] { ' ', '\n', '\r', '\t' },
+                StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

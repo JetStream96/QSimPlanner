@@ -2,6 +2,7 @@
 using QSP.RouteFinding.Tracks.Common.TDM.Parser;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
 {
@@ -30,12 +31,12 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
         {
             var timeInfo = TrackValidPeriod.GetValidPeriod(item);
             var tracksStr = new Splitter(item).Split();
-            PacificTrack[] result = new PacificTrack[tracksStr.Count];
+            var result = new PacificTrack[tracksStr.Count];
 
             for (int i = 0; i < result.Length; i++)
             {
                 var trk = new Interpreter(tracksStr[i]).Parse();
-                var mainRoute = new MainRouteInterpreter(trk.FlexRoute).Convert();
+                var mainRoute = trk.FlexRoute.ToArray();
 
                 var connectionRoutes =
                     new ConnectionRouteInterpreter(
@@ -44,15 +45,16 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
                         airportList)
                     .Convert();
                 
-                result[i] = new PacificTrack(PacotDirection.Eastbound,
-                                             trk.ID.ToString(),
-                                             timeInfo.Start,
-                                             timeInfo.End,
-                                             trk.Remark,
-                                             Array.AsReadOnly(mainRoute),
-                                             connectionRoutes.RouteFrom.AsReadOnly(),
-                                             connectionRoutes.RouteTo.AsReadOnly(),
-                                             Constants.JAPAN_LATLON);
+                result[i] = new PacificTrack(
+                    PacotDirection.Eastbound,
+                    trk.ID.ToString(),
+                    timeInfo.Start,
+                    timeInfo.End,
+                    trk.Remark,
+                    Array.AsReadOnly(mainRoute),
+                    connectionRoutes.RouteFrom.AsReadOnly(),
+                    connectionRoutes.RouteTo.AsReadOnly(),
+                    Constants.JapanLatlon);
             }
             return result;
         }

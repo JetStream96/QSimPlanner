@@ -16,14 +16,15 @@ namespace QSP.RouteFinding.Tracks.Common
         public ReadOnlyCollection<string[]> RouteTo { get; private set; }
         public LatLon PreferredFirstLatLon { get; private set; }
 
-        public Track(string Ident,
-                     string TimeStart,
-                     string TimeEnd,
-                     string Remarks,
-                     ReadOnlyCollection<string> MainRoute,
-                     ReadOnlyCollection<string[]> RouteFrom,
-                     ReadOnlyCollection<string[]> RouteTo,
-                     LatLon PreferredFirstLatLon)
+        public Track(
+            string Ident,
+            string TimeStart,
+            string TimeEnd,
+            string Remarks,
+            ReadOnlyCollection<string> MainRoute,
+            ReadOnlyCollection<string[]> RouteFrom,
+            ReadOnlyCollection<string[]> RouteTo,
+            LatLon PreferredFirstLatLon)
         {
             this.Ident = Ident;
             this.TimeStart = TimeStart;
