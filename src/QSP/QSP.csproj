@@ -122,6 +122,7 @@
     <Compile Include="RouteFinding\Routes\RouteExtensions.cs" />
     <Compile Include="RouteFinding\Routes\RouteGroup.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilter.cs" />
+    <Compile Include="UI\Controllers\BtnDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ListViewSortEnabler.cs" />
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
     <Compile Include="UI\Factories\FormFactory.cs" />

@@ -56,12 +56,34 @@ namespace QSP.UI.UserControls
             this.countryCodes = countryCodes;
             CheckedCodes = new CountryCodeCollection();
 
+            SetBtnDisabledStyle();
             SetControlGroups();
             attachEventHandlers();
             SetDefaultState();
             AddToolTip();
         }
-        
+
+        private void SetBtnDisabledStyle()
+        {
+            var gray = Color.FromArgb(224, 224, 224);
+
+            new BtnDisableStyleController(
+                filterSidBtn,
+                Color.DarkSlateGray,
+                gray,
+                Color.White,
+                gray)
+                .Activate();
+
+            new BtnDisableStyleController(
+                filterStarBtn,
+                Color.DarkSlateGray,
+                gray,
+                Color.White,
+                gray)
+                .Activate();            
+        }
+
         private void SetControlGroups()
         {
             fromGroup = new ControlGroup(

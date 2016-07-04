@@ -164,7 +164,7 @@
             // 
             this.routeSummaryLbl.AutoSize = true;
             this.routeSummaryLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.routeSummaryLbl.Location = new System.Drawing.Point(520, 200);
+            this.routeSummaryLbl.Location = new System.Drawing.Point(538, 200);
             this.routeSummaryLbl.Name = "routeSummaryLbl";
             this.routeSummaryLbl.Size = new System.Drawing.Size(250, 23);
             this.routeSummaryLbl.TabIndex = 18;

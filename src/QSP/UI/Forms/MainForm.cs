@@ -896,7 +896,7 @@ namespace QSP
             double percentDiff = (totalDis - directDis) / directDis * 100;
             string diffStr = percentDiff.ToString("0.0");
 
-            lbl.Text = $"Total Dis: {disInt} NM (+{diffStr}%)";
+            lbl.Text = $"Total Distance: {disInt} NM (+{diffStr}%)";
         }
 
         private int ComputeTailWind(TailWindCalcOptions para, int tas, int Fl)

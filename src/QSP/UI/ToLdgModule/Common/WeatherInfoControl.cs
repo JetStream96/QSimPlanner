@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using static QSP.AviationTools.CoversionTools;
 using static QSP.MathTools.Doubles;
+using static QSP.UI.Factories.ToolTipFactory;
 
 namespace QSP.UI.ToLdgModule.Common
 {
@@ -31,18 +32,14 @@ namespace QSP.UI.ToLdgModule.Common
 
         private void AddToolTip()
         {
-            var tp = new ToolTip();
-
-            tp.AutoPopDelay = 5000;
-            tp.InitialDelay = 1000;
-            tp.ReshowDelay = 500;
-            tp.ShowAlways = true;
-
+            var tp = GetToolTip(); 
+            
             tp.SetToolTip(GetMetarBtn,
                 "Download METAR and fill all weather info.");
         }
 
-        private void tempUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void tempUnitComboBoxSelectedIndexChanged(
+            object sender, EventArgs e)
         {
             double temp;
 
@@ -63,7 +60,8 @@ namespace QSP.UI.ToLdgModule.Common
             }
         }
 
-        private void pressUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void pressUnitComboBoxSelectedIndexChanged(
+            object sender, EventArgs e)
         {
             double press;
 

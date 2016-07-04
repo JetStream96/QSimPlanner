@@ -109,7 +109,7 @@
             this.pressUnitComboBox.Name = "pressUnitComboBox";
             this.pressUnitComboBox.Size = new System.Drawing.Size(98, 31);
             this.pressUnitComboBox.TabIndex = 1;
-            this.pressUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.pressUnitComboBox_SelectedIndexChanged);
+            this.pressUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.pressUnitComboBoxSelectedIndexChanged);
             // 
             // pressTxtBox
             // 
@@ -154,7 +154,7 @@
             this.tempUnitComboBox.Name = "tempUnitComboBox";
             this.tempUnitComboBox.Size = new System.Drawing.Size(98, 31);
             this.tempUnitComboBox.TabIndex = 1;
-            this.tempUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.tempUnitComboBox_SelectedIndexChanged);
+            this.tempUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.tempUnitComboBoxSelectedIndexChanged);
             // 
             // oatTxtBox
             // 

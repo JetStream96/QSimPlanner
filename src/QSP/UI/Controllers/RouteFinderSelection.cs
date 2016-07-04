@@ -72,7 +72,7 @@ namespace QSP.UI.Controllers
         public void Subscribe()
         {
             IcaoTxtBox.TextChanged += IcaoChanged;
-            RwyCBox.SelectedIndexChanged += RwyChanged;
+            RwyCBox.TextChanged += RwyChanged;
             FilterBtn.Click += filterSidStar;
 
             FilterBtn.Enabled = false;
@@ -81,7 +81,7 @@ namespace QSP.UI.Controllers
         public void UnSubsribe()
         {
             IcaoTxtBox.TextChanged -= IcaoChanged;
-            RwyCBox.SelectedIndexChanged -= RwyChanged;
+            RwyCBox.TextChanged -= RwyChanged;
             FilterBtn.Click -= filterSidStar;
         }
 
