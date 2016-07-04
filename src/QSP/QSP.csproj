@@ -126,6 +126,12 @@
     <Compile Include="UI\Controllers\ListViewSortEnabler.cs" />
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
     <Compile Include="UI\Factories\FormFactory.cs" />
+    <Compile Include="UI\Forms\QspForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\QspForm.Designer.cs">
+      <DependentUpon>QspForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\RoutePlanning\AvoidCountrySelection.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -517,6 +523,9 @@
     <None Include="Resources\prohibitIcon_small.png" />
     <None Include="Resources\prohibitIcon.png" />
     <None Include="Resources\filter.png" />
+    <EmbeddedResource Include="UI\Forms\QspForm.resx">
+      <DependentUpon>QspForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\RoutePlanning\AvoidCountrySelection.resx">
       <DependentUpon>AvoidCountrySelection.cs</DependentUpon>
     </EmbeddedResource>
