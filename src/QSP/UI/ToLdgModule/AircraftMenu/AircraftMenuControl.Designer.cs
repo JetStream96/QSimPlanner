@@ -72,7 +72,7 @@
             this.selectionGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.selectionGroupBox.Location = new System.Drawing.Point(0, 0);
             this.selectionGroupBox.Name = "selectionGroupBox";
-            this.selectionGroupBox.Size = new System.Drawing.Size(399, 296);
+            this.selectionGroupBox.Size = new System.Drawing.Size(399, 358);
             this.selectionGroupBox.TabIndex = 0;
             this.selectionGroupBox.TabStop = false;
             this.selectionGroupBox.Text = "Aircraft";
@@ -86,7 +86,7 @@
             this.tableLayoutPanel3.Controls.Add(this.editBtn, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.deleteBtn, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.newBtn, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(42, 238);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(42, 304);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -146,7 +146,7 @@
             this.acListView.Location = new System.Drawing.Point(6, 27);
             this.acListView.MultiSelect = false;
             this.acListView.Name = "acListView";
-            this.acListView.Size = new System.Drawing.Size(390, 205);
+            this.acListView.Size = new System.Drawing.Size(390, 271);
             this.acListView.TabIndex = 0;
             this.acListView.UseCompatibleStateImageBehavior = false;
             this.acListView.View = System.Windows.Forms.View.Details;
@@ -266,7 +266,7 @@
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.48544F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.51456F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 98F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 99F));
             this.tableLayoutPanel2.Controls.Add(this.maxLdgWtTxtBox, 1, 4);
             this.tableLayoutPanel2.Controls.Add(this.maxTOWtTxtBox, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.label3, 0, 1);
@@ -344,7 +344,7 @@
             this.maxLdgWtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.maxLdgWtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maxLdgWtUnitComboBox.FormattingEnabled = true;
-            this.maxLdgWtUnitComboBox.Location = new System.Drawing.Point(414, 143);
+            this.maxLdgWtUnitComboBox.Location = new System.Drawing.Point(413, 143);
             this.maxLdgWtUnitComboBox.Name = "maxLdgWtUnitComboBox";
             this.maxLdgWtUnitComboBox.Size = new System.Drawing.Size(73, 31);
             this.maxLdgWtUnitComboBox.TabIndex = 7;
@@ -358,7 +358,7 @@
             this.oewUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.oewUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.oewUnitComboBox.FormattingEnabled = true;
-            this.oewUnitComboBox.Location = new System.Drawing.Point(414, 73);
+            this.oewUnitComboBox.Location = new System.Drawing.Point(413, 73);
             this.oewUnitComboBox.Name = "oewUnitComboBox";
             this.oewUnitComboBox.Size = new System.Drawing.Size(73, 31);
             this.oewUnitComboBox.TabIndex = 3;
@@ -444,7 +444,7 @@
             this.maxTOWtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.maxTOWtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maxTOWtUnitComboBox.FormattingEnabled = true;
-            this.maxTOWtUnitComboBox.Location = new System.Drawing.Point(414, 108);
+            this.maxTOWtUnitComboBox.Location = new System.Drawing.Point(413, 108);
             this.maxTOWtUnitComboBox.Name = "maxTOWtUnitComboBox";
             this.maxTOWtUnitComboBox.Size = new System.Drawing.Size(73, 31);
             this.maxTOWtUnitComboBox.TabIndex = 5;
