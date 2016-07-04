@@ -44,7 +44,7 @@ namespace QSP.NavData.AAX
                     if (words[0] == "A")
                     {
                         // This line is an airway identifier
-                        currentAirway = words[2];
+                        currentAirway = words[1];
                     }
                     else if (words[0] == "S")
                     {
