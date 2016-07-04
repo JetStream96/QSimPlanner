@@ -70,7 +70,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(9, 84);
+            this.label2.Location = new System.Drawing.Point(9, 74);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 20);
             this.label2.TabIndex = 1;
@@ -100,7 +100,7 @@
             // 
             this.fromWptLbl.AutoSize = true;
             this.fromWptLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fromWptLbl.Location = new System.Drawing.Point(507, 6);
+            this.fromWptLbl.Location = new System.Drawing.Point(516, 6);
             this.fromWptLbl.Name = "fromWptLbl";
             this.fromWptLbl.Size = new System.Drawing.Size(73, 20);
             this.fromWptLbl.TabIndex = 8;
@@ -110,7 +110,7 @@
             // 
             this.toWptLbl.AutoSize = true;
             this.toWptLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toWptLbl.Location = new System.Drawing.Point(507, 84);
+            this.toWptLbl.Location = new System.Drawing.Point(516, 74);
             this.toWptLbl.Name = "toWptLbl";
             this.toWptLbl.Size = new System.Drawing.Size(73, 20);
             this.toWptLbl.TabIndex = 14;
@@ -120,7 +120,7 @@
             // 
             this.starLbl.AutoSize = true;
             this.starLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.starLbl.Location = new System.Drawing.Point(339, 84);
+            this.starLbl.Location = new System.Drawing.Point(339, 74);
             this.starLbl.Name = "starLbl";
             this.starLbl.Size = new System.Drawing.Size(44, 20);
             this.starLbl.TabIndex = 12;
@@ -130,7 +130,7 @@
             // 
             this.toRwyLbl.AutoSize = true;
             this.toRwyLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toRwyLbl.Location = new System.Drawing.Point(248, 84);
+            this.toRwyLbl.Location = new System.Drawing.Point(248, 74);
             this.toRwyLbl.Name = "toRwyLbl";
             this.toRwyLbl.Size = new System.Drawing.Size(60, 20);
             this.toRwyLbl.TabIndex = 10;
@@ -142,7 +142,7 @@
             this.routeRichTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.routeRichTxtBox.Location = new System.Drawing.Point(13, 227);
             this.routeRichTxtBox.Name = "routeRichTxtBox";
-            this.routeRichTxtBox.Size = new System.Drawing.Size(784, 92);
+            this.routeRichTxtBox.Size = new System.Drawing.Size(793, 92);
             this.routeRichTxtBox.TabIndex = 16;
             this.routeRichTxtBox.Text = "";
             // 
@@ -150,11 +150,11 @@
             // 
             this.findRouteBtn.BackColor = System.Drawing.SystemColors.Highlight;
             this.findRouteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.findRouteBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.findRouteBtn.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.findRouteBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.findRouteBtn.Location = new System.Drawing.Point(13, 159);
+            this.findRouteBtn.Location = new System.Drawing.Point(549, 144);
             this.findRouteBtn.Name = "findRouteBtn";
-            this.findRouteBtn.Size = new System.Drawing.Size(180, 34);
+            this.findRouteBtn.Size = new System.Drawing.Size(248, 45);
             this.findRouteBtn.TabIndex = 17;
             this.findRouteBtn.Text = "Find Route";
             this.findRouteBtn.UseVisualStyleBackColor = false;
@@ -193,7 +193,7 @@
             // 
             this.toIdentTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.toIdentTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toIdentTxtBox.Location = new System.Drawing.Point(151, 108);
+            this.toIdentTxtBox.Location = new System.Drawing.Point(151, 98);
             this.toIdentTxtBox.Name = "toIdentTxtBox";
             this.toIdentTxtBox.Size = new System.Drawing.Size(91, 30);
             this.toIdentTxtBox.TabIndex = 22;
@@ -202,7 +202,7 @@
             // 
             this.toIdentLbl.AutoSize = true;
             this.toIdentLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toIdentLbl.Location = new System.Drawing.Point(147, 84);
+            this.toIdentLbl.Location = new System.Drawing.Point(147, 74);
             this.toIdentLbl.Name = "toIdentLbl";
             this.toIdentLbl.Size = new System.Drawing.Size(43, 20);
             this.toIdentLbl.TabIndex = 21;
@@ -210,43 +210,50 @@
             // 
             // avoidCountryBtn
             // 
+            this.avoidCountryBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.avoidCountryBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.avoidCountryBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.avoidCountryBtn.Cursor = System.Windows.Forms.Cursors.Default;
             this.avoidCountryBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.avoidCountryBtn.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.avoidCountryBtn.Location = new System.Drawing.Point(208, 160);
+            this.avoidCountryBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.avoidCountryBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.avoidCountryBtn.Location = new System.Drawing.Point(411, 159);
             this.avoidCountryBtn.Margin = new System.Windows.Forms.Padding(0);
             this.avoidCountryBtn.Name = "avoidCountryBtn";
-            this.avoidCountryBtn.Size = new System.Drawing.Size(34, 34);
+            this.avoidCountryBtn.Size = new System.Drawing.Size(124, 30);
             this.avoidCountryBtn.TabIndex = 25;
-            this.avoidCountryBtn.UseVisualStyleBackColor = true;
+            this.avoidCountryBtn.Text = "Avoid Countries";
+            this.avoidCountryBtn.UseVisualStyleBackColor = false;
             this.avoidCountryBtn.Click += new System.EventHandler(this.avoidCountryBtnClick);
             // 
             // filterStarBtn
             // 
-            this.filterStarBtn.BackgroundImage = global::QSP.Properties.Resources.filter;
+            this.filterStarBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.filterStarBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.filterStarBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.filterStarBtn.Cursor = System.Windows.Forms.Cursors.Default;
             this.filterStarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.filterStarBtn.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.filterStarBtn.Location = new System.Drawing.Point(466, 107);
+            this.filterStarBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filterStarBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.filterStarBtn.Location = new System.Drawing.Point(461, 97);
             this.filterStarBtn.Name = "filterStarBtn";
-            this.filterStarBtn.Size = new System.Drawing.Size(34, 31);
+            this.filterStarBtn.Size = new System.Drawing.Size(54, 31);
             this.filterStarBtn.TabIndex = 24;
-            this.filterStarBtn.UseVisualStyleBackColor = true;
+            this.filterStarBtn.Text = "Filter";
+            this.filterStarBtn.UseVisualStyleBackColor = false;
             // 
             // filterSidBtn
             // 
-            this.filterSidBtn.BackgroundImage = global::QSP.Properties.Resources.filter;
+            this.filterSidBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.filterSidBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.filterSidBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.filterSidBtn.Cursor = System.Windows.Forms.Cursors.Default;
             this.filterSidBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.filterSidBtn.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.filterSidBtn.Location = new System.Drawing.Point(466, 29);
+            this.filterSidBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filterSidBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.filterSidBtn.Location = new System.Drawing.Point(461, 29);
             this.filterSidBtn.Name = "filterSidBtn";
-            this.filterSidBtn.Size = new System.Drawing.Size(34, 31);
+            this.filterSidBtn.Size = new System.Drawing.Size(54, 31);
             this.filterSidBtn.TabIndex = 23;
-            this.filterSidBtn.UseVisualStyleBackColor = true;
+            this.filterSidBtn.Text = "Filter";
+            this.filterSidBtn.UseVisualStyleBackColor = false;
             // 
             // toWptComboBox
             // 
@@ -256,7 +263,7 @@
             this.toWptComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.toWptComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toWptComboBox.FormattingEnabled = true;
-            this.toWptComboBox.Location = new System.Drawing.Point(511, 107);
+            this.toWptComboBox.Location = new System.Drawing.Point(520, 97);
             this.toWptComboBox.Name = "toWptComboBox";
             this.toWptComboBox.Size = new System.Drawing.Size(286, 31);
             this.toWptComboBox.TabIndex = 15;
@@ -269,7 +276,7 @@
             this.starComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.starComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.starComboBox.FormattingEnabled = true;
-            this.starComboBox.Location = new System.Drawing.Point(343, 107);
+            this.starComboBox.Location = new System.Drawing.Point(343, 97);
             this.starComboBox.Name = "starComboBox";
             this.starComboBox.Size = new System.Drawing.Size(113, 31);
             this.starComboBox.TabIndex = 13;
@@ -282,7 +289,7 @@
             this.toRwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.toRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toRwyComboBox.FormattingEnabled = true;
-            this.toRwyComboBox.Location = new System.Drawing.Point(252, 107);
+            this.toRwyComboBox.Location = new System.Drawing.Point(252, 97);
             this.toRwyComboBox.Name = "toRwyComboBox";
             this.toRwyComboBox.Size = new System.Drawing.Size(79, 31);
             this.toRwyComboBox.TabIndex = 11;
@@ -295,7 +302,7 @@
             this.fromWptComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fromWptComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fromWptComboBox.FormattingEnabled = true;
-            this.fromWptComboBox.Location = new System.Drawing.Point(511, 29);
+            this.fromWptComboBox.Location = new System.Drawing.Point(520, 29);
             this.fromWptComboBox.Name = "fromWptComboBox";
             this.fromWptComboBox.Size = new System.Drawing.Size(286, 31);
             this.fromWptComboBox.TabIndex = 9;
@@ -334,7 +341,7 @@
             this.toTypeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.toTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toTypeComboBox.FormattingEnabled = true;
-            this.toTypeComboBox.Location = new System.Drawing.Point(13, 107);
+            this.toTypeComboBox.Location = new System.Drawing.Point(13, 97);
             this.toTypeComboBox.Name = "toTypeComboBox";
             this.toTypeComboBox.Size = new System.Drawing.Size(129, 31);
             this.toTypeComboBox.TabIndex = 3;
@@ -385,7 +392,7 @@
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
             this.Name = "AdvancedRouteTool";
-            this.Size = new System.Drawing.Size(815, 333);
+            this.Size = new System.Drawing.Size(813, 333);
             this.ResumeLayout(false);
             this.PerformLayout();
 

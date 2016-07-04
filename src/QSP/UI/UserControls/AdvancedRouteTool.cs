@@ -10,10 +10,8 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers;
 using QSP.UI.RoutePlanning;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -62,25 +60,8 @@ namespace QSP.UI.UserControls
             attachEventHandlers();
             SetDefaultState();
             AddToolTip();
-            SetImages();
         }
-
-        private void SetImages()
-        {
-            var width = avoidCountryBtn.Width - 4;
-            var height = avoidCountryBtn.Height - 4;
-            var image = new Bitmap(width, height);
-
-            var graph = Graphics.FromImage(image);
-            graph.InterpolationMode = InterpolationMode.High;
-            graph.CompositingQuality = CompositingQuality.HighQuality;
-            graph.SmoothingMode = SmoothingMode.HighQuality;
-            graph.DrawImage(Properties.Resources.prohibitIcon,
-                new Rectangle(0, 0, width, height));
-
-            avoidCountryBtn.BackgroundImage = image;
-        }
-
+        
         private void SetControlGroups()
         {
             fromGroup = new ControlGroup(
@@ -366,7 +347,7 @@ namespace QSP.UI.UserControls
             {
                 Waypoints.Items.Clear();
 
-                List<int> indices = owner.wptList.FindAllById(Ident.Text);
+                var indices = owner.wptList.FindAllById(Ident.Text);
 
                 if (indices.Count == 0)
                 {

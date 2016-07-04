@@ -162,6 +162,7 @@ namespace QSP.RouteFinding
                     airways[i],
                     totalDistances[i]);
             }
+
             return result;
         }
 
