@@ -3,6 +3,17 @@
 namespace QSP.WindAloft
 {
     [Serializable]
+    public class DownloadGribFileException : Exception
+    {
+        public DownloadGribFileException() { }
+        public DownloadGribFileException(string message) : base(message) { }
+        public DownloadGribFileException(string message, Exception inner) : base(message, inner) { }
+        protected DownloadGribFileException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }
+
+    [Serializable]
     public class WindNotAvailException : Exception
     {
         public WindNotAvailException() { }

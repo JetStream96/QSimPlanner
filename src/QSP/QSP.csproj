@@ -510,7 +510,7 @@
     <Compile Include="WindAloft\WindTable.cs" />
     <Compile Include="WindAloft\WindTableCollection.cs" />
     <Compile Include="WindAloft\WindUV.cs" />
-    <Compile Include="WindAloft\WindFileLoader.cs" />
+    <Compile Include="WindAloft\WindFileHandler.cs" />
     <Content Include="NavData\icao_nationality_code.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

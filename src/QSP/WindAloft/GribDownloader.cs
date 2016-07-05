@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -13,17 +14,25 @@ namespace QSP.WindAloft
         private string webPageUrl;
         private string webPageSrc;
 
+        /// <exception cref="DownloadGribFileException"></exception>
         public void DownloadGribFile(string filePath)
         {
             var x = new LastestDataSetFinder().Find();
             webPageUrl = x.Url;
             webPageSrc = x.Source;
 
-            using (var client = new WebClient())
+            try
             {
-                var dir = new FileInfo(filePath).DirectoryName;
-                Directory.CreateDirectory(dir);
-                client.DownloadFile(FileUrl(), filePath);
+                using (var client = new WebClient())
+                {
+                    var dir = new FileInfo(filePath).DirectoryName;
+                    Directory.CreateDirectory(dir);
+                    client.DownloadFile(FileUrl(), filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new DownloadGribFileException("", ex);
             }
         }
 
@@ -69,7 +78,7 @@ namespace QSP.WindAloft
 
             foreach (var i in Utilities.FullWindDataSet)
             {
-                items.Add("lev_" + i.ToString() + "_mb=on");
+                items.Add($"lev_{i}_mb=on");
             }
 
             items.Add("var_UGRD=on");
