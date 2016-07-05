@@ -21,6 +21,7 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.UI;
 using QSP.UI.Controllers;
+using QSP.UI.UserControls;
 using QSP.UI.Utilities;
 using QSP.Utilities;
 using QSP.Utilities.Units;
@@ -39,6 +40,7 @@ using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Doubles;
 using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.Utilities.LoggerInstance;
+using static QSP.UI.Factories.FormFactory;
 
 namespace QSP
 {
@@ -496,19 +498,20 @@ namespace QSP
             {
                 //if success, update the status strip
 
-                var t = OptionsForm.AiracCyclePeriod(AppSettings.NavDataLocation);
+                var t = OptionsControl.AiracCyclePeriod(AppSettings.NavDataLocation);
                 //this returns, for example, (1407,26JUN23JUL/14)
 
-                bool expired = !AiracTools.AiracValid(t.Item2);
+                bool expired = !AiracTools.AiracValid(t.Period);
+                StatusLabel1.Text = $"AIRAC: {t.Cycle} ({t.Period})";
+
                 if (expired)
                 {
                     StatusLabel1.Image = Properties.Resources.YellowLight;
-                    StatusLabel1.Text = "AIRAC: " + t.Item1 + " (" + t.Item2 + ") - Expired";
+                    StatusLabel1.Text += " - Expired";
                 }
                 else
                 {
                     StatusLabel1.Image = Properties.Resources.GreenLight;
-                    StatusLabel1.Text = "AIRAC: " + t.Item1 + " (" + t.Item2 + ")";
                 }
             }
             catch (Exception ex)
@@ -652,12 +655,24 @@ namespace QSP
 
         private void ShowOptionsForm()
         {
-            var frm = new OptionsForm();
-            frm.Init(AppSettings);
-            frm.AppSettingChanged += (sender, e) =>
-              {
-                  AppSettings = frm.AppSettings;
-              };
+            var options = new OptionsControl();
+            options.Init(AppSettings);
+            options.AppSettingChanged += (sender, e) =>
+            {
+                AppSettings = options.AppSettings;
+            };
+
+            options.NavDataUpdated += (sender, e) =>
+            {
+                // TODO: Update Nav data here.
+            };
+
+            var frm = GetForm(options.Size);
+            frm.Controls.Add(options);
+
+            options.cancelBtn.Click += (sender, e) => frm.Close();
+            options.saveBtn.Click += (sender, e) => frm.Close();
+
             frm.ShowDialog();
         }
 
