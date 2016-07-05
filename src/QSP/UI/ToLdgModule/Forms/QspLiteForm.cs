@@ -17,6 +17,7 @@ using System.Linq;
 using System.Windows.Forms;
 using static QSP.UI.Controllers.ButtonGroup.BtnGroupController;
 using static QSP.UI.Controllers.ButtonGroup.ControlSwitcher;
+using static QSP.UI.Factories.ToolTipFactory;
 
 namespace QSP.UI.ToLdgModule.Forms
 {
@@ -102,13 +103,7 @@ namespace QSP.UI.ToLdgModule.Forms
 
         private void AddToolTip()
         {
-            var tp = new ToolTip();
-
-            tp.AutoPopDelay = 5000;
-            tp.InitialDelay = 1000;
-            tp.ReshowDelay = 500;
-            tp.ShowAlways = true;
-
+            var tp = GetToolTip(); 
             tp.SetToolTip(optionsBtn, "Options");
             tp.SetToolTip(aboutBtn, "About");
         }
