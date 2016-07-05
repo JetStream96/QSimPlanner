@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using QSP.Common;
 using QSP.LibraryExtension;
 using QSP.MathTools.Interpolation;
+using System.Linq;
 
 namespace QSP.FuelCalculation
 {
@@ -24,11 +25,11 @@ namespace QSP.FuelCalculation
 
         public int GetTimeMin(double airDistance)
         {
-            //AC_time_req_file_text is the original text of the table
-            //air_dis is in the unit of nm
-            //options: 
-            //  "MIN", will return, e.g. 156     (156 min)
-            //  "HHMM", will return, e.g. 0236   (2 hours and 36 min)
+            // AC_time_req_file_text is the original text of the table
+            // air_dis is in the unit of nm
+            // options: 
+            // "MIN", will return, e.g. 156     (156 min)
+            // "HHMM", will return, e.g. 0236   (2 hours and 36 min)
 
             int m = TimeRequiredTable.GetLength(1) - 2;
             for (int k = 1; k < TimeRequiredTable.GetLength(1); k++)
@@ -39,12 +40,14 @@ namespace QSP.FuelCalculation
                     break;
                 }
             }
+
             return (int)(Interpolate1D.Interpolate(
                 TimeRequiredTable[0, m], TimeRequiredTable[0, m + 1],
-                TimeRequiredTable[1, m], TimeRequiredTable[1, m + 1], airDistance));
+                TimeRequiredTable[1, m], TimeRequiredTable[1, m + 1], 
+                airDistance));
         }
 
-        private int[,] ImportFlightTimeTable(string sourceTxt)
+        private static int[,] ImportFlightTimeTable(string sourceTxt)
         {
             var lines = sourceTxt.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             var allLines = new List<string>();
