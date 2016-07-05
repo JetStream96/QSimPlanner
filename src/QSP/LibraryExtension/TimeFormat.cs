@@ -1,5 +1,5 @@
-using System;
 using QSP.Utilities;
+using System;
 
 namespace QSP.LibraryExtension
 {
@@ -15,6 +15,24 @@ namespace QSP.LibraryExtension
             return StringsToMin(
                 s.Substring(0, colonIndex), s.Substring(colonIndex + 1));
         }
+        
+        /// <summary>
+        /// Returns whether the conversion is successful.
+        /// E.g. Input string: "1:43", output: 103.
+        /// </summary>
+        public static bool HourColonMinToMin(string s, out int result)
+        {
+            try
+            {
+                result = HourColonMinToMin(s);
+                return true;
+            }
+            catch
+            {
+                result = -1;
+                return false;
+            }
+        }
 
         //e.g. 0143 ---> 103
         public static int HHMMToMin(string s)
@@ -25,8 +43,8 @@ namespace QSP.LibraryExtension
 
         private static int StringsToMin(string hour, string min)
         {
-            int h = Convert.ToInt32(hour);
-            int m = Convert.ToInt32(min);
+            int h = int.Parse(hour);
+            int m = int.Parse(min);
 
             ConditionChecker.Ensure<ArgumentException>(
                 h >= 0 && m >= 0 && m <= 60);
@@ -38,7 +56,7 @@ namespace QSP.LibraryExtension
         {
             //return a value with exactly 4 digits
             ConditionChecker.Ensure<ArgumentOutOfRangeException>(
-                min > 60 * 100 || min >= 0);
+                0 <= min && min < 60 * 100);
 
             int h = min / 60;
             int m = min % 60;

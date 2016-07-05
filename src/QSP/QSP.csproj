@@ -100,6 +100,9 @@
     <Compile Include="AviationTools\Coordinates\Format7Letter.cs" />
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
+    <Compile Include="FuelCalculation\FuelData.cs" />
+    <Compile Include="FuelCalculation\Tables\FlightTimeTable.cs" />
+    <Compile Include="FuelCalculation\Tables\FuelTable.cs" />
     <Compile Include="FuelCalculation\Tables\GroundToAirDisTable.cs" />
     <Compile Include="LibraryExtension\BiDictionary.cs" />
     <Compile Include="LibraryExtension\EqualityComparers.cs" />
@@ -524,12 +527,24 @@
     <EmbeddedResource Include="UI\UserControls\OptionsControl.resx">
       <DependentUpon>OptionsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="PerformanceData\FuelCalc\737600.ini" />
-    <None Include="PerformanceData\FuelCalc\737700.ini" />
-    <None Include="PerformanceData\FuelCalc\737800.ini" />
-    <None Include="PerformanceData\FuelCalc\737900.ini" />
-    <None Include="PerformanceData\FuelCalc\777200LR.ini" />
-    <None Include="PerformanceData\FuelCalc\777F.ini" />
+    <Content Include="PerformanceData\FuelCalc\737600.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\737700.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\737800.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\737900.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\777200LR.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\777F.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\prohibitIcon_small.png" />
     <None Include="Resources\prohibitIcon.png" />
     <None Include="Resources\filter.png" />

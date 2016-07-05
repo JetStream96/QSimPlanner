@@ -8,18 +8,19 @@ using QSP.MathTools.Tables;
 
 namespace QSP.FuelCalculation.Tables
 {
-    public class GroundToAirDisTable
+    public class FuelTable
     {
         private Table2D table;
 
-        public GroundToAirDisTable(string text)
+        public FuelTable(string text)
         {
             table = TableReader2D.Read(text);
         }
-
-        public double GetAirDistance(double groundDis, double tailWind)
+                
+        // airDis: NM, landingWt: Ton, Fuel: Ton
+        public double GetFuelRequired(double airDis, double landingWt)
         {
-            return table.ValueAt(groundDis, tailWind);
+            return table.ValueAt(airDis, landingWt);
         }
     }
 }
