@@ -1,39 +1,80 @@
+using QSP.FuelCalculation;
+using QSP.Utilities.Units;
 using System;
 using System.Text;
-using QSP.FuelCalculation;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.TimeFormat;
-using QSP.Utilities.Units;
 
 namespace QSP
 {
-
     public class FuelReportResult
     {
         private const int LeftPad = 11;
         private const int RightPad = 7;
 
-        public double FuelToDestTon;
-        public double FuelToAltnTon;
-        public double ContKg;
-        public double ExtraKG;
-        public double HoldKg;
-        public double ApuKg;
-        public double TaxiKg;
-        public double FinalRsvKg;
-        public int TimeToDest;
-        public int TimeToAltn;
-        public int TimeExtra;
-        public int TimeHold;
-        public int TimeFinalRsv;
-        public int TimeApu;
-        public int TimeTaxi;
-        //' Additional Results
-        public double TakeoffFuelKg;
-        public double LdgFuelKgPredict;
-        public double TotalFuelKG;
+        // Passed in via constructor
+        public double FuelToDestTon { get; private set; }
+        public double FuelToAltnTon { get; private set; }
+        public double ContKg { get; private set; }
+        public double ExtraKG { get; private set; }
+        public double HoldKg { get; private set; }
+        public double ApuKg { get; private set; }
+        public double TaxiKg { get; private set; }
+        public double FinalRsvKg { get; private set; }
+        public int TimeToDest { get; private set; }
+        public int TimeToAltn { get; private set; }
+        public int TimeExtra { get; private set; }
+        public int TimeHold { get; private set; }
+        public int TimeFinalRsv { get; private set; }
+        public int TimeApu { get; private set; }
+        public int TimeTaxi { get; private set; }
 
-        public FuelReportResult(double fuelDestTon, double fuelAltnTon, FuelCalculationParameters para, FuelCalculator fuelCalc)
+        // Additional Results
+        public double TakeoffFuelKg { get; private set; }
+        public double LdgFuelKgPredict { get; private set; }
+        public double TotalFuelKG { get; private set; }
+
+        public FuelReportResult(
+             double FuelToDestTon,
+             double FuelToAltnTon,
+             double ContKg,
+             double ExtraKG,
+             double HoldKg,
+             double ApuKg,
+             double TaxiKg,
+             double FinalRsvKg,
+             int TimeToDest,
+             int TimeToAltn,
+             int TimeExtra,
+             int TimeHold,
+             int TimeFinalRsv,
+             int TimeApu,
+             int TimeTaxi)
+        {
+            this.FuelToDestTon = FuelToDestTon;
+            this.FuelToAltnTon = FuelToAltnTon;
+            this.ContKg = ContKg;
+            this.ExtraKG = ExtraKG;
+            this.HoldKg = HoldKg;
+            this.ApuKg = ApuKg;
+            this.TaxiKg = TaxiKg;
+            this.FinalRsvKg = FinalRsvKg;
+            this.TimeToDest = TimeToDest;
+            this.TimeToAltn = TimeToAltn;
+            this.TimeExtra = TimeExtra;
+            this.TimeHold = TimeHold;
+            this.TimeFinalRsv = TimeFinalRsv;
+            this.TimeApu = TimeApu;
+            this.TimeTaxi = TimeTaxi;
+
+            SetAdditionalPara();
+        }
+
+        public FuelReportResult(
+            double fuelDestTon,
+            double fuelAltnTon,
+            FuelCalculationParameters para,
+            FuelCalculator fuelCalc)
         {
             FuelToDestTon = fuelDestTon;
             FuelToAltnTon = fuelAltnTon;
@@ -54,17 +95,19 @@ namespace QSP
             SetAdditionalPara();
         }
 
-
         private void SetAdditionalPara()
         {
-            TakeoffFuelKg = FuelToDestTon * 1000 + ContKg + HoldKg + ExtraKG + FuelToAltnTon * 1000 + FinalRsvKg;
+            TakeoffFuelKg = FuelToDestTon * 1000 + ContKg + HoldKg +
+                ExtraKG + FuelToAltnTon * 1000 + FinalRsvKg;
+
             LdgFuelKgPredict = TakeoffFuelKg - FuelToDestTon * 1000;
-            TotalFuelKG = FuelToDestTon * 1000 + ContKg + HoldKg + ExtraKG + ApuKg + TaxiKg + FuelToAltnTon * 1000 + FinalRsvKg;
+
+            TotalFuelKG = FuelToDestTon * 1000 + ContKg + HoldKg +
+                ExtraKG + ApuKg + TaxiKg + FuelToAltnTon * 1000 + FinalRsvKg;
         }
 
         public string ToString(WeightUnit unit)
         {
-
             int TripFuelDisplay = 0;
             int TotalFuelDisplay = 0;
             int contingencyDisplay = 0;

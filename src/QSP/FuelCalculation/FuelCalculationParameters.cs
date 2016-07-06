@@ -2,6 +2,7 @@ using QSP.RouteFinding;
 using QSP.Utilities.Units;
 using System;
 using static QSP.UI.FormInstanceGetter;
+using static QSP.AviationTools.Constants;
 
 namespace QSP
 {
@@ -49,9 +50,9 @@ namespace QSP
             }
             else
             {
-                ZfwKg = Zfw * AviationTools.Constants.LbKgRatio;
-                MissedAppFuelKg = MissedAppFuel * AviationTools.Constants.LbKgRatio;
-                ExtraFuelKg = ExtraFuel * AviationTools.Constants.LbKgRatio;
+                ZfwKg = Zfw * LbKgRatio;
+                MissedAppFuelKg = MissedAppFuel * LbKgRatio;
+                ExtraFuelKg = ExtraFuel * LbKgRatio;
             }
         }
 

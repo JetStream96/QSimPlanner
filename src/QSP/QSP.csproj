@@ -100,6 +100,7 @@
     <Compile Include="AviationTools\Coordinates\Format7Letter.cs" />
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
+    <Compile Include="FuelCalculation\FuelCalculatorNew.cs" />
     <Compile Include="FuelCalculation\FuelData.cs" />
     <Compile Include="FuelCalculation\Tables\FlightTimeTable.cs" />
     <Compile Include="FuelCalculation\Tables\FuelTable.cs" />
