@@ -1,5 +1,3 @@
-using QSP.Common;
-
 namespace QSP.WindAloft
 {
     public class DescendForcastGenerator

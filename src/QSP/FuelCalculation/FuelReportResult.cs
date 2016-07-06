@@ -1,4 +1,3 @@
-using QSP.FuelCalculation;
 using QSP.Utilities.Units;
 using System;
 using System.Text;
@@ -69,32 +68,7 @@ namespace QSP
 
             SetAdditionalPara();
         }
-
-        public FuelReportResult(
-            double fuelDestTon,
-            double fuelAltnTon,
-            FuelCalculationParameters para,
-            FuelCalculator fuelCalc)
-        {
-            FuelToDestTon = fuelDestTon;
-            FuelToAltnTon = fuelAltnTon;
-            ContKg = FuelToDestTon * 1000 * para.ContPerc / 100;
-            ExtraKG = para.ExtraFuelKg;
-            HoldKg = para.HoldingMin * fuelCalc.holdingFuelPerMinuteKg;
-            ApuKg = para.APUTime * fuelCalc.apuFuelPerMinKg;
-            TaxiKg = para.TaxiTime * fuelCalc.taxiFuelPerMinKg;
-            FinalRsvKg = para.FinalRsvMin * fuelCalc.holdingFuelPerMinuteKg;
-            TimeToDest = fuelCalc.TimeToDest;
-            TimeToAltn = fuelCalc.TimeToAltn;
-            TimeExtra = (int)(para.ExtraFuelKg / fuelCalc.holdingFuelPerMinuteKg);
-            TimeHold = (int)para.HoldingMin;
-            TimeFinalRsv = (int)para.FinalRsvMin;
-            TimeApu = (int)para.APUTime;
-            TimeTaxi = (int)para.TaxiTime;
-
-            SetAdditionalPara();
-        }
-
+        
         private void SetAdditionalPara()
         {
             TakeoffFuelKg = FuelToDestTon * 1000 + ContKg + HoldKg +

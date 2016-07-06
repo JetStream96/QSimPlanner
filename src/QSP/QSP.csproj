@@ -100,7 +100,7 @@
     <Compile Include="AviationTools\Coordinates\Format7Letter.cs" />
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
-    <Compile Include="FuelCalculation\FuelCalculatorNew.cs" />
+    <Compile Include="FuelCalculation\FuelCalculator.cs" />
     <Compile Include="FuelCalculation\FuelData.cs" />
     <Compile Include="FuelCalculation\Tables\FlightTimeTable.cs" />
     <Compile Include="FuelCalculation\Tables\FuelTable.cs" />
@@ -400,9 +400,7 @@
     <Compile Include="UI\FormInstanceGetter.cs" />
     <Compile Include="UI\ViewManager.cs" />
     <Compile Include="Utilities\AiracTools.cs" />
-    <Compile Include="FuelCalculation\FlightTimeCalculator.cs" />
     <Compile Include="FuelCalculation\FuelCalculationParameters.cs" />
-    <Compile Include="FuelCalculation\FuelCalculator.cs" />
     <Compile Include="FuelCalculation\FuelReportResult.cs" />
     <Compile Include="FuelCalculation\OptCrzCalculator.cs" />
     <Compile Include="LibraryExtension\Arrays.cs" />
@@ -528,22 +526,22 @@
     <EmbeddedResource Include="UI\UserControls\OptionsControl.resx">
       <DependentUpon>OptionsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="PerformanceData\FuelCalc\737600.ini">
+    <Content Include="PerformanceData\FuelCalc\737600.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\737700.ini">
+    <Content Include="PerformanceData\FuelCalc\737700.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\737800.ini">
+    <Content Include="PerformanceData\FuelCalc\737800.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\737900.ini">
+    <Content Include="PerformanceData\FuelCalc\737900.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\777200LR.ini">
+    <Content Include="PerformanceData\FuelCalc\777200LR.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\777F.ini">
+    <Content Include="PerformanceData\FuelCalc\777F.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\prohibitIcon_small.png" />

@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using QSP.MathTools.Tables;
 using QSP.LibraryExtension;
-using QSP.MathTools;
 
 namespace QSP.FuelCalculation.Tables
 {

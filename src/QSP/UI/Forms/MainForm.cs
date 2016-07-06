@@ -71,13 +71,14 @@ namespace QSP
 
         #region "FuelCalculation"
 
-        public FuelCalculator ComputeFuelIteration(FuelCalculationParameters para, uint precisionLevel)
+        public FuelReportResult ComputeFuelIteration(
+            FuelCalculationParameters para, FuelData data, uint precisionLevel)
         {
             //presisionLevel = 0, 1, 2, ... 
             //smaller num = less precise
             //0 = disregard wind completely, 1 is good enough
 
-            var FuelCalc = new FuelCalculator(para);
+            var FuelCalc = new FuelCalculator(para, data);
             var OptCrzCalc = new OptCrzCalculator(para.AC);
 
             //calculate altn first
@@ -89,8 +90,10 @@ namespace QSP
 
             for (uint i = 0; i <= precisionLevel; i++)
             {
-                fuelTon = FuelCalc.GetAltnFuelTon();
-                avgWeightTon = FuelCalc.LandWeightTonAltn + fuelTon / 2;
+                FuelCalc.ReCompute();
+                var result = FuelCalc.GetBriefResult();
+                fuelTon = result.FuelToAltnTon;
+                avgWeightTon = result.LandWeightTonAltn + fuelTon / 2;
                 crzAltFt = OptCrzCalc.ActualCrzAlt(avgWeightTon, para.DisToAltn);
                 tas = OptCrzCalc.CruiseTas(crzAltFt);
                 tailwind = ComputeTailWind(TailWindCalcOptions.DestToAltn, Convert.ToInt32(tas), Convert.ToInt32(crzAltFt / 100));
@@ -101,17 +104,54 @@ namespace QSP
 
             for (uint i = 0; i <= precisionLevel; i++)
             {
-                fuelTon = FuelCalc.GetDestFuelTon();
-                avgWeightTon = FuelCalc.LandWeightTonDest + fuelTon / 2;
+                FuelCalc.ReCompute();
+                var result = FuelCalc.GetBriefResult();
+                fuelTon = result.FuelToDestTon;
+                avgWeightTon = result.LandWeightTonDest + fuelTon / 2;
                 crzAltFt = OptCrzCalc.ActualCrzAlt(avgWeightTon, para.DisToDest);
                 tas = OptCrzCalc.CruiseTas(crzAltFt);
                 tailwind = ComputeTailWind(TailWindCalcOptions.OrigToDest, Convert.ToInt32(tas), Convert.ToInt32(crzAltFt / 100));
                 para.AvgWindToDest = tailwind;
 
                 Debug.WriteLine("TO DEST, CRZ ALT {0} FT, TAS {1} KTS, TAILWIND {2} KTS", crzAltFt, tas, tailwind);
-
             }
-            return FuelCalc;
+
+            FuelCalc.ReCompute();
+            return FuelCalc.GetFullResult();
+        }
+
+        private static string GetFileName(Aircraft ac)
+        {
+            string s = null;
+
+            switch (ac)
+            {
+                case Aircraft.B737600:
+                    s = "737600";
+                    break;
+
+                case Aircraft.B737700:
+                    s = "737700";
+                    break;
+
+                case Aircraft.B737800:
+                    s = "737800";
+                    break;
+
+                case Aircraft.B737900:
+                    s = "737900";
+                    break;
+
+                case Aircraft.B777200LR:
+                    s = "777200LR";
+                    break;
+
+                case Aircraft.B777F:
+                    s = "777F";
+                    break;
+            }
+
+            return $"PerformanceData/FuelCalc/{s}.xml";
         }
 
         private void Calculate(object sender, EventArgs e)
@@ -132,10 +172,12 @@ namespace QSP
                 return;
             }
 
-            FuelCalculator FuelCalc = null;
+            var data = FuelData.FromFile(GetFileName(parameters.AC));
+            FuelReportResult fuelCalcResult = null;
+
             try
             {
-                FuelCalc = ComputeFuelIteration(parameters, 1);
+                fuelCalcResult = ComputeFuelIteration(parameters, data, 1);
             }
             catch (Exception ex)
             {
@@ -143,17 +185,10 @@ namespace QSP
                 return;
             }
 
-            double fuelToAltnTon = FuelCalc.GetAltnFuelTon();
-            double fuelToDestTon = FuelCalc.GetDestFuelTon();
-
-            FuelReportResult fuelCalcResult = new FuelReportResult(fuelToDestTon, fuelToAltnTon, parameters, FuelCalc);
-
-
-            if (fuelCalcResult.TotalFuelKG > FuelCalc.maxFuelKg)
+            if (fuelCalcResult.TotalFuelKG > data.MaxFuelKg)
             {
-                MessageBox.Show(InsufficientFuelMsg(fuelCalcResult.TotalFuelKG, FuelCalc.maxFuelKg, parameters.WtUnit));
+                MessageBox.Show(InsufficientFuelMsg(fuelCalcResult.TotalFuelKG, data.MaxFuelKg, parameters.WtUnit));
                 return;
-
             }
 
             string outputText = fuelCalcResult.ToString(parameters.WtUnit);

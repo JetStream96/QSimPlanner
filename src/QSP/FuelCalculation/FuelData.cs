@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QSP.FuelCalculation.Tables;
-using IniParser.Parser;
-using IniParser;
+﻿using QSP.FuelCalculation.Tables;
+using System.Xml.Linq;
 
 namespace QSP.FuelCalculation
 {
@@ -39,21 +33,22 @@ namespace QSP.FuelCalculation
 
         public static FuelData FromFile(string path)
         {
-            var data = new FileIniDataParser().ReadFile(path);
+            var data = XDocument.Load(path);
+            var root = data.Root;
 
-            var gta = data["GroundToAirDis"];
-            var fuel = data["Fuel"];
-            var time = data["Time"];
-            var general = data["General"];
+            var gta = root.Element("GroundToAirDis");
+            var fuel = root.Element("Fuel");
+            var time = root.Element("Time");
+            var general = root.Element("General");
 
             return new FuelData(
-                new FlightTimeTable(time.ToString()),
-                new FuelTable(fuel.ToString()),
-                new GroundToAirDisTable(gta.ToString()),
-                double.Parse(general["HoldingFuelPerMinuteKg"]),
-                double.Parse(general["MaxFuelKg"]),
-                double.Parse(general["TaxiFuelPerMinKg"]),
-                double.Parse(general["ApuFuelPerMinKg"]));
+                new FlightTimeTable(time.Value),
+                new FuelTable(fuel.Value),
+                new GroundToAirDisTable(gta.Value),
+                double.Parse(general.Element("HoldingFuelPerMinuteKg").Value),
+                double.Parse(general.Element("MaxFuelKg").Value),
+                double.Parse(general.Element("TaxiFuelPerMinKg").Value),
+                double.Parse(general.Element("ApuFuelPerMinKg").Value));
         }
     }
 }
