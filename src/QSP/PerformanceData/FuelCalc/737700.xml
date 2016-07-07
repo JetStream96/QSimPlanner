@@ -83,5 +83,38 @@
     4600 10:29
     5000 11:22
   </Time>
+  
+  <CruiseProfile>
+    <ClimbSpeed>280</ClimbSpeed>
+    <!--Knots-->
 
+    <DescendSpeed>280</DescendSpeed>
+    <!--Knots-->
+
+    <CruiseSpeed>0.78</CruiseSpeed>
+    <!--Mach-->
+
+    <OptimumAlt>
+      <WeightUnit>LB</WeightUnit>
+      <!--KG or LB-->
+
+      <Table>
+        <!--First column: Weight (1000KG or 1000LB)
+            Second column: Altitude (FT)-->
+
+        170 31800
+        160 33100
+        150 34500
+        140 36000
+        130 37500
+        120 39200
+        110 41000
+        100 41000
+        90 41000
+        80 41000
+      </Table>
+
+    </OptimumAlt>
+  </CruiseProfile>
+  
 </Data>

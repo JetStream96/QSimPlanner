@@ -16,24 +16,6 @@ namespace QSP.LibraryExtension
                 s.Substring(0, colonIndex), s.Substring(colonIndex + 1));
         }
         
-        /// <summary>
-        /// Returns whether the conversion is successful.
-        /// E.g. Input string: "1:43", output: 103.
-        /// </summary>
-        public static bool HourColonMinToMin(string s, out int result)
-        {
-            try
-            {
-                result = HourColonMinToMin(s);
-                return true;
-            }
-            catch
-            {
-                result = -1;
-                return false;
-            }
-        }
-
         //e.g. 0143 ---> 103
         public static int HHMMToMin(string s)
         {

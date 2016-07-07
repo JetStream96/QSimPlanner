@@ -79,7 +79,8 @@ namespace QSP
             //0 = disregard wind completely, 1 is good enough
 
             var FuelCalc = new FuelCalculator(para, data);
-            var OptCrzCalc = new OptCrzCalculator(para.AC);
+            var optCrz = data.OptCrzTable;
+            var speedProfile = data.SpeedProfile;
 
             //calculate altn first
             double fuelTon = 0;
@@ -94,8 +95,8 @@ namespace QSP
                 var result = FuelCalc.GetBriefResult();
                 fuelTon = result.FuelToAltnTon;
                 avgWeightTon = result.LandWeightTonAltn + fuelTon / 2;
-                crzAltFt = OptCrzCalc.ActualCrzAlt(avgWeightTon, para.DisToAltn);
-                tas = OptCrzCalc.CruiseTas(crzAltFt);
+                crzAltFt = optCrz.ActualCrzAltFt(avgWeightTon, para.DisToAltn);
+                tas = speedProfile.CruiseTasKnots(crzAltFt);
                 tailwind = ComputeTailWind(TailWindCalcOptions.DestToAltn, Convert.ToInt32(tas), Convert.ToInt32(crzAltFt / 100));
                 para.AvgWindToAltn = tailwind;
 
@@ -108,8 +109,8 @@ namespace QSP
                 var result = FuelCalc.GetBriefResult();
                 fuelTon = result.FuelToDestTon;
                 avgWeightTon = result.LandWeightTonDest + fuelTon / 2;
-                crzAltFt = OptCrzCalc.ActualCrzAlt(avgWeightTon, para.DisToDest);
-                tas = OptCrzCalc.CruiseTas(crzAltFt);
+                crzAltFt = optCrz.ActualCrzAltFt(avgWeightTon, para.DisToDest);
+                tas = speedProfile.CruiseTasKnots(crzAltFt);
                 tailwind = ComputeTailWind(TailWindCalcOptions.OrigToDest, Convert.ToInt32(tas), Convert.ToInt32(crzAltFt / 100));
                 para.AvgWindToDest = tailwind;
 
