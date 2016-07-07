@@ -12,25 +12,25 @@ namespace UnitTest.AircraftProfiles.Configs
         private static AircraftConfig config1 =
             new AircraftConfig(
                 new AircraftConfigItem("B777-300ER",
-                                   "B-12345",
-                                   "Boeing 777-300ER",
-                                   "Boeing 777-300ER",
-                                   123456.0,
-                                   234567.0,
-                                   345678.0,
-                                   WeightUnit.KG),
+                    "B-12345",
+                    "Boeing 777-300ER",
+                    "Boeing 777-300ER",
+                    123456.0,
+                    234567.0,
+                    345678.0,
+                    WtUnit: WeightUnit.KG),
                 "path");
 
         private static AircraftConfig config2 =
             new AircraftConfig(
                 new AircraftConfigItem("B777-300ER",
-                                   "B-9876",
-                                   "Boeing 777-300ER custom",
-                                   "Boeing 777-300ER custom",
-                                   23456.0,
-                                   34567.0,
-                                   45678.0,
-                                   WeightUnit.KG),
+                    "B-9876",
+                    "Boeing 777-300ER custom",
+                    "Boeing 777-300ER custom",
+                    23456.0,
+                    34567.0,
+                    45678.0,
+                    WtUnit: WeightUnit.KG),
                 "path");
 
         [Test]

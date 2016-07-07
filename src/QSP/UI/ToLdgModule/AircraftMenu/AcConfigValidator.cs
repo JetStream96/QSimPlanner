@@ -17,17 +17,20 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         /// <exception cref="InvalidUserInputException"></exception>
         public AircraftConfigItem Read()
         {
-            var wtUnit = elem.ZfwUnit.SelectedIndex == 0 ?
-                            WeightUnit.KG :
-                            WeightUnit.LB;
+            var wtUnit = 
+                elem.ZfwUnit.SelectedIndex == 0 ?
+                    WeightUnit.KG :
+                    WeightUnit.LB;
 
-            double wtUnitFactor = elem.ZfwUnit.SelectedIndex == 0 ?
-                                    1.0 :
-                                    Constants.LbKgRatio;
+            double wtUnitFactor = 
+                elem.ZfwUnit.SelectedIndex == 0 ?
+                    1.0 :
+                    Constants.LbKgRatio;
 
             double zfw;
             double maxToWt;
             double maxLdgWt;
+            double maxZfw;
 
             if (double.TryParse(elem.Zfw.Text, out zfw) == false)
             {
@@ -46,9 +49,16 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                     "Invalid max landing weight.");
             }
 
+            if (double.TryParse(elem.MaxZfw.Text, out maxZfw) == false)
+            {
+                throw new InvalidUserInputException(
+                    "Invalid max zero fuel weight.");
+            }
+
             zfw *= wtUnitFactor;
             maxToWt *= wtUnitFactor;
             maxLdgWt *= wtUnitFactor;
+            maxZfw *= wtUnitFactor;
 
             return new AircraftConfigItem(
                 elem.AcType.Text.Trim(),
@@ -58,6 +68,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 zfw,
                 maxToWt,
                 maxLdgWt,
+                maxZfw,
                 wtUnit);
         }
 
@@ -69,7 +80,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             if (item.AC == "")
             {
                 throw new InvalidUserInputException(
-                                   "Aircraft type cannot be empty.");
+                    "Aircraft type cannot be empty.");
             }
 
             if (item.Registration == "")

@@ -171,6 +171,12 @@
     <Compile Include="UI\UserControls\OptionsControl.Designer.cs">
       <DependentUpon>OptionsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserControls\WeightControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\WeightControl.Designer.cs">
+      <DependentUpon>WeightControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\AircraftEnums.cs" />
@@ -544,6 +550,9 @@
     <Content Include="PerformanceData\FuelCalc\777F.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="UI\UserControls\WeightControl.resx">
+      <DependentUpon>WeightControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Resources\prohibitIcon_small.png" />
     <None Include="Resources\prohibitIcon.png" />
     <None Include="Resources\filter.png" />

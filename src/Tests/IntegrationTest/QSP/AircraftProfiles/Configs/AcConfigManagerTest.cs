@@ -19,13 +19,13 @@ namespace IntergrationTest.QSP.AircraftProfiles.Configs
             manager.Add(
                 new AircraftConfig(
                     new AircraftConfigItem("B777-300ER",
-                                       "B-12345",
-                                       txt,
-                                       txt,
-                                       123456.0,
-                                       234567.0,
-                                       345678.0,
-                                       WeightUnit.KG),
+                        "B-12345",
+                        txt,
+                        txt,
+                        123456.0,
+                        234567.0,
+                        345678.0,
+                        WtUnit: WeightUnit.KG),
                     "path"));
 
             manager.Validate(

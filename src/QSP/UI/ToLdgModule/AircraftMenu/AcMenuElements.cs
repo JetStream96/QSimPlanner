@@ -12,9 +12,11 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public TextBox Zfw { get; private set; }
         public TextBox MaxToWt { get; private set; }
         public TextBox MaxLdgWt { get; private set; }
+        public TextBox MaxZfw { get; private set; }
         public ComboBox ZfwUnit { get; private set; }
         public ComboBox MaxToWtUnit { get; private set; }
         public ComboBox MaxLdgWtUnit { get; private set; }
+        public ComboBox MaxZfwUnit { get; private set; }
         public GroupBox SelectionBox { get; private set; }
         public GroupBox PropertyBox { get; private set; }
         public Button NewBtn { get; private set; }
@@ -30,9 +32,11 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
              TextBox Zfw,
              TextBox MaxToWt,
              TextBox MaxLdgWt,
+             TextBox MaxZfw,
              ComboBox ZfwUnit,
              ComboBox MaxToWtUnit,
              ComboBox MaxLdgWtUnit,
+             ComboBox MaxZfwUnit,
              GroupBox SelectionBox,
              GroupBox PropertyBox,
              Button NewBtn,
@@ -47,9 +51,11 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             this.Zfw = Zfw;
             this.MaxToWt = MaxToWt;
             this.MaxLdgWt = MaxLdgWt;
+            this.MaxZfw = MaxZfw;
             this.ZfwUnit = ZfwUnit;
             this.MaxToWtUnit = MaxToWtUnit;
             this.MaxLdgWtUnit = MaxLdgWtUnit;
+            this.MaxZfwUnit = MaxZfwUnit;
             this.SelectionBox = SelectionBox;
             this.PropertyBox = PropertyBox;
             this.NewBtn = NewBtn;

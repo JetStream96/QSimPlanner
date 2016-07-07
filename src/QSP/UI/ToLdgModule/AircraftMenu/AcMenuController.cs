@@ -23,6 +23,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         private AcMenuElements elem;
         private ProfileManager profiles;
         private AircraftConfig currentConfig;
+        private ComboBox[] unitCBox;
 
         public AcMenuController(AcMenuElements elem, ProfileManager profiles)
         {
@@ -59,37 +60,32 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         private void InitWtUnitCBox()
         {
             var units = new string[] { "KG", "LB" };
+            unitCBox = new ComboBox[] 
+            {
+                elem.ZfwUnit,
+                elem.MaxToWtUnit,
+                elem.MaxLdgWtUnit,
+                elem.MaxZfwUnit
+            };
 
-            var zfwUnit = elem.ZfwUnit;
-            zfwUnit.Items.Clear();
-            zfwUnit.Items.AddRange(units);
-            zfwUnit.SelectedIndex = 0;
-
-            var toUnit = elem.MaxToWtUnit;
-            toUnit.Items.Clear();
-            toUnit.Items.AddRange(units);
-            toUnit.SelectedIndex = 0;
-
-            var ldgUnit = elem.MaxLdgWtUnit;
-            ldgUnit.Items.Clear();
-            ldgUnit.Items.AddRange(units);
-            ldgUnit.SelectedIndex = 0;
+            foreach (var i in unitCBox)
+            {
+                i.Items.Clear();
+                i.Items.AddRange(units);
+                i.SelectedIndex = 0;
+            }
 
             WtUnitConnect();
         }
 
         private void WtUnitConnect()
         {
-            elem.ZfwUnit.SelectedIndexChanged += WtUnitChanged;
-            elem.MaxToWtUnit.SelectedIndexChanged += WtUnitChanged;
-            elem.MaxLdgWtUnit.SelectedIndexChanged += WtUnitChanged;
+            unitCBox.ForEach(i => i.SelectedIndexChanged += WtUnitChanged);
         }
 
         private void WtUnitDisconnect()
         {
-            elem.ZfwUnit.SelectedIndexChanged -= WtUnitChanged;
-            elem.MaxToWtUnit.SelectedIndexChanged -= WtUnitChanged;
-            elem.MaxLdgWtUnit.SelectedIndexChanged -= WtUnitChanged;
+            unitCBox.ForEach(i => i.SelectedIndexChanged -= WtUnitChanged);
         }
 
         private void WtUnitChanged(object sender, EventArgs e)
@@ -184,6 +180,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             e.Zfw.Text = WtDisplay(c.OewKg);
             e.MaxToWt.Text = WtDisplay(c.MaxTOWtKg);
             e.MaxLdgWt.Text = WtDisplay(c.MaxLdgWtKg);
+            e.MaxZfw.Text = WtDisplay(c.MaxZfwKg);
         }
 
         private void ShowDefaultConfig()
@@ -196,7 +193,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             get
             {
                 return new AircraftConfigItem("", "", NoToLdgProfileText,
-                    NoToLdgProfileText, 0.0, 0.0, 0.0, WeightUnit.KG);
+                    NoToLdgProfileText, 0.0, 0.0, 0.0, 0.0, WeightUnit.KG);
             }
         }
 

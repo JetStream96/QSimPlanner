@@ -16,6 +16,7 @@ namespace QSP.AircraftProfiles.Configs
             keys.AddKey("OewKg", config.OewKg.ToString());
             keys.AddKey("MaxTOWtKg", config.MaxTOWtKg.ToString());
             keys.AddKey("MaxLdgWtKg", config.MaxLdgWtKg.ToString());
+            keys.AddKey("MaxZfwKg", config.MaxZfwKg.ToString());
             keys.AddKey("WtUnit", WeightUnitToString(config.WtUnit));
 
             var secData = new SectionData("Data");
