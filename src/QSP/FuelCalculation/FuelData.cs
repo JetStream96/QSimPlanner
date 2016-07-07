@@ -15,6 +15,7 @@ namespace QSP.FuelCalculation
         public double MaxFuelKg { get; private set; }
         public double TaxiFuelPerMinKg { get; private set; }
         public double ApuFuelPerMinKg { get; private set; }
+        public double MissedAppFuelKG { get; private set; }
 
         public FuelData(
             FlightTimeTable FlightTimeTable,
@@ -25,7 +26,8 @@ namespace QSP.FuelCalculation
             double HoldingFuelPerMinuteKg,
             double MaxFuelKg,
             double TaxiFuelPerMinKg,
-            double ApuFuelPerMinKg)
+            double ApuFuelPerMinKg,
+            double MissedAppFuelKG)
         {
             this.FlightTimeTable = FlightTimeTable;
             this.FuelTable = FuelTable;
@@ -36,6 +38,7 @@ namespace QSP.FuelCalculation
             this.MaxFuelKg = MaxFuelKg;
             this.TaxiFuelPerMinKg = TaxiFuelPerMinKg;
             this.ApuFuelPerMinKg = ApuFuelPerMinKg;
+            this.MissedAppFuelKG = MissedAppFuelKG;
         }
 
         public static FuelData FromFile(string path)
@@ -58,7 +61,8 @@ namespace QSP.FuelCalculation
                 double.Parse(general.Element("HoldingFuelPerMinuteKg").Value),
                 double.Parse(general.Element("MaxFuelKg").Value),
                 double.Parse(general.Element("TaxiFuelPerMinKg").Value),
-                double.Parse(general.Element("ApuFuelPerMinKg").Value));
+                double.Parse(general.Element("ApuFuelPerMinKg").Value),
+                double.Parse(general.Element("MissedAppFuelKG").Value));
         }
 
         private static OptCrzTable GetOptAltTable(XElement CruiseProfileNode)

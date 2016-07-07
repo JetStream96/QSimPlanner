@@ -39,7 +39,6 @@ namespace QSP.FuelCalculation.Tables
 
         public double ActualCrzAltFt(double wtTon, double disNm)
         {
-            //FT
             return Math.Min(OptimumAltitudeFt(wtTon),
                 DistanceLimitedAltitudeFt(disNm));
         }

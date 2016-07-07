@@ -6,6 +6,10 @@
     <MaxFuelKg>145752</MaxFuelKg>
     <TaxiFuelPerMinKg>36</TaxiFuelPerMinKg>
     <ApuFuelPerMinKg>4</ApuFuelPerMinKg>
+    
+    <MissedAppFuelKG>300</MissedAppFuelKG>
+    <!--Subject to change.-->
+  
   </General>
 
   <GroundToAirDis>

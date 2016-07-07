@@ -108,17 +108,15 @@ namespace QSP.Metar
                 "GS", // Small Hail and/or Snow Pellets
                 "UP", // Unknown Precipitation
             };
-            
-            return wordList
-                .Select(w => 
+
+            return wordList.Any(w =>
                 Regex.Match(
                     metar,
-                    @"(^|\s)[+-]?" + w + @"($|\s)", 
+                    @"(^|\s)[+-]?" + w + @"($|\s)",
                     RegexOptions.Multiline)
-                .Success)
-                .Contains(true);
+                .Success);
         }
-        
+
         public class PressureSetting
         {
             public PressureUnit PressUnit { get; private set; }

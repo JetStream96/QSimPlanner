@@ -623,21 +623,23 @@ namespace QSP
 
             if (WtUnitSel_ComboBox.Text == "KG")
             {
-                MissedAppFuel.Text = Convert.ToString(MissedAppFuelKG);
+                MissedAppFuel.Text = MissedAppFuelKG.ToString();
 
                 if (zfwKg > MaxZfwKg || zfwKg < OperatingEmptyWtKg)
                 {
-                    ZFW.Text = Convert.ToString(OperatingEmptyWtKg);
+                    ZFW.Text = OperatingEmptyWtKg.ToString();
                 }
             }
             else
             {
                 zfwKg *= LbKgRatio;
-                MissedAppFuel.Text = Convert.ToString(Math.Round(MissedAppFuelKG * KgLbRatio));
+                MissedAppFuel.Text = RoundToInt(MissedAppFuelKG * KgLbRatio)
+                    .ToString();
 
                 if (zfwKg > MaxZfwKg || zfwKg < OperatingEmptyWtKg)
                 {
-                    ZFW.Text = Convert.ToString(Math.Round(OperatingEmptyWtKg * KgLbRatio));
+                    ZFW.Text = RoundToInt(OperatingEmptyWtKg * KgLbRatio)
+                        .ToString();
                 }
 
             }
