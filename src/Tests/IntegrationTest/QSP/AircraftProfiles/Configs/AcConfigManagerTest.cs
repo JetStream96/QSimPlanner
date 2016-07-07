@@ -25,7 +25,8 @@ namespace IntergrationTest.QSP.AircraftProfiles.Configs
                         123456.0,
                         234567.0,
                         345678.0,
-                        WtUnit: WeightUnit.KG),
+                        456789.0,
+                        WeightUnit.KG),
                     "path"));
 
             manager.Validate(

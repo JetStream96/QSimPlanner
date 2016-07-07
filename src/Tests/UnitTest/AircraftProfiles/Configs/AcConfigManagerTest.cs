@@ -18,7 +18,8 @@ namespace UnitTest.AircraftProfiles.Configs
                     123456.0,
                     234567.0,
                     345678.0,
-                    WtUnit: WeightUnit.KG),
+                    456789.0,
+                    WeightUnit.KG),
                 "path");
 
         private static AircraftConfig config2 =
@@ -30,7 +31,8 @@ namespace UnitTest.AircraftProfiles.Configs
                     23456.0,
                     34567.0,
                     45678.0,
-                    WtUnit: WeightUnit.KG),
+                    56789.0,
+                    WeightUnit.KG),
                 "path");
 
         [Test]
