@@ -9,7 +9,13 @@ namespace QSP.RouteFinding.Data.Interfaces
     {
         public static double Distance<T>(this T x, T y) where T : ICoordinate
         {
-            return GCDis.Distance(x.Lat, x.Lon, y.Lat, y.Lon);
+            return Distance(x, y.Lat, y.Lon);
+        }
+
+        public static double Distance<T>(this T x, double lat, double lon) 
+            where T : ICoordinate
+        {
+            return GCDis.Distance(x.Lat, x.Lon, lat, lon);
         }
 
         public static double TotalDistance<T>(this IEnumerable<T> source)

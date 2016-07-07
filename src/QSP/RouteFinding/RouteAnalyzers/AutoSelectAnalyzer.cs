@@ -1,21 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
-using QSP.RouteFinding.AirwayStructure;
-using static QSP.MathTools.GCDis;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
-    // Automatically select the first waypoint when there are many with the same ident.
-    // Utilizes the SimpleRouteAnalyzer to analyze a route represented as a string.
+    // Automatically select the first waypoint when there are many with 
+    // the same ident. Utilizes the SimpleRouteAnalyzer to analyze a route 
+    // represented as a string.
     // 
-    // Because we only know the ident of the first waypoint and there is likely to be multiple waypoints with the 
-    // same ident, route parse can fail due to picking an incorrect first waypoint.
+    // Because we only know the ident of the first waypoint and there is 
+    // likely to be multiple waypoints with the same ident, route parse 
+    // can fail due to picking an incorrect first waypoint.
     //
-    // Therefore this class allows you to specify the approximate lat/lon of first waypoint, and it will choose 
-    // base on this lat/lon. When there are multiple waypoints matching the ident of the first waypoint in route, 
-    // the one closest to this lat/lon will be chosen first.
+    // Therefore this class allows you to specify the approximate lat/lon 
+    // of first waypoint, and it will choose base on this lat/lon. 
+    // When there are multiple waypoints matching the ident of the first 
+    // waypoint in route, the one closest to this lat/lon will be chosen first.
     //
-    // It will try all waypoints with matching ident until the route is successfully parsed. 
+    // It will try all waypoints with matching ident until the route is 
+    // successfully parsed. 
 
     public class AutoSelectAnalyzer
     {
@@ -24,7 +28,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
         private double preferredLon;
         private WaypointList wptList;
 
-        public AutoSelectAnalyzer(string[] route, double preferredLat, double preferredLon, WaypointList wptList)
+        public AutoSelectAnalyzer(
+            string[] route,
+            double preferredLat,
+            double preferredLon,
+            WaypointList wptList)
         {
             this.route = route;
             this.preferredLat = preferredLat;
@@ -66,7 +74,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         public Comparer<int> CompareDistance()
         {
-            return new CompareDistanceHelper(wptList, preferredLat, preferredLon);
+            return new CompareDistanceHelper(
+                wptList, preferredLat, preferredLon);
         }
 
         private class CompareDistanceHelper : Comparer<int>
@@ -75,7 +84,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
             private double preferredLat;
             private double preferredLon;
 
-            public CompareDistanceHelper(WaypointList wptList, double preferredLat, double preferredLon)
+            public CompareDistanceHelper(
+                WaypointList wptList, double preferredLat, double preferredLon)
             {
                 this.wptList = wptList;
                 this.preferredLat = preferredLat;
@@ -84,9 +94,10 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             public override int Compare(int x, int y)
             {
-                return Distance(preferredLat, preferredLon, wptList[x].Lat, wptList[x].Lon)
-                       .CompareTo(
-                       Distance(preferredLat, preferredLon, wptList[y].Lat, wptList[y].Lon));
+                var disX = wptList[x].Distance(preferredLat, preferredLon);
+                var disY = wptList[y].Distance(preferredLat, preferredLon);
+
+                return disX.CompareTo(disY);
             }
         }
     }

@@ -5,6 +5,7 @@ using QSP.RouteFinding.Routes;
 using System;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.LibraryExtension.Lists;
+using static QSP.RouteFinding.Tracks.Common.Utilities;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -113,7 +114,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
                         TryParseWpt(routeInput[i]) == false)
                     {
                         throw new InvalidIdentifierException(
-                            string.Format("{0} is not a valid waypoint or airway identifier", routeInput[i]));
+                            $"{routeInput[i]} is not a valid waypoint or " +
+                            "airway identifier");
                     }
                 }
                 else
@@ -122,10 +124,12 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     if (TryParseWpt(routeInput[i]) == false)
                     {
                         throw new InvalidIdentifierException(
-                            string.Format("Cannot find waypoint {0} on airway {1}", routeInput[i], lastAwy));
+                            $"Cannot find waypoint {routeInput[i]} on " +
+                            $"airway {lastAwy}");
                     }
                 }
             }
+
             return rte;
         }
 
@@ -163,7 +167,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private bool TryConnectAirway(string ident)
         {
-            var intermediateWpt = new AirwayNodeFinder(lastWpt, lastAwy, ident, wptList).FindWaypoints();
+            var nodeFinder =
+                new AirwayNodeFinder(lastWpt, lastAwy, ident, wptList);
+            var intermediateWpt = nodeFinder.FindWaypoints();
 
             if (intermediateWpt == null)
             {
@@ -195,7 +201,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             else
             {
                 var wpt = rte.LastWaypoint;
-                lastWpt = Tracks.Common.Utilities.GetClosest(wpt.Lat, wpt.Lon, indices, wptList);
+                lastWpt = GetClosest(wpt.Lat, wpt.Lon, indices, wptList);
             }
 
             return TryappendWpt(wptList[lastWpt]);
