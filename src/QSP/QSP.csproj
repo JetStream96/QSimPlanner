@@ -133,6 +133,8 @@
     <Compile Include="UI\Controllers\BtnDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ListViewSortEnabler.cs" />
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
+    <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
+    <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
     <Compile Include="UI\Factories\FormFactory.cs" />
     <Compile Include="UI\Forms\QspForm.cs">
       <SubType>Form</SubType>
@@ -165,6 +167,12 @@
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Factories\ToolTipFactory.cs" />
+    <Compile Include="UI\UserControls\FuelPlanningControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\FuelPlanningControl.Designer.cs">
+      <DependentUpon>FuelPlanningControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserControls\OptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -529,6 +537,9 @@
     <Content Include="PerformanceData\TO\7878_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="UI\UserControls\FuelPlanningControl.resx">
+      <DependentUpon>FuelPlanningControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\OptionsControl.resx">
       <DependentUpon>OptionsControl.cs</DependentUpon>
     </EmbeddedResource>

@@ -16,27 +16,27 @@ namespace QSP.UI.UserControls
 {
     public partial class WeightControl : UserControl
     {
-        private AircraftConfigItem config;
+        private AcConfigManager configs;
 
         public WeightControl()
         {
             InitializeComponent();
         }
 
-        public void Init(AircraftConfigItem config, double zfwKg)
+        public void Init(AcConfigManager config, double zfwKg)
         {
-            this.config = config;
+            this.configs = config;
             SetInitState(zfwKg);
         }
 
         private void SetInitState(double zfwKg)
         {
-            zfwKg = Min(zfwKg, config.MaxZfwKg);
+            zfwKg = Min(zfwKg, configs.MaxZfwKg);
             payloadTrackBar.SetRange(
-                0, (int)Ceiling(config.MaxZfwKg - config.OewKg));
-            var payload = RoundToInt(zfwKg - config.OewKg);
+                0, (int)Ceiling(configs.MaxZfwKg - configs.OewKg));
+            var payload = RoundToInt(zfwKg - configs.OewKg);
             wtUnitComboBox.SelectedIndex = 0;
-            oewTxtBox.Text = RoundToInt(config.OewKg).ToString();
+            oewTxtBox.Text = RoundToInt(configs.OewKg).ToString();
             payloadTxtBox.Text = payload.ToString();
             payloadTrackBar.Value = payload;
             zfwTxtBox.Text = RoundToInt(zfwKg).ToString();
