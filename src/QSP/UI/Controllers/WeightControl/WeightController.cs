@@ -1,85 +1,92 @@
-﻿using System;
+﻿using QSP.AircraftProfiles;
+using QSP.AircraftProfiles.Configs;
+using QSP.UI.Controllers.Units;
+using QSP.Utilities.Units;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.AircraftProfiles.Configs;
-using QSP.AircraftProfiles;
-using static System.Math;
 using static QSP.MathTools.Doubles;
-using QSP.Utilities.Units;
+using static System.Math;
 
 namespace QSP.UI.Controllers.WeightControl
 {
     public class WeightController
     {
-        private TextBox oewTxtBox;
-        private TextBox payloadTxtBox;
-        private TextBox zfwTxtBox;
+        private WeightTextBoxController oew;
+        private WeightTextBoxController payload;
+        private WeightTextBoxController zfw;
         private TrackBar payloadTrackBar;
         private bool _enabled;
-        private AircraftConfigItem config;
-        private WeightUnit _weightUnit;
+        private double _zfwKg;
+        private AircraftConfigItem _aircraftConfig;
 
         public WeightController(
-            TextBox oewTxtBox,
-            TextBox payloadTxtBox,
-            TextBox zfwTxtBox,
+            WeightTextBoxController oew,
+            WeightTextBoxController payload,
+            WeightTextBoxController zfw,
             TrackBar payloadTrackBar)
         {
-            this.oewTxtBox = oewTxtBox;
-            this.payloadTxtBox = payloadTxtBox;
-            this.zfwTxtBox = zfwTxtBox;
+            this.oew = oew;
+            this.payload = payload;
+            this.zfw = zfw;
             this.payloadTrackBar = payloadTrackBar;
             _enabled = false;
         }
 
-        /// <summary>
-        /// Subscribe or unsubsribe the event handlers.
-        /// </summary>
-        public bool Enabled
+        public AircraftConfigItem AircraftConfig
         {
             get
             {
-
+                return _aircraftConfig;
             }
-
             set
             {
+                _aircraftConfig = value;
 
+                double maxPayload =
+                    _aircraftConfig.MaxZfwKg - _aircraftConfig.OewKg;
+                payloadTrackBar.SetRange(0, (int)Ceiling(maxPayload));
             }
         }
 
-        public WeightUnit WeightUnit
+        // Set this after setting AircraftConfig.
+        public double ZfwKg
         {
             get
             {
-
+                return _zfwKg;
             }
-
             set
             {
-
+                _zfwKg = Min(value, AircraftConfig.MaxZfwKg);
             }
         }
 
-        private void Enable()
+        public void Enable()
         {
 
         }
 
-        public void SetAircraft(AircraftConfigItem config, double zfwKg)
+        public void Disable()
         {
-            zfwKg = Min(zfwKg, config.MaxZfwKg);
-            payloadTrackBar.SetRange(
-                0, (int)Ceiling(config.MaxZfwKg - config.OewKg));
-            var payload = RoundToInt(zfwKg - config.OewKg);
-            _weightUnit = WeightUnit.KG;
-            oewTxtBox.Text = RoundToInt(config.OewKg).ToString();
-            payloadTxtBox.Text = payload.ToString();
-            payloadTrackBar.Value = payload;
-            zfwTxtBox.Text = RoundToInt(zfwKg).ToString();
+
+        }
+
+        private void RefreshControls()
+        {
+
+        }
+
+        private void SetControls()
+        {
+            var payloadKg = ZfwKg - AircraftConfig.OewKg;
+            oew.SetWeight(AircraftConfig.OewKg);
+            payload.SetWeight(payloadKg);
+            payloadTrackBar.Value = RoundToInt(payloadKg);
+            zfw.SetWeight(ZfwKg);
         }
     }
 }

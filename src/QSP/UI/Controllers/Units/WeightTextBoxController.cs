@@ -5,6 +5,8 @@ using static QSP.AviationTools.Constants;
 
 namespace QSP.UI.Controllers.Units
 {
+    // Use this abstraction so that there is no need to worry about 
+    // weight units.
     // Sync the weight unit with the text in TextBox.
     public class WeightTextBoxController
     {
