@@ -54,6 +54,7 @@
             this.fromRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.toTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.fromTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -359,11 +360,22 @@
             this.fromTypeComboBox.Size = new System.Drawing.Size(129, 31);
             this.fromTypeComboBox.TabIndex = 2;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(9, 203);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(48, 20);
+            this.label3.TabIndex = 26;
+            this.label3.Text = "Route";
+            // 
             // AdvancedRouteTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.avoidCountryBtn);
             this.Controls.Add(this.filterStarBtn);
             this.Controls.Add(this.filterSidBtn);
@@ -426,5 +438,6 @@
         private System.Windows.Forms.Button filterSidBtn;
         private System.Windows.Forms.Button filterStarBtn;
         private System.Windows.Forms.Button avoidCountryBtn;
+        private System.Windows.Forms.Label label3;
     }
 }
