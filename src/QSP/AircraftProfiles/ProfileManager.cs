@@ -1,4 +1,5 @@
 ﻿using QSP.AircraftProfiles.Configs;
+using QSP.FuelCalculation;
 using System.Collections.Generic;
 
 namespace QSP.AircraftProfiles
@@ -11,6 +12,8 @@ namespace QSP.AircraftProfiles
         private List<string> _errors;
 
         public AcConfigManager AcConfigs { get; private set; }
+        public IEnumerable<FuelData> FuelData { get; private set; }
+
         public IEnumerable<TOPerfCalculation.PerfTable> TOTables
         { get; private set; }
 
@@ -24,12 +27,13 @@ namespace QSP.AircraftProfiles
                 return _errors;
             }
         }
-        
+
         /// <exception cref="PerfFileNotFoundException"></exception>
         public void Initialize()
         {
             _errors = new List<string>();
 
+            FuelData = LoadFuelData();
             TOTables = LoadTOTables();
             LdgTables = LoadLdgTables();
             AcConfigs = LoadConfig();
@@ -53,6 +57,18 @@ namespace QSP.AircraftProfiles
             }
 
             return manager;
+        }
+
+        private List<FuelData> LoadFuelData()
+        {
+            var loadResult = FuelDataLoader.Load();
+
+            if (loadResult.Message != null)
+            {
+                _errors.Add(loadResult.Message);
+            }
+
+            return loadResult.Data;
         }
 
         private List<TOPerfCalculation.PerfTable> LoadTOTables()

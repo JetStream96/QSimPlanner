@@ -89,10 +89,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
         private bool TakeoffProfileExists(string profileName)
         {
-            var searchResults =
-                tables.Where(c => c.Entry.ProfileName == profileName);
-
-            return searchResults.Count() > 0;
+            return tables.Any(c => c.Entry.ProfileName == profileName);
         }
 
         private void RefreshRegistrations(object sender, EventArgs e)

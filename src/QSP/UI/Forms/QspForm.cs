@@ -174,6 +174,8 @@ namespace QSP.UI.Forms
             acMenu.AircraftsChanged += toMenu.RefreshAircrafts;
             acMenu.AircraftsChanged += ldgMenu.RefreshAircrafts;
 
+            fuelMenu.Init(profiles.AcConfigs, profiles.FuelData);
+
             toMenu.Initialize(profiles.AcConfigs,
                 profiles.TOTables.ToList(), airportList);
             toMenu.TryLoadState();

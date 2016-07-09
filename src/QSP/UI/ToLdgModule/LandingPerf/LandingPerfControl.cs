@@ -139,10 +139,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private bool LandingProfileExists(string profileName)
         {
-            var searchResults =
-                tables.Where(c => c.Entry.ProfileName == profileName);
-
-            return searchResults.Count() > 0;
+            return tables.Any(c => c.Entry.ProfileName == profileName);
         }
 
         private void UpdateAircraftList()
@@ -242,14 +239,14 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private void Subscribe(FormController controller)
         {
-            weatherInfoControl.surfCondComboBox.SelectedIndexChanged += 
+            weatherInfoControl.surfCondComboBox.SelectedIndexChanged +=
                 controller.SurfCondChanged;
 
-            wtUnitComboBox.SelectedIndexChanged += 
+            wtUnitComboBox.SelectedIndexChanged +=
                 controller.WeightUnitChanged;
 
             flapsComboBox.SelectedIndexChanged += controller.FlapsChanged;
-            revThrustComboBox.SelectedIndexChanged += 
+            revThrustComboBox.SelectedIndexChanged +=
                 controller.ReverserChanged;
 
             brakeComboBox.SelectedIndexChanged += controller.BrakesChanged;
@@ -260,14 +257,14 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private void UnSubscribe(FormController controller)
         {
-            weatherInfoControl.surfCondComboBox.SelectedIndexChanged -= 
+            weatherInfoControl.surfCondComboBox.SelectedIndexChanged -=
                 controller.SurfCondChanged;
 
-            wtUnitComboBox.SelectedIndexChanged -= 
+            wtUnitComboBox.SelectedIndexChanged -=
                 controller.WeightUnitChanged;
 
             flapsComboBox.SelectedIndexChanged -= controller.FlapsChanged;
-            revThrustComboBox.SelectedIndexChanged -= 
+            revThrustComboBox.SelectedIndexChanged -=
                 controller.ReverserChanged;
 
             brakeComboBox.SelectedIndexChanged -= controller.BrakesChanged;

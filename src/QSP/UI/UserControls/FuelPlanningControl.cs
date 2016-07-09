@@ -11,6 +11,7 @@ using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
 using QSP.AircraftProfiles.Configs;
 using QSP.AircraftProfiles;
+using QSP.FuelCalculation;
 
 namespace QSP.UI.UserControls
 {
@@ -21,15 +22,20 @@ namespace QSP.UI.UserControls
         private WeightTextBoxController zfw;
         private WeightController weightControl;
         private AcConfigManager aircrafts;
+        private IEnumerable<FuelData> fuelData;
 
         public FuelPlanningControl()
         {
             InitializeComponent();
         }
 
-        public void Init(AcConfigManager aircrafts)
+        public void Init(
+            AcConfigManager aircrafts, IEnumerable<FuelData> fuelData)
         {
             this.aircrafts = aircrafts;
+            this.fuelData = fuelData;
+
+            SetWeightController();
 
             acListComboBox.Items.Clear();
             acListComboBox.Items.AddRange(
@@ -37,8 +43,14 @@ namespace QSP.UI.UserControls
                 .Select(c => c.Config.AC)
                 .ToArray());
 
-            acListComboBox.TextChanged += RefreshRegistrations;
-            registrationComboBox.TextChanged += RegistrationChanged;
+            
+            acListComboBox.SelectedIndexChanged += RefreshRegistrations;
+            registrationComboBox.SelectedIndexChanged += RegistrationChanged;
+
+            if (acListComboBox.Items.Count > 0)
+            {
+                acListComboBox.SelectedIndex = 0;
+            }
         }
 
         private void SetWeightController()
@@ -50,17 +62,11 @@ namespace QSP.UI.UserControls
             weightControl = new WeightController(
                 oew, payload, zfw, payloadTrackBar);
             weightControl.Enable();
-            // weightControl.AircraftConfig = ??
-            // weightControl.ZfwKg = ??
         }
 
         private bool FuelProfileExists(string profileName)
         {
-            return true;
-            //var searchResults =
-            //    aircrafts.Where(c => c.Entry.ProfileName == profileName);
-
-            //return searchResults.Count() > 0;
+            return fuelData.Any(c => c.ProfileName == profileName);
         }
 
         private void RefreshRegistrations(object sender, EventArgs e)
@@ -95,8 +101,9 @@ namespace QSP.UI.UserControls
                 //RefreshWtColor();
                 return;
             }
-            
-            
+
+            weightControl.AircraftConfig =
+                aircrafts.Find(registrationComboBox.Text).Config;
         }
     }
 }

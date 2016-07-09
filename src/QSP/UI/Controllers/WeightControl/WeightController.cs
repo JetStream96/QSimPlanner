@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
 using static System.Math;
+using static QSP.Utilities.ConditionChecker;
 
 namespace QSP.UI.Controllers.WeightControl
 {
@@ -49,10 +50,15 @@ namespace QSP.UI.Controllers.WeightControl
                 double maxPayload =
                     _aircraftConfig.MaxZfwKg - _aircraftConfig.OewKg;
                 payloadTrackBar.SetRange(0, (int)Ceiling(maxPayload));
+                oew.SetWeight(AircraftConfig.OewKg);
 
-                var oldZfw = ZfwKg;
-                ZfwKg = oldZfw;     // Set the value to check bounds.
-                SetControls();
+                try
+                {
+                    var oldZfw = ZfwKg;
+                    ZfwKg = oldZfw;     // Set the value to check bounds.
+                    SetControls();
+                }
+                catch { }
             }
         }
 
@@ -109,6 +115,7 @@ namespace QSP.UI.Controllers.WeightControl
         {
             try
             {
+                Ensure<InvalidOperationException>(payload.GetWeightKg() >= 0);
                 zfw.SetWeight(oew.GetWeightKg() + payload.GetWeightKg());
                 payloadTrackBar.Value = RoundToInt(payload.GetWeightKg());
             }
@@ -129,6 +136,9 @@ namespace QSP.UI.Controllers.WeightControl
         {
             try
             {
+                Ensure<InvalidOperationException>(
+                    zfw.GetWeightKg() >= oew.GetWeightKg());
+
                 payload.SetWeight(zfw.GetWeightKg() - oew.GetWeightKg());
                 payloadTrackBar.Value = RoundToInt(payload.GetWeightKg());
             }
