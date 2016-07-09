@@ -192,8 +192,9 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         {
             get
             {
-                return new AircraftConfigItem("", "", NoToLdgProfileText,
-                    NoToLdgProfileText, 0.0, 0.0, 0.0, 0.0, WeightUnit.KG);
+                return new AircraftConfigItem("", "", NoToLdgProfileText, 
+                    NoToLdgProfileText, NoToLdgProfileText, 0.0, 0.0, 
+                    0.0, 0.0, WeightUnit.KG);
             }
         }
 

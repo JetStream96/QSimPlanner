@@ -45,6 +45,9 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.maxZfwUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.maxZfwTxtBox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.maxLdgWtTxtBox = new System.Windows.Forms.TextBox();
             this.maxTOWtTxtBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -58,9 +61,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.maxTOWtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.label8 = new System.Windows.Forms.Label();
-            this.maxZfwTxtBox = new System.Windows.Forms.TextBox();
-            this.maxZfwUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.label9 = new System.Windows.Forms.Label();
+            this.fuelProfileComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.selectionGroupBox.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -75,7 +77,7 @@
             this.selectionGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.selectionGroupBox.Location = new System.Drawing.Point(0, 0);
             this.selectionGroupBox.Name = "selectionGroupBox";
-            this.selectionGroupBox.Size = new System.Drawing.Size(399, 358);
+            this.selectionGroupBox.Size = new System.Drawing.Size(399, 385);
             this.selectionGroupBox.TabIndex = 0;
             this.selectionGroupBox.TabStop = false;
             this.selectionGroupBox.Text = "Aircraft";
@@ -89,7 +91,7 @@
             this.tableLayoutPanel3.Controls.Add(this.editBtn, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.deleteBtn, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.newBtn, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(42, 304);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(42, 329);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -149,7 +151,7 @@
             this.acListView.Location = new System.Drawing.Point(6, 27);
             this.acListView.MultiSelect = false;
             this.acListView.Name = "acListView";
-            this.acListView.Size = new System.Drawing.Size(390, 271);
+            this.acListView.Size = new System.Drawing.Size(390, 296);
             this.acListView.TabIndex = 0;
             this.acListView.UseCompatibleStateImageBehavior = false;
             this.acListView.View = System.Windows.Forms.View.Details;
@@ -235,7 +237,7 @@
             this.propertyGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.propertyGroupBox.Location = new System.Drawing.Point(410, 0);
             this.propertyGroupBox.Name = "propertyGroupBox";
-            this.propertyGroupBox.Size = new System.Drawing.Size(521, 358);
+            this.propertyGroupBox.Size = new System.Drawing.Size(521, 385);
             this.propertyGroupBox.TabIndex = 1;
             this.propertyGroupBox.TabStop = false;
             this.propertyGroupBox.Text = "Properties";
@@ -245,7 +247,7 @@
             this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelBtn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.cancelBtn.Location = new System.Drawing.Point(287, 310);
+            this.cancelBtn.Location = new System.Drawing.Point(287, 345);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(78, 31);
             this.cancelBtn.TabIndex = 3;
@@ -257,7 +259,7 @@
             this.saveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveBtn.ForeColor = System.Drawing.Color.ForestGreen;
-            this.saveBtn.Location = new System.Drawing.Point(138, 310);
+            this.saveBtn.Location = new System.Drawing.Point(138, 345);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(78, 31);
             this.saveBtn.TabIndex = 2;
@@ -269,41 +271,80 @@
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.48544F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.51456F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
-            this.tableLayoutPanel2.Controls.Add(this.maxZfwUnitComboBox, 2, 5);
-            this.tableLayoutPanel2.Controls.Add(this.maxZfwTxtBox, 1, 5);
-            this.tableLayoutPanel2.Controls.Add(this.label8, 0, 5);
-            this.tableLayoutPanel2.Controls.Add(this.maxLdgWtTxtBox, 1, 4);
-            this.tableLayoutPanel2.Controls.Add(this.maxTOWtTxtBox, 1, 3);
-            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.oewTxtBox, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.maxLdgWtUnitComboBox, 2, 4);
-            this.tableLayoutPanel2.Controls.Add(this.oewUnitComboBox, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label7, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.ldgProfileComboBox, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.toProfileComboBox, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label5, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label6, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.maxTOWtUnitComboBox, 2, 3);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            this.tableLayoutPanel2.Controls.Add(this.fuelProfileComboBox, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label9, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.maxZfwUnitComboBox, 2, 6);
+            this.tableLayoutPanel2.Controls.Add(this.maxZfwTxtBox, 1, 6);
+            this.tableLayoutPanel2.Controls.Add(this.label5, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label8, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.maxLdgWtTxtBox, 1, 5);
+            this.tableLayoutPanel2.Controls.Add(this.maxTOWtTxtBox, 1, 4);
+            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.oewTxtBox, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.maxLdgWtUnitComboBox, 2, 5);
+            this.tableLayoutPanel2.Controls.Add(this.oewUnitComboBox, 2, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label7, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.ldgProfileComboBox, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.toProfileComboBox, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label6, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.maxTOWtUnitComboBox, 2, 4);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(15, 88);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 6;
+            this.tableLayoutPanel2.RowCount = 7;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(500, 210);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(500, 245);
             this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // maxZfwUnitComboBox
+            // 
+            this.maxZfwUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.maxZfwUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.maxZfwUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.maxZfwUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.maxZfwUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.maxZfwUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.maxZfwUnitComboBox.FormattingEnabled = true;
+            this.maxZfwUnitComboBox.Location = new System.Drawing.Point(422, 213);
+            this.maxZfwUnitComboBox.Name = "maxZfwUnitComboBox";
+            this.maxZfwUnitComboBox.Size = new System.Drawing.Size(73, 31);
+            this.maxZfwUnitComboBox.TabIndex = 8;
+            // 
+            // maxZfwTxtBox
+            // 
+            this.maxZfwTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.maxZfwTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.maxZfwTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.maxZfwTxtBox.Location = new System.Drawing.Point(224, 213);
+            this.maxZfwTxtBox.Name = "maxZfwTxtBox";
+            this.maxZfwTxtBox.Size = new System.Drawing.Size(180, 30);
+            this.maxZfwTxtBox.TabIndex = 9;
+            this.maxZfwTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(3, 216);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(169, 23);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Max zero fuel weight";
             // 
             // maxLdgWtTxtBox
             // 
             this.maxLdgWtTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.maxLdgWtTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.maxLdgWtTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxLdgWtTxtBox.Location = new System.Drawing.Point(209, 143);
+            this.maxLdgWtTxtBox.Location = new System.Drawing.Point(224, 178);
             this.maxLdgWtTxtBox.Name = "maxLdgWtTxtBox";
             this.maxLdgWtTxtBox.Size = new System.Drawing.Size(180, 30);
             this.maxLdgWtTxtBox.TabIndex = 6;
@@ -314,7 +355,7 @@
             this.maxTOWtTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.maxTOWtTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.maxTOWtTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxTOWtTxtBox.Location = new System.Drawing.Point(209, 108);
+            this.maxTOWtTxtBox.Location = new System.Drawing.Point(224, 143);
             this.maxTOWtTxtBox.Name = "maxTOWtTxtBox";
             this.maxTOWtTxtBox.Size = new System.Drawing.Size(180, 30);
             this.maxTOWtTxtBox.TabIndex = 4;
@@ -325,18 +366,18 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 41);
+            this.label3.Location = new System.Drawing.Point(3, 76);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(172, 23);
+            this.label3.Size = new System.Drawing.Size(124, 23);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Landing profile name";
+            this.label3.Text = "Landing profile";
             // 
             // oewTxtBox
             // 
             this.oewTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.oewTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.oewTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.oewTxtBox.Location = new System.Drawing.Point(209, 73);
+            this.oewTxtBox.Location = new System.Drawing.Point(224, 108);
             this.oewTxtBox.Name = "oewTxtBox";
             this.oewTxtBox.Size = new System.Drawing.Size(180, 30);
             this.oewTxtBox.TabIndex = 2;
@@ -351,7 +392,7 @@
             this.maxLdgWtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.maxLdgWtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maxLdgWtUnitComboBox.FormattingEnabled = true;
-            this.maxLdgWtUnitComboBox.Location = new System.Drawing.Point(412, 143);
+            this.maxLdgWtUnitComboBox.Location = new System.Drawing.Point(422, 178);
             this.maxLdgWtUnitComboBox.Name = "maxLdgWtUnitComboBox";
             this.maxLdgWtUnitComboBox.Size = new System.Drawing.Size(73, 31);
             this.maxLdgWtUnitComboBox.TabIndex = 7;
@@ -365,7 +406,7 @@
             this.oewUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.oewUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.oewUnitComboBox.FormattingEnabled = true;
-            this.oewUnitComboBox.Location = new System.Drawing.Point(412, 73);
+            this.oewUnitComboBox.Location = new System.Drawing.Point(422, 108);
             this.oewUnitComboBox.Name = "oewUnitComboBox";
             this.oewUnitComboBox.Size = new System.Drawing.Size(73, 31);
             this.oewUnitComboBox.TabIndex = 3;
@@ -375,7 +416,7 @@
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(3, 146);
+            this.label7.Location = new System.Drawing.Point(3, 181);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(160, 23);
             this.label7.TabIndex = 6;
@@ -390,7 +431,7 @@
             this.ldgProfileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ldgProfileComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ldgProfileComboBox.FormattingEnabled = true;
-            this.ldgProfileComboBox.Location = new System.Drawing.Point(209, 38);
+            this.ldgProfileComboBox.Location = new System.Drawing.Point(224, 73);
             this.ldgProfileComboBox.Name = "ldgProfileComboBox";
             this.ldgProfileComboBox.Size = new System.Drawing.Size(180, 31);
             this.ldgProfileComboBox.TabIndex = 1;
@@ -404,7 +445,7 @@
             this.toProfileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.toProfileComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toProfileComboBox.FormattingEnabled = true;
-            this.toProfileComboBox.Location = new System.Drawing.Point(209, 3);
+            this.toProfileComboBox.Location = new System.Drawing.Point(224, 38);
             this.toProfileComboBox.Name = "toProfileComboBox";
             this.toProfileComboBox.Size = new System.Drawing.Size(180, 31);
             this.toProfileComboBox.TabIndex = 0;
@@ -414,20 +455,20 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 6);
+            this.label4.Location = new System.Drawing.Point(3, 41);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(166, 23);
+            this.label4.Size = new System.Drawing.Size(118, 23);
             this.label4.TabIndex = 1;
-            this.label4.Text = "Takeoff profile name";
+            this.label4.Text = "Takeoff profile";
             // 
             // label5
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 70);
+            this.label5.Location = new System.Drawing.Point(3, 111);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(145, 35);
+            this.label5.Size = new System.Drawing.Size(196, 23);
             this.label5.TabIndex = 4;
             this.label5.Text = "Operating empty weight";
             // 
@@ -436,7 +477,7 @@
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(3, 111);
+            this.label6.Location = new System.Drawing.Point(3, 146);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(155, 23);
             this.label6.TabIndex = 5;
@@ -451,46 +492,35 @@
             this.maxTOWtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.maxTOWtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maxTOWtUnitComboBox.FormattingEnabled = true;
-            this.maxTOWtUnitComboBox.Location = new System.Drawing.Point(412, 108);
+            this.maxTOWtUnitComboBox.Location = new System.Drawing.Point(422, 143);
             this.maxTOWtUnitComboBox.Name = "maxTOWtUnitComboBox";
             this.maxTOWtUnitComboBox.Size = new System.Drawing.Size(73, 31);
             this.maxTOWtUnitComboBox.TabIndex = 5;
             // 
-            // label8
+            // label9
             // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(3, 181);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(169, 23);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Max zero fuel weight";
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(3, 6);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(199, 23);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Fuel consumption profile";
             // 
-            // maxZfwTxtBox
+            // fuelProfileComboBox
             // 
-            this.maxZfwTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.maxZfwTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.maxZfwTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxZfwTxtBox.Location = new System.Drawing.Point(209, 178);
-            this.maxZfwTxtBox.Name = "maxZfwTxtBox";
-            this.maxZfwTxtBox.Size = new System.Drawing.Size(180, 30);
-            this.maxZfwTxtBox.TabIndex = 9;
-            this.maxZfwTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // maxZfwUnitComboBox
-            // 
-            this.maxZfwUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.maxZfwUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.maxZfwUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.maxZfwUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.maxZfwUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.maxZfwUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxZfwUnitComboBox.FormattingEnabled = true;
-            this.maxZfwUnitComboBox.Location = new System.Drawing.Point(412, 178);
-            this.maxZfwUnitComboBox.Name = "maxZfwUnitComboBox";
-            this.maxZfwUnitComboBox.Size = new System.Drawing.Size(73, 31);
-            this.maxZfwUnitComboBox.TabIndex = 8;
+            this.fuelProfileComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.fuelProfileComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.fuelProfileComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.fuelProfileComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.fuelProfileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.fuelProfileComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fuelProfileComboBox.FormattingEnabled = true;
+            this.fuelProfileComboBox.Location = new System.Drawing.Point(224, 3);
+            this.fuelProfileComboBox.Name = "fuelProfileComboBox";
+            this.fuelProfileComboBox.Size = new System.Drawing.Size(180, 31);
+            this.fuelProfileComboBox.TabIndex = 11;
             // 
             // AircraftMenuControl
             // 
@@ -548,5 +578,7 @@
         private Controls.ComboBoxWithBorder maxZfwUnitComboBox;
         private System.Windows.Forms.TextBox maxZfwTxtBox;
         private System.Windows.Forms.Label label8;
+        private Controls.ComboBoxWithBorder fuelProfileComboBox;
+        private System.Windows.Forms.Label label9;
     }
 }

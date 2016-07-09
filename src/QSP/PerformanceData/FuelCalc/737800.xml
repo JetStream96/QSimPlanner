@@ -2,6 +2,7 @@
 <Data>
 
   <General>
+    <ProfileName>Boeing 737-800</ProfileName>
     <HoldingFuelPerMinuteKg>38</HoldingFuelPerMinuteKg>
     <MaxFuelKg>20896</MaxFuelKg>
     <TaxiFuelPerMinKg>12.2</TaxiFuelPerMinKg>

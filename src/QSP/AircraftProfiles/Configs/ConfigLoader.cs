@@ -60,6 +60,7 @@ namespace QSP.AircraftProfiles.Configs
             return new AircraftConfigItem(
                 section["AC"],
                 section["Registration"],
+                section["FuelProfile"],
                 section["TOProfile"],
                 section["LdgProfile"],
                 double.Parse(section["OewKg"]),

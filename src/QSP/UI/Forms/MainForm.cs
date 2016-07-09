@@ -72,7 +72,7 @@ namespace QSP
         #region "FuelCalculation"
 
         public FuelReportResult ComputeFuelIteration(
-            FuelCalculationParameters para, FuelData data, uint precisionLevel)
+            FuelCalculationParameters para, FuelDataItem data, uint precisionLevel)
         {
             //presisionLevel = 0, 1, 2, ... 
             //smaller num = less precise
@@ -173,7 +173,7 @@ namespace QSP
                 return;
             }
 
-            var data = FuelData.FromFile(GetFileName(parameters.AC));
+            var data = FuelDataItem.FromFile(GetFileName(parameters.AC));
             FuelReportResult fuelCalcResult = null;
 
             try

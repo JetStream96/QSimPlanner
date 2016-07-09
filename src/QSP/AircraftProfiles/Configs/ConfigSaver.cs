@@ -11,6 +11,7 @@ namespace QSP.AircraftProfiles.Configs
             var keys = new KeyDataCollection();
             keys.AddKey("AC", config.AC);
             keys.AddKey("Registration", config.Registration);
+            keys.AddKey("FuelProfile", config.FuelProfile);
             keys.AddKey("TOProfile", config.TOProfile);
             keys.AddKey("LdgProfile", config.LdgProfile);
             keys.AddKey("OewKg", config.OewKg.ToString());

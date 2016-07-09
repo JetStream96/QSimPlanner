@@ -4,10 +4,11 @@ namespace QSP.AircraftProfiles.Configs
 {
     public class AircraftConfigItem
     {
-        public static readonly string NoTOLdgProfileText = "None";
+        public static readonly string NoFuelTOLdgProfileText = "None";
 
         public string AC { get; private set; }
         public string Registration { get; private set; }
+        public string FuelProfile { get; private set; }
         public string TOProfile { get; private set; }
         public string LdgProfile { get; private set; }
         public double OewKg { get; private set; }
@@ -19,6 +20,7 @@ namespace QSP.AircraftProfiles.Configs
         public AircraftConfigItem(
             string AC,
             string Registration,
+            string FuelProfile,
             string TOProfile,
             string LdgProfile,
             double OewKg,
@@ -29,6 +31,7 @@ namespace QSP.AircraftProfiles.Configs
         {
             this.AC = AC;
             this.Registration = Registration;
+            this.FuelProfile = FuelProfile;
             this.TOProfile = TOProfile;
             this.LdgProfile = LdgProfile;
             this.OewKg = OewKg;
@@ -43,6 +46,7 @@ namespace QSP.AircraftProfiles.Configs
             return
                 other.AC == AC &&
                 other.Registration == Registration &&
+                other.FuelProfile == FuelProfile &&
                 other.TOProfile == TOProfile &&
                 other.LdgProfile == LdgProfile &&
                 other.OewKg == OewKg &&

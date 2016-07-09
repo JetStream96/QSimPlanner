@@ -2,6 +2,7 @@
 <Data>
 
   <General>
+    <ProfileName>Boeing 737-700</ProfileName>
     <HoldingFuelPerMinuteKg>38</HoldingFuelPerMinuteKg>
     <MaxFuelKg>20896</MaxFuelKg>
     <TaxiFuelPerMinKg>12.2</TaxiFuelPerMinKg>
@@ -84,7 +85,7 @@
     4600 10:29
     5000 11:22
   </Time>
-  
+
   <CruiseProfile>
     <ClimbSpeed>280</ClimbSpeed>
     <!--Knots-->
@@ -117,5 +118,5 @@
 
     </OptimumAlt>
   </CruiseProfile>
-  
+
 </Data>

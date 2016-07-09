@@ -102,6 +102,8 @@
     <Compile Include="Common\Options\AppOptions.cs" />
     <Compile Include="FuelCalculation\FuelCalculator.cs" />
     <Compile Include="FuelCalculation\FuelData.cs" />
+    <Compile Include="FuelCalculation\FuelDataItem.cs" />
+    <Compile Include="FuelCalculation\FuelDataLoader.cs" />
     <Compile Include="FuelCalculation\Tables\FlightTimeTable.cs" />
     <Compile Include="FuelCalculation\Tables\FuelTable.cs" />
     <Compile Include="FuelCalculation\Tables\GroundToAirDisTable.cs" />

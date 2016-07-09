@@ -62,6 +62,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 acListView,
                 acTypeComboBox,
                 registrationTxtBox,
+                fuelProfileComboBox,
                 toProfileComboBox,
                 ldgProfileComboBox,
                 oewTxtBox,

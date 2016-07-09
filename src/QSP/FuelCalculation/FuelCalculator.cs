@@ -5,7 +5,7 @@ namespace QSP.FuelCalculation
     public class FuelCalculator
     {
         private FuelCalculationParameters para;
-        private FuelData data;
+        private FuelDataItem data;
 
         private double landWeightTonAltn;
         private double landWeightTonDest;
@@ -18,7 +18,7 @@ namespace QSP.FuelCalculation
 
         public FuelCalculator(
             FuelCalculationParameters para,
-            FuelData data)
+            FuelDataItem data)
         {
             this.para = para;
             this.data = data;

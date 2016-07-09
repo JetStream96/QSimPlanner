@@ -63,6 +63,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             return new AircraftConfigItem(
                 elem.AcType.Text.Trim(),
                 elem.Registration.Text.Trim().ToUpper(),
+                elem.FuelProfile.Text,
                 elem.ToProfile.Text,
                 elem.LdgProfile.Text,
                 zfw,
