@@ -211,6 +211,7 @@ namespace QSP.UI.ToLdgModule.Forms
             foreach (var i in Pages)
             {
                 i.Location = controlDefaultLocation;
+                i.Visible = i == AcMenu;
                 Controls.Add(i);
             }
         }
