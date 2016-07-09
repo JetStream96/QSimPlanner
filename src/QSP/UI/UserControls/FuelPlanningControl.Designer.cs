@@ -72,6 +72,21 @@
             this.Label40 = new System.Windows.Forms.Label();
             this.RouteDisplayRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.GroupBox_BasicInfo = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.TableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.payloadTrackBar = new System.Windows.Forms.TrackBar();
+            this.label10 = new System.Windows.Forms.Label();
+            this.Label17 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.oewTxtBox = new System.Windows.Forms.TextBox();
+            this.payloadTxtBox = new System.Windows.Forms.TextBox();
+            this.zfwTxtBox = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.TableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.Label38 = new System.Windows.Forms.Label();
             this.Label36 = new System.Windows.Forms.Label();
@@ -86,21 +101,6 @@
             this.findAltnBtn = new System.Windows.Forms.Button();
             this.Label27 = new System.Windows.Forms.Label();
             this.Label33 = new System.Windows.Forms.Label();
-            this.payloadTrackBar = new System.Windows.Forms.TrackBar();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.oewTxtBox = new System.Windows.Forms.TextBox();
-            this.payloadTxtBox = new System.Windows.Forms.TextBox();
-            this.zfwTxtBox = new System.Windows.Forms.TextBox();
-            this.TableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label10 = new System.Windows.Forms.Label();
-            this.Label17 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.GroupBox6.SuspendLayout();
             this.TableLayoutPanel20.SuspendLayout();
             this.TableLayoutPanel1.SuspendLayout();
@@ -108,9 +108,9 @@
             this.TableLayoutPanel24.SuspendLayout();
             this.TableLayoutPanel21.SuspendLayout();
             this.GroupBox_BasicInfo.SuspendLayout();
-            this.TableLayoutPanel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.payloadTrackBar)).BeginInit();
             this.TableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.payloadTrackBar)).BeginInit();
+            this.TableLayoutPanel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // FuelReportView_Btn
@@ -698,6 +698,190 @@
             this.GroupBox_BasicInfo.TabStop = false;
             this.GroupBox_BasicInfo.Text = "Basic Info";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(891, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 23);
+            this.label1.TabIndex = 47;
+            this.label1.Text = "Weight Unit";
+            // 
+            // TableLayoutPanel2
+            // 
+            this.TableLayoutPanel2.ColumnCount = 4;
+            this.TableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.TableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 225F));
+            this.TableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
+            this.TableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 78F));
+            this.TableLayoutPanel2.Controls.Add(this.acListComboBox, 1, 0);
+            this.TableLayoutPanel2.Controls.Add(this.payloadTrackBar, 1, 2);
+            this.TableLayoutPanel2.Controls.Add(this.label10, 0, 3);
+            this.TableLayoutPanel2.Controls.Add(this.Label17, 0, 2);
+            this.TableLayoutPanel2.Controls.Add(this.label14, 0, 1);
+            this.TableLayoutPanel2.Controls.Add(this.label2, 3, 1);
+            this.TableLayoutPanel2.Controls.Add(this.label3, 3, 2);
+            this.TableLayoutPanel2.Controls.Add(this.label9, 3, 3);
+            this.TableLayoutPanel2.Controls.Add(this.oewTxtBox, 2, 1);
+            this.TableLayoutPanel2.Controls.Add(this.payloadTxtBox, 2, 2);
+            this.TableLayoutPanel2.Controls.Add(this.zfwTxtBox, 2, 3);
+            this.TableLayoutPanel2.Controls.Add(this.label21, 0, 0);
+            this.TableLayoutPanel2.Location = new System.Drawing.Point(9, 19);
+            this.TableLayoutPanel2.Name = "TableLayoutPanel2";
+            this.TableLayoutPanel2.RowCount = 4;
+            this.TableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.TableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.TableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.TableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.TableLayoutPanel2.Size = new System.Drawing.Size(464, 140);
+            this.TableLayoutPanel2.TabIndex = 46;
+            // 
+            // acListComboBox
+            // 
+            this.acListComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.acListComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.acListComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.acListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.acListComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.acListComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acListComboBox.FormattingEnabled = true;
+            this.acListComboBox.Location = new System.Drawing.Point(101, 3);
+            this.acListComboBox.Name = "acListComboBox";
+            this.acListComboBox.Size = new System.Drawing.Size(203, 31);
+            this.acListComboBox.TabIndex = 16;
+            // 
+            // payloadTrackBar
+            // 
+            this.payloadTrackBar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.payloadTrackBar.Location = new System.Drawing.Point(93, 73);
+            this.payloadTrackBar.Maximum = 100;
+            this.payloadTrackBar.Name = "payloadTrackBar";
+            this.payloadTrackBar.Size = new System.Drawing.Size(219, 29);
+            this.payloadTrackBar.TabIndex = 12;
+            this.payloadTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(3, 111);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(44, 23);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "ZFW";
+            // 
+            // Label17
+            // 
+            this.Label17.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Label17.AutoSize = true;
+            this.Label17.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label17.Location = new System.Drawing.Point(3, 76);
+            this.Label17.Name = "Label17";
+            this.Label17.Size = new System.Drawing.Size(70, 23);
+            this.Label17.TabIndex = 2;
+            this.Label17.Text = "Payload";
+            // 
+            // label14
+            // 
+            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(3, 41);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(48, 23);
+            this.label14.TabIndex = 1;
+            this.label14.Text = "OEW";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(428, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(32, 23);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "KG";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(428, 76);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 23);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "KG";
+            // 
+            // label9
+            // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(428, 111);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(32, 23);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "KG";
+            // 
+            // oewTxtBox
+            // 
+            this.oewTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.oewTxtBox.Enabled = false;
+            this.oewTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.oewTxtBox.Location = new System.Drawing.Point(318, 38);
+            this.oewTxtBox.Name = "oewTxtBox";
+            this.oewTxtBox.Size = new System.Drawing.Size(100, 30);
+            this.oewTxtBox.TabIndex = 3;
+            // 
+            // payloadTxtBox
+            // 
+            this.payloadTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.payloadTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.payloadTxtBox.Location = new System.Drawing.Point(318, 73);
+            this.payloadTxtBox.Name = "payloadTxtBox";
+            this.payloadTxtBox.Size = new System.Drawing.Size(100, 30);
+            this.payloadTxtBox.TabIndex = 4;
+            // 
+            // zfwTxtBox
+            // 
+            this.zfwTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.zfwTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.zfwTxtBox.Location = new System.Drawing.Point(318, 108);
+            this.zfwTxtBox.Name = "zfwTxtBox";
+            this.zfwTxtBox.Size = new System.Drawing.Size(100, 30);
+            this.zfwTxtBox.TabIndex = 5;
+            // 
+            // label21
+            // 
+            this.label21.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(3, 6);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(74, 23);
+            this.label21.TabIndex = 14;
+            this.label21.Text = "Airacraft";
+            // 
+            // wtUnitComboBox
+            // 
+            this.wtUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.wtUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.wtUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.wtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.wtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.wtUnitComboBox.FormattingEnabled = true;
+            this.wtUnitComboBox.Items.AddRange(new object[] {
+            "KG",
+            "LB"});
+            this.wtUnitComboBox.Location = new System.Drawing.Point(1002, 17);
+            this.wtUnitComboBox.Name = "wtUnitComboBox";
+            this.wtUnitComboBox.Size = new System.Drawing.Size(79, 31);
+            this.wtUnitComboBox.TabIndex = 48;
+            // 
             // TableLayoutPanel8
             // 
             this.TableLayoutPanel8.ColumnCount = 5;
@@ -785,7 +969,7 @@
             this.AltnRwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AltnRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AltnRwyComboBox.FormattingEnabled = true;
-            this.AltnRwyComboBox.Location = new System.Drawing.Point(309, 69);
+            this.AltnRwyComboBox.Location = new System.Drawing.Point(309, 67);
             this.AltnRwyComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.AltnRwyComboBox.Name = "AltnRwyComboBox";
             this.AltnRwyComboBox.Size = new System.Drawing.Size(84, 31);
@@ -798,7 +982,7 @@
             this.OrigRwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OrigRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OrigRwyComboBox.FormattingEnabled = true;
-            this.OrigRwyComboBox.Location = new System.Drawing.Point(309, 3);
+            this.OrigRwyComboBox.Location = new System.Drawing.Point(309, 1);
             this.OrigRwyComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.OrigRwyComboBox.Name = "OrigRwyComboBox";
             this.OrigRwyComboBox.Size = new System.Drawing.Size(84, 31);
@@ -811,7 +995,7 @@
             this.DestRwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DestRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DestRwyComboBox.FormattingEnabled = true;
-            this.DestRwyComboBox.Location = new System.Drawing.Point(309, 36);
+            this.DestRwyComboBox.Location = new System.Drawing.Point(309, 34);
             this.DestRwyComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.DestRwyComboBox.Name = "DestRwyComboBox";
             this.DestRwyComboBox.Size = new System.Drawing.Size(84, 31);
@@ -892,190 +1076,6 @@
             this.Label33.TabIndex = 57;
             this.Label33.Text = "ALTN";
             // 
-            // payloadTrackBar
-            // 
-            this.payloadTrackBar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.payloadTrackBar.Location = new System.Drawing.Point(93, 73);
-            this.payloadTrackBar.Maximum = 100;
-            this.payloadTrackBar.Name = "payloadTrackBar";
-            this.payloadTrackBar.Size = new System.Drawing.Size(219, 29);
-            this.payloadTrackBar.TabIndex = 12;
-            this.payloadTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(891, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 23);
-            this.label1.TabIndex = 47;
-            this.label1.Text = "Weight Unit";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(428, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 23);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "KG";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(428, 76);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 23);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "KG";
-            // 
-            // label9
-            // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(428, 111);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(32, 23);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "KG";
-            // 
-            // oewTxtBox
-            // 
-            this.oewTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.oewTxtBox.Enabled = false;
-            this.oewTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.oewTxtBox.Location = new System.Drawing.Point(318, 38);
-            this.oewTxtBox.Name = "oewTxtBox";
-            this.oewTxtBox.Size = new System.Drawing.Size(100, 30);
-            this.oewTxtBox.TabIndex = 3;
-            // 
-            // payloadTxtBox
-            // 
-            this.payloadTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.payloadTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.payloadTxtBox.Location = new System.Drawing.Point(318, 73);
-            this.payloadTxtBox.Name = "payloadTxtBox";
-            this.payloadTxtBox.Size = new System.Drawing.Size(100, 30);
-            this.payloadTxtBox.TabIndex = 4;
-            // 
-            // zfwTxtBox
-            // 
-            this.zfwTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.zfwTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zfwTxtBox.Location = new System.Drawing.Point(318, 108);
-            this.zfwTxtBox.Name = "zfwTxtBox";
-            this.zfwTxtBox.Size = new System.Drawing.Size(100, 30);
-            this.zfwTxtBox.TabIndex = 5;
-            // 
-            // TableLayoutPanel2
-            // 
-            this.TableLayoutPanel2.ColumnCount = 4;
-            this.TableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.TableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 225F));
-            this.TableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
-            this.TableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 78F));
-            this.TableLayoutPanel2.Controls.Add(this.acListComboBox, 1, 0);
-            this.TableLayoutPanel2.Controls.Add(this.payloadTrackBar, 1, 2);
-            this.TableLayoutPanel2.Controls.Add(this.label10, 0, 3);
-            this.TableLayoutPanel2.Controls.Add(this.Label17, 0, 2);
-            this.TableLayoutPanel2.Controls.Add(this.label14, 0, 1);
-            this.TableLayoutPanel2.Controls.Add(this.label2, 3, 1);
-            this.TableLayoutPanel2.Controls.Add(this.label3, 3, 2);
-            this.TableLayoutPanel2.Controls.Add(this.label9, 3, 3);
-            this.TableLayoutPanel2.Controls.Add(this.oewTxtBox, 2, 1);
-            this.TableLayoutPanel2.Controls.Add(this.payloadTxtBox, 2, 2);
-            this.TableLayoutPanel2.Controls.Add(this.zfwTxtBox, 2, 3);
-            this.TableLayoutPanel2.Controls.Add(this.label21, 0, 0);
-            this.TableLayoutPanel2.Location = new System.Drawing.Point(9, 19);
-            this.TableLayoutPanel2.Name = "TableLayoutPanel2";
-            this.TableLayoutPanel2.RowCount = 4;
-            this.TableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.TableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.TableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.TableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.TableLayoutPanel2.Size = new System.Drawing.Size(464, 140);
-            this.TableLayoutPanel2.TabIndex = 46;
-            // 
-            // label10
-            // 
-            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(3, 111);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(44, 23);
-            this.label10.TabIndex = 3;
-            this.label10.Text = "ZFW";
-            // 
-            // Label17
-            // 
-            this.Label17.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Label17.AutoSize = true;
-            this.Label17.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label17.Location = new System.Drawing.Point(3, 76);
-            this.Label17.Name = "Label17";
-            this.Label17.Size = new System.Drawing.Size(70, 23);
-            this.Label17.TabIndex = 2;
-            this.Label17.Text = "Payload";
-            // 
-            // label14
-            // 
-            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(3, 41);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(48, 23);
-            this.label14.TabIndex = 1;
-            this.label14.Text = "OEW";
-            // 
-            // label21
-            // 
-            this.label21.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(3, 6);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(74, 23);
-            this.label21.TabIndex = 14;
-            this.label21.Text = "Airacraft";
-            // 
-            // acListComboBox
-            // 
-            this.acListComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.acListComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.acListComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.acListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.acListComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.acListComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acListComboBox.FormattingEnabled = true;
-            this.acListComboBox.Location = new System.Drawing.Point(101, 3);
-            this.acListComboBox.Name = "acListComboBox";
-            this.acListComboBox.Size = new System.Drawing.Size(203, 31);
-            this.acListComboBox.TabIndex = 16;
-            // 
-            // wtUnitComboBox
-            // 
-            this.wtUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.wtUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.wtUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.wtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.wtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wtUnitComboBox.FormattingEnabled = true;
-            this.wtUnitComboBox.Items.AddRange(new object[] {
-            "KG",
-            "LB"});
-            this.wtUnitComboBox.Location = new System.Drawing.Point(1002, 17);
-            this.wtUnitComboBox.Name = "wtUnitComboBox";
-            this.wtUnitComboBox.Size = new System.Drawing.Size(79, 31);
-            this.wtUnitComboBox.TabIndex = 48;
-            // 
             // FuelPlanningControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -1100,11 +1100,11 @@
             this.TableLayoutPanel21.ResumeLayout(false);
             this.GroupBox_BasicInfo.ResumeLayout(false);
             this.GroupBox_BasicInfo.PerformLayout();
-            this.TableLayoutPanel8.ResumeLayout(false);
-            this.TableLayoutPanel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.payloadTrackBar)).EndInit();
             this.TableLayoutPanel2.ResumeLayout(false);
             this.TableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.payloadTrackBar)).EndInit();
+            this.TableLayoutPanel8.ResumeLayout(false);
+            this.TableLayoutPanel8.PerformLayout();
             this.ResumeLayout(false);
 
         }

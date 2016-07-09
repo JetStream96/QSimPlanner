@@ -19,9 +19,8 @@ namespace QSP.UI.Controllers.WeightControl
         private WeightTextBoxController payload;
         private WeightTextBoxController zfw;
         private TrackBar payloadTrackBar;
-        private bool _enabled;
-        private double _zfwKg;
         private AircraftConfigItem _aircraftConfig;
+        private bool _enabled;
 
         public WeightController(
             WeightTextBoxController oew,
@@ -42,6 +41,7 @@ namespace QSP.UI.Controllers.WeightControl
             {
                 return _aircraftConfig;
             }
+
             set
             {
                 _aircraftConfig = value;
@@ -49,35 +49,90 @@ namespace QSP.UI.Controllers.WeightControl
                 double maxPayload =
                     _aircraftConfig.MaxZfwKg - _aircraftConfig.OewKg;
                 payloadTrackBar.SetRange(0, (int)Ceiling(maxPayload));
+
+                var oldZfw = ZfwKg;
+                ZfwKg = oldZfw;     // Set the value to check bounds.
+                SetControls();
             }
         }
 
-        // Set this after setting AircraftConfig.
+        // Set this after setting AircraftConfig.        
         public double ZfwKg
         {
+            // Can throw InvalidOperationException.
             get
             {
-                return _zfwKg;
+                return zfw.GetWeightKg();
             }
+
+            // Can throw NullReferenceException.
             set
             {
-                _zfwKg = Min(value, AircraftConfig.MaxZfwKg);
+                if (value > AircraftConfig.MaxZfwKg)
+                {
+                    zfw.SetWeight(AircraftConfig.MaxZfwKg);
+                }
+                else if (value < AircraftConfig.OewKg)
+                {
+                    zfw.SetWeight(AircraftConfig.OewKg);
+                }
+                else
+                {
+                    zfw.SetWeight(value);
+                }
             }
         }
 
         public void Enable()
         {
-
+            if (_enabled == false)
+            {
+                payload.TxtBox.TextChanged += PayloadChanged;
+                payloadTrackBar.ValueChanged += TrackBarChanged;
+                zfw.TxtBox.TextChanged += ZfwChanged;
+                _enabled = true;
+            }
         }
 
         public void Disable()
         {
-
+            if (_enabled)
+            {
+                payload.TxtBox.TextChanged -= PayloadChanged;
+                payloadTrackBar.ValueChanged -= TrackBarChanged;
+                zfw.TxtBox.TextChanged -= ZfwChanged;
+                _enabled = false;
+            }
         }
 
-        private void RefreshControls()
+        private void PayloadChanged(object sender, EventArgs e)
         {
+            try
+            {
+                zfw.SetWeight(oew.GetWeightKg() + payload.GetWeightKg());
+                payloadTrackBar.Value = RoundToInt(payload.GetWeightKg());
+            }
+            catch { }
+        }
 
+        private void TrackBarChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                payload.SetWeight(payloadTrackBar.Value);
+                zfw.SetWeight(oew.GetWeightKg() + payload.GetWeightKg());
+            }
+            catch { }
+        }
+
+        private void ZfwChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                payload.SetWeight(zfw.GetWeightKg() - oew.GetWeightKg());
+                payloadTrackBar.Value = RoundToInt(payload.GetWeightKg());
+            }
+            catch { }
         }
 
         private void SetControls()

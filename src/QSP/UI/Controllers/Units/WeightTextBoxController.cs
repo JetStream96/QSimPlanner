@@ -10,7 +10,7 @@ namespace QSP.UI.Controllers.Units
     // Sync the weight unit with the text in TextBox.
     public class WeightTextBoxController
     {
-        private TextBox txtBox;
+        public TextBox TxtBox { get; private set; }
         private string format;
         private WeightUnit _unit;
 
@@ -19,7 +19,7 @@ namespace QSP.UI.Controllers.Units
             string format = "F0",             // Display as integer
             WeightUnit unit = WeightUnit.KG)
         {
-            this.txtBox = txtBox;
+            this.TxtBox = txtBox;
             this.format = format;
             this._unit = unit;
         }
@@ -29,7 +29,7 @@ namespace QSP.UI.Controllers.Units
         {
             double num;
 
-            if (double.TryParse(txtBox.Text.Trim(), out num))
+            if (double.TryParse(TxtBox.Text.Trim(), out num))
             {
                 if (_unit == WeightUnit.KG)
                 {
@@ -54,7 +54,7 @@ namespace QSP.UI.Controllers.Units
                 num *= KgLbRatio;
             }
 
-            txtBox.Text = num.ToString(format);
+            TxtBox.Text = num.ToString(format);
         }
 
         public WeightUnit Unit
