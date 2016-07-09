@@ -167,7 +167,7 @@ namespace QSP.UI.Forms
 
         private void InitControls()
         {
-            ResizeForm();
+            //ResizeForm();
             CheckRegistry();
             SubscribeEvents();
             optionsMenu.Init(appSettings);
@@ -311,28 +311,28 @@ namespace QSP.UI.Forms
             }
         }
 
-        private void ResizeForm()
-        {
-            int right = Pages.MaxBy(c => c.Width).Right;
-            int bottom = Pages.MaxBy(c => c.Height).Bottom;
+        //private void ResizeForm()
+        //{
+        //    int right = Pages.MaxBy(c => c.Width).Right;
+        //    int bottom = Pages.MaxBy(c => c.Height).Bottom;
 
-            var newSize = new Size(right + 15, bottom + 15);
-            MoveControls(newSize);
-            ClientSize = newSize;
-        }
+        //    var newSize = new Size(right + 15, bottom + 15);
+        //    MoveControls(newSize);
+        //    ClientSize = newSize;
+        //}
 
-        private void MoveControls(Size newSize)
-        {
-            int amount = ClientSize.Width - newSize.Width;
-            MoveLeft(tableLayoutPanel2, amount);
-            MoveLeft(tableLayoutPanel3, amount);
-        }
+        //private void MoveControls(Size newSize)
+        //{
+        //    int amount = ClientSize.Width - newSize.Width;
+        //    MoveLeft(tableLayoutPanel2, amount);
+        //    MoveLeft(tableLayoutPanel3, amount);
+        //}
 
-        private static void MoveLeft(Control c, int amount)
-        {
-            var location = new Point(c.Location.X - amount, c.Location.Y);
-            c.Location = location;
-        }
+        //private static void MoveLeft(Control c, int amount)
+        //{
+        //    var location = new Point(c.Location.X - amount, c.Location.Y);
+        //    c.Location = location;
+        //}
 
         private static void CheckRegistry()
         {
