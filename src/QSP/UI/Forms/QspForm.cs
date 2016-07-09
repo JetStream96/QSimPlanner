@@ -1,14 +1,19 @@
 ﻿using QSP.AircraftProfiles;
 using QSP.AircraftProfiles.Configs;
+using QSP.Common.Options;
 using QSP.LibraryExtension;
+using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Containers.CountryCode;
+using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers.ButtonGroup;
 using QSP.UI.ToLdgModule.AboutPage;
 using QSP.UI.ToLdgModule.AircraftMenu;
 using QSP.UI.ToLdgModule.AirportMap;
 using QSP.UI.ToLdgModule.LandingPerf;
-using QSP.UI.ToLdgModule.Options;
 using QSP.UI.ToLdgModule.TOPerf;
+using QSP.UI.UserControls;
 using QSP.UI.Utilities;
 using QSP.Utilities;
 using System;
@@ -19,39 +24,47 @@ using System.Windows.Forms;
 using static QSP.UI.Controllers.ButtonGroup.BtnGroupController;
 using static QSP.UI.Controllers.ButtonGroup.ControlSwitcher;
 using static QSP.UI.Factories.ToolTipFactory;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms
 {
     public partial class QspForm : Form
     {
-        public ProfileManager Profiles { get; private set; }
-        public AircraftMenuControl AcMenu { get; private set; }
-        public TOPerfControl ToMenu { get; private set; }
-        public LandingPerfControl LdgMenu { get; private set; }
-        public AirportMapControl AirportMenu { get; private set; }
-        public OptionsControl OptionsMenu { get; private set; }
-        public AboutPageControl AboutMenu { get; private set; }
+        private AircraftMenuControl acMenu;
+        private FuelPlanningControl fuelMenu;
+        private TOPerfControl toMenu;
+        private LandingPerfControl ldgMenu;
+        private AirportMapControl airportMenu;
+        private OptionsControl optionsMenu;
+        private AboutPageControl aboutMenu;
 
-        public IEnumerable<UserControl> Pages
+        private ProfileManager profiles;
+        private AppOptions appSettings;
+        private AirportManager airportList;
+        private WaypointList wptList;
+        private CountryCodeManager countryCodes;
+        private ProcedureFilter procFilter;
+
+        private BtnGroupController btnControl;
+        private ControlSwitcher viewControl;
+        private Point controlDefaultLocation = new Point(12, 60);
+
+        private IEnumerable<UserControl> Pages
         {
             get
             {
                 return new UserControl[]
                 {
-                    AcMenu,
-                    ToMenu,
-                    LdgMenu,
-                    AirportMenu,
-                    OptionsMenu,
-                    AboutMenu
+                    acMenu,
+                    fuelMenu,
+                    toMenu,
+                    ldgMenu,
+                    airportMenu,
+                    optionsMenu,
+                    aboutMenu
                 };
             }
         }
-
-        private BtnGroupController btnControl;
-        private ControlSwitcher viewControl;
-        private AirportManager _airports;
-        private Point controlDefaultLocation = new Point(12, 60);
 
         public QspForm()
         {
@@ -59,43 +72,118 @@ namespace QSP.UI.Forms
             AddControls();
         }
 
-        private void InitProfiles()
+        public void Init()
+        {
+            ShowSplashWhile(() =>
+            {
+                InitData();
+                InitControls();
+                //InitRouteFinderSelections();
+
+                //TODO: track in use is wrong
+                //advancedRouteTool.Init(
+                //    AppSettings,
+                //    wptList,
+                //    airportList,
+                //    new TrackInUseCollection(),
+                //    new ProcedureFilter(),
+                //    countryCodes);
+            });
+        }
+
+        private static void ShowSplashWhile(Action action)
+        {
+            var splash = new Splash();
+            splash.Show();
+            splash.Refresh();
+
+            action();
+
+            splash.Close();
+        }
+        
+        private void InitData()
         {
             try
             {
-                Profiles = new ProfileManager();
-                Profiles.Initialize();
+                // Aircraft data
+                profiles = new ProfileManager();
+                profiles.Initialize();
             }
             catch (PerfFileNotFoundException ex)
             {
-                LoggerInstance.WriteToLog(ex);
+                WriteToLog(ex);
                 MsgBoxHelper.ShowWarning(ex.Message);
             }
+
+            // Load options.
+            try
+            {
+                appSettings = OptionManager.ReadOrCreateFile();
+            }
+            catch (Exception ex)
+            {
+                WriteToLog(ex);
+                MsgBoxHelper.ShowError("Cannot load options.");
+            }
+
+            // Airports and waypoints
+            // TODO: exceptions?
+            try
+            {
+                InitAirportList();
+                InitWptList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            procFilter = new ProcedureFilter();
         }
 
-        public void Init()
+        private void InitAirportList()
         {
-            InitProfiles();
+            string navDataPath = appSettings.NavDataLocation;
+
+            airportList =
+            new AirportManager(
+                new AirportDataLoader(navDataPath + @"\Airports.txt")
+                .LoadFromFile());
+        }
+
+        private void InitWptList()
+        {
+            string navDataPath = appSettings.NavDataLocation;
+
+            var result = new WptListLoader(navDataPath)
+                .LoadFromFile();
+
+            wptList = result.WptList;
+            countryCodes = result.CountryCodes;
+        }
+
+        private void InitControls()
+        {
             ResizeForm();
             CheckRegistry();
             SubscribeEvents();
-            OptionsMenu.Initialize();
+            optionsMenu.Init(appSettings);
 
-            var airports = OptionsMenu.Airports;
-            AcMenu.Initialize(Profiles);
-            AcMenu.AircraftsChanged += ToMenu.RefreshAircrafts;
-            AcMenu.AircraftsChanged += LdgMenu.RefreshAircrafts;
+            acMenu.Initialize(profiles);
+            acMenu.AircraftsChanged += toMenu.RefreshAircrafts;
+            acMenu.AircraftsChanged += ldgMenu.RefreshAircrafts;
 
-            ToMenu.Initialize(Profiles.AcConfigs,
-                Profiles.TOTables.ToList(), airports);
-            ToMenu.TryLoadState();
+            toMenu.Initialize(profiles.AcConfigs,
+                profiles.TOTables.ToList(), airportList);
+            toMenu.TryLoadState();
 
-            LdgMenu.InitializeAircrafts(Profiles.AcConfigs,
-                Profiles.LdgTables.ToList(), airports);
-            LdgMenu.TryLoadState();
+            ldgMenu.InitializeAircrafts(profiles.AcConfigs,
+                profiles.LdgTables.ToList(), airportList);
+            ldgMenu.TryLoadState();
 
-            AirportMenu.Initialize(airports);
-            AirportMenu.BrowserEnabled = true;
+            airportMenu.Initialize(airportList);
+            airportMenu.BrowserEnabled = true;
 
             EnableBtnColorControls();
             EnableViewControl();
@@ -109,61 +197,51 @@ namespace QSP.UI.Forms
             tp.SetToolTip(aboutBtn, "About");
         }
 
-        private void RefreshItemsRequireAirportList()
-        {
-            Airports = OptionsMenu.Airports;
-            ToMenu.airportInfoControl.RefreshAirportInfo();
-            LdgMenu.airportInfoControl.RefreshAirportInfo();
-            AirportMenu.FindAirport();
-        }
+        //private void RefreshItemsRequireAirportList()
+        //{
+        //    Airports = airportList;
+        //    ToMenu.airportInfoControl.RefreshAirportInfo();
+        //    LdgMenu.airportInfoControl.RefreshAirportInfo();
+        //    AirportMenu.FindAirport();
+        //}
 
         private void SubscribeEvents()
         {
-            OptionsMenu.SaveAirportsCompleted += (sender, e) =>
+            optionsMenu.AppSettingChanged += (sender, e) =>
             {
-                RefreshItemsRequireAirportList();
+                appSettings = optionsMenu.AppSettings;
             };
 
-            var origTxtBox = ToMenu.airportInfoControl.airportTxtBox;
+            optionsMenu.NavDataUpdated += (sender, e) =>
+            {
+                // TODO: Update Nav data here.
+            };
+
+            var origTxtBox = toMenu.airportInfoControl.airportTxtBox;
 
             origTxtBox.TextChanged += (sender, e) =>
             {
-                AirportMenu.Orig = origTxtBox.Text;
+                airportMenu.Orig = origTxtBox.Text;
             };
 
-            var destTxtBox = LdgMenu.airportInfoControl.airportTxtBox;
+            var destTxtBox = ldgMenu.airportInfoControl.airportTxtBox;
 
             destTxtBox.TextChanged += (sender, e) =>
             {
-                AirportMenu.Dest = destTxtBox.Text;
+                airportMenu.Dest = destTxtBox.Text;
             };
         }
-
-        public AirportManager Airports
-        {
-            get
-            {
-                return _airports;
-            }
-            set
-            {
-                _airports = value;
-                ToMenu.Airports = _airports;
-                LdgMenu.Airports = _airports;
-                AirportMenu.Airports = _airports;
-                OptionsMenu.Airports = _airports;
-            }
-        }
-
+        
         private void EnableViewControl()
         {
             viewControl = new ControlSwitcher(
-                new BtnControlPair(acConfigBtn, AcMenu),
-                new BtnControlPair(toBtn, ToMenu),
-                new BtnControlPair(ldgBtn, LdgMenu),
-                new BtnControlPair(airportBtn, AirportMenu),
-                new BtnControlPair(optionsBtn, OptionsMenu),
-                new BtnControlPair(aboutBtn, AboutMenu));
+                new BtnControlPair(acConfigBtn, acMenu),
+                new BtnControlPair(fuelBtn, fuelMenu),
+                new BtnControlPair(toBtn, toMenu),
+                new BtnControlPair(ldgBtn, ldgMenu),
+                new BtnControlPair(airportBtn, airportMenu),
+                new BtnControlPair(optionsBtn, optionsMenu),
+                new BtnControlPair(aboutBtn, aboutMenu));
 
             viewControl.Subscribed = true;
         }
@@ -173,8 +251,8 @@ namespace QSP.UI.Forms
             var acConfigPair = new BtnColorPair(acConfigBtn, Color.Black,
                 Color.WhiteSmoke, Color.White, Color.FromArgb(192, 0, 0));
 
-            // fuel planning
-            //Color.DarkOrange
+            var fuelPair = new BtnColorPair(fuelBtn, Color.Black,
+               Color.WhiteSmoke, Color.White, Color.DarkOrange);
 
             var toPair = new BtnColorPair(toBtn, Color.Black,
                 Color.WhiteSmoke, Color.White, Color.ForestGreen);
@@ -193,6 +271,7 @@ namespace QSP.UI.Forms
 
             btnControl = new BtnGroupController(
                 acConfigPair,
+                fuelPair,
                 toPair,
                 ldgPair,
                 airportPair,
@@ -205,16 +284,18 @@ namespace QSP.UI.Forms
 
         private void AddControls()
         {
-            AcMenu = new AircraftMenuControl();
-            ToMenu = new TOPerfControl();
-            LdgMenu = new LandingPerfControl();
-            AirportMenu = new AirportMapControl();
-            OptionsMenu = new OptionsControl();
-            AboutMenu = new AboutPageControl();
+            acMenu = new AircraftMenuControl();
+            fuelMenu = new FuelPlanningControl();
+            toMenu = new TOPerfControl();
+            ldgMenu = new LandingPerfControl();
+            airportMenu = new AirportMapControl();
+            optionsMenu = new OptionsControl();
+            aboutMenu = new AboutPageControl();
 
             foreach (var i in Pages)
             {
                 i.Location = controlDefaultLocation;
+                i.Visible = i == acMenu;
                 Controls.Add(i);
             }
         }
@@ -222,7 +303,7 @@ namespace QSP.UI.Forms
         private void ResizeForm()
         {
             int right = Pages.MaxBy(c => c.Width).Right;
-            int bottom = Pages.MaxBy(c => c.Height).Bottom;            
+            int bottom = Pages.MaxBy(c => c.Height).Bottom;
 
             var newSize = new Size(right + 15, bottom + 15);
             MoveControls(newSize);
@@ -256,7 +337,7 @@ namespace QSP.UI.Forms
             }
             catch (Exception ex)
             {
-                LoggerInstance.WriteToLog(ex);
+                WriteToLog(ex);
             }
         }
     }

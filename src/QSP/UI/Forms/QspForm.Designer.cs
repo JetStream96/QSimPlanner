@@ -204,6 +204,7 @@
             this.DoubleBuffered = true;
             this.Name = "QspForm";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QSimPlanner";
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
