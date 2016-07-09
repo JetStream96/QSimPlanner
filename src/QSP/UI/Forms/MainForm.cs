@@ -645,8 +645,7 @@ namespace QSP
             }
             CheckZfwInRange();
         }
-
-
+        
         private void CheckZfwInRange()
         {
             double ZFWKg = 0;

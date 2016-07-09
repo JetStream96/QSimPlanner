@@ -124,7 +124,7 @@
             this.viewFuelReportBtn.Location = new System.Drawing.Point(916, 708);
             this.viewFuelReportBtn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.viewFuelReportBtn.Name = "viewFuelReportBtn";
-            this.viewFuelReportBtn.Size = new System.Drawing.Size(180, 28);
+            this.viewFuelReportBtn.Size = new System.Drawing.Size(180, 32);
             this.viewFuelReportBtn.TabIndex = 39;
             this.viewFuelReportBtn.Text = "View Fuel Report";
             this.viewFuelReportBtn.UseVisualStyleBackColor = false;
@@ -134,9 +134,9 @@
             this.GroupBox6.Controls.Add(this.TableLayoutPanel20);
             this.GroupBox6.Controls.Add(this.TableLayoutPanel1);
             this.GroupBox6.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBox6.Location = new System.Drawing.Point(5, 465);
+            this.GroupBox6.Location = new System.Drawing.Point(5, 470);
             this.GroupBox6.Name = "GroupBox6";
-            this.GroupBox6.Size = new System.Drawing.Size(1091, 169);
+            this.GroupBox6.Size = new System.Drawing.Size(1091, 170);
             this.GroupBox6.TabIndex = 38;
             this.GroupBox6.TabStop = false;
             this.GroupBox6.Text = "Fuel Parameters";
@@ -473,17 +473,17 @@
             // 
             this.GroupBox5.Controls.Add(this.altnRwyComboBox);
             this.GroupBox5.Controls.Add(this.Label38);
-            this.GroupBox5.Controls.Add(this.Label42);
             this.GroupBox5.Controls.Add(this.altnTxtBox);
             this.GroupBox5.Controls.Add(this.Label33);
             this.GroupBox5.Controls.Add(this.findAltnBtn);
-            this.GroupBox5.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBox5.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBox5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.GroupBox5.Location = new System.Drawing.Point(5, 344);
             this.GroupBox5.Name = "GroupBox5";
             this.GroupBox5.Size = new System.Drawing.Size(1091, 120);
             this.GroupBox5.TabIndex = 35;
             this.GroupBox5.TabStop = false;
-            this.GroupBox5.Text = "Routes";
+            this.GroupBox5.Text = "Alternate";
             // 
             // routeDisLbl
             // 
@@ -538,7 +538,7 @@
             this.showMapBtn.Name = "showMapBtn";
             this.showMapBtn.Size = new System.Drawing.Size(90, 33);
             this.showMapBtn.TabIndex = 44;
-            this.showMapBtn.Text = "Show Map";
+            this.showMapBtn.Text = "Map";
             this.showMapBtn.UseVisualStyleBackColor = false;
             // 
             // findRouteBtn
@@ -575,7 +575,7 @@
             this.Label42.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Label42.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label42.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.Label42.Location = new System.Drawing.Point(951, 22);
+            this.Label42.Location = new System.Drawing.Point(943, 36);
             this.Label42.Name = "Label42";
             this.Label42.Size = new System.Drawing.Size(123, 23);
             this.Label42.TabIndex = 47;
@@ -850,6 +850,7 @@
             // 
             this.groupBox1.Controls.Add(this.filterStarBtn);
             this.groupBox1.Controls.Add(this.routeDisLbl);
+            this.groupBox1.Controls.Add(this.Label42);
             this.groupBox1.Controls.Add(this.filterSidBtn);
             this.groupBox1.Controls.Add(this.TableLayoutPanel24);
             this.groupBox1.Controls.Add(this.starComboBox);

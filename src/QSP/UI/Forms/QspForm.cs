@@ -6,6 +6,7 @@ using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
+using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers.ButtonGroup;
 using QSP.UI.ToLdgModule.AboutPage;
@@ -44,6 +45,7 @@ namespace QSP.UI.Forms
         private WaypointList wptList;
         private CountryCodeManager countryCodes;
         private ProcedureFilter procFilter;
+        private TrackInUseCollection tracksInUse = new TrackInUseCollection(); // TODO: Initialize?
 
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
@@ -174,7 +176,14 @@ namespace QSP.UI.Forms
             acMenu.AircraftsChanged += toMenu.RefreshAircrafts;
             acMenu.AircraftsChanged += ldgMenu.RefreshAircrafts;
 
-            fuelMenu.Init(profiles.AcConfigs, profiles.FuelData);
+            fuelMenu.Init(
+                appSettings,
+                wptList,
+                airportList,
+                tracksInUse,
+                procFilter,
+                countryCodes,                
+                profiles.AcConfigs, profiles.FuelData);
 
             toMenu.Initialize(profiles.AcConfigs,
                 profiles.TOTables.ToList(), airportList);
