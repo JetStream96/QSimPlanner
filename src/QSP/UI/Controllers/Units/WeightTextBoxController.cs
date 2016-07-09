@@ -11,15 +11,18 @@ namespace QSP.UI.Controllers.Units
     public class WeightTextBoxController
     {
         public TextBox TxtBox { get; private set; }
+        public Label Lable { get; private set; }
         private string format;
         private WeightUnit _unit;
 
         public WeightTextBoxController(
             TextBox txtBox,
+            Label lable = null,
             string format = "F0",             // Display as integer
             WeightUnit unit = WeightUnit.KG)
         {
             this.TxtBox = txtBox;
+            this.Lable = lable;
             this.format = format;
             this._unit = unit;
         }
@@ -71,9 +74,30 @@ namespace QSP.UI.Controllers.Units
                     return;
                 }
 
+                var wt = TryGetWtKg();
                 _unit = value;
-                var wt = GetWeightKg();
-                SetWeight(wt);
+
+                if (Lable != null)
+                {
+                    Lable.Text = Conversions.WeightUnitToString(_unit);
+                }
+
+                if (wt != null)
+                {
+                    SetWeight(wt.Value);
+                }                
+            }
+        }
+
+        private double? TryGetWtKg()
+        {
+            try
+            {
+                return GetWeightKg();
+            }
+            catch 
+            {
+                return null;
             }
         }
     }

@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
 using static System.Math;
 using static QSP.Utilities.ConditionChecker;
+using System.Drawing;
 
 namespace QSP.UI.Controllers.WeightControl
 {
@@ -96,6 +97,7 @@ namespace QSP.UI.Controllers.WeightControl
                 payload.TxtBox.TextChanged += PayloadChanged;
                 payloadTrackBar.ValueChanged += TrackBarChanged;
                 zfw.TxtBox.TextChanged += ZfwChanged;
+                zfw.TxtBox.TextChanged += ChangeColor;
                 _enabled = true;
             }
         }
@@ -107,7 +109,28 @@ namespace QSP.UI.Controllers.WeightControl
                 payload.TxtBox.TextChanged -= PayloadChanged;
                 payloadTrackBar.ValueChanged -= TrackBarChanged;
                 zfw.TxtBox.TextChanged -= ZfwChanged;
+                zfw.TxtBox.TextChanged -= ChangeColor;
                 _enabled = false;
+            }
+        }
+
+        private void ChangeColor(object sender, EventArgs e)
+        {
+            try
+            {
+                if (AircraftConfig.OewKg <= ZfwKg &&
+                    ZfwKg <= AircraftConfig.MaxZfwKg)
+                {
+                    zfw.TxtBox.ForeColor = Color.DarkGreen;
+                }
+                else
+                {
+                    zfw.TxtBox.ForeColor = Color.Red;
+                }
+            }
+            catch
+            {
+                zfw.TxtBox.ForeColor = Color.Black;
             }
         }
 

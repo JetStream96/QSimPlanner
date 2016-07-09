@@ -1,18 +1,18 @@
-﻿using System;
+﻿using QSP.AircraftProfiles;
+using QSP.AircraftProfiles.Configs;
+using QSP.FuelCalculation;
+using QSP.UI.Controllers.Units;
+using QSP.UI.Controllers.WeightControl;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.UI.Controllers.Units;
-using QSP.UI.Controllers.WeightControl;
-using QSP.AircraftProfiles.Configs;
-using QSP.AircraftProfiles;
-using QSP.FuelCalculation;
-
+using QSP.Utilities.Units;
 namespace QSP.UI.UserControls
 {
     public partial class FuelPlanningControl : UserControl
@@ -43,7 +43,8 @@ namespace QSP.UI.UserControls
                 .Select(c => c.Config.AC)
                 .ToArray());
 
-            
+            wtUnitComboBox.SelectedIndex = 0;
+            wtUnitComboBox.SelectedIndexChanged += WtUnitChanged;            
             acListComboBox.SelectedIndexChanged += RefreshRegistrations;
             registrationComboBox.SelectedIndexChanged += RegistrationChanged;
 
@@ -53,11 +54,19 @@ namespace QSP.UI.UserControls
             }
         }
 
+        private void WtUnitChanged(object sender, EventArgs e)
+        {
+            var unit = (WeightUnit)wtUnitComboBox.SelectedIndex;
+            oew.Unit = unit;
+            payload.Unit = unit;
+            zfw.Unit = unit;
+        }
+
         private void SetWeightController()
         {
-            oew = new WeightTextBoxController(oewTxtBox);
-            payload = new WeightTextBoxController(payloadTxtBox);
-            zfw = new WeightTextBoxController(zfwTxtBox);
+            oew = new WeightTextBoxController(oewTxtBox, oewLbl);
+            payload = new WeightTextBoxController(payloadTxtBox, payloadLbl);
+            zfw = new WeightTextBoxController(zfwTxtBox, zfwLbl);
 
             weightControl = new WeightController(
                 oew, payload, zfw, payloadTrackBar);
