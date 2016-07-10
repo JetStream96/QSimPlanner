@@ -26,6 +26,7 @@ using static QSP.UI.Controllers.ButtonGroup.BtnGroupController;
 using static QSP.UI.Controllers.ButtonGroup.ControlSwitcher;
 using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.Utilities.LoggerInstance;
+using QSP.WindAloft;
 
 namespace QSP.UI.Forms
 {
@@ -46,6 +47,7 @@ namespace QSP.UI.Forms
         private CountryCodeManager countryCodes;
         private ProcedureFilter procFilter;
         private TrackInUseCollection tracksInUse = new TrackInUseCollection(); // TODO: Initialize?
+        private WindTableCollection windTables; // TODO:
 
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
@@ -182,8 +184,10 @@ namespace QSP.UI.Forms
                 airportList,
                 tracksInUse,
                 procFilter,
-                countryCodes,                
-                profiles.AcConfigs, profiles.FuelData);
+                countryCodes,
+                windTables,          
+                profiles.AcConfigs, 
+                profiles.FuelData);
 
             toMenu.Initialize(profiles.AcConfigs,
                 profiles.TOTables.ToList(), airportList);

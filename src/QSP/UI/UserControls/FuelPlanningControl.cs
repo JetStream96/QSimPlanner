@@ -34,6 +34,8 @@ using static QSP.UI.Factories.FormFactory;
 using static QSP.UI.Factories.ToolTipFactory;
 using QSP.LibraryExtension;
 using static QSP.AviationTools.Constants;
+using static QSP.MathTools.Doubles;
+using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.UI.UserControls
 {
@@ -49,9 +51,11 @@ namespace QSP.UI.UserControls
 
         private RouteFinderSelection origController;
         private RouteFinderSelection destController;
-        private WeightTextBoxController oew;
-        private WeightTextBoxController payload;
-        private WeightTextBoxController zfw;
+        public WeightTextBoxController Oew { get; private set; }
+        public WeightTextBoxController Payload { get; private set; }
+        public WeightTextBoxController Zfw { get; private set; }
+        public WeightTextBoxController MissedApproach { get; private set; }
+        public WeightTextBoxController Extra { get; private set; }
         private WeightController weightControl;
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
@@ -98,6 +102,14 @@ namespace QSP.UI.UserControls
             }
         }
 
+        public WeightUnit WeightUnit
+        {
+            get
+            {
+                return (WeightUnit)wtUnitComboBox.SelectedIndex;
+            }
+        }
+
         private void SubscribeEventHandlers()
         {
             wtUnitComboBox.SelectedIndexChanged += WtUnitChanged;
@@ -120,12 +132,12 @@ namespace QSP.UI.UserControls
         private void SetDefaultState()
         {
             routeDisLbl.Text = "";
-            finalReserveTxtBox.Text = "30";
+            FinalReserveTxtBox.Text = "30";
             contPercentComboBox.Text = "5";
             extraFuelTxtBox.Text = "0";
-            apuTimeTxtBox.Text = "30";
-            taxiTimeTxtBox.Text = "20";
-            holdTimeTxtBox.Text = "0";
+            ApuTimeTxtBox.Text = "30";
+            TaxiTimeTxtBox.Text = "20";
+            HoldTimeTxtBox.Text = "0";
         }
 
         private void SetOrigDestControllers()
@@ -178,7 +190,7 @@ namespace QSP.UI.UserControls
 
             mainRoute = new RouteGroup(result, tracksInUse);
             var route = mainRoute.Expanded;
-            
+
             mainRouteRichTxtBox.Text = route.ToString(false, false);
             RouteDistanceDisplay.UpdateRouteDistanceLbl(routeDisLbl, route);
         }
@@ -281,20 +293,25 @@ namespace QSP.UI.UserControls
 
         private void WtUnitChanged(object sender, EventArgs e)
         {
-            var unit = (WeightUnit)wtUnitComboBox.SelectedIndex;
-            oew.Unit = unit;
-            payload.Unit = unit;
-            zfw.Unit = unit;
+            var unit = WeightUnit;
+            Oew.Unit = unit;
+            Payload.Unit = unit;
+            Zfw.Unit = unit;
+            MissedApproach.Unit = unit;
+            Extra.Unit = unit;
         }
 
         private void SetWeightController()
         {
-            oew = new WeightTextBoxController(oewTxtBox, oewLbl);
-            payload = new WeightTextBoxController(payloadTxtBox, payloadLbl);
-            zfw = new WeightTextBoxController(zfwTxtBox, zfwLbl);
+            Oew = new WeightTextBoxController(oewTxtBox, oewLbl);
+            Payload = new WeightTextBoxController(payloadTxtBox, payloadLbl);
+            Zfw = new WeightTextBoxController(zfwTxtBox, zfwLbl);
+            MissedApproach = new WeightTextBoxController(
+                missedAppFuelTxtBox, missedAppLbl);
+            Extra = new WeightTextBoxController(extraFuelTxtBox, extraFuelLbl);
 
             weightControl = new WeightController(
-                oew, payload, zfw, payloadTrackBar);
+                Oew, Payload, Zfw, payloadTrackBar);
             weightControl.Enable();
         }
 
@@ -342,7 +359,7 @@ namespace QSP.UI.UserControls
 
         private FuelDataItem GetFuelData()
         {
-            if(registrationComboBox.SelectedIndex < 0)
+            if (registrationComboBox.SelectedIndex < 0)
             {
                 return null;
             }
@@ -404,22 +421,32 @@ namespace QSP.UI.UserControls
             //TODO:  LDG_fuel_prediction = Convert.ToInt32(fuelCalcResult.LdgFuelKgPredict * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KG_LB));
         }
 
-        private static string InsufficientFuelMsg(double fuelReqKG, double fuelCapacityKG, WeightUnit unit)
+        private static string InsufficientFuelMsg(
+            double fuelReqKG, double fuelCapacityKG, WeightUnit unit)
         {
+            int fuelReqInt, fuelCapacityInt;
+            string wtUnit = WeightUnitToString(unit);
+
             if (unit == WeightUnit.KG)
             {
-                return "Insufficient fuel" + Environment.NewLine + "Fuel required for this flight is " + fuelReqKG + " KG. Maximum fuel tank capacity is " + fuelCapacityKG + " KG.";
+                fuelReqInt = RoundToInt(fuelReqKG);
+                fuelCapacityInt = RoundToInt(fuelCapacityKG);
             }
-            else
+            else // WeightUnit.LB
             {
-                return "Insufficient fuel" + Environment.NewLine + "Fuel required for this flight is " + Math.Round(fuelReqKG * KgLbRatio) + " LB. Maximum fuel tank capacity is " + Math.Round(fuelCapacityKG * KgLbRatio) + " LB.";
+                fuelReqInt = RoundToInt(fuelReqKG * KgLbRatio);
+                fuelCapacityInt = RoundToInt(fuelCapacityKG * KgLbRatio);
             }
+
+            return "Insufficient fuel\n" +
+                $"Fuel required for this flight is {fuelReqKG} {wtUnit}. " +
+                $"Maximum fuel tank capacity is {fuelCapacityKG} {wtUnit}.";
         }
 
         // TODO: Shouldn't be here. Extract to another class.
         public FuelReportResult ComputeFuelIteration(
-            FuelCalculationParameters para, 
-            FuelDataItem data, 
+            FuelCalculationParameters para,
+            FuelDataItem data,
             uint precisionLevel)
         {
             //presisionLevel = 0, 1, 2, ... 

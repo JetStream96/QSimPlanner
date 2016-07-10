@@ -105,6 +105,7 @@
     <Compile Include="FuelCalculation\FuelDataItem.cs" />
     <Compile Include="FuelCalculation\FuelDataLoader.cs" />
     <Compile Include="FuelCalculation\Tables\FlightTimeTable.cs" />
+    <Compile Include="FuelCalculation\FuelParameters.cs" />
     <Compile Include="FuelCalculation\Tables\FuelTable.cs" />
     <Compile Include="FuelCalculation\Tables\GroundToAirDisTable.cs" />
     <Compile Include="FuelCalculation\Tables\OptCrzTable.cs" />
@@ -169,6 +170,7 @@
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Factories\ToolTipFactory.cs" />
+    <Compile Include="UI\UserControls\FuelParameterValidator.cs" />
     <Compile Include="UI\UserControls\FuelPlanningControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

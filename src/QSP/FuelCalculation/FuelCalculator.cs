@@ -48,7 +48,7 @@ namespace QSP.FuelCalculation
             return new FuelReportResult(
                 fuelToDestTon,
                 fuelToAltnTon,
-                fuelToDestTon * 1000 * para.ContPerc / 100,
+                fuelToDestTon * 1000 * para.ContPercentKg / 100,
                 para.ExtraFuelKg,
                 para.HoldingMin * data.HoldingFuelPerMinuteKg,
                 para.APUTime * data.ApuFuelPerMinKg,
