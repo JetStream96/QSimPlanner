@@ -133,7 +133,7 @@ namespace QSP.UI.UserControls
         {
             routeDisLbl.Text = "";
             FinalReserveTxtBox.Text = "30";
-            contPercentComboBox.Text = "5";
+            ContPercentComboBox.Text = "5";
             extraFuelTxtBox.Text = "0";
             ApuTimeTxtBox.Text = "30";
             TaxiTimeTxtBox.Text = "20";
