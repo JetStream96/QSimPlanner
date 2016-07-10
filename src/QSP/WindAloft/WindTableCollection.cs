@@ -18,9 +18,9 @@ namespace QSP.WindAloft
             this.windTables = windTables;
         }
 
-        public WindUV GetWindUV(double lat, double lon, double FL)
+        public WindUV GetWindUV(double lat, double lon, double altitudeFt)
         {
-            double press = CoversionTools.AltToPressureMb(FL * 100);
+            double press = CoversionTools.AltToPressureMb(altitudeFt);
             int index = GetIndicesForInterpolation(press);
 
             double uWind = Interpolate1D.Interpolate(

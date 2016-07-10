@@ -26,7 +26,7 @@ namespace QSP.WindAloft
         public static int AvgTailWind(
             WindTableCollection windTables,
             Route route,
-            int cruizeLevel, 
+            int cruizeLevel,
             int tas)
         {
             double AirDisToDest = 0.0;
@@ -51,10 +51,36 @@ namespace QSP.WindAloft
             return RoundToInt(tas * (GrdDisToDest / AirDisToDest - 1.0));
         }
 
+        public static double GetAirDistance(
+            WindTableCollection windTables,
+            Route route,
+            double cruizeAltitudeFt,
+            double tas)
+        {
+            double AirDisToDest = 0.0;
+
+            var node = route.First;
+
+            while (node != route.Last)
+            {
+                var t = GetAirDisGrdDis(
+                    windTables,
+                    node.Value.Waypoint.LatLon,
+                    node.Next.Value.Waypoint.LatLon,
+                    (int)tas,
+                    cruizeAltitudeFt / 100.0);
+
+                AirDisToDest += t.AirDis;
+                node = node.Next;
+            }
+
+            return  AirDisToDest;
+        }
+
         public static AirGrdDistance GetAirDisGrdDis(
             WindTableCollection windTables,
-            ICoordinate latlon1, 
-            ICoordinate latlon2, 
+            ICoordinate latlon1,
+            ICoordinate latlon2,
             int tas,
             double FL)
         {

@@ -4,19 +4,19 @@
     {
         private FuelDataItem fuelData;
         private FuelParameters para;
-        private AlternateFuelCalculator.Result altnResult;
+        private CalculationResult altnResult;
 
         public DestinationFuelCalculator(
             FuelDataItem fuelData,
             FuelParameters para,
-            AlternateFuelCalculator.Result altnResult)
+            CalculationResult altnResult)
         {
             this.fuelData = fuelData;
             this.para = para;
             this.altnResult = altnResult;
         }
 
-        public Result Compute(double airDistanceNm)
+        public CalculationResult Compute(double airDistanceNm)
         {
             double landingWeightTon = LandWeightTon();
             double timeMin =
@@ -25,7 +25,7 @@
             double fuelTon = fuelData.FuelTable.GetFuelRequired(
                 airDistanceNm, landingWeightTon);
 
-            return new Result()
+            return new CalculationResult()
             {
                 TimeMin = timeMin,
                 FuelTon = fuelTon,
@@ -42,13 +42,6 @@
                 altnResult.FuelTon +
                 (holdingFuelKg + para.MissedAppFuelKg + para.ExtraFuelKg)
                 / 1000;
-        }
-
-        public class Result
-        {
-            public double TimeMin;
-            public double FuelTon;
-            public double LandingWeightTon;
         }
     }
 }

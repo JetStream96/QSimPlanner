@@ -10,6 +10,9 @@ namespace QSP.WindAloft
 {
     public class AvgWindCalculator
     {
+        public int TrueAirspeed { get; set; }
+        public double AltitudeFt { get; set; }
+
         private WindTableCollection windData;
         private Vector3D v1;
         private Vector3D v2;
@@ -18,15 +21,12 @@ namespace QSP.WindAloft
         private double lat2;
         private double lon2;
 
-        public int Tas { get; set; }
-        public double FL { get; set; }
-
         public AvgWindCalculator(
-            WindTableCollection windData, int trueAirspeed, double flightLevel)
+            WindTableCollection windData, int trueAirspeed, double altitudeFt)
         {
             this.windData = windData;
-            Tas = trueAirspeed;
-            FL = flightLevel;
+            this.TrueAirspeed = trueAirspeed;
+            this.AltitudeFt = altitudeFt;
 
             SetPoint1(0.0, 0.0);
             SetPoint2(0.0, 0.0);
@@ -64,14 +64,14 @@ namespace QSP.WindAloft
             //total distance
             double r = EarthRadiusNm * Math.Acos(v1.Dot(v2));
 
-            //total time required
+            // Total time required
             double time = Integrate(
                 GetOneOverGS, 0.0, r, deltaAlpha * EarthRadiusNm);
 
             return new CalcResult()
             {
-                AvgTailWind = r / time - Tas,
-                AirDis = time * Tas
+                AvgTailWind = r / time - TrueAirspeed,
+                AirDis = time * TrueAirspeed
             };
         }
 
@@ -108,7 +108,7 @@ namespace QSP.WindAloft
             double gamma = Math.Acos((VWind.Normalize()).Dot(w));
             double a = 1;
             double b = -2 * VWind.R * Math.Cos(gamma);
-            double c = VWind.R * VWind.R - Tas * Tas;
+            double c = VWind.R * VWind.R - TrueAirspeed * TrueAirspeed;
             return (-b + Math.Sqrt(b * b - 4 * a * c)) / (2 * a);
         }
 
@@ -133,7 +133,7 @@ namespace QSP.WindAloft
             // lat=phi, lon=theta
             // u=lon, v=lat
 
-            var w = windData.GetWindUV(lat, lon, FL);
+            var w = windData.GetWindUV(lat, lon, AltitudeFt);
 
             lat = ToRadian(lat);
             lon = ToRadian(lon);

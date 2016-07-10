@@ -19,7 +19,7 @@ namespace QSP.FuelCalculation.Calculators
             this.airDis = airDis;
         }
 
-        public DestinationFuelCalculator.Result Compute()
+        public CalculationResult Compute()
         {
             var altnResults = airDis.AirDisToAltnNm.Select(dis =>
             {

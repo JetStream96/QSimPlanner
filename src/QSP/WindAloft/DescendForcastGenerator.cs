@@ -25,7 +25,7 @@ namespace QSP.WindAloft
 
             for (int i = 0; i < FLs.Length; i++)
             {
-                var UVWind = windTables.GetWindUV(lat, lon, FLs[i]);
+                var UVWind = windTables.GetWindUV(lat, lon, FLs[i] * 100.0);
                 forcast[i] = Wind.FromUV(UVWind);
             }
 

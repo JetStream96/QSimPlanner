@@ -102,8 +102,10 @@
     <Compile Include="Common\Options\AppOptions.cs" />
     <Compile Include="FuelCalculation\AirDistanceCollection.cs" />
     <Compile Include="FuelCalculation\Calculators\AlternateFuelCalculator.cs" />
+    <Compile Include="FuelCalculation\Calculators\CalculationResult.cs" />
     <Compile Include="FuelCalculation\Calculators\DestinationFuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculators\FuelCalculator.cs" />
+    <Compile Include="FuelCalculation\Calculators\FuelCalculatorWithWind.cs" />
     <Compile Include="FuelCalculation\FuelCalculator.cs" />
     <Compile Include="FuelCalculation\FuelData.cs" />
     <Compile Include="FuelCalculation\FuelDataItem.cs" />

@@ -12,7 +12,7 @@
             this.para = para;
         }
 
-        public Result Compute(double airDistanceNm)
+        public CalculationResult Compute(double airDistanceNm)
         {
             double landingWeightTon = LandWeightTon();
             double timeMin =
@@ -21,7 +21,7 @@
             double fuelTon = fuelData.FuelTable.GetFuelRequired(
                 airDistanceNm, landingWeightTon);
 
-            return new Result()
+            return new CalculationResult()
             {
                 TimeMin = timeMin,
                 FuelTon = fuelTon,
@@ -35,13 +35,6 @@
                 para.FinalRsvMin * fuelData.HoldingFuelPerMinuteKg;
 
             return (para.ZfwKg + reserveFuelKg) / 1000.0;
-        }
-
-        public class Result
-        {
-            public double TimeMin;
-            public double FuelTon;
-            public double LandingWeightTon;
-        }
+        }        
     }
 }
