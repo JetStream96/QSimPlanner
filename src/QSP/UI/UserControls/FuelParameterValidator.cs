@@ -45,7 +45,7 @@ namespace QSP.UI.UserControls
                 c.TaxiTimeTxtBox, "Invalid taxi time.");
 
             double FinalRsvMin = ImportPattern2(
-                c.FinalReserveTxtBox, "Invalid time for final reserve.");
+                c.FinalReserveTxtBox, "Invalid final reserve time.");
 
             return new FuelParameters(
                 ZfwKg,
@@ -56,12 +56,7 @@ namespace QSP.UI.UserControls
                 ApuTime,
                 TaxiTime,
                 FinalRsvMin,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                WtUnit,
-                null);
+                null); //TODO:
         }
 
         private static double ImportPattern1(

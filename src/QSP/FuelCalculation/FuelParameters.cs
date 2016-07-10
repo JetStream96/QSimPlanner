@@ -1,5 +1,3 @@
-using QSP.Utilities.Units;
-
 namespace QSP.FuelCalculation
 {
     public class FuelParameters
@@ -12,11 +10,6 @@ namespace QSP.FuelCalculation
         public double ApuTimeMin { get; private set; }
         public double TaxiTimeMin { get; private set; }
         public double FinalRsvMin { get; private set; }
-        public double DisToDestNm { get; private set; }
-        public double DisToAltnNm { get; private set; }
-        public double AvgWindToDest { get; private set; }
-        public double AvgWindToAltn { get; private set; }
-        public WeightUnit WtUnit { get; private set; }
         public FuelDataItem FuelData { get; private set; }
         
         public FuelParameters(
@@ -28,11 +21,6 @@ namespace QSP.FuelCalculation
              double ApuTimeMin,
              double TaxiTimeMin,
              double FinalRsvMin,
-             double DisToDestNm,
-             double DisToAltnNm,
-             double AvgWindToDest,
-             double AvgWindToAltn,
-             WeightUnit WtUnit,
              FuelDataItem FuelData)
         {
             this.ZfwKg = ZfwKg;
@@ -43,11 +31,6 @@ namespace QSP.FuelCalculation
             this.ApuTimeMin = ApuTimeMin;
             this.TaxiTimeMin = TaxiTimeMin;
             this.FinalRsvMin = FinalRsvMin;
-            this.DisToDestNm = DisToDestNm;
-            this.DisToAltnNm = DisToAltnNm;
-            this.AvgWindToDest = AvgWindToDest;
-            this.AvgWindToAltn = AvgWindToAltn;
-            this.WtUnit = WtUnit;
             this.FuelData = FuelData;
         }
     }
