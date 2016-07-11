@@ -12,7 +12,7 @@ namespace QSP.Utilities
             }
         }
 
-        public static void ThrowWhenNegative<TException>(int x) 
+        public static void ThrowWhenNegative<TException>(int x)
             where TException : Exception, new()
         {
             if (x < 0)
@@ -21,13 +21,13 @@ namespace QSP.Utilities
             }
         }
 
-        public static void Ensure<TException>(bool x) 
+        public static void Ensure<TException>(bool x)
             where TException : Exception, new()
         {
             ThrowWhenFalse<TException>(x);
         }
-        
-        public static void ThrowWhenFalse<TException>(bool x) 
+
+        public static void ThrowWhenFalse<TException>(bool x)
             where TException : Exception, new()
         {
             if (x == false)
@@ -36,7 +36,7 @@ namespace QSP.Utilities
             }
         }
 
-        public static void ThrowWhenTrue<TException>(bool x) 
+        public static void ThrowWhenTrue<TException>(bool x)
             where TException : Exception, new()
         {
             if (x)

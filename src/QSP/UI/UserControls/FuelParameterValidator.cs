@@ -7,6 +7,7 @@ using System;
 using System.Windows.Forms;
 using static QSP.AviationTools.Constants;
 using static QSP.UI.FormInstanceGetter;
+using static QSP.Utilities.ConditionChecker;
 
 namespace QSP.UI.UserControls
 {
@@ -62,39 +63,45 @@ namespace QSP.UI.UserControls
         private static double ImportPattern1(
             WeightTextBoxController weightControl, string exceptionMsg)
         {
+            double weightKg;
+
             try
             {
-                double weightKg = weightControl.GetWeightKg();
-
-                if (weightKg >= 0.0)
-                {
-                    return weightKg;
-                }
+                weightKg = weightControl.GetWeightKg();
             }
-            catch { }
-            finally
+            catch
             {
                 throw new InvalidUserInputException(exceptionMsg);
             }
+
+            if (weightKg < 0.0)
+            {
+                throw new InvalidUserInputException(exceptionMsg);
+            }
+
+            return weightKg;
         }
 
         private static double ImportPattern2(
             object control, string exceptionMsg)
         {
+            double weightKg;
+
             try
             {
-                double weightKg = double.Parse(GetText(control));
-
-                if (weightKg >= 0.0)
-                {
-                    return weightKg;
-                }
+                weightKg = double.Parse(GetText(control));
             }
-            catch { }
-            finally
+            catch
             {
                 throw new InvalidUserInputException(exceptionMsg);
             }
+
+            if (weightKg < 0.0)
+            {
+                throw new InvalidUserInputException(exceptionMsg);
+            }
+
+            return weightKg;
         }
 
         private static string GetText(object control)

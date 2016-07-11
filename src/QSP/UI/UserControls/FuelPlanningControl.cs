@@ -120,6 +120,7 @@ namespace QSP.UI.UserControls
             findRouteBtn.Click += FindRouteClick;
             analyzeRouteBtn.Click += AnalyzeRouteClick;
             exportBtn.Click += ExportRouteFiles;
+            calculateBtn.Click += Calculate;
         }
 
         private void FillAircraftSelection()
