@@ -7,6 +7,10 @@ using System.Windows.Forms;
 using QSP.UI.Controls;
 using System.Drawing;
 using QSP.UI.Utilities;
+using QSP.Common.Options;
+using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.TerminalProcedures;
 
 namespace QSP.UI.Controllers
 {
@@ -16,26 +20,38 @@ namespace QSP.UI.Controllers
 
         private IEnumerable<Control> controlsBelow;
         private GroupBox altnGroupBox;
-        private List<AlternateRow> rows;
+        private List<AltnRow> rows;
+        private AppOptions appSettings;
+        private AirportManager airportList;
+        private WaypointList wptList;
 
         public AlternateController(
             IEnumerable<Control> controlsBelow,
-            GroupBox altnGroupBox)
+            GroupBox altnGroupBox,
+            AppOptions appSettings,
+            AirportManager airportList,
+            WaypointList wptList)
         {
             this.controlsBelow = controlsBelow;
             this.altnGroupBox = altnGroupBox;
-            rows = new List<AlternateRow>();
+            this.appSettings = appSettings;
+            this.airportList = airportList;
+            this.wptList = wptList;
+
+            rows = new List<AltnRow>();
         }
 
-        public void AddRows(int count)
+        public void AddRow()
         {
-            for (int i = 0; i < count; i++)
-            {
-                var row = new AlternateRow(i + 1);
-                row.AddToGroupBox(altnGroupBox);
-                rows.Add(row);
-                ResizeAndMove();
-            }
+            int index = rows.Count;
+            var row = new AlternateRowItems(index + 1);
+            row.AddToGroupBox(altnGroupBox);
+
+            var controller = new AltnRowControl(this, row);
+            controller.Subsribe();
+
+            rows.Add(new AltnRow() { Items = row, Control = controller });
+            ResizeAndMove();
         }
 
         private void ResizeAndMove()
@@ -45,7 +61,40 @@ namespace QSP.UI.Controllers
             controlsBelow.MoveDown(RowSeperation);
         }
 
-        public class AlternateRow
+        public struct AltnRow
+        {
+            public AlternateRowItems Items; public AltnRowControl Control;
+        }
+
+        public class AltnRowControl
+        {
+            public AlternateController Parent;
+            public AlternateRowItems Row;
+            public RouteFinderSelection Controller;
+
+            public AltnRowControl(AlternateController Parent, AlternateRowItems row)
+            {
+                this.Parent = Parent;
+                this.Row = row;
+                Controller = new RouteFinderSelection(
+                    Row.IcaoTxtBox,
+                    false,
+                    Row.RwyComboBox,
+                    new ComboBox(),
+                    new Button(),
+                    Parent.appSettings,
+                    Parent.airportList,
+                    Parent.wptList,
+                    new ProcedureFilter());
+            }
+
+            public void Subsribe()
+            {
+                Controller.Subscribe();
+            }
+        }
+
+        public class AlternateRowItems
         {
             public Label AltnNumLbl;
             public TextBox IcaoTxtBox;
@@ -73,7 +122,7 @@ namespace QSP.UI.Controllers
             }
 
             // rowNum: Larger or equal to 1.
-            public AlternateRow(int rowNum)
+            public AlternateRowItems(int rowNum)
             {
                 if (rowNum < 1)
                 {
@@ -83,7 +132,7 @@ namespace QSP.UI.Controllers
                 CreateControls(rowNum);
                 AllControls.MoveDown((rowNum - 1) * RowSeperation);
             }
-            
+
             private void CreateControls(int num)
             {
                 // AltnNumLbl
@@ -95,10 +144,11 @@ namespace QSP.UI.Controllers
 
                 // IcaoTxtBox
                 IcaoTxtBox = new TextBox();
+                IcaoTxtBox.TextAlign = HorizontalAlignment.Center;
                 IcaoTxtBox.CharacterCasing = CharacterCasing.Upper;
                 IcaoTxtBox.Font = new Font("Segoe UI", 10.2F);
-                IcaoTxtBox.Location = new Point(13, 45);
-                IcaoTxtBox.Size = new Size(91, 30);
+                IcaoTxtBox.Location = new Point(77, 20);
+                IcaoTxtBox.Size = new Size(60, 30);
                 IcaoTxtBox.Text = "";
 
                 // FindBtn 
@@ -107,14 +157,14 @@ namespace QSP.UI.Controllers
                 FindBtn.FlatStyle = FlatStyle.Flat;
                 FindBtn.Font = new Font("Segoe UI", 10.2F);
                 FindBtn.ForeColor = SystemColors.ButtonHighlight;
-                FindBtn.Location = new Point(161, 19);
-                FindBtn.Size = new Size(63, 33);
+                FindBtn.Location = new Point(141, 19);
+                FindBtn.Size = new Size(55, 33);
                 FindBtn.Text = "Find";
 
                 // RwyLbl
                 RwyLbl = new Label();
                 RwyLbl.Font = new Font("Segoe UI", 10.2F);
-                RwyLbl.Location = new Point(229, 23);
+                RwyLbl.Location = new Point(201, 23);
                 RwyLbl.Size = new Size(69, 23);
                 RwyLbl.Text = "Runway";
 
@@ -125,13 +175,13 @@ namespace QSP.UI.Controllers
                 RwyComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
                 RwyComboBox.FlatStyle = FlatStyle.Flat;
                 RwyComboBox.Font = new Font("Segoe UI", 10.2F);
-                RwyComboBox.Location = new Point(303, 19);
-                RwyComboBox.Size = new Size(84, 31);
+                RwyComboBox.Location = new Point(275, 19);
+                RwyComboBox.Size = new Size(60, 31);
 
                 // RouteLbl
                 RouteLbl = new Label();
                 RouteLbl.Font = new Font("Segoe UI", 10.2F);
-                RouteLbl.Location = new Point(404, 22);
+                RouteLbl.Location = new Point(350, 22);
                 RouteLbl.Size = new Size(55, 23);
                 RouteLbl.Text = "Route";
 
@@ -139,8 +189,8 @@ namespace QSP.UI.Controllers
                 RouteTxtBox = new TextBox();
                 RouteTxtBox.CharacterCasing = CharacterCasing.Upper;
                 RouteTxtBox.Font = new Font("Segoe UI", 10.2F);
-                RouteTxtBox.Location = new Point(464, 19);
-                RouteTxtBox.Size = new Size(525, 30);
+                RouteTxtBox.Location = new Point(410, 19);
+                RouteTxtBox.Size = new Size(494, 30);
                 RouteTxtBox.Text = "";
             }
 

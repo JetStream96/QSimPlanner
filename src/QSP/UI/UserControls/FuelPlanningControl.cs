@@ -59,6 +59,7 @@ namespace QSP.UI.UserControls
         public WeightTextBoxController MissedApproach { get; private set; }
         public WeightTextBoxController Extra { get; private set; }
         private WeightController weightControl;
+        private AlternateController altnControl;
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
 
@@ -90,6 +91,7 @@ namespace QSP.UI.UserControls
             this.aircrafts = aircrafts;
             this.fuelData = fuelData;
 
+            SetAltnController();
             SetDefaultState();
             SetOrigDestControllers();
             SetWeightController();
@@ -110,6 +112,24 @@ namespace QSP.UI.UserControls
             {
                 return (WeightUnit)wtUnitComboBox.SelectedIndex;
             }
+        }
+
+        private void SetAltnController()
+        {
+            var controlsBelow = new Control[] 
+            {
+                addAltnBtn,
+                calculateBtn,
+                fuelParaGroupBox,
+                fuelReportGroupBox
+            };
+
+            altnControl = new AlternateController(
+                controlsBelow,
+                alternateGroupBox,
+                appSettings,
+                airportList,
+                wptList);
         }
 
         private void SubscribeEventHandlers()
@@ -384,7 +404,7 @@ namespace QSP.UI.UserControls
 
             var validator = new FuelParameterValidator(this);
             FuelParameters para = null;
-            
+
             try
             {
                 para = validator.Validate();
@@ -396,10 +416,10 @@ namespace QSP.UI.UserControls
             }
 
             var data = GetFuelData();
-            FuelReport fuelReport =  
+            FuelReport fuelReport =
                     new FuelCalculatorWithWind(data, para, windTables)
-                    .Compute(routeToDest.Expanded, new Route[] { }); 
-           
+                    .Compute(routeToDest.Expanded, new Route[] { });
+
             if (fuelReport.TotalFuelKG > data.MaxFuelKg)
             {
                 MessageBox.Show(InsufficientFuelMsg(
@@ -442,6 +462,11 @@ namespace QSP.UI.UserControls
             return "Insufficient fuel\n" +
                 $"Fuel required for this flight is {fuelReqKG} {wtUnit}. " +
                 $"Maximum fuel tank capacity is {fuelCapacityKG} {wtUnit}.";
-        }       
+        }
+
+        private void findAltnBtn_Click(object sender, EventArgs e)
+        {
+            altnControl.AddRow();
+        }
     }
 }

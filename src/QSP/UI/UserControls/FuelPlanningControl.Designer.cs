@@ -54,16 +54,7 @@
             this.Label6 = new System.Windows.Forms.Label();
             this.calculateBtn = new System.Windows.Forms.Button();
             this.alternateGroupBox = new System.Windows.Forms.GroupBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.Label38 = new System.Windows.Forms.Label();
-            this.altnTxtBox = new System.Windows.Forms.TextBox();
-            this.Label33 = new System.Windows.Forms.Label();
-            this.findAltnBtn = new System.Windows.Forms.Button();
+            this.addAltnBtn = new System.Windows.Forms.Button();
             this.routeDisLbl = new System.Windows.Forms.Label();
             this.TableLayoutPanel24 = new System.Windows.Forms.TableLayoutPanel();
             this.exportBtn = new System.Windows.Forms.Button();
@@ -106,8 +97,6 @@
             this.sidComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.destRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.origRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.comboBoxWithBorder1 = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.altnRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.registrationComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
@@ -129,7 +118,7 @@
             this.fuelParaGroupBox.Controls.Add(this.TableLayoutPanel20);
             this.fuelParaGroupBox.Controls.Add(this.TableLayoutPanel1);
             this.fuelParaGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelParaGroupBox.Location = new System.Drawing.Point(5, 440);
+            this.fuelParaGroupBox.Location = new System.Drawing.Point(5, 405);
             this.fuelParaGroupBox.Name = "fuelParaGroupBox";
             this.fuelParaGroupBox.Size = new System.Drawing.Size(1091, 170);
             this.fuelParaGroupBox.TabIndex = 38;
@@ -456,7 +445,7 @@
             this.calculateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.calculateBtn.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.calculateBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.calculateBtn.Location = new System.Drawing.Point(801, 618);
+            this.calculateBtn.Location = new System.Drawing.Point(801, 583);
             this.calculateBtn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.calculateBtn.Name = "calculateBtn";
             this.calculateBtn.Size = new System.Drawing.Size(295, 53);
@@ -466,159 +455,37 @@
             // 
             // alternateGroupBox
             // 
-            this.alternateGroupBox.Controls.Add(this.label24);
-            this.alternateGroupBox.Controls.Add(this.textBox3);
-            this.alternateGroupBox.Controls.Add(this.comboBoxWithBorder1);
-            this.alternateGroupBox.Controls.Add(this.label3);
-            this.alternateGroupBox.Controls.Add(this.textBox1);
-            this.alternateGroupBox.Controls.Add(this.label9);
-            this.alternateGroupBox.Controls.Add(this.button1);
-            this.alternateGroupBox.Controls.Add(this.altnRwyComboBox);
-            this.alternateGroupBox.Controls.Add(this.Label38);
-            this.alternateGroupBox.Controls.Add(this.altnTxtBox);
-            this.alternateGroupBox.Controls.Add(this.Label33);
-            this.alternateGroupBox.Controls.Add(this.findAltnBtn);
+            this.alternateGroupBox.Controls.Add(this.addAltnBtn);
             this.alternateGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.alternateGroupBox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.alternateGroupBox.Location = new System.Drawing.Point(5, 340);
             this.alternateGroupBox.Name = "alternateGroupBox";
-            this.alternateGroupBox.Size = new System.Drawing.Size(1091, 96);
+            this.alternateGroupBox.Size = new System.Drawing.Size(1091, 61);
             this.alternateGroupBox.TabIndex = 35;
             this.alternateGroupBox.TabStop = false;
             this.alternateGroupBox.Text = "Alternate";
             // 
-            // label24
+            // addAltnBtn
             // 
-            this.label24.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(404, 22);
-            this.label24.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(55, 23);
-            this.label24.TabIndex = 85;
-            this.label24.Text = "Route";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.textBox3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textBox3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(464, 19);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(0);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(525, 30);
-            this.textBox3.TabIndex = 84;
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(229, 61);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 23);
-            this.label3.TabIndex = 74;
-            this.label3.Text = "Runway";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(81, 58);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(73, 30);
-            this.textBox1.TabIndex = 76;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label9
-            // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(12, 62);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(65, 23);
-            this.label9.TabIndex = 77;
-            this.label9.Text = "ALTN 1";
-            // 
-            // button1
-            // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.button1.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(161, 57);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(63, 33);
-            this.button1.TabIndex = 78;
-            this.button1.Text = "Find";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // Label38
-            // 
-            this.Label38.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Label38.AutoSize = true;
-            this.Label38.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label38.Location = new System.Drawing.Point(229, 23);
-            this.Label38.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.Label38.Name = "Label38";
-            this.Label38.Size = new System.Drawing.Size(69, 23);
-            this.Label38.TabIndex = 37;
-            this.Label38.Text = "Runway";
-            // 
-            // altnTxtBox
-            // 
-            this.altnTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.altnTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.altnTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.altnTxtBox.Location = new System.Drawing.Point(81, 20);
-            this.altnTxtBox.Margin = new System.Windows.Forms.Padding(0);
-            this.altnTxtBox.Name = "altnTxtBox";
-            this.altnTxtBox.Size = new System.Drawing.Size(73, 30);
-            this.altnTxtBox.TabIndex = 54;
-            this.altnTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // Label33
-            // 
-            this.Label33.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Label33.AutoSize = true;
-            this.Label33.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label33.Location = new System.Drawing.Point(12, 24);
-            this.Label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Label33.Name = "Label33";
-            this.Label33.Size = new System.Drawing.Size(65, 23);
-            this.Label33.TabIndex = 57;
-            this.Label33.Text = "ALTN 1";
-            // 
-            // findAltnBtn
-            // 
-            this.findAltnBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.findAltnBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.findAltnBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.findAltnBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.findAltnBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.findAltnBtn.Location = new System.Drawing.Point(161, 19);
-            this.findAltnBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.findAltnBtn.Name = "findAltnBtn";
-            this.findAltnBtn.Size = new System.Drawing.Size(63, 33);
-            this.findAltnBtn.TabIndex = 73;
-            this.findAltnBtn.Text = "Find";
-            this.findAltnBtn.UseVisualStyleBackColor = false;
+            this.addAltnBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.addAltnBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addAltnBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addAltnBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.addAltnBtn.Location = new System.Drawing.Point(13, 21);
+            this.addAltnBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.addAltnBtn.Name = "addAltnBtn";
+            this.addAltnBtn.Size = new System.Drawing.Size(60, 33);
+            this.addAltnBtn.TabIndex = 73;
+            this.addAltnBtn.Text = "Add";
+            this.addAltnBtn.UseVisualStyleBackColor = false;
+            this.addAltnBtn.Click += new System.EventHandler(this.findAltnBtn_Click);
             // 
             // routeDisLbl
             // 
             this.routeDisLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.routeDisLbl.AutoSize = true;
             this.routeDisLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.routeDisLbl.Location = new System.Drawing.Point(692, 96);
+            this.routeDisLbl.Location = new System.Drawing.Point(698, 96);
             this.routeDisLbl.Name = "routeDisLbl";
             this.routeDisLbl.Size = new System.Drawing.Size(207, 23);
             this.routeDisLbl.TabIndex = 16;
@@ -627,18 +494,18 @@
             // TableLayoutPanel24
             // 
             this.TableLayoutPanel24.ColumnCount = 2;
-            this.TableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
-            this.TableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
+            this.TableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.TableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.TableLayoutPanel24.Controls.Add(this.exportBtn, 1, 1);
             this.TableLayoutPanel24.Controls.Add(this.findRouteBtn, 0, 0);
             this.TableLayoutPanel24.Controls.Add(this.analyzeRouteBtn, 1, 0);
             this.TableLayoutPanel24.Controls.Add(this.showMapBtn, 0, 1);
-            this.TableLayoutPanel24.Location = new System.Drawing.Point(899, 119);
+            this.TableLayoutPanel24.Location = new System.Drawing.Point(907, 119);
             this.TableLayoutPanel24.Name = "TableLayoutPanel24";
             this.TableLayoutPanel24.RowCount = 2;
             this.TableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.TableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.TableLayoutPanel24.Size = new System.Drawing.Size(190, 70);
+            this.TableLayoutPanel24.Size = new System.Drawing.Size(180, 70);
             this.TableLayoutPanel24.TabIndex = 48;
             // 
             // exportBtn
@@ -647,10 +514,10 @@
             this.exportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exportBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exportBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.exportBtn.Location = new System.Drawing.Point(95, 35);
+            this.exportBtn.Location = new System.Drawing.Point(90, 35);
             this.exportBtn.Margin = new System.Windows.Forms.Padding(0);
             this.exportBtn.Name = "exportBtn";
-            this.exportBtn.Size = new System.Drawing.Size(90, 33);
+            this.exportBtn.Size = new System.Drawing.Size(85, 33);
             this.exportBtn.TabIndex = 45;
             this.exportBtn.Text = "Export";
             this.exportBtn.UseVisualStyleBackColor = false;
@@ -664,7 +531,7 @@
             this.findRouteBtn.Location = new System.Drawing.Point(0, 0);
             this.findRouteBtn.Margin = new System.Windows.Forms.Padding(0);
             this.findRouteBtn.Name = "findRouteBtn";
-            this.findRouteBtn.Size = new System.Drawing.Size(90, 33);
+            this.findRouteBtn.Size = new System.Drawing.Size(85, 33);
             this.findRouteBtn.TabIndex = 14;
             this.findRouteBtn.Text = "Find";
             this.findRouteBtn.UseVisualStyleBackColor = false;
@@ -675,10 +542,10 @@
             this.analyzeRouteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.analyzeRouteBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.analyzeRouteBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.analyzeRouteBtn.Location = new System.Drawing.Point(95, 0);
+            this.analyzeRouteBtn.Location = new System.Drawing.Point(90, 0);
             this.analyzeRouteBtn.Margin = new System.Windows.Forms.Padding(0);
             this.analyzeRouteBtn.Name = "analyzeRouteBtn";
-            this.analyzeRouteBtn.Size = new System.Drawing.Size(90, 33);
+            this.analyzeRouteBtn.Size = new System.Drawing.Size(85, 33);
             this.analyzeRouteBtn.TabIndex = 30;
             this.analyzeRouteBtn.Text = "Analyze";
             this.analyzeRouteBtn.UseVisualStyleBackColor = false;
@@ -692,7 +559,7 @@
             this.showMapBtn.Location = new System.Drawing.Point(0, 35);
             this.showMapBtn.Margin = new System.Windows.Forms.Padding(0);
             this.showMapBtn.Name = "showMapBtn";
-            this.showMapBtn.Size = new System.Drawing.Size(90, 33);
+            this.showMapBtn.Size = new System.Drawing.Size(85, 33);
             this.showMapBtn.TabIndex = 44;
             this.showMapBtn.Text = "Map";
             this.showMapBtn.UseVisualStyleBackColor = false;
@@ -716,7 +583,7 @@
             this.mainRouteRichTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainRouteRichTxtBox.Location = new System.Drawing.Point(13, 119);
             this.mainRouteRichTxtBox.Name = "mainRouteRichTxtBox";
-            this.mainRouteRichTxtBox.Size = new System.Drawing.Size(880, 65);
+            this.mainRouteRichTxtBox.Size = new System.Drawing.Size(891, 65);
             this.mainRouteRichTxtBox.TabIndex = 12;
             this.mainRouteRichTxtBox.Text = "";
             // 
@@ -1075,7 +942,7 @@
             this.fuelReportGroupBox.BackColor = System.Drawing.Color.Transparent;
             this.fuelReportGroupBox.Controls.Add(this.fuelReportTxtBox);
             this.fuelReportGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelReportGroupBox.Location = new System.Drawing.Point(5, 679);
+            this.fuelReportGroupBox.Location = new System.Drawing.Point(5, 644);
             this.fuelReportGroupBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.fuelReportGroupBox.Name = "fuelReportGroupBox";
             this.fuelReportGroupBox.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -1149,36 +1016,6 @@
             this.origRwyComboBox.Size = new System.Drawing.Size(79, 31);
             this.origRwyComboBox.TabIndex = 47;
             // 
-            // comboBoxWithBorder1
-            // 
-            this.comboBoxWithBorder1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.comboBoxWithBorder1.BorderColor = System.Drawing.Color.DimGray;
-            this.comboBoxWithBorder1.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.comboBoxWithBorder1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxWithBorder1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBoxWithBorder1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxWithBorder1.FormattingEnabled = true;
-            this.comboBoxWithBorder1.Location = new System.Drawing.Point(303, 57);
-            this.comboBoxWithBorder1.Margin = new System.Windows.Forms.Padding(0);
-            this.comboBoxWithBorder1.Name = "comboBoxWithBorder1";
-            this.comboBoxWithBorder1.Size = new System.Drawing.Size(84, 31);
-            this.comboBoxWithBorder1.TabIndex = 75;
-            // 
-            // altnRwyComboBox
-            // 
-            this.altnRwyComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.altnRwyComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.altnRwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.altnRwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.altnRwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.altnRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.altnRwyComboBox.FormattingEnabled = true;
-            this.altnRwyComboBox.Location = new System.Drawing.Point(303, 19);
-            this.altnRwyComboBox.Margin = new System.Windows.Forms.Padding(0);
-            this.altnRwyComboBox.Name = "altnRwyComboBox";
-            this.altnRwyComboBox.Size = new System.Drawing.Size(84, 31);
-            this.altnRwyComboBox.TabIndex = 41;
-            // 
             // registrationComboBox
             // 
             this.registrationComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -1247,7 +1084,6 @@
             this.TableLayoutPanel1.ResumeLayout(false);
             this.TableLayoutPanel1.PerformLayout();
             this.alternateGroupBox.ResumeLayout(false);
-            this.alternateGroupBox.PerformLayout();
             this.TableLayoutPanel24.ResumeLayout(false);
             this.groupBoxBasicInfo.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -1277,10 +1113,7 @@
         internal System.Windows.Forms.GroupBox alternateGroupBox;
         internal System.Windows.Forms.RichTextBox mainRouteRichTxtBox;
         internal System.Windows.Forms.GroupBox groupBoxBasicInfo;
-        internal System.Windows.Forms.Label Label38;
-        internal System.Windows.Forms.TextBox altnTxtBox;
-        internal System.Windows.Forms.Button findAltnBtn;
-        internal System.Windows.Forms.Label Label33;
+        internal System.Windows.Forms.Button addAltnBtn;
         internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.TableLayoutPanel TableLayoutPanel2;
         private Controls.ComboBoxWithBorder acListComboBox;
@@ -1296,7 +1129,6 @@
         private System.Windows.Forms.Label label21;
         private Controls.ComboBoxWithBorder registrationComboBox;
         private System.Windows.Forms.Label label22;
-        private Controls.ComboBoxWithBorder altnRwyComboBox;
         internal System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
@@ -1328,13 +1160,6 @@
         private System.Windows.Forms.Button analyzeRouteBtn;
         private System.Windows.Forms.Label routeDisLbl;
         private System.Windows.Forms.Button calculateBtn;
-        internal System.Windows.Forms.Label label24;
-        internal System.Windows.Forms.TextBox textBox3;
-        private Controls.ComboBoxWithBorder comboBoxWithBorder1;
-        internal System.Windows.Forms.Label label3;
-        internal System.Windows.Forms.TextBox textBox1;
-        internal System.Windows.Forms.Label label9;
-        internal System.Windows.Forms.Button button1;
         internal System.Windows.Forms.GroupBox fuelReportGroupBox;
         internal System.Windows.Forms.RichTextBox fuelReportTxtBox;
         private Controls.ComboBoxWithBorder wtUnitComboBox;
