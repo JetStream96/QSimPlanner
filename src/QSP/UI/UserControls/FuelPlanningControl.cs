@@ -1,8 +1,11 @@
 ﻿using QSP.AircraftProfiles;
 using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools.Coordinates;
+using QSP.Common;
 using QSP.Common.Options;
 using QSP.FuelCalculation;
+using QSP.FuelCalculation.Calculators;
+using QSP.LibraryExtension;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -30,14 +33,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static QSP.UI.Factories.FormFactory;
-using static QSP.UI.Factories.ToolTipFactory;
-using QSP.LibraryExtension;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Doubles;
+using static QSP.UI.Factories.FormFactory;
+using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.Utilities.Units.Conversions;
-using QSP.FuelCalculation.Calculators;
-using QSP.Common;
 
 namespace QSP.UI.UserControls
 {
@@ -152,7 +152,9 @@ namespace QSP.UI.UserControls
                 alternateGroupBox,
                 appSettings,
                 airportList,
-                wptList);
+                wptList,
+                tracksInUse,
+                ParentForm);
 
             addAltn(this, EventArgs.Empty);
         }
@@ -316,9 +318,9 @@ namespace QSP.UI.UserControls
             }
 
             var data = GetFuelData();
-            FuelReport fuelReport =
-                    new FuelCalculatorWithWind(data, para, windTables)
-                    .Compute(RouteToDest.Expanded, new Route[] { });
+            var fuelReport =
+                new FuelCalculatorWithWind(data, para, windTables)
+                .Compute(RouteToDest.Expanded, new Route[] { }); // TODO:
 
             if (fuelReport.TotalFuelKG > data.MaxFuelKg)
             {

@@ -11,6 +11,8 @@ using QSP.Common.Options;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.TerminalProcedures;
+using QSP.RouteFinding.Routes.TrackInUse;
+using QSP.UI.UserControls;
 
 namespace QSP.UI.Controllers
 {
@@ -24,19 +26,25 @@ namespace QSP.UI.Controllers
         private AppOptions appSettings;
         private AirportManager airportList;
         private WaypointList wptList;
+        private TrackInUseCollection tracksInUse;
+        private Form parentForm;
 
         public AlternateController(
             IEnumerable<Control> controlsBelow,
             GroupBox altnGroupBox,
             AppOptions appSettings,
             AirportManager airportList,
-            WaypointList wptList)
+            WaypointList wptList,
+            TrackInUseCollection tracksInUse,
+            Form parentForm)
         {
             this.controlsBelow = controlsBelow;
             this.altnGroupBox = altnGroupBox;
             this.appSettings = appSettings;
             this.airportList = airportList;
             this.wptList = wptList;
+            this.tracksInUse = tracksInUse;
+            this.parentForm = parentForm;
 
             rows = new List<AltnRow>();
         }
@@ -71,11 +79,15 @@ namespace QSP.UI.Controllers
             public AlternateController Parent;
             public AlternateRowItems Row;
             public RouteFinderSelection Controller;
+            public RouteOptionBtns OptionBtns;
 
-            public AltnRowControl(AlternateController Parent, AlternateRowItems row)
+            public AltnRowControl(
+                AlternateController Parent,
+                AlternateRowItems row)
             {
                 this.Parent = Parent;
                 this.Row = row;
+
                 Controller = new RouteFinderSelection(
                     Row.IcaoTxtBox,
                     false,
@@ -86,11 +98,39 @@ namespace QSP.UI.Controllers
                     Parent.airportList,
                     Parent.wptList,
                     new ProcedureFilter());
+
+                SetOptionBtns();
+            }
+
+            private void SetOptionBtns()
+            {
+                OptionBtns = new RouteOptionBtns();
+                OptionBtns.Visible = false;
+                
+                // TODO: still wrong.
+                var btnAbcLoc = Row.ShowMoreBtn.PointToScreen(Point.Empty);
+                int x = btnAbcLoc.X + Row.ShowMoreBtn.Width - OptionBtns.Width;
+                int y = btnAbcLoc.Y + Row.ShowMoreBtn.Height + 10;
+                OptionBtns.Location = new Point(x, y);
+                Parent.parentForm.Controls.Add(OptionBtns);
             }
 
             public void Subsribe()
             {
                 Controller.Subscribe();
+                Row.ShowMoreBtn.Click += ShowBtns;
+
+            }
+
+            private void ShowBtns(object sender, EventArgs e)
+            {
+                OptionBtns.Visible = true;
+                OptionBtns.BringToFront();
+            }
+
+            private void HideBtns(object sender, EventArgs e)
+            {
+                OptionBtns.Visible = false;
             }
         }
 
@@ -104,6 +144,7 @@ namespace QSP.UI.Controllers
             public Label RouteLbl;
             public TextBox RouteTxtBox;
             public Label DisLbl;
+            public Button ShowMoreBtn;
 
             public Control[] AllControls
             {
@@ -118,7 +159,8 @@ namespace QSP.UI.Controllers
                         RwyComboBox,
                         RouteLbl,
                         RouteTxtBox,
-                        DisLbl
+                        DisLbl,
+                        ShowMoreBtn
                     };
                 }
             }
@@ -201,6 +243,17 @@ namespace QSP.UI.Controllers
                 DisLbl.Location = new Point(910, 22);
                 DisLbl.AutoSize = true;
                 DisLbl.Text = "";
+
+                // OptionBtn
+                ShowMoreBtn = new Button();
+                ShowMoreBtn.BackColor = SystemColors.ButtonHighlight;
+                ShowMoreBtn.FlatStyle = FlatStyle.Flat;
+                ShowMoreBtn.BackgroundImage = Properties.Resources.add_icon;
+                ShowMoreBtn.BackgroundImageLayout = ImageLayout.Zoom;
+                ShowMoreBtn.ForeColor = Color.FromArgb(20, 20, 20);
+                ShowMoreBtn.Location = new Point(1050, 19);
+                ShowMoreBtn.Size = new Size(33, 33);
+                ShowMoreBtn.Text = "";
             }
 
             public void AddToGroupBox(GroupBox alternateGroupBox)

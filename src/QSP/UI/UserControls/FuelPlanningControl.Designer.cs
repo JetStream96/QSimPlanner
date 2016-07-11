@@ -88,6 +88,7 @@
             this.fromRwyLbl = new System.Windows.Forms.Label();
             this.fuelReportGroupBox = new System.Windows.Forms.GroupBox();
             this.fuelReportTxtBox = new System.Windows.Forms.RichTextBox();
+            this.routeOptionBtns = new QSP.UI.UserControls.RouteOptionBtns();
             this.starComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.sidComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.destRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
@@ -95,7 +96,6 @@
             this.registrationComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.routeOptionBtns = new QSP.UI.UserControls.RouteOptionBtns();
             this.fuelParaGroupBox.SuspendLayout();
             this.TableLayoutPanel20.SuspendLayout();
             this.TableLayoutPanel1.SuspendLayout();
@@ -885,6 +885,14 @@
             this.fuelReportTxtBox.TabIndex = 1;
             this.fuelReportTxtBox.Text = "";
             // 
+            // routeOptionBtns
+            // 
+            this.routeOptionBtns.BackColor = System.Drawing.Color.White;
+            this.routeOptionBtns.Location = new System.Drawing.Point(907, 117);
+            this.routeOptionBtns.Name = "routeOptionBtns";
+            this.routeOptionBtns.Size = new System.Drawing.Size(180, 70);
+            this.routeOptionBtns.TabIndex = 62;
+            // 
             // starComboBox
             // 
             this.starComboBox.BorderColor = System.Drawing.Color.DimGray;
@@ -984,14 +992,6 @@
             this.acListComboBox.Name = "acListComboBox";
             this.acListComboBox.Size = new System.Drawing.Size(203, 31);
             this.acListComboBox.TabIndex = 16;
-            // 
-            // routeOptionBtns
-            // 
-            this.routeOptionBtns.BackColor = System.Drawing.Color.White;
-            this.routeOptionBtns.Location = new System.Drawing.Point(907, 117);
-            this.routeOptionBtns.Name = "routeOptionBtns";
-            this.routeOptionBtns.Size = new System.Drawing.Size(180, 70);
-            this.routeOptionBtns.TabIndex = 62;
             // 
             // FuelPlanningControl
             // 
