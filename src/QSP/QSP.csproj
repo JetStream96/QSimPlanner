@@ -565,9 +565,6 @@
     <Content Include="PerformanceData\FuelCalc\777F.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\prohibitIcon_small.png" />
-    <None Include="Resources\prohibitIcon.png" />
-    <None Include="Resources\filter.png" />
     <EmbeddedResource Include="UI\Forms\QspForm.resx">
       <DependentUpon>QspForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -580,7 +577,6 @@
     <EmbeddedResource Include="UI\UserControls\AdvancedRouteTool.resx">
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Resources\question_mark.png" />
     <None Include="Resources\info.png" />
     <None Include="Resources\chart3Faa.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -752,14 +748,14 @@
     </Content>
     <None Include="Resources\noun_1329.png" />
     <None Include="Resources\delete-icon.png" />
-    <None Include="Resources\Warning_m4.png" />
+    <None Include="Resources\red_light.png" />
     <None Include="Resources\VORTAC.ico" />
     <None Include="Resources\Triangle_128.png" />
     <None Include="Resources\processing9.png" />
     <None Include="Resources\PfdNgx.png" />
-    <None Include="Resources\Okay_m4.png" />
+    <None Include="Resources\green_light.png" />
     <None Include="Resources\check-icon.png" />
-    <None Include="Resources\Caution_m4.png" />
+    <None Include="Resources\yellow_light.png" />
     <None Include="Resources\arrow3.png" />
   </ItemGroup>
   <ItemGroup>
