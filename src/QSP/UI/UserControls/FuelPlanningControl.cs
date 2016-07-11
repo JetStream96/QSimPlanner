@@ -359,7 +359,12 @@ namespace QSP.UI.UserControls
                 aircrafts.Find(registrationComboBox.Text).Config;
         }
 
-        private FuelDataItem GetFuelData()
+        /// <summary>
+        /// Gets the fuel data of currently selected aircraft.
+        /// Returns null if no aircraft exists in ComboBox.
+        /// </summary>
+        /// <returns></returns>
+        public FuelDataItem GetFuelData()
         {
             if (registrationComboBox.SelectedIndex < 0)
             {

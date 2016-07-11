@@ -56,7 +56,7 @@ namespace QSP.UI.UserControls
                 ApuTime,
                 TaxiTime,
                 FinalRsvMin,
-                null); //TODO:
+                c.GetFuelData());
         }
 
         private static double ImportPattern1(
