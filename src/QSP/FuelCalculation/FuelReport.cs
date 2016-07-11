@@ -3,10 +3,11 @@ using System;
 using System.Text;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.TimeFormat;
+using static QSP.MathTools.Doubles;
 
-namespace QSP
+namespace QSP.FuelCalculation
 {
-    public class FuelReportResult
+    public class FuelReport
     {
         private const int LeftPad = 11;
         private const int RightPad = 7;
@@ -20,20 +21,20 @@ namespace QSP
         public double ApuKg { get; private set; }
         public double TaxiKg { get; private set; }
         public double FinalRsvKg { get; private set; }
-        public int TimeToDest { get; private set; }
-        public int TimeToAltn { get; private set; }
-        public int TimeExtra { get; private set; }
-        public int TimeHold { get; private set; }
-        public int TimeFinalRsv { get; private set; }
-        public int TimeApu { get; private set; }
-        public int TimeTaxi { get; private set; }
+        public double TimeToDestMin { get; private set; }
+        public double TimeToAltnMin { get; private set; }
+        public double TimeExtraMin { get; private set; }
+        public double TimeHoldMin { get; private set; }
+        public double TimeFinalRsvMin { get; private set; }
+        public double TimeApuMin { get; private set; }
+        public double TimeTaxiMin { get; private set; }
 
         // Additional Results
         public double TakeoffFuelKg { get; private set; }
         public double LdgFuelKgPredict { get; private set; }
         public double TotalFuelKG { get; private set; }
 
-        public FuelReportResult(
+        public FuelReport(
              double FuelToDestTon,
              double FuelToAltnTon,
              double ContKg,
@@ -42,13 +43,13 @@ namespace QSP
              double ApuKg,
              double TaxiKg,
              double FinalRsvKg,
-             int TimeToDest,
-             int TimeToAltn,
-             int TimeExtra,
-             int TimeHold,
-             int TimeFinalRsv,
-             int TimeApu,
-             int TimeTaxi)
+             double TimeToDestMin,
+             double TimeToAltnMin,
+             double TimeExtraMin,
+             double TimeHoldMin,
+             double TimeFinalRsvMin,
+             double TimeApuMin,
+             double TimeTaxiMin)
         {
             this.FuelToDestTon = FuelToDestTon;
             this.FuelToAltnTon = FuelToAltnTon;
@@ -58,26 +59,26 @@ namespace QSP
             this.ApuKg = ApuKg;
             this.TaxiKg = TaxiKg;
             this.FinalRsvKg = FinalRsvKg;
-            this.TimeToDest = TimeToDest;
-            this.TimeToAltn = TimeToAltn;
-            this.TimeExtra = TimeExtra;
-            this.TimeHold = TimeHold;
-            this.TimeFinalRsv = TimeFinalRsv;
-            this.TimeApu = TimeApu;
-            this.TimeTaxi = TimeTaxi;
+            this.TimeToDestMin = TimeToDestMin;
+            this.TimeToAltnMin = TimeToAltnMin;
+            this.TimeExtraMin = TimeExtraMin;
+            this.TimeHoldMin = TimeHoldMin;
+            this.TimeFinalRsvMin = TimeFinalRsvMin;
+            this.TimeApuMin = TimeApuMin;
+            this.TimeTaxiMin = TimeTaxiMin;
 
             SetAdditionalPara();
         }
         
         private void SetAdditionalPara()
         {
-            TakeoffFuelKg = FuelToDestTon * 1000 + ContKg + HoldKg +
-                ExtraKG + FuelToAltnTon * 1000 + FinalRsvKg;
+            TakeoffFuelKg = FuelToDestTon * 1000.0 + ContKg + HoldKg +
+                ExtraKG + FuelToAltnTon * 1000.0 + FinalRsvKg;
 
-            LdgFuelKgPredict = TakeoffFuelKg - FuelToDestTon * 1000;
+            LdgFuelKgPredict = TakeoffFuelKg - FuelToDestTon * 1000.0;
 
-            TotalFuelKG = FuelToDestTon * 1000 + ContKg + HoldKg +
-                ExtraKG + ApuKg + TaxiKg + FuelToAltnTon * 1000 + FinalRsvKg;
+            TotalFuelKG = FuelToDestTon * 1000.0 + ContKg + HoldKg +
+                ExtraKG + ApuKg + TaxiKg + FuelToAltnTon * 1000.0 + FinalRsvKg;
         }
 
         public string ToString(WeightUnit unit)
@@ -148,26 +149,31 @@ namespace QSP
                     break;
             }
 
-            int time_cont = TimeToDest / 20;
-            int time_TO = TimeToDest + time_cont + TimeExtra + TimeHold + TimeFinalRsv + TimeToAltn;
-            int time_total = time_TO + TimeApu + TimeTaxi;
+            double time_cont = TimeToDestMin / 20;
+            double time_TO = TimeToDestMin + time_cont + TimeExtraMin + TimeHoldMin + TimeFinalRsvMin + TimeToAltnMin;
+            double time_total = time_TO + TimeApuMin + TimeTaxiMin;
 
             StringBuilder OutputText = new StringBuilder();
 
             OutputText.AppendLine(wtUnitDisplay + "\n\n              FUEL  TIME");
-            OutputText.AppendLine(trip_s + "  " + MinToHHMM(TimeToDest));
-            OutputText.AppendLine(contingency_s + "  " + MinToHHMM(time_cont));
-            OutputText.AppendLine(hold_s + "  " + MinToHHMM(TimeHold));
-            OutputText.AppendLine(extra_s + "  " + MinToHHMM(TimeExtra));
-            OutputText.AppendLine(alternate_s + "  " + MinToHHMM(TimeToAltn));
-            OutputText.AppendLine(final_rsv_s + "  " + MinToHHMM(TimeFinalRsv) + Environment.NewLine);
-            OutputText.AppendLine(takeoff_s + "  " + MinToHHMM(time_TO) + Environment.NewLine);
-            OutputText.AppendLine(apu_s + "  " + MinToHHMM(TimeApu));
-            OutputText.AppendLine(taxi_s + "  " + MinToHHMM(TimeTaxi) + Environment.NewLine);
-            OutputText.AppendLine(total_s + "  " + MinToHHMM(time_total));
+            OutputText.AppendLine(trip_s + "  " + MinToString(TimeToDestMin));
+            OutputText.AppendLine(contingency_s + "  " + MinToString(time_cont));
+            OutputText.AppendLine(hold_s + "  " + MinToString(TimeHoldMin));
+            OutputText.AppendLine(extra_s + "  " + MinToString(TimeExtraMin));
+            OutputText.AppendLine(alternate_s + "  " + MinToString(TimeToAltnMin));
+            OutputText.AppendLine(final_rsv_s + "  " + MinToString(TimeFinalRsvMin) + Environment.NewLine);
+            OutputText.AppendLine(takeoff_s + "  " + MinToString(time_TO) + Environment.NewLine);
+            OutputText.AppendLine(apu_s + "  " + MinToString(TimeApuMin));
+            OutputText.AppendLine(taxi_s + "  " + MinToString(TimeTaxiMin) + Environment.NewLine);
+            OutputText.AppendLine(total_s + "  " + MinToString(time_total));
             OutputText.Append(fmc_rsv_s);
 
             return OutputText.ToString();
+        }
+
+        private static string MinToString(double minutes)
+        {
+            return MinToHHMM(RoundToInt(minutes));
         }
 
         private string LineFormat(string item, int value)

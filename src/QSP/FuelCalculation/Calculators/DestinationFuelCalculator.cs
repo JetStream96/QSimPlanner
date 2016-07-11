@@ -41,7 +41,7 @@
             return altnResult.LandingWeightTon +
                 altnResult.FuelTon +
                 (holdingFuelKg + para.MissedAppFuelKg + para.ExtraFuelKg)
-                / 1000;
+                / 1000.0;
         }
     }
 }

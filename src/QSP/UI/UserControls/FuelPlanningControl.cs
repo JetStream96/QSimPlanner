@@ -36,6 +36,8 @@ using QSP.LibraryExtension;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Doubles;
 using static QSP.Utilities.Units.Conversions;
+using QSP.FuelCalculation.Calculators;
+using QSP.Common;
 
 namespace QSP.UI.UserControls
 {
@@ -60,7 +62,7 @@ namespace QSP.UI.UserControls
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
 
-        private RouteGroup mainRoute;
+        private RouteGroup routeToDest;
 
         public FuelPlanningControl()
         {
@@ -188,8 +190,8 @@ namespace QSP.UI.UserControls
                 origController.Icao, origController.Rwy, sid,
                 destController.Icao, destController.Rwy, star);
 
-            mainRoute = new RouteGroup(result, tracksInUse);
-            var route = mainRoute.Expanded;
+            routeToDest = new RouteGroup(result, tracksInUse);
+            var route = routeToDest.Expanded;
 
             mainRouteRichTxtBox.Text = route.ToString(false, false);
             RouteDistanceDisplay.UpdateRouteDistanceLbl(routeDisLbl, route);
@@ -199,7 +201,7 @@ namespace QSP.UI.UserControls
         {
             var cmds = appSettings.ExportCommands.Values;
             var writer = new FileExporter(
-                mainRoute.Expanded, airportList, cmds);
+                routeToDest.Expanded, airportList, cmds);
 
             var reports = writer.Export();
             ShowReports(reports);
@@ -212,7 +214,7 @@ namespace QSP.UI.UserControls
             {
                 mainRouteRichTxtBox.Text = mainRouteRichTxtBox.Text.ToUpper();
 
-                mainRoute =
+                routeToDest =
                     new RouteGroup(
                         RouteAnalyzerFacade.AnalyzeWithCommands(
                             mainRouteRichTxtBox.Text,
@@ -225,7 +227,7 @@ namespace QSP.UI.UserControls
                             wptList),
                         tracksInUse);
 
-                var route = mainRoute.Expanded;
+                var route = routeToDest.Expanded;
 
                 mainRouteRichTxtBox.Text = route.ToString(false, false);
                 RouteDistanceDisplay.UpdateRouteDistanceLbl(
@@ -374,39 +376,32 @@ namespace QSP.UI.UserControls
             fuelReportTxtBox.ForeColor = Color.Black;
             fuelReportTxtBox.Text = "";
 
-            var parameters = new FuelCalculationParameters();
-            parameters.FillInDefaultValueIfLeftBlank();
-
+            var validator = new FuelParameterValidator(this);
+            FuelParameters para = null;
+            
             try
             {
-                parameters.ImportValues();
+                para = validator.Validate();
             }
-            catch (Exception ex)
+            catch (InvalidUserInputException ex)
             {
                 MessageBox.Show(ex.Message.ToString());
                 return;
             }
 
             var data = GetFuelData();
-            FuelReportResult fuelCalcResult = null;
-
-            try
+            FuelReport fuelReport =  
+                    new FuelCalculatorWithWind(data, para, windTables)
+                    .Compute(routeToDest.Expanded, new Route[] { }); 
+           
+            if (fuelReport.TotalFuelKG > data.MaxFuelKg)
             {
-                fuelCalcResult = ComputeFuelIteration(parameters, data, 1);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(InsufficientFuelMsg(
+                    fuelReport.TotalFuelKG, data.MaxFuelKg, WeightUnit));
                 return;
             }
 
-            if (fuelCalcResult.TotalFuelKG > data.MaxFuelKg)
-            {
-                MessageBox.Show(InsufficientFuelMsg(fuelCalcResult.TotalFuelKG, data.MaxFuelKg, parameters.WtUnit));
-                return;
-            }
-
-            string outputText = fuelCalcResult.ToString(parameters.WtUnit);
+            string outputText = fuelReport.ToString(WeightUnit);
 
             fuelReportTxtBox.Text = "\n" + outputText.ShiftToRight(20);
             //formStateManagerFuel.Save();
@@ -441,78 +436,6 @@ namespace QSP.UI.UserControls
             return "Insufficient fuel\n" +
                 $"Fuel required for this flight is {fuelReqKG} {wtUnit}. " +
                 $"Maximum fuel tank capacity is {fuelCapacityKG} {wtUnit}.";
-        }
-
-        // TODO: Shouldn't be here. Extract to another class.
-        public FuelReportResult ComputeFuelIteration(
-            FuelCalculationParameters para,
-            FuelDataItem data,
-            uint precisionLevel)
-        {
-            //presisionLevel = 0, 1, 2, ... 
-            //smaller num = less precise
-            //0 = disregard wind completely, 1 is good enough
-
-            var FuelCalc = new FuelCalculator(para, data);
-            var optCrz = data.OptCrzTable;
-            var speedProfile = data.SpeedProfile;
-
-            //calculate altn first
-            double fuelTon = 0;
-            double avgWeightTon = 0;
-            double crzAltFt = 0;
-            int tailwind = 0;
-            double tas = 0;
-
-            for (uint i = 0; i <= precisionLevel; i++)
-            {
-                FuelCalc.ReCompute();
-                var result = FuelCalc.GetBriefResult();
-                fuelTon = result.FuelToAltnTon;
-                avgWeightTon = result.LandWeightTonAltn + fuelTon / 2;
-                crzAltFt = optCrz.ActualCrzAltFt(avgWeightTon, para.DisToAltn);
-                tas = speedProfile.CruiseTasKnots(crzAltFt);
-                tailwind = ComputeTailWind(TailWindCalcOptions.DestToAltn, Convert.ToInt32(tas), Convert.ToInt32(crzAltFt / 100));
-                para.AvgWindToAltn = tailwind;
-
-                Debug.WriteLine("TO ALTN, CRZ ALT {0} FT, TAS {1} KTS, TAILWIND {2} KTS", crzAltFt, tas, tailwind);
-            }
-
-            for (uint i = 0; i <= precisionLevel; i++)
-            {
-                FuelCalc.ReCompute();
-                var result = FuelCalc.GetBriefResult();
-                fuelTon = result.FuelToDestTon;
-                avgWeightTon = result.LandWeightTonDest + fuelTon / 2;
-                crzAltFt = optCrz.ActualCrzAltFt(avgWeightTon, para.DisToDest);
-                tas = speedProfile.CruiseTasKnots(crzAltFt);
-                tailwind = ComputeTailWind(TailWindCalcOptions.OrigToDest, Convert.ToInt32(tas), Convert.ToInt32(crzAltFt / 100));
-                para.AvgWindToDest = tailwind;
-
-                Debug.WriteLine("TO DEST, CRZ ALT {0} FT, TAS {1} KTS, TAILWIND {2} KTS", crzAltFt, tas, tailwind);
-            }
-
-            FuelCalc.ReCompute();
-            return FuelCalc.GetFullResult();
-        }
-
-        private int ComputeTailWind(TailWindCalcOptions para, int tas, int Fl)
-        {
-            if (para == TailWindCalcOptions.OrigToDest)
-            {
-                return WindAloft.Utilities.AvgTailWind(windTables, mainRoute.Expanded, Fl, tas);
-            }
-            else
-            {
-                // TODO: wrong.
-                return WindAloft.Utilities.AvgTailWind(windTables, mainRoute.Expanded, Fl, tas);
-            }
-        }
-
-        public enum TailWindCalcOptions
-        {
-            OrigToDest,
-            DestToAltn
-        }
+        }       
     }
 }
