@@ -27,8 +27,8 @@ namespace QSimPlanner
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var mainFrm = new QSP.UI.Forms.QspForm();
-            //var mainFrm = new QSP.MainForm();
+            //var mainFrm = new QSP.UI.Forms.QspForm();
+            var mainFrm = new QSP.MainForm();
             mainFrm.Init();
             
             Application.Run(mainFrm);
