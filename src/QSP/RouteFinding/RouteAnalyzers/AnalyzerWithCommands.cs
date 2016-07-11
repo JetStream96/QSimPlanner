@@ -11,6 +11,9 @@ using System.Linq;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
+    // TODO: When analyzing route where the SID contains nothing but 
+    // only vector, it shows as DCT instead.
+
     // The accepted formats are similar to those of StandardRouteAnalyzer,
     // except:
     //
