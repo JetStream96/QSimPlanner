@@ -138,6 +138,7 @@
     <Compile Include="RouteFinding\Routes\RouteExtensions.cs" />
     <Compile Include="RouteFinding\Routes\RouteGroup.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilter.cs" />
+    <Compile Include="UI\Controllers\AlternateController.cs" />
     <Compile Include="UI\Controllers\BtnDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ListViewSortEnabler.cs" />
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="UI\UserControls\OptionsControl.Designer.cs">
       <DependentUpon>OptionsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Utilities\ControlMover.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
