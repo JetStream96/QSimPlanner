@@ -13,7 +13,7 @@ namespace QSP.UI.ControlStates
         {
             try
             {
-                var filePath = directory + "\\" + fileName;
+                var filePath = Path.Combine(directory, fileName);
                 Directory.CreateDirectory(directory);
 
                 using (StreamWriter writer = File.CreateText(filePath))
@@ -31,7 +31,7 @@ namespace QSP.UI.ControlStates
         {
             try
             {
-                return XDocument.Load(directory + "\\" + fileName);
+                return XDocument.Load(Path.Combine(directory, fileName));
             }
             catch (Exception ex)
             {
