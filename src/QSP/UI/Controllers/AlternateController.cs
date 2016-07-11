@@ -103,6 +103,7 @@ namespace QSP.UI.Controllers
             public ComboBoxWithBorder RwyComboBox;
             public Label RouteLbl;
             public TextBox RouteTxtBox;
+            public Label DisLbl;
 
             public Control[] AllControls
             {
@@ -116,7 +117,8 @@ namespace QSP.UI.Controllers
                         RwyLbl,
                         RwyComboBox,
                         RouteLbl,
-                        RouteTxtBox
+                        RouteTxtBox,
+                        DisLbl
                     };
                 }
             }
@@ -192,6 +194,13 @@ namespace QSP.UI.Controllers
                 RouteTxtBox.Location = new Point(410, 19);
                 RouteTxtBox.Size = new Size(494, 30);
                 RouteTxtBox.Text = "";
+
+                // DisLbl
+                DisLbl = new Label();
+                DisLbl.Font = new Font("Segoe UI", 10.2F);
+                DisLbl.Location = new Point(910, 22);
+                DisLbl.AutoSize = true;
+                DisLbl.Text = "";
             }
 
             public void AddToGroupBox(GroupBox alternateGroupBox)

@@ -63,7 +63,13 @@ namespace QSP.UI.UserControls
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
 
-        private RouteGroup routeToDest;
+        private RouteGroup RouteToDest
+        {
+            get
+            {
+                return routeOptionBtns.Route;
+            }
+        }
 
         public FuelPlanningControl()
         {
@@ -94,6 +100,7 @@ namespace QSP.UI.UserControls
             SetAltnController();
             SetDefaultState();
             SetOrigDestControllers();
+            SetRouteOptionControl();
             SetWeightController();
             FillAircraftSelection();
 
@@ -106,6 +113,22 @@ namespace QSP.UI.UserControls
             }
         }
 
+        private void SetRouteOptionControl()
+        {
+            routeOptionBtns.Init(
+                appSettings,
+                wptList,
+                airportList,
+                tracksInUse,
+                origController,
+                destController,
+                routeDisLbl,
+                () => mainRouteRichTxtBox.Text,
+                s => mainRouteRichTxtBox.Text = s);
+
+            routeOptionBtns.Subscribe();
+        }
+
         public WeightUnit WeightUnit
         {
             get
@@ -116,7 +139,7 @@ namespace QSP.UI.UserControls
 
         private void SetAltnController()
         {
-            var controlsBelow = new Control[] 
+            var controlsBelow = new Control[]
             {
                 addAltnBtn,
                 calculateBtn,
@@ -130,6 +153,8 @@ namespace QSP.UI.UserControls
                 appSettings,
                 airportList,
                 wptList);
+
+            addAltn(this, EventArgs.Empty);
         }
 
         private void SubscribeEventHandlers()
@@ -137,10 +162,8 @@ namespace QSP.UI.UserControls
             wtUnitComboBox.SelectedIndexChanged += WtUnitChanged;
             acListComboBox.SelectedIndexChanged += RefreshRegistrations;
             registrationComboBox.SelectedIndexChanged += RegistrationChanged;
-            findRouteBtn.Click += FindRouteClick;
-            analyzeRouteBtn.Click += AnalyzeRouteClick;
-            exportBtn.Click += ExportRouteFiles;
             calculateBtn.Click += Calculate;
+            addAltnBtn.Click += addAltn;
         }
 
         private void FillAircraftSelection()
@@ -189,129 +212,6 @@ namespace QSP.UI.UserControls
 
             origController.Subscribe();
             destController.Subscribe();
-        }
-
-        private void FindRouteClick(object sender, EventArgs e)
-        {
-            var sid = origController.GetSelectedProcedures();
-            var star = destController.GetSelectedProcedures();
-
-            // TODO: need to be integrated with fuel calculator
-            //var windCalc = windTables == null ?
-            //    null : new AvgWindCalculator(windTables, 460, 370.0);
-
-            var finder = new RouteFinderFacade(
-                wptList,
-                airportList,
-                appSettings.NavDataLocation,
-                null,  //TODO: add this
-                null); //TODO: add this as well
-
-            var result = finder.FindRoute(
-                origController.Icao, origController.Rwy, sid,
-                destController.Icao, destController.Rwy, star);
-
-            routeToDest = new RouteGroup(result, tracksInUse);
-            var route = routeToDest.Expanded;
-
-            mainRouteRichTxtBox.Text = route.ToString(false, false);
-            RouteDistanceDisplay.UpdateRouteDistanceLbl(routeDisLbl, route);
-        }
-
-        private void ExportRouteFiles(object sender, EventArgs e)
-        {
-            var cmds = appSettings.ExportCommands.Values;
-            var writer = new FileExporter(
-                routeToDest.Expanded, airportList, cmds);
-
-            var reports = writer.Export();
-            ShowReports(reports);
-        }
-
-        private void AnalyzeRouteClick(object sender, EventArgs e)
-        {
-            //TODO: Need better exception message for AUTO, RAND commands
-            try
-            {
-                mainRouteRichTxtBox.Text = mainRouteRichTxtBox.Text.ToUpper();
-
-                routeToDest =
-                    new RouteGroup(
-                        RouteAnalyzerFacade.AnalyzeWithCommands(
-                            mainRouteRichTxtBox.Text,
-                            origController.Icao,
-                            origController.Rwy,
-                            destController.Icao,
-                            destController.Rwy,
-                            appSettings.NavDataLocation,
-                            airportList,
-                            wptList),
-                        tracksInUse);
-
-                var route = routeToDest.Expanded;
-
-                mainRouteRichTxtBox.Text = route.ToString(false, false);
-                RouteDistanceDisplay.UpdateRouteDistanceLbl(
-                    routeDisLbl, route);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private static void ShowReports(
-            IEnumerable<FileExporter.Status> reports)
-        {
-            if (reports.Count() == 0)
-            {
-                MessageBox.Show(
-                    "No route file to be exported. " +
-                    "Please select select export settings in options page.",
-                    "",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-            }
-            else
-            {
-                var msg = new StringBuilder();
-                var success = reports.Where(r => r.Successful);
-
-                if (success.Count() > 0)
-                {
-                    msg.AppendLine(
-                        $"{success.Count()} company route(s) exported:");
-
-                    foreach (var i in success)
-                    {
-                        msg.AppendLine(i.FilePath);
-                    }
-                }
-
-                var errors = reports.Where(r => r.Successful == false);
-
-                if (errors.Count() > 0)
-                {
-                    msg.AppendLine("\n\n" +
-                        $"Failed to export {errors.Count()} file(s) into:");
-
-                    foreach (var j in errors)
-                    {
-                        msg.AppendLine(j.FilePath);
-                    }
-                }
-
-                var icon =
-                    errors.Count() > 0 ?
-                    MessageBoxIcon.Warning :
-                    MessageBoxIcon.Information;
-
-                MessageBox.Show(
-                    msg.ToString(),
-                    "",
-                    MessageBoxButtons.OK,
-                    icon);
-            }
         }
 
         private void WtUnitChanged(object sender, EventArgs e)
@@ -418,7 +318,7 @@ namespace QSP.UI.UserControls
             var data = GetFuelData();
             FuelReport fuelReport =
                     new FuelCalculatorWithWind(data, para, windTables)
-                    .Compute(routeToDest.Expanded, new Route[] { });
+                    .Compute(RouteToDest.Expanded, new Route[] { });
 
             if (fuelReport.TotalFuelKG > data.MaxFuelKg)
             {
@@ -464,7 +364,7 @@ namespace QSP.UI.UserControls
                 $"Maximum fuel tank capacity is {fuelCapacityKG} {wtUnit}.";
         }
 
-        private void findAltnBtn_Click(object sender, EventArgs e)
+        private void addAltn(object sender, EventArgs e)
         {
             altnControl.AddRow();
         }

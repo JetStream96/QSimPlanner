@@ -56,11 +56,6 @@
             this.alternateGroupBox = new System.Windows.Forms.GroupBox();
             this.addAltnBtn = new System.Windows.Forms.Button();
             this.routeDisLbl = new System.Windows.Forms.Label();
-            this.TableLayoutPanel24 = new System.Windows.Forms.TableLayoutPanel();
-            this.exportBtn = new System.Windows.Forms.Button();
-            this.findRouteBtn = new System.Windows.Forms.Button();
-            this.analyzeRouteBtn = new System.Windows.Forms.Button();
-            this.showMapBtn = new System.Windows.Forms.Button();
             this.Label42 = new System.Windows.Forms.Label();
             this.mainRouteRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.groupBoxBasicInfo = new System.Windows.Forms.GroupBox();
@@ -100,11 +95,11 @@
             this.registrationComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.routeOptionBtns = new QSP.UI.UserControls.RouteOptionBtns();
             this.fuelParaGroupBox.SuspendLayout();
             this.TableLayoutPanel20.SuspendLayout();
             this.TableLayoutPanel1.SuspendLayout();
             this.alternateGroupBox.SuspendLayout();
-            this.TableLayoutPanel24.SuspendLayout();
             this.groupBoxBasicInfo.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.payloadTrackBar)).BeginInit();
@@ -478,7 +473,6 @@
             this.addAltnBtn.TabIndex = 73;
             this.addAltnBtn.Text = "Add";
             this.addAltnBtn.UseVisualStyleBackColor = false;
-            this.addAltnBtn.Click += new System.EventHandler(this.findAltnBtn_Click);
             // 
             // routeDisLbl
             // 
@@ -490,79 +484,6 @@
             this.routeDisLbl.Size = new System.Drawing.Size(207, 23);
             this.routeDisLbl.TabIndex = 16;
             this.routeDisLbl.Text = "Distance: 459 NM (+3.5%)";
-            // 
-            // TableLayoutPanel24
-            // 
-            this.TableLayoutPanel24.ColumnCount = 2;
-            this.TableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.TableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.TableLayoutPanel24.Controls.Add(this.exportBtn, 1, 1);
-            this.TableLayoutPanel24.Controls.Add(this.findRouteBtn, 0, 0);
-            this.TableLayoutPanel24.Controls.Add(this.analyzeRouteBtn, 1, 0);
-            this.TableLayoutPanel24.Controls.Add(this.showMapBtn, 0, 1);
-            this.TableLayoutPanel24.Location = new System.Drawing.Point(907, 119);
-            this.TableLayoutPanel24.Name = "TableLayoutPanel24";
-            this.TableLayoutPanel24.RowCount = 2;
-            this.TableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.TableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.TableLayoutPanel24.Size = new System.Drawing.Size(180, 70);
-            this.TableLayoutPanel24.TabIndex = 48;
-            // 
-            // exportBtn
-            // 
-            this.exportBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.exportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.exportBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exportBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.exportBtn.Location = new System.Drawing.Point(90, 35);
-            this.exportBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.exportBtn.Name = "exportBtn";
-            this.exportBtn.Size = new System.Drawing.Size(85, 33);
-            this.exportBtn.TabIndex = 45;
-            this.exportBtn.Text = "Export";
-            this.exportBtn.UseVisualStyleBackColor = false;
-            // 
-            // findRouteBtn
-            // 
-            this.findRouteBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.findRouteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.findRouteBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.findRouteBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.findRouteBtn.Location = new System.Drawing.Point(0, 0);
-            this.findRouteBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.findRouteBtn.Name = "findRouteBtn";
-            this.findRouteBtn.Size = new System.Drawing.Size(85, 33);
-            this.findRouteBtn.TabIndex = 14;
-            this.findRouteBtn.Text = "Find";
-            this.findRouteBtn.UseVisualStyleBackColor = false;
-            // 
-            // analyzeRouteBtn
-            // 
-            this.analyzeRouteBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.analyzeRouteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.analyzeRouteBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.analyzeRouteBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.analyzeRouteBtn.Location = new System.Drawing.Point(90, 0);
-            this.analyzeRouteBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.analyzeRouteBtn.Name = "analyzeRouteBtn";
-            this.analyzeRouteBtn.Size = new System.Drawing.Size(85, 33);
-            this.analyzeRouteBtn.TabIndex = 30;
-            this.analyzeRouteBtn.Text = "Analyze";
-            this.analyzeRouteBtn.UseVisualStyleBackColor = false;
-            // 
-            // showMapBtn
-            // 
-            this.showMapBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.showMapBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.showMapBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.showMapBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.showMapBtn.Location = new System.Drawing.Point(0, 35);
-            this.showMapBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.showMapBtn.Name = "showMapBtn";
-            this.showMapBtn.Size = new System.Drawing.Size(85, 33);
-            this.showMapBtn.TabIndex = 44;
-            this.showMapBtn.Text = "Map";
-            this.showMapBtn.UseVisualStyleBackColor = false;
             // 
             // Label42
             // 
@@ -792,11 +713,11 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.routeOptionBtns);
             this.groupBox1.Controls.Add(this.filterStarBtn);
             this.groupBox1.Controls.Add(this.routeDisLbl);
             this.groupBox1.Controls.Add(this.Label42);
             this.groupBox1.Controls.Add(this.filterSidBtn);
-            this.groupBox1.Controls.Add(this.TableLayoutPanel24);
             this.groupBox1.Controls.Add(this.starComboBox);
             this.groupBox1.Controls.Add(this.starLbl);
             this.groupBox1.Controls.Add(this.sidComboBox);
@@ -1064,6 +985,14 @@
             this.acListComboBox.Size = new System.Drawing.Size(203, 31);
             this.acListComboBox.TabIndex = 16;
             // 
+            // routeOptionBtns
+            // 
+            this.routeOptionBtns.BackColor = System.Drawing.Color.White;
+            this.routeOptionBtns.Location = new System.Drawing.Point(907, 117);
+            this.routeOptionBtns.Name = "routeOptionBtns";
+            this.routeOptionBtns.Size = new System.Drawing.Size(180, 70);
+            this.routeOptionBtns.TabIndex = 62;
+            // 
             // FuelPlanningControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -1084,7 +1013,6 @@
             this.TableLayoutPanel1.ResumeLayout(false);
             this.TableLayoutPanel1.PerformLayout();
             this.alternateGroupBox.ResumeLayout(false);
-            this.TableLayoutPanel24.ResumeLayout(false);
             this.groupBoxBasicInfo.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
@@ -1146,9 +1074,6 @@
         private System.Windows.Forms.Label starLbl;
         private Controls.ComboBoxWithBorder sidComboBox;
         private System.Windows.Forms.Label sidLbl;
-        private System.Windows.Forms.Button exportBtn;
-        private System.Windows.Forms.Button showMapBtn;
-        private System.Windows.Forms.TableLayoutPanel TableLayoutPanel24;
         private System.Windows.Forms.Label Label19;
         private System.Windows.Forms.Label Label16;
         private System.Windows.Forms.Label Label28;
@@ -1156,8 +1081,6 @@
         private System.Windows.Forms.Label Label8;
         private System.Windows.Forms.Label Label7;
         private System.Windows.Forms.Label Label42;
-        private System.Windows.Forms.Button findRouteBtn;
-        private System.Windows.Forms.Button analyzeRouteBtn;
         private System.Windows.Forms.Label routeDisLbl;
         private System.Windows.Forms.Button calculateBtn;
         internal System.Windows.Forms.GroupBox fuelReportGroupBox;
@@ -1171,5 +1094,6 @@
         public System.Windows.Forms.TextBox ApuTimeTxtBox;
         public System.Windows.Forms.TextBox HoldTimeTxtBox;
         public System.Windows.Forms.ComboBox ContPercentComboBox;
+        private RouteOptionBtns routeOptionBtns;
     }
 }

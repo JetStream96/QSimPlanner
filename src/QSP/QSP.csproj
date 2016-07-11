@@ -189,6 +189,12 @@
     <Compile Include="UI\UserControls\OptionsControl.Designer.cs">
       <DependentUpon>OptionsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserControls\RouteOptionBtns.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\RouteOptionBtns.Designer.cs">
+      <DependentUpon>RouteOptionBtns.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Utilities\ControlMover.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
@@ -578,6 +584,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\AdvancedRouteTool.resx">
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControls\RouteOptionBtns.resx">
+      <DependentUpon>RouteOptionBtns.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Resources\info.png" />
     <None Include="Resources\chart3Faa.png" />
