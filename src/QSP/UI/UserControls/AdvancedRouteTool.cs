@@ -352,7 +352,7 @@ namespace QSP.UI.UserControls
                     Rwy,
                     TerminalProcedure,
                     FilterBtn,
-                    owner.appSettings,
+                    owner.appSettings.NavDataLocation,
                     owner.airportList,
                     owner.wptList,
                     procFilter);

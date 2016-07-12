@@ -15,11 +15,26 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
 
         public StarCollection StarCollection { get; private set; }
 
-        public StarHandler(string icao, string allTxt, WaypointList wptList, WaypointListEditor editor, AirportManager airportList)
-            : this(icao, new StarReader(allTxt).Parse(), wptList, editor, airportList)
+        public StarHandler(
+            string icao,
+            string allTxt,
+            WaypointList wptList,
+            WaypointListEditor editor,
+            AirportManager airportList)
+            : this(
+                  icao,
+                  new StarReader(allTxt).Parse(),
+                  wptList,
+                  editor,
+                  airportList)
         { }
 
-        public StarHandler(string icao, StarCollection StarCollection, WaypointList wptList, WaypointListEditor editor, AirportManager airportList)
+        public StarHandler(
+            string icao,
+            StarCollection StarCollection,
+            WaypointList wptList,
+            WaypointListEditor editor,
+            AirportManager airportList)
         {
             this.icao = icao;
             this.wptList = wptList;
@@ -29,7 +44,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         }
 
         /// <summary>
-        /// Find all STARs available for the runway. Two STARs only different in transitions are regarded as different. 
+        /// Find all STARs available for the runway. Two STARs only 
+        /// different in transitions are regarded as different. 
         /// If none is available an empty list is returned.
         /// </summary>
         /// <param name="rwy">Runway Ident</param>
@@ -39,11 +55,14 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         }
 
         /// <summary>
-        /// Add necessary waypoints and neighbors for STAR computation to WptList, and returns the index of Dest. rwy in WptList.
+        /// Add necessary waypoints and neighbors for STAR computation 
+        /// to WptList, and returns the index of Dest. rwy in WptList.
         /// </summary>
         public int AddStarsToWptList(string rwy, List<string> star)
         {
-            return new StarAdder(icao, StarCollection, wptList, editor, airportList).AddStarsToWptList(rwy, star);
+            var adder = new StarAdder(
+                icao, StarCollection, wptList, editor, airportList);
+            return adder.AddStarsToWptList(rwy, star);
         }
 
         public void UndoEdit()
@@ -52,16 +71,20 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         }
 
         /// <summary>
-        /// Returns total distance of the STAR and the last wpt, regardless whether the last wpt is in wptList.
-        /// If there isn't any waypoint in the STAR (e.g. a vector after takeoff), this returns a distance of 0.0   
-        /// and the origin runway (e.g. KLAX25L).       
+        /// Returns total distance of the STAR and the last wpt, regardless 
+        /// whether the last wpt is in wptList. If there isn't any waypoint
+        /// in the STAR (e.g. a vector after takeoff), this returns a distance 
+        /// of 0.0 and the origin runway (e.g. KLAX25L).       
         /// </summary>
         /// <param name="rwy">The runway identifier. e.g. 25R </param>
-        /// <param name="origRwy">The waypoint representing the origin runway.</param>
+        /// <param name="origRwy">The waypoint representing the origin runway.
+        /// </param>
         /// <exception cref="StarNotFoundException"></exception>
         public StarInfo InfoForAnalysis(string rwy, string star)
         {
-            return StarCollection.GetStarInfo(star, rwy, new Waypoint(icao + rwy, airportList.RwyLatLon(icao, rwy)));
+            var latLon = airportList.RwyLatLon(icao, rwy);
+            var wpt = new Waypoint(icao + rwy, latLon);
+            return StarCollection.GetStarInfo(star, rwy, wpt);
         }
     }
 

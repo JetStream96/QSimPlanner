@@ -328,7 +328,7 @@ namespace QSP
                 OrigRwyComboBox,
                 OrigSidComboBox,
                 new Button(),
-                AppSettings,
+                AppSettings.NavDataLocation,
                 airportList,
                 wptList,
                 procFilter);
@@ -341,7 +341,7 @@ namespace QSP
                 DestRwyComboBox,
                 DestStarComboBox,
                 new Button(),
-                AppSettings,
+                AppSettings.NavDataLocation,
                 airportList,
                 wptList,
                 procFilter);
@@ -354,7 +354,7 @@ namespace QSP
                 AltnRwyComboBox,
                 AltnStarComboBox,
                 new Button(),
-                AppSettings,
+                AppSettings.NavDataLocation,
                 airportList,
                 wptList,
                 procFilter);

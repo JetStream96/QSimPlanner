@@ -15,16 +15,15 @@ using static QSP.UI.Factories.FormFactory;
 
 namespace QSP.UI.Controllers
 {
-    public class RouteFinderSelection
+    public class RouteFinderSelection : ISelectedProcedureProvider
     {
-        private AppOptions appSettings;
-        private WaypointList wptList;
-        private AirportManager airportList;
-        private ProcedureFilter procFilter;
-
         public static readonly string NoProcedureTxt = "NONE";
         public static readonly string AutoProcedureTxt = "AUTO";
 
+        public string NavDataLocation { get; private set; }
+        public WaypointList WptList { get; private set; }
+        public AirportManager AirportList { get; private set; }
+        public ProcedureFilter ProcFilter { get; private set; }
         public TextBox IcaoTxtBox { get; private set; }
         public ComboBox RwyCBox { get; private set; }
         public ComboBox TerminalProceduresCBox { get; private set; }
@@ -37,7 +36,7 @@ namespace QSP.UI.Controllers
             ComboBox RwyCBox,
             ComboBox TerminalProceduresCBox,
             Button FilterBtn,
-            AppOptions appSettings,
+            string navDataLocation,
             AirportManager airportList,
             WaypointList wptList,
             ProcedureFilter procFilter)
@@ -47,10 +46,10 @@ namespace QSP.UI.Controllers
             this.RwyCBox = RwyCBox;
             this.TerminalProceduresCBox = TerminalProceduresCBox;
             this.FilterBtn = FilterBtn;
-            this.appSettings = appSettings;
-            this.airportList = airportList;
-            this.wptList = wptList;
-            this.procFilter = procFilter;
+            this.NavDataLocation = navDataLocation;
+            this.AirportList = airportList;
+            this.WptList = wptList;
+            this.ProcFilter = procFilter;
         }
 
         public string Icao
@@ -72,7 +71,7 @@ namespace QSP.UI.Controllers
         public void Subscribe()
         {
             IcaoTxtBox.TextChanged += IcaoChanged;
-            RwyCBox.TextChanged += RwyChanged;
+            RwyCBox.SelectedIndexChanged += RwyChanged;
             FilterBtn.Click += filterSidStar;
 
             FilterBtn.Enabled = false;
@@ -81,7 +80,7 @@ namespace QSP.UI.Controllers
         public void UnSubsribe()
         {
             IcaoTxtBox.TextChanged -= IcaoChanged;
-            RwyCBox.TextChanged -= RwyChanged;
+            RwyCBox.SelectedIndexChanged -= RwyChanged;
             FilterBtn.Click -= filterSidStar;
         }
 
@@ -118,7 +117,7 @@ namespace QSP.UI.Controllers
             TerminalProceduresCBox.Items.Clear();
             FilterBtn.Enabled = false;
 
-            var rwyList = airportList.RwyIdentList(Icao);
+            var rwyList = AirportList.RwyIdentList(Icao);
 
             if (rwyList != null && rwyList.Count() > 0)
             {
@@ -136,15 +135,15 @@ namespace QSP.UI.Controllers
                 if (IsDepartureAirport)
                 {
                     return SidHandlerFactory.GetHandler(
-                         Icao, appSettings.NavDataLocation, wptList,
-                         wptList.GetEditor(), airportList)
+                         Icao, NavDataLocation, WptList,
+                         WptList.GetEditor(), AirportList)
                          .GetSidList(Rwy);
                 }
                 else
                 {
                     return StarHandlerFactory.GetHandler(
-                        Icao, appSettings.NavDataLocation, wptList,
-                        wptList.GetEditor(), airportList)
+                        Icao, NavDataLocation, WptList,
+                        WptList.GetEditor(), AirportList)
                         .GetStarList(Rwy);
                 }
             }
@@ -169,12 +168,12 @@ namespace QSP.UI.Controllers
 
         private bool ShouldShow(string proc)
         {
-            if (procFilter.Exists(Icao, Rwy) == false)
+            if (ProcFilter.Exists(Icao, Rwy) == false)
             {
                 return true;
             }
 
-            var info = procFilter[Icao, Rwy];
+            var info = ProcFilter[Icao, Rwy];
 
             return info.Procedures.Contains(proc) ^ info.IsBlackList;
         }
@@ -206,7 +205,7 @@ namespace QSP.UI.Controllers
                 Rwy,
                 AvailableProcedures,
                 IsDepartureAirport,
-                procFilter);
+                ProcFilter);
 
             filter.Location = new Point(0, 0);
 

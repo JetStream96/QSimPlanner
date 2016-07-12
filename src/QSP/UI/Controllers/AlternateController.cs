@@ -13,6 +13,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.UI.UserControls;
+using static QSP.UI.Utilities.RouteDistanceDisplay;
 
 namespace QSP.UI.Controllers
 {
@@ -28,6 +29,7 @@ namespace QSP.UI.Controllers
         private WaypointList wptList;
         private TrackInUseCollection tracksInUse;
         private Form parentForm;
+        private DestinationSidSelection destSidProvider;
 
         public AlternateController(
             IEnumerable<Control> controlsBelow,
@@ -36,7 +38,8 @@ namespace QSP.UI.Controllers
             AirportManager airportList,
             WaypointList wptList,
             TrackInUseCollection tracksInUse,
-            Form parentForm)
+            Form parentForm,
+            DestinationSidSelection destSidProvider)
         {
             this.controlsBelow = controlsBelow;
             this.altnGroupBox = altnGroupBox;
@@ -45,6 +48,7 @@ namespace QSP.UI.Controllers
             this.wptList = wptList;
             this.tracksInUse = tracksInUse;
             this.parentForm = parentForm;
+            this.destSidProvider = destSidProvider;
 
             rows = new List<AltnRow>();
         }
@@ -94,12 +98,24 @@ namespace QSP.UI.Controllers
                     Row.RwyComboBox,
                     new ComboBox(),
                     new Button(),
-                    Parent.appSettings,
+                    Parent.appSettings.NavDataLocation,
                     Parent.airportList,
                     Parent.wptList,
                     new ProcedureFilter());
 
                 SetOptionBtns();
+
+                OptionBtns.Init(
+                    Parent.appSettings,
+                    Parent.wptList,
+                    Parent.airportList,
+                    Parent.tracksInUse,
+                    Parent.destSidProvider,
+                    Controller,
+                    Row.DisLbl,
+                    DistanceDisplayStyle.Short,
+                    () => Row.RouteTxtBox.Text,
+                    (s) => Row.RouteTxtBox.Text = s);
             }
 
             private void SetOptionBtns()
@@ -119,6 +135,7 @@ namespace QSP.UI.Controllers
             {
                 Controller.Subscribe();
                 Row.ShowMoreBtn.Click += ShowBtns;
+                OptionBtns.Subscribe();
             }
 
             private void ShowBtns(object sender, EventArgs e)
@@ -239,7 +256,7 @@ namespace QSP.UI.Controllers
                 // DisLbl
                 DisLbl = new Label();
                 DisLbl.Font = new Font("Segoe UI", 10.2F);
-                DisLbl.Location = new Point(910, 22);
+                DisLbl.Location = new Point(920, 22);
                 DisLbl.AutoSize = true;
                 DisLbl.Text = "";
 

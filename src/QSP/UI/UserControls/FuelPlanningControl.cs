@@ -37,6 +37,7 @@ using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Factories.FormFactory;
 using static QSP.UI.Factories.ToolTipFactory;
+using static QSP.UI.Utilities.RouteDistanceDisplay;
 using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.UI.UserControls
@@ -53,6 +54,7 @@ namespace QSP.UI.UserControls
 
         private RouteFinderSelection origController;
         private RouteFinderSelection destController;
+        private DestinationSidSelection destSidProvider;
         public WeightTextBoxController Oew { get; private set; }
         public WeightTextBoxController Payload { get; private set; }
         public WeightTextBoxController Zfw { get; private set; }
@@ -97,9 +99,9 @@ namespace QSP.UI.UserControls
             this.aircrafts = aircrafts;
             this.fuelData = fuelData;
 
-            SetAltnController();
             SetDefaultState();
             SetOrigDestControllers();
+            SetAltnController();
             SetRouteOptionControl();
             SetWeightController();
             FillAircraftSelection();
@@ -123,6 +125,7 @@ namespace QSP.UI.UserControls
                 origController,
                 destController,
                 routeDisLbl,
+                DistanceDisplayStyle.Long,
                 () => mainRouteRichTxtBox.Text,
                 s => mainRouteRichTxtBox.Text = s);
 
@@ -154,7 +157,8 @@ namespace QSP.UI.UserControls
                 airportList,
                 wptList,
                 tracksInUse,
-                ParentForm);
+                ParentForm,
+                destSidProvider);
 
             addAltn(this, EventArgs.Empty);
         }
@@ -196,7 +200,7 @@ namespace QSP.UI.UserControls
                origRwyComboBox,
                sidComboBox,
                filterSidBtn,
-               appSettings,
+               appSettings.NavDataLocation,
                airportList,
                wptList,
                procFilter);
@@ -207,10 +211,12 @@ namespace QSP.UI.UserControls
                 destRwyComboBox,
                 starComboBox,
                 filterStarBtn,
-                appSettings,
+                appSettings.NavDataLocation,
                 airportList,
                 wptList,
                 procFilter);
+
+            destSidProvider = new DestinationSidSelection(destController);
 
             origController.Subscribe();
             destController.Subscribe();

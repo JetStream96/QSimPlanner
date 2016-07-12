@@ -7,7 +7,14 @@ namespace QSP.UI.Utilities
 {
     public static class RouteDistanceDisplay
     {
-        public static void UpdateRouteDistanceLbl(Label lbl, Route route)
+        public enum DistanceDisplayStyle
+        {
+            Short,
+            Long
+        }
+
+        public static void UpdateRouteDistanceLbl(
+            Label lbl, Route route, DistanceDisplayStyle displayStyle)
         {
             double totalDis = route.GetTotalDistance();
             int disInt = RoundToInt(totalDis);
@@ -15,8 +22,15 @@ namespace QSP.UI.Utilities
                 route.FirstWaypoint.DistanceFrom(route.LastWaypoint);
             double percentDiff = (totalDis - directDis) / directDis * 100;
             string diffStr = percentDiff.ToString("0.0");
-
-            lbl.Text = $"Total Distance: {disInt} NM (+{diffStr}%)";
+            
+            if (displayStyle == DistanceDisplayStyle.Long)
+            {
+                lbl.Text = $"Distance: {disInt} NM (+{diffStr}%)";
+            }
+            else
+            {
+                lbl.Text = $"{disInt} NM";
+            }
         }
     }
 }

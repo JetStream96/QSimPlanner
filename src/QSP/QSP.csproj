@@ -140,6 +140,8 @@
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilter.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />
     <Compile Include="UI\Controllers\BtnDisableStyleController.cs" />
+    <Compile Include="UI\Controllers\DestinationStarSelection.cs" />
+    <Compile Include="UI\Controllers\ISelectedProcedureProvider.cs" />
     <Compile Include="UI\Controllers\ListViewSortEnabler.cs" />
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />

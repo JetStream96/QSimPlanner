@@ -14,6 +14,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static QSP.UI.Utilities.RouteDistanceDisplay;
 
 namespace QSP.UI.UserControls
 {
@@ -23,9 +24,10 @@ namespace QSP.UI.UserControls
         private WaypointList wptList;
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
-        private RouteFinderSelection origController;
-        private RouteFinderSelection destController;
+        private ISelectedProcedureProvider origController;
+        private ISelectedProcedureProvider destController;
         private Label routeDisLbl;
+        private DistanceDisplayStyle displayStyle;
         private Func<string> routeTxtGetter;
         private Action<string> routeTxtSetter;
 
@@ -41,9 +43,10 @@ namespace QSP.UI.UserControls
             WaypointList wptList,
             AirportManager airportList,
             TrackInUseCollection tracksInUse,
-            RouteFinderSelection origController,
-            RouteFinderSelection destController,
+            ISelectedProcedureProvider origController,
+            ISelectedProcedureProvider destController,
             Label routeDisLbl,
+            DistanceDisplayStyle displayStyle,
             Func<string> routeTxtGetter,
             Action<string> routeTxtSetter)
         {
@@ -54,6 +57,7 @@ namespace QSP.UI.UserControls
             this.origController = origController;
             this.destController = destController;
             this.routeDisLbl = routeDisLbl;
+            this.displayStyle = displayStyle;
             this.routeTxtGetter = routeTxtGetter;
             this.routeTxtSetter = routeTxtSetter;
         }
@@ -65,6 +69,7 @@ namespace QSP.UI.UserControls
             exportBtn.Click += ExportRouteFiles;
         }
 
+        // TODO: exception handling?
         private void FindRouteClick(object sender, EventArgs e)
         {
             var sid = origController.GetSelectedProcedures();
@@ -89,9 +94,10 @@ namespace QSP.UI.UserControls
             var route = this.Route.Expanded;
 
             routeTxtSetter(route.ToString(false, false));
-            RouteDistanceDisplay.UpdateRouteDistanceLbl(routeDisLbl, route);
+            UpdateRouteDistanceLbl(routeDisLbl, route, displayStyle);
         }
 
+        // TODO: exception handling?
         private void ExportRouteFiles(object sender, EventArgs e)
         {
             var cmds = appSettings.ExportCommands.Values;
@@ -125,8 +131,7 @@ namespace QSP.UI.UserControls
                 var route = this.Route.Expanded;
 
                 routeTxtSetter(route.ToString(false, false));
-                RouteDistanceDisplay.UpdateRouteDistanceLbl(
-                    routeDisLbl, route);
+                UpdateRouteDistanceLbl(routeDisLbl, route, displayStyle);
             }
             catch (Exception ex)
             {
