@@ -66,23 +66,28 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             // The order is important. E.g. "pressUnit" has to be 
             // loaded before "pressure", due to events handlers attached 
             // to pressure.TextChanged.
-            airport.airportTxtBox.Text = root.Element(airportIcao).Value;
-            airport.rwyComboBox.Text = root.Element(rwy).Value;
-            airport.lengthUnitComboBox.Text = root.Element(lengthUnit).Value;
-            weather.windDirTxtBox.Text = root.Element(windDir).Value;
-            weather.windSpdTxtBox.Text = root.Element(windSpeed).Value;
-            weather.tempUnitComboBox.Text = root.Element(tempUnit).Value;
-            weather.oatTxtBox.Text = root.Element(oat).Value;
-            weather.pressUnitComboBox.Text = root.Element(pressUnit).Value;
-            weather.pressTxtBox.Text = root.Element(pressure).Value;
-            control.weatherInfoControl.surfCondComboBox.Text = root.Element(surfCond).Value;
-            control.acListComboBox.Text = root.Element(aircraft).Value;
-            control.wtUnitComboBox.Text = root.Element(wtUnit).Value;
-            control.weightTxtBox.Text = root.Element(ldgWt).Value;
-            control.flapsComboBox.Text = root.Element(flaps).Value;
-            control.revThrustComboBox.Text = root.Element(rev).Value;
-            control.brakeComboBox.Text = root.Element(brakes).Value;
-            control.appSpdIncTxtBox.Text = root.Element(appSpeedInc).Value;
+            airport.airportTxtBox.Text = GetValue(root, airportIcao);
+            airport.rwyComboBox.Text = GetValue(root, rwy);
+            airport.lengthUnitComboBox.Text = GetValue(root, lengthUnit);
+            weather.windDirTxtBox.Text = GetValue(root, windDir);
+            weather.windSpdTxtBox.Text = GetValue(root, windSpeed);
+            weather.tempUnitComboBox.Text = GetValue(root, tempUnit);
+            weather.oatTxtBox.Text = GetValue(root, oat);
+            weather.pressUnitComboBox.Text = GetValue(root, pressUnit);
+            weather.pressTxtBox.Text = GetValue(root, pressure);
+            control.weatherInfoControl.surfCondComboBox.Text = GetValue(root, surfCond);
+            control.acListComboBox.Text = GetValue(root, aircraft);
+            control.wtUnitComboBox.Text = GetValue(root, wtUnit);
+            control.weightTxtBox.Text = GetValue(root, ldgWt);
+            control.flapsComboBox.Text = GetValue(root, flaps);
+            control.revThrustComboBox.Text = GetValue(root, rev);
+            control.brakeComboBox.Text = GetValue(root, brakes);
+            control.appSpdIncTxtBox.Text = GetValue(root, appSpeedInc);
+        }
+
+        private static string GetValue(XElement root, string key)
+        {
+            return root.Element(key).Value;
         }
     }
 }
