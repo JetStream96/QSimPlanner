@@ -106,26 +106,24 @@ namespace QSP.UI.Controllers
             {
                 OptionBtns = new RouteOptionBtns();
                 OptionBtns.Visible = false;
-                
-                // TODO: still wrong.
-                //Row.ShowMoreBtn.Parent
-                var btnAbcLoc = Row.ShowMoreBtn.PointToScreen(Point.Empty);
-                int x = btnAbcLoc.X + Row.ShowMoreBtn.Width - OptionBtns.Width;
-                int y = btnAbcLoc.Y + Row.ShowMoreBtn.Height + 10;
+                OptionBtns.BorderStyle = BorderStyle.FixedSingle;
+                                
+                var locInForm = Row.ShowMoreBtn.LocationInForm();
+                int x = locInForm.X + Row.ShowMoreBtn.Width - OptionBtns.Width;
+                int y = locInForm.Y + Row.ShowMoreBtn.Height + 10;
                 OptionBtns.Location = new Point(x, y);
-                Parent.parentForm.Controls.Add(OptionBtns);
+                Parent.parentForm.Controls.Add(OptionBtns);                
             }
 
             public void Subsribe()
             {
                 Controller.Subscribe();
                 Row.ShowMoreBtn.Click += ShowBtns;
-
             }
 
             private void ShowBtns(object sender, EventArgs e)
             {
-                OptionBtns.Visible = true;
+                OptionBtns.Visible ^= true;
                 OptionBtns.BringToFront();
             }
 

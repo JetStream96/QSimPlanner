@@ -196,6 +196,7 @@
       <DependentUpon>RouteOptionBtns.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Utilities\ControlMover.cs" />
+    <Compile Include="UI\Utilities\LocationGetter.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />

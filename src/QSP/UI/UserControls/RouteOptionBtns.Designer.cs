@@ -46,6 +46,7 @@
             this.TableLayoutPanel24.Controls.Add(this.analyzeRouteBtn, 1, 0);
             this.TableLayoutPanel24.Controls.Add(this.showMapBtn, 0, 1);
             this.TableLayoutPanel24.Location = new System.Drawing.Point(0, 0);
+            this.TableLayoutPanel24.Margin = new System.Windows.Forms.Padding(0);
             this.TableLayoutPanel24.Name = "TableLayoutPanel24";
             this.TableLayoutPanel24.RowCount = 2;
             this.TableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
@@ -55,11 +56,12 @@
             // 
             // exportBtn
             // 
+            this.exportBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.exportBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.exportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exportBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exportBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.exportBtn.Location = new System.Drawing.Point(90, 35);
+            this.exportBtn.Location = new System.Drawing.Point(92, 36);
             this.exportBtn.Margin = new System.Windows.Forms.Padding(0);
             this.exportBtn.Name = "exportBtn";
             this.exportBtn.Size = new System.Drawing.Size(85, 33);
@@ -69,11 +71,12 @@
             // 
             // findRouteBtn
             // 
+            this.findRouteBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.findRouteBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.findRouteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.findRouteBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.findRouteBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.findRouteBtn.Location = new System.Drawing.Point(0, 0);
+            this.findRouteBtn.Location = new System.Drawing.Point(2, 1);
             this.findRouteBtn.Margin = new System.Windows.Forms.Padding(0);
             this.findRouteBtn.Name = "findRouteBtn";
             this.findRouteBtn.Size = new System.Drawing.Size(85, 33);
@@ -83,11 +86,12 @@
             // 
             // analyzeRouteBtn
             // 
+            this.analyzeRouteBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.analyzeRouteBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.analyzeRouteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.analyzeRouteBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.analyzeRouteBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.analyzeRouteBtn.Location = new System.Drawing.Point(90, 0);
+            this.analyzeRouteBtn.Location = new System.Drawing.Point(92, 1);
             this.analyzeRouteBtn.Margin = new System.Windows.Forms.Padding(0);
             this.analyzeRouteBtn.Name = "analyzeRouteBtn";
             this.analyzeRouteBtn.Size = new System.Drawing.Size(85, 33);
@@ -97,11 +101,12 @@
             // 
             // showMapBtn
             // 
+            this.showMapBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.showMapBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.showMapBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.showMapBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.showMapBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.showMapBtn.Location = new System.Drawing.Point(0, 35);
+            this.showMapBtn.Location = new System.Drawing.Point(2, 36);
             this.showMapBtn.Margin = new System.Windows.Forms.Padding(0);
             this.showMapBtn.Name = "showMapBtn";
             this.showMapBtn.Size = new System.Drawing.Size(85, 33);
@@ -117,7 +122,7 @@
             this.Controls.Add(this.TableLayoutPanel24);
             this.DoubleBuffered = true;
             this.Name = "RouteOptionBtns";
-            this.Size = new System.Drawing.Size(180, 70);
+            this.Size = new System.Drawing.Size(182, 72);
             this.TableLayoutPanel24.ResumeLayout(false);
             this.ResumeLayout(false);
 
