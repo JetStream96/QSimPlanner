@@ -23,14 +23,14 @@ namespace QSP.UI.Utilities
             double percentDiff = (totalDis - directDis) / directDis * 100;
             string diffStr = percentDiff.ToString("0.0");
             
+            var text = $"{disInt} NM (+{diffStr}%)";
+
             if (displayStyle == DistanceDisplayStyle.Long)
             {
-                lbl.Text = $"Distance: {disInt} NM (+{diffStr}%)";
+                text = "Distance: " + text;
             }
-            else
-            {
-                lbl.Text = $"{disInt} NM";
-            }
+
+            lbl.Text = text;
         }
     }
 }

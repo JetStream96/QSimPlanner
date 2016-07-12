@@ -152,7 +152,6 @@ namespace QSP.UI.Controllers
 
         public class AlternateRowItems
         {
-            public Label AltnNumLbl;
             public TextBox IcaoTxtBox;
             public Button FindBtn;
             public Label RwyLbl;
@@ -168,7 +167,6 @@ namespace QSP.UI.Controllers
                 {
                     return new Control[]
                     {
-                        AltnNumLbl,
                         IcaoTxtBox,
                         FindBtn,
                         RwyLbl,
@@ -195,19 +193,12 @@ namespace QSP.UI.Controllers
 
             private void CreateControls(int num)
             {
-                // AltnNumLbl
-                AltnNumLbl = new Label();
-                AltnNumLbl.Font = new Font("Segoe UI", 10.2F);
-                AltnNumLbl.Location = new Point(12, 24);
-                AltnNumLbl.Size = new Size(65, 23);
-                AltnNumLbl.Text = $"ALTN {num}";
-
                 // IcaoTxtBox
                 IcaoTxtBox = new TextBox();
                 IcaoTxtBox.TextAlign = HorizontalAlignment.Center;
                 IcaoTxtBox.CharacterCasing = CharacterCasing.Upper;
                 IcaoTxtBox.Font = new Font("Segoe UI", 10.2F);
-                IcaoTxtBox.Location = new Point(77, 20);
+                IcaoTxtBox.Location = new Point(12, 20);
                 IcaoTxtBox.Size = new Size(60, 30);
                 IcaoTxtBox.Text = "";
 
@@ -217,14 +208,14 @@ namespace QSP.UI.Controllers
                 FindBtn.FlatStyle = FlatStyle.Flat;
                 FindBtn.Font = new Font("Segoe UI", 10.2F);
                 FindBtn.ForeColor = SystemColors.ButtonHighlight;
-                FindBtn.Location = new Point(141, 19);
+                FindBtn.Location = new Point(76, 19);
                 FindBtn.Size = new Size(55, 33);
                 FindBtn.Text = "Find";
 
                 // RwyLbl
                 RwyLbl = new Label();
                 RwyLbl.Font = new Font("Segoe UI", 10.2F);
-                RwyLbl.Location = new Point(201, 23);
+                RwyLbl.Location = new Point(136, 23);
                 RwyLbl.Size = new Size(69, 23);
                 RwyLbl.Text = "Runway";
 
@@ -235,13 +226,13 @@ namespace QSP.UI.Controllers
                 RwyComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
                 RwyComboBox.FlatStyle = FlatStyle.Flat;
                 RwyComboBox.Font = new Font("Segoe UI", 10.2F);
-                RwyComboBox.Location = new Point(275, 19);
+                RwyComboBox.Location = new Point(215, 19);
                 RwyComboBox.Size = new Size(60, 31);
 
                 // RouteLbl
                 RouteLbl = new Label();
                 RouteLbl.Font = new Font("Segoe UI", 10.2F);
-                RouteLbl.Location = new Point(350, 22);
+                RouteLbl.Location = new Point(285, 22);
                 RouteLbl.Size = new Size(55, 23);
                 RouteLbl.Text = "Route";
 
@@ -249,14 +240,14 @@ namespace QSP.UI.Controllers
                 RouteTxtBox = new TextBox();
                 RouteTxtBox.CharacterCasing = CharacterCasing.Upper;
                 RouteTxtBox.Font = new Font("Segoe UI", 10.2F);
-                RouteTxtBox.Location = new Point(410, 19);
+                RouteTxtBox.Location = new Point(345, 19);
                 RouteTxtBox.Size = new Size(494, 30);
                 RouteTxtBox.Text = "";
 
                 // DisLbl
                 DisLbl = new Label();
                 DisLbl.Font = new Font("Segoe UI", 10.2F);
-                DisLbl.Location = new Point(920, 22);
+                DisLbl.Location = new Point(855, 22);
                 DisLbl.AutoSize = true;
                 DisLbl.Text = "";
 
