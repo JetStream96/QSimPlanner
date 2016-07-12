@@ -83,13 +83,13 @@ namespace QSP.UI.UserControls
         }
 
         private static double ImportPattern2(
-            object control, string exceptionMsg)
+            Control control, string exceptionMsg)
         {
             double weightKg;
 
             try
             {
-                weightKg = double.Parse(GetText(control));
+                weightKg = double.Parse(control.Text);
             }
             catch
             {
@@ -102,20 +102,6 @@ namespace QSP.UI.UserControls
             }
 
             return weightKg;
-        }
-
-        private static string GetText(object control)
-        {
-            if (control is TextBox)
-            {
-                return ((TextBox)control).Text;
-            }
-            else if (control is ComboBox)
-            {
-                return ((ComboBox)control).Text;
-            }
-
-            throw new ArgumentException();
         }
     }
 }

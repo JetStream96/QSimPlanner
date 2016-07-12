@@ -108,6 +108,7 @@ namespace QSP.UI.Controllers
                 OptionBtns.Visible = false;
                 
                 // TODO: still wrong.
+                //Row.ShowMoreBtn.Parent
                 var btnAbcLoc = Row.ShowMoreBtn.PointToScreen(Point.Empty);
                 int x = btnAbcLoc.X + Row.ShowMoreBtn.Width - OptionBtns.Width;
                 int y = btnAbcLoc.Y + Row.ShowMoreBtn.Height + 10;

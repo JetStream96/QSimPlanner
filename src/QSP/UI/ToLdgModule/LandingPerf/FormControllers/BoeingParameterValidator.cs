@@ -3,6 +3,8 @@ using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 using System;
 using static QSP.MathTools.Angles;
+using static QSP.AviationTools.CoversionTools;
+using static QSP.AviationTools.Constants;
 
 namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 {
@@ -18,6 +20,8 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
         /// <exception cref="InvalidUserInputException"></exception>
         public LandingParameters Validate()
         {
+            var e = elements;
+
             double WeightKG = 0.0;
             double RwyLengthMeter = 0.0;
             double ElevationFT = 0.0;
@@ -33,56 +37,62 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 
             try
             {
-                WeightKG = Convert.ToDouble(elements.weight.Text);
+                WeightKG = Convert.ToDouble(e.weight.Text);
 
-                if (elements.wtUnit.SelectedIndex == 1) //LB
+                if (e.wtUnit.SelectedIndex == 1) //LB
                 {
-                    WeightKG *= AviationTools.Constants.LbKgRatio;
+                    WeightKG *= LbKgRatio;
                 }
 
                 if (WeightKG < 0)
                 {
-                    throw new InvalidUserInputException("Landing weight is not valid.");
+                    throw new InvalidUserInputException(
+                        "Landing weight is not valid.");
                 }
 
             }
             catch
             {
-                throw new InvalidUserInputException("Landing weight is not valid.");
+                throw new InvalidUserInputException(
+                    "Landing weight is not valid.");
             }
 
             try
             {
-                RwyLengthMeter = Convert.ToDouble(elements.Length.Text);
+                RwyLengthMeter = Convert.ToDouble(e.Length.Text);
 
-                if (elements.lengthUnit.SelectedIndex == 1) // FT
+                if (e.lengthUnit.SelectedIndex == 1) // FT
                 {
-                    RwyLengthMeter *= AviationTools.Constants.FtMeterRatio;
+                    RwyLengthMeter *= FtMeterRatio;
                 }
 
                 if (RwyLengthMeter < 0)
                 {
-                    throw new InvalidUserInputException("Runway length is not valid.");
+                    throw new InvalidUserInputException(
+                        "Runway length is not valid.");
                 }
 
             }
             catch
             {
-                throw new InvalidUserInputException("Runway length is not valid.");
+                throw new InvalidUserInputException(
+                    "Runway length is not valid.");
             }
 
             try
             {
-                ElevationFT = Convert.ToDouble(elements.Elevation.Text);
+                ElevationFT = Convert.ToDouble(e.Elevation.Text);
 
                 if (ElevationFT < -2000.0 || ElevationFT > 20000.0)
                 {
-                    throw new InvalidUserInputException("Runway elevation is not valid.");
+                    throw new InvalidUserInputException(
+                        "Runway elevation is not valid.");
                 }
             }
             catch
             {
-                throw new InvalidUserInputException("Runway elevation is not valid.");
+                throw new InvalidUserInputException(
+                    "Runway elevation is not valid.");
             }
 
             try
@@ -90,31 +100,33 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
                 HeadwindKts =
                     Math.Cos(
                         ToRadian(
-                            Convert.ToDouble(elements.rwyHeading.Text) -
-                            Convert.ToDouble(elements.windDirection.Text)))
-                            * Convert.ToDouble(elements.windSpeed.Text);
+                            Convert.ToDouble(e.rwyHeading.Text) -
+                            Convert.ToDouble(e.windDirection.Text)))
+                            * Convert.ToDouble(e.windSpeed.Text);
             }
             catch
             {
-                throw new InvalidUserInputException("Wind entry is not valid.");
+                throw new InvalidUserInputException(
+                    "Wind entry is not valid.");
             }
 
             try
             {
-                SlopePercent = Convert.ToDouble(elements.slope.Text);
+                SlopePercent = Convert.ToDouble(e.slope.Text);
             }
             catch
             {
-                throw new InvalidUserInputException("Runway slope is not valid.");
+                throw new InvalidUserInputException(
+                    "Runway slope is not valid.");
             }
 
             try
             {
-                TempCelsius = Convert.ToDouble(elements.oat.Text);
+                TempCelsius = Convert.ToDouble(e.oat.Text);
 
-                if (elements.tempUnit.SelectedIndex == 1) // deg F
+                if (e.tempUnit.SelectedIndex == 1) // deg F
                 {
-                    TempCelsius = AviationTools.CoversionTools.ToCelsius(TempCelsius);
+                    TempCelsius = ToCelsius(TempCelsius);
                 }
             }
             catch
@@ -124,67 +136,71 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 
             try
             {
-                QNH = Convert.ToDouble(elements.pressure.Text);
+                QNH = Convert.ToDouble(e.pressure.Text);
 
-                if (elements.pressureUnit.SelectedIndex == 1)
+                if (e.pressureUnit.SelectedIndex == 1)
                 {
                     QNH *= 1013.0 / 29.92;
                 }
 
                 if (QNH < 900.0 | QNH > 1100.0)
                 {
-                    throw new InvalidUserInputException("Altimeter setting is not valid.");
+                    throw new InvalidUserInputException(
+                        "Altimeter setting is not valid.");
                 }
             }
             catch
             {
-                throw new InvalidUserInputException("Altimeter setting is not valid.");
+                throw new InvalidUserInputException(
+                    "Altimeter setting is not valid.");
             }
 
             try
             {
-                AppSpeedIncrease = Convert.ToDouble(elements.appSpeedIncrease.Text);
+                AppSpeedIncrease = double.Parse(e.appSpeedIncrease.Text);
             }
             catch
             {
-                throw new InvalidUserInputException("APP speed increase is not valid.");
+                throw new InvalidUserInputException(
+                    "APP speed increase is not valid.");
             }
 
             try
             {
-                Reverser = (ReverserOption)elements.reverser.SelectedIndex;
+                Reverser = (ReverserOption)e.reverser.SelectedIndex;
             }
             catch
             {
-                throw new InvalidUserInputException("Reverser selection is not valid.");
+                throw new InvalidUserInputException(
+                    "Reverser selection is not valid.");
             }
 
             try
             {
-                SurfaceCondition = (SurfaceCondition)elements.surfCond.SelectedIndex;
+                SurfaceCondition = (SurfaceCondition)e.surfCond.SelectedIndex;
             }
             catch
             {
-                throw new InvalidUserInputException("Surface condition is not valid.");
+                throw new InvalidUserInputException(
+                    "Surface condition is not valid.");
             }
-
-
-            FlapsIndex = elements.flaps.SelectedIndex;
-            BrakeIndex = elements.brake.SelectedIndex;
+            
+            FlapsIndex = e.flaps.SelectedIndex;
+            BrakeIndex = e.brake.SelectedIndex;
 
             return new LandingParameters(
-                            WeightKG,
-                            RwyLengthMeter,
-                            ElevationFT,
-                            HeadwindKts,
-                            SlopePercent,
-                            TempCelsius,
-                            QNH,
-                            AppSpeedIncrease,
-                            Reverser,
-                            SurfaceCondition,
-                            FlapsIndex,
-                            BrakeIndex);
+                WeightKG,
+                RwyLengthMeter,
+                ElevationFT,
+                HeadwindKts,
+                SlopePercent,
+                TempCelsius,
+                QNH,
+                AppSpeedIncrease,
+                Reverser,
+                SurfaceCondition,
+                FlapsIndex,
+                BrakeIndex);
         }
     }
 }
