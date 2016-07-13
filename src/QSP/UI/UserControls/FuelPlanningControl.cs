@@ -56,15 +56,16 @@ namespace QSP.UI.UserControls
         private RouteFinderSelection origController;
         private RouteFinderSelection destController;
         private DestinationSidSelection destSidProvider;
+        private WeightController weightControl;
+        private AlternateController altnControl;
+        private AcConfigManager aircrafts;
+        private IEnumerable<FuelData> fuelData;
+
         public WeightTextBoxController Oew { get; private set; }
         public WeightTextBoxController Payload { get; private set; }
         public WeightTextBoxController Zfw { get; private set; }
         public WeightTextBoxController MissedApproach { get; private set; }
         public WeightTextBoxController Extra { get; private set; }
-        private WeightController weightControl;
-        private AlternateController altnControl;
-        private AcConfigManager aircrafts;
-        private IEnumerable<FuelData> fuelData;
 
         private RouteGroup RouteToDest
         {

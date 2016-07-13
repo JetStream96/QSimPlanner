@@ -92,6 +92,7 @@ namespace QSP.UI.Controllers
             foreach (var c in rowToRemove.Items.AllControls)
             {
                 altnGroupBox.Controls.Remove(c);
+                c.Dispose();
             }
 
             rowToRemove.Control.CleanUp();
@@ -199,6 +200,7 @@ namespace QSP.UI.Controllers
             public void CleanUp()
             {
                 Parent.parentForm.Controls.Remove(OptionBtns);
+                OptionBtns.Dispose();
             }
 
             private void ShowBtns(object sender, EventArgs e)
