@@ -48,7 +48,7 @@ namespace QSP.UI.Forms
         private CountryCodeManager countryCodes;
         private ProcedureFilter procFilter;
         private TrackInUseCollection tracksInUse = new TrackInUseCollection(); // TODO: Initialize?
-        private WindTableCollection windTables;
+        private Locator<WindTableCollection> windTableLocator;
 
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
@@ -147,6 +147,7 @@ namespace QSP.UI.Forms
             }
 
             procFilter = new ProcedureFilter();
+            windTableLocator = new Locator<WindTableCollection>();
         }
 
         private void InitAirportList()
@@ -195,7 +196,7 @@ namespace QSP.UI.Forms
                 tracksInUse,
                 procFilter,
                 countryCodes,
-                windTables,          
+                windTableLocator,          
                 profiles.AcConfigs, 
                 profiles.FuelData);
 
@@ -384,7 +385,7 @@ namespace QSP.UI.Forms
 
             try
             {
-                windTables = await WindManager.LoadWindAsync();
+                windTableLocator.Instance = await WindManager.LoadWindAsync();
                 ShowWindStatus(WindDownloadStatus.Finished);
             }
             catch (Exception ex) when (

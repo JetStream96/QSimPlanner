@@ -51,7 +51,7 @@ namespace QSP.UI.UserControls
         private TrackInUseCollection tracksInUse;
         private ProcedureFilter procFilter;
         private CountryCodeManager countryCodes;
-        private WindTableCollection windTables;
+        private Locator<WindTableCollection> windTableLocator;
 
         private RouteFinderSelection origController;
         private RouteFinderSelection destController;
@@ -87,7 +87,7 @@ namespace QSP.UI.UserControls
             TrackInUseCollection tracksInUse,
             ProcedureFilter procFilter,
             CountryCodeManager countryCodes,
-            WindTableCollection windTables,
+            Locator<WindTableCollection> windTableLocator,
             AcConfigManager aircrafts,
             IEnumerable<FuelData> fuelData)
         {
@@ -97,7 +97,7 @@ namespace QSP.UI.UserControls
             this.tracksInUse = tracksInUse;
             this.procFilter = procFilter;
             this.countryCodes = countryCodes;
-            this.windTables = windTables;
+            this.windTableLocator = windTableLocator;
             this.aircrafts = aircrafts;
             this.fuelData = fuelData;
 
@@ -338,6 +338,7 @@ namespace QSP.UI.UserControls
                 return;
             }
 
+            var windTables = windTableLocator.Instance;
             var fuelReport =
                 new FuelCalculatorWithWind(data, para, windTables)
                 .Compute(RouteToDest.Expanded, altnRoutes);
