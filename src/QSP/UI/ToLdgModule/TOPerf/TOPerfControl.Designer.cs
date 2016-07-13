@@ -445,7 +445,8 @@
             this.GroupBox16.BackColor = System.Drawing.Color.Transparent;
             this.GroupBox16.Controls.Add(this.resultsRichTxtBox);
             this.GroupBox16.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBox16.Location = new System.Drawing.Point(0, 432);
+            this.GroupBox16.Location = new System.Drawing.Point(0, 431);
+            this.GroupBox16.Margin = new System.Windows.Forms.Padding(0);
             this.GroupBox16.Name = "GroupBox16";
             this.GroupBox16.Size = new System.Drawing.Size(1011, 238);
             this.GroupBox16.TabIndex = 4;

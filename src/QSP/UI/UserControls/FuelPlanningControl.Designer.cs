@@ -54,6 +54,7 @@
             this.Label6 = new System.Windows.Forms.Label();
             this.calculateBtn = new System.Windows.Forms.Button();
             this.alternateGroupBox = new System.Windows.Forms.GroupBox();
+            this.removeAltnBtn = new System.Windows.Forms.Button();
             this.addAltnBtn = new System.Windows.Forms.Button();
             this.routeDisLbl = new System.Windows.Forms.Label();
             this.Label42 = new System.Windows.Forms.Label();
@@ -96,7 +97,6 @@
             this.registrationComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.removeAltnBtn = new System.Windows.Forms.Button();
             this.fuelParaGroupBox.SuspendLayout();
             this.TableLayoutPanel20.SuspendLayout();
             this.TableLayoutPanel1.SuspendLayout();
@@ -461,6 +461,20 @@
             this.alternateGroupBox.TabIndex = 35;
             this.alternateGroupBox.TabStop = false;
             this.alternateGroupBox.Text = "Alternate";
+            // 
+            // removeAltnBtn
+            // 
+            this.removeAltnBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.removeAltnBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.removeAltnBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removeAltnBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.removeAltnBtn.Location = new System.Drawing.Point(80, 21);
+            this.removeAltnBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.removeAltnBtn.Name = "removeAltnBtn";
+            this.removeAltnBtn.Size = new System.Drawing.Size(82, 33);
+            this.removeAltnBtn.TabIndex = 74;
+            this.removeAltnBtn.Text = "Remove";
+            this.removeAltnBtn.UseVisualStyleBackColor = false;
             // 
             // addAltnBtn
             // 
@@ -996,20 +1010,6 @@
             this.acListComboBox.Name = "acListComboBox";
             this.acListComboBox.Size = new System.Drawing.Size(203, 31);
             this.acListComboBox.TabIndex = 16;
-            // 
-            // removeBtn
-            // 
-            this.removeAltnBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.removeAltnBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.removeAltnBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.removeAltnBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.removeAltnBtn.Location = new System.Drawing.Point(80, 21);
-            this.removeAltnBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.removeAltnBtn.Name = "removeBtn";
-            this.removeAltnBtn.Size = new System.Drawing.Size(82, 33);
-            this.removeAltnBtn.TabIndex = 74;
-            this.removeAltnBtn.Text = "Remove";
-            this.removeAltnBtn.UseVisualStyleBackColor = false;
             // 
             // FuelPlanningControl
             // 

@@ -38,9 +38,16 @@
             this.airportBtn = new System.Windows.Forms.Button();
             this.ldgBtn = new System.Windows.Forms.Button();
             this.toBtn = new System.Windows.Forms.Button();
+            this.navDataStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ToolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.trackStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ToolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.windDataStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.StatusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel3
@@ -192,12 +199,67 @@
             this.toBtn.Text = "Take off";
             this.toBtn.UseVisualStyleBackColor = false;
             // 
+            // navDataStatusLabel
+            // 
+            this.navDataStatusLabel.BackColor = System.Drawing.Color.Transparent;
+            this.navDataStatusLabel.Image = global::QSP.Properties.Resources.GreenLight;
+            this.navDataStatusLabel.Name = "navDataStatusLabel";
+            this.navDataStatusLabel.Size = new System.Drawing.Size(148, 20);
+            this.navDataStatusLabel.Text = "Nav Data: Loaded";
+            this.navDataStatusLabel.ToolTipText = "Click to view options";
+            // 
+            // ToolStripStatusLabel3
+            // 
+            this.ToolStripStatusLabel3.BackColor = System.Drawing.Color.Transparent;
+            this.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3";
+            this.ToolStripStatusLabel3.Size = new System.Drawing.Size(45, 20);
+            this.ToolStripStatusLabel3.Text = "         ";
+            // 
+            // trackStatusLabel
+            // 
+            this.trackStatusLabel.BackColor = System.Drawing.Color.Transparent;
+            this.trackStatusLabel.Image = global::QSP.Properties.Resources.YellowLight;
+            this.trackStatusLabel.Name = "trackStatusLabel";
+            this.trackStatusLabel.Size = new System.Drawing.Size(166, 20);
+            this.trackStatusLabel.Text = "Tracks: Patially ready";
+            // 
+            // ToolStripStatusLabel2
+            // 
+            this.ToolStripStatusLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2";
+            this.ToolStripStatusLabel2.Size = new System.Drawing.Size(49, 20);
+            this.ToolStripStatusLabel2.Text = "          ";
+            // 
+            // windDataStatusLabel
+            // 
+            this.windDataStatusLabel.BackColor = System.Drawing.Color.Transparent;
+            this.windDataStatusLabel.Image = global::QSP.Properties.Resources.GreenLight;
+            this.windDataStatusLabel.Name = "windDataStatusLabel";
+            this.windDataStatusLabel.Size = new System.Drawing.Size(153, 20);
+            this.windDataStatusLabel.Text = "Wind Aloft : Ready";
+            // 
+            // StatusStrip1
+            // 
+            this.StatusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.StatusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.navDataStatusLabel,
+            this.ToolStripStatusLabel3,
+            this.trackStatusLabel,
+            this.ToolStripStatusLabel2,
+            this.windDataStatusLabel});
+            this.StatusStrip1.Location = new System.Drawing.Point(0, 730);
+            this.StatusStrip1.Name = "StatusStrip1";
+            this.StatusStrip1.Size = new System.Drawing.Size(1182, 25);
+            this.StatusStrip1.TabIndex = 40;
+            this.StatusStrip1.Text = "StatusStrip1";
+            // 
             // QspForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1182, 755);
+            this.Controls.Add(this.StatusStrip1);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -209,7 +271,10 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.StatusStrip1.ResumeLayout(false);
+            this.StatusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -225,5 +290,11 @@
         private System.Windows.Forms.Button acConfigBtn;
         private System.Windows.Forms.Button toBtn;
         private System.Windows.Forms.Button fuelBtn;
+        internal System.Windows.Forms.ToolStripStatusLabel navDataStatusLabel;
+        internal System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel3;
+        internal System.Windows.Forms.ToolStripStatusLabel trackStatusLabel;
+        internal System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel2;
+        internal System.Windows.Forms.ToolStripStatusLabel windDataStatusLabel;
+        private System.Windows.Forms.StatusStrip StatusStrip1;
     }
 }

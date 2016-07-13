@@ -27,6 +27,7 @@ using static QSP.UI.Controllers.ButtonGroup.ControlSwitcher;
 using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.Utilities.LoggerInstance;
 using QSP.WindAloft;
+using System.Threading.Tasks;
 
 namespace QSP.UI.Forms
 {
@@ -47,11 +48,11 @@ namespace QSP.UI.Forms
         private CountryCodeManager countryCodes;
         private ProcedureFilter procFilter;
         private TrackInUseCollection tracksInUse = new TrackInUseCollection(); // TODO: Initialize?
-        private WindTableCollection windTables; // TODO:
+        private WindTableCollection windTables;
 
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
-        private Point controlDefaultLocation = new Point(12, 60);
+        private Point controlDefaultLocation = new Point(12, 52);
 
         private IEnumerable<UserControl> Pages
         {
@@ -78,10 +79,12 @@ namespace QSP.UI.Forms
 
         public void Init()
         {
-            ShowSplashWhile(() =>
+            ShowSplashWhile(async () =>
             {
                 InitData();
                 InitControls();
+                DownloadTracksIfNeeded();
+                await DownloadWindIfNeeded();
                 //InitRouteFinderSelections();
 
                 //TODO: track in use is wrong
@@ -252,6 +255,13 @@ namespace QSP.UI.Forms
             {
                 airportMenu.Dest = destTxtBox.Text;
             };
+
+            navDataStatusLabel.Click += ViewOptions;
+            navDataStatusLabel.MouseEnter += SetHandCursor;
+            navDataStatusLabel.MouseLeave += SetDefaultCursor;
+            windDataStatusLabel.Click += async (s, e) => await DownloadWind();            
+            windDataStatusLabel.MouseEnter += SetHandCursor;
+            windDataStatusLabel.MouseLeave += SetDefaultCursor;
         }
         
         private void EnableViewControl()
@@ -360,6 +370,101 @@ namespace QSP.UI.Forms
             catch (Exception ex)
             {
                 WriteToLog(ex);
+            }
+        }
+
+        private void ViewOptions(object sender, EventArgs e)
+        {
+            optionsBtn.PerformClick();
+        }
+
+        private async Task DownloadWind()
+        {
+            ShowWindStatus(WindDownloadStatus.Downloading);
+
+            try
+            {
+                windTables = await WindManager.LoadWindAsync();
+                ShowWindStatus(WindDownloadStatus.Finished);
+            }
+            catch (Exception ex) when (
+                ex is ReadWindFileException ||
+                ex is DownloadGribFileException)
+            {
+                WriteToLog(ex);
+                ShowWindStatus(WindDownloadStatus.Failed);
+            }
+        }
+
+        public enum WindDownloadStatus
+        {
+            Downloading,
+            Finished,
+            Failed,
+            WaitingManualDownload
+        }
+
+        public void ShowWindStatus(WindDownloadStatus item)
+        {
+            var w = windDataStatusLabel;
+
+            switch (item)
+            {
+                case WindDownloadStatus.Downloading:
+                    w.Text = "Downloading lastest wind ...";
+                    w.Image = null;
+                    break;
+
+                case WindDownloadStatus.Finished:
+                    w.Text = "Lastest wind ready";
+                    w.Image = Properties.Resources.GreenLight;
+                    break;
+
+                case WindDownloadStatus.Failed:
+                    w.Text = "Failed to download wind data";
+                    w.Image = Properties.Resources.RedLight;
+                    break;
+
+                case WindDownloadStatus.WaitingManualDownload:
+                    w.Text = "Click here to download wind data";
+                    w.Image = Properties.Resources.YellowLight;
+                    break;
+            }
+        }
+
+        private void SetHandCursor(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void SetDefaultCursor(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+
+        private void DownloadTracksIfNeeded()
+        {
+            if (appSettings.AutoDLTracks)
+            {
+                //RouteFinding.Tracks.Interaction.Interactions.SetAllTracksAsync();
+                //TODO: add code to start download tracks automatically.
+            }
+            else
+            {
+                trackStatusLabel.Image = Properties.Resources.YellowLight;
+                trackStatusLabel.Text = "Tracks: Not downloaded";
+            }
+        }
+
+        private async Task DownloadWindIfNeeded()
+        {
+            if (appSettings.AutoDLWind)
+            {
+                await DownloadWind();
+            }
+            else
+            {
+                ShowWindStatus(WindDownloadStatus.WaitingManualDownload);
             }
         }
     }
