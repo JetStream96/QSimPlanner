@@ -146,6 +146,7 @@ namespace QSP.UI.UserControls
             var controlsBelow = new Control[]
             {
                 addAltnBtn,
+                removeAltnBtn,
                 calculateBtn,
                 fuelParaGroupBox,
                 fuelReportGroupBox
@@ -161,7 +162,8 @@ namespace QSP.UI.UserControls
                 ParentForm,
                 destSidProvider);
 
-            addAltn(this, EventArgs.Empty);
+            removeAltnBtn.Enabled = false;
+            AddAltn(this, EventArgs.Empty);
         }
 
         private void SubscribeEventHandlers()
@@ -170,7 +172,9 @@ namespace QSP.UI.UserControls
             acListComboBox.SelectedIndexChanged += RefreshRegistrations;
             registrationComboBox.SelectedIndexChanged += RegistrationChanged;
             calculateBtn.Click += Calculate;
-            addAltnBtn.Click += addAltn;
+            addAltnBtn.Click += AddAltn;
+            removeAltnBtn.Click += RemoveAltn;
+            altnControl.RowCountChanged += RowCountChanged;
         }
 
         private void FillAircraftSelection()
@@ -381,9 +385,19 @@ namespace QSP.UI.UserControls
                 $"Maximum fuel tank capacity is {fuelCapacityKG} {wtUnit}.";
         }
 
-        private void addAltn(object sender, EventArgs e)
+        private void AddAltn(object sender, EventArgs e)
         {
             altnControl.AddRow();
+        }
+
+        private void RemoveAltn(object sender, EventArgs e)
+        {
+            altnControl.RemoveLastRow();
+        }
+
+        private void RowCountChanged(object sender, EventArgs e)
+        {
+            removeAltnBtn.Enabled = altnControl.RowCount > 1;
         }
     }
 }

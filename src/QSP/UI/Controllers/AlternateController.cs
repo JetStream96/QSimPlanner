@@ -32,6 +32,17 @@ namespace QSP.UI.Controllers
         private Form parentForm;
         private DestinationSidSelection destSidProvider;
 
+        // Fired when the number of rows changes.
+        public event EventHandler RowCountChanged;
+
+        public int RowCount
+        {
+            get
+            {
+                return rows.Count;
+            }
+        }
+
         public AlternateController(
             IEnumerable<Control> controlsBelow,
             GroupBox altnGroupBox,
@@ -64,7 +75,29 @@ namespace QSP.UI.Controllers
             controller.Subsribe();
 
             rows.Add(new AltnRow() { Items = row, Control = controller });
-            ResizeAndMove();
+            ResizeAndMove(SizeChange.Increase);            
+            RowCountChanged?.Invoke(this, EventArgs.Empty);
+        }
+        
+        /// <exception cref="InvalidOperationException"></exception>
+        public void RemoveLastRow()
+        {
+            if (rows.Count == 0)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var rowToRemove = rows[rows.Count - 1];
+
+            foreach (var c in rowToRemove.Items.AllControls)
+            {
+                altnGroupBox.Controls.Remove(c);
+            }
+
+            rowToRemove.Control.CleanUp();
+            rows.RemoveAt(rows.Count - 1);
+            ResizeAndMove(SizeChange.Decrease);
+            RowCountChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public Route[] Routes
@@ -76,11 +109,24 @@ namespace QSP.UI.Controllers
             }
         }
 
-        private void ResizeAndMove()
+        private void ResizeAndMove(SizeChange type)
         {
+            int sizeIncrease = RowSeperation;
+
+            if (type == SizeChange.Decrease)
+            {
+                sizeIncrease = -sizeIncrease;
+            }
+
             var s = altnGroupBox.Size;
-            altnGroupBox.Size = new Size(s.Width, s.Height + RowSeperation);
-            controlsBelow.MoveDown(RowSeperation);
+            altnGroupBox.Size = new Size(s.Width, s.Height + sizeIncrease);
+            controlsBelow.MoveDown(sizeIncrease);
+        }
+
+        private enum SizeChange
+        {
+            Increase,
+            Decrease
         }
 
         public struct AltnRow
@@ -146,6 +192,13 @@ namespace QSP.UI.Controllers
                 Controller.Subscribe();
                 Row.ShowMoreBtn.Click += ShowBtns;
                 OptionBtns.Subscribe();
+            }
+
+            // Make sure the parent form no longer holds a reference 
+            // to any of the private members.
+            public void CleanUp()
+            {
+                Parent.parentForm.Controls.Remove(OptionBtns);
             }
 
             private void ShowBtns(object sender, EventArgs e)
