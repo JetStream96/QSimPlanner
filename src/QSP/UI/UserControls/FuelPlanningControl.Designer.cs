@@ -890,6 +890,7 @@
             this.destTxtBox.Name = "destTxtBox";
             this.destTxtBox.Size = new System.Drawing.Size(91, 30);
             this.destTxtBox.TabIndex = 53;
+            this.destTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // toIdentLbl
             // 
@@ -909,6 +910,7 @@
             this.origTxtBox.Name = "origTxtBox";
             this.origTxtBox.Size = new System.Drawing.Size(91, 30);
             this.origTxtBox.TabIndex = 51;
+            this.origTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // fromIdentLbl
             // 

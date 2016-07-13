@@ -16,8 +16,7 @@ namespace QSimPlanner
             var domain = AppDomain.CurrentDomain;
             domain.UnhandledException += (sender, e) =>
             {
-                var msg = ((Exception)e.ExceptionObject).Message;
-                LoggerInstance.WriteToLog(msg);
+                LoggerInstance.WriteToLog((Exception)e.ExceptionObject);
                 MsgBoxHelper.ShowError(
                     "An unexpected error occurred. " +
                     "The application will now quit.");

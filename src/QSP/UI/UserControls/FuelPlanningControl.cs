@@ -39,6 +39,7 @@ using static QSP.UI.Factories.FormFactory;
 using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 using static QSP.Utilities.Units.Conversions;
+using static QSP.UI.Utilities.MsgBoxHelper;
 
 namespace QSP.UI.UserControls
 {
@@ -319,14 +320,22 @@ namespace QSP.UI.UserControls
             }
             catch (InvalidUserInputException ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                ShowWarning(ex.Message.ToString());
                 return;
             }
 
             var data = GetFuelData();
+            var altnRoutes = altnControl.Routes;
+
+            if (altnRoutes.Any(r => r == null))
+            {
+                ShowWarning("All alternate routes must be entered.");
+                return;
+            }
+
             var fuelReport =
                 new FuelCalculatorWithWind(data, para, windTables)
-                .Compute(RouteToDest.Expanded, new Route[] { }); // TODO:
+                .Compute(RouteToDest.Expanded, altnRoutes);
 
             if (fuelReport.TotalFuelKG > data.MaxFuelKg)
             {

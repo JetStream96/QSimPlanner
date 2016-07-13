@@ -14,6 +14,7 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.UI.UserControls;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.UI.Controllers
 {
@@ -64,6 +65,15 @@ namespace QSP.UI.Controllers
 
             rows.Add(new AltnRow() { Items = row, Control = controller });
             ResizeAndMove();
+        }
+
+        public Route[] Routes
+        {
+            get
+            {
+                return rows.Select(r => r.Control.OptionBtns.Route.Expanded)
+                    .ToArray();
+            }
         }
 
         private void ResizeAndMove()
