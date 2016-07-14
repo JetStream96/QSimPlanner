@@ -272,7 +272,7 @@ namespace QSP.UI.Forms
             windDataStatusLabel.Click += async (s, e) => await DownloadWind();
             windDataStatusLabel.MouseEnter += SetHandCursor;
             windDataStatusLabel.MouseLeave += SetDefaultCursor;
-            trackStatusLabel.Click += (s, e) => trackFrm.Show();
+            trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
             trackStatusLabel.MouseEnter += SetHandCursor;
             trackStatusLabel.MouseLeave += SetDefaultCursor;
         }
