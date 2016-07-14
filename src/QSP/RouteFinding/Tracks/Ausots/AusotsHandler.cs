@@ -1,6 +1,7 @@
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Communication;
+using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using System;
@@ -11,34 +12,30 @@ namespace QSP.RouteFinding.Tracks.Ausots
 {
     public class AusotsHandler : TrackHandler
     {
-
-        #region Fields
-
         private IAusotsDownloader downloader;
         private WaypointList wptList;
         private WaypointListEditor editor;
         private StatusRecorder recorder;
         private AirportManager airportList;
-        private RouteTrackCommunicator communicator;
+        private TrackInUseCollection tracksInUse;
 
         private AusotsMessage rawData;
         private List<TrackNodes> nodes;
-
-        #endregion
-
-        public AusotsHandler(IAusotsDownloader downloader,
-                             WaypointList wptList,
-                             WaypointListEditor editor,
-                             StatusRecorder recorder,
-                             AirportManager airportList,
-                             RouteTrackCommunicator communicator)
+        
+        public AusotsHandler(
+            IAusotsDownloader downloader,
+            WaypointList wptList,
+            WaypointListEditor editor,
+            StatusRecorder recorder,
+            AirportManager airportList,
+            TrackInUseCollection tracksInUse)
         {
             this.downloader = downloader;
             this.wptList = wptList;
             this.editor = editor;
             this.recorder = recorder;
             this.airportList = airportList;
-            this.communicator = communicator;
+            this.tracksInUse = tracksInUse;
         }
 
         /// <summary>
@@ -62,9 +59,10 @@ namespace QSP.RouteFinding.Tracks.Ausots
                 }
                 catch
                 {
-                    recorder.AddEntry(StatusRecorder.Severity.Caution,
-                                      string.Format("Unable to interpret track {0}.", i.Ident),
-                                      TrackType.Ausots);
+                    recorder.AddEntry(
+                        StatusRecorder.Severity.Caution,
+                        $"Unable to interpret track {i.Ident}.",
+                        TrackType.Ausots);
                 }
             }
         }
@@ -74,13 +72,16 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             try
             {
-                return new AusotsParser(rawData, recorder, airportList).Parse();
+                return new AusotsParser(rawData, recorder, airportList)
+                    .Parse();
             }
             catch (Exception ex)
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical,
-                                  "Failed to parse AUSOTs.",
-                                  TrackType.Ausots);
+                recorder.AddEntry(
+                    StatusRecorder.Severity.Critical,
+                    "Failed to parse AUSOTs.",
+                    TrackType.Ausots);
+
                 throw new TrackParseException("Failed to parse Ausots.", ex);
             }
         }
@@ -94,10 +95,13 @@ namespace QSP.RouteFinding.Tracks.Ausots
             }
             catch (Exception ex)
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical,
-                                  "Failed to download AUSOTs.",
-                                  TrackType.Ausots);
-                throw new TrackDownloadException("Failed to download Ausots.", ex);
+                recorder.AddEntry(
+                    StatusRecorder.Severity.Critical,
+                    "Failed to download AUSOTs.",
+                    TrackType.Ausots);
+
+                throw new TrackDownloadException(
+                    "Failed to download Ausots.", ex);
             }
         }
 
@@ -110,13 +114,10 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         public override void AddToWaypointList()
         {
-            new TrackAdder(wptList, editor, recorder, TrackType.Ausots).AddToWaypointList(nodes);
+            new TrackAdder(wptList, editor, recorder, TrackType.Ausots)
+                .AddToWaypointList(nodes);
 
-            foreach (var i in nodes)
-            {
-                communicator.StageTrackData(i);
-            }
-            communicator.PushAllData(TrackType.Ausots);
+            tracksInUse.UpdateTracks(nodes, TrackType.Ausots);
         }
 
         public void UndoEdit()

@@ -1,6 +1,7 @@
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Communication;
+using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using System;
@@ -11,33 +12,30 @@ namespace QSP.RouteFinding.Tracks.Nats
 {
     public class NatsHandler : TrackHandler
     {
-        #region Fields
-
         private INatsDownloader downloader;
         private WaypointList wptList;
         private WaypointListEditor editor;
         private StatusRecorder recorder;
         private AirportManager airportList;
-        private RouteTrackCommunicator communicator;
+        private TrackInUseCollection tracksInUse;
 
         private NatsMessage rawData;
         private List<TrackNodes> nodes;
 
-        #endregion
-
-        public NatsHandler(INatsDownloader downloader,
-                           WaypointList wptList,
-                           WaypointListEditor editor,
-                           StatusRecorder recorder,
-                           AirportManager airportList,
-                           RouteTrackCommunicator communicator)
+        public NatsHandler(
+            INatsDownloader downloader,
+            WaypointList wptList,
+            WaypointListEditor editor,
+            StatusRecorder recorder,
+            AirportManager airportList,
+            TrackInUseCollection tracksInUse)
         {
             this.downloader = downloader;
             this.wptList = wptList;
             this.editor = editor;
             this.recorder = recorder;
             this.airportList = airportList;
-            this.communicator = communicator;
+            this.tracksInUse = tracksInUse;
         }
 
         /// <exception cref="TrackDownloadException"></exception>
@@ -47,7 +45,8 @@ namespace QSP.RouteFinding.Tracks.Nats
             TryDownload();
             var trks = TryParse();
 
-            var reader = new TrackReader<NorthAtlanticTrack>(wptList, airportList);
+            var reader = new TrackReader<NorthAtlanticTrack>(
+                wptList, airportList);
             nodes = new List<TrackNodes>();
 
             foreach (var i in trks)
@@ -58,9 +57,10 @@ namespace QSP.RouteFinding.Tracks.Nats
                 }
                 catch
                 {
-                    recorder.AddEntry(StatusRecorder.Severity.Caution,
-                                      string.Format("Unable to interpret track {0}.", i.Ident),
-                                      TrackType.Nats);
+                    recorder.AddEntry(
+                        StatusRecorder.Severity.Caution,
+                        $"Unable to interpret track {i.Ident}.",
+                        TrackType.Nats);
                 }
             }
         }
@@ -74,13 +74,10 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         public override void AddToWaypointList()
         {
-            new TrackAdder(wptList, editor, recorder, TrackType.Nats).AddToWaypointList(nodes);
+            new TrackAdder(wptList, editor, recorder, TrackType.Nats)
+                .AddToWaypointList(nodes);
 
-            foreach (var i in nodes)
-            {
-                communicator.StageTrackData(i);
-            }
-            communicator.PushAllData(TrackType.Nats);
+            tracksInUse.UpdateTracks(nodes, TrackType.Nats);
         }
 
         /// <exception cref="TrackDownloadException"></exception>
@@ -109,9 +106,11 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             catch (Exception ex)
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical,
-                                  "Failed to parse NATs.",
-                                  TrackType.Nats);
+                recorder.AddEntry(
+                    StatusRecorder.Severity.Critical,
+                    "Failed to parse NATs.",
+                    TrackType.Nats);
+
                 throw new TrackParseException("Failed to parse Nats.", ex);
             }
         }

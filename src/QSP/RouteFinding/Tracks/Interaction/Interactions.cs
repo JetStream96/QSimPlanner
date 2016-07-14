@@ -1,57 +1,63 @@
+using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Tracks.Common;
+using QSP.RouteFinding.Tracks.Nats;
+using QSP.RouteFinding.Tracks.Pacots;
 using System.Threading.Tasks;
-using static QSP.RouteFinding.RouteFindingCore;
 
 namespace QSP.RouteFinding.Tracks.Interaction
 {
     public static class Interactions
     {
-        public async static Task SetNats()
+        public async static Task SetNats(
+            NatsHandler handler, StatusRecorder recorder)
         {
-            TrackStatusRecorder.Clear(TrackType.Nats);
-            NatsManager.UndoEdit();
+            recorder.Clear(TrackType.Nats);
+            handler.UndoEdit();
 
             try
             {
-                await NatsManager.GetAllTracksAsync();
-                NatsManager.AddToWaypointList();
+                await handler.GetAllTracksAsync();
+                handler.AddToWaypointList();
             }
             catch
-            {
-            }
+            { }
         }
 
-        public async static Task SetPacots()
+        public async static Task SetPacots(
+            PacotsHandler handler, StatusRecorder recorder)
         {
-            TrackStatusRecorder.Clear(TrackType.Pacots);
-            PacotsManager.UndoEdit();
+            recorder.Clear(TrackType.Pacots);
+            handler.UndoEdit();
 
             try
             {
-                await PacotsManager.GetAllTracksAsync();
-                PacotsManager.AddToWaypointList();
+                await handler.GetAllTracksAsync();
+                handler.AddToWaypointList();
             }
             catch
-            {
-            }
+            { }
         }
 
-        public async static Task SetAusots()
+        public async static Task SetAusots(
+            AusotsHandler handler, StatusRecorder recorder)
         {
-            TrackStatusRecorder.Clear(TrackType.Ausots);
-            AusotsManager.UndoEdit();
+            recorder.Clear(TrackType.Ausots);
+            handler.UndoEdit();
 
             try
             {
-                await AusotsManager.GetAllTracksAsync();
-                AusotsManager.AddToWaypointList();
+                await handler.GetAllTracksAsync();
+                handler.AddToWaypointList();
             }
             catch
-            {
-            }
+            { }
         }
 
-        public async static Task SetAllTracksAsync()
+        public async static Task SetAllTracksAsync(
+            NatsHandler NatsManager,
+            PacotsHandler PacotsManager,
+            AusotsHandler AusotsManager,
+            StatusRecorder TrackStatusRecorder)
         {
             TrackStatusRecorder.Clear();
             NatsManager.UndoEdit();

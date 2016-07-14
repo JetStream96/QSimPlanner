@@ -17,17 +17,17 @@ using QSP.UI.ToLdgModule.TOPerf;
 using QSP.UI.UserControls;
 using QSP.UI.Utilities;
 using QSP.Utilities;
+using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.UI.Controllers.ButtonGroup.BtnGroupController;
 using static QSP.UI.Controllers.ButtonGroup.ControlSwitcher;
 using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.Utilities.LoggerInstance;
-using QSP.WindAloft;
-using System.Threading.Tasks;
 
 namespace QSP.UI.Forms
 {
@@ -52,7 +52,8 @@ namespace QSP.UI.Forms
 
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
-        private Point controlDefaultLocation = new Point(12, 52);
+        private readonly Point controlDefaultLocation = new Point(12, 52);
+        private TracksForm trackFrm;
 
         private IEnumerable<UserControl> Pages
         {
@@ -85,6 +86,7 @@ namespace QSP.UI.Forms
                 InitControls();
                 DownloadTracksIfNeeded();
                 await DownloadWindIfNeeded();
+                InitTrackForm();
                 //InitRouteFinderSelections();
 
                 //TODO: track in use is wrong
@@ -98,6 +100,12 @@ namespace QSP.UI.Forms
             });
         }
 
+        private void InitTrackForm()
+        {
+            trackFrm = new TracksForm();
+            trackFrm.Init(wptList, airportList, trackStatusLabel);
+        }
+
         private static void ShowSplashWhile(Action action)
         {
             var splash = new Splash();
@@ -108,7 +116,7 @@ namespace QSP.UI.Forms
 
             splash.Close();
         }
-        
+
         private void InitData()
         {
             try
@@ -196,8 +204,8 @@ namespace QSP.UI.Forms
                 tracksInUse,
                 procFilter,
                 countryCodes,
-                windTableLocator,          
-                profiles.AcConfigs, 
+                windTableLocator,
+                profiles.AcConfigs,
                 profiles.FuelData);
 
             toMenu.Initialize(profiles.AcConfigs,
@@ -260,11 +268,14 @@ namespace QSP.UI.Forms
             navDataStatusLabel.Click += ViewOptions;
             navDataStatusLabel.MouseEnter += SetHandCursor;
             navDataStatusLabel.MouseLeave += SetDefaultCursor;
-            windDataStatusLabel.Click += async (s, e) => await DownloadWind();            
+            windDataStatusLabel.Click += async (s, e) => await DownloadWind();
             windDataStatusLabel.MouseEnter += SetHandCursor;
             windDataStatusLabel.MouseLeave += SetDefaultCursor;
+            trackStatusLabel.Click += (s, e) => trackFrm.Show();
+            trackStatusLabel.MouseEnter += SetHandCursor;
+            trackStatusLabel.MouseLeave += SetDefaultCursor;
         }
-        
+
         private void EnableViewControl()
         {
             viewControl = new ControlSwitcher(

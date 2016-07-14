@@ -5,21 +5,88 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static QSP.RouteFinding.RouteFindingCore;
 using static QSP.RouteFinding.Tracks.Interaction.Interactions;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
-using static QSP.UI.FormInstanceGetter;
+using System.ComponentModel;
+using QSP.RouteFinding.Tracks.Interaction;
+using QSP.RouteFinding.Tracks.Ausots;
+using QSP.RouteFinding.Tracks.Nats;
+using QSP.RouteFinding.Tracks.Pacots;
+using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP
 {
     public partial class TracksForm
     {
-        private MainForm frmMain;
+        private NatsHandler NatsManager;
+        private PacotsHandler PacotsManager;
+        private AusotsHandler AusotsManager;
+        private StatusRecorder TrackStatusRecorder;
+
         private ImageList myImageList;
+        private ToolStripStatusLabel statusLbl;
 
         private Severity natsAvail;
         private Severity pacotsAvail;
         private Severity ausotsAvail;
+
+        public TracksForm()
+        {
+            InitializeComponent();
+        }
+
+        public void Init(
+            WaypointList wptList, 
+            AirportManager airportList,
+            ToolStripStatusLabel statusLbl)
+        {
+            this.statusLbl = statusLbl;
+
+            InitData(wptList, airportList);
+            InitImages();
+            InitCBox();
+            InitPicBoxes();
+
+            // Initialize enums
+            natsAvail = Severity.Advisory;
+            pacotsAvail = Severity.Advisory;
+            ausotsAvail = Severity.Advisory;
+
+            // The event handlers are added after the form is created. 
+            // This way the events won't fire at form creation.
+            CBoxNatsEnabled.SelectedIndexChanged += CBoxNatsEnabledChanged;
+            CBoxPacotsEnabled.SelectedIndexChanged += CBoxPacotsEnabledChanged;
+            CBoxAusotsEnabled.SelectedIndexChanged += CBoxAusotsEnabledChanged;
+            Closing += CloseForm;
+        }
+
+        private void InitData(WaypointList wptList, AirportManager airportList)
+        {
+            NatsManager = new NatsHandler(
+                new NatsDownloader(),
+                wptList,
+                wptList.GetEditor(),
+                TrackStatusRecorder,
+                airportList,
+                RTCommunicator);
+
+            PacotsManager = new PacotsHandler(
+                new PacotsDownloader(),
+                wptList,
+                wptList.GetEditor(),
+                TrackStatusRecorder,
+                airportList,
+                RTCommunicator);
+
+            AusotsManager = new AusotsHandler(
+                new AusotsDownloader(),
+                wptList,
+                wptList.GetEditor(),
+                TrackStatusRecorder,
+                airportList,
+                RTCommunicator);
+        }
 
         private void InitImages()
         {
@@ -77,11 +144,11 @@ namespace QSP
             SetMainFormTrackStatus();
         }
 
-        private void InitPBoxes()
+        private void InitPicBoxes()
         {
-            PBoxNats.Image = null;
-            PBoxPacots.Image = null;
-            PBoxAusots.Image = null;
+            PicBoxNats.Image = null;
+            PicBoxPacots.Image = null;
+            PicBoxAusots.Image = null;
         }
 
         private void SetPBox(TrackType type)
@@ -89,15 +156,15 @@ namespace QSP
             switch (type)
             {
                 case TrackType.Nats:
-                    PBoxNats.Image = myImageList.Images[(int)natsAvail];
+                    PicBoxNats.Image = myImageList.Images[(int)natsAvail];
                     break;
 
                 case TrackType.Pacots:
-                    PBoxPacots.Image = myImageList.Images[(int)pacotsAvail];
+                    PicBoxPacots.Image = myImageList.Images[(int)pacotsAvail];
                     break;
 
                 case TrackType.Ausots:
-                    PBoxAusots.Image = myImageList.Images[(int)ausotsAvail];
+                    PicBoxAusots.Image = myImageList.Images[(int)ausotsAvail];
                     break;
 
                 default:
@@ -157,50 +224,29 @@ namespace QSP
 
         private void SetMainFormTrackStatus()
         {
-            var mainFrmStatus = frmMain.LblTrackDownloadStatus;
-
             if (natsAvail == Severity.Advisory &&
                 pacotsAvail == Severity.Advisory &&
                 ausotsAvail == Severity.Advisory)
             {
-                mainFrmStatus.Image = Properties.Resources.GreenLight;
-                mainFrmStatus.Text = "Tracks: Ready";
+                statusLbl.Image = Properties.Resources.GreenLight;
+                statusLbl.Text = "Tracks: Ready";
 
             }
             else if (natsAvail == Severity.Critical &&
                 pacotsAvail == Severity.Critical &&
                 ausotsAvail == Severity.Critical)
             {
-                mainFrmStatus.Image = Properties.Resources.RedLight;
-                mainFrmStatus.Text = "Tracks: Not Available";
+                statusLbl.Image = Properties.Resources.RedLight;
+                statusLbl.Text = "Tracks: Not Available";
 
             }
             else
             {
-                mainFrmStatus.Image = Properties.Resources.YellowLight;
-                mainFrmStatus.Text = "Tracks: Partly Ready";
+                statusLbl.Image = Properties.Resources.YellowLight;
+                statusLbl.Text = "Tracks: Partly Ready";
             }
         }
-
-        private void TracksForm_Load(object sender, EventArgs e)
-        {
-            frmMain = MainFormInstance();
-            InitImages();
-            InitCBox();
-            InitPBoxes();
-
-            //initialize enums
-            natsAvail = Severity.Advisory;
-            pacotsAvail = Severity.Advisory;
-            ausotsAvail = Severity.Advisory;
-
-            // The event handlers are added after the form is created. 
-            // This way the events won't fire at form creation.
-            CBoxNatsEnabled.SelectedIndexChanged += CBoxNatsEnabled_SelectedIndexChanged;
-            CBoxPacotsEnabled.SelectedIndexChanged += CBoxPacotsEnabled_SelectedIndexChanged;
-            CBoxAusotsEnabled.SelectedIndexChanged += CBoxAusotsEnabled_SelectedIndexChanged;
-        }
-
+        
         private async void BtnNatsDn_Click(object sender, EventArgs e)
         {
             await DnNats();
@@ -216,7 +262,7 @@ namespace QSP
             await DnAusots();
         }
 
-        private void CBoxNatsEnabled_SelectedIndexChanged(object sender, EventArgs e)
+        private void CBoxNatsEnabledChanged(object sender, EventArgs e)
         {
             if (CBoxNatsEnabled.SelectedIndex == 0)
             {
@@ -229,7 +275,7 @@ namespace QSP
             }
         }
 
-        private void CBoxPacotsEnabled_SelectedIndexChanged(object sender, EventArgs e)
+        private void CBoxPacotsEnabledChanged(object sender, EventArgs e)
         {
             if (CBoxPacotsEnabled.SelectedIndex == 0)
             {
@@ -243,7 +289,7 @@ namespace QSP
 
         }
 
-        private void CBoxAusotsEnabled_SelectedIndexChanged(object sender, EventArgs e)
+        private void CBoxAusotsEnabledChanged(object sender, EventArgs e)
         {
             if (CBoxAusotsEnabled.SelectedIndex == 0)
             {
@@ -261,7 +307,7 @@ namespace QSP
             BtnNatsDn.Enabled = false;
             BtnNatsDn.Text = "Downloading";
 
-            await SetNats();
+            await SetNats(NatsManager, TrackStatusRecorder);
             RefreshStatus(TrackType.Nats);
 
             BtnNatsDn.Enabled = true;
@@ -273,7 +319,7 @@ namespace QSP
             BtnPacotsDn.Enabled = false;
             BtnPacotsDn.Text = "Downloading";
 
-            await SetPacots();
+            await SetPacots(PacotsManager, TrackStatusRecorder);
             RefreshStatus(TrackType.Pacots);
 
             BtnPacotsDn.Enabled = true;
@@ -285,26 +331,18 @@ namespace QSP
             BtnAusotsDn.Enabled = false;
             BtnAusotsDn.Text = "Downloading";
 
-            await SetAusots();
+            await SetAusots(AusotsManager, TrackStatusRecorder);
             RefreshStatus(TrackType.Ausots);
 
             BtnAusotsDn.Enabled = true;
             BtnAusotsDn.Text = "Download";
         }
 
-        private void CloseForm(object sender, System.ComponentModel.CancelEventArgs e)
+        private void CloseForm(object sender, CancelEventArgs e)
         {
-            // Do NOT close this form
+            // Do NOT close this form. Hide instead.
             e.Cancel = true;
-            this.Hide();
+            Hide();
         }
-
-        public TracksForm()
-        {
-            Closing += CloseForm;
-            Load += TracksForm_Load;
-            InitializeComponent();
-        }
-
     }
 }

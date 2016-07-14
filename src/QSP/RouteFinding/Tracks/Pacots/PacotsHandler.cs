@@ -1,6 +1,7 @@
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Communication;
+using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using System;
@@ -16,24 +17,25 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private WaypointListEditor editor;
         private StatusRecorder recorder;
         private AirportManager airportList;
-        private RouteTrackCommunicator communicator;
+        private TrackInUseCollection tracksInUse;
 
         private PacotsMessage rawData;
         private List<TrackNodes> nodes;
         
-        public PacotsHandler(IPacotsDownloader downloader,
-                            WaypointList wptList,
-                            WaypointListEditor editor,
-                            StatusRecorder recorder,
-                            AirportManager airportList,
-                            RouteTrackCommunicator communicator)
+        public PacotsHandler(
+            IPacotsDownloader downloader,
+            WaypointList wptList,
+            WaypointListEditor editor,
+            StatusRecorder recorder,
+            AirportManager airportList,
+            TrackInUseCollection tracksInUse)
         {
             this.downloader = downloader;
             this.wptList = wptList;
             this.editor = editor;
             this.recorder = recorder;
             this.airportList = airportList;
-            this.communicator = communicator;
+            this.tracksInUse = tracksInUse;
         }
 
         // TODO: Maybe have different exception messages to distinguish west/east parse error?
@@ -57,7 +59,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 {
                     recorder.AddEntry(
                         StatusRecorder.Severity.Caution,
-                        string.Format("Unable to interpret track {0}.", i.Ident),
+                        $"Unable to interpret track {i.Ident}.",
                         TrackType.Pacots);
                 }
             }
@@ -85,13 +87,15 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             try
             {
-                return new PacotsParser(rawData, recorder, airportList).Parse();
+                return new PacotsParser(rawData, recorder, airportList)
+                    .Parse();
             }
             catch (Exception ex)
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical,
-                                  "Failed to parse PACOTs.",
-                                  TrackType.Pacots);
+                recorder.AddEntry(
+                    StatusRecorder.Severity.Critical,
+                    "Failed to parse PACOTs.",
+                    TrackType.Pacots);
 
                 throw new TrackParseException("Failed to parse Pacots.", ex);
             }
@@ -109,12 +113,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             new TrackAdder(wptList, editor, recorder, TrackType.Pacots)
                     .AddToWaypointList(nodes);
 
-            foreach (var i in nodes)
-            {
-                communicator.StageTrackData(i);
-            }
-
-            communicator.PushAllData(TrackType.Pacots);
+            tracksInUse.UpdateTracks(nodes, TrackType.Pacots);
         }
 
         public void UndoEdit()
