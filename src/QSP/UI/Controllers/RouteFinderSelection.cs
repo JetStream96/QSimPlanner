@@ -208,16 +208,18 @@ namespace QSP.UI.Controllers
 
             filter.Location = new Point(0, 0);
 
-            var frm = GetForm(filter.Size);
-            frm.Controls.Add(filter);
-
-            filter.FinishedSelection += (_sender, _e) =>
+            using (var frm = GetForm(filter.Size))
             {
-                frm.Close();
-                RefreshProcedureComboBox();
-            };
+                frm.Controls.Add(filter);
 
-            frm.ShowDialog();
+                filter.FinishedSelection += (_sender, _e) =>
+                {
+                    frm.Close();
+                    RefreshProcedureComboBox();
+                };
+
+                frm.ShowDialog();
+            }
         }
     }
 }

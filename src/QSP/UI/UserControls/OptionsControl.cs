@@ -363,7 +363,7 @@ namespace QSP.UI.UserControls
             panel.BackColor = Color.FromArgb(216, 244, 215);
             panel.BorderStyle = BorderStyle.FixedSingle;
             var pt = infoLbl.Location;
-            panel.Location = new Point(pt.X - 150, pt.Y + 100);
+            panel.Location = new Point(pt.X - 300, pt.Y + 100);
 
             var lbl = new Label();
             lbl.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular);
