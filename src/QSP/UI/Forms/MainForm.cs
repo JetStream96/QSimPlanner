@@ -1216,7 +1216,7 @@ namespace QSP
         private void FindAltn_Btn_Click(object sender, EventArgs e)
         {
             var altnFrm = new FindAltnForm();
-            altnFrm.Initialize(airportList);
+            altnFrm.Init(airportList);
             altnFrm.ShowDialog();
         }
 

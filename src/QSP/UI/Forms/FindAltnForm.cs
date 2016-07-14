@@ -1,7 +1,8 @@
-using QSP.AviationTools;
 using QSP.RouteFinding.Airports;
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
+using static QSP.AviationTools.Constants;
 using static QSP.UI.FormInstanceGetter;
 
 namespace QSP
@@ -9,6 +10,18 @@ namespace QSP
     public partial class FindAltnForm
     {
         private AirportManager airportList;
+        
+        public FindAltnForm()
+        {
+            InitializeComponent();
+        }
+
+        public void Init(AirportManager airportList)
+        {
+            this.airportList = airportList;
+            lengthUnitComboBox.SelectedIndex = 0;
+            Load += AltnFinder_Load;
+        }
 
         private void OkBtn_Click(object sender, EventArgs e)
         {
@@ -20,22 +33,23 @@ namespace QSP
 
         private void AltnFinder_Load(object sender, EventArgs e)
         {
-            DestTxtbox.Text = MainFormInstance().DestTxtBox.Text;
+            icaoTxtbox.Text = MainFormInstance().DestTxtBox.Text;
             lengthUnitComboBox.SelectedIndex = 0;
-            MinRwyLengthTxtbox.Text = "2500";
+            minRwyLengthTxtbox.Text = "2500";
         }
 
         private bool TryGetLength(out double lengthFt)
         {
-            if (double.TryParse(MinRwyLengthTxtbox.Text, out lengthFt))
+            if (double.TryParse(minRwyLengthTxtbox.Text, out lengthFt))
             {
                 if (lengthUnitComboBox.SelectedIndex == 0)
                 {
-                    lengthFt *= Constants.MeterFtRatio;
+                    lengthFt *= MeterFtRatio;
                 }
 
                 return true;
             }
+
             return false;
         }
 
@@ -49,9 +63,8 @@ namespace QSP
                 return;
             }
 
-            var altn =
-                new AlternateFinder(airportList)
-                .AltnInfo(DestTxtbox.Text, (int)lengthFt);
+            var altn = new AlternateFinder(airportList)
+                .AltnInfo(icaoTxtbox.Text, (int)lengthFt);
 
             DataGrid.Columns.Clear();
             DataGrid.Rows.Clear();
@@ -79,11 +92,11 @@ namespace QSP
                 for (int i = 0; i < altn.Count; i++)
                 {
                     DataGrid[2, i].Value = (int)Math.Round(
-                        Convert.ToDouble(DataGrid[2, i].Value) * Constants.FtMeterRatio);
+                        Convert.ToDouble(DataGrid[2, i].Value) * FtMeterRatio);
                 }
             }
 
-            DataGrid.Sort(DataGrid.Columns[3], System.ComponentModel.ListSortDirection.Ascending);
+            DataGrid.Sort(DataGrid.Columns[3], ListSortDirection.Ascending);
 
             DataGrid.Columns[0].Width = 80;
             DataGrid.Columns[1].Width = 240;
@@ -104,23 +117,6 @@ namespace QSP
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        public FindAltnForm()
-        {
-            Load += AltnFinder_Load;
-            InitializeComponent();
-        }
-
-        public void Initialize(AirportManager airportList)
-        {
-            this.airportList = airportList;
-            InitControls();
-        }
-
-        private void InitControls()
-        {
-            lengthUnitComboBox.SelectedIndex = 0;
         }
     }
 }
