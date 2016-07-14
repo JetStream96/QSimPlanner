@@ -2,11 +2,15 @@
 using QSP.Utilities.Units;
 using System.Linq;
 using System.Xml.Linq;
+using System.IO;
 
 namespace QSP.UI.UserControls
 {
     public class FuelPageState
     {
+        public static readonly string FileLocation = 
+            @"SavedStates\FuelPlanningControl.xml";
+
         // Strings for xml tags.
         private string aircraft = "Aircraft";
         private string registration = "Registration";
@@ -37,6 +41,11 @@ namespace QSP.UI.UserControls
             this.control = control;
         }
 
+        public void SaveToFile()
+        {
+            File.WriteAllText(FileLocation, Save().ToString());
+        }
+
         public XElement Save()
         {
             var c = control;
@@ -64,7 +73,7 @@ namespace QSP.UI.UserControls
             });
         }
 
-        private XElement GetAlternates()
+        private XElement[] GetAlternates()
         {
             var altnInfo = control.altnControl.Controls
                 .Select(c =>
@@ -72,7 +81,7 @@ namespace QSP.UI.UserControls
                     new XElement(altnIcao, c.IcaoTxtBox.Text),
                     new XElement(altnRwy, c.RwyComboBox.Text)));
 
-            return new XElement(alternates, altnInfo.ToArray());
+            return altnInfo.ToArray();
         }
 
         private void SetAlternates(XElement node)
@@ -107,6 +116,11 @@ namespace QSP.UI.UserControls
             {
                 return 0.0;
             }
+        }
+
+        public void LoadFromFile()
+        {
+            Load(XDocument.Load(FileLocation));
         }
 
         public void Load(XDocument doc)

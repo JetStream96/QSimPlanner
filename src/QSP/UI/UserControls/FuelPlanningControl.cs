@@ -40,6 +40,7 @@ using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 using static QSP.Utilities.Units.Conversions;
 using static QSP.UI.Utilities.MsgBoxHelper;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.UserControls
 {
@@ -111,12 +112,6 @@ namespace QSP.UI.UserControls
 
             wtUnitComboBox.SelectedIndex = 0;
             SubscribeEventHandlers();
-
-            if (acListComboBox.Items.Count > 0)
-            {
-                acListComboBox.SelectedIndex = 0;
-            }
-
             advancedRouteTool = new AdvancedRouteTool();
             advancedRouteTool.Init(
                 appSettings,
@@ -125,6 +120,13 @@ namespace QSP.UI.UserControls
                 tracksInUse,
                 procFilter,
                 countryCodes);
+
+            if (acListComboBox.Items.Count > 0)
+            {
+                acListComboBox.SelectedIndex = 0;
+            }
+
+            LoadSavedState();
         }
 
         private void SetRouteOptionControl()
@@ -212,6 +214,30 @@ namespace QSP.UI.UserControls
             ApuTimeTxtBox.Text = "30";
             TaxiTimeTxtBox.Text = "20";
             HoldTimeTxtBox.Text = "0";
+        }
+
+        private void LoadSavedState()
+        {
+            try
+            {
+                new FuelPageState(this).LoadFromFile();
+            }
+            catch (Exception ex)
+            {
+                WriteToLog(ex);
+            }
+        }
+
+        private void SaveStateToFile()
+        {
+            try
+            {
+                new FuelPageState(this).SaveToFile();
+            }
+            catch (Exception ex)
+            {
+                WriteToLog(ex);
+            }
         }
 
         private void SetOrigDestControllers()
@@ -333,6 +359,7 @@ namespace QSP.UI.UserControls
 
         private void Calculate(object sender, EventArgs e)
         {
+            SaveStateToFile();
             fuelReportTxtBox.ForeColor = Color.Black;
             fuelReportTxtBox.Text = "";
 
