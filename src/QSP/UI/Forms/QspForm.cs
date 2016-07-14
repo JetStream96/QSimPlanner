@@ -20,6 +20,7 @@ using QSP.Utilities;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -75,28 +76,18 @@ namespace QSP.UI.Forms
         public QspForm()
         {
             InitializeComponent();
-            AddControls();
         }
 
         public void Init()
         {
             ShowSplashWhile(async () =>
             {
+                AddControls();
                 InitData();
                 InitControls();
                 DownloadTracksIfNeeded();
                 await DownloadWindIfNeeded();
                 InitTrackForm();
-                //InitRouteFinderSelections();
-
-                //TODO: track in use is wrong
-                //advancedRouteTool.Init(
-                //    AppSettings,
-                //    wptList,
-                //    airportList,
-                //    new TrackInUseCollection(),
-                //    new ProcedureFilter(),
-                //    countryCodes);
             });
         }
 
@@ -223,6 +214,8 @@ namespace QSP.UI.Forms
             EnableBtnColorControls();
             EnableViewControl();
             AddToolTip();
+
+            FormClosing += CloseMain;
         }
 
         private void AddToolTip()
@@ -478,6 +471,24 @@ namespace QSP.UI.Forms
             else
             {
                 ShowWindStatus(WindDownloadStatus.WaitingManualDownload);
+            }
+        }
+
+        private void CloseMain(object sender, CancelEventArgs e)
+        {
+            if (appSettings.PromptBeforeExit)
+            {
+                var Result = MessageBox.Show(
+                    "Exit the application?",
+                    "", 
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+
+                if (Result != DialogResult.Yes)
+                {
+                    // Do not exit the app.
+                    e.Cancel = true;
+                }
             }
         }
     }
