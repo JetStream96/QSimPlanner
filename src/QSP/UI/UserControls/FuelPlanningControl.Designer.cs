@@ -57,7 +57,7 @@
             this.removeAltnBtn = new System.Windows.Forms.Button();
             this.addAltnBtn = new System.Windows.Forms.Button();
             this.routeDisLbl = new System.Windows.Forms.Label();
-            this.Label42 = new System.Windows.Forms.Label();
+            this.advancedToolLbl = new System.Windows.Forms.Label();
             this.mainRouteRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.groupBoxBasicInfo = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -501,17 +501,17 @@
             this.routeDisLbl.TabIndex = 16;
             this.routeDisLbl.Text = "Distance: 459 NM (+3.5%)";
             // 
-            // Label42
+            // advancedToolLbl
             // 
-            this.Label42.AutoSize = true;
-            this.Label42.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Label42.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label42.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.Label42.Location = new System.Drawing.Point(943, 36);
-            this.Label42.Name = "Label42";
-            this.Label42.Size = new System.Drawing.Size(123, 23);
-            this.Label42.TabIndex = 47;
-            this.Label42.Text = "Advanced Tool";
+            this.advancedToolLbl.AutoSize = true;
+            this.advancedToolLbl.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.advancedToolLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.advancedToolLbl.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.advancedToolLbl.Location = new System.Drawing.Point(943, 36);
+            this.advancedToolLbl.Name = "advancedToolLbl";
+            this.advancedToolLbl.Size = new System.Drawing.Size(123, 23);
+            this.advancedToolLbl.TabIndex = 47;
+            this.advancedToolLbl.Text = "Advanced Tool";
             // 
             // mainRouteRichTxtBox
             // 
@@ -780,7 +780,7 @@
             this.groupBox1.Controls.Add(this.routeOptionBtns);
             this.groupBox1.Controls.Add(this.filterStarBtn);
             this.groupBox1.Controls.Add(this.routeDisLbl);
-            this.groupBox1.Controls.Add(this.Label42);
+            this.groupBox1.Controls.Add(this.advancedToolLbl);
             this.groupBox1.Controls.Add(this.filterSidBtn);
             this.groupBox1.Controls.Add(this.starComboBox);
             this.groupBox1.Controls.Add(this.starLbl);
@@ -1098,7 +1098,7 @@
         private System.Windows.Forms.Label Label15;
         private System.Windows.Forms.Label Label8;
         private System.Windows.Forms.Label Label7;
-        private System.Windows.Forms.Label Label42;
+        private System.Windows.Forms.Label advancedToolLbl;
         private System.Windows.Forms.Label routeDisLbl;
         private System.Windows.Forms.Button calculateBtn;
         internal System.Windows.Forms.GroupBox fuelReportGroupBox;

@@ -186,6 +186,7 @@ namespace QSP.UI.UserControls
             addAltnBtn.Click += AddAltn;
             removeAltnBtn.Click += RemoveAltn;
             altnControl.RowCountChanged += RowCountChanged;
+            advancedToolLbl.Click += ShowAdvancedTool;
         }
 
         private void FillAircraftSelection()
@@ -410,6 +411,20 @@ namespace QSP.UI.UserControls
         private void RowCountChanged(object sender, EventArgs e)
         {
             removeAltnBtn.Enabled = altnControl.RowCount > 1;
+        }
+
+        private void ShowAdvancedTool(object sender, EventArgs e)
+        {
+            var advancedTool = new AdvancedRouteTool();
+            var size = advancedRouteTool.Size;
+            var newSize = new Size(size.Width + 25, size.Height + 40);
+
+            using (var frm = GetForm(newSize))
+            {
+                frm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+                frm.Controls.Add(advancedRouteTool);
+                frm.ShowDialog();
+            }
         }
     }
 }

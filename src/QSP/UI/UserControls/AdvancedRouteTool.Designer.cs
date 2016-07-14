@@ -189,6 +189,7 @@
             this.fromIdentTxtBox.Name = "fromIdentTxtBox";
             this.fromIdentTxtBox.Size = new System.Drawing.Size(91, 30);
             this.fromIdentTxtBox.TabIndex = 20;
+            this.fromIdentTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // toIdentTxtBox
             // 
@@ -198,6 +199,7 @@
             this.toIdentTxtBox.Name = "toIdentTxtBox";
             this.toIdentTxtBox.Size = new System.Drawing.Size(91, 30);
             this.toIdentTxtBox.TabIndex = 22;
+            this.toIdentTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // toIdentLbl
             // 
@@ -404,7 +406,7 @@
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
             this.Name = "AdvancedRouteTool";
-            this.Size = new System.Drawing.Size(813, 333);
+            this.Size = new System.Drawing.Size(813, 329);
             this.ResumeLayout(false);
             this.PerformLayout();
 
