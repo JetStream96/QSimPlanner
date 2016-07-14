@@ -306,8 +306,12 @@ namespace QSP.UI.UserControls
                 return;
             }
 
-            weightControl.AircraftConfig =
-                aircrafts.Find(registrationComboBox.Text).Config;
+            var config = aircrafts.Find(registrationComboBox.Text).Config;
+            weightControl.AircraftConfig = config;
+            var maxPayloadKg = config.MaxZfwKg - config.OewKg;
+            weightControl.ZfwKg = config.OewKg + 0.5 * maxPayloadKg;
+
+            MissedApproach.SetWeight(GetFuelData().MissedAppFuelKG);
         }
 
         /// <summary>
