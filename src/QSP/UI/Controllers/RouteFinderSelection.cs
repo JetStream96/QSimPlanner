@@ -1,5 +1,4 @@
-﻿using QSP.Common.Options;
-using QSP.RouteFinding.Airports;
+﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
@@ -36,20 +35,20 @@ namespace QSP.UI.Controllers
             ComboBox RwyCBox,
             ComboBox TerminalProceduresCBox,
             Button FilterBtn,
-            string navDataLocation,
-            AirportManager airportList,
-            WaypointList wptList,
-            ProcedureFilter procFilter)
+            string NavDataLocation,
+            AirportManager AirportList,
+            WaypointList WptList,
+            ProcedureFilter ProcFilter)
         {
             this.IcaoTxtBox = IcaoTxtBox;
             this.IsDepartureAirport = IsDepartureAirport;
             this.RwyCBox = RwyCBox;
             this.TerminalProceduresCBox = TerminalProceduresCBox;
             this.FilterBtn = FilterBtn;
-            this.NavDataLocation = navDataLocation;
-            this.AirportList = airportList;
-            this.WptList = wptList;
-            this.ProcFilter = procFilter;
+            this.NavDataLocation = NavDataLocation;
+            this.AirportList = AirportList;
+            this.WptList = WptList;
+            this.ProcFilter = ProcFilter;
         }
 
         public string Icao
@@ -160,7 +159,7 @@ namespace QSP.UI.Controllers
             }
             catch (Exception ex)
             {
-                MsgBoxHelper.ShowError(ex.Message.ToString());
+                MsgBoxHelper.ShowError(ex.Message);
             }
 
             SetProcedures(proc.Where(ShouldShow));

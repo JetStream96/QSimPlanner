@@ -325,7 +325,7 @@ namespace QSP.UI.UserControls
             }
             catch (InvalidUserInputException ex)
             {
-                ShowWarning(ex.Message.ToString());
+                ShowWarning(ex.Message);
                 return;
             }
 

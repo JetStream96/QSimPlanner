@@ -180,7 +180,7 @@ namespace QSP.UI.UserControls
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message.ToString());
+                        MessageBox.Show(ex.Message);
                     }
                 }
                 else
@@ -213,7 +213,7 @@ namespace QSP.UI.UserControls
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message.ToString());
+                        MessageBox.Show(ex.Message);
                     }
                 }
             }
@@ -249,7 +249,7 @@ namespace QSP.UI.UserControls
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message.ToString());
+                        MessageBox.Show(ex.Message);
                     }
                 }
                 else
@@ -277,7 +277,7 @@ namespace QSP.UI.UserControls
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message.ToString());
+                        MessageBox.Show(ex.Message);
                     }
                 }
             }

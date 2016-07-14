@@ -167,8 +167,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             metarLbl.Visible = false;
             updateBtn.Visible = false;
         }
-
-        // TODO: Need the ability to cancel the task.
+        
         private async void SetMetar(string icao)
         {
             metarLbl.Text = "Updating ...";

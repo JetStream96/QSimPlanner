@@ -7,7 +7,6 @@ using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.UI.Controllers;
-using QSP.UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -90,11 +89,11 @@ namespace QSP.UI.UserControls
                 origController.Icao, origController.Rwy, sid,
                 destController.Icao, destController.Rwy, star);
 
-            this.Route = new RouteGroup(result, tracksInUse);
-            var route = this.Route.Expanded;
+            Route = new RouteGroup(result, tracksInUse);
+            var expanded = Route.Expanded;
 
-            routeTxtSetter(route.ToString(false, false));
-            UpdateRouteDistanceLbl(routeDisLbl, route, displayStyle);
+            routeTxtSetter(expanded.ToString(false, false));
+            UpdateRouteDistanceLbl(routeDisLbl, expanded, displayStyle);
         }
 
         // TODO: exception handling?
@@ -115,23 +114,22 @@ namespace QSP.UI.UserControls
             {
                 var input = routeTxtGetter().ToUpper();
 
-                this.Route =
-                    new RouteGroup(
-                        RouteAnalyzerFacade.AnalyzeWithCommands(
-                            input,
-                            origController.Icao,
-                            origController.Rwy,
-                            destController.Icao,
-                            destController.Rwy,
-                            appSettings.NavDataLocation,
-                            airportList,
-                            wptList),
-                        tracksInUse);
+                Route = new RouteGroup(
+                    RouteAnalyzerFacade.AnalyzeWithCommands(
+                        input,
+                        origController.Icao,
+                        origController.Rwy,
+                        destController.Icao,
+                        destController.Rwy,
+                        appSettings.NavDataLocation,
+                        airportList,
+                        wptList),
+                    tracksInUse);
 
-                var route = this.Route.Expanded;
+                var expanded = Route.Expanded;
 
-                routeTxtSetter(route.ToString(false, false));
-                UpdateRouteDistanceLbl(routeDisLbl, route, displayStyle);
+                routeTxtSetter(expanded.ToString(false, false));
+                UpdateRouteDistanceLbl(routeDisLbl, expanded, displayStyle);
             }
             catch (Exception ex)
             {

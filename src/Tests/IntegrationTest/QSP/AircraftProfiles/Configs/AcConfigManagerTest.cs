@@ -22,6 +22,7 @@ namespace IntergrationTest.QSP.AircraftProfiles.Configs
                         "B-12345",
                         txt,
                         txt,
+                        txt,
                         123456.0,
                         234567.0,
                         345678.0,

@@ -15,6 +15,7 @@ namespace UnitTest.AircraftProfiles.Configs
                     "B-12345",
                     "Boeing 777-300ER",
                     "Boeing 777-300ER",
+                    "Boeing 777-300ER",
                     123456.0,
                     234567.0,
                     345678.0,
@@ -26,6 +27,7 @@ namespace UnitTest.AircraftProfiles.Configs
             new AircraftConfig(
                 new AircraftConfigItem("B777-300ER",
                     "B-9876",
+                    "Boeing 777-300ER custom",
                     "Boeing 777-300ER custom",
                     "Boeing 777-300ER custom",
                     23456.0,

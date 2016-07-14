@@ -169,7 +169,7 @@ namespace QSP
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show(ex.Message);
                 return;
             }
 

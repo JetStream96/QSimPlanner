@@ -32,7 +32,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
                 wptList.GetEditor(),
                 recorder,
                 new AirportManager(new AirportCollection()),
-                new RouteTrackCommunicator(new TrackInUseCollection()));
+                new TrackInUseCollection());
 
             // Act
             handler.GetAllTracks();

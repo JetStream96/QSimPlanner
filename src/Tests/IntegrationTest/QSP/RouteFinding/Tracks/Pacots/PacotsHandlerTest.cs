@@ -35,7 +35,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
                 wptList.GetEditor(),
                 recorder,
                 GetAirportList(),
-                new RouteTrackCommunicator(new TrackInUseCollection()));
+                new TrackInUseCollection());
 
             // Act
             handler.GetAllTracks();
