@@ -57,11 +57,11 @@ namespace QSP.UI.UserControls
         private RouteFinderSelection destController;
         private DestinationSidSelection destSidProvider;
         private WeightController weightControl;
-        private AlternateController altnControl;
         private AdvancedRouteTool advancedRouteTool;
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
 
+        public AlternateController altnControl { get; private set; }
         public WeightTextBoxController Oew { get; private set; }
         public WeightTextBoxController Payload { get; private set; }
         public WeightTextBoxController Zfw { get; private set; }
@@ -149,6 +149,11 @@ namespace QSP.UI.UserControls
             get
             {
                 return (WeightUnit)wtUnitComboBox.SelectedIndex;
+            }
+
+            set
+            {
+                wtUnitComboBox.SelectedIndex = (int)value;
             }
         }
 

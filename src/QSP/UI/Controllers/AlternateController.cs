@@ -122,6 +122,14 @@ namespace QSP.UI.Controllers
             controlsBelow.MoveDown(sizeIncrease);
         }
 
+        public IEnumerable<AlternateRowItems> Controls
+        {
+            get
+            {
+                return rows.Select(r => r.Items);
+            }
+        }
+        
         private enum SizeChange
         {
             Increase,

@@ -1062,7 +1062,6 @@
         internal System.Windows.Forms.Button addAltnBtn;
         internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.TableLayoutPanel TableLayoutPanel2;
-        private Controls.ComboBoxWithBorder acListComboBox;
         internal System.Windows.Forms.TrackBar payloadTrackBar;
         internal System.Windows.Forms.Label label10;
         internal System.Windows.Forms.Label Label17;
@@ -1070,27 +1069,19 @@
         internal System.Windows.Forms.Label oewLbl;
         internal System.Windows.Forms.Label payloadLbl;
         internal System.Windows.Forms.Label zfwLbl;
-        internal System.Windows.Forms.TextBox oewTxtBox;
         internal System.Windows.Forms.TextBox payloadTxtBox;
         private System.Windows.Forms.Label label21;
-        private Controls.ComboBoxWithBorder registrationComboBox;
         private System.Windows.Forms.Label label22;
         internal System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox destTxtBox;
         private System.Windows.Forms.Label toIdentLbl;
-        private System.Windows.Forms.TextBox origTxtBox;
         private System.Windows.Forms.Label fromIdentLbl;
-        private Controls.ComboBoxWithBorder destRwyComboBox;
         private System.Windows.Forms.Label toRwyLbl;
-        private Controls.ComboBoxWithBorder origRwyComboBox;
         private System.Windows.Forms.Label fromRwyLbl;
         private System.Windows.Forms.Button filterStarBtn;
         private System.Windows.Forms.Button filterSidBtn;
-        private Controls.ComboBoxWithBorder starComboBox;
         private System.Windows.Forms.Label starLbl;
-        private Controls.ComboBoxWithBorder sidComboBox;
         private System.Windows.Forms.Label sidLbl;
         private System.Windows.Forms.Label Label19;
         private System.Windows.Forms.Label Label16;
@@ -1103,10 +1094,6 @@
         private System.Windows.Forms.Button calculateBtn;
         internal System.Windows.Forms.GroupBox fuelReportGroupBox;
         internal System.Windows.Forms.RichTextBox fuelReportTxtBox;
-        private Controls.ComboBoxWithBorder wtUnitComboBox;
-        internal System.Windows.Forms.TextBox zfwTxtBox;
-        private System.Windows.Forms.TextBox extraFuelTxtBox;
-        private System.Windows.Forms.TextBox missedAppFuelTxtBox;
         public System.Windows.Forms.TextBox FinalReserveTxtBox;
         public System.Windows.Forms.TextBox TaxiTimeTxtBox;
         public System.Windows.Forms.TextBox ApuTimeTxtBox;
@@ -1114,5 +1101,18 @@
         public System.Windows.Forms.ComboBox ContPercentComboBox;
         private RouteOptionBtns routeOptionBtns;
         internal System.Windows.Forms.Button removeAltnBtn;
+        public Controls.ComboBoxWithBorder acListComboBox;
+        public Controls.ComboBoxWithBorder registrationComboBox;
+        public System.Windows.Forms.TextBox destTxtBox;
+        public System.Windows.Forms.TextBox origTxtBox;
+        public Controls.ComboBoxWithBorder destRwyComboBox;
+        public Controls.ComboBoxWithBorder origRwyComboBox;
+        public Controls.ComboBoxWithBorder starComboBox;
+        public Controls.ComboBoxWithBorder sidComboBox;
+        private System.Windows.Forms.TextBox oewTxtBox;
+        private System.Windows.Forms.TextBox zfwTxtBox;
+        private System.Windows.Forms.TextBox extraFuelTxtBox;
+        private System.Windows.Forms.TextBox missedAppFuelTxtBox;
+        private Controls.ComboBoxWithBorder wtUnitComboBox;
     }
 }

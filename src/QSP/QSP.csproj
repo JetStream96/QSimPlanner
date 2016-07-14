@@ -179,6 +179,7 @@
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Factories\ToolTipFactory.cs" />
+    <Compile Include="UI\UserControls\FuelPageState.cs" />
     <Compile Include="UI\UserControls\FuelParameterValidator.cs" />
     <Compile Include="UI\UserControls\FuelPlanningControl.cs">
       <SubType>UserControl</SubType>
