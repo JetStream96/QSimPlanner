@@ -1,6 +1,5 @@
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
-using QSP.RouteFinding.Communication;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
@@ -75,9 +74,11 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
             catch
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical,
-                                  "Failed to download PACOTs.",
-                                  TrackType.Pacots);
+                recorder.AddEntry(
+                    StatusRecorder.Severity.Critical,
+                    "Failed to download PACOTs.",
+                    TrackType.Pacots);
+
                 throw;
             }
         }

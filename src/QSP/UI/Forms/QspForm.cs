@@ -47,7 +47,7 @@ namespace QSP.UI.Forms
         private WaypointList wptList;
         private CountryCodeManager countryCodes;
         private ProcedureFilter procFilter;
-        private TrackInUseCollection tracksInUse = new TrackInUseCollection(); // TODO: Initialize?
+        private TrackInUseCollection tracksInUse;
         private Locator<WindTableCollection> windTableLocator;
 
         private BtnGroupController btnControl;
@@ -103,7 +103,7 @@ namespace QSP.UI.Forms
         private void InitTrackForm()
         {
             trackFrm = new TracksForm();
-            trackFrm.Init(wptList, airportList, trackStatusLabel);
+            trackFrm.Init(wptList, airportList, tracksInUse, trackStatusLabel);
         }
 
         private static void ShowSplashWhile(Action action)
@@ -156,6 +156,7 @@ namespace QSP.UI.Forms
 
             procFilter = new ProcedureFilter();
             windTableLocator = new Locator<WindTableCollection>();
+            tracksInUse = new TrackInUseCollection();
         }
 
         private void InitAirportList()

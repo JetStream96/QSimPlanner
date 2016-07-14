@@ -25,21 +25,21 @@ namespace QSP.RouteFinding.Tracks.Common
                                           wptList.GetEditor(),
                                           TrackStatusRecorder,
                                           airportList,
-                                          RTCommunicator);
+                                          TracksInUse);
 
             PacotsManager = new PacotsHandler(new PacotsDownloader(),
                                               wptList,
                                               wptList.GetEditor(),
                                               TrackStatusRecorder,
                                               airportList,
-                                              RTCommunicator);
+                                              TracksInUse);
 
             AusotsManager = new AusotsHandler(new AusotsDownloader(),
                                               wptList,
                                               wptList.GetEditor(),
                                               TrackStatusRecorder,
                                               airportList,
-                                              RTCommunicator);
+                                              TracksInUse);
             
         }        
     }

@@ -1,24 +1,26 @@
 using QSP.Common;
+using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Routes.TrackInUse;
+using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Tracks.Common;
+using QSP.RouteFinding.Tracks.Interaction;
+using QSP.RouteFinding.Tracks.Nats;
+using QSP.RouteFinding.Tracks.Pacots;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.RouteFinding.Tracks.Interaction.Interactions;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
-using System.ComponentModel;
-using QSP.RouteFinding.Tracks.Interaction;
-using QSP.RouteFinding.Tracks.Ausots;
-using QSP.RouteFinding.Tracks.Nats;
-using QSP.RouteFinding.Tracks.Pacots;
-using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.AirwayStructure;
 
 namespace QSP
 {
     public partial class TracksForm
     {
+        private TrackInUseCollection tracksInUse;
         private NatsHandler NatsManager;
         private PacotsHandler PacotsManager;
         private AusotsHandler AusotsManager;
@@ -38,9 +40,11 @@ namespace QSP
 
         public void Init(
             WaypointList wptList, 
-            AirportManager airportList,
+            AirportManager airportList, 
+            TrackInUseCollection tracksInUse,
             ToolStripStatusLabel statusLbl)
         {
+            this.tracksInUse = tracksInUse;
             this.statusLbl = statusLbl;
 
             InitData(wptList, airportList);
@@ -69,7 +73,7 @@ namespace QSP
                 wptList.GetEditor(),
                 TrackStatusRecorder,
                 airportList,
-                RTCommunicator);
+                tracksInUse);
 
             PacotsManager = new PacotsHandler(
                 new PacotsDownloader(),
@@ -77,7 +81,7 @@ namespace QSP
                 wptList.GetEditor(),
                 TrackStatusRecorder,
                 airportList,
-                RTCommunicator);
+                tracksInUse);
 
             AusotsManager = new AusotsHandler(
                 new AusotsDownloader(),
@@ -85,7 +89,9 @@ namespace QSP
                 wptList.GetEditor(),
                 TrackStatusRecorder,
                 airportList,
-                RTCommunicator);
+                tracksInUse);
+
+            TrackStatusRecorder = new StatusRecorder();
         }
 
         private void InitImages()
@@ -213,7 +219,7 @@ namespace QSP
 
             if (noError)
             {
-                ListViewItem lvi = new ListViewItem(TrackString(para));
+                var lvi = new ListViewItem(TrackString(para));
                 lvi.SubItems.Add("All tracks succesfully added.");
                 lvi.ImageIndex = 0;
                 ListView1.Items.Add(lvi);
