@@ -15,9 +15,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using static QSP.MainForm;
 using static QSP.UI.Factories.FormFactory;
 using static QSP.UI.Factories.ToolTipFactory;
+using static QSP.UI.Utilities.RouteDistanceDisplay;
 
 namespace QSP.UI.UserControls
 {
@@ -81,7 +81,7 @@ namespace QSP.UI.UserControls
                 gray,
                 Color.White,
                 gray)
-                .Activate();            
+                .Activate();
         }
 
         private void SetControlGroups()
@@ -103,18 +103,18 @@ namespace QSP.UI.UserControls
 
             toGroup = new ControlGroup(
                 this,
-               toTypeComboBox,
-               toIdentLbl,
-               toIdentTxtBox,
-               toRwyLbl,
-               toRwyComboBox,
-               starLbl,
-               starComboBox,
-               toWptLbl,
-               toWptComboBox,
-               false,
-               procFilter,
-               filterStarBtn);
+                toTypeComboBox,
+                toIdentLbl,
+                toIdentTxtBox,
+                toRwyLbl,
+                toRwyComboBox,
+                starLbl,
+                starComboBox,
+                toWptLbl,
+                toWptComboBox,
+                false,
+                procFilter,
+                filterStarBtn);
         }
 
         private void attachEventHandlers()
@@ -148,139 +148,141 @@ namespace QSP.UI.UserControls
 
         private void FindRouteBtnClick(object sender, EventArgs e)
         {
-            if (fromTypeComboBox.SelectedIndex == 0)
+            try
             {
-                if (toTypeComboBox.SelectedIndex == 0)
+                if (fromTypeComboBox.SelectedIndex == 0)
                 {
-                    // Airport to airport
-                    var sids = fromGroup.controller.GetSelectedProcedures();
-                    var stars = toGroup.controller.GetSelectedProcedures();
-
-                    try
+                    if (toTypeComboBox.SelectedIndex == 0)
                     {
-                        var myRoute = new RouteGroup(
-                            new RouteFinderFacade(
-                                wptList,
-                                airportList,
-                                appSettings.NavDataLocation,
-                                CheckedCodes)
-                                .FindRoute(
-                                    fromIdentTxtBox.Text,
-                                    fromRwyComboBox.Text,
-                                    sids,
-                                    toIdentTxtBox.Text,
-                                    toRwyComboBox.Text,
-                                    stars),
-                                tracksInUse);
-
-                        var route = myRoute.Expanded;
-
-                        routeRichTxtBox.Text = route.ToString();
-                        UpdateRouteDistanceLbl(routeSummaryLbl, route);
+                        GetRouteAirportToAirport();
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show(ex.Message);
+                        GetRouteAirportToWaypoint();
                     }
                 }
                 else
                 {
-                    // Airport to waypoint
-                    try
+                    if (toTypeComboBox.SelectedIndex == 0)
                     {
-                        var sids = fromGroup.controller.GetSelectedProcedures();
-                        var latLon = ExtractLatLon(toWptComboBox.Text);
-                        var wpt = wptList.FindByWaypoint(
-                            toIdentTxtBox.Text, latLon.Lat, latLon.Lon);
-
-                        var myRoute = new RouteGroup(
-                            new RouteFinderFacade(
-                                wptList,
-                                airportList,
-                                appSettings.NavDataLocation,
-                                CheckedCodes)
-                                .FindRoute(
-                                    fromIdentTxtBox.Text,
-                                    fromRwyComboBox.Text,
-                                    sids,
-                                    wpt),
-                                tracksInUse);
-
-                        var route = myRoute.Expanded;
-
-                        routeRichTxtBox.Text = route.ToString(false, true);
-                        UpdateRouteDistanceLbl(routeSummaryLbl, route);
+                        GetRouteWaypointToAirport();
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show(ex.Message);
+                        GetRouteWaypointToWaypoint();
                     }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                if (toTypeComboBox.SelectedIndex == 0)
-                {
-                    // Waypoint to airport
-                    var latLon = ExtractLatLon(fromWptComboBox.Text);
-                    var wpt = wptList.FindByWaypoint(
-                        fromIdentTxtBox.Text, latLon.Lat, latLon.Lon);
-                    var stars = toGroup.controller.GetSelectedProcedures();
-
-                    try
-                    {
-                        var myRoute = new RouteGroup(
-                            new RouteFinderFacade(
-                                wptList,
-                                airportList,
-                                appSettings.NavDataLocation,
-                                CheckedCodes)
-                                .FindRoute(
-                                    wpt,
-                                    toIdentTxtBox.Text,
-                                    toRwyComboBox.Text,
-                                    stars),
-                                tracksInUse);
-
-                        var route = myRoute.Expanded;
-
-                        routeRichTxtBox.Text = route.ToString(true, false);
-                        UpdateRouteDistanceLbl(routeSummaryLbl, route);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-                else
-                {
-                    // Waypoint to waypoint
-                    var latLonFrom = ExtractLatLon(fromWptComboBox.Text);
-                    var wptFrom = wptList.FindByWaypoint(
-                        fromIdentTxtBox.Text, latLonFrom.Lat, latLonFrom.Lon);
-
-                    var latLonTo = ExtractLatLon(toWptComboBox.Text);
-                    var wptTo = wptList.FindByWaypoint(
-                        toIdentTxtBox.Text, latLonTo.Lat, latLonTo.Lon);
-
-                    try
-                    {
-                        var myRoute = new RouteGroup(
-                            new RouteFinder(wptList, CheckedCodes)
-                                .FindRoute(wptFrom, wptTo),
-                                tracksInUse);
-
-                        var route = myRoute.Expanded;
-
-                        routeRichTxtBox.Text = route.ToString(true, true);
-                        UpdateRouteDistanceLbl(routeSummaryLbl, route);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
+                MessageBox.Show(ex.Message);
             }
+        }
+
+        private void GetRouteWaypointToWaypoint()
+        {
+            var myRoute = new RouteGroup(
+                new RouteFinder(wptList, CheckedCodes)
+                    .FindRoute(GetWptIndexFrom(), GetWptIndexTo()),
+                    tracksInUse);
+
+            var route = myRoute.Expanded;
+
+            routeRichTxtBox.Text = route.ToString(true, true);
+            UpdateRouteDistanceLbl(
+                routeSummaryLbl, route, DistanceDisplayStyle.Long);
+        }
+
+        private void GetRouteWaypointToAirport()
+        {
+            var stars = toGroup.controller.GetSelectedProcedures();
+
+            var myRoute = new RouteGroup(
+                GetRouteFinder().FindRoute(
+                    GetWptIndexFrom(),
+                    toIdentTxtBox.Text,
+                    toRwyComboBox.Text,
+                    stars),
+                tracksInUse);
+
+            var route = myRoute.Expanded;
+
+            routeRichTxtBox.Text = route.ToString(true, false);
+            UpdateRouteDistanceLbl(
+                routeSummaryLbl, route, DistanceDisplayStyle.Long);
+        }
+
+        private void GetRouteAirportToWaypoint()
+        {
+            var sids = fromGroup.controller.GetSelectedProcedures();
+
+            var myRoute = new RouteGroup(
+                GetRouteFinder().FindRoute(
+                    fromIdentTxtBox.Text,
+                    fromRwyComboBox.Text,
+                    sids,
+                    GetWptIndexTo()),
+                    tracksInUse);
+
+            var route = myRoute.Expanded;
+
+            routeRichTxtBox.Text = route.ToString(false, true);
+            UpdateRouteDistanceLbl(
+                routeSummaryLbl, route, DistanceDisplayStyle.Long);
+        }
+
+        private void GetRouteAirportToAirport()
+        {
+            var sids = fromGroup.controller.GetSelectedProcedures();
+            var stars = toGroup.controller.GetSelectedProcedures();
+
+            var myRoute = new RouteGroup(
+               GetRouteFinder().FindRoute(
+                    fromIdentTxtBox.Text,
+                    fromRwyComboBox.Text,
+                    sids,
+                    toIdentTxtBox.Text,
+                    toRwyComboBox.Text,
+                    stars),
+                 tracksInUse);
+
+            var route = myRoute.Expanded;
+
+            routeRichTxtBox.Text = route.ToString();
+            UpdateRouteDistanceLbl(
+                routeSummaryLbl, route, DistanceDisplayStyle.Long);
+        }
+
+        private void ShowRoute(RouteGroup routeGroup)
+        {
+            var route = routeGroup.Expanded;
+
+            routeRichTxtBox.Text = route.ToString(true, false);
+            UpdateRouteDistanceLbl(
+                routeSummaryLbl, route, DistanceDisplayStyle.Long);
+        }
+
+        private RouteFinderFacade GetRouteFinder()
+        {
+            return new RouteFinderFacade(
+                wptList,
+                airportList,
+                appSettings.NavDataLocation,
+                CheckedCodes);
+        }
+
+        private int GetWptIndexFrom()
+        {
+            var latLon = ExtractLatLon(fromWptComboBox.Text);
+            return wptList.FindByWaypoint(
+                fromIdentTxtBox.Text, latLon.Lat, latLon.Lon);
+        }
+
+        private int GetWptIndexTo()
+        {
+            var latLon = ExtractLatLon(toWptComboBox.Text);
+            return wptList.FindByWaypoint(
+                toIdentTxtBox.Text, latLon.Lat, latLon.Lon);
         }
 
         // Gets the lat and lon.

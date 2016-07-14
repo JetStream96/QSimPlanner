@@ -58,6 +58,7 @@ namespace QSP.UI.UserControls
         private DestinationSidSelection destSidProvider;
         private WeightController weightControl;
         private AlternateController altnControl;
+        private AdvancedRouteTool advancedRouteTool;
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
 
@@ -115,6 +116,15 @@ namespace QSP.UI.UserControls
             {
                 acListComboBox.SelectedIndex = 0;
             }
+
+            advancedRouteTool = new AdvancedRouteTool();
+            advancedRouteTool.Init(
+                appSettings,
+                wptList,
+                airportList,
+                tracksInUse,
+                procFilter,
+                countryCodes);
         }
 
         private void SetRouteOptionControl()
