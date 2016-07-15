@@ -18,7 +18,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
         {
             SetItems(min, max);
         }
-            
+
         public void SetItems(double min, double max)
         {
             ConditionChecker.Ensure<ArgumentException>(max >= min);
@@ -36,7 +36,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
 
         public int NearestIndex(double slope)
         {
-            int index =Doubles.RoundToInt((slope - items[0]) / 0.1);
+            int index = Doubles.RoundToInt((slope - items[0]) / 0.1);
             ConditionChecker.Ensure<ArgumentOutOfRangeException>(
                 index >= 0 && index < items.Length);
 
@@ -45,9 +45,8 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
 
         public bool ResizeRequired(double slope)
         {
-            return 
-                (slope  < items[0]) || 
-                (slope  > items[items.Length - 1]);
+            return slope < items[0] ||
+                slope > items[items.Length - 1];
         }
     }
 }

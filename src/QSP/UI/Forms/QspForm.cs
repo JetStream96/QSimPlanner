@@ -54,6 +54,7 @@ namespace QSP.UI.Forms
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
         private readonly Point controlDefaultLocation = new Point(12, 52);
+        private readonly Size controlSize = new Size(1140, 676);
         private TracksForm trackFrm;
 
         private IEnumerable<UserControl> Pages
@@ -179,7 +180,7 @@ namespace QSP.UI.Forms
 
         private void InitControls()
         {
-            AutoScroll = true;
+            //AutoScroll = true;
 
             CheckRegistry();
             SubscribeEvents();
@@ -324,6 +325,7 @@ namespace QSP.UI.Forms
         {
             acMenu = new AircraftMenuControl();
             fuelMenu = new FuelPlanningControl();
+            fuelMenu.Size = controlSize;
             toMenu = new TOPerfControl();
             ldgMenu = new LandingPerfControl();
             airportMenu = new AirportMapControl();
