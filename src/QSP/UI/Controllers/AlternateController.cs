@@ -14,6 +14,8 @@ using System.Linq;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 using static QSP.UI.Factories.FormFactory;
+using QSP.UI.UserControls;
+using QSP.LibraryExtension;
 
 namespace QSP.UI.Controllers
 {
@@ -21,14 +23,14 @@ namespace QSP.UI.Controllers
     {
         private const int RowSeperation = 38;
 
-        private IEnumerable<Control> controlsBelow;
+        //private IEnumerable<Control> controlsBelow;
         private GroupBox altnGroupBox;
         private List<AltnRow> rows;
         private AppOptions appSettings;
         private AirportManager airportList;
         private WaypointList wptList;
         private TrackInUseCollection tracksInUse;
-        private Form parentForm;
+        private TableLayoutPanel layoutPanel;
         private DestinationSidSelection destSidProvider;
 
         // Fired when the number of rows changes.
@@ -43,22 +45,22 @@ namespace QSP.UI.Controllers
         }
 
         public AlternateController(
-            IEnumerable<Control> controlsBelow,
+           // IEnumerable<Control> controlsBelow,
             GroupBox altnGroupBox,
             AppOptions appSettings,
             AirportManager airportList,
             WaypointList wptList,
             TrackInUseCollection tracksInUse,
-            Form parentForm,
+            TableLayoutPanel layoutPanel,
             DestinationSidSelection destSidProvider)
         {
-            this.controlsBelow = controlsBelow;
+            //this.controlsBelow = controlsBelow;
             this.altnGroupBox = altnGroupBox;
             this.appSettings = appSettings;
             this.airportList = airportList;
             this.wptList = wptList;
             this.tracksInUse = tracksInUse;
-            this.parentForm = parentForm;
+            this.layoutPanel = layoutPanel;
             this.destSidProvider = destSidProvider;
 
             rows = new List<AltnRow>();
@@ -67,17 +69,18 @@ namespace QSP.UI.Controllers
         public void AddRow()
         {
             int index = rows.Count;
-            var row = new AlternateRowItems(index + 1);
-            row.AddToGroupBox(altnGroupBox);
+            var row = new AlternateRowControl();
+            row.AddToLayoutPanel(layoutPanel);
+            //row.AddToGroupBox(altnGroupBox);
 
             var controller = new AltnRowControl(this, row);
             controller.Subsribe();
 
             rows.Add(new AltnRow() { Items = row, Control = controller });
-            ResizeAndMove(SizeChange.Increase);            
+            // ResizeAndMove(SizeChange.Increase);
             RowCountChanged?.Invoke(this, EventArgs.Empty);
         }
-        
+
         /// <exception cref="InvalidOperationException"></exception>
         public void RemoveLastRow()
         {
@@ -88,15 +91,16 @@ namespace QSP.UI.Controllers
 
             var rowToRemove = rows[rows.Count - 1];
 
-            foreach (var c in rowToRemove.Items.AllControls)
-            {
-                altnGroupBox.Controls.Remove(c);
-                c.Dispose();
-            }
+            rowToRemove.Items.Dispose();
+            //foreach (Control c in rowToRemove.Items.Controls)
+            //{
+            //    altnGroupBox.Controls.Remove(c);
+            //    c.Dispose();
+            //}
 
             rowToRemove.Control.CleanUp();
             rows.RemoveAt(rows.Count - 1);
-            ResizeAndMove(SizeChange.Decrease);
+            //ResizeAndMove(SizeChange.Decrease);
             RowCountChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -104,58 +108,56 @@ namespace QSP.UI.Controllers
         {
             get
             {
-                return rows.Select(r => r.Control.OptionBtns.Route.Expanded)
+                return rows.Select(r => r.Control.OptionMenu.Route.Expanded)
                     .ToArray();
             }
         }
 
-        private void ResizeAndMove(SizeChange type)
-        {
-            int sizeIncrease = RowSeperation;
+        //private void ResizeAndMove(SizeChange type)
+        //{
+        //    int sizeIncrease = RowSeperation;
 
-            if (type == SizeChange.Decrease)
-            {
-                sizeIncrease = -sizeIncrease;
-            }
+        //    if (type == SizeChange.Decrease)
+        //    {
+        //        sizeIncrease = -sizeIncrease;
+        //    }
 
-            var s = altnGroupBox.Size;
-            altnGroupBox.Size = new Size(s.Width, s.Height + sizeIncrease);
-            controlsBelow.MoveDown(sizeIncrease);
-        }
+        //    var s = altnGroupBox.Size;
+        //    altnGroupBox.Size = new Size(s.Width, s.Height + sizeIncrease);
+        //    controlsBelow.MoveDown(sizeIncrease);
+        //}
 
-        public IEnumerable<AlternateRowItems> Controls
+        public IEnumerable<AlternateRowControl> Controls
         {
             get
             {
                 return rows.Select(r => r.Items);
             }
         }
-        
-        private enum SizeChange
-        {
-            Increase,
-            Decrease
-        }
+
+        //private enum SizeChange
+        //{
+        //    Increase,
+        //    Decrease
+        //}
 
         public struct AltnRow
         {
-            public AlternateRowItems Items; public AltnRowControl Control;
+            public AlternateRowControl Items; public AltnRowControl Control;
         }
 
         public class AltnRowControl
         {
-            public AlternateController Parent;
-            public AlternateRowItems Row;
+            public AlternateRowControl Row;
             public RouteFinderSelection Controller;
-            public OptionBtns OptionBtns;
+            public OptionContextMenu OptionMenu;
 
-            private Point frmLocation;
+            //private Point frmLocation;
 
             public AltnRowControl(
                 AlternateController Parent,
-                AlternateRowItems row)
+                AlternateRowControl row)
             {
-                this.Parent = Parent;
                 this.Row = row;
 
                 Controller = new RouteFinderSelection(
@@ -169,9 +171,9 @@ namespace QSP.UI.Controllers
                     Parent.wptList,
                     new ProcedureFilter());
 
-                SetOptionBtns();
+                //SetOptionBtns();
 
-                OptionBtns.Init(
+                OptionMenu = new OptionContextMenu(
                     Parent.appSettings,
                     Parent.wptList,
                     Parent.airportList,
@@ -182,28 +184,29 @@ namespace QSP.UI.Controllers
                     DistanceDisplayStyle.Short,
                     () => Row.RouteTxtBox.Text,
                     (s) => Row.RouteTxtBox.Text = s);
+                
             }
 
-            private void SetOptionBtns()
-            {
-                OptionBtns = new OptionBtns();
-                OptionBtns.Visible = true;
-                OptionBtns.BorderStyle = BorderStyle.FixedSingle;
+            //private void SetOptionBtns()
+            //{
+            //    OptionBtns = new OptionBtns();
+            //    OptionBtns.Visible = true;
+            //    OptionBtns.BorderStyle = BorderStyle.FixedSingle;
 
-                // TODO:
-                frmLocation = new Point(0, 0);
-                //var locInForm = Row.ShowMoreBtn.LocationInForm();
-                //int x = locInForm.X + Row.ShowMoreBtn.Width - OptionBtns.Width;
-                //int y = locInForm.Y + Row.ShowMoreBtn.Height + 10;
-                //OptionBtns.Location = new Point(x, y);
-                //Parent.parentForm.Controls.Add(OptionBtns);                
-            }
+            //    // TODO:
+            //    frmLocation = new Point(0, 0);
+            //    //var locInForm = Row.ShowMoreBtn.LocationInForm();
+            //    //int x = locInForm.X + Row.ShowMoreBtn.Width - OptionBtns.Width;
+            //    //int y = locInForm.Y + Row.ShowMoreBtn.Height + 10;
+            //    //OptionBtns.Location = new Point(x, y);
+            //    //Parent.parentForm.Controls.Add(OptionBtns);                
+            //}
 
             public void Subsribe()
             {
                 Controller.Subscribe();
                 Row.ShowMoreBtn.Click += ShowBtns;
-                OptionBtns.Subscribe();
+                OptionMenu.Subscribe();
             }
 
             // Make sure the parent form no longer holds a reference 
@@ -211,144 +214,176 @@ namespace QSP.UI.Controllers
             public void CleanUp()
             {
                 // Parent.parentForm.Controls.Remove(OptionBtns);
-                OptionBtns.Dispose();
+                OptionMenu.Dispose();
             }
 
             private void ShowBtns(object sender, EventArgs e)
             {
-                using(var frm = GetForm(OptionBtns.Size))
-                {
-                    frm.FormBorderStyle = FormBorderStyle.None;
-                    frm.ShowDialog();
-                }
-                OptionBtns.Visible ^= true;
-                OptionBtns.BringToFront();
+                OptionMenu.Show(Row.ShowMoreBtn, new Point(-100, 30));
+
+                //using (var frm = GetForm(OptionBtns.Size))
+                //{
+                //    frm.FormBorderStyle = FormBorderStyle.None;
+                //    frm.ShowDialog();
+                //}
+                //OptionBtns.Visible ^= true;
+                //OptionBtns.BringToFront();
             }
 
-            private void HideBtns(object sender, EventArgs e)
-            {
-                OptionBtns.Visible = false;
-            }
+            //private void HideBtns(object sender, EventArgs e)
+            //{
+            //    OptionBtns.Visible = false;
+            //}
         }
 
-        public class AlternateRowItems
-        {
-            public TextBox IcaoTxtBox;
-            public Button FindBtn;
-            public Label RwyLbl;
-            public ComboBoxWithBorder RwyComboBox;
-            public Label RouteLbl;
-            public TextBox RouteTxtBox;
-            public Label DisLbl;
-            public Button ShowMoreBtn;
+        //public class AlternateRowItems
+        //{
+        //    public TextBox IcaoTxtBox;
+        //    public Button FindBtn;
+        //    public Label RwyLbl;
+        //    public ComboBoxWithBorder RwyComboBox;
+        //    public Label RouteLbl;
+        //    public TextBox RouteTxtBox;
+        //    public Label DisLbl;
+        //    public Button ShowMoreBtn;
 
-            public Control[] AllControls
-            {
-                get
-                {
-                    return new Control[]
-                    {
-                        IcaoTxtBox,
-                        FindBtn,
-                        RwyLbl,
-                        RwyComboBox,
-                        RouteLbl,
-                        RouteTxtBox,
-                        DisLbl,
-                        ShowMoreBtn
-                    };
-                }
-            }
+        //    public Control[] AllControls
+        //    {
+        //        get
+        //        {
+        //            return new Control[]
+        //            {
+        //                IcaoTxtBox,
+        //                FindBtn,
+        //                RwyLbl,
+        //                RwyComboBox,
+        //                RouteLbl,
+        //                RouteTxtBox,
+        //                DisLbl,
+        //                ShowMoreBtn
+        //            };
+        //        }
+        //    }
 
-            // rowNum: Larger or equal to 1.
-            public AlternateRowItems(int rowNum)
-            {
-                if (rowNum < 1)
-                {
-                    throw new ArgumentException();
-                }
+        //    // rowNum: Larger or equal to 1.
+        //    public AlternateRowItems(int rowNum)
+        //    {
+        //        if (rowNum < 1)
+        //        {
+        //            throw new ArgumentException();
+        //        }
 
-                CreateControls(rowNum);
-                AllControls.MoveDown((rowNum - 1) * RowSeperation);
-            }
+        //        CreateControls(rowNum);
+        //        AllControls.MoveDown((rowNum - 1) * RowSeperation);
+        //    }
 
-            private void CreateControls(int num)
-            {
-                // IcaoTxtBox
-                IcaoTxtBox = new TextBox();
-                IcaoTxtBox.TextAlign = HorizontalAlignment.Center;
-                IcaoTxtBox.CharacterCasing = CharacterCasing.Upper;
-                IcaoTxtBox.Font = new Font("Segoe UI", 10.2F);
-                IcaoTxtBox.Location = new Point(12, 20);
-                IcaoTxtBox.Size = new Size(60, 30);
-                IcaoTxtBox.Text = "";
+        //    private void CreateControls(int num)
+        //    {
+        //        // IcaoTxtBox
+        //        IcaoTxtBox = new TextBox();
+        //        IcaoTxtBox.TextAlign = HorizontalAlignment.Center;
+        //        IcaoTxtBox.CharacterCasing = CharacterCasing.Upper;
+        //        IcaoTxtBox.Font = new Font("Segoe UI", 10.2F);
+        //        IcaoTxtBox.Location = new Point(12, 20);
+        //        IcaoTxtBox.Size = new Size(60, 30);
+        //        IcaoTxtBox.Text = "";
 
-                // FindBtn 
-                FindBtn = new Button();
-                FindBtn.BackColor = Color.DarkSlateGray;
-                FindBtn.FlatStyle = FlatStyle.Flat;
-                FindBtn.Font = new Font("Segoe UI", 10.2F);
-                FindBtn.ForeColor = SystemColors.ButtonHighlight;
-                FindBtn.Location = new Point(76, 19);
-                FindBtn.Size = new Size(55, 33);
-                FindBtn.Text = "Find";
+        //        // FindBtn 
+        //        FindBtn = new Button();
+        //        FindBtn.BackColor = Color.DarkSlateGray;
+        //        FindBtn.FlatStyle = FlatStyle.Flat;
+        //        FindBtn.Font = new Font("Segoe UI", 10.2F);
+        //        FindBtn.ForeColor = SystemColors.ButtonHighlight;
+        //        FindBtn.Location = new Point(76, 19);
+        //        FindBtn.Size = new Size(55, 33);
+        //        FindBtn.Text = "Find";
 
-                // RwyLbl
-                RwyLbl = new Label();
-                RwyLbl.Font = new Font("Segoe UI", 10.2F);
-                RwyLbl.Location = new Point(136, 23);
-                RwyLbl.Size = new Size(69, 23);
-                RwyLbl.Text = "Runway";
+        //        // RwyLbl
+        //        RwyLbl = new Label();
+        //        RwyLbl.Font = new Font("Segoe UI", 10.2F);
+        //        RwyLbl.Location = new Point(136, 23);
+        //        RwyLbl.Size = new Size(69, 23);
+        //        RwyLbl.Text = "Runway";
 
-                // RwyComboBox
-                RwyComboBox = new ComboBoxWithBorder();
-                RwyComboBox.BorderColor = Color.DimGray;
-                RwyComboBox.BorderStyle = ButtonBorderStyle.Solid;
-                RwyComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                RwyComboBox.FlatStyle = FlatStyle.Flat;
-                RwyComboBox.Font = new Font("Segoe UI", 10.2F);
-                RwyComboBox.Location = new Point(215, 19);
-                RwyComboBox.Size = new Size(60, 31);
+        //        // RwyComboBox
+        //        RwyComboBox = new ComboBoxWithBorder();
+        //        RwyComboBox.BorderColor = Color.DimGray;
+        //        RwyComboBox.BorderStyle = ButtonBorderStyle.Solid;
+        //        RwyComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+        //        RwyComboBox.FlatStyle = FlatStyle.Flat;
+        //        RwyComboBox.Font = new Font("Segoe UI", 10.2F);
+        //        RwyComboBox.Location = new Point(215, 19);
+        //        RwyComboBox.Size = new Size(60, 31);
 
-                // RouteLbl
-                RouteLbl = new Label();
-                RouteLbl.Font = new Font("Segoe UI", 10.2F);
-                RouteLbl.Location = new Point(285, 22);
-                RouteLbl.Size = new Size(55, 23);
-                RouteLbl.Text = "Route";
+        //        // RouteLbl
+        //        RouteLbl = new Label();
+        //        RouteLbl.Font = new Font("Segoe UI", 10.2F);
+        //        RouteLbl.Location = new Point(285, 22);
+        //        RouteLbl.Size = new Size(55, 23);
+        //        RouteLbl.Text = "Route";
 
-                // RouteTxtBox
-                RouteTxtBox = new TextBox();
-                RouteTxtBox.CharacterCasing = CharacterCasing.Upper;
-                RouteTxtBox.Font = new Font("Segoe UI", 10.2F);
-                RouteTxtBox.Location = new Point(345, 19);
-                RouteTxtBox.Size = new Size(494, 30);
-                RouteTxtBox.Text = "";
+        //        // RouteTxtBox
+        //        RouteTxtBox = new TextBox();
+        //        RouteTxtBox.CharacterCasing = CharacterCasing.Upper;
+        //        RouteTxtBox.Font = new Font("Segoe UI", 10.2F);
+        //        RouteTxtBox.Location = new Point(345, 19);
+        //        RouteTxtBox.Size = new Size(494, 30);
+        //        RouteTxtBox.Text = "";
 
-                // DisLbl
-                DisLbl = new Label();
-                DisLbl.Font = new Font("Segoe UI", 10.2F);
-                DisLbl.Location = new Point(855, 22);
-                DisLbl.AutoSize = true;
-                DisLbl.Text = "";
+        //        // DisLbl
+        //        DisLbl = new Label();
+        //        DisLbl.Font = new Font("Segoe UI", 10.2F);
+        //        DisLbl.Location = new Point(855, 22);
+        //        DisLbl.AutoSize = true;
+        //        DisLbl.Text = "";
 
-                // OptionBtn
-                ShowMoreBtn = new Button();
-                ShowMoreBtn.BackColor = SystemColors.ButtonHighlight;
-                ShowMoreBtn.FlatStyle = FlatStyle.Flat;
-                ShowMoreBtn.BackgroundImage = Properties.Resources.add_icon;
-                ShowMoreBtn.BackgroundImageLayout = ImageLayout.Zoom;
-                ShowMoreBtn.ForeColor = Color.FromArgb(20, 20, 20);
-                ShowMoreBtn.Location = new Point(1050, 19);
-                ShowMoreBtn.Size = new Size(33, 33);
-                ShowMoreBtn.Text = "";
-            }
+        //        // OptionBtn
+        //        ShowMoreBtn = new Button();
+        //        ShowMoreBtn.BackColor = SystemColors.ButtonHighlight;
+        //        ShowMoreBtn.FlatStyle = FlatStyle.Flat;
+        //        ShowMoreBtn.BackgroundImage = Properties.Resources.add_icon;
+        //        ShowMoreBtn.BackgroundImageLayout = ImageLayout.Zoom;
+        //        ShowMoreBtn.ForeColor = Color.FromArgb(20, 20, 20);
+        //        ShowMoreBtn.Location = new Point(1050, 19);
+        //        ShowMoreBtn.Size = new Size(33, 33);
+        //        ShowMoreBtn.Text = "";
+        //    }
 
-            public void AddToGroupBox(GroupBox alternateGroupBox)
-            {
-                var g = alternateGroupBox;
-                g.Controls.AddRange(AllControls);
-            }
-        }
+        //    public void AddToLayoutPanel(TableLayoutPanel altnLayoutPanel)
+        //    {
+        //        altnLayoutPanel.RowCount += 1;
+        //        MoveRowsDown(altnLayoutPanel);
+        //        altnLayoutPanel.Controls.Add(this, 0, 1);
+        //        SetRowSizes(altnLayoutPanel);
+        //    }
+
+        //    private static void MoveRowsDown(TableLayoutPanel panel)
+        //    {
+        //        foreach (Control i in panel.Controls)
+        //        {
+        //            int index = panel.GetRow(i);
+        //            panel.SetRow(i, index + 1);
+        //        }
+        //    }
+
+        //    private static void SetRowSizes(TableLayoutPanel panel)
+        //    {
+        //        var styles = panel.RowStyles;
+
+        //        for (int i = 0; i < styles.Count - 1; i++)
+        //        {
+        //            styles[i].SizeType = SizeType.AutoSize;
+        //        }
+
+        //        styles[styles.Count - 1].SizeType = SizeType.Percent;
+        //        styles[styles.Count - 1].Height = 1.0F;
+        //    }
+
+        //    public void AddToGroupBox(GroupBox alternateGroupBox)
+        //    {
+        //        var g = alternateGroupBox;
+        //        g.Controls.AddRange(AllControls);
+        //    }
+        //}
     }
 }

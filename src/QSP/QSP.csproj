@@ -189,6 +189,7 @@
     <Compile Include="UI\UserControls\AlternateRow.Designer.cs">
       <DependentUpon>AlternateRow.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserControls\AlternateRowExtension.cs" />
     <Compile Include="UI\UserControls\FuelPageState.cs" />
     <Compile Include="UI\UserControls\FuelParameterValidator.cs" />
     <Compile Include="UI\UserControls\FuelPlanningControl.cs">
@@ -203,7 +204,7 @@
     <Compile Include="UI\UserControls\OptionsControl.Designer.cs">
       <DependentUpon>OptionsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\RouteOptions\ContextMenu.cs">
+    <Compile Include="UI\UserControls\RouteOptions\OptionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\UserControls\RouteOptions\OptionBtns.cs">

@@ -54,8 +54,10 @@
             this.Label6 = new System.Windows.Forms.Label();
             this.calculateBtn = new System.Windows.Forms.Button();
             this.alternateGroupBox = new System.Windows.Forms.GroupBox();
-            this.removeAltnBtn = new System.Windows.Forms.Button();
+            this.altnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.addRemoveAltnBtnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.addAltnBtn = new System.Windows.Forms.Button();
+            this.removeAltnBtn = new System.Windows.Forms.Button();
             this.routeDisLbl = new System.Windows.Forms.Label();
             this.advancedToolLbl = new System.Windows.Forms.Label();
             this.mainRouteRichTxtBox = new System.Windows.Forms.RichTextBox();
@@ -90,8 +92,6 @@
             this.fuelReportGroupBox = new System.Windows.Forms.GroupBox();
             this.fuelReportTxtBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.altnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.addRemoveAltnBtnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.registrationComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
@@ -104,6 +104,8 @@
             this.TableLayoutPanel20.SuspendLayout();
             this.TableLayoutPanel1.SuspendLayout();
             this.alternateGroupBox.SuspendLayout();
+            this.altnLayoutPanel.SuspendLayout();
+            this.addRemoveAltnBtnLayoutPanel.SuspendLayout();
             this.groupBoxBasicInfo.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.payloadTrackBar)).BeginInit();
@@ -111,8 +113,6 @@
             this.groupBox1.SuspendLayout();
             this.fuelReportGroupBox.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.altnLayoutPanel.SuspendLayout();
-            this.addRemoveAltnBtnLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // fuelParaGroupBox
@@ -468,20 +468,38 @@
             this.alternateGroupBox.TabStop = false;
             this.alternateGroupBox.Text = "Alternate";
             // 
-            // removeAltnBtn
+            // altnLayoutPanel
             // 
-            this.removeAltnBtn.AutoSize = true;
-            this.removeAltnBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.removeAltnBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.removeAltnBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.removeAltnBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.removeAltnBtn.Location = new System.Drawing.Point(70, 0);
-            this.removeAltnBtn.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.removeAltnBtn.Name = "removeAltnBtn";
-            this.removeAltnBtn.Size = new System.Drawing.Size(83, 35);
-            this.removeAltnBtn.TabIndex = 74;
-            this.removeAltnBtn.Text = "Remove";
-            this.removeAltnBtn.UseVisualStyleBackColor = false;
+            this.altnLayoutPanel.AutoSize = true;
+            this.altnLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.altnLayoutPanel.ColumnCount = 1;
+            this.altnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.altnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.altnLayoutPanel.Controls.Add(this.addRemoveAltnBtnLayoutPanel, 0, 0);
+            this.altnLayoutPanel.Location = new System.Drawing.Point(0, 20);
+            this.altnLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.altnLayoutPanel.Name = "altnLayoutPanel";
+            this.altnLayoutPanel.RowCount = 1;
+            this.altnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.altnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
+            this.altnLayoutPanel.Size = new System.Drawing.Size(159, 41);
+            this.altnLayoutPanel.TabIndex = 75;
+            // 
+            // addRemoveAltnBtnLayoutPanel
+            // 
+            this.addRemoveAltnBtnLayoutPanel.AutoSize = true;
+            this.addRemoveAltnBtnLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.addRemoveAltnBtnLayoutPanel.ColumnCount = 2;
+            this.addRemoveAltnBtnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.addRemoveAltnBtnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.addRemoveAltnBtnLayoutPanel.Controls.Add(this.addAltnBtn, 0, 0);
+            this.addRemoveAltnBtnLayoutPanel.Controls.Add(this.removeAltnBtn, 1, 0);
+            this.addRemoveAltnBtnLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.addRemoveAltnBtnLayoutPanel.Name = "addRemoveAltnBtnLayoutPanel";
+            this.addRemoveAltnBtnLayoutPanel.RowCount = 1;
+            this.addRemoveAltnBtnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.addRemoveAltnBtnLayoutPanel.Size = new System.Drawing.Size(153, 35);
+            this.addRemoveAltnBtnLayoutPanel.TabIndex = 76;
             // 
             // addAltnBtn
             // 
@@ -497,6 +515,21 @@
             this.addAltnBtn.TabIndex = 73;
             this.addAltnBtn.Text = "Add";
             this.addAltnBtn.UseVisualStyleBackColor = false;
+            // 
+            // removeAltnBtn
+            // 
+            this.removeAltnBtn.AutoSize = true;
+            this.removeAltnBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.removeAltnBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.removeAltnBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removeAltnBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.removeAltnBtn.Location = new System.Drawing.Point(70, 0);
+            this.removeAltnBtn.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.removeAltnBtn.Name = "removeAltnBtn";
+            this.removeAltnBtn.Size = new System.Drawing.Size(83, 35);
+            this.removeAltnBtn.TabIndex = 74;
+            this.removeAltnBtn.Text = "Remove";
+            this.removeAltnBtn.UseVisualStyleBackColor = false;
             // 
             // routeDisLbl
             // 
@@ -935,39 +968,6 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1105, 1130);
             this.tableLayoutPanel4.TabIndex = 48;
             // 
-            // altnLayoutPanel
-            // 
-            this.altnLayoutPanel.AutoSize = true;
-            this.altnLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.altnLayoutPanel.ColumnCount = 1;
-            this.altnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.altnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.altnLayoutPanel.Controls.Add(this.addRemoveAltnBtnLayoutPanel, 0, 0);
-            this.altnLayoutPanel.Location = new System.Drawing.Point(0, 20);
-            this.altnLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.altnLayoutPanel.Name = "altnLayoutPanel";
-            this.altnLayoutPanel.RowCount = 1;
-            this.altnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.altnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            this.altnLayoutPanel.Size = new System.Drawing.Size(159, 41);
-            this.altnLayoutPanel.TabIndex = 75;
-            // 
-            // addRemoveAltnBtnLayoutPanel
-            // 
-            this.addRemoveAltnBtnLayoutPanel.AutoSize = true;
-            this.addRemoveAltnBtnLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.addRemoveAltnBtnLayoutPanel.ColumnCount = 2;
-            this.addRemoveAltnBtnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.addRemoveAltnBtnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.addRemoveAltnBtnLayoutPanel.Controls.Add(this.addAltnBtn, 0, 0);
-            this.addRemoveAltnBtnLayoutPanel.Controls.Add(this.removeAltnBtn, 1, 0);
-            this.addRemoveAltnBtnLayoutPanel.Location = new System.Drawing.Point(3, 3);
-            this.addRemoveAltnBtnLayoutPanel.Name = "addRemoveAltnBtnLayoutPanel";
-            this.addRemoveAltnBtnLayoutPanel.RowCount = 1;
-            this.addRemoveAltnBtnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.addRemoveAltnBtnLayoutPanel.Size = new System.Drawing.Size(153, 35);
-            this.addRemoveAltnBtnLayoutPanel.TabIndex = 76;
-            // 
             // registrationComboBox
             // 
             this.registrationComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -1093,6 +1093,10 @@
             this.TableLayoutPanel1.PerformLayout();
             this.alternateGroupBox.ResumeLayout(false);
             this.alternateGroupBox.PerformLayout();
+            this.altnLayoutPanel.ResumeLayout(false);
+            this.altnLayoutPanel.PerformLayout();
+            this.addRemoveAltnBtnLayoutPanel.ResumeLayout(false);
+            this.addRemoveAltnBtnLayoutPanel.PerformLayout();
             this.groupBoxBasicInfo.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
@@ -1103,10 +1107,6 @@
             this.groupBox1.PerformLayout();
             this.fuelReportGroupBox.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
-            this.altnLayoutPanel.ResumeLayout(false);
-            this.altnLayoutPanel.PerformLayout();
-            this.addRemoveAltnBtnLayoutPanel.ResumeLayout(false);
-            this.addRemoveAltnBtnLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

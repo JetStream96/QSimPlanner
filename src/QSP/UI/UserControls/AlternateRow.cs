@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace QSP.UI.UserControls
 {
-    public partial class AlternateRow : UserControl
+    public partial class AlternateRowControl : UserControl
     {
-        public AlternateRow()
+        public AlternateRowControl()
         {
             InitializeComponent();
         }

@@ -171,13 +171,13 @@ namespace QSP.UI.UserControls
             };
 
             altnControl = new AlternateController(
-                controlsBelow,
+              //  controlsBelow,
                 alternateGroupBox,
                 appSettings,
                 airportList,
                 wptList,
                 tracksInUse,
-                ParentForm,
+                altnLayoutPanel,
                 destSidProvider);
 
             removeAltnBtn.Enabled = false;
