@@ -1,6 +1,6 @@
 ﻿namespace QSP.UI.UserControls
 {
-    partial class AlternateRowControl
+    partial class AlternateRowItems
     {
         /// <summary> 
         /// Required designer variable.
