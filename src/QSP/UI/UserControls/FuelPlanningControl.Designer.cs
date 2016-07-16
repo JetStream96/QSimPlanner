@@ -89,14 +89,15 @@
             this.fromRwyLbl = new System.Windows.Forms.Label();
             this.fuelReportGroupBox = new System.Windows.Forms.GroupBox();
             this.fuelReportTxtBox = new System.Windows.Forms.RichTextBox();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.registrationComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.routeOptionBtns = new QSP.UI.UserControls.RouteOptionBtns();
             this.starComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.sidComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.destRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.origRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.registrationComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.fuelParaGroupBox.SuspendLayout();
             this.TableLayoutPanel20.SuspendLayout();
             this.TableLayoutPanel1.SuspendLayout();
@@ -107,6 +108,7 @@
             this.TableLayoutPanel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.fuelReportGroupBox.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // fuelParaGroupBox
@@ -114,7 +116,7 @@
             this.fuelParaGroupBox.Controls.Add(this.TableLayoutPanel20);
             this.fuelParaGroupBox.Controls.Add(this.TableLayoutPanel1);
             this.fuelParaGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelParaGroupBox.Location = new System.Drawing.Point(5, 405);
+            this.fuelParaGroupBox.Location = new System.Drawing.Point(3, 409);
             this.fuelParaGroupBox.Name = "fuelParaGroupBox";
             this.fuelParaGroupBox.Size = new System.Drawing.Size(1091, 170);
             this.fuelParaGroupBox.TabIndex = 38;
@@ -437,12 +439,13 @@
             // 
             // calculateBtn
             // 
+            this.calculateBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.calculateBtn.BackColor = System.Drawing.Color.Green;
             this.calculateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.calculateBtn.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.calculateBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.calculateBtn.Location = new System.Drawing.Point(801, 583);
-            this.calculateBtn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.calculateBtn.Location = new System.Drawing.Point(795, 586);
+            this.calculateBtn.Margin = new System.Windows.Forms.Padding(5, 4, 15, 4);
             this.calculateBtn.Name = "calculateBtn";
             this.calculateBtn.Size = new System.Drawing.Size(295, 53);
             this.calculateBtn.TabIndex = 36;
@@ -455,7 +458,7 @@
             this.alternateGroupBox.Controls.Add(this.addAltnBtn);
             this.alternateGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.alternateGroupBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.alternateGroupBox.Location = new System.Drawing.Point(5, 340);
+            this.alternateGroupBox.Location = new System.Drawing.Point(3, 342);
             this.alternateGroupBox.Name = "alternateGroupBox";
             this.alternateGroupBox.Size = new System.Drawing.Size(1091, 61);
             this.alternateGroupBox.TabIndex = 35;
@@ -530,8 +533,7 @@
             this.groupBoxBasicInfo.Controls.Add(this.tableLayoutPanel3);
             this.groupBoxBasicInfo.Controls.Add(this.TableLayoutPanel2);
             this.groupBoxBasicInfo.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxBasicInfo.Location = new System.Drawing.Point(5, 4);
-            this.groupBoxBasicInfo.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.groupBoxBasicInfo.Location = new System.Drawing.Point(3, 3);
             this.groupBoxBasicInfo.Name = "groupBoxBasicInfo";
             this.groupBoxBasicInfo.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.groupBoxBasicInfo.Size = new System.Drawing.Size(1091, 134);
@@ -749,7 +751,7 @@
             this.groupBox1.Controls.Add(this.origRwyComboBox);
             this.groupBox1.Controls.Add(this.fromRwyLbl);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(5, 141);
+            this.groupBox1.Location = new System.Drawing.Point(3, 143);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1091, 193);
             this.groupBox1.TabIndex = 46;
@@ -881,7 +883,7 @@
             this.fuelReportGroupBox.BackColor = System.Drawing.Color.Transparent;
             this.fuelReportGroupBox.Controls.Add(this.fuelReportTxtBox);
             this.fuelReportGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelReportGroupBox.Location = new System.Drawing.Point(5, 644);
+            this.fuelReportGroupBox.Location = new System.Drawing.Point(5, 647);
             this.fuelReportGroupBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.fuelReportGroupBox.Name = "fuelReportGroupBox";
             this.fuelReportGroupBox.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -902,6 +904,79 @@
             this.fuelReportTxtBox.Size = new System.Drawing.Size(1069, 439);
             this.fuelReportTxtBox.TabIndex = 1;
             this.fuelReportTxtBox.Text = "";
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.AutoSize = true;
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.groupBoxBasicInfo, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.fuelReportGroupBox, 0, 5);
+            this.tableLayoutPanel4.Controls.Add(this.groupBox1, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.calculateBtn, 0, 4);
+            this.tableLayoutPanel4.Controls.Add(this.fuelParaGroupBox, 0, 3);
+            this.tableLayoutPanel4.Controls.Add(this.alternateGroupBox, 0, 2);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 6;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1105, 1130);
+            this.tableLayoutPanel4.TabIndex = 48;
+            // 
+            // registrationComboBox
+            // 
+            this.registrationComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.registrationComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.registrationComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.registrationComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.registrationComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.registrationComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.registrationComboBox.FormattingEnabled = true;
+            this.registrationComboBox.Location = new System.Drawing.Point(109, 37);
+            this.registrationComboBox.Margin = new System.Windows.Forms.Padding(0);
+            this.registrationComboBox.Name = "registrationComboBox";
+            this.registrationComboBox.Size = new System.Drawing.Size(203, 31);
+            this.registrationComboBox.TabIndex = 40;
+            // 
+            // wtUnitComboBox
+            // 
+            this.wtUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.wtUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.wtUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.wtUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.wtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.wtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.wtUnitComboBox.FormattingEnabled = true;
+            this.wtUnitComboBox.Items.AddRange(new object[] {
+            "KG",
+            "LB"});
+            this.wtUnitComboBox.Location = new System.Drawing.Point(109, 72);
+            this.wtUnitComboBox.Margin = new System.Windows.Forms.Padding(0);
+            this.wtUnitComboBox.Name = "wtUnitComboBox";
+            this.wtUnitComboBox.Size = new System.Drawing.Size(79, 31);
+            this.wtUnitComboBox.TabIndex = 48;
+            // 
+            // acListComboBox
+            // 
+            this.acListComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.acListComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.acListComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.acListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.acListComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.acListComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acListComboBox.FormattingEnabled = true;
+            this.acListComboBox.Location = new System.Drawing.Point(109, 2);
+            this.acListComboBox.Margin = new System.Windows.Forms.Padding(0);
+            this.acListComboBox.Name = "acListComboBox";
+            this.acListComboBox.Size = new System.Drawing.Size(203, 31);
+            this.acListComboBox.TabIndex = 16;
             // 
             // routeOptionBtns
             // 
@@ -963,66 +1038,13 @@
             this.origRwyComboBox.Size = new System.Drawing.Size(79, 31);
             this.origRwyComboBox.TabIndex = 47;
             // 
-            // registrationComboBox
-            // 
-            this.registrationComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.registrationComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.registrationComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.registrationComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.registrationComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.registrationComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.registrationComboBox.FormattingEnabled = true;
-            this.registrationComboBox.Location = new System.Drawing.Point(109, 37);
-            this.registrationComboBox.Margin = new System.Windows.Forms.Padding(0);
-            this.registrationComboBox.Name = "registrationComboBox";
-            this.registrationComboBox.Size = new System.Drawing.Size(203, 31);
-            this.registrationComboBox.TabIndex = 40;
-            // 
-            // wtUnitComboBox
-            // 
-            this.wtUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.wtUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.wtUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.wtUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.wtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.wtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wtUnitComboBox.FormattingEnabled = true;
-            this.wtUnitComboBox.Items.AddRange(new object[] {
-            "KG",
-            "LB"});
-            this.wtUnitComboBox.Location = new System.Drawing.Point(109, 72);
-            this.wtUnitComboBox.Margin = new System.Windows.Forms.Padding(0);
-            this.wtUnitComboBox.Name = "wtUnitComboBox";
-            this.wtUnitComboBox.Size = new System.Drawing.Size(79, 31);
-            this.wtUnitComboBox.TabIndex = 48;
-            // 
-            // acListComboBox
-            // 
-            this.acListComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.acListComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.acListComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.acListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.acListComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.acListComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acListComboBox.FormattingEnabled = true;
-            this.acListComboBox.Location = new System.Drawing.Point(109, 2);
-            this.acListComboBox.Margin = new System.Windows.Forms.Padding(0);
-            this.acListComboBox.Name = "acListComboBox";
-            this.acListComboBox.Size = new System.Drawing.Size(203, 31);
-            this.acListComboBox.TabIndex = 16;
-            // 
             // FuelPlanningControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Controls.Add(this.fuelReportGroupBox);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.fuelParaGroupBox);
-            this.Controls.Add(this.calculateBtn);
-            this.Controls.Add(this.alternateGroupBox);
-            this.Controls.Add(this.groupBoxBasicInfo);
+            this.Controls.Add(this.tableLayoutPanel4);
             this.DoubleBuffered = true;
             this.Name = "FuelPlanningControl";
             this.Size = new System.Drawing.Size(1105, 1130);
@@ -1041,7 +1063,9 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.fuelReportGroupBox.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1115,5 +1139,6 @@
         private System.Windows.Forms.TextBox extraFuelTxtBox;
         private System.Windows.Forms.TextBox missedAppFuelTxtBox;
         private Controls.ComboBoxWithBorder wtUnitComboBox;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
     }
 }
