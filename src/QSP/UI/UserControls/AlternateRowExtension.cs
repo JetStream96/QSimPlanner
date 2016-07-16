@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using QSP.LibraryExtension;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace QSP.UI.UserControls
 {
@@ -9,17 +11,16 @@ namespace QSP.UI.UserControls
         {
             altnLayoutPanel.RowCount += 1;
             MoveRowsDown(altnLayoutPanel);
-            altnLayoutPanel.Controls.Add(row, 0, 1);
+            altnLayoutPanel.Controls.Add(row, 0, altnLayoutPanel.RowCount - 2);
             SetRowSizes(altnLayoutPanel);
         }
 
         private static void MoveRowsDown(TableLayoutPanel panel)
         {
-            foreach (Control i in panel.Controls)
-            {
-                int index = panel.GetRow(i);
-                panel.SetRow(i, index + 1);
-            }
+            var addRemoveBtns = panel.Controls.Cast<Control>()
+                .Where(c => panel.GetRow(c) == panel.RowCount - 2);
+
+            addRemoveBtns.ForEach(i => panel.SetRow(i, panel.RowCount - 1));
         }
 
         private static void SetRowSizes(TableLayoutPanel panel)

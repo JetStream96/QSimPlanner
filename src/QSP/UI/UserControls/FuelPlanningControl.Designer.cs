@@ -120,7 +120,7 @@
             this.fuelParaGroupBox.Controls.Add(this.TableLayoutPanel20);
             this.fuelParaGroupBox.Controls.Add(this.TableLayoutPanel1);
             this.fuelParaGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelParaGroupBox.Location = new System.Drawing.Point(3, 418);
+            this.fuelParaGroupBox.Location = new System.Drawing.Point(3, 433);
             this.fuelParaGroupBox.Name = "fuelParaGroupBox";
             this.fuelParaGroupBox.Size = new System.Drawing.Size(1091, 170);
             this.fuelParaGroupBox.TabIndex = 38;
@@ -448,7 +448,7 @@
             this.calculateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.calculateBtn.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.calculateBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.calculateBtn.Location = new System.Drawing.Point(795, 595);
+            this.calculateBtn.Location = new System.Drawing.Point(795, 610);
             this.calculateBtn.Margin = new System.Windows.Forms.Padding(5, 4, 15, 4);
             this.calculateBtn.Name = "calculateBtn";
             this.calculateBtn.Size = new System.Drawing.Size(295, 53);
@@ -458,12 +458,15 @@
             // 
             // alternateGroupBox
             // 
+            this.alternateGroupBox.AutoSize = true;
+            this.alternateGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.alternateGroupBox.Controls.Add(this.altnLayoutPanel);
             this.alternateGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.alternateGroupBox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.alternateGroupBox.Location = new System.Drawing.Point(3, 342);
+            this.alternateGroupBox.MinimumSize = new System.Drawing.Size(1091, 70);
             this.alternateGroupBox.Name = "alternateGroupBox";
-            this.alternateGroupBox.Size = new System.Drawing.Size(1091, 70);
+            this.alternateGroupBox.Size = new System.Drawing.Size(1091, 85);
             this.alternateGroupBox.TabIndex = 35;
             this.alternateGroupBox.TabStop = false;
             this.alternateGroupBox.Text = "Alternate";
@@ -476,8 +479,7 @@
             this.altnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.altnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.altnLayoutPanel.Controls.Add(this.addRemoveAltnBtnLayoutPanel, 0, 0);
-            this.altnLayoutPanel.Location = new System.Drawing.Point(0, 20);
-            this.altnLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.altnLayoutPanel.Location = new System.Drawing.Point(5, 20);
             this.altnLayoutPanel.Name = "altnLayoutPanel";
             this.altnLayoutPanel.RowCount = 1;
             this.altnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -921,7 +923,7 @@
             this.fuelReportGroupBox.BackColor = System.Drawing.Color.Transparent;
             this.fuelReportGroupBox.Controls.Add(this.fuelReportTxtBox);
             this.fuelReportGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelReportGroupBox.Location = new System.Drawing.Point(5, 656);
+            this.fuelReportGroupBox.Location = new System.Drawing.Point(5, 671);
             this.fuelReportGroupBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.fuelReportGroupBox.Name = "fuelReportGroupBox";
             this.fuelReportGroupBox.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -965,7 +967,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1105, 1130);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1105, 1145);
             this.tableLayoutPanel4.TabIndex = 48;
             // 
             // registrationComboBox
@@ -1085,7 +1087,7 @@
             this.Controls.Add(this.tableLayoutPanel4);
             this.DoubleBuffered = true;
             this.Name = "FuelPlanningControl";
-            this.Size = new System.Drawing.Size(1105, 1130);
+            this.Size = new System.Drawing.Size(1105, 1145);
             this.fuelParaGroupBox.ResumeLayout(false);
             this.TableLayoutPanel20.ResumeLayout(false);
             this.TableLayoutPanel20.PerformLayout();
@@ -1107,6 +1109,7 @@
             this.groupBox1.PerformLayout();
             this.fuelReportGroupBox.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

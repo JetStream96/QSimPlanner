@@ -76,7 +76,6 @@ namespace QSP.UI.UserControls.RouteOptions
             analyzeToolStripMenuItem.Name = "analyzeToolStripMenuItem";
             analyzeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             analyzeToolStripMenuItem.Text = "Analyze";
-            analyzeToolStripMenuItem.Visible = true;
             // 
             // mapToolStripMenuItem
             // 
@@ -84,7 +83,6 @@ namespace QSP.UI.UserControls.RouteOptions
             mapToolStripMenuItem.Name = "mapToolStripMenuItem";
             mapToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             mapToolStripMenuItem.Text = "Map";
-            mapToolStripMenuItem.Visible = true;
             // 
             // exportToolStripMenuItem
             // 
@@ -92,7 +90,6 @@ namespace QSP.UI.UserControls.RouteOptions
             exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             exportToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             exportToolStripMenuItem.Text = "Export";
-            exportToolStripMenuItem.Visible = true;
             // 
             // contextMenuStrip1
             // 
