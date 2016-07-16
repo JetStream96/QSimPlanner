@@ -7,6 +7,7 @@ using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.UI.Controllers;
+using QSP.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,9 +16,9 @@ using System.Text;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.UserControls.RouteOptions
 {
-    public partial class RouteOptionBtns : UserControl
+    public partial class RouteOptionController
     {
         private AppOptions appSettings;
         private WaypointList wptList;
@@ -29,15 +30,13 @@ namespace QSP.UI.UserControls
         private DistanceDisplayStyle displayStyle;
         private Func<string> routeTxtGetter;
         private Action<string> routeTxtSetter;
+        private IClickable findRouteBtn;
+        private IClickable analyzeRouteBtn;
+        private IClickable exportBtn;
 
         public RouteGroup Route { get; private set; }
-
-        public RouteOptionBtns()
-        {
-            InitializeComponent();
-        }
-
-        public void Init(
+        
+        public RouteOptionController(
             AppOptions appSettings,
             WaypointList wptList,
             AirportManager airportList,
@@ -47,7 +46,10 @@ namespace QSP.UI.UserControls
             Label routeDisLbl,
             DistanceDisplayStyle displayStyle,
             Func<string> routeTxtGetter,
-            Action<string> routeTxtSetter)
+            Action<string> routeTxtSetter,
+            IClickable findRouteBtn,
+            IClickable analyzeRouteBtn,
+            IClickable exportBtn)
         {
             this.appSettings = appSettings;
             this.wptList = wptList;
@@ -59,6 +61,9 @@ namespace QSP.UI.UserControls
             this.displayStyle = displayStyle;
             this.routeTxtGetter = routeTxtGetter;
             this.routeTxtSetter = routeTxtSetter;
+            this.findRouteBtn = findRouteBtn;
+            this.analyzeRouteBtn = analyzeRouteBtn;
+            this.exportBtn = exportBtn;
         }
 
         public void Subscribe()

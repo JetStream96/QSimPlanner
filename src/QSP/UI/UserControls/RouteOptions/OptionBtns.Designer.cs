@@ -1,6 +1,6 @@
-﻿namespace QSP.UI.UserControls
+﻿namespace QSP.UI.UserControls.RouteOptions
 {
-    partial class RouteOptionBtns
+    partial class OptionBtns
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.TableLayoutPanel24 = new System.Windows.Forms.TableLayoutPanel();
-            this.exportBtn = new System.Windows.Forms.Button();
-            this.findRouteBtn = new System.Windows.Forms.Button();
-            this.analyzeRouteBtn = new System.Windows.Forms.Button();
-            this.showMapBtn = new System.Windows.Forms.Button();
+            this.exportBtn = new QSP.UI.UserControls.RouteOptions.OptionBtns.ClickableButton();
+            this.findRouteBtn = new QSP.UI.UserControls.RouteOptions.OptionBtns.ClickableButton();
+            this.analyzeRouteBtn = new QSP.UI.UserControls.RouteOptions.OptionBtns.ClickableButton();
+            this.showMapBtn = new QSP.UI.UserControls.RouteOptions.OptionBtns.ClickableButton();
             this.TableLayoutPanel24.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,9 +131,9 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel TableLayoutPanel24;
-        private System.Windows.Forms.Button exportBtn;
-        private System.Windows.Forms.Button findRouteBtn;
-        private System.Windows.Forms.Button analyzeRouteBtn;
-        private System.Windows.Forms.Button showMapBtn;
+        private QSP.UI.UserControls.RouteOptions.OptionBtns.ClickableButton exportBtn;
+        private QSP.UI.UserControls.RouteOptions.OptionBtns.ClickableButton findRouteBtn;
+        private QSP.UI.UserControls.RouteOptions.OptionBtns.ClickableButton analyzeRouteBtn;
+        private QSP.UI.UserControls.RouteOptions.OptionBtns.ClickableButton showMapBtn;
     }
 }

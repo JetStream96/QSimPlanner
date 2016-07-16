@@ -5,7 +5,7 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controls;
-using QSP.UI.UserControls;
+using QSP.UI.UserControls.RouteOptions;
 using QSP.UI.Utilities;
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
+using static QSP.UI.Factories.FormFactory;
 
 namespace QSP.UI.Controllers
 {
@@ -146,7 +147,9 @@ namespace QSP.UI.Controllers
             public AlternateController Parent;
             public AlternateRowItems Row;
             public RouteFinderSelection Controller;
-            public RouteOptionBtns OptionBtns;
+            public OptionBtns OptionBtns;
+
+            private Point frmLocation;
 
             public AltnRowControl(
                 AlternateController Parent,
@@ -183,15 +186,17 @@ namespace QSP.UI.Controllers
 
             private void SetOptionBtns()
             {
-                OptionBtns = new RouteOptionBtns();
-                OptionBtns.Visible = false;
+                OptionBtns = new OptionBtns();
+                OptionBtns.Visible = true;
                 OptionBtns.BorderStyle = BorderStyle.FixedSingle;
-                                
-                var locInForm = Row.ShowMoreBtn.LocationInForm();
-                int x = locInForm.X + Row.ShowMoreBtn.Width - OptionBtns.Width;
-                int y = locInForm.Y + Row.ShowMoreBtn.Height + 10;
-                OptionBtns.Location = new Point(x, y);
-                Parent.parentForm.Controls.Add(OptionBtns);                
+
+                // TODO:
+                frmLocation = new Point(0, 0);
+                //var locInForm = Row.ShowMoreBtn.LocationInForm();
+                //int x = locInForm.X + Row.ShowMoreBtn.Width - OptionBtns.Width;
+                //int y = locInForm.Y + Row.ShowMoreBtn.Height + 10;
+                //OptionBtns.Location = new Point(x, y);
+                //Parent.parentForm.Controls.Add(OptionBtns);                
             }
 
             public void Subsribe()
@@ -205,12 +210,17 @@ namespace QSP.UI.Controllers
             // to any of the private members.
             public void CleanUp()
             {
-                Parent.parentForm.Controls.Remove(OptionBtns);
+                // Parent.parentForm.Controls.Remove(OptionBtns);
                 OptionBtns.Dispose();
             }
 
             private void ShowBtns(object sender, EventArgs e)
             {
+                using(var frm = GetForm(OptionBtns.Size))
+                {
+                    frm.FormBorderStyle = FormBorderStyle.None;
+                    frm.ShowDialog();
+                }
                 OptionBtns.Visible ^= true;
                 OptionBtns.BringToFront();
             }

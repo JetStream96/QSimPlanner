@@ -90,10 +90,12 @@
             this.fuelReportGroupBox = new System.Windows.Forms.GroupBox();
             this.fuelReportTxtBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.altnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.addRemoveAltnBtnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.registrationComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.routeOptionBtns = new QSP.UI.UserControls.RouteOptionBtns();
+            this.routeOptionBtns = new QSP.UI.UserControls.RouteOptions.OptionBtns();
             this.starComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.sidComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.destRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
@@ -109,6 +111,8 @@
             this.groupBox1.SuspendLayout();
             this.fuelReportGroupBox.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            this.altnLayoutPanel.SuspendLayout();
+            this.addRemoveAltnBtnLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // fuelParaGroupBox
@@ -116,7 +120,7 @@
             this.fuelParaGroupBox.Controls.Add(this.TableLayoutPanel20);
             this.fuelParaGroupBox.Controls.Add(this.TableLayoutPanel1);
             this.fuelParaGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelParaGroupBox.Location = new System.Drawing.Point(3, 409);
+            this.fuelParaGroupBox.Location = new System.Drawing.Point(3, 418);
             this.fuelParaGroupBox.Name = "fuelParaGroupBox";
             this.fuelParaGroupBox.Size = new System.Drawing.Size(1091, 170);
             this.fuelParaGroupBox.TabIndex = 38;
@@ -444,7 +448,7 @@
             this.calculateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.calculateBtn.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.calculateBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.calculateBtn.Location = new System.Drawing.Point(795, 586);
+            this.calculateBtn.Location = new System.Drawing.Point(795, 595);
             this.calculateBtn.Margin = new System.Windows.Forms.Padding(5, 4, 15, 4);
             this.calculateBtn.Name = "calculateBtn";
             this.calculateBtn.Size = new System.Drawing.Size(295, 53);
@@ -454,41 +458,42 @@
             // 
             // alternateGroupBox
             // 
-            this.alternateGroupBox.Controls.Add(this.removeAltnBtn);
-            this.alternateGroupBox.Controls.Add(this.addAltnBtn);
+            this.alternateGroupBox.Controls.Add(this.altnLayoutPanel);
             this.alternateGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.alternateGroupBox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.alternateGroupBox.Location = new System.Drawing.Point(3, 342);
             this.alternateGroupBox.Name = "alternateGroupBox";
-            this.alternateGroupBox.Size = new System.Drawing.Size(1091, 61);
+            this.alternateGroupBox.Size = new System.Drawing.Size(1091, 70);
             this.alternateGroupBox.TabIndex = 35;
             this.alternateGroupBox.TabStop = false;
             this.alternateGroupBox.Text = "Alternate";
             // 
             // removeAltnBtn
             // 
+            this.removeAltnBtn.AutoSize = true;
             this.removeAltnBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.removeAltnBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.removeAltnBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.removeAltnBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.removeAltnBtn.Location = new System.Drawing.Point(80, 21);
-            this.removeAltnBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.removeAltnBtn.Location = new System.Drawing.Point(70, 0);
+            this.removeAltnBtn.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.removeAltnBtn.Name = "removeAltnBtn";
-            this.removeAltnBtn.Size = new System.Drawing.Size(82, 33);
+            this.removeAltnBtn.Size = new System.Drawing.Size(83, 35);
             this.removeAltnBtn.TabIndex = 74;
             this.removeAltnBtn.Text = "Remove";
             this.removeAltnBtn.UseVisualStyleBackColor = false;
             // 
             // addAltnBtn
             // 
+            this.addAltnBtn.AutoSize = true;
             this.addAltnBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.addAltnBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addAltnBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addAltnBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.addAltnBtn.Location = new System.Drawing.Point(13, 21);
+            this.addAltnBtn.Location = new System.Drawing.Point(0, 0);
             this.addAltnBtn.Margin = new System.Windows.Forms.Padding(0);
             this.addAltnBtn.Name = "addAltnBtn";
-            this.addAltnBtn.Size = new System.Drawing.Size(60, 33);
+            this.addAltnBtn.Size = new System.Drawing.Size(60, 35);
             this.addAltnBtn.TabIndex = 73;
             this.addAltnBtn.Text = "Add";
             this.addAltnBtn.UseVisualStyleBackColor = false;
@@ -883,7 +888,7 @@
             this.fuelReportGroupBox.BackColor = System.Drawing.Color.Transparent;
             this.fuelReportGroupBox.Controls.Add(this.fuelReportTxtBox);
             this.fuelReportGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelReportGroupBox.Location = new System.Drawing.Point(5, 647);
+            this.fuelReportGroupBox.Location = new System.Drawing.Point(5, 656);
             this.fuelReportGroupBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.fuelReportGroupBox.Name = "fuelReportGroupBox";
             this.fuelReportGroupBox.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -929,6 +934,39 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1105, 1130);
             this.tableLayoutPanel4.TabIndex = 48;
+            // 
+            // altnLayoutPanel
+            // 
+            this.altnLayoutPanel.AutoSize = true;
+            this.altnLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.altnLayoutPanel.ColumnCount = 1;
+            this.altnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.altnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.altnLayoutPanel.Controls.Add(this.addRemoveAltnBtnLayoutPanel, 0, 0);
+            this.altnLayoutPanel.Location = new System.Drawing.Point(0, 20);
+            this.altnLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.altnLayoutPanel.Name = "altnLayoutPanel";
+            this.altnLayoutPanel.RowCount = 1;
+            this.altnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.altnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
+            this.altnLayoutPanel.Size = new System.Drawing.Size(159, 41);
+            this.altnLayoutPanel.TabIndex = 75;
+            // 
+            // addRemoveAltnBtnLayoutPanel
+            // 
+            this.addRemoveAltnBtnLayoutPanel.AutoSize = true;
+            this.addRemoveAltnBtnLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.addRemoveAltnBtnLayoutPanel.ColumnCount = 2;
+            this.addRemoveAltnBtnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.addRemoveAltnBtnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.addRemoveAltnBtnLayoutPanel.Controls.Add(this.addAltnBtn, 0, 0);
+            this.addRemoveAltnBtnLayoutPanel.Controls.Add(this.removeAltnBtn, 1, 0);
+            this.addRemoveAltnBtnLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.addRemoveAltnBtnLayoutPanel.Name = "addRemoveAltnBtnLayoutPanel";
+            this.addRemoveAltnBtnLayoutPanel.RowCount = 1;
+            this.addRemoveAltnBtnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.addRemoveAltnBtnLayoutPanel.Size = new System.Drawing.Size(153, 35);
+            this.addRemoveAltnBtnLayoutPanel.TabIndex = 76;
             // 
             // registrationComboBox
             // 
@@ -1054,6 +1092,7 @@
             this.TableLayoutPanel1.ResumeLayout(false);
             this.TableLayoutPanel1.PerformLayout();
             this.alternateGroupBox.ResumeLayout(false);
+            this.alternateGroupBox.PerformLayout();
             this.groupBoxBasicInfo.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
@@ -1064,6 +1103,10 @@
             this.groupBox1.PerformLayout();
             this.fuelReportGroupBox.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.altnLayoutPanel.ResumeLayout(false);
+            this.altnLayoutPanel.PerformLayout();
+            this.addRemoveAltnBtnLayoutPanel.ResumeLayout(false);
+            this.addRemoveAltnBtnLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1124,7 +1167,7 @@
         public System.Windows.Forms.TextBox ApuTimeTxtBox;
         public System.Windows.Forms.TextBox HoldTimeTxtBox;
         public System.Windows.Forms.ComboBox ContPercentComboBox;
-        private RouteOptionBtns routeOptionBtns;
+        private QSP.UI.UserControls.RouteOptions.OptionBtns routeOptionBtns;
         internal System.Windows.Forms.Button removeAltnBtn;
         public Controls.ComboBoxWithBorder acListComboBox;
         public Controls.ComboBoxWithBorder registrationComboBox;
@@ -1140,5 +1183,7 @@
         private System.Windows.Forms.TextBox missedAppFuelTxtBox;
         private Controls.ComboBoxWithBorder wtUnitComboBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.TableLayoutPanel altnLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel addRemoveAltnBtnLayoutPanel;
     }
 }
