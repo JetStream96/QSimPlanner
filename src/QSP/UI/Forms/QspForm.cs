@@ -54,7 +54,6 @@ namespace QSP.UI.Forms
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
         private readonly Point controlDefaultLocation = new Point(12, 52);
-        private readonly Size controlSize = new Size(1140, 676);
         private TracksForm trackFrm;
 
         private IEnumerable<UserControl> Pages
@@ -172,11 +171,11 @@ namespace QSP.UI.Forms
             countryCodes = result.CountryCodes;
         }
 
-        // To prevent AutoScroll from change ScrollBar's value property.
-        protected override Point ScrollToControl(Control activeControl)
-        {
-            return DisplayRectangle.Location;
-        }
+        //// To prevent AutoScroll from change ScrollBar's value property.
+        //protected override Point ScrollToControl(Control activeControl)
+        //{
+        //    return DisplayRectangle.Location;
+        //}
 
         private void InitControls()
         {
@@ -325,7 +324,6 @@ namespace QSP.UI.Forms
         {
             acMenu = new AircraftMenuControl();
             fuelMenu = new FuelPlanningControl();
-            fuelMenu.Size = controlSize;
             toMenu = new TOPerfControl();
             ldgMenu = new LandingPerfControl();
             airportMenu = new AirportMapControl();
@@ -336,7 +334,7 @@ namespace QSP.UI.Forms
             {
                 i.Location = controlDefaultLocation;
                 i.Visible = i == acMenu;
-                Controls.Add(i);
+                panel1.Controls.Add(i);
             }
         }
 

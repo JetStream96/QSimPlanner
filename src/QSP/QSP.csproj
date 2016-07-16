@@ -147,6 +147,9 @@
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
+    <Compile Include="UI\Controls\PanelSilentScrollbar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Factories\FormFactory.cs" />
     <Compile Include="UI\Forms\QspForm.cs">
       <SubType>Form</SubType>
