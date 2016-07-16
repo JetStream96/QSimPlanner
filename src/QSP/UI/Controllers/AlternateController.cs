@@ -62,6 +62,7 @@ namespace QSP.UI.Controllers
         public void AddRow()
         {
             var row = new AlternateRowItems();
+            row.Init(() => destSidProvider.Icao, airportList);
             row.AddToLayoutPanel(layoutPanel);
 
             var controller = new AltnRowControl(this, row);

@@ -148,6 +148,7 @@
             this.FindBtn.TabIndex = 76;
             this.FindBtn.Text = "Find";
             this.FindBtn.UseVisualStyleBackColor = false;
+            this.FindBtn.Click += new System.EventHandler(this.FindBtnClick);
             // 
             // RwyLbl
             // 
@@ -161,7 +162,7 @@
             this.RwyLbl.TabIndex = 77;
             this.RwyLbl.Text = "Runway";
             // 
-            // AlternateRowControl
+            // AlternateRowItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -170,7 +171,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "AlternateRowControl";
+            this.Name = "AlternateRowItems";
             this.Size = new System.Drawing.Size(1048, 42);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

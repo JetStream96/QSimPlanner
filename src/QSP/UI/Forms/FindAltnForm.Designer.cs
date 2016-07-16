@@ -8,7 +8,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Linq;
 using System.Xml.Linq;
-namespace QSP
+
+namespace QSP.UI.Forms
 {
 	partial class FindAltnForm : System.Windows.Forms.Form
 	{
@@ -128,7 +129,7 @@ namespace QSP
             this.findBtn.TabIndex = 29;
             this.findBtn.Text = "Find";
             this.findBtn.UseVisualStyleBackColor = true;
-            this.findBtn.Click += new System.EventHandler(this.FindBtn_Click);
+            this.findBtn.Click += new System.EventHandler(this.FindBtnClick);
             // 
             // CancelBtn
             // 
@@ -179,7 +180,6 @@ namespace QSP
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Find Alternate";
-            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
