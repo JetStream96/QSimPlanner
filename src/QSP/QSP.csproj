@@ -182,6 +182,12 @@
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Factories\ToolTipFactory.cs" />
+    <Compile Include="UI\UserControls\AlternateRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\AlternateRow.Designer.cs">
+      <DependentUpon>AlternateRow.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserControls\FuelPageState.cs" />
     <Compile Include="UI\UserControls\FuelParameterValidator.cs" />
     <Compile Include="UI\UserControls\FuelPlanningControl.cs">
@@ -558,6 +564,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\add_icon.png" />
+    <EmbeddedResource Include="UI\UserControls\AlternateRow.resx">
+      <DependentUpon>AlternateRow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\FuelPlanningControl.resx">
       <DependentUpon>FuelPlanningControl.cs</DependentUpon>
     </EmbeddedResource>

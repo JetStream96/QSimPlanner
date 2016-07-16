@@ -171,16 +171,8 @@ namespace QSP.UI.Forms
             countryCodes = result.CountryCodes;
         }
 
-        //// To prevent AutoScroll from change ScrollBar's value property.
-        //protected override Point ScrollToControl(Control activeControl)
-        //{
-        //    return DisplayRectangle.Location;
-        //}
-
         private void InitControls()
         {
-            //AutoScroll = true;
-
             CheckRegistry();
             SubscribeEvents();
             optionsMenu.Init(appSettings);
