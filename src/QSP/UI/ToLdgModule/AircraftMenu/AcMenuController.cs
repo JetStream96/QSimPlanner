@@ -40,34 +40,43 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             InitWtUnitCBox();
         }
 
-        private void FillToLdgCBox()
+        private void FillFuelToLdgCBox()
         {
             var fuelItems = elem.FuelProfile.Items;
             fuelItems.Clear();
             fuelItems.Add(NoToLdgProfileText);
             fuelItems.AddRange(profiles.FuelData
-                .Select(t => t.ProfileName).ToArray());
+                .Select(t => t.ProfileName)
+                .Distinct()
+                .OrderBy(s => s)
+                .ToArray());
             elem.FuelProfile.SelectedIndex = 0;
 
             var toItems = elem.ToProfile.Items;
             toItems.Clear();
             toItems.Add(NoToLdgProfileText);
             toItems.AddRange(profiles.TOTables
-                .Select(t => t.Entry.ProfileName).ToArray());
+                .Select(t => t.Entry.ProfileName)
+                .Distinct()
+                .OrderBy(s => s)
+                .ToArray());
             elem.ToProfile.SelectedIndex = 0;
 
             var ldgItems = elem.LdgProfile.Items;
             ldgItems.Clear();
             ldgItems.Add(NoToLdgProfileText);
             ldgItems.AddRange(profiles.LdgTables
-                .Select(t => t.Entry.ProfileName).ToArray());
+                .Select(t => t.Entry.ProfileName)
+                .Distinct()
+                .OrderBy(s => s)
+                .ToArray());
             elem.LdgProfile.SelectedIndex = 0;
         }
 
         private void InitWtUnitCBox()
         {
             var units = new string[] { "KG", "LB" };
-            unitCBox = new ComboBox[] 
+            unitCBox = new ComboBox[]
             {
                 elem.ZfwUnit,
                 elem.MaxToWtUnit,
@@ -181,6 +190,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             e.AcType.Text = c.AC;
             e.Registration.Text = c.Registration;
+            e.FuelProfile.Text = c.FuelProfile;
             e.ToProfile.Text = c.TOProfile;
             e.LdgProfile.Text = c.LdgProfile;
             e.ZfwUnit.SelectedIndex = c.WtUnit == WeightUnit.KG ? 0 : 1;
@@ -199,8 +209,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         {
             get
             {
-                return new AircraftConfigItem("", "", NoToLdgProfileText, 
-                    NoToLdgProfileText, NoToLdgProfileText, 0.0, 0.0, 
+                return new AircraftConfigItem("", "", NoToLdgProfileText,
+                    NoToLdgProfileText, NoToLdgProfileText, 0.0, 0.0,
                     0.0, 0.0, WeightUnit.KG);
             }
         }
@@ -255,7 +265,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             elem.SelectionBox.Visible = false;
 
             FillAcTypes();
-            FillToLdgCBox();
+            FillFuelToLdgCBox();
         }
 
         private bool TrySaveConfig(AircraftConfigItem config, string filePath)

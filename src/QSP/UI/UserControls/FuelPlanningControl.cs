@@ -182,13 +182,21 @@ namespace QSP.UI.UserControls
             advancedToolLbl.Click += ShowAdvancedTool;
         }
 
+        private string[] AvailAircraftTypes()
+        {
+            var allProfileNames = fuelData.Select(t => t.ProfileName);
+
+            return aircrafts
+                .Aircrafts
+                .Where(c => allProfileNames.Contains(c.Config.FuelProfile))
+                .Select(c => c.Config.AC)
+                .ToArray();
+        }
+
         private void FillAircraftSelection()
         {
             acListComboBox.Items.Clear();
-            acListComboBox.Items.AddRange(
-                aircrafts.Aircrafts
-                .Select(c => c.Config.AC)
-                .ToArray());
+            acListComboBox.Items.AddRange(AvailAircraftTypes());
         }
 
         private void SetDefaultState()
