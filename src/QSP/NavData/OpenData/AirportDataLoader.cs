@@ -179,7 +179,7 @@ namespace QSP.NavData.OpenData
                         continue;
                     }
 
-                    int longestRwyLength = rwys.Max(x => x.Length);
+                    int longestRwyLength = rwys.Max(x => x.LengthFt);
 
                     airportDB.Add(
                         new Airport(

@@ -118,7 +118,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
                 int index = rwyComboBox.SelectedIndex;
 
                 int elevationFt = takeoffAirport.Rwys[index].Elevation;
-                int lengthFt = takeoffAirport.Rwys[index].Length;
+                int lengthFt = takeoffAirport.Rwys[index].LengthFt;
 
                 SetLength(lengthFt);
                 elevationTxtBox.Text = elevationFt.ToString();

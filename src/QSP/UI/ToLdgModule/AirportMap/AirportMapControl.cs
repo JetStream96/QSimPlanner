@@ -227,7 +227,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
                 var rwy = runways[i];
 
                 airportDataGrid[0, i].Value = rwy.RwyIdent;
-                airportDataGrid[1, i].Value = rwy.Length;
+                airportDataGrid[1, i].Value = rwy.LengthFt;
                 airportDataGrid[2, i].Value = rwy.Heading;
                 airportDataGrid[3, i].Value = rwy.Lat;
                 airportDataGrid[4, i].Value = rwy.Lon;

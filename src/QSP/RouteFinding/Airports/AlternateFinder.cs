@@ -1,5 +1,9 @@
 using QSP.MathTools;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using static QSP.AviationTools.Constants;
+using static System.Math;
 
 namespace QSP.RouteFinding.Airports
 {
@@ -12,47 +16,34 @@ namespace QSP.RouteFinding.Airports
             this.airportList = airportList;
         }
 
-        // length: if the max rwy length is smaller than this number then 
-        // the result will not be shown to the user
+        // lengthFt: minimum runway length.
         //
-        // will return all suitable airports within certain distance until 
-        // more than 10 results are found
-        public List<Airport> GetListAltn(string dest, int length)
+        // The number of returned airports is larger than minCount, unless
+        // there isn't enough in the airportList.
+        public List<Airport> GetListAltn(
+            string dest, int lengthFt, int minCount = 10)
         {
-            const int count = 10;
-            const double disIncrement = 100;
-
-            var result = new List<Airport>();
+            double distance = 100.0;
+            const double disMultiplyFactor = 2.0;
             var destLatLon = airportList.AirportLatlon(dest);
 
-            double distance = 100.0;
+            Func<Airport, bool> selector = i =>
+            i.LongestRwyLength >= lengthFt && i.Icao != dest;
 
-            while (result.Count < count)
+            while (true)
             {
-                result = FilterResults(
-                    airportList.Find(
-                        destLatLon.Lat, destLatLon.Lon, distance),
-                    dest,
-                    length);
+                var results = airportList
+                    .Find(destLatLon.Lat, destLatLon.Lon, distance)
+                    .Where(selector)
+                    .ToList();
 
-                distance += disIncrement;
-            }
-            return result;
-        }
-
-        private List<Airport> FilterResults(
-            List<Airport> item, string dest, int length)
-        {
-            var result = new List<Airport>();
-
-            foreach (var i in item)
-            {
-                if (i.LongestRwyLength >= length && i.Icao != dest)
+                if (results.Count >= minCount || distance > EarthRadiusNm * PI)
                 {
-                    result.Add(i);
+                    return results;
                 }
+
+                distance *= disMultiplyFactor;
             }
-            return result;
         }
 
         // return a list of altn, with:
