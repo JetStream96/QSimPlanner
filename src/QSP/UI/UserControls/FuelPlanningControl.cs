@@ -95,7 +95,7 @@ namespace QSP.UI.UserControls
             SetAltnController();
             SetRouteOptionControl();
             SetWeightController();
-            FillAircraftSelection();
+            SetAircraftSelection();
 
             wtUnitComboBox.SelectedIndex = 0;
             SubscribeEventHandlers();
@@ -193,7 +193,7 @@ namespace QSP.UI.UserControls
                 .ToArray();
         }
 
-        private void FillAircraftSelection()
+        private void SetAircraftSelection()
         {
             acListComboBox.Items.Clear();
             acListComboBox.Items.AddRange(AvailAircraftTypes());
@@ -454,6 +454,27 @@ namespace QSP.UI.UserControls
                 frm.Controls.Add(advancedRouteTool);
                 frm.ShowDialog();
             }
+        }
+
+        /// <summary>
+        /// Refresh the aircraft and registration comboBoxes,
+        /// after the AcConfigManager is updated.
+        /// </summary>
+        public void RefreshAircrafts(object sender, EventArgs e)
+        {
+            // Set the selected aircraft/registration.
+            string ac = acListComboBox.Text;
+            string reg = registrationComboBox.Text;
+
+            SetAircraftSelection();
+
+            if (acListComboBox.Items.Count > 0)
+            {
+                acListComboBox.SelectedIndex = 0;
+            }
+
+            acListComboBox.Text = ac;
+            registrationComboBox.Text = reg;
         }
     }
 }

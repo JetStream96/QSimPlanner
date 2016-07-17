@@ -178,6 +178,7 @@ namespace QSP.UI.Forms
             optionsMenu.Init(appSettings);
 
             acMenu.Initialize(profiles);
+            acMenu.AircraftsChanged += fuelMenu.RefreshAircrafts;
             acMenu.AircraftsChanged += toMenu.RefreshAircrafts;
             acMenu.AircraftsChanged += ldgMenu.RefreshAircrafts;
 
@@ -216,15 +217,7 @@ namespace QSP.UI.Forms
             tp.SetToolTip(optionsBtn, "Options");
             tp.SetToolTip(aboutBtn, "About");
         }
-
-        //private void RefreshItemsRequireAirportList()
-        //{
-        //    Airports = airportList;
-        //    ToMenu.airportInfoControl.RefreshAirportInfo();
-        //    LdgMenu.airportInfoControl.RefreshAirportInfo();
-        //    AirportMenu.FindAirport();
-        //}
-
+        
         private void SubscribeEvents()
         {
             optionsMenu.AppSettingChanged += (sender, e) =>
@@ -329,30 +322,7 @@ namespace QSP.UI.Forms
                 panel1.Controls.Add(i);
             }
         }
-
-        //private void ResizeForm()
-        //{
-        //    int right = Pages.MaxBy(c => c.Width).Right;
-        //    int bottom = Pages.MaxBy(c => c.Height).Bottom;
-
-        //    var newSize = new Size(right + 15, bottom + 15);
-        //    MoveControls(newSize);
-        //    ClientSize = newSize;
-        //}
-
-        //private void MoveControls(Size newSize)
-        //{
-        //    int amount = ClientSize.Width - newSize.Width;
-        //    MoveLeft(tableLayoutPanel2, amount);
-        //    MoveLeft(tableLayoutPanel3, amount);
-        //}
-
-        //private static void MoveLeft(Control c, int amount)
-        //{
-        //    var location = new Point(c.Location.X - amount, c.Location.Y);
-        //    c.Location = location;
-        //}
-
+        
         private static void CheckRegistry()
         {
             // Try to check/add registry so that google map works properly. 
