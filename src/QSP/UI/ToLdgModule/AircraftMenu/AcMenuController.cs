@@ -42,6 +42,13 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private void FillToLdgCBox()
         {
+            var fuelItems = elem.FuelProfile.Items;
+            fuelItems.Clear();
+            fuelItems.Add(NoToLdgProfileText);
+            fuelItems.AddRange(profiles.FuelData
+                .Select(t => t.ProfileName).ToArray());
+            elem.FuelProfile.SelectedIndex = 0;
+
             var toItems = elem.ToProfile.Items;
             toItems.Clear();
             toItems.Add(NoToLdgProfileText);

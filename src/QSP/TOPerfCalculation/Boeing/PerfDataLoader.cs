@@ -40,11 +40,7 @@ namespace QSP.TOPerfCalculation.Boeing
         {
             var elem = doc.Root.Element("Parameters");
 
-            return new Entry(
-                elem.Element("Aircraft").Value,
-                elem.Element("ProfileName").Value,
-                elem.Element("Designator").Value,
-                path);
+            return new Entry(elem.Element("ProfileName").Value, path);
         }
 
         private IndividualPerfTable ReadIndividualTable(XElement node)
@@ -254,7 +250,7 @@ namespace QSP.TOPerfCalculation.Boeing
         {
             public FieldLimitWtTable Field { get; private set; }
             public ClimbLimitWtTable Climb { get; private set; }
-            
+
             public WtTables(FieldLimitWtTable Field, ClimbLimitWtTable Climb)
             {
                 this.Field = Field;

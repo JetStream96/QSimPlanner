@@ -271,7 +271,7 @@
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.48544F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.51456F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 83F));
             this.tableLayoutPanel2.Controls.Add(this.fuelProfileComboBox, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label9, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.maxZfwUnitComboBox, 2, 6);
@@ -312,7 +312,7 @@
             this.fuelProfileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fuelProfileComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fuelProfileComboBox.FormattingEnabled = true;
-            this.fuelProfileComboBox.Location = new System.Drawing.Point(224, 3);
+            this.fuelProfileComboBox.Location = new System.Drawing.Point(223, 3);
             this.fuelProfileComboBox.Name = "fuelProfileComboBox";
             this.fuelProfileComboBox.Size = new System.Drawing.Size(180, 31);
             this.fuelProfileComboBox.TabIndex = 11;
@@ -337,7 +337,7 @@
             this.maxZfwUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.maxZfwUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maxZfwUnitComboBox.FormattingEnabled = true;
-            this.maxZfwUnitComboBox.Location = new System.Drawing.Point(422, 213);
+            this.maxZfwUnitComboBox.Location = new System.Drawing.Point(421, 213);
             this.maxZfwUnitComboBox.Name = "maxZfwUnitComboBox";
             this.maxZfwUnitComboBox.Size = new System.Drawing.Size(73, 31);
             this.maxZfwUnitComboBox.TabIndex = 8;
@@ -347,7 +347,7 @@
             this.maxZfwTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.maxZfwTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.maxZfwTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxZfwTxtBox.Location = new System.Drawing.Point(224, 213);
+            this.maxZfwTxtBox.Location = new System.Drawing.Point(223, 213);
             this.maxZfwTxtBox.Name = "maxZfwTxtBox";
             this.maxZfwTxtBox.Size = new System.Drawing.Size(180, 30);
             this.maxZfwTxtBox.TabIndex = 9;
@@ -380,7 +380,7 @@
             this.maxLdgWtTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.maxLdgWtTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.maxLdgWtTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxLdgWtTxtBox.Location = new System.Drawing.Point(224, 178);
+            this.maxLdgWtTxtBox.Location = new System.Drawing.Point(223, 178);
             this.maxLdgWtTxtBox.Name = "maxLdgWtTxtBox";
             this.maxLdgWtTxtBox.Size = new System.Drawing.Size(180, 30);
             this.maxLdgWtTxtBox.TabIndex = 6;
@@ -391,7 +391,7 @@
             this.maxTOWtTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.maxTOWtTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.maxTOWtTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxTOWtTxtBox.Location = new System.Drawing.Point(224, 143);
+            this.maxTOWtTxtBox.Location = new System.Drawing.Point(223, 143);
             this.maxTOWtTxtBox.Name = "maxTOWtTxtBox";
             this.maxTOWtTxtBox.Size = new System.Drawing.Size(180, 30);
             this.maxTOWtTxtBox.TabIndex = 4;
@@ -413,7 +413,7 @@
             this.oewTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.oewTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.oewTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.oewTxtBox.Location = new System.Drawing.Point(224, 108);
+            this.oewTxtBox.Location = new System.Drawing.Point(223, 108);
             this.oewTxtBox.Name = "oewTxtBox";
             this.oewTxtBox.Size = new System.Drawing.Size(180, 30);
             this.oewTxtBox.TabIndex = 2;
@@ -428,7 +428,7 @@
             this.maxLdgWtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.maxLdgWtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maxLdgWtUnitComboBox.FormattingEnabled = true;
-            this.maxLdgWtUnitComboBox.Location = new System.Drawing.Point(422, 178);
+            this.maxLdgWtUnitComboBox.Location = new System.Drawing.Point(421, 178);
             this.maxLdgWtUnitComboBox.Name = "maxLdgWtUnitComboBox";
             this.maxLdgWtUnitComboBox.Size = new System.Drawing.Size(73, 31);
             this.maxLdgWtUnitComboBox.TabIndex = 7;
@@ -442,7 +442,7 @@
             this.oewUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.oewUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.oewUnitComboBox.FormattingEnabled = true;
-            this.oewUnitComboBox.Location = new System.Drawing.Point(422, 108);
+            this.oewUnitComboBox.Location = new System.Drawing.Point(421, 108);
             this.oewUnitComboBox.Name = "oewUnitComboBox";
             this.oewUnitComboBox.Size = new System.Drawing.Size(73, 31);
             this.oewUnitComboBox.TabIndex = 3;
@@ -467,7 +467,7 @@
             this.ldgProfileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ldgProfileComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ldgProfileComboBox.FormattingEnabled = true;
-            this.ldgProfileComboBox.Location = new System.Drawing.Point(224, 73);
+            this.ldgProfileComboBox.Location = new System.Drawing.Point(223, 73);
             this.ldgProfileComboBox.Name = "ldgProfileComboBox";
             this.ldgProfileComboBox.Size = new System.Drawing.Size(180, 31);
             this.ldgProfileComboBox.TabIndex = 1;
@@ -481,7 +481,7 @@
             this.toProfileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.toProfileComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toProfileComboBox.FormattingEnabled = true;
-            this.toProfileComboBox.Location = new System.Drawing.Point(224, 38);
+            this.toProfileComboBox.Location = new System.Drawing.Point(223, 38);
             this.toProfileComboBox.Name = "toProfileComboBox";
             this.toProfileComboBox.Size = new System.Drawing.Size(180, 31);
             this.toProfileComboBox.TabIndex = 0;
@@ -517,7 +517,7 @@
             this.maxTOWtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.maxTOWtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maxTOWtUnitComboBox.FormattingEnabled = true;
-            this.maxTOWtUnitComboBox.Location = new System.Drawing.Point(422, 143);
+            this.maxTOWtUnitComboBox.Location = new System.Drawing.Point(421, 143);
             this.maxTOWtUnitComboBox.Name = "maxTOWtUnitComboBox";
             this.maxTOWtUnitComboBox.Size = new System.Drawing.Size(73, 31);
             this.maxTOWtUnitComboBox.TabIndex = 5;

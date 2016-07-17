@@ -1,46 +1,33 @@
-﻿using QSP.AircraftProfiles;
-using QSP.AircraftProfiles.Configs;
-using QSP.AviationTools.Coordinates;
+﻿using QSP.AircraftProfiles.Configs;
 using QSP.Common;
 using QSP.Common.Options;
 using QSP.FuelCalculation;
 using QSP.FuelCalculation.Calculators;
 using QSP.LibraryExtension;
-using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
-using QSP.RouteFinding.FileExport;
-using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
-using QSP.UI.RoutePlanning;
-using QSP.UI.Utilities;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Factories.FormFactory;
-using static QSP.UI.Factories.ToolTipFactory;
-using static QSP.UI.Utilities.RouteDistanceDisplay;
-using static QSP.Utilities.Units.Conversions;
 using static QSP.UI.Utilities.MsgBoxHelper;
+using static QSP.UI.Utilities.RouteDistanceDisplay;
 using static QSP.Utilities.LoggerInstance;
+using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.UI.UserControls
 {
@@ -171,7 +158,6 @@ namespace QSP.UI.UserControls
             };
 
             altnControl = new AlternateController(
-              //  controlsBelow,
                 alternateGroupBox,
                 appSettings,
                 airportList,
@@ -344,7 +330,6 @@ namespace QSP.UI.UserControls
         /// Gets the fuel data of currently selected aircraft.
         /// Returns null if no aircraft exists in ComboBox.
         /// </summary>
-        /// <returns></returns>
         public FuelDataItem GetFuelData()
         {
             if (registrationComboBox.SelectedIndex < 0)

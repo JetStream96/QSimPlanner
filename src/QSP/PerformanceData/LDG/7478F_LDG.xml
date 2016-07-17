@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LandingData>
   <Parameters>
-    <Aircraft>B747-8F</Aircraft>
     <ProfileName>Boeing 747-8F</ProfileName>
-    <Designator>B748</Designator>
 
     <LengthUnit>FT</LengthUnit>
     <!-- FT or M -->

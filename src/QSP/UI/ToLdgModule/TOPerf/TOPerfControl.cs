@@ -70,21 +70,13 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
         private string[] AvailAircraftTypes()
         {
-            var avail = new List<string>();
+            var allProfileNames = tables.Select(t => t.Entry.ProfileName);
 
-            foreach (var i in tables)
-            {
-                if (aircrafts
-                    .Aircrafts
-                    .Where(c => c.Config.TOProfile == i.Entry.ProfileName)
-                    .Count()
-                    > 0)
-                {
-                    avail.Add(i.Entry.Aircraft);
-                }
-            }
-
-            return avail.ToArray();
+            return aircrafts
+                .Aircrafts
+                .Where(c => allProfileNames.Contains(c.Config.TOProfile))
+                .Select(c => c.Config.AC)
+                .ToArray();
         }
 
         private bool TakeoffProfileExists(string profileName)

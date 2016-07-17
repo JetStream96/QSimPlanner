@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TOPerf>
   <Parameters>
-    <Aircraft>B737-900</Aircraft>
     <ProfileName>Boeing 737-900</ProfileName>
-    <Designator>B739</Designator>
   </Parameters>
 
   <IndividualTable>

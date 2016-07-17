@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TOPerf>
   <Parameters>
-    <Aircraft>B777F</Aircraft>
     <ProfileName>Boeing 777F</ProfileName>
-    <Designator>B77L</Designator>
   </Parameters>
 
   <IndividualTable>
