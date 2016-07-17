@@ -18,7 +18,7 @@ namespace QSP.UI.UserControls
         private string origTxt;
         private string destTxt;
         private IEnumerable<string> altnTxt;
-        
+
         public MetarMonitor(Control display)
         {
             this.display = display;
@@ -26,49 +26,87 @@ namespace QSP.UI.UserControls
             destTxt = "";
             altnTxt = new string[0];
         }
-        public async Task UpdateOrig(string newOrig)
+
+        public async void UpdateAll()
+        {
+            var orig = OrigTask();
+            var dest = DestTask();
+            var altn = AltnTask().ToArray();
+
+            int taskCount = altn.Length + 2;
+            var allTasks = new Task<string>[taskCount];
+            allTasks[0] = orig;
+            allTasks[1] = dest;
+
+            for (int i = 2; i < allTasks.Length; i++)
+            {
+                allTasks[i] = altn[i - 2];
+            }
+
+            var result = await Task.WhenAll(allTasks);
+
+            origTxt = result[0];
+            destTxt = result[1];
+            altnTxt = result.Skip(2);
+        }
+
+        public async void UpdateOrig(string newOrig)
         {
             if (newOrig != orig)
             {
                 ShowUpdating();
 
                 orig = newOrig;
-                origTxt = await Task.Factory.StartNew(
-                () => MetarDownloader.TryGetMetarTaf(orig));
+                origTxt = await OrigTask();
 
                 UpdateDisplay();
             }
         }
 
-        public async Task UpdateDest(string newDest)
+        private Task<string> OrigTask()
+        {
+            return Task.Factory.StartNew(
+                () => MetarDownloader.TryGetMetarTaf(orig));
+        }
+
+        public async void UpdateDest(string newDest)
         {
             if (newDest != dest)
             {
                 ShowUpdating();
 
                 dest = newDest;
-                destTxt = await Task.Factory.StartNew(
-                () => MetarDownloader.TryGetMetarTaf(dest));
+                destTxt = await DestTask();
 
                 UpdateDisplay();
             }
         }
 
-        public async Task UpdateAltn(IEnumerable<string> newAltn)
+        private Task<string> DestTask()
+        {
+            return Task.Factory.StartNew(
+                () => MetarDownloader.TryGetMetarTaf(dest));
+        }
+
+        public async void UpdateAltn(IEnumerable<string> newAltn)
         {
             if (newAltn.SequenceEqual(altn) == false)
             {
                 ShowUpdating();
 
                 altn = newAltn;
-                var tasks = altn.Select(
-                    i => Task.Factory.StartNew(
-                        () => MetarDownloader.TryGetMetarTaf(i)));
-
-                await Task.WhenAll(tasks);
+                var tasks = AltnTask();
+                altnTxt= await Task.WhenAll(tasks);
 
                 UpdateDisplay();
             }
+        }
+
+        private IEnumerable<Task<string>> AltnTask()
+        {
+            return altn.Select(
+                i => Task.Factory.StartNew(
+                    () => MetarDownloader.TryGetMetarTaf(i)));
         }
 
         private void ShowUpdating()

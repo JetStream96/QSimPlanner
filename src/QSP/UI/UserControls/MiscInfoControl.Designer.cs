@@ -30,6 +30,7 @@
         {
             this.TabControl1 = new System.Windows.Forms.TabControl();
             this.TabPage1 = new System.Windows.Forms.TabPage();
+            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.GroupBox17 = new System.Windows.Forms.GroupBox();
@@ -37,13 +38,12 @@
             this.downloadMetarBtn = new System.Windows.Forms.Button();
             this.RichTextBox1 = new System.Windows.Forms.RichTextBox();
             this.GroupBox18 = new System.Windows.Forms.GroupBox();
-            this.UpdateAll_Btn = new System.Windows.Forms.Button();
+            this.updateMetarBtn = new System.Windows.Forms.Button();
             this.RichTextBox2 = new System.Windows.Forms.RichTextBox();
             this.TabPage6 = new System.Windows.Forms.TabPage();
             this.GroupBox19 = new System.Windows.Forms.GroupBox();
             this.DesForcast_RTextBox = new System.Windows.Forms.RichTextBox();
             this.Label86 = new System.Windows.Forms.Label();
-            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabControl1.SuspendLayout();
             this.TabPage1.SuspendLayout();
             this.TabPage2.SuspendLayout();
@@ -76,6 +76,17 @@
             this.TabPage1.TabIndex = 0;
             this.TabPage1.Text = "Airport Data";
             this.TabPage1.UseVisualStyleBackColor = true;
+            // 
+            // airportMapControl
+            // 
+            this.airportMapControl.Airports = null;
+            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.airportMapControl.BrowserEnabled = false;
+            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
+            this.airportMapControl.Name = "airportMapControl";
+            this.airportMapControl.Size = new System.Drawing.Size(1024, 670);
+            this.airportMapControl.StaticMapEnabled = false;
+            this.airportMapControl.TabIndex = 0;
             // 
             // TabPage2
             // 
@@ -148,7 +159,7 @@
             // 
             // GroupBox18
             // 
-            this.GroupBox18.Controls.Add(this.UpdateAll_Btn);
+            this.GroupBox18.Controls.Add(this.updateMetarBtn);
             this.GroupBox18.Controls.Add(this.RichTextBox2);
             this.GroupBox18.Location = new System.Drawing.Point(3, 238);
             this.GroupBox18.Name = "GroupBox18";
@@ -157,15 +168,16 @@
             this.GroupBox18.TabStop = false;
             this.GroupBox18.Text = "Monitor";
             // 
-            // UpdateAll_Btn
+            // updateMetarBtn
             // 
-            this.UpdateAll_Btn.BackgroundImage = global::QSP.Properties.Resources.processing9;
-            this.UpdateAll_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UpdateAll_Btn.Location = new System.Drawing.Point(1043, 22);
-            this.UpdateAll_Btn.Name = "UpdateAll_Btn";
-            this.UpdateAll_Btn.Size = new System.Drawing.Size(33, 33);
-            this.UpdateAll_Btn.TabIndex = 80;
-            this.UpdateAll_Btn.UseVisualStyleBackColor = true;
+            this.updateMetarBtn.BackgroundImage = global::QSP.Properties.Resources.processing9;
+            this.updateMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.updateMetarBtn.Location = new System.Drawing.Point(1042, 22);
+            this.updateMetarBtn.Name = "updateMetarBtn";
+            this.updateMetarBtn.Size = new System.Drawing.Size(33, 33);
+            this.updateMetarBtn.TabIndex = 80;
+            this.updateMetarBtn.UseVisualStyleBackColor = true;
+            this.updateMetarBtn.Click += new System.EventHandler(this.updateAllMetarTaf);
             // 
             // RichTextBox2
             // 
@@ -217,20 +229,6 @@
             this.Label86.TabIndex = 0;
             this.Label86.Text = "DEST / RCTP";
             // 
-            // airportMapControl
-            // 
-            this.airportMapControl.Airports = null;
-            this.airportMapControl.Altn = null;
-            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.airportMapControl.BrowserEnabled = false;
-            this.airportMapControl.Dest = null;
-            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
-            this.airportMapControl.Name = "airportMapControl";
-            this.airportMapControl.Orig = null;
-            this.airportMapControl.Size = new System.Drawing.Size(1024, 670);
-            this.airportMapControl.StaticMapEnabled = false;
-            this.airportMapControl.TabIndex = 0;
-            // 
             // MiscInfoControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -264,7 +262,7 @@
         private ToLdgModule.AirportMap.AirportMapControl airportMapControl;
         internal System.Windows.Forms.TabPage TabPage2;
         internal System.Windows.Forms.GroupBox GroupBox18;
-        internal System.Windows.Forms.Button UpdateAll_Btn;
+        internal System.Windows.Forms.Button updateMetarBtn;
         internal System.Windows.Forms.RichTextBox RichTextBox2;
         internal System.Windows.Forms.GroupBox GroupBox17;
         internal System.Windows.Forms.TextBox metarToFindTxtBox;

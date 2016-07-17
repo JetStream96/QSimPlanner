@@ -38,7 +38,7 @@ namespace QSP.UI.Forms
         private FuelPlanningControl fuelMenu;
         private TOPerfControl toMenu;
         private LandingPerfControl ldgMenu;
-        private AirportMapControl airportMenu;
+        private MiscInfoControl airportMenu;
         private OptionsControl optionsMenu;
         private AboutPageControl aboutMenu;
 
@@ -201,8 +201,7 @@ namespace QSP.UI.Forms
                 profiles.LdgTables.ToList(), airportList);
             ldgMenu.TryLoadState();
 
-            airportMenu.Initialize(airportList);
-            airportMenu.BrowserEnabled = true;
+            airportMenu.Init(airportList, true);
 
             EnableBtnColorControls();
             EnableViewControl();
@@ -230,18 +229,19 @@ namespace QSP.UI.Forms
                 // TODO: Update Nav data here.
             };
 
+            // TODO: ?
             var origTxtBox = toMenu.airportInfoControl.airportTxtBox;
 
             origTxtBox.TextChanged += (sender, e) =>
             {
-                airportMenu.Orig = origTxtBox.Text;
+                airportMenu.SetOrig(origTxtBox.Text.Trim().ToUpper());
             };
 
             var destTxtBox = ldgMenu.airportInfoControl.airportTxtBox;
 
             destTxtBox.TextChanged += (sender, e) =>
             {
-                airportMenu.Dest = destTxtBox.Text;
+                airportMenu.SetDest(destTxtBox.Text.Trim().ToUpper());
             };
 
             navDataStatusLabel.Click += ViewOptions;
@@ -311,7 +311,7 @@ namespace QSP.UI.Forms
             fuelMenu = new FuelPlanningControl();
             toMenu = new TOPerfControl();
             ldgMenu = new LandingPerfControl();
-            airportMenu = new AirportMapControl();
+            airportMenu = new MiscInfoControl();
             optionsMenu = new OptionsControl();
             aboutMenu = new AboutPageControl();
 

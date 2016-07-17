@@ -2,6 +2,7 @@
 using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,10 @@ namespace QSP.UI.ToLdgModule.AirportMap
 {
     public partial class AirportMapControl : UserControl
     {
+        private string _orig;
+        private string _dest;
+        private IEnumerable<string> _altn;
+
         public AirportManager Airports { get; set; }
 
         private string CurrentIcao
@@ -63,7 +68,6 @@ namespace QSP.UI.ToLdgModule.AirportMap
             }
         }
 
-        private string _orig;
 
         public string Orig
         {
@@ -74,8 +78,6 @@ namespace QSP.UI.ToLdgModule.AirportMap
             }
         }
 
-        private string _dest;
-
         public string Dest
         {
             set
@@ -85,9 +87,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             }
         }
 
-        private string _altn;
-
-        public string Altn
+        public IEnumerable<string> Altn
         {
             set
             {
@@ -101,7 +101,8 @@ namespace QSP.UI.ToLdgModule.AirportMap
             icaoComboBox.Items.Clear();
 
             icaoComboBox.Items.AddRange(
-                new string[] { _orig, _dest, _altn }
+                new string[] { _orig, _dest }
+                .Concat(_altn)
                 .Where(s => string.IsNullOrEmpty(s) == false)
                 .ToArray());
         }
