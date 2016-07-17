@@ -67,11 +67,6 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         public string Orig
         {
-            get
-            {
-                return _orig;
-            }
-
             set
             {
                 _orig = value;
@@ -83,11 +78,6 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         public string Dest
         {
-            get
-            {
-                return _dest;
-            }
-
             set
             {
                 _dest = value;
@@ -99,11 +89,6 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         public string Altn
         {
-            get
-            {
-                return _altn;
-            }
-
             set
             {
                 _altn = value;
@@ -167,7 +152,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             metarLbl.Visible = false;
             updateBtn.Visible = false;
         }
-        
+
         private async void SetMetar(string icao)
         {
             metarLbl.Text = "Updating ...";

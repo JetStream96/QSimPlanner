@@ -198,6 +198,13 @@
     <Compile Include="UI\UserControls\FuelPlanningControl.Designer.cs">
       <DependentUpon>FuelPlanningControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserControls\MetarMonitor.cs" />
+    <Compile Include="UI\UserControls\MiscInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\MiscInfoControl.Designer.cs">
+      <DependentUpon>MiscInfoControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserControls\OptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -575,6 +582,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\FuelPlanningControl.resx">
       <DependentUpon>FuelPlanningControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControls\MiscInfoControl.resx">
+      <DependentUpon>MiscInfoControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\OptionsControl.resx">
       <DependentUpon>OptionsControl.cs</DependentUpon>
