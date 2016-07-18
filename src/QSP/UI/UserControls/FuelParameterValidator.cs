@@ -1,13 +1,7 @@
 using QSP.Common;
 using QSP.FuelCalculation;
-using QSP.RouteFinding;
 using QSP.UI.Controllers.Units;
-using QSP.Utilities.Units;
-using System;
 using System.Windows.Forms;
-using static QSP.AviationTools.Constants;
-using static QSP.UI.FormInstanceGetter;
-using static QSP.Utilities.ConditionChecker;
 
 namespace QSP.UI.UserControls
 {

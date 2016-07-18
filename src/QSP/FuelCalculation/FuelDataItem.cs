@@ -8,7 +8,6 @@ namespace QSP.FuelCalculation
     {
         public FlightTimeTable FlightTimeTable { get; private set; }
         public FuelTable FuelTable { get; private set; }
-        public GroundToAirDisTable GtaTable { get; private set; }
         public OptCrzTable OptCrzTable { get; private set; }
         public SpeedProfile SpeedProfile { get; private set; }
         public double HoldingFuelPerMinuteKg { get; private set; }
@@ -20,7 +19,6 @@ namespace QSP.FuelCalculation
         public FuelDataItem(
             FlightTimeTable FlightTimeTable,
             FuelTable FuelTable,
-            GroundToAirDisTable GtaTable,
             OptCrzTable OptCrzTable,
             SpeedProfile SpeedProfile,
             double HoldingFuelPerMinuteKg,
@@ -31,7 +29,6 @@ namespace QSP.FuelCalculation
         {
             this.FlightTimeTable = FlightTimeTable;
             this.FuelTable = FuelTable;
-            this.GtaTable = GtaTable;
             this.OptCrzTable = OptCrzTable;
             this.SpeedProfile = SpeedProfile;
             this.HoldingFuelPerMinuteKg = HoldingFuelPerMinuteKg;
@@ -55,7 +52,6 @@ namespace QSP.FuelCalculation
             return new FuelDataItem(
                 new FlightTimeTable(time.Value),
                 new FuelTable(fuel.Value),
-                new GroundToAirDisTable(gta.Value),
                 GetOptAltTable(cruize),
                 SpeedProfile.FromXml(cruize),
                 double.Parse(general.Element("HoldingFuelPerMinuteKg").Value),

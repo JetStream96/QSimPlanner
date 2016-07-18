@@ -3,20 +3,6 @@ using System;
 namespace QSP.Common
 {
     [Serializable()]
-    public class InvalidAircraftDatabaseException : ApplicationException
-    {
-        public InvalidAircraftDatabaseException() { }
-
-        public InvalidAircraftDatabaseException(string message)
-            : base(message)
-        { }
-
-        public InvalidAircraftDatabaseException(string message, Exception inner)
-            : base(message, inner)
-        { }
-    }
-
-    [Serializable()]
     public class InvalidUserInputException : ApplicationException
     {
         public InvalidUserInputException() { }

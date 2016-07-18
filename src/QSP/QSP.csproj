@@ -104,7 +104,6 @@
     <Compile Include="FuelCalculation\Calculators\CalculationResult.cs" />
     <Compile Include="FuelCalculation\Calculators\DestinationFuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculators\FuelCalculatorWithWind.cs" />
-    <Compile Include="FuelCalculation\FuelCalculator.cs" />
     <Compile Include="FuelCalculation\FuelReport.cs" />
     <Compile Include="FuelCalculation\FuelData.cs" />
     <Compile Include="FuelCalculation\FuelDataItem.cs" />
@@ -112,7 +111,6 @@
     <Compile Include="FuelCalculation\Tables\FlightTimeTable.cs" />
     <Compile Include="FuelCalculation\FuelParameters.cs" />
     <Compile Include="FuelCalculation\Tables\FuelTable.cs" />
-    <Compile Include="FuelCalculation\Tables\GroundToAirDisTable.cs" />
     <Compile Include="FuelCalculation\Tables\OptCrzTable.cs" />
     <Compile Include="FuelCalculation\Tables\SpeedProfile.cs" />
     <Compile Include="LibraryExtension\BiDictionary.cs" />
@@ -223,11 +221,9 @@
     </Compile>
     <Compile Include="UI\UserControls\RouteOptions\RouteOptionController.cs" />
     <Compile Include="UI\Utilities\ControlMover.cs" />
-    <Compile Include="UI\Utilities\LocationGetter.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
-    <Compile Include="Common\AircraftEnums.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingCalculator.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingReportGenerator.cs" />
@@ -319,7 +315,6 @@
     <Compile Include="RouteFinding\Tracks\Ausots\IAusotsDownloader.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\IndividualAusotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\MessageSplitter.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\ServiceInitializer.cs" />
     <Compile Include="RouteFinding\Tracks\Common\IXmlConvertible.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\ConnectionRouteInterpreter.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\MainRouteInterpreter.cs" />
@@ -450,13 +445,8 @@
     <Compile Include="Utilities\ConditionChecker.cs" />
     <Compile Include="Utilities\LoggerInstance.cs" />
     <Compile Include="Common\Exceptions.cs" />
-    <Compile Include="UI\FormStateSaver.cs" />
     <Compile Include="Utilities\IeEmulationChecker.cs" />
-    <Compile Include="UI\FormInstanceGetter.cs" />
-    <Compile Include="UI\ViewManager.cs" />
     <Compile Include="Utilities\AiracTools.cs" />
-    <Compile Include="FuelCalculation\FuelCalculationParameters.cs" />
-    <Compile Include="FuelCalculation\FuelReportResult.cs" />
     <Compile Include="LibraryExtension\Arrays.cs" />
     <Compile Include="LandingPerfCalculation\LandingReport.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingParameters.cs" />
@@ -502,32 +492,16 @@
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsMessage.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\TrackValidPeriod.cs" />
     <Compile Include="RouteFinding\Tracks\WptPair.cs" />
-    <Compile Include="RouteFinding\RouteFindingCore.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidHandler.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\BasicRouteAnalyzer.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarHandler.cs" />
     <Compile Include="RouteFinding\RwyIdent.cs" />
     <Compile Include="TOPerfCalculation\TOReport.cs" />
-    <Compile Include="UIElement\TablessControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\about.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\about.Designer.cs">
-      <DependentUpon>about.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Forms\FindAltnForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\Forms\FindAltnForm.Designer.cs">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\MetarForm.cs">
       <SubType>Form</SubType>
@@ -546,12 +520,6 @@
     </Compile>
     <Compile Include="UI\Forms\TracksForm.Designer.cs">
       <DependentUpon>TracksForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Forms\WeightManagement.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\WeightManagement.Designer.cs">
-      <DependentUpon>WeightManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Logger.cs" />
     <Compile Include="Utilities\Units\Enums.cs" />
@@ -635,9 +603,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UI\Forms\about.resx">
-      <DependentUpon>about.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\ToLdgModule\AboutPage\AboutPageControl.resx">
       <DependentUpon>AboutPageControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -662,10 +627,6 @@
     <EmbeddedResource Include="UI\ToLdgModule\LandingPerf\LandingPerfControl.resx">
       <DependentUpon>LandingPerfControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\MetarForm.resx">
       <DependentUpon>MetarForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -677,9 +638,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ToLdgModule\Common\WeatherInfoControl.resx">
       <DependentUpon>WeatherInfoControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\WeightManagement.resx">
-      <DependentUpon>WeightManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ToLdgModule\Options\OptionsControl.resx">
       <DependentUpon>OptionsControl.cs</DependentUpon>
