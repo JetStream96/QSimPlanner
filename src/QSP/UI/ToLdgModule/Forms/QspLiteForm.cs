@@ -85,7 +85,7 @@ namespace QSP.UI.ToLdgModule.Forms
             AcMenu.AircraftsChanged += ToMenu.RefreshAircrafts;
             AcMenu.AircraftsChanged += LdgMenu.RefreshAircrafts;
 
-            ToMenu.Initialize(
+            ToMenu.Init(
                 Profiles.AcConfigs,
                 Profiles.TOTables.ToList(), 
                 airports,
@@ -93,8 +93,12 @@ namespace QSP.UI.ToLdgModule.Forms
 
             ToMenu.TryLoadState();
 
-            LdgMenu.InitializeAircrafts(Profiles.AcConfigs,
-                Profiles.LdgTables.ToList(), airports);
+            LdgMenu.Init(
+                Profiles.AcConfigs,
+                Profiles.LdgTables.ToList(),
+                airports,
+                () => null);
+
             LdgMenu.TryLoadState();
 
             AirportMenu.Initialize(airports);

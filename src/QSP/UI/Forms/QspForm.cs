@@ -193,7 +193,7 @@ namespace QSP.UI.Forms
                 profiles.AcConfigs,
                 profiles.FuelData);
 
-            toMenu.Initialize(
+            toMenu.Init(
                 profiles.AcConfigs,
                 profiles.TOTables.ToList(),
                 airportList,
@@ -201,8 +201,12 @@ namespace QSP.UI.Forms
             
             toMenu.TryLoadState();
 
-            ldgMenu.InitializeAircrafts(profiles.AcConfigs,
-                profiles.LdgTables.ToList(), airportList);
+            ldgMenu.Init(
+                profiles.AcConfigs,
+                profiles.LdgTables.ToList(),
+                airportList,
+                () => fuelMenu.AircraftRequest);
+
             ldgMenu.TryLoadState();
 
             InitMiscInfoMenu();

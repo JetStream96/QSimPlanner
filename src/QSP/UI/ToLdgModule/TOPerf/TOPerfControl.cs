@@ -5,13 +5,13 @@ using QSP.TOPerfCalculation;
 using QSP.UI.ControlStates;
 using QSP.UI.ToLdgModule.Common;
 using QSP.UI.ToLdgModule.TOPerf.Controllers;
+using QSP.UI.Utilities;
 using QSP.Utilities.Units;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.LibraryExtension;
 using static QSP.MathTools.Doubles;
 
 namespace QSP.UI.ToLdgModule.TOPerf
@@ -48,7 +48,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
             setWeatherBtnHandlers();
         }
 
-        public void Initialize(
+        public void Init(
             AcConfigManager aircrafts,
             List<PerfTable> tables,
             AirportManager airports,
@@ -293,20 +293,16 @@ namespace QSP.UI.ToLdgModule.TOPerf
             var ac = acRequestGetter();
 
             if (ac == null ||
-                acListComboBox.Items.Cast<string>()
-                .Contains(ac.Aircraft) == false)
+                aircrafts.Find(ac.Registration) == null ||
+                aircrafts.Find(ac.Registration).Config.AC != ac.Aircraft)
             {
+                MsgBoxHelper.ShowWarning(
+                "The aircraft selected in fuel planning page does not " +
+                "have a corresponding takeoff performance profile.");
                 return;
             }
 
             acListComboBox.Text = ac.Aircraft;
-
-            if (regComboBox.Items.Cast<string>()
-                .Contains(ac.Registration) == false)
-            {
-                return;
-            }
-
             regComboBox.Text = ac.Registration;
             wtUnitComboBox.SelectedIndex = (int)WeightUnit.KG;
             weightTxtBox.Text = RoundToInt(ac.TakeOffWeightKg).ToString();

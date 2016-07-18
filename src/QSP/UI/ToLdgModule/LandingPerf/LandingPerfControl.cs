@@ -5,11 +5,13 @@ using QSP.RouteFinding.Airports;
 using QSP.UI.ControlStates;
 using QSP.UI.ToLdgModule.Common;
 using QSP.UI.ToLdgModule.LandingPerf.FormControllers;
+using QSP.UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.UI.ToLdgModule.LandingPerf
 {
@@ -17,11 +19,11 @@ namespace QSP.UI.ToLdgModule.LandingPerf
     {
         private const string fileName = "LandingPerfControl.xml";
 
-        // private CustomFuelControlOld fuelImportPanel;
         private FormController controller;
         private LandingPerfElements elements;
         private List<PerfTable> tables;
         private AcConfigManager aircrafts;
+        private Func<AircraftRequest> acRequestGetter;
 
         private PerfTable currentTable;
         private AutoWeatherSetter wxSetter;
@@ -107,15 +109,17 @@ namespace QSP.UI.ToLdgModule.LandingPerf
                 resultsRichTxtBox);
         }
 
-        public void InitializeAircrafts(
+        public void Init(
             AcConfigManager aircrafts,
             List<PerfTable> tables,
-            AirportManager airports)
+            AirportManager airports,
+            Func<AircraftRequest> acRequestGetter)
         {
             this.aircrafts = aircrafts;
             this.tables = tables;
             UpdateAircraftList();
             this.Airports = airports;
+            this.acRequestGetter = acRequestGetter;
         }
 
         private string[] AvailAircraftTypes()
@@ -171,24 +175,40 @@ namespace QSP.UI.ToLdgModule.LandingPerf
                 }
             }
         }
-
-        // The request button is not visible by default.
-        // Call this method to enable it.
-        public void EnableWeightRequest(double zfwKg, double fuelKg)
-        {
-            requestBtn.Visible = true;
-            // fuelImportPanel = new CustomFuelControlOld(zfwKg, fuelKg);
-            // fuelImportPanel.Location = new Point(253, 61);
-        }
-
+        
         private void RequestBtnClick(object sender, EventArgs e)
         {
-            //if (fuelImportPanel != null)
-            //{
-            //    fuelImportPanel.Visible = true;
-            //}
-        }
+            var ac = acRequestGetter();
 
+            if (ac == null ||
+                aircrafts.Find(ac.Registration) == null ||
+                aircrafts.Find(ac.Registration).Config.AC != ac.Aircraft)
+            {
+                MsgBoxHelper.ShowWarning(
+                "The aircraft selected in fuel planning page does not " +
+                "have a corresponding landing performance profile.");
+                return;
+            }
+            
+            using (var frm = new CustomFuelForm())
+            {
+                frm.Init(ac);
+                frm.ShowInTaskbar = false;
+                frm.StartPosition = FormStartPosition.Manual;
+                var pt = requestBtn.PointToScreen(Point.Empty);
+                frm.Location = new Point(pt.X - 150, pt.Y + 50);
+                frm.WeightSet += (_s, _e) =>
+                {
+                    acListComboBox.Text = ac.Aircraft;
+                    regComboBox.Text = ac.Registration;
+                    weightTxtBox.Text = RoundToInt(frm.LandingWtKg).ToString();
+                    wtUnitComboBox.SelectedIndex = (int)ac.WtUnit;
+                };
+
+                frm.ShowDialog();
+            }
+        }
+        
         private void RegistrationChanged(object sender, EventArgs e)
         {
             if (regComboBox.SelectedIndex < 0)

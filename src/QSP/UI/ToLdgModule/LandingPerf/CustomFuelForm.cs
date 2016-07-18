@@ -10,7 +10,9 @@ namespace QSP.UI.ToLdgModule.LandingPerf
     public partial class CustomFuelForm : Form
     {
         private AircraftRequest acRequest;
+
         public double LandingWtKg { get; private set; }
+        public event EventHandler WeightSet;
 
         public CustomFuelForm()
         {
@@ -33,14 +35,15 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         {
             LandingWtKg = acRequest.LandingWeightKg;
             Close();
+            WeightSet?.Invoke(this, EventArgs.Empty);
         }
 
         private void okBtn_Click(object sender, EventArgs e)
         {
             double fuel;
 
-            if (double.TryParse(landingFuelTxtBox.Text, out fuel) ||
-                fuel < 0.0)
+            if (double.TryParse(landingFuelTxtBox.Text, out fuel) &&
+                fuel >= 0.0)
             {
                 if (acRequest.WtUnit == WeightUnit.LB)
                 {
@@ -49,11 +52,11 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
                 LandingWtKg = acRequest.ZfwKg + fuel;
                 Close();
+                WeightSet?.Invoke(this, EventArgs.Empty);
             }
             else
             {
-                MsgBoxHelper.ShowWarning(
-                    "The landing fuel is not a valid number.");
+                MsgBoxHelper.ShowWarning("The landing fuel is not valid.");
             }
         }
     }

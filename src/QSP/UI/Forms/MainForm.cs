@@ -364,14 +364,14 @@ namespace QSP
 
         private void InitAircraftData(ProfileManager profiles)
         {
-            toPerfControl.Initialize(
+            toPerfControl.Init(
                 profiles.AcConfigs, profiles.TOTables.ToList(), null, () => null);
 
             // TODO: toPerfControl.Airports = AirportList;
             //toPerfControl.TryLoadState();
 
-            landingPerfControl.InitializeAircrafts(
-                profiles.AcConfigs, profiles.LdgTables.ToList(), null);
+            landingPerfControl.Init(
+                profiles.AcConfigs, profiles.LdgTables.ToList(), null, () => null);
             //landingPerfControl.Airports = AirportList;
             //landingPerfControl.TryLoadState();
         }
