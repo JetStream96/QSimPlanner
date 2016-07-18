@@ -18,7 +18,7 @@ namespace QSP.UI.Controllers
     public class AlternateController
     {
         private const int RowSeperation = 38;
-        
+
         private GroupBox altnGroupBox;
         private List<AltnRow> rows;
         private AppOptions appSettings;
@@ -76,7 +76,7 @@ namespace QSP.UI.Controllers
             var row = new AlternateRowItems();
             row.Init(() => destSidProvider.Icao, airportList);
             row.AddToLayoutPanel(layoutPanel);
-            row.IcaoTxtBox.TextChanged += (s, e) => 
+            row.IcaoTxtBox.TextChanged += (s, e) =>
                 AlternatesChanged?.Invoke(this, EventArgs.Empty);
 
             var controller = new AltnRowControl(this, row);
@@ -98,7 +98,7 @@ namespace QSP.UI.Controllers
             var rowToRemove = rows[rows.Count - 1];
 
             rowToRemove.Items.Dispose();
-            rowToRemove.Control.CleanUp();
+            rowToRemove.Control.Dispose();
             rows.RemoveAt(rows.Count - 1);
             RowCountChanged?.Invoke(this, EventArgs.Empty);
             AlternatesChanged?.Invoke(this, EventArgs.Empty);
@@ -112,7 +112,7 @@ namespace QSP.UI.Controllers
                     .ToArray();
             }
         }
-        
+
         public IEnumerable<AlternateRowItems> Controls
         {
             get
@@ -120,18 +120,18 @@ namespace QSP.UI.Controllers
                 return rows.Select(r => r.Items);
             }
         }
-        
+
         public struct AltnRow
         {
             public AlternateRowItems Items; public AltnRowControl Control;
         }
 
-        public class AltnRowControl
+        public class AltnRowControl : IDisposable
         {
             public AlternateRowItems Row;
             public RouteFinderSelection Controller;
             public OptionContextMenu OptionMenu;
-            
+
             public AltnRowControl(
                 AlternateController Parent,
                 AlternateRowItems row)
@@ -148,7 +148,7 @@ namespace QSP.UI.Controllers
                     Parent.airportList,
                     Parent.wptList,
                     new ProcedureFilter());
-                
+
                 OptionMenu = new OptionContextMenu(
                     Parent.appSettings,
                     Parent.wptList,
@@ -159,24 +159,24 @@ namespace QSP.UI.Controllers
                     Row.DisLbl,
                     DistanceDisplayStyle.Short,
                     () => Row.RouteTxtBox.Text,
-                    (s) => Row.RouteTxtBox.Text = s);                
+                    (s) => Row.RouteTxtBox.Text = s);
             }
-            
+
             public void Subsribe()
             {
                 Controller.Subscribe();
                 Row.ShowMoreBtn.Click += ShowBtns;
                 OptionMenu.Subscribe();
             }
-            
-            public void CleanUp()
-            {
-                OptionMenu.Dispose();
-            }
 
             private void ShowBtns(object sender, EventArgs e)
             {
                 OptionMenu.Show(Row.ShowMoreBtn, new Point(-100, 30));
+            }
+
+            public void Dispose()
+            {
+                OptionMenu.Dispose();
             }
         }
     }
