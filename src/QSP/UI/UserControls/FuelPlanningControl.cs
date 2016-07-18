@@ -406,7 +406,9 @@ namespace QSP.UI.UserControls
                 registrationComboBox.Text,
                 para.ZfwKg + fuelReport.TakeoffFuelKg,
                 para.ZfwKg + fuelReport.LdgFuelKgPredict,
+                para.ZfwKg,
                 WeightUnit);
+
             AircraftRequestChanged?.Invoke(this, EventArgs.Empty);
 
             //formStateManagerFuel.Save();

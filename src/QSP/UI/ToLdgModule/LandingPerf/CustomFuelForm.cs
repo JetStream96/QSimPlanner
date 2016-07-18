@@ -1,47 +1,27 @@
 ﻿using QSP.AviationTools;
+using QSP.UI.ToLdgModule.Common;
+using QSP.UI.Utilities;
 using QSP.Utilities.Units;
 using System;
 using System.Windows.Forms;
-using static QSP.MathTools.Doubles;
 
 namespace QSP.UI.ToLdgModule.LandingPerf
 {
     public partial class CustomFuelForm : Form
     {
-        private WeightUnit _wtUnit;
-
-        public double ZfwKg { get; set; }
-        public double PredictedFuelKg { get; set; }
-
-        public WeightUnit WtUnit
-        {
-            get
-            {
-                return _wtUnit;
-            }
-
-            set
-            {
-                _wtUnit = value;
-                wtUnitLbl.Text = Conversions.WeightUnitToString(_wtUnit);                
-            }
-        }
-
-        public double LandingWtKg
-        {
-            get
-            {
-                return ZfwKg +
-                    double.Parse(landingFuelTxtBox.Text) *
-                    (_wtUnit == WeightUnit.KG ? 1.0 : Constants.LbKgRatio);
-            }
-        }
+        private AircraftRequest acRequest;
+        public double LandingWtKg { get; private set; }
 
         public CustomFuelForm()
         {
             InitializeComponent();
+        }
 
+        public void Init(AircraftRequest acRequest)
+        {
+            this.acRequest = acRequest;
             landingFuelTxtBox.Text = "0";
+            wtUnitLbl.Text = Conversions.WeightUnitToString(acRequest.WtUnit);
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
@@ -51,10 +31,30 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private void importFuelBtn_Click(object sender, EventArgs e)
         {
-            double fuelDisplay = PredictedFuelKg *
-                (_wtUnit == WeightUnit.KG ? 1.0 : Constants.KgLbRatio);
+            LandingWtKg = acRequest.LandingWeightKg;
+            Close();
+        }
 
-            landingFuelTxtBox.Text = RoundToInt(fuelDisplay).ToString();
+        private void okBtn_Click(object sender, EventArgs e)
+        {
+            double fuel;
+
+            if (double.TryParse(landingFuelTxtBox.Text, out fuel) ||
+                fuel < 0.0)
+            {
+                if (acRequest.WtUnit == WeightUnit.LB)
+                {
+                    fuel *= Constants.LbKgRatio;
+                }
+
+                LandingWtKg = acRequest.ZfwKg + fuel;
+                Close();
+            }
+            else
+            {
+                MsgBoxHelper.ShowWarning(
+                    "The landing fuel is not a valid number.");
+            }
         }
     }
 }

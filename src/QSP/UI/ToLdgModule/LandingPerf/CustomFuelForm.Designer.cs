@@ -84,6 +84,7 @@
             this.okBtn.TabIndex = 53;
             this.okBtn.Text = "OK";
             this.okBtn.UseVisualStyleBackColor = false;
+            this.okBtn.Click += new System.EventHandler(this.okBtn_Click);
             // 
             // landingFuelTxtBox
             // 
@@ -101,14 +102,14 @@
             this.wtUnitLbl.Location = new System.Drawing.Point(249, 46);
             this.wtUnitLbl.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.wtUnitLbl.Name = "wtUnitLbl";
-            this.wtUnitLbl.Size = new System.Drawing.Size(27, 20);
+            this.wtUnitLbl.Size = new System.Drawing.Size(28, 20);
             this.wtUnitLbl.TabIndex = 52;
             this.wtUnitLbl.Text = "KG";
             // 
             // CustomFuelForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(300, 120);
             this.Controls.Add(this.Label95);
@@ -117,6 +118,7 @@
             this.Controls.Add(this.okBtn);
             this.Controls.Add(this.landingFuelTxtBox);
             this.Controls.Add(this.wtUnitLbl);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CustomFuelForm";
             this.Text = "CustomFuelForm";
