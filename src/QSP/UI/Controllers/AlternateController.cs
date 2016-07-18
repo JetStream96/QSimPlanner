@@ -28,14 +28,26 @@ namespace QSP.UI.Controllers
         private TableLayoutPanel layoutPanel;
         private DestinationSidSelection destSidProvider;
 
-        // Fired when the number of rows changes.
+        // Fires when the number of rows changes.
         public event EventHandler RowCountChanged;
+
+        // Fires when the collection of alternates changes.
+        public event EventHandler AlternatesChanged;
 
         public int RowCount
         {
             get
             {
                 return rows.Count;
+            }
+        }
+
+        public IEnumerable<string> Alternates
+        {
+            get
+            {
+                return rows.Select(r =>
+                r.Items.IcaoTxtBox.Text.Trim().ToUpper());
             }
         }
 
@@ -64,12 +76,15 @@ namespace QSP.UI.Controllers
             var row = new AlternateRowItems();
             row.Init(() => destSidProvider.Icao, airportList);
             row.AddToLayoutPanel(layoutPanel);
+            row.IcaoTxtBox.TextChanged += (s, e) => 
+                AlternatesChanged?.Invoke(this, EventArgs.Empty);
 
             var controller = new AltnRowControl(this, row);
             controller.Subsribe();
 
             rows.Add(new AltnRow() { Items = row, Control = controller });
             RowCountChanged?.Invoke(this, EventArgs.Empty);
+            AlternatesChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <exception cref="InvalidOperationException"></exception>
@@ -86,6 +101,7 @@ namespace QSP.UI.Controllers
             rowToRemove.Control.CleanUp();
             rows.RemoveAt(rows.Count - 1);
             RowCountChanged?.Invoke(this, EventArgs.Empty);
+            AlternatesChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public Route[] Routes

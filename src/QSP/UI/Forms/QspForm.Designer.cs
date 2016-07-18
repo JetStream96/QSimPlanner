@@ -250,7 +250,7 @@
             this.trackStatusLabel,
             this.ToolStripStatusLabel2,
             this.windDataStatusLabel});
-            this.StatusStrip1.Location = new System.Drawing.Point(0, 730);
+            this.StatusStrip1.Location = new System.Drawing.Point(0, 735);
             this.StatusStrip1.Name = "StatusStrip1";
             this.StatusStrip1.Size = new System.Drawing.Size(1182, 25);
             this.StatusStrip1.TabIndex = 40;
@@ -265,7 +265,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1182, 730);
+            this.panel1.Size = new System.Drawing.Size(1182, 735);
             this.panel1.TabIndex = 41;
             // 
             // QspForm
@@ -273,7 +273,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1182, 755);
+            this.ClientSize = new System.Drawing.Size(1182, 760);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.StatusStrip1);
             this.DoubleBuffered = true;
@@ -311,6 +311,6 @@
         internal System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel2;
         internal System.Windows.Forms.ToolStripStatusLabel windDataStatusLabel;
         private System.Windows.Forms.StatusStrip StatusStrip1;
-        private System.Windows.Forms.Panel panel1;
+        private Controls.PanelSilentScrollbar panel1;
     }
 }

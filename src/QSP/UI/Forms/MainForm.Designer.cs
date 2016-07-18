@@ -1588,13 +1588,10 @@ namespace QSP
             // airportMapControl
             // 
             this.airportMapControl.Airports = null;
-            this.airportMapControl.Altn = null;
             this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.airportMapControl.BrowserEnabled = false;
-            this.airportMapControl.Dest = null;
             this.airportMapControl.Location = new System.Drawing.Point(6, 6);
             this.airportMapControl.Name = "airportMapControl";
-            this.airportMapControl.Orig = null;
             this.airportMapControl.Size = new System.Drawing.Size(1024, 670);
             this.airportMapControl.StaticMapEnabled = false;
             this.airportMapControl.TabIndex = 0;

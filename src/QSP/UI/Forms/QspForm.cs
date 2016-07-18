@@ -202,12 +202,21 @@ namespace QSP.UI.Forms
             ldgMenu.TryLoadState();
 
             InitMiscInfoMenu();
+            RefreshAirportInfoSelection();
+
+            fuelMenu.altnControl.AlternatesChanged += (s, e) =>
+            RefreshAirportInfoSelection();
 
             EnableBtnColorControls();
             EnableViewControl();
             AddToolTip();
 
             FormClosing += CloseMain;
+        }
+
+        private void RefreshAirportInfoSelection()
+        {
+            miscInfoMenu.SetAltn(fuelMenu.altnControl.Alternates);
         }
 
         private void InitMiscInfoMenu()
