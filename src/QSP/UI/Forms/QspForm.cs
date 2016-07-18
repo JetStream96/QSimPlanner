@@ -11,7 +11,6 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers.ButtonGroup;
 using QSP.UI.ToLdgModule.AboutPage;
 using QSP.UI.ToLdgModule.AircraftMenu;
-using QSP.UI.ToLdgModule.AirportMap;
 using QSP.UI.ToLdgModule.LandingPerf;
 using QSP.UI.ToLdgModule.TOPerf;
 using QSP.UI.UserControls;

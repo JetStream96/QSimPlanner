@@ -410,17 +410,6 @@ namespace QSP.UI.UserControls
                 WeightUnit);
 
             AircraftRequestChanged?.Invoke(this, EventArgs.Empty);
-
-            //formStateManagerFuel.Save();
-
-            //send weights to takeoff/ldg calc form 
-            //AC_Req = ACList.Text;
-            //TOWT_Req_Unit = parameters.WtUnit;
-            //TODO:        LDG_fuel_prediction_unit = Parameters.WtUnit();
-
-            //TOWT_Req = Convert.ToInt32(parameters.Zfw + fuelCalcResult.TakeoffFuelKg * (parameters.WtUnit == //WeightUnit.KG ? 1.0 : KgLbRatio));
-            //TODO:       LDG_ZFW = Convert.ToInt32(Parameters.Zfw);
-            //TODO:  LDG_fuel_prediction = Convert.ToInt32(fuelCalcResult.LdgFuelKgPredict * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KG_LB));
         }
         
         private static string InsufficientFuelMsg(
