@@ -100,9 +100,11 @@ namespace QSP.UI.ToLdgModule.AirportMap
         {
             icaoComboBox.Items.Clear();
 
+            var alternates = _altn ?? new string[] { null };
+
             icaoComboBox.Items.AddRange(
                 new string[] { _orig, _dest }
-                .Concat(_altn)
+                .Concat(alternates)
                 .Where(s => string.IsNullOrEmpty(s) == false)
                 .ToArray());
         }

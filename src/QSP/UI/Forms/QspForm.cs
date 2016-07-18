@@ -38,7 +38,7 @@ namespace QSP.UI.Forms
         private FuelPlanningControl fuelMenu;
         private TOPerfControl toMenu;
         private LandingPerfControl ldgMenu;
-        private MiscInfoControl airportMenu;
+        private MiscInfoControl miscInfoMenu;
         private OptionsControl optionsMenu;
         private AboutPageControl aboutMenu;
 
@@ -66,7 +66,7 @@ namespace QSP.UI.Forms
                     fuelMenu,
                     toMenu,
                     ldgMenu,
-                    airportMenu,
+                    miscInfoMenu,
                     optionsMenu,
                     aboutMenu
                 };
@@ -201,13 +201,28 @@ namespace QSP.UI.Forms
                 profiles.LdgTables.ToList(), airportList);
             ldgMenu.TryLoadState();
 
-            airportMenu.Init(airportList, true);
+            InitMiscInfoMenu();
 
             EnableBtnColorControls();
             EnableViewControl();
             AddToolTip();
 
             FormClosing += CloseMain;
+        }
+
+        private void InitMiscInfoMenu()
+        {
+            Func<IEnumerable<string>> altnGetter = () =>
+            fuelMenu.altnControl.Controls
+            .Select(c => c.IcaoTxtBox.Text.Trim().ToUpper());
+
+            miscInfoMenu.Init(
+                airportList,
+                windTableLocator,
+                true,
+                () => fuelMenu.origTxtBox.Text.Trim().ToUpper(),
+                () => fuelMenu.destTxtBox.Text.Trim().ToUpper(),
+                altnGetter);
         }
 
         private void AddToolTip()
@@ -234,14 +249,14 @@ namespace QSP.UI.Forms
 
             origTxtBox.TextChanged += (sender, e) =>
             {
-                airportMenu.SetOrig(origTxtBox.Text.Trim().ToUpper());
+                miscInfoMenu.SetOrig(origTxtBox.Text.Trim().ToUpper());
             };
 
             var destTxtBox = ldgMenu.airportInfoControl.airportTxtBox;
 
             destTxtBox.TextChanged += (sender, e) =>
             {
-                airportMenu.SetDest(destTxtBox.Text.Trim().ToUpper());
+                miscInfoMenu.SetDest(destTxtBox.Text.Trim().ToUpper());
             };
 
             navDataStatusLabel.Click += ViewOptions;
@@ -262,7 +277,7 @@ namespace QSP.UI.Forms
                 new BtnControlPair(fuelBtn, fuelMenu),
                 new BtnControlPair(toBtn, toMenu),
                 new BtnControlPair(ldgBtn, ldgMenu),
-                new BtnControlPair(airportBtn, airportMenu),
+                new BtnControlPair(airportBtn, miscInfoMenu),
                 new BtnControlPair(optionsBtn, optionsMenu),
                 new BtnControlPair(aboutBtn, aboutMenu));
 
@@ -311,7 +326,7 @@ namespace QSP.UI.Forms
             fuelMenu = new FuelPlanningControl();
             toMenu = new TOPerfControl();
             ldgMenu = new LandingPerfControl();
-            airportMenu = new MiscInfoControl();
+            miscInfoMenu = new MiscInfoControl();
             optionsMenu = new OptionsControl();
             aboutMenu = new AboutPageControl();
 
