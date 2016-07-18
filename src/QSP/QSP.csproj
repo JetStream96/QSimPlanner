@@ -176,6 +176,7 @@
     <Compile Include="UI\ToLdgModule\AboutPage\AboutPageControl.Designer.cs">
       <DependentUpon>AboutPageControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ToLdgModule\Common\AircraftRequest.cs" />
     <Compile Include="UI\UserControls\AdvancedRouteTool.cs">
       <SubType>UserControl</SubType>
     </Compile>

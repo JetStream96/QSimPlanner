@@ -193,8 +193,12 @@ namespace QSP.UI.Forms
                 profiles.AcConfigs,
                 profiles.FuelData);
 
-            toMenu.Initialize(profiles.AcConfigs,
-                profiles.TOTables.ToList(), airportList);
+            toMenu.Initialize(
+                profiles.AcConfigs,
+                profiles.TOTables.ToList(),
+                airportList,
+                () => fuelMenu.AircraftRequest);
+            
             toMenu.TryLoadState();
 
             ldgMenu.InitializeAircrafts(profiles.AcConfigs,
@@ -207,6 +211,13 @@ namespace QSP.UI.Forms
             fuelMenu.altnControl.AlternatesChanged += (s, e) =>
             RefreshAirportInfoSelection();
 
+            fuelMenu.AircraftRequestChanged += (s, e) =>
+            {
+                var showReqBtn = fuelMenu.AircraftRequest != null;
+                toMenu.requestBtn.Visible = showReqBtn;
+                ldgMenu.requestBtn.Visible = showReqBtn;
+            };           
+            
             EnableBtnColorControls();
             EnableViewControl();
             AddToolTip();

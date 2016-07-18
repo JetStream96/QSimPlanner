@@ -13,6 +13,7 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
+using QSP.UI.ToLdgModule.Common;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
 using System;
@@ -55,6 +56,13 @@ namespace QSP.UI.UserControls
         public WeightTextBoxController Zfw { get; private set; }
         public WeightTextBoxController MissedApproach { get; private set; }
         public WeightTextBoxController Extra { get; private set; }
+
+        /// <summary>
+        /// Returns null if not available.
+        /// </summary>
+        public AircraftRequest AircraftRequest { get; private set; }
+
+        public event EventHandler AircraftRequestChanged;
 
         private RouteGroup RouteToDest
         {
@@ -391,8 +399,16 @@ namespace QSP.UI.UserControls
             }
 
             string outputText = fuelReport.ToString(WeightUnit);
-
             fuelReportTxtBox.Text = "\n" + outputText.ShiftToRight(20);
+
+            AircraftRequest = new AircraftRequest(
+                acListComboBox.Text,
+                registrationComboBox.Text,
+                para.ZfwKg + fuelReport.TakeoffFuelKg,
+                para.ZfwKg + fuelReport.LdgFuelKgPredict,
+                WeightUnit);
+            AircraftRequestChanged?.Invoke(this, EventArgs.Empty);
+
             //formStateManagerFuel.Save();
 
             //send weights to takeoff/ldg calc form 
@@ -404,7 +420,7 @@ namespace QSP.UI.UserControls
             //TODO:       LDG_ZFW = Convert.ToInt32(Parameters.Zfw);
             //TODO:  LDG_fuel_prediction = Convert.ToInt32(fuelCalcResult.LdgFuelKgPredict * (Parameters.WtUnit() == WeightUnit.KG ? 1.0 : KG_LB));
         }
-
+        
         private static string InsufficientFuelMsg(
             double fuelReqKG, double fuelCapacityKG, WeightUnit unit)
         {

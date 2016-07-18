@@ -85,8 +85,12 @@ namespace QSP.UI.ToLdgModule.Forms
             AcMenu.AircraftsChanged += ToMenu.RefreshAircrafts;
             AcMenu.AircraftsChanged += LdgMenu.RefreshAircrafts;
 
-            ToMenu.Initialize(Profiles.AcConfigs,
-                Profiles.TOTables.ToList(), airports);
+            ToMenu.Initialize(
+                Profiles.AcConfigs,
+                Profiles.TOTables.ToList(), 
+                airports,
+                () => null);
+
             ToMenu.TryLoadState();
 
             LdgMenu.InitializeAircrafts(Profiles.AcConfigs,

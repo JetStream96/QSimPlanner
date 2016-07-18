@@ -5,11 +5,14 @@ using QSP.TOPerfCalculation;
 using QSP.UI.ControlStates;
 using QSP.UI.ToLdgModule.Common;
 using QSP.UI.ToLdgModule.TOPerf.Controllers;
+using QSP.Utilities.Units;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using QSP.LibraryExtension;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.UI.ToLdgModule.TOPerf
 {
@@ -21,6 +24,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
         private TOPerfElements elements;
         private AcConfigManager aircrafts;
         private List<PerfTable> tables;
+        private Func<AircraftRequest> acRequestGetter;
 
         private PerfTable currentTable;
         private AutoWeatherSetter wxSetter;
@@ -47,12 +51,14 @@ namespace QSP.UI.ToLdgModule.TOPerf
         public void Initialize(
             AcConfigManager aircrafts,
             List<PerfTable> tables,
-            AirportManager airports)
+            AirportManager airports,
+            Func<AircraftRequest> acRequestGetter)
         {
             this.aircrafts = aircrafts;
             this.tables = tables;
             UpdateAircraftList();
             this.Airports = airports;
+            this.acRequestGetter = acRequestGetter;
         }
 
         private void UpdateAircraftList()
@@ -280,6 +286,31 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
             // Set the color of weight.
             RefreshWtColor();
+        }
+
+        private void requestBtn_Click(object sender, EventArgs e)
+        {
+            var ac = acRequestGetter();
+
+            if (ac == null ||
+                acListComboBox.Items.Cast<string>()
+                .Contains(ac.Aircraft) == false)
+            {
+                return;
+            }
+
+            acListComboBox.Text = ac.Aircraft;
+
+            if (regComboBox.Items.Cast<string>()
+                .Contains(ac.Registration) == false)
+            {
+                return;
+            }
+
+            regComboBox.Text = ac.Registration;
+            wtUnitComboBox.SelectedIndex = (int)WeightUnit.KG;
+            weightTxtBox.Text = RoundToInt(ac.TakeOffWeightKg).ToString();
+            wtUnitComboBox.SelectedIndex = (int)ac.WtUnit;
         }
     }
 }
