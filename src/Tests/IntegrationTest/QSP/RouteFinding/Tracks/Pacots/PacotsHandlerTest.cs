@@ -3,7 +3,6 @@ using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
-using QSP.RouteFinding.Communication;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes.TrackInUse;

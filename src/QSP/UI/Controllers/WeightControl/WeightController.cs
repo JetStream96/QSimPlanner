@@ -1,12 +1,6 @@
-﻿using QSP.AircraftProfiles;
-using QSP.AircraftProfiles.Configs;
+﻿using QSP.AircraftProfiles.Configs;
 using QSP.UI.Controllers.Units;
-using QSP.Utilities.Units;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
 using static System.Math;
