@@ -123,6 +123,7 @@
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeManager.cs" />
+    <Compile Include="RouteFinding\Containers\CountryCode\Exceptions.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\FullNamesLoader.cs" />
     <Compile Include="RouteFinding\Data\WptSearchOption.cs" />
     <Compile Include="RouteFinding\FileExport\ExportCommand.cs" />

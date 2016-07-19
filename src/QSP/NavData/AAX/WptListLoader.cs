@@ -29,6 +29,7 @@ namespace QSP.NavData.AAX
         }
 
         /// <exception cref="WaypointFileReadException"></exception>
+        /// <exception cref="LoadCountryNamesException"></exception>
         public LoadResult LoadFromFile()
         {
             var wptList = new WaypointList();

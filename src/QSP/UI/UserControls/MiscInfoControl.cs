@@ -131,8 +131,7 @@ namespace QSP.UI.UserControls
                     "\n\n\n       Unable to get descend forcast for " + dest;
             }
         }
-
-        // TODO: Refactor this.
+        
         private string GenDesForcastString(string icao)
         {
             var latlon = airportList.AirportLatlon(icao);

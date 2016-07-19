@@ -2,6 +2,7 @@
 using QSP.NavData;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
 using QSP.Utilities;
@@ -193,6 +194,12 @@ namespace QSP.UI.UserControls
             {
                 WriteToLog(ex);
                 ShowError("Failed to load waypoints.txt.");
+                return false;
+            }
+            catch (LoadCountryNamesException ex)
+            {
+                WriteToLog(ex);
+                ShowError("Failed to load icao_nationality_code.txt.");
                 return false;
             }
         }

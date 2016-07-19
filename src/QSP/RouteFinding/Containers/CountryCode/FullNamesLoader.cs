@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System;
 
 namespace QSP.RouteFinding.Containers.CountryCode
 {
@@ -7,13 +8,22 @@ namespace QSP.RouteFinding.Containers.CountryCode
     {
         public static readonly string FilePath =
             @"NavData/icao_nationality_code.txt";
-
+               
+        /// <exception cref="LoadCountryNamesException"></exception>
         public static Dictionary<string, string> Load()
         {
-            // TODO: Exceptions?
             var result = new Dictionary<string, string>();
-            var lines = File.ReadAllLines(FilePath);
+            string[] lines;
             var sep = new char[] { '\t', ' ' };
+
+            try
+            {
+                lines = File.ReadAllLines(FilePath);
+            }
+            catch (Exception ex)
+            {
+                throw new LoadCountryNamesException("", ex);
+            }
 
             foreach (var line in lines)
             {
