@@ -51,7 +51,8 @@ namespace QSP.UI.UserControls.RouteOptions
                   routeTxtSetter,
                   findToolStripMenuItem,
                   analyzeToolStripMenuItem,
-                  exportToolStripMenuItem);
+                  exportToolStripMenuItem,
+                  mapToolStripMenuItem);
         }
 
         public void Subscribe()

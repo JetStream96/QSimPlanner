@@ -1,4 +1,5 @@
 ﻿using QSP.Common.Options;
+using QSP.GoogleMap;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -8,9 +9,12 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.UI.Controllers;
 using QSP.UI.Controls;
+using QSP.UI.Factories;
+using QSP.UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -33,9 +37,10 @@ namespace QSP.UI.UserControls.RouteOptions
         private IClickable findRouteBtn;
         private IClickable analyzeRouteBtn;
         private IClickable exportBtn;
+        private IClickable showMapBtn;
 
         public RouteGroup Route { get; private set; }
-        
+
         public RouteOptionController(
             AppOptions appSettings,
             WaypointList wptList,
@@ -49,7 +54,8 @@ namespace QSP.UI.UserControls.RouteOptions
             Action<string> routeTxtSetter,
             IClickable findRouteBtn,
             IClickable analyzeRouteBtn,
-            IClickable exportBtn)
+            IClickable exportBtn,
+            IClickable showMapBtn)
         {
             this.appSettings = appSettings;
             this.wptList = wptList;
@@ -64,6 +70,7 @@ namespace QSP.UI.UserControls.RouteOptions
             this.findRouteBtn = findRouteBtn;
             this.analyzeRouteBtn = analyzeRouteBtn;
             this.exportBtn = exportBtn;
+            this.showMapBtn = showMapBtn;
         }
 
         public void Subscribe()
@@ -71,6 +78,7 @@ namespace QSP.UI.UserControls.RouteOptions
             findRouteBtn.Click += FindRouteClick;
             analyzeRouteBtn.Click += AnalyzeRouteClick;
             exportBtn.Click += ExportRouteFiles;
+            showMapBtn.Click += ShowMapClick;
         }
 
         // TODO: exception handling?
@@ -193,6 +201,32 @@ namespace QSP.UI.UserControls.RouteOptions
                     "",
                     MessageBoxButtons.OK,
                     icon);
+            }
+        }
+
+        private void ShowMapClick(object sender, EventArgs e)
+        {
+            if (Route == null)
+            {
+                MsgBoxHelper.ShowWarning(
+                    "Please find or analyze a route first.");
+                return;
+            }
+
+            var wb = new WebBrowser();
+            wb.Size = new Size(1200, 800);
+            
+            var GoogleMapDrawRoute = RouteDrawing.MapDrawString(
+                Route.Expanded, wb.Size.Width - 20, wb.Size.Height - 30);
+            
+            wb.DocumentText = GoogleMapDrawRoute.ToString();
+
+            using (var frm = FormFactory.GetForm(wb.Size))
+            {
+                frm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.Controls.Add(wb);
+                frm.ShowDialog();
             }
         }
     }

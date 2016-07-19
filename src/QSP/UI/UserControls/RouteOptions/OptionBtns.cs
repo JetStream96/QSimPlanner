@@ -47,7 +47,8 @@ namespace QSP.UI.UserControls.RouteOptions
                 routeTxtSetter,
                 findRouteBtn,
                 analyzeRouteBtn,
-                exportBtn);
+                exportBtn,
+                showMapBtn);
         }
 
         public void Subscribe()
