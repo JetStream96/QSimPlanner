@@ -11,6 +11,7 @@ namespace QSP.Common.Options
 
         // If the file does not exist, create one.
         // Then read the file into an AppOptions instance.
+        // May throw exceptions.
         // Return value is never null.
         public static AppOptions ReadOrCreateFile()
         {

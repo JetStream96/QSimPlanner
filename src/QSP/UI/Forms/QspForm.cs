@@ -121,27 +121,30 @@ namespace QSP.UI.Forms
                 MsgBoxHelper.ShowWarning(ex.Message);
             }
 
-            // Load options.
             try
             {
+                // Load options.
                 appSettings = OptionManager.ReadOrCreateFile();
             }
             catch (Exception ex)
             {
                 WriteToLog(ex);
-                MsgBoxHelper.ShowError("Cannot load options.");
+                MsgBoxHelper.ShowError(
+                    "Cannot load options. The application will quit now.");
+                Environment.Exit(1);
             }
 
-            // Airports and waypoints
-            // TODO: exceptions?
             try
             {
+                // Airports and waypoints
                 InitAirportList();
                 InitWptList();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                WriteToLog(ex);
+                MessageBox.Show(ex.Message +
+                    " The application will quit now.");
             }
 
             procFilter = new ProcedureFilter();
@@ -149,6 +152,8 @@ namespace QSP.UI.Forms
             tracksInUse = new TrackInUseCollection();
         }
 
+        /// <exception cref="RwyDataFormatException"></exception>
+        /// <exception cref="ReadAirportFileException"></exception>
         private void InitAirportList()
         {
             string navDataPath = appSettings.NavDataLocation;
@@ -159,6 +164,8 @@ namespace QSP.UI.Forms
                 .LoadFromFile());
         }
 
+        /// <exception cref="WaypointFileReadException"></exception>
+        /// <exception cref="LoadCountryNamesException"></exception>
         private void InitWptList()
         {
             string navDataPath = appSettings.NavDataLocation;
@@ -197,7 +204,7 @@ namespace QSP.UI.Forms
                 profiles.TOTables.ToList(),
                 airportList,
                 () => fuelMenu.AircraftRequest);
-            
+
             toMenu.TryLoadState();
 
             ldgMenu.Init(
@@ -219,8 +226,8 @@ namespace QSP.UI.Forms
                 var showReqBtn = fuelMenu.AircraftRequest != null;
                 toMenu.requestBtn.Visible = showReqBtn;
                 ldgMenu.requestBtn.Visible = showReqBtn;
-            };           
-            
+            };
+
             EnableBtnColorControls();
             EnableViewControl();
             AddToolTip();
@@ -254,7 +261,7 @@ namespace QSP.UI.Forms
             tp.SetToolTip(optionsBtn, "Options");
             tp.SetToolTip(aboutBtn, "About");
         }
-        
+
         private void SubscribeEvents()
         {
             optionsMenu.AppSettingChanged += (sender, e) =>
@@ -360,7 +367,7 @@ namespace QSP.UI.Forms
                 panel1.Controls.Add(i);
             }
         }
-        
+
         private static void CheckRegistry()
         {
             // Try to check/add registry so that google map works properly. 
@@ -480,7 +487,7 @@ namespace QSP.UI.Forms
             {
                 var Result = MessageBox.Show(
                     "Exit the application?",
-                    "", 
+                    "",
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
 

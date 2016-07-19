@@ -32,7 +32,7 @@ namespace QSP.NavData.AAX
             catch (Exception ex)
             {
                 throw new ReadAirportFileException(
-                    "Unable to read from " + filepath + ".", ex);
+                    $"Unable to read from {filepath}.", ex);
             }
 
             Airport airport = null;
