@@ -8,7 +8,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Linq;
 using System.Xml.Linq;
-namespace QSP
+
+namespace QSP.UI.Forms
 {
     partial class MetarForm : System.Windows.Forms.Form
     {

@@ -8,11 +8,11 @@ using System.IO;
 using System.Windows.Forms;
 using System.Linq;
 using System.Xml.Linq;
-namespace QSP
+
+namespace QSP.UI.Forms
 {
     partial class TracksForm : System.Windows.Forms.Form
     {
-
         //Form overrides dispose to clean up the component list.
         [System.Diagnostics.DebuggerNonUserCode()]
         protected override void Dispose(bool disposing)

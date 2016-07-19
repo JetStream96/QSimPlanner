@@ -16,7 +16,7 @@ using System.Windows.Forms;
 using static QSP.RouteFinding.Tracks.Interaction.Interactions;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 
-namespace QSP
+namespace QSP.UI.Forms
 {
     public partial class TracksForm
     {

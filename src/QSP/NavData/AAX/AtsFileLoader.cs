@@ -90,7 +90,7 @@ namespace QSP.NavData.AAX
                 WriteToLog(ex);
 
                 throw new WaypointFileReadException(
-                    "Failed to load ats.txt.", ex);  //TODO: show to the user
+                    "Failed to load ats.txt.", ex);
             }
         }
     }
