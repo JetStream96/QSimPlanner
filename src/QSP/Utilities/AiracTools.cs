@@ -28,7 +28,8 @@ namespace QSP.Utilities
             }
             catch
             {
-                throw new ArgumentException("Input string is not valid airac period.");
+                throw new ArgumentException(
+                    "Input string is not valid airac period.");
             }
 
             if (monthEnd < monthStart)
@@ -40,10 +41,13 @@ namespace QSP.Utilities
                 yearEnd = yearStart;
             }
 
-            DateTime dateStart = new DateTime(2000 + yearStart, monthStart, dayStart);
-            DateTime dateEnd = new DateTime(2000 + yearEnd, monthEnd, dayEnd);
+            var dateStart =
+                new DateTime(2000 + yearStart, monthStart, dayStart);
 
-            return (DateTime.Today >= dateStart && DateTime.Today <= dateEnd);
+            var dateEnd = new DateTime(2000 + yearEnd, monthEnd, dayEnd);
+            var dateNow = DateTime.UtcNow.Date;
+
+            return (dateStart <= dateNow && dateNow <= dateEnd);
         }
     }
 }
