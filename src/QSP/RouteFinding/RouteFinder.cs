@@ -12,6 +12,8 @@ using QSP.LibraryExtension.Graph;
 
 namespace QSP.RouteFinding
 {
+    // TODO: Wind calculation should not be applied to SID, STAR legs.
+
     // The distance computed by RouteFinder is based on the the 
     // values of edges in graph, which directly comes from the 
     // text file and is only accurate to 2 decimal places.
