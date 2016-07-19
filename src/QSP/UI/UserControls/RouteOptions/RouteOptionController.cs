@@ -108,8 +108,7 @@ namespace QSP.UI.UserControls.RouteOptions
             routeTxtSetter(expanded.ToString(false, false));
             UpdateRouteDistanceLbl(routeDisLbl, expanded, displayStyle);
         }
-
-        // TODO: exception handling?
+        
         private void ExportRouteFiles(object sender, EventArgs e)
         {
             var cmds = appSettings.ExportCommands.Values;

@@ -5,7 +5,7 @@ namespace QSP.WindAloft
     public static class WindManager
     {
         public static readonly string SaveFileLocation =
-            Utilities.WxFileDirectory + "\\wx.grib2";
+            Constants.WxFileDirectory + "\\wx.grib2";
         
         /// <summary>
         /// Download, convert and read the files into WindTableCollection.

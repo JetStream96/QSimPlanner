@@ -10,7 +10,7 @@ namespace QSP.WindAloft
 {
     public class AvgWindCalculator
     {
-        public int TrueAirspeed { get; set; }
+        public double TrueAirspeed { get; set; }
         public double AltitudeFt { get; set; }
 
         private WindTableCollection windData;
@@ -22,7 +22,9 @@ namespace QSP.WindAloft
         private double lon2;
 
         public AvgWindCalculator(
-            WindTableCollection windData, int trueAirspeed, double altitudeFt)
+            WindTableCollection windData, 
+            double trueAirspeed, 
+            double altitudeFt)
         {
             this.windData = windData;
             this.TrueAirspeed = trueAirspeed;
@@ -51,8 +53,7 @@ namespace QSP.WindAloft
             ICoordinate point2,
             double delta = 1.0)
         {
-            // lat/lon 1: "from" point
-            // lat/lon 2: "to" point
+            // from point1 to point2
             // delta: in degrees
             // airspd: (of the aircraft)
 

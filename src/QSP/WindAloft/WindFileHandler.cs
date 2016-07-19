@@ -13,7 +13,7 @@ namespace QSP.WindAloft
 
         public WindFileHandler()
         {
-            int count = Utilities.FullWindDataSet.Count;
+            int count = Constants.FullWindDataSet.Count;
             windTables = new WindTable[count];
             paths = GetPaths();
         }
@@ -59,7 +59,7 @@ namespace QSP.WindAloft
 
             for (int i = 0; i < windTables.Length; i++)
             {
-                var dir = Utilities.WxFileDirectory;
+                var dir = Constants.WxFileDirectory;
 
                 var pathU = Path.Combine(dir, $"wx{i * 2 + 1}.csv");
                 var pathV = Path.Combine(dir, $"wx{i * 2 + 2}.csv");

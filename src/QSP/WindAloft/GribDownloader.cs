@@ -76,7 +76,7 @@ namespace QSP.WindAloft
             items.Add("toplat=90");
             items.Add("bottomlat=-90");
 
-            foreach (var i in Utilities.FullWindDataSet)
+            foreach (var i in Constants.FullWindDataSet)
             {
                 items.Add($"lev_{i}_mb=on");
             }

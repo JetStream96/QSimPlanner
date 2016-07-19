@@ -35,7 +35,7 @@ namespace QSP.Metar
 
                 if (val.Contains("MPS"))
                 {
-                    speed /= Constants.KnotMpsRatio;
+                    speed /= AviationTools.Constants.KnotMpsRatio;
                 }
                 return new Wind(direction, speed);
             }

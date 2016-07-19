@@ -4,7 +4,6 @@ using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static QSP.WindAloft.Utilities;
 
 namespace QSP.FuelCalculation.Calculators
 {
@@ -120,7 +119,8 @@ namespace QSP.FuelCalculation.Calculators
         private double ComputeAirDistance(
             Route route, double tas, double cruiseAltitudeFt)
         {
-            return GetAirDistance(windTables, route, cruiseAltitudeFt, tas);
+            return new AvgWindCalculator(windTables, tas, cruiseAltitudeFt)
+                .GetAirDistance(route);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace QSP.WindAloft
 
         public WindTableCollection(WindTable[] windTables)
         {
-            pressures = Utilities.FullWindDataSet;
+            pressures = Constants.FullWindDataSet;
             Ensure<ArgumentException>(windTables.Length == pressures.Count);
             this.windTables = windTables;
         }
