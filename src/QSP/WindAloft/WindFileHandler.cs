@@ -59,7 +59,7 @@ namespace QSP.WindAloft
 
             for (int i = 0; i < windTables.Length; i++)
             {
-                var dir = Constants.WxFileDirectory;
+                var dir = Constants.WxFileDownloadDirectory;
 
                 var pathU = Path.Combine(dir, $"wx{i * 2 + 1}.csv");
                 var pathV = Path.Combine(dir, $"wx{i * 2 + 2}.csv");

@@ -15,6 +15,7 @@ namespace QSP.WindAloft
             }
         }
 
-        public static readonly string WxFileDirectory = @"Wx\tmp";
+        public static readonly string WxFileDirectory = @"Wx";
+        public static readonly string WxFileDownloadDirectory = @"Wx\tmp";
     }
 }

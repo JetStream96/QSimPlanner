@@ -146,6 +146,7 @@
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
+    <Compile Include="UI\Forms\WindDownloadStatus.cs" />
     <Compile Include="UI\Controls\IClickable.cs" />
     <Compile Include="UI\Controls\PanelSilentScrollbar.cs">
       <SubType>Component</SubType>

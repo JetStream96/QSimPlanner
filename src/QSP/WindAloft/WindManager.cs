@@ -4,8 +4,8 @@ namespace QSP.WindAloft
 {
     public static class WindManager
     {
-        public static readonly string SaveFileLocation =
-            Constants.WxFileDirectory + "\\wx.grib2";
+        public static readonly string DownloadFilePath =
+            Constants.WxFileDownloadDirectory + @"\wx.grib2";
         
         /// <summary>
         /// Download, convert and read the files into WindTableCollection.
@@ -14,7 +14,7 @@ namespace QSP.WindAloft
         /// <exception cref="DownloadGribFileException"></exception> 
         public static WindTableCollection LoadWind()
         {
-            new GribDownloader().DownloadGribFile(SaveFileLocation);
+            new GribDownloader().DownloadGribFile(DownloadFilePath);
             GribConverter.ConvertGrib();
 
             var handler = new WindFileHandler();
