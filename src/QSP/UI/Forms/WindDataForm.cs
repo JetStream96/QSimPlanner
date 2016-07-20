@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using QSP.LibraryExtension;
+using QSP.UI.Utilities;
+using QSP.WindAloft;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.WindAloft;
 using static QSP.Utilities.LoggerInstance;
-using QSP.LibraryExtension;
-using System.IO;
-using QSP.UI.Utilities;
 
 namespace QSP.UI.Forms
 {
@@ -19,6 +13,7 @@ namespace QSP.UI.Forms
     {
         private Locator<WindTableCollection> windTableLocator;
         private ToolStripStatusLabel toolStripLbl;
+        private bool windAvailable;
 
         public WindDataForm()
         {
@@ -33,16 +28,28 @@ namespace QSP.UI.Forms
             this.toolStripLbl = toolStripLbl;
             this.windTableLocator = windTableLocator;
             ShowWindStatus(status);
+            windAvailable = false;
+
+            downlaodBtn.Click += async (s, e) => await DownloadWind();
+            saveFileBtn.Click += SaveFile;
+            loadFileBtn.Click += LoadFile;
         }
 
         private async void downlaodBtn_Click(object sender, EventArgs e)
         {
+            await DownloadWind();
+        }
+
+        public async Task DownloadWind()
+        {
+            downlaodBtn.Enabled = false;
             ShowWindStatus(WindDownloadStatus.Downloading);
 
             try
             {
                 windTableLocator.Instance = await WindManager.LoadWindAsync();
                 ShowWindStatus(WindDownloadStatus.FinishedDownload);
+                windAvailable = true;
             }
             catch (Exception ex) when (
                 ex is ReadWindFileException ||
@@ -51,6 +58,8 @@ namespace QSP.UI.Forms
                 WriteToLog(ex);
                 ShowWindStatus(WindDownloadStatus.FailedToDownload);
             }
+
+            downlaodBtn.Enabled = true;
         }
 
         private void ShowWindStatus(WindDownloadStatus item)
@@ -58,17 +67,26 @@ namespace QSP.UI.Forms
             toolStripLbl.Text = item.Text;
             toolStripLbl.Image = item.Image;
 
-            statusLbl.Text = item.Text;
-            statusPicBox.Image = item.Image;
+            statusLbl.Text = "Status : " + item.Text;
+            statusPicBox.BackgroundImage = item.Image;
         }
 
-        private void saveFileBtn_Click(object sender, EventArgs e)
+        private void SaveFile(object sender, EventArgs e)
         {
             var sourceFile = WindManager.DownloadFilePath;
 
+            if (windAvailable == false)
+            {
+                MsgBoxHelper.ShowWarning(
+                  "No wind data has been downloaded or loaded from file.");
+                return;
+            }
+
             if (File.Exists(sourceFile) == false)
             {
-                ShowSaveFileError();
+                MsgBoxHelper.ShowWarning(
+                    "The temporary wind data file was deleted. " +
+                    "Unable to proceed.");
                 return;
             }
 
@@ -76,8 +94,6 @@ namespace QSP.UI.Forms
 
             saveFileDialog.Filter =
                 "grib2 files (*.grib2)|*.grib2|All files (*.*)|*.*";
-            saveFileDialog.FilterIndex = 2;
-            saveFileDialog.RestoreDirectory = true;
             saveFileDialog.InitialDirectory = Constants.WxFileDirectory;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -86,57 +102,65 @@ namespace QSP.UI.Forms
 
                 try
                 {
+                    File.Delete(file);
                     File.Copy(sourceFile, file);
                 }
                 catch (Exception ex)
                 {
                     WriteToLog(ex);
-                    ShowSaveFileError();
+                    MsgBoxHelper.ShowWarning("Failed to save file.");
                 }
             }
         }
 
-        private void ShowSaveFileError()
+        private async void LoadFile(object sender, EventArgs e)
         {
-            MsgBoxHelper.ShowWarning(
-                   "No wind data has been downloaded or loaded from file.");
-        }
-
-        private void loadFileBtn_Click(object sender, EventArgs e)
-        {
+            loadFileBtn.Enabled = false;
             var openFileDialog = new OpenFileDialog();
 
             openFileDialog.Filter =
                 "grib2 files (*.grib2)|*.grib2|All files (*.*)|*.*";
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.RestoreDirectory = true;
             openFileDialog.InitialDirectory = Constants.WxFileDirectory;
-            
+
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 var file = openFileDialog.FileName;
 
                 try
                 {
-                    File.Delete(WindManager.DownloadFilePath);
-                    File.Copy(file, WindManager.DownloadFilePath);
+                    ShowWindStatus(WindDownloadStatus.LoadingFromFile);
 
-                    var handler = new WindFileHandler();
-                    var tables = handler.ImportAllTables();
-                    handler.TryDeleteCsvFiles();
-                    windTableLocator.Instance = tables;
+                    await Task.Factory.StartNew(() => LoadFromFile(file));
+
+                    var fileNameShort = Path.GetFileName(file);
+                    var fileNameMsg = fileNameShort.Length > 10 ?
+                        "" : $"({fileNameShort})";
 
                     ShowWindStatus(new WindDownloadStatus(
-                        $"Loaded from file ({file}).",
+                        $"Loaded from file {fileNameMsg}",
                         Properties.Resources.GreenLight));
+                    windAvailable = true;
                 }
                 catch (Exception ex)
                 {
                     WriteToLog(ex);
                     MsgBoxHelper.ShowWarning(
-                        $"Failed to load file {file}.");
+                        $"Failed to load file {file}");
                 }
             }
+
+            loadFileBtn.Enabled = true;
+        }
+
+        private void LoadFromFile(string file)
+        {
+            File.Delete(WindManager.DownloadFilePath);
+            File.Copy(file, WindManager.DownloadFilePath);
+
+            GribConverter.ConvertGrib();
+            var handler = new WindFileHandler();
+            windTableLocator.Instance = handler.ImportAllTables();
+            handler.TryDeleteCsvFiles();
         }
     }
 }

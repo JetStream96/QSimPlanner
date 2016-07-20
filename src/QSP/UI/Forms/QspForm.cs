@@ -54,6 +54,7 @@ namespace QSP.UI.Forms
         private ControlSwitcher viewControl;
         private readonly Point controlDefaultLocation = new Point(12, 52);
         private TracksForm trackFrm;
+        private WindDataForm windFrm;
 
         private IEnumerable<UserControl> Pages
         {
@@ -87,7 +88,15 @@ namespace QSP.UI.Forms
                 DownloadTracksIfNeeded();
                 await DownloadWindIfNeeded();
                 InitTrackForm();
+                InitWindForm();
             });
+        }
+
+        private void InitWindForm()
+        {
+            windFrm = new WindDataForm();
+            windFrm.Init(windDataStatusLabel, 
+                windTableLocator, WindDownloadStatus.WaitingManualDownload);
         }
 
         private void InitTrackForm()
@@ -292,7 +301,7 @@ namespace QSP.UI.Forms
             navDataStatusLabel.Click += ViewOptions;
             navDataStatusLabel.MouseEnter += SetHandCursor;
             navDataStatusLabel.MouseLeave += SetDefaultCursor;
-            windDataStatusLabel.Click += async (s, e) => await DownloadWind();
+            windDataStatusLabel.Click += windDataStatusLabel_Click;
             windDataStatusLabel.MouseEnter += SetHandCursor;
             windDataStatusLabel.MouseLeave += SetDefaultCursor;
             trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
@@ -390,61 +399,7 @@ namespace QSP.UI.Forms
         {
             optionsBtn.PerformClick();
         }
-
-        private async Task DownloadWind()
-        {
-            ShowWindStatus(WindDownloadStatus.Downloading);
-
-            try
-            {
-                windTableLocator.Instance = await WindManager.LoadWindAsync();
-                ShowWindStatus(WindDownloadStatus.Finished);
-            }
-            catch (Exception ex) when (
-                ex is ReadWindFileException ||
-                ex is DownloadGribFileException)
-            {
-                WriteToLog(ex);
-                ShowWindStatus(WindDownloadStatus.Failed);
-            }
-        }
-
-        public enum WindDownloadStatus
-        {
-            Downloading,
-            Finished,
-            Failed,
-            WaitingManualDownload
-        }
-
-        public void ShowWindStatus(WindDownloadStatus item)
-        {
-            var w = windDataStatusLabel;
-
-            switch (item)
-            {
-                case WindDownloadStatus.Downloading:
-                    w.Text = "Downloading lastest wind ...";
-                    w.Image = null;
-                    break;
-
-                case WindDownloadStatus.Finished:
-                    w.Text = "Lastest wind ready";
-                    w.Image = Properties.Resources.GreenLight;
-                    break;
-
-                case WindDownloadStatus.Failed:
-                    w.Text = "Failed to download wind data";
-                    w.Image = Properties.Resources.RedLight;
-                    break;
-
-                case WindDownloadStatus.WaitingManualDownload:
-                    w.Text = "Click here to download wind data";
-                    w.Image = Properties.Resources.YellowLight;
-                    break;
-            }
-        }
-
+        
         private void SetHandCursor(object sender, EventArgs e)
         {
             Cursor = Cursors.Hand;
@@ -473,11 +428,7 @@ namespace QSP.UI.Forms
         {
             if (appSettings.AutoDLWind)
             {
-                await DownloadWind();
-            }
-            else
-            {
-                ShowWindStatus(WindDownloadStatus.WaitingManualDownload);
+                await windFrm.DownloadWind();
             }
         }
 
@@ -497,6 +448,11 @@ namespace QSP.UI.Forms
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void windDataStatusLabel_Click(object sender, EventArgs e)
+        {
+            windFrm.ShowDialog();
         }
 
         // TODO:

@@ -28,16 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.aboutBtn = new System.Windows.Forms.Button();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.optionsBtn = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.fuelBtn = new System.Windows.Forms.Button();
-            this.acConfigBtn = new System.Windows.Forms.Button();
-            this.airportBtn = new System.Windows.Forms.Button();
-            this.ldgBtn = new System.Windows.Forms.Button();
-            this.toBtn = new System.Windows.Forms.Button();
             this.navDataStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.trackStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -45,69 +35,88 @@
             this.windDataStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panel1 = new QSP.UI.Controls.PanelSilentScrollbar();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.fuelBtn = new System.Windows.Forms.Button();
+            this.acConfigBtn = new System.Windows.Forms.Button();
+            this.airportBtn = new System.Windows.Forms.Button();
+            this.ldgBtn = new System.Windows.Forms.Button();
+            this.toBtn = new System.Windows.Forms.Button();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.optionsBtn = new System.Windows.Forms.Button();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.aboutBtn = new System.Windows.Forms.Button();
             this.StatusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel3
+            // navDataStatusLabel
             // 
-            this.tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.aboutBtn, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(845, 5);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(40, 40);
-            this.tableLayoutPanel3.TabIndex = 6;
+            this.navDataStatusLabel.BackColor = System.Drawing.Color.Transparent;
+            this.navDataStatusLabel.Image = global::QSP.Properties.Resources.GreenLight;
+            this.navDataStatusLabel.Name = "navDataStatusLabel";
+            this.navDataStatusLabel.Size = new System.Drawing.Size(148, 20);
+            this.navDataStatusLabel.Text = "Nav Data: Loaded";
+            this.navDataStatusLabel.ToolTipText = "Click to view options";
             // 
-            // aboutBtn
+            // ToolStripStatusLabel3
             // 
-            this.aboutBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.aboutBtn.BackColor = System.Drawing.Color.Turquoise;
-            this.aboutBtn.BackgroundImage = global::QSP.Properties.Resources.info;
-            this.aboutBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.aboutBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.aboutBtn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.aboutBtn.Location = new System.Drawing.Point(5, 5);
-            this.aboutBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.aboutBtn.Name = "aboutBtn";
-            this.aboutBtn.Size = new System.Drawing.Size(30, 30);
-            this.aboutBtn.TabIndex = 2;
-            this.aboutBtn.UseVisualStyleBackColor = false;
+            this.ToolStripStatusLabel3.BackColor = System.Drawing.Color.Transparent;
+            this.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3";
+            this.ToolStripStatusLabel3.Size = new System.Drawing.Size(45, 20);
+            this.ToolStripStatusLabel3.Text = "         ";
             // 
-            // tableLayoutPanel2
+            // trackStatusLabel
             // 
-            this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.optionsBtn, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(806, 5);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(40, 40);
-            this.tableLayoutPanel2.TabIndex = 5;
+            this.trackStatusLabel.BackColor = System.Drawing.Color.Transparent;
+            this.trackStatusLabel.Image = global::QSP.Properties.Resources.YellowLight;
+            this.trackStatusLabel.Name = "trackStatusLabel";
+            this.trackStatusLabel.Size = new System.Drawing.Size(166, 20);
+            this.trackStatusLabel.Text = "Tracks: Patially ready";
             // 
-            // optionsBtn
+            // ToolStripStatusLabel2
             // 
-            this.optionsBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.optionsBtn.BackColor = System.Drawing.Color.Purple;
-            this.optionsBtn.BackgroundImage = global::QSP.Properties.Resources.noun_1329;
-            this.optionsBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.optionsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.optionsBtn.Location = new System.Drawing.Point(5, 5);
-            this.optionsBtn.Margin = new System.Windows.Forms.Padding(1);
-            this.optionsBtn.Name = "optionsBtn";
-            this.optionsBtn.Size = new System.Drawing.Size(30, 30);
-            this.optionsBtn.TabIndex = 0;
-            this.optionsBtn.UseVisualStyleBackColor = false;
+            this.ToolStripStatusLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2";
+            this.ToolStripStatusLabel2.Size = new System.Drawing.Size(49, 20);
+            this.ToolStripStatusLabel2.Text = "          ";
+            // 
+            // windDataStatusLabel
+            // 
+            this.windDataStatusLabel.BackColor = System.Drawing.Color.Transparent;
+            this.windDataStatusLabel.Image = global::QSP.Properties.Resources.GreenLight;
+            this.windDataStatusLabel.Name = "windDataStatusLabel";
+            this.windDataStatusLabel.Size = new System.Drawing.Size(153, 20);
+            this.windDataStatusLabel.Text = "Wind Aloft : Ready";
+            // 
+            // StatusStrip1
+            // 
+            this.StatusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.StatusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.navDataStatusLabel,
+            this.ToolStripStatusLabel3,
+            this.trackStatusLabel,
+            this.ToolStripStatusLabel2,
+            this.windDataStatusLabel});
+            this.StatusStrip1.Location = new System.Drawing.Point(0, 735);
+            this.StatusStrip1.Name = "StatusStrip1";
+            this.StatusStrip1.Size = new System.Drawing.Size(1182, 25);
+            this.StatusStrip1.TabIndex = 40;
+            this.StatusStrip1.Text = "StatusStrip1";
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Controls.Add(this.tableLayoutPanel2);
+            this.panel1.Controls.Add(this.tableLayoutPanel3);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1182, 735);
+            this.panel1.TabIndex = 41;
             // 
             // tableLayoutPanel1
             // 
@@ -202,71 +211,62 @@
             this.toBtn.Text = "Take off";
             this.toBtn.UseVisualStyleBackColor = false;
             // 
-            // navDataStatusLabel
+            // tableLayoutPanel2
             // 
-            this.navDataStatusLabel.BackColor = System.Drawing.Color.Transparent;
-            this.navDataStatusLabel.Image = global::QSP.Properties.Resources.GreenLight;
-            this.navDataStatusLabel.Name = "navDataStatusLabel";
-            this.navDataStatusLabel.Size = new System.Drawing.Size(148, 20);
-            this.navDataStatusLabel.Text = "Nav Data: Loaded";
-            this.navDataStatusLabel.ToolTipText = "Click to view options";
+            this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.optionsBtn, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(806, 5);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(40, 40);
+            this.tableLayoutPanel2.TabIndex = 5;
             // 
-            // ToolStripStatusLabel3
+            // optionsBtn
             // 
-            this.ToolStripStatusLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3";
-            this.ToolStripStatusLabel3.Size = new System.Drawing.Size(45, 20);
-            this.ToolStripStatusLabel3.Text = "         ";
+            this.optionsBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.optionsBtn.BackColor = System.Drawing.Color.Purple;
+            this.optionsBtn.BackgroundImage = global::QSP.Properties.Resources.noun_1329;
+            this.optionsBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.optionsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optionsBtn.Location = new System.Drawing.Point(5, 5);
+            this.optionsBtn.Margin = new System.Windows.Forms.Padding(1);
+            this.optionsBtn.Name = "optionsBtn";
+            this.optionsBtn.Size = new System.Drawing.Size(30, 30);
+            this.optionsBtn.TabIndex = 0;
+            this.optionsBtn.UseVisualStyleBackColor = false;
             // 
-            // trackStatusLabel
+            // tableLayoutPanel3
             // 
-            this.trackStatusLabel.BackColor = System.Drawing.Color.Transparent;
-            this.trackStatusLabel.Image = global::QSP.Properties.Resources.YellowLight;
-            this.trackStatusLabel.Name = "trackStatusLabel";
-            this.trackStatusLabel.Size = new System.Drawing.Size(166, 20);
-            this.trackStatusLabel.Text = "Tracks: Patially ready";
+            this.tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.aboutBtn, 0, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(845, 5);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(40, 40);
+            this.tableLayoutPanel3.TabIndex = 6;
             // 
-            // ToolStripStatusLabel2
+            // aboutBtn
             // 
-            this.ToolStripStatusLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2";
-            this.ToolStripStatusLabel2.Size = new System.Drawing.Size(49, 20);
-            this.ToolStripStatusLabel2.Text = "          ";
-            // 
-            // windDataStatusLabel
-            // 
-            this.windDataStatusLabel.BackColor = System.Drawing.Color.Transparent;
-            this.windDataStatusLabel.Image = global::QSP.Properties.Resources.GreenLight;
-            this.windDataStatusLabel.Name = "windDataStatusLabel";
-            this.windDataStatusLabel.Size = new System.Drawing.Size(153, 20);
-            this.windDataStatusLabel.Text = "Wind Aloft : Ready";
-            // 
-            // StatusStrip1
-            // 
-            this.StatusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.StatusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.navDataStatusLabel,
-            this.ToolStripStatusLabel3,
-            this.trackStatusLabel,
-            this.ToolStripStatusLabel2,
-            this.windDataStatusLabel});
-            this.StatusStrip1.Location = new System.Drawing.Point(0, 735);
-            this.StatusStrip1.Name = "StatusStrip1";
-            this.StatusStrip1.Size = new System.Drawing.Size(1182, 25);
-            this.StatusStrip1.TabIndex = 40;
-            this.StatusStrip1.Text = "StatusStrip1";
-            // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Controls.Add(this.tableLayoutPanel2);
-            this.panel1.Controls.Add(this.tableLayoutPanel3);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1182, 735);
-            this.panel1.TabIndex = 41;
+            this.aboutBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.aboutBtn.BackColor = System.Drawing.Color.Turquoise;
+            this.aboutBtn.BackgroundImage = global::QSP.Properties.Resources.info;
+            this.aboutBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.aboutBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.aboutBtn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.aboutBtn.Location = new System.Drawing.Point(5, 5);
+            this.aboutBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.aboutBtn.Name = "aboutBtn";
+            this.aboutBtn.Size = new System.Drawing.Size(30, 30);
+            this.aboutBtn.TabIndex = 2;
+            this.aboutBtn.UseVisualStyleBackColor = false;
             // 
             // QspForm
             // 
@@ -281,13 +281,13 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QSimPlanner";
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
             this.StatusStrip1.ResumeLayout(false);
             this.StatusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

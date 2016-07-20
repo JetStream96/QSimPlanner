@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace QSP.UI.Forms
 {
@@ -32,7 +27,7 @@ namespace QSP.UI.Forms
             get
             {
                 return new WindDownloadStatus(
-                    "Downloading lastest wind...", null);
+                    "Downloading lastest wind ...", null);
             }
         }
 
@@ -50,8 +45,17 @@ namespace QSP.UI.Forms
             get
             {
                 return new WindDownloadStatus(
-                    "Click here to download wind data",
+                    "Wind data not downloaded.",
                     Properties.Resources.YellowLight);
+            }
+        }
+
+        public static WindDownloadStatus LoadingFromFile
+        {
+            get
+            {
+                return new WindDownloadStatus(
+                   "Loading from file ...", null);
             }
         }
     }
