@@ -10,7 +10,7 @@ namespace UnitTest.RouteFinding.RandomRoutes
         [Test]
         public void FindTest()
         {
-            var finder = Instance.GetInstance();
+            var finder = FinderFactory.GetInstance();
 
             var result = finder.Find(
                 new Waypoint("A", 10.0, 20.0),

@@ -2,7 +2,6 @@
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace QSP.RouteFinding.TerminalProcedures.Star
@@ -12,11 +11,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
     {
         private List<StarEntry> _stars;
 
-        public ReadOnlyCollection<StarEntry> StarList
+        public IReadOnlyList<StarEntry> StarList
         {
             get
             {
-                return new ReadOnlyCollection<StarEntry>(_stars);
+                return _stars;
             }
         }
 
@@ -71,7 +70,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
                 .GetProcedureList();
         }
 
-        public ReadOnlyCollection<Waypoint> StarWaypoints(
+        public IReadOnlyList<Waypoint> StarWaypoints(
             string star, string rwy, Waypoint destRwy)
         {
             var starTrans = new TerminalProcedureName(star);
@@ -105,7 +104,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
 
             wpts.Add(destRwy);
 
-            return new ReadOnlyCollection<Waypoint>(wpts);
+            return wpts;
         }
 
         private bool AddTransitionIfNeeded(

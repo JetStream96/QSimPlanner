@@ -133,7 +133,7 @@
     <Compile Include="RouteFinding\FileExport\Providers\ProviderFactory.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Types.cs" />
     <Compile Include="RouteFinding\FixTypes.cs" />
-    <Compile Include="RouteFinding\RandomRoutes\Instance.cs" />
+    <Compile Include="RouteFinding\RandomRoutes\FinderFactory.cs" />
     <Compile Include="RouteFinding\RandomRoutes\RandomRouteFinder.cs" />
     <Compile Include="RouteFinding\Routes\RouteExtensions.cs" />
     <Compile Include="RouteFinding\Routes\RouteGroup.cs" />
@@ -278,7 +278,6 @@
     <Compile Include="NavData\Exceptions.cs" />
     <Compile Include="NavData\AAX\AirportDataLoader.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointListEditor.cs" />
-    <Compile Include="RouteFinding\Communication\TogglerTrackCommunicator.cs" />
     <Compile Include="RouteFinding\Constants.cs" />
     <Compile Include="NavData\AAX\AtsFileLoader.cs" />
     <Compile Include="RouteFinding\AirwayStructure\IndexDistancePair.cs" />

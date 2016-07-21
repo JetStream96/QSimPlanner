@@ -8,14 +8,16 @@ using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.RouteFinding.TerminalProcedures.Star
 {
-    // Adds necessary waypoints and neighbors to wptList for automatic route finder or route analyzer,
-    // and returns the index of origin rwy in wptList.
+    // Adds necessary waypoints and neighbors to wptList for automatic route 
+    // finder or route analyzer, and returns the index of origin rwy 
+    // in wptList.
     // 
     // There are 4 cases:
     // 1. There's no STAR at all. 
     // 2. The first wpt in STAR is NOT connected to an airway but in wptList.
     // 3. The first wpt in STAR is connected to an airway.
-    // 4. The first wpt in STAR is NOT connected to an airway and NOT in wptList.
+    // 4. The first wpt in STAR is NOT connected to an airway and NOT 
+    //    in wptList.
     //  
     public class StarAdder
     {

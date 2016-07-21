@@ -8,11 +8,12 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
     public static class StarHandlerFactory
     {
         /// <exception cref="LoadStarFileException"></exception>
-        public static StarHandler GetHandler(string icao,
-                                             string navDataLocation,
-                                             WaypointList wptList,
-                                             WaypointListEditor editor,
-                                             AirportManager airportList)
+        public static StarHandler GetHandler(
+            string icao,
+            string navDataLocation,
+            WaypointList wptList,
+            WaypointListEditor editor,
+            AirportManager airportList)
         {
             string fileLocation = navDataLocation + "\\PROC\\" + icao + ".txt";
 

@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using QSP.RouteFinding.Containers;
+﻿using QSP.RouteFinding.Containers;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
@@ -8,11 +7,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
     {
         private List<Waypoint> _wpts;
 
-        public ReadOnlyCollection<Waypoint> Waypoints
+        public IReadOnlyList<Waypoint> Waypoints
         {
             get
             {
-                return _wpts.AsReadOnly();
+                return _wpts;
             }
         }
 

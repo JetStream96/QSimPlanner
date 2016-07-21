@@ -5,7 +5,7 @@ using static QSP.AviationTools.Coordinates.Format5Letter;
 
 namespace QSP.RouteFinding.RandomRoutes
 {
-    public static class Instance
+    public static class FinderFactory
     {
         private static RandomRouteFinder finderInstance;
         

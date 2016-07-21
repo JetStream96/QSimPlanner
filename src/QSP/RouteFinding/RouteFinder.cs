@@ -1,4 +1,5 @@
 using MinMaxHeap;
+using QSP.LibraryExtension.Graph;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Containers.CountryCode;
@@ -8,7 +9,6 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
-using QSP.LibraryExtension.Graph;
 
 namespace QSP.RouteFinding
 {
