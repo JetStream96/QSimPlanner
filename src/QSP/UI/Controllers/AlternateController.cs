@@ -130,7 +130,7 @@ namespace QSP.UI.Controllers
             public AlternateRowItems Items; public AltnRowControl Control;
         }
 
-        public class AltnRowControl : IDisposable
+        public sealed class AltnRowControl : IDisposable
         {
             public AlternateRowItems Row;
             public RouteFinderSelection Controller;
