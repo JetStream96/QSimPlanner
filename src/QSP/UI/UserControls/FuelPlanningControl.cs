@@ -35,7 +35,7 @@ namespace QSP.UI.UserControls
 {
     public partial class FuelPlanningControl : UserControl
     {
-        private AppOptions appSettings;
+        private Locator<AppOptions> appOptionsLocator;
         private WaypointList wptList;
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
@@ -65,6 +65,9 @@ namespace QSP.UI.UserControls
 
         public event EventHandler AircraftRequestChanged;
 
+        private AppOptions appSettings
+        { get { return appOptionsLocator.Instance; } }
+
         private RouteGroup RouteToDest
         {
             get
@@ -79,7 +82,7 @@ namespace QSP.UI.UserControls
         }
 
         public void Init(
-            AppOptions appSettings,
+            Locator<AppOptions> appOptionsLocator,
             WaypointList wptList,
             AirportManager airportList,
             TrackInUseCollection tracksInUse,
@@ -89,7 +92,7 @@ namespace QSP.UI.UserControls
             AcConfigManager aircrafts,
             IEnumerable<FuelData> fuelData)
         {
-            this.appSettings = appSettings;
+            this.appOptionsLocator = appOptionsLocator;
             this.wptList = wptList;
             this.airportList = airportList;
             this.tracksInUse = tracksInUse;

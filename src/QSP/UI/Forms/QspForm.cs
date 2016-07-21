@@ -42,10 +42,11 @@ namespace QSP.UI.Forms
         private AboutPageControl aboutMenu;
 
         private ProfileManager profiles;
-        private AppOptions appSettings;
-        private AirportManager airportList;
-        private WaypointList wptList;
-        private CountryCodeManager countryCodes;
+        private Locator<AppOptions> appOptionsLocator;
+        public Locator<WaypointList> WptListLocator { get; private set; }
+        public Locator<CountryCodeManager> CountryCodesLocator
+        { get; private set; }
+        public Locator<AirportManager> AirportListLocator { get; private set; }
         private ProcedureFilter procFilter;
         private TrackInUseCollection tracksInUse;
         private Locator<WindTableCollection> windTableLocator;
@@ -55,6 +56,15 @@ namespace QSP.UI.Forms
         private readonly Point controlDefaultLocation = new Point(12, 52);
         private TracksForm trackFrm;
         private WindDataForm windFrm;
+
+        private AppOptions appSettings
+        { get { return appOptionsLocator.Instance; } }
+        private AirportManager airportList
+        { get { return AirportListLocator.Instance; } }
+        private WaypointList wptList
+        { get { return WptListLocator.Instance; } }
+        private CountryCodeManager countryCodes
+        { get { return CountryCodesLocator.Instance; } }
 
         private IEnumerable<UserControl> Pages
         {
@@ -95,7 +105,7 @@ namespace QSP.UI.Forms
         private void InitWindForm()
         {
             windFrm = new WindDataForm();
-            windFrm.Init(windDataStatusLabel, 
+            windFrm.Init(windDataStatusLabel,
                 windTableLocator, WindDownloadStatus.WaitingManualDownload);
         }
 
@@ -133,7 +143,8 @@ namespace QSP.UI.Forms
             try
             {
                 // Load options.
-                appSettings = OptionManager.ReadOrCreateFile();
+                appOptionsLocator = new Locator<Common.Options.AppOptions>();
+                appOptionsLocator.Instance = OptionManager.ReadOrCreateFile();
             }
             catch (Exception ex)
             {
@@ -167,10 +178,10 @@ namespace QSP.UI.Forms
         {
             string navDataPath = appSettings.NavDataLocation;
 
-            airportList =
+            AirportListLocator = new Locator<AirportManager>(
             new AirportManager(
                 new AirportDataLoader(navDataPath + @"\Airports.txt")
-                .LoadFromFile());
+                .LoadFromFile()));
         }
 
         /// <exception cref="WaypointFileReadException"></exception>
@@ -182,15 +193,21 @@ namespace QSP.UI.Forms
             var result = new WptListLoader(navDataPath)
                 .LoadFromFile();
 
-            wptList = result.WptList;
-            countryCodes = result.CountryCodes;
+            WptListLocator = new Locator<WaypointList>(result.WptList);
+            CountryCodesLocator =
+                new Locator<CountryCodeManager>(result.CountryCodes);
         }
 
         private void InitControls()
         {
             CheckRegistry();
             SubscribeEvents();
-            optionsMenu.Init(appSettings);
+
+            optionsMenu.Init(
+                WptListLocator,
+                CountryCodesLocator,
+                AirportListLocator,
+                appOptionsLocator);
 
             acMenu.Initialize(profiles);
             acMenu.AircraftsChanged += fuelMenu.RefreshAircrafts;
@@ -198,7 +215,7 @@ namespace QSP.UI.Forms
             acMenu.AircraftsChanged += ldgMenu.RefreshAircrafts;
 
             fuelMenu.Init(
-                appSettings,
+                appOptionsLocator,
                 wptList,
                 airportList,
                 tracksInUse,
@@ -273,16 +290,6 @@ namespace QSP.UI.Forms
 
         private void SubscribeEvents()
         {
-            optionsMenu.AppSettingChanged += (sender, e) =>
-            {
-                appSettings = optionsMenu.AppSettings;
-            };
-
-            optionsMenu.NavDataUpdated += (sender, e) =>
-            {
-                // TODO: Update Nav data here.
-            };
-
             // TODO: ?
             var origTxtBox = toMenu.airportInfoControl.airportTxtBox;
 
@@ -399,7 +406,7 @@ namespace QSP.UI.Forms
         {
             optionsBtn.PerformClick();
         }
-        
+
         private void SetHandCursor(object sender, EventArgs e)
         {
             Cursor = Cursors.Hand;

@@ -1,7 +1,9 @@
 ﻿using QSP.Common.Options;
+using QSP.LibraryExtension;
 using QSP.NavData;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
@@ -18,25 +20,39 @@ namespace QSP.UI.UserControls
 {
     public partial class OptionsControl : UserControl
     {
-        public event EventHandler AppSettingChanged;
-        public event EventHandler NavDataUpdated;
-
-        public WptListLoader.LoadResult LoadWptListResult { get; private set; }
-        public AirportManager LoadedAirports { get; private set; }
-
-        public AppOptions AppSettings { get; private set; }
+        public Locator<WaypointList> WptListLocator { get; private set; }
+        public Locator<CountryCodeManager> CountryCodesLocator
+        { get; private set; }
+        public Locator<AirportManager> AirportListLocator { get; private set; }
+        public Locator<AppOptions> AppSettingsLocator { get; private set; }
 
         private IEnumerable<RouteExportMatching> exports;
         private Panel popUpPanel;
+
+        public AppOptions AppSettings
+        {
+            get
+            {
+                return AppSettingsLocator.Instance;
+            }
+        }
 
         public OptionsControl()
         {
             InitializeComponent();
         }
 
-        public void Init(AppOptions options)
+        public void Init(
+            Locator<WaypointList> WptListLocator,
+            Locator<CountryCodeManager> CountryCodesLocator,
+            Locator<AirportManager> AirportListLocator,
+            Locator<AppOptions> AppSettingsLocator)
         {
-            this.AppSettings = options;
+            this.WptListLocator = WptListLocator;
+            this.CountryCodesLocator = CountryCodesLocator;
+            this.AirportListLocator = AirportListLocator;
+            this.AppSettingsLocator = AppSettingsLocator;
+
             InitExports();
             addBrowseBtnHandler();
             addCheckBoxEventHandler();
@@ -168,15 +184,9 @@ namespace QSP.UI.UserControls
             saveBtn.Text = "Saving ...";
             Refresh();
 
-            if (TryLoadWpts() && TryLoadAirports())
-            {
-                NavDataUpdated?.Invoke(this, EventArgs.Empty);
-
-                if (TrySaveOptions())
-                {
-                    AppSettingChanged?.Invoke(this, EventArgs.Empty);
-                }
-            }
+            // Use short-circuit to control the logic.
+            var success =
+                TryLoadWpts() && TryLoadAirports() && TrySaveOptions();
 
             saveBtn.ForeColor = Color.White;
             saveBtn.BackColor = Color.Green;
@@ -189,7 +199,9 @@ namespace QSP.UI.UserControls
             try
             {
                 var loader = new WptListLoader(pathTxtBox.Text);
-                LoadWptListResult = loader.LoadFromFile();
+                var result = loader.LoadFromFile();
+                WptListLocator.Instance = result.WptList;
+                CountryCodesLocator.Instance = result.CountryCodes;
                 return true;
             }
             catch (WaypointFileReadException ex)
@@ -214,7 +226,8 @@ namespace QSP.UI.UserControls
 
             try
             {
-                LoadedAirports = new AirportManager(loader.LoadFromFile());
+                AirportListLocator.Instance =
+                    new AirportManager(loader.LoadFromFile());
                 return true;
             }
             catch (Exception ex) when
@@ -232,8 +245,7 @@ namespace QSP.UI.UserControls
 
             if (OptionManager.TrySaveFile(newSetting))
             {
-                AppSettings = newSetting;
-                AppSettingChanged?.Invoke(this, EventArgs.Empty);
+                AppSettingsLocator.Instance = newSetting;
                 return true;
             }
             else
