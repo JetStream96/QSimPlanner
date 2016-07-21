@@ -63,6 +63,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
                     edge.Value.Distance;
 
                 if (edge.Value.Airway == "DCT" &&
+                    edge.Value.AirwayType == AirwayType.Terminal &&
                     Math.Abs(disDiff) < DistanceEpsilon)
                 {
                     return true;
@@ -86,8 +87,10 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             int index2 = wptList.AddWaypoint(
                 new Waypoint("27N050E", 27.0, 50.0));
 
-            AddNeighbor(wptList, index1, "AIRWAY1", index2);
-            AddNeighbor(wptList, index2, "AIRWAY1", index1);
+            AddNeighbor(wptList, index1, "AIRWAY1",
+                AirwayType.Terminal, index2);
+            AddNeighbor(wptList, index2, "AIRWAY1",
+                AirwayType.Terminal, index1);
 
             return wptList;
         }
@@ -149,6 +152,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             {
                 var edge = wptList.GetEdge(i);
                 Assert.AreEqual("DCT", edge.Value.Airway);
+                Assert.AreEqual(AirwayType.Terminal, edge.Value.AirwayType);
 
                 double expectedDis =
                     wpt101.DistanceFrom(wptList[edge.FromNodeIndex]);
@@ -206,7 +210,8 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             int indexNeighbor = wptList.AddWaypoint(
                 new Waypoint("27N050E", 27.0, 50.0));
 
-            AddNeighbor(wptList, index, "AIRWAY1", indexNeighbor);
+            AddNeighbor(wptList, index, "AIRWAY1",
+                AirwayType.Terminal, indexNeighbor);
             return wptList;
         }
 
@@ -241,6 +246,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
                 var edge = wptList.GetEdge(i);
 
                 return edge.Value.Airway == name &&
+                edge.Value.AirwayType == AirwayType.Terminal &&
                 Math.Abs(dis - edge.Value.Distance) < DistanceEpsilon;
             });
         }

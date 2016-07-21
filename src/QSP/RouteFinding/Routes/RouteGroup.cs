@@ -1,7 +1,7 @@
 ﻿using QSP.RouteFinding.Routes.TrackInUse;
 
 namespace QSP.RouteFinding.Routes
-{   
+{
     // The use of this class is to display a route with tracks (e.g. NATs) in 
     // 2 different forms:
     // (1) Folded form: ... ERAKA NATA SAVRY ...
@@ -19,10 +19,7 @@ namespace QSP.RouteFinding.Routes
 
             foreach (var i in tracks.AllEntries)
             {
-                foreach (var j in i)
-                {
-                    Expanded.Nodes.InsertRoute(j.Route, j.RouteName);
-                }
+                Expanded.Nodes.InsertRoute(i.Route, i.RouteName);
             }
         }
     }

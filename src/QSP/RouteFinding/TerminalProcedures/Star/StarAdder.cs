@@ -119,7 +119,10 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
 
             foreach (var i in nearbyWpts)
             {
-                editor.AddNeighbor(i.Index, index, new Neighbor("DCT", i.Distance));
+                var neighbor = new Neighbor(
+                    "DCT", AirwayType.Terminal, i.Distance);
+
+                editor.AddNeighbor(i.Index, index, neighbor);
             }
 
             return index;
@@ -143,15 +146,17 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
                 // Case 2                                 
                 foreach (var k in AirwayConnections(firstWpt.Lat, firstWpt.Lon))
                 {
-                    editor.AddNeighbor(
-                        k.Index, firstWptIndex, new Neighbor("DCT", k.Distance));
+                    var n = new Neighbor(
+                        "DCT", AirwayType.Terminal, k.Distance);
+
+                    editor.AddNeighbor(k.Index, firstWptIndex, n);
                 }
             }
             // For case 2, 3 and 4
-            editor.AddNeighbor(
-                firstWptIndex,
-                rwyIndex,
-                new Neighbor(star, starInfo.TotalDistance));
+            var neighbor = new Neighbor(
+                star, AirwayType.Terminal, starInfo.TotalDistance);
+
+            editor.AddNeighbor(firstWptIndex, rwyIndex, neighbor);
         }
 
         private void ProcessCase2(
@@ -161,8 +166,10 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
 
             foreach (var i in endPoints)
             {
-                editor.AddNeighbor(
-                    i.Index, rwyIndex, new Neighbor(star, i.Distance + disAdd));
+                var neighbor = new Neighbor(
+                    star, AirwayType.Terminal, i.Distance + disAdd);
+
+                editor.AddNeighbor(i.Index, rwyIndex, neighbor);
             }
         }
 

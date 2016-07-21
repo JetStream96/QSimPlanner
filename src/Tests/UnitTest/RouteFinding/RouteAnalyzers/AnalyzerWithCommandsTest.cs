@@ -57,8 +57,9 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             int p1 = wptList.AddWaypoint(wptP1);
             int q1 = wptList.AddWaypoint(wptQ1);
 
-            wptList.AddNeighbor(
-                p1, q1, new Neighbor("A1", wptP1.DistanceFrom(wptQ1)));
+            var neighbor = new Neighbor(
+                "A1", AirwayType.Terminal, wptP1.DistanceFrom(wptQ1));
+            wptList.AddNeighbor(p1, q1, neighbor);
 
             return new AnalyzerWithCommands(
                 route,

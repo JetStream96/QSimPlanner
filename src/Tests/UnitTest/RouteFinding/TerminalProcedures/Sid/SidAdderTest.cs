@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using static QSP.LibraryExtension.Lists;
 using static UnitTest.Common.Constants;
 using static UnitTest.RouteFinding.RouteAnalyzers.Common;
+using System.Linq;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 {
@@ -53,6 +54,9 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 
                 // Name is DCT 
                 Assert.AreEqual("DCT", edge.Value.Airway);
+
+                // Airway type
+                Assert.AreEqual(AirwayType.Terminal, edge.Value.AirwayType);
 
                 // Distance is correct
                 Assert.AreEqual(
@@ -108,6 +112,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             {
                 var edge = wptList.GetEdge(i);
                 Assert.AreEqual("SID1", edge.Value.Airway);
+                Assert.AreEqual(AirwayType.Terminal, edge.Value.AirwayType);
 
                 var expectedDis = distance +
                 wpt102.LatLon.Distance(wptList[edge.ToNodeIndex].LatLon);
@@ -163,6 +168,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             {
                 var edge = wptList.GetEdge(i);
                 Assert.AreEqual("DCT", edge.Value.Airway);
+                Assert.AreEqual(AirwayType.Terminal, edge.Value.AirwayType);
 
                 var expectedDis =
                     wpt104.DistanceFrom(wptList[edge.ToNodeIndex]);
@@ -183,8 +189,10 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             int index2 = wptList.AddWaypoint(
                 new Waypoint("27N050E", 27.0, 50.0));
 
-            AddNeighbor(wptList, index1, "AIRWAY1", index2);
-            AddNeighbor(wptList, index2, "AIRWAY1", index1);
+            AddNeighbor(
+                wptList, index1, "AIRWAY1", AirwayType.Terminal, index2);
+            AddNeighbor(
+                wptList, index2, "AIRWAY1", AirwayType.Terminal, index1);
 
             return wptList;
         }
@@ -251,7 +259,9 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             int indexNeighbor = wptList.AddWaypoint(
                 new Waypoint("27N050E", 27.0, 50.0));
 
-            AddNeighbor(wptList, index, "AIRWAY1", indexNeighbor);
+            AddNeighbor(
+                wptList, index, "AIRWAY1", AirwayType.Terminal, indexNeighbor);
+
             return wptList;
         }
 
@@ -280,17 +290,15 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
         private bool SidIsAdded(
             int rwyIndex, string name, double dis, WaypointList wptList)
         {
-            foreach (var i in wptList.EdgesFrom(rwyIndex))
-            {
-                var edge = wptList.GetEdge(i);
-
-                if (edge.Value.Airway == name &&
-                    Math.Abs(dis - edge.Value.Distance) <= DistanceEpsilon)
+            return wptList.EdgesFrom(rwyIndex)
+                .Any(i =>
                 {
-                    return true;
-                }
-            }
-            return false;
+                    var edge = wptList.GetEdge(i);
+
+                    return edge.Value.Airway == name &&
+                    edge.Value.AirwayType == AirwayType.Terminal &&
+                    Math.Abs(dis - edge.Value.Distance) <= DistanceEpsilon;
+                });
         }
 
     }

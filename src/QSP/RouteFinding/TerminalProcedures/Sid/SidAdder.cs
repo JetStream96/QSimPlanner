@@ -121,7 +121,9 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
             foreach (var i in nearbyWpts)
             {
-                editor.AddNeighbor(index, i.Index, new Neighbor("DCT", i.Distance));
+                var neighbor = new Neighbor(
+                    "DCT", AirwayType.Terminal, i.Distance);
+                editor.AddNeighbor(index, i.Index, neighbor);
             }
 
             return index;
@@ -154,17 +156,21 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                     // Case 3                                  
                     foreach (var k in AirwayConnections(lastWpt.Lat, lastWpt.Lon))
                     {
-                        editor.AddNeighbor(
-                            lastWptIndex,
-                            k.Index,
-                            new Neighbor("DCT", k.Distance));
+                        var n = new Neighbor(
+                            "DCT", AirwayType.Terminal, k.Distance);
+
+                        editor.AddNeighbor(lastWptIndex, k.Index, n);
                     }
                 }
-                // Forcase 3, 4 and 5
+
+                // For case 3, 4 and 5
+                var neighbor = new Neighbor(
+                    sid, AirwayType.Terminal, sidInfo.TotalDistance);
+
                 editor.AddNeighbor(
                     rwyIndex,
                     lastWptIndex,
-                    new Neighbor(sid, sidInfo.TotalDistance));
+                    neighbor);
             }
         }
 
@@ -175,8 +181,10 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
             foreach (var i in endPoints)
             {
-                editor.AddNeighbor(
-                    rwyIndex, i.Index, new Neighbor(sid, i.Distance + disAdd));
+                var neighbor = new Neighbor(
+                    sid, AirwayType.Terminal, i.Distance + disAdd);
+
+                editor.AddNeighbor(rwyIndex, i.Index, neighbor);
             }
         }
 

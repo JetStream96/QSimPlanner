@@ -1,6 +1,7 @@
 ﻿using QSP.Common;
 using QSP.RouteFinding.Tracks.Common;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QSP.RouteFinding.Routes.TrackInUse
 {
@@ -40,25 +41,12 @@ namespace QSP.RouteFinding.Routes.TrackInUse
             _pacots = new List<RouteEntry>();
             _ausots = new List<RouteEntry>();
         }
-
-        /// <summary>
-        /// Creates a deep copy of TrackInUseCollection.
-        /// </summary>
-        public TrackInUseCollection(TrackInUseCollection other)
-        {
-            _nats = new List<RouteEntry>(other.Nats);
-            _pacots = new List<RouteEntry>(other.Pacots);
-            _ausots = new List<RouteEntry>(other.Ausots);
-        }
-
-        public IReadOnlyList<RouteEntry>[] AllEntries
+        
+        public IEnumerable<RouteEntry> AllEntries
         {
             get
             {
-                return new IReadOnlyList<RouteEntry>[] 
-                {
-                    Nats, Pacots, Ausots
-                };
+                return Nats.Union(Pacots).Union(Ausots);
             }
         }
 
@@ -74,8 +62,7 @@ namespace QSP.RouteFinding.Routes.TrackInUse
             UpdateList(list, type);
         }
 
-        private void UpdateList(
-            List<RouteEntry> entries, TrackType type)
+        private void UpdateList(List<RouteEntry> entries, TrackType type)
         {
             switch (type)
             {

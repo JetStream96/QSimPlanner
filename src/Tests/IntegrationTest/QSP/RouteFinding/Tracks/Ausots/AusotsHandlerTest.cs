@@ -211,9 +211,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
                         "",
                         0.0,
                         0.0,
-                        0, 
+                        0,
                         true,
-                        0, 
+                        0,
                         0,
                         0,
                         new List<RwyData>()));
@@ -253,8 +253,10 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             {
                 int x = TryAddWpt(wptList, i.StartWpt);
                 int y = TryAddWpt(wptList, i.EndWpt);
-                wptList.AddNeighbor(
-                    x, y, new Neighbor(i.Airway, wptList.Distance(x, y)));
+                var neighbor = new Neighbor(
+                    i.Airway, AirwayType.Enroute, wptList.Distance(x, y));
+
+                wptList.AddNeighbor(x, y, neighbor);
             }
         }
 

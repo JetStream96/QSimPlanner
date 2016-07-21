@@ -65,10 +65,14 @@ namespace UnitTest.RouteFinding.Tracks.Common
             var wptList = new WaypointList();
             int p1Index = wptList.AddWaypoint(p1);
             wptList.AddWaypoint(p2);
+
             int q1Index = wptList.AddWaypoint(q1);
             int q2Index = wptList.AddWaypoint(q2);
             int q3Index = wptList.AddWaypoint(q3);
-            wptList.AddNeighbor(q1Index, q2Index, new Neighbor("A1", q1.DistanceFrom(q2)));
+            var neighbor = new Neighbor(
+                "A1", AirwayType.Enroute, q1.DistanceFrom(q2));
+
+            wptList.AddNeighbor(q1Index, q2Index, neighbor);
 
             var reader = new TrackReader<PacificTrack>(
                 wptList,

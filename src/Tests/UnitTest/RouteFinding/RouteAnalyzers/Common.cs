@@ -60,11 +60,11 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             ident, "", 0, 0, true, true, "", "", lat, lon, 0, 0.0, 0, "", 0);
         }
 
-        public static void AddNeighbor(
-            WaypointList wptList, int index1, string airway, int index2)
+        public static void AddNeighbor(WaypointList wptList, int index1, 
+            string airway, AirwayType type, int index2)
         {
             wptList.AddNeighbor(index1, index2,
-               new Neighbor(airway, wptList.Distance(index1, index2)));
+               new Neighbor(airway, type, wptList.Distance(index1, index2)));
         }
     }
 }

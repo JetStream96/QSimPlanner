@@ -154,8 +154,10 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             int x = wptList.AddWaypoint(new Waypoint("X", 24.0, 117.0));
             int y = wptList.AddWaypoint(new Waypoint("Y", 23.0, 115.0));
-            wptList.AddNeighbor(
-                x, y, new Neighbor("A1", wptList.Distance(x, y)));
+            var neighbor = new Neighbor(
+                "A1", AirwayType.Enroute, wptList.Distance(x, y));
+
+            wptList.AddNeighbor(x, y, neighbor);
 
             return wptList;
         }

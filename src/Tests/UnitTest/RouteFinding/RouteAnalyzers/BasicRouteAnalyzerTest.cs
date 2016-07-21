@@ -51,11 +51,14 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 indices.Add(wptList.AddWaypoint(wpts[i]));
             }
 
-            AddNeighbor(wptList, indices[0], "A01", indices[1]);
-            AddNeighbor(wptList, indices[1], "A02", indices[2]);
+            AddNeighbor(wptList, indices[0], "A01", 
+                AirwayType.Enroute, indices[1]);
+            AddNeighbor(wptList, indices[1], "A02", 
+                AirwayType.Enroute, indices[2]);
 
             // Added so that there are 2 airways to choose from at P03.
-            AddNeighbor(wptList, indices[1], "A03", indices[3]);
+            AddNeighbor(wptList, indices[1], "A03", 
+                AirwayType.Enroute, indices[3]);
 
             var analyzer = new BasicRouteAnalyzer(
                 new string[] { "P01", "A01", "P02", "A02", "P03" },

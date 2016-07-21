@@ -12,12 +12,7 @@ using System.Collections.Generic;
 
 namespace QSP.RouteFinding
 {
-    // TODO: Wind calculation should not be applied to SID, STAR legs.
-
-    // The distance computed by RouteFinder is based on the the 
-    // values of edges in graph, which directly comes from the 
-    // text file and is only accurate to 2 decimal places.
-    // Therefore it may not be completely accurate. 
+    // Effect of wind is not be applied to SID, STAR legs.
     // 
     public class RouteFinder
     {
@@ -117,7 +112,6 @@ namespace QSP.RouteFinding
         {
             var waypoints = new List<Waypoint>();
             var airways = new List<string>();
-            var totalDistances = new List<double>();
 
             int index = endPtIndex;
 
@@ -127,30 +121,17 @@ namespace QSP.RouteFinding
 
                 waypoints.Add(wptList[index]);
                 airways.Add(finderData.FromAirway);
-                totalDistances.Add(finderData.CurrentDistance);
 
                 index = FindRouteData.WaypointData[index].FromWptIndex;
             }
 
             waypoints.Add(wptList[startPtIndex]);
-            ConvertToNeighborDistance(totalDistances);
 
-            return BuildRoute(waypoints, airways, totalDistances);
-        }
-
-        private static void ConvertToNeighborDistance(
-            List<double> totalDistances)
-        {
-            for (int i = 0; i < totalDistances.Count - 1; i++)
-            {
-                totalDistances[i] -= totalDistances[i + 1];
-            }
+            return BuildRoute(waypoints, airways);
         }
 
         private static Route BuildRoute(
-            List<Waypoint> waypoints,
-            List<string> airways,
-            List<double> totalDistances)
+            List<Waypoint> waypoints, List<string> airways)
         {
             var result = new Route();
             int edgeCount = airways.Count;
@@ -162,7 +143,7 @@ namespace QSP.RouteFinding
                 result.AddLastWaypoint(
                     waypoints[i],
                     airways[i],
-                    totalDistances[i]);
+                    waypoints[i].DistanceFrom(waypoints[i + 1]));
             }
 
             return result;
@@ -231,7 +212,8 @@ namespace QSP.RouteFinding
 
         private double GetEdgeDistance(Edge<Neighbor> edge)
         {
-            if (windCalc == null)
+            if (windCalc == null ||
+                edge.Value.AirwayType == AirwayType.Terminal)
             {
                 return edge.Value.Distance;
             }
@@ -338,7 +320,7 @@ namespace QSP.RouteFinding
                 {
                     // Initial distance
                     WaypointData[i] = new WaypointStatus(
-                        0, null, double.PositiveInfinity, InRange.Unknown);                    
+                        0, null, double.PositiveInfinity, InRange.Unknown);
                 }
 
                 WaypointData[startPtIndex] = new WaypointStatus(
