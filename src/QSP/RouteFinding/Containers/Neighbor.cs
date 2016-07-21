@@ -1,6 +1,3 @@
-using System;
-using static QSP.AviationTools.Coordinates.Constants;
-
 namespace QSP.RouteFinding.Containers
 {
     // This class is immutable.
@@ -16,16 +13,6 @@ namespace QSP.RouteFinding.Containers
             this.AirwayType = AirwayType;
             this.Distance = Distance;
         }
-
-        /// <summary>
-        /// Value comparison of two Neighbors.
-        /// </summary>
-        //public bool Equals(Neighbor x)
-        //{
-        //    return Airway == x.Airway &&
-        //        AirwayType == AirwayType &&
-        //        Math.Abs(Distance - x.Distance) < LatLonTolerance;
-        //}
     }
 
     public enum AirwayType
