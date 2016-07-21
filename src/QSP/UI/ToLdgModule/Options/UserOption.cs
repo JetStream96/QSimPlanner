@@ -1,22 +1,16 @@
-﻿namespace QSP.UI.ToLdgModule.Options
+﻿using QSP.NavData;
+
+namespace QSP.UI.ToLdgModule.Options
 {
     public class UserOption
     {
-        // 0: Open data
-        // 1: AAX (payware)
-        public int SourceType { get; set; }
-
+        public DataSource.Type SourceType { get; set; }
         public string OpenDataPath { get; set; }
         public string PaywarePath { get; set; }
 
-        public UserOption(
-            int SourceType, string OpenDataPath, string PaywarePath)
+        public UserOption(DataSource.Type SourceType,
+            string OpenDataPath, string PaywarePath)
         {
-            if (SourceType != 0 && SourceType != 1)
-            {
-                SourceType = 0;
-            }
-
             this.SourceType = SourceType;
             this.OpenDataPath = OpenDataPath;
             this.PaywarePath = PaywarePath;
@@ -27,7 +21,7 @@
             get
             {
                 return new UserOption(
-                    0,
+                    DataSource.Type.OpenData,
                     @"NavData\OpenData",
                     "");// TODO: Maybe check registry to 
                         // find the path automatically?

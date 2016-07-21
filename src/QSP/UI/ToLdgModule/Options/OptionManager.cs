@@ -1,6 +1,7 @@
 ﻿using IniParser;
 using IniParser.Model;
 using IniParser.Parser;
+using QSP.NavData;
 using System;
 using System.IO;
 
@@ -35,7 +36,7 @@ namespace QSP.UI.ToLdgModule.Options
             var section = data["Options"];
 
             return new UserOption(
-                int.Parse(section["SourceType"]),
+                (DataSource.Type)int.Parse(section["SourceType"]),
                 section["OpenDataPath"],
                 section["PaywarePath"]);
         }

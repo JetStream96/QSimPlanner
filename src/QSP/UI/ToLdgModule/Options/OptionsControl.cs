@@ -99,7 +99,7 @@ namespace QSP.UI.ToLdgModule.Options
         {
             try
             {
-                options.SourceType = sourceComboBox.SelectedIndex;
+                options.SourceType = (DataSource.Type)sourceComboBox.SelectedIndex;
 
                 if (options.SourceType == 0)
                 {
@@ -164,7 +164,7 @@ namespace QSP.UI.ToLdgModule.Options
 
         private void RefreshNavSource()
         {
-            RefreshNavSource(options.SourceType);
+            RefreshNavSource((int)options.SourceType);
         }
 
         private void RefreshNavSource(int sourceType)
