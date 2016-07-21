@@ -96,6 +96,8 @@ namespace QSP.UI.UserControls
             AutoDLWindCheckBox.Checked = AppSettings.AutoDLWind;
             pathTxtBox.Text = AppSettings.NavDataLocation;
             PromptBeforeExit.Checked = AppSettings.PromptBeforeExit;
+            WindOptimizedRouteCheckBox.Checked =
+                AppSettings.EnableWindOptimizedRoute;
             SetExports();
         }
 
@@ -166,7 +168,7 @@ namespace QSP.UI.UserControls
             saveBtn.Text = "Saving ...";
             Refresh();
 
-            if(TryLoadWpts() && TryLoadAirports())
+            if (TryLoadWpts() && TryLoadAirports())
             {
                 NavDataUpdated?.Invoke(this, EventArgs.Empty);
 
@@ -181,7 +183,7 @@ namespace QSP.UI.UserControls
             saveBtn.Text = "Save";
             saveBtn.Enabled = true;
         }
-        
+
         private bool TryLoadWpts()
         {
             try
@@ -248,6 +250,7 @@ namespace QSP.UI.UserControls
                 PromptBeforeExit.Checked,
                 AutoDLTracksCheckBox.Checked,
                 AutoDLWindCheckBox.Checked,
+                WindOptimizedRouteCheckBox.Checked,
                 GetCommands());
         }
 
@@ -343,8 +346,7 @@ namespace QSP.UI.UserControls
             { Cycle = s[0].Trim(), Period = s[1].Trim() };
         }
 
-        public struct AiracPeriod
-        { public string Cycle; public string Period; }
+        public struct AiracPeriod { public string Cycle, Period; }
 
         private void infoLbl_MouseEnter(object sender, EventArgs e)
         {

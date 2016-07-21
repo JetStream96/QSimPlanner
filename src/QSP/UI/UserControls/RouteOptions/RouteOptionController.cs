@@ -1,5 +1,4 @@
-﻿using QSP.Common;
-using QSP.Common.Options;
+﻿using QSP.Common.Options;
 using QSP.GoogleMap;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
@@ -85,8 +84,7 @@ namespace QSP.UI.UserControls.RouteOptions
             exportBtn.Click += ExportRouteFiles;
             showMapBtn.Click += ShowMapClick;
         }
-
-        // TODO: exception handling?
+        
         private void FindRouteClick(object sender, EventArgs e)
         {
             try
@@ -109,7 +107,7 @@ namespace QSP.UI.UserControls.RouteOptions
                 wptList,
                 airportList,
                 appSettings.NavDataLocation,
-                null,  //TODO: add this
+                null,
                 windCalcGetter());
 
             var result = finder.FindRoute(

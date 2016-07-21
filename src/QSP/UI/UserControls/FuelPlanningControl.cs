@@ -495,9 +495,7 @@ namespace QSP.UI.UserControls
         /// <exception cref="InvalidUserInputException"></exception>
         private AvgWindCalculator GetWindCalculator()
         {
-            const bool EnableWindOptimization = true;
-
-            if (EnableWindOptimization == false) return null;
+            if (appSettings.EnableWindOptimizedRoute == false) return null;
 
             if (windTableLocator.Instance == null)
             {

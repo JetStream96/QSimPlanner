@@ -65,6 +65,7 @@
             this.saveBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.WindOptimizedRouteCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -198,7 +199,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.38155F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.61845F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             this.tableLayoutPanel1.Controls.Add(this.infoLbl, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.button14, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.pathTxtBox, 1, 0);
@@ -229,7 +230,7 @@
             // 
             this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button14.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button14.Location = new System.Drawing.Point(475, 3);
+            this.button14.Location = new System.Drawing.Point(474, 3);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(34, 28);
             this.button14.TabIndex = 3;
@@ -277,7 +278,7 @@
             this.GroupBox3.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupBox3.Location = new System.Drawing.Point(6, 122);
             this.GroupBox3.Name = "GroupBox3";
-            this.GroupBox3.Size = new System.Drawing.Size(685, 62);
+            this.GroupBox3.Size = new System.Drawing.Size(685, 111);
             this.GroupBox3.TabIndex = 33;
             this.GroupBox3.TabStop = false;
             this.GroupBox3.Text = "Misc";
@@ -286,20 +287,22 @@
             // 
             this.tableLayoutPanel5.ColumnCount = 1;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Controls.Add(this.PromptBeforeExit, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.WindOptimizedRouteCheckBox, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.PromptBeforeExit, 0, 1);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(25, 21);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(560, 35);
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(560, 70);
             this.tableLayoutPanel5.TabIndex = 34;
             // 
             // PromptBeforeExit
             // 
             this.PromptBeforeExit.AutoSize = true;
             this.PromptBeforeExit.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PromptBeforeExit.Location = new System.Drawing.Point(3, 3);
+            this.PromptBeforeExit.Location = new System.Drawing.Point(3, 38);
             this.PromptBeforeExit.Name = "PromptBeforeExit";
             this.PromptBeforeExit.Size = new System.Drawing.Size(259, 27);
             this.PromptBeforeExit.TabIndex = 30;
@@ -544,6 +547,17 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(464, 55);
             this.tableLayoutPanel2.TabIndex = 6;
             // 
+            // WindOptimizedRouteCheckBox
+            // 
+            this.WindOptimizedRouteCheckBox.AutoSize = true;
+            this.WindOptimizedRouteCheckBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WindOptimizedRouteCheckBox.Location = new System.Drawing.Point(3, 3);
+            this.WindOptimizedRouteCheckBox.Name = "WindOptimizedRouteCheckBox";
+            this.WindOptimizedRouteCheckBox.Size = new System.Drawing.Size(230, 27);
+            this.WindOptimizedRouteCheckBox.TabIndex = 31;
+            this.WindOptimizedRouteCheckBox.Text = "Use wind-optimized route";
+            this.WindOptimizedRouteCheckBox.UseVisualStyleBackColor = true;
+            // 
             // OptionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -615,5 +629,6 @@
         internal System.Windows.Forms.TextBox TextBox1;
         public System.Windows.Forms.Button saveBtn;
         public System.Windows.Forms.Button cancelBtn;
+        internal System.Windows.Forms.CheckBox WindOptimizedRouteCheckBox;
     }
 }

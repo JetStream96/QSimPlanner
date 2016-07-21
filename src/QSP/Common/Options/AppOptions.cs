@@ -13,6 +13,7 @@ namespace QSP.Common.Options
         public bool PromptBeforeExit { get; private set; }
         public bool AutoDLTracks { get; private set; }
         public bool AutoDLWind { get; private set; }
+        public bool EnableWindOptimizedRoute { get; private set; }
         private Dictionary<string, ExportCommand> _exportCommands;
 
         public IReadOnlyDictionary<string, ExportCommand> ExportCommands
@@ -28,24 +29,26 @@ namespace QSP.Common.Options
             bool PromptBeforeExit,
             bool AutoDLTracks,
             bool AutoDLWind,
+            bool EnableWindOptimizedRoute,
             Dictionary<string, ExportCommand> ExportCommands)
         {
             this.NavDataLocation = NavDataLocation;
             this.PromptBeforeExit = PromptBeforeExit;
             this.AutoDLTracks = AutoDLTracks;
             this.AutoDLWind = AutoDLWind;
+            this.EnableWindOptimizedRoute = EnableWindOptimizedRoute;
             this._exportCommands = ExportCommands;
         }
-        
+
         public AppOptions(XDocument xmlFile)
         {
             var root = xmlFile.Root;
 
             NavDataLocation = root.Element("DatabasePath").Value;
-            PromptBeforeExit = bool.Parse(
-                root.Element("PromptBeforeExit").Value);
-            AutoDLTracks = bool.Parse(root.Element("AutoDLNats").Value);
-            AutoDLWind = bool.Parse(root.Element("AutoDLWind").Value);
+            PromptBeforeExit = ParseBool(root, "PromptBeforeExit");
+            AutoDLTracks = ParseBool(root, "AutoDLNats");
+            AutoDLWind = ParseBool(root, "AutoDLWind");
+            EnableWindOptimizedRoute = ParseBool(root, "WindOptimizedRoute");
 
             var exports = root.Element("ExportOptions");
 
@@ -64,6 +67,11 @@ namespace QSP.Common.Options
 
                 _exportCommands.Add(i.Name.LocalName, cmd);
             }
+        }
+
+        private static bool ParseBool(XElement root, string key)
+        {
+            return bool.Parse(root.Element(key).Value);
         }
 
         public XElement ToXml()
@@ -85,18 +93,25 @@ namespace QSP.Common.Options
 
             return new XElement("AppOptions", new XElement[] {
                 new XElement("DatabasePath", NavDataLocation),
-                new XElement("PromptBeforeExit", PromptBeforeExit.ToString()),
-                new XElement("AutoDLNats", AutoDLTracks.ToString()),
-                new XElement("AutoDLWind", AutoDLWind.ToString()),
+                BoolToXElem("PromptBeforeExit", PromptBeforeExit),
+                BoolToXElem("AutoDLNats", AutoDLTracks),
+                BoolToXElem("AutoDLWind", AutoDLWind),
+                BoolToXElem("WindOptimizedRoute", EnableWindOptimizedRoute),
                 exportOptions});
         }
-        
+
+        private static XElement BoolToXElem(string key, bool value)
+        {
+            return new XElement(key, value.ToString());
+        }
+
         public static AppOptions Default
         {
             get
             {
                 return new AppOptions(
                     "",
+                    true,
                     true,
                     true,
                     true,
