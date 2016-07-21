@@ -74,31 +74,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         public Comparer<int> CompareDistance()
         {
-            return new CompareDistanceHelper(
-                wptList, preferredLat, preferredLon);
-        }
-
-        private class CompareDistanceHelper : Comparer<int>
-        {
-            private WaypointList wptList;
-            private double preferredLat;
-            private double preferredLon;
-
-            public CompareDistanceHelper(
-                WaypointList wptList, double preferredLat, double preferredLon)
-            {
-                this.wptList = wptList;
-                this.preferredLat = preferredLat;
-                this.preferredLon = preferredLon;
-            }
-
-            public override int Compare(int x, int y)
+            return Comparer<int>.Create((x, y) =>
             {
                 var disX = wptList[x].Distance(preferredLat, preferredLon);
                 var disY = wptList[y].Distance(preferredLat, preferredLon);
 
                 return disX.CompareTo(disY);
-            }
-        }
+            });
+        }        
     }
 }
