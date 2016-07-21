@@ -121,14 +121,16 @@ namespace QSP.UI.Forms
             // 
             // findBtn
             // 
+            this.findBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.findBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.findBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.findBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.findBtn.Location = new System.Drawing.Point(444, 59);
             this.findBtn.Name = "findBtn";
             this.findBtn.Size = new System.Drawing.Size(110, 31);
             this.findBtn.TabIndex = 29;
             this.findBtn.Text = "Find";
-            this.findBtn.UseVisualStyleBackColor = true;
+            this.findBtn.UseVisualStyleBackColor = false;
             this.findBtn.Click += new System.EventHandler(this.FindBtnClick);
             // 
             // CancelBtn

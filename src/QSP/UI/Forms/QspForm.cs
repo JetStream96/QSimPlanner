@@ -162,7 +162,7 @@ namespace QSP.UI.Forms
             catch (Exception ex)
             {
                 WriteToLog(ex);
-                MessageBox.Show(ex.Message +
+                MsgBoxHelper.ShowError(ex.Message +
                     " The application will quit now.");
             }
 

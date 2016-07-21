@@ -87,7 +87,7 @@ namespace QSP.UI.UserControls
             var result = await Task.WhenAll(allTasks);
 
             metarRichTxtBox.Text = string.Join("\n\n", result);
-            metarLastUpdatedLbl.Text = DateTime.Now.ToString();
+            metarLastUpdatedLbl.Text = $"Last Updated : {DateTime.Now}";
         }
 
         private Task<string> OrigTask()
@@ -122,7 +122,8 @@ namespace QSP.UI.UserControls
                     await Task.Factory.StartNew(() =>
                     GenDesForcastString(dest));
 
-                desForcastLastUpdatedLbl.Text = DateTime.Now.ToString();
+                desForcastLastUpdatedLbl.Text = 
+                    $"Last Updated : {DateTime.Now}";
             }
             catch (Exception ex)
             {

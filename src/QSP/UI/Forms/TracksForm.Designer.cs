@@ -159,14 +159,14 @@ namespace QSP.UI.Forms
             // BtnNatsDn
             // 
             this.BtnNatsDn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.BtnNatsDn.BackColor = System.Drawing.Color.Moccasin;
+            this.BtnNatsDn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.BtnNatsDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnNatsDn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnNatsDn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.BtnNatsDn.Location = new System.Drawing.Point(510, 5);
+            this.BtnNatsDn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnNatsDn.Location = new System.Drawing.Point(510, 4);
             this.BtnNatsDn.Margin = new System.Windows.Forms.Padding(0);
             this.BtnNatsDn.Name = "BtnNatsDn";
-            this.BtnNatsDn.Size = new System.Drawing.Size(116, 30);
+            this.BtnNatsDn.Size = new System.Drawing.Size(116, 32);
             this.BtnNatsDn.TabIndex = 8;
             this.BtnNatsDn.Text = "Download";
             this.BtnNatsDn.UseVisualStyleBackColor = false;
@@ -175,14 +175,14 @@ namespace QSP.UI.Forms
             // BtnPacotsDn
             // 
             this.BtnPacotsDn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.BtnPacotsDn.BackColor = System.Drawing.Color.Moccasin;
+            this.BtnPacotsDn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.BtnPacotsDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnPacotsDn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnPacotsDn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.BtnPacotsDn.Location = new System.Drawing.Point(510, 45);
+            this.BtnPacotsDn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnPacotsDn.Location = new System.Drawing.Point(510, 44);
             this.BtnPacotsDn.Margin = new System.Windows.Forms.Padding(0);
             this.BtnPacotsDn.Name = "BtnPacotsDn";
-            this.BtnPacotsDn.Size = new System.Drawing.Size(116, 30);
+            this.BtnPacotsDn.Size = new System.Drawing.Size(116, 32);
             this.BtnPacotsDn.TabIndex = 9;
             this.BtnPacotsDn.Text = "Download";
             this.BtnPacotsDn.UseVisualStyleBackColor = false;
@@ -202,14 +202,14 @@ namespace QSP.UI.Forms
             // BtnAusotsDn
             // 
             this.BtnAusotsDn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.BtnAusotsDn.BackColor = System.Drawing.Color.Moccasin;
+            this.BtnAusotsDn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.BtnAusotsDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAusotsDn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAusotsDn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.BtnAusotsDn.Location = new System.Drawing.Point(510, 85);
+            this.BtnAusotsDn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnAusotsDn.Location = new System.Drawing.Point(510, 84);
             this.BtnAusotsDn.Margin = new System.Windows.Forms.Padding(0);
             this.BtnAusotsDn.Name = "BtnAusotsDn";
-            this.BtnAusotsDn.Size = new System.Drawing.Size(116, 30);
+            this.BtnAusotsDn.Size = new System.Drawing.Size(116, 32);
             this.BtnAusotsDn.TabIndex = 10;
             this.BtnAusotsDn.Text = "Download";
             this.BtnAusotsDn.UseVisualStyleBackColor = false;
@@ -218,14 +218,14 @@ namespace QSP.UI.Forms
             // Button1
             // 
             this.Button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Button1.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.Button1.BackColor = System.Drawing.Color.DarkSlateGray;
             this.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Button1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Button1.Location = new System.Drawing.Point(293, 5);
+            this.Button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Button1.Location = new System.Drawing.Point(293, 4);
             this.Button1.Margin = new System.Windows.Forms.Padding(0);
             this.Button1.Name = "Button1";
-            this.Button1.Size = new System.Drawing.Size(117, 30);
+            this.Button1.Size = new System.Drawing.Size(117, 32);
             this.Button1.TabIndex = 7;
             this.Button1.Text = "View Text";
             this.Button1.UseVisualStyleBackColor = false;
@@ -233,14 +233,14 @@ namespace QSP.UI.Forms
             // Button2
             // 
             this.Button2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Button2.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.Button2.BackColor = System.Drawing.Color.DarkSlateGray;
             this.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Button2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Button2.Location = new System.Drawing.Point(293, 45);
+            this.Button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Button2.Location = new System.Drawing.Point(293, 44);
             this.Button2.Margin = new System.Windows.Forms.Padding(0);
             this.Button2.Name = "Button2";
-            this.Button2.Size = new System.Drawing.Size(117, 30);
+            this.Button2.Size = new System.Drawing.Size(117, 32);
             this.Button2.TabIndex = 8;
             this.Button2.Text = "View Text";
             this.Button2.UseVisualStyleBackColor = false;
@@ -248,14 +248,14 @@ namespace QSP.UI.Forms
             // Button3
             // 
             this.Button3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Button3.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.Button3.BackColor = System.Drawing.Color.DarkSlateGray;
             this.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Button3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Button3.Location = new System.Drawing.Point(293, 85);
+            this.Button3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Button3.Location = new System.Drawing.Point(293, 84);
             this.Button3.Margin = new System.Windows.Forms.Padding(0);
             this.Button3.Name = "Button3";
-            this.Button3.Size = new System.Drawing.Size(117, 30);
+            this.Button3.Size = new System.Drawing.Size(117, 32);
             this.Button3.TabIndex = 9;
             this.Button3.Text = "View Text";
             this.Button3.UseVisualStyleBackColor = false;
@@ -263,6 +263,8 @@ namespace QSP.UI.Forms
             // CBoxPacotsEnabled
             // 
             this.CBoxPacotsEnabled.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CBoxPacotsEnabled.BorderColor = System.Drawing.Color.DimGray;
+            this.CBoxPacotsEnabled.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
             this.CBoxPacotsEnabled.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBoxPacotsEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CBoxPacotsEnabled.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -278,6 +280,8 @@ namespace QSP.UI.Forms
             // CBoxAusotsEnabled
             // 
             this.CBoxAusotsEnabled.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CBoxAusotsEnabled.BorderColor = System.Drawing.Color.DimGray;
+            this.CBoxAusotsEnabled.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
             this.CBoxAusotsEnabled.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBoxAusotsEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CBoxAusotsEnabled.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -293,6 +297,8 @@ namespace QSP.UI.Forms
             // CBoxNatsEnabled
             // 
             this.CBoxNatsEnabled.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CBoxNatsEnabled.BorderColor = System.Drawing.Color.DimGray;
+            this.CBoxNatsEnabled.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
             this.CBoxNatsEnabled.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBoxNatsEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CBoxNatsEnabled.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
