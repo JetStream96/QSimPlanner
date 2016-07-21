@@ -1,4 +1,5 @@
-﻿using QSP.Common.Options;
+﻿using QSP.Common;
+using QSP.Common.Options;
 using QSP.GoogleMap;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
@@ -11,6 +12,7 @@ using QSP.UI.Controllers;
 using QSP.UI.Controls;
 using QSP.UI.Factories;
 using QSP.UI.Utilities;
+using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -30,6 +32,7 @@ namespace QSP.UI.UserControls.RouteOptions
         private TrackInUseCollection tracksInUse;
         private ISelectedProcedureProvider origController;
         private ISelectedProcedureProvider destController;
+        private Func<AvgWindCalculator> windCalcGetter;
         private Label routeDisLbl;
         private DistanceDisplayStyle displayStyle;
         private Func<string> routeTxtGetter;
@@ -48,6 +51,7 @@ namespace QSP.UI.UserControls.RouteOptions
             TrackInUseCollection tracksInUse,
             ISelectedProcedureProvider origController,
             ISelectedProcedureProvider destController,
+            Func<AvgWindCalculator> windCalcGetter,
             Label routeDisLbl,
             DistanceDisplayStyle displayStyle,
             Func<string> routeTxtGetter,
@@ -63,6 +67,7 @@ namespace QSP.UI.UserControls.RouteOptions
             this.tracksInUse = tracksInUse;
             this.origController = origController;
             this.destController = destController;
+            this.windCalcGetter = windCalcGetter;
             this.routeDisLbl = routeDisLbl;
             this.displayStyle = displayStyle;
             this.routeTxtGetter = routeTxtGetter;
@@ -84,19 +89,28 @@ namespace QSP.UI.UserControls.RouteOptions
         // TODO: exception handling?
         private void FindRouteClick(object sender, EventArgs e)
         {
+            try
+            {
+                FindRoute();
+            }
+            catch (Exception ex)
+            {
+                MsgBoxHelper.ShowWarning(ex.Message);
+            }
+        }
+
+        // Can throw exceptions.
+        private void FindRoute()
+        {
             var sid = origController.GetSelectedProcedures();
             var star = destController.GetSelectedProcedures();
-
-            // TODO: need to be integrated with fuel calculator
-            //var windCalc = windTables == null ?
-            //    null : new AvgWindCalculator(windTables, 460, 370.0);
 
             var finder = new RouteFinderFacade(
                 wptList,
                 airportList,
                 appSettings.NavDataLocation,
                 null,  //TODO: add this
-                null); //TODO: add this as well
+                windCalcGetter());
 
             var result = finder.FindRoute(
                 origController.Icao, origController.Rwy, sid,
@@ -108,7 +122,7 @@ namespace QSP.UI.UserControls.RouteOptions
             routeTxtSetter(expanded.ToString(false, false));
             UpdateRouteDistanceLbl(routeDisLbl, expanded, displayStyle);
         }
-        
+
         private void ExportRouteFiles(object sender, EventArgs e)
         {
             var cmds = appSettings.ExportCommands.Values;
@@ -214,10 +228,10 @@ namespace QSP.UI.UserControls.RouteOptions
 
             var wb = new WebBrowser();
             wb.Size = new Size(1200, 800);
-            
+
             var GoogleMapDrawRoute = RouteDrawing.MapDrawString(
                 Route.Expanded, wb.Size.Width - 20, wb.Size.Height - 30);
-            
+
             wb.DocumentText = GoogleMapDrawRoute.ToString();
 
             using (var frm = FormFactory.GetForm(wb.Size))

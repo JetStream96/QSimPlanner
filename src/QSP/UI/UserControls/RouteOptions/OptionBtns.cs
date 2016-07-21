@@ -5,6 +5,7 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.UI.Controllers;
 using QSP.UI.Controls;
+using QSP.WindAloft;
 using System;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
@@ -29,6 +30,7 @@ namespace QSP.UI.UserControls.RouteOptions
             TrackInUseCollection tracksInUse,
             ISelectedProcedureProvider origController,
             ISelectedProcedureProvider destController,
+            Func<AvgWindCalculator> windCalcGetter,
             Label routeDisLbl,
             DistanceDisplayStyle displayStyle,
             Func<string> routeTxtGetter,
@@ -41,6 +43,7 @@ namespace QSP.UI.UserControls.RouteOptions
                 tracksInUse,
                 origController,
                 destController,
+                windCalcGetter,
                 routeDisLbl,
                 displayStyle,
                 routeTxtGetter,

@@ -11,11 +11,10 @@ namespace QSP.FuelCalculation.Tables
         {
             table = TableReader2D.Read(text);
         }
-                
-        // airDis: NM, landingWt: Ton, Fuel: Ton
-        public double GetFuelRequired(double airDis, double landingWt)
+
+        public double GetFuelRequiredTon(double airDisNm, double landingWtTon)
         {
-            return table.ValueAt(airDis, landingWt);
+            return table.ValueAt(airDisNm, landingWtTon);
         }
     }
 }

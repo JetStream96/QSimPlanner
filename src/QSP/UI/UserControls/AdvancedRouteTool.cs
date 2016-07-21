@@ -1,4 +1,5 @@
 ﻿using QSP.AviationTools.Coordinates;
+using QSP.Common;
 using QSP.Common.Options;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
@@ -9,6 +10,8 @@ using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers;
 using QSP.UI.RoutePlanning;
+using QSP.UI.Utilities;
+using QSP.WindAloft;
 using System;
 using System.Data;
 using System.Drawing;
@@ -34,6 +37,7 @@ namespace QSP.UI.UserControls
         private TrackInUseCollection tracksInUse;
         private ProcedureFilter procFilter;
         private CountryCodeManager countryCodes;
+        private Func<AvgWindCalculator> windCalcGetter;
 
         public AdvancedRouteTool()
         {
@@ -46,7 +50,8 @@ namespace QSP.UI.UserControls
             AirportManager airportList,
             TrackInUseCollection tracksInUse,
             ProcedureFilter procFilter,
-            CountryCodeManager countryCodes)
+            CountryCodeManager countryCodes,
+            Func<AvgWindCalculator> windCalcGetter)
         {
             this.appSettings = appSettings;
             this.wptList = wptList;
@@ -54,8 +59,9 @@ namespace QSP.UI.UserControls
             this.tracksInUse = tracksInUse;
             this.procFilter = procFilter;
             this.countryCodes = countryCodes;
-            CheckedCodes = new CountryCodeCollection();
+            this.windCalcGetter = windCalcGetter;
 
+            CheckedCodes = new CountryCodeCollection();
             SetBtnDisabledStyle();
             SetControlGroups();
             attachEventHandlers();
@@ -261,14 +267,16 @@ namespace QSP.UI.UserControls
             UpdateRouteDistanceLbl(
                 routeSummaryLbl, route, DistanceDisplayStyle.Long);
         }
-
+                
+        /// <exception cref="InvalidUserInputException"></exception>
         private RouteFinderFacade GetRouteFinder()
         {
             return new RouteFinderFacade(
                 wptList,
                 airportList,
                 appSettings.NavDataLocation,
-                CheckedCodes);
+                CheckedCodes,
+                windCalcGetter());
         }
 
         private int GetWptIndexFrom()

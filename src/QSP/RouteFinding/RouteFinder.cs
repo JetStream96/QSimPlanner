@@ -52,6 +52,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route between two aiports, from ORIG to DEST.
         /// </summary>
+        /// <exception cref="RouteNotFoundException"></exception>
         public Route FindRoute(
             string origRwy, List<string> origSid, SidHandler sidHandler,
             string destRwy, List<string> destStar, StarHandler starHandler,

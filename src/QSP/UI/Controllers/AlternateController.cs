@@ -6,6 +6,7 @@ using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.UserControls;
 using QSP.UI.UserControls.RouteOptions;
+using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -27,6 +28,7 @@ namespace QSP.UI.Controllers
         private TrackInUseCollection tracksInUse;
         private TableLayoutPanel layoutPanel;
         private DestinationSidSelection destSidProvider;
+        private Func<AvgWindCalculator> windCalcGetter;
 
         // Fires when the number of rows changes.
         public event EventHandler RowCountChanged;
@@ -58,7 +60,8 @@ namespace QSP.UI.Controllers
             WaypointList wptList,
             TrackInUseCollection tracksInUse,
             TableLayoutPanel layoutPanel,
-            DestinationSidSelection destSidProvider)
+            DestinationSidSelection destSidProvider,
+            Func<AvgWindCalculator> windCalcGetter)
         {
             this.altnGroupBox = altnGroupBox;
             this.appSettings = appSettings;
@@ -67,6 +70,7 @@ namespace QSP.UI.Controllers
             this.tracksInUse = tracksInUse;
             this.layoutPanel = layoutPanel;
             this.destSidProvider = destSidProvider;
+            this.windCalcGetter = windCalcGetter;
 
             rows = new List<AltnRow>();
         }
@@ -156,6 +160,7 @@ namespace QSP.UI.Controllers
                     Parent.tracksInUse,
                     Parent.destSidProvider,
                     Controller,
+                    Parent.windCalcGetter,
                     Row.DisLbl,
                     DistanceDisplayStyle.Short,
                     () => Row.RouteTxtBox.Text,

@@ -8,6 +8,7 @@ using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers;
@@ -114,7 +115,8 @@ namespace QSP.UI.UserControls
                 airportList,
                 tracksInUse,
                 procFilter,
-                countryCodes);
+                countryCodes,
+                () => GetWindCalculator());
 
             if (acListComboBox.Items.Count > 0)
             {
@@ -133,6 +135,7 @@ namespace QSP.UI.UserControls
                 tracksInUse,
                 origController,
                 destController,
+                () => GetWindCalculator(),
                 routeDisLbl,
                 DistanceDisplayStyle.Long,
                 () => mainRouteRichTxtBox.Text,
@@ -172,7 +175,8 @@ namespace QSP.UI.UserControls
                 wptList,
                 tracksInUse,
                 altnLayoutPanel,
-                destSidProvider);
+                destSidProvider,
+                () => GetWindCalculator());
 
             removeAltnBtn.Enabled = false;
             AddAltn(this, EventArgs.Empty);
@@ -411,7 +415,7 @@ namespace QSP.UI.UserControls
 
             AircraftRequestChanged?.Invoke(this, EventArgs.Empty);
         }
-        
+
         private static string InsufficientFuelMsg(
             double fuelReqKG, double fuelCapacityKG, WeightUnit unit)
         {
@@ -482,6 +486,70 @@ namespace QSP.UI.UserControls
 
             acListComboBox.Text = ac;
             registrationComboBox.Text = reg;
+        }
+
+        /// <summary>
+        /// Get AvgWindCalculator to approximate the wind.
+        /// Returns null if user disabled wind optimization.
+        /// </summary>
+        /// <exception cref="InvalidUserInputException"></exception>
+        private AvgWindCalculator GetWindCalculator()
+        {
+            const bool EnableWindOptimization = true;
+
+            if (EnableWindOptimization == false) return null;
+
+            if (windTableLocator.Instance == null)
+            {
+                throw new InvalidUserInputException(
+                    "Wind data has not been downloaded or loaded from file.");
+            }
+
+            var fuelData = GetFuelData();
+            if (fuelData == null)
+            {
+                throw new InvalidUserInputException(
+                    "No aircraft is selected.");
+            }
+
+            double zfw = 0.0;
+            try
+            {
+                zfw = Zfw.GetWeightKg() / 1000.0;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new InvalidUserInputException(
+                    "Please enter a valid ZFW.");
+            }
+
+            var orig = airportList.Find(origTxtBox.Text.Trim().ToUpper());
+
+            if (orig == null)
+            {
+                throw new InvalidUserInputException(
+                    "Cannot find origin airport.");
+            }
+
+            var dest = airportList.Find(destTxtBox.Text.Trim().ToUpper());
+
+            if (dest == null)
+            {
+                throw new InvalidUserInputException(
+                    "Cannot find destination airport.");
+            }
+
+            var dis = orig.Distance(dest);
+
+            var fuelTon =
+                fuelData.FuelTable.GetFuelRequiredTon(dis, zfw / 1000.0);
+
+            var avgWtTon = zfw + 0.5 * fuelTon;
+            var altitude = fuelData.OptCrzTable.ActualCrzAltFt(avgWtTon, dis);
+            var tas = fuelData.SpeedProfile.CruiseTasKnots(altitude);
+
+            return new AvgWindCalculator(
+                windTableLocator.Instance, tas, altitude);
         }
     }
 }

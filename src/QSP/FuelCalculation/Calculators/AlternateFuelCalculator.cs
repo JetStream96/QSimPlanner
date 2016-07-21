@@ -18,7 +18,7 @@
             double timeMin =
                 fuelData.FlightTimeTable.GetTimeMin(airDistanceNm);
 
-            double fuelTon = fuelData.FuelTable.GetFuelRequired(
+            double fuelTon = fuelData.FuelTable.GetFuelRequiredTon(
                 airDistanceNm, landingWeightTon);
 
             return new CalculationResult()
