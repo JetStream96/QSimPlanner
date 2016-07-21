@@ -43,10 +43,9 @@ namespace QSP.UI.Forms
 
         private ProfileManager profiles;
         private Locator<AppOptions> appOptionsLocator;
-        public Locator<WaypointList> WptListLocator { get; private set; }
-        public Locator<CountryCodeManager> CountryCodesLocator
-        { get; private set; }
-        public Locator<AirportManager> AirportListLocator { get; private set; }
+        private Locator<WaypointList> wptListLocator;
+        private Locator<CountryCodeManager> countryCodesLocator;
+        private Locator<AirportManager> airportListLocator;
         private ProcedureFilter procFilter;
         private TrackInUseCollection tracksInUse;
         private Locator<WindTableCollection> windTableLocator;
@@ -60,11 +59,11 @@ namespace QSP.UI.Forms
         private AppOptions appSettings
         { get { return appOptionsLocator.Instance; } }
         private AirportManager airportList
-        { get { return AirportListLocator.Instance; } }
+        { get { return airportListLocator.Instance; } }
         private WaypointList wptList
-        { get { return WptListLocator.Instance; } }
+        { get { return wptListLocator.Instance; } }
         private CountryCodeManager countryCodes
-        { get { return CountryCodesLocator.Instance; } }
+        { get { return countryCodesLocator.Instance; } }
 
         private IEnumerable<UserControl> Pages
         {
@@ -143,7 +142,7 @@ namespace QSP.UI.Forms
             try
             {
                 // Load options.
-                appOptionsLocator = new Locator<Common.Options.AppOptions>();
+                appOptionsLocator = new Locator<AppOptions>();
                 appOptionsLocator.Instance = OptionManager.ReadOrCreateFile();
             }
             catch (Exception ex)
@@ -178,7 +177,7 @@ namespace QSP.UI.Forms
         {
             string navDataPath = appSettings.NavDataLocation;
 
-            AirportListLocator = new Locator<AirportManager>(
+            airportListLocator = new Locator<AirportManager>(
             new AirportManager(
                 new AirportDataLoader(navDataPath + @"\Airports.txt")
                 .LoadFromFile()));
@@ -193,8 +192,8 @@ namespace QSP.UI.Forms
             var result = new WptListLoader(navDataPath)
                 .LoadFromFile();
 
-            WptListLocator = new Locator<WaypointList>(result.WptList);
-            CountryCodesLocator =
+            wptListLocator = new Locator<WaypointList>(result.WptList);
+            countryCodesLocator =
                 new Locator<CountryCodeManager>(result.CountryCodes);
         }
 
@@ -204,9 +203,9 @@ namespace QSP.UI.Forms
             SubscribeEvents();
 
             optionsMenu.Init(
-                WptListLocator,
-                CountryCodesLocator,
-                AirportListLocator,
+                wptListLocator,
+                countryCodesLocator,
+                airportListLocator,
                 appOptionsLocator);
 
             acMenu.Initialize(profiles);
