@@ -111,43 +111,41 @@ namespace QSP.RouteFinding
         private Route ExtractRoute(
             RouteFindingData FindRouteData, int startPtIndex, int endPtIndex)
         {
-            var waypoints = new List<Waypoint>();
-            var airways = new List<string>();
+            var route = new Route();
+            var wptData = FindRouteData.WaypointData;
+            var edge = wptData[endPtIndex].FromEdge;
 
-            int index = endPtIndex;
-
-            while (index != startPtIndex)
+            while (true)
             {
-                var finderData = FindRouteData.WaypointData[index];
+                int from = edge.FromNodeIndex;
+                int to = edge.ToNodeIndex;
+                var wptFrom = wptList[from];
+                var neighbor = edge.Value;
+                var airway = neighbor.Airway;
 
-                waypoints.Add(wptList[index]);
-                airways.Add(finderData.FromAirway);
+                if (to == endPtIndex)
+                {
+                    route.AddFirstWaypoint(wptList[to], "");
+                }
 
-                index = FindRouteData.WaypointData[index].FromWptIndex;
+                if (neighbor.AirwayType == AirwayType.Enroute)
+                {
+                    // Auto-compute distance when added into route.
+                    route.AddFirstWaypoint(wptFrom, airway);
+                }
+                else
+                {
+                    // Use the distance of the edge.
+                    route.AddFirstWaypoint(wptFrom, airway, neighbor.Distance);
+                }
+
+                if (from == startPtIndex)
+                {
+                    return route;
+                }
+
+                edge = wptData[from].FromEdge;
             }
-
-            waypoints.Add(wptList[startPtIndex]);
-
-            return BuildRoute(waypoints, airways);
-        }
-
-        private static Route BuildRoute(
-            List<Waypoint> waypoints, List<string> airways)
-        {
-            var result = new Route();
-            int edgeCount = airways.Count;
-
-            result.AddLastWaypoint(waypoints[edgeCount]);
-
-            for (int i = edgeCount - 1; i >= 0; i--)
-            {
-                result.AddLastWaypoint(
-                    waypoints[i],
-                    airways[i],
-                    waypoints[i].DistanceFrom(waypoints[i + 1]));
-            }
-
-            return result;
         }
 
         /// <summary>
@@ -251,8 +249,7 @@ namespace QSP.RouteFinding
                         // The node was never touched.
                         unvisited.Add(index, newDis);
                         wptData[index] = new RouteFindingData.WaypointStatus(
-                            currentWptIndex,
-                            edge.Value.Airway,
+                            edge,
                             newDis,
                             InRange.Yes);
                     }
@@ -261,8 +258,7 @@ namespace QSP.RouteFinding
                     {
                         unvisited.ChangeValue(index, newDis);
                         wptData[index] = new RouteFindingData.WaypointStatus(
-                            currentWptIndex,
-                            edge.Value.Airway,
+                            edge,
                             newDis,
                             InRange.Yes);
                     }
@@ -321,28 +317,25 @@ namespace QSP.RouteFinding
                 {
                     // Initial distance
                     WaypointData[i] = new WaypointStatus(
-                        0, null, double.PositiveInfinity, InRange.Unknown);
+                        null, double.PositiveInfinity, InRange.Unknown);
                 }
 
                 WaypointData[startPtIndex] = new WaypointStatus(
-                        0, null, 0.0, InRange.Unknown);
+                        null, 0.0, InRange.Unknown);
             }
 
             public struct WaypointStatus
             {
-                public int FromWptIndex { get; set; }
-                public string FromAirway { get; set; }
+                public Edge<Neighbor> FromEdge { get; set; }
                 public double CurrentDistance { get; set; }
                 public InRange WithInRange { get; set; }
 
                 public WaypointStatus(
-                    int FromWptIndex,
-                    string FromAirway,
+                    Edge<Neighbor> FromEdge,
                     double CurrentDistance,
                     InRange WithInRange)
                 {
-                    this.FromWptIndex = FromWptIndex;
-                    this.FromAirway = FromAirway;
+                    this.FromEdge = FromEdge;
                     this.CurrentDistance = CurrentDistance;
                     this.WithInRange = WithInRange;
                 }
