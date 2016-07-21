@@ -196,7 +196,6 @@
     <Compile Include="UI\UserControls\AlternateRow.Designer.cs">
       <DependentUpon>AlternateRow.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\AlternateRowExtension.cs" />
     <Compile Include="UI\UserControls\FuelPageState.cs" />
     <Compile Include="UI\UserControls\FuelParameterValidator.cs" />
     <Compile Include="UI\UserControls\FuelPlanningControl.cs">
@@ -205,7 +204,6 @@
     <Compile Include="UI\UserControls\FuelPlanningControl.Designer.cs">
       <DependentUpon>FuelPlanningControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\MetarMonitor.cs" />
     <Compile Include="UI\UserControls\MiscInfoControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
