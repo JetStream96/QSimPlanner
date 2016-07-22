@@ -22,8 +22,8 @@ namespace QSP.WindAloft
         private double lon2;
 
         public AvgWindCalculator(
-            IWindTableCollection windData, 
-            double trueAirspeed, 
+            IWindTableCollection windData,
+            double trueAirspeed,
             double altitudeFt)
         {
             this.windData = windData;
@@ -106,7 +106,8 @@ namespace QSP.WindAloft
             Vector3D VWind = GetWind(lat, lon);
 
             var w = GetW(v, v1, v2);
-            double gamma = Math.Acos((VWind.Normalize()).Dot(w));
+            var innerProduct = VWind.R == 0.0 ? 0.0 : VWind.Normalize().Dot(w);
+            double gamma = Doubles.SafeAcos(innerProduct);
             double a = 1;
             double b = -2 * VWind.R * Math.Cos(gamma);
             double c = VWind.R * VWind.R - TrueAirspeed * TrueAirspeed;

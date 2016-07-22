@@ -71,10 +71,13 @@ namespace QSP
         {
             return v * c;
         }
-
+        
+        /// <exception cref="InvalidOperationException"></exception>
         public Vector3D Normalize()
         {
-            return new Vector3D(this) * (1.0 / R);
+            var len = R;
+            if (len == 0.0) throw new InvalidOperationException();
+            return new Vector3D(this) * (1.0 / len);
         }
 
         /// <summary>

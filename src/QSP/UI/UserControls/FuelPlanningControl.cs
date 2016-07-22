@@ -409,6 +409,12 @@ namespace QSP.UI.UserControls
                 return;
             }
 
+            if (RouteToDest == null)
+            {
+                ShowWarning("Route to destination must be entered.");
+                return;
+            }
+
             var fuelReport =
                 new FuelCalculatorWithWind(data, para, windTables)
                 .Compute(RouteToDest.Expanded, altnRoutes);

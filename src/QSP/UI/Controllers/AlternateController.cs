@@ -112,7 +112,7 @@ namespace QSP.UI.Controllers
         {
             get
             {
-                return rows.Select(r => r.Control.OptionMenu.Route.Expanded)
+                return rows.Select(r => r.Control.OptionMenu.Route?.Expanded)
                     .ToArray();
             }
         }
