@@ -6,7 +6,7 @@ using static QSP.Utilities.ConditionChecker;
 
 namespace QSP.WindAloft
 {
-    public class WindTableCollection
+    public class WindTableCollection : IWindTableCollection
     {
         private IReadOnlyList<int> pressures;
         private WindTable[] windTables;

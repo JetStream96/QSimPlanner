@@ -11,7 +11,7 @@ namespace QSP.UI.Forms
 {
     public partial class WindDataForm : Form
     {
-        private Locator<WindTableCollection> windTableLocator;
+        private Locator<IWindTableCollection> windTableLocator;
         private ToolStripStatusLabel toolStripLbl;
         private bool windAvailable;
 
@@ -22,7 +22,7 @@ namespace QSP.UI.Forms
 
         public void Init(
             ToolStripStatusLabel toolStripLbl,
-            Locator<WindTableCollection> windTableLocator,
+            Locator<IWindTableCollection> windTableLocator,
             WindDownloadStatus status)
         {
             this.toolStripLbl = toolStripLbl;
@@ -94,7 +94,9 @@ namespace QSP.UI.Forms
 
             saveFileDialog.Filter =
                 "grib2 files (*.grib2)|*.grib2|All files (*.*)|*.*";
-            saveFileDialog.InitialDirectory = Constants.WxFileDirectory;
+            saveFileDialog.InitialDirectory = 
+                Path.GetFullPath(Constants.WxFileDirectory);
+            saveFileDialog.RestoreDirectory = true;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -120,7 +122,9 @@ namespace QSP.UI.Forms
 
             openFileDialog.Filter =
                 "grib2 files (*.grib2)|*.grib2|All files (*.*)|*.*";
-            openFileDialog.InitialDirectory = Constants.WxFileDirectory;
+            openFileDialog.InitialDirectory = 
+                Path.GetFullPath(Constants.WxFileDirectory);
+            openFileDialog.RestoreDirectory = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {

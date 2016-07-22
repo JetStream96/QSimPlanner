@@ -17,7 +17,7 @@ namespace QSP.UI.UserControls
     public partial class MiscInfoControl : UserControl
     {
         private AirportManager airportList;
-        private Locator<WindTableCollection> windTableLocator;
+        private Locator<IWindTableCollection> windTableLocator;
         private Func<string> origGetter;
         private Func<string> destGetter;
         private Func<IEnumerable<string>> altnGetter;
@@ -29,7 +29,7 @@ namespace QSP.UI.UserControls
 
         public void Init(
             AirportManager airportList,
-            Locator<WindTableCollection> windTableLocator,
+            Locator<IWindTableCollection> windTableLocator,
             bool enableBrowser,
             Func<string> origGetter,
             Func<string> destGetter,

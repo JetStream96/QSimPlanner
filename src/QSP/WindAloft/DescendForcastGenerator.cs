@@ -2,13 +2,13 @@ namespace QSP.WindAloft
 {
     public class DescendForcastGenerator
     {
-        private WindTableCollection windTables;
+        private IWindTableCollection windTables;
         private double lat;
         private double lon;
         private int[] FLs;
 
         public DescendForcastGenerator(
-            WindTableCollection windTables,
+            IWindTableCollection windTables,
             double latitude,
             double longitude,
             int[] flightLevels)

@@ -48,7 +48,7 @@ namespace QSP.UI.Forms
         private Locator<AirportManager> airportListLocator;
         private ProcedureFilter procFilter;
         private TrackInUseCollection tracksInUse;
-        private Locator<WindTableCollection> windTableLocator;
+        private Locator<IWindTableCollection> windTableLocator;
 
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
@@ -167,7 +167,8 @@ namespace QSP.UI.Forms
             }
 
             procFilter = new ProcedureFilter();
-            windTableLocator = new Locator<WindTableCollection>();
+            windTableLocator = new Locator<IWindTableCollection>();
+            windTableLocator.Instance = new DefaultWindTableCollection();
             tracksInUse = new TrackInUseCollection();
         }
 

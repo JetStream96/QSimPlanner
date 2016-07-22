@@ -41,7 +41,7 @@ namespace QSP.UI.UserControls
         private TrackInUseCollection tracksInUse;
         private ProcedureFilter procFilter;
         private CountryCodeManager countryCodes;
-        private Locator<WindTableCollection> windTableLocator;
+        private Locator<IWindTableCollection> windTableLocator;
 
         private RouteFinderSelection origController;
         private RouteFinderSelection destController;
@@ -88,7 +88,7 @@ namespace QSP.UI.UserControls
             TrackInUseCollection tracksInUse,
             ProcedureFilter procFilter,
             CountryCodeManager countryCodes,
-            Locator<WindTableCollection> windTableLocator,
+            Locator<IWindTableCollection> windTableLocator,
             AcConfigManager aircrafts,
             IEnumerable<FuelData> fuelData)
         {
@@ -367,7 +367,23 @@ namespace QSP.UI.UserControls
 
         private void Calculate(object sender, EventArgs e)
         {
-            SaveStateToFile();
+            var windTables = windTableLocator.Instance;
+
+            if (windTables is DefaultWindTableCollection)
+            {
+                var result = MessageBox.Show(
+                    "The wind data has not been downloaded. " +
+                    "Continue to calculate and ignore wind aloft?",
+                    "",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+
             fuelReportTxtBox.ForeColor = Color.Black;
             fuelReportTxtBox.Text = "";
 
@@ -393,7 +409,6 @@ namespace QSP.UI.UserControls
                 return;
             }
 
-            var windTables = windTableLocator.Instance;
             var fuelReport =
                 new FuelCalculatorWithWind(data, para, windTables)
                 .Compute(RouteToDest.Expanded, altnRoutes);
@@ -417,6 +432,7 @@ namespace QSP.UI.UserControls
                 WeightUnit);
 
             AircraftRequestChanged?.Invoke(this, EventArgs.Empty);
+            SaveStateToFile();
         }
 
         private static string InsufficientFuelMsg(
@@ -500,7 +516,7 @@ namespace QSP.UI.UserControls
         {
             if (appSettings.EnableWindOptimizedRoute == false) return null;
 
-            if (windTableLocator.Instance == null)
+            if (windTableLocator.Instance is DefaultWindTableCollection)
             {
                 throw new InvalidUserInputException(
                     "Wind data has not been downloaded or loaded from file.");

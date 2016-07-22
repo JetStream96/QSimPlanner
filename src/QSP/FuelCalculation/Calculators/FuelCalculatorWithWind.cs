@@ -11,12 +11,12 @@ namespace QSP.FuelCalculation.Calculators
     {
         private FuelDataItem fuelData;
         private FuelParameters para;
-        private WindTableCollection windTables;
+        private IWindTableCollection windTables;
 
         public FuelCalculatorWithWind(
             FuelDataItem fuelData,
             FuelParameters para,
-            WindTableCollection windTables)
+            IWindTableCollection windTables)
         {
             this.fuelData = fuelData;
             this.para = para;

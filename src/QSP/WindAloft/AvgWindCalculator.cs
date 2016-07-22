@@ -13,7 +13,7 @@ namespace QSP.WindAloft
         public double TrueAirspeed { get; set; }
         public double AltitudeFt { get; set; }
 
-        private WindTableCollection windData;
+        private IWindTableCollection windData;
         private Vector3D v1;
         private Vector3D v2;
         private double lat1;
@@ -22,7 +22,7 @@ namespace QSP.WindAloft
         private double lon2;
 
         public AvgWindCalculator(
-            WindTableCollection windData, 
+            IWindTableCollection windData, 
             double trueAirspeed, 
             double altitudeFt)
         {
