@@ -99,7 +99,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
         }
 
         /// <exception cref="InvalidIdentifierException"></exception>
-        /// <exception cref="WaypointTooFarException"></exception>
         public Route Analyze()
         {
             lastAwy = null;

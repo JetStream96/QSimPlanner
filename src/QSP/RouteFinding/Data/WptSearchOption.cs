@@ -1,6 +1,4 @@
-﻿using static QSP.RouteFinding.Constants;
-
-namespace QSP.RouteFinding.Data
+﻿namespace QSP.RouteFinding.Data
 {
     public class WptSearchOption
     {
@@ -10,7 +8,7 @@ namespace QSP.RouteFinding.Data
 
         public WptSearchOption(
            double SearchRangeIncr = 20.0,
-           double MaxSearchRange = MaxLegDis,
+           double MaxSearchRange = 500.0,
            int TargetCount = 30)
         {
             this.SearchRangeIncr = SearchRangeIncr;

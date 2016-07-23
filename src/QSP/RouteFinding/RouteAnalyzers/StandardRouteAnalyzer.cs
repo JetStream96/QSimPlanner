@@ -44,10 +44,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
     //    thrown with an message describing the place where the 
     //    problem occurs.
     //
-    // 6. It's not allowed to direct from one waypoint to another which 
-    //    is more than 500 nm away. Otherwise an WaypointTooFarException
-    //    will be thrown.
-    //
 
     public class StandardRouteAnalyzer
     {
