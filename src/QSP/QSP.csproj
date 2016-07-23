@@ -135,7 +135,6 @@
     <Compile Include="RouteFinding\FixTypes.cs" />
     <Compile Include="RouteFinding\RandomRoutes\FinderFactory.cs" />
     <Compile Include="RouteFinding\RandomRoutes\RandomRouteFinder.cs" />
-    <Compile Include="RouteFinding\RouteAnalyzers\Extractors\NewSidExtractor.cs" />
     <Compile Include="RouteFinding\Routes\RouteExtensions.cs" />
     <Compile Include="RouteFinding\Routes\RouteGroup.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilter.cs" />
