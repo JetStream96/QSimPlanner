@@ -41,20 +41,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     airportList)
                     .StarCollection)
                .Analyze();
-        }
-
-        public static Route AnalyzeAutoSelect(
-            string route,
-            double preferredLat,
-            double preferredLon,
-            WaypointList wptList)
-        {
-            return new AutoSelectAnalyzer(
-                new CoordinateFormatter(route).Split(),
-                    preferredLat,
-                    preferredLon,
-                    wptList)
-                   .Analyze();
-        }
+        }        
     }
 }
