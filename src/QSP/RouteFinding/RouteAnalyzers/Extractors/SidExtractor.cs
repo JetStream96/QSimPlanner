@@ -80,7 +80,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                     origRoute.AddLastWaypoint(sid.LastWaypoint);
 
                     if (route.First.Value == sid.LastWaypoint.ID &&
-                        wptList.FindAllByWaypoint(sid.LastWaypoint).Count == 0)
+                        wptList.FindByWaypoint(sid.LastWaypoint) == -1)
                     {
                         route.RemoveFirst();
                     }

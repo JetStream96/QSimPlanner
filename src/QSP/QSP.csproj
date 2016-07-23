@@ -291,7 +291,6 @@
     <Compile Include="RouteFinding\RouteAnalyzers\Extractors\SidExtractor.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Extractors\StarExtractor.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\RouteAnalyzerFacade.cs" />
-    <Compile Include="RouteFinding\RouteAnalyzers\StandardRouteAnalyzer.cs" />
     <Compile Include="RouteFinding\RouteFinderFacade.cs" />
     <Compile Include="RouteFinding\Routes\Route.cs" />
     <Compile Include="RouteFinding\Routes\RouteNode.cs" />

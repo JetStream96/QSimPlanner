@@ -43,33 +43,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
                .Analyze();
         }
 
-        public static Route AnalyzeStandard(
-            string route,
-            string origIcao,
-            string origRwy,
-            string destIcao,
-            string destRwy,
-            string navDataLocation,
-            AirportManager airportList,
-            WaypointList wptList)
-        {
-            return new StandardRouteAnalyzer(
-                new CoordinateFormatter(route).Split(),
-                origIcao,
-                origRwy,
-                destIcao,
-                destRwy,
-                airportList,
-                wptList,
-                SidHandlerFactory.GetHandler(
-                    origIcao, navDataLocation, wptList,
-                    wptList.GetEditor(), airportList).SidCollection,
-                StarHandlerFactory.GetHandler(
-                    destIcao, navDataLocation, wptList,
-                    wptList.GetEditor(), airportList).StarCollection)
-                  .Analyze();
-        }
-
         public static Route AnalyzeAutoSelect(
             string route,
             double preferredLat,

@@ -105,7 +105,6 @@
     <Compile Include="RouteFinding\RouteAnalyzers\Common.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Extractors\SidExtractorTest.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Extractors\StarExtractorTest.cs" />
-    <Compile Include="RouteFinding\RouteAnalyzers\StandardRouteAnalyzerTest.cs" />
     <Compile Include="RouteFinding\RouteFinderTest.cs" />
     <Compile Include="RouteFinding\Routes\RouteExtensionsTest.cs" />
     <Compile Include="RouteFinding\Routes\RouteTest.cs" />
