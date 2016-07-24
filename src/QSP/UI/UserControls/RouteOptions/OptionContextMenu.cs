@@ -1,4 +1,5 @@
 ﻿using QSP.Common.Options;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes;
@@ -26,9 +27,9 @@ namespace QSP.UI.UserControls.RouteOptions
         public RouteGroup Route { get { return controller.Route; } }
 
         public OptionContextMenu(
-            AppOptions appSettings,
-            WaypointList wptList,
-            AirportManager airportList,
+            Locator<AppOptions> appOptionsLocator,
+            Locator<WaypointList> wptListLocator,
+            Locator<AirportManager> airportListLocator,
             TrackInUseCollection tracksInUse,
             ISelectedProcedureProvider origController,
             ISelectedProcedureProvider destController,
@@ -41,9 +42,9 @@ namespace QSP.UI.UserControls.RouteOptions
             Init();
 
             controller = new RouteOptionController(
-                  appSettings,
-                  wptList,
-                  airportList,
+                  appOptionsLocator,
+                  wptListLocator,
+                  airportListLocator,
                   tracksInUse,
                   origController,
                   destController,

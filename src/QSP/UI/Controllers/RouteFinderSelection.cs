@@ -1,4 +1,6 @@
-﻿using QSP.RouteFinding.Airports;
+﻿using QSP.Common.Options;
+using QSP.LibraryExtension;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
@@ -19,9 +21,9 @@ namespace QSP.UI.Controllers
         public static readonly string NoProcedureTxt = "NONE";
         public static readonly string AutoProcedureTxt = "AUTO";
 
-        public string NavDataLocation { get; private set; }
-        public WaypointList WptList { get; private set; }
-        public AirportManager AirportList { get; private set; }
+        private Locator<AppOptions> appOptionsLocator;
+        private Locator<WaypointList> WptListLocator;
+        private Locator<AirportManager> AirportListLocator;
         public ProcedureFilter ProcFilter { get; private set; }
         public TextBox IcaoTxtBox { get; private set; }
         public ComboBox RwyCBox { get; private set; }
@@ -29,15 +31,30 @@ namespace QSP.UI.Controllers
         public Button FilterBtn { get; private set; }
         public bool IsDepartureAirport { get; private set; }
 
+        public WaypointList WptList
+        {
+            get { return WptListLocator.Instance; }
+        }
+
+        public AirportManager AirportList
+        {
+            get { return AirportListLocator.Instance; }
+        }
+
+        public string NavDataLocation
+        {
+            get { return appOptionsLocator.Instance.NavDataLocation; }
+        }
+
         public RouteFinderSelection(
             TextBox IcaoTxtBox,
             bool IsDepartureAirport,
             ComboBox RwyCBox,
             ComboBox TerminalProceduresCBox,
             Button FilterBtn,
-            string NavDataLocation,
-            AirportManager AirportList,
-            WaypointList WptList,
+            Locator<AppOptions> appOptionsLocator,
+            Locator<AirportManager> AirportListLocator,
+            Locator<WaypointList> WptListLocator,
             ProcedureFilter ProcFilter)
         {
             this.IcaoTxtBox = IcaoTxtBox;
@@ -45,9 +62,9 @@ namespace QSP.UI.Controllers
             this.RwyCBox = RwyCBox;
             this.TerminalProceduresCBox = TerminalProceduresCBox;
             this.FilterBtn = FilterBtn;
-            this.NavDataLocation = NavDataLocation;
-            this.AirportList = AirportList;
-            this.WptList = WptList;
+            this.appOptionsLocator = appOptionsLocator;
+            this.AirportListLocator = AirportListLocator;
+            this.WptListLocator = WptListLocator;
             this.ProcFilter = ProcFilter;
         }
 
@@ -116,7 +133,7 @@ namespace QSP.UI.Controllers
             TerminalProceduresCBox.Items.Clear();
             FilterBtn.Enabled = false;
 
-            var rwyList = AirportList.RwyIdentList(Icao);
+            var rwyList = AirportListLocator.Instance.RwyIdentList(Icao);
 
             if (rwyList != null && rwyList.Count() > 0)
             {
@@ -131,18 +148,21 @@ namespace QSP.UI.Controllers
         {
             get
             {
+                var airportList = AirportListLocator.Instance;
+                var wptList = WptListLocator.Instance;
+
                 if (IsDepartureAirport)
                 {
                     return SidHandlerFactory.GetHandler(
-                         Icao, NavDataLocation, WptList,
-                         WptList.GetEditor(), AirportList)
+                         Icao, NavDataLocation, wptList,
+                         wptList.GetEditor(), airportList)
                          .GetSidList(Rwy);
                 }
                 else
                 {
                     return StarHandlerFactory.GetHandler(
-                        Icao, NavDataLocation, WptList,
-                        WptList.GetEditor(), AirportList)
+                        Icao, NavDataLocation, wptList,
+                        wptList.GetEditor(), airportList)
                         .GetStarList(Rwy);
                 }
             }

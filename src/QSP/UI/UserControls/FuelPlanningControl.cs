@@ -36,8 +36,8 @@ namespace QSP.UI.UserControls
     public partial class FuelPlanningControl : UserControl
     {
         private Locator<AppOptions> appOptionsLocator;
-        private WaypointList wptList;
-        private AirportManager airportList;
+        private Locator<WaypointList> wptListLocator;
+        private Locator<AirportManager> airportListLocator;
         private TrackInUseCollection tracksInUse;
         private ProcedureFilter procFilter;
         private CountryCodeManager countryCodes;
@@ -65,15 +65,24 @@ namespace QSP.UI.UserControls
 
         public event EventHandler AircraftRequestChanged;
 
+        private WaypointList wptList
+        {
+            get { return wptListLocator.Instance; }
+        }
+
+        private AirportManager airportList
+        {
+            get { return airportListLocator.Instance; }
+        }
+        
         private AppOptions appSettings
-        { get { return appOptionsLocator.Instance; } }
+        {
+            get { return appOptionsLocator.Instance; }
+        }
 
         private RouteGroup RouteToDest
         {
-            get
-            {
-                return routeOptionBtns.Route;
-            }
+            get { return routeOptionBtns.Route; }
         }
 
         public FuelPlanningControl()
@@ -83,8 +92,8 @@ namespace QSP.UI.UserControls
 
         public void Init(
             Locator<AppOptions> appOptionsLocator,
-            WaypointList wptList,
-            AirportManager airportList,
+            Locator<WaypointList> wptListLocator,
+            Locator<AirportManager> airportListLocator,
             TrackInUseCollection tracksInUse,
             ProcedureFilter procFilter,
             CountryCodeManager countryCodes,
@@ -93,8 +102,8 @@ namespace QSP.UI.UserControls
             IEnumerable<FuelData> fuelData)
         {
             this.appOptionsLocator = appOptionsLocator;
-            this.wptList = wptList;
-            this.airportList = airportList;
+            this.wptListLocator = wptListLocator;
+            this.airportListLocator = airportListLocator;
             this.tracksInUse = tracksInUse;
             this.procFilter = procFilter;
             this.countryCodes = countryCodes;
@@ -113,9 +122,9 @@ namespace QSP.UI.UserControls
             SubscribeEventHandlers();
             advancedRouteTool = new AdvancedRouteTool();
             advancedRouteTool.Init(
-                appSettings,
-                wptList,
-                airportList,
+                appOptionsLocator,
+                wptListLocator,
+                airportListLocator,
                 tracksInUse,
                 procFilter,
                 countryCodes,
@@ -132,9 +141,9 @@ namespace QSP.UI.UserControls
         private void SetRouteOptionControl()
         {
             routeOptionBtns.Init(
-                appSettings,
-                wptList,
-                airportList,
+                appOptionsLocator,
+                wptListLocator,
+                airportListLocator,
                 tracksInUse,
                 origController,
                 destController,
@@ -173,9 +182,9 @@ namespace QSP.UI.UserControls
 
             altnControl = new AlternateController(
                 alternateGroupBox,
-                appSettings,
-                airportList,
-                wptList,
+                appOptionsLocator,
+                wptListLocator,
+                airportListLocator,
                 tracksInUse,
                 altnLayoutPanel,
                 destSidProvider,
@@ -257,9 +266,9 @@ namespace QSP.UI.UserControls
                origRwyComboBox,
                sidComboBox,
                filterSidBtn,
-               appSettings.NavDataLocation,
-               airportList,
-               wptList,
+               appOptionsLocator,
+               airportListLocator,
+               wptListLocator,
                procFilter);
 
             destController = new RouteFinderSelection(
@@ -268,9 +277,9 @@ namespace QSP.UI.UserControls
                 destRwyComboBox,
                 starComboBox,
                 filterStarBtn,
-                appSettings.NavDataLocation,
-                airportList,
-                wptList,
+                appOptionsLocator,
+                airportListLocator,
+                wptListLocator,
                 procFilter);
 
             destSidProvider = new DestinationSidSelection(destController);

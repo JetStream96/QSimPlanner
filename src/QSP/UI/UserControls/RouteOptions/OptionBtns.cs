@@ -9,6 +9,7 @@ using QSP.WindAloft;
 using System;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
+using QSP.LibraryExtension;
 
 namespace QSP.UI.UserControls.RouteOptions
 {
@@ -24,9 +25,9 @@ namespace QSP.UI.UserControls.RouteOptions
         }
 
         public void Init(
-            AppOptions appSettings,
-            WaypointList wptList,
-            AirportManager airportList,
+            Locator<AppOptions> appOptionsLocator,
+            Locator<WaypointList> wptListLocator,
+            Locator<AirportManager> airportListLocator,
             TrackInUseCollection tracksInUse,
             ISelectedProcedureProvider origController,
             ISelectedProcedureProvider destController,
@@ -37,9 +38,9 @@ namespace QSP.UI.UserControls.RouteOptions
             Action<string> routeTxtSetter)
         {
             controller = new RouteOptionController(
-                appSettings,
-                wptList,
-                airportList,
+                appOptionsLocator,
+                wptListLocator,
+                airportListLocator,
                 tracksInUse,
                 origController,
                 destController,

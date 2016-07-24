@@ -2,6 +2,7 @@
 using QSP.RouteFinding.AirwayStructure;
 using System;
 using System.IO;
+using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
@@ -27,6 +28,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 throw new LoadSidFileException(
                     "Failed to read " + fileLocation + ".", ex);
             }
+        }
+
+        internal static object GetHandler(string icao, object navDataLocation, Locator<WaypointList> wptListLocator, object p, Locator<AirportManager> airportListLocator)
+        {
+            throw new NotImplementedException();
         }
     }
 }

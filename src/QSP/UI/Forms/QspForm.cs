@@ -216,8 +216,8 @@ namespace QSP.UI.Forms
 
             fuelMenu.Init(
                 appOptionsLocator,
-                wptList,
-                airportList,
+                wptListLocator,
+                airportListLocator,
                 tracksInUse,
                 procFilter,
                 countryCodes,

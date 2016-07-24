@@ -20,14 +20,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
+using QSP.LibraryExtension;
 
 namespace QSP.UI.UserControls.RouteOptions
 {
     public partial class RouteOptionController
     {
-        private AppOptions appSettings;
-        private WaypointList wptList;
-        private AirportManager airportList;
+        private Locator<AppOptions> appOptionsLocator;
+        private Locator<WaypointList> wptListLocator;
+        private Locator<AirportManager> airportListLocator;
         private TrackInUseCollection tracksInUse;
         private ISelectedProcedureProvider origController;
         private ISelectedProcedureProvider destController;
@@ -41,12 +42,22 @@ namespace QSP.UI.UserControls.RouteOptions
         private IClickable exportBtn;
         private IClickable showMapBtn;
 
+        private AppOptions appSettings
+        {
+            get { return appOptionsLocator.Instance; }
+        }
+
+        private AirportManager airportList
+        {
+            get { return airportListLocator.Instance; }
+        }
+
         public RouteGroup Route { get; private set; }
 
         public RouteOptionController(
-            AppOptions appSettings,
-            WaypointList wptList,
-            AirportManager airportList,
+            Locator<AppOptions> appOptionsLocator,
+            Locator<WaypointList> wptListLocator,
+            Locator<AirportManager> airportListLocator,
             TrackInUseCollection tracksInUse,
             ISelectedProcedureProvider origController,
             ISelectedProcedureProvider destController,
@@ -60,9 +71,9 @@ namespace QSP.UI.UserControls.RouteOptions
             IClickable exportBtn,
             IClickable showMapBtn)
         {
-            this.appSettings = appSettings;
-            this.wptList = wptList;
-            this.airportList = airportList;
+            this.appOptionsLocator = appOptionsLocator;
+            this.wptListLocator = wptListLocator;
+            this.airportListLocator = airportListLocator;
             this.tracksInUse = tracksInUse;
             this.origController = origController;
             this.destController = destController;
@@ -84,7 +95,7 @@ namespace QSP.UI.UserControls.RouteOptions
             exportBtn.Click += ExportRouteFiles;
             showMapBtn.Click += ShowMapClick;
         }
-        
+
         private void FindRouteClick(object sender, EventArgs e)
         {
             try
@@ -104,7 +115,7 @@ namespace QSP.UI.UserControls.RouteOptions
             var star = destController.GetSelectedProcedures();
 
             var finder = new RouteFinderFacade(
-                wptList,
+                wptListLocator.Instance,
                 airportList,
                 appSettings.NavDataLocation,
                 null,
@@ -147,7 +158,7 @@ namespace QSP.UI.UserControls.RouteOptions
                         destController.Rwy,
                         appSettings.NavDataLocation,
                         airportList,
-                        wptList),
+                        wptListLocator.Instance),
                     tracksInUse);
 
                 var expanded = Route.Expanded;
