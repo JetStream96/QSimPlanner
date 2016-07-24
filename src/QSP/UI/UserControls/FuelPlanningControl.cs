@@ -137,7 +137,7 @@ namespace QSP.UI.UserControls
 
             LoadSavedState();
         }
-
+        
         private void SetRouteOptionControl()
         {
             routeOptionBtns.Init(
@@ -489,7 +489,6 @@ namespace QSP.UI.UserControls
 
         private void ShowAdvancedTool(object sender, EventArgs e)
         {
-            var advancedTool = new AdvancedRouteTool();
             var size = advancedRouteTool.Size;
             var newSize = new Size(size.Width + 25, size.Height + 40);
 
@@ -497,6 +496,12 @@ namespace QSP.UI.UserControls
             {
                 frm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
                 frm.Controls.Add(advancedRouteTool);
+
+                // Remove control from form so that it is not disposed
+                // when form closes.
+                frm.FormClosing += 
+                    (_s, _e) => frm.Controls.Remove(advancedRouteTool);
+
                 frm.ShowDialog();
             }
         }
