@@ -108,7 +108,8 @@ namespace QSP.LibraryExtension
 
         /// <summary>
         /// Try to add the item to a previously deleted place.
-        /// Returns whether the insertion is successful.
+        /// Returns the index at which the item is added, or -1 if the
+        /// insertion is unsuccessful.
         /// </summary>
         private int TryFillDeletedSpot(T item)
         {
@@ -159,7 +160,7 @@ namespace QSP.LibraryExtension
 
         /// <summary>
         /// The upper bound of indices of elements, if the list is non-empty.
-        /// If the list is empty this number can be arbitrary.
+        /// If the list is empty this number can be negative.
         /// </summary>
         public int IndexUpperBound
         {

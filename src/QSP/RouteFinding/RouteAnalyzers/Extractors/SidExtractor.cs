@@ -7,15 +7,17 @@ using System.Collections.Generic;
 
 namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 {
-    // Given a route as a LinkedList<string>, Extract() method removes the 
-    // nodes that are:
-    // (1) origin ICAO
-    // (2) SID name
-    // (3) The last waypoint of SID, if the waypoint is not in wptList.
+    // Given a route as a LinkedList<string>, Extract() returns an object 
+    // containing:
     //
-    // Also returns a route containing the departure runway and 
-    // SID (if SID exists).
+    // * RemainingRoute, which represents a route which contains all 
+    //   entries of the one given in constructor except:
+    //   (1) origin ICAO
+    //   (2) SID name
+    //   (3) The last waypoint of SID, if the waypoint is not in wptList.
     //
+    // * A boolean which indicates whether SID exists.
+    // * A route containing the departure runway and SID (if SID exists).
 
     public class SidExtractor
     {
@@ -29,14 +31,14 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
         private Route origRoute;
 
         public SidExtractor(
-            LinkedList<string> route,
+            IEnumerable<string> route,
             string icao,
             string rwy,
             Waypoint rwyWpt,
             WaypointList wptList,
             SidCollection sids)
         {
-            this.route = route;
+            this.route = new LinkedList<string>(route);
             this.icao = icao;
             this.rwy = rwy;
             this.rwyWpt = rwyWpt;
@@ -55,6 +57,13 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             }
 
             return origRoute;
+        }
+
+        public class ExtractResult
+        {
+            public IEnumerable<string> RemainingRoute;
+            public bool SidExists;
+            public Route Sid;
         }
 
         private void CreateOrigRoute()
