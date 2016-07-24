@@ -367,23 +367,6 @@ namespace QSP.UI.UserControls
 
         private void Calculate(object sender, EventArgs e)
         {
-            var windTables = windTableLocator.Instance;
-
-            if (windTables is DefaultWindTableCollection)
-            {
-                var result = MessageBox.Show(
-                    "The wind data has not been downloaded. " +
-                    "Continue to calculate and ignore wind aloft?",
-                    "",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Question);
-
-                if (result != DialogResult.Yes)
-                {
-                    return;
-                }
-            }
-
             fuelReportTxtBox.ForeColor = Color.Black;
             fuelReportTxtBox.Text = "";
 
@@ -413,6 +396,23 @@ namespace QSP.UI.UserControls
             {
                 ShowWarning("Route to destination must be entered.");
                 return;
+            }
+
+            var windTables = windTableLocator.Instance;
+
+            if (windTables is DefaultWindTableCollection)
+            {
+                var result = MessageBox.Show(
+                    "The wind data has not been downloaded. " +
+                    "Continue to calculate and ignore wind aloft?",
+                    "",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
             }
 
             var fuelReport =
