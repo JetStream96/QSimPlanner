@@ -17,14 +17,15 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
         private LinkedList<string> route;
         private Route destRoute;
 
-        public StarExtractor(LinkedList<string> route,
-                            string icao,
-                            string rwy,
-                            Waypoint rwyWpt,
-                            WaypointList wptList,
-                            StarCollection stars)
+        public StarExtractor(
+            IEnumerable<string> route,
+            string icao,
+            string rwy,
+            Waypoint rwyWpt,
+            WaypointList wptList,
+            StarCollection stars)
         {
-            this.route = route;
+            this.route = new LinkedList<string>(route);
             this.icao = icao;
             this.rwy = rwy;
             this.rwyWpt = rwyWpt;
@@ -32,7 +33,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             this.stars = stars;
         }
 
-        public Route Extract()
+        public ExtractResult Extract()
         {
             destRoute = new Route();
             destRoute.AddLastWaypoint(rwyWpt);
@@ -41,7 +42,15 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             {
                 CreateDestRoute();
             }
-            return destRoute;
+
+            return new ExtractResult
+            { RemainingRoute = route, Star = destRoute };
+        }
+
+        public class ExtractResult
+        {
+            public IEnumerable<string> RemainingRoute;
+            public Route Star;
         }
 
         private void CreateDestRoute()
@@ -59,10 +68,11 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 route.RemoveLast();
 
                 // Any STAR has at least one waypoint.
-                destRoute.AddFirstWaypoint(star.FirstWaypoint, starName, star.TotalDistance);
+                destRoute.AddFirstWaypoint(
+                    star.FirstWaypoint, starName, star.TotalDistance);
 
                 if (route.Last.Value == star.FirstWaypoint.ID &&
-                    wptList.FindAllByWaypoint(star.FirstWaypoint).Count == 0)
+                    wptList.FindByWaypoint(star.FirstWaypoint) == -1)
                 {
                     route.RemoveLast();
                 }

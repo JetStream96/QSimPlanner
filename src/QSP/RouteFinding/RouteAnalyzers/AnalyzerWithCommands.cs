@@ -11,9 +11,6 @@ using System.Linq;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
-    // TODO: When analyzing route where the SID contains nothing but 
-    // only vector, it shows as DCT instead.
-
     // Uses BasicRouteAnalyzer, with the additional functionality of 
     // reading airports and SIDs/STARs.
     //
@@ -150,11 +147,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             for (int i = 0; i < subRoutes.Count; i++)
             {
-                var route = new LinkedList<string>(subRoutes[i]);
+                IEnumerable<string> route = subRoutes[i].ToArray();
 
-                if (route.Count == 1 &&
-                    (route.First.Value == "AUTO" ||
-                     route.First.Value == "RAND"))
+                if (route.Count() == 1 &&
+                    (route.First() == "AUTO" ||
+                     route.First() == "RAND"))
                 {
                     result.Add(null);
                 }
@@ -162,33 +159,72 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 {
                     Route origRoute = null;
                     Route destRoute = null;
+                    bool sidExists = false;
 
                     if (i == 0)
                     {
-                        origRoute = new SidExtractor(
-                            route, origIcao, origRwy, origRwyWpt, wptList, sids)
-                            .Extract();
+                        var sidExtract = new SidExtractor(route, origIcao,
+                            origRwy, origRwyWpt, wptList, sids).Extract();
+
+                        origRoute = sidExtract.Sid;
+                        route = sidExtract.RemainingRoute;
+                        sidExists = sidExtract.SidExists;
                     }
 
                     if (i == subRoutes.Count - 1)
                     {
-                        destRoute = new StarExtractor(
-                            route, destIcao, destRwy, destRwyWpt, wptList, stars)
-                            .Extract();
+                        var starExtract = new StarExtractor(route, destIcao,
+                            destRwy, destRwyWpt, wptList, stars).Extract();
+
+                        destRoute = starExtract.Star;
+                        route = starExtract.RemainingRoute;
                     }
 
                     var mainRoute = new AutoSelectAnalyzer(
-                        route.ToArray(), origRwyWpt.Lat, origRwyWpt.Lon, wptList)
+                        route.ToArray(), origRwyWpt.Lat,
+                        origRwyWpt.Lon, wptList)
                         .Analyze();
 
-                    result.Add(
-                        AppendRoute(origRoute, AppendRoute(mainRoute, destRoute)));
+                    result.Add(AppendRoute(
+                        origRoute,
+                        AppendRoute(mainRoute, destRoute),
+                        sidExists));
                 }
             }
             return result;
         }
 
-        private static Route AppendRoute(Route original, Route routeToAppend)
+        private static Route MergeRoutes(
+            Route origRoute, bool sidExists, Route main, Route destRoute)
+        {
+            var result = new Route(origRoute);
+
+            if (result.LastWaypoint.Equals(main.FirstWaypoint))
+            {
+                result.ConnectRoute(main);
+            }
+            else
+            {
+                var airway = sidExists ?
+                    result.Last.Value.AirwayToNext : "DCT";
+
+                result.AddLast(main, airway);
+            }
+
+            if (main.LastWaypoint.Equals(destRoute.FirstWaypoint))
+            {
+                main.ConnectRoute(destRoute);
+            }
+            else
+            {
+                main.Merge(destRoute);
+            }
+
+            return result;
+        }
+
+        private static Route AppendRoute(
+            Route original, Route routeToAppend, bool useLastAirway = false)
         {
             if (original == null)
             {
@@ -200,7 +236,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 return original;
             }
 
-            original.Merge(routeToAppend);
+            original.Merge(routeToAppend, useLastAirway);
             return original;
         }
 

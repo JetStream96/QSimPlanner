@@ -43,10 +43,17 @@ namespace QSP.RouteFinding.Routes
         /// (1) The same: The two routes are connected.
         /// (2) Different: other is appended after item, with airway "DCT".
         /// </summary>
-        public static void Merge(this Route item, Route other)
+        public static void Merge(
+            this Route item, Route other, bool useLastAirway = false)
         {
             if (other.Count == 0)
             {
+                return;
+            }
+
+            if (item.Count == 0)
+            {
+                item.Nodes.AddLast(other);
                 return;
             }
 
@@ -56,7 +63,9 @@ namespace QSP.RouteFinding.Routes
             }
             else
             {
-                item.AddLast(other, "DCT");
+                var airway = useLastAirway ? 
+                    item.Last.Value.AirwayToNext : "DCT";
+                item.AddLast(other, airway);
             }
         }
     }

@@ -5,6 +5,7 @@ using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using System.Collections.Generic;
+using System.Linq;
 using static QSP.MathTools.GCDis;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
@@ -20,7 +21,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var extractor = new SidExtractor(
                 route, "", "", rwyWpt, null, null);
 
-            var origRoute = extractor.Extract();
+            var origRoute = extractor.Extract().Sid;
 
             Assert.AreEqual(1, origRoute.Count);
             Assert.IsTrue(origRoute.FirstWaypoint.Equals(rwyWpt));
@@ -37,10 +38,10 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var extractor = new SidExtractor(
                 route, "RCTP", "", wpt, null, null);
 
-            var origRoute = extractor.Extract();
+            var result = extractor.Extract();
 
-            Assert.AreEqual(3, route.Count);
-            Assert.IsFalse(origRoute.FirstWaypoint.ID == "RCTP");
+            Assert.AreEqual(3, result.RemainingRoute.Count());
+            Assert.IsFalse(result.Sid.FirstWaypoint.ID == "RCTP");
         }
 
         [Test]
@@ -70,15 +71,15 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                         false) }));
 
             // Invoke
-            var origRoute = extractor.Extract();
+            var result = extractor.Extract();
 
             // Assert
-            Assert.AreEqual(3, route.Count);
-            Assert.IsTrue(route.First.Value == "HLG");
+            Assert.AreEqual(3, result.RemainingRoute.Count());
+            Assert.IsTrue(result.RemainingRoute.First() == "HLG");
 
-            Assert.AreEqual(2, origRoute.Count);
+            Assert.AreEqual(2, result.Sid.Count);
 
-            var node = origRoute.First;
+            var node = result.Sid.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(node.Value.AirwayToNext == "SID1");
             Assert.AreEqual(
@@ -88,7 +89,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));
-            Assert.IsTrue(node == origRoute.Last);
+            Assert.IsTrue(node == result.Sid.Last);
         }
 
         [Test]
@@ -118,15 +119,15 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                         false) }));
 
             // Invoke
-            var origRoute = extractor.Extract();
+            var result = extractor.Extract();
 
             // Assert
-            Assert.AreEqual(3, route.Count);
-            Assert.IsTrue(route.First.Value == "HLG");
+            Assert.AreEqual(3, result.RemainingRoute.Count());
+            Assert.IsTrue(result.RemainingRoute.First() == "HLG");
 
-            Assert.AreEqual(2, origRoute.Count);
+            Assert.AreEqual(2, result.Sid.Count);
 
-            var node = origRoute.First;
+            var node = result.Sid.First;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(node.Value.AirwayToNext == "SID1");
             Assert.AreEqual(
@@ -137,7 +138,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(
                 new Waypoint("P1", 21.0, 121.0)));
-            Assert.IsTrue(node == origRoute.Last);
+            Assert.IsTrue(node == result.Sid.Last);
         }
     }
 }

@@ -26,6 +26,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
         private Waypoint rwyWpt;
         private string icao;
         private string rwy;
+        private bool sidExists;
 
         private LinkedList<string> route;
         private Route origRoute;
@@ -44,9 +45,10 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             this.rwyWpt = rwyWpt;
             this.wptList = wptList;
             this.sids = sids;
+            sidExists = false;
         }
 
-        public Route Extract()
+        public ExtractResult Extract()
         {
             origRoute = new Route();
             origRoute.AddLastWaypoint(rwyWpt);
@@ -56,7 +58,12 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 CreateOrigRoute();
             }
 
-            return origRoute;
+            return new ExtractResult
+            {
+                RemainingRoute = route,
+                Sid = origRoute,
+                SidExists = sidExists
+            };
         }
 
         public class ExtractResult
@@ -81,6 +88,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 route.RemoveFirst();
                 var last = origRoute.Last.Value;
                 last.AirwayToNext = sidName;
+                sidExists = true;
 
                 if (Math.Abs(sid.TotalDistance) > 1E-8)
                 {

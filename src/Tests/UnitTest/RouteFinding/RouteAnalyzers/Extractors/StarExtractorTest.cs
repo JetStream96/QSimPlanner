@@ -5,6 +5,7 @@ using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using System.Collections.Generic;
+using System.Linq;
 using static UnitTest.RouteFinding.RouteAnalyzers.Common;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
@@ -20,7 +21,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var extractor = new StarExtractor(
                 route, "", "", rwyWpt, null, null);
 
-            var destRoute = extractor.Extract();
+            var destRoute = extractor.Extract().Star;
 
             Assert.AreEqual(1, destRoute.Count);
             Assert.IsTrue(destRoute.FirstWaypoint.Equals(rwyWpt));
@@ -40,10 +41,10 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 null,
                 null);
 
-            var destRoute = extractor.Extract();
+            var result = extractor.Extract();
 
-            Assert.AreEqual(1, route.Count);
-            Assert.IsFalse(destRoute.LastWaypoint.ID == "VHHH");
+            Assert.AreEqual(1, result.RemainingRoute.Count());
+            Assert.IsFalse(result.Star.LastWaypoint.ID == "VHHH");
         }
 
         [Test]
@@ -75,17 +76,17 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 stars);
 
             // Invoke
-            var destRoute = extractor.Extract();
+            var result = extractor.Extract();
 
             // Assert            
-            Assert.AreEqual(2, route.Count);
-            Assert.IsTrue(route.Last.Value == "SIERA");
+            Assert.AreEqual(2, result.RemainingRoute.Count());
+            Assert.IsTrue(result.RemainingRoute.Last() == "SIERA");
 
             var expected = GetRoute(
                 wpt, "STAR1", -1.0,
                 rwy);
 
-            Assert.IsTrue(destRoute.Equals(expected));
+            Assert.IsTrue(result.Star.Equals(expected));
         }
 
         [Test]
@@ -119,17 +120,17 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 sids);
 
             // Invoke
-            var destRoute = extractor.Extract();
+            var result = extractor.Extract();
 
             // Assert
-            Assert.AreEqual(2, route.Count);
-            Assert.IsTrue(route.Last.Value == "SIERA");
+            Assert.AreEqual(2, result.RemainingRoute.Count());
+            Assert.IsTrue(result.RemainingRoute.Last() == "SIERA");
 
             var expected = GetRoute(
                 p1, "STAR1", -1.0,
                 rwy);
 
-            Assert.IsTrue(destRoute.Equals(expected));
+            Assert.IsTrue(result.Star.Equals(expected));
         }
     }
 }
