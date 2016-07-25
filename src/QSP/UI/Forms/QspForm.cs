@@ -189,13 +189,13 @@ namespace QSP.UI.Forms
 
             var result = new WptListLoader(navDataPath)
                 .LoadFromFile();
-            
+
             countryCodesLocator =
                 new Locator<CountryCodeManager>(result.CountryCodes);
 
             airwayNetwork = new AirwayNetwork(result.WptList, airportList);
         }
-        
+
         private void InitControls()
         {
             CheckRegistry();
@@ -250,7 +250,12 @@ namespace QSP.UI.Forms
             };
 
             airwayNetwork.AirportListChanged += (s, e) =>
-            fuelMenu.RefreshForAirportListChange();
+            {
+                fuelMenu.RefreshForAirportListChange();
+                toMenu.Airports = airwayNetwork.AirportList;
+                ldgMenu.Airports = airwayNetwork.AirportList;
+                miscInfoMenu.AirportList = airwayNetwork.AirportList;
+            };
 
             optionsMenu.NavDataLocationChanged += (s, e) =>
             fuelMenu.RefreshForNavDataLocationChange();
@@ -465,8 +470,7 @@ namespace QSP.UI.Forms
             windFrm.ShowDialog();
         }
 
-        // TODO:
-        // Some ideas for future:
+        // TODO: Some ideas for future:
         // (1) Flightaware flight plans
         // (2) NOAA temp./wind/sigWx charts
         //     http://aviationweather.gov/webiffdp/page/public?name=iffdp_main

@@ -16,11 +16,22 @@ namespace QSP.UI.UserControls
 {
     public partial class MiscInfoControl : UserControl
     {
-        private AirportManager airportList;
         private Locator<IWindTableCollection> windTableLocator;
         private Func<string> origGetter;
         private Func<string> destGetter;
         private Func<IEnumerable<string>> altnGetter;
+
+        private AirportManager _airportList;
+        public AirportManager AirportList
+        {
+            get { return _airportList; }
+
+            set
+            {
+                _airportList = value;
+                airportMapControl.Airports = _airportList;
+            }
+        }
 
         public MiscInfoControl()
         {
@@ -35,7 +46,7 @@ namespace QSP.UI.UserControls
             Func<string> destGetter,
             Func<IEnumerable<string>> altnGetter)
         {
-            this.airportList = airportList;
+            this._airportList = airportList;
             airportMapControl.Init(airportList);
             this.windTableLocator = windTableLocator;
             airportMapControl.BrowserEnabled = enableBrowser;
@@ -56,7 +67,7 @@ namespace QSP.UI.UserControls
         {
             airportMapControl.Dest = icao;
         }
-        
+
         public void SetAltn(IEnumerable<string> icao)
         {
             airportMapControl.Altn = icao;
@@ -67,7 +78,7 @@ namespace QSP.UI.UserControls
             var icao = metarToFindTxtBox.Text.Trim().ToUpper();
             RichTextBox1.Text = MetarDownloader.TryGetMetarTaf(icao);
         }
-        
+
         private async void UpdateAllMetarTaf(object sender, EventArgs e)
         {
             var orig = OrigTask();
@@ -122,7 +133,7 @@ namespace QSP.UI.UserControls
                     await Task.Factory.StartNew(() =>
                     GenDesForcastString(dest));
 
-                desForcastLastUpdatedLbl.Text = 
+                desForcastLastUpdatedLbl.Text =
                     $"Last Updated : {DateTime.Now}";
             }
             catch (Exception ex)
@@ -132,10 +143,10 @@ namespace QSP.UI.UserControls
                     "\n\n\n       Unable to get descend forcast for " + dest;
             }
         }
-        
+
         private string GenDesForcastString(string icao)
         {
-            var latlon = airportList.AirportLatlon(icao);
+            var latlon = AirportList.AirportLatlon(icao);
             int[] FLs = { 60, 90, 120, 180, 240, 300, 340, 390, 440, 490 };
             var forcastGen = new DescendForcastGenerator(
                 windTableLocator.Instance, latlon.Lat, latlon.Lon, FLs);

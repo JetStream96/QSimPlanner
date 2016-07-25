@@ -180,7 +180,7 @@
             this.airportBtn.Name = "airportBtn";
             this.airportBtn.Size = new System.Drawing.Size(150, 38);
             this.airportBtn.TabIndex = 3;
-            this.airportBtn.Text = "Airports";
+            this.airportBtn.Text = "Misc Info";
             this.airportBtn.UseVisualStyleBackColor = false;
             // 
             // ldgBtn

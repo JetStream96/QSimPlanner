@@ -31,7 +31,11 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         public AirportManager Airports
         {
             get { return airportInfoControl.Airports; }
-            set { airportInfoControl.Airports = value; }
+            set
+            {
+                airportInfoControl.Airports = value;
+                airportInfoControl.RefreshAirportInfo();
+            }
         }
 
         public LandingPerfControl()
@@ -175,7 +179,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
                 }
             }
         }
-        
+
         private void RequestBtnClick(object sender, EventArgs e)
         {
             var ac = acRequestGetter();
@@ -189,7 +193,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
                 "have a corresponding landing performance profile.");
                 return;
             }
-            
+
             using (var frm = new CustomFuelForm())
             {
                 frm.Init(ac);
@@ -208,7 +212,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
                 frm.ShowDialog();
             }
         }
-        
+
         private void RegistrationChanged(object sender, EventArgs e)
         {
             if (regComboBox.SelectedIndex < 0)

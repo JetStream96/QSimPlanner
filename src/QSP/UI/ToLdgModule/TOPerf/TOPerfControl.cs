@@ -32,7 +32,11 @@ namespace QSP.UI.ToLdgModule.TOPerf
         public AirportManager Airports
         {
             get { return airportInfoControl.Airports; }
-            set { airportInfoControl.Airports = value; }
+            set
+            {
+                airportInfoControl.Airports = value;
+                airportInfoControl.RefreshAirportInfo();
+            }
         }
 
         public TOPerfControl()

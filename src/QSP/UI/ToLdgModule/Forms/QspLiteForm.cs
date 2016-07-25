@@ -119,9 +119,6 @@ namespace QSP.UI.ToLdgModule.Forms
         private void RefreshItemsRequireAirportList()
         {
             Airports = OptionsMenu.Airports;
-            ToMenu.airportInfoControl.RefreshAirportInfo();
-            LdgMenu.airportInfoControl.RefreshAirportInfo();
-            AirportMenu.FindAirport();
         }
 
         private void SubscribeEvents()

@@ -19,22 +19,25 @@ namespace QSP.UI.ToLdgModule.AirportMap
         private string _dest;
         private IEnumerable<string> _altn;
 
-        public AirportManager Airports { get; set; }
+        private AirportManager _airports;
+        public AirportManager Airports
+        {
+            get { return _airports; }
+            set
+            {
+                _airports = value;
+                FindAirport();
+            }
+        }
 
         private string CurrentIcao
         {
-            get
-            {
-                return icaoComboBox.Text.Trim().ToUpper();
-            }
+            get { return icaoComboBox.Text.Trim().ToUpper(); }
         }
 
         public bool BrowserEnabled
         {
-            get
-            {
-                return browser != null;
-            }
+            get { return browser != null; }
 
             set
             {
@@ -51,10 +54,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         public bool StaticMapEnabled
         {
-            get
-            {
-                return picBox != null;
-            }
+            get { return picBox != null; }
 
             set
             {
@@ -68,7 +68,6 @@ namespace QSP.UI.ToLdgModule.AirportMap
                 }
             }
         }
-
 
         public string Orig
         {
@@ -124,7 +123,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             SetEmptyDataGrid();
 
             icaoComboBox.Text = "";
-            this.Airports = airports;
+            this._airports = airports;
 
             AddToolTip();
         }
