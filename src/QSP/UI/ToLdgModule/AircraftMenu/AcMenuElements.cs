@@ -7,6 +7,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public ListView AcListView { get; private set; }
         public ComboBox AcType { get; private set; }
         public TextBox Registration { get; private set; }
+        public ComboBox WeightUnitCBox { get; private set; }
         public ComboBox FuelProfile { get; private set; }
         public ComboBox ToProfile { get; private set; }
         public ComboBox LdgProfile { get; private set; }
@@ -14,10 +15,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public TextBox MaxToWt { get; private set; }
         public TextBox MaxLdgWt { get; private set; }
         public TextBox MaxZfw { get; private set; }
-        public ComboBox ZfwUnit { get; private set; }
-        public ComboBox MaxToWtUnit { get; private set; }
-        public ComboBox MaxLdgWtUnit { get; private set; }
-        public ComboBox MaxZfwUnit { get; private set; }
+        public Label[] WeightUnitLbl { get; private set; }
         public GroupBox SelectionBox { get; private set; }
         public GroupBox PropertyBox { get; private set; }
         public Button NewBtn { get; private set; }
@@ -28,6 +26,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
              ListView AcListView,
              ComboBox AcType,
              TextBox Registration,
+             ComboBox WeightUnitCBox,
              ComboBox FuelProfile,
              ComboBox ToProfile,
              ComboBox LdgProfile,
@@ -35,10 +34,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
              TextBox MaxToWt,
              TextBox MaxLdgWt,
              TextBox MaxZfw,
-             ComboBox ZfwUnit,
-             ComboBox MaxToWtUnit,
-             ComboBox MaxLdgWtUnit,
-             ComboBox MaxZfwUnit,
+             Label[] WeightUnit,
              GroupBox SelectionBox,
              GroupBox PropertyBox,
              Button NewBtn,
@@ -48,6 +44,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             this.AcListView = AcListView;
             this.AcType = AcType;
             this.Registration = Registration;
+            this.WeightUnitCBox = WeightUnitCBox;
             this.FuelProfile = FuelProfile;
             this.ToProfile = ToProfile;
             this.LdgProfile = LdgProfile;
@@ -55,10 +52,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             this.MaxToWt = MaxToWt;
             this.MaxLdgWt = MaxLdgWt;
             this.MaxZfw = MaxZfw;
-            this.ZfwUnit = ZfwUnit;
-            this.MaxToWtUnit = MaxToWtUnit;
-            this.MaxLdgWtUnit = MaxLdgWtUnit;
-            this.MaxZfwUnit = MaxZfwUnit;
+            this.WeightUnitLbl = WeightUnit;
             this.SelectionBox = SelectionBox;
             this.PropertyBox = PropertyBox;
             this.NewBtn = NewBtn;

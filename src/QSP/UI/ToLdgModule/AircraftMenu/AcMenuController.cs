@@ -23,7 +23,6 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         private AcMenuElements elem;
         private ProfileManager profiles;
         private AircraftConfig currentConfig;
-        private ComboBox[] unitCBox;
 
         public AcMenuController(AcMenuElements elem, ProfileManager profiles)
         {
@@ -75,65 +74,22 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private void InitWtUnitCBox()
         {
-            var units = new string[] { "KG", "LB" };
-            unitCBox = new ComboBox[]
-            {
-                elem.ZfwUnit,
-                elem.MaxToWtUnit,
-                elem.MaxLdgWtUnit,
-                elem.MaxZfwUnit
-            };
+            var cbox = elem.WeightUnitCBox;
+            cbox.Items.Clear();
+            cbox.Items.AddRange(new string[] { "KG", "LB" });
+            cbox.SelectedIndex = 0;
 
-            foreach (var i in unitCBox)
-            {
-                i.Items.Clear();
-                i.Items.AddRange(units);
-                i.SelectedIndex = 0;
-            }
-
-            WtUnitConnect();
-        }
-
-        private void WtUnitConnect()
-        {
-            unitCBox.ForEach(i => i.SelectedIndexChanged += WtUnitChanged);
-        }
-
-        private void WtUnitDisconnect()
-        {
-            unitCBox.ForEach(i => i.SelectedIndexChanged -= WtUnitChanged);
+            cbox.SelectedIndexChanged += WtUnitChanged;
         }
 
         private void WtUnitChanged(object sender, EventArgs e)
         {
-            var c = new ComboBox[] { elem.ZfwUnit,
-                elem.MaxToWtUnit, elem.MaxLdgWtUnit };
-
-            WtUnitDisconnect();
-
-            int index = ((ComboBox)sender).SelectedIndex;
-
-            foreach (var i in c)
-            {
-                if (i != sender)
-                {
-                    i.SelectedIndex = index;
-                }
-            }
-
-            ConvertWeights(index);
-
-            WtUnitConnect();
-        }
-
-        private void ConvertWeights(int selIndex)
-        {
-            var factor = selIndex == 0 ?
-                            Constants.LbKgRatio :
-                            Constants.KgLbRatio;
+            var factor = elem.WeightUnitCBox.SelectedIndex == 0 ?
+                Constants.LbKgRatio :
+                Constants.KgLbRatio;
 
             var textBoxes = new TextBox[] { elem.Zfw,
-                elem.MaxToWt, elem.MaxLdgWt };
+                elem.MaxToWt, elem.MaxLdgWt, elem.MaxZfw };
 
             foreach (var j in textBoxes)
             {
@@ -193,7 +149,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             e.FuelProfile.Text = c.FuelProfile;
             e.ToProfile.Text = c.TOProfile;
             e.LdgProfile.Text = c.LdgProfile;
-            e.ZfwUnit.SelectedIndex = c.WtUnit == WeightUnit.KG ? 0 : 1;
+            e.WeightUnitCBox.SelectedIndex = (int)config.WtUnit;
             e.Zfw.Text = WtDisplay(c.OewKg);
             e.MaxToWt.Text = WtDisplay(c.MaxTOWtKg);
             e.MaxLdgWt.Text = WtDisplay(c.MaxLdgWtKg);
@@ -217,7 +173,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private string WtDisplay(double weightKg)
         {
-            if (elem.ZfwUnit.SelectedIndex == 0)
+            if (elem.WeightUnitCBox.SelectedIndex == 0)
             {
                 // KG
                 return RoundToInt(weightKg).ToString();
@@ -454,13 +410,15 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 return true;
             }
 
+            const double delta = 1.0;
+
             if (inEditMode)
             {
-                return !config.Equals(currentConfig.Config);
+                return !config.Equals(currentConfig.Config, delta);
             }
             else
             {
-                return !config.Equals(defaultAcConfig);
+                return !config.Equals(defaultAcConfig, delta);
             }
         }
 

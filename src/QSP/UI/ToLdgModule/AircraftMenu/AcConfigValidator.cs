@@ -17,15 +17,10 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         /// <exception cref="InvalidUserInputException"></exception>
         public AircraftConfigItem Read()
         {
-            var wtUnit = 
-                elem.ZfwUnit.SelectedIndex == 0 ?
-                    WeightUnit.KG :
-                    WeightUnit.LB;
+            var wtUnit = (WeightUnit)elem.WeightUnitCBox.SelectedIndex;
 
-            double wtUnitFactor = 
-                elem.ZfwUnit.SelectedIndex == 0 ?
-                    1.0 :
-                    Constants.LbKgRatio;
+            double wtUnitFactor = wtUnit == WeightUnit.KG ?
+                    1.0 : Constants.LbKgRatio;
 
             double zfw;
             double maxToWt;

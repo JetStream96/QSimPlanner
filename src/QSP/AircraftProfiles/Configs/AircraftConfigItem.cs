@@ -1,4 +1,5 @@
 ﻿using QSP.Utilities.Units;
+using static System.Math;
 
 namespace QSP.AircraftProfiles.Configs
 {
@@ -41,7 +42,7 @@ namespace QSP.AircraftProfiles.Configs
             this.MaxZfwKg = MaxZfwKg;
         }
 
-        public bool Equals(AircraftConfigItem other)
+        public bool Equals(AircraftConfigItem other, double delta)
         {
             return
                 other.AC == AC &&
@@ -49,11 +50,11 @@ namespace QSP.AircraftProfiles.Configs
                 other.FuelProfile == FuelProfile &&
                 other.TOProfile == TOProfile &&
                 other.LdgProfile == LdgProfile &&
-                other.OewKg == OewKg &&
-                other.MaxTOWtKg == MaxTOWtKg &&
-                other.MaxLdgWtKg == MaxLdgWtKg &&
-                other.WtUnit == WtUnit &&
-                other.MaxZfwKg == MaxZfwKg;
+                Abs(other.OewKg - OewKg) <= delta &&
+                Abs(other.MaxTOWtKg - MaxTOWtKg) <= delta &&
+                Abs(other.MaxLdgWtKg - MaxLdgWtKg) <= delta &&
+                Abs(other.MaxZfwKg - MaxZfwKg) <= delta &&
+                other.WtUnit == WtUnit;
         }
     }
 }
