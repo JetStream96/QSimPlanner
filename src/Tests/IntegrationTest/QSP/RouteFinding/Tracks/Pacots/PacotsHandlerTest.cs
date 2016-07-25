@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 {
@@ -29,7 +28,6 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             var recorder = new StatusRecorder();
 
             var handler = new PacotsHandler(
-                new downloaderStub(),
                 wptList,
                 wptList.GetEditor(),
                 recorder,
@@ -37,7 +35,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
                 new TrackInUseCollection());
 
             // Act
-            handler.GetAllTracks();
+            handler.GetAllTracks(new DownloaderStub());
             handler.AddToWaypointList();
 
             // Assert
@@ -401,9 +399,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        private class downloaderStub : IPacotsDownloader
+        private class DownloaderStub : IPacotsMessageProvider
         {
-            public PacotsMessage Download()
+            public PacotsMessage GetMessage()
             {
                 var directory = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -412,11 +410,6 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
                         directory +
                         "/QSP/RouteFinding/Tracks/Pacots/" +
                         "Defense Internet NOTAM Service.html"));
-            }
-
-            public Task<PacotsMessage> DownloadAsync()
-            {
-                throw new NotImplementedException();
             }
         }
     }

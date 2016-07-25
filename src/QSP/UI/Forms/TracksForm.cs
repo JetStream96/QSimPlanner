@@ -8,7 +8,7 @@ using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Nats;
 using QSP.RouteFinding.Tracks.Pacots;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -67,8 +67,9 @@ namespace QSP.UI.Forms
 
         private void InitData(WaypointList wptList, AirportManager airportList)
         {
+            TrackStatusRecorder = new StatusRecorder();
+
             NatsManager = new NatsHandler(
-                new NatsDownloader(),
                 wptList,
                 wptList.GetEditor(),
                 TrackStatusRecorder,
@@ -76,7 +77,6 @@ namespace QSP.UI.Forms
                 tracksInUse);
 
             PacotsManager = new PacotsHandler(
-                new PacotsDownloader(),
                 wptList,
                 wptList.GetEditor(),
                 TrackStatusRecorder,
@@ -84,14 +84,11 @@ namespace QSP.UI.Forms
                 tracksInUse);
 
             AusotsManager = new AusotsHandler(
-                new AusotsDownloader(),
                 wptList,
                 wptList.GetEditor(),
                 TrackStatusRecorder,
                 airportList,
                 tracksInUse);
-
-            TrackStatusRecorder = new StatusRecorder();
         }
 
         private void InitImages()
@@ -199,7 +196,7 @@ namespace QSP.UI.Forms
             }
         }
 
-        private void AddToListView(ReadOnlyCollection<Entry> records, TrackType para)
+        private void AddToListView(IEnumerable<Entry> records, TrackType para)
         {
             bool noError = true;
 
@@ -292,7 +289,6 @@ namespace QSP.UI.Forms
             {
                 PacotsManager.UndoEdit();
             }
-
         }
 
         private void CBoxAusotsEnabledChanged(object sender, EventArgs e)

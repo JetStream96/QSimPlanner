@@ -1,5 +1,4 @@
-﻿using QSP.AviationTools;
-using QSP.Utilities.Units;
+﻿using QSP.Utilities.Units;
 using QSP.WindAloft;
 using System.Linq;
 using System.Text.RegularExpressions;

@@ -1,24 +1,26 @@
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using QSP.RouteFinding.Tracks.Common;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Tracks.Interaction
 {
-    // Exceptions occurring at different stage are categorized into 3 severity levels:
+    // Exceptions occurring at different stage are categorized into 
+    // 3 severity levels:
     // (1) Advisory: Very minor error.
     // (2) Causion: Small error such as failed to read/add a single track.
-    // (3) Critical: Failed to download the entire NATs, or an exception making all tracks of PACOTs unusable.
+    // (3) Critical: Failed to download the entire NATs, or an exception 
+    //     making all tracks of PACOTs unusable.
 
     /// <summary>
-    /// Records the status of downloading/processing tracks. Exceptions are recorded and some are displayed to the user.
+    /// Records the status of downloading/processing tracks. Exceptions
+    /// are recorded and some are displayed to the user.
     /// </summary>
     public class StatusRecorder
     {
         private List<Entry> _records;
 
-        public ReadOnlyCollection<Entry> Records
+        public IReadOnlyList<Entry> Records
         {
-            get { return _records.AsReadOnly(); }
+            get { return _records; }
         }
 
         public StatusRecorder()

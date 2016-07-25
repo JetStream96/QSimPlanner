@@ -1,16 +1,15 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public class PacotsDownloader : IPacotsDownloader
+    public class PacotsDownloader : IPacotsMessageProvider
     {
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        public PacotsMessage Download()
+        public PacotsMessage GetMessage()
         {
             string html;
 
@@ -31,13 +30,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
             {
                 throw new TrackParseException("Failed to parse PACOTs.", ex);
             }
-        }
-
-        /// <exception cref="TrackDownloadException"></exception>
-        /// <exception cref="TrackParseException"></exception>
-        public async Task<PacotsMessage> DownloadAsync()
-        {
-            return await Task.Factory.StartNew(Download);
         }
 
         /// <summary>

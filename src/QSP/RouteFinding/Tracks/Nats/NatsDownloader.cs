@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
-    public class NatsDownloader : INatsDownloader
+    public class NatsDownloader : INatsMessageProvider
     {
         public const string natsUrl = "https://www.notams.faa.gov/common/nat.html?";
         private const string natsWest = "http://qsimplan.somee.com/nats/Westbound.xml";
@@ -60,34 +59,33 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             else if (natMsg.Count == 1)
             {
-                string downloadAdditional = natMsg[0].Direction == NatsDirection.East
+                string downloadAdditional =
+                    natMsg[0].Direction == NatsDirection.East
                     ? natsWest
                     : natsEast;
 
                 using (WebClient wc = new WebClient())
                 {
-                    natMsg.Add(new IndividualNatsMessage(
-                        XDocument.Parse(wc.DownloadString(downloadAdditional))));
+                    var xdoc = XDocument.Parse(
+                        wc.DownloadString(downloadAdditional));
+
+                    natMsg.Add(new IndividualNatsMessage(xdoc));
                 }
             }
             return natMsg;
         }
 
+        /// <summary>
+        /// Downloads the track message.
+        /// </summary>
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        public NatsMessage Download()
+        public NatsMessage GetMessage()
         {
             var msgs = DownloadNatsMsg();
             int westIndex = msgs[0].Direction == NatsDirection.West ? 0 : 1;
             int eastIndex = 1 - westIndex;
             return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
-        }
-
-        /// <exception cref="TrackDownloadException"></exception>
-        /// <exception cref="TrackParseException"></exception>
-        public Task<NatsMessage> DownloadAsync()
-        {
-            return Task.Factory.StartNew(Download);
         }
     }
 }

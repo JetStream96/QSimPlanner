@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using QSP.RouteFinding.Data.Interfaces;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
@@ -29,7 +28,6 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             var recorder = new StatusRecorder();
 
             var handler = new AusotsHandler(
-                new downloaderStub(),
                 wptList,
                 wptList.GetEditor(),
                 recorder,
@@ -37,7 +35,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
                 new TrackInUseCollection());
 
             // Act
-            handler.GetAllTracks();
+            handler.GetAllTracks(new DownloaderStub());
             handler.AddToWaypointList();
 
             // Assert
@@ -274,9 +272,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             }
         }
 
-        private class downloaderStub : IAusotsDownloader
+        private class DownloaderStub : IAusotsMessageProvider
         {
-            public AusotsMessage Download()
+            public AusotsMessage GetMessage()
             {
                 var directory = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -284,11 +282,6 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
                     File.ReadAllText(
                         directory +
                         "/QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
-            }
-
-            public Task<AusotsMessage> DownloadAsync()
-            {
-                throw new NotImplementedException();
             }
         }
     }

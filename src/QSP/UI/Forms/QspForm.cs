@@ -153,6 +153,7 @@ namespace QSP.UI.Forms
                 Environment.Exit(1);
             }
 
+            // TODO: If failed, should show user the options page.
             try
             {
                 // Airports and waypoints

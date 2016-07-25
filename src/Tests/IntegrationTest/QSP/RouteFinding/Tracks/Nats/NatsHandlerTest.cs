@@ -10,7 +10,6 @@ using QSP.RouteFinding.Tracks.Nats.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using static QSP.MathTools.GCDis;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
@@ -26,7 +25,6 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             var recorder = new StatusRecorder();
 
             var handler = new NatsHandler(
-                new downloaderStub(),
                 wptList,
                 wptList.GetEditor(),
                 recorder,
@@ -34,7 +32,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
                 new TrackInUseCollection());
 
             // Act
-            handler.GetAllTracks();
+            handler.GetAllTracks(new DownloaderStub());
             handler.AddToWaypointList();
 
             // Assert
@@ -221,9 +219,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             };
         }
 
-        private class downloaderStub : INatsDownloader
+        private class DownloaderStub : INatsMessageProvider
         {
-            public NatsMessage Download()
+            public NatsMessage GetMessage()
             {
                 var directory = AppDomain.CurrentDomain.BaseDirectory;
                 var htmlSource = File.ReadAllText(
@@ -235,11 +233,6 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
                     msgs[0].Direction == NatsDirection.West ? 0 : 1;
                 int eastIndex = 1 - westIndex;
                 return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
-            }
-
-            public Task<NatsMessage> DownloadAsync()
-            {
-                throw new NotImplementedException();
             }
         }
     }

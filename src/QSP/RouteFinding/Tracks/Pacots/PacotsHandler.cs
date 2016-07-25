@@ -11,30 +11,28 @@ namespace QSP.RouteFinding.Tracks.Pacots
 {
     public class PacotsHandler : TrackHandler
     {
-        private IPacotsDownloader downloader;
         private WaypointList wptList;
         private WaypointListEditor editor;
         private StatusRecorder recorder;
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
-
-        private PacotsMessage rawData;
         private List<TrackNodes> nodes;
-        
+        public bool AddedToWptList { get; private set; }
+        public PacotsMessage RawData { get; private set; }
+
         public PacotsHandler(
-            IPacotsDownloader downloader,
             WaypointList wptList,
             WaypointListEditor editor,
             StatusRecorder recorder,
             AirportManager airportList,
             TrackInUseCollection tracksInUse)
         {
-            this.downloader = downloader;
             this.wptList = wptList;
             this.editor = editor;
             this.recorder = recorder;
             this.airportList = airportList;
             this.tracksInUse = tracksInUse;
+            AddedToWptList = false;
         }
 
         // TODO: Maybe have different exception messages to distinguish west/east parse error?
@@ -42,10 +40,23 @@ namespace QSP.RouteFinding.Tracks.Pacots
         /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()
         {
-            TryDownload();
+            TryDownload(new PacotsDownloader());
+            ReadMessage();
+        }
+
+        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="TrackParseException"></exception>
+        public void GetAllTracks(IPacotsMessageProvider provider)
+        {
+            TryDownload(provider);
+            ReadMessage();
+        }
+
+        private void ReadMessage()
+        {
             var trks = TryParse();
 
-            var reader = new TrackReader<PacificTrack>(wptList,airportList);
+            var reader = new TrackReader<PacificTrack>(wptList, airportList);
             nodes = new List<TrackNodes>();
 
             foreach (var i in trks)
@@ -66,11 +77,11 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        private void TryDownload()
+        private void TryDownload(IPacotsMessageProvider provider)
         {
             try
             {
-                rawData = downloader.Download();
+                RawData = provider.GetMessage();
             }
             catch
             {
@@ -88,7 +99,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             try
             {
-                return new PacotsParser(rawData, recorder, airportList)
+                return new PacotsParser(RawData, recorder, airportList)
                     .Parse();
             }
             catch (Exception ex)
@@ -111,10 +122,14 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public override void AddToWaypointList()
         {
-            new TrackAdder(wptList, editor, recorder, TrackType.Pacots)
-                    .AddToWaypointList(nodes);
+            if (AddedToWptList == false)
+            {
+                new TrackAdder(wptList, editor, recorder, TrackType.Pacots)
+                   .AddToWaypointList(nodes);
 
-            tracksInUse.UpdateTracks(nodes, TrackType.Pacots);
+                tracksInUse.UpdateTracks(nodes, TrackType.Pacots);
+                AddedToWptList = true;
+            }
         }
 
         public void UndoEdit()

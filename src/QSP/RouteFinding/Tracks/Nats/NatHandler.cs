@@ -11,37 +11,48 @@ namespace QSP.RouteFinding.Tracks.Nats
 {
     public class NatsHandler : TrackHandler
     {
-        private INatsDownloader downloader;
         private WaypointList wptList;
         private WaypointListEditor editor;
         private StatusRecorder recorder;
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
-
-        private NatsMessage rawData;
         private List<TrackNodes> nodes;
+        public bool AddedToWptList { get; private set; }
+        public NatsMessage RawData { get; private set; }
 
         public NatsHandler(
-            INatsDownloader downloader,
             WaypointList wptList,
             WaypointListEditor editor,
             StatusRecorder recorder,
             AirportManager airportList,
             TrackInUseCollection tracksInUse)
         {
-            this.downloader = downloader;
             this.wptList = wptList;
             this.editor = editor;
             this.recorder = recorder;
             this.airportList = airportList;
             this.tracksInUse = tracksInUse;
+            AddedToWptList = false;
         }
-
+        
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()
         {
-            TryDownload();
+            TryDownload(new NatsDownloader());
+            ReadMessage();
+        }
+
+        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="TrackParseException"></exception>
+        public void GetAllTracks(INatsMessageProvider provider)
+        {
+            TryDownload(provider);
+            ReadMessage();
+        }
+
+        private void ReadMessage()
+        {
             var trks = TryParse();
 
             var reader = new TrackReader<NorthAtlanticTrack>(
@@ -73,25 +84,30 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         public override void AddToWaypointList()
         {
-            new TrackAdder(wptList, editor, recorder, TrackType.Nats)
-                .AddToWaypointList(nodes);
+            if (AddedToWptList == false)
+            {
+                new TrackAdder(wptList, editor, recorder, TrackType.Nats)
+                    .AddToWaypointList(nodes);
 
-            tracksInUse.UpdateTracks(nodes, TrackType.Nats);
+                tracksInUse.UpdateTracks(nodes, TrackType.Nats);
+                AddedToWptList = true;
+            }
         }
 
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
-        private void TryDownload()
+        private void TryDownload(INatsMessageProvider provider)
         {
             try
             {
-                rawData = downloader.Download();
+                RawData = provider.GetMessage();
             }
             catch
             {
-                recorder.AddEntry(StatusRecorder.Severity.Critical,
-                                  "Failed to download NATs.",
-                                  TrackType.Nats);
+                recorder.AddEntry(
+                    StatusRecorder.Severity.Critical,
+                    "Failed to download NATs.",
+                    TrackType.Nats);
                 throw;
             }
         }
@@ -101,7 +117,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         {
             try
             {
-                return new NatsParser(rawData, recorder, airportList).Parse();
+                return new NatsParser(RawData, recorder, airportList).Parse();
             }
             catch (Exception ex)
             {

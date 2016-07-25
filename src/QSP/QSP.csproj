@@ -121,6 +121,7 @@
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
+    <Compile Include="RouteFinding\AirwayNetwork.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeManager.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\Exceptions.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="RouteFinding\Routes\RouteExtensions.cs" />
     <Compile Include="RouteFinding\Routes\RouteGroup.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilter.cs" />
+    <Compile Include="RouteFinding\Tracks\Nats\INatsMessageProvider.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />
     <Compile Include="UI\Controllers\BtnDisableStyleController.cs" />
     <Compile Include="UI\Controllers\DestinationStarSelection.cs" />
@@ -316,7 +318,7 @@
     <Compile Include="RouteFinding\TerminalProcedures\TerminalProcedureName.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsMessage.cs" />
-    <Compile Include="RouteFinding\Tracks\Ausots\IAusotsDownloader.cs" />
+    <Compile Include="RouteFinding\Tracks\Ausots\IAusotsMessageProvider.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\IndividualAusotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\MessageSplitter.cs" />
     <Compile Include="RouteFinding\Tracks\Common\IXmlConvertible.cs" />
@@ -330,7 +332,6 @@
     <Compile Include="RouteFinding\Tracks\Common\TrackMessage.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Constants.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Enums.cs" />
-    <Compile Include="RouteFinding\Tracks\Nats\INatsDownloader.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NatsDownloader.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NatsMessage.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NatsParser.cs" />
@@ -342,7 +343,7 @@
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\EastboundParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\Interpreter.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\Splitter.cs" />
-    <Compile Include="RouteFinding\Tracks\Pacots\IPacotsDownloader.cs" />
+    <Compile Include="RouteFinding\Tracks\Pacots\IPacotsMessageProvider.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\WestTrackParser.cs" />
     <Compile Include="RouteFinding\WaypointAirwayConnector.cs" />

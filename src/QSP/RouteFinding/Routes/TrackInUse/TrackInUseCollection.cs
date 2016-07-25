@@ -56,7 +56,7 @@ namespace QSP.RouteFinding.Routes.TrackInUse
 
             foreach (var i in AllNodes)
             {
-                list.Add(new RouteEntry(i.MainRoute.First.List, i.AirwayIdent));
+                list.Add(new RouteEntry(i.MainRoute.Nodes, i.AirwayIdent));
             }
 
             UpdateList(list, type);

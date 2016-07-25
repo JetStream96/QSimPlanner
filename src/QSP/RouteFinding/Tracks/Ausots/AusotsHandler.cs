@@ -11,30 +11,28 @@ namespace QSP.RouteFinding.Tracks.Ausots
 {
     public class AusotsHandler : TrackHandler
     {
-        private IAusotsDownloader downloader;
         private WaypointList wptList;
         private WaypointListEditor editor;
         private StatusRecorder recorder;
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
-
-        private AusotsMessage rawData;
         private List<TrackNodes> nodes;
+        public bool AddedToWptList { get; private set; }
+        public AusotsMessage RawData { get; private set; }
         
         public AusotsHandler(
-            IAusotsDownloader downloader,
             WaypointList wptList,
             WaypointListEditor editor,
             StatusRecorder recorder,
             AirportManager airportList,
             TrackInUseCollection tracksInUse)
         {
-            this.downloader = downloader;
             this.wptList = wptList;
             this.editor = editor;
             this.recorder = recorder;
             this.airportList = airportList;
             this.tracksInUse = tracksInUse;
+            AddedToWptList = false;
         }
 
         /// <summary>
@@ -44,7 +42,20 @@ namespace QSP.RouteFinding.Tracks.Ausots
         /// <exception cref="TrackDownloadException"></exception>
         public override void GetAllTracks()
         {
-            TryDownload();
+            TryDownload(new AusotsDownloader());
+            ReadMessage();
+        }
+
+        /// <exception cref="TrackParseException"></exception>
+        /// <exception cref="TrackDownloadException"></exception>
+        public void GetAllTracks(IAusotsMessageProvider provider)
+        {
+            TryDownload(provider);
+            ReadMessage();
+        }
+
+        private void ReadMessage()
+        {
             var trks = TryParse();
 
             var reader = new TrackReader<AusTrack>(wptList, airportList);
@@ -71,7 +82,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             try
             {
-                return new AusotsParser(rawData, recorder, airportList)
+                return new AusotsParser(RawData, recorder, airportList)
                     .Parse();
             }
             catch (Exception ex)
@@ -86,11 +97,11 @@ namespace QSP.RouteFinding.Tracks.Ausots
         }
 
         /// <exception cref="TrackDownloadException"></exception>
-        private void TryDownload()
+        private void TryDownload(IAusotsMessageProvider provider)
         {
             try
             {
-                rawData = downloader.Download();
+                RawData = provider.GetMessage();
             }
             catch (Exception ex)
             {
@@ -113,10 +124,14 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         public override void AddToWaypointList()
         {
-            new TrackAdder(wptList, editor, recorder, TrackType.Ausots)
-                .AddToWaypointList(nodes);
+            if (AddedToWptList == false)
+            {
+                new TrackAdder(wptList, editor, recorder, TrackType.Ausots)
+                    .AddToWaypointList(nodes);
 
-            tracksInUse.UpdateTracks(nodes, TrackType.Ausots);
+                tracksInUse.UpdateTracks(nodes, TrackType.Ausots);
+                AddedToWptList = true;
+            }
         }
 
         public void UndoEdit()
