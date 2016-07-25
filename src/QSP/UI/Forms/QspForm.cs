@@ -3,6 +3,7 @@ using QSP.AircraftProfiles.Configs;
 using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.NavData.AAX;
+using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
@@ -42,12 +43,10 @@ namespace QSP.UI.Forms
         private AboutPageControl aboutMenu;
 
         private ProfileManager profiles;
+        private AirwayNetwork airwayNetwork;
         private Locator<AppOptions> appOptionsLocator;
-        private Locator<WaypointList> wptListLocator;
         private Locator<CountryCodeManager> countryCodesLocator;
-        private Locator<AirportManager> airportListLocator;
         private ProcedureFilter procFilter;
-        private TrackInUseCollection tracksInUse;
         private Locator<IWindTableCollection> windTableLocator;
 
         private BtnGroupController btnControl;
@@ -58,10 +57,16 @@ namespace QSP.UI.Forms
 
         private AppOptions appSettings
         { get { return appOptionsLocator.Instance; } }
+
         private AirportManager airportList
-        { get { return airportListLocator.Instance; } }
+        { get { return airwayNetwork.AirportList; } }
+
         private WaypointList wptList
-        { get { return wptListLocator.Instance; } }
+        { get { return airwayNetwork.WptList; } }
+
+        private TrackInUseCollection tracksInUse
+        { get { return airwayNetwork.TracksInUse; } }
+
         private CountryCodeManager countryCodes
         { get { return countryCodesLocator.Instance; } }
 
@@ -111,7 +116,7 @@ namespace QSP.UI.Forms
         private void InitTrackForm()
         {
             trackFrm = new TracksForm();
-            trackFrm.Init(wptList, airportList, tracksInUse, trackStatusLabel);
+            trackFrm.Init(airwayNetwork, trackStatusLabel);
         }
 
         private static void ShowSplashWhile(Action action)
@@ -156,9 +161,7 @@ namespace QSP.UI.Forms
             // TODO: If failed, should show user the options page.
             try
             {
-                // Airports and waypoints
-                InitAirportList();
-                InitWptList();
+                InitAirportAndWaypoints();
             }
             catch (Exception ex)
             {
@@ -170,44 +173,37 @@ namespace QSP.UI.Forms
             procFilter = new ProcedureFilter();
             windTableLocator = new Locator<IWindTableCollection>();
             windTableLocator.Instance = new DefaultWindTableCollection();
-            tracksInUse = new TrackInUseCollection();
         }
 
         /// <exception cref="RwyDataFormatException"></exception>
         /// <exception cref="ReadAirportFileException"></exception>
-        private void InitAirportList()
-        {
-            string navDataPath = appSettings.NavDataLocation;
-
-            airportListLocator = new Locator<AirportManager>(
-            new AirportManager(
-                new AirportDataLoader(navDataPath + @"\Airports.txt")
-                .LoadFromFile()));
-        }
-
         /// <exception cref="WaypointFileReadException"></exception>
         /// <exception cref="LoadCountryNamesException"></exception>
-        private void InitWptList()
+        private void InitAirportAndWaypoints()
         {
             string navDataPath = appSettings.NavDataLocation;
+
+            var airportList = new AirportManager(
+                new AirportDataLoader(navDataPath + @"\Airports.txt")
+                .LoadFromFile());
 
             var result = new WptListLoader(navDataPath)
                 .LoadFromFile();
-
-            wptListLocator = new Locator<WaypointList>(result.WptList);
+            
             countryCodesLocator =
                 new Locator<CountryCodeManager>(result.CountryCodes);
-        }
 
+            airwayNetwork = new AirwayNetwork(result.WptList, airportList);
+        }
+        
         private void InitControls()
         {
             CheckRegistry();
             SubscribeEvents();
 
             optionsMenu.Init(
-                wptListLocator,
+                airwayNetwork,
                 countryCodesLocator,
-                airportListLocator,
                 appOptionsLocator);
 
             acMenu.Initialize(profiles);
@@ -217,9 +213,7 @@ namespace QSP.UI.Forms
 
             fuelMenu.Init(
                 appOptionsLocator,
-                wptListLocator,
-                airportListLocator,
-                tracksInUse,
+                airwayNetwork,
                 procFilter,
                 countryCodes,
                 windTableLocator,

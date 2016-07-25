@@ -22,8 +22,9 @@ namespace QSP.UI.Controllers
         public static readonly string AutoProcedureTxt = "AUTO";
 
         private Locator<AppOptions> appOptionsLocator;
-        private Locator<WaypointList> WptListLocator;
-        private Locator<AirportManager> AirportListLocator;
+        private Func<WaypointList> WptListGetter;
+        private Func<AirportManager> AirportListGetter;
+
         public ProcedureFilter ProcFilter { get; private set; }
         public TextBox IcaoTxtBox { get; private set; }
         public ComboBox RwyCBox { get; private set; }
@@ -33,12 +34,12 @@ namespace QSP.UI.Controllers
 
         public WaypointList WptList
         {
-            get { return WptListLocator.Instance; }
+            get { return WptListGetter(); }
         }
 
         public AirportManager AirportList
         {
-            get { return AirportListLocator.Instance; }
+            get { return AirportListGetter(); }
         }
 
         public string NavDataLocation
@@ -53,8 +54,8 @@ namespace QSP.UI.Controllers
             ComboBox TerminalProceduresCBox,
             Button FilterBtn,
             Locator<AppOptions> appOptionsLocator,
-            Locator<AirportManager> AirportListLocator,
-            Locator<WaypointList> WptListLocator,
+            Func<AirportManager> AirportListGetter,
+            Func<WaypointList> WptListGetter,
             ProcedureFilter ProcFilter)
         {
             this.IcaoTxtBox = IcaoTxtBox;
@@ -63,8 +64,8 @@ namespace QSP.UI.Controllers
             this.TerminalProceduresCBox = TerminalProceduresCBox;
             this.FilterBtn = FilterBtn;
             this.appOptionsLocator = appOptionsLocator;
-            this.AirportListLocator = AirportListLocator;
-            this.WptListLocator = WptListLocator;
+            this.AirportListGetter = AirportListGetter;
+            this.WptListGetter = WptListGetter;
             this.ProcFilter = ProcFilter;
         }
 
@@ -133,7 +134,7 @@ namespace QSP.UI.Controllers
             TerminalProceduresCBox.Items.Clear();
             FilterBtn.Enabled = false;
 
-            var rwyList = AirportListLocator.Instance.RwyIdentList(Icao);
+            var rwyList = AirportList.RwyIdentList(Icao);
 
             if (rwyList != null && rwyList.Count() > 0)
             {
@@ -148,21 +149,18 @@ namespace QSP.UI.Controllers
         {
             get
             {
-                var airportList = AirportListLocator.Instance;
-                var wptList = WptListLocator.Instance;
-
                 if (IsDepartureAirport)
                 {
                     return SidHandlerFactory.GetHandler(
-                         Icao, NavDataLocation, wptList,
-                         wptList.GetEditor(), airportList)
+                         Icao, NavDataLocation, WptList,
+                         WptList.GetEditor(), AirportList)
                          .GetSidList(Rwy);
                 }
                 else
                 {
                     return StarHandlerFactory.GetHandler(
-                        Icao, NavDataLocation, wptList,
-                        wptList.GetEditor(), airportList)
+                        Icao, NavDataLocation, WptList,
+                        WptList.GetEditor(), AirportList)
                         .GetStarList(Rwy);
                 }
             }

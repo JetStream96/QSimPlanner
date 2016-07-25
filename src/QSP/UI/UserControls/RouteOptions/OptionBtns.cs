@@ -1,8 +1,5 @@
 ﻿using QSP.Common.Options;
-using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes;
-using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.UI.Controllers;
 using QSP.UI.Controls;
 using QSP.WindAloft;
@@ -10,6 +7,7 @@ using System;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 using QSP.LibraryExtension;
+using QSP.RouteFinding;
 
 namespace QSP.UI.UserControls.RouteOptions
 {
@@ -26,9 +24,7 @@ namespace QSP.UI.UserControls.RouteOptions
 
         public void Init(
             Locator<AppOptions> appOptionsLocator,
-            Locator<WaypointList> wptListLocator,
-            Locator<AirportManager> airportListLocator,
-            TrackInUseCollection tracksInUse,
+            AirwayNetwork airwayNetwork,
             ISelectedProcedureProvider origController,
             ISelectedProcedureProvider destController,
             Func<AvgWindCalculator> windCalcGetter,
@@ -38,10 +34,8 @@ namespace QSP.UI.UserControls.RouteOptions
             Action<string> routeTxtSetter)
         {
             controller = new RouteOptionController(
-                appOptionsLocator,
-                wptListLocator,
-                airportListLocator,
-                tracksInUse,
+                appOptionsLocator, 
+                airwayNetwork,
                 origController,
                 destController,
                 windCalcGetter,

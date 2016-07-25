@@ -7,6 +7,7 @@ using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Nats;
 using QSP.RouteFinding.Tracks.Pacots;
 using System;
+using System.Threading.Tasks;
 
 namespace QSP.RouteFinding
 {
@@ -29,14 +30,13 @@ namespace QSP.RouteFinding
         {
             this.WptList = wptList;
             this.AirportList = airportList;
+            TracksInUse = new TrackInUseCollection();
+            StatusRecorder = new StatusRecorder();
             SetTrackData();
         }
 
         private void SetTrackData()
         {
-            TracksInUse = new TrackInUseCollection();
-            StatusRecorder = new StatusRecorder();
-
             natsManager = new NatsHandler(
                 WptList,
                 WptList.GetEditor(),
@@ -71,43 +71,45 @@ namespace QSP.RouteFinding
 
             this.WptList = wptList;
             this.AirportList = airportList;
+
+            TracksInUse.Clear();
+            StatusRecorder.Clear();
             SetTrackData();
-
-            natsManager.GetAllTracks(new NatsProvider(natsData));
-            pacotsManager.GetAllTracks(new PacotsProvider(pacotsData));
-            ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
-
+            
             if (natsEnabled)
             {
+                natsManager.GetAllTracks(new NatsProvider(natsData));
                 natsManager.AddToWaypointList();
             }
 
             if (pacotsEnabled)
             {
+                pacotsManager.GetAllTracks(new PacotsProvider(pacotsData));
                 pacotsManager.AddToWaypointList();
             }
 
-            if (natsEnabled)
+            if (ausotsEnabled)
             {
-                natsManager.AddToWaypointList();
+                ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
+                ausotsManager.AddToWaypointList();
             }
         }
 
         /// <exception cref="ArgumentException"></exception>
-        public void DownloadTrack(TrackType type)
+        public async Task DownloadTrack(TrackType type)
         {
             switch (type)
             {
                 case TrackType.Nats:
-                    SetNats();
+                    await SetNats();
                     break;
 
                 case TrackType.Pacots:
-                    SetPacots();
+                    await SetPacots();
                     break;
 
                 case TrackType.Ausots:
-                    SetAusots();
+                    await SetAusots();
                     break;
 
                 default:
@@ -159,7 +161,7 @@ namespace QSP.RouteFinding
             }
         }
 
-        private async void SetNats()
+        private async Task SetNats()
         {
             StatusRecorder.Clear(TrackType.Nats);
             natsManager.UndoEdit();
@@ -172,7 +174,7 @@ namespace QSP.RouteFinding
             catch { }
         }
 
-        private async void SetPacots()
+        private async Task SetPacots()
         {
             StatusRecorder.Clear(TrackType.Pacots);
             pacotsManager.UndoEdit();
@@ -185,7 +187,7 @@ namespace QSP.RouteFinding
             catch { }
         }
 
-        private async void SetAusots()
+        private async Task SetAusots()
         {
             StatusRecorder.Clear(TrackType.Ausots);
             ausotsManager.UndoEdit();

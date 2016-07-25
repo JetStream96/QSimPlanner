@@ -2,6 +2,7 @@
 using QSP.LibraryExtension;
 using QSP.NavData;
 using QSP.NavData.AAX;
+using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
@@ -20,12 +21,9 @@ namespace QSP.UI.UserControls
 {
     public partial class OptionsControl : UserControl
     {
-        public Locator<WaypointList> WptListLocator { get; private set; }
-        public Locator<CountryCodeManager> CountryCodesLocator
-        { get; private set; }
-        public Locator<AirportManager> AirportListLocator { get; private set; }
-        public Locator<AppOptions> AppSettingsLocator { get; private set; }
-
+        private Locator<CountryCodeManager> CountryCodesLocator;
+        private Locator<AppOptions> AppSettingsLocator; 
+        private AirwayNetwork airwayNetwork;
         private IEnumerable<RouteExportMatching> exports;
         private Panel popUpPanel;
 
@@ -43,14 +41,12 @@ namespace QSP.UI.UserControls
         }
 
         public void Init(
-            Locator<WaypointList> WptListLocator,
+            AirwayNetwork airwayNetwork,
             Locator<CountryCodeManager> CountryCodesLocator,
-            Locator<AirportManager> AirportListLocator,
             Locator<AppOptions> AppSettingsLocator)
         {
-            this.WptListLocator = WptListLocator;
+            this.airwayNetwork = airwayNetwork;
             this.CountryCodesLocator = CountryCodesLocator;
-            this.AirportListLocator = AirportListLocator;
             this.AppSettingsLocator = AppSettingsLocator;
 
             InitExports();
@@ -184,9 +180,18 @@ namespace QSP.UI.UserControls
             saveBtn.Text = "Saving ...";
             Refresh();
 
-            // Use short-circuit to control the logic.
-            var success =
-                TryLoadWpts() && TryLoadAirports() && TrySaveOptions();
+            var wptList = TryLoadWpts();
+
+            if (wptList != null)
+            {
+                var airportList = TryLoadAirports();
+
+                if (airportList != null)
+                {
+                    airwayNetwork.Update(wptList, airportList);
+                    TrySaveOptions();
+                }
+            }
 
             saveBtn.ForeColor = Color.White;
             saveBtn.BackColor = Color.Green;
@@ -194,31 +199,32 @@ namespace QSP.UI.UserControls
             saveBtn.Enabled = true;
         }
 
-        private bool TryLoadWpts()
+        // If failed, returns null.
+        private WaypointList TryLoadWpts()
         {
             try
             {
                 var loader = new WptListLoader(pathTxtBox.Text);
                 var result = loader.LoadFromFile();
-                WptListLocator.Instance = result.WptList;
                 CountryCodesLocator.Instance = result.CountryCodes;
-                return true;
+                return result.WptList;
             }
             catch (WaypointFileReadException ex)
             {
                 WriteToLog(ex);
                 ShowError("Failed to load waypoints.txt.");
-                return false;
+                return null;
             }
             catch (LoadCountryNamesException ex)
             {
                 WriteToLog(ex);
                 ShowError("Failed to load icao_nationality_code.txt.");
-                return false;
+                return null;
             }
         }
 
-        private bool TryLoadAirports()
+        // If failed, returns null.
+        private AirportManager TryLoadAirports()
         {
             var directory = pathTxtBox.Text;
             var filePath = Path.Combine(directory, @"Airports.txt");
@@ -226,16 +232,14 @@ namespace QSP.UI.UserControls
 
             try
             {
-                AirportListLocator.Instance =
-                    new AirportManager(loader.LoadFromFile());
-                return true;
+                return new AirportManager(loader.LoadFromFile());
             }
             catch (Exception ex) when
             (ex is ReadAirportFileException || ex is RwyDataFormatException)
             {
                 WriteToLog(ex);
                 ShowError("Failed to load airports.txt.");
-                return false;
+                return null;
             }
         }
 

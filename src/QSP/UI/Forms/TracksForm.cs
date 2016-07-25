@@ -1,31 +1,19 @@
 using QSP.Common;
-using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.AirwayStructure;
-using QSP.RouteFinding.Routes.TrackInUse;
-using QSP.RouteFinding.Tracks.Ausots;
+using QSP.RouteFinding;
 using QSP.RouteFinding.Tracks.Common;
-using QSP.RouteFinding.Tracks.Interaction;
-using QSP.RouteFinding.Tracks.Nats;
-using QSP.RouteFinding.Tracks.Pacots;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static QSP.RouteFinding.Tracks.Interaction.Interactions;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 
 namespace QSP.UI.Forms
 {
     public partial class TracksForm
     {
-        private TrackInUseCollection tracksInUse;
-        private NatsHandler NatsManager;
-        private PacotsHandler PacotsManager;
-        private AusotsHandler AusotsManager;
-        private StatusRecorder TrackStatusRecorder;
-
+        private AirwayNetwork airwayNetwork;
+        
         private ImageList myImageList;
         private ToolStripStatusLabel statusLbl;
 
@@ -39,15 +27,12 @@ namespace QSP.UI.Forms
         }
 
         public void Init(
-            WaypointList wptList, 
-            AirportManager airportList, 
-            TrackInUseCollection tracksInUse,
+            AirwayNetwork airwayNetwork,
             ToolStripStatusLabel statusLbl)
         {
-            this.tracksInUse = tracksInUse;
+            this.airwayNetwork = airwayNetwork;
             this.statusLbl = statusLbl;
-
-            InitData(wptList, airportList);
+            
             InitImages();
             InitCBox();
             InitPicBoxes();
@@ -64,33 +49,7 @@ namespace QSP.UI.Forms
             CBoxAusotsEnabled.SelectedIndexChanged += CBoxAusotsEnabledChanged;
             Closing += CloseForm;
         }
-
-        private void InitData(WaypointList wptList, AirportManager airportList)
-        {
-            TrackStatusRecorder = new StatusRecorder();
-
-            NatsManager = new NatsHandler(
-                wptList,
-                wptList.GetEditor(),
-                TrackStatusRecorder,
-                airportList,
-                tracksInUse);
-
-            PacotsManager = new PacotsHandler(
-                wptList,
-                wptList.GetEditor(),
-                TrackStatusRecorder,
-                airportList,
-                tracksInUse);
-
-            AusotsManager = new AusotsHandler(
-                wptList,
-                wptList.GetEditor(),
-                TrackStatusRecorder,
-                airportList,
-                tracksInUse);
-        }
-
+        
         private void InitImages()
         {
             myImageList = new ImageList();
@@ -142,7 +101,7 @@ namespace QSP.UI.Forms
                 }
             }
 
-            AddToListView(TrackStatusRecorder.Records, type);
+            AddToListView(airwayNetwork.StatusRecorder.Records, type);
             SetPBox(type);
             SetMainFormTrackStatus();
         }
@@ -249,32 +208,52 @@ namespace QSP.UI.Forms
                 statusLbl.Text = "Tracks: Partly Ready";
             }
         }
-        
+
         private async void BtnNatsDn_Click(object sender, EventArgs e)
         {
-            await DnNats();
+            BtnNatsDn.Enabled = false;
+            BtnNatsDn.Text = "Downloading";
+
+            await airwayNetwork.DownloadTrack(TrackType.Nats);
+            RefreshStatus(TrackType.Nats);
+
+            BtnNatsDn.Enabled = true;
+            BtnNatsDn.Text = "Download";
         }
 
         private async void BtnPacotsDn_Click(object sender, EventArgs e)
         {
-            await DnPacots();
+            BtnPacotsDn.Enabled = false;
+            BtnPacotsDn.Text = "Downloading";
+
+            await airwayNetwork.DownloadTrack(TrackType.Pacots);
+            RefreshStatus(TrackType.Pacots);
+
+            BtnPacotsDn.Enabled = true;
+            BtnPacotsDn.Text = "Download";
         }
 
         private async void BtnAusotsDn_Click(object sender, EventArgs e)
         {
-            await DnAusots();
+            BtnAusotsDn.Enabled = false;
+            BtnAusotsDn.Text = "Downloading";
+
+            await airwayNetwork.DownloadTrack(TrackType.Ausots);
+            RefreshStatus(TrackType.Ausots);
+
+            BtnAusotsDn.Enabled = true;
+            BtnAusotsDn.Text = "Download";
         }
 
         private void CBoxNatsEnabledChanged(object sender, EventArgs e)
         {
             if (CBoxNatsEnabled.SelectedIndex == 0)
             {
-                //enabled
-                NatsManager.AddToWaypointList();
+                airwayNetwork.EnableTrack(TrackType.Nats);
             }
             else
             {
-                NatsManager.UndoEdit();
+                airwayNetwork.DisableTrack(TrackType.Nats);
             }
         }
 
@@ -282,12 +261,11 @@ namespace QSP.UI.Forms
         {
             if (CBoxPacotsEnabled.SelectedIndex == 0)
             {
-                //enabled
-                PacotsManager.AddToWaypointList();
+                airwayNetwork.EnableTrack(TrackType.Pacots);
             }
             else
             {
-                PacotsManager.UndoEdit();
+                airwayNetwork.DisableTrack(TrackType.Pacots);
             }
         }
 
@@ -295,51 +273,14 @@ namespace QSP.UI.Forms
         {
             if (CBoxAusotsEnabled.SelectedIndex == 0)
             {
-                //enabled
-                AusotsManager.AddToWaypointList();
+                airwayNetwork.EnableTrack(TrackType.Ausots);
             }
             else
             {
-                AusotsManager.UndoEdit();
+                airwayNetwork.DisableTrack(TrackType.Ausots);
             }
         }
-
-        private async Task DnNats()
-        {
-            BtnNatsDn.Enabled = false;
-            BtnNatsDn.Text = "Downloading";
-
-            await SetNats(NatsManager, TrackStatusRecorder);
-            RefreshStatus(TrackType.Nats);
-
-            BtnNatsDn.Enabled = true;
-            BtnNatsDn.Text = "Download";
-        }
-
-        private async Task DnPacots()
-        {
-            BtnPacotsDn.Enabled = false;
-            BtnPacotsDn.Text = "Downloading";
-
-            await SetPacots(PacotsManager, TrackStatusRecorder);
-            RefreshStatus(TrackType.Pacots);
-
-            BtnPacotsDn.Enabled = true;
-            BtnPacotsDn.Text = "Download";
-        }
-
-        private async Task DnAusots()
-        {
-            BtnAusotsDn.Enabled = false;
-            BtnAusotsDn.Text = "Downloading";
-
-            await SetAusots(AusotsManager, TrackStatusRecorder);
-            RefreshStatus(TrackType.Ausots);
-
-            BtnAusotsDn.Enabled = true;
-            BtnAusotsDn.Text = "Download";
-        }
-
+        
         private void CloseForm(object sender, CancelEventArgs e)
         {
             // Do NOT close this form. Hide instead.

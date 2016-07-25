@@ -2,14 +2,13 @@
 using QSP.UI.Forms;
 using QSP.RouteFinding.Airports;
 using System;
-using QSP.LibraryExtension;
 
 namespace QSP.UI.UserControls
 {
     public partial class AlternateRowItems : UserControl
     {
         private Func<string> destIcaoGetter;
-        private Locator<AirportManager> airportListLocator;
+        private Func<AirportManager> airportListGetter;
 
         public AlternateRowItems()
         {
@@ -17,10 +16,10 @@ namespace QSP.UI.UserControls
         }
 
         public void Init(Func<string> destIcaoGetter,
-            Locator<AirportManager> airportListLocator)
+            Func<AirportManager> airportListGetter)
         {
             this.destIcaoGetter = destIcaoGetter;
-            this.airportListLocator = airportListLocator;
+            this.airportListGetter = airportListGetter;
         }
 
         private void FindBtnClick(object sender, EventArgs e)
@@ -32,7 +31,7 @@ namespace QSP.UI.UserControls
                     IcaoTxtBox.Text = frm.SelectedIcao;
                 };
 
-                frm.Init(destIcaoGetter(), airportListLocator.Instance);
+                frm.Init(destIcaoGetter(), airportListGetter());
                 frm.ShowDialog();
             }
         }

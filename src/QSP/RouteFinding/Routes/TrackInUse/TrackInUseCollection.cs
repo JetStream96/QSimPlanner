@@ -50,6 +50,13 @@ namespace QSP.RouteFinding.Routes.TrackInUse
             }
         }
 
+        public void Clear()
+        {
+            _nats = new List<RouteEntry>();
+            _pacots = new List<RouteEntry>();
+            _ausots = new List<RouteEntry>();
+        }
+
         public void UpdateTracks(List<TrackNodes> AllNodes, TrackType type)
         {
             var list = new List<RouteEntry>();

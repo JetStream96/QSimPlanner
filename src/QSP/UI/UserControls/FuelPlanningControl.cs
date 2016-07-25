@@ -4,12 +4,11 @@ using QSP.Common.Options;
 using QSP.FuelCalculation;
 using QSP.FuelCalculation.Calculators;
 using QSP.LibraryExtension;
+using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
-using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Data.Interfaces;
-using QSP.RouteFinding.Routes.TrackInUse;
+using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
@@ -35,10 +34,8 @@ namespace QSP.UI.UserControls
 {
     public partial class FuelPlanningControl : UserControl
     {
+        private AirwayNetwork airwayNetwork;
         private Locator<AppOptions> appOptionsLocator;
-        private Locator<WaypointList> wptListLocator;
-        private Locator<AirportManager> airportListLocator;
-        private TrackInUseCollection tracksInUse;
         private ProcedureFilter procFilter;
         private CountryCodeManager countryCodes;
         private Locator<IWindTableCollection> windTableLocator;
@@ -65,16 +62,11 @@ namespace QSP.UI.UserControls
 
         public event EventHandler AircraftRequestChanged;
 
-        private WaypointList wptList
-        {
-            get { return wptListLocator.Instance; }
-        }
-
         private AirportManager airportList
         {
-            get { return airportListLocator.Instance; }
+            get { return airwayNetwork.AirportList; }
         }
-        
+
         private AppOptions appSettings
         {
             get { return appOptionsLocator.Instance; }
@@ -92,9 +84,7 @@ namespace QSP.UI.UserControls
 
         public void Init(
             Locator<AppOptions> appOptionsLocator,
-            Locator<WaypointList> wptListLocator,
-            Locator<AirportManager> airportListLocator,
-            TrackInUseCollection tracksInUse,
+            AirwayNetwork airwayNetwork,
             ProcedureFilter procFilter,
             CountryCodeManager countryCodes,
             Locator<IWindTableCollection> windTableLocator,
@@ -102,9 +92,7 @@ namespace QSP.UI.UserControls
             IEnumerable<FuelData> fuelData)
         {
             this.appOptionsLocator = appOptionsLocator;
-            this.wptListLocator = wptListLocator;
-            this.airportListLocator = airportListLocator;
-            this.tracksInUse = tracksInUse;
+            this.airwayNetwork = airwayNetwork;
             this.procFilter = procFilter;
             this.countryCodes = countryCodes;
             this.windTableLocator = windTableLocator;
@@ -123,9 +111,7 @@ namespace QSP.UI.UserControls
             advancedRouteTool = new AdvancedRouteTool();
             advancedRouteTool.Init(
                 appOptionsLocator,
-                wptListLocator,
-                airportListLocator,
-                tracksInUse,
+                airwayNetwork,
                 procFilter,
                 countryCodes,
                 () => GetWindCalculator());
@@ -137,14 +123,12 @@ namespace QSP.UI.UserControls
 
             LoadSavedState();
         }
-        
+
         private void SetRouteOptionControl()
         {
             routeOptionBtns.Init(
                 appOptionsLocator,
-                wptListLocator,
-                airportListLocator,
-                tracksInUse,
+                airwayNetwork,
                 origController,
                 destController,
                 () => GetWindCalculator(),
@@ -183,9 +167,7 @@ namespace QSP.UI.UserControls
             altnControl = new AlternateController(
                 alternateGroupBox,
                 appOptionsLocator,
-                wptListLocator,
-                airportListLocator,
-                tracksInUse,
+                airwayNetwork,
                 altnLayoutPanel,
                 destSidProvider,
                 () => GetWindCalculator());
@@ -267,8 +249,8 @@ namespace QSP.UI.UserControls
                sidComboBox,
                filterSidBtn,
                appOptionsLocator,
-               airportListLocator,
-               wptListLocator,
+               () => airwayNetwork.AirportList,
+               () => airwayNetwork.WptList,
                procFilter);
 
             destController = new RouteFinderSelection(
@@ -278,8 +260,8 @@ namespace QSP.UI.UserControls
                 starComboBox,
                 filterStarBtn,
                 appOptionsLocator,
-                airportListLocator,
-                wptListLocator,
+                () => airwayNetwork.AirportList,
+                () => airwayNetwork.WptList,
                 procFilter);
 
             destSidProvider = new DestinationSidSelection(destController);
@@ -499,7 +481,7 @@ namespace QSP.UI.UserControls
 
                 // Remove control from form so that it is not disposed
                 // when form closes.
-                frm.FormClosing += 
+                frm.FormClosing +=
                     (_s, _e) => frm.Controls.Remove(advancedRouteTool);
 
                 frm.ShowDialog();

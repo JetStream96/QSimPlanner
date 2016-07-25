@@ -1,9 +1,7 @@
 ﻿using QSP.Common.Options;
 using QSP.LibraryExtension;
-using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding;
 using QSP.RouteFinding.Routes;
-using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.UserControls;
 using QSP.UI.UserControls.RouteOptions;
@@ -24,9 +22,7 @@ namespace QSP.UI.Controllers
         private GroupBox altnGroupBox;
         private List<AltnRow> rows;
         private Locator<AppOptions> appOptionsLocator;
-        private Locator<WaypointList> wptListLocator;
-        private Locator<AirportManager> airportListLocator;
-        private TrackInUseCollection tracksInUse;
+        private AirwayNetwork airwayNetwork;
         private TableLayoutPanel layoutPanel;
         private DestinationSidSelection destSidProvider;
         private Func<AvgWindCalculator> windCalcGetter;
@@ -57,18 +53,14 @@ namespace QSP.UI.Controllers
         public AlternateController(
             GroupBox altnGroupBox,
             Locator<AppOptions> appOptionsLocator,
-            Locator<WaypointList> wptListLocator,
-            Locator<AirportManager> airportListLocator,
-            TrackInUseCollection tracksInUse,
+            AirwayNetwork airwayNetwork,
             TableLayoutPanel layoutPanel,
             DestinationSidSelection destSidProvider,
             Func<AvgWindCalculator> windCalcGetter)
         {
             this.altnGroupBox = altnGroupBox;
             this.appOptionsLocator = appOptionsLocator;
-            this.wptListLocator = wptListLocator;
-            this.airportListLocator = airportListLocator;
-            this.tracksInUse = tracksInUse;
+            this.airwayNetwork = airwayNetwork;
             this.layoutPanel = layoutPanel;
             this.destSidProvider = destSidProvider;
             this.windCalcGetter = windCalcGetter;
@@ -79,7 +71,8 @@ namespace QSP.UI.Controllers
         public void AddRow()
         {
             var row = new AlternateRowItems();
-            row.Init(() => destSidProvider.Icao, airportListLocator);
+            row.Init(() => destSidProvider.Icao, 
+                () => airwayNetwork.AirportList);
             row.AddToLayoutPanel(layoutPanel);
             row.IcaoTxtBox.TextChanged += (s, e) =>
                 AlternatesChanged?.Invoke(this, EventArgs.Empty);
@@ -150,15 +143,13 @@ namespace QSP.UI.Controllers
                     new ComboBox(),
                     new Button(),
                     Parent.appOptionsLocator,
-                    Parent.airportListLocator,
-                    Parent.wptListLocator,
+                    () => Parent.airwayNetwork.AirportList,
+                    () => Parent.airwayNetwork.WptList,
                     new ProcedureFilter());
 
                 OptionMenu = new OptionContextMenu(
                     Parent.appOptionsLocator,
-                    Parent.wptListLocator,
-                    Parent.airportListLocator,
-                    Parent.tracksInUse,
+                    Parent.airwayNetwork,
                     Parent.destSidProvider,
                     Controller,
                     Parent.windCalcGetter,

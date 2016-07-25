@@ -2,11 +2,9 @@
 using QSP.GoogleMap;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
-using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.UI.Controllers;
 using QSP.UI.Controls;
 using QSP.UI.Factories;
@@ -27,9 +25,7 @@ namespace QSP.UI.UserControls.RouteOptions
     public partial class RouteOptionController
     {
         private Locator<AppOptions> appOptionsLocator;
-        private Locator<WaypointList> wptListLocator;
-        private Locator<AirportManager> airportListLocator;
-        private TrackInUseCollection tracksInUse;
+        private AirwayNetwork airwayNetwork;
         private ISelectedProcedureProvider origController;
         private ISelectedProcedureProvider destController;
         private Func<AvgWindCalculator> windCalcGetter;
@@ -49,16 +45,14 @@ namespace QSP.UI.UserControls.RouteOptions
 
         private AirportManager airportList
         {
-            get { return airportListLocator.Instance; }
+            get { return airwayNetwork.AirportList; }
         }
 
         public RouteGroup Route { get; private set; }
 
         public RouteOptionController(
             Locator<AppOptions> appOptionsLocator,
-            Locator<WaypointList> wptListLocator,
-            Locator<AirportManager> airportListLocator,
-            TrackInUseCollection tracksInUse,
+            AirwayNetwork airwayNetwork,
             ISelectedProcedureProvider origController,
             ISelectedProcedureProvider destController,
             Func<AvgWindCalculator> windCalcGetter,
@@ -72,9 +66,7 @@ namespace QSP.UI.UserControls.RouteOptions
             IClickable showMapBtn)
         {
             this.appOptionsLocator = appOptionsLocator;
-            this.wptListLocator = wptListLocator;
-            this.airportListLocator = airportListLocator;
-            this.tracksInUse = tracksInUse;
+            this.airwayNetwork = airwayNetwork;
             this.origController = origController;
             this.destController = destController;
             this.windCalcGetter = windCalcGetter;
@@ -115,8 +107,8 @@ namespace QSP.UI.UserControls.RouteOptions
             var star = destController.GetSelectedProcedures();
 
             var finder = new RouteFinderFacade(
-                wptListLocator.Instance,
-                airportList,
+                airwayNetwork.WptList,
+                airwayNetwork.AirportList,
                 appSettings.NavDataLocation,
                 null,
                 windCalcGetter());
@@ -125,7 +117,7 @@ namespace QSP.UI.UserControls.RouteOptions
                 origController.Icao, origController.Rwy, sid,
                 destController.Icao, destController.Rwy, star);
 
-            Route = new RouteGroup(result, tracksInUse);
+            Route = new RouteGroup(result, airwayNetwork.TracksInUse);
             var expanded = Route.Expanded;
 
             routeTxtSetter(expanded.ToString(false, false));
@@ -157,9 +149,9 @@ namespace QSP.UI.UserControls.RouteOptions
                         destController.Icao,
                         destController.Rwy,
                         appSettings.NavDataLocation,
-                        airportList,
-                        wptListLocator.Instance),
-                    tracksInUse);
+                        airwayNetwork.AirportList,
+                        airwayNetwork.WptList),
+                    airwayNetwork.TracksInUse);
 
                 var expanded = Route.Expanded;
 

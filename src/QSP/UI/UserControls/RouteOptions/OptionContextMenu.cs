@@ -1,9 +1,7 @@
 ﻿using QSP.Common.Options;
 using QSP.LibraryExtension;
-using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding;
 using QSP.RouteFinding.Routes;
-using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.UI.Controllers;
 using QSP.UI.Controls;
 using QSP.WindAloft;
@@ -28,9 +26,7 @@ namespace QSP.UI.UserControls.RouteOptions
 
         public OptionContextMenu(
             Locator<AppOptions> appOptionsLocator,
-            Locator<WaypointList> wptListLocator,
-            Locator<AirportManager> airportListLocator,
-            TrackInUseCollection tracksInUse,
+            AirwayNetwork airwayNetwork,
             ISelectedProcedureProvider origController,
             ISelectedProcedureProvider destController,
             Func<AvgWindCalculator> windCalcGetter,
@@ -43,9 +39,7 @@ namespace QSP.UI.UserControls.RouteOptions
 
             controller = new RouteOptionController(
                   appOptionsLocator,
-                  wptListLocator,
-                  airportListLocator,
-                  tracksInUse,
+                  airwayNetwork,
                   origController,
                   destController,
                   windCalcGetter,

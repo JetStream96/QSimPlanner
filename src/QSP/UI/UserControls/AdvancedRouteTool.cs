@@ -2,7 +2,6 @@
 using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.RouteFinding;
-using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
@@ -30,22 +29,20 @@ namespace QSP.UI.UserControls
         private ControlGroup fromGroup;
         private ControlGroup toGroup;
 
+        private AirwayNetwork airwayNetwork;
         private Locator<AppOptions> appOptionsLocator;
-        private Locator<WaypointList> wptListLocator;
-        private Locator<AirportManager> airportListLocator;
-        private TrackInUseCollection tracksInUse;
         private ProcedureFilter procFilter;
         private CountryCodeManager countryCodes;
         private Func<AvgWindCalculator> windCalcGetter;
 
-        public WaypointList wptList
+        private WaypointList wptList
         {
-            get { return wptListLocator.Instance; }
+            get { return airwayNetwork.WptList; }
         }
 
-        public AirportManager airportList
+        private TrackInUseCollection tracksInUse
         {
-            get { return airportListLocator.Instance; }
+            get { return airwayNetwork.TracksInUse; }
         }
         
         public AdvancedRouteTool()
@@ -55,17 +52,13 @@ namespace QSP.UI.UserControls
 
         public void Init(
             Locator<AppOptions> appOptionsLocator,
-            Locator<WaypointList> wptListLocator,
-            Locator<AirportManager> airportListLocator,
-            TrackInUseCollection tracksInUse,
+            AirwayNetwork airwayNetwork,
             ProcedureFilter procFilter,
             CountryCodeManager countryCodes,
             Func<AvgWindCalculator> windCalcGetter)
         {
             this.appOptionsLocator = appOptionsLocator;
-            this.wptListLocator = wptListLocator;
-            this.airportListLocator = airportListLocator;
-            this.tracksInUse = tracksInUse;
+            this.airwayNetwork = airwayNetwork;
             this.procFilter = procFilter;
             this.countryCodes = countryCodes;
             this.windCalcGetter = windCalcGetter;
@@ -282,7 +275,7 @@ namespace QSP.UI.UserControls
         {
             return new RouteFinderFacade(
                 wptList,
-                airportList,
+                airwayNetwork.AirportList,
                 appOptionsLocator.Instance.NavDataLocation,
                 CheckedCodes,
                 windCalcGetter());
@@ -372,8 +365,8 @@ namespace QSP.UI.UserControls
                     TerminalProcedure,
                     FilterBtn,
                     owner.appOptionsLocator,
-                    owner.airportListLocator,
-                    owner.wptListLocator,
+                    () => owner.airwayNetwork.AirportList,
+                    () => owner.airwayNetwork.WptList,
                     procFilter);
 
                 TypeSelection.SelectedIndexChanged += TypeChanged;
