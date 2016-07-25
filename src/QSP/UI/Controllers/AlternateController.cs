@@ -102,6 +102,16 @@ namespace QSP.UI.Controllers
             AlternatesChanged?.Invoke(this, EventArgs.Empty);
         }
 
+        public void RefreshForAirportListChange()
+        {
+            rows.ForEach(r => r.Control.Controller.RefreshRwyComboBox());
+        }
+
+        public void RefreshForNavDataLocationChange()
+        {
+            rows.ForEach(r => r.Control.Controller.RefreshProcedureComboBox());
+        }
+
         public Route[] Routes
         {
             get

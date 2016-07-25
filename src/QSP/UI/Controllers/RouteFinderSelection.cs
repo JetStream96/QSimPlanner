@@ -123,9 +123,18 @@ namespace QSP.UI.Controllers
             return proc;
         }
 
+        public void RefreshRwyComboBox()
+        {
+            var selected = Rwy;
+            IcaoChanged(this, EventArgs.Empty);
+            RwyCBox.Text = selected;
+        }
+
         public void RefreshProcedureComboBox()
         {
+            var selected = TerminalProceduresCBox.Text;
             RwyChanged(this, EventArgs.Empty);
+            TerminalProceduresCBox.Text = selected;
         }
 
         private void IcaoChanged(object sender, EventArgs e)

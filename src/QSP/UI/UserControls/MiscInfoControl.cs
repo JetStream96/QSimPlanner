@@ -36,7 +36,7 @@ namespace QSP.UI.UserControls
             Func<IEnumerable<string>> altnGetter)
         {
             this.airportList = airportList;
-            airportMapControl.Initialize(airportList);
+            airportMapControl.Init(airportList);
             this.windTableLocator = windTableLocator;
             airportMapControl.BrowserEnabled = enableBrowser;
             metarLastUpdatedLbl.Text = "";

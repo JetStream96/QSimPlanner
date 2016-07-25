@@ -101,7 +101,7 @@ namespace QSP.UI.ToLdgModule.Forms
 
             LdgMenu.TryLoadState();
 
-            AirportMenu.Initialize(airports);
+            AirportMenu.Init(airports);
             AirportMenu.BrowserEnabled = true;
 
             EnableBtnColorControls();

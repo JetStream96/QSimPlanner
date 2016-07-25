@@ -570,5 +570,19 @@ namespace QSP.UI.UserControls
             return new AvgWindCalculator(
                 windTableLocator.Instance, tas, altitude);
         }
+
+        public void RefreshForAirportListChange()
+        {
+            origController.RefreshRwyComboBox();
+            destController.RefreshRwyComboBox();
+            altnControl.RefreshForAirportListChange();
+        }
+
+        public void RefreshForNavDataLocationChange()
+        {
+            origController.RefreshProcedureComboBox();
+            destController.RefreshProcedureComboBox();
+            altnControl.RefreshForNavDataLocationChange();
+        }
     }
 }

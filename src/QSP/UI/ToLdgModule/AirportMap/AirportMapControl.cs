@@ -118,7 +118,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             InitializeComponent();
         }
 
-        public void Initialize(AirportManager airports)
+        public void Init(AirportManager airports)
         {
             ResetAirport();
             SetEmptyDataGrid();

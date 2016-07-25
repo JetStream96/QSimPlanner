@@ -249,6 +249,12 @@ namespace QSP.UI.Forms
                 ldgMenu.requestBtn.Visible = showReqBtn;
             };
 
+            airwayNetwork.AirportListChanged += (s, e) =>
+            fuelMenu.RefreshForAirportListChange();
+
+            optionsMenu.NavDataLocationChanged += (s, e) =>
+            fuelMenu.RefreshForNavDataLocationChange();
+
             EnableBtnColorControls();
             EnableViewControl();
             AddToolTip();

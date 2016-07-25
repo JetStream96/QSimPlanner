@@ -27,6 +27,8 @@ namespace QSP.UI.UserControls
         private IEnumerable<RouteExportMatching> exports;
         private Panel popUpPanel;
 
+        public event EventHandler NavDataLocationChanged;
+
         public AppOptions AppSettings
         {
             get
@@ -249,7 +251,14 @@ namespace QSP.UI.UserControls
 
             if (OptionManager.TrySaveFile(newSetting))
             {
+                var oldSetting = AppSettingsLocator.Instance;
                 AppSettingsLocator.Instance = newSetting;
+
+                if (oldSetting.NavDataLocation != newSetting.NavDataLocation)
+                {
+                    NavDataLocationChanged?.Invoke(this, EventArgs.Empty);
+                }
+
                 return true;
             }
             else

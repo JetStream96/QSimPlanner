@@ -24,6 +24,8 @@ namespace QSP.RouteFinding
         public AirportManager AirportList { get; private set; }
         public TrackInUseCollection TracksInUse { get; private set; }
         public StatusRecorder StatusRecorder { get; private set; }
+        
+        public event EventHandler AirportListChanged;
 
         public AirwayNetwork(
             WaypointList wptList, AirportManager airportList)
@@ -93,6 +95,8 @@ namespace QSP.RouteFinding
                 ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
                 ausotsManager.AddToWaypointList();
             }
+
+            AirportListChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <exception cref="ArgumentException"></exception>
