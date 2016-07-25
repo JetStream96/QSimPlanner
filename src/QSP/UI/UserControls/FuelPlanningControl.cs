@@ -328,11 +328,11 @@ namespace QSP.UI.UserControls
         {
             if (registrationComboBox.SelectedIndex < 0)
             {
-                //RefreshWtColor();
                 return;
             }
 
             var config = aircrafts.Find(registrationComboBox.Text).Config;
+            WeightUnit = config.WtUnit;
             weightControl.AircraftConfig = config;
             var maxPayloadKg = config.MaxZfwKg - config.OewKg;
             weightControl.ZfwKg = config.OewKg + 0.5 * maxPayloadKg;

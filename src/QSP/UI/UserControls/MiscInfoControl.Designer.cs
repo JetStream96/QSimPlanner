@@ -334,7 +334,7 @@
             this.updateDesForcastBtn.Text = "Refresh";
             this.updateDesForcastBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.updateDesForcastBtn.UseVisualStyleBackColor = true;
-            this.updateDesForcastBtn.Click += new System.EventHandler(this.updateDesForcast);
+            this.updateDesForcastBtn.Click += new System.EventHandler(this.UpdateDesForcast);
             // 
             // desForcastLastUpdatedLbl
             // 

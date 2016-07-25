@@ -120,8 +120,15 @@ namespace QSP.UI.UserControls
                     () => MetarDownloader.TryGetMetarTaf(i)));
         }
 
-        private async void updateDesForcast(object sender, EventArgs e)
+        private async void UpdateDesForcast(object sender, EventArgs e)
         {
+            if(windTableLocator.Instance is DefaultWindTableCollection)
+            {
+                desForcastRichTxtBox.Text =
+                    "\n\n\n       Wind aloft has not been downloaded.";
+                return;
+            }
+
             var dest = destGetter();
 
             try
@@ -152,7 +159,7 @@ namespace QSP.UI.UserControls
                 windTableLocator.Instance, latlon.Lat, latlon.Lon, FLs);
 
             Wind[] w = forcastGen.Generate();
-            var result = new StringBuilder();
+            var result = new StringBuilder("\n");
 
             for (int i = 0; i < FLs.Length; i++)
             {

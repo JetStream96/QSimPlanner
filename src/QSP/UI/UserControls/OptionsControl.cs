@@ -22,7 +22,7 @@ namespace QSP.UI.UserControls
     public partial class OptionsControl : UserControl
     {
         private Locator<CountryCodeManager> CountryCodesLocator;
-        private Locator<AppOptions> AppSettingsLocator; 
+        private Locator<AppOptions> AppSettingsLocator;
         private AirwayNetwork airwayNetwork;
         private IEnumerable<RouteExportMatching> exports;
         private Panel popUpPanel;
@@ -182,6 +182,24 @@ namespace QSP.UI.UserControls
             saveBtn.Text = "Saving ...";
             Refresh();
 
+            if (pathTxtBox.Text != AppSettings.NavDataLocation)
+            {
+                if (TryLoadWptAndAirports()) TrySaveOptions();
+            }
+            else
+            {
+                TrySaveOptions();
+            }
+
+            saveBtn.ForeColor = Color.White;
+            saveBtn.BackColor = Color.Green;
+            saveBtn.Text = "Save";
+            saveBtn.Enabled = true;
+        }
+
+        // Returns whether the operation is successful.
+        private bool TryLoadWptAndAirports()
+        {
             var wptList = TryLoadWpts();
 
             if (wptList != null)
@@ -191,14 +209,11 @@ namespace QSP.UI.UserControls
                 if (airportList != null)
                 {
                     airwayNetwork.Update(wptList, airportList);
-                    TrySaveOptions();
+                    return true;
                 }
             }
 
-            saveBtn.ForeColor = Color.White;
-            saveBtn.BackColor = Color.Green;
-            saveBtn.Text = "Save";
-            saveBtn.Enabled = true;
+            return false;
         }
 
         // If failed, returns null.

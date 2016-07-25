@@ -165,7 +165,6 @@ namespace QSP.UI.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(573, 417);
-            this.ControlBox = false;
             this.Controls.Add(this.lengthUnitComboBox);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.findBtn);
@@ -180,7 +179,7 @@ namespace QSP.UI.Forms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FindAltnForm";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Find Alternate";
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).EndInit();
             this.ResumeLayout(false);
