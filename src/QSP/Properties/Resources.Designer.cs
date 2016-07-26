@@ -73,16 +73,6 @@ namespace QSP.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrow {
-            get {
-                object obj = ResourceManager.GetObject("arrow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap CautionIcon {
             get {
                 object obj = ResourceManager.GetObject("CautionIcon", resourceCulture);
@@ -153,16 +143,6 @@ namespace QSP.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PfdNgx {
-            get {
-                object obj = ResourceManager.GetObject("PfdNgx", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap processing9 {
             get {
                 object obj = ResourceManager.GetObject("processing9", resourceCulture);
@@ -177,16 +157,6 @@ namespace QSP.Properties {
             get {
                 object obj = ResourceManager.GetObject("RedLight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon VORTAC {
-            get {
-                object obj = ResourceManager.GetObject("VORTAC", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
             }
         }
         

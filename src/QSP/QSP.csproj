@@ -764,14 +764,11 @@
     <None Include="Resources\noun_1329.png" />
     <None Include="Resources\delete-icon.png" />
     <None Include="Resources\red_light.png" />
-    <None Include="Resources\VORTAC.ico" />
     <None Include="Resources\Triangle_128.png" />
     <None Include="Resources\processing9.png" />
-    <None Include="Resources\PfdNgx.png" />
     <None Include="Resources\green_light.png" />
     <None Include="Resources\check-icon.png" />
     <None Include="Resources\yellow_light.png" />
-    <None Include="Resources\arrow3.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

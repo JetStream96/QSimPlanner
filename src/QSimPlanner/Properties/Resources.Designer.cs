@@ -63,9 +63,9 @@ namespace QSimPlanner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon VORTAC {
+        internal static System.Drawing.Icon qsp_icon {
             get {
-                object obj = ResourceManager.GetObject("VORTAC", resourceCulture);
+                object obj = ResourceManager.GetObject("qsp_icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
