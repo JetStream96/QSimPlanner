@@ -259,7 +259,7 @@ namespace QSP.UI.Forms
 
             optionsMenu.NavDataLocationChanged += (s, e) =>
             fuelMenu.RefreshForNavDataLocationChange();
-            aboutMenu.Init();
+            aboutMenu.Init("QSimPlanner");
 
             EnableBtnColorControls();
             EnableViewControl();

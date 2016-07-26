@@ -58,12 +58,12 @@ namespace QSP.UI.Forms
             this.versionLbl.AutoSize = true;
             this.versionLbl.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.versionLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.versionLbl.Location = new System.Drawing.Point(217, 84);
+            this.versionLbl.Location = new System.Drawing.Point(235, 84);
             this.versionLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.versionLbl.Name = "versionLbl";
-            this.versionLbl.Size = new System.Drawing.Size(162, 32);
+            this.versionLbl.Size = new System.Drawing.Size(144, 32);
             this.versionLbl.TabIndex = 1;
-            this.versionLbl.Text = "version 0.5.0.0";
+            this.versionLbl.Text = "version 0.5.0";
             // 
             // Splash
             // 

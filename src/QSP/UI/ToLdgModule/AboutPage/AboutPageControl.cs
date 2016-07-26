@@ -15,15 +15,14 @@ namespace QSP.UI.ToLdgModule.AboutPage
             InitializeComponent();
         }
         
-        public void Init()
+        public void Init(string appName)
         {
+            appNameLbl.Text = appName;
             panel1.BackColor = Color.FromArgb(160, Color.White);
 
             var ver = Assembly.GetEntryAssembly().GetName().Version;
             versionLbl.Text =
-                ver.Major.ToString() + "." +
-                ver.Minor.ToString() + "." +
-                ver.Build.ToString();
+                $"v{ver.Major}.{ver.Minor}.{ver.Build}";
         }
 
         private void TryOpenFile(string fileName)

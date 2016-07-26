@@ -19,8 +19,9 @@ namespace QSP.UI.Forms
         public static string AppProductVersion()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            return FileVersionInfo.GetVersionInfo(assembly.Location)
-                .ProductVersion;
+            var version = FileVersionInfo.GetVersionInfo(assembly.Location);
+            return $"{version.ProductMajorPart}.{version.ProductMinorPart}" +
+                $".{version.ProductBuildPart}";
         }
     }
 }

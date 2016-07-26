@@ -103,7 +103,7 @@ namespace QSP.UI.ToLdgModule.Forms
 
             AirportMenu.Init(airports);
             AirportMenu.BrowserEnabled = true;
-            AboutMenu.Init();
+            AboutMenu.Init("QSP Lite");
 
             EnableBtnColorControls();
             EnableViewControl();
