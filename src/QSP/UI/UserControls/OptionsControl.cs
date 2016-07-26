@@ -186,18 +186,17 @@ namespace QSP.UI.UserControls
 
             if (pathTxtBox.Text != AppSettings.NavDataLocation)
             {
-                if (TryLoadWptAndAirports()) TrySaveOptions();
+                if (TryLoadWptAndAirports()) SaveOptions();
             }
             else
             {
-                TrySaveOptions();
+                SaveOptions();
             }
 
             saveBtn.ForeColor = Color.White;
             saveBtn.BackColor = Color.Green;
             saveBtn.Text = "Save";
             saveBtn.Enabled = true;
-            ShowSavedLbl();
         }
 
         private void ShowSavedLbl()
@@ -278,6 +277,14 @@ namespace QSP.UI.UserControls
                 WriteToLog(ex);
                 ShowError("Failed to load airports.txt.");
                 return null;
+            }
+        }
+
+        private void SaveOptions()
+        {
+            if (TrySaveOptions())
+            {
+                ShowSavedLbl();
             }
         }
 

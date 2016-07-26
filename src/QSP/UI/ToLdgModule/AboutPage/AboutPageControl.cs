@@ -13,10 +13,9 @@ namespace QSP.UI.ToLdgModule.AboutPage
         public AboutPageControl()
         {
             InitializeComponent();
-            InitControls();
         }
-
-        private void InitControls()
+        
+        public void Init()
         {
             panel1.BackColor = Color.FromArgb(160, Color.White);
 

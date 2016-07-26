@@ -55,7 +55,6 @@ namespace QSP.UI.ToLdgModule.Forms
         public QspLiteForm()
         {
             InitializeComponent();
-            AddControls();
         }
 
         private void InitProfiles()
@@ -74,6 +73,7 @@ namespace QSP.UI.ToLdgModule.Forms
 
         public void Init()
         {
+            AddControls();
             InitProfiles();
             ResizeForm();
             CheckRegistry();
@@ -103,6 +103,7 @@ namespace QSP.UI.ToLdgModule.Forms
 
             AirportMenu.Init(airports);
             AirportMenu.BrowserEnabled = true;
+            AboutMenu.Init();
 
             EnableBtnColorControls();
             EnableViewControl();

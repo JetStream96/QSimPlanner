@@ -44,7 +44,7 @@ namespace QSP.UI.ToLdgModule.Options
         public static void Save(UserOption option)
         {
             var keys = new KeyDataCollection();
-            keys.AddKey("SourceType", option.SourceType.ToString());
+            keys.AddKey("SourceType", ((int)(option.SourceType)).ToString());
             keys.AddKey("OpenDataPath", option.OpenDataPath);
             keys.AddKey("PaywarePath", option.PaywarePath);
 
