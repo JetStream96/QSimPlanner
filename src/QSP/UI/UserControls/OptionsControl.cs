@@ -16,6 +16,7 @@ using System.IO;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
+using QSP.UI.Controllers;
 
 namespace QSP.UI.UserControls
 {
@@ -99,6 +100,7 @@ namespace QSP.UI.UserControls
             navDataStatusLbl.Text = "";
             airacLbl.Text = "";
             airacPeriodLbl.Text = "";
+            savedLbl.Text = "";
 
             AutoDLTracksCheckBox.Checked = true;
             AutoDLWindCheckBox.Checked = true;
@@ -195,6 +197,25 @@ namespace QSP.UI.UserControls
             saveBtn.BackColor = Color.Green;
             saveBtn.Text = "Save";
             saveBtn.Enabled = true;
+            ShowSavedLbl();
+        }
+
+        private void ShowSavedLbl()
+        {           
+            savedLbl.Text = "Saved!    ";
+            savedLbl.ForeColor = Color.Black;
+
+            var timer = new Timer();
+            timer.Interval = 2000;
+            timer.Tick += (s, e) =>
+            {
+                timer.Stop();
+                timer.Dispose();
+                var c = new FadeoutController(savedLbl);
+                c.Fadeout();
+            };
+
+            timer.Start();
         }
 
         // Returns whether the operation is successful.
