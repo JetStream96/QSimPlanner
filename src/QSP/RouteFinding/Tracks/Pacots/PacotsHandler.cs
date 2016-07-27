@@ -135,6 +135,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         public void UndoEdit()
         {
             editor.Undo();
+            AddedToWptList = false;
         }
     }
 }

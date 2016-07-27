@@ -210,8 +210,7 @@ namespace QSP.UI.UserControls
             {
                 timer.Stop();
                 timer.Dispose();
-                var c = new FadeoutController(savedLbl);
-                c.Fadeout();
+                FadeoutController.Fadeout(savedLbl); 
             };
 
             timer.Start();

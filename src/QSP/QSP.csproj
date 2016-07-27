@@ -141,7 +141,7 @@
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilter.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\INatsMessageProvider.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />
-    <Compile Include="UI\Controllers\BtnDisableStyleController.cs" />
+    <Compile Include="UI\Controllers\ControlDisableStyleController.cs" />
     <Compile Include="UI\Controllers\DestinationStarSelection.cs" />
     <Compile Include="UI\Controllers\FadeoutController.cs" />
     <Compile Include="UI\Controllers\ISelectedProcedureProvider.cs" />

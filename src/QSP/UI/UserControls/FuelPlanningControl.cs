@@ -105,6 +105,7 @@ namespace QSP.UI.UserControls
             SetRouteOptionControl();
             SetWeightController();
             SetAircraftSelection();
+            SetBtnColorStyles();
 
             wtUnitComboBox.SelectedIndex = 0;
             SubscribeEventHandlers();
@@ -122,6 +123,18 @@ namespace QSP.UI.UserControls
             }
 
             LoadSavedState();
+        }
+
+        private void SetBtnColorStyles()
+        {
+            var removeBtnStyle = new ControlDisableStyleController(
+                removeAltnBtn, 
+                Color.DarkSlateGray, 
+                Color.FromArgb(224,224,224), 
+                Color.White, 
+                Color.LightGray);
+
+            removeBtnStyle.Activate();
         }
 
         private void SetRouteOptionControl()

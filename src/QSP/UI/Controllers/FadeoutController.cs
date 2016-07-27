@@ -4,16 +4,9 @@ using System.Windows.Forms;
 
 namespace QSP.UI.Controllers
 {
-    public class FadeoutController
+    public static class FadeoutController
     {
-        private Control control;
-
-        public FadeoutController(Control control)
-        {
-            this.control = control;
-        }
-
-        public void Fadeout()
+        public static void Fadeout(Control control)
         {
             control.ForeColor = Color.Black;
             var timer = new Timer();

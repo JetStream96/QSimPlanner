@@ -4,16 +4,16 @@ using System.Windows.Forms;
 
 namespace QSP.UI.Controllers
 {
-    public class BtnDisableStyleController
+    public class ControlDisableStyleController
     {
-        private Button btn;
+        private Control btn;
         private Color enabledBack;
         private Color disabledBack;
         private Color enabledFore;
         private Color disabledFore;
 
-        public BtnDisableStyleController(
-            Button btn,
+        public ControlDisableStyleController(
+            Control btn,
             Color enabledBack,
             Color disabledBack,
             Color enabledFore,
@@ -29,6 +29,7 @@ namespace QSP.UI.Controllers
         public void Activate()
         {
             btn.EnabledChanged += ChangeAppearance;
+            ChangeAppearance(null, null);
         }
 
         public void Deactivate()

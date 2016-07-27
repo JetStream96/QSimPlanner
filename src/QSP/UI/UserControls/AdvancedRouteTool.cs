@@ -75,7 +75,7 @@ namespace QSP.UI.UserControls
         {
             var gray = Color.FromArgb(224, 224, 224);
 
-            new BtnDisableStyleController(
+            new ControlDisableStyleController(
                 filterSidBtn,
                 Color.DarkSlateGray,
                 gray,
@@ -83,7 +83,7 @@ namespace QSP.UI.UserControls
                 gray)
                 .Activate();
 
-            new BtnDisableStyleController(
+            new ControlDisableStyleController(
                 filterStarBtn,
                 Color.DarkSlateGray,
                 gray,
