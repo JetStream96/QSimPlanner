@@ -147,6 +147,7 @@
     <Compile Include="UI\Controllers\ISelectedProcedureProvider.cs" />
     <Compile Include="UI\Controllers\ListViewSortEnabler.cs" />
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
+    <Compile Include="UI\Controllers\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
     <Compile Include="UI\Forms\WindDownloadStatus.cs" />
@@ -231,6 +232,7 @@
     </Compile>
     <Compile Include="UI\UserControls\RouteOptions\RouteOptionController.cs" />
     <Compile Include="UI\Utilities\ControlMover.cs" />
+    <Compile Include="UI\Utilities\ParentControlFinder.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />

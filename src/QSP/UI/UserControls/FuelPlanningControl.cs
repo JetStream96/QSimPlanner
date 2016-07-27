@@ -14,6 +14,7 @@ using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
 using QSP.UI.ToLdgModule.Common;
+using QSP.UI.Utilities;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
 using System;
@@ -128,10 +129,10 @@ namespace QSP.UI.UserControls
         private void SetBtnColorStyles()
         {
             var removeBtnStyle = new ControlDisableStyleController(
-                removeAltnBtn, 
-                Color.DarkSlateGray, 
-                Color.FromArgb(224,224,224), 
-                Color.White, 
+                removeAltnBtn,
+                Color.DarkSlateGray,
+                Color.FromArgb(224, 224, 224),
+                Color.White,
                 Color.LightGray);
 
             removeBtnStyle.Activate();
@@ -155,15 +156,9 @@ namespace QSP.UI.UserControls
 
         public WeightUnit WeightUnit
         {
-            get
-            {
-                return (WeightUnit)wtUnitComboBox.SelectedIndex;
-            }
+            get { return (WeightUnit)wtUnitComboBox.SelectedIndex; }
 
-            set
-            {
-                wtUnitComboBox.SelectedIndex = (int)value;
-            }
+            set { wtUnitComboBox.SelectedIndex = (int)value; }
         }
 
         private void SetAltnController()
@@ -443,6 +438,15 @@ namespace QSP.UI.UserControls
 
             AircraftRequestChanged?.Invoke(this, EventArgs.Empty);
             SaveStateToFile();
+            ScrollToBottom();
+        }
+
+        private void ScrollToBottom()
+        {
+            var panel = ParentControlFinder.FindPanel(this);
+            var scroll = panel.VerticalScroll;
+            var target = 1 + scroll.Maximum - scroll.LargeChange;
+            ScrollAnimation.ScrollToPosition(scroll, target, 500.0);
         }
 
         private static string InsufficientFuelMsg(
