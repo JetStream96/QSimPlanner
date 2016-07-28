@@ -2,6 +2,7 @@
 using QSP.WindAloft;
 using System.Linq;
 using System.Text.RegularExpressions;
+using static QSP.LibraryExtension.Regexes;
 
 namespace QSP.Metar
 {
@@ -95,7 +96,27 @@ namespace QSP.Metar
 
         public static bool PrecipitationExists(string metar)
         {
-            var wordList = new string[]
+		    /* prefix: 
+				"-",  // Light
+				"+",  // Heavy
+				"VC", // In vicinity
+				""	  // Moderate
+			*/
+			
+			var descriptor = new string[]
+			{
+				"MI", //  Shallow
+				"PR", //  Partial
+				"BC", //  Patches
+				"DR", //  Low Drifting
+				"BL", //  Blowing
+				"SH", //  Shower(s)
+				"TS", //  Thunderstorm
+				"FZ", //  Freezing
+                "",
+			};
+			
+            var precipitation = new string[]
             {
                 "DZ", // Drizzle
                 "RA", // Rain
@@ -108,12 +129,13 @@ namespace QSP.Metar
                 "UP", // Unknown Precipitation
             };
 
-            return wordList.Any(w =>
-                Regex.Match(
-                    metar,
-                    @"(^|\s)[+-]?" + w + @"($|\s)",
-                    RegexOptions.Multiline)
-                .Success);
+            var patternPrefix = @"(-|\+|VC)?";
+            var patternDescriptor = PatternMatchAny(descriptor);
+            var patternPrecipitation = PatternMatchAny(precipitation);
+            var pattern = @"(^|\s)" + patternPrefix + patternDescriptor + 
+            patternPrecipitation + @"($|\s)";
+
+            return Regex.Match(metar, pattern, RegexOptions.Multiline).Success;
         }
 
         public class PressureSetting

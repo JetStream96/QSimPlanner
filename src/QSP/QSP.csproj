@@ -118,6 +118,7 @@
     <Compile Include="LibraryExtension\FileNameGenerator.cs" />
     <Compile Include="LibraryExtension\LinkedLists.cs" />
     <Compile Include="LibraryExtension\Locator.cs" />
+    <Compile Include="LibraryExtension\Regexes.cs" />
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />

@@ -58,6 +58,7 @@
     <Compile Include="LibraryExtension\EqualityComparersTest.cs" />
     <Compile Include="LibraryExtension\IEnumerablesTest.cs" />
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
+    <Compile Include="LibraryExtension\RegexesTest.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1DTest.cs" />
     <Compile Include="RouteFinding\AirwayNodeFinderTest.cs" />
     <Compile Include="AviationTools\Coordinates\Format5LetterTest.cs" />
