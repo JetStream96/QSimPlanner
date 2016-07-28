@@ -14,7 +14,7 @@ using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
 using QSP.UI.ToLdgModule.Common;
-using QSP.UI.UserControls.RouteOptions;
+using QSP.UI.UserControls.RouteActions;
 using QSP.UI.Utilities;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
@@ -49,7 +49,7 @@ namespace QSP.UI.UserControls
         private AdvancedRouteTool advancedRouteTool;
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
-        private OptionContextMenu routeOptionMenu;
+        private ActionContextMenu routeActionMenu;
 
         public AlternateController altnControl { get; private set; }
         public WeightTextBoxController Oew { get; private set; }
@@ -77,7 +77,7 @@ namespace QSP.UI.UserControls
 
         private RouteGroup RouteToDest
         {
-            get { return routeOptionMenu.Route; }
+            get { return routeActionMenu.Route; }
         }
 
         public FuelPlanningControl()
@@ -138,11 +138,29 @@ namespace QSP.UI.UserControls
                 Color.LightGray);
 
             removeBtnStyle.Activate();
+
+            var filterSidStyle = new ControlDisableStyleController(
+                filterSidBtn,
+                Color.DarkSlateGray,
+                Color.FromArgb(224, 224, 224),
+                Color.White,
+                Color.LightGray);
+
+            filterSidStyle.Activate();
+
+            var filterStarStyle = new ControlDisableStyleController(
+                filterStarBtn,
+                Color.DarkSlateGray,
+                Color.FromArgb(224, 224, 224),
+                Color.White,
+                Color.LightGray);
+
+            filterStarStyle.Activate();
         }
 
         private void SetRouteOptionControl()
         {
-            routeOptionMenu = new OptionContextMenu(
+            routeActionMenu = new ActionContextMenu(
                 appOptionsLocator,
                 airwayNetwork,
                 origController,
@@ -153,9 +171,9 @@ namespace QSP.UI.UserControls
                 () => mainRouteRichTxtBox.Text,
                 s => mainRouteRichTxtBox.Text = s);
 
-            routeOptionMenu.Subscribe();
-            showRouteOptionsBtn.Click += (s, e)=>
-            routeOptionMenu.Show(showRouteOptionsBtn, new Point(-100, 30));
+            routeActionMenu.Subscribe();
+            showRouteActionsBtn.Click += (s, e)=>
+            routeActionMenu.Show(showRouteActionsBtn, new Point(20, 30));
         }
 
         public WeightUnit WeightUnit

@@ -1,5 +1,6 @@
 ﻿using QSP.Common.Options;
 using QSP.GoogleMap;
+using QSP.LibraryExtension;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.FileExport;
@@ -18,11 +19,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
-using QSP.LibraryExtension;
 
-namespace QSP.UI.UserControls.RouteOptions
+namespace QSP.UI.UserControls.RouteActions
 {
-    public partial class RouteOptionController
+    public partial class RouteActionController
     {
         private Locator<AppOptions> appOptionsLocator;
         private AirwayNetwork airwayNetwork;
@@ -50,7 +50,7 @@ namespace QSP.UI.UserControls.RouteOptions
 
         public RouteGroup Route { get; private set; }
 
-        public RouteOptionController(
+        public RouteActionController(
             Locator<AppOptions> appOptionsLocator,
             AirwayNetwork airwayNetwork,
             ISelectedProcedureProvider origController,
@@ -126,6 +126,13 @@ namespace QSP.UI.UserControls.RouteOptions
 
         private void ExportRouteFiles(object sender, EventArgs e)
         {
+            if (Route == null)
+            {
+                MsgBoxHelper.ShowWarning(
+                    "Please find or analyze a route first.");
+                return;
+            }
+
             var cmds = appSettings.ExportCommands.Values;
             var writer = new FileExporter(
                 Route.Expanded, airportList, cmds);

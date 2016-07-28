@@ -65,7 +65,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1090, 41);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1070, 41);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // ShowMoreBtn
@@ -76,7 +76,7 @@
             this.ShowMoreBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ShowMoreBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ShowMoreBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ShowMoreBtn.Location = new System.Drawing.Point(1009, 3);
+            this.ShowMoreBtn.Location = new System.Drawing.Point(989, 3);
             this.ShowMoreBtn.Name = "ShowMoreBtn";
             this.ShowMoreBtn.Size = new System.Drawing.Size(78, 35);
             this.ShowMoreBtn.TabIndex = 77;
@@ -87,10 +87,10 @@
             // 
             this.DisLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.DisLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DisLbl.Location = new System.Drawing.Point(833, 9);
+            this.DisLbl.Location = new System.Drawing.Point(803, 9);
             this.DisLbl.Margin = new System.Windows.Forms.Padding(3);
             this.DisLbl.Name = "DisLbl";
-            this.DisLbl.Size = new System.Drawing.Size(170, 23);
+            this.DisLbl.Size = new System.Drawing.Size(180, 23);
             this.DisLbl.TabIndex = 78;
             // 
             // RouteTxtBox
@@ -99,7 +99,7 @@
             this.RouteTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RouteTxtBox.Location = new System.Drawing.Point(347, 3);
             this.RouteTxtBox.Name = "RouteTxtBox";
-            this.RouteTxtBox.Size = new System.Drawing.Size(480, 30);
+            this.RouteTxtBox.Size = new System.Drawing.Size(450, 30);
             this.RouteTxtBox.TabIndex = 76;
             // 
             // RouteLbl
@@ -173,7 +173,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "AlternateRowItems";
-            this.Size = new System.Drawing.Size(1093, 44);
+            this.Size = new System.Drawing.Size(1073, 44);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

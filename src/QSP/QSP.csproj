@@ -222,10 +222,10 @@
     <Compile Include="UI\UserControls\OptionsControl.Designer.cs">
       <DependentUpon>OptionsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\RouteOptions\OptionContextMenu.cs">
+    <Compile Include="UI\UserControls\RouteActions\ActionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\RouteOptions\RouteOptionController.cs" />
+    <Compile Include="UI\UserControls\RouteActions\RouteActionController.cs" />
     <Compile Include="UI\Utilities\ControlMover.cs" />
     <Compile Include="UI\Utilities\ParentControlFinder.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />

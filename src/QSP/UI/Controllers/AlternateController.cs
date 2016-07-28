@@ -4,7 +4,7 @@ using QSP.RouteFinding;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.UserControls;
-using QSP.UI.UserControls.RouteOptions;
+using QSP.UI.UserControls.RouteActions;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
@@ -138,7 +138,7 @@ namespace QSP.UI.Controllers
         {
             public AlternateRowItems Row;
             public RouteFinderSelection Controller;
-            public OptionContextMenu OptionMenu;
+            public ActionContextMenu OptionMenu;
 
             public AltnRowControl(
                 AlternateController Parent,
@@ -157,7 +157,7 @@ namespace QSP.UI.Controllers
                     () => Parent.airwayNetwork.WptList,
                     new ProcedureFilter());
 
-                OptionMenu = new OptionContextMenu(
+                OptionMenu = new ActionContextMenu(
                     Parent.appOptionsLocator,
                     Parent.airwayNetwork,
                     Parent.destSidProvider,

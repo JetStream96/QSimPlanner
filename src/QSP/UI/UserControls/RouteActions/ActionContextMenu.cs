@@ -9,14 +9,14 @@ using System;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 
-namespace QSP.UI.UserControls.RouteOptions
+namespace QSP.UI.UserControls.RouteActions
 {
-    public class OptionContextMenu : ContextMenuStrip
+    public class ActionContextMenu : ContextMenuStrip
     {
         public class ClickableToolStripMenuItem : 
             ToolStripMenuItem, IClickable { }
 
-        private RouteOptionController controller;
+        private RouteActionController controller;
         private ClickableToolStripMenuItem findToolStripMenuItem;
         private ClickableToolStripMenuItem analyzeToolStripMenuItem;
         private ClickableToolStripMenuItem mapToolStripMenuItem;
@@ -24,7 +24,7 @@ namespace QSP.UI.UserControls.RouteOptions
 
         public RouteGroup Route { get { return controller.Route; } }
 
-        public OptionContextMenu(
+        public ActionContextMenu(
             Locator<AppOptions> appOptionsLocator,
             AirwayNetwork airwayNetwork,
             ISelectedProcedureProvider origController,
@@ -37,7 +37,7 @@ namespace QSP.UI.UserControls.RouteOptions
         {
             Init();
 
-            controller = new RouteOptionController(
+            controller = new RouteActionController(
                   appOptionsLocator,
                   airwayNetwork,
                   origController,
