@@ -65,28 +65,29 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1045, 39);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1090, 41);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // ShowMoreBtn
             // 
-            this.ShowMoreBtn.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ShowMoreBtn.BackgroundImage = global::QSP.Properties.Resources.add_icon;
-            this.ShowMoreBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ShowMoreBtn.AutoSize = true;
+            this.ShowMoreBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ShowMoreBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.ShowMoreBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ShowMoreBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ShowMoreBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.ShowMoreBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.ShowMoreBtn.Location = new System.Drawing.Point(1009, 3);
             this.ShowMoreBtn.Name = "ShowMoreBtn";
-            this.ShowMoreBtn.Size = new System.Drawing.Size(33, 33);
+            this.ShowMoreBtn.Size = new System.Drawing.Size(78, 35);
             this.ShowMoreBtn.TabIndex = 77;
+            this.ShowMoreBtn.Text = "Actions";
             this.ShowMoreBtn.UseVisualStyleBackColor = false;
             // 
             // DisLbl
             // 
             this.DisLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.DisLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DisLbl.Location = new System.Drawing.Point(833, 8);
+            this.DisLbl.Location = new System.Drawing.Point(833, 9);
             this.DisLbl.Margin = new System.Windows.Forms.Padding(3);
             this.DisLbl.Name = "DisLbl";
             this.DisLbl.Size = new System.Drawing.Size(170, 23);
@@ -106,7 +107,7 @@
             this.RouteLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.RouteLbl.AutoSize = true;
             this.RouteLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RouteLbl.Location = new System.Drawing.Point(286, 8);
+            this.RouteLbl.Location = new System.Drawing.Point(286, 9);
             this.RouteLbl.Margin = new System.Windows.Forms.Padding(3);
             this.RouteLbl.Name = "RouteLbl";
             this.RouteLbl.Size = new System.Drawing.Size(55, 23);
@@ -155,7 +156,7 @@
             this.RwyLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.RwyLbl.AutoSize = true;
             this.RwyLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RwyLbl.Location = new System.Drawing.Point(145, 8);
+            this.RwyLbl.Location = new System.Drawing.Point(145, 9);
             this.RwyLbl.Margin = new System.Windows.Forms.Padding(3);
             this.RwyLbl.Name = "RwyLbl";
             this.RwyLbl.Size = new System.Drawing.Size(69, 23);
@@ -172,7 +173,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "AlternateRowItems";
-            this.Size = new System.Drawing.Size(1048, 42);
+            this.Size = new System.Drawing.Size(1093, 44);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

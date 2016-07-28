@@ -92,10 +92,10 @@
             this.fuelReportGroupBox = new System.Windows.Forms.GroupBox();
             this.fuelReportTxtBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.showRouteOptionsBtn = new System.Windows.Forms.Button();
             this.registrationComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.routeOptionBtns = new QSP.UI.UserControls.RouteOptions.OptionBtns();
             this.starComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.sidComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.destRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
@@ -538,7 +538,7 @@
             this.routeDisLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.routeDisLbl.AutoSize = true;
             this.routeDisLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.routeDisLbl.Location = new System.Drawing.Point(698, 96);
+            this.routeDisLbl.Location = new System.Drawing.Point(759, 93);
             this.routeDisLbl.Name = "routeDisLbl";
             this.routeDisLbl.Size = new System.Drawing.Size(207, 23);
             this.routeDisLbl.TabIndex = 16;
@@ -563,7 +563,7 @@
             this.mainRouteRichTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainRouteRichTxtBox.Location = new System.Drawing.Point(13, 119);
             this.mainRouteRichTxtBox.Name = "mainRouteRichTxtBox";
-            this.mainRouteRichTxtBox.Size = new System.Drawing.Size(891, 65);
+            this.mainRouteRichTxtBox.Size = new System.Drawing.Size(969, 65);
             this.mainRouteRichTxtBox.TabIndex = 12;
             this.mainRouteRichTxtBox.Text = "";
             // 
@@ -771,7 +771,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.routeOptionBtns);
+            this.groupBox1.Controls.Add(this.showRouteOptionsBtn);
             this.groupBox1.Controls.Add(this.filterStarBtn);
             this.groupBox1.Controls.Add(this.routeDisLbl);
             this.groupBox1.Controls.Add(this.advancedToolLbl);
@@ -967,8 +967,23 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1105, 1145);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1105, 1193);
             this.tableLayoutPanel4.TabIndex = 48;
+            // 
+            // showRouteOptionsBtn
+            // 
+            this.showRouteOptionsBtn.AutoSize = true;
+            this.showRouteOptionsBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.showRouteOptionsBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.showRouteOptionsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.showRouteOptionsBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.showRouteOptionsBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.showRouteOptionsBtn.Location = new System.Drawing.Point(993, 132);
+            this.showRouteOptionsBtn.Name = "showRouteOptionsBtn";
+            this.showRouteOptionsBtn.Size = new System.Drawing.Size(88, 35);
+            this.showRouteOptionsBtn.TabIndex = 78;
+            this.showRouteOptionsBtn.Text = "Actions";
+            this.showRouteOptionsBtn.UseVisualStyleBackColor = false;
             // 
             // registrationComboBox
             // 
@@ -1017,14 +1032,6 @@
             this.acListComboBox.Name = "acListComboBox";
             this.acListComboBox.Size = new System.Drawing.Size(203, 31);
             this.acListComboBox.TabIndex = 16;
-            // 
-            // routeOptionBtns
-            // 
-            this.routeOptionBtns.BackColor = System.Drawing.Color.White;
-            this.routeOptionBtns.Location = new System.Drawing.Point(907, 117);
-            this.routeOptionBtns.Name = "routeOptionBtns";
-            this.routeOptionBtns.Size = new System.Drawing.Size(180, 70);
-            this.routeOptionBtns.TabIndex = 62;
             // 
             // starComboBox
             // 
@@ -1087,7 +1094,7 @@
             this.Controls.Add(this.tableLayoutPanel4);
             this.DoubleBuffered = true;
             this.Name = "FuelPlanningControl";
-            this.Size = new System.Drawing.Size(1105, 1145);
+            this.Size = new System.Drawing.Size(1105, 1193);
             this.fuelParaGroupBox.ResumeLayout(false);
             this.TableLayoutPanel20.ResumeLayout(false);
             this.TableLayoutPanel20.PerformLayout();
@@ -1170,7 +1177,6 @@
         public System.Windows.Forms.TextBox ApuTimeTxtBox;
         public System.Windows.Forms.TextBox HoldTimeTxtBox;
         public System.Windows.Forms.ComboBox ContPercentComboBox;
-        private QSP.UI.UserControls.RouteOptions.OptionBtns routeOptionBtns;
         internal System.Windows.Forms.Button removeAltnBtn;
         public Controls.ComboBoxWithBorder acListComboBox;
         public Controls.ComboBoxWithBorder registrationComboBox;
@@ -1188,5 +1194,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel altnLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel addRemoveAltnBtnLayoutPanel;
+        public System.Windows.Forms.Button showRouteOptionsBtn;
     }
 }

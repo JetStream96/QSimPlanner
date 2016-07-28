@@ -14,6 +14,7 @@ using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
 using QSP.UI.ToLdgModule.Common;
+using QSP.UI.UserControls.RouteOptions;
 using QSP.UI.Utilities;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
@@ -48,6 +49,7 @@ namespace QSP.UI.UserControls
         private AdvancedRouteTool advancedRouteTool;
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
+        private OptionContextMenu routeOptionMenu;
 
         public AlternateController altnControl { get; private set; }
         public WeightTextBoxController Oew { get; private set; }
@@ -75,7 +77,7 @@ namespace QSP.UI.UserControls
 
         private RouteGroup RouteToDest
         {
-            get { return routeOptionBtns.Route; }
+            get { return routeOptionMenu.Route; }
         }
 
         public FuelPlanningControl()
@@ -140,7 +142,7 @@ namespace QSP.UI.UserControls
 
         private void SetRouteOptionControl()
         {
-            routeOptionBtns.Init(
+            routeOptionMenu = new OptionContextMenu(
                 appOptionsLocator,
                 airwayNetwork,
                 origController,
@@ -151,7 +153,9 @@ namespace QSP.UI.UserControls
                 () => mainRouteRichTxtBox.Text,
                 s => mainRouteRichTxtBox.Text = s);
 
-            routeOptionBtns.Subscribe();
+            routeOptionMenu.Subscribe();
+            showRouteOptionsBtn.Click += (s, e)=>
+            routeOptionMenu.Show(showRouteOptionsBtn, new Point(-100, 30));
         }
 
         public WeightUnit WeightUnit

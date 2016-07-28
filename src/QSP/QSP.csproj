@@ -225,12 +225,6 @@
     <Compile Include="UI\UserControls\RouteOptions\OptionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\RouteOptions\OptionBtns.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\UserControls\RouteOptions\OptionBtns.Designer.cs">
-      <DependentUpon>OptionBtns.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\UserControls\RouteOptions\RouteOptionController.cs" />
     <Compile Include="UI\Utilities\ControlMover.cs" />
     <Compile Include="UI\Utilities\ParentControlFinder.cs" />
@@ -602,9 +596,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\AdvancedRouteTool.resx">
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls\RouteOptions\OptionBtns.resx">
-      <DependentUpon>OptionBtns.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Resources\info.png" />
     <None Include="Resources\chart3Faa.png" />
