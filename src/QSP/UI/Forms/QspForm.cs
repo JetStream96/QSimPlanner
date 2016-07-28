@@ -216,7 +216,7 @@ namespace QSP.UI.Forms
                 appOptionsLocator,
                 airwayNetwork,
                 procFilter,
-                countryCodes,
+                countryCodesLocator,
                 windTableLocator,
                 profiles.AcConfigs,
                 profiles.FuelData);

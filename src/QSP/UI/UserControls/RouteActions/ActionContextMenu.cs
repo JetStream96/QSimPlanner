@@ -1,6 +1,7 @@
 ﻿using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.RouteFinding;
+using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
 using QSP.UI.Controllers;
 using QSP.UI.Controls;
@@ -29,6 +30,7 @@ namespace QSP.UI.UserControls.RouteActions
             AirwayNetwork airwayNetwork,
             ISelectedProcedureProvider origController,
             ISelectedProcedureProvider destController,
+            Locator<CountryCodeCollection> checkedCodesLocator,
             Func<AvgWindCalculator> windCalcGetter,
             Label routeDisLbl,
             DistanceDisplayStyle displayStyle,
@@ -42,6 +44,7 @@ namespace QSP.UI.UserControls.RouteActions
                   airwayNetwork,
                   origController,
                   destController,
+                  checkedCodesLocator,
                   windCalcGetter,
                   routeDisLbl,
                   displayStyle,
@@ -57,7 +60,7 @@ namespace QSP.UI.UserControls.RouteActions
         {
             controller.Subscribe();
         }
-
+        
         private void Init()
         {
             // 

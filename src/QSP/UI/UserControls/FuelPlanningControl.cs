@@ -39,8 +39,9 @@ namespace QSP.UI.UserControls
         private AirwayNetwork airwayNetwork;
         private Locator<AppOptions> appOptionsLocator;
         private ProcedureFilter procFilter;
-        private CountryCodeManager countryCodes;
         private Locator<IWindTableCollection> windTableLocator;
+        private Locator<CountryCodeManager> countryCodeLocator;
+        private Locator<CountryCodeCollection> checkedCodesLocator;
 
         private RouteFinderSelection origController;
         private RouteFinderSelection destController;
@@ -50,6 +51,7 @@ namespace QSP.UI.UserControls
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
         private ActionContextMenu routeActionMenu;
+        private RouteOptionContextMenu routeOptionMenu;
 
         public AlternateController altnControl { get; private set; }
         public WeightTextBoxController Oew { get; private set; }
@@ -89,7 +91,7 @@ namespace QSP.UI.UserControls
             Locator<AppOptions> appOptionsLocator,
             AirwayNetwork airwayNetwork,
             ProcedureFilter procFilter,
-            CountryCodeManager countryCodes,
+            Locator<CountryCodeManager> countryCodeLocator,
             Locator<IWindTableCollection> windTableLocator,
             AcConfigManager aircrafts,
             IEnumerable<FuelData> fuelData)
@@ -97,15 +99,17 @@ namespace QSP.UI.UserControls
             this.appOptionsLocator = appOptionsLocator;
             this.airwayNetwork = airwayNetwork;
             this.procFilter = procFilter;
-            this.countryCodes = countryCodes;
+            this.countryCodeLocator = countryCodeLocator;
             this.windTableLocator = windTableLocator;
             this.aircrafts = aircrafts;
             this.fuelData = fuelData;
+            checkedCodesLocator = new CountryCodeCollection().ToLocator();
 
             SetDefaultState();
             SetOrigDestControllers();
             SetAltnController();
             SetRouteOptionControl();
+            SetRouteActionControl();
             SetWeightController();
             SetAircraftSelection();
             SetBtnColorStyles();
@@ -116,8 +120,10 @@ namespace QSP.UI.UserControls
             advancedRouteTool.Init(
                 appOptionsLocator,
                 airwayNetwork,
+                countryCodeLocator,
+                checkedCodesLocator,
                 procFilter,
-                countryCodes,
+                countryCodeLocator.Instance,
                 () => GetWindCalculator());
 
             if (acListComboBox.Items.Count > 0)
@@ -160,11 +166,22 @@ namespace QSP.UI.UserControls
 
         private void SetRouteOptionControl()
         {
+            routeOptionMenu = new RouteOptionContextMenu(
+                checkedCodesLocator, countryCodeLocator);
+
+            routeOptionMenu.Subscribe();
+            routeOptionBtn.Click += (s, e) =>
+            routeOptionMenu.Show(routeOptionBtn, new Point(20, 30));
+        }
+
+        private void SetRouteActionControl()
+        {
             routeActionMenu = new ActionContextMenu(
                 appOptionsLocator,
                 airwayNetwork,
                 origController,
                 destController,
+                checkedCodesLocator,
                 () => GetWindCalculator(),
                 routeDisLbl,
                 DistanceDisplayStyle.Long,
@@ -172,7 +189,7 @@ namespace QSP.UI.UserControls
                 s => mainRouteRichTxtBox.Text = s);
 
             routeActionMenu.Subscribe();
-            showRouteActionsBtn.Click += (s, e)=>
+            showRouteActionsBtn.Click += (s, e) =>
             routeActionMenu.Show(showRouteActionsBtn, new Point(20, 30));
         }
 

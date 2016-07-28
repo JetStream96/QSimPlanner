@@ -1,20 +1,18 @@
 ﻿using QSP.Common.Options;
-using QSP.GoogleMap;
 using QSP.LibraryExtension;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.UI.Controllers;
 using QSP.UI.Controls;
-using QSP.UI.Factories;
 using QSP.UI.Utilities;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -28,6 +26,7 @@ namespace QSP.UI.UserControls.RouteActions
         private AirwayNetwork airwayNetwork;
         private ISelectedProcedureProvider origController;
         private ISelectedProcedureProvider destController;
+        private Locator<CountryCodeCollection> checkedCodesLocator;
         private Func<AvgWindCalculator> windCalcGetter;
         private Label routeDisLbl;
         private DistanceDisplayStyle displayStyle;
@@ -55,6 +54,7 @@ namespace QSP.UI.UserControls.RouteActions
             AirwayNetwork airwayNetwork,
             ISelectedProcedureProvider origController,
             ISelectedProcedureProvider destController,
+            Locator<CountryCodeCollection> checkedCodesLocator,
             Func<AvgWindCalculator> windCalcGetter,
             Label routeDisLbl,
             DistanceDisplayStyle displayStyle,
@@ -69,6 +69,7 @@ namespace QSP.UI.UserControls.RouteActions
             this.airwayNetwork = airwayNetwork;
             this.origController = origController;
             this.destController = destController;
+            this.checkedCodesLocator = checkedCodesLocator;
             this.windCalcGetter = windCalcGetter;
             this.routeDisLbl = routeDisLbl;
             this.displayStyle = displayStyle;
@@ -87,7 +88,7 @@ namespace QSP.UI.UserControls.RouteActions
             exportBtn.Click += ExportRouteFiles;
             showMapBtn.Click += ShowMapClick;
         }
-
+        
         private void FindRouteClick(object sender, EventArgs e)
         {
             try
@@ -110,7 +111,7 @@ namespace QSP.UI.UserControls.RouteActions
                 airwayNetwork.WptList,
                 airwayNetwork.AirportList,
                 appSettings.NavDataLocation,
-                null,
+                checkedCodesLocator.Instance,
                 windCalcGetter());
 
             var result = finder.FindRoute(
@@ -227,28 +228,7 @@ namespace QSP.UI.UserControls.RouteActions
 
         private void ShowMapClick(object sender, EventArgs e)
         {
-            if (Route == null)
-            {
-                MsgBoxHelper.ShowWarning(
-                    "Please find or analyze a route first.");
-                return;
-            }
-
-            var wb = new WebBrowser();
-            wb.Size = new Size(1200, 800);
-
-            var GoogleMapDrawRoute = RouteDrawing.MapDrawString(
-                Route.Expanded, wb.Size.Width - 20, wb.Size.Height - 30);
-
-            wb.DocumentText = GoogleMapDrawRoute.ToString();
-
-            using (var frm = FormFactory.GetForm(wb.Size))
-            {
-                frm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-                frm.StartPosition = FormStartPosition.CenterParent;
-                frm.Controls.Add(wb);
-                frm.ShowDialog();
-            }
+            ShowMapHelper.ShowMap(Route);
         }
     }
 }

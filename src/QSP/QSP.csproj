@@ -188,6 +188,12 @@
       <DependentUpon>AboutPageControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ToLdgModule\Common\AircraftRequest.cs" />
+    <Compile Include="UI\UserControls\RouteActions\SimpleActionContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\RouteOptionContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\UserControls\AdvancedRouteTool.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -229,6 +235,7 @@
     <Compile Include="UI\Utilities\ControlMover.cs" />
     <Compile Include="UI\Utilities\ParentControlFinder.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
+    <Compile Include="UI\Utilities\ShowMapHelper.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />

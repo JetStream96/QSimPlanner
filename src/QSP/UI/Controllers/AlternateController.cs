@@ -2,6 +2,7 @@
 using QSP.LibraryExtension;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.UserControls;
 using QSP.UI.UserControls.RouteActions;
@@ -162,6 +163,7 @@ namespace QSP.UI.Controllers
                     Parent.airwayNetwork,
                     Parent.destSidProvider,
                     Controller,
+                    new CountryCodeCollection().ToLocator(),
                     Parent.windCalcGetter,
                     Row.DisLbl,
                     DistanceDisplayStyle.Short,

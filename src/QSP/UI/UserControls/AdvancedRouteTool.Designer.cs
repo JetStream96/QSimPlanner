@@ -37,15 +37,16 @@
             this.starLbl = new System.Windows.Forms.Label();
             this.toRwyLbl = new System.Windows.Forms.Label();
             this.routeRichTxtBox = new System.Windows.Forms.RichTextBox();
-            this.findRouteBtn = new System.Windows.Forms.Button();
             this.routeSummaryLbl = new System.Windows.Forms.Label();
             this.fromIdentLbl = new System.Windows.Forms.Label();
             this.fromIdentTxtBox = new System.Windows.Forms.TextBox();
             this.toIdentTxtBox = new System.Windows.Forms.TextBox();
             this.toIdentLbl = new System.Windows.Forms.Label();
-            this.avoidCountryBtn = new System.Windows.Forms.Button();
             this.filterStarBtn = new System.Windows.Forms.Button();
             this.filterSidBtn = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.routeOptionBtn = new System.Windows.Forms.Button();
+            this.showRouteActionsBtn = new System.Windows.Forms.Button();
             this.toWptComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.starComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.toRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
@@ -54,7 +55,6 @@
             this.fromRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.toTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.fromTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -147,20 +147,6 @@
             this.routeRichTxtBox.TabIndex = 16;
             this.routeRichTxtBox.Text = "";
             // 
-            // findRouteBtn
-            // 
-            this.findRouteBtn.BackColor = System.Drawing.SystemColors.Highlight;
-            this.findRouteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.findRouteBtn.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.findRouteBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.findRouteBtn.Location = new System.Drawing.Point(549, 144);
-            this.findRouteBtn.Name = "findRouteBtn";
-            this.findRouteBtn.Size = new System.Drawing.Size(248, 45);
-            this.findRouteBtn.TabIndex = 17;
-            this.findRouteBtn.Text = "Find Route";
-            this.findRouteBtn.UseVisualStyleBackColor = false;
-            this.findRouteBtn.Click += new System.EventHandler(this.FindRouteBtnClick);
-            // 
             // routeSummaryLbl
             // 
             this.routeSummaryLbl.AutoSize = true;
@@ -211,23 +197,6 @@
             this.toIdentLbl.TabIndex = 21;
             this.toIdentLbl.Text = "ICAO";
             // 
-            // avoidCountryBtn
-            // 
-            this.avoidCountryBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.avoidCountryBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.avoidCountryBtn.Cursor = System.Windows.Forms.Cursors.Default;
-            this.avoidCountryBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.avoidCountryBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.avoidCountryBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.avoidCountryBtn.Location = new System.Drawing.Point(411, 159);
-            this.avoidCountryBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.avoidCountryBtn.Name = "avoidCountryBtn";
-            this.avoidCountryBtn.Size = new System.Drawing.Size(124, 30);
-            this.avoidCountryBtn.TabIndex = 25;
-            this.avoidCountryBtn.Text = "Avoid Countries";
-            this.avoidCountryBtn.UseVisualStyleBackColor = false;
-            this.avoidCountryBtn.Click += new System.EventHandler(this.avoidCountryBtnClick);
-            // 
             // filterStarBtn
             // 
             this.filterStarBtn.BackColor = System.Drawing.Color.DarkSlateGray;
@@ -257,6 +226,48 @@
             this.filterSidBtn.TabIndex = 23;
             this.filterSidBtn.Text = "Filter";
             this.filterSidBtn.UseVisualStyleBackColor = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(9, 203);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(48, 20);
+            this.label3.TabIndex = 26;
+            this.label3.Text = "Route";
+            // 
+            // routeOptionBtn
+            // 
+            this.routeOptionBtn.AutoSize = true;
+            this.routeOptionBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.routeOptionBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.routeOptionBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.routeOptionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.routeOptionBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.routeOptionBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.routeOptionBtn.Location = new System.Drawing.Point(13, 153);
+            this.routeOptionBtn.Name = "routeOptionBtn";
+            this.routeOptionBtn.Size = new System.Drawing.Size(82, 35);
+            this.routeOptionBtn.TabIndex = 81;
+            this.routeOptionBtn.Text = "Options";
+            this.routeOptionBtn.UseVisualStyleBackColor = false;
+            // 
+            // showRouteActionsBtn
+            // 
+            this.showRouteActionsBtn.AutoSize = true;
+            this.showRouteActionsBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.showRouteActionsBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.showRouteActionsBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.showRouteActionsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.showRouteActionsBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.showRouteActionsBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.showRouteActionsBtn.Location = new System.Drawing.Point(110, 153);
+            this.showRouteActionsBtn.Name = "showRouteActionsBtn";
+            this.showRouteActionsBtn.Size = new System.Drawing.Size(78, 35);
+            this.showRouteActionsBtn.TabIndex = 80;
+            this.showRouteActionsBtn.Text = "Actions";
+            this.showRouteActionsBtn.UseVisualStyleBackColor = false;
             // 
             // toWptComboBox
             // 
@@ -362,23 +373,14 @@
             this.fromTypeComboBox.Size = new System.Drawing.Size(129, 31);
             this.fromTypeComboBox.TabIndex = 2;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(9, 203);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 20);
-            this.label3.TabIndex = 26;
-            this.label3.Text = "Route";
-            // 
             // AdvancedRouteTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Controls.Add(this.routeOptionBtn);
+            this.Controls.Add(this.showRouteActionsBtn);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.avoidCountryBtn);
             this.Controls.Add(this.filterStarBtn);
             this.Controls.Add(this.filterSidBtn);
             this.Controls.Add(this.toIdentTxtBox);
@@ -386,7 +388,6 @@
             this.Controls.Add(this.fromIdentTxtBox);
             this.Controls.Add(this.fromIdentLbl);
             this.Controls.Add(this.routeSummaryLbl);
-            this.Controls.Add(this.findRouteBtn);
             this.Controls.Add(this.routeRichTxtBox);
             this.Controls.Add(this.toWptComboBox);
             this.Controls.Add(this.toWptLbl);
@@ -431,7 +432,6 @@
         private Controls.ComboBoxWithBorder toRwyComboBox;
         private System.Windows.Forms.Label toRwyLbl;
         private System.Windows.Forms.RichTextBox routeRichTxtBox;
-        private System.Windows.Forms.Button findRouteBtn;
         private System.Windows.Forms.Label routeSummaryLbl;
         private System.Windows.Forms.Label fromIdentLbl;
         private System.Windows.Forms.TextBox fromIdentTxtBox;
@@ -439,7 +439,8 @@
         private System.Windows.Forms.Label toIdentLbl;
         private System.Windows.Forms.Button filterSidBtn;
         private System.Windows.Forms.Button filterStarBtn;
-        private System.Windows.Forms.Button avoidCountryBtn;
         private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.Button routeOptionBtn;
+        public System.Windows.Forms.Button showRouteActionsBtn;
     }
 }

@@ -8,7 +8,8 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers;
-using QSP.UI.RoutePlanning;
+using QSP.UI.UserControls.RouteActions;
+using QSP.UI.Utilities;
 using QSP.WindAloft;
 using System;
 using System.Data;
@@ -16,7 +17,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using static QSP.UI.Factories.FormFactory;
 using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 
@@ -24,16 +24,19 @@ namespace QSP.UI.UserControls
 {
     public partial class AdvancedRouteTool : UserControl
     {
-        public CountryCodeCollection CheckedCodes { get; private set; }
-
         private ControlGroup fromGroup;
         private ControlGroup toGroup;
+        private SimpleActionContextMenu routeActionMenu;
+        private RouteOptionContextMenu routeOptionMenu;
 
         private AirwayNetwork airwayNetwork;
         private Locator<AppOptions> appOptionsLocator;
+        private Locator<CountryCodeManager> countryCodeLocator;
+        private Locator<CountryCodeCollection> checkedCodesLocator;
         private ProcedureFilter procFilter;
         private CountryCodeManager countryCodes;
         private Func<AvgWindCalculator> windCalcGetter;
+        private RouteGroup Route;
 
         private WaypointList wptList
         {
@@ -53,22 +56,48 @@ namespace QSP.UI.UserControls
         public void Init(
             Locator<AppOptions> appOptionsLocator,
             AirwayNetwork airwayNetwork,
+            Locator<CountryCodeManager> countryCodeLocator,
+            Locator<CountryCodeCollection> checkedCodesLocator,
             ProcedureFilter procFilter,
             CountryCodeManager countryCodes,
             Func<AvgWindCalculator> windCalcGetter)
         {
             this.appOptionsLocator = appOptionsLocator;
             this.airwayNetwork = airwayNetwork;
+            this.countryCodeLocator = countryCodeLocator;
+            this.checkedCodesLocator = checkedCodesLocator;
             this.procFilter = procFilter;
             this.countryCodes = countryCodes;
             this.windCalcGetter = windCalcGetter;
-
-            CheckedCodes = new CountryCodeCollection();
+            
             SetBtnDisabledStyle();
             SetControlGroups();
             attachEventHandlers();
             SetDefaultState();
             AddToolTip();
+            SetRouteOptionControl();
+            SetRouteActionControl();
+        }
+
+        private void SetRouteOptionControl()
+        {
+            routeOptionMenu = new RouteOptionContextMenu(
+                checkedCodesLocator, countryCodeLocator);
+
+            routeOptionMenu.Subscribe();
+            routeOptionBtn.Click += (s, e) =>
+            routeOptionMenu.Show(routeOptionBtn, new Point(20, 30));
+        }
+
+        private void SetRouteActionControl()
+        {
+            routeActionMenu = new SimpleActionContextMenu();
+            routeActionMenu.FindToolStripMenuItem.Click += FindRouteBtnClick;
+            routeActionMenu.MapToolStripMenuItem.Click += 
+                (s, e) => ShowMapHelper.ShowMap(Route);
+
+            showRouteActionsBtn.Click += (s, e) =>
+            routeActionMenu.Show(showRouteActionsBtn, new Point(20, 30));
         }
 
         private void SetBtnDisabledStyle()
@@ -151,7 +180,6 @@ namespace QSP.UI.UserControls
             var tp = GetToolTip();
             tp.SetToolTip(filterSidBtn, "SID filter");
             tp.SetToolTip(filterStarBtn, "STAR filter");
-            tp.SetToolTip(avoidCountryBtn, "Avoid counties");
         }
 
         private void FindRouteBtnClick(object sender, EventArgs e)
@@ -189,23 +217,23 @@ namespace QSP.UI.UserControls
 
         private void GetRouteWaypointToWaypoint()
         {
-            var myRoute = new RouteGroup(
-                new RouteFinder(wptList, CheckedCodes)
+            Route = new RouteGroup(
+                new RouteFinder(wptList, checkedCodesLocator.Instance)
                     .FindRoute(GetWptIndexFrom(), GetWptIndexTo()),
                     tracksInUse);
 
-            var route = myRoute.Expanded;
+            var expanded = Route.Expanded;
 
-            routeRichTxtBox.Text = route.ToString(true, true);
+            routeRichTxtBox.Text = expanded.ToString(true, true);
             UpdateRouteDistanceLbl(
-                routeSummaryLbl, route, DistanceDisplayStyle.Long);
+                routeSummaryLbl, expanded, DistanceDisplayStyle.Long);
         }
 
         private void GetRouteWaypointToAirport()
         {
             var stars = toGroup.controller.GetSelectedProcedures();
 
-            var myRoute = new RouteGroup(
+            Route = new RouteGroup(
                 GetRouteFinder().FindRoute(
                     GetWptIndexFrom(),
                     toIdentTxtBox.Text,
@@ -213,18 +241,18 @@ namespace QSP.UI.UserControls
                     stars),
                 tracksInUse);
 
-            var route = myRoute.Expanded;
+            var expanded = Route.Expanded;
 
-            routeRichTxtBox.Text = route.ToString(true, false);
+            routeRichTxtBox.Text = expanded.ToString(true, false);
             UpdateRouteDistanceLbl(
-                routeSummaryLbl, route, DistanceDisplayStyle.Long);
+                routeSummaryLbl, expanded, DistanceDisplayStyle.Long);
         }
 
         private void GetRouteAirportToWaypoint()
         {
             var sids = fromGroup.controller.GetSelectedProcedures();
 
-            var myRoute = new RouteGroup(
+            Route = new RouteGroup(
                 GetRouteFinder().FindRoute(
                     fromIdentTxtBox.Text,
                     fromRwyComboBox.Text,
@@ -232,11 +260,11 @@ namespace QSP.UI.UserControls
                     GetWptIndexTo()),
                     tracksInUse);
 
-            var route = myRoute.Expanded;
+            var expanded = Route.Expanded;
 
-            routeRichTxtBox.Text = route.ToString(false, true);
+            routeRichTxtBox.Text = expanded.ToString(false, true);
             UpdateRouteDistanceLbl(
-                routeSummaryLbl, route, DistanceDisplayStyle.Long);
+                routeSummaryLbl, expanded, DistanceDisplayStyle.Long);
         }
 
         private void GetRouteAirportToAirport()
@@ -244,7 +272,7 @@ namespace QSP.UI.UserControls
             var sids = fromGroup.controller.GetSelectedProcedures();
             var stars = toGroup.controller.GetSelectedProcedures();
 
-            var myRoute = new RouteGroup(
+            Route = new RouteGroup(
                GetRouteFinder().FindRoute(
                     fromIdentTxtBox.Text,
                     fromRwyComboBox.Text,
@@ -254,11 +282,11 @@ namespace QSP.UI.UserControls
                     stars),
                  tracksInUse);
 
-            var route = myRoute.Expanded;
+            var expanded = Route.Expanded;
 
-            routeRichTxtBox.Text = route.ToString();
+            routeRichTxtBox.Text = expanded.ToString();
             UpdateRouteDistanceLbl(
-                routeSummaryLbl, route, DistanceDisplayStyle.Long);
+                routeSummaryLbl, expanded, DistanceDisplayStyle.Long);
         }
 
         private void ShowRoute(RouteGroup routeGroup)
@@ -277,7 +305,7 @@ namespace QSP.UI.UserControls
                 wptList,
                 airwayNetwork.AirportList,
                 appOptionsLocator.Instance.NavDataLocation,
-                CheckedCodes,
+                checkedCodesLocator.Instance,
                 windCalcGetter());
         }
 
@@ -439,32 +467,6 @@ namespace QSP.UI.UserControls
                     Rwy.Items.Clear();
                     TerminalProcedure.Items.Clear();
                 }
-            }
-        }
-
-        private void avoidCountryBtnClick(object sender, EventArgs e)
-        {
-            var countrySelection = new AvoidCountrySelection();
-            countrySelection.Init(countryCodes);
-            countrySelection.Location = new Point(0, 0);
-            countrySelection.CheckedCodes = CheckedCodes;
-
-            using (var frm = GetForm(countrySelection.Size))
-            {
-                frm.Controls.Add(countrySelection);
-
-                countrySelection.CancelBtn.Click += (_sender, _e) =>
-                {
-                    frm.Close();
-                };
-
-                countrySelection.OkBtn.Click += (_sender, _e) =>
-                {
-                    CheckedCodes = countrySelection.CheckedCodes;
-                    frm.Close();
-                };
-
-                frm.ShowDialog();
             }
         }
     }

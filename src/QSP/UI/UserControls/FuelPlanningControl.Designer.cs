@@ -81,6 +81,7 @@
             this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.label21 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.routeOptionBtn = new System.Windows.Forms.Button();
             this.showRouteActionsBtn = new System.Windows.Forms.Button();
             this.filterStarBtn = new System.Windows.Forms.Button();
             this.filterSidBtn = new System.Windows.Forms.Button();
@@ -99,7 +100,6 @@
             this.fuelReportGroupBox = new System.Windows.Forms.GroupBox();
             this.fuelReportTxtBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.routeOptionBtn = new System.Windows.Forms.Button();
             this.fuelParaGroupBox.SuspendLayout();
             this.TableLayoutPanel20.SuspendLayout();
             this.TableLayoutPanel1.SuspendLayout();
@@ -846,6 +846,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Route";
             // 
+            // routeOptionBtn
+            // 
+            this.routeOptionBtn.AutoSize = true;
+            this.routeOptionBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.routeOptionBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.routeOptionBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.routeOptionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.routeOptionBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.routeOptionBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.routeOptionBtn.Location = new System.Drawing.Point(13, 94);
+            this.routeOptionBtn.Name = "routeOptionBtn";
+            this.routeOptionBtn.Size = new System.Drawing.Size(82, 35);
+            this.routeOptionBtn.TabIndex = 79;
+            this.routeOptionBtn.Text = "Options";
+            this.routeOptionBtn.UseVisualStyleBackColor = false;
+            // 
             // showRouteActionsBtn
             // 
             this.showRouteActionsBtn.AutoSize = true;
@@ -1077,22 +1093,6 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1105, 1193);
             this.tableLayoutPanel4.TabIndex = 48;
-            // 
-            // routeOptionBtn
-            // 
-            this.routeOptionBtn.AutoSize = true;
-            this.routeOptionBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.routeOptionBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.routeOptionBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.routeOptionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.routeOptionBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.routeOptionBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.routeOptionBtn.Location = new System.Drawing.Point(13, 94);
-            this.routeOptionBtn.Name = "routeOptionBtn";
-            this.routeOptionBtn.Size = new System.Drawing.Size(82, 35);
-            this.routeOptionBtn.TabIndex = 79;
-            this.routeOptionBtn.Text = "Options";
-            this.routeOptionBtn.UseVisualStyleBackColor = false;
             // 
             // FuelPlanningControl
             // 
