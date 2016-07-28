@@ -212,6 +212,15 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public string ToString(bool ShowFirstWaypoint, bool ShowLastWaypoint)
         {
+            return ToString(ShowFirstWaypoint, ShowLastWaypoint, true);
+        }
+
+        /// <summary>
+        /// A string represents the usual route text with options.
+        /// </summary>
+        public string ToString(
+            bool ShowFirstWaypoint, bool ShowLastWaypoint, bool ShowDct)
+        {
             if (Nodes.Count < 2)
             {
                 throw new InvalidOperationException(
@@ -229,8 +238,18 @@ namespace QSP.RouteFinding.Routes
 
             while (node.Next != last)
             {
-                if (node.Value.AirwayToNext != node.Next.Value.AirwayToNext ||
-                    node.Value.AirwayToNext == "DCT")
+                if (node.Value.AirwayToNext == "DCT")
+                {
+                    if (ShowDct)
+                    {
+                        result.Append(node.Value.AirwayToNext + ' ');
+                    }
+
+                    node = node.Next;
+                    result.Append(node.Value.Waypoint.ID + ' ');
+                }
+                else if (node.Value.AirwayToNext !=
+                    node.Next.Value.AirwayToNext)
                 {
                     result.Append(node.Value.AirwayToNext + ' ');
                     node = node.Next;
