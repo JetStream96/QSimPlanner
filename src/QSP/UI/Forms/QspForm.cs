@@ -12,6 +12,7 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers.ButtonGroup;
 using QSP.UI.ToLdgModule.AboutPage;
 using QSP.UI.ToLdgModule.AircraftMenu;
+using QSP.UI.ToLdgModule.Common.AirportInfo;
 using QSP.UI.ToLdgModule.LandingPerf;
 using QSP.UI.ToLdgModule.TOPerf;
 using QSP.UI.UserControls;
@@ -299,21 +300,21 @@ namespace QSP.UI.Forms
 
         private void SubscribeEvents()
         {
-            // TODO: ?
-            var origTxtBox = toMenu.airportInfoControl.airportTxtBox;
+            var origTxtBox = fuelMenu.origTxtBox;
 
             origTxtBox.TextChanged += (sender, e) =>
             {
                 miscInfoMenu.SetOrig(origTxtBox.Text.Trim().ToUpper());
             };
 
-            var destTxtBox = ldgMenu.airportInfoControl.airportTxtBox;
+            var destTxtBox = fuelMenu.destTxtBox;
 
             destTxtBox.TextChanged += (sender, e) =>
             {
                 miscInfoMenu.SetDest(destTxtBox.Text.Trim().ToUpper());
             };
 
+            EnableAirportRequests();
             navDataStatusLabel.Click += ViewOptions;
             navDataStatusLabel.MouseEnter += SetHandCursor;
             navDataStatusLabel.MouseLeave += SetDefaultCursor;
@@ -323,6 +324,25 @@ namespace QSP.UI.Forms
             trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
             trackStatusLabel.MouseEnter += SetHandCursor;
             trackStatusLabel.MouseLeave += SetDefaultCursor;
+        }
+
+        private void EnableAirportRequests()
+        {
+            var toControl= toMenu.airportInfoControl;
+            toControl.reqAirportBtn.Visible = true;
+            toControl.reqAirportBtn.Click += (s, e) =>
+            {
+                toControl.airportTxtBox.Text = fuelMenu.origTxtBox.Text;
+                toControl.rwyComboBox.Text = fuelMenu.origRwyComboBox.Text;
+            };
+
+            var ldgControl = ldgMenu.airportInfoControl;
+            ldgControl.reqAirportBtn.Visible = true;
+            ldgControl.reqAirportBtn.Click += (s, e) =>
+            {
+                ldgControl.airportTxtBox.Text = fuelMenu.destTxtBox.Text;
+                ldgControl.rwyComboBox.Text = fuelMenu.destRwyComboBox.Text;
+            };
         }
 
         private void EnableViewControl()

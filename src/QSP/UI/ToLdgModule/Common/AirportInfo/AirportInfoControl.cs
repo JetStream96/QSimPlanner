@@ -110,7 +110,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
             }
         }
 
-        private void rwyComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void rwyComboBoxIndexChanged(object sender, EventArgs e)
         {
             if (rwyComboBox.Items.Count > 0)
             {
@@ -122,20 +122,19 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
 
                 SetLength(lengthFt);
                 elevationTxtBox.Text = elevationFt.ToString();
-                rwyHeadingTxtBox.Text = takeoffAirport.Rwys[index].Heading.ToString().PadLeft(3, '0');
+
+                var heading = takeoffAirport.Rwys[index].Heading;
+                rwyHeadingTxtBox.Text = heading.PadLeft(3, '0');
 
                 int elevationOppositeRwyFt = takeoffAirport.RwyElevationFt(
                     CoversionTools.RwyIdentOppositeDir(rwyComboBox.Text));
 
-                SetSlope((elevationOppositeRwyFt - elevationFt) * 100.0 / lengthFt);
+                SetSlope((elevationOppositeRwyFt - elevationFt) * 
+                    100.0 / lengthFt);
             }
         }
-
-        public virtual void getMetarBtn_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void lengthUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        
+        private void lengthUnitSelectedChanged(object sender, EventArgs e)
         {
             double len;
 

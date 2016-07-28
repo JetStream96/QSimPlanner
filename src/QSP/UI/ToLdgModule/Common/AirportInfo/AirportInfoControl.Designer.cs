@@ -103,7 +103,7 @@
             this.lengthUnitComboBox.Name = "lengthUnitComboBox";
             this.lengthUnitComboBox.Size = new System.Drawing.Size(93, 31);
             this.lengthUnitComboBox.TabIndex = 4;
-            this.lengthUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.lengthUnitComboBox_SelectedIndexChanged);
+            this.lengthUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.lengthUnitSelectedChanged);
             // 
             // slopeComboBox
             // 
@@ -190,7 +190,7 @@
             this.rwyComboBox.Name = "rwyComboBox";
             this.rwyComboBox.Size = new System.Drawing.Size(93, 31);
             this.rwyComboBox.TabIndex = 2;
-            this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.rwyComboBox_SelectedIndexChanged);
+            this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.rwyComboBoxIndexChanged);
             // 
             // Label89
             // 
