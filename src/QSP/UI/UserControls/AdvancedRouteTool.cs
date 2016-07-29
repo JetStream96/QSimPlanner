@@ -221,12 +221,8 @@ namespace QSP.UI.UserControls
                 new RouteFinder(wptList, checkedCodesLocator.Instance)
                     .FindRoute(GetWptIndexFrom(), GetWptIndexTo()),
                     tracksInUse);
-
-            var expanded = Route.Expanded;
-
-            routeRichTxtBox.Text = expanded.ToString(true, true);
-            UpdateRouteDistanceLbl(
-                routeSummaryLbl, expanded, DistanceDisplayStyle.Long);
+            
+            ShowRoute(true, true);
         }
 
         private void GetRouteWaypointToAirport()
@@ -240,12 +236,8 @@ namespace QSP.UI.UserControls
                     toRwyComboBox.Text,
                     stars),
                 tracksInUse);
-
-            var expanded = Route.Expanded;
-
-            routeRichTxtBox.Text = expanded.ToString(true, false);
-            UpdateRouteDistanceLbl(
-                routeSummaryLbl, expanded, DistanceDisplayStyle.Long);
+            
+            ShowRoute(true, false);
         }
 
         private void GetRouteAirportToWaypoint()
@@ -259,12 +251,8 @@ namespace QSP.UI.UserControls
                     sids,
                     GetWptIndexTo()),
                     tracksInUse);
-
-            var expanded = Route.Expanded;
-
-            routeRichTxtBox.Text = expanded.ToString(false, true);
-            UpdateRouteDistanceLbl(
-                routeSummaryLbl, expanded, DistanceDisplayStyle.Long);
+            
+            ShowRoute(false, true);
         }
 
         private void GetRouteAirportToAirport()
@@ -281,23 +269,24 @@ namespace QSP.UI.UserControls
                     toRwyComboBox.Text,
                     stars),
                  tracksInUse);
-
-            var expanded = Route.Expanded;
-
-            routeRichTxtBox.Text = expanded.ToString();
-            UpdateRouteDistanceLbl(
-                routeSummaryLbl, expanded, DistanceDisplayStyle.Long);
+            
+            ShowRoute(false, false);
         }
 
-        private void ShowRoute(RouteGroup routeGroup)
+        private void ShowRoute(bool ShowFirstWaypoint, bool ShowLastWaypoint)
         {
-            var route = routeGroup.Expanded;
+            var option = appOptionsLocator.Instance;
+            var routeToShow = option.ShowTrackIdOnly ?
+                Route.Folded : Route.Expanded;
 
-            routeRichTxtBox.Text = route.ToString(true, false);
+            var showDct = !option.HideDctInRoute;
+            routeRichTxtBox.Text= routeToShow.ToString(
+                ShowFirstWaypoint, ShowLastWaypoint, showDct);
+
             UpdateRouteDistanceLbl(
-                routeSummaryLbl, route, DistanceDisplayStyle.Long);
+                routeSummaryLbl, Route.Expanded, DistanceDisplayStyle.Long);
         }
-                
+
         /// <exception cref="InvalidUserInputException"></exception>
         private RouteFinderFacade GetRouteFinder()
         {

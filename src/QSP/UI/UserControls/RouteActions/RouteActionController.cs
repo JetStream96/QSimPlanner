@@ -119,10 +119,17 @@ namespace QSP.UI.UserControls.RouteActions
                 destController.Icao, destController.Rwy, star);
 
             Route = new RouteGroup(result, airwayNetwork.TracksInUse);
-            var expanded = Route.Expanded;
+            ShowRouteTxt();
+        }
 
-            routeTxtSetter(expanded.ToString(false, false));
-            UpdateRouteDistanceLbl(routeDisLbl, expanded, displayStyle);
+        private void ShowRouteTxt()
+        {
+            var routeToShow = appSettings.ShowTrackIdOnly ? 
+                Route.Folded : Route.Expanded;
+
+            var showDct = !appSettings.HideDctInRoute;
+            routeTxtSetter(routeToShow.ToString(false, false, showDct));
+            UpdateRouteDistanceLbl(routeDisLbl, Route.Expanded, displayStyle);
         }
 
         private void ExportRouteFiles(object sender, EventArgs e)

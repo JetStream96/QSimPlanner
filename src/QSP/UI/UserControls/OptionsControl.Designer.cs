@@ -43,11 +43,8 @@
             this.pathTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.GroupBox3 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.WindOptimizedRouteCheckBox = new System.Windows.Forms.CheckBox();
             this.PromptBeforeExit = new System.Windows.Forms.CheckBox();
-            this.GroupBox4 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.AutoDLWindCheckBox = new System.Windows.Forms.CheckBox();
             this.AutoDLTracksCheckBox = new System.Windows.Forms.CheckBox();
@@ -67,19 +64,22 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.savedLbl = new System.Windows.Forms.Label();
+            this.routeTab = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.hideDctCheckBox = new System.Windows.Forms.CheckBox();
+            this.showTrackIdOnlyCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.GroupBox3.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.GroupBox4.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.GroupBox2.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.routeTab.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -87,6 +87,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.routeTab);
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -200,7 +201,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.38155F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.61845F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 63F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
             this.tableLayoutPanel1.Controls.Add(this.infoLbl, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.button14, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.pathTxtBox, 1, 0);
@@ -219,7 +220,7 @@
             this.infoLbl.AutoSize = true;
             this.infoLbl.Cursor = System.Windows.Forms.Cursors.Hand;
             this.infoLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.infoLbl.Location = new System.Drawing.Point(530, 6);
+            this.infoLbl.Location = new System.Drawing.Point(529, 6);
             this.infoLbl.Name = "infoLbl";
             this.infoLbl.Size = new System.Drawing.Size(38, 23);
             this.infoLbl.TabIndex = 3;
@@ -231,7 +232,7 @@
             // 
             this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button14.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button14.Location = new System.Drawing.Point(472, 3);
+            this.button14.Location = new System.Drawing.Point(471, 3);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(34, 28);
             this.button14.TabIndex = 3;
@@ -263,8 +264,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.GroupBox3);
-            this.tabPage2.Controls.Add(this.GroupBox4);
+            this.tabPage2.Controls.Add(this.tableLayoutPanel4);
             this.tabPage2.Location = new System.Drawing.Point(4, 26);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -272,32 +272,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "General";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // GroupBox3
-            // 
-            this.GroupBox3.Controls.Add(this.tableLayoutPanel5);
-            this.GroupBox3.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBox3.Location = new System.Drawing.Point(6, 122);
-            this.GroupBox3.Name = "GroupBox3";
-            this.GroupBox3.Size = new System.Drawing.Size(685, 111);
-            this.GroupBox3.TabIndex = 33;
-            this.GroupBox3.TabStop = false;
-            this.GroupBox3.Text = "Misc";
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.ColumnCount = 1;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.WindOptimizedRouteCheckBox, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.PromptBeforeExit, 0, 1);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(25, 21);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(560, 70);
-            this.tableLayoutPanel5.TabIndex = 34;
             // 
             // WindOptimizedRouteCheckBox
             // 
@@ -314,37 +288,27 @@
             // 
             this.PromptBeforeExit.AutoSize = true;
             this.PromptBeforeExit.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PromptBeforeExit.Location = new System.Drawing.Point(3, 38);
+            this.PromptBeforeExit.Location = new System.Drawing.Point(3, 73);
             this.PromptBeforeExit.Name = "PromptBeforeExit";
             this.PromptBeforeExit.Size = new System.Drawing.Size(259, 27);
             this.PromptBeforeExit.TabIndex = 30;
             this.PromptBeforeExit.Text = "Ask before closing application";
             this.PromptBeforeExit.UseVisualStyleBackColor = true;
             // 
-            // GroupBox4
-            // 
-            this.GroupBox4.Controls.Add(this.tableLayoutPanel4);
-            this.GroupBox4.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBox4.Location = new System.Drawing.Point(6, 6);
-            this.GroupBox4.Name = "GroupBox4";
-            this.GroupBox4.Size = new System.Drawing.Size(685, 110);
-            this.GroupBox4.TabIndex = 32;
-            this.GroupBox4.TabStop = false;
-            this.GroupBox4.Text = "Startup";
-            // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel4.Controls.Add(this.PromptBeforeExit, 0, 2);
             this.tableLayoutPanel4.Controls.Add(this.AutoDLWindCheckBox, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.AutoDLTracksCheckBox, 0, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(25, 24);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(6, 7);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowCount = 3;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(560, 70);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(560, 105);
             this.tableLayoutPanel4.TabIndex = 33;
             // 
             // AutoDLWindCheckBox
@@ -576,6 +540,55 @@
             this.savedLbl.TabIndex = 7;
             this.savedLbl.Text = "Saved!    ";
             // 
+            // routeTab
+            // 
+            this.routeTab.Controls.Add(this.tableLayoutPanel7);
+            this.routeTab.Location = new System.Drawing.Point(4, 26);
+            this.routeTab.Name = "routeTab";
+            this.routeTab.Padding = new System.Windows.Forms.Padding(3);
+            this.routeTab.Size = new System.Drawing.Size(697, 265);
+            this.routeTab.TabIndex = 3;
+            this.routeTab.Text = "Route";
+            this.routeTab.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.ColumnCount = 1;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Controls.Add(this.showTrackIdOnlyCheckBox, 0, 2);
+            this.tableLayoutPanel7.Controls.Add(this.hideDctCheckBox, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.WindOptimizedRouteCheckBox, 0, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(6, 6);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 3;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(560, 105);
+            this.tableLayoutPanel7.TabIndex = 35;
+            // 
+            // hideDctCheckBox
+            // 
+            this.hideDctCheckBox.AutoSize = true;
+            this.hideDctCheckBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hideDctCheckBox.Location = new System.Drawing.Point(3, 38);
+            this.hideDctCheckBox.Name = "hideDctCheckBox";
+            this.hideDctCheckBox.Size = new System.Drawing.Size(234, 27);
+            this.hideDctCheckBox.TabIndex = 36;
+            this.hideDctCheckBox.Text = "Hide \'DCT\' in route output";
+            this.hideDctCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // showTrackIdOnlyCheckBox
+            // 
+            this.showTrackIdOnlyCheckBox.AutoSize = true;
+            this.showTrackIdOnlyCheckBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.showTrackIdOnlyCheckBox.Location = new System.Drawing.Point(3, 73);
+            this.showTrackIdOnlyCheckBox.Name = "showTrackIdOnlyCheckBox";
+            this.showTrackIdOnlyCheckBox.Size = new System.Drawing.Size(196, 27);
+            this.showTrackIdOnlyCheckBox.TabIndex = 37;
+            this.showTrackIdOnlyCheckBox.Text = "Show track ident only";
+            this.showTrackIdOnlyCheckBox.UseVisualStyleBackColor = true;
+            // 
             // OptionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -594,10 +607,6 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.GroupBox3.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            this.GroupBox4.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -606,6 +615,9 @@
             this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.routeTab.ResumeLayout(false);
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -627,12 +639,9 @@
         private System.Windows.Forms.Label airacPeriodLbl;
         private System.Windows.Forms.Label navDataStatusLbl;
         private System.Windows.Forms.TabPage tabPage2;
-        internal System.Windows.Forms.GroupBox GroupBox4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         internal System.Windows.Forms.CheckBox AutoDLWindCheckBox;
         internal System.Windows.Forms.CheckBox AutoDLTracksCheckBox;
-        internal System.Windows.Forms.GroupBox GroupBox3;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         internal System.Windows.Forms.CheckBox PromptBeforeExit;
         private System.Windows.Forms.TabPage tabPage3;
         internal System.Windows.Forms.GroupBox GroupBox2;
@@ -651,5 +660,9 @@
         internal System.Windows.Forms.CheckBox WindOptimizedRouteCheckBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label savedLbl;
+        private System.Windows.Forms.TabPage routeTab;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        internal System.Windows.Forms.CheckBox showTrackIdOnlyCheckBox;
+        internal System.Windows.Forms.CheckBox hideDctCheckBox;
     }
 }

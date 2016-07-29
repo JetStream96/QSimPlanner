@@ -8,6 +8,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
+using QSP.UI.Controllers;
 using QSP.Utilities;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,6 @@ using System.IO;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
-using QSP.UI.Controllers;
 
 namespace QSP.UI.UserControls
 {
@@ -114,6 +114,8 @@ namespace QSP.UI.UserControls
             PromptBeforeExit.Checked = AppSettings.PromptBeforeExit;
             WindOptimizedRouteCheckBox.Checked =
                 AppSettings.EnableWindOptimizedRoute;
+            hideDctCheckBox.Checked = AppSettings.HideDctInRoute;
+            showTrackIdOnlyCheckBox.Checked = AppSettings.ShowTrackIdOnly;
             SetExports();
         }
 
@@ -318,6 +320,8 @@ namespace QSP.UI.UserControls
                 AutoDLTracksCheckBox.Checked,
                 AutoDLWindCheckBox.Checked,
                 WindOptimizedRouteCheckBox.Checked,
+                hideDctCheckBox.Checked,
+                showTrackIdOnlyCheckBox.Checked,
                 GetCommands());
         }
 

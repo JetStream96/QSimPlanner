@@ -14,6 +14,8 @@ namespace QSP.Common.Options
         public bool AutoDLTracks { get; private set; }
         public bool AutoDLWind { get; private set; }
         public bool EnableWindOptimizedRoute { get; private set; }
+        public bool HideDctInRoute { get; private set; }
+        public bool ShowTrackIdOnly { get; private set; }
         private Dictionary<string, ExportCommand> _exportCommands;
 
         public IReadOnlyDictionary<string, ExportCommand> ExportCommands
@@ -30,6 +32,8 @@ namespace QSP.Common.Options
             bool AutoDLTracks,
             bool AutoDLWind,
             bool EnableWindOptimizedRoute,
+            bool HideDctInRoute,
+            bool ShowTrackIdOnly,
             Dictionary<string, ExportCommand> ExportCommands)
         {
             this.NavDataLocation = NavDataLocation;
@@ -37,6 +41,8 @@ namespace QSP.Common.Options
             this.AutoDLTracks = AutoDLTracks;
             this.AutoDLWind = AutoDLWind;
             this.EnableWindOptimizedRoute = EnableWindOptimizedRoute;
+            this.HideDctInRoute = HideDctInRoute;
+            this.ShowTrackIdOnly = ShowTrackIdOnly;
             this._exportCommands = ExportCommands;
         }
 
@@ -49,6 +55,8 @@ namespace QSP.Common.Options
             AutoDLTracks = ParseBool(root, "AutoDLNats");
             AutoDLWind = ParseBool(root, "AutoDLWind");
             EnableWindOptimizedRoute = ParseBool(root, "WindOptimizedRoute");
+            HideDctInRoute = ParseBool(root, "HideDctInRoute");
+            ShowTrackIdOnly = ParseBool(root, "ShowTrackIdOnly");
 
             var exports = root.Element("ExportOptions");
 
@@ -97,6 +105,8 @@ namespace QSP.Common.Options
                 BoolToXElem("AutoDLNats", AutoDLTracks),
                 BoolToXElem("AutoDLWind", AutoDLWind),
                 BoolToXElem("WindOptimizedRoute", EnableWindOptimizedRoute),
+                BoolToXElem("HideDctInRoute", HideDctInRoute),
+                BoolToXElem("ShowTrackIdOnly", ShowTrackIdOnly),
                 exportOptions});
         }
 
@@ -115,6 +125,8 @@ namespace QSP.Common.Options
                     true,
                     true,
                     true,
+                    false,
+                    false,
                     new Dictionary<string, ExportCommand>());
             }
         }

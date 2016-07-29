@@ -45,8 +45,11 @@ function initialize()
             int counter = 0;
             foreach (var i in rte)
             {
-                mapHtml.AppendLine("var wpt" + (counter++).ToString() + "=new google.maps.LatLng(" +
-                                   i.Waypoint.Lat + "," + i.Waypoint.Lon + ");");
+                var wpt = i.Waypoint;
+
+                mapHtml.AppendLine(
+                    $"var wpt{counter++}=new google.maps.LatLng(" +
+                    $"{wpt.Lat},{wpt.Lon});");
             }
 
             //now the center of map
@@ -71,11 +74,11 @@ var myTrip=[");
             {
                 if (counter != rte.Count - 1)
                 {
-                    mapHtml.Append("wpt" + (counter++) + ",");
+                    mapHtml.Append($"wpt{counter},");
                 }
                 else
                 {
-                    mapHtml.AppendLine("wpt" + (counter++) + @"];
+                    mapHtml.AppendLine("wpt" + counter + @"];
     var flightPath=new google.maps.Polyline({
     path:myTrip,
     strokeColor:""#000000"",
@@ -85,6 +88,8 @@ var myTrip=[");
     });
     flightPath.setMap(map);");
                 }
+
+                counter++;
             }
 
             counter = 0;
@@ -108,7 +113,7 @@ var myTrip=[");
     content: ""Home For Sale""
     }});
 
-", counter, counter, WptIdDisplay(rte, i.Waypoint, counter), counter++));
+", counter, counter, i.Waypoint.ID, counter++));
 
             }
 
@@ -125,18 +130,6 @@ var myTrip=[");
 
             return mapHtml;
 
-        }
-
-        private static string WptIdDisplay(Route rte, Waypoint waypoint, int index)
-        {
-            if (index == 0 || index == rte.Count - 1)
-            {
-                return waypoint.ID.Substring(0, 4);
-            }
-            else
-            {
-                return waypoint.ID;
-            }
         }
     }
 }
