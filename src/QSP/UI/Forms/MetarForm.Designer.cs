@@ -86,7 +86,7 @@ namespace QSP.UI.Forms
             this.Name = "MetarForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "METAR";
             this.ResumeLayout(false);
             this.PerformLayout();
