@@ -1,5 +1,6 @@
 ﻿using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
+using System.IO;
 
 namespace QSP.NavData.AAX
 {
@@ -14,18 +15,12 @@ namespace QSP.NavData.AAX
 
         private string waypointsFilePath
         {
-            get
-            {
-                return navDataLocation + @"\waypoints.txt";
-            }
+            get { return Path.Combine(navDataLocation, "waypoints.txt"); }
         }
 
         private string atsFilePath
         {
-            get
-            {
-                return navDataLocation + @"\ats.txt";
-            }
+            get { return Path.Combine(navDataLocation, "ats.txt"); }
         }
 
         /// <exception cref="WaypointFileReadException"></exception>

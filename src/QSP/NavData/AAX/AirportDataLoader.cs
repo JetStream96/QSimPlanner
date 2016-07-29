@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace QSP.NavData.AAX
 {
@@ -42,9 +43,9 @@ namespace QSP.NavData.AAX
             {
                 try
                 {
-                    var words = i.Split(',');
+                    var words = i.Split(',').Select(s => s.Trim()).ToList();
 
-                    if (words.Length == 0)
+                    if (words.Count == 0)
                     {
                         continue;
                     }
@@ -95,7 +96,7 @@ namespace QSP.NavData.AAX
             // Add the last airport.
             airportList.Add(airport);
 
-            return airportList;            
+            return airportList;
         }
 
         private static string[] surfTypes = new string[]
@@ -106,7 +107,7 @@ namespace QSP.NavData.AAX
             "Other"
         };
 
-        private static RwyData ReadRwy(string[] words)
+        private static RwyData ReadRwy(List<string> words)
         {
             string RwyIdent = words[1];
             string Heading = words[2];

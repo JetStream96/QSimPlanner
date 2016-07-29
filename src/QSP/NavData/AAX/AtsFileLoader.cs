@@ -2,15 +2,13 @@
 using QSP.RouteFinding.Containers;
 using System;
 using System.IO;
+using System.Linq;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.NavData.AAX
 {
     public class AtsFileLoader
     {
-        private static readonly char[] delimiters =
-               new char[] { ',', ' ', '\t' };
-
         private WaypointList wptList;
 
         public AtsFileLoader(WaypointList wptList)
@@ -33,10 +31,9 @@ namespace QSP.NavData.AAX
 
                 foreach (var i in allLines)
                 {
-                    var words = i.Split(
-                        delimiters, StringSplitOptions.RemoveEmptyEntries);
+                    var words = i.Split(',').Select(s => s.Trim()).ToList();
 
-                    if (words.Length == 0)
+                    if (words.Count == 0)
                     {
                         continue;
                     }

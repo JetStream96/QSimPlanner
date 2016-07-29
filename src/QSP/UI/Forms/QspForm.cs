@@ -12,7 +12,6 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Controllers.ButtonGroup;
 using QSP.UI.ToLdgModule.AboutPage;
 using QSP.UI.ToLdgModule.AircraftMenu;
-using QSP.UI.ToLdgModule.Common.AirportInfo;
 using QSP.UI.ToLdgModule.LandingPerf;
 using QSP.UI.ToLdgModule.TOPerf;
 using QSP.UI.UserControls;
@@ -23,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -184,16 +184,14 @@ namespace QSP.UI.Forms
         {
             string navDataPath = appSettings.NavDataLocation;
 
+            var airportTxtPath = Path.Combine(navDataPath, "Airports.txt");
+
             var airportList = new AirportManager(
-                new AirportDataLoader(navDataPath + @"\Airports.txt")
-                .LoadFromFile());
+                new AirportDataLoader(airportTxtPath).LoadFromFile());
 
-            var result = new WptListLoader(navDataPath)
-                .LoadFromFile();
+            var result = new WptListLoader(navDataPath).LoadFromFile();
 
-            countryCodesLocator =
-                new Locator<CountryCodeManager>(result.CountryCodes);
-
+            countryCodesLocator = result.CountryCodes.ToLocator();
             airwayNetwork = new AirwayNetwork(result.WptList, airportList);
         }
 
@@ -328,7 +326,7 @@ namespace QSP.UI.Forms
 
         private void EnableAirportRequests()
         {
-            var toControl= toMenu.airportInfoControl;
+            var toControl = toMenu.airportInfoControl;
             toControl.reqAirportBtn.Visible = true;
             toControl.reqAirportBtn.Click += (s, e) =>
             {

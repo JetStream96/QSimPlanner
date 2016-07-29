@@ -9,9 +9,6 @@ namespace QSP.NavData.AAX
 {
     public class FixesLoader
     {
-        private static readonly char[] delimiters =
-            new char[] { ',', ' ', '\t'};
-
         private WaypointList wptList;
         private BiDictionary<int, string> countryCodeLookup;
         private int countryCode;
@@ -39,9 +36,9 @@ namespace QSP.NavData.AAX
             }
             catch (Exception ex)
             {
-                throw new WaypointFileReadException("", ex);
+                throw new WaypointFileReadException(ex.Message, ex);
             }
-            
+
             foreach (var i in allLines)
             {
                 try
@@ -56,8 +53,8 @@ namespace QSP.NavData.AAX
                 catch
                 {
                     throw new WaypointFileParseException(
-                       "This line in waypoints.txt cannot be parsed:\n" +
-                       i + "\n(Reason: Wrong format)");
+                       "This line in waypoints.txt cannot be parsed:\n\n" +
+                       i + "\n\n(Reason: Wrong format)");
                 }
             }
 
@@ -66,14 +63,13 @@ namespace QSP.NavData.AAX
 
         private void ReadWpt(string i)
         {
-            var words = i.Split(delimiters,
-                StringSplitOptions.RemoveEmptyEntries);
-
-            string id = words[0];
-            double lat = double.Parse(words[1]);
-            double lon = double.Parse(words[2]);
-            string country = words.Length > 3 ?  words[3] : "";
+            var words = i.Split(',');
             
+            string id = words[0].Trim();
+            double lat = double.Parse(words[1].Trim());
+            double lon = double.Parse(words[2].Trim());
+            string country = words.Length > 3 ? words[3].Trim() : "";
+
             int countryCode = GetCountryCode(country);
 
             wptList.AddWaypoint(new Waypoint(id, lat, lon, countryCode));
