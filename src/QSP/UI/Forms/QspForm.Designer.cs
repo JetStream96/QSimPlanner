@@ -228,16 +228,19 @@
             // optionsBtn
             // 
             this.optionsBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.optionsBtn.BackColor = System.Drawing.Color.Purple;
+            this.optionsBtn.BackColor = System.Drawing.Color.Black;
             this.optionsBtn.BackgroundImage = global::QSP.Properties.Resources.noun_1329;
             this.optionsBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.optionsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optionsBtn.ForeColor = System.Drawing.Color.White;
             this.optionsBtn.Location = new System.Drawing.Point(5, 5);
             this.optionsBtn.Margin = new System.Windows.Forms.Padding(1);
             this.optionsBtn.Name = "optionsBtn";
             this.optionsBtn.Size = new System.Drawing.Size(30, 30);
             this.optionsBtn.TabIndex = 0;
             this.optionsBtn.UseVisualStyleBackColor = false;
+            this.optionsBtn.MouseEnter += new System.EventHandler(this.optionsBtn_MouseEnter);
+            this.optionsBtn.MouseLeave += new System.EventHandler(this.optionsBtn_MouseLeave);
             // 
             // tableLayoutPanel3
             // 

@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace QSP.UI.Controllers.ButtonGroup
 {
     public class ControlSwitcher
     {
-        private BtnControlPair[] pairings;
+        private BtnControlPair[] _pairings;
         private bool _subscribed;
+
+        public IEnumerable<BtnControlPair> Pairings
+        {
+            get { return _pairings; }
+        }
 
         public bool Subscribed
         {
@@ -19,7 +25,7 @@ namespace QSP.UI.Controllers.ButtonGroup
             {
                 if (_subscribed && value == false)
                 {
-                    foreach (var i in pairings)
+                    foreach (var i in _pairings)
                     {
                         i.Button.Click -= ShowControl;
                     }
@@ -27,7 +33,7 @@ namespace QSP.UI.Controllers.ButtonGroup
                 }
                 else if (_subscribed == false && value)
                 {
-                    foreach (var i in pairings)
+                    foreach (var i in _pairings)
                     {
                         i.Button.Click += ShowControl;
                     }
@@ -38,13 +44,13 @@ namespace QSP.UI.Controllers.ButtonGroup
 
         public ControlSwitcher(params BtnControlPair[] pairings)
         {
-            this.pairings = pairings;
+            this._pairings = pairings;
             _subscribed = false;
         }
 
         private void ShowControl(object sender, EventArgs e)
         {
-            foreach (var i in pairings)
+            foreach (var i in _pairings)
             {
                 i.Control.Visible = (i.Button == sender);
             }

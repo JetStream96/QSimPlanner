@@ -172,4 +172,6 @@ namespace QSP.RouteFinding.AirwayStructure
             return _content.GetEdge(edgeIndex);
         }
     }
+
+    public class DefaultWaypointList : WaypointList { }
 }

@@ -1,7 +1,8 @@
 ﻿using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Data;
 using System.Collections.Generic;
-using static QSP.RouteFinding.Data.LatLonSearcher<QSP.RouteFinding.Airports.Airport>;
+using static QSP.RouteFinding.Data.LatLonSearcher<
+    QSP.RouteFinding.Airports.Airport>;
 
 namespace QSP.RouteFinding.Airports
 {
@@ -84,5 +85,10 @@ namespace QSP.RouteFinding.Airports
                 return true;
             }
         }
+    }
+
+    public class DefaultAirportManager : AirportManager
+    {
+        public DefaultAirportManager() : base(new AirportCollection()) { }
     }
 }

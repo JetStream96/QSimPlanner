@@ -40,7 +40,6 @@ namespace QSP.UI.Forms
         private TOPerfControl toMenu;
         private LandingPerfControl ldgMenu;
         private MiscInfoControl miscInfoMenu;
-        private OptionsControl optionsMenu;
         private AboutPageControl aboutMenu;
 
         private ProfileManager profiles;
@@ -82,7 +81,6 @@ namespace QSP.UI.Forms
                     toMenu,
                     ldgMenu,
                     miscInfoMenu,
-                    optionsMenu,
                     aboutMenu
                 };
             }
@@ -167,15 +165,22 @@ namespace QSP.UI.Forms
             catch (Exception ex)
             {
                 WriteToLog(ex);
-                MsgBoxHelper.ShowError(ex.Message +
-                    " The application will quit now.");
+                MsgBoxHelper.ShowWarning(
+                    "Please set the correct Nav Data location " + 
+                    "before using the application.");
+
+                countryCodesLocator = new Locator<CountryCodeManager>(null);
+                airwayNetwork = new AirwayNetwork(
+                    new DefaultWaypointList(), new DefaultAirportManager());
+
+                ShowOptionsForm();
             }
 
             procFilter = new ProcedureFilter();
             windTableLocator = new Locator<IWindTableCollection>();
             windTableLocator.Instance = new DefaultWindTableCollection();
         }
-
+        
         /// <exception cref="RwyDataFormatException"></exception>
         /// <exception cref="ReadAirportFileException"></exception>
         /// <exception cref="WaypointFileReadException"></exception>
@@ -183,14 +188,12 @@ namespace QSP.UI.Forms
         private void InitAirportAndWaypoints()
         {
             string navDataPath = appSettings.NavDataLocation;
-
             var airportTxtPath = Path.Combine(navDataPath, "Airports.txt");
 
             var airportList = new AirportManager(
                 new AirportDataLoader(airportTxtPath).LoadFromFile());
 
             var result = new WptListLoader(navDataPath).LoadFromFile();
-
             countryCodesLocator = result.CountryCodes.ToLocator();
             airwayNetwork = new AirwayNetwork(result.WptList, airportList);
         }
@@ -199,11 +202,6 @@ namespace QSP.UI.Forms
         {
             CheckRegistry();
             SubscribeEvents();
-
-            optionsMenu.Init(
-                airwayNetwork,
-                countryCodesLocator,
-                appOptionsLocator);
 
             acMenu.Initialize(profiles);
             acMenu.AircraftsChanged += fuelMenu.RefreshAircrafts;
@@ -256,10 +254,7 @@ namespace QSP.UI.Forms
                 miscInfoMenu.AirportList = airwayNetwork.AirportList;
             };
 
-            optionsMenu.NavDataLocationChanged += (s, e) =>
-            fuelMenu.RefreshForNavDataLocationChange();
             aboutMenu.Init("QSimPlanner");
-
             EnableBtnColorControls();
             EnableViewControl();
             AddToolTip();
@@ -322,6 +317,7 @@ namespace QSP.UI.Forms
             trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
             trackStatusLabel.MouseEnter += SetHandCursor;
             trackStatusLabel.MouseLeave += SetDefaultCursor;
+            optionsBtn.Click += (s, e) => ShowOptionsForm();
         }
 
         private void EnableAirportRequests()
@@ -351,7 +347,6 @@ namespace QSP.UI.Forms
                 new BtnControlPair(toBtn, toMenu),
                 new BtnControlPair(ldgBtn, ldgMenu),
                 new BtnControlPair(airportBtn, miscInfoMenu),
-                new BtnControlPair(optionsBtn, optionsMenu),
                 new BtnControlPair(aboutBtn, aboutMenu));
 
             viewControl.Subscribed = true;
@@ -374,10 +369,7 @@ namespace QSP.UI.Forms
             var airportPair = new BtnColorPair(airportBtn, Color.Black,
             Color.WhiteSmoke, Color.White, Color.DodgerBlue);
 
-            var optionPair = new BtnColorPair(optionsBtn, Color.Black,
-            Color.Black, Color.White, Color.Purple);
-
-            var aboutPair = new BtnColorPair(aboutBtn, Color.Black,
+            var aboutPair = new BtnColorPair(aboutBtn, Color.White,
             Color.Black, Color.White, Color.Turquoise);
 
             btnControl = new BtnGroupController(
@@ -386,7 +378,6 @@ namespace QSP.UI.Forms
                 toPair,
                 ldgPair,
                 airportPair,
-                optionPair,
                 aboutPair);
 
             btnControl.Initialize();
@@ -400,7 +391,6 @@ namespace QSP.UI.Forms
             toMenu = new TOPerfControl();
             ldgMenu = new LandingPerfControl();
             miscInfoMenu = new MiscInfoControl();
-            optionsMenu = new OptionsControl();
             aboutMenu = new AboutPageControl();
 
             foreach (var i in Pages)
@@ -487,6 +477,34 @@ namespace QSP.UI.Forms
         private void windDataStatusLabel_Click(object sender, EventArgs e)
         {
             windFrm.ShowDialog();
+        }
+
+        private void ShowOptionsForm()
+        {
+            using (var frm = new OptionsForm())
+            {
+                frm.Init(
+                   airwayNetwork,
+                   countryCodesLocator,
+                   appOptionsLocator);
+
+                frm.NavDataLocationChanged += (s, e) =>
+                    fuelMenu.RefreshForNavDataLocationChange();
+
+                frm.ShowDialog();
+            }
+        }
+        
+        private void optionsBtn_MouseEnter(object sender, EventArgs e)
+        {
+            optionsBtn.ForeColor = Color.White;
+            optionsBtn.BackColor = Color.Purple;
+        }
+
+        private void optionsBtn_MouseLeave(object sender, EventArgs e)
+        {
+            optionsBtn.ForeColor = Color.White;
+            optionsBtn.BackColor = Color.Black;
         }
 
         // TODO: Some ideas for future:

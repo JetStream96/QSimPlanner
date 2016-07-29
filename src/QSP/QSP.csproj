@@ -144,13 +144,18 @@
     <Compile Include="UI\Controllers\AlternateController.cs" />
     <Compile Include="UI\Controllers\ControlDisableStyleController.cs" />
     <Compile Include="UI\Controllers\DestinationStarSelection.cs" />
-    <Compile Include="UI\Controllers\FadeoutController.cs" />
     <Compile Include="UI\Controllers\ISelectedProcedureProvider.cs" />
     <Compile Include="UI\Controllers\ListViewSortEnabler.cs" />
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
     <Compile Include="UI\Controllers\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
+    <Compile Include="UI\Forms\OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\WindDownloadStatus.cs" />
     <Compile Include="UI\Controls\IClickable.cs" />
     <Compile Include="UI\Controls\PanelSilentScrollbar.cs">
@@ -221,12 +226,6 @@
     </Compile>
     <Compile Include="UI\UserControls\MiscInfoControl.Designer.cs">
       <DependentUpon>MiscInfoControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\UserControls\OptionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\UserControls\OptionsControl.Designer.cs">
-      <DependentUpon>OptionsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserControls\RouteActions\ActionContextMenu.cs">
       <SubType>Component</SubType>
@@ -559,6 +558,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\add_icon.png" />
+    <EmbeddedResource Include="UI\Forms\OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\WindDataForm.resx">
       <DependentUpon>WindDataForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -570,9 +572,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\MiscInfoControl.resx">
       <DependentUpon>MiscInfoControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls\OptionsControl.resx">
-      <DependentUpon>OptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="PerformanceData\FuelCalc\737600.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

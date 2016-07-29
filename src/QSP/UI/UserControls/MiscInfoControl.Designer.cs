@@ -357,12 +357,12 @@
             this.desForcastRichTxtBox.TabIndex = 1;
             this.desForcastRichTxtBox.Text = "";
             // 
-            // Label86
+            // destIcaoLbl
             // 
             this.destIcaoLbl.AutoSize = true;
             this.destIcaoLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.destIcaoLbl.Location = new System.Drawing.Point(20, 33);
-            this.destIcaoLbl.Name = "Label86";
+            this.destIcaoLbl.Name = "destIcaoLbl";
             this.destIcaoLbl.Size = new System.Drawing.Size(151, 23);
             this.destIcaoLbl.TabIndex = 0;
             this.destIcaoLbl.Text = "Destination : RCTP";
@@ -406,7 +406,6 @@
 
         internal System.Windows.Forms.TabControl TabControl1;
         internal System.Windows.Forms.TabPage TabPage1;
-        private ToLdgModule.AirportMap.AirportMapControl airportMapControl;
         internal System.Windows.Forms.TabPage TabPage2;
         internal System.Windows.Forms.GroupBox GroupBox18;
         internal System.Windows.Forms.Button updateMetarBtn;
@@ -428,5 +427,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         internal System.Windows.Forms.Button updateDesForcastBtn;
         private System.Windows.Forms.Label desForcastLastUpdatedLbl;
+        internal ToLdgModule.AirportMap.AirportMapControl airportMapControl;
     }
 }

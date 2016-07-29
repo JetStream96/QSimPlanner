@@ -8,8 +8,8 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
-using QSP.UI.Controllers;
 using QSP.Utilities;
+using QSP.UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,9 +18,9 @@ using System.Windows.Forms;
 using static QSP.UI.Utilities.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Forms
 {
-    public partial class OptionsControl : UserControl
+    public partial class OptionsForm : Form
     {
         private Locator<CountryCodeManager> CountryCodesLocator;
         private Locator<AppOptions> AppSettingsLocator;
@@ -38,7 +38,7 @@ namespace QSP.UI.UserControls
             }
         }
 
-        public OptionsControl()
+        public OptionsForm()
         {
             InitializeComponent();
         }
@@ -57,6 +57,18 @@ namespace QSP.UI.UserControls
             addCheckBoxEventHandler();
             SetDefaultState();
             SetControlsAsInOptions();
+            FormClosing += CurrentFormClosing;
+        }
+
+        private void CurrentFormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (airwayNetwork.AirportList is DefaultAirportManager ||
+                airwayNetwork.WptList is DefaultWaypointList ||
+                CountryCodesLocator.Instance == null)
+            {
+                e.Cancel = true;
+                ShowWarning("Nav Data needs to be set before proceeding.");
+            }
         }
 
         private void addBrowseBtnHandler()
@@ -100,7 +112,6 @@ namespace QSP.UI.UserControls
             navDataStatusLbl.Text = "";
             airacLbl.Text = "";
             airacPeriodLbl.Text = "";
-            savedLbl.Text = "";
 
             AutoDLTracksCheckBox.Checked = true;
             AutoDLWindCheckBox.Checked = true;
@@ -184,15 +195,14 @@ namespace QSP.UI.UserControls
             saveBtn.Enabled = false;
             saveBtn.BackColor = Color.FromArgb(224, 224, 224);
             saveBtn.Text = "Saving ...";
-            Refresh();
 
             if (pathTxtBox.Text != AppSettings.NavDataLocation)
             {
-                if (TryLoadWptAndAirports()) SaveOptions();
+                TryUpdateWptAndAirportsAndSaveOptions();
             }
             else
             {
-                SaveOptions();
+                if (TrySaveOptions()) Close();
             }
 
             saveBtn.ForeColor = Color.White;
@@ -201,40 +211,20 @@ namespace QSP.UI.UserControls
             saveBtn.Enabled = true;
         }
 
-        private void ShowSavedLbl()
-        {           
-            savedLbl.Text = "Saved!    ";
-            savedLbl.ForeColor = Color.Black;
-
-            var timer = new Timer();
-            timer.Interval = 2000;
-            timer.Tick += (s, e) =>
-            {
-                timer.Stop();
-                timer.Dispose();
-                FadeoutController.Fadeout(savedLbl); 
-            };
-
-            timer.Start();
-        }
-
-        // Returns whether the operation is successful.
-        private bool TryLoadWptAndAirports()
+        private void TryUpdateWptAndAirportsAndSaveOptions()
         {
             var wptList = TryLoadWpts();
+            var airportList = TryLoadAirports();
 
-            if (wptList != null)
+            if (wptList != null && airportList != null)
             {
-                var airportList = TryLoadAirports();
-
-                if (airportList != null)
+                if (TrySaveOptions())
                 {
+                    // Successful
                     airwayNetwork.Update(wptList, airportList);
-                    return true;
+                    Close();
                 }
             }
-
-            return false;
         }
 
         // If failed, returns null.
@@ -281,14 +271,6 @@ namespace QSP.UI.UserControls
             }
         }
 
-        private void SaveOptions()
-        {
-            if (TrySaveOptions())
-            {
-                ShowSavedLbl();
-            }
-        }
-
         private bool TrySaveOptions()
         {
             var newSetting = ValidateSetting();
@@ -327,10 +309,10 @@ namespace QSP.UI.UserControls
 
         private void CancelBtnClick(object sender, EventArgs e)
         {
-            SetControlsAsInOptions();
+            Close();
         }
 
-        private void BroserBtnClick(object sender, EventArgs e)
+        private void BrowseBtnClick(object sender, EventArgs e)
         {
             var folderBrowser = new FolderBrowserDialog();
             folderBrowser.SelectedPath = pathTxtBox.Text;
