@@ -9,7 +9,6 @@ using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
 using QSP.Utilities;
-using QSP.UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -67,7 +66,19 @@ namespace QSP.UI.Forms
                 CountryCodesLocator.Instance == null)
             {
                 e.Cancel = true;
-                ShowWarning("Nav Data needs to be set before proceeding.");
+
+                var result = MessageBox.Show(
+                    "Nav Data needs to be set before proceeding. " +
+                    "Otherwise this application will close. " +
+                    "Go back to settings?",
+                    "",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Exclamation);
+
+                if (result == DialogResult.No)
+                {
+                    Environment.Exit(0);
+                }
             }
         }
 
@@ -195,6 +206,7 @@ namespace QSP.UI.Forms
             saveBtn.Enabled = false;
             saveBtn.BackColor = Color.FromArgb(224, 224, 224);
             saveBtn.Text = "Saving ...";
+            Refresh();
 
             if (pathTxtBox.Text != AppSettings.NavDataLocation)
             {
@@ -214,11 +226,12 @@ namespace QSP.UI.Forms
         private void TryUpdateWptAndAirportsAndSaveOptions()
         {
             var wptList = TryLoadWpts();
-            var airportList = TryLoadAirports();
 
-            if (wptList != null && airportList != null)
+            if (wptList != null)
             {
-                if (TrySaveOptions())
+                var airportList = TryLoadAirports();
+
+                if (airportList != null && TrySaveOptions())
                 {
                     // Successful
                     airwayNetwork.Update(wptList, airportList);

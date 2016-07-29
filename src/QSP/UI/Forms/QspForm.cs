@@ -54,6 +54,7 @@ namespace QSP.UI.Forms
         private readonly Point controlDefaultLocation = new Point(12, 52);
         private TracksForm trackFrm;
         private WindDataForm windFrm;
+        private bool failedToLoadNavDataAtStartUp = false;
 
         private AppOptions appSettings
         { get { return appOptionsLocator.Instance; } }
@@ -103,6 +104,15 @@ namespace QSP.UI.Forms
                 InitTrackForm();
                 InitWindForm();
             });
+
+            if (failedToLoadNavDataAtStartUp)
+            {
+                MsgBoxHelper.ShowWarning(
+                    "Please set the correct Nav Data location " +
+                    "before using the application.");
+
+                ShowOptionsForm(FormStartPosition.CenterScreen, true);
+            }
         }
 
         private void InitWindForm()
@@ -165,22 +175,18 @@ namespace QSP.UI.Forms
             catch (Exception ex)
             {
                 WriteToLog(ex);
-                MsgBoxHelper.ShowWarning(
-                    "Please set the correct Nav Data location " + 
-                    "before using the application.");
+                failedToLoadNavDataAtStartUp = true;
 
                 countryCodesLocator = new Locator<CountryCodeManager>(null);
                 airwayNetwork = new AirwayNetwork(
                     new DefaultWaypointList(), new DefaultAirportManager());
-
-                ShowOptionsForm();
             }
 
             procFilter = new ProcedureFilter();
             windTableLocator = new Locator<IWindTableCollection>();
             windTableLocator.Instance = new DefaultWindTableCollection();
         }
-        
+
         /// <exception cref="RwyDataFormatException"></exception>
         /// <exception cref="ReadAirportFileException"></exception>
         /// <exception cref="WaypointFileReadException"></exception>
@@ -479,7 +485,9 @@ namespace QSP.UI.Forms
             windFrm.ShowDialog();
         }
 
-        private void ShowOptionsForm()
+        private void ShowOptionsForm(
+            FormStartPosition position = FormStartPosition.CenterParent,
+            bool showInTaskbar = false)
         {
             using (var frm = new OptionsForm())
             {
@@ -491,10 +499,12 @@ namespace QSP.UI.Forms
                 frm.NavDataLocationChanged += (s, e) =>
                     fuelMenu.RefreshForNavDataLocationChange();
 
+                frm.ShowInTaskbar = showInTaskbar;
+                frm.StartPosition = position;
                 frm.ShowDialog();
             }
         }
-        
+
         private void optionsBtn_MouseEnter(object sender, EventArgs e)
         {
             optionsBtn.ForeColor = Color.White;

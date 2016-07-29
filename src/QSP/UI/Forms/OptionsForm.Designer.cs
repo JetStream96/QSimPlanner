@@ -587,6 +587,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Options";
             this.tabPage3.ResumeLayout(false);
             this.GroupBox2.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
