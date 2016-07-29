@@ -7,6 +7,7 @@ using System.Xml.Linq;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
+    // TODO: Fix this with regex. Timestamp is currently messed up.
     public class PacotsMessage : TrackMessage
     {
         private static readonly string HeaderKZAK = "KZAK OAKLAND OCA/FIR";
@@ -21,10 +22,11 @@ namespace QSP.RouteFinding.Tracks.Pacots
             tracksRJJJ = new List<string>();
         }
 
-        public PacotsMessage(List<string> tracksKZAK,
-                             List<string> tracksRJJJ,
-                             string TimeStamp,
-                             string Header)
+        public PacotsMessage(
+            List<string> tracksKZAK,
+            List<string> tracksRJJJ,
+            string TimeStamp,
+            string Header)
         {
             this.tracksKZAK = tracksKZAK;
             this.tracksRJJJ = tracksRJJJ;
@@ -40,27 +42,24 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
             catch (Exception ex)
             {
-                throw new ArgumentException("Unable to parse the message.", ex);
+                throw new ArgumentException(
+                    "Unable to parse the message.", ex);
             }
         }
-
-        #region Properties
-
-        public ReadOnlyCollection<string> WestboundTracks
+        
+        public IReadOnlyList<string> WestboundTracks
         {
-            get { return tracksKZAK.AsReadOnly(); }
+            get { return tracksKZAK; }
         }
 
-        public ReadOnlyCollection<string> EastboundTracks
+        public IReadOnlyList<string> EastboundTracks
         {
             get { return tracksRJJJ.AsReadOnly(); }
         }
 
         public string TimeStamp { get; private set; }
         public string Header { get; private set; }
-
-        #endregion
-
+        
         private void ParseHtml(string htmlFile)
         {
             int index = 0;

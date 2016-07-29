@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 
 namespace QSP.UI.Forms
@@ -13,7 +15,7 @@ namespace QSP.UI.Forms
     public partial class TracksForm
     {
         private AirwayNetwork airwayNetwork;
-        
+
         private ImageList myImageList;
         private ToolStripStatusLabel statusLbl;
 
@@ -32,7 +34,7 @@ namespace QSP.UI.Forms
         {
             this.airwayNetwork = airwayNetwork;
             this.statusLbl = statusLbl;
-            
+
             InitImages();
             InitCBox();
             InitPicBoxes();
@@ -47,9 +49,40 @@ namespace QSP.UI.Forms
             CBoxNatsEnabled.SelectedIndexChanged += CBoxNatsEnabledChanged;
             CBoxPacotsEnabled.SelectedIndexChanged += CBoxPacotsEnabledChanged;
             CBoxAusotsEnabled.SelectedIndexChanged += CBoxAusotsEnabledChanged;
+            viewNatsBtn.Click += ViewNatsBtnClick;
+            viewPacotsBtn.Click += ViewPacotsBtnClick;
+            viewAusotsBtn.Click += ViewAusotsBtnClick;
             Closing += CloseForm;
         }
-        
+
+        private void ViewAusotsBtnClick(object sender, EventArgs e)
+        {
+            var doc = airwayNetwork.GetAusotsMessage().ToXml();
+            txtRichTextBox.Text = XDocDisplay(doc);
+        }
+
+        private void ViewPacotsBtnClick(object sender, EventArgs e)
+        {
+            var doc = airwayNetwork.GetPacotsMessage().ToXml();
+            txtRichTextBox.Text = XDocDisplay(doc);
+        }
+
+        private void ViewNatsBtnClick(object sender, EventArgs e)
+        {
+            var doc = airwayNetwork.GetNatsMessage().ToXml();
+            txtRichTextBox.Text = XDocDisplay(doc);
+        }
+
+        private static string XDocDisplay(XDocument doc)
+        {
+            return doc.ToString();
+            // TODO: Fix this.
+            var sb = new StringBuilder();
+            var root = doc.Root;
+
+
+        }
+
         private void InitImages()
         {
             myImageList = new ImageList();
@@ -280,12 +313,17 @@ namespace QSP.UI.Forms
                 airwayNetwork.DisableTrack(TrackType.Ausots);
             }
         }
-        
+
         private void CloseForm(object sender, CancelEventArgs e)
         {
             // Do NOT close this form. Hide instead.
             e.Cancel = true;
             Hide();
+        }
+
+        private void ShowNatsText(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

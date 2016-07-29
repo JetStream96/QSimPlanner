@@ -165,6 +165,21 @@ namespace QSP.RouteFinding
             }
         }
 
+        public NatsMessage GetNatsMessage()
+        {
+            return natsManager.RawData;
+        }
+
+        public PacotsMessage GetPacotsMessage()
+        {
+            return pacotsManager.RawData;
+        }
+
+        public AusotsMessage GetAusotsMessage()
+        {
+            return ausotsManager.RawData;
+        }
+
         private async Task SetNats()
         {
             StatusRecorder.Clear(TrackType.Nats);

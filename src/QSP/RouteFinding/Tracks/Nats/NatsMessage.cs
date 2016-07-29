@@ -1,6 +1,6 @@
-﻿using System.Text;
+﻿using QSP.RouteFinding.Tracks.Common;
+using System.Text;
 using System.Xml.Linq;
-using QSP.RouteFinding.Tracks.Common;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
@@ -9,12 +9,13 @@ namespace QSP.RouteFinding.Tracks.Nats
         public IndividualNatsMessage WestMessage { get; private set; }
         public IndividualNatsMessage EastMessage { get; private set; }
 
-        public NatsMessage(IndividualNatsMessage WestMessage, IndividualNatsMessage EastMessage)
+        public NatsMessage(IndividualNatsMessage WestMessage,
+            IndividualNatsMessage EastMessage)
         {
             this.WestMessage = WestMessage;
             this.EastMessage = EastMessage;
         }
-        
+
         public override void LoadFromXml(XDocument doc)
         {
             var root = doc.Root;
@@ -37,11 +38,14 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         public override XDocument ToXml()
         {
+            var west = WestMessage.ConvertToXml().Root;
+            var east = EastMessage.ConvertToXml().Root;
+
             return new XDocument(
-                new XElement("Content", 
+                new XElement("Content",
                     new XElement[] {
-                        new XElement("Westbound",WestMessage.ConvertToXml().Root),
-                        new XElement("Eastbound",EastMessage.ConvertToXml().Root)}));
+                        new XElement("Westbound", west),
+                        new XElement("Eastbound", east)}));
         }
     }
 }
