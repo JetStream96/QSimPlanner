@@ -122,10 +122,13 @@ namespace QSP.RouteFinding.Tracks.Pacots
         public override string ToString()
         {
             var s = new StringBuilder();
-            s.AppendLine(Header);
-            s.AppendLine("Data Current as of" + TimeStamp);
-            s.AppendLine(GetStringTracks(HeaderKzak, WestboundTracks));
-            s.AppendLine(GetStringTracks(HeaderRjjj, EastboundTracks));
+
+            s.Append(Header);
+            s.Append("\n\nTime updated: " + TimeStamp);
+            s.Append("\n\n" + HeaderKzak + "\n\n");
+            s.Append(GetStringTracks(WestboundTracks));
+            s.Append("\n\n" + HeaderRjjj + "\n\n");
+            s.Append(GetStringTracks(EastboundTracks));
 
             return s.ToString();
         }
@@ -148,12 +151,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
             return tracks.Select(s => new XElement("Track", s)).ToArray();
         }
 
-        private static string GetStringTracks(
-            string header, IEnumerable<string> tracks)
+        private static string GetStringTracks(IEnumerable<string> tracks)
         {
             var s = new StringBuilder();
-            s.AppendLine(header);
-            tracks.ForEach(i => s.AppendLine(i));
+            tracks.ForEach(i => s.AppendLine(i + "\n"));
             return s.ToString();
         }
     }

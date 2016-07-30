@@ -63,8 +63,7 @@ namespace QSP.UI.Forms
 
         private void ViewPacotsBtnClick(object sender, EventArgs e)
         {
-            var doc = airwayNetwork.GetPacotsMessage().ToXml();
-            txtRichTextBox.Text = XDocDisplay(doc);
+            txtRichTextBox.Text = airwayNetwork.GetPacotsMessage().ToString();
         }
 
         private void ViewNatsBtnClick(object sender, EventArgs e)
