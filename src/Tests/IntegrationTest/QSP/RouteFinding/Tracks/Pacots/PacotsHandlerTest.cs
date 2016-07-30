@@ -75,11 +75,11 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 
             // Distance
             Assert.AreEqual(
-                    new List<LatLon>
+                    new List<ICoordinate>
                     {
-                      wptList[ wptList.FindById("ALCOA")].LatLon,
-                      wptList[ wptList.FindById("CEPAS")].LatLon,
-                      wptList[ wptList.FindById("COBAD")].LatLon,
+                      wptList[wptList.FindById("ALCOA")],
+                      wptList[wptList.FindById("CEPAS")],
+                      wptList[wptList.FindById("COBAD")],
                       new LatLon(41,-140),
                       new LatLon(42,-150),
                       new LatLon(40,-160),
@@ -89,7 +89,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
                       new LatLon(27,160),
                       new LatLon(26,150),
                       new LatLon(27,140),
-                      wptList[ wptList.FindById("BIXAK")].LatLon
+                      wptList[wptList.FindById("BIXAK")]
                     }.TotalDistance(),
                 edge.Value.Distance,
                 0.01);

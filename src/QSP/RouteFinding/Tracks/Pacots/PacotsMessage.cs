@@ -1,35 +1,46 @@
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Tracks.Common;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    // TODO: Fix this with regex. Timestamp is currently messed up.
+    // TODO: Add unit test.
     public class PacotsMessage : TrackMessage
     {
-        private static readonly string HeaderKZAK = "KZAK OAKLAND OCA/FIR";
-        private static readonly string HeaderRJJJ = "RJJJ FUKUOKA/JCAB AIR TRAFFIC FLOW MANAGEMENT CENTRE";
+        // Westbound tracks
+        private static readonly string HeaderKzak =
+            "KZAK OAKLAND OCA/FIR";
 
-        private List<string> tracksKZAK;
-        private List<string> tracksRJJJ;
+        // Eastbound tracks
+        private static readonly string HeaderRjjj =
+            "RJJJ FUKUOKA/JCAB AIR TRAFFIC FLOW MANAGEMENT CENTRE";
+
+        public IEnumerable<string> WestboundTracks { get; private set; }
+        public IEnumerable<string> EastboundTracks { get; private set; }
+        public string TimeStamp { get; private set; }
+        public string Header { get; private set; }
 
         public PacotsMessage()
         {
-            tracksKZAK = new List<string>();
-            tracksRJJJ = new List<string>();
+            WestboundTracks = new string[0];
+            EastboundTracks = new string[0];
+            TimeStamp = "";
+            Header = "";
         }
 
         public PacotsMessage(
-            List<string> tracksKZAK,
-            List<string> tracksRJJJ,
+            IEnumerable<string> WestboundTracks,
+            IEnumerable<string> EastboundTracks,
             string TimeStamp,
             string Header)
         {
-            this.tracksKZAK = tracksKZAK;
-            this.tracksRJJJ = tracksRJJJ;
+            this.WestboundTracks = WestboundTracks;
+            this.EastboundTracks = EastboundTracks;
             this.TimeStamp = TimeStamp;
             this.Header = Header;
         }
@@ -46,98 +57,46 @@ namespace QSP.RouteFinding.Tracks.Pacots
                     "Unable to parse the message.", ex);
             }
         }
+
+        private void ParseHtml(string htmlSource)
+        {
+            Header = GetHeader(htmlSource) ?? "";
+            TimeStamp = GetTimeStamp(htmlSource) ?? "";
+            WestboundTracks = GetTracks(htmlSource, true);
+            EastboundTracks = GetTracks(htmlSource, false);
+        }
+
+        private IEnumerable<string> GetTracks(string source, bool isWestBound)
+        {
+            var pattern = isWestBound ?
+                @"(\(TDM TRK.*?)</" :
+                @"(EASTBOUND PACOTS TRACKS.*?)</";
+
+            var matches = Regex.Matches(
+                source, pattern, RegexOptions.Singleline);
+
+            return matches.Cast<Match>().Select(m => m.Groups[1].Value);
+        }
         
-        public IReadOnlyList<string> WestboundTracks
+        // Returns null if no match is found.
+        private static string GetHeader(string htmlSource)
         {
-            get { return tracksKZAK; }
+            var match = Regex.Match(htmlSource, @"(The following are.*?)</");
+            return match.Success ? match.Groups[1].Value : null;
         }
 
-        public IReadOnlyList<string> EastboundTracks
+        // Returns null if no match is found.
+        private string GetTimeStamp(string htmlSource)
         {
-            get { return tracksRJJJ.AsReadOnly(); }
-        }
+            // Try to match "Tue, 16 Feb 2016 14:44:00 GMT"
+            var weekDays = @"(Mon|Tue|Wed|Thu|Fri|Sat|Sun)";
+            var months = @"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)";
+            var pattern = weekDays + @",?\s*\d{1,2}\s+" + months +
+                @"\s+\d{4}\s+\d{1,2}:\d{1,2}:\d{1,2}\s+GMT";
 
-        public string TimeStamp { get; private set; }
-        public string Header { get; private set; }
-        
-        private void ParseHtml(string htmlFile)
-        {
-            int index = 0;
-
-            //get the general message  
-            index = htmlFile.IndexOf("The following are");
-            Header = htmlFile.Substring(index, htmlFile.IndexOf("</", index) - index);
-
-            //get the time stamp
-            TimeStamp = GetTimeStamp(htmlFile, index);
-
-            //KZAK part comes before RJJJ
-            //goes to a line like this: "KZAK   OAKLAND OCA/FIR"
-            int indexKZAK = htmlFile.IndexOf("OAKLAND OCA/FIR", index);
-            int indexRJJJ = htmlFile.IndexOf("FUKUOKA/JCAB AIR TRAFFIC FLOW MANAGEMENT CENTRE", index);
-
-            if (indexKZAK < indexRJJJ)
-            {
-                //get track definition message (TDM) for KZAK part
-                tracksKZAK = GetTdm(htmlFile, indexKZAK, indexRJJJ, true);
-
-                //get RJJJ part
-                tracksRJJJ = GetTdm(htmlFile, indexRJJJ, htmlFile.Length - 1, false);
-            }
-            else
-            {
-                //get RJJJ part
-                tracksRJJJ = GetTdm(htmlFile, indexRJJJ, indexKZAK, false);
-
-                //get track definition message (TDM) for KZAK part
-                tracksKZAK = GetTdm(htmlFile, indexKZAK, htmlFile.Length - 1, true);
-            }
-        }
-
-        private List<string> GetTdm(string htmlFile,
-                                    int startIndex,
-                                    int endIndex,
-                                    bool isWestbound)
-        {
-            var tracks = new List<string>();
-            int index = startIndex;
-            string searchWord = isWestbound ? "(TDM TRK" : "EASTBOUND";
-
-            while (true)
-            {
-                index = htmlFile.IndexOf(searchWord, index);
-
-                if (index >= 0 && index <= endIndex)
-                {
-                    int end = htmlFile.IndexOf("</", index);
-
-                    if (end < 0)
-                    {
-                        end = htmlFile.Length - 1;
-                    }
-
-                    tracks.Add(htmlFile.Substring(index, end - index));
-                    index = end;
-                }
-                else
-                {
-                    return tracks;
-                }
-            }
-        }
-
-        private string GetTimeStamp(string htmlFile, int index)
-        {
-            try
-            {
-                index = htmlFile.IndexOf("Data Current as of:", index);
-                index = htmlFile.IndexOf('>', index) + 1;
-                return htmlFile.Substring(index, htmlFile.IndexOf("</", index));
-            }
-            catch
-            {
-                return "";
-            }
+            var match = Regex.Match(
+                htmlSource, pattern, RegexOptions.IgnoreCase);
+            return match.Success ? match.Value : null;
         }
 
         public override void LoadFromXml(XDocument doc)
@@ -146,18 +105,11 @@ namespace QSP.RouteFinding.Tracks.Pacots
             Header = doc.Element("Header").Value;
             TimeStamp = doc.Element("TimeStamp").Value;
 
-            tracksKZAK = new List<string>();
-            tracksRJJJ = new List<string>();
+            var elemKzak = doc.Element("KZAK").Elements("Track");
+            WestboundTracks = elemKzak.Select(i => i.Value);
 
-            foreach (var i in doc.Element("KZAK").Elements("Track"))
-            {
-                tracksKZAK.Add(i.Value);
-            }
-
-            foreach (var i in doc.Element("RJJJ").Elements("Track"))
-            {
-                tracksRJJJ.Add(i.Value);
-            }
+            var elemRjjj = doc.Element("RJJJ").Elements("Track");
+            EastboundTracks = elemRjjj.Select(i => i.Value);
         }
 
         public override string ToString()
@@ -165,8 +117,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
             var s = new StringBuilder();
             s.AppendLine(Header);
             s.AppendLine("Data Current as of" + TimeStamp);
-            s.AppendLine(GetStringTracks(HeaderKZAK, tracksKZAK));
-            s.AppendLine(GetStringTracks(HeaderRJJJ, tracksRJJJ));
+            s.AppendLine(GetStringTracks(HeaderKzak, WestboundTracks));
+            s.AppendLine(GetStringTracks(HeaderRjjj, EastboundTracks));
 
             return s.ToString();
         }
@@ -175,35 +127,26 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             var doc = new XElement(
                 "Content", new XElement[]{
-                                new XElement("TrackSystem","PACOTs"),
-                                new XElement("Header",Header),
-                                new XElement("TimeStamp",TimeStamp),
-                                new XElement("KZAK",GetXElement(tracksKZAK)),
-                                new XElement("RJJJ",GetXElement(tracksRJJJ))
-                            });
+                    new XElement("TrackSystem","PACOTs"),
+                    new XElement("Header",Header),
+                    new XElement("TimeStamp",TimeStamp),
+                    new XElement("KZAK",GetXElement(WestboundTracks)),
+                    new XElement("RJJJ",GetXElement(EastboundTracks))});
+
             return new XDocument(doc);
         }
 
-        private static XElement[] GetXElement(List<string> tracks)
+        private static XElement[] GetXElement(IEnumerable<string> tracks)
         {
-            var array = new XElement[tracks.Count];
-
-            for (int i = 0; i < tracks.Count; i++)
-            {
-                array[i] = new XElement("Track", tracks[i]);
-            }
-            return array;
+            return tracks.Select(s => new XElement("Track", s)).ToArray();
         }
 
-        private static string GetStringTracks(string header, List<string> tracks)
+        private static string GetStringTracks(
+            string header, IEnumerable<string> tracks)
         {
             var s = new StringBuilder();
             s.AppendLine(header);
-
-            foreach (var i in tracks)
-            {
-                s.AppendLine(i);
-            }
+            tracks.ForEach(i => s.AppendLine(i));
             return s.ToString();
         }
     }
