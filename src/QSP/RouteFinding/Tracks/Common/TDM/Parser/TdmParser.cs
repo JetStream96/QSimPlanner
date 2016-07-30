@@ -1,5 +1,4 @@
 ﻿using QSP.LibraryExtension;
-using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -56,13 +55,6 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
     {
         private string text;
 
-        private string Ident;
-        private string TimeStart;
-        private string TimeEnd;
-        private string Remarks;
-        private string MainRoute;
-        private string[] ConnectionRoutes;
-
         public TdmParser(string text)
         {
             this.text = text;
@@ -85,22 +77,33 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
         /// <exception cref="TrackParseException"></exception>
         public ParseResult Parse()
         {
-            try
-            {
-                ParseTracks();
-            }
-            catch
+            var match = Regex.Match(
+                text, GetPattern(), RegexOptions.Singleline);
+
+            if (match.Success == false)
             {
                 throw new TrackParseException();
             }
 
+            var ident = match.Groups["id"].Value;
+            var timeStart = match.Groups["timeStart"].Value;
+            var timeEnd = match.Groups["timeEnd"].Value;
+            var mainRoute = match.Groups["main"].Value;
+
+            var connectionRoutes = match.Groups["connect"].Value
+                .Lines()
+                .Where(x => string.IsNullOrWhiteSpace(x) == false)
+                .ToArray();
+
+            var remarks = match.Groups["remark"].Value;
+
             return new ParseResult(
-                Ident,
-                TimeStart,
-                TimeEnd,
-                Remarks,
-                MainRoute,
-                ConnectionRoutes);
+                ident,
+                timeStart,
+                timeEnd,
+                remarks,
+                mainRoute,
+                connectionRoutes);
         }
 
         private static string GetPattern()
@@ -112,29 +115,6 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
             var remarks = @"(?<remark>.*)";
 
             return matchId + matchTime + mainRoute + connections + remarks;
-        }
-
-        private void ParseTracks()
-        {
-            var match = Regex.Match(
-                text, GetPattern(), RegexOptions.Singleline);
-
-            if (match.Success == false)
-            {
-                throw new ArgumentException();
-            }
-
-            Ident = match.Groups["id"].Value;
-            TimeStart = match.Groups["timeStart"].Value;
-            TimeEnd = match.Groups["timeEnd"].Value;
-            MainRoute = match.Groups["main"].Value;
-
-            ConnectionRoutes = match.Groups["connect"].Value
-                .Lines()
-                .Where(x => string.IsNullOrWhiteSpace(x) == false)
-                .ToArray();
-
-            Remarks = match.Groups["remark"].Value;
         }
     }
 }

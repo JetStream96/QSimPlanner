@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using System.Net;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
@@ -82,7 +83,13 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private static string GetHeader(string htmlSource)
         {
             var match = Regex.Match(htmlSource, @"(The following are.*?)</");
-            return match.Success ? match.Groups[1].Value : null;
+
+            if (match.Success)
+            {
+                return WebUtility.HtmlDecode(match.Groups[1].Value);
+            }
+
+            return null;
         }
 
         // Returns null if no match is found.
