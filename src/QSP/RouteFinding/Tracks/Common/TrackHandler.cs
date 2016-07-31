@@ -16,6 +16,11 @@ namespace QSP.RouteFinding.Tracks.Common
         /// <summary>
         /// Add the downloaded tracks to WaypointList.
         /// </summary>
-        public abstract void AddToWaypointList();        
+        public abstract void AddToWaypointList();
+
+        /// <summary>
+        /// Undo the actions of AddToWaypointList().
+        /// </summary>
+        public abstract void UndoEdit();     
     }
 }

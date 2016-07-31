@@ -130,7 +130,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
         }
 
-        public void UndoEdit()
+        public override void UndoEdit()
         {
             editor.Undo();
         }

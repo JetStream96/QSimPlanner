@@ -104,7 +104,7 @@ namespace QSP.RouteFinding.Tracks.Common
             }
 
             throw new TrackWaypointNotFoundException(
-                string.Format("Waypoint {0} is not found.", wpt.ID));
+                $"Waypoint {wpt.ID} is not found.");
         }
 
         private int AddLastWpt(Waypoint wpt)
@@ -130,7 +130,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 return x;
             }
             throw new TrackWaypointNotFoundException(
-                string.Format("Waypoint {0} is not found.", wpt.ID));
+                $"Waypoint {wpt.ID} is not found.");
         }
     }
 }

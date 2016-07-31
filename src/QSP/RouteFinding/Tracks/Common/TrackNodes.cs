@@ -1,6 +1,5 @@
 ﻿using QSP.RouteFinding.Routes;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
@@ -14,18 +13,19 @@ namespace QSP.RouteFinding.Tracks.Common
 
         public Route MainRoute
         {
-            get
-            {
-                return new Route(_mainRoute);
-            }
+            get { return new Route(_mainRoute); }
         }
 
-        public ReadOnlyCollection<WptPair> PairsToAdd
+        public IReadOnlyList<WptPair> PairsToAdd
         {
-            get { return _routeFromTo.AsReadOnly(); }
+            get { return _routeFromTo; }
         }
 
-        public TrackNodes(string Ident, string AirwayIdent, Route mainRoute, List<WptPair> routeFromTo)
+        public TrackNodes(
+            string Ident,
+            string AirwayIdent,
+            Route mainRoute,
+            List<WptPair> routeFromTo)
         {
             this.Ident = Ident;
             this.AirwayIdent = AirwayIdent;

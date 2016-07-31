@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using NUnit.Framework;
-using QSP.RouteFinding.Tracks.Common;
-using QSP.RouteFinding.Containers;
-using QSP.RouteFinding.AirwayStructure;
-using System.Linq;
-using QSP.RouteFinding.Tracks.Pacots;
+﻿using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Tracks.Common;
+using QSP.RouteFinding.Tracks.Pacots;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTest.RouteFinding.Tracks.Common
 {
@@ -29,16 +29,17 @@ namespace UnitTest.RouteFinding.Tracks.Common
                 new AirportManager(new AirportCollection()));
 
             // Act
-            var nodes = reader.Read(new PacificTrack(
-                                          PacotDirection.Westbound,
-                                          "A",
-                                          "",
-                                          "",
-                                          "",
-                                          new List<string> { "P1", "P2" }.AsReadOnly(),
-                                          new List<string[]>().AsReadOnly(),
-                                          new List<string[]>().AsReadOnly(),
-                                          new LatLon(0.0, 0.0)));
+            var nodes = reader.Read(
+                new PacificTrack(
+                    PacotDirection.Westbound,
+                    "A",
+                    "",
+                    "",
+                    "",
+                    new List<string> { "P1", "P2" }.AsReadOnly(),
+                    new List<string[]>().AsReadOnly(),
+                    new List<string[]>().AsReadOnly(),
+                    new LatLon(0.0, 0.0)));
             // Assert
             var route = nodes.MainRoute;
 
@@ -81,16 +82,17 @@ namespace UnitTest.RouteFinding.Tracks.Common
             string[] routeFrom = new string[] { "Q1", "A1", "Q2", "UPR", "Q3", "P1" };
 
             // Act
-            var nodes = reader.Read(new PacificTrack(
-                                          PacotDirection.Westbound,
-                                          "A",
-                                          "",
-                                          "",
-                                          "",
-                                          new List<string> { "P1", "P2" }.AsReadOnly(),
-                                          new List<string[]> { routeFrom }.AsReadOnly(),
-                                          new List<string[]>().AsReadOnly(),
-                                          new LatLon(0.0, 0.0)));
+            var nodes = reader.Read(
+                new PacificTrack(
+                    PacotDirection.Westbound,
+                    "A",
+                    "",
+                    "",
+                    "",
+                    new List<string> { "P1", "P2" }.AsReadOnly(),
+                    new List<string[]> { routeFrom }.AsReadOnly(),
+                    new List<string[]>().AsReadOnly(),
+                    new LatLon(0.0, 0.0)));
             // Assert
             var pairs = nodes.PairsToAdd;
             Assert.AreEqual(1, pairs.Count);

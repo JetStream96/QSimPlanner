@@ -26,6 +26,7 @@ namespace QSP.RouteFinding
         public StatusRecorder StatusRecorder { get; private set; }
 
         public event EventHandler AirportListChanged;
+        public event EventHandler GetTracksFinished;
 
         public AirwayNetwork(
             WaypointList wptList, AirportManager airportList)
@@ -78,34 +79,69 @@ namespace QSP.RouteFinding
             StatusRecorder.Clear();
             SetTrackData();
 
-            if (natsEnabled)
+            if (NatsLoaded)
             {
                 natsManager.GetAllTracks(new NatsProvider(natsData));
-                natsManager.AddToWaypointList();
             }
 
-            if (pacotsEnabled)
+            if (PacotsLoaded)
             {
                 pacotsManager.GetAllTracks(new PacotsProvider(pacotsData));
-                pacotsManager.AddToWaypointList();
             }
 
-            if (ausotsEnabled)
+            if (AusotsLoaded)
             {
                 ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
-                ausotsManager.AddToWaypointList();
             }
 
+            if (natsEnabled) natsManager.AddToWaypointList();
+            if (pacotsEnabled) pacotsManager.AddToWaypointList();
+            if (ausotsEnabled) ausotsManager.AddToWaypointList();
+
             AirportListChanged?.Invoke(this, EventArgs.Empty);
+            GetTracksFinished?.Invoke(this, EventArgs.Empty);
         }
 
         public void EnableNats() { natsManager.AddToWaypointList(); }
         public void EnablePacots() { pacotsManager.AddToWaypointList(); }
         public void EnableAusots() { ausotsManager.AddToWaypointList(); }
-        
+
         public void DisableNats() { natsManager.UndoEdit(); }
         public void DisablePacots() { pacotsManager.UndoEdit(); }
         public void DisableAusots() { ausotsManager.UndoEdit(); }
+
+        public bool TrackedLoaded(TrackType type)
+        {
+            switch (type)
+            {
+                case TrackType.Nats:
+                    return NatsLoaded;
+
+                case TrackType.Pacots:
+                    return PacotsLoaded;
+
+                case TrackType.Ausots:
+                    return AusotsLoaded;
+
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        public bool NatsLoaded
+        {
+            get { return GetNatsMessage() != null; }
+        }
+
+        public bool PacotsLoaded
+        {
+            get { return GetPacotsMessage() != null; }
+        }
+
+        public bool AusotsLoaded
+        {
+            get { return GetAusotsMessage() != null; }
+        }
 
         public NatsMessage GetNatsMessage()
         {
@@ -130,6 +166,7 @@ namespace QSP.RouteFinding
             try
             {
                 await natsManager.GetAllTracksAsync();
+                GetTracksFinished?.Invoke(this, EventArgs.Empty);
             }
             catch { }
         }
@@ -142,6 +179,7 @@ namespace QSP.RouteFinding
             try
             {
                 await pacotsManager.GetAllTracksAsync();
+                GetTracksFinished?.Invoke(this, EventArgs.Empty);
             }
             catch { }
         }
@@ -154,6 +192,7 @@ namespace QSP.RouteFinding
             try
             {
                 await ausotsManager.GetAllTracksAsync();
+                GetTracksFinished?.Invoke(this, EventArgs.Empty);
             }
             catch { }
         }

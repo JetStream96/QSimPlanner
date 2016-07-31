@@ -57,6 +57,7 @@ namespace QSP.UI.Forms
             BtnNatsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             BtnPacotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             BtnAusotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
+            airwayNetwork.GetTracksFinished += (s, e) => RefreshStatus();
             Closing += CloseForm;
         }
 
@@ -169,31 +170,26 @@ namespace QSP.UI.Forms
             }
         }
 
-        private void RefreshStatus(TrackType type)
+        private void RefreshStatus()
         {
-            // Remove old items for the same type
-            var items = ListView1.Items;
-            var text = TrackString(type);
-
-            for (int i = items.Count - 1; i >= 0; i--)
-            {
-                if (items[i].Text == text)
-                {
-                    items.RemoveAt(i);
-                }
-            }
-
-            AddToListView(airwayNetwork.StatusRecorder.Records, type);
+            AddToListView(airwayNetwork.StatusRecorder.Records);
             RefreshListViewColumnWidth();
-            SetPBox(type);
+            SetPicBox();
             SetMainFormTrackStatus();
         }
-
+        
         private void InitPicBoxes()
         {
             PicBoxNats.Image = null;
             PicBoxPacots.Image = null;
             PicBoxAusots.Image = null;
+        }
+
+        private void SetPicBox()
+        {
+            PicBoxNats.Image = myImageList.Images[(int)natsAvail];
+            PicBoxPacots.Image = myImageList.Images[(int)pacotsAvail];
+            PicBoxAusots.Image = myImageList.Images[(int)ausotsAvail];
         }
 
         private void SetPBox(TrackType type)
@@ -241,35 +237,45 @@ namespace QSP.UI.Forms
             }
         }
 
-        private void AddToListView(IEnumerable<Entry> records, TrackType para)
+        private void AddToListView(IEnumerable<Entry> records)
         {
-            bool noError = true;
+            ListView1.Items.Clear();
+
+            var errorCount = new Dictionary<TrackType, int>()
+            {
+                [TrackType.Nats] = 0,
+                [TrackType.Pacots] = 0,
+                [TrackType.Ausots] = 0
+            };
 
             foreach (var i in records)
             {
-                if (i.Type == para)
-                {
-                    ListViewItem lvi = new ListViewItem(TrackString(para));
-                    lvi.SubItems.Add(i.Message);
-                    lvi.ImageIndex = (int)i.Severity;
-                    ListView1.Items.Add(lvi);
-
-                    SetAvail(para, i.Severity);
-                    noError = false;
-                }
-            }
-
-            if (noError)
-            {
-                var lvi = new ListViewItem(TrackString(para));
-                lvi.SubItems.Add("All tracks successfully downloaded.");
-                lvi.ImageIndex = 0;
+                var type = i.Type;
+                var lvi = new ListViewItem(TrackString(type));
+                lvi.SubItems.Add(i.Message);
+                lvi.ImageIndex = (int)i.Severity;
                 ListView1.Items.Add(lvi);
 
-                SetAvail(para, 0);
+                SetAvail(type, i.Severity);
+                errorCount[type]++;
+            }
+
+            foreach (var i in errorCount)
+            {
+                var type = i.Key;
+                var count = i.Value;
+
+                if (count == 0 && airwayNetwork.TrackedLoaded(type))
+                {
+                    var lvi = new ListViewItem(TrackString(type));
+                    lvi.SubItems.Add("All tracks successfully downloaded.");
+                    lvi.ImageIndex = 0;
+                    ListView1.Items.Add(lvi);
+                    SetAvail(type, 0);
+                }
             }
         }
-
+        
         private void SetMainFormTrackStatus()
         {
             if (natsAvail == Severity.Advisory &&
@@ -286,7 +292,6 @@ namespace QSP.UI.Forms
             {
                 statusLbl.Image = Properties.Resources.RedLight;
                 statusLbl.Text = "Tracks: Not Available";
-
             }
             else
             {
@@ -302,9 +307,8 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadNats();
             if (NatsEnabled) airwayNetwork.EnableNats();
-            RefreshStatus(TrackType.Nats);
             viewNatsBtn.Enabled = true;
-            
+
             BtnNatsDn.Enabled = true;
             BtnNatsDn.Text = "Download";
         }
@@ -316,7 +320,6 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadPacots();
             if (PacotsEnabled) airwayNetwork.EnablePacots();
-            RefreshStatus(TrackType.Pacots);
             viewPacotsBtn.Enabled = true;
 
             BtnPacotsDn.Enabled = true;
@@ -330,7 +333,6 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadAusots();
             if (AusotsEnabled) airwayNetwork.EnableAusots();
-            RefreshStatus(TrackType.Ausots);
             viewAusotsBtn.Enabled = true;
 
             BtnAusotsDn.Enabled = true;
@@ -407,10 +409,10 @@ namespace QSP.UI.Forms
             BtnPacotsDn_Click(this, EventArgs.Empty);
             BtnAusotsDn_Click(this, EventArgs.Empty);
         }
-        
+
         private void RefreshDownloadAllBtnEnabled(object sender, EventArgs e)
         {
-            downloadAllBtn.Enabled = BtnNatsDn.Enabled && 
+            downloadAllBtn.Enabled = BtnNatsDn.Enabled &&
                 BtnPacotsDn.Enabled && BtnAusotsDn.Enabled;
         }
     }

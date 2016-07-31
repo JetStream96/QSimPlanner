@@ -134,7 +134,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             }
         }
 
-        public void UndoEdit()
+        public override void UndoEdit()
         {
             editor.Undo();
         }

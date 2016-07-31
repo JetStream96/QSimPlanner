@@ -132,7 +132,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        public void UndoEdit()
+        public override void UndoEdit()
         {
             editor.Undo();
             AddedToWptList = false;
