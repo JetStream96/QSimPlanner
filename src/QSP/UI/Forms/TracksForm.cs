@@ -16,13 +16,12 @@ namespace QSP.UI.Forms
     // TODO: Add save and import feature.
     public partial class TracksForm
     {
-        private AirwayNetwork airwayNetwork;
+        private static readonly string trackFileFolder = "Tracks";
+        private static readonly string trackFileExtension = ".track";
 
+        private AirwayNetwork airwayNetwork;
         private ImageList myImageList;
         private ToolStripStatusLabel statusLbl;
-        private Severity natsAvail;
-        private Severity pacotsAvail;
-        private Severity ausotsAvail;
 
         public TracksForm()
         {
@@ -41,11 +40,6 @@ namespace QSP.UI.Forms
             InitCBox();
             InitPicBoxes();
             InitBtns();
-
-            // Initialize enums
-            natsAvail = Severity.Advisory;
-            pacotsAvail = Severity.Advisory;
-            ausotsAvail = Severity.Advisory;
 
             // The event handlers are added after the form is created. 
             // This way the events won't fire at form creation.
@@ -115,21 +109,21 @@ namespace QSP.UI.Forms
 
         private void ViewAusotsBtnClick(object sender, EventArgs e)
         {
-            txtRichTextBox.Text = airwayNetwork.GetAusotsMessage()
+            txtRichTextBox.Text = airwayNetwork.AusotsMessage
                 .ToString()
                 .TrimEmptyLines();
         }
 
         private void ViewPacotsBtnClick(object sender, EventArgs e)
         {
-            txtRichTextBox.Text = airwayNetwork.GetPacotsMessage()
+            txtRichTextBox.Text = airwayNetwork.PacotsMessage
                 .ToString()
                 .TrimEmptyLines();
         }
 
         private void ViewNatsBtnClick(object sender, EventArgs e)
         {
-            txtRichTextBox.Text = airwayNetwork.GetNatsMessage()
+            txtRichTextBox.Text = airwayNetwork.NatsMessage
                 .ToString()
                 .TrimEmptyLines();
         }
@@ -177,7 +171,7 @@ namespace QSP.UI.Forms
             AddToListView(records);
             RefreshListViewColumnWidth();
             InitPicBoxes();
-            SetPicBox();
+            SetPicBox(records);
             SetMainFormTrackStatus(records);
         }
 
@@ -188,21 +182,24 @@ namespace QSP.UI.Forms
             PicBoxAusots.Image = null;
         }
 
-        private void SetPicBox()
+        private void SetPicBox(IEnumerable<Entry> records)
         {
             if (airwayNetwork.NatsLoaded)
             {
-                PicBoxNats.Image = myImageList.Images[(int)natsAvail];
+                var severity = (int)MaxSeverity(records, TrackType.Nats);
+                PicBoxNats.Image = myImageList.Images[severity];
             }
 
             if (airwayNetwork.PacotsLoaded)
             {
-                PicBoxPacots.Image = myImageList.Images[(int)pacotsAvail];
+                var severity = (int)MaxSeverity(records, TrackType.Pacots);
+                PicBoxPacots.Image = myImageList.Images[severity];
             }
 
             if (airwayNetwork.AusotsLoaded)
             {
-                PicBoxAusots.Image = myImageList.Images[(int)ausotsAvail];
+                var severity = (int)MaxSeverity(records, TrackType.Ausots);
+                PicBoxAusots.Image = myImageList.Images[severity];
             }
         }
 
@@ -393,6 +390,18 @@ namespace QSP.UI.Forms
         {
             downloadAllBtn.Enabled = BtnNatsDn.Enabled &&
                 BtnPacotsDn.Enabled && BtnAusotsDn.Enabled;
+        }
+
+        private void saveBtn_Click(object sender, EventArgs e)
+        {
+            var a = airwayNetwork;
+            var msg = new List<TrackMessage>();
+
+            if (a.NatsLoaded) msg.Add(a.NatsMessage);
+            if (a.PacotsLoaded) msg.Add(a.PacotsMessage);
+            if (a.AusotsLoaded) msg.Add(a.AusotsMessage);
+
+
         }
     }
 }

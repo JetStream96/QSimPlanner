@@ -425,6 +425,7 @@ namespace QSP.UI.Forms
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = false;
             this.saveBtn.Visible = false;
+            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
             // label4
             // 

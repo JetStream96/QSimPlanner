@@ -130,32 +130,71 @@ namespace QSP.RouteFinding
 
         public bool NatsLoaded
         {
-            get { return GetNatsMessage() != null; }
+            get { return NatsMessage != null; }
         }
 
         public bool PacotsLoaded
         {
-            get { return GetPacotsMessage() != null; }
+            get { return PacotsMessage != null; }
         }
 
         public bool AusotsLoaded
         {
-            get { return GetAusotsMessage() != null; }
+            get { return AusotsMessage != null; }
         }
 
-        public NatsMessage GetNatsMessage()
+        public NatsMessage NatsMessage
         {
-            return natsManager.RawData;
+            get { return natsManager.RawData; }
+
+            set
+            {
+                StatusRecorder.Clear(TrackType.Nats);
+                natsManager.UndoEdit();
+
+                try
+                {
+                    natsManager.GetAllTracks(new NatsProvider(value));
+                    GetTracksFinished?.Invoke(this, EventArgs.Empty);
+                }
+                catch { }
+            }
         }
 
-        public PacotsMessage GetPacotsMessage()
+        public PacotsMessage PacotsMessage
         {
-            return pacotsManager.RawData;
+            get { return pacotsManager.RawData; }
+
+            set
+            {
+                StatusRecorder.Clear(TrackType.Pacots);
+                pacotsManager.UndoEdit();
+
+                try
+                {
+                    pacotsManager.GetAllTracks(new PacotsProvider(value));
+                    GetTracksFinished?.Invoke(this, EventArgs.Empty);
+                }
+                catch { }
+            }
         }
 
-        public AusotsMessage GetAusotsMessage()
+        public AusotsMessage AusotsMessage
         {
-            return ausotsManager.RawData;
+            get { return ausotsManager.RawData; }
+
+            set
+            {
+                StatusRecorder.Clear(TrackType.Ausots);
+                ausotsManager.UndoEdit();
+
+                try
+                {
+                    ausotsManager.GetAllTracks(new AusotsProvider(value));
+                    GetTracksFinished?.Invoke(this, EventArgs.Empty);
+                }
+                catch { }
+            }
         }
 
         public async Task DownloadNats()
