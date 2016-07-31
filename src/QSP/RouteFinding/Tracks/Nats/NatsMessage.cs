@@ -6,6 +6,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 {
     public class NatsMessage : TrackMessage
     {
+        public override string TrackSystem { get { return "Nats"; } }
         public IndividualNatsMessage WestMessage { get; private set; }
         public IndividualNatsMessage EastMessage { get; private set; }
 
@@ -41,6 +42,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             return new XDocument(
                 new XElement("Content",
+                    new XElement("TrackSystem", TrackSystem),
                     new XElement[] {
                         new XElement("Westbound", west),
                         new XElement("Eastbound", east)}));

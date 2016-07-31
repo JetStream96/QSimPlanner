@@ -61,16 +61,16 @@ namespace QSP.UI.Forms
             this.txtRichTextBox = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.importBtn = new System.Windows.Forms.Button();
             this.downloadAllBtn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.saveBtn = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.CBoxAusotsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
             this.CBoxPacotsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
             this.CBoxNatsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxPacots)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxAusots)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxNats)).BeginInit();
@@ -79,8 +79,8 @@ namespace QSP.UI.Forms
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -359,6 +359,80 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel1.Size = new System.Drawing.Size(965, 164);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.AutoSize = true;
+            this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.importBtn, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.downloadAllBtn, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.saveBtn, 1, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(480, 32);
+            this.tableLayoutPanel4.TabIndex = 9;
+            // 
+            // importBtn
+            // 
+            this.importBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.importBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.importBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.importBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.importBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.importBtn.Location = new System.Drawing.Point(330, 0);
+            this.importBtn.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.importBtn.Name = "importBtn";
+            this.importBtn.Size = new System.Drawing.Size(140, 32);
+            this.importBtn.TabIndex = 15;
+            this.importBtn.Text = "Import";
+            this.importBtn.UseVisualStyleBackColor = false;
+            // 
+            // downloadAllBtn
+            // 
+            this.downloadAllBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.downloadAllBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.downloadAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.downloadAllBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.downloadAllBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.downloadAllBtn.Location = new System.Drawing.Point(10, 0);
+            this.downloadAllBtn.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.downloadAllBtn.Name = "downloadAllBtn";
+            this.downloadAllBtn.Size = new System.Drawing.Size(140, 32);
+            this.downloadAllBtn.TabIndex = 13;
+            this.downloadAllBtn.Text = "Download All";
+            this.downloadAllBtn.UseVisualStyleBackColor = false;
+            this.downloadAllBtn.Click += new System.EventHandler(this.DownloadAllBtnClick);
+            // 
+            // saveBtn
+            // 
+            this.saveBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.saveBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.saveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.saveBtn.Location = new System.Drawing.Point(170, 0);
+            this.saveBtn.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.saveBtn.Name = "saveBtn";
+            this.saveBtn.Size = new System.Drawing.Size(140, 32);
+            this.saveBtn.TabIndex = 14;
+            this.saveBtn.Text = "Save";
+            this.saveBtn.UseVisualStyleBackColor = false;
+            // 
+            // label4
+            // 
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label4.Location = new System.Drawing.Point(5, 37);
+            this.label4.Margin = new System.Windows.Forms.Padding(5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(955, 2);
+            this.label4.TabIndex = 10;
+            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.AutoSize = true;
@@ -393,91 +467,6 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(665, 120);
             this.tableLayoutPanel3.TabIndex = 8;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.AutoSize = true;
-            this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel4.ColumnCount = 3;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.button2, 2, 0);
-            this.tableLayoutPanel4.Controls.Add(this.downloadAllBtn, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button1, 1, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(480, 32);
-            this.tableLayoutPanel4.TabIndex = 9;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button2.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button2.Location = new System.Drawing.Point(330, 0);
-            this.button2.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(140, 32);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Import";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // downloadAllBtn
-            // 
-            this.downloadAllBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.downloadAllBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.downloadAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.downloadAllBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.downloadAllBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.downloadAllBtn.Location = new System.Drawing.Point(10, 0);
-            this.downloadAllBtn.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.downloadAllBtn.Name = "downloadAllBtn";
-            this.downloadAllBtn.Size = new System.Drawing.Size(140, 32);
-            this.downloadAllBtn.TabIndex = 13;
-            this.downloadAllBtn.Text = "Download All";
-            this.downloadAllBtn.UseVisualStyleBackColor = false;
-            this.downloadAllBtn.Click += new System.EventHandler(this.DownloadAllBtnClick);
-            // 
-            // button1
-            // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button1.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button1.Location = new System.Drawing.Point(170, 0);
-            this.button1.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(140, 32);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.tableLayoutPanel2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1055, 710);
-            this.panel1.TabIndex = 9;
-            // 
-            // label4
-            // 
-            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(5, 37);
-            this.label4.Margin = new System.Windows.Forms.Padding(5);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(955, 2);
-            this.label4.TabIndex = 10;
             // 
             // CBoxAusotsEnabled
             // 
@@ -530,6 +519,17 @@ namespace QSP.UI.Forms
             this.CBoxNatsEnabled.Size = new System.Drawing.Size(200, 31);
             this.CBoxNatsEnabled.TabIndex = 8;
             // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.tableLayoutPanel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1055, 710);
+            this.panel1.TabIndex = 9;
+            // 
             // TracksForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -558,9 +558,9 @@ namespace QSP.UI.Forms
             this.groupBox1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -593,9 +593,9 @@ namespace QSP.UI.Forms
         private RichTextBox txtRichTextBox;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel tableLayoutPanel4;
-        private Button button2;
+        private Button importBtn;
         private Button downloadAllBtn;
-        private Button button1;
+        private Button saveBtn;
         private Label label4;
     }
 }

@@ -30,8 +30,8 @@ TDM should appear here.
 </pre>");
 
             var xml = msg.ToXml();
-
-            Assert.IsTrue(xml.Root.Element("TrackSystem").Value == "AUSOTs");
+            var trackSys = xml.Root.Element("TrackSystem").Value;
+            Assert.IsTrue(trackSys == msg.TrackSystem);
             Assert.IsTrue(xml.Root.Element("Text").Value == msg.AllText);
         }
 

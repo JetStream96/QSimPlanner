@@ -1,6 +1,7 @@
 ﻿using QSP.RouteFinding.Tracks.Common;
 using System.Xml.Linq;
 using static QSP.LibraryExtension.Strings;
+using System;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
@@ -11,6 +12,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
     public class AusotsMessage : TrackMessage
     {
         public string AllText { get; private set; }
+        public override string TrackSystem { get { return "Ausots"; } }
 
         public AusotsMessage(string HtmlSource)
         {
@@ -36,7 +38,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             var doc = new XElement(
                 "Content", new XElement[]{
-                    new XElement("TrackSystem", "AUSOTs"),
+                    new XElement("TrackSystem", TrackSystem),
                     new XElement("Text", AllText)});
 
             return new XDocument(doc);

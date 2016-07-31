@@ -1,6 +1,5 @@
-﻿using QSP.MathTools;
-using QSP.Utilities;
-using System;
+﻿using QSP.LibraryExtension;
+using QSP.MathTools;
 using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Data.Interfaces
@@ -44,30 +43,14 @@ namespace QSP.RouteFinding.Data.Interfaces
 
             return dis;
         }
-        
-        /// <exception cref="ArgumentException"></exception>
+
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public static T GetClosest<T>(
             this IEnumerable<T> items, double Lat, double Lon)
             where T : ICoordinate
         {
-            int count = 0;
-            T closest = default(T);
-            double minDis = double.MaxValue;
-
-            foreach (var i in items)
-            {
-                count++;
-                double dis = GCDis.Distance(i.Lat, i.Lon, Lat, Lon);
-
-                if (dis < minDis)
-                {
-                    minDis = dis;
-                    closest = i;
-                }
-            }
-
-            ConditionChecker.Ensure<ArgumentException>(count > 0);
-            return closest;
+            return items.MinBy(i => i.Distance(Lat, Lon));
         }
     }
 }

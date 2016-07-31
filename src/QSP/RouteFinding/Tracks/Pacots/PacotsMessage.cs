@@ -21,6 +21,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private static readonly string HeaderRjjj =
             "RJJJ FUKUOKA/JCAB AIR TRAFFIC FLOW MANAGEMENT CENTRE";
 
+        public override string TrackSystem { get { return "Pacots"; } }
         public IEnumerable<string> WestboundTracks { get; private set; }
         public IEnumerable<string> EastboundTracks { get; private set; }
         public string TimeStamp { get; private set; }
@@ -137,11 +138,11 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             var doc = new XElement(
                 "Content", new XElement[]{
-                    new XElement("TrackSystem","PACOTs"),
-                    new XElement("Header",Header),
-                    new XElement("TimeStamp",TimeStamp),
-                    new XElement("KZAK",GetXElement(WestboundTracks)),
-                    new XElement("RJJJ",GetXElement(EastboundTracks))});
+                    new XElement("TrackSystem", TrackSystem),
+                    new XElement("Header", Header),
+                    new XElement("TimeStamp", TimeStamp),
+                    new XElement("KZAK", GetXElement(WestboundTracks)),
+                    new XElement("RJJJ", GetXElement(EastboundTracks))});
 
             return new XDocument(doc);
         }

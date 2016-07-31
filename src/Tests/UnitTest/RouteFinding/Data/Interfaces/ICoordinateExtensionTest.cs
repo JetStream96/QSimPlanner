@@ -15,7 +15,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
         {
             var items = new pt[0];
 
-            Assert.Throws<ArgumentException>(() =>
+            Assert.Throws<InvalidOperationException>(() =>
             items.GetClosest(0.0, 0.0));
         }
 
