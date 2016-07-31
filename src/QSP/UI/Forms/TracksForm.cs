@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 
@@ -157,13 +158,13 @@ namespace QSP.UI.Forms
             switch (item)
             {
                 case TrackType.Nats:
-                    return "NATs";
+                    return "NATS";
 
                 case TrackType.Pacots:
-                    return "PACOTs";
+                    return "PACOTS";
 
                 case TrackType.Ausots:
-                    return "AUSOTs";
+                    return "AUSOTS";
 
                 default:
                     throw new EnumNotSupportedException();
@@ -172,12 +173,14 @@ namespace QSP.UI.Forms
 
         private void RefreshStatus()
         {
-            AddToListView(airwayNetwork.StatusRecorder.Records);
+            var records = airwayNetwork.StatusRecorder.Records;
+            AddToListView(records);
             RefreshListViewColumnWidth();
+            InitPicBoxes();
             SetPicBox();
-            SetMainFormTrackStatus();
+            SetMainFormTrackStatus(records);
         }
-        
+
         private void InitPicBoxes()
         {
             PicBoxNats.Image = null;
@@ -187,66 +190,46 @@ namespace QSP.UI.Forms
 
         private void SetPicBox()
         {
-            PicBoxNats.Image = myImageList.Images[(int)natsAvail];
-            PicBoxPacots.Image = myImageList.Images[(int)pacotsAvail];
-            PicBoxAusots.Image = myImageList.Images[(int)ausotsAvail];
-        }
-
-        private void SetPBox(TrackType type)
-        {
-            switch (type)
+            if (airwayNetwork.NatsLoaded)
             {
-                case TrackType.Nats:
-                    PicBoxNats.Image = myImageList.Images[(int)natsAvail];
-                    break;
+                PicBoxNats.Image = myImageList.Images[(int)natsAvail];
+            }
 
-                case TrackType.Pacots:
-                    PicBoxPacots.Image = myImageList.Images[(int)pacotsAvail];
-                    break;
+            if (airwayNetwork.PacotsLoaded)
+            {
+                PicBoxPacots.Image = myImageList.Images[(int)pacotsAvail];
+            }
 
-                case TrackType.Ausots:
-                    PicBoxAusots.Image = myImageList.Images[(int)ausotsAvail];
-                    break;
-
-                default:
-                    throw new EnumNotSupportedException();
+            if (airwayNetwork.AusotsLoaded)
+            {
+                PicBoxAusots.Image = myImageList.Images[(int)ausotsAvail];
             }
         }
 
-        private void SetAvail(TrackType trkType, Severity severity)
+        private TrackType[] trackTypes =
         {
-            switch (trkType)
-            {
-                case TrackType.Nats:
-                    natsAvail =
-                        (Severity)Math.Max((int)natsAvail, (int)severity);
-                    break;
+            TrackType.Nats,
+            TrackType.Pacots,
+            TrackType.Ausots
+        };
 
-                case TrackType.Pacots:
-                    pacotsAvail =
-                        (Severity)Math.Max((int)pacotsAvail, (int)severity);
-                    break;
+        private static Severity MaxSeverity(
+            IEnumerable<Entry> records, TrackType type)
+        {
+            var filtered = records.Where(r => r.Type == type).ToList();
+            if (filtered.Any() == false) return Severity.Advisory;
+            return (Severity)filtered.Max(i => (int)i.Severity);
+        }
 
-                case TrackType.Ausots:
-                    ausotsAvail =
-                        (Severity)Math.Max((int)ausotsAvail, (int)severity);
-                    break;
-
-                default:
-                    throw new EnumNotSupportedException();
-            }
+        private static bool NoErrors(
+            IEnumerable<Entry> records, TrackType type)
+        {
+            return MaxSeverity(records, type) == Severity.Advisory;
         }
 
         private void AddToListView(IEnumerable<Entry> records)
         {
             ListView1.Items.Clear();
-
-            var errorCount = new Dictionary<TrackType, int>()
-            {
-                [TrackType.Nats] = 0,
-                [TrackType.Pacots] = 0,
-                [TrackType.Ausots] = 0
-            };
 
             foreach (var i in records)
             {
@@ -255,40 +238,34 @@ namespace QSP.UI.Forms
                 lvi.SubItems.Add(i.Message);
                 lvi.ImageIndex = (int)i.Severity;
                 ListView1.Items.Add(lvi);
-
-                SetAvail(type, i.Severity);
-                errorCount[type]++;
             }
 
-            foreach (var i in errorCount)
+            foreach (var type in trackTypes)
             {
-                var type = i.Key;
-                var count = i.Value;
-
-                if (count == 0 && airwayNetwork.TrackedLoaded(type))
+                if (airwayNetwork.TrackedLoaded(type) &&
+                    NoErrors(records, type))
                 {
                     var lvi = new ListViewItem(TrackString(type));
-                    lvi.SubItems.Add("All tracks successfully downloaded.");
+                    lvi.SubItems.Add("All tracks successfully loaded.");
                     lvi.ImageIndex = 0;
                     ListView1.Items.Add(lvi);
-                    SetAvail(type, 0);
                 }
             }
         }
-        
-        private void SetMainFormTrackStatus()
+
+        private void SetMainFormTrackStatus(IEnumerable<Entry> records)
         {
-            if (natsAvail == Severity.Advisory &&
-                pacotsAvail == Severity.Advisory &&
-                ausotsAvail == Severity.Advisory)
+            var loadedTypes = trackTypes.Where(
+                t => airwayNetwork.TrackedLoaded(t));
+
+            var maxSeverity = loadedTypes.Select(t => MaxSeverity(records, t));
+
+            if (maxSeverity.All(s => s == Severity.Advisory))
             {
                 statusLbl.Image = Properties.Resources.GreenLight;
                 statusLbl.Text = "Tracks: Ready";
-
             }
-            else if (natsAvail == Severity.Critical &&
-                pacotsAvail == Severity.Critical &&
-                ausotsAvail == Severity.Critical)
+            else if (maxSeverity.All(s => s == Severity.Critical))
             {
                 statusLbl.Image = Properties.Resources.RedLight;
                 statusLbl.Text = "Tracks: Not Available";

@@ -491,7 +491,6 @@
     <Compile Include="RouteFinding\Tracks\Common\TrackHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackReader.cs" />
     <Compile Include="RouteFinding\Tracks\Common\Utilities.cs" />
-    <Compile Include="RouteFinding\Tracks\Interaction\Interactions.cs" />
     <Compile Include="RouteFinding\Tracks\Interaction\StatusRecorder.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NatHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\IndividualNatsMessage.cs" />
