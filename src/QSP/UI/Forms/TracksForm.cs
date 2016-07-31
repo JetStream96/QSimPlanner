@@ -12,6 +12,7 @@ using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 
 namespace QSP.UI.Forms
 {
+    // TODO: Add save and import feature.
     public partial class TracksForm
     {
         private AirwayNetwork airwayNetwork;
@@ -390,6 +391,13 @@ namespace QSP.UI.Forms
             object sender, ContentsResizedEventArgs e)
         {
             txtRichTextBox.Height = e.NewRectangle.Height + 10;
+        }
+
+        private void downloadAllBtn_Click(object sender, EventArgs e)
+        {
+            BtnNatsDn_Click(this, EventArgs.Empty);
+            BtnPacotsDn_Click(this, EventArgs.Empty);
+            BtnAusotsDn_Click(this, EventArgs.Empty);
         }
     }
 }
