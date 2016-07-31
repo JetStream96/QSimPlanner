@@ -69,7 +69,7 @@ namespace QSP.UI.UserControls.RouteActions
             findToolStripMenuItem = new ClickableToolStripMenuItem();
             findToolStripMenuItem.Name = "findToolStripMenuItem";
             findToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            findToolStripMenuItem.Text = "Find";
+            findToolStripMenuItem.Text = "Find Route";
             findToolStripMenuItem.Visible = true;
             // 
             // analyzeToolStripMenuItem
@@ -77,14 +77,14 @@ namespace QSP.UI.UserControls.RouteActions
             analyzeToolStripMenuItem = new ClickableToolStripMenuItem();
             analyzeToolStripMenuItem.Name = "analyzeToolStripMenuItem";
             analyzeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            analyzeToolStripMenuItem.Text = "Analyze";
+            analyzeToolStripMenuItem.Text = "Analyze Route";
             // 
             // mapToolStripMenuItem
             // 
             mapToolStripMenuItem = new ClickableToolStripMenuItem();
             mapToolStripMenuItem.Name = "mapToolStripMenuItem";
             mapToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            mapToolStripMenuItem.Text = "Map";
+            mapToolStripMenuItem.Text = "Show Map";
             // 
             // exportToolStripMenuItem
             // 

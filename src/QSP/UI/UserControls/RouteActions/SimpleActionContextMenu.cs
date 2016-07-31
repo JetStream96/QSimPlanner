@@ -21,7 +21,7 @@ namespace QSP.UI.UserControls.RouteActions
             FindToolStripMenuItem = new ToolStripMenuItem();
             FindToolStripMenuItem.Name = "findToolStripMenuItem";
             FindToolStripMenuItem.Size = new Size(181, 26);
-            FindToolStripMenuItem.Text = "Find";
+            FindToolStripMenuItem.Text = "Find Route";
             FindToolStripMenuItem.Visible = true;            
             // 
             // mapToolStripMenuItem
@@ -29,7 +29,7 @@ namespace QSP.UI.UserControls.RouteActions
             MapToolStripMenuItem = new ToolStripMenuItem();
             MapToolStripMenuItem.Name = "mapToolStripMenuItem";
             MapToolStripMenuItem.Size = new Size(181, 26);
-            MapToolStripMenuItem.Text = "Map";
+            MapToolStripMenuItem.Text = "Show Map";
             // 
             // contextMenuStrip1
             // 
