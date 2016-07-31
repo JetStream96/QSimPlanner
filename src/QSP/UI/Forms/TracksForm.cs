@@ -33,10 +33,11 @@ namespace QSP.UI.Forms
             this.airwayNetwork = airwayNetwork;
             this.statusLbl = statusLbl;
 
+            RefreshListViewColumnWidth();
             InitImages();
             InitCBox();
             InitPicBoxes();
-            InitViewBtns();
+            InitBtns();
 
             // Initialize enums
             natsAvail = Severity.Advisory;
@@ -54,36 +55,50 @@ namespace QSP.UI.Forms
             Closing += CloseForm;
         }
 
-        private void InitViewBtns()
+        private void RefreshListViewColumnWidth()
         {
-            var viewNatsBtnStyle = new ControlDisableStyleController(
-                viewNatsBtn,
+            ListView1.Columns[1].Width = -2;
+        }
+
+        private void InitBtns()
+        {
+            var colorStyle = new ControlDisableStyleController.ColorStyle(
                 Color.DarkSlateGray,
                 Color.FromArgb(224, 224, 224),
                 Color.White,
                 Color.LightGray);
+
+            var viewNatsBtnStyle = new ControlDisableStyleController(
+                viewNatsBtn, colorStyle);
 
             var viewPacotsBtnStyle = new ControlDisableStyleController(
-                viewPacotsBtn,
-                Color.DarkSlateGray,
-                Color.FromArgb(224, 224, 224),
-                Color.White,
-                Color.LightGray);
+                viewPacotsBtn, colorStyle);
 
             var viewAusotsBtnStyle = new ControlDisableStyleController(
-                 viewAusotsBtn,
-                 Color.DarkSlateGray,
-                 Color.FromArgb(224, 224, 224),
-                 Color.White,
-                 Color.LightGray);
+                 viewAusotsBtn, colorStyle);
+
+            var downloadNatsBtnStyle = new ControlDisableStyleController(
+                BtnNatsDn, colorStyle);
+
+            var downloadPacotsBtnStyle = new ControlDisableStyleController(
+                BtnPacotsDn, colorStyle);
+
+            var downloadAusotsBtnStyle = new ControlDisableStyleController(
+                BtnAusotsDn, colorStyle);
 
             viewPacotsBtnStyle.Activate();
             viewNatsBtnStyle.Activate();
             viewAusotsBtnStyle.Activate();
+            downloadNatsBtnStyle.Activate();
+            downloadPacotsBtnStyle.Activate();
+            downloadAusotsBtnStyle.Activate();
 
             viewPacotsBtn.Enabled = false;
             viewNatsBtn.Enabled = false;
             viewAusotsBtn.Enabled = false;
+            BtnNatsDn.Enabled = true;
+            BtnPacotsDn.Enabled = true;
+            BtnAusotsDn.Enabled = true;
         }
 
         private void ViewAusotsBtnClick(object sender, EventArgs e)
@@ -153,6 +168,7 @@ namespace QSP.UI.Forms
             }
 
             AddToListView(airwayNetwork.StatusRecorder.Records, type);
+            RefreshListViewColumnWidth();
             SetPBox(type);
             SetMainFormTrackStatus();
         }
@@ -190,15 +206,18 @@ namespace QSP.UI.Forms
             switch (trkType)
             {
                 case TrackType.Nats:
-                    natsAvail = (Severity)Math.Max((int)natsAvail, (int)severity);
+                    natsAvail =
+                        (Severity)Math.Max((int)natsAvail, (int)severity);
                     break;
 
                 case TrackType.Pacots:
-                    pacotsAvail = (Severity)Math.Max((int)pacotsAvail, (int)severity);
+                    pacotsAvail =
+                        (Severity)Math.Max((int)pacotsAvail, (int)severity);
                     break;
 
                 case TrackType.Ausots:
-                    ausotsAvail = (Severity)Math.Max((int)ausotsAvail, (int)severity);
+                    ausotsAvail =
+                        (Severity)Math.Max((int)ausotsAvail, (int)severity);
                     break;
 
                 default:
@@ -227,7 +246,7 @@ namespace QSP.UI.Forms
             if (noError)
             {
                 var lvi = new ListViewItem(TrackString(para));
-                lvi.SubItems.Add("All tracks succesfully added.");
+                lvi.SubItems.Add("All tracks successfully downloaded.");
                 lvi.ImageIndex = 0;
                 ListView1.Items.Add(lvi);
 
@@ -265,7 +284,8 @@ namespace QSP.UI.Forms
             BtnNatsDn.Enabled = false;
             BtnNatsDn.Text = "Downloading";
 
-            await airwayNetwork.DownloadTrack(TrackType.Nats);
+            await airwayNetwork.DownloadNats();
+            if (NatsEnabled) airwayNetwork.EnableNats();
             RefreshStatus(TrackType.Nats);
             viewNatsBtn.Enabled = true;
 
@@ -278,7 +298,8 @@ namespace QSP.UI.Forms
             BtnPacotsDn.Enabled = false;
             BtnPacotsDn.Text = "Downloading";
 
-            await airwayNetwork.DownloadTrack(TrackType.Pacots);
+            await airwayNetwork.DownloadPacots();
+            if (PacotsEnabled) airwayNetwork.EnablePacots();
             RefreshStatus(TrackType.Pacots);
             viewPacotsBtn.Enabled = true;
 
@@ -291,7 +312,8 @@ namespace QSP.UI.Forms
             BtnAusotsDn.Enabled = false;
             BtnAusotsDn.Text = "Downloading";
 
-            await airwayNetwork.DownloadTrack(TrackType.Ausots);
+            await airwayNetwork.DownloadAusots();
+            if (AusotsEnabled) airwayNetwork.EnableAusots();
             RefreshStatus(TrackType.Ausots);
             viewAusotsBtn.Enabled = true;
 
@@ -299,39 +321,54 @@ namespace QSP.UI.Forms
             BtnAusotsDn.Text = "Download";
         }
 
+        private bool NatsEnabled
+        {
+            get { return CBoxNatsEnabled.SelectedIndex == 0; }
+        }
+
+        private bool PacotsEnabled
+        {
+            get { return CBoxPacotsEnabled.SelectedIndex == 0; }
+        }
+
+        private bool AusotsEnabled
+        {
+            get { return CBoxAusotsEnabled.SelectedIndex == 0; }
+        }
+
         private void CBoxNatsEnabledChanged(object sender, EventArgs e)
         {
-            if (CBoxNatsEnabled.SelectedIndex == 0)
+            if (NatsEnabled)
             {
-                airwayNetwork.EnableTrack(TrackType.Nats);
+                airwayNetwork.EnableNats();
             }
             else
             {
-                airwayNetwork.DisableTrack(TrackType.Nats);
+                airwayNetwork.DisableNats();
             }
         }
 
         private void CBoxPacotsEnabledChanged(object sender, EventArgs e)
         {
-            if (CBoxPacotsEnabled.SelectedIndex == 0)
+            if (PacotsEnabled)
             {
-                airwayNetwork.EnableTrack(TrackType.Pacots);
+                airwayNetwork.EnablePacots();
             }
             else
             {
-                airwayNetwork.DisableTrack(TrackType.Pacots);
+                airwayNetwork.DisablePacots();
             }
         }
 
         private void CBoxAusotsEnabledChanged(object sender, EventArgs e)
         {
-            if (CBoxAusotsEnabled.SelectedIndex == 0)
+            if (AusotsEnabled)
             {
-                airwayNetwork.EnableTrack(TrackType.Ausots);
+                airwayNetwork.EnableAusots();
             }
             else
             {
-                airwayNetwork.DisableTrack(TrackType.Ausots);
+                airwayNetwork.DisableAusots();
             }
         }
 

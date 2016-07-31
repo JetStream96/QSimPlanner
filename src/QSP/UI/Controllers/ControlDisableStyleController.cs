@@ -7,25 +7,16 @@ namespace QSP.UI.Controllers
     public class ControlDisableStyleController
     {
         private Control btn;
-        private Color enabledBack;
-        private Color disabledBack;
-        private Color enabledFore;
-        private Color disabledFore;
+        private ColorStyle style;
 
         public ControlDisableStyleController(
             Control btn,
-            Color enabledBack,
-            Color disabledBack,
-            Color enabledFore,
-            Color disabledFore)
+            ColorStyle style)
         {
             this.btn = btn;
-            this.enabledBack = enabledBack;
-            this.disabledBack = disabledBack;
-            this.enabledFore = enabledFore;
-            this.disabledFore = disabledFore;
+            this.style = style;
         }
-
+        
         public void Activate()
         {
             btn.EnabledChanged += ChangeAppearance;
@@ -41,15 +32,34 @@ namespace QSP.UI.Controllers
         {
             if (btn.Enabled)
             {
-                btn.ForeColor = enabledFore;
-                btn.BackColor = enabledBack;
+                btn.ForeColor = style.EnabledFore;
+                btn.BackColor = style.EnabledBack;
             }
             else
             {
-                btn.ForeColor = disabledFore;
-                btn.BackColor = disabledBack;
+                btn.ForeColor = style.DisabledFore;
+                btn.BackColor = style.DisabledBack;
             }
         }
 
+        public class ColorStyle
+        {
+            public Color EnabledBack { get; private set; }
+            public Color DisabledBack { get; private set; }
+            public Color EnabledFore { get; private set; }
+            public Color DisabledFore { get; private set; }
+
+            public ColorStyle(
+                Color EnabledBack,
+                Color DisabledBack,
+                Color EnabledFore,
+                Color DisabledFore)
+            {
+                this.EnabledBack = EnabledBack;
+                this.DisabledBack = DisabledBack;
+                this.EnabledFore = EnabledFore;
+                this.DisabledFore = DisabledFore;
+            }
+        }
     }
 }

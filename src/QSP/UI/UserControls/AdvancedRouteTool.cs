@@ -47,7 +47,7 @@ namespace QSP.UI.UserControls
         {
             get { return airwayNetwork.TracksInUse; }
         }
-        
+
         public AdvancedRouteTool()
         {
             InitializeComponent();
@@ -69,7 +69,7 @@ namespace QSP.UI.UserControls
             this.procFilter = procFilter;
             this.countryCodes = countryCodes;
             this.windCalcGetter = windCalcGetter;
-            
+
             SetBtnDisabledStyle();
             SetControlGroups();
             attachEventHandlers();
@@ -93,7 +93,7 @@ namespace QSP.UI.UserControls
         {
             routeActionMenu = new SimpleActionContextMenu();
             routeActionMenu.FindToolStripMenuItem.Click += FindRouteBtnClick;
-            routeActionMenu.MapToolStripMenuItem.Click += 
+            routeActionMenu.MapToolStripMenuItem.Click +=
                 (s, e) => ShowMapHelper.ShowMap(Route);
 
             showRouteActionsBtn.Click += (s, e) =>
@@ -104,21 +104,14 @@ namespace QSP.UI.UserControls
         {
             var gray = Color.FromArgb(224, 224, 224);
 
-            new ControlDisableStyleController(
-                filterSidBtn,
+            var style = new ControlDisableStyleController.ColorStyle(
                 Color.DarkSlateGray,
                 gray,
                 Color.White,
-                gray)
-                .Activate();
+                gray);
 
-            new ControlDisableStyleController(
-                filterStarBtn,
-                Color.DarkSlateGray,
-                gray,
-                Color.White,
-                gray)
-                .Activate();
+            new ControlDisableStyleController(filterSidBtn, style).Activate();
+            new ControlDisableStyleController(filterStarBtn, style).Activate();
         }
 
         private void SetControlGroups()
@@ -221,7 +214,7 @@ namespace QSP.UI.UserControls
                 new RouteFinder(wptList, checkedCodesLocator.Instance)
                     .FindRoute(GetWptIndexFrom(), GetWptIndexTo()),
                     tracksInUse);
-            
+
             ShowRoute(true, true);
         }
 
@@ -236,7 +229,7 @@ namespace QSP.UI.UserControls
                     toRwyComboBox.Text,
                     stars),
                 tracksInUse);
-            
+
             ShowRoute(true, false);
         }
 
@@ -251,7 +244,7 @@ namespace QSP.UI.UserControls
                     sids,
                     GetWptIndexTo()),
                     tracksInUse);
-            
+
             ShowRoute(false, true);
         }
 
@@ -269,7 +262,7 @@ namespace QSP.UI.UserControls
                     toRwyComboBox.Text,
                     stars),
                  tracksInUse);
-            
+
             ShowRoute(false, false);
         }
 
@@ -280,7 +273,7 @@ namespace QSP.UI.UserControls
                 Route.Folded : Route.Expanded;
 
             var showDct = !option.HideDctInRoute;
-            routeRichTxtBox.Text= routeToShow.ToString(
+            routeRichTxtBox.Text = routeToShow.ToString(
                 ShowFirstWaypoint, ShowLastWaypoint, showDct);
 
             UpdateRouteDistanceLbl(

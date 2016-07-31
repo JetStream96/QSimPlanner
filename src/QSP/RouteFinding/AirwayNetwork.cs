@@ -24,7 +24,7 @@ namespace QSP.RouteFinding
         public AirportManager AirportList { get; private set; }
         public TrackInUseCollection TracksInUse { get; private set; }
         public StatusRecorder StatusRecorder { get; private set; }
-        
+
         public event EventHandler AirportListChanged;
 
         public AirwayNetwork(
@@ -77,7 +77,7 @@ namespace QSP.RouteFinding
             TracksInUse.Clear();
             StatusRecorder.Clear();
             SetTrackData();
-            
+
             if (natsEnabled)
             {
                 natsManager.GetAllTracks(new NatsProvider(natsData));
@@ -99,71 +99,13 @@ namespace QSP.RouteFinding
             AirportListChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        /// <exception cref="ArgumentException"></exception>
-        public async Task DownloadTrack(TrackType type)
-        {
-            switch (type)
-            {
-                case TrackType.Nats:
-                    await SetNats();
-                    break;
-
-                case TrackType.Pacots:
-                    await SetPacots();
-                    break;
-
-                case TrackType.Ausots:
-                    await SetAusots();
-                    break;
-
-                default:
-                    throw new ArgumentException();
-            }
-        }
-
-        /// <exception cref="ArgumentException"></exception>
-        public void EnableTrack(TrackType type)
-        {
-            switch (type)
-            {
-                case TrackType.Nats:
-                    natsManager.AddToWaypointList();
-                    break;
-
-                case TrackType.Pacots:
-                    pacotsManager.AddToWaypointList();
-                    break;
-
-                case TrackType.Ausots:
-                    ausotsManager.AddToWaypointList();
-                    break;
-
-                default:
-                    throw new ArgumentException();
-            }
-        }
-
-        /// <exception cref="ArgumentException"></exception>
-        public void DisableTrack(TrackType type)
-        {
-            switch (type)
-            {
-                case TrackType.Nats:
-                    natsManager.UndoEdit();
-                    break;
-
-                case TrackType.Pacots:
-                    pacotsManager.UndoEdit();
-                    break;
-
-                case TrackType.Ausots:
-                    ausotsManager.UndoEdit();
-                    break;
-
-                default:
-                    throw new ArgumentException();
-            }
-        }
+        public void EnableNats() { natsManager.AddToWaypointList(); }
+        public void EnablePacots() { pacotsManager.AddToWaypointList(); }
+        public void EnableAusots() { ausotsManager.AddToWaypointList(); }
+        
+        public void DisableNats() { natsManager.UndoEdit(); }
+        public void DisablePacots() { pacotsManager.UndoEdit(); }
+        public void DisableAusots() { ausotsManager.UndoEdit(); }
 
         public NatsMessage GetNatsMessage()
         {
@@ -180,7 +122,7 @@ namespace QSP.RouteFinding
             return ausotsManager.RawData;
         }
 
-        private async Task SetNats()
+        public async Task DownloadNats()
         {
             StatusRecorder.Clear(TrackType.Nats);
             natsManager.UndoEdit();
@@ -188,12 +130,11 @@ namespace QSP.RouteFinding
             try
             {
                 await natsManager.GetAllTracksAsync();
-                natsManager.AddToWaypointList();
             }
             catch { }
         }
 
-        private async Task SetPacots()
+        public async Task DownloadPacots()
         {
             StatusRecorder.Clear(TrackType.Pacots);
             pacotsManager.UndoEdit();
@@ -201,12 +142,11 @@ namespace QSP.RouteFinding
             try
             {
                 await pacotsManager.GetAllTracksAsync();
-                pacotsManager.AddToWaypointList();
             }
             catch { }
         }
 
-        private async Task SetAusots()
+        public async Task DownloadAusots()
         {
             StatusRecorder.Clear(TrackType.Ausots);
             ausotsManager.UndoEdit();
@@ -214,7 +154,6 @@ namespace QSP.RouteFinding
             try
             {
                 await ausotsManager.GetAllTracksAsync();
-                ausotsManager.AddToWaypointList();
             }
             catch { }
         }

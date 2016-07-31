@@ -136,31 +136,23 @@ namespace QSP.UI.UserControls
 
         private void SetBtnColorStyles()
         {
-            var removeBtnStyle = new ControlDisableStyleController(
-                removeAltnBtn,
+            var style = new ControlDisableStyleController.ColorStyle(
                 Color.DarkSlateGray,
                 Color.FromArgb(224, 224, 224),
                 Color.White,
                 Color.LightGray);
 
-            removeBtnStyle.Activate();
+            var removeBtnStyle = new ControlDisableStyleController(
+                removeAltnBtn, style);
 
             var filterSidStyle = new ControlDisableStyleController(
-                filterSidBtn,
-                Color.DarkSlateGray,
-                Color.FromArgb(224, 224, 224),
-                Color.White,
-                Color.LightGray);
-
-            filterSidStyle.Activate();
+                filterSidBtn, style);
 
             var filterStarStyle = new ControlDisableStyleController(
-                filterStarBtn,
-                Color.DarkSlateGray,
-                Color.FromArgb(224, 224, 224),
-                Color.White,
-                Color.LightGray);
+                filterStarBtn, style);
 
+            removeBtnStyle.Activate();
+            filterSidStyle.Activate();
             filterStarStyle.Activate();
         }
 
