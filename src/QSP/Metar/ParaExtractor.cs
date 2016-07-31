@@ -1,6 +1,5 @@
 ﻿using QSP.Utilities.Units;
 using QSP.WindAloft;
-using System.Linq;
 using System.Text.RegularExpressions;
 using static QSP.LibraryExtension.Regexes;
 
