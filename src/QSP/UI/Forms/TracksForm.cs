@@ -54,6 +54,9 @@ namespace QSP.UI.Forms
             viewNatsBtn.Click += ViewNatsBtnClick;
             viewPacotsBtn.Click += ViewPacotsBtnClick;
             viewAusotsBtn.Click += ViewAusotsBtnClick;
+            BtnNatsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
+            BtnPacotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
+            BtnAusotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             Closing += CloseForm;
         }
 
@@ -88,12 +91,16 @@ namespace QSP.UI.Forms
             var downloadAusotsBtnStyle = new ControlDisableStyleController(
                 BtnAusotsDn, colorStyle);
 
+            var downloadAllBtnStyle = new ControlDisableStyleController(
+                downloadAllBtn, colorStyle);
+
             viewPacotsBtnStyle.Activate();
             viewNatsBtnStyle.Activate();
             viewAusotsBtnStyle.Activate();
             downloadNatsBtnStyle.Activate();
             downloadPacotsBtnStyle.Activate();
             downloadAusotsBtnStyle.Activate();
+            downloadAllBtnStyle.Activate();
 
             viewPacotsBtn.Enabled = false;
             viewNatsBtn.Enabled = false;
@@ -101,6 +108,7 @@ namespace QSP.UI.Forms
             BtnNatsDn.Enabled = true;
             BtnPacotsDn.Enabled = true;
             BtnAusotsDn.Enabled = true;
+            downloadAllBtn.Enabled = true;
         }
 
         private void ViewAusotsBtnClick(object sender, EventArgs e)
@@ -296,7 +304,7 @@ namespace QSP.UI.Forms
             if (NatsEnabled) airwayNetwork.EnableNats();
             RefreshStatus(TrackType.Nats);
             viewNatsBtn.Enabled = true;
-
+            
             BtnNatsDn.Enabled = true;
             BtnNatsDn.Text = "Download";
         }
@@ -387,17 +395,23 @@ namespace QSP.UI.Forms
             Hide();
         }
 
-        private void txtRichTextBox_ContentsResized(
+        private void TxtRichTextBoxContentsResized(
             object sender, ContentsResizedEventArgs e)
         {
             txtRichTextBox.Height = e.NewRectangle.Height + 10;
         }
 
-        private void downloadAllBtn_Click(object sender, EventArgs e)
+        private void DownloadAllBtnClick(object sender, EventArgs e)
         {
             BtnNatsDn_Click(this, EventArgs.Empty);
             BtnPacotsDn_Click(this, EventArgs.Empty);
             BtnAusotsDn_Click(this, EventArgs.Empty);
+        }
+        
+        private void RefreshDownloadAllBtnEnabled(object sender, EventArgs e)
+        {
+            downloadAllBtn.Enabled = BtnNatsDn.Enabled && 
+                BtnPacotsDn.Enabled && BtnAusotsDn.Enabled;
         }
     }
 }

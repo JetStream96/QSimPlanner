@@ -86,7 +86,8 @@ namespace QSP.UI.UserControls
 
             routeOptionMenu.Subscribe();
             routeOptionBtn.Click += (s, e) =>
-            routeOptionMenu.Show(routeOptionBtn, new Point(20, 30));
+            routeOptionMenu.Show(
+                routeOptionBtn, new Point(0, routeOptionBtn.Height));
         }
 
         private void SetRouteActionControl()
@@ -97,7 +98,8 @@ namespace QSP.UI.UserControls
                 (s, e) => ShowMapHelper.ShowMap(Route);
 
             showRouteActionsBtn.Click += (s, e) =>
-            routeActionMenu.Show(showRouteActionsBtn, new Point(20, 30));
+            routeActionMenu.Show(
+                showRouteActionsBtn, new Point(0, showRouteActionsBtn.Height));
         }
 
         private void SetBtnDisabledStyle()
