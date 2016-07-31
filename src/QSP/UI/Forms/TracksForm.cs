@@ -231,6 +231,8 @@ namespace QSP.UI.Forms
         {
             ListView1.Items.Clear();
 
+            records = records.OrderBy(i => i.Type);
+
             foreach (var i in records)
             {
                 var type = i.Type;
