@@ -1,13 +1,12 @@
 using QSP.Common;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Tracks.Common;
+using QSP.UI.Controllers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 
 namespace QSP.UI.Forms
@@ -18,7 +17,6 @@ namespace QSP.UI.Forms
 
         private ImageList myImageList;
         private ToolStripStatusLabel statusLbl;
-
         private Severity natsAvail;
         private Severity pacotsAvail;
         private Severity ausotsAvail;
@@ -38,6 +36,7 @@ namespace QSP.UI.Forms
             InitImages();
             InitCBox();
             InitPicBoxes();
+            InitViewBtns();
 
             // Initialize enums
             natsAvail = Severity.Advisory;
@@ -55,10 +54,41 @@ namespace QSP.UI.Forms
             Closing += CloseForm;
         }
 
+        private void InitViewBtns()
+        {
+            var viewNatsBtnStyle = new ControlDisableStyleController(
+                viewNatsBtn,
+                Color.DarkSlateGray,
+                Color.FromArgb(224, 224, 224),
+                Color.White,
+                Color.LightGray);
+
+            var viewPacotsBtnStyle = new ControlDisableStyleController(
+                viewPacotsBtn,
+                Color.DarkSlateGray,
+                Color.FromArgb(224, 224, 224),
+                Color.White,
+                Color.LightGray);
+
+            var viewAusotsBtnStyle = new ControlDisableStyleController(
+                 viewAusotsBtn,
+                 Color.DarkSlateGray,
+                 Color.FromArgb(224, 224, 224),
+                 Color.White,
+                 Color.LightGray);
+
+            viewPacotsBtnStyle.Activate();
+            viewNatsBtnStyle.Activate();
+            viewAusotsBtnStyle.Activate();
+
+            viewPacotsBtn.Enabled = false;
+            viewNatsBtn.Enabled = false;
+            viewAusotsBtn.Enabled = false;
+        }
+
         private void ViewAusotsBtnClick(object sender, EventArgs e)
         {
-            var doc = airwayNetwork.GetAusotsMessage().ToXml();
-            txtRichTextBox.Text = XDocDisplay(doc);
+            txtRichTextBox.Text = airwayNetwork.GetAusotsMessage().ToString();
         }
 
         private void ViewPacotsBtnClick(object sender, EventArgs e)
@@ -68,18 +98,7 @@ namespace QSP.UI.Forms
 
         private void ViewNatsBtnClick(object sender, EventArgs e)
         {
-            var doc = airwayNetwork.GetNatsMessage().ToXml();
-            txtRichTextBox.Text = XDocDisplay(doc);
-        }
-
-        private static string XDocDisplay(XDocument doc)
-        {
-            return doc.ToString();
-            // TODO: Fix this.
-            var sb = new StringBuilder();
-            var root = doc.Root;
-
-
+            txtRichTextBox.Text = airwayNetwork.GetNatsMessage().ToString();
         }
 
         private void InitImages()
@@ -121,7 +140,7 @@ namespace QSP.UI.Forms
 
         private void RefreshStatus(TrackType type)
         {
-            //remove old items for the same type
+            // Remove old items for the same type
             var items = ListView1.Items;
             var text = TrackString(type);
 
@@ -248,6 +267,7 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadTrack(TrackType.Nats);
             RefreshStatus(TrackType.Nats);
+            viewNatsBtn.Enabled = true;
 
             BtnNatsDn.Enabled = true;
             BtnNatsDn.Text = "Download";
@@ -260,6 +280,7 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadTrack(TrackType.Pacots);
             RefreshStatus(TrackType.Pacots);
+            viewPacotsBtn.Enabled = true;
 
             BtnPacotsDn.Enabled = true;
             BtnPacotsDn.Text = "Download";
@@ -272,6 +293,7 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadTrack(TrackType.Ausots);
             RefreshStatus(TrackType.Ausots);
+            viewAusotsBtn.Enabled = true;
 
             BtnAusotsDn.Enabled = true;
             BtnAusotsDn.Text = "Download";
@@ -320,9 +342,10 @@ namespace QSP.UI.Forms
             Hide();
         }
 
-        private void ShowNatsText(object sender, CancelEventArgs e)
+        private void txtRichTextBox_ContentsResized(
+            object sender, ContentsResizedEventArgs e)
         {
-
+            txtRichTextBox.Height = e.NewRectangle.Height + 10;
         }
     }
 }

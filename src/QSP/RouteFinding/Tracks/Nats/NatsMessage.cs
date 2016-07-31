@@ -26,13 +26,11 @@ namespace QSP.RouteFinding.Tracks.Nats
         public override string ToString()
         {
             var s = new StringBuilder();
-            s.AppendLine(WestMessage.Header);
-            s.AppendLine(WestMessage.LastUpdated);
-            s.AppendLine(WestMessage.Message);
-
-            s.AppendLine(EastMessage.LastUpdated);
-            s.AppendLine(EastMessage.Message);
-
+            s.Append(WestMessage.Header);
+            s.Append($"\n\nWestbound tracks ({WestMessage.LastUpdated}):\n\n");
+            s.Append(WestMessage.Message);
+            s.Append($"\n\nEastbound tracks ({EastMessage.LastUpdated}):\n\n");
+            s.Append(EastMessage.Message);
             return s.ToString();
         }
 

@@ -56,12 +56,12 @@ namespace QSP.UI.Forms
             this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.CBoxAusotsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
             this.CBoxPacotsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
             this.CBoxNatsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
@@ -69,11 +69,11 @@ namespace QSP.UI.Forms
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxAusots)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxNats)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Label1
@@ -261,31 +261,69 @@ namespace QSP.UI.Forms
             // 
             // tableLayoutPanel2
             // 
+            this.tableLayoutPanel2.AutoSize = true;
+            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.groupBox2, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.groupBox3, 0, 2);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(20, 35);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox1, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(997, 1000);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(990, 688);
             this.tableLayoutPanel2.TabIndex = 8;
             // 
-            // panel1
+            // groupBox2
             // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.tableLayoutPanel2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1055, 710);
-            this.panel1.TabIndex = 9;
+            this.groupBox2.Controls.Add(this.ListView1);
+            this.groupBox2.Location = new System.Drawing.Point(3, 158);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(984, 226);
+            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Messages";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.AutoSize = true;
+            this.groupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox3.Controls.Add(this.txtRichTextBox);
+            this.groupBox3.Location = new System.Drawing.Point(3, 390);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(984, 295);
+            this.groupBox3.TabIndex = 11;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Text";
+            // 
+            // txtRichTextBox
+            // 
+            this.txtRichTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txtRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtRichTextBox.DetectUrls = false;
+            this.txtRichTextBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRichTextBox.Location = new System.Drawing.Point(8, 21);
+            this.txtRichTextBox.MinimumSize = new System.Drawing.Size(970, 250);
+            this.txtRichTextBox.Name = "txtRichTextBox";
+            this.txtRichTextBox.ReadOnly = true;
+            this.txtRichTextBox.Size = new System.Drawing.Size(970, 250);
+            this.txtRichTextBox.TabIndex = 0;
+            this.txtRichTextBox.Text = "";
+            this.txtRichTextBox.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.txtRichTextBox_ContentsResized);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tableLayoutPanel3);
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(984, 149);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Tracks";
             // 
             // tableLayoutPanel3
             // 
@@ -319,45 +357,16 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel3.Size = new System.Drawing.Size(937, 120);
             this.tableLayoutPanel3.TabIndex = 8;
             // 
-            // groupBox1
+            // panel1
             // 
-            this.groupBox1.Controls.Add(this.tableLayoutPanel3);
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(984, 149);
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Tracks";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.ListView1);
-            this.groupBox2.Location = new System.Drawing.Point(3, 158);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(984, 226);
-            this.groupBox2.TabIndex = 10;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Messages";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.txtRichTextBox);
-            this.groupBox3.Location = new System.Drawing.Point(3, 390);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(984, 598);
-            this.groupBox3.TabIndex = 11;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Text";
-            // 
-            // txtRichTextBox
-            // 
-            this.txtRichTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRichTextBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRichTextBox.Location = new System.Drawing.Point(3, 21);
-            this.txtRichTextBox.Name = "txtRichTextBox";
-            this.txtRichTextBox.Size = new System.Drawing.Size(978, 574);
-            this.txtRichTextBox.TabIndex = 0;
-            this.txtRichTextBox.Text = "";
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.tableLayoutPanel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1055, 710);
+            this.panel1.TabIndex = 9;
             // 
             // CBoxAusotsEnabled
             // 
@@ -431,12 +440,14 @@ namespace QSP.UI.Forms
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxAusots)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxNats)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }

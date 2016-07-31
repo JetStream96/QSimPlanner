@@ -5,7 +5,8 @@ using static QSP.LibraryExtension.Strings;
 namespace QSP.RouteFinding.Tracks.Ausots
 {
     /// <summary>
-    /// Contains all text of TDM (track definition message), but with html tags removed.
+    /// Contains all text of TDM (track definition message), 
+    /// but with html tags removed.
     /// </summary>
     public class AusotsMessage : TrackMessage
     {
@@ -34,9 +35,10 @@ namespace QSP.RouteFinding.Tracks.Ausots
         public override XDocument ToXml()
         {
             var doc = new XElement(
-                        "Content", new XElement[]{
-                                new XElement("TrackSystem","AUSOTs"),
-                                new XElement("Text",AllText)});
+                "Content", new XElement[]{
+                    new XElement("TrackSystem", "AUSOTs"),
+                    new XElement("Text", AllText)});
+
             return new XDocument(doc);
         }
     }
