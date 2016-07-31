@@ -1,4 +1,5 @@
 using QSP.Common;
+using QSP.LibraryExtension;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.UI.Controllers;
@@ -6,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 
@@ -103,17 +106,23 @@ namespace QSP.UI.Forms
 
         private void ViewAusotsBtnClick(object sender, EventArgs e)
         {
-            txtRichTextBox.Text = airwayNetwork.GetAusotsMessage().ToString();
+            txtRichTextBox.Text = airwayNetwork.GetAusotsMessage()
+                .ToString()
+                .TrimEmptyLines();
         }
 
         private void ViewPacotsBtnClick(object sender, EventArgs e)
         {
-            txtRichTextBox.Text = airwayNetwork.GetPacotsMessage().ToString();
+            txtRichTextBox.Text = airwayNetwork.GetPacotsMessage()
+                .ToString()
+                .TrimEmptyLines();
         }
 
         private void ViewNatsBtnClick(object sender, EventArgs e)
         {
-            txtRichTextBox.Text = airwayNetwork.GetNatsMessage().ToString();
+            txtRichTextBox.Text = airwayNetwork.GetNatsMessage()
+                .ToString()
+                .TrimEmptyLines();
         }
 
         private void InitImages()

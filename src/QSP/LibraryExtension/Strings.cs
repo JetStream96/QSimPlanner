@@ -142,6 +142,24 @@ namespace QSP.LibraryExtension
             return item.Split(
                 new string[] { "\r\n", "\n" }, StringSplitOptions.None);
         }
+
+        /// <summary>
+        /// Trim all leading and trailing empty lines of a string.
+        /// </summary>
+        public static string TrimEmptyLines(this string input)
+        {
+            var lines = input.Lines();
+            var skipFront = lines.SkipEmptyLines();
+            var skipBack = skipFront.Reverse().SkipEmptyLines().Reverse();
+            return string.Join("\n", skipBack);
+        }
+
+        private static IEnumerable<string>
+            SkipEmptyLines(this IEnumerable<string> item)
+        {
+            char[] spaces = { ' ', '\t' };
+            return item.SkipWhile(s => s.All(c => spaces.Contains(c)));
+        }
     }
 }
 

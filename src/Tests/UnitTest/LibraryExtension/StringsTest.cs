@@ -128,5 +128,15 @@ namespace UnitTest.LibraryExtensionTest
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             s.ShiftToRight(-5));
         }
+
+        [Test]
+        public void TrimEmptyLinesTest()
+        {
+            var s1 = "123";
+            Assert.IsTrue(s1 == s1.TrimEmptyLines());
+
+            var s2 = "  \n\t\n  \n456\n \n789\n\t";
+            Assert.IsTrue("456\n \n789" == s2.TrimEmptyLines());
+        }
     }
 }
