@@ -8,12 +8,15 @@ namespace QSP.UI.Utilities
 {
     public static class ShowMapHelper
     {
-        public static void ShowMap(RouteGroup Route)
+        public static void ShowMap(RouteGroup Route, bool canAnalyze=true)
         {
             if (Route == null)
             {
-                MsgBoxHelper.ShowWarning(
-                    "Please find or analyze a route first.");
+                var msg = canAnalyze ?
+                    "Please find or analyze a route first." :
+                    "Please find a route first.";
+
+                MsgBoxHelper.ShowWarning(msg);
                 return;
             }
 

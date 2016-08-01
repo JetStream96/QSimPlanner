@@ -101,7 +101,7 @@ namespace QSP.UI.UserControls
             routeActionMenu = new SimpleActionContextMenu();
             routeActionMenu.FindToolStripMenuItem.Click += FindRouteBtnClick;
             routeActionMenu.MapToolStripMenuItem.Click +=
-                (s, e) => ShowMapHelper.ShowMap(Route);
+                (s, e) => ShowMapHelper.ShowMap(Route, false);
 
             showRouteActionsBtn.Click += (s, e) =>
             routeActionMenu.Show(
@@ -153,6 +153,12 @@ namespace QSP.UI.UserControls
                 false,
                 procFilter,
                 filterStarBtn);
+        }
+
+        public void OnWptListChanged()
+        {
+            fromGroup.RefreshDisplay();
+            toGroup.RefreshDisplay();
         }
 
         private void attachEventHandlers()
@@ -333,6 +339,12 @@ namespace QSP.UI.UserControls
 
         private int GetWptIndexFrom()
         {
+            if (fromWptComboBox.Items.Count == 0)
+            {
+                throw new InvalidOperationException(
+                    "Cannot find \"from\" waypoint in Nav Data.");
+            }
+
             var latLon = ExtractLatLon(fromWptComboBox.Text);
             return wptList.FindByWaypoint(
                 fromIdentTxtBox.Text, latLon.Lat, latLon.Lon);
@@ -340,6 +352,12 @@ namespace QSP.UI.UserControls
 
         private int GetWptIndexTo()
         {
+            if (toWptComboBox.Items.Count == 0)
+            {
+                throw new InvalidOperationException(
+                    "Cannot find \"to\" waypoint in Nav Data.");
+            }
+
             var latLon = ExtractLatLon(toWptComboBox.Text);
             return wptList.FindByWaypoint(
                 toIdentTxtBox.Text, latLon.Lat, latLon.Lon);
@@ -448,7 +466,7 @@ namespace QSP.UI.UserControls
                 Waypoints.SelectedIndex = 0;
             }
 
-            private void ForceRefresh()
+            public void RefreshDisplay()
             {
                 var txt = Ident.Text;
                 Ident.Text = txt + " ";
@@ -470,7 +488,7 @@ namespace QSP.UI.UserControls
 
                     controller.Subscribe();
                     Ident.TextChanged -= ShowWpts;
-                    ForceRefresh();
+                    RefreshDisplay();
                     Waypoints.Items.Clear();
                 }
                 else
@@ -485,7 +503,7 @@ namespace QSP.UI.UserControls
 
                     controller.UnSubsribe();
                     Ident.TextChanged += ShowWpts;
-                    ForceRefresh();
+                    RefreshDisplay();
                     Rwy.Items.Clear();
                     TerminalProcedure.Items.Clear();
                 }

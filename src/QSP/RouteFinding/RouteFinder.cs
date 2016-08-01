@@ -176,7 +176,9 @@ namespace QSP.RouteFinding
             }
             else
             {
-                throw new RouteNotFoundException();
+                throw new RouteNotFoundException(
+                    $"No route exists between {wptList[startPtIndex].ID} " +
+                    $"and {wptList[endPtIndex].ID}.");
             }
         }
 

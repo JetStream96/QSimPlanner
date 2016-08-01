@@ -258,6 +258,11 @@ namespace QSP.UI.Forms
                 miscInfoMenu.AirportList = airwayNetwork.AirportList;
             };
 
+            airwayNetwork.WptListChanged += (s, e) =>
+            {
+                fuelMenu.OnWptListChanged();
+            };
+
             aboutMenu.Init("QSimPlanner");
             EnableBtnColorControls();
             EnableViewControl();

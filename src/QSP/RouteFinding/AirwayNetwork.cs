@@ -25,8 +25,11 @@ namespace QSP.RouteFinding
         public TrackInUseCollection TracksInUse { get; private set; }
         public StatusRecorder StatusRecorder { get; private set; }
 
+        public event EventHandler WptListChanged;
         public event EventHandler AirportListChanged;
-        public event EventHandler GetTracksFinished;
+
+        // Fires when any of the TrackMessage in the TrackHandlers changed.
+        public event EventHandler TrackMessageUpdated;
 
         public AirwayNetwork(
             WaypointList wptList, AirportManager airportList)
@@ -94,8 +97,9 @@ namespace QSP.RouteFinding
             if (PacotsEnabled) pacotsManager.AddToWaypointList();
             if (AusotsEnabled) ausotsManager.AddToWaypointList();
 
+            WptListChanged?.Invoke(this, EventArgs.Empty);
             AirportListChanged?.Invoke(this, EventArgs.Empty);
-            GetTracksFinished?.Invoke(this, EventArgs.Empty);
+            TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         public bool NatsEnabled
@@ -198,7 +202,7 @@ namespace QSP.RouteFinding
                 try
                 {
                     natsManager.GetAllTracks(new NatsProvider(value));
-                    GetTracksFinished?.Invoke(this, EventArgs.Empty);
+                    TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
                 }
                 catch { }
             }
@@ -216,7 +220,7 @@ namespace QSP.RouteFinding
                 try
                 {
                     pacotsManager.GetAllTracks(new PacotsProvider(value));
-                    GetTracksFinished?.Invoke(this, EventArgs.Empty);
+                    TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
                 }
                 catch { }
             }
@@ -234,7 +238,7 @@ namespace QSP.RouteFinding
                 try
                 {
                     ausotsManager.GetAllTracks(new AusotsProvider(value));
-                    GetTracksFinished?.Invoke(this, EventArgs.Empty);
+                    TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
                 }
                 catch { }
             }
@@ -248,7 +252,7 @@ namespace QSP.RouteFinding
             try
             {
                 await natsManager.GetAllTracksAsync();
-                GetTracksFinished?.Invoke(this, EventArgs.Empty);
+                TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
             }
             catch { }
         }
@@ -261,7 +265,7 @@ namespace QSP.RouteFinding
             try
             {
                 await pacotsManager.GetAllTracksAsync();
-                GetTracksFinished?.Invoke(this, EventArgs.Empty);
+                TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
             }
             catch { }
         }
@@ -274,7 +278,7 @@ namespace QSP.RouteFinding
             try
             {
                 await ausotsManager.GetAllTracksAsync();
-                GetTracksFinished?.Invoke(this, EventArgs.Empty);
+                TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
             }
             catch { }
         }

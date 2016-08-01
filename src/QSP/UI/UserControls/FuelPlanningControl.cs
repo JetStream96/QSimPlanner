@@ -194,6 +194,11 @@ namespace QSP.UI.UserControls
             set { wtUnitComboBox.SelectedIndex = (int)value; }
         }
 
+        public void OnWptListChanged()
+        {
+            advancedRouteTool.OnWptListChanged();
+        }
+
         private void SetAltnController()
         {
             var controlsBelow = new Control[]
