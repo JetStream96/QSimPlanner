@@ -32,7 +32,7 @@ namespace QSP.NavData.AAX
             var countryCodes =
                 new FixesLoader(wptList).ReadFromFile(waypointsFilePath);
 
-            new AtsFileLoader(wptList).ReadFromFile(atsFilePath);
+            AtsFileLoader.ReadFromFile(wptList, atsFilePath);
 
             var countryFullNames = FullNamesLoader.Load();
             var countryManager = new CountryCodeManager(

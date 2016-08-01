@@ -7,21 +7,14 @@ using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.NavData.AAX
 {
-    public class AtsFileLoader
+    public static class AtsFileLoader
     {
-        private WaypointList wptList;
-
-        public AtsFileLoader(WaypointList wptList)
-        {
-            this.wptList = wptList;
-        }
-
         /// <summary>
         /// Read all waypoints from ats.txt file.
         /// </summary>
         /// <param name="filepath">Path of ats.txt</param>
         /// <exception cref="WaypointFileReadException"></exception>
-        public void ReadFromFile(string filepath)
+        public static void ReadFromFile(WaypointList wptList, string filepath)
         {
             try
             {
