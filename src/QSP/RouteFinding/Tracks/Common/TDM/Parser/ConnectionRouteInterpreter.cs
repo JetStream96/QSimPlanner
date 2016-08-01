@@ -8,23 +8,12 @@ using static QSP.LibraryExtension.Lists;
 
 namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
-    public class ConnectionRouteInterpreter
+    public static class ConnectionRouteInterpreter
     {
-        private string[] mainRoute;
-        private IEnumerable<string> connectRoutes;
-        private AirportManager airportList;
-
-        public ConnectionRouteInterpreter(
+        public static ConnectionRoutes Convert(
             string[] mainRoute,
             IEnumerable<string> connectRoutes, 
             AirportManager airportList)
-        {
-            this.mainRoute = mainRoute;
-            this.connectRoutes = connectRoutes;
-            this.airportList = airportList;
-        }
-
-        public ConnectionRoutes Convert()
         {
             var result = new ConnectionRoutes();
 
@@ -63,6 +52,7 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
                     }
                 }
             }
+
             return result;
         }
 

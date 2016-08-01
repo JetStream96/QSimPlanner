@@ -1,7 +1,6 @@
-﻿using System;
-using NUnit.Framework;
-using QSP.RouteFinding.Tracks.Common.TDM.Parser;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Tracks.Common.TDM.Parser;
 using System.Linq;
 
 namespace UnitTest.RouteFinding.Tracks.Common.TDM.Parser
@@ -12,12 +11,10 @@ namespace UnitTest.RouteFinding.Tracks.Common.TDM.Parser
         [Test]
         public void RecongnizeToOrFromCorrectly()
         {
-            var interpreter = new ConnectionRouteInterpreter(
+            var result = ConnectionRouteInterpreter.Convert(
                 new string[] { "P1", "P2", "P3" },
-                Array.AsReadOnly(new string[] { "Q P1", "P3 R" }),
+                new string[] { "Q P1", "P3 R" },
                 new AirportManager(new AirportCollection()));
-
-            var result = interpreter.Convert();
 
             Assert.AreEqual(1, result.RouteFrom.Count);
             Assert.AreEqual(1, result.RouteTo.Count);
@@ -37,13 +34,11 @@ namespace UnitTest.RouteFinding.Tracks.Common.TDM.Parser
             var airports = new AirportCollection();
             airports.Add(new Airport("ABCD", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
             airports.Add(new Airport("EFGH", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
-
-            var interpreter = new ConnectionRouteInterpreter(
+            
+            var result = ConnectionRouteInterpreter.Convert(
                 new string[] { "P1", "P2", "P3" },
-                Array.AsReadOnly(new string[] { "ABCD Q P1", "P3 R EFGH" }),
+                new string[] { "ABCD Q P1", "P3 R EFGH" },
                 new AirportManager(airports));
-
-            var result = interpreter.Convert();
 
             Assert.AreEqual(1, result.RouteFrom.Count);
             Assert.AreEqual(1, result.RouteTo.Count);

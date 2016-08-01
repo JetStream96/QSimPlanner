@@ -38,13 +38,11 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
                 var trk = Interpreter.Parse(tracksStr[i]);
                 var mainRoute = trk.FlexRoute.ToArray();
 
-                var connectionRoutes =
-                    new ConnectionRouteInterpreter(
-                        mainRoute,
-                        ConnectionRouteSeperator.Seperate(trk.ConnectionRoute),
-                        airportList)
-                    .Convert();
-                
+                var connectionRoutes = ConnectionRouteInterpreter.Convert(
+                    mainRoute,
+                    ConnectionRouteSeperator.Seperate(trk.ConnectionRoute),
+                    airportList);
+
                 result[i] = new PacificTrack(
                     PacotDirection.Eastbound,
                     trk.ID.ToString(),
@@ -56,6 +54,7 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
                     connectionRoutes.RouteTo.AsReadOnly(),
                     Constants.JapanLatlon);
             }
+
             return result;
         }
     }

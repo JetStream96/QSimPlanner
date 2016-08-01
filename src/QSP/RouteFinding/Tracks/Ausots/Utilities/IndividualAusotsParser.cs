@@ -43,11 +43,10 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
                 new char[] { ' ', '\t', '\n', '\r' }, 
                 StringSplitOptions.RemoveEmptyEntries);
 
-            var connectRoutes = new ConnectionRouteInterpreter(
-                mainRoute, 
+            var connectRoutes = ConnectionRouteInterpreter.Convert(
+                mainRoute,
                 result.ConnectionRoutes,
-                airportList)
-                .Convert();
+                airportList);
 
             if (TrackAvailble(mainRoute, result.Ident))
             {

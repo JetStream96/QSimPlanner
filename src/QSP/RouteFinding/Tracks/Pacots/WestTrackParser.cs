@@ -1,6 +1,6 @@
-﻿using System;
-using QSP.RouteFinding.Airports;
+﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Tracks.Common.TDM.Parser;
+using System;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
@@ -39,21 +39,21 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 new char[] { ' ', '\n', '\r', '\t' },
                 StringSplitOptions.RemoveEmptyEntries);
 
-            var connectRoutes = new ConnectionRouteInterpreter(
+            var connectRoutes = ConnectionRouteInterpreter.Convert(
                 mainRoute, 
                 result.ConnectionRoutes,
-                airportList)
-                .Convert();
+                airportList);
 
-            return new PacificTrack(PacotDirection.Westbound,
-                                    result.Ident,
-                                    result.TimeStart,
-                                    result.TimeEnd,
-                                    CutOffTextAfterParenthesis(result.Remarks),
-                                    Array.AsReadOnly(mainRoute),
-                                    connectRoutes.RouteFrom.AsReadOnly(),
-                                    connectRoutes.RouteTo.AsReadOnly(),
-                                    Constants.USLatlon);
+            return new PacificTrack(
+                PacotDirection.Westbound,
+                result.Ident,
+                result.TimeStart,
+                result.TimeEnd,
+                CutOffTextAfterParenthesis(result.Remarks),
+                Array.AsReadOnly(mainRoute),
+                connectRoutes.RouteFrom.AsReadOnly(),
+                connectRoutes.RouteTo.AsReadOnly(),
+                Constants.USLatlon);
         }
 
         private static string CutOffTextAfterParenthesis(string item)
