@@ -68,10 +68,6 @@ namespace QSP.RouteFinding
             var pacotsData = pacotsManager.RawData;
             var ausotsData = ausotsManager.RawData;
 
-            bool natsEnabled = natsManager.AddedToWptList;
-            bool pacotsEnabled = pacotsManager.AddedToWptList;
-            bool ausotsEnabled = ausotsManager.AddedToWptList;
-
             this.WptList = wptList;
             this.AirportList = airportList;
 
@@ -94,22 +90,65 @@ namespace QSP.RouteFinding
                 ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
             }
 
-            if (natsEnabled) natsManager.AddToWaypointList();
-            if (pacotsEnabled) pacotsManager.AddToWaypointList();
-            if (ausotsEnabled) ausotsManager.AddToWaypointList();
+            if (NatsEnabled) natsManager.AddToWaypointList();
+            if (PacotsEnabled) pacotsManager.AddToWaypointList();
+            if (AusotsEnabled) ausotsManager.AddToWaypointList();
 
             AirportListChanged?.Invoke(this, EventArgs.Empty);
             GetTracksFinished?.Invoke(this, EventArgs.Empty);
         }
 
-        public void EnableNats() { natsManager.AddToWaypointList(); }
-        public void EnablePacots() { pacotsManager.AddToWaypointList(); }
-        public void EnableAusots() { ausotsManager.AddToWaypointList(); }
+        public bool NatsEnabled
+        {
+            get { return natsManager.AddedToWptList; }
 
-        public void DisableNats() { natsManager.UndoEdit(); }
-        public void DisablePacots() { pacotsManager.UndoEdit(); }
-        public void DisableAusots() { ausotsManager.UndoEdit(); }
+            set
+            {
+                if (value)
+                {
+                    natsManager.AddToWaypointList();
+                }
+                else
+                {
+                    natsManager.UndoEdit();
+                }
+            }
+        }
 
+        public bool PacotsEnabled
+        {
+            get { return pacotsManager.AddedToWptList; }
+
+            set
+            {
+                if (value)
+                {
+                    pacotsManager.AddToWaypointList();
+                }
+                else
+                {
+                    pacotsManager.UndoEdit();
+                }
+            }
+        }
+
+        public bool AusotsEnabled
+        {
+            get { return ausotsManager.AddedToWptList; }
+
+            set
+            {
+                if (value)
+                {
+                    ausotsManager.AddToWaypointList();
+                }
+                else
+                {
+                    ausotsManager.UndoEdit();
+                }
+            }
+        }
+        
         public bool TrackedLoaded(TrackType type)
         {
             switch (type)

@@ -35,20 +35,28 @@ namespace QSP.RouteFinding.Tracks.Nats
             AddedToWptList = false;
         }
         
+        /// <summary>
+        /// Download tracks and undo previous edit to wptList.
+        /// </summary>
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()
         {
             TryDownload(new NatsDownloader());
             ReadMessage();
+            UndoEdit();
         }
 
+        /// <summary>
+        /// Load the tracks and undo previous edit to wptList.
+        /// </summary>
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public void GetAllTracks(INatsMessageProvider provider)
         {
             TryDownload(provider);
             ReadMessage();
+            UndoEdit();
         }
 
         private void ReadMessage()
@@ -81,7 +89,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         {
             await Task.Factory.StartNew(GetAllTracks);
         }
-
+        
         public override void AddToWaypointList()
         {
             if (AddedToWptList == false)

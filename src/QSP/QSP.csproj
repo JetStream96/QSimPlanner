@@ -236,6 +236,7 @@
     <Compile Include="UI\Utilities\ParentControlFinder.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
     <Compile Include="UI\Utilities\ShowMapHelper.cs" />
+    <Compile Include="Utilities\ExceptionHelpers.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />
@@ -326,7 +327,6 @@
     <Compile Include="RouteFinding\Tracks\Ausots\IAusotsMessageProvider.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\IndividualAusotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\MessageSplitter.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\IXmlConvertible.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\ConnectionRouteInterpreter.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\MainRouteInterpreter.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\ParseResult.cs" />

@@ -42,6 +42,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             TryDownload(new PacotsDownloader());
             ReadMessage();
+            UndoEdit();
         }
 
         /// <exception cref="TrackDownloadException"></exception>
@@ -50,6 +51,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             TryDownload(provider);
             ReadMessage();
+            UndoEdit();
         }
 
         private void ReadMessage()

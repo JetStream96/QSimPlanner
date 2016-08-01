@@ -18,8 +18,8 @@ namespace QSP.RouteFinding.Tracks
 
         public static IEnumerable<XDocument> ReadFromFile(string path)
         {
-            var doc = XDocument.Load(path);
-            return doc.Elements().Select(e => new XDocument("Root", e));
+            var root = XDocument.Load(path).Root;
+            return root.Elements().Select(e => new XDocument(e));
         }
     }
 }

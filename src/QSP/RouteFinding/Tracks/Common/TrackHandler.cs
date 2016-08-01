@@ -14,7 +14,7 @@ namespace QSP.RouteFinding.Tracks.Common
         public abstract Task GetAllTracksAsync();
 
         /// <summary>
-        /// Add the downloaded tracks to WaypointList.
+        /// Add the parsed tracks to WaypointList, if not added already.
         /// </summary>
         public abstract void AddToWaypointList();
 

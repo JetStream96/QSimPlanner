@@ -10,8 +10,8 @@ namespace QSP.RouteFinding.Tracks.Ausots
     /// </summary>
     public class AusotsMessage : TrackMessage
     {
+        public static readonly string TrackSystem = "Ausots";
         public string AllText { get; private set; }
-        public override string TrackSystem { get { return "Ausots"; } }
 
         public AusotsMessage(string HtmlSource)
         {
@@ -23,7 +23,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             LoadFromXml(doc);
         }
 
-        public sealed override void LoadFromXml(XDocument doc)
+        private void LoadFromXml(XDocument doc)
         {
             AllText = doc.Root.Element("Text").Value;
         }

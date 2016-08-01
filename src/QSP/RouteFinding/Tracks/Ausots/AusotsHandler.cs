@@ -44,6 +44,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             TryDownload(new AusotsDownloader());
             ReadMessage();
+            UndoEdit();
         }
 
         /// <exception cref="TrackParseException"></exception>
@@ -52,6 +53,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             TryDownload(provider);
             ReadMessage();
+            UndoEdit();
         }
 
         private void ReadMessage()

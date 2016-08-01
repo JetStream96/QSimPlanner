@@ -13,6 +13,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
     // TODO: Add unit test.
     public class PacotsMessage : TrackMessage
     {
+        public static readonly string TrackSystem = "Pacots";
+
         // Westbound tracks
         private static readonly string HeaderKzak =
             "KZAK OAKLAND OCA/FIR";
@@ -21,7 +23,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private static readonly string HeaderRjjj =
             "RJJJ FUKUOKA/JCAB AIR TRAFFIC FLOW MANAGEMENT CENTRE";
 
-        public override string TrackSystem { get { return "Pacots"; } }
         public IEnumerable<string> WestboundTracks { get; private set; }
         public IEnumerable<string> EastboundTracks { get; private set; }
         public string TimeStamp { get; private set; }
@@ -59,6 +60,20 @@ namespace QSP.RouteFinding.Tracks.Pacots
                     "Unable to parse the message.", ex);
             }
         }
+        
+        public PacotsMessage(XDocument doc)
+        {
+            var root = doc.Root;
+            Header = root.Element("Header").Value;
+            TimeStamp = root.Element("TimeStamp").Value;
+
+            var elemKzak = root.Element("KZAK").Elements("Track");
+            WestboundTracks = elemKzak.Select(i => i.Value);
+
+            var elemRjjj = root.Element("RJJJ").Elements("Track");
+            EastboundTracks = elemRjjj.Select(i => i.Value);
+        }
+
 
         private void ParseHtml(string htmlSource)
         {
@@ -79,7 +94,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
             return matches.Cast<Match>().Select(m => m.Groups[1].Value);
         }
-        
+
         // Returns null if no match is found.
         private static string GetHeader(string htmlSource)
         {
@@ -105,19 +120,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
             var match = Regex.Match(
                 htmlSource, pattern, RegexOptions.IgnoreCase);
             return match.Success ? match.Value : null;
-        }
-
-        public override void LoadFromXml(XDocument doc)
-        {
-            var root = doc.Root;
-            Header = doc.Element("Header").Value;
-            TimeStamp = doc.Element("TimeStamp").Value;
-
-            var elemKzak = doc.Element("KZAK").Elements("Track");
-            WestboundTracks = elemKzak.Select(i => i.Value);
-
-            var elemRjjj = doc.Element("RJJJ").Elements("Track");
-            EastboundTracks = elemRjjj.Select(i => i.Value);
         }
 
         public override string ToString()

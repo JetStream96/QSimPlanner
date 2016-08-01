@@ -1,19 +1,27 @@
 using QSP.Common;
 using QSP.LibraryExtension;
 using QSP.RouteFinding;
+using QSP.RouteFinding.Tracks;
+using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Tracks.Common;
+using QSP.RouteFinding.Tracks.Nats;
+using QSP.RouteFinding.Tracks.Pacots;
 using QSP.UI.Controllers;
+using QSP.UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
+using static QSP.Utilities.LoggerInstance;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.UI.Forms
 {
-    // TODO: Add save and import feature.
     public partial class TracksForm
     {
         private static readonly string trackFileFolder = "Tracks";
@@ -282,7 +290,7 @@ namespace QSP.UI.Forms
             BtnNatsDn.Text = "Downloading";
 
             await airwayNetwork.DownloadNats();
-            if (NatsEnabled) airwayNetwork.EnableNats();
+            airwayNetwork.NatsEnabled = NatsEnabled;
             viewNatsBtn.Enabled = true;
 
             BtnNatsDn.Enabled = true;
@@ -295,7 +303,7 @@ namespace QSP.UI.Forms
             BtnPacotsDn.Text = "Downloading";
 
             await airwayNetwork.DownloadPacots();
-            if (PacotsEnabled) airwayNetwork.EnablePacots();
+            airwayNetwork.PacotsEnabled = PacotsEnabled;
             viewPacotsBtn.Enabled = true;
 
             BtnPacotsDn.Enabled = true;
@@ -308,7 +316,7 @@ namespace QSP.UI.Forms
             BtnAusotsDn.Text = "Downloading";
 
             await airwayNetwork.DownloadAusots();
-            if (AusotsEnabled) airwayNetwork.EnableAusots();
+            airwayNetwork.AusotsEnabled = AusotsEnabled;
             viewAusotsBtn.Enabled = true;
 
             BtnAusotsDn.Enabled = true;
@@ -332,38 +340,17 @@ namespace QSP.UI.Forms
 
         private void CBoxNatsEnabledChanged(object sender, EventArgs e)
         {
-            if (NatsEnabled)
-            {
-                airwayNetwork.EnableNats();
-            }
-            else
-            {
-                airwayNetwork.DisableNats();
-            }
+            airwayNetwork.NatsEnabled = NatsEnabled;
         }
 
         private void CBoxPacotsEnabledChanged(object sender, EventArgs e)
         {
-            if (PacotsEnabled)
-            {
-                airwayNetwork.EnablePacots();
-            }
-            else
-            {
-                airwayNetwork.DisablePacots();
-            }
+            airwayNetwork.PacotsEnabled = PacotsEnabled;
         }
 
         private void CBoxAusotsEnabledChanged(object sender, EventArgs e)
         {
-            if (AusotsEnabled)
-            {
-                airwayNetwork.EnableAusots();
-            }
-            else
-            {
-                airwayNetwork.DisableAusots();
-            }
+            airwayNetwork.AusotsEnabled = AusotsEnabled;
         }
 
         private void CloseForm(object sender, CancelEventArgs e)
@@ -392,6 +379,12 @@ namespace QSP.UI.Forms
                 BtnPacotsDn.Enabled && BtnAusotsDn.Enabled;
         }
 
+        private static string GetFileDialogFilter()
+        {
+            var ext = trackFileExtension;
+            return $"track files (*{ext})|*{ext}|All files (*.*)|*.*";
+        }
+
         private void saveBtn_Click(object sender, EventArgs e)
         {
             var a = airwayNetwork;
@@ -401,7 +394,84 @@ namespace QSP.UI.Forms
             if (a.PacotsLoaded) msg.Add(a.PacotsMessage);
             if (a.AusotsLoaded) msg.Add(a.AusotsMessage);
 
+            IgnoreExceptions(() => Directory.CreateDirectory(trackFileFolder));
+            var saveFileDialog = new SaveFileDialog();
 
+            var ext = trackFileExtension;
+            saveFileDialog.Filter = GetFileDialogFilter();
+            saveFileDialog.InitialDirectory =
+                Path.GetFullPath(trackFileFolder);
+            saveFileDialog.RestoreDirectory = true;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var file = saveFileDialog.FileName;
+
+                try
+                {
+                    File.Delete(file);
+                    Directory.CreateDirectory(trackFileFolder);
+                    TrackFiles.SaveToFile(msg, file);
+                }
+                catch (Exception ex)
+                {
+                    WriteToLog(ex);
+                    MsgBoxHelper.ShowWarning("Failed to save file.");
+                }
+            }
+        }
+
+        private void importBtn_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = GetFileDialogFilter();
+            openFileDialog.InitialDirectory =
+                Path.GetFullPath(trackFileFolder);
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var file = openFileDialog.FileName;
+
+                try
+                {
+                    var docs = TrackFiles.ReadFromFile(file);
+                    docs.ForEach(d => LoadXDoc(d));
+                }
+                catch (Exception ex)
+                {
+                    WriteToLog(ex);
+                    MsgBoxHelper.ShowWarning(
+                        $"Failed to load file {file}");
+                }
+            }
+        }
+
+        private void LoadXDoc(XDocument doc)
+        {
+            var root = doc.Root;
+            var sys = root.Element("TrackSystem").Value;
+
+            if (sys == NatsMessage.TrackSystem)
+            {
+                airwayNetwork.NatsMessage = new NatsMessage(doc);
+                airwayNetwork.NatsEnabled = NatsEnabled;
+            }
+            else if (sys == PacotsMessage.TrackSystem)
+            {
+                airwayNetwork.PacotsMessage = new PacotsMessage(doc);
+                airwayNetwork.PacotsEnabled = PacotsEnabled;
+            }
+            else if (sys == AusotsMessage.TrackSystem)
+            {
+                airwayNetwork.AusotsMessage = new AusotsMessage(doc);
+                airwayNetwork.AusotsEnabled = AusotsEnabled;
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
         }
     }
 }
