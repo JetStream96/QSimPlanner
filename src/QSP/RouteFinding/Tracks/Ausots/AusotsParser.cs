@@ -24,9 +24,10 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private string allTxt;
         private List<AusTrack> allTracks;
 
-        public AusotsParser(AusotsMessage data,
-                            StatusRecorder statusRecorder,
-                            AirportManager airportList)
+        public AusotsParser(
+            AusotsMessage data,
+            StatusRecorder statusRecorder,
+            AirportManager airportList)
         {
             allTxt = data.AllText;
             this.statusRecorder = statusRecorder;
@@ -37,17 +38,19 @@ namespace QSP.RouteFinding.Tracks.Ausots
         public override List<AusTrack> Parse()
         {
             allTracks = new List<AusTrack>();
-            var msgs = new MessageSplitter(allTxt).Split();
+            var msgs = MessageSplitter.Split(allTxt);
 
             if (msgs.Count == 0)
             {
-                throw new TrackParseException("Failed to interpret Ausots message.");
+                throw new TrackParseException(
+                    "Failed to interpret Ausots message.");
             }
-
+            
             foreach (var i in msgs)
             {
                 TryAddTrk(i);
             }
+
             return allTracks;
         }
 
@@ -64,9 +67,10 @@ namespace QSP.RouteFinding.Tracks.Ausots
             }
             catch
             {
-                statusRecorder.AddEntry(StatusRecorder.Severity.Caution,
-                                        "Unable to interpret one track.",
-                                        TrackType.Ausots);
+                statusRecorder.AddEntry(
+                    StatusRecorder.Severity.Caution,
+                    "Unable to interpret one track.",
+                    TrackType.Ausots);
             }
         }
     }

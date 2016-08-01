@@ -34,12 +34,16 @@ namespace QSP.RouteFinding.Tracks.Pacots
         public PacificTrack Parse()
         {
             var result = new TdmParser(text).Parse();
-            var mainRoute = new MainRouteInterpreter(result.MainRoute).Convert();
 
-            var connectRoutes = new ConnectionRouteInterpreter(mainRoute, 
-                                                               result.ConnectionRoutes,
-                                                               airportList)
-                                .Convert();
+            var mainRoute = result.MainRoute.Split(
+                new char[] { ' ', '\n', '\r', '\t' },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            var connectRoutes = new ConnectionRouteInterpreter(
+                mainRoute, 
+                result.ConnectionRoutes,
+                airportList)
+                .Convert();
 
             return new PacificTrack(PacotDirection.Westbound,
                                     result.Ident,

@@ -45,39 +45,35 @@ NSM Q10 HAMTN Q158 PH YPPH
 RMK/AUSOTS GROUP E
       ";
 
-            var splitResult = new MessageSplitter(str).Split();
+            var splitResult = MessageSplitter.Split(str);
 
             Assert.AreEqual(4, splitResult.Count);
 
-            Assert.IsTrue(splitResult.Contains(@"TDM TRK MY13 160119233001 
+            Assert.IsTrue(splitResult[0] == (@"TDM TRK MY13 160119233001 
 1601192330 1601201400 
 JAMOR IBABI LEC CALAR OOD ARNTU LEESA 20S128E SANDY 
 15S122E ATMAP 
 RTS/YMML ML H164 JAMOR 
-RMK/AUSOTS GROUP A
-"));
+RMK/AUSOTS GROUP A"));
 
-            Assert.IsTrue(splitResult.Contains(@"TDM TRK KS13 160120120001 
+            Assert.IsTrue(splitResult[1] == (@"TDM TRK KS13 160120120001 
 1601201300 1601202300 
 SVC TRK KS13 NO TRACK - USE PUBLISHED FIXED ROUTES 
-RMK/AUSOTS GROUP A
-"));
+RMK/AUSOTS GROUP A"));
 
-            Assert.IsTrue(splitResult.Contains(@"TDM TRK XB13 160120060001 
+            Assert.IsTrue(splitResult[2] == (@"TDM TRK XB13 160120060001 
 1601200900 1601202200 
 DOGAR DAOVO PIBED CC 15S100E 20S106E JOLLY CAR NIPEM 
 LST BOBET 30S132E 30S135E 30S140E IDODA AROLI CRANE 
 RTS/CRANE Y94 PARRY Y195 GLENN BN YBBN 
-RMK/AUSOTS GROUP B
-"));
+RMK/AUSOTS GROUP B"));
 
-            Assert.IsTrue(splitResult.Contains(@"TDM TRK BP13 160120093001 
+            Assert.IsTrue(splitResult[3] == (@"TDM TRK BP13 160120093001 
 1601200930 1601201530 
 TAM CV PHONE 28S138E VIRUV 30S131E FRT NSM 
 RTS/YBBN BN V179 TAM 
 NSM Q10 HAMTN Q158 PH YPPH 
-RMK/AUSOTS GROUP E
-"));
+RMK/AUSOTS GROUP E"));
         }
     }
 }

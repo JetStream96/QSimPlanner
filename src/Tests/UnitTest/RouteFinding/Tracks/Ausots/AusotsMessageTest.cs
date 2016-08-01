@@ -31,7 +31,7 @@ TDM should appear here.
 
             var xml = msg.ToXml();
             var trackSys = xml.Root.Element("TrackSystem").Value;
-            Assert.IsTrue(trackSys == msg.TrackSystem);
+            Assert.IsTrue(trackSys == AusotsMessage.TrackSystem);
             Assert.IsTrue(xml.Root.Element("Text").Value == msg.AllText);
         }
 

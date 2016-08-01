@@ -18,7 +18,8 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
 
     public class IndividualAusotsParser
     {
-        private static readonly LatLon PreferredFirstLatLon = new LatLon(-25.0, 133.0);
+        private static readonly LatLon PreferredFirstLatLon = 
+            new LatLon(-25.0, 133.0);
 
         private string text;
         private AirportManager airportList;
@@ -36,12 +37,16 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
         public AusTrack Parse()
         {
             var result = new TdmParser(text).Parse();
-            var mainRoute = new MainRouteInterpreter(result.MainRoute).Convert();
+
+            var mainRoute = result.MainRoute.Split(
+                new char[] { ' ', '\t', '\n', '\r' }, 
+                StringSplitOptions.RemoveEmptyEntries);
+
             var connectRoutes = new ConnectionRouteInterpreter(
-                                    mainRoute, 
-                                    result.ConnectionRoutes,
-                                    airportList)
-                                .Convert();
+                mainRoute, 
+                result.ConnectionRoutes,
+                airportList)
+                .Convert();
 
             if (TrackAvailble(mainRoute, result.Ident))
             {
@@ -54,6 +59,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
                                     connectRoutes.RouteTo.AsReadOnly(),
                                     PreferredFirstLatLon);
             }
+
             return null;
         }
 
@@ -66,7 +72,8 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
         //
         private bool TrackAvailble(string[] mainRoute, string ident)
         {
-            return !(mainRoute.Contains(ident) || mainRoute.Contains("NO TRACK"));
+            return !(mainRoute.Contains(ident) || 
+                mainRoute.Contains("NO TRACK"));
         }
     }
 }
