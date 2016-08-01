@@ -67,10 +67,10 @@ namespace QSP.UI.Forms
             this.saveBtn = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new QSP.UI.Controls.PanelSilentScrollbar();
             this.CBoxAusotsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
             this.CBoxPacotsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
             this.CBoxNatsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxPacots)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxAusots)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxNats)).BeginInit();
@@ -314,6 +314,7 @@ namespace QSP.UI.Forms
             this.txtRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtRichTextBox.DetectUrls = false;
             this.txtRichTextBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRichTextBox.HideSelection = false;
             this.txtRichTextBox.Location = new System.Drawing.Point(8, 21);
             this.txtRichTextBox.MinimumSize = new System.Drawing.Size(970, 200);
             this.txtRichTextBox.Name = "txtRichTextBox";
@@ -470,6 +471,17 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel3.Size = new System.Drawing.Size(665, 120);
             this.tableLayoutPanel3.TabIndex = 8;
             // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.tableLayoutPanel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1055, 710);
+            this.panel1.TabIndex = 9;
+            // 
             // CBoxAusotsEnabled
             // 
             this.CBoxAusotsEnabled.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -520,17 +532,6 @@ namespace QSP.UI.Forms
             this.CBoxNatsEnabled.Name = "CBoxNatsEnabled";
             this.CBoxNatsEnabled.Size = new System.Drawing.Size(200, 31);
             this.CBoxNatsEnabled.TabIndex = 8;
-            // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.tableLayoutPanel2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1055, 710);
-            this.panel1.TabIndex = 9;
             // 
             // TracksForm
             // 

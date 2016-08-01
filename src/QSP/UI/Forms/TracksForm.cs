@@ -284,6 +284,13 @@ namespace QSP.UI.Forms
             }
         }
 
+        private void RefreshViewTrackBtns()
+        {
+            viewNatsBtn.Enabled = airwayNetwork.NatsLoaded;
+            viewPacotsBtn.Enabled = airwayNetwork.PacotsLoaded;
+            viewAusotsBtn.Enabled = airwayNetwork.AusotsLoaded;
+        }
+
         private async void BtnNatsDn_Click(object sender, EventArgs e)
         {
             BtnNatsDn.Enabled = false;
@@ -291,7 +298,7 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadNats();
             airwayNetwork.NatsEnabled = NatsEnabled;
-            viewNatsBtn.Enabled = true;
+            RefreshViewTrackBtns();
 
             BtnNatsDn.Enabled = true;
             BtnNatsDn.Text = "Download";
@@ -304,7 +311,7 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadPacots();
             airwayNetwork.PacotsEnabled = PacotsEnabled;
-            viewPacotsBtn.Enabled = true;
+            RefreshViewTrackBtns();
 
             BtnPacotsDn.Enabled = true;
             BtnPacotsDn.Text = "Download";
@@ -317,7 +324,7 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadAusots();
             airwayNetwork.AusotsEnabled = AusotsEnabled;
-            viewAusotsBtn.Enabled = true;
+            RefreshViewTrackBtns();
 
             BtnAusotsDn.Enabled = true;
             BtnAusotsDn.Text = "Download";
@@ -394,6 +401,13 @@ namespace QSP.UI.Forms
             if (a.PacotsLoaded) msg.Add(a.PacotsMessage);
             if (a.AusotsLoaded) msg.Add(a.AusotsMessage);
 
+            if (msg.Count == 0)
+            {
+                MsgBoxHelper.ShowWarning(
+                    "No track has been downloaded or imported.");
+                return;
+            }
+
             IgnoreExceptions(() => Directory.CreateDirectory(trackFileFolder));
             var saveFileDialog = new SaveFileDialog();
 
@@ -446,6 +460,8 @@ namespace QSP.UI.Forms
                         $"Failed to load file {file}");
                 }
             }
+
+            RefreshViewTrackBtns();
         }
 
         private void LoadXDoc(XDocument doc)
