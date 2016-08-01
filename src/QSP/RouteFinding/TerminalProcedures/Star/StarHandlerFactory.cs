@@ -15,12 +15,14 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             WaypointListEditor editor,
             AirportManager airportList)
         {
-            string fileLocation = navDataLocation + "\\PROC\\" + icao + ".txt";
+            string fileLocation = Path.Combine(
+                navDataLocation, "PROC", icao + ".txt");
 
             try
             {
                 string allTxt = File.ReadAllText(fileLocation);
-                return new StarHandler(icao, allTxt, wptList, editor, airportList);
+                return new StarHandler(
+                    icao, allTxt, wptList, editor, airportList);
             }
             catch (Exception ex)
             {

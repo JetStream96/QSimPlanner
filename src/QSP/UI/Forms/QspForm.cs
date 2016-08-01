@@ -24,7 +24,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.UI.Controllers.ButtonGroup.BtnGroupController;
 using static QSP.UI.Controllers.ButtonGroup.ControlSwitcher;
@@ -94,15 +93,15 @@ namespace QSP.UI.Forms
 
         public void Init()
         {
-            ShowSplashWhile(async () =>
+            ShowSplashWhile(() =>
             {
                 AddControls();
                 InitData();
                 InitControls();
-                DownloadTracksIfNeeded();
-                await DownloadWindIfNeeded();
                 InitTrackForm();
                 InitWindForm();
+                DownloadWindIfNeeded();
+                DownloadTracksIfNeeded();
             });
 
             if (failedToLoadNavDataAtStartUp)
@@ -167,7 +166,6 @@ namespace QSP.UI.Forms
                 Environment.Exit(1);
             }
 
-            // TODO: If failed, should show user the options page.
             try
             {
                 InitAirportAndWaypoints();
@@ -442,19 +440,12 @@ namespace QSP.UI.Forms
 
         private void DownloadTracksIfNeeded()
         {
-            if (appSettings.AutoDLTracks)
-            {
-                //RouteFinding.Tracks.Interaction.Interactions.SetAllTracksAsync();
-                //TODO: add code to start download tracks automatically.
-            }
-            else
-            {
-                trackStatusLabel.Image = Properties.Resources.YellowLight;
-                trackStatusLabel.Text = "Tracks: Not downloaded";
-            }
+            trackStatusLabel.Image = Properties.Resources.YellowLight;
+            trackStatusLabel.Text = "Tracks: Not downloaded";
+            if (appSettings.AutoDLTracks) trackFrm.DownloadAllTracks();
         }
 
-        private async Task DownloadWindIfNeeded()
+        private async void DownloadWindIfNeeded()
         {
             if (appSettings.AutoDLWind)
             {

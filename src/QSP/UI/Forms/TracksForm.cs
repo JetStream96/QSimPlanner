@@ -375,6 +375,11 @@ namespace QSP.UI.Forms
 
         private void DownloadAllBtnClick(object sender, EventArgs e)
         {
+            DownloadAllTracks();
+        }
+
+        public void DownloadAllTracks()
+        {
             BtnNatsDn_Click(this, EventArgs.Empty);
             BtnPacotsDn_Click(this, EventArgs.Empty);
             BtnAusotsDn_Click(this, EventArgs.Empty);

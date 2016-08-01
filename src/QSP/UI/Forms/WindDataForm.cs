@@ -1,7 +1,9 @@
 ﻿using QSP.LibraryExtension;
+using QSP.UI.Controllers;
 using QSP.UI.Utilities;
 using QSP.WindAloft;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,10 +31,26 @@ namespace QSP.UI.Forms
             this.windTableLocator = windTableLocator;
             ShowWindStatus(status);
             windAvailable = false;
+            SetButtonColorStyles();
 
-            downlaodBtn.Click += async (s, e) => await DownloadWind();
+            downloadBtn.Click += async (s, e) => await DownloadWind();
             saveFileBtn.Click += SaveFile;
             loadFileBtn.Click += LoadFile;
+        }
+
+        private void SetButtonColorStyles()
+        {
+            var colorStyle = new ControlDisableStyleController.ColorStyle(
+                Color.DarkSlateGray,
+                Color.FromArgb(224, 224, 224),
+                Color.White,
+                Color.LightGray);
+
+            var downloadBtnStyle = new ControlDisableStyleController(
+                downloadBtn, colorStyle);
+
+            downloadBtnStyle.Activate();
+            downloadBtn.Enabled = true;
         }
 
         private async void downlaodBtn_Click(object sender, EventArgs e)
@@ -42,7 +60,7 @@ namespace QSP.UI.Forms
 
         public async Task DownloadWind()
         {
-            downlaodBtn.Enabled = false;
+            downloadBtn.Enabled = false;
             ShowWindStatus(WindDownloadStatus.Downloading);
 
             try
@@ -59,7 +77,7 @@ namespace QSP.UI.Forms
                 ShowWindStatus(WindDownloadStatus.FailedToDownload);
             }
 
-            downlaodBtn.Enabled = true;
+            downloadBtn.Enabled = true;
         }
 
         private void ShowWindStatus(WindDownloadStatus item)
@@ -94,7 +112,7 @@ namespace QSP.UI.Forms
 
             saveFileDialog.Filter =
                 "grib2 files (*.grib2)|*.grib2|All files (*.*)|*.*";
-            saveFileDialog.InitialDirectory = 
+            saveFileDialog.InitialDirectory =
                 Path.GetFullPath(Constants.WxFileDirectory);
             saveFileDialog.RestoreDirectory = true;
 
@@ -117,12 +135,11 @@ namespace QSP.UI.Forms
 
         private async void LoadFile(object sender, EventArgs e)
         {
-            loadFileBtn.Enabled = false;
             var openFileDialog = new OpenFileDialog();
 
             openFileDialog.Filter =
                 "grib2 files (*.grib2)|*.grib2|All files (*.*)|*.*";
-            openFileDialog.InitialDirectory = 
+            openFileDialog.InitialDirectory =
                 Path.GetFullPath(Constants.WxFileDirectory);
             openFileDialog.RestoreDirectory = true;
 
@@ -152,8 +169,6 @@ namespace QSP.UI.Forms
                         $"Failed to load file {file}");
                 }
             }
-
-            loadFileBtn.Enabled = true;
         }
 
         private void LoadFromFile(string file)

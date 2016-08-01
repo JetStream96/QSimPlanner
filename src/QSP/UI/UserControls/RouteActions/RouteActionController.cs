@@ -88,7 +88,7 @@ namespace QSP.UI.UserControls.RouteActions
             exportBtn.Click += ExportRouteFiles;
             showMapBtn.Click += ShowMapClick;
         }
-        
+
         private void FindRouteClick(object sender, EventArgs e)
         {
             try
@@ -104,6 +104,21 @@ namespace QSP.UI.UserControls.RouteActions
         // Can throw exceptions.
         private void FindRoute()
         {
+            var orig = origController.Icao;
+            var dest = destController.Icao;
+
+            if (airportList.Find(orig) == null)
+            {
+                throw new ArgumentException(
+                    "Cannot find origin airport in Nav Data.");
+            }
+
+            if (airportList.Find(dest) == null)
+            {
+                throw new ArgumentException(
+                    "Cannot find destination airport in Nav Data.");
+            }
+
             var sid = origController.GetSelectedProcedures();
             var star = destController.GetSelectedProcedures();
 
@@ -115,8 +130,8 @@ namespace QSP.UI.UserControls.RouteActions
                 windCalcGetter());
 
             var result = finder.FindRoute(
-                origController.Icao, origController.Rwy, sid,
-                destController.Icao, destController.Rwy, star);
+                orig, origController.Rwy, sid,
+                dest, destController.Rwy, star);
 
             Route = new RouteGroup(result, airwayNetwork.TracksInUse);
             ShowRouteTxt();
@@ -124,7 +139,7 @@ namespace QSP.UI.UserControls.RouteActions
 
         private void ShowRouteTxt()
         {
-            var routeToShow = appSettings.ShowTrackIdOnly ? 
+            var routeToShow = appSettings.ShowTrackIdOnly ?
                 Route.Folded : Route.Expanded;
 
             var showDct = !appSettings.HideDctInRoute;

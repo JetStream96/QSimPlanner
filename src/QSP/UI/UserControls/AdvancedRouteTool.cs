@@ -2,6 +2,7 @@
 using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.RouteFinding;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
@@ -41,6 +42,11 @@ namespace QSP.UI.UserControls
         private WaypointList wptList
         {
             get { return airwayNetwork.WptList; }
+        }
+
+        private AirportManager airportList
+        {
+            get { return airwayNetwork.AirportList; }
         }
 
         private TrackInUseCollection tracksInUse
@@ -206,7 +212,7 @@ namespace QSP.UI.UserControls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MsgBoxHelper.ShowWarning(ex.Message);
             }
         }
 
@@ -227,7 +233,7 @@ namespace QSP.UI.UserControls
             Route = new RouteGroup(
                 GetRouteFinder().FindRoute(
                     GetWptIndexFrom(),
-                    toIdentTxtBox.Text,
+                    destination,
                     toRwyComboBox.Text,
                     stars),
                 tracksInUse);
@@ -241,7 +247,7 @@ namespace QSP.UI.UserControls
 
             Route = new RouteGroup(
                 GetRouteFinder().FindRoute(
-                    fromIdentTxtBox.Text,
+                    origin,
                     fromRwyComboBox.Text,
                     sids,
                     GetWptIndexTo()),
@@ -257,15 +263,47 @@ namespace QSP.UI.UserControls
 
             Route = new RouteGroup(
                GetRouteFinder().FindRoute(
-                    fromIdentTxtBox.Text,
+                    origin,
                     fromRwyComboBox.Text,
                     sids,
                     toIdentTxtBox.Text,
-                    toRwyComboBox.Text,
+                    destination,
                     stars),
                  tracksInUse);
 
             ShowRoute(false, false);
+        }
+
+        private string origin
+        {
+            get
+            {
+                var orig = fromIdentTxtBox.Text;
+
+                if (airportList.Find(orig) == null)
+                {
+                    throw new ArgumentException(
+                        "Cannot find origin airport in Nav Data.");
+                }
+
+                return orig;
+            }
+        }
+
+        private string destination
+        {
+            get
+            {
+                var dest = toIdentTxtBox.Text;
+
+                if (airportList.Find(dest) == null)
+                {
+                    throw new ArgumentException(
+                        "Cannot find destination airport in Nav Data.");
+                }
+
+                return dest;
+            }
         }
 
         private void ShowRoute(bool ShowFirstWaypoint, bool ShowLastWaypoint)
@@ -287,7 +325,7 @@ namespace QSP.UI.UserControls
         {
             return new RouteFinderFacade(
                 wptList,
-                airwayNetwork.AirportList,
+                airportList,
                 appOptionsLocator.Instance.NavDataLocation,
                 checkedCodesLocator.Instance,
                 windCalcGetter());
