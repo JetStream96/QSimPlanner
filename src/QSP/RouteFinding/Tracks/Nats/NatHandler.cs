@@ -141,6 +141,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         public override void UndoEdit()
         {
             editor.Undo();
+            AddedToWptList = false;
         }
     }
 }

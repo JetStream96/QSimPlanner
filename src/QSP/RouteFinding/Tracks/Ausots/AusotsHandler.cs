@@ -139,6 +139,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         public override void UndoEdit()
         {
             editor.Undo();
+            AddedToWptList = false;
         }
     }
 }

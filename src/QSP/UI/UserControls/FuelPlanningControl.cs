@@ -500,8 +500,8 @@ namespace QSP.UI.UserControls
             }
 
             return "Insufficient fuel\n" +
-                $"Fuel required for this flight is {fuelReqKG} {wtUnit}. " +
-                $"Maximum fuel tank capacity is {fuelCapacityKG} {wtUnit}.";
+                $"Fuel required for this flight is {fuelReqInt} {wtUnit}. " +
+                $"Maximum fuel tank capacity is {fuelCapacityInt} {wtUnit}.";
         }
 
         private void AddAltn(object sender, EventArgs e)
