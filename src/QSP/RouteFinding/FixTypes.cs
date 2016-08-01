@@ -19,7 +19,6 @@ namespace QSP.RouteFinding
         /// Determines whether the fix has a lat/lon property.
         /// </summary>
         /// <param name="fixType">Two letter code for the fix.</param>
-        /// <returns></returns>
         public static bool HasCorrds(string fixType)
         {
             return correctFixType.Contains(fixType);

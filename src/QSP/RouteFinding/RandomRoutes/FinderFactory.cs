@@ -1,5 +1,5 @@
-﻿using System;
-using QSP.RouteFinding.Containers;
+﻿using QSP.RouteFinding.Containers;
+using System;
 using System.Collections.Generic;
 using static QSP.AviationTools.Coordinates.Format5Letter;
 

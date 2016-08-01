@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
+using System.IO;
 
 namespace QSP.WindAloft
 {
     public static class WindManager
     {
         public static readonly string DownloadFilePath =
-            Constants.WxFileDownloadDirectory + @"\wx.grib2";
-        
+            Path.Combine(Constants.WxFileDownloadDirectory, "wx.grib2");
+
         /// <summary>
         /// Download, convert and read the files into WindTableCollection.
         /// </summary>

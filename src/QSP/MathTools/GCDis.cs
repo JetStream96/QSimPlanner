@@ -47,16 +47,8 @@ namespace QSP.MathTools
             // and combined with rounding error, can actually 
             // be smaller than -1.0 or larger than 1.0, causing
             // Acos(innerProduct) to throw exception. 
-            if (innerProduct > 1.0)
-            {
-                innerProduct = 1.0;
-            }
-            else if (innerProduct < -1.0)
-            {
-                innerProduct = -1.0;
-            }
 
-            return EarthRadiusNm * Math.Acos(innerProduct);
+            return EarthRadiusNm * Doubles.SafeAcos(innerProduct);
         }
     }
 }
