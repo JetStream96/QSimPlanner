@@ -1,6 +1,7 @@
 ﻿using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
+using System;
 using System.Collections.Generic;
 
 namespace QSP.RouteFinding.RouteAnalyzers
@@ -69,6 +70,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 }
                 catch { }
             }
+
+            // TODO: Error message for user?
             throw new InvalidRouteException();
         }
 
@@ -81,6 +84,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
                 return disX.CompareTo(disY);
             });
-        }        
+        }
     }
 }

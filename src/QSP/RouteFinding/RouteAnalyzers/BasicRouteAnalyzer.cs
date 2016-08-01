@@ -184,7 +184,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             lastAwy = null;
             return true;
         }
-
+        
         private bool TryDirectWpt(string ident)
         {
             var indices = wptList.FindAllById(ident);

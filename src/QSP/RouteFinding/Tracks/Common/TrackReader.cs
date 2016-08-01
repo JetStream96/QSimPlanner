@@ -147,11 +147,10 @@ namespace QSP.RouteFinding.Tracks.Common
             LatLon latLon = trk.PreferredFirstLatLon;
 
             return new AutoSelectAnalyzer(
-                new CoordinateFormatter(
-                    CombineArray(rte)).Split(),
-                    latLon.Lat,
-                    latLon.Lon,
-                    wptList)
+                CoordinateFormatter.Split(CombineArray(rte)),
+                latLon.Lat,
+                latLon.Lon,
+                wptList)
                 .Analyze();
         }
 

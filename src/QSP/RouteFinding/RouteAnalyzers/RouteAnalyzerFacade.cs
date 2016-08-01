@@ -18,29 +18,30 @@ namespace QSP.RouteFinding.RouteAnalyzers
             AirportManager airportList,
             WaypointList wptList)
         {
+            var sidHandler = SidHandlerFactory.GetHandler(
+                origIcao,
+                navDataLocation,
+                wptList,
+                wptList.GetEditor(),
+                airportList);
+
+            var starHandler = StarHandlerFactory.GetHandler(
+                destIcao,
+                navDataLocation,
+                wptList,
+                wptList.GetEditor(),
+                airportList);
+
             return new AnalyzerWithCommands(
-                new CoordinateFormatter(route).Split(),
+                CoordinateFormatter.Split(route),
                 origIcao,
                 origRwy,
                 destIcao,
                 destRwy,
                 airportList,
                 wptList,
-                SidHandlerFactory.GetHandler(
-                    origIcao,
-                    navDataLocation,
-                    wptList,
-                    wptList.GetEditor(),
-                    airportList)
-                    .SidCollection,
-                StarHandlerFactory.GetHandler(
-                    destIcao,
-                    navDataLocation,
-                    wptList,
-                    wptList.GetEditor(),
-                    airportList)
-                    .StarCollection)
-               .Analyze();
-        }        
+                sidHandler.SidCollection,
+                starHandler.StarCollection).Analyze();
+        }
     }
 }
