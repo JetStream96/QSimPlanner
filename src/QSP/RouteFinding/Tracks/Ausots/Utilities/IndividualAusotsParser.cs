@@ -31,7 +31,8 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
         }
 
         /// <summary>
-        /// Returns null is the given string represents a track which is currently not available.
+        /// Returns null is the given string represents a track which is 
+        /// currently not available.
         /// </summary>
         /// <exception cref="TrackParseException"></exception>
         public AusTrack Parse()
@@ -50,20 +51,22 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
 
             if (TrackAvailble(mainRoute, result.Ident))
             {
-                return new AusTrack(result.Ident,
-                                    result.TimeStart,
-                                    result.TimeEnd,
-                                    result.Remarks,
-                                    Array.AsReadOnly(mainRoute),
-                                    connectRoutes.RouteFrom.AsReadOnly(),
-                                    connectRoutes.RouteTo.AsReadOnly(),
-                                    PreferredFirstLatLon);
+                return new AusTrack(
+                    result.Ident,
+                    result.TimeStart,
+                    result.TimeEnd,
+                    result.Remarks,
+                    Array.AsReadOnly(mainRoute),
+                    connectRoutes.RouteFrom.AsReadOnly(),
+                    connectRoutes.RouteTo.AsReadOnly(),
+                    PreferredFirstLatLon);
             }
 
             return null;
         }
 
-        // Sometimes, a TDM is like this (which indicates this track is not available):
+        // Sometimes, a TDM is like this (which indicates this track is 
+        // not available):
         //
         // TDM TRK YS12 160119120001 
         // 1601191300 1601192200 

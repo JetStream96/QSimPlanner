@@ -35,13 +35,13 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
 
             for (int i = 0; i < result.Length; i++)
             {
-                var trk = new Interpreter(tracksStr[i]).Parse();
+                var trk = Interpreter.Parse(tracksStr[i]);
                 var mainRoute = trk.FlexRoute.ToArray();
 
                 var connectionRoutes =
                     new ConnectionRouteInterpreter(
                         mainRoute,
-                        new ConnectionRouteSeperator(trk.ConnectionRoute).Seperate().AsReadOnly(),
+                        ConnectionRouteSeperator.Seperate(trk.ConnectionRoute),
                         airportList)
                     .Convert();
                 

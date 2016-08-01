@@ -22,9 +22,8 @@ JAPAN ROUTE : ONION OTR5 KALNA
               ACFT LDG KPDX--ORNAI SIMLU KEPKO TOU KEIKO KPDX
               ACFT LDG CYVR--ORNAI SIMLU KEPKO YAZ FOCHE CYVR
         RMK : ACFT LDG OTHER DEST--ORNAI SIMLU KEPKO UPR TO DEST";
-
-            var interpreter = new Interpreter(text);
-            var result = interpreter.Parse();
+            
+            var result = Interpreter.Parse(text);
 
             Assert.AreEqual(1, result.ID);
             Assert.IsTrue(Enumerable.SequenceEqual(
@@ -48,9 +47,8 @@ JAPAN ROUTE : ONION OTR5 KALNA
   NAR ROUTE : ACFT LDG KSEA--ORNAI SIMLU KEPKO TOU MARNR KSEA
               ACFT LDG KPDX--ORNAI SIMLU KEPKO TOU KEIKO KPDX
               ACFT LDG CYVR--ORNAI SIMLU KEPKO YAZ FOCHE CYVR";
-
-            var interpreter = new Interpreter(text);
-            var result = interpreter.Parse();
+            
+            var result = Interpreter.Parse(text);
 
             Assert.AreEqual(1, result.ID);
             Assert.IsTrue(Enumerable.SequenceEqual(

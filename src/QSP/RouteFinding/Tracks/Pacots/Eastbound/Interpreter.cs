@@ -16,16 +16,9 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
     //                 ACFT LDG CYVR--ORNAI SIMLU KEPKO YAZ FOCHE CYVR
     //           RMK : ACFT LDG OTHER DEST--ORNAI SIMLU KEPKO UPR TO DEST
     //
-    public class Interpreter
+    public static class Interpreter
     {
-        private string text;
-
-        public Interpreter(string text)
-        {
-            this.text = text;
-        }
-
-        public EastboundTrackStrings Parse()
+        public static EastboundTrackStrings Parse(string text)
         {
             var result = new EastboundTrackStrings();
 

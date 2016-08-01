@@ -59,11 +59,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private static string CutOffTextAfterParenthesis(string item)
         {
             int index = item.IndexOf(')');
-
-            if (index < 0)
-            {
-                return item;
-            }
+            if (index < 0)  return item;
             return item.Substring(0, index);
         }
     }

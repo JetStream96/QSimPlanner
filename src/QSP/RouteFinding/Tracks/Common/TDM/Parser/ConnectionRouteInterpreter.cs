@@ -1,7 +1,6 @@
 ﻿using QSP.RouteFinding.Airports;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using static QSP.AviationTools.Coordinates.Formatter;
 using static QSP.LibraryExtension.Arrays;
@@ -12,12 +11,12 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
     public class ConnectionRouteInterpreter
     {
         private string[] mainRoute;
-        private ReadOnlyCollection<string> connectRoutes;
+        private IEnumerable<string> connectRoutes;
         private AirportManager airportList;
 
         public ConnectionRouteInterpreter(
-            string[] mainRoute, 
-            ReadOnlyCollection<string> connectRoutes, 
+            string[] mainRoute,
+            IEnumerable<string> connectRoutes, 
             AirportManager airportList)
         {
             this.mainRoute = mainRoute;
@@ -41,7 +40,7 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
                 {
                     if (rte[0] == mainRoute.Last())
                     {
-                        //this route is routeTo
+                        // This route is routeTo
                         if (airportList.Find(rte.Last()) != null)
                         {
                             result.RouteTo.Add(rte.SubArray(0, rte.Length - 1));
