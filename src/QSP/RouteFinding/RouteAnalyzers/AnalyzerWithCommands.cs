@@ -5,6 +5,7 @@ using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using QSP.RouteFinding.RandomRoutes;
@@ -80,6 +81,12 @@ namespace QSP.RouteFinding.RouteAnalyzers
             SidCollection sids,
             StarCollection stars)
         {
+            if (route.Length == 0)
+            {
+                throw new ArgumentException(
+                    "Route input should have at least 1 elements.");
+            }
+
             this.route = route;
             this.origIcao = origIcao;
             this.origRwy = origRwy;
@@ -117,7 +124,12 @@ namespace QSP.RouteFinding.RouteAnalyzers
             {
                 if (i == "AUTO" || i == "RAND")
                 {
-                    AddIfNonEmpty(subRoutes, ref current);
+                    if (current.Count > 0)
+                    {
+                        subRoutes.Add(current);
+                        current = new RouteString();
+                    }
+
                     subRoutes.Add(new RouteString { i });
                 }
                 else
@@ -126,19 +138,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 }
             }
 
-            AddIfNonEmpty(subRoutes, ref current);
+            if (current.Count > 0) subRoutes.Add(current);
 
             return subRoutes;
-        }
-
-        private static void AddIfNonEmpty(
-            List<RouteString> subRoutes, ref RouteString tmp)
-        {
-            if (tmp.Count > 0)
-            {
-                subRoutes.Add(tmp);
-                tmp = new RouteString();
-            }
         }
 
         private void SetRwyWpts()

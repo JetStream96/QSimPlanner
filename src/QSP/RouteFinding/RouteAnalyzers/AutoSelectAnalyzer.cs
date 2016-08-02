@@ -1,6 +1,7 @@
 ﻿using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
+using System;
 using System.Collections.Generic;
 
 namespace QSP.RouteFinding.RouteAnalyzers
@@ -40,8 +41,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             this.wptList = wptList;
         }
 
-        /// <exception cref="InvalidRouteException"></exception>
-        /// <exception cref="WaypointNotFoundException"></exception>
+        // Can throws exception.
         public Route Analyze()
         {
             if (route.Length == 0)
@@ -61,17 +61,21 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 firstWptCandidates.Sort(CompareDistance());
             }
 
+            Exception firstException = null;
+
             foreach (var i in firstWptCandidates)
             {
                 try
                 {
                     return new BasicRouteAnalyzer(route, wptList, i).Analyze();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    if (firstException == null) firstException = ex;
+                }
             }
-
-            // TODO: Error message for user?
-            throw new InvalidRouteException();
+            
+            throw firstException;
         }
 
         public Comparer<int> CompareDistance()

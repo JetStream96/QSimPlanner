@@ -190,7 +190,7 @@ namespace QSP.UI.UserControls.RouteActions
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MsgBoxHelper.ShowWarning(ex.Message);
             }
         }
 

@@ -294,7 +294,6 @@
     <Compile Include="RouteFinding\Data\Interfaces\ICoordinateExtension.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\AnalyzerWithCommands.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\AutoSelectAnalyzer.cs" />
-    <Compile Include="RouteFinding\RouteAnalyzers\Exceptions.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\CoordinateFormatter.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Extractors\SidExtractor.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Extractors\StarExtractor.cs" />
