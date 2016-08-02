@@ -5,7 +5,6 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Pacots;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace UnitTest.RouteFinding.Tracks.Common
@@ -36,10 +35,12 @@ namespace UnitTest.RouteFinding.Tracks.Common
                     "",
                     "",
                     "",
-                    new List<string> { "P1", "P2" }.AsReadOnly(),
-                    new List<string[]>().AsReadOnly(),
-                    new List<string[]>().AsReadOnly(),
+                    new string[] { "P1", "P2" },
+                    new string[0][],
+                    new string[0][],
+                    new LatLon(0.0, 0.0),
                     new LatLon(0.0, 0.0)));
+
             // Assert
             var route = nodes.MainRoute;
 
@@ -89,13 +90,15 @@ namespace UnitTest.RouteFinding.Tracks.Common
                     "",
                     "",
                     "",
-                    new List<string> { "P1", "P2" }.AsReadOnly(),
-                    new List<string[]> { routeFrom }.AsReadOnly(),
-                    new List<string[]>().AsReadOnly(),
+                    new string[] { "P1", "P2" },
+                    new string[][] { routeFrom },
+                    new string[0][],
+                    new LatLon(0.0, 0.0),
                     new LatLon(0.0, 0.0)));
+
             // Assert
-            var pairs = nodes.PairsToAdd;
-            Assert.AreEqual(1, pairs.Count);
+            var pairs = nodes.ConnectionRoutes;
+            Assert.AreEqual(1, pairs.Count());
 
             var pair = pairs.First();
             Assert.AreEqual(q3Index, pair.IndexFrom);

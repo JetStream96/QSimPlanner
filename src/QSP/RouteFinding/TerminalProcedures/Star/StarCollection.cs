@@ -9,19 +9,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
     // A immutable collection of StarEntry for a particular airport.
     public sealed class StarCollection
     {
-        private List<StarEntry> _stars;
-
-        public IReadOnlyList<StarEntry> StarList
-        {
-            get
-            {
-                return _stars;
-            }
-        }
+        public IEnumerable<StarEntry> StarList { get; private set; }
 
         public StarCollection(List<StarEntry> stars)
         {
-            _stars = stars;
+            StarList = stars;
         }
 
         /// <summary>
@@ -33,14 +25,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         /// e.g. 01L, or ENI.</param>
         public StarEntry GetStar(string star, string rwyOrTransition)
         {
-            foreach (var i in _stars)
-            {
-                if (i.Name == star && i.RunwayOrTransition == rwyOrTransition)
-                {
-                    return i;
-                }
-            }
-            return null;
+            return StarList.FirstOrDefault(i =>
+                i.Name == star && i.RunwayOrTransition == rwyOrTransition);
         }
 
         /// <summary>
@@ -48,14 +34,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         /// </summary>
         public StarEntry GetStar(string star)
         {
-            foreach (var i in _stars)
-            {
-                if (i.Name == star && i.Type == EntryType.Common)
-                {
-                    return i;
-                }
-            }
-            return null;
+            return StarList.FirstOrDefault(
+                i => i.Name == star && i.Type == EntryType.Common);
         }
 
         /// <summary>
@@ -66,7 +46,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         /// <param name="rwy">Runway Ident</param>
         public List<string> GetStarList(string rwy)
         {
-            return new ProcedureSelector<StarEntry>(_stars, rwy)
+            return new ProcedureSelector<StarEntry>(StarList, rwy)
                 .GetProcedureList();
         }
 

@@ -195,8 +195,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
                     var mainRoute = new AutoSelectAnalyzer(
                         route.ToArray(),
-                        origRwyWpt.Lat,
-                        origRwyWpt.Lon,
+                        origRwyWpt,
+                        destRwyWpt,
                         wptList).Analyze();
 
                     result.Add(AppendRoute(

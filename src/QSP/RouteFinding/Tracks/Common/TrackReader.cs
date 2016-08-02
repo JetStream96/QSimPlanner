@@ -1,22 +1,23 @@
-using QSP.AviationTools.Coordinates;
+using QSP.LibraryExtension;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
-using QSP.RouteFinding.Airports;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using RouteString = System.Collections.Generic.IReadOnlyList<string>;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
-    // Read the track waypoints as strings, and try to find each waypoints in WptList
+    // Read the track waypoints as strings, and try to find each 
+    // waypoints in WptList.
     public class TrackReader<T> where T : Track
     {
         private WaypointList wptList;
         private AirportManager airportList;
 
-        private List<WptPair> routeFromTo;
         private Route mainRoute;
         private T trk;
 
@@ -31,35 +32,39 @@ namespace QSP.RouteFinding.Tracks.Common
         public TrackNodes Read(T item)
         {
             trk = item;
-            mainRoute = ReadMainRoute(trk.MainRoute);
+            mainRoute = ReadMainRoute(trk.MainRoute.ToList());
 
             // The format of this part is rather unpredictable. 
             // For example, a route can even start with an airway:
             // RTS/CYVR V317 QQ YZT JOWEN 
             // ...
-            // Since this part is not that important, we can allow it to fail and still ignore it.
+            // Since this part is not that important, we can allow it to
+            // fail and still ignore it.
+
+            List<WptPair> connectionRoutes;
+
             try
             {
-                routeFromTo = FindWptAllRouteFrom(trk.RouteFrom);
-                routeFromTo.AddRange(FindWptAllRouteTo(trk.RouteTo));
-                routeFromTo = routeFromTo.Distinct().ToList();
+                var from = GetRouteFrom(trk.RouteFrom);
+                var to = GetRouteTo(trk.RouteTo);
+                connectionRoutes = from.Union(to).ToList();
             }
             catch
             {
-                routeFromTo = new List<WptPair>();
+                connectionRoutes = new List<WptPair>();
             }
 
-            return new TrackNodes(trk.Ident, trk.AirwayIdent, mainRoute, routeFromTo);
+            return new TrackNodes(
+                trk.Ident, trk.AirwayIdent, mainRoute, connectionRoutes);
         }
 
-        #region "Method for routeFrom/To"
-
-        private List<WptPair> GetExtraPairs(string[] rteFrom, double prevLat, double prevLon)
+        private List<WptPair> GetExtraPairs(
+            RouteString rteFrom, ICoordinate previous)
         {
             var result = new List<WptPair>();
             int lastIndex = -1;
 
-            for (int index = 0; index < rteFrom.Length; index++)
+            for (int index = 0; index < rteFrom.Count; index++)
             {
                 if (lastIndex >= 0)
                 {
@@ -69,92 +74,73 @@ namespace QSP.RouteFinding.Tracks.Common
                     }
                     else
                     {
-                        int wpt = SelectWpt(prevLat, prevLon, rteFrom[index]);
+                        int wpt = SelectWpt(rteFrom[index], previous);
                         result.Add(new WptPair(lastIndex, wpt));
                         lastIndex = wpt;
                     }
                 }
                 else
                 {
-                    lastIndex = SelectWpt(prevLat, prevLon, rteFrom[index]);
+                    lastIndex = SelectWpt(rteFrom[index], previous);
                 }
             }
+
             return result;
         }
 
-        private int SelectWpt(double prevLat, double prevLon, string ident)
+        private int SelectWpt(string ident, ICoordinate previous)
         {
             var candidates = wptList.FindAllById(ident);
 
-            if (candidates == null || candidates.Count == 0)
+            if (candidates.Count == 0)
             {
-                throw new TrackWaypointNotFoundException("Waypoint not found.");
+                throw new TrackWaypointNotFoundException(
+                    "Waypoint not found.");
             }
-            return Utilities.GetClosest(prevLat, prevLon, candidates, wptList);
+
+            return candidates.MinBy(i => wptList[i].Distance(previous));
         }
 
         private bool IsAirway(int lastIndex, string airway)
         {
-            if (airway == "UPR")
-            {
-                return true;
-            }
+            if (airway == "UPR") return true;
 
-            foreach (var i in wptList.EdgesFrom(lastIndex))
-            {
-                if (wptList.GetEdge(i).Value.Airway == airway)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return wptList.EdgesFrom(lastIndex).Any(
+                i => wptList.GetEdge(i).Value.Airway == airway);
         }
 
-        private List<WptPair> FindWptAllRouteFrom(ReadOnlyCollection<string[]> rteFrom)
+        private List<WptPair> GetRouteFrom(IEnumerable<RouteString> rteFrom)
         {
-            var result = new List<WptPair>();
             var firstWpt = mainRoute.FirstWaypoint;
-
-            foreach (var i in rteFrom)
-            {
-                result.AddRange(GetExtraPairs(i, firstWpt.Lat, firstWpt.Lon));
-            }
-
-            return result;
+            return rteFrom
+                .SelectMany(i => GetExtraPairs(i, firstWpt))
+                .ToList();
         }
 
-        private List<WptPair> FindWptAllRouteTo(ReadOnlyCollection<string[]> rteTo)
+        private List<WptPair> GetRouteTo(IEnumerable<RouteString> rteTo)
         {
-            var result = new List<WptPair>();
             var lastWpt = mainRoute.LastWaypoint;
-
-            foreach (var i in rteTo)
-            {
-                result.AddRange(GetExtraPairs(i, lastWpt.Lat, lastWpt.Lon));
-            }
-
-            return result;
+            return rteTo
+                .SelectMany(i => GetExtraPairs(i, lastWpt))
+                .ToList();
         }
-
-        #endregion
-
-        #region "Method for main route"
 
         /// <exception cref="InvalidRouteException"></exception>
         /// <exception cref="WaypointNotFoundException"></exception>
-        private Route ReadMainRoute(ReadOnlyCollection<string> rte)
+        private Route ReadMainRoute(List<string> route)
         {
-            LatLon latLon = trk.PreferredFirstLatLon;
+            var latLon = trk.PreferredFirstLatLon;
 
-            return new AutoSelectAnalyzer(
-                CoordinateFormatter.Split(CombineArray(rte)),
-                latLon.Lat,
-                latLon.Lon,
-                wptList)
-                .Analyze();
+            var analyzer = new AutoSelectAnalyzer(
+                CoordinateFormatter.Split(CombineArray(route)),
+                latLon,
+                latLon,
+                wptList);
+
+            return analyzer.Analyze();
         }
 
-        private string CombineArray(ReadOnlyCollection<string> item)
+        private string CombineArray(List<string> item)
         {
             var result = new StringBuilder();
 
@@ -170,8 +156,5 @@ namespace QSP.RouteFinding.Tracks.Common
             }
             return result.ToString();
         }
-
-        #endregion
-
     }
 }

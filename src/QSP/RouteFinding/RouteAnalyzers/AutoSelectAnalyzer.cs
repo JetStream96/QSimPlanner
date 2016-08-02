@@ -25,19 +25,19 @@ namespace QSP.RouteFinding.RouteAnalyzers
     public class AutoSelectAnalyzer
     {
         private string[] route;
-        private double preferredLat;
-        private double preferredLon;
+        private ICoordinate orig;
+        private ICoordinate dest;
         private WaypointList wptList;
 
         public AutoSelectAnalyzer(
             string[] route,
-            double preferredLat,
-            double preferredLon,
+            ICoordinate orig,
+            ICoordinate dest,
             WaypointList wptList)
         {
             this.route = route;
-            this.preferredLat = preferredLat;
-            this.preferredLon = preferredLon;
+            this.orig = orig;
+            this.dest = dest;
             this.wptList = wptList;
         }
 
@@ -58,7 +58,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             if (firstWptCandidates.Count > 1)
             {
-                firstWptCandidates.Sort(CompareDistance());
+                firstWptCandidates.Sort(DistanceSum());
             }
 
             Exception firstException = null;
@@ -78,12 +78,15 @@ namespace QSP.RouteFinding.RouteAnalyzers
             throw firstException;
         }
 
-        public Comparer<int> CompareDistance()
+        public Comparer<int> DistanceSum()
         {
             return Comparer<int>.Create((x, y) =>
             {
-                var disX = wptList[x].Distance(preferredLat, preferredLon);
-                var disY = wptList[y].Distance(preferredLat, preferredLon);
+                var ptX = wptList[x];
+                var ptY = wptList[y];
+
+                var disX = ptX.Distance(orig) + ptX.Distance(dest); 
+                var disY = ptY.Distance(orig) + ptY.Distance(dest);
 
                 return disX.CompareTo(disY);
             });

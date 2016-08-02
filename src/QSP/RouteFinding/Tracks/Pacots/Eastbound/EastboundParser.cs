@@ -1,6 +1,5 @@
 ﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Tracks.Common.TDM.Parser;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -49,10 +48,11 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
                     timeInfo.Start,
                     timeInfo.End,
                     trk.Remark,
-                    Array.AsReadOnly(mainRoute),
-                    connectionRoutes.RouteFrom.AsReadOnly(),
-                    connectionRoutes.RouteTo.AsReadOnly(),
-                    Constants.JapanLatlon);
+                    mainRoute,
+                    connectionRoutes.RouteFrom,
+                    connectionRoutes.RouteTo,
+                    Constants.JapanLatlon,
+                    Constants.USLatlon);
             }
 
             return result;

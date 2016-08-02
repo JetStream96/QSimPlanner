@@ -50,9 +50,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 result.TimeStart,
                 result.TimeEnd,
                 CutOffTextAfterParenthesis(result.Remarks),
-                Array.AsReadOnly(mainRoute),
-                connectRoutes.RouteFrom.AsReadOnly(),
-                connectRoutes.RouteTo.AsReadOnly(),
+                mainRoute,
+                connectRoutes.RouteFrom,
+                connectRoutes.RouteTo,
+                Constants.JapanLatlon,
                 Constants.USLatlon);
         }
 

@@ -38,7 +38,7 @@ namespace QSP.RouteFinding.Tracks.Common
             {
                 AddMainRoute(item);
 
-                foreach (var i in item.PairsToAdd)
+                foreach (var i in item.ConnectionRoutes)
                 {
                     AddPairs(i);
                 }

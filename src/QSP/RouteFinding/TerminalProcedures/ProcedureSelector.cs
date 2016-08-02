@@ -27,10 +27,10 @@ namespace QSP.RouteFinding.TerminalProcedures
 
     public class ProcedureSelector<T> where T : IProcedureEntry
     {
-        private List<T> procedureEntries;
+        private IEnumerable<T> procedureEntries;
         private string rwy;
 
-        public ProcedureSelector(List<T> procedureEntries, string rwy)
+        public ProcedureSelector(IEnumerable<T> procedureEntries, string rwy)
         {
             this.procedureEntries = procedureEntries;
             this.rwy = rwy;

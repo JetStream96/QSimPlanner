@@ -1,11 +1,12 @@
 using QSP.AviationTools.Coordinates;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using System;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.LibraryExtension.Lists;
-using static QSP.RouteFinding.Tracks.Common.Utilities;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -200,7 +201,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             else
             {
                 var wpt = rte.LastWaypoint;
-                lastWpt = GetClosest(wpt.Lat, wpt.Lon, indices, wptList);
+                lastWpt = indices.MinBy(i => wptList[i].Distance(wpt));
             }
 
             return TryappendWpt(wptList[lastWpt]);

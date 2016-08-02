@@ -18,7 +18,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
 
     public class IndividualAusotsParser
     {
-        private static readonly LatLon PreferredFirstLatLon = 
+        private static readonly LatLon PreferredLatLon = 
             new LatLon(-25.0, 133.0);
 
         private string text;
@@ -55,10 +55,11 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
                     result.TimeStart,
                     result.TimeEnd,
                     result.Remarks,
-                    Array.AsReadOnly(mainRoute),
-                    connectRoutes.RouteFrom.AsReadOnly(),
-                    connectRoutes.RouteTo.AsReadOnly(),
-                    PreferredFirstLatLon);
+                    mainRoute,
+                    connectRoutes.RouteFrom,
+                    connectRoutes.RouteTo,
+                    PreferredLatLon,
+                    PreferredLatLon);
             }
 
             return null;

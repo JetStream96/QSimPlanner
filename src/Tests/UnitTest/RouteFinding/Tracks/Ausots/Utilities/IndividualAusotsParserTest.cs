@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Tracks.Ausots.Utilities;
 using System.Collections.Generic;
@@ -48,7 +49,7 @@ GetAirportList(new List<string> { "YSSY" }));
 
             Assert.AreEqual("1511140300", trk.TimeStart);
             Assert.AreEqual("1511141900", trk.TimeEnd);
-            Assert.IsTrue(trk.PreferredFirstLatLon.Equals(new LatLon(-25.0, 133.0)));
+            Assert.IsTrue(trk.PreferredFirstLatLon.LatLonEquals(new LatLon(-25.0, 133.0)));
         }
 
         private static AirportManager GetAirportList(List<string> icao)

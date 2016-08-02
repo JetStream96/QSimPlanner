@@ -1,8 +1,10 @@
-using System.Collections.ObjectModel;
-using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Data.Interfaces;
+using System.Collections.Generic;
+using RouteString = System.Collections.Generic.IReadOnlyList<string>;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
+    // This class is immutable.
     public abstract class Track
     {
         public string Ident { get; private set; }
@@ -11,20 +13,22 @@ namespace QSP.RouteFinding.Tracks.Common
         public string TimeEnd { get; private set; }
         public string Remarks { get; private set; }
 
-        public ReadOnlyCollection<string> MainRoute { get; private set; }
-        public ReadOnlyCollection<string[]> RouteFrom { get; private set; }
-        public ReadOnlyCollection<string[]> RouteTo { get; private set; }
-        public LatLon PreferredFirstLatLon { get; private set; }
+        public RouteString MainRoute { get; private set; }
+        public IReadOnlyList<RouteString> RouteFrom { get; private set; }
+        public IReadOnlyList<RouteString> RouteTo { get; private set; }
+        public ICoordinate PreferredFirstLatLon { get; private set; }
+        public ICoordinate PreferredLastLatLon { get; private set; }
 
         public Track(
             string Ident,
             string TimeStart,
             string TimeEnd,
             string Remarks,
-            ReadOnlyCollection<string> MainRoute,
-            ReadOnlyCollection<string[]> RouteFrom,
-            ReadOnlyCollection<string[]> RouteTo,
-            LatLon PreferredFirstLatLon)
+            RouteString MainRoute,
+            IReadOnlyList<RouteString> RouteFrom,
+            IReadOnlyList<RouteString> RouteTo,
+            ICoordinate PreferredFirstLatLon,
+            ICoordinate PreferredLastLatLon)
         {
             this.Ident = Ident;
             this.TimeStart = TimeStart;
@@ -34,6 +38,7 @@ namespace QSP.RouteFinding.Tracks.Common
             this.RouteFrom = RouteFrom;
             this.RouteTo = RouteTo;
             this.PreferredFirstLatLon = PreferredFirstLatLon;
+            this.PreferredLastLatLon = PreferredLastLatLon;
         }
     }
 }

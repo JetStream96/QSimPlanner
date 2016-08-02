@@ -1,6 +1,7 @@
-using System.Collections.ObjectModel;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Tracks.Common;
-using QSP.AviationTools.Coordinates;
+using System.Collections.Generic;
+using RouteString = System.Collections.Generic.IReadOnlyList<string>;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
@@ -10,24 +11,30 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public sealed override string AirwayIdent
         {
-            get
-            {
-                return "PACOT" + Ident;
-            }
+            get { return "PACOT" + Ident; }
         }
 
         public PacificTrack(
             PacotDirection Direction,
             string Ident,
             string TimeStart,
-            string TimeEnd, string Remarks,
-            ReadOnlyCollection<string> MainRoute,
-            ReadOnlyCollection<string[]> RouteFrom,
-            ReadOnlyCollection<string[]> RouteTo,
-            LatLon PreferredFirstLatLon)
-
-             : base(Ident, TimeStart, TimeEnd, Remarks, MainRoute, 
-                   RouteFrom, RouteTo, PreferredFirstLatLon)
+            string TimeEnd, 
+            string Remarks,
+            RouteString MainRoute,
+            IReadOnlyList<RouteString> RouteFrom,
+            IReadOnlyList<RouteString> RouteTo,
+            ICoordinate PreferredFirstLatLon,
+            ICoordinate PreferredLastLatLon)
+             : base(
+                   Ident,
+                   TimeStart, 
+                   TimeEnd,
+                   Remarks, 
+                   MainRoute, 
+                   RouteFrom,
+                   RouteTo,
+                   PreferredFirstLatLon,
+                   PreferredLastLatLon)
         {
             this.Direction = Direction;
         }

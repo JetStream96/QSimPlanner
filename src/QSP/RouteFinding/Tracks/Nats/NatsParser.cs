@@ -90,8 +90,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                     "",
                     "",
                     "",
-                    new List<string>(route).AsReadOnly(),
-                    Constants.CenterAtlantic));
+                    route));
             }
 
             return tracks;

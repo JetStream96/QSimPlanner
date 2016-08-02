@@ -2,7 +2,6 @@ using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace QSP.RouteFinding.Airports
 {
@@ -20,13 +19,7 @@ namespace QSP.RouteFinding.Airports
         public int TransLvl { get; private set; }
         public int LongestRwyLength { get; private set; }
 
-        public ReadOnlyCollection<RwyData> Rwys
-        {
-            get
-            {
-                return _rwys.AsReadOnly();
-            }
-        }
+        public IReadOnlyList<RwyData> Rwys { get { return _rwys; } }
 
         public Airport(
             string Icao,

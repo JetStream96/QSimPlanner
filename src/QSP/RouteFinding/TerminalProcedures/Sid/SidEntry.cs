@@ -1,6 +1,5 @@
 ﻿using QSP.RouteFinding.Containers;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
@@ -36,13 +35,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         public EntryType Type { get; private set; }
         public bool EndWithVector { get; private set; }
 
-        public ReadOnlyCollection<Waypoint> Waypoints
-        {
-            get
-            {
-                return _wpts.AsReadOnly();
-            }
-        }
+        public IReadOnlyList<Waypoint> Waypoints { get { return _wpts; } }
 
         public SidEntry(
             string RunwayOrTransition,

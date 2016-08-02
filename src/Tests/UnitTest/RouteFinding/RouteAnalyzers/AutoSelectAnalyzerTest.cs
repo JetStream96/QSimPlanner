@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.RouteAnalyzers;
@@ -28,20 +29,20 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 indices.Add(wptList.AddWaypoint(wpts[i]));
             }
 
-            AddNeighbor(wptList, indices[0], "A01", 
+            AddNeighbor(wptList, indices[0], "A01",
                 AirwayType.Enroute, indices[1]);
 
-            AddNeighbor(wptList, indices[1], "A02", 
+            AddNeighbor(wptList, indices[1], "A02",
                 AirwayType.Enroute, indices[2]);
 
             // Added so that there are 2 airways to choose from at P03.
-            AddNeighbor(wptList, indices[1], "A03", 
+            AddNeighbor(wptList, indices[1], "A03",
                 AirwayType.Enroute, indices[3]);
-            
+
             var analyzer = new AutoSelectAnalyzer(
                 new string[] { "P01", "A01", "P02", "A02", "P03" },
-                50.0,
-                -30.0,
+                new LatLon(50.0, -30.0),
+                new LatLon(50.0, -30.0),
                 wptList);
 
             // invoke 
@@ -73,11 +74,11 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             {
                 indices.Add(wptList.AddWaypoint(wpts[i]));
             }
-            
+
             var analyzer = new AutoSelectAnalyzer(
-                new string[] { "P01", "P02"},
-                45.0,
-                40.0,
+                new string[] { "P01", "P02" },
+                new LatLon(45.0, 40.0),
+                new LatLon(45.0, 40.0),
                 wptList);
 
             // invoke 

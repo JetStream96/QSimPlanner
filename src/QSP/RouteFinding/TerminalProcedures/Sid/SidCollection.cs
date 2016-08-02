@@ -2,7 +2,6 @@
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
@@ -10,19 +9,11 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
     // An immutable collection of SidEntry for a particular airport.
     public sealed class SidCollection
     {
-        private List<SidEntry> _sids;
-
-        public ReadOnlyCollection<SidEntry> SidList
-        {
-            get
-            {
-                return new ReadOnlyCollection<SidEntry>(_sids);
-            }
-        }
+        public IEnumerable<SidEntry> SidList { get; private set; }
 
         public SidCollection(List<SidEntry> sids)
         {
-            _sids = sids;
+            SidList = sids;
         }
 
         /// <summary>
@@ -34,14 +25,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// Transition. e.g. 27L, or AVE.</param>
         public SidEntry GetSid(string sid, string rwyOrTransition)
         {
-            foreach (var i in _sids)
-            {
-                if (i.Name == sid && i.RunwayOrTransition == rwyOrTransition)
-                {
-                    return i;
-                }
-            }
-            return null;
+            return SidList.FirstOrDefault(
+                i => i.Name == sid && i.RunwayOrTransition == rwyOrTransition);
         }
 
         /// <summary>
@@ -49,14 +34,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// </summary>
         public SidEntry GetSid(string sid)
         {
-            foreach (var i in _sids)
-            {
-                if (i.Name == sid && i.Type == EntryType.Common)
-                {
-                    return i;
-                }
-            }
-            return null;
+            return SidList.FirstOrDefault(
+                i => i.Name == sid && i.Type == EntryType.Common);
         }
 
         /// <summary>
@@ -67,7 +46,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// <param name="rwy">Runway Ident</param>
         public List<string> GetSidList(string rwy)
         {
-            return new ProcedureSelector<SidEntry>(_sids, rwy)
+            return new ProcedureSelector<SidEntry>(SidList, rwy)
                 .GetProcedureList();
         }
 
