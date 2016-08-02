@@ -1,6 +1,7 @@
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QSP.RouteFinding
 {
@@ -16,7 +17,7 @@ namespace QSP.RouteFinding
         private WaypointList wptList;
 
         public AirwayNodeFinder(
-            int indexStart, string airway, 
+            int indexStart, string airway,
             string identEnd, WaypointList wptList)
         {
             this.indexStart = indexStart;
@@ -67,29 +68,23 @@ namespace QSP.RouteFinding
             {
                 return null;
             }
-            var result = new List<Waypoint>();
 
-            foreach (int i in indices)
-            {
-                result.Add(wptList[i]);
-            }
-            return result;
+            return indices.Select(i => wptList[i]).ToList();
         }
 
         private List<int> FindWptOnAirwayOneDir(FindOnAwyOption para)
         {
             var result = new List<int>();
-            int x = (para == FindOnAwyOption.First) ? 0 : 1;
-            // When x hit 0, start the search
+            bool canStartSearch = para == FindOnAwyOption.First;
 
             int currentIndex = indexStart;
             int prevIndex = -1;
             var currentWpt = wptList[currentIndex];
-            bool updated = true;
+            bool endReached = false;
 
-            while (updated)
+            while (endReached == false)
             {
-                updated = false;
+                endReached = true;
 
                 foreach (int i in wptList.EdgesFrom(currentIndex))
                 {
@@ -99,30 +94,26 @@ namespace QSP.RouteFinding
 
                     if (n.Airway == airway && index != prevIndex)
                     {
-                        if (x == 0)
+                        if (canStartSearch)
                         {
                             prevIndex = currentIndex;
                             currentIndex = index;
                             currentWpt = wptList[currentIndex];
                             result.Add(currentIndex);
 
-                            if (currentWpt.ID == identEnd)
-                            {
-                                return result;
-                            }
-                            else
-                            {
-                                updated = true;
-                                break;
-                            }
+                            if (currentWpt.ID == identEnd) return result;
+
+                            endReached = false;
+                            break;
                         }
                         else
                         {
-                            x--;
+                            canStartSearch = true;
                         }
                     }
                 }
             }
+
             return null;
         }
     }
