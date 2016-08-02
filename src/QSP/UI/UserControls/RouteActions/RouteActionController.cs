@@ -183,10 +183,7 @@ namespace QSP.UI.UserControls.RouteActions
                         airwayNetwork.WptList),
                     airwayNetwork.TracksInUse);
 
-                var expanded = Route.Expanded;
-
-                routeTxtSetter(expanded.ToString(false, false));
-                UpdateRouteDistanceLbl(routeDisLbl, expanded, displayStyle);
+                ShowRouteTxt();
             }
             catch (Exception ex)
             {

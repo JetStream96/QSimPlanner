@@ -246,6 +246,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
                             .Find(startEnd.Start, startEnd.End)
                             .ToRoute();
 
+                        randRoute.Nodes.RemoveFirst();
+                        randRoute.Nodes.RemoveLast();
+
                         RandRouteAddOrigDest(randRoute, analyzed, i);
                         analyzed[i] = randRoute;
                     }
@@ -297,13 +300,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
         {
             if (index == 0)
             {
-                route.Nodes.RemoveFirst();
                 route.AddFirstWaypoint(origRwyWpt, "DCT");
             }
 
             if (index == analyzed.Count - 1)
             {
-                route.Nodes.RemoveLast();
                 route.AddLastWaypoint(destRwyWpt, "DCT");
             }
         }
