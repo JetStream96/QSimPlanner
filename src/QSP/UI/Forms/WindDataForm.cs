@@ -49,8 +49,13 @@ namespace QSP.UI.Forms
             var downloadBtnStyle = new ControlDisableStyleController(
                 downloadBtn, colorStyle);
 
+            var loadFileBtnStyle = new ControlDisableStyleController(
+                loadFileBtn, colorStyle);
+
             downloadBtnStyle.Activate();
+            loadFileBtnStyle.Activate();
             downloadBtn.Enabled = true;
+            loadFileBtn.Enabled = true;
         }
 
         private async void downlaodBtn_Click(object sender, EventArgs e)
@@ -61,6 +66,7 @@ namespace QSP.UI.Forms
         public async Task DownloadWind()
         {
             downloadBtn.Enabled = false;
+            loadFileBtn.Enabled = false;
             ShowWindStatus(WindDownloadStatus.Downloading);
 
             try
@@ -78,6 +84,7 @@ namespace QSP.UI.Forms
             }
 
             downloadBtn.Enabled = true;
+            loadFileBtn.Enabled = true;
         }
 
         private void ShowWindStatus(WindDownloadStatus item)
@@ -149,6 +156,8 @@ namespace QSP.UI.Forms
 
                 try
                 {
+                    downloadBtn.Enabled = false;
+                    loadFileBtn.Enabled = false;
                     ShowWindStatus(WindDownloadStatus.LoadingFromFile);
 
                     await Task.Factory.StartNew(() => LoadFromFile(file));
@@ -161,6 +170,8 @@ namespace QSP.UI.Forms
                         $"Loaded from file {fileNameMsg}",
                         Properties.Resources.GreenLight));
                     windAvailable = true;
+                    downloadBtn.Enabled = true;
+                    loadFileBtn.Enabled = true;
                 }
                 catch (Exception ex)
                 {
