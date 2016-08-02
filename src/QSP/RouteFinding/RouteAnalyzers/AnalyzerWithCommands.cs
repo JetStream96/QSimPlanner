@@ -87,6 +87,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     "Route input should have at least 1 elements.");
             }
 
+            EnsureConsectiveCommands(route);
+
             this.route = route;
             this.origIcao = origIcao;
             this.origRwy = origRwy;
@@ -105,6 +107,22 @@ namespace QSP.RouteFinding.RouteAnalyzers
             var analyzed = ComputeRoutes(subRoutes);
             FillCommands(subRoutes, analyzed);
             return ConnectAll(analyzed);
+        }
+
+        private static void EnsureConsectiveCommands(string[] route)
+        {
+            string[] commands = { "AUTO", "RAND" };
+            for (int i = 0; i < route.Length - 1; i++)
+            {
+                var first = route[i];
+                var second = route[i + 1];
+
+                if (commands.Contains(first) && commands.Contains(second))
+                {
+                    throw new ArgumentException(
+                        $"{first} cannot be followed by {second}");
+                }
+            }
         }
 
         // Group the route into several parts to seperate "AUTO" and "RAND"
