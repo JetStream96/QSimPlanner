@@ -81,9 +81,9 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             }
 
             string sidName = route.First.Value;
-            SidInfo sid;
+            var sid = TryGetSid(sidName, rwyWpt);
 
-            if (TryGetSid(sidName, rwyWpt, out sid))
+            if (sid != null)
             {
                 route.RemoveFirst();
                 var last = origRoute.Last.Value;
@@ -105,19 +105,16 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             }
         }
 
-        private bool TryGetSid(
-            string sidName, Waypoint rwyWpt, out SidInfo result)
+        private SidInfo TryGetSid(string sidName, Waypoint rwyWpt)
         {
             try
             {
-                result = sids.GetSidInfo(sidName, rwy, rwyWpt);
-                return true;
+                return sids.GetSidInfo(sidName, rwy, rwyWpt);
             }
             catch
             {
                 // no SID in route
-                result = null;
-                return false;
+                return null;
             }
         }
     }

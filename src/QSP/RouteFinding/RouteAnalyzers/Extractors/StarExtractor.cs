@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using QSP.RouteFinding.TerminalProcedures.Star;
-using QSP.RouteFinding.AirwayStructure;
+﻿using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.TerminalProcedures.Star;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 {
@@ -61,9 +61,9 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             }
 
             string starName = route.Last.Value;
-            StarInfo star;
+            var star = TryGetStar(starName, rwyWpt);
 
-            if (TryGetStar(starName, rwyWpt, out star))
+            if (star!=null)
             {
                 route.RemoveLast();
 
@@ -79,18 +79,16 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             }
         }
 
-        private bool TryGetStar(string StarName, Waypoint rwyWpt, out StarInfo result)
+        private StarInfo TryGetStar(string StarName, Waypoint rwyWpt)
         {
             try
             {
-                result = stars.GetStarInfo(StarName, rwy, rwyWpt);
-                return true;
+                return stars.GetStarInfo(StarName, rwy, rwyWpt);
             }
             catch
             {
-                // no Star in route
-                result = null;
-                return false;
+                // no Star in route                
+                return null;
             }
         }
     }

@@ -1,6 +1,8 @@
 ﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
+using QSP.RouteFinding.RandomRoutes;
 using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Sid;
@@ -8,8 +10,6 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.RouteFinding.RandomRoutes;
-using QSP.RouteFinding.Data.Interfaces;
 using RouteString = System.Collections.Generic.List<string>;
 
 namespace QSP.RouteFinding.RouteAnalyzers
@@ -289,32 +289,40 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 }
                 else
                 {
-                    int wptTo = wptList.FindByWaypoint(analyzed[index + 1].FirstWaypoint);
+                    int wptTo = wptList.FindByWaypoint(
+                        analyzed[index + 1].FirstWaypoint);
 
                     return new RouteFinderFacade(wptList, airportList)
-                          .FindRoute(origIcao, origRwy, sids, sids.GetSidList(origRwy), wptTo);
+                        .FindRoute(origIcao, origRwy, sids,
+                            sids.GetSidList(origRwy), wptTo);
                 }
             }
             else
             {
                 if (index == analyzed.Count - 1)
                 {
-                    int wptFrom = wptList.FindByWaypoint(analyzed[index - 1].LastWaypoint);
+                    int wptFrom = wptList.FindByWaypoint(
+                        analyzed[index - 1].LastWaypoint);
 
                     return new RouteFinderFacade(wptList, airportList)
-                         .FindRoute(wptFrom, destIcao, destRwy, stars, stars.GetStarList(destRwy));
+                         .FindRoute(wptFrom, destIcao, destRwy, stars,
+                         stars.GetStarList(destRwy));
                 }
                 else
                 {
-                    int wptFrom = wptList.FindByWaypoint(analyzed[index - 1].LastWaypoint);
-                    int wptTo = wptList.FindByWaypoint(analyzed[index + 1].FirstWaypoint);
+                    int wptFrom = wptList.FindByWaypoint(
+                        analyzed[index - 1].LastWaypoint);
+
+                    int wptTo = wptList.FindByWaypoint(
+                        analyzed[index + 1].FirstWaypoint);
 
                     return routeFinder.FindRoute(wptFrom, wptTo);
                 }
             }
         }
 
-        private void RandRouteAddOrigDest(Route route, List<Route> analyzed, int index)
+        private void RandRouteAddOrigDest(
+            Route route, List<Route> analyzed, int index)
         {
             if (index == 0)
             {

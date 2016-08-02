@@ -166,7 +166,6 @@ namespace QSP.UI.UserControls.RouteActions
 
         private void AnalyzeRouteClick(object sender, EventArgs e)
         {
-            //TODO: Need better exception message for AUTO, RAND commands
             try
             {
                 var input = routeTxtGetter().ToUpper();
