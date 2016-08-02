@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using QSP.RouteFinding.RandomRoutes;
 using QSP.RouteFinding.Data.Interfaces;
+using RouteString = System.Collections.Generic.List<string>;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -93,41 +94,50 @@ namespace QSP.RouteFinding.RouteAnalyzers
         public Route Analyze()
         {
             SetRwyWpts();
-            var subRoutes = SplitEntries(route);
+            var subRoutes = GroupEntries(route);
             var analyzed = ComputeRoutes(subRoutes);
             FillCommands(subRoutes, analyzed);
             return ConnectAll(analyzed);
         }
 
-        private static List<List<string>> SplitEntries(string[] route)
+        // Group the route into several parts to seperate "AUTO" and "RAND"
+        // from actual route.
+        // For example, 'A B AUTO C D RAND E' is grouped into:
+        // 'A B'
+        // 'AUTO'
+        // 'C D'
+        // 'RAND'
+        // 'E'
+        private static List<RouteString> GroupEntries(string[] route)
         {
-            var subRoutes = new List<List<string>>();
-            var tmp = new List<string>();
+            var subRoutes = new List<RouteString>();
+            var current = new RouteString();
 
             foreach (var i in route)
             {
                 if (i == "AUTO" || i == "RAND")
                 {
-                    AddIfNonEmpty(subRoutes, ref tmp);
-                    subRoutes.Add(new List<string> { i });
+                    AddIfNonEmpty(subRoutes, ref current);
+                    subRoutes.Add(new RouteString { i });
                 }
                 else
                 {
-                    tmp.Add(i);
+                    current.Add(i);
                 }
             }
-            AddIfNonEmpty(subRoutes, ref tmp);
+
+            AddIfNonEmpty(subRoutes, ref current);
 
             return subRoutes;
         }
 
         private static void AddIfNonEmpty(
-            List<List<string>> subRoutes, ref List<string> tmp)
+            List<RouteString> subRoutes, ref RouteString tmp)
         {
             if (tmp.Count > 0)
             {
                 subRoutes.Add(tmp);
-                tmp = new List<string>();
+                tmp = new RouteString();
             }
         }
 
@@ -142,13 +152,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 airportList.RwyLatLon(destIcao, destRwy));
         }
 
-        private List<Route> ComputeRoutes(List<List<string>> subRoutes)
+        private List<Route> ComputeRoutes(List<RouteString> subRoutes)
         {
             var result = new List<Route>();
 
             for (int i = 0; i < subRoutes.Count; i++)
             {
-                IEnumerable<string> route = subRoutes[i].ToArray();
+                IEnumerable<string> route = subRoutes[i];
 
                 if (route.Count() == 1 &&
                     (route.First() == "AUTO" ||
@@ -215,7 +225,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
         }
 
         private void FillCommands(
-            List<List<string>> subRoutes, List<Route> analyzed)
+            List<RouteString> subRoutes, List<Route> analyzed)
         {
             for (int i = 0; i < subRoutes.Count; i++)
             {
@@ -250,8 +260,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 if (index == analyzed.Count - 1)
                 {
                     return new RouteFinderFacade(wptList, airportList)
-                           .FindRoute(origIcao, origRwy, sids, sids.GetSidList(origRwy),
-                                      destIcao, destRwy, stars, stars.GetStarList(destRwy));
+                        .FindRoute(
+                        origIcao, origRwy, sids, sids.GetSidList(origRwy),
+                        destIcao, destRwy, stars, stars.GetStarList(destRwy));
                 }
                 else
                 {
@@ -284,11 +295,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
         {
             if (index == 0)
             {
+                route.Nodes.RemoveFirst();
                 route.AddFirstWaypoint(origRwyWpt, "DCT");
             }
 
             if (index == analyzed.Count - 1)
             {
+                route.Nodes.RemoveLast();
                 route.AddLastWaypoint(destRwyWpt, "DCT");
             }
         }

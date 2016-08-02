@@ -59,10 +59,14 @@ namespace QSP.RouteFinding
         }
 
         public Route FindRoute(
-            string origIcao, string origRwy,
-            SidCollection sidCol, List<string> sids,
-            string destIcao, string destRwy,
-            StarCollection starCol, List<string> stars)
+            string origIcao, 
+            string origRwy,
+            SidCollection sidCol,
+            List<string> sids,
+            string destIcao,
+            string destRwy,
+            StarCollection starCol, 
+            List<string> stars)
         {
             var editor = wptList.GetEditor();
             var sidHandler = new SidHandler(
