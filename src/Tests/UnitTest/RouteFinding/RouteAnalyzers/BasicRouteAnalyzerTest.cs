@@ -143,7 +143,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 0);
 
             // invoke 
-            Assert.Throws<InvalidIdentifierException>(() =>
+            Assert.Throws<ArgumentException>(() =>
             analyzer.Analyze());
         }
 

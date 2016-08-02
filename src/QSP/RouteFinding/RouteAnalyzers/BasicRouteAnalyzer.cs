@@ -78,8 +78,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 {
                     return;
                 }
+
                 throw new ArgumentException(
-                    "The first waypoint is not a valid lat/lon.");
+                    $"{routeInput[0]} is not a valid coordinate.");
             }
 
             if (wptList.WaypointExists(index) == false)
@@ -99,7 +100,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             rte.AddLastWaypoint(wpt);
         }
 
-        /// <exception cref="InvalidIdentifierException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public Route Analyze()
         {
             lastAwy = null;
@@ -113,7 +114,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     if (TryParseAwy(routeInput[i]) == false &&
                         TryParseWpt(routeInput[i]) == false)
                     {
-                        throw new InvalidIdentifierException(
+                        throw new ArgumentException(
                             $"{routeInput[i]} is not a valid waypoint or " +
                             "airway identifier");
                     }
@@ -123,11 +124,18 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     //this one must be wpt
                     if (TryParseWpt(routeInput[i]) == false)
                     {
-                        throw new InvalidIdentifierException(
+                        throw new ArgumentException(
                             $"Cannot find waypoint {routeInput[i]} on " +
                             $"airway {lastAwy}");
                     }
                 }
+            }
+
+            if (lastAwy != null)
+            {
+                // That last string in routeInput is an airway.
+                throw new ArgumentException(
+                    $"There should be a waypoint after airway {lastAwy}.");
             }
 
             return rte;
@@ -185,7 +193,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             lastAwy = null;
             return true;
         }
-        
+
         private bool TryDirectWpt(string ident)
         {
             var indices = wptList.FindAllById(ident);

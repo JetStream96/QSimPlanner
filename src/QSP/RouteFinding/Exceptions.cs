@@ -37,18 +37,6 @@ namespace QSP.RouteFinding
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }
     }
-    
-    [Serializable]
-    public class InvalidIdentifierException : Exception
-    {
-        public InvalidIdentifierException() { }
-        public InvalidIdentifierException(string message) : base(message) { }
-        public InvalidIdentifierException(string message, Exception inner) : base(message, inner) { }
-        protected InvalidIdentifierException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context) : base(info, context)
-        { }
-    }
 
     [Serializable]
     public class RouteNotFoundException : Exception

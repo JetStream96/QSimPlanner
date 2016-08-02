@@ -261,7 +261,10 @@ namespace QSP.RouteFinding.Routes
                 }
             }
 
-            result.Append(node.Value.AirwayToNext + ' ');
+            if (node.Value.AirwayToNext != "DCT" || ShowDct)
+            {
+                result.Append(node.Value.AirwayToNext + ' ');
+            }
 
             if (ShowLastWaypoint)
             {
