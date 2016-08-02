@@ -11,6 +11,17 @@ namespace UnitTest.RouteFinding.Data.Interfaces
         private const double delta = 1E-8;
 
         [Test]
+        public void LatLonEqualsTest()
+        {
+            var p1 = new pt(2.0, 80.0);
+            var p2 = new pt(2.05, 80.0);
+
+            Assert.IsFalse(p1.LatLonEquals(p2));
+            Assert.IsFalse(p1.LatLonEquals(p2, 0.03));
+            Assert.IsTrue(p1.LatLonEquals(p2, 0.06));
+        }
+
+        [Test]
         public void GetClosestEmptyCollectionShouldThrow()
         {
             var items = new pt[0];
@@ -85,6 +96,27 @@ namespace UnitTest.RouteFinding.Data.Interfaces
         {
             var pts = new pt[] { };
             Assert.AreEqual(0.0, pts.TotalDistance(), delta);
+        }
+
+        [Test]
+        public void ToRouteTest()
+        {
+            pt[] pts =
+            {
+                new pt(5.0, 10.0),
+                new pt(15.0, 20.5)
+            };
+
+            var route = pts.ToRoute();
+
+            Assert.AreEqual(2, route.Count);
+
+            var pt0 = route.FirstWaypoint;
+            Assert.IsTrue(pt0.LatLonEquals(pts[0]));
+            Assert.IsTrue(route.First.Value.AirwayToNext == "DCT");
+
+            var pt1 = route.First.Next.Value;
+            Assert.IsTrue(pt1.LatLonEquals(pts[1]));
         }
 
         private class pt : ICoordinate

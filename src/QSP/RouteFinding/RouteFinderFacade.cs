@@ -19,7 +19,7 @@ namespace QSP.RouteFinding
         public RouteFinderFacade(
             WaypointList wptList,
             AirportManager airportList,
-            string navDataLocation,
+            string navDataLocation = null,
             CountryCodeCollection avoidedCountry = null,
             AvgWindCalculator windCalc = null)
         {
