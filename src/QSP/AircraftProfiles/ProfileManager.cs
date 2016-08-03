@@ -1,6 +1,8 @@
 ﻿using QSP.AircraftProfiles.Configs;
 using QSP.FuelCalculation;
 using System.Collections.Generic;
+using TOTable = QSP.TOPerfCalculation.PerfTable;
+using LdgTable = QSP.LandingPerfCalculation.PerfTable;
 
 namespace QSP.AircraftProfiles
 {
@@ -13,20 +15,9 @@ namespace QSP.AircraftProfiles
 
         public AcConfigManager AcConfigs { get; private set; }
         public IEnumerable<FuelData> FuelData { get; private set; }
-
-        public IEnumerable<TOPerfCalculation.PerfTable> TOTables
-        { get; private set; }
-
-        public IEnumerable<LandingPerfCalculation.PerfTable> LdgTables
-        { get; private set; }
-
-        public IEnumerable<string> Errors
-        {
-            get
-            {
-                return _errors;
-            }
-        }
+        public IEnumerable<TOTable> TOTables { get; private set; }
+        public IEnumerable<LdgTable> LdgTables { get; private set; }
+        public IEnumerable<string> Errors { get { return _errors; } }
 
         /// <exception cref="PerfFileNotFoundException"></exception>
         public void Initialize()
@@ -71,7 +62,7 @@ namespace QSP.AircraftProfiles
             return loadResult.Data;
         }
 
-        private List<TOPerfCalculation.PerfTable> LoadTOTables()
+        private List<TOTable> LoadTOTables()
         {
             var loadResult = new TOPerfCalculation.TOTableLoader().Load();
 
@@ -83,10 +74,10 @@ namespace QSP.AircraftProfiles
             return loadResult.Tables;
         }
 
-        private List<LandingPerfCalculation.PerfTable> LoadLdgTables()
+        private List<LdgTable> LoadLdgTables()
         {
-            var loadResult = new LandingPerfCalculation.LdgTableLoader()
-                                 .Load();
+            var loadResult =
+                new LandingPerfCalculation.LdgTableLoader().Load();
 
             if (loadResult.Message != null)
             {

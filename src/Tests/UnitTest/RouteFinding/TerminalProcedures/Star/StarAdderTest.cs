@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using static QSP.LibraryExtension.Lists;
 using static UnitTest.Common.Constants;
-using static UnitTest.RouteFinding.RouteAnalyzers.Common;
+using static UnitTest.RouteFinding.Common;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
 {

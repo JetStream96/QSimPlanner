@@ -7,10 +7,10 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static QSP.LibraryExtension.Lists;
 using static UnitTest.Common.Constants;
-using static UnitTest.RouteFinding.RouteAnalyzers.Common;
-using System.Linq;
+using static UnitTest.RouteFinding.Common;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 {

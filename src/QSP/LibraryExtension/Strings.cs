@@ -160,6 +160,14 @@ namespace QSP.LibraryExtension
             char[] spaces = { ' ', '\t' };
             return item.SkipWhile(s => s.All(c => spaces.Contains(c)));
         }
+
+        public static bool EqualsIgnoreNewlineStyle(
+            this string item, string other)
+        {
+            item = item.Replace("\r\n", "\n");
+            other = other.Replace("\r\n", "\n");
+            return item == other;
+        }
     }
 }
 

@@ -8,7 +8,7 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using System.Collections.Generic;
-using static UnitTest.RouteFinding.RouteAnalyzers.Common;
+using static UnitTest.RouteFinding.Common;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
 {

@@ -1,11 +1,12 @@
-﻿using QSP.RouteFinding.Airports;
+﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Routes;
 using System;
 using System.Linq;
 
-namespace UnitTest.RouteFinding.RouteAnalyzers
+namespace UnitTest.RouteFinding
 {
     public static class Common
     {
@@ -46,6 +47,13 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             }
 
             return route;
+        }
+
+        public static AirportManager GetAirportManager(params Airport[] items)
+        {
+            var col = new AirportCollection();
+            items.ForEach(i => col.Add(i));
+            return new AirportManager(col);
         }
 
         public static Airport GetAirport(string icao, params RwyData[] rwys)

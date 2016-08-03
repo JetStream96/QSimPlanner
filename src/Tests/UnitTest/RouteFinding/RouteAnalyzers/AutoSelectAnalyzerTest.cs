@@ -4,7 +4,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.RouteAnalyzers;
 using System.Collections.Generic;
-using static UnitTest.RouteFinding.RouteAnalyzers.Common;
+using static UnitTest.RouteFinding.Common;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
 {
