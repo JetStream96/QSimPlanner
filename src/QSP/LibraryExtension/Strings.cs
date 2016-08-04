@@ -64,15 +64,7 @@ namespace QSP.LibraryExtension
         {
             return item.IndicesOf(target, 0, item.Length);
         }
-
-        public static void SetEmptyIfNull(ref string item)
-        {
-            if (item == null)
-            {
-                item = string.Empty;
-            }
-        }
-
+        
         /// <summary>
         /// Returns a new string where all occurence in oldValue 
         /// is replaced by newValue.

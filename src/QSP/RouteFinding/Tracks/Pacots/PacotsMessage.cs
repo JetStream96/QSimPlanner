@@ -1,16 +1,14 @@
-using QSP.LibraryExtension;
 using QSP.RouteFinding.Tracks.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using System.Net;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    // TODO: Add unit test.
     public class PacotsMessage : TrackMessage
     {
         public static readonly string TrackSystem = "Pacots";
@@ -129,9 +127,9 @@ namespace QSP.RouteFinding.Tracks.Pacots
             s.Append(Header);
             s.Append("\n\nTime updated: " + TimeStamp);
             s.Append("\n\n" + HeaderKzak + "\n\n");
-            s.Append(GetStringTracks(WestboundTracks));
+            s.Append(string.Join("\n", WestboundTracks));
             s.Append("\n\n" + HeaderRjjj + "\n\n");
-            s.Append(GetStringTracks(EastboundTracks));
+            s.Append(string.Join("\n", EastboundTracks));
 
             return s.ToString();
         }
@@ -152,13 +150,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private static XElement[] GetXElement(IEnumerable<string> tracks)
         {
             return tracks.Select(s => new XElement("Track", s)).ToArray();
-        }
-
-        private static string GetStringTracks(IEnumerable<string> tracks)
-        {
-            var s = new StringBuilder();
-            tracks.ForEach(i => s.AppendLine(i + "\n"));
-            return s.ToString();
-        }
+        }        
     }
 }

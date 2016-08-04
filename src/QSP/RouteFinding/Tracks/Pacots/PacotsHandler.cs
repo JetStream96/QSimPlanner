@@ -34,8 +34,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             this.tracksInUse = tracksInUse;
             AddedToWptList = false;
         }
-
-        // TODO: Maybe have different exception messages to distinguish west/east parse error?
+        
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()

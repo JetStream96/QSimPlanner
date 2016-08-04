@@ -8,8 +8,7 @@ namespace QSP.RouteFinding.Containers.CountryCode
         private List<int> codeList;
         private HashSet<int> codeSet;
 
-        public CountryCodeCollection() : this(new int[0])
-        { }
+        public CountryCodeCollection() : this(new int[0]) { }
 
         public CountryCodeCollection(IEnumerable<int> codes)
         {
