@@ -81,6 +81,7 @@ namespace QSP.UI.UserControls
 
         private async void UpdateAllMetarTaf(object sender, EventArgs e)
         {
+            updateMetarBtn.Enabled = false;
             var orig = OrigTask();
             var dest = DestTask();
             var altn = AltnTask().ToList();
@@ -99,6 +100,7 @@ namespace QSP.UI.UserControls
 
             metarRichTxtBox.Text = string.Join("\n\n", result);
             metarLastUpdatedLbl.Text = $"Last Updated : {DateTime.Now}";
+            updateMetarBtn.Enabled = true;
         }
 
         private Task<string> OrigTask()
