@@ -59,13 +59,13 @@ namespace QSP.RouteFinding
         }
 
         public Route FindRoute(
-            string origIcao, 
+            string origIcao,
             string origRwy,
             SidCollection sidCol,
             List<string> sids,
             string destIcao,
             string destRwy,
-            StarCollection starCol, 
+            StarCollection starCol,
             List<string> stars)
         {
             var editor = wptList.GetEditor();
@@ -149,21 +149,6 @@ namespace QSP.RouteFinding
                 star,
                 new StarHandler(icao, starCol, wptList, editor, airportList),
                 editor);
-        }
-    }
-
-    public class AirportInfo
-    {
-        public string Icao { get; private set; }
-        public string Rwy { get; private set; }
-        public IEnumerable<string> Procedures { get; private set; }
-
-        public AirportInfo(
-            string Icao, string Rwy, IEnumerable<string> Procedures)
-        {
-            this.Icao = Icao;
-            this.Rwy = Rwy;
-            this.Procedures = Procedures;
         }
     }
 }
