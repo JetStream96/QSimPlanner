@@ -4,6 +4,8 @@ A tool for fuel planning and take-off/landing performance calculations.
 ### Features
 ##### Flight planner
 - Automatic route finder, based on user-selected departure/arrival runways and SID/STAR. Also finds route to alternate airport.
+- Find wind-optimized route.
+- Possible to find a route which avoids certain country's airspace.
 - Analyze existing routes, and use "AUTO" and "RAND" commands to complete a partial route. "X AUTO Y" finds a route between X and Y. "X RAND Y" finds a random route between X and Y.
 - Automatically download and parse tracks. Supports North Atlantic Tracks (NATs), Pacific Tracks (PACOTs) and Australian Organised Track Structure (AUSOTS).
 - Export flight plans to PMDG .rte format.
@@ -31,9 +33,7 @@ These are the projects contained in this repository:
 **QSP**: The base class library for QSimPlanner and QspLite.
 
 ### Project Status
-**QSimPlanner**: Some compenents for this project was written quite a while ago. Needs to be refactored and many unit tests have to be added. Also the UI needs complete rework. The application works at its current state but only if you are very familiar with this project.
-
-**QspLite**: Currently the aircrafts available are
+Currently the aircrafts available are
 - 737-600
 - 737-700
 - 737-800
@@ -47,15 +47,8 @@ These are the projects contained in this repository:
 More aircrafts need to be added, especially the A320 and A330 families. It would be nice if more Boeing aircrafts can be added, but obtaining required performance data may be difficult.
 
 ### Roadmap
-##### Short term
-- Add unit tests for classes used in the flight planner.
 - Add more aircraft profiles for QspLite, including A320/A330 series.
-- More features for route finder. e.g. Finding shortest route based on wind,  avoiding certain country's airspace.
 - Add ETOPS planning and redispatch.
-
-##### Future
-- Complete UI rework for QSimPlanner, with UI tests.
-- Maybe some other cool things.
 
 ### Contributing
 You are welcomed to submit pull requests to this repository. Feel free to leave any questions or suggestions.
