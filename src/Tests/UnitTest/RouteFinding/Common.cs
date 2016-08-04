@@ -68,11 +68,18 @@ namespace UnitTest.RouteFinding
             ident, "", 0, 0, true, true, "", "", lat, lon, 0, 0.0, 0, "", 0);
         }
 
-        public static void AddNeighbor(WaypointList wptList, int index1, 
+        public static void AddNeighbor(this WaypointList wptList, int index1, 
             string airway, AirwayType type, int index2)
         {
             wptList.AddNeighbor(index1, index2,
                new Neighbor(airway, type, wptList.Distance(index1, index2)));
+        }
+
+        public static WaypointList GetWptList(params Waypoint[] waypoints)
+        {
+            var wptList = new WaypointList();
+            waypoints.ForEach(w => wptList.AddWaypoint(w));
+            return wptList;
         }
     }
 }

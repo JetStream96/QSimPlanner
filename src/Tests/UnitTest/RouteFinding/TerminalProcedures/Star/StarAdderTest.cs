@@ -87,9 +87,9 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             int index2 = wptList.AddWaypoint(
                 new Waypoint("27N050E", 27.0, 50.0));
 
-            AddNeighbor(wptList, index1, "AIRWAY1",
+            wptList.AddNeighbor(index1, "AIRWAY1",
                 AirwayType.Terminal, index2);
-            AddNeighbor(wptList, index2, "AIRWAY1",
+            wptList.AddNeighbor(index2, "AIRWAY1",
                 AirwayType.Terminal, index1);
 
             return wptList;
@@ -210,7 +210,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             int indexNeighbor = wptList.AddWaypoint(
                 new Waypoint("27N050E", 27.0, 50.0));
 
-            AddNeighbor(wptList, index, "AIRWAY1",
+            wptList.AddNeighbor(index, "AIRWAY1",
                 AirwayType.Terminal, indexNeighbor);
             return wptList;
         }
