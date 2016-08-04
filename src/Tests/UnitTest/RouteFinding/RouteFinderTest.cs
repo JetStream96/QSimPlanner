@@ -66,7 +66,7 @@ namespace UnitTest.RouteFindingTest
         public void CanUtilizeWind()
         {
             var w1 = new Waypoint("1", -1.0, 0.0);
-            var w2 = new Waypoint("2", 0.0, 1.0);
+            var w2 = new Waypoint("2", 0.0, 0.999);
             var w3 = new Waypoint("3", 0.0, -1.0);
             var w4 = new Waypoint("4", 1.0, 0.0);
 
