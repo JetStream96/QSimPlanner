@@ -162,14 +162,14 @@ namespace QSP.RouteFinding
             var region = new RouteSeachRegion(
                 wptList, startPtIndex, endPtIndex);
 
-            region.MaxDistanceSum = region.DirectDistance + 500.0;
+            region.MaxDistanceSum = region.DirectDistance * 1.25;
             bool routeFound = false;
 
             while (routeFound == false &&
                 region.MaxDistanceSum <= region.MaxPossibleDistanceSum)
             {
-                region.MaxDistanceSum *= 2.0;
                 routeFound = FindRouteAttempt(region, FindRouteData);
+                region.MaxDistanceSum *= 1.5;
             }
 
             if (routeFound)
@@ -283,7 +283,7 @@ namespace QSP.RouteFinding
                 bool inRange =
                     wptList.Distance(p.StartPtIndex, wptIndex) +
                     wptList.Distance(p.EndPtIndex, wptIndex) <
-                    2.0 * p.MaxDistanceSum;
+                    p.MaxDistanceSum;
 
                 data[wptIndex].WithInRange =
                     inRange ? InRange.Yes : InRange.No;

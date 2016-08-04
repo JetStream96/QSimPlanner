@@ -13,5 +13,17 @@ namespace QSP.Utilities
             sw.Stop();
             return sw.ElapsedMilliseconds;
         }
+
+        public static void PrintTime(Action action)
+        {
+            var time = GetMilliseconds(action);
+            Console.WriteLine($"Time elapsed: {time} ms.");
+        }
+
+        public static void ShowTimeInMessageBox(Action action)
+        {
+            var time = GetMilliseconds(action);
+            System.Windows.Forms.MessageBox.Show($"Time elapsed: {time} ms.");
+        }
     }
 }

@@ -1,7 +1,7 @@
 using QSP.MathTools.Interpolation;
 using System;
 
-namespace QSP
+namespace QSP.WindAloft
 {
     public class WindTable
     {

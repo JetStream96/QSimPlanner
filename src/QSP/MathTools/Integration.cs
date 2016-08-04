@@ -25,7 +25,8 @@ namespace QSP.MathTools
             }
 
             double sum = 0.0;
-            int numIntervals = (int)Math.Ceiling((upperLimit - lowerLimit) / delta);
+            int numIntervals = (int)Math.Ceiling(
+                (upperLimit - lowerLimit) / delta);
 
             for (int i = 0; i < numIntervals - 1; i++)
             {
