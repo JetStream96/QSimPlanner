@@ -1,9 +1,11 @@
-﻿using QSP.LibraryExtension;
+﻿using System.Collections.Generic;
 using System.Net;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace QSP.WindAloft
 {
-    public class LastestDataSetFinder
+    public static class LastestDataSetFinder
     {
         // If the html source is longer than this number,
         // it's considered a valid page to return.
@@ -11,55 +13,40 @@ namespace QSP.WindAloft
         //  a page with file unavailable has only 700.)
         private const int sourceCodeLenCriteria = 9000;
 
-        private int numLinksTried = 0;
-        string mainPageSource;
-
-        public FindResult Find()
+        public static FindResult Find()
         {
-            string src = string.Empty;
-
             using (var client = new WebClient())
             {
-                mainPageSource = client.DownloadString(
+                var mainPageSource = client.DownloadString(
                     GribDownloader.HomePageUrl);
 
-                string url = string.Empty;
+                var urls = GetUrls(mainPageSource);
 
-                while (src.Length < sourceCodeLenCriteria)
+                foreach (var i in urls)
                 {
                     try
                     {
-                        url = LastestUrl();
-                        src = client.DownloadString(url);
+                        var src = client.DownloadString(i);
+
+                        if (src.Length >= sourceCodeLenCriteria)
+                        {
+                            return new FindResult() { Url = i, Source = src };
+                        }
                     }
-                    catch
-                    {
-                        throw new WindNotAvailException();
-                    }
+                    catch { }
                 }
 
-                return new FindResult() { Url = url, Source = src };
-            }
-        }
-
-        public struct FindResult { public string Url; public string Source; }
-
-        private string LastestUrl()
-        {
-            try
-            {
-                int i = mainPageSource.NthOccurence(
-                    "<a href=\"", ++numLinksTried) +
-                    "<a href=\"".Length;
-
-                int j = mainPageSource.IndexOf("\">", i);
-                return mainPageSource.Substring(i, j - i);
-            }
-            catch
-            {
                 throw new WindNotAvailException();
             }
         }
 
+        public struct FindResult { public string Url, Source; }
+
+        private static IEnumerable<string> GetUrls(string html)
+        {
+            var pattern = "<a href=\"([^\"]+)\">";
+            var matches = Regex.Matches(html, pattern);
+            return matches.Cast<Match>().Select(m => m.Groups[1].Value);
+        }
     }
 }

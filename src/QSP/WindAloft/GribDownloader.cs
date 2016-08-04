@@ -17,7 +17,7 @@ namespace QSP.WindAloft
         /// <exception cref="DownloadGribFileException"></exception>
         public void DownloadGribFile(string filePath)
         {
-            var x = new LastestDataSetFinder().Find();
+            var x = LastestDataSetFinder.Find();
             webPageUrl = x.Url;
             webPageSrc = x.Source;
 
