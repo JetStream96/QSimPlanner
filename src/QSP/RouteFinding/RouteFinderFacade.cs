@@ -151,4 +151,19 @@ namespace QSP.RouteFinding
                 editor);
         }
     }
+
+    public class AirportInfo
+    {
+        public string Icao { get; private set; }
+        public string Rwy { get; private set; }
+        public IEnumerable<string> Procedures { get; private set; }
+
+        public AirportInfo(
+            string Icao, string Rwy, IEnumerable<string> Procedures)
+        {
+            this.Icao = Icao;
+            this.Rwy = Rwy;
+            this.Procedures = Procedures;
+        }
+    }
 }

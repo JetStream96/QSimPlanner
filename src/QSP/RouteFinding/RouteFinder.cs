@@ -7,8 +7,9 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.WindAloft;
-using System;
 using System.Collections.Generic;
+using static QSP.AviationTools.Constants;
+using static System.Math;
 
 namespace QSP.RouteFinding
 {
@@ -158,16 +159,17 @@ namespace QSP.RouteFinding
             var FindRouteData = new RouteFindingData(
                 wptList.NodeIndexUpperBound + 1);
 
-            var regionPara = new RouteSeachRegion(
-                startPtIndex, endPtIndex, 0.0, wptList);
+            var region = new RouteSeachRegion(
+                wptList, startPtIndex, endPtIndex);
 
+            region.MaxDistanceSum = region.DirectDistance + 500.0;
             bool routeFound = false;
 
-            while (routeFound == false && regionPara.c <= 3000.0)
+            while (routeFound == false &&
+                region.MaxDistanceSum <= region.MaxPossibleDistanceSum)
             {
-                regionPara.c += 500.0;
-                routeFound =
-                    FindRouteAttempt(regionPara, FindRouteData);
+                region.MaxDistanceSum *= 2.0;
+                routeFound = FindRouteAttempt(region, FindRouteData);
             }
 
             if (routeFound)
@@ -269,19 +271,19 @@ namespace QSP.RouteFinding
         }
 
         private bool WptWithinRange(RouteFindingData findRouteData,
-            int wptIndex, RouteSeachRegion regionPara)
+            int wptIndex, RouteSeachRegion region)
         {
             var data = findRouteData.WaypointData;
 
             if (data[wptIndex].WithInRange == InRange.Unknown)
             {
                 // Suppose the orig and dest rwys are already in the wptList
-                var p = regionPara;
+                var p = region;
 
                 bool inRange =
                     wptList.Distance(p.StartPtIndex, wptIndex) +
                     wptList.Distance(p.EndPtIndex, wptIndex) <
-                    2 * Math.Sqrt(p.b * p.b + p.c * p.c);
+                    2.0 * p.MaxDistanceSum;
 
                 data[wptIndex].WithInRange =
                     inRange ? InRange.Yes : InRange.No;
@@ -346,21 +348,23 @@ namespace QSP.RouteFinding
 
         private class RouteSeachRegion
         {
-            public int StartPtIndex;
-            public int EndPtIndex;
-            public double b;
-            public double c;
+            public readonly double MaxPossibleDistanceSum = PI * EarthRadiusNm;
+
+            public int StartPtIndex { get; private set; }
+            public int EndPtIndex { get; private set; }
+            public double DirectDistance { get; private set; }
+            public double MaxDistanceSum { get; set; }
 
             public RouteSeachRegion(
+                WaypointList wptList,
                 int StartPtIndex,
                 int EndPtIndex,
-                double c,
-                WaypointList wptList)
+                double MaxDistanceSum = 0.0)
             {
                 this.StartPtIndex = StartPtIndex;
                 this.EndPtIndex = EndPtIndex;
-                this.c = c;
-                b = 0.5 * wptList.Distance(this.StartPtIndex, this.EndPtIndex);
+                this.MaxDistanceSum = MaxDistanceSum;
+                DirectDistance = wptList.Distance(StartPtIndex, EndPtIndex);
             }
         }
 
