@@ -2,6 +2,8 @@
 using QSP.Utilities;
 using System;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace QSimPlanner
 {
@@ -13,23 +15,40 @@ namespace QSimPlanner
         [STAThread]
         static void Main()
         {
-            var domain = AppDomain.CurrentDomain;
-            domain.UnhandledException += (sender, e) =>
+            using (var mutex = new Mutex(false, $"Global\\{GetGuid()}"))
             {
-                LoggerInstance.WriteToLog((Exception)e.ExceptionObject);
-                MsgBoxHelper.ShowError(
-                    "An unexpected error occurred. " +
-                    "The application will now quit.");
-                Environment.Exit(1);
-            };
+                if (!mutex.WaitOne(0, false))
+                {
+                    MsgBoxHelper.ShowError("QSimPlanner is already running.");
+                    return;
+                }
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+                var domain = AppDomain.CurrentDomain;
+                domain.UnhandledException += (sender, e) =>
+                {
+                    LoggerInstance.WriteToLog((Exception)e.ExceptionObject);
+                    MsgBoxHelper.ShowError(
+                        "An unexpected error occurred. " +
+                        "The application will now quit.");
+                    Environment.Exit(1);
+                };
 
-            var mainFrm = new QSP.UI.Forms.QspForm();
-            mainFrm.Init();
-            
-            Application.Run(mainFrm);
-        }        
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
+                var mainFrm = new QSP.UI.Forms.QspForm();
+                mainFrm.Init();
+
+                Application.Run(mainFrm);
+            }
+        }
+
+        static string GetGuid()
+        {
+            var attributes = typeof(Program).Assembly
+                .GetCustomAttributes(typeof(GuidAttribute), true);
+
+            return ((GuidAttribute)attributes[0]).Value;
+        }
     }
 }

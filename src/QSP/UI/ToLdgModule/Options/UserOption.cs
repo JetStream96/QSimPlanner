@@ -23,8 +23,7 @@ namespace QSP.UI.ToLdgModule.Options
                 return new UserOption(
                     DataSource.Type.OpenData,
                     @"NavData\OpenData",
-                    "");// TODO: Maybe check registry to 
-                        // find the path automatically?
+                    "");
             }
         }
     }
