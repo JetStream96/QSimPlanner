@@ -30,7 +30,6 @@
         {
             this.TabControl1 = new System.Windows.Forms.TabControl();
             this.TabPage1 = new System.Windows.Forms.TabPage();
-            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.GroupBox17 = new System.Windows.Forms.GroupBox();
@@ -47,11 +46,13 @@
             this.metarRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.TabPage6 = new System.Windows.Forms.TabPage();
             this.GroupBox19 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.destIcaoLbl = new System.Windows.Forms.Label();
             this.updateDesForcastBtn = new System.Windows.Forms.Button();
             this.desForcastLastUpdatedLbl = new System.Windows.Forms.Label();
             this.desForcastRichTxtBox = new System.Windows.Forms.RichTextBox();
-            this.destIcaoLbl = new System.Windows.Forms.Label();
+            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabControl1.SuspendLayout();
             this.TabPage1.SuspendLayout();
             this.TabPage2.SuspendLayout();
@@ -64,7 +65,8 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.TabPage6.SuspendLayout();
             this.GroupBox19.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControl1
@@ -89,17 +91,6 @@
             this.TabPage1.TabIndex = 0;
             this.TabPage1.Text = "Airport Data";
             this.TabPage1.UseVisualStyleBackColor = true;
-            // 
-            // airportMapControl
-            // 
-            this.airportMapControl.Airports = null;
-            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.airportMapControl.BrowserEnabled = false;
-            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
-            this.airportMapControl.Name = "airportMapControl";
-            this.airportMapControl.Size = new System.Drawing.Size(1024, 670);
-            this.airportMapControl.StaticMapEnabled = false;
-            this.airportMapControl.TabIndex = 0;
             // 
             // TabPage2
             // 
@@ -236,7 +227,8 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.updateMetarBtn, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.metarLastUpdatedLbl, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(666, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(661, 3);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 3, 8, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -294,41 +286,55 @@
             // 
             // GroupBox19
             // 
-            this.GroupBox19.Controls.Add(this.tableLayoutPanel6);
-            this.GroupBox19.Controls.Add(this.destIcaoLbl);
-            this.GroupBox19.Controls.Add(this.desForcastRichTxtBox);
+            this.GroupBox19.Controls.Add(this.tableLayoutPanel7);
             this.GroupBox19.Location = new System.Drawing.Point(0, 0);
             this.GroupBox19.Name = "GroupBox19";
-            this.GroupBox19.Size = new System.Drawing.Size(696, 372);
+            this.GroupBox19.Size = new System.Drawing.Size(696, 425);
             this.GroupBox19.TabIndex = 0;
             this.GroupBox19.TabStop = false;
             this.GroupBox19.Text = "Descend Forcast";
             // 
-            // tableLayoutPanel6
+            // tableLayoutPanel7
             // 
-            this.tableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel6.AutoSize = true;
-            this.tableLayoutPanel6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Controls.Add(this.updateDesForcastBtn, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.desForcastLastUpdatedLbl, 0, 0);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(272, 24);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(407, 41);
-            this.tableLayoutPanel6.TabIndex = 83;
+            this.tableLayoutPanel7.ColumnCount = 1;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.desForcastRichTxtBox, 0, 1);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(6, 24);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 2;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(684, 395);
+            this.tableLayoutPanel7.TabIndex = 1;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.destIcaoLbl);
+            this.panel1.Controls.Add(this.updateDesForcastBtn);
+            this.panel1.Controls.Add(this.desForcastLastUpdatedLbl);
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(678, 53);
+            this.panel1.TabIndex = 1;
+            // 
+            // destIcaoLbl
+            // 
+            this.destIcaoLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.destIcaoLbl.AutoSize = true;
+            this.destIcaoLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.destIcaoLbl.Location = new System.Drawing.Point(3, 12);
+            this.destIcaoLbl.Name = "destIcaoLbl";
+            this.destIcaoLbl.Size = new System.Drawing.Size(151, 23);
+            this.destIcaoLbl.TabIndex = 0;
+            this.destIcaoLbl.Text = "Destination : RCTP";
             // 
             // updateDesForcastBtn
             // 
             this.updateDesForcastBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateDesForcastBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updateDesForcastBtn.Image = global::QSP.Properties.Resources.processing9;
             this.updateDesForcastBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.updateDesForcastBtn.Location = new System.Drawing.Point(296, 0);
-            this.updateDesForcastBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.updateDesForcastBtn.Location = new System.Drawing.Point(564, 3);
             this.updateDesForcastBtn.Name = "updateDesForcastBtn";
             this.updateDesForcastBtn.Size = new System.Drawing.Size(111, 41);
             this.updateDesForcastBtn.TabIndex = 80;
@@ -342,7 +348,7 @@
             this.desForcastLastUpdatedLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.desForcastLastUpdatedLbl.AutoSize = true;
             this.desForcastLastUpdatedLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.desForcastLastUpdatedLbl.Location = new System.Drawing.Point(3, 9);
+            this.desForcastLastUpdatedLbl.Location = new System.Drawing.Point(232, 12);
             this.desForcastLastUpdatedLbl.Margin = new System.Windows.Forms.Padding(3);
             this.desForcastLastUpdatedLbl.Name = "desForcastLastUpdatedLbl";
             this.desForcastLastUpdatedLbl.Size = new System.Drawing.Size(290, 23);
@@ -351,22 +357,24 @@
             // 
             // desForcastRichTxtBox
             // 
+            this.desForcastRichTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.desForcastRichTxtBox.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.desForcastRichTxtBox.Location = new System.Drawing.Point(13, 71);
+            this.desForcastRichTxtBox.Location = new System.Drawing.Point(3, 62);
             this.desForcastRichTxtBox.Name = "desForcastRichTxtBox";
-            this.desForcastRichTxtBox.Size = new System.Drawing.Size(666, 287);
+            this.desForcastRichTxtBox.Size = new System.Drawing.Size(678, 330);
             this.desForcastRichTxtBox.TabIndex = 1;
             this.desForcastRichTxtBox.Text = "";
             // 
-            // destIcaoLbl
+            // airportMapControl
             // 
-            this.destIcaoLbl.AutoSize = true;
-            this.destIcaoLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.destIcaoLbl.Location = new System.Drawing.Point(9, 33);
-            this.destIcaoLbl.Name = "destIcaoLbl";
-            this.destIcaoLbl.Size = new System.Drawing.Size(151, 23);
-            this.destIcaoLbl.TabIndex = 0;
-            this.destIcaoLbl.Text = "Destination : RCTP";
+            this.airportMapControl.Airports = null;
+            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.airportMapControl.BrowserEnabled = false;
+            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
+            this.airportMapControl.Name = "airportMapControl";
+            this.airportMapControl.Size = new System.Drawing.Size(1024, 670);
+            this.airportMapControl.StaticMapEnabled = false;
+            this.airportMapControl.TabIndex = 0;
             // 
             // MiscInfoControl
             // 
@@ -396,9 +404,9 @@
             this.tableLayoutPanel2.PerformLayout();
             this.TabPage6.ResumeLayout(false);
             this.GroupBox19.ResumeLayout(false);
-            this.GroupBox19.PerformLayout();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -425,9 +433,10 @@
         private System.Windows.Forms.Label metarLastUpdatedLbl;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         internal System.Windows.Forms.Button updateDesForcastBtn;
         private System.Windows.Forms.Label desForcastLastUpdatedLbl;
         internal ToLdgModule.AirportMap.AirportMapControl airportMapControl;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.Panel panel1;
     }
 }

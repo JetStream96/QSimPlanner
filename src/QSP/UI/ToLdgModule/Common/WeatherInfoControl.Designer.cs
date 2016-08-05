@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.GetMetarBtn = new System.Windows.Forms.Button();
+            this.ViewMetarBtn = new System.Windows.Forms.Button();
+            this.picBox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.surfCondComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.Label105 = new System.Windows.Forms.Label();
@@ -44,15 +48,11 @@
             this.Label107 = new System.Windows.Forms.Label();
             this.windDirTxtBox = new System.Windows.Forms.TextBox();
             this.Label106 = new System.Windows.Forms.Label();
-            this.GetMetarBtn = new System.Windows.Forms.Button();
-            this.ViewMetarBtn = new System.Windows.Forms.Button();
-            this.picBox = new System.Windows.Forms.PictureBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel
@@ -73,6 +73,64 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(451, 184);
             this.tableLayoutPanel.TabIndex = 2;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 231F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 58F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.GetMetarBtn, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.ViewMetarBtn, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.picBox, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(390, 37);
+            this.tableLayoutPanel2.TabIndex = 44;
+            // 
+            // GetMetarBtn
+            // 
+            this.GetMetarBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.GetMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GetMetarBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GetMetarBtn.ForeColor = System.Drawing.Color.White;
+            this.GetMetarBtn.Location = new System.Drawing.Point(15, 3);
+            this.GetMetarBtn.Margin = new System.Windows.Forms.Padding(15, 3, 0, 3);
+            this.GetMetarBtn.Name = "GetMetarBtn";
+            this.GetMetarBtn.Size = new System.Drawing.Size(191, 31);
+            this.GetMetarBtn.TabIndex = 0;
+            this.GetMetarBtn.Text = "Import METAR";
+            this.GetMetarBtn.UseVisualStyleBackColor = false;
+            // 
+            // ViewMetarBtn
+            // 
+            this.ViewMetarBtn.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.ViewMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ViewMetarBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ViewMetarBtn.ForeColor = System.Drawing.Color.White;
+            this.ViewMetarBtn.Location = new System.Drawing.Point(289, 3);
+            this.ViewMetarBtn.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.ViewMetarBtn.Name = "ViewMetarBtn";
+            this.ViewMetarBtn.Size = new System.Drawing.Size(82, 31);
+            this.ViewMetarBtn.TabIndex = 1;
+            this.ViewMetarBtn.Text = "View";
+            this.ViewMetarBtn.UseVisualStyleBackColor = false;
+            // 
+            // picBox
+            // 
+            this.picBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.picBox.Image = global::QSP.Properties.Resources.checkIconLarge;
+            this.picBox.Location = new System.Drawing.Point(231, 5);
+            this.picBox.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.picBox.Name = "picBox";
+            this.picBox.Size = new System.Drawing.Size(27, 27);
+            this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBox.TabIndex = 43;
+            this.picBox.TabStop = false;
+            this.picBox.Visible = false;
             // 
             // tableLayoutPanel3
             // 
@@ -291,66 +349,6 @@
             this.Label106.TabIndex = 10;
             this.Label106.Text = "Pressure";
             // 
-            // GetMetarBtn
-            // 
-            this.GetMetarBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.GetMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GetMetarBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GetMetarBtn.ForeColor = System.Drawing.Color.White;
-            this.GetMetarBtn.Location = new System.Drawing.Point(15, 3);
-            this.GetMetarBtn.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.GetMetarBtn.Name = "GetMetarBtn";
-            this.GetMetarBtn.Size = new System.Drawing.Size(191, 31);
-            this.GetMetarBtn.TabIndex = 0;
-            this.GetMetarBtn.Text = "Import METAR";
-            this.GetMetarBtn.UseVisualStyleBackColor = false;
-            // 
-            // ViewMetarBtn
-            // 
-            this.ViewMetarBtn.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.ViewMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ViewMetarBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ViewMetarBtn.ForeColor = System.Drawing.Color.White;
-            this.ViewMetarBtn.Location = new System.Drawing.Point(293, 3);
-            this.ViewMetarBtn.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.ViewMetarBtn.Name = "ViewMetarBtn";
-            this.ViewMetarBtn.Size = new System.Drawing.Size(82, 31);
-            this.ViewMetarBtn.TabIndex = 1;
-            this.ViewMetarBtn.Text = "View";
-            this.ViewMetarBtn.UseVisualStyleBackColor = false;
-            // 
-            // picBox
-            // 
-            this.picBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.picBox.Image = global::QSP.Properties.Resources.checkIconLarge;
-            this.picBox.Location = new System.Drawing.Point(236, 5);
-            this.picBox.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(27, 27);
-            this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picBox.TabIndex = 43;
-            this.picBox.TabStop = false;
-            this.picBox.Visible = false;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.GetMetarBtn, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.ViewMetarBtn, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.picBox, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(390, 37);
-            this.tableLayoutPanel2.TabIndex = 44;
-            // 
             // WeatherInfoControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -364,12 +362,12 @@
             this.Size = new System.Drawing.Size(451, 184);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
-            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

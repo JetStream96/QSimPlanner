@@ -40,23 +40,12 @@ namespace QSP.UI.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TracksForm));
-            this.Label1 = new System.Windows.Forms.Label();
-            this.Label3 = new System.Windows.Forms.Label();
-            this.Label2 = new System.Windows.Forms.Label();
-            this.PicBoxPacots = new System.Windows.Forms.PictureBox();
-            this.PicBoxAusots = new System.Windows.Forms.PictureBox();
-            this.BtnNatsDn = new System.Windows.Forms.Button();
-            this.BtnPacotsDn = new System.Windows.Forms.Button();
-            this.PicBoxNats = new System.Windows.Forms.PictureBox();
-            this.BtnAusotsDn = new System.Windows.Forms.Button();
-            this.viewNatsBtn = new System.Windows.Forms.Button();
-            this.viewPacotsBtn = new System.Windows.Forms.Button();
-            this.viewAusotsBtn = new System.Windows.Forms.Button();
+            this.panel1 = new QSP.UI.Controls.PanelSilentScrollbar();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ListView1 = new System.Windows.Forms.ListView();
             this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtRichTextBox = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -65,15 +54,23 @@ namespace QSP.UI.Forms
             this.importBtn = new System.Windows.Forms.Button();
             this.downloadAllBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new QSP.UI.Controls.PanelSilentScrollbar();
+            this.BtnAusotsDn = new System.Windows.Forms.Button();
+            this.BtnPacotsDn = new System.Windows.Forms.Button();
+            this.BtnNatsDn = new System.Windows.Forms.Button();
+            this.PicBoxAusots = new System.Windows.Forms.PictureBox();
+            this.PicBoxPacots = new System.Windows.Forms.PictureBox();
+            this.PicBoxNats = new System.Windows.Forms.PictureBox();
+            this.viewAusotsBtn = new System.Windows.Forms.Button();
+            this.viewPacotsBtn = new System.Windows.Forms.Button();
+            this.viewNatsBtn = new System.Windows.Forms.Button();
+            this.Label1 = new System.Windows.Forms.Label();
+            this.Label2 = new System.Windows.Forms.Label();
+            this.Label3 = new System.Windows.Forms.Label();
             this.CBoxAusotsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
             this.CBoxPacotsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
             this.CBoxNatsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
-            ((System.ComponentModel.ISupportInitialize)(this.PicBoxPacots)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PicBoxAusots)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PicBoxNats)).BeginInit();
+            this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -81,167 +78,50 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxAusots)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxPacots)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxNats)).BeginInit();
             this.SuspendLayout();
             // 
-            // Label1
+            // panel1
             // 
-            this.Label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Label1.AutoSize = true;
-            this.Label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label1.Location = new System.Drawing.Point(43, 8);
-            this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(52, 23);
-            this.Label1.TabIndex = 1;
-            this.Label1.Text = "NATS";
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.tableLayoutPanel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1055, 710);
+            this.panel1.TabIndex = 9;
             // 
-            // Label3
+            // tableLayoutPanel2
             // 
-            this.Label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Label3.AutoSize = true;
-            this.Label3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label3.Location = new System.Drawing.Point(33, 88);
-            this.Label3.Name = "Label3";
-            this.Label3.Size = new System.Drawing.Size(73, 23);
-            this.Label3.TabIndex = 2;
-            this.Label3.Text = "AUSOTS";
+            this.tableLayoutPanel2.AutoSize = true;
+            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.groupBox2, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox3, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox1, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(990, 696);
+            this.tableLayoutPanel2.TabIndex = 8;
             // 
-            // Label2
+            // groupBox2
             // 
-            this.Label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Label2.AutoSize = true;
-            this.Label2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label2.Location = new System.Drawing.Point(33, 48);
-            this.Label2.Name = "Label2";
-            this.Label2.Size = new System.Drawing.Size(73, 23);
-            this.Label2.TabIndex = 2;
-            this.Label2.Text = "PACOTS";
-            // 
-            // PicBoxPacots
-            // 
-            this.PicBoxPacots.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PicBoxPacots.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxPacots.Image")));
-            this.PicBoxPacots.Location = new System.Drawing.Point(3, 48);
-            this.PicBoxPacots.Name = "PicBoxPacots";
-            this.PicBoxPacots.Size = new System.Drawing.Size(24, 24);
-            this.PicBoxPacots.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PicBoxPacots.TabIndex = 11;
-            this.PicBoxPacots.TabStop = false;
-            // 
-            // PicBoxAusots
-            // 
-            this.PicBoxAusots.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PicBoxAusots.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxAusots.Image")));
-            this.PicBoxAusots.Location = new System.Drawing.Point(3, 88);
-            this.PicBoxAusots.Name = "PicBoxAusots";
-            this.PicBoxAusots.Size = new System.Drawing.Size(24, 24);
-            this.PicBoxAusots.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PicBoxAusots.TabIndex = 12;
-            this.PicBoxAusots.TabStop = false;
-            // 
-            // BtnNatsDn
-            // 
-            this.BtnNatsDn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.BtnNatsDn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.BtnNatsDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnNatsDn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnNatsDn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnNatsDn.Location = new System.Drawing.Point(507, 4);
-            this.BtnNatsDn.Margin = new System.Windows.Forms.Padding(0);
-            this.BtnNatsDn.Name = "BtnNatsDn";
-            this.BtnNatsDn.Size = new System.Drawing.Size(140, 32);
-            this.BtnNatsDn.TabIndex = 8;
-            this.BtnNatsDn.Text = "Download";
-            this.BtnNatsDn.UseVisualStyleBackColor = false;
-            this.BtnNatsDn.Click += new System.EventHandler(this.BtnNatsDn_Click);
-            // 
-            // BtnPacotsDn
-            // 
-            this.BtnPacotsDn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.BtnPacotsDn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.BtnPacotsDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnPacotsDn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnPacotsDn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnPacotsDn.Location = new System.Drawing.Point(507, 44);
-            this.BtnPacotsDn.Margin = new System.Windows.Forms.Padding(0);
-            this.BtnPacotsDn.Name = "BtnPacotsDn";
-            this.BtnPacotsDn.Size = new System.Drawing.Size(140, 32);
-            this.BtnPacotsDn.TabIndex = 9;
-            this.BtnPacotsDn.Text = "Download";
-            this.BtnPacotsDn.UseVisualStyleBackColor = false;
-            this.BtnPacotsDn.Click += new System.EventHandler(this.BtnPacotsDn_Click);
-            // 
-            // PicBoxNats
-            // 
-            this.PicBoxNats.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PicBoxNats.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxNats.Image")));
-            this.PicBoxNats.Location = new System.Drawing.Point(3, 8);
-            this.PicBoxNats.Name = "PicBoxNats";
-            this.PicBoxNats.Size = new System.Drawing.Size(24, 24);
-            this.PicBoxNats.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PicBoxNats.TabIndex = 10;
-            this.PicBoxNats.TabStop = false;
-            // 
-            // BtnAusotsDn
-            // 
-            this.BtnAusotsDn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.BtnAusotsDn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.BtnAusotsDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAusotsDn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAusotsDn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnAusotsDn.Location = new System.Drawing.Point(507, 84);
-            this.BtnAusotsDn.Margin = new System.Windows.Forms.Padding(0);
-            this.BtnAusotsDn.Name = "BtnAusotsDn";
-            this.BtnAusotsDn.Size = new System.Drawing.Size(140, 32);
-            this.BtnAusotsDn.TabIndex = 10;
-            this.BtnAusotsDn.Text = "Download";
-            this.BtnAusotsDn.UseVisualStyleBackColor = false;
-            this.BtnAusotsDn.Click += new System.EventHandler(this.BtnAusotsDn_Click);
-            // 
-            // viewNatsBtn
-            // 
-            this.viewNatsBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.viewNatsBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.viewNatsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.viewNatsBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.viewNatsBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.viewNatsBtn.Location = new System.Drawing.Point(344, 4);
-            this.viewNatsBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.viewNatsBtn.Name = "viewNatsBtn";
-            this.viewNatsBtn.Size = new System.Drawing.Size(117, 32);
-            this.viewNatsBtn.TabIndex = 7;
-            this.viewNatsBtn.Text = "View Text";
-            this.viewNatsBtn.UseVisualStyleBackColor = false;
-            // 
-            // viewPacotsBtn
-            // 
-            this.viewPacotsBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.viewPacotsBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.viewPacotsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.viewPacotsBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.viewPacotsBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.viewPacotsBtn.Location = new System.Drawing.Point(344, 44);
-            this.viewPacotsBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.viewPacotsBtn.Name = "viewPacotsBtn";
-            this.viewPacotsBtn.Size = new System.Drawing.Size(117, 32);
-            this.viewPacotsBtn.TabIndex = 8;
-            this.viewPacotsBtn.Text = "View Text";
-            this.viewPacotsBtn.UseVisualStyleBackColor = false;
-            // 
-            // viewAusotsBtn
-            // 
-            this.viewAusotsBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.viewAusotsBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.viewAusotsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.viewAusotsBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.viewAusotsBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.viewAusotsBtn.Location = new System.Drawing.Point(344, 84);
-            this.viewAusotsBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.viewAusotsBtn.Name = "viewAusotsBtn";
-            this.viewAusotsBtn.Size = new System.Drawing.Size(117, 32);
-            this.viewAusotsBtn.TabIndex = 9;
-            this.viewAusotsBtn.Text = "View Text";
-            this.viewAusotsBtn.UseVisualStyleBackColor = false;
+            this.groupBox2.Controls.Add(this.ListView1);
+            this.groupBox2.Location = new System.Drawing.Point(3, 216);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(984, 226);
+            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Messages";
             // 
             // ListView1
             // 
@@ -267,41 +147,12 @@ namespace QSP.UI.Forms
             this.ColMessage.Text = "Message";
             this.ColMessage.Width = 609;
             // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.groupBox2, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox3, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox1, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(990, 698);
-            this.tableLayoutPanel2.TabIndex = 8;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.ListView1);
-            this.groupBox2.Location = new System.Drawing.Point(3, 218);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(984, 226);
-            this.groupBox2.TabIndex = 10;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Messages";
-            // 
             // groupBox3
             // 
             this.groupBox3.AutoSize = true;
             this.groupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox3.Controls.Add(this.txtRichTextBox);
-            this.groupBox3.Location = new System.Drawing.Point(3, 450);
+            this.groupBox3.Location = new System.Drawing.Point(3, 448);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(984, 245);
             this.groupBox3.TabIndex = 11;
@@ -331,9 +182,10 @@ namespace QSP.UI.Forms
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
-            this.groupBox1.MinimumSize = new System.Drawing.Size(984, 190);
+            this.groupBox1.MaximumSize = new System.Drawing.Size(984, 1000);
+            this.groupBox1.MinimumSize = new System.Drawing.Size(984, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(984, 209);
+            this.groupBox1.Size = new System.Drawing.Size(984, 207);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tracks";
@@ -345,19 +197,16 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 24);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.MinimumSize = new System.Drawing.Size(500, 160);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(965, 164);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(665, 162);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // tableLayoutPanel4
@@ -372,7 +221,7 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel4.Controls.Add(this.downloadAllBtn, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.saveBtn, 1, 0);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -427,15 +276,6 @@ namespace QSP.UI.Forms
             this.saveBtn.UseVisualStyleBackColor = false;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
-            // label4
-            // 
-            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(5, 37);
-            this.label4.Margin = new System.Windows.Forms.Padding(5);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(955, 2);
-            this.label4.TabIndex = 10;
-            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.AutoSize = true;
@@ -461,7 +301,7 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel3.Controls.Add(this.CBoxAusotsEnabled, 2, 2);
             this.tableLayoutPanel3.Controls.Add(this.CBoxPacotsEnabled, 2, 1);
             this.tableLayoutPanel3.Controls.Add(this.CBoxNatsEnabled, 2, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 44);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 42);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
@@ -471,16 +311,164 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel3.Size = new System.Drawing.Size(665, 120);
             this.tableLayoutPanel3.TabIndex = 8;
             // 
-            // panel1
+            // BtnAusotsDn
             // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.tableLayoutPanel2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1055, 710);
-            this.panel1.TabIndex = 9;
+            this.BtnAusotsDn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.BtnAusotsDn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.BtnAusotsDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAusotsDn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAusotsDn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnAusotsDn.Location = new System.Drawing.Point(507, 84);
+            this.BtnAusotsDn.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnAusotsDn.Name = "BtnAusotsDn";
+            this.BtnAusotsDn.Size = new System.Drawing.Size(140, 32);
+            this.BtnAusotsDn.TabIndex = 10;
+            this.BtnAusotsDn.Text = "Download";
+            this.BtnAusotsDn.UseVisualStyleBackColor = false;
+            this.BtnAusotsDn.Click += new System.EventHandler(this.BtnAusotsDn_Click);
+            // 
+            // BtnPacotsDn
+            // 
+            this.BtnPacotsDn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.BtnPacotsDn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.BtnPacotsDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnPacotsDn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnPacotsDn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnPacotsDn.Location = new System.Drawing.Point(507, 44);
+            this.BtnPacotsDn.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnPacotsDn.Name = "BtnPacotsDn";
+            this.BtnPacotsDn.Size = new System.Drawing.Size(140, 32);
+            this.BtnPacotsDn.TabIndex = 9;
+            this.BtnPacotsDn.Text = "Download";
+            this.BtnPacotsDn.UseVisualStyleBackColor = false;
+            this.BtnPacotsDn.Click += new System.EventHandler(this.BtnPacotsDn_Click);
+            // 
+            // BtnNatsDn
+            // 
+            this.BtnNatsDn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.BtnNatsDn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.BtnNatsDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnNatsDn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnNatsDn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnNatsDn.Location = new System.Drawing.Point(507, 4);
+            this.BtnNatsDn.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnNatsDn.Name = "BtnNatsDn";
+            this.BtnNatsDn.Size = new System.Drawing.Size(140, 32);
+            this.BtnNatsDn.TabIndex = 8;
+            this.BtnNatsDn.Text = "Download";
+            this.BtnNatsDn.UseVisualStyleBackColor = false;
+            this.BtnNatsDn.Click += new System.EventHandler(this.BtnNatsDn_Click);
+            // 
+            // PicBoxAusots
+            // 
+            this.PicBoxAusots.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PicBoxAusots.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxAusots.Image")));
+            this.PicBoxAusots.Location = new System.Drawing.Point(3, 88);
+            this.PicBoxAusots.Name = "PicBoxAusots";
+            this.PicBoxAusots.Size = new System.Drawing.Size(24, 24);
+            this.PicBoxAusots.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PicBoxAusots.TabIndex = 12;
+            this.PicBoxAusots.TabStop = false;
+            // 
+            // PicBoxPacots
+            // 
+            this.PicBoxPacots.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PicBoxPacots.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxPacots.Image")));
+            this.PicBoxPacots.Location = new System.Drawing.Point(3, 48);
+            this.PicBoxPacots.Name = "PicBoxPacots";
+            this.PicBoxPacots.Size = new System.Drawing.Size(24, 24);
+            this.PicBoxPacots.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PicBoxPacots.TabIndex = 11;
+            this.PicBoxPacots.TabStop = false;
+            // 
+            // PicBoxNats
+            // 
+            this.PicBoxNats.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PicBoxNats.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxNats.Image")));
+            this.PicBoxNats.Location = new System.Drawing.Point(3, 8);
+            this.PicBoxNats.Name = "PicBoxNats";
+            this.PicBoxNats.Size = new System.Drawing.Size(24, 24);
+            this.PicBoxNats.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PicBoxNats.TabIndex = 10;
+            this.PicBoxNats.TabStop = false;
+            // 
+            // viewAusotsBtn
+            // 
+            this.viewAusotsBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.viewAusotsBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.viewAusotsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.viewAusotsBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewAusotsBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.viewAusotsBtn.Location = new System.Drawing.Point(344, 84);
+            this.viewAusotsBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.viewAusotsBtn.Name = "viewAusotsBtn";
+            this.viewAusotsBtn.Size = new System.Drawing.Size(117, 32);
+            this.viewAusotsBtn.TabIndex = 9;
+            this.viewAusotsBtn.Text = "View Text";
+            this.viewAusotsBtn.UseVisualStyleBackColor = false;
+            // 
+            // viewPacotsBtn
+            // 
+            this.viewPacotsBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.viewPacotsBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.viewPacotsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.viewPacotsBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewPacotsBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.viewPacotsBtn.Location = new System.Drawing.Point(344, 44);
+            this.viewPacotsBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.viewPacotsBtn.Name = "viewPacotsBtn";
+            this.viewPacotsBtn.Size = new System.Drawing.Size(117, 32);
+            this.viewPacotsBtn.TabIndex = 8;
+            this.viewPacotsBtn.Text = "View Text";
+            this.viewPacotsBtn.UseVisualStyleBackColor = false;
+            // 
+            // viewNatsBtn
+            // 
+            this.viewNatsBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.viewNatsBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.viewNatsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.viewNatsBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewNatsBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.viewNatsBtn.Location = new System.Drawing.Point(344, 4);
+            this.viewNatsBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.viewNatsBtn.Name = "viewNatsBtn";
+            this.viewNatsBtn.Size = new System.Drawing.Size(117, 32);
+            this.viewNatsBtn.TabIndex = 7;
+            this.viewNatsBtn.Text = "View Text";
+            this.viewNatsBtn.UseVisualStyleBackColor = false;
+            // 
+            // Label1
+            // 
+            this.Label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Label1.AutoSize = true;
+            this.Label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label1.Location = new System.Drawing.Point(43, 8);
+            this.Label1.Name = "Label1";
+            this.Label1.Size = new System.Drawing.Size(52, 23);
+            this.Label1.TabIndex = 1;
+            this.Label1.Text = "NATS";
+            // 
+            // Label2
+            // 
+            this.Label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Label2.AutoSize = true;
+            this.Label2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label2.Location = new System.Drawing.Point(33, 48);
+            this.Label2.Name = "Label2";
+            this.Label2.Size = new System.Drawing.Size(73, 23);
+            this.Label2.TabIndex = 2;
+            this.Label2.Text = "PACOTS";
+            // 
+            // Label3
+            // 
+            this.Label3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Label3.AutoSize = true;
+            this.Label3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label3.Location = new System.Drawing.Point(33, 88);
+            this.Label3.Name = "Label3";
+            this.Label3.Size = new System.Drawing.Size(73, 23);
+            this.Label3.TabIndex = 2;
+            this.Label3.Text = "AUSOTS";
             // 
             // CBoxAusotsEnabled
             // 
@@ -550,9 +538,8 @@ namespace QSP.UI.Forms
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Tracks Manager";
-            ((System.ComponentModel.ISupportInitialize)(this.PicBoxPacots)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PicBoxAusots)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PicBoxNats)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -564,8 +551,9 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxAusots)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxPacots)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxNats)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -588,7 +576,6 @@ namespace QSP.UI.Forms
         internal ColumnHeader ColumnHeader1;
         internal ColumnHeader ColMessage;
         private TableLayoutPanel tableLayoutPanel2;
-        private Panel panel1;
         private GroupBox groupBox1;
         private TableLayoutPanel tableLayoutPanel3;
         private GroupBox groupBox2;
@@ -599,6 +586,6 @@ namespace QSP.UI.Forms
         private Button importBtn;
         private Button downloadAllBtn;
         private Button saveBtn;
-        private Label label4;
+        private Controls.PanelSilentScrollbar panel1;
     }
 }

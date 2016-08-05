@@ -434,11 +434,12 @@ namespace QSP.UI.Forms
         private Panel InfoPanel()
         {
             var panel = new Panel();
-            panel.Size = new Size(450, 100);
             panel.BackColor = Color.FromArgb(216, 244, 215);
             panel.BorderStyle = BorderStyle.FixedSingle;
             var pt = infoLbl.Location;
             panel.Location = new Point(pt.X - 300, pt.Y + 100);
+            panel.AutoSize = true;
+            panel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
             var lbl = new Label();
             lbl.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular);
