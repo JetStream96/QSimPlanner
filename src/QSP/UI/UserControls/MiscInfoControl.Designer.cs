@@ -166,7 +166,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(338, 36);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(285, 38);
             this.tableLayoutPanel4.TabIndex = 79;
             // 
             // metarToFindTxtBox
@@ -179,12 +179,14 @@
             // 
             // downloadMetarBtn
             // 
+            this.downloadMetarBtn.AutoSize = true;
+            this.downloadMetarBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.downloadMetarBtn.BackColor = System.Drawing.SystemColors.Control;
             this.downloadMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.downloadMetarBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.downloadMetarBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.downloadMetarBtn.Location = new System.Drawing.Point(109, 3);
             this.downloadMetarBtn.Name = "downloadMetarBtn";
-            this.downloadMetarBtn.Size = new System.Drawing.Size(226, 30);
+            this.downloadMetarBtn.Size = new System.Drawing.Size(173, 32);
             this.downloadMetarBtn.TabIndex = 78;
             this.downloadMetarBtn.Text = "Download METAR/TAF";
             this.downloadMetarBtn.UseVisualStyleBackColor = false;
@@ -193,9 +195,9 @@
             // RichTextBox1
             // 
             this.RichTextBox1.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichTextBox1.Location = new System.Drawing.Point(3, 45);
+            this.RichTextBox1.Location = new System.Drawing.Point(3, 47);
             this.RichTextBox1.Name = "RichTextBox1";
-            this.RichTextBox1.Size = new System.Drawing.Size(1066, 156);
+            this.RichTextBox1.Size = new System.Drawing.Size(1066, 155);
             this.RichTextBox1.TabIndex = 0;
             this.RichTextBox1.Text = "";
             // 
@@ -293,8 +295,8 @@
             // GroupBox19
             // 
             this.GroupBox19.Controls.Add(this.tableLayoutPanel6);
-            this.GroupBox19.Controls.Add(this.desForcastRichTxtBox);
             this.GroupBox19.Controls.Add(this.destIcaoLbl);
+            this.GroupBox19.Controls.Add(this.desForcastRichTxtBox);
             this.GroupBox19.Location = new System.Drawing.Point(0, 0);
             this.GroupBox19.Name = "GroupBox19";
             this.GroupBox19.Size = new System.Drawing.Size(696, 372);
@@ -321,7 +323,6 @@
             // 
             // updateDesForcastBtn
             // 
-            this.updateDesForcastBtn.AutoSize = true;
             this.updateDesForcastBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateDesForcastBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updateDesForcastBtn.Image = global::QSP.Properties.Resources.processing9;
@@ -361,7 +362,7 @@
             // 
             this.destIcaoLbl.AutoSize = true;
             this.destIcaoLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.destIcaoLbl.Location = new System.Drawing.Point(20, 33);
+            this.destIcaoLbl.Location = new System.Drawing.Point(9, 33);
             this.destIcaoLbl.Name = "destIcaoLbl";
             this.destIcaoLbl.Size = new System.Drawing.Size(151, 23);
             this.destIcaoLbl.TabIndex = 0;

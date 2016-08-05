@@ -302,17 +302,17 @@ namespace QSP.UI.ToLdgModule.AirportMap
         private void EnableBrowser()
         {
             var wb = new WebBrowser();
+            
+            wb.Location = Point.Empty;
+            wb.Dock = DockStyle.Fill;
 
-            wb.Location = new Point(-3, 270);
-            wb.Size = new Size(1021, 384);
-
-            Controls.Add(wb);
+            tableLayoutPanel2.Controls.Add(wb, 0, 1);
             browser = wb;
         }
 
         private void DisableBrowser()
         {
-            Controls.Remove(browser);
+            tableLayoutPanel2.Controls.Remove(browser);
             browser = null;
         }
 
@@ -340,21 +340,21 @@ namespace QSP.UI.ToLdgModule.AirportMap
         {
             var pb = new PictureBox();
 
-            pb.Location = new Point(5, 270);
-            pb.Size = new Size(1011, 384);
+            pb.Location = Point.Empty;
+            pb.Dock = DockStyle.Fill;
             pb.BackgroundImageLayout = ImageLayout.None;
 
             // Added so that it doesn't display the default image, 
             // when the first time LoadAsync is called. 
             pb.Image = new Bitmap(1, 1);
 
-            Controls.Add(pb);
+            tableLayoutPanel2.Controls.Add(pb);
             picBox = pb;
         }
 
         private void DisableStaticMap()
         {
-            Controls.Remove(picBox);
+            tableLayoutPanel2.Controls.Remove(picBox);
             picBox = null;
         }
 

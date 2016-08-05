@@ -41,8 +41,10 @@
             this.updateBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.icaoComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.airportDataGrid)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // airportDataGrid
@@ -53,13 +55,13 @@
             this.airportDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.airportDataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.airportDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.airportDataGrid.Location = new System.Drawing.Point(5, 113);
+            this.airportDataGrid.Location = new System.Drawing.Point(3, 3);
             this.airportDataGrid.Name = "airportDataGrid";
             this.airportDataGrid.ReadOnly = true;
             this.airportDataGrid.RowHeadersVisible = false;
             this.airportDataGrid.RowTemplate.Height = 24;
             this.airportDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.airportDataGrid.Size = new System.Drawing.Size(1011, 150);
+            this.airportDataGrid.Size = new System.Drawing.Size(1005, 150);
             this.airportDataGrid.TabIndex = 4;
             // 
             // Elevation_Lbl1
@@ -180,6 +182,7 @@
             // updateBtn
             // 
             this.updateBtn.BackgroundImage = global::QSP.Properties.Resources.processing9;
+            this.updateBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.updateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.updateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateBtn.Location = new System.Drawing.Point(972, 19);
@@ -211,16 +214,29 @@
             this.icaoComboBox.TabIndex = 0;
             this.icaoComboBox.TextChanged += new System.EventHandler(this.icaoComboBox_TextChanged);
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.airportDataGrid, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(5, 113);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1011, 554);
+            this.tableLayoutPanel2.TabIndex = 6;
+            // 
             // AirportMapControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.updateBtn);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.icaoComboBox);
-            this.Controls.Add(this.airportDataGrid);
             this.Controls.Add(this.metarLbl);
             this.DoubleBuffered = true;
             this.Name = "AirportMapControl";
@@ -228,6 +244,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.airportDataGrid)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -247,5 +264,6 @@
         internal System.Windows.Forms.Button updateBtn;
         private System.Windows.Forms.Label label1;
         internal Controls.ComboBoxWithBorder icaoComboBox;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
 }
