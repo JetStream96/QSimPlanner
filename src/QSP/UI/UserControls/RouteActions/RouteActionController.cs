@@ -36,6 +36,7 @@ namespace QSP.UI.UserControls.RouteActions
         private IClickable analyzeRouteBtn;
         private IClickable exportBtn;
         private IClickable showMapBtn;
+        private Form parentForm;
 
         private AppOptions appSettings
         {
@@ -63,7 +64,8 @@ namespace QSP.UI.UserControls.RouteActions
             IClickable findRouteBtn,
             IClickable analyzeRouteBtn,
             IClickable exportBtn,
-            IClickable showMapBtn)
+            IClickable showMapBtn,
+            Form parentForm)
         {
             this.appOptionsLocator = appOptionsLocator;
             this.airwayNetwork = airwayNetwork;
@@ -79,6 +81,7 @@ namespace QSP.UI.UserControls.RouteActions
             this.analyzeRouteBtn = analyzeRouteBtn;
             this.exportBtn = exportBtn;
             this.showMapBtn = showMapBtn;
+            this.parentForm = parentForm;
         }
 
         public void Subscribe()
@@ -246,7 +249,7 @@ namespace QSP.UI.UserControls.RouteActions
 
         private void ShowMapClick(object sender, EventArgs e)
         {
-            ShowMapHelper.ShowMap(Route);
+            ShowMapHelper.ShowMap(Route, parentForm.Size);
         }
     }
 }

@@ -8,7 +8,8 @@ namespace QSP.UI.Utilities
 {
     public static class ShowMapHelper
     {
-        public static void ShowMap(RouteGroup Route, bool canAnalyze=true)
+        public static void ShowMap(
+            RouteGroup Route, Size size, bool canAnalyze = true)
         {
             if (Route == null)
             {
@@ -21,7 +22,7 @@ namespace QSP.UI.Utilities
             }
 
             var wb = new WebBrowser();
-            wb.Size = new Size(1200, 800);
+            wb.Size = size;
 
             var GoogleMapDrawRoute = RouteDrawing.MapDrawString(
                 Route.Expanded, wb.Size.Width - 20, wb.Size.Height - 30);

@@ -168,7 +168,8 @@ namespace QSP.UI.Controllers
                     Row.DisLbl,
                     DistanceDisplayStyle.Short,
                     () => Row.RouteTxtBox.Text,
-                    (s) => Row.RouteTxtBox.Text = s);
+                    (s) => Row.RouteTxtBox.Text = s,
+                    Parent.layoutPanel.FindForm());
             }
 
             public void Subsribe()

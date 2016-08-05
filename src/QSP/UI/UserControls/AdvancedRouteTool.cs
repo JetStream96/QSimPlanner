@@ -101,8 +101,8 @@ namespace QSP.UI.UserControls
         {
             routeActionMenu = new SimpleActionContextMenu();
             routeActionMenu.FindToolStripMenuItem.Click += FindRouteBtnClick;
-            routeActionMenu.MapToolStripMenuItem.Click +=
-                (s, e) => ShowMapHelper.ShowMap(Route, false);
+            routeActionMenu.MapToolStripMenuItem.Click += (s, e) => 
+                ShowMapHelper.ShowMap(Route, ParentForm.Owner.Size, false);
 
             showRouteActionsBtn.Click += (s, e) =>
             routeActionMenu.Show(
@@ -273,8 +273,8 @@ namespace QSP.UI.UserControls
                     origin,
                     fromRwyComboBox.Text,
                     sids,
-                    toIdentTxtBox.Text,
                     destination,
+                    toRwyComboBox.Text,
                     stars),
                  tracksInUse);
 

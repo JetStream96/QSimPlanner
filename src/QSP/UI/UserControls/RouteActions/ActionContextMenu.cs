@@ -35,7 +35,8 @@ namespace QSP.UI.UserControls.RouteActions
             Label routeDisLbl,
             DistanceDisplayStyle displayStyle,
             Func<string> routeTxtGetter,
-            Action<string> routeTxtSetter) : base()
+            Action<string> routeTxtSetter,
+            Form parentForm) : base()
         {
             Init();
 
@@ -53,7 +54,8 @@ namespace QSP.UI.UserControls.RouteActions
                   findToolStripMenuItem,
                   analyzeToolStripMenuItem,
                   exportToolStripMenuItem,
-                  mapToolStripMenuItem);
+                  mapToolStripMenuItem,
+                  parentForm);
         }
 
         public void Subscribe()

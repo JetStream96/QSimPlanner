@@ -179,7 +179,8 @@ namespace QSP.UI.UserControls
                 routeDisLbl,
                 DistanceDisplayStyle.Long,
                 () => mainRouteRichTxtBox.Text,
-                s => mainRouteRichTxtBox.Text = s);
+                s => mainRouteRichTxtBox.Text = s,
+                ParentForm);
 
             routeActionMenu.Subscribe();
             showRouteActionsBtn.Click += (s, e) =>
@@ -531,6 +532,7 @@ namespace QSP.UI.UserControls
 
             using (var frm = GetForm(newSize))
             {
+                frm.Owner = this.ParentForm;
                 frm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
                 frm.Controls.Add(advancedRouteTool);
 
