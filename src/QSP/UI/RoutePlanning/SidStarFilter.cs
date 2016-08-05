@@ -94,8 +94,9 @@ namespace QSP.UI.RoutePlanning
                 items.Add(new ListViewItem(i));
             }
 
-            procListView.Columns[0].Width = procListView.Width - 30;
             this.items = items.Cast<ListViewItem>().ToList();
+            procListView.AutoResizeColumns(
+                ColumnHeaderAutoResizeStyle.ColumnContent);
             TickCheckBoxes();
         }
 

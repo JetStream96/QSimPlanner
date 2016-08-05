@@ -50,7 +50,6 @@ namespace QSP.UI.Forms
 
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
-        private readonly Point controlDefaultLocation = new Point(12, 52);
         private TracksForm trackFrm;
         private WindDataForm windFrm;
         private bool failedToLoadNavDataAtStartUp = false;
@@ -404,9 +403,9 @@ namespace QSP.UI.Forms
 
             foreach (var i in Pages)
             {
-                i.Location = controlDefaultLocation;
+                i.Location = Point.Empty;
                 i.Visible = i == acMenu;
-                panel1.Controls.Add(i);
+                panel2.Controls.Add(i);
             }
         }
 

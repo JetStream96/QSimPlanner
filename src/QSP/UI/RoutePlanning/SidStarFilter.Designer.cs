@@ -31,9 +31,9 @@
             this.procListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.showSelectedCheckBox = new System.Windows.Forms.CheckBox();
-            this.listTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.okBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
+            this.listTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.SuspendLayout();
             // 
             // procListView
@@ -41,6 +41,7 @@
             this.procListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.procListView.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.procListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.procListView.Location = new System.Drawing.Point(8, 55);
             this.procListView.Name = "procListView";
             this.procListView.Size = new System.Drawing.Size(209, 281);
@@ -62,19 +63,6 @@
             this.showSelectedCheckBox.TabIndex = 2;
             this.showSelectedCheckBox.Text = "Show Seleted";
             this.showSelectedCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // listTypeComboBox
-            // 
-            this.listTypeComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.listTypeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.listTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.listTypeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.listTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listTypeComboBox.FormattingEnabled = true;
-            this.listTypeComboBox.Location = new System.Drawing.Point(8, 7);
-            this.listTypeComboBox.Name = "listTypeComboBox";
-            this.listTypeComboBox.Size = new System.Drawing.Size(209, 31);
-            this.listTypeComboBox.TabIndex = 0;
             // 
             // okBtn
             // 
@@ -101,6 +89,19 @@
             this.cancelBtn.TabIndex = 4;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = false;
+            // 
+            // listTypeComboBox
+            // 
+            this.listTypeComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.listTypeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.listTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.listTypeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.listTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listTypeComboBox.FormattingEnabled = true;
+            this.listTypeComboBox.Location = new System.Drawing.Point(8, 7);
+            this.listTypeComboBox.Name = "listTypeComboBox";
+            this.listTypeComboBox.Size = new System.Drawing.Size(209, 31);
+            this.listTypeComboBox.TabIndex = 0;
             // 
             // SidStarFilter
             // 

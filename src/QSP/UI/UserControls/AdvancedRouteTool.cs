@@ -5,6 +5,7 @@ using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
@@ -346,8 +347,8 @@ namespace QSP.UI.UserControls
             }
 
             var latLon = ExtractLatLon(fromWptComboBox.Text);
-            return wptList.FindByWaypoint(
-                fromIdentTxtBox.Text, latLon.Lat, latLon.Lon);
+            return wptList.FindAllById(fromIdentTxtBox.Text)
+                .MinBy(i => wptList[i].Distance(latLon));
         }
 
         private int GetWptIndexTo()
@@ -359,8 +360,8 @@ namespace QSP.UI.UserControls
             }
 
             var latLon = ExtractLatLon(toWptComboBox.Text);
-            return wptList.FindByWaypoint(
-                toIdentTxtBox.Text, latLon.Lat, latLon.Lon);
+            return wptList.FindAllById(toIdentTxtBox.Text)
+                .MinBy(i => wptList[i].Distance(latLon));
         }
 
         // Gets the lat and lon.
@@ -460,8 +461,10 @@ namespace QSP.UI.UserControls
                     indices.Select(i =>
                     {
                         var wpt = owner.wptList[i];
-                        return "LAT/" + wpt.Lat + "  LON/" + wpt.Lon;
-                    }).ToArray());
+                        return "LAT/" + wpt.Lat.ToString("F4") +
+                          "  LON/" + wpt.Lon.ToString("F4");
+                    })
+                    .ToArray());
 
                 Waypoints.SelectedIndex = 0;
             }

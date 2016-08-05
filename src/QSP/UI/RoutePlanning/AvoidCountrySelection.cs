@@ -67,6 +67,19 @@ namespace QSP.UI.RoutePlanning
             countryTxtBox.TextChanged += countryTxtChanged;
 
             new ListViewSortEnabler(listView).EnableSort();
+            ResizeListView();
+        }
+
+        private void ResizeListView()
+        {
+            listView.AutoResizeColumn(
+                0, ColumnHeaderAutoResizeStyle.HeaderSize);
+
+            int width = listView.Width -
+                listView.Columns[0].Width -
+                SystemInformation.VerticalScrollBarWidth - 4 ;
+
+            listView.Columns[1].Width = Math.Max(0, width);
         }
 
         private void AddItems()

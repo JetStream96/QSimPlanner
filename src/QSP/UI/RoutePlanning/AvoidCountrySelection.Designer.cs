@@ -150,6 +150,7 @@
             this.Controls.Add(this.codeTxtBox);
             this.Controls.Add(this.showSelectedCheckBox);
             this.Controls.Add(this.listView);
+            this.DoubleBuffered = true;
             this.Name = "AvoidCountrySelection";
             this.Size = new System.Drawing.Size(390, 419);
             this.ResumeLayout(false);

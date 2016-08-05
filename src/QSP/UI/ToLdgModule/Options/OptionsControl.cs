@@ -234,6 +234,8 @@ namespace QSP.UI.ToLdgModule.Options
             panel.BorderStyle = BorderStyle.FixedSingle;
             var pt = infoLbl.Location;
             panel.Location = new Point(pt.X - 150, pt.Y + 100);
+            panel.AutoSize = true;
+            panel.ForeColor = Color.Green;
 
             var lbl = new Label();
             lbl.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular);

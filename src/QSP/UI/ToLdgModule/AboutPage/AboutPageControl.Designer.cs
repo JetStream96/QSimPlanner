@@ -64,7 +64,7 @@
             this.panel1.Controls.Add(this.siteBtn);
             this.panel1.Controls.Add(this.licenseBtn);
             this.panel1.Controls.Add(this.txtLbl);
-            this.panel1.Location = new System.Drawing.Point(257, 95);
+            this.panel1.Location = new System.Drawing.Point(295, 125);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(543, 337);
             this.panel1.TabIndex = 1;
@@ -167,7 +167,7 @@
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.Name = "AboutPageControl";
-            this.Size = new System.Drawing.Size(1024, 610);
+            this.Size = new System.Drawing.Size(1100, 670);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
