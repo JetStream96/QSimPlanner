@@ -73,7 +73,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             }
         }
 
-        private void TrySaveState()
+        public void TrySaveState()
         {
             StateManager.Save(fileName, new ControlState(this).Save());
         }

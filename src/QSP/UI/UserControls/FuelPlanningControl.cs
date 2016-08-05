@@ -275,7 +275,7 @@ namespace QSP.UI.UserControls
             }
         }
 
-        private void SaveStateToFile()
+        public void SaveStateToFile()
         {
             try
             {

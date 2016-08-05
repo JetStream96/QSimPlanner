@@ -128,7 +128,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
             }
         }
 
-        private void TrySaveState()
+        public void TrySaveState()
         {
             StateManager.Save(fileName, new ControlState(this).Save());
         }

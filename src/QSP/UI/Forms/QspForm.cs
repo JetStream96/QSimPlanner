@@ -471,8 +471,13 @@ namespace QSP.UI.Forms
                 {
                     // Do not exit the app.
                     e.Cancel = true;
+                    return;
                 }
             }
+
+            toMenu.TrySaveState();
+            ldgMenu.TrySaveState();
+            fuelMenu.SaveStateToFile();
         }
 
         private void windDataStatusLabel_Click(object sender, EventArgs e)
