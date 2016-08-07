@@ -34,13 +34,12 @@ namespace QSP.RouteFinding.Tracks.Pacots
             this.tracksInUse = tracksInUse;
             AddedToWptList = false;
         }
-        
+
         /// <exception cref="TrackDownloadException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()
         {
-            TryDownload(new PacotsDownloader());
-            ReadMessage();
+            DownloadAndReadTracks(new PacotsDownloader());
             UndoEdit();
         }
 
@@ -48,9 +47,14 @@ namespace QSP.RouteFinding.Tracks.Pacots
         /// <exception cref="TrackParseException"></exception>
         public void GetAllTracks(IPacotsMessageProvider provider)
         {
+            DownloadAndReadTracks(provider);
+            UndoEdit();
+        }
+
+        private void DownloadAndReadTracks(IPacotsMessageProvider provider)
+        {
             TryDownload(provider);
             ReadMessage();
-            UndoEdit();
         }
 
         private void ReadMessage()
@@ -118,7 +122,9 @@ namespace QSP.RouteFinding.Tracks.Pacots
         /// <exception cref="TrackParseException"></exception>
         public override async Task GetAllTracksAsync()
         {
-            await Task.Factory.StartNew(GetAllTracks);
+            await Task.Factory.StartNew(() =>
+            DownloadAndReadTracks(new PacotsDownloader()));
+            UndoEdit();
         }
 
         public override void AddToWaypointList()

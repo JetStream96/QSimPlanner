@@ -42,8 +42,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         /// <exception cref="TrackDownloadException"></exception>
         public override void GetAllTracks()
         {
-            TryDownload(new AusotsDownloader());
-            ReadMessage();
+            DownloadAndReadTracks(new AusotsDownloader());
             UndoEdit();
         }
 
@@ -51,9 +50,14 @@ namespace QSP.RouteFinding.Tracks.Ausots
         /// <exception cref="TrackDownloadException"></exception>
         public void GetAllTracks(IAusotsMessageProvider provider)
         {
+            DownloadAndReadTracks(provider);
+            UndoEdit();
+        }
+
+        private void DownloadAndReadTracks(IAusotsMessageProvider provider)
+        {
             TryDownload(provider);
             ReadMessage();
-            UndoEdit();
         }
 
         private void ReadMessage()
@@ -121,7 +125,9 @@ namespace QSP.RouteFinding.Tracks.Ausots
         /// <exception cref="TrackDownloadException"></exception>
         public override async Task GetAllTracksAsync()
         {
-            await Task.Factory.StartNew(GetAllTracks);
+            await Task.Factory.StartNew(() =>
+            DownloadAndReadTracks(new AusotsDownloader()));
+            UndoEdit(); 
         }
 
         public override void AddToWaypointList()

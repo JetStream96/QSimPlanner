@@ -42,8 +42,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()
         {
-            TryDownload(new NatsDownloader());
-            ReadMessage();
+            DownloadAndReadTracks(new NatsDownloader());
             UndoEdit();
         }
 
@@ -54,9 +53,14 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// <exception cref="TrackParseException"></exception>
         public void GetAllTracks(INatsMessageProvider provider)
         {
+            DownloadAndReadTracks(provider);
+            UndoEdit();
+        }
+
+        private void DownloadAndReadTracks(INatsMessageProvider provider)
+        {
             TryDownload(provider);
             ReadMessage();
-            UndoEdit();
         }
 
         private void ReadMessage()
@@ -87,7 +91,9 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// <exception cref="TrackParseException"></exception>
         public override async Task GetAllTracksAsync()
         {
-            await Task.Factory.StartNew(GetAllTracks);
+            await Task.Factory.StartNew(() => 
+            DownloadAndReadTracks(new NatsDownloader()));
+            UndoEdit();
         }
         
         public override void AddToWaypointList()
