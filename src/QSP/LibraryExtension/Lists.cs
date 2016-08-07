@@ -5,27 +5,6 @@ namespace QSP.LibraryExtension
 {
     public static class Lists
     {
-        private static void Resize<T>(this List<T> item, int newSize)
-        {
-            item.AddRange(Enumerable.Repeat(default(T), newSize - item.Count));
-        }
-
-        public static List<T> WithoutDuplicates<T>(this List<T> item)
-        {
-            return item.Distinct().ToList();
-        }
-
-        /// <summary>
-        /// Add the new list, starting from the given index, to the end of the original one.
-        /// </summary>
-        public static void AddRange<T>(this List<T> item, List<T> list, int index)
-        {
-            for (int i = index; i < list.Count; i++)
-            {
-                item.Add(list[i]);
-            }
-        }
-
         /// <summary>
         /// Remove the last item, if the list is not null or empty.
         /// Return value indicates whether the removal was successful.

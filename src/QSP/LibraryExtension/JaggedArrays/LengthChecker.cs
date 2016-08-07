@@ -1,12 +1,12 @@
-﻿using System;
-using QSP.Utilities;
+﻿using QSP.Utilities;
+using System;
 
 namespace QSP.LibraryExtension.JaggedArrays
 {
     public static class LengthChecker
     {
-        public static bool HasLength<T>(object JaggedArray,
-                                        params int[] lengths)
+        public static bool HasLength<T>(
+            object JaggedArray, params int[] lengths)
         {
             var array = (Array)JaggedArray;
 
@@ -19,21 +19,16 @@ namespace QSP.LibraryExtension.JaggedArrays
             }
             else
             {
-                if (array.Length < lengths[0])
-                {
-                    return false;
-                }
+                if (array.Length < lengths[0]) return false;
 
                 var newLen = new int[lengths.Length - 1];
                 Array.Copy(lengths, 1, newLen, 0, newLen.Length);
 
                 foreach (var i in array)
                 {
-                    if (HasLength<T>(i, newLen) == false)
-                    {
-                        return false;
-                    }
+                    if (HasLength<T>(i, newLen) == false) return false;
                 }
+
                 return true;
             }
         }

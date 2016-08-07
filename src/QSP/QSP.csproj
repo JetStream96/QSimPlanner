@@ -114,7 +114,6 @@
     <Compile Include="FuelCalculation\Tables\OptCrzTable.cs" />
     <Compile Include="FuelCalculation\Tables\SpeedProfile.cs" />
     <Compile Include="LibraryExtension\BiDictionary.cs" />
-    <Compile Include="LibraryExtension\EqualityComparers.cs" />
     <Compile Include="LibraryExtension\FileNameGenerator.cs" />
     <Compile Include="LibraryExtension\LinkedLists.cs" />
     <Compile Include="LibraryExtension\Locator.cs" />
@@ -268,7 +267,6 @@
     <Compile Include="MathTools\Interpolation\Interpolate1D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate2D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate3D.cs" />
-    <Compile Include="MathTools\Interpolation\Interpolate4D.cs" />
     <Compile Include="MathTools\Modulo.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader2D.cs" />
     <Compile Include="MathTools\Tables\Table1D.cs" />

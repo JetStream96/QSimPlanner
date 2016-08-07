@@ -23,13 +23,7 @@ namespace QSP.MathTools
             this.A22 = A22;
         }
 
-        public double Determinant
-        {
-            get
-            {
-                return A11 * A22 - A12 * A21;
-            }
-        }
+        public double Determinant { get { return A11 * A22 - A12 * A21; } }
 
         public Vector2D Multiply(Vector2D v)
         {
@@ -47,15 +41,9 @@ namespace QSP.MathTools
         public Matrix2by2 Inverse()
         {
             var det = Determinant;
-
-            if (det == 0.0)
-            {
-                throw new ArgumentException();
-            }
-
+            if (det == 0.0) throw new ArgumentException();
             var B = new Matrix2by2(A22, -A12, -A21, A11);
             B.Multiply(1.0 / det);
-
             return B;
         }
     }

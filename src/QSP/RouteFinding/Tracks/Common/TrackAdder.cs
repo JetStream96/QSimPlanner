@@ -1,4 +1,5 @@
-﻿using QSP.RouteFinding.AirwayStructure;
+﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Collections.Generic;
@@ -12,10 +13,11 @@ namespace QSP.RouteFinding.Tracks.Common
         private StatusRecorder recorder;
         private TrackType type;
 
-        public TrackAdder(WaypointList wptList,
-                          WaypointListEditor editor,
-                          StatusRecorder recorder,
-                          TrackType type)
+        public TrackAdder(
+            WaypointList wptList,
+            WaypointListEditor editor,
+            StatusRecorder recorder,
+            TrackType type)
         {
             this.wptList = wptList;
             this.editor = editor;
@@ -23,8 +25,7 @@ namespace QSP.RouteFinding.Tracks.Common
             this.type = type;
         }
 
-        public void AddToWaypointList<T>(T nodes)
-            where T : IEnumerable<TrackNodes>
+        public void AddToWaypointList(IEnumerable<TrackNodes> nodes)
         {
             foreach (var i in nodes)
             {
@@ -37,11 +38,7 @@ namespace QSP.RouteFinding.Tracks.Common
             try
             {
                 AddMainRoute(item);
-
-                foreach (var i in item.ConnectionRoutes)
-                {
-                    AddPairs(i);
-                }
+                item.ConnectionRoutes.ForEach(i => AddPairs(i));
             }
             catch
             {
@@ -93,11 +90,9 @@ namespace QSP.RouteFinding.Tracks.Common
                     {
                         int index = m.Index;
                         double dis = wptList.Distance(x, index);
-
-                        editor.AddNeighbor(
-                            index,
-                            x,
-                            new Neighbor("DCT", AirwayType.Enroute, dis));
+                        var neighbor =
+                            new Neighbor("DCT", AirwayType.Enroute, dis);
+                        editor.AddNeighbor(index, x, neighbor);
                     }
                 }
                 return x;

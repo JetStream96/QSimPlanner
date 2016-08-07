@@ -152,7 +152,7 @@ namespace QSP.RouteFinding
                 }
             }
         }
-        
+
         public bool TrackedLoaded(TrackType type)
         {
             switch (type)

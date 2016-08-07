@@ -55,7 +55,6 @@
   <ItemGroup>
     <Compile Include="AircraftProfiles\Configs\AcConfigManagerTest.cs" />
     <Compile Include="Common\Constants.cs" />
-    <Compile Include="LibraryExtension\EqualityComparersTest.cs" />
     <Compile Include="LibraryExtension\IEnumerablesTest.cs" />
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
     <Compile Include="LibraryExtension\RegexesTest.cs" />
