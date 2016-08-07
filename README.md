@@ -1,7 +1,7 @@
 # QSimPlanner
 A tool for fuel planning and take-off/landing performance calculations.
 
-![pic](https://dl.dropboxusercontent.com/content_link/sLFTArDyTjZIqdILf8dtWsGr3BF8vHomzPEbpG1XsaEVVcpijZzDVdKEACzPLaTf/file?dl=0)
+![screenshots](https://cloud.githubusercontent.com/assets/15779531/17461150/605a770c-5cb4-11e6-8010-6bdbf5bd2b3b.gif)
 
 ### Features
 ##### Flight planner
