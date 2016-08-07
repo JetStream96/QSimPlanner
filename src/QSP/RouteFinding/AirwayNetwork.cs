@@ -43,6 +43,10 @@ namespace QSP.RouteFinding
 
         private void SetTrackData()
         {
+            natsManager?.UndoEdit();
+            pacotsManager?.UndoEdit();
+            ausotsManager?.UndoEdit();
+
             natsManager = new NatsHandler(
                 WptList,
                 WptList.GetEditor(),
@@ -71,6 +75,10 @@ namespace QSP.RouteFinding
             var pacotsData = pacotsManager.RawData;
             var ausotsData = ausotsManager.RawData;
 
+            bool natsEnabled = NatsEnabled;
+            bool pacotsEnabled = PacotsEnabled;
+            bool ausotsEnabled = AusotsEnabled;
+
             this.WptList = wptList;
             this.AirportList = airportList;
 
@@ -78,24 +86,24 @@ namespace QSP.RouteFinding
             StatusRecorder.Clear();
             SetTrackData();
 
-            if (NatsLoaded)
+            if (natsData != null)
             {
                 natsManager.GetAllTracks(new NatsProvider(natsData));
             }
 
-            if (PacotsLoaded)
+            if (pacotsData != null)
             {
                 pacotsManager.GetAllTracks(new PacotsProvider(pacotsData));
             }
 
-            if (AusotsLoaded)
+            if (ausotsData != null)
             {
                 ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
             }
 
-            if (NatsEnabled) natsManager.AddToWaypointList();
-            if (PacotsEnabled) pacotsManager.AddToWaypointList();
-            if (AusotsEnabled) ausotsManager.AddToWaypointList();
+            if (natsEnabled) natsManager.AddToWaypointList();
+            if (pacotsEnabled) pacotsManager.AddToWaypointList();
+            if (ausotsEnabled) ausotsManager.AddToWaypointList();
 
             WptListChanged?.Invoke(this, EventArgs.Empty);
             AirportListChanged?.Invoke(this, EventArgs.Empty);
