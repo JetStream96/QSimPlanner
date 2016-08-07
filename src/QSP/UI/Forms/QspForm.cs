@@ -268,8 +268,8 @@ namespace QSP.UI.Forms
             AddToolTip();
 
             FormClosing += CloseMain;
-            panel1.HorizontalScroll.Enabled = false;
-            panel1.HorizontalScroll.Visible = false;
+            int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
+            panel1.Padding = new Padding(0, 0, vertScrollWidth, 0);
         }
 
         private void RefreshAirportInfoSelection()

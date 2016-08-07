@@ -1,12 +1,14 @@
 # QSimPlanner
 A tool for fuel planning and take-off/landing performance calculations.
 
+![pic](https://dl.dropboxusercontent.com/content_link/sLFTArDyTjZIqdILf8dtWsGr3BF8vHomzPEbpG1XsaEVVcpijZzDVdKEACzPLaTf/file?dl=0)
+
 ### Features
 ##### Flight planner
 - Automatic route finder, based on user-selected departure/arrival runways and SID/STAR. Also finds route to alternate airport.
 - Find wind-optimized route.
 - Possible to find a route which avoids certain country's airspace.
-- Analyze existing routes, and use "AUTO" and "RAND" commands to complete a partial route. "X AUTO Y" finds a route between X and Y. "X RAND Y" finds a random route between X and Y.
+- Analyze existing routes, and use "AUTO" and "RAND" commands to complete a partial route.
 - Automatically download and parse tracks. Supports North Atlantic Tracks (NATs), Pacific Tracks (PACOTs) and Australian Organised Track Structure (AUSOTS).
 - Export flight plans to PMDG .rte format.
 - Download real time wind aloft from NOAA.
@@ -19,7 +21,7 @@ A tool for fuel planning and take-off/landing performance calculations.
 - Landing calculation with custom flaps, autobrakes setting, and runway surface conditions.
 
 ### Requirements
-To use QSimPlanner, an AIRAC cycle is required. You can purchase either Aerosoft's [NavDataPro] or Navigraph's [FMS Data]. Use the version of Aerosoft Airbus A318/A319/A320/A321.
+To use QSimPlanner, an AIRAC cycle is required. You can purchase either [Aerosoft]'s NavDataPro or [Navigraph]'s FMS Data. Use the version of Aerosoft Airbus A318/A319/A320/A321.
 
 Also .NET framework 4.5 is required.
 
@@ -56,5 +58,5 @@ You are welcomed to submit pull requests to this repository. Feel free to leave 
 ### License
 MIT License
 
-   [NavDataPro]: <http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688>
-   [FMS Data]: <https://www.navigraph.com/FmsData.aspx>
+   [Aerosoft]: <http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688>
+   [Navigraph]: <https://www.navigraph.com/FmsData.aspx>

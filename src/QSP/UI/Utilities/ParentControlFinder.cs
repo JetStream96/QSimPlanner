@@ -12,7 +12,7 @@ namespace QSP.UI.Utilities
             do
             {
                 control = control.Parent;
-            } while (control is Panel == false);
+            } while (!(control is Panel) || control is TableLayoutPanel);
 
             return (Panel)control;
         }

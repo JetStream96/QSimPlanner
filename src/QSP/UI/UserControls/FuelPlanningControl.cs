@@ -482,7 +482,7 @@ namespace QSP.UI.UserControls
 
         private void ScrollToBottom()
         {
-            var panel = ParentControlFinder.FindPanel(this);
+            var panel = this.FindPanel().FindPanel();
             var scroll = panel.VerticalScroll;
             var target = 1 + scroll.Maximum - scroll.LargeChange;
             ScrollAnimation.ScrollToPosition(scroll, target, 500.0);
