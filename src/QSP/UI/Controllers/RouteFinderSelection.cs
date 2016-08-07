@@ -132,9 +132,12 @@ namespace QSP.UI.Controllers
 
         public void RefreshProcedureComboBox()
         {
-            var selected = TerminalProceduresCBox.Text;
-            RwyChanged(this, EventArgs.Empty);
-            TerminalProceduresCBox.Text = selected;
+            if (RwyCBox.Items.Count > 0)
+            {
+                var selected = TerminalProceduresCBox.Text;
+                RwyChanged(this, EventArgs.Empty);
+                TerminalProceduresCBox.Text = selected;
+            }
         }
 
         private void IcaoChanged(object sender, EventArgs e)
