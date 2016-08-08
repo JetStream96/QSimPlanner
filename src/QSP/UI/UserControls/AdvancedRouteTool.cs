@@ -365,13 +365,13 @@ namespace QSP.UI.UserControls
         }
 
         // Gets the lat and lon.
-        // Inpute sample: "LAT/22.55201 LON/121.3554"
+        // Inpute sample: "LAT/22.55201 LON/-121.3554"
         private static LatLon ExtractLatLon(string s)
         {
-            var matchLat = Regex.Match(s, @"LAT/([\d.]+) ");
+            var matchLat = Regex.Match(s, @"LAT/-?([\d.]+) ");
             double lat = double.Parse(matchLat.Groups[1].Value);
 
-            var matchLon = Regex.Match(s, @"LON/([\d.]+)");
+            var matchLon = Regex.Match(s, @"LON/(-?[\d.]+)");
             double lon = double.Parse(matchLon.Groups[1].Value);
 
             return new LatLon(lat, lon);
