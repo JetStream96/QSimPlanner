@@ -1,4 +1,7 @@
+using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -51,11 +54,11 @@ function initialize()
                     $"{wpt.Lat},{wpt.Lon});");
             }
 
-            //now the center of map
-            double centerLat = (rte.FirstWaypoint.Lat + rte.LastWaypoint.Lat) / 2;
-            double centerLon = (rte.FirstWaypoint.Lon + rte.LastWaypoint.Lon) / 2;
+            // Center of map
+            var center = GetCenter(rte);
 
-            mapHtml.AppendLine($"var centerP=new google.maps.LatLng({centerLat},{centerLon});");
+            mapHtml.AppendLine(
+                $"var centerP=new google.maps.LatLng({center.Lat},{center.Lon});");
 
             const int zoomlevel = 6;
 
@@ -129,6 +132,24 @@ var myTrip=[");
 
             return mapHtml;
 
+        }
+
+        private static ICoordinate GetCenter(Route route)
+        {
+            if (route.Count < 2) throw new ArgumentException();
+            var totalDis = route.GetTotalDistance();
+            double dis = 0.0;
+            var node = route.First;
+
+            while (dis < totalDis * 0.5 && node != route.Last)
+            {
+                dis += node.Value.DistanceToNext;
+                node = node.Next;
+            }
+
+            var lat = (node.Value.Lat + node.Previous.Value.Lat) * 0.5;
+            var lon = (node.Value.Lon + node.Previous.Value.Lon) * 0.5;
+            return new LatLon(lat, lon);
         }
     }
 }
