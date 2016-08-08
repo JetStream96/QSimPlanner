@@ -23,16 +23,7 @@ namespace QSimPlanner
                     return;
                 }
 
-                var domain = AppDomain.CurrentDomain;
-                domain.UnhandledException += (sender, e) =>
-                {
-                    LoggerInstance.WriteToLog((Exception)e.ExceptionObject);
-                    MsgBoxHelper.ShowError(
-                        "An unexpected error occurred. " +
-                        "The application will now quit.");
-                    Environment.Exit(1);
-                };
-
+                SetExceptionHandler();
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
@@ -43,7 +34,32 @@ namespace QSimPlanner
             }
         }
 
-        static string GetGuid()
+        private static void SetExceptionHandler()
+        {
+            AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+            {
+                HandleException((Exception)e.ExceptionObject);
+            };
+
+            Application.ThreadException += (sender, e) =>
+            {
+                HandleException(e.Exception);
+            };
+
+            Application.SetUnhandledExceptionMode(
+                UnhandledExceptionMode.CatchException);
+        }
+
+        private static void HandleException(Exception ex)
+        {
+            LoggerInstance.WriteToLog(ex);
+            MsgBoxHelper.ShowError(
+                "An unexpected error occurred. " +
+                "The application will now quit.");
+            Environment.Exit(1);
+        }
+
+        private static string GetGuid()
         {
             var attributes = typeof(Program).Assembly
                 .GetCustomAttributes(typeof(GuidAttribute), true);
