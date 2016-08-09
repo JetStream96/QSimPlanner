@@ -3,6 +3,7 @@ using QSP.Utilities;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -14,7 +15,7 @@ namespace QSP.UI.ToLdgModule.AboutPage
         {
             InitializeComponent();
         }
-        
+
         public void Init(string appName)
         {
             appNameLbl.Text = appName;
@@ -40,7 +41,7 @@ namespace QSP.UI.ToLdgModule.AboutPage
 
         private void licenseBtn_Click(object sender, EventArgs e)
         {
-            TryOpenFile("LICENSE.txt");
+            TryOpenFile(Path.GetFullPath("LICENSE.txt"));
         }
 
         private void siteBtn_Click(object sender, EventArgs e)
@@ -51,6 +52,11 @@ namespace QSP.UI.ToLdgModule.AboutPage
         private void githubBtn_Click(object sender, EventArgs e)
         {
             TryOpenFile("https://github.com/JetStream96/QSimPlanner");
+        }
+
+        private void manualBtn_Click(object sender, EventArgs e)
+        {
+            TryOpenFile(Path.GetFullPath("manual/manual.html"));
         }
     }
 }
