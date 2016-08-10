@@ -30,6 +30,7 @@
         {
             this.txtLbl = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.manualBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.versionLbl = new System.Windows.Forms.Label();
@@ -37,7 +38,6 @@
             this.githubBtn = new System.Windows.Forms.Button();
             this.siteBtn = new System.Windows.Forms.Button();
             this.licenseBtn = new System.Windows.Forms.Button();
-            this.manualBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -50,12 +50,12 @@
             this.txtLbl.BackColor = System.Drawing.Color.Transparent;
             this.txtLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLbl.Location = new System.Drawing.Point(6, 112);
+            this.txtLbl.Location = new System.Drawing.Point(8, 112);
             this.txtLbl.Name = "txtLbl";
-            this.txtLbl.Size = new System.Drawing.Size(533, 94);
+            this.txtLbl.Size = new System.Drawing.Size(526, 94);
             this.txtLbl.TabIndex = 0;
-            this.txtLbl.Text = "This is an open-source software, distributed under the MIT License. \r\nFor quesion" +
-    "s, bug reports and suggestions, you can leave a message\r\non our webpage.\r\n\r\n";
+            this.txtLbl.Text = "This is an open-source software, released under MIT license.\r\nFor quesions, bug r" +
+    "eports and suggestions, please leave a message \r\non our webpage.\r\n\r\n";
             // 
             // panel1
             // 
@@ -70,6 +70,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(543, 337);
             this.panel1.TabIndex = 1;
+            // 
+            // manualBtn
+            // 
+            this.manualBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.manualBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.manualBtn.Location = new System.Drawing.Point(106, 243);
+            this.manualBtn.Name = "manualBtn";
+            this.manualBtn.Size = new System.Drawing.Size(81, 33);
+            this.manualBtn.TabIndex = 8;
+            this.manualBtn.Text = "Manual";
+            this.manualBtn.UseVisualStyleBackColor = true;
+            this.manualBtn.Click += new System.EventHandler(this.manualBtn_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -93,11 +105,11 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.versionLbl, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.appNameLbl, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(167, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(134, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(199, 45);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(265, 45);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // versionLbl
@@ -106,7 +118,7 @@
             this.versionLbl.AutoSize = true;
             this.versionLbl.BackColor = System.Drawing.Color.Transparent;
             this.versionLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.versionLbl.Location = new System.Drawing.Point(151, 20);
+            this.versionLbl.Location = new System.Drawing.Point(217, 20);
             this.versionLbl.Name = "versionLbl";
             this.versionLbl.Size = new System.Drawing.Size(45, 25);
             this.versionLbl.TabIndex = 2;
@@ -119,9 +131,9 @@
             this.appNameLbl.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.appNameLbl.Location = new System.Drawing.Point(3, 0);
             this.appNameLbl.Name = "appNameLbl";
-            this.appNameLbl.Size = new System.Drawing.Size(142, 45);
+            this.appNameLbl.Size = new System.Drawing.Size(208, 45);
             this.appNameLbl.TabIndex = 1;
-            this.appNameLbl.Text = "QSP Lite";
+            this.appNameLbl.Text = "QSimPlanner";
             // 
             // githubBtn
             // 
@@ -158,18 +170,6 @@
             this.licenseBtn.Text = "License";
             this.licenseBtn.UseVisualStyleBackColor = true;
             this.licenseBtn.Click += new System.EventHandler(this.licenseBtn_Click);
-            // 
-            // manualBtn
-            // 
-            this.manualBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.manualBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.manualBtn.Location = new System.Drawing.Point(106, 243);
-            this.manualBtn.Name = "manualBtn";
-            this.manualBtn.Size = new System.Drawing.Size(81, 33);
-            this.manualBtn.TabIndex = 8;
-            this.manualBtn.Text = "Manual";
-            this.manualBtn.UseVisualStyleBackColor = true;
-            this.manualBtn.Click += new System.EventHandler(this.manualBtn_Click);
             // 
             // AboutPageControl
             // 

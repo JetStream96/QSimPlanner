@@ -21,5 +21,14 @@ namespace QSP.UI.Utilities
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Warning);
         }
+
+        public static DialogResult ShowInfo(string text, string caption = "")
+        {
+            return MessageBox.Show(
+                text,
+                caption,
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
     }
 }

@@ -459,7 +459,7 @@ namespace QSP.UI.UserControls
 
             if (fuelReport.TotalFuelKG > data.MaxFuelKg)
             {
-                MessageBox.Show(InsufficientFuelMsg(
+                ShowInfo(InsufficientFuelMsg(
                     fuelReport.TotalFuelKG, data.MaxFuelKg, WeightUnit));
                 return;
             }
