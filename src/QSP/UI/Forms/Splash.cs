@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Reflection;
 
 namespace QSP.UI.Forms
@@ -18,10 +17,8 @@ namespace QSP.UI.Forms
 
         public static string AppProductVersion()
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var version = FileVersionInfo.GetVersionInfo(assembly.Location);
-            return $"{version.ProductMajorPart}.{version.ProductMinorPart}" +
-                $".{version.ProductBuildPart}";
+            var ver = Assembly.GetEntryAssembly().GetName().Version;
+            return $"{ver.Major}.{ver.Minor}.{ver.Build}";
         }
     }
 }

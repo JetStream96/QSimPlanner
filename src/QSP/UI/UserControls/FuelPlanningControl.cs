@@ -459,8 +459,15 @@ namespace QSP.UI.UserControls
 
             if (fuelReport.TotalFuelKG > data.MaxFuelKg)
             {
-                ShowInfo(InsufficientFuelMsg(
-                    fuelReport.TotalFuelKG, data.MaxFuelKg, WeightUnit));
+                var msg = InsufficientFuelMsg(
+                    fuelReport.TotalFuelKG, data.MaxFuelKg, WeightUnit);
+
+                MessageBox.Show(
+                    msg,
+                    "Insufficient fuel",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
                 return;
             }
 
@@ -505,7 +512,7 @@ namespace QSP.UI.UserControls
                 fuelCapacityInt = RoundToInt(fuelCapacityKG * KgLbRatio);
             }
 
-            return "Insufficient fuel\n" +
+            return
                 $"Fuel required for this flight is {fuelReqInt} {wtUnit}. " +
                 $"Maximum fuel tank capacity is {fuelCapacityInt} {wtUnit}.";
         }

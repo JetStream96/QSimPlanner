@@ -22,8 +22,7 @@ namespace QSP.UI.ToLdgModule.AboutPage
             panel1.BackColor = Color.FromArgb(160, Color.White);
 
             var ver = Assembly.GetEntryAssembly().GetName().Version;
-            versionLbl.Text =
-                $"v{ver.Major}.{ver.Minor}.{ver.Build}";
+            versionLbl.Text = $"v{ver.Major}.{ver.Minor}.{ver.Build}";
         }
 
         private void TryOpenFile(string fileName)
