@@ -10,3 +10,5 @@ src/TrackBackupApp/nats
 src/TrackBackupApp/log.txt
 src/QspLiteSetup/Debug
 src/QspLiteSetup/Release
+src/Installer/Debug
+src/Installer/Release
