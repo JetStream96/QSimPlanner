@@ -813,9 +813,9 @@
             this.label21.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.Location = new System.Drawing.Point(3, 6);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(74, 23);
+            this.label21.Size = new System.Drawing.Size(65, 23);
             this.label21.TabIndex = 14;
-            this.label21.Text = "Airacraft";
+            this.label21.Text = "Aircraft";
             // 
             // groupBox1
             // 
