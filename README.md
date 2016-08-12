@@ -1,7 +1,7 @@
 # QSimPlanner
 A tool for fuel planning and take-off/landing performance calculations.
 
-![screenshots](https://cloud.githubusercontent.com/assets/15779531/17461150/605a770c-5cb4-11e6-8010-6bdbf5bd2b3b.gif)
+### [Screenshots]
 
 ### Features
 ##### Flight planner
@@ -57,6 +57,6 @@ You are welcomed to submit pull requests to this repository. Feel free to leave 
 
 ### License
 MIT License
-
+   [Screenshots]: <https://github.com/JetStream96/QSimPlanner/issues/2>
    [Aerosoft]: <http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688>
    [Navigraph]: <https://www.navigraph.com/FmsData.aspx>
