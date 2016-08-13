@@ -1,4 +1,3 @@
-using QSP.Utilities;
 using System;
 using static QSP.Utilities.ConditionChecker;
 
@@ -14,8 +13,7 @@ namespace QSP.AviationTools
 
         public static double IsaTemp(double AltFt)
         {
-            ConditionChecker.Ensure
-                <ArgumentOutOfRangeException>(AltFt <= 65000.0);
+            Ensure<ArgumentOutOfRangeException>(AltFt <= 65000.0);
 
             if (AltFt <= 36000.0)
             {

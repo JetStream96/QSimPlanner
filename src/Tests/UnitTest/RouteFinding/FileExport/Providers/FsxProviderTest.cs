@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.FileExport.Providers;
 using System.Linq;
@@ -95,5 +96,11 @@ namespace UnitTest.RouteFinding.FileExport.Providers
             return double.TryParse(s, out d);
         }
 
+        [Test]
+        public void LatLonAltTest()
+        {
+            Assert.IsTrue("N25° 4' 23.28\", E121° 12' 58.26\",+000106.99"
+                == LatLonAlt(new LatLon(25.073133333, 121.216183333), 106.99));
+        }
     }
 }

@@ -14,6 +14,11 @@ namespace QSP.MathTools
             return (int)Math.Round(x);
         }
 
+        public static int FloorInt(double x)
+        {
+            return (int)Math.Floor(x);
+        }
+
         /// <summary>
         /// To prevent rounding errors from causing troubles when evaluating
         /// Acos.
