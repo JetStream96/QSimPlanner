@@ -35,7 +35,7 @@ namespace QSP.AviationTools.Coordinates
             if (d < 0.0) d = -d;
             int degree = FloorInt(d);
             int minute = FloorInt((d - degree) * 60.0);
-            double second = d - degree - minute * 60;
+            double second = (d - degree - minute / 60.0) * 3600.0;
             string secondStr = second.ToString(format);
 
             return $"{degree}° {minute}' {secondStr}\"";

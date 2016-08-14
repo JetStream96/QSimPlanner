@@ -3,8 +3,10 @@ using static QSP.AviationTools.Coordinates.FormatDegreeMinuteSecond;
 
 namespace UnitTest.AviationTools.Coordinates
 {
+    [TestFixture]
     public class FormatDegreeMinuteSecondTest
     {
+        [Test]
         public void CustomFormatTest()
         {
             var result = ToDegreeMinuteSecondFormat(25.073133333, "F2");

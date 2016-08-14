@@ -55,10 +55,8 @@ namespace QSP.LibraryExtension
         /// The returning array may have fewer elements than "length" 
         /// since any item in ignoredItems is NOT added to resulting array.
         /// </summary>
-        public static T[] SubArray<T>(this T[] data, 
-                                      int index, 
-                                      int length, 
-                                      T[] ignoredItems)
+        public static T[] SubArray<T>(
+            this T[] data, int index, int length, T[] ignoredItems)
         {
             var result = new T[length];
             int currentIndex = 0;
@@ -70,6 +68,7 @@ namespace QSP.LibraryExtension
                     result[currentIndex++] = data[i];
                 }
             }
+
             return result.SubArray(0, currentIndex);
         }
 
@@ -80,10 +79,10 @@ namespace QSP.LibraryExtension
                 item[i] *= c;
             }
         }
-        
+
         public static T Last<T>(this T[] array)
         {
             return array[array.Length - 1];
-        }        
+        }
     }
 }

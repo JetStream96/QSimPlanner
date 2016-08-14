@@ -24,7 +24,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 new Waypoint("WPT2", 0.0, 2.0), "C", -1.0,
                 new Waypoint("EFGH18", 0.0, 3.0));
 
-            var provider = new PmdgProvider(route, manager);
+            var provider = new FsxProvider(route, manager);
             var text = provider.GetExportText();
 
             // AssertFlightPlan
@@ -62,32 +62,37 @@ namespace UnitTest.RouteFinding.FileExport.Providers
 
             var wpts = main.Elements("ATCWaypoint").ToList();
             Assert.IsTrue(wpts.Count >= 2);
+            Assert.IsTrue(wpts.All(w =>
+            w.Attribute("id").Value == GetIdent(w)));
 
             Assert.IsTrue(
-                wpts[0].Attribute("id").Value == abcd.Icao &&
                 wpts[0].Element("ATCWaypointType").Value == "Airport" &&
                 wpts[0].Element("WorldPosition").Value == origLatLonAlt &&
-                wpts[0].Element("ICAO").Element("ICAOIdent").Value == abcd.Icao);
+                GetIdent(wpts[0]) == abcd.Icao);
 
             var wpt1 = route.First.Next.Value.Waypoint;
 
             Assert.IsTrue(
                 wpts[1].Element("ATCWaypointType").Value == "Intersection" &&
                 wpts[1].Element("WorldPosition").Value == LatLonAlt(wpt1, 0.0) &&
-                wpts[1].Element("ICAO").Element("ICAOIdent").Value == wpt1.ID);
+                GetIdent(wpts[1]) == wpt1.ID);
 
             var wpt2 = route.Last.Previous.Value.Waypoint;
 
             Assert.IsTrue(
-                wpts[0].Element("ATCWaypointType").Value == "Intersection" &&
-                wpts[0].Element("WorldPosition").Value == LatLonAlt(wpt2, 0.0) &&
-                wpts[0].Element("ICAO").Element("ICAOIdent").Value == wpt2.ID);
+                wpts[2].Element("ATCWaypointType").Value == "Intersection" &&
+                wpts[2].Element("WorldPosition").Value == LatLonAlt(wpt2, 0.0) &&
+                GetIdent(wpts[2]) == wpt2.ID);
 
             Assert.IsTrue(
-                wpts[3].Attribute("id").Value == efgh.Icao &&
                 wpts[3].Element("ATCWaypointType").Value == "Airport" &&
                 wpts[3].Element("WorldPosition").Value == destLatLonAlt &&
-                wpts[3].Element("ICAO").Element("ICAOIdent").Value == efgh.Icao);
+                GetIdent(wpts[3]) == efgh.Icao);
+        }
+
+        private static string GetIdent(XElement node)
+        {
+            return node.Element("ICAO").Element("ICAOIdent").Value;
         }
 
         private static bool CanConvertToDouble(string s)
@@ -99,7 +104,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
         [Test]
         public void LatLonAltTest()
         {
-            Assert.IsTrue("N25° 4' 23.28\", E121° 12' 58.26\",+000106.99"
+            Assert.IsTrue("N25° 4' 23.28\",E121° 12' 58.26\",+000106.99"
                 == LatLonAlt(new LatLon(25.073133333, 121.216183333), 106.99));
         }
     }
