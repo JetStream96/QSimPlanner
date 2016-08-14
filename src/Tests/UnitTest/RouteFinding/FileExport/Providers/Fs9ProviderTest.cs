@@ -15,13 +15,14 @@ description=ABCD, EFGH
 type=IFR
 routetype=3
 cruising_altitude=10000
-departure_id=ABCD, N0* 0.00', E 0* 0.00', +000000.00
+departure_id=ABCD, N0* 0.00', E0* 0.00', +000000.00
 destination_id=EFGH, N0* 0.00', E0* 0.00', +000000.00
 departure_name=
 destination_name=
-waypoint.0=ABCD, A, N0* 0.00', E 0* 0.00', +000000.00, 
+waypoint.0=ABCD, A, N0* 0.00', E0* 0.00', +000000.00, 
 waypoint.1=WPT, I, N0* 0.00', E1* 0.00', +000000.00, 
-waypoint.2=EFGH, A, N0* 0.00', E0* 0.00', +000000.00, ";
+waypoint.2=EFGH, A, N0* 0.00', E0* 0.00', +000000.00, 
+";
 
         [Test]
         public void GetExportTextTest()

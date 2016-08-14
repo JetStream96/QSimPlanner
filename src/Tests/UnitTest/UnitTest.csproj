@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="AircraftProfiles\Configs\AcConfigManagerTest.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinuteSecondTest.cs" />
+    <Compile Include="AviationTools\FormatDegreeMinuteTest.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="LibraryExtension\IEnumerablesTest.cs" />
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
