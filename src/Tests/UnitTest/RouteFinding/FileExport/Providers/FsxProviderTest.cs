@@ -20,8 +20,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
 
             var route = Common.GetRoute(
                 new Waypoint("ABCD02", 0.0, 0.0), "A", -1.0,
-                new Waypoint("WPT1", 0.0, 1.0), "B", -1.0,
-                new Waypoint("WPT2", 0.0, 2.0), "C", -1.0,
+                new Waypoint("WPT", 0.0, 1.0), "B", -1.0,
                 new Waypoint("EFGH18", 0.0, 3.0));
 
             var provider = new FsxProvider(route, manager);
@@ -70,24 +69,17 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 wpts[0].Element("WorldPosition").Value == origLatLonAlt &&
                 GetIdent(wpts[0]) == abcd.Icao);
 
-            var wpt1 = route.First.Next.Value.Waypoint;
+            var wpt = route.First.Next.Value.Waypoint;
 
             Assert.IsTrue(
                 wpts[1].Element("ATCWaypointType").Value == "Intersection" &&
-                wpts[1].Element("WorldPosition").Value == LatLonAlt(wpt1, 0.0) &&
-                GetIdent(wpts[1]) == wpt1.ID);
-
-            var wpt2 = route.Last.Previous.Value.Waypoint;
-
+                wpts[1].Element("WorldPosition").Value == LatLonAlt(wpt, 0.0) &&
+                GetIdent(wpts[1]) == wpt.ID);
+            
             Assert.IsTrue(
-                wpts[2].Element("ATCWaypointType").Value == "Intersection" &&
-                wpts[2].Element("WorldPosition").Value == LatLonAlt(wpt2, 0.0) &&
-                GetIdent(wpts[2]) == wpt2.ID);
-
-            Assert.IsTrue(
-                wpts[3].Element("ATCWaypointType").Value == "Airport" &&
-                wpts[3].Element("WorldPosition").Value == destLatLonAlt &&
-                GetIdent(wpts[3]) == efgh.Icao);
+                wpts[2].Element("ATCWaypointType").Value == "Airport" &&
+                wpts[2].Element("WorldPosition").Value == destLatLonAlt &&
+                GetIdent(wpts[2]) == efgh.Icao);
         }
 
         private static string GetIdent(XElement node)

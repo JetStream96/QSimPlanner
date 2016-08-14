@@ -131,6 +131,7 @@
     <Compile Include="RouteFinding\FileExport\ExportCommand.cs" />
     <Compile Include="RouteFinding\FileExport\FileExporter.cs" />
     <Compile Include="RouteFinding\FileExport\IExportProvider.cs" />
+    <Compile Include="RouteFinding\FileExport\Providers\Fs9Provider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\FsxProvider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\PmdgProvider.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\ProviderFactory.cs" />
