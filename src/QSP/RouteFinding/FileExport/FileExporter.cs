@@ -1,4 +1,4 @@
-﻿using QSP.LibraryExtension;
+﻿using QSP.Common;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.FileExport.Providers;
 using QSP.RouteFinding.Routes;
@@ -6,6 +6,8 @@ using QSP.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding.FileExport
 {
@@ -30,47 +32,73 @@ namespace QSP.RouteFinding.FileExport
         /// <summary>
         /// Returns the error messages of the operation.
         /// </summary>
+        /// <exception cref="NoFileNameAvailException"></exception>
         public IEnumerable<Status> Export()
         {
             _reports = new List<Status>();
+            var cmdToExport = commands.Where(i => i.Enabled);
+            var nameBase = GetFileNameBase();
+            const int maxAttemptCount = 10000;
 
-            foreach (var i in commands)
+            TryCreateDirectories();
+
+            for (int i = 0; i < maxAttemptCount; i++)
             {
-                if (i.Enabled == false)
+                if (cmdToExport.All(c => !FileExist(nameBase, c, i)))
                 {
-                    continue;
-                }
-
-                try
-                {
-                    var provider = ProviderFactory.GetProvider(
-                        i.ProviderType,
-                        route,
-                        airports);
-
-                    Directory.CreateDirectory(i.Directory);
-
-                    string filePath = FileNameGenerator.Generate(
-                        i.Directory,
-                        GetFileName(),
-                        (n) => n.ToString().PadLeft(2, '0'),
-                        i.Extension);
-
-                    File.WriteAllText(filePath, provider.GetExportText());
-
-                    _reports.Add(new Status(filePath, true, ""));
-                }
-                catch (Exception ex)
-                {
-                    LoggerInstance.WriteToLog(ex);
-                    _reports.Add(new Status(i.Directory, false, ex.Message));
+                    return cmdToExport.Select(c => Export(nameBase, c, i));
                 }
             }
 
-            return _reports;
+            throw new NoFileNameAvailException(
+                "No suitable file name can be generated.");
         }
 
-        private string GetFileName()
+        private Status Export(string nameBase, ExportCommand c, int i)
+        {
+            var fileName = GetFileFullPath(nameBase, c, i);
+
+            var provider = ProviderFactory.GetProvider(
+                c.ProviderType,
+                route,
+                airports);
+
+            try
+            {
+                File.WriteAllText(fileName, provider.GetExportText());
+            }
+            catch (Exception ex)
+            {
+                LoggerInstance.WriteToLog(ex);
+                return new Status(c.Directory, false, ex.Message);
+            }
+
+            return new Status(fileName, true, "");
+        }
+
+        private bool FileExist(string nameBase, ExportCommand cmd, int n)
+        {
+            var filePath = GetFileFullPath(nameBase, cmd, n);
+            return File.Exists(filePath);
+        }
+
+        private void TryCreateDirectories()
+        {
+            foreach (var i in commands)
+            {
+                IgnoreExceptions(() => Directory.CreateDirectory(i.Directory));
+            }
+        }
+
+        private static string GetFileFullPath(
+            string nameBase, ExportCommand cmd, int n)
+        {
+            var fileName =
+                nameBase + n.ToString().PadLeft(2, '0') + cmd.Extension;
+            return Path.Combine(cmd.Directory, fileName);
+        }
+
+        private string GetFileNameBase()
         {
             var orig = route.FirstWaypoint.ID.Substring(0, 4);
             var dest = route.LastWaypoint.ID.Substring(0, 4);

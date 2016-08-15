@@ -163,7 +163,18 @@ namespace QSP.UI.UserControls.RouteActions
             var writer = new FileExporter(
                 Route.Expanded, airportList, cmds);
 
-            var reports = writer.Export();
+            IEnumerable<FileExporter.Status> reports = null;
+
+            try
+            {
+                reports = writer.Export();
+            }
+            catch (Exception ex)
+            {
+                MsgBoxHelper.ShowWarning(ex.Message);
+                return;
+            }
+
             ShowReports(reports);
         }
 
@@ -196,7 +207,7 @@ namespace QSP.UI.UserControls.RouteActions
         private static void ShowReports(
             IEnumerable<FileExporter.Status> reports)
         {
-            if (reports.Count() == 0)
+            if (reports.Any() == false)
             {
                 MessageBox.Show(
                     "No route file to be exported. " +
@@ -210,7 +221,7 @@ namespace QSP.UI.UserControls.RouteActions
                 var msg = new StringBuilder();
                 var success = reports.Where(r => r.Successful);
 
-                if (success.Count() > 0)
+                if (success.Any())
                 {
                     msg.AppendLine(
                         $"{success.Count()} company route(s) exported:");
@@ -223,7 +234,7 @@ namespace QSP.UI.UserControls.RouteActions
 
                 var errors = reports.Where(r => r.Successful == false);
 
-                if (errors.Count() > 0)
+                if (errors.Any())
                 {
                     msg.AppendLine("\n\n" +
                         $"Failed to export {errors.Count()} file(s) into:");
@@ -234,8 +245,7 @@ namespace QSP.UI.UserControls.RouteActions
                     }
                 }
 
-                var icon =
-                    errors.Count() > 0 ?
+                var icon = errors.Any() ?
                     MessageBoxIcon.Warning :
                     MessageBoxIcon.Information;
 
