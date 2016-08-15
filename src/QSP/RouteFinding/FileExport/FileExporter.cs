@@ -30,7 +30,6 @@ namespace QSP.RouteFinding.FileExport
         /// <summary>
         /// Returns the error messages of the operation.
         /// </summary>
-        /// <returns></returns>
         public IEnumerable<Status> Export()
         {
             _reports = new List<Status>();
@@ -48,6 +47,8 @@ namespace QSP.RouteFinding.FileExport
                         i.ProviderType,
                         route,
                         airports);
+
+                    Directory.CreateDirectory(i.Directory);
 
                     string filePath = FileNameGenerator.Generate(
                         i.Directory,

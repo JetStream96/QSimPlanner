@@ -1,6 +1,6 @@
 ﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Routes;
-using QSP.Common;
+using System;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
@@ -8,7 +8,7 @@ namespace QSP.RouteFinding.FileExport.Providers
     {
         public static IExportProvider GetProvider(
             ProviderType type,
-            Route route, 
+            Route route,
             AirportManager airports)
         {
             switch (type)
@@ -16,8 +16,14 @@ namespace QSP.RouteFinding.FileExport.Providers
                 case ProviderType.Pmdg:
                     return new PmdgProvider(route, airports);
 
+                case ProviderType.Fsx:
+                    return new FsxProvider(route, airports);
+
+                case ProviderType.Fs9:
+                    return new Fs9Provider(route, airports);
+
                 default:
-                    throw new EnumNotSupportedException();
+                    throw new ArgumentException();
             }
         }
     }

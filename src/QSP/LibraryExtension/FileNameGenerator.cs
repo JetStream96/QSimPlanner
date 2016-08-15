@@ -36,10 +36,7 @@ namespace QSP.LibraryExtension
                 string file = Path.Combine(directory,
                     nameBase + numberFormat(i) + extension);
 
-                if (File.Exists(file) == false)
-                {
-                    return file;
-                }
+                if (File.Exists(file) == false) return file;
             }
 
             throw new NoFileNameAvailException(

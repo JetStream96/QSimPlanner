@@ -20,7 +20,7 @@ namespace QSP.RouteFinding.FileExport.Providers
 
                 case ProviderType.Fsx:
                 case ProviderType.Fs9:
-                    return ".FLN";
+                    return ".PLN";
                 
                 default:
                     throw new ArgumentException();
