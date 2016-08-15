@@ -1,10 +1,12 @@
-﻿using QSP.Common;
+﻿using System;
 
 namespace QSP.RouteFinding.FileExport.Providers
 {
     public enum ProviderType
     {
-        Pmdg
+        Pmdg,
+        Fsx,
+        Fs9
     }
 
     public static class Types
@@ -16,8 +18,12 @@ namespace QSP.RouteFinding.FileExport.Providers
                 case ProviderType.Pmdg:
                     return ".rte";
 
+                case ProviderType.Fsx:
+                case ProviderType.Fs9:
+                    return ".FLN";
+                
                 default:
-                    throw new EnumNotSupportedException();
+                    throw new ArgumentException();
             }
         }
     }

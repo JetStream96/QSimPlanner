@@ -18,8 +18,6 @@ namespace QSP.UI.Controllers
 {
     public class AlternateController
     {
-        private const int RowSeperation = 38;
-
         private GroupBox altnGroupBox;
         private List<AltnRow> rows;
         private Locator<AppOptions> appOptionsLocator;
@@ -34,13 +32,7 @@ namespace QSP.UI.Controllers
         // Fires when the collection of alternates changes.
         public event EventHandler AlternatesChanged;
 
-        public int RowCount
-        {
-            get
-            {
-                return rows.Count;
-            }
-        }
+        public int RowCount { get { return rows.Count; } }
 
         public IEnumerable<string> Alternates
         {
@@ -72,7 +64,7 @@ namespace QSP.UI.Controllers
         public void AddRow()
         {
             var row = new AlternateRowItems();
-            row.Init(() => destSidProvider.Icao, 
+            row.Init(() => destSidProvider.Icao,
                 () => airwayNetwork.AirportList);
             row.AddToLayoutPanel(layoutPanel);
             row.IcaoTxtBox.TextChanged += (s, e) =>

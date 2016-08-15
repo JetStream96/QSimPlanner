@@ -6,7 +6,6 @@ using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
-using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
 using QSP.Utilities;
 using System;
@@ -17,24 +16,21 @@ using System.Windows.Forms;
 using static QSP.UI.Utilities.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
 
-namespace QSP.UI.Forms
+namespace QSP.UI.Forms.Options
 {
     public partial class OptionsForm : Form
     {
         private Locator<CountryCodeManager> CountryCodesLocator;
-        private Locator<AppOptions> AppSettingsLocator;
+        private Locator<AppOptions> appSettingsLocator;
         private AirwayNetwork airwayNetwork;
-        private IEnumerable<RouteExportMatching> exports;
+        private FlightPlanExportController exportController;
         private Panel popUpPanel;
 
         public event EventHandler NavDataLocationChanged;
 
         public AppOptions AppSettings
         {
-            get
-            {
-                return AppSettingsLocator.Instance;
-            }
+            get { return appSettingsLocator.Instance; }
         }
 
         public OptionsForm()
@@ -49,11 +45,9 @@ namespace QSP.UI.Forms
         {
             this.airwayNetwork = airwayNetwork;
             this.CountryCodesLocator = CountryCodesLocator;
-            this.AppSettingsLocator = AppSettingsLocator;
+            this.appSettingsLocator = AppSettingsLocator;
 
             InitExports();
-            addBrowseBtnHandler();
-            addCheckBoxEventHandler();
             SetDefaultState();
             SetControlsAsInOptions();
             FormClosing += CurrentFormClosing;
@@ -82,42 +76,8 @@ namespace QSP.UI.Forms
             }
         }
 
-        private void addBrowseBtnHandler()
-        {
-            foreach (var i in exports)
-            {
-                i.BrowserBtn.Click += (sender, e) =>
-                {
-                    var MyFolderBrowser = new FolderBrowserDialog();
-                    var dlgResult = MyFolderBrowser.ShowDialog();
-
-                    if (dlgResult == DialogResult.OK)
-                    {
-                        i.TxtBox.Text = MyFolderBrowser.SelectedPath;
-                    }
-                };
-            }
-        }
-
-        private void addCheckBoxEventHandler()
-        {
-            foreach (var i in exports)
-            {
-                i.CheckBox.CheckedChanged += (sender, e) =>
-                {
-                    i.TxtBox.Enabled = i.CheckBox.Checked;
-                };
-            }
-        }
-
         private void SetDefaultState()
         {
-            foreach (var i in exports)
-            {
-                i.CheckBox.Checked = false;
-                i.TxtBox.Enabled = false;
-            }
-
             PromptBeforeExit.Checked = true;
 
             navDataStatusLbl.Text = "";
@@ -138,26 +98,36 @@ namespace QSP.UI.Forms
                 AppSettings.EnableWindOptimizedRoute;
             hideDctCheckBox.Checked = AppSettings.HideDctInRoute;
             showTrackIdOnlyCheckBox.Checked = AppSettings.ShowTrackIdOnly;
-            SetExports();
-        }
-
-        private void SetExports()
-        {
-            foreach (var i in exports)
-            {
-                ExportCommand cmd;
-
-                if (AppSettings.ExportCommands.TryGetValue(i.Key, out cmd))
-                {
-                    i.TxtBox.Text = cmd.Directory;
-                    i.CheckBox.Checked = cmd.Enabled;
-                }
-            }
+            exportController.SetExports();
         }
 
         private void InitExports()
         {
             var exports = new List<RouteExportMatching>();
+
+            exports.Add(
+                new RouteExportMatching(
+                    "Fsx",
+                    ProviderType.Fsx,
+                    checkBox4,
+                    textBox4,
+                    button4));
+
+            exports.Add(
+                new RouteExportMatching(
+                    "P3d",
+                    ProviderType.Fsx,
+                    checkBox5,
+                    textBox5,
+                    button5));
+
+            exports.Add(
+                new RouteExportMatching(
+                    "Fs9",
+                    ProviderType.Fs9,
+                    checkBox6,
+                    textBox6,
+                    button6));
 
             exports.Add(
                 new RouteExportMatching(
@@ -183,21 +153,9 @@ namespace QSP.UI.Forms
                    TextBox3,
                    Button3));
 
-            this.exports = exports;
-        }
-
-        private Dictionary<string, ExportCommand> GetCommands()
-        {
-            var cmds = new Dictionary<string, ExportCommand>();
-
-            foreach (var i in exports)
-            {
-                cmds.Add(i.Key,
-                    new ExportCommand(
-                        i.Type, i.TxtBox.Text, i.CheckBox.Checked));
-            }
-
-            return cmds;
+            exportController = new FlightPlanExportController(
+                exports, appSettingsLocator);
+            exportController.Init();
         }
 
         private void SaveBtnClick(object sender, EventArgs e)
@@ -290,8 +248,8 @@ namespace QSP.UI.Forms
 
             if (OptionManager.TrySaveFile(newSetting))
             {
-                var oldSetting = AppSettingsLocator.Instance;
-                AppSettingsLocator.Instance = newSetting;
+                var oldSetting = appSettingsLocator.Instance;
+                appSettingsLocator.Instance = newSetting;
 
                 if (oldSetting.NavDataLocation != newSetting.NavDataLocation)
                 {
@@ -317,7 +275,7 @@ namespace QSP.UI.Forms
                 WindOptimizedRouteCheckBox.Checked,
                 hideDctCheckBox.Checked,
                 showTrackIdOnlyCheckBox.Checked,
-                GetCommands());
+                exportController.GetCommands());
         }
 
         private void CancelBtnClick(object sender, EventArgs e)
@@ -358,7 +316,7 @@ namespace QSP.UI.Forms
 
             foreach (var i in FilesToCheck)
             {
-                if (File.Exists(navDataPath + @"\" + i) == false)
+                if (File.Exists(Path.Combine(navDataPath, i)) == false)
                 {
                     navDataFound = false;
                     break;
@@ -461,29 +419,6 @@ namespace QSP.UI.Forms
 FMS Data (both are payware). Use the version of Aerosoft
 Airbus A318/A319/A320/A321. Select the folder which
 contains Airports.txt.";
-            }
-        }
-
-        private class RouteExportMatching
-        {
-            public string Key { get; private set; }
-            public ProviderType Type { get; private set; }
-            public CheckBox CheckBox { get; private set; }
-            public TextBox TxtBox { get; private set; }
-            public Button BrowserBtn { get; private set; }
-
-            public RouteExportMatching(
-                string Key,
-                ProviderType Type,
-                CheckBox CheckBox,
-                TextBox TxtBox,
-                Button BrowserBtn)
-            {
-                this.Key = Key;
-                this.Type = Type;
-                this.CheckBox = CheckBox;
-                this.TxtBox = TxtBox;
-                this.BrowserBtn = BrowserBtn;
             }
         }
     }

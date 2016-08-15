@@ -42,6 +42,7 @@ namespace QSP.Common
         { }
     }
 
+    // TODO: Replace with ArgumentException.
     [Serializable()]
     public class EnumNotSupportedException : NotSupportedException
     {
