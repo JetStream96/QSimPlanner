@@ -1,5 +1,5 @@
-﻿using QSP.Common;
-using QSP.TOPerfCalculation;
+﻿using QSP.TOPerfCalculation;
+using System;
 
 namespace QSP.UI.ToLdgModule.TOPerf.Controllers
 {
@@ -21,7 +21,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
                     return new BoeingController(acPerf, elements);
 
                 default:
-                    throw new EnumNotSupportedException();
+                    throw new ArgumentException();
             }
         }
     }

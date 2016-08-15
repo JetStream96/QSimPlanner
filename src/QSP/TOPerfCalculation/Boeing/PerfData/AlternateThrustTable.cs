@@ -1,6 +1,6 @@
-using QSP.Common;
 using QSP.MathTools.Interpolation;
 using QSP.LibraryExtension;
+using System;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
@@ -52,7 +52,7 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
                     FullThrustWeights, weight);
 
                 default:
-                    throw new EnumNotSupportedException();
+                    throw new ArgumentException();
             }
         }
 
@@ -73,7 +73,7 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
                     ClimbWeights, fullRatedWt);
 
                 default:
-                    throw new EnumNotSupportedException();
+                    throw new ArgumentException();
             }
         }
 

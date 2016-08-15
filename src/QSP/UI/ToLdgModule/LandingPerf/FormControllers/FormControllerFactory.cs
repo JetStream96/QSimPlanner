@@ -1,5 +1,5 @@
 ﻿using QSP.LandingPerfCalculation;
-using QSP.Common;
+using System;
 
 namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
 {
@@ -21,7 +21,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers
                     return new BoeingController(acPerf, elements);
 
                 default:
-                    throw new EnumNotSupportedException();
+                    throw new ArgumentException();
             }
         }
     }

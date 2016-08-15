@@ -1,4 +1,3 @@
-using QSP.Common;
 using QSP.LibraryExtension;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Tracks;
@@ -169,7 +168,7 @@ namespace QSP.UI.Forms
                     return "AUSOTS";
 
                 default:
-                    throw new EnumNotSupportedException();
+                    throw new ArgumentException();
             }
         }
 

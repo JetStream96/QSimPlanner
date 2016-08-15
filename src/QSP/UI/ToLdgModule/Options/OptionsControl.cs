@@ -1,5 +1,4 @@
-﻿using QSP.Common;
-using QSP.NavData;
+﻿using QSP.NavData;
 using QSP.RouteFinding.Airports;
 using QSP.Utilities;
 using System;
@@ -70,7 +69,7 @@ namespace QSP.UI.ToLdgModule.Options
                     break;
 
                 default:
-                    throw new EnumNotSupportedException();
+                    throw new ArgumentException();
             }
 
             Airports = new AirportManager(col);
@@ -264,7 +263,7 @@ Airbus A318/A319/A320/A321. Select the folder which
 contains Airports.txt.";
 
                 default:
-                    throw new EnumNotSupportedException();
+                    throw new ArgumentException();
             }
         }
     }

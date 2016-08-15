@@ -1,5 +1,5 @@
-﻿using QSP.Common;
-using QSP.RouteFinding.Tracks.Common;
+﻿using QSP.RouteFinding.Tracks.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -86,7 +86,7 @@ namespace QSP.RouteFinding.Routes.TrackInUse
                     break;
 
                 default:
-                    throw new EnumNotSupportedException();
+                    throw new ArgumentException();
             }
         }
     }

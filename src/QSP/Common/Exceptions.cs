@@ -42,20 +42,6 @@ namespace QSP.Common
         { }
     }
 
-    // TODO: Replace with ArgumentException.
-    [Serializable()]
-    public class EnumNotSupportedException : NotSupportedException
-    {
-        public EnumNotSupportedException() { }
-
-        public EnumNotSupportedException(string message) : base(message)
-        { }
-
-        public EnumNotSupportedException(string message, Exception inner)
-            : base(message, inner)
-        { }
-    }
-
     [Serializable]
     public class NoFileNameAvailException : Exception
     {

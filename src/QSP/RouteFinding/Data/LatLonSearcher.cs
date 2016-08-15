@@ -1,5 +1,4 @@
 using QSP.AviationTools.Coordinates;
-using QSP.Common;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -52,7 +51,7 @@ namespace QSP.RouteFinding.Data
                     break;
 
                 default:
-                    throw new EnumNotSupportedException();
+                    throw new ArgumentException();
             }
         }
 
