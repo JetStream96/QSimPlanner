@@ -2,6 +2,7 @@
 {
     public interface IPacotsMessageProvider
     {
+        /// <exception cref="GetTrackException"></exception>
         PacotsMessage GetMessage();
     }
 }

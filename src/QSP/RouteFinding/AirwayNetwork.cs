@@ -8,6 +8,7 @@ using QSP.RouteFinding.Tracks.Nats;
 using QSP.RouteFinding.Tracks.Pacots;
 using System;
 using System.Threading.Tasks;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding
 {
@@ -88,17 +89,20 @@ namespace QSP.RouteFinding
 
             if (natsData != null)
             {
-                natsManager.GetAllTracks(new NatsProvider(natsData));
+                IgnoreExceptions(() =>
+                natsManager.GetAllTracks(new NatsProvider(natsData)));
             }
 
             if (pacotsData != null)
             {
-                pacotsManager.GetAllTracks(new PacotsProvider(pacotsData));
+                IgnoreExceptions(() =>
+                pacotsManager.GetAllTracks(new PacotsProvider(pacotsData)));
             }
 
             if (ausotsData != null)
             {
-                ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
+                IgnoreExceptions(() =>
+                ausotsManager.GetAllTracks(new AusotsProvider(ausotsData)));
             }
 
             if (natsEnabled) natsManager.AddToWaypointList();

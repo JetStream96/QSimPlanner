@@ -2,6 +2,7 @@
 {
     public interface IAusotsMessageProvider
     {
+        /// <exception cref="TrackParseException"></exception>
         AusotsMessage GetMessage();
     }
 }

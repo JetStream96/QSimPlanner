@@ -26,10 +26,7 @@ namespace QSP.NavData.AAX
                 {
                     var words = i.Split(',').Select(s => s.Trim()).ToList();
 
-                    if (words.Count == 0)
-                    {
-                        continue;
-                    }
+                    if (words.Count == 0) continue;
 
                     if (words[0] == "A")
                     {
@@ -74,7 +71,6 @@ namespace QSP.NavData.AAX
                             currentAirway, AirwayType.Enroute, dis);
 
                         wptList.AddNeighbor(index1, index2, neighbor);
-
                     }
                 }
             }

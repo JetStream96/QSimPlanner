@@ -11,7 +11,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         private const string natsWest = "http://qsimplan.somee.com/nats/Westbound.xml";
         private const string natsEast = "http://qsimplan.somee.com/nats/Eastbound.xml";
 
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public static List<IndividualNatsMessage> DownloadFromWeb(string url)
         {
@@ -29,7 +29,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             catch (Exception ex)
             {
-                throw new TrackDownloadException("", ex);
+                throw new GetTrackException("", ex);
             }
 
             try
@@ -78,7 +78,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// <summary>
         /// Downloads the track message.
         /// </summary>
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public NatsMessage GetMessage()
         {

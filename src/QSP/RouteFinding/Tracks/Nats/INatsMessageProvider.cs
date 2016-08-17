@@ -2,6 +2,7 @@
 {
     public interface INatsMessageProvider
     {
+        /// <exception cref="GetTrackException"></exception>
         NatsMessage GetMessage();
     }
 }

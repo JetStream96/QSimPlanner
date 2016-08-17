@@ -7,7 +7,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 {
     public class PacotsDownloader : IPacotsMessageProvider
     {
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public PacotsMessage GetMessage()
         {
@@ -19,7 +19,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
             catch (Exception ex)
             {
-                throw new TrackDownloadException("Failed to download PACOTs.", ex);
+                throw new GetTrackException("Failed to download PACOTs.", ex);
             }
 
             try

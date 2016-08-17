@@ -225,16 +225,14 @@ namespace QSP.UI.Forms.Options
         // If failed, returns null.
         private AirportManager TryLoadAirports()
         {
-            var directory = pathTxtBox.Text;
-            var filePath = Path.Combine(directory, @"Airports.txt");
-            var loader = new AirportDataLoader(filePath);
-
             try
             {
+                var directory = pathTxtBox.Text;
+                var filePath = Path.Combine(directory, @"Airports.txt");
+                var loader = new AirportDataLoader(filePath);
                 return new AirportManager(loader.LoadFromFile());
             }
-            catch (Exception ex) when
-            (ex is ReadAirportFileException || ex is RwyDataFormatException)
+            catch (Exception ex)
             {
                 WriteToLog(ex);
                 ShowError("Failed to load airports.txt.");

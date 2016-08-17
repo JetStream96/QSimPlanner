@@ -43,11 +43,7 @@ namespace QSP.NavData.AAX
             {
                 try
                 {
-                    if (i.Length == 0 || i[0] == ' ')
-                    {
-                        continue;
-                    }
-
+                    if (i.Length == 0 || i[0] == ' ') continue;
                     ReadWpt(i);
                 }
                 catch

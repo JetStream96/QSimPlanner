@@ -39,7 +39,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         /// Download and parse all track messages.
         /// </summary>
         /// <exception cref="TrackParseException"></exception>
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         public override void GetAllTracks()
         {
             DownloadAndReadTracks(new AusotsDownloader());
@@ -47,19 +47,22 @@ namespace QSP.RouteFinding.Tracks.Ausots
         }
 
         /// <exception cref="TrackParseException"></exception>
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         public void GetAllTracks(IAusotsMessageProvider provider)
         {
             DownloadAndReadTracks(provider);
             UndoEdit();
         }
 
+        /// <exception cref="TrackParseException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         private void DownloadAndReadTracks(IAusotsMessageProvider provider)
         {
             TryDownload(provider);
             ReadMessage();
         }
 
+        /// <exception cref="TrackParseException"></exception>
         private void ReadMessage()
         {
             var trks = TryParse();
@@ -102,7 +105,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             }
         }
 
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         private void TryDownload(IAusotsMessageProvider provider)
         {
             try
@@ -116,13 +119,13 @@ namespace QSP.RouteFinding.Tracks.Ausots
                     "Failed to download AUSOTs.",
                     TrackType.Ausots);
 
-                throw new TrackDownloadException(
+                throw new GetTrackException(
                     "Failed to download Ausots.", ex);
             }
         }
 
         /// <exception cref="TrackParseException"></exception>
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         public override async Task GetAllTracksAsync()
         {
             await Task.Factory.StartNew(() =>

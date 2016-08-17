@@ -35,7 +35,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             AddedToWptList = false;
         }
 
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()
         {
@@ -43,7 +43,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             UndoEdit();
         }
 
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public void GetAllTracks(IPacotsMessageProvider provider)
         {
@@ -51,12 +51,15 @@ namespace QSP.RouteFinding.Tracks.Pacots
             UndoEdit();
         }
 
+        /// <exception cref="GetTrackException"></exception>
+        /// <exception cref="TrackParseException"></exception>
         private void DownloadAndReadTracks(IPacotsMessageProvider provider)
         {
             TryDownload(provider);
             ReadMessage();
         }
 
+        /// <exception cref="TrackParseException"></exception>
         private void ReadMessage()
         {
             var trks = TryParse();
@@ -80,7 +83,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         /// <exception cref="TrackParseException"></exception>
         private void TryDownload(IPacotsMessageProvider provider)
         {
@@ -118,7 +121,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public override async Task GetAllTracksAsync()
         {

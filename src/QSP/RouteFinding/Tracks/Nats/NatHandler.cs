@@ -38,7 +38,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// <summary>
         /// Download tracks and undo previous edit to wptList.
         /// </summary>
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()
         {
@@ -49,7 +49,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// <summary>
         /// Load the tracks and undo previous edit to wptList.
         /// </summary>
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public void GetAllTracks(INatsMessageProvider provider)
         {
@@ -57,12 +57,15 @@ namespace QSP.RouteFinding.Tracks.Nats
             UndoEdit();
         }
 
+        /// <exception cref="GetTrackException"></exception>
+        /// <exception cref="TrackParseException"></exception>
         private void DownloadAndReadTracks(INatsMessageProvider provider)
         {
             TryDownload(provider);
             ReadMessage();
         }
 
+        /// <exception cref="TrackParseException"></exception>
         private void ReadMessage()
         {
             var trks = TryParse();
@@ -87,7 +90,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
         }
 
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         /// <exception cref="TrackParseException"></exception>
         public override async Task GetAllTracksAsync()
         {
@@ -108,7 +111,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
         }
 
-        /// <exception cref="TrackDownloadException"></exception>
+        /// <exception cref="GetTrackException"></exception>
         /// <exception cref="TrackParseException"></exception>
         private void TryDownload(INatsMessageProvider provider)
         {
