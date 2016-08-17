@@ -161,6 +161,12 @@
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\Options\FlightPlanExportController.cs" />
+    <Compile Include="UI\Forms\UnhandledExceptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\UnhandledExceptionForm.Designer.cs">
+      <DependentUpon>UnhandledExceptionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\WindDownloadStatus.cs" />
     <Compile Include="UI\Controls\IClickable.cs" />
     <Compile Include="UI\Controls\PanelSilentScrollbar.cs">
@@ -571,6 +577,9 @@
     <None Include="Resources\add_icon.png" />
     <EmbeddedResource Include="UI\Forms\Options\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\UnhandledExceptionForm.resx">
+      <DependentUpon>UnhandledExceptionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\WindDataForm.resx">
       <DependentUpon>WindDataForm.cs</DependentUpon>

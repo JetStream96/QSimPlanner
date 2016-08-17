@@ -1,9 +1,10 @@
-﻿using QSP.UI.Utilities;
+﻿using QSP.UI.Forms;
+using QSP.UI.Utilities;
 using QSP.Utilities;
 using System;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace QSimPlanner
 {
@@ -27,7 +28,7 @@ namespace QSimPlanner
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                var mainFrm = new QSP.UI.Forms.QspForm();
+                var mainFrm = new QspForm();
                 mainFrm.Init();
 
                 Application.Run(mainFrm);
@@ -53,9 +54,11 @@ namespace QSimPlanner
         private static void HandleException(Exception ex)
         {
             LoggerInstance.WriteToLog(ex);
-            MsgBoxHelper.ShowError(
-                "An unexpected error occurred. " +
-                "The application will now quit.");
+
+            var frm = new UnhandledExceptionForm();
+            frm.Init(ex.ToString());
+            frm.ShowDialog();
+
             Environment.Exit(1);
         }
 
