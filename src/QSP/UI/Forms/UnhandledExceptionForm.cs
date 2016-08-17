@@ -23,7 +23,9 @@ namespace QSP.UI.Forms
 
         private void UnhandledExceptionForm_Load(object sender, EventArgs e)
         {
-            pictureBox1.Image = SystemIcons.Error.ToBitmap();
+            var image = SystemIcons.Error.ToBitmap();
+            pictureBox1.Image = image;
+            pictureBox1.Size = new Size(image.Width + 15, image.Height + 15);
         }
     }
 }
