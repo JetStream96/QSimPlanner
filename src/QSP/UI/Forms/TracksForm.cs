@@ -65,6 +65,8 @@ namespace QSP.UI.Forms
 
         private void RefreshListViewColumnWidth()
         {
+            ListView1.Columns[0].AutoResize(
+                ColumnHeaderAutoResizeStyle.ColumnContent);
             ListView1.Columns[1].Width = -2;
         }
 
