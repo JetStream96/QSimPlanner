@@ -4,6 +4,7 @@ using QSP.RouteFinding.Containers;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.NavData.AAX
 {
@@ -25,7 +26,6 @@ namespace QSP.NavData.AAX
         /// </summary>
         /// <param name="filepath">Location of waypoints.txt</param>
         /// <exception cref="WaypointFileReadException"></exception>
-        /// <exception cref="WaypointFileParseException"></exception>
         public BiDictionary<int, string> ReadFromFile(string filepath)
         {
             IEnumerable<string> allLines = null;
@@ -50,11 +50,11 @@ namespace QSP.NavData.AAX
 
                     ReadWpt(i);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    throw new WaypointFileParseException(
+                    WriteToLog(new WaypointFileParseException(
                        "This line in waypoints.txt cannot be parsed:\n\n" +
-                       i + "\n\n(Reason: Wrong format)");
+                       i + "\n\n(Reason: Wrong format)", ex));
                 }
             }
 
@@ -64,7 +64,7 @@ namespace QSP.NavData.AAX
         private void ReadWpt(string i)
         {
             var words = i.Split(',');
-            
+
             string id = words[0].Trim();
             double lat = double.Parse(words[1].Trim());
             double lon = double.Parse(words[2].Trim());
