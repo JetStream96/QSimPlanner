@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security;
 using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding.FileExport
@@ -70,10 +71,14 @@ namespace QSP.RouteFinding.FileExport
             catch (Exception ex)
             {
                 LoggerInstance.WriteToLog(ex);
-                return new Status(c.Directory, false, ex.Message);
+                var mayBePermissionIssue = ex is UnauthorizedAccessException ||
+                    ex is SecurityException;
+
+                return new Status(
+                    c.Directory, false, ex.Message, mayBePermissionIssue);
             }
 
-            return new Status(fileName, true, "");
+            return new Status(fileName, true, "", false);
         }
 
         private bool FileExist(string nameBase, ExportCommand cmd, int n)
@@ -110,12 +115,15 @@ namespace QSP.RouteFinding.FileExport
             public string FilePath { get; private set; }
             public bool Successful { get; private set; }
             public string Message { get; private set; }
+            public bool MayBePermissionIssue { get; private set; }
 
-            public Status(string FilePath, bool Successful, string Message)
+            public Status(string FilePath,
+                bool Successful, string Message, bool MayBePermissionIssue)
             {
                 this.FilePath = FilePath;
                 this.Successful = Successful;
                 this.Message = Message;
+                this.MayBePermissionIssue = MayBePermissionIssue;
             }
         }
     }

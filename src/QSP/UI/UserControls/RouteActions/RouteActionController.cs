@@ -175,7 +175,7 @@ namespace QSP.UI.UserControls.RouteActions
                 return;
             }
 
-            ShowReports(reports);
+            ShowReports(reports.ToList());
         }
 
         private void AnalyzeRouteClick(object sender, EventArgs e)
@@ -204,8 +204,7 @@ namespace QSP.UI.UserControls.RouteActions
             }
         }
 
-        private static void ShowReports(
-            IEnumerable<FileExporter.Status> reports)
+        private static void ShowReports(List<FileExporter.Status> reports)
         {
             if (reports.Any() == false)
             {
@@ -243,6 +242,12 @@ namespace QSP.UI.UserControls.RouteActions
                     {
                         msg.AppendLine(j.FilePath);
                     }
+                }
+
+                if (errors.Any(e => e.MayBePermissionIssue))
+                {
+                    msg.AppendLine("\nYou can try to run this application " +
+                        "as administrator.");
                 }
 
                 var icon = errors.Any() ?
