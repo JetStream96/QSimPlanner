@@ -119,10 +119,8 @@ namespace QSP.WindAloft
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
-
                 throw new ReadWindFileException(
-                    "Unable to retreive wind data from " + filename);
+                    "Unable to retreive wind data from " + filename, ex);
             }
         }
     }
