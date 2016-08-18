@@ -52,6 +52,7 @@ namespace QSP.NavData.AAX
 
         private static void LogFailures(List<string> failedLines)
         {
+            if (failedLines.Count == 0) return;
             var sb = new StringBuilder();
             sb.AppendLine("These lines in waypoints.txt cannot be parsed:");
             failedLines.ForEach(i => sb.AppendLine(i));
