@@ -106,9 +106,21 @@ namespace QSP.UI.Forms
 
             if (failedToLoadNavDataAtStartUp)
             {
-                MsgBoxHelper.ShowWarning(
-                    "Please set the correct Nav Data location " +
-                    "before using the application.");
+                string message = "Please set the correct Nav Data location " +
+                    "before using the application.";
+
+                if (appSettings.NavDataLocation ==
+                    AppOptions.Default.NavDataLocation)
+                {
+                    // User did not set the path. 
+                    // Maybe its the first time the app starts.
+                    MsgBoxHelper.ShowWarning(message);
+                }
+                else
+                {
+                    MsgBoxHelper.ShowWarning(
+                        "Failed to load Nav Data. " + message);
+                }
 
                 ShowOptionsForm(FormStartPosition.CenterScreen, true);
             }

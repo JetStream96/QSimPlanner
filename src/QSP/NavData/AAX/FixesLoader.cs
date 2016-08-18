@@ -4,6 +4,9 @@ using QSP.RouteFinding.Containers;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.NavData.AAX
 {
@@ -25,45 +28,56 @@ namespace QSP.NavData.AAX
         /// </summary>
         /// <param name="filepath">Location of waypoints.txt</param>
         /// <exception cref="WaypointFileReadException"></exception>
-        /// <exception cref="WaypointFileParseException"></exception>
         public BiDictionary<int, string> ReadFromFile(string filepath)
         {
-            IEnumerable<string> allLines = null;
-
-            try
-            {
-                allLines = File.ReadLines(filepath);
-            }
-            catch (Exception ex)
-            {
-                throw new WaypointFileReadException(ex.Message, ex);
-            }
+            IEnumerable<string> allLines = ReadFile(filepath);
+            var failedLines = new List<string>();
 
             foreach (var i in allLines)
             {
                 try
                 {
-                    if (i.Length == 0 || i[0] == ' ') continue;
+                    if (IsEmptyLine(i)) continue;
                     ReadWpt(i);
                 }
                 catch
                 {
-                    throw new WaypointFileParseException(
-                       "This line in waypoints.txt cannot be parsed:\n\n" +
-                       i + "\n\n(Reason: Wrong format)");
+                    failedLines.Add(i);
                 }
             }
 
+            LogFailures(failedLines);
             return countryCodeLookup;
+        }
+
+        private static void LogFailures(List<string> failedLines)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("These lines in waypoints.txt cannot be parsed:");
+            failedLines.ForEach(i => sb.AppendLine(i));
+            WriteToLog(sb.ToString());
+        }
+
+        /// <exception cref="WaypointFileReadException"></exception>
+        private static IEnumerable<string> ReadFile(string filepath)
+        {
+            try
+            {
+                return File.ReadLines(filepath);
+            }
+            catch (Exception ex)
+            {
+                throw new WaypointFileReadException(ex.Message, ex);
+            }
         }
 
         private void ReadWpt(string i)
         {
             var words = i.Split(',');
-            
+
             string id = words[0].Trim();
-            double lat = double.Parse(words[1].Trim());
-            double lon = double.Parse(words[2].Trim());
+            double lat = double.Parse(words[1]);
+            double lon = double.Parse(words[2]);
             string country = words.Length > 3 ? words[3].Trim() : "";
 
             int countryCode = GetCountryCode(country);
@@ -92,6 +106,11 @@ namespace QSP.NavData.AAX
 
             countryCodeLookup.Add(countryCode, letterCode);
             return countryCode;
+        }
+
+        private static bool IsEmptyLine(string s)
+        {
+            return s.All(c => c == ' ' || c == '\t');
         }
     }
 }

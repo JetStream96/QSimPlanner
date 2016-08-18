@@ -37,15 +37,4 @@ namespace QSP.NavData
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }
     }
-    
-    [Serializable]
-    public class WaypointFileParseException : Exception
-    {
-        public WaypointFileParseException() { }
-        public WaypointFileParseException(string message) : base(message) { }
-        public WaypointFileParseException(string message, Exception inner) : base(message, inner) { }
-        protected WaypointFileParseException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
-    }
 }
