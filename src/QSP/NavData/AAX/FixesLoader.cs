@@ -30,7 +30,7 @@ namespace QSP.NavData.AAX
         /// <exception cref="WaypointFileReadException"></exception>
         public BiDictionary<int, string> ReadFromFile(string filepath)
         {
-            IEnumerable<string> allLines = ReadFile(filepath);
+            var allLines = ReadFile(filepath);
             var failedLines = new List<string>();
 
             foreach (var i in allLines)

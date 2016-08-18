@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>QSimPlanner Manual</title>
+		<style>
+		h2{
+			width:auto;
+			background-color: rgb(224, 235, 245);
+			padding:5px;
+		}		
+		
+		h3{
+			padding:5px;
+		}
+		
+		h4{			
+			font-weight: normal;
+		}
+		
+		h2, h3, h4{
+			color:#375eab;
+		}	
+		
+		.text-font{
+			font-family:Helvetica, Arial, sans-serif;
+		}
+		
+		.title-color{
+			color:rgb(60,60,60);
+		}
+		
+		.screenshots{
+			width:auto;
+			height:auto;
+			float:top;
+			vertical-align: top;"
+		}
+		
+		.gray-background{
+			font-family:"Courier New";
+			padding-left:5px;
+			padding-right:5px;
+			background-color:rgb(225,225,225);
+		}
+		
+		.gray-box{
+			font-family:"Courier New";
+			padding:5px;
+			margin-left:10px;
+			background-color:rgb(225,225,225);
+		}
+		
+		p{
+			padding-left:8px;
+		}
+		
+	</style>
+	</head>
+	<body>
+		<div class="text-font">
+			<h1 class="title-color">QSimPlanner Manual</h1>	
+			<h2>Aircraft Config</h2>
+			<p>From the aircraft configuration menu, you can add/edit/delete a profile.</p>
+			<p>After clicking "edit", various properties can be set. Fuel consumption, takeoff and landing profiles can be set to "None". However, if the fuel consumption profile is "None", that aircraft will not appear in fuel planning page. Takeoff/landing profiles are similar.</p>
+			<!-- All screenshot widths are 0.6 times its original. -->
+			<img src="images/config_menu_1.png" alt="image" style="max-width:259px;" class="screenshots">
+			<img src="images/config_menu_2.png" alt="image" style="max-width:337px;" class="screenshots">
+			
+			<h2>Flight planning</h2>
+			<p>This is where the route planning and fuel calculation is done.</p>
+			<h3>SID/STAR filter, route options</h3>
+			<p>The route finder comes with a SID/STAR filter. There are 2 modes, blacklist and whitelist.</p>
+			<img src="images/filter_btn.png" alt="image" style="max-width:267px;" class="screenshots">
+			<img src="images/filter_dialog.png"  alt="image" style="max-width:154px;" class="screenshots">
+			
+			<p>It's possible to avoid finding a route passing through certain countries.</p>
+			<img src="images/avoid_country_menu.png" alt="image" style="max-width:280px;" class="screenshots">
+			<img src="images/avoid_country.png"  alt="image" style="max-width:234px;" class="screenshots">
+			
+			<h3 id="route-actions">Route actions</h3>
+			<p>The actions menu contains 4 items:<br>
+				<div style="margin-left:40px;">
+					<h4>Find route</h4>
+					<p>Automatically finds the shortest route between the two airports. The SID/STAR filters,  avoided countries, and current oceanic tracks are taken into consideration.</p>
+					
+					<h4>Analyze route</h4>
+					<p>Read the route text and analyze it. The allowed format is <span class="gray-background">SID Waypoint Airway Waypoint ... Waypoint STAR</span>.<br> The SID and STAR are optional. Any SID/STAR/Airway can be replaced with <span class="gray-background">DCT</span>(direct), <span class="gray-background">AUTO</span>(finds the route between the two waypoints automatically) or <span class="gray-background">RAND</span>(find a random track between the two waypoints). Any waypoint can be replaced with a coordinate, for example, <span class="gray-background">50E30</span>, <span class="gray-background">N30W070</span>, or <span class="gray-background">S20.35E12.335</span>. Note that the departure and arrival airports/runways need to be entered correctly. Also all <span class="gray-background">DCT</span> can be omitted.</p>
+					
+					<p>For example, this route (from KLAS to KLAX) has correct format:</p>
+					<p class="gray-box">MCCRN4 WHIGG V21 HEC BASET3.HEC</p>
+					<p>We can let the route finder get the shortest path from <span class="gray-background">WHIGG</span> to <span class="gray-background">HEC</span> by replacing the airway with <span class="gray-background">AUTO</span>:</p>
+					<p class="gray-box">MCCRN4 WHIGG <span style="font-weight:bold">AUTO</span> HEC BASET3.HEC</p>
+					<p>Or even let it find the SID for us:</p>
+					<p class="gray-box"><span style="font-weight:bold">AUTO</span> HEC BASET3.HEC</p>
+					
+					<p>Another example is a route from PANC to PHNL. We can use <span class="gray-background">RAND</span> to find a random track between waypoints, i.e. a series of latitude/longitude coordinates or waypoints.</p>
+					<p class="gray-box">ANCHO8 TED <span style="font-weight:bold">RAND</span> ZIGIE KAENA2.ZIGIE</p>
+					<p>Or, if we do not know the SID and STAR to use, simply enter:</p>
+					<p class="gray-box"><span style="font-weight:bold">RAND</span></p>
+					<p>Click "Analyze Route" and then we get:</p>
+					<p class="gray-box">ANCHO8 TED 61N50 50N50 39N50 29N55 ZIGIE KAENA2.ZIGIE</p>
+					
+					<h4>Show map</h4>
+					<p>Plot the route found or analyzed with Google Map.</p>
+					<h4>Export</h4> 
+					<p>Export the route found or analyzed as a flight plan file, as set in <a href="#option-export">options</a>.</p>
+				</div>
+			</p>
+			
+			<h3>Advanced tool</h3>
+			<p>The advanced tool can find or analyze routes which are:<br>
+				<ul>
+					<li type="square">From airport to airport<br></li>
+					<li type="square">From airport to waypoint<br></li>
+					<li type="square">From waypoint to airport<br></li>
+					<li type="square">From waypoint to waypoint</li>
+				</ul>				
+			</p>
+			<img src="images/advanced_route.png" alt="image" style="max-width:503px;" class="screenshots">
+			
+			<h3>Fuel Parameters</h3>
+				<ul>
+					<li type="square">Missed approach: Fuel consumption for one missed approach. This depends on the type of aircraft and missed approach procedure.<br></li>
+					<li type="square">Contingency: The percentage of (Trip fuel + Missed approach fuel). This is required by regulations.<br></li>
+					<li type="square">Holding: Estimated holding time at destination airport. This may be due to bad weather, heavy traffic, or any other factors.<br></li>
+					<li type="square">Extra: Fuel added at your (captain's) discretion.</li>
+					<li type="square">APU: Estimated APU time.</li>
+					<li type="square">Taxi: Enter the estimated taxi time.</li>
+					<li type="square">Final reserve: Time to hold 1500 feet above alternate airport. This is not used unless in an emergency. Usually 30 or 45 minutes, depending on the policy.</li>
+				</ul>
+			</p>
+			
+			<h3>Fuel report</h3>
+			<p>An example of fuel report:</p>
+			<p class="gray-box" style="white-space:pre"><br>                    ALL WEIGHTS IN KG<br><br>                                  FUEL  TIME<br>                    TRIP         54873  0723<br>                    CONTINGENCY   2743  0022<br>                    HOLD             0  0000<br>                    EXTRA            0  0000<br>                    ALTERNATE     3632  0028<br>                    FINAL RSV     3000  0030<br><br>                    AT T/O       64249  0843<br><br>                    APU            120  0030<br>                    TAXI           720  0020<br><br>                    TOTAL        65089  0933<br>                    FMC RSV        6.0<br></p>
+			<p>The items in the report are:</p>
+			<ul>
+				<li type="square">Trip: Estimated fuel consumption from origin to destination<br></li>
+				<li type="square">Contingency: Amount of contingency fuel<br></li>
+				<li type="square">Holding: Amount of holding fuel<br></li>
+				<li type="square">Extra: Amount of extra fuel</li>
+				<li type="square">Alternate: Estimated fuel consumption from destination to alternate</li>
+				<li type="square">Final rsv: Amount of final reserve fuel</li>
+				<li type="square">APU: Estimated APU time.</li>
+				<li type="square">Taxi: Enter the estimated taxi time</li>
+				<li type="square">Total: Total fuel to add into fuel tanks</li>
+				<li type="square">FMC rsv: Value to enter into "RESERVES" in FMC.</li>				
+			</ul>
+			
+			<h2>Options</h2>
+			<h3 id="option-export">Flight plan export</h3>
+			<p>You can set the folder which the flight plan file exports to. If the checkbox on the left indicates whether that item is export when "Export" is click in <a href="#route-actions">Route Actions</a>.</p>
+			
+			<h3>Route</h3>
+			<ul>
+				<li type="square">Use wind-optimized route: Enable route finder uses wind aloft to determine the shortest route.<br></li>
+				<li type="square">Hide 'DCT' in route output: Omit all 'DCT'.<br></li>
+				<li type="square">Show track ident only: The route shows only name of the oceanic track instead of all waypoints of that track.<br></li>			
+			</ul>
+			
+		</div>
+		
+	</body>
+</html>
