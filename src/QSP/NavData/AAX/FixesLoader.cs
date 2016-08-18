@@ -43,6 +43,7 @@ namespace QSP.NavData.AAX
             {
                 try
                 {
+                    // TODO:
                     if (i.Length == 0 || i[0] == ' ')
                     {
                         continue;
@@ -52,6 +53,7 @@ namespace QSP.NavData.AAX
                 }
                 catch (Exception ex)
                 {
+                    // TODO:
                     WriteToLog(new WaypointFileParseException(
                        "This line in waypoints.txt cannot be parsed:\n\n" +
                        i + "\n\n(Reason: Wrong format)", ex));
