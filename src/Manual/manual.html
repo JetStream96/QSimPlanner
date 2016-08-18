@@ -148,6 +148,9 @@
 			</ul>
 			
 			<h2>Options</h2>
+			<h3>Nav Data location</h3> 
+			<p>Location of either <a href="http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688">Aerosoft</a>'s NavDataPro or <a href="https://www.navigraph.com/FmsData.aspx">Navigraph</a>'s FMS Data (both are payware). Use the version of Aerosoft Airbus A318/A319/A320/A321.</p>
+			<p>Then select the folder which contains Airports.txt, which may be located at <span class="gray-background">[FSX or P3D folder]\aerosoft\Airbus_Fallback\Navigraph</span> (if using Navigraph) or <span class="gray-background">[FSX or P3D folder]\aerosoft\Airbus_Fallback\NavDataPro</span> (if using NavDataPro).</p>
 			<h3 id="option-export">Flight plan export</h3>
 			<p>You can set the folder which the flight plan file exports to. If the checkbox on the left indicates whether that item is export when "Export" is click in <a href="#route-actions">Route Actions</a>.</p>
 			
@@ -157,6 +160,74 @@
 				<li type="square">Hide 'DCT' in route output: Omit all 'DCT'.<br></li>
 				<li type="square">Show track ident only: The route shows only name of the oceanic track instead of all waypoints of that track.<br></li>			
 			</ul>
+			
+			<h2 id="to">Takeoff</h2>
+			<p>In this page takeoff performance can be computed.</p>
+			<h3>Runway info</h3>
+			<p>This is where runway infomation is entered. By enter the ICAO code of airport and selecting the departure runway, correct infomation will show automatically. It's possible to enter the parameters manually as well. On the top-left there is a "Req" button, when clicked the departure airport and runway in fuel planning page will be used.</p>
+			<img src="images/rwy.png" alt="image" style="max-width:314px;" class="screenshots">
+			
+			<h3>Weather info</h3>
+			<p>This is where airport weather infomation is entered. It can be either filled in manually, or automatically by clicking "Import Metar". The current metar will be downloaded and filled in. Click "View" to see the metar message.</p>
+			<img src="images/wx_info_1.png" alt="image" style="max-width:319px;" class="screenshots">
+			<img src="images/wx_info_2.png" alt="image" style="max-width:319px;" class="screenshots">
+			
+			<h3>Aircraft configuration</h3>
+			<p>You can enter the aircraft weight, takeoff flaps, etc. Note that some parameters are not applicable for all aircrafts. For example, currently the 737-800 does not have "THR rating" option (which allows derate takeoff TO1 and TO2). Also, due to the limited data available for many aircraft types, often there is only one flaps setting to choose from.</p>
+			<p>If the fuel report was generated in fuel planning page already, there will be a "Request" button. Click it and the aircraft and takeoff weight will be set automatically.</p>
+			<img src="images/ac_config.png" alt="image" style="max-width:304px;" class="screenshots">
+			
+			<h3>Takeoff report</h3>
+			<p>The required takeoff distance is computed and climb performance is verified. The possible assumed temperature(s) are also listed.</p>
+			<p class="gray-box" style="white-space:pre">
+                              (   OAT 40°C   )
+                         Required distance     2683M
+                         Runway remaining      548M
+               
+               --------------------------------------------------
+                            ( ASSUMED TEMPERATURE )
+                 Temp(°C)  Required distance   Runway remaining
+                   41           2718 M              513 M
+                   42           2756 M              475 M
+                   43           2797 M              434 M
+                   44           2838 M              393 M
+                   45           2884 M              347 M
+                   46           2929 M              302 M				   
+			</p>
+			
+			<h2>Landing</h2>
+			<p>In this page landing performance is computed. This is similar to the <a href="#to">takeoff performance</a> page.</p>
+			
+			<h2>Miscellaneous infomation</h2>
+			<h3>Airport Data tab</h3>
+			<p>By entering the ICAO code, you can view:</p>
+			<ul>
+				<li type="square">Metar<br></li>
+				<li type="square">Transition altitude/level<br></li>
+				<li type="square">Basic information of each runway.<br></li>
+				<li type="square">Map of the airport<br></li>			
+			</ul>
+			
+			<h3>Metar/TAF tab</h3>
+			<p>You can search for the Metar/TAF of any airport.</p>
+			<img src="images/search_wx.png" alt="image" style="max-width:668px;" class="screenshots">
+			
+			<p>Also you can monitor the weather of the departure, arrival and alternate airports.</p>
+			<img src="images/monitor_wx.png" alt="image" style="max-width:653px;" class="screenshots">
+			
+			<h3>Upper wind tab</h3>
+			<p>The wind aloft for the destination airport is shown here.</p>
+			
+			<h2>Track Manager</h2>
+			<p>Track manager is opened by clicking on the track status bar, as shown in the picture below.</p>
+			<img src="images/status_bar.png" alt="image" style="max-width:339px;" class="screenshots">
+			<p>Tracks can be downloaded, saved to file, or loaded from file. Each track system (AUSOTS, NATs, PACOTs) comes with a text message, which can be viewed by clicking "View Text". It's important to know that these oceanic tracks are updated every a few hours, and if you are not using the lastest AIRAC, some tracks may not be parsed successfully. If you see errors, updating the AIRAC may fix them.</p>
+			<p>Each track system can be disabled/enabled individually. When a track system is disabled, they will not be available in route finder or route analyzer.</p>
+			
+			<h2>Wind aloft manager</h2>
+			<p>Wind aloft manager is opened by clicking on the wind status bar, as shown in the picture below.</p>
+			<img src="images/status_bar_2.png" alt="image" style="max-width:364px;" class="screenshots">
+			<p>Wind aloft can be downloaded, saved to file, or loaded from file (in .grib2 format).</p>
 			
 		</div>
 		
