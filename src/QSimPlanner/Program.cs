@@ -2,6 +2,7 @@
 using QSP.UI.Utilities;
 using QSP.Utilities;
 using System;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -16,6 +17,9 @@ namespace QSimPlanner
         [STAThread]
         static void Main()
         {
+            CultureInfo.DefaultThreadCurrentCulture = 
+                CultureInfo.InvariantCulture;
+
             using (var mutex = new Mutex(false, $"Global\\{GetGuid()}"))
             {
                 if (!mutex.WaitOne(0, false))
