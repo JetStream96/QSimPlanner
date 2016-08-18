@@ -73,10 +73,11 @@ namespace QSP.UI.UserControls
             airportMapControl.Altn = icao;
         }
 
-        private void downloadMetarBtnClick(object sender, EventArgs e)
+        private async void downloadMetarBtnClick(object sender, EventArgs e)
         {
             var icao = metarToFindTxtBox.Text.Trim().ToUpper();
-            RichTextBox1.Text = MetarDownloader.TryGetMetarTaf(icao);
+            RichTextBox1.Text = await Task.Factory.StartNew(() =>
+            MetarDownloader.TryGetMetarTaf(icao));
         }
 
         private async void UpdateAllMetarTaf(object sender, EventArgs e)
