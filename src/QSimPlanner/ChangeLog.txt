@@ -1,4 +1,9 @@
-﻿version 0.2.1
+﻿version 0.2.2
+* Fix issues with number decimal format.
+* Add more contents in manual.
+* Add FSX/P3D/FS9 flight plan export options.
+
+version 0.2.1
 * Add installer
 
 version 0.2.0

@@ -15,31 +15,67 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_3B0C7307109749FE9ED566E6DF432481"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3B4D48D583D54607BC0EAE5D02E25D5A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_41F0CD83123A4B2EAB60AC9CA205B955"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_42AFC33A8250419B962BB3B6E0A474A8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4690A47A67B742CB83C4EB82E0070BD7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_494723BD2DC74B929F54B61294F27F8C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_4B3636B0879002AFD87BAF59F70A32B9"
         "OwnerKey" = "8:_F01D385EF36A45C286059F2FC7B7D16E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4B7CE48DEB50448A8448EB1C7FD57B5A"
+        "MsmKey" = "8:_579F69D6D59D4ECC87CCE9F34826AFE1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_5427785402414B0685A11B1933841E49"
+        "MsmKey" = "8:_588370CE453E417F83661A737E22B75A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_7B97EC300C82463682B55DB8923F77EF"
+        "MsmKey" = "8:_7E647F81A3A74236AB7CC135A4A89384"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_8BC5BAD118014879A5EAB2B6617E9268"
+        "MsmKey" = "8:_82E633E9ED8549CD98FCCB18BBA7C74F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -57,13 +93,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_972D8AFF186D48B084ECC8C75476FB00"
+        "MsmKey" = "8:_A4E057D98EC44946B9C74D257BEEFDC1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_B44CB061DC1F44D9A8C95B7452FA8338"
+        "MsmKey" = "8:_C22772B3C1D34AC488C5BDB15F967EAD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -75,13 +111,31 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_D713444B33384E37B4993B4B6E7E10DD"
+        "MsmKey" = "8:_C6C55DAA7AA14D0DABB55C5735E75FAD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D3EF125489FB455DB81727AA20F732F4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D5035804A4D74757B97E32C684DA8F32"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_DA286D9A4C4540709280DA4D671FE01E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E52FC7A883464EE196DDE9F507F96CB7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -105,12 +159,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_FAF55DC91F1D411DA8AC3EACE091760D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_4B3636B0879002AFD87BAF59F70A32B9"
         "MsmSig" = "8:_UNDEFINED"
@@ -118,13 +166,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F01D385EF36A45C286059F2FC7B7D16E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C4FA10BFB9279D9D29754A83E106A63B"
+        "OwnerKey" = "8:_96D40C8144989B1BE86A8A2421770E12"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -136,7 +178,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_96D40C8144989B1BE86A8A2421770E12"
+        "OwnerKey" = "8:_C4FA10BFB9279D9D29754A83E106A63B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F01D385EF36A45C286059F2FC7B7D16E"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -157,6 +205,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -173,6 +229,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -202,6 +266,126 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B0C7307109749FE9ED566E6DF432481"
+            {
+            "SourcePath" = "8:..\\Manual\\images\\filter_dialog.png"
+            "TargetName" = "8:filter_dialog.png"
+            "Tag" = "8:"
+            "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B4D48D583D54607BC0EAE5D02E25D5A"
+            {
+            "SourcePath" = "8:..\\Manual\\images\\filter_btn.png"
+            "TargetName" = "8:filter_btn.png"
+            "Tag" = "8:"
+            "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_41F0CD83123A4B2EAB60AC9CA205B955"
+            {
+            "SourcePath" = "8:..\\Manual\\images\\search_wx.png"
+            "TargetName" = "8:search_wx.png"
+            "Tag" = "8:"
+            "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_42AFC33A8250419B962BB3B6E0A474A8"
+            {
+            "SourcePath" = "8:..\\Manual\\images\\ac_config.png"
+            "TargetName" = "8:ac_config.png"
+            "Tag" = "8:"
+            "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4690A47A67B742CB83C4EB82E0070BD7"
+            {
+            "SourcePath" = "8:..\\Manual\\images\\status_bar_2.png"
+            "TargetName" = "8:status_bar_2.png"
+            "Tag" = "8:"
+            "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_494723BD2DC74B929F54B61294F27F8C"
+            {
+            "SourcePath" = "8:..\\Manual\\images\\avoid_country.png"
+            "TargetName" = "8:avoid_country.png"
+            "Tag" = "8:"
+            "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4B3636B0879002AFD87BAF59F70A32B9"
             {
             "AssemblyRegister" = "3:1"
@@ -209,11 +393,6 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_4B3636B0879002AFD87BAF59F70A32B9"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -233,10 +412,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4B7CE48DEB50448A8448EB1C7FD57B5A"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_579F69D6D59D4ECC87CCE9F34826AFE1"
             {
-            "SourcePath" = "8:..\\..\\..\\Manual\\images\\advanced_route.png"
-            "TargetName" = "8:advanced_route.png"
+            "SourcePath" = "8:..\\Manual\\images\\config_menu_1.png"
+            "TargetName" = "8:config_menu_1.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
             "Condition" = "8:"
@@ -253,52 +432,52 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5427785402414B0685A11B1933841E49"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_588370CE453E417F83661A737E22B75A"
             {
-            "SourcePath" = "8:..\\..\\..\\Manual\\images\\avoid_country_menu.png"
+            "SourcePath" = "8:..\\Manual\\images\\config_menu_2.png"
+            "TargetName" = "8:config_menu_2.png"
+            "Tag" = "8:"
+            "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7E647F81A3A74236AB7CC135A4A89384"
+            {
+            "SourcePath" = "8:..\\Manual\\images\\wx_info_2.png"
+            "TargetName" = "8:wx_info_2.png"
+            "Tag" = "8:"
+            "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_82E633E9ED8549CD98FCCB18BBA7C74F"
+            {
+            "SourcePath" = "8:..\\Manual\\images\\avoid_country_menu.png"
             "TargetName" = "8:avoid_country_menu.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7B97EC300C82463682B55DB8923F77EF"
-            {
-            "SourcePath" = "8:..\\..\\..\\Manual\\images\\filter_dialog.png"
-            "TargetName" = "8:filter_dialog.png"
-            "Tag" = "8:"
-            "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8BC5BAD118014879A5EAB2B6617E9268"
-            {
-            "SourcePath" = "8:..\\..\\..\\Manual\\manual.html"
-            "TargetName" = "8:manual.html"
-            "Tag" = "8:"
-            "Folder" = "8:_602C8A56A85544B589AE9ECE09430238"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -320,11 +499,6 @@
             "AssemblyAsmDisplayName" = "8:INIFileParser, Version=2.2.4.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_96D40C8144989B1BE86A8A2421770E12"
-                    {
-                    "Name" = "8:INIFileParser.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:INIFileParser.dll"
             "TargetName" = "8:"
@@ -344,10 +518,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_972D8AFF186D48B084ECC8C75476FB00"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A4E057D98EC44946B9C74D257BEEFDC1"
             {
-            "SourcePath" = "8:..\\..\\..\\Manual\\images\\config_menu_2.png"
-            "TargetName" = "8:config_menu_2.png"
+            "SourcePath" = "8:..\\Manual\\images\\monitor_wx.png"
+            "TargetName" = "8:monitor_wx.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
             "Condition" = "8:"
@@ -364,10 +538,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B44CB061DC1F44D9A8C95B7452FA8338"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C22772B3C1D34AC488C5BDB15F967EAD"
             {
-            "SourcePath" = "8:..\\..\\..\\Manual\\images\\config_menu_1.png"
-            "TargetName" = "8:config_menu_1.png"
+            "SourcePath" = "8:..\\Manual\\images\\wx_info_1.png"
+            "TargetName" = "8:wx_info_1.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
             "Condition" = "8:"
@@ -391,11 +565,6 @@
             "AssemblyAsmDisplayName" = "8:QSP, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C4FA10BFB9279D9D29754A83E106A63B"
-                    {
-                    "Name" = "8:QSP.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:QSP.dll"
             "TargetName" = "8:"
@@ -415,10 +584,50 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D713444B33384E37B4993B4B6E7E10DD"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C6C55DAA7AA14D0DABB55C5735E75FAD"
             {
-            "SourcePath" = "8:..\\..\\..\\Manual\\images\\filter_btn.png"
-            "TargetName" = "8:filter_btn.png"
+            "SourcePath" = "8:..\\Manual\\images\\status_bar.png"
+            "TargetName" = "8:status_bar.png"
+            "Tag" = "8:"
+            "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D3EF125489FB455DB81727AA20F732F4"
+            {
+            "SourcePath" = "8:..\\Manual\\images\\advanced_route.png"
+            "TargetName" = "8:advanced_route.png"
+            "Tag" = "8:"
+            "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D5035804A4D74757B97E32C684DA8F32"
+            {
+            "SourcePath" = "8:..\\Manual\\images\\rwy.png"
+            "TargetName" = "8:rwy.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
             "Condition" = "8:"
@@ -455,6 +664,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E52FC7A883464EE196DDE9F507F96CB7"
+            {
+            "SourcePath" = "8:..\\Manual\\manual.html"
+            "TargetName" = "8:manual.html"
+            "Tag" = "8:"
+            "Folder" = "8:_602C8A56A85544B589AE9ECE09430238"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EF399D9317466348DD928A065F059EDC"
             {
             "AssemblyRegister" = "3:1"
@@ -462,11 +691,6 @@
             "AssemblyAsmDisplayName" = "8:MinMaxHeap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_EF399D9317466348DD928A065F059EDC"
-                    {
-                    "Name" = "8:MinMaxHeap.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:MinMaxHeap.dll"
             "TargetName" = "8:"
@@ -484,26 +708,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FAF55DC91F1D411DA8AC3EACE091760D"
-            {
-            "SourcePath" = "8:..\\..\\..\\Manual\\images\\avoid_country.png"
-            "TargetName" = "8:avoid_country.png"
-            "Tag" = "8:"
-            "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -533,7 +737,7 @@
                         {
                             "{9EF0B969-E518-4E46-987F-47570745A589}:_5BF540475B294EC691498897D7AF7DE3"
                             {
-                            "Name" = "8:Images"
+                            "Name" = "8:images"
                             "AlwaysCreate" = "11:FALSE"
                             "Condition" = "8:"
                             "Transitive" = "11:FALSE"
