@@ -335,11 +335,13 @@ namespace QSP.UI.Forms.Options
                 {
                     airacPeriodLbl.Text += "  (Expired)";
                     airacPeriodLbl.ForeColor = Color.Red;
+                    airacLbl.ForeColor = Color.Red;
                 }
                 else
                 {
                     airacPeriodLbl.Text += "  (Within Valid Period)";
                     airacPeriodLbl.ForeColor = Color.Green;
+                    airacLbl.ForeColor = Color.Green;
                 }
             }
             catch (Exception ex)
