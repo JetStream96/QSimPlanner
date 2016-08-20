@@ -10,7 +10,7 @@ A tool for fuel planning and take-off/landing performance calculations.
 - Possible to find a route which avoids certain country's airspace.
 - Analyze existing routes, and use "AUTO" and "RAND" commands to complete a partial route.
 - Automatically download and parse tracks. Supports North Atlantic Tracks (NATs), Pacific Tracks (PACOTs) and Australian Organised Track Structure (AUSOTS).
-- Export flight plans to PMDG .rte format.
+- Export flight plans formats: FS9, FSX, P3D, and PMDG.
 - Download real time wind aloft from NOAA.
 - Compute required fuel for flight, using real-world upper wind and several user-specified parameters, such as taxi time, planned holding time and final reserve.
 - NavDataPro/Navigraph data format support.
@@ -51,3 +51,4 @@ MIT License
    [Screenshots]: <https://github.com/JetStream96/QSimPlanner/issues/2>
    [Aerosoft]: <http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688>
    [Navigraph]: <https://www.navigraph.com/FmsData.aspx>
+   [v0.2.2]:<https://github.com/JetStream96/QSimPlanner/releases/download/v0.2.2/QSimPlanner_setup.exe>
