@@ -25,15 +25,6 @@ To use QSimPlanner, an AIRAC cycle is required. You can purchase either [Aerosof
 
 Also .NET framework 4.5 is required.
 
-### Projects
-These are the projects contained in this repository:
-
-**QSimPlanner**: The full flight planner with take-off and landing calculators.
-
-**QspLite**: Only take-off/landing calculator. All features in this application is available in QSimPlanner as well.
-
-**QSP**: The base class library for QSimPlanner and QspLite.
-
 ### Project Status
 Currently the aircrafts available are
 - 737-600
@@ -49,7 +40,7 @@ Currently the aircrafts available are
 More aircrafts need to be added, especially the A320 and A330 families. It would be nice if more Boeing aircrafts can be added, but obtaining required performance data may be difficult.
 
 ### Roadmap
-- Add more aircraft profiles for QspLite, including A320/A330 series.
+- Add more aircraft profiles, including A320/A330 series.
 - Add ETOPS planning and redispatch.
 
 ### Contributing
