@@ -1,14 +1,26 @@
+# visual studio user profile
 *.suo
+
+# idea
+.idea*
+
+# visual studio profiler
 *.psess
 *.vsp
-.idea*
-bin/
-obj/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+
+# others
 src/TestResults
 src/ProfileReports/
 src/TrackBackupApp/nats
 src/TrackBackupApp/log.txt
-src/QspLiteSetup/Debug
-src/QspLiteSetup/Release
-src/Installer/Debug
-src/Installer/Release
+
+# temp files
+~$*
