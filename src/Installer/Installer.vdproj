@@ -268,7 +268,7 @@
         {
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B0C7307109749FE9ED566E6DF432481"
             {
-            "SourcePath" = "8:..\\Manual\\images\\filter_dialog.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\filter_dialog.png"
             "TargetName" = "8:filter_dialog.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -288,7 +288,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B4D48D583D54607BC0EAE5D02E25D5A"
             {
-            "SourcePath" = "8:..\\Manual\\images\\filter_btn.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\filter_btn.png"
             "TargetName" = "8:filter_btn.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -308,7 +308,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_41F0CD83123A4B2EAB60AC9CA205B955"
             {
-            "SourcePath" = "8:..\\Manual\\images\\search_wx.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\search_wx.png"
             "TargetName" = "8:search_wx.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -328,7 +328,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_42AFC33A8250419B962BB3B6E0A474A8"
             {
-            "SourcePath" = "8:..\\Manual\\images\\ac_config.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\ac_config.png"
             "TargetName" = "8:ac_config.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -348,7 +348,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4690A47A67B742CB83C4EB82E0070BD7"
             {
-            "SourcePath" = "8:..\\Manual\\images\\status_bar_2.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\status_bar_2.png"
             "TargetName" = "8:status_bar_2.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -368,7 +368,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_494723BD2DC74B929F54B61294F27F8C"
             {
-            "SourcePath" = "8:..\\Manual\\images\\avoid_country.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\avoid_country.png"
             "TargetName" = "8:avoid_country.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -414,7 +414,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_579F69D6D59D4ECC87CCE9F34826AFE1"
             {
-            "SourcePath" = "8:..\\Manual\\images\\config_menu_1.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\config_menu_1.png"
             "TargetName" = "8:config_menu_1.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -434,7 +434,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_588370CE453E417F83661A737E22B75A"
             {
-            "SourcePath" = "8:..\\Manual\\images\\config_menu_2.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\config_menu_2.png"
             "TargetName" = "8:config_menu_2.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -454,7 +454,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7E647F81A3A74236AB7CC135A4A89384"
             {
-            "SourcePath" = "8:..\\Manual\\images\\wx_info_2.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\wx_info_2.png"
             "TargetName" = "8:wx_info_2.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -474,7 +474,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_82E633E9ED8549CD98FCCB18BBA7C74F"
             {
-            "SourcePath" = "8:..\\Manual\\images\\avoid_country_menu.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\avoid_country_menu.png"
             "TargetName" = "8:avoid_country_menu.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -520,7 +520,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A4E057D98EC44946B9C74D257BEEFDC1"
             {
-            "SourcePath" = "8:..\\Manual\\images\\monitor_wx.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\monitor_wx.png"
             "TargetName" = "8:monitor_wx.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -540,7 +540,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C22772B3C1D34AC488C5BDB15F967EAD"
             {
-            "SourcePath" = "8:..\\Manual\\images\\wx_info_1.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\wx_info_1.png"
             "TargetName" = "8:wx_info_1.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -586,7 +586,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C6C55DAA7AA14D0DABB55C5735E75FAD"
             {
-            "SourcePath" = "8:..\\Manual\\images\\status_bar.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\status_bar.png"
             "TargetName" = "8:status_bar.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -606,7 +606,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D3EF125489FB455DB81727AA20F732F4"
             {
-            "SourcePath" = "8:..\\Manual\\images\\advanced_route.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\advanced_route.png"
             "TargetName" = "8:advanced_route.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -626,7 +626,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D5035804A4D74757B97E32C684DA8F32"
             {
-            "SourcePath" = "8:..\\Manual\\images\\rwy.png"
+            "SourcePath" = "8:..\\..\\manual\\images\\rwy.png"
             "TargetName" = "8:rwy.png"
             "Tag" = "8:"
             "Folder" = "8:_5BF540475B294EC691498897D7AF7DE3"
@@ -666,7 +666,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E52FC7A883464EE196DDE9F507F96CB7"
             {
-            "SourcePath" = "8:..\\Manual\\manual.html"
+            "SourcePath" = "8:..\\..\\manual\\manual.html"
             "TargetName" = "8:manual.html"
             "Tag" = "8:"
             "Folder" = "8:_602C8A56A85544B589AE9ECE09430238"

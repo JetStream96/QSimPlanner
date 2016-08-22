@@ -595,6 +595,7 @@
     </EmbeddedResource>
     <Content Include="PerformanceData\FuelCalc\737600.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\FuelCalc\737700.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
