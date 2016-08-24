@@ -16,8 +16,8 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private StatusRecorder recorder;
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
-        private List<TrackNodes> nodes;
-        public bool AddedToWptList { get; private set; }
+        private List<TrackNodes> nodes = new List<TrackNodes>();
+        public bool AddedToWptList { get; private set; } = false;
         public AusotsMessage RawData { get; private set; }
         
         public AusotsHandler(
@@ -32,7 +32,6 @@ namespace QSP.RouteFinding.Tracks.Ausots
             this.recorder = recorder;
             this.airportList = airportList;
             this.tracksInUse = tracksInUse;
-            AddedToWptList = false;
         }
 
         /// <summary>

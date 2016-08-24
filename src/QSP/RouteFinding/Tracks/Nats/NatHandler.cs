@@ -16,8 +16,8 @@ namespace QSP.RouteFinding.Tracks.Nats
         private StatusRecorder recorder;
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
-        private List<TrackNodes> nodes;
-        public bool AddedToWptList { get; private set; }
+        private List<TrackNodes> nodes = new List<TrackNodes>();
+        public bool AddedToWptList { get; private set; } = false;
         public NatsMessage RawData { get; private set; }
 
         public NatsHandler(
@@ -32,7 +32,6 @@ namespace QSP.RouteFinding.Tracks.Nats
             this.recorder = recorder;
             this.airportList = airportList;
             this.tracksInUse = tracksInUse;
-            AddedToWptList = false;
         }
         
         /// <summary>

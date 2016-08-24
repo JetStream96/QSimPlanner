@@ -16,8 +16,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private StatusRecorder recorder;
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
-        private List<TrackNodes> nodes;
-        public bool AddedToWptList { get; private set; }
+        private List<TrackNodes> nodes = new List<TrackNodes>();
+        public bool AddedToWptList { get; private set; } = false;
         public PacotsMessage RawData { get; private set; }
 
         public PacotsHandler(
@@ -32,7 +32,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
             this.recorder = recorder;
             this.airportList = airportList;
             this.tracksInUse = tracksInUse;
-            AddedToWptList = false;
         }
 
         /// <exception cref="GetTrackException"></exception>
