@@ -1,4 +1,8 @@
-﻿version 0.2.2
+﻿version 0.2.3
+* Fix unhandled exception when track download fails.
+* Fix the issue where AIRAC label color does not update.
+
+version 0.2.2
 * Fix issues with number decimal format.
 * Add more contents in manual.
 * Add FSX/P3D/FS9 flight plan export options.
