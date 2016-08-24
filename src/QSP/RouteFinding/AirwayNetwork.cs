@@ -8,7 +8,6 @@ using QSP.RouteFinding.Tracks.Nats;
 using QSP.RouteFinding.Tracks.Pacots;
 using System;
 using System.Threading.Tasks;
-using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding
 {
@@ -89,20 +88,17 @@ namespace QSP.RouteFinding
 
             if (natsData != null)
             {
-                IgnoreExceptions(() =>
-                natsManager.GetAllTracks(new NatsProvider(natsData)));
+                natsManager.GetAllTracks(new NatsProvider(natsData));
             }
 
             if (pacotsData != null)
             {
-                IgnoreExceptions(() =>
-                pacotsManager.GetAllTracks(new PacotsProvider(pacotsData)));
+                pacotsManager.GetAllTracks(new PacotsProvider(pacotsData));
             }
 
             if (ausotsData != null)
             {
-                IgnoreExceptions(() =>
-                ausotsManager.GetAllTracks(new AusotsProvider(ausotsData)));
+                ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
             }
 
             if (natsEnabled) natsManager.AddToWaypointList();
@@ -210,13 +206,8 @@ namespace QSP.RouteFinding
             {
                 StatusRecorder.Clear(TrackType.Nats);
                 natsManager.UndoEdit();
-
-                try
-                {
-                    natsManager.GetAllTracks(new NatsProvider(value));
-                    TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
-                }
-                catch { }
+                natsManager.GetAllTracks(new NatsProvider(value));
+                TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -228,13 +219,8 @@ namespace QSP.RouteFinding
             {
                 StatusRecorder.Clear(TrackType.Pacots);
                 pacotsManager.UndoEdit();
-
-                try
-                {
-                    pacotsManager.GetAllTracks(new PacotsProvider(value));
-                    TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
-                }
-                catch { }
+                pacotsManager.GetAllTracks(new PacotsProvider(value));
+                TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -246,13 +232,8 @@ namespace QSP.RouteFinding
             {
                 StatusRecorder.Clear(TrackType.Ausots);
                 ausotsManager.UndoEdit();
-
-                try
-                {
-                    ausotsManager.GetAllTracks(new AusotsProvider(value));
-                    TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
-                }
-                catch { }
+                ausotsManager.GetAllTracks(new AusotsProvider(value));
+                TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -261,12 +242,8 @@ namespace QSP.RouteFinding
             StatusRecorder.Clear(TrackType.Nats);
             natsManager.UndoEdit();
 
-            try
-            {
-                await natsManager.GetAllTracksAsync();
-                TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
-            }
-            catch { }
+            await natsManager.GetAllTracksAsync();
+            TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         public async Task DownloadPacots()
@@ -274,12 +251,8 @@ namespace QSP.RouteFinding
             StatusRecorder.Clear(TrackType.Pacots);
             pacotsManager.UndoEdit();
 
-            try
-            {
-                await pacotsManager.GetAllTracksAsync();
-                TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
-            }
-            catch { }
+            await pacotsManager.GetAllTracksAsync();
+            TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         public async Task DownloadAusots()
@@ -287,12 +260,8 @@ namespace QSP.RouteFinding
             StatusRecorder.Clear(TrackType.Ausots);
             ausotsManager.UndoEdit();
 
-            try
-            {
-                await ausotsManager.GetAllTracksAsync();
-                TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
-            }
-            catch { }
+            await ausotsManager.GetAllTracksAsync();
+            TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         private class NatsProvider : INatsMessageProvider

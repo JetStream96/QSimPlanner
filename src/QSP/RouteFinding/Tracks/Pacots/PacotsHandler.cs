@@ -3,7 +3,6 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -34,31 +33,29 @@ namespace QSP.RouteFinding.Tracks.Pacots
             this.tracksInUse = tracksInUse;
         }
 
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()
         {
-            DownloadAndReadTracks(new PacotsDownloader());
+            GetAndReadTracks(new PacotsDownloader());
             UndoEdit();
         }
 
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
         public void GetAllTracks(IPacotsMessageProvider provider)
         {
-            DownloadAndReadTracks(provider);
+            GetAndReadTracks(provider);
             UndoEdit();
         }
 
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
-        private void DownloadAndReadTracks(IPacotsMessageProvider provider)
+        private void GetAndReadTracks(IPacotsMessageProvider provider)
         {
-            TryDownload(provider);
-            ReadMessage();
+            try
+            {
+                TryGetTracks(provider);
+                ReadMessage();
+            }
+            catch { }
         }
 
-        /// <exception cref="TrackParseException"></exception>
+        // Can throw exception.
         private void ReadMessage()
         {
             var trks = TryParse();
@@ -82,9 +79,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
-        private void TryDownload(IPacotsMessageProvider provider)
+        // Can throw exception.
+        private void TryGetTracks(IPacotsMessageProvider provider)
         {
             try
             {
@@ -101,7 +97,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        /// <exception cref="TrackParseException"></exception>
+        // Can throw exception.
         private List<PacificTrack> TryParse()
         {
             try
@@ -109,23 +105,21 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 return new PacotsParser(RawData, recorder, airportList)
                     .Parse();
             }
-            catch (Exception ex)
+            catch
             {
                 recorder.AddEntry(
                     StatusRecorder.Severity.Critical,
                     "Failed to parse PACOTs.",
                     TrackType.Pacots);
 
-                throw new TrackParseException("Failed to parse Pacots.", ex);
+                throw;
             }
         }
 
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
         public override async Task GetAllTracksAsync()
         {
             await Task.Factory.StartNew(() =>
-            DownloadAndReadTracks(new PacotsDownloader()));
+            GetAndReadTracks(new PacotsDownloader()));
             UndoEdit();
         }
 

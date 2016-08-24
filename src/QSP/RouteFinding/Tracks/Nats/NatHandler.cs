@@ -3,7 +3,6 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -37,34 +36,32 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// <summary>
         /// Download tracks and undo previous edit to wptList.
         /// </summary>
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
         public override void GetAllTracks()
         {
-            DownloadAndReadTracks(new NatsDownloader());
+            GetAndReadTracks(new NatsDownloader());
             UndoEdit();
         }
 
         /// <summary>
         /// Load the tracks and undo previous edit to wptList.
         /// </summary>
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
         public void GetAllTracks(INatsMessageProvider provider)
         {
-            DownloadAndReadTracks(provider);
+            GetAndReadTracks(provider);
             UndoEdit();
         }
-
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
-        private void DownloadAndReadTracks(INatsMessageProvider provider)
+        
+        private void GetAndReadTracks(INatsMessageProvider provider)
         {
-            TryDownload(provider);
-            ReadMessage();
+            try
+            {
+                TryGetTracks(provider);
+                ReadMessage();
+            }
+            catch { }
         }
 
-        /// <exception cref="TrackParseException"></exception>
+        // Can throw exception.
         private void ReadMessage()
         {
             var trks = TryParse();
@@ -88,13 +85,11 @@ namespace QSP.RouteFinding.Tracks.Nats
                 }
             }
         }
-
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
+        
         public override async Task GetAllTracksAsync()
         {
             await Task.Factory.StartNew(() => 
-            DownloadAndReadTracks(new NatsDownloader()));
+            GetAndReadTracks(new NatsDownloader()));
             UndoEdit();
         }
         
@@ -110,9 +105,8 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
         }
 
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
-        private void TryDownload(INatsMessageProvider provider)
+        // Can throw exception.
+        private void TryGetTracks(INatsMessageProvider provider)
         {
             try
             {
@@ -124,25 +118,26 @@ namespace QSP.RouteFinding.Tracks.Nats
                     StatusRecorder.Severity.Critical,
                     "Failed to download NATs.",
                     TrackType.Nats);
+
                 throw;
             }
         }
 
-        /// <exception cref="TrackParseException"></exception>
+        // Can throw exception.
         private List<NorthAtlanticTrack> TryParse()
         {
             try
             {
                 return new NatsParser(RawData, recorder, airportList).Parse();
             }
-            catch (Exception ex)
+            catch
             {
                 recorder.AddEntry(
                     StatusRecorder.Severity.Critical,
                     "Failed to parse NATs.",
                     TrackType.Nats);
 
-                throw new TrackParseException("Failed to parse Nats.", ex);
+                throw;
             }
         }
 

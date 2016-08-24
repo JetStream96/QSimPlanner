@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Doubles;
-using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.WindAloft
 {

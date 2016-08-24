@@ -3,7 +3,6 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,7 +18,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private List<TrackNodes> nodes = new List<TrackNodes>();
         public bool AddedToWptList { get; private set; } = false;
         public AusotsMessage RawData { get; private set; }
-        
+
         public AusotsHandler(
             WaypointList wptList,
             WaypointListEditor editor,
@@ -37,31 +36,29 @@ namespace QSP.RouteFinding.Tracks.Ausots
         /// <summary>
         /// Download and parse all track messages.
         /// </summary>
-        /// <exception cref="TrackParseException"></exception>
-        /// <exception cref="GetTrackException"></exception>
         public override void GetAllTracks()
         {
-            DownloadAndReadTracks(new AusotsDownloader());
+            GetAndReadTracks(new AusotsDownloader());
             UndoEdit();
         }
 
-        /// <exception cref="TrackParseException"></exception>
-        /// <exception cref="GetTrackException"></exception>
         public void GetAllTracks(IAusotsMessageProvider provider)
         {
-            DownloadAndReadTracks(provider);
+            GetAndReadTracks(provider);
             UndoEdit();
         }
 
-        /// <exception cref="TrackParseException"></exception>
-        /// <exception cref="GetTrackException"></exception>
-        private void DownloadAndReadTracks(IAusotsMessageProvider provider)
+        private void GetAndReadTracks(IAusotsMessageProvider provider)
         {
-            TryDownload(provider);
-            ReadMessage();
+            try
+            {
+                TryGetTracks(provider);
+                ReadMessage();
+            }
+            catch { }
         }
 
-        /// <exception cref="TrackParseException"></exception>
+        // Can throw exception.
         private void ReadMessage()
         {
             var trks = TryParse();
@@ -85,7 +82,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             }
         }
 
-        /// <exception cref="TrackParseException"></exception>
+        // Can throw exception.
         private List<AusTrack> TryParse()
         {
             try
@@ -93,43 +90,40 @@ namespace QSP.RouteFinding.Tracks.Ausots
                 return new AusotsParser(RawData, recorder, airportList)
                     .Parse();
             }
-            catch (Exception ex)
+            catch
             {
                 recorder.AddEntry(
                     StatusRecorder.Severity.Critical,
                     "Failed to parse AUSOTs.",
                     TrackType.Ausots);
 
-                throw new TrackParseException("Failed to parse Ausots.", ex);
+                throw;
             }
         }
 
-        /// <exception cref="GetTrackException"></exception>
-        private void TryDownload(IAusotsMessageProvider provider)
+        // Can throw exception.
+        private void TryGetTracks(IAusotsMessageProvider provider)
         {
             try
             {
                 RawData = provider.GetMessage();
             }
-            catch (Exception ex)
+            catch
             {
                 recorder.AddEntry(
                     StatusRecorder.Severity.Critical,
                     "Failed to download AUSOTs.",
                     TrackType.Ausots);
 
-                throw new GetTrackException(
-                    "Failed to download Ausots.", ex);
+                throw;
             }
         }
 
-        /// <exception cref="TrackParseException"></exception>
-        /// <exception cref="GetTrackException"></exception>
         public override async Task GetAllTracksAsync()
         {
             await Task.Factory.StartNew(() =>
-            DownloadAndReadTracks(new AusotsDownloader()));
-            UndoEdit(); 
+            GetAndReadTracks(new AusotsDownloader()));
+            UndoEdit();
         }
 
         public override void AddToWaypointList()
