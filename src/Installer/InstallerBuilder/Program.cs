@@ -29,12 +29,17 @@ namespace InstallerBuilder
 
         private static void Build()
         {
-            var version = GetVersion();
             ClearDirectory(outputFolder);
+            var tmpFolder = Path.Combine(outputFolder, "tmp");
+            Directory.CreateDirectory(tmpFolder);
+            CompileApp(tmpFolder);
+
+            var version = GetVersion(tmpFolder);
             var folder = Path.Combine(outputFolder, version);
-            Directory.CreateDirectory(folder);
+            Directory.CreateDirectory(outputFolder);
+            Directory.Move(tmpFolder, folder);
+            
             WriteLicenseText(folder);
-            CompileApp(folder);
 
             Console.WriteLine("Build completed.");
             Console.ReadKey();
@@ -44,11 +49,6 @@ namespace InstallerBuilder
         {
             if (Directory.Exists(folder))
             {
-                //foreach (var i in Directory.GetFiles(folder))
-                //{
-                //    File.Delete(i);
-                //}
-
                 Directory.Delete(folder, true);
             }
         }
@@ -77,78 +77,13 @@ namespace InstallerBuilder
                gen.Generate());
         }
 
-        private static string GetVersion()
+        private static string GetVersion(string folder)
         {
-            ClearDirectory(outputFolder);
-            CompileApp(outputFolder);
-
-            var file = Path.Combine(outputFolder, "QSimPlan.exe");
+            var file = Path.Combine(folder, "QSimPlan.exe");
             var ver = AssemblyName.GetAssemblyName(file).Version;
             return $"{ver.Major}.{ver.Minor}.{ver.Build}";
-
-            //var file = Path.Combine(
-            //    ProjectFolder(), "Properties/AssemblyInfo.cs");
-            //var txt = File.ReadAllText(file);
-            //var ver = MatchVersion(txt);
-            //return ver.Substring(0, ver.LastIndexOf('.'));
         }
-
-        //private static string MatchVersion(string allTxt)
-        //{
-        //    // Match [assembly: AssemblyVersion("0.2.3.0")]
-        //    var tokens = new string[]
-        //    {
-        //        @"^"
-        //        @"\[",
-        //        "assembly",
-        //        ":",
-        //        "AssemblyVersion",
-        //        @"\(",
-        //        @"""",
-        //        @"([^""]+)",
-        //        @"""",
-        //        @"\)",
-        //        @"\]"
-        //    };
-
-        //    var pattern = string.Join(@"\s*", tokens);
-        //    return Regex.Match(allTxt, pattern).Groups[1].Value;
-        //}
-
-        //private static string GetVersion(string exePath)
-        //{
-        //    var dom = AppDomain.CreateDomain("name");
-        //    var assemblyName = new AssemblyName();
-        //    assemblyName.CodeBase = Path.GetFullPath(exePath);
-        //    var assembly = dom.Load(assemblyName);
-        //    var ver = assembly.GetName().Version;
-        //    var result = $"{ver.Major}.{ver.Minor}.{ver.Build}";
-        //    AppDomain.Unload(dom);
-        //    return result;
-        //}
-
-        //private static void MoveToCorrectFolder(string exePath)
-        //{
-        //    var assemblyVersion = GetVersion(exePath);
-        //    var folder = Path.GetDirectoryName(exePath);
-        //    var newFolder = Path.Combine(
-        //        new DirectoryInfo(folder).Parent.FullName, assemblyVersion);
-
-        //    Directory.Move(folder, newFolder);
-
-        //    //var files = AllFiles(folder);
-        //    //var fileRelativePaths = files
-        //    //    .Select(f => RelativePath(f, folder))
-        //    //    .ToList();
-
-        //    //for (int i = 0; i < files.Count; i++)
-        //    //{
-        //    //    var newPath = Path.Combine(newFolder, fileRelativePaths[i]);
-        //    //    Directory.CreateDirectory(Path.GetDirectoryName(newPath));
-        //    //    File.Move(files[i], newPath);
-        //    //}
-        //}
-
+        
         private static void CompileApp(string folder)
         {
             var properties = new ProcessStartInfo();
@@ -177,24 +112,6 @@ namespace InstallerBuilder
             }
 
             return files;
-        }
-
-        private static string RelativePath(string path, string folder)
-        {
-            var pathUri = new Uri(Path.GetFullPath(path));
-
-            // Folders must end in a slash
-            if (!folder.EndsWith(Path.DirectorySeparatorChar.ToString()))
-            {
-                folder += Path.DirectorySeparatorChar;
-            }
-
-            var folderUri = new Uri(Path.GetFullPath(folder));
-            var relativePath = folderUri.MakeRelativeUri(pathUri)
-                .ToString()
-                .Replace('/', Path.DirectorySeparatorChar);
-
-            return Uri.UnescapeDataString(relativePath);
-        }
+        }        
     }
 }
