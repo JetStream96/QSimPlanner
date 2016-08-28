@@ -23,6 +23,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "QspLiteSetup", "QspLiteSetu
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{65626453-CABD-4CD5-BC69-CBF8982CE26D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstallerBuilder", "Installer\InstallerBuilder\InstallerBuilder.csproj", "{AEB07B76-B123-4395-AF28-EC8746D5141D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{277357F4-536D-47C2-97E0-F58D94A1CACE}.Release|Any CPU.ActiveCfg = Release
 		{65626453-CABD-4CD5-BC69-CBF8982CE26D}.Debug|Any CPU.ActiveCfg = Debug
 		{65626453-CABD-4CD5-BC69-CBF8982CE26D}.Release|Any CPU.ActiveCfg = Release
+		{AEB07B76-B123-4395-AF28-EC8746D5141D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEB07B76-B123-4395-AF28-EC8746D5141D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEB07B76-B123-4395-AF28-EC8746D5141D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEB07B76-B123-4395-AF28-EC8746D5141D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
