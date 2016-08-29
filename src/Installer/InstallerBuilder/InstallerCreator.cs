@@ -30,7 +30,7 @@ namespace InstallerBuilder
 
             info.UseShellExecute = false;
             info.WorkingDirectory = GetInnoSetupPath();
-            info.FileName = "iscc";
+            info.FileName = Path.Combine(GetInnoSetupPath(), "iscc.exe");
             info.Arguments = $"/O\"{result}\" \"{iss}\"";
 
             var process = Process.Start(info);
@@ -62,7 +62,8 @@ namespace InstallerBuilder
 
             var lines = files
                  .Select(f =>
-                 $"Source: \"{f.Item1}\"; DestDir: \"{{app}}\\{f.Item2}\"");
+                 $"Source: \"{f.Item1}\"; " +
+                 $"DestDir: \"{{app}}\\{Path.GetDirectoryName(f.Item2)}\"");
 
             return string.Join("\n", lines);
         }

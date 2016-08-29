@@ -15,7 +15,8 @@ x64/
 x86/
 [Bb]in/
 [Oo]bj/
-src/Installer/Output
+src/[Ii]nstaller/[Oo]utput
+src/[Ii]nstaller/[Rr]esults
 
 # others
 src/TestResults
