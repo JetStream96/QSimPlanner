@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace InstallerBuilder
 {
@@ -26,7 +27,9 @@ namespace InstallerBuilder
                 Console.WriteLine(ex);
             }
 
+#if DEBUG
             Console.ReadKey();
+#endif
         }
 
         private static void Build()
@@ -45,7 +48,19 @@ namespace InstallerBuilder
             CopyDirectory(Path.Combine(RepositoryRoot(), "manual"),
                 Path.Combine(folder, "manual"));
 
+            CompileLauncher();
+            GenerateVersionConfig(version);
+
             Console.WriteLine("Build completed.");
+        }
+
+        private static void GenerateVersionConfig(string version)
+        {
+            var elem = new XElement("Root",
+                new XElement("current", version));
+
+            var path = Path.Combine(outputFolder, "version.xml");
+            File.WriteAllText(path, new XDocument(elem).ToString());
         }
 
         private static void ClearDirectory(string folder)
@@ -89,15 +104,27 @@ namespace InstallerBuilder
 
         private static void CompileApp(string folder)
         {
+            Compile(ProjectFile(), folder);
+        }
+
+        private static void CompileLauncher()
+        {
+            var projFile = Path.Combine(RepositoryRoot(), 
+                "src/Launcher/Launcher.csproj");
+
+            Compile(projFile, outputFolder);
+        }
+
+        private static void Compile(string projectFile, string outputFolder)
+        {
             var properties = new ProcessStartInfo();
 
             properties.UseShellExecute = false;
             properties.FileName =
                 @"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe";
-            var projPath = ProjectFile();
 
-            properties.Arguments = $"{projPath} /p:Configuration=Release " +
-                $"/p:OutputPath={Path.GetFullPath(folder)}";
+            properties.Arguments = $"{projectFile} /p:Configuration=Release " +
+                $"/p:OutputPath={Path.GetFullPath(outputFolder)}";
 
             var process = Process.Start(properties);
             process.WaitForExit();
