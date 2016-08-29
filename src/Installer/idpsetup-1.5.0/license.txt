@@ -1,0 +1,1 @@
+inno-download-plugin is under Zlib license. See https://code.google.com/archive/p/inno-download-plugin/ for more information.
