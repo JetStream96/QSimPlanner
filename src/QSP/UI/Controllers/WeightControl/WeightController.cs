@@ -1,11 +1,10 @@
 ﻿using QSP.AircraftProfiles.Configs;
 using QSP.UI.Controllers.Units;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
 using static System.Math;
-using static QSP.Utilities.ConditionChecker;
-using System.Drawing;
 
 namespace QSP.UI.Controllers.WeightControl
 {
@@ -17,6 +16,7 @@ namespace QSP.UI.Controllers.WeightControl
         private TrackBar payloadTrackBar;
         private AircraftConfigItem _aircraftConfig;
         private bool _enabled;
+        private bool _monitorWeightChange;
 
         public WeightController(
             WeightTextBoxController oew,
@@ -29,6 +29,7 @@ namespace QSP.UI.Controllers.WeightControl
             this.zfw = zfw;
             this.payloadTrackBar = payloadTrackBar;
             _enabled = false;
+            _monitorWeightChange = false;
         }
 
         public AircraftConfigItem AircraftConfig
@@ -88,9 +89,7 @@ namespace QSP.UI.Controllers.WeightControl
         {
             if (_enabled == false)
             {
-                payload.TxtBox.TextChanged += PayloadChanged;
-                payloadTrackBar.ValueChanged += TrackBarChanged;
-                zfw.TxtBox.TextChanged += ZfwChanged;
+                MonitorWeightChange = true;
                 zfw.TxtBox.TextChanged += ChangeColor;
                 _enabled = true;
             }
@@ -100,11 +99,32 @@ namespace QSP.UI.Controllers.WeightControl
         {
             if (_enabled)
             {
-                payload.TxtBox.TextChanged -= PayloadChanged;
-                payloadTrackBar.ValueChanged -= TrackBarChanged;
-                zfw.TxtBox.TextChanged -= ZfwChanged;
+                MonitorWeightChange = false;
                 zfw.TxtBox.TextChanged -= ChangeColor;
                 _enabled = false;
+            }
+        }
+
+        private bool MonitorWeightChange
+        {
+            get { return _monitorWeightChange; }
+
+            set
+            {
+                if (value && _monitorWeightChange == false)
+                {
+                    payload.TxtBox.TextChanged += PayloadChanged;
+                    payloadTrackBar.ValueChanged += TrackBarChanged;
+                    zfw.TxtBox.TextChanged += ZfwChanged;
+                    _monitorWeightChange = value;
+                }
+                else if (value == false && _monitorWeightChange)
+                {
+                    payload.TxtBox.TextChanged -= PayloadChanged;
+                    payloadTrackBar.ValueChanged -= TrackBarChanged;
+                    zfw.TxtBox.TextChanged -= ZfwChanged;
+                    _monitorWeightChange = value;
+                }
             }
         }
 
@@ -130,36 +150,54 @@ namespace QSP.UI.Controllers.WeightControl
 
         private void PayloadChanged(object sender, EventArgs e)
         {
+            MonitorWeightChange = false;
+
             try
             {
-                Ensure<InvalidOperationException>(payload.GetWeightKg() >= 0);
-                zfw.SetWeight(oew.GetWeightKg() + payload.GetWeightKg());
-                payloadTrackBar.Value = RoundToInt(payload.GetWeightKg());
+                var payloadKg = payload.GetWeightKg();
+
+                if (payloadKg >= 0.0)
+                {
+                    zfw.SetWeight(oew.GetWeightKg() + payload.GetWeightKg());
+                    payloadTrackBar.Value = RoundToInt(payload.GetWeightKg());
+                }
             }
             catch { }
+
+            MonitorWeightChange = true;
         }
 
         private void TrackBarChanged(object sender, EventArgs e)
         {
+            MonitorWeightChange = false;
+
             try
             {
                 payload.SetWeight(payloadTrackBar.Value);
                 zfw.SetWeight(oew.GetWeightKg() + payload.GetWeightKg());
             }
             catch { }
+
+            MonitorWeightChange = true;
         }
 
         private void ZfwChanged(object sender, EventArgs e)
         {
+            MonitorWeightChange = false;
+
             try
             {
-                Ensure<InvalidOperationException>(
-                    zfw.GetWeightKg() >= oew.GetWeightKg());
+                var payloadKg = zfw.GetWeightKg() - oew.GetWeightKg();
 
-                payload.SetWeight(zfw.GetWeightKg() - oew.GetWeightKg());
-                payloadTrackBar.Value = RoundToInt(payload.GetWeightKg());
+                if (payloadKg >= 0.0)
+                {
+                    payload.SetWeight(payloadKg);
+                    payloadTrackBar.Value = RoundToInt(payloadKg);
+                }
             }
             catch { }
+
+            MonitorWeightChange = true;
         }
 
         private void SetControls()
