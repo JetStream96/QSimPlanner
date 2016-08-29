@@ -14,11 +14,15 @@ namespace InstallerBuilder
 {
     class Program
     {
+        public static readonly string outputFolder = "../../../Output";
+        
         static void Main(string[] args)
         {
             try
             {
-                FileOutput.Build();
+                var gen = new FileOutputGenerator();
+                gen.Build();
+                InstallerCreator.WriteFile(gen.Version);
 
                 Console.WriteLine("Build completed.");
             }

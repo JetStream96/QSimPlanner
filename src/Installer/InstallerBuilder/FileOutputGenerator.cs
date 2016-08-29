@@ -2,22 +2,24 @@
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
+using static InstallerBuilder.IOMethods;
+using static InstallerBuilder.Program;
 
 namespace InstallerBuilder
 {
-    public static class FileOutput
+    public class FileOutputGenerator
     {
-        private static readonly string outputFolder = "../../../Output";
+        public string Version { get; private set; }
 
-        public static void Build()
+        public void Build()
         {
             ClearDirectory(outputFolder);
             var tmpFolder = Path.Combine(outputFolder, "tmp");
             Directory.CreateDirectory(tmpFolder);
             CompileApp(tmpFolder);
 
-            var version = GetVersion(tmpFolder);
-            var folder = Path.Combine(outputFolder, version);
+            Version = GetVersion(tmpFolder);
+            var folder = Path.Combine(outputFolder, Version);
             Directory.CreateDirectory(outputFolder);
             Directory.Move(tmpFolder, folder);
 
@@ -26,9 +28,9 @@ namespace InstallerBuilder
                 Path.Combine(folder, "manual"));
 
             CompileLauncher();
-            GenerateVersionConfig(version);
+            GenerateVersionConfig(Version);
 
-            DeleteRedundantFiles(version);
+            DeleteRedundantFiles(Version);
         }
 
         private static void DeleteRedundantFiles(string version)
@@ -92,14 +94,14 @@ namespace InstallerBuilder
 
         private static void Compile(string projectFile, string outputFolder)
         {
-            var properties = new ProcessStartInfo();
+            var info = new ProcessStartInfo();
 
-            properties.UseShellExecute = false;
-            properties.FileName = GetMsbuildPath();
-            properties.Arguments = $"{projectFile} /p:Configuration=Release " +
+            info.UseShellExecute = false;
+            info.FileName = GetMsbuildPath();
+            info.Arguments = $"{projectFile} /p:Configuration=Release " +
                 $"/p:OutputPath={Path.GetFullPath(outputFolder)}";
 
-            var process = Process.Start(properties);
+            var process = Process.Start(info);
             process.WaitForExit();
         }
 
@@ -119,14 +121,6 @@ namespace InstallerBuilder
             info.Arguments = $"\"{source}\" \"{target}\" /E /I";
             var process = Process.Start(info);
             process.WaitForExit();
-        }
-
-        public static void ClearDirectory(string folder)
-        {
-            if (Directory.Exists(folder))
-            {
-                Directory.Delete(folder, true);
-            }
         }
     }
 }

@@ -44,8 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileOutput.cs" />
+    <Compile Include="FileOutputGenerator.cs" />
     <Compile Include="InstallerCreator.cs" />
+    <Compile Include="IOMethods.cs" />
     <Compile Include="LicenseTextGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,19 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.IO;
-using static InstallerBuilder.FileOutput;
+using System.Linq;
+using System.Xml.Linq;
+using static InstallerBuilder.IOMethods;
+using static InstallerBuilder.Program;
 
 namespace InstallerBuilder
 {
-    public class InstallerCreator
+    public static class InstallerCreator
     {
-        public static void WriteFile(string version, string outputFolder)
+        public static void WriteFile(string version)
         {
-            CreateResultsFolder(outputFolder);
+            CreateResultsFolder();
 
+            var text = GetFileText(version);
+            var filePath = Path.Combine(outputFolder, "build.iss");
+            File.WriteAllText(filePath, text);
+
+            BuildInstaller(filePath);
+        }
+
+        private static void BuildInstaller(string issPath)
+        {
+            var result = Path.GetFullPath(ResultsFolderPath());
+            var iss = Path.GetFullPath(issPath);
+
+            var info = new ProcessStartInfo();
+
+            info.UseShellExecute = false;
+            info.WorkingDirectory = GetInnoSetupPath();
+            info.FileName = "iscc";
+            info.Arguments = $"/O\"{result}\" \"{iss}\"";
+
+            var process = Process.Start(info);
+            process.WaitForExit();
+        }
+
+        private static string GetInnoSetupPath()
+        {
+            return XDocument.Load("paths.xml")
+                .Root
+                .Element("InnoSetupDirectory")
+                .Value;
         }
 
         private static string GetFileText(string version)
@@ -21,12 +50,31 @@ namespace InstallerBuilder
             var text = File.ReadAllText("template.iss");
             text = text.Replace("AppVersion=",
                 $"AppVersion={version}");
-
+            return text.Replace("[Files]",
+                "[Files]\n" + FileList());
         }
 
-        private static void CreateResultsFolder(string outputFolder)
+        private static string FileList()
         {
-            var path = Path.Combine(outputFolder, "../Results");
+            var files = AllFiles(outputFolder)
+                .Select(Path.GetFullPath)
+                .Select(p => Tuple.Create(p, RelativePath(p, outputFolder)));
+
+            var lines = files
+                 .Select(f =>
+                 $"Source: \"{f.Item1}\"; DestDir: \"{{app}}\\{f.Item2}\"");
+
+            return string.Join("\n", lines);
+        }
+
+        private static string ResultsFolderPath()
+        {
+            return Path.Combine(outputFolder, "../Results");
+        }
+
+        private static void CreateResultsFolder()
+        {
+            var path = ResultsFolderPath();
             ClearDirectory(path);
             Directory.CreateDirectory(path);
         }
