@@ -51,12 +51,12 @@ namespace InstallerBuilder
             CompileLauncher();
             GenerateVersionConfig(version);
 
-            DeleteRedundentFiles(version);
+            DeleteRedundantFiles(version);
 
             Console.WriteLine("Build completed.");
         }
 
-        private static void DeleteRedundentFiles(string version)
+        private static void DeleteRedundantFiles(string version)
         {
             var mainDir = Path.Combine(outputFolder, version);
             File.Delete(Path.Combine(mainDir, "INIFileParser.xml"));
