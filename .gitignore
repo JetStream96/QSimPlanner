@@ -16,7 +16,6 @@ x86/
 [Bb]in/
 [Oo]bj/
 src/Installer/Output
-src/Installer/tmp
 
 # others
 src/TestResults
