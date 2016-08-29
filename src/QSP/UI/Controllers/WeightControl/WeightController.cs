@@ -130,10 +130,12 @@ namespace QSP.UI.Controllers.WeightControl
 
         private void ChangeColor(object sender, EventArgs e)
         {
+            const double margin = 1.0;
+
             try
             {
-                if (AircraftConfig.OewKg <= ZfwKg &&
-                    ZfwKg <= AircraftConfig.MaxZfwKg)
+                if (AircraftConfig.OewKg <= ZfwKg + margin &&
+                    ZfwKg <= AircraftConfig.MaxZfwKg + margin)
                 {
                     zfw.TxtBox.ForeColor = Color.DarkGreen;
                 }

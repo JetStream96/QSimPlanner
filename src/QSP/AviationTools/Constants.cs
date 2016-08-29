@@ -2,8 +2,8 @@ namespace QSP.AviationTools
 {
     public static class Constants
     {
-        public const double KgLbRatio = 2.20462;
-        public const double LbKgRatio = 0.453592;
+        public const double KgLbRatio = 2.20462248;
+        public const double LbKgRatio = 0.4535924;
         public const double MeterFtRatio = 3.28084;
         public const double FtMeterRatio = 0.3048;
         public const double KnotMpsRatio = 0.514444444;
