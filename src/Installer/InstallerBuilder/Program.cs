@@ -120,14 +120,21 @@ namespace InstallerBuilder
             var properties = new ProcessStartInfo();
 
             properties.UseShellExecute = false;
-            properties.FileName =
-                @"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe";
+            properties.FileName = Path.Combine(ProgramFilesFolder(),
+                @"MSBuild\14.0\Bin\MSBuild.exe");
 
             properties.Arguments = $"{projectFile} /p:Configuration=Release " +
                 $"/p:OutputPath={Path.GetFullPath(outputFolder)}";
 
             var process = Process.Start(properties);
             process.WaitForExit();
+        }
+
+        private static string ProgramFilesFolder()
+        {
+            return Path.GetFullPath(
+                Environment.GetFolderPath(
+                    Environment.SpecialFolder.ProgramFilesX86));
         }
 
         private static void CopyDirectory(string source, string target)
