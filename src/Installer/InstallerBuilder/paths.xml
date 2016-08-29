@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root>
+  <InnoSetupDirectory>C:\Program Files (x86)\Inno Setup 5</InnoSetupDirectory>
+  <MsBuildExePath>C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe</MsBuildExePath>
+</Root>
