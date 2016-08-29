@@ -13,7 +13,7 @@ namespace InstallerBuilder
 {
     class Program
     {
-        private static readonly string outputFolder = "../../../Output";//"Output";
+        private static readonly string outputFolder = "../../../Output";
 
         static void Main(string[] args)
         {
@@ -25,6 +25,8 @@ namespace InstallerBuilder
             {
                 Console.WriteLine(ex);
             }
+
+            Console.ReadKey();
         }
 
         private static void Build()
@@ -38,11 +40,12 @@ namespace InstallerBuilder
             var folder = Path.Combine(outputFolder, version);
             Directory.CreateDirectory(outputFolder);
             Directory.Move(tmpFolder, folder);
-            
+
             WriteLicenseText(folder);
+            CopyDirectory(Path.Combine(RepositoryRoot(), "manual"),
+                Path.Combine(folder, "manual"));
 
             Console.WriteLine("Build completed.");
-            Console.ReadKey();
         }
 
         private static void ClearDirectory(string folder)
@@ -83,7 +86,7 @@ namespace InstallerBuilder
             var ver = AssemblyName.GetAssemblyName(file).Version;
             return $"{ver.Major}.{ver.Minor}.{ver.Build}";
         }
-        
+
         private static void CompileApp(string folder)
         {
             var properties = new ProcessStartInfo();
@@ -100,18 +103,14 @@ namespace InstallerBuilder
             process.WaitForExit();
         }
 
-        private static List<string> AllFiles(string directory)
+        private static void CopyDirectory(string source, string target)
         {
-            var files = new List<string>();
-
-            files.AddRange(Directory.GetFiles(directory));
-
-            foreach (string j in Directory.GetDirectories(directory))
-            {
-                files.AddRange(AllFiles(j));
-            }
-
-            return files;
-        }        
+            var info = new ProcessStartInfo();
+            info.UseShellExecute = false;
+            info.FileName = @"C:\WINDOWS\system32\xcopy.exe";
+            info.Arguments = $"\"{source}\" \"{target}\" /E /I";
+            var process = Process.Start(info);
+            process.WaitForExit();
+        }
     }
 }
