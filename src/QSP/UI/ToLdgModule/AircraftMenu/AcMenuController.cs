@@ -40,7 +40,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             InitWtUnitCBox();
         }
 
-        private void FillFuelToLdgCBox()
+        private void FillFuelTOLdgCBox()
         {
             var fuelItems = elem.FuelProfile.Items;
             fuelItems.Clear();
@@ -222,7 +222,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             elem.SelectionBox.Visible = false;
 
             FillAcTypes();
-            FillFuelToLdgCBox();
+            FillFuelTOLdgCBox();
         }
 
         private bool TrySaveConfig(AircraftConfigItem config, string filePath)
@@ -350,7 +350,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             var fn = TryGetFileName();
 
             if (fn == null) return;
-
+            
             if (TrySaveConfig(config, fn))
             {
                 RemoveOldConfig();

@@ -37,10 +37,10 @@ namespace QSP.AircraftProfiles.Configs
         public void Add(AircraftConfig item)
         {
             registrations.Add(item.Config.Registration, item);
-            AddToAircraft(item);
+            AddToAircraftList(item);
         }
 
-        private void AddToAircraft(AircraftConfig item)
+        private void AddToAircraftList(AircraftConfig item)
         {
             List<AircraftConfig> acSameType;
 
