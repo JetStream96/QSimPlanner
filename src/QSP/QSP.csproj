@@ -72,6 +72,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -246,6 +247,7 @@
     <Compile Include="UI\Utilities\ParentControlFinder.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
     <Compile Include="UI\Utilities\ShowMapHelper.cs" />
+    <Compile Include="Updates\Updater.cs" />
     <Compile Include="Utilities\ExceptionHelpers.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
