@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.Utilities.LoggerInstance;
+using static QSP.LibraryExtension.Paths;
 
 namespace QSP.UI.Forms
 {
@@ -185,9 +186,11 @@ namespace QSP.UI.Forms
 
         private void LoadFromFile(string file)
         {
-
-            File.Delete(WindManager.DownloadFilePath);
-            File.Copy(file, WindManager.DownloadFilePath);
+            if (!GetUri(file).Equals(GetUri(WindManager.DownloadFilePath)))
+            {
+                File.Delete(WindManager.DownloadFilePath);
+                File.Copy(file, WindManager.DownloadFilePath);
+            }
 
             GribConverter.ConvertGrib();
             var handler = new WindFileHandler();

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System;
 
 namespace QSP.LibraryExtension
 {
@@ -21,15 +23,7 @@ namespace QSP.LibraryExtension
         /// </summary>
         public static bool ContainIllegalChar(this string item)
         {
-            foreach (var i in item)
-            {
-                if (IllegalChars.Contains(i))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return item.Any(c => IllegalChars.Contains(c));
         }
 
         /// <summary>
@@ -38,6 +32,13 @@ namespace QSP.LibraryExtension
         public static string RemoveIllegalChars(this string item)
         {
             return item.ReplaceAny(IllegalChars, "");
+        }
+        /// <summary>
+        /// Get uri from an absolute or relative path.
+        /// </summary>
+        public static Uri GetUri(string path)
+        {
+            return new Uri(Path.GetFullPath(path));
         }
     }
 }
