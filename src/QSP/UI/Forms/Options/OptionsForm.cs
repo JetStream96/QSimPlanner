@@ -7,6 +7,7 @@ using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport.Providers;
+using QSP.Updates;
 using QSP.Utilities;
 using System;
 using System.Collections.Generic;
@@ -20,8 +21,9 @@ namespace QSP.UI.Forms.Options
 {
     public partial class OptionsForm : Form
     {
-        private Locator<CountryCodeManager> CountryCodesLocator;
+        private Locator<CountryCodeManager> countryCodesLocator;
         private Locator<AppOptions> appSettingsLocator;
+        private Locator<Updater> updaterLocator;
         private AirwayNetwork airwayNetwork;
         private FlightPlanExportController exportController;
         private Panel popUpPanel;
@@ -40,12 +42,14 @@ namespace QSP.UI.Forms.Options
 
         public void Init(
             AirwayNetwork airwayNetwork,
-            Locator<CountryCodeManager> CountryCodesLocator,
-            Locator<AppOptions> AppSettingsLocator)
+            Locator<CountryCodeManager> countryCodesLocator,
+            Locator<AppOptions> appSettingsLocator,
+            Locator<Updater> updaterLocator)
         {
             this.airwayNetwork = airwayNetwork;
-            this.CountryCodesLocator = CountryCodesLocator;
-            this.appSettingsLocator = AppSettingsLocator;
+            this.countryCodesLocator = countryCodesLocator;
+            this.appSettingsLocator = appSettingsLocator;
+            this.updaterLocator = updaterLocator;
 
             InitExports();
             SetDefaultState();
@@ -57,7 +61,7 @@ namespace QSP.UI.Forms.Options
         {
             if (airwayNetwork.AirportList is DefaultAirportManager ||
                 airwayNetwork.WptList is DefaultWaypointList ||
-                CountryCodesLocator.Instance == null)
+                countryCodesLocator.Instance == null)
             {
                 e.Cancel = true;
 
@@ -209,7 +213,7 @@ namespace QSP.UI.Forms.Options
             {
                 var loader = new WptListLoader(pathTxtBox.Text);
                 var result = loader.LoadFromFile();
-                CountryCodesLocator.Instance = result.CountryCodes;
+                countryCodesLocator.Instance = result.CountryCodes;
                 return result.WptList;
             }
             catch (WaypointFileReadException ex)

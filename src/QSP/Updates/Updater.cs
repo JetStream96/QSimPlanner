@@ -4,20 +4,69 @@ using System.IO.Compression;
 using System.Net;
 using System.Reflection;
 using System.Xml.Linq;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.Updates
 {
     public class Updater
     {
         public static readonly string FileUri = @"";
-
-        public bool IsUpdating { get; private set; }
+        public bool IsUpdating { get; private set; } = false;
 
         public Updater() { }
 
-        public void Update()
+        public UpdateStatus Update()
         {
+            IsUpdating = true;
+            var status = DoUpdateActions();
+            IsUpdating = false;
+            return status;
+        }
 
+        private UpdateStatus DoUpdateActions()
+        {
+            UpdateInfo info = null;
+
+            try
+            {
+                info = GetUpdateFileUri();
+
+                if (info == null)
+                {
+                    return new UpdateStatus(
+                        true, "Current version is up to date.");
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteToLog(ex);
+                return new UpdateStatus(
+                    false, "Failed to obtain update info.");
+            }
+
+            try
+            {
+                Install(info);
+            }
+            catch (Exception ex)
+            {
+                WriteToLog(ex);
+                return new UpdateStatus(false, "Failed to install update.");
+            }
+
+            return new UpdateStatus(true,
+                $"Successfully updated to version {info.Version}.");
+        }
+
+        public class UpdateStatus
+        {
+            public bool Success; public string Message;
+
+            public UpdateStatus(bool Success, string Message)
+            {
+                this.Success = Success;
+                this.Message = Message;
+            }
         }
 
         /// <summary>

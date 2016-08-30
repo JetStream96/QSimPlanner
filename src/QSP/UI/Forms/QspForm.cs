@@ -17,6 +17,7 @@ using QSP.UI.ToLdgModule.LandingPerf;
 using QSP.UI.ToLdgModule.TOPerf;
 using QSP.UI.UserControls;
 using QSP.UI.Utilities;
+using QSP.Updates;
 using QSP.Utilities;
 using QSP.WindAloft;
 using System;
@@ -48,6 +49,7 @@ namespace QSP.UI.Forms
         private Locator<CountryCodeManager> countryCodesLocator;
         private ProcedureFilter procFilter;
         private Locator<IWindTableCollection> windTableLocator;
+        private Locator<Updater> updaterLocator;
 
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
@@ -195,6 +197,7 @@ namespace QSP.UI.Forms
             procFilter = new ProcedureFilter();
             windTableLocator = new Locator<IWindTableCollection>();
             windTableLocator.Instance = new DefaultWindTableCollection();
+            updaterLocator = new Locator<Updater>();
         }
 
         /// <exception cref="RwyDataFormatException"></exception>
@@ -509,7 +512,8 @@ namespace QSP.UI.Forms
                 frm.Init(
                    airwayNetwork,
                    countryCodesLocator,
-                   appOptionsLocator);
+                   appOptionsLocator,
+                   updaterLocator);
 
                 frm.NavDataLocationChanged += (s, e) =>
                     fuelMenu.RefreshForNavDataLocationChange();
