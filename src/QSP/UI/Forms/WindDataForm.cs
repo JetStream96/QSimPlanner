@@ -153,11 +153,11 @@ namespace QSP.UI.Forms
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 var file = openFileDialog.FileName;
+                downloadBtn.Enabled = false;
+                loadFileBtn.Enabled = false;
 
                 try
                 {
-                    downloadBtn.Enabled = false;
-                    loadFileBtn.Enabled = false;
                     ShowWindStatus(WindDownloadStatus.LoadingFromFile);
 
                     await Task.Factory.StartNew(() => LoadFromFile(file));
@@ -170,8 +170,6 @@ namespace QSP.UI.Forms
                         $"Loaded from file {fileNameMsg}",
                         Properties.Resources.GreenLight));
                     windAvailable = true;
-                    downloadBtn.Enabled = true;
-                    loadFileBtn.Enabled = true;
                 }
                 catch (Exception ex)
                 {
@@ -179,11 +177,15 @@ namespace QSP.UI.Forms
                     MsgBoxHelper.ShowWarning(
                         $"Failed to load file {file}");
                 }
+
+                downloadBtn.Enabled = true;
+                loadFileBtn.Enabled = true;
             }
         }
 
         private void LoadFromFile(string file)
         {
+
             File.Delete(WindManager.DownloadFilePath);
             File.Copy(file, WindManager.DownloadFilePath);
 
