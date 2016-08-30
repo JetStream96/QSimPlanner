@@ -33,6 +33,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.exportTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -45,7 +46,9 @@
             this.CheckBox2 = new System.Windows.Forms.CheckBox();
             this.TextBox2 = new System.Windows.Forms.TextBox();
             this.TextBox1 = new System.Windows.Forms.TextBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.PromptBeforeExit = new System.Windows.Forms.CheckBox();
             this.routeTab = new System.Windows.Forms.TabPage();
@@ -74,9 +77,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.updateBtn = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.updateStatusLbl = new System.Windows.Forms.Label();
+            this.updateFreqComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.tabPage3.SuspendLayout();
             this.GroupBox2.SuspendLayout();
             this.exportTableLayoutPanel.SuspendLayout();
@@ -89,6 +95,8 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage3
@@ -174,6 +182,20 @@
             this.button6.TabIndex = 38;
             this.button6.Text = "..";
             this.button6.UseVisualStyleBackColor = false;
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button5.Location = new System.Drawing.Point(543, 39);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(34, 27);
+            this.button5.TabIndex = 37;
+            this.button5.Text = "..";
+            this.button5.UseVisualStyleBackColor = false;
             // 
             // button4
             // 
@@ -311,6 +333,17 @@
             this.TextBox1.Size = new System.Drawing.Size(347, 30);
             this.TextBox1.TabIndex = 22;
             // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox5.Location = new System.Drawing.Point(3, 38);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(63, 27);
+            this.checkBox5.TabIndex = 31;
+            this.checkBox5.Text = "P3D";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
@@ -321,6 +354,15 @@
             this.checkBox6.TabIndex = 32;
             this.checkBox6.Text = "FS9 / FS2004";
             this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox5.Location = new System.Drawing.Point(188, 39);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(347, 30);
+            this.textBox5.TabIndex = 34;
             // 
             // textBox6
             // 
@@ -475,6 +517,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.routeTab);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -588,7 +631,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.38155F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.61845F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74F));
             this.tableLayoutPanel1.Controls.Add(this.infoLbl, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.button14, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.pathTxtBox, 1, 0);
@@ -607,7 +650,7 @@
             this.infoLbl.AutoSize = true;
             this.infoLbl.Cursor = System.Windows.Forms.Cursors.Hand;
             this.infoLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.infoLbl.Location = new System.Drawing.Point(526, 6);
+            this.infoLbl.Location = new System.Drawing.Point(524, 6);
             this.infoLbl.Name = "infoLbl";
             this.infoLbl.Size = new System.Drawing.Size(38, 23);
             this.infoLbl.TabIndex = 3;
@@ -619,7 +662,7 @@
             // 
             this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button14.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button14.Location = new System.Drawing.Point(465, 3);
+            this.button14.Location = new System.Drawing.Point(461, 3);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(34, 28);
             this.button14.TabIndex = 3;
@@ -632,7 +675,7 @@
             this.pathTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pathTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pathTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pathTxtBox.Location = new System.Drawing.Point(162, 3);
+            this.pathTxtBox.Location = new System.Drawing.Point(160, 3);
             this.pathTxtBox.Name = "pathTxtBox";
             this.pathTxtBox.Size = new System.Drawing.Size(279, 30);
             this.pathTxtBox.TabIndex = 3;
@@ -676,39 +719,88 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(560, 105);
             this.tableLayoutPanel4.TabIndex = 33;
             // 
-            // button5
+            // tabPage4
             // 
-            this.button5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button5.Location = new System.Drawing.Point(543, 39);
-            this.button5.Margin = new System.Windows.Forms.Padding(4);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(34, 27);
-            this.button5.TabIndex = 37;
-            this.button5.Text = "..";
-            this.button5.UseVisualStyleBackColor = false;
+            this.tabPage4.Controls.Add(this.updateStatusLbl);
+            this.tabPage4.Controls.Add(this.tableLayoutPanel5);
+            this.tabPage4.Controls.Add(this.updateBtn);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(697, 332);
+            this.tabPage4.TabIndex = 4;
+            this.tabPage4.Text = "Updates";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // textBox5
+            // tableLayoutPanel5
             // 
-            this.textBox5.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(188, 39);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(347, 30);
-            this.textBox5.TabIndex = 34;
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.Controls.Add(this.updateFreqComboBox, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.label7, 0, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(6, 28);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(685, 40);
+            this.tableLayoutPanel5.TabIndex = 3;
             // 
-            // checkBox5
+            // updateBtn
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox5.Location = new System.Drawing.Point(3, 38);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(63, 27);
-            this.checkBox5.TabIndex = 31;
-            this.checkBox5.Text = "P3D";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.updateBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.updateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.updateBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateBtn.Location = new System.Drawing.Point(13, 81);
+            this.updateBtn.Name = "updateBtn";
+            this.updateBtn.Size = new System.Drawing.Size(132, 32);
+            this.updateBtn.TabIndex = 3;
+            this.updateBtn.Text = "Update now";
+            this.updateBtn.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(3, 8);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(173, 23);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Automatically update";
+            // 
+            // updateStatusLbl
+            // 
+            this.updateStatusLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.updateStatusLbl.AutoSize = true;
+            this.updateStatusLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateStatusLbl.Location = new System.Drawing.Point(176, 88);
+            this.updateStatusLbl.Name = "updateStatusLbl";
+            this.updateStatusLbl.Size = new System.Drawing.Size(100, 20);
+            this.updateStatusLbl.TabIndex = 4;
+            this.updateStatusLbl.Text = "Update status";
+            // 
+            // updateFreqComboBox
+            // 
+            this.updateFreqComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.updateFreqComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.updateFreqComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.updateFreqComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.updateFreqComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.updateFreqComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateFreqComboBox.FormattingEnabled = true;
+            this.updateFreqComboBox.Items.AddRange(new object[] {
+            "When startup",
+            "Every day",
+            "Every week",
+            "Every month",
+            "Never"});
+            this.updateFreqComboBox.Location = new System.Drawing.Point(182, 4);
+            this.updateFreqComboBox.Name = "updateFreqComboBox";
+            this.updateFreqComboBox.Size = new System.Drawing.Size(262, 31);
+            this.updateFreqComboBox.TabIndex = 4;
             // 
             // OptionsForm
             // 
@@ -742,6 +834,10 @@
             this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -798,5 +894,11 @@
         internal System.Windows.Forms.Button button5;
         internal System.Windows.Forms.CheckBox checkBox5;
         internal System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private Controls.ComboBoxWithBorder updateFreqComboBox;
+        private System.Windows.Forms.Button updateBtn;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label updateStatusLbl;
     }
 }

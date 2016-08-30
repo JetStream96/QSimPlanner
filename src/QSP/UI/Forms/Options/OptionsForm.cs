@@ -86,6 +86,9 @@ namespace QSP.UI.Forms.Options
 
             AutoDLTracksCheckBox.Checked = true;
             AutoDLWindCheckBox.Checked = true;
+
+            updateFreqComboBox.SelectedIndex = 0;
+            updateStatusLbl.Text = "";
         }
 
         public void SetControlsAsInOptions()
@@ -98,6 +101,7 @@ namespace QSP.UI.Forms.Options
                 AppSettings.EnableWindOptimizedRoute;
             hideDctCheckBox.Checked = AppSettings.HideDctInRoute;
             showTrackIdOnlyCheckBox.Checked = AppSettings.ShowTrackIdOnly;
+            updateFreqComboBox.SelectedIndex = AppSettings.UpdateFrequency;
             exportController.SetExports();
         }
 
@@ -273,6 +277,7 @@ namespace QSP.UI.Forms.Options
                 WindOptimizedRouteCheckBox.Checked,
                 hideDctCheckBox.Checked,
                 showTrackIdOnlyCheckBox.Checked,
+                updateFreqComboBox.SelectedIndex,
                 exportController.GetCommands());
         }
 

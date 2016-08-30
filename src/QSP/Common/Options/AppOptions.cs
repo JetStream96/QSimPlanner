@@ -16,6 +16,7 @@ namespace QSP.Common.Options
         public bool EnableWindOptimizedRoute { get; private set; }
         public bool HideDctInRoute { get; private set; }
         public bool ShowTrackIdOnly { get; private set; }
+        public int UpdateFrequency { get; private set; }
         private Dictionary<string, ExportCommand> _exportCommands;
 
         public IReadOnlyDictionary<string, ExportCommand> ExportCommands
@@ -34,6 +35,7 @@ namespace QSP.Common.Options
             bool EnableWindOptimizedRoute,
             bool HideDctInRoute,
             bool ShowTrackIdOnly,
+            int UpdateFrequency,
             Dictionary<string, ExportCommand> ExportCommands)
         {
             this.NavDataLocation = NavDataLocation;
@@ -43,6 +45,7 @@ namespace QSP.Common.Options
             this.EnableWindOptimizedRoute = EnableWindOptimizedRoute;
             this.HideDctInRoute = HideDctInRoute;
             this.ShowTrackIdOnly = ShowTrackIdOnly;
+            this.UpdateFrequency = UpdateFrequency;
             this._exportCommands = ExportCommands;
         }
 
@@ -57,6 +60,7 @@ namespace QSP.Common.Options
             EnableWindOptimizedRoute = ParseBool(root, "WindOptimizedRoute");
             HideDctInRoute = ParseBool(root, "HideDctInRoute");
             ShowTrackIdOnly = ParseBool(root, "ShowTrackIdOnly");
+            UpdateFrequency = int.Parse(root.Element("UpdateFrequency").Value);
 
             var exports = root.Element("ExportOptions");
 
@@ -107,6 +111,7 @@ namespace QSP.Common.Options
                 BoolToXElem("WindOptimizedRoute", EnableWindOptimizedRoute),
                 BoolToXElem("HideDctInRoute", HideDctInRoute),
                 BoolToXElem("ShowTrackIdOnly", ShowTrackIdOnly),
+                new XElement("UpdateFrequency", UpdateFrequency),
                 exportOptions});
         }
 
@@ -127,6 +132,7 @@ namespace QSP.Common.Options
                     true,
                     false,
                     false,
+                    0,
                     new Dictionary<string, ExportCommand>());
             }
         }

@@ -11,6 +11,8 @@ namespace QSP.Updates
     {
         public static readonly string FileUri = @"";
 
+        public bool IsUpdating { get; private set; }
+
         public Updater() { }
 
         public void Update()
