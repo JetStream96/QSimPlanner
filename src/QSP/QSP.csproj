@@ -574,9 +574,6 @@
     <Content Include="PerformanceData\TO\7878_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\UserDefined\Put the custom configs here">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\add_icon.png" />
     <EmbeddedResource Include="UI\Forms\Options\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>

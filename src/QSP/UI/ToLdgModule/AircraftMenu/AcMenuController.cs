@@ -11,7 +11,6 @@ using System.Linq;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Utilities.MsgBoxHelper;
-using static QSP.LibraryExtension.Paths;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu
 {
@@ -40,7 +39,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             InitWtUnitCBox();
         }
 
-        private void FillFuelTOLdgCBox()
+        private void FillFuelToLdgCBox()
         {
             var fuelItems = elem.FuelProfile.Items;
             fuelItems.Clear();
@@ -222,7 +221,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             elem.SelectionBox.Visible = false;
 
             FillAcTypes();
-            FillFuelTOLdgCBox();
+            FillFuelToLdgCBox();
         }
 
         private bool TrySaveConfig(AircraftConfigItem config, string filePath)
@@ -273,34 +272,20 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         {
             if (inEditMode == false)
             {
-                return GenerateFileName();
-            }
-            else
-            {
-                var filePath = currentConfig.FilePath;
-                var directory = GetUri(Path.GetDirectoryName(filePath));
-                var defaultDirectory = GetUri(ConfigLoader.DefaultFolderPath);
-
-                if (directory.Equals(defaultDirectory))
-                {
-                    return GenerateFileName();
-                }
-
-                return currentConfig.FilePath;
-            }
-        }
-
-        private string GenerateFileName()
-        {
-            var nameBase =
+                var nameBase =
                     (elem.AcType.Text + "_" + elem.Registration.Text)
                     .RemoveIllegalChars();
 
-            return FileNameGenerator.Generate(
-                ConfigLoader.UserDefinedFolderPath,
-                nameBase,
-                (i) => "_" + i.ToString(),
-                ".ini");
+                return FileNameGenerator.Generate(
+                    ConfigLoader.DefaultFolderPath,
+                    nameBase,
+                    (i) => "_" + i.ToString(),
+                    ".ini");
+            }
+            else
+            {
+                return currentConfig.FilePath;
+            }
         }
 
         private AircraftConfigItem TryValidate()
@@ -349,8 +334,11 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             var fn = TryGetFileName();
 
-            if (fn == null) return;
-            
+            if (fn == null)
+            {
+                return;
+            }
+
             if (TrySaveConfig(config, fn))
             {
                 RemoveOldConfig();
