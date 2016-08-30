@@ -1,5 +1,6 @@
 ﻿using IniParser;
 using IniParser.Model;
+using System.IO;
 using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.AircraftProfiles.Configs
@@ -27,6 +28,7 @@ namespace QSP.AircraftProfiles.Configs
             sections.Add(secData);
 
             var iniData = new IniData(sections);
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
             new FileIniDataParser().WriteFile(filePath, iniData);
         }
     }

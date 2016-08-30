@@ -8,44 +8,58 @@ using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.AircraftProfiles.Configs
 {
+    // Load all aircraft config files. When there are duplicate registration 
+    // numbers, only one of them will be loaded and the file in 
+    // UserDefinedFolderPath shadows the ones in DefaultFolderPath.
+    //
     public class ConfigLoader
     {
-        private string folderPath;
+        private string defaultFolder, userDefinedFolder;
 
         public const string DefaultFolderPath = @"PerformanceData\Aircrafts";
         public const string UserDefinedFolderPath =
             @"PerformanceData\Aircrafts\UserDefined";
 
-        public ConfigLoader(string folderPath = DefaultFolderPath)
+        public ConfigLoader(string defaultFolder = DefaultFolderPath,
+            string userDefinedFolder = UserDefinedFolderPath)
         {
-            this.folderPath = folderPath;
+            this.defaultFolder = defaultFolder;
+            this.userDefinedFolder = userDefinedFolder;
         }
 
         public ConfigImportResult LoadAll()
         {
-            var configs = new List<AircraftConfig>();
+            var result = new Dictionary<string, AircraftConfig>();
 
-            foreach (var i in Directory.GetFiles(folderPath))
+            foreach (var i in Directory.GetFiles(userDefinedFolder))
             {
                 try
                 {
-                    configs.Add(new AircraftConfig(Load(i), i));
+                    var c = new AircraftConfig(Load(i), i);
+                    var reg = c.Config.Registration;
+                    if (!result.ContainsKey(reg)) result.Add(reg, c);
                 }
                 catch (Exception ex)
                 {
-                    LoggerInstance.WriteToLog(ex); 
+                    LoggerInstance.WriteToLog(ex);
                 }
             }
 
-            var groups = configs.GroupBy(c => c.Config.Registration);
+            foreach (var i in Directory.GetFiles(defaultFolder))
+            {
+                try
+                {
+                    var c = new AircraftConfig(Load(i), i);
+                    var reg = c.Config.Registration;
+                    if (!result.ContainsKey(reg)) result.Add(reg, c);
+                }
+                catch (Exception ex)
+                {
+                    LoggerInstance.WriteToLog(ex);
+                }
+            }
 
-            var result =
-                groups
-                .Where(g => g.Count() == 1)
-                .Select(g => g.First())
-                .ToList();
-
-            return new ConfigImportResult(result, Message(configs));
+            return new ConfigImportResult(result.Values.ToList(), null);
         }
 
         public static AircraftConfigItem Load(string filePath)
@@ -72,30 +86,11 @@ namespace QSP.AircraftProfiles.Configs
                 StringToWeightUnit(section["WtUnit"]));
         }
 
-        private static string Message(List<AircraftConfig> item)
-        {
-            var groups = item.GroupBy(x => x.Config.Registration);
-
-            try
-            {
-                var duplicate = groups.First(g => g.Count() > 1);
-
-                return
-                    "The following aircrafts have" +
-                    " identical registrations:\n\n" +
-                    string.Join("\n", duplicate.Select(x => x.FilePath)) +
-                    "\n\nNone of these profiles will be loaded.";
-            }
-            catch (InvalidOperationException)
-            {
-                // There is no duplicate.
-                return null;
-            }
-        }
-
         public class ConfigImportResult
         {
             public List<AircraftConfig> Configs { get; private set; }
+
+            // Null when no message is available.
             public string Message { get; private set; }
 
             public ConfigImportResult(List<AircraftConfig> Configs,

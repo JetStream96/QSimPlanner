@@ -62,7 +62,7 @@ namespace QSP.TOPerfCalculation
             }
             catch (InvalidOperationException)
             {
-                // There is not duplicate.
+                // There is no duplicate.
                 return null;
             }
         }
