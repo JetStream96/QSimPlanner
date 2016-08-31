@@ -42,7 +42,8 @@ namespace InstallerBuilder
         private static void GenerateVersionConfig(string version)
         {
             var elem = new XElement("Root",
-                new XElement("current", version));
+                new XElement("current", version),
+                new XElement("backup",""));
 
             var path = Path.Combine(outputFolder, "version.xml");
             File.WriteAllText(path, new XDocument(elem).ToString());

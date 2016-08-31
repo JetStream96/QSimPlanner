@@ -493,6 +493,23 @@ namespace QSP.UI.Forms
                 }
             }
 
+            if (updaterLocator.Instance.IsUpdating)
+            {
+                var Result = MessageBox.Show(
+                    "The automatic update is in progress. " +
+                    "Wait for the update to finish?",
+                    "",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+
+                if (Result == DialogResult.Yes)
+                {
+                    // Do not exit the app.
+                    e.Cancel = true;
+                    return;
+                }
+            }
+
             toMenu.TrySaveState();
             ldgMenu.TrySaveState();
             fuelMenu.SaveStateToFile();

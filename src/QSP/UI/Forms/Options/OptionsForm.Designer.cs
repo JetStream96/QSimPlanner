@@ -78,11 +78,11 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.updateBtn = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.updateStatusLbl = new System.Windows.Forms.Label();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.updateFreqComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.label7 = new System.Windows.Forms.Label();
+            this.updateBtn = new System.Windows.Forms.Button();
             this.tabPage3.SuspendLayout();
             this.GroupBox2.SuspendLayout();
             this.exportTableLayoutPanel.SuspendLayout();
@@ -631,7 +631,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.38155F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.61845F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel1.Controls.Add(this.infoLbl, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.button14, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.pathTxtBox, 1, 0);
@@ -662,7 +662,7 @@
             // 
             this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button14.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button14.Location = new System.Drawing.Point(461, 3);
+            this.button14.Location = new System.Drawing.Point(460, 3);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(34, 28);
             this.button14.TabIndex = 3;
@@ -732,6 +732,17 @@
             this.tabPage4.Text = "Updates";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // updateStatusLbl
+            // 
+            this.updateStatusLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.updateStatusLbl.AutoSize = true;
+            this.updateStatusLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateStatusLbl.Location = new System.Drawing.Point(176, 88);
+            this.updateStatusLbl.Name = "updateStatusLbl";
+            this.updateStatusLbl.Size = new System.Drawing.Size(100, 20);
+            this.updateStatusLbl.TabIndex = 4;
+            this.updateStatusLbl.Text = "Update status";
+            // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 2;
@@ -747,40 +758,6 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(685, 40);
             this.tableLayoutPanel5.TabIndex = 3;
-            // 
-            // updateBtn
-            // 
-            this.updateBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.updateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.updateBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updateBtn.Location = new System.Drawing.Point(13, 81);
-            this.updateBtn.Name = "updateBtn";
-            this.updateBtn.Size = new System.Drawing.Size(132, 32);
-            this.updateBtn.TabIndex = 3;
-            this.updateBtn.Text = "Update now";
-            this.updateBtn.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(3, 8);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(173, 23);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Automatically update";
-            // 
-            // updateStatusLbl
-            // 
-            this.updateStatusLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.updateStatusLbl.AutoSize = true;
-            this.updateStatusLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updateStatusLbl.Location = new System.Drawing.Point(176, 88);
-            this.updateStatusLbl.Name = "updateStatusLbl";
-            this.updateStatusLbl.Size = new System.Drawing.Size(100, 20);
-            this.updateStatusLbl.TabIndex = 4;
-            this.updateStatusLbl.Text = "Update status";
             // 
             // updateFreqComboBox
             // 
@@ -801,6 +778,30 @@
             this.updateFreqComboBox.Name = "updateFreqComboBox";
             this.updateFreqComboBox.Size = new System.Drawing.Size(262, 31);
             this.updateFreqComboBox.TabIndex = 4;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(3, 8);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(173, 23);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Automatically update";
+            // 
+            // updateBtn
+            // 
+            this.updateBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.updateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.updateBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateBtn.Location = new System.Drawing.Point(13, 81);
+            this.updateBtn.Name = "updateBtn";
+            this.updateBtn.Size = new System.Drawing.Size(132, 32);
+            this.updateBtn.TabIndex = 3;
+            this.updateBtn.Text = "Update now";
+            this.updateBtn.UseVisualStyleBackColor = true;
+            this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
             // 
             // OptionsForm
             // 

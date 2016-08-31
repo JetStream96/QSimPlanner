@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
@@ -429,6 +430,18 @@ FMS Data (both are payware). Use the version of Aerosoft
 Airbus A318/A319/A320/A321. Select the folder which
 contains Airports.txt.";
             }
+        }
+
+        private async void updateBtn_Click(object sender, EventArgs e)
+        {
+            var updater = new Updater();
+            updaterLocator.Instance = updater;
+            updateStatusLbl.Text = "Updating ...";
+            updateStatusLbl.ForeColor = Color.Black;
+            var status = await Task.Factory.StartNew(() => updater.Update());
+            updateStatusLbl.Text = status.Message;
+            updateStatusLbl.ForeColor = status.Success ? 
+                Color.Green : Color.Red;
         }
     }
 }

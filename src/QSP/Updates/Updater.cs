@@ -10,7 +10,7 @@ namespace QSP.Updates
 {
     public class Updater
     {
-        public static readonly string FileUri = @"";
+        public static readonly string FileUri = @"F:\Programming\Projects\QSimPlanner\Updates\info.xml";
         public bool IsUpdating { get; private set; } = false;
 
         public Updater() { }
@@ -55,7 +55,8 @@ namespace QSP.Updates
             }
 
             return new UpdateStatus(true,
-                $"Successfully updated to version {info.Version}.");
+                $"Successfully updated to version {info.Version}. " + 
+                "Changes will be in effect after restart.");
         }
 
         public class UpdateStatus
@@ -98,6 +99,18 @@ namespace QSP.Updates
             }
 
             ZipFile.ExtractToDirectory(zipFilePath, extractDir);
+            UpdateXml(info.Version);
+        }
+
+        private static void UpdateXml(string version)
+        {
+            const string path = "../version.xml";
+            var doc = XDocument.Load(path);
+            var root = doc.Root;
+            var backup = root.Element("current").Value;
+            root.Element("current").Value = version;
+            root.Element("backup").Value = backup;
+            File.WriteAllText(path, doc.ToString());
         }
 
         public class UpdateInfo
