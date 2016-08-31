@@ -150,7 +150,7 @@ namespace QSP.UI.UserControls
             {
                 WriteToLog(ex);
                 desForcastRichTxtBox.Text =
-                    "\n\n\n       Unable to get descend forcast for " + dest;
+                    "\n\n\n       Unable to get descent forcast for " + dest;
             }
         }
 

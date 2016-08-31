@@ -49,7 +49,7 @@ namespace QSP.UI.Forms
         private Locator<CountryCodeManager> countryCodesLocator;
         private ProcedureFilter procFilter;
         private Locator<IWindTableCollection> windTableLocator;
-        private Locator<Updater> updaterLocator;
+        private Updater updater;
 
         private BtnGroupController btnControl;
         private ControlSwitcher viewControl;
@@ -197,7 +197,7 @@ namespace QSP.UI.Forms
             procFilter = new ProcedureFilter();
             windTableLocator = new Locator<IWindTableCollection>();
             windTableLocator.Instance = new DefaultWindTableCollection();
-            updaterLocator = new Locator<Updater>();
+            updater = new Updater();
         }
 
         /// <exception cref="RwyDataFormatException"></exception>
@@ -493,7 +493,7 @@ namespace QSP.UI.Forms
                 }
             }
 
-            if (updaterLocator.Instance.IsUpdating)
+            if (updater.IsUpdating)
             {
                 var Result = MessageBox.Show(
                     "The automatic update is in progress. " +
@@ -530,7 +530,7 @@ namespace QSP.UI.Forms
                    airwayNetwork,
                    countryCodesLocator,
                    appOptionsLocator,
-                   updaterLocator);
+                   updater);
 
                 frm.NavDataLocationChanged += (s, e) =>
                     fuelMenu.RefreshForNavDataLocationChange();

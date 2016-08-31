@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.UI.Utilities.MsgBoxHelper;
@@ -24,7 +25,7 @@ namespace QSP.UI.Forms.Options
     {
         private Locator<CountryCodeManager> countryCodesLocator;
         private Locator<AppOptions> appSettingsLocator;
-        private Locator<Updater> updaterLocator;
+        private Updater updater;
         private AirwayNetwork airwayNetwork;
         private FlightPlanExportController exportController;
         private Panel popUpPanel;
@@ -45,12 +46,12 @@ namespace QSP.UI.Forms.Options
             AirwayNetwork airwayNetwork,
             Locator<CountryCodeManager> countryCodesLocator,
             Locator<AppOptions> appSettingsLocator,
-            Locator<Updater> updaterLocator)
+            Updater updater)
         {
             this.airwayNetwork = airwayNetwork;
             this.countryCodesLocator = countryCodesLocator;
             this.appSettingsLocator = appSettingsLocator;
-            this.updaterLocator = updaterLocator;
+            this.updater = updater;
 
             InitExports();
             SetDefaultState();
@@ -312,8 +313,6 @@ namespace QSP.UI.Forms.Options
         {
             // This section is to determine whether the database
             // files are found or not.
-            bool navDataFound = true;
-
             string[] FilesToCheck = {
                 "airports.txt",
                 "ats.txt",
@@ -322,15 +321,9 @@ namespace QSP.UI.Forms.Options
                 "waypoints.txt"
             };
 
-            foreach (var i in FilesToCheck)
-            {
-                if (File.Exists(Path.Combine(navDataPath, i)) == false)
-                {
-                    navDataFound = false;
-                    break;
-                }
-            }
-
+            bool navDataFound = FilesToCheck.All(i =>
+            File.Exists(Path.Combine(navDataPath, i)));
+            
             navDataStatusLbl.Text = navDataFound ? "Found" : "Not Found";
 
             try
@@ -434,14 +427,14 @@ contains Airports.txt.";
 
         private async void updateBtn_Click(object sender, EventArgs e)
         {
-            var updater = new Updater();
-            updaterLocator.Instance = updater;
+            updateBtn.Enabled = false;
             updateStatusLbl.Text = "Updating ...";
             updateStatusLbl.ForeColor = Color.Black;
             var status = await Task.Factory.StartNew(() => updater.Update());
             updateStatusLbl.Text = status.Message;
             updateStatusLbl.ForeColor = status.Success ? 
                 Color.Green : Color.Red;
+            updateBtn.Enabled = true;
         }
     }
 }

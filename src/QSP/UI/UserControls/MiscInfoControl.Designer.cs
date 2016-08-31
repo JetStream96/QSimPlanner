@@ -30,6 +30,7 @@
         {
             this.TabControl1 = new System.Windows.Forms.TabControl();
             this.TabPage1 = new System.Windows.Forms.TabPage();
+            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.GroupBox17 = new System.Windows.Forms.GroupBox();
@@ -52,7 +53,6 @@
             this.updateDesForcastBtn = new System.Windows.Forms.Button();
             this.desForcastLastUpdatedLbl = new System.Windows.Forms.Label();
             this.desForcastRichTxtBox = new System.Windows.Forms.RichTextBox();
-            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabControl1.SuspendLayout();
             this.TabPage1.SuspendLayout();
             this.TabPage2.SuspendLayout();
@@ -91,6 +91,17 @@
             this.TabPage1.TabIndex = 0;
             this.TabPage1.Text = "Airport Data";
             this.TabPage1.UseVisualStyleBackColor = true;
+            // 
+            // airportMapControl
+            // 
+            this.airportMapControl.Airports = null;
+            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.airportMapControl.BrowserEnabled = false;
+            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
+            this.airportMapControl.Name = "airportMapControl";
+            this.airportMapControl.Size = new System.Drawing.Size(1024, 670);
+            this.airportMapControl.StaticMapEnabled = false;
+            this.airportMapControl.TabIndex = 0;
             // 
             // TabPage2
             // 
@@ -292,7 +303,7 @@
             this.GroupBox19.Size = new System.Drawing.Size(696, 425);
             this.GroupBox19.TabIndex = 0;
             this.GroupBox19.TabStop = false;
-            this.GroupBox19.Text = "Descend Forcast";
+            this.GroupBox19.Text = "Descent Forcast";
             // 
             // tableLayoutPanel7
             // 
@@ -364,17 +375,6 @@
             this.desForcastRichTxtBox.Size = new System.Drawing.Size(678, 330);
             this.desForcastRichTxtBox.TabIndex = 1;
             this.desForcastRichTxtBox.Text = "";
-            // 
-            // airportMapControl
-            // 
-            this.airportMapControl.Airports = null;
-            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.airportMapControl.BrowserEnabled = false;
-            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
-            this.airportMapControl.Name = "airportMapControl";
-            this.airportMapControl.Size = new System.Drawing.Size(1024, 670);
-            this.airportMapControl.StaticMapEnabled = false;
-            this.airportMapControl.TabIndex = 0;
             // 
             // MiscInfoControl
             // 

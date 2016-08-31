@@ -5,6 +5,7 @@ using System.Net;
 using System.Reflection;
 using System.Xml.Linq;
 using static QSP.Utilities.LoggerInstance;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.Updates
 {
@@ -99,15 +100,18 @@ namespace QSP.Updates
             }
 
             ZipFile.ExtractToDirectory(zipFilePath, extractDir);
-            UpdateXml(info.Version);
+            IgnoreExceptions(() => File.Delete(zipFilePath));
+            UpdateXmlAndDeleteOldVersion(info.Version);
         }
 
-        private static void UpdateXml(string version)
+        private static void UpdateXmlAndDeleteOldVersion(string version)
         {
             const string path = "../version.xml";
             var doc = XDocument.Load(path);
             var root = doc.Root;
             var backup = root.Element("current").Value;
+            IgnoreExceptions(() => 
+            Directory.Delete(root.Element("backup").Value));
             root.Element("current").Value = version;
             root.Element("backup").Value = backup;
             File.WriteAllText(path, doc.ToString());

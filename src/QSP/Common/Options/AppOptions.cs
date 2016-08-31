@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace QSP.Common.Options
 {
+    // TODO: Use xml serialization instead?
     public class AppOptions
     {
         public string NavDataLocation { get; private set; }
