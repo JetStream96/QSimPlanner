@@ -89,7 +89,6 @@
     <Compile Include="AircraftProfiles\Configs\AircraftConfigItem.cs" />
     <Compile Include="AircraftProfiles\Configs\ConfigComparers.cs" />
     <Compile Include="AircraftProfiles\Configs\ConfigLoader.cs" />
-    <Compile Include="AircraftProfiles\Configs\ConfigSaver.cs" />
     <Compile Include="AircraftProfiles\Configs\Exceptions.cs" />
     <Compile Include="AircraftProfiles\ProfileManager.cs" />
     <Compile Include="AviationTools\Constants.cs" />

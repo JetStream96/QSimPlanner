@@ -23,5 +23,10 @@ namespace QSP.LibraryExtension.XmlSerialization
         {
             return int.Parse(elem.GetString(key));
         }
+
+        public static double GetDouble(this XElement elem, string key)
+        {
+            return double.Parse(elem.GetString(key));
+        }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.AircraftProfiles.Configs
@@ -48,29 +49,10 @@ namespace QSP.AircraftProfiles.Configs
 
         public static AircraftConfigItem Load(string filePath)
         {
-            return Parse(File.ReadAllText(filePath));
+            var doc = XDocument.Load(filePath);
+            return AircraftConfigItem.Deserialize(doc.Root);
         }
-
-        public static AircraftConfigItem Parse(string text)
-        {
-            var parser = new IniDataParser();
-            var data = parser.Parse(text);
-            var section = data["Data"];
-
-            return new AircraftConfigItem(
-                section["AC"],
-                section["Registration"],
-                section["FuelProfile"],
-                section["TOProfile"],
-                section["LdgProfile"],
-                double.Parse(section["OewKg"]),
-                double.Parse(section["MaxTOWtKg"]),
-                double.Parse(section["MaxLdgWtKg"]),
-                double.Parse(section["MaxZfwKg"]),
-                double.Parse(section["MaxFuelKg"]),
-                StringToWeightUnit(section["WtUnit"]));
-        }
-
+        
         private static string Message(List<AircraftConfig> item)
         {
             var groups = item.GroupBy(x => x.Config.Registration);

@@ -8,6 +8,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Utilities.MsgBoxHelper;
@@ -228,7 +229,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         {
             try
             {
-                ConfigSaver.Save(config, filePath);
+                var doc = new XDocument(config.Serialize("Config"));
+                File.WriteAllText(filePath, doc.ToString());
                 return true;
             }
             catch

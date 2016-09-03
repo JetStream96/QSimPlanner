@@ -20,6 +20,7 @@ namespace UnitTest.AircraftProfiles.Configs
                     234567.0,
                     345678.0,
                     456789.0,
+                    567890.0,
                     WeightUnit.KG),
                 "path");
 
@@ -34,6 +35,7 @@ namespace UnitTest.AircraftProfiles.Configs
                     34567.0,
                     45678.0,
                     56789.0,
+                    567890.0,
                     WeightUnit.KG),
                 "path");
 
