@@ -1,11 +1,9 @@
-﻿using IniParser.Parser;
-using QSP.Utilities;
+﻿using QSP.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.AircraftProfiles.Configs
 {
@@ -38,8 +36,7 @@ namespace QSP.AircraftProfiles.Configs
 
             var groups = configs.GroupBy(c => c.Config.Registration);
 
-            var result =
-                groups
+            var result = groups
                 .Where(g => g.Count() == 1)
                 .Select(g => g.First())
                 .ToList();

@@ -411,12 +411,6 @@
     </Compile>
     <Compile Include="UI\ToLdgModule\Common\AutoWeatherSetter.cs" />
     <Compile Include="UI\ToLdgModule\Common\WeatherAutoFiller.cs" />
-    <Compile Include="UI\ToLdgModule\Forms\QspLiteForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ToLdgModule\Forms\QspLiteForm.Designer.cs">
-      <DependentUpon>QspLiteForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\ToLdgModule\LandingPerf\ControlState.cs" />
     <Compile Include="UI\ToLdgModule\LandingPerf\CustomFuelForm.cs">
       <SubType>Form</SubType>
@@ -441,14 +435,6 @@
     <Compile Include="UI\ToLdgModule\Common\WeatherInfoControl.Designer.cs">
       <DependentUpon>WeatherInfoControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ToLdgModule\Options\OptionManager.cs" />
-    <Compile Include="UI\ToLdgModule\Options\OptionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\ToLdgModule\Options\OptionsControl.Designer.cs">
-      <DependentUpon>OptionsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ToLdgModule\Options\UserOption.cs" />
     <Compile Include="UI\ToLdgModule\TOPerf\Controllers\BoeingController.cs" />
     <Compile Include="UI\ToLdgModule\TOPerf\Controllers\BoeingParameterValidator.cs" />
     <Compile Include="UI\ToLdgModule\TOPerf\Controllers\FormController.cs" />
@@ -655,9 +641,6 @@
     <EmbeddedResource Include="UI\Forms\FindAltnForm.resx">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ToLdgModule\Forms\QspLiteForm.resx">
-      <DependentUpon>QspLiteForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\ToLdgModule\LandingPerf\CustomFuelForm.resx">
       <DependentUpon>CustomFuelForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -675,9 +658,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ToLdgModule\Common\WeatherInfoControl.resx">
       <DependentUpon>WeatherInfoControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ToLdgModule\Options\OptionsControl.resx">
-      <DependentUpon>OptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ToLdgModule\TOPerf\TOPerfControl.resx">
       <DependentUpon>TOPerfControl.cs</DependentUpon>
