@@ -350,19 +350,14 @@ namespace QSP.UI.UserControls
         {
             if (acListComboBox.SelectedIndex >= 0)
             {
-                var ac =
-                    aircrafts
-                    .FindAircraft(acListComboBox.Text);
-
+                var ac = aircrafts.FindAircraft(acListComboBox.Text);
                 var items = registrationComboBox.Items;
-
                 items.Clear();
 
                 items.AddRange(
-                    ac
-                    .Where(c => FuelProfileExists(c.Config.TOProfile))
-                    .Select(c => c.Config.Registration)
-                    .ToArray());
+                    ac.Where(c => FuelProfileExists(c.Config.TOProfile))
+                      .Select(c => c.Config.Registration)
+                      .ToArray());
 
                 if (items.Count > 0)
                 {
@@ -373,10 +368,7 @@ namespace QSP.UI.UserControls
 
         private void RegistrationChanged(object sender, EventArgs e)
         {
-            if (registrationComboBox.SelectedIndex < 0)
-            {
-                return;
-            }
+            if (registrationComboBox.SelectedIndex < 0) return;
 
             var config = aircrafts.Find(registrationComboBox.Text).Config;
             WeightUnit = config.WtUnit;
@@ -393,14 +385,17 @@ namespace QSP.UI.UserControls
         /// </summary>
         public FuelDataItem GetFuelData()
         {
-            if (registrationComboBox.SelectedIndex < 0)
-            {
-                return null;
-            }
-
-            var ac = aircrafts.Find(registrationComboBox.Text);
-            var dataName = ac.Config.FuelProfile;
+            var dataName = GetCurrentAircraft().Config.FuelProfile;
             return fuelData.First(d => d.ProfileName == dataName).Data;
+        }
+
+        /// <summary>
+        /// Returns null if no aircraft exists in ComboBox.
+        /// </summary>
+        public AircraftConfig GetCurrentAircraft()
+        {
+            if (registrationComboBox.SelectedIndex < 0) return null;
+            return aircrafts.Find(registrationComboBox.Text);
         }
 
         private void Calculate(object sender, EventArgs e)
@@ -453,14 +448,14 @@ namespace QSP.UI.UserControls
                 }
             }
 
-            var fuelReport =
-                new FuelCalculatorWithWind(data, para, windTables)
+            var fuelReport = new FuelCalculatorWithWind(data, para, windTables)
                 .Compute(RouteToDest.Expanded, altnRoutes);
+            var ac = GetCurrentAircraft().Config;
 
-            if (fuelReport.TotalFuelKG > data.MaxFuelKg)
+            if (fuelReport.TotalFuelKG > ac.MaxFuelKg)
             {
                 var msg = InsufficientFuelMsg(
-                    fuelReport.TotalFuelKG, data.MaxFuelKg, WeightUnit);
+                    fuelReport.TotalFuelKG, ac.MaxFuelKg, WeightUnit);
 
                 MessageBox.Show(
                     msg,

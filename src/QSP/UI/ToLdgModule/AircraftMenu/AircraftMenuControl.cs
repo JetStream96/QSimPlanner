@@ -70,6 +70,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 maxTOWtTxtBox,
                 maxLdgWtTxtBox,
                 maxZfwTxtBox,
+                maxFuelTxtBox,
                 new Label[] { wtUnitLbl1, wtUnitLbl2, wtUnitLbl3, wtUnitLbl4 },
                 selectionGroupBox,
                 propertyGroupBox,

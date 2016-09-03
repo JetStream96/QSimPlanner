@@ -16,6 +16,7 @@ namespace QSP.AircraftProfiles.Configs
         public double MaxTOWtKg { get; private set; }
         public double MaxLdgWtKg { get; private set; }
         public double MaxZfwKg { get; private set; }
+        public double MaxFuelKg { get; private set; }
         public WeightUnit WtUnit { get; private set; }
 
         public AircraftConfigItem(
@@ -28,6 +29,7 @@ namespace QSP.AircraftProfiles.Configs
             double MaxTOWtKg,
             double MaxLdgWtKg,
             double MaxZfwKg,
+            double MaxFuelKg,
             WeightUnit WtUnit)
         {
             this.AC = AC;
@@ -40,6 +42,7 @@ namespace QSP.AircraftProfiles.Configs
             this.MaxLdgWtKg = MaxLdgWtKg;
             this.WtUnit = WtUnit;
             this.MaxZfwKg = MaxZfwKg;
+            this.MaxFuelKg = MaxFuelKg;
         }
 
         public bool Equals(AircraftConfigItem other, double delta)
@@ -54,6 +57,7 @@ namespace QSP.AircraftProfiles.Configs
                 Abs(other.MaxTOWtKg - MaxTOWtKg) <= delta &&
                 Abs(other.MaxLdgWtKg - MaxLdgWtKg) <= delta &&
                 Abs(other.MaxZfwKg - MaxZfwKg) <= delta &&
+                Abs(other.MaxFuelKg-MaxFuelKg) <= delta &&
                 other.WtUnit == WtUnit;
         }
     }

@@ -22,10 +22,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             double wtUnitFactor = wtUnit == WeightUnit.KG ?
                     1.0 : Constants.LbKgRatio;
 
-            double zfw;
-            double maxToWt;
-            double maxLdgWt;
-            double maxZfw;
+            double zfw, maxToWt, maxLdgWt, maxZfw, maxFuel;
 
             if (double.TryParse(elem.Zfw.Text, out zfw) == false)
             {
@@ -50,10 +47,17 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                     "Invalid max zero fuel weight.");
             }
 
+            if (double.TryParse(elem.MaxFuel.Text, out maxFuel) == false)
+            {
+                throw new InvalidUserInputException(
+                    "Invalid max fuel capacity.");
+            }
+
             zfw *= wtUnitFactor;
             maxToWt *= wtUnitFactor;
             maxLdgWt *= wtUnitFactor;
             maxZfw *= wtUnitFactor;
+            maxFuel *= wtUnitFactor;
 
             return new AircraftConfigItem(
                 elem.AcType.Text.Trim(),
@@ -65,6 +69,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 maxToWt,
                 maxLdgWt,
                 maxZfw,
+                maxFuel,
                 wtUnit);
         }
 

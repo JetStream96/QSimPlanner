@@ -4,7 +4,6 @@
   <General>
     <ProfileName>Boeing 737-700</ProfileName>
     <HoldingFuelPerMinuteKg>38</HoldingFuelPerMinuteKg>
-    <MaxFuelKg>20896</MaxFuelKg>
     <TaxiFuelPerMinKg>12.2</TaxiFuelPerMinKg>
     <ApuFuelPerMinKg>1.8</ApuFuelPerMinKg>
     <MissedAppFuelKG>130</MissedAppFuelKG>

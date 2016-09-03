@@ -67,6 +67,7 @@ namespace QSP.AircraftProfiles.Configs
                 double.Parse(section["MaxTOWtKg"]),
                 double.Parse(section["MaxLdgWtKg"]),
                 double.Parse(section["MaxZfwKg"]),
+                double.Parse(section["MaxFuelKg"]),
                 StringToWeightUnit(section["WtUnit"]));
         }
 

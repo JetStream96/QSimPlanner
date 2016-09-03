@@ -65,6 +65,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.label11 = new System.Windows.Forms.Label();
+            this.maxFuelTxtBox = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.selectionGroupBox.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -79,7 +82,7 @@
             this.selectionGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.selectionGroupBox.Location = new System.Drawing.Point(0, 0);
             this.selectionGroupBox.Name = "selectionGroupBox";
-            this.selectionGroupBox.Size = new System.Drawing.Size(399, 435);
+            this.selectionGroupBox.Size = new System.Drawing.Size(399, 463);
             this.selectionGroupBox.TabIndex = 0;
             this.selectionGroupBox.TabStop = false;
             this.selectionGroupBox.Text = "Aircraft";
@@ -93,7 +96,7 @@
             this.tableLayoutPanel3.Controls.Add(this.editBtn, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.deleteBtn, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.newBtn, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(42, 376);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(42, 402);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -153,7 +156,7 @@
             this.acListView.Location = new System.Drawing.Point(6, 27);
             this.acListView.MultiSelect = false;
             this.acListView.Name = "acListView";
-            this.acListView.Size = new System.Drawing.Size(390, 341);
+            this.acListView.Size = new System.Drawing.Size(390, 369);
             this.acListView.TabIndex = 0;
             this.acListView.UseCompatibleStateImageBehavior = false;
             this.acListView.View = System.Windows.Forms.View.Details;
@@ -239,7 +242,7 @@
             this.propertyGroupBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.propertyGroupBox.Location = new System.Drawing.Point(410, 0);
             this.propertyGroupBox.Name = "propertyGroupBox";
-            this.propertyGroupBox.Size = new System.Drawing.Size(521, 435);
+            this.propertyGroupBox.Size = new System.Drawing.Size(521, 463);
             this.propertyGroupBox.TabIndex = 1;
             this.propertyGroupBox.TabStop = false;
             this.propertyGroupBox.Text = "Properties";
@@ -249,7 +252,7 @@
             this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelBtn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.cancelBtn.Location = new System.Drawing.Point(287, 391);
+            this.cancelBtn.Location = new System.Drawing.Point(287, 418);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(78, 31);
             this.cancelBtn.TabIndex = 3;
@@ -261,7 +264,7 @@
             this.saveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveBtn.ForeColor = System.Drawing.Color.ForestGreen;
-            this.saveBtn.Location = new System.Drawing.Point(138, 391);
+            this.saveBtn.Location = new System.Drawing.Point(138, 418);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(78, 31);
             this.saveBtn.TabIndex = 2;
@@ -273,7 +276,9 @@
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.48544F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.51456F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
+            this.tableLayoutPanel2.Controls.Add(this.maxFuelTxtBox, 1, 8);
+            this.tableLayoutPanel2.Controls.Add(this.label11, 0, 8);
             this.tableLayoutPanel2.Controls.Add(this.wtUnitLbl1, 2, 4);
             this.tableLayoutPanel2.Controls.Add(this.wtUnitLbl2, 2, 5);
             this.tableLayoutPanel2.Controls.Add(this.wtUnitLbl3, 2, 6);
@@ -294,9 +299,10 @@
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.label6, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.wtUnitComboBox, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label12, 2, 8);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(15, 88);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 8;
+            this.tableLayoutPanel2.RowCount = 9;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
@@ -305,7 +311,8 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(500, 280);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(500, 315);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // wtUnitLbl1
@@ -313,7 +320,7 @@
             this.wtUnitLbl1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.wtUnitLbl1.AutoSize = true;
             this.wtUnitLbl1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wtUnitLbl1.Location = new System.Drawing.Point(417, 146);
+            this.wtUnitLbl1.Location = new System.Drawing.Point(416, 146);
             this.wtUnitLbl1.Name = "wtUnitLbl1";
             this.wtUnitLbl1.Size = new System.Drawing.Size(32, 23);
             this.wtUnitLbl1.TabIndex = 6;
@@ -324,7 +331,7 @@
             this.wtUnitLbl2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.wtUnitLbl2.AutoSize = true;
             this.wtUnitLbl2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wtUnitLbl2.Location = new System.Drawing.Point(417, 181);
+            this.wtUnitLbl2.Location = new System.Drawing.Point(416, 181);
             this.wtUnitLbl2.Name = "wtUnitLbl2";
             this.wtUnitLbl2.Size = new System.Drawing.Size(32, 23);
             this.wtUnitLbl2.TabIndex = 7;
@@ -335,7 +342,7 @@
             this.wtUnitLbl3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.wtUnitLbl3.AutoSize = true;
             this.wtUnitLbl3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wtUnitLbl3.Location = new System.Drawing.Point(417, 216);
+            this.wtUnitLbl3.Location = new System.Drawing.Point(416, 216);
             this.wtUnitLbl3.Name = "wtUnitLbl3";
             this.wtUnitLbl3.Size = new System.Drawing.Size(32, 23);
             this.wtUnitLbl3.TabIndex = 8;
@@ -346,7 +353,7 @@
             this.wtUnitLbl4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.wtUnitLbl4.AutoSize = true;
             this.wtUnitLbl4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wtUnitLbl4.Location = new System.Drawing.Point(417, 251);
+            this.wtUnitLbl4.Location = new System.Drawing.Point(416, 251);
             this.wtUnitLbl4.Name = "wtUnitLbl4";
             this.wtUnitLbl4.Size = new System.Drawing.Size(32, 23);
             this.wtUnitLbl4.TabIndex = 9;
@@ -540,6 +547,39 @@
             this.wtUnitComboBox.Size = new System.Drawing.Size(180, 31);
             this.wtUnitComboBox.TabIndex = 3;
             // 
+            // label11
+            // 
+            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(3, 286);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(142, 23);
+            this.label11.TabIndex = 12;
+            this.label11.Text = "Max fuel capacity";
+            // 
+            // maxFuelTxtBox
+            // 
+            this.maxFuelTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.maxFuelTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.maxFuelTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.maxFuelTxtBox.Location = new System.Drawing.Point(221, 283);
+            this.maxFuelTxtBox.Name = "maxFuelTxtBox";
+            this.maxFuelTxtBox.Size = new System.Drawing.Size(180, 30);
+            this.maxFuelTxtBox.TabIndex = 13;
+            this.maxFuelTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label12
+            // 
+            this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(416, 286);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(32, 23);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "KG";
+            // 
             // AircraftMenuControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -549,7 +589,7 @@
             this.Controls.Add(this.selectionGroupBox);
             this.DoubleBuffered = true;
             this.Name = "AircraftMenuControl";
-            this.Size = new System.Drawing.Size(961, 468);
+            this.Size = new System.Drawing.Size(961, 478);
             this.selectionGroupBox.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -600,5 +640,8 @@
         private System.Windows.Forms.Label wtUnitLbl2;
         private System.Windows.Forms.Label wtUnitLbl3;
         private System.Windows.Forms.Label wtUnitLbl4;
+        private System.Windows.Forms.TextBox maxFuelTxtBox;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
     }
 }

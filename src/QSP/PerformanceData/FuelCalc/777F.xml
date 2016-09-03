@@ -4,7 +4,6 @@
   <General>
     <ProfileName>Boeing 777F</ProfileName>
     <HoldingFuelPerMinuteKg>100</HoldingFuelPerMinuteKg>
-    <MaxFuelKg>145752</MaxFuelKg>
     <TaxiFuelPerMinKg>36</TaxiFuelPerMinKg>
     <ApuFuelPerMinKg>4</ApuFuelPerMinKg>
 

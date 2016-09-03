@@ -15,6 +15,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public TextBox MaxToWt { get; private set; }
         public TextBox MaxLdgWt { get; private set; }
         public TextBox MaxZfw { get; private set; }
+        public TextBox MaxFuel { get; private set; }
         public Label[] WeightUnitLbl { get; private set; }
         public GroupBox SelectionBox { get; private set; }
         public GroupBox PropertyBox { get; private set; }
@@ -34,6 +35,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
              TextBox MaxToWt,
              TextBox MaxLdgWt,
              TextBox MaxZfw,
+             TextBox MaxFuel,
              Label[] WeightUnit,
              GroupBox SelectionBox,
              GroupBox PropertyBox,
@@ -52,6 +54,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             this.MaxToWt = MaxToWt;
             this.MaxLdgWt = MaxLdgWt;
             this.MaxZfw = MaxZfw;
+            this.MaxFuel = MaxFuel;
             this.WeightUnitLbl = WeightUnit;
             this.SelectionBox = SelectionBox;
             this.PropertyBox = PropertyBox;

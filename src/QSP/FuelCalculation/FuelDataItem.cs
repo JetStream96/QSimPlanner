@@ -11,7 +11,6 @@ namespace QSP.FuelCalculation
         public OptCrzTable OptCrzTable { get; private set; }
         public SpeedProfile SpeedProfile { get; private set; }
         public double HoldingFuelPerMinuteKg { get; private set; }
-        public double MaxFuelKg { get; private set; }
         public double TaxiFuelPerMinKg { get; private set; }
         public double ApuFuelPerMinKg { get; private set; }
         public double MissedAppFuelKG { get; private set; }
@@ -22,7 +21,6 @@ namespace QSP.FuelCalculation
             OptCrzTable OptCrzTable,
             SpeedProfile SpeedProfile,
             double HoldingFuelPerMinuteKg,
-            double MaxFuelKg,
             double TaxiFuelPerMinKg,
             double ApuFuelPerMinKg,
             double MissedAppFuelKG)
@@ -32,7 +30,6 @@ namespace QSP.FuelCalculation
             this.OptCrzTable = OptCrzTable;
             this.SpeedProfile = SpeedProfile;
             this.HoldingFuelPerMinuteKg = HoldingFuelPerMinuteKg;
-            this.MaxFuelKg = MaxFuelKg;
             this.TaxiFuelPerMinKg = TaxiFuelPerMinKg;
             this.ApuFuelPerMinKg = ApuFuelPerMinKg;
             this.MissedAppFuelKG = MissedAppFuelKG;
@@ -55,7 +52,6 @@ namespace QSP.FuelCalculation
                 GetOptAltTable(cruize),
                 SpeedProfile.FromXml(cruize),
                 double.Parse(general.Element("HoldingFuelPerMinuteKg").Value),
-                double.Parse(general.Element("MaxFuelKg").Value),
                 double.Parse(general.Element("TaxiFuelPerMinKg").Value),
                 double.Parse(general.Element("ApuFuelPerMinKg").Value),
                 double.Parse(general.Element("MissedAppFuelKG").Value));

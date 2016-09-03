@@ -89,7 +89,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 Constants.KgLbRatio;
 
             var textBoxes = new TextBox[] { elem.Zfw,
-                elem.MaxToWt, elem.MaxLdgWt, elem.MaxZfw };
+                elem.MaxToWt, elem.MaxLdgWt, elem.MaxZfw, elem.MaxFuel };
 
             foreach (var j in textBoxes)
             {
@@ -109,11 +109,10 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             var ac = profiles.AcConfigs.Aircrafts;
 
-            var acTypes =
-                ac.Select(x => x.Config.AC)
-                .Distinct()
-                .OrderBy(s => s)
-                .ToArray();
+            var acTypes = ac.Select(x => x.Config.AC)
+                            .Distinct()
+                            .OrderBy(s => s)
+                            .ToArray();
 
             acItems.AddRange(acTypes);
         }
@@ -154,20 +153,21 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             e.MaxToWt.Text = WtDisplay(c.MaxTOWtKg);
             e.MaxLdgWt.Text = WtDisplay(c.MaxLdgWtKg);
             e.MaxZfw.Text = WtDisplay(c.MaxZfwKg);
+            e.MaxFuel.Text = WtDisplay(c.MaxFuelKg);
         }
 
         private void ShowDefaultConfig()
         {
-            FillProperties(defaultAcConfig);
+            FillProperties(DefaultAcConfig);
         }
 
-        private AircraftConfigItem defaultAcConfig
+        private AircraftConfigItem DefaultAcConfig
         {
             get
             {
                 return new AircraftConfigItem("", "", NoToLdgProfileText,
                     NoToLdgProfileText, NoToLdgProfileText, 0.0, 0.0,
-                    0.0, 0.0, WeightUnit.KG);
+                    0.0, 0.0, 0.0, WeightUnit.KG);
             }
         }
 
@@ -252,14 +252,14 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         private void RemoveOldConfig()
         {
-            if (inEditMode)
+            if (InEditMode)
             {
                 profiles.AcConfigs.Remove(currentConfig.Config.Registration);
             }
         }
 
         // If false, then user is creating a new config.
-        private bool inEditMode
+        private bool InEditMode
         {
             get
             {
@@ -270,7 +270,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         /// <exception cref="NoFileNameAvailException"></exception>
         private string GetFileName()
         {
-            if (inEditMode == false)
+            if (InEditMode == false)
             {
                 var nameBase =
                     (elem.AcType.Text + "_" + elem.Registration.Text)
@@ -324,7 +324,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 return;
             }
 
-            if (inEditMode == false &&
+            if (InEditMode == false &&
                 profiles.AcConfigs.Find(config.Registration) != null)
             {
                 ShowWarning(
@@ -412,13 +412,13 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             const double delta = 1.0;
 
-            if (inEditMode)
+            if (InEditMode)
             {
                 return !config.Equals(currentConfig.Config, delta);
             }
             else
             {
-                return !config.Equals(defaultAcConfig, delta);
+                return !config.Equals(DefaultAcConfig, delta);
             }
         }
 
