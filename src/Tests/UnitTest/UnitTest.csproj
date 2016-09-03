@@ -57,6 +57,7 @@
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinuteSecondTest.cs" />
     <Compile Include="AviationTools\FormatDegreeMinuteTest.cs" />
     <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\Options\AppOptionTest.cs" />
     <Compile Include="LibraryExtension\IEnumerablesTest.cs" />
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
     <Compile Include="LibraryExtension\RegexesTest.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeManagerTest.cs" />
     <Compile Include="RouteFinding\Data\Interfaces\ICoordinateExtensionTest.cs" />
     <Compile Include="RouteFinding\Data\LatLonSearcherTest.cs" />
+    <Compile Include="RouteFinding\FileExport\ExportCommandTest.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\Fs9ProviderTest.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\FsxProviderTest.cs" />
     <Compile Include="RouteFinding\FileExport\Providers\PmdgProviderTest.cs" />

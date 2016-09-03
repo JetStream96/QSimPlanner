@@ -37,7 +37,8 @@ namespace QSP.Common.Options
             AppOptions settings, string filePath = DefaultPath)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-            File.WriteAllText(filePath, settings.Serialize().ToString());
+            var doc = new XDocument(settings.Serialize("AppOptions"));
+            File.WriteAllText(filePath, doc.ToString());
         }
 
         /// <summary>

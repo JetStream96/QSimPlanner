@@ -37,9 +37,17 @@ namespace QSP.RouteFinding.FileExport
         public static ExportCommand Deserialize(XElement item)
         {
             return new ExportCommand(
-                (ProviderType)int.Parse(item.Element("Type").Value),
-                item.Element("Path").Value,
-                bool.Parse(item.Element("Enabled").Value));
+                (ProviderType)item.GetInt("Type"),
+                item.GetString("Path"),
+                item.GetBool("Enabled"));
+        }
+
+        public bool Equals(ExportCommand other)
+        {
+            return ProviderType == other.ProviderType &&
+                Directory == other.Directory &&
+                Extension == other.Extension &&
+                Enabled == other.Enabled;
         }
     }
 }

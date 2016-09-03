@@ -1,5 +1,4 @@
 using QSP.RouteFinding.FileExport;
-using QSP.RouteFinding.FileExport.Providers;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -48,17 +47,19 @@ namespace QSP.Common.Options
             this._exportCommands = ExportCommands;
         }
                 
-        public XElement Serialize()
+        public XElement Serialize(string name)
         {
-            var elem = _exportCommands.Values.Select(
-                v => v.Serialize("Item"));
+            var elem = _exportCommands.Select(kv => 
+                new XElement("KeyValuePair", 
+                    kv.Key.Serialize("Key"),
+                    kv.Value.Serialize("Value")));
             var exportOptions = new XElement("ExportOptions", elem);
 
-            return new XElement("AppOptions", new XElement[]
+            return new XElement(name, new XElement[]
             {
                 NavDataLocation.Serialize("DatabasePath"),
                 PromptBeforeExit.Serialize("PromptBeforeExit"),
-                AutoDLTracks.Serialize("AutoDLNats"),
+                AutoDLTracks.Serialize("AutoDLTracks"),
                 AutoDLWind.Serialize("AutoDLWind"),
                 EnableWindOptimizedRoute.Serialize("WindOptimizedRoute"),
                 HideDctInRoute.Serialize("HideDctInRoute"),
@@ -76,7 +77,7 @@ namespace QSP.Common.Options
             {
                 () => d.NavDataLocation = item.GetString("DatabasePath"),
                 () => d.PromptBeforeExit = item.GetBool("PromptBeforeExit"),
-                () => d.AutoDLTracks = item.GetBool("AutoDLNats"),
+                () => d.AutoDLTracks = item.GetBool("AutoDLTracks"),
                 () => d.AutoDLWind = item.GetBool("AutoDLWind"),
                 () => d.EnableWindOptimizedRoute =
                         item.GetBool("WindOptimizedRoute"),
@@ -84,10 +85,11 @@ namespace QSP.Common.Options
                 () => d.ShowTrackIdOnly = item.GetBool("ShowTrackIdOnly"),
                 () => d.UpdateFrequency = item.GetInt("UpdateFrequency"),
                 () => d._exportCommands =
-                        item.Element("ExportOptions")
-                            .Elements("Item")
-                            .Select(e => ExportCommand.Deserialize(e))
-                            .ToDictionary(c => c.ProviderType.ToString())
+                    item.Element("ExportOptions")
+                        .Elements("KeyValuePair")
+                        .ToDictionary(
+                            e => e.GetString("Key"), 
+                            e => ExportCommand.Deserialize(e.Element("Value")))
             };
 
             foreach (var a in actions)
