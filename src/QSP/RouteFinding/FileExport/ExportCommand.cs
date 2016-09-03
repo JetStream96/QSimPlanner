@@ -1,4 +1,6 @@
 ﻿using QSP.RouteFinding.FileExport.Providers;
+using System.Xml.Linq;
+using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 
 namespace QSP.RouteFinding.FileExport
 {
@@ -18,6 +20,26 @@ namespace QSP.RouteFinding.FileExport
             this.Directory = Directory;
             this.Extension = Types.GetExtension(ProviderType);
             this.Enabled = Enabled;
+        }
+
+        public XElement Serialize(string name)
+        {
+            var elem = new XElement[]
+            {
+                ((int)ProviderType).Serialize("Type"),
+                Directory.Serialize("Path"),
+                Enabled.Serialize("Enabled")
+            };
+
+            return new XElement(name, elem);
+        }
+
+        public static ExportCommand Deserialize(XElement item)
+        {
+            return new ExportCommand(
+                (ProviderType)int.Parse(item.Element("Type").Value),
+                item.Element("Path").Value,
+                bool.Parse(item.Element("Enabled").Value));
         }
     }
 }

@@ -4,9 +4,9 @@ namespace QSP.RouteFinding.FileExport.Providers
 {
     public enum ProviderType
     {
-        Pmdg,
-        Fsx,
-        Fs9
+        Pmdg = 0,
+        Fsx = 1,
+        Fs9 = 2
     }
 
     public static class Types

@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Linq;
+using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.Common.Options
 {
-    // TODO: Use xml serialization instead?
     public class AppOptions
     {
         public string NavDataLocation { get; private set; }
@@ -22,10 +23,7 @@ namespace QSP.Common.Options
 
         public IReadOnlyDictionary<string, ExportCommand> ExportCommands
         {
-            get
-            {
-                return _exportCommands;
-            }
+            get { return _exportCommands; }
         }
 
         public AppOptions(
@@ -49,76 +47,55 @@ namespace QSP.Common.Options
             this.UpdateFrequency = UpdateFrequency;
             this._exportCommands = ExportCommands;
         }
-
-        public AppOptions(XDocument xmlFile)
+                
+        public XElement Serialize()
         {
-            var root = xmlFile.Root;
+            var elem = _exportCommands.Values.Select(
+                v => v.Serialize("Item"));
+            var exportOptions = new XElement("ExportOptions", elem);
 
-            NavDataLocation = root.Element("DatabasePath").Value;
-            PromptBeforeExit = ParseBool(root, "PromptBeforeExit");
-            AutoDLTracks = ParseBool(root, "AutoDLNats");
-            AutoDLWind = ParseBool(root, "AutoDLWind");
-            EnableWindOptimizedRoute = ParseBool(root, "WindOptimizedRoute");
-            HideDctInRoute = ParseBool(root, "HideDctInRoute");
-            ShowTrackIdOnly = ParseBool(root, "ShowTrackIdOnly");
-            UpdateFrequency = int.Parse(root.Element("UpdateFrequency").Value);
-
-            var exports = root.Element("ExportOptions");
-
-            _exportCommands = new Dictionary<string, ExportCommand>();
-
-            foreach (var i in exports.Elements())
+            return new XElement("AppOptions", new XElement[]
             {
-                var type = (ProviderType)Enum.Parse(
-                    typeof(ProviderType),
-                    i.Element("Type").Value);
-
-                var cmd = new ExportCommand(
-                    type,
-                    i.Element("Path").Value,
-                    bool.Parse(i.Element("Enabled").Value));
-
-                _exportCommands.Add(i.Name.LocalName, cmd);
-            }
-        }
-
-        private static bool ParseBool(XElement root, string key)
-        {
-            return bool.Parse(root.Element(key).Value);
-        }
-
-        public XElement ToXml()
-        {
-            var exports = _exportCommands.Select(entry =>
-            {
-                var command = entry.Value;
-
-                return
-                new XElement(
-                    entry.Key.ToString(),
-                    new XElement[] {
-                        new XElement("Type", command.ProviderType.ToString()),
-                        new XElement("Enabled", command.Enabled.ToString()),
-                        new XElement("Path", command.Directory)});
+                NavDataLocation.Serialize("DatabasePath"),
+                PromptBeforeExit.Serialize("PromptBeforeExit"),
+                AutoDLTracks.Serialize("AutoDLNats"),
+                AutoDLWind.Serialize("AutoDLWind"),
+                EnableWindOptimizedRoute.Serialize("WindOptimizedRoute"),
+                HideDctInRoute.Serialize("HideDctInRoute"),
+                ShowTrackIdOnly.Serialize("ShowTrackIdOnly"),
+                UpdateFrequency.Serialize("UpdateFrequency"),
+                exportOptions
             });
-
-            var exportOptions = new XElement("ExportOptions", exports);
-
-            return new XElement("AppOptions", new XElement[] {
-                new XElement("DatabasePath", NavDataLocation),
-                BoolToXElem("PromptBeforeExit", PromptBeforeExit),
-                BoolToXElem("AutoDLNats", AutoDLTracks),
-                BoolToXElem("AutoDLWind", AutoDLWind),
-                BoolToXElem("WindOptimizedRoute", EnableWindOptimizedRoute),
-                BoolToXElem("HideDctInRoute", HideDctInRoute),
-                BoolToXElem("ShowTrackIdOnly", ShowTrackIdOnly),
-                new XElement("UpdateFrequency", UpdateFrequency),
-                exportOptions});
         }
 
-        private static XElement BoolToXElem(string key, bool value)
+        public static AppOptions Deserialize(XElement item)
         {
-            return new XElement(key, value.ToString());
+            var d = Default;
+
+            Action[] actions =
+            {
+                () => d.NavDataLocation = item.GetString("DatabasePath"),
+                () => d.PromptBeforeExit = item.GetBool("PromptBeforeExit"),
+                () => d.AutoDLTracks = item.GetBool("AutoDLNats"),
+                () => d.AutoDLWind = item.GetBool("AutoDLWind"),
+                () => d.EnableWindOptimizedRoute =
+                        item.GetBool("WindOptimizedRoute"),
+                () => d.HideDctInRoute = item.GetBool("HideDctInRoute"),
+                () => d.ShowTrackIdOnly = item.GetBool("ShowTrackIdOnly"),
+                () => d.UpdateFrequency = item.GetInt("UpdateFrequency"),
+                () => d._exportCommands =
+                        item.Element("ExportOptions")
+                            .Elements("Item")
+                            .Select(e => ExportCommand.Deserialize(e))
+                            .ToDictionary(c => c.ProviderType.ToString())
+            };
+
+            foreach (var a in actions)
+            {
+                IgnoreExceptions(a);
+            }
+
+            return d;
         }
 
         public static AppOptions Default
