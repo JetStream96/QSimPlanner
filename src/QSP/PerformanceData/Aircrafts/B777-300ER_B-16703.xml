@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <AC>B777-300ER</AC>
+  <Registration>B-16703</Registration>
+  <FuelProfile>Boeing 777-300ER</FuelProfile>
+  <TOProfile>Boeing 777-300ER</TOProfile>
+  <LdgProfile>Boeing 777-300ER</LdgProfile>
+  <OewKg>167800</OewKg>
+  <MaxTOWtKg>351500</MaxTOWtKg>
+  <MaxLdgWtKg>251290</MaxLdgWtKg>
+  <WtUnit>0</WtUnit>
+  <MaxZfwKg>248115</MaxZfwKg>
+  <MaxFuelKg>145752</MaxFuelKg>
+</root>

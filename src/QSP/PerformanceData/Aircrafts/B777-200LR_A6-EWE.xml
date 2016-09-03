@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <AC>B777-200LR</AC>
+  <Registration>A6-EWE</Registration>
+  <FuelProfile>Boeing 777-200LR</FuelProfile>
+  <TOProfile>Boeing 777-200LR</TOProfile>
+  <LdgProfile>Boeing 777-200LR</LdgProfile>
+  <OewKg>145150</OewKg>
+  <MaxTOWtKg>347451</MaxTOWtKg>
+  <MaxLdgWtKg>223167</MaxLdgWtKg>
+  <WtUnit>0</WtUnit>
+  <MaxZfwKg>209106</MaxZfwKg>
+  <MaxFuelKg>145752</MaxFuelKg>
+</root>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <AC>B777F</AC>
+  <Registration>A7-BFA</Registration>
+  <FuelProfile>Boeing 777F</FuelProfile>
+  <TOProfile>Boeing 777F</TOProfile>
+  <LdgProfile>Boeing 777F</LdgProfile>
+  <OewKg>144400</OewKg>
+  <MaxTOWtKg>347451</MaxTOWtKg>
+  <MaxLdgWtKg>260815</MaxLdgWtKg>
+  <WtUnit>0</WtUnit>
+  <MaxZfwKg>248115</MaxZfwKg>
+  <MaxFuelKg>145752</MaxFuelKg>
+</root>

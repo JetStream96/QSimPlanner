@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <AC>B787-8</AC>
+  <Registration>JA801A</Registration>
+  <FuelProfile>Boeing 787-8</FuelProfile>
+  <TOProfile>Boeing 787-8</TOProfile>
+  <LdgProfile>Boeing 787-8</LdgProfile>
+  <OewKg>118000</OewKg>
+  <MaxTOWtKg>228000</MaxTOWtKg>
+  <MaxLdgWtKg>172000</MaxLdgWtKg>
+  <WtUnit>0</WtUnit>
+  <MaxZfwKg>161025</MaxZfwKg>
+  <MaxFuelKg>102400</MaxFuelKg>
+</root>

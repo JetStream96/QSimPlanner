@@ -110,10 +110,11 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             var ac = profiles.AcConfigs.Aircrafts;
 
-            var acTypes = ac.Select(x => x.Config.AC)
-                            .Distinct()
-                            .OrderBy(s => s)
-                            .ToArray();
+            var acTypes = ac
+                .Select(x => x.Config.AC)
+                .Distinct()
+                .OrderBy(s => s)
+                .ToArray();
 
             acItems.AddRange(acTypes);
         }
@@ -198,12 +199,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             get
             {
                 var selected = elem.AcListView.SelectedItems;
-
-                if (selected.Count == 0)
-                {
-                    return null;
-                }
-
+                if (selected.Count == 0) return null;
                 return selected[0].SubItems[1].Text;
             }
         }
@@ -263,10 +259,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         // If false, then user is creating a new config.
         private bool InEditMode
         {
-            get
-            {
-                return currentConfig != null;
-            }
+            get { return currentConfig != null; }
         }
 
         /// <exception cref="NoFileNameAvailException"></exception>
@@ -320,11 +313,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public void SaveConfig(object sender, EventArgs e)
         {
             var config = TryValidate();
-
-            if (config == null)
-            {
-                return;
-            }
+            if (config == null) return;
 
             if (InEditMode == false &&
                 profiles.AcConfigs.Find(config.Registration) != null)
@@ -335,11 +324,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             }
 
             var fn = TryGetFileName();
-
-            if (fn == null)
-            {
-                return;
-            }
+            if (fn == null) return;
 
             if (TrySaveConfig(config, fn))
             {
@@ -357,11 +342,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public void DeleteConfig(object sender, EventArgs e)
         {
             var reg = selectedRegistration;
-
-            if (reg == null)
-            {
-                return;
-            }
+            if (reg == null) return;
 
             var configs = profiles.AcConfigs;
             var item = configs.Find(reg);

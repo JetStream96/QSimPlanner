@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <AC>B737-800</AC>
+  <Registration>EI-EFX</Registration>
+  <FuelProfile>Boeing 737-800</FuelProfile>
+  <TOProfile>Boeing 737-800</TOProfile>
+  <LdgProfile>Boeing 737-800</LdgProfile>
+  <OewKg>41413</OewKg>
+  <MaxTOWtKg>79010</MaxTOWtKg>
+  <MaxLdgWtKg>66361</MaxLdgWtKg>
+  <WtUnit>0</WtUnit>
+  <MaxZfwKg>61689</MaxZfwKg>
+  <MaxFuelKg>20896</MaxFuelKg>
+</root>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <AC>B737-900</AC>
+  <Registration>N844DN</Registration>
+  <FuelProfile>Boeing 737-900</FuelProfile>
+  <TOProfile>Boeing 737-900</TOProfile>
+  <LdgProfile>Boeing 737-900</LdgProfile>
+  <OewKg>42901</OewKg>
+  <MaxTOWtKg>79015</MaxTOWtKg>
+  <MaxLdgWtKg>66360</MaxLdgWtKg>
+  <WtUnit>0</WtUnit>
+  <MaxZfwKg>63639</MaxZfwKg>
+  <MaxFuelKg>20896</MaxFuelKg>
+</root>
