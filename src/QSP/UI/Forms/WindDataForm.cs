@@ -7,8 +7,8 @@ using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static QSP.Utilities.LoggerInstance;
 using static QSP.LibraryExtension.Paths;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms
 {
@@ -115,13 +115,13 @@ namespace QSP.UI.Forms
                     "Unable to proceed.");
                 return;
             }
-
+            
             var saveFileDialog = new SaveFileDialog();
 
             saveFileDialog.Filter =
                 "grib2 files (*.grib2)|*.grib2|All files (*.*)|*.*";
-            saveFileDialog.InitialDirectory =
-                Path.GetFullPath(Constants.WxFileDirectory);
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(
+                Environment.SpecialFolder.MyDocuments); 
             saveFileDialog.RestoreDirectory = true;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -147,8 +147,8 @@ namespace QSP.UI.Forms
 
             openFileDialog.Filter =
                 "grib2 files (*.grib2)|*.grib2|All files (*.*)|*.*";
-            openFileDialog.InitialDirectory =
-                Path.GetFullPath(Constants.WxFileDirectory);
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(
+                Environment.SpecialFolder.MyDocuments);
             openFileDialog.RestoreDirectory = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)

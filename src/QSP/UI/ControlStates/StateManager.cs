@@ -7,14 +7,14 @@ namespace QSP.UI.ControlStates
 {
     public static class StateManager
     {
-        private const string directory = "SavedStates";
+        public const string Directory = "SavedStates";
 
         public static void Save(string fileName, XElement elem)
         {
             try
             {
-                var filePath = Path.Combine(directory, fileName);
-                Directory.CreateDirectory(directory);
+                var filePath = Path.Combine(Directory, fileName);
+                System.IO.Directory.CreateDirectory(Directory);
 
                 using (StreamWriter writer = File.CreateText(filePath))
                 {
@@ -31,7 +31,7 @@ namespace QSP.UI.ControlStates
         {
             try
             {
-                return XDocument.Load(Path.Combine(directory, fileName));
+                return XDocument.Load(Path.Combine(Directory, fileName));
             }
             catch (Exception ex)
             {

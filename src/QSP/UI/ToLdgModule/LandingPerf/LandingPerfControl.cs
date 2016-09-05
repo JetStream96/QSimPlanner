@@ -17,7 +17,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 {
     public partial class LandingPerfControl : UserControl
     {
-        private const string fileName = "LandingPerfControl.xml";
+        public const string FileName = "LandingPerfControl.xml";
 
         private FormController controller;
         private LandingPerfElements elements;
@@ -66,16 +66,13 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         public void TryLoadState()
         {
-            var doc = StateManager.Load(fileName);
-            if (doc != null)
-            {
-                new ControlState(this).Load(doc);
-            }
+            var doc = StateManager.Load(FileName);
+            if (doc != null) new ControlState(this).Load(doc);            
         }
 
         public void TrySaveState()
         {
-            StateManager.Save(fileName, new ControlState(this).Save());
+            StateManager.Save(FileName, new ControlState(this).Save());
         }
 
         private void SaveState(object sender, EventArgs e)

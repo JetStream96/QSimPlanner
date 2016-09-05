@@ -9,13 +9,9 @@ namespace QSP.WindAloft
 
         public static IReadOnlyList<int> FullWindDataSet
         {
-            get
-            {
-                return _fullWindDataSet;
-            }
+            get { return _fullWindDataSet; }
         }
 
-        public static readonly string WxFileDirectory = @"Wx";
         public static readonly string WxFileDownloadDirectory = @"Wx\tmp";
     }
 }
