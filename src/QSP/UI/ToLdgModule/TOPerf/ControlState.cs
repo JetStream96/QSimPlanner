@@ -1,4 +1,7 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
+using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.UI.ToLdgModule.TOPerf
 {
@@ -32,57 +35,64 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
         public XElement Save()
         {
-            var airport = control.airportInfoControl;
-            var weather = control.weatherInfoControl;
+            var c = control;
+            var a = control.airportInfoControl;
+            var w = control.weatherInfoControl;
 
             return new XElement("TakeoffPerfState", new XElement[]
             {
-                new XElement(airportIcao,airport.airportTxtBox.Text),
-                new XElement(rwy,airport.rwyComboBox.Text),
-                new XElement(lengthUnit,airport.lengthUnitComboBox.Text),
-                new XElement(windDir,weather.windDirTxtBox.Text),
-                new XElement(windSpeed,weather.windSpdTxtBox.Text),
-                new XElement(tempUnit,weather.tempUnitComboBox.Text),
-                new XElement(oat,weather.oatTxtBox.Text),
-                new XElement(pressUnit,weather.pressUnitComboBox.Text),
-                new XElement(pressure,weather.pressTxtBox.Text),
-                new XElement(surfCond,control.weatherInfoControl.surfCondComboBox.Text),
-                new XElement(aircraft,control.acListComboBox.Text),
-                new XElement(wtUnit,control.wtUnitComboBox.Text),
-                new XElement(toWt,control.weightTxtBox.Text),
-                new XElement(flaps,control.flapsComboBox.Text),
-                new XElement(thrustRating,control.thrustRatingComboBox.Text),
-                new XElement(antiIce,control.antiIceComboBox.Text),
-                new XElement(packs,control.packsComboBox.Text)
+                new XElement(airportIcao,a.airportTxtBox.Text),
+                new XElement(rwy,a.rwyComboBox.Text),
+                new XElement(lengthUnit,a.lengthUnitComboBox.Text),
+                new XElement(windDir,w.windDirTxtBox.Text),
+                new XElement(windSpeed,w.windSpdTxtBox.Text),
+                new XElement(tempUnit,w.tempUnitComboBox.Text),
+                new XElement(oat,w.oatTxtBox.Text),
+                new XElement(pressUnit,w.pressUnitComboBox.Text),
+                new XElement(pressure,w.pressTxtBox.Text),
+                new XElement(surfCond,w.surfCondComboBox.Text),
+                new XElement(aircraft,c.acListComboBox.Text),
+                new XElement(wtUnit,c.wtUnitComboBox.Text),
+                new XElement(toWt,c.weightTxtBox.Text),
+                new XElement(flaps,c.flapsComboBox.Text),
+                new XElement(thrustRating,c.thrustRatingComboBox.Text),
+                new XElement(antiIce,c.antiIceComboBox.Text),
+                new XElement(packs,c.packsComboBox.Text)
             });
         }
 
         public void Load(XDocument doc)
         {
-            var root = doc.Root;
-            var airport = control.airportInfoControl;
-            var weather = control.weatherInfoControl;
+            var r = doc.Root;
+            var c = control;
+            var a = control.airportInfoControl;
+            var w = control.weatherInfoControl;
 
             // The order is important. E.g. "pressUnit" has to be 
             // loaded before "pressure", due to events handlers attached 
             // to pressure.TextChanged.
-            airport.airportTxtBox.Text = root.Element(airportIcao).Value;
-            airport.rwyComboBox.Text = root.Element(rwy).Value;
-            airport.lengthUnitComboBox.Text = root.Element(lengthUnit).Value;
-            weather.windDirTxtBox.Text = root.Element(windDir).Value;
-            weather.windSpdTxtBox.Text = root.Element(windSpeed).Value;
-            weather.tempUnitComboBox.Text = root.Element(tempUnit).Value;
-            weather.oatTxtBox.Text = root.Element(oat).Value;
-            weather.pressUnitComboBox.Text = root.Element(pressUnit).Value;
-            weather.pressTxtBox.Text = root.Element(pressure).Value;
-            control.weatherInfoControl.surfCondComboBox.Text = root.Element(surfCond).Value;
-            control.acListComboBox.Text = root.Element(aircraft).Value;
-            control.wtUnitComboBox.Text = root.Element(wtUnit).Value;
-            control.weightTxtBox.Text = root.Element(toWt).Value;
-            control.flapsComboBox.Text = root.Element(flaps).Value;
-            control.thrustRatingComboBox.Text = root.Element(thrustRating).Value;
-            control.antiIceComboBox.Text = root.Element(antiIce).Value;
-            control.packsComboBox.Text = root.Element(packs).Value;
+            Action[] actions =
+            {
+                () => a.airportTxtBox.Text = r.GetString(airportIcao),
+                () => a.rwyComboBox.Text = r.GetString(rwy),
+                () => a.lengthUnitComboBox.Text = r.GetString(lengthUnit),
+                () => w.windDirTxtBox.Text = r.GetString(windDir),
+                () => w.windSpdTxtBox.Text = r.GetString(windSpeed),
+                () => w.tempUnitComboBox.Text = r.GetString(tempUnit),
+                () => w.oatTxtBox.Text = r.GetString(oat),
+                () => w.pressUnitComboBox.Text = r.GetString(pressUnit),
+                () => w.pressTxtBox.Text = r.GetString(pressure),
+                () => w.surfCondComboBox.Text = r.GetString(surfCond),
+                () => c.acListComboBox.Text = r.GetString(aircraft),
+                () => c.wtUnitComboBox.Text = r.GetString(wtUnit),
+                () => c.weightTxtBox.Text = r.GetString(toWt),
+                () => c.flapsComboBox.Text = r.GetString(flaps),
+                () => c.thrustRatingComboBox.Text = r.GetString(thrustRating),
+                () => c.antiIceComboBox.Text = r.GetString(antiIce),
+                () => c.packsComboBox.Text = r.GetString(packs)
+            };
+
+            foreach (var action in actions) IgnoreExceptions(action);
         }
     }
 }

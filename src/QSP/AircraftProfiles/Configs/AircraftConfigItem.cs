@@ -5,6 +5,9 @@ using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 
 namespace QSP.AircraftProfiles.Configs
 {
+    // TODO: Implement interface IXSerializable and IXSerializer, to 
+    // seperate the class and serialization methods.
+    //
     public class AircraftConfigItem
     {
         public static readonly string NoFuelTOLdgProfileText = "None";

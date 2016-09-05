@@ -11,6 +11,7 @@ namespace QSP.AircraftProfiles.Configs
     {
         private string folderPath;
 
+        // Do not change this. Updater depends on this path.
         public const string DefaultFolderPath = @"PerformanceData\Aircrafts";
 
         public ConfigLoader(string folderPath = DefaultFolderPath)
