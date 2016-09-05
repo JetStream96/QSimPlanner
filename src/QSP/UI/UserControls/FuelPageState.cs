@@ -1,14 +1,17 @@
 ﻿using QSP.UI.Controllers.Units;
 using QSP.Utilities.Units;
+using System;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using System.IO;
+using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.UI.UserControls
 {
     public class FuelPageState
     {
-        public static readonly string FileLocation = 
+        public static readonly string FileLocation =
             @"SavedStates\FuelPlanningControl.xml";
 
         // Strings for xml tags.
@@ -19,7 +22,7 @@ namespace QSP.UI.UserControls
         private string origin = "Origin";
         private string originRwy = "OriginRwy";
         private string originSid = "OriginSid";
-        private string destination = "Destinatiob";
+        private string destination = "Destination";
         private string destRwy = "DestinRwy";
         private string destStar = "DestStar";
         private string alternates = "Alternates";
@@ -46,6 +49,7 @@ namespace QSP.UI.UserControls
             File.WriteAllText(FileLocation, Save().ToString());
         }
 
+        // Does not throw exception.
         public XElement Save()
         {
             var c = control;
@@ -87,7 +91,6 @@ namespace QSP.UI.UserControls
         private void SetAlternates(XElement node)
         {
             var altns = node.Elements(altnEntry).ToList();
-
             if (altns.Count == 0) return;
 
             // Set number of alternates
@@ -123,39 +126,35 @@ namespace QSP.UI.UserControls
             Load(XDocument.Load(FileLocation));
         }
 
+        // Does not throw exception.
         public void Load(XDocument doc)
         {
             var c = control;
-            var root = doc.Root;
+            var r = doc.Root;
 
-            c.acListComboBox.Text = GetValue(root, aircraft);
-            c.registrationComboBox.Text = GetValue(root, registration);
-            c.WeightUnit = (WeightUnit)int.Parse(GetValue(root, wtUnit));
-            c.Zfw.SetWeight(GetDouble(root, zfw));
-            c.origTxtBox.Text = GetValue(root, origin);
-            c.origRwyComboBox.Text = GetValue(root, originRwy);
-            c.sidComboBox.Text = GetValue(root, originSid);
-            c.destTxtBox.Text = GetValue(root, destination);
-            c.destRwyComboBox.Text = GetValue(root, destRwy);
-            c.starComboBox.Text = GetValue(root, destStar);
-            SetAlternates(root.Element(alternates));
-            c.MissedApproach.SetWeight(GetDouble(root, missedAppKg));
-            c.ContPercentComboBox.Text = GetValue(root, contPerc);
-            c.HoldTimeTxtBox.Text = GetValue(root, holdMin);
-            c.Extra.SetWeight(GetDouble(root, extraKg));
-            c.ApuTimeTxtBox.Text = GetValue(root, apuMin);
-            c.TaxiTimeTxtBox.Text = GetValue(root, taxiMin);
-            c.FinalReserveTxtBox.Text = GetValue(root, finalRsvMin);            
-        }
+            Action[] actions =
+            {
+                () => c.acListComboBox.Text = r.GetString(aircraft),
+                () => c.registrationComboBox.Text = r.GetString(registration),
+                () => c.WeightUnit = (WeightUnit)r.GetInt(wtUnit),
+                () => c.Zfw.SetWeight(r.GetDouble(zfw)),
+                () => c.origTxtBox.Text = r.GetString(origin),
+                () => c.origRwyComboBox.Text = r.GetString(originRwy),
+                () => c.sidComboBox.Text = r.GetString(originSid),
+                () => c.destTxtBox.Text = r.GetString(destination),
+                () => c.destRwyComboBox.Text = r.GetString(destRwy),
+                () => c.starComboBox.Text = r.GetString(destStar),
+                () => SetAlternates(r.Element(alternates)),
+                () => c.MissedApproach.SetWeight(r.GetDouble(missedAppKg)),
+                () => c.ContPercentComboBox.Text = r.GetString(contPerc),
+                () => c.HoldTimeTxtBox.Text = r.GetString(holdMin),
+                () => c.Extra.SetWeight(r.GetDouble(extraKg)),
+                () => c.ApuTimeTxtBox.Text = r.GetString(apuMin),
+                () => c.TaxiTimeTxtBox.Text = r.GetString(taxiMin),
+                () => c.FinalReserveTxtBox.Text = r.GetString(finalRsvMin)
+            };
 
-        private static double GetDouble(XElement root, string key)
-        {
-            return double.Parse(GetValue(root, key));
-        }
-
-        private static string GetValue(XElement root, string key)
-        {
-            return root.Element(key).Value;
+            foreach (var a in actions) IgnoreExceptions(a);
         }
     }
 }
