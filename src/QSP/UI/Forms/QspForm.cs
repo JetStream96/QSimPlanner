@@ -98,6 +98,7 @@ namespace QSP.UI.Forms
             ShowSplashWhile(() =>
             {
                 AddControls();
+                DoPostUpdateActions();
                 InitData();
                 InitControls();
                 InitTrackForm();
@@ -116,7 +117,7 @@ namespace QSP.UI.Forms
                 {
                     // User did not set the path. 
                     // Maybe its the first time the app starts.
-                    MsgBoxHelper.ShowWarning(message);
+                    MsgBoxHelper.ShowInfo(message);
                 }
                 else
                 {
@@ -125,6 +126,21 @@ namespace QSP.UI.Forms
                 }
 
                 ShowOptionsForm(FormStartPosition.CenterScreen, true);
+            }
+        }
+
+        private void DoPostUpdateActions()
+        {
+            var action = new PostUpdateAction();
+
+            try
+            {
+                action.DoAction();
+            }
+            catch (Exception ex)
+            {
+                WriteToLog(ex);
+                MsgBoxHelper.ShowWarning(ex.ToString());
             }
         }
 

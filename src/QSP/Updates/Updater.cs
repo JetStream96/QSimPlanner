@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Xml.Linq;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.ExceptionHelpers;
+using static QSP.Updates.Utilities;
 
 namespace QSP.Updates
 {
@@ -48,6 +49,7 @@ namespace QSP.Updates
             try
             {
                 Install(info);
+                CreateXml(info.Version);
             }
             catch (Exception ex)
             {
@@ -58,6 +60,15 @@ namespace QSP.Updates
             return new UpdateStatus(true,
                 $"Successfully updated to version {info.Version}. " + 
                 "Changes will be in effect after restart.");
+        }
+
+        private static void CreateXml(string version)
+        {
+            var elem = new XElement("PostUpdateActionCompleted", "0");
+            var root = new XElement("root", elem);
+            var doc = new XDocument(root);
+            var path = Path.Combine("..", version, "updater.xml");
+            File.WriteAllText(path, doc.ToString());
         }
 
         public class UpdateStatus
@@ -106,15 +117,14 @@ namespace QSP.Updates
 
         private static void UpdateXmlAndDeleteOldVersion(string version)
         {
-            const string path = "../version.xml";
-            var doc = XDocument.Load(path);
+            var doc = GetVersionXDoc();
             var root = doc.Root;
             var backup = root.Element("current").Value;
             IgnoreExceptions(() => 
             Directory.Delete(root.Element("backup").Value));
             root.Element("current").Value = version;
             root.Element("backup").Value = backup;
-            File.WriteAllText(path, doc.ToString());
+            File.WriteAllText(VersionXmlPath, doc.ToString());
         }
 
         public class UpdateInfo

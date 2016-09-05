@@ -1,13 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.IO;
-using System.Collections.Generic;
-using QSP.Common.Options;
-using static QSP.Utilities.LoggerInstance;
-using QSP.UI.UserControls;
-using QSP.UI.ToLdgModule.TOPerf;
-using QSP.UI.ToLdgModule.LandingPerf;
+﻿using QSP.Common.Options;
 using QSP.UI.ControlStates;
+using QSP.UI.ToLdgModule.LandingPerf;
+using QSP.UI.ToLdgModule.TOPerf;
+using QSP.UI.UserControls;
+using QSP.Updates.NewFileManagement;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml.Linq;
+using static QSP.Updates.Utilities;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.Updates
 {
@@ -17,19 +19,47 @@ namespace QSP.Updates
     //
     public class PostUpdateAction
     {
-        private string backupFolder, newFolder;
         private List<string> errors = new List<string>();
+        private Version backupVersion, newVersion;
 
-        public PostUpdateAction(string backupFolder, string newFolder)
-        {
-            this.backupFolder = backupFolder;
-            this.newFolder = newFolder;
-        }
+        public PostUpdateAction() { }
 
         public void DoAction()
         {
-            SetOption();
-            SetStates();
+            var ver = GetVersions();
+
+            // App is never updated. No action needed.
+            if (ver.Backup == "") return;
+
+            backupVersion = Version.Parse(ver.Backup);
+            newVersion = Version.Parse(ver.Current);
+
+            if (RequireAction())
+            {
+                SetOption();
+                SetStates();
+                SetConfigFiles();
+                SetUpdateStatus();
+            }
+        }
+
+        private void SetConfigFiles()
+        {
+            var ac = new AircraftConfigManager(backupVersion, newVersion);
+            ac.SetConfigs();
+        }
+
+        private static bool RequireAction()
+        {
+            var doc = XDocument.Load("updater.xml");
+            return doc.Root.Element("PostUpdateActionCompleted").Value == "0";
+        }
+
+        private static void SetUpdateStatus()
+        {
+            var doc = XDocument.Load("updater.xml");
+            doc.Root.Element("PostUpdateActionCompleted").Value = "1";
+            File.WriteAllText("updater.xml", doc.ToString());
         }
 
         private void SetOption()
@@ -61,7 +91,7 @@ namespace QSP.Updates
             // Takeoff page state
             try
             {
-                CopyFile(Path.Combine(StateManager.Directory, 
+                CopyFile(Path.Combine(StateManager.Directory,
                     TOPerfControl.FileName));
             }
             catch (Exception ex)
@@ -80,25 +110,19 @@ namespace QSP.Updates
                 WriteToLog(ex);
             }
         }
-        
+
         // relativePath: path relative to its version folder
         private void CopyFile(string relativePath)
         {
-            var oldPath = Path.Combine(backupFolder, relativePath);
-            var newPath = Path.Combine(newFolder, relativePath);
+            var oldPath = Path.Combine(GetFolder(backupVersion), relativePath);
+            var newPath = Path.Combine(GetFolder(newVersion), relativePath);
 
             if (File.Exists(oldPath))
             {
+                var newDir = Path.GetDirectoryName(newPath);
+                Directory.CreateDirectory(newDir);
                 File.Copy(oldPath, newPath, true);
             }
         }
-
-        // Only copy the newly added configs.
-        private static void SetAircraftConfigs()
-        {
-
-        }
-
-
     }
 }

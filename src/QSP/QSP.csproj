@@ -250,6 +250,7 @@
     <Compile Include="Updates\NewFileManagement\AircraftConfigManager.cs" />
     <Compile Include="Updates\PostUpdateAction.cs" />
     <Compile Include="Updates\Updater.cs" />
+    <Compile Include="Updates\Utilities.cs" />
     <Compile Include="Utilities\ExceptionHelpers.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using static QSP.LibraryExtension.FileNameGenerator;
+using static QSP.Updates.Utilities;
 
 namespace QSP.Updates.NewFileManagement
 {
