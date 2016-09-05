@@ -11,8 +11,9 @@ namespace QSP.LibraryExtension
         public static string Generate(
             string directory,
             string nameBase,
+            string extension,
             Func<int, string> numberFormat,
-            string extension)
+            int startNumber = 1)
         {
             if (nameBase.ContainIllegalChar() ||
                 extension.ContainIllegalChar())
@@ -28,10 +29,8 @@ namespace QSP.LibraryExtension
             {
                 return fn;
             }
-
-            int fileCount = Directory.GetFiles(directory).Length;
-
-            for (int i = 0; i <= fileCount; i++)
+            
+            for (int i = startNumber; ; i++)
             {
                 string file = Path.Combine(directory,
                     nameBase + numberFormat(i) + extension);

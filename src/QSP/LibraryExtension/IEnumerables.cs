@@ -28,5 +28,10 @@ namespace QSP.LibraryExtension
             return source.Aggregate((x, y) =>
             selector(x) < selector(y) ? x : y);
         }
+
+        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> source)
+        {
+            return new HashSet<T>(source);
+        }
     }
 }

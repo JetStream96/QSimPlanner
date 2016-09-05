@@ -274,8 +274,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 return FileNameGenerator.Generate(
                     ConfigLoader.DefaultFolderPath,
                     nameBase,
-                    (i) => "_" + i.ToString(),
-                    ".ini");
+                    ".ini",
+                    (i) => "_" + i.ToString());
             }
             else
             {

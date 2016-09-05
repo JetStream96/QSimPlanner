@@ -19,6 +19,7 @@ src/[Ii]nstaller/[Oo]utput
 src/[Ii]nstaller/[Rr]esults
 
 # others
+.vscode
 src/TestResults
 src/ProfileReports/
 src/TrackBackupApp/nats
