@@ -13,14 +13,14 @@ namespace InstallerBuilder
 
         public void Build()
         {
-            ClearDirectory(outputFolder);
-            var tmpFolder = Path.Combine(outputFolder, "tmp");
+            ClearDirectory(OutputFolder);
+            var tmpFolder = Path.Combine(OutputFolder, "tmp");
             Directory.CreateDirectory(tmpFolder);
             CompileApp(tmpFolder);
 
             Version = GetVersion(tmpFolder);
-            var folder = Path.Combine(outputFolder, Version);
-            Directory.CreateDirectory(outputFolder);
+            var folder = Path.Combine(OutputFolder, Version);
+            Directory.CreateDirectory(OutputFolder);
             Directory.Move(tmpFolder, folder);
 
             WriteLicenseText(folder);
@@ -35,7 +35,7 @@ namespace InstallerBuilder
 
         private static void DeleteRedundantFiles(string version)
         {
-            var mainDir = Path.Combine(outputFolder, version);
+            var mainDir = Path.Combine(OutputFolder, version);
             File.Delete(Path.Combine(mainDir, "INIFileParser.xml"));
         }
 
@@ -45,24 +45,24 @@ namespace InstallerBuilder
                 new XElement("current", version),
                 new XElement("backup",""));
 
-            var path = Path.Combine(outputFolder, "version.xml");
+            var path = Path.Combine(OutputFolder, "version.xml");
             File.WriteAllText(path, new XDocument(elem).ToString());
         }
                
         private static string RepositoryRoot()
         {
-            return Path.Combine(outputFolder, "../../..");
+            return Path.Combine(OutputFolder, "../../..");
         }
 
         private static string ProjectFolder()
         {
-            var srcPath = Path.Combine(outputFolder, "../..");
-            return Path.Combine(srcPath, "QSimPlanner");
+            var srcPath = Path.Combine(OutputFolder, "../..");
+            return Path.Combine(srcPath, "QSP");
         }
 
         private static string ProjectFile()
         {
-            return Path.Combine(ProjectFolder(), "QSimPlanner.csproj");
+            return Path.Combine(ProjectFolder(), "QSP.csproj");
         }
 
         private static void WriteLicenseText(string folder)
@@ -75,7 +75,7 @@ namespace InstallerBuilder
 
         private static string GetVersion(string folder)
         {
-            var file = Path.Combine(folder, "QSimPlan.exe");
+            var file = Path.Combine(folder, "QSimPlanner.exe");
             var ver = AssemblyName.GetAssemblyName(file).Version;
             return $"{ver.Major}.{ver.Minor}.{ver.Build}";
         }
@@ -90,7 +90,7 @@ namespace InstallerBuilder
             var projFile = Path.Combine(RepositoryRoot(),
                 "src/Launcher/Launcher.csproj");
 
-            Compile(projFile, outputFolder);
+            Compile(projFile, OutputFolder);
         }
 
         private static void Compile(string projectFile, string outputFolder)

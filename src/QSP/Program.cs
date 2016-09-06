@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace QSimPlanner
+namespace QSP
 {
     static class Program
     {

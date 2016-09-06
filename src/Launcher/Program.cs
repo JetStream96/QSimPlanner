@@ -31,7 +31,7 @@ namespace Launcher
             var ver = GetVersion();
             var info = new ProcessStartInfo();
             info.WorkingDirectory = ver;
-            info.FileName = "QSimPlan.exe";
+            info.FileName = "QSimPlanner.exe";
 
             if (Environment.OSVersion.Version.Major >= 6)
             {

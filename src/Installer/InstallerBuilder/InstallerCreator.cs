@@ -15,7 +15,7 @@ namespace InstallerBuilder
             CreateResultsFolder();
 
             var text = GetFileText(version);
-            var filePath = Path.Combine(outputFolder, "build.iss");
+            var filePath = Path.Combine(OutputFolder, "build.iss");
             File.WriteAllText(filePath, text);
 
             BuildInstaller(filePath);
@@ -56,9 +56,9 @@ namespace InstallerBuilder
 
         private static string FileList()
         {
-            var files = AllFiles(outputFolder)
+            var files = AllFiles(OutputFolder)
                 .Select(Path.GetFullPath)
-                .Select(p => Tuple.Create(p, RelativePath(p, outputFolder)));
+                .Select(p => Tuple.Create(p, RelativePath(p, OutputFolder)));
 
             var lines = files
                  .Select(f =>
@@ -70,7 +70,7 @@ namespace InstallerBuilder
 
         private static string ResultsFolderPath()
         {
-            return Path.Combine(outputFolder, "../Results");
+            return Path.Combine(OutputFolder, "../Results");
         }
 
         private static void CreateResultsFolder()

@@ -4,7 +4,7 @@ namespace InstallerBuilder
 {
     class Program
     {
-        public static readonly string outputFolder = "../../../Output";
+        public static readonly string OutputFolder = "../../../Output";
         
         static void Main(string[] args)
         {
