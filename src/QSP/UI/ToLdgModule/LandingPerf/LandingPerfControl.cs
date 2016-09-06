@@ -1,6 +1,7 @@
 ﻿using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
 using QSP.LandingPerfCalculation;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.UI.ControlStates;
 using QSP.UI.ToLdgModule.Common;
@@ -125,12 +126,15 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private string[] AvailAircraftTypes()
         {
-            var allProfileNames = tables.Select(t => t.Entry.ProfileName);
+            var allProfileNames = tables.Select(t => t.Entry.ProfileName)
+                .ToHashSet();
 
             return aircrafts
                 .Aircrafts
                 .Where(c => allProfileNames.Contains(c.Config.LdgProfile))
                 .Select(c => c.Config.AC)
+                .Distinct()
+                .OrderBy(i => i)
                 .ToArray();
         }
 
@@ -146,10 +150,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             items.Clear();
             items.AddRange(AvailAircraftTypes());
 
-            if (items.Count > 0)
-            {
-                acListComboBox.SelectedIndex = 0;
-            }
+            if (items.Count > 0) acListComboBox.SelectedIndex = 0;
         }
 
         private void RefreshRegistrations(object sender, EventArgs e)

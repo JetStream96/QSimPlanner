@@ -237,12 +237,15 @@ namespace QSP.UI.UserControls
 
         private string[] AvailAircraftTypes()
         {
-            var allProfileNames = fuelData.Select(t => t.ProfileName);
+            var allProfileNames = fuelData.Select(t => t.ProfileName)
+                .ToHashSet();
 
             return aircrafts
                 .Aircrafts
                 .Where(c => allProfileNames.Contains(c.Config.FuelProfile))
                 .Select(c => c.Config.AC)
+                .Distinct()
+                .OrderBy(i => i)
                 .ToArray();
         }
 

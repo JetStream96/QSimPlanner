@@ -1,5 +1,6 @@
 ﻿using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.TOPerfCalculation;
 using QSP.UI.ControlStates;
@@ -80,12 +81,15 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
         private string[] AvailAircraftTypes()
         {
-            var allProfileNames = tables.Select(t => t.Entry.ProfileName);
+            var allProfileNames = tables.Select(t => t.Entry.ProfileName)
+                .ToHashSet();
 
             return aircrafts
                 .Aircrafts
                 .Where(c => allProfileNames.Contains(c.Config.TOProfile))
                 .Select(c => c.Config.AC)
+                .Distinct()
+                .OrderBy(i => i)
                 .ToArray();
         }
 

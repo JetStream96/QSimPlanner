@@ -131,6 +131,7 @@ namespace QSP.UI.Forms
 
         private void DoPostUpdateActions()
         {
+#if RELEASE
             var action = new PostUpdateAction();
 
             try
@@ -140,8 +141,10 @@ namespace QSP.UI.Forms
             catch (Exception ex)
             {
                 WriteToLog(ex);
+            // TODO: Add helpful message.
                 MsgBoxHelper.ShowWarning(ex.ToString());
             }
+#endif
         }
 
         private void InitWindForm()
