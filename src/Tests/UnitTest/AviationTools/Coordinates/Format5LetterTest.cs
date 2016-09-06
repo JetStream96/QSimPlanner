@@ -8,41 +8,23 @@ namespace UnitTest.AviationTools.Coordinates
     public class Format5LetterTest
     {
         [Test]
-        public void WhenFormatIsWrongReturnFalse()
+        public void WhenFormatIsWrongReturnNull()
         {
-            LatLon r;
-
-            Assert.IsFalse(TryReadFrom5LetterFormat("35U055E", out r));
-            Assert.IsFalse(TryReadFrom5LetterFormat("35S155S", out r));
-            Assert.IsFalse(TryReadFrom5LetterFormat("35S15AW", out r));
-            Assert.IsFalse(TryReadFrom5LetterFormat("35S155", out r));
-            Assert.IsFalse(TryReadFrom5LetterFormat("35N200E", out r));
+            Assert.IsNull(Parse("35U055E"));
+            Assert.IsNull(Parse("35S155S"));
+            Assert.IsNull(Parse("35S15AW"));
+            Assert.IsNull(Parse("35S155"));
+            Assert.IsNull(Parse("35N200E"));
         }
-
-        [Test]
-        public void WhenFormatIsCorrectReturnTrue()
-        {
-            LatLon r;
-
-            Assert.IsTrue(TryReadFrom5LetterFormat("35N00", out r));
-            Assert.IsTrue(TryReadFrom5LetterFormat("35E50", out r));
-            Assert.IsTrue(TryReadFrom5LetterFormat("35W50", out r));
-            Assert.IsTrue(TryReadFrom5LetterFormat("35S50", out r));
-
-            Assert.IsTrue(TryReadFrom5LetterFormat("8565N", out r));
-            Assert.IsTrue(TryReadFrom5LetterFormat("8565S", out r));
-            Assert.IsTrue(TryReadFrom5LetterFormat("8565E", out r));
-            Assert.IsTrue(TryReadFrom5LetterFormat("8565W", out r));
-        }
-
+        
         [Test]
         public void WhenFormatIsCorrectConvert()
         {
-            Assert.IsTrue(ReadFrom5LetterFormat("36N50").Equals(new LatLon(36.0, -150.0)));
-            Assert.IsTrue(ReadFrom5LetterFormat("4334E").Equals(new LatLon(43.0, 34.0)));
-            Assert.IsTrue(ReadFrom5LetterFormat("55S13").Equals(new LatLon(-55.0, 113.0)));
-            Assert.IsTrue(ReadFrom5LetterFormat("55W10").Equals(new LatLon(-55.0, -110.0)));
-            Assert.IsTrue(ReadFrom5LetterFormat("05W05").Equals(new LatLon(-5.0, -105.0)));
+            Assert.IsTrue(Parse("36N50").Equals(new LatLon(36.0, -150.0)));
+            Assert.IsTrue(Parse("4334E").Equals(new LatLon(43.0, 34.0)));
+            Assert.IsTrue(Parse("55S13").Equals(new LatLon(-55.0, 113.0)));
+            Assert.IsTrue(Parse("55W10").Equals(new LatLon(-55.0, -110.0)));
+            Assert.IsTrue(Parse("05W05").Equals(new LatLon(-5.0, -105.0)));
         }
 
         [Test]

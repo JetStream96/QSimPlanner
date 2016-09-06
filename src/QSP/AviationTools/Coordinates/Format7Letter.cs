@@ -1,6 +1,4 @@
-﻿using QSP.Utilities;
-using System;
-using static QSP.MathTools.Doubles;
+﻿using static QSP.MathTools.Doubles;
 
 namespace QSP.AviationTools.Coordinates
 {
@@ -51,33 +49,24 @@ namespace QSP.AviationTools.Coordinates
                 lon.ToString().PadLeft(3, '0') + EW;
         }
 
-        public static bool TryReadFrom7LetterFormat(
-            string item, out LatLon result)
+        /// <summary>
+        /// Returns null if the format is incorrect.
+        /// </summary>
+        public static LatLon Parse(string item)
         {
-            try
-            {
-                result = ReadFrom7LetterFormat(item);
-                return true;
-            }
-            catch
-            {
-                result = null;
-                return false;
-            }
-        }
-
-        public static LatLon ReadFrom7LetterFormat(string item)
-        {
-            ConditionChecker.Ensure<ArgumentException>(item.Length == 7);
+            if (item.Length != 7) return null;
 
             char NS = item[2];
             char EW = item[6];
 
-            int lat = Convert.ToInt32(item.Substring(0, 2));
-            int lon = Convert.ToInt32(item.Substring(3, 3));
+            int lat, lon;
 
-            ConditionChecker.Ensure<ArgumentException>(
-                0 <= lat && lat <= 90 && 0 <= lon && lon <= 180);
+            if (!int.TryParse(item.Substring(0, 2), out lat) ||
+                !int.TryParse(item.Substring(3, 3), out lon) ||
+                lat < 0 || lat > 90 || lon < 0 || lon > 180)
+            {
+                return null;
+            }
 
             if (NS == 'N')
             {
@@ -101,7 +90,8 @@ namespace QSP.AviationTools.Coordinates
                     return new LatLon(-lat, -lon);
                 }
             }
-            throw new ArgumentException();
+
+            return null;
         }
     }
 }

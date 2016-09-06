@@ -1,5 +1,4 @@
-﻿using QSP.Utilities;
-using System;
+﻿using System;
 using System.Linq;
 using static QSP.MathTools.Doubles;
 
@@ -74,37 +73,33 @@ namespace QSP.AviationTools.Coordinates
                 return 4;
             }
 
-            throw new ArgumentException();
+            return -1;
         }
 
-        public static bool TryReadFrom5LetterFormat(
-            string item, out LatLon result)
+        /// <summary>
+        /// Returns null if the format is incorrect.
+        /// </summary>
+        public static LatLon Parse(string item)
         {
-            try
-            {
-                result = ReadFrom5LetterFormat(item);
-                return true;
-            }
-            catch
-            {
-                result = null;
-                return false;
-            }
-        }
-
-        public static LatLon ReadFrom5LetterFormat(string item)
-        {
-            ConditionChecker.Ensure<ArgumentException>(item.Length == 5);
+            if (item.Length != 5) return null;
 
             int pos = AlphabetPosition(item);
+            if (pos == -1) return null;
+            int lat, lon;
 
-            int lat = int.Parse(item.Substring(0, 2));
-            int lon = pos == 2
-                      ? int.Parse(item.Substring(3, 2)) + 100
-                      : int.Parse(item.Substring(2, 2));
+            if (!int.TryParse(item.Substring(0, 2), out lat)) return null;
 
-            ConditionChecker.Ensure<ArgumentException>(0 <= lat && lat <= 90);
-            ConditionChecker.Ensure<ArgumentException>(0 <= lon && lon <= 180);
+            if (pos == 2)
+            {
+                if (!int.TryParse(item.Substring(3, 2), out lon)) return null;
+                lon += 100;
+            }
+            else
+            {
+                if (!int.TryParse(item.Substring(2, 2), out lon)) return null;
+            }
+
+            if (lat < 0 || lat > 90 || lon < 0 || lon > 180) return null;
 
             switch (item[pos])
             {
@@ -121,7 +116,7 @@ namespace QSP.AviationTools.Coordinates
                     return new LatLon(lat, -lon);
 
                 default:
-                    throw new ArgumentException();
+                    return null;
             }
         }
     }

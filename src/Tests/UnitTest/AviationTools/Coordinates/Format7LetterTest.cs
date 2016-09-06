@@ -8,33 +8,29 @@ namespace UnitTest.AviationTools.Coordinates
     public class Format7LetterTest
     {
         [Test]
-        public void WhenFormatIsWrongReturnFalse()
+        public void WhenFormatIsWrongReturnNull()
         {
-            LatLon r;
-
-            Assert.IsFalse(TryReadFrom7LetterFormat("37U055E", out r));
-            Assert.IsFalse(TryReadFrom7LetterFormat("37S155S", out r));
-            Assert.IsFalse(TryReadFrom7LetterFormat("37S15AW", out r));
-            Assert.IsFalse(TryReadFrom7LetterFormat("37S155", out r));
-            Assert.IsFalse(TryReadFrom7LetterFormat("37N200E", out r));
+            Assert.IsNull(Parse("37U055E"));
+            Assert.IsNull(Parse("37S155S"));
+            Assert.IsNull(Parse("37S15AW"));
+            Assert.IsNull(Parse("37S155"));
+            Assert.IsNull(Parse("37N200E"));
         }
-
-        [Test]
-        public void WhenFormatIsCorrectReturnTrue()
-        {
-            LatLon r;
-
-            Assert.IsTrue(TryReadFrom7LetterFormat("37N055E", out r));
-            Assert.IsTrue(TryReadFrom7LetterFormat("37S155W", out r));
-        }
-
+        
         [Test]
         public void WhenFormatIsCorrectConvert()
         {
-            Assert.IsTrue(ReadFrom7LetterFormat("36N170W").Equals(new LatLon(36.0, -170.0)));
-            Assert.IsTrue(ReadFrom7LetterFormat("43N034E").Equals(new LatLon(43.0, 34.0)));
-            Assert.IsTrue(ReadFrom7LetterFormat("57S113E").Equals(new LatLon(-57.0, 113.0)));
-            Assert.IsTrue(ReadFrom7LetterFormat("57S110W").Equals(new LatLon(-57.0, -110.0)));
+            Assert.IsTrue(Parse("36N170W")
+                .Equals(new LatLon(36.0, -170.0)));
+
+            Assert.IsTrue(Parse("43N034E")
+                .Equals(new LatLon(43.0, 34.0)));
+
+            Assert.IsTrue(Parse("57S113E")
+                .Equals(new LatLon(-57.0, 113.0)));
+
+            Assert.IsTrue(Parse("57S110W")
+                .Equals(new LatLon(-57.0, -110.0)));
         }
 
         [Test]

@@ -6,18 +6,12 @@
         {
             for (int i = 0; i < item.Length; i++)
             {
-                LatLon coord;
+                var coord = Format7Letter.Parse(item[i]);
 
-                if (Format7Letter.TryReadFrom7LetterFormat(item[i], out coord))
+                if (coord != null)
                 {
-                    try
-                    {
-                        item[i] = coord.To5LetterFormat();
-                    }
-                    catch
-                    {
-                        item[i] = coord.ToDecimalFormat();
-                    }
+                    item[i] = coord.To5LetterFormat() ?? 
+                        coord.ToDecimalFormat();
                 }
             }
         }
