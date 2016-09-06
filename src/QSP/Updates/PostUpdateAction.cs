@@ -27,6 +27,7 @@ namespace QSP.Updates
         public void DoAction()
         {
             var ver = GetVersions();
+
             // App is never updated. No action needed.
             if (ver.Backup == "") return;
 
