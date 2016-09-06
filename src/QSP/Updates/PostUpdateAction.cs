@@ -27,7 +27,6 @@ namespace QSP.Updates
         public void DoAction()
         {
             var ver = GetVersions();
-
             // App is never updated. No action needed.
             if (ver.Backup == "") return;
 
@@ -115,7 +114,7 @@ namespace QSP.Updates
         private void CopyFile(string relativePath)
         {
             var oldPath = Path.Combine(GetFolder(backupVersion), relativePath);
-            var newPath = Path.Combine(GetFolder(newVersion), relativePath);
+            var newPath = relativePath;
 
             if (File.Exists(oldPath))
             {

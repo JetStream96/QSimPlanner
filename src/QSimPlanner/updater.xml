@@ -1,3 +1,10 @@
 <root>
+  <!-- 0: No, 1: Yes-->
   <PostUpdateActionCompleted>1</PostUpdateActionCompleted>
+
+  <InfoFiles>
+    <!-- List of uri which contains the latest version info. -->
+    <Uri>F:\Programming\Projects\QSimPlanner\Updates\info.xml</Uri>
+    <Uri>C:\Data\Programming\Projects\QSimPlanner\Updates\info.xml</Uri>
+  </InfoFiles>
 </root>

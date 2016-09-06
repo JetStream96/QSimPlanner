@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Xml.Linq;
@@ -12,7 +14,6 @@ namespace QSP.Updates
 {
     public class Updater
     {
-        public static readonly string FileUri = @"F:\Programming\Projects\QSimPlanner\Updates\info.xml";
         public bool IsUpdating { get; private set; } = false;
 
         public Updater() { }
@@ -64,10 +65,10 @@ namespace QSP.Updates
 
         private static void CreateXml(string version)
         {
-            var elem = new XElement("PostUpdateActionCompleted", "0");
-            var root = new XElement("root", elem);
-            var doc = new XDocument(root);
             var path = Path.Combine("..", version, "updater.xml");
+            File.Copy("updater.xml", path, true);
+            var doc = XDocument.Load(path);
+            doc.Root.Element("PostUpdateActionCompleted").Value = "0";
             File.WriteAllText(path, doc.ToString());
         }
 
@@ -88,16 +89,36 @@ namespace QSP.Updates
         /// </summary>
         public static UpdateInfo GetUpdateFileUri()
         {
+            var root = XDocument.Parse(GetInfoFileContent()).Root;
+            var version = root.Element("version").Value;
+
+            if (!IsNewerVersion(version)) return null;
+            var uri = new Uri(root.Element("uri").Value);
+            return new UpdateInfo() { Uri = uri, Version = version };
+        }
+
+        private static string GetInfoFileContent()
+        {
             using (var client = new WebClient())
             {
-                var info = client.DownloadString(FileUri);
-                var root = XDocument.Parse(info).Root;
-                var version = root.Element("version").Value;
-
-                if (!IsNewerVersion(version)) return null;
-                var uri = new Uri(root.Element("uri").Value);
-                return new UpdateInfo() { Uri = uri, Version = version };
+                foreach (var i in FileUris())
+                {
+                    try
+                    {
+                        return client.DownloadString(i);
+                    }
+                    catch { }
+                }
             }
+
+            throw new WebException("Cannot obtain update info file.");
+        }
+
+        private static IEnumerable<string> FileUris()
+        {
+            var doc = XDocument.Load("updater.xml");
+            var elem = doc.Root.Element("InfoFiles").Elements("Uri");
+            return elem.Select(e => e.Value);
         }
 
         public static void Install(UpdateInfo info)

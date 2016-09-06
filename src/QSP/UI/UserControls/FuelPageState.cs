@@ -46,6 +46,8 @@ namespace QSP.UI.UserControls
 
         public void SaveToFile()
         {
+            var dir = Path.GetDirectoryName(FileLocation);
+            Directory.CreateDirectory(dir);
             File.WriteAllText(FileLocation, Save().ToString());
         }
 
