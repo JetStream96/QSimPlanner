@@ -62,10 +62,6 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="INIFileParser, Version=2.2.4.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
-      <HintPath>..\packages\ini-parser.2.2.4\lib\net20\INIFileParser.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="MinMaxHeap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libraries\MinMaxHeap.dll</HintPath>
@@ -664,7 +660,6 @@
     <EmbeddedResource Include="UI\ToLdgModule\TOPerf\TOPerfControl.resx">
       <DependentUpon>TOPerfControl.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <Content Include="PerformanceData\Aircrafts\B737-600_LN-RRX.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
