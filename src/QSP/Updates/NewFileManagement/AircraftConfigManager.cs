@@ -10,17 +10,7 @@ using static QSP.LibraryExtension.FileNameGenerator;
 namespace QSP.Updates.NewFileManagement
 {
     public class AircraftConfigManager
-    {
-        // Maps a version number to the paths of files which are added in that 
-        // version. 
-        // Version format should be Major.Minor.Build
-        // File names should not contain directory.
-        private static Dictionary<Version, string[]> newFiles =
-        new Dictionary<Version, string[]>()
-        {
-            [new Version(0, 3, 0)] = new string[] { }
-        };
-
+    {       
         private Version backupVersion, newVersion;
 
         public AircraftConfigManager(Version backupVersion, Version newVersion)
@@ -74,16 +64,22 @@ namespace QSP.Updates.NewFileManagement
         private static void RenameNewFiles(HashSet<string> oldFileNames,
             HashSet<string> newFileFullPaths)
         {
+            QSP.Utilities.LoggerInstance.WriteToLog(newFileFullPaths.ToString() + "\n"
+                + oldFileNames.ToString());
+
             foreach (var j in newFileFullPaths)
             {
-                var name = Path.GetFileNameWithoutExtension(j);
+                var nameWithoutDirectory = Path.GetFileName(j);
 
-                if (oldFileNames.Contains(name))
+                if (oldFileNames.Contains(nameWithoutDirectory))
                 {
                     var dir = Path.GetDirectoryName(j);
+                    var name = Path.GetFileNameWithoutExtension(j);
                     var ext = Path.GetExtension(j);
                     var newName = Generate(dir, name, ext, n => $"({n})");
                     File.Move(j, newName);
+
+                    QSP.Utilities.LoggerInstance.WriteToLog(j + "\n" + newName);
                 }
             }
         }
@@ -146,16 +142,20 @@ namespace QSP.Updates.NewFileManagement
             File.WriteAllText(fileName, doc.ToString());
         }
 
-        private List<string> GetFilesToPreserve()
+        private IEnumerable<string> GetFilesToPreserve()
         {
-            return newFiles
-                .Where(kv =>
-                {
-                    var ver = kv.Key;
-                    return backupVersion < ver && ver <= newVersion;
-                })
-                .SelectMany(kv => kv.Value)
-                .ToList();
+            var elem = XDocument.Load("updater.xml")
+                .Root
+                .Element("NewFiles")
+                .Element("AircraftConfig")
+                .Elements("File");
+
+            return elem.Where(e =>
+            {
+                var ver = Version.Parse(e.Attribute("Version").Value);
+                return backupVersion < ver && ver <= newVersion;
+            })
+            .Select(e => e.Value);
         }
     }
 }

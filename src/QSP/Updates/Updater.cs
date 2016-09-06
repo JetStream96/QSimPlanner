@@ -50,7 +50,7 @@ namespace QSP.Updates
             try
             {
                 Install(info);
-                CreateXml(info.Version);
+                MarkForPostUpdateActions(info.Version);
             }
             catch (Exception ex)
             {
@@ -63,10 +63,9 @@ namespace QSP.Updates
                 "Changes will be in effect after restart.");
         }
 
-        private static void CreateXml(string version)
+        private static void MarkForPostUpdateActions(string version)
         {
             var path = Path.Combine("..", version, "updater.xml");
-            File.Copy("updater.xml", path, true);
             var doc = XDocument.Load(path);
             doc.Root.Element("PostUpdateActionCompleted").Value = "0";
             File.WriteAllText(path, doc.ToString());

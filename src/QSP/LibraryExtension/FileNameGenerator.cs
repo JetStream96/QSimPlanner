@@ -6,6 +6,10 @@ namespace QSP.LibraryExtension
 {
     public static class FileNameGenerator
     {
+        /// <summary>
+        /// Find a name for the file such that no file with the same
+        /// name exists.
+        /// </summary>
         /// <exception cref="NoFileNameAvailException"></exception>
         /// <exception cref="ArgumentException"></exception>
         public static string Generate(
