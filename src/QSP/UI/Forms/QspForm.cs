@@ -141,8 +141,9 @@ namespace QSP.UI.Forms
             catch (Exception ex)
             {
                 WriteToLog(ex);
-            // TODO: Add helpful message.
-                MsgBoxHelper.ShowWarning(ex.ToString());
+                MsgBoxHelper.ShowWarning(
+                    "An error occurred when copying profiles for the updated" +
+                    $" verison.\n\n(Error:{ex.GetBaseException().ToString()}");
             }
 #endif
         }
