@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
+using System.Windows.Forms;
 using static QSP.Updates.Utilities;
 using static QSP.Utilities.LoggerInstance;
 
@@ -46,7 +47,35 @@ namespace QSP.Updates
         private void SetConfigFiles()
         {
             var ac = new AircraftConfigManager(backupVersion, newVersion);
-            ac.SetConfigs();
+            var fuel = new FuelProfileManager(backupVersion, newVersion);
+            var to = new TOProfileManager(backupVersion, newVersion);
+            var ldg = new LdgProfileManager(backupVersion, newVersion);
+
+            var userSelection = DialogResult.Retry;
+
+            while (userSelection == DialogResult.Retry)
+            {
+                try
+                {
+                    ac.SetConfigs();
+                    fuel.SetConfigs();
+                    to.SetConfigs();
+                    ldg.SetConfigs();
+                }
+                catch (Exception ex)
+                {
+                    WriteToLog(ex);
+                    ShowError("An error occurred when copying profiles for " +
+                        "the updated verison. Click \"retry\" to try again." +
+                        $"\n\n(Error:{ex.GetBaseException().ToString()})");
+                }
+            }
+        }
+
+        private static DialogResult ShowError(string message)
+        {
+            return MessageBox.Show(message, "Update error",
+                MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
         }
 
         private static bool RequireAction()
