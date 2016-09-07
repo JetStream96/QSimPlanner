@@ -9,10 +9,10 @@ namespace QSP.LandingPerfCalculation
 {
     public class LdgTableLoader
     {
-        private string folderPath;
-        private const string defaultFolderPath = @"PerformanceData\LDG";
+        public const string DefaultFolderPath = @"PerformanceData\LDG";
+        private string folderPath;        
 
-        public LdgTableLoader(string folderPath = defaultFolderPath)
+        public LdgTableLoader(string folderPath = DefaultFolderPath)
         {
             this.folderPath = folderPath;
         }

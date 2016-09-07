@@ -9,10 +9,10 @@ namespace QSP.TOPerfCalculation
 {
     public class TOTableLoader
     {
+        public const string DefaultFolderPath = @"PerformanceData\TO";
         private string folderPath;
-        private const string defaultFolderPath = @"PerformanceData\TO";
 
-        public TOTableLoader(string folderPath = defaultFolderPath)
+        public TOTableLoader(string folderPath = DefaultFolderPath)
         {
             this.folderPath = folderPath;
         }
