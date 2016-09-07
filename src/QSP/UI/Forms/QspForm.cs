@@ -131,7 +131,7 @@ namespace QSP.UI.Forms
 
         private void DoPostUpdateActions()
         {
-#if RELEASE
+#if (!DEBUG)
             var action = new PostUpdateAction();
 
             try

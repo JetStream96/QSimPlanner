@@ -51,9 +51,9 @@ namespace QSP.Updates
             var to = new TOProfileManager(backupVersion, newVersion);
             var ldg = new LdgProfileManager(backupVersion, newVersion);
 
-            var userSelection = DialogResult.Retry;
+            bool doSetConfigs = true;
 
-            while (userSelection == DialogResult.Retry)
+            while (doSetConfigs)
             {
                 try
                 {
@@ -61,13 +61,17 @@ namespace QSP.Updates
                     fuel.SetConfigs();
                     to.SetConfigs();
                     ldg.SetConfigs();
+                    doSetConfigs = false;
                 }
                 catch (Exception ex)
                 {
                     WriteToLog(ex);
-                    ShowError("An error occurred when copying profiles for " +
+                    var selection = ShowError(
+                        "An error occurred when copying profiles for " +
                         "the updated verison. Click \"retry\" to try again." +
                         $"\n\n(Error:{ex.GetBaseException().ToString()})");
+
+                    if (selection != DialogResult.Retry) doSetConfigs = false;
                 }
             }
         }
