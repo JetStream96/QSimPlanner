@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TOTable = QSP.TOPerfCalculation.PerfTable;
+using LdgTable = QSP.LandingPerfCalculation.PerfTable;
 
 namespace QSP.AircraftProfiles.Configs
 {
@@ -17,18 +19,12 @@ namespace QSP.AircraftProfiles.Configs
 
         public IEnumerable<AircraftConfig> Aircrafts
         {
-            get
-            {
-                return registrations.Values;
-            }
+            get { return registrations.Values; }
         }
 
         public int Count
         {
-            get
-            {
-                return registrations.Count;
-            }
+            get { return registrations.Count; }
         }
 
         /// <exception cref="ArgumentException">
@@ -84,8 +80,8 @@ namespace QSP.AircraftProfiles.Configs
         /// </summary>
         /// <exception cref="PerfFileNotFoundException"></exception>
         public void Validate(
-            IEnumerable<TOPerfCalculation.PerfTable> takeoffTables,
-            IEnumerable<LandingPerfCalculation.PerfTable> ldgTables)
+            IEnumerable<TOTable> takeoffTables,
+            IEnumerable<LdgTable> ldgTables)
         {
             var invalidAc = new List<AircraftConfig>();
 
@@ -97,16 +93,13 @@ namespace QSP.AircraftProfiles.Configs
 
                 bool toNotFound =
                     to != AircraftConfigItem.NoFuelTOLdgProfileText &&
-                    takeoffTables.Any(x => x.Entry.ProfileName == to) == false;
+                    !takeoffTables.Any(x => x.Entry.ProfileName == to);
 
                 bool ldgNotFound =
                     ldg != AircraftConfigItem.NoFuelTOLdgProfileText &&
-                    ldgTables.Any(x => x.Entry.ProfileName == ldg) == false;
+                    !ldgTables.Any(x => x.Entry.ProfileName == ldg);
 
-                if (toNotFound || ldgNotFound)
-                {
-                    invalidAc.Add(config);
-                }
+                if (toNotFound || ldgNotFound) invalidAc.Add(config);
             }
 
             if (invalidAc.Count > 0)
