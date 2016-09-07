@@ -33,8 +33,10 @@ namespace QSP.LibraryExtension
             {
                 return fn;
             }
-            
-            for (int i = startNumber; ; i++)
+
+            var fileCount = Directory.GetFiles(directory).Length;
+
+            for (int i = startNumber; i <= startNumber + fileCount; i++)
             {
                 string file = Path.Combine(directory,
                     nameBase + numberFormat(i) + extension);

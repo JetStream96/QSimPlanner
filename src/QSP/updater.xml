@@ -18,5 +18,9 @@
     <AircraftConfig>
       <File Version="0.3.0">B737-700_B-123.xml</File>      
     </AircraftConfig>
+    <FuelProfiles></FuelProfiles>
+    <TOProfiles></TOProfiles>
+    <LdgProfiles></LdgProfiles>
+    
   </NewFiles>
 </root>

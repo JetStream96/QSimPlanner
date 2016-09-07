@@ -53,6 +53,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="QSP\AircraftProfiles\Configs\AcConfigManagerTest.cs" />
+    <Compile Include="QSP\LibraryExtension\FileNameGeneratorTest.cs" />
     <Compile Include="QSP\RouteFinding\TestSetup\WptListFactory.cs" />
     <Compile Include="QSP\RouteFinding\Tracks\Ausots\AusotsHandlerTest.cs" />
     <Compile Include="QSP\RouteFinding\Tracks\Nats\NatsHandlerTest.cs" />
