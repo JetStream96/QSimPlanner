@@ -51,6 +51,9 @@ namespace QSP.Updates
             {
                 Install(info);
                 MarkForPostUpdateActions(info.Version);
+
+                // This has to be the last step, after all operations succeeds.
+                UpdateXmlAndDeleteOldVersion(info.Version);
             }
             catch (Exception ex)
             {
@@ -132,7 +135,6 @@ namespace QSP.Updates
 
             ZipFile.ExtractToDirectory(zipFilePath, extractDir);
             IgnoreExceptions(() => File.Delete(zipFilePath));
-            UpdateXmlAndDeleteOldVersion(info.Version);
         }
 
         private static void UpdateXmlAndDeleteOldVersion(string version)
