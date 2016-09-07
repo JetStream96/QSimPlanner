@@ -72,6 +72,24 @@
     <Content Include="QSP\RouteFinding\Tracks\Pacots\Defense Internet NOTAM Service.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\0.2.3\PerformanceData\Aircrafts\B737-600_LN-RRX.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\0.2.3\PerformanceData\Aircrafts\B737-700_B-123.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\0.3.0\PerformanceData\Aircrafts\B737-700_B-123.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\0.3.0\PerformanceData\Aircrafts\B737-700_B-5256.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\0.3.0\updater.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\version.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\QSP\QSP.csproj">

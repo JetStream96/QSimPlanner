@@ -116,7 +116,7 @@ namespace QSP.Updates.NewFileManagement
         }
 
         // If the file format is wrong, returns null.
-        private static string GetRegistration(string fileName)
+        public static string GetRegistration(string fileName)
         {
             try
             {
