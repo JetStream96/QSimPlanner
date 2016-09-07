@@ -27,13 +27,7 @@ namespace QSP.LibraryExtension
             }
 
             string fn = Path.Combine(directory, nameBase + extension);
-
-            if (Directory.Exists(directory) == false ||
-                File.Exists(fn) == false)
-            {
-                return fn;
-            }
-
+            if (!Directory.Exists(directory) || !File.Exists(fn)) return fn;
             var fileCount = Directory.GetFiles(directory).Length;
 
             for (int i = startNumber; i <= startNumber + fileCount; i++)

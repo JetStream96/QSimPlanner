@@ -1,5 +1,4 @@
-using QSP.AircraftProfiles.Configs;
-using QSP.LibraryExtension;
+﻿using QSP.LibraryExtension;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,31 +8,54 @@ using static QSP.LibraryExtension.FileNameGenerator;
 
 namespace QSP.Updates.NewFileManagement
 {
-    public class AircraftConfigManager
-    {       
+    public class NewFileManager
+    {
+        // Directory in which the files are stored.
+        private string directory;
+
+        // Used to get files from updater.xml.
+        private string id;
+
+        // Arguments are: fileName, uniqueKey
+        private Action<string, string> setUniqueKey;
+
+        // Argument: fileName
+        // Return value: uniqueKey, or null if file is not found or 
+        // file format is incorrect
+        private Func<string, string> getUniqueKey;
+
         private Version backupVersion, newVersion;
 
-        public AircraftConfigManager(Version backupVersion, Version newVersion)
+        public NewFileManager(
+            Version backupVersion, 
+            Version newVersion,
+            string directory,
+            string id,
+            Action<string, string> uniqueKeySetter,
+            Func<string, string> uniqueKeyGetter)
         {
             this.backupVersion = backupVersion;
             this.newVersion = newVersion;
+            this.directory = directory;
+            this.id = id;
+            setUniqueKey = uniqueKeySetter;
+            getUniqueKey = uniqueKeyGetter;
         }
 
         public void SetConfigs()
         {
             var oldFileFullPaths = Directory.GetFiles(Path.Combine("..",
-                backupVersion.ToString(), ConfigLoader.DefaultFolderPath));
+                backupVersion.ToString(), directory));
 
             var oldFileNames = oldFileFullPaths
                 .Select(Path.GetFileName).ToHashSet();
 
             var newFileNames = GetFilesToPreserve().ToHashSet();
             var newFileFullPaths = newFileNames
-                .Select(f => Path.Combine(ConfigLoader.DefaultFolderPath, f))
+                .Select(f => Path.Combine(directory, f))
                 .ToHashSet();
 
-            var existingFiles = Directory.GetFiles(
-                ConfigLoader.DefaultFolderPath);
+            var existingFiles = Directory.GetFiles(directory);
 
             // Delete configs that were already present in old version.
             // This prevents some duplicates.
@@ -45,8 +67,8 @@ namespace QSP.Updates.NewFileManagement
             // Copy the old config files.
             CopyOldConfigs(oldFileFullPaths);
 
-            // Rename the registration of new configs, if there is collision.
-            RenameRegistrations(oldFileFullPaths, newFileFullPaths);
+            // Rename the unique keys of new configs, if there is collision.
+            RenameUniqueKeys(oldFileFullPaths, newFileFullPaths);
         }
 
         private static void DeleteNotNeededFiles(HashSet<string> newFileNames,
@@ -79,26 +101,24 @@ namespace QSP.Updates.NewFileManagement
             }
         }
 
-        private static void CopyOldConfigs(string[] oldFileFullPaths)
+        private void CopyOldConfigs(string[] oldFileFullPaths)
         {
             foreach (var k in oldFileFullPaths)
             {
-                var newPath = Path.Combine(ConfigLoader.DefaultFolderPath,
-                    Path.GetFileName(k));
-
+                var newPath = Path.Combine(directory, Path.GetFileName(k));
                 File.Copy(k, newPath);
             }
         }
 
-        private static void RenameRegistrations(string[] oldFileFullPaths,
+        private void RenameUniqueKeys(string[] oldFileFullPaths,
             HashSet<string> newFileFullPaths)
         {
-            var existingReg = oldFileFullPaths
-                            .Select(GetRegistration).ToHashSet();
+            var existingReg = oldFileFullPaths.Select(getUniqueKey)
+                .ToHashSet();
 
             foreach (var m in newFileFullPaths)
             {
-                var reg = GetRegistration(m);
+                var reg = getUniqueKey(m);
 
                 if (reg != null)
                 {
@@ -110,39 +130,17 @@ namespace QSP.Updates.NewFileManagement
                         regRename = reg + $"({num})";
                     }
 
-                    SetRegistration(m, regRename);
+                    setUniqueKey(m, regRename);
                 }
             }
         }
-
-        // If the file format is wrong, returns null.
-        private static string GetRegistration(string fileName)
-        {
-            try
-            {
-                return XDocument.Load(fileName)
-                    .Root.Element("Registration").Value;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        private static void SetRegistration(
-            string fileName, string registration)
-        {
-            var doc = XDocument.Load(fileName);
-            doc.Root.Element("Registration").Value = registration;
-            File.WriteAllText(fileName, doc.ToString());
-        }
-
+        
         private IEnumerable<string> GetFilesToPreserve()
         {
             var elem = XDocument.Load("updater.xml")
                 .Root
                 .Element("NewFiles")
-                .Element("AircraftConfig")
+                .Element(id)
                 .Elements("File");
 
             return elem.Where(e =>

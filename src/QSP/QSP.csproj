@@ -247,6 +247,7 @@
     <Compile Include="UI\Utilities\ShowMapHelper.cs" />
     <Compile Include="Updates\NewFileManagement\AircraftConfigManager.cs" />
     <Compile Include="Updates\NewFileManagement\FuelProfileManager.cs" />
+    <Compile Include="Updates\NewFileManagement\NewFileManager.cs" />
     <Compile Include="Updates\PostUpdateAction.cs" />
     <Compile Include="Updates\Updater.cs" />
     <Compile Include="Updates\Utilities.cs" />

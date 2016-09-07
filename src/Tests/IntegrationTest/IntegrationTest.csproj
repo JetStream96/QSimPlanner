@@ -59,6 +59,7 @@
     <Compile Include="QSP\RouteFinding\Tracks\Nats\NatsHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QSP\RouteFinding\Tracks\Pacots\PacotsHandlerTest.cs" />
+    <Compile Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="QSP\RouteFinding\Tracks\Ausots\text.asp.html">
@@ -81,6 +82,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
