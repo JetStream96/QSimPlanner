@@ -8,12 +8,12 @@ namespace QSP.FuelCalculation
 {
     public static class FuelDataLoader
     {
-        private const string defaultFolderPath = @"PerformanceData\FuelCalc";
+        public const string DefaultFolderPath = @"PerformanceData\FuelCalc";
 
         /// <summary>
         /// Load all xml in the landing performance data folder.
         /// </summary>
-        public static LoadResult Load(string folderPath = defaultFolderPath)
+        public static LoadResult Load(string folderPath = DefaultFolderPath)
         {
             var tables = new List<FuelData>();
 
