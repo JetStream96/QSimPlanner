@@ -64,6 +64,9 @@ namespace QSP.Updates.NewFileManagement
         private static void RenameNewFiles(HashSet<string> oldFileNames,
             HashSet<string> newFileFullPaths)
         {
+            var pathToRemove = new List<string>();
+            var pathToAdd = new List<string>();
+
             foreach (var j in newFileFullPaths)
             {
                 var nameWithoutDirectory = Path.GetFileName(j);
@@ -75,8 +78,14 @@ namespace QSP.Updates.NewFileManagement
                     var ext = Path.GetExtension(j);
                     var newName = Generate(dir, name, ext, n => $"({n})");
                     File.Move(j, newName);
+
+                    pathToRemove.Add(j);
+                    pathToAdd.Add(Path.GetFullPath(newName));
                 }
             }
+
+            foreach (var i in pathToRemove) newFileFullPaths.Remove(i);
+            foreach (var i in pathToAdd) newFileFullPaths.Add(i);
         }
 
         private static void CopyOldConfigs(string[] oldFileFullPaths)

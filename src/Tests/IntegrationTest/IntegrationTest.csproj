@@ -87,9 +87,6 @@
     <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\0.3.0\updater.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\version.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\QSP\QSP.csproj">
