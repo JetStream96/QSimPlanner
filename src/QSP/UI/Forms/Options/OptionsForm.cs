@@ -57,6 +57,15 @@ namespace QSP.UI.Forms.Options
             SetDefaultState();
             SetControlsAsInOptions();
             FormClosing += CurrentFormClosing;
+
+#if (!DEBUG)
+            PerformAutoUpdate();
+#endif
+        }
+
+        private void PerformAutoUpdate()
+        {
+            if (AppSettings.AutoUpdate) PerformUpdateNow();
         }
 
         private void CurrentFormClosing(object sender, FormClosingEventArgs e)
@@ -425,14 +434,19 @@ contains Airports.txt.";
             }
         }
 
-        private async void updateBtn_Click(object sender, EventArgs e)
+        private void updateBtn_Click(object sender, EventArgs e)
+        {
+            PerformUpdateNow();
+        }
+
+        private async void PerformUpdateNow()
         {
             updateBtn.Enabled = false;
             updateStatusLbl.Text = "Updating ...";
             updateStatusLbl.ForeColor = Color.Black;
             var status = await Task.Factory.StartNew(() => updater.Update());
             updateStatusLbl.Text = status.Message;
-            updateStatusLbl.ForeColor = status.Success ? 
+            updateStatusLbl.ForeColor = status.Success ?
                 Color.Green : Color.Red;
             updateBtn.Enabled = true;
         }
