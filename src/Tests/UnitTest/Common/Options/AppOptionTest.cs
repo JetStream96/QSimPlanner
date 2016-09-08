@@ -38,7 +38,7 @@ namespace UnitTest.Common.Options
                 o.EnableWindOptimizedRoute, d.EnableWindOptimizedRoute);
             Assert.AreEqual(o.HideDctInRoute, d.HideDctInRoute);
             Assert.AreEqual(o.ShowTrackIdOnly, d.ShowTrackIdOnly);
-            Assert.AreEqual(o.UpdateFrequency, d.UpdateFrequency);
+            Assert.AreEqual(o.AutoUpdate, d.AutoUpdate);
             Assert.AreEqual(cmds.Count, d.ExportCommands.Count);
             Assert.IsTrue(d.ExportCommands["PmdgNgx"].Equals(command1));
             Assert.IsTrue(d.ExportCommands["P3D"].Equals(command2));
@@ -64,7 +64,7 @@ namespace UnitTest.Common.Options
                 o.EnableWindOptimizedRoute, d.EnableWindOptimizedRoute);
             Assert.AreEqual(o.HideDctInRoute, d.HideDctInRoute);
             Assert.AreEqual(o.ShowTrackIdOnly, d.ShowTrackIdOnly);
-            Assert.AreEqual(o.UpdateFrequency, d.UpdateFrequency);
+            Assert.AreEqual(o.AutoUpdate, d.AutoUpdate);
             Assert.AreEqual(0, d.ExportCommands.Count);
         }
     }

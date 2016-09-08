@@ -17,7 +17,7 @@ namespace QSP.Common.Options
         public bool EnableWindOptimizedRoute { get; private set; }
         public bool HideDctInRoute { get; private set; }
         public bool ShowTrackIdOnly { get; private set; }
-        public int UpdateFrequency { get; private set; }
+        public bool AutoUpdate { get; private set; }
         private Dictionary<string, ExportCommand> _exportCommands;
 
         public IReadOnlyDictionary<string, ExportCommand> ExportCommands
@@ -33,7 +33,7 @@ namespace QSP.Common.Options
             bool EnableWindOptimizedRoute,
             bool HideDctInRoute,
             bool ShowTrackIdOnly,
-            int UpdateFrequency,
+            bool AutoUpdate,
             Dictionary<string, ExportCommand> ExportCommands)
         {
             this.NavDataLocation = NavDataLocation;
@@ -43,7 +43,7 @@ namespace QSP.Common.Options
             this.EnableWindOptimizedRoute = EnableWindOptimizedRoute;
             this.HideDctInRoute = HideDctInRoute;
             this.ShowTrackIdOnly = ShowTrackIdOnly;
-            this.UpdateFrequency = UpdateFrequency;
+            this.AutoUpdate = AutoUpdate;
             this._exportCommands = ExportCommands;
         }
                 
@@ -64,7 +64,7 @@ namespace QSP.Common.Options
                 EnableWindOptimizedRoute.Serialize("WindOptimizedRoute"),
                 HideDctInRoute.Serialize("HideDctInRoute"),
                 ShowTrackIdOnly.Serialize("ShowTrackIdOnly"),
-                UpdateFrequency.Serialize("UpdateFrequency"),
+                AutoUpdate.Serialize("AutoUpdate"),
                 exportOptions
             });
         }
@@ -83,7 +83,7 @@ namespace QSP.Common.Options
                         item.GetBool("WindOptimizedRoute"),
                 () => d.HideDctInRoute = item.GetBool("HideDctInRoute"),
                 () => d.ShowTrackIdOnly = item.GetBool("ShowTrackIdOnly"),
-                () => d.UpdateFrequency = item.GetInt("UpdateFrequency"),
+                () => d.AutoUpdate = item.GetBool("AutoUpdate"),
                 () => d._exportCommands =
                     item.Element("ExportOptions")
                         .Elements("KeyValuePair")
@@ -112,7 +112,7 @@ namespace QSP.Common.Options
                     true,
                     false,
                     false,
-                    0,
+                    true,
                     new Dictionary<string, ExportCommand>());
             }
         }

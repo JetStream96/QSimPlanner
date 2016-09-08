@@ -107,7 +107,7 @@ namespace QSP.UI.Forms.Options
                 AppSettings.EnableWindOptimizedRoute;
             hideDctCheckBox.Checked = AppSettings.HideDctInRoute;
             showTrackIdOnlyCheckBox.Checked = AppSettings.ShowTrackIdOnly;
-            updateFreqComboBox.SelectedIndex = AppSettings.UpdateFrequency;
+            updateFreqComboBox.SelectedIndex = AppSettings.AutoUpdate ? 0 : 1;
             exportController.SetExports();
         }
 
@@ -283,7 +283,7 @@ namespace QSP.UI.Forms.Options
                 WindOptimizedRouteCheckBox.Checked,
                 hideDctCheckBox.Checked,
                 showTrackIdOnlyCheckBox.Checked,
-                updateFreqComboBox.SelectedIndex,
+                updateFreqComboBox.SelectedIndex == 0,
                 exportController.GetCommands());
         }
 
