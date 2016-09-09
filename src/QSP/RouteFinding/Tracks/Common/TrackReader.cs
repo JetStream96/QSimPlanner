@@ -154,6 +154,7 @@ namespace QSP.RouteFinding.Tracks.Common
                     result.Append(s + " ");
                 }
             }
+
             return result.ToString();
         }
     }

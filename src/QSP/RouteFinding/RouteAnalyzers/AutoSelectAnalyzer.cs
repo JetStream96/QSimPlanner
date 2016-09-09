@@ -21,6 +21,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
     //
     // It will try all waypoints with matching ident until the route is 
     // successfully parsed. 
+    //
+    // Route cannot be empty.
 
     public class AutoSelectAnalyzer
     {
@@ -41,14 +43,10 @@ namespace QSP.RouteFinding.RouteAnalyzers
             this.wptList = wptList;
         }
 
-        // Can throws exception.
+        // May throw exception.
         public Route Analyze()
         {
-            if (route.Length == 0)
-            {
-                return new Route();
-            }
-
+            if (route.Length == 0) throw new ArgumentException();
             var firstWptCandidates = wptList.FindAllById(route[0]);
 
             if (firstWptCandidates.Count == 0)

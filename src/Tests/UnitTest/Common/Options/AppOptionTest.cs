@@ -22,7 +22,7 @@ namespace UnitTest.Common.Options
             };
 
             var option = new AppOptions(
-                "C:\\123", true, true, false, false, true, false, 0, cmds);
+                "C:\\123", true, true, false, false, true, false, true, cmds);
 
             var elem = option.Serialize("options");
             var deserialized = AppOptions.Deserialize(elem);
