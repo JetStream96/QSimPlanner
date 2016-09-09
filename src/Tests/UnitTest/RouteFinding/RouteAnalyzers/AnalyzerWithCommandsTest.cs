@@ -214,5 +214,25 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
         #endregion
 
+        #region "Direct"
+        
+        [Test]
+        public void EmptyRouteShouldReturnDirectRoute()
+        {
+            // Setup
+            var analyzer = GetAnalyzer2();
+
+            // Invoke
+            var route = analyzer.Analyze();
+
+            // Assert
+            var directRoute = GetRoute(
+                new Waypoint("ABCD05L", 25.0, 120.0), "DCT", -1.0,
+                new Waypoint("EFGH07L", 43.0, 107.0));
+
+            Assert.IsTrue(route.Equals(directRoute));
+        }
+        
+        #endregion
     }
 }

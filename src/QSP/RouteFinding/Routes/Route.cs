@@ -16,50 +16,35 @@ namespace QSP.RouteFinding.Routes
         /// <exception cref="NullReferenceException"></exception>
         public Waypoint FirstWaypoint
         {
-            get
-            {
-                return First.Value.Waypoint;
-            }
+            get { return First.Value.Waypoint; }
         }
 
         /// <exception cref="NullReferenceException"></exception>
         public Waypoint LastWaypoint
         {
-            get
-            {
-                return Last.Value.Waypoint;
-            }
+            get { return Last.Value.Waypoint; }
         }
 
         public LinkedListNode<RouteNode> First
         {
-            get
-            {
-                return Nodes.First;
-            }
+            get { return Nodes.First; }
         }
 
         public LinkedListNode<RouteNode> Last
         {
-            get
-            {
-                return Nodes.Last;
-            }
+            get { return Nodes.Last; }
         }
 
         public int Count
         {
-            get
-            {
-                return Nodes.Count;
-            }
+            get { return Nodes.Count; }
         }
 
         public Route()
         {
             Nodes = new LinkedList<RouteNode>();
         }
-
+        
         public Route(Route item)
         {
             Nodes = new LinkedList<RouteNode>(item);

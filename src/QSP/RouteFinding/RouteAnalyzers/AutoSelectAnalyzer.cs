@@ -46,7 +46,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
         // May throw exception.
         public Route Analyze()
         {
-            if (route.Length == 0) throw new ArgumentException();
+            if (route.Length == 0)
+            {
+                throw new ArgumentException("Route cannot be empty.");
+            }
+
             var firstWptCandidates = wptList.FindAllById(route[0]);
 
             if (firstWptCandidates.Count == 0)

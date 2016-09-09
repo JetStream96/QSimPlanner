@@ -34,6 +34,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
     //        one of the STAR, must exist in wptList.
     //    (6) "AUTO" or "RAND" can only appear before or after ICAO, or 
     //        between two waypoints.
+    //    (7) If the route is empty, a direct route from origin to 
+    //        destination runway is returned.
     //             
     // 4. All cases of SID/STAR, specified in SidAdder/StarAdder are 
     //    supported. 
@@ -81,12 +83,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
             SidCollection sids,
             StarCollection stars)
         {
-            if (route.Length == 0)
-            {
-                throw new ArgumentException(
-                    "Route input should have at least 1 elements.");
-            }
-
             EnsureConsectiveCommands(route);
 
             this.route = route;
@@ -103,10 +99,19 @@ namespace QSP.RouteFinding.RouteAnalyzers
         public Route Analyze()
         {
             SetRwyWpts();
+            if (route.Length == 0) return DirectRoute();
             var subRoutes = GroupEntries(route);
             var analyzed = ComputeRoutes(subRoutes);
             FillCommands(subRoutes, analyzed);
             return ConnectAll(analyzed);
+        }
+
+        private Route DirectRoute()
+        {
+            var route = new Route();
+            route.AddLastWaypoint(origRwyWpt);
+            route.AddLastWaypoint(destRwyWpt, "DCT");
+            return route;
         }
 
         private static void EnsureConsectiveCommands(string[] route)
