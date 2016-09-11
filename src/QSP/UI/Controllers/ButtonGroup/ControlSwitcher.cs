@@ -8,6 +8,7 @@ namespace QSP.UI.Controllers.ButtonGroup
     {
         private BtnControlPair[] _pairings;
         private bool _subscribed;
+        private Panel panel;
 
         public IEnumerable<BtnControlPair> Pairings
         {
@@ -42,8 +43,9 @@ namespace QSP.UI.Controllers.ButtonGroup
             }
         }
 
-        public ControlSwitcher(params BtnControlPair[] pairings)
+        public ControlSwitcher(Panel panel, params BtnControlPair[] pairings)
         {
+            this.panel = panel;
             this._pairings = pairings;
             _subscribed = false;
         }
@@ -54,6 +56,14 @@ namespace QSP.UI.Controllers.ButtonGroup
             {
                 i.Control.Visible = (i.Button == sender);
             }
+
+            // Workaround for windows scrollbar bug. Without this the 
+            // scrollbars will appear even if the form is large enough to
+            // fit the contents.
+            panel.AutoScroll = false;
+            panel.HorizontalScroll.Visible = false;
+            panel.VerticalScroll.Visible = false;
+            panel.AutoScroll = true;
         }
 
         public class BtnControlPair

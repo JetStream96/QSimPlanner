@@ -58,19 +58,29 @@ namespace QSP.UI.Forms
         private bool failedToLoadNavDataAtStartUp = false;
 
         private AppOptions appSettings
-        { get { return appOptionsLocator.Instance; } }
+        {
+            get { return appOptionsLocator.Instance; }
+        }
 
         private AirportManager airportList
-        { get { return airwayNetwork.AirportList; } }
+        {
+            get { return airwayNetwork.AirportList; }
+        }
 
         private WaypointList wptList
-        { get { return airwayNetwork.WptList; } }
+        {
+            get { return airwayNetwork.WptList; }
+        }
 
         private TrackInUseCollection tracksInUse
-        { get { return airwayNetwork.TracksInUse; } }
+        {
+            get { return airwayNetwork.TracksInUse; }
+        }
 
         private CountryCodeManager countryCodes
-        { get { return countryCodesLocator.Instance; } }
+        {
+            get { return countryCodesLocator.Instance; }
+        }
 
         private IEnumerable<UserControl> Pages
         {
@@ -304,10 +314,6 @@ namespace QSP.UI.Forms
             AddToolTip();
 
             FormClosing += CloseMain;
-
-            panel1.HorizontalScroll.Enabled = false;
-            panel1.HorizontalScroll.Visible = false;
-            panel1.AutoScroll = true;
         }
 
         private void RefreshAirportInfoSelection()
@@ -388,6 +394,7 @@ namespace QSP.UI.Forms
         private void EnableViewControl()
         {
             viewControl = new ControlSwitcher(
+                panel1,
                 new BtnControlPair(acConfigBtn, acMenu),
                 new BtnControlPair(fuelBtn, fuelMenu),
                 new BtnControlPair(toBtn, toMenu),
