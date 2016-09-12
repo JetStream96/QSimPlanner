@@ -48,7 +48,7 @@ namespace QSP.AircraftProfiles.Configs
         public static AircraftConfigItem Load(string filePath)
         {
             var doc = XDocument.Load(filePath);
-            return AircraftConfigItem.Deserialize(doc.Root);
+            return new AircraftConfigItem.Serializer().Deserialize(doc.Root);
         }
         
         private static string Message(List<AircraftConfig> item)

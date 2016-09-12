@@ -30,14 +30,16 @@ namespace QSP.Common.Options
         public static AppOptions ReadFromFile(string filePath = DefaultPath)
         {
             var doc = XDocument.Load(filePath);
-            return AppOptions.Deserialize(doc.Root);
+            return new AppOptions.Serializer().Deserialize(doc.Root);
         }
 
         public static void SaveToFile(
             AppOptions settings, string filePath = DefaultPath)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-            var doc = new XDocument(settings.Serialize("AppOptions"));
+            var serializer = new AppOptions.Serializer();
+            var elem = serializer.Serialize(settings, "AppOptions");
+            var doc = new XDocument(elem);
             File.WriteAllText(filePath, doc.ToString());
         }
 

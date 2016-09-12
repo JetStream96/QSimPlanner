@@ -8,7 +8,7 @@ namespace QSP.LibraryExtension.XmlSerialization
         {
             return new XElement(key, value.ToString());
         }
-
+        
         public static string GetString(this XElement elem, string key)
         {
             return elem.Element(key).Value;

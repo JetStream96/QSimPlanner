@@ -1,13 +1,11 @@
-﻿using QSP.Utilities.Units;
+﻿using QSP.LibraryExtension.XmlSerialization;
+using QSP.Utilities.Units;
 using System.Xml.Linq;
-using static System.Math;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
+using static System.Math;
 
 namespace QSP.AircraftProfiles.Configs
 {
-    // TODO: Implement interface IXSerializable and IXSerializer, to 
-    // seperate the class and serialization methods.
-    //
     public class AircraftConfigItem
     {
         public static readonly string NoFuelTOLdgProfileText = "None";
@@ -65,41 +63,46 @@ namespace QSP.AircraftProfiles.Configs
                 Abs(other.MaxFuelKg-MaxFuelKg) <= delta &&
                 other.WtUnit == WtUnit;
         }
-
-        public XElement Serialize(string name)
+        
+        public class Serializer : IXSerializer<AircraftConfigItem>
         {
-            var elem = new XElement[]
+            public Serializer() { }
+
+            public AircraftConfigItem Deserialize(XElement elem)
             {
-                AC.Serialize("AC"),
-                Registration.Serialize("Registration"),
-                FuelProfile.Serialize("FuelProfile"),
-                TOProfile.Serialize("TOProfile"),
-                LdgProfile.Serialize("LdgProfile"),
-                OewKg.Serialize("OewKg"),
-                MaxTOWtKg.Serialize("MaxTOWtKg"),
-                MaxLdgWtKg.Serialize("MaxLdgWtKg"),
-                MaxZfwKg.Serialize("MaxZfwKg"),
-                MaxFuelKg.Serialize("MaxFuelKg"),
-                ((int)WtUnit).Serialize("WtUnit")
-            };
+                return new AircraftConfigItem(
+                    elem.GetString("AC"),
+                    elem.GetString("Registration"),
+                    elem.GetString("FuelProfile"),
+                    elem.GetString("TOProfile"),
+                    elem.GetString("LdgProfile"),
+                    elem.GetDouble("OewKg"),
+                    elem.GetDouble("MaxTOWtKg"),
+                    elem.GetDouble("MaxLdgWtKg"),
+                    elem.GetDouble("MaxZfwKg"),
+                    elem.GetDouble("MaxFuelKg"),
+                    (WeightUnit)elem.GetInt("WtUnit"));
+            }
 
-            return new XElement(name, elem);
-        }
+            public XElement Serialize(AircraftConfigItem item, string name)
+            {
+                var elem = new XElement[]
+                {
+                    item.AC.Serialize("AC"),
+                    item.Registration.Serialize("Registration"),
+                    item.FuelProfile.Serialize("FuelProfile"),
+                    item.TOProfile.Serialize("TOProfile"),
+                    item.LdgProfile.Serialize("LdgProfile"),
+                    item.OewKg.Serialize("OewKg"),
+                    item.MaxTOWtKg.Serialize("MaxTOWtKg"),
+                    item.MaxLdgWtKg.Serialize("MaxLdgWtKg"),
+                    item.MaxZfwKg.Serialize("MaxZfwKg"),
+                    item.MaxFuelKg.Serialize("MaxFuelKg"),
+                    ((int)item.WtUnit).Serialize("WtUnit")
+                };
 
-        public static AircraftConfigItem Deserialize(XElement item)
-        {
-            return new AircraftConfigItem(
-                item.GetString("AC"),
-                item.GetString("Registration"),
-                item.GetString("FuelProfile"),
-                item.GetString("TOProfile"),
-                item.GetString("LdgProfile"),
-                item.GetDouble("OewKg"),
-                item.GetDouble("MaxTOWtKg"),
-                item.GetDouble("MaxLdgWtKg"),
-                item.GetDouble("MaxZfwKg"),
-                item.GetDouble("MaxFuelKg"),
-                (WeightUnit)item.GetInt("WtUnit"));
+                return new XElement(name, elem);
+            }
         }
     }
 }

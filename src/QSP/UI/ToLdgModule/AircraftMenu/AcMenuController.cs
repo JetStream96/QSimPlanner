@@ -225,7 +225,9 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         {
             try
             {
-                var doc = new XDocument(config.Serialize("Config"));
+                var serializer = new AircraftConfigItem.Serializer();
+                var elem = serializer.Serialize(config, "Config");
+                var doc = new XDocument(elem);
                 File.WriteAllText(filePath, doc.ToString());
                 return true;
             }

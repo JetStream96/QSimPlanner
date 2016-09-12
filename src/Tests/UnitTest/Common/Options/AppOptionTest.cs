@@ -24,8 +24,9 @@ namespace UnitTest.Common.Options
             var option = new AppOptions(
                 "C:\\123", true, true, false, false, true, false, true, cmds);
 
-            var elem = option.Serialize("options");
-            var deserialized = AppOptions.Deserialize(elem);
+            var serializer = new AppOptions.Serializer();
+            var elem = serializer.Serialize(option, "options");
+            var deserialized = serializer.Deserialize(elem);
 
             var o = option;
             var d = deserialized;
@@ -48,10 +49,11 @@ namespace UnitTest.Common.Options
         public void DeserializeMissingElementShouldContinue()
         {
             var option = AppOptions.Default;
-            var elem = option.Serialize("options");
+            var serializer = new AppOptions.Serializer();
+            var elem = serializer.Serialize(option, "options");
             elem.Element("AutoDLTracks").Remove();
 
-            var deserialized = AppOptions.Deserialize(elem);
+            var deserialized = serializer.Deserialize(elem);
 
             var o = option;
             var d = deserialized;
