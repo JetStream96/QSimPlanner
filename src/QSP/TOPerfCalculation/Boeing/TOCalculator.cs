@@ -263,7 +263,7 @@ namespace QSP.TOPerfCalculation.Boeing
 
         private double RwyPressureAltFt()
         {
-            return CoversionTools.PressureAltitudeFt(para.RwyElevationFt, para.QNH);
+            return ConversionTools.PressureAltitudeFt(para.RwyElevationFt, para.QNH);
         }
 
     }

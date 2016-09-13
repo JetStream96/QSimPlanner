@@ -3,7 +3,7 @@ using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 using System;
 using static QSP.MathTools.Angles;
-using static QSP.AviationTools.CoversionTools;
+using static QSP.AviationTools.ConversionTools;
 using static QSP.AviationTools.Constants;
 
 namespace QSP.UI.ToLdgModule.LandingPerf.FormControllers

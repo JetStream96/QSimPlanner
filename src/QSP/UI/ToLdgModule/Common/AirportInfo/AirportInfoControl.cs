@@ -127,7 +127,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
                 rwyHeadingTxtBox.Text = heading.PadLeft(3, '0');
 
                 int elevationOppositeRwyFt = takeoffAirport.RwyElevationFt(
-                    CoversionTools.RwyIdentOppositeDir(rwyComboBox.Text));
+                    RwyIdentConversion.RwyIdentOppositeDir(rwyComboBox.Text));
 
                 SetSlope((elevationOppositeRwyFt - elevationFt) * 
                     100.0 / lengthFt);

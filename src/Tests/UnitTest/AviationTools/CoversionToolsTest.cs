@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using static QSP.AviationTools.CoversionTools;
+using static QSP.AviationTools.ConversionTools;
 using static UnitTest.Common.Utilities;
 
 namespace UnitTest.AviationToolsTest
@@ -8,13 +8,6 @@ namespace UnitTest.AviationToolsTest
     [TestFixture]
     public class CoversionToolsTest
     {
-        [Test]
-        public void MachToTasTest()
-        {
-            Assert.IsTrue(WithinPrecisionPercent(491.45, MachToTas(0.8, 20000.0), 0.1));
-            Assert.IsTrue(WithinPrecisionPercent(413.138, MachToTas(0.72, 36000.0), 0.1));
-        }
-
         [Test]
         public void IsaTempTest()
         {
@@ -32,7 +25,7 @@ namespace UnitTest.AviationToolsTest
         [Test]
         public void AltToPressureMbTest()
         {
-            Assert.IsTrue(WithinPrecisionPercent(218.721, AltToPressureMb(36800.0), 1.0));
+            Assert.IsTrue(WithinPrecisionPercent(218.721, PressureMb(36800.0), 1.0));
         }
 
         [Test]
@@ -51,15 +44,6 @@ namespace UnitTest.AviationToolsTest
         public void KtasTest()
         {
             Assert.IsTrue(WithinPrecisionPercent(498.0, Ktas(280.0, 34500.0), 1.0));
-        }
-
-        [Test]
-        public void RwyIdentOppositeDirTest()
-        {
-            Assert.AreEqual("18", RwyIdentOppositeDir("36"));
-            Assert.AreEqual("15", RwyIdentOppositeDir("33"));
-            Assert.AreEqual("19", RwyIdentOppositeDir("01"));
-            Assert.AreEqual("23L", RwyIdentOppositeDir("05R"));
         }
 
         [Test]

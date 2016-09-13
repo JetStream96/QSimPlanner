@@ -1,5 +1,5 @@
 ﻿using QSP.LandingPerfCalculation.Boeing.PerfData;
-using static QSP.AviationTools.CoversionTools;
+using static QSP.AviationTools.ConversionTools;
 
 namespace QSP.LandingPerfCalculation.Boeing
 {

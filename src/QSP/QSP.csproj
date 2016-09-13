@@ -92,12 +92,14 @@
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinuteSecond.cs" />
     <Compile Include="AviationTools\Coordinates\Formatter.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDecimal.cs" />
-    <Compile Include="AviationTools\CoversionTools.cs" />
+    <Compile Include="AviationTools\ConversionTools.cs" />
     <Compile Include="AviationTools\Coordinates\Constants.cs" />
     <Compile Include="AviationTools\Coordinates\Format5Letter.cs" />
     <Compile Include="AviationTools\Coordinates\Format7Letter.cs" />
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinute.cs" />
+    <Compile Include="AviationTools\RwyIdentConversion.cs" />
+    <Compile Include="AviationTools\SpeedConversion.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
     <Compile Include="FuelCalculation\Calculators\AlternateFuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculators\CalculationResult.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="LibraryExtension\Regexes.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\Interfaces.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\SerializationHelper.cs" />
+    <Compile Include="MathTools\Integers.cs" />
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />

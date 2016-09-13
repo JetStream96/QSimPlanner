@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using static QSP.AviationTools.CoversionTools;
+using static QSP.AviationTools.ConversionTools;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Factories.ToolTipFactory;
 

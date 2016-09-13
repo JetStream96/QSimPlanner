@@ -150,7 +150,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
 
                 if (elements.tempUnit.SelectedIndex == 1) // deg F
                 {
-                    TempCelsius = AviationTools.CoversionTools.ToCelsius(TempCelsius);
+                    TempCelsius = AviationTools.ConversionTools.ToCelsius(TempCelsius);
                 }
             }
             catch

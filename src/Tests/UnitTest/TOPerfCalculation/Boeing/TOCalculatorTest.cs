@@ -3,7 +3,7 @@ using QSP.TOPerfCalculation.Boeing;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using System;
 using System.Xml.Linq;
-using static QSP.AviationTools.CoversionTools;
+using static QSP.AviationTools.ConversionTools;
 using static QSP.MathTools.Angles;
 
 namespace UnitTest.TOPerfCalculation.Boeing

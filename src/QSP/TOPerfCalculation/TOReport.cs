@@ -87,7 +87,7 @@ namespace QSP.TOPerfCalculation
         private int TempConvertUnit(int tempCelsuis, TemperatureUnit tempUnit)
         {
             return tempUnit == TemperatureUnit.Fahrenheit ?
-                Convert.ToInt32(CoversionTools.ToFahrenheit(tempCelsuis)) :
+                Convert.ToInt32(ConversionTools.ToFahrenheit(tempCelsuis)) :
                 tempCelsuis;
         }
 

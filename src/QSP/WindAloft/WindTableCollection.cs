@@ -20,7 +20,7 @@ namespace QSP.WindAloft
 
         public WindUV GetWindUV(double lat, double lon, double altitudeFt)
         {
-            double press = CoversionTools.AltToPressureMb(altitudeFt);
+            double press = ConversionTools.PressureMb(altitudeFt);
             int index = GetIndicesForInterpolation(press);
 
             double uWind = Interpolate1D.Interpolate(

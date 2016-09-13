@@ -40,7 +40,7 @@ namespace QSP.FuelCalculation.Tables
                 return SpeedLimit10000Ft;
             }
 
-            return CoversionTools.MachToTas(CruizeMachNumber, altFT);
+            return SpeedConversion.TasKnots(CruizeMachNumber, altFT);
         }
     }
 }
