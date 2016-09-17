@@ -78,12 +78,13 @@ namespace QSP.UI.Forms.Options
             {
                 i.BrowserBtn.Click += (sender, e) =>
                 {
-                    var MyFolderBrowser = new FolderBrowserDialog();
-                    var dlgResult = MyFolderBrowser.ShowDialog();
+                    var dialog = new FolderBrowserDialog();
+                    dialog.SelectedPath = i.TxtBox.Text;
+                    var dlgResult = dialog.ShowDialog();
 
                     if (dlgResult == DialogResult.OK)
                     {
-                        i.TxtBox.Text = MyFolderBrowser.SelectedPath;
+                        i.TxtBox.Text = dialog.SelectedPath;
                     }
                 };
             }
