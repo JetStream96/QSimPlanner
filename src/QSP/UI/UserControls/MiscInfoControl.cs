@@ -76,13 +76,19 @@ namespace QSP.UI.UserControls
         private async void downloadMetarBtnClick(object sender, EventArgs e)
         {
             var icao = metarToFindTxtBox.Text.Trim().ToUpper();
-            RichTextBox1.Text = await Task.Factory.StartNew(() =>
+            matarTafRichTxtBox.Text = await Task.Factory.StartNew(() =>
             MetarDownloader.TryGetMetarTaf(icao));
+            SetUpdateTime();
+        }
+
+        private void SetUpdateTime()
+        {
+            metarLastUpdatedLbl.Text = $"Last Updated : {DateTime.Now}";
         }
 
         private async void UpdateAllMetarTaf(object sender, EventArgs e)
         {
-            updateMetarBtn.Enabled = false;
+            downloadAllBtn.Enabled = false;
             var orig = OrigTask();
             var dest = DestTask();
             var altn = AltnTask().ToList();
@@ -99,9 +105,9 @@ namespace QSP.UI.UserControls
 
             var result = await Task.WhenAll(allTasks);
 
-            metarRichTxtBox.Text = string.Join("\n\n", result);
-            metarLastUpdatedLbl.Text = $"Last Updated : {DateTime.Now}";
-            updateMetarBtn.Enabled = true;
+            matarTafRichTxtBox.Text = string.Join("\n\n", result);
+            SetUpdateTime();
+            downloadAllBtn.Enabled = true;
         }
 
         private Task<string> OrigTask()

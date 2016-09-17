@@ -30,21 +30,16 @@
         {
             this.TabControl1 = new System.Windows.Forms.TabControl();
             this.TabPage1 = new System.Windows.Forms.TabPage();
-            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabPage2 = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.GroupBox17 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.metarToFindTxtBox = new System.Windows.Forms.TextBox();
-            this.downloadMetarBtn = new System.Windows.Forms.Button();
-            this.RichTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.GroupBox18 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.updateMetarBtn = new System.Windows.Forms.Button();
             this.metarLastUpdatedLbl = new System.Windows.Forms.Label();
-            this.metarRichTxtBox = new System.Windows.Forms.RichTextBox();
+            this.downloadAllBtn = new System.Windows.Forms.Button();
+            this.matarTafRichTxtBox = new System.Windows.Forms.RichTextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.TabPage6 = new System.Windows.Forms.TabPage();
             this.GroupBox19 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
@@ -53,16 +48,12 @@
             this.updateDesForcastBtn = new System.Windows.Forms.Button();
             this.desForcastLastUpdatedLbl = new System.Windows.Forms.Label();
             this.desForcastRichTxtBox = new System.Windows.Forms.RichTextBox();
+            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabControl1.SuspendLayout();
             this.TabPage1.SuspendLayout();
             this.TabPage2.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.GroupBox17.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.GroupBox18.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.TabPage6.SuspendLayout();
             this.GroupBox19.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
@@ -92,19 +83,9 @@
             this.TabPage1.Text = "Airport Data";
             this.TabPage1.UseVisualStyleBackColor = true;
             // 
-            // airportMapControl
-            // 
-            this.airportMapControl.Airports = null;
-            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.airportMapControl.BrowserEnabled = false;
-            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
-            this.airportMapControl.Name = "airportMapControl";
-            this.airportMapControl.Size = new System.Drawing.Size(1024, 670);
-            this.airportMapControl.StaticMapEnabled = false;
-            this.airportMapControl.TabIndex = 0;
-            // 
             // TabPage2
             // 
+            this.TabPage2.Controls.Add(this.tableLayoutPanel5);
             this.TabPage2.Controls.Add(this.tableLayoutPanel1);
             this.TabPage2.Location = new System.Drawing.Point(4, 26);
             this.TabPage2.Name = "TabPage2";
@@ -114,175 +95,136 @@
             this.TabPage2.Text = "METAR/TAF";
             this.TabPage2.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.GroupBox17, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.GroupBox18, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1088, 641);
-            this.tableLayoutPanel1.TabIndex = 81;
-            // 
-            // GroupBox17
-            // 
-            this.GroupBox17.Controls.Add(this.tableLayoutPanel5);
-            this.GroupBox17.Location = new System.Drawing.Point(3, 3);
-            this.GroupBox17.Name = "GroupBox17";
-            this.GroupBox17.Size = new System.Drawing.Size(1082, 229);
-            this.GroupBox17.TabIndex = 79;
-            this.GroupBox17.TabStop = false;
-            this.GroupBox17.Text = "Search";
-            // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 1;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel4, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.RichTextBox1, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.matarTafRichTxtBox, 0, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 21);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1076, 205);
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1085, 642);
             this.tableLayoutPanel5.TabIndex = 80;
             // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.AutoSize = true;
             this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnCount = 5;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.metarToFindTxtBox, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.downloadMetarBtn, 1, 0);
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.button1, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.metarToFindTxtBox, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.metarLastUpdatedLbl, 4, 0);
+            this.tableLayoutPanel4.Controls.Add(this.downloadAllBtn, 2, 0);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(285, 38);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(795, 38);
             this.tableLayoutPanel4.TabIndex = 79;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 7);
+            this.label1.Margin = new System.Windows.Forms.Padding(3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 23);
+            this.label1.TabIndex = 83;
+            this.label1.Text = "ICAO";
+            // 
+            // button1
+            // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.button1.AutoSize = true;
+            this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button1.BackColor = System.Drawing.SystemColors.Control;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(165, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(165, 32);
+            this.button1.TabIndex = 82;
+            this.button1.Text = "View Selected Airport";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.downloadMetarBtnClick);
             // 
             // metarToFindTxtBox
             // 
+            this.metarToFindTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.metarToFindTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.metarToFindTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metarToFindTxtBox.Location = new System.Drawing.Point(3, 3);
+            this.metarToFindTxtBox.Location = new System.Drawing.Point(59, 4);
             this.metarToFindTxtBox.Name = "metarToFindTxtBox";
             this.metarToFindTxtBox.Size = new System.Drawing.Size(100, 30);
             this.metarToFindTxtBox.TabIndex = 77;
-            // 
-            // downloadMetarBtn
-            // 
-            this.downloadMetarBtn.AutoSize = true;
-            this.downloadMetarBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.downloadMetarBtn.BackColor = System.Drawing.SystemColors.Control;
-            this.downloadMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.downloadMetarBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.downloadMetarBtn.Location = new System.Drawing.Point(109, 3);
-            this.downloadMetarBtn.Name = "downloadMetarBtn";
-            this.downloadMetarBtn.Size = new System.Drawing.Size(173, 32);
-            this.downloadMetarBtn.TabIndex = 78;
-            this.downloadMetarBtn.Text = "Download METAR/TAF";
-            this.downloadMetarBtn.UseVisualStyleBackColor = false;
-            this.downloadMetarBtn.Click += new System.EventHandler(this.downloadMetarBtnClick);
-            // 
-            // RichTextBox1
-            // 
-            this.RichTextBox1.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichTextBox1.Location = new System.Drawing.Point(3, 47);
-            this.RichTextBox1.Name = "RichTextBox1";
-            this.RichTextBox1.Size = new System.Drawing.Size(1066, 155);
-            this.RichTextBox1.TabIndex = 0;
-            this.RichTextBox1.Text = "";
-            // 
-            // GroupBox18
-            // 
-            this.GroupBox18.Controls.Add(this.tableLayoutPanel3);
-            this.GroupBox18.Location = new System.Drawing.Point(3, 238);
-            this.GroupBox18.Name = "GroupBox18";
-            this.GroupBox18.Size = new System.Drawing.Size(1082, 400);
-            this.GroupBox18.TabIndex = 80;
-            this.GroupBox18.TabStop = false;
-            this.GroupBox18.Text = "Monitor";
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.metarRichTxtBox, 0, 1);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 21);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1076, 376);
-            this.tableLayoutPanel3.TabIndex = 83;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.updateMetarBtn, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.metarLastUpdatedLbl, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(661, 3);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 3, 8, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(407, 41);
-            this.tableLayoutPanel2.TabIndex = 82;
-            // 
-            // updateMetarBtn
-            // 
-            this.updateMetarBtn.AutoSize = true;
-            this.updateMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.updateMetarBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updateMetarBtn.Image = global::QSP.Properties.Resources.processing9;
-            this.updateMetarBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.updateMetarBtn.Location = new System.Drawing.Point(296, 0);
-            this.updateMetarBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.updateMetarBtn.Name = "updateMetarBtn";
-            this.updateMetarBtn.Size = new System.Drawing.Size(111, 41);
-            this.updateMetarBtn.TabIndex = 80;
-            this.updateMetarBtn.Text = "Refresh";
-            this.updateMetarBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.updateMetarBtn.UseVisualStyleBackColor = true;
-            this.updateMetarBtn.Click += new System.EventHandler(this.UpdateAllMetarTaf);
+            this.metarToFindTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // metarLastUpdatedLbl
             // 
             this.metarLastUpdatedLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.metarLastUpdatedLbl.AutoSize = true;
             this.metarLastUpdatedLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metarLastUpdatedLbl.Location = new System.Drawing.Point(3, 9);
+            this.metarLastUpdatedLbl.Location = new System.Drawing.Point(502, 7);
             this.metarLastUpdatedLbl.Margin = new System.Windows.Forms.Padding(3);
             this.metarLastUpdatedLbl.Name = "metarLastUpdatedLbl";
             this.metarLastUpdatedLbl.Size = new System.Drawing.Size(290, 23);
             this.metarLastUpdatedLbl.TabIndex = 81;
             this.metarLastUpdatedLbl.Text = "Last Updated : 7/18/2016 6:55:48 PM";
             // 
-            // metarRichTxtBox
+            // downloadAllBtn
             // 
-            this.metarRichTxtBox.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metarRichTxtBox.Location = new System.Drawing.Point(3, 50);
-            this.metarRichTxtBox.Name = "metarRichTxtBox";
-            this.metarRichTxtBox.Size = new System.Drawing.Size(1066, 323);
-            this.metarRichTxtBox.TabIndex = 79;
-            this.metarRichTxtBox.Text = "";
+            this.downloadAllBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.downloadAllBtn.AutoSize = true;
+            this.downloadAllBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.downloadAllBtn.BackColor = System.Drawing.SystemColors.Control;
+            this.downloadAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.downloadAllBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.downloadAllBtn.Location = new System.Drawing.Point(336, 3);
+            this.downloadAllBtn.Name = "downloadAllBtn";
+            this.downloadAllBtn.Size = new System.Drawing.Size(160, 32);
+            this.downloadAllBtn.TabIndex = 78;
+            this.downloadAllBtn.Text = "View DEP/ARR/ATLN";
+            this.downloadAllBtn.UseVisualStyleBackColor = false;
+            this.downloadAllBtn.Click += new System.EventHandler(this.UpdateAllMetarTaf);
+            // 
+            // matarTafRichTxtBox
+            // 
+            this.matarTafRichTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.matarTafRichTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matarTafRichTxtBox.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.matarTafRichTxtBox.Location = new System.Drawing.Point(3, 47);
+            this.matarTafRichTxtBox.Name = "matarTafRichTxtBox";
+            this.matarTafRichTxtBox.Size = new System.Drawing.Size(1079, 592);
+            this.matarTafRichTxtBox.TabIndex = 0;
+            this.matarTafRichTxtBox.Text = "";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(0, 0);
+            this.tableLayoutPanel1.TabIndex = 81;
             // 
             // TabPage6
             // 
@@ -376,6 +318,17 @@
             this.desForcastRichTxtBox.TabIndex = 1;
             this.desForcastRichTxtBox.Text = "";
             // 
+            // airportMapControl
+            // 
+            this.airportMapControl.Airports = null;
+            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.airportMapControl.BrowserEnabled = false;
+            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
+            this.airportMapControl.Name = "airportMapControl";
+            this.airportMapControl.Size = new System.Drawing.Size(1024, 670);
+            this.airportMapControl.StaticMapEnabled = false;
+            this.airportMapControl.TabIndex = 0;
+            // 
             // MiscInfoControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -391,17 +344,10 @@
             this.TabPage1.ResumeLayout(false);
             this.TabPage2.ResumeLayout(false);
             this.TabPage2.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.GroupBox17.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            this.GroupBox18.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.TabPage6.ResumeLayout(false);
             this.GroupBox19.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
@@ -416,20 +362,14 @@
         internal System.Windows.Forms.TabControl TabControl1;
         internal System.Windows.Forms.TabPage TabPage1;
         internal System.Windows.Forms.TabPage TabPage2;
-        internal System.Windows.Forms.GroupBox GroupBox18;
-        internal System.Windows.Forms.Button updateMetarBtn;
-        internal System.Windows.Forms.RichTextBox metarRichTxtBox;
-        internal System.Windows.Forms.GroupBox GroupBox17;
         internal System.Windows.Forms.TextBox metarToFindTxtBox;
-        internal System.Windows.Forms.Button downloadMetarBtn;
-        internal System.Windows.Forms.RichTextBox RichTextBox1;
+        internal System.Windows.Forms.Button downloadAllBtn;
+        internal System.Windows.Forms.RichTextBox matarTafRichTxtBox;
         internal System.Windows.Forms.TabPage TabPage6;
         internal System.Windows.Forms.GroupBox GroupBox19;
         internal System.Windows.Forms.RichTextBox desForcastRichTxtBox;
         internal System.Windows.Forms.Label destIcaoLbl;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label metarLastUpdatedLbl;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
@@ -438,5 +378,7 @@
         internal ToLdgModule.AirportMap.AirportMapControl airportMapControl;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        internal System.Windows.Forms.Button button1;
     }
 }
