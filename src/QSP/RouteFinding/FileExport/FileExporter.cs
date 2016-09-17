@@ -43,7 +43,7 @@ namespace QSP.RouteFinding.FileExport
 
             TryCreateDirectories();
 
-            for (int i = 0; i < maxAttemptCount; i++)
+            for (int i = 1; i <= maxAttemptCount; i++)
             {
                 if (cmdToExport.All(c => !FileExist(nameBase, c, i)))
                 {
