@@ -1,5 +1,6 @@
 using System;
 using static QSP.MathTools.Doubles;
+using static QSP.MathTools.Modulo;
 
 namespace QSP.WindAloft
 {
@@ -28,7 +29,13 @@ namespace QSP.WindAloft
             var Direction =
                  -Math.Atan2(vWind, uWind) / Math.PI * 180.0 + 90 + 180;
             var Speed = Math.Sqrt(uWind * uWind + vWind * vWind);
-            return new Wind(Direction, Speed);
+            return new Wind(FitRange(Direction), Speed);
+        }
+
+        private static double FitRange(double direction)
+        {
+            direction = direction.Mod(360.0);
+            return direction == 0.0 ? 360.0 : direction;
         }
 
         public string DirectionString()

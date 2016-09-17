@@ -65,6 +65,7 @@
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
     <Compile Include="LibraryExtension\RegexesTest.cs" />
     <Compile Include="MathTools\IntergersTest.cs" />
+    <Compile Include="MathTools\ModuloTest.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1DTest.cs" />
     <Compile Include="RouteFinding\AirwayNodeFinderTest.cs" />
     <Compile Include="AviationTools\Coordinates\Format5LetterTest.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="TOPerfCalculation\Boeing\TOReportGeneratorTest.cs" />
     <Compile Include="UI\ToLdgModule\Common\AirportInfo\SlopeComboBoxControllerTest.cs" />
     <Compile Include="WindAloft\LastestDataSetFinderTest.cs" />
+    <Compile Include="WindAloft\WindTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RouteFinding\Tracks\Ausots\AusotsSample.txt">
