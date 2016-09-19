@@ -5,8 +5,13 @@ namespace QSP.AviationTools
 {
     public static class ConversionTools
     {        
+        /// <summary>
+        /// Returns the temperature at given altitude, using ICAO standard 
+        /// atmosphere.
+        /// </summary>
         public static double IsaTemp(double AltFt)
         {
+            // TODO: Change this.
             Ensure<ArgumentOutOfRangeException>(AltFt <= 65000.0);
 
             if (AltFt <= 36000.0)
@@ -38,6 +43,7 @@ namespace QSP.AviationTools
         {
             return PressureMb(altFt) * 100 * 0.0288 /
                 (8.314 * (273.0 + IsaTemp(altFt)));
+            // TODO: Change to 273.15
         }
 
         // TODO: wrong
@@ -47,8 +53,7 @@ namespace QSP.AviationTools
                 Math.Sqrt(Constants.AirDensitySeaLevel / AirDensity(altFt));
         }
 
-        
-
+        // TODO: Change to 1013.25
         public static double PressureAltitudeFt(double elevationFt, double QNH)
         {
             return elevationFt + 30.0 * (1013.0 - QNH);

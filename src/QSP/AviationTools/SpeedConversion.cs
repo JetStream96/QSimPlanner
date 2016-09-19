@@ -11,19 +11,31 @@ namespace QSP.AviationTools
 {
     public static class SpeedConversion
     {
+        // Here are some important type of airspeeds:
+        // IAS, TAS, EAS, CAS, Mach number
+        //
+        // Since CAS is IAS with corrections due to angle of attack, position 
+        // of pitot tube and gauge errors, the two values can be used 
+        // interchangably for our calculations.
+
         public static double TasKnots(double mach, double altFt)
         {
             return 39.0 * mach * Sqrt(IsaTemp(altFt) + 273.0);
         }
 
-        public static double Ktas(double kias, double altFt)
+        public static double Ktas(double kcas, double altFt)
         {
-            double eas = KcasToKeas(kias, altFt);
+            double eas = KcasToKeas(kcas, altFt);
             return eas * Sqrt(AirDensity(0.0) / AirDensity(altFt));
         }
 
         public static double KcasToKeas(double kcas, double altFt)
         {
+            // The equation are:
+            // (1) Keas * ConversionFactor(delta, mach) = Kcas
+            // (2) Keas = mach * standardSoundSpeedKnots * Sqrt(delta)
+            // Note: Equation (2) is implemented in method MachToKeas.
+
             double eas = kcas;
             var delta = Delta(altFt);
             double mach = 0.0;
@@ -39,12 +51,12 @@ namespace QSP.AviationTools
             return eas;
         }
 
-        private static double Delta(double altitudeFt)
+        public static double Delta(double altitudeFt)
         {
             return PressureMb(altitudeFt) / PressureMb(0.0);
         }
 
-        private static double ConversionFactor(double delta, double mach)
+        public static double ConversionFactor(double delta, double mach)
         {
             return 1.0 + 1.0 / 8.0 * (1.0 - delta) * mach * mach +
                     3.0 / 640.0 * (1.0 - 10.0 * delta + 9 * delta * delta)
