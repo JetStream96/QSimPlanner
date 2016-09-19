@@ -42,21 +42,12 @@ namespace QSP.AviationTools
         public static double AirDensity(double altFt)
         {
             return PressureMb(altFt) * 100 * 0.0288 /
-                (8.314 * (273.0 + IsaTemp(altFt)));
-            // TODO: Change to 273.15
+                (8.314 * (273.15 + IsaTemp(altFt)));
         }
-
-        // TODO: wrong
-        public static double Ktas(double Kias, double altFt)
-        {
-            return Kias *
-                Math.Sqrt(Constants.AirDensitySeaLevel / AirDensity(altFt));
-        }
-
-        // TODO: Change to 1013.25
+        
         public static double PressureAltitudeFt(double elevationFt, double QNH)
         {
-            return elevationFt + 30.0 * (1013.0 - QNH);
+            return elevationFt + 30.0 * (1013.25 - QNH);
         }
 
         public static double ToCelsius(double temp)

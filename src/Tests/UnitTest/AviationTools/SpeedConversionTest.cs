@@ -27,7 +27,7 @@ namespace UnitTest.AviationTools
         [Test]
         public void CasToTasTest()
         {
-            const double delta = 0.1;
+            const double delta = 0.2;
             Assert.AreEqual(393.73, Ktas(250.0, 30000.0), delta);
         }
 

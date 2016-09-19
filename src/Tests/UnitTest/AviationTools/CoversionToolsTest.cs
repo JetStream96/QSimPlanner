@@ -39,13 +39,7 @@ namespace UnitTest.AviationToolsTest
         {
             Assert.IsTrue(WithinPrecisionPercent(0.3723, AirDensity(35500.0), 1.0));
         }
-
-        [Test]
-        public void KtasTest()
-        {
-            Assert.IsTrue(WithinPrecisionPercent(498.0, Ktas(280.0, 34500.0), 1.0));
-        }
-
+        
         [Test]
         public void PressureAltitudeFtTest()
         {
