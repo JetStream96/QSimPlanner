@@ -7,21 +7,16 @@ namespace QSP.AviationTools
     {        
         /// <summary>
         /// Returns the temperature at given altitude, using ICAO standard 
-        /// atmosphere.
+        /// atmosphere. Only allows altitudes less than or equal to 65000 feet.
         /// </summary>
         public static double IsaTemp(double AltFt)
         {
-            // TODO: Change this.
             Ensure<ArgumentOutOfRangeException>(AltFt <= 65000.0);
 
-            if (AltFt <= 36000.0)
-            {
-                return 15.0 - 1.98 * AltFt / 1000.0;
-            }
-            else
-            {
-                return -56.5;
-            }
+            var temp = 15.0 - 1.98 * AltFt / 1000.0;
+            if (temp >= -56.5) return temp;
+
+            return -56.5;
         }
 
         public static double PressureMb(double altitudeFeet)
