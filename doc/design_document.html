@@ -301,6 +301,15 @@
 
 			<p>There are two values are quite special. The 737-600 has a very high decrease in field limit weight because the limiting factor is stopping distance. The wet runway increases stopping distance dramatically while doing little to help acceleration since the takeoff roll is relatively short. The 747-8F actually has increased limit weight when runway is wet. Probably this is because the limiting factor is 1.15 times the accelerate-go distance (since it has 4 engines which makes stopping distance less of an issue because the relatively large gap between V<sub>1</sub> and V<sub>R</sub>).</p>
 
+			<h4>2.2.2 OAT correction</h4>
+			<p>The temperature correction is similar to the climb limit weight correction, except the field limit weight decreases when temperature rises. The reason is reduced air density at higher temperatures making the takeoff true air speed higher. The ISA temp + 15 °C discontinuity of slope is still there, as shown in the following chart.</p>
+			<img src="images/field_lim_vs_temp.png" alt="image" style="max-width:500px;" class="images">
+
+			We analyzed the field limit weight change per 10°C, for both temperatures above or belowe ISA+15°C. The result is the below image. Numerical data can be found in A.6.
+			<img src="images/field_lim_est.png" alt="image" style="max-width:500px;" class="images">
+			<p>Apart from the 737-600, the trend is fairly predictable and can generally be reasonably accurate for simulation purposes.</p>
+
+
 			<h2>A. Appendix</h2>
 			<h3>A.1 Gross weight-fuel flow data</h3>
 			<p>Data for 737-800</p>
@@ -1552,6 +1561,50 @@
 				<td>0.1168</td>
 				<td>0.14745</td>
 				<td>0.1346</td>
+				</tr>
+			</table>
+			
+			<h3>A.6 Data for field limit weight change due to temperature</h3>
+			<table style="font-size:80%;">
+				<tr><td>Field limit weight change (ton per 10 deg C, dry rwy, 0 ft) </td>
+				<td>737-600</td>
+				<td>737-700</td>
+				<td>737-800</td>
+				<td>737-900</td>
+				<td>777-200LR</td>
+				<td>777-300ER</td>
+				<td>747-8F</td>
+				<td>787-8</td>
+				</tr>
+				<tr><td>Climb limit wt (ton, @0 ft, ISA w/ bleed on, a/i off) </td>
+				<td>68.2</td>
+				<td>73.2</td>
+				<td>81.8</td>
+				<td>0</td>
+				<td>351</td>
+				<td>373</td>
+				<td>466.7</td>
+				<td>236.956</td>
+				</tr>
+				<tr><td>@ ISA +15 or lower</td>
+				<td>3.1</td>
+				<td>0</td>
+				<td>0.9</td>
+				<td>0</td>
+				<td>4.15</td>
+				<td>3.55</td>
+				<td>5.1</td>
+				<td>0</td>
+				</tr>
+				<tr><td>@ ISA +15 or higher</td>
+				<td>3.25</td>
+				<td>0</td>
+				<td>3</td>
+				<td>0</td>
+				<td>14.5</td>
+				<td>12.8</td>
+				<td>21.95</td>
+				<td>0</td>
 				</tr>
 			</table>
 
