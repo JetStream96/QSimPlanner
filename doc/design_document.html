@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>QSimPlanner Design Document</title>
+		<style>
+		html {
+			display:table; 
+			width:100%;
+		}
+
+		body {
+            max-width: 40em;
+            line-height: 1.6em;
+			margin: 0 auto;
+        }
+
+		h3, h4{			
+			font-weight: normal;
+		}
+		
+		h2, h3, h4, h5{
+			color: black;
+		}
+		
+		.text-font{
+			font-family:Helvetica, Arial, sans-serif;
+		}
+		
+		.title-color{
+			color:rgb(60,60,60);
+		}
+		
+		.images{
+			width:auto;
+			height:auto;
+			float:top;
+			vertical-align: top;
+			display: block;
+    		margin:0 auto;
+		}
+		
+		.gray-background{
+			font-family:"Courier New";
+			padding-left:5px;
+			padding-right:5px;
+			background-color:rgb(225,225,225);
+		}
+		
+		.gray-box{
+			font-family:"Courier New";
+			padding:5px;
+			margin-left:10px;
+			background-color:rgb(225,225,225);
+		}
+		
+		ul{
+			list-style-type:square;
+		}
+
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+
+		th, td {
+			padding:3px;
+		}
+
+		table.align-right td {
+			text-align:right;
+		}
+
+		</style>
+	</head>
+	<body>
+		<div class="text-font">
+			<h1 class="title-color">QSimPlanner Design Document</h1>	
+			<h2>1. Fuel Consumption Profile Model</h2>
+			<h3>1.1 Analysis of available data</h3>
+			<p>We first analyze some of the data from FCOM (Flight Crew Operations Manual) to determine the assumptions we can make to simplify the model. A fully-detailed fuel consumption model is very time-consuming to develop, if possible at all. The project goal requires a more practical, yet reasonably precise model. That’s why we need to establish some useful assumptions.</p>
+
+			<h4>1.1.1 Gross weight-fuel flow relation</h4>
+			<p>We took some data from the FCOMs of 737-800 and 777-200LR. Here are the results.</p>
+			<img src="images/fuel_flow_738.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/fuel_flow_77l.png" alt="image" style="max-width:400px;" class="images">
+
+			<p>It’s clear that fuel flow varies almost linearly with the gross weight, even if the range of weight data is pretty large. The data used can be found in appendix.</p>
+
+			<h4>1.1.2 Flight distance – fuel required relation</h4>
+			<p>Linear approximation is a lot less accurate in this case. The differences between actual and approximated fuel requirement is more than 10 tons for 10000 nautical mile mission, with 240 tons landing weight. Below is the fuel-distance relation of 777-200LR, with landing weights of 150 and 240 tons. Numerical data is in the appendix.</p>
+			<img src="images/dis_fuel.png" alt="image" style="max-width:600px;" class="images">
+			
+			<h4>1.1.3 Cruise speed approximation</h4>
+			<p>We need to develop a method to approximate the cruise speed, with different weights. The goal is to find a simple relation which can reasonably approximate the cruise speed. The following charts are generated from FCOM data. It’s based on LRC (long range cruise) and optimum cruising altitude and airspeed. The corresponding tables can be found in appendix.</p>
+			<h5>Mach number</h5>
+			<img src="images/mach_738.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/mach_77l.png" alt="image" style="max-width:400px;" class="images">
+			
+			<h5>True Airspeed (TAS)</h5>
+			<img src="images/tas_738.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/tas_77l.png" alt="image" style="max-width:400px;" class="images">
+
+			<h5>Indicated Airspeed (IAS)</h5>
+			<img src="images/ias_738.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/ias_77l.png" alt="image" style="max-width:400px;" class="images">
+
+			<p>As we can see, IAS is the best choice among the three. In a long haul flight, the errors induced by approximation are likely to be canceled out because the aircraft usually cruises at several different altitudes.</p>
+
+			<h4>1.1.4 Optimum cruising altitude</h4>
+			<p>We plot the relation between optimum cruising altitude and weight of the aircraft. The error of linear approximation is not small, but whether it’s acceptable depends on the context.</p>
+			<img src="images/opt_alt_738.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/opt_alt_77l.png" alt="image" style="max-width:400px;" class="images">
+
+			<h3>1.2 What does not work</h3>
+			<h4>1.2.1 Payload-range diagram</h4>
+			<p>The payload-range diagram is easily accessible on the Internet, but hidden parameters which are not specified in the diagrams cause significant inaccuracy.</p>
+			<p>Most aircraft manufacturers publish airport planning manual on the Internet, including <a href="http://www.airbus.com/support/maintenance-engineering/technical-data/aircraft-characteristics/">Airbus</a>, <a href="http://www.boeing.com/commercial/airports/plan_manuals.page">Boeing</a>, Embraer, etc. The problem is that we do not know the amount of final reserve fuel, contingency fuel or distance to alternate airport used in generating these diagrams.</p>
+			<p>We will try to build a payload-range diagram from the Boeing 737-800 FCOM data, and see why the charts alone is insufficient to build an accurate fuel consumption profile. We only focus on the segment where range is limited by fuel capacity. See image below (<a href="http://adg.stanford.edu/aa241/performance/cruise.html">image source</a>).</p>
+			<img src="images/pr_diagram.png" alt="image" style="max-width:350px;" class="images">
+			<p>As a comparison, below is the payload-range chart in Boeing’s airport planning manual, for 737-800. In the test, we use 20,894 kg of fuel capacity and plot the ranges with 40 to 50 tons of zero fuel weight.</p>
+			<img src="images/pr_chart.png" alt="image" style="max-width:500px;" class="images">
+			<p>Here are the results with different parameters below. The left one assumes no final reserve, go-around, or contingency fuel. The right one assumes 45 minutes of final reserve, one go-around, and 5% contingency fuel. The results are noticeably different. At 40 tons, the ranges are different by about 16%. This is not acceptable.</p>
+			<p>The code which produced these charts are in code/PayloadRangeChart. <i>(x-axis: range in nm, y-axis: zfw in ton)</i></p>
+			<img src="images/chart_1.png" alt="image" style="max-width:350px;" class="images">
+			<img src="images/chart_2.png" alt="image" style="max-width:350px;" class="images">
+				
+			<h3>1.3 Models</h3>
+			<p>The data used in model 1, 2 and 3 below are extracted from a PFPX profile for 737-800. See appendix for numerical values produced by the models. The code which produced these charts are in code/Models.</p>
+
+			<h4>1.3.1 Model 1</h4>
+			<p>Assumptions:</p>
+			<ul>
+				<li>Fuel flow and TAS are linear functions of weight.</li>
+				<li>The aircraft travels at optimum cruising altitude in the entire flight. Climb and descent are ignored.</li>
+			</ul>
+			<p>Parameters:</p>
+			<table>
+				<tr>
+					<td></td>
+					<td>40 tons</td>
+					<td>85 tons</td>					
+				</tr>
+				<tr>
+					<td>Fuel flow (kg/hr)</td>
+					<td>1626.0</td>
+					<td>3183.8</td>
+				</tr>
+				<tr>
+					<td>TAS (knots)</td>
+					<td>430</td>
+					<td>464</td>
+				</tr>
+			</table>
+			<p>Results:</p>
+			<img src="images/m1_738_40.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/m1_738_60.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/m1_dev.png" alt="image" style="max-width:400px;" class="images">
+			<p>Because climb and descent phases are ignored, this model underestimates fuel consumption. The deviation can be more than 0.6 tons, for both landing weights.</p>
+
+			<h4>1.3.2 Model 2</h4>
+			<p>Assumptions:</p>
+			<ul>
+				<li>Cruise fuel flow, TAS, climb gradient, climb fuel flow, descend gradient and descend fuel flow are linear functions of weight.</li>
+				<li>The aircraft cruises at optimum cruising altitude.</li>
+				<li>Climb and descent speeds are constant.</li>
+			</ul>
+			<p>Parameters:</p>
+			<table>
+				<tr>
+					<td></td>
+					<td>40 tons</td>
+					<td>85 tons</td>
+				</tr>
+				<tr>
+					<td>Fuel flow (kg/hr)</td>
+					<td>1626.0</td>
+					<td>3183.8</td>
+				</tr>
+				<tr>
+					<td>TAS (knots)</td>
+					<td>430</td>
+					<td>464</td>
+				</tr>
+				<tr>
+					<td>Climb gradient</td>
+					<td>0.08997</td>
+					<td>0.04299</td>
+				</tr>
+				<tr>
+					<td>Climb fuel flow (kg/hr)</td>
+					<td>5125.0</td>
+					<td>5648.0</td>
+				</tr>
+				<tr>
+					<td>Descend gradient</td>
+					<td>0.06681</td>
+					<td>0.04661</td>
+				</tr>
+				<tr>
+					<td>Descend fuel flow (kg/hr)</td>
+					<td>785.0</td>
+					<td>865.0</td>
+				</tr>
+			</table>
+			<p>* Climb and descent airspeed are 280 knots (indicated airspeed).</p>
+			<p>Results:</p>
+			<p>The two following charts compare the fuel burn of actual and model 2. For range less than 200 nm model 2 does not produce correct result at all. This is expected since at those distances, the aircraft will not climb to its optimum cruising altitude at all, and the model does not address this situation. However, at other distances the error is smaller than model 1. For these 2 charts, the maximum errors are 0.46 and 0.29 tons, respectively. Also, at ranges larger than 500 nm, the deviation gradually increases with distance, which means the percentage of error stays roughly the same.</p>
+			<img src="images/m2_738_40.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/m2_738_60.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/m2_dev.png" alt="image" style="max-width:400px;" class="images">
+
+			<h4>1.3.3 Model 3</h4>
+			<p>Assumptions and parameters are the same as model 2, except:</p>
+			<ul>
+				<li>Flights on which the aircraft never reaches optimum cruising altitude are properly handled.</li>
+				<li>IAS is linear functions of weight instead of TAS.</li>
+			</ul>
+			<p><i>(IAS (knots) = 1.8028 * gross weight (ton)+ 143.8652)</i></p>
+			<p>Results:</p>
+			<p>The errors are mostly eliminated at short ranges, due to correct climb/descent computation. At long range the errors are decreased by using IAS for approximation.</p>
+			<img src="images/m3_dev.png" alt="image" style="max-width:400px;" class="images">
+
+			<h2>2. Takeoff performance model</h2>
+			<h3>2.1 Climb limit weight</h3>
+			<p>Some assumptions are made to simplify the computation of climb limit weights. Observe the following chart (from B777-200LR FPPM), we can see some useful relations.</p>
+			<p>At low OAT, the climb limit weight changes almost linearly with pressure altitude, except for altitudes below sea level. In those cases the linear model underestimates the limit weight, which is not a big issue.</p>
+			<p>The slope of the lines changes abruptly at ISA + 15°C. This is because the engines are designed to generate a fixed amount of thrust (called flat rated thrust) until FRT (flat rated temperature), which is usually ISA + 15°C. For more info see page 30 and 31 of this document from CFM.</p>
+			<p>After ISA + 15°C, the limit weight decreases roughly linearly with temperature, and the slope is hardly affected by the pressure altitude.</p>
+			<img src="images/climb_lim_chart.png" alt="image" style="max-width:450px;" class="images">
+
+			<p>To further investigate how the limit weight changes with respect to altitude and OAT, we analyze 6 aircraft types and plot some charts. The numerical data can be found in appendix.</p>
+			<img src="images/climb_lim_oat.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/climb_lim_alt.png" alt="image" style="max-width:400px;" class="images">
+
+			<p>The results are not particularly satisfactory, but it can be useful when the exact data cannot be found for certain aircraft types. At some point I wondered whether the thrust-to-weight ratio has some effects in the limit weight change. The answer turns out to be false.</p>
+			<img src="images/twr_vs_lim_wt.png" alt="image" style="max-width:400px;" class="images">
+
+			<p>Unfortunately sometimes we do not even know the climb limit weight at sea level, in standard conditions. In the worst case we can still estimate it with the engine thrust rating. It is inaccurate and should only be used if no other solution is available. (Data source is the same as the above charts.)</p>
+			<img src="images/thrust_vs_lim.png" alt="image" style="max-width:400px;" class="images">
+
+
+			<h3>2.2 Field limit weight</h3>
+			<p>This can be easily obtained from airport planning manual. However, several parameters need to be taken into account. How do we correct for wet runway, wind, runway slope, OAT and packs off/anti-ice on takeoffs?</p>
+			<h4>2.2.1 Wet runway correction</h4>
+			<p>This part is a particularly complicated task and there does not seem be a simple enough model for this correction. We end up doing a very simple estimation – decrease the field limit weight by a fixed percentage for all aircraft types, OAT and elevation. To make sure the computed limit weight is no larger than the actual value, 2.5% is used (see below for the origin of this number).</p>
+			<p>Existing data are analyzed below and the charts will demonstrate what approximation models do not work. The data can be found in <i>src\QSP\PerformanceData\TO.</i></p>
+			<p>First, we analyze the takeoff field limit weights and plot the difference between dry and wet runway. See the 4 charts below. The plotted curves do not include any data points with weight limited by maximum takeoff weight. There does not seem to be much commonality between these 4 charts. In particular, higher OAT generally leads to a bigger limit weight difference for the 777-300ER at 0 ft, but that’s completely untrue for the 737-800.</p>
+
+			<img src="images/77w_0.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/77w_8000.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/738_0.png" alt="image" style="max-width:400px;" class="images">
+			<img src="images/738_8000.png" alt="image" style="max-width:400px;" class="images">
+
+			<p>Dividing the weight difference by the corresponding dry field limit weight does not produce better result, either.</p>
+			<img src="images/77w_8000_ratio.png" alt="image" style="max-width:400px;" class="images">
+
+			<p>Plotting lines by runway length does not look any better.</p>
+			<img src="images/length_lines.png" alt="image" style="max-width:400px;" class="images">
+
+			<p>Fortunately we can still simplify the problem by subtract a fix percentage of limit weight from the “dry” value to get an estimation of the “wet” value. </p>
+			
+			<table>
+				<tr>
+					<td>Aircraft type</td>
+					<td>Max percentage increase (@ 0 ft, -40 to 50 ° C)</td>
+				</tr>
+				<tr>
+					<td>737-600</td>
+					<td>9.42</td>
+				</tr>
+				<tr>
+					<td>737-700</td>
+					<td>2.45</td>
+				</tr>
+				<tr>
+					<td>737-800</td>
+					<td>2.34</td>
+				</tr>
+				<tr>
+					<td>737-900</td>
+					<td>2.60</td>
+				</tr>
+				<tr>
+					<td>777-200LR</td>
+					<td>2.74</td>
+				</tr>
+				<tr>
+					<td>777-300ER</td>
+					<td>3.05</td>
+				</tr>
+				<tr>
+					<td>747-8F</td>
+					<td>0.00</td>
+				</tr>
+				<tr>
+					<td>787-8</td>
+					<td>1.89</td>
+				</tr>
+			</table>
+
+			<p>There are two values are quite special. The 737-600 has a very high decrease in field limit weight because the limiting factor is stopping distance. The wet runway increases stopping distance dramatically while doing little to help acceleration since the takeoff roll is relatively short. The 747-8F actually has increased limit weight when runway is wet. Probably this is because the limiting factor is 1.15 times the accelerate-go distance (since it has 4 engines which makes stopping distance less of an issue because the relatively large gap between V<sub>1</sub> and V<sub>R</sub>).</p>
+
+			<h2>A. Appendix</h2>
+			<h3>A.1 Gross weight-fuel flow data</h3>
+			<p>Data for 737-800</p>
+			<table>
+				<tr><td>Gross weight (ton)</td>
+				<td>Fuel flow per engine (kg/hr)</td>
+				</tr>
+				<tr><td>360</td>
+				<td>5186.5</td>
+				</tr>
+				<tr><td>340</td>
+				<td>4917</td>
+				</tr>
+				<tr><td>320</td>
+				<td>4554</td>
+				</tr>
+				<tr><td>300</td>
+				<td>4240</td>
+				</tr>
+				<tr><td>280</td>
+				<td>3976</td>
+				</tr>
+				<tr><td>260</td>
+				<td>3678</td>
+				</tr>
+				<tr><td>240</td>
+				<td>3392</td>
+				</tr>
+				<tr><td>220</td>
+				<td>3131</td>
+				</tr>
+				<tr><td>200</td>
+				<td>2878.5</td>
+				</tr>
+				<tr><td>180</td>
+				<td>2616.5</td>
+				</tr>
+				<tr><td>160</td>
+				<td>2356</td>
+				</tr>
+			</table>
+
+			<p>Data for 777-200LR</p>
+			<table>
+				<tr><td>Gross weight (ton)</td>
+				<td>Fuel flow per engine (kg/hr)</td>
+				</tr>
+				<tr><td>360</td>
+				<td>5186.5</td>
+				</tr>
+				<tr><td>340</td>
+				<td>4917</td>
+				</tr>
+				<tr><td>320</td>
+				<td>4554</td>
+				</tr>
+				<tr><td>300</td>
+				<td>4240</td>
+				</tr>
+				<tr><td>280</td>
+				<td>3976</td>
+				</tr>
+				<tr><td>260</td>
+				<td>3678</td>
+				</tr>
+				<tr><td>240</td>
+				<td>3392</td>
+				</tr>
+				<tr><td>220</td>
+				<td>3131</td>
+				</tr>
+				<tr><td>200</td>
+				<td>2878.5</td>
+				</tr>
+				<tr><td>180</td>
+				<td>2616.5</td>
+				</tr>
+				<tr><td>160</td>
+				<td>2356</td>
+				</tr>
+			</table>
+
+			<h3>A.2 Fuel-distance relation</h3>
+			<table>
+				<tr><td>Distance (Nm)</td>
+				<td>Fuel required (150 tons)</td>
+				<td>Fuel required  (240 tons)</td>
+				</tr>
+				<tr><td>50</td>
+				<td>1.4</td>
+				<td>2.1</td>
+				</tr>
+				<tr><td>100</td>
+				<td>2.2</td>
+				<td>3</td>
+				</tr>
+				<tr><td>150</td>
+				<td>3</td>
+				<td>3.9</td>
+				</tr>
+				<tr><td>200</td>
+				<td>3.5</td>
+				<td>4.8</td>
+				</tr>
+				<tr><td>250</td>
+				<td>4.1</td>
+				<td>5.6</td>
+				</tr>
+				<tr><td>300</td>
+				<td>4.7</td>
+				<td>6.3</td>
+				</tr>
+				<tr><td>350</td>
+				<td>5.1</td>
+				<td>7</td>
+				</tr>
+				<tr><td>400</td>
+				<td>5.6</td>
+				<td>7.8</td>
+				</tr>
+				<tr><td>450</td>
+				<td>6</td>
+				<td>8.5</td>
+				</tr>
+				<tr><td>500</td>
+				<td>6.4</td>
+				<td>9.2</td>
+				</tr>
+				<tr><td>1000</td>
+				<td>11.8</td>
+				<td>16.5</td>
+				</tr>
+				<tr><td>1500</td>
+				<td>16.9</td>
+				<td>24.2</td>
+				</tr>
+				<tr><td>2000</td>
+				<td>22.1</td>
+				<td>32.2</td>
+				</tr>
+				<tr><td>2500</td>
+				<td>27.4</td>
+				<td>40.1</td>
+				</tr>
+				<tr><td>3000</td>
+				<td>32.9</td>
+				<td>48.3</td>
+				</tr>
+				<tr><td>3500</td>
+				<td>38.5</td>
+				<td>56.7</td>
+				</tr>
+				<tr><td>4000</td>
+				<td>44.2</td>
+				<td>65.5</td>
+				</tr>
+				<tr><td>4500</td>
+				<td>50.1</td>
+				<td>74.2</td>
+				</tr>
+				<tr><td>5000</td>
+				<td>56.2</td>
+				<td>83.4</td>
+				</tr>
+				<tr><td>5500</td>
+				<td>62.5</td>
+				<td>92.9</td>
+				</tr>
+				<tr><td>6000</td>
+				<td>68.9</td>
+				<td>102.8</td>
+				</tr>
+				<tr><td>6500</td>
+				<td>75.4</td>
+				<td>112.9</td>
+				</tr>
+				<tr><td>7000</td>
+				<td>82.1</td>
+				<td>123.2</td>
+				</tr>
+				<tr><td>7500</td>
+				<td>89</td>
+				<td>133.8</td>
+				</tr>
+				<tr><td>8000</td>
+				<td>96.1</td>
+				<td>144.6</td>
+				</tr>
+				<tr><td>8500</td>
+				<td>103.4</td>
+				<td>155.8</td>
+				</tr>
+				<tr><td>9000</td>
+				<td>111</td>
+				<td>167.4</td>
+				</tr>
+				<tr><td>9500</td>
+				<td>118.7</td>
+				<td>179.1</td>
+				</tr>
+				<tr><td>10000</td>
+				<td>126.6</td>
+				<td>191.3</td>
+				</tr>
+			</table>
+
+			<h3>A.3 Data for Cruise speed approximation</h3>
+			<p>737-800</p>
+			<table>
+				<tr><td>Weight (ton)</td>
+				<td>Mach</td>
+				<td>Opt Alt (1000 ft)</td>
+				<td>Ktas</td>
+				<td>IAS</td>
+				</tr>
+				<tr><td>85</td>
+				<td>0.787</td>
+				<td>30</td>
+				<td>464.063544055553</td>
+				<td>298.442765118987</td>
+				</tr>
+				<tr><td>80</td>
+				<td>0.7895</td>
+				<td>32</td>
+				<td>461.487866087246</td>
+				<td>286.645963206286</td>
+				</tr>
+				<tr><td>75</td>
+				<td>0.789</td>
+				<td>33</td>
+				<td>459.158588978863</td>
+				<td>280.139781379947</td>
+				</tr>
+				<tr><td>70</td>
+				<td>0.786</td>
+				<td>34</td>
+				<td>455.374430075822</td>
+				<td>272.75592849207</td>
+				</tr>
+				<tr><td>65</td>
+				<td>0.788</td>
+				<td>36</td>
+				<td>452.418463568056</td>
+				<td>261.289553598091</td>
+				</tr>
+				<tr><td>60</td>
+				<td>0.7895</td>
+				<td>38</td>
+				<td>453.049537842304</td>
+				<td>249.880417340455</td>
+				</tr>
+				<tr><td>55</td>
+				<td>0.7905</td>
+				<td>40</td>
+				<td>453.623381462117</td>
+				<td>238.556151140105</td>
+				</tr>
+				<tr><td>50</td>
+				<td>0.786</td>
+				<td>41</td>
+				<td>514.16388335238</td>
+				<td>231.350976451891</td>
+				</tr>
+				<tr><td>45</td>
+				<td>0.773</td>
+				<td>41</td>
+				<td>443.581118115391</td>
+				<td>227.089068390549</td>
+				</tr>
+				<tr><td>40</td>
+				<td>0.749</td>
+				<td>41</td>
+				<td>429.80887123988</td>
+				<td>219.276941462959</td>
+				</tr>
+			</table>
+
+			<p>777-200LR</p>
+			<table>
+				<tr><td>Weight (ton)</td>
+				<td>Mach</td>
+				<td>Opt Alt (1000 ft)</td>
+				<td>Ktas</td>
+				<td>IAS</td>
+				</tr>
+				<tr><td>360</td>
+				<td>0.8385</td>
+				<td>28</td>
+				<td>464.063544055553</td>
+				<td>333.925516816223</td>
+				</tr>
+				<tr><td>340</td>
+				<td>0.8395</td>
+				<td>28</td>
+				<td>465.063544055553</td>
+				<td>334.364026881772</td>
+				</tr>
+				<tr><td>320</td>
+				<td>0.8395</td>
+				<td>30</td>
+				<td>466.063544055553</td>
+				<td>320.433890427799</td>
+				</tr>
+				<tr><td>300</td>
+				<td>0.8385</td>
+				<td>32</td>
+				<td>467.063544055553</td>
+				<td>306.38517767645</td>
+				</tr>
+				<tr><td>280</td>
+				<td>0.839</td>
+				<td>32</td>
+				<td>468.063544055553</td>
+				<td>306.588281142455</td>
+				</tr>
+				<tr><td>260</td>
+				<td>0.839</td>
+				<td>34</td>
+				<td>469.063544055553</td>
+				<td>293.248035286751</td>
+				</tr>
+				<tr><td>240</td>
+				<td>0.839</td>
+				<td>36</td>
+				<td>470.063544055553</td>
+				<td>280.207959017688</td>
+				</tr>
+				<tr><td>220</td>
+				<td>0.839</td>
+				<td>38</td>
+				<td>471.063544055553</td>
+				<td>267.473443162044</td>
+				</tr>
+				<tr><td>200</td>
+				<td>0.839</td>
+				<td>40</td>
+				<td>472.063544055553</td>
+				<td>255.049262125644</td>
+				</tr>
+				<tr><td>180</td>
+				<td>0.839</td>
+				<td>42</td>
+				<td>473.063544055553</td>
+				<td>242.939565510524</td>
+				</tr>
+				<tr><td>160</td>
+				<td>0.838</td>
+				<td>43</td>
+				<td>474.063544055553</td>
+				<td>236.683247213854</td>
+				</tr>
+			</table>
+
+			<h3>A.4 Data for the models <i>(x: landing weight (ton), y: distance (nm))</i></h3>
+			<h4>A.4.1 Actual values (from Boeing FCOM)</h4>
+
+			<table class="align-right">
+				<tr><td></td>
+				<td>40</td>
+				<td>45</td>
+				<td>50</td>
+				<td>55</td>
+				<td>60</td>
+				<td>65</td>
+				<td>70</td>
+				</tr>
+				<tr><td>50</td>
+				<td>0.5</td>
+				<td>0.5</td>
+				<td>0.6</td>
+				<td>0.6</td>
+				<td>0.7</td>
+				<td>0.7</td>
+				<td>0.7</td>
+				</tr>
+				<tr><td>100</td>
+				<td>0.8</td>
+				<td>0.9</td>
+				<td>0.9</td>
+				<td>1</td>
+				<td>1</td>
+				<td>1.1</td>
+				<td>1.1</td>
+				</tr>
+				<tr><td>150</td>
+				<td>1.1</td>
+				<td>1.1</td>
+				<td>1.2</td>
+				<td>1.3</td>
+				<td>1.3</td>
+				<td>1.4</td>
+				<td>1.5</td>
+				</tr>
+				<tr><td>200</td>
+				<td>1.3</td>
+				<td>1.4</td>
+				<td>1.5</td>
+				<td>1.6</td>
+				<td>1.6</td>
+				<td>1.7</td>
+				<td>1.8</td>
+				</tr>
+				<tr><td>250</td>
+				<td>1.5</td>
+				<td>1.6</td>
+				<td>1.7</td>
+				<td>1.8</td>
+				<td>1.9</td>
+				<td>2</td>
+				<td>2.1</td>
+				</tr>
+				<tr><td>300</td>
+				<td>1.7</td>
+				<td>1.8</td>
+				<td>1.9</td>
+				<td>2.1</td>
+				<td>2.2</td>
+				<td>2.3</td>
+				<td>2.4</td>
+				</tr>
+				<tr><td>350</td>
+				<td>1.9</td>
+				<td>2</td>
+				<td>2.2</td>
+				<td>2.3</td>
+				<td>2.4</td>
+				<td>2.6</td>
+				<td>2.7</td>
+				</tr>
+				<tr><td>400</td>
+				<td>2.1</td>
+				<td>2.2</td>
+				<td>2.4</td>
+				<td>2.5</td>
+				<td>2.7</td>
+				<td>2.9</td>
+				<td>3</td>
+				</tr>
+				<tr><td>450</td>
+				<td>2.3</td>
+				<td>2.5</td>
+				<td>2.6</td>
+				<td>2.8</td>
+				<td>3</td>
+				<td>3.1</td>
+				<td>3.3</td>
+				</tr>
+				<tr><td>500</td>
+				<td>2.5</td>
+				<td>2.7</td>
+				<td>2.8</td>
+				<td>3</td>
+				<td>3.2</td>
+				<td>3.4</td>
+				<td>3.6</td>
+				</tr>
+				<tr><td>1000</td>
+				<td>4.5</td>
+				<td>4.8</td>
+				<td>5.2</td>
+				<td>5.6</td>
+				<td>5.9</td>
+				<td>6.4</td>
+				<td>6.7</td>
+				</tr>
+				<tr><td>1400</td>
+				<td>6.2</td>
+				<td>6.5</td>
+				<td>7.1</td>
+				<td>7.7</td>
+				<td>8.2</td>
+				<td>8.8</td>
+				<td>9.2</td>
+				</tr>
+				<tr><td>1800</td>
+				<td>7.8</td>
+				<td>8.3</td>
+				<td>9.1</td>
+				<td>9.8</td>
+				<td>10.5</td>
+				<td>11.2</td>
+				<td>11.9</td>
+				</tr>
+				<tr><td>2200</td>
+				<td>9.5</td>
+				<td>10.2</td>
+				<td>11.1</td>
+				<td>12</td>
+				<td>12.8</td>
+				<td>13.7</td>
+				<td>14.6</td>
+				</tr>
+				<tr><td>2600</td>
+				<td>11.3</td>
+				<td>12.1</td>
+				<td>13.2</td>
+				<td>14.2</td>
+				<td>15.3</td>
+				<td>16.3</td>
+				<td>17.4</td>
+				</tr>
+				<tr><td>3000</td>
+				<td>13</td>
+				<td>14.1</td>
+				<td>15.3</td>
+				<td>16.6</td>
+				<td>17.8</td>
+				<td>19</td>
+				<td>20.2</td>
+				</tr>
+				<tr><td>3400</td>
+				<td>14.9</td>
+				<td>16.1</td>
+				<td>17.5</td>
+				<td>19</td>
+				<td>20.3</td>
+				<td>21.8</td>
+				<td>23.2</td>
+				</tr>
+				<tr><td>3800</td>
+				<td>16.8</td>
+				<td>18.2</td>
+				<td>19.8</td>
+				<td>21.4</td>
+				<td>23</td>
+				<td>24.6</td>
+				<td>26.2</td>
+				</tr>
+				<tr><td>4200</td>
+				<td>18.8</td>
+				<td>20.4</td>
+				<td>22.2</td>
+				<td>24</td>
+				<td>25.7</td>
+				<td>27.6</td>
+				<td>29.5</td>
+				</tr>
+				<tr><td>4600</td>
+				<td>20.8</td>
+				<td>22.6</td>
+				<td>24.6</td>
+				<td>26.6</td>
+				<td>28.6</td>
+				<td>30.6</td>
+				<td>32.6</td>
+				</tr>
+				<tr><td>5000</td>
+				<td>22.9</td>
+				<td>24.9</td>
+				<td>27</td>
+				<td>29.3</td>
+				<td>31.5</td>
+				<td>33.7</td>
+				<td>35.9</td>
+				</tr>
+			</table>
+
+			<h4>A.4.2 Model 1 result</h4>
+			<table class="align-right">
+				<tr><td></td>
+				<td>40</td>
+				<td>45</td>
+				<td>50</td>
+				<td>55</td>
+				<td>60</td>
+				<td>65</td>
+				<td>70</td>
+				</tr>
+				<tr><td>50</td>
+				<td>0.2</td>
+				<td>0.22</td>
+				<td>0.24</td>
+				<td>0.26</td>
+				<td>0.28</td>
+				<td>0.3</td>
+				<td>0.32</td>
+				</tr>
+				<tr><td>100</td>
+				<td>0.39</td>
+				<td>0.43</td>
+				<td>0.46</td>
+				<td>0.5</td>
+				<td>0.54</td>
+				<td>0.58</td>
+				<td>0.62</td>
+				</tr>
+				<tr><td>150</td>
+				<td>0.57</td>
+				<td>0.63</td>
+				<td>0.69</td>
+				<td>0.73</td>
+				<td>0.79</td>
+				<td>0.85</td>
+				<td>0.91</td>
+				</tr>
+				<tr><td>200</td>
+				<td>0.77</td>
+				<td>0.85</td>
+				<td>0.91</td>
+				<td>0.99</td>
+				<td>1.05</td>
+				<td>1.13</td>
+				<td>1.21</td>
+				</tr>
+				<tr><td>250</td>
+				<td>0.97</td>
+				<td>1.05</td>
+				<td>1.16</td>
+				<td>1.23</td>
+				<td>1.33</td>
+				<td>1.41</td>
+				<td>1.51</td>
+				</tr>
+				<tr><td>300</td>
+				<td>1.15</td>
+				<td>1.27</td>
+				<td>1.38</td>
+				<td>1.48</td>
+				<td>1.59</td>
+				<td>1.69</td>
+				<td>1.81</td>
+				</tr>
+				<tr><td>350</td>
+				<td>1.35</td>
+				<td>1.48</td>
+				<td>1.6</td>
+				<td>1.74</td>
+				<td>1.86</td>
+				<td>1.97</td>
+				<td>2.11</td>
+				</tr>
+				<tr><td>400</td>
+				<td>1.54</td>
+				<td>1.7</td>
+				<td>1.84</td>
+				<td>1.98</td>
+				<td>2.12</td>
+				<td>2.25</td>
+				<td>2.41</td>
+				</tr>
+				<tr><td>450</td>
+				<td>1.74</td>
+				<td>1.9</td>
+				<td>2.07</td>
+				<td>2.23</td>
+				<td>2.38</td>
+				<td>2.56</td>
+				<td>2.71</td>
+				</tr>
+				<tr><td>500</td>
+				<td>1.94</td>
+				<td>2.13</td>
+				<td>2.31</td>
+				<td>2.49</td>
+				<td>2.67</td>
+				<td>2.84</td>
+				<td>3.01</td>
+				</tr>
+				<tr><td>1000</td>
+				<td>3.93</td>
+				<td>4.31</td>
+				<td>4.68</td>
+				<td>5.04</td>
+				<td>5.4</td>
+				<td>5.75</td>
+				<td>6.09</td>
+				</tr>
+				<tr><td>1400</td>
+				<td>5.59</td>
+				<td>6.13</td>
+				<td>6.65</td>
+				<td>7.16</td>
+				<td>7.66</td>
+				<td>8.15</td>
+				<td>8.66</td>
+				</tr>
+				<tr><td>1800</td>
+				<td>7.29</td>
+				<td>7.99</td>
+				<td>8.66</td>
+				<td>9.33</td>
+				<td>10</td>
+				<td>10.63</td>
+				<td>11.28</td>
+				</tr>
+				<tr><td>2200</td>
+				<td>9.03</td>
+				<td>9.88</td>
+				<td>10.74</td>
+				<td>11.56</td>
+				<td>12.38</td>
+				<td>13.15</td>
+				<td>13.94</td>
+				</tr>
+				<tr><td>2600</td>
+				<td>10.84</td>
+				<td>11.86</td>
+				<td>12.86</td>
+				<td>13.86</td>
+				<td>14.83</td>
+				<td>15.76</td>
+				<td>16.69</td>
+				</tr>
+				<tr><td>3000</td>
+				<td>12.69</td>
+				<td>13.88</td>
+				<td>15.07</td>
+				<td>16.2</td>
+				<td>17.33</td>
+				<td>18.44</td>
+				<td>19.52</td>
+				</tr>
+				<tr><td>3400</td>
+				<td>14.6</td>
+				<td>15.97</td>
+				<td>17.32</td>
+				<td>18.62</td>
+				<td>19.91</td>
+				<td>21.17</td>
+				<td>22.4</td>
+				</tr>
+				<tr><td>3800</td>
+				<td>16.55</td>
+				<td>18.12</td>
+				<td>19.62</td>
+				<td>21.11</td>
+				<td>22.57</td>
+				<td>23.98</td>
+				<td>25.37</td>
+				</tr>
+				<tr><td>4200</td>
+				<td>18.56</td>
+				<td>20.31</td>
+				<td>21.99</td>
+				<td>23.65</td>
+				<td>25.27</td>
+				<td>26.88</td>
+				<td>28.42</td>
+				</tr>
+				<tr><td>4600</td>
+				<td>20.63</td>
+				<td>22.57</td>
+				<td>24.43</td>
+				<td>26.27</td>
+				<td>28.06</td>
+				<td>29.84</td>
+				<td>31.53</td>
+				</tr>
+				<tr><td>5000</td>
+				<td>22.77</td>
+				<td>24.87</td>
+				<td>26.95</td>
+				<td>28.97</td>
+				<td>30.93</td>
+				<td>32.84</td>
+				<td>34.73</td>
+				</tr>				
+			</table>
+
+			<h4>A.4.3 Model 2 result</h4>
+			<table class="align-right">
+				<tr><td></td>
+				<td>40</td>
+				<td>45</td>
+				<td>50</td>
+				<td>55</td>
+				<td>60</td>
+				<td>65</td>
+				<td>70</td>
+				</tr>
+				<tr><td>50</td>
+				<td>1.23</td>
+				<td>1.32</td>
+				<td>1.41</td>
+				<td>1.47</td>
+				<td>1.55</td>
+				<td>1.64</td>
+				<td>1.73</td>
+				</tr>
+				<tr><td>100</td>
+				<td>1.23</td>
+				<td>1.32</td>
+				<td>1.41</td>
+				<td>1.47</td>
+				<td>1.55</td>
+				<td>1.64</td>
+				<td>1.73</td>
+				</tr>
+				<tr><td>150</td>
+				<td>1.23</td>
+				<td>1.32</td>
+				<td>1.41</td>
+				<td>1.47</td>
+				<td>1.55</td>
+				<td>1.64</td>
+				<td>1.73</td>
+				</tr>
+				<tr><td>200</td>
+				<td>1.33</td>
+				<td>1.39</td>
+				<td>1.45</td>
+				<td>1.52</td>
+				<td>1.57</td>
+				<td>1.64</td>
+				<td>1.73</td>
+				</tr>
+				<tr><td>250</td>
+				<td>1.53</td>
+				<td>1.61</td>
+				<td>1.69</td>
+				<td>1.76</td>
+				<td>1.83</td>
+				<td>1.92</td>
+				<td>2.03</td>
+				</tr>
+				<tr><td>300</td>
+				<td>1.71</td>
+				<td>1.81</td>
+				<td>1.91</td>
+				<td>2</td>
+				<td>2.1</td>
+				<td>2.22</td>
+				<td>2.31</td>
+				</tr>
+				<tr><td>350</td>
+				<td>1.92</td>
+				<td>2.02</td>
+				<td>2.13</td>
+				<td>2.26</td>
+				<td>2.38</td>
+				<td>2.51</td>
+				<td>2.61</td>
+				</tr>
+				<tr><td>400</td>
+				<td>2.1</td>
+				<td>2.24</td>
+				<td>2.38</td>
+				<td>2.51</td>
+				<td>2.65</td>
+				<td>2.79</td>
+				<td>2.92</td>
+				</tr>
+				<tr><td>450</td>
+				<td>2.3</td>
+				<td>2.45</td>
+				<td>2.6</td>
+				<td>2.75</td>
+				<td>2.91</td>
+				<td>3.07</td>
+				<td>3.22</td>
+				</tr>
+				<tr><td>500</td>
+				<td>2.49</td>
+				<td>2.67</td>
+				<td>2.85</td>
+				<td>3</td>
+				<td>3.18</td>
+				<td>3.36</td>
+				<td>3.53</td>
+				</tr>
+				<tr><td>1000</td>
+				<td>4.5</td>
+				<td>4.86</td>
+				<td>5.21</td>
+				<td>5.58</td>
+				<td>5.91</td>
+				<td>6.28</td>
+				<td>6.63</td>
+				</tr>
+				<tr><td>1400</td>
+				<td>6.16</td>
+				<td>6.67</td>
+				<td>7.17</td>
+				<td>7.68</td>
+				<td>8.19</td>
+				<td>8.71</td>
+				<td>9.2</td>
+				</tr>
+				<tr><td>1800</td>
+				<td>7.85</td>
+				<td>8.53</td>
+				<td>9.21</td>
+				<td>9.85</td>
+				<td>10.51</td>
+				<td>11.18</td>
+				<td>11.85</td>
+				</tr>
+				<tr><td>2200</td>
+				<td>9.62</td>
+				<td>10.45</td>
+				<td>11.27</td>
+				<td>12.09</td>
+				<td>12.91</td>
+				<td>13.73</td>
+				<td>14.56</td>
+				</tr>
+				<tr><td>2600</td>
+				<td>11.42</td>
+				<td>12.42</td>
+				<td>13.42</td>
+				<td>14.41</td>
+				<td>15.39</td>
+				<td>16.37</td>
+				<td>17.33</td>
+				</tr>
+				<tr><td>3000</td>
+				<td>13.27</td>
+				<td>14.44</td>
+				<td>15.61</td>
+				<td>16.77</td>
+				<td>17.92</td>
+				<td>19.06</td>
+				<td>20.19</td>
+				</tr>
+				<tr><td>3400</td>
+				<td>15.18</td>
+				<td>16.53</td>
+				<td>17.86</td>
+				<td>19.18</td>
+				<td>20.5</td>
+				<td>21.81</td>
+				<td>23.12</td>
+				</tr>
+				<tr><td>3800</td>
+				<td>17.14</td>
+				<td>18.67</td>
+				<td>20.19</td>
+				<td>21.7</td>
+				<td>23.19</td>
+				<td>24.66</td>
+				<td>26.16</td>
+				</tr>
+				<tr><td>4200</td>
+				<td>19.15</td>
+				<td>20.87</td>
+				<td>22.58</td>
+				<td>24.27</td>
+				<td>25.91</td>
+				<td>27.6</td>
+				<td>29.27</td>
+				</tr>
+				<tr><td>4600</td>
+				<td>21.24</td>
+				<td>23.15</td>
+				<td>25.02</td>
+				<td>26.89</td>
+				<td>28.73</td>
+				<td>30.58</td>
+				<td>32.48</td>
+				</tr>
+				<tr><td>5000</td>
+				<td>23.39</td>
+				<td>25.47</td>
+				<td>27.53</td>
+				<td>29.6</td>
+				<td>31.64</td>
+				<td>33.68</td>
+				<td>35.79</td>
+				</tr>
+			</table>
+			<h4>A.4.4 Model 3 result</h4>
+			<table class="align-right">
+				<tr><td></td>
+				<td>40</td>
+				<td>45</td>
+				<td>50</td>
+				<td>55</td>
+				<td>60</td>
+				<td>65</td>
+				<td>70</td>
+				</tr>
+				<tr><td>50</td>
+				<td>0.43</td>
+				<td>0.44</td>
+				<td>0.45</td>
+				<td>0.47</td>
+				<td>0.48</td>
+				<td>0.49</td>
+				<td>0.51</td>
+				</tr>
+				<tr><td>100</td>
+				<td>0.79</td>
+				<td>0.82</td>
+				<td>0.84</td>
+				<td>0.87</td>
+				<td>0.9</td>
+				<td>0.93</td>
+				<td>0.96</td>
+				</tr>
+				<tr><td>150</td>
+				<td>1.09</td>
+				<td>1.13</td>
+				<td>1.17</td>
+				<td>1.21</td>
+				<td>1.26</td>
+				<td>1.31</td>
+				<td>1.36</td>
+				</tr>
+				<tr><td>200</td>
+				<td>1.33</td>
+				<td>1.39</td>
+				<td>1.45</td>
+				<td>1.52</td>
+				<td>1.57</td>
+				<td>1.63</td>
+				<td>1.7</td>
+				</tr>
+				<tr><td>250</td>
+				<td>1.53</td>
+				<td>1.59</td>
+				<td>1.67</td>
+				<td>1.76</td>
+				<td>1.83</td>
+				<td>1.92</td>
+				<td>2.01</td>
+				</tr>
+				<tr><td>300</td>
+				<td>1.73</td>
+				<td>1.81</td>
+				<td>1.89</td>
+				<td>2</td>
+				<td>2.1</td>
+				<td>2.2</td>
+				<td>2.31</td>
+				</tr>
+				<tr><td>350</td>
+				<td>1.92</td>
+				<td>2.02</td>
+				<td>2.11</td>
+				<td>2.24</td>
+				<td>2.36</td>
+				<td>2.48</td>
+				<td>2.61</td>
+				</tr>
+				<tr><td>400</td>
+				<td>2.12</td>
+				<td>2.22</td>
+				<td>2.33</td>
+				<td>2.49</td>
+				<td>2.62</td>
+				<td>2.76</td>
+				<td>2.92</td>
+				</tr>
+				<tr><td>450</td>
+				<td>2.32</td>
+				<td>2.43</td>
+				<td>2.56</td>
+				<td>2.73</td>
+				<td>2.89</td>
+				<td>3.05</td>
+				<td>3.22</td>
+				</tr>
+				<tr><td>500</td>
+				<td>2.51</td>
+				<td>2.65</td>
+				<td>2.78</td>
+				<td>2.98</td>
+				<td>3.15</td>
+				<td>3.33</td>
+				<td>3.53</td>
+				</tr>
+				<tr><td>1000</td>
+				<td>4.52</td>
+				<td>4.79</td>
+				<td>5.09</td>
+				<td>5.48</td>
+				<td>5.86</td>
+				<td>6.26</td>
+				<td>6.63</td>
+				</tr>
+				<tr><td>1400</td>
+				<td>6.16</td>
+				<td>6.53</td>
+				<td>6.99</td>
+				<td>7.56</td>
+				<td>8.11</td>
+				<td>8.65</td>
+				<td>9.17</td>
+				</tr>
+				<tr><td>1800</td>
+				<td>7.83</td>
+				<td>8.32</td>
+				<td>8.96</td>
+				<td>9.68</td>
+				<td>10.41</td>
+				<td>11.12</td>
+				<td>11.79</td>
+				</tr>
+				<tr><td>2200</td>
+				<td>9.54</td>
+				<td>10.18</td>
+				<td>10.99</td>
+				<td>11.89</td>
+				<td>12.8</td>
+				<td>13.64</td>
+				<td>14.5</td>
+				</tr>
+				<tr><td>2600</td>
+				<td>11.28</td>
+				<td>12.08</td>
+				<td>13.08</td>
+				<td>14.17</td>
+				<td>15.24</td>
+				<td>16.28</td>
+				<td>17.3</td>
+				</tr>
+				<tr><td>3000</td>
+				<td>13.06</td>
+				<td>14.05</td>
+				<td>15.24</td>
+				<td>16.5</td>
+				<td>17.74</td>
+				<td>18.97</td>
+				<td>20.16</td>
+				</tr>
+				<tr><td>3400</td>
+				<td>14.91</td>
+				<td>16.09</td>
+				<td>17.47</td>
+				<td>18.93</td>
+				<td>20.34</td>
+				<td>21.72</td>
+				<td>23.12</td>
+				</tr>
+				<tr><td>3800</td>
+				<td>16.81</td>
+				<td>18.18</td>
+				<td>19.74</td>
+				<td>21.41</td>
+				<td>23</td>
+				<td>24.59</td>
+				<td>26.19</td>
+				</tr>
+				<tr><td>4200</td>
+				<td>18.77</td>
+				<td>20.34</td>
+				<td>22.11</td>
+				<td>23.94</td>
+				<td>25.75</td>
+				<td>27.53</td>
+				<td>29.35</td>
+				</tr>
+				<tr><td>4600</td>
+				<td>20.79</td>
+				<td>22.55</td>
+				<td>24.54</td>
+				<td>26.55</td>
+				<td>28.56</td>
+				<td>30.58</td>
+				<td>32.6</td>
+				</tr>
+				<tr><td>5000</td>
+				<td>22.88</td>
+				<td>24.85</td>
+				<td>27.04</td>
+				<td>29.25</td>
+				<td>31.47</td>
+				<td>33.71</td>
+				<td>36</td>
+				</tr>
+			</table>
+
+			<h3>A.5 Data for climb limit weights</h3>
+			<table style="font-size:80%;">
+				<tr><td> </td>
+				<td>737-700</td>
+				<td>737-800</td>
+				<td>777-200</td>
+				<td>777-200LR</td>
+				<td>777-300ER</td>
+				<td>787-8</td>
+				</tr>
+				<tr><td>flaps</td>
+				<td>5</td>
+				<td>5</td>
+				<td>15</td>
+				<td>15</td>
+				<td>15</td>
+				<td>15</td>
+				</tr>
+				<tr><td>Limit wt (ton, @0 ft, ISA <br/> w/ bleed on, a/i off)</td>
+				<td>73.2</td>
+				<td>81.8</td>
+				<td>251</td>
+				<td>351</td>
+				<td>373</td>
+				<td>236.956</td>
+				</tr>
+				<tr><td>Limit weight change (ton per <br/>10 deg C @ ISA +15 or higher)</td>
+				<td>5.6</td>
+				<td>5.7</td>
+				<td>27.5</td>
+				<td>30</td>
+				<td>35.5</td>
+				<td>21.3944</td>
+				</tr>
+				<tr><td>Limit weight change (ton per <br/>5000 ft, @0 ft or higher, ISA + 15)</td>
+				<td>5.6</td>
+				<td>10.3</td>
+				<td>42</td>
+				<td>41</td>
+				<td>55</td>
+				<td>31.893</td>
+				</tr>
+				<tr><td>Correction pack off (kg)</td>
+				<td>1350</td>
+				<td>1250</td>
+				<td>2600</td>
+				<td>1700</td>
+				<td>1900</td>
+				<td>?</td>
+				</tr>
+				<tr><td>Correction engine a/i (kg)</td>
+				<td>250</td>
+				<td>250</td>
+				<td>300</td>
+				<td>?</td>
+				<td>?</td>
+				<td>226.796</td>
+				</tr>
+				<tr><td>Correction all a/i (kg)</td>
+				<td>1250</td>
+				<td>1400</td>
+				<td>2800</td>
+				<td>2100</td>
+				<td>1750</td>
+				<td>226.796</td>
+				</tr>
+				<tr><td>Thrust (lbf)</td>
+				<td>26300</td>
+				<td>26300</td>
+				<td>77000</td>
+				<td>110100</td>
+				<td>115300</td>
+				<td>64000</td>
+				</tr>
+				<tr><td> Weight/Thrust (kg/lbf)</td>
+				<td>0.002783</td>
+				<td>0.00311</td>
+				<td>0.0032597</td>
+				<td>0.003188</td>
+				<td>0.003235</td>
+				<td>0.0037</td>
+				</tr>
+				<tr><td>Limit weight change per 5000 <br/>Ft/Limit wt @0ft, ISA</td>
+				<td>0.0765</td>
+				<td>0.1259</td>
+				<td>0.1673</td>
+				<td>0.1168</td>
+				<td>0.14745</td>
+				<td>0.1346</td>
+				</tr>
+			</table>
+
+		</div>
+	</body>
+</html>
