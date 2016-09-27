@@ -309,6 +309,60 @@
 			<img src="images/field_lim_est.png" alt="image" style="max-width:500px;" class="images">
 			<p>Apart from the 737-600, the trend is fairly predictable and can generally be reasonably accurate for simulation purposes.</p>
 
+			<h4>2.2.3 Wind correction</h4>
+			<p>We apply wind correction to the runway length. The relation is fairly straght-forward and does not vary too much between aircraft types.</p>
+			<img src="images/wind_corr_77w.png" alt="image" style="max-width:500px;" class="images">
+			
+			<table class="align-right" style="margin:0 auto;">
+				<tr><th>Aircraft type</th>
+				<th>10 kts tailwind correction</th>
+				<th>10 kts headwind correction</th>
+				</tr>
+				<tr><td>737-600</td>
+				<td>12.33333</td>
+				<td>3.33333</td>
+				</tr>
+				<tr><td>737-700</td>
+				<td>14.07</td>
+				<td>4.07</td>
+				</tr>
+				<tr><td>737-800</td>
+				<td>13.33333</td>
+				<td>4.0</td>
+				</tr>
+				<tr><td>737-900</td>
+				<td>13.95</td>
+				<td>4.19</td>
+				</tr>
+				<tr><td>777-200LR</td>
+				<td>14.0</td>
+				<td>4.22</td>
+				</tr>
+				<tr><td>777-300ER</td>
+				<td>13.0556</td>
+				<td>4.167</td>
+				</tr>
+				<tr><td>747-8F</td>
+				<td>13.0</td>
+				<td>3.7778</td>
+				</tr>
+				<tr><td>787-8</td>
+				<td>13.70</td>
+				<td>3.7778</td>
+				</tr>
+			</table>
+
+			<h4>2.2.4 Slope correction</h4>
+			<p>By analyzing the slope correction data for 777-300ER and 737-800, on dry runway,we see the relation is not so simple. An incline reduces the takeoff acceleration but decreases the stopping distance in case of an rejected takeoff. Nevertheless, we can use a simple approximation</p>
+			
+			<div style="text-align:center"><i>(wind corrected length) - (runway length) = -a * (runway length) * slope(%)</i></div>
+			<p>where a is about 0.06 (for 777-300ER) or 0.1 (for 737-800).</p>
+			<img src="images/slope_77w.png" alt="image" style="max-width:500px;" class="images">
+			<img src="images/slope_738.png" alt="image" style="max-width:500px;" class="images">
+
+			<h4>2.2.5 Other factors</h4>
+			<p>In case of pack off or anti-ice on takeoffs, the limit weight correction may only be guessed based on the values for other aircraft types. Refer to A.5 for some existing values.</p>
+
 
 			<h2>A. Appendix</h2>
 			<h3>A.1 Gross weight-fuel flow data</h3>
