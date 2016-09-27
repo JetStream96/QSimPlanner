@@ -71,6 +71,9 @@
 			text-align:right;
 		}
 
+		table.align-center td {
+			text-align:center;
+		}
 		</style>
 	</head>
 	<body>
@@ -356,13 +359,76 @@
 			<p>By analyzing the slope correction data for 777-300ER and 737-800, on dry runway,we see the relation is not so simple. An incline reduces the takeoff acceleration but decreases the stopping distance in case of an rejected takeoff. Nevertheless, we can use a simple approximation</p>
 			
 			<div style="text-align:center"><i>(wind corrected length) - (runway length) = -a * (runway length) * slope(%)</i></div>
-			<p>where a is about 0.06 (for 777-300ER) or 0.1 (for 737-800).</p>
+			<p>where <i>a</i> is about 0.06 (for 777-300ER) or 0.1 (for 737-800).</p>
 			<img src="images/slope_77w.png" alt="image" style="max-width:500px;" class="images">
 			<img src="images/slope_738.png" alt="image" style="max-width:500px;" class="images">
 
 			<h4>2.2.5 Other factors</h4>
 			<p>In case of pack off or anti-ice on takeoffs, the limit weight correction may only be guessed based on the values for other aircraft types. Refer to A.5 for some existing values.</p>
 
+			<h2>3. Landing distance model</h2>
+			<p>From airport planning manuals, we can obtain the landing distance at different weights, with max braking and dry runway. Some charts may contain data for wet runways.</p> 
+			<h3>3.1 Corrections for dry runway</h3> 
+			<p>Normally, the factors affecting landing distance includes aircraft weight, brake and flaps setting, pressure altitude, temperature, wind, runway slope, and approach speed.</p>
+			<p>We will inspect each of these factors and develop some methods to approximate their influence (apart from aircraft weight, which is already contained in airport planning manuals).</p>
+
+			<h4>3.1.1 Brake and flaps setting</h4>
+			<p>Among these factors, the brake/flaps setting is the most difficult one to account for due to lack of data. To make matters worse, the number of available autobrake settings varies between aircraft types. Nevertheless, we still list the braking distances for reference.</p>
+
+			<p>For 737-800:</p>
+			<table class="align-center">
+				<tr><th>Brake setting</th><th>Landing distance (relative to Max Manual)</th>
+				<tr><td>Max Manual</td>
+				<td>1</td>
+				</tr>
+				<tr><td>Max Auto</td>
+				<td>1.272</td>
+				</tr>
+				<tr><td>Autobrake 3</td>
+				<td>1.789</td>
+				</tr>
+				<tr><td>Autobrake 2</td>
+				<td>2.294</td>
+				</tr>
+				<tr><td>Autobrake 1</td>
+				<td>2.522</td>
+				</tr>
+			</table>
+
+			<p>For 777-300ER:</p>
+			<table class="align-center">
+				<tr><th>Brake setting</th><th>Landing distance (relative to Max Manual)</th>
+				<tr>
+				<tr><td>Max Manual</td>
+				<td>1</td>
+				</tr>
+				<tr><td>Max Auto</td>
+				<td>1.349</td>
+				</tr>
+				<tr><td>Autobrake 4</td>
+				<td>1.749</td>
+				</tr>
+				<tr><td>Autobrake 3</td>
+				<td>2.060</td>
+				</tr>
+				<tr><td>Autobrake 2</td>
+				<td>2.322</td>
+				</tr>
+				<tr><td>Autobrake 1</td>
+				<td>2.563</td>
+				</tr>
+			</table>
+			<p>The effect of flap setting is probably contributed by the change of approach speed. Therefore it may be corrected that way.</p>
+
+			<h4>3.1.2 Pressure altitude</h4>
+			<p>We only consider the case with maximum braking, since other cases can be computed by multiplying the appropriate factor in previous section.</p>
+			<p>For both 777-300ER and 737-800, the altitude adjustment per 1000 ft is about 2.2%.</p>
+
+			<h4>3.1.3 Temperature</h4>
+			<p>With max. manual braking, the correction for 737-800 and 777-300ER is 2.2% for every 10°C above or below ISA temperature.</p>
+
+			<h4>3.1.4</h4>
+			<p>
 
 			<h2>A. Appendix</h2>
 			<h3>A.1 Gross weight-fuel flow data</h3>
