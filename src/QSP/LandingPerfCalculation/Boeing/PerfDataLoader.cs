@@ -6,6 +6,7 @@ using System.Linq;
 using System.Xml.Linq;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.Arrays;
+using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 
 namespace QSP.LandingPerfCalculation.Boeing
 {
@@ -16,7 +17,7 @@ namespace QSP.LandingPerfCalculation.Boeing
 
         public PerfTable ReadFromXml(string filePath)
         {
-            XDocument doc = XDocument.Load(filePath);
+            var doc = XDocument.Load(filePath);
             return new PerfTable(GetItem(doc), GetEntry(filePath, doc));
         }
 
@@ -31,35 +32,33 @@ namespace QSP.LandingPerfCalculation.Boeing
         {
             var root = doc.Root;
             var para = root.Element("Parameters");
-            bool lenUnitIsMeter = para.Element("LengthUnit").Value == "M";
-            double wtRefKg = Convert.ToDouble(para.Element("WeightRef").Value);
-            double wtStepKg = Convert.ToDouble(para.Element("WeightStep").Value);
+            bool lenUnitIsMeter = para.GetString("LengthUnit") == "M";
+            double wtRefKg = para.GetDouble("WeightRef");
+            double wtStepKg = para.GetDouble("WeightStep");
 
             var brks = para.Element("Brakes");
-            var brkSettingDry = brks.Element("Dry").Value.Split(';');
-            var brkSettingWet = brks.Element("Wet").Value.Split(';');
-            var reversers = para.Element("Reversers").Value.Split(';');
+            var brkSettingDry = brks.GetString("Dry").Split(';');
+            var brkSettingWet = brks.GetString("Wet").Split(';');
+            var reversers = para.GetString("Reversers").Split(';');
 
             var data = root.Elements("Data").ToArray();
             int flapsCount = data.Length;
             string[] flaps = new string[flapsCount];
 
-            var tableDry =
-                JaggedArray.Create<double[][][]>
+            var tableDry = JaggedArray.Create<double[][][]>
                 (flapsCount, brkSettingDry.Length, ColumnCount);
 
-            var tableWet =
-                JaggedArray.Create<double[][][][]>
+            var tableWet = JaggedArray.Create<double[][][][]>
                 (flapsCount, SurfaceCondCount, brkSettingWet.Length, ColumnCount);
 
             for (int i = 0; i < flapsCount; i++)
             {
                 flaps[i] = data[i].Element("Flaps").Value;
-                ReadTableDry(tableDry, i, data[i].Element("Dry").Value);
+                ReadTableDry(tableDry, i, data[i].GetString("Dry"));
 
-                ReadTableWet(tableWet, i, 0, data[i].Element("Good").Value);
-                ReadTableWet(tableWet, i, 1, data[i].Element("Medium").Value);
-                ReadTableWet(tableWet, i, 2, data[i].Element("Poor").Value);
+                ReadTableWet(tableWet, i, 0, data[i].GetString("Good"));
+                ReadTableWet(tableWet, i, 1, data[i].GetString("Medium"));
+                ReadTableWet(tableWet, i, 2, data[i].GetString("Poor"));
             }
 
             if (lenUnitIsMeter == false)
@@ -79,7 +78,8 @@ namespace QSP.LandingPerfCalculation.Boeing
                         new TableWet(tableWet));
         }
 
-        private void ReadTableDry(double[][][] item, int firstIndex, string value)
+        private void ReadTableDry(double[][][] item,
+            int firstIndex, string value)
         {
             string[] lines = value.Split(new char[] { '\r', '\n' },
                 StringSplitOptions.RemoveEmptyEntries);
@@ -100,7 +100,8 @@ namespace QSP.LandingPerfCalculation.Boeing
             }
         }
 
-        private void ReadTableWet(double[][][][] item, int firstIndex, int secondIndex, string value)
+        private void ReadTableWet(double[][][][] item,
+            int firstIndex, int secondIndex, string value)
         {
             string[] lines = value.Split(new char[] { '\r', '\n' },
                 StringSplitOptions.RemoveEmptyEntries);
@@ -115,7 +116,8 @@ namespace QSP.LandingPerfCalculation.Boeing
                 int columnCount = Math.Min(item[0][0][0].Length, words.Length);
                 for (int j = 0; j < columnCount; j++)
                 {
-                    item[firstIndex][secondIndex][i][j] = Convert.ToDouble(words[j]);
+                    item[firstIndex][secondIndex][i][j] =
+                        Convert.ToDouble(words[j]);
                 }
             }
         }
