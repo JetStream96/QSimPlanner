@@ -445,6 +445,22 @@
 
 			<p>Due to simulator limitations, the wet runway correction probably is not that accurate even if the manufacturer's figures are used. In some simulators all wet runways have the same friction coefficient, so we may as well use a fixed percentage increase as correction.</p> 
 
+			<h2>4. ETOPS models</h2>
+			<p>There are 3 ETOPS scenarios, one-engine out, decompression and one-engine out with decompression. In terms of fuel requirement, usually the most limiting one is decompression.</p>
+
+			<h3>4.1 Distance calculation</h3>
+			<p>When planning ETOPS diversion, it's assumed that the aircraft flies at long range cruise speed. With engine failure, the optimum cruise speed is lower. So we estimate the distance based on 10000 ft cruise with one engine inoperative. Wind correction and the descent from 10000 ft have to be considered.</p>
+			<p>For this calculation the required parameters are:</p>
+			<ul>
+				<li>ETOPS rule (ETOPS-180, etc)</li>
+				<li>Cruise speed at 10000 ft with one engine out</li>
+				<li>Wind aloft</li>
+			</ul>
+
+			<h3>4.2 Fuel calculation</h3>
+			<p>The most limiting scenario, i.e. fuel critical scenario, is either decompression or one-engine out with decompression.</p>
+			
+
 			<h2>A. Appendix</h2>
 			<h3>A.1 Gross weight-fuel flow data</h3>
 			<p>Data for 737-800</p>
