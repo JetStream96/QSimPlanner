@@ -19,6 +19,11 @@ namespace QSP.AircraftProfiles.Configs
             this.folderPath = folderPath;
         }
 
+        /// <summary>
+        /// Files in wrong format are ignored.
+        /// Files containing the same registration are not loaded and
+        /// a message will be included in returning value.
+        /// </summary>
         public ConfigImportResult LoadAll()
         {
             var configs = new List<AircraftConfig>();

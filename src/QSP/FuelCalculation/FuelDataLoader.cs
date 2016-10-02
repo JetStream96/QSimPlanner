@@ -12,6 +12,9 @@ namespace QSP.FuelCalculation
 
         /// <summary>
         /// Load all xml in the landing performance data folder.
+        /// Files in wrong format are ignored.
+        /// Files containing the same profile name are not loaded and
+        /// a message will be included in returning value.
         /// </summary>
         public static LoadResult Load(string folderPath = DefaultFolderPath)
         {

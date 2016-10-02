@@ -19,6 +19,9 @@ namespace QSP.TOPerfCalculation
 
         /// <summary>
         /// Load all xml in the landing performance data folder.
+        /// Files in wrong format are ignored.
+        /// Files containing the same profile name are not loaded and
+        /// a message will be included in returning value.
         /// </summary>
         public TableImportResult Load()
         {
@@ -37,13 +40,12 @@ namespace QSP.TOPerfCalculation
             }
 
             var groups = tables.GroupBy(x => x.Entry.ProfileName);
-
-            return new TableImportResult(
-                groups
+            var result = groups
                 .Where(g => g.Count() == 1)
                 .Select(g => g.First())
-                .ToList(),
-                Message(tables));
+                .ToList();
+
+            return new TableImportResult(result, Message(tables));
         }
 
         private static string Message(List<PerfTable> item)
