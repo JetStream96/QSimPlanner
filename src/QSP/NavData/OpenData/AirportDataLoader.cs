@@ -127,9 +127,9 @@ namespace QSP.NavData.OpenData
         }
 
         /// <exception cref="ReadAirportFileException"></exception>
-        public AirportCollection LoadFromFile()
+        public AirportManager LoadFromFile()
         {
-            var airportDB = new AirportCollection();
+            var airportDB = new AirportManager();
             string[] allLines = null;
             var path = folderpath + @"\airports.csv";
 
@@ -196,6 +196,7 @@ namespace QSP.NavData.OpenData
                 }
                 catch { }
             }
+
             return airportDB;
         }
     }

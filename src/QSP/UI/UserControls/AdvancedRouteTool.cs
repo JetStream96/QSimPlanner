@@ -287,7 +287,7 @@ namespace QSP.UI.UserControls
             {
                 var orig = fromIdentTxtBox.Text;
 
-                if (airportList.Find(orig) == null)
+                if (airportList[orig] == null)
                 {
                     throw new ArgumentException(
                         "Cannot find origin airport in Nav Data.");
@@ -303,7 +303,7 @@ namespace QSP.UI.UserControls
             {
                 var dest = toIdentTxtBox.Text;
 
-                if (airportList.Find(dest) == null)
+                if (airportList[dest] == null)
                 {
                     throw new ArgumentException(
                         "Cannot find destination airport in Nav Data.");

@@ -84,7 +84,7 @@ namespace QSP.RouteFinding.FileExport.Providers
             string icao,
             StringBuilder result)
         {
-            var ad = airports.Find(icao);
+            var ad = airports[icao];
 
             result.AppendLine("Flight plan is built by QSimPlanner.");
             result.AppendLine();
@@ -102,7 +102,7 @@ namespace QSP.RouteFinding.FileExport.Providers
             string icao,
             StringBuilder result)
         {
-            var ad = airports.Find(icao);
+            var ad = airports[icao];
 
             result.Append(icao + "\n1\n-\n1 ");
             result.Append(PmdgLatLonFormat(ad.Lat, ad.Lon) +

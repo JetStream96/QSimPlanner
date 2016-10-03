@@ -46,11 +46,6 @@ namespace QSP.RouteFinding.Airports
             }
         }
 
-        public Airport Find(string icao)
-        {
-            return this[icao];
-        }
-
         public List<Airport> Find(double lat, double lon, double distance)
         {
             return airportFinder.Find(lat, lon, distance);

@@ -66,11 +66,10 @@ namespace UnitTest.RouteFinding.Airports
         [Test]
         public void WhenCannotFindRwysShouldReturnNull()
         {
-            var col = new AirportCollection();
+            var col = new AirportManager();
 
-            Assert.IsNull(col.AirportLatlon("ABCD"));
-            Assert.IsNull(col.RwyLatLon("ABCD", "01"));
-            Assert.IsNull(col.Find("ABCD"));
+            Assert.IsNull(col["ABCD"]);
+            Assert.IsNull(col.FindRwy("ABCD", "01"));
             Assert.IsNull(col.RwyIdentList("ABCD"));
         }
         

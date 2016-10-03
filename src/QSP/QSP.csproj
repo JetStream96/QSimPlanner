@@ -484,7 +484,6 @@
     <Compile Include="RouteFinding\AirwayStructure\WaypointList.cs" />
     <Compile Include="RouteFinding\Containers\Waypoint.cs" />
     <Compile Include="RouteFinding\Airports\Airport.cs" />
-    <Compile Include="RouteFinding\Airports\AirportCollection.cs" />
     <Compile Include="RouteFinding\Data\LatLonSearcher.cs" />
     <Compile Include="RouteFinding\Airports\RwyData.cs" />
     <Compile Include="RouteFinding\Tracks\Exceptions.cs" />

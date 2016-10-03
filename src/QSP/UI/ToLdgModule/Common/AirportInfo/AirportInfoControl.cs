@@ -74,7 +74,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
                 return;
             }
 
-            var takeoffAirport = Airports.Find(airportIcao);
+            var takeoffAirport = Airports[airportIcao];
 
             if (takeoffAirport != null && takeoffAirport.Rwys.Count > 0)
             {
@@ -114,7 +114,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
         {
             if (rwyComboBox.Items.Count > 0)
             {
-                var takeoffAirport = Airports.Find(Icao);
+                var takeoffAirport = Airports[Icao];
                 int index = rwyComboBox.SelectedIndex;
 
                 int elevationFt = takeoffAirport.Rwys[index].Elevation;

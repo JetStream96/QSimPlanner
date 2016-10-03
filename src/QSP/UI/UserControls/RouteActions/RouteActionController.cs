@@ -110,13 +110,13 @@ namespace QSP.UI.UserControls.RouteActions
             var orig = origController.Icao;
             var dest = destController.Icao;
 
-            if (airportList.Find(orig) == null)
+            if (airportList[orig] == null)
             {
                 throw new ArgumentException(
                     "Cannot find origin airport in Nav Data.");
             }
 
-            if (airportList.Find(dest) == null)
+            if (airportList[dest] == null)
             {
                 throw new ArgumentException(
                     "Cannot find destination airport in Nav Data.");

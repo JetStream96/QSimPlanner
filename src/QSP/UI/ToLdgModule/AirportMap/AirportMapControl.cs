@@ -270,7 +270,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
                 return;
             }
 
-            var airport = Airports.Find(CurrentIcao);
+            var airport = Airports[CurrentIcao];
 
             if (airport != null && airport.Rwys.Count > 0)
             {

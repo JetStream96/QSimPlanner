@@ -30,7 +30,7 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
                     if (rte[0] == mainRoute.Last())
                     {
                         // This route is routeTo
-                        if (airportList.Find(rte.Last()) != null)
+                        if (airportList[rte.Last()] != null)
                         {
                             result.RouteTo.Add(rte.SubArray(0, rte.Length - 1));
                         }
@@ -41,7 +41,7 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
                     }
                     else if (rte.Last() == mainRoute[0])
                     {
-                        if (airportList.Find(rte[0]) != null)
+                        if (airportList[rte[0]] != null)
                         {
                             result.RouteFrom.Add(rte.SubArray(1, rte.Length - 1));
                         }

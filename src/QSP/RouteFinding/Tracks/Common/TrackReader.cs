@@ -149,7 +149,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 string s = item[i];
 
                 if ((i != 0 && i != item.Count - 1) ||
-                    airportList.Find(s) == null)
+                    airportList[s] == null)
                 {
                     result.Append(s + " ");
                 }

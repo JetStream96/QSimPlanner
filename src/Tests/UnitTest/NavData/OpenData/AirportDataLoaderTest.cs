@@ -21,9 +21,9 @@ namespace UnitTest.NavData.OpenData
             var airports = loader.LoadFromFile();
 
             // Airport parameter incomplete - should not load.
-            Assert.IsNull(airports.Find("37NJ"));
+            Assert.IsNull(airports["37NJ"]);
 
-            var vhhh = airports.Find("VHHH");
+            var vhhh = airports["VHHH"];
             var rwys = vhhh.Rwys;
 
             AssertVhhh(vhhh);

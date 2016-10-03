@@ -604,7 +604,7 @@ namespace QSP.UI.UserControls
                     "Please enter a valid ZFW.");
             }
 
-            var orig = airportList.Find(origTxtBox.Text.Trim().ToUpper());
+            var orig = airportList[origTxtBox.Text.Trim().ToUpper()];
 
             if (orig == null)
             {
@@ -612,7 +612,7 @@ namespace QSP.UI.UserControls
                     "Cannot find origin airport.");
             }
 
-            var dest = airportList.Find(destTxtBox.Text.Trim().ToUpper());
+            var dest = airportList[destTxtBox.Text.Trim().ToUpper()];
 
             if (dest == null)
             {
