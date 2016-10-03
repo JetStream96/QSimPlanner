@@ -8,12 +8,7 @@ namespace QSP.RouteFinding.AirwayStructure
         public int Index { get; private set; }
         public double Lat { get; private set; }
         public double Lon { get; private set; }
-
-        public WptSeachWrapper(int Index)
-        {
-            this.Index = Index;
-        }
-
+        
         public WptSeachWrapper(int Index, double Lat, double Lon)
         {
             this.Index = Index;
@@ -21,7 +16,7 @@ namespace QSP.RouteFinding.AirwayStructure
             this.Lon = Lon;
         }
 
-        public int GetHashCode(WptSeachWrapper obj)
+        public override int GetHashCode()
         {
             return Index.GetHashCode();
         }
