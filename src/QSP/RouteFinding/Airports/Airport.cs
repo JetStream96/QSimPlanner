@@ -1,4 +1,3 @@
-using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
 using System.Collections.Generic;

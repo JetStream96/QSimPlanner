@@ -1,6 +1,5 @@
 ﻿using IntegrationTest.QSP.RouteFinding.TestSetup;
 using NUnit.Framework;
-using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;

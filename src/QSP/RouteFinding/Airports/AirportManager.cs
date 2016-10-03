@@ -1,9 +1,8 @@
-﻿using QSP.AviationTools.Coordinates;
-using QSP.RouteFinding.Data;
+﻿using QSP.RouteFinding.Data;
 using System.Collections.Generic;
+using System.Linq;
 using static QSP.RouteFinding.Data.LatLonSearcher<
     QSP.RouteFinding.Airports.Airport>;
-using System.Linq;
 
 namespace QSP.RouteFinding.Airports
 {
@@ -68,7 +67,7 @@ namespace QSP.RouteFinding.Airports
                 .Rwys
                 .FirstOrDefault(r => r.RwyIdent == rwy);
         }
-        
+
         public int Count
         {
             get
