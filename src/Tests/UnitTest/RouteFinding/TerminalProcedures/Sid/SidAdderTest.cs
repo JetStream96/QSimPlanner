@@ -115,7 +115,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 Assert.AreEqual(AirwayType.Terminal, edge.Value.AirwayType);
 
                 var expectedDis = distance +
-                wpt102.LatLon.Distance(wptList[edge.ToNodeIndex].LatLon);
+                wpt102.Distance(wptList[edge.ToNodeIndex]);
 
                 Assert.AreEqual(
                     expectedDis, edge.Value.Distance, DistanceEpsilon);
@@ -268,12 +268,10 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 
         private AirportManager GetAirportManager()
         {
-            var airports = new AirportCollection();
-
             var rwy = new RwyData("18", "180", 3500, 60, true, false,
                 "0.000", "0", 25.0003, 50.0001, 15, 3.00, 50, "", 0);
 
-            airports.Add(new Airport(
+            var airport = new Airport(
                 "AXYZ",
                 "Test Airport 01",
                 25.0,
@@ -283,9 +281,9 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 5000,
                 8000,
                 3500,
-                CreateList(rwy)));
+                CreateList(rwy));
 
-            return new AirportManager(airports);
+            return new AirportManager(new Airport[] { airport });
         }
 
         private bool SidIsAdded(

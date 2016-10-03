@@ -25,7 +25,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
 
             var reader = new TrackReader<PacificTrack>(
                 wptList, 
-                new AirportManager(new AirportCollection()));
+                new AirportManager());
 
             // Act
             var nodes = reader.Read(
@@ -78,7 +78,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
 
             var reader = new TrackReader<PacificTrack>(
                 wptList,
-                new AirportManager(new AirportCollection()));
+                new AirportManager());
 
             string[] routeFrom = new string[] { "Q1", "A1", "Q2", "UPR", "Q3", "P1" };
 

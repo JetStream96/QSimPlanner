@@ -92,7 +92,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             else
             {
                 // Case 2, 3, 4, 5
-                var latLon = airportList.RwyLatLon(icao, rwy);
+                var latLon = airportList.FindRwy(icao, rwy);
                 var wpt = new Waypoint(icao + rwy, latLon);
                 int index = editor.AddWaypoint(wpt);
 
@@ -114,7 +114,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
         private int ProcessCase1(string rwy)
         {
-            var rwyLatLon = airportList.RwyLatLon(icao, rwy);
+            var rwyLatLon = airportList.FindRwy(icao, rwy);
             var nearbyWpts = AirwayConnections(rwyLatLon.Lat, rwyLatLon.Lon);
 
             int index = editor.AddWaypoint(new Waypoint(icao + rwy, rwyLatLon));

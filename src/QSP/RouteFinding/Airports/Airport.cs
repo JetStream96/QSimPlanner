@@ -71,12 +71,7 @@ namespace QSP.RouteFinding.Airports
                 return x.Icao.CompareTo(y.Icao);
             }
         }
-
-        public static LatLon LatLon(Airport item)
-        {
-            return new LatLon(item.Lat, item.Lon);
-        }
-
+        
         public bool Equals(Airport other)
         {
             return other != null && Icao == other.Icao;

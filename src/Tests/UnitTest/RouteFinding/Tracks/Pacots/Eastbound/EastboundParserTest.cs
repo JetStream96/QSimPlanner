@@ -39,13 +39,13 @@ JAPAN ROUTE : VACKY OTR13 SEALS
         RMK : ATM CENTER TEL:81-92-608-8870. 08 FEB 07:00 2016 UNTIL 08 FEB
 21:00 2016. CREATED: 07 FEB 19:09 2016";
 
-            var airports = new AirportCollection();
+            var airports = new AirportManager();
             airports.Add(new Airport("KSEA", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
             airports.Add(new Airport("KPDX", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
             airports.Add(new Airport("KLAX", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
 
             // Act
-            var trks = new EastboundParser(new AirportManager(airports))
+            var trks = new EastboundParser(airports)
                      .Parse(new PacotsMessage(new List<string>(),
                                               new List<string>() { msg },
                                               "",

@@ -239,8 +239,8 @@ namespace QSP.UI.Forms
             string navDataPath = appSettings.NavDataLocation;
             var airportTxtPath = Path.Combine(navDataPath, "Airports.txt");
 
-            var airportList = new AirportManager(
-                new AirportDataLoader(airportTxtPath).LoadFromFile());
+            var airportList = new AirportDataLoader(airportTxtPath)
+                .LoadFromFile();
 
             var result = new WptListLoader(navDataPath).LoadFromFile();
             countryCodesLocator = result.CountryCodes.ToLocator();

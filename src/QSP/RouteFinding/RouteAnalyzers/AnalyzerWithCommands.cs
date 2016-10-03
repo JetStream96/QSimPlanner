@@ -170,11 +170,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
         {
             origRwyWpt = new Waypoint(
                 origIcao + origRwy,
-                airportList.RwyLatLon(origIcao, origRwy));
+                airportList.FindRwy(origIcao, origRwy));
 
             destRwyWpt = new Waypoint(
                 destIcao + destRwy,
-                airportList.RwyLatLon(destIcao, destRwy));
+                airportList.FindRwy(destIcao, destRwy));
         }
 
         private List<Route> ComputeRoutes(List<RouteString> subRoutes)

@@ -14,7 +14,7 @@ namespace UnitTest.RouteFinding.Tracks.Common.TDM.Parser
             var result = ConnectionRouteInterpreter.Convert(
                 new string[] { "P1", "P2", "P3" },
                 new string[] { "Q P1", "P3 R" },
-                new AirportManager(new AirportCollection()));
+                new AirportManager());
 
             Assert.AreEqual(1, result.RouteFrom.Count);
             Assert.AreEqual(1, result.RouteTo.Count);
@@ -31,14 +31,14 @@ namespace UnitTest.RouteFinding.Tracks.Common.TDM.Parser
         [Test]
         public void RemovesAirportsCorrectly()
         {
-            var airports = new AirportCollection();
+            var airports = new AirportManager();
             airports.Add(new Airport("ABCD", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
             airports.Add(new Airport("EFGH", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
             
             var result = ConnectionRouteInterpreter.Convert(
                 new string[] { "P1", "P2", "P3" },
                 new string[] { "ABCD Q P1", "P3 R EFGH" },
-                new AirportManager(airports));
+                airports);
 
             Assert.AreEqual(1, result.RouteFrom.Count);
             Assert.AreEqual(1, result.RouteTo.Count);

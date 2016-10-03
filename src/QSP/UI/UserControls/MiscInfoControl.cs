@@ -162,10 +162,10 @@ namespace QSP.UI.UserControls
 
         private string GenDesForcastString(string icao)
         {
-            var latlon = AirportList.AirportLatlon(icao);
+            var airport = AirportList[icao];
             int[] FLs = { 60, 90, 120, 180, 240, 300, 340, 390, 440, 490 };
             var forcastGen = new DescendForcastGenerator(
-                windTableLocator.Instance, latlon.Lat, latlon.Lon, FLs);
+                windTableLocator.Instance, airport.Lat, airport.Lon, FLs);
 
             Wind[] w = forcastGen.Generate();
             var result = new StringBuilder("\n");

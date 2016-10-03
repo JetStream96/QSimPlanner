@@ -75,7 +75,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// <exception cref="SidNotFoundException"></exception>
         public SidInfo InfoForAnalysis(string rwy, string sid)
         {
-            var latLon = airportList.RwyLatLon(icao, rwy);
+            var latLon = airportList.FindRwy(icao, rwy);
             var wpt = new Waypoint(icao + rwy, latLon);
             return SidCollection.GetSidInfo(sid, rwy, wpt);
         }

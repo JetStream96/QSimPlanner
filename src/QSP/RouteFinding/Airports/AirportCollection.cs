@@ -16,6 +16,9 @@ namespace QSP.RouteFinding.Airports
             airportFinder = new Dictionary<string, int>();
         }
 
+        /// <summary>
+        /// Returns null if the icao or rwy is not found.
+        /// </summary>
         public Airport Find(string icao)
         {
             int index;
@@ -31,6 +34,9 @@ namespace QSP.RouteFinding.Airports
             }
         }
 
+        /// <summary>
+        /// Returns null if the icao or rwy is not found.
+        /// </summary>
         public string[] RwyIdentList(string icao)
         {
             int index;
@@ -49,10 +55,14 @@ namespace QSP.RouteFinding.Airports
                 {
                     result[i] = rwy[i].RwyIdent;
                 }
+
                 return result;
             }
         }
 
+        /// <summary>
+        /// Returns null if the icao or rwy is not found.
+        /// </summary>
         public LatLon RwyLatLon(string icao, string rwy)
         {
             int index;
@@ -77,6 +87,9 @@ namespace QSP.RouteFinding.Airports
             return null;
         }
 
+        /// <summary>
+        /// Returns null if the icao or rwy is not found.
+        /// </summary>
         public LatLon AirportLatlon(string icao)
         {
             int index;
@@ -92,13 +105,13 @@ namespace QSP.RouteFinding.Airports
             }
         }
 
-        public Airport this[int index]
-        {
-            get
-            {
-                return airportList[index];
-            }
-        }
+        //public Airport this[int index]
+        //{
+        //    get
+        //    {
+        //        return airportList[index];
+        //    }
+        //}
 
         public int Count
         {
@@ -108,12 +121,17 @@ namespace QSP.RouteFinding.Airports
             }
         }
 
+        // If icao already exists, an exception is thrown.
         public void Add(Airport item)
         {
             airportFinder.Add(item.Icao, airportList.Count);
             airportList.Add(item);
         }
 
+        /// <summary>
+        /// Removes the airport if icao is found. Otherwise does nothing.
+        /// Returns the icao was found.
+        /// </summary>
         public bool Remove(string icao)
         {
             int index;
@@ -124,6 +142,7 @@ namespace QSP.RouteFinding.Airports
                 airportList.RemoveAt(index);
                 airportFinder.Remove(icao);
             }
+
             return keyFound;
         }
     }

@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using static QSP.MathTools.GCDis;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
 {
@@ -28,7 +29,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
                 wptList,
                 wptList.GetEditor(),
                 recorder,
-                new AirportManager(new AirportCollection()),
+                new AirportManager(),
                 new TrackInUseCollection());
 
             // Act
@@ -53,17 +54,16 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             var edge = wptList.GetEdge(GetEdgeIndex("NATC", "ETARI", wptList));
 
             // Distance
-            Assert.AreEqual(
-                GetDistance(
-                    new List<LatLon>
+            Assert.AreEqual(                
+                    new List<ICoordinate>
                     {
-                      wptList[ wptList.FindById("ETARI")].LatLon,
+                      wptList[wptList.FindById("ETARI")],
                       new LatLon(55.5,-20),
                       new LatLon(55.5,-30),
                       new LatLon(55.5,-40),
                       new LatLon(54.5,-50),
-                      wptList[wptList.FindById("MELDI")].LatLon
-                    }),
+                      wptList[wptList.FindById("MELDI")]
+                    }.TotalDistance(),
                 edge.Value.Distance,
                 0.01);
 
@@ -85,18 +85,17 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
 
             // Distance
             Assert.AreEqual(
-                GetDistance(
-                    new List<LatLon>
-                    {
-                      wptList[ wptList.FindById("SOORY")].LatLon,
-                      new LatLon(42.0,-50.0),
-                      new LatLon(44.0,-40.0),
-                      new LatLon(44.0,-30.0),
-                      new LatLon(46.0,-20.0),
-                      new LatLon(46.0,-15.0),
-                      wptList[wptList.FindById("SEPAL")].LatLon,
-                      wptList[wptList.FindById("LAPEX")].LatLon
-                    }),
+                new List<ICoordinate>
+                {
+                    wptList[wptList.FindById("SOORY")],
+                    new LatLon(42.0,-50.0),
+                    new LatLon(44.0,-40.0),
+                    new LatLon(44.0,-30.0),
+                    new LatLon(46.0,-20.0),
+                    new LatLon(46.0,-15.0),
+                    wptList[wptList.FindById("SEPAL")],
+                    wptList[wptList.FindById("LAPEX")]
+                }.TotalDistance(),
                 edge.Value.Distance,
                 0.01);
 

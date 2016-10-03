@@ -1,6 +1,8 @@
+using QSP.RouteFinding.Data.Interfaces;
+
 namespace QSP.RouteFinding.Airports
 {
-    public class RwyData
+    public class RwyData : ICoordinate
     {
         public string RwyIdent { get; private set; }
         public string Heading { get; private set; }

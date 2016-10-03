@@ -83,8 +83,8 @@ namespace QSP.RouteFinding.RandomRoutes
 
         private List<Waypoint> GetCandidates(Waypoint start, Waypoint end)
         {
-            var startVector = start.LatLon.ToVector3D();
-            var endVector = end.LatLon.ToVector3D();
+            var startVector = start.ToVector3D();
+            var endVector = end.ToVector3D();
             var tangent = GetTangent(startVector, endVector);
             var maxDisVector = (startVector + Tan(MaxAngleRadian) * tangent)
                 .Normalize();

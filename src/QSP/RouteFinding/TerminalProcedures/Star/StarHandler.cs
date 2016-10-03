@@ -82,7 +82,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         /// <exception cref="StarNotFoundException"></exception>
         public StarInfo InfoForAnalysis(string rwy, string star)
         {
-            var latLon = airportList.RwyLatLon(icao, rwy);
+            var latLon = airportList.FindRwy(icao, rwy);
             var wpt = new Waypoint(icao + rwy, latLon);
             return StarCollection.GetStarInfo(star, rwy, wpt);
         }

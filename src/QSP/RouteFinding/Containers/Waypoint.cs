@@ -26,7 +26,7 @@ namespace QSP.RouteFinding.Containers
             this.CountryCode = CountryCode;
         }
 
-        public Waypoint(string ID, LatLon latLon)
+        public Waypoint(string ID, ICoordinate latLon)
             : this(ID, latLon.Lat, latLon.Lon)
         { }
 
@@ -36,12 +36,7 @@ namespace QSP.RouteFinding.Containers
                   waypoint.Lon,
                   waypoint.CountryCode)
         { }
-
-        public LatLon LatLon
-        {
-            get { return new LatLon(Lat, Lon); }
-        }
-
+        
         /// <summary>
         /// Determines whether ID, Lat, and Lon match.
         /// </summary>

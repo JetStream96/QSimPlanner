@@ -1,4 +1,5 @@
 using QSP.MathTools;
+using QSP.RouteFinding.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace QSP.RouteFinding.Airports
         {
             double distance = 100.0;
             const double disMultiplyFactor = 2.0;
-            var destLatLon = airportList.AirportLatlon(dest);
+            var destAirport = airportList[dest];
 
             Func<Airport, bool> selector = i =>
             i.LongestRwyLength >= lengthFt && i.Icao != dest;
@@ -33,7 +34,7 @@ namespace QSP.RouteFinding.Airports
             while (true)
             {
                 var results = airportList
-                    .Find(destLatLon.Lat, destLatLon.Lon, distance)
+                    .Find(destAirport.Lat, destAirport.Lon, distance)
                     .Where(selector)
                     .ToList();
 
@@ -56,8 +57,7 @@ namespace QSP.RouteFinding.Airports
 
             foreach (var i in altns)
             {
-                var latLon = airportList.AirportLatlon(dest);
-                double distance = latLon.Distance(i.Lat, i.Lon);
+                double distance = airportList[dest].Distance(i);
 
                 result.Add(
                     new AlternateInfo(

@@ -21,11 +21,10 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
         private void InitObjects1()
         {
-            var ac = new AirportCollection();
-            ac.Add(GetAirport("ABCD", GetRwyData("05L", 25.0, 121.0)));
-            ac.Add(GetAirport("EFGH", GetRwyData("07L", 22.0, 113.0)));
-            airportList = new AirportManager(ac);
-
+            airportList = new AirportManager();
+            airportList.Add(GetAirport("ABCD", GetRwyData("05L", 25.0, 121.0)));
+            airportList.Add(GetAirport("EFGH", GetRwyData("07L", 22.0, 113.0)));
+            
             sids = new SidCollection(
                 new List<SidEntry>() {
                     new SidEntry(
@@ -129,12 +128,10 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
         private void InitObjects2()
         {
-            var ac = new AirportCollection();
-
-            ac.Add(GetAirport("ABCD", GetRwyData("05L", 25.0, 120.0)));
-            ac.Add(GetAirport("EFGH", GetRwyData("07L", 43.0, 107.0)));
-
-            airportList = new AirportManager(ac);
+            airportList = new AirportManager();
+            var list = airportList;
+            list.Add(GetAirport("ABCD", GetRwyData("05L", 25.0, 120.0)));
+            list.Add(GetAirport("EFGH", GetRwyData("07L", 43.0, 107.0)));
         }
 
         private AnalyzerWithCommands GetAnalyzer2(params string[] route)

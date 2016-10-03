@@ -146,9 +146,9 @@ namespace QSP.UI.Controllers
             TerminalProceduresCBox.Items.Clear();
             FilterBtn.Enabled = false;
 
-            var rwyList = AirportList.RwyIdentList(Icao);
+            var rwyList = AirportList.RwyIdentList(Icao).ToArray();
 
-            if (rwyList != null && rwyList.Count() > 0)
+            if (rwyList != null && rwyList.Length > 0)
             {
                 RwyCBox.Items.AddRange(rwyList);
                 RwyCBox.SelectedIndex = 0;

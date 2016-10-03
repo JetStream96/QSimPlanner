@@ -56,16 +56,16 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
             // Distance
             Assert.AreEqual(
-                    new List<LatLon>
+                    new List<ICoordinate>
                     {
-                      wptList[ wptList.FindById("JAMOR")].LatLon,
-                      wptList[ wptList.FindById("IBABI")].LatLon,
-                      wptList[ wptList.FindById("LEC")].LatLon,
-                      wptList[ wptList.FindById("OOD")].LatLon,
-                      wptList[ wptList.FindById("ARNTU")].LatLon,
-                      wptList[ wptList.FindById("KEXIM")].LatLon,
-                      wptList[ wptList.FindById("CIN")].LatLon,
-                      wptList[ wptList.FindById("ATMAP")].LatLon
+                      wptList[wptList.FindById("JAMOR")],
+                      wptList[wptList.FindById("IBABI")],
+                      wptList[wptList.FindById("LEC")],
+                      wptList[wptList.FindById("OOD")],
+                      wptList[wptList.FindById("ARNTU")],
+                      wptList[wptList.FindById("KEXIM")],
+                      wptList[wptList.FindById("CIN")],
+                      wptList[wptList.FindById("ATMAP")]
                     }.TotalDistance(),
                 edge.Value.Distance,
                 0.01);
@@ -89,15 +89,15 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
             // Distance
             Assert.AreEqual(
-                    new List<LatLon>
+                    new List<ICoordinate>
                     {
-                      wptList[ wptList.FindById("TAXEG")].LatLon,
-                      wptList[ wptList.FindById("PASTA")].LatLon,
-                      wptList[ wptList.FindById("TAROR")].LatLon,
-                      wptList[ wptList.FindById("WR")].LatLon,
-                      wptList[ wptList.FindById("ENTRE")].LatLon,
-                      wptList[ wptList.FindById("MALLY")].LatLon,
-                      wptList[ wptList.FindById("NSM")].LatLon
+                      wptList[wptList.FindById("TAXEG")],
+                      wptList[wptList.FindById("PASTA")],
+                      wptList[wptList.FindById("TAROR")],
+                      wptList[wptList.FindById("WR")],
+                      wptList[wptList.FindById("ENTRE")],
+                      wptList[wptList.FindById("MALLY")],
+                      wptList[wptList.FindById("NSM")]
                     }.TotalDistance(),
                 edge.Value.Distance,
                 0.01);
@@ -199,7 +199,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
         private static AirportManager GetAirportList()
         {
-            var collection = new AirportCollection();
+            var collection = new List<Airport>();
 
             foreach (var i in airports)
             {

@@ -1,5 +1,6 @@
 ﻿using QSP.AviationTools.Coordinates;
 using System;
+using QSP.RouteFinding.Data.Interfaces;
 using static QSP.MathTools.Angles;
 
 namespace QSP.MathTools.Vectors
@@ -12,11 +13,11 @@ namespace QSP.MathTools.Vectors
                 1.0, Math.PI * 0.5 - ToRadian(lat), ToRadian(lon));
         }
 
-        public static Vector3D ToVector3D(this LatLon latLon)
+        public static Vector3D ToVector3D(this ICoordinate item)
         {
-            return LatLonToVector3D(latLon.Lat, latLon.Lon);
+            return LatLonToVector3D(item.Lat, item.Lon);
         }
-
+        
         public static LatLon ToLatLon(this Vector3D item)
         {
             return new LatLon(

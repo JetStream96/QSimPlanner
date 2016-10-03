@@ -21,9 +21,9 @@ namespace QSP.NavData.AAX
 
         /// <exception cref="RwyDataFormatException"></exception>
         /// <exception cref="ReadAirportFileException"></exception>
-        public AirportCollection LoadFromFile()
+        public AirportManager LoadFromFile()
         {
-            var airportList = new AirportCollection();
+            var airportList = new AirportManager();
             IEnumerable<string> allLines = null;
 
             try

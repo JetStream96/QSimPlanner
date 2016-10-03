@@ -113,15 +113,15 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 
             // Distance
             Assert.AreEqual(
-                    new List<LatLon>
+                    new List<ICoordinate>
                     {
-                      wptList[ wptList.FindById("SEALS")].LatLon,
+                      wptList[wptList.FindById("SEALS")],
                       new LatLon(36,150),
                       new LatLon(37,160),
                       new LatLon(36,170),
                       new LatLon(33,180),
                       new LatLon(29,-170),
-                      wptList[wptList.FindById("DANNO")].LatLon
+                      wptList[wptList.FindById("DANNO")]
                     }.TotalDistance(),
                 edge.Value.Distance,
                 0.01);
@@ -314,7 +314,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 
         private static AirportManager GetAirportList()
         {
-            var collection = new AirportCollection();
+            var collection = new List<Airport>();
 
             foreach (var i in airports)
             {

@@ -3,6 +3,7 @@ using QSP.RouteFinding.Data;
 using System.Collections.Generic;
 using static QSP.RouteFinding.Data.LatLonSearcher<
     QSP.RouteFinding.Airports.Airport>;
+using System.Linq;
 
 namespace QSP.RouteFinding.Airports
 {
@@ -11,29 +12,43 @@ namespace QSP.RouteFinding.Airports
     //
     public class AirportManager
     {
-        private AirportCollection airportData;
+        private Dictionary<string, Airport> airportData;
         private LatLonSearcher<Airport> airportFinder;
 
-        public AirportManager(AirportCollection airportData)
+        public AirportManager() : this(new Airport[0]) { }
+
+        public AirportManager(IEnumerable<Airport> airportData)
         {
-            this.airportData = airportData;
+            this.airportData = airportData.ToDictionary(a => a.Icao);
             GenerateSearchGrids();
         }
 
         private void GenerateSearchGrids()
         {
             airportFinder = new LatLonSearcher<Airport>(GridSizeOption.Small);
-            int count = airportData.Count;
+            foreach (var i in airportData.Values) airportFinder.Add(i);
+        }
 
-            for (int i = 0; i < count; i++)
+        /// <summary>
+        /// Returns null if the icao or rwy is not found.
+        /// </summary>
+        public Airport this[string icao]
+        {
+            get
             {
-                airportFinder.Add(airportData[i]);
+                Airport airport;
+                if (airportData.TryGetValue(icao, out airport))
+                {
+                    return airport;
+                }
+
+                return null;
             }
         }
 
         public Airport Find(string icao)
         {
-            return airportData.Find(icao);
+            return this[icao];
         }
 
         public List<Airport> Find(double lat, double lon, double distance)
@@ -41,21 +56,24 @@ namespace QSP.RouteFinding.Airports
             return airportFinder.Find(lat, lon, distance);
         }
 
-        public string[] RwyIdentList(string icao)
+        /// <summary>
+        /// Returns null if the icao is not found.
+        /// </summary>
+        public IEnumerable<string> RwyIdentList(string icao)
         {
-            return airportData.RwyIdentList(icao);
+            return this[icao]?.Rwys.Select(r => r.RwyIdent);
         }
 
-        public LatLon RwyLatLon(string icao, string rwy)
+        /// <summary>
+        /// Returns null if the icao or rwy is not found.
+        /// </summary>
+        public RwyData FindRwy(string icao, string rwy)
         {
-            return airportData.RwyLatLon(icao, rwy);
+            return this[icao]?
+                .Rwys
+                .FirstOrDefault(r => r.RwyIdent == rwy);
         }
-
-        public LatLon AirportLatlon(string icao)
-        {
-            return airportData.AirportLatlon(icao);
-        }
-
+        
         public int Count
         {
             get
@@ -66,29 +84,27 @@ namespace QSP.RouteFinding.Airports
 
         public void Add(Airport item)
         {
-            airportData.Add(item);
+            airportData.Add(item.Icao, item);
             airportFinder.Add(item);
         }
 
+        /// <summary>
+        /// Removes the airport if icao is found. Otherwise does nothing.
+        /// Returns the icao was removed.
+        /// </summary>
         public bool Remove(string icao)
         {
-            var ad = airportData.Find(icao);
+            var ad = this[icao];
+            if (ad == null) return false;
 
-            if (ad == null)
-            {
-                return false;
-            }
-            else
-            {
-                airportData.Remove(icao);
-                airportFinder.Remove(ad);
-                return true;
-            }
+            airportData.Remove(icao);
+            airportFinder.Remove(ad);
+            return true;
         }
     }
 
     public class DefaultAirportManager : AirportManager
     {
-        public DefaultAirportManager() : base(new AirportCollection()) { }
+        public DefaultAirportManager() : base() { }
     }
 }

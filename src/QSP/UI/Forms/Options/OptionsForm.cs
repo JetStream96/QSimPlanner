@@ -249,7 +249,7 @@ namespace QSP.UI.Forms.Options
                 var directory = pathTxtBox.Text;
                 var filePath = Path.Combine(directory, @"Airports.txt");
                 var loader = new AirportDataLoader(filePath);
-                return new AirportManager(loader.LoadFromFile());
+                return loader.LoadFromFile();
             }
             catch (Exception ex)
             {

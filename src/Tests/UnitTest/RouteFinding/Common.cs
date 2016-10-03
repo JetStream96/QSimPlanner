@@ -51,9 +51,7 @@ namespace UnitTest.RouteFinding
 
         public static AirportManager GetAirportManager(params Airport[] items)
         {
-            var col = new AirportCollection();
-            items.ForEach(i => col.Add(i));
-            return new AirportManager(col);
+            return new AirportManager(items);
         }
 
         public static Airport GetAirport(string icao, params RwyData[] rwys)
