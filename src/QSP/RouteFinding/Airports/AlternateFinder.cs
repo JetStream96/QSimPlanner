@@ -19,7 +19,7 @@ namespace QSP.RouteFinding.Airports
 
         // lengthFt: minimum runway length.
         //
-        // The number of returned airports is larger than minCount, unless
+        // The number of returned airports is no less than minCount, unless
         // there isn't enough in the airportList.
         public List<Airport> GetListAltn(
             string dest, int lengthFt, int minCount = 10)
