@@ -40,19 +40,21 @@ namespace QSP.FuelCalculation.Calculators
             var destCalc = new DestinationFuelCalculator(
                 fuelData, para, maxAltnFuelResult);
             var destResult = destCalc.Compute(destAirDis);
+            var extraTimeMin = fuelData.HoldingTimeMin(para.ExtraFuelKg,
+                destResult.LandingWeightTon);
 
             return new FuelReport(
                 destResult.FuelTon,
                 maxAltnFuelResult.FuelTon,
                 destResult.FuelTon * 1000.0 * para.ContPercent / 100.0,
                 para.ExtraFuelKg,
-                para.HoldingMin * fuelData.HoldingFuelPerMinuteKg,
+                destResult.HoldingFuelKg,                
                 para.ApuTimeMin * fuelData.ApuFuelPerMinKg,
                 para.TaxiTimeMin * fuelData.TaxiFuelPerMinKg,
-                para.FinalRsvMin * fuelData.HoldingFuelPerMinuteKg,
+                altnResults.First().HoldingFuelKg,
                 destResult.TimeMin,
                 maxAltnFuelResult.TimeMin,
-                para.ExtraFuelKg / fuelData.HoldingFuelPerMinuteKg,
+                extraTimeMin,
                 para.HoldingMin,
                 para.FinalRsvMin,
                 para.ApuTimeMin,

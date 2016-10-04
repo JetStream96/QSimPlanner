@@ -18,30 +18,41 @@
 
         public CalculationResult Compute(double airDistanceNm)
         {
-            double landingWeightTon = LandWeightTon();
+            var landingResult = GetLandingResult();
             double timeMin =
                 fuelData.FlightTimeTable.GetTimeMin(airDistanceNm);
 
             double fuelTon = fuelData.FuelTable.GetFuelRequiredTon(
-                airDistanceNm, landingWeightTon);
+                airDistanceNm, landingResult.LandWeightTon);
 
             return new CalculationResult()
             {
                 TimeMin = timeMin,
                 FuelTon = fuelTon,
-                LandingWeightTon = landingWeightTon
+                LandingWeightTon = landingResult.LandWeightTon,
+                HoldingFuelKg = landingResult.HoldingFuelKg
             };
         }
 
-        private double LandWeightTon()
+        private struct LandingResult
         {
-            double holdingFuelKg =
-                para.HoldingMin * fuelData.HoldingFuelPerMinuteKg;
+            public double LandWeightTon, HoldingFuelKg;
+        }
 
-            return altnResult.LandingWeightTon +
+        private LandingResult GetLandingResult()
+        {
+            var wtWithoutHoldingTon = altnResult.LandingWeightTon +
                 altnResult.FuelTon +
-                (holdingFuelKg + para.MissedAppFuelKg + para.ExtraFuelKg)
-                / 1000.0;
+                (para.MissedAppFuelKg + para.ExtraFuelKg) / 1000.0;
+
+            var holdingFuelKg = fuelData.HoldingFuelKg(para.HoldingMin,
+                wtWithoutHoldingTon);
+
+            return new LandingResult
+            {
+                LandWeightTon = wtWithoutHoldingTon + holdingFuelKg / 1000.0,
+                HoldingFuelKg = holdingFuelKg
+            };
         }
     }
 }

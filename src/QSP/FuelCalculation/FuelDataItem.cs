@@ -1,6 +1,7 @@
 ﻿using QSP.FuelCalculation.Tables;
 using QSP.Utilities.Units;
 using System.Xml.Linq;
+using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 
 namespace QSP.FuelCalculation
 {
@@ -11,6 +12,7 @@ namespace QSP.FuelCalculation
         public OptCrzTable OptCrzTable { get; private set; }
         public SpeedProfile SpeedProfile { get; private set; }
         public double HoldingFuelPerMinuteKg { get; private set; }
+        public double HoldingFuelRefWtTon { get; private set; }
         public double TaxiFuelPerMinKg { get; private set; }
         public double ApuFuelPerMinKg { get; private set; }
         public double MissedAppFuelKG { get; private set; }
@@ -21,6 +23,7 @@ namespace QSP.FuelCalculation
             OptCrzTable OptCrzTable,
             SpeedProfile SpeedProfile,
             double HoldingFuelPerMinuteKg,
+            double HoldingFuelRefWtTon,
             double TaxiFuelPerMinKg,
             double ApuFuelPerMinKg,
             double MissedAppFuelKG)
@@ -30,6 +33,7 @@ namespace QSP.FuelCalculation
             this.OptCrzTable = OptCrzTable;
             this.SpeedProfile = SpeedProfile;
             this.HoldingFuelPerMinuteKg = HoldingFuelPerMinuteKg;
+            this.HoldingFuelRefWtTon = HoldingFuelRefWtTon;
             this.TaxiFuelPerMinKg = TaxiFuelPerMinKg;
             this.ApuFuelPerMinKg = ApuFuelPerMinKg;
             this.MissedAppFuelKG = MissedAppFuelKG;
@@ -51,10 +55,11 @@ namespace QSP.FuelCalculation
                 new FuelTable(fuel.Value),
                 GetOptAltTable(cruize),
                 SpeedProfile.FromXml(cruize),
-                double.Parse(general.Element("HoldingFuelPerMinuteKg").Value),
-                double.Parse(general.Element("TaxiFuelPerMinKg").Value),
-                double.Parse(general.Element("ApuFuelPerMinKg").Value),
-                double.Parse(general.Element("MissedAppFuelKG").Value));
+                general.GetDouble("HoldingFuelPerMinuteKg"),
+                general.GetDouble("HoldingFuelRefWtTon"),
+                general.GetDouble("TaxiFuelPerMinKg"),
+                general.GetDouble("ApuFuelPerMinKg"),
+                general.GetDouble("MissedAppFuelKG"));
         }
 
         private static OptCrzTable GetOptAltTable(XElement CruiseProfileNode)
@@ -63,8 +68,7 @@ namespace QSP.FuelCalculation
             var unitTxt = optAltTable.Element("WeightUnit").Value;
             var unit = Conversions.StringToWeightUnit(unitTxt);
 
-            return new OptCrzTable(
-                optAltTable.Element("Table").Value, unit);
+            return new OptCrzTable(optAltTable.GetString("Table"), unit);
         }
     }
 }
