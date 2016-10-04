@@ -12,15 +12,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         public event EventHandler AircraftsChanged
         {
-            add
-            {
-                controller.AircraftsChanged += value;
-            }
-
-            remove
-            {
-                controller.AircraftsChanged -= value;
-            }
+            add { controller.AircraftsChanged += value; }
+            remove { controller.AircraftsChanged -= value; }
         }
 
         public AircraftMenuControl()
@@ -71,6 +64,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 maxLdgWtTxtBox,
                 maxZfwTxtBox,
                 maxFuelTxtBox,
+                biasPercentTxtBox,
                 new Label[] { wtUnitLbl1, wtUnitLbl2, wtUnitLbl3, wtUnitLbl4 },
                 selectionGroupBox,
                 propertyGroupBox,

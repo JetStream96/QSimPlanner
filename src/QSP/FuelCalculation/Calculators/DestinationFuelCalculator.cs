@@ -1,5 +1,6 @@
 ﻿namespace QSP.FuelCalculation.Calculators
 {
+    // Bias is applied in this calculator.
     public class DestinationFuelCalculator
     {
         private FuelDataItem fuelData;
@@ -23,7 +24,7 @@
                 fuelData.FlightTimeTable.GetTimeMin(airDistanceNm);
 
             double fuelTon = fuelData.FuelTable.GetFuelRequiredTon(
-                airDistanceNm, landingResult.LandWeightTon);
+                airDistanceNm, landingResult.LandWeightTon) * para.FuelBias;
 
             return new CalculationResult()
             {
@@ -46,7 +47,7 @@
                 (para.MissedAppFuelKg + para.ExtraFuelKg) / 1000.0;
 
             var holdingFuelKg = fuelData.HoldingFuelKg(para.HoldingMin,
-                wtWithoutHoldingTon);
+                wtWithoutHoldingTon) * para.FuelBias;
 
             return new LandingResult
             {

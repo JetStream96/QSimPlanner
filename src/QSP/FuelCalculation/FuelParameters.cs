@@ -10,6 +10,7 @@ namespace QSP.FuelCalculation
         public double ApuTimeMin { get; private set; }
         public double TaxiTimeMin { get; private set; }
         public double FinalRsvMin { get; private set; }
+        public double FuelBias { get; private set; }
         public FuelDataItem FuelData { get; private set; }
         
         public FuelParameters(
@@ -21,6 +22,7 @@ namespace QSP.FuelCalculation
              double ApuTimeMin,
              double TaxiTimeMin,
              double FinalRsvMin,
+             double FuelBias,
              FuelDataItem FuelData)
         {
             this.ZfwKg = ZfwKg;
@@ -31,6 +33,7 @@ namespace QSP.FuelCalculation
             this.ApuTimeMin = ApuTimeMin;
             this.TaxiTimeMin = TaxiTimeMin;
             this.FinalRsvMin = FinalRsvMin;
+            this.FuelBias = FuelBias;
             this.FuelData = FuelData;
         }
     }

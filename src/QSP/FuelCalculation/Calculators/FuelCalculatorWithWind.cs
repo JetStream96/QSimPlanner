@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace QSP.FuelCalculation.Calculators
 {
+    // Bias is applied in this calculator.
     public class FuelCalculatorWithWind
     {
         private FuelDataItem fuelData;
@@ -40,17 +41,21 @@ namespace QSP.FuelCalculation.Calculators
             var destCalc = new DestinationFuelCalculator(
                 fuelData, para, maxAltnFuelResult);
             var destResult = destCalc.Compute(destAirDis);
-            var extraTimeMin = fuelData.HoldingTimeMin(para.ExtraFuelKg,
+            var extraTimeMin = fuelData.HoldingTimeMin(
+                para.ExtraFuelKg / para.FuelBias,
                 destResult.LandingWeightTon);
+            var contingencyKg = destResult.FuelTon * 1000.0
+                * para.ContPercent / 100.0
+                * para.FuelBias;
 
             return new FuelReport(
                 destResult.FuelTon,
                 maxAltnFuelResult.FuelTon,
-                destResult.FuelTon * 1000.0 * para.ContPercent / 100.0,
+                contingencyKg,
                 para.ExtraFuelKg,
                 destResult.HoldingFuelKg,                
                 para.ApuTimeMin * fuelData.ApuFuelPerMinKg,
-                para.TaxiTimeMin * fuelData.TaxiFuelPerMinKg,
+                para.TaxiTimeMin * fuelData.TaxiFuelPerMinKg * para.FuelBias,
                 altnResults.First().HoldingFuelKg,
                 destResult.TimeMin,
                 maxAltnFuelResult.TimeMin,

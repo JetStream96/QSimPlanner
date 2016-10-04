@@ -14,6 +14,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             this.elem = elem;
         }
 
+        // TODO: Number range validation?
         /// <exception cref="InvalidUserInputException"></exception>
         public AircraftConfigItem Read()
         {
@@ -22,7 +23,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             double wtUnitFactor = wtUnit == WeightUnit.KG ?
                     1.0 : Constants.LbKgRatio;
 
-            double zfw, maxToWt, maxLdgWt, maxZfw, maxFuel;
+            double zfw, maxToWt, maxLdgWt, maxZfw, maxFuel, fuelBias;
 
             if (double.TryParse(elem.Zfw.Text, out zfw) == false)
             {
@@ -53,11 +54,18 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                     "Invalid max fuel capacity.");
             }
 
+            if (double.TryParse(elem.Bias.Text, out fuelBias) == false)
+            {
+                throw new InvalidUserInputException(
+                    "Invalid fuel bias.");
+            }
+
             zfw *= wtUnitFactor;
             maxToWt *= wtUnitFactor;
             maxLdgWt *= wtUnitFactor;
             maxZfw *= wtUnitFactor;
             maxFuel *= wtUnitFactor;
+            fuelBias /= 100.0;
 
             return new AircraftConfigItem(
                 elem.AcType.Text.Trim(),
@@ -70,6 +78,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 maxLdgWt,
                 maxZfw,
                 maxFuel,
+                fuelBias,
                 wtUnit);
         }
 

@@ -11,5 +11,5 @@
   <WtUnit>0</WtUnit>
   <MaxZfwKg>51483</MaxZfwKg>
   <MaxFuelKg>20896</MaxFuelKg>
-  <BiasPercent>100</BiasPercent>
+  <FuelBias>1</FuelBias>
 </root>

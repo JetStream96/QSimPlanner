@@ -20,6 +20,7 @@ namespace QSP.AircraftProfiles.Configs
         public double MaxLdgWtKg { get; private set; }
         public double MaxZfwKg { get; private set; }
         public double MaxFuelKg { get; private set; }
+        public double FuelBias { get; private set; }
         public WeightUnit WtUnit { get; private set; }
 
         public AircraftConfigItem(
@@ -33,6 +34,7 @@ namespace QSP.AircraftProfiles.Configs
             double MaxLdgWtKg,
             double MaxZfwKg,
             double MaxFuelKg,
+            double FuelBias,
             WeightUnit WtUnit)
         {
             this.AC = AC;
@@ -46,6 +48,7 @@ namespace QSP.AircraftProfiles.Configs
             this.WtUnit = WtUnit;
             this.MaxZfwKg = MaxZfwKg;
             this.MaxFuelKg = MaxFuelKg;
+            this.FuelBias = FuelBias;
         }
 
         public bool Equals(AircraftConfigItem other, double delta)
@@ -60,10 +63,11 @@ namespace QSP.AircraftProfiles.Configs
                 Abs(other.MaxTOWtKg - MaxTOWtKg) <= delta &&
                 Abs(other.MaxLdgWtKg - MaxLdgWtKg) <= delta &&
                 Abs(other.MaxZfwKg - MaxZfwKg) <= delta &&
-                Abs(other.MaxFuelKg-MaxFuelKg) <= delta &&
+                Abs(other.MaxFuelKg - MaxFuelKg) <= delta &&
+                Abs(other.FuelBias - FuelBias) <= delta &&
                 other.WtUnit == WtUnit;
         }
-        
+
         public class Serializer : IXSerializer<AircraftConfigItem>
         {
             public Serializer() { }
@@ -81,6 +85,7 @@ namespace QSP.AircraftProfiles.Configs
                     elem.GetDouble("MaxLdgWtKg"),
                     elem.GetDouble("MaxZfwKg"),
                     elem.GetDouble("MaxFuelKg"),
+                    elem.GetDouble("FuelBias"),
                     (WeightUnit)elem.GetInt("WtUnit"));
             }
 
@@ -98,6 +103,7 @@ namespace QSP.AircraftProfiles.Configs
                     item.MaxLdgWtKg.Serialize("MaxLdgWtKg"),
                     item.MaxZfwKg.Serialize("MaxZfwKg"),
                     item.MaxFuelKg.Serialize("MaxFuelKg"),
+                    item.FuelBias.Serialize("FuelBias"),
                     ((int)item.WtUnit).Serialize("WtUnit")
                 };
 

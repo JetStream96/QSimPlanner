@@ -14,6 +14,7 @@ namespace QSP.UI.UserControls
             this.control = control;
         }
 
+        // TODO: Does this throw NullReferenceException.
         /// <exception cref="InvalidUserInputException"></exception>
         public FuelParameters Validate()
         {
@@ -51,6 +52,7 @@ namespace QSP.UI.UserControls
                 ApuTime,
                 TaxiTime,
                 FinalRsvMin,
+                c.GetCurrentAircraft().Config.FuelBias,
                 c.GetFuelData());
         }
 

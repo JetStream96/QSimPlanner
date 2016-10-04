@@ -40,7 +40,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             InitWtUnitCBox();
         }
 
-        private void FillFuelToLdgCBox()
+        private void FillFuelTOLdgCBox()
         {
             var fuelItems = elem.FuelProfile.Items;
             fuelItems.Clear();
@@ -156,6 +156,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             e.MaxLdgWt.Text = WtDisplay(c.MaxLdgWtKg);
             e.MaxZfw.Text = WtDisplay(c.MaxZfwKg);
             e.MaxFuel.Text = WtDisplay(c.MaxFuelKg);
+            e.Bias.Text = (c.FuelBias * 100.0).ToString("F1");
         }
 
         private void ShowDefaultConfig()
@@ -169,7 +170,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             {
                 return new AircraftConfigItem("", "", NoToLdgProfileText,
                     NoToLdgProfileText, NoToLdgProfileText, 0.0, 0.0,
-                    0.0, 0.0, 0.0, WeightUnit.KG);
+                    0.0, 0.0, 0.0, 1.0, WeightUnit.KG);
             }
         }
 
@@ -218,7 +219,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             elem.SelectionBox.Visible = false;
 
             FillAcTypes();
-            FillFuelToLdgCBox();
+            FillFuelTOLdgCBox();
         }
 
         private bool TrySaveConfig(AircraftConfigItem config, string filePath)
