@@ -3,7 +3,8 @@
 
   <General>
     <ProfileName>Boeing 737-800</ProfileName>
-    <HoldingFuelPerMinuteKg>38</HoldingFuelPerMinuteKg>
+    <HoldingFuelPerMinuteKg>37.7</HoldingFuelPerMinuteKg>
+	<HoldingFuelRefWtTon>60</HoldingFuelRefWtTon>
     <TaxiFuelPerMinKg>12.2</TaxiFuelPerMinKg>
     <ApuFuelPerMinKg>1.8</ApuFuelPerMinKg>
     <MissedAppFuelKG>130</MissedAppFuelKG>
