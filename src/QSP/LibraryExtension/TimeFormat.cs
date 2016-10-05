@@ -1,6 +1,6 @@
 using QSP.Utilities;
 using System;
-using static QSP.Utilities.ConditionChecker;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.LibraryExtension
 {
@@ -20,7 +20,7 @@ namespace QSP.LibraryExtension
         //e.g. 0143 ---> 103
         public static int HHMMToMin(string s)
         {
-            ConditionChecker.Ensure<ArgumentException>(s.Length == 4);
+            ExceptionHelpers.Ensure<ArgumentException>(s.Length == 4);
             return StringsToMin(s.Substring(0, 2), s.Substring(2));
         }
 
@@ -29,7 +29,7 @@ namespace QSP.LibraryExtension
             int h = int.Parse(hour);
             int m = int.Parse(min);
 
-            ConditionChecker.Ensure<ArgumentException>(
+            ExceptionHelpers.Ensure<ArgumentException>(
                 h >= 0 && m >= 0 && m <= 60);
 
             return 60 * h + m;
@@ -38,7 +38,7 @@ namespace QSP.LibraryExtension
         public static string MinToHHMM(int min)
         {
             //return a value with exactly 4 digits
-            ConditionChecker.Ensure<ArgumentOutOfRangeException>(
+            ExceptionHelpers.Ensure<ArgumentOutOfRangeException>(
                 0 <= min && min < 60 * 100);
 
             int h = min / 60;

@@ -1,6 +1,6 @@
 ﻿using QSP.AviationTools.Coordinates;
 using System;
-using static QSP.Utilities.ConditionChecker;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding.Tracks.Nats.Utilities
 {

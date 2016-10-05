@@ -58,7 +58,7 @@ namespace QSP.AviationTools.Coordinates
             double lat = Convert.ToDouble(item.Substring(1, x - 1));
             double lon = Convert.ToDouble(item.Substring(x + 1));
 
-            ConditionChecker.Ensure<ArgumentException>(
+            ExceptionHelpers.Ensure<ArgumentException>(
                 0.0 <= lat && lat <= 90.0 && 0.0 <= lon && lon <= 180.0);
 
             if (NS == 'N')

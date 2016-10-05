@@ -7,7 +7,7 @@ using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Angles;
 using static QSP.MathTools.GCDis;
 using static QSP.MathTools.Modulo;
-using static QSP.Utilities.ConditionChecker;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding.Data
 {

@@ -12,7 +12,7 @@ namespace QSP.LibraryExtension.JaggedArrays
 
             if (array.GetType().GetElementType() == typeof(T))
             {
-                ConditionChecker.Ensure<ArgumentException>(
+                ExceptionHelpers.Ensure<ArgumentException>(
                     lengths.Length == 1);
 
                 return array.Length >= lengths[0];

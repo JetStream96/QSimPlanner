@@ -176,7 +176,7 @@ namespace QSP.RouteFinding.Routes
             if (Last != null)
             {
                 // This route is non-empty.
-                ConditionChecker.Ensure<ArgumentException>(
+                ExceptionHelpers.Ensure<ArgumentException>(
                     LastWaypoint.Equals(item.FirstWaypoint));
                 Nodes.RemoveLast();
             }

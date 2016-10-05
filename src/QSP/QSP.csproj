@@ -260,7 +260,6 @@
     <Compile Include="Updates\PostUpdateAction.cs" />
     <Compile Include="Updates\Updater.cs" />
     <Compile Include="Updates\Utilities.cs" />
-    <Compile Include="Utilities\ExceptionHelpers.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />
@@ -459,7 +458,7 @@
       <DependentUpon>TOPerfControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Utilities\MsgBoxHelper.cs" />
-    <Compile Include="Utilities\ConditionChecker.cs" />
+    <Compile Include="Utilities\ExceptionHelpers.cs" />
     <Compile Include="Utilities\LoggerInstance.cs" />
     <Compile Include="Common\Exceptions.cs" />
     <Compile Include="Utilities\IeEmulationChecker.cs" />

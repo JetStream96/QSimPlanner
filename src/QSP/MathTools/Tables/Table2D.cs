@@ -37,7 +37,7 @@ namespace QSP.MathTools.Tables
         /// <exception cref="ArgumentException"></exception>
         public void Validate()
         {
-            ConditionChecker.Ensure<ArgumentException>(
+            ExceptionHelpers.Ensure<ArgumentException>(
                 LengthChecker.HasLength<double>(f, x.Length, y.Length));
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using static QSP.Utilities.ConditionChecker;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.LibraryExtension
 {

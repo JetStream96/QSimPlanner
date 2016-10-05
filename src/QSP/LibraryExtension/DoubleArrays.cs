@@ -9,7 +9,7 @@ namespace QSP.LibraryExtension
         /// Array length cannot be 0.</exception>
         public static bool IsStrictlyIncreasing(this double[] item)
         {
-            ConditionChecker.Ensure<ArgumentException>(item.Length != 0);
+            ExceptionHelpers.Ensure<ArgumentException>(item.Length != 0);
 
             for (int i = 0; i < item.Length - 1; i++)
             {
@@ -26,7 +26,7 @@ namespace QSP.LibraryExtension
         /// Array length cannot be 0.</exception>
         public static bool IsStrictlyDecreasing(this double[] item)
         {
-            ConditionChecker.Ensure<ArgumentException>(item.Length != 0);
+            ExceptionHelpers.Ensure<ArgumentException>(item.Length != 0);
 
             for (int i = 0; i < item.Length - 1; i++)
             {

@@ -44,7 +44,7 @@ namespace QSP.MathTools.Tables
             bool hasLen = LengthChecker.HasLength<double>(
                     f, x.Length, y.Length, z.Length);
 
-            ConditionChecker.Ensure<ArgumentException>(hasLen);
+            ExceptionHelpers.Ensure<ArgumentException>(hasLen);
         }
     }
 }
