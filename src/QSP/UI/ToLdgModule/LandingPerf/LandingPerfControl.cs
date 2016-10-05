@@ -157,24 +157,16 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         {
             if (acListComboBox.SelectedIndex >= 0)
             {
-                var ac =
-                    aircrafts
-                    .FindAircraft(acListComboBox.Text);
-
+                var ac = aircrafts.FindAircraft(acListComboBox.Text);
                 var items = regComboBox.Items;
-
                 items.Clear();
 
-                items.AddRange(
-                    ac
+                items.AddRange(ac
                     .Where(c => LandingProfileExists(c.Config.LdgProfile))
                     .Select(c => c.Config.Registration)
                     .ToArray());
 
-                if (items.Count > 0)
-                {
-                    regComboBox.SelectedIndex = 0;
-                }
+                if (items.Count > 0) regComboBox.SelectedIndex = 0;
             }
         }
 
@@ -253,38 +245,32 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
         private void Subscribe(FormController controller)
         {
-            weatherInfoControl.surfCondComboBox.SelectedIndexChanged +=
-                controller.SurfCondChanged;
+            var c = controller;
+            var w = weatherInfoControl;
 
-            wtUnitComboBox.SelectedIndexChanged +=
-                controller.WeightUnitChanged;
-
-            flapsComboBox.SelectedIndexChanged += controller.FlapsChanged;
-            revThrustComboBox.SelectedIndexChanged +=
-                controller.ReverserChanged;
-
+            w.surfCondComboBox.SelectedIndexChanged += c.SurfCondChanged;
+            wtUnitComboBox.SelectedIndexChanged += c.WeightUnitChanged;
+            flapsComboBox.SelectedIndexChanged += c.FlapsChanged;
+            revThrustComboBox.SelectedIndexChanged += c.ReverserChanged;
             brakeComboBox.SelectedIndexChanged += controller.BrakesChanged;
-            calculateBtn.Click += controller.Compute;
+            calculateBtn.Click += c.Compute;
 
-            controller.CalculationCompleted += SaveState;
+            c.CalculationCompleted += SaveState;
         }
 
         private void UnSubscribe(FormController controller)
         {
-            weatherInfoControl.surfCondComboBox.SelectedIndexChanged -=
-                controller.SurfCondChanged;
+            var c = controller;
+            var w = weatherInfoControl;
 
-            wtUnitComboBox.SelectedIndexChanged -=
-                controller.WeightUnitChanged;
+            w.surfCondComboBox.SelectedIndexChanged -= c.SurfCondChanged;
+            wtUnitComboBox.SelectedIndexChanged -= c.WeightUnitChanged;
+            flapsComboBox.SelectedIndexChanged -= c.FlapsChanged;
+            revThrustComboBox.SelectedIndexChanged -= c.ReverserChanged;
+            brakeComboBox.SelectedIndexChanged -= c.BrakesChanged;
+            calculateBtn.Click -= c.Compute;
 
-            flapsComboBox.SelectedIndexChanged -= controller.FlapsChanged;
-            revThrustComboBox.SelectedIndexChanged -=
-                controller.ReverserChanged;
-
-            brakeComboBox.SelectedIndexChanged -= controller.BrakesChanged;
-            calculateBtn.Click -= controller.Compute;
-
-            controller.CalculationCompleted -= SaveState;
+            c.CalculationCompleted -= SaveState;
         }
 
         private void RefreshWtColor()
