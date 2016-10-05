@@ -252,7 +252,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             wtUnitComboBox.SelectedIndexChanged += c.WeightUnitChanged;
             flapsComboBox.SelectedIndexChanged += c.FlapsChanged;
             revThrustComboBox.SelectedIndexChanged += c.ReverserChanged;
-            brakeComboBox.SelectedIndexChanged += controller.BrakesChanged;
+            brakeComboBox.SelectedIndexChanged += c.BrakesChanged;
             calculateBtn.Click += c.Compute;
 
             c.CalculationCompleted += SaveState;
