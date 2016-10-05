@@ -14,8 +14,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         {
             this.elem = elem;
         }
-
-        // TODO: Number range validation?
+        
         /// <exception cref="InvalidUserInputException"></exception>
         public AircraftConfigItem Read()
         {

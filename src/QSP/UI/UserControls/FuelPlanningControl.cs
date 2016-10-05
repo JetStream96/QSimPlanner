@@ -445,10 +445,7 @@ namespace QSP.UI.UserControls
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
 
-                if (result != DialogResult.Yes)
-                {
-                    return;
-                }
+                if (result != DialogResult.Yes) return;
             }
 
             var fuelReport = new FuelCalculatorWithWind(data, para, windTables)

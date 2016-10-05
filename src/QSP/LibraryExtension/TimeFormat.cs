@@ -1,5 +1,6 @@
 using QSP.Utilities;
 using System;
+using static QSP.Utilities.ConditionChecker;
 
 namespace QSP.LibraryExtension
 {
@@ -11,7 +12,7 @@ namespace QSP.LibraryExtension
         public static int HourColonMinToMin(string s)
         {
             int colonIndex = s.IndexOf(':');
-            ConditionChecker.ThrowWhenNegative<ArgumentException>(colonIndex);
+            Ensure<ArgumentException>(colonIndex >= 0);
             return StringsToMin(
                 s.Substring(0, colonIndex), s.Substring(colonIndex + 1));
         }

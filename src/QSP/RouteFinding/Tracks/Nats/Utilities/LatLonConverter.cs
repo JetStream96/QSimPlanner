@@ -13,8 +13,8 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
         public static LatLon ConvertNatsCoordinate(string s)
         {
             int x = s.IndexOf('/');
-            ThrowWhenNegative<ArgumentException>(x);
-
+            Ensure<ArgumentException>(x >= 0);
+            
             double Lat = double.Parse(s.Substring(0, 2));
             double Lon = double.Parse(s.Substring(x + 1, 2));
 
