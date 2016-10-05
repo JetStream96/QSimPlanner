@@ -2,6 +2,7 @@ using QSP.Common;
 using QSP.FuelCalculation;
 using QSP.UI.Controllers.Units;
 using System.Windows.Forms;
+using static QSP.UI.Utilities.InputValidator;
 
 namespace QSP.UI.UserControls
 {
@@ -21,25 +22,25 @@ namespace QSP.UI.UserControls
 
             var WtUnit = c.WeightUnit;
             double ZfwKg = ImportRequireNonNegative(c.Zfw, "Invalid ZFW.");
-            double ContPerc = ImportRequireNonNegative(
+            double ContPerc = ParseNonNegative(
                 c.ContPercentComboBox, "Invalid contingency fuel.");
 
             double MissedAppFuelKg = ImportRequireNonNegative(
                 c.MissedApproach, "Invalid missed approach fuel.");
 
-            double HoldingMin = ImportRequireNonNegative(
+            double HoldingMin = ParseNonNegative(
                 c.HoldTimeTxtBox, "Invalid holding time.");
 
             double ExtraFuelKg = ImportRequireNonNegative(
                 c.Extra, "Invalid extra fuel.");
 
-            double ApuTime = ImportRequireNonNegative(
+            double ApuTime = ParseNonNegative(
                 c.ApuTimeTxtBox, "Invalid APU time.");
 
-            double TaxiTime = ImportRequireNonNegative(
+            double TaxiTime = ParseNonNegative(
                 c.TaxiTimeTxtBox, "Invalid taxi time.");
 
-            double FinalRsvMin = ImportRequireNonNegative(
+            double FinalRsvMin = ParseNonNegative(
                 c.FinalReserveTxtBox, "Invalid final reserve time.");
 
             var ac = c.GetCurrentAircraft();
@@ -76,19 +77,6 @@ namespace QSP.UI.UserControls
             }
 
             if (weightKg < 0.0)
-            {
-                throw new InvalidUserInputException(exceptionMsg);
-            }
-
-            return weightKg;
-        }
-
-        private static double ImportRequireNonNegative(
-            Control control, string exceptionMsg)
-        {
-            double weightKg;
-
-            if (!double.TryParse(control.Text, out weightKg) || weightKg < 0.0)
             {
                 throw new InvalidUserInputException(exceptionMsg);
             }

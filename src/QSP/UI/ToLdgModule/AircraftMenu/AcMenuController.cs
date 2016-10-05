@@ -89,7 +89,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 Constants.LbKgRatio :
                 Constants.KgLbRatio;
 
-            var textBoxes = new TextBox[] { elem.Zfw,
+            var textBoxes = new TextBox[] { elem.Oew,
                 elem.MaxToWt, elem.MaxLdgWt, elem.MaxZfw, elem.MaxFuel };
 
             foreach (var j in textBoxes)
@@ -151,7 +151,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             e.ToProfile.Text = c.TOProfile;
             e.LdgProfile.Text = c.LdgProfile;
             e.WeightUnitCBox.SelectedIndex = (int)config.WtUnit;
-            e.Zfw.Text = WtDisplay(c.OewKg);
+            e.Oew.Text = WtDisplay(c.OewKg);
             e.MaxToWt.Text = WtDisplay(c.MaxTOWtKg);
             e.MaxLdgWt.Text = WtDisplay(c.MaxLdgWtKg);
             e.MaxZfw.Text = WtDisplay(c.MaxZfwKg);

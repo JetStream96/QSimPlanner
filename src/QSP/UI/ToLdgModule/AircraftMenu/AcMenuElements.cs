@@ -11,7 +11,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public ComboBox FuelProfile { get; private set; }
         public ComboBox ToProfile { get; private set; }
         public ComboBox LdgProfile { get; private set; }
-        public TextBox Zfw { get; private set; }
+        public TextBox Oew { get; private set; }
         public TextBox MaxToWt { get; private set; }
         public TextBox MaxLdgWt { get; private set; }
         public TextBox MaxZfw { get; private set; }
@@ -32,7 +32,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
              ComboBox FuelProfile,
              ComboBox ToProfile,
              ComboBox LdgProfile,
-             TextBox Zfw,
+             TextBox Oew,
              TextBox MaxToWt,
              TextBox MaxLdgWt,
              TextBox MaxZfw,
@@ -52,7 +52,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             this.FuelProfile = FuelProfile;
             this.ToProfile = ToProfile;
             this.LdgProfile = LdgProfile;
-            this.Zfw = Zfw;
+            this.Oew = Oew;
             this.MaxToWt = MaxToWt;
             this.MaxLdgWt = MaxLdgWt;
             this.MaxZfw = MaxZfw;

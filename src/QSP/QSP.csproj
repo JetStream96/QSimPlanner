@@ -248,6 +248,7 @@
     </Compile>
     <Compile Include="UI\UserControls\RouteActions\RouteActionController.cs" />
     <Compile Include="UI\Utilities\ControlMover.cs" />
+    <Compile Include="UI\Utilities\InputValidator.cs" />
     <Compile Include="UI\Utilities\ParentControlFinder.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
     <Compile Include="UI\Utilities\ShowMapHelper.cs" />

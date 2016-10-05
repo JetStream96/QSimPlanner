@@ -2,6 +2,7 @@
 using QSP.AviationTools;
 using QSP.Common;
 using QSP.Utilities.Units;
+using static QSP.UI.Utilities.InputValidator;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu
 {
@@ -23,45 +24,20 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             double wtUnitFactor = wtUnit == WeightUnit.KG ?
                     1.0 : Constants.LbKgRatio;
 
-            double zfw, maxToWt, maxLdgWt, maxZfw, maxFuel, fuelBias;
-
-            if (double.TryParse(elem.Zfw.Text, out zfw) == false)
-            {
-                throw new InvalidUserInputException("Invalid ZFW.");
-            }
-
-            if (double.TryParse(elem.MaxToWt.Text, out maxToWt) == false)
-            {
-                throw new InvalidUserInputException(
-                    "Invalid max takeoff weight.");
-            }
-
-            if (double.TryParse(elem.MaxLdgWt.Text, out maxLdgWt) == false)
-            {
-                throw new InvalidUserInputException(
-                    "Invalid max landing weight.");
-            }
-
-            if (double.TryParse(elem.MaxZfw.Text, out maxZfw) == false)
-            {
-                throw new InvalidUserInputException(
-                    "Invalid max zero fuel weight.");
-            }
-
-            if (double.TryParse(elem.MaxFuel.Text, out maxFuel) == false)
-            {
-                throw new InvalidUserInputException(
-                    "Invalid max fuel capacity.");
-            }
-
-            if (double.TryParse(elem.Bias.Text, out fuelBias) == false)
-            {
-                throw new InvalidUserInputException(
-                    "Invalid fuel bias.");
-            }
-
-            zfw *= wtUnitFactor;
-            maxToWt *= wtUnitFactor;
+            double oew = ParseNonNegative(elem.Oew, "Invalid OEW.");
+            double maxTOWt = ParseNonNegative(
+                elem.MaxToWt, "Invalid max takeoff weight.");
+            double maxLdgWt = ParseNonNegative(
+                elem.MaxLdgWt, "Invalid max landing weight.");
+            double maxZfw = ParseNonNegative(
+                elem.MaxZfw, "Invalid max zero fuel weight.");
+            double maxFuel = ParseNonNegative(
+                elem.MaxFuel, "Invalid max fuel capacity.");
+            double fuelBias = ParseNonNegative(
+                elem.Bias, "Invalid fuel bias.");
+            
+            oew *= wtUnitFactor;
+            maxTOWt *= wtUnitFactor;
             maxLdgWt *= wtUnitFactor;
             maxZfw *= wtUnitFactor;
             maxFuel *= wtUnitFactor;
@@ -73,13 +49,28 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 elem.FuelProfile.Text,
                 elem.ToProfile.Text,
                 elem.LdgProfile.Text,
-                zfw,
-                maxToWt,
+                oew,
+                maxTOWt,
                 maxLdgWt,
                 maxZfw,
                 maxFuel,
                 fuelBias,
                 wtUnit);
+        }
+
+        private static void CheckRange(AircraftConfigItem item)
+        {
+            Ensure(item.OewKg < item.MaxZfwKg,
+                "Max ZFW must be larger than OEW.");
+            Ensure(item.OewKg < item.MaxTOWtKg,
+                "Max takeoff weight must be larger than OEW.");
+            Ensure(item.OewKg < item.MaxLdgWtKg,
+                "Max landing weight must be larger than OEW.");           
+        }
+
+        private static void Ensure(bool condition, string message)
+        {
+            if (!condition) throw new InvalidUserInputException(message);
         }
 
         /// <exception cref="InvalidUserInputException"></exception>
@@ -98,6 +89,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 throw new InvalidUserInputException(
                     "Registration cannot be empty.");
             }
+
+            CheckRange(item);
 
             return item;
         }
