@@ -14,34 +14,39 @@ namespace QSP.UI.UserControls
             this.control = control;
         }
 
-        // TODO: Does this throw NullReferenceException.
         /// <exception cref="InvalidUserInputException"></exception>
         public FuelParameters Validate()
         {
             var c = control;
 
             var WtUnit = c.WeightUnit;
-            double ZfwKg = ImportPattern1(c.Zfw, "Invalid ZFW.");
-            double ContPerc = ImportPattern2(
+            double ZfwKg = ImportRequireNonNegative(c.Zfw, "Invalid ZFW.");
+            double ContPerc = ImportRequireNonNegative(
                 c.ContPercentComboBox, "Invalid contingency fuel.");
 
-            double MissedAppFuelKg = ImportPattern1(
+            double MissedAppFuelKg = ImportRequireNonNegative(
                 c.MissedApproach, "Invalid missed approach fuel.");
 
-            double HoldingMin = ImportPattern2(
+            double HoldingMin = ImportRequireNonNegative(
                 c.HoldTimeTxtBox, "Invalid holding time.");
 
-            double ExtraFuelKg =
-                ImportPattern1(c.Extra, "Invalid extra fuel.");
+            double ExtraFuelKg = ImportRequireNonNegative(
+                c.Extra, "Invalid extra fuel.");
 
-            double ApuTime = ImportPattern2(
+            double ApuTime = ImportRequireNonNegative(
                 c.ApuTimeTxtBox, "Invalid APU time.");
 
-            double TaxiTime = ImportPattern2(
+            double TaxiTime = ImportRequireNonNegative(
                 c.TaxiTimeTxtBox, "Invalid taxi time.");
 
-            double FinalRsvMin = ImportPattern2(
+            double FinalRsvMin = ImportRequireNonNegative(
                 c.FinalReserveTxtBox, "Invalid final reserve time.");
+
+            var ac = c.GetCurrentAircraft();
+            if (ac == null)
+            {
+                throw new InvalidUserInputException("No aircraft selected.");
+            }
 
             return new FuelParameters(
                 ZfwKg,
@@ -52,11 +57,11 @@ namespace QSP.UI.UserControls
                 ApuTime,
                 TaxiTime,
                 FinalRsvMin,
-                c.GetCurrentAircraft().Config.FuelBias,
+                ac.Config.FuelBias,
                 c.GetFuelData());
         }
 
-        private static double ImportPattern1(
+        private static double ImportRequireNonNegative(
             WeightTextBoxController weightControl, string exceptionMsg)
         {
             double weightKg;
@@ -78,21 +83,12 @@ namespace QSP.UI.UserControls
             return weightKg;
         }
 
-        private static double ImportPattern2(
+        private static double ImportRequireNonNegative(
             Control control, string exceptionMsg)
         {
             double weightKg;
 
-            try
-            {
-                weightKg = double.Parse(control.Text);
-            }
-            catch
-            {
-                throw new InvalidUserInputException(exceptionMsg);
-            }
-
-            if (weightKg < 0.0)
+            if (!double.TryParse(control.Text, out weightKg) || weightKg < 0.0)
             {
                 throw new InvalidUserInputException(exceptionMsg);
             }
