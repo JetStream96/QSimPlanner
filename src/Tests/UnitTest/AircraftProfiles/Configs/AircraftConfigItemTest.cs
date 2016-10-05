@@ -12,7 +12,7 @@ namespace UnitTest.AircraftProfiles.Configs
         {
             var serializer = new AircraftConfigItem.Serializer();
             var config = new AircraftConfigItem("A", "B", "C", "D", "E",
-                1.0, 2.0, 3.0, 4.0, 5.0, WeightUnit.LB);
+                1.0, 2.0, 3.0, 4.0, 5.0, 1.0, WeightUnit.LB);
 
             var elem = serializer.Serialize(config, "Config");
             var deserialized = serializer.Deserialize(elem);

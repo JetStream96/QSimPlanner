@@ -28,6 +28,7 @@ namespace IntergrationTest.QSP.AircraftProfiles.Configs
                         345678.0,
                         456789.0,
                         567890.0,
+                        1.0,
                         WeightUnit.KG),
                     "path"));
 
