@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Data>
+  <!-- 
+       Unless specified otherwise,
+       all weights in kg.
+       all speeds in knots.
+       all altitudes in feet.
+       all fuel flows (FF) in kg/min.
+  -->
+
+  <ProfileName>Boeing 737-800</ProfileName>
+  <HoldingFuelPerMinute>37.7</HoldingFuelPerMinute>
+  <HoldingFuelRefWt>60000</HoldingFuelRefWt>
+  <TaxiFuelPerMin>12.2</TaxiFuelPerMin>
+  <ApuFuelPerMin>1.8</ApuFuelPerMin>
+  <MissedAppFuel>130</MissedAppFuel>
+  <ClimbIAS>280</ClimbIAS>
+  <DescentIAS>280</DescentIAS>
+  <CruiseMach>0.78</CruiseMach>
+
+  <DataPoint>
+    <Weight></Weight>
+    <CruiseFF></CruiseFF>
+    <CruiseIAS></CruiseIAS>
+    <ClimbGrad></ClimbGrad>
+    <ClimbFF></ClimbFF>
+    <DescentGrad></DescentGrad>
+    <DescentFF></DescentFF>
+    <OptCruiseAlt></OptCruiseAlt>
+  </DataPoint>
+
+  <DataPoint>
+    <Weight></Weight>
+    <CruiseFF></CruiseFF>
+    <CruiseIAS></CruiseIAS>
+    <ClimbGrad></ClimbGrad>
+    <ClimbFF></ClimbFF>
+    <DescentGrad></DescentGrad>
+    <DescentFF></DescentFF>
+    <OptCruiseAlt></OptCruiseAlt>
+  </DataPoint>
+
+</Data>

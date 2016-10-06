@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Data>
+  <!-- 
+       Unless specified otherwise,
+       all weights in kg.
+       all speeds in knots.
+       all altitudes in feet.
+       all fuel flows (FF) in kg/min.
+  -->
+
+  <ProfileName></ProfileName>
+  <HoldingFuelPerMinute></HoldingFuelPerMinute>
+  <HoldingFuelRefWt></HoldingFuelRefWt>
+  <TaxiFuelPerMin></TaxiFuelPerMin>
+  <ApuFuelPerMin></ApuFuelPerMin>
+  <MissedAppFuel></MissedAppFuel>
+  <ClimbIAS></ClimbIAS>
+  <DescentIAS></DescentIAS>
+  <CruiseMach></CruiseMach>
+
+  <DataPoint>
+    <Weight></Weight>
+    <CruiseFF></CruiseFF>
+    <CruiseIAS></CruiseIAS>
+    <ClimbGrad></ClimbGrad>
+    <ClimbFF></ClimbFF>
+    <DescentGrad></DescentGrad>
+    <DescentFF></DescentFF>
+    <OptCruiseAlt></OptCruiseAlt>
+  </DataPoint>
+
+  <DataPoint>
+    <Weight></Weight>
+    <CruiseFF></CruiseFF>
+    <CruiseIAS></CruiseIAS>
+    <ClimbGrad></ClimbGrad>
+    <ClimbFF></ClimbFF>
+    <DescentGrad></DescentGrad>
+    <DescentFF></DescentFF>
+    <OptCruiseAlt></OptCruiseAlt>
+  </DataPoint>
+
+</Data>
