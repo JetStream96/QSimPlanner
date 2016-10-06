@@ -16,9 +16,7 @@
   <MissedAppFuel>130</MissedAppFuel>
   <ClimbIAS>280</ClimbIAS>
   <DescentIAS>280</DescentIAS>
-  <CruiseMach>0.78</CruiseMach>
-  <EtopsCruiseTAS></EtopsCruiseTAS>
-  <EtopsCruiseFF></EtopsCruiseFF>
+  <CruiseMach>0.78</CruiseMach>  
 
   <DataPoint>
     <Weight></Weight>
@@ -29,6 +27,8 @@
     <DescentGrad></DescentGrad>
     <DescentFF></DescentFF>
     <OptCruiseAlt></OptCruiseAlt>
+    <EtopsCruiseTAS></EtopsCruiseTAS>
+    <EtopsCruiseFF></EtopsCruiseFF>
   </DataPoint>
 
   <DataPoint>
@@ -40,6 +40,8 @@
     <DescentGrad></DescentGrad>
     <DescentFF></DescentFF>
     <OptCruiseAlt></OptCruiseAlt>
+    <EtopsCruiseTAS></EtopsCruiseTAS>
+    <EtopsCruiseFF></EtopsCruiseFF>
   </DataPoint>
 
 </Data>

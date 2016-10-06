@@ -29,6 +29,8 @@
     <DescentGrad></DescentGrad>
     <DescentFF></DescentFF>
     <OptCruiseAlt></OptCruiseAlt>
+    <EtopsCruiseTAS></EtopsCruiseTAS>
+    <EtopsCruiseFF></EtopsCruiseFF>
   </DataPoint>
 
   <DataPoint>
@@ -40,6 +42,8 @@
     <DescentGrad></DescentGrad>
     <DescentFF></DescentFF>
     <OptCruiseAlt></OptCruiseAlt>
+    <EtopsCruiseTAS></EtopsCruiseTAS>
+    <EtopsCruiseFF></EtopsCruiseFF>
   </DataPoint>
 
 </Data>
