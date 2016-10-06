@@ -17,8 +17,6 @@
   <ClimbIAS></ClimbIAS>
   <DescentIAS></DescentIAS>
   <CruiseMach></CruiseMach>
-  <EtopsCruiseTAS></EtopsCruiseTAS>
-  <EtopsCruiseFF></EtopsCruiseFF>
 
   <DataPoint>
     <Weight></Weight>

@@ -105,6 +105,9 @@
     <Compile Include="FuelCalculation\Calculators\CalculationResult.cs" />
     <Compile Include="FuelCalculation\Calculators\DestinationFuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculators\FuelCalculatorWithWind.cs" />
+    <Compile Include="FuelCalculation\FuelDataNew\DataPoint.cs" />
+    <Compile Include="FuelCalculation\FuelDataNew\FuelData.cs" />
+    <Compile Include="FuelCalculation\FuelDataNew\FuelDataItem.cs" />
     <Compile Include="FuelCalculation\FuelDataItemExtension.cs" />
     <Compile Include="FuelCalculation\FuelReport.cs" />
     <Compile Include="FuelCalculation\FuelData.cs" />
