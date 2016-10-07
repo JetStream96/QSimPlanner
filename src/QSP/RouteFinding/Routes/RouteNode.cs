@@ -12,18 +12,12 @@ namespace QSP.RouteFinding.Routes
 
         public double Lat
         {
-            get
-            {
-                return Waypoint.Lat;
-            }
+            get { return Waypoint.Lat; }
         }
 
         public double Lon
         {
-            get
-            {
-                return Waypoint.Lon;
-            }
+            get { return Waypoint.Lon; }
         }
 
         public RouteNode(
@@ -45,8 +39,8 @@ namespace QSP.RouteFinding.Routes
 
         public override int GetHashCode()
         {
-            return Waypoint.GetHashCode() ^ 
-                AirwayToNext.GetHashCode() ^ 
+            return Waypoint.GetHashCode() ^
+                AirwayToNext.GetHashCode() ^
                 DistanceToNext.GetHashCode();
         }
     }
