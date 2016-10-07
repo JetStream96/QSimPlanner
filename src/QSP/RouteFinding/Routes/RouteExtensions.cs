@@ -10,7 +10,7 @@ namespace QSP.RouteFinding.Routes
         // route = '2 C 4 D 3'
         // airway = 'B'
         // 
-        // ( Alphabets are aiways, numbers are waypoints.)
+        // (Alphabets are aiways, numbers are waypoints.)
         //
         // By route and airway, we search for '2 B 3' in items and then
         // replace it with route.
@@ -21,6 +21,7 @@ namespace QSP.RouteFinding.Routes
             LinkedList<RouteNode> route,
             string airway)
         {
+            // This finds '2'.
             var matches = items.FindAll((n) =>
             {
                 return n.Value.Waypoint.Equals(route.First.Value.Waypoint) &&
@@ -46,10 +47,7 @@ namespace QSP.RouteFinding.Routes
         public static void Merge(
             this Route item, Route other, bool useLastAirway = false)
         {
-            if (other.Count == 0)
-            {
-                return;
-            }
+            if (other.Count == 0) return;
 
             if (item.Count == 0)
             {
@@ -63,7 +61,7 @@ namespace QSP.RouteFinding.Routes
             }
             else
             {
-                var airway = useLastAirway ? 
+                var airway = useLastAirway ?
                     item.Last.Value.AirwayToNext : "DCT";
                 item.AddLast(other, airway);
             }

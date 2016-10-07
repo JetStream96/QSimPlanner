@@ -112,6 +112,7 @@
     <Compile Include="FuelCalculation\FuelDataNew\FuelDataItemExtension.cs" />
     <Compile Include="FuelCalculation\FuelDataNew\FuelDataLoader.cs" />
     <Compile Include="FuelCalculation\FuelDataNew\FuelParameters.cs" />
+    <Compile Include="FuelCalculation\FuelDataNew\Results\DetailedPlan.cs" />
     <Compile Include="FuelCalculation\FuelReport.cs" />
     <Compile Include="FuelCalculation\FuelData.cs" />
     <Compile Include="FuelCalculation\FuelDataItem.cs" />

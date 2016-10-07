@@ -9,9 +9,9 @@ namespace QSP.FuelCalculation.FuelDataNew.Results
 {
     public class DetailedPlan
     {
-        public IEnumerable<Node> Nodes { get; private set; }
+        public IReadOnlyList<Node> Nodes { get; private set; }
 
-        public DetailedPlan(IEnumerable<Node> Nodes)
+        public DetailedPlan(IReadOnlyList<Node> Nodes)
         {
             this.Nodes = Nodes;
         }

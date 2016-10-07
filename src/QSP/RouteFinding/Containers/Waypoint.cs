@@ -35,7 +35,7 @@ namespace QSP.RouteFinding.Containers
                   waypoint.Lon,
                   waypoint.CountryCode)
         { }
-        
+
         /// <summary>
         /// Determines whether ID, Lat, and Lon match.
         /// </summary>
@@ -55,20 +55,11 @@ namespace QSP.RouteFinding.Containers
             if (x == 0)
             {
                 int y = Lat.CompareTo(other.Lat);
+                if (y == 0) return Lon.CompareTo(other.Lon);
+                return y;
+            }
 
-                if (y == 0)
-                {
-                    return Lon.CompareTo(other.Lon);
-                }
-                else
-                {
-                    return y;
-                }
-            }
-            else
-            {
-                return x;
-            }
+            return x;
         }
 
         public override int GetHashCode()
