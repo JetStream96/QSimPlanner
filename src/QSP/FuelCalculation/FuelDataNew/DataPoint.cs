@@ -44,18 +44,50 @@ namespace QSP.FuelCalculation.FuelDataNew
             this.EtopsCruiseKtas = EtopsCruiseKtas;
             this.EtopsCruiseFuelPerMinKg = EtopsCruiseFuelPerMinKg;
         }
-
-        // TODO: implement this.
+        
         public class Serializer : IXSerializer<DataPoint>
         {
+            private static string WeightKg = "Weight";
+            private static string CruiseFuelPerMinKg = "CruiseFF";
+            private static string CruiseKias = "CruiseIAS";
+            private static string ClimbGradient = "ClimbGrad";
+            private static string ClimbFuelPerMinKg = "ClimbFF";
+            private static string DescentGradient = "DescentGrad";
+            private static string DescentFuelPerMinKg = "DescentFF";
+            private static string OptCruiseAltFt = "OptCruiseAlt";
+            private static string EtopsCruiseKtas = "EtopsCruiseTAS";
+            private static string EtopsCruiseFuelPerMinKg = "EtopsCruiseFF";
+
             public DataPoint Deserialize(XElement elem)
             {
-                throw new NotImplementedException();
+                return new DataPoint(
+                    elem.GetDouble(WeightKg),
+                    elem.GetDouble(CruiseFuelPerMinKg),
+                    elem.GetDouble(CruiseKias),
+                    elem.GetDouble(ClimbGradient),
+                    elem.GetDouble(ClimbFuelPerMinKg),
+                    elem.GetDouble(DescentGradient),
+                    elem.GetDouble(DescentFuelPerMinKg),
+                    elem.GetDouble(OptCruiseAltFt),
+                    elem.GetDouble(EtopsCruiseKtas),
+                    elem.GetDouble(EtopsCruiseFuelPerMinKg));
             }
 
             public XElement Serialize(DataPoint item, string name)
             {
-                throw new NotImplementedException();
+                return new XElement(name,
+                new XElement(WeightKg, item.WeightKg),
+                new XElement(WeightKg, item.WeightKg),
+                new XElement(CruiseFuelPerMinKg, item.CruiseFuelPerMinKg),
+                new XElement(CruiseKias, item.CruiseKias),
+                new XElement(ClimbGradient, item.ClimbGradient),
+                new XElement(ClimbFuelPerMinKg, item.ClimbFuelPerMinKg),
+                new XElement(DescentGradient, item.DescentGradient),
+                new XElement(DescentFuelPerMinKg, item.DescentFuelPerMinKg),
+                new XElement(OptCruiseAltFt, item.OptCruiseAltFt),
+                new XElement(EtopsCruiseKtas, item.EtopsCruiseKtas),
+                new XElement(EtopsCruiseFuelPerMinKg, 
+                item.EtopsCruiseFuelPerMinKg));
             }
         }
     }

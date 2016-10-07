@@ -2,6 +2,7 @@
 using QSP.LibraryExtension.XmlSerialization;
 using QSP.Utilities.Units;
 using System;
+using System.Linq;
 using System.Xml.Linq;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 
@@ -44,17 +45,54 @@ namespace QSP.FuelCalculation.FuelDataNew
             this.DataPoint2 = DataPoint2;
         }
         
-        // TODO: implement this.
         public class Serializer : IXSerializer<FuelDataItem>
         {
+            private static string HoldingFuelPerMinuteKg = 
+                "HoldingFuelPerMinute";
+            private static string HoldingFuelRefWtTon = "HoldingFuelRefWt";
+            private static string TaxiFuelPerMinKg = "TaxiFuelPerMin";
+            private static string ApuFuelPerMinKg = "ApuFuelPerMin";
+            private static string MissedAppFuelKG = "MissedAppFuel";
+            private static string ClimbKias = "ClimbIAS";
+            private static string DescendKias = "DescentIAS";
+            private static string CruiseMach = "CruiseMach";
+            private static string DataPoint = "DataPoint";
+
             public FuelDataItem Deserialize(XElement elem)
             {
-                throw new NotImplementedException();
-            }
+                var deserializer = new DataPoint.Serializer();
+                var pts = elem.Elements(DataPoint);
 
+                return new FuelDataItem(
+                    elem.GetDouble(HoldingFuelPerMinuteKg),
+                    elem.GetDouble(HoldingFuelRefWtTon),
+                    elem.GetDouble(TaxiFuelPerMinKg),
+                    elem.GetDouble(ApuFuelPerMinKg),
+                    elem.GetDouble(MissedAppFuelKG),
+                    elem.GetDouble(ClimbKias),
+                    elem.GetDouble(DescendKias),
+                    elem.GetDouble(CruiseMach),
+                    deserializer.Deserialize(pts.ElementAt(0)),
+                    deserializer.Deserialize(pts.ElementAt(1)));
+            }
+            
             public XElement Serialize(FuelDataItem item, string name)
             {
-                throw new NotImplementedException();
+                var serializer = new DataPoint.Serializer();
+
+                return new XElement(name,
+                    new XElement(HoldingFuelPerMinuteKg, 
+                        item.HoldingFuelPerMinuteKg),
+                    new XElement(HoldingFuelRefWtTon, 
+                        item.HoldingFuelRefWtTon),
+                    new XElement(TaxiFuelPerMinKg, item.TaxiFuelPerMinKg),
+                    new XElement(ApuFuelPerMinKg, item.ApuFuelPerMinKg),
+                    new XElement(MissedAppFuelKG, item.MissedAppFuelKG),
+                    new XElement(ClimbKias, item.ClimbKias),
+                    new XElement(DescendKias, item.DescendKias),
+                    new XElement(CruiseMach, item.CruiseMach),
+                    serializer.Serialize(item.DataPoint1, DataPoint),
+                    serializer.Serialize(item.DataPoint1, DataPoint));
             }
         }
     }

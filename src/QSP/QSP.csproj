@@ -564,7 +564,9 @@
     <Content Include="Libraries\MinMaxHeap.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\737800_new_format.xml" />
+    <Content Include="PerformanceData\FuelCalc\737800_new_format.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="PerformanceData\FuelCalc\7478F.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

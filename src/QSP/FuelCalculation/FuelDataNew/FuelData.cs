@@ -21,7 +21,7 @@ namespace QSP.FuelCalculation.FuelDataNew
 
             return new FuelData(
                 new FuelDataItem.Serializer().Deserialize(root),
-                root.Element("General").Element("ProfileName").Value,
+                root.Element("ProfileName").Value,
                 path);
         }
     }
