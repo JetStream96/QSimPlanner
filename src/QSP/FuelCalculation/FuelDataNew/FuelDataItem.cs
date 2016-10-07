@@ -92,7 +92,7 @@ namespace QSP.FuelCalculation.FuelDataNew
                     new XElement(DescendKias, item.DescendKias),
                     new XElement(CruiseMach, item.CruiseMach),
                     serializer.Serialize(item.DataPoint1, DataPoint),
-                    serializer.Serialize(item.DataPoint1, DataPoint));
+                    serializer.Serialize(item.DataPoint2, DataPoint));
             }
         }
     }

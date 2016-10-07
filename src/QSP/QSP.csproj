@@ -109,6 +109,9 @@
     <Compile Include="FuelCalculation\FuelDataNew\FuelData.cs" />
     <Compile Include="FuelCalculation\FuelDataNew\FuelDataItem.cs" />
     <Compile Include="FuelCalculation\FuelDataItemExtension.cs" />
+    <Compile Include="FuelCalculation\FuelDataNew\FuelDataItemExtension.cs" />
+    <Compile Include="FuelCalculation\FuelDataNew\FuelDataLoader.cs" />
+    <Compile Include="FuelCalculation\FuelDataNew\FuelParameters.cs" />
     <Compile Include="FuelCalculation\FuelReport.cs" />
     <Compile Include="FuelCalculation\FuelData.cs" />
     <Compile Include="FuelCalculation\FuelDataItem.cs" />
