@@ -49,6 +49,7 @@ namespace QSP.WindAloft
             v2 = LatLonToVector3D(lat2, lon2);
         }
 
+        // TODO: This does not work when point1 == point2.
         public CalcResult GetAvgWind(
             ICoordinate point1,
             ICoordinate point2,
@@ -57,7 +58,7 @@ namespace QSP.WindAloft
             // from point1 to point2
             // delta: in degrees
             // airspd: (of the aircraft)
-
+                        
             SetPoint1(point1.Lat, point1.Lon);
             SetPoint2(point2.Lat, point2.Lon);
 
@@ -92,7 +93,7 @@ namespace QSP.WindAloft
         {
             double t = v1.Dot(v2);
             var M = new Matrix2by2(1.0, t, t, 1.0);
-            double beta = Acos(t);
+            double beta = SafeAcos(t);
 
             var b = new Vector2D(Cos(alpha), Cos(beta - alpha));
             var a = M.Inverse().Multiply(b);
@@ -108,7 +109,7 @@ namespace QSP.WindAloft
 
             var w = GetW(v, v1, v2);
             var innerProduct = VWind.R == 0.0 ? 0.0 : VWind.Normalize().Dot(w);
-            double gamma = Doubles.SafeAcos(innerProduct);
+            double gamma = SafeAcos(innerProduct);
             double a = 1;
             double b = -2 * VWind.R * Cos(gamma);
             double c = VWind.R * VWind.R - Ktas * Ktas;
