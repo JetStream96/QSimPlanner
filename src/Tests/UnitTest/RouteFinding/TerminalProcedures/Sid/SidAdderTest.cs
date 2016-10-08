@@ -103,16 +103,14 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 wpt102)
                 .TotalDistance();
 
-            // Check the SID3 has been added with correct total distance.
+            // Check the SID has been added with correct total distance.
             Assert.AreEqual(2, wptList.EdgesFromCount(rwyIndex));
 
             // Check the edges of last wpt 
-
             foreach (var i in wptList.EdgesFrom(rwyIndex))
             {
                 var edge = wptList.GetEdge(i);
                 Assert.AreEqual("SID1", edge.Value.Airway);
-                Assert.AreEqual(AirwayType.Terminal, edge.Value.AirwayType);
 
                 var expectedDis = distance +
                 wpt102.Distance(wptList[edge.ToNodeIndex]);
@@ -148,7 +146,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 
             int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
 
-            // Check the SID1 has been added with correct total distance.
+            // Check the SID has been added with correct total distance.
             Assert.IsTrue(wptList.EdgesFromCount(rwyIndex) > 0);
 
             double dis = CreateList(rwy, wpt101, wpt102, wpt103, wpt104)

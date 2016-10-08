@@ -67,8 +67,7 @@ namespace QSP.NavData.AAX
                         }
 
                         // Add the connection.
-                        var neighbor = new Neighbor(
-                            currentAirway, AirwayType.Enroute, dis);
+                        var neighbor = new Neighbor(currentAirway, dis);
 
                         wptList.AddNeighbor(index1, index2, neighbor);
                     }

@@ -157,6 +157,7 @@
     <Compile Include="RouteFinding\Routes\RouteExtensions.cs" />
     <Compile Include="RouteFinding\Routes\RouteGroup.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilter.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Util.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\INatsMessageProvider.cs" />
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />

@@ -3,6 +3,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
@@ -55,7 +56,7 @@ namespace QSP.RouteFinding.Tracks.Common
             editor.AddNeighbor(
                 item.IndexFrom,
                 item.IndexTo,
-                new Neighbor("DCT", AirwayType.Enroute, dis));
+                new Neighbor("DCT", dis));
         }
 
         private void AddMainRoute(TrackNodes nodes)
@@ -66,7 +67,9 @@ namespace QSP.RouteFinding.Tracks.Common
             int indexEnd = AddLastWpt(rte.LastWaypoint);
 
             var neighbor = new Neighbor(
-                nodes.AirwayIdent, AirwayType.Enroute, rte.GetTotalDistance());
+                nodes.AirwayIdent, 
+                rte.GetTotalDistance(), 
+                rte.Select(n => n.Waypoint).ToList());
 
             editor.AddNeighbor(indexStart, indexEnd, neighbor);
         }
@@ -91,7 +94,7 @@ namespace QSP.RouteFinding.Tracks.Common
                         int index = m.Index;
                         double dis = wptList.Distance(x, index);
                         var neighbor =
-                            new Neighbor("DCT", AirwayType.Enroute, dis);
+                            new Neighbor("DCT", dis);
                         editor.AddNeighbor(index, x, neighbor);
                     }
                 }
@@ -119,7 +122,7 @@ namespace QSP.RouteFinding.Tracks.Common
                         double dis = wptList.Distance(x, index);
 
                         editor.AddNeighbor(x, index,
-                            new Neighbor("DCT", AirwayType.Enroute, dis));
+                            new Neighbor("DCT", dis));
                     }
                 }
                 return x;

@@ -2,7 +2,9 @@
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
+using QSP.RouteFinding.Data.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using static QSP.RouteFinding.WaypointAirwayConnector;
 using static QSP.Utilities.LoggerInstance;
 
@@ -60,7 +62,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             this.airportList = airportList;
             this.option = option;
         }
-
+        
         // The 5 different cases are treated seperately.
         // The corresponding actions for each case are:
         //
@@ -84,45 +86,40 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// </summary>
         public int AddSidsToWptList(string rwy, List<string> sidsToAdd)
         {
-            if (sidsToAdd.Count == 0)
-            {
-                // Case 1
-                return ProcessCase1(rwy);
-            }
-            else
-            {
-                // Case 2, 3, 4, 5
-                var latLon = airportList.FindRwy(icao, rwy);
-                var wpt = new Waypoint(icao + rwy, latLon);
-                int index = editor.AddWaypoint(wpt);
+            // Case 1
+            if (sidsToAdd.Count == 0) return ProcessCase1(rwy);
 
-                foreach (var i in sidsToAdd)
+            // Case 2, 3, 4, 5
+            var latLon = airportList.FindRwy(icao, rwy);
+            var wpt = new Waypoint(icao + rwy, latLon);
+            int index = editor.AddWaypoint(wpt);
+
+            foreach (var i in sidsToAdd)
+            {
+                try
                 {
-                    try
-                    {
-                        // this is where case 2, 3, 4, 5 are handled.  
-                        AddToWptList(index, rwy, i);
-                    }
-                    catch (WaypointNotFoundException ex)
-                    {
-                        WriteToLog(ex.ToString());
-                    }
+                    // this is where case 2, 3, 4, 5 are handled.  
+                    AddToWptList(index, rwy, i);
                 }
-                return index;
+                catch (WaypointNotFoundException ex)
+                {
+                    WriteToLog(ex);
+                }
             }
+
+            return index;
         }
 
         private int ProcessCase1(string rwy)
         {
             var rwyLatLon = airportList.FindRwy(icao, rwy);
-            var nearbyWpts = AirwayConnections(rwyLatLon.Lat, rwyLatLon.Lon);
+            var nearbyWpts = AirwayConnections(rwyLatLon);
 
             int index = editor.AddWaypoint(new Waypoint(icao + rwy, rwyLatLon));
 
             foreach (var i in nearbyWpts)
             {
-                var neighbor = new Neighbor(
-                    "DCT", AirwayType.Terminal, i.Distance);
+                var neighbor = new Neighbor("DCT", i.Distance);
                 editor.AddNeighbor(index, i.Index, neighbor);
             }
 
@@ -132,13 +129,14 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// <exception cref="WaypointNotFoundException"></exception>
         private void AddToWptList(int rwyIndex, string rwy, string sid)
         {
-            var sidInfo = sids.GetSidInfo(sid, rwy, wptList[rwyIndex]);
-            var lastWpt = sidInfo.LastWaypoint;
+            var sidWpts = sids.SidWaypoints(sid, rwy, wptList[rwyIndex]);
+            var lastWpt = sidWpts.Waypoints.Last();
+            var distance = sidWpts.Waypoints.TotalDistance();
 
-            if (sidInfo.EndsWithVector)
+            if (sidWpts.EndsWithVector)
             {
                 // Case 2 
-                ProcessCase2(rwyIndex, sid, lastWpt, sidInfo.TotalDistance);
+                ProcessCase2(rwyIndex, sid, sidWpts.Waypoints, distance);
             }
             else
             {
@@ -154,18 +152,16 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 if (wptList.EdgesFromCount(lastWptIndex) == 0)
                 {
                     // Case 3                                  
-                    foreach (var k in AirwayConnections(lastWpt.Lat, lastWpt.Lon))
+                    foreach (var k in AirwayConnections(lastWpt))
                     {
-                        var n = new Neighbor(
-                            "DCT", AirwayType.Terminal, k.Distance);
-
+                        var n = new Neighbor("DCT", k.Distance);
                         editor.AddNeighbor(lastWptIndex, k.Index, n);
                     }
                 }
 
                 // For case 3, 4 and 5
                 var neighbor = new Neighbor(
-                    sid, AirwayType.Terminal, sidInfo.TotalDistance);
+                    sid, distance, sidWpts.Waypoints.WithoutFirstAndLast());
 
                 editor.AddNeighbor(
                     rwyIndex,
@@ -174,24 +170,23 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             }
         }
 
-        private void ProcessCase2(
-            int rwyIndex, string sid, Waypoint lastWpt, double disAdd)
+        private void ProcessCase2(int rwyIndex, string sid,
+            IReadOnlyList<Waypoint> wpts, double distance)
         {
-            var endPoints = AirwayConnections(lastWpt.Lat, lastWpt.Lon);
+            var endPoints = AirwayConnections(wpts.Last());
 
             foreach (var i in endPoints)
             {
                 var neighbor = new Neighbor(
-                    sid, AirwayType.Terminal, i.Distance + disAdd);
+                    sid, i.Distance + distance, wpts.Skip(1).ToList());
 
                 editor.AddNeighbor(rwyIndex, i.Index, neighbor);
             }
         }
 
-        private List<IndexDistancePair> AirwayConnections(
-            double lat, double lon)
+        private List<IndexDistancePair> AirwayConnections(ICoordinate item)
         {
-            return ToAirway(lat, lon, wptList, option);
+            return ToAirway(item.Lat, item.Lon, wptList, option);
         }
 
     }

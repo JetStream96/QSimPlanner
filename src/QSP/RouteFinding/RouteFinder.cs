@@ -129,15 +129,15 @@ namespace QSP.RouteFinding
                     route.AddFirstWaypoint(wptList[to], "");
                 }
 
-                if (neighbor.AirwayType == AirwayType.Enroute)
+                if (neighbor.InnerWaypoints == null)
                 {
                     // Auto-compute distance when added into route.
-                    // TODO: This is wrong for tracks.
                     route.AddFirstWaypoint(wptFrom, airway);
                 }
                 else
                 {
                     // Use the distance of the edge.
+                    // TODO: Is this even correct?
                     route.AddFirstWaypoint(wptFrom, airway, neighbor.Distance);
                 }
 
@@ -197,11 +197,7 @@ namespace QSP.RouteFinding
             while (unvisited.Count > 0)
             {
                 var current = unvisited.ExtractMin();
-
-                if (current.Key == regionPara.EndPtIndex)
-                {
-                    return true;
-                }
+                if (current.Key == regionPara.EndPtIndex) return true;
 
                 UpdateNeighbors(
                     current.Key,
@@ -216,13 +212,9 @@ namespace QSP.RouteFinding
 
         private double GetEdgeDistance(Edge<Neighbor> edge)
         {
-            if (windCalc == null ||
-                edge.Value.AirwayType == AirwayType.Terminal)
-            {
-                return edge.Value.Distance;
-            }
+            if (windCalc == null) return edge.Value.Distance;
 
-            // TODO: This is wrong for tracks.
+            // TODO: This is wrong for tracks, and SID/STAR.
             return windCalc.GetAvgWind(
                 wptList[edge.FromNodeIndex],
                 wptList[edge.ToNodeIndex])
