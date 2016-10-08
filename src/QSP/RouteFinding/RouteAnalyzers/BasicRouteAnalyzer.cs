@@ -209,7 +209,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             else
             {
                 var wpt = rte.LastWaypoint;
-                lastWpt = indices.MinBy(i => wptList[i].Distance(wpt));
+                lastWpt = indices.MinBy(i => ICoordinateExtension.Distance(wptList[i], wpt));
             }
 
             return TryappendWpt(wptList[lastWpt]);

@@ -250,8 +250,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             {
                 int x = TryAddWpt(wptList, i.StartWpt);
                 int y = TryAddWpt(wptList, i.EndWpt);
-                var neighbor = new Neighbor(
-                    i.Airway, AirwayType.Enroute, wptList.Distance(x, y));
+                var neighbor = new Neighbor(i.Airway, wptList.Distance(x, y));
 
                 wptList.AddNeighbor(x, y, neighbor);
             }

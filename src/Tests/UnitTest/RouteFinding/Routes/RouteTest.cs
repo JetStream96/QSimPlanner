@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using System;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace UnitTest.RouteFinding.Routes
             route.AddLastWaypoint(y, "0");
             route.AddLastWaypoint(z, "1");
 
-            var expectedDis = x.DistanceFrom(y) + y.DistanceFrom(z);
+            var expectedDis = x.Distance(y) + y.Distance(z);
 
             Assert.AreEqual(expectedDis, route.GetTotalDistance());
         }
@@ -92,7 +93,7 @@ namespace UnitTest.RouteFinding.Routes
             Assert.IsTrue(x.Equals(route.FirstWaypoint));
             Assert.IsTrue("0" == route.First.Value.AirwayToNext);
             Assert.AreEqual(
-                x.DistanceFrom(y), route.First.Value.DistanceToNext, 1E-8);
+                x.Distance(y), route.First.Value.DistanceToNext, 1E-8);
             Assert.IsTrue(y.Equals(route.First.Next.Value.Waypoint));
         }
 
@@ -151,7 +152,7 @@ namespace UnitTest.RouteFinding.Routes
             Assert.IsTrue(y.Equals(route.LastWaypoint));
             Assert.IsTrue("0" == route.Last.Previous.Value.AirwayToNext);
             Assert.AreEqual(
-                x.DistanceFrom(y),
+                x.Distance(y),
                 route.Last.Previous.Value.DistanceToNext,
                 1E-8);
 
@@ -215,7 +216,7 @@ namespace UnitTest.RouteFinding.Routes
             Assert.IsTrue(x.Equals(route.FirstWaypoint));
             Assert.IsTrue("0" == route.First.Value.AirwayToNext);
             Assert.AreEqual(
-                x.DistanceFrom(y),
+                x.Distance(y),
                 route.First.Value.DistanceToNext,
                 1E-8);
 
@@ -235,7 +236,7 @@ namespace UnitTest.RouteFinding.Routes
             Assert.IsTrue(y.Equals(route.FirstWaypoint));
             Assert.IsTrue("1" == route.First.Value.AirwayToNext);
             Assert.AreEqual(
-                y.DistanceFrom(z),
+                y.Distance(z),
                 route.First.Value.DistanceToNext,
                 1E-8);
 
@@ -276,7 +277,7 @@ namespace UnitTest.RouteFinding.Routes
             Assert.IsTrue(y.Equals(route.FirstWaypoint));
             Assert.IsTrue("1" == route.First.Value.AirwayToNext);
             Assert.AreEqual(
-                y.DistanceFrom(z),
+                y.Distance(z),
                 route.First.Value.DistanceToNext,
                 1E-8);
 

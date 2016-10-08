@@ -7,6 +7,7 @@ using QSP.RouteFinding.Tracks;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Linq;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace UnitTest.RouteFinding.Tracks.Common
 {
@@ -44,7 +45,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
 
             var neighbor = wptList.GetEdge(wptList.EdgesFrom(indexP1).First()).Value;
             Assert.IsTrue(neighbor.Airway == "NATA");
-            Assert.IsTrue(neighbor.Distance == p1.DistanceFrom(p2));
+            Assert.IsTrue(neighbor.Distance == p1.Distance(p2));
 
         }
         

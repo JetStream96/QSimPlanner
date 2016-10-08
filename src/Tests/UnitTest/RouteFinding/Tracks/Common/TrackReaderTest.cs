@@ -3,6 +3,7 @@ using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Pacots;
 using System.Linq;
@@ -49,7 +50,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
             var n = route.First.Value;
 
             Assert.IsTrue(n.Waypoint.Equals(p1));
-            Assert.IsTrue(n.AirwayToNext == "DCT" && n.DistanceToNext == p1.DistanceFrom(p2));
+            Assert.IsTrue(n.AirwayToNext == "DCT" && n.DistanceToNext == p1.Distance(p2));
             Assert.IsTrue(route.LastWaypoint.Equals(p2));
         }
 
@@ -71,16 +72,14 @@ namespace UnitTest.RouteFinding.Tracks.Common
             int q1Index = wptList.AddWaypoint(q1);
             int q2Index = wptList.AddWaypoint(q2);
             int q3Index = wptList.AddWaypoint(q3);
-            var neighbor = new Neighbor(
-                "A1", AirwayType.Enroute, q1.DistanceFrom(q2));
+            var neighbor = new Neighbor("A1", q1.Distance(q2));
 
             wptList.AddNeighbor(q1Index, q2Index, neighbor);
 
             var reader = new TrackReader<PacificTrack>(
-                wptList,
-                new AirportManager());
+                wptList, new AirportManager());
 
-            string[] routeFrom = new string[] { "Q1", "A1", "Q2", "UPR", "Q3", "P1" };
+            string[] routeFrom = { "Q1", "A1", "Q2", "UPR", "Q3", "P1" };
 
             // Act
             var nodes = reader.Read(

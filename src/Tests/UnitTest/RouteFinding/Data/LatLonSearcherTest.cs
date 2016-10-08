@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
+using QSP.RouteFinding.Data.Interfaces;
 using System.Collections.Generic;
 
 namespace UnitTest.RouteFinding.Data
@@ -46,7 +47,7 @@ namespace UnitTest.RouteFinding.Data
 
             foreach (var i in items)
             {
-                if (i.DistanceFrom(target) <= 1000.0)
+                if (i.Distance(target) <= 1000.0)
                 {
                     result.Add(i);
                 }

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.RandomRoutes;
 
 namespace UnitTest.RouteFinding.RandomRoutes
@@ -18,7 +19,7 @@ namespace UnitTest.RouteFinding.RandomRoutes
 
             for (int i = result.Count - 1; i >= 1; i--)
             {
-                Assert.IsTrue(result[i].DistanceFrom(
+                Assert.IsTrue(result[i].Distance(
                     result[i - 1]) <= RandomRouteFinder.MaxLegDis);
             }
         }

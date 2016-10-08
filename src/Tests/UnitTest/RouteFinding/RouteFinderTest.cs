@@ -21,8 +21,8 @@ namespace UnitTest.RouteFindingTest
             int i1 = wptList.FindByWaypoint(w1);
             int i2 = wptList.FindByWaypoint(w2);
             int i3 = wptList.FindByWaypoint(w3);
-            wptList.AddNeighbor(i1, "A", AirwayType.Enroute, i2);
-            wptList.AddNeighbor(i2, "B", AirwayType.Enroute, i3);
+            wptList.AddNeighbor(i1, "A", i2);
+            wptList.AddNeighbor(i2, "B", i3);
 
             var expected = GetRoute(
                 w1, "A", -1.0,
@@ -47,10 +47,10 @@ namespace UnitTest.RouteFindingTest
             int i2 = wptList.FindByWaypoint(w2);
             int i3 = wptList.FindByWaypoint(w3);
             int i4 = wptList.FindByWaypoint(w4);
-            wptList.AddNeighbor(i1, "12", AirwayType.Enroute, i2);
-            wptList.AddNeighbor(i1, "13", AirwayType.Enroute, i3);
-            wptList.AddNeighbor(i2, "24", AirwayType.Enroute, i4);
-            wptList.AddNeighbor(i3, "34", AirwayType.Enroute, i4);
+            wptList.AddNeighbor(i1, "12", i2);
+            wptList.AddNeighbor(i1, "13", i3);
+            wptList.AddNeighbor(i2, "24", i4);
+            wptList.AddNeighbor(i3, "34", i4);
 
             var avoid = new CountryCodeCollection(new int[] { 0 });
             var route = new RouteFinder(wptList, avoid).FindRoute(i1, i4);
@@ -75,10 +75,10 @@ namespace UnitTest.RouteFindingTest
             int i2 = wptList.FindByWaypoint(w2);
             int i3 = wptList.FindByWaypoint(w3);
             int i4 = wptList.FindByWaypoint(w4);
-            wptList.AddNeighbor(i1, "12", AirwayType.Enroute, i2);
-            wptList.AddNeighbor(i1, "13", AirwayType.Enroute, i3);
-            wptList.AddNeighbor(i2, "24", AirwayType.Enroute, i4);
-            wptList.AddNeighbor(i3, "34", AirwayType.Enroute, i4);
+            wptList.AddNeighbor(i1, "12", i2);
+            wptList.AddNeighbor(i1, "13", i3);
+            wptList.AddNeighbor(i2, "24", i4);
+            wptList.AddNeighbor(i3, "34", i4);
 
             var stub = new WindTableStub();
             var calc = new AvgWindCalculator(stub, 460.0, 36000.0);

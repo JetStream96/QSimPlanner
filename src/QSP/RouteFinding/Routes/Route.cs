@@ -1,5 +1,6 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.Utilities;
 using System;
 using System.Collections;
@@ -88,7 +89,7 @@ namespace QSP.RouteFinding.Routes
             double distance =
                 first == null ?
                 0.0 :
-                item.DistanceFrom(first.Value.Waypoint);
+                item.Distance(first.Value.Waypoint);
 
             AddFirstWaypoint(item, viaAirway, distance);
         }
@@ -120,7 +121,7 @@ namespace QSP.RouteFinding.Routes
             double distance =
                Last == null ?
                0.0 :
-               item.DistanceFrom(last.Value.Waypoint);
+               item.Distance(last.Value.Waypoint);
 
             AddLastWaypoint(item, viaAirway, distance);
         }
@@ -141,7 +142,7 @@ namespace QSP.RouteFinding.Routes
             double distance =
                 Last == null ?
                 0.0 :
-                LastWaypoint.DistanceFrom(item.FirstWaypoint);
+                LastWaypoint.Distance(item.FirstWaypoint);
 
             AddLast(item, airway, distance);
         }

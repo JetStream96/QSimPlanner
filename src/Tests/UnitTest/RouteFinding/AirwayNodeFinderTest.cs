@@ -68,7 +68,7 @@ namespace UnitTest.RouteFinding
 
             for (int i = 1; i <= 10; i++)
             {
-                var n = new Neighbor("A001", AirwayType.Enroute, 10);
+                var n = new Neighbor("A001", 10);
                 wpts.AddNeighbor(i, i - 1, n);
             }
 
@@ -89,13 +89,13 @@ namespace UnitTest.RouteFinding
 
             for (int i = 1; i <= 10; i++)
             {
-                var n = new Neighbor("A001", AirwayType.Enroute, 10);
+                var n = new Neighbor("A001", 10);
                 wpts.AddNeighbor(i, i - 1, n);
             }
 
             for (int i = 0; i <= 9; i++)
             {
-                var n = new Neighbor("A001", AirwayType.Enroute, 10);
+                var n = new Neighbor("A001", 10);
                 wpts.AddNeighbor(i, i + 1, n);
             }
 

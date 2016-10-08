@@ -5,6 +5,7 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Routes;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace UnitTest.RouteFinding
 {
@@ -67,10 +68,10 @@ namespace UnitTest.RouteFinding
         }
 
         public static void AddNeighbor(this WaypointList wptList, int index1, 
-            string airway, AirwayType type, int index2)
+            string airway, int index2, IReadOnlyList<Waypoint> wpts = null)
         {
             wptList.AddNeighbor(index1, index2,
-               new Neighbor(airway, type, wptList.Distance(index1, index2)));
+               new Neighbor(airway, wptList.Distance(index1, index2), wpts));
         }
 
         public static WaypointList GetWptList(params Waypoint[] waypoints)

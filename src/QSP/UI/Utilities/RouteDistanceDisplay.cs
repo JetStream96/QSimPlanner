@@ -1,4 +1,5 @@
 ﻿using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using System.Windows.Forms;
 using static QSP.MathTools.Doubles;
@@ -19,7 +20,7 @@ namespace QSP.UI.Utilities
             double totalDis = route.GetTotalDistance();
             int disInt = RoundToInt(totalDis);
             double directDis =
-                route.FirstWaypoint.DistanceFrom(route.LastWaypoint);
+                route.FirstWaypoint.Distance(route.LastWaypoint);
             double percentDiff = (totalDis - directDis) / directDis * 100;
             string diffStr = percentDiff.ToString("0.0");
             

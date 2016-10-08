@@ -1,6 +1,7 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
+using QSP.RouteFinding.Data.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using static QSP.AviationTools.Constants;
@@ -33,7 +34,7 @@ namespace QSP.RouteFinding.RandomRoutes
             var route = new List<Waypoint> { start };
             var current = start;
 
-            while (current.DistanceFrom(end) > MaxLegDis)
+            while (current.Distance(end) > MaxLegDis)
             {
                 var list = GetCandidates(current, end);
                 var optimal = ChooseCandidates(list, current, end);
@@ -62,7 +63,7 @@ namespace QSP.RouteFinding.RandomRoutes
                     next != null &&
                     prev.Value.Lon == node.Value.Lon &&
                     node.Value.Lon == next.Value.Lon &&
-                    prev.Value.DistanceFrom(next.Value) <= MaxLegDis)
+                    prev.Value.Distance(next.Value) <= MaxLegDis)
                 {
                     list.Remove(node);
                 }
@@ -78,7 +79,7 @@ namespace QSP.RouteFinding.RandomRoutes
         {
             return candidates
                 .Where(w => w.Equals(start) == false)
-                .MinBy(i => i.DistanceFrom(start) + i.DistanceFrom(end));
+                .MinBy(i => i.Distance(start) + i.Distance(end));
         }
 
         private List<Waypoint> GetCandidates(Waypoint start, Waypoint end)

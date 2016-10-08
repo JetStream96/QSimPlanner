@@ -59,11 +59,10 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             foreach (var i in wptList.EdgesFrom(wptList.FindByWaypoint(wpt)))
             {
                 var edge = wptList.GetEdge(i);
-                double disDiff = wpt.DistanceFrom(wptList[rwyIndex]) -
+                double disDiff = wpt.Distance(wptList[rwyIndex]) -
                     edge.Value.Distance;
 
                 if (edge.Value.Airway == "DCT" &&
-                    edge.Value.AirwayType == AirwayType.Terminal &&
                     Math.Abs(disDiff) < DistanceEpsilon)
                 {
                     return true;
@@ -87,10 +86,8 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             int index2 = wptList.AddWaypoint(
                 new Waypoint("27N050E", 27.0, 50.0));
 
-            wptList.AddNeighbor(index1, "AIRWAY1",
-                AirwayType.Terminal, index2);
-            wptList.AddNeighbor(index2, "AIRWAY1",
-                AirwayType.Terminal, index1);
+            wptList.AddNeighbor(index1, "AIRWAY1", index2);
+            wptList.AddNeighbor(index2, "AIRWAY1", index1);
 
             return wptList;
         }
@@ -152,10 +149,10 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             {
                 var edge = wptList.GetEdge(i);
                 Assert.AreEqual("DCT", edge.Value.Airway);
-                Assert.AreEqual(AirwayType.Terminal, edge.Value.AirwayType);
+                Assert.IsNull(edge.Value.InnerWaypoints);
 
                 double expectedDis =
-                    wpt101.DistanceFrom(wptList[edge.FromNodeIndex]);
+                    wpt101.Distance(wptList[edge.FromNodeIndex]);
 
                 Assert.AreEqual(
                     expectedDis, edge.Value.Distance, DistanceEpsilon);
@@ -210,8 +207,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             int indexNeighbor = wptList.AddWaypoint(
                 new Waypoint("27N050E", 27.0, 50.0));
 
-            wptList.AddNeighbor(index, "AIRWAY1",
-                AirwayType.Terminal, indexNeighbor);
+            wptList.AddNeighbor(index, "AIRWAY1", indexNeighbor);
             return wptList;
         }
 
@@ -244,7 +240,6 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
                 var edge = wptList.GetEdge(i);
 
                 return edge.Value.Airway == name &&
-                edge.Value.AirwayType == AirwayType.Terminal &&
                 Math.Abs(dis - edge.Value.Distance) < DistanceEpsilon;
             });
         }

@@ -2,6 +2,7 @@
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
@@ -56,8 +57,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             int p1 = wptList.AddWaypoint(wptP1);
             int q1 = wptList.AddWaypoint(wptQ1);
 
-            var neighbor = new Neighbor(
-                "A1", AirwayType.Terminal, wptP1.DistanceFrom(wptQ1));
+            var neighbor = new Neighbor("A1", wptP1.Distance(wptQ1));
             wptList.AddNeighbor(p1, q1, neighbor);
 
             return new AnalyzerWithCommands(
