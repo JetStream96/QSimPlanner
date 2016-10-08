@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
-using static QSP.MathTools.GCDis;
 
 namespace UnitTest.RouteFinding.Data.Interfaces
 {
@@ -58,9 +57,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
                 new pt(85.5,160.0)
             };
 
-            var expected =
-                Distance(pts[0].Lat, pts[0].Lon, pts[1].Lat, pts[1].Lon) +
-                Distance(pts[1].Lat, pts[1].Lon, pts[2].Lat, pts[2].Lon);
+            var expected = pts[0].Distance(pts[1]) + pts[1].Distance(pts[2]);
 
             Assert.AreEqual(expected, pts.TotalDistance(), delta);
         }
@@ -74,8 +71,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
                 new pt(-15.0,31.5)
             };
 
-            var expected =
-                Distance(pts[0].Lat, pts[0].Lon, pts[1].Lat, pts[1].Lon);
+            var expected = pts[0].Distance(pts[1]);
 
             Assert.AreEqual(expected, pts.TotalDistance(), delta);
         }

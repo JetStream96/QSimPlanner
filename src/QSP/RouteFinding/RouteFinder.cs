@@ -8,6 +8,7 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.WindAloft;
 using System.Collections.Generic;
+using System.Linq;
 using static QSP.AviationTools.Constants;
 using static System.Math;
 
@@ -141,11 +142,7 @@ namespace QSP.RouteFinding
                     route.AddFirstWaypoint(wptFrom, airway, neighbor.Distance);
                 }
 
-                if (from == startPtIndex)
-                {
-                    return route;
-                }
-
+                if (from == startPtIndex) return route;
                 edge = wptData[from].FromEdge;
             }
         }
@@ -177,12 +174,10 @@ namespace QSP.RouteFinding
             {
                 return ExtractRoute(FindRouteData, startPtIndex, endPtIndex);
             }
-            else
-            {
-                throw new RouteNotFoundException(
-                    $"No route exists between {wptList[startPtIndex].ID} " +
-                    $"and {wptList[endPtIndex].ID}.");
-            }
+
+            throw new RouteNotFoundException(
+                $"No route exists between {wptList[startPtIndex].ID} " +
+                $"and {wptList[endPtIndex].ID}.");
         }
 
         private bool FindRouteAttempt(
@@ -214,13 +209,22 @@ namespace QSP.RouteFinding
         {
             if (windCalc == null) return edge.Value.Distance;
 
-            // TODO: This is wrong for tracks, and SID/STAR.
-            return windCalc.GetAvgWind(
-                wptList[edge.FromNodeIndex],
-                wptList[edge.ToNodeIndex])
-                .AirDis;
-        }
+            var neighbor = edge.Value;
+            var from = wptList[edge.FromNodeIndex];
+            var to = wptList[edge.ToNodeIndex];
 
+            if (neighbor.InnerWaypoints == null)
+            {
+                return windCalc.GetAvgWind(from, to).AirDis;
+            }
+
+            var waypoints = new Waypoint[] { from }
+            .Concat(neighbor.InnerWaypoints)
+            .Concat(new Waypoint[] { to });
+
+            return windCalc.GetAirDistance(waypoints);
+        }
+        
         private void UpdateNeighbors(
             int currentWptIndex,
             RouteSeachRegion regionPara,

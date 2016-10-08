@@ -1,7 +1,4 @@
-﻿using QSP.FuelCalculation.Tables;
-using QSP.LibraryExtension.XmlSerialization;
-using QSP.Utilities.Units;
-using System;
+﻿using QSP.LibraryExtension.XmlSerialization;
 using System.Linq;
 using System.Xml.Linq;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;

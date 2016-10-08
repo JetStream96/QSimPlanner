@@ -7,6 +7,13 @@ namespace QSP.RouteFinding.Containers
     {
         public string Airway { get; private set; }
         public double Distance { get; private set; }
+
+        // This is null if the neighbor is a direct from one waypoint to
+        // another. Otherwise, it includes all inner waypoints.
+        // For example, if the neighbor is an oceanic track containing 
+        // waypoints A, B, C, and D, the inner waypoints are B and C.
+        // Also, in this case, the distance should be the totally distance
+        // from A to D via B and C.
         public IReadOnlyList<Waypoint> InnerWaypoints { get; private set; }
 
         public Neighbor(string Airway, double Distance,

@@ -32,28 +32,16 @@ namespace QSP.RouteFinding.Data.Interfaces
         public static double TotalDistance(
             this IEnumerable<ICoordinate> source)
         {
-            double dis = 0.0;
-            var enumerator = source.GetEnumerator();
-            bool started = false;
+            double distance = 0.0;
+            ICoordinate last = null;
 
-            ICoordinate current = null;
-
-            while (enumerator.MoveNext())
+            foreach (var i in source)
             {
-                if (started)
-                {
-                    var prev = current;
-                    current = enumerator.Current;
-                    dis += Distance(current, prev);
-                }
-                else
-                {
-                    current = enumerator.Current;
-                    started = true;
-                }
+                if (last != null) distance += last.Distance(i);
+                last = i;
             }
 
-            return dis;
+            return distance;
         }
 
         /// <exception cref="InvalidOperationException"></exception>
@@ -69,10 +57,7 @@ namespace QSP.RouteFinding.Data.Interfaces
         public static Route ToRoute(
             this IEnumerable<ICoordinate> coordinates)
         {
-            if (coordinates.Count() < 2)
-            {
-                throw new ArgumentException();
-            }
+            if (coordinates.Count() < 2) throw new ArgumentException();
 
             var result = new Route();
 

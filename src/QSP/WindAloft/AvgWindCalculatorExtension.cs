@@ -1,4 +1,5 @@
-﻿using QSP.RouteFinding.Routes;
+﻿using System.Collections.Generic;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.WindAloft
 {
@@ -6,22 +7,18 @@ namespace QSP.WindAloft
     {
         public static double GetAirDistance(
             this AvgWindCalculator calc,
-            Route route)
+            IEnumerable<ICoordinate> route)
         {
-            double AirDis = 0.0;
-            var node = route.First;
+            double airDis = 0.0;
+            ICoordinate last = null;
 
-            while (node != route.Last)
+            foreach (var i in route)
             {
-                var result = calc.GetAvgWind(
-                    node.Value.Waypoint,
-                    node.Next.Value);
-
-                AirDis += result.AirDis;
-                node = node.Next;
+                if (last != null) airDis += calc.GetAvgWind(last, i).AirDis;
+                last = i;
             }
 
-            return AirDis;
+            return airDis;
         }
     }
 }

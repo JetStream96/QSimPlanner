@@ -1,6 +1,5 @@
 using QSP.MathTools;
 using QSP.RouteFinding.Data.Interfaces;
-using System;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Angles;
 using static QSP.MathTools.Integration;

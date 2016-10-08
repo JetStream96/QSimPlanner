@@ -151,6 +151,7 @@
     <Compile Include="TOPerfCalculation\Boeing\TOCalculatorTest.cs" />
     <Compile Include="TOPerfCalculation\Boeing\TOReportGeneratorTest.cs" />
     <Compile Include="UI\ToLdgModule\Common\AirportInfo\SlopeComboBoxControllerTest.cs" />
+    <Compile Include="WindAloft\AvgWindCalculatorExtensionTest.cs" />
     <Compile Include="WindAloft\LastestDataSetFinderTest.cs" />
     <Compile Include="WindAloft\WindTest.cs" />
   </ItemGroup>

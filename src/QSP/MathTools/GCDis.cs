@@ -1,4 +1,3 @@
-using QSP.AviationTools.Coordinates;
 using System;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Angles;
@@ -7,15 +6,6 @@ namespace QSP.MathTools
 {
     public static class GCDis
     {
-        /// <summary>
-        /// Great circle distance between two points.
-        /// </summary>
-        public static double Distance(LatLon latLon1, LatLon latLon2)
-        {
-            return Distance(
-                latLon1.Lat, latLon1.Lon, latLon2.Lat, latLon2.Lon);
-        }
-
         /// <summary>
         /// Great circle distance between two points.
         /// </summary>

@@ -231,7 +231,7 @@ namespace QSP.RouteFinding.Data
                 double latMin = (Math.Abs(latTop) >= Math.Abs(latBottom)) ?
                     latBottom : latTop;
 
-                return Distance(pt, center) -
+                return pt.Distance(center) -
                     Distance(center.Lat, latMin, gridSize / 2.0);
             }
         }

@@ -10,7 +10,6 @@ using QSP.RouteFinding.Tracks.Nats.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using static QSP.MathTools.GCDis;
 using QSP.RouteFinding.Data.Interfaces;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
@@ -110,33 +109,15 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             // Airway is correct
             Assert.IsTrue(edge.Value.Airway == "NATZ");
         }
-
-        private static double GetDistance(List<LatLon> item)
-        {
-            if (item.Count < 2)
-            {
-                return 0.0;
-            }
-
-            double d = 0.0;
-
-            for (int i = 0; i < item.Count - 1; i++)
-            {
-                d += Distance(item[i], item[i + 1]);
-            }
-            return d;
-        }
-
+        
         private static int GetEdgeIndex(
             string ID, string firstWpt, WaypointList wptList)
         {
             foreach (var i in wptList.EdgesFrom(wptList.FindById(firstWpt)))
             {
-                if (wptList.GetEdge(i).Value.Airway == ID)
-                {
-                    return i;
-                }
+                if (wptList.GetEdge(i).Value.Airway == ID) return i;
             }
+
             return -1;
         }
 
