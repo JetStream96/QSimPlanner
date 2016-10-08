@@ -262,21 +262,8 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 
         private AirportManager GetAirportManager()
         {
-            var rwy = new RwyData("18", "180", 3500, 60, true, false,
-                "0.000", "0", 25.0003, 50.0001, 15, 3.00, 50, "", 0);
-
-            var airport = new Airport(
-                "AXYZ",
-                "Test Airport 01",
-                25.0,
-                50.0,
-                15,
-                true,
-                5000,
-                8000,
-                3500,
-                CreateList(rwy));
-
+            var rwy = GetRwyData("18", 25.0003, 50.0001);
+            var airport = GetAirport("AXYZ", rwy);
             return new AirportManager(new Airport[] { airport });
         }
 
@@ -293,5 +280,6 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 });
         }
 
+        // TODO: Add tests to make sure InnerWaypoints is correctly added.
     }
 }

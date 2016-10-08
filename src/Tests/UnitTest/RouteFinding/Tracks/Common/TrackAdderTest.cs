@@ -30,10 +30,11 @@ namespace UnitTest.RouteFinding.Tracks.Common
             route.AddLastWaypoint(p2, "DCT");
             var nodes = new TrackNodes("A", "NATA", route, new List<WptPair>());
 
-            var adder = new TrackAdder(wptList,
-                                       wptList.GetEditor(),
-                                       new StatusRecorder(),
-                                       TrackType.Nats);
+            var adder = new TrackAdder(
+                wptList,
+                wptList.GetEditor(),
+                new StatusRecorder(),
+                TrackType.Nats);
 
             // Act
             adder.AddToWaypointList(new TrackNodes[] { nodes });
@@ -43,10 +44,10 @@ namespace UnitTest.RouteFinding.Tracks.Common
 
             Assert.AreEqual(1, wptList.EdgesFromCount(indexP1));
 
-            var neighbor = wptList.GetEdge(wptList.EdgesFrom(indexP1).First()).Value;
+            var edge = wptList.EdgesFrom(indexP1).First();
+            var neighbor = wptList.GetEdge(edge).Value;
             Assert.IsTrue(neighbor.Airway == "NATA");
             Assert.IsTrue(neighbor.Distance == p1.Distance(p2));
-
         }
         
         [Test]
@@ -65,10 +66,11 @@ namespace UnitTest.RouteFinding.Tracks.Common
 
             var recorder = new StatusRecorder();
 
-            var adder = new TrackAdder(wptList,
-                                       wptList.GetEditor(),
-                                       recorder,
-                                       TrackType.Nats);
+            var adder = new TrackAdder(
+                wptList,
+                wptList.GetEditor(),
+                recorder,
+                TrackType.Nats);
 
             // Act
             adder.AddToWaypointList(new TrackNodes[] { nodes });
@@ -77,6 +79,6 @@ namespace UnitTest.RouteFinding.Tracks.Common
             Assert.AreEqual(1, recorder.Records.Count);       
         }
 
-
+        // TODO: Add tests to make sure InnerWaypoints is correctly added.
     }
 }

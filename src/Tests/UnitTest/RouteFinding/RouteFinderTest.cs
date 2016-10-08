@@ -63,6 +63,9 @@ namespace UnitTest.RouteFindingTest
             Assert.IsTrue(expected.Equals(route));
         }
 
+        // TODO: Add tests to make sure neighbors with InnerWaypoints
+        // has correct result when wind is considered.
+
         public void CanUtilizeWind()
         {
             var w1 = new Waypoint("1", -1.0, 0.0);
