@@ -5,13 +5,14 @@ using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Angles;
 using static QSP.MathTools.Integration;
 using static QSP.MathTools.Vectors.Vector3DExtension;
+using static System.Math;
 
 namespace QSP.WindAloft
 {
     public class AvgWindCalculator
     {
-        public double TrueAirspeed { get; set; }
-        public double AltitudeFt { get; set; }
+        public double Ktas { get; private set; }
+        public double AltitudeFt { get; private set; }
 
         private IWindTableCollection windData;
         private Vector3D v1;
@@ -23,12 +24,12 @@ namespace QSP.WindAloft
 
         public AvgWindCalculator(
             IWindTableCollection windData,
-            double trueAirspeed,
-            double altitudeFt)
+            double Ktas,
+            double AltitudeFt)
         {
             this.windData = windData;
-            this.TrueAirspeed = trueAirspeed;
-            this.AltitudeFt = altitudeFt;
+            this.Ktas = Ktas;
+            this.AltitudeFt = AltitudeFt;
 
             SetPoint1(0.0, 0.0);
             SetPoint2(0.0, 0.0);
@@ -63,7 +64,7 @@ namespace QSP.WindAloft
             double deltaAlpha = ToRadian(delta);
 
             //total distance
-            double r = EarthRadiusNm * Math.Acos(v1.Dot(v2));
+            double r = EarthRadiusNm * Acos(v1.Dot(v2));
 
             // Total time required
             double time = Integrate(
@@ -71,8 +72,8 @@ namespace QSP.WindAloft
 
             return new CalcResult()
             {
-                AvgTailWind = r / time - TrueAirspeed,
-                AirDis = time * TrueAirspeed
+                AvgTailWind = r / time - Ktas,
+                AirDis = time * Ktas
             };
         }
 
@@ -91,9 +92,9 @@ namespace QSP.WindAloft
         {
             double t = v1.Dot(v2);
             var M = new Matrix2by2(1.0, t, t, 1.0);
-            double beta = Math.Acos(t);
+            double beta = Acos(t);
 
-            var b = new Vector2D(Math.Cos(alpha), Math.Cos(beta - alpha));
+            var b = new Vector2D(Cos(alpha), Cos(beta - alpha));
             var a = M.Inverse().Multiply(b);
 
             return v1 * a.X + v2 * a.Y;
@@ -101,7 +102,7 @@ namespace QSP.WindAloft
 
         private double GetGS(Vector3D v)
         {
-            double lat = ToDegree(0.5 * Math.PI - v.Phi);
+            double lat = ToDegree(0.5 * PI - v.Phi);
             double lon = SetAngleLon(ToDegree(v.Theta));
             Vector3D VWind = GetWind(lat, lon);
 
@@ -109,9 +110,9 @@ namespace QSP.WindAloft
             var innerProduct = VWind.R == 0.0 ? 0.0 : VWind.Normalize().Dot(w);
             double gamma = Doubles.SafeAcos(innerProduct);
             double a = 1;
-            double b = -2 * VWind.R * Math.Cos(gamma);
-            double c = VWind.R * VWind.R - TrueAirspeed * TrueAirspeed;
-            return (-b + Math.Sqrt(b * b - 4 * a * c)) / (2 * a);
+            double b = -2 * VWind.R * Cos(gamma);
+            double c = VWind.R * VWind.R - Ktas * Ktas;
+            return (-b + Sqrt(b * b - 4 * a * c)) / (2 * a);
         }
 
         private double SetAngleLon(double a)
@@ -140,13 +141,13 @@ namespace QSP.WindAloft
             lat = ToRadian(lat);
             lon = ToRadian(lon);
 
-            double sinLat = Math.Sin(lat);
-            double sinLon = Math.Sin(lon);
-            double cosLon = Math.Cos(lon);
+            double sinLat = Sin(lat);
+            double sinLon = Sin(lon);
+            double cosLon = Cos(lon);
 
             var u1 = new Vector3D(-sinLon, cosLon, 0.0);
             var u2 = new Vector3D(
-                -sinLat * cosLon, -sinLat * sinLon, Math.Cos(lat));
+                -sinLat * cosLon, -sinLat * sinLon, Cos(lat));
 
             return u1 * w.UComp + u2 * w.VComp;
         }

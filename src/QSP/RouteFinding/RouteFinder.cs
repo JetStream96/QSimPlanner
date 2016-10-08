@@ -132,6 +132,7 @@ namespace QSP.RouteFinding
                 if (neighbor.AirwayType == AirwayType.Enroute)
                 {
                     // Auto-compute distance when added into route.
+                    // TODO: This is wrong for tracks.
                     route.AddFirstWaypoint(wptFrom, airway);
                 }
                 else
@@ -221,6 +222,7 @@ namespace QSP.RouteFinding
                 return edge.Value.Distance;
             }
 
+            // TODO: This is wrong for tracks.
             return windCalc.GetAvgWind(
                 wptList[edge.FromNodeIndex],
                 wptList[edge.ToNodeIndex])
@@ -244,8 +246,7 @@ namespace QSP.RouteFinding
                 if (WptWithinRange(findRouteData, index, regionPara) &&
                     avoidedCountry.Contains(countryCode) == false)
                 {
-                    double newDis =
-                        currentDis + GetEdgeDistance(edge);
+                    double newDis = currentDis + GetEdgeDistance(edge);
 
                     if (wptData[index].CurrentDistance ==
                         double.PositiveInfinity)

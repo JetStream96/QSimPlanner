@@ -34,8 +34,8 @@ namespace QSP.FuelCalculation.Calculations
             var waypoints = new List<DetailedPlan.Node>();
 
             var node = route.Last;
-            waypoints.Add(new DetailedPlan.Node(node, RouteFinding.Containers.AirwayType.))
-
+            //waypoints.Add(new DetailedPlan.Node(node, RouteFinding.Containers.AirwayType.))
+            throw new NotImplementedException();
         }
     }
 }

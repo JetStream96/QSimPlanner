@@ -15,7 +15,7 @@ namespace QSP.RouteFinding.Containers
         }
     }
 
-    public enum AirwayType
+    public enum AirwayType // TODO: This actually means: Supress wind correction.
     {
         Enroute,
         Terminal    // SID or STAR
