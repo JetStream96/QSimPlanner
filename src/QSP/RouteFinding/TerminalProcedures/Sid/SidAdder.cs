@@ -1,4 +1,5 @@
-﻿using QSP.RouteFinding.Airports;
+﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
@@ -161,7 +162,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
                 // For case 3, 4 and 5
                 var neighbor = new Neighbor(
-                    sid, distance, sidWpts.Waypoints.WithoutFirstAndLast());
+                    sid, distance, 
+                    sidWpts.Waypoints.WithoutFirstAndLast().ToList());
 
                 editor.AddNeighbor(
                     rwyIndex,

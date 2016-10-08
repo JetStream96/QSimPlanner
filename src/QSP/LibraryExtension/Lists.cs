@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace QSP.LibraryExtension
 {
@@ -10,10 +11,7 @@ namespace QSP.LibraryExtension
         /// </summary>
         public static bool TryRemoveLast<T>(this List<T> item)
         {
-            if (item == null || item.Count == 0)
-            {
-                return false;
-            }
+            if (item == null || item.Count == 0) return false;
             item.RemoveAt(item.Count - 1);
             return true;
         }
@@ -26,6 +24,13 @@ namespace QSP.LibraryExtension
         public static T Last<T>(this List<T> item)
         {
             return item[item.Count - 1];
+        }
+
+        // TODO: Add test.
+        public static List<T> WithoutFirstAndLast<T>(
+            this IReadOnlyCollection<T> item)
+        {
+            return item.Skip(1).Take(item.Count - 2).ToList();
         }
     }
 }

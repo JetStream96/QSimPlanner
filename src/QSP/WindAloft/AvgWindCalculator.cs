@@ -5,6 +5,7 @@ using static QSP.MathTools.Angles;
 using static QSP.MathTools.Integration;
 using static QSP.MathTools.Vectors.Vector3DExtension;
 using static System.Math;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.WindAloft
 {
@@ -63,7 +64,7 @@ namespace QSP.WindAloft
             double deltaAlpha = ToRadian(delta);
 
             //total distance
-            double r = EarthRadiusNm * Acos(v1.Dot(v2));
+            double r = EarthRadiusNm * SafeAcos(v1.Dot(v2));
 
             // Total time required
             double time = Integrate(

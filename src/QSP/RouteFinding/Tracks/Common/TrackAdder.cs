@@ -65,11 +65,13 @@ namespace QSP.RouteFinding.Tracks.Common
 
             int indexStart = AddFirstWpt(rte.FirstWaypoint);
             int indexEnd = AddLastWpt(rte.LastWaypoint);
+            var innerWpts = rte.Select(n => n.Waypoint).ToList()
+                .WithoutFirstAndLast();
 
             var neighbor = new Neighbor(
                 nodes.AirwayIdent, 
                 rte.GetTotalDistance(), 
-                rte.Select(n => n.Waypoint).ToList());
+                innerWpts);
 
             editor.AddNeighbor(indexStart, indexEnd, neighbor);
         }

@@ -1,4 +1,5 @@
-﻿using QSP.RouteFinding.Airports;
+﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
@@ -142,13 +143,14 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
                 foreach (var k in AirwayConnections(firstWpt))
                 {
                     var n = new Neighbor("DCT", k.Distance);
-
                     editor.AddNeighbor(k.Index, firstWptIndex, n);
                 }
             }
             // For case 2, 3 and 4
             var neighbor = new Neighbor(
-                star, starWpts.TotalDistance(), starWpts);
+                star, 
+                starWpts.TotalDistance(), 
+                starWpts.WithoutFirstAndLast());
 
             editor.AddNeighbor(firstWptIndex, rwyIndex, neighbor);
         }

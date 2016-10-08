@@ -137,8 +137,8 @@ namespace QSP.RouteFinding
                 }
                 else
                 {
-                    // Use the distance of the edge.
-                    // TODO: Is this even correct?
+                    // Use the distance of the edge because there are inner
+                    // waypoints.
                     route.AddFirstWaypoint(wptFrom, airway, neighbor.Distance);
                 }
 
