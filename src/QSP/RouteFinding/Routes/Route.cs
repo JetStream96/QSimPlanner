@@ -168,10 +168,7 @@ namespace QSP.RouteFinding.Routes
         /// <exception cref="ArgumentException"></exception>
         public void ConnectRoute(Route item)
         {
-            if (item.Count == 0)
-            {
-                return;
-            }
+            if (item.Count == 0) return;
 
             if (Last != null)
             {

@@ -324,7 +324,7 @@ namespace UnitTest.RouteFinding.Routes
         }
 
         [Test]
-        public void ConnectRouteMissMatchShouldThrowException()
+        public void ConnectRouteMismatchShouldThrowException()
         {
             var x = new Waypoint("X", 0.0, 0.0);
             var y = new Waypoint("Y", 0.0, 1.0);

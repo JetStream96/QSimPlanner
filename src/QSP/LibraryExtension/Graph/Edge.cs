@@ -10,7 +10,8 @@
 
         public Edge() { }
 
-        public Edge(TEdge Value, int FromNodeIndex, int FromIndexInList, int ToNodeIndex, int ToIndexInList)
+        public Edge(TEdge Value, int FromNodeIndex, int FromIndexInList, 
+            int ToNodeIndex, int ToIndexInList)
         {
             this.Value = Value;
             this.FromNodeIndex = FromNodeIndex;

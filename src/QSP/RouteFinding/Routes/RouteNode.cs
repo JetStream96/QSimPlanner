@@ -10,15 +10,8 @@ namespace QSP.RouteFinding.Routes
         public string AirwayToNext { get; set; }
         public double DistanceToNext { get; set; }
 
-        public double Lat
-        {
-            get { return Waypoint.Lat; }
-        }
-
-        public double Lon
-        {
-            get { return Waypoint.Lon; }
-        }
+        public double Lat { get { return Waypoint.Lat; } }
+        public double Lon { get { return Waypoint.Lon; } }
 
         public RouteNode(
             Waypoint Waypoint, string AirwayToNext, double DistanceToNext)

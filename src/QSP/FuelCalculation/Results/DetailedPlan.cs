@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Containers;
 
-namespace QSP.FuelCalculation.FuelDataNew.Results
+namespace QSP.FuelCalculation.Results
 {
     public class DetailedPlan
     {
@@ -19,6 +20,7 @@ namespace QSP.FuelCalculation.FuelDataNew.Results
         public class Node
         {
             public RouteNode RouteNode { get; private set; }
+            public AirwayType AirwayToNextType { get; private set; }
             public double TimeRemainingMin { get; private set; }
             public double AltitudeFt { get; private set; }
             public double TasKnots { get; private set; }
@@ -26,12 +28,14 @@ namespace QSP.FuelCalculation.FuelDataNew.Results
             
             public Node(
                 RouteNode RouteNode,
+                AirwayType AirwayToNextType,
                 double TimeRemainingMin,
                 double AltitudeFt,
                 double TasKnots,
                 double FuelOnBoardTon)
             {
                 this.RouteNode = RouteNode;
+                this.AirwayToNextType = AirwayToNextType;
                 this.TimeRemainingMin = TimeRemainingMin;
                 this.AltitudeFt = AltitudeFt;
                 this.TasKnots = TasKnots;

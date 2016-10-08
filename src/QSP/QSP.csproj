@@ -101,6 +101,7 @@
     <Compile Include="AviationTools\RwyIdentConversion.cs" />
     <Compile Include="AviationTools\SpeedConversion.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
+    <Compile Include="FuelCalculation\Calculations\FuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculators\AlternateFuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculators\CalculationResult.cs" />
     <Compile Include="FuelCalculation\Calculators\DestinationFuelCalculator.cs" />
@@ -112,11 +113,12 @@
     <Compile Include="FuelCalculation\FuelDataNew\FuelDataItemExtension.cs" />
     <Compile Include="FuelCalculation\FuelDataNew\FuelDataLoader.cs" />
     <Compile Include="FuelCalculation\FuelDataNew\FuelParameters.cs" />
-    <Compile Include="FuelCalculation\FuelDataNew\Results\DetailedPlan.cs" />
+    <Compile Include="FuelCalculation\Results\DetailedPlan.cs" />
     <Compile Include="FuelCalculation\FuelReport.cs" />
     <Compile Include="FuelCalculation\FuelData.cs" />
     <Compile Include="FuelCalculation\FuelDataItem.cs" />
     <Compile Include="FuelCalculation\FuelDataLoader.cs" />
+    <Compile Include="FuelCalculation\Results\FuelReport.cs" />
     <Compile Include="FuelCalculation\Tables\FlightTimeTable.cs" />
     <Compile Include="FuelCalculation\FuelParameters.cs" />
     <Compile Include="FuelCalculation\Tables\FuelTable.cs" />
