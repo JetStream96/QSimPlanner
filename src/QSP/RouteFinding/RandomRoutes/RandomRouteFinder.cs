@@ -96,10 +96,7 @@ namespace QSP.RouteFinding.RandomRoutes
             var smallRegion = searcher.Find(
                 pt.Lat, pt.Lon, MaxLegDis * 0.5);
 
-            if (smallRegion.Count > 0)
-            {
-                return smallRegion;
-            }
+            if (smallRegion.Count > 0) return smallRegion;
 
             return searcher.Find(start.Lat, start.Lon, MaxLegDis);
         }

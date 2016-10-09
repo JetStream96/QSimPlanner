@@ -14,7 +14,7 @@ namespace QSP.WindAloft
 
             foreach (var i in route)
             {
-                if (last != null) airDis += calc.GetAvgWind(last, i).AirDis;
+                if (last != null) airDis += calc.GetAirDistance(last, i);
                 last = i;
             }
 

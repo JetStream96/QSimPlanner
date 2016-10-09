@@ -215,7 +215,7 @@ namespace QSP.RouteFinding
 
             if (neighbor.InnerWaypoints == null)
             {
-                return windCalc.GetAvgWind(from, to).AirDis;
+                return windCalc.GetAirDistance(from, to);
             }
 
             var waypoints = new Waypoint[] { from }

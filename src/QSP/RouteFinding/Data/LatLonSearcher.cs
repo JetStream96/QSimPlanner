@@ -159,10 +159,7 @@ namespace QSP.RouteFinding.Data
 
                 foreach (var k in ItemsInGrid(current))
                 {
-                    if (Distance(lat, lon, k.Lat, k.Lon) <= distance)
-                    {
-                        result.Add(k);
-                    }
+                    if (k.Distance(lat,lon) <= distance) result.Add(k);
                 }
 
                 // Find grids next to current grid.
