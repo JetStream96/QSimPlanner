@@ -25,8 +25,12 @@ namespace QSP.LibraryExtension
         {
             return item[item.Count - 1];
         }
-
-        // TODO: Add test.
+        
+        /// <summary>
+        /// Returns a new list which contains all but the first and last 
+        /// elements. The order of original elements is preserved.
+        /// If item.Count is less than or equal to 2, returns an empty list.
+        /// </summary>
         public static List<T> WithoutFirstAndLast<T>(
             this IReadOnlyCollection<T> item)
         {

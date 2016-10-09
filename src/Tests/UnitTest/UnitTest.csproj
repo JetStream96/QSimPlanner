@@ -63,6 +63,7 @@
     <Compile Include="Common\Options\AppOptionTest.cs" />
     <Compile Include="LibraryExtension\IEnumerablesTest.cs" />
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
+    <Compile Include="LibraryExtension\ListsTest.cs" />
     <Compile Include="LibraryExtension\RegexesTest.cs" />
     <Compile Include="MathTools\IntergersTest.cs" />
     <Compile Include="MathTools\ModuloTest.cs" />
