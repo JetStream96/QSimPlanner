@@ -17,10 +17,6 @@ namespace QSP.WindAloft
         private IWindTableCollection windData;
         private Vector3D v1;
         private Vector3D v2;
-        private double lat1;
-        private double lon1;
-        private double lat2;
-        private double lon2;
 
         public AvgWindCalculator(
             IWindTableCollection windData,
@@ -31,22 +27,8 @@ namespace QSP.WindAloft
             this.Ktas = Ktas;
             this.AltitudeFt = AltitudeFt;
 
-            SetPoint1(0.0, 0.0);
-            SetPoint2(0.0, 0.0);
-        }
-
-        private void SetPoint1(double lat, double lon)
-        {
-            lat1 = lat;
-            lon1 = lon;
-            v1 = LatLonToVector3D(lat1, lon1);
-        }
-
-        private void SetPoint2(double lat, double lon)
-        {
-            lat2 = lat;
-            lon2 = lon;
-            v2 = LatLonToVector3D(lat2, lon2);
+            v1 = LatLonToVector3D(0.0, 0.0);
+            v2 = LatLonToVector3D(0.0, 0.0);
         }
 
         // delta: in degrees
@@ -57,8 +39,8 @@ namespace QSP.WindAloft
         {
             if (point1.LatLonEquals(point2, 1E-5)) return 0.0;
 
-            SetPoint1(point1.Lat, point1.Lon);
-            SetPoint2(point2.Lat, point2.Lon);
+            v1 = point1.ToVector3D();
+            v2 = point2.ToVector3D();
 
             double deltaAlpha = ToRadian(delta);
 
@@ -113,14 +95,14 @@ namespace QSP.WindAloft
             double c = windSpd * windSpd - Ktas * Ktas;
             return (-b + Sqrt(b * b - 4.0 * a * c)) / (2.0 * a);
         }
-        
+
         private Vector3D GetW(Vector3D v, Vector3D v1, Vector3D v2)
         {
             var v3 = v1.Cross(v2);
             v3 = v3.Normalize();
             return v3.Cross(v);
         }
-        
+
         private Vector3D GetWind(double lat, double lon)
         {
             var w = windData.GetWindUV(lat, lon, AltitudeFt);
