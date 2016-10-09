@@ -28,25 +28,22 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
     public class SidEntry : IProcedureEntry
     {
-        private List<Waypoint> _wpts;
-
         public string RunwayOrTransition { get; private set; }
         public string Name { get; private set; }
+        public IReadOnlyList<Waypoint> Waypoints { get; private set; }
         public EntryType Type { get; private set; }
         public bool EndWithVector { get; private set; }
-
-        public IReadOnlyList<Waypoint> Waypoints { get { return _wpts; } }
-
+        
         public SidEntry(
             string RunwayOrTransition,
             string SidName,
-            List<Waypoint> wpts,
+            IReadOnlyList<Waypoint> Waypoints,
             EntryType Type,
             bool EndWithVector)
         {
             this.RunwayOrTransition = RunwayOrTransition;
             this.Name = SidName;
-            this._wpts = wpts;
+            this.Waypoints = Waypoints;
             this.Type = Type;
             this.EndWithVector = EndWithVector;
         }

@@ -147,7 +147,12 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
 
             // Check the SID has been added with correct total distance.
-            Assert.IsTrue(wptList.EdgesFromCount(rwyIndex) > 0);
+            var edges = wptList.EdgesFrom(rwyIndex).ToList();
+            Assert.IsTrue(edges.Count > 0);
+            Assert.IsTrue(edges.Select(e => wptList.GetEdge(e))
+                .All(e =>
+                    Enumerable.SequenceEqual(e.Value.InnerWaypoints, 
+                    CreateList(wpt101, wpt102, wpt103))));
 
             double dis = CreateList(rwy, wpt101, wpt102, wpt103, wpt104)
                 .TotalDistance();
@@ -165,15 +170,15 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             foreach (var i in wptList.EdgesFrom(index))
             {
                 var edge = wptList.GetEdge(i);
-                Assert.AreEqual("DCT", edge.Value.Airway);
-                Assert.IsNull(edge.Value.InnerWaypoints);
+                var neighbor = edge.Value;
+                Assert.AreEqual("DCT", neighbor.Airway);
+                Assert.IsNull(neighbor.InnerWaypoints);
 
-                var expectedDis =
-                    wpt104.Distance(wptList[edge.ToNodeIndex]);
+                var expectedDis =wpt104.Distance(wptList[edge.ToNodeIndex]);
 
                 Assert.AreEqual(
                     expectedDis,
-                    edge.Value.Distance,
+                    neighbor.Distance,
                     DistanceEpsilon);
             }
         }
@@ -235,7 +240,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
 
             // Check the SID1 has been added with correct total distance.
-            Assert.IsTrue(wptList.EdgesFromCount(rwyIndex) > 0);
+            var edges = wptList.EdgesFrom(rwyIndex).ToList();
+            Assert.AreEqual(1, edges.Count);
+            Assert.IsTrue(Enumerable.SequenceEqual(
+                wptList.GetEdge(edges[0]).Value.InnerWaypoints,
+                CreateList(wpt01)));
 
             var dis = CreateList(rwy, wpt01, wptCoord).TotalDistance();
 
@@ -279,7 +288,5 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                     Math.Abs(dis - edge.Value.Distance) <= DistanceEpsilon;
                 });
         }
-
-        // TODO: Add tests to make sure InnerWaypoints is correctly added.
     }
 }
