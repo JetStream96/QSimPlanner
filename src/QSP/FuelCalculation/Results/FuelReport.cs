@@ -135,7 +135,7 @@ namespace QSP.FuelCalculation.Results
             string apu_s = LineFormat("APU", apu_display);
             string taxi_s = LineFormat("TAXI", taxi_display);
             string total_s = LineFormat("TOTAL", TotalFuelDisplay);
-            string fmc_rsv_s = LineFormatOneDecimalPlace("FMC RSV", (alternateDisplay + finalRsvDisplay) / 1000);
+            string fmc_rsv_s = LineFormatOneDecimalPlace("FMC RSV", (alternateDisplay + finalRsvDisplay) / 1000.0);
 
             string wtUnitDisplay = null;
 
