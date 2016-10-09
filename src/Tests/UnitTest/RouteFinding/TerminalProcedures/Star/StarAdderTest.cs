@@ -128,7 +128,12 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
 
             // Check the STAR1 has been added with correct total distance.
-            Assert.IsTrue(wptList.EdgesToCount(rwyIndex) > 0);
+            var edges = wptList.EdgesTo(rwyIndex).ToList();
+            Assert.IsTrue(edges.Count > 0);
+            Assert.IsTrue(edges.Select(e => wptList.GetEdge(e))
+                .All(e =>
+                    Enumerable.SequenceEqual(e.Value.InnerWaypoints,
+                    CreateList(wpt102, wpt103, wpt104))));
 
             double dis = CreateList(wpt101, wpt102, wpt103, wpt104, rwy)
                .TotalDistance();
@@ -188,7 +193,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
 
             // Check the STAR1 has been added with correct total distance.
-            Assert.IsTrue(wptList.EdgesToCount(rwyIndex) == 1);
+            var edges = wptList.EdgesTo(rwyIndex).ToList();
+            Assert.AreEqual(1, edges.Count);
+            Assert.IsTrue(Enumerable.SequenceEqual(
+                wptList.GetEdge(edges[0]).Value.InnerWaypoints,
+                CreateList(wpt01)));
 
             double dis = CreateList(wptCorrds, wpt01, rwy).TotalDistance();
 

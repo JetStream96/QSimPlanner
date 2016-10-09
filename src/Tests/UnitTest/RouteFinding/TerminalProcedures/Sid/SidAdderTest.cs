@@ -112,8 +112,8 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 var edge = wptList.GetEdge(i);
                 Assert.AreEqual("SID1", edge.Value.Airway);
 
-                var expectedDis = distance +
-                ICoordinateExtension.Distance(wpt102, wptList[edge.ToNodeIndex]);
+                var expectedDis = distance + 
+                    wpt102.Distance(wptList[edge.ToNodeIndex]);
 
                 Assert.AreEqual(
                     expectedDis, edge.Value.Distance, DistanceEpsilon);

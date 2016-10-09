@@ -24,27 +24,18 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
 
     public class StarEntry : IProcedureEntry
     {
-        private List<Waypoint> _wpts;
-
         public string RunwayOrTransition { get; private set; }
         public string Name { get; private set; }
-
-        public IReadOnlyList<Waypoint> Waypoints
-        {
-            get
-            {
-                return _wpts;
-            }
-        }
+        public IReadOnlyList<Waypoint> Waypoints { get; private set; }
 
         public EntryType Type { get; private set; }
 
         public StarEntry(string RunwayOrTransition, string StarName,
-            List<Waypoint> wpts, EntryType Type)
+            IReadOnlyList<Waypoint> Waypoints, EntryType Type)
         {
             this.RunwayOrTransition = RunwayOrTransition;
             this.Name = StarName;
-            this._wpts = wpts;
+            this.Waypoints = Waypoints;
             this.Type = Type;
         }
     }
