@@ -238,7 +238,5 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
                 Math.Abs(dis - edge.Value.Distance) < DistanceEpsilon;
             });
         }
-
-        // TODO: Add tests to make sure InnerWaypoints is correctly added.
     }
 }
