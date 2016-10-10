@@ -26,7 +26,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
     //    (1) First ICAO must be identical to origin icao code. Last 
     //        ICAO must be identical to dest icao code.
     //    (2) Both ICAO can be omitted.
-    //    (3) If an airway is DCT (direct), it have to be omitted. The 
+    //    (3) If an airway is DCT (direct), it has to be omitted. The 
     //        route will be a direct between the two waypoints.
     //    (4) SID/STAR can be omitted. The route will be a direct from/to 
     //        airport.
@@ -83,7 +83,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             SidCollection sids,
             StarCollection stars)
         {
-            EnsureConsectiveCommands(route);
+            EnsureNoConsectiveCommands(route);
 
             this.route = route;
             this.origIcao = origIcao;
@@ -114,7 +114,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return route;
         }
 
-        private static void EnsureConsectiveCommands(string[] route)
+        private static void EnsureNoConsectiveCommands(string[] route)
         {
             string[] commands = { "AUTO", "RAND" };
             for (int i = 0; i < route.Length - 1; i++)
@@ -177,78 +177,79 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 airportList.FindRwy(destIcao, destRwy));
         }
 
+        // Transform each RouteString to Route.
         private List<Route> ComputeRoutes(List<RouteString> subRoutes)
         {
             var result = new List<Route>();
 
             for (int i = 0; i < subRoutes.Count; i++)
             {
-                IEnumerable<string> route = subRoutes[i];
+                var route = subRoutes[i];
 
-                if (route.Count() == 1 &&
-                    (route.First() == "AUTO" ||
-                     route.First() == "RAND"))
+                if (route.Count == 1 &&
+                    (route[0] == "AUTO" || route[0] == "RAND"))
                 {
                     result.Add(null);
                 }
+                else if (i == 0)
+                {
+                    result.Add(ComputeOriginRoute(route));
+                }
+                else if(i == subRoutes.Count - 1)
+                {
+                    // TODO: This does not work when i == 0. 
+                    result.Add(ComputeDestRoute(route));
+                }
                 else
                 {
-                    Route origRoute = null;
-                    Route destRoute = null;
-                    bool sidExists = false;
-
-                    if (i == 0)
-                    {
-                        var sidExtract = new SidExtractor(route, origIcao,
-                            origRwy, origRwyWpt, wptList, sids).Extract();
-
-                        origRoute = sidExtract.Sid;
-                        route = sidExtract.RemainingRoute;
-                        sidExists = sidExtract.SidExists;
-                    }
-
-                    if (i == subRoutes.Count - 1)
-                    {
-                        var starExtract = new StarExtractor(route, destIcao,
-                            destRwy, destRwyWpt, wptList, stars).Extract();
-
-                        destRoute = starExtract.Star;
-                        route = starExtract.RemainingRoute;
-                    }
-
                     var mainRoute = new AutoSelectAnalyzer(
                         route.ToArray(),
                         origRwyWpt,
                         destRwyWpt,
                         wptList).Analyze();
 
-                    result.Add(AppendRoute(
-                        origRoute,
-                        AppendRoute(mainRoute, destRoute),
-                        sidExists));
+                    result.Add(mainRoute);
                 }
             }
 
             return result;
         }
 
-        private static Route AppendRoute(
-            Route original, Route routeToAppend, bool useLastAirway = false)
+        private Route ComputeOriginRoute(RouteString item)
         {
-            if (original == null)
-            {
-                return routeToAppend;
-            }
+            var sidExtract = new SidExtractor(item, origIcao,
+                origRwy, origRwyWpt, wptList, sids).Extract();
 
-            if (routeToAppend == null)
-            {
-                return original;
-            }
+            var origRoute = sidExtract.Sid;
+            bool sidExists = sidExtract.SidExists;
 
-            original.Merge(routeToAppend, useLastAirway);
-            return original;
+            var mainRoute = new AutoSelectAnalyzer(
+                sidExtract.RemainingRoute.ToArray(),
+                origRwyWpt,
+                destRwyWpt,
+                wptList).Analyze();
+
+            origRoute.Merge(mainRoute, sidExists);
+            return origRoute;
         }
 
+        private Route ComputeDestRoute(RouteString item)
+        {
+            var starExtract = new StarExtractor(item, destIcao,
+                destRwy, destRwyWpt, wptList, stars).Extract();
+
+            var destRoute = starExtract.Star;
+
+            var mainRoute = new AutoSelectAnalyzer(
+                starExtract.RemainingRoute.ToArray(),
+                origRwyWpt,
+                destRwyWpt,
+                wptList).Analyze();
+
+            mainRoute.Merge(destRoute);
+            return mainRoute;
+        }
+        
         private void FillCommands(
             List<RouteString> subRoutes, List<Route> analyzed)
         {

@@ -11,7 +11,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
     {
         public IEnumerable<SidEntry> SidList { get; private set; }
 
-        public SidCollection(List<SidEntry> sids)
+        public SidCollection(IEnumerable<SidEntry> sids)
         {
             SidList = sids;
         }

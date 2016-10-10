@@ -1,9 +1,11 @@
 ﻿using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 {
@@ -72,29 +74,28 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
         private void CreateOrigRoute()
         {
-            if (route.First.Value == icao)
-            {
-                route.RemoveFirst();
-            }
+            if (route.First.Value == icao) route.RemoveFirst();
 
             string sidName = route.First.Value;
             var sid = TryGetSid(sidName, rwyWpt);
 
             if (sid != null)
             {
+                var waypoints = sid.Waypoints;
                 route.RemoveFirst();
                 var last = origRoute.Last.Value;
                 last.AirwayToNext = sidName;
                 sidExists = true;
 
-                if (Math.Abs(sid.TotalDistance) > 1E-8)
+                if (sid.Waypoints.Count >= 2)
                 {
-                    // SID has at least one waypoint.                    
-                    last.DistanceToNext = sid.TotalDistance;
-                    origRoute.AddLastWaypoint(sid.LastWaypoint);
+                    // SID has at least one waypoint other than the runway.
+                    last.DistanceToNext = waypoints.TotalDistance();
+                    var lastWpt = waypoints.Last();
+                    origRoute.AddLastWaypoint(lastWpt);
 
-                    if (route.First.Value == sid.LastWaypoint.ID &&
-                        wptList.FindByWaypoint(sid.LastWaypoint) == -1)
+                    if (route.First.Value == lastWpt.ID &&
+                        wptList.FindByWaypoint(lastWpt) == -1)
                     {
                         route.RemoveFirst();
                     }
@@ -102,11 +103,11 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             }
         }
 
-        private SidInfo TryGetSid(string sidName, Waypoint rwyWpt)
+        private SidWaypoints TryGetSid(string sidName, Waypoint rwyWpt)
         {
             try
             {
-                return sids.GetSidInfo(sidName, rwy, rwyWpt);
+                return sids.SidWaypoints(sidName, rwy, rwyWpt);
             }
             catch
             {

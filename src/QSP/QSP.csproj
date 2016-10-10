@@ -51,6 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>QSP.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>QSP.Program</StartupObject>
@@ -594,6 +595,7 @@
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
+    <None Include="QSP.ruleset" />
     <None Include="Resources\qsp_icon.ico" />
     <None Include="Resources\add_icon.png" />
     <EmbeddedResource Include="UI\Forms\Options\OptionsForm.resx">

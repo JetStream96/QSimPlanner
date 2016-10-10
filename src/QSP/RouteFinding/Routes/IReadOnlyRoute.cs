@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.Routes
 {
-    public interface IReadOnlyRoute
+    public interface IReadOnlyRoute : IEnumerable<RouteNode>
     {
         RouteNode First { get; }
         RouteNode Last { get; }
-
+        double TotalDistance { get; }
     }
 }
