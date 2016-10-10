@@ -83,8 +83,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
             SidCollection sids,
             StarCollection stars)
         {
-            EnsureNoConsectiveCommands(route);
-
             this.route = route;
             this.origIcao = origIcao;
             this.origRwy = origRwy;
@@ -100,6 +98,10 @@ namespace QSP.RouteFinding.RouteAnalyzers
         {
             SetRwyWpts();
             if (route.Length == 0) return DirectRoute();
+
+            EnsureNoConsectiveCommands(route);
+            route = RemoveIcaos(route);
+
             var subRoutes = GroupEntries(route);
             var analyzed = ComputeRoutes(subRoutes);
             FillCommands(subRoutes, analyzed);
@@ -112,6 +114,20 @@ namespace QSP.RouteFinding.RouteAnalyzers
             route.AddLastWaypoint(origRwyWpt);
             route.AddLastWaypoint(destRwyWpt, "DCT");
             return route;
+        }
+
+        private string[] RemoveIcaos(string[] route)
+        {
+            bool firstIsIcao = route[0] == origIcao;
+            bool lastIsIcao = route.Last() == destIcao;
+
+            int skipHead = firstIsIcao ? 1 : 0;
+            int skipTail = lastIsIcao ? 1 : 0;
+
+            return route
+                .Skip(skipHead)
+                .Take(route.Length - skipHead - skipTail)
+                .ToArray();
         }
 
         private static void EnsureNoConsectiveCommands(string[] route)
