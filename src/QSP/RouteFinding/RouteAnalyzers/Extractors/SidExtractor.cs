@@ -12,7 +12,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
     //
     // * RemainingRoute, which represents a route which contains all 
     //   entries of the one given in constructor except:
-    //   (1) origin ICAO
+    //   (1) Origin ICAO
     //   (2) SID name
     //   (3) The last waypoint of SID, if the waypoint is not in wptList.
     //
@@ -53,10 +53,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             origRoute = new Route();
             origRoute.AddLastWaypoint(rwyWpt);
 
-            if (route.Count > 0)
-            {
-                CreateOrigRoute();
-            }
+            if (route.Count > 0) CreateOrigRoute();
 
             return new ExtractResult
             {

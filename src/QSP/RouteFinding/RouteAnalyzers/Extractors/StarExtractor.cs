@@ -38,10 +38,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             destRoute = new Route();
             destRoute.AddLastWaypoint(rwyWpt);
 
-            if (route.Count > 0)
-            {
-                CreateDestRoute();
-            }
+            if (route.Count > 0) CreateDestRoute();
 
             return new ExtractResult
             { RemainingRoute = route, Star = destRoute };
@@ -63,7 +60,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             string starName = route.Last.Value;
             var star = TryGetStar(starName, rwyWpt);
 
-            if (star!=null)
+            if (star != null)
             {
                 route.RemoveLast();
 

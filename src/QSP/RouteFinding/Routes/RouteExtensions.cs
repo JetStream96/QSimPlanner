@@ -61,8 +61,10 @@ namespace QSP.RouteFinding.Routes
             }
             else
             {
-                var airway = useLastAirway ?
-                    item.Last.Value.AirwayToNext : "DCT";
+                var airway = useLastAirway 
+                    ? item.Last.Value.AirwayToNext 
+                    : "DCT";
+
                 item.AddLast(other, airway);
             }
         }

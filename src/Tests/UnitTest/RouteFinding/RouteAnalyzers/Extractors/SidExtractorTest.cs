@@ -16,7 +16,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
         [Test]
         public void WhenInputIsEmptyLinkedListShouldReturnRwy()
         {
-            var route = new LinkedList<string>();
+            var route = new string[0];
             var rwyWpt = new Waypoint("RCTP05L", 20.0, 120.0);
             var extractor = new SidExtractor(
                 route, "", "", rwyWpt, null, null);
@@ -30,9 +30,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
         [Test]
         public void WhenExistsShouldRemoveIcao()
         {
-            var route = new LinkedList<string>(
-                new string[] { "RCTP", "HLG", "A1", "MKG" });
-
+            var route = new string[] { "RCTP", "HLG", "A1", "MKG" };
             var wpt = new Waypoint("RCTP05L", 20.0, 120.0);
 
             var extractor = new SidExtractor(
@@ -48,8 +46,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
         public void WhenSidExistsShouldRemoveAndAddToOrigRoute()
         {
             // Setup
-            var route = new LinkedList<string>(
-                new string[] { "SID1", "HLG", "A1", "MKG" });
+            var route = new string[] { "SID1", "HLG", "A1", "MKG" };
 
             var wptList = new WaypointList();
             var rwy = new Waypoint("RCTP05L", 20.0, 120.0);
@@ -66,7 +63,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                     new SidEntry(
                         "05L",
                         "SID1",
-                        new List<Waypoint>(){ wpt1 },
+                        new Waypoint[]{ wpt1 },
                         EntryType.RwySpecific,
                         false) }));
 
@@ -96,8 +93,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
         public void WhenSidLastWptNotInWptListShouldRemoveFromRoute()
         {
             // Setup
-            var route = new LinkedList<string>(
-                new string[] { "SID1", "P1", "HLG", "A1", "MKG" });
+            var route = new string[] { "SID1", "P1", "HLG", "A1", "MKG" };
 
             var wptList = new WaypointList();
             var rwy = new Waypoint("RCTP05L", 20.0, 120.0);
@@ -114,7 +110,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                     new SidEntry(
                         "05L",
                         "SID1",
-                        new List<Waypoint>(){new Waypoint("P1", 21.0, 121.0) },
+                        new Waypoint[] {new Waypoint("P1", 21.0, 121.0) },
                         EntryType.RwySpecific,
                         false) }));
 

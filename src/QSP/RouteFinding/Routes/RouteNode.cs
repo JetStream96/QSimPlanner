@@ -7,6 +7,8 @@ namespace QSP.RouteFinding.Routes
     public class RouteNode : IEquatable<RouteNode>, ICoordinate
     {
         public Waypoint Waypoint { get; private set; }
+        public Neighbor Neighbor { get; private set; }
+
         public string AirwayToNext { get; set; }
         public double DistanceToNext { get; set; }
 
