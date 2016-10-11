@@ -54,7 +54,7 @@ namespace UnitTest.RouteFinding
         {
             return new AirportManager(items);
         }
-
+        
         public static Airport GetAirport(string icao, params RwyData[] rwys)
         {
             return new Airport(

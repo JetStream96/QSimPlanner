@@ -22,12 +22,14 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public override List<PacificTrack> Parse()
         {
-            var tracks = new Eastbound.EastboundParser(airportList).Parse(message);
+            var eastParser = new Eastbound.EastboundParser(airportList);
+            var tracks = eastParser.Parse(message);
 
             foreach (var i in message.WestboundTracks)
             {
                 tracks.Add(new WestTrackParser(i, airportList).Parse());
             }
+
             return tracks;
         }
     }

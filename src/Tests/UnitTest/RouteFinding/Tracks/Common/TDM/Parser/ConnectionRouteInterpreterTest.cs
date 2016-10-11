@@ -2,6 +2,7 @@
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Tracks.Common.TDM.Parser;
 using System.Linq;
+using static UnitTest.RouteFinding.Common;
 
 namespace UnitTest.RouteFinding.Tracks.Common.TDM.Parser
 {
@@ -32,8 +33,8 @@ namespace UnitTest.RouteFinding.Tracks.Common.TDM.Parser
         public void RemovesAirportsCorrectly()
         {
             var airports = new AirportManager();
-            airports.Add(new Airport("ABCD", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
-            airports.Add(new Airport("EFGH", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
+            airports.Add(GetAirport("ABCD", new RwyData[0]));
+            airports.Add(GetAirport("EFGH", new RwyData[0]));
             
             var result = ConnectionRouteInterpreter.Convert(
                 new string[] { "P1", "P2", "P3" },

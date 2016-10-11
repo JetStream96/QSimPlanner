@@ -5,61 +5,67 @@ using System.Linq;
 using static QSP.AviationTools.Coordinates.Formatter;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.LibraryExtension.Lists;
+using RouteString = System.Collections.Generic.IReadOnlyList<string>;
 
 namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
     public static class ConnectionRouteInterpreter
     {
+        private static readonly char[] Delimeters =
+            new char[] { ' ', '\n', '\r', '\t' };
+
         public static ConnectionRoutes Convert(
             string[] mainRoute,
-            IEnumerable<string> connectRoutes, 
+            IEnumerable<string> connectRoutes,
             AirportManager airportList)
         {
+            var from = new List<RouteString>();
+            var to = new List<RouteString>();
+
             var result = new ConnectionRoutes();
 
             foreach (var i in connectRoutes)
             {
-                var rte = i
-                    .Split(new char[] { ' ', '\n', '\r', '\t' }, 
-                           StringSplitOptions.RemoveEmptyEntries)
+                var route = i
+                    .Split(Delimeters, StringSplitOptions.RemoveEmptyEntries)
                     .Select(TryTransformCoordinate)
                     .ToArray();
 
-                if (rte != null && rte.Length > 1)
+                // Invalid route, ignore.
+                if (route.Length <= 1) continue;
+
+                if (route[0] == mainRoute.Last())
                 {
-                    if (rte[0] == mainRoute.Last())
+                    // This route is routeTo
+                    if (airportList[route.Last()] != null)
                     {
-                        // This route is routeTo
-                        if (airportList[rte.Last()] != null)
-                        {
-                            result.RouteTo.Add(rte.SubArray(0, rte.Length - 1));
-                        }
-                        else
-                        {
-                            result.RouteTo.Add(rte);
-                        }
+                        to.Add(route.Take(route.Length - 1).ToArray());
                     }
-                    else if (rte.Last() == mainRoute[0])
+                    else
                     {
-                        if (airportList[rte[0]] != null)
-                        {
-                            result.RouteFrom.Add(rte.SubArray(1, rte.Length - 1));
-                        }
-                        else
-                        {
-                            result.RouteFrom.Add(rte);
-                        }
+                        to.Add(route);
+                    }
+                }
+                else if (route.Last() == mainRoute[0])
+                {
+                    // This route is routeFrom
+                    if (airportList[route[0]] != null)
+                    {
+                        from.Add(route.Skip(1).ToArray());
+                    }
+                    else
+                    {
+                        from.Add(route);
                     }
                 }
             }
 
-            return result;
+            return new ConnectionRoutes { RouteFrom = from, RouteTo = to };
         }
 
         public class ConnectionRoutes
         {
-            public List<string[]> RouteFrom = new List<string[]>();
-            public List<string[]> RouteTo = new List<string[]>();
+            public IReadOnlyList<RouteString> RouteFrom, RouteTo;
         }
     }
 }

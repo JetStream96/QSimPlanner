@@ -16,14 +16,9 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
 
         public List<PacificTrack> Parse(PacotsMessage item)
         {
-            var result = new List<PacificTrack>();
-
-            foreach (var i in item.EastboundTracks)
-            {
-                result.AddRange(CreateEastboundTracks(i));
-            }
-
-            return result;
+            return item.EastboundTracks
+                .SelectMany(i => CreateEastboundTracks(i))
+                .ToList();
         }
 
         private PacificTrack[] CreateEastboundTracks(string item)
