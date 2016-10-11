@@ -33,14 +33,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
         
         public static string[] Split(string route)
         {
-            var s = route.ToUpper()
-                         .Split(DelimiterWords, 
-                                StringSplitOptions.RemoveEmptyEntries)
-                         .Where(x => x != "DCT")
-                         .ToArray();
-
-            TransformCoordinates(s);
-            return s;
+            return route
+                .ToUpper()
+                .Split(DelimiterWords, 
+                    StringSplitOptions.RemoveEmptyEntries)
+                .Where(x => x != "DCT")
+                .Select(TryTransformCoordinate)
+                .ToArray();
         }
     }
 }

@@ -19,11 +19,11 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 
             foreach (var i in connectRoutes)
             {
-                var rte = i.Split(
-                    new char[] { ' ', '\n', '\r', '\t' }, 
-                    StringSplitOptions.RemoveEmptyEntries);
-
-                TransformCoordinates(rte);
+                var rte = i
+                    .Split(new char[] { ' ', '\n', '\r', '\t' }, 
+                           StringSplitOptions.RemoveEmptyEntries)
+                    .Select(TryTransformCoordinate)
+                    .ToArray();
 
                 if (rte != null && rte.Length > 1)
                 {
