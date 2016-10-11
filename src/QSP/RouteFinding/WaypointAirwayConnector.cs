@@ -1,7 +1,7 @@
 ﻿using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Data;
+using QSP.RouteFinding.Data.Interfaces;
 using System.Collections.Generic;
-using static QSP.MathTools.GCDis;
 
 namespace QSP.RouteFinding
 {
@@ -61,9 +61,7 @@ namespace QSP.RouteFinding
             {
                 result.Clear();
                 searchRange += option.SearchRangeIncr;
-
                 var searchResult = wptList.Find(Lat, Lon, searchRange);
-                double dctDis;
 
                 foreach (var item in searchResult)
                 {
@@ -72,9 +70,7 @@ namespace QSP.RouteFinding
                     if ((IsSid && wptList.EdgesFromCount(i) > 0) ||
                         (IsSid == false && wptList.EdgesToCount(i) > 0))
                     {
-                        dctDis = Distance(
-                            wptList[i].Lat, wptList[i].Lon, Lat, Lon);
-
+                        double dctDis = wptList[i].Distance(Lat, Lon);
                         result.Add(new IndexDistancePair(i, dctDis));
                     }
                 }
