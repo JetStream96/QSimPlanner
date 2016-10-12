@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
@@ -14,58 +15,61 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
     public class StarExtractorTest
     {
         [Test]
-        public void WhenInputIsEmptyLinkedListShouldReturnRwy()
+        public void Case1Test()
         {
-            var route = new LinkedList<string>();
-            var rwyWpt = new Waypoint("VHHH07L", 20.0, 120.0);
-            var extractor = new StarExtractor(
-                route, "", "", rwyWpt, null, null);
+            var rwy = new Waypoint("VHHH07L", 18.0, 118.0);
+            var wpt = new Waypoint("SIERA", 18.0, 115.0);
+            var wptList = new WaypointList();
+            wptList.AddWaypoint(wpt);
 
-            var destRoute = extractor.Extract().Star;
-
-            Assert.AreEqual(1, destRoute.Count);
-            Assert.IsTrue(destRoute.FirstWaypoint.Equals(rwyWpt));
-        }
-
-        [Test]
-        public void WhenExistsShouldRemoveIcao()
-        {
-            var route = new LinkedList<string>(
-                new string[] { "ELATO", "VHHH" });
+            var route = new string[] { "SIERA" };
 
             var extractor = new StarExtractor(
                 route,
                 "VHHH",
                 "",
-                new Waypoint("VHHH07L", 18.0, 118.0),
-                null,
-                null);
+                rwy,
+                wptList,
+                new StarCollection(new StarEntry[0]));
 
             var result = extractor.Extract();
 
-            Assert.AreEqual(1, result.RemainingRoute.Count());
-            Assert.IsFalse(result.Star.LastWaypoint.ID == "VHHH");
+            Assert.IsTrue(Enumerable.SequenceEqual(
+                route, result.RemainingRoute));
+
+            var destRoute = result.DestRoute;
+            Assert.AreEqual(2, destRoute.Count);
+
+            var node1 = destRoute.First();
+            var neighbor = node1.Neighbor;
+            Assert.IsTrue(node1.Equals(wpt));
+            Assert.IsTrue("DCT" == neighbor.Airway);
+            Assert.AreEqual(wpt.Distance(rwy), neighbor.Distance, 1E-8);
+            Assert.AreEqual(0, neighbor.InnerWaypoints.Count);
+
+            Assert.IsTrue(destRoute.Last().Equals(rwy));
         }
 
         [Test]
-        public void WhenStarExistsShouldRemoveAndAddToDestRoute()
+        public void Case2Test()
         {
             // Setup
-            var route = new LinkedList<string>(
-                new string[] { "ELATO", "SIERA", "STAR1" });
+            var route = new string[] { "ELATO", "SIERA", "STAR1" };
 
             var wptList = new WaypointList();
             var wpt = new Waypoint("SIERA", 18.0, 115.0);
-            var rwy = new Waypoint("VHHH07L", 18.0, 118.0);
             wptList.AddWaypoint(wpt);
 
-            var stars = new StarCollection(
-                new List<StarEntry>() {
-                    new StarEntry(
-                        "07L",
-                        "STAR1",
-                        new List<Waypoint>(){ wpt },
-                        EntryType.RwySpecific) });
+            var rwy = new Waypoint("VHHH07L", 18.0, 118.0);
+            var p1 = new Waypoint("P1", 18.5, 117.0);
+
+            var star = new StarEntry(
+                "07L",
+                "STAR1",
+                new Waypoint[] { wpt, p1 },
+                EntryType.RwySpecific);
+
+            var stars = new StarCollection(new StarEntry[] { star });
 
             var extractor = new StarExtractor(
                 route,
@@ -75,41 +79,47 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 wptList,
                 stars);
 
-            // Invoke
             var result = extractor.Extract();
 
-            // Assert            
-            Assert.AreEqual(2, result.RemainingRoute.Count());
-            Assert.IsTrue(result.RemainingRoute.Last() == "SIERA");
+            Assert.IsTrue(Enumerable.SequenceEqual(result.RemainingRoute,
+                new string[] { "ELATO", "SIERA" }));
 
-            var expected = GetRoute(
-                wpt, "STAR1", -1.0,
-                rwy);
+            var destRoute = result.DestRoute;
+            Assert.AreEqual(2, destRoute.Count);
 
-            Assert.IsTrue(result.Star.Equals(expected));
+            var node1 = destRoute.First();
+            var neighbor = node1.Neighbor;
+            Assert.IsTrue(node1.Equals(wpt));
+            Assert.IsTrue("STAR1" == neighbor.Airway);
+
+            double distance = new Waypoint[] { wpt, p1, rwy }.TotalDistance();
+            Assert.AreEqual(distance, neighbor.Distance, 1E-8);
+            Assert.IsTrue(Enumerable.SequenceEqual(neighbor.InnerWaypoints,
+                new Waypoint[] { p1 }));
+
+            Assert.IsTrue(destRoute.Last().Equals(rwy));
         }
 
         [Test]
-        public void WhenStarLastWptNotInWptListShouldRemoveFromRoute()
+        public void Case3Test()
         {
             // Setup
-            var route = new LinkedList<string>(
-                new string[] { "ELATO", "SIERA", "P1", "STAR1" });
+            var route = new string[] { "SIERA", "P1", "STAR1" };
+
             var wptList = new WaypointList();
+            var wpt = new Waypoint("SIERA", 18.0, 115.0);
+            wptList.AddWaypoint(wpt);
 
-            var wpt1 = new Waypoint("SIERA", 18.0, 115.0);
-            var p1 = new Waypoint("P1", 19.0, 119.0);
             var rwy = new Waypoint("VHHH07L", 18.0, 118.0);
+            var p1 = new Waypoint("P1", 18.5, 117.0);
 
-            wptList.AddWaypoint(wpt1);
+            var star = new StarEntry(
+                "07L",
+                "STAR1",
+                new Waypoint[] { p1 },
+                EntryType.RwySpecific);
 
-            var sids =
-                new StarCollection(new List<StarEntry>() {
-                    new StarEntry(
-                        "07L",
-                        "STAR1",
-                        new List<Waypoint>(){ p1 },
-                        EntryType.RwySpecific) });
+            var stars = new StarCollection(new StarEntry[] { star });
 
             var extractor = new StarExtractor(
                 route,
@@ -117,20 +127,31 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 "07L",
                 rwy,
                 wptList,
-                sids);
+                stars);
 
-            // Invoke
             var result = extractor.Extract();
 
-            // Assert
-            Assert.AreEqual(2, result.RemainingRoute.Count());
-            Assert.IsTrue(result.RemainingRoute.Last() == "SIERA");
+            Assert.IsTrue(Enumerable.SequenceEqual(result.RemainingRoute,
+                new string[] { "SIERA" }));
 
-            var expected = GetRoute(
-                p1, "STAR1", -1.0,
-                rwy);
+            var destRoute = result.DestRoute;
+            Assert.AreEqual(3, destRoute.Count);
 
-            Assert.IsTrue(result.Star.Equals(expected));
+            var node1 = destRoute.First();
+            var neighbor1 = node1.Neighbor;
+            Assert.IsTrue(node1.Equals(wpt));
+            Assert.IsTrue("DCT" == neighbor1.Airway);
+            Assert.AreEqual(wpt.Distance(p1), neighbor1.Distance, 1E-8);
+            Assert.AreEqual(0, neighbor1.InnerWaypoints.Count);
+
+            var node2 = destRoute.First.Next.Value;
+            var neighbor2 = node2.Neighbor;
+            Assert.IsTrue(node2.Equals(p1));
+            Assert.IsTrue("STAR1" == neighbor2.Airway);
+            Assert.AreEqual(p1.Distance(rwy), neighbor2.Distance, 1E-8);
+            Assert.AreEqual(0, neighbor2.InnerWaypoints.Count);
+
+            Assert.IsTrue(destRoute.Last().Equals(rwy));
         }
     }
 }

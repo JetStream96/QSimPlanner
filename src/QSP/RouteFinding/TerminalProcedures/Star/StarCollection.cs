@@ -11,7 +11,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
     {
         public IEnumerable<StarEntry> StarList { get; private set; }
 
-        public StarCollection(List<StarEntry> stars)
+        public StarCollection(IEnumerable<StarEntry> stars)
         {
             StarList = stars;
         }

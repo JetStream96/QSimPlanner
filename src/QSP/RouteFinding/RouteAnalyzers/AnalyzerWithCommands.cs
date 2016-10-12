@@ -251,7 +251,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             var starExtract = new StarExtractor(item, destIcao,
                 destRwy, destRwyWpt, wptList, stars).Extract();
 
-            var destRoute = starExtract.Star;
+            var destRoute = starExtract.DestRoute;
 
             var mainRoute = new AutoSelectAnalyzer(
                 starExtract.RemainingRoute.ToArray(),

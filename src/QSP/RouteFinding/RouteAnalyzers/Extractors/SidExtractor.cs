@@ -15,8 +15,6 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
     // Given a route as a RouteString, Extract() returns an object 
     // containing:
     //
-    // * A boolean which indicates whether SID exists.
-    //
     // * An OriginRoute containing the departure runway and SID 
     //   (if SID exists).
     //   There are 4 cases:
@@ -36,7 +34,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
     //           SID), then direct to the first enroute waypoint.
     //
     // * A RemainingRoute. In all cases, the first entry in RemainingRoute
-    //   must be the same as the last waypoint in the OriginRoute.
+    //   is guranteed to be the same as the last waypoint in the OriginRoute.
     //
     // The input route should not contain the origin ICAO, and must contain 
     // one element.
