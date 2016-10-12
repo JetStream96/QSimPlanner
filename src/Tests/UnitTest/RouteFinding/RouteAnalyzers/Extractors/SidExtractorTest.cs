@@ -197,17 +197,18 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.AreEqual(3, origRoute.Count);
 
             var node = origRoute.First;
-            var neighbor = node.Value.Neighbor;
+            var neighbor1 = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
-            Assert.IsTrue(neighbor.Airway == sid.Name);
-            Assert.AreEqual(neighbor.Distance, rwy.Distance(p1), 1E-8);
-            Assert.IsNull(neighbor.InnerWaypoints == null);
+            Assert.IsTrue(neighbor1.Airway == sid.Name);
+            Assert.AreEqual(neighbor1.Distance, rwy.Distance(p1), 1E-8);
+            Assert.AreEqual(0, neighbor1.InnerWaypoints.Count);
 
             node = node.Next;
+            var neighbor2 = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(p1));
-            Assert.IsTrue(neighbor.Airway == "DCT");
-            Assert.AreEqual(neighbor.Distance, p1.Distance(wpt1), 1E-8);
-            Assert.IsNull(neighbor.InnerWaypoints == null);
+            Assert.IsTrue(neighbor2.Airway == "DCT");
+            Assert.AreEqual(neighbor2.Distance, p1.Distance(wpt1), 1E-8);
+            Assert.IsNull(neighbor2.InnerWaypoints);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));

@@ -107,6 +107,42 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 return new ExtractResult(route.ToList(), true, origRoute);
             }
 
+            // Case 3, 4            
+            var candidates = wptList.FindAllById(route.First());
+            var sidLastWpt = sid.Waypoints.Last();
+
+            if (sidLastWpt.ID != route.First())
+            {
+                throw new ArgumentException($"{route.First()} is not the last"
+                    + " waypoint of the SID {first}.");
+            }
+                        
+            route.RemoveFirst();
+            // Now the first item of route is the first enroute waypoint.
+
+            if (candidates.Count == 0)
+            {
+                // Case 4
+                double distance1 = sid.Waypoints.TotalDistance();
+                var innerWpts = sid.Waypoints.WithoutFirstAndLast();
+
+                var neighbor1 = new Neighbor(first, distance1, innerWpts);
+                var node1 = new RouteNode(rwyWpt, neighbor1);
+
+                var lastSidWpt = sid.Waypoints.Last();
+                var firstEnrouteWpt = FindWpt(route.First());
+                double distance2 = lastSidWpt.Distance(firstEnrouteWpt);
+                var neighbor2 = new Neighbor("DCT", distance2);
+                var node2 = new RouteNode(lastSidWpt, neighbor2);
+
+                var node3 = new RouteNode(firstEnrouteWpt, null);
+                var origRoute = new Route(node1, node2, node3);
+
+                return new ExtractResult(route.ToList(), true, origRoute);
+            }
+
+
+
             string sidName = first;
 
             if (sid != null)
