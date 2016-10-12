@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using RouteString = System.Collections.Generic.IReadOnlyList<string>;
+using static QSP.LibraryExtension.IEnumerables;
+using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 {
@@ -68,34 +70,44 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             sidExists = false;
         }
 
+        // May throw exception if input is not valid.
         public ExtractResult Extract()
         {
-            origRoute = new Route();
-            origRoute.AddLastWaypoint(rwyWpt);
+            var first = route.First();
+            var sid = TryGetSid(first, rwyWpt);
 
-            if (route.Count > 0) CreateOrigRoute();
-
-            return new ExtractResult
+            if (sid == null)
             {
-                RemainingRoute = route,
-                Sid = origRoute,
-                SidExists = sidExists
-            };
-        }
+                // Case 1
+                var wpt = FindWpt(first);
 
-        public class ExtractResult
-        {
-            public IEnumerable<string> RemainingRoute;
-            public bool SidExists;
-            public Route Sid;
-        }
+                var neighbor = new Neighbor("DCT", rwyWpt.Distance(wpt));
+                var node1 = new RouteNode(rwyWpt, neighbor);
+                var node2 = new RouteNode(wpt, null);
+                var origRoute = new Route(node1, node2);
 
-        private void CreateOrigRoute()
-        {
-            if (route.First.Value == icao) route.RemoveFirst();
+                return new ExtractResult(route.ToList(), false, origRoute);
+            }
 
-            string sidName = route.First.Value;
-            var sid = TryGetSid(sidName, rwyWpt);
+            // Remove SID from RouteString.
+            route.RemoveFirst();
+
+            if (sid.EndsWithVector)
+            {
+                // Case 2
+                var wpt = FindWpt(route.First());
+                double distance = sid.Waypoints.Concat(wpt).TotalDistance();
+                var innerWpts = sid.Waypoints.Skip(1).ToList();
+
+                var neighbor = new Neighbor(first, distance, innerWpts);
+                var node1 = new RouteNode(rwyWpt, neighbor);
+                var node2 = new RouteNode(wpt, null);
+                var origRoute = new Route(node1, node2);
+
+                return new ExtractResult(route.ToList(), true, origRoute);
+            }
+
+            string sidName = first;
 
             if (sid != null)
             {
@@ -118,6 +130,32 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                         route.RemoveFirst();
                     }
                 }
+            }
+            throw new NotImplementedException();
+        }
+
+        private Waypoint FindWpt(string ident)
+        {
+            return wptList
+                .FindAllById(ident)
+                .Select(i => wptList[i])
+                .GetClosest(rwyWpt);
+        }
+
+
+        public class ExtractResult
+        {
+            public RouteString RemainingRoute;
+            public bool SidExists; // TODO: Remove this.
+            public Route OrigRoute;
+
+            public ExtractResult(RouteString RemainingRoute,
+                bool SidExists,
+                Route OrigRoute)
+            {
+                this.RemainingRoute = RemainingRoute;
+                this.SidExists = SidExists;
+                this.OrigRoute = OrigRoute;
             }
         }
 

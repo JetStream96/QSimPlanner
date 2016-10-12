@@ -33,5 +33,10 @@ namespace QSP.LibraryExtension
         {
             return new HashSet<T>(source);
         }
+
+        public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T x)
+        {
+            return source.Concat(new T[] { x });
+        }
     }
 }

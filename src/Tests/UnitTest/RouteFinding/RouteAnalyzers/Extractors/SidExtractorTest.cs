@@ -41,7 +41,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsTrue(Enumerable.SequenceEqual(route,
                 result.RemainingRoute));
 
-            var origRoute = result.Sid;
+            var origRoute = result.OrigRoute;
             Assert.AreEqual(2, origRoute.Count);
 
             var node = origRoute.First;
@@ -90,7 +90,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 new string[] { "HLG", "A1", "MKG" },
                 result.RemainingRoute));
 
-            var origRoute = result.Sid;
+            var origRoute = result.OrigRoute;
             Assert.AreEqual(2, origRoute.Count);
 
             var node = origRoute.First;
@@ -141,7 +141,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 new string[] { "HLG", "A1", "MKG" },
                 result.RemainingRoute));
 
-            var origRoute = result.Sid;
+            var origRoute = result.OrigRoute;
             Assert.AreEqual(2, origRoute.Count);
 
             var node = origRoute.First;
@@ -193,7 +193,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 new string[] { "HLG", "A1", "MKG" },
                 result.RemainingRoute));
 
-            var origRoute = result.Sid;
+            var origRoute = result.OrigRoute;
             Assert.AreEqual(3, origRoute.Count);
 
             var node = origRoute.First;

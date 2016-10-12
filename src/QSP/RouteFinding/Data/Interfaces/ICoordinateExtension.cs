@@ -47,10 +47,19 @@ namespace QSP.RouteFinding.Data.Interfaces
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         public static T GetClosest<T>(
-            this IEnumerable<T> items, double Lat, double Lon)
+            this IEnumerable<T> items, ICoordinate coordinate)
             where T : ICoordinate
         {
-            return items.MinBy(i => i.Distance(Lat, Lon));
+            return items.GetClosest(coordinate.Lat, coordinate.Lon);
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static T GetClosest<T>(
+            this IEnumerable<T> items, double lat, double lon)
+            where T : ICoordinate
+        {
+            return items.MinBy(i => i.Distance(lat, lon));
         }
 
         /// <exception cref="ArgumentException"></exception>

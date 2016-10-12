@@ -234,7 +234,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             var sidExtract = new SidExtractor(item, origIcao,
                 origRwy, origRwyWpt, wptList, sids).Extract();
 
-            var origRoute = sidExtract.Sid;
+            var origRoute = sidExtract.OrigRoute;
             bool sidExists = sidExtract.SidExists;
 
             var mainRoute = new AutoSelectAnalyzer(

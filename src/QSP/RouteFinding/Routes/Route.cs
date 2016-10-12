@@ -50,7 +50,12 @@ namespace QSP.RouteFinding.Routes
         {
             Nodes = new LinkedList<RouteNode>(item);
         }
-        
+
+        public Route(params RouteNode[] item)
+        {
+            Nodes = new LinkedList<RouteNode>(item);
+        }
+
         public double GetTotalDistance()
         {
             if (Nodes.Count == 0)

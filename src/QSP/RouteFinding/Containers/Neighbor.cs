@@ -15,6 +15,7 @@ namespace QSP.RouteFinding.Containers
         // Also, in this case, the distance should be the totally distance
         // from A to D via B and C.
         // This should never has a Count of 0. Use null instead.
+        // TODO: Do not use null.
         public IReadOnlyList<Waypoint> InnerWaypoints { get; private set; }
 
         public Neighbor(string Airway, double Distance,
