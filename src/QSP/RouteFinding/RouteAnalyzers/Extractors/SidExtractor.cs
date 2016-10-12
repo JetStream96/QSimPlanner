@@ -82,7 +82,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 var node2 = new RouteNode(wpt, null);
                 var origRoute = new Route(node1, node2);
 
-                return new ExtractResult(route.ToList(), false, origRoute);
+                return new ExtractResult(route.ToList(), origRoute);
             }
 
             // Remove SID from RouteString.
@@ -100,7 +100,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 var node2 = new RouteNode(wpt, null);
                 var origRoute = new Route(node1, node2);
 
-                return new ExtractResult(route.ToList(), true, origRoute);
+                return new ExtractResult(route.ToList(), origRoute);
             }
 
             // Case 3, 4            
@@ -113,6 +113,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                     + " waypoint of the SID {first}.");
             }
             
+            // TODO: Maybe add a distance upper limit?
             if (candidates.Count == 0)
             {
                 // Case 4
@@ -135,7 +136,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 var node3 = new RouteNode(firstEnrouteWpt, null);
                 var origRoute = new Route(node1, node2, node3);
 
-                return new ExtractResult(route.ToList(), true, origRoute);
+                return new ExtractResult(route.ToList(), origRoute);
             }
             else
             {
@@ -148,7 +149,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 var node2 = new RouteNode(sid.Waypoints.Last(), null);
                 var origRoute = new Route(node1, node2);
 
-                return new ExtractResult(route.ToList(), true, origRoute);
+                return new ExtractResult(route.ToList(), origRoute);
             }
         }
 
@@ -160,19 +161,14 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 .GetClosest(rwyWpt);
         }
 
-
         public class ExtractResult
         {
             public RouteString RemainingRoute;
-            public bool SidExists; // TODO: Remove this.
             public Route OrigRoute;
 
-            public ExtractResult(RouteString RemainingRoute,
-                bool SidExists,
-                Route OrigRoute)
+            public ExtractResult(RouteString RemainingRoute, Route OrigRoute)
             {
                 this.RemainingRoute = RemainingRoute;
-                this.SidExists = SidExists;
                 this.OrigRoute = OrigRoute;
             }
         }

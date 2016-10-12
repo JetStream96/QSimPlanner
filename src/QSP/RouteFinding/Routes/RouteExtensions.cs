@@ -57,7 +57,7 @@ namespace QSP.RouteFinding.Routes
 
             if (item.LastWaypoint.Equals(other.FirstWaypoint))
             {
-                item.ConnectRoute(other);
+                item.Connect(other);
             }
             else
             {

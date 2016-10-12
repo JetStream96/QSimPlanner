@@ -235,7 +235,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 origRwy, origRwyWpt, wptList, sids).Extract();
 
             var origRoute = sidExtract.OrigRoute;
-            bool sidExists = sidExtract.SidExists;
 
             var mainRoute = new AutoSelectAnalyzer(
                 sidExtract.RemainingRoute.ToArray(),
@@ -243,7 +242,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 destRwyWpt,
                 wptList).Analyze();
 
-            origRoute.Merge(mainRoute, sidExists);
+            origRoute.Connect(mainRoute);
             return origRoute;
         }
 

@@ -307,7 +307,7 @@ namespace UnitTest.RouteFinding.Routes
 
             var expected = new Route(route);
 
-            route.ConnectRoute(GetRoute1());
+            route.Connect(GetRoute1());
 
             expected.AddLastWaypoint(z, "1");
 
@@ -318,7 +318,7 @@ namespace UnitTest.RouteFinding.Routes
         public void ConnectRouteEmptyNodes()
         {
             var route = new Route();
-            route.ConnectRoute(GetRoute1());
+            route.Connect(GetRoute1());
 
             Assert.IsTrue(Enumerable.SequenceEqual(
                 route, GetRoute1()));
@@ -335,7 +335,7 @@ namespace UnitTest.RouteFinding.Routes
             route.AddLastWaypoint(x);
 
             Assert.Throws<ArgumentException>(() =>
-            route.ConnectRoute(GetRoute1()));
+            route.Connect(GetRoute1()));
         }
     }
 }

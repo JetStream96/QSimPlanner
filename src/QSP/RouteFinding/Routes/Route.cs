@@ -174,7 +174,7 @@ namespace QSP.RouteFinding.Routes
         /// as the first one in item.
         /// </summary>
         /// <exception cref="ArgumentException"></exception>
-        public void ConnectRoute(Route item)
+        public void Connect(Route item)
         {
             if (item.Count == 0) return;
 
