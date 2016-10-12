@@ -9,18 +9,39 @@ namespace QSP.RouteFinding.Routes
         public Waypoint Waypoint { get; private set; }
         public Neighbor Neighbor { get; private set; }
 
-        public string AirwayToNext { get; set; }
-        public double DistanceToNext { get; set; }
+        public string AirwayToNext
+        {
+            get
+            {
+                return Neighbor.Airway;
+            }
+            set
+            {
+                Neighbor = new Neighbor(
+                    value, Neighbor.Distance, Neighbor.InnerWaypoints);
+            }
+        }
+
+        public double DistanceToNext
+        {
+            get
+            {
+                return Neighbor.Distance;
+            }
+            set
+            {
+                Neighbor = new Neighbor(
+                   Neighbor.Airway, value, Neighbor.InnerWaypoints);
+            }
+        }
 
         public double Lat { get { return Waypoint.Lat; } }
         public double Lon { get { return Waypoint.Lon; } }
 
-        public RouteNode(
-            Waypoint Waypoint, string AirwayToNext, double DistanceToNext)
+        public RouteNode(Waypoint Waypoint, Neighbor Neighbor)
         {
             this.Waypoint = Waypoint;
-            this.AirwayToNext = AirwayToNext;
-            this.DistanceToNext = DistanceToNext;
+            this.Neighbor = Neighbor;
         }
 
         public bool Equals(RouteNode other)

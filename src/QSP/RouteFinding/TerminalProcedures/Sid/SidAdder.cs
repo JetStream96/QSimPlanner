@@ -15,14 +15,14 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
     // route finder or route analyzer, and returns the index of origin 
     // rwy in wptList.
     // 
-    // This breaks down into 5 cases:
+    // There are 5 cases:
     // 1. There's no SID at all. 
     // 2. The SID ends with a vector.
     // 3. The SID ends with a waypoint. The waypoint is in wptList but 
     //    not connected to an airway.
     // 4. The SID ends with a waypoint which is connected to an airway. 
     // 5. The SID ends with a waypoint. The waypoint is NOT in wptList.
-    //  
+    //
 
     public class SidAdder
     {
@@ -63,7 +63,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             this.airportList = airportList;
             this.option = option;
         }
-        
+
         // The 5 different cases are treated seperately.
         // The corresponding actions for each case are:
         //
@@ -162,7 +162,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
                 // For case 3, 4 and 5
                 var neighbor = new Neighbor(
-                    sid, distance, 
+                    sid, distance,
                     sidWpts.Waypoints.WithoutFirstAndLast().ToList());
 
                 editor.AddNeighbor(

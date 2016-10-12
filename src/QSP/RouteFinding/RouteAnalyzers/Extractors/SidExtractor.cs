@@ -6,20 +6,38 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RouteString = System.Collections.Generic.IReadOnlyList<string>;
 
 namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 {
-    // Given a route as a LinkedList<string>, Extract() returns an object 
+    // Given a route as a RouteString, Extract() returns an object 
     // containing:
     //
-    // * RemainingRoute, which represents a route which contains all 
-    //   entries of the one given in constructor except:
-    //   (1) Origin ICAO
-    //   (2) SID name
-    //   (3) The last waypoint of SID, if the waypoint is not in wptList.
-    //
     // * A boolean which indicates whether SID exists.
-    // * A route containing the departure runway and SID (if SID exists).
+    //
+    // * An OriginRoute containing the departure runway and SID 
+    //   (if SID exists).
+    //   There are 4 cases:
+    //   1. The first element of input RouteString is not a SID.
+    //   2. The SID ends with a vector.
+    //   3. The SID ends with a waypoint. The waypoint is in wptList, which
+    //      may or may not be connected to an airway.
+    //   4. The SID ends with a waypoint. The waypoint is NOT in wptList.
+
+    //   For different cases, the returning route contains:
+    //   Case 1. The origin runway, then direct to the first enroute waypoint.
+    //   Case 2. The origin runway, then go to the first enroute waypoint
+    //           via SID.
+    //   Case 3. The origin runway, then go to the last waypoint of SID (via 
+    //           SID).
+    //   Case 4. The origin runway, then go to the last waypoint of SID (via 
+    //           SID), then direct to the first enroute waypoint.
+    //
+    // * A RemainingRoute. In all cases, the first entry in RemainingRoute
+    //   must be the same as the last waypoint in the OriginRoute.
+    //
+    // The input route should not contain the origin ICAO, and must contain 
+    // one element.
 
     public class SidExtractor
     {
@@ -34,7 +52,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
         private Route origRoute;
 
         public SidExtractor(
-            IEnumerable<string> route,
+            RouteString route,
             string icao,
             string rwy,
             Waypoint rwyWpt,

@@ -78,7 +78,8 @@ namespace QSP.RouteFinding.Routes
         public void AddFirstWaypoint(
             Waypoint item, string viaAirway, double distanceToNext)
         {
-            var node = new RouteNode(item, viaAirway, distanceToNext);
+            var node = new RouteNode(item,
+                new Neighbor(viaAirway, distanceToNext));
             Nodes.AddFirst(node);
         }
 
@@ -111,7 +112,8 @@ namespace QSP.RouteFinding.Routes
                 last.Value.AirwayToNext = viaAirway;
             }
 
-            Nodes.AddLast(new RouteNode(item, viaAirway, distanceFromPrev));
+            Nodes.AddLast(new RouteNode(item,
+                new Neighbor(viaAirway, distanceFromPrev)));
         }
 
         public void AddLastWaypoint(Waypoint item, string viaAirway)
@@ -131,7 +133,7 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public void AddLastWaypoint(Waypoint item)
         {
-            Nodes.AddLast(new RouteNode(item, "", 0.0));
+            Nodes.AddLast(new RouteNode(item, new Neighbor( "", 0.0)));
         }
 
         /// <summary>
