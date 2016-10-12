@@ -1,19 +1,20 @@
 ﻿using NUnit.Framework;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using System.Collections.Generic;
 using System.Linq;
 using static QSP.MathTools.GCDis;
+using static QSP.LibraryExtension.Lists;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 {
     [TestFixture]
     public class SidExtractorTest
     {
-
         [Test]
         public void Case1Test()
         {
@@ -40,31 +41,38 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsTrue(Enumerable.SequenceEqual(route,
                 result.RemainingRoute));
 
-            Assert.AreEqual(2, result.Sid.Count);
+            var origRoute = result.Sid;
+            Assert.AreEqual(2, origRoute.Count);
 
-            var node = result.Sid.First;
+            var node = origRoute.First;
+            var neighbor = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
-            Assert.IsTrue(node.Value.AirwayToNext == "SID1");
-            Assert.AreEqual(
-                node.Value.DistanceToNext,
-                Distance(20.0, 120.0, 22.0, 122.0),
-                1E-8);
+            Assert.IsTrue(neighbor.Airway == "DCT");
+            Assert.AreEqual(neighbor.Distance, rwy.Distance(wpt1), 1E-8);
+            Assert.IsNull(neighbor.InnerWaypoints);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));
-            Assert.IsTrue(node == result.Sid.Last);
         }
 
         [Test]
-        public void WhenSidExistsShouldRemoveAndAddToOrigRoute()
+        public void Case2Test()
         {
             // Setup
             var route = new string[] { "SID1", "HLG", "A1", "MKG" };
 
             var wptList = new WaypointList();
             var rwy = new Waypoint("RCTP05L", 20.0, 120.0);
+            var p1 = new Waypoint("P1", 21.0, 121.0);
             var wpt1 = new Waypoint("HLG", 22.0, 122.0);
             wptList.AddWaypoint(wpt1);
+
+            var sid = new SidEntry(
+                "05L",
+                "SID1",
+                new Waypoint[] {p1},
+                EntryType.RwySpecific,
+                true);
 
             var extractor = new SidExtractor(
                 route,
@@ -72,38 +80,85 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 "05L",
                 rwy,
                 wptList,
-                new SidCollection(new List<SidEntry>() {
-                    new SidEntry(
-                        "05L",
-                        "SID1",
-                        new Waypoint[]{ wpt1 },
-                        EntryType.RwySpecific,
-                        false) }));
+                new SidCollection(new SidEntry[] { sid }));
 
             // Invoke
             var result = extractor.Extract();
 
             // Assert
-            Assert.AreEqual(3, result.RemainingRoute.Count());
-            Assert.IsTrue(result.RemainingRoute.First() == "HLG");
+            Assert.IsTrue(Enumerable.SequenceEqual(
+                new string[] { "HLG", "A1", "MKG" },
+                result.RemainingRoute));
 
-            Assert.AreEqual(2, result.Sid.Count);
+            var origRoute = result.Sid;
+            Assert.AreEqual(2, origRoute.Count);
 
-            var node = result.Sid.First;
+            var node = origRoute.First;
+            var neighbor = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
-            Assert.IsTrue(node.Value.AirwayToNext == "SID1");
-            Assert.AreEqual(
-                node.Value.DistanceToNext,
-                Distance(20.0, 120.0, 22.0, 122.0),
-                1E-8);
+            Assert.IsTrue(neighbor.Airway == sid.Name);
+            Assert.AreEqual(neighbor.Distance,
+                CreateList(rwy, p1, wpt1).TotalDistance(), 1E-8);
+            Assert.IsTrue(Enumerable.SequenceEqual(neighbor.InnerWaypoints,
+                new Waypoint[] { p1 }));
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));
-            Assert.IsTrue(node == result.Sid.Last);
         }
 
         [Test]
-        public void WhenSidLastWptNotInWptListShouldRemoveFromRoute()
+        public void Case3Test()
+        {
+            // Setup
+            var route = new string[] { "SID1", "HLG", "A1", "MKG" };
+
+            var wptList = new WaypointList();
+            var rwy = new Waypoint("RCTP05L", 20.0, 120.0);
+            var p1 = new Waypoint("P1", 21.0, 121.0);
+            var wpt1 = new Waypoint("HLG", 22.0, 122.0);
+            wptList.AddWaypoint(wpt1);
+
+            var sid = new SidEntry(
+                "05L",
+                "SID1",
+                new Waypoint[] { p1, wpt1 },
+                EntryType.RwySpecific,
+                false);
+
+            var extractor = new SidExtractor(
+                route,
+                "RCTP",
+                "05L",
+                rwy,
+                wptList,
+                new SidCollection(new SidEntry[] { sid }));
+
+            // Invoke
+            var result = extractor.Extract();
+
+            // Assert
+            Assert.IsTrue(Enumerable.SequenceEqual(
+                new string[] { "HLG", "A1", "MKG" },
+                result.RemainingRoute));
+
+            var origRoute = result.Sid;
+            Assert.AreEqual(2, origRoute.Count);
+
+            var node = origRoute.First;
+            var neighbor = node.Value.Neighbor;
+            Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
+            Assert.IsTrue(neighbor.Airway == sid.Name);
+            Assert.AreEqual(neighbor.Distance,
+                CreateList(rwy, p1, wpt1).TotalDistance(), 1E-8);
+            Assert.IsTrue(Enumerable.SequenceEqual(neighbor.InnerWaypoints,
+                new Waypoint[] { p1 }));
+
+            node = node.Next;
+            Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));
+        }
+
+        [Test]
+        public void Case4Test()
         {
             // Setup
             var route = new string[] { "SID1", "P1", "HLG", "A1", "MKG" };
@@ -113,41 +168,49 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var wpt1 = new Waypoint("HLG", 22.0, 122.0);
             wptList.AddWaypoint(wpt1);
 
+            var p1 = new Waypoint("P1", 21.0, 121.0);
+
+            var sid = new SidEntry(
+                "05L",
+                "SID1",
+                new Waypoint[] { p1 },
+                EntryType.RwySpecific,
+                false);
+
             var extractor = new SidExtractor(
                 route,
                 "RCTP",
                 "05L",
                 rwy,
                 wptList,
-                new SidCollection(new List<SidEntry>() {
-                    new SidEntry(
-                        "05L",
-                        "SID1",
-                        new Waypoint[] {new Waypoint("P1", 21.0, 121.0) },
-                        EntryType.RwySpecific,
-                        false) }));
+                new SidCollection(new SidEntry[] { sid }));
 
             // Invoke
             var result = extractor.Extract();
 
             // Assert
-            Assert.AreEqual(3, result.RemainingRoute.Count());
-            Assert.IsTrue(result.RemainingRoute.First() == "HLG");
+            Assert.IsTrue(Enumerable.SequenceEqual(
+                new string[] { "HLG", "A1", "MKG" },
+                result.RemainingRoute));
 
-            Assert.AreEqual(2, result.Sid.Count);
+            var origRoute = result.Sid;
+            Assert.AreEqual(3, origRoute.Count);
 
-            var node = result.Sid.First;
+            var node = origRoute.First;
+            var neighbor = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
-            Assert.IsTrue(node.Value.AirwayToNext == "SID1");
-            Assert.AreEqual(
-                node.Value.DistanceToNext,
-                Distance(20.0, 120.0, 21.0, 121.0),
-                1E-8);
+            Assert.IsTrue(neighbor.Airway == sid.Name);
+            Assert.AreEqual(neighbor.Distance, rwy.Distance(p1), 1E-8);
+            Assert.IsNull(neighbor.InnerWaypoints == null);
 
             node = node.Next;
-            Assert.IsTrue(node.Value.Waypoint.Equals(
-                new Waypoint("P1", 21.0, 121.0)));
-            Assert.IsTrue(node == result.Sid.Last);
-        }
+            Assert.IsTrue(node.Value.Waypoint.Equals(p1));
+            Assert.IsTrue(neighbor.Airway == "DCT");
+            Assert.AreEqual(neighbor.Distance, p1.Distance(wpt1), 1E-8);
+            Assert.IsNull(neighbor.InnerWaypoints == null);
+
+            node = node.Next;
+            Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));
+        }        
     }
 }
