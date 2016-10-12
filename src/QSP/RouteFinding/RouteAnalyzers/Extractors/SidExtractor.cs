@@ -48,10 +48,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
         private Waypoint rwyWpt;
         private string icao;
         private string rwy;
-        private bool sidExists;
-
         private LinkedList<string> route;
-        private Route origRoute;
 
         public SidExtractor(
             RouteString route,
@@ -67,7 +64,6 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             this.rwyWpt = rwyWpt;
             this.wptList = wptList;
             this.sids = sids;
-            sidExists = false;
         }
 
         // May throw exception if input is not valid.
@@ -116,13 +112,14 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 throw new ArgumentException($"{route.First()} is not the last"
                     + " waypoint of the SID {first}.");
             }
-                        
-            route.RemoveFirst();
-            // Now the first item of route is the first enroute waypoint.
-
+            
             if (candidates.Count == 0)
             {
                 // Case 4
+
+                route.RemoveFirst();
+                // Now the first item of route is the first enroute waypoint.
+
                 double distance1 = sid.Waypoints.TotalDistance();
                 var innerWpts = sid.Waypoints.WithoutFirstAndLast();
 
@@ -140,34 +137,19 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
                 return new ExtractResult(route.ToList(), true, origRoute);
             }
-
-
-
-            string sidName = first;
-
-            if (sid != null)
+            else
             {
-                var waypoints = sid.Waypoints;
-                route.RemoveFirst();
-                var last = origRoute.Last.Value;
-                last.AirwayToNext = sidName;
-                sidExists = true;
+                // Case 3
+                double distance1 = sid.Waypoints.TotalDistance();
+                var innerWpts = sid.Waypoints.WithoutFirstAndLast();
 
-                if (sid.Waypoints.Count >= 2)
-                {
-                    // SID has at least one waypoint other than the runway.
-                    last.DistanceToNext = waypoints.TotalDistance();
-                    var lastWpt = waypoints.Last();
-                    origRoute.AddLastWaypoint(lastWpt);
+                var neighbor1 = new Neighbor(first, distance1, innerWpts);
+                var node1 = new RouteNode(rwyWpt, neighbor1);
+                var node2 = new RouteNode(sid.Waypoints.Last(), null);
+                var origRoute = new Route(node1, node2);
 
-                    if (route.First.Value == lastWpt.ID &&
-                        wptList.FindByWaypoint(lastWpt) == -1)
-                    {
-                        route.RemoveFirst();
-                    }
-                }
+                return new ExtractResult(route.ToList(), true, origRoute);
             }
-            throw new NotImplementedException();
         }
 
         private Waypoint FindWpt(string ident)
