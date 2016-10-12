@@ -49,7 +49,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor.Airway == "DCT");
             Assert.AreEqual(neighbor.Distance, rwy.Distance(wpt1), 1E-8);
-            Assert.IsNull(neighbor.InnerWaypoints);
+            Assert.AreEqual(0, neighbor.InnerWaypoints.Count);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));
@@ -208,7 +208,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsTrue(node.Value.Waypoint.Equals(p1));
             Assert.IsTrue(neighbor2.Airway == "DCT");
             Assert.AreEqual(neighbor2.Distance, p1.Distance(wpt1), 1E-8);
-            Assert.IsNull(neighbor2.InnerWaypoints);
+            Assert.AreEqual(0, neighbor2.InnerWaypoints.Count);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));

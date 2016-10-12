@@ -154,7 +154,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             {
                 var edge = wptList.GetEdge(i);
                 Assert.AreEqual("DCT", edge.Value.Airway);
-                Assert.IsNull(edge.Value.InnerWaypoints);
+                Assert.AreEqual(0, edge.Value.InnerWaypoints.Count);
 
                 double expectedDis =
                     wpt101.Distance(wptList[edge.FromNodeIndex]);

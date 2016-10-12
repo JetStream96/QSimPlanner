@@ -130,7 +130,7 @@ namespace QSP.RouteFinding
                     route.AddFirstWaypoint(wptList[to], "");
                 }
 
-                if (neighbor.InnerWaypoints == null)
+                if (neighbor.InnerWaypoints.Count == 0)
                 {
                     // Auto-compute distance when added into route.
                     route.AddFirstWaypoint(wptFrom, airway);
@@ -213,7 +213,7 @@ namespace QSP.RouteFinding
             var from = wptList[edge.FromNodeIndex];
             var to = wptList[edge.ToNodeIndex];
 
-            if (neighbor.InnerWaypoints == null)
+            if (neighbor.InnerWaypoints.Count == 0)
             {
                 return windCalc.GetAirDistance(from, to);
             }

@@ -68,7 +68,14 @@ namespace UnitTest.RouteFinding
         }
 
         public static void AddNeighbor(this WaypointList wptList, int index1, 
-            string airway, int index2, IReadOnlyList<Waypoint> wpts = null)
+            string airway, int index2)
+        {
+            wptList.AddNeighbor(index1, index2,
+               new Neighbor(airway, wptList.Distance(index1, index2)));
+        }
+
+        public static void AddNeighbor(this WaypointList wptList, int index1,
+            string airway, int index2, IReadOnlyList<Waypoint> wpts)
         {
             wptList.AddNeighbor(index1, index2,
                new Neighbor(airway, wptList.Distance(index1, index2), wpts));

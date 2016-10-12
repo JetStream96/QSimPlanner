@@ -56,7 +56,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 Assert.AreEqual("DCT", edge.Value.Airway);
 
                 // No inner waypoints.
-                Assert.IsNull(edge.Value.InnerWaypoints);
+                Assert.AreEqual(0, edge.Value.InnerWaypoints.Count);
 
                 // Distance is correct
                 Assert.AreEqual(
@@ -172,7 +172,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 var edge = wptList.GetEdge(i);
                 var neighbor = edge.Value;
                 Assert.AreEqual("DCT", neighbor.Airway);
-                Assert.IsNull(neighbor.InnerWaypoints);
+                Assert.AreEqual(0, neighbor.InnerWaypoints.Count);
 
                 var expectedDis =wpt104.Distance(wptList[edge.ToNodeIndex]);
 
