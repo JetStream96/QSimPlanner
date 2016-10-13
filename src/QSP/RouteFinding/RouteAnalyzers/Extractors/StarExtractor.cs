@@ -1,7 +1,10 @@
-﻿using QSP.RouteFinding.AirwayStructure;
+﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using RouteString = System.Collections.Generic.IReadOnlyList<string>;
@@ -29,8 +32,8 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
     // * A RemainingRoute. In all cases, the last entry in RemainingRoute
     //   is guranteed to be the same as the first waypoint in the DestRoute.
     //
-    // The input route should not contain the origin ICAO, and must contain 
-    // one element.
+    // The input route should not contain the destination ICAO, and must 
+    // contain one element.
 
     public class StarExtractor
     {
@@ -41,7 +44,6 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
         private string rwy;
 
         private LinkedList<string> route;
-        private Route destRoute;
 
         public StarExtractor(
             IEnumerable<string> route,
@@ -61,58 +63,110 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
         public ExtractResult Extract()
         {
-            destRoute = new Route();
-            destRoute.AddLastWaypoint(rwyWpt);
+            var last = route.Last.Value;
+            var star = TryGetStar(last, rwyWpt);
 
-            if (route.Count > 0) CreateDestRoute();
+            if (star == null)
+            {
+                // Case 1
+                var wpt = FindWpt(last);//TODO: What if not found?
 
-            return new ExtractResult
-            { RemainingRoute = route.ToList(), DestRoute = destRoute };
+                var neighbor = new Neighbor("DCT", wpt.Distance(rwyWpt));
+                var node1 = new RouteNode(wpt, neighbor);
+                var node2 = new RouteNode(rwyWpt, null);
+                var destRoute = new Route(node1, node2);
+
+                return new ExtractResult(route.ToList(), destRoute);
+            }
+
+            // Remove STAR from RouteString.
+            route.RemoveLast();
+
+            // Case 2,3 
+            var candidates = wptList.FindAllById(route.Last.Value);
+            var starFirstWpt = star.First();
+
+            if (starFirstWpt.ID != route.Last.Value)
+            {
+                throw new ArgumentException($"{route.Last.Value} is not the"
+                    + $" first waypoint of the STAR {last}.");
+            }
+
+            // TODO: Maybe add a distance upper limit?
+            if (candidates.Count == 0)
+            {
+                // Case 3
+
+                route.RemoveLast();
+                // Now the last item of route is the last enroute waypoint.
+                
+                var lastEnrouteWpt = FindWpt(route.Last.Value);
+                var firstStarWpt = star.First();
+                double distance1 = lastEnrouteWpt.Distance(firstStarWpt);
+
+                var neighbor1 = new Neighbor("DCT", distance1);
+                var node1 = new RouteNode(lastEnrouteWpt, neighbor1);
+
+                double distance2 = star.TotalDistance();
+                var innerWpts = star.WithoutFirstAndLast();
+                                
+                var neighbor2 = new Neighbor(last, distance2, innerWpts);
+                var node2 = new RouteNode(firstStarWpt, neighbor2);
+
+                var node3 = new RouteNode(rwyWpt, null);
+                var destRoute = new Route(node1, node2, node3);
+
+                return new ExtractResult(route.ToList(), destRoute);
+            }
+            else
+            {
+                // Case 2
+                var firstStarWpt = star.First();
+                double distance = star.TotalDistance();
+                var innerWpts = star.WithoutFirstAndLast();
+
+                var neighbor = new Neighbor(last, distance, innerWpts);
+                var node1 = new RouteNode(firstStarWpt, neighbor);
+
+                var node2 = new RouteNode(rwyWpt, null);
+                var destRoute = new Route(node1, node2);
+
+                return new ExtractResult(route.ToList(), destRoute);
+            }
         }
 
         public class ExtractResult
         {
             public RouteString RemainingRoute;
             public Route DestRoute;
-        }
 
-        private void CreateDestRoute()
-        {
-            if (route.Last.Value == icao)
+            public ExtractResult(RouteString RemainingRoute, Route DestRoute)
             {
-                route.RemoveLast();
-            }
-
-            string starName = route.Last.Value;
-            var star = TryGetStar(starName, rwyWpt);
-
-            if (star != null)
-            {
-                route.RemoveLast();
-
-                // Any STAR has at least one waypoint.
-                destRoute.AddFirstWaypoint(
-                    star.FirstWaypoint, starName, star.TotalDistance);
-
-                if (route.Last.Value == star.FirstWaypoint.ID &&
-                    wptList.FindByWaypoint(star.FirstWaypoint) == -1)
-                {
-                    route.RemoveLast();
-                }
+                this.RemainingRoute = RemainingRoute;
+                this.DestRoute = DestRoute;
             }
         }
-
-        private StarInfo TryGetStar(string StarName, Waypoint rwyWpt)
+        
+        private IReadOnlyList<Waypoint> TryGetStar(string starName,
+            Waypoint rwyWpt)
         {
             try
             {
-                return stars.GetStarInfo(StarName, rwy, rwyWpt);
+                return stars.StarWaypoints(starName, rwy, rwyWpt);
             }
             catch
             {
                 // no Star in route                
                 return null;
             }
+        }
+
+        private Waypoint FindWpt(string ident)
+        {
+            return wptList
+                .FindAllById(ident)
+                .Select(i => wptList[i])
+                .GetClosest(rwyWpt);
         }
     }
 }
