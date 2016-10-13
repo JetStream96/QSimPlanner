@@ -139,6 +139,8 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             InitObjects2();
 
             var wptList = new WaypointList();
+            wptList.AddWaypoint(new Waypoint("N37E112", 37.0, 112.0));
+            wptList.AddWaypoint(new Waypoint("N30E117", 30.0, 117.0));
 
             return new AnalyzerWithCommands(
                 route,
@@ -147,9 +149,9 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 "EFGH",
                 "07L",
                 airportList,
-                new WaypointList(),
-                new SidCollection(new List<SidEntry>()),
-                new StarCollection(new List<StarEntry>()));
+                wptList,
+                new SidCollection(new SidEntry[0]),
+                new StarCollection(new StarEntry[0]));
         }
 
         [Test]

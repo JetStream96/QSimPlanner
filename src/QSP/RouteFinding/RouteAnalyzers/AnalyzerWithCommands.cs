@@ -56,6 +56,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
     //
     public class AnalyzerWithCommands
     {
+        // TODO: What if some coordinate formats are not found in wptList
+        // but are valid?
         private WaypointList wptList;
         private AirportManager airportList;
         private SidCollection sids;
@@ -259,7 +261,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 destRwyWpt,
                 wptList).Analyze();
 
-            mainRoute.Merge(destRoute);
+            mainRoute.Connect(destRoute);
             return mainRoute;
         }
         
@@ -282,11 +284,12 @@ namespace QSP.RouteFinding.RouteAnalyzers
                         var randRoute = FinderFactory.GetInstance()
                             .Find(startEnd.Start, startEnd.End)
                             .ToRoute();
-
+                        
                         randRoute.Nodes.RemoveFirst();
                         randRoute.Nodes.RemoveLast();
-
-                        RandRouteAddOrigDest(randRoute, analyzed, i);
+                        randRoute.AddFirstWaypoint(startEnd.Start, "DCT");
+                        randRoute.AddLastWaypoint(startEnd.End, "DCT");
+                        
                         analyzed[i] = randRoute;
                     }
                 }
@@ -339,21 +342,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 }
             }
         }
-
-        private void RandRouteAddOrigDest(
-            Route route, List<Route> analyzed, int index)
-        {
-            if (index == 0)
-            {
-                route.AddFirstWaypoint(origRwyWpt, "DCT");
-            }
-
-            if (index == analyzed.Count - 1)
-            {
-                route.AddLastWaypoint(destRwyWpt, "DCT");
-            }
-        }
-
+        
         private WptPair GetStartEndWpts(List<Route> subRoutes, int index)
         {
             var start = index == 0
