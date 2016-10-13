@@ -192,7 +192,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 destIcao + destRwy,
                 airportList.FindRwy(destIcao, destRwy));
         }
-
+        
         // Transform each RouteString to Route.
         private List<Route> ComputeRoutes(List<RouteString> subRoutes)
         {
@@ -211,7 +211,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 {
                     result.Add(ComputeOriginRoute(route));
                 }
-                else if(i == subRoutes.Count - 1)
+                else if (i == subRoutes.Count - 1)
                 {
                     // TODO: This does not work when i == 0. 
                     result.Add(ComputeDestRoute(route));
@@ -230,7 +230,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             return result;
         }
-
+        
         private Route ComputeOriginRoute(RouteString item)
         {
             var sidExtract = new SidExtractor(item, origIcao,
@@ -264,7 +264,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             mainRoute.Connect(destRoute);
             return mainRoute;
         }
-        
+
         private void FillCommands(
             List<RouteString> subRoutes, List<Route> analyzed)
         {
@@ -284,12 +284,12 @@ namespace QSP.RouteFinding.RouteAnalyzers
                         var randRoute = FinderFactory.GetInstance()
                             .Find(startEnd.Start, startEnd.End)
                             .ToRoute();
-                        
+
                         randRoute.Nodes.RemoveFirst();
                         randRoute.Nodes.RemoveLast();
                         randRoute.AddFirstWaypoint(startEnd.Start, "DCT");
                         randRoute.AddLastWaypoint(startEnd.End, "DCT");
-                        
+
                         analyzed[i] = randRoute;
                     }
                 }
@@ -342,7 +342,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 }
             }
         }
-        
+
         private WptPair GetStartEndWpts(List<Route> subRoutes, int index)
         {
             var start = index == 0

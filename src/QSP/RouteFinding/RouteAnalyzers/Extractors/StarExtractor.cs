@@ -82,7 +82,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             // Remove STAR from RouteString.
             route.RemoveLast();
 
-            // Case 2,3 
+            // Case 2, 3 
             var candidates = wptList.FindAllById(route.Last.Value);
             var starFirstWpt = star.First();
 
