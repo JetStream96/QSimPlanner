@@ -362,7 +362,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             for (int i = 1; i < subRoutes.Count; i++)
             {
-                route.Merge(subRoutes[i]);
+                route.Connect(subRoutes[i]);
             }
 
             return route;
