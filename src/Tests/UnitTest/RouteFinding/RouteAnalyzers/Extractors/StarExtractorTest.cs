@@ -42,12 +42,12 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             var node1 = destRoute.First();
             var neighbor = node1.Neighbor;
-            Assert.IsTrue(node1.Equals(wpt));
+            Assert.IsTrue(node1.Waypoint.Equals(wpt));
             Assert.IsTrue("DCT" == neighbor.Airway);
             Assert.AreEqual(wpt.Distance(rwy), neighbor.Distance, 1E-8);
             Assert.AreEqual(0, neighbor.InnerWaypoints.Count);
 
-            Assert.IsTrue(destRoute.Last().Equals(rwy));
+            Assert.IsTrue(destRoute.Last().Waypoint.Equals(rwy));
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             var node1 = destRoute.First();
             var neighbor = node1.Neighbor;
-            Assert.IsTrue(node1.Equals(wpt));
+            Assert.IsTrue(node1.Waypoint.Equals(wpt));
             Assert.IsTrue("STAR1" == neighbor.Airway);
 
             double distance = new Waypoint[] { wpt, p1, rwy }.TotalDistance();
@@ -97,7 +97,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsTrue(Enumerable.SequenceEqual(neighbor.InnerWaypoints,
                 new Waypoint[] { p1 }));
 
-            Assert.IsTrue(destRoute.Last().Equals(rwy));
+            Assert.IsTrue(destRoute.Last().Waypoint.Equals(rwy));
         }
 
         [Test]
@@ -139,19 +139,19 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             var node1 = destRoute.First();
             var neighbor1 = node1.Neighbor;
-            Assert.IsTrue(node1.Equals(wpt));
+            Assert.IsTrue(node1.Waypoint.Equals(wpt));
             Assert.IsTrue("DCT" == neighbor1.Airway);
             Assert.AreEqual(wpt.Distance(p1), neighbor1.Distance, 1E-8);
             Assert.AreEqual(0, neighbor1.InnerWaypoints.Count);
 
             var node2 = destRoute.First.Next.Value;
             var neighbor2 = node2.Neighbor;
-            Assert.IsTrue(node2.Equals(p1));
+            Assert.IsTrue(node2.Waypoint.Equals(p1));
             Assert.IsTrue("STAR1" == neighbor2.Airway);
             Assert.AreEqual(p1.Distance(rwy), neighbor2.Distance, 1E-8);
             Assert.AreEqual(0, neighbor2.InnerWaypoints.Count);
 
-            Assert.IsTrue(destRoute.Last().Equals(rwy));
+            Assert.IsTrue(destRoute.Last().Waypoint.Equals(rwy));
         }
     }
 }
