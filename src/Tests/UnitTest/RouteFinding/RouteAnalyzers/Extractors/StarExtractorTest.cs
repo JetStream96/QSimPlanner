@@ -3,6 +3,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.RouteAnalyzers.Extractors;
+using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var route = new string[] { "SIERA" };
 
             var extractor = new StarExtractor(
-                route,
+                route.ToRouteString(),
                 "VHHH",
                 "",
                 rwy,
@@ -72,7 +73,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var stars = new StarCollection(new StarEntry[] { star });
 
             var extractor = new StarExtractor(
-                route,
+                route.ToRouteString(),
                 "VHHH",
                 "07L",
                 rwy,
@@ -122,7 +123,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var stars = new StarCollection(new StarEntry[] { star });
 
             var extractor = new StarExtractor(
-                route,
+                route.ToRouteString(),
                 "VHHH",
                 "07L",
                 rwy,

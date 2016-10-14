@@ -45,7 +45,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
         private LinkedList<string> route;
 
         public StarExtractor(
-            IEnumerable<string> route,
+            RouteString route,
             string icao,
             string rwy,
             Waypoint rwyWpt,
