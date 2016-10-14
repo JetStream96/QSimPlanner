@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using static QSP.MathTools.GCDis;
 using static QSP.LibraryExtension.Lists;
+using QSP.RouteFinding.Routes;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 {
@@ -27,7 +28,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             wptList.AddWaypoint(wpt1);
 
             var extractor = new SidExtractor(
-                route,
+                route.ToRouteString(),
                 "RCTP",
                 "05L",
                 rwy,
@@ -75,7 +76,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 true);
 
             var extractor = new SidExtractor(
-                route,
+                route.ToRouteString(),
                 "RCTP",
                 "05L",
                 rwy,
@@ -126,7 +127,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 false);
 
             var extractor = new SidExtractor(
-                route,
+                route.ToRouteString(),
                 "RCTP",
                 "05L",
                 rwy,
@@ -178,7 +179,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 false);
 
             var extractor = new SidExtractor(
-                route,
+                route.ToRouteString(),
                 "RCTP",
                 "05L",
                 rwy,
