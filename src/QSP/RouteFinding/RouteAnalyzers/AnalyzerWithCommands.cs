@@ -10,7 +10,6 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using RouteString = System.Collections.Generic.List<string>;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -157,7 +156,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
         private static List<RouteString> GroupEntries(string[] route)
         {
             var subRoutes = new List<RouteString>();
-            var current = new RouteString();
+            var current = new List<string>();
 
             foreach (var i in route)
             {
@@ -165,11 +164,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 {
                     if (current.Count > 0)
                     {
-                        subRoutes.Add(current);
-                        current = new RouteString();
+                        subRoutes.Add(new RouteString(current));
+                        current = new List<string>();
                     }
 
-                    subRoutes.Add(new RouteString { i });
+                    subRoutes.Add(new RouteString(new string[] { i }));
                 }
                 else
                 {
@@ -177,7 +176,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 }
             }
 
-            if (current.Count > 0) subRoutes.Add(current);
+            if (current.Count > 0) subRoutes.Add(new RouteString(current));
 
             return subRoutes;
         }
@@ -192,7 +191,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 destIcao + destRwy,
                 airportList.FindRwy(destIcao, destRwy));
         }
-        
+
         // Transform each RouteString to Route.
         private List<Route> ComputeRoutes(List<RouteString> subRoutes)
         {
@@ -230,7 +229,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             return result;
         }
-        
+
         private Route ComputeOriginRoute(RouteString item)
         {
             var sidExtract = new SidExtractor(item, origIcao,
