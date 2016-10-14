@@ -6,7 +6,6 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using RouteString = System.Collections.Generic.IReadOnlyList<string>;
 using static QSP.LibraryExtension.IEnumerables;
 using QSP.LibraryExtension;
 
@@ -80,7 +79,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 var node2 = new RouteNode(wpt, null);
                 var origRoute = new Route(node1, node2);
 
-                return new ExtractResult(route.ToList(), origRoute);
+                return new ExtractResult(route.ToRouteString(), origRoute);
             }
 
             // Remove SID from RouteString.
@@ -97,8 +96,8 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 var node1 = new RouteNode(rwyWpt, neighbor);
                 var node2 = new RouteNode(wpt, null);
                 var origRoute = new Route(node1, node2);
-
-                return new ExtractResult(route.ToList(), origRoute);
+                
+                return new ExtractResult(route.ToRouteString(), origRoute);
             }
 
             // Case 3, 4            
@@ -110,7 +109,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 throw new ArgumentException($"{route.First()} is not the last"
                     + " waypoint of the SID {first}.");
             }
-            
+
             // TODO: Maybe add a distance upper limit?
             if (candidates.Count == 0)
             {
@@ -134,7 +133,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 var node3 = new RouteNode(firstEnrouteWpt, null);
                 var origRoute = new Route(node1, node2, node3);
 
-                return new ExtractResult(route.ToList(), origRoute);
+                return new ExtractResult(route.ToRouteString(), origRoute);
             }
             else
             {
@@ -147,7 +146,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 var node2 = new RouteNode(sid.Waypoints.Last(), null);
                 var origRoute = new Route(node1, node2);
 
-                return new ExtractResult(route.ToList(), origRoute);
+                return new ExtractResult(route.ToRouteString(), origRoute);
             }
         }
 
@@ -182,6 +181,6 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 // no SID in route
                 return null;
             }
-        }
+        }        
     }
 }

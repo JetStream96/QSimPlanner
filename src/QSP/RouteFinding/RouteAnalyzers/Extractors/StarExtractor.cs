@@ -7,7 +7,6 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using RouteString = System.Collections.Generic.IReadOnlyList<string>;
 
 namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 {
@@ -76,7 +75,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 var node2 = new RouteNode(rwyWpt, null);
                 var destRoute = new Route(node1, node2);
 
-                return new ExtractResult(route.ToList(), destRoute);
+                return new ExtractResult(route.ToRouteString(), destRoute);
             }
 
             // Remove STAR from RouteString.
@@ -99,7 +98,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
                 route.RemoveLast();
                 // Now the last item of route is the last enroute waypoint.
-                
+
                 var lastEnrouteWpt = FindWpt(route.Last.Value);
                 var firstStarWpt = star.First();
                 double distance1 = lastEnrouteWpt.Distance(firstStarWpt);
@@ -109,14 +108,14 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
                 double distance2 = star.TotalDistance();
                 var innerWpts = star.WithoutFirstAndLast();
-                                
+
                 var neighbor2 = new Neighbor(last, distance2, innerWpts);
                 var node2 = new RouteNode(firstStarWpt, neighbor2);
 
                 var node3 = new RouteNode(rwyWpt, null);
                 var destRoute = new Route(node1, node2, node3);
 
-                return new ExtractResult(route.ToList(), destRoute);
+                return new ExtractResult(route.ToRouteString(), destRoute);
             }
             else
             {
@@ -131,7 +130,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 var node2 = new RouteNode(rwyWpt, null);
                 var destRoute = new Route(node1, node2);
 
-                return new ExtractResult(route.ToList(), destRoute);
+                return new ExtractResult(route.ToRouteString(), destRoute);
             }
         }
 
@@ -146,7 +145,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 this.DestRoute = DestRoute;
             }
         }
-        
+
         private IReadOnlyList<Waypoint> TryGetStar(string starName,
             Waypoint rwyWpt)
         {
