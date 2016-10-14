@@ -41,7 +41,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
     {
         private WaypointList wptList;
 
-        private string[] routeInput;
+        private RouteString routeInput;
 
         // Index in WptList. -1 if the last wpt is lat/lon.
         private int lastWpt;
@@ -55,10 +55,10 @@ namespace QSP.RouteFinding.RouteAnalyzers
         /// <param name="firstWaypointIndex">Use a negative value if the 
         /// first waypoint is a lat/lon.</param>
         /// <exception cref="ArgumentException"></exception>
-        public BasicRouteAnalyzer(
-            string[] routeInput, WaypointList wptList, int firstWaypointIndex)
+        public BasicRouteAnalyzer(RouteString routeInput, 
+            WaypointList wptList, int firstWaypointIndex)
         {
-            if (routeInput.Length == 0)
+            if (routeInput.Count == 0)
             {
                 throw new ArgumentException(
                     "Route input should have at least 1 elements.");
@@ -105,7 +105,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
         {
             lastAwy = null;
 
-            for (int i = 1; i < routeInput.Length; i++)
+            for (int i = 1; i < routeInput.Count; i++)
             {
                 if (lastAwy == null)
                 {

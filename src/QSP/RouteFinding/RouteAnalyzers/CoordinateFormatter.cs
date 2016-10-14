@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QSP.RouteFinding.Routes;
+using System;
 using System.Linq;
 using static QSP.AviationTools.Coordinates.Formatter;
 
@@ -31,7 +32,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
         private static readonly char[] DelimiterWords =
                { ' ', '\n', '\r', '\t' };
         
-        public static string[] Split(string route)
+        public static RouteString Split(string route)
         {
             return route
                 .ToUpper()
@@ -39,7 +40,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     StringSplitOptions.RemoveEmptyEntries)
                 .Where(x => x != "DCT")
                 .Select(TryTransformCoordinate)
-                .ToArray();
+                .ToRouteString();
         }
     }
 }

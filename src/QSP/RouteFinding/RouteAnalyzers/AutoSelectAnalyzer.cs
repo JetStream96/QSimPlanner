@@ -26,13 +26,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
     public class AutoSelectAnalyzer
     {
-        private string[] route;
+        private RouteString route;
         private ICoordinate orig;
         private ICoordinate dest;
         private WaypointList wptList;
 
         public AutoSelectAnalyzer(
-            string[] route,
+            RouteString route,
             ICoordinate orig,
             ICoordinate dest,
             WaypointList wptList)
@@ -46,7 +46,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
         // May throw exception.
         public Route Analyze()
         {
-            if (route.Length == 0)
+            if (route.Count == 0)
             {
                 throw new ArgumentException("Route cannot be empty.");
             }

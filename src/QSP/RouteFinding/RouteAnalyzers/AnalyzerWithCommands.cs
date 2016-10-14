@@ -66,13 +66,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
         private string origRwy;
         private string destIcao;
         private string destRwy;
-        private string[] route;
+        private RouteString route;
 
         private Waypoint origRwyWpt;
         private Waypoint destRwyWpt;
 
         public AnalyzerWithCommands(
-            string[] route,
+            RouteString route,
             string origIcao,
             string origRwy,
             string destIcao,
@@ -96,12 +96,12 @@ namespace QSP.RouteFinding.RouteAnalyzers
         public Route Analyze()
         {
             SetRwyWpts();
-            if (route.Length == 0) return DirectRoute();
+            if (route.Count == 0) return DirectRoute();
 
             EnsureNoConsectiveCommands(route);
             route = RemoveIcaos(route);
 
-            var subRoutes = GroupEntries(route);
+            var subRoutes = EntryGrouping.Group(new RouteString(route));
             var analyzed = ComputeRoutes(subRoutes);
             FillCommands(subRoutes, analyzed);
             return ConnectAll(analyzed);
@@ -115,7 +115,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return route;
         }
 
-        private string[] RemoveIcaos(string[] route)
+        private RouteString RemoveIcaos(RouteString route)
         {
             bool firstIsIcao = route[0] == origIcao;
             bool lastIsIcao = route.Last() == destIcao;
@@ -125,14 +125,14 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             return route
                 .Skip(skipHead)
-                .Take(route.Length - skipHead - skipTail)
-                .ToArray();
+                .Take(route.Count - skipHead - skipTail)
+                .ToRouteString();
         }
 
-        private static void EnsureNoConsectiveCommands(string[] route)
+        private static void EnsureNoConsectiveCommands(RouteString route)
         {
             string[] commands = { "AUTO", "RAND" };
-            for (int i = 0; i < route.Length - 1; i++)
+            for (int i = 0; i < route.Count - 1; i++)
             {
                 var first = route[i];
                 var second = route[i + 1];
@@ -144,43 +144,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 }
             }
         }
-
-        // Group the route into several parts to seperate "AUTO" and "RAND"
-        // from actual route.
-        // For example, 'A B AUTO C D RAND E' is grouped into:
-        // 'A B'
-        // 'AUTO'
-        // 'C D'
-        // 'RAND'
-        // 'E'
-        private static List<RouteString> GroupEntries(string[] route)
-        {
-            var subRoutes = new List<RouteString>();
-            var current = new List<string>();
-
-            foreach (var i in route)
-            {
-                if (i == "AUTO" || i == "RAND")
-                {
-                    if (current.Count > 0)
-                    {
-                        subRoutes.Add(current.ToRouteString());
-                        current = new List<string>();
-                    }
-
-                    subRoutes.Add(new string[] { i }.ToRouteString());
-                }
-                else
-                {
-                    current.Add(i);
-                }
-            }
-
-            if (current.Count > 0) subRoutes.Add(current.ToRouteString());
-
-            return subRoutes;
-        }
-
+        
         private void SetRwyWpts()
         {
             origRwyWpt = new Waypoint(
@@ -193,7 +157,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
         }
 
         // Transform each RouteString to Route.
-        private List<Route> ComputeRoutes(List<RouteString> subRoutes)
+        private List<Route> ComputeRoutes(IReadOnlyList<RouteSegment> subRoutes)
         {
             var result = new List<Route>();
 
@@ -201,8 +165,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             {
                 var route = subRoutes[i];
 
-                if (route.Count == 1 &&
-                    (route[0] == "AUTO" || route[0] == "RAND"))
+                if (route.IsAuto || route.IsRand)
                 {
                     result.Add(null);
                 }
@@ -218,7 +181,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 else
                 {
                     var mainRoute = new AutoSelectAnalyzer(
-                        route.ToArray(),
+                        route,
                         origRwyWpt,
                         destRwyWpt,
                         wptList).Analyze();
@@ -238,7 +201,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             var origRoute = sidExtract.OrigRoute;
 
             var mainRoute = new AutoSelectAnalyzer(
-                sidExtract.RemainingRoute.ToArray(),
+                sidExtract.RemainingRoute,
                 origRwyWpt,
                 destRwyWpt,
                 wptList).Analyze();
@@ -255,7 +218,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             var destRoute = starExtract.DestRoute;
 
             var mainRoute = new AutoSelectAnalyzer(
-                starExtract.RemainingRoute.ToArray(),
+                starExtract.RemainingRoute,
                 origRwyWpt,
                 destRwyWpt,
                 wptList).Analyze();
