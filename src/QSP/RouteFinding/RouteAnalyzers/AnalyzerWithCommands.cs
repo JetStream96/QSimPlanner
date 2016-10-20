@@ -104,8 +104,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             var subRoutes = EntryGrouping.Group(new RouteString(route));
             var analyzed = TransformSubRoutes(subRoutes);
-            FillCommands(subRoutes, analyzed);
-            return ConnectAll(analyzed);
+            var final = ComputeCommands(analyzed);
+            return final.Connect();
         }
 
         private Route DirectRoute()
@@ -197,7 +197,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             return result;
         }
-        
+
         private SubRoute GetAutoSelectRoute(RouteString r)
         {
             var analyzer = new AutoSelectAnalyzer(
@@ -230,46 +230,52 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 item = starExtract.RemainingRoute;
             }
 
-            Route[] routes = { origRoute, GetAutoSelectRoute(item), destRoute };
+            Route[] routes = {
+                origRoute, GetAutoSelectRoute(item).Route, destRoute };
 
             return routes
                 .Where(r => r != null)
-                .Aggregate((a, b) => { a.Connect(b); return a; })
+                .Connect()
                 .ToSubRoute();
         }
-        
-        private void FillCommands(
-            List<RouteString> subRoutes, List<Route> analyzed)
+
+        private IReadOnlyList<Route> ComputeCommands(
+            IReadOnlyList<SubRoute> analyzed)
         {
-            for (int i = 0; i < subRoutes.Count; i++)
+            int count = analyzed.Count;
+            var result = new List<Route>(count);
+
+            for (int i = 0; i < analyzed.Count; i++)
             {
-                if (analyzed[i] == null)
+                if (analyzed[i].IsAuto)
+                {
+                    result[i] = FindRoute(analyzed, i);
+                }
+                else if (analyzed[i].IsRand)
                 {
                     var startEnd = GetStartEndWpts(analyzed, i);
 
-                    if (subRoutes[i][0] == "AUTO")
-                    {
-                        analyzed[i] = FindRoute(analyzed, i);
-                    }
-                    else
-                    {
-                        // RAND
-                        var randRoute = FinderFactory.GetInstance()
-                            .Find(startEnd.Start, startEnd.End)
-                            .ToRoute();
+                    var randRoute = FinderFactory.GetInstance()
+                        .Find(startEnd.Start, startEnd.End)
+                        .ToRoute();
 
-                        randRoute.Nodes.RemoveFirst();
-                        randRoute.Nodes.RemoveLast();
-                        randRoute.AddFirstWaypoint(startEnd.Start, "DCT");
-                        randRoute.AddLastWaypoint(startEnd.End, "DCT");
+                    randRoute.Nodes.RemoveFirst();
+                    randRoute.Nodes.RemoveLast();
+                    randRoute.AddFirstWaypoint(startEnd.Start, "DCT");
+                    randRoute.AddLastWaypoint(startEnd.End, "DCT");
 
-                        analyzed[i] = randRoute;
-                    }
+                    result[i] = randRoute;
+                }
+                else
+                {
+                    result[i] = analyzed[i].Route;
                 }
             }
+
+            return result;
         }
 
-        private Route FindRoute(List<Route> analyzed, int index)
+        private Route FindRoute(IReadOnlyList<SubRoute> analyzed, int index)
         {
             var routeFinder = new RouteFinder(wptList);
 
@@ -285,7 +291,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 else
                 {
                     int wptTo = wptList.FindByWaypoint(
-                        analyzed[index + 1].FirstWaypoint);
+                        analyzed[index + 1].Route.FirstWaypoint);
 
                     return new RouteFinderFacade(wptList, airportList)
                         .FindRoute(origIcao, origRwy, sids,
@@ -297,7 +303,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 if (index == analyzed.Count - 1)
                 {
                     int wptFrom = wptList.FindByWaypoint(
-                        analyzed[index - 1].LastWaypoint);
+                        analyzed[index - 1].Route.LastWaypoint);
 
                     return new RouteFinderFacade(wptList, airportList)
                          .FindRoute(wptFrom, destIcao, destRwy, stars,
@@ -306,39 +312,28 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 else
                 {
                     int wptFrom = wptList.FindByWaypoint(
-                        analyzed[index - 1].LastWaypoint);
+                        analyzed[index - 1].Route.LastWaypoint);
 
                     int wptTo = wptList.FindByWaypoint(
-                        analyzed[index + 1].FirstWaypoint);
+                        analyzed[index + 1].Route.FirstWaypoint);
 
                     return routeFinder.FindRoute(wptFrom, wptTo);
                 }
             }
         }
 
-        private WptPair GetStartEndWpts(List<Route> subRoutes, int index)
+        private WptPair GetStartEndWpts(IReadOnlyList<SubRoute> subRoutes,
+            int index)
         {
             var start = index == 0
                 ? origRwyWpt
-                : subRoutes[index - 1].LastWaypoint;
+                : subRoutes[index - 1].Route.LastWaypoint;
 
             var end = index == subRoutes.Count - 1
                 ? destRwyWpt
-                : subRoutes[index + 1].FirstWaypoint;
+                : subRoutes[index + 1].Route.FirstWaypoint;
 
             return new WptPair() { Start = start, End = end };
-        }
-
-        private static Route ConnectAll(List<Route> subRoutes)
-        {
-            var route = subRoutes[0];
-
-            for (int i = 1; i < subRoutes.Count; i++)
-            {
-                route.Connect(subRoutes[i]);
-            }
-
-            return route;
         }
 
         private struct WptPair { public Waypoint Start, End; }

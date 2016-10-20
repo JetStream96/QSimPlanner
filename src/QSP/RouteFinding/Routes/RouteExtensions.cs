@@ -1,6 +1,7 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.RouteAnalyzers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QSP.RouteFinding.Routes
 {
@@ -43,6 +44,11 @@ namespace QSP.RouteFinding.Routes
         public static SubRoute ToSubRoute(this Route r)
         {
             return new SubRoute(r);
+        }
+
+        public static Route Connect(this IEnumerable<Route> routes)
+        {
+            return routes.Aggregate((a, b) => { a.Connect(b); return a; });
         }
     }
 }
