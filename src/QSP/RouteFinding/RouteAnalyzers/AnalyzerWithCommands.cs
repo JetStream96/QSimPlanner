@@ -1,4 +1,5 @@
-﻿using QSP.RouteFinding.Airports;
+﻿using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
@@ -31,7 +32,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
     //    (4) SID/STAR can be omitted. The route will be a direct from/to 
     //        airport.
     //    (5) All WPT, except for the last waypoint of the SID or first 
-    //        one of the STAR, must exist in wptList.
+    //        one of the STAR, must either exist in wptList or is represented 
+    //        with lat/lon (COORD). In the latter case, it has to be in 
+    //        decimal representation (e.g. N32.665W122.1265).
     //    (6) "AUTO" or "RAND" can only appear before or after ICAO, or 
     //        between two waypoints.
     //    (7) If the route is empty, a direct route from origin to 
@@ -59,6 +62,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
         // TODO: What if some coordinate formats are not found in wptList
         // but are valid?
         private WaypointList wptList;
+        private WaypointListEditor editor;
         private AirportManager airportList;
         private SidCollection sids;
         private StarCollection stars;
@@ -80,6 +84,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             string destRwy,
             AirportManager airportList,
             WaypointList wptList,
+            WaypointListEditor editor,
             SidCollection sids,
             StarCollection stars)
         {
@@ -90,6 +95,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             this.destRwy = destRwy;
             this.airportList = airportList;
             this.wptList = wptList;
+            this.editor = editor;
             this.sids = sids;
             this.stars = stars;
         }
@@ -101,11 +107,29 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             EnsureNoConsectiveCommands(route);
             route = RemoveIcaos(route);
+            IdentifyLatLon();
 
             var subRoutes = EntryGrouping.Group(new RouteString(route));
             var analyzed = TransformSubRoutes(subRoutes);
             var final = ComputeCommands(analyzed);
             return final.Connect();
+        }
+
+        private void IdentifyLatLon()
+        {
+            foreach (var i in route)
+            {
+                var coords = ParseLatLon(i);
+                if (coords != null)
+                {
+                    editor.AddWaypoint(new Waypoint(i, coords));
+                }
+            }
+        }
+
+        private static LatLon ParseLatLon(string s)
+        {
+            return Format5Letter.Parse(s) ?? FormatDecimal.Parse(s);
         }
 
         private Route DirectRoute()

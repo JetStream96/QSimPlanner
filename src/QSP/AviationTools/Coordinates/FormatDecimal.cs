@@ -33,23 +33,20 @@ namespace QSP.AviationTools.Coordinates
             return NS + string.Format("{0:0.000000}", Lat) + EW + 
                 string.Format("{0:0.000000}", Lon);
         }
-
-        public static bool TryReadFromDecimalFormat(
-            string item, out LatLon result)
+        
+        public static LatLon Parse(string item)
         {
             try
             {
-                result = ReadFromDecimalFormat(item);
-                return true;
+                return Parse(item);
             }
             catch
             {
-                result = null;
-                return false;
+                return null;
             }
         }
 
-        public static LatLon ReadFromDecimalFormat(string item)
+        private static LatLon InternalParse(string item)
         {
             char NS = item[0];
             int x = item.IndexOfAny(new char[] { 'E', 'W' });

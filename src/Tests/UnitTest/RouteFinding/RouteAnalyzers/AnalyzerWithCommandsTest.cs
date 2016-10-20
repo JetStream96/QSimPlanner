@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
@@ -9,6 +10,7 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using System.Collections.Generic;
+using System.Linq;
 using static UnitTest.RouteFinding.Common;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
@@ -68,6 +70,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 "07L",
                 airportList,
                 wptList,
+                wptList.GetEditor(),
                 sids,
                 stars);
         }
@@ -150,6 +153,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 "07L",
                 airportList,
                 wptList,
+                wptList.GetEditor(),
                 new SidCollection(new SidEntry[0]),
                 new StarCollection(new StarEntry[0]));
         }
@@ -212,8 +216,6 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         }
 
         #endregion
-
-        #region "Direct"
         
         [Test]
         public void EmptyRouteShouldReturnDirectRoute()
@@ -232,6 +234,25 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             Assert.IsTrue(route.Equals(directRoute));
         }
         
-        #endregion
+        [Test]
+        public void RouteOfLatLonShouldAlsoWork()
+        {
+            // Setup
+            var analyzer = GetAnalyzer2("N35.2E113.1", "N31.0E110.0");
+
+            // Invoke
+            var route = analyzer.Analyze();
+
+            // Assert
+            var expectedDistance = new LatLon[]
+            {
+                new LatLon(25.0, 120.0),
+                new LatLon(35.2, 113.1),
+                new LatLon(31.0, 110.0),
+                new LatLon(430, 107.0)
+            }.TotalDistance();
+            
+            Assert.AreEqual(expectedDistance, route.GetTotalDistance(), 1E-6);
+        }
     }
 }

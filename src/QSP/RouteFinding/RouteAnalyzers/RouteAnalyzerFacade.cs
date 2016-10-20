@@ -40,6 +40,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 destRwy,
                 airportList,
                 wptList,
+                wptList.GetEditor(),
                 sidHandler.SidCollection,
                 starHandler.StarCollection).Analyze();
         }

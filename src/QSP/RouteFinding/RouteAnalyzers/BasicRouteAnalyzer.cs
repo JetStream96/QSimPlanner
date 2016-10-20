@@ -55,7 +55,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
         /// <param name="firstWaypointIndex">Use a negative value if the 
         /// first waypoint is a lat/lon.</param>
         /// <exception cref="ArgumentException"></exception>
-        public BasicRouteAnalyzer(RouteString routeInput, 
+        public BasicRouteAnalyzer(RouteString routeInput,
             WaypointList wptList, int firstWaypointIndex)
         {
             if (routeInput.Count == 0)
@@ -143,17 +143,17 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private bool TryParseCoord(string ident)
         {
-            LatLon coord;
+            var coord = FormatDecimal.Parse(ident);
 
-            if (FormatDecimal.TryReadFromDecimalFormat(ident, out coord))
+            if (coord != null)
             {
                 lastWpt = -1;
-                return TryappendWpt(new Waypoint(ident, coord.Lat, coord.Lon));
+                return TryAppendWpt(new Waypoint(ident, coord));
             }
             return false;
         }
 
-        private bool TryappendWpt(Waypoint wpt)
+        private bool TryAppendWpt(Waypoint wpt)
         {
             rte.AddLastWaypoint(wpt, "DCT");
             return true;
@@ -209,10 +209,10 @@ namespace QSP.RouteFinding.RouteAnalyzers
             else
             {
                 var wpt = rte.LastWaypoint;
-                lastWpt = indices.MinBy(i => ICoordinateExtension.Distance(wptList[i], wpt));
+                lastWpt = indices.MinBy(i => wptList[i].Distance(wpt));
             }
 
-            return TryappendWpt(wptList[lastWpt]);
+            return TryAppendWpt(wptList[lastWpt]);
         }
 
         private bool TryParseAwy(string airway)
@@ -230,6 +230,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     return true;
                 }
             }
+
             return false;
         }
     }
