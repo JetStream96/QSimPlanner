@@ -5,6 +5,7 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.RouteAnalyzers;
 using System.Collections.Generic;
 using static UnitTest.RouteFinding.Common;
+using static UnitTest.RouteFinding.RouteAnalyzers.Util;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
 {
@@ -36,7 +37,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             wptList.AddNeighbor(indices[1], "A03", indices[3]);
 
             var analyzer = new AutoSelectAnalyzer(
-                new string[] { "P01", "A01", "P02", "A02", "P03" },
+                GetRouteString("P01", "A01", "P02", "A02", "P03"),
                 new LatLon(50.0, -30.0),
                 new LatLon(50.0, -30.0),
                 wptList);
@@ -72,7 +73,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             }
 
             var analyzer = new AutoSelectAnalyzer(
-                new string[] { "P01", "P02" },
+                GetRouteString("P01", "P02"),
                 new LatLon(45.0, 40.0),
                 new LatLon(45.0, 40.0),
                 wptList);

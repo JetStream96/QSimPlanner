@@ -170,13 +170,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 if (route.IsAuto)
                 {
                     result[i] = SubRoute.Auto();
-                    break;
+                    continue;
                 }
 
                 if (route.IsRand)
                 {
                     result[i] = SubRoute.Rand();
-                    break;
+                    continue;
                 }
 
                 if (i == 0)
@@ -243,7 +243,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             IReadOnlyList<SubRoute> analyzed)
         {
             int count = analyzed.Count;
-            var result = new List<Route>(count);
+            var result = new Route[count];
 
             for (int i = 0; i < analyzed.Count; i++)
             {

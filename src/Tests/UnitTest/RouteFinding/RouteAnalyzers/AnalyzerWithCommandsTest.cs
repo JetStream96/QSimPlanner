@@ -61,7 +61,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             wptList.AddNeighbor(p1, q1, neighbor);
 
             return new AnalyzerWithCommands(
-                route,
+                route.ToRouteString(),
                 "ABCD",
                 "05L",
                 "EFGH",
@@ -143,7 +143,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             wptList.AddWaypoint(new Waypoint("N30E117", 30.0, 117.0));
 
             return new AnalyzerWithCommands(
-                route,
+                route.ToRouteString(),
                 "ABCD",
                 "05L",
                 "EFGH",

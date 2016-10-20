@@ -5,6 +5,7 @@ using QSP.RouteFinding.RouteAnalyzers;
 using System;
 using System.Collections.Generic;
 using static UnitTest.RouteFinding.Common;
+using static UnitTest.RouteFinding.RouteAnalyzers.Util;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
 {
@@ -20,7 +21,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             wptList.AddWaypoint(p);
 
             var analyzer = new BasicRouteAnalyzer(
-                new string[] { "P" },
+                GetRouteString("P"),
                 wptList,
                 wptList.FindById("P"));
 
@@ -57,7 +58,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             wptList.AddNeighbor(indices[1], "A03", indices[3]);
 
             var analyzer = new BasicRouteAnalyzer(
-                new string[] { "P01", "A01", "P02", "A02", "P03" },
+                GetRouteString("P01", "A01", "P02", "A02", "P03"),
                 wptList,
                 wptList.FindById("P01"));
 
@@ -90,7 +91,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             }
 
             var analyzer = new BasicRouteAnalyzer(
-                new string[] { "P01", "P02", "P03" },
+                GetRouteString("P01", "P02", "P03"),
                 wptList,
                 wptList.FindById("P01"));
 
@@ -111,7 +112,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         {
             // setup
             var analyzer = new BasicRouteAnalyzer(
-                new string[] { "N41W050", "N41.30W50.55" },
+                GetRouteString("N41W050", "N41.30W50.55"),
                 new WaypointList(),
                 -1);
 
@@ -134,7 +135,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             wptList.AddWaypoint(new Waypoint("P01", 3.051, 20.0));
 
             var analyzer = new BasicRouteAnalyzer(
-                new string[] { "P01", "P02" },
+                GetRouteString("P01", "P02"),
                 wptList,
                 0);
 
@@ -154,7 +155,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             Assert.Throws<ArgumentException>(() =>
             {
                 var analyzer = new BasicRouteAnalyzer(
-                    new string[] { "P01", "P02" },
+                    GetRouteString("P01", "P02"),
                     wptList,
                     0);
             });
