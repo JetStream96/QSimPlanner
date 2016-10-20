@@ -1,4 +1,5 @@
 ﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.RouteAnalyzers;
 using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Routes
@@ -37,6 +38,11 @@ namespace QSP.RouteFinding.Routes
                 items.Remove(i);
                 items.Remove(j.Previous);
             }
+        }
+
+        public static SubRoute ToSubRoute(this Route r)
+        {
+            return new SubRoute(r);
         }
     }
 }

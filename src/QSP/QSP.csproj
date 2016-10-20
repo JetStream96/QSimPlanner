@@ -159,6 +159,7 @@
     <Compile Include="RouteFinding\RandomRoutes\RandomRouteFinder.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\EntryGrouping.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\RouteSegment.cs" />
+    <Compile Include="RouteFinding\RouteAnalyzers\SubRoute.cs" />
     <Compile Include="RouteFinding\Routes\IReadOnlyRoute.cs" />
     <Compile Include="RouteFinding\Routes\RouteExtensions.cs" />
     <Compile Include="RouteFinding\Routes\RouteGroup.cs" />

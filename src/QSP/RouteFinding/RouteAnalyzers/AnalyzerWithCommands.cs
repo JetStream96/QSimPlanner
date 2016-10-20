@@ -10,6 +10,7 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static QSP.RouteFinding.Routes.RouteExtensions;
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
@@ -102,7 +103,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             route = RemoveIcaos(route);
 
             var subRoutes = EntryGrouping.Group(new RouteString(route));
-            var analyzed = ComputeRoutes(subRoutes);
+            var analyzed = TransformSubRoutes(subRoutes);
             FillCommands(subRoutes, analyzed);
             return ConnectAll(analyzed);
         }
@@ -144,7 +145,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 }
             }
         }
-        
+
         private void SetRwyWpts()
         {
             origRwyWpt = new Waypoint(
@@ -156,77 +157,87 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 airportList.FindRwy(destIcao, destRwy));
         }
 
-        // Transform each RouteString to Route.
-        private List<Route> ComputeRoutes(IReadOnlyList<RouteSegment> subRoutes)
+        private IReadOnlyList<SubRoute> TransformSubRoutes(
+            IReadOnlyList<RouteSegment> segments)
         {
-            var result = new List<Route>();
+            int count = segments.Count;
+            var result = new SubRoute[count];
 
-            for (int i = 0; i < subRoutes.Count; i++)
+            for (int i = 0; i < count; i++)
             {
-                var route = subRoutes[i];
+                var route = segments[i];
 
-                if (route.IsAuto || route.IsRand)
+                if (route.IsAuto)
                 {
-                    result.Add(null);
+                    result[i] = SubRoute.Auto();
+                    break;
                 }
-                else if (i == 0)
+
+                if (route.IsRand)
                 {
-                    result.Add(ComputeOriginRoute(route));
+                    result[i] = SubRoute.Rand();
+                    break;
                 }
-                else if (i == subRoutes.Count - 1)
+
+                if (i == 0)
                 {
-                    // TODO: This does not work when i == 0. 
-                    result.Add(ComputeDestRoute(route));
+                    result[i] = ComputeTerminalRoute(
+                        route.RouteString, true, count == 1);
+                }
+                else if (i == segments.Count - 1)
+                {
+                    result[i] = ComputeTerminalRoute(
+                        route.RouteString, false, true);
                 }
                 else
                 {
-                    var mainRoute = new AutoSelectAnalyzer(
-                        route,
-                        origRwyWpt,
-                        destRwyWpt,
-                        wptList).Analyze();
-
-                    result.Add(mainRoute);
+                    result[i] = GetAutoSelectRoute(route.RouteString);
                 }
             }
 
             return result;
         }
-
-        private Route ComputeOriginRoute(RouteString item)
+        
+        private SubRoute GetAutoSelectRoute(RouteString r)
         {
-            var sidExtract = new SidExtractor(item, origIcao,
-                origRwy, origRwyWpt, wptList, sids).Extract();
+            var analyzer = new AutoSelectAnalyzer(
+                r, origRwyWpt, destRwyWpt, wptList);
 
-            var origRoute = sidExtract.OrigRoute;
-
-            var mainRoute = new AutoSelectAnalyzer(
-                sidExtract.RemainingRoute,
-                origRwyWpt,
-                destRwyWpt,
-                wptList).Analyze();
-
-            origRoute.Connect(mainRoute);
-            return origRoute;
+            return analyzer.Analyze().ToSubRoute();
         }
 
-        private Route ComputeDestRoute(RouteString item)
+        private SubRoute ComputeTerminalRoute(
+            RouteString item, bool isOrig, bool isDest)
         {
-            var starExtract = new StarExtractor(item, destIcao,
+            Route origRoute = null;
+            Route destRoute = null;
+
+            if (isOrig)
+            {
+                var sidExtract = new SidExtractor(item, origIcao,
+                    origRwy, origRwyWpt, wptList, sids).Extract();
+
+                origRoute = sidExtract.OrigRoute;
+                item = sidExtract.RemainingRoute;
+            }
+
+            if (isDest)
+            {
+                var starExtract = new StarExtractor(item, destIcao,
                 destRwy, destRwyWpt, wptList, stars).Extract();
 
-            var destRoute = starExtract.DestRoute;
+                destRoute = starExtract.DestRoute;
+                item = starExtract.RemainingRoute;
+            }
 
-            var mainRoute = new AutoSelectAnalyzer(
-                starExtract.RemainingRoute,
-                origRwyWpt,
-                destRwyWpt,
-                wptList).Analyze();
+            Route[] routes = { origRoute, GetAutoSelectRoute(item), destRoute };
 
-            mainRoute.Connect(destRoute);
-            return mainRoute;
+            return routes
+                .Where(r => r != null)
+                .Aggregate((a, b) => { a.Connect(b); return a; })
+                .ToSubRoute();
         }
-
+        
         private void FillCommands(
             List<RouteString> subRoutes, List<Route> analyzed)
         {
