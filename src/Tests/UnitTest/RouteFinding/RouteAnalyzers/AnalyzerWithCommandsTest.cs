@@ -249,7 +249,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 new LatLon(25.0, 120.0),
                 new LatLon(35.2, 113.1),
                 new LatLon(31.0, 110.0),
-                new LatLon(430, 107.0)
+                new LatLon(43.0, 107.0)
             }.TotalDistance();
             
             Assert.AreEqual(expectedDistance, route.GetTotalDistance(), 1E-6);
