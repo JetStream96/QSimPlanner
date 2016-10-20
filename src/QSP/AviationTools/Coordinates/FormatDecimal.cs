@@ -38,7 +38,7 @@ namespace QSP.AviationTools.Coordinates
         {
             try
             {
-                return Parse(item);
+                return InternalParse(item);
             }
             catch
             {
