@@ -68,7 +68,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             if (star == null)
             {
                 // Case 1
-                var wpt = FindWpt(last);//TODO: What if not found?
+                var wpt = FindWpt(last);
 
                 var neighbor = new Neighbor("DCT", wpt.Distance(rwyWpt));
                 var node1 = new RouteNode(wpt, neighbor);
@@ -162,8 +162,14 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
         private Waypoint FindWpt(string ident)
         {
-            return wptList
-                .FindAllById(ident)
+            var ids = wptList.FindAllById(ident);
+            if (ids.Count == 0)
+            {
+                throw new ArgumentException(
+                    $"Cannot find waypoint {ident}.");
+            }
+
+            return ids
                 .Select(i => wptList[i])
                 .GetClosest(rwyWpt);
         }

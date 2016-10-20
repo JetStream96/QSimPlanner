@@ -98,6 +98,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             this.stars = stars;
         }
 
+        // May throw exception.
         public Route Analyze()
         {
             SetRwyWpts();

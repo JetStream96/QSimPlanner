@@ -152,8 +152,14 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
         private Waypoint FindWpt(string ident)
         {
-            return wptList
-                .FindAllById(ident)
+            var ids = wptList.FindAllById(ident);
+            if (ids.Count == 0)
+            {
+                throw new ArgumentException(
+                    $"Cannot find waypoint {ident}.");
+            }
+
+            return ids
                 .Select(i => wptList[i])
                 .GetClosest(rwyWpt);
         }
