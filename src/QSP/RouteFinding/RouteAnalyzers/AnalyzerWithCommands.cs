@@ -59,8 +59,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
     //
     public class AnalyzerWithCommands
     {
-        // TODO: What if some coordinate formats are not found in wptList
-        // but are valid?
         private WaypointList wptList;
         private WaypointListEditor editor;
         private AirportManager airportList;
@@ -112,6 +110,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
             var subRoutes = EntryGrouping.Group(new RouteString(route));
             var analyzed = TransformSubRoutes(subRoutes);
             var final = ComputeCommands(analyzed);
+
+            editor.Undo();
+
             return final.Connect();
         }
 
@@ -129,7 +130,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private static LatLon ParseLatLon(string s)
         {
-            return Format5Letter.Parse(s) ?? FormatDecimal.Parse(s);
+            return Format5Letter.Parse(s) ?? 
+                Format7Letter.Parse(s) ??
+                FormatDecimal.Parse(s);
         }
 
         private Route DirectRoute()

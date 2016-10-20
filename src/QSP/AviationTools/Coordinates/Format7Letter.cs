@@ -1,4 +1,5 @@
-﻿using static QSP.MathTools.Doubles;
+﻿using System.Text.RegularExpressions;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.AviationTools.Coordinates
 {
@@ -54,44 +55,21 @@ namespace QSP.AviationTools.Coordinates
         /// </summary>
         public static LatLon Parse(string item)
         {
-            if (item.Length != 7) return null;
-
-            char NS = item[2];
-            char EW = item[6];
+            var pattern = @"(\d\d)([NS])(\d\d\d)([EW])";
+            var match = Regex.Match(item, pattern);
 
             int lat, lon;
-
-            if (!int.TryParse(item.Substring(0, 2), out lat) ||
-                !int.TryParse(item.Substring(3, 3), out lon) ||
-                lat < 0 || lat > 90 || lon < 0 || lon > 180)
+            if (match.Success &&
+                int.TryParse(match.Groups[1].Value, out lat) &&
+                int.TryParse(match.Groups[3].Value, out lon) &&
+                0 <= lat && lat <= 90 && 0 <= lon && lon <= 180)
             {
-                return null;
-            }
-
-            if (NS == 'N')
-            {
-                if (EW == 'E')
-                {
-                    return new LatLon(lat, lon);
-                }
-                else if (EW == 'W')
-                {
-                    return new LatLon(lat, -lon);
-                }
-            }
-            else if (NS == 'S')
-            {
-                if (EW == 'E')
-                {
-                    return new LatLon(-lat, lon);
-                }
-                else if (EW == 'W')
-                {
-                    return new LatLon(-lat, -lon);
-                }
+                if (match.Groups[2].Value == "S") lat = -lat;
+                if (match.Groups[4].Value == "W") lon = -lon;
+                return new LatLon(lat, lon);
             }
 
             return null;
-        }
+        }        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using QSP.Utilities;
 using System;
+using System.Text.RegularExpressions;
 
 namespace QSP.AviationTools.Coordinates
 {
@@ -48,39 +49,18 @@ namespace QSP.AviationTools.Coordinates
 
         private static LatLon InternalParse(string item)
         {
-            char NS = item[0];
-            int x = item.IndexOfAny(new char[] { 'E', 'W' });
-            char EW = item[x];
-
-            double lat = Convert.ToDouble(item.Substring(1, x - 1));
-            double lon = Convert.ToDouble(item.Substring(x + 1));
+            var pattern = @"^([NS])(.+?)([EW])(.+)$";
+            var match = Regex.Match(item, pattern);
+            double lat = double.Parse(match.Groups[2].Value);
+            double lon = double.Parse(match.Groups[4].Value);
 
             ExceptionHelpers.Ensure<ArgumentException>(
                 0.0 <= lat && lat <= 90.0 && 0.0 <= lon && lon <= 180.0);
 
-            if (NS == 'N')
-            {
-                if (EW == 'E')
-                {
-                    return new LatLon(lat, lon);
-                }
-                else if (EW == 'W')
-                {
-                    return new LatLon(lat, -lon);
-                }
-            }
-            else if (NS == 'S')
-            {
-                if (EW == 'E')
-                {
-                    return new LatLon(-lat, lon);
-                }
-                else if (EW == 'W')
-                {
-                    return new LatLon(-lat, -lon);
-                }
-            }
-            throw new ArgumentException();
+            if (match.Groups[1].Value == "S") lat = -lat;
+            if (match.Groups[3].Value == "W") lon = -lon;
+
+            return new LatLon(lat, lon);
         }
     }
 }
