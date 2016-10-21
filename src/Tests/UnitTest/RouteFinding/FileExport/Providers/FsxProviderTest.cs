@@ -37,8 +37,8 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 root.Element("Descr").Value == "AceXML Document");
 
             var main = root.Element("FlightPlan.FlightPlan");
-            var orig = route.First.Value;
-            var dest = route.Last.Value;
+            var orig = route.First.Value.Waypoint;
+            var dest = route.Last.Value.Waypoint;
             var origLatLonAlt = LatLonAlt(orig, abcd.Elevation);
             var destLatLonAlt = LatLonAlt(dest, efgh.Elevation);
 

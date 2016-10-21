@@ -4,7 +4,7 @@ using System;
 
 namespace QSP.RouteFinding.Routes
 {
-    public class RouteNode : IEquatable<RouteNode>, ICoordinate
+    public class RouteNode : IEquatable<RouteNode>
     {
         public Waypoint Waypoint { get; private set; }
         public Neighbor Neighbor { get; private set; }

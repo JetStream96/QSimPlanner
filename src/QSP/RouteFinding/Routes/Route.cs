@@ -128,7 +128,7 @@ namespace QSP.RouteFinding.Routes
             double distance =
                Last == null ?
                0.0 :
-               item.Distance(last.Value);
+               item.Distance(last.Value.Waypoint);
 
             AddLastWaypoint(item, viaAirway, distance);
         }

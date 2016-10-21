@@ -127,7 +127,7 @@ namespace QSP.FuelCalculation.Calculators
             Route route, double tas, double cruiseAltitudeFt)
         {
             return new AvgWindCalculator(windTables, tas, cruiseAltitudeFt)
-                .GetAirDistance(route);
+                .GetAirDistance(route.Select(n => n.Waypoint));
         }
     }
 }
