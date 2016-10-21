@@ -47,7 +47,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
 
             Assert.AreEqual(2, route.Count);
 
-            var n = route.First.Value;
+            var n = route.FirstNode.Value;
 
             Assert.IsTrue(n.Waypoint.Equals(p1));
             Assert.IsTrue(n.AirwayToNext == "DCT" && n.DistanceToNext == p1.Distance(p2));

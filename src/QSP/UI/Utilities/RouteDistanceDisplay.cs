@@ -16,7 +16,7 @@ namespace QSP.UI.Utilities
         public static void UpdateRouteDistanceLbl(
             Label lbl, Route route, DistanceDisplayStyle displayStyle)
         {
-            double totalDis = route.GetTotalDistance();
+            double totalDis = route.TotalDistance();
             int disInt = RoundToInt(totalDis);
             double directDis =
                 route.FirstWaypoint.Distance(route.LastWaypoint);

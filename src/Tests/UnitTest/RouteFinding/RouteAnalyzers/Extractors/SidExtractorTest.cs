@@ -45,7 +45,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var origRoute = result.OrigRoute;
             Assert.AreEqual(2, origRoute.Count);
 
-            var node = origRoute.First;
+            var node = origRoute.FirstNode;
             var neighbor = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor.Airway == "DCT");
@@ -94,7 +94,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var origRoute = result.OrigRoute;
             Assert.AreEqual(2, origRoute.Count);
 
-            var node = origRoute.First;
+            var node = origRoute.FirstNode;
             var neighbor = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor.Airway == sid.Name);
@@ -145,7 +145,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var origRoute = result.OrigRoute;
             Assert.AreEqual(2, origRoute.Count);
 
-            var node = origRoute.First;
+            var node = origRoute.FirstNode;
             var neighbor = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor.Airway == sid.Name);
@@ -197,7 +197,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var origRoute = result.OrigRoute;
             Assert.AreEqual(3, origRoute.Count);
 
-            var node = origRoute.First;
+            var node = origRoute.FirstNode;
             var neighbor1 = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor1.Airway == sid.Name);

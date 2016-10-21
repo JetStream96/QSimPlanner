@@ -137,11 +137,11 @@ var myTrip=[");
         private static ICoordinate GetCenter(Route route)
         {
             if (route.Count < 2) throw new ArgumentException();
-            var totalDis = route.GetTotalDistance();
+            var totalDis = route.TotalDistance();
             double dis = 0.0;
-            var node = route.First;
+            var node = route.FirstNode;
 
-            while (dis < totalDis * 0.5 && node != route.Last)
+            while (dis < totalDis * 0.5 && node != route.LastNode)
             {
                 dis += node.Value.DistanceToNext;
                 node = node.Next;

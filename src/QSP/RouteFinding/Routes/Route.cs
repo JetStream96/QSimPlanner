@@ -10,42 +10,37 @@ using System.Text;
 
 namespace QSP.RouteFinding.Routes
 {
-    public class Route : IEnumerable<RouteNode>, IEnumerable
+    public class Route : IReadOnlyRoute
     {
         public LinkedList<RouteNode> Nodes { get; private set; }
 
         /// <exception cref="NullReferenceException"></exception>
-        public Waypoint FirstWaypoint
-        {
-            get { return First.Value.Waypoint; }
-        }
+        public Waypoint FirstWaypoint { get { return First.Waypoint; } }
 
         /// <exception cref="NullReferenceException"></exception>
-        public Waypoint LastWaypoint
-        {
-            get { return Last.Value.Waypoint; }
-        }
+        public Waypoint LastWaypoint { get { return Last.Waypoint; } }
 
-        public LinkedListNode<RouteNode> First
+        public LinkedListNode<RouteNode> FirstNode
         {
             get { return Nodes.First; }
         }
 
-        public LinkedListNode<RouteNode> Last
+        public LinkedListNode<RouteNode> LastNode
         {
             get { return Nodes.Last; }
         }
 
-        public int Count
-        {
-            get { return Nodes.Count; }
-        }
+        public RouteNode First { get { return FirstNode.Value; } }
+
+        public RouteNode Last { get { return LastNode.Value; } }
+
+        public int Count { get { return Nodes.Count; } }
 
         public Route()
         {
             Nodes = new LinkedList<RouteNode>();
         }
-        
+
         public Route(Route item)
         {
             Nodes = new LinkedList<RouteNode>(item);
@@ -56,7 +51,7 @@ namespace QSP.RouteFinding.Routes
             Nodes = new LinkedList<RouteNode>(item);
         }
 
-        public double GetTotalDistance()
+        public double TotalDistance()
         {
             if (Nodes.Count == 0)
             {
@@ -64,9 +59,9 @@ namespace QSP.RouteFinding.Routes
             }
 
             double dis = 0.0;
-            var node = First;
+            var node = FirstNode;
 
-            while (node != Last)
+            while (node != LastNode)
             {
                 dis += node.Value.DistanceToNext;
                 node = node.Next;
@@ -126,7 +121,7 @@ namespace QSP.RouteFinding.Routes
             var last = Nodes.Last;
 
             double distance =
-               Last == null ?
+               LastNode == null ?
                0.0 :
                item.Distance(last.Value.Waypoint);
 
@@ -138,7 +133,7 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public void AddLastWaypoint(Waypoint item)
         {
-            Nodes.AddLast(new RouteNode(item, new Neighbor( "", 0.0)));
+            Nodes.AddLast(new RouteNode(item, new Neighbor("", 0.0)));
         }
 
         /// <summary>
@@ -147,7 +142,7 @@ namespace QSP.RouteFinding.Routes
         public void AddLast(Route item, string airway)
         {
             double distance =
-                Last == null ?
+                LastNode == null ?
                 0.0 :
                 LastWaypoint.Distance(item.FirstWaypoint);
 
@@ -159,7 +154,7 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public void AddLast(Route item, string airway, double distance)
         {
-            if (Last != null)
+            if (LastNode != null)
             {
                 Nodes.Last.Value.AirwayToNext = airway;
                 Nodes.Last.Value.DistanceToNext = distance;
@@ -178,7 +173,7 @@ namespace QSP.RouteFinding.Routes
         {
             if (item.Count == 0) return;
 
-            if (Last != null)
+            if (LastNode != null)
             {
                 // This route is non-empty.
                 ExceptionHelpers.Ensure<ArgumentException>(

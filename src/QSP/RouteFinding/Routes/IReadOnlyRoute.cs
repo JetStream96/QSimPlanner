@@ -10,6 +10,6 @@ namespace QSP.RouteFinding.Routes
     {
         RouteNode First { get; }
         RouteNode Last { get; }
-        double TotalDistance { get; }
+        double TotalDistance();
     }
 }

@@ -37,8 +37,8 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 root.Element("Descr").Value == "AceXML Document");
 
             var main = root.Element("FlightPlan.FlightPlan");
-            var orig = route.First.Value.Waypoint;
-            var dest = route.Last.Value.Waypoint;
+            var orig = route.FirstNode.Value.Waypoint;
+            var dest = route.LastNode.Value.Waypoint;
             var origLatLonAlt = LatLonAlt(orig, abcd.Elevation);
             var destLatLonAlt = LatLonAlt(dest, efgh.Elevation);
 
@@ -69,7 +69,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 wpts[0].Element("WorldPosition").Value == origLatLonAlt &&
                 GetIdent(wpts[0]) == abcd.Icao);
 
-            var wpt = route.First.Next.Value.Waypoint;
+            var wpt = route.FirstNode.Next.Value.Waypoint;
 
             Assert.IsTrue(
                 wpts[1].Element("ATCWaypointType").Value == "Intersection" &&

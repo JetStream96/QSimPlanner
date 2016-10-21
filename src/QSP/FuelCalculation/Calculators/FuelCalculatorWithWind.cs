@@ -91,7 +91,7 @@ namespace QSP.FuelCalculation.Calculators
             double avgWeightTon = 0.0;
             double crzAltFt = 0.0;
             double tas = 0.0;
-            double airDis = route.GetTotalDistance();
+            double airDis = route.TotalDistance();
 
             for (uint i = 0; i <= iterationCount; i++)
             {
