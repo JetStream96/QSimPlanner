@@ -48,7 +48,7 @@ namespace QSP.UI.UserControls.RouteActions
             get { return airwayNetwork.AirportList; }
         }
 
-        public RouteGroup Route { get; private set; }
+        public Route Route { get; private set; }
 
         public RouteActionController(
             Locator<AppOptions> appOptionsLocator,
@@ -132,22 +132,19 @@ namespace QSP.UI.UserControls.RouteActions
                 checkedCodesLocator.Instance,
                 windCalcGetter());
 
-            var result = finder.FindRoute(
+            Route = finder.FindRoute(
                 orig, origController.Rwy, sid,
                 dest, destController.Rwy, star);
-
-            Route = new RouteGroup(result, airwayNetwork.TracksInUse);
+            
             ShowRouteTxt();
         }
 
         private void ShowRouteTxt()
         {
-            var routeToShow = appSettings.ShowTrackIdOnly ?
-                Route.Folded : Route.Expanded;
-
+            var trackIdOnly = appSettings.ShowTrackIdOnly;
             var showDct = !appSettings.HideDctInRoute;
-            routeTxtSetter(routeToShow.ToString(false, false, showDct));
-            UpdateRouteDistanceLbl(routeDisLbl, Route.Expanded, displayStyle);
+            routeTxtSetter(Route.GetString(showDct, trackIdOnly));
+            UpdateRouteDistanceLbl(routeDisLbl, Route, displayStyle);
         }
 
         private void ExportRouteFiles(object sender, EventArgs e)
@@ -160,9 +157,8 @@ namespace QSP.UI.UserControls.RouteActions
             }
 
             var cmds = appSettings.ExportCommands.Values;
-            var writer = new FileExporter(
-                Route.Expanded, airportList, cmds);
-
+            var writer = new FileExporter(Route, airportList, cmds);
+            // TODO: Make sure passed parameter has its track expanded.
             IEnumerable<FileExporter.Status> reports = null;
 
             try
@@ -184,8 +180,7 @@ namespace QSP.UI.UserControls.RouteActions
             {
                 var input = routeTxtGetter().ToUpper();
 
-                Route = new RouteGroup(
-                    RouteAnalyzerFacade.AnalyzeWithCommands(
+                Route = RouteAnalyzerFacade.AnalyzeWithCommands(
                         input,
                         origController.Icao,
                         origController.Rwy,
@@ -193,8 +188,7 @@ namespace QSP.UI.UserControls.RouteActions
                         destController.Rwy,
                         appSettings.NavDataLocation,
                         airwayNetwork.AirportList,
-                        airwayNetwork.WptList),
-                    airwayNetwork.TracksInUse);
+                        airwayNetwork.WptList);
 
                 ShowRouteTxt();
             }

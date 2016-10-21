@@ -34,10 +34,7 @@ namespace QSP.RouteFinding.Routes
                    Neighbor.Airway, value, Neighbor.InnerWaypoints);
             }
         }
-
-        public double Lat { get { return Waypoint.Lat; } }
-        public double Lon { get { return Waypoint.Lon; } }
-
+        
         public RouteNode(Waypoint Waypoint, Neighbor Neighbor)
         {
             this.Waypoint = Waypoint;

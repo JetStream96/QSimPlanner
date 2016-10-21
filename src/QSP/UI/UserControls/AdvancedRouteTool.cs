@@ -38,7 +38,7 @@ namespace QSP.UI.UserControls
         private ProcedureFilter procFilter;
         private CountryCodeManager countryCodes;
         private Func<AvgWindCalculator> windCalcGetter;
-        private RouteGroup Route;
+        private IReadOnlyRoute Route;
 
         private WaypointList wptList
         {
@@ -225,42 +225,36 @@ namespace QSP.UI.UserControls
 
         private void GetRouteWaypointToWaypoint()
         {
-            Route = new RouteGroup(
-                new RouteFinder(wptList, checkedCodesLocator.Instance)
-                    .FindRoute(GetWptIndexFrom(), GetWptIndexTo()),
-                    tracksInUse);
+            Route = new RouteFinder(wptList, checkedCodesLocator.Instance)
+                .FindRoute(GetWptIndexFrom(), GetWptIndexTo());
 
-            ShowRoute(true, true);
+            ShowRoute();
         }
 
         private void GetRouteWaypointToAirport()
         {
             var stars = toGroup.controller.GetSelectedProcedures();
 
-            Route = new RouteGroup(
-                GetRouteFinder().FindRoute(
+            Route = GetRouteFinder().FindRoute(
                     GetWptIndexFrom(),
                     destination,
                     toRwyComboBox.Text,
-                    stars),
-                tracksInUse);
+                    stars);
 
-            ShowRoute(true, false);
+            ShowRoute();
         }
 
         private void GetRouteAirportToWaypoint()
         {
             var sids = fromGroup.controller.GetSelectedProcedures();
 
-            Route = new RouteGroup(
-                GetRouteFinder().FindRoute(
+            Route = GetRouteFinder().FindRoute(
                     origin,
                     fromRwyComboBox.Text,
                     sids,
-                    GetWptIndexTo()),
-                    tracksInUse);
+                    GetWptIndexTo());
 
-            ShowRoute(false, true);
+            ShowRoute();
         }
 
         private void GetRouteAirportToAirport()
@@ -268,17 +262,15 @@ namespace QSP.UI.UserControls
             var sids = fromGroup.controller.GetSelectedProcedures();
             var stars = toGroup.controller.GetSelectedProcedures();
 
-            Route = new RouteGroup(
-               GetRouteFinder().FindRoute(
+            Route = GetRouteFinder().FindRoute(
                     origin,
                     fromRwyComboBox.Text,
                     sids,
                     destination,
                     toRwyComboBox.Text,
-                    stars),
-                 tracksInUse);
+                    stars);
 
-            ShowRoute(false, false);
+            ShowRoute();
         }
 
         private string origin
@@ -313,18 +305,15 @@ namespace QSP.UI.UserControls
             }
         }
 
-        private void ShowRoute(bool ShowFirstWaypoint, bool ShowLastWaypoint)
+        private void ShowRoute()
         {
             var option = appOptionsLocator.Instance;
-            var routeToShow = option.ShowTrackIdOnly ?
-                Route.Folded : Route.Expanded;
-
             var showDct = !option.HideDctInRoute;
-            routeRichTxtBox.Text = routeToShow.ToString(
-                ShowFirstWaypoint, ShowLastWaypoint, showDct);
+            routeRichTxtBox.Text = Route.GetString(showDct,
+                option.ShowTrackIdOnly);
 
             UpdateRouteDistanceLbl(
-                routeSummaryLbl, Route.Expanded, DistanceDisplayStyle.Long);
+                routeSummaryLbl, Route, DistanceDisplayStyle.Long);
         }
 
         /// <exception cref="InvalidUserInputException"></exception>

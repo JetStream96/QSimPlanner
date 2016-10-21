@@ -54,7 +54,7 @@ namespace QSP.RouteFinding.FileExport.Providers
 
             var result = new StringBuilder();
             AppendOrigAirportPart(numWpts, icaoOrig, result);
-
+            
             var node = route.FirstNode.Next;
 
             while (node != route.LastNode)

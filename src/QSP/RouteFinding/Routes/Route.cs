@@ -189,22 +189,13 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public override string ToString()
         {
-            return ToString(false, false);
+            return ToString(true);
         }
-
+        
         /// <summary>
         /// A string represents the usual route text with options.
         /// </summary>
-        public string ToString(bool ShowFirstWaypoint, bool ShowLastWaypoint)
-        {
-            return ToString(ShowFirstWaypoint, ShowLastWaypoint, true);
-        }
-
-        /// <summary>
-        /// A string represents the usual route text with options.
-        /// </summary>
-        public string ToString(
-            bool ShowFirstWaypoint, bool ShowLastWaypoint, bool ShowDct)
+        public string ToString(bool ShowDct)
         {
             if (Nodes.Count < 2)
             {
@@ -215,12 +206,7 @@ namespace QSP.RouteFinding.Routes
             var result = new StringBuilder();
             var node = Nodes.First;
             var last = Nodes.Last;
-
-            if (ShowFirstWaypoint)
-            {
-                result.Append(node.Value.Waypoint.ID + ' ');
-            }
-
+            
             while (node.Next != last)
             {
                 if (node.Value.AirwayToNext == "DCT")
@@ -250,12 +236,7 @@ namespace QSP.RouteFinding.Routes
             {
                 result.Append(node.Value.AirwayToNext + ' ');
             }
-
-            if (ShowLastWaypoint)
-            {
-                result.Append(last.Value.Waypoint.ID);
-            }
-
+            
             return result.ToString();
         }
 

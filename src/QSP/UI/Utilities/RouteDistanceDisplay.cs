@@ -14,13 +14,13 @@ namespace QSP.UI.Utilities
         }
 
         public static void UpdateRouteDistanceLbl(
-            Label lbl, Route route, DistanceDisplayStyle displayStyle)
+            Label lbl, IReadOnlyRoute route, DistanceDisplayStyle displayStyle)
         {
             double totalDis = route.TotalDistance();
             int disInt = RoundToInt(totalDis);
-            double directDis =
-                route.FirstWaypoint.Distance(route.LastWaypoint);
-            double percentDiff = (totalDis - directDis) / directDis * 100;
+            double directDis = route.FirstWaypoint().Distance(
+                route.LastWaypoint());
+            double percentDiff = (totalDis - directDis) / directDis * 100.0;
             string diffStr = percentDiff.ToString("0.0");
             
             var text = $"{disInt} NM (+{diffStr}%)";

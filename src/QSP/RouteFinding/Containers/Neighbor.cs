@@ -15,7 +15,7 @@ namespace QSP.RouteFinding.Containers
         /// waypoint to another. Otherwise, it includes all inner waypoints.
         /// For example, if the neighbor is an oceanic track containing 
         /// waypoints A, B, C, and D, the inner waypoints are B and C.
-        /// Also, in this case, the distance should be the totally distance
+        /// Also, in this case, the distance should be the total distance
         /// from A to D via B and C.
         /// </summary>
         public IReadOnlyList<Waypoint> InnerWaypoints { get; private set; }

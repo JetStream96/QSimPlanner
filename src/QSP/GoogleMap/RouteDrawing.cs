@@ -1,7 +1,9 @@
 using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -10,7 +12,8 @@ namespace QSP.GoogleMap
 {
     public static class RouteDrawing
     {
-        public static StringBuilder MapDrawString(Route rte, int width, int height)
+        public static StringBuilder MapDrawString(
+            IReadOnlyList<Waypoint> rte, int width, int height)
         {
             var mapHtml = new StringBuilder();
 
@@ -47,11 +50,9 @@ function initialize()
             int counter = 0;
             foreach (var i in rte)
             {
-                var wpt = i.Waypoint;
-
                 mapHtml.AppendLine(
                     $"var wpt{counter++}=new google.maps.LatLng(" +
-                    $"{wpt.Lat},{wpt.Lon});");
+                    $"{i.Lat},{i.Lon});");
             }
 
             // Center of map
@@ -115,7 +116,7 @@ var myTrip=[");
     content: ""Home For Sale""
     }});
 
-", counter, counter, i.Waypoint.ID, counter++));
+", counter, counter, i.ID, counter++));
 
             }
 
@@ -134,22 +135,23 @@ var myTrip=[");
 
         }
 
-        private static ICoordinate GetCenter(Route route)
+        private static ICoordinate GetCenter(IReadOnlyList<Waypoint> route)
         {
             if (route.Count < 2) throw new ArgumentException();
             var totalDis = route.TotalDistance();
             double dis = 0.0;
-            var node = route.FirstNode;
+            Waypoint last = null;
 
-            while (dis < totalDis * 0.5 && node != route.LastNode)
+            foreach (var i in route)
             {
-                dis += node.Value.DistanceToNext;
-                node = node.Next;
+                if (last == null) continue;
+                dis += last.Distance(i);
+                last = i;
+
+                if (dis * 2.0 >= totalDis) return i;
             }
 
-            var lat = (node.Value.Lat + node.Previous.Value.Lat) * 0.5;
-            var lon = (node.Value.Lon + node.Previous.Value.Lon) * 0.5;
-            return new LatLon(lat, lon);
+            return last;
         }
     }
 }
