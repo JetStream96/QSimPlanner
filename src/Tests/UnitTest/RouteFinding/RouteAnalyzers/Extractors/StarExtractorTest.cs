@@ -47,7 +47,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsTrue("DCT" == neighbor.Airway);
             Assert.AreEqual(wpt.Distance(rwy), neighbor.Distance, 1E-8);
             Assert.AreEqual(0, neighbor.InnerWaypoints.Count);
-            Assert.AreEqual(NeighborType.Terminal, neighbor.Type); 
+            Assert.AreEqual(NeighborType.Enroute, neighbor.Type); 
 
             Assert.IsTrue(destRoute.Last().Waypoint.Equals(rwy));
         }

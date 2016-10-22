@@ -71,7 +71,8 @@ namespace QSP.RouteFinding.Tracks.Common
             var neighbor = new Neighbor(
                 nodes.AirwayIdent, 
                 rte.TotalDistance(), 
-                innerWpts);
+                innerWpts,
+                NeighborType.Track);
 
             editor.AddNeighbor(indexStart, indexEnd, neighbor);
         }
