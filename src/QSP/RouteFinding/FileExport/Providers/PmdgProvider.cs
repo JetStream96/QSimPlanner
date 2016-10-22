@@ -55,14 +55,14 @@ namespace QSP.RouteFinding.FileExport.Providers
             var result = new StringBuilder();
             AppendOrigAirportPart(numWpts, icaoOrig, result);
             
-            var node = route.FirstNode.Next;
+            var node = route.First.Next;
 
-            while (node != route.LastNode)
+            while (node != route.Last)
             {
                 var airway = node.Value.AirwayToNext;
                 var wpt = node.Value.Waypoint;
 
-                if (airway == "DCT" || node.Next == route.LastNode)
+                if (airway == "DCT" || node.Next == route.Last)
                 {
                     airway = "DIRECT";
                 }

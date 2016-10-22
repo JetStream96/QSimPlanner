@@ -15,24 +15,26 @@ namespace QSP.RouteFinding.Routes
         public LinkedList<RouteNode> Nodes { get; private set; }
 
         /// <exception cref="NullReferenceException"></exception>
-        public Waypoint FirstWaypoint { get { return First.Waypoint; } }
+        public Waypoint FirstWaypoint
+        {
+            get { return First.Value.Waypoint; }
+        }
 
         /// <exception cref="NullReferenceException"></exception>
-        public Waypoint LastWaypoint { get { return Last.Waypoint; } }
+        public Waypoint LastWaypoint
+        {
+            get { return Last.Value.Waypoint; }
+        }
 
-        public LinkedListNode<RouteNode> FirstNode
+        public LinkedListNode<RouteNode> First
         {
             get { return Nodes.First; }
         }
 
-        public LinkedListNode<RouteNode> LastNode
+        public LinkedListNode<RouteNode> Last
         {
             get { return Nodes.Last; }
         }
-
-        public RouteNode First { get { return FirstNode.Value; } }
-
-        public RouteNode Last { get { return LastNode.Value; } }
 
         public int Count { get { return Nodes.Count; } }
 
@@ -59,9 +61,9 @@ namespace QSP.RouteFinding.Routes
             }
 
             double dis = 0.0;
-            var node = FirstNode;
+            var node = First;
 
-            while (node != LastNode)
+            while (node != Last)
             {
                 dis += node.Value.DistanceToNext;
                 node = node.Next;
@@ -121,7 +123,7 @@ namespace QSP.RouteFinding.Routes
             var last = Nodes.Last;
 
             double distance =
-               LastNode == null ?
+               Last == null ?
                0.0 :
                item.Distance(last.Value.Waypoint);
 
@@ -142,7 +144,7 @@ namespace QSP.RouteFinding.Routes
         public void AddLast(Route item, string airway)
         {
             double distance =
-                LastNode == null ?
+                Last == null ?
                 0.0 :
                 LastWaypoint.Distance(item.FirstWaypoint);
 
@@ -154,7 +156,7 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public void AddLast(Route item, string airway, double distance)
         {
-            if (LastNode != null)
+            if (Last != null)
             {
                 Nodes.Last.Value.AirwayToNext = airway;
                 Nodes.Last.Value.DistanceToNext = distance;
@@ -173,7 +175,7 @@ namespace QSP.RouteFinding.Routes
         {
             if (item.Count == 0) return;
 
-            if (LastNode != null)
+            if (Last != null)
             {
                 // This route is non-empty.
                 ExceptionHelpers.Ensure<ArgumentException>(
@@ -191,7 +193,7 @@ namespace QSP.RouteFinding.Routes
         {
             return ToString(true);
         }
-        
+
         /// <summary>
         /// A string represents the usual route text with options.
         /// </summary>
@@ -206,7 +208,7 @@ namespace QSP.RouteFinding.Routes
             var result = new StringBuilder();
             var node = Nodes.First;
             var last = Nodes.Last;
-            
+
             while (node.Next != last)
             {
                 if (node.Value.AirwayToNext == "DCT")
@@ -236,7 +238,7 @@ namespace QSP.RouteFinding.Routes
             {
                 result.Append(node.Value.AirwayToNext + ' ');
             }
-            
+
             return result.ToString();
         }
 

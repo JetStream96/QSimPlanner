@@ -145,7 +145,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.AreEqual(wpt.Distance(p1), neighbor1.Distance, 1E-8);
             Assert.AreEqual(0, neighbor1.InnerWaypoints.Count);
 
-            var node2 = destRoute.FirstNode.Next.Value;
+            var node2 = destRoute.First.Next.Value;
             var neighbor2 = node2.Neighbor;
             Assert.IsTrue(node2.Waypoint.Equals(p1));
             Assert.IsTrue("STAR1" == neighbor2.Airway);
