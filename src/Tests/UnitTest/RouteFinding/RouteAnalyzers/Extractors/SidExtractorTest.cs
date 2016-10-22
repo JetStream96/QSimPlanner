@@ -102,6 +102,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 CreateList(rwy, p1, wpt1).TotalDistance(), 1E-8);
             Assert.IsTrue(Enumerable.SequenceEqual(neighbor.InnerWaypoints,
                 new Waypoint[] { p1 }));
+            Assert.AreEqual(NeighborType.Terminal, neighbor.Type);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));
@@ -153,6 +154,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 CreateList(rwy, p1, wpt1).TotalDistance(), 1E-8);
             Assert.IsTrue(Enumerable.SequenceEqual(neighbor.InnerWaypoints,
                 new Waypoint[] { p1 }));
+            Assert.AreEqual(NeighborType.Terminal, neighbor.Type);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));
@@ -203,6 +205,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsTrue(neighbor1.Airway == sid.Name);
             Assert.AreEqual(neighbor1.Distance, rwy.Distance(p1), 1E-8);
             Assert.AreEqual(0, neighbor1.InnerWaypoints.Count);
+            Assert.AreEqual(NeighborType.Terminal, neighbor1.Type);
 
             node = node.Next;
             var neighbor2 = node.Value.Neighbor;
@@ -210,6 +213,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsTrue(neighbor2.Airway == "DCT");
             Assert.AreEqual(neighbor2.Distance, p1.Distance(wpt1), 1E-8);
             Assert.AreEqual(0, neighbor2.InnerWaypoints.Count);
+            Assert.AreEqual(NeighborType.Enroute, neighbor2.Type);
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));

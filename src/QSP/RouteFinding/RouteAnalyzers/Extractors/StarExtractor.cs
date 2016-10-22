@@ -109,7 +109,8 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 double distance2 = star.TotalDistance();
                 var innerWpts = star.WithoutFirstAndLast();
 
-                var neighbor2 = new Neighbor(last, distance2, innerWpts);
+                var neighbor2 = new Neighbor(
+                    last, distance2, innerWpts, NeighborType.Terminal);
                 var node2 = new RouteNode(firstStarWpt, neighbor2);
 
                 var node3 = new RouteNode(rwyWpt, null);
@@ -124,7 +125,8 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 double distance = star.TotalDistance();
                 var innerWpts = star.WithoutFirstAndLast();
 
-                var neighbor = new Neighbor(last, distance, innerWpts);
+                var neighbor = new Neighbor(
+                    last, distance, innerWpts, NeighborType.Terminal);
                 var node1 = new RouteNode(firstStarWpt, neighbor);
 
                 var node2 = new RouteNode(rwyWpt, null);

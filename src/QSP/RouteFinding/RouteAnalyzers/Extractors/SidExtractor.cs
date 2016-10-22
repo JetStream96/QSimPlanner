@@ -92,7 +92,8 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 double distance = sid.Waypoints.Concat(wpt).TotalDistance();
                 var innerWpts = sid.Waypoints.Skip(1).ToList();
 
-                var neighbor = new Neighbor(first, distance, innerWpts);
+                var neighbor = new Neighbor(
+                    first, distance, innerWpts, NeighborType.Terminal);
                 var node1 = new RouteNode(rwyWpt, neighbor);
                 var node2 = new RouteNode(wpt, null);
                 var origRoute = new Route(node1, node2);
@@ -121,7 +122,8 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 double distance1 = sid.Waypoints.TotalDistance();
                 var innerWpts = sid.Waypoints.WithoutFirstAndLast();
 
-                var neighbor1 = new Neighbor(first, distance1, innerWpts);
+                var neighbor1 = new Neighbor(
+                    first, distance1, innerWpts, NeighborType.Terminal);
                 var node1 = new RouteNode(rwyWpt, neighbor1);
 
                 var lastSidWpt = sid.Waypoints.Last();
@@ -141,7 +143,8 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 double distance1 = sid.Waypoints.TotalDistance();
                 var innerWpts = sid.Waypoints.WithoutFirstAndLast();
 
-                var neighbor1 = new Neighbor(first, distance1, innerWpts);
+                var neighbor1 = new Neighbor(
+                    first, distance1, innerWpts, NeighborType.Terminal);
                 var node1 = new RouteNode(rwyWpt, neighbor1);
                 var node2 = new RouteNode(sid.Waypoints.Last(), null);
                 var origRoute = new Route(node1, node2);

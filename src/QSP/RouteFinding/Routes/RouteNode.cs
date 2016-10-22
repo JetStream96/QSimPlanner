@@ -18,7 +18,10 @@ namespace QSP.RouteFinding.Routes
             set
             {
                 Neighbor = new Neighbor(
-                    value, Neighbor.Distance, Neighbor.InnerWaypoints);
+                    value, 
+                    Neighbor.Distance,
+                    Neighbor.InnerWaypoints,
+                    Neighbor.Type);
             }
         }
 
@@ -31,7 +34,10 @@ namespace QSP.RouteFinding.Routes
             set
             {
                 Neighbor = new Neighbor(
-                   Neighbor.Airway, value, Neighbor.InnerWaypoints);
+                   Neighbor.Airway,
+                   value, 
+                   Neighbor.InnerWaypoints,
+                   Neighbor.Type);
             }
         }
         

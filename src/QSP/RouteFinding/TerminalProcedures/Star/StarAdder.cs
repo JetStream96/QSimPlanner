@@ -150,7 +150,8 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             var neighbor = new Neighbor(
                 star, 
                 starWpts.TotalDistance(), 
-                starWpts.WithoutFirstAndLast());
+                starWpts.WithoutFirstAndLast(),
+                NeighborType.Terminal);
 
             editor.AddNeighbor(firstWptIndex, rwyIndex, neighbor);
         }

@@ -162,8 +162,10 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
                 // For case 3, 4 and 5
                 var neighbor = new Neighbor(
-                    sid, distance,
-                    sidWpts.Waypoints.WithoutFirstAndLast().ToList());
+                    sid, 
+                    distance,
+                    sidWpts.Waypoints.WithoutFirstAndLast().ToList(),
+                    NeighborType.Terminal);
 
                 editor.AddNeighbor(
                     rwyIndex,
@@ -180,7 +182,10 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             foreach (var i in endPoints)
             {
                 var neighbor = new Neighbor(
-                    sid, i.Distance + distance, wpts.Skip(1).ToList());
+                    sid, 
+                    i.Distance + distance, 
+                    wpts.Skip(1).ToList(),
+                    NeighborType.Terminal);
 
                 editor.AddNeighbor(rwyIndex, i.Index, neighbor);
             }
