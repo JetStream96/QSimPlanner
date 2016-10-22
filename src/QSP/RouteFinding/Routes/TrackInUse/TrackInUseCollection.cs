@@ -7,82 +7,58 @@ namespace QSP.RouteFinding.Routes.TrackInUse
 {
     public class TrackInUseCollection
     {
-        private List<RouteEntry> _nats;
-        private List<RouteEntry> _pacots;
-        private List<RouteEntry> _ausots;
+        private static readonly RouteEntry[] EmptyEntry = { };
 
-        public IReadOnlyList<RouteEntry> Nats
-        {
-            get
-            {
-                return _nats;
-            }
-        }
-
-        public IReadOnlyList<RouteEntry> Pacots
-        {
-            get
-            {
-                return _pacots;
-            }
-        }
-
-        public IReadOnlyList<RouteEntry> Ausots
-        {
-            get
-            {
-                return _ausots;
-            }
-        }
+        public IEnumerable<RouteEntry> Nats { get; private set; }
+        public IEnumerable<RouteEntry> Pacots { get; private set; }
+        public IEnumerable<RouteEntry> Ausots { get; private set; }
 
         public TrackInUseCollection()
         {
-            _nats = new List<RouteEntry>();
-            _pacots = new List<RouteEntry>();
-            _ausots = new List<RouteEntry>();
+            Nats = EmptyEntry;
+            Pacots = EmptyEntry;
+            Ausots = EmptyEntry;
         }
-        
+
         public IEnumerable<RouteEntry> AllEntries
         {
             get
             {
-                return Nats.Union(Pacots).Union(Ausots);
+                return Nats.Concat(Pacots).Concat(Ausots);
             }
         }
 
         public void Clear()
         {
-            _nats = new List<RouteEntry>();
-            _pacots = new List<RouteEntry>();
-            _ausots = new List<RouteEntry>();
+            Nats = EmptyEntry;
+            Pacots = EmptyEntry;
+            Ausots = EmptyEntry;
         }
 
-        public void UpdateTracks(List<TrackNodes> AllNodes, TrackType type)
+        public void UpdateTracks(
+            IEnumerable<TrackNodes> AllNodes, TrackType type)
         {
-            var list = new List<RouteEntry>();
+            var items = AllNodes.Select(i =>
+                new RouteEntry(i.MainRoute.Nodes, i.AirwayIdent));
 
-            foreach (var i in AllNodes)
-            {
-                list.Add(new RouteEntry(i.MainRoute.Nodes, i.AirwayIdent));
-            }
-
-            UpdateList(list, type);
+            UpdateList(items, type);
         }
 
-        private void UpdateList(List<RouteEntry> entries, TrackType type)
+        private void UpdateList(
+            IEnumerable<RouteEntry> entries, TrackType type)
         {
             switch (type)
             {
                 case TrackType.Nats:
-                    _nats = entries;
+                    Nats = entries;
                     break;
 
                 case TrackType.Pacots:
-                    _pacots = entries;
+                    Pacots = entries;
                     break;
 
                 case TrackType.Ausots:
-                    _ausots = entries;
+                    Ausots = entries;
                     break;
 
                 default:
