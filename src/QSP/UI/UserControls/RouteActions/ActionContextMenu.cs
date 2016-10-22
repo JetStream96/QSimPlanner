@@ -23,7 +23,7 @@ namespace QSP.UI.UserControls.RouteActions
         private ClickableToolStripMenuItem mapToolStripMenuItem;
         private ClickableToolStripMenuItem exportToolStripMenuItem;
 
-        public Route Route { get { return controller.Route; } }
+        public RouteGroup Route { get { return controller.Route; } }
 
         public ActionContextMenu(
             Locator<AppOptions> appOptionsLocator,

@@ -10,7 +10,7 @@ namespace QSP.UI.Utilities
     public static class ShowMapHelper
     {
         public static void ShowMap(
-            IReadOnlyRoute Route, Size size, bool canAnalyze = true)
+            Route Route, Size size, bool canAnalyze = true)
         {
             if (Route == null)
             {

@@ -1,4 +1,5 @@
 ﻿using QSP.LibraryExtension;
+using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.RouteAnalyzers;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,5 +51,20 @@ namespace QSP.RouteFinding.Routes
         {
             return routes.Aggregate((a, b) => { a.Connect(b); return a; });
         }
+
+        public static IEnumerable<Waypoint> AllWaypoints(this Route r)
+        {
+            foreach (var i in r)
+            {
+                yield return i.Waypoint;
+                foreach (var j in i.Neighbor.InnerWaypoints) yield return j;
+            }
+        }
+        /*
+        public static Route ExpandTracks(this Route route)
+        {
+            route.
+            return new Route()
+        }*/
     }
 }

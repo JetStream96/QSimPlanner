@@ -77,7 +77,7 @@ namespace QSP.UI.UserControls
             get { return appOptionsLocator.Instance; }
         }
 
-        private Route RouteToDest
+        private RouteGroup RouteToDest
         {
             get { return routeActionMenu.Route; }
         }

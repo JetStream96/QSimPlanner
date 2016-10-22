@@ -106,8 +106,8 @@ namespace QSP.RouteFinding.FileExport
 
         private string GetFileNameBase()
         {
-            var orig = route.FirstWaypoint().ID.Substring(0, 4);
-            var dest = route.LastWaypoint().ID.Substring(0, 4);
+            var orig = route.FirstWaypoint.ID.Substring(0, 4);
+            var dest = route.LastWaypoint.ID.Substring(0, 4);
             return orig.ToUpper() + dest.ToUpper();
         }
 

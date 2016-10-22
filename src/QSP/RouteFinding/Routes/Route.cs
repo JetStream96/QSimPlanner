@@ -10,7 +10,7 @@ using System.Text;
 
 namespace QSP.RouteFinding.Routes
 {
-    public class Route : IReadOnlyRoute
+    public class Route : IReadOnlyCollection<RouteNode>
     {
         public LinkedList<RouteNode> Nodes { get; private set; }
 

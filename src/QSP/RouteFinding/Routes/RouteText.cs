@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace QSP.RouteFinding.Routes
 {
     public static class RouteText
-    {
+    {/*
         public static string GetString(
             this IReadOnlyRoute Route,
             bool ShowDct,
@@ -62,7 +62,7 @@ namespace QSP.RouteFinding.Routes
                 result.Append(node.Value.AirwayToNext + ' ');
             }
             
-            return result.ToString();*/
-        }
+            return result.ToString();
+        }*/
     }
 }
