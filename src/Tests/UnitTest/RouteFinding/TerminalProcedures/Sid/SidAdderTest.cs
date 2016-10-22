@@ -111,7 +111,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             {
                 var edge = wptList.GetEdge(i);
                 Assert.AreEqual("SID1", edge.Value.Airway);
-                Assert.AreEqual(NeighborType.Terminal, edge.Value.Type);
+                Assert.AreEqual(InnerWaypointsType.Terminal, edge.Value.Type);
 
                 var expectedDis = distance + 
                     wpt102.Distance(wptList[edge.ToNodeIndex]);
@@ -154,7 +154,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                 .All(e =>
                     Enumerable.SequenceEqual(e.Value.InnerWaypoints, 
                     CreateList(wpt101, wpt102, wpt103)) &&
-                    e.Value.Type == NeighborType.Terminal));
+                    e.Value.Type == InnerWaypointsType.Terminal));
 
             double dis = CreateList(rwy, wpt101, wpt102, wpt103, wpt104)
                 .TotalDistance();
@@ -249,7 +249,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
             Assert.IsTrue(Enumerable.SequenceEqual(
                 edge.Value.InnerWaypoints,
                 CreateList(wpt01)));
-            Assert.AreEqual(NeighborType.Terminal, edge.Value.Type);
+            Assert.AreEqual(InnerWaypointsType.Terminal, edge.Value.Type);
 
             var dis = CreateList(rwy, wpt01, wptCoord).TotalDistance();
 

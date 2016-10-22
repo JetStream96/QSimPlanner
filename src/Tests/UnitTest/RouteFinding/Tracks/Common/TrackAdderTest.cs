@@ -53,7 +53,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
 
             Assert.IsTrue(Enumerable.SequenceEqual(neighbor.InnerWaypoints,
                 CreateList(p2)));
-            Assert.AreEqual(NeighborType.Track, neighbor.Type);
+            Assert.AreEqual(InnerWaypointsType.Track, neighbor.Type);
 
             var distance = p1.Distance(p2) + p2.Distance(p3);
             Assert.AreEqual(distance, neighbor.Distance);

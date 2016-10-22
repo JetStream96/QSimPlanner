@@ -201,89 +201,7 @@ namespace UnitTest.RouteFinding.Routes
 
             Assert.IsTrue(x.Equals(route.LastWaypoint));
         }
-
-        [Test]
-        public void AddLastRouteTest1()
-        {
-            var x = new Waypoint("X", 0.0, 0.0);
-            var y = new Waypoint("Y", 0.0, 1.0);
-
-            var route = new Route();
-            route.AddLastWaypoint(x);
-
-            route.AddLast(GetRoute1(), "0");
-
-            Assert.IsTrue(x.Equals(route.FirstWaypoint));
-            Assert.IsTrue("0" == route.First.Value.Neighbor.Airway);
-            Assert.AreEqual(
-                x.Distance(y),
-                route.First.Value.DistanceToNext,
-                1E-8);
-
-            Assert.IsTrue(y.Equals(route.First.Next.Value.Waypoint));
-        }
-
-        [Test]
-        public void AddLastRouteTest1EmptyRoute()
-        {
-            var y = new Waypoint("Y", 0.0, 1.0);
-            var z = new Waypoint("Z", 0.0, 3.0);
-
-            var route = new Route();
-
-            route.AddLast(GetRoute1(), "0");
-
-            Assert.IsTrue(y.Equals(route.FirstWaypoint));
-            Assert.IsTrue("1" == route.First.Value.Neighbor.Airway);
-            Assert.AreEqual(
-                y.Distance(z),
-                route.First.Value.DistanceToNext,
-                1E-8);
-
-            Assert.IsTrue(z.Equals(route.First.Next.Value.Waypoint));
-        }
-
-        [Test]
-        public void AddLastRouteTest2()
-        {
-            var x = new Waypoint("X", 0.0, 0.0);
-            var y = new Waypoint("Y", 0.0, 1.0);
-
-            var route = new Route();
-            route.AddLastWaypoint(x);
-
-            route.AddLast(GetRoute1(), "0", 100.0);
-
-            Assert.IsTrue(x.Equals(route.FirstWaypoint));
-            Assert.IsTrue("0" == route.First.Value.Neighbor.Airway);
-            Assert.AreEqual(
-                100.0,
-                route.First.Value.DistanceToNext,
-                1E-8);
-
-            Assert.IsTrue(y.Equals(route.First.Next.Value.Waypoint));
-        }
-
-        [Test]
-        public void AddLastRouteTest2EmptyRoute()
-        {
-            var y = new Waypoint("Y", 0.0, 1.0);
-            var z = new Waypoint("Z", 0.0, 3.0);
-
-            var route = new Route();
-
-            route.AddLast(GetRoute1(), "0", 100.0);
-
-            Assert.IsTrue(y.Equals(route.FirstWaypoint));
-            Assert.IsTrue("1" == route.First.Value.Neighbor.Airway);
-            Assert.AreEqual(
-                y.Distance(z),
-                route.First.Value.DistanceToNext,
-                1E-8);
-
-            Assert.IsTrue(z.Equals(route.First.Next.Value.Waypoint));
-        }
-
+        
         private Route GetRoute1()
         {
             var route = new Route();
@@ -311,7 +229,7 @@ namespace UnitTest.RouteFinding.Routes
 
             expected.AddLastWaypoint(z, "1");
 
-            Assert.IsTrue(Enumerable.SequenceEqual(expected, route));
+            Assert.IsTrue(expected.Equals(route));
         }
 
         [Test]
@@ -320,8 +238,7 @@ namespace UnitTest.RouteFinding.Routes
             var route = new Route();
             route.Connect(GetRoute1());
 
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                route, GetRoute1()));
+            Assert.IsTrue(route.Equals(GetRoute1()));
         }
 
         [Test]

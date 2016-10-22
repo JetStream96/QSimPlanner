@@ -151,7 +151,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
                 star, 
                 starWpts.TotalDistance(), 
                 starWpts.WithoutFirstAndLast(),
-                NeighborType.Terminal);
+                InnerWaypointsType.Terminal);
 
             editor.AddNeighbor(firstWptIndex, rwyIndex, neighbor);
         }

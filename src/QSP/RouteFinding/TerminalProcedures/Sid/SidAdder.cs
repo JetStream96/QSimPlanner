@@ -165,7 +165,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                     sid, 
                     distance,
                     sidWpts.Waypoints.WithoutFirstAndLast().ToList(),
-                    NeighborType.Terminal);
+                    InnerWaypointsType.Terminal);
 
                 editor.AddNeighbor(
                     rwyIndex,
@@ -185,7 +185,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                     sid, 
                     i.Distance + distance, 
                     wpts.Skip(1).ToList(),
-                    NeighborType.Terminal);
+                    InnerWaypointsType.Terminal);
 
                 editor.AddNeighbor(rwyIndex, i.Index, neighbor);
             }

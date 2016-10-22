@@ -6,22 +6,14 @@ namespace QSP.RouteFinding.Routes
 {
     public class RouteNode : IEquatable<RouteNode>
     {
-        public Waypoint Waypoint { get; private set; }
-        public Neighbor Neighbor { get; private set; }
+        public Waypoint Waypoint { get; set; }
+        public Neighbor Neighbor { get; set; }
 
         public string AirwayToNext
         {
             get
             {
                 return Neighbor.Airway;
-            }
-            set
-            {
-                Neighbor = new Neighbor(
-                    value, 
-                    Neighbor.Distance,
-                    Neighbor.InnerWaypoints,
-                    Neighbor.Type);
             }
         }
 
@@ -30,14 +22,6 @@ namespace QSP.RouteFinding.Routes
             get
             {
                 return Neighbor.Distance;
-            }
-            set
-            {
-                Neighbor = new Neighbor(
-                   Neighbor.Airway,
-                   value, 
-                   Neighbor.InnerWaypoints,
-                   Neighbor.Type);
             }
         }
         

@@ -53,8 +53,7 @@ namespace UnitTest.RouteFinding.Routes
 
             route.Nodes.InsertRoute(GetRoute2().Nodes, "A");
 
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                route, GetRoute1()));
+            Assert.IsTrue(route.Equals(GetRoute1()));
         }        
     }
 }

@@ -134,7 +134,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
                 .All(e =>
                     Enumerable.SequenceEqual(e.Value.InnerWaypoints,
                     CreateList(wpt102, wpt103, wpt104)) &&
-                    e.Value.Type == NeighborType.Terminal));
+                    e.Value.Type == InnerWaypointsType.Terminal));
 
             double dis = CreateList(wpt101, wpt102, wpt103, wpt104, rwy)
                .TotalDistance();
@@ -201,7 +201,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             Assert.IsTrue(Enumerable.SequenceEqual(
                 edge.Value.InnerWaypoints,
                 CreateList(wpt01)));
-            Assert.AreEqual(NeighborType.Terminal, edge.Value.Type);
+            Assert.AreEqual(InnerWaypointsType.Terminal, edge.Value.Type);
 
             double dis = CreateList(wptCorrds, wpt01, rwy).TotalDistance();
 

@@ -72,7 +72,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 nodes.AirwayIdent, 
                 rte.TotalDistance(), 
                 innerWpts,
-                NeighborType.Track);
+                InnerWaypointsType.Track);
 
             editor.AddNeighbor(indexStart, indexEnd, neighbor);
         }

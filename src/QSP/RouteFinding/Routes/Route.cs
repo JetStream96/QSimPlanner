@@ -53,6 +53,11 @@ namespace QSP.RouteFinding.Routes
             Nodes = new LinkedList<RouteNode>(item);
         }
 
+        public Route(IEnumerable<RouteNode> item)
+        {
+            Nodes = new LinkedList<RouteNode>(item);
+        }
+
         public double TotalDistance()
         {
             if (Nodes.Count == 0)
@@ -110,12 +115,10 @@ namespace QSP.RouteFinding.Routes
 
             if (last != null)  // Route is non-empty.
             {
-                last.Value.DistanceToNext = distanceFromPrev;
-                last.Value.AirwayToNext = viaAirway;
+                last.Value.Neighbor = new Neighbor(viaAirway, distanceFromPrev);
             }
 
-            Nodes.AddLast(new RouteNode(item,
-                new Neighbor(viaAirway, distanceFromPrev)));
+            Nodes.AddLast(new RouteNode(item, null));
         }
 
         public void AddLastWaypoint(Waypoint item, string viaAirway)
@@ -137,34 +140,7 @@ namespace QSP.RouteFinding.Routes
         {
             Nodes.AddLast(new RouteNode(item, new Neighbor("", 0.0)));
         }
-
-        /// <summary>
-        /// Append the given route at the end.
-        /// </summary>
-        public void AddLast(Route item, string airway)
-        {
-            double distance =
-                Last == null ?
-                0.0 :
-                LastWaypoint.Distance(item.FirstWaypoint);
-
-            AddLast(item, airway, distance);
-        }
-
-        /// <summary>
-        /// Append the given route at the end.
-        /// </summary>
-        public void AddLast(Route item, string airway, double distance)
-        {
-            if (Last != null)
-            {
-                Nodes.Last.Value.AirwayToNext = airway;
-                Nodes.Last.Value.DistanceToNext = distance;
-            }
-
-            Nodes.AddLast(item.Nodes);
-        }
-
+        
         /// <summary>
         /// Connect the given route at the end of the current one.
         /// The last waypoint of current route must be the same 

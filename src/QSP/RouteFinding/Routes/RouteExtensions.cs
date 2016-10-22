@@ -1,5 +1,6 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.RouteAnalyzers;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,12 +60,6 @@ namespace QSP.RouteFinding.Routes
                 yield return i.Waypoint;
                 foreach (var j in i.Neighbor.InnerWaypoints) yield return j;
             }
-        }
-        /*
-        public static Route ExpandTracks(this Route route)
-        {
-            route.
-            return new Route()
-        }*/
+        }        
     }
 }

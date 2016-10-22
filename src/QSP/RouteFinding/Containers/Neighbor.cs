@@ -19,14 +19,17 @@ namespace QSP.RouteFinding.Containers
         /// from A to D via B and C.
         /// </summary>
         public IReadOnlyList<Waypoint> InnerWaypoints { get; private set; }
-        public NeighborType Type { get; private set; }
+
+        // The type of InnerWaypoints, if it's not empty. Otherwise, it should
+        // be None.
+        public InnerWaypointsType Type { get; private set; }
 
         public Neighbor(string Airway, double Distance)
-            : this(Airway, Distance, EmptyInnerWaypoints, NeighborType.Enroute)
+            : this(Airway, Distance, EmptyInnerWaypoints, InnerWaypointsType.None)
         { }
 
         public Neighbor(string Airway, double Distance,
-            IReadOnlyList<Waypoint> InnerWaypoints, NeighborType Type)
+            IReadOnlyList<Waypoint> InnerWaypoints, InnerWaypointsType Type)
         {
             this.Airway = Airway;
             this.Distance = Distance;
@@ -35,10 +38,10 @@ namespace QSP.RouteFinding.Containers
         }
     }
 
-    public enum NeighborType
+    public enum InnerWaypointsType
     {
         Terminal,
         Track,
-        Enroute
+        None
     }
 }
