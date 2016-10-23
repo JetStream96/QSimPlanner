@@ -6,6 +6,7 @@ using QSP.RouteFinding.Routes;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace UnitTest.RouteFinding
 {
@@ -26,25 +27,22 @@ namespace UnitTest.RouteFinding
             }
 
             var route = new Route();
-            route.AddLastWaypoint((Waypoint)para.Last());
+            var nodes = route.Nodes;
+            nodes.AddLast(new RouteNode((Waypoint)para.Last(), null));
 
             for (int i = para.Length - 2; i >= 0; i -= 3)
             {
                 var dis = (double)para[i];
+                var wpt = (Waypoint)para[i - 2];
 
                 if (dis < 0.0)
-                {
-                    route.AddFirstWaypoint(
-                        (Waypoint)para[i - 2],
-                        (string)para[i - 1]);
+                {                    
+                    var prev = nodes.First.Value.Waypoint;
+                    dis = prev.Distance(wpt);
                 }
-                else
-                {
-                    route.AddFirstWaypoint(
-                        (Waypoint)para[i - 2],
-                        (string)para[i - 1],
-                        dis);
-                }
+
+                var n = new Neighbor((string)para[i - 1], dis);
+                nodes.AddFirst(new RouteNode(wpt, n));
             }
 
             return route;

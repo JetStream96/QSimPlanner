@@ -127,7 +127,8 @@ namespace QSP.RouteFinding
 
                 if (to == endPtIndex)
                 {
-                    route.AddFirstWaypoint(wptList[to], "");
+                    var node = new RouteNode(wptList[to], null);
+                    route.Nodes.AddFirst(node);
                 }
 
                 var n = new RouteNode(wptFrom, neighbor);
