@@ -52,56 +52,67 @@
             this.statusLbl.TabIndex = 0;
             this.statusLbl.Text = "Status : ";
             // 
-            // downlaodBtn
+            // downloadBtn
             // 
+            this.downloadBtn.AutoSize = true;
+            this.downloadBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.downloadBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.downloadBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.downloadBtn.Cursor = System.Windows.Forms.Cursors.Default;
             this.downloadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.downloadBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.downloadBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.downloadBtn.Location = new System.Drawing.Point(0, 50);
-            this.downloadBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.downloadBtn.Name = "downlaodBtn";
-            this.downloadBtn.Size = new System.Drawing.Size(200, 32);
+            this.downloadBtn.Location = new System.Drawing.Point(5, 46);
+            this.downloadBtn.Margin = new System.Windows.Forms.Padding(5);
+            this.downloadBtn.MinimumSize = new System.Drawing.Size(200, 0);
+            this.downloadBtn.Name = "downloadBtn";
+            this.downloadBtn.Size = new System.Drawing.Size(200, 35);
             this.downloadBtn.TabIndex = 26;
             this.downloadBtn.Text = "Download / Refresh";
             this.downloadBtn.UseVisualStyleBackColor = false;
             // 
             // saveFileBtn
             // 
+            this.saveFileBtn.AutoSize = true;
+            this.saveFileBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.saveFileBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.saveFileBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.saveFileBtn.Cursor = System.Windows.Forms.Cursors.Default;
             this.saveFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveFileBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveFileBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.saveFileBtn.Location = new System.Drawing.Point(0, 120);
-            this.saveFileBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.saveFileBtn.Location = new System.Drawing.Point(5, 136);
+            this.saveFileBtn.Margin = new System.Windows.Forms.Padding(5);
+            this.saveFileBtn.MinimumSize = new System.Drawing.Size(200, 0);
             this.saveFileBtn.Name = "saveFileBtn";
-            this.saveFileBtn.Size = new System.Drawing.Size(200, 32);
+            this.saveFileBtn.Size = new System.Drawing.Size(200, 35);
             this.saveFileBtn.TabIndex = 27;
             this.saveFileBtn.Text = "Save wind data";
             this.saveFileBtn.UseVisualStyleBackColor = false;
             // 
             // loadFileBtn
             // 
+            this.loadFileBtn.AutoSize = true;
+            this.loadFileBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.loadFileBtn.BackColor = System.Drawing.Color.DarkSlateGray;
             this.loadFileBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.loadFileBtn.Cursor = System.Windows.Forms.Cursors.Default;
             this.loadFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadFileBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loadFileBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.loadFileBtn.Location = new System.Drawing.Point(0, 85);
-            this.loadFileBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.loadFileBtn.Location = new System.Drawing.Point(5, 91);
+            this.loadFileBtn.Margin = new System.Windows.Forms.Padding(5);
+            this.loadFileBtn.MinimumSize = new System.Drawing.Size(200, 0);
             this.loadFileBtn.Name = "loadFileBtn";
-            this.loadFileBtn.Size = new System.Drawing.Size(200, 32);
+            this.loadFileBtn.Size = new System.Drawing.Size(200, 35);
             this.loadFileBtn.TabIndex = 28;
             this.loadFileBtn.Text = "Load wind data";
             this.loadFileBtn.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
@@ -109,15 +120,15 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.loadFileBtn, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.saveFileBtn, 0, 4);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(50, 33);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(31, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(493, 160);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(458, 176);
             this.tableLayoutPanel1.TabIndex = 29;
             // 
             // tableLayoutPanel2
@@ -151,7 +162,7 @@
             // label1
             // 
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point(3, 40);
+            this.label1.Location = new System.Drawing.Point(3, 34);
             this.label1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(452, 2);
@@ -162,7 +173,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(561, 212);
+            this.ClientSize = new System.Drawing.Size(564, 223);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
@@ -178,6 +189,7 @@
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusPicBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
