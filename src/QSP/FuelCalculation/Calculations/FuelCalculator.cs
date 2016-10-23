@@ -6,16 +6,19 @@ using QSP.FuelCalculation.Results;
 
 namespace QSP.FuelCalculation.Calculations
 {
+    /// <summary>
+    /// Computes the actual fuel burn for the route.
+    /// </summary>
     public class FuelCalculator
     {
         private IWindTableCollection windTable;
         private Route route;
-        private FuelDataItem fuelData;
+        private FuelDataNew.FuelDataItem fuelData;
 
         public FuelCalculator(
             IWindTableCollection windTable,
             Route route,
-            FuelDataItem fuelData)
+            FuelDataNew.FuelDataItem fuelData)
         {
             if (route.Count < 2) throw new ArgumentException();
             this.windTable = windTable;
