@@ -19,12 +19,8 @@ namespace QSP.Common.Options
         public bool HideDctInRoute { get; private set; }
         public bool ShowTrackIdOnly { get; private set; }
         public bool AutoUpdate { get; private set; }
-        private Dictionary<string, ExportCommand> _exportCommands;
-
         public IReadOnlyDictionary<string, ExportCommand> ExportCommands
-        {
-            get { return _exportCommands; }
-        }
+        { get; private set; }
 
         public AppOptions(
             string NavDataLocation,
@@ -35,7 +31,7 @@ namespace QSP.Common.Options
             bool HideDctInRoute,
             bool ShowTrackIdOnly,
             bool AutoUpdate,
-            Dictionary<string, ExportCommand> ExportCommands)
+            IReadOnlyDictionary<string, ExportCommand> ExportCommands)
         {
             this.NavDataLocation = NavDataLocation;
             this.PromptBeforeExit = PromptBeforeExit;
@@ -45,7 +41,7 @@ namespace QSP.Common.Options
             this.HideDctInRoute = HideDctInRoute;
             this.ShowTrackIdOnly = ShowTrackIdOnly;
             this.AutoUpdate = AutoUpdate;
-            this._exportCommands = ExportCommands;
+            this.ExportCommands = ExportCommands;
         }
 
         public static AppOptions Default
@@ -64,12 +60,12 @@ namespace QSP.Common.Options
                     new Dictionary<string, ExportCommand>());
             }
         }
-        
+
         public class Serializer : IXSerializer<AppOptions>
         {
             public XElement Serialize(AppOptions a, string name)
             {
-                var elem = a._exportCommands.Select(kv =>
+                var elem = a.ExportCommands.Select(kv =>
                     new XElement("KeyValuePair",
                         kv.Key.Serialize("Key"),
                         kv.Value.Serialize("Value")));
@@ -95,22 +91,22 @@ namespace QSP.Common.Options
 
                 Action[] actions =
                 {
-                () => d.NavDataLocation = item.GetString("DatabasePath"),
-                () => d.PromptBeforeExit = item.GetBool("PromptBeforeExit"),
-                () => d.AutoDLTracks = item.GetBool("AutoDLTracks"),
-                () => d.AutoDLWind = item.GetBool("AutoDLWind"),
-                () => d.EnableWindOptimizedRoute =
-                        item.GetBool("WindOptimizedRoute"),
-                () => d.HideDctInRoute = item.GetBool("HideDctInRoute"),
-                () => d.ShowTrackIdOnly = item.GetBool("ShowTrackIdOnly"),
-                () => d.AutoUpdate = item.GetBool("AutoUpdate"),
-                () => d._exportCommands =
-                    item.Element("ExportOptions")
-                        .Elements("KeyValuePair")
-                        .ToDictionary(
-                            e => e.GetString("Key"),
-                            e => ExportCommand.Deserialize(e.Element("Value")))
-            };
+                    () => d.NavDataLocation = item.GetString("DatabasePath"),
+                    () => d.PromptBeforeExit = item.GetBool("PromptBeforeExit"),
+                    () => d.AutoDLTracks = item.GetBool("AutoDLTracks"),
+                    () => d.AutoDLWind = item.GetBool("AutoDLWind"),
+                    () => d.EnableWindOptimizedRoute =
+                            item.GetBool("WindOptimizedRoute"),
+                    () => d.HideDctInRoute = item.GetBool("HideDctInRoute"),
+                    () => d.ShowTrackIdOnly = item.GetBool("ShowTrackIdOnly"),
+                    () => d.AutoUpdate = item.GetBool("AutoUpdate"),
+                    () => d.ExportCommands =
+                        item.Element("ExportOptions")
+                            .Elements("KeyValuePair")
+                            .ToDictionary(
+                                e => e.GetString("Key"),
+                                e => ExportCommand.Deserialize(e.Element("Value")))
+                };
 
                 foreach (var a in actions)
                 {

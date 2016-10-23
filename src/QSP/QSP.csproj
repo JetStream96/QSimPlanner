@@ -207,6 +207,7 @@
     <Compile Include="UI\Forms\WindDataForm.Designer.cs">
       <DependentUpon>WindDataForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\WindowSize.cs" />
     <Compile Include="UI\RoutePlanning\AvoidCountrySelection.cs">
       <SubType>UserControl</SubType>
     </Compile>

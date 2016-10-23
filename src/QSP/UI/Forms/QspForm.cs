@@ -27,6 +27,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static QSP.UI.Controllers.ButtonGroup.BtnGroupController;
 using static QSP.UI.Controllers.ButtonGroup.ControlSwitcher;
 using static QSP.UI.Factories.ToolTipFactory;
@@ -249,6 +250,7 @@ namespace QSP.UI.Forms
 
         private void InitControls()
         {
+            LoadSavedState();
             CheckRegistry();
             SubscribeEvents();
 
@@ -540,6 +542,7 @@ namespace QSP.UI.Forms
             toMenu.TrySaveState();
             ldgMenu.TrySaveState();
             fuelMenu.SaveStateToFile();
+            SaveStateToFile();
         }
 
         private void windDataStatusLabel_Click(object sender, EventArgs e)
@@ -578,6 +581,50 @@ namespace QSP.UI.Forms
         {
             optionsBtn.ForeColor = Color.White;
             optionsBtn.BackColor = Color.Black;
+        }
+
+        private void LoadSavedState()
+        {
+            try
+            {
+                var serializer = new WindowSize.Serializer();
+                var text = XDocument.Load(WindowSize.FileLocation);
+                var state = serializer.Deserialize(text.Root);
+
+                if (state.Maximized)
+                {
+                    WindowState = FormWindowState.Maximized;
+                }
+                else
+                {
+                    WindowState = FormWindowState.Normal;
+                    Width = state.WindowWidth;
+                    Height = state.WindowHeight;
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteToLog(ex);
+            }
+        }
+
+        public void SaveStateToFile()
+        {
+            try
+            {
+                var serializer = new WindowSize.Serializer();
+                var state = new WindowSize(
+                    WindowState == FormWindowState.Maximized,
+                    Width,
+                    Height);
+
+                var doc = new XDocument(serializer.Serialize(state, "root"));
+                File.WriteAllText(WindowSize.FileLocation, doc.ToString());
+            }
+            catch (Exception ex)
+            {
+                WriteToLog(ex);
+            }
         }
 
         // TODO: Some ideas for future:
