@@ -76,7 +76,30 @@ namespace QSP.RouteFinding.Routes
 
             return dis;
         }
-        
+
+        /// <summary>
+        /// Add the specified waypoint as the first in the route. 
+        /// This waypoint is connected to the next one by the 
+        /// airway specified, with the given distance.       
+        /// </summary>
+        public void AddFirstWaypoint(
+            Waypoint item, string viaAirway, double distanceToNext)
+        {
+            var node = new RouteNode(item,
+                new Neighbor(viaAirway, distanceToNext));
+            Nodes.AddFirst(node);
+        }
+
+        public void AddFirstWaypoint(Waypoint item, string viaAirway)
+        {
+            var first = Nodes.First;
+
+            double distance = first == null ? 0.0 :
+                item.Distance(first.Value.Waypoint);
+
+            AddFirstWaypoint(item, viaAirway, distance);
+        }
+
         /// <summary>
         /// Append the specified waypoint to the end of the route. 
         /// This waypoint is connected from the previous one by the 
@@ -101,10 +124,8 @@ namespace QSP.RouteFinding.Routes
         {
             var last = Nodes.Last;
 
-            double distance =
-               Last == null ?
-               0.0 :
-               item.Distance(last.Value.Waypoint);
+            double distance = Last == null ? 0.0 : 
+                item.Distance(last.Value.Waypoint);
 
             AddLastWaypoint(item, viaAirway, distance);
         }
