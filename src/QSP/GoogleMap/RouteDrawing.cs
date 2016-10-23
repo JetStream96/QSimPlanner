@@ -144,11 +144,13 @@ var myTrip=[");
 
             foreach (var i in route)
             {
-                if (last == null) continue;
-                dis += last.Distance(i);
-                last = i;
+                if (last != null)
+                {
+                    dis += last.Distance(i);
+                    if (dis * 2.0 >= totalDis) return i;
+                }
 
-                if (dis * 2.0 >= totalDis) return i;
+                last = i;
             }
 
             return last;

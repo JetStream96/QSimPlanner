@@ -58,6 +58,7 @@ namespace QSP.RouteFinding.Routes
             foreach (var i in r)
             {
                 yield return i.Waypoint;
+                if (i == r.Last.Value) break;
                 foreach (var j in i.Neighbor.InnerWaypoints) yield return j;
             }
         }        
