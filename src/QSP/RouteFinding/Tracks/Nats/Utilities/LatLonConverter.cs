@@ -1,5 +1,6 @@
 ﻿using QSP.AviationTools.Coordinates;
 using System;
+using System.Text.RegularExpressions;
 using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding.Tracks.Nats.Utilities
@@ -12,30 +13,23 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
         /// </summary>        
         public static LatLon ConvertNatsCoordinate(string s)
         {
-            int x = s.IndexOf('/');
-            Ensure<ArgumentException>(x >= 0);
-            
-            double Lat = double.Parse(s.Substring(0, 2));
-            double Lon = double.Parse(s.Substring(x + 1, 2));
+            var pattern = @"^([\d\.]+)/([\d\.]+)$";
+            var match = Regex.Match(s, pattern);
+            double lat = GetNumber(match.Groups[1].Value);
+            double lon = -GetNumber(match.Groups[2].Value);
 
-            if (x > 2)
-            {
-                double addLat = double.Parse(s.Substring(2, x - 2));
-                Ensure<ArgumentException>(0.0 <= addLat && addLat <= 60.0);
-                Lat += addLat / 60;
-            }
+            Ensure<ArgumentException>(0.0 <= lat && lat <= 90.0);
+            Ensure<ArgumentException>(-180.0 <= lon && lon <= 0.0);
 
-            if (s.Length - x - 1 > 2)
-            {
-                double addLon = double.Parse(s.Substring(x + 3));
-                Ensure<ArgumentException>(0.0 <= addLon && addLon <= 60.0);
-                Lon += addLon / 60;
-            }
+            return new LatLon(lat, lon);
+        }
 
-            Ensure<ArgumentException>(0.0 <= Lat && Lat <= 90.0);
-            Ensure<ArgumentException>(0.0 <= Lon && Lon <= 180.0);
+        private static double GetNumber(string s)
+        {
+            if (s.Length == 2) return int.Parse(s);
 
-            return new LatLon(Lat, -Lon);
+            return int.Parse(s.Substring(0, 2)) +
+                double.Parse(s.Substring(2)) / 60.0;
         }
 
         public static bool TryConvertNatsCoordinate(string s, out LatLon result)
