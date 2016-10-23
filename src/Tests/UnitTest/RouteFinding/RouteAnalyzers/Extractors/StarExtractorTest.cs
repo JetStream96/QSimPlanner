@@ -6,9 +6,7 @@ using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
-using System.Collections.Generic;
 using System.Linq;
-using static UnitTest.RouteFinding.Common;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 {

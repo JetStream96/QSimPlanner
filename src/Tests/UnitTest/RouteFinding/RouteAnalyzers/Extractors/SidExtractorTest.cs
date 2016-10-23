@@ -5,9 +5,7 @@ using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
-using System.Collections.Generic;
 using System.Linq;
-using static QSP.MathTools.GCDis;
 using static QSP.LibraryExtension.Lists;
 using QSP.RouteFinding.Routes;
 

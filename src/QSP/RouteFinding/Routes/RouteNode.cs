@@ -1,5 +1,4 @@
 ﻿using QSP.RouteFinding.Containers;
-using QSP.RouteFinding.Data.Interfaces;
 using System;
 
 namespace QSP.RouteFinding.Routes

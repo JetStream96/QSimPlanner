@@ -124,7 +124,7 @@ namespace QSP.RouteFinding.Routes
         {
             var last = Nodes.Last;
 
-            double distance = Last == null ? 0.0 : 
+            double distance = Last == null ? 0.0 :
                 item.Distance(last.Value.Waypoint);
 
             AddLastWaypoint(item, viaAirway, distance);
@@ -137,7 +137,7 @@ namespace QSP.RouteFinding.Routes
         {
             Nodes.AddLast(new RouteNode(item, null));
         }
-        
+
         /// <summary>
         /// Connect the given route at the end of the current one.
         /// The last waypoint of current route must be the same 

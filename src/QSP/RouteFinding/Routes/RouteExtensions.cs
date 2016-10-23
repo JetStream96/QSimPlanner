@@ -1,6 +1,5 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers;
-using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.RouteAnalyzers;
 using System.Collections.Generic;
 using System.Linq;
