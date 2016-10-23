@@ -42,7 +42,7 @@ namespace UnitTest.RouteFinding.Routes
                 new string[] { "1", "2", "4", "3" }));
 
             Assert.IsTrue(Enumerable.SequenceEqual(
-                route.Nodes.Select(n => n.AirwayToNext).Take(3),
+                route.Nodes.Select(n => n.Neighbor.Airway).Take(3),
                 new string[] { "A", "C", "D" }));
         }
 

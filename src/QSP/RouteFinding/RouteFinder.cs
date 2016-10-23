@@ -130,17 +130,8 @@ namespace QSP.RouteFinding
                     route.AddFirstWaypoint(wptList[to], "");
                 }
 
-                if (neighbor.InnerWaypoints.Count == 0)
-                {
-                    // Auto-compute distance when added into route.
-                    route.AddFirstWaypoint(wptFrom, airway);
-                }
-                else
-                {
-                    // Use the distance of the edge because there are inner
-                    // waypoints.
-                    route.AddFirstWaypoint(wptFrom, airway, neighbor.Distance);
-                }
+                var n = new RouteNode(wptFrom, neighbor);
+                route.Nodes.AddFirst(n);
 
                 if (from == startPtIndex) return route;
                 edge = wptData[from].FromEdge;

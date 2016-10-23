@@ -29,7 +29,7 @@ namespace QSP.RouteFinding.Routes
             var matches = items.FindAll((n) =>
             {
                 return n.Value.Waypoint.Equals(route.First.Value.Waypoint) &&
-                n.Value.AirwayToNext == airway &&
+                n.Value.Neighbor.Airway == airway &&
                 n.Next != null &&
                 n.Next.Value.Waypoint.Equals(route.Last.Value.Waypoint);
             });

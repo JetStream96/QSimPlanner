@@ -6,24 +6,8 @@ namespace QSP.RouteFinding.Routes
 {
     public class RouteNode : IEquatable<RouteNode>
     {
-        public Waypoint Waypoint { get; set; }
-        public Neighbor Neighbor { get; set; }
-
-        public string AirwayToNext
-        {
-            get
-            {
-                return Neighbor.Airway;
-            }
-        }
-
-        public double DistanceToNext
-        {
-            get
-            {
-                return Neighbor.Distance;
-            }
-        }
+        public Waypoint Waypoint { get; private set; }
+        public Neighbor Neighbor { get; private set; }
         
         public RouteNode(Waypoint Waypoint, Neighbor Neighbor)
         {
@@ -36,15 +20,13 @@ namespace QSP.RouteFinding.Routes
             return
                 other != null &&
                 Waypoint.Equals(other.Waypoint) &&
-                AirwayToNext == other.AirwayToNext &&
-                Math.Abs(DistanceToNext - other.DistanceToNext) < 1E-3;
+                Neighbor.Equals(other.Neighbor);
         }
 
         public override int GetHashCode()
         {
             return Waypoint.GetHashCode() ^
-                AirwayToNext.GetHashCode() ^
-                DistanceToNext.GetHashCode();
+                Neighbor.GetHashCode();
         }
     }
 }

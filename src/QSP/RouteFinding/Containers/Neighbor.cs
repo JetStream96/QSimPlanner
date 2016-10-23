@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System;
+using System.Linq;
+using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.Containers
 {
@@ -35,6 +38,23 @@ namespace QSP.RouteFinding.Containers
             this.Distance = Distance;
             this.InnerWaypoints = InnerWaypoints;
             this.Type = Type;
+        }
+
+        public bool Equals(Neighbor other)
+        {
+            return other != null &&
+                Airway == other.Airway &&
+                Distance == other.Distance &&
+                Type == other.Type &&
+                Enumerable.SequenceEqual(InnerWaypoints, other.InnerWaypoints);
+        }
+
+        public override int GetHashCode()
+        {
+            return Airway.GetHashCode() ^
+                Distance.GetHashCode() ^
+                Type.GetHashCode() ^
+                InnerWaypoints.HashCodeByElem();
         }
     }
 

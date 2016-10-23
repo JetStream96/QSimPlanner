@@ -38,5 +38,18 @@ namespace QSP.LibraryExtension
         {
             return source.Concat(new T[] { x });
         }
+
+        public static int HashCodeByElem<T>(this IEnumerable<T> item)
+        {
+            int hash = 19;
+
+            foreach (var i in item)
+            {
+                hash *= 31;
+                hash += i == null ? 0 : i.GetHashCode();
+            }
+
+            return hash;
+        }
     }
 }

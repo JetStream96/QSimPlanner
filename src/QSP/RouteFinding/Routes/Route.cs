@@ -70,7 +70,7 @@ namespace QSP.RouteFinding.Routes
 
             while (node != Last)
             {
-                dis += node.Value.DistanceToNext;
+                dis += node.Value.Neighbor.Distance;
                 node = node.Next;
             }
 
@@ -115,7 +115,8 @@ namespace QSP.RouteFinding.Routes
 
             if (last != null)  // Route is non-empty.
             {
-                last.Value.Neighbor = new Neighbor(viaAirway, distanceFromPrev);
+                var n = new Neighbor(viaAirway, distanceFromPrev);
+                last.Value = new RouteNode(last.Value.Waypoint, n);
             }
 
             Nodes.AddLast(new RouteNode(item, null));
@@ -187,20 +188,20 @@ namespace QSP.RouteFinding.Routes
 
             while (node.Next != last)
             {
-                if (node.Value.AirwayToNext == "DCT")
+                if (node.Value.Neighbor.Airway == "DCT")
                 {
                     if (ShowDct)
                     {
-                        result.Append(node.Value.AirwayToNext + ' ');
+                        result.Append(node.Value.Neighbor.Airway + ' ');
                     }
 
                     node = node.Next;
                     result.Append(node.Value.Waypoint.ID + ' ');
                 }
-                else if (node.Value.AirwayToNext !=
-                    node.Next.Value.AirwayToNext)
+                else if (node.Value.Neighbor.Airway !=
+                    node.Next.Value.Neighbor.Airway)
                 {
-                    result.Append(node.Value.AirwayToNext + ' ');
+                    result.Append(node.Value.Neighbor.Airway + ' ');
                     node = node.Next;
                     result.Append(node.Value.Waypoint.ID + ' ');
                 }
@@ -210,9 +211,9 @@ namespace QSP.RouteFinding.Routes
                 }
             }
 
-            if (node.Value.AirwayToNext != "DCT" || ShowDct)
+            if (node.Value.Neighbor.Airway != "DCT" || ShowDct)
             {
-                result.Append(node.Value.AirwayToNext + ' ');
+                result.Append(node.Value.Neighbor.Airway + ' ');
             }
 
             return result.ToString();

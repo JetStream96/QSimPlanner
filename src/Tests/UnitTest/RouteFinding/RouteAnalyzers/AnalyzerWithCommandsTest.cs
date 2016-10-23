@@ -77,11 +77,30 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
         private void CheckRoute1(Route route)
         {
-            var expected = GetRoute(
-                new Waypoint("ABCD05L", 25.0, 121.0), "SID1", -1.0,
-                new Waypoint("P1", 24.0, 120.0), "A1", -1.0,
-                new Waypoint("Q1", 23.0, 114.0), "STAR1", -1.0,
-                new Waypoint("EFGH07L", 22.0, 113.0));
+            var w1 = new Waypoint("ABCD05L", 25.0, 121.0);
+            var w2 = new Waypoint("P1", 24.0, 120.0);
+            var w3 = new Waypoint("Q1", 23.0, 114.0);
+            var w4 = new Waypoint("EFGH07L", 22.0, 113.0);
+
+            var n1 = new Neighbor(
+                "SID1", 
+                w1.Distance(w2),
+                new Waypoint[] { }, 
+                InnerWaypointsType.Terminal);
+
+            var n2 = new Neighbor("A1", w2.Distance(w3));
+
+            var n3 = new Neighbor(
+                "STAR1",
+                w3.Distance(w4),
+                new Waypoint[] { },
+                InnerWaypointsType.Terminal);
+
+            var expected = new Route(
+                new RouteNode(w1, n1),
+                new RouteNode(w2, n2),
+                new RouteNode(w3, n3),
+                new RouteNode(w4, null));
 
             Assert.IsTrue(route.Equals(expected));
         }

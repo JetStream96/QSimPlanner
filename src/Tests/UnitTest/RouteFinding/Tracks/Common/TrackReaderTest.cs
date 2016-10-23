@@ -50,8 +50,8 @@ namespace UnitTest.RouteFinding.Tracks.Common
             var n = route.First.Value;
 
             Assert.IsTrue(n.Waypoint.Equals(p1));
-            Assert.IsTrue(n.AirwayToNext == "DCT" && 
-                n.DistanceToNext == p1.Distance(p2));
+            Assert.IsTrue(n.Neighbor.Airway == "DCT" && 
+                n.Neighbor.Distance == p1.Distance(p2));
             Assert.IsTrue(route.LastWaypoint.Equals(p2));
         }
 

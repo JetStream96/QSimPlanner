@@ -62,7 +62,7 @@ namespace UnitTest.RouteFinding.Routes
 
             Assert.IsTrue(x.Equals(route.FirstWaypoint));
             Assert.IsTrue("0" == route.First.Value.Neighbor.Airway);
-            Assert.AreEqual(100.0, route.First.Value.DistanceToNext, 1E-8);
+            Assert.AreEqual(100.0, route.First.Value.Neighbor.Distance, 1E-8);
             Assert.IsTrue(y.Equals(route.First.Next.Value.Waypoint));
         }
 
@@ -76,7 +76,7 @@ namespace UnitTest.RouteFinding.Routes
 
             Assert.IsTrue(x.Equals(route.FirstWaypoint));
             Assert.IsTrue("0" == route.First.Value.Neighbor.Airway);
-            Assert.AreEqual(100.0, route.First.Value.DistanceToNext, 1E-8);
+            Assert.AreEqual(100.0, route.First.Value.Neighbor.Distance, 1E-8);
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace UnitTest.RouteFinding.Routes
             Assert.IsTrue(x.Equals(route.FirstWaypoint));
             Assert.IsTrue("0" == route.First.Value.Neighbor.Airway);
             Assert.AreEqual(
-                x.Distance(y), route.First.Value.DistanceToNext, 1E-8);
+                x.Distance(y), route.First.Value.Neighbor.Distance, 1E-8);
             Assert.IsTrue(y.Equals(route.First.Next.Value.Waypoint));
         }
 
@@ -121,9 +121,9 @@ namespace UnitTest.RouteFinding.Routes
             route.AddLastWaypoint(y, "0", 100.0);
 
             Assert.IsTrue(y.Equals(route.LastWaypoint));
-            Assert.IsTrue("0" == route.Last.Previous.Value.AirwayToNext);
+            Assert.IsTrue("0" == route.Last.Previous.Value.Neighbor.Airway);
             Assert.AreEqual(
-                100.0, route.Last.Previous.Value.DistanceToNext, 1E-8);
+                100.0, route.Last.Previous.Value.Neighbor.Distance, 1E-8);
             Assert.IsTrue(x.Equals(route.Last.Previous.Value.Waypoint));
         }
 
@@ -150,10 +150,10 @@ namespace UnitTest.RouteFinding.Routes
             route.AddLastWaypoint(y, "0");
 
             Assert.IsTrue(y.Equals(route.LastWaypoint));
-            Assert.IsTrue("0" == route.Last.Previous.Value.AirwayToNext);
+            Assert.IsTrue("0" == route.Last.Previous.Value.Neighbor.Airway);
             Assert.AreEqual(
                 x.Distance(y),
-                route.Last.Previous.Value.DistanceToNext,
+                route.Last.Previous.Value.Neighbor.Distance,
                 1E-8);
 
             Assert.IsTrue(x.Equals(route.Last.Previous.Value.Waypoint));
@@ -182,10 +182,10 @@ namespace UnitTest.RouteFinding.Routes
             route.AddLastWaypoint(y);
 
             Assert.IsTrue(y.Equals(route.LastWaypoint));
-            Assert.IsTrue("0" == route.Last.Previous.Value.AirwayToNext);
+            Assert.IsTrue("0" == route.Last.Previous.Value.Neighbor.Airway);
             Assert.AreEqual(
                 100.0,
-                route.Last.Previous.Value.DistanceToNext,
+                route.Last.Previous.Value.Neighbor.Distance,
                 1E-8);
 
             Assert.IsTrue(x.Equals(route.Last.Previous.Value.Waypoint));
