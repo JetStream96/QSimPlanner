@@ -139,7 +139,7 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public void AddLastWaypoint(Waypoint item)
         {
-            Nodes.AddLast(new RouteNode(item, new Neighbor("", 0.0)));
+            Nodes.AddLast(new RouteNode(item, null));
         }
         
         /// <summary>
