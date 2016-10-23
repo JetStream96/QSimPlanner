@@ -58,7 +58,7 @@ namespace QSP.FuelCalculation.FuelDataNew
             public FuelDataItem Deserialize(XElement elem)
             {
                 var deserializer = new DataPoint.Serializer();
-                var pts = elem.Elements(DataPoint);
+                var pts = elem.Elements(DataPoint).ToList();
 
                 return new FuelDataItem(
                     elem.GetDouble(HoldingFuelPerMinuteKg),
@@ -69,8 +69,8 @@ namespace QSP.FuelCalculation.FuelDataNew
                     elem.GetDouble(ClimbKias),
                     elem.GetDouble(DescendKias),
                     elem.GetDouble(CruiseMach),
-                    deserializer.Deserialize(pts.ElementAt(0)),
-                    deserializer.Deserialize(pts.ElementAt(1)));
+                    deserializer.Deserialize(pts[0]),
+                    deserializer.Deserialize(pts[1]));
             }
             
             public XElement Serialize(FuelDataItem item, string name)

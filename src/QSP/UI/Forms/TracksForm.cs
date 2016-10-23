@@ -295,40 +295,34 @@ namespace QSP.UI.Forms
         private async void BtnNatsDn_Click(object sender, EventArgs e)
         {
             BtnNatsDn.Enabled = false;
-            BtnNatsDn.Text = "Downloading";
 
             await airwayNetwork.DownloadNats();
             airwayNetwork.NatsEnabled = NatsEnabled;
             RefreshViewTrackBtns();
 
             BtnNatsDn.Enabled = true;
-            BtnNatsDn.Text = "Download";
         }
 
         private async void BtnPacotsDn_Click(object sender, EventArgs e)
         {
             BtnPacotsDn.Enabled = false;
-            BtnPacotsDn.Text = "Downloading";
 
             await airwayNetwork.DownloadPacots();
             airwayNetwork.PacotsEnabled = PacotsEnabled;
             RefreshViewTrackBtns();
 
             BtnPacotsDn.Enabled = true;
-            BtnPacotsDn.Text = "Download";
         }
 
         private async void BtnAusotsDn_Click(object sender, EventArgs e)
         {
             BtnAusotsDn.Enabled = false;
-            BtnAusotsDn.Text = "Downloading";
 
             await airwayNetwork.DownloadAusots();
             airwayNetwork.AusotsEnabled = AusotsEnabled;
             RefreshViewTrackBtns();
 
             BtnAusotsDn.Enabled = true;
-            BtnAusotsDn.Text = "Download";
         }
 
         private bool NatsEnabled
