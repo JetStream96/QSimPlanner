@@ -104,6 +104,7 @@
     <Compile Include="AviationTools\RwyIdentConversion.cs" />
     <Compile Include="AviationTools\SpeedConversion.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
+    <Compile Include="FuelCalculation\Calculations\CrzAltProvider.cs" />
     <Compile Include="FuelCalculation\Calculations\FuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculators\AlternateFuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculators\CalculationResult.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="FuelCalculation\FuelDataItem.cs" />
     <Compile Include="FuelCalculation\FuelDataLoader.cs" />
     <Compile Include="FuelCalculation\Results\FuelReport.cs" />
+    <Compile Include="FuelCalculation\Results\PlanNode.cs" />
     <Compile Include="FuelCalculation\Tables\FlightTimeTable.cs" />
     <Compile Include="FuelCalculation\FuelParameters.cs" />
     <Compile Include="FuelCalculation\Tables\FuelTable.cs" />

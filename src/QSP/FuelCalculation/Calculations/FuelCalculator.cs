@@ -31,7 +31,7 @@ namespace QSP.FuelCalculation.Calculations
             double landingFuelKg,
             double maxAltFt)
         {
-            var waypoints = new List<DetailedPlan.Node>();
+            var waypoints = new List<PlanNode>();
 
             var node = route.Last;
             //waypoints.Add(new DetailedPlan.Node(node, RouteFinding.Containers.AirwayType.))
