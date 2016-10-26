@@ -13,6 +13,8 @@ using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Doubles;
 using QSP.MathTools;
 using QSP.MathTools.Vectors;
+using QSP.LibraryExtension;
+using QSP.RouteFinding.Containers;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -53,32 +55,37 @@ namespace QSP.FuelCalculation.Calculations
         {
             // We compute the flight backwards - from destination to origin.
 
-            // Initialize variables.
             var waypoints = new List<PlanNode>();
 
-            var node = route.Last;
-            var wpt = node.Value.Waypoint;
-            var nextWpt = node.Next.Value.Waypoint;
-            ICoordinate nextPt;
-            double grossWtKg = zfwKg + landingFuelKg;
-            double timeRemainMin = 0.0;
-            var destIcao = wpt.ID.Substring(0, 4).ToUpper();
-            double altFt = airportList[destIcao].Elevation;
-            double fuelOnBoardKg = landingFuelKg;
-            double optCrzAltFt, atcAllowedAltFt, targetAltFt, fuelFlowPerMinKg,
+            // Declare variables.
+            LinkedListNode<RouteNode> node;
+            Waypoint nextWpt;
+            ICoordinate lastPt, currentPt;
+            double grossWtKg, timeRemainMin, altFt, fuelOnBoardKg, optCrzAltFt,
+                atcAllowedAltFt, targetAltFt, fuelFlowPerMinKg,
                 descentGrad, timeToCrzAltMin, timeToNextWptMin, stepTimeMin,
-                descentRateFtPerMin, stepDisNm;
-            double kias = fuelData.DescendKias;
-            double ktas = Ktas(kias, altFt);
+                descentRateFtPerMin, stepDisNm, timeToCrzOrDelta, kias, ktas;
             bool isDescending;
-            var lastPlanNode = new PlanNode(node.Value, timeRemainMin,
+            PlanNode lastPlanNode;
+
+            // Initialize variables.           
+            node = route.Last;
+            nextWpt = node.Next.Value.Waypoint;
+            grossWtKg = zfwKg + landingFuelKg;
+            timeRemainMin = 0.0;
+            altFt = destElevationFt(route);
+            fuelOnBoardKg = landingFuelKg;
+            kias = fuelData.DescendKias;
+            ktas = Ktas(kias, altFt);
+            lastPlanNode = new PlanNode(node.Value, timeRemainMin,
                 altFt, ktas, fuelOnBoardKg);
+            lastPt = lastPlanNode.Coordinate;
             waypoints.Add(lastPlanNode);
 
             // Prepare the required parameters for the given step.
             optCrzAltFt = fuelData.OptCruiseAltFt(grossWtKg);
             atcAllowedAltFt = altProvider.ClosestAltitudeFt(
-                wpt, nextWpt, optCrzAltFt);
+                lastPt, nextWpt, optCrzAltFt);
             targetAltFt = Min(atcAllowedAltFt, maxAltFt);
             isDescending = Abs(altFt - targetAltFt) > 0.1;
 
@@ -101,10 +108,28 @@ namespace QSP.FuelCalculation.Calculations
                 timeToCrzAltMin = double.PositiveInfinity;
             }
 
-            timeToNextWptMin = wpt.Distance(nextWpt);
-            stepTimeMin = Min(timeToNextWptMin, timeToCrzAltMin, deltaT); // Not so easy. need to update next waypoint.
-            stepDisNm = stepTimeMin * ktas / 60.0;
-            nextPt = GetV(lastPlanNode.Coordinate, nextWpt, stepDisNm);
+            timeToNextWptMin = lastPt.Distance(nextWpt);
+            timeToCrzOrDelta = Min(timeToCrzAltMin, deltaT);
+
+            if (timeToNextWptMin <= timeToCrzOrDelta)
+            {
+                // Choose the next waypoint as next point.
+                stepTimeMin = timeToNextWptMin;
+                stepDisNm = stepTimeMin * ktas / 60.0;
+                currentPt = nextWpt;
+
+                // Update next waypoint.
+                node = node.Previous;
+                nextWpt = node.Value.Waypoint;
+            }
+            else
+            {
+                stepTimeMin = timeToCrzOrDelta;
+                stepDisNm = stepTimeMin * ktas / 60.0;
+                currentPt = GetV(lastPt, nextWpt, stepDisNm);
+            }
+
+
 
             // Updating the value for the PlanNode.
             timeRemainMin += stepTimeMin;
@@ -112,11 +137,17 @@ namespace QSP.FuelCalculation.Calculations
             fuelOnBoardKg += stepTimeMin * fuelFlowPerMinKg;
 
             // Add to flight plan.
-            lastPlanNode = new PlanNode(new IntermediateNode(nextPt),
+            lastPlanNode = new PlanNode(new IntermediateNode(currentPt),
                 timeRemainMin, altFt, ktas, fuelOnBoardKg);
             waypoints.Add(lastPlanNode);
-            
+
             throw new NotImplementedException();
+        }
+
+        private double destElevationFt(Route route)
+        {
+            var icao = route.Last.Value.Waypoint.ID.Substring(0, 4).ToUpper();
+            return airportList[icao].Elevation;
         }
 
         private static ICoordinate GetV(ICoordinate p1, ICoordinate p2,

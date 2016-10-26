@@ -9,8 +9,8 @@ namespace QSP.FuelCalculation.Calculations
 {
     public class CrzAltProvider
     {
-        public double ClosestAltitudeFt(ICoordinate from,
-            ICoordinate to, double altitudeFt)
+        public double ClosestAltitudeFt(ICoordinate current,
+            ICoordinate next, double altitudeFt)
         {
             // TODO: Westbound: Even altitudes
             // Eastbound: Odd altitudes
