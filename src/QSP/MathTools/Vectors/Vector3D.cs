@@ -72,6 +72,11 @@ namespace QSP
             return v * c;
         }
 
+        public static Vector3D operator -(Vector3D v)
+        {
+            return new Vector3D(-v.X, -v.Y, -v.Z);
+        }
+
         /// <exception cref="InvalidOperationException"></exception>
         public Vector3D Normalize()
         {

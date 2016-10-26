@@ -55,14 +55,73 @@ namespace QSP.MathTools
         ///     v1 to v2.
         /// (2) Normal to v.
         /// (3) Is unit vector.
+        /// 
         /// It's required that v1 != v2. 
-        /// If v1 == -v2, then any unit vector v is a valid input, and 
+        /// 
+        /// If v1 == -v2, then any unit vector v is a valid input. 
+        /// In this case, if v == v1 or v == v2, the chosen path is the one 
+        /// that goes through the north pole, if none of v1, v2 is north pole.
+        /// Otherwise, the point with lat:0, lon:0.
         /// </summary>
         public static Vector3D GetW(Vector3D v, Vector3D v1, Vector3D v2)
         {
-            var v3 = v1.Cross(v2);
-            v3 = v3.Normalize();
+            if (v1.Equals(-v2))
+            {
+                if (v.Equals(v1) || v.Equals(v2))
+                {
+                    v2 = v1.Equals(NorthPole) || v2.Equals(NorthPole) ?
+                        Lat0Lon0 :
+                        NorthPole;
+                }
+                else
+                {
+
+                }
+            }
+
+            var v3 = v1.Cross(v2).Normalize();
             return v3.Cross(v);
+        }
+
+        /// <summary>
+        /// Given v and v2, both are unit vectors on the sphere. This method 
+        /// returns the vector such that:
+        /// (1) Tangent to the great circle route (the shorter one) from 
+        ///     v to v2.
+        /// (2) Normal to v.
+        /// (3) Is unit vector.
+        /// 
+        /// It's required that v != v2. 
+        /// 
+        /// If v == -v2, the chosen path is the one that goes through the 
+        /// north pole, if none of v and v2 is north pole.
+        /// Otherwise, the point with lat:0, lon:0.
+        /// </summary>
+        public static Vector3D GetW(Vector3D v, Vector3D v2)
+        {
+            if (v.Equals(-v2))
+            {
+                v2 = v.Equals(NorthPole) || v2.Equals(NorthPole) ?
+                    Lat0Lon0 :
+                    NorthPole;
+            }
+
+            // Now v is not parallel with v2. So {v, v2} is a basis of the 
+            // plane they are on.
+
+            // If v is orthogonal to v2, then v2 is the correct answer.
+            var t = v2.Dot(v);
+            if (t == 0.0) return v2;
+
+            // Otherwise, we find vector u such that u = c * w, where c > 0.
+            // We can write u = v + a * v2, where a is a real number. 
+            // Requiring u to be orthogonal to v. We have
+            // 0 = (u dot v) = (v dot v) + a * (v2 dot v) = 1 + a * (v2 dot v)
+            // => a = -1 / (v2 dot v)
+
+            var a = -1.0 / t;
+            var u = v + a * v2;
+            return u.Normalize();
         }
     }
 }
