@@ -4,10 +4,10 @@ namespace QSP.MathTools
 {
     public class Matrix2by2
     {
-        public double A11;
-        public double A12;
-        public double A21;
-        public double A22;
+        public double A11 { get; private set; }
+        public double A12 { get; private set; }
+        public double A21 { get; private set; }
+        public double A22 { get; private set; }
 
         //
         //    (a11  a12)
@@ -41,7 +41,7 @@ namespace QSP.MathTools
         public Matrix2by2 Inverse()
         {
             var det = Determinant;
-            if (det == 0.0) throw new ArgumentException();
+            if (det == 0.0) throw new InvalidOperationException();
             var B = new Matrix2by2(A22, -A12, -A21, A11);
             B.Multiply(1.0 / det);
             return B;

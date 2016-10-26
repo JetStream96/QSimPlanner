@@ -12,7 +12,7 @@ namespace QSP.WindAloft
 {
     public class AvgWindCalculator
     {
-        private static readonly Vector3D DefaultLocation = 
+        private static readonly Vector3D DefaultLocation =
             LatLonToVector3D(0.0, 0.0);
 
         public double Ktas { get; private set; }
@@ -64,7 +64,7 @@ namespace QSP.WindAloft
             var v = GetV(v1, v2, r / EarthRadiusNm);
             return 1.0 / GetGS(v);
         }
-        
+
         private double GetGS(Vector3D v)
         {
             var latLon = v.ToLatLon();
@@ -80,13 +80,6 @@ namespace QSP.WindAloft
             double b = -2.0 * windSpd * innerProduct;
             double c = windSpd * windSpd - Ktas * Ktas;
             return (-b + Sqrt(b * b - 4.0 * a * c)) / (2.0 * a);
-        }
-
-        private Vector3D GetW(Vector3D v, Vector3D v1, Vector3D v2)
-        {
-            var v3 = v1.Cross(v2);
-            v3 = v3.Normalize();
-            return v3.Cross(v);
         }
 
         private Vector3D GetWind(double lat, double lon)
