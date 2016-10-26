@@ -8,10 +8,10 @@ namespace QSP.MathTools
 {
     public static class EarthGeometry
     {
-        private static readonly Vector3D NorthPole = 
+        private static readonly Vector3D NorthPole =
             new LatLon(90.0, 0.0).ToVector3D();
 
-        private static readonly Vector3D Lat0Lon0 = 
+        private static readonly Vector3D Lat0Lon0 =
             new LatLon(0.0, 0.0).ToVector3D();
 
         /// <summary>
@@ -31,18 +31,23 @@ namespace QSP.MathTools
             if (t >= 1.0) throw new ArgumentException();
             if (t <= -1.0)
             {
-                v2 = v2.Equals(NorthPole) ? Lat0Lon0 : NorthPole;
+                if (v1.Equals(NorthPole) || v2.Equals(NorthPole))
+                {
+                    return GetV(v1, Lat0Lon0, alpha);
+                }
+
+                return GetV(v1, NorthPole, alpha);
             }
 
             var matrix = new Matrix2by2(1.0, t, t, 1.0);
-            double beta = SafeAcos(t);
+            double beta = Acos(t);
 
             var b = new Vector2D(Cos(alpha), Cos(beta - alpha));
             var a = matrix.Inverse().Multiply(b);
 
             return v1 * a.X + v2 * a.Y;
         }
-        
+
         /// <summary>
         /// Given v, v1, v2, all are unit vectors on the sphere, and
         /// all on the same plane. This method returns the vector such that:
