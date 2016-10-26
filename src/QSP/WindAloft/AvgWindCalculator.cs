@@ -70,7 +70,7 @@ namespace QSP.WindAloft
             var latLon = v.ToLatLon();
             Vector3D wind = GetWind(latLon.Lat, latLon.Lon);
             double windSpd = wind.R;
-            var w = GetW(v, v1, v2);
+            var w = v.Equals(v2) ? -GetW(v, v1) : GetW(v, v2);
 
             var innerProduct = windSpd == 0.0
                 ? 0.0

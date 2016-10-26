@@ -47,42 +47,7 @@ namespace QSP.MathTools
 
             return v1 * a.X + v2 * a.Y;
         }
-
-        /// <summary>
-        /// Given v, v1, v2, all are unit vectors on the sphere, and
-        /// all on the same plane. This method returns the vector such that:
-        /// (1) Tangent to the great circle route (the shorter one) from 
-        ///     v1 to v2.
-        /// (2) Normal to v.
-        /// (3) Is unit vector.
-        /// 
-        /// It's required that v1 != v2. 
-        /// 
-        /// If v1 == -v2, then any unit vector v is a valid input. 
-        /// In this case, if v == v1 or v == v2, the chosen path is the one 
-        /// that goes through the north pole, if none of v1, v2 is north pole.
-        /// Otherwise, the point with lat:0, lon:0.
-        /// </summary>
-        public static Vector3D GetW(Vector3D v, Vector3D v1, Vector3D v2)
-        {
-            if (v1.Equals(-v2))
-            {
-                if (v.Equals(v1) || v.Equals(v2))
-                {
-                    v2 = v1.Equals(NorthPole) || v2.Equals(NorthPole) ?
-                        Lat0Lon0 :
-                        NorthPole;
-                }
-                else
-                {
-
-                }
-            }
-
-            var v3 = v1.Cross(v2).Normalize();
-            return v3.Cross(v);
-        }
-
+        
         /// <summary>
         /// Given v and v2, both are unit vectors on the sphere. This method 
         /// returns the vector such that:
