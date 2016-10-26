@@ -23,6 +23,7 @@ namespace QSP.FuelCalculation.Results
         public double TimeRemainingMin { get; private set; }
         public double AltitudeFt { get; private set; }
         public double TasKnots { get; private set; }
+        public double GSKnots { get; private set; }
         public double FuelOnBoardTon { get; private set; }
 
         public ICoordinate Coordinate
@@ -45,6 +46,7 @@ namespace QSP.FuelCalculation.Results
             double TimeRemainingMin,
             double AltitudeFt,
             double TasKnots,
+            double GSKnots,
             double FuelOnBoardTon)
         {
             if (!IsValidType(NodeValue))
@@ -56,6 +58,7 @@ namespace QSP.FuelCalculation.Results
             this.TimeRemainingMin = TimeRemainingMin;
             this.AltitudeFt = AltitudeFt;
             this.TasKnots = TasKnots;
+            this.GSKnots = GSKnots;
             this.FuelOnBoardTon = FuelOnBoardTon;
         }
 

@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using QSP.WindAloft;
-using QSP.RouteFinding.Routes;
+﻿using QSP.FuelCalculation.FuelDataNew;
 using QSP.FuelCalculation.Results;
-using QSP.RouteFinding.Airports;
-using QSP.FuelCalculation.FuelDataNew;
-using static System.Math;
-using QSP.RouteFinding.Data.Interfaces;
-using static QSP.AviationTools.SpeedConversion;
-using static QSP.AviationTools.ConversionTools;
-using static QSP.AviationTools.Constants;
-using static QSP.MathTools.Doubles;
+using QSP.LibraryExtension;
 using QSP.MathTools;
 using QSP.MathTools.Vectors;
-using QSP.LibraryExtension;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
+using QSP.RouteFinding.Routes;
+using QSP.WindAloft;
+using System;
+using System.Collections.Generic;
+using static QSP.AviationTools.Constants;
+using static QSP.AviationTools.ConversionTools;
+using static QSP.AviationTools.SpeedConversion;
+using static QSP.MathTools.Doubles;
+using static QSP.WindAloft.GroundSpeedCalculation;
+using static System.Math;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -64,21 +65,27 @@ namespace QSP.FuelCalculation.Calculations
             double grossWtKg, timeRemainMin, altFt, fuelOnBoardKg, optCrzAltFt,
                 atcAllowedAltFt, targetAltFt, fuelFlowPerMinKg,
                 descentGrad, timeToCrzAltMin, timeToNextWptMin, stepTimeMin,
-                descentRateFtPerMin, stepDisNm, timeToCrzOrDelta, kias, ktas;
+                descentRateFtPerMin, stepDisNm, timeToCrzOrDelta, kias, ktas,
+                gsKnots;
             bool isDescending;
             PlanNode lastPlanNode;
+            Vector3D v1, v2, v;
 
             // Initialize variables.           
             node = route.Last;
             prevWpt = node.Previous.Value.Waypoint;
+            v1 = route.FirstWaypoint.ToVector3D();
+            v2 = route.LastWaypoint.ToVector3D();
+            v = prevWpt.ToVector3D();
             grossWtKg = zfwKg + landingFuelKg;
             timeRemainMin = 0.0;
             altFt = destElevationFt(route);
             fuelOnBoardKg = landingFuelKg;
             kias = fuelData.DescendKias;
             ktas = Ktas(kias, altFt);
+            gsKnots = GetGS(windTable, altFt, ktas, v1, v2, v);
             lastPlanNode = new PlanNode(node.Value, timeRemainMin,
-                altFt, ktas, fuelOnBoardKg);
+                altFt, ktas, gsKnots, fuelOnBoardKg);
             lastPt = lastPlanNode.Coordinate;
             planNodes.Add(lastPlanNode);
 
@@ -95,6 +102,7 @@ namespace QSP.FuelCalculation.Calculations
                 descentGrad = fuelData.DescentGradient(grossWtKg);
                 kias = fuelData.DescendKias;
                 ktas = Ktas(kias, altFt);
+                gsKnots = GetGS(windTable, altFt, ktas, v1, v2, v);
                 descentRateFtPerMin = descentGrad * ktas / 60.0 * NmFtRatio;
                 timeToCrzAltMin = (targetAltFt - altFt) / descentRateFtPerMin;
             }
@@ -104,11 +112,12 @@ namespace QSP.FuelCalculation.Calculations
                 descentGrad = 0.0;
                 kias = fuelData.CruiseKias(grossWtKg);
                 ktas = Ktas(kias, altFt);
+                gsKnots = GetGS(windTable, altFt, ktas, v1, v2, v);
                 descentRateFtPerMin = 0.0;
                 timeToCrzAltMin = double.PositiveInfinity;
             }
 
-            timeToNextWptMin = lastPt.Distance(prevWpt);
+            timeToNextWptMin = lastPt.Distance(prevWpt) / gsKnots * 60.0;
             timeToCrzOrDelta = Min(timeToCrzAltMin, deltaT);
 
             if (timeToNextWptMin <= timeToCrzOrDelta)
@@ -136,7 +145,7 @@ namespace QSP.FuelCalculation.Calculations
 
             // Add to flight plan.
             lastPlanNode = new PlanNode(new IntermediateNode(currentPt),
-                timeRemainMin, altFt, ktas, fuelOnBoardKg);
+                timeRemainMin, altFt, ktas, gsKnots, fuelOnBoardKg);
             planNodes.Add(lastPlanNode);
 
             // Actually not. We are not done yet.

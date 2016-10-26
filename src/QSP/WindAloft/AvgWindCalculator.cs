@@ -1,12 +1,11 @@
-using QSP.MathTools;
 using QSP.RouteFinding.Data.Interfaces;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Angles;
-using static QSP.MathTools.Integration;
-using static QSP.MathTools.Vectors.Vector3DExtension;
-using static System.Math;
 using static QSP.MathTools.Doubles;
 using static QSP.MathTools.EarthGeometry;
+using static QSP.MathTools.Integration;
+using static QSP.MathTools.Vectors.Vector3DExtension;
+using static QSP.WindAloft.GroundSpeedCalculation;
 
 namespace QSP.WindAloft
 {
@@ -62,42 +61,7 @@ namespace QSP.WindAloft
         private double GetOneOverGS(double r)
         {
             var v = GetV(v1, v2, r / EarthRadiusNm);
-            return 1.0 / GetGS(v);
-        }
-
-        private double GetGS(Vector3D v)
-        {
-            var latLon = v.ToLatLon();
-            Vector3D wind = GetWind(latLon.Lat, latLon.Lon);
-            double windSpd = wind.R;
-            var w = v.Equals(v2) ? -GetW(v, v1) : GetW(v, v2);
-
-            var innerProduct = windSpd == 0.0
-                ? 0.0
-                : wind.Normalize().Dot(w);
-
-            double a = 1.0;
-            double b = -2.0 * windSpd * innerProduct;
-            double c = windSpd * windSpd - Ktas * Ktas;
-            return (-b + Sqrt(b * b - 4.0 * a * c)) / (2.0 * a);
-        }
-
-        private Vector3D GetWind(double lat, double lon)
-        {
-            var w = windData.GetWindUV(lat, lon, AltitudeFt);
-
-            lat = ToRadian(lat);
-            lon = ToRadian(lon);
-
-            double sinLat = Sin(lat);
-            double sinLon = Sin(lon);
-            double cosLon = Cos(lon);
-
-            var u1 = new Vector3D(-sinLon, cosLon, 0.0);
-            var u2 = new Vector3D(
-                -sinLat * cosLon, -sinLat * sinLon, Cos(lat));
-
-            return u1 * w.UComp + u2 * w.VComp;
+            return 1.0 / GetGS(windData, AltitudeFt, Ktas,v1, v2, v);
         }
     }
 }
