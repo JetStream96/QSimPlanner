@@ -123,6 +123,7 @@
     <Compile Include="FuelCalculation\FuelDataItem.cs" />
     <Compile Include="FuelCalculation\FuelDataLoader.cs" />
     <Compile Include="FuelCalculation\Results\FuelReport.cs" />
+    <Compile Include="FuelCalculation\Results\IntermediateNode.cs" />
     <Compile Include="FuelCalculation\Results\PlanNode.cs" />
     <Compile Include="FuelCalculation\Tables\FlightTimeTable.cs" />
     <Compile Include="FuelCalculation\FuelParameters.cs" />

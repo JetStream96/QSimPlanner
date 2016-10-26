@@ -13,7 +13,11 @@ namespace QSP.FuelCalculation.Results
         // Remember to update Coordinate property getter if this is changed.
         // All allowed types of NodeValue must return the correct ICoordinate.
         public static readonly IReadOnlyList<Type> AllowedNodeTypes =
-            new Type[] { typeof(RouteNode) };
+            new Type[] 
+            {
+                typeof(RouteNode) ,
+                typeof(IntermediateNode)
+            };
 
         public object NodeValue { get; private set; }
         public double TimeRemainingMin { get; private set; }
@@ -25,6 +29,9 @@ namespace QSP.FuelCalculation.Results
         {
             get
             {
+                var intermediateNode = NodeValue as IntermediateNode;
+                if (intermediateNode != null) return intermediateNode.Coordinate;
+
                 var routeNode = NodeValue as RouteNode;
                 if (routeNode != null) return routeNode.Waypoint;
 
@@ -32,7 +39,7 @@ namespace QSP.FuelCalculation.Results
                     "Something is wrong in NodeValue validation.");
             }
         }
-        
+
         public PlanNode(
             object NodeValue,
             double TimeRemainingMin,

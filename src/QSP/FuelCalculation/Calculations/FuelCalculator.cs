@@ -51,6 +51,8 @@ namespace QSP.FuelCalculation.Calculations
             double landingFuelKg,
             double maxAltFt)
         {
+            // We compute the flight backwards - from destination to origin.
+
             // Initialize variables.
             var waypoints = new List<PlanNode>();
 
@@ -73,7 +75,7 @@ namespace QSP.FuelCalculation.Calculations
                 altFt, ktas, fuelOnBoardKg);
             waypoints.Add(lastPlanNode);
 
-            // Do computations.
+            // Prepare the required parameters for the given step.
             optCrzAltFt = fuelData.OptCruiseAltFt(grossWtKg);
             atcAllowedAltFt = altProvider.ClosestAltitudeFt(
                 wpt, nextWpt, optCrzAltFt);
@@ -100,12 +102,20 @@ namespace QSP.FuelCalculation.Calculations
             }
 
             timeToNextWptMin = wpt.Distance(nextWpt);
-            stepTimeMin = Min(timeToNextWptMin, timeToCrzAltMin, deltaT);
+            stepTimeMin = Min(timeToNextWptMin, timeToCrzAltMin, deltaT); // Not so easy. need to update next waypoint.
             stepDisNm = stepTimeMin * ktas / 60.0;
             nextPt = GetV(lastPlanNode.Coordinate, nextWpt, stepDisNm);
 
-            waypoints.Add(new PlanNode(node.Value, ))
+            // Updating the value for the PlanNode.
+            timeRemainMin += stepTimeMin;
+            altFt += stepTimeMin * descentRateFtPerMin;
+            fuelOnBoardKg += stepTimeMin * fuelFlowPerMinKg;
 
+            // Add to flight plan.
+            lastPlanNode = new PlanNode(new IntermediateNode(nextPt),
+                timeRemainMin, altFt, ktas, fuelOnBoardKg);
+            waypoints.Add(lastPlanNode);
+            
             throw new NotImplementedException();
         }
 
