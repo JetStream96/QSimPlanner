@@ -6,6 +6,7 @@ using static QSP.MathTools.Integration;
 using static QSP.MathTools.Vectors.Vector3DExtension;
 using static System.Math;
 using static QSP.MathTools.Doubles;
+using static QSP.MathTools.EarthGeometry;
 
 namespace QSP.WindAloft
 {
@@ -63,25 +64,7 @@ namespace QSP.WindAloft
             var v = GetV(v1, v2, r / EarthRadiusNm);
             return 1.0 / GetGS(v);
         }
-
-        /// <summary>
-        /// Given different v1 and v2, which are both unit vectors on 
-        /// sphere, we can get a great circle path from v1 to v2 (choose the
-        /// shortest great circle path). We walk the path by angle alpha from 
-        /// v1 towards v2. This returns the point we end up with.
-        /// </summary>
-        private Vector3D GetV(Vector3D v1, Vector3D v2, double alpha)
-        {
-            double t = v1.Dot(v2);
-            var M = new Matrix2by2(1.0, t, t, 1.0);
-            double beta = SafeAcos(t);
-
-            var b = new Vector2D(Cos(alpha), Cos(beta - alpha));
-            var a = M.Inverse().Multiply(b);
-
-            return v1 * a.X + v2 * a.Y;
-        }
-
+        
         private double GetGS(Vector3D v)
         {
             var latLon = v.ToLatLon();

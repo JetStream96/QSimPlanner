@@ -11,6 +11,8 @@ using static QSP.AviationTools.SpeedConversion;
 using static QSP.AviationTools.ConversionTools;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Doubles;
+using QSP.MathTools;
+using QSP.MathTools.Vectors;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -55,6 +57,7 @@ namespace QSP.FuelCalculation.Calculations
             var node = route.Last;
             var wpt = node.Value.Waypoint;
             var nextWpt = node.Next.Value.Waypoint;
+            ICoordinate nextPt;
             double grossWtKg = zfwKg + landingFuelKg;
             double timeRemainMin = 0.0;
             var destIcao = wpt.ID.Substring(0, 4).ToUpper();
@@ -62,8 +65,13 @@ namespace QSP.FuelCalculation.Calculations
             double fuelOnBoardKg = landingFuelKg;
             double optCrzAltFt, atcAllowedAltFt, targetAltFt, fuelFlowPerMinKg,
                 descentGrad, timeToCrzAltMin, timeToNextWptMin, stepTimeMin,
-                kias, ktas, descentRateFtPerMin;
+                descentRateFtPerMin, stepDisNm;
+            double kias = fuelData.DescendKias;
+            double ktas = Ktas(kias, altFt);
             bool isDescending;
+            var lastPlanNode = new PlanNode(node.Value, timeRemainMin,
+                altFt, ktas, fuelOnBoardKg);
+            waypoints.Add(lastPlanNode);
 
             // Do computations.
             optCrzAltFt = fuelData.OptCruiseAltFt(grossWtKg);
@@ -93,11 +101,21 @@ namespace QSP.FuelCalculation.Calculations
 
             timeToNextWptMin = wpt.Distance(nextWpt);
             stepTimeMin = Min(timeToNextWptMin, timeToCrzAltMin, deltaT);
-             
+            stepDisNm = stepTimeMin * ktas / 60.0;
+            nextPt = GetV(lastPlanNode.Coordinate, nextWpt, stepDisNm);
 
             waypoints.Add(new PlanNode(node.Value, ))
 
             throw new NotImplementedException();
+        }
+
+        private static ICoordinate GetV(ICoordinate p1, ICoordinate p2,
+            double disNm)
+        {
+            return EarthGeometry.GetV(
+                p1.ToVector3D(),
+                p2.ToVector3D(),
+                disNm / EarthRadiusNm).ToLatLon();
         }
     }
 }

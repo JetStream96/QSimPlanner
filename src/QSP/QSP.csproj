@@ -137,6 +137,7 @@
     <Compile Include="LibraryExtension\Regexes.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\Interfaces.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\SerializationHelper.cs" />
+    <Compile Include="MathTools\EarthGeometry.cs" />
     <Compile Include="MathTools\Integers.cs" />
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />
