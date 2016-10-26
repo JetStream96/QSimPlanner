@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Math;
 
 namespace QSP.MathTools
 {
@@ -6,17 +7,17 @@ namespace QSP.MathTools
     {
         public static bool IsInteger(double x, double epsilon)
         {
-            return Math.Abs(x % 1) < epsilon;
+            return Abs(x % 1) < epsilon;
         }
 
         public static int RoundToInt(double x)
         {
-            return (int)Math.Round(x);
+            return (int)Round(x);
         }
 
         public static int FloorInt(double x)
         {
-            return (int)Math.Floor(x);
+            return (int)Floor(x);
         }
 
         /// <summary>
@@ -34,7 +35,12 @@ namespace QSP.MathTools
                 x = 1.0;
             }
 
-            return Math.Acos(x);
+            return Acos(x);
+        }
+
+        public static double Min(double x, double y, double z)
+        {
+            return Math.Min(Math.Min(x, y), z);
         }
     }
 }

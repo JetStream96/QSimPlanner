@@ -11,6 +11,9 @@ namespace QSP.WindAloft
 {
     public class AvgWindCalculator
     {
+        private static readonly Vector3D DefaultLocation = 
+            LatLonToVector3D(0.0, 0.0);
+
         public double Ktas { get; private set; }
         public double AltitudeFt { get; private set; }
 
@@ -27,8 +30,8 @@ namespace QSP.WindAloft
             this.Ktas = Ktas;
             this.AltitudeFt = AltitudeFt;
 
-            v1 = LatLonToVector3D(0.0, 0.0);
-            v2 = LatLonToVector3D(0.0, 0.0);
+            v1 = DefaultLocation;
+            v2 = DefaultLocation;
         }
 
         // delta: in degrees

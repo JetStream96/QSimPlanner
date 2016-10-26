@@ -6,6 +6,11 @@ using QSP.FuelCalculation.Results;
 using QSP.RouteFinding.Airports;
 using QSP.FuelCalculation.FuelDataNew;
 using static System.Math;
+using QSP.RouteFinding.Data.Interfaces;
+using static QSP.AviationTools.SpeedConversion;
+using static QSP.AviationTools.ConversionTools;
+using static QSP.AviationTools.Constants;
+using static QSP.MathTools.Doubles;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -16,7 +21,7 @@ namespace QSP.FuelCalculation.Calculations
     /// </summary>
     public class FuelCalculator
     {
-        // private const deltaDis
+        private const double deltaT = 0.5;    // Time in minute
         private AirportManager airportList;
         private CrzAltProvider altProvider;
         private IWindTableCollection windTable;
@@ -49,19 +54,21 @@ namespace QSP.FuelCalculation.Calculations
 
             var node = route.Last;
             var wpt = node.Value.Waypoint;
+            var nextWpt = node.Next.Value.Waypoint;
             double grossWtKg = zfwKg + landingFuelKg;
             double timeRemainMin = 0.0;
             var destIcao = wpt.ID.Substring(0, 4).ToUpper();
             double altFt = airportList[destIcao].Elevation;
             double fuelOnBoardKg = landingFuelKg;
             double optCrzAltFt, atcAllowedAltFt, targetAltFt, fuelFlowPerMinKg,
-                descentGrad;
+                descentGrad, timeToCrzAltMin, timeToNextWptMin, stepTimeMin,
+                kias, ktas, descentRateFtPerMin;
             bool isDescending;
 
             // Do computations.
             optCrzAltFt = fuelData.OptCruiseAltFt(grossWtKg);
             atcAllowedAltFt = altProvider.ClosestAltitudeFt(
-                wpt, node.Next.Value.Waypoint, optCrzAltFt);
+                wpt, nextWpt, optCrzAltFt);
             targetAltFt = Min(atcAllowedAltFt, maxAltFt);
             isDescending = Abs(altFt - targetAltFt) > 0.1;
 
@@ -69,13 +76,24 @@ namespace QSP.FuelCalculation.Calculations
             {
                 fuelFlowPerMinKg = fuelData.DescentFuelPerMinKg(grossWtKg);
                 descentGrad = fuelData.DescentGradient(grossWtKg);
+                kias = fuelData.DescendKias;
+                ktas = Ktas(kias, altFt);
+                descentRateFtPerMin = descentGrad * ktas / 60.0 * NmFtRatio;
+                timeToCrzAltMin = (targetAltFt - altFt) / descentRateFtPerMin;
             }
             else
             {
                 fuelFlowPerMinKg = fuelData.CruiseFuelPerMinKg(grossWtKg);
                 descentGrad = 0.0;
+                kias = fuelData.CruiseKias(grossWtKg);
+                ktas = Ktas(kias, altFt);
+                descentRateFtPerMin = 0.0;
+                timeToCrzAltMin = double.PositiveInfinity;
             }
 
+            timeToNextWptMin = wpt.Distance(nextWpt);
+            stepTimeMin = Min(timeToNextWptMin, timeToCrzAltMin, deltaT);
+             
 
             waypoints.Add(new PlanNode(node.Value, ))
 
