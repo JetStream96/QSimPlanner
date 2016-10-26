@@ -2,7 +2,7 @@ using System;
 
 namespace QSP
 {
-    public class Vector3D
+    public class Vector3D : IEquatable<Vector3D>
     {
         public double X { get; private set; }
         public double Y { get; private set; }
@@ -71,7 +71,7 @@ namespace QSP
         {
             return v * c;
         }
-        
+
         /// <exception cref="InvalidOperationException"></exception>
         public Vector3D Normalize()
         {
@@ -97,6 +97,19 @@ namespace QSP
                 Y * v.Z - Z * v.Y,
                 Z * v.X - X * v.Z,
                 X * v.Y - Y * v.X);
+        }
+
+        public bool Equals(Vector3D other)
+        {
+            return other != null &&
+                X == other.X &&
+                Y == other.Y &&
+                Z == other.Z;
+        }
+
+        public override int GetHashCode()
+        {
+            return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
     }
 }

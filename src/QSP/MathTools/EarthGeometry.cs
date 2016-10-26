@@ -1,19 +1,39 @@
-﻿using static QSP.MathTools.Doubles;
+﻿using QSP.AviationTools.Coordinates;
+using QSP.MathTools.Vectors;
+using System;
+using static QSP.MathTools.Doubles;
 using static System.Math;
 
 namespace QSP.MathTools
 {
     public static class EarthGeometry
     {
+        private static readonly Vector3D NorthPole = 
+            new LatLon(90.0, 0.0).ToVector3D();
+
+        private static readonly Vector3D Lat0Lon0 = 
+            new LatLon(0.0, 0.0).ToVector3D();
+
         /// <summary>
         /// Given different v1 and v2, which are both unit vectors on 
         /// sphere, we can get a great circle path from v1 to v2 (choose the
         /// shortest great circle path). We walk the path by angle alpha from 
-        /// v1 towards v2. This returns the point we end up with.
+        /// v1 towards v2. This returns the point we end up with, which is
+        /// an unit vector.
+        /// If v1 == v2, an exception is thrown.
+        /// If v1 == -v2, the chosen path is the one that goes through 
+        /// the north pole, if none of v1, v2 is north pole. Otherwise, 
+        /// the point with lat:0, lon:0.
         /// </summary>
         public static Vector3D GetV(Vector3D v1, Vector3D v2, double alpha)
         {
             double t = v1.Dot(v2);
+            if (t >= 1.0) throw new ArgumentException();
+            if (t <= -1.0)
+            {
+                v2 = v2.Equals(NorthPole) ? Lat0Lon0 : NorthPole;
+            }
+
             var matrix = new Matrix2by2(1.0, t, t, 1.0);
             double beta = SafeAcos(t);
 
