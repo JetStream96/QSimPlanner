@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 
 namespace QSP.Common
 {
@@ -55,5 +56,23 @@ namespace QSP.Common
           System.Runtime.Serialization.StreamingContext context)
             : base(info, context)
         { }
+    }
+
+    [Serializable]
+    public class UnexpectedExecutionStateException : Exception
+    {
+        public UnexpectedExecutionStateException()
+            : this("Something unexpected happened due to a bug in the program.")
+        { }
+
+        public UnexpectedExecutionStateException(string message)
+            : base(message) { }
+
+        public UnexpectedExecutionStateException(string message, Exception inner)
+            : base(message, inner) { }
+
+        protected UnexpectedExecutionStateException(
+            SerializationInfo info,
+            StreamingContext context) : base(info, context) { }
     }
 }

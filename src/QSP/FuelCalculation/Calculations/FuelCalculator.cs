@@ -11,6 +11,7 @@ using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using QSP.Common;
 using static QSP.AviationTools.Constants;
 using static QSP.AviationTools.ConversionTools;
 using static QSP.AviationTools.SpeedConversion;
@@ -161,7 +162,7 @@ namespace QSP.FuelCalculation.Calculations
                         break;
 
                     default:
-                        throw new InvalidOperationException("Something is wrong.");
+                        throw new UnexpectedExecutionStateException();
                 }
 
                 // Updating the value for the PlanNode.
@@ -190,7 +191,7 @@ namespace QSP.FuelCalculation.Calculations
                 }
                 else
                 {
-                    throw new InvalidOperationException("Something is wrong.");
+                    throw new UnexpectedExecutionStateException();
                 }
 
                 lastPlanNode = new PlanNode(nodeVal,
