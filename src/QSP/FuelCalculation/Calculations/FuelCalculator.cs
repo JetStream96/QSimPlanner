@@ -23,6 +23,7 @@ namespace QSP.FuelCalculation.Calculations
 {
     // The first and last waypoints in route must be airports or runways.
     // The ident must start with the ICAO code of airport.
+
     /// <summary>
     /// Computes the actual fuel burn for the route.
     /// </summary>
@@ -77,12 +78,11 @@ namespace QSP.FuelCalculation.Calculations
             ICoordinate lastPt, currentPt;
             double grossWt, timeRemain, alt, fuelOnBoard, optCrzAlt,
                 atcAllowedAlt, targetAlt, fuelFlow, descentGrad, timeToCrzAlt,
-                timeToNextWpt, stepTime, descentRate, stepDis,
-                timeToCrzOrDelta, kias, ktas, gs;
+                timeToNextWpt, stepTime, descentRate, stepDis, kias, ktas, gs;
             bool isDescending;
             PlanNode lastPlanNode;
             Vector3D v1, v2, v;
-            NodeType nodeToAddType;
+            Type nodeToAddType;
 
             // ================ Initialize variables ===================
             node = route.Last;
@@ -136,22 +136,32 @@ namespace QSP.FuelCalculation.Calculations
                 }
 
                 timeToNextWpt = lastPt.Distance(prevWpt) / gs * 60.0;
-                timeToCrzOrDelta = Min(timeToCrzAlt, deltaT);
 
-                if (timeToNextWpt <= timeToCrzOrDelta)
+                double[] times = { deltaT, timeToCrzAlt, timeToNextWpt };
+                int minIndex = times.MinIndex();
+                stepTime = times[minIndex];
+                stepDis = stepTime * ktas / 60.0;
+
+                switch (minIndex)
                 {
-                    // Choose the next waypoint as current point.
-                    stepTime = timeToNextWpt;
-                    stepDis = stepTime * ktas / 60.0;
-                    currentPt = prevWpt;
-                    nodeToAddType = NodeType.RouteNode;
-                }
-                else
-                {
-                    stepTime = timeToCrzOrDelta;
-                    stepDis = stepTime * ktas / 60.0;
-                    currentPt = GetV(lastPt, prevWpt, stepDis);
-                    nodeToAddType = NodeType.IntemediateNode;
+                    case 0:
+                        nodeToAddType = typeof(IntermediateNode);
+                        currentPt = GetV(lastPt, prevWpt, stepDis);
+                        break;
+
+                    case 1:
+                        nodeToAddType = typeof(TodNode);
+                        currentPt = GetV(lastPt, prevWpt, stepDis);
+                        break;
+
+                    case 2:
+                        // Choose the next waypoint as current point.
+                        nodeToAddType = typeof(RouteNode);
+                        currentPt = prevWpt;
+                        break;
+
+                    default:
+                        throw new InvalidOperationException("Something is wrong.");
                 }
 
                 // Updating the value for the PlanNode.
@@ -161,7 +171,12 @@ namespace QSP.FuelCalculation.Calculations
 
                 // Add to flight plan.
                 object nodeVal = null;
-                if (nodeToAddType == NodeType.RouteNode)
+
+                if (nodeToAddType == typeof(IntermediateNode))
+                {
+                    nodeVal = new IntermediateNode(currentPt);
+                }
+                else if (nodeToAddType == typeof(RouteNode))
                 {
                     nodeVal = node.Previous.Value;
 
@@ -169,9 +184,13 @@ namespace QSP.FuelCalculation.Calculations
                     node = node.Previous;
                     prevWpt = node.Value.Waypoint;
                 }
-                else if (nodeToAddType == NodeType.IntemediateNode)
+                else if (nodeToAddType == typeof(TodNode))
                 {
-                    nodeVal = new IntermediateNode(currentPt);
+                    nodeVal = new TodNode(currentPt);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Something is wrong.");
                 }
 
                 lastPlanNode = new PlanNode(nodeVal,
@@ -193,12 +212,6 @@ namespace QSP.FuelCalculation.Calculations
             return new DetailedPlan(planNodes);
 
             throw new NotImplementedException();
-        }
-
-        private enum NodeType
-        {
-            RouteNode,
-            IntemediateNode
         }
 
         private double DestElevationFt()

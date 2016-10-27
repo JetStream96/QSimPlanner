@@ -13,14 +13,13 @@ namespace QSP.FuelCalculation.Results
     {
         // Remember to update Coordinate property getter if this is changed.
         // All allowed types of NodeValue must return the correct ICoordinate.
-        public static readonly IReadOnlyList<Type> AllowedNodeTypes =
-            new Type[] 
-            {
-                typeof(RouteNode) ,
-                typeof(IntermediateNode),
-                typeof(TocNode),
-                typeof(TodNode)
-            };
+        public static readonly IReadOnlyList<Type> AllowedNodeTypes = new[]
+        {
+            typeof(RouteNode) ,
+            typeof(IntermediateNode),
+            typeof(TocNode),
+            typeof(TodNode)
+        };
 
         public object NodeValue { get; private set; }
         public double TimeRemainingMin { get; private set; }
