@@ -80,6 +80,7 @@ namespace QSP.FuelCalculation.Calculations
             bool isDescending;
             PlanNode lastPlanNode;
             Vector3D v1, v2, v;
+            NodeType nodeToAddType;
 
             // ================ Initialize variables ===================
             node = route.Last;
@@ -98,9 +99,11 @@ namespace QSP.FuelCalculation.Calculations
                 alt, ktas, gs, fuelOnBoard);
             lastPt = lastPlanNode.Coordinate;
             planNodes.Add(lastPlanNode);
-
+            
             while (prevWpt != null)
             {
+                // Continue the loop if we have not reached origin airport.
+
                 // Prepare the required parameters for the given step.
                 optCrzAlt = fuelData.OptCruiseAltFt(grossWt);
                 atcAllowedAlt = altProvider.ClosestAltitudeFt(
@@ -138,16 +141,14 @@ namespace QSP.FuelCalculation.Calculations
                     stepTime = timeToNextWpt;
                     stepDis = stepTime * ktas / 60.0;
                     currentPt = prevWpt;
-
-                    // Update next waypoint.
-                    node = node.Previous;
-                    prevWpt = node.Value.Waypoint;
+                    nodeToAddType = NodeType.RouteNode; 
                 }
                 else
                 {
                     stepTime = timeToCrzOrDelta;
                     stepDis = stepTime * ktas / 60.0;
                     currentPt = GetV(lastPt, prevWpt, stepDis);
+                    nodeToAddType = NodeType.IntemediateNode;
                 }
 
                 // Updating the value for the PlanNode.
@@ -156,7 +157,21 @@ namespace QSP.FuelCalculation.Calculations
                 fuelOnBoard += stepTime * fuelFlow;
 
                 // Add to flight plan.
-                lastPlanNode = new PlanNode(new IntermediateNode(currentPt),
+                object nodeVal = null;
+                if(nodeToAddType == NodeType.RouteNode)
+                {
+                    nodeVal = node.Previous.Value;
+
+                    // Update next waypoint.
+                    node = node.Previous;
+                    prevWpt = node.Value.Waypoint;
+                }
+                else if(nodeToAddType == NodeType.IntemediateNode)
+                {
+                    nodeVal = new IntermediateNode(currentPt);
+                }
+
+                lastPlanNode = new PlanNode(nodeVal,
                     timeRemain, alt, ktas, gs, fuelOnBoard);
                 planNodes.Add(lastPlanNode);
             }
@@ -165,6 +180,12 @@ namespace QSP.FuelCalculation.Calculations
             return new DetailedPlan(planNodes);
 
             throw new NotImplementedException();
+        }
+
+        private enum NodeType
+        {
+            RouteNode,
+            IntemediateNode
         }
 
         private double destElevationFt(Route route)
