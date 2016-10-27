@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QSP.Common;
 using QSP.FuelCalculation.Results.Nodes;
 
 namespace QSP.FuelCalculation.Results
@@ -44,7 +45,7 @@ namespace QSP.FuelCalculation.Results
                 var todNode = NodeValue as TodNode;
                 if (todNode != null) return todNode.Coordinate;
 
-                throw new InvalidOperationException(
+                throw new UnexpectedExecutionStateException(
                     "Something is wrong in NodeValue validation.");
             }
         }

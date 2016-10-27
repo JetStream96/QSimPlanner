@@ -83,7 +83,6 @@ namespace QSP.FuelCalculation.Calculations
             bool isDescending;
             PlanNode lastPlanNode;
             Vector3D v1, v2, v;
-            Type nodeToAddType;
 
             // ================ Initialize variables ===================
             node = route.Last;
@@ -143,22 +142,29 @@ namespace QSP.FuelCalculation.Calculations
                 stepTime = times[minIndex];
                 stepDis = stepTime * ktas / 60.0;
 
+                // Node to add to flight plan.
+                object nodeVal = null;
+
                 switch (minIndex)
                 {
                     case 0:
-                        nodeToAddType = typeof(IntermediateNode);
                         currentPt = GetV(lastPt, prevWpt, stepDis);
+                        nodeVal = new IntermediateNode(currentPt);
                         break;
 
                     case 1:
-                        nodeToAddType = typeof(TodNode);
                         currentPt = GetV(lastPt, prevWpt, stepDis);
+                        nodeVal = new TodNode(currentPt);
                         break;
 
                     case 2:
                         // Choose the next waypoint as current point.
-                        nodeToAddType = typeof(RouteNode);
                         currentPt = prevWpt;
+                        nodeVal = node.Previous.Value;
+
+                        // Update next waypoint.
+                        node = node.Previous;
+                        prevWpt = node.Value.Waypoint;
                         break;
 
                     default:
@@ -169,30 +175,6 @@ namespace QSP.FuelCalculation.Calculations
                 timeRemain += stepTime;
                 alt += stepTime * descentRate;
                 fuelOnBoard += stepTime * fuelFlow;
-
-                // Add to flight plan.
-                object nodeVal = null;
-
-                if (nodeToAddType == typeof(IntermediateNode))
-                {
-                    nodeVal = new IntermediateNode(currentPt);
-                }
-                else if (nodeToAddType == typeof(RouteNode))
-                {
-                    nodeVal = node.Previous.Value;
-
-                    // Update next waypoint.
-                    node = node.Previous;
-                    prevWpt = node.Value.Waypoint;
-                }
-                else if (nodeToAddType == typeof(TodNode))
-                {
-                    nodeVal = new TodNode(currentPt);
-                }
-                else
-                {
-                    throw new UnexpectedExecutionStateException();
-                }
 
                 lastPlanNode = new PlanNode(nodeVal,
                     timeRemain, alt, ktas, gs, fuelOnBoard);
@@ -207,6 +189,16 @@ namespace QSP.FuelCalculation.Calculations
             // but the profile is flying from origin to TOD at cruising 
             // altitude and then descend to destination.
             // We need to calculate the climb part.
+
+            // Use the gross weight at origin already computed. It is not 
+            // correct but close enough as an approximation. Similarly, the
+            // fuelOnBoard and TimeRemaining are approximations only.
+
+            var climbNodes = new List<PlanNode>();
+
+            timeRemain = 0.0;
+            fuelOnBoard = planNodes[0].FuelOnBoardKg
+            grossWt = 0.0;
 
 
             // Actually not. We are not done yet.
