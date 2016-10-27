@@ -87,7 +87,7 @@ namespace QSP.FuelCalculation.Calculations
             prevWpt = node.Previous.Value.Waypoint;
             v1 = route.FirstWaypoint.ToVector3D();
             v2 = route.LastWaypoint.ToVector3D();
-            v = prevWpt.ToVector3D();
+            v = v2;
             grossWt = zfwKg + landingFuelKg;
             timeRemain = 0.0;
             alt = destElevationFt(route);
@@ -105,12 +105,13 @@ namespace QSP.FuelCalculation.Calculations
                 // Continue the loop if we have not reached origin airport.
 
                 // Prepare the required parameters for the given step.
+                grossWt = lastPlanNode.FuelOnBoardKg + zfwKg; 
                 optCrzAlt = fuelData.OptCruiseAltFt(grossWt);
                 atcAllowedAlt = altProvider.ClosestAltitudeFt(
                     lastPt, prevWpt, optCrzAlt);
                 targetAlt = Min(atcAllowedAlt, maxAltFt);
                 isDescending = Abs(alt - targetAlt) > 0.1;
-
+                
                 if (isDescending)
                 {
                     fuelFlow = fuelData.DescentFuelPerMinKg(grossWt);
@@ -173,6 +174,8 @@ namespace QSP.FuelCalculation.Calculations
 
                 lastPlanNode = new PlanNode(nodeVal,
                     timeRemain, alt, ktas, gs, fuelOnBoard);
+                lastPt = lastPlanNode.Coordinate;
+                v = lastPt.ToVector3D();
                 planNodes.Add(lastPlanNode);
             }
 
