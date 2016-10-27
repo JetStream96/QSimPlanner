@@ -7,6 +7,10 @@ namespace QSP.WindAloft
 {
     public static class GroundSpeedCalculation
     {
+        /// <summary>
+        /// Gets the ground speed (in knots) at v, where the route is from v1
+        /// to v2. The v, v1, and v2 are unit vectors on the sphere.
+        /// </summary>
         public static double GetGS(
             IWindTableCollection windData,
             double altitudeFt,
@@ -31,6 +35,9 @@ namespace QSP.WindAloft
             return (-b + Sqrt(b * b - 4.0 * a * c)) / (2.0 * a);
         }
 
+        /// <summary>
+        /// Gets the wind vector in earth's coordinate at the given location. 
+        /// </summary>
         public static Vector3D GetWind(
             IWindTableCollection windData,
             double altitudeFt,
