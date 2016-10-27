@@ -16,6 +16,7 @@ using static QSP.AviationTools.SpeedConversion;
 using static QSP.MathTools.Doubles;
 using static QSP.WindAloft.GroundSpeedCalculation;
 using static System.Math;
+using QSP.FuelCalculation.Results.Nodes;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -75,7 +76,7 @@ namespace QSP.FuelCalculation.Calculations
             ICoordinate lastPt, currentPt;
             double grossWt, timeRemain, alt, fuelOnBoard, optCrzAlt,
                 atcAllowedAlt, targetAlt, fuelFlow, descentGrad, timeToCrzAlt,
-                timeToNextWpt, stepTime, descentRate, stepDis, 
+                timeToNextWpt, stepTime, descentRate, stepDis,
                 timeToCrzOrDelta, kias, ktas, gs;
             bool isDescending;
             PlanNode lastPlanNode;
@@ -99,19 +100,19 @@ namespace QSP.FuelCalculation.Calculations
                 alt, ktas, gs, fuelOnBoard);
             lastPt = lastPlanNode.Coordinate;
             planNodes.Add(lastPlanNode);
-            
+
             while (prevWpt != null)
             {
                 // Continue the loop if we have not reached origin airport.
 
                 // Prepare the required parameters for the given step.
-                grossWt = lastPlanNode.FuelOnBoardKg + zfwKg; 
+                grossWt = lastPlanNode.FuelOnBoardKg + zfwKg;
                 optCrzAlt = fuelData.OptCruiseAltFt(grossWt);
                 atcAllowedAlt = altProvider.ClosestAltitudeFt(
                     lastPt, prevWpt, optCrzAlt);
                 targetAlt = Min(atcAllowedAlt, maxAltFt);
                 isDescending = Abs(alt - targetAlt) > 0.1;
-                
+
                 if (isDescending)
                 {
                     fuelFlow = fuelData.DescentFuelPerMinKg(grossWt);
@@ -142,7 +143,7 @@ namespace QSP.FuelCalculation.Calculations
                     stepTime = timeToNextWpt;
                     stepDis = stepTime * ktas / 60.0;
                     currentPt = prevWpt;
-                    nodeToAddType = NodeType.RouteNode; 
+                    nodeToAddType = NodeType.RouteNode;
                 }
                 else
                 {
@@ -159,7 +160,7 @@ namespace QSP.FuelCalculation.Calculations
 
                 // Add to flight plan.
                 object nodeVal = null;
-                if(nodeToAddType == NodeType.RouteNode)
+                if (nodeToAddType == NodeType.RouteNode)
                 {
                     nodeVal = node.Previous.Value;
 
@@ -167,7 +168,7 @@ namespace QSP.FuelCalculation.Calculations
                     node = node.Previous;
                     prevWpt = node.Value.Waypoint;
                 }
-                else if(nodeToAddType == NodeType.IntemediateNode)
+                else if (nodeToAddType == NodeType.IntemediateNode)
                 {
                     nodeVal = new IntermediateNode(currentPt);
                 }
@@ -178,6 +179,14 @@ namespace QSP.FuelCalculation.Calculations
                 v = lastPt.ToVector3D();
                 planNodes.Add(lastPlanNode);
             }
+
+            planNodes.Reverse();
+
+            // Now the planNodes contains all nodes from destination to origin,
+            // but the profile is flying from origin to TOD at cruising 
+            // altitude and then descend to destination.
+            // We need to calculate the climb part.
+
 
             // Actually not. We are not done yet.
             return new DetailedPlan(planNodes);

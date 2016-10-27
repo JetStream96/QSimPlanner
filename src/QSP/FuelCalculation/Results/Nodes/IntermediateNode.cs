@@ -1,6 +1,6 @@
 ﻿using QSP.RouteFinding.Data.Interfaces;
 
-namespace QSP.FuelCalculation.Results
+namespace QSP.FuelCalculation.Results.Nodes
 {
     public class IntermediateNode
     {

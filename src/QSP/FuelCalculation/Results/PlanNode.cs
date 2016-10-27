@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QSP.FuelCalculation.Results.Nodes;
 
 namespace QSP.FuelCalculation.Results
 {
@@ -16,7 +17,9 @@ namespace QSP.FuelCalculation.Results
             new Type[] 
             {
                 typeof(RouteNode) ,
-                typeof(IntermediateNode)
+                typeof(IntermediateNode),
+                typeof(TocNode),
+                typeof(TodNode)
             };
 
         public object NodeValue { get; private set; }
@@ -35,6 +38,12 @@ namespace QSP.FuelCalculation.Results
 
                 var routeNode = NodeValue as RouteNode;
                 if (routeNode != null) return routeNode.Waypoint;
+
+                var tocNode = NodeValue as TocNode;
+                if (tocNode != null) return tocNode.Coordinate;
+
+                var todNode = NodeValue as TodNode;
+                if (todNode != null) return todNode.Coordinate;
 
                 throw new InvalidOperationException(
                     "Something is wrong in NodeValue validation.");
