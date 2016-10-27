@@ -76,12 +76,12 @@ namespace QSP.FuelCalculation.Calculations
 
             LinkedListNode<RouteNode> node;
             Waypoint prevWpt;
-            ICoordinate lastPt, currentPt;
+            ICoordinate prevCoord, currentCoord;
             double grossWt, timeRemain, alt, fuelOnBoard, optCrzAlt,
                 atcAllowedAlt, targetAlt, fuelFlow, descentGrad, timeToCrzAlt,
                 timeToNextWpt, stepTime, descentRate, stepDis, kias, ktas, gs;
             bool isDescending;
-            PlanNode lastPlanNode;
+            PlanNode prevPlanNode;
             Vector3D v1, v2, v;
 
             // ================ Initialize variables ===================
@@ -97,20 +97,20 @@ namespace QSP.FuelCalculation.Calculations
             kias = fuelData.DescendKias;
             ktas = Ktas(kias, alt);
             gs = GetGS(windTable, alt, ktas, v1, v2, v);
-            lastPlanNode = new PlanNode(node.Value, timeRemain,
+            prevPlanNode = new PlanNode(node.Value, timeRemain,
                 alt, ktas, gs, fuelOnBoard);
-            lastPt = lastPlanNode.Coordinate;
-            planNodes.Add(lastPlanNode);
+            prevCoord = prevPlanNode.Coordinate;
+            planNodes.Add(prevPlanNode);
 
             while (prevWpt != null)
             {
                 // Continue the loop if we have not reached origin airport.
 
                 // Prepare the required parameters for the given step.
-                grossWt = lastPlanNode.FuelOnBoardKg + zfwKg;
+                grossWt = prevPlanNode.FuelOnBoardKg + zfwKg;
                 optCrzAlt = fuelData.OptCruiseAltFt(grossWt);
-                atcAllowedAlt = altProvider.ClosestAltitudeFt(
-                    lastPt, prevWpt, optCrzAlt);
+                atcAllowedAlt = altProvider.ClosestAltitudeFtFrom(
+                    prevWpt, prevCoord, optCrzAlt);
                 targetAlt = Min(atcAllowedAlt, maxAltFt);
                 isDescending = Abs(alt - targetAlt) > 0.1;
 
@@ -135,7 +135,7 @@ namespace QSP.FuelCalculation.Calculations
                     timeToCrzAlt = double.PositiveInfinity;
                 }
 
-                timeToNextWpt = lastPt.Distance(prevWpt) / gs * 60.0;
+                timeToNextWpt = prevCoord.Distance(prevWpt) / gs * 60.0;
 
                 double[] times = { deltaT, timeToCrzAlt, timeToNextWpt };
                 int minIndex = times.MinIndex();
@@ -148,18 +148,18 @@ namespace QSP.FuelCalculation.Calculations
                 switch (minIndex)
                 {
                     case 0:
-                        currentPt = GetV(lastPt, prevWpt, stepDis);
-                        nodeVal = new IntermediateNode(currentPt);
+                        currentCoord = GetV(prevCoord, prevWpt, stepDis);
+                        nodeVal = new IntermediateNode(currentCoord);
                         break;
 
                     case 1:
-                        currentPt = GetV(lastPt, prevWpt, stepDis);
-                        nodeVal = new TodNode(currentPt);
+                        currentCoord = GetV(prevCoord, prevWpt, stepDis);
+                        nodeVal = new TodNode(currentCoord);
                         break;
 
                     case 2:
                         // Choose the next waypoint as current point.
-                        currentPt = prevWpt;
+                        currentCoord = prevWpt;
                         nodeVal = node.Previous.Value;
 
                         // Update next waypoint.
@@ -176,11 +176,11 @@ namespace QSP.FuelCalculation.Calculations
                 alt += stepTime * descentRate;
                 fuelOnBoard += stepTime * fuelFlow;
 
-                lastPlanNode = new PlanNode(nodeVal,
+                prevPlanNode = new PlanNode(nodeVal,
                     timeRemain, alt, ktas, gs, fuelOnBoard);
-                lastPt = lastPlanNode.Coordinate;
-                v = lastPt.ToVector3D();
-                planNodes.Add(lastPlanNode);
+                prevCoord = prevPlanNode.Coordinate;
+                v = prevCoord.ToVector3D();
+                planNodes.Add(prevPlanNode);
             }
 
             planNodes.Reverse();
@@ -196,15 +196,114 @@ namespace QSP.FuelCalculation.Calculations
 
             var climbNodes = new List<PlanNode>();
 
-            timeRemain = 0.0;
-            fuelOnBoard = planNodes[0].FuelOnBoardKg
-            grossWt = 0.0;
+            double climbGrad, climbRate;
+            Waypoint nextWpt;
+            bool isClimbing;
 
+            node = route.First;
+            nextWpt = node.Next.Value.Waypoint;
+            v = v1;
+            timeRemain = 0.0;
+            fuelOnBoard = planNodes[0].FuelOnBoardKg;
+            grossWt = zfwKg + fuelOnBoard;
+            alt = OrigElevationFt();
+            kias = fuelData.ClimbKias;
+            ktas = Ktas(kias, alt);
+            gs = GetGS(windTable, alt, ktas, v1, v2, v);
+            prevPlanNode = new PlanNode(node.Value, timeRemain,
+                alt, ktas, gs, fuelOnBoard);
+            prevCoord = prevPlanNode.Coordinate;
+            planNodes.Add(prevPlanNode);
+
+            while (true) //TODO:what is the right condition?
+            {
+                // Prepare the required parameters for the given step.
+                grossWt = prevPlanNode.FuelOnBoardKg + zfwKg;
+                optCrzAlt = fuelData.OptCruiseAltFt(grossWt);
+                atcAllowedAlt = altProvider.ClosestAltitudeFtTo(
+                    prevCoord, nextWpt, optCrzAlt);
+                targetAlt = Min(atcAllowedAlt, maxAltFt);
+                isClimbing = Abs(alt - targetAlt) > 0.1;
+
+                if (isClimbing)
+                {
+                    fuelFlow = fuelData.ClimbFuelPerMinKg(grossWt);
+                    climbGrad = fuelData.ClimbGradient(grossWt);
+                    kias = fuelData.ClimbKias;
+                    ktas = Ktas(kias, alt);
+                    gs = GetGS(windTable, alt, ktas, v1, v2, v);
+                    climbRate = climbGrad * ktas / 60.0 * NmFtRatio;
+                    timeToCrzAlt = (targetAlt - alt) / climbRate;
+                }
+                else
+                {
+                    fuelFlow = fuelData.CruiseFuelPerMinKg(grossWt);
+                    descentGrad = 0.0;
+                    kias = fuelData.CruiseKias(grossWt);
+                    ktas = Ktas(kias, alt);
+                    gs = GetGS(windTable, alt, ktas, v1, v2, v);
+                    climbRate = 0.0;
+                    timeToCrzAlt = double.PositiveInfinity;
+                }
+
+                timeToNextWpt = prevCoord.Distance(nextWpt) / gs * 60.0;
+
+                double[] times = { deltaT, timeToCrzAlt, timeToNextWpt };
+                int minIndex = times.MinIndex();
+                stepTime = times[minIndex];
+                stepDis = stepTime * ktas / 60.0;
+
+                // Node to add to flight plan.
+                object nodeVal = null;
+
+                switch (minIndex)
+                {
+                    case 0:
+                        currentCoord = GetV(prevCoord, nextWpt, stepDis);
+                        nodeVal = new IntermediateNode(currentCoord);
+                        break;
+
+                    case 1:
+                        currentCoord = GetV(prevCoord, nextWpt, stepDis);
+                        nodeVal = new TocNode(currentCoord);
+                        break;
+
+                    case 2:
+                        // Choose the next waypoint as current point.
+                        currentCoord = nextWpt;
+                        nodeVal = node.Next.Value;
+
+                        // Update next waypoint.
+                        node = node.Next;
+                        nextWpt = node.Value.Waypoint;
+                        break;
+
+                    default:
+                        throw new UnexpectedExecutionStateException();
+                }
+
+                // Updating the value for the PlanNode.
+                timeRemain -= stepTime;
+                alt += stepTime * climbRate;
+                fuelOnBoard -= stepTime * fuelFlow;
+
+                prevPlanNode = new PlanNode(nodeVal,
+                    timeRemain, alt, ktas, gs, fuelOnBoard);
+                prevCoord = prevPlanNode.Coordinate;
+                v = prevCoord.ToVector3D();
+                planNodes.Add(prevPlanNode);
+            }
 
             // Actually not. We are not done yet.
             return new DetailedPlan(planNodes);
 
             throw new NotImplementedException();
+        }
+        
+        private double OrigElevationFt()
+        {
+            var icao = route.First.Value.Waypoint.ID.Substring(0, 4).ToUpper();
+            return airportList[icao].Elevation;
         }
 
         private double DestElevationFt()
