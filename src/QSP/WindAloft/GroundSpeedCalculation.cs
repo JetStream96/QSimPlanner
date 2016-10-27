@@ -9,7 +9,8 @@ namespace QSP.WindAloft
     {
         /// <summary>
         /// Gets the ground speed (in knots) at v, where the route is from v1
-        /// to v2. The v, v1, and v2 are unit vectors on the sphere.
+        /// to v2. The v, v1, and v2 are unit vectors on the sphere. v1 must be
+        /// different from v2 but v can be the same as v1 or v2.
         /// </summary>
         public static double GetGS(
             IWindTableCollection windData,
