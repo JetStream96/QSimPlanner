@@ -6,8 +6,8 @@ namespace QSP.AviationTools.Coordinates
 {
     public class LatLon : IEquatable<LatLon>, ICoordinate
     {
-        public double Lat { get; private set; }
-        public double Lon { get; private set; }
+        public double Lat { get; }
+        public double Lon { get; }
 
         public LatLon(double Lat, double Lon)
         {

@@ -10,6 +10,7 @@ using QSP.RouteFinding.Routes;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using static QSP.AviationTools.Constants;
 using static QSP.AviationTools.ConversionTools;
 using static QSP.AviationTools.SpeedConversion;
@@ -28,11 +29,11 @@ namespace QSP.FuelCalculation.Calculations
     public class FuelCalculator
     {
         private const double deltaT = 0.5;    // Time in minute
-        private AirportManager airportList;
-        private CrzAltProvider altProvider;
-        private IWindTableCollection windTable;
-        private Route route;
-        private FuelDataNew.FuelDataItem fuelData;
+        private readonly AirportManager airportList;
+        private readonly CrzAltProvider altProvider;
+        private readonly IWindTableCollection windTable;
+        private readonly Route route;
+        private readonly FuelDataNew.FuelDataItem fuelData;
 
         public FuelCalculator(
             AirportManager airportList,
@@ -91,7 +92,7 @@ namespace QSP.FuelCalculation.Calculations
             v = v2;
             grossWt = zfwKg + landingFuelKg;
             timeRemain = 0.0;
-            alt = destElevationFt(route);
+            alt = DestElevationFt();
             fuelOnBoard = landingFuelKg;
             kias = fuelData.DescendKias;
             ktas = Ktas(kias, alt);
@@ -200,7 +201,7 @@ namespace QSP.FuelCalculation.Calculations
             IntemediateNode
         }
 
-        private double destElevationFt(Route route)
+        private double DestElevationFt()
         {
             var icao = route.Last.Value.Waypoint.ID.Substring(0, 4).ToUpper();
             return airportList[icao].Elevation;

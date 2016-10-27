@@ -1,4 +1,5 @@
-﻿using static QSP.MathTools.Angles;
+﻿using QSP.MathTools.Vectors;
+using static QSP.MathTools.Angles;
 using static QSP.MathTools.EarthGeometry;
 using static QSP.MathTools.Vectors.Vector3DExtension;
 using static System.Math;

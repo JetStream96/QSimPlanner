@@ -1,12 +1,12 @@
 using System;
 
-namespace QSP
+namespace QSP.MathTools.Vectors
 {
     public class Vector3D : IEquatable<Vector3D>
     {
-        public double X { get; private set; }
-        public double Y { get; private set; }
-        public double Z { get; private set; }
+        public double X { get; }
+        public double Y { get; }
+        public double Z { get; }
 
         // Using these relations:
         // X = R * sin(Phi) * cos(Theta)
@@ -26,20 +26,11 @@ namespace QSP
         /// The angle is larger or equal to 0, 
         /// and smaller or equal to PI.
         /// </summary>
-        public double Phi
-        {
-            get { return Math.Acos(Z / R); }
-        }
+        public double Phi => Math.Acos(Z / R);
 
-        public double Theta
-        {
-            get { return Math.Atan2(Y, X); }
-        }
+        public double Theta => Math.Atan2(Y, X);
 
-        public double R
-        {
-            get { return Math.Sqrt(X * X + Y * Y + Z * Z); }
-        }
+        public double R => Math.Sqrt(X * X + Y * Y + Z * Z);
 
         public static Vector3D FromSphericalCoords(
             double r, double phi, double theta)

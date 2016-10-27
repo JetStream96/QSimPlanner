@@ -4,6 +4,7 @@ using QSP.RouteFinding.Data;
 using QSP.RouteFinding.Data.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using QSP.MathTools.Vectors;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Vectors.Vector3DExtension;
 using static System.Math;
@@ -16,7 +17,7 @@ namespace QSP.RouteFinding.RandomRoutes
         private static readonly double MaxAngleRadian =
             MaxLegDis / EarthRadiusNm;
 
-        private LatLonSearcher<Waypoint> searcher;
+        private readonly LatLonSearcher<Waypoint> searcher;
 
         public RandomRouteFinder(
             IEnumerable<Waypoint> candidates, int gridSize, int polarRegSize)

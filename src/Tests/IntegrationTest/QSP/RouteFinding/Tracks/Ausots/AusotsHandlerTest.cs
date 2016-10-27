@@ -128,7 +128,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
         private static void AssertAllTracks(WaypointList wptList)
         {
-            var id = new string[]
+            var id = new[]
             {
                 // Lines commented out are unavailable tracks.
 
@@ -139,7 +139,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
                 "BP14"
             };
 
-            var firstWpt = new string[]
+            var firstWpt = new[]
             {
                 "JAMOR",
                 "PKS",
@@ -258,9 +258,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
         private class airwayEntry
         {
-            public string StartWpt;
-            public string Airway;
-            public string EndWpt;
+            public readonly string StartWpt;
+            public readonly string Airway;
+            public readonly string EndWpt;
 
             public airwayEntry(string StartWpt, string Airway, string EndWpt)
             {

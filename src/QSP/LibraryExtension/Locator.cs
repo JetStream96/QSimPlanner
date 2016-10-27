@@ -5,7 +5,7 @@
         public T Instance { get; set; }
 
         public Locator() { }
-        public Locator(T instance) { this.Instance = instance; }
+        public Locator(T Instance) { this.Instance = Instance; }
     }
 
     public static class LocatorFactory

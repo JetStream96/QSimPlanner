@@ -27,7 +27,6 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             var extractor = new SidExtractor(
                 route.ToRouteString(),
-                "RCTP",
                 "05L",
                 rwy,
                 wptList,
@@ -76,7 +75,6 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             var extractor = new SidExtractor(
                 route.ToRouteString(),
-                "RCTP",
                 "05L",
                 rwy,
                 wptList,
@@ -128,7 +126,6 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             var extractor = new SidExtractor(
                 route.ToRouteString(),
-                "RCTP",
                 "05L",
                 rwy,
                 wptList,
@@ -181,7 +178,6 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             var extractor = new SidExtractor(
                 route.ToRouteString(),
-                "RCTP",
                 "05L",
                 rwy,
                 wptList,

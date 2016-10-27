@@ -1,16 +1,16 @@
 using System;
 
-namespace QSP
+namespace QSP.MathTools.Vectors
 {
     public class Vector2D
     {
-        public double X { get; private set; }
-        public double Y { get; private set; }
+        public double X { get; }
+        public double Y { get; }
 
         // Using these relations:
         // x = r * cos(theta)
         // y = r * sin(theta)
-        
+
         public Vector2D(Vector2D item) : this(item.X, item.Y) { }
 
         public Vector2D(double X, double Y)
@@ -19,37 +19,13 @@ namespace QSP
             this.Y = Y;
         }
 
-        public double theta
-        {
-            get { return Math.Atan2(Y, X); }
-        }
+        public double theta => Math.Atan2(Y, X);
 
-        public double r
-        {
-            get { return Math.Sqrt(X * X + Y * Y); }
-        }
+        public double r => Math.Sqrt(X * X + Y * Y);
 
         public static Vector2D PolarCoords(double r, double theta)
         {
             return new Vector2D(r * Math.Cos(theta), r * Math.Sin(theta));
-        }
-
-        public void Add(Vector2D v)
-        {
-            X += v.X;
-            Y += v.Y;
-        }
-
-        public void Subtract(Vector2D v)
-        {
-            X -= v.X;
-            Y -= v.Y;
-        }
-
-        public void Multiply(double c)
-        {
-            X *= c;
-            Y *= c;
         }
 
         public static Vector2D operator +(Vector2D v1, Vector2D v2)
@@ -87,7 +63,7 @@ namespace QSP
 
         public bool Equals(Vector2D v)
         {
-            return (v.X == X && v.Y == Y);
+            return v.X == X && v.Y == Y;
         }
     }
 }

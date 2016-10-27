@@ -242,7 +242,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             if (isOrig)
             {
-                var sidExtract = new SidExtractor(item, origIcao,
+                var sidExtract = new SidExtractor(item,
                     origRwy, origRwyWpt, wptList, sids).Extract();
 
                 origRoute = sidExtract.OrigRoute;
@@ -251,7 +251,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             if (isDest)
             {
-                var starExtract = new StarExtractor(item, destIcao,
+                var starExtract = new StarExtractor(item,
                 destRwy, destRwyWpt, wptList, stars).Extract();
 
                 destRoute = starExtract.DestRoute;

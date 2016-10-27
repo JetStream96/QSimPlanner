@@ -10,18 +10,18 @@ namespace QSP.AircraftProfiles.Configs
     {
         public static readonly string NoFuelTOLdgProfileText = "None";
 
-        public string AC { get; private set; }
-        public string Registration { get; private set; }
-        public string FuelProfile { get; private set; }
-        public string TOProfile { get; private set; }
-        public string LdgProfile { get; private set; }
-        public double OewKg { get; private set; }
-        public double MaxTOWtKg { get; private set; }
-        public double MaxLdgWtKg { get; private set; }
-        public double MaxZfwKg { get; private set; }
-        public double MaxFuelKg { get; private set; }
-        public double FuelBias { get; private set; }
-        public WeightUnit WtUnit { get; private set; }
+        public string AC { get; }
+        public string Registration { get; }
+        public string FuelProfile { get; }
+        public string TOProfile { get; }
+        public string LdgProfile { get; }
+        public double OewKg { get; }
+        public double MaxTOWtKg { get; }
+        public double MaxLdgWtKg { get; }
+        public double MaxZfwKg { get; }
+        public double MaxFuelKg { get; }
+        public double FuelBias { get; }
+        public WeightUnit WtUnit { get; }
 
         public AircraftConfigItem(
             string AC,
@@ -91,7 +91,7 @@ namespace QSP.AircraftProfiles.Configs
 
             public XElement Serialize(AircraftConfigItem item, string name)
             {
-                var elem = new XElement[]
+                var elem = new[]
                 {
                     item.AC.Serialize("AC"),
                     item.Registration.Serialize("Registration"),

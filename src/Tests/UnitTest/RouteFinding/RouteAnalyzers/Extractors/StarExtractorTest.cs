@@ -25,7 +25,6 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             var extractor = new StarExtractor(
                 route.ToRouteString(),
-                "VHHH",
                 "",
                 rwy,
                 wptList,
@@ -73,7 +72,6 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             var extractor = new StarExtractor(
                 route.ToRouteString(),
-                "VHHH",
                 "07L",
                 rwy,
                 wptList,
@@ -124,7 +122,6 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             var extractor = new StarExtractor(
                 route.ToRouteString(),
-                "VHHH",
                 "07L",
                 rwy,
                 wptList,

@@ -36,24 +36,20 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
     public class StarExtractor
     {
-        private WaypointList wptList;
-        private StarCollection stars;
-        private Waypoint rwyWpt;
-        private string icao;
-        private string rwy;
-
-        private LinkedList<string> route;
+        private readonly WaypointList wptList;
+        private readonly StarCollection stars;
+        private readonly Waypoint rwyWpt;
+        private readonly string rwy;
+        private readonly LinkedList<string> route;
 
         public StarExtractor(
-            RouteString route,
-            string icao,
+            RouteString route, 
             string rwy,
-            Waypoint rwyWpt,
-            WaypointList wptList,
+            Waypoint rwyWpt, 
+            WaypointList wptList, 
             StarCollection stars)
         {
             this.route = new LinkedList<string>(route);
-            this.icao = icao;
             this.rwy = rwy;
             this.rwyWpt = rwyWpt;
             this.wptList = wptList;
@@ -63,7 +59,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
         public ExtractResult Extract()
         {
             var last = route.Last.Value;
-            var star = TryGetStar(last, rwyWpt);
+            var star = TryGetStar(last);
 
             if (star == null)
             {
@@ -148,8 +144,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             }
         }
 
-        private IReadOnlyList<Waypoint> TryGetStar(string starName,
-            Waypoint rwyWpt)
+        private IReadOnlyList<Waypoint> TryGetStar(string starName)
         {
             try
             {

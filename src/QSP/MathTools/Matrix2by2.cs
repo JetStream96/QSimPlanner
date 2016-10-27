@@ -1,4 +1,5 @@
 using System;
+using QSP.MathTools.Vectors;
 
 namespace QSP.MathTools
 {
@@ -23,7 +24,7 @@ namespace QSP.MathTools
             this.A22 = A22;
         }
 
-        public double Determinant { get { return A11 * A22 - A12 * A21; } }
+        public double Determinant => A11 * A22 - A12 * A21;
 
         public Vector2D Multiply(Vector2D v)
         {

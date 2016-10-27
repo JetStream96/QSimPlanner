@@ -1,3 +1,4 @@
+using QSP.MathTools.Vectors;
 using QSP.RouteFinding.Data.Interfaces;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Angles;
@@ -14,10 +15,10 @@ namespace QSP.WindAloft
         private static readonly Vector3D DefaultLocation =
             LatLonToVector3D(0.0, 0.0);
 
-        public double Ktas { get; private set; }
-        public double AltitudeFt { get; private set; }
+        public double Ktas { get; }
+        public double AltitudeFt { get; }
 
-        private IWindTableCollection windData;
+        private readonly IWindTableCollection windData;
         private Vector3D v1;
         private Vector3D v2;
 

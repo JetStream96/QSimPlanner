@@ -6,7 +6,6 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static QSP.LibraryExtension.IEnumerables;
 using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.RouteAnalyzers.Extractors
@@ -40,23 +39,20 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 
     public class SidExtractor
     {
-        private WaypointList wptList;
-        private SidCollection sids;
-        private Waypoint rwyWpt;
-        private string icao;
-        private string rwy;
-        private LinkedList<string> route;
+        private readonly WaypointList wptList;
+        private readonly SidCollection sids;
+        private readonly Waypoint rwyWpt;
+        private readonly string rwy;
+        private readonly LinkedList<string> route;
 
         public SidExtractor(
-            RouteString route,
-            string icao,
-            string rwy,
+            RouteString route, 
+            string rwy, 
             Waypoint rwyWpt,
             WaypointList wptList,
             SidCollection sids)
         {
             this.route = new LinkedList<string>(route);
-            this.icao = icao;
             this.rwy = rwy;
             this.rwyWpt = rwyWpt;
             this.wptList = wptList;
@@ -67,7 +63,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
         public ExtractResult Extract()
         {
             var first = route.First();
-            var sid = TryGetSid(first, rwyWpt);
+            var sid = TryGetSid(first);
 
             if (sid == null)
             {
@@ -179,7 +175,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             }
         }
 
-        private SidWaypoints TryGetSid(string sidName, Waypoint rwyWpt)
+        private SidWaypoints TryGetSid(string sidName)
         {
             try
             {
