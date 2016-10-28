@@ -106,11 +106,12 @@
     <Compile Include="Common\Options\AppOptions.cs" />
     <Compile Include="FuelCalculation\Calculations\CrzAltProvider.cs" />
     <Compile Include="FuelCalculation\Calculations\FuelCalculator.cs" />
+    <Compile Include="FuelCalculation\Calculations\SegmentParameter.cs" />
     <Compile Include="FuelCalculation\Calculators\AlternateFuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculators\CalculationResult.cs" />
     <Compile Include="FuelCalculation\Calculators\DestinationFuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculators\FuelCalculatorWithWind.cs" />
-    <Compile Include="FuelCalculation\Calculators\PlanNodeState.cs" />
+    <Compile Include="FuelCalculation\Calculations\PlanNodeState.cs" />
     <Compile Include="FuelCalculation\FuelDataNew\DataPoint.cs" />
     <Compile Include="FuelCalculation\FuelDataNew\FuelData.cs" />
     <Compile Include="FuelCalculation\FuelDataNew\FuelDataItem.cs" />
