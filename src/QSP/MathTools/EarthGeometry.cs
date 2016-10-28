@@ -1,7 +1,6 @@
 ﻿using QSP.AviationTools.Coordinates;
 using QSP.MathTools.Vectors;
 using System;
-using static QSP.MathTools.Doubles;
 using static System.Math;
 
 namespace QSP.MathTools

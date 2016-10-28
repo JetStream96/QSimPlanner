@@ -3,8 +3,6 @@ using QSP.RouteFinding.Routes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using QSP.Common;
 using QSP.FuelCalculation.Results.Nodes;
 
