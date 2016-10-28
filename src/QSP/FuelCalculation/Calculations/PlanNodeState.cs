@@ -1,4 +1,7 @@
-﻿using QSP.MathTools.Vectors;
+﻿using System.Collections.Generic;
+using QSP.MathTools.Vectors;
+using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -14,6 +17,12 @@ namespace QSP.FuelCalculation.Calculations
         // Fuel amount: kg
         // Fuel flow: kg/min
 
+        // Here 'previous' and 'next' refers to the order of nodes/waypoints
+        // in route. Do not confuse with the order of calculation although some
+        // classes like InitialPlanCreator computes the flight plan backwards.
+
+        public LinkedListNode<RouteNode> PrevNode { get; }
+        public Waypoint NextWaypoint { get; }
         public Vector3D V { get; }
         public double Alt { get; }
         public double GrossWt { get; }
