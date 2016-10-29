@@ -20,6 +20,9 @@ using static System.Math;
 
 namespace QSP.FuelCalculation.Calculations
 {
+    // The units of variables used in this class is specified in 
+    // VariableUnitStandard.txt.
+
     /// <summary>
     /// Creates the list of PlanNodes for the route. The route starts at origin
     /// at its optimal cruising altitude (instead of the airport elevation).
@@ -33,13 +36,19 @@ namespace QSP.FuelCalculation.Calculations
         private readonly IWindTableCollection windTable;
         private readonly Route route;
         private readonly FuelDataNew.FuelDataItem fuelData;
+        private readonly double zfw;
+        private readonly double landingFuel;
+        private readonly double maxAlt;
 
         public InitialPlanCreator(
             AirportManager airportList,
             CrzAltProvider altProvider,
             IWindTableCollection windTable,
             Route route,
-            FuelDataNew.FuelDataItem fuelData)
+            FuelDataNew.FuelDataItem fuelData,
+            double zfw,
+            double landingFuel,
+            double maxAlt)
         {
             if (route.Count < 2) throw new ArgumentException();
 
@@ -48,12 +57,12 @@ namespace QSP.FuelCalculation.Calculations
             this.windTable = windTable;
             this.route = route;
             this.fuelData = fuelData;
+            this.zfw = zfw;
+            this.landingFuel = landingFuel;
+            this.maxAlt = maxAlt;
         }
 
-        public List<PlanNode> Create(
-            double zfwKg,
-            double landingFuelKg,
-            double maxAltFt)
+        public List<PlanNode> Create()
         {
             // We compute the flight backwards - from destination to origin.
 
@@ -66,25 +75,16 @@ namespace QSP.FuelCalculation.Calculations
                 route.Last,
                 route.Last.Value.Waypoint,
                 DestElevationFt(),
-                zfwKg + landingFuelKg,
-                landingFuelKg,
+                zfw + landingFuel,
+                landingFuel,
                 0.0,
                 fuelData.DescendKias);
 
             planNodes.Add(prevPlanNode);
 
+
             // ================ Declare variables ====================
-
-            // Variable units:
-            // Altitude: ft
-            // Time: min
-            // Distance: nm
-            // Speed: knots
-            // Climb/Descent rate: ft/min
-            // Weight: kg
-            // Fuel amount: kg
-            // Fuel flow: kg/min
-
+            
             LinkedListNode<RouteNode> node;
             Waypoint prevWpt;
             ICoordinate prevCoord, currentCoord;
@@ -99,10 +99,10 @@ namespace QSP.FuelCalculation.Calculations
             node = route.Last;
             prevWpt = node.Previous.Value.Waypoint;
             v = v2;
-            grossWt = zfwKg + landingFuelKg;
+            grossWt = zfw + landingFuel;
             timeRemain = 0.0;
             alt = DestElevationFt();
-            fuelOnBoard = landingFuelKg;
+            fuelOnBoard = landingFuel;
             kias = fuelData.DescendKias;
             ktas = Ktas(kias, alt);
             gs = GetGS(windTable, alt, ktas, v1, v2, v);
@@ -116,11 +116,11 @@ namespace QSP.FuelCalculation.Calculations
                 // Continue the loop if we have not reached origin airport.
 
                 // Prepare the required parameters for the given step.
-                grossWt = prevPlanNode.FuelOnBoardKg + zfwKg;
+                grossWt = prevPlanNode.FuelOnBoard + zfw;
                 optCrzAlt = fuelData.OptCruiseAltFt(grossWt);
                 atcAllowedAlt = altProvider.ClosestAltitudeFtFrom(
                     prevWpt, prevCoord, optCrzAlt);
-                targetAlt = Min(atcAllowedAlt, maxAltFt);
+                targetAlt = Min(atcAllowedAlt, maxAlt);
                 isDescending = Abs(alt - targetAlt) > 0.1;
 
                 if (isDescending)
@@ -195,7 +195,17 @@ namespace QSP.FuelCalculation.Calculations
             planNodes.Reverse();
             return planNodes;
         }
-        
+
+        private NextPlanNodeParameter GetNextPara(PlanNode node)
+        {
+            double optCrzAlt = fuelData.OptCruiseAltFt(node.GrossWt);
+            double atcAllowedAlt = altProvider.ClosestAltitudeFtFrom(
+                node.PrevWaypoint, node.Coordinate, optCrzAlt);
+            double targetAlt = Min(atcAllowedAlt, maxAlt);
+            double altDiff = node.Alt - targetAlt;
+            isDescending = Abs(alt - targetAlt) > 0.1;
+        }
+
         private double DestElevationFt()
         {
             var icao = route.Last.Value.Waypoint.ID.Substring(0, 4).ToUpper();

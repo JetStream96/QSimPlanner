@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using QSP.FuelCalculation.Results;
+using System.Linq;
+using QSP.Common;
 using QSP.FuelCalculation.Results.Nodes;
 using QSP.MathTools.Vectors;
 using QSP.RouteFinding.Containers;
@@ -9,11 +10,12 @@ using QSP.RouteFinding.Routes;
 using QSP.WindAloft;
 using static QSP.AviationTools.SpeedConversion;
 using static QSP.WindAloft.GroundSpeedCalculation;
-using System.Linq;
-using QSP.Common;
 
 namespace QSP.FuelCalculation.Calculations
 {
+    // The units of variables used in this class is specified in 
+    // VariableUnitStandard.txt.
+
     public class PlanNode
     {
         // Remember to update Coordinate property getter if this is changed.
@@ -23,21 +25,12 @@ namespace QSP.FuelCalculation.Calculations
             typeof(RouteNode) ,
             typeof(IntermediateNode),
             typeof(TocNode),
-            typeof(TodNode)
+            typeof(TodNode),
+            typeof(ScNode)
         };
 
         public object NodeValue { get; }
-
-        // Variable units:
-        // Altitude: ft
-        // Time: min
-        // Distance: nm
-        // Speed: knots
-        // Climb/Descent rate: ft/min
-        // Weight: kg
-        // Fuel amount: kg
-        // Fuel flow: kg/min
-
+        
         // Here 'previous' and 'next' refers to the order of nodes/waypoints
         // in route. Do not confuse with the order of calculation although some
         // classes like InitialPlanCreator computes the flight plan backwards.
@@ -52,7 +45,7 @@ namespace QSP.FuelCalculation.Calculations
         public double FuelOnBoard { get; }
         public double TimeRemaining { get; }
         public double Kias { get; }
-        
+
         // These are computed in the class.
         public double Ktas { get; private set; }
         public double Gs { get; private set; }
@@ -72,6 +65,9 @@ namespace QSP.FuelCalculation.Calculations
 
                 var todNode = NodeValue as TodNode;
                 if (todNode != null) return todNode.Coordinate;
+
+                var scNode = NodeValue as ScNode;
+                if (scNode != null) return scNode.Coordinate;
 
                 throw new UnexpectedExecutionStateException(
                     "Something is wrong in NodeValue validation.");

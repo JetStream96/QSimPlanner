@@ -22,6 +22,9 @@ namespace QSP.FuelCalculation.Calculations
 {
     // The first and last waypoints in route must be airports or runways.
     // The ident must start with the ICAO code of airport.
+    //
+    // The units of variables used in this class is specified in 
+    // VariableUnitStandard.txt.
 
     /// <summary>
     /// Computes the actual fuel burn for the route.
@@ -61,17 +64,7 @@ namespace QSP.FuelCalculation.Calculations
             var planNodes = new List<PlanNode>();
 
             // ================ Declare variables ====================
-
-            // Variable units:
-            // Altitude: ft
-            // Time: min
-            // Distance: nm
-            // Speed: knots
-            // Climb/Descent rate: ft/min
-            // Weight: kg
-            // Fuel amount: kg
-            // Fuel flow: kg/min
-
+            
             LinkedListNode<RouteNode> node;
             Waypoint prevWpt;
             ICoordinate prevCoord, currentCoord;

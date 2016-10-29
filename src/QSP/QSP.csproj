@@ -107,7 +107,8 @@
     <Compile Include="FuelCalculation\Calculations\CrzAltProvider.cs" />
     <Compile Include="FuelCalculation\Calculations\FuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculations\InitialPlanCreator.cs" />
-    <Compile Include="FuelCalculation\Calculations\SegmentParameter.cs" />
+    <Compile Include="FuelCalculation\Calculations\NextPlanNodeParameter.cs" />
+    <Content Include="FuelCalculation\Calculations\VariableUnitStandard.txt" />
     <Compile Include="FuelCalculation\Calculators\AlternateFuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculators\CalculationResult.cs" />
     <Compile Include="FuelCalculation\Calculators\DestinationFuelCalculator.cs" />

@@ -1,0 +1,9 @@
+﻿Variable units:
+Altitude: ft
+Time: min
+Distance: nm
+Speed: knots
+Climb/Descent rate: ft/min
+Weight: kg
+Fuel amount: kg
+Fuel flow: kg/min
