@@ -59,7 +59,8 @@ namespace QSP.FuelCalculation.Calculations
 
             var planNodes = new List<PlanNode>();
             
-            var prevPlanNode = new PlanNodeState(
+            var prevPlanNode = new PlanNode(
+                route.Last,
                 windTable,
                 route.Last.Previous.Value.Waypoint,
                 route.Last,
@@ -69,6 +70,8 @@ namespace QSP.FuelCalculation.Calculations
                 landingFuelKg,
                 0.0,
                 fuelData.DescendKias);
+
+            planNodes.Add(prevPlanNode);
 
             // ================ Declare variables ====================
 
