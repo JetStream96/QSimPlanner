@@ -58,6 +58,17 @@ namespace QSP.FuelCalculation.Calculations
             // We compute the flight backwards - from destination to origin.
 
             var planNodes = new List<PlanNode>();
+            
+            var prevPlanNode = new PlanNodeState(
+                windTable,
+                route.Last.Previous.Value.Waypoint,
+                route.Last,
+                route.Last.Value.Waypoint,
+                DestElevationFt(),
+                zfwKg + landingFuelKg,
+                landingFuelKg,
+                0.0,
+                fuelData.DescendKias);
 
             // ================ Declare variables ====================
 
@@ -79,13 +90,11 @@ namespace QSP.FuelCalculation.Calculations
                 timeToNextWpt, stepTime, descentRate, stepDis, kias, ktas, gs;
             bool isDescending;
             PlanNode prevPlanNode;
-            Vector3D v1, v2, v;
+            Vector3D v;
 
             // ================ Initialize variables ===================
             node = route.Last;
             prevWpt = node.Previous.Value.Waypoint;
-            v1 = route.FirstWaypoint.ToVector3D();
-            v2 = route.LastWaypoint.ToVector3D();
             v = v2;
             grossWt = zfwKg + landingFuelKg;
             timeRemain = 0.0;
@@ -183,7 +192,7 @@ namespace QSP.FuelCalculation.Calculations
             planNodes.Reverse();
             return planNodes;
         }
-
+        
         private double DestElevationFt()
         {
             var icao = route.Last.Value.Waypoint.ID.Substring(0, 4).ToUpper();
