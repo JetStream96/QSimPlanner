@@ -17,6 +17,7 @@ using static QSP.AviationTools.SpeedConversion;
 using static QSP.MathTools.Doubles;
 using static QSP.WindAloft.GroundSpeedCalculation;
 using static System.Math;
+using static QSP.FuelCalculation.Calculations.NextPlanNodeParameter;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -203,7 +204,27 @@ namespace QSP.FuelCalculation.Calculations
                 node.PrevWaypoint, node.Coordinate, optCrzAlt);
             double targetAlt = Min(atcAllowedAlt, maxAlt);
             double altDiff = node.Alt - targetAlt;
-            isDescending = Abs(alt - targetAlt) > 0.1;
+            VerticalMode mode = GetMode(altDiff);
+
+            
+        }
+
+        private static VerticalMode GetMode(double altDiff)
+        {
+            const double diffCriteria = 0.1;
+
+            if (altDiff > diffCriteria)
+            {
+                return VerticalMode.Descent;
+            }
+            else if (altDiff < -diffCriteria)
+            {
+                return VerticalMode.Climb;
+            }
+            else
+            {
+                return VerticalMode.Cruise;
+            }
         }
 
         private double DestElevationFt()
