@@ -63,6 +63,8 @@
     <Compile Include="AviationTools\SpeedConversionTest.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Options\AppOptionTest.cs" />
+    <Compile Include="FuelCalculation\Calculations\InitialPlanCreatorTest.cs" />
+    <Compile Include="FuelCalculation\FuelData\FuelDataItemTest.cs" />
     <Compile Include="LibraryExtension\IEnumerablesTest.cs" />
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
     <Compile Include="LibraryExtension\ListsTest.cs" />

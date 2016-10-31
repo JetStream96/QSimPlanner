@@ -59,6 +59,7 @@ namespace QSP.FuelCalculation.Calculations
             double landingFuelKg,
             double maxAltFt)
         {
+            /*
             // We compute the flight backwards - from destination to origin.
 
             var planNodes = new List<PlanNode>();
@@ -287,7 +288,7 @@ namespace QSP.FuelCalculation.Calculations
 
             // Actually not. We are not done yet.
             return new DetailedPlan(planNodes);
-
+            */
             throw new NotImplementedException();
         }
         

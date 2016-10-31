@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using QSP.FuelCalculation.Calculations;
+using System.Collections.Generic;
 
 namespace QSP.FuelCalculation.Results
 {

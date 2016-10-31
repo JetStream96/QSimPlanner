@@ -27,7 +27,7 @@ namespace QSP.FuelCalculation.Calculations
     /// </summary>
     public class InitialPlanCreator
     {
-        private static readonly double deltaT = 0.5;   
+        private static readonly double deltaT = 0.5;
         private static readonly double altDiffCriteria = 0.1;
 
         private readonly AirportManager airportList;
