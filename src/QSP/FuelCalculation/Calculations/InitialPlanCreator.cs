@@ -217,35 +217,17 @@ namespace QSP.FuelCalculation.Calculations
             double climbGrad = ClimbGradient(node.GrossWt, mode);
             double climbRate = climbGrad * node.Ktas / 60.0 * NmFtRatio;
             bool isCruising = Abs(altDiff) < altDiffCriteria;
-            double timeToTargetAlt = altDiff / climbRate;
+            double timeToTargetAlt = isCruising ?
+                double.PositiveInfinity :
+                altDiff / climbRate;
 
-            Type nodeType;
-            double stepTime;
+            double[] times = { timeToNextWpt, deltaT, timeToTargetAlt };
+            int minIndex = times.MinIndex();
+            double stepTime = times[minIndex];
 
-            // Determine node type
-            if (isCruising)
-            {
-                if (deltaT < timeToNextWpt)
-                {
-                    nodeType = typeof(IntermediateNode);
-                    stepTime = deltaT;
-                }
-                else
-                {
-                    nodeType = typeof(RouteNode);
-                    stepTime = timeToNextWpt;
-                }
-            }
-            else
-            {
-                double[] times = { timeToNextWpt, deltaT, timeToTargetAlt };
-                int minIndex = times.MinIndex();
-                stepTime = times[minIndex];
-
-                nodeType = minIndex == 0 ?
-                    typeof(RouteNode) :
-                    typeof(IntermediateNode);
-            }
+            Type nodeType = minIndex == 0 ?
+                typeof(RouteNode) :
+                typeof(IntermediateNode);
 
             return new NextPlanNodeParameter(mode, nodeType, stepTime);
         }
