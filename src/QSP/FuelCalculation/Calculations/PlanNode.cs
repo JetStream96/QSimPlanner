@@ -20,9 +20,9 @@ namespace QSP.FuelCalculation.Calculations
     {
         // Remember to update Coordinate property getter if this is changed.
         // All allowed types of NodeValue must return the correct ICoordinate.
-        public static readonly IReadOnlyList<Type> AllowedNodeTypes = new[]
+        public static readonly IEnumerable<Type> AllowedNodeTypes = new[]
         {
-            typeof(RouteNode) ,
+            typeof(RouteNode),
             typeof(IntermediateNode),
             typeof(TocNode),
             typeof(TodNode),
@@ -30,7 +30,7 @@ namespace QSP.FuelCalculation.Calculations
         };
 
         public object NodeValue { get; }
-        
+
         // Here 'previous' and 'next' refers to the order of nodes/waypoints
         // in route. Do not confuse with the order of calculation although some
         // classes like InitialPlanCreator computes the flight plan backwards.

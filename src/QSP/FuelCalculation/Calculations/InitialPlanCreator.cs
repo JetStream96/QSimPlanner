@@ -31,7 +31,9 @@ namespace QSP.FuelCalculation.Calculations
     /// </summary>
     public class InitialPlanCreator
     {
-        private readonly double deltaT = 0.5;    // Time in minute
+        private static readonly double deltaT = 0.5;    // Time in minute
+        private static readonly double altDiffCriteria = 0.1;
+
         private readonly AirportManager airportList;
         private readonly CrzAltProvider altProvider;
         private readonly IWindTableCollection windTable;
@@ -68,7 +70,7 @@ namespace QSP.FuelCalculation.Calculations
             // We compute the flight backwards - from destination to origin.
 
             var planNodes = new List<PlanNode>();
-            
+
             var prevPlanNode = new PlanNode(
                 route.Last,
                 windTable,
@@ -85,7 +87,7 @@ namespace QSP.FuelCalculation.Calculations
 
 
             // ================ Declare variables ====================
-            
+
             LinkedListNode<RouteNode> node;
             Waypoint prevWpt;
             ICoordinate prevCoord, currentCoord;
@@ -199,6 +201,7 @@ namespace QSP.FuelCalculation.Calculations
 
         private NextPlanNodeParameter GetNextPara(PlanNode node)
         {
+            // Compute verical mode.
             double optCrzAlt = fuelData.OptCruiseAltFt(node.GrossWt);
             double atcAllowedAlt = altProvider.ClosestAltitudeFtFrom(
                 node.PrevWaypoint, node.Coordinate, optCrzAlt);
@@ -206,18 +209,72 @@ namespace QSP.FuelCalculation.Calculations
             double altDiff = node.Alt - targetAlt;
             VerticalMode mode = GetMode(altDiff);
 
-            
+            // Time to next waypoint.
+            double disToNextWpt = node.Coordinate.Distance(node.PrevWaypoint);
+            double timeToNextWpt = disToNextWpt / node.Gs * 60.0;
+
+            // Time to target altitude.
+            double climbGrad = ClimbGradient(node.GrossWt, mode);
+            double climbRate = climbGrad * node.Ktas / 60.0 * NmFtRatio;
+            bool isCruising = Abs(altDiff) < altDiffCriteria;
+            double timeToTargetAlt = altDiff / climbRate;
+
+            Type nodeType;
+            double stepTime;
+
+            // Determine node type
+            if (isCruising)
+            {
+                if (deltaT < timeToNextWpt)
+                {
+                    nodeType = typeof(IntermediateNode);
+                    stepTime = deltaT;
+                }
+                else
+                {
+                    nodeType = typeof(RouteNode);
+                    stepTime = timeToNextWpt;
+                }
+            }
+            else
+            {
+                double[] times = { timeToNextWpt, deltaT, timeToTargetAlt };
+                int minIndex = times.MinIndex();
+                stepTime = times[minIndex];
+
+                nodeType = minIndex == 0 ?
+                    typeof(RouteNode) :
+                    typeof(IntermediateNode);
+            }
+
+            return new NextPlanNodeParameter(mode, nodeType, stepTime);
+        }
+
+        private double ClimbGradient(double grossWt, VerticalMode mode)
+        {
+            switch (mode)
+            {
+                case VerticalMode.Climb:
+                    return fuelData.ClimbGradient(grossWt);
+
+                case VerticalMode.Cruise:
+                    return 0.0;
+
+                case VerticalMode.Descent:
+                    return -fuelData.DescentGradient(grossWt);
+
+                default:
+                    throw new ArgumentException();
+            }
         }
 
         private static VerticalMode GetMode(double altDiff)
         {
-            const double diffCriteria = 0.1;
-
-            if (altDiff > diffCriteria)
+            if (altDiff > altDiffCriteria)
             {
                 return VerticalMode.Descent;
             }
-            else if (altDiff < -diffCriteria)
+            else if (altDiff < -altDiffCriteria)
             {
                 return VerticalMode.Climb;
             }
