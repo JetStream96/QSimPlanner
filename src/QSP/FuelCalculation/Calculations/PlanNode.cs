@@ -43,7 +43,7 @@ namespace QSP.FuelCalculation.Calculations
         // before current node.
         public Waypoint PrevWaypoint { get; }
 
-        // If the current node is at a RouteNode, the next property
+        // If the current node is at a RouteNode, this property
         // is identical to the current node.
         public LinkedListNode<RouteNode> NextRouteNode { get; }
 
@@ -58,6 +58,12 @@ namespace QSP.FuelCalculation.Calculations
         // These are computed in the class.
         public double Ktas { get; private set; }
         public double Gs { get; private set; }
+
+        // If the current node is at a RouteNode, this property
+        // is the one before the current node. Therefore, this will be null
+        // if current node is the first node of the route.
+        public LinkedListNode<RouteNode> PrevRouteNode =>
+            NextRouteNode.Previous;
 
         public ICoordinate Coordinate
         {
