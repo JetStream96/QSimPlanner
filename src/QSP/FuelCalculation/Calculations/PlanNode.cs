@@ -43,9 +43,10 @@ namespace QSP.FuelCalculation.Calculations
         // before current node.
         public Waypoint PrevWaypoint { get; }
 
-        // If the current node is at a RouteNode, the next two properties
-        // are identical to the current node.
+        // If the current node is at a RouteNode, the next property
+        // is identical to the current node.
         public LinkedListNode<RouteNode> NextRouteNode { get; }
+
         public ICoordinate NextPlanNodeCoordinate { get; }
 
         public double Alt { get; }

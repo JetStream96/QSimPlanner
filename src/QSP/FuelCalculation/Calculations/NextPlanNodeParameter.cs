@@ -18,8 +18,13 @@ namespace QSP.FuelCalculation.Calculations
         // Time to next PlanNode.
         public double StepTime { get; }
 
+        public double ClimbRate { get; }
+
         public NextPlanNodeParameter(
-            VerticalMode ModeVertical, Type NodeType, double StepTime)
+            VerticalMode ModeVertical,
+            Type NodeType,
+            double StepTime,
+            double ClimbRate)
         {
             // Validate type.
             if (NodeType != typeof(RouteNode) &&
@@ -31,6 +36,7 @@ namespace QSP.FuelCalculation.Calculations
             this.ModeVertical = ModeVertical;
             this.NodeType = NodeType;
             this.StepTime = StepTime;
+            this.ClimbRate = ClimbRate;
         }
 
         public enum VerticalMode

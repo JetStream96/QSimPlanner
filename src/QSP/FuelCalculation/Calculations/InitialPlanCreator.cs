@@ -230,7 +230,7 @@ namespace QSP.FuelCalculation.Calculations
                 typeof(RouteNode) :
                 typeof(IntermediateNode);
 
-            return new NextPlanNodeParameter(mode, nodeType, stepTime);
+            return new NextPlanNodeParameter(mode, nodeType, stepTime, climbRate);
         }
 
         private double ClimbGradient(double grossWt, VerticalMode mode)
@@ -267,38 +267,91 @@ namespace QSP.FuelCalculation.Calculations
             }
         }
 
+        private double FuelFlow(double grossWt, VerticalMode mode)
+        {
+            switch (mode)
+            {
+                case VerticalMode.Climb:
+                    return fuelData.ClimbFuelPerMinKg(grossWt);
+
+                case VerticalMode.Cruise:
+                    return fuelData.CruiseFuelPerMinKg(grossWt);
+
+                case VerticalMode.Descent:
+                    return fuelData.DescentFuelPerMinKg(grossWt);
+
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        private double Kias(double grossWt, VerticalMode mode)
+        {
+            switch (mode)
+            {
+                case VerticalMode.Climb:
+                    return fuelData.ClimbKias;
+
+                case VerticalMode.Cruise:
+                    return fuelData.CruiseKias(grossWt);
+
+                case VerticalMode.Descent:
+                    return fuelData.DescendKias;
+
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
         private PlanNode NextPlanNode(PlanNode prev, NextPlanNodeParameter p)
         {
+            var ff = FuelFlow(prev.GrossWt, p.ModeVertical);
+            var stepFuel = p.StepTime * ff;
+            ICoordinate nextPlanNodeCoordinate = prev.Coordinate;
+            double alt = prev.Alt - p.StepTime * p.ClimbRate;
+            double grossWt = prev.GrossWt + stepFuel;
+            double fuelOnBoard = prev.FuelOnBoard + stepFuel;
+            double timeRemaining = prev.TimeRemaining + p.StepTime;
+            double kias = Kias(prev.GrossWt, p.ModeVertical);
+
             if (p.NodeType == typeof(RouteNode))
             {
-                RouteNode val = prev.NextRouteNode.Previous.Value;
-                Waypoint prevWaypoint =
-            LinkedListNode < RouteNode > NextRouteNode,
-            ICoordinate NextPlanNodeCoordinate,
-            double Alt,
-            double GrossWt,
-            double FuelOnBoard,
-            double TimeRemaining,
-            double Kias
+                var current = prev.NextRouteNode.Previous;
+
+                RouteNode val = current.Value;
+                Waypoint prevWaypoint = current.Previous.Value.Waypoint;
+                LinkedListNode<RouteNode> nextRouteNode = current;
+
+                return new PlanNode(
+                    val,
+                    windTable,
+                    prevWaypoint,
+                    nextRouteNode,
+                    nextPlanNodeCoordinate,
+                    alt,
+                    grossWt,
+                    fuelOnBoard,
+                    timeRemaining,
+                    kias);
             }
             else
             {
-                
-            }
-            /*
-            //object NodeValue,
-            Waypoint prevWaypoint = 
-            LinkedListNode< RouteNode > NextRouteNode,
-            ICoordinate NextPlanNodeCoordinate,
-            double Alt,
-            double GrossWt,
-            double FuelOnBoard,
-            double TimeRemaining,
-            double Kias
+                var current = prev.NextRouteNode.Previous;
 
-            return new PlanNode(
-                ,
-                windTable,);*/
+                var val = new IntermediateNode();
+
+                return new PlanNode(
+                    val,
+                    windTable,
+                    prev.PrevWaypoint,
+                    prev.NextRouteNode,
+                    nextPlanNodeCoordinate,
+                    alt,
+                    grossWt,
+                    fuelOnBoard,
+                    timeRemaining,
+                    kias);
+            }
         }
 
         private double DestElevationFt()

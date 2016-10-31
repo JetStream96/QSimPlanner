@@ -15,8 +15,7 @@
   <ApuFuelPerMin>1.8</ApuFuelPerMin>
   <MissedAppFuel>130</MissedAppFuel>
   <ClimbIAS>280</ClimbIAS>
-  <DescentIAS>280</DescentIAS>
-  <CruiseMach>0.78</CruiseMach>  
+  <DescentIAS>280</DescentIAS>  
 
   <DataPoint>
     <Weight></Weight>

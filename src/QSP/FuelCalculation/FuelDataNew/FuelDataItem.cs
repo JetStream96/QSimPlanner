@@ -14,7 +14,6 @@ namespace QSP.FuelCalculation.FuelDataNew
         public double MissedAppFuelKG { get; private set; }
         public double ClimbKias { get; private set; }
         public double DescendKias { get; private set; }
-        public double CruiseMach { get; private set; }
         public DataPoint DataPoint1 { get; private set; }
         public DataPoint DataPoint2 { get; private set; }
 
@@ -26,7 +25,6 @@ namespace QSP.FuelCalculation.FuelDataNew
              double MissedAppFuelKG,
              double ClimbKias,
              double DescendKias,
-             double CruiseMach,
              DataPoint DataPoint1,
              DataPoint DataPoint2)
         {
@@ -37,7 +35,6 @@ namespace QSP.FuelCalculation.FuelDataNew
             this.MissedAppFuelKG = MissedAppFuelKG;
             this.ClimbKias = ClimbKias;
             this.DescendKias = DescendKias;
-            this.CruiseMach = CruiseMach;
             this.DataPoint1 = DataPoint1;
             this.DataPoint2 = DataPoint2;
         }
@@ -52,7 +49,6 @@ namespace QSP.FuelCalculation.FuelDataNew
             private static string MissedAppFuelKG = "MissedAppFuel";
             private static string ClimbKias = "ClimbIAS";
             private static string DescendKias = "DescentIAS";
-            private static string CruiseMach = "CruiseMach";
             private static string DataPoint = "DataPoint";
 
             public FuelDataItem Deserialize(XElement elem)
@@ -68,7 +64,6 @@ namespace QSP.FuelCalculation.FuelDataNew
                     elem.GetDouble(MissedAppFuelKG),
                     elem.GetDouble(ClimbKias),
                     elem.GetDouble(DescendKias),
-                    elem.GetDouble(CruiseMach),
                     deserializer.Deserialize(pts[0]),
                     deserializer.Deserialize(pts[1]));
             }
@@ -87,7 +82,6 @@ namespace QSP.FuelCalculation.FuelDataNew
                     new XElement(MissedAppFuelKG, item.MissedAppFuelKG),
                     new XElement(ClimbKias, item.ClimbKias),
                     new XElement(DescendKias, item.DescendKias),
-                    new XElement(CruiseMach, item.CruiseMach),
                     serializer.Serialize(item.DataPoint1, DataPoint),
                     serializer.Serialize(item.DataPoint2, DataPoint));
             }
