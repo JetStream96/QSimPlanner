@@ -18,6 +18,7 @@ namespace QSP.FuelCalculation.Calculations
 
     public class PlanNode
     {
+        // TODO: Are these types all used?
         // Remember to update Coordinate property getter if this is changed.
         // All allowed types of NodeValue must return the correct ICoordinate.
         public static readonly IEnumerable<Type> AllowedNodeTypes = new[]
@@ -37,9 +38,16 @@ namespace QSP.FuelCalculation.Calculations
 
         // These are passed in via ctor.
         public IWindTableCollection WindTable { get; }
+
+        // If the current node is at a waypoint, this property is the one
+        // before current node.
         public Waypoint PrevWaypoint { get; }
+
+        // If the current node is at a RouteNode, the next two properties
+        // are identical to the current node.
         public LinkedListNode<RouteNode> NextRouteNode { get; }
         public ICoordinate NextPlanNodeCoordinate { get; }
+
         public double Alt { get; }
         public double GrossWt { get; }
         public double FuelOnBoard { get; }

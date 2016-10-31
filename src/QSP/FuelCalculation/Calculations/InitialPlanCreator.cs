@@ -85,6 +85,8 @@ namespace QSP.FuelCalculation.Calculations
 
             planNodes.Add(prevPlanNode);
 
+            var nextPlanNodeInfo = GetNextPara(prevPlanNode);
+
 
             // ================ Declare variables ====================
 
@@ -224,7 +226,6 @@ namespace QSP.FuelCalculation.Calculations
             double[] times = { timeToNextWpt, deltaT, timeToTargetAlt };
             int minIndex = times.MinIndex();
             double stepTime = times[minIndex];
-
             Type nodeType = minIndex == 0 ?
                 typeof(RouteNode) :
                 typeof(IntermediateNode);
@@ -264,6 +265,40 @@ namespace QSP.FuelCalculation.Calculations
             {
                 return VerticalMode.Cruise;
             }
+        }
+
+        private PlanNode NextPlanNode(PlanNode prev, NextPlanNodeParameter p)
+        {
+            if (p.NodeType == typeof(RouteNode))
+            {
+                RouteNode val = prev.NextRouteNode.Previous.Value;
+                Waypoint prevWaypoint =
+            LinkedListNode < RouteNode > NextRouteNode,
+            ICoordinate NextPlanNodeCoordinate,
+            double Alt,
+            double GrossWt,
+            double FuelOnBoard,
+            double TimeRemaining,
+            double Kias
+            }
+            else
+            {
+                
+            }
+            /*
+            //object NodeValue,
+            Waypoint prevWaypoint = 
+            LinkedListNode< RouteNode > NextRouteNode,
+            ICoordinate NextPlanNodeCoordinate,
+            double Alt,
+            double GrossWt,
+            double FuelOnBoard,
+            double TimeRemaining,
+            double Kias
+
+            return new PlanNode(
+                ,
+                windTable,);*/
         }
 
         private double DestElevationFt()
