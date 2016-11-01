@@ -2,125 +2,128 @@
 
 namespace QSP.FuelCalculation.FuelDataNew
 {
+    // The units of variables used in this class is specified in 
+    // FuelCalculation/Calculations/VariableUnitStandard.txt.
+
     public static class FuelDataItemExtension
     {
-        public static double HoldingFuelKg(this FuelDataItem item,
-            double timeMin, double weightTon)
+        public static double HoldingFuel(this FuelDataItem item,
+            double time, double weight)
         {
-            return item.HoldingFuelPerMininuteKg(weightTon) * timeMin;
+            return item.HoldingFuelFlow(weight) * time;
         }
 
-        public static double HoldingFuelPerMininuteKg(this FuelDataItem item,
-            double weightTon)
+        public static double HoldingFuelFlow(this FuelDataItem item,
+            double weight)
         {
-            var refWt = item.HoldingFuelRefWtTon;
-            var fuelFlow = item.HoldingFuelPerMinuteKg;
-            return fuelFlow / refWt * weightTon;
+            var refWt = item.HoldingFuelRefWt;
+            var fuelFlow = item.HoldingFuelFlow;
+            return fuelFlow / refWt * weight;
         }
 
-        public static double HoldingTimeMin(this FuelDataItem item,
-            double fuelkg, double weightTon)
+        public static double HoldingTime(this FuelDataItem item,
+            double fuel, double weight)
         {
-            return fuelkg / item.HoldingFuelPerMininuteKg(weightTon);
+            return fuel / item.HoldingFuelFlow(weight);
         }
 
-        public static double CruiseFuelPerMinKg(
-            this FuelDataItem item, double grossWeightKg)
+        public static double CruiseFuelFlow(
+            this FuelDataItem item, double grossWeight)
         {
             var p1 = item.DataPoint1;
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.WeightKg, p2.WeightKg, grossWeightKg,
-                p1.CruiseFuelPerMinKg, p2.CruiseFuelPerMinKg);
+                p1.Weight, p2.Weight, grossWeight,
+                p1.CruiseFuelFlow, p2.CruiseFuelFlow);
         }
 
         public static double CruiseKias(
-            this FuelDataItem item, double grossWeightKg)
+            this FuelDataItem item, double grossWeight)
         {
             var p1 = item.DataPoint1;
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.WeightKg, p2.WeightKg, grossWeightKg,
+                p1.Weight, p2.Weight, grossWeight,
                 p1.CruiseKias, p2.CruiseKias);
         }
 
         public static double ClimbGradient(
-            this FuelDataItem item, double grossWeightKg)
+            this FuelDataItem item, double grossWeight)
         {
             var p1 = item.DataPoint1;
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.WeightKg, p2.WeightKg, grossWeightKg,
+                p1.Weight, p2.Weight, grossWeight,
                 p1.ClimbGradient, p2.ClimbGradient);
         }
 
-        public static double ClimbFuelPerMinKg(
-            this FuelDataItem item, double grossWeightKg)
+        public static double ClimbFuelFlow(
+            this FuelDataItem item, double grossWeight)
         {
             var p1 = item.DataPoint1;
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.WeightKg, p2.WeightKg, grossWeightKg,
-                p1.ClimbFuelPerMinKg, p2.ClimbFuelPerMinKg);
+                p1.Weight, p2.Weight, grossWeight,
+                p1.ClimbFuelFlow, p2.ClimbFuelFlow);
         }
 
         public static double DescentGradient(
-            this FuelDataItem item, double grossWeightKg)
+            this FuelDataItem item, double grossWeight)
         {
             var p1 = item.DataPoint1;
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.WeightKg, p2.WeightKg, grossWeightKg,
+                p1.Weight, p2.Weight, grossWeight,
                 p1.DescentGradient, p2.DescentGradient);
         }
 
-        public static double DescentFuelPerMinKg(
-            this FuelDataItem item, double grossWeightKg)
+        public static double DescentFuelFlow(
+            this FuelDataItem item, double grossWeight)
         {
             var p1 = item.DataPoint1;
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.WeightKg, p2.WeightKg, grossWeightKg,
-                p1.DescentFuelPerMinKg, p2.DescentFuelPerMinKg);
+                p1.Weight, p2.Weight, grossWeight,
+                p1.DescentFuelFlow, p2.DescentFuelFlow);
         }
 
-        public static double OptCruiseAltFt(
-            this FuelDataItem item, double grossWeightKg)
+        public static double OptCruiseAlt(
+            this FuelDataItem item, double grossWeight)
         {
             var p1 = item.DataPoint1;
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.WeightKg, p2.WeightKg, grossWeightKg,
-                p1.OptCruiseAltFt, p2.OptCruiseAltFt);
+                p1.Weight, p2.Weight, grossWeight,
+                p1.OptCruiseAlt, p2.OptCruiseAlt);
         }
 
         public static double EtopsCruiseKtas(
-            this FuelDataItem item, double grossWeightKg)
+            this FuelDataItem item, double grossWeight)
         {
             var p1 = item.DataPoint1;
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.WeightKg, p2.WeightKg, grossWeightKg,
+                p1.Weight, p2.Weight, grossWeight,
                 p1.EtopsCruiseKtas, p2.EtopsCruiseKtas);
         }
 
-        public static double EtopsCruiseFuelPerMinKg(
-            this FuelDataItem item, double grossWeightKg)
+        public static double EtopsCruiseFuelFlow(
+            this FuelDataItem item, double grossWeight)
         {
             var p1 = item.DataPoint1;
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.WeightKg, p2.WeightKg, grossWeightKg,
-                p1.EtopsCruiseFuelPerMinKg, p2.EtopsCruiseFuelPerMinKg);
+                p1.Weight, p2.Weight, grossWeight,
+                p1.EtopsCruiseFuelFlow, p2.EtopsCruiseFuelFlow);
         }
     }
 }

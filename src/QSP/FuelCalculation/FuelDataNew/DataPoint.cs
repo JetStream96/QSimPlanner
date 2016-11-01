@@ -3,86 +3,89 @@ using QSP.LibraryExtension.XmlSerialization;
 
 namespace QSP.FuelCalculation.FuelDataNew
 {
+    // The units of variables used in this class is specified in 
+    // FuelCalculation/Calculations/VariableUnitStandard.txt.
+
     public class DataPoint
     {
-        public double WeightKg { get; private set; }
-        public double CruiseFuelPerMinKg { get; private set; }
+        public double Weight { get; private set; }
+        public double CruiseFuelFlow { get; private set; }
         public double CruiseKias { get; private set; }
         public double ClimbGradient { get; private set; }
-        public double ClimbFuelPerMinKg { get; private set; }
+        public double ClimbFuelFlow { get; private set; }
         public double DescentGradient { get; private set; }
-        public double DescentFuelPerMinKg { get; private set; }
-        public double OptCruiseAltFt { get; private set; }
+        public double DescentFuelFlow { get; private set; }
+        public double OptCruiseAlt { get; private set; }
         public double EtopsCruiseKtas { get; private set; }
-        public double EtopsCruiseFuelPerMinKg { get; private set; }
+        public double EtopsCruiseFuelFlow { get; private set; }
 
         public DataPoint(
-            double WeightKg,
-            double CruiseFuelPerMinKg,
+            double Weight,
+            double CruiseFuelFlow,
             double CruiseKias,
             double ClimbGradient,
-            double ClimbFuelPerMinKg,
+            double ClimbFuelFlow,
             double DescentGradient,
-            double DescentFuelPerMinKg,
-            double OptCruiseAltFt,
+            double DescentFuelFlow,
+            double OptCruiseAlt,
             double EtopsCruiseKtas,
-            double EtopsCruiseFuelPerMinKg)
+            double EtopsCruiseFuelFlow)
         {
-            this.WeightKg = WeightKg;
-            this.CruiseFuelPerMinKg = CruiseFuelPerMinKg;
+            this.Weight = Weight;
+            this.CruiseFuelFlow = CruiseFuelFlow;
             this.CruiseKias = CruiseKias;
             this.ClimbGradient = ClimbGradient;
-            this.ClimbFuelPerMinKg = ClimbFuelPerMinKg;
+            this.ClimbFuelFlow = ClimbFuelFlow;
             this.DescentGradient = DescentGradient;
-            this.DescentFuelPerMinKg = DescentFuelPerMinKg;
-            this.OptCruiseAltFt = OptCruiseAltFt;
+            this.DescentFuelFlow = DescentFuelFlow;
+            this.OptCruiseAlt = OptCruiseAlt;
             this.EtopsCruiseKtas = EtopsCruiseKtas;
-            this.EtopsCruiseFuelPerMinKg = EtopsCruiseFuelPerMinKg;
+            this.EtopsCruiseFuelFlow = EtopsCruiseFuelFlow;
         }
-        
+
         public class Serializer : IXSerializer<DataPoint>
         {
-            private static string WeightKg = "Weight";
-            private static string CruiseFuelPerMinKg = "CruiseFF";
+            private static string Weight = "Weight";
+            private static string CruiseFuelFlow = "CruiseFF";
             private static string CruiseKias = "CruiseIAS";
             private static string ClimbGradient = "ClimbGrad";
-            private static string ClimbFuelPerMinKg = "ClimbFF";
+            private static string ClimbFuelFlow = "ClimbFF";
             private static string DescentGradient = "DescentGrad";
-            private static string DescentFuelPerMinKg = "DescentFF";
-            private static string OptCruiseAltFt = "OptCruiseAlt";
+            private static string DescentFuelFlow = "DescentFF";
+            private static string OptCruiseAlt = "OptCruiseAlt";
             private static string EtopsCruiseKtas = "EtopsCruiseTAS";
-            private static string EtopsCruiseFuelPerMinKg = "EtopsCruiseFF";
+            private static string EtopsCruiseFuelFlow = "EtopsCruiseFF";
 
             public DataPoint Deserialize(XElement elem)
             {
                 return new DataPoint(
-                    elem.GetDouble(WeightKg),
-                    elem.GetDouble(CruiseFuelPerMinKg),
+                    elem.GetDouble(Weight),
+                    elem.GetDouble(CruiseFuelFlow),
                     elem.GetDouble(CruiseKias),
                     elem.GetDouble(ClimbGradient),
-                    elem.GetDouble(ClimbFuelPerMinKg),
+                    elem.GetDouble(ClimbFuelFlow),
                     elem.GetDouble(DescentGradient),
-                    elem.GetDouble(DescentFuelPerMinKg),
-                    elem.GetDouble(OptCruiseAltFt),
+                    elem.GetDouble(DescentFuelFlow),
+                    elem.GetDouble(OptCruiseAlt),
                     elem.GetDouble(EtopsCruiseKtas),
-                    elem.GetDouble(EtopsCruiseFuelPerMinKg));
+                    elem.GetDouble(EtopsCruiseFuelFlow));
             }
 
             public XElement Serialize(DataPoint item, string name)
             {
                 return new XElement(name,
-                new XElement(WeightKg, item.WeightKg),
-                new XElement(WeightKg, item.WeightKg),
-                new XElement(CruiseFuelPerMinKg, item.CruiseFuelPerMinKg),
+                new XElement(Weight, item.Weight),
+                new XElement(Weight, item.Weight),
+                new XElement(CruiseFuelFlow, item.CruiseFuelFlow),
                 new XElement(CruiseKias, item.CruiseKias),
                 new XElement(ClimbGradient, item.ClimbGradient),
-                new XElement(ClimbFuelPerMinKg, item.ClimbFuelPerMinKg),
+                new XElement(ClimbFuelFlow, item.ClimbFuelFlow),
                 new XElement(DescentGradient, item.DescentGradient),
-                new XElement(DescentFuelPerMinKg, item.DescentFuelPerMinKg),
-                new XElement(OptCruiseAltFt, item.OptCruiseAltFt),
+                new XElement(DescentFuelFlow, item.DescentFuelFlow),
+                new XElement(OptCruiseAlt, item.OptCruiseAlt),
                 new XElement(EtopsCruiseKtas, item.EtopsCruiseKtas),
-                new XElement(EtopsCruiseFuelPerMinKg, 
-                item.EtopsCruiseFuelPerMinKg));
+                new XElement(EtopsCruiseFuelFlow,
+                item.EtopsCruiseFuelFlow));
             }
         }
     }

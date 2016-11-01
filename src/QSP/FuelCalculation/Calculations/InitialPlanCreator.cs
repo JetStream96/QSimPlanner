@@ -95,7 +95,7 @@ namespace QSP.FuelCalculation.Calculations
         private NextPlanNodeParameter GetNextPara(PlanNode node)
         {
             // Compute verical mode.
-            double optCrzAlt = fuelData.OptCruiseAltFt(node.GrossWt);
+            double optCrzAlt = fuelData.OptCruiseAlt(node.GrossWt);
             double atcAllowedAlt = altProvider.ClosestAltitudeFtFrom(
                 node.PrevWaypoint, node.Coordinate, optCrzAlt);
             double targetAlt = Min(atcAllowedAlt, maxAlt);
@@ -163,13 +163,13 @@ namespace QSP.FuelCalculation.Calculations
             switch (mode)
             {
                 case VerticalMode.Climb:
-                    return fuelData.ClimbFuelPerMinKg(grossWt);
+                    return fuelData.ClimbFuelFlow(grossWt);
 
                 case VerticalMode.Cruise:
-                    return fuelData.CruiseFuelPerMinKg(grossWt);
+                    return fuelData.CruiseFuelFlow(grossWt);
 
                 case VerticalMode.Descent:
-                    return fuelData.DescentFuelPerMinKg(grossWt);
+                    return fuelData.DescentFuelFlow(grossWt);
 
                 default:
                     throw new ArgumentException();

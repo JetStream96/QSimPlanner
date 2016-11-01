@@ -27,10 +27,10 @@ namespace UnitTest.FuelCalculation.FuelData
   -->
 
   <ProfileName>Boeing 737-800</ProfileName>
-  <HoldingFuelPerMinute>37.7</HoldingFuelPerMinute>
+  <HoldingFuelFlow>37.7</HoldingFuelFlow>
   <HoldingFuelRefWt>60000</HoldingFuelRefWt>
-  <TaxiFuelPerMin>12.2</TaxiFuelPerMin>
-  <ApuFuelPerMin>1.8</ApuFuelPerMin>
+  <TaxiFuelFlow>12.2</TaxiFuelFlow>
+  <ApuFuelFlow>1.8</ApuFuelFlow>
   <MissedAppFuel>130</MissedAppFuel>
   <ClimbIAS>280</ClimbIAS>
   <DescentIAS>280</DescentIAS>
@@ -39,7 +39,7 @@ namespace UnitTest.FuelCalculation.FuelData
     <Weight>40000</Weight>
     <CruiseFF>27.1</CruiseFF>
     <CruiseIAS>215.9772</CruiseIAS>
-    <ClimbGrad>0.08997</ClimbGrad>
+    <ClimbGrad>	0.08997</ClimbGrad>
     <ClimbFF>85.416666666666671</ClimbFF>
     <DescentGrad>0.06681</DescentGrad>
     <DescentFF>13.083333333333334</DescentFF>

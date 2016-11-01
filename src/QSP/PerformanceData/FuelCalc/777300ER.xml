@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Data>
 
   <General>
     <ProfileName>Boeing 777-300ER</ProfileName>
     <HoldingFuelPerMinuteKg>94.33</HoldingFuelPerMinuteKg>
-	<HoldingFuelRefWtTon>200</HoldingFuelRefWtTon>
+	<HoldingFuelRefWtTon>200</HoldingFuelRefWt>
     <TaxiFuelPerMinKg>36</TaxiFuelPerMinKg>
     <ApuFuelPerMinKg>4</ApuFuelPerMinKg>
 
