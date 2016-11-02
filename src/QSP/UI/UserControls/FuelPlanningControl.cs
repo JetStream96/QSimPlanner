@@ -67,20 +67,9 @@ namespace QSP.UI.UserControls
 
         public event EventHandler AircraftRequestChanged;
 
-        private AirportManager airportList
-        {
-            get { return airwayNetwork.AirportList; }
-        }
-
-        private AppOptions appSettings
-        {
-            get { return appOptionsLocator.Instance; }
-        }
-
-        private RouteGroup RouteToDest
-        {
-            get { return routeActionMenu.Route; }
-        }
+        private AirportManager airportList => airwayNetwork.AirportList;
+        private AppOptions appSettings => appOptionsLocator.Instance;
+        private RouteGroup RouteToDest => routeActionMenu.Route;
 
         public FuelPlanningControl()
         {

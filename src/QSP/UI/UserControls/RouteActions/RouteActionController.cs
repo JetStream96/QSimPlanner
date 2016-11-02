@@ -38,15 +38,8 @@ namespace QSP.UI.UserControls.RouteActions
         private IClickable showMapBtn;
         private Form parentForm;
 
-        private AppOptions appSettings
-        {
-            get { return appOptionsLocator.Instance; }
-        }
-
-        private AirportManager airportList
-        {
-            get { return airwayNetwork.AirportList; }
-        }
+        private AppOptions appSettings => appOptionsLocator.Instance;
+        private AirportManager airportList => airwayNetwork.AirportList;
 
         public RouteGroup Route { get; private set; }
 

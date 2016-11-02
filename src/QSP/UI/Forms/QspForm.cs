@@ -58,30 +58,11 @@ namespace QSP.UI.Forms
         private WindDataForm windFrm;
         private bool failedToLoadNavDataAtStartUp = false;
 
-        private AppOptions appSettings
-        {
-            get { return appOptionsLocator.Instance; }
-        }
-
-        private AirportManager airportList
-        {
-            get { return airwayNetwork.AirportList; }
-        }
-
-        private WaypointList wptList
-        {
-            get { return airwayNetwork.WptList; }
-        }
-
-        private TrackInUseCollection tracksInUse
-        {
-            get { return airwayNetwork.TracksInUse; }
-        }
-
-        private CountryCodeManager countryCodes
-        {
-            get { return countryCodesLocator.Instance; }
-        }
+        private AppOptions appSettings => appOptionsLocator.Instance;
+        private AirportManager airportList => airwayNetwork.AirportList;
+        private WaypointList wptList => airwayNetwork.WptList;
+        private TrackInUseCollection tracksInUse => airwayNetwork.TracksInUse;
+        private CountryCodeManager countryCodes => countryCodesLocator.Instance;
 
         private IEnumerable<UserControl> Pages
         {

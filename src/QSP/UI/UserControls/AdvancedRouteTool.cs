@@ -40,20 +40,9 @@ namespace QSP.UI.UserControls
         private Func<AvgWindCalculator> windCalcGetter;
         private RouteGroup Route;
 
-        private WaypointList wptList
-        {
-            get { return airwayNetwork.WptList; }
-        }
-
-        private AirportManager airportList
-        {
-            get { return airwayNetwork.AirportList; }
-        }
-
-        private TrackInUseCollection tracksInUse
-        {
-            get { return airwayNetwork.TracksInUse; }
-        }
+        private WaypointList wptList => airwayNetwork.WptList;
+        private AirportManager airportList => airwayNetwork.AirportList;
+        private TrackInUseCollection tracksInUse => airwayNetwork.TracksInUse;
 
         public AdvancedRouteTool()
         {

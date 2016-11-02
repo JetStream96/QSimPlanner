@@ -32,7 +32,7 @@ namespace QSP.UI.Controllers
         // Fires when the collection of alternates changes.
         public event EventHandler AlternatesChanged;
 
-        public int RowCount { get { return rows.Count; } }
+        public int RowCount => rows.Count;
 
         public IEnumerable<string> Alternates
         {

@@ -32,20 +32,10 @@ namespace QSP.UI.Controllers
         public Button FilterBtn { get; private set; }
         public bool IsDepartureAirport { get; private set; }
 
-        public WaypointList WptList
-        {
-            get { return WptListGetter(); }
-        }
-
-        public AirportManager AirportList
-        {
-            get { return AirportListGetter(); }
-        }
-
-        public string NavDataLocation
-        {
-            get { return appOptionsLocator.Instance.NavDataLocation; }
-        }
+        public WaypointList WptList => WptListGetter();
+        public AirportManager AirportList => AirportListGetter();
+        public string NavDataLocation => 
+            appOptionsLocator.Instance.NavDataLocation;
 
         public RouteFinderSelection(
             TextBox IcaoTxtBox,

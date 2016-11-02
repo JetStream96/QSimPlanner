@@ -12,13 +12,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
 
         public AirportManager Airports { get; set; }
 
-        public string Icao
-        {
-            get
-            {
-                return airportTxtBox.Text.Trim().ToUpper();
-            }
-        }
+        public string Icao => airportTxtBox.Text.Trim().ToUpper();
 
         public AirportInfoControl()
         {
