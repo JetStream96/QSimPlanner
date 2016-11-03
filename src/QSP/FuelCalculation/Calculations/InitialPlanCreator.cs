@@ -17,6 +17,8 @@ using static QSP.FuelCalculation.Calculations.NextPlanNodeParameter;
 
 namespace QSP.FuelCalculation.Calculations
 {
+    // TODO: 250 kts below 10000 ft?
+
     // The units of variables used in this class is specified in 
     // VariableUnitStandard.txt.
 
@@ -70,7 +72,6 @@ namespace QSP.FuelCalculation.Calculations
             var prevPlanNode = new PlanNode(
                 route.Last.Value,
                 windTable,
-                route.Last.Previous.Value.Waypoint,
                 route.Last,
                 route.Last.Value.Waypoint,
                 DestElevationFt(),
@@ -81,7 +82,7 @@ namespace QSP.FuelCalculation.Calculations
 
             planNodes.Add(prevPlanNode);
 
-            while (prevPlanNode.PrevWaypoint != null)
+            while (prevPlanNode.PrevRouteNode != null)
             {
                 var nextPlanNodeInfo = GetNextPara(prevPlanNode);
                 prevPlanNode = NextPlanNode(prevPlanNode, nextPlanNodeInfo);
@@ -107,8 +108,9 @@ namespace QSP.FuelCalculation.Calculations
             double timeToNextWpt = disToNextWpt / node.Gs * 60.0;
 
             // Time to target altitude.
+            // TODO: ClimbRate is confusing here. 
             double climbGrad = ClimbGradient(node.GrossWt, mode);
-            double climbRate = -climbGrad * node.Ktas / 60.0 * NmFtRatio;
+            double climbRate = climbGrad * node.Ktas / 60.0 * NmFtRatio;
             bool isCruising = Abs(altDiff) < altDiffCriteria;
             double timeToTargetAlt = isCruising ?
                 double.PositiveInfinity :
@@ -146,11 +148,11 @@ namespace QSP.FuelCalculation.Calculations
         {
             if (altDiff > altDiffCriteria)
             {
-                return VerticalMode.Descent;
+                return VerticalMode.Climb;
             }
             else if (altDiff < -altDiffCriteria)
             {
-                return VerticalMode.Climb;
+                return VerticalMode.Descent;
             }
             else
             {
@@ -210,13 +212,11 @@ namespace QSP.FuelCalculation.Calculations
                 var current = prev.NextRouteNode.Previous;
 
                 RouteNode val = current.Value;
-                Waypoint prevWaypoint = current.Previous.Value.Waypoint;
                 LinkedListNode<RouteNode> nextRouteNode = current;
 
                 return new PlanNode(
                     val,
                     windTable,
-                    prevWaypoint,
                     nextRouteNode,
                     nextPlanNodeCoordinate,
                     alt,
@@ -234,7 +234,6 @@ namespace QSP.FuelCalculation.Calculations
                 return new PlanNode(
                     val,
                     windTable,
-                    prev.PrevWaypoint,
                     prev.NextRouteNode,
                     nextPlanNodeCoordinate,
                     alt,

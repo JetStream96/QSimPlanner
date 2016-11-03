@@ -39,10 +39,6 @@ namespace QSP.FuelCalculation.Calculations
         // These are passed in via ctor.
         public IWindTableCollection WindTable { get; }
 
-        // If the current node is at a waypoint, this property is the one
-        // before current node.
-        public Waypoint PrevWaypoint { get; }
-
         // If the current node is at a RouteNode, this property
         // is identical to the current node.
         public LinkedListNode<RouteNode> NextRouteNode { get; }
@@ -55,9 +51,16 @@ namespace QSP.FuelCalculation.Calculations
         public double TimeRemaining { get; }
         public double Kias { get; }
 
-        // These are computed in the class.
+        // These are computed in the class. They are valid only if
+        // PrevRouteNode is not null. i.e. The NodeValue is not the first
+        // RouteNode in the route.
         public double Ktas { get; private set; }
         public double Gs { get; private set; }
+
+        // If the current node is at a waypoint, this property is the one
+        // before current node. This is null if current node is the first
+        // node of the route.
+        public Waypoint PrevWaypoint => PrevRouteNode?.Value.Waypoint;
 
         // If the current node is at a RouteNode, this property
         // is the one before the current node. Therefore, this will be null
@@ -90,14 +93,13 @@ namespace QSP.FuelCalculation.Calculations
         }
 
         public PlanNode(
-            object NodeValue,
-            IWindTableCollection WindTable,
-            Waypoint PrevWaypoint,
+            object NodeValue, 
+            IWindTableCollection WindTable, 
             LinkedListNode<RouteNode> NextRouteNode,
-            ICoordinate NextPlanNodeCoordinate,
-            double Alt,
-            double GrossWt,
-            double FuelOnBoard,
+            ICoordinate NextPlanNodeCoordinate, 
+            double Alt, 
+            double GrossWt, 
+            double FuelOnBoard, 
             double TimeRemaining,
             double Kias)
         {
@@ -108,7 +110,6 @@ namespace QSP.FuelCalculation.Calculations
 
             this.NodeValue = NodeValue;
             this.WindTable = WindTable;
-            this.PrevWaypoint = PrevWaypoint;
             this.NextRouteNode = NextRouteNode;
             this.NextPlanNodeCoordinate = NextPlanNodeCoordinate;
             this.Alt = Alt;
@@ -128,6 +129,8 @@ namespace QSP.FuelCalculation.Calculations
 
         private void ComputeParameters()
         {
+            if (PrevRouteNode == null) return;
+
             Ktas = Ktas(Kias, Alt);
             Gs = GetGS(
                 WindTable,
