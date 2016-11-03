@@ -10,9 +10,14 @@ namespace UnitTest.FuelCalculation.FuelData
         [Test]
         public void DeserializeTest()
         {
+            GetItem();
+        }
+
+        public static FuelDataItem GetItem()
+        {
             var serializer = new FuelDataItem.Serializer();
             var doc = XDocument.Parse(FileText);
-            var item = serializer.Deserialize(doc.Root);
+            return serializer.Deserialize(doc.Root);
         }
 
         public static readonly string FileText =

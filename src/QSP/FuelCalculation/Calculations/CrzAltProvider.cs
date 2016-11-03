@@ -1,22 +1,23 @@
-﻿using QSP.RouteFinding.Data.Interfaces;
+﻿using System;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.FuelCalculation.Calculations
 {
-    public class CrzAltProvider
+    public class CrzAltProvider : ICrzAltProvider
     {
         public double ClosestAltitudeFtTo(ICoordinate current,
-            ICoordinate next, double altitudeFt)
+            ICoordinate next, double altitude)
         {
             // TODO: Westbound: Even altitudes
             // Eastbound: Odd altitudes
             // For metric system, i.e. China, it will be complicated.
-            return altitudeFt;
+            return Math.Round(altitude / 1000.0) * 1000.0;
         }
 
         public double ClosestAltitudeFtFrom(ICoordinate previous,
-            ICoordinate current, double altitudeFt)
+            ICoordinate current, double altitude)
         {
-            return altitudeFt;
+            return Math.Round(altitude / 1000.0) * 1000.0;
         }
     }
 }

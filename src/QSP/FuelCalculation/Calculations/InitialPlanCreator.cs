@@ -31,7 +31,7 @@ namespace QSP.FuelCalculation.Calculations
         private static readonly double altDiffCriteria = 0.1;
 
         private readonly AirportManager airportList;
-        private readonly CrzAltProvider altProvider;
+        private readonly ICrzAltProvider altProvider;
         private readonly IWindTableCollection windTable;
         private readonly Route route;
         private readonly FuelDataNew.FuelDataItem fuelData;
@@ -41,7 +41,7 @@ namespace QSP.FuelCalculation.Calculations
 
         public InitialPlanCreator(
             AirportManager airportList,
-            CrzAltProvider altProvider,
+            ICrzAltProvider altProvider,
             IWindTableCollection windTable,
             Route route,
             FuelDataNew.FuelDataItem fuelData,
