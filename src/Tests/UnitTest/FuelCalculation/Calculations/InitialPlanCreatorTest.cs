@@ -1,9 +1,12 @@
 ﻿using System;
 using NUnit.Framework;
 using QSP.FuelCalculation.Calculations;
+using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.WindAloft;
 using UnitTest.FuelCalculation.FuelData;
+using static UnitTest.RouteFinding.Common;
 
 namespace UnitTest.FuelCalculation.Calculations
 {
@@ -13,17 +16,32 @@ namespace UnitTest.FuelCalculation.Calculations
         [Test]
         public void CreateTest()
         {
+            var abcd = GetAirport("ABCD", 0.0);
+            var efgh = GetAirport("EFGH", 3000.0);
+            var route = GetRoute(
+                new Waypoint("ABCD12R", 0.0, 0.0), "SID", -1.0,
+                new Waypoint("A", 1.0, 0.0), "1", -1.0,
+                new Waypoint("B", 1.0, 2.0), "STAR", -1.0,
+                new Waypoint("EFGH", 2.0, 3.0));
+
             var creator = new InitialPlanCreator(
- 
+                GetAirportManager(abcd, efgh),
                 new CrzAltProviderStub(),
-                new CrzAltProvider(),
                 new WindCollectionStub(),
-                ,
+                route,
                 FuelDataItemTest.GetItem(),
                 55000.0,
                 5000.0,
                 41000.0);
 
+            var nodes = creator.Create();
+
+        }
+
+        private static Airport GetAirport(string icao, double alt)
+        {
+            return new Airport(icao, null, 0.0, 0.0, (int)alt, 
+                false, 0, 0, 0, null);
         }
 
         public class WindCollectionStub : IWindTableCollection

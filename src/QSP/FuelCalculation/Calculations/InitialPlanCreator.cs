@@ -68,7 +68,7 @@ namespace QSP.FuelCalculation.Calculations
             var planNodes = new List<PlanNode>();
 
             var prevPlanNode = new PlanNode(
-                route.Last,
+                route.Last.Value,
                 windTable,
                 route.Last.Previous.Value.Waypoint,
                 route.Last,
@@ -108,7 +108,7 @@ namespace QSP.FuelCalculation.Calculations
 
             // Time to target altitude.
             double climbGrad = ClimbGradient(node.GrossWt, mode);
-            double climbRate = climbGrad * node.Ktas / 60.0 * NmFtRatio;
+            double climbRate = -climbGrad * node.Ktas / 60.0 * NmFtRatio;
             bool isCruising = Abs(altDiff) < altDiffCriteria;
             double timeToTargetAlt = isCruising ?
                 double.PositiveInfinity :

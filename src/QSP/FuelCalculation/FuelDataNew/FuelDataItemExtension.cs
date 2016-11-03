@@ -34,8 +34,8 @@ namespace QSP.FuelCalculation.FuelDataNew
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight, grossWeight,
-                p1.CruiseFuelFlow, p2.CruiseFuelFlow);
+                p1.Weight, p2.Weight,
+                p1.CruiseFuelFlow, p2.CruiseFuelFlow, grossWeight);
         }
 
         public static double CruiseKias(
@@ -45,8 +45,8 @@ namespace QSP.FuelCalculation.FuelDataNew
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight, grossWeight,
-                p1.CruiseKias, p2.CruiseKias);
+                p1.Weight, p2.Weight,
+                p1.CruiseKias, p2.CruiseKias, grossWeight);
         }
 
         public static double ClimbGradient(
@@ -56,8 +56,8 @@ namespace QSP.FuelCalculation.FuelDataNew
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight, grossWeight,
-                p1.ClimbGradient, p2.ClimbGradient);
+                p1.Weight, p2.Weight,
+                p1.ClimbGradient, p2.ClimbGradient, grossWeight);
         }
 
         public static double ClimbFuelFlow(
@@ -67,8 +67,8 @@ namespace QSP.FuelCalculation.FuelDataNew
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight, grossWeight,
-                p1.ClimbFuelFlow, p2.ClimbFuelFlow);
+                p1.Weight, p2.Weight,
+                p1.ClimbFuelFlow, p2.ClimbFuelFlow, grossWeight);
         }
 
         public static double DescentGradient(
@@ -78,8 +78,8 @@ namespace QSP.FuelCalculation.FuelDataNew
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight, grossWeight,
-                p1.DescentGradient, p2.DescentGradient);
+                p1.Weight, p2.Weight,
+                p1.DescentGradient, p2.DescentGradient, grossWeight);
         }
 
         public static double DescentFuelFlow(
@@ -89,8 +89,8 @@ namespace QSP.FuelCalculation.FuelDataNew
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight, grossWeight,
-                p1.DescentFuelFlow, p2.DescentFuelFlow);
+                p1.Weight, p2.Weight,
+                p1.DescentFuelFlow, p2.DescentFuelFlow, grossWeight);
         }
 
         public static double OptCruiseAlt(
@@ -100,8 +100,8 @@ namespace QSP.FuelCalculation.FuelDataNew
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight, grossWeight,
-                p1.OptCruiseAlt, p2.OptCruiseAlt);
+                p1.Weight, p2.Weight,
+                p1.OptCruiseAlt, p2.OptCruiseAlt, grossWeight);
         }
 
         public static double EtopsCruiseKtas(
@@ -111,8 +111,8 @@ namespace QSP.FuelCalculation.FuelDataNew
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight, grossWeight,
-                p1.EtopsCruiseKtas, p2.EtopsCruiseKtas);
+                p1.Weight, p2.Weight,
+                p1.EtopsCruiseKtas, p2.EtopsCruiseKtas, grossWeight);
         }
 
         public static double EtopsCruiseFuelFlow(
@@ -122,8 +122,8 @@ namespace QSP.FuelCalculation.FuelDataNew
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight, grossWeight,
-                p1.EtopsCruiseFuelFlow, p2.EtopsCruiseFuelFlow);
+                p1.Weight, p2.Weight,
+                p1.EtopsCruiseFuelFlow, p2.EtopsCruiseFuelFlow, grossWeight);
         }
     }
 }
