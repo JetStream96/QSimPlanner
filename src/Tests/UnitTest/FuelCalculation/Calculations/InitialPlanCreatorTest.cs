@@ -58,6 +58,14 @@ namespace UnitTest.FuelCalculation.Calculations
                 41000.0);
 
             var nodes = creator.Create();
+
+            // If you want to edit this, make sure the nodes are manually 
+            // analyzed to make sure it's correct.
+            var first = nodes[0];
+            Assert.AreEqual(37000.0, first.Alt, 0.1);
+            Assert.AreEqual(5929.1, first.FuelOnBoard, 1.0);
+            Assert.AreEqual(60929.1, first.GrossWt, 1.0);
+            Assert.AreEqual(33.89, first.TimeRemaining, 1.0);
         }
 
         private static Route TestRoute()

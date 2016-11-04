@@ -225,7 +225,7 @@ namespace QSP.FuelCalculation.Calculations
             }
             else
             {
-                double stepDis = p.StepTime * prev.Ktas / 60.0;
+                double stepDis = p.StepTime * prev.Gs / 60.0;
                 var nodeCoord = GetV(prev.Coordinate, prev.PrevWaypoint, stepDis);
                 var val = new IntermediateNode(nodeCoord);
 
