@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using QSP.FuelCalculation.FuelDataNew;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Data.Interfaces;
@@ -11,41 +12,47 @@ namespace QSP.FuelCalculation.Calculations
 {
     public class ClimbNodesCreator
     {
-        private static readonly double deltaT = 0.5;
-        private static readonly double altDiffCriteria = 0.1;
-
         private readonly AirportManager airportList;
-        private readonly ICrzAltProvider altProvider;
-        private readonly IWindTableCollection windTable;
         private readonly Route route;
         private readonly FuelDataNew.FuelDataItem fuelData;
-        private readonly double zfw;
-        private readonly double landingFuel;
-        private readonly double maxAlt;
+        private readonly IReadOnlyList<PlanNode> initPlan;
 
         public ClimbNodesCreator(
             AirportManager airportList,
-            ICrzAltProvider altProvider,
-            IWindTableCollection windTable,
             Route route,
             FuelDataNew.FuelDataItem fuelData,
-            double zfw,
-            double landingFuel,
-            double maxAlt)
+            IReadOnlyList<PlanNode> initPlan)
         {
             if (route.Count < 2) throw new ArgumentException();
 
             this.airportList = airportList;
-            this.altProvider = altProvider;
-            this.windTable = windTable;
             this.route = route;
             this.fuelData = fuelData;
-            this.zfw = zfw;
-            this.landingFuel = landingFuel;
-            this.maxAlt = maxAlt;
+            this.initPlan = initPlan;
         }
 
-        public List<PlanNode> Create(IReadOnlyList<PlanNode> initPlan)
+        public List<PlanNode> Create()
+        {
+            var estimation = NodeEstimation();
+
+            // Fix GrossWt, FuelOnBoard, TimeRemaining.
+            var last = estimation.Last();
+            var old = initPlan[estimation.Count - 1];
+            var grossWtShift = old.GrossWt - last.GrossWt;
+            var fuelShift = old.FuelOnBoard - last.FuelOnBoard;
+            var timeShift = old.TimeRemaining - last.TimeRemaining;
+
+            return estimation
+                .Select(n => GetNode(
+                    n,
+                    n.Alt,
+                    n.GrossWt + grossWtShift,
+                    n.FuelOnBoard + fuelShift,
+                    n.TimeRemaining + timeShift))
+                .ToList();
+        }
+
+        private List<PlanNode> NodeEstimation()
         {
             // We uses the node provided by initPlan.
             // In initPlan, the climb segment is not calculated.
@@ -54,7 +61,7 @@ namespace QSP.FuelCalculation.Calculations
             // 
             // In climbNodes, the absolute values of the following parameters 
             // are probably not correct but the relative values between nodes
-            // are accurate: GrossWt, FuelOnBoard, TimeRemaning.
+            // are accurate: GrossWt, FuelOnBoard, TimeRemaining.
             //
 
             var climbNodes = new List<PlanNode>();
@@ -78,8 +85,8 @@ namespace QSP.FuelCalculation.Calculations
                         "destination airports is too large for this route.");
                 }
 
-                var old = initPlan[climbNodes.Count];
-                prevPlanNode = NextPlanNode(prevPlanNode, old);
+                oldNode = initPlan[climbNodes.Count];
+                prevPlanNode = NextPlanNode(prevPlanNode, oldNode);
                 climbNodes.Add(prevPlanNode);
             }
 
@@ -94,10 +101,10 @@ namespace QSP.FuelCalculation.Calculations
             var stepFuel = stepTime * ff;
             var climbGrad = fuelData.ClimbGradient(prev.GrossWt);
             var climbRate = climbGrad * prev.Ktas / 60.0 * NmFtRatio;
-            double alt = prev.Alt + stepTime * climbRate;
-            double grossWt = prev.GrossWt - stepFuel;
-            double fuelOnBoard = prev.FuelOnBoard - stepFuel;
-            double timeRemaining = prev.TimeRemaining - stepTime;
+            var alt = Math.Min(prev.Alt + stepTime * climbRate, old.Alt);
+            var grossWt = prev.GrossWt - stepFuel;
+            var fuelOnBoard = prev.FuelOnBoard - stepFuel;
+            var timeRemaining = prev.TimeRemaining - stepTime;
 
             return GetNode(old, alt, grossWt, fuelOnBoard, timeRemaining);
         }
