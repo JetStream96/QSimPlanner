@@ -4,7 +4,7 @@
   <General>
     <ProfileName>Boeing 777F</ProfileName>
     <HoldingFuelPerMinuteKg>93.0</HoldingFuelPerMinuteKg>
-	<HoldingFuelRefWtTon>200</HoldingFuelRefWt>
+	<HoldingFuelRefWtTon>200</HoldingFuelRefWtTon>
     <TaxiFuelPerMinKg>36</TaxiFuelPerMinKg>
     <ApuFuelPerMinKg>4</ApuFuelPerMinKg>
 

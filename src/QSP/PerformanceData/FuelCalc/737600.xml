@@ -4,7 +4,7 @@
   <General>
     <ProfileName>Boeing 737-600</ProfileName>
     <HoldingFuelPerMinuteKg>36.3</HoldingFuelPerMinuteKg>
-	<HoldingFuelRefWtTon>60</HoldingFuelRefWt>
+	<HoldingFuelRefWtTon>60</HoldingFuelRefWtTon>
     <TaxiFuelPerMinKg>12.2</TaxiFuelPerMinKg>
     <ApuFuelPerMinKg>1.8</ApuFuelPerMinKg>
     <MissedAppFuelKG>130</MissedAppFuelKG>

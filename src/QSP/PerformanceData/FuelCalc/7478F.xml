@@ -4,7 +4,7 @@
   <General>
     <ProfileName>Boeing 747-8F</ProfileName>
     <HoldingFuelPerMinuteKg>174</HoldingFuelPerMinuteKg>
-	<HoldingFuelRefWtTon>360</HoldingFuelRefWt>
+	<HoldingFuelRefWtTon>360</HoldingFuelRefWtTon>
     <TaxiFuelPerMinKg>36</TaxiFuelPerMinKg>
     <ApuFuelPerMinKg>4</ApuFuelPerMinKg>
 
