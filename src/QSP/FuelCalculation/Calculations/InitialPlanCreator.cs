@@ -16,6 +16,8 @@ using static QSP.FuelCalculation.Calculations.NextPlanNodeParameter;
 
 namespace QSP.FuelCalculation.Calculations
 {
+    // TODO: Speed profile is too simple. 280 knots at FL380 is way too fast.
+
     // The units of variables used in this class is specified in 
     // VariableUnitStandard.txt.
 

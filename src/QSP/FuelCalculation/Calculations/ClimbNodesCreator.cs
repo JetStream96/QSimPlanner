@@ -95,9 +95,9 @@ namespace QSP.FuelCalculation.Calculations
 
         private PlanNode NextPlanNode(PlanNode prev, PlanNode old)
         {
-            var ff = fuelData.CruiseFuelFlow(prev.GrossWt);
+            var ff = fuelData.ClimbFuelFlow(prev.GrossWt);
             var stepDis = prev.Coordinate.Distance(prev.NextPlanNodeCoordinate);
-            var stepTime = stepDis / prev.Gs;
+            var stepTime = stepDis / prev.Gs * 60.0;
             var stepFuel = stepTime * ff;
             var climbGrad = fuelData.ClimbGradient(prev.GrossWt);
             var climbRate = climbGrad * prev.Ktas / 60.0 * NmFtRatio;
