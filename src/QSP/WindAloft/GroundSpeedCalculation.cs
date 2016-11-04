@@ -27,12 +27,9 @@ namespace QSP.WindAloft
             double windSpd = wind.R;
             var w = v.Equals(v2) ? -GetW(v, v1) : GetW(v, v2);
 
-            var innerProduct = windSpd == 0.0
-                ? 0.0
-                : wind.Normalize().Dot(w);
-
+            double innerProduct = wind.Dot(w);
             double a = 1.0;
-            double b = -2.0 * windSpd * innerProduct;
+            double b = -2.0 * innerProduct;
             double c = windSpd * windSpd - ktas * ktas;
             return (-b + Sqrt(b * b - 4.0 * a * c)) / (2.0 * a);
         }

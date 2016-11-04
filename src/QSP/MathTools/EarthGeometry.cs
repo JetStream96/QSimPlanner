@@ -70,22 +70,11 @@ namespace QSP.MathTools
                     NorthPole;
             }
 
-            // Now v is not parallel with v2. So {v, v2} is a basis of the 
-            // plane they are on.
+            // Now v is not parallel with v2. So their cross product is nonzero.
+            var v3 = v.Cross(v2);
 
-            // If v is orthogonal to v2, then v2 is the correct answer.
-            var t = v2.Dot(v);
-            if (t == 0.0) return v2;
-
-            // Otherwise, we find vector u such that u = c * w, where c > 0.
-            // We can write u = v + a * v2, where a is a real number. 
-            // Requiring u to be orthogonal to v. We have
-            // 0 = (u dot v) = (v dot v) + a * (v2 dot v) = 1 + a * (v2 dot v)
-            // => a = -1 / (v2 dot v)
-
-            var a = -1.0 / t;
-            var u = v + a * v2;
-            return u.Normalize();
+            // This is orthogonal to v and points to the right direction.
+            return v3.Cross(v).Normalize();
         }
     }
 }

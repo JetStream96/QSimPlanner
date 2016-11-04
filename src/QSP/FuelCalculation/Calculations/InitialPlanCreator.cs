@@ -17,8 +17,6 @@ using static QSP.FuelCalculation.Calculations.NextPlanNodeParameter;
 
 namespace QSP.FuelCalculation.Calculations
 {
-    // TODO: 250 kts below 10000 ft?
-
     // The units of variables used in this class is specified in 
     // VariableUnitStandard.txt.
 
@@ -108,7 +106,7 @@ namespace QSP.FuelCalculation.Calculations
             double timeToNextWpt = disToNextWpt / node.Gs * 60.0;
 
             // Time to target altitude.
-            // TODO: ClimbRate is confusing here. 
+            // ClimbRate is positve for climbs and negative for descents.
             double climbGrad = ClimbGradient(node.GrossWt, mode);
             double climbRate = climbGrad * node.Ktas / 60.0 * NmFtRatio;
             bool isCruising = Abs(altDiff) < altDiffCriteria;

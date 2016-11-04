@@ -4,6 +4,7 @@ using QSP.FuelCalculation.Calculations;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
+using QSP.RouteFinding.Routes;
 using QSP.WindAloft;
 using UnitTest.FuelCalculation.FuelData;
 using static UnitTest.RouteFinding.Common;
@@ -18,17 +19,12 @@ namespace UnitTest.FuelCalculation.Calculations
         {
             var abcd = GetAirport("ABCD", 0.0);
             var efgh = GetAirport("EFGH", 3000.0);
-            var route = GetRoute(
-                new Waypoint("ABCD12R", 0.0, 0.0), "SID", -1.0,
-                new Waypoint("A", 1.0, 0.0), "1", -1.0,
-                new Waypoint("B", 1.0, 2.0), "STAR", -1.0,
-                new Waypoint("EFGH", 2.0, 3.0));
 
             var creator = new InitialPlanCreator(
                 GetAirportManager(abcd, efgh),
                 new CrzAltProviderStub(),
-                new WindCollectionStub(),
-                route,
+                new WindCollectionStub(new WindUV(0.0, 0.0)),
+                TestRoute(),
                 FuelDataItemTest.GetItem(),
                 55000.0,
                 5000.0,
@@ -45,6 +41,34 @@ namespace UnitTest.FuelCalculation.Calculations
             Assert.AreEqual(37.85, first.TimeRemaining, 1.0);
         }
 
+        [Test]
+        public void CalculatesWindEffectTest()
+        {
+            var abcd = GetAirport("ABCD", 0.0);
+            var efgh = GetAirport("EFGH", 3000.0);
+
+            var creator = new InitialPlanCreator(
+                GetAirportManager(abcd, efgh),
+                new CrzAltProviderStub(),
+                new WindCollectionStub(new WindUV(50.0, 50.0)),
+                TestRoute(),
+                FuelDataItemTest.GetItem(),
+                55000.0,
+                5000.0,
+                41000.0);
+
+            var nodes = creator.Create();
+        }
+
+        private static Route TestRoute()
+        {
+            return GetRoute(
+                new Waypoint("ABCD12R", 0.0, 0.0), "SID", -1.0,
+                new Waypoint("A", 1.0, 0.0), "1", -1.0,
+                new Waypoint("B", 1.0, 2.0), "STAR", -1.0,
+                new Waypoint("EFGH", 2.0, 3.0));
+        }
+
         private static Airport GetAirport(string icao, double alt)
         {
             return new Airport(icao, null, 0.0, 0.0, (int)alt, 
@@ -53,9 +77,16 @@ namespace UnitTest.FuelCalculation.Calculations
 
         public class WindCollectionStub : IWindTableCollection
         {
+            private WindUV wind;
+
+            public WindCollectionStub(WindUV wind)
+            {
+                this.wind = wind;
+            }
+            
             public WindUV GetWindUV(double lat, double lon, double altitudeFt)
             {
-                return new WindUV(0.0, 0.0);
+                return wind;
             }
         }
 
