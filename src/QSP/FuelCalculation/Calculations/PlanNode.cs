@@ -51,9 +51,7 @@ namespace QSP.FuelCalculation.Calculations
         public double TimeRemaining { get; }
         public double Kias { get; }
 
-        // These are computed in the class. They are valid only if
-        // PrevRouteNode is not null. i.e. The NodeValue is not the first
-        // RouteNode in the route.
+        // These are computed in the class. 
         public double Ktas { get; private set; }
         public double Gs { get; private set; }
 
@@ -68,29 +66,7 @@ namespace QSP.FuelCalculation.Calculations
         public LinkedListNode<RouteNode> PrevRouteNode =>
             NextRouteNode.Previous;
 
-        public ICoordinate Coordinate
-        {
-            get
-            {
-                var intermediateNode = NodeValue as IntermediateNode;
-                if (intermediateNode != null) return intermediateNode.Coordinate;
-
-                var routeNode = NodeValue as RouteNode;
-                if (routeNode != null) return routeNode.Waypoint;
-
-                var tocNode = NodeValue as TocNode;
-                if (tocNode != null) return tocNode.Coordinate;
-
-                var todNode = NodeValue as TodNode;
-                if (todNode != null) return todNode.Coordinate;
-
-                var scNode = NodeValue as ScNode;
-                if (scNode != null) return scNode.Coordinate;
-
-                throw new UnexpectedExecutionStateException(
-                    "Something is wrong in NodeValue validation.");
-            }
-        }
+        public ICoordinate Coordinate { get; }
 
         public PlanNode(
             object NodeValue, 
@@ -117,6 +93,7 @@ namespace QSP.FuelCalculation.Calculations
             this.FuelOnBoard = FuelOnBoard;
             this.TimeRemaining = TimeRemaining;
             this.Kias = Kias;
+            this.Coordinate = GetCoordinate();
 
             ComputeParameters();
         }
@@ -129,16 +106,39 @@ namespace QSP.FuelCalculation.Calculations
 
         private void ComputeParameters()
         {
-            if (PrevRouteNode == null) return;
-
             Ktas = Ktas(Kias, Alt);
+
             Gs = GetGS(
                 WindTable,
                 Alt,
                 Ktas,
-                PrevWaypoint.ToVector3D(),
-                NextRouteNode.Value.Waypoint.ToVector3D(),
-                NextPlanNodeCoordinate.ToVector3D());
+                (PrevWaypoint ?? Coordinate).ToVector3D(),     // *
+                NextPlanNodeCoordinate.ToVector3D(),
+                Coordinate.ToVector3D());
+
+            // * NextPlanNodeCoordinate is different from Coordinate if the
+            //   current node is not the first node.
+        }
+
+        private ICoordinate GetCoordinate()
+        {
+            var intermediateNode = NodeValue as IntermediateNode;
+            if (intermediateNode != null) return intermediateNode.Coordinate;
+
+            var routeNode = NodeValue as RouteNode;
+            if (routeNode != null) return routeNode.Waypoint;
+
+            var tocNode = NodeValue as TocNode;
+            if (tocNode != null) return tocNode.Coordinate;
+
+            var todNode = NodeValue as TodNode;
+            if (todNode != null) return todNode.Coordinate;
+
+            var scNode = NodeValue as ScNode;
+            if (scNode != null) return scNode.Coordinate;
+
+            throw new UnexpectedExecutionStateException(
+                "Something is wrong in NodeValue validation.");
         }
     }
 }
