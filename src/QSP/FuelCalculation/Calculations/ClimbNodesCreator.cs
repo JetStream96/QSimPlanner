@@ -7,6 +7,7 @@ using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using QSP.WindAloft;
 using static QSP.AviationTools.Constants;
+using static QSP.AviationTools.SpeedConversion;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -121,7 +122,17 @@ namespace QSP.FuelCalculation.Calculations
                 grossWt,
                 fuelOnBoard,
                 timeRemain,
-                fuelData.ClimbKias);
+                Kias(grossWt, alt));
+        }
+
+        private double Kias(double grossWt, double alt)
+        {
+            var cruiseKias = fuelData.CruiseKias(grossWt);
+            var optAlt = fuelData.OptCruiseAlt(grossWt);
+            var optCruiseKtas = Ktas(cruiseKias, optAlt);
+            var kias = fuelData.ClimbKias;
+            var ktas = Ktas(kias, alt);
+            return ktas > optCruiseKtas ? KtasToKcas(optCruiseKtas, alt) : kias;
         }
 
         private double OrigElevationFt()

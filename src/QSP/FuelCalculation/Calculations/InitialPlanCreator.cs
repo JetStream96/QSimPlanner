@@ -185,7 +185,7 @@ namespace QSP.FuelCalculation.Calculations
 
             var optAlt = fuelData.OptCruiseAlt(grossWt);
             var optCruiseKtas = Ktas(cruiseKias, optAlt);
-            var kias = mode == VerticalMode.Climb ? 
+            var kias = mode == VerticalMode.Climb ?
                 fuelData.ClimbKias : fuelData.DescendKias;
             var ktas = Ktas(kias, alt);
             return ktas > optCruiseKtas ? KtasToKcas(optCruiseKtas, alt) : kias;

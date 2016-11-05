@@ -26,9 +26,9 @@ namespace UnitTest.FuelCalculation.Calculations
             // analyzed to make sure it's correct.
             var first = nodes[0];
             Assert.AreEqual(37000.0, first.Alt, 0.1);
-            Assert.AreEqual(6084.4, first.FuelOnBoard, 1.0);
-            Assert.AreEqual(61084.4, first.GrossWt, 1.0);
-            Assert.AreEqual(37.85, first.TimeRemaining, 1.0);
+            Assert.AreEqual(6089.0, first.FuelOnBoard, 10.0);
+            Assert.AreEqual(61089.0, first.GrossWt, 10.0);
+            Assert.AreEqual(38.0, first.TimeRemaining, 1.0);
         }
 
         [Test]
@@ -43,9 +43,9 @@ namespace UnitTest.FuelCalculation.Calculations
             // analyzed to make sure it's correct.
             var first = nodes[0];
             Assert.AreEqual(37000.0, first.Alt, 0.1);
-            Assert.AreEqual(5919.7, first.FuelOnBoard, 1.0);
-            Assert.AreEqual(60919.7, first.GrossWt, 1.0);
-            Assert.AreEqual(33.65, first.TimeRemaining, 1.0);
+            Assert.AreEqual(5924.0, first.FuelOnBoard, 10.0);
+            Assert.AreEqual(60924.0, first.GrossWt, 10.0);
+            Assert.AreEqual(33.8, first.TimeRemaining, 1.0);
         }
 
         public static InitialPlanCreator GetCreator(IWindTableCollection w)
