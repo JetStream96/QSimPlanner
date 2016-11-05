@@ -27,6 +27,8 @@ namespace QSP.WindAloft
             double windSpd = wind.R;
             var w = v.Equals(v2) ? -GetW(v, v1) : GetW(v, v2);
 
+            // We solve the equation:
+            // | (gs) * w - wind | = tas, where |x| is the length of vector x.
             double innerProduct = wind.Dot(w);
             double a = 1.0;
             double b = -2.0 * innerProduct;
