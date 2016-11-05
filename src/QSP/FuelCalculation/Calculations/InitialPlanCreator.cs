@@ -13,6 +13,7 @@ using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Doubles;
 using static System.Math;
 using static QSP.FuelCalculation.Calculations.NextPlanNodeParameter;
+using static QSP.AviationTools.SpeedConversion;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -177,22 +178,17 @@ namespace QSP.FuelCalculation.Calculations
             }
         }
 
-        private double Kias(double grossWt, VerticalMode mode)
+        private double Kias(double grossWt, double alt, VerticalMode mode)
         {
-            switch (mode)
-            {
-                case VerticalMode.Climb:
-                    return fuelData.ClimbKias;
+            var cruiseKias = fuelData.CruiseKias(grossWt);
+            if (mode == VerticalMode.Cruise) return cruiseKias;
 
-                case VerticalMode.Cruise:
-                    return fuelData.CruiseKias(grossWt);
-
-                case VerticalMode.Descent:
-                    return fuelData.DescendKias;
-
-                default:
-                    throw new ArgumentException();
-            }
+            var optAlt = fuelData.OptCruiseAlt(grossWt);
+            var optCruiseKtas = Ktas(cruiseKias, optAlt);
+            var kias = mode == VerticalMode.Climb ? 
+                fuelData.ClimbKias : fuelData.DescendKias;
+            var ktas = Ktas(kias, alt);
+            return ktas > optCruiseKtas ? KtasToKcas(optCruiseKtas, alt) : kias;
         }
 
         private PlanNode NextPlanNode(PlanNode prev, NextPlanNodeParameter p)
@@ -204,7 +200,7 @@ namespace QSP.FuelCalculation.Calculations
             double grossWt = prev.GrossWt + stepFuel;
             double fuelOnBoard = prev.FuelOnBoard + stepFuel;
             double timeRemaining = prev.TimeRemaining + p.StepTime;
-            double kias = Kias(prev.GrossWt, p.ModeVertical);
+            double kias = Kias(prev.GrossWt, alt, p.ModeVertical);
 
             if (p.NodeType == typeof(RouteNode))
             {

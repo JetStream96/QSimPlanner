@@ -17,6 +17,16 @@ namespace QSP.AviationTools
         {
             return 39.0 * mach * Sqrt(IsaTemp(altFt) + 273.0);
         }
+        
+        public static double KtasToMach(double ktas, double altFt)
+        {
+            return ktas / (39.0 * Sqrt(IsaTemp(altFt) + 273.0));
+        }
+
+        public static double KtasToKcas(double ktas, double altFt)
+        {
+            return Kcas(KtasToMach(ktas, altFt), altFt);
+        }
 
         public static double Ktas(double kcas, double altFt)
         {

@@ -19,10 +19,26 @@ namespace UnitTest.AviationTools
         }
 
         [Test]
+        public void TasToMachTest()
+        {
+            const double delta = 0.005;
+
+            Assert.AreEqual(0.8, KtasToMach(491.45, 20000.0), delta);
+            Assert.AreEqual(0.72, KtasToMach(413.138, 36000.0), delta);
+        }
+
+        [Test]
         public void CasToTasTest()
         {
             const double delta = 0.2;
             Assert.AreEqual(393.73, Ktas(250.0, 30000.0), delta);
+        }
+
+        [Test]
+        public void TasToCasTest()
+        {
+            const double delta = 0.3;
+            Assert.AreEqual(250.0, KtasToKcas(393.73, 30000.0), delta);
         }
 
         [Test]
