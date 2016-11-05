@@ -5,7 +5,6 @@ using QSP.FuelCalculation.FuelDataNew;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
-using QSP.WindAloft;
 using static QSP.AviationTools.Constants;
 using static QSP.AviationTools.SpeedConversion;
 
@@ -24,8 +23,6 @@ namespace QSP.FuelCalculation.Calculations
             FuelDataNew.FuelDataItem fuelData,
             IReadOnlyList<PlanNode> initPlan)
         {
-            if (route.Count < 2) throw new ArgumentException();
-
             this.airportList = airportList;
             this.route = route;
             this.fuelData = fuelData;
@@ -97,7 +94,7 @@ namespace QSP.FuelCalculation.Calculations
         private PlanNode NextPlanNode(PlanNode prev, PlanNode old)
         {
             var ff = fuelData.ClimbFuelFlow(prev.GrossWt);
-            var stepDis = prev.Coordinate.Distance(prev.NextPlanNodeCoordinate);
+            var stepDis = prev.Distance(prev.NextPlanNodeCoordinate);
             var stepTime = stepDis / prev.Gs * 60.0;
             var stepFuel = stepTime * ff;
             var climbGrad = fuelData.ClimbGradient(prev.GrossWt);

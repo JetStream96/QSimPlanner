@@ -16,7 +16,7 @@ namespace QSP.FuelCalculation.Calculations
     // The units of variables used in this class is specified in 
     // VariableUnitStandard.txt.
 
-    public class PlanNode
+    public class PlanNode : ICoordinate
     {
         // TODO: Are these types all used?
         // Remember to update Coordinate property getter if this is changed.
@@ -66,16 +66,17 @@ namespace QSP.FuelCalculation.Calculations
         public LinkedListNode<RouteNode> PrevRouteNode =>
             NextRouteNode.Previous;
 
-        public ICoordinate Coordinate { get; }
+        public double Lat { get; private set; }
+        public double Lon { get; private set; }
 
         public PlanNode(
-            object NodeValue, 
-            IWindTableCollection WindTable, 
+            object NodeValue,
+            IWindTableCollection WindTable,
             LinkedListNode<RouteNode> NextRouteNode,
-            ICoordinate NextPlanNodeCoordinate, 
-            double Alt, 
-            double GrossWt, 
-            double FuelOnBoard, 
+            ICoordinate NextPlanNodeCoordinate,
+            double Alt,
+            double GrossWt,
+            double FuelOnBoard,
             double TimeRemaining,
             double Kias)
         {
@@ -93,7 +94,6 @@ namespace QSP.FuelCalculation.Calculations
             this.FuelOnBoard = FuelOnBoard;
             this.TimeRemaining = TimeRemaining;
             this.Kias = Kias;
-            this.Coordinate = GetCoordinate();
 
             ComputeParameters();
         }
@@ -106,15 +106,19 @@ namespace QSP.FuelCalculation.Calculations
 
         private void ComputeParameters()
         {
+            var c = GetCoordinate();
+            Lat = c.Lat;
+            Lon = c.Lon;
+
             Ktas = Ktas(Kias, Alt);
 
             Gs = GetGS(
                 WindTable,
                 Alt,
                 Ktas,
-                (PrevWaypoint ?? Coordinate).ToVector3D(),     // *
+                (PrevWaypoint ?? (ICoordinate)this).ToVector3D(),     // *
                 NextPlanNodeCoordinate.ToVector3D(),
-                Coordinate.ToVector3D());
+                this.ToVector3D());
 
             // * NextPlanNodeCoordinate is different from Coordinate if the
             //   current node is not the first node.

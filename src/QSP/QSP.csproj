@@ -101,6 +101,7 @@
     <Compile Include="AviationTools\Coordinates\Format7Letter.cs" />
     <Compile Include="AviationTools\Coordinates\LatLon.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinute.cs" />
+    <Compile Include="AviationTools\Heading\HeadingCalculation.cs" />
     <Compile Include="AviationTools\RwyIdentConversion.cs" />
     <Compile Include="AviationTools\SpeedConversion.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using QSP.FuelCalculation.Calculations;
+using QSP.MathTools;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
@@ -100,16 +101,22 @@ namespace UnitTest.FuelCalculation.Calculations
 
         public class CrzAltProviderStub : ICrzAltProvider
         {
-            public double ClosestAltitudeFtFrom(ICoordinate previous,
-                ICoordinate current, double altitude)
+            public double ClosestAlt(
+                ICoordinate c, double heading, double altitude)
             {
                 return Math.Round(altitude / 1000.0) * 1000.0;
             }
 
-            public double ClosestAltitudeFtTo(ICoordinate current,
-                ICoordinate next, double altitude)
+            public double ClosestAltBelow(
+                ICoordinate c, double heading, double altitude)
             {
-                return Math.Round(altitude / 1000.0) * 1000.0;
+                return Math.Floor(altitude / 1000.0) * 1000.0;
+            }
+
+            public bool IsValidCrzAlt(
+                ICoordinate c, double heading, double altitude)
+            {
+                return altitude.Mod(1000.0) < 1.0;
             }
         }
 

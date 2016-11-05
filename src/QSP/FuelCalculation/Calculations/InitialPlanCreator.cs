@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using QSP.AviationTools.Heading;
 using QSP.FuelCalculation.FuelDataNew;
 using QSP.FuelCalculation.Results.Nodes;
 using QSP.LibraryExtension;
@@ -17,8 +18,6 @@ using static QSP.AviationTools.SpeedConversion;
 
 namespace QSP.FuelCalculation.Calculations
 {
-    // TODO: Speed profile is too simple. 280 knots at FL380 is way too fast.
-
     // The units of variables used in this class is specified in 
     // VariableUnitStandard.txt.
 
@@ -29,8 +28,8 @@ namespace QSP.FuelCalculation.Calculations
     /// </summary>
     public class InitialPlanCreator
     {
-        private static readonly double deltaT = 0.5;
-        private static readonly double altDiffCriteria = 0.1;
+        public static readonly double DeltaT = 0.5;
+        public static readonly double AltDiffCriteria = 0.1;
 
         private readonly AirportManager airportList;
         private readonly ICrzAltProvider altProvider;
@@ -51,8 +50,6 @@ namespace QSP.FuelCalculation.Calculations
             double landingFuel,
             double maxAlt)
         {
-            if (route.Count < 2) throw new ArgumentException();
-
             this.airportList = airportList;
             this.altProvider = altProvider;
             this.windTable = windTable;
@@ -97,26 +94,28 @@ namespace QSP.FuelCalculation.Calculations
         {
             // Compute verical mode.
             double optCrzAlt = fuelData.OptCruiseAlt(node.GrossWt);
-            double atcAllowedAlt = altProvider.ClosestAltitudeFtFrom(
-                node.PrevWaypoint, node.Coordinate, optCrzAlt);
+            double heading = HeadingCalculation.Heading(
+                node.PrevWaypoint, node);
+            double atcAllowedAlt = altProvider.ClosestAlt(
+                node, heading, optCrzAlt);
             double targetAlt = Min(atcAllowedAlt, maxAlt);
             double altDiff = node.Alt - targetAlt;
             VerticalMode mode = GetMode(altDiff);
 
             // Time to next waypoint.
-            double disToNextWpt = node.Coordinate.Distance(node.PrevWaypoint);
+            double disToNextWpt = node.Distance(node.PrevWaypoint);
             double timeToNextWpt = disToNextWpt / node.Gs * 60.0;
 
             // Time to target altitude.
             // ClimbRate is positve for climbs and negative for descents.
             double climbGrad = ClimbGradient(node.GrossWt, mode);
             double climbRate = climbGrad * node.Ktas / 60.0 * NmFtRatio;
-            bool isCruising = Abs(altDiff) < altDiffCriteria;
+            bool isCruising = Abs(altDiff) < AltDiffCriteria;
             double timeToTargetAlt = isCruising ?
                 double.PositiveInfinity :
                 altDiff / climbRate;
 
-            double[] times = { timeToNextWpt, deltaT, timeToTargetAlt };
+            double[] times = { timeToNextWpt, DeltaT, timeToTargetAlt };
             int minIndex = times.MinIndex();
             double stepTime = times[minIndex];
             Type nodeType = minIndex == 0 ?
@@ -146,11 +145,11 @@ namespace QSP.FuelCalculation.Calculations
 
         private static VerticalMode GetMode(double altDiff)
         {
-            if (altDiff > altDiffCriteria)
+            if (altDiff > AltDiffCriteria)
             {
                 return VerticalMode.Climb;
             }
-            else if (altDiff < -altDiffCriteria)
+            else if (altDiff < -AltDiffCriteria)
             {
                 return VerticalMode.Descent;
             }
@@ -195,7 +194,6 @@ namespace QSP.FuelCalculation.Calculations
         {
             var ff = FuelFlow(prev.GrossWt, p.ModeVertical);
             var stepFuel = p.StepTime * ff;
-            ICoordinate nextPlanNodeCoordinate = prev.Coordinate;
             double alt = prev.Alt - p.StepTime * p.ClimbRate;
             double grossWt = prev.GrossWt + stepFuel;
             double fuelOnBoard = prev.FuelOnBoard + stepFuel;
@@ -213,7 +211,7 @@ namespace QSP.FuelCalculation.Calculations
                     val,
                     windTable,
                     nextRouteNode,
-                    nextPlanNodeCoordinate,
+                    prev,
                     alt,
                     grossWt,
                     fuelOnBoard,
@@ -223,14 +221,14 @@ namespace QSP.FuelCalculation.Calculations
             else
             {
                 double stepDis = p.StepTime * prev.Gs / 60.0;
-                var nodeCoord = GetV(prev.Coordinate, prev.PrevWaypoint, stepDis);
+                var nodeCoord = GetV(prev, prev.PrevWaypoint, stepDis);
                 var val = new IntermediateNode(nodeCoord);
 
                 return new PlanNode(
                     val,
                     windTable,
                     prev.NextRouteNode,
-                    nextPlanNodeCoordinate,
+                    prev,
                     alt,
                     grossWt,
                     fuelOnBoard,

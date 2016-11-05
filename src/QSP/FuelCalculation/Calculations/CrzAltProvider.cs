@@ -1,12 +1,13 @@
 ﻿using System;
+using QSP.MathTools;
 using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.FuelCalculation.Calculations
 {
     public class CrzAltProvider : ICrzAltProvider
     {
-        public double ClosestAltitudeFtTo(ICoordinate current,
-            ICoordinate next, double altitude)
+        public double ClosestAlt(
+            ICoordinate c, double heading, double altitude)
         {
             // TODO: Westbound: Even altitudes
             // Eastbound: Odd altitudes
@@ -14,10 +15,16 @@ namespace QSP.FuelCalculation.Calculations
             return Math.Round(altitude / 1000.0) * 1000.0;
         }
 
-        public double ClosestAltitudeFtFrom(ICoordinate previous,
-            ICoordinate current, double altitude)
+        public double ClosestAltBelow(
+            ICoordinate c, double heading, double altitude)
         {
-            return Math.Round(altitude / 1000.0) * 1000.0;
+            return Math.Floor(altitude / 1000.0) * 1000.0;
+        }
+
+        public bool IsValidCrzAlt(
+            ICoordinate c, double heading, double altitude)
+        {
+            return altitude.Mod(1000.0) < 1.0;
         }
     }
 }

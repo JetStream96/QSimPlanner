@@ -4,10 +4,8 @@ namespace QSP.FuelCalculation.Calculations
 {
     public interface ICrzAltProvider
     {
-        double ClosestAltitudeFtTo(ICoordinate current,
-            ICoordinate next, double altitude);
-
-        double ClosestAltitudeFtFrom(ICoordinate previous,
-            ICoordinate current, double altitude);
+        bool IsValidCrzAlt(ICoordinate c, double heading, double altitude);
+        double ClosestAlt(ICoordinate c, double heading, double altitude);
+        double ClosestAltBelow(ICoordinate c, double heading, double altitude);
     }
 }
