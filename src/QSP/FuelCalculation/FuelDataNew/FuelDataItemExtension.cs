@@ -143,5 +143,11 @@ namespace QSP.FuelCalculation.FuelDataNew
                 f.DataPoint1.WithBias(bias),
                 f.DataPoint2.WithBias(bias));
         }
+
+        public static double EstimatedCrzAlt(this FuelDataItem item,
+            double distance, double landingFuel)
+        {
+
+        }
     }
 }

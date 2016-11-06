@@ -1,5 +1,4 @@
-﻿using System;
-using QSP.FuelCalculation.Calculations;
+﻿using QSP.FuelCalculation.Calculations;
 using QSP.FuelCalculation.FuelDataNew;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Routes;
@@ -9,7 +8,10 @@ using System.Linq;
 using QSP.LibraryExtension;
 
 namespace QSP.FuelCalculation.Results
-{
+{ 
+    // The units of variables used in this class is specified in 
+    // VariableUnitStandard.txt.
+
     public class FuelReportGenerator
     {
         private readonly AirportManager airportList;

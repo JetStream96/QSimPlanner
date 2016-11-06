@@ -24,6 +24,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using QSP.FuelCalculation.Results;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Factories.FormFactory;
@@ -437,22 +438,20 @@ namespace QSP.UI.UserControls
                 if (result != DialogResult.Yes) return;
             }
 
-            var fuelReport = new FuelCalculator(
+            var fuelReport = new FuelReportGenerator(
                 airportList,
-                new CrzAltProvider(), 
+                new CrzAltProvider(),
                 windTables,
                 RouteToDest.Expanded,
-                para.FuelData,
-                pa);
-
-            var fuelReport = new FuelCalculatorWithWind(data, para, windTables)
-                .Compute(RouteToDest.Expanded, altnRoutes);
+                altnRoutes,
+                para).Generate();
+            
             var ac = GetCurrentAircraft().Config;
 
-            if (fuelReport.TotalFuelKG > ac.MaxFuelKg)
+            if (fuelReport.TotalFuel > ac.MaxFuelKg)
             {
                 var msg = InsufficientFuelMsg(
-                    fuelReport.TotalFuelKG, ac.MaxFuelKg, WeightUnit);
+                    fuelReport.TotalFuel, ac.MaxFuelKg, WeightUnit);
 
                 MessageBox.Show(
                     msg,
@@ -469,8 +468,8 @@ namespace QSP.UI.UserControls
             AircraftRequest = new AircraftRequest(
                 acListComboBox.Text,
                 registrationComboBox.Text,
-                para.Zfw + fuelReport.TakeoffFuelKg,
-                para.Zfw + fuelReport.LdgFuelKgPredict,
+                para.Zfw + fuelReport.TakeoffFuel,
+                para.Zfw + fuelReport.PredictedLdgFuel,
                 para.Zfw,
                 WeightUnit);
 

@@ -10,17 +10,20 @@ using static QSP.AviationTools.SpeedConversion;
 
 namespace QSP.FuelCalculation.Calculations
 {
+    // The units of variables used in this class is specified in 
+    // VariableUnitStandard.txt.
+
     public class ClimbNodesCreator
     {
         private readonly AirportManager airportList;
         private readonly Route route;
-        private readonly FuelDataNew.FuelDataItem fuelData;
+        private readonly FuelDataItem fuelData;
         private readonly IReadOnlyList<PlanNode> initPlan;
 
         public ClimbNodesCreator(
             AirportManager airportList,
             Route route,
-            FuelDataNew.FuelDataItem fuelData,
+            FuelDataItem fuelData,
             IReadOnlyList<PlanNode> initPlan)
         {
             this.airportList = airportList;
