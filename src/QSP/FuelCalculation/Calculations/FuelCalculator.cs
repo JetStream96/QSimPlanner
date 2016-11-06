@@ -89,7 +89,7 @@ namespace QSP.FuelCalculation.Calculations
                 .ToList();
         }
 
-        private AltResult CruiseAltValid(IReadOnlyList<IPlanNode> nodes)
+        private AltResult CruiseAltValid(IReadOnlyList<PlanNode> nodes)
         {
             int tocIndex = TocIndex(nodes);
             var toc = nodes[tocIndex];

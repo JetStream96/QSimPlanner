@@ -16,7 +16,7 @@ namespace QSP.FuelCalculation.Calculations
     // The units of variables used in this class is specified in 
     // VariableUnitStandard.txt.
 
-    public class PlanNode : IPlanNode
+    public class PlanNode : ICoordinate
     {
         // Remember to update GetCoordinate() if more types are added to this 
         // field.
@@ -66,8 +66,8 @@ namespace QSP.FuelCalculation.Calculations
         public LinkedListNode<RouteNode> PrevRouteNode =>
             NextRouteNode.Previous;
 
-        public double Lat { get; private set; }
-        public double Lon { get; private set; }
+        public double Lat { get; }
+        public double Lon { get; }
 
         public PlanNode(
             object NodeValue,
@@ -78,7 +78,9 @@ namespace QSP.FuelCalculation.Calculations
             double GrossWt,
             double FuelOnBoard,
             double TimeRemaining,
-            double Kias)
+            double Kias,
+            double Ktas = -1.0,
+            double Gs = -1.0)
         {
             if (!IsValidType(NodeValue))
             {
@@ -94,8 +96,14 @@ namespace QSP.FuelCalculation.Calculations
             this.FuelOnBoard = FuelOnBoard;
             this.TimeRemaining = TimeRemaining;
             this.Kias = Kias;
+            this.Ktas = Ktas;
+            this.Gs = Gs;
 
-            ComputeParameters();
+            var c = GetCoordinate();
+            this.Lat = c.Lat;
+            this.Lon = c.Lon;
+
+            if (Gs == -1.0) ComputeParameters();
         }
 
         private static bool IsValidType(object NodeValue)
@@ -106,10 +114,6 @@ namespace QSP.FuelCalculation.Calculations
 
         private void ComputeParameters()
         {
-            var c = GetCoordinate();
-            Lat = c.Lat;
-            Lon = c.Lon;
-
             Ktas = Ktas(Kias, Alt);
 
             Gs = GetGS(
@@ -127,19 +131,19 @@ namespace QSP.FuelCalculation.Calculations
         private ICoordinate GetCoordinate()
         {
             var intermediateNode = NodeValue as IntermediateNode;
-            if (intermediateNode != null) return intermediateNode.Coordinate;
+            if (intermediateNode != null) return intermediateNode;
 
             var routeNode = NodeValue as RouteNode;
             if (routeNode != null) return routeNode.Waypoint;
 
             var tocNode = NodeValue as TocNode;
-            if (tocNode != null) return tocNode.Coordinate;
+            if (tocNode != null) return tocNode;
 
             var todNode = NodeValue as TodNode;
-            if (todNode != null) return todNode.Coordinate;
+            if (todNode != null) return todNode;
 
             var scNode = NodeValue as ScNode;
-            if (scNode != null) return scNode.Coordinate;
+            if (scNode != null) return scNode;
 
             throw new UnexpectedExecutionStateException(
                 "Something is wrong in NodeValue validation.");

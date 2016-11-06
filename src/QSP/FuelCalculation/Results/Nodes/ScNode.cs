@@ -5,13 +5,15 @@ namespace QSP.FuelCalculation.Results.Nodes
     /// <summary>
     /// A node representing the start of step climb.
     /// </summary>
-    public class ScNode
+    public class ScNode : ICoordinate
     {
-        public ICoordinate Coordinate { get; private set; }
+        public double Lat { get; }
+        public double Lon { get; }
 
-        public ScNode(ICoordinate Coordinate)
+        public ScNode(ICoordinate c)
         {
-            this.Coordinate = Coordinate;
+            this.Lat = c.Lat;
+            this.Lon = c.Lon;
         }
     }
 }

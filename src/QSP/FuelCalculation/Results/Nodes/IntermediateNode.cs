@@ -2,13 +2,15 @@
 
 namespace QSP.FuelCalculation.Results.Nodes
 {
-    public class IntermediateNode
+    public class IntermediateNode : ICoordinate
     {
-        public ICoordinate Coordinate { get; private set; }
+        public double Lat { get; }
+        public double Lon { get; }
 
-        public IntermediateNode(ICoordinate Coordinate)
+        public IntermediateNode(ICoordinate c)
         {
-            this.Coordinate = Coordinate;
+            this.Lat = c.Lat;
+            this.Lon = c.Lon;
         }
     }
 }

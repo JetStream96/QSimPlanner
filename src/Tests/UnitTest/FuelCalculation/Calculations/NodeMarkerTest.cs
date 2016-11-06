@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using QSP.AviationTools.Coordinates;
 using QSP.FuelCalculation.Calculations;
+using QSP.FuelCalculation.Results.Nodes;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
@@ -57,42 +59,23 @@ namespace UnitTest.FuelCalculation.Calculations
                new[] { 3, 6 }, ScIndices(nodes)));
         }
 
-        private static IPlanNode[] TransformNode(double[] alts)
+        private static PlanNode[] TransformNode(double[] alts)
         {
-            var result = new IPlanNode[alts.Length];
+            var result = new PlanNode[alts.Length];
 
             for (int i = 0; i < alts.Length; i++)
             {
-                result[i] = new PlanNodeStub(alts[i], i, i);
+                result[i] = GetNode(alts[i], i, i);
             }
 
             return result;
         }
 
-        private class PlanNodeStub : IPlanNode
+        private static PlanNode GetNode(double alt, double lat, double lon)
         {
-            public object NodeValue { get; }
-            public IWindTableCollection WindTable { get; }
-            public LinkedListNode<RouteNode> NextRouteNode { get; }
-            public ICoordinate NextPlanNodeCoordinate { get; }
-            public double Alt { get; }
-            public double GrossWt { get; }
-            public double FuelOnBoard { get; }
-            public double TimeRemaining { get; }
-            public double Kias { get; }
-            public double Ktas { get; }
-            public double Gs { get; }
-            public Waypoint PrevWaypoint { get; }
-            public LinkedListNode<RouteNode> PrevRouteNode { get; }
-            public double Lat { get; }
-            public double Lon { get; }
-
-            public PlanNodeStub(double Alt, double Lat, double Lon)
-            {
-                this.Alt = Alt;
-                this.Lat = Lat;
-                this.Lon = Lon;
-            }
+            var val = new IntermediateNode(new LatLon(lat, lon));
+            return new PlanNode(val, null, null, null, alt, 
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
         }
     }
 }

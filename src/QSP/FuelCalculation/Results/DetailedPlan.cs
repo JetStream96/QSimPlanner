@@ -7,12 +7,12 @@ namespace QSP.FuelCalculation.Results
 {
     public class DetailedPlan
     {
-        public IReadOnlyList<IPlanNode> AllNodes { get; }
+        public IReadOnlyList<PlanNode> AllNodes { get; }
 
-        public IEnumerable<IPlanNode> PrintedNodes =>
+        public IEnumerable<PlanNode> PrintedNodes =>
             AllNodes.Where(n => !(n.NodeValue is IntermediateNode));
 
-        public DetailedPlan(IReadOnlyList<IPlanNode> AllNodes)
+        public DetailedPlan(IReadOnlyList<PlanNode> AllNodes)
         {
             this.AllNodes = AllNodes;
         }

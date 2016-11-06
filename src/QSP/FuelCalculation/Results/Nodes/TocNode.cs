@@ -5,13 +5,15 @@ namespace QSP.FuelCalculation.Results.Nodes
     /// <summary>
     /// A node representing top of climb (TOC).
     /// </summary>
-    public class TocNode
+    public class TocNode : ICoordinate
     {
-        public ICoordinate Coordinate { get; private set; }
+        public double Lat { get; }
+        public double Lon { get; }
 
-        public TocNode(ICoordinate Coordinate)
+        public TocNode(ICoordinate c)
         {
-            this.Coordinate = Coordinate;
+            this.Lat = c.Lat;
+            this.Lon = c.Lon;
         }
     }
 }

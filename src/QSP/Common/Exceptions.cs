@@ -52,8 +52,8 @@ namespace QSP.Common
             : base(message, inner)
         { }
         protected NoFileNameAvailException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context)
+          SerializationInfo info,
+          StreamingContext context)
             : base(info, context)
         { }
     }

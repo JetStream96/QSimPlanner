@@ -5,13 +5,15 @@ namespace QSP.FuelCalculation.Results.Nodes
     /// <summary>
     /// A node representing top of descent (TOD).
     /// </summary>
-    public class TodNode
+    public class TodNode : ICoordinate
     {
-        public ICoordinate Coordinate { get; private set; }
+        public double Lat { get; }
+        public double Lon { get; }
 
-        public TodNode(ICoordinate Coordinate)
+        public TodNode(ICoordinate c)
         {
-            this.Coordinate = Coordinate;
+            this.Lat = c.Lat;
+            this.Lon = c.Lon;
         }
     }
 }
