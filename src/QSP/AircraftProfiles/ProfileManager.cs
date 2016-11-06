@@ -17,7 +17,7 @@ namespace QSP.AircraftProfiles
         public IEnumerable<FuelData> FuelData { get; private set; }
         public IEnumerable<TOTable> TOTables { get; private set; }
         public IEnumerable<LdgTable> LdgTables { get; private set; }
-        public IEnumerable<string> Errors { get { return _errors; } }
+        public IEnumerable<string> Errors => _errors;
 
         /// <exception cref="PerfFileNotFoundException"></exception>
         public void Initialize()

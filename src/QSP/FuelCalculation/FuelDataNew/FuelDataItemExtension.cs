@@ -125,5 +125,23 @@ namespace QSP.FuelCalculation.FuelDataNew
                 p1.Weight, p2.Weight,
                 p1.EtopsCruiseFuelFlow, p2.EtopsCruiseFuelFlow, grossWeight);
         }
+
+        /// <summary>
+        /// Apply fuel bias to the given FuelDataItem. If bias is 1 then 
+        /// return value will be the same as original.
+        /// </summary>
+        public static FuelDataItem WithBias(this FuelDataItem f, double bias)
+        {
+            return new FuelDataItem(
+                f.HoldingFuelFlow * bias,
+                f.HoldingFuelRefWt,
+                f.TaxiFuelFlow * bias,
+                f.ApuFuelFlow,
+                f.MissedAppFuel * bias,
+                f.ClimbKias,
+                f.DescendKias,
+                f.DataPoint1.WithBias(bias),
+                f.DataPoint2.WithBias(bias));
+        }
     }
 }

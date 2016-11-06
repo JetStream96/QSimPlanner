@@ -119,6 +119,7 @@
     <Compile Include="FuelCalculation\Calculators\FuelCalculatorWithWind.cs" />
     <Compile Include="FuelCalculation\Calculations\PlanNode.cs" />
     <Compile Include="FuelCalculation\FuelDataNew\DataPoint.cs" />
+    <Compile Include="FuelCalculation\FuelDataNew\DataPointExtension.cs" />
     <Compile Include="FuelCalculation\FuelDataNew\FuelData.cs" />
     <Compile Include="FuelCalculation\FuelDataNew\FuelDataItem.cs" />
     <Compile Include="FuelCalculation\FuelDataItemExtension.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="FuelCalculation\FuelDataItem.cs" />
     <Compile Include="FuelCalculation\FuelDataLoader.cs" />
     <Compile Include="FuelCalculation\Results\FuelReport.cs" />
+    <Compile Include="FuelCalculation\Results\FuelReportGenerator.cs" />
     <Compile Include="FuelCalculation\Results\Nodes\IntermediateNode.cs" />
     <Compile Include="FuelCalculation\Results\Nodes\ScNode.cs" />
     <Compile Include="FuelCalculation\Results\Nodes\TocNode.cs" />

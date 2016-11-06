@@ -18,6 +18,7 @@ using static QSP.AviationTools.SpeedConversion;
 
 namespace QSP.FuelCalculation.Calculations
 {
+    // TODO: Add fuel bias.
     // The units of variables used in this class is specified in 
     // VariableUnitStandard.txt.
 

@@ -437,6 +437,14 @@ namespace QSP.UI.UserControls
                 if (result != DialogResult.Yes) return;
             }
 
+            var fuelReport = new FuelCalculator(
+                airportList,
+                new CrzAltProvider(), 
+                windTables,
+                RouteToDest.Expanded,
+                para.FuelData,
+                pa);
+
             var fuelReport = new FuelCalculatorWithWind(data, para, windTables)
                 .Compute(RouteToDest.Expanded, altnRoutes);
             var ac = GetCurrentAircraft().Config;
