@@ -18,8 +18,8 @@ namespace QSP.FuelCalculation.Calculations
 
     public class PlanNode : ICoordinate
     {
-        // TODO: Are these types all used?
-        // Remember to update Coordinate property getter if this is changed.
+        // Remember to update GetCoordinate() if more types are added to this 
+        // field.
         // All allowed types of NodeValue must return the correct ICoordinate.
         public static readonly IEnumerable<Type> AllowedNodeTypes = new[]
         {

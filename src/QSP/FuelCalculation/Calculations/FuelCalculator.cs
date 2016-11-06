@@ -7,6 +7,7 @@ using System.Linq;
 using QSP.FuelCalculation.Results;
 using static QSP.AviationTools.Heading.HeadingCalculation;
 using static QSP.FuelCalculation.Calculations.InitialPlanCreator;
+using static QSP.FuelCalculation.Calculations.NodeMarker;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -60,7 +61,7 @@ namespace QSP.FuelCalculation.Calculations
 
             while (true)
             {
-                var plan = GetPlan(altLimit);
+                var plan = Mark(GetPlan(altLimit));
                 var altResult = CruiseAltValid(plan);
                 if (altResult.IsValid) return new DetailedPlan(plan);
                 var minAlt = Math.Max(plan.First().Alt, plan.Last().Alt);
@@ -89,9 +90,9 @@ namespace QSP.FuelCalculation.Calculations
                 .ToList();
         }
 
-        private AltResult CruiseAltValid(List<PlanNode> nodes)
+        private AltResult CruiseAltValid(IReadOnlyList<PlanNode> nodes)
         {
-            int tocIndex = GetTocIndex(nodes);
+            int tocIndex = TocIndex(nodes);
             var toc = nodes[tocIndex];
             var heading = Heading(toc, nodes[tocIndex + 1]);
             bool valid = altProvider.IsValidCrzAlt(toc, heading, toc.Alt);
@@ -105,19 +106,5 @@ namespace QSP.FuelCalculation.Calculations
             public bool IsValid;
             public double NewAlt;
         }
-
-        private static int GetTocIndex(IReadOnlyList<PlanNode> nodes)
-        {
-            for (int i = 0; i < nodes.Count - 1; i++)
-            {
-                if (nodes[i].Alt + AltDiffCriteria >= nodes[i + 1].Alt)
-                {
-                    return i;
-                }
-            }
-
-            throw new ArgumentException();
-        }
-
     }
 }

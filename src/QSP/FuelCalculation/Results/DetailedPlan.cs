@@ -11,5 +11,7 @@ namespace QSP.FuelCalculation.Results
         {
             this.Nodes = Nodes;
         }
+
+
     }
 }
