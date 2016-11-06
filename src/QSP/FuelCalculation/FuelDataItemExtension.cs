@@ -1,5 +1,5 @@
 ﻿namespace QSP.FuelCalculation
-{
+{/*
     public static class FuelDataItemExtension
     {
         public static double HoldingFuelKg(this FuelDataItem item,
@@ -21,5 +21,5 @@
         {
             return fuelkg / item.HoldingFuelPerMininuteKg(weightTon);
         }
-    }
+    }*/
 }

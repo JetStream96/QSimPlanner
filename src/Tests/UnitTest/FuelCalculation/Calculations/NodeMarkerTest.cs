@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.FuelCalculation.Calculations;
 using QSP.FuelCalculation.Results.Nodes;
-using QSP.RouteFinding.Containers;
-using QSP.RouteFinding.Data.Interfaces;
-using QSP.RouteFinding.Routes;
-using QSP.WindAloft;
 using static QSP.FuelCalculation.Calculations.NodeMarker;
 
 namespace UnitTest.FuelCalculation.Calculations

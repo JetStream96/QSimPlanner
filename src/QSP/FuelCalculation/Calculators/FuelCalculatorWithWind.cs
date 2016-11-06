@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace QSP.FuelCalculation.Calculators
 {
+    /*
     // Bias is applied in this calculator.
     public class FuelCalculatorWithWind
     {
@@ -129,5 +130,5 @@ namespace QSP.FuelCalculation.Calculators
             return new AvgWindCalculator(windTables, tas, cruiseAltitudeFt)
                 .GetAirDistance(route.Select(n => n.Waypoint));
         }
-    }
+    }*/
 }

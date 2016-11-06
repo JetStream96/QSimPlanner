@@ -4,7 +4,7 @@ using System.Xml.Linq;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 
 namespace QSP.FuelCalculation
-{
+{/*
     public class FuelDataItem
     {
         public FlightTimeTable FlightTimeTable { get; private set; }
@@ -70,5 +70,5 @@ namespace QSP.FuelCalculation
 
             return new OptCrzTable(optAltTable.GetString("Table"), unit);
         }
-    }
+    }*/
 }

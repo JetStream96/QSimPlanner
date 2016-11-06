@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 
 namespace QSP.FuelCalculation
-{
+{/*
     public class FuelData
     {
         public FuelDataItem Data { get; private set; }
@@ -24,5 +24,5 @@ namespace QSP.FuelCalculation
                 root.Element("General").Element("ProfileName").Value,
                 path);
         }
-    }
+    }*/
 }

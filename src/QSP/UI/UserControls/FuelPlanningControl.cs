@@ -1,8 +1,8 @@
 ﻿using QSP.AircraftProfiles.Configs;
 using QSP.Common;
 using QSP.Common.Options;
-using QSP.FuelCalculation;
-using QSP.FuelCalculation.Calculators;
+using QSP.FuelCalculation.FuelDataNew;
+using QSP.FuelCalculation.Calculations;
 using QSP.LibraryExtension;
 using QSP.RouteFinding;
 using QSP.RouteFinding.Airports;
@@ -368,7 +368,7 @@ namespace QSP.UI.UserControls
             var maxPayloadKg = config.MaxZfwKg - config.OewKg;
             weightControl.ZfwKg = config.OewKg + 0.5 * maxPayloadKg;
 
-            MissedApproach.SetWeight(GetFuelData().MissedAppFuelKG);
+            MissedApproach.SetWeight(GetFuelData().MissedAppFuel);
         }
 
         /// <summary>
@@ -461,9 +461,9 @@ namespace QSP.UI.UserControls
             AircraftRequest = new AircraftRequest(
                 acListComboBox.Text,
                 registrationComboBox.Text,
-                para.ZfwKg + fuelReport.TakeoffFuelKg,
-                para.ZfwKg + fuelReport.LdgFuelKgPredict,
-                para.ZfwKg,
+                para.Zfw + fuelReport.TakeoffFuelKg,
+                para.Zfw + fuelReport.LdgFuelKgPredict,
+                para.Zfw,
                 WeightUnit);
 
             AircraftRequestChanged?.Invoke(this, EventArgs.Empty);

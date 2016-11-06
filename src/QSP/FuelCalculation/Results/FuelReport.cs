@@ -7,6 +7,7 @@ using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.FuelCalculation.Results
 {
+    // Unit of fuel is in kg, time in minutes.
     public class FuelReport
     {
         private const int RightPad = 11;

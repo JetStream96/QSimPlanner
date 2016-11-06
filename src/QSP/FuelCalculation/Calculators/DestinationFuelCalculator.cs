@@ -1,5 +1,5 @@
 ﻿namespace QSP.FuelCalculation.Calculators
-{
+{/*
     // Bias is applied in this calculator.
     public class DestinationFuelCalculator
     {
@@ -55,5 +55,5 @@
                 HoldingFuelKg = holdingFuelKg
             };
         }
-    }
+    }*/
 }

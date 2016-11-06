@@ -1,38 +1,39 @@
 namespace QSP.FuelCalculation.FuelDataNew
 {
+    // Unit of fuel is in kg, time in minutes.
     public class FuelParameters
     {
-        public double ZfwKg { get; private set; }
+        public double Zfw { get; private set; }
         public double ContPercent { get; private set; }
-        public double MissedAppFuelKg { get; private set; }
-        public double HoldingMin { get; private set; }
-        public double ExtraFuelKg { get; private set; }
-        public double ApuTimeMin { get; private set; }
-        public double TaxiTimeMin { get; private set; }
-        public double FinalRsvMin { get; private set; }
+        public double MissedAppFuel { get; private set; }
+        public double HoldingTime { get; private set; }
+        public double ExtraFuel { get; private set; }
+        public double ApuTime { get; private set; }
+        public double TaxiTime { get; private set; }
+        public double FinalRsvTime { get; private set; }
         public double FuelBias { get; private set; }
         public FuelDataItem FuelData { get; private set; }
-        
+
         public FuelParameters(
-             double ZfwKg,
+             double Zfw,
              double ContPercent,
-             double MissedAppFuelKg,
-             double HoldingMin,
-             double ExtraFuelKg,
-             double ApuTimeMin,
-             double TaxiTimeMin,
-             double FinalRsvMin,
+             double MissedAppFuel,
+             double HoldingTime,
+             double ExtraFuel,
+             double ApuTime,
+             double TaxiTime,
+             double FinalRsvTime,
              double FuelBias,
              FuelDataItem FuelData)
         {
-            this.ZfwKg = ZfwKg;
+            this.Zfw = Zfw;
             this.ContPercent = ContPercent;
-            this.MissedAppFuelKg = MissedAppFuelKg;
-            this.HoldingMin = HoldingMin;
-            this.ExtraFuelKg = ExtraFuelKg;
-            this.ApuTimeMin = ApuTimeMin;
-            this.TaxiTimeMin = TaxiTimeMin;
-            this.FinalRsvMin = FinalRsvMin;
+            this.MissedAppFuel = MissedAppFuel;
+            this.HoldingTime = HoldingTime;
+            this.ExtraFuel = ExtraFuel;
+            this.ApuTime = ApuTime;
+            this.TaxiTime = TaxiTime;
+            this.FinalRsvTime = FinalRsvTime;
             this.FuelBias = FuelBias;
             this.FuelData = FuelData;
         }

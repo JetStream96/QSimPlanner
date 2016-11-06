@@ -6,7 +6,7 @@ using static QSP.LibraryExtension.TimeFormat;
 using static QSP.MathTools.Doubles;
 
 namespace QSP.FuelCalculation
-{
+{/*
     public class FuelReport
     {
         private const int LeftPad = 11;
@@ -188,5 +188,5 @@ namespace QSP.FuelCalculation
                 value.ToString("0.0").PadLeft(RightPad, ' ');
         }
 
-    }
+    }*/
 }

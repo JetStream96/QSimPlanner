@@ -1,5 +1,5 @@
 namespace QSP.FuelCalculation
-{
+{/*
     public class FuelParameters
     {
         public double ZfwKg { get; private set; }
@@ -36,6 +36,6 @@ namespace QSP.FuelCalculation
             this.FuelBias = FuelBias;
             this.FuelData = FuelData;
         }
-    }
+    }*/
 }
 
