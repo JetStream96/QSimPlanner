@@ -16,7 +16,7 @@ namespace QSP.FuelCalculation.Calculations
     // The units of variables used in this class is specified in 
     // VariableUnitStandard.txt.
 
-    public class PlanNode : ICoordinate
+    public class PlanNode : IPlanNode
     {
         // Remember to update GetCoordinate() if more types are added to this 
         // field.

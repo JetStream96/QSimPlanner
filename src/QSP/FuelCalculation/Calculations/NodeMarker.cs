@@ -2,51 +2,48 @@
 using System.Collections.Generic;
 using QSP.FuelCalculation.Results.Nodes;
 using QSP.LibraryExtension;
+using QSP.RouteFinding.Data.Interfaces;
 using static System.Math;
-using static QSP.FuelCalculation.Calculations.InitialPlanCreator;
+using static QSP.AviationTools.Constants;
 
 namespace QSP.FuelCalculation.Calculations
 {
     public static class NodeMarker
     {
+        public static readonly double GradDelta = 0.001;
+
         /// <summary>
         /// Gets the index of TOC (top of climb). i.e. The first node such that
         /// the altitude no longer increases. The input (nodes) needs to
         /// have at least 2 items. Throws exception if TOC is not found.
         /// </summary>
-        public static int TocIndex(IReadOnlyList<PlanNode> nodes)
+        public static int TocIndex(IReadOnlyList<IPlanNode> nodes)
         {
             for (int i = 0; i < nodes.Count - 1; i++)
             {
-                if (nodes[i].Alt + AltDiffCriteria >= nodes[i + 1].Alt)
-                {
-                    return i;
-                }
+                if (ClimbGrad(nodes[i], nodes[i + 1]) < GradDelta) return i;
             }
 
             throw new ArgumentException();
         }
 
-        private static IEnumerable<int> ScIndices(IReadOnlyList<PlanNode> n)
+        public static IEnumerable<int> ScIndices(IReadOnlyList<IPlanNode> n)
         {
             for (int i = 1; i < n.Count - 1; i++)
             {
-                if (Abs(n[i - 1].Alt - n[i].Alt) <= AltDiffCriteria &&
-                    n[i].Alt < n[i + 1].Alt)
+                if (Abs(ClimbGrad(n[i - 1], n[i])) < GradDelta &&
+                    ClimbGrad(n[i], n[i + 1]) > GradDelta)
                 {
                     yield return i;
                 }
             }
         }
 
-        private static int TodIndex(IReadOnlyList<PlanNode> n)
+        public static int TodIndex(IReadOnlyList<IPlanNode> n)
         {
             for (int i = n.Count - 1; i > 0; i--)
             {
-                if (n[i].Alt + AltDiffCriteria >= n[i - 1].Alt)
-                {
-                    return i;
-                }
+                if (ClimbGrad(n[i], n[i - 1]) < GradDelta) return i;
             }
 
             throw new ArgumentException();
@@ -55,7 +52,7 @@ namespace QSP.FuelCalculation.Calculations
         /// <summary>
         /// Mark the TOC, SC and TOD nodes.
         /// </summary>
-        public static IReadOnlyList<PlanNode> Mark(IReadOnlyList<PlanNode> n)
+        public static IReadOnlyList<IPlanNode> Mark(IReadOnlyList<IPlanNode> n)
         {
             // TOC can be the same as TOD, but SC is never the same as TOC
             // or TOD.
@@ -63,7 +60,7 @@ namespace QSP.FuelCalculation.Calculations
             var tod = TodIndex(n);
             var sc = ScIndices(n).ToHashSet();
 
-            var result = new List<PlanNode>();
+            var result = new List<IPlanNode>();
 
             for (int i = 0; i < n.Count; i++)
             {
@@ -94,7 +91,7 @@ namespace QSP.FuelCalculation.Calculations
             return result;
         }
 
-        private static PlanNode ChangeValue(PlanNode n, object nodeValue)
+        private static PlanNode ChangeValue(IPlanNode n, object nodeValue)
         {
             return new PlanNode(
                 nodeValue,
@@ -106,6 +103,11 @@ namespace QSP.FuelCalculation.Calculations
                 n.FuelOnBoard,
                 n.TimeRemaining,
                 n.Kias);
+        }
+
+        private static double ClimbGrad(IPlanNode from, IPlanNode to)
+        {
+            return (to.Alt - from.Alt) / NmFtRatio / from.Distance(to);
         }
     }
 }

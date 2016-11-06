@@ -66,6 +66,7 @@
     <Compile Include="FuelCalculation\Calculations\ClimbNodesCreatorTest.cs" />
     <Compile Include="FuelCalculation\Calculations\FuelCalculatorTest.cs" />
     <Compile Include="FuelCalculation\Calculations\InitialPlanCreatorTest.cs" />
+    <Compile Include="FuelCalculation\Calculations\NodeMarkerTest.cs" />
     <Compile Include="FuelCalculation\FuelData\FuelDataItemTest.cs" />
     <Compile Include="LibraryExtension\IEnumerablesTest.cs" />
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
