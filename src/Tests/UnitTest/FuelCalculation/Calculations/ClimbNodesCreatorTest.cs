@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using QSP.FuelCalculation.Calculations;
-using static UnitTest.RouteFinding.Common;
 using static UnitTest.FuelCalculation.Calculations.InitialPlanCreatorTest;
 using QSP.WindAloft;
 using UnitTest.FuelCalculation.FuelData;

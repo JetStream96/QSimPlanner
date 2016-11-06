@@ -30,6 +30,7 @@ namespace QSP.FuelCalculation.Calculations
         private readonly double landingFuel;
         private readonly double maxAlt;
 
+        // May throw exception.
         public FuelCalculator(
             AirportManager airportList,
             ICrzAltProvider altProvider,
@@ -52,6 +53,7 @@ namespace QSP.FuelCalculation.Calculations
             this.maxAlt = maxAlt;
         }
 
+        // May throw exception.
         public DetailedPlan Create()
         {
             var altLimit = maxAlt;
