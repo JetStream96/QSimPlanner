@@ -3,16 +3,15 @@ namespace QSP.FuelCalculation.FuelDataNew
     // Unit of fuel is in kg, time in minutes.
     public class FuelParameters
     {
-        public double Zfw { get; private set; }
-        public double ContPercent { get; private set; }
-        public double MissedAppFuel { get; private set; }
-        public double HoldingTime { get; private set; }
-        public double ExtraFuel { get; private set; }
-        public double ApuTime { get; private set; }
-        public double TaxiTime { get; private set; }
-        public double FinalRsvTime { get; private set; }
-        public double FuelBias { get; private set; }
-        public FuelDataItem FuelData { get; private set; }
+        public double Zfw { get; }
+        public double ContPercent { get; }
+        public double MissedAppFuel { get; }
+        public double HoldingTime { get; }
+        public double ExtraFuel { get; }
+        public double ApuTime { get; }
+        public double TaxiTime { get; }
+        public double FinalRsvTime { get; }
+        public FuelDataItem FuelData { get; }
 
         public FuelParameters(
              double Zfw,
@@ -34,8 +33,7 @@ namespace QSP.FuelCalculation.FuelDataNew
             this.ApuTime = ApuTime;
             this.TaxiTime = TaxiTime;
             this.FinalRsvTime = FinalRsvTime;
-            this.FuelBias = FuelBias;
-            this.FuelData = FuelData;
+            this.FuelData = FuelData.WithBias(FuelBias);
         }
     }
 }
