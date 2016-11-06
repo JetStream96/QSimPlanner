@@ -1,5 +1,6 @@
 using QSP.Utilities.Units;
 using System.Linq;
+using static System.Math;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.TimeFormat;
 using static QSP.MathTools.Doubles;
@@ -112,7 +113,7 @@ namespace QSP.FuelCalculation.Results
 
             var linebreakCount = new[]
             {
-                1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1
+                1, 1, 1, 1, 1, 2, 2, 1, 2, 1
             };
 
             var ratio = unit == WeightUnit.KG ? 1.0 : KgLbRatio;
@@ -126,9 +127,10 @@ namespace QSP.FuelCalculation.Results
             var joined = string.Concat(combined);
 
             var wt = "ALL WEIGHTS IN " + WeightUnitToString(unit);
-            return wt + "\n\n" + "FUEL  TIME".PadLeft(RightPad + LeftPad) +
-                "\n" + joined +
-                LineFormat("FMC RSV", FuelFmcRsv.ToString("F1"));
+            return wt + "\n\n" + new string(' ', RightPad + LeftPad - 4) +
+                "FUEL  TIME\n" + joined +
+                LineFormat("FMC RSV",
+                Ceiling(FuelFmcRsv / 1000.0).ToString("F1"));
         }
 
         private static string MinToString(double minutes)
