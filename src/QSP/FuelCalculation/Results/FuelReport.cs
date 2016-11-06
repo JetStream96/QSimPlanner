@@ -1,174 +1,132 @@
 using QSP.Utilities.Units;
-using System;
-using System.Text;
+using System.Linq;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.TimeFormat;
 using static QSP.MathTools.Doubles;
+using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.FuelCalculation.Results
 {
     public class FuelReport
     {
-        private const int LeftPad = 11;
-        private const int RightPad = 7;
+        private const int RightPad = 11;
+        private const int LeftPad = 7;
 
         // Passed in via constructor
-        public double FuelToDestTon { get; private set; }
-        public double FuelToAltnTon { get; private set; }
-        public double ContKg { get; private set; }
-        public double ExtraKG { get; private set; }
-        public double HoldKg { get; private set; }
-        public double ApuKg { get; private set; }
-        public double TaxiKg { get; private set; }
-        public double FinalRsvKg { get; private set; }
-        public double TimeToDestMin { get; private set; }
-        public double TimeToAltnMin { get; private set; }
-        public double TimeExtraMin { get; private set; }
-        public double TimeHoldMin { get; private set; }
-        public double TimeFinalRsvMin { get; private set; }
-        public double TimeApuMin { get; private set; }
-        public double TimeTaxiMin { get; private set; }
+        public double FuelToDest { get; }
+        public double FuelToAltn { get; }
+        public double FuelCont { get; }
+        public double FuelExtra { get; }
+        public double FuelHold { get; }
+        public double FuelApu { get; }
+        public double FuelTaxi { get; }
+        public double FuelFinalRsv { get; }
+        public double TimeToDest { get; }
+        public double TimeToAltn { get; }
+        public double TimeCont { get; }
+        public double TimeExtra { get; }
+        public double TimeHold { get; }
+        public double TimeFinalRsv { get; }
+        public double TimeApu { get; }
+        public double TimeTaxi { get; }
 
         // Additional Results
-        public double TakeoffFuelKg { get; private set; }
-        public double LdgFuelKgPredict { get; private set; }
-        public double TotalFuelKG { get; private set; }
+        public double TakeoffFuel { get; private set; }
+        public double PredictedLdgFuel { get; private set; }
+        public double TotalFuel { get; private set; }
+        public double FuelFmcRsv { get; private set; }
+        public double TimeTakeoff { get; private set; }
+        public double TimeTotal { get; private set; }
 
         public FuelReport(
-             double FuelToDestTon,
-             double FuelToAltnTon,
-             double ContKg,
-             double ExtraKG,
-             double HoldKg,
-             double ApuKg,
-             double TaxiKg,
-             double FinalRsvKg,
-             double TimeToDestMin,
-             double TimeToAltnMin,
-             double TimeExtraMin,
-             double TimeHoldMin,
-             double TimeFinalRsvMin,
-             double TimeApuMin,
-             double TimeTaxiMin)
+             double FuelToDest,
+             double FuelToAltn,
+             double FuelCont,
+             double FuelExtra,
+             double FuelHold,
+             double FuelApu,
+             double FuelTaxi,
+             double FuelFinalRsv,
+             double TimeToDest,
+             double TimeToAltn,
+             double TimeCont,
+             double TimeExtra,
+             double TimeHold,
+             double TimeFinalRsv,
+             double TimeApu,
+             double TimeTaxi)
         {
-            this.FuelToDestTon = FuelToDestTon;
-            this.FuelToAltnTon = FuelToAltnTon;
-            this.ContKg = ContKg;
-            this.ExtraKG = ExtraKG;
-            this.HoldKg = HoldKg;
-            this.ApuKg = ApuKg;
-            this.TaxiKg = TaxiKg;
-            this.FinalRsvKg = FinalRsvKg;
-            this.TimeToDestMin = TimeToDestMin;
-            this.TimeToAltnMin = TimeToAltnMin;
-            this.TimeExtraMin = TimeExtraMin;
-            this.TimeHoldMin = TimeHoldMin;
-            this.TimeFinalRsvMin = TimeFinalRsvMin;
-            this.TimeApuMin = TimeApuMin;
-            this.TimeTaxiMin = TimeTaxiMin;
+            this.FuelToDest = FuelToDest;
+            this.FuelToAltn = FuelToAltn;
+            this.FuelCont = FuelCont;
+            this.FuelExtra = FuelExtra;
+            this.FuelHold = FuelHold;
+            this.FuelApu = FuelApu;
+            this.FuelTaxi = FuelTaxi;
+            this.FuelFinalRsv = FuelFinalRsv;
+            this.TimeToDest = TimeToDest;
+            this.TimeToAltn = TimeToAltn;
+            this.TimeCont = TimeCont;
+            this.TimeExtra = TimeExtra;
+            this.TimeHold = TimeHold;
+            this.TimeFinalRsv = TimeFinalRsv;
+            this.TimeApu = TimeApu;
+            this.TimeTaxi = TimeTaxi;
 
             SetAdditionalPara();
         }
-        
+
         private void SetAdditionalPara()
         {
-            TakeoffFuelKg = FuelToDestTon * 1000.0 + ContKg + HoldKg +
-                ExtraKG + FuelToAltnTon * 1000.0 + FinalRsvKg;
-
-            LdgFuelKgPredict = TakeoffFuelKg - FuelToDestTon * 1000.0;
-
-            TotalFuelKG = FuelToDestTon * 1000.0 + ContKg + HoldKg +
-                ExtraKG + ApuKg + TaxiKg + FuelToAltnTon * 1000.0 + FinalRsvKg;
+            PredictedLdgFuel = FuelCont + FuelHold + FuelExtra + FuelToAltn +
+                FuelFinalRsv;
+            TakeoffFuel = PredictedLdgFuel + FuelToDest;
+            TotalFuel = TakeoffFuel + FuelApu + FuelTaxi;
+            FuelFmcRsv = FuelToAltn + FuelFinalRsv;
+            TimeTakeoff = TimeToDest + TimeCont + TimeExtra + TimeHold +
+                TimeFinalRsv + TimeToAltn;
+            TimeTotal = TimeTakeoff + TimeApu + TimeTaxi;
         }
 
         public string ToString(WeightUnit unit)
         {
-            int TripFuelDisplay = 0;
-            int TotalFuelDisplay = 0;
-            int contingencyDisplay = 0;
-            int holdDisplay = 0;
-            int extraDisplay = 0;
-            int alternateDisplay = 0;
-            int takeoff_display = 0;
-            int apu_display = 0;
-            int taxi_display = 0;
-            int finalRsvDisplay = 0;
-
-            switch (unit)
+            var valuesKg = new[]
             {
-                case WeightUnit.KG:
+                FuelToDest, FuelCont, FuelHold, FuelExtra, FuelToAltn,
+                FuelFinalRsv, TakeoffFuel, FuelApu, FuelTaxi, TotalFuel
+            };
 
-                    TripFuelDisplay = (int)(FuelToDestTon * 1000);
-                    contingencyDisplay = (int)ContKg;
-                    holdDisplay = (int)HoldKg;
-                    extraDisplay = (int)ExtraKG;
-                    alternateDisplay = (int)(FuelToAltnTon * 1000);
-                    finalRsvDisplay = (int)FinalRsvKg;
-                    takeoff_display = (int)TakeoffFuelKg;
-                    apu_display = (int)ApuKg;
-                    taxi_display = (int)TaxiKg;
-                    TotalFuelDisplay = (int)TotalFuelKG;
-                    break;
-
-                case WeightUnit.LB:
-
-                    TripFuelDisplay = (int)(FuelToDestTon * 1000 * KgLbRatio);
-                    contingencyDisplay = (int)(ContKg * KgLbRatio);
-                    holdDisplay = (int)(HoldKg * KgLbRatio);
-                    extraDisplay = (int)(ExtraKG * KgLbRatio);
-                    alternateDisplay = (int)(FuelToAltnTon * 1000 * KgLbRatio);
-                    finalRsvDisplay = (int)(FinalRsvKg * KgLbRatio);
-                    takeoff_display = (int)(TakeoffFuelKg * KgLbRatio);
-                    apu_display = (int)(ApuKg * KgLbRatio);
-                    taxi_display = (int)(TaxiKg * KgLbRatio);
-                    TotalFuelDisplay = (int)(TotalFuelKG * KgLbRatio);
-                    break;
-            }
-
-            string trip_s = LineFormat("TRIP", TripFuelDisplay);
-            string contingency_s = LineFormat("CONTINGENCY", contingencyDisplay);
-            string hold_s = LineFormat("HOLD", holdDisplay);
-            string extra_s = LineFormat("EXTRA", extraDisplay);
-            string alternate_s = LineFormat("ALTERNATE", alternateDisplay);
-            string final_rsv_s = LineFormat("FINAL RSV", finalRsvDisplay);
-            string takeoff_s = LineFormat("AT T/O", takeoff_display);
-            string apu_s = LineFormat("APU", apu_display);
-            string taxi_s = LineFormat("TAXI", taxi_display);
-            string total_s = LineFormat("TOTAL", TotalFuelDisplay);
-            string fmc_rsv_s = LineFormatOneDecimalPlace("FMC RSV", (alternateDisplay + finalRsvDisplay) / 1000.0);
-
-            string wtUnitDisplay = null;
-
-            switch (unit)
+            var names = new[]
             {
-                case WeightUnit.KG:
-                    wtUnitDisplay = "ALL WEIGHTS IN KG";
-                    break;
-                case WeightUnit.LB:
-                    wtUnitDisplay = "ALL WEIGHTS IN LB";
-                    break;
-            }
+                "TRIP", "CONTINGENCY", "HOLD", "EXTRA", "ALTERNATE",
+                "FINAL RSV", "AT T/O", "APU", "TAXI", "TOTAL"
+            };
 
-            double time_cont = TimeToDestMin / 20;
-            double time_TO = TimeToDestMin + time_cont + TimeExtraMin + TimeHoldMin + TimeFinalRsvMin + TimeToAltnMin;
-            double time_total = time_TO + TimeApuMin + TimeTaxiMin;
+            var times = new[]
+            {
+                TimeToDest, TimeCont, TimeHold, TimeExtra, TimeToAltn,
+                TimeFinalRsv, TimeTakeoff, TimeApu, TimeTaxi, TimeTotal
+            };
 
-            StringBuilder OutputText = new StringBuilder();
+            var linebreakCount = new[]
+            {
+                1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1
+            };
 
-            OutputText.AppendLine(wtUnitDisplay + "\n\n              FUEL  TIME");
-            OutputText.AppendLine(trip_s + "  " + MinToString(TimeToDestMin));
-            OutputText.AppendLine(contingency_s + "  " + MinToString(time_cont));
-            OutputText.AppendLine(hold_s + "  " + MinToString(TimeHoldMin));
-            OutputText.AppendLine(extra_s + "  " + MinToString(TimeExtraMin));
-            OutputText.AppendLine(alternate_s + "  " + MinToString(TimeToAltnMin));
-            OutputText.AppendLine(final_rsv_s + "  " + MinToString(TimeFinalRsvMin) + Environment.NewLine);
-            OutputText.AppendLine(takeoff_s + "  " + MinToString(time_TO) + Environment.NewLine);
-            OutputText.AppendLine(apu_s + "  " + MinToString(TimeApuMin));
-            OutputText.AppendLine(taxi_s + "  " + MinToString(TimeTaxiMin) + Environment.NewLine);
-            OutputText.AppendLine(total_s + "  " + MinToString(time_total));
-            OutputText.Append(fmc_rsv_s);
+            var ratio = unit == WeightUnit.KG ? 1.0 : KgLbRatio;
+            var value = valuesKg.Select(x => (x * ratio).ToString("F0"));
+            var timeStr = times.Select(t => MinToHHMM(RoundToInt(t)));
+            var lines = names
+                .Zip(value, (n, v) => LineFormat(n, v))
+                .Zip(timeStr, (s, t) => s + "  " + t);
+            var linebreaks = linebreakCount.Select(c => new string('\n', c));
+            var combined = lines.Zip(linebreaks, (s, b) => s + b);
+            var joined = string.Concat(combined);
 
-            return OutputText.ToString();
+            var wt = "ALL WEIGHTS IN " + WeightUnitToString(unit);
+            return wt + "\n\n" + "FUEL  TIME".PadLeft(RightPad + LeftPad) +
+                "\n" + joined +
+                LineFormat("FMC RSV", FuelFmcRsv.ToString("F1"));
         }
 
         private static string MinToString(double minutes)
@@ -176,17 +134,9 @@ namespace QSP.FuelCalculation.Results
             return MinToHHMM(RoundToInt(minutes));
         }
 
-        private string LineFormat(string item, int value)
+        private static string LineFormat(string s1, string s2)
         {
-            return item.PadRight(LeftPad, ' ') + 
-                value.ToString().PadLeft(RightPad, ' ');
+            return s1.PadRight(RightPad) + s2.PadLeft(LeftPad);
         }
-
-        private string LineFormatOneDecimalPlace(string item, double value)
-        {
-            return item.PadRight(LeftPad, ' ') + 
-                value.ToString("0.0").PadLeft(RightPad, ' ');
-        }
-
     }
 }
