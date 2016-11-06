@@ -54,38 +54,59 @@ namespace QSP.FuelCalculation.Calculations
 
         public DetailedPlan Create()
         {
+            var altLimit = maxAlt;
+
+            while (true)
+            {
+                var plan = GetPlan(altLimit);
+                var altResult = CruiseAltValid(plan);
+                if (altResult.IsValid) return new DetailedPlan(plan);
+                var minAlt = Math.Max(plan.First().Alt, plan.Last().Alt);
+                altLimit = altResult.NewAlt;
+                if (altLimit <= minAlt) throw new InvalidOperationException();
+            }
+        }
+
+        private List<PlanNode> GetPlan(double altLimit)
+        {
             var initPlan = new InitialPlanCreator(
-                airportList,
-                altProvider,
-                windTable,
-                route,
-                fuelData,
-                zfw,
-                landingFuel,
-                maxAlt).Create();
+                  airportList,
+                  altProvider,
+                  windTable,
+                  route,
+                  fuelData,
+                  zfw,
+                  landingFuel,
+                  altLimit).Create();
 
             var climbNodes = new ClimbNodesCreator(
                 airportList, route, fuelData, initPlan).Create();
 
-            var completeRoute = climbNodes
+            return climbNodes
                 .Concat(initPlan.Skip(climbNodes.Count))
                 .ToList();
-
-
         }
 
-        private List<PlanNode> TrimCruiseAlt(List<PlanNode> nodes)
+        private AltResult CruiseAltValid(List<PlanNode> nodes)
         {
             int tocIndex = GetTocIndex(nodes);
-            if (ReachedCruisingAlt(nodes, tocIndex)) return nodes;
+            var toc = nodes[tocIndex];
+            var heading = Heading(toc, nodes[tocIndex + 1]);
+            bool valid = altProvider.IsValidCrzAlt(toc, heading, toc.Alt);
+            double newAlt = valid ? toc.Alt :
+                altProvider.ClosestAltBelow(toc, heading, toc.Alt);
+            return new AltResult() { IsValid = valid, NewAlt = newAlt };
+        }
 
-            var alt = altProvider.ClosestAltBelow(
-                nodes[tocIndex-1])
+        private struct AltResult
+        {
+            public bool IsValid;
+            public double NewAlt;
         }
 
         private static int GetTocIndex(IReadOnlyList<PlanNode> nodes)
         {
-            for (int i = 0; i < nodes.Count-1; i++)
+            for (int i = 0; i < nodes.Count - 1; i++)
             {
                 if (nodes[i].Alt + AltDiffCriteria >= nodes[i + 1].Alt)
                 {
@@ -96,11 +117,5 @@ namespace QSP.FuelCalculation.Calculations
             throw new ArgumentException();
         }
 
-        private bool ReachedCruisingAlt(IReadOnlyList<PlanNode> n, int tocIndex)
-        {
-            var toc = n[tocIndex];
-            var heading = Heading(toc, n[tocIndex + 1]);
-            return altProvider.IsValidCrzAlt(toc, heading, toc.Alt);
-        }
     }
 }
