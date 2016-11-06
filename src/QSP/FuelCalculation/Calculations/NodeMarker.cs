@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using QSP.FuelCalculation.Results.Nodes;
 using QSP.LibraryExtension;
 using static System.Math;

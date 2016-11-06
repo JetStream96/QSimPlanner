@@ -23,7 +23,7 @@ namespace UnitTest.FuelCalculation.Calculations
 
             // If you want to edit this, make sure the nodes are manually 
             // analyzed to make sure it's correct.
-            var first = plan.Nodes[0];
+            var first = plan.AllNodes[0];
             Assert.AreEqual(6971.0, first.FuelOnBoard, 10.0);
             Assert.AreEqual(61971.0, first.GrossWt, 10.0);
             Assert.AreEqual(41.1, first.TimeRemaining, 1.0);
@@ -40,7 +40,7 @@ namespace UnitTest.FuelCalculation.Calculations
 
             // If you want to edit this, make sure the nodes are manually 
             // analyzed to make sure it's correct.
-            var toc = plan.Nodes[10];
+            var toc = plan.AllNodes[10];
             Assert.AreEqual(9000.0, toc.Alt, 10.0);
         }
 

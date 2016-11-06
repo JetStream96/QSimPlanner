@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using QSP.FuelCalculation.Results;
 using static QSP.AviationTools.Heading.HeadingCalculation;
-using static QSP.FuelCalculation.Calculations.InitialPlanCreator;
 using static QSP.FuelCalculation.Calculations.NodeMarker;
 
 namespace QSP.FuelCalculation.Calculations

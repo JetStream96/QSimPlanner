@@ -1,17 +1,20 @@
 ﻿using QSP.FuelCalculation.Calculations;
 using System.Collections.Generic;
+using System.Linq;
+using QSP.FuelCalculation.Results.Nodes;
 
 namespace QSP.FuelCalculation.Results
 {
     public class DetailedPlan
     {
-        public IReadOnlyList<PlanNode> Nodes { get; private set; }
+        public IReadOnlyList<PlanNode> AllNodes { get; }
 
-        public DetailedPlan(IReadOnlyList<PlanNode> Nodes)
+        public IEnumerable<PlanNode> PrintedNodes =>
+            AllNodes.Where(n => !(n.NodeValue is IntermediateNode));
+
+        public DetailedPlan(IReadOnlyList<PlanNode> AllNodes)
         {
-            this.Nodes = Nodes;
+            this.AllNodes = AllNodes;
         }
-
-
     }
 }
