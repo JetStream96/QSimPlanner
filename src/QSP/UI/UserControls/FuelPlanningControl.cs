@@ -26,6 +26,7 @@ using System.Linq;
 using System.Windows.Forms;
 using QSP.FuelCalculation.Results;
 using static QSP.AviationTools.Constants;
+using static QSP.AviationTools.SpeedConversion;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Factories.FormFactory;
 using static QSP.UI.Utilities.MsgBoxHelper;
@@ -445,7 +446,7 @@ namespace QSP.UI.UserControls
                 RouteToDest.Expanded,
                 altnRoutes,
                 para).Generate();
-            
+
             var ac = GetCurrentAircraft().Config;
 
             if (fuelReport.TotalFuel > ac.MaxFuelKg)
@@ -614,16 +615,11 @@ namespace QSP.UI.UserControls
             }
 
             var dis = orig.Distance(dest);
-
-            var fuelTon =
-                fuelData.FuelTable.GetFuelRequiredTon(dis, zfw / 1000.0);
-
-            var avgWtTon = zfw + 0.5 * fuelTon;
-            var altitude = fuelData.OptCrzTable.ActualCrzAltFt(avgWtTon, dis);
-            var tas = fuelData.SpeedProfile.CruiseTasKnots(altitude);
+            var alt = fuelData.EstimatedCrzAlt(dis, zfw);
+            var tas = Ktas(fuelData.CruiseKias(zfw), alt);
 
             return new AvgWindCalculator(
-                windTableLocator.Instance, tas, altitude);
+                windTableLocator.Instance, tas, alt);
         }
 
         public void RefreshForAirportListChange()

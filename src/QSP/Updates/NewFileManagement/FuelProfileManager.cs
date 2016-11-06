@@ -1,4 +1,4 @@
-﻿using QSP.FuelCalculation;
+﻿using QSP.FuelCalculation.FuelDataNew;
 using System;
 using System.IO;
 using System.Xml.Linq;
