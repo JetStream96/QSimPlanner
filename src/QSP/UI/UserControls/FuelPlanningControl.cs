@@ -349,7 +349,7 @@ namespace QSP.UI.UserControls
                 items.Clear();
 
                 items.AddRange(
-                    ac.Where(c => FuelProfileExists(c.Config.TOProfile))
+                    ac.Where(c => FuelProfileExists(c.Config.FuelProfile))
                       .Select(c => c.Config.Registration)
                       .ToArray());
 

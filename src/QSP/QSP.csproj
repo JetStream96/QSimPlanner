@@ -581,8 +581,13 @@
     <Content Include="Libraries\MinMaxHeap.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\737800_new_format.xml">
-      <SubType>Designer</SubType>
+    <Content Include="PerformanceData\FuelCalc\737700_24k_new_format.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\737700_26k_new_format.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\737800_26k_new_format.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\FuelCalc\7478F.xml">
@@ -631,9 +636,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\FuelCalc\737700.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PerformanceData\FuelCalc\737800.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\FuelCalc\737900.xml">

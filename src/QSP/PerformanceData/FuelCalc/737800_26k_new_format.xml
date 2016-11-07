@@ -7,6 +7,8 @@
        all altitudes in feet.
        all fuel flows (FF) in kg/min.
   -->
+  
+  <!-- 26k with winglet -->
 
   <ProfileName>Boeing 737-800</ProfileName>
   <HoldingFuelFlow>37.7</HoldingFuelFlow>
