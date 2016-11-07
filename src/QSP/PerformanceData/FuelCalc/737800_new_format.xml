@@ -23,7 +23,7 @@
     <CruiseIAS>215.9772</CruiseIAS>
     <ClimbGrad>0.08997</ClimbGrad>
     <ClimbFF>85.416666666666671</ClimbFF>
-    <DescentGrad>	0.06681</DescentGrad>
+    <DescentGrad>0.06681</DescentGrad>
     <DescentFF>13.083333333333334</DescentFF>
     <OptCruiseAlt>43828.6</OptCruiseAlt>
     <EtopsCruiseTAS>0</EtopsCruiseTAS> <!-- Placeholder -->
