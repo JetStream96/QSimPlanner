@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using QSP.FuelCalculation.Results;
+using QSP.RouteFinding.Data.Interfaces;
 using static QSP.AviationTools.Heading.HeadingCalculation;
 using static QSP.FuelCalculation.Calculations.NodeMarker;
 

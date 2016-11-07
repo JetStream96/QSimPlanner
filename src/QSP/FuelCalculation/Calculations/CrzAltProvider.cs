@@ -12,19 +12,19 @@ namespace QSP.FuelCalculation.Calculations
             // TODO: Westbound: Even altitudes
             // Eastbound: Odd altitudes
             // For metric system, i.e. China, it will be complicated.
-            return Math.Round(altitude / 1000.0) * 1000.0;
+            return Math.Round(altitude / 4000.0) * 4000.0;
         }
 
         public double ClosestAltBelow(
             ICoordinate c, double heading, double altitude)
         {
-            return Math.Floor(altitude / 1000.0) * 1000.0;
+            return Math.Floor(altitude / 4000.0) * 4000.0;
         }
 
         public bool IsValidCrzAlt(
             ICoordinate c, double heading, double altitude)
         {
-            return altitude.Mod(1000.0) < 1.0;
+            return altitude.Mod(4000.0) < 1.0;
         }
     }
 }

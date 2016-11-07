@@ -14,13 +14,13 @@
   <TaxiFuelFlow>12.2</TaxiFuelFlow>
   <ApuFuelFlow>1.8</ApuFuelFlow>
   <MissedAppFuel>130</MissedAppFuel>
-  <ClimbIAS>280</ClimbIAS>
-  <DescentIAS>280</DescentIAS>
+  <ClimbIAS>250</ClimbIAS>
+  <DescentIAS>250</DescentIAS>
 
   <DataPoint>
     <Weight>55000</Weight>
-    <CruiseFF>31.7945</CruiseFF>
-    <CruiseIAS>229.424</CruiseIAS>
+    <CruiseFF>33.8233</CruiseFF>
+    <CruiseIAS>242.1</CruiseIAS>
     <ClimbGrad>0.0637864</ClimbGrad>
     <ClimbFF>80.34682</ClimbFF>
     <DescentGrad>0.0522029</DescentGrad>
@@ -33,8 +33,8 @@
 
   <DataPoint>
     <Weight>70000</Weight>
-    <CruiseFF>39.5554166</CruiseFF>
-    <CruiseIAS>257.549</CruiseIAS>
+    <CruiseFF>42.08</CruiseFF>
+    <CruiseIAS>270.6</CruiseIAS>
     <ClimbGrad>0.052708</ClimbGrad>
     <ClimbFF>92.3497</ClimbFF>
     <DescentGrad>0.04856</DescentGrad>
