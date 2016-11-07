@@ -1,7 +1,7 @@
 ﻿using QSP.AircraftProfiles.Configs;
 using QSP.Common;
 using QSP.Common.Options;
-using QSP.FuelCalculation.FuelDataNew;
+using QSP.FuelCalculation.FuelData;
 using QSP.FuelCalculation.Calculations;
 using QSP.LibraryExtension;
 using QSP.RouteFinding;

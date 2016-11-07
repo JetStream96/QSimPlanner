@@ -1,5 +1,5 @@
 using QSP.Common;
-using QSP.FuelCalculation.FuelDataNew;
+using QSP.FuelCalculation.FuelData;
 using QSP.UI.Controllers.Units;
 using static QSP.UI.Utilities.InputValidator;
 

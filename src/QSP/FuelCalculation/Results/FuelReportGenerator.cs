@@ -1,5 +1,5 @@
 ﻿using QSP.FuelCalculation.Calculations;
-using QSP.FuelCalculation.FuelDataNew;
+using QSP.FuelCalculation.FuelData;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Routes;
 using QSP.WindAloft;

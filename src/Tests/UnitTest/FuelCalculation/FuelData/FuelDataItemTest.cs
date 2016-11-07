@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 using NUnit.Framework;
-using QSP.FuelCalculation.FuelDataNew;
+using QSP.FuelCalculation.FuelData;
 
 namespace UnitTest.FuelCalculation.FuelData
 {

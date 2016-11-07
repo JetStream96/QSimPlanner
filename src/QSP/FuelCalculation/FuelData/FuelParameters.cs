@@ -1,4 +1,4 @@
-namespace QSP.FuelCalculation.FuelDataNew
+namespace QSP.FuelCalculation.FuelData
 {
     // Unit of fuel is in kg, time in minutes.
     public class FuelParameters

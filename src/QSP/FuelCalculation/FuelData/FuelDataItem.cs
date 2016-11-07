@@ -3,7 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 
-namespace QSP.FuelCalculation.FuelDataNew
+namespace QSP.FuelCalculation.FuelData
 {
     // The units of variables used in this class is specified in 
     // FuelCalculation/Calculations/VariableUnitStandard.txt.

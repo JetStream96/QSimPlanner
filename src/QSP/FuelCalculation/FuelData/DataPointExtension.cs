@@ -1,4 +1,4 @@
-﻿namespace QSP.FuelCalculation.FuelDataNew
+﻿namespace QSP.FuelCalculation.FuelData
 {
     public static class DataPointExtension
     {

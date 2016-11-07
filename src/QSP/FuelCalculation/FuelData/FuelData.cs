@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 
-namespace QSP.FuelCalculation
-{/*
+namespace QSP.FuelCalculation.FuelData
+{
     public class FuelData
     {
         public FuelDataItem Data { get; private set; }
@@ -20,9 +20,9 @@ namespace QSP.FuelCalculation
             var root = XDocument.Load(path).Root;
 
             return new FuelData(
-                FuelDataItem.FromFile(path),
-                root.Element("General").Element("ProfileName").Value,
+                new FuelDataItem.Serializer().Deserialize(root),
+                root.Element("ProfileName").Value,
                 path);
         }
-    }*/
+    }
 }

@@ -25,7 +25,7 @@ namespace QSP.FuelCalculation.Calculations
         private readonly ICrzAltProvider altProvider;
         private readonly IWindTableCollection windTable;
         private readonly Route route;
-        private readonly FuelDataNew.FuelDataItem fuelData;
+        private readonly FuelData.FuelDataItem fuelData;
         private readonly double zfw;
         private readonly double landingFuel;
         private readonly double maxAlt;
@@ -36,7 +36,7 @@ namespace QSP.FuelCalculation.Calculations
             ICrzAltProvider altProvider,
             IWindTableCollection windTable,
             Route route,
-            FuelDataNew.FuelDataItem fuelData,
+            FuelData.FuelDataItem fuelData,
             double zfw,
             double landingFuel,
             double maxAlt)

@@ -1,5 +1,5 @@
 ﻿using QSP.AircraftProfiles.Configs;
-using QSP.FuelCalculation.FuelDataNew;
+using QSP.FuelCalculation.FuelData;
 using System.Collections.Generic;
 using TOTable = QSP.TOPerfCalculation.PerfTable;
 using LdgTable = QSP.LandingPerfCalculation.PerfTable;

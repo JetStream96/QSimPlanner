@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.FuelCalculation.FuelDataNew;
+using QSP.FuelCalculation.FuelData;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;

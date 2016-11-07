@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace QSP.FuelCalculation
-{/*
+namespace QSP.FuelCalculation.FuelData
+{
     public static class FuelDataLoader
     {
         public const string DefaultFolderPath = @"PerformanceData\FuelCalc";
@@ -69,5 +69,5 @@ namespace QSP.FuelCalculation
                 return null;
             }
         }
-    }*/
+    }
 }
