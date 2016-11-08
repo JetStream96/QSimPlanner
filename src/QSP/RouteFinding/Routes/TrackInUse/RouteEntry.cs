@@ -4,8 +4,8 @@ namespace QSP.RouteFinding.Routes.TrackInUse
 {
     public struct RouteEntry
     {
-        public LinkedList<RouteNode> Route;
-        public string RouteName;
+        public LinkedList<RouteNode> Route { get; }
+        public string RouteName { get; }
 
         public RouteEntry(LinkedList<RouteNode> Route, string RouteName)
         {

@@ -5,9 +5,9 @@ namespace QSP.RouteFinding.AirwayStructure
 {
     public class WptSeachWrapper : ICoordinate, IEquatable<WptSeachWrapper>
     {
-        public int Index { get; private set; }
-        public double Lat { get; private set; }
-        public double Lon { get; private set; }
+        public int Index { get; }
+        public double Lat { get; }
+        public double Lon { get; }
         
         public WptSeachWrapper(int Index, double Lat, double Lon)
         {

@@ -12,31 +12,17 @@ namespace QSP.RouteFinding.Routes
 {
     public class Route : IReadOnlyCollection<RouteNode>
     {
-        public LinkedList<RouteNode> Nodes { get; private set; }
+        public LinkedList<RouteNode> Nodes { get; }
 
         /// <exception cref="NullReferenceException"></exception>
-        public Waypoint FirstWaypoint
-        {
-            get { return First.Value.Waypoint; }
-        }
+        public Waypoint FirstWaypoint => First.Value.Waypoint;
 
         /// <exception cref="NullReferenceException"></exception>
-        public Waypoint LastWaypoint
-        {
-            get { return Last.Value.Waypoint; }
-        }
+        public Waypoint LastWaypoint => Last.Value.Waypoint;
 
-        public LinkedListNode<RouteNode> First
-        {
-            get { return Nodes.First; }
-        }
-
-        public LinkedListNode<RouteNode> Last
-        {
-            get { return Nodes.Last; }
-        }
-
-        public int Count { get { return Nodes.Count; } }
+        public LinkedListNode<RouteNode> First => Nodes.First;
+        public LinkedListNode<RouteNode> Last => Nodes.Last;
+        public int Count => Nodes.Count;
 
         public Route()
         {

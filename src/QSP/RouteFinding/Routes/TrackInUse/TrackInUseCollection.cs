@@ -20,14 +20,9 @@ namespace QSP.RouteFinding.Routes.TrackInUse
             Ausots = EmptyEntry;
         }
 
-        public IEnumerable<RouteEntry> AllEntries
-        {
-            get
-            {
-                return Nats.Concat(Pacots).Concat(Ausots);
-            }
-        }
-
+        public IEnumerable<RouteEntry> AllEntries =>
+            Nats.Concat(Pacots).Concat(Ausots);
+            
         public void Clear()
         {
             Nats = EmptyEntry;

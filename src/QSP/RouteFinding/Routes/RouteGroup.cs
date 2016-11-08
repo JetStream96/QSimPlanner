@@ -9,8 +9,8 @@ namespace QSP.RouteFinding.Routes
     //
     public class RouteGroup
     {
-        public Route Folded { get; private set; }
-        public Route Expanded { get; private set; }
+        public Route Folded { get; }
+        public Route Expanded { get; }
 
         public RouteGroup(Route Folded, TrackInUseCollection tracks)
         {

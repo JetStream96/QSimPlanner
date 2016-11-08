@@ -9,8 +9,8 @@ namespace QSP.RouteFinding.Containers
     {
         private static readonly Waypoint[] EmptyInnerWaypoints = { };
 
-        public string Airway { get; private set; }
-        public double Distance { get; private set; }
+        public string Airway { get; }
+        public double Distance { get; }
 
         /// <summary>
         /// This has a Count of 0 if the neighbor is a direct from one 
@@ -20,11 +20,11 @@ namespace QSP.RouteFinding.Containers
         /// Also, in this case, the distance should be the total distance
         /// from A to D via B and C.
         /// </summary>
-        public IReadOnlyList<Waypoint> InnerWaypoints { get; private set; }
+        public IReadOnlyList<Waypoint> InnerWaypoints { get; }
 
         // The type of InnerWaypoints, if it's not empty. Otherwise, it should
         // be None.
-        public InnerWaypointsType Type { get; private set; }
+        public InnerWaypointsType Type { get; }
 
         public Neighbor(string Airway, double Distance)
             : this(Airway, Distance, EmptyInnerWaypoints, InnerWaypointsType.None)

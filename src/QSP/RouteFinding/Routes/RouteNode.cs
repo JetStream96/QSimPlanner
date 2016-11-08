@@ -5,8 +5,8 @@ namespace QSP.RouteFinding.Routes
 {
     public class RouteNode : IEquatable<RouteNode>
     {
-        public Waypoint Waypoint { get; private set; }
-        public Neighbor Neighbor { get; private set; }
+        public Waypoint Waypoint { get; }
+        public Neighbor Neighbor { get; }
         
         public RouteNode(Waypoint Waypoint, Neighbor Neighbor)
         {

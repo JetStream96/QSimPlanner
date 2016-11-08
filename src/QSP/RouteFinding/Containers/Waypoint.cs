@@ -8,10 +8,10 @@ namespace QSP.RouteFinding.Containers
     {
         public const int DefaultCountryCode = -1;
 
-        public string ID { get; private set; }
-        public double Lat { get; private set; }
-        public double Lon { get; private set; }
-        public int CountryCode { get; private set; }
+        public string ID { get; }
+        public double Lat { get; }
+        public double Lon { get; }
+        public int CountryCode { get; }
 
         public Waypoint(
             string ID,

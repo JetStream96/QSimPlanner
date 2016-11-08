@@ -15,12 +15,12 @@ namespace QSP.RouteFinding.AirwayStructure
 
         public int AddWaypoint(Waypoint item)
         {
-           int index= wptList.AddWaypoint(item);
+            int index = wptList.AddWaypoint(item);
             tracker.AddWaypointRecord(index);
             return index;
         }
 
-        public int AddNeighbor(int from,int to,Neighbor item)
+        public int AddNeighbor(int from, int to, Neighbor item)
         {
             int index = wptList.AddNeighbor(from, to, item);
             tracker.AddNeighborRecord(index);

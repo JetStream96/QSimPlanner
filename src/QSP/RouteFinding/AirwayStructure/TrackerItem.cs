@@ -13,16 +13,9 @@ namespace QSP.RouteFinding.AirwayStructure
             _addedNeighbor = new List<int>();
         }
 
-        public IEnumerable<int> AddedWaypoint
-        {
-            get { return _addedWpt; }
-        }
-
-        public IEnumerable<int> AddedNeighbor
-        {
-            get { return _addedNeighbor; }
-        }
-
+        public IEnumerable<int> AddedWaypoint => _addedWpt; 
+        public IEnumerable<int> AddedNeighbor => _addedNeighbor; 
+        
         public void AddWaypointRecord(int index)
         {
             _addedWpt.Add(index);

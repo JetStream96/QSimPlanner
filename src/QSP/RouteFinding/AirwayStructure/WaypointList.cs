@@ -35,13 +35,7 @@ namespace QSP.RouteFinding.AirwayStructure
             return _content.AddNeighbor(indexFrom, indexTo, item);
         }
 
-        public Waypoint this[int index]
-        {
-            get
-            {
-                return _content[index];
-            }
-        }
+        public Waypoint this[int index] => _content[index];
 
         public bool WaypointExists(int WaypointIndex)
         {
@@ -58,29 +52,14 @@ namespace QSP.RouteFinding.AirwayStructure
             return _content.EdgesToCount(index);
         }
 
-        public int Count
-        {
-            get { return _content.Count; }
-        }
+        public int Count => _content.Count; 
 
         /// <summary>
         /// The upper bound of indices of nodes. 
         /// </summary>
-        public int NodeIndexUpperBound
-        {
-            get
-            {
-                return _content.NodeIndexUpperBound;
-            }
-        }
+        public int NodeIndexUpperBound => _content.NodeIndexUpperBound;
 
-        public int EdgeIndexUpperBound
-        {
-            get
-            {
-                return _content.EdgeIndexUpperBound;
-            }
-        }
+        public int EdgeIndexUpperBound => _content.EdgeIndexUpperBound;
 
         /// <summary>
         /// Find the index of WptNeighbor by ident of a waypoint.

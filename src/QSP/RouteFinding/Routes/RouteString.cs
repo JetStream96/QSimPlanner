@@ -6,10 +6,9 @@ namespace QSP.RouteFinding.Routes
 {
     public class RouteString : IReadOnlyList<string>
     {
-        public IReadOnlyList<string> Value { get; private set; }
-
-        public int Count { get { return Value.Count; } }
-        public string this[int index] { get { return Value[index]; } }
+        public IReadOnlyList<string> Value { get; }
+        public int Count => Value.Count;
+        public string this[int index] => Value[index]; 
 
         public RouteString(IReadOnlyList<string> Value)
         {

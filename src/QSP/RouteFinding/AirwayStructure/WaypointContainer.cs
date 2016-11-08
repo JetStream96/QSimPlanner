@@ -41,13 +41,7 @@ namespace QSP.RouteFinding.AirwayStructure
             return graph.NodeExists(index);
         }
 
-        public Waypoint this[int index]
-        {
-            get
-            {
-                return graph.GetNode(index);
-            }
-        }
+        public Waypoint this[int index] => graph.GetNode(index);
 
         public int EdgesFromCount(int index)
         {
@@ -59,32 +53,14 @@ namespace QSP.RouteFinding.AirwayStructure
             return graph.EdgesToCount(index);
         }
 
-        public int Count
-        {
-            get
-            {
-                return graph.NodeCount;
-            }
-        }
+        public int Count => graph.NodeCount;
 
         /// <summary>
         /// The upper bound of indices of nodes. 
         /// </summary>
-        public int NodeIndexUpperBound
-        {
-            get
-            {
-                return graph.NodeIndexUpperBound;
-            }
-        }
+        public int NodeIndexUpperBound => graph.NodeIndexUpperBound;
 
-        public int EdgeIndexUpperBound
-        {
-            get
-            {
-                return graph.EdgeIndexUpperBound;
-            }
-        }
+        public int EdgeIndexUpperBound => graph.EdgeIndexUpperBound;
 
         /// <summary>
         /// Find the index of WptNeighbor by ident of a waypoint.
