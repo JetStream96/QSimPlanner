@@ -35,7 +35,7 @@ namespace QSP.FuelCalculation.Calculations
         private readonly ICrzAltProvider altProvider;
         private readonly IWindTableCollection windTable;
         private readonly Route route;
-        private readonly FuelData.FuelDataItem fuelData;
+        private readonly FuelDataItem fuelData;
         private readonly double zfw;
         private readonly double landingFuel;
         private readonly double maxAlt;
@@ -45,7 +45,7 @@ namespace QSP.FuelCalculation.Calculations
             ICrzAltProvider altProvider,
             IWindTableCollection windTable,
             Route route,
-            FuelData.FuelDataItem fuelData,
+            FuelDataItem fuelData,
             double zfw,
             double landingFuel,
             double maxAlt)
@@ -181,6 +181,7 @@ namespace QSP.FuelCalculation.Calculations
         {
             var cruiseKias = fuelData.CruiseKias(grossWt);
             if (mode == VerticalMode.Cruise) return cruiseKias;
+            if (alt <= 10000.0) return 250.0;
 
             var optAlt = fuelData.OptCruiseAlt(grossWt);
             var optCruiseKtas = Ktas(cruiseKias, optAlt);

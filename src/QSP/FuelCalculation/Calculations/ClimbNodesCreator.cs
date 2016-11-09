@@ -34,26 +34,37 @@ namespace QSP.FuelCalculation.Calculations
 
         public List<PlanNode> Create()
         {
-            var estimation = NodeEstimation();
+            const int iterationCount = 2;
+            var initGrossWt = initPlan[0].GrossWt;
+            var result = new List<PlanNode>();
 
-            // Fix GrossWt, FuelOnBoard, TimeRemaining.
-            var last = estimation.Last();
-            var old = initPlan[estimation.Count - 1];
-            var grossWtShift = old.GrossWt - last.GrossWt;
-            var fuelShift = old.FuelOnBoard - last.FuelOnBoard;
-            var timeShift = old.TimeRemaining - last.TimeRemaining;
+            for (int i = 0; i < iterationCount; i++)
+            {
+                var estimation = NodeEstimation(initGrossWt);
 
-            return estimation
-                .Select(n => GetNode(
-                    n,
-                    n.Alt,
-                    n.GrossWt + grossWtShift,
-                    n.FuelOnBoard + fuelShift,
-                    n.TimeRemaining + timeShift))
-                .ToList();
+                // Fix GrossWt, FuelOnBoard, TimeRemaining.
+                var last = estimation.Last();
+                var old = initPlan[estimation.Count - 1];
+                var grossWtShift = old.GrossWt - last.GrossWt;
+                var fuelShift = old.FuelOnBoard - last.FuelOnBoard;
+                var timeShift = old.TimeRemaining - last.TimeRemaining;
+
+                result = estimation
+                    .Select(n => GetNode(
+                        n,
+                        n.Alt,
+                        n.GrossWt + grossWtShift,
+                        n.FuelOnBoard + fuelShift,
+                        n.TimeRemaining + timeShift))
+                    .ToList();
+
+                initGrossWt = result[0].GrossWt;
+            }
+
+            return result;
         }
 
-        private List<PlanNode> NodeEstimation()
+        private List<PlanNode> NodeEstimation(double initGrossWt)
         {
             // We uses the node provided by initPlan.
             // In initPlan, the climb segment is not calculated.
@@ -67,12 +78,13 @@ namespace QSP.FuelCalculation.Calculations
 
             var climbNodes = new List<PlanNode>();
             var oldNode = initPlan[0];
+            var zfw = oldNode.GrossWt - oldNode.FuelOnBoard;
 
             var prevPlanNode = GetNode(
                 oldNode,
                 OrigElevationFt(),
-                oldNode.GrossWt,
-                oldNode.FuelOnBoard,
+                initGrossWt,
+                initGrossWt - zfw,
                 0.0);
 
             climbNodes.Add(prevPlanNode);
@@ -127,6 +139,7 @@ namespace QSP.FuelCalculation.Calculations
 
         private double Kias(double grossWt, double alt)
         {
+            if (alt <= 10000.0) return 250.0;
             var cruiseKias = fuelData.CruiseKias(grossWt);
             var optAlt = fuelData.OptCruiseAlt(grossWt);
             var optCruiseKtas = Ktas(cruiseKias, optAlt);

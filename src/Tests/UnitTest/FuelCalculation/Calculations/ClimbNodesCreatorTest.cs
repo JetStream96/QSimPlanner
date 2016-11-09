@@ -26,9 +26,9 @@ namespace UnitTest.FuelCalculation.Calculations
             // If you want to edit this, make sure the nodes are manually 
             // analyzed to make sure it's correct.
             var first = nodes[0];
-            Assert.AreEqual(6971.0, first.FuelOnBoard, 10.0);
-            Assert.AreEqual(61971.0, first.GrossWt, 10.0);
-            Assert.AreEqual(41.1, first.TimeRemaining, 1.0);
+            Assert.AreEqual(7040.0, first.FuelOnBoard, 10.0);
+            Assert.AreEqual(62040.0, first.GrossWt, 10.0);
+            Assert.AreEqual(42.2, first.TimeRemaining, 1.0);
         }
 
         [Test]
@@ -48,9 +48,9 @@ namespace UnitTest.FuelCalculation.Calculations
             // If you want to edit this, make sure the nodes are manually 
             // analyzed to make sure it's correct.
             var first = nodes[0];
-            Assert.AreEqual(6802.0, first.FuelOnBoard, 10.0);
-            Assert.AreEqual(61802.0, first.GrossWt, 10.0);
-            Assert.AreEqual(36.7, first.TimeRemaining, 1.0);
+            Assert.AreEqual(6862.0, first.FuelOnBoard, 10.0);
+            Assert.AreEqual(61862.0, first.GrossWt, 10.0);
+            Assert.AreEqual(37.7, first.TimeRemaining, 1.0);
         }
     }
 }
