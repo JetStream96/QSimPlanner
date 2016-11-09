@@ -441,7 +441,7 @@ namespace QSP.UI.UserControls
 
             var fuelReport = new FuelReportGenerator(
                 airportList,
-                new CrzAltProvider(),
+                new BasicCrzAltProvider(),
                 windTables,
                 RouteToDest.Expanded,
                 altnRoutes,

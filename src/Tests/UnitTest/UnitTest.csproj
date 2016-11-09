@@ -63,6 +63,7 @@
     <Compile Include="AviationTools\SpeedConversionTest.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Options\AppOptionTest.cs" />
+    <Compile Include="FuelCalculation\Calculations\BasicCrzAltProviderTest.cs" />
     <Compile Include="FuelCalculation\Calculations\ClimbNodesCreatorTest.cs" />
     <Compile Include="FuelCalculation\Calculations\FuelCalculatorTest.cs" />
     <Compile Include="FuelCalculation\Calculations\InitialPlanCreatorTest.cs" />
