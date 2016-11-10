@@ -591,7 +591,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\737900_26k_new_format.xml">
+    <Content Include="PerformanceData\FuelCalc\737900_27k_new_format.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\FuelCalc\737800_26k_new_format.xml">
