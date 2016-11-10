@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Data>
+  <!-- 
+       Unless specified otherwise,
+       all weights in kg.
+       all speeds in knots.
+       all altitudes in feet.
+       all fuel flows (FF) in kg/min.
+  -->
+
+  <!-- 26k with winglet -->
+
+  <ProfileName>Boeing 737-900 27k</ProfileName>
+  <HoldingFuelFlow>37.3456666</HoldingFuelFlow>
+  <HoldingFuelRefWt>58967</HoldingFuelRefWt>
+  <TaxiFuelFlow>12.2</TaxiFuelFlow>
+  <ApuFuelFlow>1.8</ApuFuelFlow>
+  <MissedAppFuel>130</MissedAppFuel>
+  <ClimbIAS>250</ClimbIAS>
+  <DescentIAS>250</DescentIAS>
+
+  <DataPoint>
+    <Weight>50000</Weight>
+    <CruiseFF>33.1044</CruiseFF>
+    <CruiseIAS>232.79303</CruiseIAS>
+    <ClimbGrad>0.066242</ClimbGrad>
+    <ClimbFF>78.07896</ClimbFF>
+    <DescentGrad>0.0581088</DescentGrad>
+    <DescentFF>13.2627477</DescentFF>
+    <OptCruiseAlt>40970</OptCruiseAlt>
+    <EtopsCruiseTAS>0</EtopsCruiseTAS>
+    <!-- Placeholder -->
+    <EtopsCruiseFF>0</EtopsCruiseFF>
+  </DataPoint>
+  
+  <DataPoint>
+    <Weight>85000</Weight>
+    <CruiseFF>52.142718</CruiseFF>
+    <CruiseIAS>296.087786</CruiseIAS>
+    <ClimbGrad>0.0428439</ClimbGrad>
+    <ClimbFF>94.13503</ClimbFF>
+    <DescentGrad>0.04594</DescentGrad>
+    <DescentFF>14.728795</DescentFF>
+    <OptCruiseAlt>30313</OptCruiseAlt>
+    <EtopsCruiseTAS>0</EtopsCruiseTAS>
+    <EtopsCruiseFF>0</EtopsCruiseFF>
+  </DataPoint>
+
+</Data>
