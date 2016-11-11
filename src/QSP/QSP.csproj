@@ -593,12 +593,14 @@
     </Content>
     <Content Include="PerformanceData\FuelCalc\777300ER_new_format.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\FuelCalc\777F_new_format.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\FuelCalc\777200LR_new_format.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\FuelCalc\737900_27k_new_format.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

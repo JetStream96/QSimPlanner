@@ -8,16 +8,14 @@
        all fuel flows (FF) in kg/min.
   -->
 
-  <!-- 26k with winglet -->
-
   <ProfileName>Boeing 777F</ProfileName>
   <HoldingFuelFlow>105.8333</HoldingFuelFlow>
   <HoldingFuelRefWt>240000</HoldingFuelRefWt>
   <TaxiFuelFlow>36</TaxiFuelFlow>
   <ApuFuelFlow>4</ApuFuelFlow>
   <MissedAppFuel>300</MissedAppFuel>
-  <ClimbIAS>250</ClimbIAS>
-  <DescentIAS>250</DescentIAS>
+  <ClimbIAS>270</ClimbIAS>
+  <DescentIAS>270</DescentIAS>
 
   <DataPoint>
     <Weight>180000</Weight>
