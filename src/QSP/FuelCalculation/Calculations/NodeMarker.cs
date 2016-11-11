@@ -5,13 +5,12 @@ using QSP.LibraryExtension;
 using QSP.RouteFinding.Data.Interfaces;
 using static System.Math;
 using static QSP.AviationTools.Constants;
+using static QSP.FuelCalculation.Calculations.InitialPlanCreator;
 
 namespace QSP.FuelCalculation.Calculations
 {
     public static class NodeMarker
     {
-        public static readonly double GradDelta = 0.001;
-
         /// <summary>
         /// Gets the index of TOC (top of climb). i.e. The first node such that
         /// the altitude no longer increases. The input (nodes) needs to
@@ -21,7 +20,7 @@ namespace QSP.FuelCalculation.Calculations
         {
             for (int i = 0; i < nodes.Count - 1; i++)
             {
-                if (ClimbGrad(nodes[i], nodes[i + 1]) < GradDelta) return i;
+                if (nodes[i + 1].Alt - nodes[i].Alt < AltDiffCriteria) return i;
             }
 
             throw new ArgumentException();
@@ -31,8 +30,8 @@ namespace QSP.FuelCalculation.Calculations
         {
             for (int i = 1; i < n.Count - 1; i++)
             {
-                if (Abs(ClimbGrad(n[i - 1], n[i])) < GradDelta &&
-                    ClimbGrad(n[i], n[i + 1]) > GradDelta)
+                if (Abs(n[i - 1].Alt - n[i].Alt) < AltDiffCriteria &&
+                    n[i + 1].Alt - n[i].Alt > AltDiffCriteria)
                 {
                     yield return i;
                 }
@@ -43,7 +42,7 @@ namespace QSP.FuelCalculation.Calculations
         {
             for (int i = n.Count - 1; i > 0; i--)
             {
-                if (ClimbGrad(n[i], n[i - 1]) < GradDelta) return i;
+                if (n[i - 1].Alt - n[i].Alt < AltDiffCriteria) return i;
             }
 
             throw new ArgumentException();
@@ -105,11 +104,6 @@ namespace QSP.FuelCalculation.Calculations
                 n.Kias,
                 n.Ktas,
                 n.Gs);
-        }
-
-        private static double ClimbGrad(PlanNode from, PlanNode to)
-        {
-            return (to.Alt - from.Alt) / NmFtRatio / from.Distance(to);
         }
     }
 }
