@@ -1,13 +1,10 @@
-﻿using QSP.MathTools;
-using QSP.RouteFinding.Data.Interfaces;
+﻿using QSP.RouteFinding.Data.Interfaces;
 using static System.Math;
 
 namespace QSP.FuelCalculation.Calculations
 {
     // TODO: Add new class for more sophisticated implementation.
-    // TODO: Westbound: Even altitudes
-    // Eastbound: Odd altitudes
-    // For metric system, i.e. China, it will be complicated.
+    // TODO: For metric system, i.e. China, it will be complicated.
 
     public class BasicCrzAltProvider : ICrzAltProvider
     {
