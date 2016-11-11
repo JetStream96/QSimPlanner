@@ -14,8 +14,8 @@
   <TaxiFuelFlow>36</TaxiFuelFlow>
   <ApuFuelFlow>4</ApuFuelFlow>
   <MissedAppFuel>300</MissedAppFuel>
-  <ClimbIAS>270</ClimbIAS>
-  <DescentIAS>270</DescentIAS>
+  <ClimbIAS>310</ClimbIAS>
+  <DescentIAS>310</DescentIAS>
 
   <DataPoint>
     <Weight>180000</Weight>

@@ -604,6 +604,7 @@
     </Content>
     <Content Include="PerformanceData\FuelCalc\737900_27k_new_format.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\FuelCalc\737800_26k_new_format.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -707,6 +708,7 @@
     </EmbeddedResource>
     <Content Include="PerformanceData\Aircrafts\B737-600_LN-RRX.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\Aircrafts\B737-700_B-5256.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -716,6 +718,7 @@
     </Content>
     <Content Include="PerformanceData\Aircrafts\B737-900_N844DN.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\Aircrafts\B777-200LR_A6-EWE.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
