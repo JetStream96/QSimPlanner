@@ -61,7 +61,6 @@
     <Compile Include="QSP\RouteFinding\Tracks\Nats\NatsHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QSP\RouteFinding\Tracks\Pacots\PacotsHandlerTest.cs" />
-    <Compile Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="QSP\RouteFinding\Tracks\Ausots\text.asp.html">
@@ -72,21 +71,6 @@
     </Content>
     <Content Include="QSP\RouteFinding\Tracks\Nats\North Atlantic Tracks_files\advisories.css" />
     <Content Include="QSP\RouteFinding\Tracks\Pacots\Defense Internet NOTAM Service.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\0.2.3\PerformanceData\Aircrafts\B737-600_LN-RRX.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\0.2.3\PerformanceData\Aircrafts\B737-700_B-123.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\0.3.0\PerformanceData\Aircrafts\B737-700_B-123.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\0.3.0\PerformanceData\Aircrafts\B737-700_B-5256.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="QSP\Updates\NewFileManagement\AircraftConfigManagerTesting\files\0.3.0\updater.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
