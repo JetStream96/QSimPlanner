@@ -22,10 +22,10 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public event EventHandler AircraftsChanged;
 
         private AcMenuElements elem;
-        private ProfileManager profiles;
+        private ProfileCollection profiles;
         private AircraftConfig currentConfig;
 
-        public AcMenuController(AcMenuElements elem, ProfileManager profiles)
+        public AcMenuController(AcMenuElements elem, ProfileCollection profiles)
         {
             this.elem = elem;
             this.profiles = profiles;
@@ -268,22 +268,19 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         /// <exception cref="NoFileNameAvailException"></exception>
         private string GetFileName()
         {
-            if (InEditMode == false)
-            {
-                var nameBase =
-                    (elem.AcType.Text + "_" + elem.Registration.Text)
-                    .RemoveIllegalChars();
+            // Editing a custom profile.
+            if (InEditMode && !currentConfig.IsDefault) return currentConfig.FilePath;
 
-                return FileNameGenerator.Generate(
-                    ConfigLoader.DefaultFolderPath,
-                    nameBase,
-                    ".ini",
-                    (i) => "_" + i.ToString());
-            }
-            else
-            {
-                return currentConfig.FilePath;
-            }
+            var nameBase = (elem.AcType.Text + "_" + elem.Registration.Text)
+                .RemoveIllegalChars();
+
+            var dir = InEditMode ? ConfigLoader.CustomFolderPath : ConfigLoader.DefaultFolderPath;
+
+            return FileNameGenerator.Generate(
+                dir,
+                nameBase,
+                ".ini",
+                (i) => "_" + i.ToString());
         }
 
         private AircraftConfigItem TryValidate()
@@ -325,7 +322,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                    "Registration already exists. Please use another one.");
                 return;
             }
-
+            
             var fn = TryGetFileName();
             if (fn == null) return;
 

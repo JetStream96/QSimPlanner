@@ -40,5 +40,14 @@ namespace QSP.LibraryExtension
         {
             return new Uri(Path.GetFullPath(path));
         }
+
+        public static bool PathsAreSame(string path1, string path2)
+        {
+           return string.Compare(
+                Path.GetFullPath(path1).TrimEnd('\\'),
+                Path.GetFullPath(path2).TrimEnd('\\'),
+                StringComparison.InvariantCultureIgnoreCase) == 0;
+        }
+        
     }
 }

@@ -9,65 +9,32 @@ namespace QSP.FuelCalculation.FuelData
     public static class FuelDataLoader
     {
         public const string DefaultFolderPath = @"PerformanceData\FuelCalc";
+        public const string CustomFolderPath = @"PerformanceData\FuelCalc\Custom";
 
         /// <summary>
         /// Load all xml in the landing performance data folder.
         /// Files in wrong format are ignored.
-        /// Files containing the same profile name are not loaded and
-        /// a message will be included in returning value.
+        /// If two files have the same profile name, the rules are:
+        /// (1) The file in custom folder shadows file in default folder.
+        /// (2) Only one of them is loaded.
         /// </summary>
-        public static LoadResult Load(string folderPath = DefaultFolderPath)
+        public static IEnumerable<FuelData> Load()
         {
-            var tables = new List<FuelData>();
+            var tables = new Dictionary<string, FuelData>();
+            var files = Directory.GetFiles(CustomFolderPath).Concat(
+                Directory.GetFiles(DefaultFolderPath));
 
-            foreach (var i in Directory.GetFiles(folderPath))
+            foreach (var i in files)
             {
                 try
                 {
-                    tables.Add(FuelData.FromFile(i));
+                    var data = FuelData.FromFile(i);
+                    tables.Add(data.ProfileName, data);
                 }
-                catch (Exception ex)
-                {
-                    LoggerInstance.WriteToLog(ex);
-                }
+                catch { }
             }
 
-            var groups = tables.GroupBy(x => x.ProfileName);
-
-            var nonDuplicate = groups
-                .Where(g => g.Count() == 1)
-                .Select(g => g.First())
-                .ToList();
-
-            var msg = Message(tables);
-
-            return new LoadResult() { Data = nonDuplicate, Message = msg };
-        }
-
-        public struct LoadResult
-        {
-            public List<FuelData> Data; public string Message;
-        }
-
-        private static string Message(List<FuelData> item)
-        {
-            var groups = item.GroupBy(x => x.ProfileName);
-
-            try
-            {
-                var duplicate = groups.First(g => g.Count() > 1);
-
-                return
-                    "The following aircrafts have" +
-                    " identical profile names:\n\n" +
-                    string.Join("\n", duplicate.Select(x => x.FilePath)) +
-                    "\n\nNone of these profiles will be loaded.";
-            }
-            catch (InvalidOperationException)
-            {
-                // There is no duplicate.
-                return null;
-            }
+            return tables.Select(kv => kv.Value);
         }
     }
 }

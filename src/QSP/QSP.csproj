@@ -90,7 +90,7 @@
     <Compile Include="AircraftProfiles\Configs\ConfigComparers.cs" />
     <Compile Include="AircraftProfiles\Configs\ConfigLoader.cs" />
     <Compile Include="AircraftProfiles\Configs\Exceptions.cs" />
-    <Compile Include="AircraftProfiles\ProfileManager.cs" />
+    <Compile Include="AircraftProfiles\ProfileCollection.cs" />
     <Compile Include="AviationTools\Constants.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinuteSecond.cs" />
     <Compile Include="AviationTools\Coordinates\Formatter.cs" />
@@ -626,6 +626,18 @@
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="PerformanceData\FuelCalc\Custom\Put your custom fuel profiles here">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\TO\Custom\Put your custom TO profiles here">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\LDG\Custom\Put your custom LDG profiles here">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\Aircrafts\Custom\Put your custom aircraft profiles here">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\qsp_icon.ico" />
     <None Include="Resources\add_icon.png" />
     <EmbeddedResource Include="UI\Forms\Options\OptionsForm.resx">

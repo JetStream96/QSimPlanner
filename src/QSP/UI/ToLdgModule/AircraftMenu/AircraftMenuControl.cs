@@ -21,28 +21,13 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             InitializeComponent();
         }
 
-        public void Initialize(ProfileManager profiles)
+        public void Initialize(ProfileCollection profiles)
         {
             SetElements();
             InitController(profiles);
-            ShowErrors(profiles);
         }
-
-        private void ShowErrors(ProfileManager profiles)
-        {
-            var errors = profiles.Errors;
-
-            if (errors.Count() > 0)
-            {
-                MessageBox.Show(
-                    string.Join("\n\n\n", errors),
-                    "",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-            }
-        }
-
-        private void InitController(ProfileManager profiles)
+        
+        private void InitController(ProfileCollection profiles)
         {
             controller = new AcMenuController(elements, profiles);
             controller.InitializeControls();

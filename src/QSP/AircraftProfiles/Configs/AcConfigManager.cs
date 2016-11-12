@@ -17,15 +17,8 @@ namespace QSP.AircraftProfiles.Configs
             registrations = new Dictionary<string, AircraftConfig>();
         }
 
-        public IEnumerable<AircraftConfig> Aircrafts
-        {
-            get { return registrations.Values; }
-        }
-
-        public int Count
-        {
-            get { return registrations.Count; }
-        }
+        public IEnumerable<AircraftConfig> Aircrafts => registrations.Values;
+        public int Count => registrations.Count;
 
         /// <exception cref="ArgumentException">
         /// The registration already exists.</exception>
@@ -129,29 +122,17 @@ namespace QSP.AircraftProfiles.Configs
         public AircraftConfig Find(string registration)
         {
             AircraftConfig config;
-
-            if (registrations.TryGetValue(registration, out config))
-            {
-                return config;
-            }
-            else
-            {
-                return null;
-            }
+            return registrations.TryGetValue(registration, out config)
+                ? config
+                : null;
         }
 
         public IEnumerable<AircraftConfig> FindAircraft(string aircraft)
         {
             List<AircraftConfig> configs;
-
-            if (aircrafts.TryGetValue(aircraft, out configs))
-            {
-                return configs;
-            }
-            else
-            {
-                return new List<AircraftConfig>();
-            }
+            return aircrafts.TryGetValue(aircraft, out configs)
+                ? configs
+                : new List<AircraftConfig>();
         }
     }
 }

@@ -44,7 +44,7 @@ namespace QSP.UI.Forms
         private MiscInfoControl miscInfoMenu;
         private AboutPageControl aboutMenu;
 
-        private ProfileManager profiles;
+        private ProfileCollection profiles;
         private AirwayNetwork airwayNetwork;
         private Locator<AppOptions> appOptionsLocator;
         private Locator<CountryCodeManager> countryCodesLocator;
@@ -169,7 +169,7 @@ namespace QSP.UI.Forms
             try
             {
                 // Aircraft data
-                profiles = new ProfileManager();
+                profiles = new ProfileCollection();
                 profiles.Initialize();
             }
             catch (PerfFileNotFoundException ex)

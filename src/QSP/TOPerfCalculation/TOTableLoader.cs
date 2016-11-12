@@ -10,75 +10,32 @@ namespace QSP.TOPerfCalculation
     public class TOTableLoader
     {
         public const string DefaultFolderPath = @"PerformanceData\TO";
-        private string folderPath;
-
-        public TOTableLoader(string folderPath = DefaultFolderPath)
-        {
-            this.folderPath = folderPath;
-        }
-
+        public const string CustomFolderPath = @"PerformanceData\TO\Custom";
+        
         /// <summary>
         /// Load all xml in the landing performance data folder.
         /// Files in wrong format are ignored.
-        /// Files containing the same profile name are not loaded and
-        /// a message will be included in returning value.
+        /// If two files have the same profile name, the rules are:
+        /// (1) The file in custom folder shadows file in default folder.
+        /// (2) Only one of them is loaded.
         /// </summary>
-        public TableImportResult Load()
+        public IEnumerable<PerfTable> Load()
         {
-            var tables = new List<PerfTable>();
+            var tables = new Dictionary<string, PerfTable>();
+            var files = Directory.GetFiles(CustomFolderPath).Concat(
+                Directory.GetFiles(DefaultFolderPath));
 
-            foreach (var i in Directory.GetFiles(folderPath))
+            foreach (var i in files)
             {
                 try
                 {
-                    tables.Add(new PerfDataLoader().ReadFromXml(i));
+                    var table = new PerfDataLoader().ReadFromXml(i);
+                    tables.Add(table.Entry.ProfileName, table);
                 }
-                catch (Exception ex)
-                {
-                    LoggerInstance.WriteToLog(ex);
-                }
+                catch { }
             }
 
-            var groups = tables.GroupBy(x => x.Entry.ProfileName);
-            var result = groups
-                .Where(g => g.Count() == 1)
-                .Select(g => g.First())
-                .ToList();
-
-            return new TableImportResult(result, Message(tables));
-        }
-
-        private static string Message(List<PerfTable> item)
-        {
-            var groups = item.GroupBy(x => x.Entry.ProfileName);
-
-            try
-            {
-                var duplicate = groups.First(g => g.Count() > 1);
-
-                return
-                    "The following aircrafts have" +
-                    " identical profile names:\n\n" +
-                    string.Join("\n", duplicate.Select(x => x.Entry.FilePath)) +
-                    "\n\nNone of these profiles will be loaded.";
-            }
-            catch (InvalidOperationException)
-            {
-                // There is no duplicate.
-                return null;
-            }
-        }
-
-        public class TableImportResult
-        {
-            public List<PerfTable> Tables { get; private set; }
-            public string Message { get; private set; }
-
-            public TableImportResult(List<PerfTable> Tables, string Message)
-            {
-                this.Tables = Tables;
-                this.Message = Message;
-            }
+            return tables.Select(kv => kv.Value);
         }
     }
 }
