@@ -3,20 +3,22 @@ using QSP.UI.ControlStates;
 using QSP.UI.ToLdgModule.LandingPerf;
 using QSP.UI.ToLdgModule.TOPerf;
 using QSP.UI.UserControls;
-using QSP.Updates.NewFileManagement;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 using System.Windows.Forms;
+using QSP.AircraftProfiles.Configs;
+using QSP.FuelCalculation.FuelData;
+using QSP.LandingPerfCalculation;
+using QSP.LibraryExtension;
+using QSP.TOPerfCalculation;
 using static QSP.Updates.Utilities;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.Updates
 {
-    // Copy preference and aircraft profiles from old version, 
-    // and modify if necessary to make them compatible with new profiles 
-    // and/or preference.
+    // Copy preference and custom aircraft profiles from old version.
     //
     public class PostUpdateAction
     {
@@ -46,34 +48,15 @@ namespace QSP.Updates
 
         private void SetConfigFiles()
         {
-            var ac = new AircraftConfigManager(backupVersion, newVersion);
-            var fuel = new FuelProfileManager(backupVersion, newVersion);
-            var to = new TOProfileManager(backupVersion, newVersion);
-            var ldg = new LdgProfileManager(backupVersion, newVersion);
+            CopyConfigDirectory(ConfigLoader.CustomFolderPath);
+            CopyConfigDirectory(FuelDataLoader.CustomFolderPath);
+            CopyConfigDirectory(TOTableLoader.CustomFolderPath);
+            CopyConfigDirectory(LdgTableLoader.CustomFolderPath);
+        }
 
-            bool doSetConfigs = true;
-
-            while (doSetConfigs)
-            {
-                try
-                {
-                    ac.SetConfigs();
-                    fuel.SetConfigs();
-                    to.SetConfigs();
-                    ldg.SetConfigs();
-                    doSetConfigs = false;
-                }
-                catch (Exception ex)
-                {
-                    WriteToLog(ex);
-                    var selection = ShowError(
-                        "An error occurred when copying profiles for " +
-                        "the updated verison. Click \"retry\" to try again." +
-                        $"\n\n(Error:{ex.GetBaseException().ToString()})");
-
-                    if (selection != DialogResult.Retry) doSetConfigs = false;
-                }
-            }
+        private void CopyConfigDirectory(string dir)
+        {
+            IOMethods.CopyDirectory(Path.Combine("..", backupVersion.ToString(), dir), dir);
         }
 
         private static DialogResult ShowError(string message)

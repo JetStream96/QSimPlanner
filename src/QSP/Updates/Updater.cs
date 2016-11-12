@@ -94,7 +94,8 @@ namespace QSP.Updates
             var root = XDocument.Parse(GetInfoFileContent()).Root;
             var version = root.Element("version").Value;
 
-            if (!IsNewerVersion(version)) return null;
+            var currentVer = GetVersions().Current;
+            if (Version.Parse(version) <= Version.Parse(currentVer)) return null;
             var uri = new Uri(root.Element("uri").Value);
             return new UpdateInfo() { Uri = uri, Version = version };
         }
@@ -152,14 +153,6 @@ namespace QSP.Updates
         public class UpdateInfo
         {
             public Uri Uri; public string Version;
-        }
-
-        // Input format should be 1.0.0
-        private static bool IsNewerVersion(string version)
-        {
-            var ver = Assembly.GetEntryAssembly().GetName().Version;
-            var current = new Version(ver.Major, ver.Minor, ver.Build);
-            return Version.Parse(version) > current;
         }
     }
 }
