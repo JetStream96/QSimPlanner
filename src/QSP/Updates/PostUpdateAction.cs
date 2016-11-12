@@ -56,7 +56,7 @@ namespace QSP.Updates
 
         private void CopyConfigDirectory(string dir)
         {
-            IOMethods.CopyDirectory(Path.Combine("..", backupVersion.ToString(), dir), dir);
+            IOMethods.CopyDirectory(Path.Combine("..", backupVersion.ToString(), dir), dir, true);
         }
 
         private static DialogResult ShowError(string message)
@@ -107,8 +107,7 @@ namespace QSP.Updates
             // Takeoff page state
             try
             {
-                CopyFile(Path.Combine(StateManager.Directory,
-                    TOPerfControl.FileName));
+                CopyFile(Path.Combine(StateManager.Directory, TOPerfControl.FileName));
             }
             catch (Exception ex)
             {
@@ -118,8 +117,7 @@ namespace QSP.Updates
             // Landing page state
             try
             {
-                CopyFile(Path.Combine(StateManager.Directory,
-                    LandingPerfControl.FileName));
+                CopyFile(Path.Combine(StateManager.Directory, LandingPerfControl.FileName));
             }
             catch (Exception ex)
             {

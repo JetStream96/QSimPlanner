@@ -9,20 +9,19 @@ namespace QSP.LibraryExtension
             if (Directory.Exists(folder)) Directory.Delete(folder, true);
         }
 
-        public static void CopyDirectory(string source, string target)
+        public static void CopyDirectory(string source, string target, bool overwrite = false)
         {
-            CopyDirectory(new DirectoryInfo(source),
-                new DirectoryInfo(target));
+            CopyDirectory(new DirectoryInfo(source), new DirectoryInfo(target), overwrite);
         }
 
         public static void CopyDirectory(DirectoryInfo source, 
-            DirectoryInfo target)
+            DirectoryInfo target, bool overwrite = false)
         {
             foreach (var dir in source.GetDirectories())
-                CopyDirectory(dir, target.CreateSubdirectory(dir.Name));
+                CopyDirectory(dir, target.CreateSubdirectory(dir.Name), overwrite);
 
             foreach (var file in source.GetFiles())
-                file.CopyTo(Path.Combine(target.FullName, file.Name));
+                file.CopyTo(Path.Combine(target.FullName, file.Name), overwrite);
         }
     }
 }
