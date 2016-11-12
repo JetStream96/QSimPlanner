@@ -7,20 +7,4 @@
     <Uri>F:\Programming\Projects\QSimPlanner\Updates\info.xml</Uri>
     <Uri>C:\Data\Programming\Projects\QSimPlanner\Updates\info.xml</Uri>
   </InfoFiles>
-
-  <NewFiles>
-    <!-- 
-      The version attribute indicates the version at which the file is added. 
-    
-      The format for version should be Major.Minor.Build
-      The file name should not contain any directory.
-    -->
-    <AircraftConfig>
-      <File Version="0.3.0">B737-700_B-123.xml</File>      
-    </AircraftConfig>
-    <FuelProfiles></FuelProfiles>
-    <TOProfiles></TOProfiles>
-    <LdgProfiles></LdgProfiles>
-    
-  </NewFiles>
 </root>

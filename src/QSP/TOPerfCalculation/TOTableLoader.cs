@@ -1,8 +1,6 @@
 ﻿using QSP.TOPerfCalculation.Boeing;
-using QSP.Utilities;
 using System.Collections.Generic;
 using System.IO;
-using System;
 using System.Linq;
 
 namespace QSP.TOPerfCalculation

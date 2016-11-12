@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using QSP.FuelCalculation.Results.Nodes;
 using QSP.LibraryExtension;
-using QSP.RouteFinding.Data.Interfaces;
 using static System.Math;
-using static QSP.AviationTools.Constants;
 using static QSP.FuelCalculation.Calculations.InitialPlanCreator;
 
 namespace QSP.FuelCalculation.Calculations

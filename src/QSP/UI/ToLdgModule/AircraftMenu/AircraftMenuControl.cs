@@ -1,6 +1,5 @@
 ﻿using QSP.AircraftProfiles;
 using System;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu
