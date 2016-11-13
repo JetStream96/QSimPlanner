@@ -9,8 +9,7 @@ namespace QSP.MathTools
         /// <summary>
         /// Great circle distance between two points.
         /// </summary>
-        public static double Distance(
-            double lat1, double lon1, double lat2, double lon2)
+        public static double Distance(double lat1, double lon1, double lat2, double lon2)
         {
             return Distance(lat1, lat2, lon1 - lon2);
         }
@@ -18,8 +17,7 @@ namespace QSP.MathTools
         /// <summary>
         /// Great circle distance between two points.
         /// </summary>
-        public static double Distance(
-            double lat1, double lat2, double deltaLon)
+        public static double Distance(double lat1, double lat2, double deltaLon)
         {
             double lat1Rad = ToRadian(lat1);
             double lat2Rad = ToRadian(lat2);

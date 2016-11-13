@@ -2,7 +2,6 @@
 {
     public static class Interpolate2D
     {
-
         /// <summary>
         /// Computes f(x,y) using interpolation.
         /// </summary>

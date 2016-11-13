@@ -2,7 +2,7 @@
 
 namespace QSP.MathTools
 {
-    public static  class Angles
+    public static class Angles
     {
         public static double ToRadian(double t)
         {

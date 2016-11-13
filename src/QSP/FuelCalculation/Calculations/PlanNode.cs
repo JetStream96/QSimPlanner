@@ -63,8 +63,7 @@ namespace QSP.FuelCalculation.Calculations
         // If the current node is at a RouteNode, this property
         // is the one before the current node. Therefore, this will be null
         // if current node is the first node of the route.
-        public LinkedListNode<RouteNode> PrevRouteNode =>
-            NextRouteNode.Previous;
+        public LinkedListNode<RouteNode> PrevRouteNode => NextRouteNode.Previous;
 
         public double Lat { get; }
         public double Lon { get; }

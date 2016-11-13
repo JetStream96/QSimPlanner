@@ -7,11 +7,9 @@ namespace QSP.MathTools
 {
     public static class EarthGeometry
     {
-        private static readonly Vector3D NorthPole =
-            new LatLon(90.0, 0.0).ToVector3D();
+        private static readonly Vector3D NorthPole = new LatLon(90.0, 0.0).ToVector3D();
 
-        private static readonly Vector3D Lat0Lon0 =
-            new LatLon(0.0, 0.0).ToVector3D();
+        private static readonly Vector3D Lat0Lon0 = new LatLon(0.0, 0.0).ToVector3D();
 
         /// <summary>
         /// Given different v1 and v2, which are both unit vectors on 
