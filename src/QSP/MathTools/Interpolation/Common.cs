@@ -4,14 +4,8 @@
     {
         public static int GetIndex(double[] array, double value)
         {
-            if (array[1] > array[0])
-            {
-                return GetIndexIncreasing(array, value);
-            }
-            else
-            {
-                return GetIndexDecreasing(array, value);
-            }
+            if (array[1] > array[0]) return GetIndexIncreasing(array, value);
+            return GetIndexDecreasing(array, value);
         }
 
         // Not the fastest solution. 
