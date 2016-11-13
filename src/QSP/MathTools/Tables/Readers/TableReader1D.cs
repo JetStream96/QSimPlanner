@@ -15,9 +15,7 @@ namespace QSP.MathTools.Tables.Readers
 
         // See unit test for examples.
         public static Table1D Read(
-            string text,
-            Func<string, double> xParser,
-            Func<string, double> fParser)
+            string text, Func<string, double> xParser, Func<string, double> fParser)
         {
             var lines = text.Lines();
             var x = new List<double>();
@@ -25,8 +23,7 @@ namespace QSP.MathTools.Tables.Readers
 
             foreach (var i in lines)
             {
-                var words = i.Split(
-                    spaces, StringSplitOptions.RemoveEmptyEntries);
+                var words = i.Split(spaces, StringSplitOptions.RemoveEmptyEntries);
 
                 if (words.Length == 2)
                 {

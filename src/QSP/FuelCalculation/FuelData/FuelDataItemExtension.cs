@@ -141,7 +141,8 @@ namespace QSP.FuelCalculation.FuelData
                 f.ClimbKias,
                 f.DescendKias,
                 f.DataPoint1.WithBias(bias),
-                f.DataPoint2.WithBias(bias));
+                f.DataPoint2.WithBias(bias),
+                f.FuelTable);
         }
     }
 }

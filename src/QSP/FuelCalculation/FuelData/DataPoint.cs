@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 using QSP.LibraryExtension.XmlSerialization;
 
 namespace QSP.FuelCalculation.FuelData
@@ -73,19 +74,8 @@ namespace QSP.FuelCalculation.FuelData
 
             public XElement Serialize(DataPoint item, string name)
             {
-                return new XElement(name,
-                new XElement(Weight, item.Weight),
-                new XElement(Weight, item.Weight),
-                new XElement(CruiseFuelFlow, item.CruiseFuelFlow),
-                new XElement(CruiseKias, item.CruiseKias),
-                new XElement(ClimbGradient, item.ClimbGradient),
-                new XElement(ClimbFuelFlow, item.ClimbFuelFlow),
-                new XElement(DescentGradient, item.DescentGradient),
-                new XElement(DescentFuelFlow, item.DescentFuelFlow),
-                new XElement(OptCruiseAlt, item.OptCruiseAlt),
-                new XElement(EtopsCruiseKtas, item.EtopsCruiseKtas),
-                new XElement(EtopsCruiseFuelFlow,
-                item.EtopsCruiseFuelFlow));
+                // No need to implement this.
+                throw new NotImplementedException();
             }
         }
     }

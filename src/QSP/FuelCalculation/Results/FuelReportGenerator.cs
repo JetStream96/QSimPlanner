@@ -5,6 +5,7 @@ using QSP.RouteFinding.Routes;
 using QSP.WindAloft;
 using System.Collections.Generic;
 using System.Linq;
+using QSP.FuelCalculation.Calculations.Corrections;
 using QSP.LibraryExtension;
 
 namespace QSP.FuelCalculation.Results
@@ -93,7 +94,9 @@ namespace QSP.FuelCalculation.Results
                 para.FuelData,
                 para.Zfw,
                 landingFuel,
-                maxAlt).Create();
+                maxAlt)
+                .Create()
+                .ApplyCorrection(para.FuelData);
         }
     }
 }

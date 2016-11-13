@@ -106,6 +106,7 @@
     <Compile Include="AviationTools\SpeedConversion.cs" />
     <Compile Include="Common\Options\AppOptions.cs" />
     <Compile Include="FuelCalculation\Calculations\ClimbNodesCreator.cs" />
+    <Compile Include="FuelCalculation\Calculations\Corrections\FuelCorrection.cs" />
     <Compile Include="FuelCalculation\Calculations\CrzAltEstimation.cs" />
     <Compile Include="FuelCalculation\Calculations\BasicCrzAltProvider.cs" />
     <Compile Include="FuelCalculation\Calculations\FuelCalculator.cs" />
@@ -115,6 +116,7 @@
     <Content Include="FuelCalculation\Calculations\VariableUnitStandard.txt" />
     <Compile Include="FuelCalculation\Calculations\NodeMarker.cs" />
     <Compile Include="FuelCalculation\Calculations\PlanNode.cs" />
+    <Compile Include="FuelCalculation\FuelData\Corrections\Boeing\FuelTable.cs" />
     <Compile Include="FuelCalculation\FuelData\DataPoint.cs" />
     <Compile Include="FuelCalculation\FuelData\DataPointExtension.cs" />
     <Compile Include="FuelCalculation\FuelData\FuelData.cs" />

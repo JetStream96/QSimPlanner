@@ -1,6 +1,8 @@
-﻿using QSP.LibraryExtension.XmlSerialization;
+﻿using System;
+using QSP.LibraryExtension.XmlSerialization;
 using System.Linq;
 using System.Xml.Linq;
+using QSP.FuelCalculation.FuelData.Corrections.Boeing;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 
 namespace QSP.FuelCalculation.FuelData
@@ -22,6 +24,7 @@ namespace QSP.FuelCalculation.FuelData
         public double DescendKias { get; private set; }
         public DataPoint DataPoint1 { get; private set; }
         public DataPoint DataPoint2 { get; private set; }
+        public FuelTable FuelTable { get; }
 
         public FuelDataItem(
              double HoldingFuelFlow,
@@ -32,7 +35,8 @@ namespace QSP.FuelCalculation.FuelData
              double ClimbKias,
              double DescendKias,
              DataPoint DataPoint1,
-             DataPoint DataPoint2)
+             DataPoint DataPoint2,
+             FuelTable FuelTable = null)
         {
             this.HoldingFuelFlow = HoldingFuelFlow;
             this.HoldingFuelRefWt = HoldingFuelRefWt;
@@ -43,12 +47,12 @@ namespace QSP.FuelCalculation.FuelData
             this.DescendKias = DescendKias;
             this.DataPoint1 = DataPoint1;
             this.DataPoint2 = DataPoint2;
+            this.FuelTable = FuelTable;
         }
 
         public class Serializer : IXSerializer<FuelDataItem>
         {
-            private static string HoldingFuelPerMinuteKg =
-                "HoldingFuelFlow";
+            private static string HoldingFuelPerMinuteKg = "HoldingFuelFlow";
             private static string HoldingFuelRefWt = "HoldingFuelRefWt";
             private static string TaxiFuelFlow = "TaxiFuelFlow";
             private static string ApuFuelFlow = "ApuFuelFlow";
@@ -61,6 +65,7 @@ namespace QSP.FuelCalculation.FuelData
             {
                 var deserializer = new DataPoint.Serializer();
                 var pts = elem.Elements(DataPoint).ToList();
+                var table = elem.Element("FuelTable")?.GetString("Text");
 
                 return new FuelDataItem(
                     elem.GetDouble(HoldingFuelPerMinuteKg),
@@ -71,25 +76,14 @@ namespace QSP.FuelCalculation.FuelData
                     elem.GetDouble(ClimbKias),
                     elem.GetDouble(DescendKias),
                     deserializer.Deserialize(pts[0]),
-                    deserializer.Deserialize(pts[1]));
+                    deserializer.Deserialize(pts[1]),
+                    table==null? null: new FuelTable(table));
             }
 
             public XElement Serialize(FuelDataItem item, string name)
             {
-                var serializer = new DataPoint.Serializer();
-
-                return new XElement(name,
-                    new XElement(HoldingFuelPerMinuteKg,
-                        item.HoldingFuelFlow),
-                    new XElement(HoldingFuelRefWt,
-                        item.HoldingFuelRefWt),
-                    new XElement(TaxiFuelFlow, item.TaxiFuelFlow),
-                    new XElement(ApuFuelFlow, item.ApuFuelFlow),
-                    new XElement(MissedAppFuel, item.MissedAppFuel),
-                    new XElement(ClimbKias, item.ClimbKias),
-                    new XElement(DescendKias, item.DescendKias),
-                    serializer.Serialize(item.DataPoint1, DataPoint),
-                    serializer.Serialize(item.DataPoint2, DataPoint));
+                // No need to implement this.
+                throw new NotImplementedException();
             }
         }
     }
