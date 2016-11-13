@@ -129,8 +129,12 @@ namespace QSP.FuelCalculation.Results
             var wt = "ALL WEIGHTS IN " + WeightUnitToString(unit);
             return wt + "\n\n" + new string(' ', RightPad + LeftPad - 4) +
                 "FUEL  TIME\n" + joined +
-                LineFormat("FMC RSV",
-                Ceiling(FuelFmcRsv / 1000.0).ToString("F1"));
+                LineFormat("FMC RSV", FormatFmcRsv(FuelFmcRsv));
+        }
+
+        private static string FormatFmcRsv(double value)
+        {
+            return (Ceiling(value / 100.0) / 10.0).ToString("F1");
         }
 
         private static string MinToString(double minutes)
