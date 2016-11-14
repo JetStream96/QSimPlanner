@@ -1,6 +1,9 @@
 # visual studio user profile
 *.suo
 
+# Resharper settings
+src/QSimPlanner.sln.DotSettings.user
+
 # idea
 .idea*
 
