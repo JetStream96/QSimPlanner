@@ -578,6 +578,9 @@
     <Content Include="Libraries\MinMaxHeap.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="PerformanceData\Aircrafts\B747-400_AB-CDE.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="PerformanceData\FuelCalc\737600_22k_new_format.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

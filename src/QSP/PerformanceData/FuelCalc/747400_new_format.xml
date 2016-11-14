@@ -16,7 +16,7 @@
   <ApuFuelFlow>4.5</ApuFuelFlow>
   <MissedAppFuel>300</MissedAppFuel>  <!--TODO: This is totally wrong. Maybe 4500 kg?-->
   <ClimbIAS>300</ClimbIAS>
-  <DescentIAS>300</DescentIAS>
+  <DescentIAS>255</DescentIAS>
 
   <DataPoint>
     <Weight>200000</Weight>
