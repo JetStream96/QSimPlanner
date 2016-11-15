@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <AC>B747-400F</AC>
+  <Registration>AB-XYZ</Registration>
+  <FuelProfile>Boeing 747-400F</FuelProfile>
+  <TOProfile>None</TOProfile>
+  <LdgProfile>None</LdgProfile>
+  <OewKg>166052</OewKg>
+  <MaxTOWtKg>396894</MaxTOWtKg>
+  <MaxLdgWtKg>302093</MaxLdgWtKg>
+  <WtUnit>0</WtUnit>
+  <MaxZfwKg>288031</MaxZfwKg>
+  <MaxFuelKg>164064</MaxFuelKg>
+  <FuelBias>1</FuelBias>
+</root>
