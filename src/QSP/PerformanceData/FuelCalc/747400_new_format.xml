@@ -15,7 +15,7 @@
   <TaxiFuelFlow>45</TaxiFuelFlow>
   <ApuFuelFlow>4.5</ApuFuelFlow>
   <MissedAppFuel>300</MissedAppFuel>  <!--TODO: This is totally wrong. Maybe 4500 kg?-->
-  <ClimbIAS>300</ClimbIAS>
+  <ClimbIAS>340</ClimbIAS>
   <DescentIAS>255</DescentIAS>
 
   <DataPoint>
