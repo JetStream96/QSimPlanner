@@ -13,7 +13,7 @@ namespace QSP.FuelCalculation.Calculations.Corrections
             var airDis = nodes.AirDistance();
             var exactFuel = item.FuelTable.FuelRequired(airDis, nodes.Last().GrossWt);
             var landingFuel = nodes.Last().FuelOnBoard;
-            var factor = (nodes[0].FuelOnBoard - landingFuel) / exactFuel;
+            var factor = exactFuel / (nodes[0].FuelOnBoard - landingFuel);
             var zfw = nodes[0].GrossWt - nodes[0].FuelOnBoard;
             return new DetailedPlan(nodes.Select(n =>
             {
