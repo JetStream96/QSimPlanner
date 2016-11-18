@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace QSP.MathTools.Table
+namespace QSP.MathTools.TableNew
 {
     public class Interval
     {

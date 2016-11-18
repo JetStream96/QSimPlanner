@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QSP.MathTools.Table
+namespace QSP.MathTools.TableNew
 {
     public class Util
     {

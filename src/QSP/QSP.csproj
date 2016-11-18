@@ -143,9 +143,9 @@
     <Compile Include="MathTools\Integers.cs" />
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />
-    <Compile Include="MathTools\Table\Interval.cs" />
-    <Compile Include="MathTools\Table\Table1D.cs" />
-    <Compile Include="MathTools\Table\Util.cs" />
+    <Compile Include="MathTools\TableNew\Interval.cs" />
+    <Compile Include="MathTools\TableNew\Table1D.cs" />
+    <Compile Include="MathTools\TableNew\Util.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RouteFinding\AirwayNetwork.cs" />
