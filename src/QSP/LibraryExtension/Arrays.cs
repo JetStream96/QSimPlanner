@@ -48,30 +48,7 @@ namespace QSP.LibraryExtension
             Array.Copy(data, index, result, 0, length);
             return result;
         }
-
-        /// <summary>
-        /// Returns a subarray starting with the given index. 
-        /// Total number of elements examined is given by "length". 
-        /// The returning array may have fewer elements than "length" 
-        /// since any item in ignoredItems is NOT added to resulting array.
-        /// </summary>
-        public static T[] SubArray<T>(
-            this T[] data, int index, int length, T[] ignoredItems)
-        {
-            var result = new T[length];
-            int currentIndex = 0;
-
-            for (int i = index; i < index + length; i++)
-            {
-                if (!ignoredItems.Contains(data[i]))
-                {
-                    result[currentIndex++] = data[i];
-                }
-            }
-
-            return result.SubArray(0, currentIndex);
-        }
-
+        
         public static void Multiply(this double[] item, double c)
         {
             for (int i = 0; i < item.Length; i++)
@@ -83,6 +60,13 @@ namespace QSP.LibraryExtension
         public static T Last<T>(this T[] array)
         {
             return array[array.Length - 1];
+        }
+
+        public static T[] ArrayCopy<T>(this T[] arr)
+        {
+            var copy = new T[arr.Length];
+            Array.Copy(arr, copy, arr.Length);
+            return copy;
         }
     }
 }

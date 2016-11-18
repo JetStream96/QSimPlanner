@@ -143,6 +143,9 @@
     <Compile Include="MathTools\Integers.cs" />
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />
+    <Compile Include="MathTools\Table\Interval.cs" />
+    <Compile Include="MathTools\Table\Table1D.cs" />
+    <Compile Include="MathTools\Table\Util.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RouteFinding\AirwayNetwork.cs" />
@@ -580,6 +583,7 @@
     </Content>
     <Content Include="PerformanceData\Aircrafts\B747-400F_AB-XYZ.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\Aircrafts\B747-400_AB-CDE.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
