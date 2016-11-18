@@ -1,12 +1,16 @@
 ﻿using QSP.LibraryExtension;
 using System;
+using System.Collections.Generic;
 
 namespace QSP.MathTools.TableNew
 {
-    public class Table1D
+    public class Table1D : ITable
     {
         private Interval[] intervals;
         private double[] x, f;
+
+        public int Dimension => 1;
+        public object F => f;
 
         public Table1D(double[] x, double[] f)
         {
@@ -41,6 +45,17 @@ namespace QSP.MathTools.TableNew
         {
             var index = GetIndex(x);
             return Util.Interpolate(this.x[index], this.x[index + 1], x, f[index], f[index + 1]);
+        }
+
+        public IReadOnlyList<double> X(int dimension)
+        {
+            if (dimension != 0) throw new ArgumentException();
+            return x;
+        }
+
+        public double ValueAt(IReadOnlyList<double> x)
+        {
+            return ValueAt(x[0]);
         }
     }
 }

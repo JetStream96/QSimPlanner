@@ -142,6 +142,7 @@
     <Compile Include="MathTools\EarthGeometry.cs" />
     <Compile Include="MathTools\Integers.cs" />
     <Compile Include="MathTools\Integration.cs" />
+    <Compile Include="MathTools\TableNew\Table.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />
     <Compile Include="MathTools\TableNew\Interval.cs" />
     <Compile Include="MathTools\TableNew\Table1D.cs" />
