@@ -10,19 +10,16 @@ namespace UnitTest.LibraryExtension.JaggedArrays
         [Test]
         public void HasLength1DShouldReturnTrue()
         {
-            Assert.IsTrue(LengthChecker.HasLength<double>(
-                new double[10], 10));
+            Assert.IsTrue(LengthChecker.HasLength<double>(new double[10], 10));
 
-            Assert.IsFalse(LengthChecker.HasLength<double>(
-                new double[10], 11));
+            Assert.IsFalse(LengthChecker.HasLength<double>(new double[10], 11));
         }
 
         [Test]
         public void HasLength1DWrongLength()
         {
             Assert.Throws<ArgumentException>(() =>
-            LengthChecker.HasLength<double>(
-                new double[10], 10, 10));
+            LengthChecker.HasLength<double>(new double[10], 10, 10));
         }
 
         [Test]

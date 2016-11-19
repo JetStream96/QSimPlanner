@@ -19,10 +19,10 @@ namespace QSP.LibraryExtension.JaggedArrays
             {
                 for (int i = 0; i < lengths[index]; i++)
                 {
-                    result.SetValue(
-                        GetJaggedArray(elementType, index + 1, lengths), i);
+                    result.SetValue(GetJaggedArray(elementType, index + 1, lengths), i);
                 }
             }
+
             return result;
         }
 
