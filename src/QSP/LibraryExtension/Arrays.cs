@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace QSP.LibraryExtension
 {
@@ -59,6 +60,13 @@ namespace QSP.LibraryExtension
         public static T Last<T>(this T[] array)
         {
             return array[array.Length - 1];
+        }
+
+        public static T[] ArrayCopy<T>(this T[] arr)
+        {
+            var copy = new T[arr.Length];
+            Array.Copy(arr, copy, arr.Length);
+            return copy;
         }
     }
 }

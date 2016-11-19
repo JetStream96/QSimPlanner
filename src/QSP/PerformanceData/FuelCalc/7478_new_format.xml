@@ -8,7 +8,7 @@
        all fuel flows (FF) in kg/min.
   -->
   
-  <ProfileName>Boeing 747-8F</ProfileName>
+  <ProfileName>Boeing 747-8</ProfileName>
   <HoldingFuelFlow>128</HoldingFuelFlow>
   <HoldingFuelRefWt>240000</HoldingFuelRefWt>
   <TaxiFuelFlow>45</TaxiFuelFlow>

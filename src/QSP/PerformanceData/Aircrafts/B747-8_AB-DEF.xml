@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <AC>B747-8</AC>
+  <Registration>AB-DEF</Registration>
+  <FuelProfile>Boeing 747-8</FuelProfile>
+  <TOProfile>Boeing 747-8F</TOProfile>
+  <LdgProfile>Boeing 747-8F</LdgProfile>
+  <OewKg>213000</OewKg>
+  <MaxTOWtKg>448000</MaxTOWtKg>
+  <MaxLdgWtKg>312000</MaxLdgWtKg>
+  <WtUnit>0</WtUnit>
+  <MaxZfwKg>295000</MaxZfwKg>
+  <MaxFuelKg>192932</MaxFuelKg>
+  <FuelBias>1</FuelBias>
+</root>
