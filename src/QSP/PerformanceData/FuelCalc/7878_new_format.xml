@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Data>
+  <!-- 
+       Unless specified otherwise,
+       all weights in kg.
+       all speeds in knots.
+       all altitudes in feet.
+       all fuel flows (FF) in kg/min.
+  -->
+
+  <ProfileName>Boeing 787-8</ProfileName>
+  <HoldingFuelFlow>165</HoldingFuelFlow>
+  <HoldingFuelRefWt>172500</HoldingFuelRefWt>
+  <TaxiFuelFlow>36</TaxiFuelFlow>
+  <ApuFuelFlow>4</ApuFuelFlow>
+  <MissedAppFuel>300</MissedAppFuel>
+  <ClimbIAS>310</ClimbIAS>
+  <DescentIAS>310</DescentIAS>
+
+  <DataPoint>
+    <Weight>172500</Weight>
+    <CruiseFF>75.3</CruiseFF>
+    <CruiseIAS>255.1</CruiseIAS>
+    <ClimbGrad>0.08</ClimbGrad>
+    <ClimbFF>180</ClimbFF>
+    <DescentGrad>0.046</DescentGrad>
+    <DescentFF>25</DescentFF>
+    <OptCruiseAlt>40700</OptCruiseAlt>
+    <EtopsCruiseTAS>0</EtopsCruiseTAS>
+    <!-- Placeholder -->
+    <EtopsCruiseFF>0</EtopsCruiseFF>
+  </DataPoint>
+
+  <DataPoint>
+    <Weight>208840</Weight>
+    <CruiseFF>87.9</CruiseFF>
+    <CruiseIAS>279.4</CruiseIAS>
+    <ClimbGrad>0.06</ClimbGrad>
+    <ClimbFF>230</ClimbFF>
+    <DescentGrad>0.044</DescentGrad>
+    <DescentFF>28</DescentFF>
+    <OptCruiseAlt>36700</OptCruiseAlt>
+    <EtopsCruiseTAS>0</EtopsCruiseTAS>
+    <EtopsCruiseFF>0</EtopsCruiseFF>
+  </DataPoint>
+
+  <FuelTable>
+    <Type>0</Type>
+    <Text>
+      99790	117934	136078	154221	172365
+      50	998	1089	1134	1225	1315
+      100	1542	1678	1769	1905	1996
+      150	2041	2177	2359	2495	2631
+      200	2449	2676	2858	3039	3221
+      250	2812	3084	3311	3538	3765
+      300	3175	3447	3765	4037	4309
+      350	3493	3856	4173	4491	4808
+      400	3810	4218	4581	4944	5262
+      450	4128	4536	4944	5352	5761
+      500	4445	4899	5352	5806	6214
+      800	6396	7031	7756	8437	9117
+      1200	9026	9934	11022	12020	12973
+      1600	11657	12882	14288	15649	16919
+      2000	14379	15876	17645	19323	20911
+      2400	17100	18960	21092	23042	24993
+      2800	19867	22045	24585	26853	29166
+      3200	22680	25220	28123	30754	33384
+      3600	25492	28440	31706	34654	37739
+      4000	28395	31706	35380	38691	42139
+      4400	31343	35063	39100	42728	46629
+      4800	34382	38465	42864	46901	51211
+      5200	37421	41957	46675	51120	55837
+      5600	40551	45495	50576	55429	60555
+      6000	43726	49079	54567	59829	65363
+      6400	46947	52707	58559	64319	70261
+      6800	50213	56427	62686	68901	75251
+      7200	53569	60146	66859	73527	80331
+      7600	57017	64002	71123	78245	85547
+      8000	60509	67857	75478	83053	90900
+    </Text>
+  </FuelTable>
+</Data>
