@@ -4,7 +4,7 @@
   <Registration>AB-CDE</Registration>
   <FuelProfile>Boeing 747-400</FuelProfile>
   <TOProfile>None</TOProfile>
-  <LdgProfile>None</LdgProfile>
+  <LdgProfile>Boeing 747-400</LdgProfile>
   <OewKg>178806</OewKg>
   <MaxTOWtKg>397005</MaxTOWtKg>
   <MaxLdgWtKg>285764</MaxLdgWtKg>
