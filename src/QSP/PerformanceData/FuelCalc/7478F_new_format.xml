@@ -14,17 +14,17 @@
   <TaxiFuelFlow>45</TaxiFuelFlow>
   <ApuFuelFlow>4.5</ApuFuelFlow>
   <MissedAppFuel>300</MissedAppFuel>  <!--TODO: This is totally wrong. Maybe 4500 kg?-->
-  <ClimbIAS>300</ClimbIAS>
-  <DescentIAS>280</DescentIAS>
+  <ClimbIAS>340</ClimbIAS>
+  <DescentIAS>340</DescentIAS>
 
   <DataPoint>
     <Weight>260000</Weight>
-    <CruiseFF>129.23</CruiseFF>
-    <CruiseIAS>254.25</CruiseIAS>
+    <CruiseFF>129.2</CruiseFF>
+    <CruiseIAS>254.3</CruiseIAS>
     <ClimbGrad>0.057</ClimbGrad>
-    <ClimbFF>450</ClimbFF>
-    <DescentGrad>0.04575161089515645</DescentGrad>
-    <DescentFF>40.99630996309963</DescentFF>
+    <ClimbFF>320</ClimbFF>
+    <DescentGrad>0.04575</DescentGrad>
+    <DescentFF>40.996</DescentFF>
     <OptCruiseAlt>40700</OptCruiseAlt>
     <EtopsCruiseTAS>0</EtopsCruiseTAS>
     <!-- Placeholder -->
@@ -33,12 +33,12 @@
   
   <DataPoint>
     <Weight>400000</Weight>
-    <CruiseFF>197.97</CruiseFF>
+    <CruiseFF>198.0</CruiseFF>
     <CruiseIAS>310</CruiseIAS>
     <ClimbGrad>0.040</ClimbGrad>
-    <ClimbFF>441.48936</ClimbFF>
-    <DescentGrad>0.04284889527952029</DescentGrad>
-    <DescentFF>44.454148471615724</DescentFF>
+    <ClimbFF>390</ClimbFF>
+    <DescentGrad>0.04285</DescentGrad>
+    <DescentFF>44.454</DescentFF>
     <OptCruiseAlt>31700</OptCruiseAlt>
     <EtopsCruiseTAS>0</EtopsCruiseTAS>
     <EtopsCruiseFF>0</EtopsCruiseFF>
