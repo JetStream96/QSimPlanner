@@ -578,14 +578,14 @@
     <Content Include="Libraries\MinMaxHeap.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\B747-400F_AB-XYZ.xml">
+    <Content Include="PerformanceData\Aircrafts\B747-400F_LX-OCV.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\B747-400_AB-CDE.xml">
+    <Content Include="PerformanceData\Aircrafts\B747-400_D-ABVS.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\B747-8F_LX-VCB - Copy.xml">
+    <Content Include="PerformanceData\Aircrafts\B747-8F_LX-VCB.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\FuelCalc\737600_cfm56-7b22.xml">
@@ -768,7 +768,7 @@
     <Content Include="PerformanceData\Aircrafts\B777-300ER_B-16703.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\B747-8_AB-DEF.xml">
+    <Content Include="PerformanceData\Aircrafts\B747-8_D-ABYC.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
