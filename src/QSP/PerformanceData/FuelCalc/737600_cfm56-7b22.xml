@@ -8,7 +8,7 @@
        all fuel flows (FF) in kg/min.
   -->
 
-  <ProfileName>Boeing 737-600 22k</ProfileName>
+  <ProfileName>Boeing 737-600 CFM56-7B22</ProfileName>
   <HoldingFuelFlow>41.5</HoldingFuelFlow>
   <HoldingFuelRefWt>70000</HoldingFuelRefWt>
   <TaxiFuelFlow>12.2</TaxiFuelFlow>

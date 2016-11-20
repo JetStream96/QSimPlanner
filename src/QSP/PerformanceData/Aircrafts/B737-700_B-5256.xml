@@ -2,7 +2,7 @@
 <root>
   <AC>B737-700</AC>
   <Registration>B-5256</Registration>
-  <FuelProfile>Boeing 737-700 24k</FuelProfile>
+  <FuelProfile>Boeing 737-700 CFM56-7B24</FuelProfile>
   <TOProfile>Boeing 737-700</TOProfile>
   <LdgProfile>Boeing 737-700</LdgProfile>
   <OewKg>37648</OewKg>
