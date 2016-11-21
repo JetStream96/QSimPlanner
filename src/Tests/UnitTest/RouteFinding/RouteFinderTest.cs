@@ -2,6 +2,7 @@
 using QSP.RouteFinding;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Containers.CountryCode;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.WindAloft;
 using static UnitTest.RouteFinding.Common;
 
@@ -63,8 +64,34 @@ namespace UnitTest.RouteFindingTest
             Assert.IsTrue(expected.Equals(route));
         }
 
-        // TODO: Add tests to make sure neighbors with InnerWaypoints
-        // has correct result when wind is considered.
+        [Test]
+        public void ComputesEdgeDistanceWithInnerWaypointsCorrectly()
+        {
+            var w0 = new Waypoint("0", 0.0, 0.0);
+            var w1 = new Waypoint("1", 1.0, 1.0);
+            var w2 = new Waypoint("2", 1.0, -0.9999);
+            var w3 = new Waypoint("3", 0.0, 2.0);
+
+            var wptList = GetWptList(w0, w1, w2, w3);
+            int i0 = wptList.FindByWaypoint(w0);
+            int i1 = wptList.FindByWaypoint(w1);
+            int i2 = wptList.FindByWaypoint(w2);
+            int i3 = wptList.FindByWaypoint(w3);
+            var n = new Neighbor(
+                "03", new [] {w0,w1,w2}.TotalDistance(), new [] {w1}, InnerWaypointsType.Track);
+            wptList.AddNeighbor(i0, i2, n);
+            wptList.AddNeighbor(i0, "02", i2);
+            wptList.AddNeighbor(i2, "23", i3);
+
+            var route = new RouteFinder(wptList).FindRoute(i0, i3);
+
+            var expected = GetRoute(
+                w0, "02", -1.0,
+                w2, "23", -1.0,
+                w3);
+
+            Assert.IsTrue(expected.Equals(route));
+        }
 
         [Test]
         public void CanUtilizeWind()
