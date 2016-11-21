@@ -66,31 +66,39 @@ namespace UnitTest.RouteFindingTest
         // TODO: Add tests to make sure neighbors with InnerWaypoints
         // has correct result when wind is considered.
 
+        [Test]
         public void CanUtilizeWind()
         {
-            var w1 = new Waypoint("1", -1.0, 0.0);
-            var w2 = new Waypoint("2", 0.0, 0.999);
-            var w3 = new Waypoint("3", 0.0, -1.0);
-            var w4 = new Waypoint("4", 1.0, 0.0);
+            var w1 = new Waypoint("1", 0.0, 0.0);
+            var w2 = new Waypoint("2", 0.999, 1.0);
+            var w3 = new Waypoint("3", 0.999, 2.0);
+            var w4 = new Waypoint("4", -1.0, 1.0);
+            var w5 = new Waypoint("5", -1.0, 2.0);
+            var w6 = new Waypoint("6", 0.0, 3.0);
 
-            var wptList = GetWptList(w1, w2, w3, w4);
+            var wptList = GetWptList(w1, w2, w3, w4, w5, w6);
             int i1 = wptList.FindByWaypoint(w1);
             int i2 = wptList.FindByWaypoint(w2);
             int i3 = wptList.FindByWaypoint(w3);
             int i4 = wptList.FindByWaypoint(w4);
+            int i5 = wptList.FindByWaypoint(w5);
+            int i6 = wptList.FindByWaypoint(w6);
             wptList.AddNeighbor(i1, "12", i2);
-            wptList.AddNeighbor(i1, "13", i3);
-            wptList.AddNeighbor(i2, "24", i4);
-            wptList.AddNeighbor(i3, "34", i4);
+            wptList.AddNeighbor(i2, "23", i3);
+            wptList.AddNeighbor(i3, "36", i6);
+            wptList.AddNeighbor(i1, "14", i4);
+            wptList.AddNeighbor(i4, "45", i5);
+            wptList.AddNeighbor(i5, "56", i6);
 
             var stub = new WindTableStub();
             var calc = new AvgWindCalculator(stub, 460.0, 36000.0);
-            var route = new RouteFinder(wptList, null, calc).FindRoute(i1, i4);
+            var route = new RouteFinder(wptList, null, calc).FindRoute(i1, i6);
 
             var expected = GetRoute(
-                w1, "13", -1.0,
-                w3, "34", -1.0,
-                w4);
+                w1, "14", -1.0,
+                w4, "45", -1.0, 
+                w5, "56", -1.0,
+                w6);
 
             Assert.IsTrue(expected.Equals(route));
         }

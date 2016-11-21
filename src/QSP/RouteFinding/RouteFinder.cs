@@ -36,8 +36,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Add SID to wptList and returns the index of origin rwy.
         /// </summary>
-        private int AddSid(
-            string rwy, List<string> sid, SidHandler sidHandler)
+        private int AddSid(string rwy, List<string> sid, SidHandler sidHandler)
         {
             return sidHandler.AddSidsToWptList(rwy, sid);
         }
@@ -45,8 +44,7 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Add STAR to wptList and returns the index of destination rwy.
         /// </summary>
-        private int AddStar(
-            string rwy, List<string> star, StarHandler starHandler)
+        private int AddStar(string rwy, List<string> star, StarHandler starHandler)
         {
             return starHandler.AddStarsToWptList(rwy, star);
         }
@@ -110,12 +108,11 @@ namespace QSP.RouteFinding
             return result;
         }
 
-        private Route ExtractRoute(
-            RouteFindingData FindRouteData, int startPtIndex, int endPtIndex)
+        private Route ExtractRoute(RouteFindingData FindRouteData, int startIndex, int endIndex)
         {
             var route = new Route();
             var wptData = FindRouteData.WaypointData;
-            var edge = wptData[endPtIndex].FromEdge;
+            var edge = wptData[endIndex].FromEdge;
 
             while (true)
             {
@@ -125,7 +122,7 @@ namespace QSP.RouteFinding
                 var neighbor = edge.Value;
                 var airway = neighbor.Airway;
 
-                if (to == endPtIndex)
+                if (to == endIndex)
                 {
                     var node = new RouteNode(wptList[to], null);
                     route.Nodes.AddFirst(node);
@@ -134,7 +131,7 @@ namespace QSP.RouteFinding
                 var n = new RouteNode(wptFrom, neighbor);
                 route.Nodes.AddFirst(n);
 
-                if (from == startPtIndex) return route;
+                if (from == startIndex) return route;
                 edge = wptData[from].FromEdge;
             }
         }
@@ -236,8 +233,7 @@ namespace QSP.RouteFinding
                 {
                     double newDis = currentDis + GetEdgeDistance(edge);
 
-                    if (wptData[index].CurrentDistance ==
-                        double.PositiveInfinity)
+                    if (wptData[index].CurrentDistance == double.PositiveInfinity)
                     {
                         // The node was never touched.
                         unvisited.Add(index, newDis);
