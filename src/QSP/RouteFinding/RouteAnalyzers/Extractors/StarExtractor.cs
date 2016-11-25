@@ -43,10 +43,10 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
         private readonly LinkedList<string> route;
 
         public StarExtractor(
-            RouteString route, 
+            RouteString route,
             string rwy,
-            Waypoint rwyWpt, 
-            WaypointList wptList, 
+            Waypoint rwyWpt,
+            WaypointList wptList,
             StarCollection stars)
         {
             this.route = new LinkedList<string>(route);
@@ -78,7 +78,6 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             route.RemoveLast();
 
             // Case 2, 3 
-            var candidates = wptList.FindAllById(route.Last.Value);
             var starFirstWpt = star.First();
 
             if (starFirstWpt.ID != route.Last.Value)
@@ -87,8 +86,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                     + $" first waypoint of the STAR {last}.");
             }
 
-            // TODO: Maybe add a distance upper limit?
-            if (candidates.Count == 0)
+            if (wptList.FindByWaypoint(starFirstWpt) == -1)
             {
                 // Case 3
 
@@ -162,8 +160,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             var ids = wptList.FindAllById(ident);
             if (ids.Count == 0)
             {
-                throw new ArgumentException(
-                    $"Cannot find waypoint {ident}.");
+                throw new ArgumentException($"Cannot find waypoint {ident}.");
             }
 
             return ids

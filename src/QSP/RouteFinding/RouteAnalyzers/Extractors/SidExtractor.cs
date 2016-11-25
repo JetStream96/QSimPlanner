@@ -10,8 +10,7 @@ using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 {
-    // Given a route as a RouteString, Extract() returns an object 
-    // containing:
+    // Given a route as a RouteString, Extract() returns an object containing:
     //
     // * An OriginRoute containing the departure runway and SID 
     //   (if SID exists).
@@ -21,16 +20,15 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
     //   3. The SID ends with a waypoint. The waypoint is in wptList, which
     //      may or may not be connected to an airway.
     //   4. The SID ends with a waypoint. The waypoint is NOT in wptList.
-
+    //
     //   For different cases, the returning route contains:
     //   Case 1. The origin runway, then direct to the first enroute waypoint.
     //   Case 2. The origin runway, then go to the first enroute waypoint
     //           via SID.
-    //   Case 3. The origin runway, then go to the last waypoint of SID (via 
-    //           SID).
-    //   Case 4. The origin runway, then go to the last waypoint of SID (via 
-    //           SID), then direct to the first enroute waypoint.
-    //
+    //   Case 3. The origin runway, then go to the last waypoint of SID (via SID).
+    //   Case 4. The origin runway, then go to the last waypoint of SID (via SID), 
+    //           then direct to the first enroute waypoint.
+    //          
     // * A RemainingRoute. In all cases, the first entry in RemainingRoute
     //   is guranteed to be the same as the last waypoint in the OriginRoute.
     //
@@ -46,8 +44,8 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
         private readonly LinkedList<string> route;
 
         public SidExtractor(
-            RouteString route, 
-            string rwy, 
+            RouteString route,
+            string rwy,
             Waypoint rwyWpt,
             WaypointList wptList,
             SidCollection sids)
@@ -93,12 +91,11 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 var node1 = new RouteNode(rwyWpt, neighbor);
                 var node2 = new RouteNode(wpt, null);
                 var origRoute = new Route(node1, node2);
-                
+
                 return new ExtractResult(route.ToRouteString(), origRoute);
             }
 
             // Case 3, 4            
-            var candidates = wptList.FindAllById(route.First());
             var sidLastWpt = sid.Waypoints.Last();
 
             if (sidLastWpt.ID != route.First())
@@ -107,8 +104,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                     + " waypoint of the SID {first}.");
             }
 
-            // TODO: Maybe add a distance upper limit?
-            if (candidates.Count == 0)
+            if (wptList.FindByWaypoint(sidLastWpt) == -1)
             {
                 // Case 4
 
@@ -186,6 +182,6 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 // no SID in route
                 return null;
             }
-        }        
+        }
     }
 }

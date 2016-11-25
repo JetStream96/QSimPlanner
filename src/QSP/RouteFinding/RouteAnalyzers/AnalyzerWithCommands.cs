@@ -228,9 +228,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private SubRoute GetAutoSelectRoute(RouteString r)
         {
-            var analyzer = new AutoSelectAnalyzer(
-                r, origRwyWpt, destRwyWpt, wptList);
-
+            var analyzer = new AutoSelectAnalyzer(r, origRwyWpt, destRwyWpt, wptList);
             return analyzer.Analyze().ToSubRoute();
         }
 
@@ -258,8 +256,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 item = starExtract.RemainingRoute;
             }
 
-            Route[] routes = {
-                origRoute, GetAutoSelectRoute(item).Route, destRoute };
+            Route[] routes = { origRoute, GetAutoSelectRoute(item).Route, destRoute };
 
             return routes
                 .Where(r => r != null)

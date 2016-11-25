@@ -3,8 +3,7 @@ using System;
 
 namespace QSP.RouteFinding.Containers
 {
-    public class Waypoint :
-        IComparable<Waypoint>, ICoordinate, IEquatable<Waypoint>
+    public class Waypoint : IComparable<Waypoint>, ICoordinate, IEquatable<Waypoint>
     {
         public const int DefaultCountryCode = -1;
 
@@ -25,9 +24,7 @@ namespace QSP.RouteFinding.Containers
             this.CountryCode = CountryCode;
         }
 
-        public Waypoint(string ID, ICoordinate latLon)
-            : this(ID, latLon.Lat, latLon.Lon)
-        { }
+        public Waypoint(string ID, ICoordinate latLon) : this(ID, latLon.Lat, latLon.Lon) { }
 
         public Waypoint(Waypoint waypoint)
             : this(waypoint.ID,
