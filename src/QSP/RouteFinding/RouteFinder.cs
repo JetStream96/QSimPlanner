@@ -18,9 +18,9 @@ namespace QSP.RouteFinding
     // 
     public class RouteFinder
     {
-        private WaypointList wptList;
-        private CountryCodeCollection avoidedCountry;
-        private AvgWindCalculator windCalc;
+        private readonly WaypointList wptList;
+        private readonly CountryCodeCollection avoidedCountry;
+        private readonly AvgWindCalculator windCalc;
 
         public RouteFinder(
             WaypointList wptList,
@@ -28,8 +28,7 @@ namespace QSP.RouteFinding
             AvgWindCalculator windCalc = null)
         {
             this.wptList = wptList;
-            this.avoidedCountry =
-                avoidedCountry ?? new CountryCodeCollection();
+            this.avoidedCountry = avoidedCountry ?? new CountryCodeCollection();
             this.windCalc = windCalc;
         }
 
@@ -119,8 +118,6 @@ namespace QSP.RouteFinding
                 int from = edge.FromNodeIndex;
                 int to = edge.ToNodeIndex;
                 var wptFrom = wptList[from];
-                var neighbor = edge.Value;
-                var airway = neighbor.Airway;
 
                 if (to == endIndex)
                 {
@@ -128,7 +125,7 @@ namespace QSP.RouteFinding
                     route.Nodes.AddFirst(node);
                 }
 
-                var n = new RouteNode(wptFrom, neighbor);
+                var n = new RouteNode(wptFrom, edge.RecomputeDistance(wptList));
                 route.Nodes.AddFirst(n);
 
                 if (from == startIndex) return route;
@@ -153,7 +150,7 @@ namespace QSP.RouteFinding
             bool routeFound = false;
 
             while (routeFound == false &&
-                region.MaxDistanceSum <= region.MaxPossibleDistanceSum)
+                region.MaxDistanceSum <= RouteSeachRegion.MaxPossibleDistanceSum)
             {
                 routeFound = FindRouteAttempt(region, FindRouteData);
                 region.MaxDistanceSum *= 1.5;
@@ -333,7 +330,7 @@ namespace QSP.RouteFinding
 
         private class RouteSeachRegion
         {
-            public readonly double MaxPossibleDistanceSum = PI * EarthRadiusNm;
+            public static readonly double MaxPossibleDistanceSum = PI * EarthRadiusNm;
 
             public int StartPtIndex { get; private set; }
             public int EndPtIndex { get; private set; }

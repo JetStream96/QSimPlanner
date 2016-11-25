@@ -2,11 +2,11 @@
 {
     public class Edge<TEdge>
     {
-        public TEdge Value { get; private set; }
-        public int FromNodeIndex { get; private set; }
-        public int FromIndexInList { get; private set; }
-        public int ToNodeIndex { get; private set; }
-        public int ToIndexInList { get; private set; }
+        public TEdge Value { get; }
+        public int FromNodeIndex { get; }
+        public int FromIndexInList { get; }
+        public int ToNodeIndex { get; }
+        public int ToIndexInList { get; }
 
         public Edge() { }
 
