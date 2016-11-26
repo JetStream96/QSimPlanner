@@ -13,7 +13,7 @@
   <HoldingFuelRefWt>240000</HoldingFuelRefWt>
   <TaxiFuelFlow>45</TaxiFuelFlow>
   <ApuFuelFlow>4.5</ApuFuelFlow>
-  <MissedAppFuel>300</MissedAppFuel>  <!--TODO: This is totally wrong. Maybe 4500 kg?-->
+  <MissedAppFuel>4000</MissedAppFuel>  <!--TODO: This is totally wrong. Maybe 4500 kg?-->
   <ClimbIAS>340</ClimbIAS>
   <DescentIAS>340</DescentIAS>
 

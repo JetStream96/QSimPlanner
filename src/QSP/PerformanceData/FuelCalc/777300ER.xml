@@ -9,22 +9,22 @@
   -->
 
   <ProfileName>Boeing 777-300ER</ProfileName>
-  <HoldingFuelFlow>108.1666</HoldingFuelFlow>
+  <HoldingFuelFlow>108.2</HoldingFuelFlow>
   <HoldingFuelRefWt>240000</HoldingFuelRefWt>
   <TaxiFuelFlow>36</TaxiFuelFlow>
   <ApuFuelFlow>4</ApuFuelFlow>
-  <MissedAppFuel>300</MissedAppFuel>
+  <MissedAppFuel>3250</MissedAppFuel>
   <ClimbIAS>310</ClimbIAS>
   <DescentIAS>250</DescentIAS>
 
   <DataPoint>
     <Weight>180000</Weight>
-    <CruiseFF>88.74</CruiseFF>
-    <CruiseIAS>240.98119057065264</CruiseIAS>
-    <ClimbGrad>0.0791315</ClimbGrad>
-    <ClimbFF>276.470588</ClimbFF>
-    <DescentGrad>0.050834</DescentGrad>
-    <DescentFF>30.48611</DescentFF>
+    <CruiseFF>88.7</CruiseFF>
+    <CruiseIAS>241.0</CruiseIAS>
+    <ClimbGrad>0.079</ClimbGrad>
+    <ClimbFF>276.5</ClimbFF>
+    <DescentGrad>0.0508</DescentGrad>
+    <DescentFF>30.5</DescentFF>
     <OptCruiseAlt>42600</OptCruiseAlt>
     <EtopsCruiseTAS>0</EtopsCruiseTAS>
     <!-- Placeholder -->
@@ -33,12 +33,12 @@
   
   <DataPoint>
     <Weight>360000</Weight>
-    <CruiseFF>173.023333</CruiseFF>
-    <CruiseIAS>335.091374185006</CruiseIAS>
-    <ClimbGrad>0.04492902</ClimbGrad>
-    <ClimbFF>353.07262</ClimbFF>
-    <DescentGrad>0.042674219</DescentGrad>
-    <DescentFF>34.6993318</DescentFF>
+    <CruiseFF>173.0</CruiseFF>
+    <CruiseIAS>335.1</CruiseIAS>
+    <ClimbGrad>0.0450</ClimbGrad>
+    <ClimbFF>353.1</ClimbFF>
+    <DescentGrad>0.0427</DescentGrad>
+    <DescentFF>34.7</DescentFF>
     <OptCruiseAlt>27900</OptCruiseAlt>
     <EtopsCruiseTAS>0</EtopsCruiseTAS>
     <EtopsCruiseFF>0</EtopsCruiseFF>

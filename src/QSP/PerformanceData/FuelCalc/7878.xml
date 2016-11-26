@@ -9,11 +9,11 @@
   -->
 
   <ProfileName>Boeing 787-8</ProfileName>
-  <HoldingFuelFlow>165</HoldingFuelFlow>
+  <HoldingFuelFlow>75</HoldingFuelFlow>
   <HoldingFuelRefWt>172500</HoldingFuelRefWt>
   <TaxiFuelFlow>36</TaxiFuelFlow>
   <ApuFuelFlow>4</ApuFuelFlow>
-  <MissedAppFuel>300</MissedAppFuel>
+  <MissedAppFuel>2500</MissedAppFuel>
   <ClimbIAS>310</ClimbIAS>
   <DescentIAS>310</DescentIAS>
 
