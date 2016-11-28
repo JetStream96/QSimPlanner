@@ -7,8 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using QSP.LibraryExtension.XmlSerialization;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.Arrays;
+using System.IO;
 
 namespace QSP.TOPerfCalculation.Boeing
 {
@@ -25,8 +27,8 @@ namespace QSP.TOPerfCalculation.Boeing
         /// </summary>
         public PerfTable ReadFromXml(string filePath)
         {
-            XDocument doc = XDocument.Load(filePath);
-            return new PerfTable(ReadTable(doc.Root), GetEntry(filePath, doc));
+            var doc = XDocument.Load(filePath);
+            return new PerfTable(LoadTable(filePath), GetEntry(filePath, doc));
         }
 
         public BoeingPerfTable ReadTable(XElement root)
@@ -39,8 +41,15 @@ namespace QSP.TOPerfCalculation.Boeing
         public static Entry GetEntry(string path, XDocument doc)
         {
             var elem = doc.Root.Element("Parameters");
-
             return new Entry(elem.Element("ProfileName").Value, path);
+        }
+
+        private BoeingPerfTable LoadTable(string path)
+        {
+            var root = XDocument.Load(path).Root;
+            var loc = root.Element("FileLocation");
+            if (loc != null) return LoadTable(Path.Combine(path, "..", loc.Value));
+            return ReadTable(root);
         }
 
         private IndividualPerfTable ReadIndividualTable(XElement node)
@@ -54,19 +63,19 @@ namespace QSP.TOPerfCalculation.Boeing
             //read adjustment part
             var adjustments = node.Element("Adjustments");
             var packs = adjustments.Element("Packs");
-            double PacksOffDry = Convert.ToDouble(packs.Element("Dry").Value);
-            double PacksOffWet = Convert.ToDouble(packs.Element("Wet").Value);
-            double PacksOffClimb = Convert.ToDouble(packs.Element("Climb").Value);
+            double PacksOffDry = packs.GetDouble("Dry");
+            double PacksOffWet = packs.GetDouble("Wet");
+            double PacksOffClimb = packs.GetDouble("Climb");
 
             var antiIceEng = adjustments.Element("AntiIce").Element("EngineOnly");
-            double AIEngDry = Convert.ToDouble(antiIceEng.Element("Dry").Value);
-            double AIEngWet = Convert.ToDouble(antiIceEng.Element("Wet").Value);
-            double AIEngClimb = Convert.ToDouble(antiIceEng.Element("Climb").Value);
+            double AIEngDry = antiIceEng.GetDouble("Dry");
+            double AIEngWet = antiIceEng.GetDouble("Wet");
+            double AIEngClimb = antiIceEng.GetDouble("Climb");
 
             var antiIceBoth = adjustments.Element("AntiIce").Element("EngineAndWing");
-            double AIBothDry = Convert.ToDouble(antiIceBoth.Element("Dry").Value);
-            double AIBothWet = Convert.ToDouble(antiIceBoth.Element("Wet").Value);
-            double AIBothClimb = Convert.ToDouble(antiIceBoth.Element("Climb").Value);
+            double AIBothDry = antiIceBoth.GetDouble("Dry");
+            double AIBothWet = antiIceBoth.GetDouble("Wet");
+            double AIBothClimb = antiIceBoth.GetDouble("Climb");
 
             //Import tables
             var dryNode = node.Element("Dry");
@@ -115,8 +124,7 @@ namespace QSP.TOPerfCalculation.Boeing
         }
 
         // node should be "Dry" or "Wet" node
-        private static WtTables
-            SetFieldClimbLimitWt(XElement node, bool lenthIsMeter, bool WtIsKG)
+        private static WtTables SetFieldClimbLimitWt(XElement node, bool lenthIsMeter, bool WtIsKG)
         {
             var wtTables = node.Elements("WeightTable");
 
@@ -152,13 +160,11 @@ namespace QSP.TOPerfCalculation.Boeing
 
         private static double[][] GetClimbLimit(IEnumerable<XElement> elem)
         {
-            return elem.Select(
-                        x => x.Element("Climb")
-                                .Value
-                                .Split(spaceChars,
-                                        StringSplitOptions.RemoveEmptyEntries)
-                                .ToDoubles())
-                            .ToArray();
+            return elem.Select(x => 
+                x.Element("Climb")
+                 .Value
+                 .Split(spaceChars, StringSplitOptions.RemoveEmptyEntries)
+                 .ToDoubles()).ToArray();
         }
 
         private static void SetUnitSlopeOrWindTable(Table2D table, bool lengthIsMeter)
@@ -194,48 +200,20 @@ namespace QSP.TOPerfCalculation.Boeing
             }
         }
 
+        private static double[] ConvertToArray(string line)
+        {
+            return line.Split(spaceChars, StringSplitOptions.RemoveEmptyEntries)
+                       .Select(x => Convert.ToDouble(x)).ToArray();
+        }
+
         private static AlternateThrustTable LoadAltnRatingTable(string item, bool wtUnitIsKG)
         {
             var lines = item.Split(lineChangeChars, StringSplitOptions.RemoveEmptyEntries);
-            int flag = 0;
-
-            double[] fullThrust = null;
-            double[] dry = null;
-            double[] wet = null;
-            double[] climb = null;
-
-            foreach (string i in lines)
-            {
-                var words = i.Split(spaceChars, StringSplitOptions.RemoveEmptyEntries);
-
-                if (words.Length > 0 && flag <= 3)
-                {
-                    switch (flag)
-                    {
-                        case 0:
-                            fullThrust = words.Select(x => Convert.ToDouble(x)).ToArray();
-                            break;
-
-                        case 1:
-                            dry = words.Select(x => Convert.ToDouble(x)).ToArray();
-                            break;
-
-                        case 2:
-                            wet = words.Select(x => Convert.ToDouble(x)).ToArray();
-                            break;
-
-                        case 3:
-                            climb = words.Select(x => Convert.ToDouble(x)).ToArray();
-                            break;
-                    }
-                    flag++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-
+            var fullThrust = ConvertToArray(lines[0]);
+            var dry = ConvertToArray(lines[1]);
+            var wet = ConvertToArray(lines[2]);
+            var climb = ConvertToArray(lines[3]);
+            
             if (wtUnitIsKG == false)
             {
                 fullThrust.Multiply(LbKgRatio);
@@ -243,13 +221,14 @@ namespace QSP.TOPerfCalculation.Boeing
                 wet.Multiply(LbKgRatio);
                 climb.Multiply(LbKgRatio);
             }
+
             return new AlternateThrustTable(fullThrust, dry, wet, climb);
         }
 
         public struct WtTables
         {
-            public FieldLimitWtTable Field { get; private set; }
-            public ClimbLimitWtTable Climb { get; private set; }
+            public FieldLimitWtTable Field { get; }
+            public ClimbLimitWtTable Climb { get; }
 
             public WtTables(FieldLimitWtTable Field, ClimbLimitWtTable Climb)
             {

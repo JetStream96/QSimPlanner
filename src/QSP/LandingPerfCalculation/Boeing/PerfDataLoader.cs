@@ -2,6 +2,7 @@
 using QSP.LibraryExtension;
 using QSP.LibraryExtension.JaggedArrays;
 using System;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using static QSP.AviationTools.Constants;
@@ -18,14 +19,22 @@ namespace QSP.LandingPerfCalculation.Boeing
         public PerfTable ReadFromXml(string filePath)
         {
             var doc = XDocument.Load(filePath);
-            return new PerfTable(GetItem(doc), GetEntry(filePath, doc));
+            return new PerfTable(LoadTable(filePath), GetEntry(filePath, doc));
         }
 
         public Entry GetEntry(string path, XDocument doc)
         {
             var elem = doc.Root.Element("Parameters");
-
             return new Entry(elem.Element("ProfileName").Value, path);
+        }
+
+        private BoeingPerfTable LoadTable(string path)
+        {
+            var doc = XDocument.Load(path);
+            var root = doc.Root;
+            var loc = root.Element("FileLocation");
+            if (loc != null) return LoadTable(Path.Combine(path, "..", loc.Value));
+            return GetItem(doc);
         }
 
         public BoeingPerfTable GetItem(XDocument doc)
