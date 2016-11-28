@@ -112,6 +112,7 @@
     <Compile Include="FuelCalculation\Calculations\FuelCalculator.cs" />
     <Compile Include="FuelCalculation\Calculations\InitialPlanCreator.cs" />
     <Compile Include="FuelCalculation\Calculations\ICrzAltProvider.cs" />
+    <Compile Include="FuelCalculation\Calculations\IPlanNode.cs" />
     <Compile Include="FuelCalculation\Calculations\NextPlanNodeParameter.cs" />
     <Content Include="FuelCalculation\Calculations\VariableUnitStandard.txt" />
     <Compile Include="FuelCalculation\Calculations\NodeMarker.cs" />
@@ -588,6 +589,7 @@
     </Content>
     <Content Include="PerformanceData\Aircrafts\B747-8F_LX-VCB.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\FuelCalc\737600_cfm56-7b22.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

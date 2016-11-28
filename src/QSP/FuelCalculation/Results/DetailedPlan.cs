@@ -7,12 +7,12 @@ namespace QSP.FuelCalculation.Results
 {
     public class DetailedPlan
     {
-        public IReadOnlyList<PlanNode> AllNodes { get; }
+        public IReadOnlyList<IPlanNode> AllNodes { get; }
 
-        public IEnumerable<PlanNode> PrintedNodes =>
+        public IEnumerable<IPlanNode> PrintedNodes =>
             AllNodes.Where(n => !(n.NodeValue is IntermediateNode));
 
-        public DetailedPlan(IReadOnlyList<PlanNode> AllNodes)
+        public DetailedPlan(IReadOnlyList<IPlanNode> AllNodes)
         {
             this.AllNodes = AllNodes;
         }
@@ -23,7 +23,7 @@ namespace QSP.FuelCalculation.Results
 
     public static class DetailedPlanExtension
     {
-        public static double AirDistance(this IReadOnlyList<PlanNode> n)
+        public static double AirDistance(this IReadOnlyList<IPlanNode> n)
         {
             var dis = 0.0;
 

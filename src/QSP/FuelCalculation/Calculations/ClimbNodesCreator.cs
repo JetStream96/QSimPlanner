@@ -18,13 +18,13 @@ namespace QSP.FuelCalculation.Calculations
         private readonly AirportManager airportList;
         private readonly Route route;
         private readonly FuelDataItem fuelData;
-        private readonly IReadOnlyList<PlanNode> initPlan;
+        private readonly IReadOnlyList<IPlanNode> initPlan;
 
         public ClimbNodesCreator(
             AirportManager airportList,
             Route route,
             FuelDataItem fuelData,
-            IReadOnlyList<PlanNode> initPlan)
+            IReadOnlyList<IPlanNode> initPlan)
         {
             this.airportList = airportList;
             this.route = route;
@@ -32,11 +32,11 @@ namespace QSP.FuelCalculation.Calculations
             this.initPlan = initPlan;
         }
 
-        public List<PlanNode> Create()
+        public List<IPlanNode> Create()
         {
             const int iterationCount = 2;
             var initGrossWt = initPlan[0].GrossWt;
-            var result = new List<PlanNode>();
+            var result = new List<IPlanNode>();
 
             for (int i = 0; i < iterationCount; i++)
             {
@@ -64,7 +64,7 @@ namespace QSP.FuelCalculation.Calculations
             return result;
         }
 
-        private List<PlanNode> NodeEstimation(double initGrossWt)
+        private List<IPlanNode> NodeEstimation(double initGrossWt)
         {
             // We uses the node provided by initPlan.
             // In initPlan, the climb segment is not calculated.
@@ -76,7 +76,7 @@ namespace QSP.FuelCalculation.Calculations
             // are accurate: GrossWt, FuelOnBoard, TimeRemaining.
             //
 
-            var climbNodes = new List<PlanNode>();
+            var climbNodes = new List<IPlanNode>();
             var oldNode = initPlan[0];
             var zfw = oldNode.GrossWt - oldNode.FuelOnBoard;
 
@@ -106,7 +106,7 @@ namespace QSP.FuelCalculation.Calculations
             return climbNodes;
         }
 
-        private PlanNode NextPlanNode(PlanNode prev, PlanNode old)
+        private IPlanNode NextPlanNode(IPlanNode prev, IPlanNode old)
         {
             var ff = fuelData.ClimbFuelFlow(prev.GrossWt);
             var stepDis = prev.Distance(prev.NextPlanNodeCoordinate);
@@ -122,7 +122,7 @@ namespace QSP.FuelCalculation.Calculations
             return GetNode(old, alt, grossWt, fuelOnBoard, timeRemaining);
         }
 
-        private PlanNode GetNode(PlanNode old,
+        private IPlanNode GetNode(IPlanNode old,
             double alt, double grossWt, double fuelOnBoard, double timeRemain)
         {
             return new PlanNode(

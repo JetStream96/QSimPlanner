@@ -60,13 +60,13 @@ namespace QSP.FuelCalculation.Calculations
             this.maxAlt = maxAlt;
         }
 
-        public List<PlanNode> Create()
+        public List<IPlanNode> Create()
         {
             // We compute the flight backwards - from destination to origin.
 
-            var planNodes = new List<PlanNode>();
+            var planNodes = new List<IPlanNode>();
 
-            var prevPlanNode = new PlanNode(
+            IPlanNode prevPlanNode = new PlanNode(
                 route.Last.Value,
                 windTable,
                 route.Last,
@@ -90,7 +90,7 @@ namespace QSP.FuelCalculation.Calculations
             return planNodes;
         }
 
-        private NextPlanNodeParameter GetNextPara(PlanNode node)
+        private NextPlanNodeParameter GetNextPara(IPlanNode node)
         {
             // Compute verical mode.
             double optCrzAlt = fuelData.OptCruiseAlt(node.GrossWt);
@@ -191,7 +191,7 @@ namespace QSP.FuelCalculation.Calculations
             return ktas > optCruiseKtas ? KtasToKcas(optCruiseKtas, alt) : kias;
         }
 
-        private PlanNode NextPlanNode(PlanNode prev, NextPlanNodeParameter p)
+        private IPlanNode NextPlanNode(IPlanNode prev, NextPlanNodeParameter p)
         {
             var ff = FuelFlow(prev.GrossWt, p.ModeVertical);
             var stepFuel = p.StepTime * ff;

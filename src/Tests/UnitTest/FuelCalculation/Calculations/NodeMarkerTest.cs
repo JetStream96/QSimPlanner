@@ -54,9 +54,9 @@ namespace UnitTest.FuelCalculation.Calculations
                new[] { 3, 6 }, ScIndices(nodes)));
         }
 
-        private static PlanNode[] TransformNode(double[] alts)
+        private static IPlanNode[] TransformNode(double[] alts)
         {
-            var result = new PlanNode[alts.Length];
+            var result = new IPlanNode[alts.Length];
 
             for (int i = 0; i < alts.Length; i++)
             {
@@ -66,7 +66,7 @@ namespace UnitTest.FuelCalculation.Calculations
             return result;
         }
 
-        private static PlanNode GetNode(double alt, double lat, double lon)
+        private static IPlanNode GetNode(double alt, double lat, double lon)
         {
             var val = new IntermediateNode(new LatLon(lat, lon));
             return new PlanNode(val, null, null, null, alt, 

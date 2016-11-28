@@ -16,7 +16,7 @@ namespace QSP.FuelCalculation.Calculations
     // The units of variables used in this class is specified in 
     // VariableUnitStandard.txt.
 
-    public class PlanNode : ICoordinate
+    public class PlanNode : IPlanNode
     {
         // Remember to update GetCoordinate() if more types are added to this 
         // field.
@@ -30,7 +30,7 @@ namespace QSP.FuelCalculation.Calculations
             typeof(ScNode)
         };
 
-        public object NodeValue { get; }
+        public object NodeValue { get; set; }
 
         // Here 'previous' and 'next' refers to the order of nodes/waypoints
         // in route. Do not confuse with the order of calculation although some
@@ -46,8 +46,8 @@ namespace QSP.FuelCalculation.Calculations
         public ICoordinate NextPlanNodeCoordinate { get; }
 
         public double Alt { get; }
-        public double GrossWt { get; }
-        public double FuelOnBoard { get; }
+        public double GrossWt { get; set; }
+        public double FuelOnBoard { get; set; }
         public double TimeRemaining { get; }
         public double Kias { get; }
 
@@ -146,6 +146,22 @@ namespace QSP.FuelCalculation.Calculations
 
             throw new UnexpectedExecutionStateException(
                 "Something is wrong in NodeValue validation.");
+        }
+
+        public static PlanNode Copy(IPlanNode p)
+        {
+            return new PlanNode(
+                p.NodeValue,
+                p.WindTable,
+                p.NextRouteNode,
+                p.NextPlanNodeCoordinate,
+                p.Alt,
+                p.GrossWt,
+                p.FuelOnBoard,
+                p.TimeRemaining,
+                p.Kias,
+                p.Ktas,
+                p.Gs);
         }
     }
 }

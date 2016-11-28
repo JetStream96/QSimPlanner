@@ -70,7 +70,7 @@ namespace QSP.FuelCalculation.Calculations
             }
         }
 
-        private List<PlanNode> GetPlan(double altLimit)
+        private List<IPlanNode> GetPlan(double altLimit)
         {
             var initPlan = new InitialPlanCreator(
                   airportList,
@@ -90,7 +90,7 @@ namespace QSP.FuelCalculation.Calculations
                 .ToList();
         }
 
-        private AltResult CruiseAltValid(IReadOnlyList<PlanNode> nodes)
+        private AltResult CruiseAltValid(IReadOnlyList<IPlanNode> nodes)
         {
             int tocIndex = TocIndex(nodes);
             var toc = nodes[tocIndex];

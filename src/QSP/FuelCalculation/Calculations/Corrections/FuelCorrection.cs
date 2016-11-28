@@ -22,20 +22,12 @@ namespace QSP.FuelCalculation.Calculations.Corrections
             }).ToList());
         }
 
-        private static PlanNode GetNode(PlanNode old, double fuelOnBoard, double grossWt)
+        private static IPlanNode GetNode(IPlanNode old, double fuelOnBoard, double grossWt)
         {
-            return new PlanNode(
-                old.NodeValue,
-                old.WindTable,
-                old.NextRouteNode,
-                old.NextPlanNodeCoordinate,
-                old.Alt,
-                grossWt,
-                fuelOnBoard,
-                old.TimeRemaining,
-                old.Kias,
-                old.Ktas,
-                old.Gs);
+            var node = PlanNode.Copy(old);
+            node.FuelOnBoard = fuelOnBoard;
+            node.GrossWt = grossWt;
+            return node;
         }
     }
 }

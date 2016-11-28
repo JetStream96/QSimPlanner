@@ -14,7 +14,7 @@ namespace QSP.FuelCalculation.Calculations
         /// the altitude no longer increases. The input (nodes) needs to
         /// have at least 2 items. Throws exception if TOC is not found.
         /// </summary>
-        public static int TocIndex(IReadOnlyList<PlanNode> nodes)
+        public static int TocIndex(IReadOnlyList<IPlanNode> nodes)
         {
             for (int i = 0; i < nodes.Count - 1; i++)
             {
@@ -24,7 +24,7 @@ namespace QSP.FuelCalculation.Calculations
             throw new ArgumentException();
         }
 
-        public static IEnumerable<int> ScIndices(IReadOnlyList<PlanNode> n)
+        public static IEnumerable<int> ScIndices(IReadOnlyList<IPlanNode> n)
         {
             for (int i = 1; i < n.Count - 1; i++)
             {
@@ -36,7 +36,7 @@ namespace QSP.FuelCalculation.Calculations
             }
         }
 
-        public static int TodIndex(IReadOnlyList<PlanNode> n)
+        public static int TodIndex(IReadOnlyList<IPlanNode> n)
         {
             for (int i = n.Count - 1; i > 0; i--)
             {
@@ -49,7 +49,7 @@ namespace QSP.FuelCalculation.Calculations
         /// <summary>
         /// Mark the TOC, SC and TOD nodes.
         /// </summary>
-        public static IReadOnlyList<PlanNode> Mark(IReadOnlyList<PlanNode> n)
+        public static IReadOnlyList<IPlanNode> Mark(IReadOnlyList<IPlanNode> n)
         {
             // TOC can be the same as TOD, but SC is never the same as TOC
             // or TOD.
@@ -57,7 +57,7 @@ namespace QSP.FuelCalculation.Calculations
             var tod = TodIndex(n);
             var sc = ScIndices(n).ToHashSet();
 
-            var result = new List<PlanNode>();
+            var result = new List<IPlanNode>();
 
             for (int i = 0; i < n.Count; i++)
             {
@@ -88,20 +88,11 @@ namespace QSP.FuelCalculation.Calculations
             return result;
         }
 
-        private static PlanNode ChangeValue(PlanNode n, object nodeValue)
+        private static IPlanNode ChangeValue(IPlanNode n, object nodeValue)
         {
-            return new PlanNode(
-                nodeValue,
-                n.WindTable,
-                n.NextRouteNode,
-                n.NextPlanNodeCoordinate,
-                n.Alt,
-                n.GrossWt,
-                n.FuelOnBoard,
-                n.TimeRemaining,
-                n.Kias,
-                n.Ktas,
-                n.Gs);
+            var node = PlanNode.Copy(n);
+            node.NodeValue = nodeValue;
+            return node;
         }
     }
 }
