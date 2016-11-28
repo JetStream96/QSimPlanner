@@ -19,11 +19,11 @@
 
   <DataPoint>
     <Weight>55000</Weight>
-    <CruiseFF>33.8233</CruiseFF>
+    <CruiseFF>33.8</CruiseFF>
     <CruiseIAS>242.1</CruiseIAS>
-    <ClimbGrad>0.0637864</ClimbGrad>
-    <ClimbFF>80.34682</ClimbFF>
-    <DescentGrad>0.0522029</DescentGrad>
+    <ClimbGrad>0.0638</ClimbGrad>
+    <ClimbFF>80.3</ClimbFF>
+    <DescentGrad>0.0522</DescentGrad>
     <DescentFF>11.2</DescentFF>
     <OptCruiseAlt>39300</OptCruiseAlt>
     <EtopsCruiseTAS>0</EtopsCruiseTAS>
@@ -33,12 +33,12 @@
 
   <DataPoint>
     <Weight>70000</Weight>
-    <CruiseFF>42.08</CruiseFF>
+    <CruiseFF>42.1</CruiseFF>
     <CruiseIAS>270.6</CruiseIAS>
-    <ClimbGrad>0.052708</ClimbGrad>
-    <ClimbFF>92.3497</ClimbFF>
+    <ClimbGrad>0.0527</ClimbGrad>
+    <ClimbFF>92.3</ClimbFF>
     <DescentGrad>0.04856</DescentGrad>
-    <DescentFF>11.9205</DescentFF>
+    <DescentFF>11.9</DescentFF>
     <OptCruiseAlt>34300</OptCruiseAlt>
     <EtopsCruiseTAS>0</EtopsCruiseTAS>
     <EtopsCruiseFF>0</EtopsCruiseFF>

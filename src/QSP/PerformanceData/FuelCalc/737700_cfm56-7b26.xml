@@ -11,7 +11,7 @@
   <!-- 26k with winglet -->
 
   <ProfileName>Boeing 737-700 CFM56-7B26</ProfileName>
-  <HoldingFuelFlow>35.8333333</HoldingFuelFlow>
+  <HoldingFuelFlow>35.8</HoldingFuelFlow>
   <HoldingFuelRefWt>60000</HoldingFuelRefWt>
   <TaxiFuelFlow>12.2</TaxiFuelFlow>
   <ApuFuelFlow>1.8</ApuFuelFlow>
@@ -21,12 +21,12 @@
 
   <DataPoint>
     <Weight>55000</Weight>
-    <CruiseFF>32.86666</CruiseFF>
-    <CruiseIAS>236.83</CruiseIAS>
-    <ClimbGrad>0.0640479</ClimbGrad>
-    <ClimbFF>84.848484</ClimbFF>
-    <DescentGrad>0.051748</DescentGrad>
-    <DescentFF>12.190476</DescentFF>
+    <CruiseFF>32.9</CruiseFF>
+    <CruiseIAS>236.8</CruiseIAS>
+    <ClimbGrad>0.0640</ClimbGrad>
+    <ClimbFF>84.8</ClimbFF>
+    <DescentGrad>0.0517</DescentGrad>
+    <DescentFF>12.2</DescentFF>
     <OptCruiseAlt>39500</OptCruiseAlt>
     <EtopsCruiseTAS>0</EtopsCruiseTAS> <!-- Placeholder -->
     <EtopsCruiseFF>0</EtopsCruiseFF>
@@ -34,12 +34,12 @@
 
   <DataPoint>
     <Weight>80000</Weight>
-    <CruiseFF>46.6266667</CruiseFF>
+    <CruiseFF>46.6</CruiseFF>
     <CruiseIAS>283.86</CruiseIAS>
-    <ClimbGrad>0.0484235</ClimbGrad>
-    <ClimbFF>92.0918367</ClimbFF>
-    <DescentGrad>0.044036</DescentGrad>
-    <DescentFF>13.8054968</DescentFF>
+    <ClimbGrad>0.0484</ClimbGrad>
+    <ClimbFF>92.1</ClimbFF>
+    <DescentGrad>0.0440</DescentGrad>
+    <DescentFF>13.8</DescentFF>
     <OptCruiseAlt>31600</OptCruiseAlt>
     <EtopsCruiseTAS>0</EtopsCruiseTAS>
     <EtopsCruiseFF>0</EtopsCruiseFF>
