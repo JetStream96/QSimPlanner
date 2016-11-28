@@ -13,11 +13,10 @@ namespace UnitTest.LibraryExtensionTest
         {
             Assert.IsTrue("".ReplaceAny(new char[] { '0', '1' }, "abc") == "");
 
-            Assert.IsTrue(
-                "0123456789".ReplaceAny(new char[] { '0', '1', '9' }, "ab")
+            Assert.IsTrue("0123456789".ReplaceAny(new char[] { '0', '1', '9' }, "ab")
                 == "abab2345678ab");
-            Assert.IsTrue(
-                "0123456789".ReplaceAny(new char[] { '9', '1', '9', '0' }, "ab")
+
+            Assert.IsTrue("0123456789".ReplaceAny(new char[] { '9', '1', '9', '0' }, "ab")
                 == "abab2345678ab");
         }
 

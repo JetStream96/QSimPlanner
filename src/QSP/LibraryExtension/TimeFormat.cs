@@ -1,4 +1,3 @@
-using QSP.Utilities;
 using System;
 using static QSP.Utilities.ExceptionHelpers;
 
@@ -13,14 +12,13 @@ namespace QSP.LibraryExtension
         {
             int colonIndex = s.IndexOf(':');
             Ensure<ArgumentException>(colonIndex >= 0);
-            return StringsToMin(
-                s.Substring(0, colonIndex), s.Substring(colonIndex + 1));
+            return StringsToMin(s.Substring(0, colonIndex), s.Substring(colonIndex + 1));
         }
         
         //e.g. 0143 ---> 103
         public static int HHMMToMin(string s)
         {
-            ExceptionHelpers.Ensure<ArgumentException>(s.Length == 4);
+            Ensure<ArgumentException>(s.Length == 4);
             return StringsToMin(s.Substring(0, 2), s.Substring(2));
         }
 
@@ -29,8 +27,7 @@ namespace QSP.LibraryExtension
             int h = int.Parse(hour);
             int m = int.Parse(min);
 
-            ExceptionHelpers.Ensure<ArgumentException>(
-                h >= 0 && m >= 0 && m <= 60);
+            Ensure<ArgumentException>(h >= 0 && m >= 0 && m <= 60);
 
             return 60 * h + m;
         }
@@ -38,8 +35,7 @@ namespace QSP.LibraryExtension
         public static string MinToHHMM(int min)
         {
             //return a value with exactly 4 digits
-            ExceptionHelpers.Ensure<ArgumentOutOfRangeException>(
-                0 <= min && min < 60 * 100);
+            Ensure<ArgumentOutOfRangeException>(0 <= min && min < 60 * 100);
 
             int h = min / 60;
             int m = min % 60;

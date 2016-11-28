@@ -43,5 +43,10 @@ namespace QSP.LibraryExtension
 
             return hash;
         }
+
+        public static double[] ToDoubles(this IEnumerable<string> item)
+        {
+            return item.Select(s => Convert.ToDouble(s)).ToArray();
+        }
     }
 }

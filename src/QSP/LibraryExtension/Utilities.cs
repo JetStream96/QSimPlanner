@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace QSP.LibraryExtension
 {
@@ -11,41 +12,32 @@ namespace QSP.LibraryExtension
             item1 = tmp;
         }
 
+        private static Dictionary<string, int> monthLookup = new Dictionary<string, int>()
+        {
+            ["JAN"] = 1,
+            ["FEB"] = 2,
+            ["MAR"] = 3,
+            ["APR"] = 4,
+            ["MAY"] = 5,
+            ["JUN"] = 6,
+            ["JUL"] = 7,
+            ["AUG"] = 8,
+            ["SEP"] = 9,
+            ["OCT"] = 10,
+            ["NOV"] = 11,
+            ["DEC"] = 12
+        };
+
         public static int MonthEnglishToNum(string month)
         {
-            switch (month)
+            try
             {
-                case "JAN":
-                    return 1;
-                case "FEB":
-                    return 2;
-                case "MAR":
-                    return 3;
-                case "APR":
-                    return 4;
-                case "MAY":
-                    return 5;
-                case "JUN":
-                    return 6;
-                case "JUL":
-                    return 7;
-                case "AUG":
-                    return 8;
-                case "SEP":
-                    return 9;
-                case "OCT":
-                    return 10;
-                case "NOV":
-                    return 11;
-                case "DEC":
-                    return 12;
-                default:
-                    throw new ArgumentException(
-                        "Input string is not a valid month identifier.");
+                return monthLookup[month];
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("Input string is not a valid month identifier.");
             }
         }
     }
-
 }
-
-

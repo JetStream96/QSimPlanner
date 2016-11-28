@@ -202,8 +202,7 @@ namespace QSP.TOPerfCalculation.Boeing
 
         private static double[] ConvertToArray(string line)
         {
-            return line.Split(spaceChars, StringSplitOptions.RemoveEmptyEntries)
-                       .Select(x => Convert.ToDouble(x)).ToArray();
+            return line.Split(spaceChars, StringSplitOptions.RemoveEmptyEntries).ToDoubles();
         }
 
         private static AlternateThrustTable LoadAltnRatingTable(string item, bool wtUnitIsKG)

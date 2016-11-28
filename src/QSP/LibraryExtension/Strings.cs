@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace QSP.LibraryExtension
 {
@@ -35,35 +36,12 @@ namespace QSP.LibraryExtension
 
         public static string RemoveHtmlTags(this string item)
         {
-            var array = new char[item.Length];
-            bool copyChar = true;
-            int index = 0;
-
-            foreach (var i in item)
-            {
-                if (i == '<')
-                {
-                    copyChar = false;
-                }
-                else if (i == '>')
-                {
-                    copyChar = true;
-                }
-                else
-                {
-                    if (copyChar)
-                    {
-                        array[index++] = i;
-                    }
-                }
-            }
-            return new string(array, 0, index);
+            return Regex.Replace(item, @"<[^>]*>", "");
         }
 
         public static string[] Lines(this string item)
         {
-            return item.Split(
-                new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+            return item.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
         }
 
         /// <summary>
@@ -77,15 +55,13 @@ namespace QSP.LibraryExtension
             return string.Join("\n", skipBack);
         }
 
-        private static IEnumerable<string>
-            SkipEmptyLines(this IEnumerable<string> item)
+        private static IEnumerable<string> SkipEmptyLines(this IEnumerable<string> item)
         {
             char[] spaces = { ' ', '\t' };
             return item.SkipWhile(s => s.All(c => spaces.Contains(c)));
         }
 
-        public static bool EqualsIgnoreNewlineStyle(
-            this string item, string other)
+        public static bool EqualsIgnoreNewlineStyle(this string item, string other)
         {
             item = item.Replace("\r\n", "\n");
             other = other.Replace("\r\n", "\n");

@@ -31,8 +31,7 @@ namespace QSP.LibraryExtension
         /// elements. The order of original elements is preserved.
         /// If item.Count is less than or equal to 2, returns an empty list.
         /// </summary>
-        public static List<T> WithoutFirstAndLast<T>(
-            this IReadOnlyCollection<T> item)
+        public static List<T> WithoutFirstAndLast<T>(this IReadOnlyCollection<T> item)
         {
             return item.Skip(1).Take(item.Count - 2).ToList();
         }
