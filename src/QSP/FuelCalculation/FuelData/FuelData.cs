@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.IO;
+using System.Xml.Linq;
 
 namespace QSP.FuelCalculation.FuelData
 {
@@ -20,9 +21,17 @@ namespace QSP.FuelCalculation.FuelData
             var root = XDocument.Load(path).Root;
 
             return new FuelData(
-                new FuelDataItem.Serializer().Deserialize(root),
+                LoadItem(path),
                 root.Element("ProfileName").Value,
                 path);
+        }
+
+        private static FuelDataItem LoadItem(string path)
+        {
+            var root = XDocument.Load(path).Root;
+            var loc = root.Element("FileLocation");
+            if (loc != null) return LoadItem(Path.Combine(path, "..", loc.Value));
+            return new FuelDataItem.Serializer().Deserialize(root);
         }
     }
 }
