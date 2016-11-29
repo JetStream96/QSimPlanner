@@ -10,21 +10,8 @@ namespace QSP.LibraryExtension
         private Dictionary<TFirst, TSecond> _firstToSecond;
         private Dictionary<TSecond, TFirst> _secondToFirst;
 
-        public IReadOnlyDictionary<TFirst, TSecond> FirstToSecond
-        {
-            get
-            {
-                return _firstToSecond;
-            }
-        }
-
-        public IReadOnlyDictionary<TSecond, TFirst> SecondToFirst
-        {
-            get
-            {
-                return _secondToFirst;
-            }
-        }
+        public IReadOnlyDictionary<TFirst, TSecond> FirstToSecond => _firstToSecond;
+        public IReadOnlyDictionary<TSecond, TFirst> SecondToFirst => _secondToFirst;
 
         public BiDictionary()
         {
@@ -54,11 +41,7 @@ namespace QSP.LibraryExtension
         public void RemoveByFirst(TFirst first)
         {
             TSecond second;
-
-            if (TryGetByFirst(first, out second) == false)
-            {
-                return;
-            }
+            if (TryGetByFirst(first, out second) == false) return;
 
             _firstToSecond.Remove(first);
             _secondToFirst.Remove(second);
@@ -68,11 +51,7 @@ namespace QSP.LibraryExtension
         public void RemoveBySecond(TSecond second)
         {
             TFirst first;
-
-            if (TryGetBySecond(second, out first) == false)
-            {
-                return;
-            }
+            if (TryGetBySecond(second, out first) == false) return;
 
             _secondToFirst.Remove(second);
             _firstToSecond.Remove(first);

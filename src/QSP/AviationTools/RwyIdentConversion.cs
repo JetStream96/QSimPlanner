@@ -31,7 +31,7 @@ namespace QSP.AviationTools
             return opposite.ToString().PadLeft(2, '0');
         }
 
-        private static IDictionary<string, string> oppositeDirection =
+        private static IReadOnlyDictionary<string, string> oppositeDirection =
             new Dictionary<string, string>()
             {
                 [""] = "",
