@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.AviationTools
@@ -11,62 +12,32 @@ namespace QSP.AviationTools
         /// <exception cref="ArgumentException"></exception>
         public static string RwyIdentOppositeDir(string rwy)
         {
-            Ensure<ArgumentException>(rwy.Length == 2 || rwy.Length == 3);
-
-            int numPart = 0;
-            char charPart = '\0';
-            bool hasCharPart = false;
-
-            if (rwy.Length == 2)
+            try
             {
-                numPart = int.Parse(rwy);
+                var numPart = int.Parse(rwy.Substring(0, 2));
+                var charPart = rwy.Substring(2);
+                return OppositeNum(numPart) + oppositeDirection[charPart];
             }
-            else
+            catch
             {
-                numPart = int.Parse(rwy.Substring(0, 2));
-                hasCharPart = true;
-                charPart = rwy[2];
-            }
-
-            Ensure<ArgumentException>(0 < numPart && numPart <= 36);
-
-            if (numPart >= 19)
-            {
-                numPart -= 18;
-            }
-            else
-            {
-                numPart += 18;
-            }
-
-            string numPartStr = numPart.ToString().PadLeft(2, '0');
-
-            if (hasCharPart)
-            {
-                return numPartStr + GetOpposite(charPart);
-            }
-            else
-            {
-                return numPartStr;
+                throw new ArgumentException("Incorrect runway ident format.");
             }
         }
 
-        private static char GetOpposite(char c)
+        private static string OppositeNum(int numPart)
         {
-            switch (c)
-            {
-                case 'R':
-                    return 'L';
-
-                case 'L':
-                    return 'R';
-
-                case 'C':
-                    return 'C';
-
-                default:
-                    throw new ArgumentException();
-            }
+            Ensure<ArgumentException>(0 < numPart && numPart <= 36);
+            var opposite = numPart >= 19 ? (numPart - 18) : (numPart + 18);
+            return opposite.ToString().PadLeft(2, '0');
         }
+
+        private static IDictionary<string, string> oppositeDirection =
+            new Dictionary<string, string>()
+            {
+                [""] = "",
+                ["R"] = "L",
+                ["L"] = "R",
+                ["C"] = "C"
+            };
     }
 }

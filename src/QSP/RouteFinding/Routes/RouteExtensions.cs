@@ -25,7 +25,7 @@ namespace QSP.RouteFinding.Routes
             string airway)
         {
             // This finds '2'.
-            var matches = items.FindAll((n) =>
+            var matches = items.Nodes().Where(n =>
             {
                 return n.Value.Waypoint.Equals(route.First.Value.Waypoint) &&
                 n.Value.Neighbor.Airway == airway &&

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace QSP.LibraryExtension
 {
     public static class LinkedLists
     {
-        public static void AddLast<T>(
-            this LinkedList<T> item, IEnumerable<T> other)
+        public static void AddLast<T>(this LinkedList<T> item, IEnumerable<T> other)
         {
-            foreach (var i in other)
-            {
-                item.AddLast(i);
-            }
+            foreach (var i in other) item.AddLast(i);
         }
 
         public static void AddAfter<T>(this LinkedList<T> item, 
@@ -23,28 +18,19 @@ namespace QSP.LibraryExtension
                 node = node.Next;
             }
         }
-        
+
         /// <summary>
-        /// Find all LinkedListNodes matching the given conditions.
+        /// Enumerate through the nodes of the linked list. Enables the use for LINQ methods.
         /// </summary>
-        public static List<LinkedListNode<T>> FindAll<T>(
-            this LinkedList<T> item,
-            Predicate<LinkedListNode<T>> predicate)
+        public static IEnumerable<LinkedListNode<T>> Nodes<T>(this LinkedList<T> item)
         {
-            var result = new List<LinkedListNode<T>>();
             var n = item.First;
 
             while (n != null)
             {
-                if (predicate(n))
-                {
-                    result.Add(n);
-                }
-
+                yield return n;
                 n = n.Next;
             }
-
-            return result;
         }
     }
 }

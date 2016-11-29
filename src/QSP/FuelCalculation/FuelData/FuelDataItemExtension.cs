@@ -1,4 +1,5 @@
-﻿using QSP.MathTools.Interpolation;
+﻿using System;
+using QSP.MathTools.Interpolation;
 
 namespace QSP.FuelCalculation.FuelData
 {
@@ -26,92 +27,57 @@ namespace QSP.FuelCalculation.FuelData
 
         public static double CruiseFuelFlow(this FuelDataItem item, double grossWeight)
         {
-            var p1 = item.DataPoint1;
-            var p2 = item.DataPoint2;
-
-            return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight,
-                p1.CruiseFuelFlow, p2.CruiseFuelFlow, grossWeight);
+            return InterpolateHelper(item, p => p.CruiseFuelFlow, grossWeight);
         }
 
         public static double CruiseKias(this FuelDataItem item, double grossWeight)
         {
-            var p1 = item.DataPoint1;
-            var p2 = item.DataPoint2;
-
-            return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight,
-                p1.CruiseKias, p2.CruiseKias, grossWeight);
+            return InterpolateHelper(item, p => p.CruiseKias, grossWeight);
         }
 
         public static double ClimbGradient(this FuelDataItem item, double grossWeight)
         {
-            var p1 = item.DataPoint1;
-            var p2 = item.DataPoint2;
-
-            return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight,
-                p1.ClimbGradient, p2.ClimbGradient, grossWeight);
+            return InterpolateHelper(item, p => p.ClimbGradient, grossWeight);
         }
 
         public static double ClimbFuelFlow(this FuelDataItem item, double grossWeight)
         {
-            var p1 = item.DataPoint1;
-            var p2 = item.DataPoint2;
-
-            return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight,
-                p1.ClimbFuelFlow, p2.ClimbFuelFlow, grossWeight);
+            return InterpolateHelper(item, p => p.ClimbFuelFlow, grossWeight);
         }
 
         public static double DescentGradient(this FuelDataItem item, double grossWeight)
         {
-            var p1 = item.DataPoint1;
-            var p2 = item.DataPoint2;
-
-            return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight,
-                p1.DescentGradient, p2.DescentGradient, grossWeight);
+            return InterpolateHelper(item, p => p.DescentGradient, grossWeight);
         }
 
         public static double DescentFuelFlow(this FuelDataItem item, double grossWeight)
         {
-            var p1 = item.DataPoint1;
-            var p2 = item.DataPoint2;
-
-            return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight,
-                p1.DescentFuelFlow, p2.DescentFuelFlow, grossWeight);
+            return InterpolateHelper(item, p => p.DescentFuelFlow, grossWeight);
         }
 
         public static double OptCruiseAlt(this FuelDataItem item, double grossWeight)
         {
-            var p1 = item.DataPoint1;
-            var p2 = item.DataPoint2;
-
-            return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight,
-                p1.OptCruiseAlt, p2.OptCruiseAlt, grossWeight);
+            return InterpolateHelper(item, p => p.OptCruiseAlt, grossWeight);
         }
 
         public static double EtopsCruiseKtas(this FuelDataItem item, double grossWeight)
         {
-            var p1 = item.DataPoint1;
-            var p2 = item.DataPoint2;
-
-            return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight,
-                p1.EtopsCruiseKtas, p2.EtopsCruiseKtas, grossWeight);
+            return InterpolateHelper(item, p => p.EtopsCruiseKtas, grossWeight);
         }
 
         public static double EtopsCruiseFuelFlow(this FuelDataItem item, double grossWeight)
+        {
+            return InterpolateHelper(item, p => p.EtopsCruiseFuelFlow, grossWeight);
+        }
+
+        private static double InterpolateHelper(FuelDataItem item,
+            Func<DataPoint, double> getter, double grossWeight)
         {
             var p1 = item.DataPoint1;
             var p2 = item.DataPoint2;
 
             return Interpolate1D.Interpolate(
-                p1.Weight, p2.Weight,
-                p1.EtopsCruiseFuelFlow, p2.EtopsCruiseFuelFlow, grossWeight);
+                p1.Weight, p2.Weight, getter(p1), getter(p2), grossWeight);
         }
 
         /// <summary>

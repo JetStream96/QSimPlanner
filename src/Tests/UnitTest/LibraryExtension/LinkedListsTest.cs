@@ -57,15 +57,20 @@ namespace UnitTest.LibraryExtension
         }
 
         [Test]
-        public void FindAllTest()
+        public void NodesTest()
         {
-            var x = new LinkedList<int>(new int[] { 0, 15, 22, -3, 4 });
+            int[] arr = {0, 15, 22, -3, 4};
+            var x = new LinkedList<int>(arr);
+            var val = x.Nodes().Select(n => n.Value);
+            Assert.IsTrue(Enumerable.SequenceEqual(arr, val));
+        }
 
-            var matches = x.FindAll((n) =>
-            n.Value % 2 == 0 && n.Next != null && n.Next.Value > 0);
-
-            Assert.IsTrue(matches.Count == 1);
-            Assert.AreEqual(0, matches[0].Value);
+        [Test]
+        public void NodesEmptyLinkedList()
+        {
+            var x = new LinkedList<int>();
+            var val = x.Nodes().ToList();
+            Assert.AreEqual(0, val.Count);
         }
     }
 }
