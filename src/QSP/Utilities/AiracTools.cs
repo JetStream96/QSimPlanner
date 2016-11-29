@@ -20,20 +20,9 @@ namespace QSP.Utilities
                 int dayStart = Convert.ToInt32(a.Substring(0, 2));
                 int dayEnd = Convert.ToInt32(a.Substring(5, 2));
                 int yearStart = Convert.ToInt32(a.Substring(11, 2));
-                int yearEnd;
+                int yearEnd = monthEnd < monthStart ? yearStart + 1 : yearStart;
 
-                if (monthEnd < monthStart)
-                {
-                    yearEnd = yearStart + 1;
-                }
-                else
-                {
-                    yearEnd = yearStart;
-                }
-
-                var dateStart =
-                    new DateTime(2000 + yearStart, monthStart, dayStart);
-
+                var dateStart = new DateTime(2000 + yearStart, monthStart, dayStart);
                 var dateEnd = new DateTime(2000 + yearEnd, monthEnd, dayEnd);
                 var dateNow = DateTime.UtcNow.Date;
 
@@ -41,8 +30,7 @@ namespace QSP.Utilities
             }
             catch
             {
-                throw new ArgumentException(
-                   "Input string is not valid airac period.");
+                throw new ArgumentException("Input string is not valid airac period.");
             }
         }
     }

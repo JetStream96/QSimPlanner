@@ -17,8 +17,7 @@ namespace QSP
         [STAThread]
         static void Main()
         {
-            CultureInfo.DefaultThreadCurrentCulture = 
-                CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 
             using (var mutex = new Mutex(false, $"Global\\{GetGuid()}"))
             {
@@ -51,8 +50,7 @@ namespace QSP
                 HandleException(e.Exception);
             };
 
-            Application.SetUnhandledExceptionMode(
-                UnhandledExceptionMode.CatchException);
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
         }
 
         private static void HandleException(Exception ex)

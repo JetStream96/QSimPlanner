@@ -44,8 +44,7 @@ namespace QSP.Utilities
             if (ver <= 6)
             {
                 // Not supported, no emulation avail.
-                throw new Exception(
-                    "Versions of IE6 or earlier is not supported.");
+                throw new Exception("Versions of IE6 or earlier is not supported.");
             }
             else if (ver == 7)
             {
@@ -87,8 +86,7 @@ namespace QSP.Utilities
         {
             try
             {
-                string version =
-                    Registry.GetValue(
+                string version = Registry.GetValue(
                         @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer",
                         "Version", "").ToString();
 
