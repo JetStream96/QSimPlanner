@@ -13,7 +13,7 @@ namespace QSP.WindAloft
         {
             var processes = Grib2ToCsv(WindManager.DownloadFilePath);
 
-            while (processes.Any(p => p.HasExited == false))
+            while (processes.Any(p => !p.HasExited))
             {
                 Thread.Sleep(100);
             }
@@ -31,8 +31,7 @@ namespace QSP.WindAloft
                 properties.FileName = @".\Degrib\degrib.exe";
 
                 // Command line arguments
-                properties.Arguments =
-                    $"-in {filepath} -C -msg {i} -Csv -out {filepathOut}";
+                properties.Arguments = $"-in {filepath} -C -msg {i} -Csv -out {filepathOut}";
 
                 properties.WindowStyle = ProcessWindowStyle.Hidden;
                 processes.Add(Process.Start(properties));

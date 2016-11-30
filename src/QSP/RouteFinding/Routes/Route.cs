@@ -213,9 +213,7 @@ namespace QSP.RouteFinding.Routes
 
         public bool Equals(Route other)
         {
-            return Enumerable.SequenceEqual(
-                this.Reverse().Skip(1),
-                other.Reverse().Skip(1)) &&
+            return this.Reverse().Skip(1).SequenceEqual(other.Reverse().Skip(1)) &&
                 LastWaypoint.Equals(other.LastWaypoint);
         }
     }

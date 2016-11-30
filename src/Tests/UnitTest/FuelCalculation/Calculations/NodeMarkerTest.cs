@@ -50,8 +50,7 @@ namespace UnitTest.FuelCalculation.Calculations
 
             var nodes = TransformNode(alts);
 
-            Assert.IsTrue(Enumerable.SequenceEqual(
-               new[] { 3, 6 }, ScIndices(nodes)));
+            Assert.IsTrue(new[] { 3, 6 }.SequenceEqual(ScIndices(nodes)));
         }
 
         private static IPlanNode[] TransformNode(double[] alts)

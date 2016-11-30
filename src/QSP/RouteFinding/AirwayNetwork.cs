@@ -183,20 +183,11 @@ namespace QSP.RouteFinding
         /// Returns whether the NATS has been downloaded or 
         /// imported from file.
         /// </summary>
-        public bool NatsLoaded
-        {
-            get { return NatsMessage != null; }
-        }
+        public bool NatsLoaded => NatsMessage != null;
 
-        public bool PacotsLoaded
-        {
-            get { return PacotsMessage != null; }
-        }
+        public bool PacotsLoaded => PacotsMessage != null;
 
-        public bool AusotsLoaded
-        {
-            get { return AusotsMessage != null; }
-        }
+        public bool AusotsLoaded => AusotsMessage != null;
 
         public NatsMessage NatsMessage
         {

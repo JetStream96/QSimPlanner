@@ -72,8 +72,7 @@ namespace QSP.WindAloft
         private struct FilePaths { public string UTable, VTable; }
 
         /// <exception cref="ReadWindFileException"></exception>
-        public static WindTable LoadFromFile(
-            string uFilePath, string vFilePath)
+        public static WindTable LoadFromFile(string uFilePath, string vFilePath)
         {
             var uTable = ImportWindTable(uFilePath);
             var vTable = ImportWindTable(vFilePath);

@@ -1,4 +1,4 @@
-using System;
+using static System.Math;
 using static QSP.MathTools.Doubles;
 using static QSP.MathTools.Modulo;
 
@@ -26,9 +26,8 @@ namespace QSP.WindAloft
 
         public static Wind FromUV(double uWind, double vWind)
         {
-            var Direction =
-                 -Math.Atan2(vWind, uWind) / Math.PI * 180.0 + 90 + 180;
-            var Speed = Math.Sqrt(uWind * uWind + vWind * vWind);
+            var Direction = -Atan2(vWind, uWind) / PI * 180.0 + 90 + 180;
+            var Speed = Sqrt(uWind * uWind + vWind * vWind);
             return new Wind(FitRange(Direction), Speed);
         }
 

@@ -20,9 +20,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return new RouteSegment(false, true, null);
         }
 
-        public RouteSegment(RouteString RouteString)
-            : this(false, false, RouteString)
-        { }
+        public RouteSegment(RouteString RouteString) : this(false, false, RouteString) { }
 
         private RouteSegment(bool IsAuto, bool IsRand,
             RouteString RouteString)

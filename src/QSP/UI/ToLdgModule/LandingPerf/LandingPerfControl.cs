@@ -222,8 +222,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             // set currentTable and controller
             if (tables != null && tables.Count > 0)
             {
-                var profileName =
-                      aircrafts
+                var profileName = aircrafts
                       .Find(regComboBox.Text)
                       .Config
                       .LdgProfile;

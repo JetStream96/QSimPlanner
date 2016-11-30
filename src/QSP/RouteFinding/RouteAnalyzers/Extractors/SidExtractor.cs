@@ -150,8 +150,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             var ids = wptList.FindAllById(ident);
             if (ids.Count == 0)
             {
-                throw new ArgumentException(
-                    $"Cannot find waypoint {ident}.");
+                throw new ArgumentException($"Cannot find waypoint {ident}.");
             }
 
             return ids

@@ -17,8 +17,7 @@ namespace QSP.WindAloft
         {
             using (var client = new WebClient())
             {
-                var mainPageSource = client.DownloadString(
-                    GribDownloader.HomePageUrl);
+                var mainPageSource = client.DownloadString(GribDownloader.HomePageUrl);
 
                 var urls = GetUrls(mainPageSource);
 

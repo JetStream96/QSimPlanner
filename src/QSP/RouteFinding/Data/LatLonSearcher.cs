@@ -66,8 +66,7 @@ namespace QSP.RouteFinding.Data
             this.polarRegionSize = polarRegionSize;
             this.equalComp = equalComp;
 
-            int latCount = (int)(
-                Math.Ceiling(180.0 - 2.0 * polarRegionSize) / gridSize);
+            int latCount = (int)(Math.Ceiling(180.0 - 2.0 * polarRegionSize) / gridSize);
             int lonCount = (int)(Math.Ceiling(360.0 / gridSize));
 
             content = new List<T>[latCount, lonCount];
@@ -335,37 +334,13 @@ namespace QSP.RouteFinding.Data
                 this.Y = Y;
             }
 
-            public static Grid NorthPole
-            {
-                get
-                {
-                    return new Grid(-1, 0);
-                }
-            }
+            public static Grid NorthPole =>new Grid(-1, 0);
 
-            public static Grid SouthPole
-            {
-                get
-                {
-                    return new Grid(-2, 0);
-                }
-            }
+            public static Grid SouthPole=> new Grid(-2, 0);
 
-            public bool IsNorthPole
-            {
-                get
-                {
-                    return X == -1 && Y == 0;
-                }
-            }
+            public bool IsNorthPole => X == -1 && Y == 0;
 
-            public bool IsSouthPole
-            {
-                get
-                {
-                    return X == -2 && Y == 0;
-                }
-            }
+            public bool IsSouthPole=> X == -2 && Y == 0;
         }
 
         private class VisitedList
@@ -423,6 +398,7 @@ namespace QSP.RouteFinding.Data
                 {
                     SetVisitedProperty(i, false);
                 }
+
                 changedItems.Clear();
             }
 

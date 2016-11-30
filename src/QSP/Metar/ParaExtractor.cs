@@ -14,8 +14,7 @@ namespace QSP.Metar
         /// </summary>
         public static Wind? GetWind(string metar)
         {
-            if (Regex.Match(metar,
-                @"\bVRB\d{1,3}(KTS?|MPS)\b").Success)
+            if (Regex.Match(metar, @"\bVRB\d{1,3}(KTS?|MPS)\b").Success)
             {
                 return new Wind(0.0, 0.0);
             }
@@ -36,6 +35,7 @@ namespace QSP.Metar
                 {
                     speed /= AviationTools.Constants.KnotMpsRatio;
                 }
+
                 return new Wind(direction, speed);
             }
 
@@ -65,10 +65,8 @@ namespace QSP.Metar
                     return int.Parse(val);
                 }
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
 
         /// <summary>
@@ -76,8 +74,7 @@ namespace QSP.Metar
         /// </summary>
         public static PressureSetting GetPressure(string metar)
         {
-            var match = Regex.Match(
-                metar, @"(^|\s)[AQ]\d{4}($|\s)", RegexOptions.Multiline);
+            var match = Regex.Match(metar, @"(^|\s)[AQ]\d{4}($|\s)", RegexOptions.Multiline);
 
             if (match.Success)
             {
@@ -95,16 +92,16 @@ namespace QSP.Metar
 
         public static bool PrecipitationExists(string metar)
         {
-		    /* prefix: 
+            /* prefix: 
 				"-",  // Light
 				"+",  // Heavy
 				"VC", // In vicinity
 				""	  // Moderate
 			*/
-			
-			var descriptor = new string[]
-			{
-				"MI", //  Shallow
+
+            var descriptor = new string[]
+            {
+                "MI", //  Shallow
 				"PR", //  Partial
 				"BC", //  Patches
 				"DR", //  Low Drifting
@@ -113,8 +110,8 @@ namespace QSP.Metar
 				"TS", //  Thunderstorm
 				"FZ", //  Freezing
                 "",
-			};
-			
+            };
+
             var precipitation = new string[]
             {
                 "DZ", // Drizzle
@@ -131,7 +128,7 @@ namespace QSP.Metar
             var patternPrefix = @"(-|\+|VC)?";
             var patternDescriptor = PatternMatchAny(descriptor);
             var patternPrecipitation = PatternMatchAny(precipitation);
-            var pattern = @"(^|\s)" + patternPrefix + patternDescriptor + 
+            var pattern = @"(^|\s)" + patternPrefix + patternDescriptor +
             patternPrecipitation + @"($|\s)";
 
             return Regex.Match(metar, pattern, RegexOptions.Multiline).Success;
@@ -139,8 +136,8 @@ namespace QSP.Metar
 
         public class PressureSetting
         {
-            public PressureUnit PressUnit { get; private set; }
-            public double Value { get; private set; }
+            public PressureUnit PressUnit { get; }
+            public double Value { get; }
 
             public PressureSetting(PressureUnit PressUnit, double Value)
             {

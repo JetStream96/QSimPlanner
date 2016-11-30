@@ -45,7 +45,7 @@ namespace QSP.RouteFinding.Containers
                 Airway == other.Airway &&
                 Distance == other.Distance &&
                 Type == other.Type &&
-                Enumerable.SequenceEqual(InnerWaypoints, other.InnerWaypoints);
+                InnerWaypoints.SequenceEqual(other.InnerWaypoints);
         }
 
         public override int GetHashCode()

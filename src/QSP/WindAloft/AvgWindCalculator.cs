@@ -12,8 +12,7 @@ namespace QSP.WindAloft
 {
     public class AvgWindCalculator
     {
-        private static readonly Vector3D DefaultLocation =
-            LatLonToVector3D(0.0, 0.0);
+        private static readonly Vector3D DefaultLocation = LatLonToVector3D(0.0, 0.0);
 
         public double Ktas { get; }
         public double AltitudeFt { get; }
@@ -22,10 +21,7 @@ namespace QSP.WindAloft
         private Vector3D v1;
         private Vector3D v2;
 
-        public AvgWindCalculator(
-            IWindTableCollection windData,
-            double Ktas,
-            double AltitudeFt)
+        public AvgWindCalculator(IWindTableCollection windData, double Ktas, double AltitudeFt)
         {
             this.windData = windData;
             this.Ktas = Ktas;
@@ -36,10 +32,7 @@ namespace QSP.WindAloft
         }
 
         // delta: in degrees
-        public double GetAirDistance(
-            ICoordinate point1,
-            ICoordinate point2,
-            double delta = 1.0)
+        public double GetAirDistance(ICoordinate point1, ICoordinate point2, double delta = 1.0)
         {
             if (point1.LatLonEquals(point2, 1E-5)) return 0.0;
 
@@ -52,8 +45,7 @@ namespace QSP.WindAloft
             double r = EarthRadiusNm * SafeAcos(v1.Dot(v2));
 
             // Total time required
-            double time = Integrate(
-                GetOneOverGS, 0.0, r, deltaAlpha * EarthRadiusNm);
+            double time = Integrate(GetOneOverGS, 0.0, r, deltaAlpha * EarthRadiusNm);
 
             return time * Ktas;
         }
@@ -62,7 +54,7 @@ namespace QSP.WindAloft
         private double GetOneOverGS(double r)
         {
             var v = GetV(v1, v2, r / EarthRadiusNm);
-            return 1.0 / GetGS(windData, AltitudeFt, Ktas,v1, v2, v);
+            return 1.0 / GetGS(windData, AltitudeFt, Ktas, v1, v2, v);
         }
     }
 }

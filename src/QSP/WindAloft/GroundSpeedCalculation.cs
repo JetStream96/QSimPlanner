@@ -22,8 +22,7 @@ namespace QSP.WindAloft
             Vector3D v)
         {
             var latLon = v.ToLatLon();
-            Vector3D wind = GetWind(
-                windData, altitudeFt, latLon.Lat, latLon.Lon);
+            Vector3D wind = GetWind(windData, altitudeFt, latLon.Lat, latLon.Lon);
             double windSpd = wind.R;
             var w = v.Equals(v2) ? -GetW(v, v1) : GetW(v, v2);
 
@@ -55,8 +54,7 @@ namespace QSP.WindAloft
             double cosLon = Cos(lon);
 
             var u1 = new Vector3D(-sinLon, cosLon, 0.0);
-            var u2 = new Vector3D(
-                -sinLat * cosLon, -sinLat * sinLon, Cos(lat));
+            var u2 = new Vector3D(-sinLat * cosLon, -sinLat * sinLon, Cos(lat));
 
             return u1 * w.UComp + u2 * w.VComp;
         }

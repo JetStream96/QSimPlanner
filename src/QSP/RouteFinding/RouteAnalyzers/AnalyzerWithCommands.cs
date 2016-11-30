@@ -131,7 +131,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private static LatLon ParseLatLon(string s)
         {
-            return Format5Letter.Parse(s) ?? 
+            return Format5Letter.Parse(s) ??
                 Format7Letter.Parse(s) ??
                 FormatDecimal.Parse(s);
         }
@@ -209,13 +209,11 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
                 if (i == 0)
                 {
-                    result[i] = ComputeTerminalRoute(
-                        route.RouteString, true, count == 1);
+                    result[i] = ComputeTerminalRoute(route.RouteString, true, count == 1);
                 }
                 else if (i == segments.Count - 1)
                 {
-                    result[i] = ComputeTerminalRoute(
-                        route.RouteString, false, true);
+                    result[i] = ComputeTerminalRoute(route.RouteString, false, true);
                 }
                 else
                 {
@@ -264,8 +262,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 .ToSubRoute();
         }
 
-        private IReadOnlyList<Route> ComputeCommands(
-            IReadOnlyList<SubRoute> analyzed)
+        private Route[] ComputeCommands(IReadOnlyList<SubRoute> analyzed)
         {
             int count = analyzed.Count;
             var result = new Route[count];
@@ -356,8 +353,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             }
         }
 
-        private WptPair GetStartEndWpts(IReadOnlyList<SubRoute> subRoutes,
-            int index)
+        private WptPair GetStartEndWpts(IReadOnlyList<SubRoute> subRoutes, int index)
         {
             var start = index == 0
                 ? origRwyWpt
