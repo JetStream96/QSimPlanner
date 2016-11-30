@@ -35,7 +35,7 @@ namespace QSP.TOPerfCalculation.Boeing
         {
             return new BoeingPerfTable(root.Elements("IndividualTable")
                                        .Select(x => ReadIndividualTable(x))
-                                       .ToArray());
+                                       .ToList());
         }
 
         public static Entry GetEntry(string path, XDocument doc)
@@ -112,8 +112,8 @@ namespace QSP.TOPerfCalculation.Boeing
                 AIEngClimb,
                 flaps,
                 thrustRatings.Count > 0,
-                derateTables.ToArray(),
-                thrustRatings.ToArray(),
+                derateTables,
+                thrustRatings,
                 new SlopeCorrTable(slopeCorrDry.x, slopeCorrDry.y, slopeCorrDry.f),
                 new SlopeCorrTable(SlopeCorrWet.x, SlopeCorrWet.y, SlopeCorrWet.f),
                 new WindCorrTable(windCorrDry.x, windCorrDry.y, windCorrDry.f),

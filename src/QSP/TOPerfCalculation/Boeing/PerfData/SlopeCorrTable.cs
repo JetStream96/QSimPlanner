@@ -1,4 +1,5 @@
-﻿using QSP.MathTools.Tables;
+﻿using System.Linq;
+using QSP.MathTools.Tables;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
@@ -23,14 +24,7 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         // Maps sloped corrected length into field length.
         private Table1D TableFieldLength(double slope)
         {
-            double[] fieldLength = new double[x.Length];
-
-            for (int i = 0; i < fieldLength.Length; i++)
-            {
-                fieldLength[i] = ValueAt(x[i], slope);
-            }
-
-            return new Table1D(fieldLength, x);
+            return new Table1D(x.Select(i => ValueAt(i, slope)).ToArray(), x);
         }        
     }
 }

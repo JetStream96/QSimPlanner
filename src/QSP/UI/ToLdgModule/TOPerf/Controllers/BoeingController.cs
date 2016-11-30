@@ -76,7 +76,7 @@ namespace QSP.UI.ToLdgModule.TOPerf.Controllers
             var thrustComboBox = elements.thrustRating;
             string text = thrustComboBox.Text;
             var table = ((BoeingPerfTable)acPerf.Item)
-                         .GetTable(elements.flaps.SelectedIndex);
+                         .Tables[elements.flaps.SelectedIndex];
 
             var items = thrustComboBox.Items;
             items.Clear();

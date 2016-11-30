@@ -11,8 +11,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
     [TestFixture]
     public class TOCalculatorTest
     {
-        private static BoeingPerfTable perfTable =
-            new PerfDataLoader()
+        private static BoeingPerfTable perfTable = new PerfDataLoader()
             .ReadTable(XDocument.Parse(new TestData().PerfXml).Root);
 
         [Test]
@@ -53,7 +52,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
                 Math.Cos(ToRadian(para.WindHeading - para.RwyHeading));
 
             double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
-            var table = perfTable.GetTable(para.FlapsIndex);
+            var table = perfTable.Tables[para.FlapsIndex];
 
             double correctedLength = table.WeightTableDry.CorrectedLengthRequired(
                 pressAlt, para.OatCelsius, wtTon);
@@ -100,7 +99,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
             double wtTon = (para.WeightKg + 2200.0 - 500.0) / 1000.0;
 
-            var table = perfTable.GetTable(para.FlapsIndex);
+            var table = perfTable.Tables[para.FlapsIndex];
 
             double correctedLength = table.WeightTableWet.CorrectedLengthRequired(
                 pressAlt, para.OatCelsius, wtTon);
@@ -138,7 +137,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             Assert.AreEqual(
                 ExpectedDistance1(
                     para,
-                    perfTable.GetTable(para.FlapsIndex)
+                    perfTable.Tables[para.FlapsIndex]
                     .AlternateThrustTables[para.ThrustRating - 1]
                     .EquivalentFullThrustWeight(
                         para.WeightKg / 1000.0,
@@ -169,7 +168,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
             double limitWt = calc.FieldLimitWeightTon();
 
-            double expectedLimitWt = perfTable.GetTable(para.FlapsIndex)
+            double expectedLimitWt = perfTable.Tables[para.FlapsIndex]
                     .AlternateThrustTables[para.ThrustRating - 1]
                     .CorrectedLimitWeight(ExpectedLimitWt1(para),
                     AlternateThrustTable.TableType.Dry);
@@ -179,21 +178,19 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
         private static double ExpectedLimitWt1(TOParameters para)
         {
-            var table = perfTable.GetTable(para.FlapsIndex);
+            var table = perfTable.Tables[para.FlapsIndex];
             double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
             double windSpd = para.WindSpeed *
                 Math.Cos(ToRadian(para.WindHeading - para.RwyHeading));
 
             double slopeCorrectedLength = table.SlopeCorrDry.CorrectedLength(
-                            para.RwyLengthMeter, para.RwySlope);
+                para.RwyLengthMeter, para.RwySlope);
 
             double windCorrectedLength = table.WindCorrDry.CorrectedLength(
-                        slopeCorrectedLength, windSpd);
+                slopeCorrectedLength, windSpd);
 
             return table.WeightTableDry.FieldLimitWeight(
-                        pressAlt,
-                        windCorrectedLength,
-                        para.OatCelsius);
+                pressAlt, windCorrectedLength, para.OatCelsius);
         }
 
         [Test]
@@ -221,21 +218,18 @@ namespace UnitTest.TOPerfCalculation.Boeing
 
             double wtWithPackCorrection = ExpectedClimbLimit1(para) + 1.7;
 
-            double expectedLimitWt = perfTable.GetTable(para.FlapsIndex)
+            double expectedLimitWt = perfTable.Tables[para.FlapsIndex]
                 .AlternateThrustTables[para.ThrustRating - 1]
-                .CorrectedLimitWeight(
-                wtWithPackCorrection, AlternateThrustTable.TableType.Climb);
+                .CorrectedLimitWeight(wtWithPackCorrection, AlternateThrustTable.TableType.Climb);
 
             Assert.AreEqual(expectedLimitWt, distanceMeter, 1E-7);
         }
 
         private static double ExpectedClimbLimit1(TOParameters para)
         {
-            var table = perfTable.GetTable(para.FlapsIndex);
+            var table = perfTable.Tables[para.FlapsIndex];
             double pressAlt = PressureAltitudeFt(para.RwyElevationFt, para.QNH);
-
-            return table.ClimbLimitWt
-                .ClimbLimitWeight(pressAlt, para.OatCelsius);
+            return table.ClimbLimitWt.ClimbLimitWeight(pressAlt, para.OatCelsius);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace QSP.TOPerfCalculation.Boeing
 
         public TOCalculator(BoeingPerfTable item, TOParameters para)
         {
-            table = item.GetTable(para.FlapsIndex);
+            table = item.Tables[para.FlapsIndex];
             this.para = para;
             SetTables();
         }

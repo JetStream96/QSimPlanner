@@ -17,9 +17,9 @@ namespace UnitTest.TOPerfCalculation.Boeing
             var allTables = new PerfDataLoader().ReadTable(
                  XDocument.Parse(data.PerfXml).Root);
 
-            Assert.AreEqual(1, allTables.Flaps.Length);
+            Assert.AreEqual(1, allTables.Flaps.Count);
 
-            var table = allTables.GetTable(0);
+            var table = allTables.Tables[0];
 
             Assert.AreEqual(500.0, table.PacksOffDry, delta);
             Assert.AreEqual(500.0, table.PacksOffWet, delta);
@@ -32,7 +32,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             Assert.AreEqual(2100.0, table.AIBothClimb, delta);
             Assert.IsTrue(table.Flaps == "5");
             Assert.IsTrue(table.AltnRatingAvail);
-            Assert.AreEqual(2, table.AlternateThrustTables.Length);
+            Assert.AreEqual(2, table.AlternateThrustTables.Count);
 
             Assert.IsTrue(table.AlternateThrustTables[0].Equals(
                 data.AltnThrustTables[0], delta));

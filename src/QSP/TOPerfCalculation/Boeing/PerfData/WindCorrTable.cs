@@ -1,4 +1,5 @@
-﻿using QSP.MathTools.Tables;
+﻿using System.Linq;
+using QSP.MathTools.Tables;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
@@ -26,14 +27,7 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         //
         private Table1D TableSlopeCorrLength(double headwindComponent)
         {
-            var slopeCorrLength = new double[x.Length];
-
-            for (int i = 0; i < slopeCorrLength.Length; i++)
-            {
-                slopeCorrLength[i] = ValueAt(x[i], headwindComponent);
-            }
-
-            return new Table1D(slopeCorrLength, x);
+            return new Table1D(x.Select(i => ValueAt(i, headwindComponent)).ToArray(), x);
         }
     }
 }

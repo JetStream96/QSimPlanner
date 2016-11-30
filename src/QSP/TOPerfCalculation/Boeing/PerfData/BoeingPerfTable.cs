@@ -1,22 +1,17 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
     public class BoeingPerfTable : PerfTableItem
     {
-        private IndividualPerfTable[] tables;
+        public IReadOnlyList<IndividualPerfTable> Tables { get; }
+        public IReadOnlyList<string> Flaps { get; }
 
-        public string[] Flaps { get; private set; }
-
-        public BoeingPerfTable(IndividualPerfTable[] tables)
+        public BoeingPerfTable(IReadOnlyList<IndividualPerfTable> Tables)
         {
-            this.tables = tables;
-            Flaps = tables.Select(x => x.Flaps).ToArray();
-        }
-
-        public IndividualPerfTable GetTable(int flapsIndex)
-        {
-            return tables[flapsIndex];
+            this.Tables = Tables;
+            Flaps = Tables.Select(x => x.Flaps).ToList();
         }
     }
 }

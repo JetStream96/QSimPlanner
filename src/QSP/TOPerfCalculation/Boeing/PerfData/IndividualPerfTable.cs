@@ -1,4 +1,6 @@
-﻿namespace QSP.TOPerfCalculation.Boeing.PerfData
+﻿using System.Collections.Generic;
+
+namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
     public class IndividualPerfTable
     {
@@ -8,29 +10,29 @@
 
         // Corrections for limit weights.
         // All in KG.
-        public double PacksOffDry { get; private set; }
-        public double PacksOffWet { get; private set; }
-        public double PacksOffClimb { get; private set; }
-        public double AIBothDry { get; private set; }
-        public double AIBothWet { get; private set; }
-        public double AIBothClimb { get; private set; }
-        public double AIEngDry { get; private set; }
-        public double AIEngWet { get; private set; }
-        public double AIEngClimb { get; private set; }
+        public double PacksOffDry { get; }
+        public double PacksOffWet { get; }
+        public double PacksOffClimb { get; }
+        public double AIBothDry { get; }
+        public double AIBothWet { get; }
+        public double AIBothClimb { get; }
+        public double AIEngDry { get; }
+        public double AIEngWet { get; }
+        public double AIEngClimb { get; }
         //
 
-        public string Flaps { get; private set; }
-        public bool AltnRatingAvail { get; private set; }
-        public AlternateThrustTable[] AlternateThrustTables { get; private set; }
-        public string[] ThrustRatings { get; private set; }
+        public string Flaps { get; }
+        public bool AltnRatingAvail { get; }
+        public IReadOnlyList<AlternateThrustTable> AlternateThrustTables { get; }
+        public IReadOnlyList<string> ThrustRatings { get; }
 
-        public SlopeCorrTable SlopeCorrDry { get; private set; }
-        public SlopeCorrTable SlopeCorrWet { get; private set; }
-        public WindCorrTable WindCorrDry { get; private set; }
-        public WindCorrTable WindCorrWet { get; private set; }
-        public FieldLimitWtTable WeightTableDry { get; private set; }
-        public FieldLimitWtTable WeightTableWet { get; private set; }
-        public ClimbLimitWtTable ClimbLimitWt { get; private set; }
+        public SlopeCorrTable SlopeCorrDry { get; }
+        public SlopeCorrTable SlopeCorrWet { get; }
+        public WindCorrTable WindCorrDry { get; }
+        public WindCorrTable WindCorrWet { get; }
+        public FieldLimitWtTable WeightTableDry { get; }
+        public FieldLimitWtTable WeightTableWet { get; }
+        public ClimbLimitWtTable ClimbLimitWt { get; }
 
         public IndividualPerfTable(
              double PacksOffDry,
@@ -44,8 +46,8 @@
              double AIEngClimb,
              string Flaps,
              bool AltnRatingAvail,
-             AlternateThrustTable[] AlternateThrustTables,
-             string[] ThrustRatings,
+             IReadOnlyList<AlternateThrustTable> AlternateThrustTables,
+             IReadOnlyList<string> ThrustRatings,
              SlopeCorrTable SlopeCorrDry,
              SlopeCorrTable SlopeCorrWet,
              WindCorrTable WindCorrDry,

@@ -13,7 +13,7 @@ namespace QSP.TOPerfCalculation.Boeing
         public TOReportGenerator(BoeingPerfTable item, TOParameters para)
         {
             calc = new TOCalculator(item, para);
-            table = item.GetTable(para.FlapsIndex);
+            table = item.Tables[para.FlapsIndex];
             this.para = para;
         }
 
