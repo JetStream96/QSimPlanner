@@ -5,20 +5,11 @@ namespace QSP.MathTools
 {
     public static class Doubles
     {
-        public static bool IsInteger(double x, double epsilon)
-        {
-            return Abs(x % 1) < epsilon;
-        }
+        public static bool IsInteger(double x, double epsilon) => Abs(x % 1) < epsilon;
 
-        public static int RoundToInt(double x)
-        {
-            return (int)Round(x);
-        }
+        public static int RoundToInt(double x) => (int)Round(x);
 
-        public static int FloorInt(double x)
-        {
-            return (int)Floor(x);
-        }
+        public static int FloorInt(double x) => (int)Floor(x);
 
         /// <summary>
         /// To prevent rounding errors from causing troubles when evaluating

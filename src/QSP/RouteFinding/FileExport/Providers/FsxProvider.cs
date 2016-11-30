@@ -58,9 +58,7 @@ namespace QSP.RouteFinding.FileExport.Providers
             destNode.SetAttributeValue("id", destIcao);
 
             var waypoints = route.Select(n => n.Waypoint).ToArray();
-            var wptNodes = waypoints
-                .SubArray(1, waypoints.Length - 2)
-                .Select(GetWaypointNode);
+            var wptNodes = waypoints.WithoutFirstAndLast().Select(GetWaypointNode);
 
             var flightPlanChild = new XElement[]
             {
@@ -114,7 +112,7 @@ namespace QSP.RouteFinding.FileExport.Providers
 
             if (alt[0] != '-') alt = '+' + alt;
             alt = alt[0] + alt.Substring(1).PadLeft(9, '0');
-            
+
             return lat + ',' + lon + ',' + alt;
         }
     }

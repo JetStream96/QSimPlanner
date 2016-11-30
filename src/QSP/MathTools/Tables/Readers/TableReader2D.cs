@@ -31,7 +31,7 @@ namespace QSP.MathTools.Tables.Readers
                 else if (currentLine.Length >= 2)
                 {
                     x.Add(double.Parse(currentLine[0]));
-                    f.Add(currentLine.SubArray(1).ToDoubles());
+                    f.Add(currentLine.Skip(1).ToDoubles());
                 }
             }
         }

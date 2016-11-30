@@ -135,6 +135,7 @@
     <Compile Include="LibraryExtension\BiDictionary.cs" />
     <Compile Include="LibraryExtension\FileNameGenerator.cs" />
     <Compile Include="LibraryExtension\IOMethods.cs" />
+    <Compile Include="LibraryExtension\IReadOnlyLists.cs" />
     <Compile Include="LibraryExtension\LinkedLists.cs" />
     <Compile Include="LibraryExtension\Locator.cs" />
     <Compile Include="LibraryExtension\Regexes.cs" />
@@ -303,7 +304,6 @@
     <Compile Include="LibraryExtension\JaggedArrays\LengthChecker.cs" />
     <Compile Include="LibraryExtension\Paths.cs" />
     <Compile Include="MathTools\Angles.cs" />
-    <Compile Include="MathTools\Constants.cs" />
     <Compile Include="MathTools\Doubles.cs" />
     <Compile Include="MathTools\Interpolation\Common.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate1D.cs" />
