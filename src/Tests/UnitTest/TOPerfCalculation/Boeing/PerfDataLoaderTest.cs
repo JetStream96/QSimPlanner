@@ -2,6 +2,7 @@
 using QSP.TOPerfCalculation.Boeing;
 using System.Linq;
 using System.Xml.Linq;
+using QSP.MathTools.TablesNew;
 
 namespace UnitTest.TOPerfCalculation.Boeing
 {
@@ -39,10 +40,9 @@ namespace UnitTest.TOPerfCalculation.Boeing
             Assert.IsTrue(table.AlternateThrustTables[1].Equals(
                 data.AltnThrustTables[1], delta));
 
-            Assert.IsTrue(Enumerable.SequenceEqual(table.ThrustRatings,
-                new string[] { "TO", "TO1", "TO2" }));
+            Assert.IsTrue(table.ThrustRatings.SequenceEqual(new[] { "TO", "TO1", "TO2" }));
 
-            Assert.IsTrue(table.SlopeCorrDry.Equals(data.SlopeCorrDry, delta));
+            Assert.IsTrue(ITableExtension.Equals(table.SlopeCorrDry, data.SlopeCorrDry, delta));
             Assert.IsTrue(table.SlopeCorrWet.Equals(data.SlopeCorrWet, delta));
             Assert.IsTrue(table.WindCorrDry.Equals(data.WindCorrDry, delta));
             Assert.IsTrue(table.WindCorrWet.Equals(data.WindCorrWet, delta));

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using QSP.MathTools.TablesNew;
 
 namespace QSP.MathTools.Tables.Readers
 {
@@ -10,7 +11,7 @@ namespace QSP.MathTools.Tables.Readers
         private static char[] spaces = new char[] { ' ', '\t' };
 
         // See unit test for examples.
-        public static Table2D Read(string source)
+        public static Table Read(string source)
         {
             var lines = source.Lines();
 
@@ -26,7 +27,7 @@ namespace QSP.MathTools.Tables.Readers
 
                 if (currentLine == null)
                 {
-                    return new Table2D(x.ToArray(), y.ToArray(), f.ToArray());
+                    return TableBuilder.Build2D(x, y, f);
                 }
                 else if (currentLine.Length >= 2)
                 {
@@ -40,15 +41,9 @@ namespace QSP.MathTools.Tables.Readers
         {
             while (lineNum < lines.Length)
             {
-                var words = lines[lineNum].Split(
-                    spaces, StringSplitOptions.RemoveEmptyEntries);
-
+                var words = lines[lineNum].Split(spaces, StringSplitOptions.RemoveEmptyEntries);
                 lineNum++;
-
-                if (words.Length > 0)
-                {
-                    return words;
-                }
+                if (words.Length > 0) return words;
             }
 
             return null;

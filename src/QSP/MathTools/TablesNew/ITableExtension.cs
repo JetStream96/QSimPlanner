@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using QSP.LibraryExtension;
+﻿using QSP.LibraryExtension;
+using static System.Math;
 
 namespace QSP.MathTools.TablesNew
 {
@@ -7,13 +7,11 @@ namespace QSP.MathTools.TablesNew
     {
         public static bool Equals(this ITable x, ITable y, double delta = 0.0)
         {
-            if (x.Dimension != y.Dimension ||
-                !DoubleArrayCompare.Equals(x.XValues, y.XValues, delta))
-            {
-                return false;
-            }
+            if (x.Dimension != y.Dimension) return false;
 
-            if (x.Dimension == 0) return true;
+            // Both are doubles.
+            if (x.Dimension == 0) return Abs(x.ValueAt(null) - y.ValueAt(null)) <= delta;
+            if (!DoubleArrayCompare.Equals(x.XValues, y.XValues, delta)) return false;
 
             for (int i = 0; i < x.FValues.Count; i++)
             {
