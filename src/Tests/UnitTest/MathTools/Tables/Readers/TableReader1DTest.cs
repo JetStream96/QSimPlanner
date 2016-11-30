@@ -64,8 +64,8 @@ namespace UnitTest.MathTools.Tables.Readers
             var result = TableReader1D.Read(s, double.Parse, customParser);
 
             var expected = new Table1D(
-               new double[] { 10.0, 15.0 },
-               new double[] { 9.0, 81.0 });
+               new [] { 10.0, 15.0 },
+               new [] { 9.0, 81.0 });
 
             Assert.IsTrue(result.Equals(expected, delta));
         }
@@ -75,8 +75,8 @@ namespace UnitTest.MathTools.Tables.Readers
             var table = TableReader1D.Read(source);
 
             var expected = new Table1D(
-                new double[] { 1500.0, 1600.0, 1800.0 },
-                new double[] { 51.2, 52.8, 55.9 });
+                new [] { 1500.0, 1600.0, 1800.0 },
+                new [] { 51.2, 52.8, 55.9 });
 
             Assert.IsTrue(table.Equals(expected, delta));
         }

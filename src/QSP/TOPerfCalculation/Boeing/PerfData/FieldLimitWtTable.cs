@@ -13,13 +13,7 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
             : base(pressAlts, correctedLengths, oats, fieldLimWt)
         { }
 
-        public double MaxOat
-        {
-            get
-            {
-                return z.Last();
-            }
-        }
+        public double MaxOat => z.Last();
 
         // All weights in ton.
         public double FieldLimitWeight(double pressAlt, double correctedLength, double oat)
@@ -27,9 +21,7 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
             return ValueAt(pressAlt, correctedLength, oat);
         }
 
-        public double CorrectedLengthRequired(double altFt,
-                                              double oat,
-                                              double fieldLimitWtTon)
+        public double CorrectedLengthRequired(double altFt, double oat, double fieldLimitWtTon)
         {
             return TableComputeRwyRequired(altFt, oat).ValueAt(fieldLimitWtTon);
         }
@@ -37,14 +29,8 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         // A table maps TO weights (ton) to rwy length required.
         private Table1D TableComputeRwyRequired(double altitudeFt, double oat)
         {
-            double[] weights = new double[y.Length];
-
-            for (int i = 0; i < weights.Length; i++)
-            {
-                weights[i] = FieldLimitWeight(altitudeFt, y[i], oat);
-            }
-
+            double[] weights = y.Select(i => FieldLimitWeight(altitudeFt, i, oat)).ToArray();
             return new Table1D(weights, y);
-        }        
+        }
     }
 }

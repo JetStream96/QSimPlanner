@@ -10,8 +10,8 @@ namespace UnitTest.MathTools.Tables
         [Test]
         public void ValidateTest()
         {
-            var table = new Table1D(new double[] { 3.0, 4.0, 5.0 },
-                new double[] { 8.0, -7.5, 1.35 });
+            var table = new Table1D(new[] { 3.0, 4.0, 5.0 },
+                new[] { 8.0, -7.5, 1.35 });
 
             table.Validate();
         }
@@ -21,10 +21,9 @@ namespace UnitTest.MathTools.Tables
         {
             Assert.Throws<ArgumentException>(() =>
             {
-                var table =
-                    new Table1D(
-                        new double[] { 3.0, 4.0, 5.0 },
-                        new double[] { 8.0, -7.5 });
+                var table = new Table1D(
+                        new[] { 3.0, 4.0, 5.0 },
+                        new[] { 8.0, -7.5 });
 
                 table.Validate();
             });

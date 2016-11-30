@@ -26,8 +26,7 @@ namespace QSP.MathTools.Tables
 
         public double ValueAt(double x, double y, double z)
         {
-            return Interpolate3D.Interpolate(
-                this.x, this.y, this.z, x, y, z, f);
+            return Interpolate3D.Interpolate(this.x, this.y, this.z, x, y, z, f);
         }
 
         public bool Equals(Table3D item, double delta)

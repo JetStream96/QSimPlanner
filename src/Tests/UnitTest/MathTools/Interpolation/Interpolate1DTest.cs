@@ -10,8 +10,7 @@ namespace UnitTest.MathTools.Interpolation
         [Test]
         public void X0X1AreTheSameThrowException()
         {
-            Assert.Throws<ArgumentException>(() =>
-            Interpolate(10.0, 10.0, 3, 5, 10.0));
+            Assert.Throws<ArgumentException>(() => Interpolate(10.0, 10.0, 3, 5, 10.0));
         }
 
         [Test]
@@ -30,8 +29,8 @@ namespace UnitTest.MathTools.Interpolation
         public void InterpolateTest2()
         {
             Assert.AreEqual(12.2,
-                            Interpolate(new double[] { 3.0, 5.0, 7.0, 9.0 },
-                                        new double[] { -9.0, -1.0, 12.0, 14.0 },
+                            Interpolate(new[] { 3.0, 5.0, 7.0, 9.0 },
+                                        new[] { -9.0, -1.0, 12.0, 14.0 },
                                         7.2),
                             1E-6);
         }
@@ -40,8 +39,8 @@ namespace UnitTest.MathTools.Interpolation
         public void InterpolateTest3()
         {
             Assert.AreEqual(12.2,
-                            Interpolate(new double[] { 3.0, 5.0, 7.0, 9.0 },
-                                        new double[] { -9.0, -1.0, 12.0, 14.0 },
+                            Interpolate(new[] { 3.0, 5.0, 7.0, 9.0 },
+                                        new[] { -9.0, -1.0, 12.0, 14.0 },
                                         2,
                                         7.2),
                             1E-6);

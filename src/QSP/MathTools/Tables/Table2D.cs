@@ -8,9 +8,9 @@ namespace QSP.MathTools.Tables
 {
     public class Table2D
     {
-        public double[] x { get; set; }
-        public double[] y { get; set; }
-        public double[][] f { get; set; }
+        public double[] x { get; }
+        public double[] y { get; }
+        public double[][] f { get; }
 
         /// <exception cref="ArgumentException"></exception>
         public Table2D(double[] x, double[] y, double[][] f)
@@ -26,7 +26,7 @@ namespace QSP.MathTools.Tables
         {
             return Interpolate2D.Interpolate(this.x, this.y, x, y, f);
         }
-        
+
         public bool Equals(Table2D item, double delta)
         {
             return DoubleArrayCompare.Equals(x, item.x, delta) &&

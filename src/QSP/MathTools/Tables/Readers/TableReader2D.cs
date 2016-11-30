@@ -40,15 +40,9 @@ namespace QSP.MathTools.Tables.Readers
         {
             while (lineNum < lines.Length)
             {
-                var words = lines[lineNum].Split(
-                    spaces, StringSplitOptions.RemoveEmptyEntries);
-
+                var words = lines[lineNum].Split(spaces, StringSplitOptions.RemoveEmptyEntries);
                 lineNum++;
-
-                if (words.Length > 0)
-                {
-                    return words;
-                }
+                if (words.Length > 0) return words;
             }
 
             return null;
