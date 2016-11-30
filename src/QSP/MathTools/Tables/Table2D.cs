@@ -24,7 +24,7 @@ namespace QSP.MathTools.Tables
 
         public double ValueAt(double x, double y)
         {
-            return Interpolate2D.Interpolate(this.x, this.y, x, y, f);
+            return Interpolate2D.Interpolate(this.x, this.y, f, x, y);
         }
 
         public bool Equals(Table2D item, double delta)

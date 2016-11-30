@@ -2,8 +2,8 @@
 {
     public static class Interpolate2D
     {
-        public static double Interpolate(double[] xArray, double[] yArray,
-                                         double x, double y, double[][] f)
+        public static double Interpolate(double[] xArray, double[] yArray, double[][] f, 
+            double x, double y)
         {
             int xi = Common.GetIndex(xArray, x);
             double f0 = Interpolate1D.Interpolate(yArray, f[xi], y);

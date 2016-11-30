@@ -2,12 +2,12 @@
 {
     public static class Interpolate3D
     {
-        public static double Interpolate(double[] xArray, double[] yArray, double[] zArray,
-                                         double x, double y, double z, double[][][] f)
+        public static double Interpolate(double[] xArray, double[] yArray, double[] zArray, 
+            double[][][] f, double x, double y, double z)
         {
             int xi = Common.GetIndex(xArray, x);
-            double f0 = Interpolate2D.Interpolate(yArray, zArray, y, z, f[xi]);
-            double f1 = Interpolate2D.Interpolate(yArray, zArray, y, z, f[xi + 1]);
+            double f0 = Interpolate2D.Interpolate(yArray, zArray, f[xi], y, z);
+            double f1 = Interpolate2D.Interpolate(yArray, zArray, f[xi + 1], y, z);
             return Interpolate1D.Interpolate(xArray[xi], xArray[xi + 1], f0, f1, x);
         }
     }

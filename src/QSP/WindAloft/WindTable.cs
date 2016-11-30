@@ -45,8 +45,6 @@ namespace QSP.WindAloft
             return Interpolate2D.Interpolate(
                 new double[] {x, x + 1},
                 new double[] {y, y + 1},
-                x,
-                y,
                 new[]
                 {
                     new[]
@@ -59,7 +57,7 @@ namespace QSP.WindAloft
                         GetWindHelper(x + 1, y, para),
                         GetWindHelper(x + 1, y + 1, para)
                     }
-                });
+                }, x, y);
         }
 
         private double GetWindHelper(int lat, int lon, TableOption para)

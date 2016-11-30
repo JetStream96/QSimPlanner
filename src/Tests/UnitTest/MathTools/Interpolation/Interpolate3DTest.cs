@@ -28,8 +28,7 @@ namespace UnitTest.MathTools.Interpolation
             Assert.AreEqual(1.1607142857,
                             Interpolate(new[] { 6.5, 10.5 },
                                         new[] { 4.0, 5.0, 6.0 },
-                                        new[] { -1.0, 1.0, 8.0 },
-                                        8.0, 6.5, 6.0, a),
+                                        new[] { -1.0, 1.0, 8.0 }, a, 8.0, 6.5, 6.0),
                             1E-6);
         }
     }
