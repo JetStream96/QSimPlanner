@@ -1,28 +1,19 @@
-﻿using System.Linq;
-using QSP.MathTools.TablesNew;
+﻿using QSP.MathTools.Tables;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
-    public class WindCorrTable
+    public class WindCorrTable : Table2D
     {
-        public Table Table;
-
-        public WindCorrTable(Table Table)
-        {
-            this.Table = Table;
-        }
-
         public WindCorrTable(
             double[] slopeCorrectedLengths,
             double[] winds,
             double[][] windCorrectedLength)
-        {
-            Table = TableBuilder.Build2D(slopeCorrectedLengths, winds, windCorrectedLength);
-        }
+            : base(slopeCorrectedLengths, winds, windCorrectedLength)
+        { }
 
         public double CorrectedLength(double slopeCorrectedLength, double wind)
         {
-            return Table.ValueAt(slopeCorrectedLength, wind);
+            return ValueAt(slopeCorrectedLength, wind);
         }
 
         public double SlopeCorrectedLength(double headwind, double WindAndSlopeCorrectedLength)
@@ -33,11 +24,16 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         // A table maps (Wind and slope corrected runway length) to 
         // (Slope corrected runway length).
         //
-        private Table TableSlopeCorrLength(double headwindComponent)
+        private Table1D TableSlopeCorrLength(double headwindComponent)
         {
-            var slopeCorrLengths = Table.XValues;
-            var windCorrLengths = slopeCorrLengths.Select(x => Table.ValueAt(x, headwindComponent));
-            return TableBuilder.Build1D(windCorrLengths.ToList(), slopeCorrLengths);
+            var slopeCorrLength = new double[x.Length];
+
+            for (int i = 0; i < slopeCorrLength.Length; i++)
+            {
+                slopeCorrLength[i] = ValueAt(x[i], headwindComponent);
+            }
+
+            return new Table1D(slopeCorrLength, x);
         }
     }
 }

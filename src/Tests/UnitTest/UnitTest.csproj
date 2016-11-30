@@ -73,11 +73,9 @@
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
     <Compile Include="LibraryExtension\ListsTest.cs" />
     <Compile Include="LibraryExtension\RegexesTest.cs" />
-    <Compile Include="LibraryExtension\SliceTest.cs" />
     <Compile Include="MathTools\IntergersTest.cs" />
     <Compile Include="MathTools\ModuloTest.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1DTest.cs" />
-    <Compile Include="MathTools\TableTest.cs" />
     <Compile Include="RouteFinding\Airports\AirportManagerTest.cs" />
     <Compile Include="RouteFinding\AirwayNodeFinderTest.cs" />
     <Compile Include="AviationTools\Coordinates\Format5LetterTest.cs" />

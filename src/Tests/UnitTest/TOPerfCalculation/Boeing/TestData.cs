@@ -160,110 +160,130 @@ namespace UnitTest.TOPerfCalculation.Boeing
                 return new AlternateThrustTable[]
                 {
                     new AlternateThrustTable(
-                        new[] { 160.0, 180.0 },
-                        new[] { 151.5, 170.2 },
-                        new[] { 152.2, 170.5 },
-                        new[] { 145.1, 162.5 }),
+                        new double[] { 160, 180 },
+                        new double[] { 151.5, 170.2 },
+                        new double[] { 152.2, 170.5 },
+                        new double[] { 145.1, 162.5 }),
 
                     new AlternateThrustTable(
-                        new[] { 160.0, 180.0 },
-                        new[] { 142.6, 159.8 },
-                        new[] { 144.3, 161.4 },
-                        new[] { 128.5, 144.1 })
+                        new double[] { 160, 180 },
+                        new double[] { 142.6, 159.8 },
+                        new double[] { 144.3, 161.4 },
+                        new double[] { 128.5, 144.1 })
                 };
             }
         }
 
-        public SlopeCorrTable SlopeCorrDry => _slopeCorrDry;
-        private SlopeCorrTable _slopeCorrDry = new SlopeCorrTable(
-            new[] { 4200.0, 4600.0 },
-            new[] { -2.0, -1.5 },
-            new[]
+        private SlopeCorrTable _slopeCorrDry =
+            new SlopeCorrTable(
+                    new double[] { 4200, 4600 },
+                    new double[] { -2.0, -1.5 },
+                    new double[][]
+                    {
+                        new double[]{4370,4330},
+                        new double[]{4810,4760}
+                    }
+                );
+
+        public SlopeCorrTable SlopeCorrDry { get { return _slopeCorrDry; } }
+
+        private SlopeCorrTable _slopeCorrWet =
+           new SlopeCorrTable(
+                    new double[] { 4200, 4600 },
+                    new double[] { -2.0, -1.5 },
+                    new double[][]
+                    {
+                        new double[]{4380,4330},
+                        new double[]{4820,4760}
+                    }
+                );
+
+        public SlopeCorrTable SlopeCorrWet { get { return _slopeCorrWet; } }
+
+        private SlopeCorrTable _windCorrDry =
+            new SlopeCorrTable(
+                    new double[] { 4200, 4600 },
+                    new double[] { -15.0, -10.0 },
+                    new double[][]
+                    {
+                        new double[]{ 3120, 3480},
+                        new double[]{ 3460, 3840}
+                    }
+                );
+
+        public SlopeCorrTable WindCorrDry { get { return _windCorrDry; } }
+
+        private SlopeCorrTable _windCorrWet =
+           new SlopeCorrTable(
+                    new double[] { 4200, 4600 },
+                    new double[] { -15.0, -10.0 },
+                    new double[][]
+                    {
+                        new double[]{ 3030, 3420 },
+                        new double[]{ 3370, 3780 }
+                    }
+                );
+
+        public SlopeCorrTable WindCorrWet { get { return _windCorrWet; } }
+
+        private FieldLimitWtTable _wtTableDry =
+            new FieldLimitWtTable(
+                    new double[] { 0, 2000 },
+                    new double[] { 5550, 5800 },
+                    new double[] { -40, 14 },
+
+                    new double[][][]
+                    {
+                        new double[][]
+                        {
+                            new double[]{280.1,252.3},
+                            new double[]{287.3,258.8}
+                        },
+                        new double[][]
+                        {
+                            new double[]{262.6,239.1},
+                            new double[]{269.4,245.3}
+                        }
+                    });
+
+        public FieldLimitWtTable WtTableDry { get { return _wtTableDry; } }
+
+        private FieldLimitWtTable _wtTableWet =
+            new FieldLimitWtTable(
+                    new double[] { 0, 2000 },
+                    new double[] { 7340, 7400 },
+                    new double[] { -40, 14 },
+
+                    new double[][][]
+                    {
+                        new double[][]
+                        {
+                            new double[]{320.9, 286.8},
+                            new double[]{323.4, 289.2}
+                        },
+                        new double[][]
+                        {
+                            new double[]{299.2, 270.7},
+                            new double[]{301.6,273.0}
+                        }
+                    });
+
+        public FieldLimitWtTable WtTableWet { get { return _wtTableWet; } }
+
+        public ClimbLimitWtTable ClimbLimTable
+        {
+            get
             {
-                new[]{ 4370.0, 4330.0},
-                new[]{ 4810.0, 4760.0}
-            });
-
-
-        public SlopeCorrTable SlopeCorrWet => _slopeCorrWet;
-        private SlopeCorrTable _slopeCorrWet = new SlopeCorrTable(
-            new[] { 4200.0, 4600.0 },
-            new[] { -2.0, -1.5 },
-            new[]
-            {
-                new[]{ 4380.0, 4330.0 },
-                new[]{ 4820.0, 4760.0 }
-            });
-
-        public WindCorrTable WindCorrDry => _windCorrDry;
-        private WindCorrTable _windCorrDry = new WindCorrTable(
-            new[] { 4200.0, 4600.0 },
-            new[] { -15.0, -10.0 },
-            new[]
-            {
-                new[] { 3120.0, 3480.0 },
-                new[] { 3460.0, 3840.0 }
-            });
-
-        public WindCorrTable WindCorrWet => _windCorrWet;
-        private WindCorrTable _windCorrWet = new WindCorrTable(
-            new[] { 4200.0, 4600.0 },
-            new[] { -15.0, -10.0 },
-            new[]
-            {
-                new[] { 3030.0, 3420.0 },
-                new[] { 3370.0, 3780.0 }
-            });
-
-        public FieldLimitWtTable WtTableDry => _wtTableDry;
-        private FieldLimitWtTable _wtTableDry = new FieldLimitWtTable(
-            new[] { 0.0, 2000.0 },
-            new[] { 5550.0, 5800.0 },
-            new[] { -40.0, 14.0 },
-
-            new[]
-            {
-                new[]
-                {
-                    new[]{ 280.1, 252.3 },
-                    new[]{ 287.3, 258.8 }
-                },
-                new[]
-                {
-                    new[]{ 262.6, 239.1 },
-                    new[]{ 269.4, 245.3 }
-                }
-            });
-
-        private FieldLimitWtTable _wtTableWet = new FieldLimitWtTable(
-            new[] { 0.0, 2000.0 },
-            new[] { 7340.0, 7400.0 },
-            new[] { -40.0, 14.0 },
-
-            new[]
-            {
-                new[]
-                {
-                    new[]{320.9, 286.8},
-                    new[]{323.4, 289.2}
-                },
-                new[]
-                {
-                    new[]{299.2, 270.7},
-                    new[]{301.6,273.0}
-                }
-            });
-
-        public FieldLimitWtTable WtTableWet => _wtTableWet;
-
-        public ClimbLimitWtTable ClimbLimTable => new ClimbLimitWtTable(
-            new[] { 0.0, 2000.0 },
-            new[] { -40.0, 14.0 },
-            new[]
-            {
-                new[] { 351.5, 350.9 },
-                new[] { 335.7, 335.5 }
-            });
+                return new ClimbLimitWtTable(
+                    new double[] { 0, 2000 },
+                    new double[] { -40, 14 },
+                    new double[][]
+                    {
+                        new double[] { 351.5, 350.9 },
+                        new double[] { 335.7, 335.5 }
+                    });
+            }
+        }
 
         public TestData()
         {
@@ -276,7 +296,8 @@ namespace UnitTest.TOPerfCalculation.Boeing
         }
 
 
-        private void CovertUnitSlopeOrWindCorrTable(Table2D item, bool lengthUnitIsMeter)
+        private void CovertUnitSlopeOrWindCorrTable(Table2D item,
+            bool lengthUnitIsMeter)
         {
             if (lengthUnitIsMeter == false)
             {

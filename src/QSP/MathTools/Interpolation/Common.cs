@@ -1,25 +1,23 @@
-﻿using System.Collections.Generic;
-
-namespace QSP.MathTools.Interpolation
+﻿namespace QSP.MathTools.Interpolation
 {
     public static class Common
     {
-        public static int GetIndex(IReadOnlyList<double> array, double value)
+        public static int GetIndex(double[] array, double value)
         {
             if (array[1] > array[0]) return GetIndexIncreasing(array, value);
             return GetIndexDecreasing(array, value);
         }
 
-        // TODO: Not the best solution. 
+        // Not the fastest solution. 
         // Use binary search if performance is a concern.
-        private static int GetIndexIncreasing(IReadOnlyList<double> array, double value)
+        private static int GetIndexIncreasing(double[] array, double value)
         {
             if (value <= array[0])
             {
                 return 0;
             }
 
-            int len = array.Count;
+            int len = array.Length;
 
             for (int i = 0; i < len - 1; i++)
             {
@@ -31,14 +29,14 @@ namespace QSP.MathTools.Interpolation
             return len - 2;
         }
 
-        private static int GetIndexDecreasing(IReadOnlyList<double> array, double value)
+        private static int GetIndexDecreasing(double[] array, double value)
         {
             if (value >= array[0])
             {
                 return 0;
             }
 
-            int len = array.Count;
+            int len = array.Length;
 
             for (int i = 0; i < len - 1; i++)
             {

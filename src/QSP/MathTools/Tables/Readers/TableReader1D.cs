@@ -1,5 +1,4 @@
 ﻿using QSP.LibraryExtension;
-using QSP.MathTools.TablesNew;
 using System;
 using System.Collections.Generic;
 
@@ -9,13 +8,13 @@ namespace QSP.MathTools.Tables.Readers
     {
         private static char[] spaces = new char[] { ' ', '\t' };
 
-        public static Table Read(string text)
+        public static Table1D Read(string text)
         {
             return Read(text, double.Parse, double.Parse);
         }
 
         // See unit test for examples.
-        public static Table Read(
+        public static Table1D Read(
             string text, Func<string, double> xParser, Func<string, double> fParser)
         {
             var lines = text.Lines();
@@ -33,7 +32,7 @@ namespace QSP.MathTools.Tables.Readers
                 }
             }
 
-            return TableBuilder.Build1D(x, f);
+            return new Table1D(x.ToArray(), f.ToArray());
         }
     }
 }

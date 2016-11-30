@@ -1,16 +1,16 @@
 ﻿using QSP.LibraryExtension;
 using QSP.LibraryExtension.JaggedArrays;
-using QSP.LibraryExtension.XmlSerialization;
 using QSP.MathTools.Tables;
 using QSP.MathTools.Tables.Readers;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using QSP.LibraryExtension.XmlSerialization;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.Arrays;
+using System.IO;
 
 namespace QSP.TOPerfCalculation.Boeing
 {
@@ -114,10 +114,10 @@ namespace QSP.TOPerfCalculation.Boeing
                 thrustRatings.Count > 0,
                 derateTables.ToArray(),
                 thrustRatings.ToArray(),
-                new SlopeCorrTable(slopeCorrDry),
-                new SlopeCorrTable(SlopeCorrWet),
-                new WindCorrTable(windCorrDry),
-                new WindCorrTable(WindCorrWet),
+                new SlopeCorrTable(slopeCorrDry.x, slopeCorrDry.y, slopeCorrDry.f),
+                new SlopeCorrTable(SlopeCorrWet.x, SlopeCorrWet.y, SlopeCorrWet.f),
+                new WindCorrTable(windCorrDry.x, windCorrDry.y, windCorrDry.f),
+                new WindCorrTable(WindCorrWet.x, WindCorrWet.y, WindCorrWet.f),
                 WeightTableDry,
                 WeightTableWet,
                 ClimbLimitWt);
@@ -135,8 +135,8 @@ namespace QSP.TOPerfCalculation.Boeing
             var fieldLimTables = wtTables.Select(
                 x => TableReader2D.Read(x.Element("Table").Value));
 
-            var lengths = fieldLimTables.First().XValues;
-            var oats = fieldLimTables.First().FValues[0].XValues;
+            var lengths = fieldLimTables.First().x;
+            var oats = fieldLimTables.First().y;
             var fieldlimitWt = fieldLimTables.Select(t => t.f).ToArray();
 
             double[][] climbLimWt = GetClimbLimit(wtTables);

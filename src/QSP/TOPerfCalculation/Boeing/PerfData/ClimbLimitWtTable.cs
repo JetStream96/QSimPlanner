@@ -1,19 +1,16 @@
-﻿using QSP.MathTools.TablesNew;
+﻿using QSP.MathTools.Tables;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
-    public class ClimbLimitWtTable
+    public class ClimbLimitWtTable : Table2D
     {
-        private readonly Table table;
-
         public ClimbLimitWtTable(double[] altitudes, double[] oat, double[][] climbLimWt)
-        {
-            table = TableBuilder.Build2D(altitudes, oat, climbLimWt);
-        }
+            : base(altitudes, oat, climbLimWt)
+        { }
 
         public double ClimbLimitWeight(double altFt, double oat)
         {
-            return table.ValueAt(altFt, oat);
+            return ValueAt(altFt, oat);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
+using QSP.MathTools.Tables;
 using QSP.MathTools.Tables.Readers;
-using QSP.MathTools.TablesNew;
 using System;
 
 namespace UnitTest.MathTools.Tables.Readers
@@ -63,22 +63,22 @@ namespace UnitTest.MathTools.Tables.Readers
 
             var result = TableReader1D.Read(s, double.Parse, customParser);
 
-            var expected = TableBuilder.Build1D(
-               new[] { 10.0, 15.0 },
-               new[] { 9.0, 81.0 });
+            var expected = new Table1D(
+               new double[] { 10.0, 15.0 },
+               new double[] { 9.0, 81.0 });
 
-            Assert.IsTrue(ITableExtension.Equals(expected, result, delta));
+            Assert.IsTrue(result.Equals(expected, delta));
         }
 
         private void AssertTable(string source)
         {
             var table = TableReader1D.Read(source);
 
-            var expected = TableBuilder.Build1D(
-                new[] { 1500.0, 1600.0, 1800.0 },
-                new[] { 51.2, 52.8, 55.9 });
+            var expected = new Table1D(
+                new double[] { 1500.0, 1600.0, 1800.0 },
+                new double[] { 51.2, 52.8, 55.9 });
 
-            Assert.IsTrue(ITableExtension.Equals(expected, table, delta));
+            Assert.IsTrue(table.Equals(expected, delta));
         }
     }
 }
