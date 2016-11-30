@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace QSP.MathTools.TablesNew
 {
@@ -12,6 +13,16 @@ namespace QSP.MathTools.TablesNew
         public DoubleWrapper(double value)
         {
             this.value = value;
+        }
+    }
+
+    public static class DoubleWrapperExtension
+    {
+        public static DoubleWrapper Wrap(this double x) => new DoubleWrapper(x);
+
+        public static List<DoubleWrapper> WrapperList(this IEnumerable<double> x)
+        {
+            return x.Select(i => i.Wrap()).ToList();
         }
     }
 }

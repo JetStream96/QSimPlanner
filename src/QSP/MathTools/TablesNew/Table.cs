@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using QSP.LibraryExtension;
+﻿using QSP.LibraryExtension;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using static QSP.MathTools.Interpolation.Common;
 using static QSP.MathTools.Interpolation.Interpolate1D;
 using static QSP.Utilities.ExceptionHelpers;
-using System;
-using System.Linq;
 
 namespace QSP.MathTools.TablesNew
 {
@@ -29,8 +29,10 @@ namespace QSP.MathTools.TablesNew
             Ensure<ArgumentException>(
                 FValues.Count == XValues.Count &&
                 (XValues.IsStrictlyDecreasing() || XValues.IsStrictlyIncreasing()) &&
-                FValues.All(v => v.Dimension == Dimension));
+                FValues.All(v => v.Dimension == Dimension - 1));
         }
+
+        public double ValueAt(params double[] X) => ValueAt((IReadOnlyList<double>)X);
 
         public double ValueAt(IReadOnlyList<double> X)
         {
