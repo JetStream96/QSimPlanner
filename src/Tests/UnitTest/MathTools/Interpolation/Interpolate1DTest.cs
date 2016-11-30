@@ -34,17 +34,5 @@ namespace UnitTest.MathTools.Interpolation
                                         7.2),
                             1E-6);
         }
-
-        [Test]
-        public void InterpolateTest3()
-        {
-            Assert.AreEqual(12.2,
-                            Interpolate(new[] { 3.0, 5.0, 7.0, 9.0 },
-                                        new[] { -9.0, -1.0, 12.0, 14.0 },
-                                        2,
-                                        7.2),
-                            1E-6);
-        }
-
     }
 }

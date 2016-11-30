@@ -23,23 +23,12 @@ namespace UnitTest.MathTools.Interpolation
         };
 
         [Test]
-        public void InterpolateTest1()
+        public void InterpolateTest()
         {
             Assert.AreEqual(1.1607142857,
                             Interpolate(new[] { 6.5, 10.5 },
                                         new[] { 4.0, 5.0, 6.0 },
                                         new[] { -1.0, 1.0, 8.0 },
-                                        8.0, 6.5, 6.0, a),
-                            1E-6);
-        }
-
-        [Test]
-        public void InterpolateTest2()
-        {
-            Assert.AreEqual(1.1607142857,
-                            Interpolate(new[] { 6.5, 10.5 }, 0,
-                                        new[] { 4.0, 5.0, 6.0 }, 1,
-                                        new[] { -1.0, 1.0, 8.0 }, 1,
                                         8.0, 6.5, 6.0, a),
                             1E-6);
         }

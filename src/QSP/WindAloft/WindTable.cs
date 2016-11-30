@@ -39,35 +39,34 @@ namespace QSP.WindAloft
 
             // Tricks to prevent interpolation using data that is 
             // out of range of array.
-            if (x == 90)
-            {
-                x = 89;
-            }
-
-            if (y == 180)
-            {
-                y = 179;
-            }
+            if (x == 90) x = 89;
+            if (y == 180) y = 179;
 
             return Interpolate2D.Interpolate(
-                x, x + 1, lat,
-                y, y + 1, lon,
-                GetWindHelper(x, y, para),
-                GetWindHelper(x, y + 1, para),
-                GetWindHelper(x + 1, y, para),
-                GetWindHelper(x + 1, y + 1, para));
+                new double[] {x, x + 1},
+                new double[] {y, y + 1},
+                x,
+                y,
+                new[]
+                {
+                    new[]
+                    {
+                        GetWindHelper(x, y, para),
+                        GetWindHelper(x, y + 1, para)
+                    },
+                    new[]
+                    {
+                        GetWindHelper(x + 1, y, para),
+                        GetWindHelper(x + 1, y + 1, para)
+                    }
+                });
         }
 
         private double GetWindHelper(int lat, int lon, TableOption para)
         {
-            if (para == TableOption.U)
-            {
-                return uTable[lat + 90, lon + 180];
-            }
-            else
-            {
-                return vTable[lat + 90, lon + 180];
-            }
+            return para == TableOption.U ?
+                 uTable[lat + 90, lon + 180] :
+                 vTable[lat + 90, lon + 180];
         }
     }
 }

@@ -18,11 +18,7 @@ namespace QSP.MathTools.Interpolation
 
         public static double Interpolate(double[] xArray, double[] f, double x)
         {
-            return Interpolate(xArray, f, GetIndex(xArray, x), x);
-        }
-
-        public static double Interpolate(double[] xArray, double[] f, int index, double x)
-        {
+            int index = GetIndex(xArray, x);
             return Interpolate(xArray[index], xArray[index + 1], f[index], f[index + 1], x);
         }
     }

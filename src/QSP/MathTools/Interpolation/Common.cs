@@ -12,39 +12,29 @@
         // Use binary search if performance is a concern.
         private static int GetIndexIncreasing(double[] array, double value)
         {
-            if (value <= array[0])
-            {
-                return 0;
-            }
+            if (value <= array[0]) return 0;
 
             int len = array.Length;
 
             for (int i = 0; i < len - 1; i++)
             {
-                if (value >= array[i] && value <= array[i + 1])
-                {
-                    return i;
-                }
+                if (value >= array[i] && value <= array[i + 1]) return i;
             }
+
             return len - 2;
         }
 
         private static int GetIndexDecreasing(double[] array, double value)
         {
-            if (value >= array[0])
-            {
-                return 0;
-            }
+            if (value >= array[0]) return 0;
 
             int len = array.Length;
 
             for (int i = 0; i < len - 1; i++)
             {
-                if (value <= array[i] && value >= array[i + 1])
-                {
-                    return i;
-                }
+                if (value <= array[i] && value >= array[i + 1]) return i;
             }
+
             return len - 2;
         }
     }
