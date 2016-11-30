@@ -8,7 +8,7 @@ using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.MathTools.TablesNew
 {
-    public class Table : ITableView
+    public class Table : ITable
     {
         public int Dimension { get; }
         public IReadOnlyList<double> XValues { get; }

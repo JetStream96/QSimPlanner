@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace QSP.MathTools.TablesNew
@@ -8,6 +9,9 @@ namespace QSP.MathTools.TablesNew
         private double value;
 
         public int Dimension => 0;
+
+        public IReadOnlyList<double> XValues => null;
+        public IReadOnlyList<ITable> FValues => null;
         public double ValueAt(IReadOnlyList<double> X) => value;
 
         public DoubleWrapper(double value)

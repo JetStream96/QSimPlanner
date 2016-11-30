@@ -6,5 +6,7 @@ namespace QSP.MathTools.TablesNew
     {
         int Dimension { get; }
         double ValueAt(IReadOnlyList<double> X);
+        IReadOnlyList<double> XValues { get; }
+        IReadOnlyList<ITable> FValues { get; }
     }
 }

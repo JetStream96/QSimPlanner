@@ -145,8 +145,8 @@
     <Compile Include="MathTools\Integers.cs" />
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\TablesNew\DoubleWrapper.cs" />
+    <Compile Include="MathTools\TablesNew\ITableExtension.cs" />
     <Compile Include="MathTools\TablesNew\ITable.cs" />
-    <Compile Include="MathTools\TablesNew\ITableView.cs" />
     <Compile Include="MathTools\TablesNew\Table.cs" />
     <Compile Include="MathTools\TablesNew\TableBuilder.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />

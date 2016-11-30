@@ -1,18 +1,21 @@
-﻿using QSP.MathTools.Tables;
+﻿using System.Linq;
+using QSP.MathTools.Tables;
+using QSP.MathTools.TablesNew;
 
 namespace QSP.TOPerfCalculation.Boeing.PerfData
 {
-    public class SlopeCorrTable : Table2D
+    public class SlopeCorrTable
     {
-        public SlopeCorrTable(double[] physicalLengths,
-            double[] slopes,
-            double[][] correctedLenth)
-            : base(physicalLengths, slopes, correctedLenth)
-        { }
+        private readonly Table table;
+
+        public SlopeCorrTable(double[] physicalLengths, double[] slopes, double[][] correctedLenth)
+        {
+            table = TableBuilder.Build2D(physicalLengths, slopes, correctedLenth);
+        }
 
         public double CorrectedLength(double physicalLength, double slope)
         {
-            return ValueAt(physicalLength, slope);
+            return table.ValueAt(physicalLength, slope);
         }
 
         public double FieldLengthRequired(double slope, double slopeCorrectedLength)
@@ -20,17 +23,12 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
             return TableFieldLength(slope).ValueAt(slopeCorrectedLength);
         }
 
-        // Maps sloped corrected length into field length.
-        private Table1D TableFieldLength(double slope)
+        // Maps sloped corrected length into physical field length.
+        private Table TableFieldLength(double slope)
         {
-            double[] fieldLength = new double[x.Length];
-
-            for (int i = 0; i < fieldLength.Length; i++)
-            {
-                fieldLength[i] = ValueAt(x[i], slope);
-            }
-
-            return new Table1D(fieldLength, x);
-        }        
+            var physicalLength = table.XValues;
+            var fieldLengths = physicalLength.Select(x => table.ValueAt(x, slope));
+            return TableBuilder.Build1D(fieldLengths.ToList(), physicalLength);
+        }
     }
 }

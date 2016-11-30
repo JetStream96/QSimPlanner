@@ -2,6 +2,7 @@
 using QSP.MathTools.Tables;
 using QSP.MathTools.Tables.Readers;
 using System;
+using System.Linq;
 
 namespace UnitTest.MathTools.Tables.Readers
 {
@@ -66,7 +67,6 @@ namespace UnitTest.MathTools.Tables.Readers
             var expected = new Table1D(
                new double[] { 10.0, 15.0 },
                new double[] { 9.0, 81.0 });
-
             Assert.IsTrue(result.Equals(expected, delta));
         }
 
