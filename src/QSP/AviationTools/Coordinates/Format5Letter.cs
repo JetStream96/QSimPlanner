@@ -6,7 +6,7 @@ namespace QSP.AviationTools.Coordinates
 {
     public static class Format5Letter
     {
-        private static char[] NSEW = new char[] { 'N', 'S', 'E', 'W' };
+        private static char[] NSEW = { 'N', 'S', 'E', 'W' };
 
         /// <summary>
         /// Output examples: 36N70, 3480E.
@@ -27,19 +27,11 @@ namespace QSP.AviationTools.Coordinates
         {
             if (lat >= 0)
             {
-                if (lon >= 0)
-                {
-                    return 'E';
-                }
-                return 'N';
+                return lon >= 0 ? 'E' : 'N';
             }
             else
             {
-                if (lon >= 0)
-                {
-                    return 'S';
-                }
-                return 'W';
+                return lon >= 0 ? 'S' : 'W';
             }
         }
 
@@ -64,15 +56,8 @@ namespace QSP.AviationTools.Coordinates
 
         private static int AlphabetPosition(string s)
         {
-            if (NSEW.Contains(s[2]))
-            {
-                return 2;
-            }
-            else if (NSEW.Contains(s[4]))
-            {
-                return 4;
-            }
-
+            if (NSEW.Contains(s[2])) return 2;
+            if (NSEW.Contains(s[4])) return 4;
             return -1;
         }
 

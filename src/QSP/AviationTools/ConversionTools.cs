@@ -22,8 +22,7 @@ namespace QSP.AviationTools
         public static double PressureMb(double altitudeFeet)
         {
             //mb = hPa
-            return Math.Pow(1.0 - altitudeFeet / 145366.45, 1.0 / 0.190284) 
-                * 1013.25;
+            return Math.Pow(1.0 - altitudeFeet / 145366.45, 1.0 / 0.190284) * 1013.25;
         }
 
         public static double PressureMbToAltFt(double pressMb)

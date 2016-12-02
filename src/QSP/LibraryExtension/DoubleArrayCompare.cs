@@ -6,19 +6,11 @@ namespace QSP.LibraryExtension
     {
         public static bool Equals(this double[] item, double[] other, double delta)
         {
-            if (item == null ||
-                other == null ||
-                item.Length != other.Length)
-            {
-                return false;
-            }
+            if (!SameLength(item, other)) return false;
 
             for (int i = 0; i < item.Length; i++)
             {
-                if (Math.Abs(item[i] - other[i]) >= delta)
-                {
-                    return false;
-                }
+                if (Math.Abs(item[i] - other[i]) >= delta) return false;
             }
 
             return true;
@@ -26,19 +18,11 @@ namespace QSP.LibraryExtension
 
         public static bool Equals(this double[][] item, double[][] other, double delta)
         {
-            if (item == null ||
-                other == null ||
-                item.Length != other.Length)
-            {
-                return false;
-            }
+            if (!SameLength(item, other)) return false;
 
             for (int i = 0; i < item.Length; i++)
             {
-                if (Equals(item[i], other[i], delta) == false)
-                {
-                    return false;
-                }
+                if (Equals(item[i], other[i], delta) == false) return false;
             }
 
             return true;
@@ -46,19 +30,11 @@ namespace QSP.LibraryExtension
 
         public static bool Equals(this double[][][] item, double[][][] other, double delta)
         {
-            if (item == null ||
-                other == null ||
-                item.Length != other.Length)
-            {
-                return false;
-            }
+            if (!SameLength(item, other)) return false;
 
             for (int i = 0; i < item.Length; i++)
             {
-                if (Equals(item[i], other[i], delta) == false)
-                {
-                    return false;
-                }
+                if (Equals(item[i], other[i], delta) == false) return false;
             }
 
             return true;
@@ -66,22 +42,19 @@ namespace QSP.LibraryExtension
 
         public static bool Equals(this double[][][][] item, double[][][][] other, double delta)
         {
-            if (item == null ||
-                other == null ||
-                item.Length != other.Length)
-            {
-                return false;
-            }
+            if (!SameLength(item, other)) return false;
 
             for (int i = 0; i < item.Length; i++)
             {
-                if (Equals(item[i], other[i], delta) == false)
-                {
-                    return false;
-                }
+                if (Equals(item[i], other[i], delta) == false) return false;
             }
 
             return true;
+        }
+
+        private static bool SameLength(Array x, Array y)
+        {
+            return x != null && y != null && x.Length == y.Length;
         }
     }
 }
