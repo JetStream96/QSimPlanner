@@ -58,7 +58,7 @@
     <Compile Include="AircraftProfiles\Configs\AcConfigManagerTest.cs" />
     <Compile Include="AircraftProfiles\Configs\AircraftConfigItemTest.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinuteSecondTest.cs" />
-    <Compile Include="AviationTools\FormatDegreeMinuteTest.cs" />
+    <Compile Include="AviationTools\Coordinates\FormatDegreeMinuteTest.cs" />
     <Compile Include="AviationTools\RwyIdentConversionTest.cs" />
     <Compile Include="AviationTools\SpeedConversionTest.cs" />
     <Compile Include="Common\Constants.cs" />
