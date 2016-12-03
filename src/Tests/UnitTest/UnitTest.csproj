@@ -93,7 +93,7 @@
     <Compile Include="LibraryExtension\JaggedArrays\JaggedArraysTest.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\LengthCheckerTest.cs" />
     <Compile Include="LibraryExtension\FixedIndexListTest.cs" />
-    <Compile Include="LibraryExtension\GraphTest.cs" />
+    <Compile Include="LibraryExtension\Graph\GraphTest.cs" />
     <Compile Include="LibraryExtension\StringsTest.cs" />
     <Compile Include="MathTools\Interpolation\CommonTest.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate1DTest.cs" />

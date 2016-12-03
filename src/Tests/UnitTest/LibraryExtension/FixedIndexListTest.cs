@@ -3,7 +3,7 @@ using QSP.LibraryExtension;
 using System;
 using System.Collections.Generic;
 
-namespace UnitTest.LibraryExtensionTest
+namespace UnitTest.LibraryExtension
 {
     [TestFixture]
     public class FixedIndexListTest

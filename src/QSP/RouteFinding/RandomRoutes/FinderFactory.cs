@@ -8,7 +8,7 @@ namespace QSP.RouteFinding.RandomRoutes
     public static class FinderFactory
     {
         private static RandomRouteFinder finderInstance;
-        
+
         public static RandomRouteFinder GetInstance()
         {
             if (finderInstance == null)
@@ -27,25 +27,7 @@ namespace QSP.RouteFinding.RandomRoutes
 
             for (int lat = -90; lat <= 90; lat++)
             {
-                int increment = 0;
-                int latAbs = Math.Abs(lat);
-
-                if (latAbs == 90)
-                {
-                    increment = 360;
-                }
-                else if (latAbs >= 70)
-                {
-                    increment = 20;
-                }
-                else if (latAbs >= 30)
-                {
-                    increment = 10;
-                }
-                else
-                {
-                    increment = 5;
-                }
+                int increment = GetIncrement(lat);
 
                 for (int lon = -180; lon < 180; lon += increment)
                 {
@@ -54,6 +36,16 @@ namespace QSP.RouteFinding.RandomRoutes
             }
 
             return coordinates;
+        }
+
+        private static int GetIncrement(double lat)
+        {
+            double latAbs = Math.Abs(lat);
+            if (latAbs > 90.0) throw new ArgumentException();
+            if (latAbs == 90.0) return 360;
+            if (latAbs >= 70.0) return 20;
+            if (latAbs >= 30.0) return 10;
+            return 5;
         }
 
         private static Waypoint CreateWptHelper(int lat, int lon)

@@ -3,7 +3,7 @@ using QSP.LibraryExtension;
 using System;
 using static QSP.LibraryExtension.Strings;
 
-namespace UnitTest.LibraryExtensionTest
+namespace UnitTest.LibraryExtension
 {
     [TestFixture]
     public class StringsTest

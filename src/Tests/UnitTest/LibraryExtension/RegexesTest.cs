@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using static QSP.LibraryExtension.Regexes;
 
-namespace UnitTest.LibraryExtensionTest
+namespace UnitTest.LibraryExtension
 {
     [TestFixture]
     public class RegexesTest

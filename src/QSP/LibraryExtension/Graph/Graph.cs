@@ -50,7 +50,7 @@ namespace QSP.LibraryExtension.Graph
             // Set correct index.
             _edges[edgeIndex] = new Edge<TEdge>(
                 edge, nodeFromIndex, fromListIndex, nodeToIndex, toListIndex);
-            
+
             return edgeIndex;
         }
 
@@ -125,13 +125,7 @@ namespace QSP.LibraryExtension.Graph
             return _nodes[index].prev.Count();
         }
 
-        public int NodeCount
-        {
-            get
-            {
-                return _nodes.Count;
-            }
-        }
+        public int NodeCount => _nodes.Count;
 
         public void Clear()
         {
@@ -139,20 +133,8 @@ namespace QSP.LibraryExtension.Graph
             _edges.Clear();
         }
 
-        public int NodeIndexUpperBound
-        {
-            get
-            {
-                return _nodes.IndexUpperBound;
-            }
-        }
+        public int NodeIndexUpperBound => _nodes.IndexUpperBound;
 
-        public int EdgeIndexUpperBound
-        {
-            get
-            {
-                return _edges.IndexUpperBound;
-            }
-        }
+        public int EdgeIndexUpperBound => _edges.IndexUpperBound;
     }
 }

@@ -15,8 +15,7 @@ namespace QSP.MathTools
         // A= (        )
         //    (a21  a22)
 
-        public Matrix2by2(
-            double A11, double A12, double A21, double A22)
+        public Matrix2by2(double A11, double A12, double A21, double A22)
         {
             this.A11 = A11;
             this.A12 = A12;

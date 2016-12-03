@@ -4,13 +4,14 @@ using QSP.LibraryExtension.Graph;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UnitTest.LibraryExtensionTest
+namespace UnitTest.LibraryExtension.Graph
 {
     [TestFixture]
     public class GraphTest
     {
         // In writing this test, the mechanism of FixedIndexList is sometimes assumed. 
-        // i.e. When adding N elements to a new FixedIndexList, their indices should be 0, 1, ... ,N-1.
+        // i.e. When adding N elements to a new FixedIndexList, their indices should 
+        // be 0, 1, ... ,N-1.
 
         [Test]
         public void AddThenGetNode()
@@ -112,8 +113,7 @@ namespace UnitTest.LibraryExtensionTest
         {
             var graph = CreateGraph0();
 
-            Assert.Throws<IndexOutOfRangeException>(() =>
-            graph.GetEdge(0));
+            Assert.Throws<IndexOutOfRangeException>(() => graph.GetEdge(0));
         }
 
         [Test]
@@ -150,7 +150,7 @@ namespace UnitTest.LibraryExtensionTest
                     graph.AddEdge(N, i, (N * i).ToString());
                 }
             }
-
+                                                                                                   
             return new Tuple<int, Graph<int, string>>(graph.AddEdge(N, M, (N * M).ToString()), graph);
         }
 

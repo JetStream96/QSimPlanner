@@ -4,6 +4,7 @@ using QSP.RouteFinding.Data;
 using QSP.RouteFinding.Data.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using QSP.MathTools;
 using QSP.MathTools.Vectors;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Vectors.Vector3DExtension;
@@ -14,13 +15,11 @@ namespace QSP.RouteFinding.RandomRoutes
     public class RandomRouteFinder
     {
         public static readonly double MaxLegDis = 700.0;
-        private static readonly double MaxAngleRadian =
-            MaxLegDis / EarthRadiusNm;
+        private static readonly double MaxAngleRadian = MaxLegDis / EarthRadiusNm;
 
         private readonly LatLonSearcher<Waypoint> searcher;
 
-        public RandomRouteFinder(
-            IEnumerable<Waypoint> candidates, int gridSize, int polarRegSize)
+        public RandomRouteFinder(IEnumerable<Waypoint> candidates, int gridSize, int polarRegSize)
         {
             searcher = new LatLonSearcher<Waypoint>(gridSize, polarRegSize);
 
@@ -75,8 +74,7 @@ namespace QSP.RouteFinding.RandomRoutes
             return list.ToList();
         }
 
-        private Waypoint ChooseCandidates(
-            List<Waypoint> candidates, Waypoint start, Waypoint end)
+        private Waypoint ChooseCandidates(List<Waypoint> candidates, Waypoint start, Waypoint end)
         {
             return candidates
                 .Where(w => w.Equals(start) == false)
@@ -87,26 +85,18 @@ namespace QSP.RouteFinding.RandomRoutes
         {
             var startVector = start.ToVector3D();
             var endVector = end.ToVector3D();
-            var tangent = GetTangent(startVector, endVector);
+            var tangent = EarthGeometry.GetW(startVector, endVector);
             var maxDisVector = (startVector + Tan(MaxAngleRadian) * tangent)
                 .Normalize();
 
             var midPoint = (startVector + maxDisVector) * 0.5;
 
             var pt = midPoint.ToLatLon();
-            var smallRegion = searcher.Find(
-                pt.Lat, pt.Lon, MaxLegDis * 0.5);
+            var smallRegion = searcher.Find(pt.Lat, pt.Lon, MaxLegDis * 0.5);
 
             if (smallRegion.Count > 0) return smallRegion;
 
             return searcher.Find(start.Lat, start.Lon, MaxLegDis);
-        }
-
-        // Returns the unit vector tantgent to the path 
-        // from v to w at v
-        private static Vector3D GetTangent(Vector3D v, Vector3D w)
-        {
-            return v.Cross(w.Cross(v)).Normalize();
         }
     }
 }
