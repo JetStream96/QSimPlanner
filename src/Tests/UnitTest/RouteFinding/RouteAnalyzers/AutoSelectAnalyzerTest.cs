@@ -16,11 +16,13 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         public void WhenPreferredLatLonAreBadShouldStillFindsResult()
         {
             // setup
-            var wpts = new Waypoint[]{
+            var wpts = new[] 
+            {
                 new Waypoint("P01", 0.0, 15.0),
                 new Waypoint("P02", 0.0, 16.0),
                 new Waypoint("P03", 0.0, 17.0),
-                new Waypoint("P01", 50.0, -30.0)};
+                new Waypoint("P01", 50.0, -30.0)
+            };
 
             var indices = new List<int>();
             var wptList = new WaypointList();
@@ -58,11 +60,13 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         public void WhenMultipleWptsHaveSameIdentShouldSortBasedOnDistance()
         {
             // setup
-            var wpts = new Waypoint[]{
+            var wpts = new[]
+            {
                 new Waypoint("P01", 20.0, 15.0),
                 new Waypoint("P01", 40.0, 35.0),
                 new Waypoint("P01", 60.0, 55.0),
-                new Waypoint("P02", 40.0, 33.0)};
+                new Waypoint("P02", 40.0, 33.0)
+            };
 
             var indices = new List<int>();
             var wptList = new WaypointList();

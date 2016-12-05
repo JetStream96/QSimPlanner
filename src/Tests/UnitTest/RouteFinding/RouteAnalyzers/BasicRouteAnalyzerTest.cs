@@ -37,11 +37,13 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         public void WhenRouteUseAirwaysAnalyzeCorrectness()
         {
             // setup
-            var wpts = new Waypoint[]{
+            var wpts = new[]
+            {
                 new Waypoint("P01", 0.0, 15.0),
                 new Waypoint("P02", 0.0, 16.0),
                 new Waypoint("P03", 0.0, 17.0),
-                new Waypoint("P04", 0.0, 18.0)};
+                new Waypoint("P04", 0.0, 18.0)
+            };
 
             var indices = new List<int>();
             var wptList = new WaypointList();
@@ -78,17 +80,15 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         public void WhenRouteUseDirectAnalyzeCorrectness()
         {
             // setup
-            var wpts = new Waypoint[]{
+            var wpts = new[]
+            {
                 new Waypoint("P01", 0.0, 15.0),
                 new Waypoint("P02", 0.0, 16.0),
-                new Waypoint("P03", 0.5, 16.5)};
+                new Waypoint("P03", 0.5, 16.5)
+            };
 
             var wptList = new WaypointList();
-
-            foreach (var i in wpts)
-            {
-                wptList.AddWaypoint(i);
-            }
+            foreach (var i in wpts) wptList.AddWaypoint(i);
 
             var analyzer = new BasicRouteAnalyzer(
                 GetRouteString("P01", "P02", "P03"),
@@ -140,8 +140,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 0);
 
             // invoke 
-            Assert.Throws<ArgumentException>(() =>
-            analyzer.Analyze());
+            Assert.Throws<ArgumentException>(() => analyzer.Analyze());
         }
 
         [Test]

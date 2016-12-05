@@ -262,7 +262,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var route = analyzer.Analyze();
 
             // Assert
-            var expectedDistance = new LatLon[]
+            var expectedDistance = new[]
             {
                 new LatLon(25.0, 120.0),
                 new LatLon(35.2, 113.1),
