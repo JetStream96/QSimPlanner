@@ -77,6 +77,7 @@
 		</style>
 	</head>
 	<body>
+		<script src="./CsvToTable.js"></script>
 		<div class="text-font">
 			<h1 class="title-color">QSimPlanner Design Document</h1>
 
@@ -142,23 +143,13 @@
 				<li>The aircraft travels at optimum cruising altitude in the entire flight. Climb and descent are ignored.</li>
 			</ul>
 			<p>Parameters:</p>
-			<table>
-				<tr>
-					<td></td>
-					<td>40 tons</td>
-					<td>85 tons</td>					
-				</tr>
-				<tr>
-					<td>Fuel flow (kg/hr)</td>
-					<td>1626.0</td>
-					<td>3183.8</td>
-				</tr>
-				<tr>
-					<td>TAS (knots)</td>
-					<td>430</td>
-					<td>464</td>
-				</tr>
-			</table>
+			<table id="table-model1"></table>
+			<script>
+				setTable('table-model1', 
+				`,40 tons,85 tons
+				Fuel flow (kg/hr),1626.0,3183.8
+				TAS (knots),430,464`);
+			</script>
 			<p>Results:</p>
 			<img src="images/m1_738_40.png" alt="image" style="max-width:400px;" class="images">
 			<img src="images/m1_738_60.png" alt="image" style="max-width:400px;" class="images">
@@ -173,43 +164,18 @@
 				<li>Climb and descent speeds are constant.</li>
 			</ul>
 			<p>Parameters:</p>
-			<table>
-				<tr>
-					<td></td>
-					<td>40 tons</td>
-					<td>85 tons</td>
-				</tr>
-				<tr>
-					<td>Fuel flow (kg/hr)</td>
-					<td>1626.0</td>
-					<td>3183.8</td>
-				</tr>
-				<tr>
-					<td>TAS (knots)</td>
-					<td>430</td>
-					<td>464</td>
-				</tr>
-				<tr>
-					<td>Climb gradient</td>
-					<td>0.08997</td>
-					<td>0.04299</td>
-				</tr>
-				<tr>
-					<td>Climb fuel flow (kg/hr)</td>
-					<td>5125.0</td>
-					<td>5648.0</td>
-				</tr>
-				<tr>
-					<td>Descend gradient</td>
-					<td>0.06681</td>
-					<td>0.04661</td>
-				</tr>
-				<tr>
-					<td>Descend fuel flow (kg/hr)</td>
-					<td>785.0</td>
-					<td>865.0</td>
-				</tr>
-			</table>
+			<table id="table-model2"></table>
+			<script>
+				setTable('table-model2', 
+				`,40 tons,85 tons
+				Fuel flow (kg/hr),1626.0,3183.8
+				TAS (knots),430,464
+				Climb gradient,0.08997,0.04299
+				Climb fuel flow (kg/hr),5125.0,5648.0
+				Descend gradient,0.06681,0.04661
+				Descend fuel flow (kg/hr),785.0,865.0`);
+			</script>
+			
 			<p>* Climb and descent airspeed are 280 knots (indicated airspeed). The climb and descent data are average from 0 ft to top of climb or top of descent.</p>
 			<p>Results:</p>
 			<p>The two following charts compare the fuel burn of actual and model 2. For range less than 200 nm model 2 does not produce correct result at all. This is expected since at those distances, the aircraft will not climb to its optimum cruising altitude at all, and the model does not address this situation. However, at other distances the error is smaller than model 1. For these 2 charts, the maximum errors are 0.46 and 0.29 tons, respectively. Also, at ranges larger than 500 nm, the deviation gradually increases with distance, which means the percentage of error stays roughly the same.</p>
@@ -267,45 +233,21 @@
 
 			<p>Fortunately we can still simplify the problem by subtract a fix percentage of limit weight from the “dry” value to get an estimation of the “wet” value. </p>
 			
-			<table class="align-center">
-				<tr>
-					<td>Aircraft type</td>
-					<td>Max percentage increase (@ 0 ft, -40 to 50 ° C)</td>
-				</tr>
-				<tr>
-					<td>737-600</td>
-					<td>9.42</td>
-				</tr>
-				<tr>
-					<td>737-700</td>
-					<td>2.45</td>
-				</tr>
-				<tr>
-					<td>737-800</td>
-					<td>2.34</td>
-				</tr>
-				<tr>
-					<td>737-900</td>
-					<td>2.60</td>
-				</tr>
-				<tr>
-					<td>777-200LR</td>
-					<td>2.74</td>
-				</tr>
-				<tr>
-					<td>777-300ER</td>
-					<td>3.05</td>
-				</tr>
-				<tr>
-					<td>747-8F</td>
-					<td>0.00</td>
-				</tr>
-				<tr>
-					<td>787-8</td>
-					<td>1.89</td>
-				</tr>
-			</table>
-
+			<table id="table-wet-rwy" class="align-center"></table>
+			<script>
+				setTable('table-wet-rwy', 
+				`Aircraft type,Max percentage increase (@ 0 ft; -40 to 50°C)
+				737-600,9.42
+				737-700,2.45
+				737-800,2.34
+				737-900,2.60
+				777-200LR,2.74
+				777-300ER,3.05
+				747-8F,0.00
+				787-8,1.89`,
+				true);
+			</script>
+			
 			<p>There are two values are quite special. The 737-600 has a very high decrease in field limit weight because the limiting factor is stopping distance. The wet runway increases stopping distance dramatically while doing little to help acceleration since the takeoff roll is relatively short. The 747-8F actually has increased limit weight when runway is wet. Probably this is because the limiting factor is 1.15 times the accelerate-go distance (since it has 4 engines which makes stopping distance less of an issue because the relatively large gap between V<sub>1</sub> and V<sub>R</sub>).</p>
 
 			<h4>2.2.2 OAT correction</h4>
@@ -320,44 +262,20 @@
 			<p>We apply wind correction to the runway length. The relation is fairly straght-forward and does not vary too much between aircraft types.</p>
 			<img src="images/wind_corr_77w.png" alt="image" style="max-width:500px;" class="images">
 			
-			<table class="align-right" style="margin:0 auto;">
-				<tr><th>Aircraft type</th>
-				<th>10 kts tailwind correction</th>
-				<th>10 kts headwind correction</th>
-				</tr>
-				<tr><td>737-600</td>
-				<td>12.33333</td>
-				<td>3.33333</td>
-				</tr>
-				<tr><td>737-700</td>
-				<td>14.07</td>
-				<td>4.07</td>
-				</tr>
-				<tr><td>737-800</td>
-				<td>13.33333</td>
-				<td>4.0</td>
-				</tr>
-				<tr><td>737-900</td>
-				<td>13.95</td>
-				<td>4.19</td>
-				</tr>
-				<tr><td>777-200LR</td>
-				<td>14.0</td>
-				<td>4.22</td>
-				</tr>
-				<tr><td>777-300ER</td>
-				<td>13.0556</td>
-				<td>4.167</td>
-				</tr>
-				<tr><td>747-8F</td>
-				<td>13.0</td>
-				<td>3.7778</td>
-				</tr>
-				<tr><td>787-8</td>
-				<td>13.70</td>
-				<td>3.7778</td>
-				</tr>
-			</table>
+			<table id="table-wind-corr" class="align-right" style="margin:0 auto;"></table>
+			<script>
+				setTable('table-wind-corr', 
+				`Aircraft type,10 kts tailwind correction,10 kts headwind correction
+				737-600,12.33333,3.33333
+				737-700,14.07,4.07
+				737-800,13.33333,4.0
+				737-900,13.95,4.19
+				777-200LR,14.0,4.22
+				777-300ER,13.0556,4.167
+				747-8F,13.0,3.7778
+				787-8,13.70,3.7778`,
+				true);
+			</script>
 
 			<h4>2.2.4 Slope correction</h4>
 			<p>By analyzing the slope correction data for 777-300ER and 737-800, on dry runway,we see the relation is not so simple. An incline reduces the takeoff acceleration but decreases the stopping distance in case of an rejected takeoff. Nevertheless, we can use a simple approximation</p>
@@ -380,48 +298,32 @@
 			<p>Among these factors, the brake/flaps setting is the most difficult one to account for due to lack of data. To make matters worse, the number of available autobrake settings varies between aircraft types. Nevertheless, we still list the braking distances for reference.</p>
 
 			<p>For 737-800:</p>
-			<table class="align-center">
-				<tr><th>Brake setting</th><th>Landing distance (relative to Max Manual)</th>
-				<tr><td>Max Manual</td>
-				<td>1</td>
-				</tr>
-				<tr><td>Max Auto</td>
-				<td>1.272</td>
-				</tr>
-				<tr><td>Autobrake 3</td>
-				<td>1.789</td>
-				</tr>
-				<tr><td>Autobrake 2</td>
-				<td>2.294</td>
-				</tr>
-				<tr><td>Autobrake 1</td>
-				<td>2.522</td>
-				</tr>
-			</table>
-
+			<table id="table-brake-flaps-738" class="align-center"></table>
+			<script>
+				setTable('table-brake-flaps-738', 
+				`Brake setting,Landing distance (relative to Max Manual)
+				Max Manual,1
+				Max Auto,1.272
+				Autobrake 3,1.789
+				Autobrake 2,2.294
+				Autobrake 1,2.522`,
+				true);
+			</script>
+			
 			<p>For 777-300ER:</p>
-			<table class="align-center">
-				<tr><th>Brake setting</th><th>Landing distance (relative to Max Manual)</th>
-				<tr>
-				<tr><td>Max Manual</td>
-				<td>1</td>
-				</tr>
-				<tr><td>Max Auto</td>
-				<td>1.349</td>
-				</tr>
-				<tr><td>Autobrake 4</td>
-				<td>1.749</td>
-				</tr>
-				<tr><td>Autobrake 3</td>
-				<td>2.060</td>
-				</tr>
-				<tr><td>Autobrake 2</td>
-				<td>2.322</td>
-				</tr>
-				<tr><td>Autobrake 1</td>
-				<td>2.563</td>
-				</tr>
-			</table>
+			<table id="table-brake-flaps-77W" class="align-center"></table>
+			<script>
+				setTable('table-brake-flaps-77W', 
+				`Brake setting,Landing distance (relative to Max Manual)
+				Max Manual,1
+				Max Auto,1.349
+				Autobrake 4,1.749
+				Autobrake 3,2.060
+				Autobrake 2,2.322
+				Autobrake 1,2.563`,
+				true);
+			</script>
+			
 			<p>The effect of flap setting is probably contributed by the change of approach speed. Therefore it may be corrected that way.</p>
 
 			<h4>3.1.2 Pressure altitude</h4>
@@ -474,106 +376,55 @@
 
 			<h2>5. Holding fuel burn</h2>
 			<p>The holding fuel flow does not change much due to altitudes, and is almost proportional to the aircraft gross weight. Since we only use this to estimate the holding fuel 1500 ft above airport, the accuracy should be acceptable. See the table below, which shows the fuel flow per engine (kg/hr) for 777-300ER.</p>
-
-			<table class="align-center">
-				<tr>
-					<td></td>
-					<td>1500 ft</td>
-					<td>10000 ft</td>
-				</tr>
-				<tr>
-					<td>180 tons</td>
-					<td>2640</td>
-					<td>2450</td>
-				</tr>
-				<tr>
-					<td>360 tons</td>
-					<td>4740</td>
-					<td>4650</td>
-				</tr>
-			</table>
+			
+			<table id="table-hold" class="align-center"></table>
+			<script>
+				setTable('table-hold', 
+				`,1500 ft,10000 ft
+				180 tons,2640,2450
+				360 tons,4740,4650`);
+			</script>
 
 			<h2>A. Appendix</h2>
 			<h3>A.1 Gross weight-fuel flow data</h3>
 			<p>Data for 737-800</p>
-			<table>
-				<tr><td>Gross weight (ton)</td>
-				<td>Fuel flow per engine (kg/hr)</td>
-				</tr>
-				<tr><td>360</td>
-				<td>5186.5</td>
-				</tr>
-				<tr><td>340</td>
-				<td>4917</td>
-				</tr>
-				<tr><td>320</td>
-				<td>4554</td>
-				</tr>
-				<tr><td>300</td>
-				<td>4240</td>
-				</tr>
-				<tr><td>280</td>
-				<td>3976</td>
-				</tr>
-				<tr><td>260</td>
-				<td>3678</td>
-				</tr>
-				<tr><td>240</td>
-				<td>3392</td>
-				</tr>
-				<tr><td>220</td>
-				<td>3131</td>
-				</tr>
-				<tr><td>200</td>
-				<td>2878.5</td>
-				</tr>
-				<tr><td>180</td>
-				<td>2616.5</td>
-				</tr>
-				<tr><td>160</td>
-				<td>2356</td>
-				</tr>
-			</table>
+			
+			<table id="table-a1-738"></table>
+			<script>
+				setTable('table-a1-738', 
+				`Gross weight (ton),Fuel flow per engine (kg/hr)
+				360,5186.5
+				340,4917
+				320,4554
+				300,4240
+				280,3976
+				260,3678
+				240,3392
+				220,3131
+				200,2878.5
+				180,2616.5
+				160,2356`);
+			</script>
 
-			<p>Data for 777-200LR</p>
-			<table>
-				<tr><td>Gross weight (ton)</td>
-				<td>Fuel flow per engine (kg/hr)</td>
-				</tr>
-				<tr><td>360</td>
-				<td>5186.5</td>
-				</tr>
-				<tr><td>340</td>
-				<td>4917</td>
-				</tr>
-				<tr><td>320</td>
-				<td>4554</td>
-				</tr>
-				<tr><td>300</td>
-				<td>4240</td>
-				</tr>
-				<tr><td>280</td>
-				<td>3976</td>
-				</tr>
-				<tr><td>260</td>
-				<td>3678</td>
-				</tr>
-				<tr><td>240</td>
-				<td>3392</td>
-				</tr>
-				<tr><td>220</td>
-				<td>3131</td>
-				</tr>
-				<tr><td>200</td>
-				<td>2878.5</td>
-				</tr>
-				<tr><td>180</td>
-				<td>2616.5</td>
-				</tr>
-				<tr><td>160</td>
-				<td>2356</td>
-				</tr>
-			</table>
+			<p>Data for 777-200LR</p>			
+			<table id="table-a1-77L"></table>
+			<script>
+				setTable('table-a1-77L', 
+				`Gross weight (ton),Fuel flow per engine (kg/hr)
+				360,5186.5
+				340,4917
+				320,4554
+				300,4240
+				280,3976
+				260,3678
+				240,3392
+				220,3131
+				200,2878.5
+				180,2616.5
+				160,2356`);
+			</script>
+
+			
 
 			<h3>A.2 Fuel-distance relation</h3>
 			<table>
