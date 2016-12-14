@@ -74,7 +74,7 @@ namespace QSP.RouteFinding.Data
 
             visited = new VisitedList(content.GetLength(0), content.GetLength(1));
         }
-        
+
         public enum GridSizeOption
         {
             Small,
@@ -158,7 +158,7 @@ namespace QSP.RouteFinding.Data
 
                 foreach (var k in ItemsInGrid(current))
                 {
-                    if (k.Distance(lat,lon) <= distance) result.Add(k);
+                    if (k.Distance(lat, lon) <= distance) result.Add(k);
                 }
 
                 // Find grids next to current grid.
@@ -334,13 +334,13 @@ namespace QSP.RouteFinding.Data
                 this.Y = Y;
             }
 
-            public static Grid NorthPole =>new Grid(-1, 0);
+            public static Grid NorthPole => new Grid(-1, 0);
 
-            public static Grid SouthPole=> new Grid(-2, 0);
+            public static Grid SouthPole => new Grid(-2, 0);
 
             public bool IsNorthPole => X == -1 && Y == 0;
 
-            public bool IsSouthPole=> X == -2 && Y == 0;
+            public bool IsSouthPole => X == -2 && Y == 0;
         }
 
         private class VisitedList
