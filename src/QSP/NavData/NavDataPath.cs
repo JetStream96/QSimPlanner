@@ -10,6 +10,9 @@ namespace QSP.NavData
 
     public static class NavDataPath
     {
+        /// <summary>
+        /// If no valid AIRAC is detected, returns null. This method does not throw exception.
+        /// </summary>
         public static AiracInfo DetectNavDataPath()
         {
             var paths = SimulatorPaths()
@@ -22,11 +25,13 @@ namespace QSP.NavData
                 Period = AiracTools.TryGetAiracCyclePeriod(d)
             });
 
+            if (!airacs.Any()) return null;
+
             // Choose the latest airac cycle.
             return airacs.MaxBy(a => a.Period.Period.End);
         }
 
-        public struct AiracInfo
+        public class AiracInfo
         {
             public string Directory; public AiracPeriod Period;
         }

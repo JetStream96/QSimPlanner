@@ -32,7 +32,7 @@ namespace QSP.UI.Forms.Options
 
         public event EventHandler NavDataLocationChanged;
 
-        public AppOptions AppSettings =>  appSettingsLocator.Instance; 
+        public AppOptions AppSettings => appSettingsLocator.Instance;
 
         public OptionsForm()
         {
@@ -43,7 +43,8 @@ namespace QSP.UI.Forms.Options
             AirwayNetwork airwayNetwork,
             Locator<CountryCodeManager> countryCodesLocator,
             Locator<AppOptions> appSettingsLocator,
-            Updater updater)
+            Updater updater,
+            bool autoDetectAiracFolder = false)
         {
             this.airwayNetwork = airwayNetwork;
             this.countryCodesLocator = countryCodesLocator;
@@ -54,6 +55,8 @@ namespace QSP.UI.Forms.Options
             SetDefaultState();
             SetControlsAsInOptions();
             FormClosing += CurrentFormClosing;
+
+            if(autoDetectAiracFolder) DetectAiracFolder();
 
 #if (!DEBUG)
             PerformAutoUpdate();
@@ -109,68 +112,66 @@ namespace QSP.UI.Forms.Options
             AutoDLWindCheckBox.Checked = AppSettings.AutoDLWind;
             pathTxtBox.Text = AppSettings.NavDataLocation;
             PromptBeforeExit.Checked = AppSettings.PromptBeforeExit;
-            WindOptimizedRouteCheckBox.Checked =
-                AppSettings.EnableWindOptimizedRoute;
+            WindOptimizedRouteCheckBox.Checked = AppSettings.EnableWindOptimizedRoute;
             hideDctCheckBox.Checked = AppSettings.HideDctInRoute;
             showTrackIdOnlyCheckBox.Checked = AppSettings.ShowTrackIdOnly;
             updateFreqComboBox.SelectedIndex = AppSettings.AutoUpdate ? 0 : 1;
             exportController.SetExports();
         }
 
+        private void DetectAiracFolder()
+        {
+            var findResult = NavDataPath.DetectNavDataPath();
+            if (findResult != null) pathTxtBox.Text = findResult.Directory;
+        }
+
         private void InitExports()
         {
             var exports = new List<RouteExportMatching>();
 
-            exports.Add(
-                new RouteExportMatching(
-                    "Fsx",
-                    ProviderType.Fsx,
-                    checkBox4,
-                    textBox4,
-                    button4));
+            exports.Add(new RouteExportMatching(
+                "Fsx",
+                ProviderType.Fsx,
+                checkBox4,
+                textBox4,
+                button4));
 
-            exports.Add(
-                new RouteExportMatching(
-                    "P3d",
-                    ProviderType.Fsx,
-                    checkBox5,
-                    textBox5,
-                    button5));
+            exports.Add(new RouteExportMatching(
+                "P3d",
+                ProviderType.Fsx,
+                checkBox5,
+                textBox5,
+                button5));
 
-            exports.Add(
-                new RouteExportMatching(
-                    "Fs9",
-                    ProviderType.Fs9,
-                    checkBox6,
-                    textBox6,
-                    button6));
+            exports.Add(new RouteExportMatching(
+                "Fs9",
+                ProviderType.Fs9,
+                checkBox6,
+                textBox6,
+                button6));
 
-            exports.Add(
-                new RouteExportMatching(
-                    "PmdgCommon",
-                    ProviderType.Pmdg,
-                    CheckBox1,
-                    TextBox1,
-                    Button1));
+            exports.Add(new RouteExportMatching(
+                "PmdgCommon",
+                ProviderType.Pmdg,
+                CheckBox1,
+                TextBox1,
+                Button1));
 
-            exports.Add(
-               new RouteExportMatching(
-                   "PmdgNGX",
-                   ProviderType.Pmdg,
-                   CheckBox2,
-                   TextBox2,
-                   Button2));
+            exports.Add(new RouteExportMatching(
+                "PmdgNGX",
+                ProviderType.Pmdg,
+                CheckBox2,
+                TextBox2,
+                Button2));
 
-            exports.Add(
-               new RouteExportMatching(
-                   "Pmdg777",
-                   ProviderType.Pmdg,
-                   CheckBox3,
-                   TextBox3,
-                   Button3));
+            exports.Add(new RouteExportMatching(
+                "Pmdg777",
+                ProviderType.Pmdg,
+                CheckBox3,
+                TextBox3,
+                Button3));
 
-            exportController = new FlightPlanExportController(
-                exports, appSettingsLocator);
+            exportController = new FlightPlanExportController(exports, appSettingsLocator);
             exportController.Init();
         }
 
@@ -244,7 +245,7 @@ namespace QSP.UI.Forms.Options
             try
             {
                 var directory = pathTxtBox.Text;
-                var filePath = Path.Combine(directory, @"Airports.txt");
+                var filePath = Path.Combine(directory, "Airports.txt");
                 var loader = new AirportDataLoader(filePath);
                 return loader.LoadFromFile();
             }
@@ -329,7 +330,7 @@ namespace QSP.UI.Forms.Options
 
             bool navDataFound = FilesToCheck.All(i =>
             File.Exists(Path.Combine(navDataPath, i)));
-            
+
             navDataStatusLbl.Text = navDataFound ? "Found" : "Not Found";
 
             try
@@ -363,7 +364,7 @@ namespace QSP.UI.Forms.Options
                 airacPeriodLbl.Text = "";
             }
         }
-        
+
         private void infoLbl_MouseEnter(object sender, EventArgs e)
         {
             infoLbl.Font = new Font(infoLbl.Font, FontStyle.Underline);
@@ -426,8 +427,7 @@ contains Airports.txt.";
             updateStatusLbl.ForeColor = Color.Black;
             var status = await Task.Factory.StartNew(() => updater.Update());
             updateStatusLbl.Text = status.Message;
-            updateStatusLbl.ForeColor = status.Success ?
-                Color.Green : Color.Red;
+            updateStatusLbl.ForeColor = status.Success ? Color.Green : Color.Red;
             updateBtn.Enabled = true;
         }
     }

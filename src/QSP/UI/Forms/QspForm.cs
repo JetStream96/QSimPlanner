@@ -101,23 +101,19 @@ namespace QSP.UI.Forms
 
             if (failedToLoadNavDataAtStartUp)
             {
-                string message = "Please set the correct Nav Data location " +
-                    "before using the application.";
-
-                if (appSettings.NavDataLocation ==
-                    AppOptions.Default.NavDataLocation)
+                if (appSettings.NavDataLocation == AppOptions.Default.NavDataLocation)
                 {
                     // User did not set the path. 
                     // Maybe its the first time the app starts.
-                    MsgBoxHelper.ShowInfo(message);
+                    MsgBoxHelper.ShowInfo("Please set the correct Nav Data location " +
+                    "before using the application.");
                 }
                 else
                 {
-                    MsgBoxHelper.ShowWarning(
-                        "Failed to load Nav Data. " + message);
+                    MsgBoxHelper.ShowWarning("Please set the correct Nav Data location.");
                 }
 
-                ShowOptionsForm(FormStartPosition.CenterScreen, true);
+                ShowOptionsForm(FormStartPosition.CenterScreen, true, true);
             }
         }
 
@@ -533,7 +529,8 @@ namespace QSP.UI.Forms
 
         private void ShowOptionsForm(
             FormStartPosition position = FormStartPosition.CenterParent,
-            bool showInTaskbar = false)
+            bool showInTaskbar = false,
+            bool autoDetectAiracFolder = false)
         {
             using (var frm = new OptionsForm())
             {
@@ -541,10 +538,10 @@ namespace QSP.UI.Forms
                    airwayNetwork,
                    countryCodesLocator,
                    appOptionsLocator,
-                   updater);
+                   updater,
+                   autoDetectAiracFolder);
 
-                frm.NavDataLocationChanged += (s, e) =>
-                    fuelMenu.RefreshForNavDataLocationChange();
+                frm.NavDataLocationChanged += (s, e) => fuelMenu.RefreshForNavDataLocationChange();
 
                 frm.ShowInTaskbar = showInTaskbar;
                 frm.StartPosition = position;
