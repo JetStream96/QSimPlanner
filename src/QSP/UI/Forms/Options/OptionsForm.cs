@@ -32,10 +32,7 @@ namespace QSP.UI.Forms.Options
 
         public event EventHandler NavDataLocationChanged;
 
-        public AppOptions AppSettings
-        {
-            get { return appSettingsLocator.Instance; }
-        }
+        public AppOptions AppSettings =>  appSettingsLocator.Instance; 
 
         public OptionsForm()
         {
@@ -337,11 +334,11 @@ namespace QSP.UI.Forms.Options
 
             try
             {
-                var t = AiracCyclePeriod(navDataPath);
+                var t = AiracTools.AiracCyclePeriod(navDataPath);
                 airacLbl.Text = t.Cycle;
-                airacPeriodLbl.Text = t.Period;
+                airacPeriodLbl.Text = t.PeriodText;
 
-                bool expired = !AiracTools.AiracValid(t.Period);
+                bool expired = !t.IsWithinValidPeriod;
 
                 if (expired)
                 {
@@ -366,24 +363,7 @@ namespace QSP.UI.Forms.Options
                 airacPeriodLbl.Text = "";
             }
         }
-
-        /// <summary>
-        /// Reads from file and gets the AIRAC cycle and valid period. 
-        /// e.g. { Cycle: 1407, Period: 26JUN23JUL/14 }.
-        /// </summary>
-        /// <param name="filepath">The folder containing cycle.txt.</param>
-        public static AiracPeriod AiracCyclePeriod(string filepath)
-        {
-            var fileLocation = Path.Combine(filepath, @"cycle.txt");
-            string str = File.ReadAllText(fileLocation);
-            var s = str.Split(',');
-
-            return new AiracPeriod
-            { Cycle = s[0].Trim(), Period = s[1].Trim() };
-        }
-
-        public struct AiracPeriod { public string Cycle, Period; }
-
+        
         private void infoLbl_MouseEnter(object sender, EventArgs e)
         {
             infoLbl.Font = new Font(infoLbl.Font, FontStyle.Underline);
