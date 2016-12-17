@@ -146,6 +146,7 @@
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
+    <Compile Include="NavData\NavDataPath.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RouteFinding\AirwayNetwork.cs" />
     <Compile Include="RouteFinding\AirwayStructure\EdgeExtension.cs" />
@@ -280,6 +281,8 @@
     <Compile Include="Updates\PostUpdateAction.cs" />
     <Compile Include="Updates\Updater.cs" />
     <Compile Include="Updates\Utilities.cs" />
+    <Compile Include="Utilities\RegistryUitl.cs" />
+    <Compile Include="Utilities\SimulatorPath.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />

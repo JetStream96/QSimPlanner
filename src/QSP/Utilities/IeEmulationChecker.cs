@@ -11,16 +11,12 @@ namespace QSP.Utilities
     {
         public void Run()
         {
-            if (RegKeyExists() == false)
-            {
-                AddRegistry();
-            }
+            if (!RegKeyExists()) AddRegistry();
         }
 
         public void AddRegistry()
         {
-            AddExeWithIEEmulationMode(
-                Assembly.GetEntryAssembly().GetName().Name + ".exe");
+            AddExeWithIEEmulationMode(Assembly.GetEntryAssembly().GetName().Name + ".exe");
         }
 
         private void AddExeWithIEEmulationMode(string exeName)
