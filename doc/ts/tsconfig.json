@@ -3,6 +3,6 @@
         "target": "es5",
         "module": "none",
         "sourceMap": false,
-        "outDir": "./js"
+        "outDir": "../js"
     }
 }
