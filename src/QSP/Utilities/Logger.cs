@@ -21,8 +21,7 @@ namespace QSP.Utilities
         {
             try
             {
-                File.AppendAllText(
-                    filePath, DateTime.Now.ToString() + ":\n" + msg + "\n\n");
+                File.AppendAllText(filePath, DateTime.Now.ToString() + ":\n" + msg + "\n\n");
             }
             catch
             { }

@@ -11,18 +11,9 @@ namespace QSP.Utilities.Units
 
         public static WeightUnit StringToWeightUnit(string item)
         {
-            switch (item)
-            {
-                case "KG":
-                    return WeightUnit.KG;
-
-                case "LB":
-                    return WeightUnit.LB;
-
-                default:
-                    throw new ArgumentOutOfRangeException(
-                        "Invalid weight unit.");
-            }
+            if (item == "KG") return WeightUnit.KG;
+            if (item == "LB") return WeightUnit.LB;
+            throw new ArgumentOutOfRangeException("Invalid weight unit.");
         }
     }
 }
