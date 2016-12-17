@@ -8,22 +8,22 @@ function setTable(tableId: string, content: string, firstRowIsHeader = false): v
 function getInnerHtml(str: string, firstRowIsHeader = false): string {
     let lines = str
         .split(/(\r\n)|\n/)
-        .filter(s => s !== undefined && !_isEmptyLine(s))
+        .filter(s => s !== undefined && !isEmptyLine(s))
         .map(line => line.split(','));
 
-    return _arrayToHtml(lines, firstRowIsHeader);
+    return arrayToHtml(lines, firstRowIsHeader);
 }
 
-function _isEmptyLine(s: string): boolean {
+function isEmptyLine(s: string): boolean {
     return !/[^\s]/.test(s);
 }
 
-function _arrayToHtml(array: Array<Array<string>>, firstRowIsHeader: boolean): string {
-    let tr = array.map(line => _includeInTags(line, 'td'));
-    if (firstRowIsHeader) tr[0] = _includeInTags(array[0], 'th');
-    return _includeInTags(tr, 'tr');
+function arrayToHtml(array: Array<Array<string>>, firstRowIsHeader: boolean): string {
+    let tr = array.map(line => includeInTags(line, 'td'));
+    if (firstRowIsHeader) tr[0] = includeInTags(array[0], 'th');
+    return includeInTags(tr, 'tr');
 }
 
-function _includeInTags(array: Array<string>, tagName: string): string {
+function includeInTags(array: Array<string>, tagName: string): string {
     return array.map(s => `<${tagName}>${s}</${tagName}>`).join('');
 }
