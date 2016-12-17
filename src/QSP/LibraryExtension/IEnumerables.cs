@@ -11,14 +11,16 @@ namespace QSP.LibraryExtension
             foreach (var item in source) action(item);
         }
 
-        public static T MaxBy<T>(this IEnumerable<T> source, Func<T, double> selector)
+        public static T MaxBy<T, U>(this IEnumerable<T> source, Func<T, U> selector)
+            where U : IComparable<U>
         {
-            return source.Aggregate((x, y) => selector(x) > selector(y) ? x : y);
+            return source.Aggregate((x, y) => selector(x).CompareTo(selector(y)) > 0 ? x : y);
         }
 
-        public static T MinBy<T>(this IEnumerable<T> source, Func<T, double> selector)
+        public static T MinBy<T, U>(this IEnumerable<T> source, Func<T, U> selector)
+            where U : IComparable<U>
         {
-            return source.Aggregate((x, y) => selector(x) < selector(y) ? x : y);
+            return source.Aggregate((x, y) => selector(x).CompareTo(selector(y)) < 0 ? x : y);
         }
 
         public static HashSet<T> ToHashSet<T>(this IEnumerable<T> source)
