@@ -22,6 +22,7 @@ namespace QSP.NavData
                 Period = AiracTools.TryGetAiracCyclePeriod(d)
             });
 
+            // Choose the latest airac cycle.
             return airacs.MaxBy(a => a.Period.Period.End);
         }
 
