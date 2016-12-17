@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using QSP.LibraryExtension;
+using QSP.Utilities;
 using System.IO;
-using Microsoft.Win32;
+using System.Linq;
 using static QSP.Utilities.SimulatorPath;
 
 namespace QSP.NavData
@@ -10,7 +10,25 @@ namespace QSP.NavData
 
     public static class NavDataPath
     {
+        public static AiracInfo DetectNavDataPath()
+        {
+            var paths = SimulatorPaths()
+                .Where(p => p != null)
+                .SelectMany(p => new[] {GetNavDataProPath(p), GetNavigraphPath(p)});
 
+            var airacs = paths.Select(d => new AiracInfo()
+            {
+                Directory = d,
+                Period = AiracTools.TryGetAiracCyclePeriod(d)
+            });
+
+            return airacs.MaxBy(a => a.Period.Period.End);
+        }
+
+        public struct AiracInfo
+        {
+            public string Directory; public AiracPeriod Period;
+        }
 
         private static string[] SimulatorPaths()
         {

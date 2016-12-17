@@ -21,30 +21,17 @@ namespace QSP.Utilities
             return new AiracPeriod(s[0], s[1], ParsePeriod(s[1]));
         }
 
-        public class AiracPeriod
+        public static AiracPeriod TryGetAiracCyclePeriod(string folderPath)
         {
-            public string Cycle { get; }
-            public string PeriodText { get; }
-            public TimePeriod Period { get; }
-
-            public AiracPeriod(string Cycle, string PeriodText, TimePeriod Period)
+            try
             {
-                this.Cycle = Cycle;
-                this.PeriodText = PeriodText;
-                this.Period = Period;
+                return AiracCyclePeriod(folderPath);
             }
-
-            public bool IsWithinValidPeriod
+            catch
             {
-                get
-                {
-                    var dateNow = DateTime.UtcNow.Date;
-                    return Period.Start <= dateNow && dateNow <= Period.End;
-                }
+                return null;
             }
         }
-
-        public struct TimePeriod { public DateTime Start, End; }
 
         /// <summary>
         /// Parse the AIRAC cycle period.
@@ -66,7 +53,7 @@ namespace QSP.Utilities
                 var dateStart = new DateTime(2000 + yearStart, monthStart, dayStart);
                 var dateEnd = new DateTime(2000 + yearEnd, monthEnd, dayEnd);
 
-                return new TimePeriod() { Start = dateStart, End = dateEnd };
+                return new TimePeriod(dateStart, dateEnd);
             }
             catch
             {
@@ -75,3 +62,4 @@ namespace QSP.Utilities
         }
     }
 }
+

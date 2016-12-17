@@ -281,6 +281,7 @@
     <Compile Include="Updates\PostUpdateAction.cs" />
     <Compile Include="Updates\Updater.cs" />
     <Compile Include="Updates\Utilities.cs" />
+    <Compile Include="Utilities\AiracPeriod.cs" />
     <Compile Include="Utilities\RegistryUitl.cs" />
     <Compile Include="Utilities\SimulatorPath.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
