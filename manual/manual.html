@@ -1,150 +1,150 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>QSimPlanner Manual</title>
-		<style>		
-		html {
-			display:table; 
-			width:100%;
-		}
-		
-		body {
+    <head>
+        <meta charset="UTF-8">
+        <title>QSimPlanner Manual</title>
+        <style>        
+        html {
+            display:table; 
+            width:100%;
+        }
+        
+        body {
             max-width: 45em;
             line-height: 1.6em;
-			margin: 0 auto;
+            margin: 0 auto;
         }
 
-		h2{
-			width:auto;
-			background-color: rgb(224, 235, 245);
-			padding:5px;
-		}		
-		
-		h3{
-			padding:5px;
-		}
-		
-		h4{			
-			font-weight: normal;
-		}
-		
-		h2, h3, h4{
-			color:#375eab;
-		}	
-		
-		.text-font{
-			font-family:Helvetica, Arial, sans-serif;
-		}
-		
-		.title-color{
-			color:rgb(60,60,60);
-		}
-		
-		.screenshots{
-			width:auto;
-			height:auto;
-			float:top;
-			vertical-align: top;
-		}
-		
-		.gray-background{
-			font-family:"Courier New";
-			padding-left:5px;
-			padding-right:5px;
-			background-color:rgb(225,225,225);
-		}
-		
-		.gray-box{
-			font-family:"Courier New";
-			padding:5px;
-			margin-left:10px;
-			background-color:rgb(225,225,225);
-		}
-		
-		p{
-			padding-left:8px;
-		}
-		
-		</style>
-	</head>
-	<body>
-		<div class="text-font">
-			<h1 class="title-color">QSimPlanner Manual</h1>	
-			<h2>Aircraft Config</h2>
-			<p>From the aircraft configuration menu, you can add/edit/delete a profile.</p>
-			<p>After clicking "edit", various properties can be set. Fuel consumption, takeoff and landing profiles can be set to "None". However, if the fuel consumption profile is "None", that aircraft will not appear in fuel planning page. Takeoff/landing profiles are similar.</p>
-			<!-- All screenshot widths are 0.6 times its original. -->
-			<img src="images/config_menu_1.png" alt="image" style="max-width:259px;" class="screenshots">
-			<img src="images/config_menu_2.png" alt="image" style="max-width:337px;" class="screenshots">
-			
-			<h2>Flight planning</h2>
-			<p>This is where the route planning and fuel calculation is done.</p>
-			<h3>SID/STAR filter, route options</h3>
-			<p>The route finder comes with a SID/STAR filter. There are 2 modes, blacklist and whitelist.</p>
-			<img src="images/filter_btn.png" alt="image" style="max-width:267px;" class="screenshots">
-			<img src="images/filter_dialog.png"  alt="image" style="max-width:154px;" class="screenshots">
-			
-			<p>It's possible to avoid finding a route passing through certain countries.</p>
-			<img src="images/avoid_country_menu.png" alt="image" style="max-width:280px;" class="screenshots">
-			<img src="images/avoid_country.png"  alt="image" style="max-width:234px;" class="screenshots">
-			
-			<h3 id="route-actions">Route actions</h3>
-			<p>The actions menu contains 4 items:<br>
-				<div style="margin-left:40px;">
-					<h4>Find route</h4>
-					<p>Automatically finds the shortest route between the two airports. The SID/STAR filters,  avoided countries, and current oceanic tracks are taken into consideration.</p>
-					
-					<h4>Analyze route</h4>
-					<p>Read the route text and analyze it. The allowed format is <span class="gray-background">SID Waypoint Airway Waypoint ... Waypoint STAR</span>.<br> The SID and STAR are optional. Any SID/STAR/Airway can be replaced with <span class="gray-background">DCT</span>(direct), <span class="gray-background">AUTO</span>(finds the route between the two waypoints automatically) or <span class="gray-background">RAND</span>(find a random track between the two waypoints). Any waypoint can be replaced with a coordinate, for example, <span class="gray-background">50E30</span>, <span class="gray-background">N30W070</span>, or <span class="gray-background">S20.35E12.335</span>. Note that the departure and arrival airports/runways need to be entered correctly. Also all <span class="gray-background">DCT</span> can be omitted.</p>
-					
-					<p>For example, this route (from KLAS to KLAX) has correct format:</p>
-					<p class="gray-box">MCCRN4 WHIGG V21 HEC BASET3.HEC</p>
-					<p>We can let the route finder get the shortest path from <span class="gray-background">WHIGG</span> to <span class="gray-background">HEC</span> by replacing the airway with <span class="gray-background">AUTO</span>:</p>
-					<p class="gray-box">MCCRN4 WHIGG <span style="font-weight:bold">AUTO</span> HEC BASET3.HEC</p>
-					<p>Or even let it find the SID for us:</p>
-					<p class="gray-box"><span style="font-weight:bold">AUTO</span> HEC BASET3.HEC</p>
-					
-					<p>Another example is a route from PANC to PHNL. We can use <span class="gray-background">RAND</span> to find a random track between waypoints, i.e. a series of latitude/longitude coordinates or waypoints.</p>
-					<p class="gray-box">ANCHO8 TED <span style="font-weight:bold">RAND</span> ZIGIE KAENA2.ZIGIE</p>
-					<p>Or, if we do not know the SID and STAR to use, simply enter:</p>
-					<p class="gray-box"><span style="font-weight:bold">RAND</span></p>
-					<p>Click "Analyze Route" and then we get:</p>
-					<p class="gray-box">ANCHO8 TED 61N50 50N50 39N50 29N55 ZIGIE KAENA2.ZIGIE</p>
-					
-					<h4>Show map</h4>
-					<p>Plot the route found or analyzed with Google Map.</p>
-					<h4>Export</h4> 
-					<p>Export the route found or analyzed as a flight plan file, as set in <a href="#option-export">options</a>.</p>
-				</div>
-			</p>
-			
-			<h3>Advanced tool</h3>
-			<p>The advanced tool can find or analyze routes which are:<br>
-				<ul>
-					<li type="square">From airport to airport<br></li>
-					<li type="square">From airport to waypoint<br></li>
-					<li type="square">From waypoint to airport<br></li>
-					<li type="square">From waypoint to waypoint</li>
-				</ul>				
-			</p>
-			<img src="images/advanced_route.png" alt="image" style="max-width:503px;" class="screenshots">
-			
-			<h3>Fuel Parameters</h3>
-				<ul>
-					<li type="square">Missed approach: Fuel consumption for one missed approach. This depends on the type of aircraft and missed approach procedure.<br></li>
-					<li type="square">Contingency: The percentage of (Trip fuel + Missed approach fuel). This is required by regulations.<br></li>
-					<li type="square">Holding: Estimated holding time at destination airport. This may be due to bad weather, heavy traffic, or any other factors.<br></li>
-					<li type="square">Extra: Fuel added at your (captain's) discretion.</li>
-					<li type="square">APU: Estimated APU time.</li>
-					<li type="square">Taxi: Enter the estimated taxi time.</li>
-					<li type="square">Final reserve: Time to hold 1500 feet above alternate airport. This is not used unless in an emergency. Usually 30 or 45 minutes, depending on the policy.</li>
-				</ul>
-			</p>
-			
-			<h3>Fuel report</h3>
-			<p>An example of fuel report:</p>
-			<p class="gray-box" style="white-space:pre">
+        h2{
+            width:auto;
+            background-color: rgb(224, 235, 245);
+            padding:5px;
+        }        
+        
+        h3{
+            padding:5px;
+        }
+        
+        h4{            
+            font-weight: normal;
+        }
+        
+        h2, h3, h4{
+            color:#375eab;
+        }    
+        
+        .text-font{
+            font-family:Helvetica, Arial, sans-serif;
+        }
+        
+        .title-color{
+            color:rgb(60,60,60);
+        }
+        
+        .screenshots{
+            width:auto;
+            height:auto;
+            float:top;
+            vertical-align: top;
+        }
+        
+        .gray-background{
+            font-family:"Courier New";
+            padding-left:5px;
+            padding-right:5px;
+            background-color:rgb(225,225,225);
+        }
+        
+        .gray-box{
+            font-family:"Courier New";
+            padding:5px;
+            margin-left:10px;
+            background-color:rgb(225,225,225);
+        }
+        
+        p{
+            padding-left:8px;
+        }
+        
+        </style>
+    </head>
+    <body>
+        <div class="text-font">
+            <h1 class="title-color">QSimPlanner Manual</h1>    
+            <h2>Aircraft Config</h2>
+            <p>From the aircraft configuration menu, you can add/edit/delete a profile.</p>
+            <p>After clicking "edit", various properties can be set. Fuel consumption, takeoff and landing profiles can be set to "None". However, if the fuel consumption profile is "None", that aircraft will not appear in fuel planning page. Takeoff/landing profiles are similar.</p>
+            <!-- All screenshot widths are 0.6 times its original. -->
+            <img src="images/config_menu_1.png" alt="image" style="max-width:259px;" class="screenshots">
+            <img src="images/config_menu_2.png" alt="image" style="max-width:337px;" class="screenshots">
+            
+            <h2>Flight planning</h2>
+            <p>This is where the route planning and fuel calculation is done.</p>
+            <h3>SID/STAR filter, route options</h3>
+            <p>The route finder comes with a SID/STAR filter. There are 2 modes, blacklist and whitelist.</p>
+            <img src="images/filter_btn.png" alt="image" style="max-width:267px;" class="screenshots">
+            <img src="images/filter_dialog.png"  alt="image" style="max-width:154px;" class="screenshots">
+            
+            <p>It's possible to avoid finding a route passing through certain countries.</p>
+            <img src="images/avoid_country_menu.png" alt="image" style="max-width:280px;" class="screenshots">
+            <img src="images/avoid_country.png"  alt="image" style="max-width:234px;" class="screenshots">
+            
+            <h3 id="route-actions">Route actions</h3>
+            <p>The actions menu contains 4 items:<br>
+                <div style="margin-left:40px;">
+                    <h4>Find route</h4>
+                    <p>Automatically finds the shortest route between the two airports. The SID/STAR filters,  avoided countries, and current oceanic tracks are taken into consideration.</p>
+                    
+                    <h4>Analyze route</h4>
+                    <p>Read the route text and analyze it. The allowed format is <span class="gray-background">SID Waypoint Airway Waypoint ... Waypoint STAR</span>.<br> The SID and STAR are optional. Any SID/STAR/Airway can be replaced with <span class="gray-background">DCT</span>(direct), <span class="gray-background">AUTO</span>(finds the route between the two waypoints automatically) or <span class="gray-background">RAND</span>(find a random track between the two waypoints). Any waypoint can be replaced with a coordinate, for example, <span class="gray-background">50E30</span>, <span class="gray-background">N30W070</span>, or <span class="gray-background">S20.35E12.335</span>. Note that the departure and arrival airports/runways need to be entered correctly. Also all <span class="gray-background">DCT</span> can be omitted.</p>
+                    
+                    <p>For example, this route (from KLAS to KLAX) has correct format:</p>
+                    <p class="gray-box">MCCRN4 WHIGG V21 HEC BASET3.HEC</p>
+                    <p>We can let the route finder get the shortest path from <span class="gray-background">WHIGG</span> to <span class="gray-background">HEC</span> by replacing the airway with <span class="gray-background">AUTO</span>:</p>
+                    <p class="gray-box">MCCRN4 WHIGG <span style="font-weight:bold">AUTO</span> HEC BASET3.HEC</p>
+                    <p>Or even let it find the SID for us:</p>
+                    <p class="gray-box"><span style="font-weight:bold">AUTO</span> HEC BASET3.HEC</p>
+                    
+                    <p>Another example is a route from PANC to PHNL. We can use <span class="gray-background">RAND</span> to find a random track between waypoints, i.e. a series of latitude/longitude coordinates or waypoints.</p>
+                    <p class="gray-box">ANCHO8 TED <span style="font-weight:bold">RAND</span> ZIGIE KAENA2.ZIGIE</p>
+                    <p>Or, if we do not know the SID and STAR to use, simply enter:</p>
+                    <p class="gray-box"><span style="font-weight:bold">RAND</span></p>
+                    <p>Click "Analyze Route" and then we get:</p>
+                    <p class="gray-box">ANCHO8 TED 61N50 50N50 39N50 29N55 ZIGIE KAENA2.ZIGIE</p>
+                    
+                    <h4>Show map</h4>
+                    <p>Plot the route found or analyzed with Google Map.</p>
+                    <h4>Export</h4> 
+                    <p>Export the route found or analyzed as a flight plan file, as set in <a href="#option-export">options</a>.</p>
+                </div>
+            </p>
+            
+            <h3>Advanced tool</h3>
+            <p>The advanced tool can find or analyze routes which are:<br>
+                <ul>
+                    <li type="square">From airport to airport<br></li>
+                    <li type="square">From airport to waypoint<br></li>
+                    <li type="square">From waypoint to airport<br></li>
+                    <li type="square">From waypoint to waypoint</li>
+                </ul>                
+            </p>
+            <img src="images/advanced_route.png" alt="image" style="max-width:503px;" class="screenshots">
+            
+            <h3>Fuel Parameters</h3>
+                <ul>
+                    <li type="square">Missed approach: Fuel consumption for one missed approach. This depends on the type of aircraft and missed approach procedure.<br></li>
+                    <li type="square">Contingency: The percentage of (Trip fuel + Missed approach fuel). This is required by regulations.<br></li>
+                    <li type="square">Holding: Estimated holding time at destination airport. This may be due to bad weather, heavy traffic, or any other factors.<br></li>
+                    <li type="square">Extra: Fuel added at your (captain's) discretion.</li>
+                    <li type="square">APU: Estimated APU time.</li>
+                    <li type="square">Taxi: Enter the estimated taxi time.</li>
+                    <li type="square">Final reserve: Time to hold 1500 feet above alternate airport. This is not used unless in an emergency. Usually 30 or 45 minutes, depending on the policy.</li>
+                </ul>
+            </p>
+            
+            <h3>Fuel report</h3>
+            <p>An example of fuel report:</p>
+            <p class="gray-box" style="white-space:pre">
                     ALL WEIGHTS IN KG
 
                                   FUEL  TIME
@@ -162,54 +162,54 @@
 
                     TOTAL        65089  0933
                     FMC RSV        6.0
-			</p>
-			<p>The items in the report are:</p>
-			<ul>
-				<li type="square">Trip: Estimated fuel consumption from origin to destination<br></li>
-				<li type="square">Contingency: Amount of contingency fuel<br></li>
-				<li type="square">Holding: Amount of holding fuel<br></li>
-				<li type="square">Extra: Amount of extra fuel</li>
-				<li type="square">Alternate: Estimated fuel consumption from destination to alternate</li>
-				<li type="square">Final rsv: Amount of final reserve fuel</li>
-				<li type="square">APU: Estimated APU time.</li>
-				<li type="square">Taxi: Enter the estimated taxi time</li>
-				<li type="square">Total: Total fuel to add into fuel tanks</li>
-				<li type="square">FMC rsv: Value to enter into "RESERVES" in FMC.</li>				
-			</ul>
-			
-			<h2>Options</h2>
-			<h3>Nav Data location</h3> 
-			<p>Location of either <a href="http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688">Aerosoft</a>'s NavDataPro or <a href="https://www.navigraph.com/FmsData.aspx">Navigraph</a>'s FMS Data (both are payware). Use the version of Aerosoft Airbus A318/A319/A320/A321.</p>
-			<p>Then select the folder which contains Airports.txt, which may be located at <span class="gray-background">[FSX or P3D folder]\aerosoft\Airbus_Fallback\Navigraph</span> (if using Navigraph) or <span class="gray-background">[FSX or P3D folder]\aerosoft\Airbus_Fallback\NavDataPro</span> (if using NavDataPro).</p>
-			<h3 id="option-export">Flight plan export</h3>
-			<p>You can set the folder which the flight plan file exports to. If the checkbox on the left indicates whether that item is export when "Export" is click in <a href="#route-actions">Route Actions</a>.</p>
-			
-			<h3>Route</h3>
-			<ul>
-				<li type="square">Use wind-optimized route: Enable route finder uses wind aloft to determine the shortest route.<br></li>
-				<li type="square">Hide 'DCT' in route output: Omit all 'DCT'.<br></li>
-				<li type="square">Show track ident only: The route shows only name of the oceanic track instead of all waypoints of that track.<br></li>			
-			</ul>
-			
-			<h2 id="to">Takeoff</h2>
-			<p>In this page takeoff performance can be computed.</p>
-			<h3>Runway info</h3>
-			<p>This is where runway infomation is entered. By enter the ICAO code of airport and selecting the departure runway, correct infomation will show automatically. It's possible to enter the parameters manually as well. On the top-left there is a "Req" button, when clicked the departure airport and runway in fuel planning page will be used.</p>
-			<img src="images/rwy.png" alt="image" style="max-width:314px;" class="screenshots">
-			
-			<h3>Weather info</h3>
-			<p>This is where airport weather infomation is entered. It can be either filled in manually, or automatically by clicking "Import Metar". The current metar will be downloaded and filled in. Click "View" to see the metar message.</p>
-			<img src="images/wx_info_1.png" alt="image" style="max-width:319px;" class="screenshots">
-			<img src="images/wx_info_2.png" alt="image" style="max-width:319px;" class="screenshots">
-			
-			<h3>Aircraft configuration</h3>
-			<p>You can enter the aircraft weight, takeoff flaps, etc. Note that some parameters are not applicable for all aircrafts. For example, currently the 737-800 does not have "THR rating" option (which allows derate takeoff TO1 and TO2). Also, due to the limited data available for many aircraft types, often there is only one flaps setting to choose from.</p>
-			<p>If the fuel report was generated in fuel planning page already, there will be a "Request" button. Click it and the aircraft and takeoff weight will be set automatically.</p>
-			<img src="images/ac_config.png" alt="image" style="max-width:304px;" class="screenshots">
-			
-			<h3>Takeoff report</h3>
-			<p>The required takeoff distance is computed and climb performance is verified. The possible assumed temperature(s) are also listed.</p>
-			<p class="gray-box" style="white-space:pre">
+            </p>
+            <p>The items in the report are:</p>
+            <ul>
+                <li type="square">Trip: Estimated fuel consumption from origin to destination<br></li>
+                <li type="square">Contingency: Amount of contingency fuel<br></li>
+                <li type="square">Holding: Amount of holding fuel<br></li>
+                <li type="square">Extra: Amount of extra fuel</li>
+                <li type="square">Alternate: Estimated fuel consumption from destination to alternate</li>
+                <li type="square">Final rsv: Amount of final reserve fuel</li>
+                <li type="square">APU: Estimated APU time.</li>
+                <li type="square">Taxi: Enter the estimated taxi time</li>
+                <li type="square">Total: Total fuel to add into fuel tanks</li>
+                <li type="square">FMC rsv: Value to enter into "RESERVES" in FMC.</li>                
+            </ul>
+            
+            <h2>Options</h2>
+            <h3>Nav Data location</h3> 
+            <p>Location of either <a href="http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688">Aerosoft</a>'s NavDataPro or <a href="https://www.navigraph.com/FmsData.aspx">Navigraph</a>'s FMS Data (both are payware). Use the version of Aerosoft Airbus A318/A319/A320/A321.</p>
+            <p>Then select the folder which contains Airports.txt, which may be located at <span class="gray-background">[FSX or P3D folder]\aerosoft\Airbus_Fallback\Navigraph</span> (if using Navigraph) or <span class="gray-background">[FSX or P3D folder]\aerosoft\Airbus_Fallback\NavDataPro</span> (if using NavDataPro).</p>
+            <h3 id="option-export">Flight plan export</h3>
+            <p>You can set the folder which the flight plan file exports to. If the checkbox on the left indicates whether that item is export when "Export" is click in <a href="#route-actions">Route Actions</a>.</p>
+            
+            <h3>Route</h3>
+            <ul>
+                <li type="square">Use wind-optimized route: Enable route finder uses wind aloft to determine the shortest route.<br></li>
+                <li type="square">Hide 'DCT' in route output: Omit all 'DCT'.<br></li>
+                <li type="square">Show track ident only: The route shows only name of the oceanic track instead of all waypoints of that track.<br></li>            
+            </ul>
+            
+            <h2 id="to">Takeoff</h2>
+            <p>In this page takeoff performance can be computed.</p>
+            <h3>Runway info</h3>
+            <p>This is where runway infomation is entered. By enter the ICAO code of airport and selecting the departure runway, correct infomation will show automatically. It's possible to enter the parameters manually as well. On the top-left there is a "Req" button, when clicked the departure airport and runway in fuel planning page will be used.</p>
+            <img src="images/rwy.png" alt="image" style="max-width:314px;" class="screenshots">
+            
+            <h3>Weather info</h3>
+            <p>This is where airport weather infomation is entered. It can be either filled in manually, or automatically by clicking "Import Metar". The current metar will be downloaded and filled in. Click "View" to see the metar message.</p>
+            <img src="images/wx_info_1.png" alt="image" style="max-width:319px;" class="screenshots">
+            <img src="images/wx_info_2.png" alt="image" style="max-width:319px;" class="screenshots">
+            
+            <h3>Aircraft configuration</h3>
+            <p>You can enter the aircraft weight, takeoff flaps, etc. Note that some parameters are not applicable for all aircrafts. For example, currently the 737-800 does not have "THR rating" option (which allows derate takeoff TO1 and TO2). Also, due to the limited data available for many aircraft types, often there is only one flaps setting to choose from.</p>
+            <p>If the fuel report was generated in fuel planning page already, there will be a "Request" button. Click it and the aircraft and takeoff weight will be set automatically.</p>
+            <img src="images/ac_config.png" alt="image" style="max-width:304px;" class="screenshots">
+            
+            <h3>Takeoff report</h3>
+            <p>The required takeoff distance is computed and climb performance is verified. The possible assumed temperature(s) are also listed.</p>
+            <p class="gray-box" style="white-space:pre">
                             (   OAT 40°C   )
                        Required distance     2683M
                        Runway remaining      548M
@@ -222,44 +222,44 @@
                  43           2797 M              434 M
                  44           2838 M              393 M
                  45           2884 M              347 M
-                 46           2929 M              302 M				   
-			</p>
-			
-			<h2>Landing</h2>
-			<p>In this page landing performance is computed. This is similar to the <a href="#to">takeoff performance</a> page.</p>
-			
-			<h2>Miscellaneous infomation</h2>
-			<h3>Airport Data tab</h3>
-			<p>By entering the ICAO code, you can view:</p>
-			<ul>
-				<li type="square">Metar<br></li>
-				<li type="square">Transition altitude/level<br></li>
-				<li type="square">Basic information of each runway.<br></li>
-				<li type="square">Map of the airport<br></li>			
-			</ul>
-			
-			<h3>Metar/TAF tab</h3>
-			<p>You can search for the Metar/TAF of any airport.</p>
-			<img src="images/search_wx.png" alt="image" style="max-width:668px;" class="screenshots">
-			
-			<p>Also you can monitor the weather of the departure, arrival and alternate airports.</p>
-			<img src="images/monitor_wx.png" alt="image" style="max-width:653px;" class="screenshots">
-			
-			<h3>Upper wind tab</h3>
-			<p>The wind aloft for the destination airport is shown here.</p>
-			
-			<h2>Track Manager</h2>
-			<p>Track manager is opened by clicking on the track status bar, as shown in the picture below.</p>
-			<img src="images/status_bar.png" alt="image" style="max-width:339px;" class="screenshots">
-			<p>Tracks can be downloaded, saved to file, or loaded from file. Each track system (AUSOTS, NATs, PACOTs) comes with a text message, which can be viewed by clicking "View Text". It's important to know that these oceanic tracks are updated every a few hours, and if you are not using the lastest AIRAC, some tracks may not be parsed successfully. If you see errors, updating the AIRAC may fix them.</p>
-			<p>Each track system can be disabled/enabled individually. When a track system is disabled, they will not be available in route finder or route analyzer.</p>
-			
-			<h2>Wind aloft manager</h2>
-			<p>Wind aloft manager is opened by clicking on the wind status bar, as shown in the picture below.</p>
-			<img src="images/status_bar_2.png" alt="image" style="max-width:364px;" class="screenshots">
-			<p>Wind aloft can be downloaded, saved to file, or loaded from file (in .grib2 format).</p>
-			
-		</div>
-		
-	</body>
+                 46           2929 M              302 M                   
+            </p>
+            
+            <h2>Landing</h2>
+            <p>In this page landing performance is computed. This is similar to the <a href="#to">takeoff performance</a> page.</p>
+            
+            <h2>Miscellaneous infomation</h2>
+            <h3>Airport Data tab</h3>
+            <p>By entering the ICAO code, you can view:</p>
+            <ul>
+                <li type="square">Metar<br></li>
+                <li type="square">Transition altitude/level<br></li>
+                <li type="square">Basic information of each runway.<br></li>
+                <li type="square">Map of the airport<br></li>            
+            </ul>
+            
+            <h3>Metar/TAF tab</h3>
+            <p>You can search for the Metar/TAF of any airport.</p>
+            <img src="images/search_wx.png" alt="image" style="max-width:668px;" class="screenshots">
+            
+            <p>Also you can monitor the weather of the departure, arrival and alternate airports.</p>
+            <img src="images/monitor_wx.png" alt="image" style="max-width:653px;" class="screenshots">
+            
+            <h3>Upper wind tab</h3>
+            <p>The wind aloft for the destination airport is shown here.</p>
+            
+            <h2>Track Manager</h2>
+            <p>Track manager is opened by clicking on the track status bar, as shown in the picture below.</p>
+            <img src="images/status_bar.png" alt="image" style="max-width:339px;" class="screenshots">
+            <p>Tracks can be downloaded, saved to file, or loaded from file. Each track system (AUSOTS, NATs, PACOTs) comes with a text message, which can be viewed by clicking "View Text". It's important to know that these oceanic tracks are updated every a few hours, and if you are not using the lastest AIRAC, some tracks may not be parsed successfully. If you see errors, updating the AIRAC may fix them.</p>
+            <p>Each track system can be disabled/enabled individually. When a track system is disabled, they will not be available in route finder or route analyzer.</p>
+            
+            <h2>Wind aloft manager</h2>
+            <p>Wind aloft manager is opened by clicking on the wind status bar, as shown in the picture below.</p>
+            <img src="images/status_bar_2.png" alt="image" style="max-width:364px;" class="screenshots">
+            <p>Wind aloft can be downloaded, saved to file, or loaded from file (in .grib2 format).</p>
+            
+        </div>
+        
+    </body>
 </html>
