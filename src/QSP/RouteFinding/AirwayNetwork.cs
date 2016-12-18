@@ -31,21 +31,25 @@ namespace QSP.RouteFinding
         // Fires when any of the TrackMessage in the TrackHandlers changed.
         public event EventHandler TrackMessageUpdated;
 
-        public AirwayNetwork(
-            WaypointList wptList, AirportManager airportList)
+        public AirwayNetwork(WaypointList wptList, AirportManager airportList)
         {
             this.WptList = wptList;
             this.AirportList = airportList;
-            TracksInUse = new TrackInUseCollection();
-            StatusRecorder = new StatusRecorder();
+
             SetTrackData();
         }
 
+        // It's vital that new instances are created for the related objects.
+        // Otherwise, the old track managers (e.g. natsManager) may be still downloading or 
+        // parsing data, and adding unwanted information to TrackInUse and StatusRecorder.
         private void SetTrackData()
         {
             natsManager?.UndoEdit();
             pacotsManager?.UndoEdit();
             ausotsManager?.UndoEdit();
+
+            TracksInUse = new TrackInUseCollection();
+            StatusRecorder = new StatusRecorder();
 
             natsManager = new NatsHandler(
                 WptList,
@@ -69,6 +73,11 @@ namespace QSP.RouteFinding
                 TracksInUse);
         }
 
+        /// <summary>
+        /// Use this method when wptList and airportList are entirely change (probably
+        /// due to loading a different nav data). The downloaded tracks will be reparsed
+        /// and added to the wptList if the specific track system was enabled.
+        /// </summary>
         public void Update(WaypointList wptList, AirportManager airportList)
         {
             var natsData = natsManager.RawData;
@@ -81,9 +90,7 @@ namespace QSP.RouteFinding
 
             this.WptList = wptList;
             this.AirportList = airportList;
-
-            TracksInUse.Clear();
-            StatusRecorder.Clear();
+            
             SetTrackData();
 
             if (natsData != null)

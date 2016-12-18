@@ -5,6 +5,7 @@ using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
@@ -121,8 +122,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         public override async Task GetAllTracksAsync()
         {
-            await Task.Factory.StartNew(() =>
-            GetAndReadTracks(new AusotsDownloader()));
+            await Task.Factory.StartNew(() => GetAndReadTracks(new AusotsDownloader()));
             UndoEdit();
         }
 

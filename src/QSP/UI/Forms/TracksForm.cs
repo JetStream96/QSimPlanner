@@ -65,8 +65,7 @@ namespace QSP.UI.Forms
 
         private void RefreshListViewColumnWidth()
         {
-            ListView1.Columns[0].AutoResize(
-                ColumnHeaderAutoResizeStyle.ColumnContent);
+            ListView1.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             ListView1.Columns[1].Width = -2;
         }
 
@@ -182,6 +181,7 @@ namespace QSP.UI.Forms
             InitPicBoxes();
             SetPicBox(records);
             SetMainFormTrackStatus(records);
+            RefreshViewTrackBtns();
         }
 
         private void InitPicBoxes()
@@ -219,16 +219,14 @@ namespace QSP.UI.Forms
             TrackType.Ausots
         };
 
-        private static Severity MaxSeverity(
-            IEnumerable<Entry> records, TrackType type)
+        private static Severity MaxSeverity(IEnumerable<Entry> records, TrackType type)
         {
             var filtered = records.Where(r => r.Type == type).ToList();
             if (filtered.Any() == false) return Severity.Advisory;
             return (Severity)filtered.Max(i => (int)i.Severity);
         }
 
-        private static bool NoErrors(
-            IEnumerable<Entry> records, TrackType type)
+        private static bool NoErrors(IEnumerable<Entry> records, TrackType type)
         {
             return MaxSeverity(records, type) == Severity.Advisory;
         }
@@ -250,8 +248,7 @@ namespace QSP.UI.Forms
 
             foreach (var type in trackTypes)
             {
-                if (airwayNetwork.TrackedLoaded(type) &&
-                    NoErrors(records, type))
+                if (airwayNetwork.TrackedLoaded(type) && NoErrors(records, type))
                 {
                     var lvi = new ListViewItem(TrackString(type));
                     lvi.SubItems.Add("All tracks successfully loaded.");
@@ -298,7 +295,6 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadNats();
             airwayNetwork.NatsEnabled = NatsEnabled;
-            RefreshViewTrackBtns();
 
             BtnNatsDn.Enabled = true;
         }
@@ -309,7 +305,6 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadPacots();
             airwayNetwork.PacotsEnabled = PacotsEnabled;
-            RefreshViewTrackBtns();
 
             BtnPacotsDn.Enabled = true;
         }
@@ -320,25 +315,15 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadAusots();
             airwayNetwork.AusotsEnabled = AusotsEnabled;
-            RefreshViewTrackBtns();
 
             BtnAusotsDn.Enabled = true;
         }
 
-        private bool NatsEnabled
-        {
-            get { return CBoxNatsEnabled.SelectedIndex == 0; }
-        }
+        private bool NatsEnabled => CBoxNatsEnabled.SelectedIndex == 0;
 
-        private bool PacotsEnabled
-        {
-            get { return CBoxPacotsEnabled.SelectedIndex == 0; }
-        }
+        private bool PacotsEnabled => CBoxPacotsEnabled.SelectedIndex == 0;
 
-        private bool AusotsEnabled
-        {
-            get { return CBoxAusotsEnabled.SelectedIndex == 0; }
-        }
+        private bool AusotsEnabled => CBoxAusotsEnabled.SelectedIndex == 0;
 
         private void CBoxNatsEnabledChanged(object sender, EventArgs e)
         {
@@ -362,8 +347,7 @@ namespace QSP.UI.Forms
             Hide();
         }
 
-        private void TxtRichTextBoxContentsResized(
-            object sender, ContentsResizedEventArgs e)
+        private void TxtRichTextBoxContentsResized(object sender, ContentsResizedEventArgs e)
         {
             txtRichTextBox.Height = e.NewRectangle.Height + 10;
         }
@@ -403,8 +387,7 @@ namespace QSP.UI.Forms
 
             if (msg.Count == 0)
             {
-                MsgBoxHelper.ShowWarning(
-                    "No track has been downloaded or imported.");
+                MsgBoxHelper.ShowWarning("No track has been downloaded or imported.");
                 return;
             }
 
@@ -413,8 +396,7 @@ namespace QSP.UI.Forms
 
             var ext = trackFileExtension;
             saveFileDialog.Filter = GetFileDialogFilter();
-            saveFileDialog.InitialDirectory =
-                Path.GetFullPath(trackFileFolder);
+            saveFileDialog.InitialDirectory = Path.GetFullPath(trackFileFolder);
             saveFileDialog.RestoreDirectory = true;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -440,8 +422,7 @@ namespace QSP.UI.Forms
             var openFileDialog = new OpenFileDialog();
 
             openFileDialog.Filter = GetFileDialogFilter();
-            openFileDialog.InitialDirectory =
-                Path.GetFullPath(trackFileFolder);
+            openFileDialog.InitialDirectory = Path.GetFullPath(trackFileFolder);
             openFileDialog.RestoreDirectory = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -456,8 +437,7 @@ namespace QSP.UI.Forms
                 catch (Exception ex)
                 {
                     WriteToLog(ex);
-                    MsgBoxHelper.ShowWarning(
-                        $"Failed to load file {file}");
+                    MsgBoxHelper.ShowWarning($"Failed to load file {file}");
                 }
             }
 

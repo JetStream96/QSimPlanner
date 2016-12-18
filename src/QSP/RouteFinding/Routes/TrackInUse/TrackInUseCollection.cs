@@ -20,8 +20,7 @@ namespace QSP.RouteFinding.Routes.TrackInUse
             Ausots = EmptyEntry;
         }
 
-        public IEnumerable<RouteEntry> AllEntries =>
-            Nats.Concat(Pacots).Concat(Ausots);
+        public IEnumerable<RouteEntry> AllEntries => Nats.Concat(Pacots).Concat(Ausots);
             
         public void Clear()
         {
@@ -30,17 +29,13 @@ namespace QSP.RouteFinding.Routes.TrackInUse
             Ausots = EmptyEntry;
         }
 
-        public void UpdateTracks(
-            IEnumerable<TrackNodes> AllNodes, TrackType type)
+        public void UpdateTracks(IEnumerable<TrackNodes> AllNodes, TrackType type)
         {
-            var items = AllNodes.Select(i =>
-                new RouteEntry(i.MainRoute.Nodes, i.AirwayIdent));
-
+            var items = AllNodes.Select(i => new RouteEntry(i.MainRoute.Nodes, i.AirwayIdent));
             UpdateList(items, type);
         }
 
-        private void UpdateList(
-            IEnumerable<RouteEntry> entries, TrackType type)
+        private void UpdateList(IEnumerable<RouteEntry> entries, TrackType type)
         {
             switch (type)
             {

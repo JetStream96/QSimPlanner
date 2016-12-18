@@ -264,8 +264,7 @@ namespace QSP.UI.Forms
             InitMiscInfoMenu();
             RefreshAirportInfoSelection();
 
-            fuelMenu.AltnControl.AlternatesChanged += (s, e) =>
-            RefreshAirportInfoSelection();
+            fuelMenu.AltnControl.AlternatesChanged += (s, e) => RefreshAirportInfoSelection();
 
             fuelMenu.AircraftRequestChanged += (s, e) =>
             {
@@ -282,10 +281,7 @@ namespace QSP.UI.Forms
                 miscInfoMenu.AirportList = airwayNetwork.AirportList;
             };
 
-            airwayNetwork.WptListChanged += (s, e) =>
-            {
-                fuelMenu.OnWptListChanged();
-            };
+            airwayNetwork.WptListChanged += (s, e) => fuelMenu.OnWptListChanged();
 
             aboutMenu.Init("QSimPlanner");
             EnableBtnColorControls();
@@ -303,8 +299,7 @@ namespace QSP.UI.Forms
         private void InitMiscInfoMenu()
         {
             Func<IEnumerable<string>> altnGetter = () =>
-            fuelMenu.AltnControl.Controls
-            .Select(c => c.IcaoTxtBox.Text.Trim().ToUpper());
+                fuelMenu.AltnControl.Controls.Select(c => c.IcaoTxtBox.Text.Trim().ToUpper());
 
             miscInfoMenu.Init(
                 airportList,
@@ -390,19 +385,19 @@ namespace QSP.UI.Forms
                 Color.WhiteSmoke, Color.White, Color.FromArgb(192, 0, 0));
 
             var fuelPair = new BtnColorPair(fuelBtn, Color.Black,
-               Color.WhiteSmoke, Color.White, Color.DarkOrange);
+                Color.WhiteSmoke, Color.White, Color.DarkOrange);
 
             var toPair = new BtnColorPair(toBtn, Color.Black,
                 Color.WhiteSmoke, Color.White, Color.ForestGreen);
 
             var ldgPair = new BtnColorPair(ldgBtn, Color.Black,
-            Color.WhiteSmoke, Color.White, Color.FromArgb(0, 170, 170));
+                Color.WhiteSmoke, Color.White, Color.FromArgb(0, 170, 170));
 
             var airportPair = new BtnColorPair(airportBtn, Color.Black,
-            Color.WhiteSmoke, Color.White, Color.DodgerBlue);
+                Color.WhiteSmoke, Color.White, Color.DodgerBlue);
 
             var aboutPair = new BtnColorPair(aboutBtn, Color.White,
-            Color.Black, Color.White, Color.Turquoise);
+                Color.Black, Color.White, Color.Turquoise);
 
             btnControl = new BtnGroupController(
                 acConfigPair,
