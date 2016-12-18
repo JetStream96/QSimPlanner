@@ -61,6 +61,10 @@ namespace QSP.UI.Forms
             BtnAusotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshStatus();
             Closing += CloseForm;
+
+            airwayNetwork.NatsEnabled = NatsEnabled;
+            airwayNetwork.AusotsEnabled = AusotsEnabled;
+            airwayNetwork.PacotsEnabled = PacotsEnabled;
         }
 
         private void RefreshListViewColumnWidth()

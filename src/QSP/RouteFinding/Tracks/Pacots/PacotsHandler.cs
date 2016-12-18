@@ -126,7 +126,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             await Task.Factory.StartNew(() => GetAndReadTracks(new PacotsDownloader()));
             UndoEdit();
         }
-
+        
         public override void AddToWaypointList()
         {
             if (AddedToWptList == false)
