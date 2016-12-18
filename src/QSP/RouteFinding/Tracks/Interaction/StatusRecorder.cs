@@ -18,11 +18,8 @@ namespace QSP.RouteFinding.Tracks.Interaction
     {
         private List<Entry> _records;
 
-        public IReadOnlyList<Entry> Records
-        {
-            get { return _records; }
-        }
-
+        public IReadOnlyList<Entry> Records => _records;
+        
         public StatusRecorder()
         {
             _records = new List<Entry>();

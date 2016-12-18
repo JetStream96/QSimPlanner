@@ -31,6 +31,8 @@ namespace QSP.RouteFinding
         // Fires when any of the TrackMessage in the TrackHandlers changed.
         public event EventHandler TrackMessageUpdated;
 
+        public event EventHandler TrackAddedToWptListChanged;
+
         public AirwayNetwork(WaypointList wptList, AirportManager airportList)
         {
             this.WptList = wptList;
@@ -151,6 +153,7 @@ namespace QSP.RouteFinding
                 }
 
                 _natsEnabled = value;
+                TrackAddedToWptListChanged.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -163,7 +166,7 @@ namespace QSP.RouteFinding
             {
                 if (value)
                 {
-                    pacotsManager.AddToWaypointList();  // TODO: Is status refreshed on UI?
+                    pacotsManager.AddToWaypointList();
                 }
                 else
                 {
@@ -171,6 +174,7 @@ namespace QSP.RouteFinding
                 }
 
                 _pacotsEnabled = value;
+                TrackAddedToWptListChanged.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -191,6 +195,7 @@ namespace QSP.RouteFinding
                 }
 
                 _ausotsEnabled = value;
+                TrackAddedToWptListChanged.Invoke(this, EventArgs.Empty);
             }
         }
 
