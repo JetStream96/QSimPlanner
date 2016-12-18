@@ -125,7 +125,8 @@ namespace QSP.RouteFinding
             {
                 Task.Run(() => ausotsManager.GetAllTracksAsync());
             }
-
+            
+            // TODO: must wait Task.Run to finish first.
             if (natsEnabled) natsManager.AddToWaypointList();
             if (pacotsEnabled) pacotsManager.AddToWaypointList();
             if (ausotsEnabled) ausotsManager.AddToWaypointList();
