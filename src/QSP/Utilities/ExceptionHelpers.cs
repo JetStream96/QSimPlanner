@@ -18,5 +18,17 @@ namespace QSP.Utilities
             }
             catch { }
         }
+
+        public static T OrDefault<T>(this Func<T> func, T defaultValue)
+        {
+            try
+            {
+                return func();
+            }
+            catch
+            {
+                return defaultValue;
+            }
+        }
     }
 }

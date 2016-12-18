@@ -11,8 +11,7 @@ namespace QSP.UI.UserControls
 {
     public class FuelPageState
     {
-        public static readonly string FileLocation =
-            @"SavedStates\FuelPlanningControl.xml";
+        public static readonly string FileLocation = @"SavedStates\FuelPlanningControl.xml";
 
         // Strings for xml tags.
         private string aircraft = "Aircraft";
@@ -81,7 +80,7 @@ namespace QSP.UI.UserControls
 
         private XElement[] GetAlternates()
         {
-            var altnInfo = control.altnControl.Controls
+            var altnInfo = control.AltnControl.Controls
                 .Select(c =>
                 new XElement(altnEntry,
                     new XElement(altnIcao, c.IcaoTxtBox.Text),
@@ -96,12 +95,12 @@ namespace QSP.UI.UserControls
             if (altns.Count == 0) return;
 
             // Set number of alternates
-            while (control.altnControl.RowCount < altns.Count)
+            while (control.AltnControl.RowCount < altns.Count)
             {
-                control.altnControl.AddRow();
+                control.AltnControl.AddRow();
             }
 
-            var altnControls = control.altnControl.Controls.ToList();
+            var altnControls = control.AltnControl.Controls.ToList();
 
             for (int i = 0; i < altns.Count; i++)
             {
@@ -139,7 +138,7 @@ namespace QSP.UI.UserControls
                 () => c.acListComboBox.Text = r.GetString(aircraft),
                 () => c.registrationComboBox.Text = r.GetString(registration),
                 () => c.WeightUnit = (WeightUnit)r.GetInt(wtUnit),
-                () => c.Zfw.SetWeight(r.GetDouble(zfw)),
+                () => c.WeightControl.ZfwKg =r.GetDouble(zfw),
                 () => c.origTxtBox.Text = r.GetString(origin),
                 () => c.origRwyComboBox.Text = r.GetString(originRwy),
                 () => c.sidComboBox.Text = r.GetString(originSid),

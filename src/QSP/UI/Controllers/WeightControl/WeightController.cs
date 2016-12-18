@@ -3,6 +3,7 @@ using QSP.UI.Controllers.Units;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using QSP.Utilities.Units;
 using static QSP.MathTools.Doubles;
 using static System.Math;
 
@@ -43,8 +44,7 @@ namespace QSP.UI.Controllers.WeightControl
             {
                 _aircraftConfig = value;
 
-                double maxPayload =
-                    _aircraftConfig.MaxZfwKg - _aircraftConfig.OewKg;
+                double maxPayload = _aircraftConfig.MaxZfwKg - _aircraftConfig.OewKg;
                 payloadTrackBar.SetRange(0, (int)Ceiling(maxPayload));
                 oew.SetWeight(AircraftConfig.OewKg);
 

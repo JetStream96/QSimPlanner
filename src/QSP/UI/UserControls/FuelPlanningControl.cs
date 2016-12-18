@@ -48,19 +48,22 @@ namespace QSP.UI.UserControls
         private RouteFinderSelection origController;
         private RouteFinderSelection destController;
         private DestinationSidSelection destSidProvider;
-        private WeightController weightControl;
+        public WeightController WeightControl { get; private set; }
         private AdvancedRouteTool advancedRouteTool;
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
         private ActionContextMenu routeActionMenu;
         private RouteOptionContextMenu routeOptionMenu;
 
-        public AlternateController altnControl { get; private set; }
-        public WeightTextBoxController Oew { get; private set; }
-        public WeightTextBoxController Payload { get; private set; }
-        public WeightTextBoxController Zfw { get; private set; }
+        public AlternateController AltnControl { get; private set; }
         public WeightTextBoxController MissedApproach { get; private set; }
         public WeightTextBoxController Extra { get; private set; }
+
+        // Do not set the values of these controllers directly. 
+        // Use WeightControl to interact with the weights.
+        private WeightTextBoxController oew;
+        private WeightTextBoxController payload;
+        public WeightTextBoxController Zfw { get; private set; }
 
         /// <summary>
         /// Returns null if not available.
@@ -133,14 +136,11 @@ namespace QSP.UI.UserControls
                 Color.White,
                 Color.LightGray);
 
-            var removeBtnStyle = new ControlDisableStyleController(
-                removeAltnBtn, style);
+            var removeBtnStyle = new ControlDisableStyleController(removeAltnBtn, style);
 
-            var filterSidStyle = new ControlDisableStyleController(
-                filterSidBtn, style);
+            var filterSidStyle = new ControlDisableStyleController(filterSidBtn, style);
 
-            var filterStarStyle = new ControlDisableStyleController(
-                filterStarBtn, style);
+            var filterStarStyle = new ControlDisableStyleController(filterStarBtn, style);
 
             removeBtnStyle.Activate();
             filterSidStyle.Activate();
@@ -149,13 +149,11 @@ namespace QSP.UI.UserControls
 
         private void SetRouteOptionControl()
         {
-            routeOptionMenu = new RouteOptionContextMenu(
-                checkedCodesLocator, countryCodeLocator);
+            routeOptionMenu = new RouteOptionContextMenu(checkedCodesLocator, countryCodeLocator);
 
             routeOptionMenu.Subscribe();
             routeOptionBtn.Click += (s, e) =>
-            routeOptionMenu.Show(
-                routeOptionBtn, new Point(0, routeOptionBtn.Height));
+                routeOptionMenu.Show(routeOptionBtn, new Point(0, routeOptionBtn.Height));
         }
 
         private void SetRouteActionControl()
@@ -175,8 +173,7 @@ namespace QSP.UI.UserControls
 
             routeActionMenu.Subscribe();
             showRouteActionsBtn.Click += (s, e) =>
-            routeActionMenu.Show(
-                showRouteActionsBtn, new Point(0, showRouteActionsBtn.Height));
+               routeActionMenu.Show(showRouteActionsBtn, new Point(0, showRouteActionsBtn.Height));
         }
 
         public WeightUnit WeightUnit
@@ -202,7 +199,7 @@ namespace QSP.UI.UserControls
                 fuelReportGroupBox
             };
 
-            altnControl = new AlternateController(
+            AltnControl = new AlternateController(
                 alternateGroupBox,
                 appOptionsLocator,
                 airwayNetwork,
@@ -222,14 +219,13 @@ namespace QSP.UI.UserControls
             calculateBtn.Click += Calculate;
             addAltnBtn.Click += AddAltn;
             removeAltnBtn.Click += RemoveAltn;
-            altnControl.RowCountChanged += RowCountChanged;
+            AltnControl.RowCountChanged += RowCountChanged;
             advancedToolLbl.Click += ShowAdvancedTool;
         }
 
         private string[] AvailAircraftTypes()
         {
-            var allProfileNames = fuelData.Select(t => t.ProfileName)
-                .ToHashSet();
+            var allProfileNames = fuelData.Select(t => t.ProfileName).ToHashSet();
 
             return aircrafts
                 .Aircrafts
@@ -314,8 +310,8 @@ namespace QSP.UI.UserControls
         private void WtUnitChanged(object sender, EventArgs e)
         {
             var unit = WeightUnit;
-            Oew.Unit = unit;
-            Payload.Unit = unit;
+            oew.Unit = unit;
+            payload.Unit = unit;
             Zfw.Unit = unit;
             MissedApproach.Unit = unit;
             Extra.Unit = unit;
@@ -323,16 +319,14 @@ namespace QSP.UI.UserControls
 
         private void SetWeightController()
         {
-            Oew = new WeightTextBoxController(oewTxtBox, oewLbl);
-            Payload = new WeightTextBoxController(payloadTxtBox, payloadLbl);
+            oew = new WeightTextBoxController(oewTxtBox, oewLbl);
+            payload = new WeightTextBoxController(payloadTxtBox, payloadLbl);
             Zfw = new WeightTextBoxController(zfwTxtBox, zfwLbl);
-            MissedApproach = new WeightTextBoxController(
-                missedAppFuelTxtBox, missedAppLbl);
+            MissedApproach = new WeightTextBoxController(missedAppFuelTxtBox, missedAppLbl);
             Extra = new WeightTextBoxController(extraFuelTxtBox, extraFuelLbl);
 
-            weightControl = new WeightController(
-                Oew, Payload, Zfw, payloadTrackBar);
-            weightControl.Enable();
+            WeightControl = new WeightController(oew, payload, Zfw, payloadTrackBar);
+            WeightControl.Enable();
         }
 
         private bool FuelProfileExists(string profileName)
@@ -366,9 +360,9 @@ namespace QSP.UI.UserControls
 
             var config = aircrafts.Find(registrationComboBox.Text).Config;
             WeightUnit = config.WtUnit;
-            weightControl.AircraftConfig = config;
+            WeightControl.AircraftConfig = config;
             var maxPayloadKg = config.MaxZfwKg - config.OewKg;
-            weightControl.ZfwKg = config.OewKg + 0.5 * maxPayloadKg;
+            WeightControl.ZfwKg = config.OewKg + 0.5 * maxPayloadKg;
 
             MissedApproach.SetWeight(GetFuelData().MissedAppFuel);
         }
@@ -411,7 +405,7 @@ namespace QSP.UI.UserControls
             }
 
             var data = GetFuelData();
-            var altnRoutes = altnControl.Routes;
+            var altnRoutes = AltnControl.Routes;
 
             if (altnRoutes.Any(r => r == null))
             {
@@ -511,17 +505,17 @@ namespace QSP.UI.UserControls
 
         private void AddAltn(object sender, EventArgs e)
         {
-            altnControl.AddRow();
+            AltnControl.AddRow();
         }
 
         private void RemoveAltn(object sender, EventArgs e)
         {
-            altnControl.RemoveLastRow();
+            AltnControl.RemoveLastRow();
         }
 
         private void RowCountChanged(object sender, EventArgs e)
         {
-            removeAltnBtn.Enabled = altnControl.RowCount > 1;
+            removeAltnBtn.Enabled = AltnControl.RowCount > 1;
         }
 
         private void ShowAdvancedTool(object sender, EventArgs e)
@@ -537,8 +531,7 @@ namespace QSP.UI.UserControls
 
                 // Remove control from form so that it is not disposed
                 // when form closes.
-                frm.FormClosing +=
-                    (_s, _e) => frm.Controls.Remove(advancedRouteTool);
+                frm.FormClosing += (_s, _e) => frm.Controls.Remove(advancedRouteTool);
 
                 frm.ShowDialog();
             }
@@ -583,8 +576,7 @@ namespace QSP.UI.UserControls
             var fuelData = GetFuelData();
             if (fuelData == null)
             {
-                throw new InvalidUserInputException(
-                    "No aircraft is selected.");
+                throw new InvalidUserInputException("No aircraft is selected.");
             }
 
             double zfw = 0.0;
@@ -594,16 +586,14 @@ namespace QSP.UI.UserControls
             }
             catch (InvalidOperationException)
             {
-                throw new InvalidUserInputException(
-                    "Please enter a valid ZFW.");
+                throw new InvalidUserInputException("Please enter a valid ZFW.");
             }
 
             var orig = airportList[origTxtBox.Text.Trim().ToUpper()];
 
             if (orig == null)
             {
-                throw new InvalidUserInputException(
-                    "Cannot find origin airport.");
+                throw new InvalidUserInputException("Cannot find origin airport.");
             }
 
             var dest = airportList[destTxtBox.Text.Trim().ToUpper()];
@@ -626,14 +616,14 @@ namespace QSP.UI.UserControls
         {
             origController.RefreshRwyComboBox();
             destController.RefreshRwyComboBox();
-            altnControl.RefreshForAirportListChange();
+            AltnControl.RefreshForAirportListChange();
         }
 
         public void RefreshForNavDataLocationChange()
         {
             origController.RefreshProcedureComboBox();
             destController.RefreshProcedureComboBox();
-            altnControl.RefreshForNavDataLocationChange();
+            AltnControl.RefreshForNavDataLocationChange();
         }
     }
 }

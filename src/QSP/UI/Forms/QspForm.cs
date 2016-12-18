@@ -264,7 +264,7 @@ namespace QSP.UI.Forms
             InitMiscInfoMenu();
             RefreshAirportInfoSelection();
 
-            fuelMenu.altnControl.AlternatesChanged += (s, e) =>
+            fuelMenu.AltnControl.AlternatesChanged += (s, e) =>
             RefreshAirportInfoSelection();
 
             fuelMenu.AircraftRequestChanged += (s, e) =>
@@ -297,13 +297,13 @@ namespace QSP.UI.Forms
 
         private void RefreshAirportInfoSelection()
         {
-            miscInfoMenu.SetAltn(fuelMenu.altnControl.Alternates);
+            miscInfoMenu.SetAltn(fuelMenu.AltnControl.Alternates);
         }
 
         private void InitMiscInfoMenu()
         {
             Func<IEnumerable<string>> altnGetter = () =>
-            fuelMenu.altnControl.Controls
+            fuelMenu.AltnControl.Controls
             .Select(c => c.IcaoTxtBox.Text.Trim().ToUpper());
 
             miscInfoMenu.Init(
