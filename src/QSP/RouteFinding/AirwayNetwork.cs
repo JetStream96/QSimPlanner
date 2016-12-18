@@ -85,8 +85,7 @@ namespace QSP.RouteFinding
             var natsData = natsManager.RawData;
             var pacotsData = pacotsManager.RawData;
             var ausotsData = ausotsManager.RawData;
-
-            // TODO: these values are flawed
+            
             bool natsEnabled = NatsEnabled;
             bool pacotsEnabled = PacotsEnabled;
             bool ausotsEnabled = AusotsEnabled;

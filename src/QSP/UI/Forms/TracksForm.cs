@@ -60,6 +60,7 @@ namespace QSP.UI.Forms
             BtnPacotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             BtnAusotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshStatus();
+            airwayNetwork.TrackAddedToWptListChanged += (s, e) => RefreshStatus();
             Closing += CloseForm;
 
             airwayNetwork.NatsEnabled = NatsEnabled;
