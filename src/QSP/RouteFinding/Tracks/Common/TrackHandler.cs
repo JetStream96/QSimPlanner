@@ -14,6 +14,11 @@ namespace QSP.RouteFinding.Tracks.Common
         public abstract Task GetAllTracksAsync();
 
         /// <summary>
+        /// Indicates whether GetAllTracks or GetAllTracksAsync has been called.
+        /// </summary>
+        public abstract bool StartedGettingTracks { get; }
+
+        /// <summary>
         /// Add the parsed tracks to WaypointList, if not added already.
         /// </summary>
         public abstract void AddToWaypointList();

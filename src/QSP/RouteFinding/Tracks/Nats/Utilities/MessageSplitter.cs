@@ -8,8 +8,7 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
     //
     public class MessageSplitter
     {
-        private readonly static char[] specialChars =
-            new char[] { (char)2, (char)3, (char)11 };
+        private readonly static char[] specialChars = { (char)2, (char)3, (char)11 };
 
         private string html;
         private string timeUpdated;
@@ -43,9 +42,7 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
 
         private IndividualNatsMessage GetWestboundTracks()
         {
-            var match = Regex.Match(html,
-                @"\n([^\n]*?EGGXZOZX.*?)</td>",
-                RegexOptions.Singleline);
+            var match = Regex.Match(html, @"\n([^\n]*?EGGXZOZX.*?)</td>", RegexOptions.Singleline);
 
             if (match.Success == false)
             {
@@ -56,15 +53,12 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
                 .RemoveHtmlTags()
                 .ReplaceAny(specialChars, "");
 
-            return new IndividualNatsMessage(
-                timeUpdated, header, NatsDirection.West, message);
+            return new IndividualNatsMessage(timeUpdated, header, NatsDirection.West, message);
         }
 
         private IndividualNatsMessage GetEastboundTracks()
         {
-            var match = Regex.Match(html,
-               @"\n([^\n]*?CZQXZQZX.*?)</td>",
-               RegexOptions.Singleline);
+            var match = Regex.Match(html, @"\n([^\n]*?CZQXZQZX.*?)</td>", RegexOptions.Singleline);
 
             if (match.Success == false)
             {

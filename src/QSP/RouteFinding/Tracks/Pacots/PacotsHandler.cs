@@ -16,6 +16,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
         private List<TrackNodes> nodes = new List<TrackNodes>();
+
+        private bool _startedGettingTracks = false;
+        public override bool StartedGettingTracks => _startedGettingTracks;
+
         public bool AddedToWptList { get; private set; } = false;
         public PacotsMessage RawData { get; private set; }
 
@@ -49,6 +53,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             try
             {
+                _startedGettingTracks = true;
                 TryGetTracks(provider);
                 ReadMessage();
             }
@@ -118,8 +123,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public override async Task GetAllTracksAsync()
         {
-            await Task.Factory.StartNew(() =>
-            GetAndReadTracks(new PacotsDownloader()));
+            await Task.Factory.StartNew(() => GetAndReadTracks(new PacotsDownloader()));
             UndoEdit();
         }
 

@@ -79,33 +79,50 @@ namespace QSP.RouteFinding
         /// and added to the wptList if the specific track system was enabled.
         /// </summary>
         public void Update(WaypointList wptList, AirportManager airportList)
-        {
+        {// TODO: refactor method
             var natsData = natsManager.RawData;
             var pacotsData = pacotsManager.RawData;
             var ausotsData = ausotsManager.RawData;
 
+            // TODO: these values are flawed
             bool natsEnabled = NatsEnabled;
             bool pacotsEnabled = PacotsEnabled;
             bool ausotsEnabled = AusotsEnabled;
 
+            bool natsStarted = natsManager.StartedGettingTracks;
+            bool pacotsStarted = pacotsManager.StartedGettingTracks;
+            bool ausotsStarted = ausotsManager.StartedGettingTracks;
+
             this.WptList = wptList;
             this.AirportList = airportList;
-            
+
             SetTrackData();
 
             if (natsData != null)
             {
                 natsManager.GetAllTracks(new NatsProvider(natsData));
             }
+            else if (natsStarted)
+            {
+                Task.Run(() => natsManager.GetAllTracksAsync());
+            }
 
             if (pacotsData != null)
             {
                 pacotsManager.GetAllTracks(new PacotsProvider(pacotsData));
             }
+            else if (pacotsStarted)
+            {
+                Task.Run(() => pacotsManager.GetAllTracksAsync());
+            }
 
             if (ausotsData != null)
             {
                 ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
+            }
+            else if (ausotsStarted)
+            {
+                Task.Run(() => ausotsManager.GetAllTracksAsync());
             }
 
             if (natsEnabled) natsManager.AddToWaypointList();
@@ -117,9 +134,10 @@ namespace QSP.RouteFinding
             TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
+        private bool _natsEnabled =false;
         public bool NatsEnabled
         {
-            get { return natsManager.AddedToWptList; }
+            get { return _natsEnabled; }
 
             set
             {
@@ -131,29 +149,35 @@ namespace QSP.RouteFinding
                 {
                     natsManager.UndoEdit();
                 }
+
+                _natsEnabled = value;
             }
         }
 
+        private bool _pacotsEnabled = false;
         public bool PacotsEnabled
         {
-            get { return pacotsManager.AddedToWptList; }
+            get { return _pacotsEnabled; }
 
             set
             {
                 if (value)
                 {
-                    pacotsManager.AddToWaypointList();
+                    pacotsManager.AddToWaypointList();  // TODO: Is status refreshed on UI?
                 }
                 else
                 {
                     pacotsManager.UndoEdit();
                 }
+
+                _pacotsEnabled = value;
             }
         }
 
+        private bool _ausotsEnabled = false;
         public bool AusotsEnabled
         {
-            get { return ausotsManager.AddedToWptList; }
+            get { return _ausotsEnabled; }
 
             set
             {
@@ -165,6 +189,8 @@ namespace QSP.RouteFinding
                 {
                     ausotsManager.UndoEdit();
                 }
+
+                _ausotsEnabled = value;
             }
         }
 

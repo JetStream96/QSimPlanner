@@ -22,7 +22,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         }
 
         /// <summary>
-        /// Create an instance of NATsMessage from an xml file.
+        /// Create an instance of NatsMessage from an xml file.
         /// </summary>
         public IndividualNatsMessage(XDocument doc) : this(doc.Root) { }
 

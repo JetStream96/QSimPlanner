@@ -212,7 +212,7 @@ namespace QSP.UI.Forms
             }
         }
 
-        private TrackType[] trackTypes =
+        private static readonly TrackType[] trackTypes =
         {
             TrackType.Nats,
             TrackType.Pacots,

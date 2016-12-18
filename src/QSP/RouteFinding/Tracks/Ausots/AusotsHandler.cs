@@ -5,7 +5,6 @@ using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
@@ -17,6 +16,10 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
         private List<TrackNodes> nodes = new List<TrackNodes>();
+
+        private bool _startedGettingTracks = false;
+        public override bool StartedGettingTracks => _startedGettingTracks;
+
         public bool AddedToWptList { get; private set; } = false;
         public AusotsMessage RawData { get; private set; }
 
@@ -53,6 +56,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             try
             {
+                _startedGettingTracks = true;
                 TryGetTracks(provider);
                 ReadMessage();
             }

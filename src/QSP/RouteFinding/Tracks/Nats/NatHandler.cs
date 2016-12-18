@@ -16,6 +16,10 @@ namespace QSP.RouteFinding.Tracks.Nats
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
         private List<TrackNodes> nodes = new List<TrackNodes>();
+
+        private bool _startedGettingTracks = false;
+        public override bool StartedGettingTracks => _startedGettingTracks;
+
         public bool AddedToWptList { get; private set; } = false;
         public NatsMessage RawData { get; private set; }
 
@@ -55,6 +59,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         {
             try
             {
+                _startedGettingTracks = true;
                 TryGetTracks(provider);
                 ReadMessage();
             }
@@ -66,8 +71,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         {
             var trks = TryParse();
 
-            var reader = new TrackReader<NorthAtlanticTrack>(
-                wptList, airportList);
+            var reader = new TrackReader<NorthAtlanticTrack>(wptList, airportList);
             nodes = new List<TrackNodes>();
 
             foreach (var i in trks)
@@ -88,8 +92,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         
         public override async Task GetAllTracksAsync()
         {
-            await Task.Factory.StartNew(() => 
-            GetAndReadTracks(new NatsDownloader()));
+            await Task.Factory.StartNew(() => GetAndReadTracks(new NatsDownloader()));
             UndoEdit();
         }
         
