@@ -152,7 +152,7 @@ namespace QSP.RouteFinding
                 }
 
                 _natsEnabled = value;
-                TrackAddedToWptListChanged.Invoke(this, EventArgs.Empty);
+                TrackAddedToWptListChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -173,7 +173,7 @@ namespace QSP.RouteFinding
                 }
 
                 _pacotsEnabled = value;
-                TrackAddedToWptListChanged.Invoke(this, EventArgs.Empty);
+                TrackAddedToWptListChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -194,7 +194,7 @@ namespace QSP.RouteFinding
                 }
 
                 _ausotsEnabled = value;
-                TrackAddedToWptListChanged.Invoke(this, EventArgs.Empty);
+                TrackAddedToWptListChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
