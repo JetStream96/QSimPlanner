@@ -174,6 +174,7 @@ namespace QSP.UI.Forms
             SetPicBox(records);
             SetMainFormTrackStatus(records);
             RefreshViewTrackBtns();
+            RefreshDnTrackBtns();
         }
 
         private void InitPicBoxes()
@@ -293,8 +294,6 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadNats();
             airwayNetwork.NatsEnabled = NatsEnabled;
-
-            BtnNatsDn.Enabled = true;
         }
 
         private async void BtnPacotsDn_Click(object sender, EventArgs e)
@@ -303,19 +302,14 @@ namespace QSP.UI.Forms
 
             await airwayNetwork.DownloadPacots();
             airwayNetwork.PacotsEnabled = PacotsEnabled;
-
-            BtnPacotsDn.Enabled = true;
         }
 
         private async void BtnAusotsDn_Click(object sender, EventArgs e)
         {
-            // TODO: btn enable should not be done like this.
             BtnAusotsDn.Enabled = false;
 
             await airwayNetwork.DownloadAusots();
             airwayNetwork.AusotsEnabled = AusotsEnabled;
-
-            BtnAusotsDn.Enabled = true;
         }
 
         private bool NatsEnabled => CBoxNatsEnabled.SelectedIndex == 0;
@@ -440,7 +434,7 @@ namespace QSP.UI.Forms
                 }
             }
 
-            RefreshViewTrackBtns();
+            RefreshStatus();
         }
 
         private void LoadXDoc(XDocument doc)

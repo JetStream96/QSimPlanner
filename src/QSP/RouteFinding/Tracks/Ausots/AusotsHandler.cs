@@ -117,7 +117,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             {
                 recorder.AddEntry(
                     StatusRecorder.Severity.Critical,
-                    "Failed to download AUSOTs.",
+                    "Failed to download AUSOTS.",
                     TrackType.Ausots);
 
                 throw;

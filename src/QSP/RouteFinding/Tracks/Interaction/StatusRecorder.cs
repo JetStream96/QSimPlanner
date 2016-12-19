@@ -24,7 +24,7 @@ namespace QSP.RouteFinding.Tracks.Interaction
 
         // When entries change, this event will fire. However, this event firing does not gurantee
         // that the Record necessarily changed.
-        public event EventHandler StatusChanged;
+        public event EventHandler StatusChanged; //TODO:Add test.
 
         public StatusRecorder()
         {
