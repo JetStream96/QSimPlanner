@@ -60,7 +60,7 @@ namespace QSP.UI.Forms
             BtnPacotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             BtnAusotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshStatus();
-            airwayNetwork.TrackAddedToWptListChanged += (s, e) => RefreshStatus();
+            airwayNetwork.StatusRecorder.StatusChanged += (s, e) => RefreshStatus();
             Closing += CloseForm;
 
             airwayNetwork.NatsEnabled = NatsEnabled;
@@ -278,6 +278,13 @@ namespace QSP.UI.Forms
             viewNatsBtn.Enabled = airwayNetwork.NatsLoaded;
             viewPacotsBtn.Enabled = airwayNetwork.PacotsLoaded;
             viewAusotsBtn.Enabled = airwayNetwork.AusotsLoaded;
+        }
+
+        private void RefreshDnTrackBtns()
+        {
+            BtnNatsDn.Enabled = airwayNetwork.NatsLoaded;
+            BtnPacotsDn.Enabled = airwayNetwork.PacotsLoaded;
+            BtnAusotsDn.Enabled = airwayNetwork.AusotsLoaded;
         }
 
         private async void BtnNatsDn_Click(object sender, EventArgs e)

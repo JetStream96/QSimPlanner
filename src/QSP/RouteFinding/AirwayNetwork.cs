@@ -28,10 +28,8 @@ namespace QSP.RouteFinding
         public event EventHandler WptListChanged;
         public event EventHandler AirportListChanged;
 
-        // Fires when any of the TrackMessage in the TrackHandlers changed.
+        // Fires when any TrackMessage in the TrackHandlers changed.
         public event EventHandler TrackMessageUpdated;
-
-        public event EventHandler TrackAddedToWptListChanged;
 
         public AirwayNetwork(WaypointList wptList, AirportManager airportList)
         {
@@ -134,7 +132,6 @@ namespace QSP.RouteFinding
             WptListChanged?.Invoke(this, EventArgs.Empty);
             AirportListChanged?.Invoke(this, EventArgs.Empty);
             TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
-            TrackAddedToWptListChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private async void GetNats(bool enable)
@@ -172,7 +169,6 @@ namespace QSP.RouteFinding
                 }
 
                 _natsEnabled = value;
-                TrackAddedToWptListChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -193,7 +189,6 @@ namespace QSP.RouteFinding
                 }
 
                 _pacotsEnabled = value;
-                TrackAddedToWptListChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -214,26 +209,12 @@ namespace QSP.RouteFinding
                 }
 
                 _ausotsEnabled = value;
-                TrackAddedToWptListChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
         public bool TrackedLoaded(TrackType type)
         {
-            switch (type)
-            {
-                case TrackType.Nats:
-                    return NatsLoaded;
-
-                case TrackType.Pacots:
-                    return PacotsLoaded;
-
-                case TrackType.Ausots:
-                    return AusotsLoaded;
-
-                default:
-                    throw new ArgumentException();
-            }
+            return new[] { NatsLoaded, PacotsLoaded, AusotsLoaded }[(int)type];
         }
 
         /// <summary>
