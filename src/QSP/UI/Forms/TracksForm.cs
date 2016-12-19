@@ -162,7 +162,7 @@ namespace QSP.UI.Forms
 
         public static string TrackString(TrackType item)
         {
-            return new[] { "NATS", "PACOTS", "AUSOTS" }[(int)item];
+            return new[] { "NATs", "PACOTs", "AUSOTS" }[(int)item];
         }
 
         private void RefreshStatus()

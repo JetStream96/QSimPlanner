@@ -284,6 +284,7 @@
     <Compile Include="Utilities\AiracPeriod.cs" />
     <Compile Include="Utilities\RegistryUitl.cs" />
     <Compile Include="Utilities\SimulatorPath.cs" />
+    <Compile Include="Utilities\TaskQueue.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />
