@@ -1,18 +1,17 @@
 ﻿using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Routes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using static QSP.AviationTools.Coordinates.Formatter;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.LibraryExtension.Lists;
-using RouteString = System.Collections.Generic.IReadOnlyList<string>;
 
 namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
     public static class ConnectionRouteInterpreter
     {
-        private static readonly char[] Delimeters =
-            new char[] { ' ', '\n', '\r', '\t' };
+        private static readonly char[] Delimeters = new char[] { ' ', '\n', '\r', '\t' };
 
         public static ConnectionRoutes Convert(
             string[] mainRoute,
@@ -29,21 +28,21 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
                 var route = i
                     .Split(Delimeters, StringSplitOptions.RemoveEmptyEntries)
                     .Select(TryTransformCoordinate)
-                    .ToArray();
+                    .ToList();
 
                 // Invalid route, ignore.
-                if (route.Length <= 1) continue;
+                if (route.Count <= 1) continue;
 
                 if (route[0] == mainRoute.Last())
                 {
                     // This route is routeTo
                     if (airportList[route.Last()] != null)
                     {
-                        to.Add(route.Take(route.Length - 1).ToArray());
+                        to.Add(route.Take(route.Count - 1).ToRouteString());
                     }
                     else
                     {
-                        to.Add(route);
+                        to.Add(route.ToRouteString());
                     }
                 }
                 else if (route.Last() == mainRoute[0])
@@ -51,11 +50,11 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
                     // This route is routeFrom
                     if (airportList[route[0]] != null)
                     {
-                        from.Add(route.Skip(1).ToArray());
+                        from.Add(route.Skip(1).ToRouteString());
                     }
                     else
                     {
-                        from.Add(route);
+                        from.Add(route.ToRouteString());
                     }
                 }
             }
