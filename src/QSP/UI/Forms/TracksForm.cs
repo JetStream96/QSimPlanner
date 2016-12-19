@@ -162,20 +162,7 @@ namespace QSP.UI.Forms
 
         public static string TrackString(TrackType item)
         {
-            switch (item)
-            {
-                case TrackType.Nats:
-                    return "NATS";
-
-                case TrackType.Pacots:
-                    return "PACOTS";
-
-                case TrackType.Ausots:
-                    return "AUSOTS";
-
-                default:
-                    throw new ArgumentException();
-            }
+            return new[] { "NATS", "PACOTS", "AUSOTS" }[(int)item];
         }
 
         private void RefreshStatus()

@@ -2,8 +2,8 @@ namespace QSP.RouteFinding.Tracks.Common
 {
     public enum TrackType
 	{
-		Nats,
-		Pacots,
-		Ausots
+		Nats = 0,
+		Pacots = 1,
+		Ausots = 2
 	}
 }
