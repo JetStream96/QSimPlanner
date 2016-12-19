@@ -134,24 +134,25 @@ namespace QSP.RouteFinding
             WptListChanged?.Invoke(this, EventArgs.Empty);
             AirportListChanged?.Invoke(this, EventArgs.Empty);
             TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
+            TrackAddedToWptListChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private async void GetNats(bool enable)
         {
-            await Task.Run(() => natsManager.GetAllTracksAsync());
-            if (enable) natsManager.AddToWaypointList();
+            await DownloadNats();
+            NatsEnabled = enable;
         }
 
         private async void GetPacots(bool enable)
         {
-            await Task.Run(() => pacotsManager.GetAllTracksAsync());
-            if (enable) pacotsManager.AddToWaypointList();
+            await DownloadPacots();
+            PacotsEnabled = enable;
         }
 
         private async void GetAusots(bool enable)
         {
-            await Task.Run(() => ausotsManager.GetAllTracksAsync());
-            if (enable) ausotsManager.AddToWaypointList();
+            await DownloadAusots();
+            AusotsEnabled = enable;
         }
 
         private bool _natsEnabled = false;

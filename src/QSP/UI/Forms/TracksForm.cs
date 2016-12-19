@@ -302,6 +302,7 @@ namespace QSP.UI.Forms
 
         private async void BtnAusotsDn_Click(object sender, EventArgs e)
         {
+            // TODO: btn enable should not be done like this.
             BtnAusotsDn.Enabled = false;
 
             await airwayNetwork.DownloadAusots();

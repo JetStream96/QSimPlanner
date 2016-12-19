@@ -12,7 +12,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         /// <exception cref="NotSupportedException"></exception>
         public AusotsMessage GetMessage()
         {
-            Thread.Sleep(10000);//TODO:remove this
+            Thread.Sleep(20000);//TODO:remove this
             return new AusotsMessage(new WebClient().DownloadString(address));
         }
     }
