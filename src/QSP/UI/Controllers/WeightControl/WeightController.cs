@@ -3,7 +3,6 @@ using QSP.UI.Controllers.Units;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using QSP.Utilities.Units;
 using static QSP.MathTools.Doubles;
 using static System.Math;
 

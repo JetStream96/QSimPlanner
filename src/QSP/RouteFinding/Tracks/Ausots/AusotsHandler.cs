@@ -92,8 +92,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             try
             {
-                return new AusotsParser(RawData, recorder, airportList)
-                    .Parse();
+                return new AusotsParser(RawData, recorder, airportList).Parse();
             }
             catch
             {

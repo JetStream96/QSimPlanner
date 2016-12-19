@@ -15,9 +15,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         public SidReader() { }
 
         /// <exception cref="ArgumentNullException"></exception>
-        public SidReader(string allText)
-            : this(allText.Lines())
-        { }
+        public SidReader(string allText) : this(allText.Lines()) { }
 
         /// <exception cref="ArgumentNullException"></exception>
         public SidReader(IEnumerable<string> allLines)
@@ -80,8 +78,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             }
 
             // Add the last SID.
-            AddLastEntry(
-                sids, name, rwyOrTransition, endWithVector, wpts);
+            AddLastEntry(sids, name, rwyOrTransition, endWithVector, wpts);
 
             return new SidCollection(sids);
         }

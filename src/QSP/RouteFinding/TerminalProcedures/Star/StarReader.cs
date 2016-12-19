@@ -16,9 +16,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         public StarReader() { }
 
         /// <exception cref="ArgumentNullException"></exception>
-        public StarReader(string allText)
-            : this(allText.Lines())
-        { }
+        public StarReader(string allText) : this(allText.Lines()) { }
 
         /// <exception cref="ArgumentNullException"></exception>
         public StarReader(IEnumerable<string> allLines)
