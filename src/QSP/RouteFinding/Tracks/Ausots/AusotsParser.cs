@@ -42,8 +42,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
             if (msgs.Count == 0)
             {
-                throw new TrackParseException(
-                    "Failed to interpret Ausots message.");
+                throw new TrackParseException("Failed to interpret Ausots message.");
             }
             
             foreach (var i in msgs)

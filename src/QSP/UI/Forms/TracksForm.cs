@@ -217,7 +217,7 @@ namespace QSP.UI.Forms
             }
         }
 
-        private static readonly TrackType[] trackTypes =
+        private static readonly IReadOnlyList<TrackType> trackTypes = new[]
         {
             TrackType.Nats,
             TrackType.Pacots,
@@ -265,8 +265,7 @@ namespace QSP.UI.Forms
 
         private void SetMainFormTrackStatus(IEnumerable<Entry> records)
         {
-            var loadedTypes = trackTypes.Where(
-                t => airwayNetwork.TrackedLoaded(t));
+            var loadedTypes = trackTypes.Where(t => airwayNetwork.TrackedLoaded(t));
 
             var maxSeverity = loadedTypes.Select(t => MaxSeverity(records, t));
 

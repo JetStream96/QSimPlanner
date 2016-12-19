@@ -18,11 +18,10 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
 
     public class IndividualAusotsParser
     {
-        private static readonly LatLon PreferredLatLon = 
-            new LatLon(-25.0, 133.0);
+        private static readonly LatLon PreferredLatLon = new LatLon(-25.0, 133.0);
 
-        private string text;
-        private AirportManager airportList;
+        private readonly string text;
+        private readonly AirportManager airportList;
 
         public IndividualAusotsParser(string text, AirportManager airportList)
         {
@@ -40,7 +39,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
             var result = new TdmParser(text).Parse();
 
             var mainRoute = result.MainRoute.Split(
-                new char[] { ' ', '\t', '\n', '\r' }, 
+                new char[] { ' ', '\t', '\n', '\r' },
                 StringSplitOptions.RemoveEmptyEntries);
 
             var connectRoutes = ConnectionRouteInterpreter.Convert(
@@ -65,8 +64,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
             return null;
         }
 
-        // Sometimes, a TDM is like this (which indicates this track is 
-        // not available):
+        // Sometimes, a TDM is like this (which indicates this track is not available):
         //
         // TDM TRK YS12 160119120001 
         // 1601191300 1601192200 
@@ -75,8 +73,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
         //
         private bool TrackAvailble(string[] mainRoute, string ident)
         {
-            return !(mainRoute.Contains(ident) || 
-                mainRoute.Contains("NO TRACK"));
+            return !(mainRoute.Contains(ident) || mainRoute.Contains("NO TRACK"));
         }
     }
 }

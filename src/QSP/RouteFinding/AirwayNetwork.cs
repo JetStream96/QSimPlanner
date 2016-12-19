@@ -85,7 +85,7 @@ namespace QSP.RouteFinding
             var natsData = natsManager.RawData;
             var pacotsData = pacotsManager.RawData;
             var ausotsData = ausotsManager.RawData;
-            
+
             bool natsEnabled = NatsEnabled;
             bool pacotsEnabled = PacotsEnabled;
             bool ausotsEnabled = AusotsEnabled;
@@ -102,41 +102,59 @@ namespace QSP.RouteFinding
             if (natsData != null)
             {
                 natsManager.GetAllTracks(new NatsProvider(natsData));
+                if (natsEnabled) natsManager.AddToWaypointList();
             }
             else if (natsStarted)
             {
-                Task.Run(() => natsManager.GetAllTracksAsync());
+                // The GetAllTracks was called but the download has not finished yet, so 
+                // the natsData is still null. We redownload the data.
+                GetNats(natsEnabled);
             }
 
             if (pacotsData != null)
             {
                 pacotsManager.GetAllTracks(new PacotsProvider(pacotsData));
+                if (pacotsEnabled) pacotsManager.AddToWaypointList();
             }
             else if (pacotsStarted)
             {
-                Task.Run(() => pacotsManager.GetAllTracksAsync());
+                GetPacots(pacotsEnabled);
             }
 
             if (ausotsData != null)
             {
                 ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
+                if (ausotsEnabled) ausotsManager.AddToWaypointList();
             }
             else if (ausotsStarted)
             {
-                Task.Run(() => ausotsManager.GetAllTracksAsync());
+                GetAusots(ausotsEnabled);
             }
-            
-            // TODO: must wait Task.Run to finish first.
-            if (natsEnabled) natsManager.AddToWaypointList();
-            if (pacotsEnabled) pacotsManager.AddToWaypointList();
-            if (ausotsEnabled) ausotsManager.AddToWaypointList();
 
             WptListChanged?.Invoke(this, EventArgs.Empty);
             AirportListChanged?.Invoke(this, EventArgs.Empty);
             TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-        private bool _natsEnabled =false;
+        private async void GetNats(bool enable)
+        {
+            await Task.Run(() => natsManager.GetAllTracksAsync());
+            if (enable) natsManager.AddToWaypointList();
+        }
+
+        private async void GetPacots(bool enable)
+        {
+            await Task.Run(() => pacotsManager.GetAllTracksAsync());
+            if (enable) pacotsManager.AddToWaypointList();
+        }
+
+        private async void GetAusots(bool enable)
+        {
+            await Task.Run(() => ausotsManager.GetAllTracksAsync());
+            if (enable) ausotsManager.AddToWaypointList();
+        }
+
+        private bool _natsEnabled = false;
         public bool NatsEnabled
         {
             get { return _natsEnabled; }
@@ -218,8 +236,7 @@ namespace QSP.RouteFinding
         }
 
         /// <summary>
-        /// Returns whether the NATS has been downloaded or 
-        /// imported from file.
+        /// Returns whether the NATS has been downloaded or imported from file.
         /// </summary>
         public bool NatsLoaded => NatsMessage != null;
 
