@@ -420,7 +420,7 @@ contains Airports.txt.";
             PerformUpdateNow();
         }
 
-        private async void PerformUpdateNow()
+        private async Task PerformUpdateNow()
         {
             updateBtn.Enabled = false;
             updateStatusLbl.Text = "Updating ...";

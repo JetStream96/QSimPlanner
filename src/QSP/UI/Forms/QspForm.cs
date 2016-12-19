@@ -26,6 +26,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static QSP.UI.Controllers.ButtonGroup.BtnGroupController;
@@ -468,7 +469,7 @@ namespace QSP.UI.Forms
             if (appSettings.AutoDLTracks) trackFrm.DownloadAllTracks();
         }
 
-        private async void DownloadWindIfNeeded()
+        private async Task DownloadWindIfNeeded()
         {
             if (appSettings.AutoDLWind)
             {

@@ -337,7 +337,6 @@ namespace QSP.UI.Forms
             this.BtnAusotsDn.TabIndex = 10;
             this.BtnAusotsDn.Text = "Download";
             this.BtnAusotsDn.UseVisualStyleBackColor = false;
-            this.BtnAusotsDn.Click += new System.EventHandler(this.BtnAusotsDn_Click);
             // 
             // BtnPacotsDn
             // 
@@ -356,7 +355,6 @@ namespace QSP.UI.Forms
             this.BtnPacotsDn.TabIndex = 9;
             this.BtnPacotsDn.Text = "Download";
             this.BtnPacotsDn.UseVisualStyleBackColor = false;
-            this.BtnPacotsDn.Click += new System.EventHandler(this.BtnPacotsDn_Click);
             // 
             // BtnNatsDn
             // 
@@ -375,7 +373,6 @@ namespace QSP.UI.Forms
             this.BtnNatsDn.TabIndex = 8;
             this.BtnNatsDn.Text = "Download";
             this.BtnNatsDn.UseVisualStyleBackColor = false;
-            this.BtnNatsDn.Click += new System.EventHandler(this.BtnNatsDn_Click);
             // 
             // PicBoxAusots
             // 

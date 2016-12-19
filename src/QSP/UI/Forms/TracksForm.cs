@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
@@ -50,6 +51,9 @@ namespace QSP.UI.Forms
 
             // The event handlers are added after the form is created. 
             // This way the events won't fire at form creation.
+            BtnNatsDn.Click += (s, e) => DnNats();
+            BtnPacotsDn.Click += (s, e) => DnPacots();
+            BtnAusotsDn.Click += (s, e) => DnAusots();
             CBoxNatsEnabled.SelectedIndexChanged += CBoxNatsEnabledChanged;
             CBoxPacotsEnabled.SelectedIndexChanged += CBoxPacotsEnabledChanged;
             CBoxAusotsEnabled.SelectedIndexChanged += CBoxAusotsEnabledChanged;
@@ -288,7 +292,7 @@ namespace QSP.UI.Forms
             BtnAusotsDn.Enabled = airwayNetwork.AusotsLoaded;
         }
 
-        private async void BtnNatsDn_Click(object sender, EventArgs e)
+        private async Task DnNats()
         {
             BtnNatsDn.Enabled = false;
 
@@ -296,7 +300,7 @@ namespace QSP.UI.Forms
             airwayNetwork.NatsEnabled = NatsEnabled;
         }
 
-        private async void BtnPacotsDn_Click(object sender, EventArgs e)
+        private async Task DnPacots()
         {
             BtnPacotsDn.Enabled = false;
 
@@ -304,7 +308,7 @@ namespace QSP.UI.Forms
             airwayNetwork.PacotsEnabled = PacotsEnabled;
         }
 
-        private async void BtnAusotsDn_Click(object sender, EventArgs e)
+        private async Task DnAusots()
         {
             BtnAusotsDn.Enabled = false;
 
@@ -352,9 +356,9 @@ namespace QSP.UI.Forms
 
         public void DownloadAllTracks()
         {
-            BtnNatsDn_Click(this, EventArgs.Empty);
-            BtnPacotsDn_Click(this, EventArgs.Empty);
-            BtnAusotsDn_Click(this, EventArgs.Empty);
+            DnNats();
+            DnPacots();
+            DnAusots();
         }
 
         private void RefreshDownloadAllBtnEnabled(object sender, EventArgs e)

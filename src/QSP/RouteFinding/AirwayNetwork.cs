@@ -134,19 +134,19 @@ namespace QSP.RouteFinding
             InvokeTrackMessageUpdated();
         }
 
-        private async void GetNats(bool enable)
+        private async Task GetNats(bool enable)
         {
             await DownloadNats();
             NatsEnabled = enable;
         }
 
-        private async void GetPacots(bool enable)
+        private async Task GetPacots(bool enable)
         {
             await DownloadPacots();
             PacotsEnabled = enable;
         }
 
-        private async void GetAusots(bool enable)
+        private async Task GetAusots(bool enable)
         {
             await DownloadAusots();
             AusotsEnabled = enable;
@@ -294,7 +294,7 @@ namespace QSP.RouteFinding
 
         private void InvokeTrackMessageUpdated()
         {
-            InvokeTrackMessageUpdated();
+            TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         private class NatsProvider : INatsMessageProvider

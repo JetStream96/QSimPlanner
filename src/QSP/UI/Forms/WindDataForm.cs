@@ -36,7 +36,7 @@ namespace QSP.UI.Forms
 
             downloadBtn.Click += async (s, e) => await DownloadWind();
             saveFileBtn.Click += SaveFile;
-            loadFileBtn.Click += LoadFile;
+            loadFileBtn.Click += (s,e) => LoadFile(s, e);
         }
 
         private void SetButtonColorStyles()
@@ -59,7 +59,7 @@ namespace QSP.UI.Forms
             loadFileBtn.Enabled = true;
         }
 
-        private async void downlaodBtn_Click(object sender, EventArgs e)
+        private async Task downlaodBtn_Click(object sender, EventArgs e)
         {
             await DownloadWind();
         }
@@ -141,7 +141,7 @@ namespace QSP.UI.Forms
             }
         }
 
-        private async void LoadFile(object sender, EventArgs e)
+        private async Task LoadFile(object sender, EventArgs e)
         {
             var openFileDialog = new OpenFileDialog();
 

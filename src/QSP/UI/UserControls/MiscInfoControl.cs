@@ -56,6 +56,10 @@ namespace QSP.UI.UserControls
             this.origGetter = origGetter;
             this.destGetter = destGetter;
             this.altnGetter = altnGetter;
+
+            updateDesForcastBtn.Click += (s,e) =>UpdateDesForcast();
+            downloadAllBtn.Click += (s,e) =>UpdateAllMetarTaf();
+            button1.Click += (s,e) => downloadMetarBtnClick();
         }
 
         public void SetOrig(string icao)
@@ -73,11 +77,11 @@ namespace QSP.UI.UserControls
             airportMapControl.Altn = icao;
         }
 
-        private async void downloadMetarBtnClick(object sender, EventArgs e)
+        private async Task downloadMetarBtnClick()
         {
             var icao = metarToFindTxtBox.Text.Trim().ToUpper();
             matarTafRichTxtBox.Text = await Task.Factory.StartNew(() =>
-            MetarDownloader.TryGetMetarTaf(icao));
+                MetarDownloader.TryGetMetarTaf(icao));
             SetUpdateTime();
         }
 
@@ -86,7 +90,7 @@ namespace QSP.UI.UserControls
             metarLastUpdatedLbl.Text = $"Last Updated : {DateTime.Now}";
         }
 
-        private async void UpdateAllMetarTaf(object sender, EventArgs e)
+        private async Task UpdateAllMetarTaf()
         {
             downloadAllBtn.Enabled = false;
             var orig = OrigTask();
@@ -129,7 +133,7 @@ namespace QSP.UI.UserControls
                     () => MetarDownloader.TryGetMetarTaf(i)));
         }
 
-        private async void UpdateDesForcast(object sender, EventArgs e)
+        private async Task UpdateDesForcast()
         {
             if(windTableLocator.Instance is DefaultWindTableCollection)
             {

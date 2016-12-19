@@ -160,7 +160,6 @@
             this.button1.TabIndex = 82;
             this.button1.Text = "View Selected Airport";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.downloadMetarBtnClick);
             // 
             // metarToFindTxtBox
             // 
@@ -199,7 +198,6 @@
             this.downloadAllBtn.TabIndex = 78;
             this.downloadAllBtn.Text = "View DEP/ARR/ATLN";
             this.downloadAllBtn.UseVisualStyleBackColor = false;
-            this.downloadAllBtn.Click += new System.EventHandler(this.UpdateAllMetarTaf);
             // 
             // matarTafRichTxtBox
             // 
@@ -294,7 +292,6 @@
             this.updateDesForcastBtn.Text = "Refresh";
             this.updateDesForcastBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.updateDesForcastBtn.UseVisualStyleBackColor = true;
-            this.updateDesForcastBtn.Click += new System.EventHandler(this.UpdateDesForcast);
             // 
             // desForcastLastUpdatedLbl
             // 

@@ -156,7 +156,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             updateBtn.Visible = false;
         }
 
-        private async void SetMetar(string icao)
+        private async Task SetMetar(string icao)
         {
             metarLbl.Text = "Updating ...";
             metarLbl.Text = await Task.Factory.StartNew(

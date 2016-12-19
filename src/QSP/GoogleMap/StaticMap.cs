@@ -15,9 +15,7 @@
             imageHeight /= 2;
 
             return @"https://maps.googleapis.com/maps/api/staticmap?center=" +
-                   lat.ToString() + "," + lon.ToString() + "&zoom=13&size=" +
-                   imageWidth.ToString() + "x" + imageHeight.ToString() +
-                   "&scale=2&maptype=satellite";
+                   $"{lat},{lon}&zoom=13&size={imageWidth}x{imageHeight}&scale=2&maptype=satellite";
         }
     }
 }

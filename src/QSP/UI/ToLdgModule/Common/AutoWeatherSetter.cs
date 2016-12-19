@@ -25,7 +25,7 @@ namespace QSP.UI.ToLdgModule.Common
 
         public void Subscribe()
         {
-            wxControl.GetMetarBtn.Click += GetMetarClicked;
+            wxControl.GetMetarBtn.Click += (s, e) => GetMetarClicked(s, e);
             wxControl.ViewMetarBtn.Click += ViewMetarClicked;
             airportControl.airportTxtBox.TextChanged += (sender, e) =>
             {
@@ -74,7 +74,7 @@ namespace QSP.UI.ToLdgModule.Common
         }
 
         // Get metar functions.
-        private async void GetMetarClicked(object sender, EventArgs e)
+        private async Task GetMetarClicked(object sender, EventArgs e)
         {
             DisableDnBtn();
             var w = wxControl;
@@ -84,8 +84,7 @@ namespace QSP.UI.ToLdgModule.Common
             string icao = airportControl.Icao;
             metar = null;
 
-            bool metarAcquired =
-                 await Task.Run(
+            bool metarAcquired = await Task.Run(
                      () => MetarDownloader.TryGetMetar(icao, out metar));
 
             if (metarAcquired)
