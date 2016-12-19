@@ -79,7 +79,7 @@ namespace QSP.RouteFinding
         /// and added to the wptList if the specific track system was enabled.
         /// </summary>
         public void Update(WaypointList wptList, AirportManager airportList)
-        {// TODO: refactor method
+        {
             var natsData = natsManager.RawData;
             var pacotsData = pacotsManager.RawData;
             var ausotsData = ausotsManager.RawData;

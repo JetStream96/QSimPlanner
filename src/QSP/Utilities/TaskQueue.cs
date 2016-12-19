@@ -11,26 +11,31 @@ namespace QSP.Utilities
     public class TaskQueue
     {
         private Queue<CancellableTask> tasks = new Queue<CancellableTask>();
+        private bool isRunning = false;
 
         /// <summary>
-        /// Add a cancellable task to the queue. If the task is successfully cancelled,
-        /// the cleanupAction will be executed.
+        /// Add a cancellable task to the queue. The action is run on worker thread. 
+        /// If the task is successfully cancelled, the cleanupAction will be executed.
         /// </summary>
         public void Add(Task task, CancellationToken token, Action cleanupAction)
         {
             tasks.Enqueue(new CancellableTask(task, token, cleanupAction));
+            if (!isRunning) Run();
         }
 
         private async Task Run()
-        {/*
+        {
+            isRunning = true;
+
             while (tasks.Count > 0)
             {
                 var t = tasks.Dequeue();
-                t.Task.Start();
-                await Task.Run() t.Task.
-            }*/
+                await t.Task;
+            }
+
+            isRunning = false;
         }
-        
+
         public struct CancellableTask
         {
             public Task Task { get; }
