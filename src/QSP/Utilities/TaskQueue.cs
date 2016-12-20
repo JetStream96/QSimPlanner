@@ -34,7 +34,9 @@ namespace QSP.Utilities
 
                 try
                 {
-                    await current.Task;
+                    var t = current.Task;
+                    t.Start();
+                    await t;
                 }
                 catch (OperationCanceledException)
                 {
