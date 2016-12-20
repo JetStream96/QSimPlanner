@@ -11,15 +11,16 @@ namespace QSP.Utilities
     public class TaskQueue
     {
         private Queue<CancellableTask> tasks = new Queue<CancellableTask>();
+        private CancellableTask current;
         private bool isRunning = false;
 
         /// <summary>
         /// Add a cancellable task to the queue. The action is run on worker thread. 
         /// If the task is successfully cancelled, the cleanupAction will be executed.
         /// </summary>
-        public void Add(Task task, CancellationToken token, Action cleanupAction)
+        public void Add(Task task, CancellationTokenSource tokenSource, Action cleanupAction)
         {
-            tasks.Enqueue(new CancellableTask(task, token, cleanupAction));
+            tasks.Enqueue(new CancellableTask(task, tokenSource, cleanupAction));
             if (!isRunning) Run();
         }
 
@@ -29,23 +30,36 @@ namespace QSP.Utilities
 
             while (tasks.Count > 0)
             {
-                var t = tasks.Dequeue();
-                await t.Task;
+                current = tasks.Dequeue();
+
+                try
+                {
+                    await current.Task;
+                }
+                catch (OperationCanceledException)
+                {
+                    current.Cleanup();
+                }
             }
 
             isRunning = false;
         }
 
+        public void CancelCurrentTask()
+        {
+            current.TokenSource.Cancel();
+        }
+
         public struct CancellableTask
         {
             public Task Task { get; }
-            public CancellationToken Token { get; }
+            public CancellationTokenSource TokenSource { get; }
             public Action Cleanup { get; }
 
-            public CancellableTask(Task Task, CancellationToken Token, Action Cleanup)
+            public CancellableTask(Task Task, CancellationTokenSource TokenSource, Action Cleanup)
             {
                 this.Task = Task;
-                this.Token = Token;
+                this.TokenSource = TokenSource;
                 this.Cleanup = Cleanup;
             }
         }
