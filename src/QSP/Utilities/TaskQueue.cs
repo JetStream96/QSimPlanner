@@ -45,12 +45,25 @@ namespace QSP.Utilities
             isRunning = false;
         }
 
+        /// <summary>
+        /// Cancels the current task. If the task queue is empty, this method does nothing.
+        /// </summary>
         public void CancelCurrentTask()
         {
-            current.TokenSource.Cancel();
+            current?.TokenSource.Cancel();
         }
 
-        public struct CancellableTask
+        /// <summary>
+        /// Cancels all tasks including the current one. 
+        /// If the task queue is empty, this method does nothing.
+        /// </summary>
+        public void CancelAllTasks()
+        {
+            tasks.Clear();
+            CancelCurrentTask();
+        }
+
+        public class CancellableTask
         {
             public Task Task { get; }
             public CancellationTokenSource TokenSource { get; }
