@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
-using static QSP.AviationTools.Airac.AiracTools;
+using QSP.AviationTools.Airac;
 
-namespace UnitTest.Utilities
+namespace UnitTest.AviationTools.Airac
 {
     [TestFixture]
     public class AiracToolsTest
@@ -10,13 +10,13 @@ namespace UnitTest.Utilities
         [Test]
         public void IncorrectAiracFormatShouldThrowException()
         {
-            Assert.Throws<ArgumentException>(() => ParsePeriod("6JUN23JUL/14"));
+            Assert.Throws<ArgumentException>(() => AiracTools.ParsePeriod("6JUN23JUL/14"));
         }
 
         [Test]
         public void ParseAiracPeriodTest()
         {
-            var p = ParsePeriod("26JUN23JUL/14");
+            var p = AiracTools.ParsePeriod("26JUN23JUL/14");
             var s = p.Start;
             var e = p.End;
             Assert.IsTrue(s.Year == 2014 && s.Month == 6 && s.Day == 26);
@@ -26,7 +26,7 @@ namespace UnitTest.Utilities
         [Test]
         public void ParseAiracPeriodCrossYear()
         {
-            var p = ParsePeriod("08DEC05JAN/16");
+            var p = AiracTools.ParsePeriod("08DEC05JAN/16");
             var s = p.Start;
             var e = p.End;
             Assert.IsTrue(s.Year == 2016 && s.Month == 12 && s.Day == 8);

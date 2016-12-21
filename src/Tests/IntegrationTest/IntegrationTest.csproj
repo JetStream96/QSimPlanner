@@ -62,7 +62,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QSP\RouteFinding\Tracks\Pacots\PacotsHandlerTest.cs" />
     <Compile Include="QSP\RouteFinding\Tracks\Tasks\TrackTaskQueueTest.cs" />
-    <Compile Include="QSP\Utilities\TaskQueueTest.cs" />
+    <Compile Include="QSP\LibraryExtension\Tasks\TaskQueueTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="QSP\RouteFinding\Tracks\Ausots\text.asp.html">
