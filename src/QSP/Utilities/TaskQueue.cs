@@ -12,7 +12,11 @@ namespace QSP.Utilities
     {
         private Queue<CancellableTask> tasks = new Queue<CancellableTask>();
         private CancellableTask current;
-        private bool isRunning = false;
+
+        /// <summary>
+        /// Returns ture if any task is running or pending. Otherwise false.
+        /// </summary>
+        public bool IsRunning { get; private set; } = false;
 
         /// <summary>
         /// Add a cancellable task to the queue. The action is run on worker thread. 
@@ -22,12 +26,12 @@ namespace QSP.Utilities
         public void Add(Func<Task> taskGetter, CancellationTokenSource ts, Action cleanupAction)
         {
             tasks.Enqueue(new CancellableTask(taskGetter, ts, cleanupAction));
-            if (!isRunning) Run();
+            if (!IsRunning) Run();
         }
 
         private async Task Run()
         {
-            isRunning = true;
+            IsRunning = true;
 
             while (tasks.Count > 0)
             {
@@ -43,7 +47,7 @@ namespace QSP.Utilities
                 }
             }
 
-            isRunning = false;
+            IsRunning = false;
         }
 
         /// <summary>
