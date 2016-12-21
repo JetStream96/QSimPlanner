@@ -12,10 +12,10 @@ namespace QSP.RouteFinding.Tracks.Tasks
         /// <summary>
         /// Add the task to the queue and cancel all other tasks previously added.
         /// </summary>
-        public void Add(Task task, CancellationTokenSource tokenSource, Action cleanupAction)
+        public void Add(Func<Task> taskGetter, CancellationTokenSource ts, Action cleanupAction)
         {
             queue.CancelAllTasks();
-            queue.Add(task, tokenSource, cleanupAction);
+            queue.Add(taskGetter, ts, cleanupAction);
         }
     }
 }

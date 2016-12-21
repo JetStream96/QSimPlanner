@@ -18,9 +18,9 @@ namespace QSP.Utilities
         /// Add a cancellable task to the queue. The action is run on worker thread. 
         /// If the task is successfully cancelled, the cleanupAction will be executed.
         /// </summary>
-        public void Add(Task task, CancellationTokenSource tokenSource, Action cleanupAction)
+        public void Add(Func<Task> taskGetter, CancellationTokenSource ts, Action cleanupAction)
         {
-            tasks.Enqueue(new CancellableTask(task, tokenSource, cleanupAction));
+            tasks.Enqueue(new CancellableTask(taskGetter, ts, cleanupAction));
             if (!isRunning) Run();
         }
 
@@ -34,9 +34,7 @@ namespace QSP.Utilities
 
                 try
                 {
-                    var t = current.Task;
-                    t.Start();
-                    await t;
+                    await current.TaskGetter();
                 }
                 catch (OperationCanceledException)
                 {
@@ -67,14 +65,15 @@ namespace QSP.Utilities
 
         public class CancellableTask
         {
-            public Task Task { get; }
+            public Func<Task> TaskGetter { get; }
             public CancellationTokenSource TokenSource { get; }
             public Action Cleanup { get; }
 
-            public CancellableTask(Task Task, CancellationTokenSource TokenSource, Action Cleanup)
+            public CancellableTask(Func<Task> TaskGetter, 
+                CancellationTokenSource ts, Action Cleanup)
             {
-                this.Task = Task;
-                this.TokenSource = TokenSource;
+                this.TaskGetter = TaskGetter;
+                this.TokenSource = ts;
                 this.Cleanup = Cleanup;
             }
         }

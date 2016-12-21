@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using QSP.Utilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,13 @@ namespace IntegrationTest.QSP.Utilities
             {
                 var q = new TaskQueue();
 
-                var task0 = new Task(() =>
+                Func<Task> task0 = () => Task.Factory.StartNew(() =>
                 {
                     Thread.Sleep(200);
                     results.Add(0);
                 });
 
-                var task1 = new Task(() =>
+                Func<Task> task1 = () => Task.Factory.StartNew(() =>
                 {
                     results.Add(1);
                 });
@@ -41,5 +42,44 @@ namespace IntegrationTest.QSP.Utilities
 
             Assert.IsTrue(results.SequenceEqual(new[] { 0, 1 }));
         }
+
+        [Test]
+        public void CancelCurrentTaskCleanupShouldBeDone()
+        {
+            var results = new List<int>();
+
+            var test = new Thread(() =>
+            {
+                var q = new TaskQueue();
+
+                var ts = new CancellationTokenSource();
+                Action cleanup = () => results.Add(42);
+
+                Func<Task> task = async () =>
+                {
+                    await Task.Factory.StartNew(() => Thread.Sleep(200));
+
+                    if (ts.IsCancellationRequested)
+                    {
+                        ts.Token.ThrowIfCancellationRequested();
+                    }
+
+                    results.Add(0);
+                };
+
+                q.Add(task, ts, cleanup);
+
+                // Cancel the task.
+                q.CancelCurrentTask();
+            });
+
+            test.Start();
+
+            // Let tasks finish.
+            Thread.Sleep(400);
+
+            Assert.IsTrue(results.SequenceEqual(new[] { 42 }));
+        }
+        
     }
 }
