@@ -80,6 +80,49 @@ namespace IntegrationTest.QSP.Utilities
 
             Assert.IsTrue(results.SequenceEqual(new[] { 42 }));
         }
-        
+
+        [Test]
+        public void CancelAllTasksCleanupAndClearEntireQueue()
+        {
+            var results = new List<int>();
+
+            var test = new Thread(() =>
+            {
+                var q = new TaskQueue();
+
+                var ts = new CancellationTokenSource();
+                Action cleanup = () => results.Add(42);
+
+                Func<Task> task0 = async () =>
+                {
+                    await Task.Factory.StartNew(() => Thread.Sleep(200));
+
+                    if (ts.IsCancellationRequested)
+                    {
+                        ts.Token.ThrowIfCancellationRequested();
+                    }
+
+                    results.Add(0);
+                };
+
+                Func<Task> task1 = () => Task.Factory.StartNew(() =>
+                {
+                    results.Add(1);
+                });
+
+                q.Add(task0, ts, cleanup);
+                q.Add(task1, new CancellationTokenSource(), () => { });
+
+                // Cancel all tasks.
+                q.CancelAllTasks();
+            });
+
+            test.Start();
+
+            // Let tasks finish.
+            Thread.Sleep(400);
+
+            Assert.IsTrue(results.SequenceEqual(new[] { 42 }));
+        }
     }
 }
