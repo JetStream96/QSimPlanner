@@ -134,7 +134,7 @@ namespace QSP.Updates
             }
 
             ZipFile.ExtractToDirectory(zipFilePath, extractDir);
-            IgnoreExceptions(() => File.Delete(zipFilePath));
+            IgnoreException(() => File.Delete(zipFilePath));
         }
 
         private static void UpdateXmlAndDeleteOldVersion(string version)
@@ -142,7 +142,7 @@ namespace QSP.Updates
             var doc = GetVersionXDoc();
             var root = doc.Root;
             var backup = root.Element("current").Value;
-            IgnoreExceptions(() => 
+            IgnoreException(() => 
             Directory.Delete(root.Element("backup").Value));
             root.Element("current").Value = version;
             root.Element("backup").Value = backup;

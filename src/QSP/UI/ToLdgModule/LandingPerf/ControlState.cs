@@ -92,7 +92,7 @@ namespace QSP.UI.ToLdgModule.LandingPerf
                 () => c.appSpdIncTxtBox.Text = r.GetString(appSpeedInc)
             };
 
-            foreach (var action in actions) IgnoreExceptions(action);
+            foreach (var action in actions) IgnoreException(action);
         }
     }
 }

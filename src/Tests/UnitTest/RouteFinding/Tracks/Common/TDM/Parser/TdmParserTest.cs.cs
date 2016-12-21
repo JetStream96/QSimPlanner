@@ -31,10 +31,9 @@ Remarks continued";
             Assert.IsTrue(result.MainRoute == @"Main Route
 Main Route continued
 ");
-            Assert.IsTrue(Enumerable.SequenceEqual(result.ConnectionRoutes,
-                            new string[] {"RouteFrom/To 1",
-                                          "RouteFrom/To 2",
-                                          "RouteFrom/To 3" }));
+            Assert.IsTrue(result.ConnectionRoutes.SequenceEqual(
+                new[] { "RouteFrom/To 1", "RouteFrom/To 2", "RouteFrom/To 3" }));
+
             Assert.IsTrue(result.Remarks == @"Remarks
 Remarks continued");
         }
@@ -61,10 +60,9 @@ RouteFrom/To 3";
             Assert.IsTrue(result.MainRoute == @"Main Route
 Main Route continued
 ");
-            Assert.IsTrue(Enumerable.SequenceEqual(result.ConnectionRoutes,
-                            new string[] {"RouteFrom/To 1",
-                                          "RouteFrom/To 2",
-                                          "RouteFrom/To 3" }));
+            Assert.IsTrue(result.ConnectionRoutes.SequenceEqual(
+                new[] {"RouteFrom/To 1", "RouteFrom/To 2", "RouteFrom/To 3" }));
+
             Assert.IsTrue(result.Remarks == "");
         }
 

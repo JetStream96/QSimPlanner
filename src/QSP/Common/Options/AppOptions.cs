@@ -44,22 +44,16 @@ namespace QSP.Common.Options
             this.ExportCommands = ExportCommands;
         }
 
-        public static AppOptions Default
-        {
-            get
-            {
-                return new AppOptions(
-                    "",
-                    true,
-                    true,
-                    true,
-                    true,
-                    false,
-                    false,
-                    true,
-                    new Dictionary<string, ExportCommand>());
-            }
-        }
+        public static AppOptions Default => new AppOptions(
+            "",
+            true,
+            true,
+            true,
+            true,
+            false,
+            false,
+            true,
+            new Dictionary<string, ExportCommand>());
 
         public class Serializer : IXSerializer<AppOptions>
         {
@@ -110,7 +104,7 @@ namespace QSP.Common.Options
 
                 foreach (var a in actions)
                 {
-                    IgnoreExceptions(a);
+                    IgnoreException(a);
                 }
 
                 return d;

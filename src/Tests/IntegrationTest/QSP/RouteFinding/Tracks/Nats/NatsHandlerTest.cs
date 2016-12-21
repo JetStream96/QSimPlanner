@@ -3,6 +3,7 @@ using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Nats;
@@ -10,7 +11,8 @@ using QSP.RouteFinding.Tracks.Nats.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using QSP.RouteFinding.Data.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
 {
@@ -21,7 +23,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
         public void GetAllTracksAndAddToWptListTest()
         {
             // Arrange
-            var wptList = WptListFactory.GetWptList(WptIdents());
+            var wptList = WptListFactory.GetWptList(WptIdents);
             var recorder = new StatusRecorder();
 
             var handler = new NatsHandler(
@@ -53,7 +55,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             var edge = wptList.GetEdge(GetEdgeIndex("NATC", "ETARI", wptList));
 
             // Distance
-            Assert.AreEqual(                
+            Assert.AreEqual(
                     new List<ICoordinate>
                     {
                       wptList[wptList.FindById("ETARI")],
@@ -109,7 +111,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             // Airway is correct
             Assert.IsTrue(edge.Value.Airway == "NATZ");
         }
-        
+
         private static int GetEdgeIndex(
             string ID, string firstWpt, WaypointList wptList)
         {
@@ -159,61 +161,64 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             }
         }
 
-        private static List<string> WptIdents()
+        private static string[] WptIdents => new[]
         {
-            return new List<string>
-            { "SUNOT",
-              "JANJO",
-              "PIKIL",
-              "LOMSI",
-              "ETARI",
-              "MELDI",
-              "RESNO",
-              "NEEKO",
-              "DOGAL",
-              "RIKAL",
-              "MALOT",
-              "TUDEP",
-              "NICSO",
-              "LIMRI",
-              "XETBO",
-              "PORTI",
-              "DINIM",
-              "ELSOX",
-              "SUPRY",
-              "SOMAX",
-              "ATSUR",
-              "RAFIN",
-              "BEDRA",
-              "NERTU",
-              "DOVEY",
-              "OMOKO",
-              "GUNSO",
-              "JOBOC",
-              "ETIKI",
-              "REGHI",
-              "SLATN",
-              "SOORY",
-              "SEPAL",
-              "LAPEX"
-            };
+            "SUNOT",
+            "JANJO",
+            "PIKIL",
+            "LOMSI",
+            "ETARI",
+            "MELDI",
+            "RESNO",
+            "NEEKO",
+            "DOGAL",
+            "RIKAL",
+            "MALOT",
+            "TUDEP",
+            "NICSO",
+            "LIMRI",
+            "XETBO",
+            "PORTI",
+            "DINIM",
+            "ELSOX",
+            "SUPRY",
+            "SOMAX",
+            "ATSUR",
+            "RAFIN",
+            "BEDRA",
+            "NERTU",
+            "DOVEY",
+            "OMOKO",
+            "GUNSO",
+            "JOBOC",
+            "ETIKI",
+            "REGHI",
+            "SLATN",
+            "SOORY",
+            "SEPAL",
+            "LAPEX"
+        };
+    
+
+    private class DownloaderStub : INatsMessageProvider
+    {
+        public NatsMessage GetMessage()
+        {
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
+            var htmlSource = File.ReadAllText(
+                directory + "/QSP/RouteFinding/Tracks/Nats/North Atlantic Tracks.html");
+            var msgs = new MessageSplitter(htmlSource).Split();
+
+            int westIndex =
+                msgs[0].Direction == NatsDirection.West ? 0 : 1;
+            int eastIndex = 1 - westIndex;
+            return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
         }
 
-        private class DownloaderStub : INatsMessageProvider
+        public Task<NatsMessage> GetMessageAsync(CancellationToken token)
         {
-            public NatsMessage GetMessage()
-            {
-                var directory = AppDomain.CurrentDomain.BaseDirectory;
-                var htmlSource = File.ReadAllText(
-                    directory +
-                    "/QSP/RouteFinding/Tracks/Nats/North Atlantic Tracks.html");
-                var msgs = new MessageSplitter(htmlSource).Split();
-
-                int westIndex =
-                    msgs[0].Direction == NatsDirection.West ? 0 : 1;
-                int eastIndex = 1 - westIndex;
-                return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
-            }
+            throw new NotImplementedException();
         }
     }
+}
 }

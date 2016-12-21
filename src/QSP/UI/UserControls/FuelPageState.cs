@@ -155,7 +155,7 @@ namespace QSP.UI.UserControls
                 () => c.FinalReserveTxtBox.Text = r.GetString(finalRsvMin)
             };
 
-            foreach (var a in actions) IgnoreExceptions(a);
+            foreach (var a in actions) IgnoreException(a);
         }
     }
 }

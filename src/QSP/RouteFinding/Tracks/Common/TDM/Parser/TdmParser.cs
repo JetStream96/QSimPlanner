@@ -1,4 +1,5 @@
-﻿using QSP.LibraryExtension;
+﻿using System;
+using QSP.LibraryExtension;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -74,15 +75,14 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
             }
         }
 
-        /// <exception cref="TrackParseException"></exception>
+        /// <exception cref="Exception"></exception>
         public ParseResult Parse()
         {
-            var match = Regex.Match(
-                text, GetPattern(), RegexOptions.Singleline);
+            var match = Regex.Match(text, GetPattern(), RegexOptions.Singleline);
 
             if (match.Success == false)
             {
-                throw new TrackParseException();
+                throw new Exception();
             }
 
             var ident = match.Groups["id"].Value;
@@ -92,7 +92,7 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 
             var connectionRoutes = match.Groups["connect"].Value
                 .Lines()
-                .Where(x => string.IsNullOrWhiteSpace(x) == false)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
                 .ToArray();
 
             var remarks = match.Groups["remark"].Value;

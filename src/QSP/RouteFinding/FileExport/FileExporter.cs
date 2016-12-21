@@ -91,7 +91,7 @@ namespace QSP.RouteFinding.FileExport
         {
             foreach (var i in commands)
             {
-                IgnoreExceptions(() => Directory.CreateDirectory(i.Directory));
+                IgnoreException(() => Directory.CreateDirectory(i.Directory));
             }
         }
 

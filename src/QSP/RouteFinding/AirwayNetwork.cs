@@ -8,6 +8,7 @@ using QSP.RouteFinding.Tracks.Nats;
 using QSP.RouteFinding.Tracks.Pacots;
 using System;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace QSP.RouteFinding
 {
@@ -310,6 +311,11 @@ namespace QSP.RouteFinding
             {
                 return msg;
             }
+
+            public Task<NatsMessage> GetMessageAsync(CancellationToken token)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private class PacotsProvider : IPacotsMessageProvider
@@ -325,6 +331,11 @@ namespace QSP.RouteFinding
             {
                 return msg;
             }
+
+            public Task<PacotsMessage> GetMessageAsync(CancellationToken token)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private class AusotsProvider : IAusotsMessageProvider
@@ -339,6 +350,11 @@ namespace QSP.RouteFinding
             public AusotsMessage GetMessage()
             {
                 return msg;
+            }
+
+            public Task<AusotsMessage> GetMessageAsync(CancellationToken token)
+            {
+                throw new NotImplementedException();
             }
         }
     }

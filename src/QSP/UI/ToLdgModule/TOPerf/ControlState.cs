@@ -92,7 +92,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
                 () => c.packsComboBox.Text = r.GetString(packs)
             };
 
-            foreach (var action in actions) IgnoreExceptions(action);
+            foreach (var action in actions) IgnoreException(action);
         }
     }
 }

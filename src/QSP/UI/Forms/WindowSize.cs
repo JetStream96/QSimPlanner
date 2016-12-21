@@ -54,7 +54,7 @@ namespace QSP.UI.Forms
 
                 foreach (var a in actions)
                 {
-                    IgnoreExceptions(a);
+                    IgnoreException(a);
                 }
 
                 return d;

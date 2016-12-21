@@ -1,4 +1,5 @@
-﻿using QSP.RouteFinding.Tracks.Common;
+﻿using System;
+using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Collections.Generic;
 using QSP.RouteFinding.Airports;
@@ -34,7 +35,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             this.airportList = airportList;
         }
 
-        /// <exception cref="TrackParseException"></exception>
+        /// <exception cref="Exception"></exception>
         public override List<AusTrack> Parse()
         {
             allTracks = new List<AusTrack>();
@@ -42,7 +43,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
             if (msgs.Count == 0)
             {
-                throw new TrackParseException("Failed to interpret Ausots message.");
+                throw new Exception("Failed to interpret AUSOTS message.");
             }
             
             foreach (var i in msgs)

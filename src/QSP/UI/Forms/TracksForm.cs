@@ -399,7 +399,7 @@ namespace QSP.UI.Forms
                 return;
             }
 
-            IgnoreExceptions(() => Directory.CreateDirectory(trackFileFolder));
+            IgnoreException(() => Directory.CreateDirectory(trackFileFolder));
             var saveFileDialog = new SaveFileDialog();
 
             var ext = trackFileExtension;
