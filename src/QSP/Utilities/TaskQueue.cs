@@ -18,6 +18,7 @@ namespace QSP.Utilities
         /// Add a cancellable task to the queue. The action is run on worker thread. 
         /// If the task is successfully cancelled, the cleanupAction will be executed.
         /// </summary>
+        /// <param name="taskGetter">A method which starts and returns the task when called.</param>
         public void Add(Func<Task> taskGetter, CancellationTokenSource ts, Action cleanupAction)
         {
             tasks.Enqueue(new CancellableTask(taskGetter, ts, cleanupAction));
@@ -46,7 +47,8 @@ namespace QSP.Utilities
         }
 
         /// <summary>
-        /// Cancels the current task. If the task queue is empty, this method does nothing.
+        /// Request to cancels the current task. If the task queue is empty, 
+        /// this method does nothing.
         /// </summary>
         public void CancelCurrentTask()
         {
@@ -54,8 +56,8 @@ namespace QSP.Utilities
         }
 
         /// <summary>
-        /// Cancels all tasks including the current one. 
-        /// If the task queue is empty, this method does nothing.
+        /// Cancels all tasks queued but not started yet. Request to cancel the task currently 
+        /// running. If the task queue is empty and no task is running, this method does nothing.
         /// </summary>
         public void CancelAllTasks()
         {
