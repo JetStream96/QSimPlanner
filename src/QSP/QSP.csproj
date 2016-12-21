@@ -285,7 +285,7 @@
     <Compile Include="Updates\Updater.cs" />
     <Compile Include="Updates\Utilities.cs" />
     <Compile Include="AviationTools\Airac\AiracPeriod.cs" />
-    <Compile Include="LibraryExtension\Registry.cs" />
+    <Compile Include="LibraryExtension\Registries.cs" />
     <Compile Include="Utilities\SimulatorPath.cs" />
     <Compile Include="LibraryExtension\Tasks\TaskQueue.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
