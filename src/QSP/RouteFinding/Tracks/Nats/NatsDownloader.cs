@@ -57,28 +57,6 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             return new[] { additional };
         }
-        
-        private List<IndividualNatsMessage> DownloadNatsMsg()
-        {
-            var natMsg = DownloadFromNotam();
-            var additional = AdditionalDownloads(natMsg)
-                .Select(i => client.DownloadString(i))
-                .Select(xml => new IndividualNatsMessage(XDocument.Parse(xml)));
-
-            natMsg.AddRange(additional);
-            return natMsg;
-        }
-
-        private async Task<List<IndividualNatsMessage>> DownloadNatsMsgAsync()
-        {
-            var natMsg = await DownloadFromNotamAsync();
-            var additional = AdditionalDownloads(natMsg)
-                .Select(async i => await client.DownloadStringTaskAsync(i))
-                .Select(async xml => await new IndividualNatsMessage(XDocument.Parse(xml)));
-
-            natMsg.AddRange(additional);
-            return natMsg;
-        }
 
         /// <summary>
         /// Downloads the track message.
@@ -86,15 +64,34 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// <exception cref="Exception"></exception>
         public NatsMessage GetMessage()
         {
-            var msgs = DownloadNatsMsg();
+            var natMsg = DownloadFromNotam();
+            var htmls = AdditionalDownloads(natMsg)
+                .Select(i => client.DownloadString(i));
+            var additional = htmls.Select(xml => new IndividualNatsMessage(XDocument.Parse(xml)));
+
+            natMsg.AddRange(additional);
+            return CreateMessage(natMsg);
+        }
+
+        public async Task<NatsMessage> GetMessageAsync(CancellationToken token)
+        {
+            token.Register(() => client.CancelAsync());
+
+            var natMsg = await DownloadFromNotamAsync();
+            var tasks = AdditionalDownloads(natMsg)
+                .Select(i => client.DownloadStringTaskAsync(i));
+            var htmls = await Task.WhenAll(tasks);
+            var additional = htmls.Select(xml => new IndividualNatsMessage(XDocument.Parse(xml)));
+
+            natMsg.AddRange(additional);
+            return CreateMessage(natMsg);
+        }
+
+        private static NatsMessage CreateMessage(List<IndividualNatsMessage> msgs)
+        {
             int westIndex = msgs[0].Direction == NatsDirection.West ? 0 : 1;
             int eastIndex = 1 - westIndex;
             return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
-        }
-
-        public Task<NatsMessage> GetMessageAsync(CancellationToken token)
-        {
-
         }
 
         ~NatsDownloader()

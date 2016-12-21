@@ -4,11 +4,8 @@ namespace QSP.Metar
 {
     public static class MetarDownloader
     {
-        private const string metarUrl =
-            "http://tgftp.nws.noaa.gov/data/observations/metar/stations/";
-
-        private const string tafUrl =
-            "http://tgftp.nws.noaa.gov/data/forecasts/taf/stations/";
+        private const string metarUrl = "http://tgftp.nws.noaa.gov/data/observations/metar/stations/";
+        private const string tafUrl = "http://tgftp.nws.noaa.gov/data/forecasts/taf/stations/";
 
         private static string TrimIcao(string icao)
         {

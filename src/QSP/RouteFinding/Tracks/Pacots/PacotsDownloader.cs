@@ -12,7 +12,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         /// <exception cref="Exception"></exception>
         public PacotsMessage GetMessage()
         {
-                return new PacotsMessage(StartPost());
+            return new PacotsMessage(StartPost());
         }
 
         /// <exception cref="Exception"></exception>
