@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using Microsoft.Win32;
 
 namespace QSP.Utilities
 {
@@ -66,7 +65,7 @@ namespace QSP.Utilities
 
             try
             {
-                Registry.SetValue(
+                Microsoft.Win32.Registry.SetValue(
                     @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Internet Explorer" +
                     @"\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION",
                     exeName,
@@ -82,7 +81,7 @@ namespace QSP.Utilities
         {
             try
             {
-                string version = Registry.GetValue(
+                string version = Microsoft.Win32.Registry.GetValue(
                         @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer",
                         "Version", "").ToString();
 
@@ -106,7 +105,7 @@ namespace QSP.Utilities
                     else
                     {
                         version = Convert.ToString(
-                            Registry.GetValue(
+                            Microsoft.Win32.Registry.GetValue(
                                 @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\" +
                                 "Internet Explorer",
                                 "svcVersion", ""));
@@ -130,7 +129,7 @@ namespace QSP.Utilities
         {
             object defaultVal = new object();
 
-            var keyValue = Registry.GetValue(
+            var keyValue = Microsoft.Win32.Registry.GetValue(
                 @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Internet Explorer" +
                 @"\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION",
                 Assembly.GetEntryAssembly().GetName().Name + 
@@ -159,7 +158,7 @@ namespace QSP.Utilities
         {
             object defaultVal = new object();
 
-            var keyValue = Registry.GetValue(
+            var keyValue = Microsoft.Win32.Registry.GetValue(
                 @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Internet Explorer" +
                 @"\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION",
                 Assembly.GetEntryAssembly().GetName().Name + 

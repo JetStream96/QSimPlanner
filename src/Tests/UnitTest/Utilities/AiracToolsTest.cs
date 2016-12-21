@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using static QSP.Utilities.AiracTools;
+using static QSP.AviationTools.Airac.AiracTools;
 
 namespace UnitTest.Utilities
 {

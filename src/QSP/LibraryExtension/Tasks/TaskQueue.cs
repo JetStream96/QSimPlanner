@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace QSP.Utilities
+namespace QSP.LibraryExtension.Tasks
 {
     /// <summary>
     /// The tasks added to this queue are executed in the order of addition.

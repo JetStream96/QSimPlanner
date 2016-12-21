@@ -1,8 +1,8 @@
 ﻿using Microsoft.Win32;
 
-namespace QSP.Utilities
+namespace QSP.LibraryExtension
 {
-    public static class RegistryUitl
+    public static class Registries
     {
         /// <summary>
         /// If the operation failed, this either returns null or throws an exception.

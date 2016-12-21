@@ -1,7 +1,7 @@
 ﻿using QSP.LibraryExtension;
-using QSP.Utilities;
 using System.IO;
 using System.Linq;
+using QSP.AviationTools.Airac;
 using static QSP.Utilities.SimulatorPath;
 
 namespace QSP.NavData

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QSP.Utilities
+namespace QSP.AviationTools.Airac
 {
     public class AiracPeriod
     {

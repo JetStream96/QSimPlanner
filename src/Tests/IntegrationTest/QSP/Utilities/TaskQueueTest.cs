@@ -1,10 +1,10 @@
 ﻿using System;
 using NUnit.Framework;
-using QSP.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using QSP.LibraryExtension.Tasks;
 
 namespace IntegrationTest.QSP.Utilities
 {

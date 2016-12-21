@@ -8,7 +8,6 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport.Providers;
 using QSP.Updates;
-using QSP.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QSP.AviationTools.Airac;
 using static QSP.UI.Utilities.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
 

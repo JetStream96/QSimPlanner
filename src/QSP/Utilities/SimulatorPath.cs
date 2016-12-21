@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using QSP.LibraryExtension;
 
 namespace QSP.Utilities
 {
@@ -8,13 +9,13 @@ namespace QSP.Utilities
 
         public static string FsxPath()
         {
-            var lm = RegistryUitl.TryGetRegistry(
+            var lm = Registries.TryGetRegistry(
                 RegistryHive.LocalMachine,
                 @"SOFTWARE\Microsoft\microsoft games\flight simulator\10.0",
                 "SetupPath",
                 RegistryView.Registry32);   // FSX is 32-bit.
 
-            var cu = RegistryUitl.TryGetRegistry(
+            var cu = Registries.TryGetRegistry(
                 RegistryHive.CurrentUser,
                 @"SOFTWARE\Microsoft\microsoft games\flight simulator\10.0",
                 "AppPath",
@@ -25,13 +26,13 @@ namespace QSP.Utilities
 
         public static string FsxSteamPath()
         {
-            var lm = RegistryUitl.TryGetRegistry(
+            var lm = Registries.TryGetRegistry(
                 RegistryHive.LocalMachine,
                 @"Software\Dovetail Games\FSX\10.0",
                 "Install_Path",
                 RegistryView.Registry32);   // FSX:SE is 32-bit.
 
-            var cu = RegistryUitl.TryGetRegistry(
+            var cu = Registries.TryGetRegistry(
                 RegistryHive.CurrentUser,
                 @"Software\Microsoft\Microsoft Games\Flight Simulator - Steam Edition\10.0",
                 "AppPath",
@@ -42,13 +43,13 @@ namespace QSP.Utilities
 
         public static string P3Dv3Path()
         {
-            var lm = RegistryUitl.TryGetRegistry(
+            var lm = Registries.TryGetRegistry(
                 RegistryHive.LocalMachine,
                 @"Software\Lockheed Martin\Prepar3d v3",
                 "SetupPath",
                 RegistryView.Registry32);   // P3Dv2 is 32-bit.
 
-            var cu = RegistryUitl.TryGetRegistry(
+            var cu = Registries.TryGetRegistry(
                 RegistryHive.CurrentUser,
                 @"Software\Lockheed Martin\Prepar3D v3",
                 "AppPath",
@@ -59,13 +60,13 @@ namespace QSP.Utilities
 
         public static string P3Dv2Path()
         {
-            var lm = RegistryUitl.TryGetRegistry(
+            var lm = Registries.TryGetRegistry(
                 RegistryHive.LocalMachine,
                 @"Software\Lockheed Martin\Prepar3d v2",
                 "SetupPath",
                 RegistryView.Registry32);   // P3Dv2 is 32-bit.
 
-            var cu = RegistryUitl.TryGetRegistry(
+            var cu = Registries.TryGetRegistry(
                 RegistryHive.CurrentUser,
                 @"Software\Lockheed Martin\Prepar3D v2",
                 "AppPath",
@@ -76,13 +77,13 @@ namespace QSP.Utilities
 
         public static string P3Dv1Path()
         {
-            var lm = RegistryUitl.TryGetRegistry(
+            var lm = Registries.TryGetRegistry(
                 RegistryHive.LocalMachine,
                 @"Software\LockheedMartin\Prepar3d",
                 "SetupPath",
                 RegistryView.Registry32);   // P3Dv1 is 32-bit.
 
-            var cu = RegistryUitl.TryGetRegistry(
+            var cu = Registries.TryGetRegistry(
                 RegistryHive.CurrentUser,
                 @"Software\LockheedMartin\Prepar3D",
                 "AppPath",

@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using QSP.RouteFinding.Tracks.Tasks;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.ExceptionHelpers;
@@ -30,6 +31,9 @@ namespace QSP.UI.Forms
         private AirwayNetwork airwayNetwork;
         private ImageList myImageList;
         private ToolStripStatusLabel statusLbl;
+        private TrackTaskQueue natsQueue = new TrackTaskQueue();
+        private TrackTaskQueue pacotsQueue = new TrackTaskQueue();
+        private TrackTaskQueue ausotsQueue = new TrackTaskQueue();
 
         public TracksForm()
         {
@@ -294,10 +298,17 @@ namespace QSP.UI.Forms
 
         private async Task DnNats()
         {
-            BtnNatsDn.Enabled = false;
+            Func<Task> task = async () =>
+            {
+                BtnNatsDn.Enabled = false;
 
-            await airwayNetwork.DownloadNats();
-            airwayNetwork.NatsEnabled = NatsEnabled;
+                await airwayNetwork.DownloadNats();
+                airwayNetwork.NatsEnabled = NatsEnabled;
+
+                BtnNatsDn.Enabled = true;
+            };
+
+           //TODO: natsQueue.Add(task);
         }
 
         private async Task DnPacots()

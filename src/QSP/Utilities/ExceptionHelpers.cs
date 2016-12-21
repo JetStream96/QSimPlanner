@@ -10,6 +10,7 @@ namespace QSP.Utilities
             if (!condition) throw new TException();
         }
 
+        // TODO: Maybe change to .Catch(this Action)
         public static void IgnoreExceptions(Action action)
         {
             try

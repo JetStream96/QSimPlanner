@@ -175,6 +175,7 @@
     <Compile Include="RouteFinding\Routes\RouteString.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilter.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\INatsMessageProvider.cs" />
+    <Compile Include="LibraryExtension\Tasks\ICancellationToken.cs" />
     <Compile Include="RouteFinding\Tracks\Tasks\TrackTaskQueue.cs" />
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />
@@ -283,10 +284,10 @@
     <Compile Include="Updates\PostUpdateAction.cs" />
     <Compile Include="Updates\Updater.cs" />
     <Compile Include="Updates\Utilities.cs" />
-    <Compile Include="Utilities\AiracPeriod.cs" />
-    <Compile Include="Utilities\RegistryUitl.cs" />
+    <Compile Include="AviationTools\Airac\AiracPeriod.cs" />
+    <Compile Include="LibraryExtension\Registry.cs" />
     <Compile Include="Utilities\SimulatorPath.cs" />
-    <Compile Include="Utilities\TaskQueue.cs" />
+    <Compile Include="LibraryExtension\Tasks\TaskQueue.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />
@@ -486,7 +487,7 @@
     <Compile Include="Utilities\LoggerInstance.cs" />
     <Compile Include="Common\Exceptions.cs" />
     <Compile Include="Utilities\IeEmulationChecker.cs" />
-    <Compile Include="Utilities\AiracTools.cs" />
+    <Compile Include="AviationTools\Airac\AiracTools.cs" />
     <Compile Include="LibraryExtension\Arrays.cs" />
     <Compile Include="LandingPerfCalculation\LandingReport.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingParameters.cs" />
