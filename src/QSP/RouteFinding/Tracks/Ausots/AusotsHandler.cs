@@ -1,10 +1,13 @@
+using System;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
@@ -42,31 +45,38 @@ namespace QSP.RouteFinding.Tracks.Ausots
         /// </summary>
         public override void GetAllTracks()
         {
-            GetAndReadTracks(new AusotsDownloader());
-            UndoEdit();
+            GetAllTracks(new AusotsDownloader());
         }
 
         public void GetAllTracks(IAusotsMessageProvider provider)
         {
-            GetAndReadTracks(provider);
+            IgnoreException(() =>
+            {
+                _startedGettingTracks = true;
+                GetTracks(provider);
+                ReadMessage();
+            });
+
             UndoEdit();
         }
 
-        private void GetAndReadTracks(IAusotsMessageProvider provider)
+        public override async Task GetAllTracksAsync(CancellationToken token)
         {
             try
             {
                 _startedGettingTracks = true;
-                TryGetTracks(provider);
+                await GetTracksAsync(new AusotsDownloader(), token);
                 ReadMessage();
             }
             catch { }
+
+            UndoEdit();
         }
 
         // Can throw exception.
         private void ReadMessage()
         {
-            var trks = TryParse();
+            var trks = Parse();
 
             var reader = new TrackReader<AusTrack>(wptList, airportList);
             nodes = new List<TrackNodes>();
@@ -88,7 +98,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         }
 
         // Can throw exception.
-        private List<AusTrack> TryParse()
+        private List<AusTrack> Parse()
         {
             try
             {
@@ -106,7 +116,22 @@ namespace QSP.RouteFinding.Tracks.Ausots
         }
 
         // Can throw exception.
-        private void TryGetTracks(IAusotsMessageProvider provider)
+        private async Task GetTracksAsync(IAusotsMessageProvider provider,
+            CancellationToken token)
+        {
+            try
+            {
+                RawData = await provider.GetMessageAsync(token);
+            }
+            catch
+            {
+                AddRecord();
+                throw;
+            }
+        }
+
+        // Can throw exception.
+        private void GetTracks(IAusotsMessageProvider provider)
         {
             try
             {
@@ -114,19 +139,17 @@ namespace QSP.RouteFinding.Tracks.Ausots
             }
             catch
             {
-                recorder.AddEntry(
-                    StatusRecorder.Severity.Critical,
-                    "Failed to download AUSOTS.",
-                    TrackType.Ausots);
-
+                AddRecord();
                 throw;
             }
         }
 
-        public override async Task GetAllTracksAsync()
+        private void AddRecord()
         {
-            await Task.Factory.StartNew(() => GetAndReadTracks(new AusotsDownloader()));
-            UndoEdit();
+            recorder.AddEntry(
+                StatusRecorder.Severity.Critical,
+                "Failed to download AUSOTS.",
+                TrackType.Ausots);
         }
 
         public override void AddToWaypointList()

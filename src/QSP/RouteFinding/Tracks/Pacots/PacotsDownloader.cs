@@ -2,34 +2,23 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
     public class PacotsDownloader : IPacotsMessageProvider
     {
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
+        /// <exception cref="Exception"></exception>
         public PacotsMessage GetMessage()
         {
-            string html;
+                return new PacotsMessage(StartPost());
+        }
 
-            try
-            {
-                html = StartPost();
-            }
-            catch (Exception ex)
-            {
-                throw new GetTrackException("Failed to download PACOTs.", ex);
-            }
+        /// <exception cref="Exception"></exception>
+        public Task<PacotsMessage> GetMessageAsync(CancellationToken token)
+        {
 
-            try
-            {
-                return new PacotsMessage(html);
-            }
-            catch (Exception ex)
-            {
-                throw new TrackParseException("Failed to parse PACOTs.", ex);
-            }
         }
 
         /// <summary>
@@ -50,11 +39,10 @@ namespace QSP.RouteFinding.Tracks.Pacots
             postData.Close();
 
             var webResp = (HttpWebResponse)webReq.GetResponse();
+            Stream answer = webResp.GetResponseStream();
 
-            Stream Answer = webResp.GetResponseStream();
-            var _Answer = new StreamReader(Answer);
-
-            return _Answer.ReadToEnd();
+            return new StreamReader(answer).ReadToEnd();
         }
+
     }
 }

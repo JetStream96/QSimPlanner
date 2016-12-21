@@ -4,6 +4,7 @@ using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.Tracks.Nats
@@ -36,14 +37,13 @@ namespace QSP.RouteFinding.Tracks.Nats
             this.airportList = airportList;
             this.tracksInUse = tracksInUse;
         }
-        
+
         /// <summary>
         /// Download tracks and undo previous edit to wptList.
         /// </summary>
         public override void GetAllTracks()
         {
-            GetAndReadTracks(new NatsDownloader());
-            UndoEdit();
+            GetAllTracks(new NatsDownloader());
         }
 
         /// <summary>
@@ -51,25 +51,34 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// </summary>
         public void GetAllTracks(INatsMessageProvider provider)
         {
-            GetAndReadTracks(provider);
+            try
+            {
+                _startedGettingTracks = true;
+                GetTracks(provider);
+                ReadMessage();
+            }
+            catch { }
+
             UndoEdit();
         }
-        
-        private void GetAndReadTracks(INatsMessageProvider provider)
+
+        public override async Task GetAllTracksAsync(CancellationToken token)
         {
             try
             {
                 _startedGettingTracks = true;
-                TryGetTracks(provider);
+                await GetTracksAsync(new NatsDownloader(), token);
                 ReadMessage();
             }
             catch { }
+
+            UndoEdit();
         }
 
         // Can throw exception.
         private void ReadMessage()
         {
-            var trks = TryParse();
+            var trks = Parse();
 
             var reader = new TrackReader<NorthAtlanticTrack>(wptList, airportList);
             nodes = new List<TrackNodes>();
@@ -89,13 +98,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                 }
             }
         }
-        
-        public override async Task GetAllTracksAsync()
-        {
-            await Task.Factory.StartNew(() => GetAndReadTracks(new NatsDownloader()));
-            UndoEdit();
-        }
-        
+
         public override void AddToWaypointList()
         {
             if (AddedToWptList == false)
@@ -109,7 +112,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         }
 
         // Can throw exception.
-        private void TryGetTracks(INatsMessageProvider provider)
+        private void GetTracks(INatsMessageProvider provider)
         {
             try
             {
@@ -117,17 +120,35 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             catch
             {
-                recorder.AddEntry(
-                    StatusRecorder.Severity.Critical,
-                    "Failed to download NATs.",
-                    TrackType.Nats);
-
+                AddRecord();
                 throw;
             }
         }
 
         // Can throw exception.
-        private List<NorthAtlanticTrack> TryParse()
+        private async Task GetTracksAsync(INatsMessageProvider provider, CancellationToken token)
+        {
+            try
+            {
+                RawData = await provider.GetMessageAsync(token);
+            }
+            catch
+            {
+                AddRecord();
+                throw;
+            }
+        }
+
+        private void AddRecord()
+        {
+            recorder.AddEntry(
+                   StatusRecorder.Severity.Critical,
+                   "Failed to download NATs.",
+                   TrackType.Nats);
+        }
+
+        // Can throw exception.
+        private List<NorthAtlanticTrack> Parse()
         {
             try
             {

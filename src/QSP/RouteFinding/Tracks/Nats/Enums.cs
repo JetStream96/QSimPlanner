@@ -2,8 +2,7 @@
 {
     public enum NatsDirection
     {
-        East,
-        West
+        East = 0,
+        West = 1
     }
-
 }

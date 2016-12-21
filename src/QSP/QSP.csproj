@@ -175,7 +175,6 @@
     <Compile Include="RouteFinding\Routes\RouteString.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilter.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\INatsMessageProvider.cs" />
-    <Compile Include="LibraryExtension\Tasks\ICancellationToken.cs" />
     <Compile Include="RouteFinding\Tracks\Tasks\TrackTaskQueue.cs" />
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />

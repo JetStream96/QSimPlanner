@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.Tracks.Common
@@ -11,7 +12,7 @@ namespace QSP.RouteFinding.Tracks.Common
         /// Download and parse all track messages.
         /// </summary>
         public abstract void GetAllTracks();
-        public abstract Task GetAllTracksAsync();
+        public abstract Task GetAllTracksAsync(CancellationToken token);
 
         /// <summary>
         /// Indicates whether GetAllTracks or GetAllTracksAsync has been called.

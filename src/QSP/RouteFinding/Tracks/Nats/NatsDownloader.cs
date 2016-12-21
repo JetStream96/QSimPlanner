@@ -1,91 +1,105 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
     public class NatsDownloader : INatsMessageProvider
     {
-        public const string natsUrl = "https://www.notams.faa.gov/common/nat.html?";
-        private const string natsWest = "http://qsimplan.somee.com/nats/Westbound.xml";
-        private const string natsEast = "http://qsimplan.somee.com/nats/Eastbound.xml";
+        public static readonly string natsUrl = "https://www.notams.faa.gov/common/nat.html?";
+        private static readonly string natsWest = "http://qsimplan.somee.com/nats/Westbound.xml";
+        private static readonly string natsEast = "http://qsimplan.somee.com/nats/Eastbound.xml";
 
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
-        public static List<IndividualNatsMessage> DownloadFromWeb(string url)
+        private WebClient client = new WebClient();
+
+        public List<IndividualNatsMessage> DownloadFromNotam()
         {
             // The list should normally contains either 1 or 2 item(s).
             // But it's ok if it contains no item.
 
-            string htmlStr;
-
-            try
-            {
-                using (WebClient wc = new WebClient())
-                {
-                    htmlStr = wc.DownloadString(url);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new GetTrackException("", ex);
-            }
-
-            try
-            {
-                return new Utilities.MessageSplitter(htmlStr).Split();
-            }
-            catch (Exception ex)
-            {
-                throw new TrackParseException("", ex);
-            }
+            return Split(GetNotamHtml());
         }
 
-        private static List<IndividualNatsMessage> DownloadNatsMsg()
+        public async Task<List<IndividualNatsMessage>> DownloadFromNotamAsync()
         {
-            var natMsg = DownloadFromWeb(natsUrl);
+            var htmlStr = await GetNotamHtmlAsync();
+            return Split(htmlStr);
+        }
 
-            if (natMsg.Count == 0)
-            {
-                using (WebClient wc = new WebClient())
-                {
-                    natMsg.Add(new IndividualNatsMessage(
-                         XDocument.Parse(wc.DownloadString(natsWest))));
+        private static List<IndividualNatsMessage> Split(string html)
+        {
+            return new Utilities.MessageSplitter(html).Split();
+        }
 
-                    natMsg.Add(new IndividualNatsMessage(
-                         XDocument.Parse(wc.DownloadString(natsEast))));
-                }
-            }
-            else if (natMsg.Count == 1)
-            {
-                string downloadAdditional =
-                    natMsg[0].Direction == NatsDirection.East
-                    ? natsWest
-                    : natsEast;
+        private string GetNotamHtml() => client.DownloadString(natsUrl);
 
-                using (WebClient wc = new WebClient())
-                {
-                    var xdoc = XDocument.Parse(
-                        wc.DownloadString(downloadAdditional));
+        private async Task<string> GetNotamHtmlAsync()
+        {
+            return await client.DownloadStringTaskAsync(natsUrl);
+        }
 
-                    natMsg.Add(new IndividualNatsMessage(xdoc));
-                }
-            }
+        private static string[] AdditionalDownloads(List<IndividualNatsMessage> msgs)
+        {
+            string[] addresses = { natsWest, natsEast };
+
+            if (msgs.Count == 0) return addresses;
+            if (msgs.Count == 2) return new string[0];
+
+            // Count is 1.
+            string additional = msgs[0].Direction == NatsDirection.East
+                ? natsWest
+                : natsEast;
+
+            return new[] { additional };
+        }
+        
+        private List<IndividualNatsMessage> DownloadNatsMsg()
+        {
+            var natMsg = DownloadFromNotam();
+            var additional = AdditionalDownloads(natMsg)
+                .Select(i => client.DownloadString(i))
+                .Select(xml => new IndividualNatsMessage(XDocument.Parse(xml)));
+
+            natMsg.AddRange(additional);
+            return natMsg;
+        }
+
+        private async Task<List<IndividualNatsMessage>> DownloadNatsMsgAsync()
+        {
+            var natMsg = await DownloadFromNotamAsync();
+            var additional = AdditionalDownloads(natMsg)
+                .Select(async i => await client.DownloadStringTaskAsync(i))
+                .Select(async xml => await new IndividualNatsMessage(XDocument.Parse(xml)));
+
+            natMsg.AddRange(additional);
             return natMsg;
         }
 
         /// <summary>
         /// Downloads the track message.
         /// </summary>
-        /// <exception cref="GetTrackException"></exception>
-        /// <exception cref="TrackParseException"></exception>
+        /// <exception cref="Exception"></exception>
         public NatsMessage GetMessage()
         {
             var msgs = DownloadNatsMsg();
             int westIndex = msgs[0].Direction == NatsDirection.West ? 0 : 1;
             int eastIndex = 1 - westIndex;
             return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
+        }
+
+        public Task<NatsMessage> GetMessageAsync(CancellationToken token)
+        {
+
+        }
+
+        ~NatsDownloader()
+        {
+            client.Dispose();
         }
     }
 }

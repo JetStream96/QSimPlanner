@@ -4,7 +4,9 @@ using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
@@ -39,31 +41,38 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         public override void GetAllTracks()
         {
-            GetAndReadTracks(new PacotsDownloader());
-            UndoEdit();
+            GetAllTracks(new PacotsDownloader());
         }
 
         public void GetAllTracks(IPacotsMessageProvider provider)
         {
-            GetAndReadTracks(provider);
+            IgnoreException(() =>
+            {
+                _startedGettingTracks = true;
+                GetTracks(provider);
+                ReadMessage();
+            });
+
             UndoEdit();
         }
 
-        private void GetAndReadTracks(IPacotsMessageProvider provider)
+        public override async Task GetAllTracksAsync(CancellationToken token)
         {
             try
             {
                 _startedGettingTracks = true;
-                TryGetTracks(provider);
+                await GetTracksAsync(new PacotsDownloader(), token);
                 ReadMessage();
             }
             catch { }
+
+            UndoEdit();
         }
 
         // Can throw exception.
         private void ReadMessage()
         {
-            var trks = TryParse();
+            var trks = Parse();
 
             var reader = new TrackReader<PacificTrack>(wptList, airportList);
             nodes = new List<TrackNodes>();
@@ -85,7 +94,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         }
 
         // Can throw exception.
-        private void TryGetTracks(IPacotsMessageProvider provider)
+        private void GetTracks(IPacotsMessageProvider provider)
         {
             try
             {
@@ -93,17 +102,36 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
             catch
             {
-                recorder.AddEntry(
-                    StatusRecorder.Severity.Critical,
-                    "Failed to download PACOTs.",
-                    TrackType.Pacots);
-
+                AddRecord();
                 throw;
             }
         }
 
         // Can throw exception.
-        private List<PacificTrack> TryParse()
+        private async Task GetTracksAsync(IPacotsMessageProvider provider,
+            CancellationToken token)
+        {
+            try
+            {
+                RawData = await provider.GetMessageAsync(token);
+            }
+            catch
+            {
+                AddRecord();
+                throw;
+            }
+        }
+
+        private void AddRecord()
+        {
+            recorder.AddEntry(
+                     StatusRecorder.Severity.Critical,
+                     "Failed to download PACOTs.",
+                     TrackType.Pacots);
+        }
+
+        // Can throw exception.
+        private List<PacificTrack> Parse()
         {
             try
             {
@@ -121,12 +149,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        public override async Task GetAllTracksAsync()
-        {
-            await Task.Factory.StartNew(() => GetAndReadTracks(new PacotsDownloader()));
-            UndoEdit();
-        }
-        
         public override void AddToWaypointList()
         {
             if (AddedToWptList == false)

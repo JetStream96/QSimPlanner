@@ -7,7 +7,7 @@ using QSP.RouteFinding.Tracks.Nats;
 
 namespace TrackBackupApp
 {
-    public class Global : System.Web.HttpApplication
+    public class Global : HttpApplication
     {
         private const string DummyPageUrl = "http://qsimplan.somee.com/DummyPage.aspx";
         private const string DummyCacheItemKey = "dummyKey";
@@ -60,35 +60,21 @@ namespace TrackBackupApp
 
         private void WriteToLog(int para)
         {
-            //para : 0 = app start , 1 = saving nats, 2 = cache callback, 3 = Cache Added
-
-            string writeMsg = "";
-
-            switch (para)
+            var msgs = new[]
             {
-                case 0:
-                    writeMsg = " Application is starting.";
-                    break;
-
-                case 1:
-                    writeMsg = " Saving the NATs.";
-                    break;
-
-                case 2:
-                    writeMsg = " Cache item callback.";
-                    break;
-
-                case 3:
-                    writeMsg = " Cache Added.";
-                    break;
-            }
-            WriteToLog(writeMsg);
+                " Application is starting.",
+                " Saving the NATs.",
+                " Cache item callback.",
+                " Cache Added."
+            };
+            
+            WriteToLog(msgs[para]);
         }
 
 
         public void WriteToLog(string msg)
         {
-            using (StreamWriter wr = File.AppendText(System.Web.Hosting.HostingEnvironment.MapPath("~/log.txt")))
+            using (var wr = File.AppendText(System.Web.Hosting.HostingEnvironment.MapPath("~/log.txt")))
             {
                 wr.WriteLine(DateTime.Now.ToString() + " " + msg);
             }
@@ -96,7 +82,7 @@ namespace TrackBackupApp
         
         private void SaveNats()
         {
-            var result = NatsDownloader.DownloadFromWeb(NatsDownloader.natsUrl);
+            var result = new NatsDownloader().DownloadFromNotam();
 
             foreach (var i in result)
             {

@@ -180,8 +180,7 @@ namespace QSP.UI.UserControls
                 var direction = w[i].DirectionString();
                 int speed = RoundToInt(w[i].Speed);
 
-                result.AppendLine(
-                    $"        FL{flightLevel}   {direction}/{speed}");
+                result.AppendLine($"        FL{flightLevel}   {direction}/{speed}");
             }
 
             return result.ToString();
