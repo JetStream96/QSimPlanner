@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -31,9 +32,6 @@ namespace QSP.UI.Forms
         private AirwayNetwork airwayNetwork;
         private ImageList myImageList;
         private ToolStripStatusLabel statusLbl;
-        private TrackTaskQueue natsQueue = new TrackTaskQueue();
-        private TrackTaskQueue pacotsQueue = new TrackTaskQueue();
-        private TrackTaskQueue ausotsQueue = new TrackTaskQueue();
 
         public TracksForm()
         {
@@ -55,9 +53,9 @@ namespace QSP.UI.Forms
 
             // The event handlers are added after the form is created. 
             // This way the events won't fire at form creation.
-            BtnNatsDn.Click += (s, e) => DnNats();
-            BtnPacotsDn.Click += (s, e) => DnPacots();
-            BtnAusotsDn.Click += (s, e) => DnAusots();
+            BtnNatsDn.Click += (s, e) => DownloadNats();
+            BtnPacotsDn.Click += (s, e) => DownloadPacots();
+            BtnAusotsDn.Click += (s, e) => DownloadAusots();
             CBoxNatsEnabled.SelectedIndexChanged += CBoxNatsEnabledChanged;
             CBoxPacotsEnabled.SelectedIndexChanged += CBoxPacotsEnabledChanged;
             CBoxAusotsEnabled.SelectedIndexChanged += CBoxAusotsEnabledChanged;
@@ -296,42 +294,84 @@ namespace QSP.UI.Forms
             BtnAusotsDn.Enabled = airwayNetwork.AusotsLoaded;
         }
 
-        private async Task DnNats()
+        /// <summary>
+        /// Download NATs and enable depends on the selection on the UI.
+        /// During the download the 'download' button is disabled.
+        /// </summary>
+        public void DownloadNats()
         {
+            var ts = new CancellationTokenSource();
+
+            Action cleanup = () =>
+            {
+                RefreshViewTrackBtns();
+                BtnNatsDn.Enabled = true;
+            };
+
             Func<Task> task = async () =>
             {
                 BtnNatsDn.Enabled = false;
 
-                await airwayNetwork.DownloadNats();
+                await airwayNetwork.DownloadNats(ts.Token);
                 airwayNetwork.NatsEnabled = NatsEnabled;
 
-                BtnNatsDn.Enabled = true;
+                cleanup();
             };
 
-           //TODO: natsQueue.Add(task);
+            airwayNetwork.EnqueueNatsTask(task, ts, cleanup);
         }
 
-        private async Task DnPacots()
+        public void DownloadPacots()
         {
-            BtnPacotsDn.Enabled = false;
+            var ts = new CancellationTokenSource();
 
-            await airwayNetwork.DownloadPacots();
-            airwayNetwork.PacotsEnabled = PacotsEnabled;
+            Action cleanup = () =>
+            {
+                RefreshViewTrackBtns();
+                BtnPacotsDn.Enabled = true;
+            };
+
+            Func<Task> task = async () =>
+            {
+                BtnPacotsDn.Enabled = false;
+
+                await airwayNetwork.DownloadPacots(ts.Token);
+                airwayNetwork.PacotsEnabled = PacotsEnabled;
+
+                cleanup();
+            };
+
+            airwayNetwork.EnqueuePacotsTask(task, ts, cleanup);
         }
 
-        private async Task DnAusots()
+        public void DownloadAusots()
         {
-            BtnAusotsDn.Enabled = false;
+            var ts = new CancellationTokenSource();
 
-            await airwayNetwork.DownloadAusots();
-            airwayNetwork.AusotsEnabled = AusotsEnabled;
+            Action cleanup = () =>
+            {
+                RefreshViewTrackBtns();
+                BtnAusotsDn.Enabled = true;
+            };
+
+            Func<Task> task = async () =>
+            {
+                BtnAusotsDn.Enabled = false;
+
+                await airwayNetwork.DownloadAusots(ts.Token);
+                airwayNetwork.AusotsEnabled = AusotsEnabled;
+
+                cleanup();
+            };
+
+            airwayNetwork.EnqueueAusotsTask(task, ts, cleanup);
         }
+        
+        public bool NatsEnabled => CBoxNatsEnabled.SelectedIndex == 0;
 
-        private bool NatsEnabled => CBoxNatsEnabled.SelectedIndex == 0;
+        public bool PacotsEnabled => CBoxPacotsEnabled.SelectedIndex == 0;
 
-        private bool PacotsEnabled => CBoxPacotsEnabled.SelectedIndex == 0;
-
-        private bool AusotsEnabled => CBoxAusotsEnabled.SelectedIndex == 0;
+        public bool AusotsEnabled => CBoxAusotsEnabled.SelectedIndex == 0;
 
         private void CBoxNatsEnabledChanged(object sender, EventArgs e)
         {
@@ -367,9 +407,9 @@ namespace QSP.UI.Forms
 
         public void DownloadAllTracks()
         {
-            DnNats();
-            DnPacots();
-            DnAusots();
+            DownloadNats();
+            DownloadPacots();
+            DownloadAusots();
         }
 
         private void RefreshDownloadAllBtnEnabled(object sender, EventArgs e)

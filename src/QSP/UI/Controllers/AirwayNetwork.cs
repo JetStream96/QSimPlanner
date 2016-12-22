@@ -1,4 +1,7 @@
-﻿using QSP.RouteFinding.Airports;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Ausots;
@@ -6,21 +9,25 @@ using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Nats;
 using QSP.RouteFinding.Tracks.Pacots;
-using System;
-using System.Threading.Tasks;
-using System.Threading;
+using QSP.RouteFinding.Tracks.Tasks;
+using QSP.UI.Forms;
 
-namespace QSP.RouteFinding
+namespace QSP.UI.Controllers
 {
     // Handles updating navigation data and reparse tracks after 
     // the update.
     //
     public class AirwayNetwork
     {
+        private TrackTaskQueue NatsQueue = new TrackTaskQueue();
+        private TrackTaskQueue PacotsQueue = new TrackTaskQueue();
+        private TrackTaskQueue AusotsQueue = new TrackTaskQueue();
+
         private NatsHandler natsManager;
         private PacotsHandler pacotsManager;
         private AusotsHandler ausotsManager;
 
+        private TracksForm form;
         public WaypointList WptList { get; private set; }
         public AirportManager AirportList { get; private set; }
         public TrackInUseCollection TracksInUse { get; private set; }
@@ -32,8 +39,9 @@ namespace QSP.RouteFinding
         // Fires when any TrackMessage in the TrackHandlers changed.
         public event EventHandler TrackMessageUpdated;
 
-        public AirwayNetwork(WaypointList wptList, AirportManager airportList)
+        public AirwayNetwork(TracksForm form, WaypointList wptList, AirportManager airportList)
         {
+            this.form = form;
             this.WptList = wptList;
             this.AirportList = airportList;
 
@@ -49,8 +57,8 @@ namespace QSP.RouteFinding
             pacotsManager?.UndoEdit();
             ausotsManager?.UndoEdit();
 
-            TracksInUse = new TrackInUseCollection();
-            StatusRecorder = new StatusRecorder();
+            TracksInUse.Clear();
+            StatusRecorder.Clear();
 
             natsManager = new NatsHandler(
                 WptList,
@@ -74,6 +82,24 @@ namespace QSP.RouteFinding
                 TracksInUse);
         }
 
+        public void EnqueueNatsTask(
+            Func<Task> taskGetter, CancellationTokenSource ts, Action cleanup)
+        {
+            NatsQueue.Add(taskGetter, ts, cleanup);
+        }
+
+        public void EnqueuePacotsTask(
+            Func<Task> taskGetter, CancellationTokenSource ts, Action cleanup)
+        {
+            PacotsQueue.Add(taskGetter, ts, cleanup);
+        }
+
+        public void EnqueueAusotsTask(
+            Func<Task> taskGetter, CancellationTokenSource ts, Action cleanup)
+        {
+            AusotsQueue.Add(taskGetter, ts, cleanup);
+        }
+
         /// <summary>
         /// Use this method when wptList and airportList are entirely change (probably
         /// due to loading a different nav data). The downloaded tracks will be reparsed
@@ -84,11 +110,7 @@ namespace QSP.RouteFinding
             var natsData = natsManager.RawData;
             var pacotsData = pacotsManager.RawData;
             var ausotsData = ausotsManager.RawData;
-
-            bool natsEnabled = NatsEnabled;
-            bool pacotsEnabled = PacotsEnabled;
-            bool ausotsEnabled = AusotsEnabled;
-
+            
             bool natsStarted = natsManager.StartedGettingTracks;
             bool pacotsStarted = pacotsManager.StartedGettingTracks;
             bool ausotsStarted = ausotsManager.StartedGettingTracks;
@@ -100,34 +122,35 @@ namespace QSP.RouteFinding
 
             if (natsData != null)
             {
+                // These are fast operation, so they can be done on the main thread.
                 natsManager.GetAllTracks(new NatsProvider(natsData));
-                if (natsEnabled) natsManager.AddToWaypointList();
+                if (form.NatsEnabled) natsManager.AddToWaypointList();
             }
             else if (natsStarted)
             {
                 // The GetAllTracks was called but the download has not finished yet, so 
                 // the natsData is still null. We redownload the data.
-                GetNats(natsEnabled);
+                form.DownloadNats();
             }
 
             if (pacotsData != null)
             {
                 pacotsManager.GetAllTracks(new PacotsProvider(pacotsData));
-                if (pacotsEnabled) pacotsManager.AddToWaypointList();
+                if (form.PacotsEnabled) pacotsManager.AddToWaypointList();
             }
             else if (pacotsStarted)
             {
-                GetPacots(pacotsEnabled);
+               form.DownloadPacots();
             }
 
             if (ausotsData != null)
             {
                 ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
-                if (ausotsEnabled) ausotsManager.AddToWaypointList();
+                if (form.AusotsEnabled) ausotsManager.AddToWaypointList();
             }
             else if (ausotsStarted)
             {
-                GetAusots(ausotsEnabled);
+                form.DownloadAusots();
             }
 
             WptListChanged?.Invoke(this, EventArgs.Empty);
@@ -135,21 +158,21 @@ namespace QSP.RouteFinding
             InvokeTrackMessageUpdated();
         }
 
-        private async Task GetNats(bool enable)
+        private async Task GetNats(bool enable, CancellationToken token)
         {
-            await DownloadNats();
+            await DownloadNats(token);
             NatsEnabled = enable;
         }
 
-        private async Task GetPacots(bool enable)
+        private async Task GetPacots(bool enable, CancellationToken token)
         {
-            await DownloadPacots();
+            await DownloadPacots(token);
             PacotsEnabled = enable;
         }
 
-        private async Task GetAusots(bool enable)
+        private async Task GetAusots(bool enable, CancellationToken token)
         {
-            await DownloadAusots();
+            await DownloadAusots(token);
             AusotsEnabled = enable;
         }
 
@@ -266,30 +289,30 @@ namespace QSP.RouteFinding
             }
         }
 
-        public async Task DownloadNats()
+        public async Task DownloadNats(CancellationToken token)
         {
             StatusRecorder.Clear(TrackType.Nats);
             natsManager.UndoEdit();
 
-            await natsManager.GetAllTracksAsync();
+            await natsManager.GetAllTracksAsync(token);
             InvokeTrackMessageUpdated();
         }
 
-        public async Task DownloadPacots()
+        public async Task DownloadPacots(CancellationToken token)
         {
             StatusRecorder.Clear(TrackType.Pacots);
             pacotsManager.UndoEdit();
 
-            await pacotsManager.GetAllTracksAsync();
+            await pacotsManager.GetAllTracksAsync(token);
             InvokeTrackMessageUpdated();
         }
 
-        public async Task DownloadAusots()
+        public async Task DownloadAusots(CancellationToken token)
         {
             StatusRecorder.Clear(TrackType.Ausots);
             ausotsManager.UndoEdit();
 
-            await ausotsManager.GetAllTracksAsync();
+            await ausotsManager.GetAllTracksAsync(token);
             InvokeTrackMessageUpdated();
         }
 

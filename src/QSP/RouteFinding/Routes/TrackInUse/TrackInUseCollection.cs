@@ -1,5 +1,4 @@
 ﻿using QSP.RouteFinding.Tracks.Common;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,25 +7,15 @@ namespace QSP.RouteFinding.Routes.TrackInUse
     public class TrackInUseCollection
     {
         private static readonly RouteEntry[] EmptyEntry = { };
+        private IEnumerable<RouteEntry>[] _entries = Enumerable.Repeat(EmptyEntry, 3).ToArray();
 
-        public IEnumerable<RouteEntry> Nats { get; private set; }
-        public IEnumerable<RouteEntry> Pacots { get; private set; }
-        public IEnumerable<RouteEntry> Ausots { get; private set; }
+        public IEnumerable<RouteEntry> Entries(TrackType type) => _entries[(int)type];
 
-        public TrackInUseCollection()
-        {
-            Nats = EmptyEntry;
-            Pacots = EmptyEntry;
-            Ausots = EmptyEntry;
-        }
+        public IEnumerable<RouteEntry> AllEntries => _entries.SelectMany(i => i);
 
-        public IEnumerable<RouteEntry> AllEntries => Nats.Concat(Pacots).Concat(Ausots);
-            
         public void Clear()
         {
-            Nats = EmptyEntry;
-            Pacots = EmptyEntry;
-            Ausots = EmptyEntry;
+            _entries = Enumerable.Repeat(EmptyEntry, 3).ToArray();
         }
 
         public void UpdateTracks(IEnumerable<TrackNodes> AllNodes, TrackType type)
@@ -37,23 +26,7 @@ namespace QSP.RouteFinding.Routes.TrackInUse
 
         private void UpdateList(IEnumerable<RouteEntry> entries, TrackType type)
         {
-            switch (type)
-            {
-                case TrackType.Nats:
-                    Nats = entries;
-                    break;
-
-                case TrackType.Pacots:
-                    Pacots = entries;
-                    break;
-
-                case TrackType.Ausots:
-                    Ausots = entries;
-                    break;
-
-                default:
-                    throw new ArgumentException();
-            }
+            _entries[(int)type] = entries;
         }
     }
 }

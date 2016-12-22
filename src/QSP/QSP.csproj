@@ -149,7 +149,7 @@
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="NavData\NavDataPath.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="RouteFinding\AirwayNetwork.cs" />
+    <Compile Include="UI\Controllers\AirwayNetwork.cs" />
     <Compile Include="RouteFinding\AirwayStructure\EdgeExtension.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeManager.cs" />
