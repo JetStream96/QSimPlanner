@@ -3,6 +3,8 @@ using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Tracks.Common.TDM.Parser;
 using System;
 using System.Linq;
+using QSP.RouteFinding.Routes;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Tracks.Ausots.Utilities
 {
@@ -40,7 +42,8 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
 
             var mainRoute = result.MainRoute.Split(
                 new char[] { ' ', '\t', '\n', '\r' },
-                StringSplitOptions.RemoveEmptyEntries);
+                StringSplitOptions.RemoveEmptyEntries)
+                .ToRouteString();
 
             var connectRoutes = ConnectionRouteInterpreter.Convert(
                 mainRoute,
@@ -71,7 +74,7 @@ namespace QSP.RouteFinding.Tracks.Ausots.Utilities
         // SVC TRK YS12 NO TRACK - USE PUBLISHED FIXED ROUTES
         // RMK/AUSOTS GROUP A USE KS12
         //
-        private bool TrackAvailble(string[] mainRoute, string ident)
+        private bool TrackAvailble(IEnumerable<string> mainRoute, string ident)
         {
             return !(mainRoute.Contains(ident) || mainRoute.Contains("NO TRACK"));
         }

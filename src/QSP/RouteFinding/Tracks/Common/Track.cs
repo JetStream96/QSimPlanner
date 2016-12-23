@@ -1,6 +1,6 @@
 using QSP.RouteFinding.Data.Interfaces;
 using System.Collections.Generic;
-using RouteString = System.Collections.Generic.IReadOnlyList<string>;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding.Tracks.Common
 {

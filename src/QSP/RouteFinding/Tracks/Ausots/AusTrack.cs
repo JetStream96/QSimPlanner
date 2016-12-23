@@ -1,14 +1,13 @@
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Tracks.Common;
 using System.Collections.Generic;
-
-using RouteString = System.Collections.Generic.IReadOnlyList<string>;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
     public class AusTrack : Track
     {
-        public override string AirwayIdent { get { return "AUSOT" + Ident; } }
+        public override string AirwayIdent => "AUSOT" + Ident;
 
         public AusTrack(
             string Ident,

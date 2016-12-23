@@ -1,18 +1,15 @@
 ﻿using QSP.RouteFinding.Tracks.Common;
-using RouteString = System.Collections.Generic.IReadOnlyList<string>;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
     public class NorthAtlanticTrack : Track
     {
-        private static readonly string[][] EmptyCollection = new string[0][];
+        private static readonly RouteString[] EmpRouteStrings = new RouteString[0];
 
         public NatsDirection Direction { get; private set; }
 
-        public sealed override string AirwayIdent
-        {
-            get { return "NAT" + Ident; }
-        }
+        public sealed override string AirwayIdent => "NAT" + Ident;
 
         public NorthAtlanticTrack(
             NatsDirection Direction,
@@ -26,8 +23,8 @@ namespace QSP.RouteFinding.Tracks.Nats
                    TimeEnd,
                    Remarks,
                    MainRoute,
-                   EmptyCollection,
-                   EmptyCollection,
+                   EmpRouteStrings,
+                   EmpRouteStrings,
                    Constants.CenterAtlantic,
                    Constants.CenterAtlantic)
         {

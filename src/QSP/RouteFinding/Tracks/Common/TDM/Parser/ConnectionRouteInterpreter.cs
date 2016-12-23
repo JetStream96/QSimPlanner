@@ -14,7 +14,7 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
         private static readonly char[] Delimeters = new char[] { ' ', '\n', '\r', '\t' };
 
         public static ConnectionRoutes Convert(
-            string[] mainRoute,
+            IReadOnlyList<string> mainRoute,
             IEnumerable<string> connectRoutes,
             AirportManager airportList)
         {

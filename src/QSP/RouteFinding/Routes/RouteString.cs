@@ -8,22 +8,18 @@ namespace QSP.RouteFinding.Routes
     {
         public IReadOnlyList<string> Value { get; }
         public int Count => Value.Count;
-        public string this[int index] => Value[index]; 
+        public string this[int index] => Value[index];
 
         public RouteString(IReadOnlyList<string> Value)
         {
             this.Value = Value;
         }
 
-        public IEnumerator<string> GetEnumerator()
-        {
-            return Value.GetEnumerator();
-        }
+        public IEnumerator<string> GetEnumerator() => Value.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        public static RouteString From(params string[] values) => new RouteString(values);
+        public static RouteString Empty => new RouteString(new string[0]);
     }
 
     public static class RouteStringExtension

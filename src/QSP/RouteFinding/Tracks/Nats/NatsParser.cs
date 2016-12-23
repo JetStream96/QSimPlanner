@@ -5,6 +5,7 @@ using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Nats.Utilities;
 using System;
 using System.Collections.Generic;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
@@ -90,7 +91,7 @@ namespace QSP.RouteFinding.Tracks.Nats
                     "",
                     "",
                     "",
-                    route));
+                    route.ToRouteString()));
             }
 
             return tracks;
@@ -102,8 +103,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             {
                 LatLon latLon;
 
-                if (LatLonConverter.TryConvertNatsCoordinate(
-                    wpts[i], out latLon))
+                if (LatLonConverter.TryConvertNatsCoordinate(wpts[i], out latLon))
                 {
                     wpts[i] = latLon.AutoChooseFormat();
                 }

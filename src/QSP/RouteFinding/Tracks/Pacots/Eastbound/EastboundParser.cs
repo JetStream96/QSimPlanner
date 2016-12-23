@@ -2,6 +2,7 @@
 using QSP.RouteFinding.Tracks.Common.TDM.Parser;
 using System.Collections.Generic;
 using System.Linq;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
 {
@@ -30,7 +31,7 @@ namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
             for (int i = 0; i < result.Length; i++)
             {
                 var trk = Interpreter.Parse(tracksStr[i]);
-                var mainRoute = trk.FlexRoute.ToArray();
+                var mainRoute = trk.FlexRoute.ToRouteString();
 
                 var connectionRoutes = ConnectionRouteInterpreter.Convert(
                     mainRoute,

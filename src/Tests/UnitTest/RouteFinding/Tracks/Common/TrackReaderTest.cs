@@ -7,6 +7,7 @@ using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Pacots;
 using System.Linq;
+using QSP.RouteFinding.Routes;
 
 namespace UnitTest.RouteFinding.Tracks.Common
 {
@@ -25,7 +26,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
             wptList.AddWaypoint(p2);
 
             var reader = new TrackReader<PacificTrack>(
-                wptList, 
+                wptList,
                 new AirportManager());
 
             // Act
@@ -36,9 +37,9 @@ namespace UnitTest.RouteFinding.Tracks.Common
                     "",
                     "",
                     "",
-                    new string[] { "P1", "P2" },
-                    new string[0][],
-                    new string[0][],
+                    RouteString.From("P1", "P2"),
+                    new[] { RouteString.Empty },
+                    new[] { RouteString.Empty },
                     new LatLon(0.0, 0.0),
                     new LatLon(0.0, 0.0)));
 
@@ -50,7 +51,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
             var n = route.First.Value;
 
             Assert.IsTrue(n.Waypoint.Equals(p1));
-            Assert.IsTrue(n.Neighbor.Airway == "DCT" && 
+            Assert.IsTrue(n.Neighbor.Airway == "DCT" &&
                 n.Neighbor.Distance == p1.Distance(p2));
             Assert.IsTrue(route.LastWaypoint.Equals(p2));
         }
@@ -90,9 +91,9 @@ namespace UnitTest.RouteFinding.Tracks.Common
                     "",
                     "",
                     "",
-                    new string[] { "P1", "P2" },
-                    new string[][] { routeFrom },
-                    new string[0][],
+                    RouteString.From("P1", "P2"),
+                    new[] { routeFrom.ToRouteString() },
+                    new[] { RouteString.Empty },
                     new LatLon(0.0, 0.0),
                     new LatLon(0.0, 0.0)));
 

@@ -7,7 +7,6 @@ using QSP.RouteFinding.Routes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using RouteString = System.Collections.Generic.IReadOnlyList<string>;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
@@ -58,8 +57,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 trk.Ident, trk.AirwayIdent, mainRoute, connectionRoutes);
         }
 
-        private List<WptPair> GetExtraPairs(
-            RouteString rteFrom, ICoordinate previous)
+        private List<WptPair> GetExtraPairs(RouteString rteFrom, ICoordinate previous)
         {
             var result = new List<WptPair>();
             int lastIndex = -1;

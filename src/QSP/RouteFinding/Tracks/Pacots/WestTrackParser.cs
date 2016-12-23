@@ -1,6 +1,7 @@
 ﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Tracks.Common.TDM.Parser;
 using System;
+using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
@@ -37,7 +38,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
             var mainRoute = result.MainRoute.Split(
                 new char[] { ' ', '\n', '\r', '\t' },
-                StringSplitOptions.RemoveEmptyEntries);
+                StringSplitOptions.RemoveEmptyEntries)
+                .ToRouteString();
 
             var connectRoutes = ConnectionRouteInterpreter.Convert(
                 mainRoute, 
