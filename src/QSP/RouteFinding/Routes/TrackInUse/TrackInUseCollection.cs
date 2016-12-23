@@ -11,20 +11,26 @@ namespace QSP.RouteFinding.Routes.TrackInUse
 
         public TrackInUseCollection()
         {
-            _entries =new IEnumerable<RouteEntry>[3];
-            for (int i = 0; i < _entries.Length; i++)
-            {
-                _entries[i] = EmptyEntry;
-            }
+            _entries = GetNewArray();
         }
 
         public IEnumerable<RouteEntry> Entries(TrackType type) => _entries[(int)type];
 
         public IEnumerable<RouteEntry> AllEntries => _entries.SelectMany(i => i);
 
+        private static IEnumerable<RouteEntry>[] GetNewArray()
+        {
+            var array = new IEnumerable<RouteEntry>[3];
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = EmptyEntry;
+            }
+            return array;
+        }
+
         public void Clear()
         {
-            _entries = Enumerable.Repeat(EmptyEntry, 3).ToArray();
+            _entries = GetNewArray();
         }
 
         public void UpdateTracks(IEnumerable<TrackNodes> AllNodes, TrackType type)

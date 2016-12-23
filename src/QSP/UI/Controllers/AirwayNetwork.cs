@@ -32,8 +32,8 @@ namespace QSP.UI.Controllers
 
         public WaypointList WptList { get; private set; }
         public AirportManager AirportList { get; private set; }
-        public TrackInUseCollection TracksInUse { get; private set; }
-        public StatusRecorder StatusRecorder { get; private set; }
+        public TrackInUseCollection TracksInUse { get; private set; }=new TrackInUseCollection();
+        public StatusRecorder StatusRecorder { get; private set; }=new StatusRecorder();
 
         public event EventHandler WptListChanged;
         public event EventHandler AirportListChanged;
@@ -57,7 +57,7 @@ namespace QSP.UI.Controllers
             natsManager?.UndoEdit();
             pacotsManager?.UndoEdit();
             ausotsManager?.UndoEdit();
-
+            
             TracksInUse.Clear();
             StatusRecorder.Clear();
 

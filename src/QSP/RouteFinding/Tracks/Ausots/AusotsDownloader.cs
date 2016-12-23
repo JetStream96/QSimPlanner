@@ -22,7 +22,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         public async Task<AusotsMessage> GetMessageAsync(CancellationToken token)
         {
-            Thread.Sleep(20000);//TODO:remove this
+            Task.Factory.StartNew(() => Thread.Sleep(20000));//TODO:remove this
             using (var wc = new WebClient())
             {
                 token.Register(wc.CancelAsync);
