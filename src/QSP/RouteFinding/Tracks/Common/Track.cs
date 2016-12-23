@@ -4,7 +4,6 @@ using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
-    // This class is immutable.
     public abstract class Track
     {
         public string Ident { get; private set; }

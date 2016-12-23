@@ -9,16 +9,16 @@ using QSP.RouteFinding.Routes;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
-    public class NatsParser : TrackParser<NorthAtlanticTrack>
+    public class NatsParser : ITrackParser<NorthAtlanticTrack>
     {
         private static readonly char[] DelimiterWords = { ' ', '\n', '\r', '\t' };
 
         private StatusRecorder statusRecorder;
         private AirportManager airportList;
-        private NatsMessage message;
+        private ITrackMessageNew message;
 
         public NatsParser(
-            NatsMessage message,
+            ITrackMessageNew message,
             StatusRecorder statusRecorder,
             AirportManager airportList)
         {
@@ -27,10 +27,10 @@ namespace QSP.RouteFinding.Tracks.Nats
             this.airportList = airportList;
         }
 
-        public override List<NorthAtlanticTrack> Parse()
+        public List<NorthAtlanticTrack> Parse()
         {
-            var NatTrackCollection = TryAddMessage(message.WestMessage);
-            NatTrackCollection.AddRange(TryAddMessage(message.EastMessage));
+            var NatTrackCollection = TryAddMessage(message.WestMessage());
+            NatTrackCollection.AddRange(TryAddMessage(message.EastMessage()));
             return NatTrackCollection;
         }
 

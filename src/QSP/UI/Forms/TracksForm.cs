@@ -26,7 +26,7 @@ namespace QSP.UI.Forms
     {
         private static readonly string trackFileFolder = "Tracks";
         private static readonly string trackFileExtension = ".track";
-
+        
         private AirwayNetwork airwayNetwork;
         private ImageList myImageList;
         private ToolStripStatusLabel statusLbl;
@@ -152,11 +152,6 @@ namespace QSP.UI.Forms
             CBoxAusotsEnabled.SelectedIndex = 0;
         }
 
-        public static string TrackString(TrackType item)
-        {
-            return new[] { "NATs", "PACOTs", "AUSOTS" }[(int)item];
-        }
-
         public void RefreshStatus()
         {
             var records = airwayNetwork.StatusRecorder.Records;
@@ -223,7 +218,7 @@ namespace QSP.UI.Forms
             foreach (var i in records)
             {
                 var type = i.Type;
-                var lvi = new ListViewItem(TrackString(type));
+                var lvi = new ListViewItem(type.TrackString());
                 lvi.SubItems.Add(i.Message);
                 lvi.ImageIndex = (int)i.Severity;
                 ListView1.Items.Add(lvi);
@@ -233,7 +228,7 @@ namespace QSP.UI.Forms
             {
                 if (airwayNetwork.TrackedLoaded(type) && NoErrors(records, type))
                 {
-                    var lvi = new ListViewItem(TrackString(type));
+                    var lvi = new ListViewItem(type.TrackString());
                     lvi.SubItems.Add("All tracks successfully loaded.");
                     lvi.ImageIndex = 0;
                     ListView1.Items.Add(lvi);

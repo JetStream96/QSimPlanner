@@ -149,6 +149,10 @@
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="NavData\NavDataPath.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\Helpers.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\ITrackMessageProvider.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TrackHandlerNew.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\ITrackMessageNew.cs" />
     <Compile Include="UI\Controllers\AirwayNetwork.cs" />
     <Compile Include="RouteFinding\AirwayStructure\EdgeExtension.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
@@ -377,7 +381,7 @@
     <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\TdmParser.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackAdder.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackNodes.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\TrackParser.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\ITrackParser.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackMessage.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Constants.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Enums.cs" />

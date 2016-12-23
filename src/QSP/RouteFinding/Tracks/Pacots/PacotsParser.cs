@@ -5,7 +5,7 @@ using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public class PacotsParser : TrackParser<PacificTrack>
+    public class PacotsParser : ITrackParser<PacificTrack>
     {
         private StatusRecorder statusRecorder;
         private AirportManager airportList;
@@ -20,7 +20,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             this.airportList = airportList;
         }
 
-        public override List<PacificTrack> Parse()
+        public List<PacificTrack> Parse()
         {
             var eastParser = new Eastbound.EastboundParser(airportList);
             var tracks = eastParser.Parse(message);

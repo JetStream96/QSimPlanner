@@ -1,10 +1,11 @@
 ﻿using QSP.RouteFinding.Tracks.Common;
 using System.Text;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
-    public class NatsMessage : TrackMessage
+    public class NatsMessage : ITrackMessageNew
     {
         public static readonly string TrackSystem = "Nats";
         public IndividualNatsMessage WestMessage { get; private set; }
@@ -16,7 +17,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             this.WestMessage = WestMessage;
             this.EastMessage = EastMessage;
         }
-        
+
         public NatsMessage(XDocument doc)
         {
             var root = doc.Root;
@@ -35,7 +36,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             return s.ToString();
         }
 
-        public override XDocument ToXml()
+        public XDocument ToXml()
         {
             var west = WestMessage.ConvertToXml().Root;
             var east = EastMessage.ConvertToXml().Root;
@@ -46,6 +47,23 @@ namespace QSP.RouteFinding.Tracks.Nats
                     new XElement[] {
                         new XElement("Westbound", west.Elements()),
                         new XElement("Eastbound", east.Elements())}));
+        }
+
+        public object Property(int i) => new[] { WestMessage, EastMessage }[i];
+    }
+
+    public static class NatsMessageHelpers
+    {
+        public static IndividualNatsMessage WestMessage(this ITrackMessageNew item)
+        {
+            Debug.Assert(item is NatsMessage);
+            return (IndividualNatsMessage)item.Property(0);
+        }
+
+        public static IndividualNatsMessage EastMessage(this ITrackMessageNew item)
+        {
+            Debug.Assert(item is NatsMessage);
+            return (IndividualNatsMessage)item.Property(1);
         }
     }
 }

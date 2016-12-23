@@ -18,7 +18,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
     // record such event but other tracks will still be
     // processed. 
 
-    public class AusotsParser : TrackParser<AusTrack>
+    public class AusotsParser : ITrackParser<AusTrack>
     {
         private StatusRecorder statusRecorder;
         private AirportManager airportList;
@@ -36,7 +36,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         }
 
         /// <exception cref="Exception"></exception>
-        public override List<AusTrack> Parse()
+        public List<AusTrack> Parse()
         {
             allTracks = new List<AusTrack>();
             var msgs = MessageSplitter.Split(allTxt);

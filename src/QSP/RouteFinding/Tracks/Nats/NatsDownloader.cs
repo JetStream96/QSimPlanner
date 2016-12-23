@@ -4,10 +4,11 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using QSP.RouteFinding.Tracks.Common;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
-    public class NatsDownloader : INatsMessageProvider
+    public class NatsDownloader : ITrackMessageProvider
     {
         public static readonly string natsUrl = "https://www.notams.faa.gov/common/nat.html?";
         private static readonly string natsWest = "http://qsimplan.somee.com/nats/Westbound.xml";
@@ -60,7 +61,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// Downloads the track message.
         /// </summary>
         /// <exception cref="Exception"></exception>
-        public NatsMessage GetMessage()
+        public ITrackMessageNew GetMessage()
         {
             var natMsg = DownloadFromNotam();
             var htmls = AdditionalDownloads(natMsg)
@@ -71,7 +72,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             return CreateMessage(natMsg);
         }
 
-        public async Task<NatsMessage> GetMessageAsync(CancellationToken token)
+        public async Task<ITrackMessageNew> GetMessageAsync(CancellationToken token)
         {
             token.Register(() => client.CancelAsync());
 
