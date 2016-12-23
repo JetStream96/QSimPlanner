@@ -1,4 +1,3 @@
-using System;
 using QSP.RouteFinding.Tracks.Common;
 using System.Collections.Generic;
 
@@ -21,10 +20,6 @@ namespace QSP.RouteFinding.Tracks.Interaction
 
         public IReadOnlyList<Entry> Records => _records;
 
-        // When entries change, this event will fire. However, this event firing does not gurantee
-        // that the Record necessarily changed.
-        public event EventHandler StatusChanged; //TODO:Add test.
-
         public StatusRecorder()
         {
             _records = new List<Entry>();
@@ -33,19 +28,16 @@ namespace QSP.RouteFinding.Tracks.Interaction
         public void AddEntry(Severity Severity, string Message, TrackType Type)
         {
             _records.Add(new Entry(Severity, Message, Type));
-            InvokeChangedEvent();
         }
 
         public void AddEntries(IEnumerable<Entry> entries)
         {
             _records.AddRange(entries);
-            InvokeChangedEvent();
         }
 
         public void Clear()
         {
             _records.Clear();
-            InvokeChangedEvent();
         }
 
         public void Clear(TrackType type)
@@ -57,13 +49,6 @@ namespace QSP.RouteFinding.Tracks.Interaction
                     _records.RemoveAt(i);
                 }
             }
-
-            InvokeChangedEvent();
-        }
-
-        private void InvokeChangedEvent()
-        {
-            StatusChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public enum Severity

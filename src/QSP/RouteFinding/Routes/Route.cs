@@ -1,12 +1,12 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
-using QSP.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding.Routes
 {
@@ -68,8 +68,7 @@ namespace QSP.RouteFinding.Routes
         /// This waypoint is connected to the next one by the 
         /// airway specified, with the given distance.       
         /// </summary>
-        public void AddFirstWaypoint(
-            Waypoint item, string viaAirway, double distanceToNext)
+        public void AddFirstWaypoint(Waypoint item, string viaAirway, double distanceToNext)
         {
             var node = new RouteNode(item,
                 new Neighbor(viaAirway, distanceToNext));
@@ -92,8 +91,7 @@ namespace QSP.RouteFinding.Routes
         /// airway specified, with the given distance.       
         /// </summary>
         /// <param name="viaAirway">Airway or SID/STAR name.</param>
-        public void AddLastWaypoint(
-            Waypoint item, string viaAirway, double distanceFromPrev)
+        public void AddLastWaypoint(Waypoint item, string viaAirway, double distanceFromPrev)
         {
             var last = Nodes.Last;
 
@@ -137,8 +135,7 @@ namespace QSP.RouteFinding.Routes
             if (Last != null)
             {
                 // This route is non-empty.
-                ExceptionHelpers.Ensure<ArgumentException>(
-                    LastWaypoint.Equals(item.FirstWaypoint));
+                Ensure<ArgumentException>(LastWaypoint.Equals(item.FirstWaypoint));
                 Nodes.RemoveLast();
             }
 

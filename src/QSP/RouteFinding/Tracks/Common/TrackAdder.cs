@@ -78,57 +78,56 @@ namespace QSP.RouteFinding.Tracks.Common
             editor.AddNeighbor(indexStart, indexEnd, neighbor);
         }
 
-        // Returns the index of added wpt in wptList
+        // Returns the index of added wpt in wptList.
         private int AddFirstWpt(Waypoint wpt)
         {
             int x = wptList.FindByWaypoint(wpt);
 
-            if (x >= 0)
+            if (x < 0)
             {
-                if (wptList.EdgesToCount(x) == 0)
-                {
-                    // No other wpt have this wpt as a neighbor, 
-                    // need to find nearby wpt to connect
-
-                    var k = WaypointAirwayConnector.ToAirway(wpt.Lat, wpt.Lon, wptList);
-
-                    foreach (var m in k)
-                    {
-                        int index = m.Index;
-                        double dis = wptList.Distance(x, index);
-                        var neighbor = new Neighbor("DCT", dis);
-                        editor.AddNeighbor(index, x, neighbor);
-                    }
-                }
-
-                return x;
+                throw new TrackWaypointNotFoundException($"Waypoint {wpt.ID} is not found.");
             }
 
-            throw new TrackWaypointNotFoundException($"Waypoint {wpt.ID} is not found.");
+            if (wptList.EdgesToCount(x) == 0)
+            {
+                // No other wpt have this wpt as a neighbor, 
+                // need to find nearby wpt to connect.
+
+                var k = WaypointAirwayConnector.ToAirway(wpt.Lat, wpt.Lon, wptList);
+
+                foreach (var m in k)
+                {
+                    int index = m.Index;
+                    double dis = wptList.Distance(x, index);
+                    editor.AddNeighbor(index, x, new Neighbor("DCT", dis));
+                }
+            }
+
+            return x;
         }
 
         private int AddLastWpt(Waypoint wpt)
         {
             int x = wptList.FindByWaypoint(wpt);
 
-            if (x >= 0)
+            if (x < 0)
             {
-                if (wptList.EdgesFromCount(x) == 0)
-                {
-                    var k = WaypointAirwayConnector.FromAirway(wpt.Lat, wpt.Lon, wptList);
-
-                    foreach (var m in k)
-                    {
-                        int index = m.Index;
-                        double dis = wptList.Distance(x, index);
-
-                        editor.AddNeighbor(x, index, new Neighbor("DCT", dis));
-                    }
-                }
-                return x;
+                throw new TrackWaypointNotFoundException($"Waypoint {wpt.ID} is not found.");
             }
 
-            throw new TrackWaypointNotFoundException($"Waypoint {wpt.ID} is not found.");
+            if (wptList.EdgesFromCount(x) == 0)
+            {
+                var k = WaypointAirwayConnector.FromAirway(wpt.Lat, wpt.Lon, wptList);
+
+                foreach (var m in k)
+                {
+                    int index = m.Index;
+                    double dis = wptList.Distance(x, index);
+                    editor.AddNeighbor(x, index, new Neighbor("DCT", dis));
+                }
+            }
+
+            return x;
         }
     }
 }

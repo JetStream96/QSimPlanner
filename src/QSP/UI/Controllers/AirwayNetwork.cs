@@ -253,7 +253,7 @@ namespace QSP.UI.Controllers
         }
 
         /// <summary>
-        /// Returns whether the NATS has been downloaded or imported from file.
+        /// Returns whether the NATs has been downloaded or imported from file.
         /// </summary>
         public bool NatsLoaded => NatsMessage != null;
 

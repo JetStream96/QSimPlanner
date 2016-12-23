@@ -10,7 +10,7 @@ namespace QSP.RouteFinding.Tracks.Common
         public IEnumerable<WptPair> ConnectionRoutes { get; private set; }
 
         private Route _mainRoute;
-        public Route MainRoute { get { return new Route(_mainRoute); } }
+        public Route MainRoute => new Route(_mainRoute); 
 
         public TrackNodes(
             string Ident,

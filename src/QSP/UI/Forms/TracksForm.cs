@@ -1,5 +1,4 @@
 using QSP.LibraryExtension;
-using QSP.RouteFinding;
 using QSP.RouteFinding.Tracks;
 using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Tracks.Common;
@@ -65,7 +64,6 @@ namespace QSP.UI.Forms
             BtnAusotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             downloadAllBtn.EnabledChanged += (s, e) => importBtn.Enabled = downloadAllBtn.Enabled;
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshViewTrackBtns();
-            airwayNetwork.StatusRecorder.StatusChanged += (s, e) => RefreshStatus();
             Closing += CloseForm;
 
             airwayNetwork.NatsEnabled = NatsEnabled;
@@ -243,18 +241,25 @@ namespace QSP.UI.Forms
             }
         }
 
+        // TODO: Is loaded enough to determine 'ready'?
+        private bool AllTracksReady => airwayNetwork.NatsLoaded &&
+                airwayNetwork.PacotsLoaded && airwayNetwork.AusotsLoaded;
+
+        private bool AllTracksNotReady => !airwayNetwork.NatsLoaded &&
+                !airwayNetwork.PacotsLoaded && !airwayNetwork.AusotsLoaded;
+
         private void SetMainFormTrackStatus(IEnumerable<Entry> records)
         {
             var loadedTypes = trackTypes.Where(t => airwayNetwork.TrackedLoaded(t));
 
             var maxSeverity = loadedTypes.Select(t => MaxSeverity(records, t));
 
-            if (maxSeverity.All(s => s == Severity.Advisory))
+            if (maxSeverity.All(s => s == Severity.Advisory) && AllTracksReady)
             {
                 statusLbl.Image = Properties.Resources.GreenLight;
                 statusLbl.Text = "Tracks: Ready";
             }
-            else if (maxSeverity.All(s => s == Severity.Critical))
+            else if (maxSeverity.All(s => s == Severity.Critical) || AllTracksNotReady)
             {
                 statusLbl.Image = Properties.Resources.RedLight;
                 statusLbl.Text = "Tracks: Not Available";
