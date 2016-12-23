@@ -63,7 +63,7 @@ namespace QSP.UI.Forms
             BtnPacotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             BtnAusotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             downloadAllBtn.EnabledChanged += (s, e) => importBtn.Enabled = downloadAllBtn.Enabled;
-            airwayNetwork.TrackMessageUpdated += (s, e) => RefreshStatus();
+            airwayNetwork.TrackMessageUpdated += (s, e) => RefreshViewTrackBtns();
             airwayNetwork.StatusRecorder.StatusChanged += (s, e) => RefreshStatus();
             Closing += CloseForm;
 
@@ -177,8 +177,6 @@ namespace QSP.UI.Forms
             InitPicBoxes();
             SetPicBox(records);
             SetMainFormTrackStatus(records);
-            RefreshViewTrackBtns();
-            RefreshDnTrackBtns();
         }
 
         private void InitPicBoxes()
@@ -284,14 +282,7 @@ namespace QSP.UI.Forms
             viewPacotsBtn.Enabled = airwayNetwork.PacotsLoaded;
             viewAusotsBtn.Enabled = airwayNetwork.AusotsLoaded;
         }
-
-        private void RefreshDnTrackBtns()
-        {
-            BtnNatsDn.Enabled = airwayNetwork.NatsLoaded;
-            BtnPacotsDn.Enabled = airwayNetwork.PacotsLoaded;
-            BtnAusotsDn.Enabled = airwayNetwork.AusotsLoaded;
-        }
-
+        
         /// <summary>
         /// Download NATs and enable depends on the selection on the UI.
         /// During the download the 'download' button is disabled.
@@ -487,6 +478,7 @@ namespace QSP.UI.Forms
                 }
             }
 
+            RefreshViewTrackBtns();
             RefreshStatus();
         }
 

@@ -45,6 +45,9 @@ namespace QSP.LibraryExtension.Tasks
                 {
                     current.Cleanup();
                 }
+
+                // Finished with current task. No longer need its reference.
+                current = null;
             }
 
             IsRunning = false;
