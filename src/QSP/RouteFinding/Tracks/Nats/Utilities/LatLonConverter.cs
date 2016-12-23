@@ -49,12 +49,7 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
         public static string AutoChooseFormat(this LatLon item)
         {
             string result = Format5Letter.To5LetterFormat(item.Lat, item.Lon);
-
-            if (result != null)
-            {
-                return result;
-            }
-            return FormatDecimal.ToDecimalFormat(item.Lat, item.Lon);
+            return result ?? FormatDecimal.ToDecimalFormat(item.Lat, item.Lon);
         }
     }
 }

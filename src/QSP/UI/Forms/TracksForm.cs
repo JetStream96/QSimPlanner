@@ -37,9 +37,10 @@ namespace QSP.UI.Forms
             InitializeComponent();
         }
 
-        public void Init(AirwayNetwork airwayNetwork,ToolStripStatusLabel statusLbl)
+        public void Init(AirwayNetwork airwayNetwork, ToolStripStatusLabel statusLbl)
         {
             this.airwayNetwork = airwayNetwork;
+            airwayNetwork.TrackForm = this;
             this.statusLbl = statusLbl;
 
             RefreshListViewColumnWidth();
@@ -86,34 +87,23 @@ namespace QSP.UI.Forms
                 Color.White,
                 Color.LightGray);
 
-            var viewNatsBtnStyle = new ControlDisableStyleController(
-                viewNatsBtn, colorStyle);
+            Button[] buttons =
+            {
+                viewNatsBtn,
+                viewPacotsBtn,
+                viewAusotsBtn,
+                BtnNatsDn,
+                BtnPacotsDn,
+                BtnAusotsDn,
+                downloadAllBtn,
+                importBtn
+            };
 
-            var viewPacotsBtnStyle = new ControlDisableStyleController(
-                viewPacotsBtn, colorStyle);
-
-            var viewAusotsBtnStyle = new ControlDisableStyleController(
-                 viewAusotsBtn, colorStyle);
-
-            var downloadNatsBtnStyle = new ControlDisableStyleController(
-                BtnNatsDn, colorStyle);
-
-            var downloadPacotsBtnStyle = new ControlDisableStyleController(
-                BtnPacotsDn, colorStyle);
-
-            var downloadAusotsBtnStyle = new ControlDisableStyleController(
-                BtnAusotsDn, colorStyle);
-
-            var downloadAllBtnStyle = new ControlDisableStyleController(
-                downloadAllBtn, colorStyle);
-
-            viewPacotsBtnStyle.Activate();
-            viewNatsBtnStyle.Activate();
-            viewAusotsBtnStyle.Activate();
-            downloadNatsBtnStyle.Activate();
-            downloadPacotsBtnStyle.Activate();
-            downloadAusotsBtnStyle.Activate();
-            downloadAllBtnStyle.Activate();
+            buttons.ForEach(b =>
+            {
+                var styleController = new ControlDisableStyleController(b, colorStyle);
+                styleController.Activate();
+            });
 
             viewPacotsBtn.Enabled = false;
             viewNatsBtn.Enabled = false;
@@ -169,7 +159,7 @@ namespace QSP.UI.Forms
             return new[] { "NATs", "PACOTs", "AUSOTS" }[(int)item];
         }
 
-        private void RefreshStatus()
+        public void RefreshStatus()
         {
             var records = airwayNetwork.StatusRecorder.Records;
             AddToListView(records);
@@ -282,7 +272,7 @@ namespace QSP.UI.Forms
             viewPacotsBtn.Enabled = airwayNetwork.PacotsLoaded;
             viewAusotsBtn.Enabled = airwayNetwork.AusotsLoaded;
         }
-        
+
         /// <summary>
         /// Download NATs and enable depends on the selection on the UI.
         /// During the download the 'download' button is disabled.
@@ -303,6 +293,7 @@ namespace QSP.UI.Forms
 
                 await airwayNetwork.DownloadNats(ts.Token);
                 airwayNetwork.NatsEnabled = NatsEnabled;
+                RefreshStatus();
 
                 cleanup();
             };
@@ -326,6 +317,7 @@ namespace QSP.UI.Forms
 
                 await airwayNetwork.DownloadPacots(ts.Token);
                 airwayNetwork.PacotsEnabled = PacotsEnabled;
+                RefreshStatus();
 
                 cleanup();
             };
@@ -349,13 +341,14 @@ namespace QSP.UI.Forms
 
                 await airwayNetwork.DownloadAusots(ts.Token);
                 airwayNetwork.AusotsEnabled = AusotsEnabled;
+                RefreshStatus();
 
                 cleanup();
             };
 
             airwayNetwork.EnqueueAusotsTask(task, ts, cleanup);
         }
-        
+
         public bool NatsEnabled => CBoxNatsEnabled.SelectedIndex == 0;
 
         public bool PacotsEnabled => CBoxPacotsEnabled.SelectedIndex == 0;

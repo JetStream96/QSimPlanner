@@ -11,7 +11,6 @@ namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
         public void WrongFormatShouldReturnFalse()
         {
             LatLon x;
-            
             Assert.IsFalse(TryConvertNatsCoordinate("45/-20", out x));
         }
 
@@ -34,8 +33,7 @@ namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
         public void AutoChooseFormatCorrectly()
         {
             Assert.IsTrue(new LatLon(50.0, -30.0).AutoChooseFormat() == "5030N");
-            Assert.IsTrue(new LatLon(50.5, -30.0).AutoChooseFormat() == 
-                "N50.500000W30.000000");
+            Assert.IsTrue(new LatLon(50.5, -30.0).AutoChooseFormat() == "N50.500000W30.000000");
         }
     }
 }

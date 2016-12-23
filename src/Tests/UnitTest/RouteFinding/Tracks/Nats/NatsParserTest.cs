@@ -89,10 +89,8 @@ U TUDEP 52/50 53/40 54/30 54/20 DOGAL BEXET
                           where trk.Ident == "U"
                           select trk).First();
 
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                trackU.MainRoute,
-                new string[] { "TUDEP", "5250N", "5340N", "5430N",
-                    "5420N", "DOGAL", "BEXET" }));
+            Assert.IsTrue(trackU.MainRoute.SequenceEqual(
+                new[] { "TUDEP", "5250N", "5340N", "5430N", "5420N", "DOGAL", "BEXET" }));
         }
     }
 }

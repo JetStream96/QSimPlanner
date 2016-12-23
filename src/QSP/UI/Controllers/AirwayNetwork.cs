@@ -32,8 +32,8 @@ namespace QSP.UI.Controllers
 
         public WaypointList WptList { get; private set; }
         public AirportManager AirportList { get; private set; }
-        public TrackInUseCollection TracksInUse { get; private set; }=new TrackInUseCollection();
-        public StatusRecorder StatusRecorder { get; private set; }=new StatusRecorder();
+        public TrackInUseCollection TracksInUse { get; private set; } = new TrackInUseCollection();
+        public StatusRecorder StatusRecorder { get; private set; } = new StatusRecorder();
 
         public event EventHandler WptListChanged;
         public event EventHandler AirportListChanged;
@@ -57,7 +57,7 @@ namespace QSP.UI.Controllers
             natsManager?.UndoEdit();
             pacotsManager?.UndoEdit();
             ausotsManager?.UndoEdit();
-            
+
             TracksInUse.Clear();
             StatusRecorder.Clear();
 
@@ -127,6 +127,7 @@ namespace QSP.UI.Controllers
                 {
                     natsManager.GetAllTracks(new NatsProvider(natsData));
                     if (TrackForm.NatsEnabled) natsManager.AddToWaypointList();
+                    TrackForm.RefreshStatus();
                 });
 
                 EnqueueNatsTask(task, new CancellationTokenSource(), () => { });
@@ -144,6 +145,7 @@ namespace QSP.UI.Controllers
                 {
                     pacotsManager.GetAllTracks(new PacotsProvider(pacotsData));
                     if (TrackForm.PacotsEnabled) pacotsManager.AddToWaypointList();
+                    TrackForm.RefreshStatus();
                 });
 
                 EnqueuePacotsTask(task, new CancellationTokenSource(), () => { });
@@ -159,6 +161,7 @@ namespace QSP.UI.Controllers
                 {
                     ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
                     if (TrackForm.AusotsEnabled) ausotsManager.AddToWaypointList();
+                    TrackForm.RefreshStatus();
                 });
 
                 EnqueueAusotsTask(task, new CancellationTokenSource(), () => { });
@@ -172,7 +175,7 @@ namespace QSP.UI.Controllers
             AirportListChanged?.Invoke(this, EventArgs.Empty);
             InvokeTrackMessageUpdated();
         }
-        
+
         private bool _natsEnabled = false;
         public bool NatsEnabled
         {
@@ -180,8 +183,10 @@ namespace QSP.UI.Controllers
 
             set
             {
+                StatusRecorder.Clear(TrackType.Nats);
+
                 if (value)
-                {
+                {// TODO: Disable this button when downloading.
                     natsManager.AddToWaypointList();
                 }
                 else
@@ -190,6 +195,7 @@ namespace QSP.UI.Controllers
                 }
 
                 _natsEnabled = value;
+                TrackForm.RefreshStatus();
             }
         }
 
@@ -200,9 +206,12 @@ namespace QSP.UI.Controllers
 
             set
             {
+                StatusRecorder.Clear(TrackType.Pacots);
+
                 if (value)
                 {
                     pacotsManager.AddToWaypointList();
+                    TrackForm.RefreshStatus();
                 }
                 else
                 {
@@ -210,6 +219,7 @@ namespace QSP.UI.Controllers
                 }
 
                 _pacotsEnabled = value;
+                TrackForm.RefreshStatus();
             }
         }
 
@@ -220,9 +230,12 @@ namespace QSP.UI.Controllers
 
             set
             {
+                StatusRecorder.Clear(TrackType.Ausots);
+
                 if (value)
                 {
                     ausotsManager.AddToWaypointList();
+                    TrackForm.RefreshStatus();
                 }
                 else
                 {
@@ -230,6 +243,7 @@ namespace QSP.UI.Controllers
                 }
 
                 _ausotsEnabled = value;
+                TrackForm.RefreshStatus();
             }
         }
 
@@ -259,6 +273,7 @@ namespace QSP.UI.Controllers
                     natsManager.UndoEdit();
                     natsManager.GetAllTracks(new NatsProvider(value));
                     InvokeTrackMessageUpdated();
+                    TrackForm.RefreshStatus();
                 });
 
                 EnqueueNatsTask(task, new CancellationTokenSource(), () => { });
@@ -277,6 +292,7 @@ namespace QSP.UI.Controllers
                     pacotsManager.UndoEdit();
                     pacotsManager.GetAllTracks(new PacotsProvider(value));
                     InvokeTrackMessageUpdated();
+                    TrackForm.RefreshStatus();
                 });
 
                 EnqueuePacotsTask(task, new CancellationTokenSource(), () => { });
@@ -295,6 +311,7 @@ namespace QSP.UI.Controllers
                     ausotsManager.UndoEdit();
                     ausotsManager.GetAllTracks(new AusotsProvider(value));
                     InvokeTrackMessageUpdated();
+                    TrackForm.RefreshStatus();
                 });
 
                 EnqueueAusotsTask(task, new CancellationTokenSource(), () => { });

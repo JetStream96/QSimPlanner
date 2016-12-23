@@ -149,7 +149,6 @@ namespace QSP.UI.Forms
         {
             trackFrm = new TracksForm();
             trackFrm.Init(airwayNetwork, trackStatusLabel);
-            airwayNetwork.TrackForm = trackFrm;
         }
 
         private static void ShowSplashWhile(Action action)

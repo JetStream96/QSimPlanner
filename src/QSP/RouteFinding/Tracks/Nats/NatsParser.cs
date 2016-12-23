@@ -11,8 +11,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 {
     public class NatsParser : TrackParser<NorthAtlanticTrack>
     {
-        private static readonly char[] DelimiterWords =
-               { ' ', '\n', '\r', '\t' };
+        private static readonly char[] DelimiterWords = { ' ', '\n', '\r', '\t' };
 
         private StatusRecorder statusRecorder;
         private AirportManager airportList;
@@ -35,8 +34,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             return NatTrackCollection;
         }
 
-        private List<NorthAtlanticTrack> TryAddMessage(
-            IndividualNatsMessage msg)
+        private List<NorthAtlanticTrack> TryAddMessage(IndividualNatsMessage msg)
         {
             try
             {
@@ -44,8 +42,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
             catch
             {
-                var dir = msg.Direction == NatsDirection.East ?
-                "eastbound" : "westbound";
+                var dir = msg.Direction == NatsDirection.East ? "eastbound" : "westbound";
 
                 statusRecorder.AddEntry(
                     StatusRecorder.Severity.Caution,
@@ -56,11 +53,9 @@ namespace QSP.RouteFinding.Tracks.Nats
             }
         }
 
-        private static List<NorthAtlanticTrack> ConvertToTracks(
-            IndividualNatsMessage msg)
+        private static List<NorthAtlanticTrack> ConvertToTracks(IndividualNatsMessage msg)
         {
-            char trkStartChar =
-                msg.Direction == NatsDirection.West ? 'A' : 'N';
+            char trkStartChar = msg.Direction == NatsDirection.West ? 'A' : 'N';
 
             var Message = msg.Message;
             var tracks = new List<NorthAtlanticTrack>();
@@ -68,20 +63,15 @@ namespace QSP.RouteFinding.Tracks.Nats
             for (int i = trkStartChar; i < trkStartChar + 13; i++)
             {
                 char id = (char)i;
-
                 int j = Message.IndexOf($"\n{id} ");
 
-                if (j < 0)
-                {
-                    continue;
-                }
+                if (j < 0) continue;
 
                 j += 2;
                 var newLinePos = Message.IndexOf('\n', j);
 
                 var route = Message.Substring(j, newLinePos - j)
-                    .Split(DelimiterWords,
-                    StringSplitOptions.RemoveEmptyEntries);
+                    .Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries);
 
                 TryConvertNatsLatLon(route);
 

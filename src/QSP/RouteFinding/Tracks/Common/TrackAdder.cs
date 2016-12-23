@@ -59,6 +59,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 new Neighbor("DCT", dis));
         }
 
+        // Can throw exception.
         private void AddMainRoute(TrackNodes nodes)
         {
             var rte = nodes.MainRoute;
@@ -69,15 +70,15 @@ namespace QSP.RouteFinding.Tracks.Common
                 .WithoutFirstAndLast();
 
             var neighbor = new Neighbor(
-                nodes.AirwayIdent, 
-                rte.TotalDistance(), 
+                nodes.AirwayIdent,
+                rte.TotalDistance(),
                 innerWpts,
                 InnerWaypointsType.Track);
 
             editor.AddNeighbor(indexStart, indexEnd, neighbor);
         }
 
-        //returns the index of added wpt in wptList
+        // Returns the index of added wpt in wptList
         private int AddFirstWpt(Waypoint wpt)
         {
             int x = wptList.FindByWaypoint(wpt);
@@ -89,23 +90,21 @@ namespace QSP.RouteFinding.Tracks.Common
                     // No other wpt have this wpt as a neighbor, 
                     // need to find nearby wpt to connect
 
-                    var k = WaypointAirwayConnector.ToAirway(
-                        wpt.Lat, wpt.Lon, wptList);
+                    var k = WaypointAirwayConnector.ToAirway(wpt.Lat, wpt.Lon, wptList);
 
                     foreach (var m in k)
                     {
                         int index = m.Index;
                         double dis = wptList.Distance(x, index);
-                        var neighbor =
-                            new Neighbor("DCT", dis);
+                        var neighbor = new Neighbor("DCT", dis);
                         editor.AddNeighbor(index, x, neighbor);
                     }
                 }
+
                 return x;
             }
 
-            throw new TrackWaypointNotFoundException(
-                $"Waypoint {wpt.ID} is not found.");
+            throw new TrackWaypointNotFoundException($"Waypoint {wpt.ID} is not found.");
         }
 
         private int AddLastWpt(Waypoint wpt)
@@ -116,22 +115,20 @@ namespace QSP.RouteFinding.Tracks.Common
             {
                 if (wptList.EdgesFromCount(x) == 0)
                 {
-                    var k = WaypointAirwayConnector.FromAirway(
-                        wpt.Lat, wpt.Lon, wptList);
+                    var k = WaypointAirwayConnector.FromAirway(wpt.Lat, wpt.Lon, wptList);
 
                     foreach (var m in k)
                     {
                         int index = m.Index;
                         double dis = wptList.Distance(x, index);
 
-                        editor.AddNeighbor(x, index,
-                            new Neighbor("DCT", dis));
+                        editor.AddNeighbor(x, index, new Neighbor("DCT", dis));
                     }
                 }
                 return x;
             }
-            throw new TrackWaypointNotFoundException(
-                $"Waypoint {wpt.ID} is not found.");
+
+            throw new TrackWaypointNotFoundException($"Waypoint {wpt.ID} is not found.");
         }
     }
 }
