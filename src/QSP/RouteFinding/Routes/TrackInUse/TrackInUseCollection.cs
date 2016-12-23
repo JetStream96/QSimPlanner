@@ -7,7 +7,16 @@ namespace QSP.RouteFinding.Routes.TrackInUse
     public class TrackInUseCollection
     {
         private static readonly RouteEntry[] EmptyEntry = { };
-        private IEnumerable<RouteEntry>[] _entries = Enumerable.Repeat(EmptyEntry, 3).ToArray();
+        private IEnumerable<RouteEntry>[] _entries;
+
+        public TrackInUseCollection()
+        {
+            _entries =new IEnumerable<RouteEntry>[3];
+            for (int i = 0; i < _entries.Length; i++)
+            {
+                _entries[i] = EmptyEntry;
+            }
+        }
 
         public IEnumerable<RouteEntry> Entries(TrackType type) => _entries[(int)type];
 
