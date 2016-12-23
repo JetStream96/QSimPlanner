@@ -17,7 +17,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using QSP.RouteFinding.Tracks.Tasks;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.ExceptionHelpers;
@@ -38,9 +37,7 @@ namespace QSP.UI.Forms
             InitializeComponent();
         }
 
-        public void Init(
-            AirwayNetwork airwayNetwork,
-            ToolStripStatusLabel statusLbl)
+        public void Init(AirwayNetwork airwayNetwork,ToolStripStatusLabel statusLbl)
         {
             this.airwayNetwork = airwayNetwork;
             this.statusLbl = statusLbl;
@@ -65,6 +62,7 @@ namespace QSP.UI.Forms
             BtnNatsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             BtnPacotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             BtnAusotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
+            downloadAllBtn.EnabledChanged += (s, e) => importBtn.Enabled = downloadAllBtn.Enabled;
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshStatus();
             airwayNetwork.StatusRecorder.StatusChanged += (s, e) => RefreshStatus();
             Closing += CloseForm;
@@ -221,7 +219,7 @@ namespace QSP.UI.Forms
         private static Severity MaxSeverity(IEnumerable<Entry> records, TrackType type)
         {
             var filtered = records.Where(r => r.Type == type).ToList();
-            if (filtered.Any() == false) return Severity.Advisory;
+            if (!filtered.Any()) return Severity.Advisory;
             return (Severity)filtered.Max(i => (int)i.Severity);
         }
 

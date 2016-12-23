@@ -3,6 +3,7 @@ using NUnit.Framework;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Tracks.Interaction;
@@ -10,7 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using QSP.RouteFinding.Data.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 {
@@ -54,20 +56,19 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
                 GetEdgeIndex("AUSOTMY14", "JAMOR", wptList));
 
             // Distance
-            Assert.AreEqual(
-                    new List<ICoordinate>
-                    {
-                      wptList[wptList.FindById("JAMOR")],
-                      wptList[wptList.FindById("IBABI")],
-                      wptList[wptList.FindById("LEC")],
-                      wptList[wptList.FindById("OOD")],
-                      wptList[wptList.FindById("ARNTU")],
-                      wptList[wptList.FindById("KEXIM")],
-                      wptList[wptList.FindById("CIN")],
-                      wptList[wptList.FindById("ATMAP")]
-                    }.TotalDistance(),
-                edge.Value.Distance,
-                0.01);
+            var expectedDistance = new[]
+            {
+                "JAMOR",
+                "IBABI",
+                "LEC",
+                "OOD",
+                "ARNTU",
+                "KEXIM",
+                "CIN",
+                "ATMAP"
+            }.Select(id => wptList[wptList.FindById(id)]).TotalDistance();
+
+            Assert.AreEqual(expectedDistance, edge.Value.Distance, 0.01);
 
             // Start, end waypoints are correct
             Assert.IsTrue(wptList[edge.FromNodeIndex].ID == "JAMOR");
@@ -83,23 +84,21 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
         private static void AssertTrackBP14(WaypointList wptList)
         {
-            var edge = wptList.GetEdge(
-                GetEdgeIndex("AUSOTBP14", "TAXEG", wptList));
+            var edge = wptList.GetEdge(GetEdgeIndex("AUSOTBP14", "TAXEG", wptList));
+
+            var expectedDistance = new[]
+            {
+                "TAXEG",
+                "PASTA",
+                "TAROR",
+                "WR",
+                "ENTRE",
+                "MALLY",
+                "NSM"
+            }.Select(id => wptList[wptList.FindById(id)]).TotalDistance();
 
             // Distance
-            Assert.AreEqual(
-                    new List<ICoordinate>
-                    {
-                      wptList[wptList.FindById("TAXEG")],
-                      wptList[wptList.FindById("PASTA")],
-                      wptList[wptList.FindById("TAROR")],
-                      wptList[wptList.FindById("WR")],
-                      wptList[wptList.FindById("ENTRE")],
-                      wptList[wptList.FindById("MALLY")],
-                      wptList[wptList.FindById("NSM")]
-                    }.TotalDistance(),
-                edge.Value.Distance,
-                0.01);
+            Assert.AreEqual(expectedDistance, edge.Value.Distance, 0.01);
 
             // Start, end waypoints are correct
             Assert.IsTrue(wptList[edge.FromNodeIndex].ID == "TAXEG");
@@ -113,8 +112,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             Assert.IsTrue(edge.Value.Airway == "AUSOTBP14");
         }
 
-        private static int GetEdgeIndex(
-            string ID, string firstWpt, WaypointList wptList)
+        private static int GetEdgeIndex(string ID, string firstWpt, WaypointList wptList)
         {
             foreach (var i in wptList.EdgesFrom(wptList.FindById(firstWpt)))
             {
@@ -238,8 +236,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             {
                 var rd = new Random(123);
 
-                return wptList.AddWaypoint(
-                    new Waypoint(id, rd.Next(-90, 91), rd.Next(-180, 181)));
+                return wptList.AddWaypoint(new Waypoint(id, rd.Next(-90, 91), rd.Next(-180, 181)));
             }
             return x;
         }
@@ -278,8 +275,12 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
                 return new AusotsMessage(
                     File.ReadAllText(
-                        directory +
-                        "/QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
+                        directory + "/QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
+            }
+
+            public Task<AusotsMessage> GetMessageAsync(CancellationToken token)
+            {
+                throw new NotImplementedException();
             }
         }
     }

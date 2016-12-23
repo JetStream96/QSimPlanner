@@ -112,8 +112,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             Assert.IsTrue(edge.Value.Airway == "NATZ");
         }
 
-        private static int GetEdgeIndex(
-            string ID, string firstWpt, WaypointList wptList)
+        private static int GetEdgeIndex(string ID, string firstWpt, WaypointList wptList)
         {
             foreach (var i in wptList.EdgesFrom(wptList.FindById(firstWpt)))
             {
@@ -151,8 +150,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             }
         }
 
-        private static void AssertTrack(
-            string ID, string firstWpt, WaypointList wptList)
+        private static void AssertTrack(string ID, string firstWpt, WaypointList wptList)
         {
             // check the track is added
             if (GetEdgeIndex(ID, firstWpt, wptList) < 0)

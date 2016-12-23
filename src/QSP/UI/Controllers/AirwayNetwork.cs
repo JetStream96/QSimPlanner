@@ -27,7 +27,9 @@ namespace QSP.UI.Controllers
         private PacotsHandler pacotsManager;
         private AusotsHandler ausotsManager;
 
-        private TracksForm form;
+        // Remember to set this.
+        public TracksForm TrackForm { get; set; }
+
         public WaypointList WptList { get; private set; }
         public AirportManager AirportList { get; private set; }
         public TrackInUseCollection TracksInUse { get; private set; }
@@ -39,9 +41,8 @@ namespace QSP.UI.Controllers
         // Fires when any TrackMessage in the TrackHandlers changed.
         public event EventHandler TrackMessageUpdated;
 
-        public AirwayNetwork(TracksForm form, WaypointList wptList, AirportManager airportList)
+        public AirwayNetwork(WaypointList wptList, AirportManager airportList)
         {
-            this.form = form;
             this.WptList = wptList;
             this.AirportList = airportList;
 
@@ -110,7 +111,7 @@ namespace QSP.UI.Controllers
             var natsData = natsManager.RawData;
             var pacotsData = pacotsManager.RawData;
             var ausotsData = ausotsManager.RawData;
-            
+
             bool natsStarted = natsManager.StartedGettingTracks;
             bool pacotsStarted = pacotsManager.StartedGettingTracks;
             bool ausotsStarted = ausotsManager.StartedGettingTracks;
@@ -122,60 +123,56 @@ namespace QSP.UI.Controllers
 
             if (natsData != null)
             {
-                // These are fast operation, so they can be done on the main thread.
-                natsManager.GetAllTracks(new NatsProvider(natsData));
-                if (form.NatsEnabled) natsManager.AddToWaypointList();
+                Func<Task> task = async () => await Task.Factory.StartNew(() =>
+                {
+                    natsManager.GetAllTracks(new NatsProvider(natsData));
+                    if (TrackForm.NatsEnabled) natsManager.AddToWaypointList();
+                });
+
+                EnqueueNatsTask(task, new CancellationTokenSource(), () => { });
             }
             else if (natsStarted)
             {
                 // The GetAllTracks was called but the download has not finished yet, so 
                 // the natsData is still null. We redownload the data.
-                form.DownloadNats();
+                TrackForm.DownloadNats();
             }
 
             if (pacotsData != null)
             {
-                pacotsManager.GetAllTracks(new PacotsProvider(pacotsData));
-                if (form.PacotsEnabled) pacotsManager.AddToWaypointList();
+                Func<Task> task = async () => await Task.Factory.StartNew(() =>
+                {
+                    pacotsManager.GetAllTracks(new PacotsProvider(pacotsData));
+                    if (TrackForm.PacotsEnabled) pacotsManager.AddToWaypointList();
+                });
+
+                EnqueuePacotsTask(task, new CancellationTokenSource(), () => { });
             }
             else if (pacotsStarted)
             {
-               form.DownloadPacots();
+                TrackForm.DownloadPacots();
             }
 
             if (ausotsData != null)
             {
-                ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
-                if (form.AusotsEnabled) ausotsManager.AddToWaypointList();
+                Func<Task> task = async () => await Task.Factory.StartNew(() =>
+                {
+                    ausotsManager.GetAllTracks(new AusotsProvider(ausotsData));
+                    if (TrackForm.AusotsEnabled) ausotsManager.AddToWaypointList();
+                });
+
+                EnqueueAusotsTask(task, new CancellationTokenSource(), () => { });
             }
             else if (ausotsStarted)
             {
-                form.DownloadAusots();
+                TrackForm.DownloadAusots();
             }
 
             WptListChanged?.Invoke(this, EventArgs.Empty);
             AirportListChanged?.Invoke(this, EventArgs.Empty);
             InvokeTrackMessageUpdated();
         }
-
-        private async Task GetNats(bool enable, CancellationToken token)
-        {
-            await DownloadNats(token);
-            NatsEnabled = enable;
-        }
-
-        private async Task GetPacots(bool enable, CancellationToken token)
-        {
-            await DownloadPacots(token);
-            PacotsEnabled = enable;
-        }
-
-        private async Task GetAusots(bool enable, CancellationToken token)
-        {
-            await DownloadAusots(token);
-            AusotsEnabled = enable;
-        }
-
+        
         private bool _natsEnabled = false;
         public bool NatsEnabled
         {
@@ -256,10 +253,15 @@ namespace QSP.UI.Controllers
 
             set
             {
-                StatusRecorder.Clear(TrackType.Nats);
-                natsManager.UndoEdit();
-                natsManager.GetAllTracks(new NatsProvider(value));
-                InvokeTrackMessageUpdated();
+                Func<Task> task = async () => await Task.Factory.StartNew(() =>
+                {
+                    StatusRecorder.Clear(TrackType.Nats);
+                    natsManager.UndoEdit();
+                    natsManager.GetAllTracks(new NatsProvider(value));
+                    InvokeTrackMessageUpdated();
+                });
+
+                EnqueueNatsTask(task, new CancellationTokenSource(), () => { });
             }
         }
 
@@ -269,10 +271,15 @@ namespace QSP.UI.Controllers
 
             set
             {
-                StatusRecorder.Clear(TrackType.Pacots);
-                pacotsManager.UndoEdit();
-                pacotsManager.GetAllTracks(new PacotsProvider(value));
-                InvokeTrackMessageUpdated();
+                Func<Task> task = async () => await Task.Factory.StartNew(() =>
+                {
+                    StatusRecorder.Clear(TrackType.Pacots);
+                    pacotsManager.UndoEdit();
+                    pacotsManager.GetAllTracks(new PacotsProvider(value));
+                    InvokeTrackMessageUpdated();
+                });
+
+                EnqueuePacotsTask(task, new CancellationTokenSource(), () => { });
             }
         }
 
@@ -282,10 +289,15 @@ namespace QSP.UI.Controllers
 
             set
             {
-                StatusRecorder.Clear(TrackType.Ausots);
-                ausotsManager.UndoEdit();
-                ausotsManager.GetAllTracks(new AusotsProvider(value));
-                InvokeTrackMessageUpdated();
+                Func<Task> task = async () => await Task.Factory.StartNew(() =>
+                {
+                    StatusRecorder.Clear(TrackType.Ausots);
+                    ausotsManager.UndoEdit();
+                    ausotsManager.GetAllTracks(new AusotsProvider(value));
+                    InvokeTrackMessageUpdated();
+                });
+
+                EnqueueAusotsTask(task, new CancellationTokenSource(), () => { });
             }
         }
 

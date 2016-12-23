@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 {
@@ -138,8 +140,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             Assert.IsTrue(edge.Value.Airway == "PACOT11");
         }
 
-        private static int GetEdgeIndex(
-            string ID, string firstWpt, WaypointList wptList)
+        private static int GetEdgeIndex(string ID, string firstWpt, WaypointList wptList)
         {
             foreach (var i in wptList.EdgesFrom(wptList.FindById(firstWpt)))
             {
@@ -148,12 +149,13 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
                     return i;
                 }
             }
+
             return -1;
         }
 
         private static void AssertAllTracks(WaypointList wptList)
         {
-            var id = new string[]
+            var id = new[]
             {
                 "8",
                 "J",
@@ -171,7 +173,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
                 "14"
             };
 
-            var firstWpt = new string[]
+            var firstWpt = new[]
             {
                 "KALNA",
                 "ALCOA",
@@ -195,8 +197,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        private static void AssertTrack(
-            string ID, string firstWpt, WaypointList wptList)
+        private static void AssertTrack(string ID, string firstWpt, WaypointList wptList)
         {
             // check the track is added
             if (GetEdgeIndex(ID, firstWpt, wptList) < 0)
@@ -403,12 +404,15 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             public PacotsMessage GetMessage()
             {
                 var directory = AppDomain.CurrentDomain.BaseDirectory;
+                var path = directory +
+                           "/QSP/RouteFinding/Tracks/Pacots/Defense Internet NOTAM Service.html";
 
-                return new PacotsMessage(
-                    File.ReadAllText(
-                        directory +
-                        "/QSP/RouteFinding/Tracks/Pacots/" +
-                        "Defense Internet NOTAM Service.html"));
+                return new PacotsMessage(File.ReadAllText(path));
+            }
+
+            public Task<PacotsMessage> GetMessageAsync(CancellationToken token)
+            {
+                throw new NotImplementedException();
             }
         }
     }

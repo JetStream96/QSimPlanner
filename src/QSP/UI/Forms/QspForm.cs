@@ -149,6 +149,7 @@ namespace QSP.UI.Forms
         {
             trackFrm = new TracksForm();
             trackFrm.Init(airwayNetwork, trackStatusLabel);
+            airwayNetwork.TrackForm = trackFrm;
         }
 
         private static void ShowSplashWhile(Action action)
@@ -210,10 +211,7 @@ namespace QSP.UI.Forms
             updater = new Updater();
         }
 
-        /// <exception cref="RwyDataFormatException"></exception>
-        /// <exception cref="ReadAirportFileException"></exception>
-        /// <exception cref="WaypointFileReadException"></exception>
-        /// <exception cref="LoadCountryNamesException"></exception>
+        /// <exception cref="Exception"></exception>
         private void InitAirportAndWaypoints()
         {
             string navDataPath = appSettings.NavDataLocation;
@@ -278,9 +276,9 @@ namespace QSP.UI.Forms
             airwayNetwork.AirportListChanged += (s, e) =>
             {
                 fuelMenu.RefreshForAirportListChange();
-                toMenu.Airports = airwayNetwork.AirportList;
-                ldgMenu.Airports = airwayNetwork.AirportList;
-                miscInfoMenu.AirportList = airwayNetwork.AirportList;
+                toMenu.Airports = airportList;
+                ldgMenu.Airports = airportList;
+                miscInfoMenu.AirportList = airportList;
             };
 
             airwayNetwork.WptListChanged += (s, e) => fuelMenu.OnWptListChanged();
