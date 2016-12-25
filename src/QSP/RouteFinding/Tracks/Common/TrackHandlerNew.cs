@@ -95,7 +95,7 @@ namespace QSP.RouteFinding.Tracks.Common
                     recorder.AddEntry(
                         StatusRecorder.Severity.Caution,
                         $"Unable to interpret track {i.Ident}.",
-                        TrackType.Nats);
+                        type);
                 }
             }
         }
@@ -144,7 +144,7 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             recorder.AddEntry(
                    StatusRecorder.Severity.Critical,
-                   "Failed to download NATs.",
+                   $"Failed to download {type.TrackString()}.",
                    type);
         }
 
@@ -159,8 +159,8 @@ namespace QSP.RouteFinding.Tracks.Common
             {
                 recorder.AddEntry(
                     StatusRecorder.Severity.Critical,
-                    "Failed to parse NATs.",
-                    TrackType.Nats);
+                    $"Failed to parse {type.TrackString()}.",
+                    type);
 
                 throw;
             }

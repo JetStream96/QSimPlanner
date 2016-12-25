@@ -134,6 +134,7 @@
     <Compile Include="FuelCalculation\Results\Nodes\TocNode.cs" />
     <Compile Include="FuelCalculation\Results\Nodes\TodNode.cs" />
     <Compile Include="LibraryExtension\BiDictionary.cs" />
+    <Compile Include="LibraryExtension\Enums.cs" />
     <Compile Include="LibraryExtension\FileNameGenerator.cs" />
     <Compile Include="LibraryExtension\IOMethods.cs" />
     <Compile Include="LibraryExtension\IReadOnlyLists.cs" />

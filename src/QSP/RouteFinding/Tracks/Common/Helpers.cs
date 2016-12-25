@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Tracks.Interaction;
@@ -10,6 +12,9 @@ namespace QSP.RouteFinding.Tracks.Common
 {
     public static class Helpers
     {
+        public static readonly IReadOnlyList<TrackType> TrackTypes =
+               Enums.GetValues<TrackType>().ToList();
+
         public static ITrackMessageProvider GetTrackDownloader<T>() where T : Track
         {
             return GetTrackDownloader(GetTrackType<T>());

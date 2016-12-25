@@ -189,14 +189,7 @@ namespace QSP.UI.Forms
                 PicBoxAusots.Image = myImageList.Images[severity];
             }
         }
-
-        private static readonly IReadOnlyList<TrackType> trackTypes = new[]
-        {
-            TrackType.Nats,
-            TrackType.Pacots,
-            TrackType.Ausots
-        };
-
+        
         private static Severity MaxSeverity(IEnumerable<Entry> records, TrackType type)
         {
             var filtered = records.Where(r => r.Type == type).ToList();
@@ -224,7 +217,7 @@ namespace QSP.UI.Forms
                 ListView1.Items.Add(lvi);
             }
 
-            foreach (var type in trackTypes)
+            foreach (var type in Helpers.TrackTypes)
             {
                 if (airwayNetwork.TrackedLoaded(type) && NoErrors(records, type))
                 {
@@ -245,7 +238,7 @@ namespace QSP.UI.Forms
 
         private void SetMainFormTrackStatus(IEnumerable<Entry> records)
         {
-            var loadedTypes = trackTypes.Where(t => airwayNetwork.TrackedLoaded(t));
+            var loadedTypes = Helpers.TrackTypes.Where(t => airwayNetwork.TrackedLoaded(t));
 
             var maxSeverity = loadedTypes.Select(t => MaxSeverity(records, t));
 
