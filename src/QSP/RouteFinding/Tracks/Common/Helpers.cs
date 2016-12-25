@@ -22,8 +22,12 @@ namespace QSP.RouteFinding.Tracks.Common
 
         public static ITrackMessageProvider GetTrackDownloader(TrackType t)
         {
-            // TODO: Add more.
-            return new[] { new NatsDownloader() }[(int)t];
+            return new ITrackMessageProvider[]
+            {
+                new NatsDownloader(),
+                new PacotsDownloader(),
+                new AusotsDownloader(),
+            }[(int)t];
         }
 
         public static ITrackParser<T> GetParser<T>(ITrackMessageNew msg, 

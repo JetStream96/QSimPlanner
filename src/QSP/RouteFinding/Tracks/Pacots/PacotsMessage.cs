@@ -9,13 +9,12 @@ using System.Xml.Linq;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public class PacotsMessage : TrackMessage
+    public class PacotsMessage : ITrackMessageNew
     {
         public static readonly string TrackSystem = "Pacots";
 
         // Westbound tracks
-        private static readonly string HeaderKzak =
-            "KZAK OAKLAND OCA/FIR";
+        private static readonly string HeaderKzak = "KZAK OAKLAND OCA/FIR";
 
         // Eastbound tracks
         private static readonly string HeaderRjjj =
@@ -54,8 +53,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             }
             catch (Exception ex)
             {
-                throw new ArgumentException(
-                    "Unable to parse the message.", ex);
+                throw new ArgumentException("Unable to parse the message.", ex);
             }
         }
         
@@ -134,7 +132,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             return s.ToString();
         }
 
-        public override XDocument ToXml()
+        public XDocument ToXml()
         {
             var doc = new XElement(
                 "Content", new XElement[]{

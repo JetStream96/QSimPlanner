@@ -8,7 +8,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
     /// Contains all text of TDM (track definition message), 
     /// but with html tags removed.
     /// </summary>
-    public class AusotsMessage : TrackMessage
+    public class AusotsMessage : ITrackMessageNew
     {
         public static readonly string TrackSystem = "Ausots";
         public string AllText { get; private set; }
@@ -33,7 +33,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             return AllText;
         }
 
-        public override XDocument ToXml()
+        public XDocument ToXml()
         {
             var doc = new XElement(
                 "Content", new XElement[]{

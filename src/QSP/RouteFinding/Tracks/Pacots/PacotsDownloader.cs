@@ -3,21 +3,22 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using QSP.RouteFinding.Tracks.Common;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public class PacotsDownloader : IPacotsMessageProvider
+    public class PacotsDownloader : ITrackMessageProvider
     {
         private static readonly string url = "https://www.notams.faa.gov/dinsQueryWeb/advancedNotamMapAction.do";
 
         /// <exception cref="Exception"></exception>
-        public PacotsMessage GetMessage()
+        public ITrackMessageNew GetMessage()
         {
             return new PacotsMessage(GetPostMessage());
         }
 
         /// <exception cref="Exception"></exception>
-        public async Task<PacotsMessage> GetMessageAsync(CancellationToken token)
+        public async Task<ITrackMessageNew> GetMessageAsync(CancellationToken token)
         {
             return new PacotsMessage(await GetPostMessageAsync(token));
         }
