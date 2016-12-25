@@ -48,8 +48,6 @@ namespace QSP.RouteFinding.Tracks.Nats
                         new XElement("Westbound", west.Elements()),
                         new XElement("Eastbound", east.Elements())}));
         }
-
-        public object Property(int i) => new[] { WestMessage, EastMessage }[i];
     }
 
     public static class NatsMessageHelpers
@@ -57,13 +55,13 @@ namespace QSP.RouteFinding.Tracks.Nats
         public static IndividualNatsMessage WestMessage(this ITrackMessageNew item)
         {
             Debug.Assert(item is NatsMessage);
-            return (IndividualNatsMessage)item.Property(0);
+            return ((NatsMessage) item).WestMessage;
         }
 
         public static IndividualNatsMessage EastMessage(this ITrackMessageNew item)
         {
             Debug.Assert(item is NatsMessage);
-            return (IndividualNatsMessage)item.Property(1);
+            return ((NatsMessage)item).EastMessage;
         }
     }
 }
