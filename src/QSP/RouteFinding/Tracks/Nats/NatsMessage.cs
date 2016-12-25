@@ -49,19 +49,4 @@ namespace QSP.RouteFinding.Tracks.Nats
                         new XElement("Eastbound", east.Elements())}));
         }
     }
-
-    public static class NatsMessageHelpers
-    {
-        public static IndividualNatsMessage WestMessage(this ITrackMessageNew item)
-        {
-            Debug.Assert(item is NatsMessage);
-            return ((NatsMessage) item).WestMessage;
-        }
-
-        public static IndividualNatsMessage EastMessage(this ITrackMessageNew item)
-        {
-            Debug.Assert(item is NatsMessage);
-            return ((NatsMessage)item).EastMessage;
-        }
-    }
 }

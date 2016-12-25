@@ -15,22 +15,22 @@ namespace QSP.RouteFinding.Tracks.Nats
 
         private StatusRecorder statusRecorder;
         private AirportManager airportList;
-        private ITrackMessageNew message;
+        private NatsMessage message;
 
         public NatsParser(
             ITrackMessageNew message,
             StatusRecorder statusRecorder,
             AirportManager airportList)
         {
-            this.message = message;
+            this.message = (NatsMessage)message;
             this.statusRecorder = statusRecorder;
             this.airportList = airportList;
         }
 
         public List<NorthAtlanticTrack> Parse()
         {
-            var NatTrackCollection = TryAddMessage(message.WestMessage());
-            NatTrackCollection.AddRange(TryAddMessage(message.EastMessage()));
+            var NatTrackCollection = TryAddMessage(message.WestMessage);
+            NatTrackCollection.AddRange(TryAddMessage(message.EastMessage));
             return NatTrackCollection;
         }
 

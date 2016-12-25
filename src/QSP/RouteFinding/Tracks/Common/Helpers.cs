@@ -30,14 +30,15 @@ namespace QSP.RouteFinding.Tracks.Common
             }[(int)t];
         }
 
-        public static ITrackParser<T> GetParser<T>(ITrackMessageNew msg, 
+        public static ITrackParser<T> GetParser<T>(ITrackMessageNew msg,
             StatusRecorder statusRecorder, AirportManager airportList) where T : Track
         {
-            // TODO: Add more.
-            return (ITrackParser<T>)new[]
+            return (ITrackParser<T>)new object[]
             {
-                new NatsParser(msg, statusRecorder, airportList)
-            }[(int) GetTrackType<T>()];
+                new NatsParser(msg, statusRecorder, airportList),
+                new PacotsParser(msg, statusRecorder, airportList),
+                new AusotsParser(msg, statusRecorder, airportList),
+            }[(int)GetTrackType<T>()];
         }
 
         public static TrackType GetTrackType<T>() where T : Track

@@ -11,11 +11,11 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private AirportManager airportList;
         private PacotsMessage message;
 
-        public PacotsParser(PacotsMessage message,
+        public PacotsParser(ITrackMessageNew message,
                             StatusRecorder statusRecorder,
                             AirportManager airportList)
         {
-            this.message = message;
+            this.message = (PacotsMessage)message;
             this.statusRecorder = statusRecorder;
             this.airportList = airportList;
         }

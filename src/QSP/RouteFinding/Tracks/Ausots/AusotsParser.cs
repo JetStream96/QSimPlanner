@@ -26,11 +26,11 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private List<AusTrack> allTracks;
 
         public AusotsParser(
-            AusotsMessage data,
+            ITrackMessageNew data,
             StatusRecorder statusRecorder,
             AirportManager airportList)
         {
-            allTxt = data.AllText;
+            allTxt = ((AusotsMessage)data).AllText;
             this.statusRecorder = statusRecorder;
             this.airportList = airportList;
         }
@@ -45,7 +45,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             {
                 throw new Exception("Failed to interpret AUSOTS message.");
             }
-            
+
             foreach (var i in msgs)
             {
                 TryAddTrk(i);
