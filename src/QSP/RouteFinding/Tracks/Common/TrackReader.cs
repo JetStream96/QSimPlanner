@@ -53,8 +53,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 connectionRoutes = new List<WptPair>();
             }
 
-            return new TrackNodes(
-                trk.Ident, trk.AirwayIdent, mainRoute, connectionRoutes);
+            return new TrackNodes(trk.Ident, trk.AirwayIdent, mainRoute, connectionRoutes);
         }
 
         private List<WptPair> GetExtraPairs(RouteString rteFrom, ICoordinate previous)
@@ -92,8 +91,7 @@ namespace QSP.RouteFinding.Tracks.Common
 
             if (candidates.Count == 0)
             {
-                throw new TrackWaypointNotFoundException(
-                    "Waypoint not found.");
+                throw new TrackWaypointNotFoundException("Waypoint not found.");
             }
 
             return candidates.MinBy(i => wptList[i].Distance(previous));
@@ -118,9 +116,7 @@ namespace QSP.RouteFinding.Tracks.Common
         private List<WptPair> GetRouteTo(IEnumerable<RouteString> rteTo)
         {
             var lastWpt = mainRoute.LastWaypoint;
-            return rteTo
-                .SelectMany(i => GetExtraPairs(i, lastWpt))
-                .ToList();
+            return rteTo.SelectMany(i => GetExtraPairs(i, lastWpt)).ToList();
         }
 
         /// <exception cref="InvalidRouteException"></exception>
@@ -146,8 +142,7 @@ namespace QSP.RouteFinding.Tracks.Common
             {
                 string s = item[i];
 
-                if ((i != 0 && i != item.Count - 1) ||
-                    airportList[s] == null)
+                if ((i != 0 && i != item.Count - 1) || airportList[s] == null)
                 {
                     result.Append(s + " ");
                 }

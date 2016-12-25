@@ -9,7 +9,10 @@ using static QSP.RouteFinding.Tracks.Common.Helpers;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
-    public class TrackHandlerNew<T> where T : Track
+    /// <summary>
+    /// Provides some easy-to-use methods to manage tracks.
+    /// </summary>
+    public class TrackHandlerNew<T> : ITrackHandler where T : Track
     {
         private WaypointList wptList;
         private WaypointListEditor editor;
@@ -20,6 +23,10 @@ namespace QSP.RouteFinding.Tracks.Common
         private TrackType type = GetTrackType<T>();
 
         private bool _startedGettingTracks = false;
+
+        /// <summary>
+        /// Indicates whether GetAllTracks or GetAllTracksAsync has been called.
+        /// </summary>
         public bool StartedGettingTracks => _startedGettingTracks;
 
         public bool AddedToWptList { get; private set; } = false;
@@ -40,7 +47,7 @@ namespace QSP.RouteFinding.Tracks.Common
         }
 
         /// <summary>
-        /// Download tracks and undo previous edit to wptList.
+        /// Download tracks, parse all track messages and undo previous edit to wptList.
         /// </summary>
         public void GetAllTracks()
         {
@@ -100,6 +107,9 @@ namespace QSP.RouteFinding.Tracks.Common
             }
         }
 
+        /// <summary>
+        /// Add the parsed tracks to WaypointList, if not added already.
+        /// </summary>
         public void AddToWaypointList()
         {
             if (AddedToWptList == false)
@@ -143,9 +153,9 @@ namespace QSP.RouteFinding.Tracks.Common
         private void AddRecord()
         {
             recorder.AddEntry(
-                   StatusRecorder.Severity.Critical,
-                   $"Failed to download {type.TrackString()}.",
-                   type);
+                StatusRecorder.Severity.Critical,
+                $"Failed to download {type.TrackString()}.",
+                type);
         }
 
         // Can throw exception.
@@ -166,6 +176,9 @@ namespace QSP.RouteFinding.Tracks.Common
             }
         }
 
+        /// <summary>
+        /// Undo the actions of AddToWaypointList().
+        /// </summary>
         public void UndoEdit()
         {
             editor.Undo();

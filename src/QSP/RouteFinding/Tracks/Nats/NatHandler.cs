@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
+    /*
     public class NatsHandler : TrackHandler
     {
         private WaypointList wptList;
@@ -170,5 +171,5 @@ namespace QSP.RouteFinding.Tracks.Nats
             editor.Undo();
             AddedToWptList = false;
         }
-    }
+    }*/
 }

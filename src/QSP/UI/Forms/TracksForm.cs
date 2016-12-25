@@ -291,7 +291,7 @@ namespace QSP.UI.Forms
                 cleanup();
             };
 
-            airwayNetwork.EnqueueNatsTask(task, ts, cleanup);
+            airwayNetwork.EnqueueTask(TrackType.Nats, task, ts, cleanup);
         }
 
         public void DownloadPacots()
@@ -315,7 +315,7 @@ namespace QSP.UI.Forms
                 cleanup();
             };
 
-            airwayNetwork.EnqueuePacotsTask(task, ts, cleanup);
+            airwayNetwork.EnqueueTask(TrackType.Pacots, task, ts, cleanup);
         }
 
         public void DownloadAusots()
@@ -339,7 +339,7 @@ namespace QSP.UI.Forms
                 cleanup();
             };
 
-            airwayNetwork.EnqueueAusotsTask(task, ts, cleanup);
+            airwayNetwork.EnqueueTask(TrackType.Ausots, task, ts, cleanup);
         }
 
         public bool NatsEnabled => CBoxNatsEnabled.SelectedIndex == 0;

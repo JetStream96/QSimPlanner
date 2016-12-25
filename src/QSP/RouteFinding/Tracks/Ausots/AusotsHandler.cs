@@ -10,6 +10,7 @@ using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {
+    /*
     public class AusotsHandler : TrackHandler
     {
         private WaypointList wptList;
@@ -168,5 +169,5 @@ namespace QSP.RouteFinding.Tracks.Ausots
             editor.Undo();
             AddedToWptList = false;
         }
-    }
+    }*/
 }

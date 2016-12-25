@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding.Tracks.Pacots
-{
+{/*
     public class PacotsHandler : TrackHandler
     {
         private WaypointList wptList;
@@ -166,5 +166,5 @@ namespace QSP.RouteFinding.Tracks.Pacots
             editor.Undo();
             AddedToWptList = false;
         }
-    }
+    }*/
 }
