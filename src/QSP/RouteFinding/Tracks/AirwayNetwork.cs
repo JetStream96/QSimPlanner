@@ -77,21 +77,18 @@ namespace QSP.RouteFinding.Tracks
             natsHandler = new TrackHandler<NorthAtlanticTrack>(
                 WptList,
                 WptList.GetEditor(),
-                StatusRecorder,
                 AirportList,
                 TracksInUse);
 
             pacotsHandler = new TrackHandler<PacificTrack>(
                 WptList,
                 WptList.GetEditor(),
-                StatusRecorder,
                 AirportList,
                 TracksInUse);
 
             ausotsHandler = new TrackHandler<AusTrack>(
                 WptList,
                 WptList.GetEditor(),
-                StatusRecorder,
                 AirportList,
                 TracksInUse);
         }
@@ -139,8 +136,8 @@ namespace QSP.RouteFinding.Tracks
                 {
                     EnqueueSyncTask(type, () =>
                     {
-                        h.GetAllTracks(new TrackProvider(msg));
-                        if (TrackForm.TrackEnabled(type)) h.AddToWaypointList();
+                        h.GetAllTracks(new TrackProvider(msg), StatusRecorder);
+                        if (TrackForm.TrackEnabled(type)) h.AddToWaypointList(StatusRecorder);
                         TrackForm.RefreshStatus();
                         InvokeTrackMessageUpdated();
                     });
@@ -162,12 +159,11 @@ namespace QSP.RouteFinding.Tracks
 
         public void SetTrackEnabled(TrackType t, bool enabled)
         {
-            //TODO:  StatusRecorder.Clear(t);
             var h = Handlers[(int)t];
 
             if (enabled)
             {
-                h.AddToWaypointList();
+                h.AddToWaypointList(new StatusRecorder());
             }
             else
             {
@@ -194,7 +190,7 @@ namespace QSP.RouteFinding.Tracks
                var h = Handlers[(int)type];
                StatusRecorder.Clear(type);
                h.UndoEdit();
-               h.GetAllTracks(new TrackProvider(message));
+               h.GetAllTracks(new TrackProvider(message), StatusRecorder);
                InvokeTrackMessageUpdated();
                TrackForm.RefreshStatus();
            });
@@ -206,7 +202,7 @@ namespace QSP.RouteFinding.Tracks
             StatusRecorder.Clear(type);
             h.UndoEdit();
 
-            await h.GetAllTracksAsync();
+            await h.GetAllTracksAsync(StatusRecorder);
             InvokeTrackMessageUpdated();
         }
 

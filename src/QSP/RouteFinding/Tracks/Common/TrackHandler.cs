@@ -15,30 +15,27 @@ namespace QSP.RouteFinding.Tracks.Common
     {
         private WaypointList wptList;
         private WaypointListEditor editor;
-        private StatusRecorder recorder;
         private AirportManager airportList;
         private TrackInUseCollection tracksInUse;
         private List<TrackNodes> nodes = new List<TrackNodes>();
         private TrackType type = GetTrackType<T>();
-        
+
         /// <summary>
         /// Indicates whether GetAllTracks or GetAllTracksAsync has been called.
         /// </summary>
         public bool StartedGettingTracks { get; private set; } = false;
-        
+
         public bool InWptList { get; private set; } = false;
         public ITrackMessage RawData { get; private set; }
 
         public TrackHandler(
             WaypointList wptList,
             WaypointListEditor editor,
-            StatusRecorder recorder,
             AirportManager airportList,
             TrackInUseCollection tracksInUse)
         {
             this.wptList = wptList;
             this.editor = editor;
-            this.recorder = recorder;
             this.airportList = airportList;
             this.tracksInUse = tracksInUse;
         }
@@ -46,34 +43,34 @@ namespace QSP.RouteFinding.Tracks.Common
         /// <summary>
         /// Download tracks, parse all track messages and undo previous edit to wptList.
         /// </summary>
-        public void GetAllTracks()
+        public void GetAllTracks(StatusRecorder r)
         {
-            GetAllTracks(GetTrackDownloader<T>());
+            GetAllTracks(GetTrackDownloader<T>(), r);
         }
 
         /// <summary>
         /// Load the tracks and undo previous edit to wptList.
         /// </summary>
-        public void GetAllTracks(ITrackMessageProvider provider)
+        public void GetAllTracks(ITrackMessageProvider provider, StatusRecorder r)
         {
             try
             {
                 StartedGettingTracks = true;
-                GetTracks(provider);
-                ReadMessage();
+                GetTracks(provider, r);
+                ReadMessage(r);
             }
             catch { }
 
             UndoEdit();
         }
 
-        public async Task GetAllTracksAsync()
+        public async Task GetAllTracksAsync(StatusRecorder r)
         {
             try
             {
                 StartedGettingTracks = true;
-                await GetTracksAsync(GetTrackDownloader<T>());
-                ReadMessage();
+                await GetTracksAsync(GetTrackDownloader<T>(), r);
+                ReadMessage(r);
             }
             catch { }
 
@@ -81,9 +78,9 @@ namespace QSP.RouteFinding.Tracks.Common
         }
 
         // Can throw exception.
-        private void ReadMessage()
+        private void ReadMessage(StatusRecorder r)
         {
-            var trks = Parse();
+            var trks = Parse(r);
 
             var reader = new TrackReader<T>(wptList, airportList);
             nodes = new List<TrackNodes>();
@@ -96,7 +93,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 }
                 catch
                 {
-                    recorder.AddEntry(
+                    r.AddEntry(
                         StatusRecorder.Severity.Caution,
                         $"Unable to interpret track {i.Ident}.",
                         type);
@@ -107,11 +104,11 @@ namespace QSP.RouteFinding.Tracks.Common
         /// <summary>
         /// Add the parsed tracks to WaypointList, if not added already.
         /// </summary>
-        public void AddToWaypointList()
+        public void AddToWaypointList(StatusRecorder r)
         {
             if (InWptList == false)
             {
-                new TrackAdder(wptList, editor, recorder, type)
+                new TrackAdder(wptList, editor, r, type)
                     .AddToWaypointList(nodes);
 
                 tracksInUse.UpdateTracks(nodes, type);
@@ -120,7 +117,7 @@ namespace QSP.RouteFinding.Tracks.Common
         }
 
         // Can throw exception.
-        private void GetTracks(ITrackMessageProvider provider)
+        private void GetTracks(ITrackMessageProvider provider, StatusRecorder r)
         {
             try
             {
@@ -128,13 +125,13 @@ namespace QSP.RouteFinding.Tracks.Common
             }
             catch
             {
-                AddRecord();
+                AddRecord(r);
                 throw;
             }
         }
 
         // Can throw exception.
-        private async Task GetTracksAsync(ITrackMessageProvider provider)
+        private async Task GetTracksAsync(ITrackMessageProvider provider, StatusRecorder r)
         {
             try
             {
@@ -142,29 +139,29 @@ namespace QSP.RouteFinding.Tracks.Common
             }
             catch
             {
-                AddRecord();
+                AddRecord(r);
                 throw;
             }
         }
 
-        private void AddRecord()
+        private void AddRecord(StatusRecorder r)
         {
-            recorder.AddEntry(
+            r.AddEntry(
                 StatusRecorder.Severity.Critical,
                 $"Failed to download {type.TrackString()}.",
                 type);
         }
 
         // Can throw exception.
-        private List<T> Parse()
+        private List<T> Parse(StatusRecorder r)
         {
             try
             {
-                return GetParser<T>(RawData, recorder, airportList).Parse();
+                return GetParser<T>(RawData, r, airportList).Parse();
             }
             catch
             {
-                recorder.AddEntry(
+                r.AddEntry(
                     StatusRecorder.Severity.Critical,
                     $"Failed to parse {type.TrackString()}.",
                     type);

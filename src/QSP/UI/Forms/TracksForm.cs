@@ -242,13 +242,14 @@ namespace QSP.UI.Forms
         public void DownloadTracks(TrackType t)
         {
             var downloadBtn = DownloadBtn(t);
-            
+
             Func<Task> task = async () =>
             {
                 downloadBtn.Enabled = false;
 
+                EnabledCBox(t).SelectedIndex = 0;
                 await airwayNetwork.DownloadTracks(t);
-                SyncCBoxEnabled(t);
+                airwayNetwork.SetTrackEnabled(t, true);
                 RefreshStatus();
 
                 RefreshViewTrackBtns();
@@ -258,12 +259,9 @@ namespace QSP.UI.Forms
             airwayNetwork.EnqueueTask(t, task);
         }
 
-        public bool TrackEnabled(TrackType t) =>
-            new[]
-            {
-                CBoxNatsEnabled, CBoxPacotsEnabled, CBoxAusotsEnabled
-            }[(int)t].SelectedIndex == 0;
+        public bool TrackEnabled(TrackType t) => EnabledCBox(t).SelectedIndex == 0;
 
+        // TODO: Check the usages of this method.
         private void SyncCBoxEnabled(TrackType t)
         {
             airwayNetwork.EnqueueSyncTask(t, () =>

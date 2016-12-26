@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using QSP.RouteFinding.Tracks.Interaction;
 
 namespace QSP.RouteFinding.Tracks.Common
 {
@@ -10,9 +11,9 @@ namespace QSP.RouteFinding.Tracks.Common
         /// <summary>
         /// Download and parse all track messages.
         /// </summary>
-        void GetAllTracks();
-        void GetAllTracks(ITrackMessageProvider provider);
-        Task GetAllTracksAsync();
+        void GetAllTracks(StatusRecorder r);
+        void GetAllTracks(ITrackMessageProvider provider, StatusRecorder r);
+        Task GetAllTracksAsync(StatusRecorder r);
 
         /// <summary>
         /// Indicates whether GetAllTracks or GetAllTracksAsync has been called.
@@ -22,7 +23,7 @@ namespace QSP.RouteFinding.Tracks.Common
         /// <summary>
         /// Add the parsed tracks to WaypointList, if not added already.
         /// </summary>
-        void AddToWaypointList();
+        void AddToWaypointList(StatusRecorder r);
 
         /// <summary>
         /// Undo the actions of AddToWaypointList().
