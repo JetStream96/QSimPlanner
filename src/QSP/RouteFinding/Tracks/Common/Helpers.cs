@@ -53,12 +53,22 @@ namespace QSP.RouteFinding.Tracks.Common
         public static ITrackParser<T> GetParser<T>(ITrackMessageNew msg,
             StatusRecorder statusRecorder, AirportManager airportList) where T : Track
         {
-            return (ITrackParser<T>)new object[]
+            var type = GetTrackType<T>();
+
+            if (type == TrackType.Nats)
             {
-                new NatsParser(msg, statusRecorder, airportList),
-                new PacotsParser(msg, statusRecorder, airportList),
-                new AusotsParser(msg, statusRecorder, airportList),
-            }[(int)GetTrackType<T>()];
+                return (ITrackParser<T>)new NatsParser(msg, statusRecorder, airportList);
+            }
+            else if (type == TrackType.Pacots)
+            {
+                return (ITrackParser<T>)new PacotsParser(msg, statusRecorder, airportList);
+            }
+            else if (type == TrackType.Ausots)
+            {
+                return (ITrackParser<T>)new AusotsParser(msg, statusRecorder, airportList);
+            }
+
+            throw new ArgumentException();
         }
 
         public static TrackType GetTrackType<T>() where T : Track
