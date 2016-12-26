@@ -43,7 +43,7 @@ namespace QSP.RouteFinding.Tracks.Nats
 
             return new XDocument(
                 new XElement("Content",
-                    new XElement("TrackSystem", TrackSystem),
+                    new XElement("TrackSystem", TrackType.Nats.TrackString()),
                     new XElement[] {
                         new XElement("Westbound", west.Elements()),
                         new XElement("Eastbound", east.Elements())}));

@@ -27,7 +27,7 @@ namespace QSP.UI.Forms
     {
         private static readonly string trackFileFolder = "Tracks";
         private static readonly string trackFileExtension = ".track";
-        
+
         private AirwayNetwork airwayNetwork;
         private ImageList myImageList;
         private ToolStripStatusLabel statusLbl;
@@ -51,25 +51,20 @@ namespace QSP.UI.Forms
 
             // The event handlers are added after the form is created. 
             // This way the events won't fire at form creation.
-            BtnNatsDn.Click += (s, e) => DownloadNats();
-            BtnPacotsDn.Click += (s, e) => DownloadPacots();
-            BtnAusotsDn.Click += (s, e) => DownloadAusots();
-            CBoxNatsEnabled.SelectedIndexChanged += CBoxNatsEnabledChanged;
-            CBoxPacotsEnabled.SelectedIndexChanged += CBoxPacotsEnabledChanged;
-            CBoxAusotsEnabled.SelectedIndexChanged += CBoxAusotsEnabledChanged;
-            viewNatsBtn.Click += (s, e) => ViewTracks(TrackType.Nats);
-            viewPacotsBtn.Click += (s, e) => ViewTracks(TrackType.Pacots); 
-            viewAusotsBtn.Click += (s, e) => ViewTracks(TrackType.Ausots);
-            BtnNatsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
-            BtnPacotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
-            BtnAusotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
+            TrackTypes.ForEach(t =>
+            {
+                DownloadBtn(t).Click += (s, e) => DownloadTracks(t);
+                EnabledCBox(t).SelectedIndexChanged += (s, e) => SyncCBoxEnabled(t);
+                ViewBtn(t).Click += (s, e) => ViewTracks(t);
+                DownloadBtn(t).EnabledChanged += RefreshDownloadAllBtnEnabled;
+            });
+
             downloadAllBtn.EnabledChanged += (s, e) => importBtn.Enabled = downloadAllBtn.Enabled;
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshViewTrackBtns();
             Closing += CloseForm;
 
-            airwayNetwork.NatsEnabled = NatsEnabled;
-            airwayNetwork.AusotsEnabled = AusotsEnabled;
-            airwayNetwork.PacotsEnabled = PacotsEnabled;
+            // TODO: Move up?
+            TrackTypes.ForEach(t => SyncCBoxEnabled(t));
         }
 
         private void RefreshListViewColumnWidth()
@@ -113,13 +108,22 @@ namespace QSP.UI.Forms
             downloadAllBtn.Enabled = true;
         }
 
+        private Button DownloadBtn(TrackType t) =>
+            new[] { BtnNatsDn, BtnPacotsDn, BtnAusotsDn }[(int)t];
+
+        private Button ViewBtn(TrackType t) =>
+            new[] { viewNatsBtn, viewPacotsBtn, viewAusotsBtn }[(int)t];
+
+        private ComboBox EnabledCBox(TrackType t) =>
+            new[] { CBoxNatsEnabled, CBoxPacotsEnabled, CBoxAusotsEnabled }[(int)t];
+
         private void ViewTracks(TrackType t)
         {
             txtRichTextBox.Text = airwayNetwork.GetTrackMessage(t)
                 .ToString()
                 .TrimEmptyLines();
         }
-        
+
         private void InitImages()
         {
             myImageList = new ImageList();
@@ -134,9 +138,7 @@ namespace QSP.UI.Forms
 
         private void InitCBox()
         {
-            CBoxNatsEnabled.SelectedIndex = 0;
-            CBoxPacotsEnabled.SelectedIndex = 0;
-            CBoxAusotsEnabled.SelectedIndex = 0;
+            TrackTypes.ForEach(t => EnabledCBox(t).SelectedIndex = 0);
         }
 
         public void RefreshStatus()
@@ -176,7 +178,7 @@ namespace QSP.UI.Forms
                 PicBoxAusots.Image = myImageList.Images[severity];
             }
         }
-        
+
         private static Severity MaxSeverity(IEnumerable<Entry> records, TrackType type)
         {
             var filtered = records.Where(r => r.Type == type).ToList();
@@ -217,10 +219,10 @@ namespace QSP.UI.Forms
         }
 
         // TODO: Is loaded enough to determine 'ready'?
-        private bool AllTracksReady => TrackTypes.All(t => airwayNetwork.TracksLoaded(t)); 
+        private bool AllTracksReady => TrackTypes.All(t => airwayNetwork.TracksLoaded(t));
 
-        private bool AllTracksNotReady => TrackTypes.All(t => !airwayNetwork.TracksLoaded(t)); 
-        
+        private bool AllTracksNotReady => TrackTypes.All(t => !airwayNetwork.TracksLoaded(t));
+
         private void SetMainFormTrackStatus(IEnumerable<Entry> records)
         {
             var loadedTypes = TrackTypes.Where(t => airwayNetwork.TracksLoaded(t));
@@ -252,100 +254,43 @@ namespace QSP.UI.Forms
         }
 
         /// <summary>
-        /// Download NATs and enable depends on the selection on the UI.
-        /// During the download the 'download' button is disabled.
+        /// Download all tracks in the specified track system and enable depends on 
+        /// the selection on the UI. During the download the 'download' button is disabled.
         /// </summary>
-        public void DownloadNats()
+        public void DownloadTracks(TrackType t)
         {
             var ts = new CancellationTokenSource();
+            var downloadBtn = DownloadBtn(t);
 
             Action cleanup = () =>
             {
                 RefreshViewTrackBtns();
-                BtnNatsDn.Enabled = true;
+                downloadBtn.Enabled = true;
             };
 
             Func<Task> task = async () =>
             {
-                BtnNatsDn.Enabled = false;
+                downloadBtn.Enabled = false;
 
-                await airwayNetwork.DownloadNats(ts.Token);
-                airwayNetwork.NatsEnabled = NatsEnabled;
+                await airwayNetwork.DownloadTracks(t, ts.Token);
+                SyncCBoxEnabled(t);
                 RefreshStatus();
 
                 cleanup();
             };
 
-            airwayNetwork.EnqueueTask(TrackType.Nats, task, ts, cleanup);
+            airwayNetwork.EnqueueTask(t, task, ts, cleanup);
         }
-
-        public void DownloadPacots()
-        {
-            var ts = new CancellationTokenSource();
-
-            Action cleanup = () =>
+        
+        public bool TrackEnabled(TrackType t) =>
+            new[]
             {
-                RefreshViewTrackBtns();
-                BtnPacotsDn.Enabled = true;
-            };
-
-            Func<Task> task = async () =>
-            {
-                BtnPacotsDn.Enabled = false;
-
-                await airwayNetwork.DownloadPacots(ts.Token);
-                airwayNetwork.PacotsEnabled = PacotsEnabled;
-                RefreshStatus();
-
-                cleanup();
-            };
-
-            airwayNetwork.EnqueueTask(TrackType.Pacots, task, ts, cleanup);
-        }
-
-        public void DownloadAusots()
+                CBoxNatsEnabled, CBoxPacotsEnabled, CBoxAusotsEnabled
+            }[(int)t].SelectedIndex == 0;
+        
+        private void SyncCBoxEnabled(TrackType t)
         {
-            var ts = new CancellationTokenSource();
-
-            Action cleanup = () =>
-            {
-                RefreshViewTrackBtns();
-                BtnAusotsDn.Enabled = true;
-            };
-
-            Func<Task> task = async () =>
-            {
-                BtnAusotsDn.Enabled = false;
-
-                await airwayNetwork.DownloadAusots(ts.Token);
-                airwayNetwork.AusotsEnabled = AusotsEnabled;
-                RefreshStatus();
-
-                cleanup();
-            };
-
-            airwayNetwork.EnqueueTask(TrackType.Ausots, task, ts, cleanup);
-        }
-
-        public bool NatsEnabled => CBoxNatsEnabled.SelectedIndex == 0;
-
-        public bool PacotsEnabled => CBoxPacotsEnabled.SelectedIndex == 0;
-
-        public bool AusotsEnabled => CBoxAusotsEnabled.SelectedIndex == 0;
-
-        private void CBoxNatsEnabledChanged(object sender, EventArgs e)
-        {
-            airwayNetwork.NatsEnabled = NatsEnabled;
-        }
-
-        private void CBoxPacotsEnabledChanged(object sender, EventArgs e)
-        {
-            airwayNetwork.PacotsEnabled = PacotsEnabled;
-        }
-
-        private void CBoxAusotsEnabledChanged(object sender, EventArgs e)
-        {
-            airwayNetwork.AusotsEnabled = AusotsEnabled;
+            airwayNetwork.SetTrackEnabled(t, TrackEnabled(t));
         }
 
         private void CloseForm(object sender, CancelEventArgs e)
@@ -367,9 +312,7 @@ namespace QSP.UI.Forms
 
         public void DownloadAllTracks()
         {
-            DownloadNats();
-            DownloadPacots();
-            DownloadAusots();
+            TrackTypes.ForEach(t => DownloadTracks(t));
         }
 
         private void RefreshDownloadAllBtnEnabled(object sender, EventArgs e)
@@ -457,26 +400,10 @@ namespace QSP.UI.Forms
         {
             var root = doc.Root;
             var sys = root.Element("TrackSystem").Value;
+            var type = sys.ToTrackType();
 
-            if (sys == NatsMessage.TrackSystem)
-            {
-                airwayNetwork.NatsMessage = new NatsMessage(doc);
-                airwayNetwork.NatsEnabled = NatsEnabled;
-            }
-            else if (sys == PacotsMessage.TrackSystem)
-            {
-                airwayNetwork.PacotsMessage = new PacotsMessage(doc);
-                airwayNetwork.PacotsEnabled = PacotsEnabled;
-            }
-            else if (sys == AusotsMessage.TrackSystem)
-            {
-                airwayNetwork.AusotsMessage = new AusotsMessage(doc);
-                airwayNetwork.AusotsEnabled = AusotsEnabled;
-            }
-            else
-            {
-                throw new ArgumentException();
-            }
+            airwayNetwork.SetTrackMessage(type, GetTrackMessage(type, doc));
+            SyncCBoxEnabled(type);
         }
     }
 }

@@ -129,7 +129,7 @@ namespace QSP.UI.Controllers
                     Func<Task> task = async () => await Task.Factory.StartNew(() =>
                     {
                         h.GetAllTracks(new TrackProvider(msg));
-                        if (TrackForm.NatsEnabled) h.AddToWaypointList();
+                        if (TrackForm.TrackEnabled(type)) h.AddToWaypointList();
                         TrackForm.RefreshStatus();
                     });
 
@@ -146,6 +146,28 @@ namespace QSP.UI.Controllers
             WptListChanged?.Invoke(this, EventArgs.Empty);
             AirportListChanged?.Invoke(this, EventArgs.Empty);
             InvokeTrackMessageUpdated();
+        }
+
+
+        public bool GetTrackEnabled(TrackType t) => trackEnabled[(int)t];
+
+        public void SetTrackEnabled(TrackType t, bool enabled)
+        {
+            StatusRecorder.Clear(t);
+            var h = Handlers[(int)t];
+
+            if (enabled)
+            {
+                // TODO: Disable this button when downloading.
+                h.AddToWaypointList();
+            }
+            else
+            {
+                h.UndoEdit();
+            }
+
+            trackEnabled[(int)t] = enabled;
+            TrackForm.RefreshStatus();
         }
 
         private bool _natsEnabled = false;
