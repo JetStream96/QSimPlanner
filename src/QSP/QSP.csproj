@@ -155,7 +155,7 @@
     <Compile Include="RouteFinding\Tracks\Common\ITrackMessageProvider.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Common\ITrackMessage.cs" />
-    <Compile Include="UI\Controllers\AirwayNetwork.cs" />
+    <Compile Include="RouteFinding\Tracks\AirwayNetwork.cs" />
     <Compile Include="RouteFinding\AirwayStructure\EdgeExtension.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeManager.cs" />

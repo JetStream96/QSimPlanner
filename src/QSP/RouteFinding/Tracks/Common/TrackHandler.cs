@@ -3,7 +3,6 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 

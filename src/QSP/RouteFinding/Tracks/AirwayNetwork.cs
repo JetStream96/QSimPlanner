@@ -1,6 +1,9 @@
 ﻿using System;
-using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using QSP.LibraryExtension;
+using QSP.LibraryExtension.Tasks;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes.TrackInUse;
@@ -10,20 +13,15 @@ using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Nats;
 using QSP.RouteFinding.Tracks.Pacots;
 using QSP.UI.Forms;
-using System.Collections.Generic;
-using System.Linq;
-using QSP.LibraryExtension;
-using QSP.LibraryExtension.Tasks;
-using static QSP.RouteFinding.Tracks.Common.Helpers;
 
-namespace QSP.UI.Controllers
+namespace QSP.RouteFinding.Tracks
 {
     // Handles updating navigation data and reparse tracks after 
     // the update.
     //
     public class AirwayNetwork
     {
-        private static readonly int TrackSysCount = TrackTypes.Count;
+        private static readonly int TrackSysCount = Helpers.TrackTypes.Count;
 
         private TaskQueue[] queues = new TaskQueue[TrackSysCount];
         private bool[] trackEnabled = new bool[TrackSysCount];
@@ -67,7 +65,7 @@ namespace QSP.UI.Controllers
 
         private void SetTrackData()
         {
-            TrackTypes.ForEach(t =>
+            Helpers.TrackTypes.ForEach(t =>
             {
                 var h = Handlers[(int)t];
                 EnqueueSyncTask(t, () => h?.UndoEdit());
