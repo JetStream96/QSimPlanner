@@ -1,7 +1,5 @@
 ﻿using QSP.AviationTools.Coordinates;
-using System;
 using System.Text.RegularExpressions;
-using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding.Tracks.Nats.Utilities
 {

@@ -1,5 +1,4 @@
-﻿using QSP.AviationTools.Coordinates;
-using QSP.RouteFinding.Airports;
+﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Nats.Utilities;

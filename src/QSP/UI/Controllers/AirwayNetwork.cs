@@ -14,6 +14,7 @@ using QSP.UI.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using QSP.LibraryExtension;
+using static QSP.RouteFinding.Tracks.Common.Helpers;
 
 namespace QSP.UI.Controllers
 {
@@ -22,7 +23,7 @@ namespace QSP.UI.Controllers
     //
     public class AirwayNetwork
     {
-        private static readonly int TrackSysCount = Helpers.TrackTypes.Count;
+        private static readonly int TrackSysCount = TrackTypes.Count;
 
         private TrackTaskQueue[] queues = new TrackTaskQueue[TrackSysCount];
         private bool[] trackEnabled = new bool[TrackSysCount];
@@ -55,18 +56,23 @@ namespace QSP.UI.Controllers
             this.WptList = wptList;
             this.AirportList = airportList;
 
-            SetTrackData();
-
             for (int i = 0; i < queues.Length; i++)
             {
                 queues[i] = new TrackTaskQueue();
                 trackEnabled[i] = false;
             }
+
+            SetTrackData();
         }
 
         private void SetTrackData()
         {
-            Handlers.ForEach(h => h?.UndoEdit());
+            TrackTypes.ForEach(t =>
+            {
+                var h = Handlers[(int)t];
+                EnqueueSyncTask(t, () => h?.UndoEdit());
+            });
+
             TracksInUse.Clear();
             StatusRecorder.Clear();
 
@@ -90,6 +96,17 @@ namespace QSP.UI.Controllers
                 StatusRecorder,
                 AirportList,
                 TracksInUse);
+        }
+
+        public void EnqueueSyncTask(TrackType type, Action action)
+        {
+            Func<Task> task = () =>
+            {
+                action();
+                return Task.FromResult(0);
+            };
+
+            EnqueueTask(type, task, new CancellationTokenSource(), () => { });
         }
 
         public void EnqueueTask(TrackType type, Func<Task> taskGetter,
@@ -123,15 +140,13 @@ namespace QSP.UI.Controllers
 
                 if (msg != null)
                 {
-                    Func<Task> task =() =>
+                    EnqueueSyncTask(type, () =>
                     {
                         h.GetAllTracks(new TrackProvider(msg));
                         if (TrackForm.TrackEnabled(type)) h.AddToWaypointList();
                         TrackForm.RefreshStatus();
-                        return Task.FromResult(0);
-                    };
-
-                    EnqueueTask(type, task, new CancellationTokenSource(), () => { });
+                        InvokeTrackMessageUpdated();
+                    });
                 }
                 else if (started[i])
                 {
@@ -150,7 +165,7 @@ namespace QSP.UI.Controllers
 
         public void SetTrackEnabled(TrackType t, bool enabled)
         {
-            StatusRecorder.Clear(t);
+            //TODO:  StatusRecorder.Clear(t);
             var h = Handlers[(int)t];
 
             if (enabled)
@@ -177,18 +192,15 @@ namespace QSP.UI.Controllers
 
         public void SetTrackMessage(TrackType type, ITrackMessage message)
         {
-            Func<Task> task = () =>
-            {
-                var h = Handlers[(int)type];
-                StatusRecorder.Clear(type);
-                h.UndoEdit();
-                h.GetAllTracks(new TrackProvider(message));
-                InvokeTrackMessageUpdated();
-                TrackForm.RefreshStatus();
-                return Task.FromResult(0);
-            };
-
-            EnqueueTask(type, task, new CancellationTokenSource(), () => { });
+            EnqueueSyncTask(type, () =>
+           {
+               var h = Handlers[(int)type];
+               StatusRecorder.Clear(type);
+               h.UndoEdit();
+               h.GetAllTracks(new TrackProvider(message));
+               InvokeTrackMessageUpdated();
+               TrackForm.RefreshStatus();
+           });
         }
 
         public async Task DownloadTracks(TrackType type, CancellationToken token)
@@ -206,7 +218,7 @@ namespace QSP.UI.Controllers
             TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-        public bool InWptList(TrackType t) => Handlers[(int) t].InWptList;
+        public bool InWptList(TrackType t) => Handlers[(int)t].InWptList;
 
         private class TrackProvider : ITrackMessageProvider
         {
