@@ -64,9 +64,6 @@ namespace QSP.UI.Controllers
             }
         }
 
-        // It's vital that new instances are created for the related objects.
-        // Otherwise, the old track managers (e.g. natsManager) may be still downloading or 
-        // parsing data, and adding unwanted information to TrackInUse and StatusRecorder.
         private void SetTrackData()
         {
             Handlers.ForEach(h => h?.UndoEdit());
@@ -148,7 +145,6 @@ namespace QSP.UI.Controllers
             InvokeTrackMessageUpdated();
         }
 
-
         public bool GetTrackEnabled(TrackType t) => trackEnabled[(int)t];
 
         public void SetTrackEnabled(TrackType t, bool enabled)
@@ -158,7 +154,6 @@ namespace QSP.UI.Controllers
 
             if (enabled)
             {
-                // TODO: Disable this button when downloading.
                 h.AddToWaypointList();
             }
             else

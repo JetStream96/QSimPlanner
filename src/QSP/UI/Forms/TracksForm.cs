@@ -114,6 +114,9 @@ namespace QSP.UI.Forms
         private ComboBox EnabledCBox(TrackType t) =>
             new[] { CBoxNatsEnabled, CBoxPacotsEnabled, CBoxAusotsEnabled }[(int)t];
 
+        private PictureBox PicBox(TrackType t) =>
+            new[] { PicBoxNats, PicBoxPacots, PicBoxAusots }[(int)t];
+
         private void ViewTracks(TrackType t)
         {
             txtRichTextBox.Text = airwayNetwork.GetTrackMessage(t)
@@ -150,30 +153,19 @@ namespace QSP.UI.Forms
 
         private void InitPicBoxes()
         {
-            PicBoxNats.Image = null;
-            PicBoxPacots.Image = null;
-            PicBoxAusots.Image = null;
+            TrackTypes.ForEach(t => PicBox(t).Image = null);
         }
 
         private void SetPicBox(IEnumerable<Entry> records)
         {
-            if (airwayNetwork.TracksLoaded(TrackType.Nats))
+            TrackTypes.ForEach(t =>
             {
-                var severity = (int)MaxSeverity(records, TrackType.Nats);
-                PicBoxNats.Image = myImageList.Images[severity];
-            }
-
-            if (airwayNetwork.TracksLoaded(TrackType.Pacots))
-            {
-                var severity = (int)MaxSeverity(records, TrackType.Pacots);
-                PicBoxPacots.Image = myImageList.Images[severity];
-            }
-
-            if (airwayNetwork.TracksLoaded(TrackType.Ausots))
-            {
-                var severity = (int)MaxSeverity(records, TrackType.Ausots);
-                PicBoxAusots.Image = myImageList.Images[severity];
-            }
+                if (airwayNetwork.TracksLoaded(t))
+                {
+                    var severity = (int)MaxSeverity(records, t);
+                    PicBox(t).Image = myImageList.Images[severity];
+                }
+            });
         }
 
         private static Severity MaxSeverity(IEnumerable<Entry> records, TrackType type)
@@ -245,9 +237,7 @@ namespace QSP.UI.Forms
 
         private void RefreshViewTrackBtns()
         {
-            viewNatsBtn.Enabled = airwayNetwork.TracksLoaded(TrackType.Nats);
-            viewPacotsBtn.Enabled = airwayNetwork.TracksLoaded(TrackType.Pacots);
-            viewAusotsBtn.Enabled = airwayNetwork.TracksLoaded(TrackType.Ausots);
+            TrackTypes.ForEach(t => ViewBtn(t).Enabled = airwayNetwork.TracksLoaded(t));
         }
 
         /// <summary>
@@ -278,16 +268,23 @@ namespace QSP.UI.Forms
 
             airwayNetwork.EnqueueTask(t, task, ts, cleanup);
         }
-        
+
         public bool TrackEnabled(TrackType t) =>
             new[]
             {
                 CBoxNatsEnabled, CBoxPacotsEnabled, CBoxAusotsEnabled
             }[(int)t].SelectedIndex == 0;
-        
+
         private void SyncCBoxEnabled(TrackType t)
         {
-            airwayNetwork.SetTrackEnabled(t, TrackEnabled(t));
+            Func<Task> task = async () => await Task.Factory.StartNew(() =>
+            {
+                DownloadBtn(t).Enabled = false;
+                airwayNetwork.SetTrackEnabled(t, TrackEnabled(t));
+                DownloadBtn(t).Enabled = true;
+            });
+
+            airwayNetwork.EnqueueTask(t, task, new CancellationTokenSource(), () => { });
         }
 
         private void CloseForm(object sender, CancelEventArgs e)
