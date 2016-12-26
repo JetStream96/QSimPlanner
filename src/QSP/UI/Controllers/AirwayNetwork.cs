@@ -22,7 +22,10 @@ namespace QSP.UI.Controllers
     //
     public class AirwayNetwork
     {
-        private TrackTaskQueue[] queues = new TrackTaskQueue[3];
+        private static readonly int TrackSysCount = Helpers.TrackTypes.Count;
+
+        private TrackTaskQueue[] queues = new TrackTaskQueue[TrackSysCount];
+        private bool[] trackEnabled = new bool[TrackSysCount];
 
         private TrackHandlerNew<NorthAtlanticTrack> natsHandler;
         private TrackHandlerNew<PacificTrack> pacotsHandler;
@@ -54,9 +57,10 @@ namespace QSP.UI.Controllers
 
             SetTrackData();
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < queues.Length; i++)
             {
                 queues[i] = new TrackTaskQueue();
+                trackEnabled[i] = false;
             }
         }
 
@@ -106,7 +110,7 @@ namespace QSP.UI.Controllers
         {
             var messages = Handlers.Select(h => h.RawData).ToList();
             var started = Handlers.Select(h => h.StartedGettingTracks).ToList();
-            
+
             this.WptList = wptList;
             this.AirportList = airportList;
 
@@ -117,13 +121,14 @@ namespace QSP.UI.Controllers
             for (int i = 0; i < messages.Count; i++)
             {
                 var h = newHandlers[i];
-                var type = (TrackType) i;
+                var type = (TrackType)i;
+                var msg = messages[i];
 
-                if (messages[i] != null)
+                if (msg != null)
                 {
                     Func<Task> task = async () => await Task.Factory.StartNew(() =>
                     {
-                        h.GetAllTracks(new TrackProvider(natsData));
+                        h.GetAllTracks(new TrackProvider(msg));
                         if (TrackForm.NatsEnabled) h.AddToWaypointList();
                         TrackForm.RefreshStatus();
                     });
@@ -137,7 +142,7 @@ namespace QSP.UI.Controllers
                     TrackForm.DownloadTracks(type);
                 }
             }
-            
+
             WptListChanged?.Invoke(this, EventArgs.Empty);
             AirportListChanged?.Invoke(this, EventArgs.Empty);
             InvokeTrackMessageUpdated();
@@ -214,19 +219,30 @@ namespace QSP.UI.Controllers
             }
         }
 
-        public bool TrackedLoaded(TrackType type)
-        {
-            return new[] { NatsLoaded, PacotsLoaded, AusotsLoaded }[(int)type];
-        }
-
         /// <summary>
         /// Returns whether the NATs has been downloaded or imported from file.
         /// </summary>
-        public bool NatsLoaded => NatsMessage != null;
+        public bool TracksLoaded(TrackType type)
+        {
+            return GetTrackMessage(type) != null;
+        }
 
-        public bool PacotsLoaded => PacotsMessage != null;
+        public ITrackMessageNew GetTrackMessage(TrackType type) => Handlers[(int)type].RawData;
 
-        public bool AusotsLoaded => AusotsMessage != null;
+        public void SetTrackMessage(TrackType type, ITrackMessageNew message)
+        {
+            Func<Task> task = async () => await Task.Factory.StartNew(() =>
+            {
+                var h = Handlers[(int)type];
+                StatusRecorder.Clear(type);
+                h.UndoEdit();
+                h.GetAllTracks(new TrackProvider(message));
+                InvokeTrackMessageUpdated();
+                TrackForm.RefreshStatus();
+            });
+
+            EnqueueTask(type, task, new CancellationTokenSource(), () => { });
+        }
 
         public NatsMessage NatsMessage
         {

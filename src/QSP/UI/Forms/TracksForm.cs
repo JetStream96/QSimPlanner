@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static QSP.RouteFinding.Tracks.Common.Helpers;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.ExceptionHelpers;
@@ -56,9 +57,9 @@ namespace QSP.UI.Forms
             CBoxNatsEnabled.SelectedIndexChanged += CBoxNatsEnabledChanged;
             CBoxPacotsEnabled.SelectedIndexChanged += CBoxPacotsEnabledChanged;
             CBoxAusotsEnabled.SelectedIndexChanged += CBoxAusotsEnabledChanged;
-            viewNatsBtn.Click += ViewNatsBtnClick;
-            viewPacotsBtn.Click += ViewPacotsBtnClick;
-            viewAusotsBtn.Click += ViewAusotsBtnClick;
+            viewNatsBtn.Click += (s, e) => ViewTracks(TrackType.Nats);
+            viewPacotsBtn.Click += (s, e) => ViewTracks(TrackType.Pacots); 
+            viewAusotsBtn.Click += (s, e) => ViewTracks(TrackType.Ausots);
             BtnNatsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             BtnPacotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
             BtnAusotsDn.EnabledChanged += RefreshDownloadAllBtnEnabled;
@@ -112,27 +113,13 @@ namespace QSP.UI.Forms
             downloadAllBtn.Enabled = true;
         }
 
-        private void ViewAusotsBtnClick(object sender, EventArgs e)
+        private void ViewTracks(TrackType t)
         {
-            txtRichTextBox.Text = airwayNetwork.AusotsMessage
+            txtRichTextBox.Text = airwayNetwork.GetTrackMessage(t)
                 .ToString()
                 .TrimEmptyLines();
         }
-
-        private void ViewPacotsBtnClick(object sender, EventArgs e)
-        {
-            txtRichTextBox.Text = airwayNetwork.PacotsMessage
-                .ToString()
-                .TrimEmptyLines();
-        }
-
-        private void ViewNatsBtnClick(object sender, EventArgs e)
-        {
-            txtRichTextBox.Text = airwayNetwork.NatsMessage
-                .ToString()
-                .TrimEmptyLines();
-        }
-
+        
         private void InitImages()
         {
             myImageList = new ImageList();
@@ -171,19 +158,19 @@ namespace QSP.UI.Forms
 
         private void SetPicBox(IEnumerable<Entry> records)
         {
-            if (airwayNetwork.NatsLoaded)
+            if (airwayNetwork.TracksLoaded(TrackType.Nats))
             {
                 var severity = (int)MaxSeverity(records, TrackType.Nats);
                 PicBoxNats.Image = myImageList.Images[severity];
             }
 
-            if (airwayNetwork.PacotsLoaded)
+            if (airwayNetwork.TracksLoaded(TrackType.Pacots))
             {
                 var severity = (int)MaxSeverity(records, TrackType.Pacots);
                 PicBoxPacots.Image = myImageList.Images[severity];
             }
 
-            if (airwayNetwork.AusotsLoaded)
+            if (airwayNetwork.TracksLoaded(TrackType.Ausots))
             {
                 var severity = (int)MaxSeverity(records, TrackType.Ausots);
                 PicBoxAusots.Image = myImageList.Images[severity];
@@ -217,9 +204,9 @@ namespace QSP.UI.Forms
                 ListView1.Items.Add(lvi);
             }
 
-            foreach (var type in Helpers.TrackTypes)
+            foreach (var type in TrackTypes)
             {
-                if (airwayNetwork.TrackedLoaded(type) && NoErrors(records, type))
+                if (airwayNetwork.TracksLoaded(type) && NoErrors(records, type))
                 {
                     var lvi = new ListViewItem(type.TrackString());
                     lvi.SubItems.Add("All tracks successfully loaded.");
@@ -230,15 +217,13 @@ namespace QSP.UI.Forms
         }
 
         // TODO: Is loaded enough to determine 'ready'?
-        private bool AllTracksReady => airwayNetwork.NatsLoaded &&
-                airwayNetwork.PacotsLoaded && airwayNetwork.AusotsLoaded;
+        private bool AllTracksReady => TrackTypes.All(t => airwayNetwork.TracksLoaded(t)); 
 
-        private bool AllTracksNotReady => !airwayNetwork.NatsLoaded &&
-                !airwayNetwork.PacotsLoaded && !airwayNetwork.AusotsLoaded;
-
+        private bool AllTracksNotReady => TrackTypes.All(t => !airwayNetwork.TracksLoaded(t)); 
+        
         private void SetMainFormTrackStatus(IEnumerable<Entry> records)
         {
-            var loadedTypes = Helpers.TrackTypes.Where(t => airwayNetwork.TrackedLoaded(t));
+            var loadedTypes = TrackTypes.Where(t => airwayNetwork.TracksLoaded(t));
 
             var maxSeverity = loadedTypes.Select(t => MaxSeverity(records, t));
 
@@ -261,9 +246,9 @@ namespace QSP.UI.Forms
 
         private void RefreshViewTrackBtns()
         {
-            viewNatsBtn.Enabled = airwayNetwork.NatsLoaded;
-            viewPacotsBtn.Enabled = airwayNetwork.PacotsLoaded;
-            viewAusotsBtn.Enabled = airwayNetwork.AusotsLoaded;
+            viewNatsBtn.Enabled = airwayNetwork.TracksLoaded(TrackType.Nats);
+            viewPacotsBtn.Enabled = airwayNetwork.TracksLoaded(TrackType.Pacots);
+            viewAusotsBtn.Enabled = airwayNetwork.TracksLoaded(TrackType.Ausots);
         }
 
         /// <summary>
@@ -404,9 +389,9 @@ namespace QSP.UI.Forms
             var a = airwayNetwork;
             var msg = new List<TrackMessage>();
 
-            if (a.NatsLoaded) msg.Add(a.NatsMessage);
-            if (a.PacotsLoaded) msg.Add(a.PacotsMessage);
-            if (a.AusotsLoaded) msg.Add(a.AusotsMessage);
+            if (a.TracksLoaded(TrackType.Nats)) msg.Add(a.NatsMessage);
+            if (a.TracksLoaded(TrackType.Pacots)) msg.Add(a.PacotsMessage);
+            if (a.TracksLoaded(TrackType.Ausots)) msg.Add(a.AusotsMessage);
 
             if (msg.Count == 0)
             {
