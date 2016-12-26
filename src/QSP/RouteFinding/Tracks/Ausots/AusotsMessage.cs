@@ -10,7 +10,6 @@ namespace QSP.RouteFinding.Tracks.Ausots
     /// </summary>
     public class AusotsMessage : ITrackMessageNew
     {
-        public static readonly string TrackSystem = "Ausots";
         public string AllText { get; private set; }
 
         public AusotsMessage(string HtmlSource)
@@ -37,7 +36,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         {
             var doc = new XElement(
                 "Content", new XElement[]{
-                    new XElement("TrackSystem", TrackSystem),
+                    new XElement("TrackSystem", TrackType.Ausots.TrackString()),
                     new XElement("Text", AllText)});
 
             return new XDocument(doc);

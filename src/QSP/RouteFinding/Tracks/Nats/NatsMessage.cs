@@ -7,7 +7,6 @@ namespace QSP.RouteFinding.Tracks.Nats
 {
     public class NatsMessage : ITrackMessageNew
     {
-        public static readonly string TrackSystem = "Nats";
         public IndividualNatsMessage WestMessage { get; private set; }
         public IndividualNatsMessage EastMessage { get; private set; }
 

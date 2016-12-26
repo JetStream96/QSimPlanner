@@ -330,11 +330,10 @@ namespace QSP.UI.Forms
         private void saveBtn_Click(object sender, EventArgs e)
         {
             var a = airwayNetwork;
-            var msg = new List<TrackMessage>();
-
-            if (a.TracksLoaded(TrackType.Nats)) msg.Add(a.NatsMessage);
-            if (a.TracksLoaded(TrackType.Pacots)) msg.Add(a.PacotsMessage);
-            if (a.TracksLoaded(TrackType.Ausots)) msg.Add(a.AusotsMessage);
+            var msg = TrackTypes
+                .Select(t => airwayNetwork.GetTrackMessage(t))
+                .Where(m => m != null)
+                .ToList();
 
             if (msg.Count == 0)
             {

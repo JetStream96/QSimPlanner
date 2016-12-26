@@ -11,8 +11,6 @@ namespace QSP.RouteFinding.Tracks.Pacots
 {
     public class PacotsMessage : ITrackMessageNew
     {
-        public static readonly string TrackSystem = "Pacots";
-
         // Westbound tracks
         private static readonly string HeaderKzak = "KZAK OAKLAND OCA/FIR";
 
@@ -85,8 +83,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
                 @"(\(TDM TRK.*?)</" :
                 @"(EASTBOUND PACOTS TRACKS.*?)</";
 
-            var matches = Regex.Matches(
-                source, pattern, RegexOptions.Singleline);
+            var matches = Regex.Matches(source, pattern, RegexOptions.Singleline);
 
             return matches.Cast<Match>().Select(m => m.Groups[1].Value);
         }
@@ -113,8 +110,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             var pattern = weekDays + @",?\s*\d{1,2}\s+" + months +
                 @"\s+\d{4}\s+\d{1,2}:\d{1,2}:\d{1,2}\s+GMT";
 
-            var match = Regex.Match(
-                htmlSource, pattern, RegexOptions.IgnoreCase);
+            var match = Regex.Match(htmlSource, pattern, RegexOptions.IgnoreCase);
             return match.Success ? match.Value : null;
         }
 
@@ -136,7 +132,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             var doc = new XElement(
                 "Content", new XElement[]{
-                    new XElement("TrackSystem", TrackSystem),
+                    new XElement("TrackSystem", TrackType.Pacots.TrackString()),
                     new XElement("Header", Header),
                     new XElement("TimeStamp", TimeStamp),
                     new XElement("KZAK", GetXElement(WestboundTracks)),

@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using QSP.RouteFinding.Tracks.Ausots;
 using System.Xml.Linq;
+using QSP.RouteFinding.Tracks.Common;
 
 namespace UnitTest.RouteFinding.Tracks.Ausots
 {
@@ -31,7 +32,7 @@ TDM should appear here.
 
             var xml = msg.ToXml();
             var trackSys = xml.Root.Element("TrackSystem").Value;
-            Assert.IsTrue(trackSys == AusotsMessage.TrackSystem);
+            Assert.IsTrue(trackSys == TrackType.Ausots.TrackString());
             Assert.IsTrue(xml.Root.Element("Text").Value == msg.AllText);
         }
 
