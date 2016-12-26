@@ -15,8 +15,7 @@ namespace UnitTest.NavData.OpenData
         public void LoadFromFileTest()
         {
             var directory = AppDomain.CurrentDomain.BaseDirectory;
-            var loader = new AirportDataLoader(
-                directory + @"\NavData\OpenData");
+            var loader = new AirportDataLoader(directory + @"\NavData\OpenData");
 
             var airports = loader.LoadFromFile();
 

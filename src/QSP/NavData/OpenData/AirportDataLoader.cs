@@ -45,10 +45,14 @@ namespace QSP.NavData.OpenData
                     success &= double.TryParse(words[4], out width);
 
                     // Reduce memory usage by sharing these strings.
-                    var surface = words[5].Trim('"');
+                    var surface = words[5].Trim('"', ' ');
                     if (surfTypes.ContainsKey(surface))
                     {
                         surface = surfTypes[surface];
+                    }
+                    else
+                    {
+                        surfTypes[surface] = surface;
                     }
 
                     var id = words[8].Trim('"');
