@@ -6,6 +6,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes.TrackInUse;
+using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Pacots;
 using System;
@@ -29,7 +30,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 
             var recorder = new StatusRecorder();
 
-            var handler = new PacotsHandler(
+            var handler = new TrackHandlerNew<PacificTrack>(
                 wptList,
                 wptList.GetEditor(),
                 recorder,
@@ -399,9 +400,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        private class DownloaderStub : IPacotsMessageProvider
+        private class DownloaderStub : ITrackMessageProvider
         {
-            public PacotsMessage GetMessage()
+            public ITrackMessageNew GetMessage()
             {
                 var directory = AppDomain.CurrentDomain.BaseDirectory;
                 var path = directory +
@@ -410,7 +411,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
                 return new PacotsMessage(File.ReadAllText(path));
             }
 
-            public Task<PacotsMessage> GetMessageAsync(CancellationToken token)
+            public Task<ITrackMessageNew> GetMessageAsync(CancellationToken token)
             {
                 throw new NotImplementedException();
             }

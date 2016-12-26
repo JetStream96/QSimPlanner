@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using QSP.RouteFinding.Tracks.Common;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
 {
@@ -26,7 +27,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             var wptList = WptListFactory.GetWptList(WptIdents);
             var recorder = new StatusRecorder();
 
-            var handler = new NatsHandler(
+            var handler = new TrackHandlerNew<NorthAtlanticTrack>(
                 wptList,
                 wptList.GetEditor(),
                 recorder,
@@ -198,9 +199,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
         };
     
 
-    private class DownloaderStub : INatsMessageProvider
+    private class DownloaderStub : ITrackMessageProvider
     {
-        public NatsMessage GetMessage()
+        public ITrackMessageNew GetMessage()
         {
             var directory = AppDomain.CurrentDomain.BaseDirectory;
             var htmlSource = File.ReadAllText(
@@ -213,7 +214,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
         }
 
-        public Task<NatsMessage> GetMessageAsync(CancellationToken token)
+        public Task<ITrackMessageNew> GetMessageAsync(CancellationToken token)
         {
             throw new NotImplementedException();
         }

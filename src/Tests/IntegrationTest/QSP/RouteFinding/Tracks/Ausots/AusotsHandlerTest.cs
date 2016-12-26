@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using QSP.RouteFinding.Tracks.Common;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 {
@@ -28,7 +29,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
             var recorder = new StatusRecorder();
 
-            var handler = new AusotsHandler(
+            var handler = new TrackHandlerNew<AusTrack>(
                 wptList,
                 wptList.GetEditor(),
                 recorder,
@@ -267,9 +268,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             }
         }
 
-        private class DownloaderStub : IAusotsMessageProvider
+        private class DownloaderStub : ITrackMessageProvider
         {
-            public AusotsMessage GetMessage()
+            public ITrackMessageNew GetMessage()
             {
                 var directory = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -278,7 +279,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
                         directory + "/QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
             }
 
-            public Task<AusotsMessage> GetMessageAsync(CancellationToken token)
+            public Task<ITrackMessageNew> GetMessageAsync(CancellationToken token)
             {
                 throw new NotImplementedException();
             }
