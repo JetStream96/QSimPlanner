@@ -170,77 +170,6 @@ namespace QSP.UI.Controllers
             TrackForm.RefreshStatus();
         }
 
-        private bool _natsEnabled = false;
-        public bool NatsEnabled
-        {
-            get { return _natsEnabled; }
-
-            set
-            {
-                StatusRecorder.Clear(TrackType.Nats);
-
-                if (value)
-                {// TODO: Disable this button when downloading.
-                    natsHandler.AddToWaypointList();
-                }
-                else
-                {
-                    natsHandler.UndoEdit();
-                }
-
-                _natsEnabled = value;
-                TrackForm.RefreshStatus();
-            }
-        }
-
-        private bool _pacotsEnabled = false;
-        public bool PacotsEnabled
-        {
-            get { return _pacotsEnabled; }
-
-            set
-            {
-                StatusRecorder.Clear(TrackType.Pacots);
-
-                if (value)
-                {
-                    pacotsHandler.AddToWaypointList();
-                    TrackForm.RefreshStatus();
-                }
-                else
-                {
-                    pacotsHandler.UndoEdit();
-                }
-
-                _pacotsEnabled = value;
-                TrackForm.RefreshStatus();
-            }
-        }
-
-        private bool _ausotsEnabled = false;
-        public bool AusotsEnabled
-        {
-            get { return _ausotsEnabled; }
-
-            set
-            {
-                StatusRecorder.Clear(TrackType.Ausots);
-
-                if (value)
-                {
-                    ausotsHandler.AddToWaypointList();
-                    TrackForm.RefreshStatus();
-                }
-                else
-                {
-                    ausotsHandler.UndoEdit();
-                }
-
-                _ausotsEnabled = value;
-                TrackForm.RefreshStatus();
-            }
-        }
-
         /// <summary>
         /// Returns whether the NATs has been downloaded or imported from file.
         /// </summary>
@@ -266,96 +195,13 @@ namespace QSP.UI.Controllers
             EnqueueTask(type, task, new CancellationTokenSource(), () => { });
         }
 
-        public NatsMessage NatsMessage
-        {
-            get { return natsHandler.RawData; }
-
-            set
-            {
-                Func<Task> task = async () => await Task.Factory.StartNew(() =>
-                {
-                    StatusRecorder.Clear(TrackType.Nats);
-                    natsHandler.UndoEdit();
-                    natsHandler.GetAllTracks(new TrackProvider(value));
-                    InvokeTrackMessageUpdated();
-                    TrackForm.RefreshStatus();
-                });
-
-                EnqueueTask(TrackType.Nats, task, new CancellationTokenSource(), () => { });
-            }
-        }
-
-        public PacotsMessage PacotsMessage
-        {
-            get { return pacotsHandler.RawData; }
-
-            set
-            {
-                Func<Task> task = async () => await Task.Factory.StartNew(() =>
-                {
-                    StatusRecorder.Clear(TrackType.Pacots);
-                    pacotsHandler.UndoEdit();
-                    pacotsHandler.GetAllTracks(new TrackProvider(value));
-                    InvokeTrackMessageUpdated();
-                    TrackForm.RefreshStatus();
-                });
-
-                EnqueueTask(TrackType.Pacots, task, new CancellationTokenSource(), () => { });
-            }
-        }
-
-        public AusotsMessage AusotsMessage
-        {
-            get { return ausotsHandler.RawData; }
-
-            set
-            {
-                Func<Task> task = async () => await Task.Factory.StartNew(() =>
-                {
-                    StatusRecorder.Clear(TrackType.Ausots);
-                    ausotsHandler.UndoEdit();
-                    ausotsHandler.GetAllTracks(new TrackProvider(value));
-                    InvokeTrackMessageUpdated();
-                    TrackForm.RefreshStatus();
-                });
-
-                EnqueueTask(TrackType.Ausots, task, new CancellationTokenSource(), () => { });
-            }
-        }
-
         public async Task DownloadTracks(TrackType type, CancellationToken token)
         {
+            var h = Handlers[(int)type];
             StatusRecorder.Clear(type);
-           ?? natsHandler.UndoEdit();
+            h.UndoEdit();
 
-           ?? await natsHandler.GetAllTracksAsync(token);
-            InvokeTrackMessageUpdated();
-        }
-
-        public async Task DownloadNats(CancellationToken token)
-        {
-            StatusRecorder.Clear(TrackType.Nats);
-            natsHandler.UndoEdit();
-
-            await natsHandler.GetAllTracksAsync(token);
-            InvokeTrackMessageUpdated();
-        }
-
-        public async Task DownloadPacots(CancellationToken token)
-        {
-            StatusRecorder.Clear(TrackType.Pacots);
-            pacotsHandler.UndoEdit();
-
-            await pacotsHandler.GetAllTracksAsync(token);
-            InvokeTrackMessageUpdated();
-        }
-
-        public async Task DownloadAusots(CancellationToken token)
-        {
-            StatusRecorder.Clear(TrackType.Ausots);
-            ausotsHandler.UndoEdit();
-
-            await ausotsHandler.GetAllTracksAsync(token);
+            await h.GetAllTracksAsync(token);
             InvokeTrackMessageUpdated();
         }
 
