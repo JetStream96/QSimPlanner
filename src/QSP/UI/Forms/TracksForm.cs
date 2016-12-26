@@ -275,12 +275,14 @@ namespace QSP.UI.Forms
 
         private void SyncCBoxEnabled(TrackType t)
         {
-            Func<Task> task = async () => await Task.Factory.StartNew(() =>
+            Func<Task> task = () =>
             {
                 DownloadBtn(t).Enabled = false;
                 airwayNetwork.SetTrackEnabled(t, TrackEnabled(t));
                 DownloadBtn(t).Enabled = true;
-            });
+                RefreshStatus();
+                return Task.FromResult(0);
+            };
 
             airwayNetwork.EnqueueTask(t, task, new CancellationTokenSource(), () => { });
         }

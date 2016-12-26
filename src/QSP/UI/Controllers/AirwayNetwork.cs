@@ -123,12 +123,13 @@ namespace QSP.UI.Controllers
 
                 if (msg != null)
                 {
-                    Func<Task> task = async () => await Task.Factory.StartNew(() =>
+                    Func<Task> task =() =>
                     {
                         h.GetAllTracks(new TrackProvider(msg));
                         if (TrackForm.TrackEnabled(type)) h.AddToWaypointList();
                         TrackForm.RefreshStatus();
-                    });
+                        return Task.FromResult(0);
+                    };
 
                     EnqueueTask(type, task, new CancellationTokenSource(), () => { });
                 }
@@ -162,7 +163,6 @@ namespace QSP.UI.Controllers
             }
 
             trackEnabled[(int)t] = enabled;
-            TrackForm.RefreshStatus();
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace QSP.UI.Controllers
 
         public void SetTrackMessage(TrackType type, ITrackMessage message)
         {
-            Func<Task> task = async () => await Task.Factory.StartNew(() =>
+            Func<Task> task = () =>
             {
                 var h = Handlers[(int)type];
                 StatusRecorder.Clear(type);
@@ -185,7 +185,8 @@ namespace QSP.UI.Controllers
                 h.GetAllTracks(new TrackProvider(message));
                 InvokeTrackMessageUpdated();
                 TrackForm.RefreshStatus();
-            });
+                return Task.FromResult(0);
+            };
 
             EnqueueTask(type, task, new CancellationTokenSource(), () => { });
         }
