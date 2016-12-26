@@ -11,7 +11,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private AirportManager airportList;
         private PacotsMessage message;
 
-        public PacotsParser(ITrackMessageNew message,
+        public PacotsParser(ITrackMessage message,
                             StatusRecorder statusRecorder,
                             AirportManager airportList)
         {

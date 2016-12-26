@@ -29,7 +29,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
             var recorder = new StatusRecorder();
 
-            var handler = new TrackHandlerNew<AusTrack>(
+            var handler = new TrackHandler<AusTrack>(
                 wptList,
                 wptList.GetEditor(),
                 recorder,
@@ -270,7 +270,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
         private class DownloaderStub : ITrackMessageProvider
         {
-            public ITrackMessageNew GetMessage()
+            public ITrackMessage GetMessage()
             {
                 var directory = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -279,7 +279,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
                         directory + "/QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
             }
 
-            public Task<ITrackMessageNew> GetMessageAsync(CancellationToken token)
+            public Task<ITrackMessage> GetMessageAsync(CancellationToken token)
             {
                 throw new NotImplementedException();
             }

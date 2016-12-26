@@ -50,7 +50,7 @@ namespace QSP.RouteFinding.Tracks.Common
             }[(int)t];
         }
 
-        public static ITrackParser<T> GetParser<T>(ITrackMessageNew msg,
+        public static ITrackParser<T> GetParser<T>(ITrackMessage msg,
             StatusRecorder statusRecorder, AirportManager airportList) where T : Track
         {
             var type = GetTrackType<T>();
@@ -76,7 +76,7 @@ namespace QSP.RouteFinding.Tracks.Common
             return TypeToTrackType[typeof(T)];
         }
 
-        public static ITrackMessageNew GetTrackMessage(TrackType t, XDocument doc)
+        public static ITrackMessage GetTrackMessage(TrackType t, XDocument doc)
         {
             if (t == TrackType.Nats) return new NatsMessage(doc);
             if (t == TrackType.Pacots) return new PacotsMessage(doc);

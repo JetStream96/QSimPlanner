@@ -18,7 +18,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         private NatsMessage message;
 
         public NatsParser(
-            ITrackMessageNew message,
+            ITrackMessage message,
             StatusRecorder statusRecorder,
             AirportManager airportList)
         {

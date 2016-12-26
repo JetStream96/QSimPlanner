@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
-    public class PacotsMessage : ITrackMessageNew
+    public class PacotsMessage : ITrackMessage
     {
         // Westbound tracks
         private static readonly string HeaderKzak = "KZAK OAKLAND OCA/FIR";

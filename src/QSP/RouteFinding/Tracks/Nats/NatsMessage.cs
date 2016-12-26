@@ -1,11 +1,10 @@
 ﻿using QSP.RouteFinding.Tracks.Common;
 using System.Text;
 using System.Xml.Linq;
-using System.Diagnostics;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
-    public class NatsMessage : ITrackMessageNew
+    public class NatsMessage : ITrackMessage
     {
         public IndividualNatsMessage WestMessage { get; private set; }
         public IndividualNatsMessage EastMessage { get; private set; }

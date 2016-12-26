@@ -8,7 +8,7 @@ namespace QSP.RouteFinding.Tracks
 {
     public static class TrackFiles
     {    
-        public static void SaveToFile(IEnumerable<ITrackMessageNew> messages,
+        public static void SaveToFile(IEnumerable<ITrackMessage> messages,
             string pathToFile)
         {
             var elem = messages.Select(m => m.ToXml().Root);

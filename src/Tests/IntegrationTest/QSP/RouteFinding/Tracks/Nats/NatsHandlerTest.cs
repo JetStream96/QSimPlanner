@@ -27,7 +27,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             var wptList = WptListFactory.GetWptList(WptIdents);
             var recorder = new StatusRecorder();
 
-            var handler = new TrackHandlerNew<NorthAtlanticTrack>(
+            var handler = new TrackHandler<NorthAtlanticTrack>(
                 wptList,
                 wptList.GetEditor(),
                 recorder,
@@ -201,7 +201,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
 
     private class DownloaderStub : ITrackMessageProvider
     {
-        public ITrackMessageNew GetMessage()
+        public ITrackMessage GetMessage()
         {
             var directory = AppDomain.CurrentDomain.BaseDirectory;
             var htmlSource = File.ReadAllText(
@@ -214,7 +214,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
         }
 
-        public Task<ITrackMessageNew> GetMessageAsync(CancellationToken token)
+        public Task<ITrackMessage> GetMessageAsync(CancellationToken token)
         {
             throw new NotImplementedException();
         }

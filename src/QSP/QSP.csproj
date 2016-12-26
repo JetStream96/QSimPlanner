@@ -153,8 +153,8 @@
     <Compile Include="RouteFinding\Tracks\Common\Helpers.cs" />
     <Compile Include="RouteFinding\Tracks\Common\ITrackHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Common\ITrackMessageProvider.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\TrackHandlerNew.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\ITrackMessageNew.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\TrackHandler.cs" />
+    <Compile Include="RouteFinding\Tracks\Common\ITrackMessage.cs" />
     <Compile Include="UI\Controllers\AirwayNetwork.cs" />
     <Compile Include="RouteFinding\AirwayStructure\EdgeExtension.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
@@ -180,7 +180,6 @@
     <Compile Include="RouteFinding\Routes\RouteGroup.cs" />
     <Compile Include="RouteFinding\Routes\RouteString.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilter.cs" />
-    <Compile Include="RouteFinding\Tracks\Nats\INatsMessageProvider.cs" />
     <Compile Include="RouteFinding\Tracks\Tasks\TrackTaskQueue.cs" />
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />
@@ -375,7 +374,6 @@
     <Compile Include="RouteFinding\TerminalProcedures\TerminalProcedureName.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsMessage.cs" />
-    <Compile Include="RouteFinding\Tracks\Ausots\IAusotsMessageProvider.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\IndividualAusotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\Utilities\MessageSplitter.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TDM\Parser\ConnectionRouteInterpreter.cs" />
@@ -384,7 +382,6 @@
     <Compile Include="RouteFinding\Tracks\Common\TrackAdder.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackNodes.cs" />
     <Compile Include="RouteFinding\Tracks\Common\ITrackParser.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\TrackMessage.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Constants.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Enums.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NatsDownloader.cs" />
@@ -398,7 +395,6 @@
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\EastboundParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\Interpreter.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Eastbound\Splitter.cs" />
-    <Compile Include="RouteFinding\Tracks\Pacots\IPacotsMessageProvider.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsParser.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\WestTrackParser.cs" />
     <Compile Include="RouteFinding\WaypointAirwayConnector.cs" />
@@ -519,19 +515,15 @@
     <Compile Include="RouteFinding\Airports\RwyData.cs" />
     <Compile Include="RouteFinding\Tracks\Exceptions.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusotsDownloader.cs" />
-    <Compile Include="RouteFinding\Tracks\Ausots\AusotsHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Ausots\AusTrack.cs" />
     <Compile Include="RouteFinding\Tracks\Common\Enums.cs" />
     <Compile Include="RouteFinding\Tracks\Common\Track.cs" />
-    <Compile Include="RouteFinding\Tracks\Common\TrackHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackReader.cs" />
     <Compile Include="RouteFinding\Tracks\Interaction\StatusRecorder.cs" />
-    <Compile Include="RouteFinding\Tracks\Nats\NatHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\IndividualNatsMessage.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\Enums.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\PacificTrack.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsDownloader.cs" />
-    <Compile Include="RouteFinding\Tracks\Pacots\PacotsHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\PacotsMessage.cs" />
     <Compile Include="RouteFinding\Tracks\Pacots\TrackValidPeriod.cs" />
     <Compile Include="RouteFinding\Tracks\WptPair.cs" />

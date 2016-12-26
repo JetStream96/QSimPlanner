@@ -6,9 +6,9 @@ namespace QSP.RouteFinding.Tracks.Common
     public interface ITrackMessageProvider
     {
         /// <exception cref="Exception"></exception>
-        ITrackMessageNew GetMessage();
+        ITrackMessage GetMessage();
 
         /// <exception cref="Exception"></exception>
-        Task<ITrackMessageNew> GetMessageAsync(CancellationToken token);
+        Task<ITrackMessage> GetMessageAsync(CancellationToken token);
     }
 }

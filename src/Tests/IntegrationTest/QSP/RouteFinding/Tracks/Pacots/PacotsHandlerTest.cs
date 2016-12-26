@@ -30,7 +30,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 
             var recorder = new StatusRecorder();
 
-            var handler = new TrackHandlerNew<PacificTrack>(
+            var handler = new TrackHandler<PacificTrack>(
                 wptList,
                 wptList.GetEditor(),
                 recorder,
@@ -402,7 +402,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
 
         private class DownloaderStub : ITrackMessageProvider
         {
-            public ITrackMessageNew GetMessage()
+            public ITrackMessage GetMessage()
             {
                 var directory = AppDomain.CurrentDomain.BaseDirectory;
                 var path = directory +
@@ -411,7 +411,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
                 return new PacotsMessage(File.ReadAllText(path));
             }
 
-            public Task<ITrackMessageNew> GetMessageAsync(CancellationToken token)
+            public Task<ITrackMessage> GetMessageAsync(CancellationToken token)
             {
                 throw new NotImplementedException();
             }

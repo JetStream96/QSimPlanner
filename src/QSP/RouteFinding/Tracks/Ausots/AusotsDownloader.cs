@@ -12,7 +12,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         /// <exception cref="WebException"></exception>
         /// <exception cref="NotSupportedException"></exception>
-        public ITrackMessageNew GetMessage()
+        public ITrackMessage GetMessage()
         {
             Thread.Sleep(20000);//TODO:remove this
             using (var wc = new WebClient())
@@ -21,7 +21,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             }
         }
 
-        public async Task<ITrackMessageNew> GetMessageAsync(CancellationToken token)
+        public async Task<ITrackMessage> GetMessageAsync(CancellationToken token)
         {
             await Task.Factory.StartNew(() => Thread.Sleep(20000));//TODO:remove this
             using (var wc = new WebClient())

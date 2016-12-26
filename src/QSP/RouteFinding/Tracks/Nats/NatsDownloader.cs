@@ -61,7 +61,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         /// Downloads the track message.
         /// </summary>
         /// <exception cref="Exception"></exception>
-        public ITrackMessageNew GetMessage()
+        public ITrackMessage GetMessage()
         {
             var natMsg = DownloadFromNotam();
             var htmls = AdditionalDownloads(natMsg)
@@ -72,7 +72,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             return CreateMessage(natMsg);
         }
 
-        public async Task<ITrackMessageNew> GetMessageAsync(CancellationToken token)
+        public async Task<ITrackMessage> GetMessageAsync(CancellationToken token)
         {
             token.Register(() => client.CancelAsync());
 

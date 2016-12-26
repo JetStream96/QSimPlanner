@@ -12,13 +12,13 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private static readonly string url = "https://www.notams.faa.gov/dinsQueryWeb/advancedNotamMapAction.do";
 
         /// <exception cref="Exception"></exception>
-        public ITrackMessageNew GetMessage()
+        public ITrackMessage GetMessage()
         {
             return new PacotsMessage(GetPostMessage());
         }
 
         /// <exception cref="Exception"></exception>
-        public async Task<ITrackMessageNew> GetMessageAsync(CancellationToken token)
+        public async Task<ITrackMessage> GetMessageAsync(CancellationToken token)
         {
             return new PacotsMessage(await GetPostMessageAsync(token));
         }

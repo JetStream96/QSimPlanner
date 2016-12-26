@@ -26,7 +26,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
         private List<AusTrack> allTracks;
 
         public AusotsParser(
-            ITrackMessageNew data,
+            ITrackMessage data,
             StatusRecorder statusRecorder,
             AirportManager airportList)
         {

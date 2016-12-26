@@ -27,9 +27,9 @@ namespace QSP.UI.Controllers
         private TrackTaskQueue[] queues = new TrackTaskQueue[TrackSysCount];
         private bool[] trackEnabled = new bool[TrackSysCount];
 
-        private TrackHandlerNew<NorthAtlanticTrack> natsHandler;
-        private TrackHandlerNew<PacificTrack> pacotsHandler;
-        private TrackHandlerNew<AusTrack> ausotsHandler;
+        private TrackHandler<NorthAtlanticTrack> natsHandler;
+        private TrackHandler<PacificTrack> pacotsHandler;
+        private TrackHandler<AusTrack> ausotsHandler;
 
         private IReadOnlyList<ITrackHandler> Handlers => new ITrackHandler[]
         {
@@ -73,21 +73,21 @@ namespace QSP.UI.Controllers
             TracksInUse.Clear();
             StatusRecorder.Clear();
 
-            natsHandler = new TrackHandlerNew<NorthAtlanticTrack>(
+            natsHandler = new TrackHandler<NorthAtlanticTrack>(
                 WptList,
                 WptList.GetEditor(),
                 StatusRecorder,
                 AirportList,
                 TracksInUse);
 
-            pacotsHandler = new TrackHandlerNew<PacificTrack>(
+            pacotsHandler = new TrackHandler<PacificTrack>(
                 WptList,
                 WptList.GetEditor(),
                 StatusRecorder,
                 AirportList,
                 TracksInUse);
 
-            ausotsHandler = new TrackHandlerNew<AusTrack>(
+            ausotsHandler = new TrackHandler<AusTrack>(
                 WptList,
                 WptList.GetEditor(),
                 StatusRecorder,
@@ -178,9 +178,9 @@ namespace QSP.UI.Controllers
             return GetTrackMessage(type) != null;
         }
 
-        public ITrackMessageNew GetTrackMessage(TrackType type) => Handlers[(int)type].RawData;
+        public ITrackMessage GetTrackMessage(TrackType type) => Handlers[(int)type].RawData;
 
-        public void SetTrackMessage(TrackType type, ITrackMessageNew message)
+        public void SetTrackMessage(TrackType type, ITrackMessage message)
         {
             Func<Task> task = async () => await Task.Factory.StartNew(() =>
             {
@@ -212,16 +212,16 @@ namespace QSP.UI.Controllers
 
         private class TrackProvider : ITrackMessageProvider
         {
-            private ITrackMessageNew msg;
+            private ITrackMessage msg;
 
-            public TrackProvider(ITrackMessageNew msg)
+            public TrackProvider(ITrackMessage msg)
             {
                 this.msg = msg;
             }
 
-            public ITrackMessageNew GetMessage() => msg;
+            public ITrackMessage GetMessage() => msg;
 
-            public Task<ITrackMessageNew> GetMessageAsync(CancellationToken token)
+            public Task<ITrackMessage> GetMessageAsync(CancellationToken token)
             {
                 throw new NotImplementedException();
             }
