@@ -6,6 +6,7 @@ namespace QSP.RouteFinding.Tracks.Common
     public interface ITrackHandler
     {
         ITrackMessage RawData { get; }
+        bool InWptList { get; }
 
         /// <summary>
         /// Download and parse all track messages.

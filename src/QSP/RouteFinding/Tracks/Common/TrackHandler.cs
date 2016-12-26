@@ -21,15 +21,13 @@ namespace QSP.RouteFinding.Tracks.Common
         private TrackInUseCollection tracksInUse;
         private List<TrackNodes> nodes = new List<TrackNodes>();
         private TrackType type = GetTrackType<T>();
-
-        private bool _startedGettingTracks = false;
-
+        
         /// <summary>
         /// Indicates whether GetAllTracks or GetAllTracksAsync has been called.
         /// </summary>
-        public bool StartedGettingTracks => _startedGettingTracks;
-
-        public bool AddedToWptList { get; private set; } = false;
+        public bool StartedGettingTracks { get; private set; } = false;
+        
+        public bool InWptList { get; private set; } = false;
         public ITrackMessage RawData { get; private set; }
 
         public TrackHandler(
@@ -61,7 +59,7 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             try
             {
-                _startedGettingTracks = true;
+                StartedGettingTracks = true;
                 GetTracks(provider);
                 ReadMessage();
             }
@@ -74,7 +72,7 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             try
             {
-                _startedGettingTracks = true;
+                StartedGettingTracks = true;
                 await GetTracksAsync(GetTrackDownloader<T>(), token);
                 ReadMessage();
             }
@@ -112,13 +110,13 @@ namespace QSP.RouteFinding.Tracks.Common
         /// </summary>
         public void AddToWaypointList()
         {
-            if (AddedToWptList == false)
+            if (InWptList == false)
             {
                 new TrackAdder(wptList, editor, recorder, type)
                     .AddToWaypointList(nodes);
 
                 tracksInUse.UpdateTracks(nodes, type);
-                AddedToWptList = true;
+                InWptList = true;
             }
         }
 
@@ -182,7 +180,7 @@ namespace QSP.RouteFinding.Tracks.Common
         public void UndoEdit()
         {
             editor.Undo();
-            AddedToWptList = false;
+            InWptList = false;
         }
     }
 }

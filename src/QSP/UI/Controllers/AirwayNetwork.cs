@@ -205,6 +205,8 @@ namespace QSP.UI.Controllers
             TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
+        public bool InWptList(TrackType t) => Handlers[(int) t].InWptList;
+
         private class TrackProvider : ITrackMessageProvider
         {
             private ITrackMessage msg;

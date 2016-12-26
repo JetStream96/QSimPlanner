@@ -96,12 +96,12 @@ namespace QSP.UI.Forms
                 styleController.Activate();
             });
 
-            viewPacotsBtn.Enabled = false;
-            viewNatsBtn.Enabled = false;
-            viewAusotsBtn.Enabled = false;
-            BtnNatsDn.Enabled = true;
-            BtnPacotsDn.Enabled = true;
-            BtnAusotsDn.Enabled = true;
+            TrackTypes.ForEach(t =>
+            {
+                ViewBtn(t).Enabled = false;
+                DownloadBtn(t).Enabled = true;
+            });
+
             downloadAllBtn.Enabled = true;
         }
 
@@ -207,23 +207,21 @@ namespace QSP.UI.Forms
             }
         }
 
-        // TODO: Is loaded enough to determine 'ready'?
-        private bool AllTracksReady => TrackTypes.All(t => airwayNetwork.TracksLoaded(t));
+        private bool AllTracksAdded => TrackTypes.All(t => airwayNetwork.InWptList(t));
 
-        private bool AllTracksNotReady => TrackTypes.All(t => !airwayNetwork.TracksLoaded(t));
+        private bool AllTracksNotAdded => TrackTypes.All(t => !airwayNetwork.InWptList(t));
 
         private void SetMainFormTrackStatus(IEnumerable<Entry> records)
         {
             var loadedTypes = TrackTypes.Where(t => airwayNetwork.TracksLoaded(t));
-
             var maxSeverity = loadedTypes.Select(t => MaxSeverity(records, t));
 
-            if (maxSeverity.All(s => s == Severity.Advisory) && AllTracksReady)
+            if (maxSeverity.All(s => s == Severity.Advisory) && AllTracksAdded)
             {
                 statusLbl.Image = Properties.Resources.GreenLight;
                 statusLbl.Text = "Tracks: Ready";
             }
-            else if (maxSeverity.All(s => s == Severity.Critical) || AllTracksNotReady)
+            else if (maxSeverity.All(s => s == Severity.Critical) || AllTracksNotAdded)
             {
                 statusLbl.Image = Properties.Resources.RedLight;
                 statusLbl.Text = "Tracks: Not Available";
