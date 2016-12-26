@@ -13,7 +13,7 @@ namespace QSP.RouteFinding.Tracks.Common
         /// </summary>
         void GetAllTracks();
         void GetAllTracks(ITrackMessageProvider provider);
-        Task GetAllTracksAsync(CancellationToken token);
+        Task GetAllTracksAsync();
 
         /// <summary>
         /// Indicates whether GetAllTracks or GetAllTracksAsync has been called.

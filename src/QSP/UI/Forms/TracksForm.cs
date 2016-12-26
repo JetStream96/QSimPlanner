@@ -242,27 +242,21 @@ namespace QSP.UI.Forms
         /// </summary>
         public void DownloadTracks(TrackType t)
         {
-            var ts = new CancellationTokenSource();
             var downloadBtn = DownloadBtn(t);
-
-            Action cleanup = () =>
-            {
-                RefreshViewTrackBtns();
-                downloadBtn.Enabled = true;
-            };
-
+            
             Func<Task> task = async () =>
             {
                 downloadBtn.Enabled = false;
 
-                await airwayNetwork.DownloadTracks(t, ts.Token);
+                await airwayNetwork.DownloadTracks(t);
                 SyncCBoxEnabled(t);
                 RefreshStatus();
 
-                cleanup();
+                RefreshViewTrackBtns();
+                downloadBtn.Enabled = true;
             };
 
-            airwayNetwork.EnqueueTask(t, task, ts, cleanup);
+            airwayNetwork.EnqueueTask(t, task);
         }
 
         public bool TrackEnabled(TrackType t) =>
@@ -273,16 +267,13 @@ namespace QSP.UI.Forms
 
         private void SyncCBoxEnabled(TrackType t)
         {
-            Func<Task> task = () =>
+            airwayNetwork.EnqueueSyncTask(t, () =>
             {
                 DownloadBtn(t).Enabled = false;
                 airwayNetwork.SetTrackEnabled(t, TrackEnabled(t));
                 DownloadBtn(t).Enabled = true;
                 RefreshStatus();
-                return Task.FromResult(0);
-            };
-
-            airwayNetwork.EnqueueTask(t, task, new CancellationTokenSource(), () => { });
+            });
         }
 
         private void CloseForm(object sender, CancelEventArgs e)

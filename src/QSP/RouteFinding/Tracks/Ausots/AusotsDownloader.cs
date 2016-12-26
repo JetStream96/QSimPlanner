@@ -21,12 +21,11 @@ namespace QSP.RouteFinding.Tracks.Ausots
             }
         }
 
-        public async Task<ITrackMessage> GetMessageAsync(CancellationToken token)
+        public async Task<ITrackMessage> GetMessageAsync()
         {
             await Task.Factory.StartNew(() => Thread.Sleep(20000));//TODO:remove this
             using (var wc = new WebClient())
             {
-                token.Register(wc.CancelAsync);
                 var str = await wc.DownloadStringTaskAsync(new Uri(address));
                 return new AusotsMessage(str);
             }

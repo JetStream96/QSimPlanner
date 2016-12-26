@@ -180,7 +180,6 @@
     <Compile Include="RouteFinding\Routes\RouteGroup.cs" />
     <Compile Include="RouteFinding\Routes\RouteString.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilter.cs" />
-    <Compile Include="RouteFinding\Tracks\Tasks\TrackTaskQueue.cs" />
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />
     <Compile Include="UI\Controllers\ControlDisableStyleController.cs" />

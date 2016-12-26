@@ -61,7 +61,6 @@
     <Compile Include="QSP\RouteFinding\Tracks\Nats\NatsHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QSP\RouteFinding\Tracks\Pacots\PacotsHandlerTest.cs" />
-    <Compile Include="QSP\RouteFinding\Tracks\Tasks\TrackTaskQueueTest.cs" />
     <Compile Include="QSP\LibraryExtension\Tasks\TaskQueueTest.cs" />
   </ItemGroup>
   <ItemGroup>

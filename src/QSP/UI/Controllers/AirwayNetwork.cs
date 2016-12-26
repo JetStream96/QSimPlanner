@@ -9,11 +9,11 @@ using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Nats;
 using QSP.RouteFinding.Tracks.Pacots;
-using QSP.RouteFinding.Tracks.Tasks;
 using QSP.UI.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using QSP.LibraryExtension;
+using QSP.LibraryExtension.Tasks;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 
 namespace QSP.UI.Controllers
@@ -25,7 +25,7 @@ namespace QSP.UI.Controllers
     {
         private static readonly int TrackSysCount = TrackTypes.Count;
 
-        private TrackTaskQueue[] queues = new TrackTaskQueue[TrackSysCount];
+        private TaskQueue[] queues = new TaskQueue[TrackSysCount];
         private bool[] trackEnabled = new bool[TrackSysCount];
 
         private TrackHandler<NorthAtlanticTrack> natsHandler;
@@ -58,7 +58,7 @@ namespace QSP.UI.Controllers
 
             for (int i = 0; i < queues.Length; i++)
             {
-                queues[i] = new TrackTaskQueue();
+                queues[i] = new TaskQueue();
                 trackEnabled[i] = false;
             }
 
@@ -106,13 +106,12 @@ namespace QSP.UI.Controllers
                 return Task.FromResult(0);
             };
 
-            EnqueueTask(type, task, new CancellationTokenSource(), () => { });
+            EnqueueTask(type, task);
         }
 
-        public void EnqueueTask(TrackType type, Func<Task> taskGetter,
-            CancellationTokenSource ts, Action cleanup)
+        public void EnqueueTask(TrackType type, Func<Task> taskGetter)
         {
-            queues[(int)type].Add(taskGetter, ts, cleanup);
+            queues[(int)type].Add(taskGetter);
         }
 
         /// <summary>
@@ -203,13 +202,13 @@ namespace QSP.UI.Controllers
            });
         }
 
-        public async Task DownloadTracks(TrackType type, CancellationToken token)
+        public async Task DownloadTracks(TrackType type)
         {
             var h = Handlers[(int)type];
             StatusRecorder.Clear(type);
             h.UndoEdit();
 
-            await h.GetAllTracksAsync(token);
+            await h.GetAllTracksAsync();
             InvokeTrackMessageUpdated();
         }
 
@@ -231,7 +230,7 @@ namespace QSP.UI.Controllers
 
             public ITrackMessage GetMessage() => msg;
 
-            public Task<ITrackMessage> GetMessageAsync(CancellationToken token)
+            public Task<ITrackMessage> GetMessageAsync()
             {
                 throw new NotImplementedException();
             }

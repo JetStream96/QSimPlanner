@@ -279,7 +279,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
                         directory + "/QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
             }
 
-            public Task<ITrackMessage> GetMessageAsync(CancellationToken token)
+            public Task<ITrackMessage> GetMessageAsync()
             {
                 throw new NotImplementedException();
             }

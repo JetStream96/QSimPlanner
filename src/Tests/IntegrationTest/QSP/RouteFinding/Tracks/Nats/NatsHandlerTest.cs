@@ -214,7 +214,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
         }
 
-        public Task<ITrackMessage> GetMessageAsync(CancellationToken token)
+        public Task<ITrackMessage> GetMessageAsync()
         {
             throw new NotImplementedException();
         }

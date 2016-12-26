@@ -18,9 +18,9 @@ namespace QSP.RouteFinding.Tracks.Pacots
         }
 
         /// <exception cref="Exception"></exception>
-        public async Task<ITrackMessage> GetMessageAsync(CancellationToken token)
+        public async Task<ITrackMessage> GetMessageAsync()
         {
-            return new PacotsMessage(await GetPostMessageAsync(token));
+            return new PacotsMessage(await GetPostMessageAsync());
         }
 
         /// <summary>
@@ -32,10 +32,9 @@ namespace QSP.RouteFinding.Tracks.Pacots
             return GetResponseString(webResp);
         }
 
-        private static async Task<string> GetPostMessageAsync(CancellationToken token)
+        private static async Task<string> GetPostMessageAsync()
         {
             var req = GetRequest();
-            token.Register(() => req.Abort());
             var webResp = (HttpWebResponse)await req.GetResponseAsync();
             return GetResponseString(webResp);
         }

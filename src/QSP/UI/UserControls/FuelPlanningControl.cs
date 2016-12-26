@@ -599,16 +599,14 @@ namespace QSP.UI.UserControls
 
             if (dest == null)
             {
-                throw new InvalidUserInputException(
-                    "Cannot find destination airport.");
+                throw new InvalidUserInputException("Cannot find destination airport.");
             }
 
             var dis = orig.Distance(dest);
             var alt = fuelData.EstimatedCrzAlt(dis, zfw);
             var tas = Ktas(fuelData.CruiseKias(zfw), alt);
 
-            return new AvgWindCalculator(
-                windTableLocator.Instance, tas, alt);
+            return new AvgWindCalculator(windTableLocator.Instance, tas, alt);
         }
 
         public void RefreshForAirportListChange()

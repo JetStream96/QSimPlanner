@@ -68,12 +68,12 @@ namespace QSP.RouteFinding.Tracks.Common
             UndoEdit();
         }
 
-        public async Task GetAllTracksAsync(CancellationToken token)
+        public async Task GetAllTracksAsync()
         {
             try
             {
                 StartedGettingTracks = true;
-                await GetTracksAsync(GetTrackDownloader<T>(), token);
+                await GetTracksAsync(GetTrackDownloader<T>());
                 ReadMessage();
             }
             catch { }
@@ -135,11 +135,11 @@ namespace QSP.RouteFinding.Tracks.Common
         }
 
         // Can throw exception.
-        private async Task GetTracksAsync(ITrackMessageProvider provider, CancellationToken token)
+        private async Task GetTracksAsync(ITrackMessageProvider provider)
         {
             try
             {
-                RawData = await provider.GetMessageAsync(token);
+                RawData = await provider.GetMessageAsync();
             }
             catch
             {

@@ -411,7 +411,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
                 return new PacotsMessage(File.ReadAllText(path));
             }
 
-            public Task<ITrackMessage> GetMessageAsync(CancellationToken token)
+            public Task<ITrackMessage> GetMessageAsync()
             {
                 throw new NotImplementedException();
             }

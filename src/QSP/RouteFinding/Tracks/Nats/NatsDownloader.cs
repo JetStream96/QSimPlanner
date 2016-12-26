@@ -72,10 +72,8 @@ namespace QSP.RouteFinding.Tracks.Nats
             return CreateMessage(natMsg);
         }
 
-        public async Task<ITrackMessage> GetMessageAsync(CancellationToken token)
+        public async Task<ITrackMessage> GetMessageAsync()
         {
-            token.Register(() => client.CancelAsync());
-
             var natMsg = await DownloadFromNotamAsync();
             var tasks = AdditionalDownloads(natMsg)
                 .Select(i => client.DownloadStringTaskAsync(i));
