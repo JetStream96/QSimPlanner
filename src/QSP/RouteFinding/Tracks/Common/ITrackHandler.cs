@@ -11,7 +11,7 @@ namespace QSP.RouteFinding.Tracks.Common
         /// Download and parse all track messages.
         /// </summary>
         void GetAllTracks();
-        void GetAllTracks(ITrackMessageProvider provider)
+        void GetAllTracks(ITrackMessageProvider provider);
         Task GetAllTracksAsync(CancellationToken token);
 
         /// <summary>
