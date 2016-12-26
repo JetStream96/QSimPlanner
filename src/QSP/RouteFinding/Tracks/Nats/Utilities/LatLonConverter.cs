@@ -7,43 +7,42 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
 {
     public static class LatLonConverter
     {
+        private static double? TryGetNumber(string s)
+        {
+            int i;
+            double d;
+            if (s.Length == 2 && int.TryParse(s, out i)) return i;
+
+            if (s.Length > 2 &&
+                int.TryParse(s.Substring(0, 2), out i) &&
+                double.TryParse(s.Substring(2), out d))
+            {
+                return i + d / 60.0;
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Sample input : "54/20", "5530/20", "5530/2050". 
-        /// If the input is not the correct format, an exception is thrown.
-        /// </summary>        
-        public static LatLon ConvertNatsCoordinate(string s)
+        /// If the input is not the correct format, returns null.
+        /// </summary>  
+        public static LatLon TryConvertNatsCoordinate(string s)
         {
             var pattern = @"^([\d\.]+)/([\d\.]+)$";
             var match = Regex.Match(s, pattern);
-            double lat = GetNumber(match.Groups[1].Value);
-            double lon = -GetNumber(match.Groups[2].Value);
+            if (!match.Success) return null;
+            double? lat = TryGetNumber(match.Groups[1].Value);
+            double? lon = -TryGetNumber(match.Groups[2].Value);
 
-            Ensure<ArgumentException>(0.0 <= lat && lat <= 90.0);
-            Ensure<ArgumentException>(-180.0 <= lon && lon <= 0.0);
-
-            return new LatLon(lat, lon);
-        }
-
-        private static double GetNumber(string s)
-        {
-            if (s.Length == 2) return int.Parse(s);
-
-            return int.Parse(s.Substring(0, 2)) +
-                double.Parse(s.Substring(2)) / 60.0;
-        }
-
-        public static bool TryConvertNatsCoordinate(string s, out LatLon result)
-        {
-            try
+            if (lat != null && lon != null &&
+                0.0 <= lat && lat <= 90.0 &&
+                -180.0 <= lon && lon <= 0.0)
             {
-                result = ConvertNatsCoordinate(s);
-                return true;
+                return new LatLon(lat.Value, lon.Value);
             }
-            catch
-            {
-                result = null;
-                return false;
-            }
+
+            return null;
         }
 
         public static string AutoChooseFormat(this LatLon item)

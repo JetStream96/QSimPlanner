@@ -91,12 +91,8 @@ namespace QSP.RouteFinding.Tracks.Nats
         {
             for (int i = 0; i < wpts.Length; i++)
             {
-                LatLon latLon;
-
-                if (LatLonConverter.TryConvertNatsCoordinate(wpts[i], out latLon))
-                {
-                    wpts[i] = latLon.AutoChooseFormat();
-                }
+                var latLon = LatLonConverter.TryConvertNatsCoordinate(wpts[i]);
+                if (latLon != null) wpts[i] = latLon.AutoChooseFormat();
             }
         }
     }

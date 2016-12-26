@@ -8,24 +8,23 @@ namespace UnitTest.RouteFinding.Tracks.Nats.Utilities
     public class LatLonConverterTest
     {
         [Test]
-        public void WrongFormatShouldReturnFalse()
+        public void WrongFormatShouldReturnNull()
         {
-            LatLon x;
-            Assert.IsFalse(TryConvertNatsCoordinate("45/-20", out x));
+            Assert.IsNull(TryConvertNatsCoordinate("45/-20"));
         }
 
         [Test]
         public void CorrectFormatResultMatch()
         {
-            Assert.IsTrue(ConvertNatsCoordinate("4550/20")
+            Assert.IsTrue(TryConvertNatsCoordinate("4550/20")
                 .Equals(new LatLon(45.0 + 50.0 / 60.0, -20.0)));
-            Assert.IsTrue(ConvertNatsCoordinate("45/20")
+            Assert.IsTrue(TryConvertNatsCoordinate("45/20")
                 .Equals(new LatLon(45.0, -20.0)));
-            Assert.IsTrue(ConvertNatsCoordinate("4530.5/20")
+            Assert.IsTrue(TryConvertNatsCoordinate("4530.5/20")
                 .Equals(new LatLon(45.0 + 30.5 / 60.0, -20.0)));
-            Assert.IsTrue(ConvertNatsCoordinate("45/2045.5")
+            Assert.IsTrue(TryConvertNatsCoordinate("45/2045.5")
                 .Equals(new LatLon(45.0, -(20.0 + 45.5 / 60.0))));
-            Assert.IsTrue(ConvertNatsCoordinate("4530/2045.5")
+            Assert.IsTrue(TryConvertNatsCoordinate("4530/2045.5")
                 .Equals(new LatLon(45.0 + 30.0 / 60.0, -(20.0 + 45.5 / 60.0))));
         }
 

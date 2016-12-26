@@ -54,14 +54,12 @@ namespace QSP.UI.Forms
                 EnabledCBox(t).SelectedIndexChanged += (s, e) => SyncCBoxEnabled(t);
                 ViewBtn(t).Click += (s, e) => ViewTracks(t);
                 DownloadBtn(t).EnabledChanged += RefreshDownloadAllBtnEnabled;
+                SyncCBoxEnabled(t);
             });
 
             downloadAllBtn.EnabledChanged += (s, e) => importBtn.Enabled = downloadAllBtn.Enabled;
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshViewTrackBtns();
             Closing += CloseForm;
-
-            // TODO: Move up?
-            TrackTypes.ForEach(t => SyncCBoxEnabled(t));
         }
 
         private void RefreshListViewColumnWidth()
