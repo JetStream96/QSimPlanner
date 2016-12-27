@@ -49,7 +49,7 @@ namespace QSP.UI.Forms
             // This way the events won't fire at form creation.
             TrackTypes.ForEach(t =>
             {
-                DownloadBtn(t).Click += (s, e) => DownloadTracks(t);
+                DownloadBtn(t).Click += (s, e) => DownloadAndEnableTracks(t);
                 EnabledCBox(t).SelectedIndexChanged += (s, e) => SyncCBoxEnabled(t);
                 ViewBtn(t).Click += (s, e) => ViewTracks(t);
                 DownloadBtn(t).EnabledChanged += RefreshDownloadAllBtnEnabled;
@@ -58,6 +58,7 @@ namespace QSP.UI.Forms
 
             downloadAllBtn.EnabledChanged += (s, e) => importBtn.Enabled = downloadAllBtn.Enabled;
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshViewTrackBtns();
+            airwayNetwork.StatusChanged += (s, e) => RefreshStatus();
             Closing += CloseForm;
         }
 
@@ -235,25 +236,30 @@ namespace QSP.UI.Forms
             TrackTypes.ForEach(t => ViewBtn(t).Enabled = airwayNetwork.TracksLoaded(t));
         }
 
-        /// <summary>
-        /// Download all tracks in the specified track system and enable depends on 
-        /// the selection on the UI. During the download the 'download' button is disabled.
-        /// </summary>
-        public void DownloadTracks(TrackType t)
+        private void DisableUserInputs(TrackType t)
         {
-            var downloadBtn = DownloadBtn(t);
+            DownloadBtn(t).Enabled = false;
+            EnabledCBox(t).Enabled = false;
+            importBtn.Enabled = false;
+        }
 
+        private void EnableUserInputs(TrackType t)
+        {
+            DownloadBtn(t).Enabled = true;
+            EnabledCBox(t).Enabled = true;
+            importBtn.Enabled = true;
+        }
+        
+        public void DownloadAndEnableTracks(TrackType t)
+        {
             Func<Task> task = async () =>
             {
-                downloadBtn.Enabled = false;
+                DisableUserInputs(t);
 
                 EnabledCBox(t).SelectedIndex = 0;
-                await airwayNetwork.DownloadTracks(t);
-                airwayNetwork.SetTrackEnabled(t, true);
-                RefreshStatus();
-
-                RefreshViewTrackBtns();
-                downloadBtn.Enabled = true;
+                await airwayNetwork.DownloadAndEnableTracks(t);
+                
+                EnableUserInputs(t);
             };
 
             airwayNetwork.EnqueueTask(t, task);
@@ -292,7 +298,7 @@ namespace QSP.UI.Forms
 
         public void DownloadAllTracks()
         {
-            TrackTypes.ForEach(t => DownloadTracks(t));
+            TrackTypes.ForEach(t => DownloadAndEnableTracks(t));
         }
 
         private void RefreshDownloadAllBtnEnabled(object sender, EventArgs e)
@@ -381,7 +387,8 @@ namespace QSP.UI.Forms
             var sys = root.Element("TrackSystem").Value;
             var type = sys.ToTrackType();
 
-            airwayNetwork.SetTrackMessage(type, GetTrackMessage(type, doc));
+            airwayNetwork.SetTrackMessageAndEnable(type, GetTrackMessage(type, doc));
+            
             SyncCBoxEnabled(type);
         }
     }

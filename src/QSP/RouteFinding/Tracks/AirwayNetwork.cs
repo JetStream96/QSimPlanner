@@ -49,6 +49,10 @@ namespace QSP.RouteFinding.Tracks
         // Fires when any TrackMessage in the TrackHandlers changed.
         public event EventHandler TrackMessageUpdated;
 
+        // Fires if the status is changed. However, this event firing does not imply
+        // that the status has changed.
+        public event EventHandler StatusChanged;
+
         public AirwayNetwork(WaypointList wptList, AirportManager airportList)
         {
             this.WptList = wptList;
@@ -138,7 +142,7 @@ namespace QSP.RouteFinding.Tracks
                     {
                         h.GetAllTracks(new TrackProvider(msg), StatusRecorder);
                         if (TrackForm.TrackEnabled(type)) h.AddToWaypointList(StatusRecorder);
-                        TrackForm.RefreshStatus();
+                        InvokeStatusChanged();
                         InvokeTrackMessageUpdated();
                     });
                 }
@@ -146,7 +150,7 @@ namespace QSP.RouteFinding.Tracks
                 {
                     // The GetAllTracks was called but the download has not finished yet, so 
                     // the messages is still null. We redownload the data.
-                    TrackForm.DownloadTracks(type);
+                    TrackForm.DownloadAndEnableTracks(type);
                 }
             }
 
@@ -157,6 +161,10 @@ namespace QSP.RouteFinding.Tracks
 
         public bool GetTrackEnabled(TrackType t) => trackEnabled[(int)t];
 
+        // Note that this method does not update the StatusRecoder.
+        // To work around this, make sure to call AddToWptList immediately after
+        // any calls to GetAllTracks or GetAllTracksAsync.
+        //
         public void SetTrackEnabled(TrackType t, bool enabled)
         {
             var h = Handlers[(int)t];
@@ -183,26 +191,29 @@ namespace QSP.RouteFinding.Tracks
 
         public ITrackMessage GetTrackMessage(TrackType type) => Handlers[(int)type].RawData;
 
-        public void SetTrackMessage(TrackType type, ITrackMessage message)
+        /// <summary>
+        /// Sets the TrackMessage and enable them.
+        /// </summary>
+        public void SetTrackMessageAndEnable(TrackType type, ITrackMessage message)
         {
-            EnqueueSyncTask(type, () =>
-           {
-               var h = Handlers[(int)type];
-               StatusRecorder.Clear(type);
-               h.UndoEdit();
-               h.GetAllTracks(new TrackProvider(message), StatusRecorder);
-               InvokeTrackMessageUpdated();
-               TrackForm.RefreshStatus();
-           });
+            var h = Handlers[(int)type];
+            StatusRecorder.Clear(type);
+            h.UndoEdit();
+            h.GetAllTracks(new TrackProvider(message), StatusRecorder);
+            h.AddToWaypointList(StatusRecorder);
+            InvokeTrackMessageUpdated();
+            InvokeStatusChanged();
         }
 
-        public async Task DownloadTracks(TrackType type)
+        public async Task DownloadAndEnableTracks(TrackType type)
         {
             var h = Handlers[(int)type];
             StatusRecorder.Clear(type);
             h.UndoEdit();
 
             await h.GetAllTracksAsync(StatusRecorder);
+            h.AddToWaypointList(StatusRecorder);
+            InvokeStatusChanged();
             InvokeTrackMessageUpdated();
         }
 
@@ -211,8 +222,14 @@ namespace QSP.RouteFinding.Tracks
             TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
+        private void InvokeStatusChanged()
+        {
+            StatusChanged?.Invoke(this, EventArgs.Empty);
+        }
+
         public bool InWptList(TrackType t) => Handlers[(int)t].InWptList;
 
+        // TODO: Refactor this.
         private class TrackProvider : ITrackMessageProvider
         {
             private ITrackMessage msg;

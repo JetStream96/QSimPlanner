@@ -108,9 +108,7 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             if (InWptList == false)
             {
-                new TrackAdder(wptList, editor, r, type)
-                    .AddToWaypointList(nodes);
-
+                new TrackAdder(wptList, editor, r, type).AddToWaypointList(nodes);
                 tracksInUse.UpdateTracks(nodes, type);
                 InWptList = true;
             }
@@ -125,7 +123,7 @@ namespace QSP.RouteFinding.Tracks.Common
             }
             catch
             {
-                AddRecord(r);
+                AddFailRecord(r);
                 throw;
             }
         }
@@ -139,12 +137,12 @@ namespace QSP.RouteFinding.Tracks.Common
             }
             catch
             {
-                AddRecord(r);
+                AddFailRecord(r);
                 throw;
             }
         }
 
-        private void AddRecord(StatusRecorder r)
+        private void AddFailRecord(StatusRecorder r)
         {
             r.AddEntry(
                 StatusRecorder.Severity.Critical,
