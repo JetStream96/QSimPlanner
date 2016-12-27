@@ -24,7 +24,6 @@ namespace QSP.RouteFinding.Tracks
         private static readonly int TrackSysCount = Helpers.TrackTypes.Count;
 
         private TaskQueue[] queues = new TaskQueue[TrackSysCount];
-        private bool[] trackEnabled = new bool[TrackSysCount];
 
         private TrackHandler<NorthAtlanticTrack> natsHandler;
         private TrackHandler<PacificTrack> pacotsHandler;
@@ -61,7 +60,6 @@ namespace QSP.RouteFinding.Tracks
             for (int i = 0; i < queues.Length; i++)
             {
                 queues[i] = new TaskQueue();
-                trackEnabled[i] = false;
             }
 
             SetTrackData();
@@ -113,6 +111,15 @@ namespace QSP.RouteFinding.Tracks
             queues[(int)type].Add(taskGetter);
         }
 
+        // TODO: Add user warning to option form.
+        private async void WaitForQueueToEmpty()
+        {
+            while (queues.Any(q => q.IsRunning))
+            {
+                await Task.Delay(250);
+            }
+        }
+
         /// <summary>
         /// Use this method when wptList and airportList are entirely change (probably
         /// due to loading a different nav data). The downloaded tracks will be reparsed
@@ -120,6 +127,11 @@ namespace QSP.RouteFinding.Tracks
         /// </summary>
         public void Update(WaypointList wptList, AirportManager airportList)
         {
+            WaitForQueueToEmpty();
+
+            // Because the task queue is empty now, we can run everything in 
+            // this method synchronously.
+
             var messages = Handlers.Select(h => h.RawData).ToList();
             var started = Handlers.Select(h => h.StartedGettingTracks).ToList();
 
@@ -138,13 +150,11 @@ namespace QSP.RouteFinding.Tracks
 
                 if (msg != null)
                 {
-                    EnqueueSyncTask(type, () =>
-                    {
-                        h.GetAllTracks(new TrackProvider(msg), StatusRecorder);
-                        if (TrackForm.TrackEnabled(type)) h.AddToWaypointList(StatusRecorder);
-                        InvokeStatusChanged();
-                        InvokeTrackMessageUpdated();
-                    });
+                    h.GetAllTracks(new TrackProvider(msg), StatusRecorder);
+                    h.AddToWaypointList(StatusRecorder);
+                    TrackForm.SetTrackEnabled(type);
+                    InvokeStatusChanged();
+                    InvokeTrackMessageUpdated();
                 }
                 else if (started[i])
                 {
@@ -156,10 +166,7 @@ namespace QSP.RouteFinding.Tracks
 
             WptListChanged?.Invoke(this, EventArgs.Empty);
             AirportListChanged?.Invoke(this, EventArgs.Empty);
-            InvokeTrackMessageUpdated();
         }
-
-        public bool GetTrackEnabled(TrackType t) => trackEnabled[(int)t];
 
         // Note that this method does not update the StatusRecoder.
         // To work around this, make sure to call AddToWptList immediately after
@@ -177,8 +184,6 @@ namespace QSP.RouteFinding.Tracks
             {
                 h.UndoEdit();
             }
-
-            trackEnabled[(int)t] = enabled;
         }
 
         /// <summary>
@@ -191,9 +196,6 @@ namespace QSP.RouteFinding.Tracks
 
         public ITrackMessage GetTrackMessage(TrackType type) => Handlers[(int)type].RawData;
 
-        /// <summary>
-        /// Sets the TrackMessage and enable them.
-        /// </summary>
         public void SetTrackMessageAndEnable(TrackType type, ITrackMessage message)
         {
             var h = Handlers[(int)type];

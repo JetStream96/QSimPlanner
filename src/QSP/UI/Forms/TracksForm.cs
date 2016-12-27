@@ -50,12 +50,12 @@ namespace QSP.UI.Forms
             TrackTypes.ForEach(t =>
             {
                 DownloadBtn(t).Click += (s, e) => DownloadAndEnableTracks(t);
-                EnabledCBox(t).SelectedIndexChanged += (s, e) => SyncCBoxEnabled(t);
+                EnabledCBox(t).SelectedIndexChanged += (s, e) => SetTrackEnabled(t);
                 ViewBtn(t).Click += (s, e) => ViewTracks(t);
                 DownloadBtn(t).EnabledChanged += RefreshDownloadAllBtnEnabled;
-                SyncCBoxEnabled(t);
             });
 
+            downloadAllBtn.Click += (s, e) => DownloadAllTracks();
             downloadAllBtn.EnabledChanged += (s, e) => importBtn.Enabled = downloadAllBtn.Enabled;
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshViewTrackBtns();
             airwayNetwork.StatusChanged += (s, e) => RefreshStatus();
@@ -267,8 +267,9 @@ namespace QSP.UI.Forms
 
         public bool TrackEnabled(TrackType t) => EnabledCBox(t).SelectedIndex == 0;
 
-        // TODO: Check the usages of this method.
-        private void SyncCBoxEnabled(TrackType t)
+        // TODO: When to enable 'enabled' button?
+
+        public void SetTrackEnabled(TrackType t)
         {
             airwayNetwork.EnqueueSyncTask(t, () =>
             {
@@ -289,11 +290,6 @@ namespace QSP.UI.Forms
         private void TxtRichTextBoxContentsResized(object sender, ContentsResizedEventArgs e)
         {
             txtRichTextBox.Height = e.NewRectangle.Height + 10;
-        }
-
-        private void DownloadAllBtnClick(object sender, EventArgs e)
-        {
-            DownloadAllTracks();
         }
 
         public void DownloadAllTracks()
@@ -376,9 +372,6 @@ namespace QSP.UI.Forms
                     MsgBoxHelper.ShowWarning($"Failed to load file {file}");
                 }
             }
-
-            RefreshViewTrackBtns();
-            RefreshStatus();
         }
 
         private void LoadXDoc(XDocument doc)
@@ -387,9 +380,8 @@ namespace QSP.UI.Forms
             var sys = root.Element("TrackSystem").Value;
             var type = sys.ToTrackType();
 
+            EnabledCBox(type).SelectedIndex = 0;
             airwayNetwork.SetTrackMessageAndEnable(type, GetTrackMessage(type, doc));
-            
-            SyncCBoxEnabled(type);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace QSP.NavData.OpenData
             var lines = File.ReadAllLines(rwyFile);
 
             var rwys = new MultiMap<string, RwyData>();
-            var surfTypes = new Dictionary<string, string>();   // TODO: This is never updated? A bug?
+            var surfTypes = new Dictionary<string, string>();
 
             // Ignore first line.
             for (int i = 1; i < lines.Length; i++)

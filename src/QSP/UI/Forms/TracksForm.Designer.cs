@@ -264,7 +264,6 @@ namespace QSP.UI.Forms
             this.downloadAllBtn.TabIndex = 13;
             this.downloadAllBtn.Text = "Download All";
             this.downloadAllBtn.UseVisualStyleBackColor = false;
-            this.downloadAllBtn.Click += new System.EventHandler(this.DownloadAllBtnClick);
             // 
             // saveBtn
             // 
