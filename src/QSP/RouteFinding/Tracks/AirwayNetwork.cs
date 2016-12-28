@@ -22,9 +22,7 @@ namespace QSP.RouteFinding.Tracks
     //
     public class AirwayNetwork
     {
-        private static readonly int TrackSysCount = Helpers.TrackTypes.Count;
-
-        private TaskQueue[] queues = new TaskQueue[TrackSysCount];
+        private TrackTaskQueues queues = new TrackTaskQueues();
 
         private TrackHandler<NorthAtlanticTrack> natsHandler;
         private TrackHandler<PacificTrack> pacotsHandler;
@@ -55,11 +53,6 @@ namespace QSP.RouteFinding.Tracks
             this.WptList = wptList;
             this.AirportList = airportList;
 
-            for (int i = 0; i < queues.Length; i++)
-            {
-                queues[i] = new TaskQueue();
-            }
-
             SetTrackData();
         }
 
@@ -68,7 +61,7 @@ namespace QSP.RouteFinding.Tracks
             Helpers.TrackTypes.ForEach(t =>
             {
                 var h = Handlers[(int)t];
-                EnqueueSyncTask(t, () => h?.UndoEdit());
+                queues.EnqueueSyncTask(t, () => h?.UndoEdit());
             });
 
             TracksInUse.Clear();
@@ -93,51 +86,6 @@ namespace QSP.RouteFinding.Tracks
                 TracksInUse);
         }
 
-        public void EnqueueSyncTask(TrackType type, Action action, ActionSequence seq)
-        {
-            Func<Task> task = () =>
-            {
-                seq.Before();
-                action();
-                seq.After();
-                return Task.FromResult(0);
-            };
-
-            EnqueueTask(type, task);
-        }
-
-        public void EnqueueSyncTask(TrackType type, Action action)
-        {
-            Func<Task> task = () =>
-            {
-                action();
-                return Task.FromResult(0);
-            };
-
-            EnqueueTask(type, task);
-        }
-
-        public void EnqueueTask(TrackType type, Func<Task> taskGetter, ActionSequence seq)
-        {
-            EnqueueSyncTask(type, seq.Before);
-            queues[(int)type].Add(taskGetter);
-            EnqueueSyncTask(type, seq.After);
-        }
-
-        public void EnqueueTask(TrackType type, Func<Task> taskGetter)
-        {
-            queues[(int)type].Add(taskGetter);
-        }
-
-        // TODO: Add user warning to option form.
-        private async Task WaitForQueueToEmpty()
-        {
-            while (queues.Any(q => q.IsRunning))
-            {
-                await Task.Delay(250);
-            }
-        }
-
         /// <summary>
         /// Use this method when wptList and airportList are entirely change (probably
         /// due to loading a different nav data). The downloaded tracks will be reparsed
@@ -146,8 +94,9 @@ namespace QSP.RouteFinding.Tracks
         public void Update(WaypointList wptList, AirportManager airportList,
             NetworkUpdateAction action)
         {
-            WaitForQueueToEmpty();
-            
+            // TODO: Add user warning to option form.
+            queues.WaitForQueueToEmpty();
+
             var messages = Handlers.Select(h => h.RawData).ToList();
             var started = Handlers.Select(h => h.StartedGettingTracks).ToList();
 
@@ -212,7 +161,7 @@ namespace QSP.RouteFinding.Tracks
                 }
             };
 
-            EnqueueSyncTask(t, action, seq);
+            queues.EnqueueSyncTask(t, action, seq);
         }
 
         /// <summary>
@@ -228,7 +177,7 @@ namespace QSP.RouteFinding.Tracks
         public void SetTrackMessageAndEnable(TrackType type, ITrackMessage message,
             ActionSequence seq)
         {
-            EnqueueSyncTask(type, () => SetTrackMessageAndEnable(type, message), seq);
+            queues.EnqueueSyncTask(type, () => SetTrackMessageAndEnable(type, message), seq);
         }
 
         private void SetTrackMessageAndEnable(TrackType type, ITrackMessage message)
@@ -244,7 +193,7 @@ namespace QSP.RouteFinding.Tracks
 
         public void DownloadAndEnableTracks(TrackType type, ActionSequence seq)
         {
-            EnqueueTask(type, async () => await DownloadAndEnableTracks(type), seq);
+            queues.EnqueueTask(type, async () => await DownloadAndEnableTracks(type), seq);
         }
 
         private async Task DownloadAndEnableTracks(TrackType type)
