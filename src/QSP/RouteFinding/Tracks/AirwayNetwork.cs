@@ -117,7 +117,7 @@ namespace QSP.RouteFinding.Tracks
                     h.AddToWaypointList(StatusRecorder);
                     action.SyncTrackEnabled(type);
 
-                    InvokeStatusChanged();
+                    InvokeStatusChanged(type);
                     InvokeTrackMessageUpdated();
                 }
             }
@@ -175,7 +175,7 @@ namespace QSP.RouteFinding.Tracks
             h.GetAllTracks(new TrackMessageProvider(message), StatusRecorder);
             h.AddToWaypointList(StatusRecorder);
             InvokeTrackMessageUpdated();
-            InvokeStatusChanged();
+            InvokeStatusChanged(type);
         }
 
         public void DownloadAndEnableTracks(TrackType type, ActionSequence seq)
@@ -191,7 +191,7 @@ namespace QSP.RouteFinding.Tracks
 
             await h.GetAllTracksAsync(StatusRecorder);
             h.AddToWaypointList(StatusRecorder);
-            InvokeStatusChanged();
+            InvokeStatusChanged(type);
             InvokeTrackMessageUpdated();
         }
 
@@ -200,12 +200,21 @@ namespace QSP.RouteFinding.Tracks
             TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-        // TODO: Use proper track type to indicate what to refresh.
-        private void InvokeStatusChanged()
+        private void InvokeStatusChanged(TrackType t)
         {
-            StatusChanged?.Invoke(this, EventArgs.Empty);
+            StatusChanged?.Invoke(this, new TrackEventArg(t));
         }
 
         public bool InWptList(TrackType t) => Handlers[(int)t].InWptList;
+
+        public class TrackEventArg : EventArgs
+        {
+            public TrackType TrackType { get; }
+
+            public TrackEventArg(TrackType TrackType) : base()
+            {
+                this.TrackType = TrackType;
+            }
+        }
     }
 }

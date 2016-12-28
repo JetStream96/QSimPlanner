@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static QSP.RouteFinding.Tracks.AirwayNetwork;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.Utilities.ExceptionHelpers;
@@ -61,7 +62,7 @@ namespace QSP.UI.Forms
             downloadAllBtn.Click += (s, e) => DownloadAndEnableTracks();
             downloadAllBtn.EnabledChanged += (s, e) => importBtn.Enabled = downloadAllBtn.Enabled;
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshViewTrackBtns();
-            airwayNetwork.StatusChanged += (s, e) => RefreshStatus();
+            airwayNetwork.StatusChanged += (s, e) => RefreshStatus(((TrackEventArg)e).TrackType);
             Closing += CloseForm;
         }
 
@@ -142,13 +143,12 @@ namespace QSP.UI.Forms
             TrackTypes.ForEach(t => EnabledCBox(t).SelectedIndex = 0);
         }
 
-        public void RefreshStatus()
+        public void RefreshStatus(TrackType type)
         {
             var records = airwayNetwork.StatusRecorder.Records;
             AddToListView(records);
             RefreshListViewColumnWidth();
-            //InitPicBoxes();
-            SetPicBox(records);
+            SetPicBox(records, type);
             SetMainFormTrackStatus(records);
         }
 
@@ -157,16 +157,13 @@ namespace QSP.UI.Forms
             TrackTypes.ForEach(t => PicBox(t).Image = null);
         }
 
-        private void SetPicBox(IEnumerable<Entry> records)
+        private void SetPicBox(IEnumerable<Entry> records, TrackType t)
         {
-            TrackTypes.ForEach(t =>
+            if (airwayNetwork.TracksLoaded(t))
             {
-                if (airwayNetwork.TracksLoaded(t))
-                {
-                    var severity = (int)MaxSeverity(records, t);
-                    PicBox(t).Image = imageList.Images[severity];
-                }
-            });
+                var severity = (int)MaxSeverity(records, t);
+                PicBox(t).Image = imageList.Images[severity];
+            }
         }
 
         private static Severity MaxSeverity(IEnumerable<Entry> records, TrackType type)
@@ -243,14 +240,12 @@ namespace QSP.UI.Forms
         {
             DownloadBtn(t).Enabled = false;
             EnabledCBox(t).Enabled = false;
-            importBtn.Enabled = false;
         }
 
         private void EnableUserInputs(TrackType t)
         {
             DownloadBtn(t).Enabled = true;
             EnabledCBox(t).Enabled = true;
-            importBtn.Enabled = true;
         }
 
         public void DownloadAndEnableTracks()
@@ -287,7 +282,7 @@ namespace QSP.UI.Forms
         }
 
         public bool TrackEnabled(TrackType t) => EnabledCBox(t).SelectedIndex == 0;
-        
+
         public void SetTrackEnabled(TrackType t)
         {
             var actions = new ActionSequence(
