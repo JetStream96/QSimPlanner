@@ -117,7 +117,7 @@ namespace QSP.RouteFinding.Tracks
                 {
                     // Because the task queue is empty now, we can run everything in 
                     // this synchronously.
-                    h.GetAllTracks(new TrackProvider(msg), StatusRecorder);
+                    h.GetAllTracks(new TrackMessageProvider(msg), StatusRecorder);
                     h.AddToWaypointList(StatusRecorder);
                     action.SyncTrackEnabled(type);
 
@@ -167,10 +167,7 @@ namespace QSP.RouteFinding.Tracks
         /// <summary>
         /// Returns whether the NATs has been downloaded or imported from file.
         /// </summary>
-        public bool TracksLoaded(TrackType type)
-        {
-            return GetTrackMessage(type) != null;
-        }
+        public bool TracksLoaded(TrackType type) => GetTrackMessage(type) != null;
 
         public ITrackMessage GetTrackMessage(TrackType type) => Handlers[(int)type].RawData;
 
@@ -185,7 +182,7 @@ namespace QSP.RouteFinding.Tracks
             var h = Handlers[(int)type];
             StatusRecorder.Clear(type);
             h.UndoEdit();
-            h.GetAllTracks(new TrackProvider(message), StatusRecorder);
+            h.GetAllTracks(new TrackMessageProvider(message), StatusRecorder);
             h.AddToWaypointList(StatusRecorder);
             InvokeTrackMessageUpdated();
             InvokeStatusChanged();
@@ -219,23 +216,5 @@ namespace QSP.RouteFinding.Tracks
         }
 
         public bool InWptList(TrackType t) => Handlers[(int)t].InWptList;
-
-        // TODO: Refactor this.
-        private class TrackProvider : ITrackMessageProvider
-        {
-            private ITrackMessage msg;
-
-            public TrackProvider(ITrackMessage msg)
-            {
-                this.msg = msg;
-            }
-
-            public ITrackMessage GetMessage() => msg;
-
-            public Task<ITrackMessage> GetMessageAsync()
-            {
-                throw new NotImplementedException();
-            }
-        }
     }
 }
