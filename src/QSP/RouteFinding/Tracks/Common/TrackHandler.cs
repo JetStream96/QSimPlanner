@@ -19,12 +19,7 @@ namespace QSP.RouteFinding.Tracks.Common
         private TrackInUseCollection tracksInUse;
         private List<TrackNodes> nodes = new List<TrackNodes>();
         private TrackType type = GetTrackType<T>();
-
-        /// <summary>
-        /// Indicates whether GetAllTracks or GetAllTracksAsync has been called.
-        /// </summary>
-        public bool StartedGettingTracks { get; private set; } = false;
-
+        
         public bool InWptList { get; private set; } = false;
         public ITrackMessage Message { get; private set; }
 
@@ -55,7 +50,6 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             try
             {
-                StartedGettingTracks = true;
                 GetTracks(provider, r);
                 ReadMessage(r);
             }
@@ -68,7 +62,6 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             try
             {
-                StartedGettingTracks = true;
                 await GetTracksAsync(GetTrackDownloader<T>(), r);
                 ReadMessage(r);
             }

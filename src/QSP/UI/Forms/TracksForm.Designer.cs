@@ -387,6 +387,7 @@ namespace QSP.UI.Forms
             // PicBoxPacots
             // 
             this.PicBoxPacots.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PicBoxPacots.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.PicBoxPacots.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxPacots.Image")));
             this.PicBoxPacots.Location = new System.Drawing.Point(3, 48);
             this.PicBoxPacots.Name = "PicBoxPacots";
@@ -398,6 +399,7 @@ namespace QSP.UI.Forms
             // PicBoxNats
             // 
             this.PicBoxNats.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PicBoxNats.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.PicBoxNats.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxNats.Image")));
             this.PicBoxNats.Location = new System.Drawing.Point(3, 8);
             this.PicBoxNats.Name = "PicBoxNats";

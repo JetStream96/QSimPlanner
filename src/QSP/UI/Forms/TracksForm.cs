@@ -1,5 +1,8 @@
 using QSP.LibraryExtension;
+using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Tracks;
+using QSP.RouteFinding.Tracks.Actions;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.UI.Controllers;
 using QSP.UI.Utilities;
@@ -12,13 +15,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using QSP.RouteFinding.AirwayStructure;
-using QSP.RouteFinding.Tracks.Actions;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
-using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.ExceptionHelpers;
-using QSP.RouteFinding.Airports;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms
 {
@@ -28,7 +28,7 @@ namespace QSP.UI.Forms
         private static readonly string trackFileExtension = ".track";
 
         private AirwayNetwork airwayNetwork;
-        private ImageList myImageList;
+        private ImageList imageList;
         private ToolStripStatusLabel statusLbl;
 
         public TracksForm()
@@ -52,6 +52,7 @@ namespace QSP.UI.Forms
             TrackTypes.ForEach(t =>
             {
                 DownloadBtn(t).Click += (s, e) => DownloadAndEnableTracks(t);
+                EnabledCBox(t).Enabled = false;
                 EnabledCBox(t).SelectedIndexChanged += (s, e) => SetTrackEnabled(t);
                 ViewBtn(t).Click += (s, e) => ViewTracks(t);
                 DownloadBtn(t).EnabledChanged += RefreshDownloadAllBtnEnabled;
@@ -126,14 +127,14 @@ namespace QSP.UI.Forms
 
         private void InitImages()
         {
-            myImageList = new ImageList();
+            imageList = new ImageList();
 
-            myImageList.ImageSize = new Size(24, 24);
-            myImageList.Images.Add(Properties.Resources.checkIconLarge);
-            myImageList.Images.Add(Properties.Resources.CautionIcon);
-            myImageList.Images.Add(Properties.Resources.deleteIconLarge);
+            imageList.ImageSize = new Size(24, 24);
+            imageList.Images.Add(Properties.Resources.checkIconLarge);
+            imageList.Images.Add(Properties.Resources.CautionIcon);
+            imageList.Images.Add(Properties.Resources.deleteIconLarge);
 
-            ListView1.SmallImageList = myImageList;
+            ListView1.SmallImageList = imageList;
         }
 
         private void InitCBox()
@@ -163,7 +164,7 @@ namespace QSP.UI.Forms
                 if (airwayNetwork.TracksLoaded(t))
                 {
                     var severity = (int)MaxSeverity(records, t);
-                    PicBox(t).Image = myImageList.Images[severity];
+                    PicBox(t).Image = imageList.Images[severity];
                 }
             });
         }
@@ -257,12 +258,18 @@ namespace QSP.UI.Forms
             TrackTypes.ForEach(t => DownloadAndEnableTracks(t));
         }
 
+        private void SetProcessingIcon(TrackType t)
+        {
+            PicBox(t).Image = Properties.Resources.processing;
+        }
+
         public void DownloadAndEnableTracks(TrackType t)
         {
             var action = new ActionSequence(
                 () =>
                 {
                     DisableUserInputs(t);
+                    SetProcessingIcon(t);
                     EnabledCBox(t).SelectedIndex = 0;
                 },
                 () => EnableUserInputs(t));
@@ -389,7 +396,11 @@ namespace QSP.UI.Forms
             var type = sys.ToTrackType();
 
             var seq = new ActionSequence(
-                () => EnabledCBox(type).SelectedIndex = 0,
+                () =>
+                {
+                    SetProcessingIcon(type);
+                    EnabledCBox(type).SelectedIndex = 0;
+                },
                 () => { });
 
             airwayNetwork.SetTrackMessageAndEnable(type, GetTrackMessage(type, doc), seq);

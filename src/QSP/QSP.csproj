@@ -667,6 +667,7 @@
     <Content Include="PerformanceData\TO\7878_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\processing.png" />
     <Content Include="updater.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

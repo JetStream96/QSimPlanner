@@ -332,7 +332,7 @@ namespace QSP.UI.Forms.Options
             };
 
             bool navDataFound = FilesToCheck.All(i =>
-            File.Exists(Path.Combine(navDataPath, i)));
+                File.Exists(Path.Combine(navDataPath, i)));
 
             navDataStatusLbl.Text = navDataFound ? "Found" : "Not Found";
 

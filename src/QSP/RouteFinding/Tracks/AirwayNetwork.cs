@@ -95,7 +95,6 @@ namespace QSP.RouteFinding.Tracks
             await queues.WaitForTasks();
 
             var messages = Handlers.Select(h => h.Message).ToList();
-            var started = Handlers.Select(h => h.StartedGettingTracks).ToList();
 
             this.WptList = wptList;
             this.AirportList = airportList;
@@ -120,12 +119,6 @@ namespace QSP.RouteFinding.Tracks
 
                     InvokeStatusChanged();
                     InvokeTrackMessageUpdated();
-                }
-                else if (started[i])
-                {
-                    // The GetAllTracks was called but the download has not finished yet, so 
-                    // the messages is still null. We redownload the data.
-                    action.DownloadAndEnable(type);
                 }
             }
 
