@@ -150,6 +150,7 @@
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="NavData\NavDataPath.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="RouteFinding\Tracks\Actions\NetworkUpdateAction.cs" />
     <Compile Include="RouteFinding\Tracks\Common\Helpers.cs" />
     <Compile Include="RouteFinding\Tracks\Common\ITrackHandler.cs" />
     <Compile Include="RouteFinding\Tracks\Common\ITrackMessageProvider.cs" />

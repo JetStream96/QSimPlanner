@@ -12,11 +12,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Tracks.Actions;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.ExceptionHelpers;
+using QSP.RouteFinding.Airports;
 
 namespace QSP.UI.Forms
 {
@@ -37,7 +39,6 @@ namespace QSP.UI.Forms
         public void Init(AirwayNetwork airwayNetwork, ToolStripStatusLabel statusLbl)
         {
             this.airwayNetwork = airwayNetwork;
-            airwayNetwork.TrackForm = this;
             this.statusLbl = statusLbl;
 
             RefreshListViewColumnWidth();
@@ -56,7 +57,7 @@ namespace QSP.UI.Forms
                 DownloadBtn(t).EnabledChanged += RefreshDownloadAllBtnEnabled;
             });
 
-            downloadAllBtn.Click += (s, e) => DownloadAllTracks();
+            downloadAllBtn.Click += (s, e) => DownloadAndEnableTracks();
             downloadAllBtn.EnabledChanged += (s, e) => importBtn.Enabled = downloadAllBtn.Enabled;
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshViewTrackBtns();
             airwayNetwork.StatusChanged += (s, e) => RefreshStatus();
@@ -251,6 +252,11 @@ namespace QSP.UI.Forms
             importBtn.Enabled = true;
         }
 
+        public void DownloadAndEnableTracks()
+        {
+            TrackTypes.ForEach(t => DownloadAndEnableTracks(t));
+        }
+
         public void DownloadAndEnableTracks(TrackType t)
         {
             var action = new ActionSequence(
@@ -262,18 +268,15 @@ namespace QSP.UI.Forms
                 () => EnableUserInputs(t));
 
             airwayNetwork.DownloadAndEnableTracks(t, action);
+        }
 
-            Func<Task> task = async () =>
-            {
-                DisableUserInputs(t);
+        public void Update(WaypointList wptList, AirportManager airportList)
+        {
+            var action = new NetworkUpdateAction(
+                (t) => SetTrackEnabled(t),
+                (t) => DownloadAndEnableTracks(t));
 
-                EnabledCBox(t).SelectedIndex = 0;
-                await airwayNetwork.DownloadAndEnableTracks(t);
-
-                EnableUserInputs(t);
-            };
-
-            airwayNetwork.EnqueueTask(t, task);
+            airwayNetwork.Update(wptList, airportList, action);
         }
 
         public bool TrackEnabled(TrackType t) => EnabledCBox(t).SelectedIndex == 0;
@@ -299,11 +302,6 @@ namespace QSP.UI.Forms
         private void TxtRichTextBoxContentsResized(object sender, ContentsResizedEventArgs e)
         {
             txtRichTextBox.Height = e.NewRectangle.Height + 10;
-        }
-
-        public void DownloadAllTracks()
-        {
-            TrackTypes.ForEach(t => DownloadAndEnableTracks(t));
         }
 
         private void RefreshDownloadAllBtnEnabled(object sender, EventArgs e)

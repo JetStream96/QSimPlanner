@@ -35,9 +35,6 @@ namespace QSP.RouteFinding.Tracks
             natsHandler, pacotsHandler, ausotsHandler
         };
 
-        // Remember to set this.
-        public TracksForm TrackForm { get; set; }
-
         public WaypointList WptList { get; private set; }
         public AirportManager AirportList { get; private set; }
         public TrackInUseCollection TracksInUse { get; private set; } = new TrackInUseCollection();
@@ -146,13 +143,11 @@ namespace QSP.RouteFinding.Tracks
         /// due to loading a different nav data). The downloaded tracks will be reparsed
         /// and added to the wptList if the specific track system was enabled.
         /// </summary>
-        public void Update(WaypointList wptList, AirportManager airportList)
+        public void Update(WaypointList wptList, AirportManager airportList,
+            NetworkUpdateAction action)
         {
             WaitForQueueToEmpty();
-
-            // Because the task queue is empty now, we can run everything in 
-            // this method synchronously.
-
+            
             var messages = Handlers.Select(h => h.RawData).ToList();
             var started = Handlers.Select(h => h.StartedGettingTracks).ToList();
 
@@ -171,9 +166,12 @@ namespace QSP.RouteFinding.Tracks
 
                 if (msg != null)
                 {
+                    // Because the task queue is empty now, we can run everything in 
+                    // this synchronously.
                     h.GetAllTracks(new TrackProvider(msg), StatusRecorder);
                     h.AddToWaypointList(StatusRecorder);
-                    TrackForm.SetTrackEnabled(type);
+                    action.SyncTrackEnabled(type);
+
                     InvokeStatusChanged();
                     InvokeTrackMessageUpdated();
                 }
@@ -181,7 +179,7 @@ namespace QSP.RouteFinding.Tracks
                 {
                     // The GetAllTracks was called but the download has not finished yet, so 
                     // the messages is still null. We redownload the data.
-                    TrackForm.DownloadAndEnableTracks(type);
+                    action.DownloadAndEnable(type);
                 }
             }
 
@@ -227,13 +225,13 @@ namespace QSP.RouteFinding.Tracks
 
         public ITrackMessage GetTrackMessage(TrackType type) => Handlers[(int)type].RawData;
 
-        public void SetTrackMessageAndEnable(TrackType type, ITrackMessage message, 
+        public void SetTrackMessageAndEnable(TrackType type, ITrackMessage message,
             ActionSequence seq)
         {
             EnqueueSyncTask(type, () => SetTrackMessageAndEnable(type, message), seq);
         }
 
-        public void SetTrackMessageAndEnable(TrackType type, ITrackMessage message)
+        private void SetTrackMessageAndEnable(TrackType type, ITrackMessage message)
         {
             var h = Handlers[(int)type];
             StatusRecorder.Clear(type);

@@ -26,6 +26,7 @@ namespace QSP.UI.Forms.Options
         private Locator<CountryCodeManager> countryCodesLocator;
         private Locator<AppOptions> appSettingsLocator;
         private Updater updater;
+        private TracksForm tracksForm;
         private AirwayNetwork airwayNetwork;
         private FlightPlanExportController exportController;
         private Panel popUpPanel;
@@ -40,12 +41,14 @@ namespace QSP.UI.Forms.Options
         }
 
         public void Init(
+            TracksForm tracksForm,
             AirwayNetwork airwayNetwork,
             Locator<CountryCodeManager> countryCodesLocator,
             Locator<AppOptions> appSettingsLocator,
             Updater updater,
             bool autoDetectAiracFolder = false)
         {
+            this.tracksForm = tracksForm;
             this.airwayNetwork = airwayNetwork;
             this.countryCodesLocator = countryCodesLocator;
             this.appSettingsLocator = appSettingsLocator;
@@ -56,7 +59,7 @@ namespace QSP.UI.Forms.Options
             SetControlsAsInOptions();
             FormClosing += CurrentFormClosing;
 
-            if(autoDetectAiracFolder) DetectAiracFolder();
+            if (autoDetectAiracFolder) DetectAiracFolder();
 
 #if (!DEBUG)
             PerformAutoUpdate();
@@ -209,7 +212,7 @@ namespace QSP.UI.Forms.Options
                 if (airportList != null && TrySaveOptions())
                 {
                     // Successful
-                    airwayNetwork.Update(wptList, airportList);
+                    tracksForm.Update(wptList, airportList);
                     Close();
                 }
             }

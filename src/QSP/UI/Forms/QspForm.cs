@@ -463,7 +463,7 @@ namespace QSP.UI.Forms
         {
             trackStatusLabel.Image = Properties.Resources.YellowLight;
             trackStatusLabel.Text = "Tracks: Not downloaded";
-            if (appSettings.AutoDLTracks) trackFrm.DownloadAllTracks();
+            if (appSettings.AutoDLTracks) trackFrm.DownloadAndEnableTracks();
         }
 
         private async Task DownloadWindIfNeeded()
@@ -528,6 +528,7 @@ namespace QSP.UI.Forms
             using (var frm = new OptionsForm())
             {
                 frm.Init(
+                   trackFrm,
                    airwayNetwork,
                    countryCodesLocator,
                    appOptionsLocator,
