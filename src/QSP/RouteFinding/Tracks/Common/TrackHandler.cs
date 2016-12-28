@@ -26,7 +26,7 @@ namespace QSP.RouteFinding.Tracks.Common
         public bool StartedGettingTracks { get; private set; } = false;
 
         public bool InWptList { get; private set; } = false;
-        public ITrackMessage RawData { get; private set; }
+        public ITrackMessage Message { get; private set; }
 
         public TrackHandler(
             WaypointList wptList,
@@ -119,7 +119,7 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             try
             {
-                RawData = provider.GetMessage();
+                Message = provider.GetMessage();
             }
             catch
             {
@@ -133,7 +133,7 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             try
             {
-                RawData = await provider.GetMessageAsync();
+                Message = await provider.GetMessageAsync();
             }
             catch
             {
@@ -155,7 +155,7 @@ namespace QSP.RouteFinding.Tracks.Common
         {
             try
             {
-                return GetParser<T>(RawData, r, airportList).Parse();
+                return GetParser<T>(Message, r, airportList).Parse();
             }
             catch
             {

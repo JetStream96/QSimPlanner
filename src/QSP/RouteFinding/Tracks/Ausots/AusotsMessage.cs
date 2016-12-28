@@ -1,5 +1,6 @@
 ﻿using QSP.RouteFinding.Tracks.Common;
 using System.Xml.Linq;
+using QSP.LibraryExtension;
 using static QSP.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Ausots
@@ -14,7 +15,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         public AusotsMessage(string HtmlSource)
         {
-            AllText = HtmlSource.RemoveHtmlTags();
+            AllText = HtmlSource.RemoveHtmlTags().ToValidXmlString();
         }
 
         public AusotsMessage(XDocument doc)

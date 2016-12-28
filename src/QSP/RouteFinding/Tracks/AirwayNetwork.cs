@@ -95,7 +95,7 @@ namespace QSP.RouteFinding.Tracks
             // TODO: Add user warning to option form.
             queues.WaitForQueueToEmpty();
 
-            var messages = Handlers.Select(h => h.RawData).ToList();
+            var messages = Handlers.Select(h => h.Message).ToList();
             var started = Handlers.Select(h => h.StartedGettingTracks).ToList();
 
             this.WptList = wptList;
@@ -167,7 +167,7 @@ namespace QSP.RouteFinding.Tracks
         /// </summary>
         public bool TracksLoaded(TrackType type) => GetTrackMessage(type) != null;
 
-        public ITrackMessage GetTrackMessage(TrackType type) => Handlers[(int)type].RawData;
+        public ITrackMessage GetTrackMessage(TrackType type) => Handlers[(int)type].Message;
 
         public void SetTrackMessageAndEnable(TrackType type, ITrackMessage message,
             ActionSequence seq)

@@ -8,15 +8,13 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
     //
     public class MessageSplitter
     {
-        private readonly static char[] specialChars = { (char)2, (char)3, (char)11 };
-
         private string html;
         private string timeUpdated;
         private string header;
 
         public MessageSplitter(string html)
         {
-            this.html = html;
+            this.html = html.ToValidXmlString();
         }
 
         public List<IndividualNatsMessage> Split()
@@ -27,15 +25,8 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
             var west = GetWestboundTracks();
             var east = GetEastboundTracks();
 
-            if (west != null)
-            {
-                msgs.Add(west);
-            }
-
-            if (east != null)
-            {
-                msgs.Add(east);
-            }
+            if (west != null) msgs.Add(west);
+            if (east != null) msgs.Add(east);
 
             return msgs;
         }
@@ -44,14 +35,8 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
         {
             var match = Regex.Match(html, @"\n([^\n]*?EGGXZOZX.*?)</td>", RegexOptions.Singleline);
 
-            if (match.Success == false)
-            {
-                return null;
-            }
-
-            var message = match.Groups[1].Value
-                .RemoveHtmlTags()
-                .ReplaceAny(specialChars, "");
+            if (!match.Success) return null;
+            var message = match.Groups[1].Value.RemoveHtmlTags();
 
             return new IndividualNatsMessage(timeUpdated, header, NatsDirection.West, message);
         }
@@ -60,17 +45,10 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
         {
             var match = Regex.Match(html, @"\n([^\n]*?CZQXZQZX.*?)</td>", RegexOptions.Singleline);
 
-            if (match.Success == false)
-            {
-                return null;
-            }
+            if (!match.Success) return null;
+            var message = match.Groups[1].Value.RemoveHtmlTags();
 
-            var message = match.Groups[1].Value
-                .RemoveHtmlTags()
-                .ReplaceAny(specialChars, "");
-
-            return new IndividualNatsMessage(
-                timeUpdated, header, NatsDirection.East, message);
+            return new IndividualNatsMessage(timeUpdated, header, NatsDirection.East, message);
         }
 
         private void GetGeneralInfo()

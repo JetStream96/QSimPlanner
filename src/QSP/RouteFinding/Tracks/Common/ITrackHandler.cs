@@ -5,7 +5,7 @@ namespace QSP.RouteFinding.Tracks.Common
 {
     public interface ITrackHandler
     {
-        ITrackMessage RawData { get; }
+        ITrackMessage Message { get; }
         bool InWptList { get; }
 
         /// <summary>
