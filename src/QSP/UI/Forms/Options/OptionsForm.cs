@@ -82,12 +82,12 @@ namespace QSP.UI.Forms.Options
                 var result = MessageBox.Show(
                     "Nav Data needs to be set before proceeding. " +
                     "Otherwise this application will close. " +
-                    "Go back to settings?",
+                    "Close the application?",
                     "",
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Exclamation);
 
-                if (result == DialogResult.No)
+                if (result == DialogResult.Yes)
                 {
                     Environment.Exit(0);
                 }
@@ -178,7 +178,7 @@ namespace QSP.UI.Forms.Options
             exportController.Init();
         }
 
-        private void SaveBtnClick(object sender, EventArgs e)
+        private async void SaveBtnClick(object sender, EventArgs e)
         {
             saveBtn.ForeColor = Color.Black;
             saveBtn.Enabled = false;
@@ -188,7 +188,7 @@ namespace QSP.UI.Forms.Options
 
             if (pathTxtBox.Text != AppSettings.NavDataLocation)
             {
-                TryUpdateWptAndAirportsAndSaveOptions();
+                await TryUpdateWptAndAirportsAndSaveOptions();
             }
             else
             {
@@ -201,7 +201,7 @@ namespace QSP.UI.Forms.Options
             saveBtn.Enabled = true;
         }
 
-        private void TryUpdateWptAndAirportsAndSaveOptions()
+        private async Task TryUpdateWptAndAirportsAndSaveOptions()
         {
             var wptList = TryLoadWpts();
 
@@ -212,7 +212,7 @@ namespace QSP.UI.Forms.Options
                 if (airportList != null && TrySaveOptions())
                 {
                     // Successful
-                    tracksForm.Update(wptList, airportList);
+                    await tracksForm.Update(wptList, airportList);
                     Close();
                 }
             }

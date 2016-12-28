@@ -54,12 +54,12 @@ namespace QSP.RouteFinding.Tracks.Actions
         {
             queues[(int)type].Add(taskGetter);
         }
-
-        public async Task WaitForQueueToEmpty(int checkIntervalMs = 250)
+        
+        public async Task WaitForTasks()
         {
             while (queues.Any(q => q.IsRunning))
             {
-                await Task.Delay(checkIntervalMs);
+                await Task.Delay(250);
             }
         }
     }

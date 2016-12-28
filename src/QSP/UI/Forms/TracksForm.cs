@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using QSP.RouteFinding.AirwayStructure;
@@ -269,13 +270,13 @@ namespace QSP.UI.Forms
             airwayNetwork.DownloadAndEnableTracks(t, action);
         }
 
-        public void Update(WaypointList wptList, AirportManager airportList)
+        public async Task Update(WaypointList wptList, AirportManager airportList)
         {
             var action = new NetworkUpdateAction(
                 (t) => SetTrackEnabled(t),
                 (t) => DownloadAndEnableTracks(t));
 
-            airwayNetwork.Update(wptList, airportList, action);
+            await airwayNetwork.Update(wptList, airportList, action);
         }
 
         public bool TrackEnabled(TrackType t) => EnabledCBox(t).SelectedIndex == 0;

@@ -83,17 +83,16 @@ namespace QSP.RouteFinding.Tracks
                 AirportList,
                 TracksInUse);
         }
-
+        
         /// <summary>
         /// Use this method when wptList and airportList are entirely change (probably
         /// due to loading a different nav data). The downloaded tracks will be reparsed
         /// and added to the wptList if the specific track system was enabled.
         /// </summary>
-        public void Update(WaypointList wptList, AirportManager airportList,
+        public async Task Update(WaypointList wptList, AirportManager airportList,
             NetworkUpdateAction action)
         {
-            // TODO: Add user warning to option form.
-            queues.WaitForQueueToEmpty();
+            await queues.WaitForTasks();
 
             var messages = Handlers.Select(h => h.Message).ToList();
             var started = Handlers.Select(h => h.StartedGettingTracks).ToList();
