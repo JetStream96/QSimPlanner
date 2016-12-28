@@ -31,13 +31,12 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             var handler = new TrackHandler<AusTrack>(
                 wptList,
                 wptList.GetEditor(),
-                recorder,
                 GetAirportList(),
                 new TrackInUseCollection());
 
             // Act
-            handler.GetAllTracks(new DownloaderStub());
-            handler.AddToWaypointList();
+            handler.GetAllTracks(DownloaderStub(), recorder);
+            handler.AddToWaypointList(recorder);
 
             // Assert
             Assert.AreEqual(0, recorder.Records.Count);
@@ -267,21 +266,14 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             }
         }
 
-        private class DownloaderStub : ITrackMessageProvider
+        private ITrackMessageProvider DownloaderStub()
         {
-            public ITrackMessage GetMessage()
-            {
-                var directory = AppDomain.CurrentDomain.BaseDirectory;
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
 
-                return new AusotsMessage(
-                    File.ReadAllText(
-                        directory + "/QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
-            }
-
-            public Task<ITrackMessage> GetMessageAsync()
-            {
-                throw new NotImplementedException();
-            }
+            var msg = new AusotsMessage(
+                File.ReadAllText(
+                    directory + "/QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
+            return new TrackMessageProvider(msg);
         }
     }
 }

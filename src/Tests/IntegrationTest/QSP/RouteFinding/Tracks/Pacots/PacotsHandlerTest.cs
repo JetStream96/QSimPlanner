@@ -32,13 +32,12 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             var handler = new TrackHandler<PacificTrack>(
                 wptList,
                 wptList.GetEditor(),
-                recorder,
                 GetAirportList(),
                 new TrackInUseCollection());
 
             // Act
-            handler.GetAllTracks(new DownloaderStub());
-            handler.AddToWaypointList();
+            handler.GetAllTracks(DownloaderStub(), recorder);
+            handler.AddToWaypointList(recorder);
 
             // Assert
             Assert.AreEqual(0, recorder.Records.Count);
@@ -399,21 +398,14 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        private class DownloaderStub : ITrackMessageProvider
+        private ITrackMessageProvider DownloaderStub()
         {
-            public ITrackMessage GetMessage()
-            {
-                var directory = AppDomain.CurrentDomain.BaseDirectory;
-                var path = directory +
-                           "/QSP/RouteFinding/Tracks/Pacots/Defense Internet NOTAM Service.html";
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
+            var path = directory +
+                       "/QSP/RouteFinding/Tracks/Pacots/Defense Internet NOTAM Service.html";
 
-                return new PacotsMessage(File.ReadAllText(path));
-            }
-
-            public Task<ITrackMessage> GetMessageAsync()
-            {
-                throw new NotImplementedException();
-            }
+            var msg = new PacotsMessage(File.ReadAllText(path));
+            return new TrackMessageProvider(msg);
         }
     }
 }

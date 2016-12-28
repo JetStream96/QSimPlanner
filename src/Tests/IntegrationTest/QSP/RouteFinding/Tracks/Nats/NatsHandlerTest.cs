@@ -29,13 +29,12 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             var handler = new TrackHandler<NorthAtlanticTrack>(
                 wptList,
                 wptList.GetEditor(),
-                recorder,
                 new AirportManager(),
                 new TrackInUseCollection());
 
             // Act
-            handler.GetAllTracks(new DownloaderStub());
-            handler.AddToWaypointList();
+            handler.GetAllTracks(DownloaderStub(), recorder);
+            handler.AddToWaypointList(recorder);
 
             // Assert
             Assert.AreEqual(0, recorder.Records.Count);
@@ -196,11 +195,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             "SEPAL",
             "LAPEX"
         };
-    
 
-    private class DownloaderStub : ITrackMessageProvider
-    {
-        public ITrackMessage GetMessage()
+        private ITrackMessageProvider DownloaderStub()
         {
             var directory = AppDomain.CurrentDomain.BaseDirectory;
             var htmlSource = File.ReadAllText(
@@ -210,13 +206,8 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             int westIndex =
                 msgs[0].Direction == NatsDirection.West ? 0 : 1;
             int eastIndex = 1 - westIndex;
-            return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
-        }
-
-        public Task<ITrackMessage> GetMessageAsync()
-        {
-            throw new NotImplementedException();
+            var msg = new NatsMessage(msgs[westIndex], msgs[eastIndex]);
+            return new TrackMessageProvider(msg);
         }
     }
-}
 }
