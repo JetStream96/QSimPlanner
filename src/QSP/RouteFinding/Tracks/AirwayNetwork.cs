@@ -83,7 +83,7 @@ namespace QSP.RouteFinding.Tracks
                 AirportList,
                 TracksInUse);
         }
-        
+
         /// <summary>
         /// Use this method when wptList and airportList are entirely change (probably
         /// due to loading a different nav data). The downloaded tracks will be reparsed
@@ -200,6 +200,7 @@ namespace QSP.RouteFinding.Tracks
             TrackMessageUpdated?.Invoke(this, EventArgs.Empty);
         }
 
+        // TODO: Use proper track type to indicate what to refresh.
         private void InvokeStatusChanged()
         {
             StatusChanged?.Invoke(this, EventArgs.Empty);

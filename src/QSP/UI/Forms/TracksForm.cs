@@ -147,7 +147,7 @@ namespace QSP.UI.Forms
             var records = airwayNetwork.StatusRecorder.Records;
             AddToListView(records);
             RefreshListViewColumnWidth();
-            InitPicBoxes();
+            //InitPicBoxes();
             SetPicBox(records);
             SetMainFormTrackStatus(records);
         }
@@ -258,7 +258,7 @@ namespace QSP.UI.Forms
             TrackTypes.ForEach(t => DownloadAndEnableTracks(t));
         }
 
-        private void SetProcessingIcon(TrackType t)
+        private void SetProcessingImage(TrackType t)
         {
             PicBox(t).Image = Properties.Resources.processing;
         }
@@ -269,7 +269,7 @@ namespace QSP.UI.Forms
                 () =>
                 {
                     DisableUserInputs(t);
-                    SetProcessingIcon(t);
+                    SetProcessingImage(t);
                     EnabledCBox(t).SelectedIndex = 0;
                 },
                 () => EnableUserInputs(t));
@@ -287,9 +287,7 @@ namespace QSP.UI.Forms
         }
 
         public bool TrackEnabled(TrackType t) => EnabledCBox(t).SelectedIndex == 0;
-
-        // TODO: When to enable 'enabled' button?
-
+        
         public void SetTrackEnabled(TrackType t)
         {
             var actions = new ActionSequence(
@@ -388,7 +386,6 @@ namespace QSP.UI.Forms
             }
         }
 
-        // TODO: Tell the user we are loading the message.
         private void LoadXDoc(XDocument doc)
         {
             var root = doc.Root;
@@ -398,7 +395,7 @@ namespace QSP.UI.Forms
             var seq = new ActionSequence(
                 () =>
                 {
-                    SetProcessingIcon(type);
+                    SetProcessingImage(type);
                     EnabledCBox(type).SelectedIndex = 0;
                 },
                 () => { });
