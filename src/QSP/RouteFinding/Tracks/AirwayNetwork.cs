@@ -7,6 +7,7 @@ using QSP.LibraryExtension.Tasks;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes.TrackInUse;
+using QSP.RouteFinding.Tracks.Actions;
 using QSP.RouteFinding.Tracks.Ausots;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
@@ -95,6 +96,19 @@ namespace QSP.RouteFinding.Tracks
                 TracksInUse);
         }
 
+        public void EnqueueSyncTask(TrackType type, Action action, ActionSequence seq)
+        {
+            Func<Task> task = () =>
+            {
+                seq.Before();
+                action();
+                seq.After();
+                return Task.FromResult(0);
+            };
+
+            EnqueueTask(type, task);
+        }
+
         public void EnqueueSyncTask(TrackType type, Action action)
         {
             Func<Task> task = () =>
@@ -106,13 +120,20 @@ namespace QSP.RouteFinding.Tracks
             EnqueueTask(type, task);
         }
 
+        public void EnqueueTask(TrackType type, Func<Task> taskGetter, ActionSequence seq)
+        {
+            EnqueueSyncTask(type, seq.Before);
+            queues[(int)type].Add(taskGetter);
+            EnqueueSyncTask(type, seq.After);
+        }
+
         public void EnqueueTask(TrackType type, Func<Task> taskGetter)
         {
             queues[(int)type].Add(taskGetter);
         }
 
         // TODO: Add user warning to option form.
-        private async void WaitForQueueToEmpty()
+        private async Task WaitForQueueToEmpty()
         {
             while (queues.Any(q => q.IsRunning))
             {
@@ -168,22 +189,32 @@ namespace QSP.RouteFinding.Tracks
             AirportListChanged?.Invoke(this, EventArgs.Empty);
         }
 
+        public void SetTrackEnabled(TrackType t, bool enabled)
+        {
+            SetTrackEnabled(t, enabled, ActionSequence.Empty);
+        }
+
         // Note that this method does not update the StatusRecoder.
         // To work around this, make sure to call AddToWptList immediately after
         // any calls to GetAllTracks or GetAllTracksAsync.
         //
-        public void SetTrackEnabled(TrackType t, bool enabled)
+        public void SetTrackEnabled(TrackType t, bool enabled, ActionSequence seq)
         {
-            var h = Handlers[(int)t];
+            Action action = () =>
+            {
+                var h = Handlers[(int)t];
 
-            if (enabled)
-            {
-                h.AddToWaypointList(new StatusRecorder());
-            }
-            else
-            {
-                h.UndoEdit();
-            }
+                if (enabled)
+                {
+                    h.AddToWaypointList(new StatusRecorder());
+                }
+                else
+                {
+                    h.UndoEdit();
+                }
+            };
+
+            EnqueueSyncTask(t, action, seq);
         }
 
         /// <summary>
@@ -196,6 +227,12 @@ namespace QSP.RouteFinding.Tracks
 
         public ITrackMessage GetTrackMessage(TrackType type) => Handlers[(int)type].RawData;
 
+        public void SetTrackMessageAndEnable(TrackType type, ITrackMessage message, 
+            ActionSequence seq)
+        {
+            EnqueueSyncTask(type, () => SetTrackMessageAndEnable(type, message), seq);
+        }
+
         public void SetTrackMessageAndEnable(TrackType type, ITrackMessage message)
         {
             var h = Handlers[(int)type];
@@ -207,7 +244,12 @@ namespace QSP.RouteFinding.Tracks
             InvokeStatusChanged();
         }
 
-        public async Task DownloadAndEnableTracks(TrackType type)
+        public void DownloadAndEnableTracks(TrackType type, ActionSequence seq)
+        {
+            EnqueueTask(type, async () => await DownloadAndEnableTracks(type), seq);
+        }
+
+        private async Task DownloadAndEnableTracks(TrackType type)
         {
             var h = Handlers[(int)type];
             StatusRecorder.Clear(type);

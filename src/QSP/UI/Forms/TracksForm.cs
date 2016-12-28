@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using QSP.RouteFinding.Tracks.Actions;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.Utilities.LoggerInstance;
@@ -249,16 +250,26 @@ namespace QSP.UI.Forms
             EnabledCBox(t).Enabled = true;
             importBtn.Enabled = true;
         }
-        
+
         public void DownloadAndEnableTracks(TrackType t)
         {
+            var action = new ActionSequence(
+                () =>
+                {
+                    DisableUserInputs(t);
+                    EnabledCBox(t).SelectedIndex = 0;
+                },
+                () => EnableUserInputs(t));
+
+            airwayNetwork.DownloadAndEnableTracks(t, action);
+
             Func<Task> task = async () =>
             {
                 DisableUserInputs(t);
 
                 EnabledCBox(t).SelectedIndex = 0;
                 await airwayNetwork.DownloadAndEnableTracks(t);
-                
+
                 EnableUserInputs(t);
             };
 
@@ -271,13 +282,11 @@ namespace QSP.UI.Forms
 
         public void SetTrackEnabled(TrackType t)
         {
-            airwayNetwork.EnqueueSyncTask(t, () =>
-            {
-                DownloadBtn(t).Enabled = false;
-                airwayNetwork.SetTrackEnabled(t, TrackEnabled(t));
-                DownloadBtn(t).Enabled = true;
-                RefreshStatus();
-            });
+            var actions = new ActionSequence(
+                () => DownloadBtn(t).Enabled = false,
+                () => DownloadBtn(t).Enabled = true);
+
+            airwayNetwork.SetTrackEnabled(t, TrackEnabled(t), actions);
         }
 
         private void CloseForm(object sender, CancelEventArgs e)
@@ -374,14 +383,18 @@ namespace QSP.UI.Forms
             }
         }
 
+        // TODO: Tell the user we are loading the message.
         private void LoadXDoc(XDocument doc)
         {
             var root = doc.Root;
             var sys = root.Element("TrackSystem").Value;
             var type = sys.ToTrackType();
 
-            EnabledCBox(type).SelectedIndex = 0;
-            airwayNetwork.SetTrackMessageAndEnable(type, GetTrackMessage(type, doc));
+            var seq = new ActionSequence(
+                () => EnabledCBox(type).SelectedIndex = 0,
+                () => { });
+
+            airwayNetwork.SetTrackMessageAndEnable(type, GetTrackMessage(type, doc), seq);
         }
     }
 }
