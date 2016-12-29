@@ -58,7 +58,7 @@ namespace QSP.RouteFinding.Tracks
         {
             Helpers.TrackTypes.ForEach(t =>
             {
-                var h = Handlers[(int)t];
+                var h = GetHandler(t);
                 queues.EnqueueSyncTask(t, () => h?.UndoEdit());
             });
 
@@ -139,7 +139,7 @@ namespace QSP.RouteFinding.Tracks
         {
             Action action = () =>
             {
-                var h = Handlers[(int)t];
+                var h = GetHandler(t);
 
                 if (enabled)
                 {
@@ -159,7 +159,9 @@ namespace QSP.RouteFinding.Tracks
         /// </summary>
         public bool TracksLoaded(TrackType type) => GetTrackMessage(type) != null;
 
-        public ITrackMessage GetTrackMessage(TrackType type) => Handlers[(int)type].Message;
+        public ITrackHandler GetHandler(TrackType type) => Handlers[(int)type];
+
+        public ITrackMessage GetTrackMessage(TrackType type) => GetHandler(type).Message;
 
         public void SetTrackMessageAndEnable(TrackType type, ITrackMessage message,
             ActionSequence seq)
@@ -169,7 +171,7 @@ namespace QSP.RouteFinding.Tracks
 
         private void SetTrackMessageAndEnable(TrackType type, ITrackMessage message)
         {
-            var h = Handlers[(int)type];
+            var h = GetHandler(type);
             StatusRecorder.Clear(type);
             h.UndoEdit();
             h.GetAllTracks(new TrackMessageProvider(message), StatusRecorder);
@@ -185,7 +187,7 @@ namespace QSP.RouteFinding.Tracks
 
         private async Task DownloadAndEnableTracks(TrackType type)
         {
-            var h = Handlers[(int)type];
+            var h = GetHandler(type);
             StatusRecorder.Clear(type);
             h.UndoEdit();
 
@@ -205,7 +207,7 @@ namespace QSP.RouteFinding.Tracks
             StatusChanged?.Invoke(this, new TrackEventArg(t));
         }
 
-        public bool InWptList(TrackType t) => Handlers[(int)t].InWptList;
+        public bool InWptList(TrackType t) => GetHandler(t).InWptList;
 
         public class TrackEventArg : EventArgs
         {
