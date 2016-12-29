@@ -285,6 +285,7 @@
     </Compile>
     <Compile Include="UI\UserControls\RouteActions\RouteActionController.cs" />
     <Compile Include="UI\Utilities\ControlMover.cs" />
+    <Compile Include="UI\Utilities\ImageUtil.cs" />
     <Compile Include="UI\Utilities\InputValidator.cs" />
     <Compile Include="UI\Utilities\ParentControlFinder.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
@@ -687,7 +688,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\qsp_icon.ico" />
-    <None Include="Resources\add_icon.png" />
     <EmbeddedResource Include="UI\Forms\Options\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -877,7 +877,6 @@
     <None Include="Resources\delete-icon.png" />
     <None Include="Resources\red_light.png" />
     <None Include="Resources\Triangle_128.png" />
-    <None Include="Resources\processing9.png" />
     <None Include="Resources\green_light.png" />
     <None Include="Resources\check-icon.png" />
     <None Include="Resources\yellow_light.png" />

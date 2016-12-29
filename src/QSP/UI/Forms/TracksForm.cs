@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -126,15 +127,20 @@ namespace QSP.UI.Forms
                 .TrimEmptyLines();
         }
 
+        private Image[] statusImages = new[]
+        {
+            Properties.Resources.checkIconLarge,
+            Properties.Resources.CautionIcon,
+            Properties.Resources.deleteIconLarge
+        };
+
         private void InitImages()
         {
             imageList = new ImageList();
 
-            imageList.ImageSize = new Size(24, 24);
-            imageList.Images.Add(Properties.Resources.checkIconLarge);
-            imageList.Images.Add(Properties.Resources.CautionIcon);
-            imageList.Images.Add(Properties.Resources.deleteIconLarge);
-
+            var newSize = new Size(22, 22);
+            imageList.ImageSize = newSize;
+            statusImages.ForEach(i => imageList.Images.Add(ImageUtil.Resize(i, newSize)));
             ListView1.SmallImageList = imageList;
         }
 
@@ -162,7 +168,7 @@ namespace QSP.UI.Forms
             if (airwayNetwork.TracksLoaded(t))
             {
                 var severity = (int)MaxSeverity(records, t);
-                PicBox(t).Image = imageList.Images[severity];
+                PicBox(t).SetImageHighQuality(statusImages[severity]);
             }
         }
 
@@ -255,7 +261,7 @@ namespace QSP.UI.Forms
 
         private void SetProcessingImage(TrackType t)
         {
-            PicBox(t).Image = Properties.Resources.processing;
+            PicBox(t).SetImageHighQuality(Properties.Resources.processing);
         }
 
         public void DownloadAndEnableTracks(TrackType t)
@@ -396,6 +402,18 @@ namespace QSP.UI.Forms
                 () => { });
 
             airwayNetwork.SetTrackMessageAndEnable(type, GetTrackMessage(type, doc), seq);
+        }
+
+        public void Draw(object sender, PaintEventArgs e)
+        {
+            var picBox = (PictureBox)sender;
+            var image = picBox.Image;
+            if (image == null) return;
+
+            // Make sure to use high-quality interpolation.
+            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            e.Graphics.DrawImage(image, e.ClipRectangle);
+            e.Dispose();
         }
     }
 }

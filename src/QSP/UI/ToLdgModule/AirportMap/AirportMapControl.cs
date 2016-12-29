@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QSP.UI.Utilities;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Factories.ToolTipFactory;
 
@@ -126,6 +127,14 @@ namespace QSP.UI.ToLdgModule.AirportMap
             this._airports = airports;
 
             AddToolTip();
+            SetUpdateBtnImage();
+        }
+
+        private void SetUpdateBtnImage()
+        {
+            var oldSize = updateBtn.Size;
+            var size = new Size(oldSize.Width - 4, oldSize.Height - 4);
+            updateBtn.BackgroundImage = ImageUtil.Resize(Properties.Resources.processing, size);
         }
 
         private void AddToolTip()
