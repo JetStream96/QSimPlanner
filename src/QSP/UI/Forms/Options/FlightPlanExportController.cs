@@ -4,7 +4,7 @@ using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using FolderSelect;
 
 namespace QSP.UI.Forms.Options
 {
@@ -74,13 +74,10 @@ namespace QSP.UI.Forms.Options
             {
                 i.BrowserBtn.Click += (sender, e) =>
                 {
-
-                    var dialog = new CommonOpenFileDialog();
+                    var dialog = new FolderSelectDialog();
                     dialog.InitialDirectory = i.TxtBox.Text;
-                    dialog.IsFolderPicker = true;
-                    var result = dialog.ShowDialog();
 
-                    if (result == CommonFileDialogResult.Ok)
+                    if (dialog.ShowDialog())
                     {
                         i.TxtBox.Text = dialog.FileName;
                     }

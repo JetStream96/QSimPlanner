@@ -1,0 +1,1 @@
+The files Reflector.cs and FolderSelectDialog.cs are written by leetNightshade on stackoverflow. Source code can be found at http://www.lyquidity.com/devblog/?p=136 .

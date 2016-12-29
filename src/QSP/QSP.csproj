@@ -67,14 +67,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="MinMaxHeap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libraries\MinMaxHeap.dll</HintPath>
@@ -141,6 +133,8 @@
     <Compile Include="FuelCalculation\Results\Nodes\ScNode.cs" />
     <Compile Include="FuelCalculation\Results\Nodes\TocNode.cs" />
     <Compile Include="FuelCalculation\Results\Nodes\TodNode.cs" />
+    <Compile Include="Libraries\FolderSelectDialog\FolderSelectDialog.cs" />
+    <Compile Include="Libraries\FolderSelectDialog\Reflector.cs" />
     <Compile Include="LibraryExtension\BiDictionary.cs" />
     <Compile Include="LibraryExtension\Enums.cs" />
     <Compile Include="LibraryExtension\FileNameGenerator.cs" />
@@ -676,7 +670,6 @@
     <Content Include="PerformanceData\TO\7878_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="packages.config" />
     <None Include="Resources\processing.png" />
     <Content Include="updater.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

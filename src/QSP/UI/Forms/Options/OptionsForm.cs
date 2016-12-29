@@ -14,9 +14,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FolderSelect;
 using QSP.AviationTools.Airac;
 using QSP.RouteFinding.Tracks;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using static QSP.UI.Utilities.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
 
@@ -305,12 +305,10 @@ namespace QSP.UI.Forms.Options
 
         private void BrowseBtnClick(object sender, EventArgs e)
         {
-            var dialog = new CommonOpenFileDialog();
+            var dialog = new FolderSelectDialog();
             dialog.InitialDirectory=pathTxtBox.Text;
-            dialog.IsFolderPicker = true;
-            var result = dialog.ShowDialog();
-            
-            if (result== CommonFileDialogResult.Ok)
+
+            if (dialog.ShowDialog())
             {
                 pathTxtBox.Text = dialog.FileName;
             }
