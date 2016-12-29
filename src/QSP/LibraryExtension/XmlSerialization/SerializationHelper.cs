@@ -3,8 +3,23 @@
 namespace QSP.LibraryExtension.XmlSerialization
 {
     public static class SerializationHelper
-    {        
-        public static XElement Serialize(this object value, string key)
+    {
+        public static XElement Serialize(this string value, string key)
+        {
+            return new XElement(key, value.ToValidXmlString());
+        }
+
+        public static XElement Serialize(this int value, string key)
+        {
+            return new XElement(key, value.ToString());
+        }
+
+        public static XElement Serialize(this double value, string key)
+        {
+            return new XElement(key, value.ToString());
+        }
+
+        public static XElement Serialize(this bool value, string key)
         {
             return new XElement(key, value.ToString());
         }

@@ -10,8 +10,7 @@ namespace QSP.UI.Utilities
         /// than 0. 
         /// </summary>
         /// <exception cref="InvalidUserInputException" ></exception>
-        public static double ParseNonNegative(
-            Control control, string exceptionMsg)
+        public static double ParseNonNegative(Control control, string exceptionMsg)
         {
             double num;
 

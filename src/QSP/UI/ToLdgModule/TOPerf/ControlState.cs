@@ -41,23 +41,23 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
             return new XElement("TakeoffPerfState", new XElement[]
             {
-                new XElement(airportIcao,a.airportTxtBox.Text),
-                new XElement(rwy,a.rwyComboBox.Text),
-                new XElement(lengthUnit,a.lengthUnitComboBox.Text),
-                new XElement(windDir,w.windDirTxtBox.Text),
-                new XElement(windSpeed,w.windSpdTxtBox.Text),
-                new XElement(tempUnit,w.tempUnitComboBox.Text),
-                new XElement(oat,w.oatTxtBox.Text),
-                new XElement(pressUnit,w.pressUnitComboBox.Text),
-                new XElement(pressure,w.pressTxtBox.Text),
-                new XElement(surfCond,w.surfCondComboBox.Text),
-                new XElement(aircraft,c.acListComboBox.Text),
-                new XElement(wtUnit,c.wtUnitComboBox.Text),
-                new XElement(toWt,c.weightTxtBox.Text),
-                new XElement(flaps,c.flapsComboBox.Text),
-                new XElement(thrustRating,c.thrustRatingComboBox.Text),
-                new XElement(antiIce,c.antiIceComboBox.Text),
-                new XElement(packs,c.packsComboBox.Text)
+                a.airportTxtBox.Text.Serialize(airportIcao),
+                a.rwyComboBox.Text.Serialize(rwy),
+                a.lengthUnitComboBox.Text.Serialize(lengthUnit),
+                w.windDirTxtBox.Text.Serialize(windDir),
+                w.windSpdTxtBox.Text.Serialize(windSpeed),
+                w.tempUnitComboBox.Text.Serialize(tempUnit),
+                w.oatTxtBox.Text.Serialize(oat),
+                w.pressUnitComboBox.Text.Serialize(pressUnit),
+                w.pressTxtBox.Text.Serialize(pressure),
+                w.surfCondComboBox.Text.Serialize(surfCond),
+                c.acListComboBox.Text.Serialize(aircraft),
+                c.wtUnitComboBox.Text.Serialize(wtUnit),
+                c.weightTxtBox.Text.Serialize(toWt),
+                c.flapsComboBox.Text.Serialize(flaps),
+                c.thrustRatingComboBox.Text.Serialize(thrustRating),
+                c.antiIceComboBox.Text.Serialize(antiIce),
+                c.packsComboBox.Text.Serialize(packs)
             });
         }
 

@@ -9,8 +9,7 @@ namespace QSP.UI.Utilities
 {
     public static class ShowMapHelper
     {
-        public static void ShowMap(
-            Route Route, Size size, bool canAnalyze = true)
+        public static void ShowMap(Route Route, Size size, bool canAnalyze = true)
         {
             if (Route == null)
             {

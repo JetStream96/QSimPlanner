@@ -41,23 +41,23 @@ namespace QSP.UI.ToLdgModule.LandingPerf
 
             return new XElement("LandingPerfState", new XElement[]
             {
-                new XElement(airportIcao,a.airportTxtBox.Text),
-                new XElement(rwy,a.rwyComboBox.Text),
-                new XElement(lengthUnit,a.lengthUnitComboBox.Text),
-                new XElement(windDir,w.windDirTxtBox.Text),
-                new XElement(windSpeed,w.windSpdTxtBox.Text),
-                new XElement(tempUnit,w.tempUnitComboBox.Text),
-                new XElement(oat,w.oatTxtBox.Text),
-                new XElement(pressUnit,w.pressUnitComboBox.Text),
-                new XElement(pressure,w.pressTxtBox.Text),
-                new XElement(surfCond,w.surfCondComboBox.Text),
-                new XElement(aircraft,c.acListComboBox.Text),
-                new XElement(wtUnit,c.wtUnitComboBox.Text),
-                new XElement(ldgWt,c.weightTxtBox.Text),
-                new XElement(flaps,c.flapsComboBox.Text),
-                new XElement(rev,c.revThrustComboBox.Text),
-                new XElement(brakes,c.brakeComboBox.Text),
-                new XElement(appSpeedInc,c.appSpdIncTxtBox.Text)
+                a.airportTxtBox.Text.Serialize(airportIcao),
+                a.rwyComboBox.Text.Serialize(rwy),
+                a.lengthUnitComboBox.Text.Serialize(lengthUnit),
+                w.windDirTxtBox.Text.Serialize(windDir),
+                w.windSpdTxtBox.Text.Serialize(windSpeed),
+                w.tempUnitComboBox.Text.Serialize(tempUnit),
+                w.oatTxtBox.Text.Serialize(oat),
+                w.pressUnitComboBox.Text.Serialize(pressUnit),
+                w.pressTxtBox.Text.Serialize(pressure),
+                w.surfCondComboBox.Text.Serialize(surfCond),
+                c.acListComboBox.Text.Serialize(aircraft),
+                c.wtUnitComboBox.Text.Serialize(wtUnit),
+                c.weightTxtBox.Text.Serialize(ldgWt),
+                c.flapsComboBox.Text.Serialize(flaps),
+                c.revThrustComboBox.Text.Serialize(rev),
+                c.brakeComboBox.Text.Serialize(brakes),
+                c.appSpdIncTxtBox.Text.Serialize(appSpeedInc)
             });
         }
 

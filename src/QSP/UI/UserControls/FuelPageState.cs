@@ -57,34 +57,33 @@ namespace QSP.UI.UserControls
 
             return new XElement("FuelPlanningState", new XElement[]
             {
-                new XElement(aircraft, c.acListComboBox.Text),
-                new XElement(registration, c.registrationComboBox.Text),
-                new XElement(wtUnit, (int)c.WeightUnit),
-                new XElement(zfw, TryGetWeightKg(c.Zfw)),
-                new XElement(origin, c.origTxtBox.Text),
-                new XElement(originRwy, c.origRwyComboBox.Text),
-                new XElement(originSid, c.sidComboBox.Text),
-                new XElement(destination, c.destTxtBox.Text),
-                new XElement(destRwy, c.destRwyComboBox.Text),
-                new XElement(destStar, c.starComboBox.Text),
+                c.acListComboBox.Text.Serialize(aircraft),
+                c.registrationComboBox.Text.Serialize(registration),
+                ((int)c.WeightUnit).Serialize(wtUnit),
+                TryGetWeightKg(c.Zfw).Serialize(zfw),
+                c.origTxtBox.Text.Serialize(origin),
+                c.origRwyComboBox.Text.Serialize(originRwy),
+                c.sidComboBox.Text.Serialize(originSid),
+                c.destTxtBox.Text.Serialize(destination),
+                c.destRwyComboBox.Text.Serialize(destRwy),
+                c.starComboBox.Text.Serialize(destStar),
                 new XElement(alternates, GetAlternates()),
-                new XElement(missedAppKg, TryGetWeightKg(c.MissedApproach)),
-                new XElement(contPerc, c.ContPercentComboBox.Text),
-                new XElement(holdMin, c.HoldTimeTxtBox.Text),
-                new XElement(extraKg, TryGetWeightKg(c.Extra)),
-                new XElement(apuMin, c.ApuTimeTxtBox.Text),
-                new XElement(taxiMin, c.TaxiTimeTxtBox.Text),
-                new XElement(finalRsvMin, c.FinalReserveTxtBox.Text)
+                TryGetWeightKg(c.MissedApproach).Serialize(missedAppKg),
+                c.ContPercentComboBox.Text.Serialize(contPerc),
+                c.HoldTimeTxtBox.Text.Serialize(holdMin),
+                TryGetWeightKg(c.Extra).Serialize(extraKg),
+                c.ApuTimeTxtBox.Text.Serialize(apuMin),
+                c.TaxiTimeTxtBox.Text.Serialize(taxiMin),
+                c.FinalReserveTxtBox.Text.Serialize(finalRsvMin)
             });
         }
 
         private XElement[] GetAlternates()
         {
             var altnInfo = control.AltnControl.Controls
-                .Select(c =>
-                new XElement(altnEntry,
-                    new XElement(altnIcao, c.IcaoTxtBox.Text),
-                    new XElement(altnRwy, c.RwyComboBox.Text)));
+                .Select(c => new XElement(altnEntry,
+                    c.IcaoTxtBox.Text.Serialize(altnIcao),
+                    c.RwyComboBox.Text.Serialize(altnRwy)));
 
             return altnInfo.ToArray();
         }
