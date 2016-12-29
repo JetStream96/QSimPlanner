@@ -365,7 +365,7 @@ namespace QSP.UI.Forms
         private void importBtn_Click(object sender, EventArgs e)
         {
             var openFileDialog = new OpenFileDialog();
-
+            
             openFileDialog.Filter = GetFileDialogFilter();
             openFileDialog.InitialDirectory = Path.GetFullPath(trackFileFolder);
             openFileDialog.RestoreDirectory = true;
@@ -402,18 +402,6 @@ namespace QSP.UI.Forms
                 () => { });
 
             airwayNetwork.SetTrackMessageAndEnable(type, GetTrackMessage(type, doc), seq);
-        }
-
-        public void Draw(object sender, PaintEventArgs e)
-        {
-            var picBox = (PictureBox)sender;
-            var image = picBox.Image;
-            if (image == null) return;
-
-            // Make sure to use high-quality interpolation.
-            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            e.Graphics.DrawImage(image, e.ClipRectangle);
-            e.Dispose();
         }
     }
 }

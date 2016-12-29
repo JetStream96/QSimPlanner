@@ -4,6 +4,7 @@ using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace QSP.UI.Forms.Options
 {
@@ -12,10 +13,7 @@ namespace QSP.UI.Forms.Options
         private IEnumerable<RouteExportMatching> exports;
         private Locator<AppOptions> appOptionsLocator;
 
-        public AppOptions AppOptions
-        {
-            get { return appOptionsLocator.Instance; }
-        }
+        public AppOptions AppOptions => appOptionsLocator.Instance;
 
         public FlightPlanExportController(
             IEnumerable<RouteExportMatching> exports,
@@ -46,9 +44,7 @@ namespace QSP.UI.Forms.Options
 
             foreach (var i in exports)
             {
-                var command = new ExportCommand(
-                    i.Type, i.TxtBox.Text, i.CheckBox.Checked);
-
+                var command = new ExportCommand(i.Type, i.TxtBox.Text, i.CheckBox.Checked);
                 cmds.Add(i.Key, command);
             }
 
@@ -78,13 +74,15 @@ namespace QSP.UI.Forms.Options
             {
                 i.BrowserBtn.Click += (sender, e) =>
                 {
-                    var dialog = new FolderBrowserDialog();
-                    dialog.SelectedPath = i.TxtBox.Text;
-                    var dlgResult = dialog.ShowDialog();
 
-                    if (dlgResult == DialogResult.OK)
+                    var dialog = new CommonOpenFileDialog();
+                    dialog.InitialDirectory = i.TxtBox.Text;
+                    dialog.IsFolderPicker = true;
+                    var result = dialog.ShowDialog();
+
+                    if (result == CommonFileDialogResult.Ok)
                     {
-                        i.TxtBox.Text = dialog.SelectedPath;
+                        i.TxtBox.Text = dialog.FileName;
                     }
                 };
             }
