@@ -36,7 +36,7 @@ namespace QSP.UI.Forms
 
             downloadBtn.Click += async (s, e) => await DownloadWind();
             saveFileBtn.Click += SaveFile;
-            loadFileBtn.Click += (s,e) => LoadFile(s, e);
+            loadFileBtn.Click += (s, e) => LoadFile(s, e);
         }
 
         private void SetButtonColorStyles()
@@ -47,11 +47,8 @@ namespace QSP.UI.Forms
                 Color.White,
                 Color.LightGray);
 
-            var downloadBtnStyle = new ControlDisableStyleController(
-                downloadBtn, colorStyle);
-
-            var loadFileBtnStyle = new ControlDisableStyleController(
-                loadFileBtn, colorStyle);
+            var downloadBtnStyle = new ControlDisableStyleController(downloadBtn, colorStyle);
+            var loadFileBtnStyle = new ControlDisableStyleController(loadFileBtn, colorStyle);
 
             downloadBtnStyle.Activate();
             loadFileBtnStyle.Activate();
@@ -76,9 +73,7 @@ namespace QSP.UI.Forms
                 ShowWindStatus(WindDownloadStatus.FinishedDownload);
                 windAvailable = true;
             }
-            catch (Exception ex) when (
-                ex is ReadWindFileException ||
-                ex is DownloadGribFileException)
+            catch (Exception ex)
             {
                 WriteToLog(ex);
                 ShowWindStatus(WindDownloadStatus.FailedToDownload);
@@ -103,25 +98,22 @@ namespace QSP.UI.Forms
 
             if (windAvailable == false)
             {
-                MsgBoxHelper.ShowWarning(
-                  "No wind data has been downloaded or loaded from file.");
+                MsgBoxHelper.ShowWarning("No wind data has been downloaded or loaded from file.");
                 return;
             }
 
             if (File.Exists(sourceFile) == false)
             {
                 MsgBoxHelper.ShowWarning(
-                    "The temporary wind data file was deleted. " +
-                    "Unable to proceed.");
+                    "The temporary wind data file was deleted. Unable to proceed.");
                 return;
             }
-            
+
             var saveFileDialog = new SaveFileDialog();
 
-            saveFileDialog.Filter =
-                "grib2 files (*.grib2)|*.grib2|All files (*.*)|*.*";
+            saveFileDialog.Filter = "grib2 files (*.grib2)|*.grib2|All files (*.*)|*.*";
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(
-                Environment.SpecialFolder.MyDocuments); 
+                Environment.SpecialFolder.MyDocuments);
             saveFileDialog.RestoreDirectory = true;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -175,8 +167,7 @@ namespace QSP.UI.Forms
                 catch (Exception ex)
                 {
                     WriteToLog(ex);
-                    MsgBoxHelper.ShowWarning(
-                        $"Failed to load file {file}");
+                    MsgBoxHelper.ShowWarning($"Failed to load file {file}");
                 }
 
                 downloadBtn.Enabled = true;

@@ -13,6 +13,7 @@ namespace QSP.WindAloft
         //  a page with file unavailable has only 700.)
         private const int sourceCodeLenCriteria = 9000;
 
+        // Can throw exception. 
         public static FindResult Find()
         {
             using (var client = new WebClient())

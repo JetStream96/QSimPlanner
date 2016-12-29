@@ -10,9 +10,8 @@ namespace QSP.WindAloft
 
         /// <summary>
         /// Download, convert and read the files into WindTableCollection.
+        /// Can throw exception. 
         /// </summary>
-        /// <exception cref="ReadWindFileException"></exception>
-        /// <exception cref="DownloadGribFileException"></exception> 
         public static WindTableCollection LoadWind()
         {
             new GribDownloader().DownloadGribFile(DownloadFilePath);
@@ -24,8 +23,7 @@ namespace QSP.WindAloft
             return tables;
         }
 
-        /// <exception cref="ReadWindFileException"></exception>
-        /// <exception cref="DownloadGribFileException"></exception>
+        // Can throw exception.
         public static async Task<WindTableCollection> LoadWindAsync()
         {
             return await Task.Factory.StartNew(LoadWind);
