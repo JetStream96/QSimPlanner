@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace QSP.RouteFinding
 {
     public static class RwyIdent
@@ -7,23 +9,15 @@ namespace QSP.RouteFinding
         /// </summary>
         public static bool IsRwyIdent(string str)
         {
-            int rwyNum;
-
-            if (str.Length == 2)
-            {
-                return
-                    int.TryParse(str, out rwyNum) &&
-                    (rwyNum > 0 && rwyNum <= 36);
-            }
-            else if (str.Length == 3)
-            {
-                return
-                    (str[2] == 'L' || str[2] == 'R' || str[2] == 'C') &&
-                    int.TryParse(str.Substring(0, 2), out rwyNum) &&
-                    (rwyNum > 0 && rwyNum <= 36);
-            }
-
+            if (str.Length == 2) return ValidRwyNum(str);
+            if (str.Length == 3) return "LRC".Contains(str[2]) && ValidRwyNum(str.Substring(0, 2));
             return false;
+        }
+
+        private static bool ValidRwyNum(string s)
+        {
+            int rwyNum;
+            return int.TryParse(s, out rwyNum) && 0 < rwyNum && rwyNum <= 36;
         }
     }
 }
