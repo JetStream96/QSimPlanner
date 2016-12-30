@@ -4,6 +4,7 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using System.Collections.Generic;
 using System.Linq;
+using QSP.LibraryExtension;
 using static QSP.LibraryExtension.Lists;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
@@ -63,7 +64,7 @@ IF,WPT01,-50.00,-121.000,0.0,0.0,0,0,0,0,0,0,0,0,
 
         private static StarCollection GetStarCollection()
         {
-            return new StarReader(TxtData).Parse();
+            return StarReader.Parse(TxtData.Lines());
         }
 
         private static bool ContainResultCommonPart(

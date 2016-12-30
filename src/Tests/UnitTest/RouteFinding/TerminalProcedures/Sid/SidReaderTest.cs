@@ -4,6 +4,7 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using System.Collections.Generic;
 using System.Linq;
+using QSP.LibraryExtension;
 using static QSP.LibraryExtension.Lists;
 
 namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
@@ -11,7 +12,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
     [TestFixture]
     public class SidReaderTest
     {
-        private static string SidAllTxt =
+        private static string sidAllTxt =
 @"A,AXYZ,Test Airport 01,25.0,50.0,15,5000,8000,3500,0
 R,18,180,3500,60,0,0.000,0,25.0003, 50.0001,15,3.00,50,1,0
 R,36,360,3500,60,0,0.000,0,25.0001, 50.0005,15,3.00,50,1,0
@@ -83,8 +84,7 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
         {
             if (SidCollection == null)
             {
-                var reader = new SidReader(SidAllTxt);
-                SidCollection = reader.Parse();
+                SidCollection = SidReader.Parse(sidAllTxt.Lines());
             }
 
             return SidCollection;

@@ -2,6 +2,7 @@ using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using System.Collections.Generic;
+using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
 {
@@ -21,7 +22,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             WaypointListEditor editor,
             AirportManager airportList)
             : this(icao,
-                  new SidReader(allTxt).Parse(),
+                  SidReader.Parse(allTxt.Lines()),
                   wptList,
                   editor,
                   airportList)

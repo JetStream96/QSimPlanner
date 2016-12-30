@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers;
-using QSP.RouteFinding.TerminalProcedures.Sid;
 
 namespace QSP.RouteFinding.TerminalProcedures.Parser
 {
@@ -38,7 +36,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Parser
                 RunwayOrTransition = rwyOrTransition,
                 Type = GetEntryType.GetType(rwyOrTransition),
                 Waypoints = wpts.ToList(),
-                EndWithVector = !FixTypes.HasCorrds(lines.Last().Split()[0])
+                EndWithVector = !FixTypes.HasCorrds(lines.Last().Split(',')[0])
             };
         }
 

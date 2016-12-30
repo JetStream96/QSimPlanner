@@ -2,6 +2,7 @@ using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using System.Collections.Generic;
+using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.TerminalProcedures.Star
 {
@@ -23,7 +24,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
             AirportManager airportList)
             : this(
                   icao,
-                  new StarReader(allTxt).Parse(),
+                  StarReader.Parse(allTxt.Lines()),
                   wptList,
                   editor,
                   airportList)
