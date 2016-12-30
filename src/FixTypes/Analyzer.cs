@@ -30,7 +30,9 @@ namespace FixTypes
                     Console.WriteLine($"Cannot find ICAO for file {f}.");
                     return;
                 }
-                
+
+                var contents = GetAllFixLines(lines);
+
             });
 
         }

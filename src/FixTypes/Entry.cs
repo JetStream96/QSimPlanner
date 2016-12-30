@@ -16,13 +16,11 @@ namespace FixTypes
 
     public class Line
     {
-        public int LineNum { get; }
         public string Content { get; }
         public string FixType { get; }
 
-        public Line(int LineNum, string Content)
+        public Line(string Content)
         {
-            this.LineNum = LineNum;
             this.Content = Content;
 
         }
