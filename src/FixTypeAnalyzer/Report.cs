@@ -4,7 +4,7 @@ using System.Text;
 using QSP.LibraryExtension;
 using QSP.LibraryExtension.Sets;
 
-namespace FixTypes
+namespace FixTypeAnalyzer
 {
     public class Report
     {

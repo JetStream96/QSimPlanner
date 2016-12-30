@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher", "Launcher\Launch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B748F", "FuelProfileConversion\B748F\B748F.csproj", "{3ED0087B-AE79-4F78-A0C5-D061D4B5B017}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixTypes", "FixTypes\FixTypes.csproj", "{21E4CE4D-BEAE-40DF-B66C-DA3618345432}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixTypeAnalyzer", "FixTypeAnalyzer\FixTypeAnalyzer.csproj", "{21E4CE4D-BEAE-40DF-B66C-DA3618345432}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

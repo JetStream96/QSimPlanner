@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FixTypes
+namespace FixTypeAnalyzer
 {
     public class Entry
     {

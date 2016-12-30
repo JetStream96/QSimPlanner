@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using QSP.LibraryExtension;
+using QSP.RouteFinding;
 
-namespace FixTypes
+namespace FixTypeAnalyzer
 {
     class Program
     {
@@ -16,7 +15,7 @@ namespace FixTypes
             string[] knownTypes = { "IF", "DF", "TF", "FD", "CF", "AF" };
 
             var analyzer = new Analyzer(dir);
-            var report = new Report(analyzer.Analyze(), QSP.RouteFinding.FixTypes.FixTypesWithCoords);
+            var report = new Report(analyzer.Analyze(), FixTypes.FixTypesWithCoords);
 
             var summary = report.Summary();
             Console.WriteLine(summary);

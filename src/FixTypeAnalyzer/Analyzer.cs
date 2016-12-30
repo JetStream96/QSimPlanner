@@ -7,7 +7,7 @@ using QSP.LibraryExtension;
 using QSP.RouteFinding.TerminalProcedures.Parser;
 using static QSP.RouteFinding.TerminalProcedures.Parser.SectionSplitter;
 
-namespace FixTypes
+namespace FixTypeAnalyzer
 {
     public class Analyzer
     {

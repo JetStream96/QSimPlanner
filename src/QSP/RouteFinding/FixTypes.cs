@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using QSP.LibraryExtension;
+﻿using QSP.LibraryExtension;
 using QSP.LibraryExtension.Sets;
 
 namespace QSP.RouteFinding
