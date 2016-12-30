@@ -13,7 +13,7 @@ namespace QSP.UI.Utilities
 
             using (var g = Graphics.FromImage(newImage))
             {
-                g.SmoothingMode = SmoothingMode.AntiAlias;//.HighQuality;
+                g.SmoothingMode = SmoothingMode.AntiAlias;
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 g.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 g.DrawImage(image, new Rectangle(new Point(0, 0), newSize));

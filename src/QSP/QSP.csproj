@@ -287,6 +287,7 @@
     </Compile>
     <Compile Include="UI\UserControls\RouteActions\RouteActionController.cs" />
     <Compile Include="UI\Utilities\ControlMover.cs" />
+    <Compile Include="UI\Utilities\DoubleBufferUtil.cs" />
     <Compile Include="UI\Utilities\ImageUtil.cs" />
     <Compile Include="UI\Utilities\InputValidator.cs" />
     <Compile Include="UI\Utilities\ParentControlFinder.cs" />

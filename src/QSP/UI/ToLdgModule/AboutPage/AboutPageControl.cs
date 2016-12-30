@@ -19,12 +19,13 @@ namespace QSP.UI.ToLdgModule.AboutPage
         public void Init(string appName)
         {
             appNameLbl.Text = appName;
-            tableLayoutPanel3.BackColor = Color.FromArgb(250, 250, 250);
 
             var ver = Assembly.GetEntryAssembly().GetName().Version;
             versionLbl.Text = $"v{ver.Major}.{ver.Minor}.{ver.Build}";
+            DoubleBufferUtil.SetDoubleBuffered(tableLayoutPanel3);
+            tableLayoutPanel3.BackColor = Color.FromArgb(148, 255, 255, 255);
         }
-
+        
         private void TryOpenFile(string fileName)
         {
             try
