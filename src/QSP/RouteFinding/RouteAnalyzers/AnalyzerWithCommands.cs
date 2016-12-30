@@ -168,8 +168,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
                 if (commands.Contains(first) && commands.Contains(second))
                 {
-                    throw new ArgumentException(
-                        $"{first} cannot be followed by {second}");
+                    throw new ArgumentException($"{first} cannot be followed by {second}");
                 }
             }
         }
@@ -185,8 +184,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 airportList.FindRwy(destIcao, destRwy));
         }
 
-        private IReadOnlyList<SubRoute> TransformSubRoutes(
-            IReadOnlyList<RouteSegment> segments)
+        private IReadOnlyList<SubRoute> TransformSubRoutes(IReadOnlyList<RouteSegment> segments)
         {
             int count = segments.Count;
             var result = new SubRoute[count];
@@ -230,8 +228,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return analyzer.Analyze().ToSubRoute();
         }
 
-        private SubRoute ComputeTerminalRoute(
-            RouteString item, bool isOrig, bool isDest)
+        private SubRoute ComputeTerminalRoute(RouteString item, bool isOrig, bool isDest)
         {
             Route origRoute = null;
             Route destRoute = null;

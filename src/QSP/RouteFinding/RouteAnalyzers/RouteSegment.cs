@@ -2,7 +2,6 @@
 
 namespace QSP.RouteFinding.RouteAnalyzers
 {
-
     // This class is immutable.
     public class RouteSegment
     {
@@ -22,8 +21,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         public RouteSegment(RouteString RouteString) : this(false, false, RouteString) { }
 
-        private RouteSegment(bool IsAuto, bool IsRand,
-            RouteString RouteString)
+        private RouteSegment(bool IsAuto, bool IsRand, RouteString RouteString)
         {
             this.IsAuto = IsAuto;
             this.IsRand = IsRand;
