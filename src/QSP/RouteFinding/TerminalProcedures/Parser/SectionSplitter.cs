@@ -58,6 +58,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Parser
         {
             /// <summary>
             /// The first line contains either SID or STAR. The rest are waypoints/vectors.
+            /// This contains at least two string.
             /// </summary>
             public IReadOnlyList<string> Lines;
         }

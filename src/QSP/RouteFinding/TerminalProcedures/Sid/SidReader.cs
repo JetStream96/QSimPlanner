@@ -3,6 +3,7 @@ using QSP.RouteFinding.Containers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using QSP.RouteFinding.TerminalProcedures.Parser;
 using static QSP.RouteFinding.FixTypes;
 
 namespace QSP.RouteFinding.TerminalProcedures.Sid
@@ -26,6 +27,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
 
         public SidCollection Parse()
         {
+            var sections = SectionSplitter.Split(allLines, SectionSplitter.Type.Sid);
             var sids = new List<SidEntry>();
 
             bool isInSidBody = false;
@@ -76,6 +78,14 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             AddLastEntry(sids, name, rwyOrTransition, endWithVector, wpts);
 
             return new SidCollection(sids);
+        }
+
+        // Convert to SidEntry. If failed, returns null.
+        private static SidEntry GetEntry(SectionSplitter.SplitEntry entry)
+        {
+            var firstLine = entry.Lines[0].Split(',');
+            if (firstLine.Length < 3) return null;
+
         }
 
         private static void AddLastEntry(

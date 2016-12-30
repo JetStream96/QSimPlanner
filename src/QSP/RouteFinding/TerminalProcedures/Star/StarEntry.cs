@@ -27,7 +27,6 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         public string RunwayOrTransition { get; private set; }
         public string Name { get; private set; }
         public IReadOnlyList<Waypoint> Waypoints { get; private set; }
-
         public EntryType Type { get; private set; }
 
         public StarEntry(string RunwayOrTransition, string StarName,

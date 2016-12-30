@@ -153,6 +153,7 @@
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="NavData\NavDataPath.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\Parser\ProcedureParser.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Parser\SectionSplitter.cs" />
     <Compile Include="RouteFinding\Tracks\Actions\NetworkUpdateAction.cs" />
     <Compile Include="RouteFinding\Tracks\Actions\TrackTaskQueues.cs" />
