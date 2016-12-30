@@ -5,26 +5,24 @@ namespace FixTypes
     public class Entry
     {
         public string Icao { get; }
-        public IReadOnlyList<Line> Lines { get; }
+        public IEnumerable<string> Lines { get; }
 
-        public Entry(string Icao, IReadOnlyList<Line> Lines)
+        public Entry(string Icao, IEnumerable<string> Lines)
         {
             this.Icao = Icao;
             this.Lines = Lines;
         }
     }
 
-    public class Line
+    public struct IndividualEntry
     {
-        public int LineNum { get; }
-        public string Content { get; }
-        public string FixType { get; }
+        public string Icao { get; }
+        public string Line { get; }
 
-        public Line(int LineNum, string Content)
+        public IndividualEntry(string Icao, string Line)
         {
-            this.LineNum = LineNum;
-            this.Content = Content;
-
+            this.Icao = Icao;
+            this.Line = Line;
         }
     }
 }

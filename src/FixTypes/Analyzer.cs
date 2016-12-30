@@ -18,21 +18,35 @@ namespace FixTypes
             this.dir = dir;
         }
 
-        public int Analyze()
+        public Dictionary<string, List<IndividualEntry>> Analyze()
+        {
+            return AllAirports()
+                .SelectMany(e => e.Lines.Select(i => new IndividualEntry(e.Icao, i)))
+                .GroupBy(i => GetFixType(i.Line))
+                .ToDictionary(x => x.Key, x => x.ToList());
+        }
+
+        private static string GetFixType(string line)
+        {
+            return line.Substring(0, line.IndexOf(','));
+        }
+
+        private IEnumerable<Entry> AllAirports()
         {
             var files = Directory.GetFiles(dir);
-            files.ForEach(f =>
+
+            foreach (var f in files)
             {
                 var lines = File.ReadAllLines(f);
                 var icao = GetIcao(lines);
                 if (icao == null)
                 {
                     Console.WriteLine($"Cannot find ICAO for file {f}.");
-                    return;
+                    continue;
                 }
-                
-            });
 
+                yield return new Entry(icao, GetAllFixLines(lines));
+            }
         }
 
         private static IEnumerable<string> GetAllFixLines(string[] lines)
