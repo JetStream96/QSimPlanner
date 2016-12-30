@@ -34,8 +34,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// </summary>
         public SidEntry GetSid(string sid)
         {
-            return SidList.FirstOrDefault(
-                i => i.Name == sid && i.Type == EntryType.Common);
+            return SidList.FirstOrDefault(i => i.Name == sid && i.Type == EntryType.Common);
         }
 
         /// <summary>
@@ -98,8 +97,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             if (sidTrans.TransitionName != "")
             {
                 // There is transition
-                var transitionPart = GetSid(
-                    sidTrans.ProcedureName, sidTrans.TransitionName);
+                var transitionPart = GetSid(sidTrans.ProcedureName, sidTrans.TransitionName);
 
                 if (transitionPart == null)
                 {
@@ -134,8 +132,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         {
             var sidWpts = SidWaypoints(sid, rwy, origRwy);
             var wpts = sidWpts.Waypoints;
-            return new SidInfo(
-                wpts.TotalDistance(), wpts.Last(), sidWpts.EndsWithVector);
+            return new SidInfo(wpts.TotalDistance(), wpts.Last(), sidWpts.EndsWithVector);
         }
     }
 }

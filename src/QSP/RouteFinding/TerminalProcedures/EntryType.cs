@@ -13,18 +13,9 @@ namespace QSP.RouteFinding.TerminalProcedures
     {
         public static EntryType GetType(string rwy)
         {
-            if (IsRwyIdent(rwy))
-            {
-                return EntryType.RwySpecific;
-            }
-            else if (rwy == "ALL")
-            {
-                return EntryType.Common;
-            }
-            else
-            {
-                return EntryType.Transition;
-            }
+            if (IsRwyIdent(rwy)) return EntryType.RwySpecific;
+            if (rwy == "ALL") return EntryType.Common;
+            return EntryType.Transition;
         }
     }
 }

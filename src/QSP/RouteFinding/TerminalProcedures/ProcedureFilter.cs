@@ -4,8 +4,7 @@ namespace QSP.RouteFinding.TerminalProcedures
 {
     public class ProcedureFilter
     {
-        private Dictionary<string, FilterEntry> items =
-            new Dictionary<string, FilterEntry>();
+        private Dictionary<string, FilterEntry> items = new Dictionary<string, FilterEntry>();
 
         public ProcedureFilter() { }
 
@@ -33,21 +32,13 @@ namespace QSP.RouteFinding.TerminalProcedures
 
     public class FilterEntry
     {
-        public bool IsBlackList { get; private set; }
-        private List<string> _procedures;
+        public bool IsBlackList { get; }
+        public IReadOnlyList<string> Procedures { get; }
 
-        public IReadOnlyList<string> Procedures
+        public FilterEntry(bool IsBlackList, IReadOnlyList<string> Procedures)
         {
-            get
-            {
-                return _procedures;
-            }
-        }
-
-        public FilterEntry(bool isBlackList, List<string> procedures)
-        {
-            this.IsBlackList = isBlackList;
-            this._procedures = procedures;
+            this.IsBlackList = IsBlackList;
+            this.Procedures = Procedures;
         }
     }
 }

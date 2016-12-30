@@ -20,11 +20,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
         /// <exception cref="ArgumentNullException"></exception>
         public SidReader(IEnumerable<string> allLines)
         {
-            if (allLines == null)
-            {
-                throw new ArgumentNullException();
-            }
-
+            if (allLines == null) throw new ArgumentNullException();
             this.allLines = allLines;
         }
 
@@ -47,8 +43,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                     isInSidBody = true;
 
                     // Add last SID if exists.
-                    AddLastEntry(
-                        sids, name, rwyOrTransition, endWithVector, wpts);
+                    AddLastEntry(sids, name, rwyOrTransition, endWithVector, wpts);
 
                     // This is a new SID.
                     name = words[1];

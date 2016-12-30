@@ -170,10 +170,10 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
             bool endWithVector)
         {
             return collection.SidList.Any(i =>
-            i.Name == sid &&
-            Enumerable.SequenceEqual(i.Waypoints, wpts) &&
-            i.Type == EntryType.Common &&
-            i.EndWithVector == endWithVector);
+                i.Name == sid &&
+                i.Waypoints.SequenceEqual(wpts) &&
+                i.Type == EntryType.Common &&
+                i.EndWithVector == endWithVector);
         }
 
         private bool ContainResult(
@@ -181,11 +181,11 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
             List<Waypoint> wpts, EntryType type, bool endWithVector)
         {
             return collection.SidList.Any(i =>
-            i.Name == sid &&
-            i.RunwayOrTransition == rwy &&
-            Enumerable.SequenceEqual(i.Waypoints, wpts) &&
-            i.Type == type &&
-            i.EndWithVector == endWithVector);
+                i.Name == sid &&
+                i.RunwayOrTransition == rwy &&
+                i.Waypoints.SequenceEqual(wpts) &&
+                i.Type == type &&
+                i.EndWithVector == endWithVector);
         }
     }
 }
