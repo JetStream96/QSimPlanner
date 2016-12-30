@@ -2,16 +2,17 @@
 using System.Linq;
 using System.Text;
 using QSP.LibraryExtension;
+using QSP.LibraryExtension.Sets;
 
 namespace FixTypes
 {
     public class Report
     {
         public Dictionary<string, List<IndividualEntry>> FixTypes { get; }
-        public HashSet<string> KnownTypes { get; }
+        public IReadOnlySet<string> KnownTypes { get; }
 
         public Report(Dictionary<string, List<IndividualEntry>> FixTypes,
-            HashSet<string> KnownTypes)
+            IReadOnlySet<string> KnownTypes)
         {
             this.FixTypes = FixTypes;
             this.KnownTypes = KnownTypes;
@@ -33,7 +34,7 @@ namespace FixTypes
                 sb.AppendLine($"{i}: Found {TypeCount(i)} times");
             }
 
-            sb.AppendLine($"Other fix types ({total - known}):");
+            sb.AppendLine($"\nOther fix types ({total - known}):");
 
             foreach (var j in NotKnownTypes())
             {
@@ -45,7 +46,7 @@ namespace FixTypes
 
         public IEnumerable<string> NotKnownTypes()
         {
-            return FixTypes.Keys.Except(KnownTypes)
+            return FixTypes.Keys.Except(KnownTypes);
         }
 
         public string TypeSummary(string type)

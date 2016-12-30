@@ -51,7 +51,7 @@ namespace FixTypes
 
         private static IEnumerable<string> GetAllFixLines(string[] lines)
         {
-            return GetSplitResult(lines).SelectMany(r => r.Lines);
+            return GetSplitResult(lines).SelectMany(r => r.Lines.Skip(1));
         }
 
         private static IEnumerable<SplitEntry> GetSplitResult(string[] lines)
@@ -64,7 +64,7 @@ namespace FixTypes
         {
             foreach (var s in lines)
             {
-                var match = Regex.Match(s, @"A,([A-Z]{4}),");
+                var match = Regex.Match(s, @"A,([A-Z0-9]{4}),");
                 if (match.Success) return match.Groups[1].Value;
             }
 

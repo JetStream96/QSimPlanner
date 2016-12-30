@@ -13,10 +13,10 @@ namespace FixTypes
         static void Main(string[] args)
         {
             const string dir = @"C:\Data\Programming\Projects\QSimPlanner\AIRAC\1607\Proc";
-            string[] knownTypes = { };
+            string[] knownTypes = { "IF", "DF", "TF", "FD", "CF", "AF" };
 
             var analyzer = new Analyzer(dir);
-            var report = new Report(analyzer.Analyze(), knownTypes.ToHashSet());
+            var report = new Report(analyzer.Analyze(), QSP.RouteFinding.FixTypes.FixTypesWithCoords);
 
             var summary = report.Summary();
             Console.WriteLine(summary);

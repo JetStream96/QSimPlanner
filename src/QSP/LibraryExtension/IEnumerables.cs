@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using QSP.LibraryExtension.Sets;
 
 namespace QSP.LibraryExtension
 {
@@ -26,6 +27,11 @@ namespace QSP.LibraryExtension
         public static HashSet<T> ToHashSet<T>(this IEnumerable<T> source)
         {
             return new HashSet<T>(source);
+        }
+
+        public static ReadOnlySet<T> ToReadOnlySet<T>(this IEnumerable<T> item)
+        {
+            return new ReadOnlySet<T>(item.ToHashSet());
         }
 
         public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T x)
