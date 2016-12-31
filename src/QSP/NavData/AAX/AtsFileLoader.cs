@@ -75,7 +75,7 @@ namespace QSP.NavData.AAX
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
 
                 throw new WaypointFileReadException(
                     "Failed to load ats.txt.", ex);

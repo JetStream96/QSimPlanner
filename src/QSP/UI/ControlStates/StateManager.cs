@@ -23,7 +23,7 @@ namespace QSP.UI.ControlStates
             }
             catch (Exception ex)
             {
-                LoggerInstance.WriteToLog(ex);
+                LoggerInstance.Log(ex);
             }
         }
 
@@ -35,7 +35,7 @@ namespace QSP.UI.ControlStates
             }
             catch (Exception ex)
             {
-                LoggerInstance.WriteToLog(ex);
+                LoggerInstance.Log(ex);
                 return null;
             }
         }

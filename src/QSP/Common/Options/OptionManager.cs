@@ -21,7 +21,7 @@ namespace QSP.Common.Options
             }
             catch (Exception ex)
             {
-                LoggerInstance.WriteToLog(ex);
+                LoggerInstance.Log(ex);
                 SaveToFile(AppOptions.Default);
                 return ReadFromFile();
             }

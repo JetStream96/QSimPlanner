@@ -70,7 +70,7 @@ namespace QSP.RouteFinding.FileExport
             }
             catch (Exception ex)
             {
-                LoggerInstance.WriteToLog(ex);
+                LoggerInstance.Log(ex);
                 var mayBePermissionIssue = ex is UnauthorizedAccessException ||
                     ex is SecurityException;
 

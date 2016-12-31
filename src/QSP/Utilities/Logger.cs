@@ -3,7 +3,13 @@ using System.IO;
 
 namespace QSP.Utilities
 {
-    public class Logger
+    public interface ILogger
+    {
+        void Log(Exception ex);
+        void Log(string msg);
+    }
+
+    public class Logger : ILogger
     {
         private string filePath;
 
@@ -12,19 +18,15 @@ namespace QSP.Utilities
             this.filePath = filePath;
         }
 
-        public void WriteToLog(Exception ex)
+        public void Log(Exception ex)
         {
-            WriteToLog(ex.ToString());
+            Log(ex.ToString());
         }
 
-        public void WriteToLog(string msg)
+        public void Log(string msg)
         {
-            try
-            {
-                File.AppendAllText(filePath, DateTime.Now.ToString() + ":\n" + msg + "\n\n");
-            }
-            catch
-            { }
+            ExceptionHelpers.IgnoreException(() =>
+                File.AppendAllText(filePath, DateTime.Now.ToString() + ":\n" + msg + "\n\n"));
         }
     }
 }

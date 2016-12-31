@@ -231,13 +231,13 @@ namespace QSP.UI.Forms.Options
             }
             catch (WaypointFileReadException ex)
             {
-                WriteToLog(ex);
+                Log(ex);
                 ShowError("Failed to load waypoints.txt.");
                 return null;
             }
             catch (LoadCountryNamesException ex)
             {
-                WriteToLog(ex);
+                Log(ex);
                 ShowError("Failed to load icao_nationality_code.txt.");
                 return null;
             }
@@ -255,7 +255,7 @@ namespace QSP.UI.Forms.Options
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
                 ShowError("Failed to load airports.txt.");
                 return null;
             }
@@ -359,7 +359,7 @@ namespace QSP.UI.Forms.Options
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
 
                 navDataStatusLbl.Text = "Failed to load";
                 airacLbl.Text = "N/A";

@@ -261,7 +261,7 @@ namespace QSP.UI.UserControls
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
             }
         }
 
@@ -273,7 +273,7 @@ namespace QSP.UI.UserControls
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
             }
         }
 

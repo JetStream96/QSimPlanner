@@ -41,7 +41,7 @@ namespace QSP.Updates
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
                 return new UpdateStatus(
                     false, "Failed to obtain update info.");
             }
@@ -56,7 +56,7 @@ namespace QSP.Updates
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
                 return new UpdateStatus(false, "Failed to install update.");
             }
 

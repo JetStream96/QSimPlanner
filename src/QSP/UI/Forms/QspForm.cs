@@ -171,7 +171,7 @@ namespace QSP.UI.Forms
             }
             catch (PerfFileNotFoundException ex)
             {
-                WriteToLog(ex);
+                Log(ex);
                 MsgBoxHelper.ShowWarning(ex.Message);
             }
 
@@ -183,7 +183,7 @@ namespace QSP.UI.Forms
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
                 MsgBoxHelper.ShowError(
                     "Cannot load options. The application will quit now.");
                 Environment.Exit(1);
@@ -195,7 +195,7 @@ namespace QSP.UI.Forms
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
                 failedToLoadNavDataAtStartUp = true;
 
                 countryCodesLocator = new Locator<CountryCodeManager>(null);
@@ -440,7 +440,7 @@ namespace QSP.UI.Forms
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
             }
         }
 
@@ -576,7 +576,7 @@ namespace QSP.UI.Forms
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
             }
         }
 
@@ -595,7 +595,7 @@ namespace QSP.UI.Forms
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
             }
         }
 

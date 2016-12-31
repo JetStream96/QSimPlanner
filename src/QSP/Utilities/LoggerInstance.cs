@@ -6,14 +6,8 @@ namespace QSP.Utilities
     {
         private static Logger logger = new Logger();
 
-        public static void WriteToLog(Exception ex)
-        {
-            logger.WriteToLog(ex);
-        }
+        public static void Log(Exception ex) => logger.Log(ex);
 
-        public static void WriteToLog(string msg)
-        {
-            logger.WriteToLog(msg);
-        }
+        public static void Log(string msg)=> logger.Log(msg);
     }
 }

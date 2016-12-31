@@ -101,7 +101,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
                 }
                 catch (WaypointNotFoundException ex)
                 {
-                    WriteToLog(ex);
+                    Log(ex);
                 }
             }
 

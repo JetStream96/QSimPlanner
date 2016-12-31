@@ -34,7 +34,7 @@ namespace QSP.UI.ToLdgModule.AboutPage
             }
             catch (Exception ex)
             {
-                LoggerInstance.WriteToLog(ex);
+                LoggerInstance.Log(ex);
                 MsgBoxHelper.ShowWarning("Cannot open the specified file.");
             }
         }

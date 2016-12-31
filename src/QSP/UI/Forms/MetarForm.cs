@@ -25,7 +25,7 @@ namespace QSP.UI.Forms
             }
             catch (Exception ex)
             {
-                LoggerInstance.WriteToLog(ex);
+                LoggerInstance.Log(ex);
             }
 
             try
@@ -34,7 +34,7 @@ namespace QSP.UI.Forms
             }
             catch (Exception ex)
             {
-                LoggerInstance.WriteToLog(ex);
+                LoggerInstance.Log(ex);
             }
 
             resultRichTxtBox.Text =

@@ -56,7 +56,7 @@ namespace QSP.NavData.AAX
             var sb = new StringBuilder();
             sb.AppendLine("These lines in waypoints.txt cannot be parsed:");
             failedLines.ForEach(i => sb.AppendLine(i));
-            WriteToLog(sb.ToString());
+            Log(sb.ToString());
         }
 
         /// <exception cref="WaypointFileReadException"></exception>

@@ -158,7 +158,7 @@ namespace QSP.UI.UserControls
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
                 desForcastRichTxtBox.Text =
                     "\n\n\n       Unable to get descent forcast for " + dest;
             }

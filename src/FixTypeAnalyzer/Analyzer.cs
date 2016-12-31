@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.TerminalProcedures.Parser;
@@ -12,6 +13,9 @@ namespace FixTypeAnalyzer
     public class Analyzer
     {
         private readonly string dir;
+        private readonly StringBuilder messages=new StringBuilder();
+
+        public string Message => messages.ToString();
 
         public Analyzer(string dir)
         {
@@ -41,10 +45,10 @@ namespace FixTypeAnalyzer
                 var icao = GetIcao(lines);
                 if (icao == null)
                 {
-                    Console.WriteLine($"Cannot find ICAO for file {f}.");
+                    messages.AppendLine($"Cannot find ICAO for file {f}.");
                     continue;
                 }
-				
+
                 yield return new Entry(icao, GetAllFixLines(lines));
             }
         }
@@ -70,6 +74,5 @@ namespace FixTypeAnalyzer
 
             return null;
         }
-
     }
 }

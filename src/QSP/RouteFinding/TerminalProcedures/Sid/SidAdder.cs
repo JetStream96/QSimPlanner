@@ -104,7 +104,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
                 }
                 catch (WaypointNotFoundException ex)
                 {
-                    WriteToLog(ex);
+                    Log(ex);
                 }
             }
 

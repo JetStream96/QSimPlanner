@@ -55,7 +55,7 @@ namespace QSP
 
         private static void HandleException(Exception ex)
         {
-            LoggerInstance.WriteToLog(ex);
+            LoggerInstance.Log(ex);
 
             var frm = new UnhandledExceptionForm();
             frm.Init(ex.ToString());

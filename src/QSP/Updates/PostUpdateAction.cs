@@ -86,7 +86,7 @@ namespace QSP.Updates
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
                 errors.Add("Cannot copy old option file for the new version." +
                     " Please configure the options manually.");
             }
@@ -101,7 +101,7 @@ namespace QSP.Updates
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
             }
 
             // Takeoff page state
@@ -111,7 +111,7 @@ namespace QSP.Updates
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
             }
 
             // Landing page state
@@ -121,7 +121,7 @@ namespace QSP.Updates
             }
             catch (Exception ex)
             {
-                WriteToLog(ex);
+                Log(ex);
             }
         }
 

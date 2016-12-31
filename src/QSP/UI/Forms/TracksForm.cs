@@ -355,7 +355,7 @@ namespace QSP.UI.Forms
                 }
                 catch (Exception ex)
                 {
-                    WriteToLog(ex);
+                    Log(ex);
                     MsgBoxHelper.ShowWarning("Failed to save file.");
                 }
             }
@@ -380,7 +380,7 @@ namespace QSP.UI.Forms
                 }
                 catch (Exception ex)
                 {
-                    WriteToLog(ex);
+                    Log(ex);
                     MsgBoxHelper.ShowWarning($"Failed to load file {file}");
                 }
             }
