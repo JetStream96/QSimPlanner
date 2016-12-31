@@ -31,17 +31,28 @@ namespace FixTypeAnalyzer
 
             foreach (var i in KnownTypes.OrderBy(t => t))
             {
-                sb.AppendLine($"{i}: Found {TypeCount(i)} times");
+                sb.AppendLine(TypeStats(i));
             }
 
             sb.AppendLine($"\nOther fix types ({total - known}):");
 
             foreach (var j in NotKnownTypes())
             {
-                sb.AppendLine($"{j}: Found {TypeCount(j)} times");
+                sb.AppendLine(TypeStats(j));
             }
 
             return sb.ToString();
+        }
+
+        private string TypeStats(string type)
+        {
+            var entries = TypeEntries(type);
+            var count = entries.Count;
+            var valid = entries.Where(i => i.Distance != null).ToList();
+            var in500 = valid.Where(i => i.Distance.Value <= 500.0).ToList();
+            var in250 = in500.Where(i => i.Distance.Value <= 250.0);
+            return $"{type}: Found {count} time(s), Has valid coords: {valid.Count}, " +
+                   $"in 500 nm: {in500.Count}, in 250 nm: {in250.Count()}";
         }
 
         public IEnumerable<string> NotKnownTypes()
@@ -60,10 +71,10 @@ namespace FixTypeAnalyzer
             return sb.ToString();
         }
 
-        private int TypeCount(string type)
+        private IReadOnlyList<IndividualEntry> TypeEntries(string type)
         {
-            if (FixTypes.ContainsKey(type)) return FixTypes[type].Count;
-            return 0;
+            if (FixTypes.ContainsKey(type)) return FixTypes[type];
+            return new IndividualEntry[0];
         }
     }
 }

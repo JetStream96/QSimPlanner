@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using QSP.AviationTools.Coordinates;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.TerminalProcedures.Parser;
 using static QSP.RouteFinding.TerminalProcedures.Parser.SectionSplitter;
@@ -13,7 +14,7 @@ namespace FixTypeAnalyzer
     public class Analyzer
     {
         private readonly string dir;
-        private readonly StringBuilder messages=new StringBuilder();
+        private readonly StringBuilder messages = new StringBuilder();
 
         public string Message => messages.ToString();
 
@@ -25,9 +26,27 @@ namespace FixTypeAnalyzer
         public Dictionary<string, List<IndividualEntry>> Analyze()
         {
             return AllAirports()
-                .SelectMany(e => e.Lines.Select(i => new IndividualEntry(e.Icao, i)))
+                .SelectMany(e => e.Lines.Select(i => ToIndividualEntry(e.Airport, i)))
                 .GroupBy(i => GetFixType(i.Line))
                 .ToDictionary(x => x.Key, x => x.ToList());
+        }
+
+        private static IndividualEntry ToIndividualEntry(Airport a, string line)
+        {
+            var words = line.Split(',');
+
+            double lat, lon;
+            double? dis = null;
+            if (words.Length >= 4 &&
+                double.TryParse(words[2], out lat) &&
+                double.TryParse(words[3], out lon) &&
+                -90.0 <= lat && lat <= 90.0 &&
+                -180.0 <= lon && lon <= 180.0)
+            {
+                dis = new LatLon(lat, lon).Distance(a.Lat, a.Lon);
+            }
+
+            return new IndividualEntry(words[1], line, dis);
         }
 
         private static string GetFixType(string line)
@@ -42,14 +61,14 @@ namespace FixTypeAnalyzer
             foreach (var f in files)
             {
                 var lines = File.ReadAllLines(f);
-                var icao = GetIcao(lines);
-                if (icao == null)
+                var airport = GetAirport(lines);
+                if (airport == null)
                 {
                     messages.AppendLine($"Cannot find ICAO for file {f}.");
                     continue;
                 }
 
-                yield return new Entry(icao, GetAllFixLines(lines));
+                yield return new Entry(airport, GetAllFixLines(lines));
             }
         }
 
@@ -64,15 +83,47 @@ namespace FixTypeAnalyzer
                 .Concat(Split(lines, SectionSplitter.Type.Star));
         }
 
-        private static string GetIcao(string[] lines)
+        private static Airport GetAirport(string[] lines)
         {
             foreach (var s in lines)
             {
-                var match = Regex.Match(s, @"A,([A-Z0-9]{4}),");
-                if (match.Success) return match.Groups[1].Value;
+                var words = s.Split(',');
+                double lat, lon;
+
+                if (words.Length >= 5 &&
+                    words[0] == "A" &&
+                    double.TryParse(words[3], out lat) &&
+                    double.TryParse(words[4], out lon))
+                {
+                    return new Airport()
+                    {
+                        Icao = words[1],
+                        Lat = lat,
+                        Lon = lon
+                    };
+                }
             }
 
             return null;
+        }
+
+        private class Entry
+        {
+            public Airport Airport { get; }
+            public IEnumerable<string> Lines { get; }
+
+            public Entry(Airport Airport, IEnumerable<string> Lines)
+            {
+                this.Airport = Airport;
+                this.Lines = Lines;
+            }
+        }
+
+        private class Airport
+        {
+            public string Icao;
+            public double Lat;
+            public double Lon;
         }
     }
 }
