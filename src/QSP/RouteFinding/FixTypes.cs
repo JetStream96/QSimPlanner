@@ -9,12 +9,11 @@ namespace QSP.RouteFinding
         // Not all fixes have lat/lon. For example, in SIDs,
         // a fix may be "maintain heading 090".
         //
-        // These may also be included:
-        // "RF", "CD", "FA", "FC", "FM", "VD", "PI", "HF", "HA", "HM"
-        // But it seems these are not used in Aerosoft Airbus NavData.
+        // The fix types with coordinates can be analyzed with FixTypeAnalyzer in this solution.
         //
         public static readonly IReadOnlySet<string> FixTypesWithCoords =
-            new[] { "IF", "DF", "TF", "FD", "CF", "AF" }.ToReadOnlySet();
+            new[] { "IF", "DF", "TF", "FD", "CF", "AF", "FA", "HA", "FM", "FC", "RF", "HM", "HF" }
+            .ToReadOnlySet();
 
         /// <summary>
         /// Determines whether the fix has a lat/lon property.
