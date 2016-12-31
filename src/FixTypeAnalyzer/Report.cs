@@ -49,10 +49,12 @@ namespace FixTypeAnalyzer
             var entries = TypeEntries(type);
             var count = entries.Count;
             var valid = entries.Where(i => i.Distance != null).ToList();
-            var in500 = valid.Where(i => i.Distance.Value <= 500.0).ToList();
+            var in1000 = valid.Where(i => i.Distance.Value <= 1000.0).ToList();
+            var in500 = in1000.Where(i => i.Distance.Value <= 500.0).ToList();
             var in250 = in500.Where(i => i.Distance.Value <= 250.0);
             return $"{type}: Found {count} time(s), Has valid coords: {valid.Count}, " +
-                   $"in 500 nm: {in500.Count}, in 250 nm: {in250.Count()}";
+                   $"in 1000 nm: {in1000.Count}, in 500 nm: {in500.Count}, " +
+                   $"in 250 nm: {in250.Count()}";
         }
 
         public IEnumerable<string> NotKnownTypes()

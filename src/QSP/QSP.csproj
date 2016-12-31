@@ -55,6 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
+    <NoWarn>CS4014</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>QSP.Program</StartupObject>
