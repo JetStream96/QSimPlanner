@@ -184,8 +184,7 @@ namespace QSP.UI.Forms
             catch (Exception ex)
             {
                 Log(ex);
-                MsgBoxHelper.ShowError(
-                    "Cannot load options. The application will quit now.");
+                MsgBoxHelper.ShowError("Cannot load options. The application will quit now.");
                 Environment.Exit(1);
             }
 

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.GroupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
             this.exportTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -87,7 +86,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.tabPage3.SuspendLayout();
-            this.GroupBox2.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.exportTableLayoutPanel.SuspendLayout();
             this.routeTab.SuspendLayout();
@@ -107,7 +105,7 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.GroupBox2);
+            this.tabPage3.Controls.Add(this.tableLayoutPanel8);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -115,17 +113,6 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Flight Plan Export";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // GroupBox2
-            // 
-            this.GroupBox2.Controls.Add(this.tableLayoutPanel8);
-            this.GroupBox2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBox2.Location = new System.Drawing.Point(6, 6);
-            this.GroupBox2.Name = "GroupBox2";
-            this.GroupBox2.Size = new System.Drawing.Size(685, 320);
-            this.GroupBox2.TabIndex = 4;
-            this.GroupBox2.TabStop = false;
-            this.GroupBox2.Text = "Flight Plan Export";
             // 
             // tableLayoutPanel8
             // 
@@ -135,7 +122,7 @@
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.exportTableLayoutPanel, 0, 1);
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(6, 24);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(6, 6);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 2;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -424,7 +411,7 @@
             this.routeTab.Location = new System.Drawing.Point(4, 25);
             this.routeTab.Name = "routeTab";
             this.routeTab.Padding = new System.Windows.Forms.Padding(3);
-            this.routeTab.Size = new System.Drawing.Size(186, 15);
+            this.routeTab.Size = new System.Drawing.Size(710, 358);
             this.routeTab.TabIndex = 3;
             this.routeTab.Text = "Route";
             this.routeTab.UseVisualStyleBackColor = true;
@@ -567,7 +554,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(695, 336);
+            this.tabPage1.Size = new System.Drawing.Size(710, 358);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Nav Data";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -761,7 +748,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(186, 15);
+            this.tabPage2.Size = new System.Drawing.Size(710, 358);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "General";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -790,7 +777,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(186, 15);
+            this.tabPage4.Size = new System.Drawing.Size(710, 358);
             this.tabPage4.TabIndex = 4;
             this.tabPage4.Text = "Updates";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -898,8 +885,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Options";
             this.tabPage3.ResumeLayout(false);
-            this.GroupBox2.ResumeLayout(false);
-            this.GroupBox2.PerformLayout();
+            this.tabPage3.PerformLayout();
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
             this.exportTableLayoutPanel.ResumeLayout(false);
@@ -935,7 +921,6 @@
         #endregion
 
         private System.Windows.Forms.TabPage tabPage3;
-        internal System.Windows.Forms.GroupBox GroupBox2;
         private System.Windows.Forms.TableLayoutPanel exportTableLayoutPanel;
         internal System.Windows.Forms.Button Button3;
         internal System.Windows.Forms.CheckBox CheckBox1;
