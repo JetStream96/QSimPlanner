@@ -44,7 +44,7 @@ namespace FixTypeAnalyzer
                     Console.WriteLine($"Cannot find ICAO for file {f}.");
                     continue;
                 }
-
+				
                 yield return new Entry(icao, GetAllFixLines(lines));
             }
         }
