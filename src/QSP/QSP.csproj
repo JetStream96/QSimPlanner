@@ -202,6 +202,18 @@
     <Compile Include="UI\Controllers\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
+    <Compile Include="UI\Forms\NavigationBar\HelpMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\NavigationBar\HelpMenu.Designer.cs">
+      <DependentUpon>HelpMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\NavigationBar\NavBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\NavigationBar\NavBar.Designer.cs">
+      <DependentUpon>NavBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\Options\OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -696,6 +708,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\qsp_icon.ico" />
+    <EmbeddedResource Include="UI\Forms\NavigationBar\NavBar.resx">
+      <DependentUpon>NavBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\Options\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </EmbeddedResource>
