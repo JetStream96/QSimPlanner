@@ -202,6 +202,13 @@
     <Compile Include="UI\Controllers\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
+    <Compile Include="UI\Forms\NavigationBar\MenuController.cs" />
+    <Compile Include="UI\Forms\NavigationBar\MiscMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\NavigationBar\MiscMenu.Designer.cs">
+      <DependentUpon>MiscMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\NavigationBar\HelpMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -307,7 +314,8 @@
     <Compile Include="UI\Utilities\DoubleBufferUtil.cs" />
     <Compile Include="UI\Utilities\ImageUtil.cs" />
     <Compile Include="UI\Utilities\InputValidator.cs" />
-    <Compile Include="UI\Utilities\ParentControlFinder.cs" />
+    <Compile Include="UI\Utilities\ControlFinder.cs" />
+    <Compile Include="UI\Utilities\OpenFileHelper.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
     <Compile Include="UI\Utilities\ShowMapHelper.cs" />
     <Compile Include="Updates\PostUpdateAction.cs" />
@@ -708,6 +716,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\qsp_icon.ico" />
+    <EmbeddedResource Include="UI\Forms\NavigationBar\MiscMenu.resx">
+      <DependentUpon>MiscMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\NavigationBar\HelpMenu.resx">
+      <DependentUpon>HelpMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\NavigationBar\NavBar.resx">
       <DependentUpon>NavBar.cs</DependentUpon>
     </EmbeddedResource>

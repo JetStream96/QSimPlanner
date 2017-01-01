@@ -56,9 +56,11 @@
             this.label1.Size = new System.Drawing.Size(120, 38);
             this.label1.TabIndex = 8;
             this.label1.Text = "Aircraft";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel5
             // 
+            this.tableLayoutPanel5.BackColor = System.Drawing.Color.White;
             this.tableLayoutPanel5.ColumnCount = 7;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
@@ -82,6 +84,7 @@
             this.tableLayoutPanel5.Controls.Add(this.label2, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
@@ -99,6 +102,7 @@
             this.label2.Size = new System.Drawing.Size(120, 38);
             this.label2.TabIndex = 9;
             this.label2.Text = "Fuel";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
@@ -110,6 +114,7 @@
             this.label3.Size = new System.Drawing.Size(120, 38);
             this.label3.TabIndex = 10;
             this.label3.Text = "Takeoff";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
@@ -121,6 +126,7 @@
             this.label4.Size = new System.Drawing.Size(120, 38);
             this.label4.TabIndex = 11;
             this.label4.Text = "Landing";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
             // 
@@ -132,6 +138,7 @@
             this.label5.Size = new System.Drawing.Size(120, 38);
             this.label5.TabIndex = 12;
             this.label5.Text = "Misc";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label6
             // 
@@ -143,10 +150,11 @@
             this.label6.Size = new System.Drawing.Size(120, 38);
             this.label6.TabIndex = 13;
             this.label6.Text = "Options";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label7
             // 
-            this.label7.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(0, 38);
             this.label7.Margin = new System.Windows.Forms.Padding(0);
@@ -156,7 +164,7 @@
             // 
             // label8
             // 
-            this.label8.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(120, 38);
             this.label8.Margin = new System.Windows.Forms.Padding(0);
@@ -166,7 +174,7 @@
             // 
             // label9
             // 
-            this.label9.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.label9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(240, 38);
             this.label9.Margin = new System.Windows.Forms.Padding(0);
@@ -176,7 +184,7 @@
             // 
             // label10
             // 
-            this.label10.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(360, 38);
             this.label10.Margin = new System.Windows.Forms.Padding(0);
@@ -186,7 +194,7 @@
             // 
             // label11
             // 
-            this.label11.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.label11.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(480, 38);
             this.label11.Margin = new System.Windows.Forms.Padding(0);
@@ -196,7 +204,7 @@
             // 
             // label12
             // 
-            this.label12.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.label12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.label12.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(600, 38);
             this.label12.Margin = new System.Windows.Forms.Padding(0);
@@ -214,10 +222,11 @@
             this.label13.Size = new System.Drawing.Size(120, 38);
             this.label13.TabIndex = 14;
             this.label13.Text = "Help";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label14
             // 
-            this.label14.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.label14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.Location = new System.Drawing.Point(720, 38);
             this.label14.Margin = new System.Windows.Forms.Padding(0);
@@ -227,13 +236,15 @@
             // 
             // NavBar
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.tableLayoutPanel5);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "NavBar";
-            this.Size = new System.Drawing.Size(843, 47);
+            this.Size = new System.Drawing.Size(840, 44);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.ResumeLayout(false);
 

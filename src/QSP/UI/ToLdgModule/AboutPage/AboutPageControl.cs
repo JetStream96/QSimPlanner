@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using static QSP.UI.Utilities.OpenFileHelper;
 
 namespace QSP.UI.ToLdgModule.AboutPage
 {
@@ -26,19 +27,6 @@ namespace QSP.UI.ToLdgModule.AboutPage
             tableLayoutPanel3.BackColor = Color.FromArgb(148, 255, 255, 255);
         }
         
-        private void TryOpenFile(string fileName)
-        {
-            try
-            {
-                Process.Start(fileName);
-            }
-            catch (Exception ex)
-            {
-                LoggerInstance.Log(ex);
-                MsgBoxHelper.ShowWarning("Cannot open the specified file.");
-            }
-        }
-
         private void licenseBtn_Click(object sender, EventArgs e)
         {
             TryOpenFile(Path.GetFullPath("LICENSE.txt"));

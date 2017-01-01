@@ -6,7 +6,7 @@ namespace QSP.UI.Controllers.ButtonGroup
 {
     public class BtnColorController
     {
-        public Button Button { get; private set; }
+        public Control Button { get; private set; }
         private Color foreInactive;
         private Color backInactive;
         private Color foreActive;
@@ -38,7 +38,7 @@ namespace QSP.UI.Controllers.ButtonGroup
         }
 
         public BtnColorController(
-            Button Button,
+            Control Button,
             Color foreInactive,
             Color backInactive,
             Color foreActive,
