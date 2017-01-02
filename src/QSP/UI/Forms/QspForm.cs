@@ -52,9 +52,7 @@ namespace QSP.UI.Forms
         private ProcedureFilter procFilter;
         private Locator<IWindTableCollection> windTableLocator;
         private Updater updater;
-
-        private GroupController btnControl;
-        private ControlSwitcher viewControl;
+        
         private TracksForm trackFrm;
         private WindDataForm windFrm;
         private bool failedToLoadNavDataAtStartUp = false;
@@ -281,9 +279,7 @@ namespace QSP.UI.Forms
             airwayNetwork.WptListChanged += (s, e) => fuelMenu.OnWptListChanged();
 
             aboutMenu.Init("QSimPlanner");
-            EnableBtnColorControls();
-            EnableViewControl();
-            AddToolTip();
+            navBar.Init(acMenu, fuelMenu, toMenu, ldgMenu, miscInfoMenu, aboutMenu, panel1, panel2);
 
             FormClosing += CloseMain;
         }
@@ -305,13 +301,6 @@ namespace QSP.UI.Forms
                 () => fuelMenu.origTxtBox.Text.Trim().ToUpper(),
                 () => fuelMenu.destTxtBox.Text.Trim().ToUpper(),
                 altnGetter);
-        }
-
-        private void AddToolTip()
-        {
-            var tp = GetToolTip();
-            tp.SetToolTip(optionsBtn, "Options");
-            tp.SetToolTip(aboutBtn, "About");
         }
 
         private void SubscribeEvents()
@@ -340,7 +329,7 @@ namespace QSP.UI.Forms
             trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
             trackStatusLabel.MouseEnter += SetHandCursor;
             trackStatusLabel.MouseLeave += SetDefaultCursor;
-            optionsBtn.Click += (s, e) => ShowOptionsForm();
+            navBar.OptionLbl.Click += (s, e) => ShowOptionsForm();
         }
 
         private void EnableAirportRequests()
@@ -360,52 +349,6 @@ namespace QSP.UI.Forms
                 ldgControl.airportTxtBox.Text = fuelMenu.destTxtBox.Text;
                 ldgControl.rwyComboBox.Text = fuelMenu.destRwyComboBox.Text;
             };
-        }
-
-        private void EnableViewControl()
-        {
-            viewControl = new ControlSwitcher(
-                panel1,
-                new ControlControlPair(acConfigBtn, acMenu),
-                new ControlControlPair(fuelBtn, fuelMenu),
-                new ControlControlPair(toBtn, toMenu),
-                new ControlControlPair(ldgBtn, ldgMenu),
-                new ControlControlPair(airportBtn, miscInfoMenu),
-                new ControlControlPair(aboutBtn, aboutMenu));
-
-            viewControl.Subscribed = true;
-        }
-
-        private void EnableBtnColorControls()
-        {
-            var acConfigPair = new ControlColorPair(acConfigBtn, Color.Black,
-                Color.WhiteSmoke, Color.White, Color.FromArgb(192, 0, 0));
-
-            var fuelPair = new ControlColorPair(fuelBtn, Color.Black,
-                Color.WhiteSmoke, Color.White, Color.DarkOrange);
-
-            var toPair = new ControlColorPair(toBtn, Color.Black,
-                Color.WhiteSmoke, Color.White, Color.ForestGreen);
-
-            var ldgPair = new ControlColorPair(ldgBtn, Color.Black,
-                Color.WhiteSmoke, Color.White, Color.FromArgb(0, 170, 170));
-
-            var airportPair = new ControlColorPair(airportBtn, Color.Black,
-                Color.WhiteSmoke, Color.White, Color.DodgerBlue);
-
-            var aboutPair = new ControlColorPair(aboutBtn, Color.White,
-                Color.Black, Color.White, Color.Turquoise);
-
-            btnControl = new GroupController(
-                acConfigPair,
-                fuelPair,
-                toPair,
-                ldgPair,
-                airportPair,
-                aboutPair);
-
-            btnControl.Initialize();
-            btnControl.SetSelected(acConfigBtn);
         }
 
         private void AddControls()
@@ -445,7 +388,7 @@ namespace QSP.UI.Forms
 
         private void ViewOptions(object sender, EventArgs e)
         {
-            optionsBtn.PerformClick();
+            ShowOptionsForm();
         }
 
         private void SetHandCursor(object sender, EventArgs e)
@@ -540,18 +483,6 @@ namespace QSP.UI.Forms
                 frm.StartPosition = position;
                 frm.ShowDialog();
             }
-        }
-
-        private void optionsBtn_MouseEnter(object sender, EventArgs e)
-        {
-            optionsBtn.ForeColor = Color.White;
-            optionsBtn.BackColor = Color.Purple;
-        }
-
-        private void optionsBtn_MouseLeave(object sender, EventArgs e)
-        {
-            optionsBtn.ForeColor = Color.White;
-            optionsBtn.BackColor = Color.Black;
         }
 
         private void LoadSavedState()

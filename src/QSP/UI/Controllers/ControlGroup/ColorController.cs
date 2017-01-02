@@ -52,6 +52,9 @@ namespace QSP.UI.Controllers.ControlGroup
             _subscribed = false;
         }
 
+        public ColorController(Control Control, Color[] ColorStyle)
+            : this(Control, ColorStyle[0], ColorStyle[1], ColorStyle[2], ColorStyle[3]) { }
+
         public void SetInactiveStyle(object sender = null, EventArgs e = null)
         {
             Control.ForeColor = foreInactive;

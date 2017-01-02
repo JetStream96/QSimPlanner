@@ -6,14 +6,10 @@ namespace QSP.UI.Controllers.ControlGroup
 {
     public class ControlSwitcher
     {
-        private ControlControlPair[] _pairings;
         private bool _subscribed;
-        private Panel panel;
+        private Panel outerPanel;
 
-        public IEnumerable<ControlControlPair> Pairings
-        {
-            get { return _pairings; }
-        }
+        public IEnumerable<ControlPair> Pairings { get; set; }
 
         public bool Subscribed
         {
@@ -26,7 +22,7 @@ namespace QSP.UI.Controllers.ControlGroup
             {
                 if (_subscribed && value == false)
                 {
-                    foreach (var i in _pairings)
+                    foreach (var i in Pairings)
                     {
                         i.Button.Click -= ShowControl;
                     }
@@ -34,7 +30,7 @@ namespace QSP.UI.Controllers.ControlGroup
                 }
                 else if (_subscribed == false && value)
                 {
-                    foreach (var i in _pairings)
+                    foreach (var i in Pairings)
                     {
                         i.Button.Click += ShowControl;
                     }
@@ -43,16 +39,16 @@ namespace QSP.UI.Controllers.ControlGroup
             }
         }
 
-        public ControlSwitcher(Panel panel, params ControlControlPair[] pairings)
+        public ControlSwitcher(Panel outerPanel, params ControlPair[] pairings)
         {
-            this.panel = panel;
-            this._pairings = pairings;
+            this.outerPanel = outerPanel;
+            this.Pairings = pairings;
             _subscribed = false;
         }
 
         private void ShowControl(object sender, EventArgs e)
         {
-            foreach (var i in _pairings)
+            foreach (var i in Pairings)
             {
                 i.Control.Visible = (i.Button == sender);
             }
@@ -60,18 +56,18 @@ namespace QSP.UI.Controllers.ControlGroup
             // Workaround for windows scrollbar bug. Without this the 
             // scrollbars will appear even if the form is large enough to
             // fit the contents.
-            panel.AutoScroll = false;
-            panel.HorizontalScroll.Visible = false;
-            panel.VerticalScroll.Visible = false;
-            panel.AutoScroll = true;
+            outerPanel.AutoScroll = false;
+            outerPanel.HorizontalScroll.Visible = false;
+            outerPanel.VerticalScroll.Visible = false;
+            outerPanel.AutoScroll = true;
         }
 
-        public class ControlControlPair
+        public class ControlPair
         {
             public Control Button { get; private set; }
             public UserControl Control { get; private set; }
 
-            public ControlControlPair(Control Button, UserControl Control)
+            public ControlPair(Control Button, UserControl Control)
             {
                 this.Button = Button;
                 this.Control = Control;

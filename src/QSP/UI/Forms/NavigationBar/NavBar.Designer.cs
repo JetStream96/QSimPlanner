@@ -34,8 +34,8 @@
             this.tolbl = new System.Windows.Forms.Label();
             this.ldgLbl = new System.Windows.Forms.Label();
             this.miscLbl = new System.Windows.Forms.Label();
-            this.optionLbl = new System.Windows.Forms.Label();
             this.helpLbl = new System.Windows.Forms.Label();
+            this.OptionLbl = new System.Windows.Forms.Label();
             this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,7 +68,7 @@
             this.tableLayoutPanel5.Controls.Add(this.ldgLbl, 0, 3);
             this.tableLayoutPanel5.Controls.Add(this.miscLbl, 0, 4);
             this.tableLayoutPanel5.Controls.Add(this.helpLbl, 0, 5);
-            this.tableLayoutPanel5.Controls.Add(this.optionLbl, 0, 6);
+            this.tableLayoutPanel5.Controls.Add(this.OptionLbl, 0, 6);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -132,18 +132,6 @@
             this.miscLbl.Text = "Misc";
             this.miscLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // optionLbl
-            // 
-            this.optionLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.optionLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionLbl.Location = new System.Drawing.Point(0, 228);
-            this.optionLbl.Margin = new System.Windows.Forms.Padding(0);
-            this.optionLbl.Name = "optionLbl";
-            this.optionLbl.Size = new System.Drawing.Size(120, 38);
-            this.optionLbl.TabIndex = 13;
-            this.optionLbl.Text = "Options";
-            this.optionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // helpLbl
             // 
             this.helpLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -155,6 +143,18 @@
             this.helpLbl.TabIndex = 14;
             this.helpLbl.Text = "Help";
             this.helpLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // OptionLbl
+            // 
+            this.OptionLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.OptionLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OptionLbl.Location = new System.Drawing.Point(0, 228);
+            this.OptionLbl.Margin = new System.Windows.Forms.Padding(0);
+            this.OptionLbl.Name = "OptionLbl";
+            this.OptionLbl.Size = new System.Drawing.Size(120, 38);
+            this.OptionLbl.TabIndex = 13;
+            this.OptionLbl.Text = "Options";
+            this.OptionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // NavBar
             // 
@@ -177,10 +177,10 @@
         private System.Windows.Forms.Label acLbl;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Label helpLbl;
-        private System.Windows.Forms.Label optionLbl;
         private System.Windows.Forms.Label miscLbl;
         private System.Windows.Forms.Label ldgLbl;
         private System.Windows.Forms.Label tolbl;
         private System.Windows.Forms.Label fuelLbl;
+        public System.Windows.Forms.Label OptionLbl;
     }
 }
