@@ -27,35 +27,29 @@ namespace QSP.UI.ToLdgModule.Common
             var press = ParaExtractor.GetPressure(metar);
             bool precip = ParaExtractor.PrecipitationExists(metar);
 
-            if (wind == null ||
-                temp == null ||
-                press == null)
-            {
-                return false;
-            }
-            else
-            {
-                var w = wind.Value;
-                windSpeed.Text = RoundToInt(w.Speed).ToString();
+            if (wind == null || temp == null || press == null) return false;
 
-                windDirection.Text =
-                    ((RoundToInt(w.Direction) - 1)
-                    .Mod(360) + 1)
-                    .ToString()
-                    .PadLeft(3, '0');
+            var w = wind.Value;
+            windSpeed.Text = RoundToInt(w.Speed).ToString();
 
-                tempUnit.SelectedIndex = 0;
-                oat.Text = temp.Value.ToString();
-                pressUnit.SelectedIndex = (int)press.PressUnit;
-                altimeter.Text =
-                    press.PressUnit == PressureUnit.inHg ?
-                    Math.Round(press.Value, 2).ToString("0.00") :
-                    RoundToInt(press.Value).ToString();
+            windDirection.Text =
+                ((RoundToInt(w.Direction) - 1)
+                .Mod(360) + 1)
+                .ToString()
+                .PadLeft(3, '0');
 
-                SetSurfCond(surfCond, precip);
+            tempUnit.SelectedIndex = 0;
+            oat.Text = temp.Value.ToString();
+            pressUnit.SelectedIndex = (int)press.PressUnit;
+            altimeter.Text =
+                press.PressUnit == PressureUnit.inHg ?
+                Math.Round(press.Value, 2).ToString("0.00") :
+                RoundToInt(press.Value).ToString();
 
-                return true;
-            }
+            SetSurfCond(surfCond, precip);
+
+            return true;
+
         }
 
         private static void SetSurfCond(ComboBox surfCond, bool precip)

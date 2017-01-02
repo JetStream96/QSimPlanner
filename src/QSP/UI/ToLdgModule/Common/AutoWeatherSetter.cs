@@ -14,9 +14,7 @@ namespace QSP.UI.ToLdgModule.Common
         private AirportInfoControl airportControl;
         private string metar;
 
-        public AutoWeatherSetter(
-            WeatherInfoControl wxControl,
-            AirportInfoControl airportControl)
+        public AutoWeatherSetter(WeatherInfoControl wxControl, AirportInfoControl airportControl)
         {
             this.wxControl = wxControl;
             this.airportControl = airportControl;
@@ -43,7 +41,7 @@ namespace QSP.UI.ToLdgModule.Common
         private void DisableViewBtn()
         {
             wxControl.ViewMetarBtn.Enabled = false;
-            wxControl.ViewMetarBtn.BackColor = Color.FromArgb(224,224,224);
+            wxControl.ViewMetarBtn.BackColor = Color.FromArgb(224, 224, 224);
         }
 
         private void EnableDnBtn()
@@ -60,7 +58,7 @@ namespace QSP.UI.ToLdgModule.Common
             var btn = wxControl.GetMetarBtn;
 
             btn.Enabled = false;
-            btn.BackColor = Color.Gray;
+            btn.BackColor = Color.FromArgb(224, 224, 224);
             btn.Text = "Downloading ...";
         }
 

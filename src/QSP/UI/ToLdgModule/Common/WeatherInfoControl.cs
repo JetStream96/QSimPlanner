@@ -20,11 +20,11 @@ namespace QSP.UI.ToLdgModule.Common
             windDirTxtBox.Text = "0";
 
             tempUnitComboBox.Items.Clear();
-            tempUnitComboBox.Items.AddRange(new string[] { "°C", "°F" });
+            tempUnitComboBox.Items.AddRange(new[] { "°C", "°F" });
             tempUnitComboBox.SelectedIndex = 0; // Celsius
 
             pressUnitComboBox.Items.Clear();
-            pressUnitComboBox.Items.AddRange(new string[] { "hPa", "inHg" });
+            pressUnitComboBox.Items.AddRange(new[] { "hPa", "inHg" });
             pressUnitComboBox.SelectedIndex = 0; // hPa
 
             AddToolTip();
@@ -32,14 +32,11 @@ namespace QSP.UI.ToLdgModule.Common
 
         private void AddToolTip()
         {
-            var tp = GetToolTip(); 
-            
-            tp.SetToolTip(GetMetarBtn,
-                "Download METAR and fill all weather info.");
+            var tp = GetToolTip();
+            tp.SetToolTip(GetMetarBtn, "Download METAR and fill all weather info.");
         }
 
-        private void tempUnitComboBoxSelectedIndexChanged(
-            object sender, EventArgs e)
+        private void tempUnitComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             double temp;
 
@@ -60,8 +57,7 @@ namespace QSP.UI.ToLdgModule.Common
             }
         }
 
-        private void pressUnitComboBoxSelectedIndexChanged(
-            object sender, EventArgs e)
+        private void pressUnitComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             double press;
 
