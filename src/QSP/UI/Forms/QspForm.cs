@@ -8,7 +8,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
-using QSP.UI.Controllers.ButtonGroup;
+using QSP.UI.Controllers.ControlGroup;
 using QSP.UI.Forms.Options;
 using QSP.UI.ToLdgModule.AboutPage;
 using QSP.UI.ToLdgModule.AircraftMenu;
@@ -29,8 +29,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using QSP.RouteFinding.Tracks;
-using static QSP.UI.Controllers.ButtonGroup.BtnGroupController;
-using static QSP.UI.Controllers.ButtonGroup.ControlSwitcher;
+using static QSP.UI.Controllers.ControlGroup.ControlGroupController;
+using static QSP.UI.Controllers.ControlGroup.ControlSwitcher;
 using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.Utilities.LoggerInstance;
 
@@ -53,7 +53,7 @@ namespace QSP.UI.Forms
         private Locator<IWindTableCollection> windTableLocator;
         private Updater updater;
 
-        private BtnGroupController btnControl;
+        private ControlGroupController btnControl;
         private ControlSwitcher viewControl;
         private TracksForm trackFrm;
         private WindDataForm windFrm;
@@ -366,37 +366,37 @@ namespace QSP.UI.Forms
         {
             viewControl = new ControlSwitcher(
                 panel1,
-                new BtnControlPair(acConfigBtn, acMenu),
-                new BtnControlPair(fuelBtn, fuelMenu),
-                new BtnControlPair(toBtn, toMenu),
-                new BtnControlPair(ldgBtn, ldgMenu),
-                new BtnControlPair(airportBtn, miscInfoMenu),
-                new BtnControlPair(aboutBtn, aboutMenu));
+                new ControlControlPair(acConfigBtn, acMenu),
+                new ControlControlPair(fuelBtn, fuelMenu),
+                new ControlControlPair(toBtn, toMenu),
+                new ControlControlPair(ldgBtn, ldgMenu),
+                new ControlControlPair(airportBtn, miscInfoMenu),
+                new ControlControlPair(aboutBtn, aboutMenu));
 
             viewControl.Subscribed = true;
         }
 
         private void EnableBtnColorControls()
         {
-            var acConfigPair = new BtnColorPair(acConfigBtn, Color.Black,
+            var acConfigPair = new ControlColorPair(acConfigBtn, Color.Black,
                 Color.WhiteSmoke, Color.White, Color.FromArgb(192, 0, 0));
 
-            var fuelPair = new BtnColorPair(fuelBtn, Color.Black,
+            var fuelPair = new ControlColorPair(fuelBtn, Color.Black,
                 Color.WhiteSmoke, Color.White, Color.DarkOrange);
 
-            var toPair = new BtnColorPair(toBtn, Color.Black,
+            var toPair = new ControlColorPair(toBtn, Color.Black,
                 Color.WhiteSmoke, Color.White, Color.ForestGreen);
 
-            var ldgPair = new BtnColorPair(ldgBtn, Color.Black,
+            var ldgPair = new ControlColorPair(ldgBtn, Color.Black,
                 Color.WhiteSmoke, Color.White, Color.FromArgb(0, 170, 170));
 
-            var airportPair = new BtnColorPair(airportBtn, Color.Black,
+            var airportPair = new ControlColorPair(airportBtn, Color.Black,
                 Color.WhiteSmoke, Color.White, Color.DodgerBlue);
 
-            var aboutPair = new BtnColorPair(aboutBtn, Color.White,
+            var aboutPair = new ControlColorPair(aboutBtn, Color.White,
                 Color.Black, Color.White, Color.Turquoise);
 
-            btnControl = new BtnGroupController(
+            btnControl = new ControlGroupController(
                 acConfigPair,
                 fuelPair,
                 toPair,

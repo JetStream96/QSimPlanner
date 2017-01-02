@@ -2,11 +2,11 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace QSP.UI.Controllers.ButtonGroup
+namespace QSP.UI.Controllers.ControlGroup
 {
-    public class BtnColorController
+    public class ControlColorController
     {
-        public Control Button { get; private set; }
+        public Control Control { get; private set; }
         private Color foreInactive;
         private Color backInactive;
         private Color foreActive;
@@ -24,27 +24,27 @@ namespace QSP.UI.Controllers.ButtonGroup
             {
                 if (_subscribed && value == false)
                 {
-                    Button.MouseEnter -= SetActiveStyle;
-                    Button.MouseLeave -= SetInactiveStyle;
+                    Control.MouseEnter -= SetActiveStyle;
+                    Control.MouseLeave -= SetInactiveStyle;
                     _subscribed = false;
                 }
                 else if (_subscribed == false && value)
                 {
-                    Button.MouseEnter += SetActiveStyle;
-                    Button.MouseLeave += SetInactiveStyle;
+                    Control.MouseEnter += SetActiveStyle;
+                    Control.MouseLeave += SetInactiveStyle;
                     _subscribed = true;
                 }
             }
         }
 
-        public BtnColorController(
-            Control Button,
+        public ControlColorController(
+            Control Control,
             Color foreInactive,
             Color backInactive,
             Color foreActive,
             Color backActive)
         {
-            this.Button = Button;
+            this.Control = Control;
             this.foreInactive = foreInactive;
             this.backInactive = backInactive;
             this.foreActive = foreActive;
@@ -54,14 +54,14 @@ namespace QSP.UI.Controllers.ButtonGroup
 
         public void SetInactiveStyle(object sender = null, EventArgs e = null)
         {
-            Button.ForeColor = foreInactive;
-            Button.BackColor = backInactive;
+            Control.ForeColor = foreInactive;
+            Control.BackColor = backInactive;
         }
 
         public void SetActiveStyle(object sender = null, EventArgs e = null)
         {
-            Button.ForeColor = foreActive;
-            Button.BackColor = backActive;
+            Control.ForeColor = foreActive;
+            Control.BackColor = backActive;
         }
     }
 }

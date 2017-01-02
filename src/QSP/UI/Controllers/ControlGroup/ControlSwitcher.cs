@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace QSP.UI.Controllers.ButtonGroup
+namespace QSP.UI.Controllers.ControlGroup
 {
     public class ControlSwitcher
     {
-        private BtnControlPair[] _pairings;
+        private ControlControlPair[] _pairings;
         private bool _subscribed;
         private Panel panel;
 
-        public IEnumerable<BtnControlPair> Pairings
+        public IEnumerable<ControlControlPair> Pairings
         {
             get { return _pairings; }
         }
@@ -43,7 +43,7 @@ namespace QSP.UI.Controllers.ButtonGroup
             }
         }
 
-        public ControlSwitcher(Panel panel, params BtnControlPair[] pairings)
+        public ControlSwitcher(Panel panel, params ControlControlPair[] pairings)
         {
             this.panel = panel;
             this._pairings = pairings;
@@ -66,12 +66,12 @@ namespace QSP.UI.Controllers.ButtonGroup
             panel.AutoScroll = true;
         }
 
-        public class BtnControlPair
+        public class ControlControlPair
         {
-            public Button Button { get; private set; }
+            public Control Button { get; private set; }
             public UserControl Control { get; private set; }
 
-            public BtnControlPair(Button Button, UserControl Control)
+            public ControlControlPair(Control Button, UserControl Control)
             {
                 this.Button = Button;
                 this.Control = Control;

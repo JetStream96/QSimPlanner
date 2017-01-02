@@ -78,6 +78,7 @@
             this.AboutLbl.TabIndex = 20;
             this.AboutLbl.Text = "About";
             this.AboutLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AboutLbl.Click += new System.EventHandler(this.AboutLbl_Click);
             // 
             // HelpMenu
             // 

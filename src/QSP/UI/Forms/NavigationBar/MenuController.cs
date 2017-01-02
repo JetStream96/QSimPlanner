@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using QSP.LibraryExtension;
-using QSP.UI.Controllers.ButtonGroup;
+using QSP.UI.Controllers.ControlGroup;
 using QSP.UI.Utilities;
 
 namespace QSP.UI.Forms.NavigationBar
@@ -13,7 +13,7 @@ namespace QSP.UI.Forms.NavigationBar
         public static void EnableColorController(Label lbl)
         {
             var back = SystemColors.ButtonHighlight;
-            new BtnColorController(lbl, Color.Black, back, StyleColor, back).Subscribed = true;
+            new ControlColorController(lbl, Color.Black, back, StyleColor, back).Subscribed = true;
         }
     }
 }

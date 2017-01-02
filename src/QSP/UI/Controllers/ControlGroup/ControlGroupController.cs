@@ -2,24 +2,24 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace QSP.UI.Controllers.ButtonGroup
+namespace QSP.UI.Controllers.ControlGroup
 {
-    public class BtnGroupController
+    public class ControlGroupController
     {
-        private BtnColorController[] controllers;
+        private ControlColorController[] controllers;
 
-        public BtnGroupController(params BtnColorPair[] btnColors)
+        public ControlGroupController(params ControlColorPair[] controlColors)
         {
-            controllers = new BtnColorController[btnColors.Length];
+            controllers = new ControlColorController[controlColors.Length];
 
             for (int i = 0; i < controllers.Length; i++)
             {
-                controllers[i] = new BtnColorController(
-                    btnColors[i].Btn,
-                    btnColors[i].ForeInactive,
-                    btnColors[i].BackInactive,
-                    btnColors[i].ForeActive,
-                    btnColors[i].BackActive);
+                controllers[i] = new ControlColorController(
+                    controlColors[i].Control,
+                    controlColors[i].ForeInactive,
+                    controlColors[i].BackInactive,
+                    controlColors[i].ForeActive,
+                    controlColors[i].BackActive);
             }
         }
 
@@ -27,18 +27,17 @@ namespace QSP.UI.Controllers.ButtonGroup
         {
             foreach (var i in controllers)
             {
-                i.Button.FlatAppearance.BorderSize = 0;
                 i.Subscribed = true;
                 i.SetInactiveStyle();
-                i.Button.Click += setSelected;
+                i.Control.Click += setSelected;
             }
         }
 
-        public void SetSelected(Button btn)
+        public void SetSelected(Control btn)
         {
             foreach (var i in controllers)
             {
-                if (i.Button == btn)
+                if (i.Control == btn)
                 {
                     i.Subscribed = false;
                     i.SetActiveStyle();
@@ -53,26 +52,29 @@ namespace QSP.UI.Controllers.ButtonGroup
 
         private void setSelected(object sender, EventArgs e)
         {
-            SetSelected((Button)sender);
+            SetSelected((Control)sender);
         }
 
-        public class BtnColorPair
+        public class ControlColorPair
         {
-            public Button Btn { get; private set; }
+            public Control Control { get; private set; }
             public Color ForeInactive { get; private set; }
             public Color BackInactive { get; private set; }
             public Color ForeActive { get; private set; }
             public Color BackActive { get; private set; }
 
-            public BtnColorPair(Button Btn, Color ForeInactive,
+            public ControlColorPair(Control Control, Color ForeInactive,
                 Color BackInactive, Color ForeActive, Color BackActive)
             {
-                this.Btn = Btn;
+                this.Control = Control;
                 this.ForeInactive = ForeInactive;
                 this.BackInactive = BackInactive;
                 this.ForeActive = ForeActive;
                 this.BackActive = BackActive;
             }
+
+            public ControlColorPair(Control Control, Color[] colors)
+                : this(Control, colors[0], colors[1], colors[2], colors[3]) { }
         }
     }
 }
