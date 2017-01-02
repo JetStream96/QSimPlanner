@@ -35,9 +35,9 @@
             this.windDataStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panel1 = new QSP.UI.Controls.PanelSilentScrollbar();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.navBar = new QSP.UI.Forms.NavigationBar.NavBar();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.navBar = new QSP.UI.Forms.NavigationBar.NavBar();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.StatusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -108,27 +108,6 @@
             this.panel1.Size = new System.Drawing.Size(1182, 830);
             this.panel1.TabIndex = 41;
             // 
-            // panel2
-            // 
-            this.panel2.AutoSize = true;
-            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel2.Location = new System.Drawing.Point(125, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(0, 0);
-            this.panel2.TabIndex = 8;
-            // 
-            // navBar1
-            // 
-            this.navBar.AutoSize = true;
-            this.navBar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.navBar.BackColor = System.Drawing.Color.White;
-            this.navBar.Location = new System.Drawing.Point(0, 0);
-            this.navBar.Margin = new System.Windows.Forms.Padding(0);
-            this.navBar.Name = "navBar1";
-            this.navBar.Size = new System.Drawing.Size(120, 266);
-            this.navBar.TabIndex = 9;
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoSize = true;
@@ -145,6 +124,27 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(125, 266);
             this.tableLayoutPanel1.TabIndex = 8;
+            // 
+            // navBar
+            // 
+            this.navBar.AutoSize = true;
+            this.navBar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.navBar.BackColor = System.Drawing.Color.White;
+            this.navBar.Location = new System.Drawing.Point(0, 0);
+            this.navBar.Margin = new System.Windows.Forms.Padding(0);
+            this.navBar.Name = "navBar";
+            this.navBar.Size = new System.Drawing.Size(120, 266);
+            this.navBar.TabIndex = 9;
+            // 
+            // panel2
+            // 
+            this.panel2.AutoSize = true;
+            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel2.Location = new System.Drawing.Point(125, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(0, 0);
+            this.panel2.TabIndex = 8;
             // 
             // QspForm
             // 

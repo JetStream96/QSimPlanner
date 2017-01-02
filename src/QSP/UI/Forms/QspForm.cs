@@ -488,21 +488,26 @@ namespace QSP.UI.Forms
                 var serializer = new WindowSize.Serializer();
                 var text = XDocument.Load(WindowSize.FileLocation);
                 var state = serializer.Deserialize(text.Root);
-
-                if (state.Maximized)
-                {
-                    WindowState = FormWindowState.Maximized;
-                }
-                else
-                {
-                    WindowState = FormWindowState.Normal;
-                    Width = state.WindowWidth;
-                    Height = state.WindowHeight;
-                }
+                SetWindowSize(state);
             }
             catch (Exception ex)
             {
                 Log(ex);
+                SetWindowSize(WindowSize.Default);
+            }
+        }
+
+        private void SetWindowSize(WindowSize state)
+        {
+            if (state.Maximized)
+            {
+                WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                WindowState = FormWindowState.Normal;
+                Width = state.WindowWidth;
+                Height = state.WindowHeight;
             }
         }
 

@@ -21,13 +21,7 @@ namespace QSP.UI.Forms
             this.WindowHeight = WindowHeight;
         }
 
-        public static WindowSize Default
-        {
-            get
-            {
-                return new WindowSize(false, 1200, 900);
-            }
-        }
+        public static WindowSize Default => new WindowSize(false, 1300, 900);
 
         public class Serializer : IXSerializer<WindowSize>
         {
