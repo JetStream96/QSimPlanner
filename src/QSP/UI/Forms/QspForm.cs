@@ -8,7 +8,6 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
-using QSP.UI.Controllers.ControlGroup;
 using QSP.UI.Forms.Options;
 using QSP.UI.ToLdgModule.AboutPage;
 using QSP.UI.ToLdgModule.AircraftMenu;
@@ -29,9 +28,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using QSP.RouteFinding.Tracks;
-using static QSP.UI.Controllers.ControlGroup.GroupController;
-using static QSP.UI.Controllers.ControlGroup.ControlSwitcher;
-using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms

@@ -1,7 +1,5 @@
 ﻿using QSP.UI.Utilities;
-using QSP.Utilities;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;

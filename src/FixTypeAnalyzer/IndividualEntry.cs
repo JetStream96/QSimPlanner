@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using QSP.AviationTools.Coordinates;
-
-namespace FixTypeAnalyzer
+﻿namespace FixTypeAnalyzer
 {
     public class IndividualEntry
     {
