@@ -1,4 +1,6 @@
-﻿namespace QSP.UI.UserControls
+﻿using MetroFramework.Controls;
+
+namespace QSP.UI.UserControls
 {
     partial class MiscInfoControl
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.TabControl1 = new System.Windows.Forms.TabControl();
+            this.TabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.TabPage1 = new System.Windows.Forms.TabPage();
             this.TabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -41,21 +43,19 @@
             this.matarTafRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.TabPage6 = new System.Windows.Forms.TabPage();
-            this.GroupBox19 = new System.Windows.Forms.GroupBox();
+            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.destIcaoLbl = new System.Windows.Forms.Label();
             this.updateDesForcastBtn = new System.Windows.Forms.Button();
             this.desForcastLastUpdatedLbl = new System.Windows.Forms.Label();
             this.desForcastRichTxtBox = new System.Windows.Forms.RichTextBox();
-            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabControl1.SuspendLayout();
             this.TabPage1.SuspendLayout();
             this.TabPage2.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.TabPage6.SuspendLayout();
-            this.GroupBox19.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -65,20 +65,22 @@
             this.TabControl1.Controls.Add(this.TabPage1);
             this.TabControl1.Controls.Add(this.TabPage2);
             this.TabControl1.Controls.Add(this.TabPage6);
-            this.TabControl1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TabControl1.FontSize = MetroFramework.MetroTabControlSize.Tall;
             this.TabControl1.Location = new System.Drawing.Point(0, 0);
             this.TabControl1.Name = "TabControl1";
             this.TabControl1.SelectedIndex = 0;
-            this.TabControl1.Size = new System.Drawing.Size(1099, 678);
+            this.TabControl1.Size = new System.Drawing.Size(1099, 880);
+            this.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.TabControl1.TabIndex = 44;
+            this.TabControl1.UseSelectable = true;
             // 
             // TabPage1
             // 
             this.TabPage1.Controls.Add(this.airportMapControl);
-            this.TabPage1.Location = new System.Drawing.Point(4, 26);
+            this.TabPage1.Location = new System.Drawing.Point(4, 38);
             this.TabPage1.Name = "TabPage1";
             this.TabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPage1.Size = new System.Drawing.Size(1091, 648);
+            this.TabPage1.Size = new System.Drawing.Size(1091, 838);
             this.TabPage1.TabIndex = 0;
             this.TabPage1.Text = "Airport Data";
             this.TabPage1.UseVisualStyleBackColor = true;
@@ -87,10 +89,10 @@
             // 
             this.TabPage2.Controls.Add(this.tableLayoutPanel5);
             this.TabPage2.Controls.Add(this.tableLayoutPanel1);
-            this.TabPage2.Location = new System.Drawing.Point(4, 26);
+            this.TabPage2.Location = new System.Drawing.Point(4, 38);
             this.TabPage2.Name = "TabPage2";
             this.TabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPage2.Size = new System.Drawing.Size(1091, 648);
+            this.TabPage2.Size = new System.Drawing.Size(1091, 636);
             this.TabPage2.TabIndex = 1;
             this.TabPage2.Text = "METAR/TAF";
             this.TabPage2.UseVisualStyleBackColor = true;
@@ -108,7 +110,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1085, 642);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1085, 630);
             this.tableLayoutPanel5.TabIndex = 80;
             // 
             // tableLayoutPanel4
@@ -206,7 +208,7 @@
             this.matarTafRichTxtBox.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.matarTafRichTxtBox.Location = new System.Drawing.Point(3, 47);
             this.matarTafRichTxtBox.Name = "matarTafRichTxtBox";
-            this.matarTafRichTxtBox.Size = new System.Drawing.Size(1079, 592);
+            this.matarTafRichTxtBox.Size = new System.Drawing.Size(1079, 580);
             this.matarTafRichTxtBox.TabIndex = 0;
             this.matarTafRichTxtBox.Text = "";
             // 
@@ -226,24 +228,28 @@
             // 
             // TabPage6
             // 
-            this.TabPage6.Controls.Add(this.GroupBox19);
-            this.TabPage6.Location = new System.Drawing.Point(4, 26);
+            this.TabPage6.Controls.Add(this.tableLayoutPanel7);
+            this.TabPage6.Location = new System.Drawing.Point(4, 38);
             this.TabPage6.Name = "TabPage6";
             this.TabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPage6.Size = new System.Drawing.Size(1091, 648);
+            this.TabPage6.Size = new System.Drawing.Size(1091, 636);
             this.TabPage6.TabIndex = 2;
-            this.TabPage6.Text = "Upper Wind";
+            this.TabPage6.Text = "Des. Forcast";
             this.TabPage6.UseVisualStyleBackColor = true;
             // 
-            // GroupBox19
+            // airportMapControl
             // 
-            this.GroupBox19.Controls.Add(this.tableLayoutPanel7);
-            this.GroupBox19.Location = new System.Drawing.Point(0, 0);
-            this.GroupBox19.Name = "GroupBox19";
-            this.GroupBox19.Size = new System.Drawing.Size(696, 425);
-            this.GroupBox19.TabIndex = 0;
-            this.GroupBox19.TabStop = false;
-            this.GroupBox19.Text = "Descent Forcast";
+            this.airportMapControl.Airports = null;
+            this.airportMapControl.AutoSize = true;
+            this.airportMapControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.airportMapControl.BrowserEnabled = false;
+            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
+            this.airportMapControl.Margin = new System.Windows.Forms.Padding(2);
+            this.airportMapControl.Name = "airportMapControl";
+            this.airportMapControl.Size = new System.Drawing.Size(1018, 814);
+            this.airportMapControl.StaticMapEnabled = false;
+            this.airportMapControl.TabIndex = 0;
             // 
             // tableLayoutPanel7
             // 
@@ -251,13 +257,13 @@
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel7.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.desForcastRichTxtBox, 0, 1);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(6, 24);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(10, 10);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 2;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(684, 395);
-            this.tableLayoutPanel7.TabIndex = 1;
+            this.tableLayoutPanel7.TabIndex = 2;
             // 
             // panel1
             // 
@@ -315,17 +321,6 @@
             this.desForcastRichTxtBox.TabIndex = 1;
             this.desForcastRichTxtBox.Text = "";
             // 
-            // airportMapControl
-            // 
-            this.airportMapControl.Airports = null;
-            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.airportMapControl.BrowserEnabled = false;
-            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
-            this.airportMapControl.Name = "airportMapControl";
-            this.airportMapControl.Size = new System.Drawing.Size(1024, 670);
-            this.airportMapControl.StaticMapEnabled = false;
-            this.airportMapControl.TabIndex = 0;
-            // 
             // MiscInfoControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -336,9 +331,10 @@
             this.Controls.Add(this.TabControl1);
             this.DoubleBuffered = true;
             this.Name = "MiscInfoControl";
-            this.Size = new System.Drawing.Size(1102, 681);
+            this.Size = new System.Drawing.Size(1102, 883);
             this.TabControl1.ResumeLayout(false);
             this.TabPage1.ResumeLayout(false);
+            this.TabPage1.PerformLayout();
             this.TabPage2.ResumeLayout(false);
             this.TabPage2.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -346,7 +342,6 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.TabPage6.ResumeLayout(false);
-            this.GroupBox19.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -355,27 +350,25 @@
         }
 
         #endregion
-
-        internal System.Windows.Forms.TabControl TabControl1;
         internal System.Windows.Forms.TabPage TabPage1;
         internal System.Windows.Forms.TabPage TabPage2;
         internal System.Windows.Forms.TextBox metarToFindTxtBox;
         internal System.Windows.Forms.Button downloadAllBtn;
         internal System.Windows.Forms.RichTextBox matarTafRichTxtBox;
         internal System.Windows.Forms.TabPage TabPage6;
-        internal System.Windows.Forms.GroupBox GroupBox19;
-        internal System.Windows.Forms.RichTextBox desForcastRichTxtBox;
-        internal System.Windows.Forms.Label destIcaoLbl;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label metarLastUpdatedLbl;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        internal System.Windows.Forms.Button updateDesForcastBtn;
-        private System.Windows.Forms.Label desForcastLastUpdatedLbl;
         internal ToLdgModule.AirportMap.AirportMapControl airportMapControl;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Button button1;
+        internal MetroTabControl TabControl1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.Panel panel1;
+        internal System.Windows.Forms.Label destIcaoLbl;
+        internal System.Windows.Forms.Button updateDesForcastBtn;
+        private System.Windows.Forms.Label desForcastLastUpdatedLbl;
+        internal System.Windows.Forms.RichTextBox desForcastRichTxtBox;
     }
 }

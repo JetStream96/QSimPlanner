@@ -3,6 +3,7 @@ using QSP.UI.Controllers.Units;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using MetroFramework.Controls;
 using static QSP.MathTools.Doubles;
 using static System.Math;
 
@@ -13,7 +14,7 @@ namespace QSP.UI.Controllers.WeightControl
         private WeightTextBoxController oew;
         private WeightTextBoxController payload;
         private WeightTextBoxController zfw;
-        private TrackBar payloadTrackBar;
+        private MetroTrackBar payloadTrackBar;
         private AircraftConfigItem _aircraftConfig;
         private bool _enabled;
         private bool _monitorWeightChange;
@@ -22,7 +23,7 @@ namespace QSP.UI.Controllers.WeightControl
             WeightTextBoxController oew,
             WeightTextBoxController payload,
             WeightTextBoxController zfw,
-            TrackBar payloadTrackBar)
+            MetroTrackBar payloadTrackBar)
         {
             this.oew = oew;
             this.payload = payload;
@@ -44,7 +45,8 @@ namespace QSP.UI.Controllers.WeightControl
                 _aircraftConfig = value;
 
                 double maxPayload = _aircraftConfig.MaxZfwKg - _aircraftConfig.OewKg;
-                payloadTrackBar.SetRange(0, (int)Ceiling(maxPayload));
+                payloadTrackBar.Maximum = (int)Ceiling(maxPayload);
+                payloadTrackBar.Minimum = 0;
                 oew.SetWeight(AircraftConfig.OewKg);
 
                 try

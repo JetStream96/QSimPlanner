@@ -31,10 +31,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             }
         }
 
-        private string CurrentIcao
-        {
-            get { return icaoComboBox.Text.Trim().ToUpper(); }
-        }
+        private string CurrentIcao => icaoComboBox.Text.Trim().ToUpper();
 
         public bool BrowserEnabled
         {
@@ -104,9 +101,9 @@ namespace QSP.UI.ToLdgModule.AirportMap
             var alternates = _altn ?? new string[] { null };
 
             icaoComboBox.Items.AddRange(
-                new string[] { _orig, _dest }
+                new[] { _orig, _dest }
                 .Concat(alternates)
-                .Where(s => string.IsNullOrEmpty(s) == false)
+                .Where(s => !string.IsNullOrEmpty(s))
                 .ToArray());
         }
 
@@ -168,8 +165,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
         private async Task SetMetar(string icao)
         {
             metarLbl.Text = "Updating ...";
-            metarLbl.Text = await Task.Factory.StartNew(
-                () => MetarDownloader.TryGetMetar(icao));
+            metarLbl.Text = await Task.Factory.StartNew(() => MetarDownloader.TryGetMetar(icao));
             metarLbl.Visible = true;
             updateBtn.Visible = true;
         }
@@ -233,8 +229,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
                 {
                     airportDataGrid[5, i].Value = rwy.IlsFreq;
                     airportDataGrid[6, i].Value = rwy.IlsHeading;
-                    airportDataGrid[7, i].Value =
-                        rwy.GlideslopeAngle.ToString("0.0");
+                    airportDataGrid[7, i].Value = rwy.GlideslopeAngle.ToString("0.0");
                 }
                 else
                 {
@@ -246,13 +241,15 @@ namespace QSP.UI.ToLdgModule.AirportMap
                 airportDataGrid[8, i].Value = rwy.Elevation;
                 airportDataGrid[9, i].Value = rwy.SurfaceType;
             }
+            
+            SetGridViewHeight();
+        }
 
-            if (runways.Where(r => r.HasIlsInfo == false).Count() > 0)
-            {
-                airportDataGrid.Columns.RemoveAt(7);
-                airportDataGrid.Columns.RemoveAt(6);
-                airportDataGrid.Columns.RemoveAt(5);
-            }
+        private void SetGridViewHeight()
+        {
+            var height = 40 + airportDataGrid.ColumnHeadersHeight;
+            foreach (DataGridViewRow dr in airportDataGrid.Rows) height += dr.Height;
+            airportDataGrid.Height = height;
         }
 
         private void SetColumnsLables()
@@ -311,7 +308,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
         private void EnableBrowser()
         {
             var wb = new WebBrowser();
-            
+
             wb.Location = Point.Empty;
             wb.Dock = DockStyle.Fill;
 
@@ -341,8 +338,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
         {
             // This requires a registry fix. (IE emulation)
 
-            browser.DocumentText = InteractiveMap.GetHtml(
-                lat, lon, browser.Width, browser.Height);
+            browser.DocumentText = InteractiveMap.GetHtml(lat, lon, browser.Width, browser.Height);
         }
 
         private void EnableStaticMap()
@@ -369,9 +365,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         private void ShowStaticMap(double lat, double lon)
         {
-            picBox.LoadAsync(
-                StaticMap.GetMapUrl(
-                    lat, lon, picBox.Width, picBox.Height));
+            picBox.LoadAsync(StaticMap.GetMapUrl(lat, lon, picBox.Width, picBox.Height));
         }
     }
 }

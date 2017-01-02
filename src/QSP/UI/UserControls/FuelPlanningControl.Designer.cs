@@ -70,7 +70,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.zfwTxtBox = new System.Windows.Forms.TextBox();
             this.payloadTxtBox = new System.Windows.Forms.TextBox();
-            this.payloadTrackBar = new System.Windows.Forms.TrackBar();
+            this.payloadTrackBar = new MetroFramework.Controls.MetroTrackBar();
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.oewTxtBox = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -110,7 +110,6 @@
             this.addRemoveAltnBtnLayoutPanel.SuspendLayout();
             this.groupBoxBasicInfo.SuspendLayout();
             this.TableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.payloadTrackBar)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
@@ -743,7 +742,6 @@
             this.payloadTrackBar.Name = "payloadTrackBar";
             this.payloadTrackBar.Size = new System.Drawing.Size(220, 30);
             this.payloadTrackBar.TabIndex = 12;
-            this.payloadTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             // 
             // wtUnitComboBox
             // 
@@ -1250,7 +1248,6 @@
             this.groupBoxBasicInfo.PerformLayout();
             this.TableLayoutPanel2.ResumeLayout(false);
             this.TableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.payloadTrackBar)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tableLayoutPanel10.ResumeLayout(false);
@@ -1288,7 +1285,7 @@
         internal System.Windows.Forms.Button addAltnBtn;
         internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.TableLayoutPanel TableLayoutPanel2;
-        internal System.Windows.Forms.TrackBar payloadTrackBar;
+        internal MetroFramework.Controls.MetroTrackBar payloadTrackBar;
         internal System.Windows.Forms.Label label10;
         internal System.Windows.Forms.Label Label17;
         internal System.Windows.Forms.Label label14;
