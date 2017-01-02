@@ -14,7 +14,7 @@ using QSP.UI.UserControls;
 using QSP.UI.ToLdgModule.TOPerf;
 using QSP.UI.ToLdgModule.LandingPerf;
 using QSP.UI.ToLdgModule.AboutPage;
-using static QSP.UI.Controllers.ControlGroup.ControlGroupController;
+using static QSP.UI.Controllers.ControlGroup.GroupController;
 
 namespace QSP.UI.Forms.NavigationBar
 {
@@ -27,9 +27,8 @@ namespace QSP.UI.Forms.NavigationBar
         private MiscInfoControl miscInfoMenu;
         private AboutPageControl aboutMenu;
         private Form optionForm;
-        private HelpMenu helpMenu;
 
-        private ControlGroupController btnControl;
+        private GroupController btnControl;
         private ControlSwitcher viewControl;
 
         private IEnumerable<Control> AllPages => new Control[]
@@ -76,7 +75,7 @@ namespace QSP.UI.Forms.NavigationBar
             var pairs = new[] { acLbl, fuelLbl, tolbl, ldgLbl, miscLbl, helpLbl }
                 .Select(lbl => new ControlColorPair(lbl, colors));
 
-            btnControl = new ControlGroupController(pairs.ToArray());
+            btnControl = new GroupController(pairs.ToArray());
             btnControl.Initialize();
             btnControl.SetSelected(acLbl);
         }

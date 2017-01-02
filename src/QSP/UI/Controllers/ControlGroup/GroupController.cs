@@ -4,17 +4,17 @@ using System.Windows.Forms;
 
 namespace QSP.UI.Controllers.ControlGroup
 {
-    public class ControlGroupController
+    public class GroupController
     {
-        private ControlColorController[] controllers;
+        private ColorController[] controllers;
 
-        public ControlGroupController(params ControlColorPair[] controlColors)
+        public GroupController(params ControlColorPair[] controlColors)
         {
-            controllers = new ControlColorController[controlColors.Length];
+            controllers = new ColorController[controlColors.Length];
 
             for (int i = 0; i < controllers.Length; i++)
             {
-                controllers[i] = new ControlColorController(
+                controllers[i] = new ColorController(
                     controlColors[i].Control,
                     controlColors[i].ForeInactive,
                     controlColors[i].BackInactive,

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace QSP.UI.Controllers.ControlGroup
 {
-    public class ControlColorController
+    public class ColorController
     {
         public Control Control { get; private set; }
         private Color foreInactive;
@@ -37,7 +37,7 @@ namespace QSP.UI.Controllers.ControlGroup
             }
         }
 
-        public ControlColorController(
+        public ColorController(
             Control Control,
             Color foreInactive,
             Color backInactive,

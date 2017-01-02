@@ -29,7 +29,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using QSP.RouteFinding.Tracks;
-using static QSP.UI.Controllers.ControlGroup.ControlGroupController;
+using static QSP.UI.Controllers.ControlGroup.GroupController;
 using static QSP.UI.Controllers.ControlGroup.ControlSwitcher;
 using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.Utilities.LoggerInstance;
@@ -53,7 +53,7 @@ namespace QSP.UI.Forms
         private Locator<IWindTableCollection> windTableLocator;
         private Updater updater;
 
-        private ControlGroupController btnControl;
+        private GroupController btnControl;
         private ControlSwitcher viewControl;
         private TracksForm trackFrm;
         private WindDataForm windFrm;
@@ -396,7 +396,7 @@ namespace QSP.UI.Forms
             var aboutPair = new ControlColorPair(aboutBtn, Color.White,
                 Color.Black, Color.White, Color.Turquoise);
 
-            btnControl = new ControlGroupController(
+            btnControl = new GroupController(
                 acConfigPair,
                 fuelPair,
                 toPair,

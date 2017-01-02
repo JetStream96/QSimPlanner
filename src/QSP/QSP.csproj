@@ -202,19 +202,6 @@
     <Compile Include="UI\Controllers\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
-    <Compile Include="UI\Forms\NavigationBar\MenuController.cs" />
-    <Compile Include="UI\Forms\NavigationBar\MiscMenu.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\NavigationBar\MiscMenu.Designer.cs">
-      <DependentUpon>MiscMenu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Forms\NavigationBar\HelpMenu.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\NavigationBar\HelpMenu.Designer.cs">
-      <DependentUpon>HelpMenu.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Forms\NavigationBar\NavBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -447,8 +434,8 @@
     <Compile Include="TOPerfCalculation\TOTableLoader.cs" />
     <Compile Include="TOPerfCalculation\PerfTable.cs" />
     <Compile Include="TOPerfCalculation\PerfTableItem.cs" />
-    <Compile Include="UI\Controllers\ControlGroup\ControlColorController.cs" />
-    <Compile Include="UI\Controllers\ControlGroup\ControlGroupController.cs" />
+    <Compile Include="UI\Controllers\ControlGroup\ColorController.cs" />
+    <Compile Include="UI\Controllers\ControlGroup\GroupController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\ControlSwitcher.cs" />
     <Compile Include="UI\ControlStates\StateManager.cs" />
     <Compile Include="UI\ToLdgModule\AircraftMenu\AcConfigValidator.cs" />
@@ -716,12 +703,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\qsp_icon.ico" />
-    <EmbeddedResource Include="UI\Forms\NavigationBar\MiscMenu.resx">
-      <DependentUpon>MiscMenu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\NavigationBar\HelpMenu.resx">
-      <DependentUpon>HelpMenu.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\NavigationBar\NavBar.resx">
       <DependentUpon>NavBar.cs</DependentUpon>
     </EmbeddedResource>

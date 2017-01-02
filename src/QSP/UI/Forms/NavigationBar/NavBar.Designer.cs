@@ -30,12 +30,12 @@
         {
             this.acLbl = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.helpLbl = new System.Windows.Forms.Label();
-            this.optionLbl = new System.Windows.Forms.Label();
-            this.miscLbl = new System.Windows.Forms.Label();
-            this.ldgLbl = new System.Windows.Forms.Label();
-            this.tolbl = new System.Windows.Forms.Label();
             this.fuelLbl = new System.Windows.Forms.Label();
+            this.tolbl = new System.Windows.Forms.Label();
+            this.ldgLbl = new System.Windows.Forms.Label();
+            this.miscLbl = new System.Windows.Forms.Label();
+            this.optionLbl = new System.Windows.Forms.Label();
+            this.helpLbl = new System.Windows.Forms.Label();
             this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,8 +67,8 @@
             this.tableLayoutPanel5.Controls.Add(this.tolbl, 0, 2);
             this.tableLayoutPanel5.Controls.Add(this.ldgLbl, 0, 3);
             this.tableLayoutPanel5.Controls.Add(this.miscLbl, 0, 4);
-            this.tableLayoutPanel5.Controls.Add(this.optionLbl, 0, 5);
-            this.tableLayoutPanel5.Controls.Add(this.helpLbl, 0, 6);
+            this.tableLayoutPanel5.Controls.Add(this.helpLbl, 0, 5);
+            this.tableLayoutPanel5.Controls.Add(this.optionLbl, 0, 6);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -83,53 +83,18 @@
             this.tableLayoutPanel5.Size = new System.Drawing.Size(120, 266);
             this.tableLayoutPanel5.TabIndex = 9;
             // 
-            // helpLbl
+            // fuelLbl
             // 
-            this.helpLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.helpLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.helpLbl.Location = new System.Drawing.Point(0, 228);
-            this.helpLbl.Margin = new System.Windows.Forms.Padding(0);
-            this.helpLbl.Name = "helpLbl";
-            this.helpLbl.Size = new System.Drawing.Size(120, 38);
-            this.helpLbl.TabIndex = 14;
-            this.helpLbl.Text = "Help";
-            this.helpLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // optionLbl
-            // 
-            this.optionLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.optionLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionLbl.Location = new System.Drawing.Point(0, 190);
-            this.optionLbl.Margin = new System.Windows.Forms.Padding(0);
-            this.optionLbl.Name = "optionLbl";
-            this.optionLbl.Size = new System.Drawing.Size(120, 38);
-            this.optionLbl.TabIndex = 13;
-            this.optionLbl.Text = "Options";
-            this.optionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // miscLbl
-            // 
-            this.miscLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.miscLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.miscLbl.Location = new System.Drawing.Point(0, 152);
-            this.miscLbl.Margin = new System.Windows.Forms.Padding(0);
-            this.miscLbl.Name = "miscLbl";
-            this.miscLbl.Size = new System.Drawing.Size(120, 38);
-            this.miscLbl.TabIndex = 12;
-            this.miscLbl.Text = "Misc";
-            this.miscLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // ldgLbl
-            // 
-            this.ldgLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ldgLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ldgLbl.Location = new System.Drawing.Point(0, 114);
-            this.ldgLbl.Margin = new System.Windows.Forms.Padding(0);
-            this.ldgLbl.Name = "ldgLbl";
-            this.ldgLbl.Size = new System.Drawing.Size(120, 38);
-            this.ldgLbl.TabIndex = 11;
-            this.ldgLbl.Text = "Landing";
-            this.ldgLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fuelLbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            this.fuelLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fuelLbl.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.fuelLbl.Location = new System.Drawing.Point(0, 38);
+            this.fuelLbl.Margin = new System.Windows.Forms.Padding(0);
+            this.fuelLbl.Name = "fuelLbl";
+            this.fuelLbl.Size = new System.Drawing.Size(120, 38);
+            this.fuelLbl.TabIndex = 9;
+            this.fuelLbl.Text = "Fuel";
+            this.fuelLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tolbl
             // 
@@ -143,18 +108,53 @@
             this.tolbl.Text = "Takeoff";
             this.tolbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // fuelLbl
+            // ldgLbl
             // 
-            this.fuelLbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            this.fuelLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelLbl.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.fuelLbl.Location = new System.Drawing.Point(0, 38);
-            this.fuelLbl.Margin = new System.Windows.Forms.Padding(0);
-            this.fuelLbl.Name = "fuelLbl";
-            this.fuelLbl.Size = new System.Drawing.Size(120, 38);
-            this.fuelLbl.TabIndex = 9;
-            this.fuelLbl.Text = "Fuel";
-            this.fuelLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ldgLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ldgLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ldgLbl.Location = new System.Drawing.Point(0, 114);
+            this.ldgLbl.Margin = new System.Windows.Forms.Padding(0);
+            this.ldgLbl.Name = "ldgLbl";
+            this.ldgLbl.Size = new System.Drawing.Size(120, 38);
+            this.ldgLbl.TabIndex = 11;
+            this.ldgLbl.Text = "Landing";
+            this.ldgLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // miscLbl
+            // 
+            this.miscLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.miscLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.miscLbl.Location = new System.Drawing.Point(0, 152);
+            this.miscLbl.Margin = new System.Windows.Forms.Padding(0);
+            this.miscLbl.Name = "miscLbl";
+            this.miscLbl.Size = new System.Drawing.Size(120, 38);
+            this.miscLbl.TabIndex = 12;
+            this.miscLbl.Text = "Misc";
+            this.miscLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // optionLbl
+            // 
+            this.optionLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.optionLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionLbl.Location = new System.Drawing.Point(0, 228);
+            this.optionLbl.Margin = new System.Windows.Forms.Padding(0);
+            this.optionLbl.Name = "optionLbl";
+            this.optionLbl.Size = new System.Drawing.Size(120, 38);
+            this.optionLbl.TabIndex = 13;
+            this.optionLbl.Text = "Options";
+            this.optionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // helpLbl
+            // 
+            this.helpLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.helpLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.helpLbl.Location = new System.Drawing.Point(0, 190);
+            this.helpLbl.Margin = new System.Windows.Forms.Padding(0);
+            this.helpLbl.Name = "helpLbl";
+            this.helpLbl.Size = new System.Drawing.Size(120, 38);
+            this.helpLbl.TabIndex = 14;
+            this.helpLbl.Text = "Help";
+            this.helpLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // NavBar
             // 
