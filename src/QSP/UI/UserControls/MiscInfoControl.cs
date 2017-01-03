@@ -93,20 +93,8 @@ namespace QSP.UI.UserControls
         private async Task UpdateAllMetarTaf()
         {
             downloadAllBtn.Enabled = false;
-            var orig = OrigTask();
-            var dest = DestTask();
-            var altn = AltnTask().ToList();
 
-            int taskCount = altn.Count + 2;
-            var allTasks = new Task<string>[taskCount];
-            allTasks[0] = orig;
-            allTasks[1] = dest;
-
-            for (int i = 2; i < allTasks.Length; i++)
-            {
-                allTasks[i] = altn[i - 2];
-            }
-
+            var allTasks = new[] {OrigTask(), DestTask()}.Concat(AltnTask());
             var result = await Task.WhenAll(allTasks);
 
             matarTafRichTxtBox.Text = string.Join("\n\n", result);

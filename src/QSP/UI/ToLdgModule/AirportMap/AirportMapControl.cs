@@ -19,7 +19,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
         private string _orig;
         private string _dest;
         private IEnumerable<string> _altn;
-
+        
         private AirportManager _airports;
         public AirportManager Airports
         {
@@ -247,9 +247,16 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
         private void SetGridViewHeight()
         {
-            var height = 40 + airportDataGrid.ColumnHeadersHeight;
-            foreach (DataGridViewRow dr in airportDataGrid.Rows) height += dr.Height;
-            airportDataGrid.Height = height;
+            var view = airportDataGrid;
+            var height = 10 + view.ColumnHeadersHeight;
+            foreach (DataGridViewRow dr in view.Rows) height += dr.Height;
+            view.Height = height;
+
+            // Limit the number of loops to prevent infinite loop.
+            for (int i = 0; i < 10; i++)
+            {
+                if (airportDataGrid.VScrollBarVisible()) airportDataGrid.Height += 10;
+            }
         }
 
         private void SetColumnsLables()
