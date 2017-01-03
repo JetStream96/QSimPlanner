@@ -20,8 +20,7 @@ namespace QSP.UI.Utilities
             control.Location = newLoc;
         }
 
-        public static void MoveRight(
-            this IEnumerable<Control> controls, int step)
+        public static void MoveRight(this IEnumerable<Control> controls, int step)
         {
             foreach (var i in controls)
             {
@@ -29,8 +28,7 @@ namespace QSP.UI.Utilities
             }
         }
 
-        public static void MoveDown(
-            this IEnumerable<Control> controls, int step)
+        public static void MoveDown(this IEnumerable<Control> controls, int step)
         {
             foreach (var i in controls)
             {

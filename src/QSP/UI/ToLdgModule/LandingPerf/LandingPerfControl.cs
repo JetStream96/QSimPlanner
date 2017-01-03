@@ -322,5 +322,10 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             // Set the color of weight.
             WeightTxtBoxChanged(this, EventArgs.Empty);
         }
+
+        private void TxtRichTextBoxContentsResized(object sender, ContentsResizedEventArgs e)
+        {
+            resultsRichTxtBox.Height = e.NewRectangle.Height + 10;
+        }
     }
 }

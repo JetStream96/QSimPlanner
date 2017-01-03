@@ -419,14 +419,17 @@
             // 
             // GroupBox16
             // 
+            this.GroupBox16.AutoSize = true;
+            this.GroupBox16.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.GroupBox16.BackColor = System.Drawing.Color.Transparent;
             this.GroupBox16.Controls.Add(this.resultsRichTxtBox);
             this.GroupBox16.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupBox16.Location = new System.Drawing.Point(2, 517);
             this.GroupBox16.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox16.MinimumSize = new System.Drawing.Size(1015, 290);
             this.GroupBox16.Name = "GroupBox16";
             this.GroupBox16.Padding = new System.Windows.Forms.Padding(2);
-            this.GroupBox16.Size = new System.Drawing.Size(1011, 238);
+            this.GroupBox16.Size = new System.Drawing.Size(1015, 291);
             this.GroupBox16.TabIndex = 4;
             this.GroupBox16.TabStop = false;
             this.GroupBox16.Text = "Results";
@@ -434,15 +437,16 @@
             // resultsRichTxtBox
             // 
             this.resultsRichTxtBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.resultsRichTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.resultsRichTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.resultsRichTxtBox.Font = new System.Drawing.Font("Courier New", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resultsRichTxtBox.Location = new System.Drawing.Point(6, 24);
             this.resultsRichTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.resultsRichTxtBox.Name = "resultsRichTxtBox";
             this.resultsRichTxtBox.ReadOnly = true;
-            this.resultsRichTxtBox.Size = new System.Drawing.Size(998, 212);
+            this.resultsRichTxtBox.Size = new System.Drawing.Size(1000, 240);
             this.resultsRichTxtBox.TabIndex = 0;
             this.resultsRichTxtBox.Text = "";
+            this.resultsRichTxtBox.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.TxtRichTextBoxContentsResized);
             // 
             // tableLayoutPanel1
             // 
@@ -477,7 +481,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1050, 757);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1050, 810);
             this.tableLayoutPanel2.TabIndex = 6;
             // 
             // LandingPerfControl
@@ -491,7 +495,7 @@
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LandingPerfControl";
-            this.Size = new System.Drawing.Size(1052, 759);
+            this.Size = new System.Drawing.Size(1052, 812);
             this.GroupBox13.ResumeLayout(false);
             this.GroupBox13.PerformLayout();
             this.GroupBox14.ResumeLayout(false);
@@ -503,6 +507,7 @@
             this.GroupBox16.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

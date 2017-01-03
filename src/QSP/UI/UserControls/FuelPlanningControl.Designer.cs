@@ -734,11 +734,9 @@
             // 
             // payloadTrackBar
             // 
-            this.payloadTrackBar.AutoSize = false;
             this.payloadTrackBar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.payloadTrackBar.Location = new System.Drawing.Point(623, 35);
             this.payloadTrackBar.Margin = new System.Windows.Forms.Padding(2);
-            this.payloadTrackBar.Maximum = 100;
             this.payloadTrackBar.Name = "payloadTrackBar";
             this.payloadTrackBar.Size = new System.Drawing.Size(220, 30);
             this.payloadTrackBar.TabIndex = 12;
@@ -1188,7 +1186,7 @@
             // fuelReportTxtBox
             // 
             this.fuelReportTxtBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.fuelReportTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.fuelReportTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.fuelReportTxtBox.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fuelReportTxtBox.Location = new System.Drawing.Point(10, 26);
             this.fuelReportTxtBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);

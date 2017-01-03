@@ -136,11 +136,11 @@ namespace QSP.UI.UserControls
         private int GetHeight()
         {
             Control[] controls = { airportMapControl, metarViewer };
-            const int minHeight = 700;
+            const int minHeight = 800;
             int index = TabControl1.SelectedIndex;
 
             if (index == 2) return minHeight;
-            return Math.Max(minHeight, controls[index].Height);
+            return Math.Max(minHeight, controls[index].Height + 100);
         }
     }
 }

@@ -313,5 +313,10 @@ namespace QSP.UI.ToLdgModule.TOPerf
             weightTxtBox.Text = RoundToInt(ac.TakeOffWeightKg).ToString();
             wtUnitComboBox.SelectedIndex = (int)ac.WtUnit;
         }
+
+        private void TxtRichTextBoxContentsResized(object sender, ContentsResizedEventArgs e)
+        {
+            resultsRichTxtBox.Height = e.NewRectangle.Height + 10;
+        }
     }
 }
