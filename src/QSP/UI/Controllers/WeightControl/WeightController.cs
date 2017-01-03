@@ -2,7 +2,6 @@
 using QSP.UI.Controllers.Units;
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using MetroFramework.Controls;
 using static QSP.MathTools.Doubles;
 using static System.Math;

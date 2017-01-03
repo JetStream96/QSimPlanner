@@ -32,11 +32,10 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.metarLastUpdatedLbl = new System.Windows.Forms.Label();
+            this.downloadAllBtn = new System.Windows.Forms.Button();
             this.IcaoTxtBox = new System.Windows.Forms.TextBox();
             this.statusPicBox = new System.Windows.Forms.PictureBox();
             this.metarTafRichTxtBox = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.downloadAllBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusPicBox)).BeginInit();
@@ -64,15 +63,14 @@
             // 
             this.tableLayoutPanel4.AutoSize = true;
             this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel4.ColumnCount = 6;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel4.ColumnCount = 5;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.metarLastUpdatedLbl, 5, 0);
+            this.tableLayoutPanel4.Controls.Add(this.metarLastUpdatedLbl, 4, 0);
             this.tableLayoutPanel4.Controls.Add(this.downloadAllBtn, 3, 0);
             this.tableLayoutPanel4.Controls.Add(this.IcaoTxtBox, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.statusPicBox, 2, 0);
@@ -107,6 +105,22 @@
             this.metarLastUpdatedLbl.Size = new System.Drawing.Size(290, 23);
             this.metarLastUpdatedLbl.TabIndex = 81;
             this.metarLastUpdatedLbl.Text = "Last Updated : 7/18/2016 6:55:48 PM";
+            // 
+            // downloadAllBtn
+            // 
+            this.downloadAllBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.downloadAllBtn.AutoSize = true;
+            this.downloadAllBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.downloadAllBtn.BackColor = System.Drawing.SystemColors.Control;
+            this.downloadAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.downloadAllBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.downloadAllBtn.Location = new System.Drawing.Point(192, 2);
+            this.downloadAllBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.downloadAllBtn.Name = "downloadAllBtn";
+            this.downloadAllBtn.Size = new System.Drawing.Size(160, 32);
+            this.downloadAllBtn.TabIndex = 78;
+            this.downloadAllBtn.Text = "View DEP/ARR/ATLN";
+            this.downloadAllBtn.UseVisualStyleBackColor = false;
             // 
             // IcaoTxtBox
             // 
@@ -143,38 +157,6 @@
             this.metarTafRichTxtBox.TabIndex = 0;
             this.metarTafRichTxtBox.Text = "";
             // 
-            // button1
-            // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.button1.AutoSize = true;
-            this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(210, 2);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(165, 32);
-            this.button1.TabIndex = 82;
-            this.button1.Text = "View Selected Airport";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // downloadAllBtn
-            // 
-            this.downloadAllBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.downloadAllBtn.AutoSize = true;
-            this.downloadAllBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.downloadAllBtn.BackColor = System.Drawing.SystemColors.Control;
-            this.downloadAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.downloadAllBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.downloadAllBtn.Location = new System.Drawing.Point(192, 2);
-            this.downloadAllBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.downloadAllBtn.Name = "downloadAllBtn";
-            this.downloadAllBtn.Size = new System.Drawing.Size(160, 32);
-            this.downloadAllBtn.TabIndex = 78;
-            this.downloadAllBtn.Text = "View DEP/ARR/ATLN";
-            this.downloadAllBtn.UseVisualStyleBackColor = false;
-            // 
             // MetarViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -201,7 +183,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.Button button1;
         internal System.Windows.Forms.TextBox IcaoTxtBox;
         private System.Windows.Forms.Label metarLastUpdatedLbl;
         internal System.Windows.Forms.RichTextBox metarTafRichTxtBox;

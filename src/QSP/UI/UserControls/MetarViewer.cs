@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QSP.LibraryExtension;
 using QSP.Metar;
-using QSP.RouteFinding.Airports;
 using QSP.UI.Utilities;
-using QSP.WindAloft;
 
 namespace QSP.UI.UserControls
 {
