@@ -38,8 +38,7 @@ namespace QSP.UI.Controllers
         {
             get
             {
-                return rows.Select(r =>
-                r.Items.IcaoTxtBox.Text.Trim().ToUpper());
+                return rows.Select(r => r.Items.IcaoTxtBox.Text.Trim().ToUpper());
             }
         }
 
