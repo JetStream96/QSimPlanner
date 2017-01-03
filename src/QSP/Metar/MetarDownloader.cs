@@ -11,7 +11,7 @@ namespace QSP.Metar
         {
             return icao.Trim().ToUpper();
         }
-
+        
         public static string GetMetar(string icao)
         {
             using (var client = new WebClient())
@@ -54,6 +54,21 @@ namespace QSP.Metar
                 taf = null;
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Returns null if failed.
+        /// </summary>
+        public static string GetMetarTaf(string icao)
+        {
+            string metar, taf;
+            if (TryGetMetar(icao, out metar) &&
+                TryGetTaf(icao, out taf))
+            {
+                return metar + "\n\n" + taf;
+            }
+
+            return null;
         }
 
         public static string TryGetMetar(string icao)

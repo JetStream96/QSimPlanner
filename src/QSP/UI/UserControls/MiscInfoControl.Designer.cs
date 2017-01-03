@@ -32,7 +32,9 @@ namespace QSP.UI.UserControls
         {
             this.TabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.TabPage1 = new System.Windows.Forms.TabPage();
+            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
             this.TabPage2 = new System.Windows.Forms.TabPage();
+            this.metarViewer = new QSP.UI.UserControls.MetarViewer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.TabPage6 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
@@ -41,8 +43,6 @@ namespace QSP.UI.UserControls
             this.updateDesForcastBtn = new System.Windows.Forms.Button();
             this.desForcastLastUpdatedLbl = new System.Windows.Forms.Label();
             this.desForcastRichTxtBox = new System.Windows.Forms.RichTextBox();
-            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
-            this.metarViewer = new QSP.UI.UserControls.MetarViewer();
             this.TabControl1.SuspendLayout();
             this.TabPage1.SuspendLayout();
             this.TabPage2.SuspendLayout();
@@ -60,7 +60,7 @@ namespace QSP.UI.UserControls
             this.TabControl1.Location = new System.Drawing.Point(0, 0);
             this.TabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.TabControl1.Name = "TabControl1";
-            this.TabControl1.SelectedIndex = 0;
+            this.TabControl1.SelectedIndex = 1;
             this.TabControl1.Size = new System.Drawing.Size(1099, 700);
             this.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.TabControl1.TabIndex = 44;
@@ -78,6 +78,20 @@ namespace QSP.UI.UserControls
             this.TabPage1.Text = "Airport Data";
             this.TabPage1.UseVisualStyleBackColor = true;
             // 
+            // airportMapControl
+            // 
+            this.airportMapControl.Airports = null;
+            this.airportMapControl.AutoSize = true;
+            this.airportMapControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.airportMapControl.BrowserEnabled = false;
+            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
+            this.airportMapControl.Margin = new System.Windows.Forms.Padding(2);
+            this.airportMapControl.Name = "airportMapControl";
+            this.airportMapControl.Size = new System.Drawing.Size(1061, 268);
+            this.airportMapControl.StaticMapEnabled = false;
+            this.airportMapControl.TabIndex = 0;
+            // 
             // TabPage2
             // 
             this.TabPage2.Controls.Add(this.metarViewer);
@@ -86,10 +100,20 @@ namespace QSP.UI.UserControls
             this.TabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.TabPage2.Name = "TabPage2";
             this.TabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.TabPage2.Size = new System.Drawing.Size(1091, 838);
+            this.TabPage2.Size = new System.Drawing.Size(1091, 658);
             this.TabPage2.TabIndex = 1;
             this.TabPage2.Text = "METAR/TAF";
             this.TabPage2.UseVisualStyleBackColor = true;
+            // 
+            // metarViewer
+            // 
+            this.metarViewer.AutoSize = true;
+            this.metarViewer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.metarViewer.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.metarViewer.Location = new System.Drawing.Point(10, 10);
+            this.metarViewer.Name = "metarViewer";
+            this.metarViewer.Size = new System.Drawing.Size(1076, 756);
+            this.metarViewer.TabIndex = 82;
             // 
             // tableLayoutPanel1
             // 
@@ -113,7 +137,7 @@ namespace QSP.UI.UserControls
             this.TabPage6.Margin = new System.Windows.Forms.Padding(2);
             this.TabPage6.Name = "TabPage6";
             this.TabPage6.Padding = new System.Windows.Forms.Padding(2);
-            this.TabPage6.Size = new System.Drawing.Size(1091, 838);
+            this.TabPage6.Size = new System.Drawing.Size(1091, 658);
             this.TabPage6.TabIndex = 2;
             this.TabPage6.Text = "Des. Forcast";
             this.TabPage6.UseVisualStyleBackColor = true;
@@ -192,30 +216,6 @@ namespace QSP.UI.UserControls
             this.desForcastRichTxtBox.Size = new System.Drawing.Size(680, 335);
             this.desForcastRichTxtBox.TabIndex = 1;
             this.desForcastRichTxtBox.Text = "";
-            // 
-            // airportMapControl
-            // 
-            this.airportMapControl.Airports = null;
-            this.airportMapControl.AutoSize = true;
-            this.airportMapControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.airportMapControl.BrowserEnabled = false;
-            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
-            this.airportMapControl.Margin = new System.Windows.Forms.Padding(2);
-            this.airportMapControl.Name = "airportMapControl";
-            this.airportMapControl.Size = new System.Drawing.Size(1061, 268);
-            this.airportMapControl.StaticMapEnabled = false;
-            this.airportMapControl.TabIndex = 0;
-            // 
-            // metarViewer
-            // 
-            this.metarViewer.AutoSize = true;
-            this.metarViewer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.metarViewer.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.metarViewer.Location = new System.Drawing.Point(0, 0);
-            this.metarViewer.Name = "metarViewer";
-            this.metarViewer.Size = new System.Drawing.Size(1076, 756);
-            this.metarViewer.TabIndex = 82;
             // 
             // MiscInfoControl
             // 

@@ -10,12 +10,15 @@ using System.Windows.Forms;
 using QSP.LibraryExtension;
 using QSP.Metar;
 using QSP.RouteFinding.Airports;
+using QSP.UI.Utilities;
 using QSP.WindAloft;
 
 namespace QSP.UI.UserControls
 {
     public partial class MetarViewer : UserControl
     {
+        private Image processingImage;
+
         private Func<string> origGetter;
         private Func<string> destGetter;
         private Func<IEnumerable<string>> altnGetter;
@@ -33,18 +36,39 @@ namespace QSP.UI.UserControls
             this.origGetter = origGetter;
             this.destGetter = destGetter;
             this.altnGetter = altnGetter;
-            
+
+            SetImages();
             metarLastUpdatedLbl.Text = "";
             downloadAllBtn.Click += (s, e) => UpdateAllMetarTaf();
-            button1.Click += (s, e) => downloadMetarBtnClick();
+            IcaoTxtBox.TextChanged += (s, e) => DownloadMetarTaf();
         }
 
-        private async Task downloadMetarBtnClick()
+        private void SetImages()
         {
-            var icao = metarToFindTxtBox.Text.Trim().ToUpper();
-            matarTafRichTxtBox.Text = await Task.Factory.StartNew(() =>
-                MetarDownloader.TryGetMetarTaf(icao));
-            SetUpdateTime();
+            processingImage = ImageUtil.Resize(Properties.Resources.processing, statusPicBox.Size);
+        }
+
+        private string Icao => IcaoTxtBox.Text.Trim().ToUpper();
+
+        private async Task DownloadMetarTaf()
+        {
+            var icaoCode = Icao;
+            statusPicBox.Image = processingImage;
+            metarTafRichTxtBox.Text = "";
+            var result = await Task.Factory.StartNew(() => MetarDownloader.GetMetarTaf(icaoCode));
+
+            if (result == null)
+            {
+                statusPicBox.SetImageHighQuality(Properties.Resources.deleteIconLarge);
+                return;
+            }
+
+            if (Icao == icaoCode)
+            {
+                metarTafRichTxtBox.Text = result;
+                SetUpdateTime();
+                statusPicBox.SetImageHighQuality(Properties.Resources.checkIconLarge);
+            }
         }
 
         private void SetUpdateTime()
@@ -59,7 +83,7 @@ namespace QSP.UI.UserControls
             var allTasks = new[] { OrigTask(), DestTask() }.Concat(AltnTask());
             var result = await Task.WhenAll(allTasks);
 
-            matarTafRichTxtBox.Text = string.Join("\n\n", result);
+            metarTafRichTxtBox.Text = string.Join("\n\n", result);
             SetUpdateTime();
             downloadAllBtn.Enabled = true;
         }
