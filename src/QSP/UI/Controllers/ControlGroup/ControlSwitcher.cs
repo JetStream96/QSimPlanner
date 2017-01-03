@@ -9,7 +9,7 @@ namespace QSP.UI.Controllers.ControlGroup
         private bool _subscribed;
         private Panel outerPanel;
 
-        public IEnumerable<ControlPair> Pairings { get; set; }
+        public IEnumerable<ControlPair> Pairings { get; private set; }
 
         public bool Subscribed
         {

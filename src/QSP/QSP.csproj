@@ -207,6 +207,7 @@
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />
     <Compile Include="UI\Controllers\ControlDisableStyleController.cs" />
+    <Compile Include="UI\Controllers\ControlGroup\ColorGroup.cs" />
     <Compile Include="UI\Controllers\DestinationStarSelection.cs" />
     <Compile Include="UI\Controllers\ISelectedProcedureProvider.cs" />
     <Compile Include="UI\Controllers\ListViewSortEnabler.cs" />

@@ -93,10 +93,8 @@ namespace QSP.UI.Forms.NavigationBar
             viewControl.Subscribed = true;
         }
 
-        private Color[] ColorStyle => new[]
-        {
-            Color.Black, Color.White, Color.White, Color.FromArgb(0, 174, 219)
-        };
+        private ColorGroup ColorStyle => new ColorGroup(
+            Color.Black, Color.White, Color.White, Color.FromArgb(0, 174, 219));
 
         private void EnableControlColors()
         {

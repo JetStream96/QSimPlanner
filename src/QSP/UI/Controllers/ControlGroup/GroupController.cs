@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace QSP.UI.Controllers.ControlGroup
@@ -10,17 +11,8 @@ namespace QSP.UI.Controllers.ControlGroup
 
         public GroupController(params ControlColorPair[] controlColors)
         {
-            controllers = new ColorController[controlColors.Length];
-
-            for (int i = 0; i < controllers.Length; i++)
-            {
-                controllers[i] = new ColorController(
-                    controlColors[i].Control,
-                    controlColors[i].ForeInactive,
-                    controlColors[i].BackInactive,
-                    controlColors[i].ForeActive,
-                    controlColors[i].BackActive);
-            }
+            controllers = controlColors.Select(c => new ColorController(c.Control, c.Colors))
+                .ToArray();
         }
 
         public void Initialize()
@@ -58,23 +50,13 @@ namespace QSP.UI.Controllers.ControlGroup
         public class ControlColorPair
         {
             public Control Control { get; private set; }
-            public Color ForeInactive { get; private set; }
-            public Color BackInactive { get; private set; }
-            public Color ForeActive { get; private set; }
-            public Color BackActive { get; private set; }
+            public ColorGroup Colors { get; }
 
-            public ControlColorPair(Control Control, Color ForeInactive,
-                Color BackInactive, Color ForeActive, Color BackActive)
+            public ControlColorPair(Control Control, ColorGroup colors)
             {
                 this.Control = Control;
-                this.ForeInactive = ForeInactive;
-                this.BackInactive = BackInactive;
-                this.ForeActive = ForeActive;
-                this.BackActive = BackActive;
+                this.Colors = colors;
             }
-
-            public ControlColorPair(Control Control, Color[] colors)
-                : this(Control, colors[0], colors[1], colors[2], colors[3]) { }
         }
     }
 }
