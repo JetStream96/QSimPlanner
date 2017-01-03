@@ -395,10 +395,11 @@ namespace QSP.UI.Forms
             var seq = new ActionSequence(
                 () =>
                 {
+                    DisableUserInputs(type);
                     SetProcessingImage(type);
                     EnabledCBox(type).SelectedIndex = 0;
                 },
-                () => { });
+                () => EnableUserInputs(type));
 
             airwayNetwork.SetTrackMessageAndEnable(type, GetTrackMessage(type, doc), seq);
         }
