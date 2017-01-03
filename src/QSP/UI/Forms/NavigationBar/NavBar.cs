@@ -94,7 +94,9 @@ namespace QSP.UI.Forms.NavigationBar
         }
 
         private ColorGroup ColorStyle => new ColorGroup(
-            Color.Black, Color.White, Color.White, Color.FromArgb(0, 174, 219));
+            Color.Black, Color.White,
+            Color.White, Color.DimGray,
+            Color.White, Color.FromArgb(0, 174, 219));
 
         private void EnableControlColors()
         {

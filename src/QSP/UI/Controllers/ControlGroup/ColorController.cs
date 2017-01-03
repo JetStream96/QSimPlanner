@@ -21,13 +21,13 @@ namespace QSP.UI.Controllers.ControlGroup
             {
                 if (_subscribed && value == false)
                 {
-                    Control.MouseEnter -= SetActiveStyle;
+                    Control.MouseEnter -= SetHoverStyle;
                     Control.MouseLeave -= SetInactiveStyle;
                     _subscribed = false;
                 }
                 else if (_subscribed == false && value)
                 {
-                    Control.MouseEnter += SetActiveStyle;
+                    Control.MouseEnter += SetHoverStyle;
                     Control.MouseLeave += SetInactiveStyle;
                     _subscribed = true;
                 }
@@ -45,6 +45,12 @@ namespace QSP.UI.Controllers.ControlGroup
         {
             Control.ForeColor = colors.ForeInactive;
             Control.BackColor = colors.BackInactive;
+        }
+
+        public void SetHoverStyle(object sender = null, EventArgs e = null)
+        {
+            Control.ForeColor = colors.ForeHover;
+            Control.BackColor = colors.BackHover;
         }
 
         public void SetActiveStyle(object sender = null, EventArgs e = null)

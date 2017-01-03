@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -7,12 +8,12 @@ namespace QSP.UI.Controllers.ControlGroup
 {
     public class GroupController
     {
-        private ColorController[] controllers;
+        private List<ColorController> controllers;
 
         public GroupController(params ControlColorPair[] controlColors)
         {
             controllers = controlColors.Select(c => new ColorController(c.Control, c.Colors))
-                .ToArray();
+                .ToList();
         }
 
         public void Initialize()
@@ -49,7 +50,7 @@ namespace QSP.UI.Controllers.ControlGroup
 
         public class ControlColorPair
         {
-            public Control Control { get; private set; }
+            public Control Control { get; }
             public ColorGroup Colors { get; }
 
             public ControlColorPair(Control Control, ColorGroup colors)

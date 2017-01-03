@@ -4,6 +4,10 @@ using System.Windows.Forms;
 
 namespace QSP.UI.Controllers.ControlGroup
 {
+    // Manages a group of UserControls, placed inside a panel which may have been set
+    // AutoScroll = True. For each UserControl, when its corresponding button (or label, or 
+    // any other controls) is clicked, only that UserControl is shown and all others are hidden.
+    //
     public class ControlSwitcher
     {
         private bool _subscribed;
