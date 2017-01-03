@@ -272,6 +272,12 @@
       <DependentUpon>AboutPageControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ToLdgModule\Common\AircraftRequest.cs" />
+    <Compile Include="UI\UserControls\MetarViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\MetarViewer.Designer.cs">
+      <DependentUpon>MetarViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserControls\RouteActions\SimpleActionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -735,6 +741,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\FuelPlanningControl.resx">
       <DependentUpon>FuelPlanningControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControls\MetarViewer.resx">
+      <DependentUpon>MetarViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\MiscInfoControl.resx">
       <DependentUpon>MiscInfoControl.cs</DependentUpon>

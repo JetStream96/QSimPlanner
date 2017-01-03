@@ -50,16 +50,15 @@ namespace QSP.UI.UserControls
             airportMapControl.Init(airportList);
             this.windTableLocator = windTableLocator;
             airportMapControl.BrowserEnabled = enableBrowser;
-            metarLastUpdatedLbl.Text = "";
             destIcaoLbl.Text = "";
             desForcastLastUpdatedLbl.Text = "";
             this.origGetter = origGetter;
             this.destGetter = destGetter;
             this.altnGetter = altnGetter;
 
-            updateDesForcastBtn.Click += (s,e) =>UpdateDesForcast();
-            downloadAllBtn.Click += (s,e) =>UpdateAllMetarTaf();
-            button1.Click += (s,e) => downloadMetarBtnClick();
+            EnableTabControlAutosize();
+            updateDesForcastBtn.Click += (s, e) => UpdateDesForcast();
+            metarViewer.Init(origGetter, destGetter, altnGetter);
         }
 
         public void SetOrig(string icao)
@@ -77,53 +76,9 @@ namespace QSP.UI.UserControls
             airportMapControl.Altn = icao;
         }
 
-        private async Task downloadMetarBtnClick()
-        {
-            var icao = metarToFindTxtBox.Text.Trim().ToUpper();
-            matarTafRichTxtBox.Text = await Task.Factory.StartNew(() =>
-                MetarDownloader.TryGetMetarTaf(icao));
-            SetUpdateTime();
-        }
-
-        private void SetUpdateTime()
-        {
-            metarLastUpdatedLbl.Text = $"Last Updated : {DateTime.Now}";
-        }
-
-        private async Task UpdateAllMetarTaf()
-        {
-            downloadAllBtn.Enabled = false;
-
-            var allTasks = new[] {OrigTask(), DestTask()}.Concat(AltnTask());
-            var result = await Task.WhenAll(allTasks);
-
-            matarTafRichTxtBox.Text = string.Join("\n\n", result);
-            SetUpdateTime();
-            downloadAllBtn.Enabled = true;
-        }
-
-        private Task<string> OrigTask()
-        {
-            return Task.Factory.StartNew(
-                () => MetarDownloader.TryGetMetarTaf(origGetter()));
-        }
-
-        private Task<string> DestTask()
-        {
-            return Task.Factory.StartNew(
-                () => MetarDownloader.TryGetMetarTaf(destGetter()));
-        }
-
-        private IEnumerable<Task<string>> AltnTask()
-        {
-            return altnGetter().Select(
-                i => Task.Factory.StartNew(
-                    () => MetarDownloader.TryGetMetarTaf(i)));
-        }
-
         private async Task UpdateDesForcast()
         {
-            if(windTableLocator.Instance is DefaultWindTableCollection)
+            if (windTableLocator.Instance is DefaultWindTableCollection)
             {
                 desForcastRichTxtBox.Text =
                     "\n\n\n       Wind aloft has not been downloaded.";
@@ -138,11 +93,9 @@ namespace QSP.UI.UserControls
                 destIcaoLbl.Text = "Destination : " + dest;
 
                 desForcastRichTxtBox.Text =
-                    await Task.Factory.StartNew(() =>
-                    GenDesForcastString(dest));
+                    await Task.Factory.StartNew(() => GenDesForcastString(dest));
 
-                desForcastLastUpdatedLbl.Text =
-                    $"Last Updated : {DateTime.Now}";
+                desForcastLastUpdatedLbl.Text = $"Last Updated : {DateTime.Now}";
             }
             catch (Exception ex)
             {
@@ -172,6 +125,25 @@ namespace QSP.UI.UserControls
             }
 
             return result.ToString();
+        }
+
+        private void EnableTabControlAutosize()
+        {
+            Control[] controls = { airportMapControl, metarViewer };
+            EventHandler adjustHeight = (s, e) => TabControl1.Height = GetHeight();
+
+            TabControl1.SelectedIndexChanged += adjustHeight;
+            controls.ForEach(c => c.SizeChanged += adjustHeight);
+        }
+
+        private int GetHeight()
+        {
+            Control[] controls = { airportMapControl, metarViewer };
+            const int minHeight = 700;
+            int index = TabControl1.SelectedIndex;
+
+            if (index == 2) return minHeight;
+            return Math.Max(minHeight, controls[index].Height);
         }
     }
 }

@@ -318,7 +318,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
             wb.Location = Point.Empty;
             wb.Width = tableLayoutPanel2.Width;
-            wb.Height = 600;
+            wb.Height = 800;
 
             tableLayoutPanel2.Controls.Add(wb, 0, 1);
             browser = wb;
