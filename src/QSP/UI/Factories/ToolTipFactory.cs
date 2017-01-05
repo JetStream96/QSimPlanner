@@ -8,12 +8,18 @@ namespace QSP.UI.Factories
         {
             var tp = new ToolTip();
 
-            tp.AutoPopDelay = 5000;
+            tp.UseAnimation = true;
+            tp.AutoPopDelay = 60000;
             tp.InitialDelay = 0;
             tp.ReshowDelay = 0;
             tp.ShowAlways = true;
 
             return tp;
+        }
+
+        public static void SetToolTip(this Control c, string caption)
+        {
+            GetToolTip().SetToolTip(c, caption);
         }
     }
 }

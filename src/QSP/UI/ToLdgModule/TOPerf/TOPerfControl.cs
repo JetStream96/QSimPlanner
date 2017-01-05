@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using QSP.UI.Factories;
 using static QSP.MathTools.Doubles;
 
 namespace QSP.UI.ToLdgModule.TOPerf
@@ -43,14 +44,6 @@ namespace QSP.UI.ToLdgModule.TOPerf
         public TOPerfControl()
         {
             InitializeComponent();
-
-            // Create the reference to the UI controls.
-            InitializeElements();
-
-            // Set default values for the controls.
-            InitializeControls();
-
-            setWeatherBtnHandlers();
         }
 
         public void Init(
@@ -59,11 +52,28 @@ namespace QSP.UI.ToLdgModule.TOPerf
             AirportManager airports,
             Func<AircraftRequest> acRequestGetter)
         {
+            InitControls();
+
             this.aircrafts = aircrafts;
             this.tables = tables;
             UpdateAircraftList();
             this.Airports = airports;
             this.acRequestGetter = acRequestGetter;
+        }
+
+        private void InitControls()
+        {
+            airportInfoControl.Init();
+
+            // Create the reference to the UI controls.
+            InitializeElements();
+
+            // Set default values for the controls.
+            InitializeControls();
+
+            setWeatherBtnHandlers();
+
+            requestBtn.SetToolTip("Use aircraft and weights calculated from 'Fuel' page.");
         }
 
         private void UpdateAircraftList()
@@ -141,9 +151,7 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
         private void setWeatherBtnHandlers()
         {
-            wxSetter = new AutoWeatherSetter(
-                weatherInfoControl, airportInfoControl);
-
+            wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl);
             wxSetter.Subscribe();
         }
 

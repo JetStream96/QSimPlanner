@@ -2,6 +2,7 @@
 using QSP.RouteFinding.Airports;
 using System;
 using System.Windows.Forms;
+using QSP.UI.Factories;
 using static QSP.MathTools.Doubles;
 
 namespace QSP.UI.ToLdgModule.Common.AirportInfo
@@ -17,6 +18,10 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
         public AirportInfoControl()
         {
             InitializeComponent();
+        }
+
+        public void Init()
+        {
             InitializeControls();
         }
 
@@ -29,8 +34,10 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
             lengthUnitComboBox.Items.Clear();
             lengthUnitComboBox.Items.AddRange(new string[] { "M", "FT" });
             lengthUnitComboBox.SelectedIndex = 0; // Meter
-        }
 
+            reqAirportBtn.SetToolTip("Use airport and runway from 'Fuel' page.");
+        }
+        
         private void UpdateSlopeItems()
         {
             slopeComboBox.Items.Clear();
@@ -123,8 +130,7 @@ namespace QSP.UI.ToLdgModule.Common.AirportInfo
                 int elevationOppositeRwyFt = takeoffAirport.RwyElevationFt(
                     RwyIdentConversion.RwyIdentOppositeDir(rwyComboBox.Text));
 
-                SetSlope((elevationOppositeRwyFt - elevationFt) * 
-                    100.0 / lengthFt);
+                SetSlope((elevationOppositeRwyFt - elevationFt) * 100.0 / lengthFt);
             }
         }
         

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using QSP.UI.Factories;
 using static QSP.MathTools.Doubles;
 
 namespace QSP.UI.ToLdgModule.LandingPerf
@@ -42,20 +43,11 @@ namespace QSP.UI.ToLdgModule.LandingPerf
         public LandingPerfControl()
         {
             InitializeComponent();
-
-            // Create the reference to the UI controls.
-            InitializeElements();
-
-            // Set default values for the controls.
-            InitializeControls();
-
-            setWeatherBtnHandlers();
         }
 
         private void setWeatherBtnHandlers()
         {
-            wxSetter = new AutoWeatherSetter(
-                weatherInfoControl, airportInfoControl);
+            wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl);
             wxSetter.Subscribe();
         }
 
@@ -117,6 +109,18 @@ namespace QSP.UI.ToLdgModule.LandingPerf
             AirportManager airports,
             Func<AircraftRequest> acRequestGetter)
         {
+            airportInfoControl.Init();
+
+            // Create the reference to the UI controls.
+            InitializeElements();
+
+            // Set default values for the controls.
+            InitializeControls();
+
+            setWeatherBtnHandlers();
+
+            requestBtn.SetToolTip("Use aircraft and weights calculated from 'Fuel' page.");
+
             this.aircrafts = aircrafts;
             this.tables = tables;
             UpdateAircraftList();

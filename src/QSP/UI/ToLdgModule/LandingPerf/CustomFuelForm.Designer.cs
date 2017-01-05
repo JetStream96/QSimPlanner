@@ -62,14 +62,16 @@
             // 
             // importFuelBtn
             // 
+            this.importFuelBtn.AutoSize = true;
+            this.importFuelBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.importFuelBtn.BackColor = System.Drawing.SystemColors.Control;
             this.importFuelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.importFuelBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.importFuelBtn.Location = new System.Drawing.Point(8, 3);
             this.importFuelBtn.Name = "importFuelBtn";
-            this.importFuelBtn.Size = new System.Drawing.Size(145, 32);
+            this.importFuelBtn.Size = new System.Drawing.Size(196, 32);
             this.importFuelBtn.TabIndex = 50;
-            this.importFuelBtn.Text = "Use predicted fuel";
+            this.importFuelBtn.Text = "Use predicted landing fuel";
             this.importFuelBtn.UseVisualStyleBackColor = false;
             this.importFuelBtn.Click += new System.EventHandler(this.importFuelBtn_Click);
             // 
