@@ -14,7 +14,6 @@ namespace QSP.RouteFinding.Tracks.Ausots
         /// <exception cref="NotSupportedException"></exception>
         public ITrackMessage GetMessage()
         {
-            Thread.Sleep(20000);//TODO:remove this
             using (var wc = new WebClient())
             {
                 return new AusotsMessage(wc.DownloadString(address));
@@ -23,7 +22,6 @@ namespace QSP.RouteFinding.Tracks.Ausots
 
         public async Task<ITrackMessage> GetMessageAsync()
         {
-            await Task.Factory.StartNew(() => Thread.Sleep(20000));//TODO:remove this
             using (var wc = new WebClient())
             {
                 var str = await wc.DownloadStringTaskAsync(new Uri(address));

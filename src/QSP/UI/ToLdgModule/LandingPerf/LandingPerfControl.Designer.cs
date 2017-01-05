@@ -443,6 +443,7 @@
             this.resultsRichTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.resultsRichTxtBox.Name = "resultsRichTxtBox";
             this.resultsRichTxtBox.ReadOnly = true;
+            this.resultsRichTxtBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.resultsRichTxtBox.Size = new System.Drawing.Size(1000, 240);
             this.resultsRichTxtBox.TabIndex = 0;
             this.resultsRichTxtBox.Text = "";

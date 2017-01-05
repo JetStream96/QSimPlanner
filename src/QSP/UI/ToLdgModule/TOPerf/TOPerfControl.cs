@@ -316,7 +316,8 @@ namespace QSP.UI.ToLdgModule.TOPerf
 
         private void TxtRichTextBoxContentsResized(object sender, ContentsResizedEventArgs e)
         {
-            resultsRichTxtBox.Height = e.NewRectangle.Height + 10;
+            var box = resultsRichTxtBox;
+            box.Height = e.NewRectangle.Height + 10;
         }
     }
 }

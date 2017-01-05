@@ -317,12 +317,13 @@ namespace QSP.UI.ToLdgModule.AirportMap
             var wb = new WebBrowser();
 
             wb.Location = Point.Empty;
-            wb.Width = tableLayoutPanel2.Width;
-            wb.Height = 800;
-
+            wb.Size = MapSize;
+            
             tableLayoutPanel2.Controls.Add(wb, 0, 1);
             browser = wb;
         }
+
+        private Size MapSize => new Size(tableLayoutPanel2.Width, 800);
 
         private void DisableBrowser()
         {
@@ -354,7 +355,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             var pb = new PictureBox();
 
             pb.Location = Point.Empty;
-            pb.Dock = DockStyle.Fill;//TODO:
+            pb.Size = MapSize;
             pb.BackgroundImageLayout = ImageLayout.None;
 
             // Added so that it doesn't display the default image, 

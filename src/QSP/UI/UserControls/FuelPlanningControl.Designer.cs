@@ -126,7 +126,7 @@
             this.fuelParaGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.fuelParaGroupBox.Controls.Add(this.TableLayoutPanel1);
             this.fuelParaGroupBox.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelParaGroupBox.Location = new System.Drawing.Point(2, 518);
+            this.fuelParaGroupBox.Location = new System.Drawing.Point(2, 533);
             this.fuelParaGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.fuelParaGroupBox.MaximumSize = new System.Drawing.Size(1091, 10000);
             this.fuelParaGroupBox.MinimumSize = new System.Drawing.Size(1091, 70);
@@ -450,7 +450,7 @@
             this.calculateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.calculateBtn.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.calculateBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.calculateBtn.Location = new System.Drawing.Point(795, 708);
+            this.calculateBtn.Location = new System.Drawing.Point(795, 723);
             this.calculateBtn.Margin = new System.Windows.Forms.Padding(5, 4, 15, 4);
             this.calculateBtn.Name = "calculateBtn";
             this.calculateBtn.Size = new System.Drawing.Size(295, 52);
@@ -465,7 +465,7 @@
             this.alternateGroupBox.Controls.Add(this.altnLayoutPanel);
             this.alternateGroupBox.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.alternateGroupBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.alternateGroupBox.Location = new System.Drawing.Point(2, 424);
+            this.alternateGroupBox.Location = new System.Drawing.Point(2, 439);
             this.alternateGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.alternateGroupBox.MaximumSize = new System.Drawing.Size(1091, 10000);
             this.alternateGroupBox.MinimumSize = new System.Drawing.Size(1091, 70);
@@ -575,7 +575,7 @@
             this.mainRouteRichTxtBox.Location = new System.Drawing.Point(2, 142);
             this.mainRouteRichTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.mainRouteRichTxtBox.Name = "mainRouteRichTxtBox";
-            this.mainRouteRichTxtBox.Size = new System.Drawing.Size(1068, 65);
+            this.mainRouteRichTxtBox.Size = new System.Drawing.Size(1068, 80);
             this.mainRouteRichTxtBox.TabIndex = 12;
             this.mainRouteRichTxtBox.Text = "";
             // 
@@ -845,7 +845,7 @@
             this.groupBox1.MinimumSize = new System.Drawing.Size(1091, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(1091, 263);
+            this.groupBox1.Size = new System.Drawing.Size(1091, 278);
             this.groupBox1.TabIndex = 46;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Route";
@@ -867,7 +867,7 @@
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(1072, 209);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(1072, 224);
             this.tableLayoutPanel10.TabIndex = 85;
             // 
             // tableLayoutPanel9
@@ -1174,7 +1174,7 @@
             this.fuelReportGroupBox.BackColor = System.Drawing.Color.Transparent;
             this.fuelReportGroupBox.Controls.Add(this.fuelReportTxtBox);
             this.fuelReportGroupBox.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelReportGroupBox.Location = new System.Drawing.Point(2, 766);
+            this.fuelReportGroupBox.Location = new System.Drawing.Point(2, 781);
             this.fuelReportGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.fuelReportGroupBox.Name = "fuelReportGroupBox";
             this.fuelReportGroupBox.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -1218,7 +1218,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1105, 1238);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1105, 1253);
             this.tableLayoutPanel4.TabIndex = 48;
             // 
             // FuelPlanningControl
@@ -1231,7 +1231,7 @@
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FuelPlanningControl";
-            this.Size = new System.Drawing.Size(1105, 1238);
+            this.Size = new System.Drawing.Size(1105, 1253);
             this.fuelParaGroupBox.ResumeLayout(false);
             this.fuelParaGroupBox.PerformLayout();
             this.TableLayoutPanel1.ResumeLayout(false);
