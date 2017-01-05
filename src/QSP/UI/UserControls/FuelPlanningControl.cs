@@ -23,6 +23,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using QSP.FuelCalculation;
 using QSP.FuelCalculation.Results;
 using QSP.RouteFinding.Tracks;
 using static QSP.AviationTools.Constants;
@@ -221,6 +222,7 @@ namespace QSP.UI.UserControls
             removeAltnBtn.Click += RemoveAltn;
             AltnControl.RowCountChanged += RowCountChanged;
             advancedToolLbl.Click += ShowAdvancedTool;
+            mainRouteRichTxtBox.UpperCaseOnly();
         }
 
         private string[] AvailAircraftTypes()
@@ -433,20 +435,29 @@ namespace QSP.UI.UserControls
                 if (result != DialogResult.Yes) return;
             }
 
-            var fuelReport = new FuelReportGenerator(
-                airportList,
-                new BasicCrzAltProvider(),
-                windTables,
-                RouteToDest.Expanded,
-                altnRoutes,
-                para).Generate();
+            FuelReport fuelReport = null;
+
+            try
+            {
+                fuelReport = new FuelReportGenerator(
+                    airportList,
+                    new BasicCrzAltProvider(),
+                    windTables,
+                    RouteToDest.Expanded,
+                    altnRoutes,
+                    para).Generate();
+            }
+            catch (InvalidPlanAltitudeException)
+            {
+                ShowWarning("Cannot find a valid cruising altitude.");
+                return;
+            }
 
             var ac = GetCurrentAircraft().Config;
 
             if (fuelReport.TotalFuel > ac.MaxFuelKg)
             {
-                var msg = InsufficientFuelMsg(
-                    fuelReport.TotalFuel, ac.MaxFuelKg, WeightUnit);
+                var msg = InsufficientFuelMsg(fuelReport.TotalFuel, ac.MaxFuelKg, WeightUnit);
 
                 MessageBox.Show(
                     msg,

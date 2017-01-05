@@ -53,8 +53,8 @@ namespace QSP.FuelCalculation.Calculations
             this.landingFuel = landingFuel;
             this.maxAlt = maxAlt;
         }
-
-        // May throw exception.
+        
+        /// <exception cref="InvalidPlanAltitudeException"></exception>
         public DetailedPlan Create()
         {
             var altLimit = maxAlt;
@@ -66,7 +66,7 @@ namespace QSP.FuelCalculation.Calculations
                 if (altResult.IsValid) return new DetailedPlan(plan);
                 var minAlt = Math.Max(plan.First().Alt, plan.Last().Alt);
                 altLimit = altResult.NewAlt;
-                if (altLimit <= minAlt) throw new InvalidOperationException();
+                if (altLimit <= minAlt) throw new InvalidPlanAltitudeException();
             }
         }
 

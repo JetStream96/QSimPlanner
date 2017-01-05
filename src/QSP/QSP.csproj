@@ -131,6 +131,7 @@
     <Content Include="FuelCalculation\Calculations\VariableUnitStandard.txt" />
     <Compile Include="FuelCalculation\Calculations\NodeMarker.cs" />
     <Compile Include="FuelCalculation\Calculations\PlanNode.cs" />
+    <Compile Include="FuelCalculation\Exceptions.cs" />
     <Compile Include="FuelCalculation\FuelData\Corrections\Boeing\FuelTable.cs" />
     <Compile Include="FuelCalculation\FuelData\DataPoint.cs" />
     <Compile Include="FuelCalculation\FuelData\DataPointExtension.cs" />
@@ -319,6 +320,7 @@
     <Compile Include="UI\Utilities\ControlMover.cs" />
     <Compile Include="UI\Utilities\DoubleBufferUtil.cs" />
     <Compile Include="UI\Utilities\ImageUtil.cs" />
+    <Compile Include="UI\Utilities\InputControl.cs" />
     <Compile Include="UI\Utilities\InputValidator.cs" />
     <Compile Include="UI\Utilities\ControlFinder.cs" />
     <Compile Include="UI\Utilities\OpenFileHelper.cs" />

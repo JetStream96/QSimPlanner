@@ -569,8 +569,10 @@
             // 
             // mainRouteRichTxtBox
             // 
+            this.mainRouteRichTxtBox.AcceptsTab = true;
             this.mainRouteRichTxtBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.mainRouteRichTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainRouteRichTxtBox.DetectUrls = false;
             this.mainRouteRichTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainRouteRichTxtBox.Location = new System.Drawing.Point(2, 142);
             this.mainRouteRichTxtBox.Margin = new System.Windows.Forms.Padding(2);
