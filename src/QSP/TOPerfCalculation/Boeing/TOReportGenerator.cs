@@ -38,24 +38,16 @@ namespace QSP.TOPerfCalculation.Boeing
             double rwyRequired = calc.TakeoffDistanceMeter(mainOat);
             ValidateMainResult(result, mainOat, rwyRequired);
 
-            for (int oat = mainOat + 1;
-                 oat <= maxOat;
-                 oat += tempIncrement)
+            for (int oat = mainOat + 1; oat <= maxOat; oat += tempIncrement)
             {
                 rwyRequired = calc.TakeoffDistanceMeter(oat);
-
-                if (TryAddResult(result, oat, rwyRequired) == false)
-                {
-                    return result;
-                }
+                if (!TryAddResult(result, oat, rwyRequired)) return result;
             }
 
             return result;
         }
 
-        private void ValidateMainResult(TOReport result, 
-                                        int oat,
-                                        double rwyRequired)
+        private void ValidateMainResult(TOReport result, int oat, double rwyRequired)
         {
             if (rwyRequired <= para.RwyLengthMeter)
             {
@@ -78,8 +70,7 @@ namespace QSP.TOPerfCalculation.Boeing
         }
 
         // returns whether the result was successfully added.
-        private bool TryAddResult(TOReport result, int oat,
-            double rwyRequired)
+        private bool TryAddResult(TOReport result, int oat, double rwyRequired)
         {
             if (rwyRequired <= para.RwyLengthMeter &&
                 calc.ClimbLimitWeightTon(oat) * 1000.0 >= para.WeightKg)

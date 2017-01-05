@@ -56,6 +56,7 @@ namespace QSP.UI.UserControls
             EnableTabControlAutosize();
             updateDesForcastBtn.Click += (s, e) => UpdateDesForcast();
             metarViewer.Init(origGetter, destGetter, altnGetter);
+            TabControl1.SelectedIndex = 0;
         }
 
         public void SetOrig(string icao)

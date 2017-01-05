@@ -17,20 +17,14 @@ namespace QSP.TOPerfCalculation
             AssumedTemp = new List<DataRow>();
         }
 
-        public void SetPrimaryResult(int OatCelsius,
-            int RwyRequiredMeter,
-            int RwyRemainingMeter)
+        public void SetPrimaryResult(int OatCelsius, int RwyRequiredMeter, int RwyRemainingMeter)
         {
-            PrimaryResult =
-                new DataRow(OatCelsius, RwyRequiredMeter, RwyRemainingMeter);
+            PrimaryResult = new DataRow(OatCelsius, RwyRequiredMeter, RwyRemainingMeter);
         }
 
-        public void AddAssumedTemp(int OatCelsius,
-            int RwyRequiredMeter,
-            int RwyRemainingMeter)
+        public void AddAssumedTemp(int OatCelsius, int RwyRequiredMeter, int RwyRemainingMeter)
         {
-            AssumedTemp.Add(
-                new DataRow(OatCelsius, RwyRequiredMeter, RwyRemainingMeter));
+            AssumedTemp.Add(new DataRow(OatCelsius, RwyRequiredMeter, RwyRemainingMeter));
         }
 
         public string ToString(TemperatureUnit tempUnit, LengthUnit lenUnit)
@@ -48,11 +42,11 @@ namespace QSP.TOPerfCalculation
 
             str.AppendLine("          Required distance     " +
                 LengthConvertUnit(PrimaryResult.RwyRequiredMeter, lenUnit)
-                + lUnit);
+                + " " + lUnit);
 
             str.AppendLine("          Runway remaining      " +
                 LengthConvertUnit(PrimaryResult.RwyRemainingMeter, lenUnit)
-                + lUnit);
+                + " " + lUnit);
 
             str.AppendLine();
             str.AppendLine(new string('-', 50));
@@ -104,9 +98,7 @@ namespace QSP.TOPerfCalculation
             public int RwyRequiredMeter { get; private set; }
             public int RwyRemainingMeter { get; private set; }
 
-            public DataRow(int OatCelsius,
-                int RwyRequiredMeter,
-                int RwyRemainingMeter)
+            public DataRow(int OatCelsius, int RwyRequiredMeter, int RwyRemainingMeter)
             {
                 this.OatCelsius = OatCelsius;
                 this.RwyRequiredMeter = RwyRequiredMeter;

@@ -56,6 +56,7 @@ namespace QSP.UI.UserControls
             if (result == null)
             {
                 statusPicBox.SetImageHighQuality(Properties.Resources.deleteIconLarge);
+                metarLastUpdatedLbl.Text = "";
                 return;
             }
 
@@ -75,11 +76,13 @@ namespace QSP.UI.UserControls
         private async Task UpdateAllMetarTaf()
         {
             downloadAllBtn.Enabled = false;
+            metarLastUpdatedLbl.Text = "";
 
             var allTasks = new[] { OrigTask(), DestTask() }.Concat(AltnTask());
             var result = await Task.WhenAll(allTasks);
 
-            metarTafRichTxtBox.Text = string.Join("\n\n", result);
+            var lineSep = new string('-', 80);
+            metarTafRichTxtBox.Text = string.Join($"\n{lineSep}\n\n", result);
             SetUpdateTime();
             downloadAllBtn.Enabled = true;
         }
