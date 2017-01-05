@@ -70,18 +70,14 @@ namespace QSP.RouteFinding.Routes
         /// </summary>
         public void AddFirstWaypoint(Waypoint item, string viaAirway, double distanceToNext)
         {
-            var node = new RouteNode(item,
-                new Neighbor(viaAirway, distanceToNext));
+            var node = new RouteNode(item, new Neighbor(viaAirway, distanceToNext));
             Nodes.AddFirst(node);
         }
 
         public void AddFirstWaypoint(Waypoint item, string viaAirway)
         {
             var first = Nodes.First;
-
-            double distance = first == null ? 0.0 :
-                item.Distance(first.Value.Waypoint);
-
+            double distance = first == null ? 0.0 : item.Distance(first.Value.Waypoint);
             AddFirstWaypoint(item, viaAirway, distance);
         }
 
@@ -107,10 +103,7 @@ namespace QSP.RouteFinding.Routes
         public void AddLastWaypoint(Waypoint item, string viaAirway)
         {
             var last = Nodes.Last;
-
-            double distance = Last == null ? 0.0 :
-                item.Distance(last.Value.Waypoint);
-
+            double distance = Last == null ? 0.0 : item.Distance(last.Value.Waypoint);
             AddLastWaypoint(item, viaAirway, distance);
         }
 
@@ -152,6 +145,7 @@ namespace QSP.RouteFinding.Routes
 
         /// <summary>
         /// A string represents the usual route text with options.
+        /// If the route contains only a "DCT", even if ShowDct is false, this will return "DCT".
         /// </summary>
         public string ToString(bool ShowDct)
         {
@@ -177,8 +171,7 @@ namespace QSP.RouteFinding.Routes
                     node = node.Next;
                     result.Append(node.Value.Waypoint.ID + ' ');
                 }
-                else if (node.Value.Neighbor.Airway !=
-                    node.Next.Value.Neighbor.Airway)
+                else if (node.Value.Neighbor.Airway != node.Next.Value.Neighbor.Airway)
                 {
                     result.Append(node.Value.Neighbor.Airway + ' ');
                     node = node.Next;
@@ -192,10 +185,10 @@ namespace QSP.RouteFinding.Routes
 
             if (node.Value.Neighbor.Airway != "DCT" || ShowDct)
             {
-                result.Append(node.Value.Neighbor.Airway + ' ');
+                result.Append(node.Value.Neighbor.Airway);
             }
 
-            return result.ToString();
+            return result.Length == 0 ? "DCT" : result.ToString();
         }
 
         public IEnumerator<RouteNode> GetEnumerator()
