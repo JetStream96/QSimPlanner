@@ -125,6 +125,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
 
             AddToolTip();
             SetUpdateBtnImage();
+            icaoComboBox.UpperCaseOnly();
         }
 
         private void SetUpdateBtnImage()
@@ -133,7 +134,7 @@ namespace QSP.UI.ToLdgModule.AirportMap
             var size = new Size(oldSize.Width - 4, oldSize.Height - 4);
             updateBtn.BackgroundImage = ImageUtil.Resize(Properties.Resources.processing, size);
         }
-
+        
         private void AddToolTip()
         {
             var tp = GetToolTip();

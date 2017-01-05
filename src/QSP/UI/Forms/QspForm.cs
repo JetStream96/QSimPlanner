@@ -222,7 +222,7 @@ namespace QSP.UI.Forms
             CheckRegistry();
             SubscribeEvents();
 
-            acMenu.Initialize(profiles);
+            acMenu.Init(profiles);
             acMenu.AircraftsChanged += fuelMenu.RefreshAircrafts;
             acMenu.AircraftsChanged += toMenu.RefreshAircrafts;
             acMenu.AircraftsChanged += ldgMenu.RefreshAircrafts;

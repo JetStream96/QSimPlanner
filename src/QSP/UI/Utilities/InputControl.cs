@@ -8,14 +8,5 @@ namespace QSP.UI.Utilities
         {
             c.KeyPress += (s, e) => e.KeyChar = char.ToUpperInvariant(e.KeyChar);
         }
-
-        public static void NumberOnly(this Control c)
-        {
-            c.KeyPress += (s, e) =>
-            {
-
-               // e.KeyChar = char.ToUpperInvariant(e.KeyChar);
-            };
-        }
     }
 }

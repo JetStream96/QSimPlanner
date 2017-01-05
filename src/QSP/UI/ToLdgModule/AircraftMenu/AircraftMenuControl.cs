@@ -1,6 +1,7 @@
 ﻿using QSP.AircraftProfiles;
 using System;
 using System.Windows.Forms;
+using QSP.UI.Utilities;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu
 {
@@ -20,10 +21,11 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             InitializeComponent();
         }
 
-        public void Initialize(ProfileCollection profiles)
+        public void Init(ProfileCollection profiles)
         {
             SetElements();
             InitController(profiles);
+            registrationTxtBox.UpperCaseOnly();
         }
         
         private void InitController(ProfileCollection profiles)
