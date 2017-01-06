@@ -37,6 +37,10 @@ namespace QSP.UI.UserControls
             metarLastUpdatedLbl.Text = "";
             downloadAllBtn.Click += (s, e) => UpdateAllMetarTaf();
             IcaoTxtBox.TextChanged += (s, e) => DownloadMetarTaf();
+            metarTafRichTxtBox.ContentsResized += (s, e) =>
+            {
+                metarTafRichTxtBox.Height = e.NewRectangle.Height + 10;
+            };
         }
 
         private void SetImages()
