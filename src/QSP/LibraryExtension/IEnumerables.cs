@@ -56,5 +56,11 @@ namespace QSP.LibraryExtension
         {
             return item.Select(s => Convert.ToDouble(s)).ToArray();
         }
+
+        public static void ForEach<T>(this IEnumerable<T> source, Action<T, int> action)
+        {
+            var i = 0;
+            foreach (var e in source) action(e, i++);
+        }
     }
 }

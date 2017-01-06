@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using QSP.LibraryExtension;
+using QSP.UI.Utilities;
 
 namespace QSP.UI.Forms
 {
@@ -15,19 +16,32 @@ namespace QSP.UI.Forms
             InitializeComponent();
         }
 
-        public void Init(string text, Icon icon, string caption, string[] buttonTxt, int defaultBtn)
+        public void Init(string text, MsgBoxIcon icon, string caption,
+            string[] buttonTxt, int defaultBtn)
         {
             msgLbl.Text = text;
-            SetIcon(icon);
+            pictureBox1.Image = GetImage(icon);
             Text = caption;
-            SetButtons(buttonTxt, defaultBtn);
+            SetButtonText(buttonTxt, defaultBtn);
+            SubscribeEvents();
         }
 
-        private void SetButtons(string[] texts, int defaultBtn)
+        private void SubscribeEvents()
+        {
+            Buttons.ForEach((btn, index) => btn.Click += (s, e) =>
+            {
+                SelectedButton = index;
+                Close();
+            });
+        }
+
+        private Button[] Buttons => new[] { button1, button2, button3 };
+
+        private void SetButtonText(string[] texts, int defaultBtn)
         {
             var len = texts.Length;
             Debug.Assert(len == 3);
-            Button[] btns = { button1, button2, button3 };
+            var btns = Buttons;
 
             for (int i = 0; i < len; i++)
             {
@@ -45,10 +59,23 @@ namespace QSP.UI.Forms
             btns[defaultBtn].Select();
         }
 
-        private void SetIcon(Icon image)
+        private Image GetImage(MsgBoxIcon icon)
         {
-            pictureBox1.Image = new Icon(image, 48, 48).ToBitmap();
-            pictureBox1.Size = new Size(image.Width + 15, image.Height + 15);
+            Image[] img =
+            {
+                Properties.Resources.okIcon,
+                Properties.Resources.CautionIcon,
+                Properties.Resources.errorIcon
+            };
+
+            return ImageUtil.Resize(img[(int)icon], new Size(48, 48));
+        }
+
+        public enum MsgBoxIcon
+        {
+            Info = 0,
+            Warning = 1,
+            Error = 2
         }
     }
 }

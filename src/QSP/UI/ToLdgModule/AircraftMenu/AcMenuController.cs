@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Windows.Forms;
+using QSP.UI.Forms;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Utilities.MsgBoxHelper;
 
@@ -260,7 +261,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         }
 
         // If false, then user is creating a new config.
-        private bool InEditMode=> currentConfig != null; 
+        private bool InEditMode => currentConfig != null;
 
         /// <exception cref="NoFileNameAvailException"></exception>
         private string GetFileName()
@@ -319,7 +320,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                    "Registration already exists. Please use another one.");
                 return;
             }
-            
+
             var fn = TryGetFileName();
             if (fn == null) return;
 
@@ -390,14 +391,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             const double delta = 1.0;
 
-            if (InEditMode)
-            {
-                return !config.Equals(currentConfig.Config, delta);
-            }
-            else
-            {
-                return !config.Equals(DefaultAcConfig, delta);
-            }
+            if (InEditMode) return !config.Equals(currentConfig.Config, delta);
+            return !config.Equals(DefaultAcConfig, delta);
         }
 
         public void CancelBtnClicked(object sender, EventArgs e)
@@ -410,24 +405,20 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 return;
             }
 
-            var i = ShowDialog(
+            var result = ShowDialog(
                 "Discard the changes to config?",
-                SystemIcons.Warning,
+                MsgBoxForm.MsgBoxIcon.Warning,
                 "",
-                new[] {"Discard", "Save", "Cancel"},
+                new[] { "Discard", "Save", "Cancel" },
                 0);
 
-            var result =
-                MessageBox.Show(
-                    "Discard the changes to config?",
-                    "",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Warning,
-                    MessageBoxDefaultButton.Button2);
-
-            if (result == DialogResult.Yes)
+            if (result == 0)
             {
                 ShowSelectionGroupBox();
+            }
+            else if (result == 1)
+            {
+                SaveConfig(this, EventArgs.Empty);
             }
         }
 

@@ -33,13 +33,15 @@ namespace QSP.UI.Utilities
                 MessageBoxIcon.Information);
         }
 
-        public static int ShowDialog(string text, Icon icon, string caption, 
+        public static int ShowDialog(string text, MsgBoxForm.MsgBoxIcon icon, string caption,
             string[] buttonTxt, int defaultBtn)
         {
-            var frm = new MsgBoxForm();
-            frm.Init(text, icon, caption, buttonTxt, defaultBtn);
-            frm.ShowDialog();
-            return 0;
+            using (var frm = new MsgBoxForm())
+            {
+                frm.Init(text, icon, caption, buttonTxt, defaultBtn);
+                frm.ShowDialog();
+                return frm.SelectedButton;
+            }
         }
     }
 }
