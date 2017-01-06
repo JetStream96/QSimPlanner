@@ -77,7 +77,7 @@ namespace QSP.UI.ToLdgModule.Common
             DisableDnBtn();
             var w = wxControl;
             w.picBox.Visible = false;
-            w.picBox.Image = Properties.Resources.deleteIconLarge;
+            w.picBox.Image = Properties.Resources.errorIcon;
 
             string icao = airportControl.Icao;
             metar = null;
@@ -106,7 +106,7 @@ namespace QSP.UI.ToLdgModule.Common
                 }
                 else
                 {
-                    w.picBox.Image = Properties.Resources.checkIconLarge;
+                    w.picBox.Image = Properties.Resources.okIcon;
                 }
 
                 EnableViewBtn();

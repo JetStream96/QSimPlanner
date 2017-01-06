@@ -55,7 +55,7 @@ namespace QSP.UI.UserControls
 
             if (result == null)
             {
-                statusPicBox.SetImageHighQuality(Properties.Resources.deleteIconLarge);
+                statusPicBox.SetImageHighQuality(Properties.Resources.errorIcon);
                 metarLastUpdatedLbl.Text = "";
                 return;
             }
@@ -64,7 +64,7 @@ namespace QSP.UI.UserControls
             {
                 metarTafRichTxtBox.Text = result;
                 SetUpdateTime();
-                statusPicBox.SetImageHighQuality(Properties.Resources.checkIconLarge);
+                statusPicBox.SetImageHighQuality(Properties.Resources.okIcon);
             }
         }
 

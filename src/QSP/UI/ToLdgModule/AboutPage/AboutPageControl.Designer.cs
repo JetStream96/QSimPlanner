@@ -206,7 +206,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.BackgroundImage = global::QSP.Properties.Resources.chart3Faa;
+            this.BackgroundImage = global::QSP.Properties.Resources.chartFaa;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Controls.Add(this.tableLayoutPanel3);
             this.DoubleBuffered = true;
