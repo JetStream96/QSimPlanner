@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
+using QSP.UI.Forms;
 
 namespace QSP.UI.Utilities
 {
@@ -29,6 +31,15 @@ namespace QSP.UI.Utilities
                 caption,
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+        }
+
+        public static int ShowDialog(string text, Icon icon, string caption, 
+            string[] buttonTxt, int defaultBtn)
+        {
+            var frm = new MsgBoxForm();
+            frm.Init(text, icon, caption, buttonTxt, defaultBtn);
+            frm.ShowDialog();
+            return 0;
         }
     }
 }

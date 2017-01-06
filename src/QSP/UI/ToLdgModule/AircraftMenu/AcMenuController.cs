@@ -89,7 +89,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 Constants.LbKgRatio :
                 Constants.KgLbRatio;
 
-            var textBoxes = new TextBox[] { elem.Oew,
+            var textBoxes = new[] { elem.Oew,
                 elem.MaxToWt, elem.MaxLdgWt, elem.MaxZfw, elem.MaxFuel };
 
             foreach (var j in textBoxes)
@@ -260,10 +260,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         }
 
         // If false, then user is creating a new config.
-        private bool InEditMode
-        {
-            get { return currentConfig != null; }
-        }
+        private bool InEditMode=> currentConfig != null; 
 
         /// <exception cref="NoFileNameAvailException"></exception>
         private string GetFileName()
@@ -349,16 +346,14 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             var path = item.FilePath;
             var ac = item.Config.AC;
 
-            var result =
-                MessageBox.Show(
+            var result = MessageBox.Show(
                     $"Permanently delete {reg} ({ac}) ?",
                     "",
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Warning,
                     MessageBoxDefaultButton.Button2);
 
-            if (result == DialogResult.Yes &&
-                TryDeleteConfig(path))
+            if (result == DialogResult.Yes && TryDeleteConfig(path))
             {
                 configs.Remove(reg);
                 RefreshListView();
@@ -414,6 +409,13 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 ShowSelectionGroupBox();
                 return;
             }
+
+            var i = ShowDialog(
+                "Discard the changes to config?",
+                SystemIcons.Warning,
+                "",
+                new[] {"Discard", "Save", "Cancel"},
+                0);
 
             var result =
                 MessageBox.Show(
