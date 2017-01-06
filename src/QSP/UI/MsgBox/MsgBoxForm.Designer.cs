@@ -36,12 +36,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.msgLbl = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.picBox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -154,7 +154,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.msgLbl, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.pictureBox1, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.picBox, 0, 0);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel4.MaximumSize = new System.Drawing.Size(550, 5000);
@@ -178,14 +178,14 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBox1.Location = new System.Drawing.Point(40, 38);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(40, 3, 3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(52, 52);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.picBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.picBox.Location = new System.Drawing.Point(40, 38);
+            this.picBox.Margin = new System.Windows.Forms.Padding(40, 3, 3, 3);
+            this.picBox.Name = "pictureBox1";
+            this.picBox.Size = new System.Drawing.Size(52, 52);
+            this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picBox.TabIndex = 1;
+            this.picBox.TabStop = false;
             // 
             // MsgBoxForm
             // 
@@ -214,7 +214,7 @@
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -229,7 +229,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label msgLbl;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
     }
 }

@@ -254,6 +254,7 @@
       <DependentUpon>WindDataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\WindowSize.cs" />
+    <Compile Include="UI\MsgBox\DefaultButton.cs" />
     <Compile Include="UI\MsgBox\MsgBoxResult.cs" />
     <Compile Include="UI\MsgBox\MsgBoxForm.cs">
       <SubType>Form</SubType>

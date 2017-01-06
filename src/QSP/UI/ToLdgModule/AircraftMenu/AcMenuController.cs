@@ -348,14 +348,14 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
             var path = item.FilePath;
             var ac = item.Config.AC;
 
-            var result = MessageBox.Show(
-                    $"Permanently delete {reg} ({ac}) ?",
-                    "",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Warning,
-                    MessageBoxDefaultButton.Button2);
+            var result = ShowDialog(
+                $"Permanently delete {reg} ({ac}) ?",
+                MsgBoxIcon.Warning,
+                "",
+                new[] { "Delete", "Cancel" },
+                DefaultButton.Button2);
 
-            if (result == DialogResult.Yes && TryDeleteConfig(path))
+            if (result == MsgBoxResult.Button1 && TryDeleteConfig(path))
             {
                 configs.Remove(reg);
                 RefreshListView();
@@ -412,7 +412,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 MsgBoxIcon.Warning,
                 "",
                 new[] { "Discard", "Save", "Cancel" },
-                0);
+                DefaultButton.Button1);
 
             if (result == MsgBoxResult.Button1)
             {

@@ -34,7 +34,7 @@ namespace QSP.UI.Utilities
         }
 
         public static MsgBoxResult ShowDialog(string text, MsgBoxIcon icon, string caption,
-            string[] buttonTxt, int defaultBtn)
+            string[] buttonTxt, DefaultButton defaultBtn)
         {
             using (var frm = new MsgBoxForm())
             {

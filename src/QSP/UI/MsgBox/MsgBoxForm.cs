@@ -1,15 +1,20 @@
-﻿using System.Diagnostics;
+﻿using QSP.LibraryExtension;
+using QSP.UI.Utilities;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.LibraryExtension;
-using QSP.UI.Utilities;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.UI.MsgBox
 {
+    // Supports 1, 2, or 3 buttons.
     public partial class MsgBoxForm : Form
     {
-        public MsgBoxResult SelectionResult { get; private set; }
+        private List<Button> activeButtons;
+
+        public MsgBoxResult SelectionResult { get; private set; } = MsgBoxResult.Cancelled;
 
         public MsgBoxForm()
         {
@@ -17,46 +22,54 @@ namespace QSP.UI.MsgBox
         }
 
         public void Init(string text, MsgBoxIcon icon, string caption,
-            string[] buttonTxt, int defaultBtn)
+            string[] buttonTxt, DefaultButton btn)
         {
+            var len = buttonTxt.Length;
+            Ensure<ArgumentException>(len > (int)btn);
+
             msgLbl.Text = text;
-            pictureBox1.Image = GetImage(icon);
+            picBox.Image = GetImage(icon);
             Text = caption;
-            SetButtonText(buttonTxt, defaultBtn);
+            activeButtons = new[] { button1, button2, button3 }.Take(len).ToList();
+
+            ArrangeLayout(len);
+            SetButtonText(buttonTxt, btn);
             SubscribeEvents();
+        }
+
+        private void ArrangeLayout(int length)
+        {
+            if (length == 3) return;
+            button3.Visible = false;
+            if (length == 2) return;
+            button2.Visible = false;
+            tableLayoutPanel2.Anchor = AnchorStyles.Right;
+
+            var margin = tableLayoutPanel2.Margin;
+            tableLayoutPanel2.Margin = Padding.Add(margin, new Padding(0, 0, 30, 0));
         }
 
         private void SubscribeEvents()
         {
-            Buttons.ForEach((btn, index) => btn.Click += (s, e) =>
+            activeButtons.ForEach((btn, index) => btn.Click += (s, e) =>
             {
                 SelectionResult = (MsgBoxResult)index;
                 Close();
             });
         }
 
-        private Button[] Buttons => new[] { button1, button2, button3 };
-
-        private void SetButtonText(string[] texts, int defaultBtn)
+        private void SetButtonText(string[] texts, DefaultButton defaultBtn)
         {
-            var len = texts.Length;
-            Debug.Assert(len == 3);
-            var btns = Buttons;
+            var btnWidth = activeButtons.Max(b => b.Width);
 
-            for (int i = 0; i < len; i++)
+            activeButtons.ForEach((b, index) =>
             {
-                btns[i].Text = texts[i];
-            }
-
-            var btnWidth = btns.Max(b => b.Width);
-            btns.ForEach(b =>
-            {
+                b.Text = texts[index];
                 b.AutoSize = false;
-                // b.MinimumSize = new Size(0, b.MinimumSize.Height);
                 b.Width = btnWidth;
             });
 
-            btns[defaultBtn].Select();
+            activeButtons[(int)defaultBtn].Select();
         }
 
         private Image GetImage(MsgBoxIcon icon)
