@@ -17,6 +17,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QSP.UI.MsgBox;
+using QSP.UI.Utilities;
 using static QSP.UI.Utilities.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
 
@@ -80,18 +82,16 @@ namespace QSP.UI.Forms.Options
             {
                 e.Cancel = true;
 
-                var result = MessageBox.Show(
+                var result = MsgBoxHelper.ShowDialog(
                     "Nav Data needs to be set before proceeding. " +
                     "Otherwise this application will close. " +
-                    "Close the application?",
+                    "Quit the application?",
+                    MsgBoxIcon.Warning,
                     "",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Exclamation);
+                    DefaultButton.Button1,
+                    "Quit", "Back to options", "Cancel");
 
-                if (result == DialogResult.Yes)
-                {
-                    Environment.Exit(0);
-                }
+                if (result == MsgBoxResult.Button1) Environment.Exit(0);
             }
         }
 
@@ -306,7 +306,7 @@ namespace QSP.UI.Forms.Options
         private void BrowseBtnClick(object sender, EventArgs e)
         {
             var dialog = new FolderSelectDialog();
-            dialog.InitialDirectory=pathTxtBox.Text;
+            dialog.InitialDirectory = pathTxtBox.Text;
 
             if (dialog.ShowDialog())
             {

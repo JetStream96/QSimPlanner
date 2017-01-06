@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using QSP.FuelCalculation;
 using QSP.FuelCalculation.Results;
 using QSP.RouteFinding.Tracks;
+using QSP.UI.MsgBox;
 using static QSP.AviationTools.Constants;
 using static QSP.AviationTools.SpeedConversion;
 using static QSP.MathTools.Doubles;
@@ -425,14 +426,15 @@ namespace QSP.UI.UserControls
 
             if (windTables is DefaultWindTableCollection)
             {
-                var result = MessageBox.Show(
+                var result = ShowDialog(
                     "The wind data has not been downloaded. " +
                     "Continue to calculate and ignore wind aloft?",
+                    MsgBoxIcon.Info,
                     "",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Question);
+                    DefaultButton.Button1,
+                    "Yes", "No", "Cancel");
 
-                if (result != DialogResult.Yes) return;
+                if (result != MsgBoxResult.Button1) return;
             }
 
             FuelReport fuelReport = null;
@@ -458,13 +460,7 @@ namespace QSP.UI.UserControls
             if (fuelReport.TotalFuel > ac.MaxFuelKg)
             {
                 var msg = InsufficientFuelMsg(fuelReport.TotalFuel, ac.MaxFuelKg, WeightUnit);
-
-                MessageBox.Show(
-                    msg,
-                    "Insufficient fuel",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-
+                ShowInfo(msg, "Insufficient fuel");
                 return;
             }
 

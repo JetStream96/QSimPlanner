@@ -352,8 +352,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 $"Permanently delete {reg} ({ac}) ?",
                 MsgBoxIcon.Warning,
                 "",
-                new[] { "Delete", "Cancel" },
-                DefaultButton.Button2);
+                DefaultButton.Button2,
+                "Delete", "Cancel");
 
             if (result == MsgBoxResult.Button1 && TryDeleteConfig(path))
             {
@@ -411,8 +411,8 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 "Discard the changes to config?",
                 MsgBoxIcon.Warning,
                 "",
-                new[] { "Discard", "Save", "Cancel" },
-                DefaultButton.Button1);
+                DefaultButton.Button1,
+                "Discard", "Save", "Cancel");
 
             if (result == MsgBoxResult.Button1)
             {

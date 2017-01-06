@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Math;
 using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.UI.MsgBox
@@ -22,12 +23,12 @@ namespace QSP.UI.MsgBox
         }
 
         public void Init(string text, MsgBoxIcon icon, string caption,
-            string[] buttonTxt, DefaultButton btn)
+            DefaultButton btn, string[] buttonTxt)
         {
             var len = buttonTxt.Length;
             Ensure<ArgumentException>(len > (int)btn);
 
-            msgLbl.Text = text;
+            SetLabelText(text);
             picBox.Image = GetImage(icon);
             Text = caption;
             activeButtons = new[] { button1, button2, button3 }.Take(len).ToList();
@@ -35,6 +36,24 @@ namespace QSP.UI.MsgBox
             ArrangeLayout(len);
             SetButtonText(buttonTxt, btn);
             SubscribeEvents();
+        }
+
+        private void SetLabelText(string text)
+        {
+            msgLbl.Text = text;
+            var desiredWidth = msgLbl.Width + 35 + tableLayoutPanel4.GetColumnWidths()[0];
+            SetWidth(Max(400, Min(550, desiredWidth)));
+        }
+
+        private void SetWidth(int width)
+        {
+            var p3 = tableLayoutPanel3;
+            var p4 = tableLayoutPanel4;
+
+            p3.MinimumSize = new Size(width, p3.MinimumSize.Height);
+            p4.MinimumSize = new Size(width, p4.MinimumSize.Height);
+            p3.MaximumSize = new Size(width, p3.MaximumSize.Height);
+            p4.MaximumSize = new Size(width, p4.MaximumSize.Height);
         }
 
         private void ArrangeLayout(int length)
@@ -46,7 +65,7 @@ namespace QSP.UI.MsgBox
             tableLayoutPanel2.Anchor = AnchorStyles.Right;
 
             var margin = tableLayoutPanel2.Margin;
-            tableLayoutPanel2.Margin = Padding.Add(margin, new Padding(0, 0, 30, 0));
+            tableLayoutPanel2.Margin = Padding.Add(margin, new Padding(0, 0, 10, 0));
         }
 
         private void SubscribeEvents()
@@ -76,7 +95,7 @@ namespace QSP.UI.MsgBox
         {
             Image[] img =
             {
-                Properties.Resources.okIcon,
+                Properties.Resources.infoIcon,
                 Properties.Resources.CautionIcon,
                 Properties.Resources.errorIcon
             };

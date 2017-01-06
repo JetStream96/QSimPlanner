@@ -57,7 +57,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(400, 180);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(550, 180);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // tableLayoutPanel3
@@ -71,11 +71,11 @@
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 128);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.MaximumSize = new System.Drawing.Size(550, 50000);
-            this.tableLayoutPanel3.MinimumSize = new System.Drawing.Size(400, 0);
+            this.tableLayoutPanel3.MinimumSize = new System.Drawing.Size(550, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(400, 52);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(550, 52);
             this.tableLayoutPanel3.TabIndex = 6;
             // 
             // tableLayoutPanel2
@@ -90,7 +90,7 @@
             this.tableLayoutPanel2.Controls.Add(this.button3, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.button2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.button1, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(44, 10);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(119, 10);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
@@ -153,16 +153,16 @@
             this.tableLayoutPanel4.ColumnCount = 2;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.msgLbl, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.picBox, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.msgLbl, 1, 0);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel4.MaximumSize = new System.Drawing.Size(550, 5000);
-            this.tableLayoutPanel4.MinimumSize = new System.Drawing.Size(400, 128);
+            this.tableLayoutPanel4.MinimumSize = new System.Drawing.Size(550, 128);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(400, 128);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(550, 128);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
             // msgLbl
@@ -176,12 +176,12 @@
             this.msgLbl.TabIndex = 1;
             this.msgLbl.Text = "Error message here";
             // 
-            // pictureBox1
+            // picBox
             // 
             this.picBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.picBox.Location = new System.Drawing.Point(40, 38);
             this.picBox.Margin = new System.Windows.Forms.Padding(40, 3, 3, 3);
-            this.picBox.Name = "pictureBox1";
+            this.picBox.Name = "picBox";
             this.picBox.Size = new System.Drawing.Size(52, 52);
             this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.picBox.TabIndex = 1;

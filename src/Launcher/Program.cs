@@ -18,7 +18,7 @@ namespace Launcher
             catch (Exception ex)
             {
                 Log(ex);
-
+                
                 MessageBox.Show("An error occurred:\n" + ex.Message,
                     "QSimPlanner launcher error",
                     MessageBoxButtons.OK,

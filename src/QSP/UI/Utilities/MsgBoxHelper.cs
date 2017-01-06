@@ -15,13 +15,9 @@ namespace QSP.UI.Utilities
                 MessageBoxIcon.Error);
         }
 
-        public static DialogResult ShowWarning(string text, string caption = "")
+        public static void ShowWarning(string text, string caption = "")
         {
-            return MessageBox.Show(
-                text,
-                caption,
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Warning);
+            ShowDialog(text, MsgBoxIcon.Warning, caption, DefaultButton.Button1, "OK");
         }
 
         public static DialogResult ShowInfo(string text, string caption = "")
@@ -34,11 +30,11 @@ namespace QSP.UI.Utilities
         }
 
         public static MsgBoxResult ShowDialog(string text, MsgBoxIcon icon, string caption,
-            string[] buttonTxt, DefaultButton defaultBtn)
+            DefaultButton defaultBtn, params string[] buttonTxt)
         {
             using (var frm = new MsgBoxForm())
             {
-                frm.Init(text, icon, caption, buttonTxt, defaultBtn);
+                frm.Init(text, icon, caption, defaultBtn, buttonTxt);
                 frm.ShowDialog();
                 return frm.SelectionResult;
             }

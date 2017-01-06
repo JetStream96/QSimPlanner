@@ -28,6 +28,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using QSP.RouteFinding.Tracks;
+using QSP.UI.MsgBox;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms
@@ -48,7 +49,7 @@ namespace QSP.UI.Forms
         private ProcedureFilter procFilter;
         private Locator<IWindTableCollection> windTableLocator;
         private Updater updater;
-        
+
         private TracksForm trackFrm;
         private WindDataForm windFrm;
         private bool failedToLoadNavDataAtStartUp = false;
@@ -416,13 +417,14 @@ namespace QSP.UI.Forms
         {
             if (appSettings.PromptBeforeExit)
             {
-                var Result = MessageBox.Show(
+                var result = MsgBoxHelper.ShowDialog(
                     "Exit the application?",
+                    MsgBoxIcon.Info,
                     "",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Question);
+                    DefaultButton.Button1,
+                    "Quit", "Cancel");
 
-                if (Result != DialogResult.Yes)
+                if (result != MsgBoxResult.Button1)
                 {
                     // Do not exit the app.
                     e.Cancel = true;
