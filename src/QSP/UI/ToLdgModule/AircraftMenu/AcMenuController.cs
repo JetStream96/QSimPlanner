@@ -389,10 +389,11 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
                 return true;
             }
 
-            const double delta = 1.0;
+            const double deltaWt = 1.0;
+            const double deltaBias = 0.0001;
 
-            if (InEditMode) return !config.Equals(currentConfig.Config, delta);
-            return !config.Equals(DefaultAcConfig, delta);
+            if (InEditMode) return !config.Equals(currentConfig.Config, deltaWt, deltaBias);
+            return !config.Equals(DefaultAcConfig, deltaWt, deltaBias);
         }
 
         public void CancelBtnClicked(object sender, EventArgs e)

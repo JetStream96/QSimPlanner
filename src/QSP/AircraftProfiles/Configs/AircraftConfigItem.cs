@@ -51,7 +51,7 @@ namespace QSP.AircraftProfiles.Configs
             this.FuelBias = FuelBias;
         }
 
-        public bool Equals(AircraftConfigItem other, double delta)
+        public bool Equals(AircraftConfigItem other, double deltaWt, double deltaFuelBias)
         {
             return
                 other.AC == AC &&
@@ -59,12 +59,12 @@ namespace QSP.AircraftProfiles.Configs
                 other.FuelProfile == FuelProfile &&
                 other.TOProfile == TOProfile &&
                 other.LdgProfile == LdgProfile &&
-                Abs(other.OewKg - OewKg) <= delta &&
-                Abs(other.MaxTOWtKg - MaxTOWtKg) <= delta &&
-                Abs(other.MaxLdgWtKg - MaxLdgWtKg) <= delta &&
-                Abs(other.MaxZfwKg - MaxZfwKg) <= delta &&
-                Abs(other.MaxFuelKg - MaxFuelKg) <= delta &&
-                Abs(other.FuelBias - FuelBias) <= delta &&
+                Abs(other.OewKg - OewKg) <= deltaWt &&
+                Abs(other.MaxTOWtKg - MaxTOWtKg) <= deltaWt &&
+                Abs(other.MaxLdgWtKg - MaxLdgWtKg) <= deltaWt &&
+                Abs(other.MaxZfwKg - MaxZfwKg) <= deltaWt &&
+                Abs(other.MaxFuelKg - MaxFuelKg) <= deltaWt &&
+                Abs(other.FuelBias - FuelBias) <= deltaFuelBias &&
                 other.WtUnit == WtUnit;
         }
 

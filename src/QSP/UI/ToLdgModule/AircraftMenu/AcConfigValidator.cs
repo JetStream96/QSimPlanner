@@ -19,21 +19,14 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
         public AircraftConfigItem Read()
         {
             var wtUnit = (WeightUnit)elem.WeightUnitCBox.SelectedIndex;
-
-            double wtUnitFactor = wtUnit == WeightUnit.KG ?
-                    1.0 : Constants.LbKgRatio;
+            double wtUnitFactor = wtUnit == WeightUnit.KG ? 1.0 : Constants.LbKgRatio;
 
             double oew = ParseNonNegative(elem.Oew, "Invalid OEW.");
-            double maxTOWt = ParseNonNegative(
-                elem.MaxToWt, "Invalid max takeoff weight.");
-            double maxLdgWt = ParseNonNegative(
-                elem.MaxLdgWt, "Invalid max landing weight.");
-            double maxZfw = ParseNonNegative(
-                elem.MaxZfw, "Invalid max zero fuel weight.");
-            double maxFuel = ParseNonNegative(
-                elem.MaxFuel, "Invalid max fuel capacity.");
-            double fuelBias = ParseNonNegative(
-                elem.Bias, "Invalid fuel bias.");
+            double maxTOWt = ParseNonNegative(elem.MaxToWt, "Invalid max takeoff weight.");
+            double maxLdgWt = ParseNonNegative(elem.MaxLdgWt, "Invalid max landing weight.");
+            double maxZfw = ParseNonNegative(elem.MaxZfw, "Invalid max zero fuel weight.");
+            double maxFuel = ParseNonNegative(elem.MaxFuel, "Invalid max fuel capacity.");
+            double fuelBias = ParseNonNegative(elem.Bias, "Invalid fuel bias.");
             
             oew *= wtUnitFactor;
             maxTOWt *= wtUnitFactor;
@@ -79,18 +72,15 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             if (item.AC == "")
             {
-                throw new InvalidUserInputException(
-                    "Aircraft type cannot be empty.");
+                throw new InvalidUserInputException("Aircraft type cannot be empty.");
             }
 
             if (item.Registration == "")
             {
-                throw new InvalidUserInputException(
-                    "Registration cannot be empty.");
+                throw new InvalidUserInputException("Registration cannot be empty.");
             }
 
             CheckRange(item);
-
             return item;
         }
     }
