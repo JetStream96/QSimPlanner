@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using QSP.UI.Forms;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Utilities.MsgBoxHelper;
+using QSP.UI.MsgBox;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu
 {
@@ -408,16 +409,16 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
             var result = ShowDialog(
                 "Discard the changes to config?",
-                MsgBoxForm.MsgBoxIcon.Warning,
+                MsgBoxIcon.Warning,
                 "",
                 new[] { "Discard", "Save", "Cancel" },
                 0);
 
-            if (result == 0)
+            if (result == MsgBoxResult.Button1)
             {
                 ShowSelectionGroupBox();
             }
-            else if (result == 1)
+            else if (result == MsgBoxResult.Button2)
             {
                 SaveConfig(this, EventArgs.Empty);
             }

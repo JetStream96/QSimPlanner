@@ -216,12 +216,6 @@
     <Compile Include="UI\Controllers\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
-    <Compile Include="UI\Forms\MsgBoxForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\MsgBoxForm.Designer.cs">
-      <DependentUpon>MsgBoxForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Forms\NavigationBar\NavBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -260,6 +254,14 @@
       <DependentUpon>WindDataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\WindowSize.cs" />
+    <Compile Include="UI\MsgBox\MsgBoxResult.cs" />
+    <Compile Include="UI\MsgBox\MsgBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MsgBox\MsgBoxForm.Designer.cs">
+      <DependentUpon>MsgBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MsgBox\MsgBoxIcon.cs" />
     <Compile Include="UI\RoutePlanning\AvoidCountrySelection.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -732,9 +734,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\qsp_icon.ico" />
-    <EmbeddedResource Include="UI\Forms\MsgBoxForm.resx">
-      <DependentUpon>MsgBoxForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\NavigationBar\NavBar.resx">
       <DependentUpon>NavBar.cs</DependentUpon>
     </EmbeddedResource>
@@ -746,6 +745,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\WindDataForm.resx">
       <DependentUpon>WindDataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MsgBox\MsgBoxForm.resx">
+      <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\AlternateRow.resx">
       <DependentUpon>AlternateRow.cs</DependentUpon>

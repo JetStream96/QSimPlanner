@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-using QSP.UI.Forms;
+using QSP.UI.MsgBox;
 
 namespace QSP.UI.Utilities
 {
@@ -33,14 +33,14 @@ namespace QSP.UI.Utilities
                 MessageBoxIcon.Information);
         }
 
-        public static int ShowDialog(string text, MsgBoxForm.MsgBoxIcon icon, string caption,
+        public static MsgBoxResult ShowDialog(string text, MsgBoxIcon icon, string caption,
             string[] buttonTxt, int defaultBtn)
         {
             using (var frm = new MsgBoxForm())
             {
                 frm.Init(text, icon, caption, buttonTxt, defaultBtn);
                 frm.ShowDialog();
-                return frm.SelectedButton;
+                return frm.SelectionResult;
             }
         }
     }

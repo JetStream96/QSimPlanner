@@ -5,11 +5,11 @@ using System.Windows.Forms;
 using QSP.LibraryExtension;
 using QSP.UI.Utilities;
 
-namespace QSP.UI.Forms
+namespace QSP.UI.MsgBox
 {
     public partial class MsgBoxForm : Form
     {
-        public int SelectedButton { get; private set; }
+        public MsgBoxResult SelectionResult { get; private set; }
 
         public MsgBoxForm()
         {
@@ -30,7 +30,7 @@ namespace QSP.UI.Forms
         {
             Buttons.ForEach((btn, index) => btn.Click += (s, e) =>
             {
-                SelectedButton = index;
+                SelectionResult = (MsgBoxResult)index;
                 Close();
             });
         }
@@ -69,13 +69,6 @@ namespace QSP.UI.Forms
             };
 
             return ImageUtil.Resize(img[(int)icon], new Size(48, 48));
-        }
-
-        public enum MsgBoxIcon
-        {
-            Info = 0,
-            Warning = 1,
-            Error = 2
         }
     }
 }
