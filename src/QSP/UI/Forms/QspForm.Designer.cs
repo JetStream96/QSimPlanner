@@ -1,4 +1,6 @@
-﻿namespace QSP.UI.Forms
+﻿using QSP.UI.UserControls;
+
+namespace QSP.UI.Forms
 {
     partial class QspForm
     {
@@ -36,7 +38,7 @@
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panel1 = new QSP.UI.Controls.PanelSilentScrollbar();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.navBar = new QSP.UI.Forms.NavigationBar.NavBar();
+            this.navBar = new NavBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.StatusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -180,6 +182,6 @@
         private Controls.PanelSilentScrollbar panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel2;
-        private NavigationBar.NavBar navBar;
+        private NavBar navBar;
     }
 }

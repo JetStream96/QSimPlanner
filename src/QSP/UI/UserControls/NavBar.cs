@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using QSP.LibraryExtension;
 using QSP.UI.Controllers.ControlGroup;
 using QSP.UI.ToLdgModule.AircraftMenu;
-using QSP.UI.UserControls;
 using QSP.UI.ToLdgModule.TOPerf;
 using QSP.UI.ToLdgModule.LandingPerf;
 using QSP.UI.ToLdgModule.AboutPage;
 using static QSP.UI.Controllers.ControlGroup.ControlSwitcher;
 using static QSP.UI.Controllers.ControlGroup.GroupController;
+using static QSP.UI.Utilities.OpenFileHelper;
 
-namespace QSP.UI.Forms.NavigationBar
+namespace QSP.UI.UserControls
 {
     public partial class NavBar : UserControl
     {
@@ -38,7 +39,6 @@ namespace QSP.UI.Forms.NavigationBar
         private Action HideAll => () =>
         {
             AllPages.ForEach(p => p.Hide());
-
         };
 
         public NavBar()
@@ -66,7 +66,13 @@ namespace QSP.UI.Forms.NavigationBar
 
             EnableViewControl();
             EnableControlColors();
-            SetOptionLblStyle();
+            SetExtraLblStyle();
+            SetManualLblListener();
+        }
+
+        private void SetManualLblListener()
+        {
+            manualLbl.Click += (s, e) => TryOpenFile(Path.GetFullPath("manual/manual.html"));
         }
 
         private void SetControlPosition()
@@ -88,7 +94,7 @@ namespace QSP.UI.Forms.NavigationBar
                 new ControlPair(tolbl, toMenu),
                 new ControlPair(ldgLbl, ldgMenu),
                 new ControlPair(miscLbl, miscInfoMenu),
-                new ControlPair(helpLbl, aboutMenu));
+                new ControlPair(aboutLbl, aboutMenu));
 
             viewControl.Subscribed = true;
         }
@@ -100,7 +106,7 @@ namespace QSP.UI.Forms.NavigationBar
 
         private void EnableControlColors()
         {
-            var pairs = new[] { acLbl, fuelLbl, tolbl, ldgLbl, miscLbl, helpLbl }
+            var pairs = new[] { acLbl, fuelLbl, tolbl, ldgLbl, miscLbl, aboutLbl }
                 .Select(lbl => new ControlColorPair(lbl, ColorStyle));
 
             btnControl = new GroupController(pairs.ToArray());
@@ -108,9 +114,10 @@ namespace QSP.UI.Forms.NavigationBar
             btnControl.SetSelected(acLbl);
         }
 
-        private void SetOptionLblStyle()
+        private void SetExtraLblStyle()
         {
-            new ColorController(OptionLbl, ColorStyle).Subscribed = true;
+            new[] { OptionLbl, manualLbl }.ForEach(
+                i => new ColorController(i, ColorStyle).Subscribed = true);
         }
     }
 }

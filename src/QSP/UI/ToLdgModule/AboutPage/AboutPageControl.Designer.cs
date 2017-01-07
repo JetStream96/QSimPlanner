@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.txtLbl = new System.Windows.Forms.Label();
-            this.manualBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.versionLbl = new System.Windows.Forms.Label();
             this.appNameLbl = new System.Windows.Forms.Label();
@@ -57,21 +56,6 @@
             this.txtLbl.TabIndex = 0;
             this.txtLbl.Text = "This is an open-source software, released under MIT license.\r\nFor quesions, bug r" +
     "eports and suggestions, please leave a message \r\non our webpage.\r\n\r\n";
-            // 
-            // manualBtn
-            // 
-            this.manualBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.manualBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.manualBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.manualBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.manualBtn.Location = new System.Drawing.Point(0, 2);
-            this.manualBtn.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.manualBtn.Name = "manualBtn";
-            this.manualBtn.Size = new System.Drawing.Size(85, 34);
-            this.manualBtn.TabIndex = 8;
-            this.manualBtn.Text = "Manual";
-            this.manualBtn.UseVisualStyleBackColor = true;
-            this.manualBtn.Click += new System.EventHandler(this.manualBtn_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -118,14 +102,16 @@
             // 
             // githubBtn
             // 
+            this.githubBtn.AutoSize = true;
+            this.githubBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.githubBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.githubBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.githubBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.githubBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.githubBtn.Location = new System.Drawing.Point(255, 2);
+            this.githubBtn.Location = new System.Drawing.Point(170, 2);
             this.githubBtn.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.githubBtn.MinimumSize = new System.Drawing.Size(85, 0);
             this.githubBtn.Name = "githubBtn";
-            this.githubBtn.Size = new System.Drawing.Size(85, 34);
+            this.githubBtn.Size = new System.Drawing.Size(85, 32);
             this.githubBtn.TabIndex = 5;
             this.githubBtn.Text = "Github";
             this.githubBtn.UseVisualStyleBackColor = true;
@@ -133,14 +119,16 @@
             // 
             // siteBtn
             // 
+            this.siteBtn.AutoSize = true;
+            this.siteBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.siteBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.siteBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.siteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.siteBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.siteBtn.Location = new System.Drawing.Point(170, 2);
+            this.siteBtn.Location = new System.Drawing.Point(85, 2);
             this.siteBtn.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.siteBtn.MinimumSize = new System.Drawing.Size(85, 0);
             this.siteBtn.Name = "siteBtn";
-            this.siteBtn.Size = new System.Drawing.Size(85, 34);
+            this.siteBtn.Size = new System.Drawing.Size(85, 32);
             this.siteBtn.TabIndex = 4;
             this.siteBtn.Text = "Website";
             this.siteBtn.UseVisualStyleBackColor = true;
@@ -148,14 +136,16 @@
             // 
             // licenseBtn
             // 
+            this.licenseBtn.AutoSize = true;
+            this.licenseBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.licenseBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.licenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.licenseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.licenseBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.licenseBtn.Location = new System.Drawing.Point(85, 2);
+            this.licenseBtn.Location = new System.Drawing.Point(0, 2);
             this.licenseBtn.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.licenseBtn.MinimumSize = new System.Drawing.Size(85, 0);
             this.licenseBtn.Name = "licenseBtn";
-            this.licenseBtn.Size = new System.Drawing.Size(85, 34);
+            this.licenseBtn.Size = new System.Drawing.Size(85, 32);
             this.licenseBtn.TabIndex = 3;
             this.licenseBtn.Text = "License";
             this.licenseBtn.UseVisualStyleBackColor = true;
@@ -172,33 +162,34 @@
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.txtLbl, 0, 1);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(292, 172);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(550, 297);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(550, 295);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tableLayoutPanel4.ColumnCount = 4;
+            this.tableLayoutPanel4.AutoSize = true;
+            this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
-            this.tableLayoutPanel4.Controls.Add(this.manualBtn, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.githubBtn, 3, 0);
-            this.tableLayoutPanel4.Controls.Add(this.licenseBtn, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.siteBtn, 2, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(105, 240);
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel4.Controls.Add(this.githubBtn, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.licenseBtn, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.siteBtn, 1, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(147, 240);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 19);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(340, 38);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(255, 36);
             this.tableLayoutPanel4.TabIndex = 9;
             // 
             // AboutPageControl
@@ -218,6 +209,7 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -232,7 +224,6 @@
         private System.Windows.Forms.Button siteBtn;
         private System.Windows.Forms.Button licenseBtn;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button manualBtn;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
     }

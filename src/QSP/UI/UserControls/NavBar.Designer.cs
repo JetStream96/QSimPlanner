@@ -1,4 +1,4 @@
-﻿namespace QSP.UI.Forms.NavigationBar
+﻿namespace QSP.UI.UserControls
 {
     partial class NavBar
     {
@@ -29,14 +29,15 @@
         private void InitializeComponent()
         {
             this.acLbl = new System.Windows.Forms.Label();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.fuelLbl = new System.Windows.Forms.Label();
             this.tolbl = new System.Windows.Forms.Label();
             this.ldgLbl = new System.Windows.Forms.Label();
             this.miscLbl = new System.Windows.Forms.Label();
-            this.helpLbl = new System.Windows.Forms.Label();
+            this.aboutLbl = new System.Windows.Forms.Label();
             this.OptionLbl = new System.Windows.Forms.Label();
-            this.tableLayoutPanel5.SuspendLayout();
+            this.manualLbl = new System.Windows.Forms.Label();
+            this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // acLbl
@@ -51,37 +52,34 @@
             this.acLbl.Text = "Aircraft";
             this.acLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tableLayoutPanel5
+            // tableLayoutPanel
             // 
-            this.tableLayoutPanel5.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanel5.ColumnCount = 1;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Controls.Add(this.acLbl, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.fuelLbl, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.tolbl, 0, 2);
-            this.tableLayoutPanel5.Controls.Add(this.ldgLbl, 0, 3);
-            this.tableLayoutPanel5.Controls.Add(this.miscLbl, 0, 4);
-            this.tableLayoutPanel5.Controls.Add(this.helpLbl, 0, 5);
-            this.tableLayoutPanel5.Controls.Add(this.OptionLbl, 0, 6);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 7;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(120, 266);
-            this.tableLayoutPanel5.TabIndex = 9;
+            this.tableLayoutPanel.BackColor = System.Drawing.Color.White;
+            this.tableLayoutPanel.ColumnCount = 1;
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel.Controls.Add(this.manualLbl, 0, 6);
+            this.tableLayoutPanel.Controls.Add(this.acLbl, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.fuelLbl, 0, 1);
+            this.tableLayoutPanel.Controls.Add(this.tolbl, 0, 2);
+            this.tableLayoutPanel.Controls.Add(this.ldgLbl, 0, 3);
+            this.tableLayoutPanel.Controls.Add(this.miscLbl, 0, 4);
+            this.tableLayoutPanel.Controls.Add(this.OptionLbl, 0, 5);
+            this.tableLayoutPanel.Controls.Add(this.aboutLbl, 0, 7);
+            this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.tableLayoutPanel.RowCount = 8;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel.Size = new System.Drawing.Size(120, 304);
+            this.tableLayoutPanel.TabIndex = 9;
             // 
             // fuelLbl
             // 
@@ -132,29 +130,41 @@
             this.miscLbl.Text = "Misc";
             this.miscLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // helpLbl
+            // aboutLbl
             // 
-            this.helpLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.helpLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.helpLbl.Location = new System.Drawing.Point(0, 190);
-            this.helpLbl.Margin = new System.Windows.Forms.Padding(0);
-            this.helpLbl.Name = "helpLbl";
-            this.helpLbl.Size = new System.Drawing.Size(120, 38);
-            this.helpLbl.TabIndex = 14;
-            this.helpLbl.Text = "Help";
-            this.helpLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.aboutLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.aboutLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aboutLbl.Location = new System.Drawing.Point(0, 266);
+            this.aboutLbl.Margin = new System.Windows.Forms.Padding(0);
+            this.aboutLbl.Name = "aboutLbl";
+            this.aboutLbl.Size = new System.Drawing.Size(120, 38);
+            this.aboutLbl.TabIndex = 14;
+            this.aboutLbl.Text = "About";
+            this.aboutLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // OptionLbl
             // 
             this.OptionLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.OptionLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OptionLbl.Location = new System.Drawing.Point(0, 228);
+            this.OptionLbl.Location = new System.Drawing.Point(0, 190);
             this.OptionLbl.Margin = new System.Windows.Forms.Padding(0);
             this.OptionLbl.Name = "OptionLbl";
             this.OptionLbl.Size = new System.Drawing.Size(120, 38);
             this.OptionLbl.TabIndex = 13;
             this.OptionLbl.Text = "Options";
             this.OptionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // manualLbl
+            // 
+            this.manualLbl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.manualLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.manualLbl.Location = new System.Drawing.Point(0, 228);
+            this.manualLbl.Margin = new System.Windows.Forms.Padding(0);
+            this.manualLbl.Name = "manualLbl";
+            this.manualLbl.Size = new System.Drawing.Size(120, 38);
+            this.manualLbl.TabIndex = 15;
+            this.manualLbl.Text = "Manual";
+            this.manualLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // NavBar
             // 
@@ -163,12 +173,12 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.tableLayoutPanel5);
+            this.Controls.Add(this.tableLayoutPanel);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "NavBar";
-            this.Size = new System.Drawing.Size(120, 266);
-            this.tableLayoutPanel5.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(120, 304);
+            this.tableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -176,12 +186,13 @@
         #endregion
 
         private System.Windows.Forms.Label acLbl;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.Label helpLbl;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private System.Windows.Forms.Label aboutLbl;
         private System.Windows.Forms.Label miscLbl;
         private System.Windows.Forms.Label ldgLbl;
         private System.Windows.Forms.Label tolbl;
         private System.Windows.Forms.Label fuelLbl;
         public System.Windows.Forms.Label OptionLbl;
+        private System.Windows.Forms.Label manualLbl;
     }
 }
