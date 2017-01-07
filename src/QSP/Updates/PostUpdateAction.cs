@@ -59,6 +59,7 @@ namespace QSP.Updates
             IOMethods.CopyDirectory(Path.Combine("..", backupVersion.ToString(), dir), dir, true);
         }
 
+        // TODO: ???
         private static DialogResult ShowError(string message)
         {
             return MessageBox.Show(message, "Update error",

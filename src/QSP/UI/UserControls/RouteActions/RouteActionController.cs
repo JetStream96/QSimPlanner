@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using QSP.RouteFinding.Tracks;
+using QSP.UI.MsgBox;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 
 namespace QSP.UI.UserControls.RouteActions
@@ -131,14 +132,14 @@ namespace QSP.UI.UserControls.RouteActions
                     orig, origController.Rwy, sid,
                     dest, destController.Rwy, star),
                 airwayNetwork.TracksInUse);
-            
+
             ShowRouteTxt();
         }
 
         private void ShowRouteTxt()
         {
             var selected = appSettings.ShowTrackIdOnly ?
-                Route.Folded:Route.Expanded;
+                Route.Folded : Route.Expanded;
             var showDct = !appSettings.HideDctInRoute;
             routeTxtSetter(selected.ToString(showDct));
             UpdateRouteDistanceLbl(routeDisLbl, Route.Expanded, displayStyle);
@@ -200,22 +201,19 @@ namespace QSP.UI.UserControls.RouteActions
         {
             if (reports.Any() == false)
             {
-                MessageBox.Show(
+                MsgBoxHelper.ShowInfo(
                     "No route file to be exported. " +
                     "Please select select export settings in options page.",
-                    "",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                    "");
             }
             else
             {
                 var msg = new StringBuilder();
-                var success = reports.Where(r => r.Successful);
+                var success = reports.Where(r => r.Successful).ToList();
 
                 if (success.Any())
                 {
-                    msg.AppendLine(
-                        $"{success.Count()} company route(s) exported:");
+                    msg.AppendLine($"{success.Count()} company route(s) exported:");
 
                     foreach (var i in success)
                     {
@@ -223,12 +221,11 @@ namespace QSP.UI.UserControls.RouteActions
                     }
                 }
 
-                var errors = reports.Where(r => r.Successful == false);
+                var errors = reports.Where(r => !r.Successful).ToList();
 
                 if (errors.Any())
                 {
-                    msg.AppendLine("\n\n" +
-                        $"Failed to export {errors.Count()} file(s) into:");
+                    msg.AppendLine($"\n\nFailed to export {errors.Count()} file(s) into:");
 
                     foreach (var j in errors)
                     {
@@ -242,15 +239,14 @@ namespace QSP.UI.UserControls.RouteActions
                         "as administrator.");
                 }
 
-                var icon = errors.Any() ?
-                    MessageBoxIcon.Warning :
-                    MessageBoxIcon.Information;
-
-                MessageBox.Show(
-                    msg.ToString(),
-                    "",
-                    MessageBoxButtons.OK,
-                    icon);
+                if (errors.Any())
+                {
+                    MsgBoxHelper.ShowWarning(msg.ToString());
+                }
+                else
+                {
+                    MsgBoxHelper.ShowInfo(msg.ToString());
+                }
             }
         }
 

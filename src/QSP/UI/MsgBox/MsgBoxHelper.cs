@@ -1,18 +1,10 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-using QSP.UI.MsgBox;
-
-namespace QSP.UI.Utilities
+﻿namespace QSP.UI.MsgBox
 {
     public static class MsgBoxHelper
     {
-        public static DialogResult ShowError(string text, string caption = "")
+        public static void ShowError(string text, string caption = "")
         {
-            return MessageBox.Show(
-                text,
-                caption,
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+            ShowDialog(text, MsgBoxIcon.Error, caption, DefaultButton.Button1, "OK");
         }
 
         public static void ShowWarning(string text, string caption = "")
@@ -20,13 +12,9 @@ namespace QSP.UI.Utilities
             ShowDialog(text, MsgBoxIcon.Warning, caption, DefaultButton.Button1, "OK");
         }
 
-        public static DialogResult ShowInfo(string text, string caption = "")
+        public static void ShowInfo(string text, string caption = "")
         {
-            return MessageBox.Show(
-                text,
-                caption,
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            ShowDialog(text, MsgBoxIcon.Info, caption, DefaultButton.Button1, "OK");
         }
 
         public static MsgBoxResult ShowDialog(string text, MsgBoxIcon icon, string caption,

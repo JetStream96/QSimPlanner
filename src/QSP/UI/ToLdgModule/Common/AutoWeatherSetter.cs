@@ -5,6 +5,8 @@ using System;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QSP.UI.MsgBox;
+using QSP.UI.Utilities;
 
 namespace QSP.UI.ToLdgModule.Common
 {
@@ -97,12 +99,10 @@ namespace QSP.UI.ToLdgModule.Common
                     w.pressUnitComboBox,
                     w.surfCondComboBox) == false)
                 {
-                    MessageBox.Show(
-                       @"Metar has been downloaded but the weather " +
-                       "information cannot be filled automatically.",
-                       "",
-                       MessageBoxButtons.OK,
-                       MessageBoxIcon.Error);
+                    MsgBoxHelper.ShowError(
+                        @"Metar has been downloaded but the weather " +
+                        "information cannot be filled automatically.",
+                        "");
                 }
                 else
                 {
