@@ -21,7 +21,7 @@ namespace QSP.UI.Controllers.ControlGroup
             {
                 i.Subscribed = true;
                 i.SetInactiveStyle();
-                i.Control.Click += setSelected;
+                i.Control.Click += (s, e) => SetSelected((Control) s);
             }
         }
 
@@ -41,12 +41,7 @@ namespace QSP.UI.Controllers.ControlGroup
                 }
             }
         }
-
-        private void setSelected(object sender, EventArgs e)
-        {
-            SetSelected((Control)sender);
-        }
-
+        
         public class ControlColorPair
         {
             public Control Control { get; }

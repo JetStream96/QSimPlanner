@@ -35,10 +35,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         public void InitializeControls()
         {
-            elem.SelectionBox.Location = new Point(0, 0);
-            elem.PropertyBox.Location = new Point(0, 0);
             ShowSelectionGroupBox();
-
             InitWtUnitCBox();
         }
 
