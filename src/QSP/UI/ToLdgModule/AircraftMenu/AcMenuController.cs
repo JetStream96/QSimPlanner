@@ -10,7 +10,6 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Windows.Forms;
-using QSP.UI.Forms;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.MsgBox.MsgBoxHelper;
 using QSP.UI.MsgBox;

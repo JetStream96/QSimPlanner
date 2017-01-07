@@ -35,15 +35,13 @@ namespace QSP.Updates
 
                 if (info == null)
                 {
-                    return new UpdateStatus(
-                        true, "Current version is up to date.");
+                    return new UpdateStatus(true, "Current version is up to date.");
                 }
             }
             catch (Exception ex)
             {
                 Log(ex);
-                return new UpdateStatus(
-                    false, "Failed to obtain update info.");
+                return new UpdateStatus(false, "Failed to obtain update info.");
             }
 
             try
@@ -86,7 +84,7 @@ namespace QSP.Updates
 
         /// <summary>
         /// Returns the uri of zip file for the newer version.
-        /// If no newer version is available, return null.
+        /// If no newer version is available, return null. May throw exception.
         /// </summary>
         public static UpdateInfo GetUpdateFileUri()
         {
@@ -142,8 +140,7 @@ namespace QSP.Updates
             var doc = GetVersionXDoc();
             var root = doc.Root;
             var backup = root.Element("current").Value;
-            IgnoreException(() => 
-            Directory.Delete(root.Element("backup").Value));
+            IgnoreException(() => Directory.Delete(root.Element("backup").Value));
             root.Element("current").Value = version;
             root.Element("backup").Value = backup;
             File.WriteAllText(VersionXmlPath, doc.ToString());

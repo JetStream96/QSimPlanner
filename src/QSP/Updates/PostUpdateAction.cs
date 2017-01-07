@@ -1,18 +1,17 @@
-﻿using QSP.Common.Options;
-using QSP.UI.ControlStates;
-using QSP.UI.ToLdgModule.LandingPerf;
-using QSP.UI.ToLdgModule.TOPerf;
-using QSP.UI.UserControls;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Xml.Linq;
-using System.Windows.Forms;
-using QSP.AircraftProfiles.Configs;
+﻿using QSP.AircraftProfiles.Configs;
+using QSP.Common.Options;
 using QSP.FuelCalculation.FuelData;
 using QSP.LandingPerfCalculation;
 using QSP.LibraryExtension;
 using QSP.TOPerfCalculation;
+using QSP.UI.ControlStates;
+using QSP.UI.Forms;
+using QSP.UI.ToLdgModule.LandingPerf;
+using QSP.UI.ToLdgModule.TOPerf;
+using QSP.UI.UserControls;
+using System;
+using System.IO;
+using System.Xml.Linq;
 using static QSP.Updates.Utilities;
 using static QSP.Utilities.LoggerInstance;
 
@@ -22,11 +21,11 @@ namespace QSP.Updates
     //
     public class PostUpdateAction
     {
-        private List<string> errors = new List<string>();
         private Version backupVersion, newVersion;
 
         public PostUpdateAction() { }
 
+        // May throw exception.
         public void DoAction()
         {
             var ver = GetVersions();
@@ -58,14 +57,7 @@ namespace QSP.Updates
         {
             IOMethods.CopyDirectory(Path.Combine("..", backupVersion.ToString(), dir), dir, true);
         }
-
-        // TODO: ???
-        private static DialogResult ShowError(string message)
-        {
-            return MessageBox.Show(message, "Update error",
-                MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
-        }
-
+        
         private static bool RequireAction()
         {
             var doc = XDocument.Load("updater.xml");
@@ -88,41 +80,30 @@ namespace QSP.Updates
             catch (Exception ex)
             {
                 Log(ex);
-                errors.Add("Cannot copy old option file for the new version." +
-                    " Please configure the options manually.");
             }
         }
 
+        // Copies the stats for: fuel page, takeoff page, landing page and the window.
         private void SetStates()
         {
-            // Fuel page state
-            try
+            Action[] actions =
             {
-                CopyFile(FuelPageState.FileLocation);
-            }
-            catch (Exception ex)
-            {
-                Log(ex);
-            }
+                () => CopyFile(FuelPageState.FileLocation),
+                () => CopyFile(Path.Combine(StateManager.Directory, TOPerfControl.FileName)),
+                () => CopyFile(Path.Combine(StateManager.Directory, LandingPerfControl.FileName)),
+                () => CopyFile(WindowSize.FileLocation)
+            };
 
-            // Takeoff page state
-            try
+            foreach (var i in actions)
             {
-                CopyFile(Path.Combine(StateManager.Directory, TOPerfControl.FileName));
-            }
-            catch (Exception ex)
-            {
-                Log(ex);
-            }
-
-            // Landing page state
-            try
-            {
-                CopyFile(Path.Combine(StateManager.Directory, LandingPerfControl.FileName));
-            }
-            catch (Exception ex)
-            {
-                Log(ex);
+                try
+                {
+                    i();
+                }
+                catch (Exception ex)
+                {
+                    Log(ex);
+                }
             }
         }
 

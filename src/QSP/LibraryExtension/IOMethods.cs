@@ -14,14 +14,18 @@ namespace QSP.LibraryExtension
             CopyDirectory(new DirectoryInfo(source), new DirectoryInfo(target), overwrite);
         }
 
-        public static void CopyDirectory(DirectoryInfo source, 
+        public static void CopyDirectory(DirectoryInfo source,
             DirectoryInfo target, bool overwrite = false)
         {
             foreach (var dir in source.GetDirectories())
+            {
                 CopyDirectory(dir, target.CreateSubdirectory(dir.Name), overwrite);
+            }
 
             foreach (var file in source.GetFiles())
+            {
                 file.CopyTo(Path.Combine(target.FullName, file.Name), overwrite);
+            }
         }
     }
 }

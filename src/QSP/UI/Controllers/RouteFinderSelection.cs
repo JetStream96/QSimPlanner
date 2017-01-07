@@ -6,7 +6,6 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.UI.RoutePlanning;
-using QSP.UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

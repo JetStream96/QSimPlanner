@@ -1,6 +1,5 @@
 ﻿using QSP.LibraryExtension;
 using QSP.UI.Controllers;
-using QSP.UI.Utilities;
 using QSP.WindAloft;
 using System;
 using System.Drawing;

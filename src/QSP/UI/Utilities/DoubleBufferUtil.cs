@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using System.Windows.Forms;
-using QSP.LibraryExtension;
 
 namespace QSP.UI.Utilities
 {

@@ -4,9 +4,7 @@ using QSP.UI.ToLdgModule.Common.AirportInfo;
 using System;
 using System.Drawing;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using QSP.UI.MsgBox;
-using QSP.UI.Utilities;
 
 namespace QSP.UI.ToLdgModule.Common
 {

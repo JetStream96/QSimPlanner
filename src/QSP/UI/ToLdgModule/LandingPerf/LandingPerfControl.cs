@@ -6,7 +6,6 @@ using QSP.RouteFinding.Airports;
 using QSP.UI.ControlStates;
 using QSP.UI.ToLdgModule.Common;
 using QSP.UI.ToLdgModule.LandingPerf.FormControllers;
-using QSP.UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

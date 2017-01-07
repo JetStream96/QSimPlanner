@@ -14,7 +14,6 @@ using QSP.UI.ToLdgModule.AircraftMenu;
 using QSP.UI.ToLdgModule.LandingPerf;
 using QSP.UI.ToLdgModule.TOPerf;
 using QSP.UI.UserControls;
-using QSP.UI.Utilities;
 using QSP.Updates;
 using QSP.Utilities;
 using QSP.WindAloft;
@@ -126,8 +125,9 @@ namespace QSP.UI.Forms
             {
                 Log(ex);
                 MsgBoxHelper.ShowWarning(
-                    "An error occurred when copying profiles for the updated" +
-                    $" verison.\n\n(Error:{ex.GetBaseException().ToString()}");
+                    "An error occurred when copying profiles for the updated verison. Please " +
+                    "back up any custom aircraft performance profiles to prevent data loss." +
+                    $"\n\n(Error message:{ex.ToString()}");
             }
 #endif
         }
@@ -441,8 +441,8 @@ namespace QSP.UI.Forms
                     "",
                     DefaultButton.Button1,
                     "Wait", "Quit", "Cancel");
-                
-                if ( result != MsgBoxResult.Button2)
+
+                if (result != MsgBoxResult.Button2)
                 {
                     // Do not exit the app.
                     e.Cancel = true;

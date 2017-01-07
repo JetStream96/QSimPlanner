@@ -6,7 +6,6 @@ using QSP.TOPerfCalculation;
 using QSP.UI.ControlStates;
 using QSP.UI.ToLdgModule.Common;
 using QSP.UI.ToLdgModule.TOPerf.Controllers;
-using QSP.UI.Utilities;
 using QSP.Utilities.Units;
 using System;
 using System.Collections.Generic;

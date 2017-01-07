@@ -1,6 +1,5 @@
 ﻿using QSP.AviationTools;
 using QSP.UI.ToLdgModule.Common;
-using QSP.UI.Utilities;
 using QSP.Utilities.Units;
 using System;
 using System.Windows.Forms;
