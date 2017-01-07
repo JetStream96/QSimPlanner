@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using QSP.UI.ToLdgModule.Common.AirportInfo;
 using System;
+using QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo;
 
 namespace UnitTest.UI.ToLdgModule.Common.AirportInfo
 {

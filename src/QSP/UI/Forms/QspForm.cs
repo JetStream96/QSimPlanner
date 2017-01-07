@@ -9,10 +9,6 @@ using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Forms.Options;
-using QSP.UI.ToLdgModule.AboutPage;
-using QSP.UI.ToLdgModule.AircraftMenu;
-using QSP.UI.ToLdgModule.LandingPerf;
-using QSP.UI.ToLdgModule.TOPerf;
 using QSP.UI.UserControls;
 using QSP.Updates;
 using QSP.Utilities;
@@ -28,6 +24,9 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.MsgBox;
+using QSP.UI.UserControls.AircraftMenu;
+using QSP.UI.UserControls.TakeoffLanding.LandingPerf;
+using QSP.UI.UserControls.TakeoffLanding.TOPerf;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms

@@ -1,4 +1,5 @@
 ﻿using MetroFramework.Controls;
+using QSP.UI.UserControls.AirportMap;
 
 namespace QSP.UI.UserControls
 {
@@ -32,7 +33,7 @@ namespace QSP.UI.UserControls
         {
             this.TabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.TabPage1 = new System.Windows.Forms.TabPage();
-            this.airportMapControl = new QSP.UI.ToLdgModule.AirportMap.AirportMapControl();
+            this.airportMapControl = new AirportMapControl();
             this.TabPage2 = new System.Windows.Forms.TabPage();
             this.metarViewer = new QSP.UI.UserControls.MetarViewer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -247,7 +248,7 @@ namespace QSP.UI.UserControls
         internal System.Windows.Forms.TabPage TabPage2;
         internal System.Windows.Forms.TabPage TabPage6;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        internal ToLdgModule.AirportMap.AirportMapControl airportMapControl;
+        internal AirportMapControl airportMapControl;
         internal MetroTabControl TabControl1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.Panel panel1;
