@@ -25,7 +25,7 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         private Table1D TableFieldLength(double slope)
         {
             return new Table1D(x.Select(i => ValueAt(i, slope)).ToArray(), x)
-                .TruncateRepeatedXValues();
+                .TruncateInvalidXValues();
         }        
     }
 }

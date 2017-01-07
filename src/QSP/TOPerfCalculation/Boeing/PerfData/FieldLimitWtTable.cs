@@ -30,7 +30,7 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         private Table1D TableComputeRwyRequired(double altitudeFt, double oat)
         {
             double[] weights = y.Select(i => FieldLimitWeight(altitudeFt, i, oat)).ToArray();
-            return new Table1D(weights, y).TruncateRepeatedXValues();
+            return new Table1D(weights, y).TruncateInvalidXValues();
         }
     }
 }
