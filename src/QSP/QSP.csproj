@@ -301,11 +301,11 @@
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Factories\ToolTipFactory.cs" />
-    <Compile Include="UI\UserControls\AlternateRow.cs">
+    <Compile Include="UI\UserControls\AlternateRowItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\AlternateRow.Designer.cs">
-      <DependentUpon>AlternateRow.cs</DependentUpon>
+    <Compile Include="UI\UserControls\AlternateRowItems.Designer.cs">
+      <DependentUpon>AlternateRowItems.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserControls\AlternateRowExtension.cs" />
     <Compile Include="UI\UserControls\FuelPageState.cs" />
@@ -750,8 +750,8 @@
     <EmbeddedResource Include="UI\MsgBox\MsgBoxForm.resx">
       <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls\AlternateRow.resx">
-      <DependentUpon>AlternateRow.cs</DependentUpon>
+    <EmbeddedResource Include="UI\UserControls\AlternateRowItems.resx">
+      <DependentUpon>AlternateRowItems.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\FuelPlanningControl.resx">
       <DependentUpon>FuelPlanningControl.cs</DependentUpon>

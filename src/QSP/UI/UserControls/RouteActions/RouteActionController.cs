@@ -6,8 +6,10 @@ using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Controls;
+using QSP.UI.MsgBox;
 using QSP.UI.Utilities;
 using QSP.WindAloft;
 using System;
@@ -16,8 +18,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using QSP.RouteFinding.Tracks;
-using QSP.UI.MsgBox;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 
 namespace QSP.UI.UserControls.RouteActions
@@ -40,8 +40,8 @@ namespace QSP.UI.UserControls.RouteActions
         private IClickable showMapBtn;
         private Form parentForm;
 
-        private AppOptions appSettings => appOptionsLocator.Instance;
-        private AirportManager airportList => airwayNetwork.AirportList;
+        private AppOptions AppSettings => appOptionsLocator.Instance;
+        private AirportManager AirportList => airwayNetwork.AirportList;
 
         public RouteGroup Route { get; private set; }
 
@@ -105,16 +105,14 @@ namespace QSP.UI.UserControls.RouteActions
             var orig = origController.Icao;
             var dest = destController.Icao;
 
-            if (airportList[orig] == null)
+            if (AirportList[orig] == null)
             {
-                throw new ArgumentException(
-                    "Cannot find origin airport in Nav Data.");
+                throw new ArgumentException("Cannot find origin airport in Nav Data.");
             }
 
-            if (airportList[dest] == null)
+            if (AirportList[dest] == null)
             {
-                throw new ArgumentException(
-                    "Cannot find destination airport in Nav Data.");
+                throw new ArgumentException("Cannot find destination airport in Nav Data.");
             }
 
             var sid = origController.GetSelectedProcedures();
@@ -123,7 +121,7 @@ namespace QSP.UI.UserControls.RouteActions
             var finder = new RouteFinderFacade(
                 airwayNetwork.WptList,
                 airwayNetwork.AirportList,
-                appSettings.NavDataLocation,
+                AppSettings.NavDataLocation,
                 checkedCodesLocator.Instance,
                 windCalcGetter());
 
@@ -138,24 +136,23 @@ namespace QSP.UI.UserControls.RouteActions
 
         private void ShowRouteTxt()
         {
-            var selected = appSettings.ShowTrackIdOnly ?
+            var selected = AppSettings.ShowTrackIdOnly ?
                 Route.Folded : Route.Expanded;
-            var showDct = !appSettings.HideDctInRoute;
+            var showDct = !AppSettings.HideDctInRoute;
             routeTxtSetter(selected.ToString(showDct));
             UpdateRouteDistanceLbl(routeDisLbl, Route.Expanded, displayStyle);
         }
-
+        
         private void ExportRouteFiles(object sender, EventArgs e)
         {
             if (Route == null)
             {
-                MsgBoxHelper.ShowWarning(
-                    "Please find or analyze a route first.");
+                MsgBoxHelper.ShowWarning("Please find or analyze a route first.");
                 return;
             }
 
-            var cmds = appSettings.ExportCommands.Values;
-            var writer = new FileExporter(Route.Expanded, airportList, cmds);
+            var cmds = AppSettings.ExportCommands.Values;
+            var writer = new FileExporter(Route.Expanded, AirportList, cmds);
 
             IEnumerable<FileExporter.Status> reports = null;
 
@@ -184,7 +181,7 @@ namespace QSP.UI.UserControls.RouteActions
                         origController.Rwy,
                         destController.Icao,
                         destController.Rwy,
-                        appSettings.NavDataLocation,
+                        AppSettings.NavDataLocation,
                         airwayNetwork.AirportList,
                         airwayNetwork.WptList);
 
@@ -199,12 +196,11 @@ namespace QSP.UI.UserControls.RouteActions
 
         private static void ShowReports(List<FileExporter.Status> reports)
         {
-            if (reports.Any() == false)
+            if (!reports.Any())
             {
                 MsgBoxHelper.ShowInfo(
                     "No route file to be exported. " +
-                    "Please select select export settings in options page.",
-                    "");
+                    "Please select select export settings in options page.");
             }
             else
             {

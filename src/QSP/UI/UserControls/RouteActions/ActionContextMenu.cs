@@ -2,20 +2,19 @@
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
+using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Controls;
 using QSP.WindAloft;
 using System;
 using System.Windows.Forms;
-using QSP.RouteFinding.Tracks;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 
 namespace QSP.UI.UserControls.RouteActions
 {
     public class ActionContextMenu : ContextMenuStrip
     {
-        public class ClickableToolStripMenuItem : 
-            ToolStripMenuItem, IClickable { }
+        public class ClickableToolStripMenuItem : ToolStripMenuItem, IClickable { }
 
         private RouteActionController controller;
         private ClickableToolStripMenuItem findToolStripMenuItem;
@@ -23,8 +22,8 @@ namespace QSP.UI.UserControls.RouteActions
         private ClickableToolStripMenuItem mapToolStripMenuItem;
         private ClickableToolStripMenuItem exportToolStripMenuItem;
 
-        public RouteGroup Route { get { return controller.Route; } }
-
+        public RouteGroup Route => controller.Route;
+        
         public ActionContextMenu(
             Locator<AppOptions> appOptionsLocator,
             AirwayNetwork airwayNetwork,
@@ -41,21 +40,21 @@ namespace QSP.UI.UserControls.RouteActions
             Init();
 
             controller = new RouteActionController(
-                  appOptionsLocator,
-                  airwayNetwork,
-                  origController,
-                  destController,
-                  checkedCodesLocator,
-                  windCalcGetter,
-                  routeDisLbl,
-                  displayStyle,
-                  routeTxtGetter,
-                  routeTxtSetter,
-                  findToolStripMenuItem,
-                  analyzeToolStripMenuItem,
-                  exportToolStripMenuItem,
-                  mapToolStripMenuItem,
-                  parentForm);
+                appOptionsLocator,
+                airwayNetwork,
+                origController,
+                destController,
+                checkedCodesLocator,
+                windCalcGetter,
+                routeDisLbl,
+                displayStyle,
+                routeTxtGetter,
+                routeTxtSetter,
+                findToolStripMenuItem,
+                analyzeToolStripMenuItem,
+                exportToolStripMenuItem,
+                mapToolStripMenuItem,
+                parentForm);
         }
 
         public void Subscribe()

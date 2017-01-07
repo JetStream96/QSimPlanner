@@ -1,8 +1,9 @@
 ﻿using QSP.Common.Options;
 using QSP.LibraryExtension;
-using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Containers.CountryCode;
+using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
+using QSP.RouteFinding.Tracks;
 using QSP.UI.UserControls;
 using QSP.UI.UserControls.RouteActions;
 using QSP.WindAloft;
@@ -11,7 +12,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.RouteFinding.Tracks;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 
 namespace QSP.UI.Controllers
@@ -63,8 +63,7 @@ namespace QSP.UI.Controllers
         public void AddRow()
         {
             var row = new AlternateRowItems();
-            row.Init(() => destSidProvider.Icao,
-                () => airwayNetwork.AirportList);
+            row.Init(() => destSidProvider.Icao, () => airwayNetwork.AirportList);
             row.AddToLayoutPanel(layoutPanel);
             row.IcaoTxtBox.TextChanged += (s, e) =>
                 AlternatesChanged?.Invoke(this, EventArgs.Empty);
@@ -113,13 +112,7 @@ namespace QSP.UI.Controllers
             }
         }
 
-        public IEnumerable<AlternateRowItems> Controls
-        {
-            get
-            {
-                return rows.Select(r => r.Items);
-            }
-        }
+        public IEnumerable<AlternateRowItems> Controls => rows.Select(r => r.Items);
 
         public struct AltnRow
         {
@@ -131,10 +124,8 @@ namespace QSP.UI.Controllers
             public AlternateRowItems Row;
             public RouteFinderSelection Controller;
             public ActionContextMenu OptionMenu;
-
-            public AltnRowControl(
-                AlternateController Parent,
-                AlternateRowItems row)
+            
+            public AltnRowControl(AlternateController Parent, AlternateRowItems row)
             {
                 this.Row = row;
 
@@ -148,7 +139,7 @@ namespace QSP.UI.Controllers
                     () => Parent.airwayNetwork.AirportList,
                     () => Parent.airwayNetwork.WptList,
                     new ProcedureFilter());
-
+                
                 OptionMenu = new ActionContextMenu(
                     Parent.appOptionsLocator,
                     Parent.airwayNetwork,

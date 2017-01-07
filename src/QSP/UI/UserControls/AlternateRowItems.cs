@@ -1,7 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using QSP.RouteFinding.Airports;
 using QSP.UI.Forms;
-using QSP.RouteFinding.Airports;
 using System;
+using System.Windows.Forms;
 
 namespace QSP.UI.UserControls
 {
@@ -14,9 +14,8 @@ namespace QSP.UI.UserControls
         {
             InitializeComponent();
         }
-
-        public void Init(Func<string> destIcaoGetter,
-            Func<AirportManager> airportListGetter)
+        
+        public void Init(Func<string> destIcaoGetter, Func<AirportManager> airportListGetter)
         {
             this.destIcaoGetter = destIcaoGetter;
             this.airportListGetter = airportListGetter;

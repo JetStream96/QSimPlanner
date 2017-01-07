@@ -5,13 +5,13 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
+using QSP.UI.MsgBox;
 using QSP.UI.RoutePlanning;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.UI.MsgBox;
 using static QSP.UI.Factories.FormFactory;
 
 namespace QSP.UI.Controllers
@@ -34,8 +34,7 @@ namespace QSP.UI.Controllers
 
         public WaypointList WptList => WptListGetter();
         public AirportManager AirportList => AirportListGetter();
-        public string NavDataLocation => 
-            appOptionsLocator.Instance.NavDataLocation;
+        public string NavDataLocation => appOptionsLocator.Instance.NavDataLocation;
 
         public RouteFinderSelection(
             TextBox IcaoTxtBox,
@@ -59,21 +58,9 @@ namespace QSP.UI.Controllers
             this.ProcFilter = ProcFilter;
         }
 
-        public string Icao
-        {
-            get
-            {
-                return IcaoTxtBox.Text.Trim().ToUpper();
-            }
-        }
+        public string Icao => IcaoTxtBox.Text.Trim().ToUpper();
 
-        public string Rwy
-        {
-            get
-            {
-                return RwyCBox.Text;
-            }
-        }
+        public string Rwy => RwyCBox.Text;
 
         public void Subscribe()
         {
