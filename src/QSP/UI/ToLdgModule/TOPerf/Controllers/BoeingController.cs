@@ -5,7 +5,7 @@ using QSP.TOPerfCalculation.Boeing.PerfData;
 using QSP.Utilities.Units;
 using System;
 using System.Drawing;
-using static QSP.UI.Utilities.MsgBoxHelper;
+using static QSP.UI.MsgBox.MsgBoxHelper;
 
 namespace QSP.UI.ToLdgModule.TOPerf.Controllers
 {

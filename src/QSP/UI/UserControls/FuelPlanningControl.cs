@@ -31,7 +31,7 @@ using static QSP.AviationTools.Constants;
 using static QSP.AviationTools.SpeedConversion;
 using static QSP.MathTools.Doubles;
 using static QSP.UI.Factories.FormFactory;
-using static QSP.UI.Utilities.MsgBoxHelper;
+using static QSP.UI.MsgBox.MsgBoxHelper;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.Units.Conversions;

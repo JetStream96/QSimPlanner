@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using QSP.UI.MsgBox;
 using QSP.UI.Utilities;
-using static QSP.UI.Utilities.MsgBoxHelper;
+using static QSP.UI.MsgBox.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms.Options

@@ -434,14 +434,15 @@ namespace QSP.UI.Forms
 
             if (updater.IsUpdating)
             {
-                var Result = MessageBox.Show(
+                var result = MsgBoxHelper.ShowDialog(
                     "The automatic update is in progress. " +
                     "Wait for the update to finish?",
+                    MsgBoxIcon.Info,
                     "",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Question);
-
-                if (Result == DialogResult.Yes)
+                    DefaultButton.Button1,
+                    "Wait", "Quit", "Cancel");
+                
+                if ( result != MsgBoxResult.Button2)
                 {
                     // Do not exit the app.
                     e.Cancel = true;

@@ -17,7 +17,7 @@ namespace UnitTest.AircraftProfiles.Configs
             var elem = serializer.Serialize(config, "Config");
             var deserialized = serializer.Deserialize(elem);
 
-            Assert.IsTrue(config.Equals(deserialized, 0.0));
+            Assert.IsTrue(config.Equals(deserialized, 0.0, 0.0));
         }
     }
 }

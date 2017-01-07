@@ -534,7 +534,7 @@
     <Compile Include="UI\ToLdgModule\TOPerf\TOPerfControl.Designer.cs">
       <DependentUpon>TOPerfControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Utilities\MsgBoxHelper.cs" />
+    <Compile Include="UI\MsgBox\MsgBoxHelper.cs" />
     <Compile Include="Utilities\ExceptionHelpers.cs" />
     <Compile Include="Utilities\LoggerInstance.cs" />
     <Compile Include="Common\Exceptions.cs" />

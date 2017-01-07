@@ -12,7 +12,7 @@ using System.Xml.Linq;
 using System.Windows.Forms;
 using QSP.UI.Forms;
 using static QSP.MathTools.Doubles;
-using static QSP.UI.Utilities.MsgBoxHelper;
+using static QSP.UI.MsgBox.MsgBoxHelper;
 using QSP.UI.MsgBox;
 
 namespace QSP.UI.ToLdgModule.AircraftMenu
@@ -35,10 +35,7 @@ namespace QSP.UI.ToLdgModule.AircraftMenu
 
         public void InitializeControls()
         {
-            elem.SelectionBox.Location = new Point(0, 0);
-            elem.PropertyBox.Location = new Point(0, 0);
             ShowSelectionGroupBox();
-
             InitWtUnitCBox();
         }
 
