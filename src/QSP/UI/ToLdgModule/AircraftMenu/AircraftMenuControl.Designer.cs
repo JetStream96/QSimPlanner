@@ -39,6 +39,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.registrationTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.acTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.label1 = new System.Windows.Forms.Label();
             this.propertyGroupBox = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
@@ -56,6 +57,7 @@
             this.wtUnitLbl3 = new System.Windows.Forms.Label();
             this.wtUnitLbl4 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.fuelProfileComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.label9 = new System.Windows.Forms.Label();
             this.maxZfwTxtBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -65,15 +67,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.oewTxtBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.acTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.fuelProfileComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.ldgProfileComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.toProfileComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.selectionGroupBox.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -243,6 +243,20 @@
             this.label2.Size = new System.Drawing.Size(82, 19);
             this.label2.TabIndex = 2;
             this.label2.Text = "Registration";
+            // 
+            // acTypeComboBox
+            // 
+            this.acTypeComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.acTypeComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.acTypeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.acTypeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.acTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acTypeComboBox.FormattingEnabled = true;
+            this.acTypeComboBox.Location = new System.Drawing.Point(91, 2);
+            this.acTypeComboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.acTypeComboBox.Name = "acTypeComboBox";
+            this.acTypeComboBox.Size = new System.Drawing.Size(180, 27);
+            this.acTypeComboBox.TabIndex = 0;
             // 
             // label1
             // 
@@ -513,6 +527,21 @@
             this.label10.TabIndex = 5;
             this.label10.Text = "Weight unit";
             // 
+            // fuelProfileComboBox
+            // 
+            this.fuelProfileComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.fuelProfileComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.fuelProfileComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.fuelProfileComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.fuelProfileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.fuelProfileComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fuelProfileComboBox.FormattingEnabled = true;
+            this.fuelProfileComboBox.Location = new System.Drawing.Point(166, 30);
+            this.fuelProfileComboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.fuelProfileComboBox.Name = "fuelProfileComboBox";
+            this.fuelProfileComboBox.Size = new System.Drawing.Size(220, 27);
+            this.fuelProfileComboBox.TabIndex = 11;
+            // 
             // label9
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -621,87 +650,6 @@
             this.label7.TabIndex = 6;
             this.label7.Text = "Max landing weight";
             // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(2, 60);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(93, 19);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Takeoff profile";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(2, 144);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(126, 19);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Max takeoff weight";
-            // 
-            // label12
-            // 
-            this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(390, 228);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(26, 19);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "KG";
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.AutoSize = true;
-            this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.selectionGroupBox, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.propertyGroupBox, 1, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(761, 452);
-            this.tableLayoutPanel4.TabIndex = 4;
-            // 
-            // acTypeComboBox
-            // 
-            this.acTypeComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.acTypeComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.acTypeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.acTypeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.acTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acTypeComboBox.FormattingEnabled = true;
-            this.acTypeComboBox.Location = new System.Drawing.Point(91, 2);
-            this.acTypeComboBox.Margin = new System.Windows.Forms.Padding(2);
-            this.acTypeComboBox.Name = "acTypeComboBox";
-            this.acTypeComboBox.Size = new System.Drawing.Size(180, 27);
-            this.acTypeComboBox.TabIndex = 0;
-            // 
-            // fuelProfileComboBox
-            // 
-            this.fuelProfileComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.fuelProfileComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.fuelProfileComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.fuelProfileComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.fuelProfileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.fuelProfileComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelProfileComboBox.FormattingEnabled = true;
-            this.fuelProfileComboBox.Location = new System.Drawing.Point(166, 30);
-            this.fuelProfileComboBox.Margin = new System.Windows.Forms.Padding(2);
-            this.fuelProfileComboBox.Name = "fuelProfileComboBox";
-            this.fuelProfileComboBox.Size = new System.Drawing.Size(220, 27);
-            this.fuelProfileComboBox.TabIndex = 11;
-            // 
             // ldgProfileComboBox
             // 
             this.ldgProfileComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -732,6 +680,30 @@
             this.toProfileComboBox.Size = new System.Drawing.Size(220, 27);
             this.toProfileComboBox.TabIndex = 0;
             // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(2, 60);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(93, 19);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Takeoff profile";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(2, 144);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(126, 19);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Max takeoff weight";
+            // 
             // wtUnitComboBox
             // 
             this.wtUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -746,6 +718,34 @@
             this.wtUnitComboBox.Name = "wtUnitComboBox";
             this.wtUnitComboBox.Size = new System.Drawing.Size(220, 27);
             this.wtUnitComboBox.TabIndex = 3;
+            // 
+            // label12
+            // 
+            this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(390, 228);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(26, 19);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "KG";
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.AutoSize = true;
+            this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.selectionGroupBox, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.propertyGroupBox, 1, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(761, 452);
+            this.tableLayoutPanel4.TabIndex = 4;
             // 
             // AircraftMenuControl
             // 

@@ -100,7 +100,11 @@ namespace QSP.UI.MsgBox
                 Properties.Resources.errorIcon
             };
 
-            return ImageUtil.Resize(img[(int)icon], new Size(48, 48));
+            var height = picBox.Size.Height - 3;
+            // We know that height == width.
+            var size = new Size(height, height);
+
+            return ImageUtil.Resize(img[(int)icon], size);
         }
     }
 }
