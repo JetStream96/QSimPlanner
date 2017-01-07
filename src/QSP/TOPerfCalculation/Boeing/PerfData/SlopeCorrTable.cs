@@ -24,7 +24,8 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         // Maps sloped corrected length into field length.
         private Table1D TableFieldLength(double slope)
         {
-            return new Table1D(x.Select(i => ValueAt(i, slope)).ToArray(), x);
+            return new Table1D(x.Select(i => ValueAt(i, slope)).ToArray(), x)
+                .TruncateRepeatedXValues();
         }        
     }
 }

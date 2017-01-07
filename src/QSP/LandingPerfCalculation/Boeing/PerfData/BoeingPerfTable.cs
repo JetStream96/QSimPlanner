@@ -19,14 +19,7 @@
 
         public string[] BrakesAvailable(SurfaceCondition item)
         {
-            if (item == SurfaceCondition.Dry)
-            {
-                return autoBrkDry;
-            }
-            else
-            {
-                return autoBrkWet;
-            }
+            return item == SurfaceCondition.Dry ? autoBrkDry : autoBrkWet;
         }
 
         public string[] Flaps { get; private set; }     

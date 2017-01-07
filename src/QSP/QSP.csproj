@@ -166,6 +166,7 @@
     <Compile Include="MathTools\Integers.cs" />
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />
+    <Compile Include="MathTools\Tables\TableUtil.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="NavData\NavDataPath.cs" />
     <Compile Include="Program.cs" />

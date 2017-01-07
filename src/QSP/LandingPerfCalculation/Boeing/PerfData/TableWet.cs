@@ -11,11 +11,8 @@ namespace QSP.LandingPerfCalculation.Boeing.PerfData
             this.dataWet = dataWet;
         }
 
-        public double GetValue(
-            int FlapIndex,
-            SurfaceCondition SurfCond,
-            int BrakeIndex,
-            DataColumn column)
+        public double GetValue(int FlapIndex, SurfaceCondition SurfCond,
+            int BrakeIndex, DataColumn column)
         {
             return dataWet[FlapIndex][(int)SurfCond - 1][BrakeIndex][(int)column];
         }

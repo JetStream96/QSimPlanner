@@ -27,7 +27,8 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         //
         private Table1D TableSlopeCorrLength(double headwindComponent)
         {
-            return new Table1D(x.Select(i => ValueAt(i, headwindComponent)).ToArray(), x);
+            return new Table1D(x.Select(i => ValueAt(i, headwindComponent)).ToArray(), x)
+                .TruncateRepeatedXValues();
         }
     }
 }

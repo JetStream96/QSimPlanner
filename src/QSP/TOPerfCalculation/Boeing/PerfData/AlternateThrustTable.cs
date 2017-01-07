@@ -40,16 +40,13 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
             switch (para)
             {
                 case TableType.Dry:
-                    return Interpolate1D.Interpolate(DryWeights,
-                    FullThrustWeights, weight);
+                    return Interpolate1D.Interpolate(DryWeights, FullThrustWeights, weight);
 
                 case TableType.Wet:
-                    return Interpolate1D.Interpolate(WetWeights,
-                    FullThrustWeights, weight);
+                    return Interpolate1D.Interpolate(WetWeights, FullThrustWeights, weight);
 
                 case TableType.Climb:
-                    return Interpolate1D.Interpolate(ClimbWeights,
-                    FullThrustWeights, weight);
+                    return Interpolate1D.Interpolate(ClimbWeights, FullThrustWeights, weight);
 
                 default:
                     throw new ArgumentException();
@@ -61,16 +58,13 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
             switch (para)
             {
                 case TableType.Dry:
-                    return Interpolate1D.Interpolate(FullThrustWeights,
-                    DryWeights, fullRatedWt);
+                    return Interpolate1D.Interpolate(FullThrustWeights, DryWeights, fullRatedWt);
 
                 case TableType.Wet:
-                    return Interpolate1D.Interpolate(FullThrustWeights,
-                    WetWeights, fullRatedWt);
+                    return Interpolate1D.Interpolate(FullThrustWeights, WetWeights, fullRatedWt);
 
                 case TableType.Climb:
-                    return Interpolate1D.Interpolate(FullThrustWeights,
-                    ClimbWeights, fullRatedWt);
+                    return Interpolate1D.Interpolate(FullThrustWeights, ClimbWeights, fullRatedWt);
 
                 default:
                     throw new ArgumentException();
@@ -80,17 +74,10 @@ namespace QSP.TOPerfCalculation.Boeing.PerfData
         public bool Equals(AlternateThrustTable item, double delta)
         {
             return
-                DoubleArrayCompare.Equals(
-                    FullThrustWeights, item.FullThrustWeights, delta) &&
-
-                DoubleArrayCompare.Equals(
-                    item.DryWeights, item.DryWeights, delta) &&
-
-                DoubleArrayCompare.Equals(
-                    item.WetWeights, item.WetWeights, delta) &&
-
-                DoubleArrayCompare.Equals(
-                    item.ClimbWeights, item.ClimbWeights, delta);
+                DoubleArrayCompare.Equals(FullThrustWeights, item.FullThrustWeights, delta) &&
+                DoubleArrayCompare.Equals(item.DryWeights, item.DryWeights, delta) &&
+                DoubleArrayCompare.Equals(item.WetWeights, item.WetWeights, delta) &&
+                DoubleArrayCompare.Equals(item.ClimbWeights, item.ClimbWeights, delta);
         }
     }
 }
