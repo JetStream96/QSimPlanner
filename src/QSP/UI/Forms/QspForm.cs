@@ -27,6 +27,7 @@ using QSP.UI.MsgBox;
 using QSP.UI.UserControls.AircraftMenu;
 using QSP.UI.UserControls.TakeoffLanding.LandingPerf;
 using QSP.UI.UserControls.TakeoffLanding.TOPerf;
+using QSP.UI.Utilities;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms
@@ -109,6 +110,8 @@ namespace QSP.UI.Forms
 
                 ShowOptionsForm(FormStartPosition.CenterScreen, true, true);
             }
+
+            DoubleBufferUtil.SetDoubleBuffered(panel1);
         }
 
         private void DoPostUpdateActions()
