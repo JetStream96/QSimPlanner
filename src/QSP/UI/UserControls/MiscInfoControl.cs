@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QSP.UI.Utilities;
 using static QSP.MathTools.Doubles;
 using static QSP.Utilities.LoggerInstance;
 
@@ -17,6 +18,7 @@ namespace QSP.UI.UserControls
         private Func<string> origGetter;
         private Func<string> destGetter;
         private Func<IEnumerable<string>> altnGetter;
+        private Panel outerPanel;
 
         private AirportManager _airportList;
         public AirportManager AirportList
@@ -41,7 +43,8 @@ namespace QSP.UI.UserControls
             bool enableBrowser,
             Func<string> origGetter,
             Func<string> destGetter,
-            Func<IEnumerable<string>> altnGetter)
+            Func<IEnumerable<string>> altnGetter,
+            Panel outerPanel)
         {
             this._airportList = airportList;
             airportMapControl.Init(airportList);
@@ -52,6 +55,7 @@ namespace QSP.UI.UserControls
             this.origGetter = origGetter;
             this.destGetter = destGetter;
             this.altnGetter = altnGetter;
+            this.outerPanel = outerPanel;
 
             EnableTabControlAutosize();
             updateDesForcastBtn.Click += (s, e) => UpdateDesForcast();
@@ -127,7 +131,11 @@ namespace QSP.UI.UserControls
         private void EnableTabControlAutosize()
         {
             Control[] controls = { airportMapControl, metarViewer };
-            EventHandler adjustHeight = (s, e) => TabControl1.Height = GetHeight();
+            EventHandler adjustHeight = (s, e) =>
+            {
+                TabControl1.Height = GetHeight();
+                ScrollBarWorkaround.RefreshScrollBar(outerPanel);
+            };
 
             TabControl1.SelectedIndexChanged += adjustHeight;
             controls.ForEach(c => c.SizeChanged += adjustHeight);
