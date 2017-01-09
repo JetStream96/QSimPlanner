@@ -18,8 +18,6 @@ x64/
 x86/
 [Bb]in/
 [Oo]bj/
-src/[Ii]nstaller/[Oo]utput
-src/[Ii]nstaller/[Rr]esults
 
 # others
 .vscode
