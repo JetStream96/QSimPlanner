@@ -9,6 +9,21 @@ namespace QSP.LibraryExtension
             if (Directory.Exists(folder)) Directory.Delete(folder, true);
         }
 
+        public static void CopyFilesInDirectory(string source, string target,
+            bool overwrite = false)
+        {
+            CopyFilesInDirectory(new DirectoryInfo(source), new DirectoryInfo(target), overwrite);
+        }
+
+        public static void CopyFilesInDirectory(DirectoryInfo source, DirectoryInfo target,
+            bool overwrite = false)
+        {
+            foreach (var file in source.GetFiles())
+            {
+                file.CopyTo(Path.Combine(target.FullName, file.Name), overwrite);
+            }
+        }
+
         public static void CopyDirectory(string source, string target, bool overwrite = false)
         {
             CopyDirectory(new DirectoryInfo(source), new DirectoryInfo(target), overwrite);
@@ -22,10 +37,7 @@ namespace QSP.LibraryExtension
                 CopyDirectory(dir, target.CreateSubdirectory(dir.Name), overwrite);
             }
 
-            foreach (var file in source.GetFiles())
-            {
-                file.CopyTo(Path.Combine(target.FullName, file.Name), overwrite);
-            }
+            CopyFilesInDirectory(source, target, overwrite);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace QSP.TOPerfCalculation
 {
     public class TOTableLoader
     {
-        public const string DefaultFolderPath = @"PerformanceData\TO";
+        public const string DefaultFolderPath = @"PerformanceData\TO\Default";
         public const string CustomFolderPath = @"PerformanceData\TO\Custom";
         
         /// <summary>

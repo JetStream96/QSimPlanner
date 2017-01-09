@@ -637,83 +637,83 @@
     <Content Include="Libraries\MinMaxHeap.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\B747-400F_LX-OCV.xml">
+    <Content Include="PerformanceData\Aircrafts\Default\B747-400F_LX-OCV.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\B747-400_D-ABVS.xml">
+    <Content Include="PerformanceData\Aircrafts\Default\B747-400_D-ABVS.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\B747-8F_LX-VCB.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="PerformanceData\FuelCalc\737600_cfm56-7b22.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PerformanceData\FuelCalc\737700_cfm56-7b24.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PerformanceData\FuelCalc\737700_cfm56-7b26.xml">
+    <Content Include="PerformanceData\Aircrafts\Default\B747-8F_LX-VCB.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\747400F.xml">
+    <Content Include="PerformanceData\FuelCalc\Default\737600_cfm56-7b22.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\7478.xml">
-      <SubType>Designer</SubType>
+    <Content Include="PerformanceData\FuelCalc\Default\737700_cfm56-7b24.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\7478F.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="PerformanceData\FuelCalc\747400.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PerformanceData\FuelCalc\7878.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PerformanceData\FuelCalc\777300ER.xml">
+    <Content Include="PerformanceData\FuelCalc\Default\737700_cfm56-7b26.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\777F.xml">
+    <Content Include="PerformanceData\FuelCalc\Default\747400F.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\777200LR.xml">
+    <Content Include="PerformanceData\FuelCalc\Default\7478.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\Default\7478F.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\737900_cfm56-7b27.xml">
+    <Content Include="PerformanceData\FuelCalc\Default\747400.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\Default\7878.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\Default\777300ER.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PerformanceData\FuelCalc\737800_cfm56-7b26.xml">
+    <Content Include="PerformanceData\FuelCalc\Default\777F.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\LDG\747400F_LDG.xml">
+    <Content Include="PerformanceData\FuelCalc\Default\777200LR.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\Default\737900_cfm56-7b27.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="PerformanceData\FuelCalc\Default\737800_cfm56-7b26.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\LDG\747400_LDG.xml">
+    <Content Include="PerformanceData\LDG\Default\747400F_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\LDG\7478_LDG.xml">
+    <Content Include="PerformanceData\LDG\Default\747400_LDG.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\LDG\Default\7478_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\Templates\FuelCalc\737800_new_format.xml" />
-    <Content Include="PerformanceData\TO\747400F_TO.xml">
+    <Content Include="PerformanceData\TO\Default\747400F_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\TO\747400_TO.xml">
+    <Content Include="PerformanceData\TO\Default\747400_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\TO\7478_TO.xml">
+    <Content Include="PerformanceData\TO\Default\7478_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\TO\7878_TO.xml">
+    <Content Include="PerformanceData\TO\Default\7878_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
@@ -824,34 +824,34 @@
     <EmbeddedResource Include="UI\UserControls\TakeoffLanding\TOPerf\TOPerfControl.resx">
       <DependentUpon>TOPerfControl.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="PerformanceData\Aircrafts\B737-600_LN-RRX.xml">
+    <Content Include="PerformanceData\Aircrafts\Default\B737-600_LN-RRX.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\B737-700_B-5256.xml">
+    <Content Include="PerformanceData\Aircrafts\Default\B737-700_B-5256.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\B737-800_EI-EFX.xml">
+    <Content Include="PerformanceData\Aircrafts\Default\B737-800_EI-EFX.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\B737-900_N844DN.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="PerformanceData\Aircrafts\B777-200LR_A6-EWE.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PerformanceData\Aircrafts\B777F_A7-BFA.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PerformanceData\Aircrafts\B777-300ER_B-16703.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PerformanceData\Aircrafts\B747-8_D-ABYC.xml">
+    <Content Include="PerformanceData\Aircrafts\Default\B737-900_N844DN.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PerformanceData\Aircrafts\B787-8_JA801A.xml">
+    <Content Include="PerformanceData\Aircrafts\Default\B777-200LR_A6-EWE.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\Aircrafts\Default\B777F_A7-BFA.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\Aircrafts\Default\B777-300ER_B-16703.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PerformanceData\Aircrafts\Default\B747-8_D-ABYC.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="PerformanceData\Aircrafts\Default\B787-8_JA801A.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\Settings.settings">
@@ -871,61 +871,61 @@
     <Content Include="GoogleMap\Library\markerwithlabel.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\LDG\737600_LDG.xml">
+    <Content Include="PerformanceData\LDG\Default\737600_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PerformanceData\LDG\737700_LDG.xml">
+    <Content Include="PerformanceData\LDG\Default\737700_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\LDG\737800_LDG.xml">
+    <Content Include="PerformanceData\LDG\Default\737800_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\LDG\737900_LDG.xml">
+    <Content Include="PerformanceData\LDG\Default\737900_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\LDG\7478F_LDG.xml">
+    <Content Include="PerformanceData\LDG\Default\7478F_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\LDG\777200LR_LDG.xml">
+    <Content Include="PerformanceData\LDG\Default\777200LR_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\LDG\777300ER_LDG.xml">
+    <Content Include="PerformanceData\LDG\Default\777300ER_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\LDG\777F_LDG.xml">
+    <Content Include="PerformanceData\LDG\Default\777F_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\LDG\7878_LDG.xml">
+    <Content Include="PerformanceData\LDG\Default\7878_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\Templates\LDG\Template_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\TO\737600_TO.xml">
+    <Content Include="PerformanceData\TO\Default\737600_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\TO\737700_TO.xml">
+    <Content Include="PerformanceData\TO\Default\737700_TO.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\TO\737800_TO.xml">
+    <Content Include="PerformanceData\TO\Default\737800_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\TO\737900_TO.xml">
+    <Content Include="PerformanceData\TO\Default\737900_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\TO\7478F_TO.xml">
+    <Content Include="PerformanceData\TO\Default\7478F_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\TO\777200LR_TO.xml">
+    <Content Include="PerformanceData\TO\Default\777200LR_TO.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\TO\777300ER_TO.xml">
+    <Content Include="PerformanceData\TO\Default\777300ER_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PerformanceData\TO\777F_TO.xml">
+    <Content Include="PerformanceData\TO\Default\777F_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\Templates\TO\TOPerf_Template.xml">

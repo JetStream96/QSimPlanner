@@ -6,7 +6,7 @@ namespace QSP.FuelCalculation.FuelData
 {
     public static class FuelDataLoader
     {
-        public const string DefaultFolderPath = @"PerformanceData\FuelCalc";
+        public const string DefaultFolderPath = @"PerformanceData\FuelCalc\Default";
         public const string CustomFolderPath = @"PerformanceData\FuelCalc\Custom";
 
         /// <summary>

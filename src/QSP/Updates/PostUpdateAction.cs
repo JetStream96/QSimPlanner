@@ -47,15 +47,19 @@ namespace QSP.Updates
 
         private void SetConfigFiles()
         {
-            CopyConfigDirectory(ConfigLoader.CustomFolderPath);
-            CopyConfigDirectory(FuelDataLoader.CustomFolderPath);
-            CopyConfigDirectory(TOTableLoader.CustomFolderPath);
-            CopyConfigDirectory(LdgTableLoader.CustomFolderPath);
+            CopyCustomConfigs(ConfigLoader.CustomFolderPath);
+            CopyCustomConfigs(FuelDataLoader.CustomFolderPath);
+            CopyCustomConfigs(TOTableLoader.CustomFolderPath);
+            CopyCustomConfigs(LdgTableLoader.CustomFolderPath);
         }
 
-        private void CopyConfigDirectory(string dir)
+        private void CopyCustomConfigs(string dir)
         {
-            IOMethods.CopyDirectory(Path.Combine("..", backupVersion.ToString(), dir), dir, true);
+            
+            IOMethods.CopyFilesInDirectory(
+                Path.Combine("..", backupVersion.ToString(), dir),
+                dir, 
+                true);
         }
         
         private static bool RequireAction()

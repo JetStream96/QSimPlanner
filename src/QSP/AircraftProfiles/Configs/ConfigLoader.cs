@@ -7,7 +7,7 @@ namespace QSP.AircraftProfiles.Configs
 {
     public static class ConfigLoader
     {
-        public const string DefaultFolderPath = @"PerformanceData\Aircrafts";
+        public const string DefaultFolderPath = @"PerformanceData\Aircrafts\Default";
         public const string CustomFolderPath = @"PerformanceData\Aircrafts\Custom";
 
         /// <summary>
