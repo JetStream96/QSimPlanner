@@ -350,9 +350,21 @@ namespace QSP.UI.UserControls.AircraftMenu
             if (result == MsgBoxResult.Button1 && TryDeleteConfig(path))
             {
                 configs.Remove(reg);
+                ReadShadowedProfile(reg);
                 RefreshListView();
                 AircraftsChanged?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        private void ReadShadowedProfile(string registration)
+        {
+            var config = ConfigLoader.Find(registration);
+            if (config == null) return;
+            
+            // We skip the profile validation here. If fuel, takeoff or landing profile 
+            // cannot be found, they will appear as 'None' when user edits it.
+
+            profiles.AcConfigs.Add(config);
         }
 
         private bool TryDeleteConfig(string path)
