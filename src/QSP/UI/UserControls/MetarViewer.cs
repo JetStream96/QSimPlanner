@@ -82,31 +82,14 @@ namespace QSP.UI.UserControls
             downloadAllBtn.Enabled = false;
             metarLastUpdatedLbl.Text = "";
 
-            var allTasks = new[] { OrigTask(), DestTask() }.Concat(AltnTask());
+            var allTasks = new[] { origGetter(), destGetter() }.Concat(altnGetter())
+                .Select(i => Task.Factory.StartNew(() => MetarDownloader.TryGetMetarTaf(i)));
             var result = await Task.WhenAll(allTasks);
 
             var lineSep = new string('-', 80);
             metarTafRichTxtBox.Text = string.Join($"\n{lineSep}\n\n", result);
             SetUpdateTime();
             downloadAllBtn.Enabled = true;
-        }
-
-        private Task<string> OrigTask()
-        {
-            return Task.Factory.StartNew(
-                () => MetarDownloader.TryGetMetarTaf(origGetter()));
-        }
-
-        private Task<string> DestTask()
-        {
-            return Task.Factory.StartNew(
-                () => MetarDownloader.TryGetMetarTaf(destGetter()));
-        }
-
-        private IEnumerable<Task<string>> AltnTask()
-        {
-            return altnGetter().Select(
-                i => Task.Factory.StartNew(() => MetarDownloader.TryGetMetarTaf(i)));
         }
     }
 }
