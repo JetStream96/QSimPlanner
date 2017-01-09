@@ -1,4 +1,0 @@
-The gear icon at src\QSP\Resources\noun_1329.png is a modification of the file
-from https://thenounproject.com/term/gear/1329/ 
-
-The original file is in public domain, and the author is Ryan Oksenhorn.
