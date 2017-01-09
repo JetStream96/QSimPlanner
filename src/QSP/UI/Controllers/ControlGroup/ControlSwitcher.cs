@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using QSP.UI.Utilities;
 
 namespace QSP.UI.Controllers.ControlGroup
 {
@@ -57,13 +58,7 @@ namespace QSP.UI.Controllers.ControlGroup
                 i.Control.Visible = (i.Button == sender);
             }
 
-            // Workaround for windows scrollbar bug. Without this the 
-            // scrollbars will appear even if the form is large enough to
-            // fit the contents.
-            outerPanel.AutoScroll = false;
-            outerPanel.HorizontalScroll.Visible = false;
-            outerPanel.VerticalScroll.Visible = false;
-            outerPanel.AutoScroll = true;
+            ScrollBarWorkaround.RefreshScrollBar(outerPanel);
         }
 
         public class ControlPair

@@ -337,6 +337,7 @@
     <Compile Include="UI\Utilities\OpenFileHelper.cs" />
     <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
     <Compile Include="UI\Utilities\ScrollBars.cs" />
+    <Compile Include="UI\Utilities\ScrollBarWorkaround.cs" />
     <Compile Include="UI\Utilities\ShowMapHelper.cs" />
     <Compile Include="Updates\PostUpdateAction.cs" />
     <Compile Include="Updates\Updater.cs" />

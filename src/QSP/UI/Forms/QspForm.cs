@@ -224,7 +224,7 @@ namespace QSP.UI.Forms
             LoadSavedState();
             CheckRegistry();
             SubscribeEvents();
-
+            
             acMenu.Init(profiles);
             acMenu.AircraftsChanged += fuelMenu.RefreshAircrafts;
             acMenu.AircraftsChanged += toMenu.RefreshAircrafts;
@@ -329,6 +329,7 @@ namespace QSP.UI.Forms
             trackStatusLabel.MouseEnter += SetHandCursor;
             trackStatusLabel.MouseLeave += SetDefaultCursor;
             navBar.OptionLbl.Click += (s, e) => ShowOptionsForm();
+           // tableLayoutPanel1.SizeChanged += (s, e) => ScrollBarWorkaround.RefreshScrollBar(panel1);
         }
 
         private void EnableAirportRequests()
