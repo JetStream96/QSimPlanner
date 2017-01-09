@@ -60,7 +60,7 @@ namespace QSP.UI.Forms
             this.DataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.DataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGrid.Location = new System.Drawing.Point(13, 85);
-            this.DataGrid.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DataGrid.Margin = new System.Windows.Forms.Padding(2);
             this.DataGrid.MultiSelect = false;
             this.DataGrid.Name = "DataGrid";
             this.DataGrid.ReadOnly = true;
@@ -91,7 +91,7 @@ namespace QSP.UI.Forms
             this.OkBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OkBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.OkBtn.Location = new System.Drawing.Point(106, 310);
-            this.OkBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OkBtn.Margin = new System.Windows.Forms.Padding(2);
             this.OkBtn.MinimumSize = new System.Drawing.Size(90, 30);
             this.OkBtn.Name = "OkBtn";
             this.OkBtn.Size = new System.Drawing.Size(90, 31);
@@ -106,7 +106,7 @@ namespace QSP.UI.Forms
             this.icaoTxtbox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.icaoTxtbox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.icaoTxtbox.Location = new System.Drawing.Point(177, 2);
-            this.icaoTxtbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.icaoTxtbox.Margin = new System.Windows.Forms.Padding(2);
             this.icaoTxtbox.Name = "icaoTxtbox";
             this.icaoTxtbox.Size = new System.Drawing.Size(81, 26);
             this.icaoTxtbox.TabIndex = 25;
@@ -129,7 +129,7 @@ namespace QSP.UI.Forms
             this.minRwyLengthTxtbox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.minRwyLengthTxtbox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.minRwyLengthTxtbox.Location = new System.Drawing.Point(177, 34);
-            this.minRwyLengthTxtbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.minRwyLengthTxtbox.Margin = new System.Windows.Forms.Padding(2);
             this.minRwyLengthTxtbox.Name = "minRwyLengthTxtbox";
             this.minRwyLengthTxtbox.Size = new System.Drawing.Size(81, 26);
             this.minRwyLengthTxtbox.TabIndex = 27;
@@ -143,7 +143,7 @@ namespace QSP.UI.Forms
             this.findBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.findBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.findBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.findBtn.Location = new System.Drawing.Point(338, 32);
+            this.findBtn.Location = new System.Drawing.Point(348, 32);
             this.findBtn.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
             this.findBtn.Name = "findBtn";
             this.findBtn.Padding = new System.Windows.Forms.Padding(12, 0, 12, 0);
@@ -160,7 +160,7 @@ namespace QSP.UI.Forms
             this.CancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CancelBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelBtn.Location = new System.Drawing.Point(261, 310);
-            this.CancelBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CancelBtn.Margin = new System.Windows.Forms.Padding(2);
             this.CancelBtn.MinimumSize = new System.Drawing.Size(90, 30);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(90, 31);
@@ -174,6 +174,8 @@ namespace QSP.UI.Forms
             this.lengthUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lengthUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
             this.lengthUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.lengthUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.lengthUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lengthUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lengthUnitComboBox.FormattingEnabled = true;
             this.lengthUnitComboBox.Items.AddRange(new object[] {
@@ -182,7 +184,7 @@ namespace QSP.UI.Forms
             this.lengthUnitComboBox.Location = new System.Drawing.Point(268, 34);
             this.lengthUnitComboBox.Margin = new System.Windows.Forms.Padding(8, 2, 8, 2);
             this.lengthUnitComboBox.Name = "lengthUnitComboBox";
-            this.lengthUnitComboBox.Size = new System.Drawing.Size(54, 27);
+            this.lengthUnitComboBox.Size = new System.Drawing.Size(64, 27);
             this.lengthUnitComboBox.TabIndex = 31;
             // 
             // tableLayoutPanel1
@@ -201,12 +203,12 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel1.Controls.Add(this.Label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.minRwyLengthTxtbox, 1, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 10);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(417, 65);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(427, 65);
             this.tableLayoutPanel1.TabIndex = 32;
             // 
             // FindAltnForm
@@ -222,7 +224,7 @@ namespace QSP.UI.Forms
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FindAltnForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
