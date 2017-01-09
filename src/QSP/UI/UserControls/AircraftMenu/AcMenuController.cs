@@ -173,16 +173,8 @@ namespace QSP.UI.UserControls.AircraftMenu
 
         private string WtDisplay(double weightKg)
         {
-            if (elem.WeightUnitCBox.SelectedIndex == 0)
-            {
-                // KG
-                return Doubles.RoundToInt(weightKg).ToString();
-            }
-            else
-            {
-                // LB
-                return Doubles.RoundToInt(weightKg * Constants.KgLbRatio).ToString();
-            }
+            var factor = elem.WeightUnitCBox.SelectedIndex == 0 ? 1.0 : Constants.KgLbRatio;
+            return Doubles.RoundToInt(weightKg * factor).ToString();
         }
 
         public void CreateConfig(object sender, EventArgs e)
@@ -312,8 +304,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             if (InEditMode == false &&
                 profiles.AcConfigs.Find(config.Registration) != null)
             {
-                MsgBoxHelper.ShowWarning(
-                   "Registration already exists. Please use another one.");
+                MsgBoxHelper.ShowWarning("Registration already exists. Please use another one.");
                 return;
             }
 

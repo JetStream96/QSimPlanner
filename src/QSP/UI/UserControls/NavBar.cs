@@ -34,12 +34,7 @@ namespace QSP.UI.UserControls
         {
             acMenu, fuelMenu, toMenu, ldgMenu, miscInfoMenu, aboutMenu
         };
-
-        private Action HideAll => () =>
-        {
-            AllPages.ForEach(p => p.Hide());
-        };
-
+        
         public NavBar()
         {
             InitializeComponent();
