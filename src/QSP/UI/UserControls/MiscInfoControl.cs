@@ -78,8 +78,7 @@ namespace QSP.UI.UserControls
         {
             if (windTableLocator.Instance is DefaultWindTableCollection)
             {
-                desForcastRichTxtBox.Text =
-                    "\n\n\n       Wind aloft has not been downloaded.";
+                desForcastRichTxtBox.Text = "\n\n\n       Wind aloft has not been downloaded.";
                 return;
             }
 
@@ -141,7 +140,7 @@ namespace QSP.UI.UserControls
             int index = TabControl1.SelectedIndex;
 
             if (index == 2) return minHeight;
-            return Math.Max(minHeight, controls[index].Height + 100);
+            return controls[index].Height + 100;
         }
     }
 }

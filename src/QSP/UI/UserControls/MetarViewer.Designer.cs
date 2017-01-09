@@ -55,8 +55,8 @@
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1074, 754);
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(860, 89);
             this.tableLayoutPanel5.TabIndex = 81;
             // 
             // tableLayoutPanel4
@@ -79,7 +79,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(648, 36);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(536, 31);
             this.tableLayoutPanel4.TabIndex = 79;
             // 
             // label1
@@ -90,7 +90,7 @@
             this.label1.Location = new System.Drawing.Point(2, 6);
             this.label1.Margin = new System.Windows.Forms.Padding(2);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 23);
+            this.label1.Size = new System.Drawing.Size(42, 19);
             this.label1.TabIndex = 83;
             this.label1.Text = "ICAO";
             // 
@@ -99,10 +99,10 @@
             this.metarLastUpdatedLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.metarLastUpdatedLbl.AutoSize = true;
             this.metarLastUpdatedLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metarLastUpdatedLbl.Location = new System.Drawing.Point(356, 6);
+            this.metarLastUpdatedLbl.Location = new System.Drawing.Point(291, 6);
             this.metarLastUpdatedLbl.Margin = new System.Windows.Forms.Padding(2);
             this.metarLastUpdatedLbl.Name = "metarLastUpdatedLbl";
-            this.metarLastUpdatedLbl.Size = new System.Drawing.Size(290, 23);
+            this.metarLastUpdatedLbl.Size = new System.Drawing.Size(243, 19);
             this.metarLastUpdatedLbl.TabIndex = 81;
             this.metarLastUpdatedLbl.Text = "Last Updated : 7/18/2016 6:55:48 PM";
             // 
@@ -114,10 +114,10 @@
             this.downloadAllBtn.BackColor = System.Drawing.SystemColors.Control;
             this.downloadAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.downloadAllBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.downloadAllBtn.Location = new System.Drawing.Point(192, 2);
+            this.downloadAllBtn.Location = new System.Drawing.Point(158, 2);
             this.downloadAllBtn.Margin = new System.Windows.Forms.Padding(2);
             this.downloadAllBtn.Name = "downloadAllBtn";
-            this.downloadAllBtn.Size = new System.Drawing.Size(160, 32);
+            this.downloadAllBtn.Size = new System.Drawing.Size(129, 27);
             this.downloadAllBtn.TabIndex = 78;
             this.downloadAllBtn.Text = "View DEP/ARR/ATLN";
             this.downloadAllBtn.UseVisualStyleBackColor = false;
@@ -127,19 +127,20 @@
             this.IcaoTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.IcaoTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.IcaoTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IcaoTxtBox.Location = new System.Drawing.Point(56, 3);
+            this.IcaoTxtBox.Location = new System.Drawing.Point(48, 2);
             this.IcaoTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.IcaoTxtBox.Name = "IcaoTxtBox";
-            this.IcaoTxtBox.Size = new System.Drawing.Size(100, 30);
+            this.IcaoTxtBox.Size = new System.Drawing.Size(81, 26);
             this.IcaoTxtBox.TabIndex = 77;
             this.IcaoTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // statusPicBox
             // 
             this.statusPicBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.statusPicBox.Location = new System.Drawing.Point(161, 5);
+            this.statusPicBox.Location = new System.Drawing.Point(133, 5);
+            this.statusPicBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.statusPicBox.Name = "statusPicBox";
-            this.statusPicBox.Size = new System.Drawing.Size(26, 26);
+            this.statusPicBox.Size = new System.Drawing.Size(21, 21);
             this.statusPicBox.TabIndex = 84;
             this.statusPicBox.TabStop = false;
             // 
@@ -148,26 +149,27 @@
             this.metarTafRichTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.metarTafRichTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metarTafRichTxtBox.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metarTafRichTxtBox.Location = new System.Drawing.Point(2, 42);
+            this.metarTafRichTxtBox.Location = new System.Drawing.Point(2, 37);
             this.metarTafRichTxtBox.Margin = new System.Windows.Forms.Padding(2);
-            this.metarTafRichTxtBox.MaximumSize = new System.Drawing.Size(1070, 10000);
-            this.metarTafRichTxtBox.MinimumSize = new System.Drawing.Size(1070, 0);
+            this.metarTafRichTxtBox.MaximumSize = new System.Drawing.Size(856, 8000);
+            this.metarTafRichTxtBox.MinimumSize = new System.Drawing.Size(856, 0);
             this.metarTafRichTxtBox.Name = "metarTafRichTxtBox";
-            this.metarTafRichTxtBox.Size = new System.Drawing.Size(1070, 710);
+            this.metarTafRichTxtBox.Size = new System.Drawing.Size(856, 50);
             this.metarTafRichTxtBox.TabIndex = 0;
             this.metarTafRichTxtBox.Text = "";
             // 
             // MetarViewer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Controls.Add(this.tableLayoutPanel5);
             this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MetarViewer";
-            this.Size = new System.Drawing.Size(1076, 756);
+            this.Size = new System.Drawing.Size(862, 91);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);

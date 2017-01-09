@@ -106,8 +106,7 @@ namespace QSP.UI.UserControls
         private IEnumerable<Task<string>> AltnTask()
         {
             return altnGetter().Select(
-                i => Task.Factory.StartNew(
-                    () => MetarDownloader.TryGetMetarTaf(i)));
+                i => Task.Factory.StartNew(() => MetarDownloader.TryGetMetarTaf(i)));
         }
     }
 }
