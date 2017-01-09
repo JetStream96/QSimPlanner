@@ -2,30 +2,29 @@
 
 namespace QSP.AircraftProfiles.Configs
 {
-    public class ConfigComparer : IComparer<AircraftConfig>
+    public static class ConfigComparers
     {
-        private ConfigItemComparer comp = new ConfigItemComparer();
-
-        public int Compare(AircraftConfig x, AircraftConfig y)
+        public static IComparer<AircraftConfigItem> ConfigItemComparer()
         {
-            return comp.Compare(x.Config, y.Config);
+            return Comparer<AircraftConfigItem>.Create((x, y) =>
+            {
+                int ac = x.AC.CompareTo(y.AC);
+
+                if (ac == 0)
+                {
+                    return x.Registration.CompareTo(y.Registration);
+                }
+                else
+                {
+                    return ac;
+                }
+            });
         }
-    }
 
-    public class ConfigItemComparer : IComparer<AircraftConfigItem>
-    {
-        public int Compare(AircraftConfigItem x, AircraftConfigItem y)
+        public static IComparer<AircraftConfig> ConfigComparer()
         {
-            int ac = x.AC.CompareTo(y.AC);
-
-            if (ac == 0)
-            {
-                return x.Registration.CompareTo(y.Registration);
-            }
-            else
-            {
-                return ac;
-            }
+            return Comparer<AircraftConfig>.Create(
+                (x, y) => ConfigItemComparer().Compare(x.Config, y.Config));
         }
     }
 }

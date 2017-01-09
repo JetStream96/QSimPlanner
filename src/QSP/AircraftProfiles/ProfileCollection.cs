@@ -24,13 +24,13 @@ namespace QSP.AircraftProfiles
             LdgTables = new LandingPerfCalculation.LdgTableLoader().Load();
             AcConfigs = LoadConfig();
 
-            AcConfigs.Validate(TOTables, LdgTables);
+            AcConfigs.Validate(FuelData, TOTables, LdgTables);
         }
 
         private AcConfigManager LoadConfig()
         {
             var manager = new AcConfigManager();
-            var configs = new ConfigLoader().LoadAll();
+            var configs = ConfigLoader.LoadAll();
             foreach (var i in configs) manager.Add(i);
             return manager;
         }

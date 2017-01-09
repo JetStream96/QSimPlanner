@@ -122,7 +122,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             listItems.Clear();
 
             var ac = profiles.AcConfigs.Aircrafts.ToList();
-            ac.Sort(new ConfigComparer());
+            ac.Sort(ConfigComparers.ConfigComparer());
 
             foreach (var i in ac)
             {
@@ -141,6 +141,12 @@ namespace QSP.UI.UserControls.AircraftMenu
         {
             var e = elem;
             var c = config;
+
+            // This is needed, so that if the FuelProfile, ToProfile or LdgProfile is not 
+            // found in the corresponding ComboBox, it will show "None".
+            e.FuelProfile.SelectedIndex = 0;
+            e.ToProfile.SelectedIndex = 0;
+            e.LdgProfile.SelectedIndex = 0;
 
             e.AcType.Text = c.AC;
             e.Registration.Text = c.Registration;

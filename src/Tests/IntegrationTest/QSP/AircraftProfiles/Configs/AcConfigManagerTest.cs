@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using QSP.AircraftProfiles.Configs;
+using QSP.FuelCalculation.FuelData;
 using QSP.Utilities.Units;
 using System.Collections.Generic;
 using LdgCalc = QSP.LandingPerfCalculation;
@@ -33,6 +34,7 @@ namespace IntergrationTest.QSP.AircraftProfiles.Configs
                     "path"));
 
             manager.Validate(
+                new FuelData[0], 
                 new List<TOCalc.PerfTable>(),
                 new List<LdgCalc.PerfTable>());
         }

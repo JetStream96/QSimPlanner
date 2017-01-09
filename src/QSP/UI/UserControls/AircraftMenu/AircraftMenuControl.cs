@@ -66,8 +66,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             editBtn.Click += controller.EditConfig;
             deleteBtn.Click += controller.DeleteConfig;
             cancelBtn.Click += controller.CancelBtnClicked;
-            acListView.SelectedIndexChanged +=
-                controller.ListViewSelectedChanged;
+            acListView.SelectedIndexChanged += controller.ListViewSelectedChanged;
         }
 
         private void UnSubsribe()
@@ -77,8 +76,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             editBtn.Click -= controller.EditConfig;
             deleteBtn.Click -= controller.DeleteConfig;
             cancelBtn.Click -= controller.CancelBtnClicked;
-            acListView.SelectedIndexChanged -=
-                controller.ListViewSelectedChanged;
+            acListView.SelectedIndexChanged -= controller.ListViewSelectedChanged;
         }
     }
 }

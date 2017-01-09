@@ -150,6 +150,7 @@
     <Compile Include="Libraries\FolderSelectDialog\FolderSelectDialog.cs" />
     <Compile Include="Libraries\FolderSelectDialog\Reflector.cs" />
     <Compile Include="LibraryExtension\BiDictionary.cs" />
+    <Compile Include="LibraryExtension\English.cs" />
     <Compile Include="LibraryExtension\Enums.cs" />
     <Compile Include="LibraryExtension\FileNameGenerator.cs" />
     <Compile Include="LibraryExtension\IOMethods.cs" />

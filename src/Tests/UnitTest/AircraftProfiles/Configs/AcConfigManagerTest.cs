@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using QSP.AircraftProfiles.Configs;
+using QSP.FuelCalculation.FuelData;
 using QSP.Utilities.Units;
 using System.Collections.Generic;
 using System.Linq;
@@ -107,19 +108,18 @@ namespace UnitTest.AircraftProfiles.Configs
             var manager = new AcConfigManager();
             manager.Add(config1);
 
-            var toFile =
-                new QSP.TOPerfCalculation.Entry("Boeing 777-300ER", "");
+            var fuelTable = new FuelData(null, "Boeing 777-300ER", "");
 
+            var toFile = new QSP.TOPerfCalculation.Entry("Boeing 777-300ER", "");
             var toTable = new QSP.TOPerfCalculation.PerfTable(null, toFile);
 
-            var ldgFile =
-                new QSP.LandingPerfCalculation.Entry("Boeing 777-300ER", "");
-            var ldgTable =
-                new QSP.LandingPerfCalculation.PerfTable(null, ldgFile);
+            var ldgFile = new QSP.LandingPerfCalculation.Entry("Boeing 777-300ER", "");
+            var ldgTable = new QSP.LandingPerfCalculation.PerfTable(null, ldgFile);
 
             manager.Validate(
-                new List<QSP.TOPerfCalculation.PerfTable>() { toTable },
-                new List<QSP.LandingPerfCalculation.PerfTable>() { ldgTable });
+                new[] { fuelTable },
+                new[] { toTable },
+                new[] { ldgTable });
         }
 
         [Test]
@@ -130,6 +130,7 @@ namespace UnitTest.AircraftProfiles.Configs
 
             Assert.Throws<PerfFileNotFoundException>(() =>
             manager.Validate(
+                new FuelData[0],
                 new List<QSP.TOPerfCalculation.PerfTable>(),
                 new List<QSP.LandingPerfCalculation.PerfTable>()));
         }

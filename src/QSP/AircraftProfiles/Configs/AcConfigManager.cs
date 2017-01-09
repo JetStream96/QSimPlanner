@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using QSP.FuelCalculation.FuelData;
+using QSP.LibraryExtension;
 using TOTable = QSP.TOPerfCalculation.PerfTable;
 using LdgTable = QSP.LandingPerfCalculation.PerfTable;
 
@@ -20,8 +22,7 @@ namespace QSP.AircraftProfiles.Configs
         public IEnumerable<AircraftConfig> Aircrafts => registrations.Values;
         public int Count => registrations.Count;
 
-        /// <exception cref="ArgumentException">
-        /// The registration already exists.</exception>
+        /// <exception cref="ArgumentException">The registration already exists.</exception>
         /// <exception cref="ArgumentNullException"></exception>
         public void Add(AircraftConfig item)
         {
@@ -39,8 +40,7 @@ namespace QSP.AircraftProfiles.Configs
             }
             else
             {
-                aircrafts.Add(item.Config.AC,
-                    new List<AircraftConfig>() { item });
+                aircrafts.Add(item.Config.AC, new List<AircraftConfig>() { item });
             }
         }
 
@@ -72,48 +72,54 @@ namespace QSP.AircraftProfiles.Configs
         /// for all aircraft configs. 
         /// </summary>
         /// <exception cref="PerfFileNotFoundException"></exception>
-        public void Validate(
-            IEnumerable<TOTable> takeoffTables,
+        public void Validate(IEnumerable<FuelData> fuelTables, IEnumerable<TOTable> takeoffTables,
             IEnumerable<LdgTable> ldgTables)
         {
-            var invalidAc = new List<AircraftConfig>();
+            var errors = new List<string>();
 
             foreach (var i in registrations)
             {
                 var config = i.Value;
-                var to = config.Config.TOProfile;
-                var ldg = config.Config.LdgProfile;
+                var item = config.Config;
+                var fuel = item.FuelProfile;
+                var to = item.TOProfile;
+                var ldg = item.LdgProfile;
 
-                bool toNotFound =
-                    to != AircraftConfigItem.NoFuelTOLdgProfileText &&
-                    !takeoffTables.Any(x => x.Entry.ProfileName == to);
+                bool fuelFound =
+                    fuel == AircraftConfigItem.NoFuelTOLdgProfileText ||
+                    fuelTables.Any(x => x.ProfileName == fuel);
 
-                bool ldgNotFound =
-                    ldg != AircraftConfigItem.NoFuelTOLdgProfileText &&
-                    !ldgTables.Any(x => x.Entry.ProfileName == ldg);
+                bool toFound =
+                    to == AircraftConfigItem.NoFuelTOLdgProfileText ||
+                    takeoffTables.Any(x => x.Entry.ProfileName == to);
 
-                if (toNotFound || ldgNotFound) invalidAc.Add(config);
+                bool ldgFound =
+                    ldg == AircraftConfigItem.NoFuelTOLdgProfileText ||
+                    ldgTables.Any(x => x.Entry.ProfileName == ldg);
+
+                var msg = GetError(item, fuelFound, toFound, ldgFound);
+                if (msg != null) errors.Add(msg);
             }
 
-            if (invalidAc.Count > 0)
+            if (errors.Count > 0)
             {
-                throw new PerfFileNotFoundException(ErrorMsg(invalidAc));
+                throw new PerfFileNotFoundException(string.Join("\n", errors));
             }
         }
 
-        private static string ErrorMsg(List<AircraftConfig> invalidItems)
+        private static string GetError(AircraftConfigItem item,
+            bool fuelFound, bool toFound, bool ldgFound)
         {
-            var msg = new StringBuilder(
-                 "Cannot find takeoff/landing performance profiles " +
-                 "for the following aircraft(s):\n");
+            var msgs = new List<string>();
+            if (!fuelFound) msgs.Add("fuel");
+            if (!toFound) msgs.Add("takeoff");
+            if (!ldgFound) msgs.Add("landing");
+            return (msgs.Count > 0) ? ErrorMessage(item, msgs) : null;
+        }
 
-            foreach (var i in invalidItems)
-            {
-                var c = i.Config;
-                msg.AppendLine(c.Registration + " (" + c.AC + ")");
-            }
-
-            return msg.ToString();
+        private static string ErrorMessage(AircraftConfigItem c, List<string> parts)
+        {
+            return $"Cannot find {parts.Combined()} profile(s) for {c.Registration} ({c.AC}).";
         }
 
         /// <summary>

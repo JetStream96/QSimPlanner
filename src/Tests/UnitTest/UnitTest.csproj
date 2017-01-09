@@ -69,6 +69,7 @@
     <Compile Include="FuelCalculation\Calculations\InitialPlanCreatorTest.cs" />
     <Compile Include="FuelCalculation\Calculations\NodeMarkerTest.cs" />
     <Compile Include="FuelCalculation\FuelData\FuelDataItemTest.cs" />
+    <Compile Include="LibraryExtension\EnglishTest.cs" />
     <Compile Include="LibraryExtension\IEnumerablesTest.cs" />
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
     <Compile Include="LibraryExtension\ListsTest.cs" />

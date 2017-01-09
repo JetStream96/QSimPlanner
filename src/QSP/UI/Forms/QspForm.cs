@@ -166,7 +166,7 @@ namespace QSP.UI.Forms
             catch (PerfFileNotFoundException ex)
             {
                 Log(ex);
-                MsgBoxHelper.ShowWarning(ex.Message);
+                MsgBoxHelper.ShowWarning(ex.Message, "Performance file loading warning");
             }
 
             try
