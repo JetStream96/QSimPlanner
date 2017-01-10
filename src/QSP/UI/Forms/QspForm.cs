@@ -320,16 +320,29 @@ namespace QSP.UI.Forms
             };
 
             EnableAirportRequests();
+            SetCursorStatusLabel();
             navDataStatusLabel.Click += ViewOptions;
-            navDataStatusLabel.MouseEnter += SetHandCursor;
-            navDataStatusLabel.MouseLeave += SetDefaultCursor;
             windDataStatusLabel.Click += windDataStatusLabel_Click;
-            windDataStatusLabel.MouseEnter += SetHandCursor;
-            windDataStatusLabel.MouseLeave += SetDefaultCursor;
             trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
-            trackStatusLabel.MouseEnter += SetHandCursor;
-            trackStatusLabel.MouseLeave += SetDefaultCursor;
             navBar.OptionLbl.Click += (s, e) => ShowOptionsForm();
+        }
+
+        private void OverrideScrollBar()
+        {
+            panel1.MouseWheel += (s, e) =>
+            {
+                ((HandledMouseEventArgs) e).Handled = true;
+                // Call custom handler
+            };
+        }
+
+        private void SetCursorStatusLabel()
+        {
+            new[] {navDataStatusLabel,windDataStatusLabel,trackStatusLabel}.ForEach(i =>
+            {
+                i.MouseEnter += SetHandCursor;
+                i.MouseLeave += SetDefaultCursor;
+            });
         }
 
         private void EnableAirportRequests()
