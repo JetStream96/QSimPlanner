@@ -2,7 +2,7 @@ using QSP.MathTools.Vectors;
 using QSP.RouteFinding.Data.Interfaces;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Angles;
-using static QSP.MathTools.Doubles;
+using static QSP.MathTools.Numbers;
 using static QSP.MathTools.EarthGeometry;
 using static QSP.MathTools.Integration;
 using static QSP.MathTools.Vectors.Vector3DExtension;

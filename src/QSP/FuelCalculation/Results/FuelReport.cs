@@ -3,7 +3,7 @@ using System.Linq;
 using static System.Math;
 using static QSP.AviationTools.Constants;
 using static QSP.LibraryExtension.TimeFormat;
-using static QSP.MathTools.Doubles;
+using static QSP.MathTools.Numbers;
 using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.FuelCalculation.Results

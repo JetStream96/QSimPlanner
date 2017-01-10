@@ -29,10 +29,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             if (wind == null || temp == null || press == null) return false;
 
             var w = wind.Value;
-            windSpeed.Text = Doubles.RoundToInt(w.Speed).ToString();
+            windSpeed.Text = Numbers.RoundToInt(w.Speed).ToString();
 
             windDirection.Text =
-                ((Doubles.RoundToInt(w.Direction) - 1)
+                ((Numbers.RoundToInt(w.Direction) - 1)
                 .Mod(360) + 1)
                 .ToString()
                 .PadLeft(3, '0');
@@ -43,7 +43,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             altimeter.Text =
                 press.PressUnit == PressureUnit.inHg ?
                 Math.Round(press.Value, 2).ToString("0.00") :
-                Doubles.RoundToInt(press.Value).ToString();
+                Numbers.RoundToInt(press.Value).ToString();
 
             SetSurfCond(surfCond, precip);
 

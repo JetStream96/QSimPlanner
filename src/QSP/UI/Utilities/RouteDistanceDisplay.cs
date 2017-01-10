@@ -1,7 +1,7 @@
 ﻿using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using System.Windows.Forms;
-using static QSP.MathTools.Doubles;
+using static QSP.MathTools.Numbers;
 
 namespace QSP.UI.Utilities
 {

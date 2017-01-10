@@ -164,7 +164,6 @@
     <Compile Include="LibraryExtension\XmlSerialization\Interfaces.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\SerializationHelper.cs" />
     <Compile Include="MathTools\EarthGeometry.cs" />
-    <Compile Include="MathTools\Integers.cs" />
     <Compile Include="MathTools\Integration.cs" />
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />
     <Compile Include="MathTools\Tables\TableUtil.cs" />
@@ -370,7 +369,7 @@
     <Compile Include="LibraryExtension\JaggedArrays\LengthChecker.cs" />
     <Compile Include="LibraryExtension\Paths.cs" />
     <Compile Include="MathTools\Angles.cs" />
-    <Compile Include="MathTools\Doubles.cs" />
+    <Compile Include="MathTools\Numbers.cs" />
     <Compile Include="MathTools\Interpolation\Common.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate1D.cs" />
     <Compile Include="MathTools\Interpolation\Interpolate2D.cs" />

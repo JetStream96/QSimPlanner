@@ -94,7 +94,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
         private void SetLength(int lengthFt)
         {
             var factor = lengthUnitComboBox.SelectedIndex == 0 ? Constants.FtMeterRatio : 1.0;
-            lengthTxtBox.Text = Doubles.RoundToInt(lengthFt * factor).ToString();
+            lengthTxtBox.Text = Numbers.RoundToInt(lengthFt * factor).ToString();
         }
 
         private void rwyComboBoxIndexChanged(object sender, EventArgs e)
@@ -130,7 +130,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
                     Constants.FtMeterRatio :
                     Constants.MeterFtRatio;
 
-                lengthTxtBox.Text = Doubles.RoundToInt(len).ToString();
+                lengthTxtBox.Text = Numbers.RoundToInt(len).ToString();
             }
         }
     }

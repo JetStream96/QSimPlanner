@@ -1,4 +1,4 @@
-﻿using static QSP.MathTools.Doubles;
+﻿using static QSP.MathTools.Numbers;
 
 namespace QSP.AviationTools.Coordinates
 {

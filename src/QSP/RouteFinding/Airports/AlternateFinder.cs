@@ -62,7 +62,7 @@ namespace QSP.RouteFinding.Airports
                 result.Add(
                     new AlternateInfo(
                         i.Icao, i.Name, i.LongestRwyLength,
-                        Doubles.RoundToInt(distance)));
+                        Numbers.RoundToInt(distance)));
             }
 
             result.Sort(AlternateInfo.AltnDisComparer());

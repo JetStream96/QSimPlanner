@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static QSP.MathTools.Doubles;
+using static QSP.MathTools.Numbers;
 
 namespace QSP.NavData.OpenData
 {

@@ -36,7 +36,7 @@ namespace QSP.MathTools
             // be smaller than -1.0 or larger than 1.0, causing
             // Acos(innerProduct) to throw exception. 
 
-            return EarthRadiusNm * Doubles.SafeAcos(innerProduct);
+            return EarthRadiusNm * Numbers.SafeAcos(innerProduct);
         }
     }
 }

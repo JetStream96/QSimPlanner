@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using static QSP.AviationTools.Constants;
-using static QSP.MathTools.Doubles;
+using static QSP.MathTools.Numbers;
 
 namespace QSP.WindAloft
 {

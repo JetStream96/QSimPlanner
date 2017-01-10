@@ -203,7 +203,7 @@ namespace QSP.UI.UserControls.AirportMap
             else
             {
                 return airport.TransAlt.ToString() + " / FL" +
-                    Doubles.RoundToInt(airport.TransLvl / 100.0).ToString();
+                    Numbers.RoundToInt(airport.TransLvl / 100.0).ToString();
             }
         }
 

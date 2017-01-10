@@ -53,7 +53,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
                     temp = ConversionTools.ToFahrenheit(temp);
                 }
 
-                oatTxtBox.Text = Doubles.RoundToInt(temp).ToString();
+                oatTxtBox.Text = Numbers.RoundToInt(temp).ToString();
             }
         }
 
@@ -67,7 +67,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
                 {
                     // inHg -> hPa
                     press *= 1013.0 / 29.92;
-                    pressTxtBox.Text = Doubles.RoundToInt(press).ToString();
+                    pressTxtBox.Text = Numbers.RoundToInt(press).ToString();
                 }
                 else
                 {

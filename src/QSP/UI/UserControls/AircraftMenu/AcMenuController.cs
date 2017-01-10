@@ -95,7 +95,7 @@ namespace QSP.UI.UserControls.AircraftMenu
 
                 if (double.TryParse(j.Text, out wt))
                 {
-                    j.Text = Doubles.RoundToInt(wt * factor).ToString();
+                    j.Text = Numbers.RoundToInt(wt * factor).ToString();
                 }
             }
         }
@@ -180,7 +180,7 @@ namespace QSP.UI.UserControls.AircraftMenu
         private string WtDisplay(double weightKg)
         {
             var factor = elem.WeightUnitCBox.SelectedIndex == 0 ? 1.0 : Constants.KgLbRatio;
-            return Doubles.RoundToInt(weightKg * factor).ToString();
+            return Numbers.RoundToInt(weightKg * factor).ToString();
         }
 
         public void CreateConfig(object sender, EventArgs e)

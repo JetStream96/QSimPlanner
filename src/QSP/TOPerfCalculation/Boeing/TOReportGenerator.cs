@@ -31,10 +31,10 @@ namespace QSP.TOPerfCalculation.Boeing
                 table.WeightTableWet :
                 table.WeightTableDry;
 
-            int maxOat = Doubles.RoundToInt(fieldLimitWtTable.MaxOat);
+            int maxOat = Numbers.RoundToInt(fieldLimitWtTable.MaxOat);
             const int tempIncrement = 1;
 
-            int mainOat = Doubles.RoundToInt(para.OatCelsius);
+            int mainOat = Numbers.RoundToInt(para.OatCelsius);
             double rwyRequired = calc.TakeoffDistanceMeter(mainOat);
             ValidateMainResult(result, mainOat, rwyRequired);
 
@@ -54,9 +54,9 @@ namespace QSP.TOPerfCalculation.Boeing
                 if (calc.ClimbLimitWeightTon(oat) * 1000.0 >= para.WeightKg)
                 {
                     result.SetPrimaryResult(
-                        Doubles.RoundToInt(para.OatCelsius),
-                        Doubles.RoundToInt(rwyRequired),
-                        Doubles.RoundToInt(para.RwyLengthMeter - rwyRequired));
+                        Numbers.RoundToInt(para.OatCelsius),
+                        Numbers.RoundToInt(rwyRequired),
+                        Numbers.RoundToInt(para.RwyLengthMeter - rwyRequired));
                 }
                 else
                 {
@@ -77,8 +77,8 @@ namespace QSP.TOPerfCalculation.Boeing
             {
                 result.AddAssumedTemp(
                     oat,
-                    Doubles.RoundToInt(rwyRequired),
-                    Doubles.RoundToInt(para.RwyLengthMeter - rwyRequired));
+                    Numbers.RoundToInt(rwyRequired),
+                    Numbers.RoundToInt(para.RwyLengthMeter - rwyRequired));
 
                 return true;
             }

@@ -3,7 +3,7 @@ using QSP.UI.Controllers.Units;
 using System;
 using System.Drawing;
 using MetroFramework.Controls;
-using static QSP.MathTools.Doubles;
+using static QSP.MathTools.Numbers;
 using static System.Math;
 
 namespace QSP.UI.Controllers.WeightControl

@@ -11,7 +11,7 @@ using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using QSP.WindAloft;
 using static QSP.AviationTools.Constants;
-using static QSP.MathTools.Doubles;
+using static QSP.MathTools.Numbers;
 using static System.Math;
 using static QSP.FuelCalculation.Calculations.NextPlanNodeParameter;
 using static QSP.AviationTools.SpeedConversion;

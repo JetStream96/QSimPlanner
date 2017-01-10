@@ -199,7 +199,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
                 {
                     acListComboBox.Text = ac.Aircraft;
                     regComboBox.Text = ac.Registration;
-                    weightTxtBox.Text = Doubles.RoundToInt(frm.LandingWtKg).ToString();
+                    weightTxtBox.Text = Numbers.RoundToInt(frm.LandingWtKg).ToString();
                     wtUnitComboBox.SelectedIndex = (int)ac.WtUnit;
                 };
 

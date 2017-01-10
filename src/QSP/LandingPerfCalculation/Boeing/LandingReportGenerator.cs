@@ -1,6 +1,6 @@
 ﻿using QSP.Common;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
-using static QSP.MathTools.Doubles;
+using static QSP.MathTools.Numbers;
 
 namespace QSP.LandingPerfCalculation.Boeing
 {

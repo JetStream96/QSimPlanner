@@ -36,7 +36,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
 
         public int NearestIndex(double slope)
         {
-            int index = Doubles.RoundToInt((slope - items[0]) / 0.1);
+            int index = Numbers.RoundToInt((slope - items[0]) / 0.1);
             ExceptionHelpers.Ensure<ArgumentOutOfRangeException>(
                 index >= 0 && index < items.Length);
 

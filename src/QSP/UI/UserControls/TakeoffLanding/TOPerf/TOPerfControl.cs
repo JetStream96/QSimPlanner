@@ -318,7 +318,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             acListComboBox.Text = ac.Aircraft;
             regComboBox.Text = ac.Registration;
             wtUnitComboBox.SelectedIndex = (int)WeightUnit.KG;
-            weightTxtBox.Text = Doubles.RoundToInt(ac.TakeOffWeightKg).ToString();
+            weightTxtBox.Text = Numbers.RoundToInt(ac.TakeOffWeightKg).ToString();
             wtUnitComboBox.SelectedIndex = (int)ac.WtUnit;
         }
 

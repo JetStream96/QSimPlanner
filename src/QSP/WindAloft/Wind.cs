@@ -1,5 +1,5 @@
 using static System.Math;
-using static QSP.MathTools.Doubles;
+using static QSP.MathTools.Numbers;
 using static QSP.MathTools.Modulo;
 
 namespace QSP.WindAloft

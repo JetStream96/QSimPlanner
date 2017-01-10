@@ -29,7 +29,7 @@ using System.Windows.Forms;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using static QSP.AviationTools.Constants;
 using static QSP.AviationTools.SpeedConversion;
-using static QSP.MathTools.Doubles;
+using static QSP.MathTools.Numbers;
 using static QSP.UI.Factories.FormFactory;
 using static QSP.UI.MsgBox.MsgBoxHelper;
 using static QSP.UI.Utilities.RouteDistanceDisplay;

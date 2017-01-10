@@ -1,6 +1,6 @@
-﻿using static System.Math;
+﻿using QSP.MathTools;
+using static System.Math;
 using static QSP.AviationTools.ConversionTools;
-using static QSP.MathTools.Integers;
 
 namespace QSP.AviationTools
 {
@@ -65,7 +65,7 @@ namespace QSP.AviationTools
         {
             return 1.0 + 1.0 / 8.0 * (1.0 - delta) * mach * mach +
                     3.0 / 640.0 * (1.0 - 10.0 * delta + 9 * delta * delta)
-                    * Pow(mach, 4);
+                    * Numbers.Pow(mach, 4);
         }
 
         /// <summary>

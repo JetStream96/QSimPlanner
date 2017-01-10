@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QSP.UI.Utilities;
-using static QSP.MathTools.Doubles;
+using static QSP.MathTools.Numbers;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.UserControls

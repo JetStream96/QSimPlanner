@@ -22,6 +22,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using QSP.MathTools;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.MsgBox;
 using QSP.UI.UserControls.AircraftMenu;
@@ -338,9 +339,9 @@ namespace QSP.UI.Forms
                 var scroll = panel1.VerticalScroll;
                 if (scroll.Visible)
                 {
+                    scroll.Value = Numbers.LimitToRange(scroll.Value - e.Delta,
+                        scroll.Minimum, scroll.Maximum);
                     panel1.PerformLayout();
-                    scroll.Value= Math.Min(scroll.Maximum,
-                        Math.Max(scroll.Minimum, scroll.Value - e.Delta));
                 }
             };
         }
