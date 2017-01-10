@@ -224,7 +224,7 @@ namespace QSP.UI.Forms
             LoadSavedState();
             CheckRegistry();
             SubscribeEvents();
-            
+
             acMenu.Init(profiles);
             acMenu.AircraftsChanged += fuelMenu.RefreshAircrafts;
             acMenu.AircraftsChanged += toMenu.RefreshAircrafts;
@@ -325,23 +325,32 @@ namespace QSP.UI.Forms
             windDataStatusLabel.Click += windDataStatusLabel_Click;
             trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
             navBar.OptionLbl.Click += (s, e) => ShowOptionsForm();
+            OverrideScrollBar(this);
         }
 
-        private void OverrideScrollBar()
+        private void OverrideScrollBar(Control c)
         {
-            panel1.MouseWheel += (s, e) =>
+            c.Controls.Cast<Control>().ForEach(i => OverrideScrollBar(i));
+
+            c.MouseWheel += (s, e) =>
             {
-                ((HandledMouseEventArgs) e).Handled = true;
-                // Call custom handler
+                ((HandledMouseEventArgs)e).Handled = true;
+                var scroll = panel1.VerticalScroll;
+                if (scroll.Visible)
+                {
+                    panel1.PerformLayout();
+                    scroll.Value= Math.Min(scroll.Maximum,
+                        Math.Max(scroll.Minimum, scroll.Value - e.Delta));
+                }
             };
         }
 
         private void SetCursorStatusLabel()
         {
-            new[] {navDataStatusLabel,windDataStatusLabel,trackStatusLabel}.ForEach(i =>
+            new[] { navDataStatusLabel, windDataStatusLabel, trackStatusLabel }.ForEach(i =>
             {
-                i.MouseEnter += SetHandCursor;
-                i.MouseLeave += SetDefaultCursor;
+                i.MouseEnter += (s, e) => Cursor = Cursors.Hand;
+                i.MouseLeave += (s, e) => Cursor = Cursors.Default;
             });
         }
 
@@ -402,16 +411,6 @@ namespace QSP.UI.Forms
         private void ViewOptions(object sender, EventArgs e)
         {
             ShowOptionsForm();
-        }
-
-        private void SetHandCursor(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Hand;
-        }
-
-        private void SetDefaultCursor(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Default;
         }
 
         private void DownloadTracksIfNeeded()
