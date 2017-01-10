@@ -32,12 +32,12 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             UpdateSlopeItems();
 
             lengthUnitComboBox.Items.Clear();
-            lengthUnitComboBox.Items.AddRange(new string[] { "M", "FT" });
+            lengthUnitComboBox.Items.AddRange(new[] { "M", "FT" });
             lengthUnitComboBox.SelectedIndex = 0; // Meter
 
             reqAirportBtn.SetToolTip("Use airport and runway from 'Fuel' page.");
         }
-        
+
         private void UpdateSlopeItems()
         {
             slopeComboBox.Items.Clear();
@@ -69,12 +69,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             rwyComboBox.Enabled = false;
 
             var airportIcao = Icao;
-
-            if (airportIcao.Length != 4 || Airports == null)
-            {
-                return;
-            }
-
+            if (airportIcao.Length != 4 || Airports == null) return;
             var takeoffAirport = Airports[airportIcao];
 
             if (takeoffAirport != null && takeoffAirport.Rwys.Count > 0)
@@ -98,17 +93,8 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
 
         private void SetLength(int lengthFt)
         {
-            switch (lengthUnitComboBox.SelectedIndex)
-            {
-                case 0: // meter
-                    int len = Doubles.RoundToInt(lengthFt * Constants.FtMeterRatio);
-                    lengthTxtBox.Text = len.ToString();
-                    break;
-
-                case 1: // ft
-                    lengthTxtBox.Text = lengthFt.ToString();
-                    break;
-            }
+            var factor = lengthUnitComboBox.SelectedIndex == 0 ? Constants.FtMeterRatio : 1.0;
+            lengthTxtBox.Text = Doubles.RoundToInt(lengthFt * factor).ToString();
         }
 
         private void rwyComboBoxIndexChanged(object sender, EventArgs e)
@@ -133,25 +119,18 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
                 SetSlope((elevationOppositeRwyFt - elevationFt) * 100.0 / lengthFt);
             }
         }
-        
+
         private void lengthUnitSelectedChanged(object sender, EventArgs e)
         {
             double len;
 
             if (double.TryParse(lengthTxtBox.Text, out len))
             {
-                if (lengthUnitComboBox.SelectedIndex == 0)
-                {
-                    // ft -> m
-                    len *= Constants.FtMeterRatio;
-                }
-                else
-                {
-                    // m -> ft
-                    len *= Constants.MeterFtRatio;
-                }
+                len *= lengthUnitComboBox.SelectedIndex == 0 ?
+                    Constants.FtMeterRatio :
+                    Constants.MeterFtRatio;
 
-                lengthTxtBox.Text = ((int)Math.Round(len)).ToString();
+                lengthTxtBox.Text = Doubles.RoundToInt(len).ToString();
             }
         }
     }
