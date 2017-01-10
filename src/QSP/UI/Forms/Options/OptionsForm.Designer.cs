@@ -190,7 +190,7 @@
             this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(35, 31);
-            this.button6.TabIndex = 38;
+            this.button6.TabIndex = 5;
             this.button6.Text = " .. ";
             this.button6.UseVisualStyleBackColor = false;
             // 
@@ -206,7 +206,7 @@
             this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(35, 31);
-            this.button5.TabIndex = 37;
+            this.button5.TabIndex = 3;
             this.button5.Text = " .. ";
             this.button5.UseVisualStyleBackColor = false;
             // 
@@ -222,7 +222,7 @@
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(35, 31);
-            this.button4.TabIndex = 36;
+            this.button4.TabIndex = 1;
             this.button4.Text = " .. ";
             this.button4.UseVisualStyleBackColor = false;
             // 
@@ -233,7 +233,7 @@
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(347, 30);
-            this.textBox4.TabIndex = 33;
+            this.textBox4.TabIndex = 0;
             // 
             // checkBox4
             // 
@@ -258,7 +258,7 @@
             this.Button3.Margin = new System.Windows.Forms.Padding(4);
             this.Button3.Name = "Button3";
             this.Button3.Size = new System.Drawing.Size(35, 31);
-            this.Button3.TabIndex = 29;
+            this.Button3.TabIndex = 11;
             this.Button3.Text = " .. ";
             this.Button3.UseVisualStyleBackColor = false;
             // 
@@ -285,7 +285,7 @@
             this.Button2.Margin = new System.Windows.Forms.Padding(4);
             this.Button2.Name = "Button2";
             this.Button2.Size = new System.Drawing.Size(35, 31);
-            this.Button2.TabIndex = 26;
+            this.Button2.TabIndex = 9;
             this.Button2.Text = " .. ";
             this.Button2.UseVisualStyleBackColor = false;
             // 
@@ -296,7 +296,7 @@
             this.TextBox3.Margin = new System.Windows.Forms.Padding(4);
             this.TextBox3.Name = "TextBox3";
             this.TextBox3.Size = new System.Drawing.Size(347, 30);
-            this.TextBox3.TabIndex = 27;
+            this.TextBox3.TabIndex = 10;
             // 
             // Button1
             // 
@@ -310,7 +310,7 @@
             this.Button1.Margin = new System.Windows.Forms.Padding(4);
             this.Button1.Name = "Button1";
             this.Button1.Size = new System.Drawing.Size(35, 31);
-            this.Button1.TabIndex = 23;
+            this.Button1.TabIndex = 7;
             this.Button1.Text = " .. ";
             this.Button1.UseVisualStyleBackColor = false;
             // 
@@ -343,7 +343,7 @@
             this.TextBox2.Margin = new System.Windows.Forms.Padding(4);
             this.TextBox2.Name = "TextBox2";
             this.TextBox2.Size = new System.Drawing.Size(347, 30);
-            this.TextBox2.TabIndex = 24;
+            this.TextBox2.TabIndex = 8;
             // 
             // TextBox1
             // 
@@ -352,7 +352,7 @@
             this.TextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.TextBox1.Name = "TextBox1";
             this.TextBox1.Size = new System.Drawing.Size(347, 30);
-            this.TextBox1.TabIndex = 22;
+            this.TextBox1.TabIndex = 6;
             // 
             // checkBox5
             // 
@@ -383,7 +383,7 @@
             this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(347, 30);
-            this.textBox5.TabIndex = 34;
+            this.textBox5.TabIndex = 2;
             // 
             // textBox6
             // 
@@ -392,7 +392,7 @@
             this.textBox6.Margin = new System.Windows.Forms.Padding(4);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(347, 30);
-            this.textBox6.TabIndex = 35;
+            this.textBox6.TabIndex = 4;
             // 
             // PromptBeforeExit
             // 
@@ -401,7 +401,7 @@
             this.PromptBeforeExit.Location = new System.Drawing.Point(3, 69);
             this.PromptBeforeExit.Name = "PromptBeforeExit";
             this.PromptBeforeExit.Size = new System.Drawing.Size(259, 27);
-            this.PromptBeforeExit.TabIndex = 30;
+            this.PromptBeforeExit.TabIndex = 2;
             this.PromptBeforeExit.Text = "Ask before closing application";
             this.PromptBeforeExit.UseVisualStyleBackColor = true;
             // 
@@ -441,7 +441,7 @@
             this.showTrackIdOnlyCheckBox.Location = new System.Drawing.Point(3, 69);
             this.showTrackIdOnlyCheckBox.Name = "showTrackIdOnlyCheckBox";
             this.showTrackIdOnlyCheckBox.Size = new System.Drawing.Size(196, 27);
-            this.showTrackIdOnlyCheckBox.TabIndex = 37;
+            this.showTrackIdOnlyCheckBox.TabIndex = 2;
             this.showTrackIdOnlyCheckBox.Text = "Show track ident only";
             this.showTrackIdOnlyCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -452,7 +452,7 @@
             this.hideDctCheckBox.Location = new System.Drawing.Point(3, 36);
             this.hideDctCheckBox.Name = "hideDctCheckBox";
             this.hideDctCheckBox.Size = new System.Drawing.Size(234, 27);
-            this.hideDctCheckBox.TabIndex = 36;
+            this.hideDctCheckBox.TabIndex = 1;
             this.hideDctCheckBox.Text = "Hide \'DCT\' in route output";
             this.hideDctCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -463,7 +463,7 @@
             this.WindOptimizedRouteCheckBox.Location = new System.Drawing.Point(3, 3);
             this.WindOptimizedRouteCheckBox.Name = "WindOptimizedRouteCheckBox";
             this.WindOptimizedRouteCheckBox.Size = new System.Drawing.Size(230, 27);
-            this.WindOptimizedRouteCheckBox.TabIndex = 31;
+            this.WindOptimizedRouteCheckBox.TabIndex = 0;
             this.WindOptimizedRouteCheckBox.Text = "Use wind-optimized route";
             this.WindOptimizedRouteCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -474,7 +474,7 @@
             this.AutoDLWindCheckBox.Location = new System.Drawing.Point(3, 36);
             this.AutoDLWindCheckBox.Name = "AutoDLWindCheckBox";
             this.AutoDLWindCheckBox.Size = new System.Drawing.Size(393, 27);
-            this.AutoDLWindCheckBox.TabIndex = 31;
+            this.AutoDLWindCheckBox.TabIndex = 1;
             this.AutoDLWindCheckBox.Text = "Download upper winds at startup automatically";
             this.AutoDLWindCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -494,7 +494,7 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(352, 51);
-            this.tableLayoutPanel2.TabIndex = 8;
+            this.tableLayoutPanel2.TabIndex = 1;
             // 
             // saveBtn
             // 
@@ -506,7 +506,7 @@
             this.saveBtn.Location = new System.Drawing.Point(3, 3);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(120, 45);
-            this.saveBtn.TabIndex = 4;
+            this.saveBtn.TabIndex = 0;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = false;
             this.saveBtn.Click += new System.EventHandler(this.SaveBtnClick);
@@ -519,7 +519,7 @@
             this.cancelBtn.Location = new System.Drawing.Point(229, 3);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(120, 45);
-            this.cancelBtn.TabIndex = 5;
+            this.cancelBtn.TabIndex = 1;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.CancelBtnClick);
@@ -531,7 +531,7 @@
             this.AutoDLTracksCheckBox.Location = new System.Drawing.Point(3, 3);
             this.AutoDLTracksCheckBox.Name = "AutoDLTracksCheckBox";
             this.AutoDLTracksCheckBox.Size = new System.Drawing.Size(344, 27);
-            this.AutoDLTracksCheckBox.TabIndex = 30;
+            this.AutoDLTracksCheckBox.TabIndex = 0;
             this.AutoDLTracksCheckBox.Text = "Download tracks at startup automatically";
             this.AutoDLTracksCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -546,7 +546,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(718, 387);
-            this.tabControl1.TabIndex = 7;
+            this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -593,7 +593,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(527, 38);
-            this.tableLayoutPanel1.TabIndex = 2;
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // infoLbl
             // 
@@ -604,7 +604,7 @@
             this.infoLbl.Location = new System.Drawing.Point(486, 7);
             this.infoLbl.Name = "infoLbl";
             this.infoLbl.Size = new System.Drawing.Size(38, 23);
-            this.infoLbl.TabIndex = 3;
+            this.infoLbl.TabIndex = 2;
             this.infoLbl.Text = "[ ? ]";
             this.infoLbl.MouseEnter += new System.EventHandler(this.infoLbl_MouseEnter);
             this.infoLbl.MouseLeave += new System.EventHandler(this.infoLbl_MouseLeave);
@@ -618,7 +618,7 @@
             this.button14.Location = new System.Drawing.Point(445, 3);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(35, 32);
-            this.button14.TabIndex = 3;
+            this.button14.TabIndex = 1;
             this.button14.Text = " .. ";
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.BrowseBtnClick);
@@ -631,7 +631,7 @@
             this.pathTxtBox.Location = new System.Drawing.Point(160, 4);
             this.pathTxtBox.Name = "pathTxtBox";
             this.pathTxtBox.Size = new System.Drawing.Size(279, 30);
-            this.pathTxtBox.TabIndex = 3;
+            this.pathTxtBox.TabIndex = 0;
             this.pathTxtBox.TextChanged += new System.EventHandler(this.PathTxtBoxTextChanged);
             // 
             // label2
@@ -665,7 +665,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(379, 99);
-            this.tableLayoutPanel3.TabIndex = 4;
+            this.tableLayoutPanel3.TabIndex = 1;
             // 
             // navDataStatusLbl
             // 
@@ -823,7 +823,7 @@
             this.updateBtn.Location = new System.Drawing.Point(3, 40);
             this.updateBtn.Name = "updateBtn";
             this.updateBtn.Size = new System.Drawing.Size(115, 35);
-            this.updateBtn.TabIndex = 3;
+            this.updateBtn.TabIndex = 1;
             this.updateBtn.Text = "Update now";
             this.updateBtn.UseVisualStyleBackColor = true;
             this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
@@ -843,7 +843,7 @@
             this.updateFreqComboBox.Location = new System.Drawing.Point(182, 3);
             this.updateFreqComboBox.Name = "updateFreqComboBox";
             this.updateFreqComboBox.Size = new System.Drawing.Size(262, 31);
-            this.updateFreqComboBox.TabIndex = 4;
+            this.updateFreqComboBox.TabIndex = 0;
             // 
             // label7
             // 

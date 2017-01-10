@@ -55,7 +55,7 @@
             this.cancelBtn.Location = new System.Drawing.Point(159, 83);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(72, 32);
-            this.cancelBtn.TabIndex = 54;
+            this.cancelBtn.TabIndex = 3;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = false;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
@@ -70,7 +70,7 @@
             this.importFuelBtn.Location = new System.Drawing.Point(8, 3);
             this.importFuelBtn.Name = "importFuelBtn";
             this.importFuelBtn.Size = new System.Drawing.Size(196, 32);
-            this.importFuelBtn.TabIndex = 50;
+            this.importFuelBtn.TabIndex = 0;
             this.importFuelBtn.Text = "Use predicted landing fuel";
             this.importFuelBtn.UseVisualStyleBackColor = false;
             this.importFuelBtn.Click += new System.EventHandler(this.importFuelBtn_Click);
@@ -83,7 +83,7 @@
             this.okBtn.Location = new System.Drawing.Point(80, 83);
             this.okBtn.Name = "okBtn";
             this.okBtn.Size = new System.Drawing.Size(72, 32);
-            this.okBtn.TabIndex = 53;
+            this.okBtn.TabIndex = 2;
             this.okBtn.Text = "OK";
             this.okBtn.UseVisualStyleBackColor = false;
             this.okBtn.Click += new System.EventHandler(this.okBtn_Click);
@@ -94,7 +94,7 @@
             this.landingFuelTxtBox.Location = new System.Drawing.Point(158, 43);
             this.landingFuelTxtBox.Name = "landingFuelTxtBox";
             this.landingFuelTxtBox.Size = new System.Drawing.Size(86, 27);
-            this.landingFuelTxtBox.TabIndex = 51;
+            this.landingFuelTxtBox.TabIndex = 1;
             this.landingFuelTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // wtUnitLbl

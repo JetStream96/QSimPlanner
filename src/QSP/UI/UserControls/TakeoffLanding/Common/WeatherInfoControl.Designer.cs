@@ -89,7 +89,7 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(390, 37);
-            this.tableLayoutPanel2.TabIndex = 44;
+            this.tableLayoutPanel2.TabIndex = 0;
             // 
             // GetMetarBtn
             // 
@@ -235,7 +235,7 @@
             this.pressUnitComboBox.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.pressUnitComboBox.Name = "pressUnitComboBox";
             this.pressUnitComboBox.Size = new System.Drawing.Size(98, 31);
-            this.pressUnitComboBox.TabIndex = 1;
+            this.pressUnitComboBox.TabIndex = 5;
             this.pressUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.pressUnitComboBoxSelectedIndexChanged);
             // 
             // tempUnitComboBox
@@ -254,7 +254,7 @@
             this.tempUnitComboBox.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.tempUnitComboBox.Name = "tempUnitComboBox";
             this.tempUnitComboBox.Size = new System.Drawing.Size(98, 31);
-            this.tempUnitComboBox.TabIndex = 1;
+            this.tempUnitComboBox.TabIndex = 3;
             this.tempUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.tempUnitComboBoxSelectedIndexChanged);
             // 
             // windSpdTxtBox
@@ -288,7 +288,7 @@
             this.pressTxtBox.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.pressTxtBox.Name = "pressTxtBox";
             this.pressTxtBox.Size = new System.Drawing.Size(98, 30);
-            this.pressTxtBox.TabIndex = 0;
+            this.pressTxtBox.TabIndex = 4;
             this.pressTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Label104
@@ -311,7 +311,7 @@
             this.oatTxtBox.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.oatTxtBox.Name = "oatTxtBox";
             this.oatTxtBox.Size = new System.Drawing.Size(98, 30);
-            this.oatTxtBox.TabIndex = 0;
+            this.oatTxtBox.TabIndex = 2;
             this.oatTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Label107

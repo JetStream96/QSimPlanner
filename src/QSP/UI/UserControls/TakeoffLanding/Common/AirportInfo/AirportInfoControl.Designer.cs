@@ -120,7 +120,7 @@
             this.slopeComboBox.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.slopeComboBox.Name = "slopeComboBox";
             this.slopeComboBox.Size = new System.Drawing.Size(93, 31);
-            this.slopeComboBox.TabIndex = 7;
+            this.slopeComboBox.TabIndex = 8;
             // 
             // tableLayoutPanel2
             // 
@@ -205,7 +205,7 @@
             this.Label89.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Label89.Name = "Label89";
             this.Label89.Size = new System.Drawing.Size(24, 23);
-            this.Label89.TabIndex = 28;
+            this.Label89.TabIndex = 9;
             this.Label89.Text = "%";
             // 
             // Label94
@@ -288,7 +288,7 @@
             this.rwyHeadingTxtBox.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.rwyHeadingTxtBox.Name = "rwyHeadingTxtBox";
             this.rwyHeadingTxtBox.Size = new System.Drawing.Size(93, 30);
-            this.rwyHeadingTxtBox.TabIndex = 6;
+            this.rwyHeadingTxtBox.TabIndex = 7;
             this.rwyHeadingTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lengthTxtBox
@@ -321,7 +321,7 @@
             this.Label87.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Label87.Name = "Label87";
             this.Label87.Size = new System.Drawing.Size(27, 23);
-            this.Label87.TabIndex = 32;
+            this.Label87.TabIndex = 6;
             this.Label87.Text = "FT";
             // 
             // AirportInfoControl

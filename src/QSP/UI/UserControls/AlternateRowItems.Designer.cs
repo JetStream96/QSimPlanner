@@ -33,10 +33,10 @@
             this.DisLbl = new System.Windows.Forms.Label();
             this.RouteTxtBox = new System.Windows.Forms.TextBox();
             this.RouteLbl = new System.Windows.Forms.Label();
+            this.RwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.IcaoTxtBox = new System.Windows.Forms.TextBox();
             this.FindBtn = new System.Windows.Forms.Button();
             this.RwyLbl = new System.Windows.Forms.Label();
-            this.RwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,7 +82,7 @@
             this.ShowMoreBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ShowMoreBtn.Name = "ShowMoreBtn";
             this.ShowMoreBtn.Size = new System.Drawing.Size(78, 35);
-            this.ShowMoreBtn.TabIndex = 77;
+            this.ShowMoreBtn.TabIndex = 7;
             this.ShowMoreBtn.Text = "Actions";
             this.ShowMoreBtn.UseVisualStyleBackColor = false;
             // 
@@ -94,7 +94,7 @@
             this.DisLbl.Margin = new System.Windows.Forms.Padding(2);
             this.DisLbl.Name = "DisLbl";
             this.DisLbl.Size = new System.Drawing.Size(180, 22);
-            this.DisLbl.TabIndex = 78;
+            this.DisLbl.TabIndex = 6;
             // 
             // RouteTxtBox
             // 
@@ -105,7 +105,7 @@
             this.RouteTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.RouteTxtBox.Name = "RouteTxtBox";
             this.RouteTxtBox.Size = new System.Drawing.Size(450, 30);
-            this.RouteTxtBox.TabIndex = 76;
+            this.RouteTxtBox.TabIndex = 5;
             // 
             // RouteLbl
             // 
@@ -116,8 +116,23 @@
             this.RouteLbl.Margin = new System.Windows.Forms.Padding(2);
             this.RouteLbl.Name = "RouteLbl";
             this.RouteLbl.Size = new System.Drawing.Size(55, 23);
-            this.RouteLbl.TabIndex = 78;
+            this.RouteLbl.TabIndex = 4;
             this.RouteLbl.Text = "Route";
+            // 
+            // RwyComboBox
+            // 
+            this.RwyComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.RwyComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.RwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.RwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.RwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RwyComboBox.FormattingEnabled = true;
+            this.RwyComboBox.Location = new System.Drawing.Point(207, 4);
+            this.RwyComboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.RwyComboBox.Name = "RwyComboBox";
+            this.RwyComboBox.Size = new System.Drawing.Size(60, 31);
+            this.RwyComboBox.TabIndex = 3;
             // 
             // IcaoTxtBox
             // 
@@ -128,7 +143,7 @@
             this.IcaoTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.IcaoTxtBox.Name = "IcaoTxtBox";
             this.IcaoTxtBox.Size = new System.Drawing.Size(70, 30);
-            this.IcaoTxtBox.TabIndex = 75;
+            this.IcaoTxtBox.TabIndex = 0;
             this.IcaoTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // FindBtn
@@ -144,7 +159,7 @@
             this.FindBtn.Margin = new System.Windows.Forms.Padding(2);
             this.FindBtn.Name = "FindBtn";
             this.FindBtn.Size = new System.Drawing.Size(54, 35);
-            this.FindBtn.TabIndex = 76;
+            this.FindBtn.TabIndex = 1;
             this.FindBtn.Text = "Find";
             this.FindBtn.UseVisualStyleBackColor = false;
             this.FindBtn.Click += new System.EventHandler(this.FindBtnClick);
@@ -158,23 +173,8 @@
             this.RwyLbl.Margin = new System.Windows.Forms.Padding(2);
             this.RwyLbl.Name = "RwyLbl";
             this.RwyLbl.Size = new System.Drawing.Size(69, 23);
-            this.RwyLbl.TabIndex = 77;
+            this.RwyLbl.TabIndex = 2;
             this.RwyLbl.Text = "Runway";
-            // 
-            // RwyComboBox
-            // 
-            this.RwyComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.RwyComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.RwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.RwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.RwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RwyComboBox.FormattingEnabled = true;
-            this.RwyComboBox.Location = new System.Drawing.Point(207, 4);
-            this.RwyComboBox.Margin = new System.Windows.Forms.Padding(2);
-            this.RwyComboBox.Name = "RwyComboBox";
-            this.RwyComboBox.Size = new System.Drawing.Size(60, 31);
-            this.RwyComboBox.TabIndex = 74;
             // 
             // AlternateRowItems
             // 

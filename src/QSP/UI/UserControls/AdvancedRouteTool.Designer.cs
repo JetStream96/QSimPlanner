@@ -144,7 +144,7 @@
             this.routeRichTxtBox.Location = new System.Drawing.Point(13, 227);
             this.routeRichTxtBox.Name = "routeRichTxtBox";
             this.routeRichTxtBox.Size = new System.Drawing.Size(793, 92);
-            this.routeRichTxtBox.TabIndex = 16;
+            this.routeRichTxtBox.TabIndex = 14;
             this.routeRichTxtBox.Text = "";
             // 
             // routeSummaryLbl
@@ -174,7 +174,7 @@
             this.fromIdentTxtBox.Location = new System.Drawing.Point(151, 30);
             this.fromIdentTxtBox.Name = "fromIdentTxtBox";
             this.fromIdentTxtBox.Size = new System.Drawing.Size(91, 30);
-            this.fromIdentTxtBox.TabIndex = 20;
+            this.fromIdentTxtBox.TabIndex = 1;
             this.fromIdentTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // toIdentTxtBox
@@ -184,7 +184,7 @@
             this.toIdentTxtBox.Location = new System.Drawing.Point(151, 98);
             this.toIdentTxtBox.Name = "toIdentTxtBox";
             this.toIdentTxtBox.Size = new System.Drawing.Size(91, 30);
-            this.toIdentTxtBox.TabIndex = 22;
+            this.toIdentTxtBox.TabIndex = 7;
             this.toIdentTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // toIdentLbl
@@ -208,7 +208,7 @@
             this.filterStarBtn.Location = new System.Drawing.Point(461, 97);
             this.filterStarBtn.Name = "filterStarBtn";
             this.filterStarBtn.Size = new System.Drawing.Size(54, 31);
-            this.filterStarBtn.TabIndex = 24;
+            this.filterStarBtn.TabIndex = 10;
             this.filterStarBtn.Text = "Filter";
             this.filterStarBtn.UseVisualStyleBackColor = false;
             // 
@@ -223,7 +223,7 @@
             this.filterSidBtn.Location = new System.Drawing.Point(461, 29);
             this.filterSidBtn.Name = "filterSidBtn";
             this.filterSidBtn.Size = new System.Drawing.Size(54, 31);
-            this.filterSidBtn.TabIndex = 23;
+            this.filterSidBtn.TabIndex = 4;
             this.filterSidBtn.Text = "Filter";
             this.filterSidBtn.UseVisualStyleBackColor = false;
             // 
@@ -249,7 +249,7 @@
             this.routeOptionBtn.Location = new System.Drawing.Point(13, 153);
             this.routeOptionBtn.Name = "routeOptionBtn";
             this.routeOptionBtn.Size = new System.Drawing.Size(82, 35);
-            this.routeOptionBtn.TabIndex = 81;
+            this.routeOptionBtn.TabIndex = 12;
             this.routeOptionBtn.Text = "Options";
             this.routeOptionBtn.UseVisualStyleBackColor = false;
             // 
@@ -265,7 +265,7 @@
             this.showRouteActionsBtn.Location = new System.Drawing.Point(110, 153);
             this.showRouteActionsBtn.Name = "showRouteActionsBtn";
             this.showRouteActionsBtn.Size = new System.Drawing.Size(78, 35);
-            this.showRouteActionsBtn.TabIndex = 80;
+            this.showRouteActionsBtn.TabIndex = 13;
             this.showRouteActionsBtn.Text = "Actions";
             this.showRouteActionsBtn.UseVisualStyleBackColor = false;
             // 
@@ -280,7 +280,7 @@
             this.toWptComboBox.Location = new System.Drawing.Point(520, 97);
             this.toWptComboBox.Name = "toWptComboBox";
             this.toWptComboBox.Size = new System.Drawing.Size(286, 31);
-            this.toWptComboBox.TabIndex = 15;
+            this.toWptComboBox.TabIndex = 11;
             // 
             // starComboBox
             // 
@@ -293,7 +293,7 @@
             this.starComboBox.Location = new System.Drawing.Point(343, 97);
             this.starComboBox.Name = "starComboBox";
             this.starComboBox.Size = new System.Drawing.Size(113, 31);
-            this.starComboBox.TabIndex = 13;
+            this.starComboBox.TabIndex = 9;
             // 
             // toRwyComboBox
             // 
@@ -306,7 +306,7 @@
             this.toRwyComboBox.Location = new System.Drawing.Point(252, 97);
             this.toRwyComboBox.Name = "toRwyComboBox";
             this.toRwyComboBox.Size = new System.Drawing.Size(79, 31);
-            this.toRwyComboBox.TabIndex = 11;
+            this.toRwyComboBox.TabIndex = 8;
             // 
             // fromWptComboBox
             // 
@@ -319,7 +319,7 @@
             this.fromWptComboBox.Location = new System.Drawing.Point(520, 29);
             this.fromWptComboBox.Name = "fromWptComboBox";
             this.fromWptComboBox.Size = new System.Drawing.Size(286, 31);
-            this.fromWptComboBox.TabIndex = 9;
+            this.fromWptComboBox.TabIndex = 5;
             // 
             // sidComboBox
             // 
@@ -332,7 +332,7 @@
             this.sidComboBox.Location = new System.Drawing.Point(343, 29);
             this.sidComboBox.Name = "sidComboBox";
             this.sidComboBox.Size = new System.Drawing.Size(113, 31);
-            this.sidComboBox.TabIndex = 7;
+            this.sidComboBox.TabIndex = 3;
             // 
             // fromRwyComboBox
             // 
@@ -345,7 +345,7 @@
             this.fromRwyComboBox.Location = new System.Drawing.Point(252, 29);
             this.fromRwyComboBox.Name = "fromRwyComboBox";
             this.fromRwyComboBox.Size = new System.Drawing.Size(79, 31);
-            this.fromRwyComboBox.TabIndex = 5;
+            this.fromRwyComboBox.TabIndex = 2;
             // 
             // toTypeComboBox
             // 
@@ -358,7 +358,7 @@
             this.toTypeComboBox.Location = new System.Drawing.Point(13, 97);
             this.toTypeComboBox.Name = "toTypeComboBox";
             this.toTypeComboBox.Size = new System.Drawing.Size(129, 31);
-            this.toTypeComboBox.TabIndex = 3;
+            this.toTypeComboBox.TabIndex = 6;
             // 
             // fromTypeComboBox
             // 
@@ -371,7 +371,7 @@
             this.fromTypeComboBox.Location = new System.Drawing.Point(13, 29);
             this.fromTypeComboBox.Name = "fromTypeComboBox";
             this.fromTypeComboBox.Size = new System.Drawing.Size(129, 31);
-            this.fromTypeComboBox.TabIndex = 2;
+            this.fromTypeComboBox.TabIndex = 0;
             // 
             // AdvancedRouteTool
             // 

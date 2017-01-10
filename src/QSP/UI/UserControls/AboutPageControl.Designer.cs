@@ -112,7 +112,7 @@
             this.githubBtn.MinimumSize = new System.Drawing.Size(85, 0);
             this.githubBtn.Name = "githubBtn";
             this.githubBtn.Size = new System.Drawing.Size(85, 32);
-            this.githubBtn.TabIndex = 5;
+            this.githubBtn.TabIndex = 2;
             this.githubBtn.Text = "Github";
             this.githubBtn.UseVisualStyleBackColor = true;
             this.githubBtn.Click += new System.EventHandler(this.githubBtn_Click);
@@ -129,7 +129,7 @@
             this.siteBtn.MinimumSize = new System.Drawing.Size(85, 0);
             this.siteBtn.Name = "siteBtn";
             this.siteBtn.Size = new System.Drawing.Size(85, 32);
-            this.siteBtn.TabIndex = 4;
+            this.siteBtn.TabIndex = 1;
             this.siteBtn.Text = "Website";
             this.siteBtn.UseVisualStyleBackColor = true;
             this.siteBtn.Click += new System.EventHandler(this.siteBtn_Click);
@@ -146,7 +146,7 @@
             this.licenseBtn.MinimumSize = new System.Drawing.Size(85, 0);
             this.licenseBtn.Name = "licenseBtn";
             this.licenseBtn.Size = new System.Drawing.Size(85, 32);
-            this.licenseBtn.TabIndex = 3;
+            this.licenseBtn.TabIndex = 0;
             this.licenseBtn.Text = "License";
             this.licenseBtn.UseVisualStyleBackColor = true;
             this.licenseBtn.Click += new System.EventHandler(this.licenseBtn_Click);

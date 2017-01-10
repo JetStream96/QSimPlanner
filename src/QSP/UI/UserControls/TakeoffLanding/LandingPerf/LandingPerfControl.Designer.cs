@@ -32,7 +32,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
         private void InitializeComponent()
         {
             this.GroupBox13 = new System.Windows.Forms.GroupBox();
-            this.airportInfoControl = new AirportInfoControl();
+            this.airportInfoControl = new QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo.AirportInfoControl();
             this.GroupBox14 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.regComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
@@ -54,7 +54,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.weightTxtBox = new System.Windows.Forms.TextBox();
             this.calculateBtn = new System.Windows.Forms.Button();
             this.GroupBox15 = new System.Windows.Forms.GroupBox();
-            this.weatherInfoControl = new WeatherInfoControl();
+            this.weatherInfoControl = new QSP.UI.UserControls.TakeoffLanding.Common.WeatherInfoControl();
             this.GroupBox16 = new System.Windows.Forms.GroupBox();
             this.resultsRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -433,7 +433,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.GroupBox16.Name = "GroupBox16";
             this.GroupBox16.Padding = new System.Windows.Forms.Padding(2);
             this.GroupBox16.Size = new System.Drawing.Size(1015, 291);
-            this.GroupBox16.TabIndex = 4;
+            this.GroupBox16.TabIndex = 0;
             this.GroupBox16.TabStop = false;
             this.GroupBox16.Text = "Results";
             // 

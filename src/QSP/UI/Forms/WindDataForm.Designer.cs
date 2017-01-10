@@ -67,7 +67,7 @@
             this.downloadBtn.MinimumSize = new System.Drawing.Size(200, 0);
             this.downloadBtn.Name = "downloadBtn";
             this.downloadBtn.Size = new System.Drawing.Size(200, 35);
-            this.downloadBtn.TabIndex = 26;
+            this.downloadBtn.TabIndex = 0;
             this.downloadBtn.Text = "Download / Refresh";
             this.downloadBtn.UseVisualStyleBackColor = false;
             // 
@@ -86,7 +86,7 @@
             this.saveFileBtn.MinimumSize = new System.Drawing.Size(200, 0);
             this.saveFileBtn.Name = "saveFileBtn";
             this.saveFileBtn.Size = new System.Drawing.Size(200, 35);
-            this.saveFileBtn.TabIndex = 27;
+            this.saveFileBtn.TabIndex = 2;
             this.saveFileBtn.Text = "Save wind data";
             this.saveFileBtn.UseVisualStyleBackColor = false;
             // 
@@ -105,7 +105,7 @@
             this.loadFileBtn.MinimumSize = new System.Drawing.Size(200, 0);
             this.loadFileBtn.Name = "loadFileBtn";
             this.loadFileBtn.Size = new System.Drawing.Size(200, 35);
-            this.loadFileBtn.TabIndex = 28;
+            this.loadFileBtn.TabIndex = 1;
             this.loadFileBtn.Text = "Load wind data";
             this.loadFileBtn.UseVisualStyleBackColor = false;
             // 

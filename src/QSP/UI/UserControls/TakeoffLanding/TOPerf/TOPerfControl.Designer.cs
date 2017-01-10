@@ -32,7 +32,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
         private void InitializeComponent()
         {
             this.GroupBox13 = new System.Windows.Forms.GroupBox();
-            this.airportInfoControl = new AirportInfoControl();
+            this.airportInfoControl = new QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo.AirportInfoControl();
             this.GroupBox14 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -57,7 +57,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             this.GroupBox16 = new System.Windows.Forms.GroupBox();
             this.resultsRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.GroupBox15 = new System.Windows.Forms.GroupBox();
-            this.weatherInfoControl = new WeatherInfoControl();
+            this.weatherInfoControl = new QSP.UI.UserControls.TakeoffLanding.Common.WeatherInfoControl();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.GroupBox13.SuspendLayout();
@@ -160,7 +160,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(210, 35);
-            this.tableLayoutPanel2.TabIndex = 2;
+            this.tableLayoutPanel2.TabIndex = 3;
             // 
             // weightTxtBox
             // 
@@ -206,7 +206,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(210, 35);
-            this.tableLayoutPanel4.TabIndex = 2;
+            this.tableLayoutPanel4.TabIndex = 4;
             // 
             // thrustRatingLbl
             // 
@@ -217,7 +217,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             this.thrustRatingLbl.Margin = new System.Windows.Forms.Padding(0);
             this.thrustRatingLbl.Name = "thrustRatingLbl";
             this.thrustRatingLbl.Size = new System.Drawing.Size(95, 23);
-            this.thrustRatingLbl.TabIndex = 43;
+            this.thrustRatingLbl.TabIndex = 1;
             this.thrustRatingLbl.Text = "THR Rating";
             // 
             // flapsComboBox
@@ -248,7 +248,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             this.packsComboBox.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.packsComboBox.Name = "packsComboBox";
             this.packsComboBox.Size = new System.Drawing.Size(205, 31);
-            this.packsComboBox.TabIndex = 5;
+            this.packsComboBox.TabIndex = 7;
             // 
             // Label99
             // 
@@ -291,7 +291,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             this.antiIceComboBox.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.antiIceComboBox.Name = "antiIceComboBox";
             this.antiIceComboBox.Size = new System.Drawing.Size(205, 31);
-            this.antiIceComboBox.TabIndex = 4;
+            this.antiIceComboBox.TabIndex = 6;
             // 
             // Label102
             // 
@@ -382,7 +382,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             this.requestBtn.Name = "requestBtn";
             this.requestBtn.Padding = new System.Windows.Forms.Padding(9, 0, 9, 0);
             this.requestBtn.Size = new System.Drawing.Size(101, 35);
-            this.requestBtn.TabIndex = 1;
+            this.requestBtn.TabIndex = 2;
             this.requestBtn.Text = "Request";
             this.requestBtn.UseVisualStyleBackColor = false;
             this.requestBtn.Visible = false;
@@ -405,7 +405,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             this.thrustRatingComboBox.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.thrustRatingComboBox.Name = "thrustRatingComboBox";
             this.thrustRatingComboBox.Size = new System.Drawing.Size(110, 31);
-            this.thrustRatingComboBox.TabIndex = 3;
+            this.thrustRatingComboBox.TabIndex = 5;
             // 
             // calculateBtn
             // 
