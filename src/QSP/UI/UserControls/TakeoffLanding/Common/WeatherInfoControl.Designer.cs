@@ -147,7 +147,7 @@
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(393, 37);
-            this.tableLayoutPanel3.TabIndex = 3;
+            this.tableLayoutPanel3.TabIndex = 2;
             // 
             // surfCondComboBox
             // 
@@ -205,7 +205,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(451, 110);
-            this.tableLayoutPanel1.TabIndex = 44;
+            this.tableLayoutPanel1.TabIndex = 1;
             // 
             // Label103
             // 

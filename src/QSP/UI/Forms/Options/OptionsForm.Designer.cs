@@ -190,7 +190,7 @@
             this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(35, 31);
-            this.button6.TabIndex = 5;
+            this.button6.TabIndex = 8;
             this.button6.Text = " .. ";
             this.button6.UseVisualStyleBackColor = false;
             // 
@@ -206,7 +206,7 @@
             this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(35, 31);
-            this.button5.TabIndex = 3;
+            this.button5.TabIndex = 5;
             this.button5.Text = " .. ";
             this.button5.UseVisualStyleBackColor = false;
             // 
@@ -222,7 +222,7 @@
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(35, 31);
-            this.button4.TabIndex = 1;
+            this.button4.TabIndex = 2;
             this.button4.Text = " .. ";
             this.button4.UseVisualStyleBackColor = false;
             // 
@@ -233,7 +233,7 @@
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(347, 30);
-            this.textBox4.TabIndex = 0;
+            this.textBox4.TabIndex = 1;
             // 
             // checkBox4
             // 
@@ -242,7 +242,7 @@
             this.checkBox4.Location = new System.Drawing.Point(3, 3);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(59, 27);
-            this.checkBox4.TabIndex = 30;
+            this.checkBox4.TabIndex = 0;
             this.checkBox4.Text = "FSX";
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
@@ -258,7 +258,7 @@
             this.Button3.Margin = new System.Windows.Forms.Padding(4);
             this.Button3.Name = "Button3";
             this.Button3.Size = new System.Drawing.Size(35, 31);
-            this.Button3.TabIndex = 11;
+            this.Button3.TabIndex = 17;
             this.Button3.Text = " .. ";
             this.Button3.UseVisualStyleBackColor = false;
             // 
@@ -269,7 +269,7 @@
             this.CheckBox1.Location = new System.Drawing.Point(3, 120);
             this.CheckBox1.Name = "CheckBox1";
             this.CheckBox1.Size = new System.Drawing.Size(157, 27);
-            this.CheckBox1.TabIndex = 23;
+            this.CheckBox1.TabIndex = 9;
             this.CheckBox1.Text = "PMDG Common";
             this.CheckBox1.UseVisualStyleBackColor = true;
             // 
@@ -285,7 +285,7 @@
             this.Button2.Margin = new System.Windows.Forms.Padding(4);
             this.Button2.Name = "Button2";
             this.Button2.Size = new System.Drawing.Size(35, 31);
-            this.Button2.TabIndex = 9;
+            this.Button2.TabIndex = 14;
             this.Button2.Text = " .. ";
             this.Button2.UseVisualStyleBackColor = false;
             // 
@@ -296,7 +296,7 @@
             this.TextBox3.Margin = new System.Windows.Forms.Padding(4);
             this.TextBox3.Name = "TextBox3";
             this.TextBox3.Size = new System.Drawing.Size(347, 30);
-            this.TextBox3.TabIndex = 10;
+            this.TextBox3.TabIndex = 16;
             // 
             // Button1
             // 
@@ -310,7 +310,7 @@
             this.Button1.Margin = new System.Windows.Forms.Padding(4);
             this.Button1.Name = "Button1";
             this.Button1.Size = new System.Drawing.Size(35, 31);
-            this.Button1.TabIndex = 7;
+            this.Button1.TabIndex = 11;
             this.Button1.Text = " .. ";
             this.Button1.UseVisualStyleBackColor = false;
             // 
@@ -321,7 +321,7 @@
             this.CheckBox3.Location = new System.Drawing.Point(3, 198);
             this.CheckBox3.Name = "CheckBox3";
             this.CheckBox3.Size = new System.Drawing.Size(113, 27);
-            this.CheckBox3.TabIndex = 28;
+            this.CheckBox3.TabIndex = 15;
             this.CheckBox3.Text = "PMDG 777";
             this.CheckBox3.UseVisualStyleBackColor = true;
             // 
@@ -332,7 +332,7 @@
             this.CheckBox2.Location = new System.Drawing.Point(3, 159);
             this.CheckBox2.Name = "CheckBox2";
             this.CheckBox2.Size = new System.Drawing.Size(121, 27);
-            this.CheckBox2.TabIndex = 25;
+            this.CheckBox2.TabIndex = 12;
             this.CheckBox2.Text = "PMDG NGX";
             this.CheckBox2.UseVisualStyleBackColor = true;
             // 
@@ -343,7 +343,7 @@
             this.TextBox2.Margin = new System.Windows.Forms.Padding(4);
             this.TextBox2.Name = "TextBox2";
             this.TextBox2.Size = new System.Drawing.Size(347, 30);
-            this.TextBox2.TabIndex = 8;
+            this.TextBox2.TabIndex = 13;
             // 
             // TextBox1
             // 
@@ -352,7 +352,7 @@
             this.TextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.TextBox1.Name = "TextBox1";
             this.TextBox1.Size = new System.Drawing.Size(347, 30);
-            this.TextBox1.TabIndex = 6;
+            this.TextBox1.TabIndex = 10;
             // 
             // checkBox5
             // 
@@ -361,7 +361,7 @@
             this.checkBox5.Location = new System.Drawing.Point(3, 42);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(63, 27);
-            this.checkBox5.TabIndex = 31;
+            this.checkBox5.TabIndex = 3;
             this.checkBox5.Text = "P3D";
             this.checkBox5.UseVisualStyleBackColor = true;
             // 
@@ -372,7 +372,7 @@
             this.checkBox6.Location = new System.Drawing.Point(3, 81);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(128, 27);
-            this.checkBox6.TabIndex = 32;
+            this.checkBox6.TabIndex = 6;
             this.checkBox6.Text = "FS9 / FS2004";
             this.checkBox6.UseVisualStyleBackColor = true;
             // 
@@ -383,7 +383,7 @@
             this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(347, 30);
-            this.textBox5.TabIndex = 2;
+            this.textBox5.TabIndex = 4;
             // 
             // textBox6
             // 
@@ -392,7 +392,7 @@
             this.textBox6.Margin = new System.Windows.Forms.Padding(4);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(347, 30);
-            this.textBox6.TabIndex = 4;
+            this.textBox6.TabIndex = 7;
             // 
             // PromptBeforeExit
             // 
