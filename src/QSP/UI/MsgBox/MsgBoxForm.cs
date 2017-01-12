@@ -23,7 +23,7 @@ namespace QSP.UI.MsgBox
         }
 
         public void Init(string text, MsgBoxIcon icon, string caption,
-            DefaultButton btn, string[] buttonTxt)
+            DefaultButton btn, params string[] buttonTxt)
         {
             var len = buttonTxt.Length;
             Ensure<ArgumentException>(len > (int)btn);
