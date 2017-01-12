@@ -21,7 +21,7 @@ namespace QSP.Updates
     //
     public class PostUpdateAction
     {
-        private Version backupVersion, newVersion;
+        private Version backupVersion;
 
         public PostUpdateAction() { }
 
@@ -34,7 +34,6 @@ namespace QSP.Updates
             if (ver.Backup == "") return;
 
             backupVersion = Version.Parse(ver.Backup);
-            newVersion = Version.Parse(ver.Current);
 
             if (RequireAction())
             {

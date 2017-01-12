@@ -21,8 +21,8 @@ namespace QSP.TOPerfCalculation.Boeing
         /// Computes runway length required for take off, 
         /// for user input and all available assumed temperatures.
         /// </summary>
-        /// <exception cref="RunwayTooShortException">
-        /// <exception cref="PoorClimbPerformanceException">
+        /// <exception cref="RunwayTooShortException"></exception>
+        /// <exception cref="PoorClimbPerformanceException"></exception>
         public TOReport TakeOffReport()
         {
             var result = new TOReport();

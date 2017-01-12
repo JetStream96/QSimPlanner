@@ -45,7 +45,6 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             while (queue.Count > 0)
             {
-                var peek = queue.Peek();
                 if (cmds.Contains(queue.Peek())) break;
                 route.Add(queue.Dequeue());
             }

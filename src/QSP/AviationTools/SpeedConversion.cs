@@ -43,7 +43,7 @@ namespace QSP.AviationTools
 
             double eas = kcas;
             var delta = Delta(altFt);
-            double mach = 0.0;
+            double mach;
             const int iterationCount = 5;
 
             // Use iteration to improve accuracy.

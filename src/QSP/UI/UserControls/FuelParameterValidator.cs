@@ -19,7 +19,6 @@ namespace QSP.UI.UserControls
         {
             var c = control;
 
-            var WtUnit = c.WeightUnit;
             double ZfwKg = ImportRequireNonNegative(c.Zfw, "Invalid ZFW.");
             double ContPerc = ParseNonNegative(
                 c.ContPercentComboBox, "Invalid contingency fuel.");

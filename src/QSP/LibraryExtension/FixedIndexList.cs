@@ -150,25 +150,13 @@ namespace QSP.LibraryExtension
             }
         }
 
-        public int Count
-        {
-            get
-            {
-                return _count;
-            }
-        }
+        public int Count => _count;
 
         /// <summary>
         /// The upper bound of indices of elements, if the list is non-empty.
         /// If the list is empty this number can be negative.
         /// </summary>
-        public int IndexUpperBound
-        {
-            get
-            {
-                return _size - 1;
-            }
-        }
+        public int IndexUpperBound => _size - 1;
 
         public T this[int index]
         {
@@ -202,7 +190,7 @@ namespace QSP.LibraryExtension
 
         private bool IsRemoved(int index)
         {
-            return !(_items[index].next == -1);
+            return _items[index].next != -1;
         }
 
         public bool ItemExists(int index)
@@ -246,13 +234,7 @@ namespace QSP.LibraryExtension
                 current = default(T);
             }
 
-            public T Current
-            {
-                get
-                {
-                    return current;
-                }
-            }
+            public T Current => current;
 
             object IEnumerator.Current
             {

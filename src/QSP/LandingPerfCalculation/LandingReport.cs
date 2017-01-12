@@ -64,11 +64,10 @@ namespace QSP.LandingPerfCalculation
                                .PadLeft(12, ' ')
                                .PadRight(19, ' '));
 
-                result.AppendLine(((ConvertToFeetIfNeeded(i.DisRemainMeter, lengthUnit) +
-                                    " " +
-                                    unitStr)
-                                    .ToString())
-                                    .PadLeft(11, ' '));
+                result.AppendLine(
+                    (ConvertToFeetIfNeeded(i.DisRemainMeter, lengthUnit) + " " + unitStr)
+                    .ToString()
+                    .PadLeft(11, ' '));
             }
             return result.ToString();
         }

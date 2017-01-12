@@ -18,7 +18,6 @@ namespace QSP.RouteFinding.FileExport
         private AirportManager airports;
 
         private IEnumerable<ExportCommand> commands;
-        private List<Status> _reports;
 
         public FileExporter(
             Route route,
@@ -36,8 +35,7 @@ namespace QSP.RouteFinding.FileExport
         /// <exception cref="NoFileNameAvailException"></exception>
         public IEnumerable<Status> Export()
         {
-            _reports = new List<Status>();
-            var cmdToExport = commands.Where(i => i.Enabled);
+            var cmdToExport = commands.Where(i => i.Enabled).ToList();
             var nameBase = GetFileNameBase();
             const int maxAttemptCount = 10000;
 
@@ -51,8 +49,7 @@ namespace QSP.RouteFinding.FileExport
                 }
             }
 
-            throw new NoFileNameAvailException(
-                "No suitable file name can be generated.");
+            throw new NoFileNameAvailException("No suitable file name can be generated.");
         }
 
         private Status Export(string nameBase, ExportCommand c, int i)

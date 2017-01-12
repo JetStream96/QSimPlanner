@@ -99,7 +99,7 @@ namespace QSP.Metar
 				""	  // Moderate
 			*/
 
-            var descriptor = new string[]
+            var descriptor = new[]
             {
                 "MI", //  Shallow
 				"PR", //  Partial
@@ -112,7 +112,7 @@ namespace QSP.Metar
                 "",
             };
 
-            var precipitation = new string[]
+            var precipitation = new[]
             {
                 "DZ", // Drizzle
                 "RA", // Rain

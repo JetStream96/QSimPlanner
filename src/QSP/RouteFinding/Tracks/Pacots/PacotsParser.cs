@@ -7,16 +7,12 @@ namespace QSP.RouteFinding.Tracks.Pacots
 {
     public class PacotsParser : ITrackParser<PacificTrack>
     {
-        private StatusRecorder statusRecorder;
         private AirportManager airportList;
         private PacotsMessage message;
 
-        public PacotsParser(ITrackMessage message,
-                            StatusRecorder statusRecorder,
-                            AirportManager airportList)
+        public PacotsParser(ITrackMessage message, AirportManager airportList)
         {
             this.message = (PacotsMessage)message;
-            this.statusRecorder = statusRecorder;
             this.airportList = airportList;
         }
 

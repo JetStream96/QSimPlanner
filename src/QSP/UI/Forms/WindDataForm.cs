@@ -55,12 +55,7 @@ namespace QSP.UI.Forms
             downloadBtn.Enabled = true;
             loadFileBtn.Enabled = true;
         }
-
-        private async Task downlaodBtn_Click(object sender, EventArgs e)
-        {
-            await DownloadWind();
-        }
-
+        
         public async Task DownloadWind()
         {
             downloadBtn.Enabled = false;

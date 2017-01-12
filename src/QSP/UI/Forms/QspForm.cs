@@ -56,9 +56,6 @@ namespace QSP.UI.Forms
 
         private AppOptions appSettings => appOptionsLocator.Instance;
         private AirportManager airportList => airwayNetwork.AirportList;
-        private WaypointList wptList => airwayNetwork.WptList;
-        private TrackInUseCollection tracksInUse => airwayNetwork.TracksInUse;
-        private CountryCodeManager countryCodes => countryCodesLocator.Instance;
 
         private IEnumerable<UserControl> Pages
         {

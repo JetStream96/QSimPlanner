@@ -33,8 +33,7 @@ namespace QSP.Common.Options
             return new AppOptions.Serializer().Deserialize(doc.Root);
         }
 
-        public static void SaveToFile(
-            AppOptions settings, string filePath = DefaultPath)
+        public static void SaveToFile(AppOptions settings, string filePath = DefaultPath)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
             var serializer = new AppOptions.Serializer();

@@ -19,6 +19,7 @@ namespace QSP.UI.Utilities
             return (Panel)control;
         }
 
+        // TODO: Fix multiple enumeration issue.
         public static IEnumerable<T> GetAllControls<T>(this Control control)
         {
             var controls = control.Controls.Cast<Control>();

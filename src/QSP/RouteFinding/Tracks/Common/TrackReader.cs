@@ -61,24 +61,24 @@ namespace QSP.RouteFinding.Tracks.Common
             var result = new List<WptPair>();
             int lastIndex = -1;
 
-            for (int index = 0; index < rteFrom.Count; index++)
+            foreach (var from in rteFrom)
             {
                 if (lastIndex >= 0)
                 {
-                    if (IsAirway(lastIndex, rteFrom[index]))
+                    if (IsAirway(lastIndex, from))
                     {
                         lastIndex = -1;
                     }
                     else
                     {
-                        int wpt = SelectWpt(rteFrom[index], previous);
+                        int wpt = SelectWpt(from, previous);
                         result.Add(new WptPair(lastIndex, wpt));
                         lastIndex = wpt;
                     }
                 }
                 else
                 {
-                    lastIndex = SelectWpt(rteFrom[index], previous);
+                    lastIndex = SelectWpt(from, previous);
                 }
             }
 

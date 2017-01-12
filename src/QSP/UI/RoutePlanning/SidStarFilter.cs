@@ -55,8 +55,6 @@ namespace QSP.UI.RoutePlanning
 
         private IEnumerable<string> CheckedItems()
         {
-            bool isBlackList = listTypeComboBox.SelectedIndex == 0;
-
             return items
                 .Where(i => i.Checked)
                 .Select(i => i.Text);

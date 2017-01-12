@@ -22,7 +22,7 @@ using static QSP.UI.Utilities.RouteDistanceDisplay;
 
 namespace QSP.UI.UserControls.RouteActions
 {
-    public partial class RouteActionController
+    public class RouteActionController
     {
         private Locator<AppOptions> appOptionsLocator;
         private AirwayNetwork airwayNetwork;
@@ -209,7 +209,7 @@ namespace QSP.UI.UserControls.RouteActions
 
                 if (success.Any())
                 {
-                    msg.AppendLine($"{success.Count()} company route(s) exported:");
+                    msg.AppendLine($"{success.Count} company route(s) exported:");
 
                     foreach (var i in success)
                     {
@@ -221,7 +221,7 @@ namespace QSP.UI.UserControls.RouteActions
 
                 if (errors.Any())
                 {
-                    msg.AppendLine($"\n\nFailed to export {errors.Count()} file(s) into:");
+                    msg.AppendLine($"\n\nFailed to export {errors.Count} file(s) into:");
 
                     foreach (var j in errors)
                     {

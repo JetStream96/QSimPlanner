@@ -14,6 +14,7 @@ namespace QSP.LibraryExtension
                 str.Replace("\n", "\n" + new string(' ', steps));
         }
 
+        // TODO: Replace oldValue type.
         public static string ReplaceAny(this string input,
             IEnumerable<char> oldValue, string newValue)
         {
@@ -41,7 +42,7 @@ namespace QSP.LibraryExtension
 
         public static string[] Lines(this string item)
         {
-            return item.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+            return item.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
         }
 
         /// <summary>

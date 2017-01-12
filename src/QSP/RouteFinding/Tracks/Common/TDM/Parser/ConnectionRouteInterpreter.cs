@@ -21,8 +21,6 @@ namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
             var from = new List<RouteString>();
             var to = new List<RouteString>();
 
-            var result = new ConnectionRoutes();
-
             foreach (var i in connectRoutes)
             {
                 var route = i

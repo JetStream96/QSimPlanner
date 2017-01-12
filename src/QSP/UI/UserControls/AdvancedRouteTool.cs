@@ -9,7 +9,9 @@ using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
+using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
+using QSP.UI.MsgBox;
 using QSP.UI.UserControls.RouteActions;
 using QSP.UI.Utilities;
 using QSP.WindAloft;
@@ -19,8 +21,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using QSP.RouteFinding.Tracks;
-using QSP.UI.MsgBox;
 using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 
@@ -38,7 +38,6 @@ namespace QSP.UI.UserControls
         private Locator<CountryCodeManager> countryCodeLocator;
         private Locator<CountryCodeCollection> checkedCodesLocator;
         private ProcedureFilter procFilter;
-        private CountryCodeManager countryCodes;
         private Func<AvgWindCalculator> windCalcGetter;
         private RouteGroup Route;
 
@@ -57,7 +56,6 @@ namespace QSP.UI.UserControls
             Locator<CountryCodeManager> countryCodeLocator,
             Locator<CountryCodeCollection> checkedCodesLocator,
             ProcedureFilter procFilter,
-            CountryCodeManager countryCodes,
             Func<AvgWindCalculator> windCalcGetter)
         {
             this.appOptionsLocator = appOptionsLocator;
@@ -65,7 +63,6 @@ namespace QSP.UI.UserControls
             this.countryCodeLocator = countryCodeLocator;
             this.checkedCodesLocator = checkedCodesLocator;
             this.procFilter = procFilter;
-            this.countryCodes = countryCodes;
             this.windCalcGetter = windCalcGetter;
 
             SetBtnDisabledStyle();
@@ -173,7 +170,7 @@ namespace QSP.UI.UserControls
         {
             var items = cbox.Items;
             items.Clear();
-            items.AddRange(new string[] { "Airport", "Waypoint" });
+            items.AddRange(new[] { "Airport", "Waypoint" });
             cbox.SelectedIndex = 0;
         }
 

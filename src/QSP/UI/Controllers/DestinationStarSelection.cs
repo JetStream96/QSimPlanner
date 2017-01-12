@@ -12,21 +12,9 @@ namespace QSP.UI.Controllers
             this.destination = destination;
         }
 
-        public string Icao
-        {
-            get
-            {
-                return destination.Icao;
-            }
-        }
+        public string Icao => destination.Icao;
 
-        public string Rwy
-        {
-            get
-            {
-                return destination.Rwy;
-            }
-        }
+        public string Rwy => destination.Rwy;
 
         public List<string> GetSelectedProcedures()
         {

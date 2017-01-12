@@ -90,14 +90,14 @@ namespace QSP.LandingPerfCalculation.Boeing
         private void ReadTableDry(double[][][] item,
             int firstIndex, string value)
         {
-            string[] lines = value.Split(new char[] { '\r', '\n' },
+            string[] lines = value.Split(new [] { '\r', '\n' },
                 StringSplitOptions.RemoveEmptyEntries);
 
             int brakeSettingCount = Math.Min(item[0].Length, lines.Length);
 
             for (int i = 0; i < brakeSettingCount; i++)
             {
-                var words = lines[i].Split(new char[] { ' ', '\t', '/' },
+                var words = lines[i].Split(new [] { ' ', '\t', '/' },
                     StringSplitOptions.RemoveEmptyEntries);
 
                 int columnCount = Math.Min(item[0][0].Length, words.Length);
@@ -112,14 +112,14 @@ namespace QSP.LandingPerfCalculation.Boeing
         private void ReadTableWet(double[][][][] item,
             int firstIndex, int secondIndex, string value)
         {
-            string[] lines = value.Split(new char[] { '\r', '\n' },
+            string[] lines = value.Split(new [] { '\r', '\n' },
                 StringSplitOptions.RemoveEmptyEntries);
 
             int brakeSettingCount = Math.Min(item[0][0].Length, lines.Length);
 
             for (int i = 0; i < brakeSettingCount; i++)
             {
-                var words = lines[i].Split(new char[] { ' ', '\t', '/' },
+                var words = lines[i].Split(new[] { ' ', '\t', '/' },
                     StringSplitOptions.RemoveEmptyEntries);
 
                 int columnCount = Math.Min(item[0][0][0].Length, words.Length);

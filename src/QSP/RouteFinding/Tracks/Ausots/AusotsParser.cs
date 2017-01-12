@@ -59,11 +59,7 @@ namespace QSP.RouteFinding.Tracks.Ausots
             try
             {
                 var trk = new IndividualAusotsParser(msg, airportList).Parse();
-
-                if (trk != null)
-                {
-                    allTracks.Add(trk);
-                }
+                if (trk != null) allTracks.Add(trk);
             }
             catch
             {

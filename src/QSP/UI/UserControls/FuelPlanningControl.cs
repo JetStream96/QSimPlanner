@@ -119,7 +119,6 @@ namespace QSP.UI.UserControls
                 countryCodeLocator,
                 checkedCodesLocator,
                 procFilter,
-                countryCodeLocator.Instance,
                 () => GetWindCalculator());
 
             if (acListComboBox.Items.Count > 0)
@@ -192,17 +191,7 @@ namespace QSP.UI.UserControls
 
         private void SetAltnController()
         {
-            var controlsBelow = new Control[]
-            {
-                addAltnBtn,
-                removeAltnBtn,
-                calculateBtn,
-                fuelParaGroupBox,
-                fuelReportGroupBox
-            };
-
             AltnControl = new AlternateController(
-                alternateGroupBox,
                 appOptionsLocator,
                 airwayNetwork,
                 altnLayoutPanel,
@@ -407,7 +396,6 @@ namespace QSP.UI.UserControls
                 return;
             }
 
-            var data = GetFuelData();
             var altnRoutes = AltnControl.Routes;
 
             if (altnRoutes.Any(r => r == null))

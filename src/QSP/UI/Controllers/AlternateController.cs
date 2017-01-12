@@ -18,7 +18,6 @@ namespace QSP.UI.Controllers
 {
     public class AlternateController
     {
-        private GroupBox altnGroupBox;
         private List<AltnRow> rows;
         private Locator<AppOptions> appOptionsLocator;
         private AirwayNetwork airwayNetwork;
@@ -43,14 +42,12 @@ namespace QSP.UI.Controllers
         }
 
         public AlternateController(
-            GroupBox altnGroupBox,
             Locator<AppOptions> appOptionsLocator,
             AirwayNetwork airwayNetwork,
             TableLayoutPanel layoutPanel,
             DestinationSidSelection destSidProvider,
             Func<AvgWindCalculator> windCalcGetter)
         {
-            this.altnGroupBox = altnGroupBox;
             this.appOptionsLocator = appOptionsLocator;
             this.airwayNetwork = airwayNetwork;
             this.layoutPanel = layoutPanel;

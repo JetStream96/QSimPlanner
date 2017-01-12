@@ -39,7 +39,6 @@ namespace QSP.RouteFinding.FileExport.Providers
             var dest = route.LastWaypoint;
             var destId = dest.ID;
             var destIcao = destId.Substring(0, 4);
-            var destRwy = destId.Substring(4);
             var destAirport = airports[destIcao];
             var destLatLonAlt = LatLonAlt(dest, destAirport.Elevation);
 

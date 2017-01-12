@@ -39,7 +39,7 @@ W [WPTS]
             var msg = new NatsMessage(west, east);
 
             // Act
-            var parser = new NatsParser(msg, null, null);
+            var parser = new NatsParser(msg, null);
             var result = parser.Parse();
 
             // Assert
@@ -81,7 +81,7 @@ U TUDEP 52/50 53/40 54/30 54/20 DOGAL BEXET
 ..."));
 
             // Act
-            var parser = new NatsParser(msg, null, null);
+            var parser = new NatsParser(msg, null);
             var result = parser.Parse();
 
             // Assert

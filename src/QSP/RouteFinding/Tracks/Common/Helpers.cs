@@ -57,11 +57,11 @@ namespace QSP.RouteFinding.Tracks.Common
 
             if (type == TrackType.Nats)
             {
-                return (ITrackParser<T>)new NatsParser(msg, statusRecorder, airportList);
+                return (ITrackParser<T>)new NatsParser(msg, statusRecorder);
             }
             else if (type == TrackType.Pacots)
             {
-                return (ITrackParser<T>)new PacotsParser(msg, statusRecorder, airportList);
+                return (ITrackParser<T>)new PacotsParser(msg, airportList);
             }
             else if (type == TrackType.Ausots)
             {

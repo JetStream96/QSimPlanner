@@ -169,7 +169,7 @@ namespace QSP.UI.Controllers
                 MsgBoxHelper.ShowError(ex.Message);
             }
 
-            SetProcedures(proc.Where(ShouldShow));
+            SetProcedures(proc.Where(ShouldShow).ToArray());
         }
 
         private bool ShouldShow(string proc)
@@ -184,18 +184,18 @@ namespace QSP.UI.Controllers
             return info.Procedures.Contains(proc) ^ info.IsBlackList;
         }
 
-        private void SetProcedures(IEnumerable<string> proc)
+        private void SetProcedures(string[] proc)
         {
             TerminalProceduresCBox.Items.Clear();
 
-            if (proc.Count() == 0)
+            if (proc.Length == 0)
             {
                 TerminalProceduresCBox.Items.Add(NoProcedureTxt);
             }
             else
             {
                 TerminalProceduresCBox.Items.Add(AutoProcedureTxt);
-                TerminalProceduresCBox.Items.AddRange(proc.ToArray());
+                TerminalProceduresCBox.Items.AddRange(proc);
             }
 
             TerminalProceduresCBox.SelectedIndex = 0;

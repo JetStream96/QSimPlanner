@@ -7,8 +7,6 @@ namespace QSP.WindAloft
 {
     public static class GribConverter
     {
-        private const string gribConverterName = "degrib";
-
         public static void ConvertGrib()
         {
             var processes = Grib2ToCsv(WindManager.DownloadFilePath);

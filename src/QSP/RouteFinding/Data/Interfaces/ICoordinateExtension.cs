@@ -63,14 +63,14 @@ namespace QSP.RouteFinding.Data.Interfaces
         }
 
         /// <exception cref="ArgumentException"></exception>
-        public static Route ToRoute(
-            this IEnumerable<ICoordinate> coordinates)
+        public static Route ToRoute(this IEnumerable<ICoordinate> coordinates)
         {
-            if (coordinates.Count() < 2) throw new ArgumentException();
+            var items = coordinates.ToList();
+            if (items.Count < 2) throw new ArgumentException();
 
             var result = new Route();
 
-            foreach (var i in coordinates)
+            foreach (var i in items)
             {
                 double lat = i.Lat;
                 double lon = i.Lon;

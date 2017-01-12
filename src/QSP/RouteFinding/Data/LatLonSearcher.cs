@@ -22,32 +22,22 @@ namespace QSP.RouteFinding.Data
         private List<T> southPoleContent;
 
         private VisitedList visited;
-        private IEqualityComparer<T> equalComp;
 
-        public LatLonSearcher(int gridSize, int polarRegSize)
-            : this(gridSize, polarRegSize, EqualityComparer<T>.Default)
-        { }
-
-        public LatLonSearcher(int gridSize, int polarRegionSize,
-            IEqualityComparer<T> equalComp)
+        public LatLonSearcher(int gridSize, int polarRegionSize)
         {
-            Init(gridSize, polarRegionSize, equalComp);
+            Init(gridSize, polarRegionSize);
         }
 
         public LatLonSearcher(GridSizeOption para)
-            : this(para, EqualityComparer<T>.Default)
-        { }
-
-        public LatLonSearcher(GridSizeOption para, IEqualityComparer<T> equalComp)
         {
             switch (para)
             {
                 case GridSizeOption.Small:
-                    Init(2, 5, equalComp);
+                    Init(2, 5);
                     break;
 
                 case GridSizeOption.Large:
-                    Init(10, 15, equalComp);
+                    Init(10, 15);
                     break;
 
                 default:
@@ -55,8 +45,7 @@ namespace QSP.RouteFinding.Data
             }
         }
 
-        private void Init(int gridSize, int polarRegionSize,
-            IEqualityComparer<T> equalComp)
+        private void Init(int gridSize, int polarRegionSize)
         {
             Ensure<ArgumentException>(
                 0 < gridSize &&
@@ -64,7 +53,6 @@ namespace QSP.RouteFinding.Data
 
             this.gridSize = gridSize;
             this.polarRegionSize = polarRegionSize;
-            this.equalComp = equalComp;
 
             int latCount = (int)(Math.Ceiling(180.0 - 2.0 * polarRegionSize) / gridSize);
             int lonCount = (int)(Math.Ceiling(360.0 / gridSize));
@@ -146,7 +134,6 @@ namespace QSP.RouteFinding.Data
         public List<T> Find(double lat, double lon, double distance)
         {
             var result = new List<T>();
-            var possibleGrids = new List<Grid>();
             var pending = new Queue<Grid>();
 
             pending.Enqueue(GetGrid(lat, lon));

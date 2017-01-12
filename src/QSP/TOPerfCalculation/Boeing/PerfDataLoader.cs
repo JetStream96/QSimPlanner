@@ -126,14 +126,15 @@ namespace QSP.TOPerfCalculation.Boeing
         // node should be "Dry" or "Wet" node
         private static WtTables SetFieldClimbLimitWt(XElement node, bool lenthIsMeter, bool WtIsKG)
         {
-            var wtTables = node.Elements("WeightTable");
+            var wtTables = node.Elements("WeightTable").ToList();
 
             // x
             var altitudes = wtTables.Select(x => x.Element("Altitude").Value)
                 .ToDoubles();
 
-            var fieldLimTables = wtTables.Select(
-                x => TableReader2D.Read(x.Element("Table").Value));
+            var fieldLimTables = wtTables
+                .Select(x => TableReader2D.Read(x.Element("Table").Value))
+                .ToList();
 
             var lengths = fieldLimTables.First().x;
             var oats = fieldLimTables.First().y;

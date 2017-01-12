@@ -13,15 +13,11 @@ namespace QSP.NavData.AAX
             this.navDataLocation = navDataLocation;
         }
 
-        private string waypointsFilePath
-        {
-            get { return Path.Combine(navDataLocation, "waypoints.txt"); }
-        }
+        private string waypointsFilePath =>
+            Path.Combine(navDataLocation, "waypoints.txt"); 
 
-        private string atsFilePath
-        {
-            get { return Path.Combine(navDataLocation, "ats.txt"); }
-        }
+        private string atsFilePath =>
+             Path.Combine(navDataLocation, "ats.txt"); 
 
         /// <exception cref="WaypointFileReadException"></exception>
         /// <exception cref="LoadCountryNamesException"></exception>

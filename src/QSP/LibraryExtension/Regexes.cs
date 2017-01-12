@@ -9,12 +9,13 @@ namespace QSP.LibraryExtension
     {
         public static string PatternMatchAny(IEnumerable<string> candidates)
         {
-            if(candidates.Any() == false) throw new ArgumentException();
+            var patterns = candidates.ToList();
+            if(!patterns.Any()) throw new ArgumentException();
 
             bool containEmptyStr = false;
             var sb = new StringBuilder("(");
             
-            foreach(var i in candidates)
+            foreach(var i in patterns)
             {
                 if(i == "")
                 {

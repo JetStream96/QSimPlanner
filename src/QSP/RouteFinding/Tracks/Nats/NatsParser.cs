@@ -13,17 +13,12 @@ namespace QSP.RouteFinding.Tracks.Nats
         private static readonly char[] DelimiterWords = { ' ', '\n', '\r', '\t' };
 
         private StatusRecorder statusRecorder;
-        private AirportManager airportList;
         private NatsMessage message;
 
-        public NatsParser(
-            ITrackMessage message,
-            StatusRecorder statusRecorder,
-            AirportManager airportList)
+        public NatsParser(ITrackMessage message, StatusRecorder statusRecorder)
         {
             this.message = (NatsMessage)message;
             this.statusRecorder = statusRecorder;
-            this.airportList = airportList;
         }
 
         public List<NorthAtlanticTrack> Parse()

@@ -55,9 +55,7 @@ function initialize()
 
             // Center of map
             var center = GetCenter(rte);
-
-            mapHtml.AppendLine(
-                $"var centerP=new google.maps.LatLng({center.Lat},{center.Lon});");
+            mapHtml.AppendLine($"var centerP=new google.maps.LatLng({center.Lat},{center.Lon});");
 
             const int zoomlevel = 6;
 
@@ -70,6 +68,7 @@ mapTypeId:google.maps.MapTypeId.ROADMAP
 var map=new google.maps.Map(document.getElementById(""googleMap""),mapProp);
 var myTrip=[");
 
+            // TODO: Possible to simplify?
             counter = 0;
             foreach (var i in rte)
             {

@@ -4,8 +4,8 @@ namespace QSP.RouteFinding.Tracks
 {
     public class WptPair : IEquatable<WptPair>
     {
-        public int IndexFrom { get; private set; }
-        public int IndexTo { get; private set; }
+        public int IndexFrom { get; }
+        public int IndexTo { get; }
 
         public WptPair(int IndexFrom, int IndexTo)
         {

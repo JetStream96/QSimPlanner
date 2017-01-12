@@ -17,7 +17,6 @@ namespace QSP.UI.Controllers
 
             int initPos = scrollBar.Value;
             if (targetPosition == initPos) return;
-            int pos = initPos;
             var sw = new Stopwatch();
             var timer = new Timer();
             timer.Interval = 5;

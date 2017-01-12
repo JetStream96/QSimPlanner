@@ -15,9 +15,7 @@ namespace QSP.UI.UserControls
     public partial class MiscInfoControl : UserControl
     {
         private Locator<IWindTableCollection> windTableLocator;
-        private Func<string> origGetter;
         private Func<string> destGetter;
-        private Func<IEnumerable<string>> altnGetter;
         private Panel outerPanel;
 
         private AirportManager _airportList;
@@ -52,9 +50,7 @@ namespace QSP.UI.UserControls
             airportMapControl.BrowserEnabled = enableBrowser;
             destIcaoLbl.Text = "";
             desForcastLastUpdatedLbl.Text = "";
-            this.origGetter = origGetter;
             this.destGetter = destGetter;
-            this.altnGetter = altnGetter;
             this.outerPanel = outerPanel;
 
             EnableTabControlAutosize();

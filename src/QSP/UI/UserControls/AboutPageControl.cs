@@ -38,10 +38,5 @@ namespace QSP.UI.UserControls
         {
             OpenFileHelper.TryOpenFile("https://github.com/JetStream96/QSimPlanner");
         }
-
-        private void manualBtn_Click(object sender, EventArgs e)
-        {
-            OpenFileHelper.TryOpenFile(Path.GetFullPath("manual/manual.html"));
-        }
     }
 }

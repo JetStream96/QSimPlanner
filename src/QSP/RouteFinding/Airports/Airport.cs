@@ -6,8 +6,6 @@ namespace QSP.RouteFinding.Airports
 {
     public class Airport : ICoordinate, IEquatable<Airport>
     {
-        private List<RwyData> _rwys;
-
         public string Icao { get; private set; }
         public string Name { get; private set; }
         public double Lat { get; private set; }
@@ -17,8 +15,7 @@ namespace QSP.RouteFinding.Airports
         public int TransAlt { get; private set; }
         public int TransLvl { get; private set; }
         public int LongestRwyLength { get; private set; }
-
-        public IReadOnlyList<RwyData> Rwys { get { return _rwys; } }
+        public IReadOnlyList<RwyData> Rwys;
 
         public Airport(
             string Icao,
@@ -30,7 +27,7 @@ namespace QSP.RouteFinding.Airports
             int TransAlt,
             int TransLvl,
             int LongestRwyLength,
-            List<RwyData> Rwys)
+            IReadOnlyList<RwyData> Rwys)
         {
             this.Icao = Icao;
             this.Name = Name;
@@ -41,7 +38,7 @@ namespace QSP.RouteFinding.Airports
             this.TransAlt = TransAlt;
             this.TransLvl = TransLvl;
             this.LongestRwyLength = LongestRwyLength;
-            _rwys = Rwys;
+            this.Rwys = Rwys;
         }
 
         public Airport(Airport item)
@@ -55,7 +52,7 @@ namespace QSP.RouteFinding.Airports
             TransAlt = item.TransAlt;
             TransLvl = item.TransLvl;
             LongestRwyLength = item.LongestRwyLength;
-            _rwys = new List<RwyData>(item.Rwys);
+            Rwys = new List<RwyData>(item.Rwys);
         }
 
         public static IComparer<Airport> CompareIcao()

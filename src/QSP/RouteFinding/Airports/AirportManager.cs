@@ -68,13 +68,7 @@ namespace QSP.RouteFinding.Airports
                 .FirstOrDefault(r => r.RwyIdent == rwy);
         }
 
-        public int Count
-        {
-            get
-            {
-                return airportData.Count;
-            }
-        }
+        public int Count => airportData.Count;
 
         public void Add(Airport item)
         {

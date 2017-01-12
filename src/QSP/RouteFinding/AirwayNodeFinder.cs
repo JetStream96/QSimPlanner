@@ -63,13 +63,7 @@ namespace QSP.RouteFinding
         public List<Waypoint> FindWaypoints()
         {
             var indices = GetWaypointIndices();
-
-            if (indices == null)
-            {
-                return null;
-            }
-
-            return indices.Select(i => wptList[i]).ToList();
+            return indices?.Select(i => wptList[i]).ToList();
         }
 
         private List<int> FindWptOnAirwayOneDir(FindOnAwyOption para)

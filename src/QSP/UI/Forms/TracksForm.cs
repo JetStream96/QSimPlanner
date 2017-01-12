@@ -218,7 +218,7 @@ namespace QSP.UI.Forms
         private void SetMainFormTrackStatus(IEnumerable<Entry> records)
         {
             var loadedTypes = TrackTypes.Where(t => airwayNetwork.TracksLoaded(t));
-            var maxSeverity = loadedTypes.Select(t => MaxSeverity(records, t));
+            var maxSeverity = loadedTypes.Select(t => MaxSeverity(records, t)).ToList();
 
             if (maxSeverity.All(s => s == Severity.Advisory) && AllTracksAdded)
             {
@@ -324,7 +324,6 @@ namespace QSP.UI.Forms
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            var a = airwayNetwork;
             var msg = TrackTypes
                 .Select(t => airwayNetwork.GetTrackMessage(t))
                 .Where(m => m != null)
@@ -339,7 +338,6 @@ namespace QSP.UI.Forms
             IgnoreException(() => Directory.CreateDirectory(trackFileFolder));
             var saveFileDialog = new SaveFileDialog();
 
-            var ext = trackFileExtension;
             saveFileDialog.Filter = GetFileDialogFilter();
             saveFileDialog.InitialDirectory = Path.GetFullPath(trackFileFolder);
             saveFileDialog.RestoreDirectory = true;

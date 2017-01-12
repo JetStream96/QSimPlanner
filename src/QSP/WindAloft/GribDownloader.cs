@@ -68,14 +68,15 @@ namespace QSP.WindAloft
 
         private List<string> GetParaString()
         {
-            var items = new List<string>();
-
-            items.Add("file=" + GetFilePara());
-            items.Add("leftlon=0");
-            items.Add("rightlon=360");
-            items.Add("toplat=90");
-            items.Add("bottomlat=-90");
-
+            var items = new List<string>()
+            {
+                "file=" + GetFilePara(),
+                "leftlon=0",
+                "rightlon=360",
+                "toplat=90",
+                "bottomlat=-90"
+            };
+            
             foreach (var i in Constants.FullWindDataSet)
             {
                 items.Add($"lev_{i}_mb=on");

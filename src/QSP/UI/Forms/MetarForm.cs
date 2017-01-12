@@ -13,33 +13,5 @@ namespace QSP.UI.Forms
         {
             InitializeComponent();
         }
-
-        private void DownloadMetarTafAndShow()
-        {
-            Metar = "";
-            Taf = "";
-
-            try
-            {
-                Taf = MetarDownloader.GetTaf(icaoTxtBox.Text);
-            }
-            catch (Exception ex)
-            {
-                LoggerInstance.Log(ex);
-            }
-
-            try
-            {
-                Metar = MetarDownloader.GetMetar(icaoTxtBox.Text);
-            }
-            catch (Exception ex)
-            {
-                LoggerInstance.Log(ex);
-            }
-
-            resultRichTxtBox.Text =
-                Metar ?? "Downloading Metar failed.\n\n" +
-                Taf ?? "Downloading TAF failed.";
-        }
     }
 }

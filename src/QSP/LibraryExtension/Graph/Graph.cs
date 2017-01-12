@@ -40,7 +40,6 @@ namespace QSP.LibraryExtension.Graph
         /// <exception cref="IndexOutOfRangeException"></exception>
         public int AddEdge(int nodeFromIndex, int nodeToIndex, TEdge edge)
         {
-            var edgeToAdd = new Edge<TEdge>();
             int edgeIndex = _edges.Add(dummyEdge);
 
             // Add edge index to nodes
