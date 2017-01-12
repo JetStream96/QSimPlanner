@@ -48,10 +48,8 @@ namespace InstallerBuilder
         private static string GetFileText(string version)
         {
             var text = File.ReadAllText("template.iss");
-            text = text.Replace("AppVersion=",
-                $"AppVersion={version}");
-            return text.Replace("[Files]",
-                "[Files]\n" + FileList());
+            text = text.Replace("AppVersion=", $"AppVersion={version}");
+            return text.Replace("[Files]", "[Files]\n" + FileList());
         }
 
         private static string FileList()
@@ -63,7 +61,8 @@ namespace InstallerBuilder
             var lines = files
                  .Select(f =>
                  $"Source: \"{f.Item1}\"; " +
-                 $"DestDir: \"{{app}}\\{Path.GetDirectoryName(f.Item2)}\"");
+                 $"DestDir: \"{{app}}\\{Path.GetDirectoryName(f.Item2)}\";" +
+                 "Flags: ignoreversion");
 
             return string.Join("\n", lines);
         }

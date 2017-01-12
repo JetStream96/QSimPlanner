@@ -25,8 +25,7 @@ namespace InstallerBuilder
             foreach (var i in files)
             {
                 var fileName = Path.GetFileName(i);
-                var package = Regex.Replace(
-                    fileName, @".txt", "", RegexOptions.IgnoreCase);
+                var package = Regex.Replace(fileName, @".txt", "", RegexOptions.IgnoreCase);
 
                 output.Append(package);
                 output.Append("\n\n");
