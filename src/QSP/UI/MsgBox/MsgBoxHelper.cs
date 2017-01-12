@@ -1,4 +1,6 @@
-﻿namespace QSP.UI.MsgBox
+﻿using System.Windows.Forms;
+
+namespace QSP.UI.MsgBox
 {
     public static class MsgBoxHelper
     {
@@ -23,6 +25,18 @@
             using (var frm = new MsgBoxForm())
             {
                 frm.Init(text, icon, caption, defaultBtn, buttonTxt);
+                frm.ShowDialog();
+                return frm.SelectionResult;
+            }
+        }
+
+        public static MsgBoxResult ShowDialogCenterScreen(string text, MsgBoxIcon icon, 
+            string caption, DefaultButton defaultBtn, params string[] buttonTxt)
+        {
+            using (var frm = new MsgBoxForm())
+            {
+                frm.Init(text, icon, caption, defaultBtn, buttonTxt);
+                frm.StartPosition = FormStartPosition.CenterScreen;
                 frm.ShowDialog();
                 return frm.SelectionResult;
             }

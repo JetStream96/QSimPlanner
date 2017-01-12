@@ -101,7 +101,13 @@ namespace QSP.UI.Forms
                 {
                     // User did not set the path. 
                     // Maybe its the first time the app starts.
-                    ShowSetNavDataInfo();
+                    MsgBoxHelper.ShowDialogCenterScreen(
+                        "Please set the correct Nav Data location " +
+                        "before using the application.",
+                        MsgBoxIcon.Info,
+                        "",
+                        DefaultButton.Button1,
+                        "OK");
                 }
                 else
                 {
@@ -113,24 +119,7 @@ namespace QSP.UI.Forms
 
             DoubleBufferUtil.SetDoubleBuffered(panel1);
         }
-
-        private void ShowSetNavDataInfo()
-        {
-            using (var form = new MsgBoxForm())
-            {
-                form.Init(
-                    "Please set the correct Nav Data location " +
-                    "before using the application.",
-                    MsgBoxIcon.Info,
-                    "",
-                    DefaultButton.Button1,
-                    "OK");
-
-                form.StartPosition = FormStartPosition.CenterScreen;
-                form.ShowDialog();
-            }
-        }
-
+        
         private void DoPostUpdateActions()
         {
 #if (!DEBUG)

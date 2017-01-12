@@ -79,11 +79,12 @@ namespace QSP.UI.MsgBox
 
         private void SetButtonText(string[] texts, DefaultButton defaultBtn)
         {
+            activeButtons.ForEach((b, index) => b.Text = texts[index]);
+
             var btnWidth = activeButtons.Max(b => b.Width);
 
             activeButtons.ForEach((b, index) =>
             {
-                b.Text = texts[index];
                 b.AutoSize = false;
                 b.Width = btnWidth;
             });
