@@ -12,30 +12,21 @@ using static QSP.LibraryExtension.Lists;
 using static UnitTest.Common.Constants;
 using static UnitTest.RouteFinding.Common;
 
-namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
+namespace UnitTest.RouteFinding.TerminalProcedures.Star
 {
     [TestFixture]
     public class StarAdderTest
     {
-        private readonly Waypoint wpt101 =
-            new Waypoint("WPT101", 25.0125, 50.0300);
-
-        private readonly Waypoint wpt102 =
-            new Waypoint("WPT102", 25.0150, 50.0800);
-
-        private readonly Waypoint wpt103 =
-            new Waypoint("WPT103", 25.0175, 50.1300);
-
-        private readonly Waypoint wpt104 =
-            new Waypoint("WPT104", 25.0225, 50.1800);
-
-        private readonly Waypoint rwy =
-            new Waypoint("AXYZ18", 25.0003, 50.0001);
+        private readonly Waypoint wpt101 = new Waypoint("WPT101", 25.0125, 50.0300);
+        private readonly Waypoint wpt102 = new Waypoint("WPT102", 25.0150, 50.0800);
+        private readonly Waypoint wpt103 = new Waypoint("WPT103", 25.0175, 50.1300);
+        private readonly Waypoint wpt104 = new Waypoint("WPT104", 25.0225, 50.1800);
+        private readonly Waypoint rwy = new Waypoint("AXYZ18", 25.0003, 50.0001);
 
         [Test]
         public void AddToWptListCase1()
         {
-            var wptList = Case1WptList();
+            var wptList = BasicWptList();
             var adder = new StarAdder(
                 "AXYZ",
                 new StarCollection(new List<StarEntry>()),
@@ -46,21 +37,17 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             int rwyIndex = adder.AddStarsToWptList("18", new List<string>());
 
             // Check the STAR is added 
-            Assert.IsTrue(DirectAdded(
-                wptList, new Waypoint("25N050E", 25.0, 50.0), rwyIndex));
+            Assert.IsTrue(DirectAdded(wptList, new Waypoint("25N050E", 25.0, 50.0), rwyIndex));
 
-            Assert.IsTrue(DirectAdded(
-                wptList, new Waypoint("27N050E", 27.0, 50.0), rwyIndex));
+            Assert.IsTrue(DirectAdded(wptList, new Waypoint("27N050E", 27.0, 50.0), rwyIndex));
         }
 
-        private static bool DirectAdded(
-            WaypointList wptList, Waypoint wpt, int rwyIndex)
+        private static bool DirectAdded(WaypointList wptList, Waypoint wpt, int rwyIndex)
         {
             foreach (var i in wptList.EdgesFrom(wptList.FindByWaypoint(wpt)))
             {
                 var edge = wptList.GetEdge(i);
-                double disDiff = wpt.Distance(wptList[rwyIndex]) -
-                    edge.Value.Distance;
+                double disDiff = wpt.Distance(wptList[rwyIndex]) - edge.Value.Distance;
 
                 if (edge.Value.Airway == "DCT" &&
                     Math.Abs(disDiff) < DistanceEpsilon)
@@ -72,19 +59,12 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             return false;
         }
 
-        private static WaypointList Case1WptList()
-        {
-            return BasicWptList();
-        }
-
         private static WaypointList BasicWptList()
         {
             var wptList = new WaypointList();
 
-            int index1 = wptList.AddWaypoint(
-                new Waypoint("25N050E", 25.0, 50.0));
-            int index2 = wptList.AddWaypoint(
-                new Waypoint("27N050E", 27.0, 50.0));
+            int index1 = wptList.AddWaypoint(new Waypoint("25N050E", 25.0, 50.0));
+            int index2 = wptList.AddWaypoint(new Waypoint("27N050E", 27.0, 50.0));
 
             wptList.AddNeighbor(index1, "AIRWAY1", index2);
             wptList.AddNeighbor(index2, "AIRWAY1", index1);
@@ -103,11 +83,6 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             var wptList = BasicWptList();
             wptList.AddWaypoint(new Waypoint("WPT101", 25.0125, 50.0300));
             return wptList;
-        }
-
-        private WaypointList Case4WptList()
-        {
-            return BasicWptList();
         }
 
         private void AddToWptListCase2And4(WaypointList wptList)
@@ -130,10 +105,11 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             // Check the STAR1 has been added with correct total distance.
             var edges = wptList.EdgesTo(rwyIndex).ToList();
             Assert.IsTrue(edges.Count > 0);
-            Assert.IsTrue(edges.Select(e => wptList.GetEdge(e))
+
+            Assert.IsTrue(edges
+                .Select(e => wptList.GetEdge(e))
                 .All(e =>
-                    Enumerable.SequenceEqual(e.Value.InnerWaypoints,
-                    CreateList(wpt102, wpt103, wpt104)) &&
+                    e.Value.InnerWaypoints.SequenceEqual(CreateList(wpt102, wpt103, wpt104)) &&
                     e.Value.Type == InnerWaypointsType.Terminal));
 
             double dis = CreateList(wpt101, wpt102, wpt103, wpt104, rwy)
@@ -157,24 +133,21 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
                 Assert.AreEqual("DCT", edge.Value.Airway);
                 Assert.AreEqual(0, edge.Value.InnerWaypoints.Count);
 
-                double expectedDis =
-                    wpt101.Distance(wptList[edge.FromNodeIndex]);
-
-                Assert.AreEqual(
-                    expectedDis, edge.Value.Distance, DistanceEpsilon);
+                double expectedDis = wpt101.Distance(wptList[edge.FromNodeIndex]);
+                Assert.AreEqual(expectedDis, edge.Value.Distance, DistanceEpsilon);
             }
         }
 
         [Test]
         public void AddToWptListCase4()
         {
-            AddToWptListCase2And4(Case4WptList());
+            AddToWptListCase2And4(BasicWptList());
         }
 
         [Test]
         public void AddToWptListCase3()
         {
-            var wptList = Case4WptList();
+            var wptList = BasicWptList();
             var wptCorrds = new Waypoint("26N050E", 26.0, 50.0);
             var wpt01 = new Waypoint("WPT01", 25.0, 50.0);
 
@@ -198,9 +171,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
             Assert.AreEqual(1, edges.Count);
             var edge = wptList.GetEdge(edges[0]);
 
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                edge.Value.InnerWaypoints,
-                CreateList(wpt01)));
+            Assert.IsTrue(edge.Value.InnerWaypoints.SequenceEqual(CreateList(wpt01)));
             Assert.AreEqual(InnerWaypointsType.Terminal, edge.Value.Type);
 
             double dis = CreateList(wptCorrds, wpt01, rwy).TotalDistance();
@@ -212,34 +183,20 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
                 wptList));
         }
 
-        private WaypointList Case3WptList()
-        {
-            var wptList = new WaypointList();
-            int index = wptList.AddWaypoint(
-                new Waypoint("26N050E", 26.0, 50.0));
-            int indexNeighbor = wptList.AddWaypoint(
-                new Waypoint("27N050E", 27.0, 50.0));
-
-            wptList.AddNeighbor(index, "AIRWAY1", indexNeighbor);
-            return wptList;
-        }
-
         private AirportManager GetAirportManager()
         {
             var rwy = GetRwyData("18", 25.0003, 50.0001);
             var airport = GetAirport("AXYZ", rwy);
-            return new AirportManager(new Airport[] { airport });
+            return new AirportManager(new[] { airport });
         }
 
-        private bool StarIsAdded(
-            int fromIndex, string name, double dis, WaypointList wptList)
+        private bool StarIsAdded(int fromIndex, string name, double dis, WaypointList wptList)
         {
             return wptList.EdgesFrom(fromIndex).Any(i =>
             {
                 var edge = wptList.GetEdge(i);
-
                 return edge.Value.Airway == name &&
-                Math.Abs(dis - edge.Value.Distance) < DistanceEpsilon;
+                    Math.Abs(dis - edge.Value.Distance) < DistanceEpsilon;
             });
         }
     }

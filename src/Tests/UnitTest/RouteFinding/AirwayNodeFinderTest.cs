@@ -14,14 +14,12 @@ namespace UnitTest.RouteFinding
         {
             var finder = new AirwayNodeFinder(4, "A001", "WP008", GenTwoWayAirway());
             var expected = Enumerable.Range(5, 4);
-
-            Assert.IsTrue(Enumerable.SequenceEqual(expected, finder.GetWaypointIndices()));
+            Assert.IsTrue(finder.GetWaypointIndices().SequenceEqual(expected));
 
             // another dir
             var finder2 = new AirwayNodeFinder(6, "A001", "WP002", GenTwoWayAirway());
             var exp2 = Enumerable.Range(2, 4).Reverse();
-
-            Assert.IsTrue(Enumerable.SequenceEqual(exp2, finder2.GetWaypointIndices()));
+            Assert.IsTrue(finder2.GetWaypointIndices().SequenceEqual(exp2));
         }
 
         [Test]
@@ -30,7 +28,7 @@ namespace UnitTest.RouteFinding
             var finder = new AirwayNodeFinder(9, "A001", "WP004", GenOneWayAirway());
             var expected = Enumerable.Range(4, 5).Reverse();
 
-            Assert.IsTrue(Enumerable.SequenceEqual(expected, finder.GetWaypointIndices()));
+            Assert.IsTrue(finder.GetWaypointIndices().SequenceEqual(expected));
         }
 
         [Test]

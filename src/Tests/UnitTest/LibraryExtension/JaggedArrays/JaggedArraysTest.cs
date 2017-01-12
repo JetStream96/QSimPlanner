@@ -19,16 +19,9 @@ namespace UnitTest.LibraryExtension.JaggedArrays
         {
             var a = Create<double[][][]>(3, 4, 5);
 
-            Assert.IsTrue(a.GetType() == typeof(double[][][]));
-
             Assert.AreEqual(3, a.Length);
-            Assert.IsTrue(a[0].GetType() == typeof(double[][]));
-
             Assert.AreEqual(4, a[0].Length);
-            Assert.IsTrue(a[0][0].GetType() == typeof(double[]));
-
             Assert.AreEqual(5, a[0][0].Length);
-            Assert.IsTrue(a[0][0][0].GetType() == typeof(double));
         }
 
         [Test]

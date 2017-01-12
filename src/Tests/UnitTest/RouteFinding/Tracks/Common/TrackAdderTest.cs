@@ -41,7 +41,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
                 TrackType.Nats);
 
             // Act
-            adder.AddToWaypointList(new TrackNodes[] { nodes });
+            adder.AddToWaypointList(new[] { nodes });
 
             // Assert
             int indexP1 = wptList.FindByWaypoint(p1);
@@ -51,8 +51,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
             var neighbor = wptList.GetEdge(edge).Value;
             Assert.IsTrue(neighbor.Airway == "NATA");
 
-            Assert.IsTrue(Enumerable.SequenceEqual(neighbor.InnerWaypoints,
-                CreateList(p2)));
+            Assert.IsTrue(neighbor.InnerWaypoints.SequenceEqual(CreateList(p2)));
             Assert.AreEqual(InnerWaypointsType.Track, neighbor.Type);
 
             var distance = p1.Distance(p2) + p2.Distance(p3);
@@ -82,7 +81,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
                 TrackType.Nats);
 
             // Act
-            adder.AddToWaypointList(new TrackNodes[] { nodes });
+            adder.AddToWaypointList(new[] { nodes });
 
             // Assert
             Assert.AreEqual(1, recorder.Records.Count);

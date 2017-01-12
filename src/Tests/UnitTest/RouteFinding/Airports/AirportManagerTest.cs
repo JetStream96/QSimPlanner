@@ -41,9 +41,9 @@ namespace UnitTest.RouteFinding.Airports
         public void FindRwysTest()
         {
             var col = TestCollection();
-            var rwys = col.RwyIdentList("ABCD");
+            var rwys = col.RwyIdentList("ABCD").ToList();
 
-            Assert.AreEqual(2, rwys.Count());
+            Assert.AreEqual(2, rwys.Count);
             Assert.IsTrue(rwys.Contains("01") && rwys.Contains("19"));
         }
 

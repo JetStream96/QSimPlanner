@@ -4,7 +4,7 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using System.Collections.Generic;
 
-namespace UnitTest.RouteFindingTest.TerminalProceduresTest
+namespace UnitTest.RouteFinding.TerminalProcedures
 {
     [TestFixture]
     public class ProcedureSelectorTest

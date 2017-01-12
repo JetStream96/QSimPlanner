@@ -24,6 +24,7 @@ namespace UnitTest.LibraryExtension
             {
                 item.Add(i);
             }
+
             return item;
         }
 
@@ -41,7 +42,7 @@ namespace UnitTest.LibraryExtension
         [Test]
         public void AddItemsTest()
         {
-            var item = CreateList();
+            CreateList();
         }
 
         [Test]

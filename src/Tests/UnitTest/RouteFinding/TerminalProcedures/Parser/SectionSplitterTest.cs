@@ -3,7 +3,7 @@ using NUnit.Framework;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.TerminalProcedures.Parser;
 
-namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Parser
+namespace UnitTest.RouteFinding.TerminalProcedures.Parser
 {
     [TestFixture]
     public class SectionSplitterTest

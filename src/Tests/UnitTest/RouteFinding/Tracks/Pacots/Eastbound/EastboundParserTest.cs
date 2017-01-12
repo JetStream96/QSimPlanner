@@ -56,22 +56,22 @@ JAPAN ROUTE : VACKY OTR13 SEALS
             var trk1 = GetTrack(trks, "1");
             Assert.AreEqual(PacotDirection.Eastbound, trk1.Direction);
 
-            Assert.IsTrue(Enumerable.SequenceEqual(trk1.MainRoute,
-                new string[] { "EMRON", "40N160E", "41N170E", "43N180E", "45N170W", "47N160W", "48N150W",
-              "49N140W", "PRETY"}));
+            Assert.IsTrue(trk1.MainRoute.SequenceEqual(
+                new[] { "EMRON", "40N160E", "41N170E", "43N180E", "45N170W", "47N160W", "48N150W",
+                        "49N140W", "PRETY"}));
 
             Assert.AreEqual(1, trk1.RouteFrom.Count);
 
-            Assert.IsTrue(Enumerable.SequenceEqual(trk1.RouteFrom[0],
-               new string[] { "ONION", "OTR5", "ADNAP", "OTR7", "EMRON" }));
+            Assert.IsTrue(trk1.RouteFrom[0].SequenceEqual(
+               new[] { "ONION", "OTR5", "ADNAP", "OTR7", "EMRON" }));
 
             Assert.AreEqual(2, trk1.RouteTo.Count);
 
-            Assert.IsTrue(Enumerable.SequenceEqual(trk1.RouteTo[0],
-               new string[] { "PRETY", "TAMRU", "TOU", "MARNR" }));
+            Assert.IsTrue(trk1.RouteTo[0].SequenceEqual(
+               new[] { "PRETY", "TAMRU", "TOU", "MARNR" }));
 
-            Assert.IsTrue(Enumerable.SequenceEqual(trk1.RouteTo[1],
-               new string[] { "PRETY", "TAMRU", "TOU", "KEIKO" }));
+            Assert.IsTrue(trk1.RouteTo[1].SequenceEqual(
+               new[] { "PRETY", "TAMRU", "TOU", "KEIKO" }));
 
             Assert.IsTrue(trk1.Remarks == @" ACFT LDG CYVR--48N150W 50N140W ORNAI SIMLU KEPKO YAZ
               FOCHE CYVR
@@ -81,14 +81,7 @@ JAPAN ROUTE : VACKY OTR13 SEALS
 
         private PacificTrack GetTrack(IEnumerable<PacificTrack> trks, string ID)
         {
-            foreach (var i in trks)
-            {
-                if (i.Ident == ID)
-                {
-                    return i;
-                }
-            }
-            return null;
+            return trks.FirstOrDefault(track => track.Ident == ID);
         }
     }
 }

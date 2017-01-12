@@ -6,7 +6,7 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using static QSP.LibraryExtension.Lists;
 using static UnitTest.Common.Constants;
 
-namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
+namespace UnitTest.RouteFinding.TerminalProcedures.Star
 {
     [TestFixture]
     public class StarCollectionTest
@@ -61,8 +61,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
                 CreateList(RwySpecificPart(), CommonPart()))
                 .GetStarInfo("STAR1", "05", runway05);
 
-            Assert.AreEqual(new Waypoint("WPTA", 12.0, 21.0),
-                (info.FirstWaypoint));
+            Assert.AreEqual(new Waypoint("WPTA", 12.0, 21.0), info.FirstWaypoint);
 
             Assert.AreEqual(DistanceRwySpecificAndCommonPart(),
                 info.TotalDistance,
@@ -104,9 +103,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Star
                     TransitionPart()));
 
             var info = stars.GetStarInfo("STAR1.TRANS1", "05", runway05);
-
-            Assert.AreEqual(new Waypoint("WPTBB", 12.0, 22.0),
-                info.FirstWaypoint);
+            Assert.AreEqual(new Waypoint("WPTBB", 12.0, 22.0), info.FirstWaypoint);
 
             Assert.AreEqual(DistanceRwySpecificAndCommonAndTransitionPart(),
                 info.TotalDistance,

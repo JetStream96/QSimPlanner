@@ -14,11 +14,9 @@ namespace UnitTest.TOPerfCalculation.Boeing
         public void ReadTableTest()
         {
             var data = new TestData();
-            var allTables = new PerfDataLoader().ReadTable(
-                 XDocument.Parse(data.PerfXml).Root);
+            var allTables = new PerfDataLoader().ReadTable(XDocument.Parse(data.PerfXml).Root);
 
             Assert.AreEqual(1, allTables.Flaps.Count);
-
             var table = allTables.Tables[0];
 
             Assert.AreEqual(500.0, table.PacksOffDry, delta);
@@ -39,8 +37,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             Assert.IsTrue(table.AlternateThrustTables[1].Equals(
                 data.AltnThrustTables[1], delta));
 
-            Assert.IsTrue(Enumerable.SequenceEqual(table.ThrustRatings,
-                new string[] { "TO", "TO1", "TO2" }));
+            Assert.IsTrue(table.ThrustRatings.SequenceEqual(new[] { "TO", "TO1", "TO2" }));
 
             Assert.IsTrue(table.SlopeCorrDry.Equals(data.SlopeCorrDry, delta));
             Assert.IsTrue(table.SlopeCorrWet.Equals(data.SlopeCorrWet, delta));

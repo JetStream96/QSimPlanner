@@ -21,7 +21,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var wptList = new WaypointList();
             wptList.AddWaypoint(wpt);
 
-            var route = new string[] { "SIERA" };
+            var route = new[] { "SIERA" };
 
             var extractor = new StarExtractor(
                 route.ToRouteString(),
@@ -31,9 +31,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 new StarCollection(new StarEntry[0]));
 
             var result = extractor.Extract();
-
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                route, result.RemainingRoute));
+            Assert.IsTrue(result.RemainingRoute.SequenceEqual(route));
 
             var destRoute = result.DestRoute;
             Assert.AreEqual(2, destRoute.Count);
@@ -44,7 +42,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsTrue("DCT" == neighbor.Airway);
             Assert.AreEqual(wpt.Distance(rwy), neighbor.Distance, 1E-8);
             Assert.AreEqual(0, neighbor.InnerWaypoints.Count);
-            Assert.AreEqual(InnerWaypointsType.None, neighbor.Type); 
+            Assert.AreEqual(InnerWaypointsType.None, neighbor.Type);
 
             Assert.IsTrue(destRoute.Last().Waypoint.Equals(rwy));
         }
@@ -53,7 +51,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
         public void Case2Test()
         {
             // Setup
-            var route = new string[] { "ELATO", "SIERA", "STAR1" };
+            var route = new[] { "ELATO", "SIERA", "STAR1" };
 
             var wptList = new WaypointList();
             var wpt = new Waypoint("SIERA", 18.0, 115.0);
@@ -65,10 +63,10 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var star = new StarEntry(
                 "07L",
                 "STAR1",
-                new Waypoint[] { wpt, p1 },
+                new[] { wpt, p1 },
                 EntryType.RwySpecific);
 
-            var stars = new StarCollection(new StarEntry[] { star });
+            var stars = new StarCollection(new[] { star });
 
             var extractor = new StarExtractor(
                 route.ToRouteString(),
@@ -78,9 +76,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 stars);
 
             var result = extractor.Extract();
-
-            Assert.IsTrue(Enumerable.SequenceEqual(result.RemainingRoute,
-                new string[] { "ELATO", "SIERA" }));
+            Assert.IsTrue(result.RemainingRoute.SequenceEqual(new[] { "ELATO", "SIERA" }));
 
             var destRoute = result.DestRoute;
             Assert.AreEqual(2, destRoute.Count);
@@ -90,10 +86,9 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             Assert.IsTrue(node1.Waypoint.Equals(wpt));
             Assert.IsTrue("STAR1" == neighbor.Airway);
 
-            double distance = new Waypoint[] { wpt, p1, rwy }.TotalDistance();
+            double distance = new[] { wpt, p1, rwy }.TotalDistance();
             Assert.AreEqual(distance, neighbor.Distance, 1E-8);
-            Assert.IsTrue(Enumerable.SequenceEqual(neighbor.InnerWaypoints,
-                new Waypoint[] { p1 }));
+            Assert.IsTrue(neighbor.InnerWaypoints.SequenceEqual(new[] { p1 }));
             Assert.AreEqual(InnerWaypointsType.Terminal, neighbor.Type);
 
             Assert.IsTrue(destRoute.Last().Waypoint.Equals(rwy));
@@ -103,7 +98,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
         public void Case3Test()
         {
             // Setup
-            var route = new string[] { "SIERA", "P1", "STAR1" };
+            var route = new[] { "SIERA", "P1", "STAR1" };
 
             var wptList = new WaypointList();
             var wpt = new Waypoint("SIERA", 18.0, 115.0);
@@ -115,10 +110,10 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var star = new StarEntry(
                 "07L",
                 "STAR1",
-                new Waypoint[] { p1 },
+                new[] { p1 },
                 EntryType.RwySpecific);
 
-            var stars = new StarCollection(new StarEntry[] { star });
+            var stars = new StarCollection(new[] { star });
 
             var extractor = new StarExtractor(
                 route.ToRouteString(),
@@ -129,8 +124,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             var result = extractor.Extract();
 
-            Assert.IsTrue(Enumerable.SequenceEqual(result.RemainingRoute,
-                new string[] { "SIERA" }));
+            Assert.IsTrue(result.RemainingRoute.SequenceEqual(new[] { "SIERA" }));
 
             var destRoute = result.DestRoute;
             Assert.AreEqual(3, destRoute.Count);

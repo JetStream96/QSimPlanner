@@ -3,11 +3,11 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.RouteAnalyzers.Extractors;
+using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using System.Linq;
 using static QSP.LibraryExtension.Lists;
-using QSP.RouteFinding.Routes;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 {
@@ -18,7 +18,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
         public void Case1Test()
         {
             // Setup
-            var route = new string[] { "HLG", "A1", "MKG" };
+            var route = new[] { "HLG", "A1", "MKG" };
 
             var wptList = new WaypointList();
             var rwy = new Waypoint("RCTP05L", 20.0, 120.0);
@@ -36,8 +36,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var result = extractor.Extract();
 
             // Assert
-            Assert.IsTrue(Enumerable.SequenceEqual(route,
-                result.RemainingRoute));
+            Assert.IsTrue(route.SequenceEqual(result.RemainingRoute));
 
             var origRoute = result.OrigRoute;
             Assert.AreEqual(2, origRoute.Count);
@@ -58,7 +57,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
         public void Case2Test()
         {
             // Setup
-            var route = new string[] { "SID1", "HLG", "A1", "MKG" };
+            var route = new[] { "SID1", "HLG", "A1", "MKG" };
 
             var wptList = new WaypointList();
             var rwy = new Waypoint("RCTP05L", 20.0, 120.0);
@@ -69,7 +68,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var sid = new SidEntry(
                 "05L",
                 "SID1",
-                new Waypoint[] {p1},
+                new[] { p1 },
                 EntryType.RwySpecific,
                 true);
 
@@ -78,15 +77,13 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 "05L",
                 rwy,
                 wptList,
-                new SidCollection(new SidEntry[] { sid }));
+                new SidCollection(new[] { sid }));
 
             // Invoke
             var result = extractor.Extract();
 
             // Assert
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                new string[] { "HLG", "A1", "MKG" },
-                result.RemainingRoute));
+            Assert.IsTrue(result.RemainingRoute.SequenceEqual(new[] { "HLG", "A1", "MKG" }));
 
             var origRoute = result.OrigRoute;
             Assert.AreEqual(2, origRoute.Count);
@@ -95,10 +92,8 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var neighbor = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor.Airway == sid.Name);
-            Assert.AreEqual(neighbor.Distance,
-                CreateList(rwy, p1, wpt1).TotalDistance(), 1E-8);
-            Assert.IsTrue(Enumerable.SequenceEqual(neighbor.InnerWaypoints,
-                new Waypoint[] { p1 }));
+            Assert.AreEqual(neighbor.Distance, CreateList(rwy, p1, wpt1).TotalDistance(), 1E-8);
+            Assert.IsTrue(neighbor.InnerWaypoints.SequenceEqual(new[] { p1 }));
             Assert.AreEqual(InnerWaypointsType.Terminal, neighbor.Type);
 
             node = node.Next;
@@ -109,7 +104,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
         public void Case3Test()
         {
             // Setup
-            var route = new string[] { "SID1", "HLG", "A1", "MKG" };
+            var route = new[] { "SID1", "HLG", "A1", "MKG" };
 
             var wptList = new WaypointList();
             var rwy = new Waypoint("RCTP05L", 20.0, 120.0);
@@ -120,7 +115,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var sid = new SidEntry(
                 "05L",
                 "SID1",
-                new Waypoint[] { p1, wpt1 },
+                new[] { p1, wpt1 },
                 EntryType.RwySpecific,
                 false);
 
@@ -129,15 +124,13 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 "05L",
                 rwy,
                 wptList,
-                new SidCollection(new SidEntry[] { sid }));
+                new SidCollection(new[] { sid }));
 
             // Invoke
             var result = extractor.Extract();
 
             // Assert
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                new string[] { "HLG", "A1", "MKG" },
-                result.RemainingRoute));
+            Assert.IsTrue(result.RemainingRoute.SequenceEqual(new[] { "HLG", "A1", "MKG" }));
 
             var origRoute = result.OrigRoute;
             Assert.AreEqual(2, origRoute.Count);
@@ -146,10 +139,8 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var neighbor = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor.Airway == sid.Name);
-            Assert.AreEqual(neighbor.Distance,
-                CreateList(rwy, p1, wpt1).TotalDistance(), 1E-8);
-            Assert.IsTrue(Enumerable.SequenceEqual(neighbor.InnerWaypoints,
-                new Waypoint[] { p1 }));
+            Assert.AreEqual(neighbor.Distance, CreateList(rwy, p1, wpt1).TotalDistance(), 1E-8);
+            Assert.IsTrue(neighbor.InnerWaypoints.SequenceEqual(new[] { p1 }));
             Assert.AreEqual(InnerWaypointsType.Terminal, neighbor.Type);
 
             node = node.Next;
@@ -160,7 +151,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
         public void Case4Test()
         {
             // Setup
-            var route = new string[] { "SID1", "P1", "HLG", "A1", "MKG" };
+            var route = new[] { "SID1", "P1", "HLG", "A1", "MKG" };
 
             var wptList = new WaypointList();
             var rwy = new Waypoint("RCTP05L", 20.0, 120.0);
@@ -172,7 +163,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var sid = new SidEntry(
                 "05L",
                 "SID1",
-                new Waypoint[] { p1 },
+                new[] { p1 },
                 EntryType.RwySpecific,
                 false);
 
@@ -181,15 +172,13 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
                 "05L",
                 rwy,
                 wptList,
-                new SidCollection(new SidEntry[] { sid }));
+                new SidCollection(new[] { sid }));
 
             // Invoke
             var result = extractor.Extract();
 
             // Assert
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                new string[] { "HLG", "A1", "MKG" },
-                result.RemainingRoute));
+            Assert.IsTrue(result.RemainingRoute.SequenceEqual(new[] { "HLG", "A1", "MKG" }));
 
             var origRoute = result.OrigRoute;
             Assert.AreEqual(3, origRoute.Count);
@@ -212,6 +201,6 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 
             node = node.Next;
             Assert.IsTrue(node.Value.Waypoint.Equals(wpt1));
-        }        
+        }
     }
 }

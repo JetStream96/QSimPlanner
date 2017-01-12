@@ -16,12 +16,13 @@ namespace UnitTest.RouteFinding.Containers.CountryCode
             codeLetterLookup.Add(0, "AA");
             codeLetterLookup.Add(1, "BB");
 
-            var fullNameLookup = new Dictionary<string, string>();
-            fullNameLookup.Add("AA", "Country A");
-            fullNameLookup.Add("XX", "Country X");
+            var fullNameLookup = new Dictionary<string, string>()
+            {
+                {"AA", "Country A"},
+                {"XX", "Country X"}
+            };
 
-            var manager = new CountryCodeManager(codeLetterLookup,
-                fullNameLookup);
+            var manager = new CountryCodeManager(codeLetterLookup, fullNameLookup);
 
             Assert.AreEqual(2, manager.CodeToLetterLookup.Count);
             Assert.IsTrue(manager.CodeToLetterLookup.Contains(

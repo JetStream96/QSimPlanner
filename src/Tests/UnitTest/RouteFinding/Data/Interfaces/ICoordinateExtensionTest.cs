@@ -32,7 +32,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
         [Test]
         public void GetClosestTest()
         {
-            var items = new pt[] 
+            var items = new[] 
             {
                 new pt(10.0, 20.0),
                 new pt(20.0, 20.0),
@@ -50,7 +50,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
         [Test]
         public void TotalDistance3Pts()
         {
-            var pts = new pt[]
+            var pts = new[]
             {
                 new pt(0.0,3.5),
                 new pt(-15.0,31.5),
@@ -65,7 +65,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
         [Test]
         public void TotalDistance2Pts()
         {
-            var pts = new pt[]
+            var pts = new[]
             {
                 new pt(0.0,3.5),
                 new pt(-15.0,31.5)
@@ -79,7 +79,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
         [Test]
         public void TotalDistance1Pt()
         {
-            var pts = new pt[]
+            var pts = new[]
             {
                 new pt(0.0,3.5)
             };

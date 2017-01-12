@@ -4,6 +4,8 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.RouteAnalyzers;
 using System.Collections.Generic;
+using System.Linq;
+using QSP.LibraryExtension;
 using static UnitTest.RouteFinding.Common;
 using static UnitTest.RouteFinding.RouteAnalyzers.Util;
 
@@ -24,14 +26,9 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 new Waypoint("P01", 50.0, -30.0)
             };
 
-            var indices = new List<int>();
             var wptList = new WaypointList();
-
-            for (int i = 0; i < wpts.Length; i++)
-            {
-                indices.Add(wptList.AddWaypoint(wpts[i]));
-            }
-
+            var indices = wpts.Select(w => wptList.AddWaypoint(w)).ToList();
+           
             wptList.AddNeighbor(indices[0], "A01", indices[1]);
             wptList.AddNeighbor(indices[1], "A02", indices[2]);
 
@@ -67,15 +64,10 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 new Waypoint("P01", 60.0, 55.0),
                 new Waypoint("P02", 40.0, 33.0)
             };
-
-            var indices = new List<int>();
+            
             var wptList = new WaypointList();
-
-            for (int i = 0; i < wpts.Length; i++)
-            {
-                indices.Add(wptList.AddWaypoint(wpts[i]));
-            }
-
+            wpts.ForEach(w => wptList.AddWaypoint(w));
+            
             var analyzer = new AutoSelectAnalyzer(
                 GetRouteString("P01", "P02"),
                 new LatLon(45.0, 40.0),

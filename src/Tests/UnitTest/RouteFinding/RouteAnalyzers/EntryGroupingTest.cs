@@ -15,11 +15,11 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var result = EntryGrouping.Group(input);
 
             Assert.AreEqual(5, result.Count);
-            AssertSegment(result[0], new string[] { "A", "B" });
+            AssertSegment(result[0], new[] { "A", "B" });
             Assert.IsTrue(result[1].IsAuto);
-            AssertSegment(result[2], new string[] { "C", "D" });
+            AssertSegment(result[2], new[] { "C", "D" });
             Assert.IsTrue(result[3].IsRand);
-            AssertSegment(result[4], new string[] { "E"});
+            AssertSegment(result[4], new[] { "E" });
         }
 
         [Test]
@@ -30,12 +30,12 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             Assert.AreEqual(2, result.Count);
             Assert.IsTrue(result[0].IsAuto);
-            AssertSegment(result[1], new string[] { "A", "B" });
+            AssertSegment(result[1], new[] { "A", "B" });
         }
 
         private static void AssertSegment(RouteSegment seg, string[] s)
         {
-            Assert.IsTrue(Enumerable.SequenceEqual(seg.RouteString, s));
+            Assert.IsTrue(seg.RouteString.SequenceEqual(s));
         }
     }
 }

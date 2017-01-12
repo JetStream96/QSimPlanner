@@ -244,14 +244,11 @@ namespace UnitTest.RouteFinding.Routes
         public void ConnectRouteMismatchShouldThrowException()
         {
             var x = new Waypoint("X", 0.0, 0.0);
-            var y = new Waypoint("Y", 0.0, 1.0);
-            var z = new Waypoint("Z", 0.0, 3.0);
 
             var route = new Route();
             route.AddLastWaypoint(x);
 
-            Assert.Throws<ArgumentException>(() =>
-            route.Connect(GetRoute1()));
+            Assert.Throws<ArgumentException>(() => route.Connect(GetRoute1()));
         }
     }
 }

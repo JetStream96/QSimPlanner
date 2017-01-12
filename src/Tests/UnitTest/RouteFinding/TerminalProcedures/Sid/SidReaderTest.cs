@@ -7,7 +7,7 @@ using System.Linq;
 using QSP.LibraryExtension;
 using static QSP.LibraryExtension.Lists;
 
-namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
+namespace UnitTest.RouteFinding.TerminalProcedures.Sid
 {
     [TestFixture]
     public class SidReaderTest

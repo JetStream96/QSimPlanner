@@ -10,10 +10,10 @@ namespace UnitTest.TOPerfCalculation.Boeing.PerfData
         private const double delta = 1E-7;
 
         private AlternateThrustTable table = new AlternateThrustTable(
-            new double[] { 200.0, 250.0 },
-            new double[] { 190.0, 240.0 },
-            new double[] { 192.0, 242.0 },
-            new double[] { 180.0, 230.0 });
+            new[] { 200.0, 250.0 },
+            new[] { 190.0, 240.0 },
+            new[] { 192.0, 242.0 },
+            new[] { 180.0, 230.0 });
 
         [Test]
         public void CorrectedLimitWeightTest()

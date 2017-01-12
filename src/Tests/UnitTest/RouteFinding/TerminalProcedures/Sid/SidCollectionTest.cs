@@ -5,13 +5,12 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using static QSP.LibraryExtension.Lists;
 
-namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
+namespace UnitTest.RouteFinding.TerminalProcedures.Sid
 {
     [TestFixture]
     public class SidCollectionTest
     {
-        private readonly Waypoint runway05 =
-            new Waypoint("ABCD05", 10.0, 19.0);
+        private readonly Waypoint runway05 = new Waypoint("ABCD05", 10.0, 19.0);
 
         #region OnlyRwySpecificPart
 
@@ -24,8 +23,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
 
         private void onlyRwySpecificPart(bool hasVector)
         {
-            var sids = new SidCollection(
-                CreateList(RwySpecificPart(hasVector)));
+            var sids = new SidCollection(CreateList(RwySpecificPart(hasVector)));
 
             var info = sids.GetSidInfo("SID1", "05", runway05);
 
@@ -72,13 +70,10 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
         private void rwySpecificAndCommonPart(bool hasVector)
         {
             var sids = new SidCollection(
-                CreateList(
-                    RwySpecificPart(!hasVector), CommonPart(hasVector)));
+                CreateList(RwySpecificPart(!hasVector), CommonPart(hasVector)));
 
             var info = sids.GetSidInfo("SID1", "05", runway05);
-
-            Assert.IsTrue(new Waypoint("WPTA", 12.0, 21.0)
-                .Equals(info.LastWaypoint));
+            Assert.IsTrue(new Waypoint("WPTA", 12.0, 21.0).Equals(info.LastWaypoint));
 
             Assert.AreEqual(hasVector, info.EndsWithVector);
             Assert.AreEqual(DistanceRwySpecificAndCommonPart(),
@@ -128,9 +123,7 @@ namespace UnitTest.RouteFindingTest.TerminalProceduresTest.Sid
                         TransitionPart(hasVector)));
 
             var info = sids.GetSidInfo("SID1.TRANS1", "05", runway05);
-
-            Assert.IsTrue(new Waypoint("WPTCC", 13.0, 22.0)
-                .Equals(info.LastWaypoint));
+            Assert.IsTrue(new Waypoint("WPTCC", 13.0, 22.0).Equals(info.LastWaypoint));
 
             Assert.AreEqual(hasVector, info.EndsWithVector);
             Assert.AreEqual(DistanceRwySpecificAndCommonAndTransitionPart(),

@@ -26,8 +26,7 @@ JAPAN ROUTE : ONION OTR5 KALNA
             var result = Interpreter.Parse(text);
 
             Assert.AreEqual(1, result.ID);
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                result.FlexRoute, flexRoute));
+            Assert.IsTrue(result.FlexRoute.SequenceEqual(flexRoute));
 
             Assert.IsTrue(result.ConnectionRoute == @"JAPAN ROUTE : ONION OTR5 KALNA
   NAR ROUTE : ACFT LDG KSEA--ORNAI SIMLU KEPKO TOU MARNR KSEA
@@ -51,8 +50,7 @@ JAPAN ROUTE : ONION OTR5 KALNA
             var result = Interpreter.Parse(text);
 
             Assert.AreEqual(1, result.ID);
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                result.FlexRoute, flexRoute));
+            Assert.IsTrue(result.FlexRoute.SequenceEqual(flexRoute));
 
             Assert.IsTrue(result.ConnectionRoute == @"JAPAN ROUTE : ONION OTR5 KALNA
   NAR ROUTE : ACFT LDG KSEA--ORNAI SIMLU KEPKO TOU MARNR KSEA

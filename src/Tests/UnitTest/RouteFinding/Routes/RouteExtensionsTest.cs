@@ -37,13 +37,11 @@ namespace UnitTest.RouteFinding.Routes
 
             route.Nodes.InsertRoute(GetRoute2().Nodes, "B");
 
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                route.Nodes.Select(n => n.Waypoint.ID),
-                new string[] { "1", "2", "4", "3" }));
+            Assert.IsTrue(route.Nodes.Select(n => n.Waypoint.ID).SequenceEqual(
+                new[] { "1", "2", "4", "3" }));
 
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                route.Nodes.Select(n => n.Neighbor.Airway).Take(3),
-                new string[] { "A", "C", "D" }));
+            Assert.IsTrue(route.Nodes.Select(n => n.Neighbor.Airway).Take(3).SequenceEqual(
+                new[] { "A", "C", "D" }));
         }
 
         [Test]

@@ -9,12 +9,13 @@ namespace UnitTest.TOPerfCalculation.Boeing.PerfData
         private const double delta = 1E-7;
 
         private WindCorrTable table = new WindCorrTable(
-                new double[] { 2000.0, 2400.0 },
-                new double[] { 0.0, 10.0 },
-                new double[][] {
-                    new double[] { 2000.0, 2100.0 },
-                    new double[] { 2400.0, 2600.0 }
-                });
+            new[] { 2000.0, 2400.0 },
+            new[] { 0.0, 10.0 },
+            new[] 
+            {
+                new[] { 2000.0, 2100.0 },
+                new[] { 2400.0, 2600.0 }
+            });
 
         [Test]
         public void CorrectedLengthTest()

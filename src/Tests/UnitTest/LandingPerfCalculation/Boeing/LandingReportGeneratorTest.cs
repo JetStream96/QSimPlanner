@@ -12,8 +12,6 @@ namespace UnitTest.LandingPerfCalculation.Boeing
     [TestFixture]
     public class LandingReportGeneratorTest
     {
-        private const double delta = 1E-7;
-
         [Test]
         public void GetReportTest()
         {
@@ -42,16 +40,12 @@ namespace UnitTest.LandingPerfCalculation.Boeing
         }
 
         private void AssertMainResult(LandingReport report,
-                                      LandingParameters para,
-                                      BoeingPerfTable table)
+            LandingParameters para, BoeingPerfTable table)
         {
             var entry = report.SelectedBrks;
             var calc = new LandingCalculator(table, para);
 
-            string brake = table
-                           .BrakesAvailable(para.SurfaceCondition)
-                           [para.BrakeIndex];
-
+            string brake = table.BrakesAvailable(para.SurfaceCondition)[para.BrakeIndex];
             double rwyRequired = calc.DistanceRequiredMeter();
 
             Assert.IsTrue(entry.BrkSetting == brake);
@@ -63,20 +57,17 @@ namespace UnitTest.LandingPerfCalculation.Boeing
         }
 
         private void AssertOtherResult(LandingReport report,
-                                       LandingParameters para,
-                                       BoeingPerfTable table)
+            LandingParameters para, BoeingPerfTable table)
         {
             var calc = new LandingCalculator(table, para);
 
             foreach (var i in report.AllSettings)
             {
                 int brakeIndex = Array.FindIndex(
-                          table.BrakesAvailable(para.SurfaceCondition),
-                          x => x == i.BrkSetting);
+                    table.BrakesAvailable(para.SurfaceCondition),
+                    x => x == i.BrkSetting);
 
-                PropertySetter.Set(para,
-                                   "BrakeIndex",
-                                   brakeIndex);
+                PropertySetter.Set(para, "BrakeIndex", brakeIndex);
 
                 double rwyRequired = calc.DistanceRequiredMeter();
                 Assert.AreEqual(rwyRequired, i.ActualDisMeter, 0.5);
@@ -109,7 +100,7 @@ namespace UnitTest.LandingPerfCalculation.Boeing
 
             Assert.Throws<RunwayTooShortException>(() =>
             {
-                var report = new LandingReportGenerator(table, para).GetReport();
+                new LandingReportGenerator(table, para).GetReport();
             });
         }
     }

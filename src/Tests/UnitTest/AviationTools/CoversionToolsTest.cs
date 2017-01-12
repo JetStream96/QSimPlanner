@@ -3,7 +3,7 @@ using NUnit.Framework;
 using static QSP.AviationTools.ConversionTools;
 using static UnitTest.Common.Utilities;
 
-namespace UnitTest.AviationToolsTest
+namespace UnitTest.AviationTools
 {
     [TestFixture]
     public class CoversionToolsTest

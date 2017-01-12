@@ -98,8 +98,8 @@ namespace UnitTest.RouteFinding.Tracks.Common
                     new LatLon(0.0, 0.0)));
 
             // Assert
-            var pairs = nodes.ConnectionRoutes;
-            Assert.AreEqual(1, pairs.Count());
+            var pairs = nodes.ConnectionRoutes.ToList();
+            Assert.AreEqual(1, pairs.Count);
 
             var pair = pairs.First();
             Assert.AreEqual(q3Index, pair.IndexFrom);

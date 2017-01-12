@@ -6,7 +6,7 @@ using QSP.RouteFinding.Data.Interfaces;
 using QSP.WindAloft;
 using static UnitTest.RouteFinding.Common;
 
-namespace UnitTest.RouteFindingTest
+namespace UnitTest.RouteFinding
 {
     [TestFixture]
     public class RouteFinderTest
@@ -53,7 +53,7 @@ namespace UnitTest.RouteFindingTest
             wptList.AddNeighbor(i2, "24", i4);
             wptList.AddNeighbor(i3, "34", i4);
 
-            var avoid = new CountryCodeCollection(new int[] { 0 });
+            var avoid = new CountryCodeCollection(new[] { 0 });
             var route = new RouteFinder(wptList, avoid).FindRoute(i1, i4);
 
             var expected = GetRoute(
@@ -78,7 +78,10 @@ namespace UnitTest.RouteFindingTest
             int i2 = wptList.FindByWaypoint(w2);
             int i3 = wptList.FindByWaypoint(w3);
             var n = new Neighbor(
-                "03", new [] {w0,w1,w2}.TotalDistance(), new [] {w1}, InnerWaypointsType.Track);
+                "03", 
+                new [] { w0, w1, w2 }.TotalDistance(), 
+                new [] { w1 }, InnerWaypointsType.Track);
+
             wptList.AddNeighbor(i0, i2, n);
             wptList.AddNeighbor(i0, "02", i2);
             wptList.AddNeighbor(i2, "23", i3);

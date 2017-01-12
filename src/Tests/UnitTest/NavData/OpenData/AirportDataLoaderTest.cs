@@ -23,7 +23,6 @@ namespace UnitTest.NavData.OpenData
             Assert.IsNull(airports["37NJ"]);
 
             var vhhh = airports["VHHH"];
-            var rwys = vhhh.Rwys;
 
             AssertVhhh(vhhh);
             AssertVhhhRwys(vhhh);

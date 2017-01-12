@@ -59,9 +59,9 @@ namespace UnitTest.AircraftProfiles.Configs
             manager.Add(config1);
             manager.Add(config2);
 
-            var result = manager.FindAircraft(config1.Config.AC);
+            var result = manager.FindAircraft(config1.Config.AC).ToList();
 
-            Assert.AreEqual(2, result.Count());
+            Assert.AreEqual(2, result.Count);
             Assert.IsTrue(result.Contains(config1));
             Assert.IsTrue(result.Contains(config2));
         }

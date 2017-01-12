@@ -13,8 +13,7 @@ namespace UnitTest.LibraryExtension
             int[] array = { 3, 5, 7, 9 };
             int[] expected = { 5, 7 };
 
-            Assert.IsTrue(Enumerable.SequenceEqual(
-                expected, array.WithoutFirstAndLast()));
+            Assert.IsTrue(array.WithoutFirstAndLast().SequenceEqual(expected));
         }
 
         [Test]
