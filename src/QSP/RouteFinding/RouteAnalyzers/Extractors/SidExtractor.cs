@@ -101,7 +101,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             if (sidLastWpt.ID != route.First())
             {
                 throw new ArgumentException($"{route.First()} is not the last"
-                    + " waypoint of the SID {first}.");
+                    + $" waypoint of the SID {first}.");
             }
 
             if (wptList.FindByWaypoint(sidLastWpt) == -1)
