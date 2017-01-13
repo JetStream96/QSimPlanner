@@ -1,3 +1,4 @@
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
@@ -11,7 +12,7 @@ namespace QSP.GoogleMap
     public static class RouteDrawing
     {
         public static StringBuilder MapDrawString(
-            IReadOnlyList<Waypoint> rte, int width, int height)
+            IReadOnlyList<Waypoint> route, int width, int height)
         {
             var mapHtml = new StringBuilder();
 
@@ -45,16 +46,15 @@ function initialize()
 {
 ");
 
-            int counter = 0;
-            foreach (var i in rte)
+            route.ForEach((wpt, index) =>
             {
                 mapHtml.AppendLine(
-                    $"var wpt{counter++}=new google.maps.LatLng(" +
-                    $"{i.Lat},{i.Lon});");
-            }
-
+                    $"var wpt{index}=new google.maps.LatLng(" +
+                    $"{wpt.Lat},{wpt.Lon});");
+            });
+            
             // Center of map
-            var center = GetCenter(rte);
+            var center = GetCenter(route);
             mapHtml.AppendLine($"var centerP=new google.maps.LatLng({center.Lat},{center.Lon});");
 
             const int zoomlevel = 6;
@@ -68,17 +68,15 @@ mapTypeId:google.maps.MapTypeId.ROADMAP
 var map=new google.maps.Map(document.getElementById(""googleMap""),mapProp);
 var myTrip=[");
 
-            // TODO: Possible to simplify?
-            counter = 0;
-            foreach (var i in rte)
+            route.ForEach((wpt, index) =>
             {
-                if (counter != rte.Count - 1)
+                if (index != route.Count - 1)
                 {
-                    mapHtml.Append($"wpt{counter},");
+                    mapHtml.Append($"wpt{index},");
                 }
                 else
                 {
-                    mapHtml.AppendLine("wpt" + counter + @"];
+                    mapHtml.AppendLine("wpt" + index + @"];
     var flightPath=new google.maps.Polyline({
     path:myTrip,
     strokeColor:""#000000"",
@@ -88,15 +86,12 @@ var myTrip=[");
     });
     flightPath.setMap(map);");
                 }
-
-                counter++;
-            }
-
-            counter = 0;
-            foreach (var i in rte)
+            });
+            
+            route.ForEach((wpt, index) =>
             {
                 mapHtml.Append(string.Format(
-    @"
+                    @"
     var marker{0}  = new MarkerWithLabel({{
     position: wpt{1},
     icon:'pixel_trans.gif',
@@ -113,10 +108,9 @@ var myTrip=[");
     content: ""Home For Sale""
     }});
 
-", counter, counter, i.ID, counter++));
-
-            }
-
+", index, index, wpt.ID, index));
+            });
+            
             mapHtml.Append(@"}
             
             google.maps.event.addDomListener(window, 'load', initialize);
