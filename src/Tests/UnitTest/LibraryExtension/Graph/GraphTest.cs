@@ -1,54 +1,31 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using QSP.LibraryExtension;
 using QSP.LibraryExtension.Graph;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 
 namespace UnitTest.LibraryExtension.Graph
 {
-    // TODO: Readability needs to be improved.
     [TestFixture]
     public class GraphTest
     {
-        // In writing this test, the mechanism of FixedIndexList is sometimes assumed. 
-        // i.e. When adding N elements to a new FixedIndexList, their indices should 
-        // be 0, 1, ... , N-1.
-
         [Test]
         public void AddThenGetNode()
         {
-            var graph = new Graph<int, string>();
-            var indices = new List<int>();
-
-            for (int i = 0; i < 100; i++)
-            {
-                indices.Add(graph.AddNode(-i));
-            }
-
-            for (int i = 0; i < 100; i++)
-            {
-                Assert.AreEqual(-i, graph.GetNode(indices[i]));
-            }
+            var graph = new Graph<string, string>();
+            var nodes = Enumerable.Range(0, 100).Select(x => x.ToString());
+            var nodeIndex = nodes.Select(n => new { Node = n, Index = graph.AddNode(n) });
+            Assert.IsTrue(nodeIndex.All(item => item.Node == graph.GetNode(item.Index)));
         }
 
-        private Graph<int, string> CreateGraph0()
+        private static Graph<string, string> GetGraph()
         {
-            var graph = new Graph<int, string>();
+            var graph = new Graph<string, string>();
+            var nodes = Enumerable.Range(0, 50).Select(i => i.ToString()).ToList();
 
-            for (int i = 0; i < 100; i++)
+            foreach (var node in nodes)
             {
-                graph.AddNode(-i);
-            }
-            return graph;
-        }
-
-        private Graph<int, string> CreateGraph1()
-        {
-            var graph = new Graph<int, string>();
-
-            for (int i = 0; i < 50; i++)
-            {
-                graph.AddNode(-i);
+                graph.AddNode(node);
             }
 
             for (int i = 0; i < 50; i++)
@@ -65,114 +42,80 @@ namespace UnitTest.LibraryExtension.Graph
             return graph;
         }
 
-        private IEnumerable<int> ExpectedNeighbors(int num, int index)
-        {
-            return Enumerable.Range(0, num).Where(i => i != index).Select(i => -i);
-        }
-
         // This method tests EdgesFrom(int), and GetEdge(int).
         [Test]
-        public void AddEdgeReadWithForEach()
+        public void AddEdgeAndRead()
         {
-            var graph = CreateGraph1();
+            var graph = GetGraph();
 
             for (int i = 0; i < 50; i++)
             {
-                var x = new List<int>();
+                var nodesTo = graph.EdgesFrom(i).Select(edge =>
+                    graph.GetNode(graph.GetEdge(edge).ToNodeIndex));
 
-                foreach (var k in graph.EdgesFrom(i)) // k is the index of edge
-                {
-                    x.Add(graph.GetNode(graph.GetEdge(k).ToNodeIndex));
-                }
+                var expected = Enumerable.Range(0, 50)
+                    .Except(new[] { i })
+                    .Select(n => n.ToString());
 
-                x.Sort();
-                x.Reverse();
-
-                Assert.IsTrue(x.SequenceEqual(ExpectedNeighbors(50, i)));
+                Assert.IsTrue(nodesTo.ToHashSet().SetEquals(expected));
             }
         }
 
         [Test]
         public void AccessNonExistingNodeShouldThrowException()
         {
-            var graph = CreateGraph0();
-            Assert.Throws<ArgumentOutOfRangeException>(() => graph.GetNode(100));
+            var graph = new Graph<string, string>();
+            var index = graph.AddNode("0");
+            Assert.That(() => graph.GetNode(index + 1), Throws.Exception);
         }
 
         [Test]
         public void AccessNonExistingEdgeShouldThrowException()
         {
-            var graph = CreateGraph0();
-            Assert.Throws<IndexOutOfRangeException>(() => graph.GetEdge(0));
+            var graph = new Graph<string, string>();
+            var node0 = graph.AddNode("0");
+            var node1 = graph.AddNode("1");
+            var edge = graph.AddEdge(node0, node1, "X");
+
+            Assert.That(() => graph.GetEdge(edge + 1), Throws.Exception);
         }
 
         [Test]
         public void RemoveEdgeTest()
         {
-            var tuple = CreateGraph2();
-            var graph = tuple.Item2;
-            var edgeIndex = tuple.Item1;
+            var graph = new Graph<string, string>();
+            var node0 = graph.AddNode("0");
+            var node1 = graph.AddNode("1");
+            var edge = graph.AddEdge(node0, node1, "X");
 
-            graph.RemoveEdge(edgeIndex);
+            graph.RemoveEdge(edge);
 
-            foreach (var i in graph.EdgesFrom(27))
-            {
-                Assert.AreNotEqual(edgeIndex, i);
-            }
-        }
-
-        private Tuple<int, Graph<int, string>> CreateGraph2()
-        {
-            const int N = 27;
-            const int M = 36;
-
-            var graph = new Graph<int, string>();
-
-            for (int i = 0; i < 50; i++)
-            {
-                graph.AddNode(-i);
-            }
-
-            for (int i = 0; i < 50; i++)
-            {
-                if (i != N && i != M)
-                {
-                    graph.AddEdge(N, i, (N * i).ToString());
-                }
-            }
-
-            return new Tuple<int, Graph<int, string>>(graph.AddEdge(N, M, (N * M).ToString()), graph);
+            Assert.AreEqual(0, graph.EdgesFrom(node0).Count());
         }
 
         [Test]
         public void RemoveNodeCheckNodeRemoved()
         {
-            var graph = CreateGraph1();
-            int N = 39;
-
-            graph.RemoveNode(N);
+            var graph = new Graph<string, string>();
+            var index = graph.AddNode("42");
+            graph.RemoveNode(index);
 
             // Check the node is removed.
-            Assert.Throws<ArgumentOutOfRangeException>(() => graph.GetNode(N));
+            Assert.That(() => graph.GetNode(index), Throws.Exception);
         }
 
         [Test]
         public void RemoveNodeCheckEdgesRemoved()
         {
-            var graph = CreateGraph1();
-            int N = 39;
+            var graph = GetGraph();
+            const int n = 39;
 
-            graph.RemoveNode(N);
+            graph.RemoveNode(n);
 
             for (int i = 0; i < 50; i++)
             {
-                if (i != N)
-                {
-                    foreach (var j in graph.EdgesFrom(i))
-                    {
-                        Assert.AreNotEqual(N, graph.GetEdge(j).ToNodeIndex);
-                    }
-                }
+                if (i == n) continue;
+                Assert.IsTrue(graph.EdgesFrom(i).All(edge => graph.GetEdge(edge).ToNodeIndex != n));
             }
         }
 

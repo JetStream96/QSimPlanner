@@ -69,6 +69,7 @@ namespace QSP.LibraryExtension
             {
                 throw new ArgumentOutOfRangeException();
             }
+
             _items = new Entry[capacity];
             _size = 0;
             _free = -2;
@@ -90,6 +91,7 @@ namespace QSP.LibraryExtension
             {
                 IncreaseCapacity(1);
             }
+
             _items[_size] = new Entry(-1, item);
             _count++;
             return _size++;
@@ -100,9 +102,7 @@ namespace QSP.LibraryExtension
             int minimumSize = _size + newCount;
             if (minimumSize > _items.Length)
             {
-                Capacity =
-                    Math.Max(
-                        Math.Max(Capacity * 2, initCapacity), minimumSize);
+                Capacity = Math.Max(Math.Max(Capacity * 2, initCapacity), minimumSize);
             }
         }
 
@@ -131,6 +131,7 @@ namespace QSP.LibraryExtension
                     _items[tmp].next = -1;
                 }
             }
+
             return -1;
         }
 
@@ -146,6 +147,7 @@ namespace QSP.LibraryExtension
                 {
                     throw new ArgumentOutOfRangeException();
                 }
+
                 Array.Resize(ref _items, value);
             }
         }
@@ -158,6 +160,7 @@ namespace QSP.LibraryExtension
         /// </summary>
         public int IndexUpperBound => _size - 1;
 
+        /// <exception cref="Exception"></exception>
         public T this[int index]
         {
             get
@@ -167,6 +170,7 @@ namespace QSP.LibraryExtension
                     throw new ArgumentOutOfRangeException(
                         "The element at given index is already removed.");
                 }
+
                 return _items[index].value;
             }
             set
@@ -176,6 +180,7 @@ namespace QSP.LibraryExtension
                     throw new ArgumentOutOfRangeException(
                         "The element at given index is already removed.");
                 }
+
                 _items[index].value = value;
             }
         }
@@ -242,9 +247,9 @@ namespace QSP.LibraryExtension
                 {
                     if (index == 0 || index == list._size + 1)
                     {
-                        throw new InvalidOperationException(
-                            "Cannot enumerate.");
+                        throw new InvalidOperationException("Cannot enumerate.");
                     }
+
                     return Current;
                 }
             }
@@ -270,6 +275,7 @@ namespace QSP.LibraryExtension
                         index++;
                     }
                 }
+
                 return false;
             }
 
@@ -281,5 +287,3 @@ namespace QSP.LibraryExtension
         }
     }
 }
-
-

@@ -97,10 +97,10 @@ namespace UnitTest.LibraryExtension
             var item = CreateList(58200);
             item.RemoveAt(35688);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            Assert.That(() =>
             {
                 var x = item[35688];
-            });
+            }, Throws.Exception);
         }
 
         [Test]
@@ -125,10 +125,10 @@ namespace UnitTest.LibraryExtension
             var item = CreateList(58200);
             item.RemoveAt(35688);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            Assert.That(() =>
             {
                 item[35688] = 123.005;
-            });
+            }, Throws.Exception);
         }
 
         [Test]
@@ -153,10 +153,10 @@ namespace UnitTest.LibraryExtension
         {
             var item = CreateList(1280);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            Assert.That(() =>
             {
                 item.Capacity = 1279;
-            });
+            }, Throws.Exception);
         }
 
         [Test]

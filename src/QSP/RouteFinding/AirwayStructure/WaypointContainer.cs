@@ -66,7 +66,6 @@ namespace QSP.RouteFinding.AirwayStructure
         /// Find the index of WptNeighbor by ident of a waypoint.
         /// Returns -1 if not found.
         /// </summary>
-        /// <exception cref="ArgumentNullException"></exception>
         public int FindById(string ident)
         {
             try
@@ -111,6 +110,7 @@ namespace QSP.RouteFinding.AirwayStructure
                     return i;
                 }
             }
+
             return -1;
         }
 

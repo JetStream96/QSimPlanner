@@ -37,7 +37,7 @@ namespace QSP.LibraryExtension.Graph
         /// <summary>
         /// Add an edge from one node to another.
         /// </summary>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="Exception"></exception>
         public int AddEdge(int nodeFromIndex, int nodeToIndex, TEdge edge)
         {
             int edgeIndex = _edges.Add(dummyEdge);
@@ -56,7 +56,7 @@ namespace QSP.LibraryExtension.Graph
         /// <summary>
         /// Remove the node with the given index.
         /// </summary>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="Exception"></exception>
         public void RemoveNode(int index)
         {
             var node = _nodes[index];
@@ -79,18 +79,23 @@ namespace QSP.LibraryExtension.Graph
             _edges.RemoveAt(edgeIndex);
         }
 
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="Exception"></exception>
         public TNode GetNode(int index)
         {
             return _nodes[index].value;
         }
 
-        public bool NodeExists(int NodeIndex)
+        public bool NodeExists(int nodeIndex)
         {
-            return _nodes.ItemExists(NodeIndex);
+            return _nodes.ItemExists(nodeIndex);
         }
 
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        public bool EdgeExists(int edgeIndex)
+        {
+            return _edges.ItemExists(edgeIndex);
+        }
+
+        /// <exception cref="Exception"></exception>
         public Edge<TEdge> GetEdge(int edgeIndex)
         {
             return _edges[edgeIndex];
@@ -99,7 +104,7 @@ namespace QSP.LibraryExtension.Graph
         /// <summary>
         /// The indices of edges which leaves from the given node. 
         /// </summary>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="Exception"></exception>
         public IEnumerable<int> EdgesFrom(int index)
         {
             return _nodes[index].next;
@@ -108,7 +113,7 @@ namespace QSP.LibraryExtension.Graph
         /// <summary>
         /// The indices of edges which points to the given node. 
         /// </summary>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="Exception"></exception>
         public IEnumerable<int> EdgesTo(int index)
         {
             return _nodes[index].prev;
