@@ -3,6 +3,7 @@ using QSP.RouteFinding;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Data.Interfaces;
+using QSP.RouteFinding.Finder;
 using QSP.WindAloft;
 using static UnitTest.RouteFinding.Common;
 

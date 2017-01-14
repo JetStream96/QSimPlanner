@@ -15,19 +15,16 @@ namespace QSP.RouteFinding.TerminalProcedures.Sid
             WaypointListEditor editor,
             AirportManager airportList)
         {
-            string fileLocation = Path.Combine(
-                navDataLocation, "PROC", icao + ".txt");
+            string fileLocation = Path.Combine(navDataLocation, "PROC", icao + ".txt");
 
             try
             {
                 string allTxt = File.ReadAllText(fileLocation);
-                return new SidHandler(
-                    icao, allTxt, wptList, editor, airportList);
+                return new SidHandler(icao, allTxt, wptList, editor, airportList);
             }
             catch (Exception ex)
             {
-                throw new LoadSidFileException(
-                    "Failed to read " + fileLocation + ".", ex);
+                throw new LoadSidFileException("Failed to read " + fileLocation + ".", ex);
             }
         }
     }

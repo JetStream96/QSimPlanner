@@ -82,7 +82,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Star
         /// Add necessary waypoints and neighbors for STAR computation 
         /// to WptList, and returns the index of Dest. rwy in WptList.
         /// </summary>
-        public int AddStarsToWptList(string rwy, List<string> starsToAdd)
+        public int AddStarsToWptList(string rwy, IReadOnlyList<string> starsToAdd)
         {
             // Case 1
             if (starsToAdd.Count == 0) return ProcessCase1(rwy);

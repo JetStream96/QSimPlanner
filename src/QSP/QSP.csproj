@@ -170,6 +170,8 @@
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="NavData\NavDataPath.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="RouteFinding\Finder\DestInfo.cs" />
+    <Compile Include="RouteFinding\Finder\OrigInfo.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Parser\ProcedureParser.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Parser\SectionSplitter.cs" />
     <Compile Include="RouteFinding\Tracks\Actions\NetworkUpdateAction.cs" />
@@ -402,7 +404,7 @@
     <Compile Include="RouteFinding\RouteAnalyzers\Extractors\SidExtractor.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\Extractors\StarExtractor.cs" />
     <Compile Include="RouteFinding\RouteAnalyzers\RouteAnalyzerFacade.cs" />
-    <Compile Include="RouteFinding\RouteFinderFacade.cs" />
+    <Compile Include="RouteFinding\Finder\RouteFinderFacade.cs" />
     <Compile Include="RouteFinding\Routes\Route.cs" />
     <Compile Include="RouteFinding\Routes\RouteNode.cs" />
     <Compile Include="RouteFinding\Routes\TrackInUse\RouteEntry.cs" />
@@ -559,7 +561,7 @@
     <Compile Include="RouteFinding\Airports\AlternateFinder.cs" />
     <Compile Include="RouteFinding\Exceptions.cs" />
     <Compile Include="GoogleMap\RouteDrawing.cs" />
-    <Compile Include="RouteFinding\RouteFinder.cs" />
+    <Compile Include="RouteFinding\Finder\RouteFinder.cs" />
     <Compile Include="RouteFinding\Containers\Neighbor.cs" />
     <Compile Include="RouteFinding\AirwayStructure\WaypointList.cs" />
     <Compile Include="RouteFinding\Containers\Waypoint.cs" />

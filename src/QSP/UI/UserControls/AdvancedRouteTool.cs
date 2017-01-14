@@ -21,6 +21,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using QSP.RouteFinding.Finder;
 using static QSP.UI.Factories.ToolTipFactory;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 

@@ -4,15 +4,12 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
-using QSP.RouteFinding.TerminalProcedures.Sid;
-using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.WindAloft;
-using System.Collections.Generic;
+using System;
 using System.Linq;
-using static QSP.AviationTools.Constants;
-using static System.Math;
+using Constants = QSP.AviationTools.Constants;
 
-namespace QSP.RouteFinding
+namespace QSP.RouteFinding.Finder
 {
     // Effect of wind is not be applied to SID, STAR legs.
     // 
@@ -35,30 +32,27 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Add SID to wptList and returns the index of origin rwy.
         /// </summary>
-        private int AddSid(string rwy, List<string> sid, SidHandler sidHandler)
+        private int AddSid(OrigInfo info)
         {
-            return sidHandler.AddSidsToWptList(rwy, sid);
+            return info.Handler.AddSidsToWptList(info.Rwy, info.Sids);
         }
 
         /// <summary>
         /// Add STAR to wptList and returns the index of destination rwy.
         /// </summary>
-        private int AddStar(string rwy, List<string> star, StarHandler starHandler)
+        private int AddStar(DestInfo info)
         {
-            return starHandler.AddStarsToWptList(rwy, star);
+            return info.Handler.AddStarsToWptList(info.Rwy, info.Stars);
         }
 
         /// <summary>
         /// Gets a route between two aiports, from ORIG to DEST.
         /// </summary>
         /// <exception cref="RouteNotFoundException"></exception>
-        public Route FindRoute(
-            string origRwy, List<string> origSid, SidHandler sidHandler,
-            string destRwy, List<string> destStar, StarHandler starHandler,
-            WaypointListEditor editor)
+        public Route FindRoute(OrigInfo origInfo, DestInfo destInfo, WaypointListEditor editor)
         {
-            int origIndex = AddSid(origRwy, origSid, sidHandler);
-            int destIndex = AddStar(destRwy, destStar, starHandler);
+            int origIndex = AddSid(origInfo);
+            int destIndex = AddStar(destInfo);
 
             var result = GetRoute(origIndex, destIndex);
             editor.Undo();
@@ -68,14 +62,9 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from an airport to a waypoint.
         /// </summary>
-        public Route FindRoute(
-            string rwy,
-            List<string> sid,
-            SidHandler sidHandler,
-            int wptIndex,
-            WaypointListEditor editor)
+        public Route FindRoute(OrigInfo origInfo, int wptIndex, WaypointListEditor editor)
         {
-            int origIndex = AddSid(rwy, sid, sidHandler);
+            int origIndex = AddSid(origInfo);
 
             var result = GetRoute(origIndex, wptIndex);
             editor.Undo();
@@ -85,14 +74,9 @@ namespace QSP.RouteFinding
         /// <summary>
         /// Gets a route from a waypoint to an airport.
         /// </summary>
-        public Route FindRoute(
-            int wptIndex,
-            string rwy,
-            List<string> star,
-            StarHandler starHandler,
-            WaypointListEditor editor)
+        public Route FindRoute(int wptIndex, DestInfo destInfo, WaypointListEditor editor)
         {
-            int endIndex = AddStar(rwy, star, starHandler);
+            int endIndex = AddStar(destInfo);
             var result = GetRoute(wptIndex, endIndex);
             editor.Undo();
             return result;
@@ -204,7 +188,7 @@ namespace QSP.RouteFinding
 
             return windCalc.GetAirDistance(waypoints);
         }
-        
+
         private void UpdateNeighbors(
             int currentWptIndex,
             RouteSeachRegion regionPara,
@@ -324,7 +308,7 @@ namespace QSP.RouteFinding
 
         private class RouteSeachRegion
         {
-            public static readonly double MaxPossibleDistanceSum = PI * EarthRadiusNm;
+            public static readonly double MaxPossibleDistanceSum = Math.PI * Constants.EarthRadiusNm;
 
             public int StartPtIndex { get; private set; }
             public int EndPtIndex { get; private set; }

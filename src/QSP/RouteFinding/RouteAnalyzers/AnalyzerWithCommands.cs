@@ -11,6 +11,7 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using QSP.RouteFinding.Finder;
 using static QSP.RouteFinding.Routes.RouteExtensions;
 
 namespace QSP.RouteFinding.RouteAnalyzers

@@ -29,5 +29,11 @@ namespace UnitTest.LibraryExtension
             new[] { 2, 1, 0 }.ForEach((item, index) => list.Add(item + index));
             Assert.IsTrue(list.SequenceEqual(2, 2, 2));
         }
+
+        [Test]
+        public void SequenceEqualTest()
+        {
+            Assert.IsTrue(new[] {3, 2, 0}.SequenceEqual(3, 2, 0));
+        }
     }
 }
