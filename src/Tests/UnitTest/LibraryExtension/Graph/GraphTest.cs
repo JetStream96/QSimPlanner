@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using QSP.LibraryExtension;
 using QSP.LibraryExtension.Graph;
-using System;
 using System.Linq;
 
 namespace UnitTest.LibraryExtension.Graph

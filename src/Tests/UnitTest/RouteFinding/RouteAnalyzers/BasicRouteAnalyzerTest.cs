@@ -3,7 +3,6 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.RouteAnalyzers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using static UnitTest.RouteFinding.Common;
 using static UnitTest.RouteFinding.RouteAnalyzers.Util;

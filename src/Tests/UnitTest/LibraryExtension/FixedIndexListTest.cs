@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using QSP.LibraryExtension;
-using System;
 using System.Collections.Generic;
 
 namespace UnitTest.LibraryExtension

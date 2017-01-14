@@ -130,7 +130,6 @@ namespace QSP.UI.UserControls
             EventHandler adjustHeight = (s, e) =>
             {
                 TabControl1.Height = GetHeight();
-                ScrollBarWorkaround.RefreshScrollBar(outerPanel);
             };
 
             TabControl1.SelectedIndexChanged += adjustHeight;

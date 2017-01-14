@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using QSP.FuelCalculation.FuelData;
 using QSP.LibraryExtension;
 using TOTable = QSP.TOPerfCalculation.PerfTable;

@@ -1,7 +1,3 @@
-using QSP.Metar;
-using QSP.Utilities;
-using System;
-
 namespace QSP.UI.Forms
 {
     public partial class MetarForm

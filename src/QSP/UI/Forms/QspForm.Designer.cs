@@ -38,7 +38,7 @@ namespace QSP.UI.Forms
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panel1 = new QSP.UI.Controls.PanelSilentScrollbar();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.navBar = new NavBar();
+            this.navBar = new QSP.UI.UserControls.NavBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.StatusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -124,7 +124,7 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(125, 266);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(125, 304);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
             // navBar
@@ -135,7 +135,7 @@ namespace QSP.UI.Forms
             this.navBar.Location = new System.Drawing.Point(0, 0);
             this.navBar.Margin = new System.Windows.Forms.Padding(0);
             this.navBar.Name = "navBar";
-            this.navBar.Size = new System.Drawing.Size(120, 266);
+            this.navBar.Size = new System.Drawing.Size(120, 304);
             this.navBar.TabIndex = 9;
             // 
             // panel2

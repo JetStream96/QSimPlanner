@@ -57,8 +57,6 @@ namespace QSP.UI.Controllers.ControlGroup
             {
                 i.Control.Visible = (i.Button == sender);
             }
-
-            ScrollBarWorkaround.RefreshScrollBar(outerPanel);
         }
 
         public class ControlPair

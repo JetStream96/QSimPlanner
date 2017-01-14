@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using QSP.RouteFinding.Tracks.Common;
-using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Airports;
 
 namespace QSP.RouteFinding.Tracks.Pacots

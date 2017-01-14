@@ -6,7 +6,6 @@ using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
-using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.UI.Forms.Options;
 using QSP.UI.UserControls;
@@ -284,6 +283,7 @@ namespace QSP.UI.Forms
             navBar.Init(acMenu, fuelMenu, toMenu, ldgMenu, miscInfoMenu, aboutMenu, panel1, panel2);
 
             FormClosing += CloseMain;
+            new ScrollBarWorkaround(panel1).Enable();
         }
 
         private void RefreshAirportInfoSelection()
@@ -550,7 +550,7 @@ namespace QSP.UI.Forms
                 Log(ex);
             }
         }
-
+        
         // TODO: Some ideas for future:
         // (1) Flightaware flight plans
         // (2) NOAA temp./wind/sigWx charts
