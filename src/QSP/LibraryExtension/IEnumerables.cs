@@ -62,5 +62,10 @@ namespace QSP.LibraryExtension
             var i = 0;
             foreach (var e in source) action(e, i++);
         }
+
+        public static bool SequenceEqual<T>(this IEnumerable<T> source, params T[] items)
+        {
+            return source.SequenceEqual((IEnumerable<T>)items);
+        }
     }
 }

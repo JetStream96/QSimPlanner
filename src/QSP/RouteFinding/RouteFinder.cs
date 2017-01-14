@@ -140,17 +140,13 @@ namespace QSP.RouteFinding
         /// <exception cref="RouteNotFoundException"></exception>
         private Route GetRoute(int startPtIndex, int endPtIndex)
         {
-            var FindRouteData = new RouteFindingData(
-                wptList.NodeIndexUpperBound + 1);
-
-            var region = new RouteSeachRegion(
-                wptList, startPtIndex, endPtIndex);
+            var FindRouteData = new RouteFindingData(wptList.NodeIndexUpperBound + 1);
+            var region = new RouteSeachRegion(wptList, startPtIndex, endPtIndex);
 
             region.MaxDistanceSum = region.DirectDistance * 1.25;
             bool routeFound = false;
 
-            while (routeFound == false &&
-                region.MaxDistanceSum <= RouteSeachRegion.MaxPossibleDistanceSum)
+            while (!routeFound && region.MaxDistanceSum <= RouteSeachRegion.MaxPossibleDistanceSum)
             {
                 routeFound = FindRouteAttempt(region, FindRouteData);
                 region.MaxDistanceSum *= 1.5;
@@ -166,9 +162,7 @@ namespace QSP.RouteFinding
                 $"and {wptList[endPtIndex].ID}.");
         }
 
-        private bool FindRouteAttempt(
-            RouteSeachRegion regionPara,
-            RouteFindingData findRouteData)
+        private bool FindRouteAttempt(RouteSeachRegion regionPara, RouteFindingData findRouteData)
         {
             findRouteData.Init(regionPara.StartPtIndex);
 
@@ -204,9 +198,9 @@ namespace QSP.RouteFinding
                 return windCalc.GetAirDistance(from, to);
             }
 
-            var waypoints = new Waypoint[] { from }
+            var waypoints = new[] { from }
             .Concat(neighbor.InnerWaypoints)
-            .Concat(new Waypoint[] { to });
+            .Concat(new[] { to });
 
             return windCalc.GetAirDistance(waypoints);
         }

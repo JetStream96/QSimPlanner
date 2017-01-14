@@ -85,8 +85,7 @@ namespace QSP.RouteFinding
                 editor);
         }
 
-        public Route FindRoute(
-            string icao, string rwy, List<string> sid, int wptIndex)
+        public Route FindRoute(string icao, string rwy, List<string> sid, int wptIndex)
         {
             var editor = wptList.GetEditor();
             var sidHandler = SidHandlerFactory.GetHandler(
@@ -118,8 +117,7 @@ namespace QSP.RouteFinding
                 editor);
         }
 
-        public Route FindRoute(
-            int wptIndex, string icao, string rwy, List<string> star)
+        public Route FindRoute(int wptIndex, string icao, string rwy, List<string> star)
         {
             var editor = wptList.GetEditor();
             var starHandler = StarHandlerFactory.GetHandler(

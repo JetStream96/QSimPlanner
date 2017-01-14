@@ -186,40 +186,17 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private IReadOnlyList<SubRoute> TransformSubRoutes(IReadOnlyList<RouteSegment> segments)
         {
-            int count = segments.Count;
-            var result = new SubRoute[count];
-
-            for (int i = 0; i < count; i++)
+            return segments.Select((seg, index) =>
             {
-                var route = segments[i];
+                if (seg.IsAuto) return SubRoute.Auto();
+                if (seg.IsRand) return SubRoute.Rand();
 
-                if (route.IsAuto)
-                {
-                    result[i] = SubRoute.Auto();
-                    continue;
-                }
-
-                if (route.IsRand)
-                {
-                    result[i] = SubRoute.Rand();
-                    continue;
-                }
-
-                if (i == 0)
-                {
-                    result[i] = ComputeTerminalRoute(route.RouteString, true, count == 1);
-                }
-                else if (i == segments.Count - 1)
-                {
-                    result[i] = ComputeTerminalRoute(route.RouteString, false, true);
-                }
-                else
-                {
-                    result[i] = GetAutoSelectRoute(route.RouteString);
-                }
-            }
-
-            return result;
+                var count = segments.Count;
+                var routeStr = seg.RouteString;
+                if (index == 0) return ComputeTerminalRoute(routeStr, true, count == 1);
+                if (index == count - 1) return ComputeTerminalRoute(routeStr, false, true);
+                return GetAutoSelectRoute(routeStr);
+            }).ToList();
         }
 
         private SubRoute GetAutoSelectRoute(RouteString r)
@@ -259,28 +236,14 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 .ToSubRoute();
         }
 
-        private Route[] ComputeCommands(IReadOnlyList<SubRoute> analyzed)
+        private List<Route> ComputeCommands(IReadOnlyList<SubRoute> analyzed)
         {
-            int count = analyzed.Count;
-            var result = new Route[count];
-
-            for (int i = 0; i < analyzed.Count; i++)
+            return analyzed.Select((subRoute, index) =>
             {
-                if (analyzed[i].IsAuto)
-                {
-                    result[i] = FindRoute(analyzed, i);
-                }
-                else if (analyzed[i].IsRand)
-                {
-                    result[i] = GetRandRoute(analyzed, i);
-                }
-                else
-                {
-                    result[i] = analyzed[i].Route;
-                }
-            }
-
-            return result;
+                if (subRoute.IsAuto) return FindRoute(analyzed, index);
+                if (subRoute.IsRand) return GetRandRoute(analyzed, index);
+                return subRoute.Route;
+            }).ToList();
         }
 
         private Route GetRandRoute(IReadOnlyList<SubRoute> analyzed, int index)
