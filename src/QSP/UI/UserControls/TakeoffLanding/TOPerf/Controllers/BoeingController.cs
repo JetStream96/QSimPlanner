@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using QSP.Common;
 using QSP.LibraryExtension;
 using QSP.TOPerfCalculation;
@@ -49,7 +50,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
         {
             var items = elements.Packs.Items;
             items.Clear();
-            items.AddRange(new string[] { "ON", "OFF" });
+            items.AddRange(new[] { "ON", "OFF" });
             elements.Packs.SelectedIndex = 0;
         }
 
@@ -57,7 +58,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
         {
             var items = elements.AntiIce.Items;
             items.Clear();
-            items.AddRange(new string[]
+            items.AddRange(new[]
             {
                 "OFF",
                 "ONLY ENG A/I",
@@ -75,29 +76,24 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
         {
             var thrustComboBox = elements.thrustRating;
             string text = thrustComboBox.Text;
-            var table = ((BoeingPerfTable)acPerf.Item)
-                         .Tables[elements.flaps.SelectedIndex];
+            var table = ((BoeingPerfTable)acPerf.Item).Tables[elements.flaps.SelectedIndex];
 
             var items = thrustComboBox.Items;
             items.Clear();
 
             if (table.AltnRatingAvail)
             {
-                foreach (var i in table.ThrustRatings)
-                {
-                    items.Add(i);
-                }
-
-                thrustComboBox.SelectedIndex = 0;
+                items.AddRange(table.ThrustRatings.ToArray());
                 thrustComboBox.Text = text;
-                thrustComboBox.Visible = true;
-                elements.ThrustRatingLbl.Visible = true;
+                thrustComboBox.Enabled = true;
             }
             else
             {
-                thrustComboBox.Visible = false;
-                elements.ThrustRatingLbl.Visible = false;
+                items.Add("TO");
+                thrustComboBox.Enabled = false;
             }
+
+            thrustComboBox.SelectedIndex = 0;
         }
 
         private void SetDefaultSurfCond()
@@ -105,7 +101,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
             var items = elements.surfCond.Items;
 
             items.Clear();
-            items.AddRange(new string[] { "Dry", "Wet" });
+            items.AddRange(new[] { "Dry", "Wet" });
             elements.surfCond.SelectedIndex = 0;
         }
 

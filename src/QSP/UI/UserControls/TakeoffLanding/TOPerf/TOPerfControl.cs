@@ -158,8 +158,6 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
         private void InitializeControls()
         {
             wtUnitComboBox.SelectedIndex = 0; // KG  
-            thrustRatingLbl.Visible = false;
-            thrustRatingComboBox.Visible = false;
         }
 
         private void InitializeElements()

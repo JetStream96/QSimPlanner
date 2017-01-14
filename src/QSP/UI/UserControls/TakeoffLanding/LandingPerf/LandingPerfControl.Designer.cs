@@ -144,7 +144,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(466, 245);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(455, 245);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
             // regComboBox
@@ -217,10 +217,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.wtUnitComboBox.Items.AddRange(new object[] {
             "KG",
             "LB"});
-            this.wtUnitComboBox.Location = new System.Drawing.Point(324, 72);
-            this.wtUnitComboBox.Margin = new System.Windows.Forms.Padding(0);
+            this.wtUnitComboBox.Location = new System.Drawing.Point(334, 72);
+            this.wtUnitComboBox.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.wtUnitComboBox.Name = "wtUnitComboBox";
-            this.wtUnitComboBox.Size = new System.Drawing.Size(142, 31);
+            this.wtUnitComboBox.Size = new System.Drawing.Size(121, 31);
             this.wtUnitComboBox.TabIndex = 4;
             // 
             // flapsComboBox
@@ -256,14 +256,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             // 
             // requestBtn
             // 
-            this.requestBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.requestBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.requestBtn.AutoSize = true;
             this.requestBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.requestBtn.BackColor = System.Drawing.SystemColors.Control;
             this.requestBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.requestBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.requestBtn.Location = new System.Drawing.Point(334, 0);
-            this.requestBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.requestBtn.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.requestBtn.Name = "requestBtn";
             this.requestBtn.Padding = new System.Windows.Forms.Padding(19, 0, 19, 0);
             this.requestBtn.Size = new System.Drawing.Size(121, 35);
