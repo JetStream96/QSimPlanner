@@ -112,16 +112,11 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
         {
             if (acListComboBox.SelectedIndex >= 0)
             {
-                var ac =
-                    aircrafts
-                    .FindAircraft(acListComboBox.Text);
-
+                var ac = aircrafts.FindAircraft(acListComboBox.Text);
                 var items = regComboBox.Items;
-
                 items.Clear();
 
-                items.AddRange(
-                    ac
+                items.AddRange(ac
                     .Where(c => TakeoffProfileExists(c.Config.TOProfile))
                     .Select(c => c.Config.Registration)
                     .ToArray());
@@ -209,17 +204,13 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             // set currentTable and controller
             if (tables != null && tables.Count > 0)
             {
-                var profileName =
-                    aircrafts
-                    .Find(regComboBox.Text)
-                    .Config
-                    .TOProfile;
-
-                currentTable =
-                    tables.First(t => t.Entry.ProfileName == profileName);
+                var ac = aircrafts.Find(regComboBox.Text).Config;
+                var profileName = ac.TOProfile;
+                currentTable = tables.First(t => t.Entry.ProfileName == profileName);
 
                 controller = FormControllerFactory.GetController(
                     ControllerType.Boeing,
+                    ac,
                     currentTable,
                     elements);
                 // TODO: only correct for Boeing. 

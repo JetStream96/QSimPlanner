@@ -8,14 +8,14 @@
     
     public enum LengthUnit
     {
-        Meter,
-        Feet
+        Meter = 0,
+        Feet = 1
     }
 
     public enum TemperatureUnit
     {
-        Celsius,
-        Fahrenheit
+        Celsius = 0,
+        Fahrenheit = 1
     }
 
     public enum PressureUnit

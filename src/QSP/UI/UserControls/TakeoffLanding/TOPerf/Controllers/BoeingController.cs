@@ -7,14 +7,20 @@ using QSP.TOPerfCalculation;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using QSP.UI.MsgBox;
 using QSP.Utilities.Units;
+using QSP.TOPerfCalculation.Boeing;
+using QSP.AircraftProfiles.Configs;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 {
     public class BoeingController : FormController
     {
-        public BoeingController(PerfTable acPerf, TOPerfElements elements)
+        private AircraftConfigItem ac;
+
+        public BoeingController(AircraftConfigItem ac, PerfTable acPerf, TOPerfElements elements)
             : base(acPerf, elements)
-        { }
+        {
+            this.ac = ac;
+        }
 
         public override void WeightUnitChanged(object sender, EventArgs e)
         {
@@ -118,22 +124,36 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
             elements.flaps.SelectedIndex = 0;
         }
 
+        // Returns whether continue to calculate.
+        private bool CheckWeight(TOParameters para)
+        {
+            if (para.WeightKg > ac.MaxTOWtKg || para.WeightKg < ac.OewKg)
+            {
+                var result = MsgBoxHelper.ShowDialog(
+                    "Takeoff weight is not within valid range. Continue to calculate?",
+                    MsgBoxIcon.Warning,
+                    "",
+                    DefaultButton.Button2,
+                    "Yes", "No");
+
+                return result == MsgBoxResult.Button1;
+            }
+
+            return true;
+        }
+
         public override void Compute(object sender, EventArgs e)
         {
             try
             {
                 var para = new BoeingParameterValidator(elements).Validate();
-
-                var report = new TOPerfCalculation.Boeing.TOReportGenerator(
-                    (BoeingPerfTable)acPerf.Item, para).TakeOffReport();
+                var table = (BoeingPerfTable)acPerf.Item;
+                if (!CheckWeight(para)) return;
+                var report = new TOReportGenerator(table, para).TakeOffReport();
 
                 var text = report.ToString(
-                    elements.tempUnit.SelectedIndex == 0 ?
-                    TemperatureUnit.Celsius :
-                    TemperatureUnit.Fahrenheit,
-                    elements.lengthUnit.SelectedIndex == 0 ?
-                    LengthUnit.Meter :
-                    LengthUnit.Feet);
+                    (TemperatureUnit)elements.tempUnit.SelectedIndex,
+                    (LengthUnit)elements.lengthUnit.SelectedIndex);
 
                 // To center the text in the richTxtBox
                 elements.result.Text = text.ShiftToRight(15);
