@@ -4,7 +4,7 @@ using System;
 
 namespace UnitTest.RouteFinding.Data.Interfaces
 {
-    [TestFixture]    
+    [TestFixture]
     public class ICoordinateExtensionTest
     {
         private const double delta = 1E-8;
@@ -24,15 +24,13 @@ namespace UnitTest.RouteFinding.Data.Interfaces
         public void GetClosestEmptyCollectionShouldThrow()
         {
             var items = new pt[0];
-
-            Assert.Throws<InvalidOperationException>(() =>
-            items.GetClosest(0.0, 0.0));
+            Assert.Throws<InvalidOperationException>(() => items.GetClosest(0.0, 0.0));
         }
 
         [Test]
         public void GetClosestTest()
         {
-            var items = new[] 
+            var items = new[]
             {
                 new pt(10.0, 20.0),
                 new pt(20.0, 20.0),
@@ -52,9 +50,9 @@ namespace UnitTest.RouteFinding.Data.Interfaces
         {
             var pts = new[]
             {
-                new pt(0.0,3.5),
-                new pt(-15.0,31.5),
-                new pt(85.5,160.0)
+                new pt(0.0, 3.5),
+                new pt(-15.0, 31.5),
+                new pt(85.5, 160.0)
             };
 
             var expected = pts[0].Distance(pts[1]) + pts[1].Distance(pts[2]);
@@ -81,7 +79,7 @@ namespace UnitTest.RouteFinding.Data.Interfaces
         {
             var pts = new[]
             {
-                new pt(0.0,3.5)
+                new pt(0.0, 3.5)
             };
 
             Assert.AreEqual(0.0, pts.TotalDistance(), delta);
@@ -117,8 +115,8 @@ namespace UnitTest.RouteFinding.Data.Interfaces
 
         private class pt : ICoordinate
         {
-            public double Lat { get; private set; }
-            public double Lon { get; private set; }
+            public double Lat { get; }
+            public double Lon { get; }
 
             public pt(double Lat, double Lon)
             {

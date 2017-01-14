@@ -12,8 +12,7 @@ namespace QSP.RouteFinding.Data.Interfaces
 {
     public static class ICoordinateExtension
     {
-        public static bool LatLonEquals(
-            this ICoordinate x, ICoordinate y, double delta = 0.0)
+        public static bool LatLonEquals(this ICoordinate x, ICoordinate y, double delta = 0.0)
         {
             return Abs(x.Lat - y.Lat) <= delta && Abs(x.Lon - y.Lon) <= delta;
         }
@@ -23,14 +22,12 @@ namespace QSP.RouteFinding.Data.Interfaces
             return Distance(x, y.Lat, y.Lon);
         }
 
-        public static double Distance(
-            this ICoordinate x, double lat, double lon)
+        public static double Distance(this ICoordinate x, double lat, double lon)
         {
             return GCDis.Distance(x.Lat, x.Lon, lat, lon);
         }
 
-        public static double TotalDistance(
-            this IEnumerable<ICoordinate> source)
+        public static double TotalDistance(this IEnumerable<ICoordinate> source)
         {
             double distance = 0.0;
             ICoordinate last = null;
@@ -46,8 +43,7 @@ namespace QSP.RouteFinding.Data.Interfaces
 
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public static T GetClosest<T>(
-            this IEnumerable<T> items, ICoordinate coordinate)
+        public static T GetClosest<T>(this IEnumerable<T> items, ICoordinate coordinate)
             where T : ICoordinate
         {
             return items.GetClosest(coordinate.Lat, coordinate.Lon);
@@ -55,8 +51,7 @@ namespace QSP.RouteFinding.Data.Interfaces
 
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public static T GetClosest<T>(
-            this IEnumerable<T> items, double lat, double lon)
+        public static T GetClosest<T>(this IEnumerable<T> items, double lat, double lon)
             where T : ICoordinate
         {
             return items.MinBy(i => i.Distance(lat, lon));

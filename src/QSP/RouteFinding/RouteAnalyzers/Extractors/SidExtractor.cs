@@ -153,9 +153,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
                 throw new ArgumentException($"Cannot find waypoint {ident}.");
             }
 
-            return ids
-                .Select(i => wptList[i])
-                .GetClosest(rwyWpt);
+            return ids.Select(i => wptList[i]).GetClosest(rwyWpt);
         }
 
         public class ExtractResult

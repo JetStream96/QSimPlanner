@@ -245,8 +245,7 @@ namespace QSP.RouteFinding.Finder
                     wptList.Distance(p.EndPtIndex, wptIndex) <
                     p.MaxDistanceSum;
 
-                data[wptIndex].WithInRange =
-                    inRange ? InRange.Yes : InRange.No;
+                data[wptIndex].WithInRange = inRange ? InRange.Yes : InRange.No;
             }
 
             return (int)data[wptIndex].WithInRange == 1;
@@ -284,14 +283,13 @@ namespace QSP.RouteFinding.Finder
                         null, double.PositiveInfinity, InRange.Unknown);
                 }
 
-                WaypointData[startPtIndex] = new WaypointStatus(
-                        null, 0.0, InRange.Unknown);
+                WaypointData[startPtIndex] = new WaypointStatus(null, 0.0, InRange.Unknown);
             }
 
             public struct WaypointStatus
             {
-                public Edge<Neighbor> FromEdge { get; set; }
-                public double CurrentDistance { get; set; }
+                public Edge<Neighbor> FromEdge { get; }
+                public double CurrentDistance { get; }
                 public InRange WithInRange { get; set; }
 
                 public WaypointStatus(
@@ -310,9 +308,9 @@ namespace QSP.RouteFinding.Finder
         {
             public static readonly double MaxPossibleDistanceSum = Math.PI * Constants.EarthRadiusNm;
 
-            public int StartPtIndex { get; private set; }
-            public int EndPtIndex { get; private set; }
-            public double DirectDistance { get; private set; }
+            public int StartPtIndex { get; }
+            public int EndPtIndex { get; }
+            public double DirectDistance { get; }
             public double MaxDistanceSum { get; set; }
 
             public RouteSeachRegion(

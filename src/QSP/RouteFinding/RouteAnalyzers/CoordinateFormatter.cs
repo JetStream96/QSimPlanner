@@ -29,15 +29,13 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
     public static class CoordinateFormatter
     {
-        private static readonly char[] DelimiterWords =
-               { ' ', '\n', '\r', '\t' };
+        private static readonly char[] DelimiterWords = { ' ', '\n', '\r', '\t' };
         
         public static RouteString Split(string route)
         {
             return route
                 .ToUpper()
-                .Split(DelimiterWords, 
-                    StringSplitOptions.RemoveEmptyEntries)
+                .Split(DelimiterWords, StringSplitOptions.RemoveEmptyEntries)
                 .Where(x => x != "DCT")
                 .Select(TryTransformCoordinate)
                 .ToRouteString();
