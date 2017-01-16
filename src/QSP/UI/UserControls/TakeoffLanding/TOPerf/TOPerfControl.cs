@@ -9,6 +9,8 @@ using QSP.LibraryExtension;
 using QSP.MathTools;
 using QSP.RouteFinding.Airports;
 using QSP.TOPerfCalculation;
+using QSP.UI.Controllers.Units;
+using QSP.UI.Controllers.WeightControl;
 using QSP.UI.ControlStates;
 using QSP.UI.Factories;
 using QSP.UI.MsgBox;
@@ -71,11 +73,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             // Set default values for the controls.
             InitializeControls();
 
-            setWeatherBtnHandlers();
-
+            SetWeatherBtnHandlers();
             requestBtn.SetToolTip("Use aircraft and weights calculated from 'Fuel' page.");
         }
-
+        
         private void UpdateAircraftList()
         {
             var items = acListComboBox.Items;
@@ -144,7 +145,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             TrySaveState();
         }
 
-        private void setWeatherBtnHandlers()
+        private void SetWeatherBtnHandlers()
         {
             wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl);
             wxSetter.Subscribe();

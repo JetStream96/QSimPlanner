@@ -17,31 +17,21 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
         /// <exception cref="InvalidUserInputException"></exception>
         public TOParameters Validate()
         {
-            double WeightKG = 0.0;
-            double RwyLengthMeter = 0.0;
-            double ElevationFT = 0.0;
-            double SlopePercent = 0.0;
-            double TempCelsius = 0.0;
-            double rwyHeading = 0;
-            double windHeading = 0;
-            double windSpeed = 0;
+            double weightKg = 0.0;
+            double rwyLengthMeter = 0.0;
+            double tempCelsius = 0.0;
             double QNH = 0;
-            int thrustRating = 0;
-            bool surfaceWet = false;
-            int FlapsIndex = 0;
-            AntiIceOption antiIce = default(AntiIceOption);
-            bool packOn = false;
 
             try
             {
-                WeightKG = Convert.ToDouble(elements.weight.Text);
+                weightKg = Convert.ToDouble(elements.Weight.Text);
 
-                if (elements.wtUnit.SelectedIndex == 1) //LB
+                if (elements.WtUnit.SelectedIndex == 1) //LB
                 {
-                    WeightKG *= AviationTools.Constants.LbKgRatio;
+                    weightKg *= AviationTools.Constants.LbKgRatio;
                 }
 
-                if (WeightKG < 0)
+                if (weightKg < 0)
                 {
                     throw new InvalidUserInputException("Takeoff weight is not valid.");
                 }
@@ -54,14 +44,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 
             try
             {
-                RwyLengthMeter = Convert.ToDouble(elements.Length.Text);
+                rwyLengthMeter = Convert.ToDouble(elements.Length.Text);
 
                 if (elements.lengthUnit.SelectedIndex == 1) // FT
                 {
-                    RwyLengthMeter *= AviationTools.Constants.FtMeterRatio;
+                    rwyLengthMeter *= AviationTools.Constants.FtMeterRatio;
                 }
 
-                if (RwyLengthMeter < 0)
+                if (rwyLengthMeter < 0)
                 {
                     throw new InvalidUserInputException("Runway length is not valid.");
                 }
@@ -71,56 +61,37 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
                 throw new InvalidUserInputException("Runway length is not valid.");
             }
 
-            try
-            {
-                ElevationFT = Convert.ToDouble(elements.Elevation.Text);
-
-                if (ElevationFT < -2000.0 || ElevationFT > 20000.0)
-                {
-                    throw new InvalidUserInputException("Runway elevation is not valid.");
-                }
-            }
-            catch
+            double elevationFt;
+            if (!double.TryParse(elements.Elevation.Text, out elevationFt) ||
+                elevationFt < -2000.0 || elevationFt > 25000.0)
             {
                 throw new InvalidUserInputException("Runway elevation is not valid.");
             }
 
-            try
-            {
-                rwyHeading = Convert.ToDouble(elements.rwyHeading.Text);
-            }
-            catch
+            double rwyHeading;
+            if (!double.TryParse(elements.RwyHeading.Text, out rwyHeading))
             {
                 throw new InvalidUserInputException("Runway heading is not valid.");
             }
 
-            try
-            {
-                windHeading = Convert.ToDouble(elements.windDirection.Text);
-            }
-            catch
+            double windHeading;
+            if (!double.TryParse(elements.WindDirection.Text, out windHeading))
             {
                 throw new InvalidUserInputException("Wind direction is not valid.");
             }
 
-            try
-            {
-                windSpeed = Convert.ToDouble(elements.windSpeed.Text);
-                if (windSpeed < -60.0 || windSpeed > 60.0)
-                {
-                    throw new InvalidUserInputException("Wind speed is not valid.");
-                }
-            }
-            catch
+            double windSpeed;
+            if (!double.TryParse(elements.WindSpeed.Text, out windSpeed) ||
+                windSpeed < -200.0 || windSpeed > 200.0)
             {
                 throw new InvalidUserInputException("Wind speed is not valid.");
             }
 
             try
             {
-                QNH = Convert.ToDouble(elements.pressure.Text);
+                QNH = Convert.ToDouble(elements.Pressure.Text);
 
-                if (elements.pressureUnit.SelectedIndex == 1)
+                if (elements.PressureUnit.SelectedIndex == 1)
                 {
                     QNH *= 1013.0 / 29.92;
                 }
@@ -135,22 +106,19 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
                 throw new InvalidUserInputException("Altimeter setting is not valid.");
             }
 
-            try
-            {
-                SlopePercent = Convert.ToDouble(elements.slope.Text);
-            }
-            catch
+            double slopePercent;
+            if (!double.TryParse(elements.Slope.Text, out slopePercent))
             {
                 throw new InvalidUserInputException("Runway slope is not valid.");
             }
 
             try
             {
-                TempCelsius = Convert.ToDouble(elements.oat.Text);
+                tempCelsius = Convert.ToDouble(elements.Oat.Text);
 
-                if (elements.tempUnit.SelectedIndex == 1) // deg F
+                if (elements.TempUnit.SelectedIndex == 1) // deg F
                 {
-                    TempCelsius = AviationTools.ConversionTools.ToCelsius(TempCelsius);
+                    tempCelsius = AviationTools.ConversionTools.ToCelsius(tempCelsius);
                 }
             }
             catch
@@ -158,80 +126,44 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
                 throw new InvalidUserInputException("OAT is not valid.");
             }
 
-            try
-            {
-                surfaceWet = elements.surfCond.SelectedIndex != 0;
-            }
-            catch
-            {
-                throw new InvalidUserInputException("Surface condition is not valid.");
-            }
+            var surfaceWet = elements.SurfCond.SelectedIndex != 0;
+            var thrustRating = elements.ThrustRating.SelectedIndex;
 
-            try
-            {
-                thrustRating = elements.thrustRating.SelectedIndex;
-
-                if (elements.thrustRating.Visible && thrustRating < 0)
-                {
-                    throw new InvalidUserInputException("Thrust rating is invalid.");
-                }
-            }
-            catch
+            if (elements.ThrustRating.Visible && thrustRating < 0)
             {
                 throw new InvalidUserInputException("Thrust rating is invalid.");
             }
 
-            FlapsIndex = elements.flaps.SelectedIndex;
+            var flapsIndex = elements.Flaps.SelectedIndex;
 
+            AntiIceOption antiIce = default(AntiIceOption);
             try
             {
-                switch (elements.AntiIce.SelectedIndex)
-                {
+                antiIce = (AntiIceOption)elements.AntiIce.SelectedIndex;
 
-                    case 0:
-                        antiIce = AntiIceOption.Off;
-                        break;
-                    case 1:
-                        antiIce = AntiIceOption.Engine;
-                        break;
-
-                    case 2:
-                        antiIce = AntiIceOption.EngAndWing;
-                        break;
-
-                    default:
-                        throw new InvalidUserInputException("Anti-ice mode is not valid.");
-                }
             }
             catch
             {
-                throw new InvalidUserInputException("Anti-ice mode is not valid.");
+                throw new InvalidUserInputException("Anti-ice setting is invalid.");
             }
 
-            try
-            {
-                packOn = elements.Packs.SelectedIndex == 0;
-            }
-            catch
-            {
-                throw new InvalidUserInputException("Packs selection is not valid.");
-            }
+            var packOn = elements.Packs.SelectedIndex == 0;
 
             return new TOParameters(
-                RwyLengthMeter,
-                ElevationFT,
+                rwyLengthMeter,
+                elevationFt,
                 rwyHeading,
-                SlopePercent,
+                slopePercent,
                 windHeading,
                 windSpeed,
-                TempCelsius,
+                tempCelsius,
                 QNH,
                 surfaceWet,
-                WeightKG,
+                weightKg,
                 thrustRating,
                 antiIce,
                 packOn,
-                FlapsIndex);
+                flapsIndex);
         }
     }
 }

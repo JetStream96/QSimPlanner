@@ -26,9 +26,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
         {
             double wt;
 
-            if (double.TryParse(elements.weight.Text, out wt))
+            if (double.TryParse(elements.Weight.Text, out wt))
             {
-                if (elements.wtUnit.SelectedIndex == 0)
+                if (elements.WtUnit.SelectedIndex == 0)
                 {
                     // LB -> KG 
                     wt *= AviationTools.Constants.LbKgRatio;
@@ -39,7 +39,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
                     wt *= AviationTools.Constants.KgLbRatio;
                 }
 
-                elements.weight.Text = ((int)Math.Round(wt)).ToString();
+                elements.Weight.Text = ((int)Math.Round(wt)).ToString();
             }
         }
 
@@ -80,9 +80,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 
         private void SetDerate()
         {
-            var thrustComboBox = elements.thrustRating;
+            var thrustComboBox = elements.ThrustRating;
             string text = thrustComboBox.Text;
-            var table = ((BoeingPerfTable)acPerf.Item).Tables[elements.flaps.SelectedIndex];
+            var table = ((BoeingPerfTable)acPerf.Item).Tables[elements.Flaps.SelectedIndex];
 
             var items = thrustComboBox.Items;
             items.Clear();
@@ -104,16 +104,16 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 
         private void SetDefaultSurfCond()
         {
-            var items = elements.surfCond.Items;
+            var items = elements.SurfCond.Items;
 
             items.Clear();
             items.AddRange(new[] { "Dry", "Wet" });
-            elements.surfCond.SelectedIndex = 0;
+            elements.SurfCond.SelectedIndex = 0;
         }
 
         private void SetDefaultFlaps()
         {
-            var items = elements.flaps.Items;
+            var items = elements.Flaps.Items;
             items.Clear();
 
             foreach (var i in ((BoeingPerfTable)acPerf.Item).Flaps)
@@ -121,7 +121,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
                 items.Add(i);
             }
 
-            elements.flaps.SelectedIndex = 0;
+            elements.Flaps.SelectedIndex = 0;
         }
 
         // Returns whether continue to calculate.
@@ -152,14 +152,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
                 var report = new TOReportGenerator(table, para).TakeOffReport();
 
                 var text = report.ToString(
-                    (TemperatureUnit)elements.tempUnit.SelectedIndex,
+                    (TemperatureUnit)elements.TempUnit.SelectedIndex,
                     (LengthUnit)elements.lengthUnit.SelectedIndex);
 
                 // To center the text in the richTxtBox
-                elements.result.Text = text.ShiftToRight(15);
+                elements.Result.Text = text.ShiftToRight(15);
 
                 OnCalculationComplete(EventArgs.Empty);
-                elements.result.ForeColor = Color.Black;
+                elements.Result.ForeColor = Color.Black;
             }
             catch (InvalidUserInputException ex)
             {
