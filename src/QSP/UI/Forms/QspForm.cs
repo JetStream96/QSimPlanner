@@ -2,13 +2,20 @@
 using QSP.AircraftProfiles.Configs;
 using QSP.Common.Options;
 using QSP.LibraryExtension;
+using QSP.MathTools;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.TerminalProcedures;
+using QSP.RouteFinding.Tracks;
 using QSP.UI.Forms.Options;
+using QSP.UI.MsgBox;
 using QSP.UI.UserControls;
+using QSP.UI.UserControls.AircraftMenu;
+using QSP.UI.UserControls.TakeoffLanding.LandingPerf;
+using QSP.UI.UserControls.TakeoffLanding.TOPerf;
+using QSP.UI.Utilities;
 using QSP.Updates;
 using QSP.Utilities;
 using QSP.WindAloft;
@@ -21,13 +28,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using QSP.MathTools;
-using QSP.RouteFinding.Tracks;
-using QSP.UI.MsgBox;
-using QSP.UI.UserControls.AircraftMenu;
-using QSP.UI.UserControls.TakeoffLanding.LandingPerf;
-using QSP.UI.UserControls.TakeoffLanding.TOPerf;
-using QSP.UI.Utilities;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms
@@ -48,6 +48,7 @@ namespace QSP.UI.Forms
         private ProcedureFilter procFilter;
         private Locator<IWindTableCollection> windTableLocator;
         private Updater updater;
+        private OptionsForm optionsForm;
 
         private TracksForm trackFrm;
         private WindDataForm windFrm;
@@ -87,6 +88,7 @@ namespace QSP.UI.Forms
                 InitControls();
                 InitTrackForm();
                 InitWindForm();
+                InitOptionsForm();
                 DownloadWindIfNeeded();
                 DownloadTracksIfNeeded();
             });
@@ -115,7 +117,32 @@ namespace QSP.UI.Forms
 
             DoubleBufferUtil.SetDoubleBuffered(panel1);
         }
-        
+
+        private void InitOptionsForm()
+        {
+            optionsForm = new OptionsForm();
+            optionsForm.Init(
+               trackFrm,
+               airwayNetwork,
+               countryCodesLocator,
+               appOptionsLocator,
+               updater);
+
+            optionsForm.NavDataLocationChanged += (s, e) =>
+                fuelMenu.RefreshForNavDataLocationChange();
+        }
+
+        private void ShowOptionsForm(
+            FormStartPosition position = FormStartPosition.CenterParent,
+            bool showInTaskbar = false,
+            bool autoDetectAiracFolder = false)
+        {
+            optionsForm.ShowInTaskbar = showInTaskbar;
+            optionsForm.StartPosition = position;
+            if (autoDetectAiracFolder) optionsForm.DetectAndSetAiracFolder();
+            optionsForm.ShowDialog();
+        }
+
         private void DoPostUpdateActions()
         {
 #if (!DEBUG)
@@ -324,8 +351,8 @@ namespace QSP.UI.Forms
 
             EnableAirportRequests();
             SetCursorStatusLabel();
-            navDataStatusLabel.Click += ViewOptions;
-            windDataStatusLabel.Click += windDataStatusLabel_Click;
+            navDataStatusLabel.Click += (s, e) => ShowOptionsForm();
+            windDataStatusLabel.Click += (s, e) => windFrm.ShowDialog();
             trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
             navBar.OptionLbl.Click += (s, e) => ShowOptionsForm();
             OverrideScrollBar(this);
@@ -411,11 +438,6 @@ namespace QSP.UI.Forms
             }
         }
 
-        private void ViewOptions(object sender, EventArgs e)
-        {
-            ShowOptionsForm();
-        }
-
         private void DownloadTracksIfNeeded()
         {
             trackStatusLabel.Image = Properties.Resources.YellowLight;
@@ -474,34 +496,6 @@ namespace QSP.UI.Forms
             SaveStateToFile();
         }
 
-        private void windDataStatusLabel_Click(object sender, EventArgs e)
-        {
-            windFrm.ShowDialog();
-        }
-
-        private void ShowOptionsForm(
-            FormStartPosition position = FormStartPosition.CenterParent,
-            bool showInTaskbar = false,
-            bool autoDetectAiracFolder = false)
-        {
-            using (var frm = new OptionsForm())
-            {
-                frm.Init(
-                   trackFrm,
-                   airwayNetwork,
-                   countryCodesLocator,
-                   appOptionsLocator,
-                   updater,
-                   autoDetectAiracFolder);
-
-                frm.NavDataLocationChanged += (s, e) => fuelMenu.RefreshForNavDataLocationChange();
-
-                frm.ShowInTaskbar = showInTaskbar;
-                frm.StartPosition = position;
-                frm.ShowDialog();
-            }
-        }
-
         private void LoadSavedState()
         {
             try
@@ -550,7 +544,7 @@ namespace QSP.UI.Forms
                 Log(ex);
             }
         }
-        
+
         // TODO: Some ideas for future:
         // (1) Flightaware flight plans
         // (2) NOAA temp./wind/sigWx charts

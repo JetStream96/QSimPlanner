@@ -9,6 +9,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport.Providers;
 using QSP.RouteFinding.Tracks;
+using QSP.UI.MsgBox;
 using QSP.Updates;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.UI.MsgBox;
 using static QSP.UI.MsgBox.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
 
@@ -47,8 +47,7 @@ namespace QSP.UI.Forms.Options
             AirwayNetwork airwayNetwork,
             Locator<CountryCodeManager> countryCodesLocator,
             Locator<AppOptions> appSettingsLocator,
-            Updater updater,
-            bool autoDetectAiracFolder = false)
+            Updater updater)
         {
             this.tracksForm = tracksForm;
             this.airwayNetwork = airwayNetwork;
@@ -60,8 +59,6 @@ namespace QSP.UI.Forms.Options
             SetDefaultState();
             SetControlsAsInOptions();
             FormClosing += CurrentFormClosing;
-
-            if (autoDetectAiracFolder) DetectAiracFolder();
 
 #if (!DEBUG)
             PerformAutoUpdate();
@@ -122,7 +119,7 @@ namespace QSP.UI.Forms.Options
             exportController.SetExports();
         }
 
-        private void DetectAiracFolder()
+        public void DetectAndSetAiracFolder()
         {
             var findResult = NavDataPath.DetectNavDataPath();
             if (findResult != null) pathTxtBox.Text = findResult.Directory;
