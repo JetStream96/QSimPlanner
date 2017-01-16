@@ -60,7 +60,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
         public void TryLoadState()
         {
             var doc = StateManager.Load(FileName);
-            if (doc != null) new ControlState(this).Load(doc);            
+            if (doc != null) new ControlState(this).Load(doc);
         }
 
         public void TrySaveState()
@@ -226,16 +226,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             // set currentTable and controller
             if (tables != null && tables.Count > 0)
             {
-                var profileName = aircrafts
-                      .Find(regComboBox.Text)
-                      .Config
-                      .LdgProfile;
+                var ac = aircrafts.Find(regComboBox.Text).Config;
+                var profileName = ac.LdgProfile;
 
-                currentTable =
-                    tables.First(t => t.Entry.ProfileName == profileName);
+                currentTable = tables.First(t => t.Entry.ProfileName == profileName);
 
                 controller = FormControllerFactory.GetController(
                     ControllerType.Boeing,
+                    ac,
                     currentTable,
                     elements);
                 // TODO: not completely right

@@ -2,18 +2,24 @@
 using System.Drawing;
 using QSP.Common;
 using QSP.LandingPerfCalculation;
+using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 using QSP.LibraryExtension;
 using QSP.UI.MsgBox;
 using QSP.Utilities.Units;
+using QSP.AircraftProfiles.Configs;
 
 namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 {
     public class BoeingController : FormController
     {
-        public BoeingController(PerfTable acPerf, LandingPerfElements elements)
-            : base(acPerf, elements)
-        { }
+        private AircraftConfigItem ac;
+
+        public BoeingController(AircraftConfigItem ac, PerfTable acPerf, LandingPerfElements elem)
+            : base(acPerf, elem)
+        {
+            this.ac = ac;
+        }
 
         public override void WeightUnitChanged(object sender, EventArgs e)
         {
@@ -53,7 +59,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
             var items = elements.surfCond.Items;
 
             items.Clear();
-            items.AddRange(new object[] {
+            items.AddRange(new[] {
                 "Dry",
                 "Good Braking Action",
                 "Medium Braking Action",
@@ -113,18 +119,12 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
             try
             {
                 var para = new BoeingParameterValidator(elements).Validate();
+                if (!CheckWeight(para)) return;
 
-                var report = new LandingPerfCalculation
-                             .Boeing
-                             .LandingReportGenerator(
-                                 (BoeingPerfTable)acPerf.Item,
-                                 para)
+                var report = new LandingReportGenerator((BoeingPerfTable)acPerf.Item, para)
                              .GetReport();
 
-                var text = report.ToString(
-                elements.lengthUnit.SelectedIndex == 0 ?
-                LengthUnit.Meter :
-                LengthUnit.Feet);
+                var text = report.ToString((LengthUnit)elements.lengthUnit.SelectedIndex);
 
                 // To center the text in the richTxtBox
                 elements.result.Text = text.ShiftToRight(14);
@@ -140,6 +140,24 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
             {
                 MsgBoxHelper.ShowWarning("Runway length is insufficient for landing.");
             }
+        }
+
+        // Returns whether continue to calculate.
+        private bool CheckWeight(LandingParameters para)
+        {
+            if (para.WeightKG > ac.MaxTOWtKg || para.WeightKG < ac.OewKg)
+            {
+                var result = MsgBoxHelper.ShowDialog(
+                    "Landing weight is not within valid range. Continue to calculate?",
+                    MsgBoxIcon.Warning,
+                    "",
+                    DefaultButton.Button2,
+                    "Yes", "No");
+
+                return result == MsgBoxResult.Button1;
+            }
+
+            return true;
         }
     }
 }

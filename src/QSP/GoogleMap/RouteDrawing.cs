@@ -93,22 +93,22 @@ var myTrip=[");
                 mapHtml.Append(string.Format(
                     @"
     var marker{0}  = new MarkerWithLabel({{
-    position: wpt{1},
+    position: wpt{0},
     icon:'pixel_trans.gif',
     draggable: false,
     raiseOnDrag: true,
     map: map,
-    labelContent: ""{2}"",
+    labelContent: ""{1}"",
     labelAnchor: new google.maps.Point(0, 0),
     labelClass: ""labels"", // the CSS class for the label
     labelStyle: {{opacity: 0.75}}
     }});
 
-    var iw{3} = new google.maps.InfoWindow({{
+    var iw{0} = new google.maps.InfoWindow({{
     content: ""Home For Sale""
     }});
 
-", index, index, wpt.ID, index));
+", index, wpt.ID));
             });
             
             mapHtml.Append(@"}
