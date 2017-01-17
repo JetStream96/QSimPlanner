@@ -81,13 +81,11 @@ namespace QSP.FuelCalculation.Results
 
         private void SetAdditionalPara()
         {
-            PredictedLdgFuel = FuelCont + FuelHold + FuelExtra + FuelToAltn +
-                FuelFinalRsv;
+            PredictedLdgFuel = FuelCont + FuelHold + FuelExtra + FuelToAltn + FuelFinalRsv;
             TakeoffFuel = PredictedLdgFuel + FuelToDest;
             TotalFuel = TakeoffFuel + FuelApu + FuelTaxi;
             FuelFmcRsv = FuelToAltn + FuelFinalRsv;
-            TimeTakeoff = TimeToDest + TimeCont + TimeExtra + TimeHold +
-                TimeFinalRsv + TimeToAltn;
+            TimeTakeoff = TimeToDest + TimeCont + TimeExtra + TimeHold + TimeFinalRsv + TimeToAltn;
             TimeTotal = TimeTakeoff + TimeApu + TimeTaxi;
         }
 

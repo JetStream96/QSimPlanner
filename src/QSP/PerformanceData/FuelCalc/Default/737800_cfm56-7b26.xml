@@ -15,7 +15,7 @@
   <HoldingFuelRefWt>60000</HoldingFuelRefWt>
   <TaxiFuelFlow>12.2</TaxiFuelFlow>
   <ApuFuelFlow>1.8</ApuFuelFlow>
-  <MissedAppFuel>1000</MissedAppFuel>
+  <MissedAppFuel>650</MissedAppFuel>
   <ClimbIAS>280</ClimbIAS>
   <DescentIAS>280</DescentIAS>
 
