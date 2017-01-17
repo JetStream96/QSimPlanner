@@ -6,12 +6,12 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.Tracks.Ausots;
+using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using QSP.RouteFinding.Tracks.Common;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 {
@@ -50,8 +50,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
         private static void AssertTrackMY14(WaypointList wptList)
         {
-            var edge = wptList.GetEdge(
-                GetEdgeIndex("AUSOTMY14", "JAMOR", wptList));
+            var edge = wptList.GetEdge(GetEdgeIndex("AUSOTMY14", "JAMOR", wptList));
 
             // Distance
             var expectedDistance = new[]
@@ -148,8 +147,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             }
         }
 
-        private static void AssertTrack(
-            string ID, string firstWpt, WaypointList wptList)
+        private static void AssertTrack(string ID, string firstWpt, WaypointList wptList)
         {
             // check the track is added
             if (GetEdgeIndex(ID, firstWpt, wptList) < 0)
@@ -158,7 +156,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             }
         }
 
-        private static List<string> wptIdents = new List<string>
+        private static readonly IReadOnlyList<string> wptIdents = new[]
         {
             "JAMOR",
             "IBABI",
@@ -184,7 +182,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             "NSM"
         }.Distinct().ToList();
 
-        private static List<string> airports = new List<string>
+        private static readonly IReadOnlyList<string> airports = new[]
         {
             "YMML",
             "YSSY",
@@ -194,28 +192,13 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
         private static AirportManager GetAirportList()
         {
-            var collection = new List<Airport>();
-
-            foreach (var i in airports)
-            {
-                collection.Add(
-                    new Airport(
-                        i,
-                        "",
-                        0.0,
-                        0.0,
-                        0,
-                        true,
-                        0,
-                        0,
-                        0,
-                        new List<RwyData>()));
-            }
+            var collection = airports.Select(i =>
+                new Airport(i, "", 0.0, 0.0, 0, true, 0, 0, 0, new RwyData[0]));
 
             return new AirportManager(collection);
         }
 
-        private static List<airwayEntry> airwayEntries = new List<airwayEntry>
+        private static readonly IReadOnlyList<airwayEntry> airwayEntries = new[]
         {
             new airwayEntry("ML", "H164", "JAMOR"),
             new airwayEntry("TESAT", "H44", "KAT"),
@@ -233,9 +216,9 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             if (x < 0)
             {
                 var rd = new Random(123);
-
                 return wptList.AddWaypoint(new Waypoint(id, rd.Next(-90, 91), rd.Next(-180, 181)));
             }
+
             return x;
         }
 
@@ -270,8 +253,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
             var directory = AppDomain.CurrentDomain.BaseDirectory;
 
             var msg = new AusotsMessage(
-                File.ReadAllText(
-                    directory + "/QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
+                File.ReadAllText(directory + "/QSP/RouteFinding/Tracks/Ausots/text.asp.html"));
             return new TrackMessageProvider(msg);
         }
     }

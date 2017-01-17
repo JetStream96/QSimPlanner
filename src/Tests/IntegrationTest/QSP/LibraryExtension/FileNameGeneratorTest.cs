@@ -13,11 +13,8 @@ namespace IntegrationTest.QSP.LibraryExtension
     {
         public static string FolderPath()
         {
-            var baseDir = Path.GetDirectoryName(
-                Assembly.GetExecutingAssembly().Location);
-
-            return Path.Combine(baseDir,
-                "QSP/LibraryExtension/FileNameGeneratorTesting");
+            var baseDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            return Path.Combine(baseDir, "QSP/LibraryExtension/FileNameGeneratorTesting");
         }
 
         [Test]
@@ -25,7 +22,7 @@ namespace IntegrationTest.QSP.LibraryExtension
         {
             PrepareEmptyFolder();
             Assert.Throws<ArgumentException>(() =>
-            Generate(FolderPath(), @"?!!//\", ".txt", i => i.ToString()));
+                Generate(FolderPath(), @"?!!//\", ".txt", i => i.ToString()));
         }
 
         [Test]
@@ -33,8 +30,7 @@ namespace IntegrationTest.QSP.LibraryExtension
         {
             PrepareEmptyFolder();
             var expected = Path.Combine(FolderPath(), "abc123.txt");
-            var result = Generate(FolderPath(), @"abc123", ".txt",
-                i => i.ToString());
+            var result = Generate(FolderPath(), @"abc123", ".txt", i => i.ToString());
 
             Assert.IsTrue(GetUri(expected).Equals(GetUri(result)));
         }
@@ -47,8 +43,7 @@ namespace IntegrationTest.QSP.LibraryExtension
             File.Create(Path.Combine(FolderPath(), "123(1).txt")).Close();
 
             var expected = Path.Combine(FolderPath(), "123(2).txt");
-            var result = Generate(FolderPath(), @"123", ".txt", 
-                i => $"({i})");
+            var result = Generate(FolderPath(), @"123", ".txt", i => $"({i})");
 
             Assert.IsTrue(GetUri(expected).Equals(GetUri(result)));
         }

@@ -5,13 +5,12 @@ using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes.TrackInUse;
+using QSP.RouteFinding.Tracks.Common;
 using QSP.RouteFinding.Tracks.Interaction;
 using QSP.RouteFinding.Tracks.Nats;
 using QSP.RouteFinding.Tracks.Nats.Utilities;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using QSP.RouteFinding.Tracks.Common;
 
 namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
 {
@@ -53,18 +52,17 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
             var edge = wptList.GetEdge(GetEdgeIndex("NATC", "ETARI", wptList));
 
             // Distance
-            Assert.AreEqual(
-                    new List<ICoordinate>
-                    {
-                      wptList[wptList.FindById("ETARI")],
-                      new LatLon(55.5,-20),
-                      new LatLon(55.5,-30),
-                      new LatLon(55.5,-40),
-                      new LatLon(54.5,-50),
-                      wptList[wptList.FindById("MELDI")]
-                    }.TotalDistance(),
-                edge.Value.Distance,
-                0.01);
+            var expectedDis = new ICoordinate[]
+            {
+                wptList[wptList.FindById("ETARI")],
+                new LatLon(55.5, -20),
+                new LatLon(55.5, -30),
+                new LatLon(55.5, -40),
+                new LatLon(54.5, -50),
+                wptList[wptList.FindById("MELDI")]
+            }.TotalDistance();
+
+            Assert.AreEqual(expectedDis, edge.Value.Distance, 0.01);
 
             // Start, end waypoints are correct
             Assert.IsTrue(wptList[edge.FromNodeIndex].ID == "ETARI");
@@ -81,22 +79,20 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
         private static void AssertTrackZ(WaypointList wptList)
         {
             var edge = wptList.GetEdge(GetEdgeIndex("NATZ", "SOORY", wptList));
+            var expectedDis = new ICoordinate[]
+            {
+                wptList[wptList.FindById("SOORY")],
+                new LatLon(42.0, -50.0),
+                new LatLon(44.0, -40.0),
+                new LatLon(44.0, -30.0),
+                new LatLon(46.0, -20.0),
+                new LatLon(46.0, -15.0),
+                wptList[wptList.FindById("SEPAL")],
+                wptList[wptList.FindById("LAPEX")]
+            }.TotalDistance();
 
             // Distance
-            Assert.AreEqual(
-                new List<ICoordinate>
-                {
-                    wptList[wptList.FindById("SOORY")],
-                    new LatLon(42.0,-50.0),
-                    new LatLon(44.0,-40.0),
-                    new LatLon(44.0,-30.0),
-                    new LatLon(46.0,-20.0),
-                    new LatLon(46.0,-15.0),
-                    wptList[wptList.FindById("SEPAL")],
-                    wptList[wptList.FindById("LAPEX")]
-                }.TotalDistance(),
-                edge.Value.Distance,
-                0.01);
+            Assert.AreEqual(expectedDis, edge.Value.Distance, 0.01);
 
             // Start, end waypoints are correct
             Assert.IsTrue(wptList[edge.FromNodeIndex].ID == "SOORY");
@@ -122,24 +118,25 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
 
         private static void AssertAllTracks(WaypointList wptList)
         {
-            var id = new char[] { 'A', 'B', 'C', 'D', 'E', 'F',
+            var id = new[] {'A', 'B', 'C', 'D', 'E', 'F',
                 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
-            var firstWpt = new string[]
-            { "SUNOT",
-              "PIKIL",
-              "ETARI",
-              "RESNO",
-              "DOGAL",
-              "MALOT",
-              "NICSO",
-              "PORTI",
-              "SUPRY",
-              "RAFIN",
-              "DOVEY",
-              "JOBOC",
-              "SLATN",
-              "SOORY"
+            var firstWpt = new[]
+            {
+                "SUNOT",
+                "PIKIL",
+                "ETARI",
+                "RESNO",
+                "DOGAL",
+                "MALOT",
+                "NICSO",
+                "PORTI",
+                "SUPRY",
+                "RAFIN",
+                "DOVEY",
+                "JOBOC",
+                "SLATN",
+                "SOORY"
             };
 
             for (int i = 0; i < id.Length; i++)
@@ -202,8 +199,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Nats
                 directory + "/QSP/RouteFinding/Tracks/Nats/North Atlantic Tracks.html");
             var msgs = new MessageSplitter(htmlSource).Split();
 
-            int westIndex =
-                msgs[0].Direction == NatsDirection.West ? 0 : 1;
+            int westIndex = msgs[0].Direction == NatsDirection.West ? 0 : 1;
             int eastIndex = 1 - westIndex;
             var msg = new NatsMessage(msgs[westIndex], msgs[eastIndex]);
             return new TrackMessageProvider(msg);

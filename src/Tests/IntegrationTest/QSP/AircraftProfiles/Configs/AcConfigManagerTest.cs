@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using LdgCalc = QSP.LandingPerfCalculation;
 using TOCalc = QSP.TOPerfCalculation;
 
-namespace IntergrationTest.QSP.AircraftProfiles.Configs
+namespace IntegrationTest.QSP.AircraftProfiles.Configs
 {
     [TestFixture]
     public class AcConfigManagerTest
