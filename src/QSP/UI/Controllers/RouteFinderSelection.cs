@@ -141,15 +141,13 @@ namespace QSP.UI.Controllers
                 if (IsDepartureAirport)
                 {
                     return SidHandlerFactory.GetHandler(
-                         Icao, NavDataLocation, WptList,
-                         WptList.GetEditor(), AirportList)
+                         Icao, NavDataLocation, WptList, WptList.GetEditor(), AirportList)
                          .GetSidList(Rwy);
                 }
                 else
                 {
                     return StarHandlerFactory.GetHandler(
-                        Icao, NavDataLocation, WptList,
-                        WptList.GetEditor(), AirportList)
+                        Icao, NavDataLocation, WptList, WptList.GetEditor(), AirportList)
                         .GetStarList(Rwy);
                 }
             }
@@ -158,29 +156,21 @@ namespace QSP.UI.Controllers
         private void RwyChanged(object sender, EventArgs e)
         {
             FilterBtn.Enabled = false;
-            List<string> proc = null;
 
             try
             {
-                proc = AvailableProcedures;
+                SetProcedures(AvailableProcedures.Where(ShouldShow).ToArray());
             }
             catch (Exception ex)
             {
                 MsgBoxHelper.ShowError(ex.Message);
             }
-
-            SetProcedures(proc.Where(ShouldShow).ToArray());
         }
 
         private bool ShouldShow(string proc)
         {
-            if (ProcFilter.Exists(Icao, Rwy) == false)
-            {
-                return true;
-            }
-
+            if (!ProcFilter.Exists(Icao, Rwy)) return true;
             var info = ProcFilter[Icao, Rwy];
-
             return info.Procedures.Contains(proc) ^ info.IsBlackList;
         }
 
@@ -219,7 +209,7 @@ namespace QSP.UI.Controllers
             {
                 frm.Controls.Add(filter);
 
-                filter.FinishedSelection += (_sender, _e) =>
+                filter.FinishedSelection += (_s, _e) =>
                 {
                     frm.Close();
                     RefreshProcedureComboBox();

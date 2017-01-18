@@ -30,7 +30,7 @@ namespace QSP.UI.MsgBox
             }
         }
 
-        public static MsgBoxResult ShowDialogCenterScreen(string text, MsgBoxIcon icon, 
+        public static MsgBoxResult ShowDialogCenterScreen(string text, MsgBoxIcon icon,
             string caption, DefaultButton defaultBtn, params string[] buttonTxt)
         {
             using (var frm = new MsgBoxForm())
