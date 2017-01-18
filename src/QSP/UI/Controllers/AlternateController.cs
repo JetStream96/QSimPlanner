@@ -132,6 +132,7 @@ namespace QSP.UI.Controllers
                     Row.RwyComboBox,
                     new ComboBox(),
                     new Button(),
+                    row,
                     Parent.appOptionsLocator,
                     () => Parent.airwayNetwork.AirportList,
                     () => Parent.airwayNetwork.WptList,

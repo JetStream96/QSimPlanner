@@ -1,18 +1,21 @@
 ﻿using System;
+using System.Windows.Forms;
 using QSP.TOPerfCalculation;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 {
     public class FormController
     {
+        protected Control parentControl;
         protected PerfTable acPerf;
         protected TOPerfElements elements;
         public event EventHandler CalculationCompleted;
 
-        public FormController(PerfTable acPerf, TOPerfElements elements)
+        public FormController(PerfTable acPerf, TOPerfElements elements, Control parentControl)
         {
             this.acPerf = acPerf;
             this.elements = elements;
+            this.parentControl = parentControl;
         }
 
         /// <summary>

@@ -26,17 +26,17 @@ namespace QSP.UI.UserControls
         
         private void licenseBtn_Click(object sender, EventArgs e)
         {
-            OpenFileHelper.TryOpenFile(Path.GetFullPath("LICENSE.txt"));
+            OpenFileHelper.TryOpenFile(Path.GetFullPath("LICENSE.txt"), this);
         }
 
         private void siteBtn_Click(object sender, EventArgs e)
         {
-            OpenFileHelper.TryOpenFile("https://qsimplan.wordpress.com/");
+            OpenFileHelper.TryOpenFile("https://qsimplan.wordpress.com/", this);
         }
 
         private void githubBtn_Click(object sender, EventArgs e)
         {
-            OpenFileHelper.TryOpenFile("https://github.com/JetStream96/QSimPlanner");
+            OpenFileHelper.TryOpenFile("https://github.com/JetStream96/QSimPlanner", this);
         }
     }
 }

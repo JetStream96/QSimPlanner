@@ -3,6 +3,7 @@ using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport;
+using QSP.RouteFinding.Finder;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Tracks;
@@ -17,7 +18,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using QSP.RouteFinding.Finder;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 
 namespace QSP.UI.UserControls.RouteActions
@@ -95,7 +95,7 @@ namespace QSP.UI.UserControls.RouteActions
             }
             catch (Exception ex)
             {
-                MsgBoxHelper.ShowWarning(ex.Message);
+                parentForm.ShowWarning(ex.Message);
             }
         }
 
@@ -142,12 +142,12 @@ namespace QSP.UI.UserControls.RouteActions
             routeTxtSetter(selected.ToString(showDct));
             UpdateRouteDistanceLbl(routeDisLbl, Route.Expanded, displayStyle);
         }
-        
+
         private void ExportRouteFiles(object sender, EventArgs e)
         {
             if (Route == null)
             {
-                MsgBoxHelper.ShowWarning("Please find or analyze a route first.");
+                parentForm.ShowWarning("Please find or analyze a route first.");
                 return;
             }
 
@@ -162,7 +162,7 @@ namespace QSP.UI.UserControls.RouteActions
             }
             catch (Exception ex)
             {
-                MsgBoxHelper.ShowWarning(ex.Message);
+                parentForm.ShowWarning(ex.Message);
                 return;
             }
 
@@ -190,15 +190,15 @@ namespace QSP.UI.UserControls.RouteActions
             }
             catch (Exception ex)
             {
-                MsgBoxHelper.ShowWarning(ex.Message);
+                parentForm.ShowWarning(ex.Message);
             }
         }
 
-        private static void ShowReports(List<FileExporter.Status> reports)
+        private void ShowReports(List<FileExporter.Status> reports)
         {
             if (!reports.Any())
             {
-                MsgBoxHelper.ShowInfo(
+                parentForm.ShowInfo(
                     "No route file to be exported. " +
                     "Please select select export settings in options page.");
             }
@@ -237,18 +237,18 @@ namespace QSP.UI.UserControls.RouteActions
 
                 if (errors.Any())
                 {
-                    MsgBoxHelper.ShowWarning(msg.ToString());
+                    parentForm.ShowWarning(msg.ToString());
                 }
                 else
                 {
-                    MsgBoxHelper.ShowInfo(msg.ToString());
+                    parentForm.ShowInfo(msg.ToString());
                 }
             }
         }
 
         private void ShowMapClick(object sender, EventArgs e)
         {
-            ShowMapHelper.ShowMap(Route.Expanded, parentForm.Size);
+            ShowMapHelper.ShowMap(Route.Expanded, parentForm.Size, parentForm);
         }
     }
 }

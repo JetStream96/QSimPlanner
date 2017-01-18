@@ -10,7 +10,8 @@ namespace QSP.UI.Utilities
 {
     public static class ShowMapHelper
     {
-        public static void ShowMap(Route Route, Size size, bool canAnalyze = true)
+        public static void ShowMap(Route Route, Size size, Control parentControl,
+            bool canAnalyze = true)
         {
             if (Route == null)
             {
@@ -18,7 +19,7 @@ namespace QSP.UI.Utilities
                     "Please find or analyze a route first." :
                     "Please find a route first.";
 
-                MsgBoxHelper.ShowWarning(msg);
+                parentControl.ShowWarning(msg);
                 return;
             }
 

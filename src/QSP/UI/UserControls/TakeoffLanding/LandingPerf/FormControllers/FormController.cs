@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using QSP.LandingPerfCalculation;
 
 namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
@@ -7,12 +8,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
     {
         protected PerfTable acPerf;
         protected LandingPerfElements elements;
+        protected Control parentControl;
         public event EventHandler CalculationCompleted;
-
-        public FormController(PerfTable acPerf, LandingPerfElements elements)
+        
+        public FormController(PerfTable acPerf, LandingPerfElements elements, Control parentControl)
         {
             this.acPerf = acPerf;
             this.elements = elements;
+            this.parentControl = parentControl;
         }
 
         /// <summary>

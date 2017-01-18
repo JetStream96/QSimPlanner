@@ -210,10 +210,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
                 currentTable = tables.First(t => t.Entry.ProfileName == profileName);
 
                 controller = FormControllerFactory.GetController(
-                    ControllerType.Boeing,
-                    ac,
-                    currentTable,
-                    elements);
+                    ControllerType.Boeing, ac, currentTable, elements, this);
                 // TODO: only correct for Boeing. 
 
                 Subscribe(controller);
@@ -299,7 +296,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
                 aircrafts.Find(ac.Registration) == null ||
                 aircrafts.Find(ac.Registration).Config.AC != ac.Aircraft)
             {
-                MsgBoxHelper.ShowWarning(
+                this.ShowWarning(
                 "The aircraft selected in fuel planning page does not " +
                 "have a corresponding takeoff performance profile.");
                 return;

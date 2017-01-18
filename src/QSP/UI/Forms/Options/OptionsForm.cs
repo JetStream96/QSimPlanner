@@ -78,7 +78,7 @@ namespace QSP.UI.Forms.Options
             {
                 e.Cancel = true;
 
-                var result = MsgBoxHelper.ShowDialog(
+                var result = this.ShowDialog(
                     "Nav Data needs to be set before proceeding. " +
                     "Otherwise this application will close. " +
                     "Quit the application?",
@@ -228,13 +228,13 @@ namespace QSP.UI.Forms.Options
             catch (WaypointFileReadException ex)
             {
                 Log(ex);
-                ShowError("Failed to load waypoints.txt.");
+                this.ShowError("Failed to load waypoints.txt.");
                 return null;
             }
             catch (LoadCountryNamesException ex)
             {
                 Log(ex);
-                ShowError("Failed to load icao_nationality_code.txt.");
+                this.ShowError("Failed to load icao_nationality_code.txt.");
                 return null;
             }
         }
@@ -252,7 +252,7 @@ namespace QSP.UI.Forms.Options
             catch (Exception ex)
             {
                 Log(ex);
-                ShowError("Failed to load airports.txt.");
+                this.ShowError("Failed to load airports.txt.");
                 return null;
             }
         }
@@ -275,7 +275,7 @@ namespace QSP.UI.Forms.Options
             }
             else
             {
-                ShowError("Failed to save options.");
+                this.ShowError("Failed to save options.");
                 return false;
             }
         }

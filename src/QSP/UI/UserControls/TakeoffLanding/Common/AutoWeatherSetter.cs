@@ -97,7 +97,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
                     w.pressUnitComboBox,
                     w.surfCondComboBox) == false)
                 {
-                    MsgBoxHelper.ShowError(
+                    wxControl.ShowError(
                         @"Metar has been downloaded but the weather " +
                         "information cannot be filled automatically.",
                         "");

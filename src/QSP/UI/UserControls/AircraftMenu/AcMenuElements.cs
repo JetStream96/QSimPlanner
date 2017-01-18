@@ -4,47 +4,48 @@ namespace QSP.UI.UserControls.AircraftMenu
 {
     public class AcMenuElements
     {
-        public ListView AcListView { get; private set; }
-        public ComboBox AcType { get; private set; }
-        public TextBox Registration { get; private set; }
-        public ComboBox WeightUnitCBox { get; private set; }
-        public ComboBox FuelProfile { get; private set; }
-        public ComboBox ToProfile { get; private set; }
-        public ComboBox LdgProfile { get; private set; }
-        public TextBox Oew { get; private set; }
-        public TextBox MaxToWt { get; private set; }
-        public TextBox MaxLdgWt { get; private set; }
-        public TextBox MaxZfw { get; private set; }
-        public TextBox MaxFuel { get; private set; }
-        public TextBox Bias { get; private set; }
-        public Label[] WeightUnitLbl { get; private set; }
-        public GroupBox SelectionBox { get; private set; }
-        public GroupBox PropertyBox { get; private set; }
-        public Button NewBtn { get; private set; }
-        public Button EditBtn { get; private set; }
-        public Button DeleteBtn { get; private set; }
+        public Control ParentControl { get; }
+        public ListView AcListView { get; }
+        public ComboBox AcType { get; }
+        public TextBox Registration { get; }
+        public ComboBox WeightUnitCBox { get; }
+        public ComboBox FuelProfile { get; }
+        public ComboBox ToProfile { get; }
+        public ComboBox LdgProfile { get; }
+        public TextBox Oew { get; }
+        public TextBox MaxToWt { get; }
+        public TextBox MaxLdgWt { get; }
+        public TextBox MaxZfw { get; }
+        public TextBox MaxFuel { get; }
+        public TextBox Bias { get; }
+        public GroupBox SelectionBox { get; }
+        public GroupBox PropertyBox { get; }
+        public Button NewBtn { get; }
+        public Button EditBtn { get; }
+        public Button DeleteBtn { get; }
 
         public AcMenuElements(
-             ListView AcListView,
-             ComboBox AcType,
-             TextBox Registration,
-             ComboBox WeightUnitCBox,
-             ComboBox FuelProfile,
-             ComboBox ToProfile,
-             ComboBox LdgProfile,
-             TextBox Oew,
-             TextBox MaxToWt,
-             TextBox MaxLdgWt,
-             TextBox MaxZfw,
-             TextBox MaxFuel,
-             TextBox Bias,
-             Label[] WeightUnit,
-             GroupBox SelectionBox,
-             GroupBox PropertyBox,
-             Button NewBtn,
-             Button EditBtn,
-             Button DeleteBtn)
+            Control ParentControl,
+            ListView AcListView,
+            ComboBox AcType,
+            TextBox Registration,
+            ComboBox WeightUnitCBox,
+            ComboBox FuelProfile,
+            ComboBox ToProfile,
+            ComboBox LdgProfile,
+            TextBox Oew,
+            TextBox MaxToWt,
+            TextBox MaxLdgWt,
+            TextBox MaxZfw,
+            TextBox MaxFuel,
+            TextBox Bias,
+            GroupBox SelectionBox,
+            GroupBox PropertyBox,
+            Button NewBtn,
+            Button EditBtn,
+            Button DeleteBtn)
         {
+            this.ParentControl = ParentControl;
             this.AcListView = AcListView;
             this.AcType = AcType;
             this.Registration = Registration;
@@ -58,7 +59,6 @@ namespace QSP.UI.UserControls.AircraftMenu
             this.MaxZfw = MaxZfw;
             this.MaxFuel = MaxFuel;
             this.Bias = Bias;
-            this.WeightUnitLbl = WeightUnit;
             this.SelectionBox = SelectionBox;
             this.PropertyBox = PropertyBox;
             this.NewBtn = NewBtn;

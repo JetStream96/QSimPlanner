@@ -23,7 +23,7 @@ namespace QSP
             {
                 if (!mutex.WaitOne(0, false))
                 {
-                    MsgBoxHelper.ShowDialogCenterScreen("QSimPlanner is already running.",
+                    MsgBoxHelper.ShowDialog(null, "QSimPlanner is already running.",
                         MsgBoxIcon.Error, "", DefaultButton.Button1, "OK");
                     return;
                 }

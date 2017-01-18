@@ -276,6 +276,7 @@ namespace QSP.UI.UserControls
                origRwyComboBox,
                sidComboBox,
                filterSidBtn,
+               this,
                appOptionsLocator,
                () => airwayNetwork.AirportList,
                () => airwayNetwork.WptList,
@@ -287,6 +288,7 @@ namespace QSP.UI.UserControls
                 destRwyComboBox,
                 starComboBox,
                 filterStarBtn,
+                this,
                 appOptionsLocator,
                 () => airwayNetwork.AirportList,
                 () => airwayNetwork.WptList,
@@ -387,7 +389,7 @@ namespace QSP.UI.UserControls
             }
             catch (InvalidUserInputException ex)
             {
-                ShowWarning(ex.Message);
+                this.ShowWarning(ex.Message);
                 return;
             }
 
@@ -395,13 +397,13 @@ namespace QSP.UI.UserControls
 
             if (altnRoutes.Any(r => r == null))
             {
-                ShowWarning("All alternate routes must be entered.");
+                this.ShowWarning("All alternate routes must be entered.");
                 return;
             }
 
             if (RouteToDest == null)
             {
-                ShowWarning("Route to destination must be entered.");
+                this.ShowWarning("Route to destination must be entered.");
                 return;
             }
 
@@ -409,7 +411,7 @@ namespace QSP.UI.UserControls
 
             if (windTables is DefaultWindTableCollection)
             {
-                var result = ShowDialog(
+                var result = this.ShowDialog(
                     "The wind data has not been downloaded. " +
                     "Continue to calculate and ignore wind aloft?",
                     MsgBoxIcon.Info,
@@ -434,7 +436,7 @@ namespace QSP.UI.UserControls
             }
             catch (InvalidPlanAltitudeException)
             {
-                ShowWarning("Cannot find a valid cruising altitude.");
+                this.ShowWarning("Cannot find a valid cruising altitude.");
                 return;
             }
 
@@ -443,7 +445,7 @@ namespace QSP.UI.UserControls
             if (fuelReport.TotalFuel > ac.MaxFuelKg)
             {
                 var msg = InsufficientFuelMsg(fuelReport.TotalFuel, ac.MaxFuelKg, WeightUnit);
-                ShowInfo(msg, "Insufficient fuel");
+                this.ShowInfo(msg, "Insufficient fuel");
                 return;
             }
 

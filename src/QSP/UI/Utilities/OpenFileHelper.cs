@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Windows.Forms;
 using QSP.UI.MsgBox;
 using QSP.Utilities;
 
@@ -7,7 +8,7 @@ namespace QSP.UI.Utilities
 {
     public static class OpenFileHelper
     {
-        public static void TryOpenFile(string fileName)
+        public static void TryOpenFile(string fileName, Control parentControl = null)
         {
             try
             {
@@ -16,7 +17,7 @@ namespace QSP.UI.Utilities
             catch (Exception ex)
             {
                 LoggerInstance.Log(ex);
-                MsgBoxHelper.ShowWarning("Cannot open the specified file.");
+                MsgBoxHelper.ShowWarning(parentControl, "Cannot open the specified file.");
             }
         }
     }

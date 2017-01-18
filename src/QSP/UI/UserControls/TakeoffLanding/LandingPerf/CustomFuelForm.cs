@@ -56,7 +56,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             }
             else
             {
-                MsgBoxHelper.ShowWarning("The landing fuel is not valid.");
+                this.ShowWarning("The landing fuel is not valid.");
             }
         }
     }

@@ -38,6 +38,7 @@ namespace QSP.UI.UserControls.AircraftMenu
         private void SetElements()
         {
             elements = new AcMenuElements(
+                this,
                 acListView,
                 acTypeComboBox,
                 registrationTxtBox,
@@ -51,7 +52,6 @@ namespace QSP.UI.UserControls.AircraftMenu
                 maxZfwTxtBox,
                 maxFuelTxtBox,
                 biasPercentTxtBox,
-                new Label[] { wtUnitLbl1, wtUnitLbl2, wtUnitLbl3, wtUnitLbl4 },
                 selectionGroupBox,
                 propertyGroupBox,
                 newBtn,

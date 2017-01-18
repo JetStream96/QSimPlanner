@@ -93,6 +93,7 @@ namespace QSP.UI.UserControls
                 ShowMapHelper.ShowMap(
                     Route.Expanded, 
                     ParentForm.Owner.Size, 
+                    this,
                     false);
 
             showRouteActionsBtn.Click += (s, e) =>
@@ -210,7 +211,7 @@ namespace QSP.UI.UserControls
             }
             catch (Exception ex)
             {
-                MsgBoxHelper.ShowWarning(ex.Message);
+                this.ShowWarning(ex.Message);
             }
         }
 
@@ -423,6 +424,7 @@ namespace QSP.UI.UserControls
                     Rwy,
                     TerminalProcedure,
                     FilterBtn,
+                    owner,
                     owner.appOptionsLocator,
                     () => owner.airwayNetwork.AirportList,
                     () => owner.airwayNetwork.WptList,

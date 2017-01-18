@@ -99,7 +99,8 @@ namespace QSP.UI.Forms
                 {
                     // User did not set the path. 
                     // Maybe its the first time the app starts.
-                    MsgBoxHelper.ShowDialogCenterScreen(
+                    MsgBoxHelper.ShowDialog(
+                        null,
                         "Please set the correct Nav Data location " +
                         "before using the application.",
                         MsgBoxIcon.Info,
@@ -109,7 +110,7 @@ namespace QSP.UI.Forms
                 }
                 else
                 {
-                    MsgBoxHelper.ShowWarning("Please set the correct Nav Data location.");
+                    this.ShowWarning("Please set the correct Nav Data location.");
                 }
 
                 ShowOptionsForm(FormStartPosition.CenterScreen, true, true);
@@ -198,7 +199,7 @@ namespace QSP.UI.Forms
             catch (PerfFileNotFoundException ex)
             {
                 Log(ex);
-                MsgBoxHelper.ShowWarning(ex.Message, "Performance file loading warning");
+                this.ShowWarning(ex.Message, "Performance file loading warning");
             }
 
             try
@@ -210,7 +211,7 @@ namespace QSP.UI.Forms
             catch (Exception ex)
             {
                 Log(ex);
-                MsgBoxHelper.ShowError("Cannot load options. The application will quit now.");
+                this.ShowError("Cannot load options. The application will quit now.");
                 Environment.Exit(1);
             }
 
@@ -457,7 +458,7 @@ namespace QSP.UI.Forms
         {
             if (appSettings.PromptBeforeExit)
             {
-                var result = MsgBoxHelper.ShowDialog(
+                var result = this.ShowDialog(
                     "Exit the application?",
                     MsgBoxIcon.Info,
                     "",
@@ -474,7 +475,7 @@ namespace QSP.UI.Forms
 
             if (updater.IsUpdating)
             {
-                var result = MsgBoxHelper.ShowDialog(
+                var result = this.ShowDialog(
                     "The automatic update is in progress. " +
                     "Wait for the update to finish?",
                     MsgBoxIcon.Info,

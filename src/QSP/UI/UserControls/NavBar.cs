@@ -65,7 +65,7 @@ namespace QSP.UI.UserControls
 
         private void SetManualLblListener()
         {
-            manualLbl.Click += (s, e) => TryOpenFile(Path.GetFullPath("manual/manual.html"));
+            manualLbl.Click += (s, e) => TryOpenFile(Path.GetFullPath("manual/manual.html"), this);
         }
 
         private void SetControlPosition()

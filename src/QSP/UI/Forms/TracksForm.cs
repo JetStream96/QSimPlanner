@@ -331,7 +331,7 @@ namespace QSP.UI.Forms
 
             if (msg.Count == 0)
             {
-                MsgBoxHelper.ShowWarning("No track has been downloaded or imported.");
+                this.ShowWarning("No track has been downloaded or imported.");
                 return;
             }
 
@@ -355,7 +355,7 @@ namespace QSP.UI.Forms
                 catch (Exception ex)
                 {
                     Log(ex);
-                    MsgBoxHelper.ShowWarning("Failed to save file.");
+                    this.ShowWarning("Failed to save file.");
                 }
             }
         }
@@ -380,7 +380,7 @@ namespace QSP.UI.Forms
                 catch (Exception ex)
                 {
                     Log(ex);
-                    MsgBoxHelper.ShowWarning($"Failed to load file {file}");
+                    this.ShowWarning($"Failed to load file {file}");
                 }
             }
         }

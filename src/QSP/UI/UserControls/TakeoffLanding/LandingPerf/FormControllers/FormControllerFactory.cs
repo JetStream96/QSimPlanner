@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using QSP.AircraftProfiles.Configs;
 using QSP.LandingPerfCalculation;
 
@@ -11,13 +12,13 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
     public static class FormControllerFactory
     {
-        public static FormController GetController(ControllerType type, 
-            AircraftConfigItem ac, PerfTable acPerf, LandingPerfElements elements)
+        public static FormController GetController(ControllerType type, AircraftConfigItem ac, 
+            PerfTable acPerf, LandingPerfElements elements, Control parentControl)
         {
             switch (type)
             {
                 case ControllerType.Boeing:
-                    return new BoeingController(ac, acPerf, elements);
+                    return new BoeingController(ac, acPerf, elements, parentControl);
 
                 default:
                     throw new ArgumentException();

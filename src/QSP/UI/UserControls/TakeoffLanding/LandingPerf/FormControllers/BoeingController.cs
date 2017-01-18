@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 using QSP.Common;
 using QSP.LandingPerfCalculation;
 using QSP.LandingPerfCalculation.Boeing;
@@ -15,8 +16,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
     {
         private AircraftConfigItem ac;
 
-        public BoeingController(AircraftConfigItem ac, PerfTable acPerf, LandingPerfElements elem)
-            : base(acPerf, elem)
+        public BoeingController(AircraftConfigItem ac, PerfTable acPerf, LandingPerfElements elem,
+            Control parentControl)
+            : base(acPerf, elem, parentControl)
         {
             this.ac = ac;
         }
@@ -134,11 +136,11 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
             }
             catch (InvalidUserInputException ex)
             {
-                MsgBoxHelper.ShowWarning(ex.Message);
+                parentControl.ShowWarning(ex.Message);
             }
             catch (RunwayTooShortException)
             {
-                MsgBoxHelper.ShowWarning("Runway length is insufficient for landing.");
+                parentControl.ShowWarning("Runway length is insufficient for landing.");
             }
         }
 
@@ -147,7 +149,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
         {
             if (para.WeightKG > ac.MaxTOWtKg || para.WeightKG < ac.OewKg)
             {
-                var result = MsgBoxHelper.ShowDialog(
+                var result = parentControl.ShowDialog(
                     "Landing weight is not within valid range. Continue to calculate?",
                     MsgBoxIcon.Warning,
                     "",

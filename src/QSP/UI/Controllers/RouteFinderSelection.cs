@@ -21,9 +21,10 @@ namespace QSP.UI.Controllers
         public static readonly string NoProcedureTxt = "NONE";
         public static readonly string AutoProcedureTxt = "AUTO";
 
-        private Locator<AppOptions> appOptionsLocator;
-        private Func<WaypointList> WptListGetter;
-        private Func<AirportManager> AirportListGetter;
+        private readonly Locator<AppOptions> appOptionsLocator;
+        private readonly Func<WaypointList> wptListGetter;
+        private readonly Func<AirportManager> airportListGetter;
+        private readonly Control parentControl;
 
         public ProcedureFilter ProcFilter { get; private set; }
         public TextBox IcaoTxtBox { get; private set; }
@@ -32,8 +33,8 @@ namespace QSP.UI.Controllers
         public Button FilterBtn { get; private set; }
         public bool IsDepartureAirport { get; private set; }
 
-        public WaypointList WptList => WptListGetter();
-        public AirportManager AirportList => AirportListGetter();
+        public WaypointList WptList => wptListGetter();
+        public AirportManager AirportList => airportListGetter();
         public string NavDataLocation => appOptionsLocator.Instance.NavDataLocation;
 
         public RouteFinderSelection(
@@ -42,9 +43,10 @@ namespace QSP.UI.Controllers
             ComboBox RwyCBox,
             ComboBox TerminalProceduresCBox,
             Button FilterBtn,
+            Control parentControl,
             Locator<AppOptions> appOptionsLocator,
-            Func<AirportManager> AirportListGetter,
-            Func<WaypointList> WptListGetter,
+            Func<AirportManager> airportListGetter,
+            Func<WaypointList> wptListGetter,
             ProcedureFilter ProcFilter)
         {
             this.IcaoTxtBox = IcaoTxtBox;
@@ -52,9 +54,10 @@ namespace QSP.UI.Controllers
             this.RwyCBox = RwyCBox;
             this.TerminalProceduresCBox = TerminalProceduresCBox;
             this.FilterBtn = FilterBtn;
+            this.parentControl = parentControl;
             this.appOptionsLocator = appOptionsLocator;
-            this.AirportListGetter = AirportListGetter;
-            this.WptListGetter = WptListGetter;
+            this.airportListGetter = airportListGetter;
+            this.wptListGetter = wptListGetter;
             this.ProcFilter = ProcFilter;
         }
 
@@ -163,7 +166,7 @@ namespace QSP.UI.Controllers
             }
             catch (Exception ex)
             {
-                MsgBoxHelper.ShowError(ex.Message);
+                parentControl.ShowError(ex.Message);
             }
         }
 

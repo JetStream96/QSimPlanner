@@ -21,9 +21,11 @@ namespace QSP.UI.UserControls.AircraftMenu
 
         public event EventHandler AircraftsChanged;
 
-        private AcMenuElements elem;
-        private ProfileCollection profiles;
+        private readonly AcMenuElements elem;
+        private readonly ProfileCollection profiles;
         private AircraftConfig currentConfig;
+
+        private Control ParentControl => elem.ParentControl;
 
         public AcMenuController(AcMenuElements elem, ProfileCollection profiles)
         {
@@ -283,7 +285,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             }
             catch (InvalidUserInputException ex)
             {
-                MsgBoxHelper.ShowWarning(ex.Message);
+                ParentControl.ShowWarning(ex.Message);
                 return null;
             }
         }
@@ -297,7 +299,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             catch (NoFileNameAvailException)
             {
                 // FileNameGenerator cannot generate a file name.
-                MsgBoxHelper.ShowError("Failed to save config file.");
+                ParentControl.ShowError("Failed to save config file.");
                 return null;
             }
         }
@@ -310,7 +312,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             if (InEditMode == false &&
                 profiles.AcConfigs.Find(config.Registration) != null)
             {
-                MsgBoxHelper.ShowWarning("Registration already exists. Please use another one.");
+                ParentControl.ShowWarning("Registration already exists. Please use another one.");
                 return;
             }
 
@@ -326,7 +328,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             }
             else
             {
-                MsgBoxHelper.ShowError("Failed to save config file.");
+                ParentControl.ShowError("Failed to save config file.");
             }
         }
 
@@ -340,7 +342,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             var path = item.FilePath;
             var ac = item.Config.AC;
 
-            var result = MsgBoxHelper.ShowDialog(
+            var result = ParentControl.ShowDialog(
                 $"Permanently delete {reg} ({ac}) ?",
                 MsgBoxIcon.Warning,
                 "",
@@ -376,7 +378,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             }
             catch
             {
-                MsgBoxHelper.ShowError("Failed to delete the selected config.");
+                ParentControl.ShowError("Failed to delete the selected config.");
                 return false;
             }
         }
@@ -411,7 +413,7 @@ namespace QSP.UI.UserControls.AircraftMenu
                 return;
             }
 
-            var result = MsgBoxHelper.ShowDialog(
+            var result = ParentControl.ShowDialog(
                 "Discard the changes to config?",
                 MsgBoxIcon.Warning,
                 "",

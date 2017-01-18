@@ -1,44 +1,44 @@
 ﻿using System.Windows.Forms;
+using QSP.UI.Utilities;
 
 namespace QSP.UI.MsgBox
 {
     public static class MsgBoxHelper
     {
-        public static void ShowError(string text, string caption = "")
+        public static void ShowError(this Control control, string text, string caption = "")
         {
-            ShowDialog(text, MsgBoxIcon.Error, caption, DefaultButton.Button1, "OK");
+            control.ShowDialog(text, MsgBoxIcon.Error, caption, DefaultButton.Button1, "OK");
         }
 
-        public static void ShowWarning(string text, string caption = "")
+        public static void ShowWarning(this Control control, string text, string caption = "")
         {
-            ShowDialog(text, MsgBoxIcon.Warning, caption, DefaultButton.Button1, "OK");
+            control.ShowDialog(text, MsgBoxIcon.Warning, caption, DefaultButton.Button1, "OK");
         }
 
-        public static void ShowInfo(string text, string caption = "")
+        public static void ShowInfo(this Control control, string text, string caption = "")
         {
-            ShowDialog(text, MsgBoxIcon.Info, caption, DefaultButton.Button1, "OK");
+            control.ShowDialog(text, MsgBoxIcon.Info, caption, DefaultButton.Button1, "OK");
         }
 
-        public static MsgBoxResult ShowDialog(string text, MsgBoxIcon icon, string caption,
-            DefaultButton defaultBtn, params string[] buttonTxt)
+        public static MsgBoxResult ShowDialog(this Control parentControl, string text, 
+            MsgBoxIcon icon, string caption, DefaultButton defaultBtn, params string[] buttonTxt)
         {
             using (var frm = new MsgBoxForm())
             {
                 frm.Init(text, icon, caption, defaultBtn, buttonTxt);
-                frm.ShowDialog();
-                return frm.SelectionResult;
-            }
-        }
+                var parentForm = parentControl?.SelfOrParentForm();
 
-        public static MsgBoxResult ShowDialogCenterScreen(string text, MsgBoxIcon icon,
-            string caption, DefaultButton defaultBtn, params string[] buttonTxt)
-        {
-            using (var frm = new MsgBoxForm())
-            {
-                frm.Init(text, icon, caption, defaultBtn, buttonTxt);
-                frm.StartPosition = FormStartPosition.CenterScreen;
-                frm.ShowInTaskbar = true;
-                frm.ShowDialog();
+                if (parentForm == null)
+                {
+                    frm.StartPosition = FormStartPosition.CenterScreen;
+                    frm.ShowInTaskbar = true;
+                    frm.ShowDialog();
+                }
+                else
+                {
+                    frm.ShowDialog(parentForm);
+                }
+
                 return frm.SelectionResult;
             }
         }

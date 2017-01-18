@@ -93,14 +93,13 @@ namespace QSP.UI.Forms
 
             if (windAvailable == false)
             {
-                MsgBoxHelper.ShowWarning("No wind data has been downloaded or loaded from file.");
+                this.ShowWarning("No wind data has been downloaded or loaded from file.");
                 return;
             }
 
             if (File.Exists(sourceFile) == false)
             {
-                MsgBoxHelper.ShowWarning(
-                    "The temporary wind data file was deleted. Unable to proceed.");
+                this.ShowWarning("The temporary wind data file was deleted. Unable to proceed.");
                 return;
             }
 
@@ -123,7 +122,7 @@ namespace QSP.UI.Forms
                 catch (Exception ex)
                 {
                     Log(ex);
-                    MsgBoxHelper.ShowWarning("Failed to save file.");
+                    this.ShowWarning("Failed to save file.");
                 }
             }
         }
@@ -162,7 +161,7 @@ namespace QSP.UI.Forms
                 catch (Exception ex)
                 {
                     Log(ex);
-                    MsgBoxHelper.ShowWarning($"Failed to load file {file}");
+                    this.ShowWarning($"Failed to load file {file}");
                 }
 
                 downloadBtn.Enabled = true;

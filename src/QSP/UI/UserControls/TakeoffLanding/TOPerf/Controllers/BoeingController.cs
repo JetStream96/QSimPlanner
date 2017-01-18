@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using QSP.Common;
 using QSP.LibraryExtension;
 using QSP.TOPerfCalculation;
@@ -16,8 +17,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
     {
         private AircraftConfigItem ac;
 
-        public BoeingController(AircraftConfigItem ac, PerfTable acPerf, TOPerfElements elements)
-            : base(acPerf, elements)
+        public BoeingController(AircraftConfigItem ac, PerfTable acPerf, TOPerfElements elements,
+            Control parentControl)
+            : base(acPerf, elements, parentControl)
         {
             this.ac = ac;
         }
@@ -129,7 +131,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
         {
             if (para.WeightKg > ac.MaxTOWtKg || para.WeightKg < ac.OewKg)
             {
-                var result = MsgBoxHelper.ShowDialog(
+                var result = parentControl.ShowDialog(
                     "Takeoff weight is not within valid range. Continue to calculate?",
                     MsgBoxIcon.Warning,
                     "",
@@ -163,15 +165,15 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
             }
             catch (InvalidUserInputException ex)
             {
-                MsgBoxHelper.ShowWarning(ex.Message);
+                parentControl.ShowWarning(ex.Message);
             }
             catch (RunwayTooShortException)
             {
-                MsgBoxHelper.ShowWarning("Runway length is insufficient for takeoff.");
+                parentControl.ShowWarning("Runway length is insufficient for takeoff.");
             }
             catch (PoorClimbPerformanceException)
             {
-                MsgBoxHelper.ShowWarning("Aircraft too heavy to meet " +
+                parentControl.ShowWarning("Aircraft too heavy to meet " +
                     "climb performance requirement.");
             }
         }
