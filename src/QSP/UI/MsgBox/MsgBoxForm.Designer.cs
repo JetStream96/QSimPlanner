@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MsgBoxForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -35,8 +36,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.msgLbl = new System.Windows.Forms.Label();
             this.picBox = new System.Windows.Forms.PictureBox();
+            this.msgLbl = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -165,17 +166,6 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(550, 128);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
-            // msgLbl
-            // 
-            this.msgLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.msgLbl.AutoSize = true;
-            this.msgLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.msgLbl.Location = new System.Drawing.Point(98, 52);
-            this.msgLbl.Name = "msgLbl";
-            this.msgLbl.Size = new System.Drawing.Size(157, 23);
-            this.msgLbl.TabIndex = 1;
-            this.msgLbl.Text = "Error message here";
-            // 
             // picBox
             // 
             this.picBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -186,6 +176,17 @@
             this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.picBox.TabIndex = 1;
             this.picBox.TabStop = false;
+            // 
+            // msgLbl
+            // 
+            this.msgLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.msgLbl.AutoSize = true;
+            this.msgLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.msgLbl.Location = new System.Drawing.Point(98, 52);
+            this.msgLbl.Name = "msgLbl";
+            this.msgLbl.Size = new System.Drawing.Size(157, 23);
+            this.msgLbl.TabIndex = 1;
+            this.msgLbl.Text = "Error message here";
             // 
             // MsgBoxForm
             // 
@@ -199,6 +200,7 @@
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MsgBoxForm";
