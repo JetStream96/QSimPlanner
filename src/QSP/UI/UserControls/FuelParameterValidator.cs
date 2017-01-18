@@ -22,10 +22,7 @@ namespace QSP.UI.UserControls
             double ZfwKg = ImportRequireNonNegative(c.Zfw, "Invalid ZFW.");
             double ContPerc = ParseNonNegative(
                 c.ContPercentComboBox, "Invalid contingency fuel.");
-
-            double MissedAppFuelKg = ImportRequireNonNegative(
-                c.MissedApproach, "Invalid missed approach fuel.");
-
+            
             double HoldingMin = ParseNonNegative(
                 c.HoldTimeTxtBox, "Invalid holding time.");
 
@@ -50,7 +47,6 @@ namespace QSP.UI.UserControls
             return new FuelParameters(
                 ZfwKg,
                 ContPerc,
-                MissedAppFuelKg,
                 HoldingMin,
                 ExtraFuelKg,
                 ApuTime,

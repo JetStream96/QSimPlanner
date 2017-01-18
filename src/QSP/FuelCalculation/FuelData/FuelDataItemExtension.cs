@@ -91,7 +91,6 @@ namespace QSP.FuelCalculation.FuelData
                 f.HoldingFuelRefWt,
                 f.TaxiFuelFlow * bias,
                 f.ApuFuelFlow,
-                f.MissedAppFuel * bias,
                 f.ClimbKias,
                 f.DescendKias,
                 f.DataPoint1.WithBias(bias),

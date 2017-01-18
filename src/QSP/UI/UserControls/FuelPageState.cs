@@ -28,7 +28,6 @@ namespace QSP.UI.UserControls
         private string altnEntry = "AltnEntry";
         private string altnIcao = "AltnIcao";
         private string altnRwy = "AltnRwy";
-        private string missedAppKg = "MissedAppKg";
         private string contPerc = "ContPerc";
         private string holdMin = "HoldMin";
         private string extraKg = "ExtraKg";
@@ -68,7 +67,6 @@ namespace QSP.UI.UserControls
                 c.destRwyComboBox.Text.Serialize(destRwy),
                 c.starComboBox.Text.Serialize(destStar),
                 new XElement(alternates, GetAlternates()),
-                TryGetWeightKg(c.MissedApproach).Serialize(missedAppKg),
                 c.ContPercentComboBox.Text.Serialize(contPerc),
                 c.HoldTimeTxtBox.Text.Serialize(holdMin),
                 TryGetWeightKg(c.Extra).Serialize(extraKg),
@@ -145,7 +143,6 @@ namespace QSP.UI.UserControls
                 () => c.destRwyComboBox.Text = r.GetString(destRwy),
                 () => c.starComboBox.Text = r.GetString(destStar),
                 () => SetAlternates(r.Element(alternates)),
-                () => c.MissedApproach.SetWeight(r.GetDouble(missedAppKg)),
                 () => c.ContPercentComboBox.Text = r.GetString(contPerc),
                 () => c.HoldTimeTxtBox.Text = r.GetString(holdMin),
                 () => c.Extra.SetWeight(r.GetDouble(extraKg)),

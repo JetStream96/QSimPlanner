@@ -15,7 +15,6 @@
   <HoldingFuelRefWt>58967</HoldingFuelRefWt>
   <TaxiFuelFlow>12.2</TaxiFuelFlow>
   <ApuFuelFlow>1.8</ApuFuelFlow>
-  <MissedAppFuel>750</MissedAppFuel>
   <ClimbIAS>250</ClimbIAS>
   <DescentIAS>250</DescentIAS>
 
@@ -32,7 +31,7 @@
     <!-- Placeholder -->
     <EtopsCruiseFF>0</EtopsCruiseFF>
   </DataPoint>
-  
+
   <DataPoint>
     <Weight>85000</Weight>
     <CruiseFF>52.14</CruiseFF>
@@ -49,7 +48,7 @@
   <FuelTable>
     <Type>0</Type>
     <Text>
-          40820	45360	49900	54440	58980	63520	68060	72600	77140
+      40820	45360	49900	54440	58980	63520	68060	72600	77140
       50	500	600	600	600	700	700	700	700	800
       100	900	900	1000	1000	1000	1100	1100	1200	1200
       150	1100	1200	1200	1300	1400	1400	1500	1500	1600

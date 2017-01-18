@@ -13,7 +13,6 @@
   <HoldingFuelRefWt>70000</HoldingFuelRefWt>
   <TaxiFuelFlow>12.2</TaxiFuelFlow>
   <ApuFuelFlow>1.8</ApuFuelFlow>
-  <MissedAppFuel>600</MissedAppFuel>
   <ClimbIAS>270</ClimbIAS>
   <DescentIAS>270</DescentIAS>
 
@@ -47,7 +46,7 @@
   <FuelTable>
     <Type>0</Type>
     <Text>
-          30000	35000	40000	45000	50000	55000	60000
+      30000	35000	40000	45000	50000	55000	60000
       50	500	500	500	600	600	600	700
       100	700	800	800	900	900	1000	1000
       150	900	1000	1100	1100	1200	1300	1300
@@ -71,5 +70,5 @@
       5000	18500	20200	21800	23900	25900	28000	30100
     </Text>
   </FuelTable>
-  
+
 </Data>

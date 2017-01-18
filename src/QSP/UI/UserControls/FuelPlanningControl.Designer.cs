@@ -31,26 +31,23 @@
             this.fuelParaGroupBox = new System.Windows.Forms.GroupBox();
             this.TableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Label19 = new System.Windows.Forms.Label();
-            this.Label5 = new System.Windows.Forms.Label();
             this.Label16 = new System.Windows.Forms.Label();
             this.FinalReserveTxtBox = new System.Windows.Forms.TextBox();
             this.Label15 = new System.Windows.Forms.Label();
-            this.missedAppFuelTxtBox = new System.Windows.Forms.TextBox();
-            this.missedAppLbl = new System.Windows.Forms.Label();
             this.Label28 = new System.Windows.Forms.Label();
             this.TaxiTimeTxtBox = new System.Windows.Forms.TextBox();
-            this.Label4 = new System.Windows.Forms.Label();
             this.ApuTimeTxtBox = new System.Windows.Forms.TextBox();
-            this.Label20 = new System.Windows.Forms.Label();
-            this.ContPercentComboBox = new System.Windows.Forms.ComboBox();
-            this.extraFuelLbl = new System.Windows.Forms.Label();
             this.Label8 = new System.Windows.Forms.Label();
-            this.HoldTimeTxtBox = new System.Windows.Forms.TextBox();
             this.Label7 = new System.Windows.Forms.Label();
-            this.extraFuelTxtBox = new System.Windows.Forms.TextBox();
+            this.Label4 = new System.Windows.Forms.Label();
+            this.ContPercentComboBox = new System.Windows.Forms.ComboBox();
             this.Label12 = new System.Windows.Forms.Label();
-            this.Label25 = new System.Windows.Forms.Label();
+            this.Label20 = new System.Windows.Forms.Label();
+            this.HoldTimeTxtBox = new System.Windows.Forms.TextBox();
+            this.extraFuelTxtBox = new System.Windows.Forms.TextBox();
             this.Label6 = new System.Windows.Forms.Label();
+            this.Label25 = new System.Windows.Forms.Label();
+            this.extraFuelLbl = new System.Windows.Forms.Label();
             this.calculateBtn = new System.Windows.Forms.Button();
             this.alternateGroupBox = new System.Windows.Forms.GroupBox();
             this.altnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -65,13 +62,16 @@
             this.zfwLbl = new System.Windows.Forms.Label();
             this.Label17 = new System.Windows.Forms.Label();
             this.payloadLbl = new System.Windows.Forms.Label();
+            this.registrationComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.oewLbl = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.zfwTxtBox = new System.Windows.Forms.TextBox();
             this.payloadTxtBox = new System.Windows.Forms.TextBox();
             this.payloadTrackBar = new MetroFramework.Controls.MetroTrackBar();
+            this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.oewTxtBox = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
+            this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.label21 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -80,6 +80,8 @@
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.origTxtBox = new System.Windows.Forms.TextBox();
+            this.origRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.sidComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.filterSidBtn = new System.Windows.Forms.Button();
             this.fromIdentLbl = new System.Windows.Forms.Label();
             this.fromRwyLbl = new System.Windows.Forms.Label();
@@ -90,19 +92,14 @@
             this.starLbl = new System.Windows.Forms.Label();
             this.destTxtBox = new System.Windows.Forms.TextBox();
             this.filterStarBtn = new System.Windows.Forms.Button();
+            this.destRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.starComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.showRouteActionsBtn = new System.Windows.Forms.Button();
             this.routeOptionBtn = new System.Windows.Forms.Button();
             this.fuelReportGroupBox = new System.Windows.Forms.GroupBox();
             this.fuelReportTxtBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.registrationComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.origRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.sidComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.destRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.starComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
             this.fuelParaGroupBox.SuspendLayout();
             this.TableLayoutPanel1.SuspendLayout();
             this.alternateGroupBox.SuspendLayout();
@@ -132,7 +129,7 @@
             this.fuelParaGroupBox.MinimumSize = new System.Drawing.Size(1091, 70);
             this.fuelParaGroupBox.Name = "fuelParaGroupBox";
             this.fuelParaGroupBox.Padding = new System.Windows.Forms.Padding(2);
-            this.fuelParaGroupBox.Size = new System.Drawing.Size(1091, 184);
+            this.fuelParaGroupBox.Size = new System.Drawing.Size(1091, 152);
             this.fuelParaGroupBox.TabIndex = 3;
             this.fuelParaGroupBox.TabStop = false;
             this.fuelParaGroupBox.Text = "Fuel Parameters";
@@ -150,35 +147,31 @@
             this.TableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.TableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TableLayoutPanel1.Controls.Add(this.Label19, 6, 2);
-            this.TableLayoutPanel1.Controls.Add(this.Label5, 0, 0);
             this.TableLayoutPanel1.Controls.Add(this.Label16, 6, 1);
             this.TableLayoutPanel1.Controls.Add(this.FinalReserveTxtBox, 5, 2);
             this.TableLayoutPanel1.Controls.Add(this.Label15, 6, 0);
-            this.TableLayoutPanel1.Controls.Add(this.missedAppFuelTxtBox, 1, 0);
-            this.TableLayoutPanel1.Controls.Add(this.missedAppLbl, 2, 0);
             this.TableLayoutPanel1.Controls.Add(this.Label28, 4, 2);
             this.TableLayoutPanel1.Controls.Add(this.TaxiTimeTxtBox, 5, 1);
-            this.TableLayoutPanel1.Controls.Add(this.Label4, 0, 1);
             this.TableLayoutPanel1.Controls.Add(this.ApuTimeTxtBox, 5, 0);
-            this.TableLayoutPanel1.Controls.Add(this.Label20, 0, 2);
-            this.TableLayoutPanel1.Controls.Add(this.ContPercentComboBox, 1, 1);
-            this.TableLayoutPanel1.Controls.Add(this.extraFuelLbl, 2, 3);
             this.TableLayoutPanel1.Controls.Add(this.Label8, 4, 1);
-            this.TableLayoutPanel1.Controls.Add(this.HoldTimeTxtBox, 1, 2);
             this.TableLayoutPanel1.Controls.Add(this.Label7, 4, 0);
-            this.TableLayoutPanel1.Controls.Add(this.extraFuelTxtBox, 1, 3);
-            this.TableLayoutPanel1.Controls.Add(this.Label12, 2, 1);
-            this.TableLayoutPanel1.Controls.Add(this.Label25, 2, 2);
-            this.TableLayoutPanel1.Controls.Add(this.Label6, 0, 3);
+            this.TableLayoutPanel1.Controls.Add(this.Label4, 0, 0);
+            this.TableLayoutPanel1.Controls.Add(this.ContPercentComboBox, 1, 0);
+            this.TableLayoutPanel1.Controls.Add(this.Label12, 2, 0);
+            this.TableLayoutPanel1.Controls.Add(this.Label20, 0, 1);
+            this.TableLayoutPanel1.Controls.Add(this.HoldTimeTxtBox, 1, 1);
+            this.TableLayoutPanel1.Controls.Add(this.extraFuelTxtBox, 1, 2);
+            this.TableLayoutPanel1.Controls.Add(this.Label6, 0, 2);
+            this.TableLayoutPanel1.Controls.Add(this.Label25, 2, 1);
+            this.TableLayoutPanel1.Controls.Add(this.extraFuelLbl, 2, 2);
             this.TableLayoutPanel1.Location = new System.Drawing.Point(80, 28);
             this.TableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.TableLayoutPanel1.Name = "TableLayoutPanel1";
-            this.TableLayoutPanel1.RowCount = 4;
-            this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanel1.RowCount = 3;
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanel1.Size = new System.Drawing.Size(790, 129);
+            this.TableLayoutPanel1.Size = new System.Drawing.Size(762, 97);
             this.TableLayoutPanel1.TabIndex = 30;
             // 
             // Label19
@@ -186,31 +179,19 @@
             this.Label19.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label19.AutoSize = true;
             this.Label19.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label19.Location = new System.Drawing.Point(742, 69);
+            this.Label19.Location = new System.Drawing.Point(714, 69);
             this.Label19.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Label19.Name = "Label19";
             this.Label19.Size = new System.Drawing.Size(43, 23);
             this.Label19.TabIndex = 21;
             this.Label19.Text = "Min.";
             // 
-            // Label5
-            // 
-            this.Label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Label5.AutoSize = true;
-            this.Label5.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label5.Location = new System.Drawing.Point(5, 4);
-            this.Label5.Margin = new System.Windows.Forms.Padding(5, 0, 50, 0);
-            this.Label5.Name = "Label5";
-            this.Label5.Size = new System.Drawing.Size(139, 23);
-            this.Label5.TabIndex = 4;
-            this.Label5.Text = "Missed approach";
-            // 
             // Label16
             // 
             this.Label16.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label16.AutoSize = true;
             this.Label16.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label16.Location = new System.Drawing.Point(742, 37);
+            this.Label16.Location = new System.Drawing.Point(714, 37);
             this.Label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Label16.Name = "Label16";
             this.Label16.Size = new System.Drawing.Size(43, 23);
@@ -221,7 +202,7 @@
             // 
             this.FinalReserveTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.FinalReserveTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FinalReserveTxtBox.Location = new System.Drawing.Point(647, 66);
+            this.FinalReserveTxtBox.Location = new System.Drawing.Point(619, 66);
             this.FinalReserveTxtBox.Margin = new System.Windows.Forms.Padding(1);
             this.FinalReserveTxtBox.Name = "FinalReserveTxtBox";
             this.FinalReserveTxtBox.Size = new System.Drawing.Size(89, 30);
@@ -232,41 +213,19 @@
             this.Label15.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label15.AutoSize = true;
             this.Label15.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label15.Location = new System.Drawing.Point(742, 4);
+            this.Label15.Location = new System.Drawing.Point(714, 5);
             this.Label15.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Label15.Name = "Label15";
             this.Label15.Size = new System.Drawing.Size(43, 23);
             this.Label15.TabIndex = 22;
             this.Label15.Text = "Min.";
             // 
-            // missedAppFuelTxtBox
-            // 
-            this.missedAppFuelTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.missedAppFuelTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.missedAppFuelTxtBox.Location = new System.Drawing.Point(195, 1);
-            this.missedAppFuelTxtBox.Margin = new System.Windows.Forms.Padding(1);
-            this.missedAppFuelTxtBox.Name = "missedAppFuelTxtBox";
-            this.missedAppFuelTxtBox.Size = new System.Drawing.Size(89, 30);
-            this.missedAppFuelTxtBox.TabIndex = 0;
-            // 
-            // missedAppLbl
-            // 
-            this.missedAppLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.missedAppLbl.AutoSize = true;
-            this.missedAppLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.missedAppLbl.Location = new System.Drawing.Point(290, 4);
-            this.missedAppLbl.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.missedAppLbl.Name = "missedAppLbl";
-            this.missedAppLbl.Size = new System.Drawing.Size(32, 23);
-            this.missedAppLbl.TabIndex = 18;
-            this.missedAppLbl.Text = "KG";
-            // 
             // Label28
             // 
             this.Label28.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label28.AutoSize = true;
             this.Label28.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label28.Location = new System.Drawing.Point(488, 69);
+            this.Label28.Location = new System.Drawing.Point(460, 69);
             this.Label28.Margin = new System.Windows.Forms.Padding(5, 0, 50, 0);
             this.Label28.Name = "Label28";
             this.Label28.Size = new System.Drawing.Size(108, 23);
@@ -277,45 +236,57 @@
             // 
             this.TaxiTimeTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.TaxiTimeTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TaxiTimeTxtBox.Location = new System.Drawing.Point(647, 33);
+            this.TaxiTimeTxtBox.Location = new System.Drawing.Point(619, 34);
             this.TaxiTimeTxtBox.Margin = new System.Windows.Forms.Padding(1);
             this.TaxiTimeTxtBox.Name = "TaxiTimeTxtBox";
             this.TaxiTimeTxtBox.Size = new System.Drawing.Size(89, 30);
             this.TaxiTimeTxtBox.TabIndex = 5;
+            // 
+            // ApuTimeTxtBox
+            // 
+            this.ApuTimeTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ApuTimeTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApuTimeTxtBox.Location = new System.Drawing.Point(619, 1);
+            this.ApuTimeTxtBox.Margin = new System.Windows.Forms.Padding(1);
+            this.ApuTimeTxtBox.Name = "ApuTimeTxtBox";
+            this.ApuTimeTxtBox.Size = new System.Drawing.Size(89, 30);
+            this.ApuTimeTxtBox.TabIndex = 4;
+            // 
+            // Label8
+            // 
+            this.Label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Label8.AutoSize = true;
+            this.Label8.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label8.Location = new System.Drawing.Point(460, 37);
+            this.Label8.Margin = new System.Windows.Forms.Padding(5, 0, 50, 0);
+            this.Label8.Name = "Label8";
+            this.Label8.Size = new System.Drawing.Size(40, 23);
+            this.Label8.TabIndex = 7;
+            this.Label8.Text = "Taxi";
+            // 
+            // Label7
+            // 
+            this.Label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Label7.AutoSize = true;
+            this.Label7.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label7.Location = new System.Drawing.Point(460, 5);
+            this.Label7.Margin = new System.Windows.Forms.Padding(5, 0, 50, 0);
+            this.Label7.Name = "Label7";
+            this.Label7.Size = new System.Drawing.Size(43, 23);
+            this.Label7.TabIndex = 6;
+            this.Label7.Text = "APU";
             // 
             // Label4
             // 
             this.Label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label4.AutoSize = true;
             this.Label4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label4.Location = new System.Drawing.Point(5, 37);
-            this.Label4.Margin = new System.Windows.Forms.Padding(5, 0, 50, 0);
+            this.Label4.Location = new System.Drawing.Point(5, 5);
+            this.Label4.Margin = new System.Windows.Forms.Padding(5, 0, 55, 0);
             this.Label4.Name = "Label4";
             this.Label4.Size = new System.Drawing.Size(106, 23);
             this.Label4.TabIndex = 3;
             this.Label4.Text = "Contingency";
-            // 
-            // ApuTimeTxtBox
-            // 
-            this.ApuTimeTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ApuTimeTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ApuTimeTxtBox.Location = new System.Drawing.Point(647, 1);
-            this.ApuTimeTxtBox.Margin = new System.Windows.Forms.Padding(1);
-            this.ApuTimeTxtBox.Name = "ApuTimeTxtBox";
-            this.ApuTimeTxtBox.Size = new System.Drawing.Size(89, 30);
-            this.ApuTimeTxtBox.TabIndex = 4;
-            // 
-            // Label20
-            // 
-            this.Label20.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Label20.AutoSize = true;
-            this.Label20.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label20.Location = new System.Drawing.Point(5, 69);
-            this.Label20.Margin = new System.Windows.Forms.Padding(5, 0, 50, 0);
-            this.Label20.Name = "Label20";
-            this.Label20.Size = new System.Drawing.Size(70, 23);
-            this.Label20.TabIndex = 26;
-            this.Label20.Text = "Holding";
             // 
             // ContPercentComboBox
             // 
@@ -345,103 +316,91 @@
             "18",
             "19",
             "20"});
-            this.ContPercentComboBox.Location = new System.Drawing.Point(195, 33);
+            this.ContPercentComboBox.Location = new System.Drawing.Point(167, 1);
             this.ContPercentComboBox.Margin = new System.Windows.Forms.Padding(1);
             this.ContPercentComboBox.Name = "ContPercentComboBox";
             this.ContPercentComboBox.Size = new System.Drawing.Size(89, 31);
             this.ContPercentComboBox.TabIndex = 1;
-            // 
-            // extraFuelLbl
-            // 
-            this.extraFuelLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.extraFuelLbl.AutoSize = true;
-            this.extraFuelLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.extraFuelLbl.Location = new System.Drawing.Point(290, 101);
-            this.extraFuelLbl.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.extraFuelLbl.Name = "extraFuelLbl";
-            this.extraFuelLbl.Size = new System.Drawing.Size(32, 23);
-            this.extraFuelLbl.TabIndex = 20;
-            this.extraFuelLbl.Text = "KG";
-            // 
-            // Label8
-            // 
-            this.Label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Label8.AutoSize = true;
-            this.Label8.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label8.Location = new System.Drawing.Point(488, 37);
-            this.Label8.Margin = new System.Windows.Forms.Padding(5, 0, 50, 0);
-            this.Label8.Name = "Label8";
-            this.Label8.Size = new System.Drawing.Size(40, 23);
-            this.Label8.TabIndex = 7;
-            this.Label8.Text = "Taxi";
-            // 
-            // HoldTimeTxtBox
-            // 
-            this.HoldTimeTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.HoldTimeTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HoldTimeTxtBox.Location = new System.Drawing.Point(195, 66);
-            this.HoldTimeTxtBox.Margin = new System.Windows.Forms.Padding(1);
-            this.HoldTimeTxtBox.Name = "HoldTimeTxtBox";
-            this.HoldTimeTxtBox.Size = new System.Drawing.Size(89, 30);
-            this.HoldTimeTxtBox.TabIndex = 2;
-            // 
-            // Label7
-            // 
-            this.Label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Label7.AutoSize = true;
-            this.Label7.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label7.Location = new System.Drawing.Point(488, 4);
-            this.Label7.Margin = new System.Windows.Forms.Padding(5, 0, 50, 0);
-            this.Label7.Name = "Label7";
-            this.Label7.Size = new System.Drawing.Size(43, 23);
-            this.Label7.TabIndex = 6;
-            this.Label7.Text = "APU";
-            // 
-            // extraFuelTxtBox
-            // 
-            this.extraFuelTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.extraFuelTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.extraFuelTxtBox.Location = new System.Drawing.Point(195, 98);
-            this.extraFuelTxtBox.Margin = new System.Windows.Forms.Padding(1);
-            this.extraFuelTxtBox.Name = "extraFuelTxtBox";
-            this.extraFuelTxtBox.Size = new System.Drawing.Size(89, 30);
-            this.extraFuelTxtBox.TabIndex = 3;
             // 
             // Label12
             // 
             this.Label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label12.AutoSize = true;
             this.Label12.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label12.Location = new System.Drawing.Point(290, 37);
+            this.Label12.Location = new System.Drawing.Point(262, 5);
             this.Label12.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.Label12.Name = "Label12";
             this.Label12.Size = new System.Drawing.Size(24, 23);
             this.Label12.TabIndex = 19;
             this.Label12.Text = "%";
             // 
-            // Label25
+            // Label20
             // 
-            this.Label25.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Label25.AutoSize = true;
-            this.Label25.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label25.Location = new System.Drawing.Point(290, 69);
-            this.Label25.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.Label25.Name = "Label25";
-            this.Label25.Size = new System.Drawing.Size(43, 23);
-            this.Label25.TabIndex = 28;
-            this.Label25.Text = "Min.";
+            this.Label20.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Label20.AutoSize = true;
+            this.Label20.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label20.Location = new System.Drawing.Point(5, 37);
+            this.Label20.Margin = new System.Windows.Forms.Padding(5, 0, 50, 0);
+            this.Label20.Name = "Label20";
+            this.Label20.Size = new System.Drawing.Size(70, 23);
+            this.Label20.TabIndex = 26;
+            this.Label20.Text = "Holding";
+            // 
+            // HoldTimeTxtBox
+            // 
+            this.HoldTimeTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.HoldTimeTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HoldTimeTxtBox.Location = new System.Drawing.Point(167, 34);
+            this.HoldTimeTxtBox.Margin = new System.Windows.Forms.Padding(1);
+            this.HoldTimeTxtBox.Name = "HoldTimeTxtBox";
+            this.HoldTimeTxtBox.Size = new System.Drawing.Size(89, 30);
+            this.HoldTimeTxtBox.TabIndex = 2;
+            // 
+            // extraFuelTxtBox
+            // 
+            this.extraFuelTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.extraFuelTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.extraFuelTxtBox.Location = new System.Drawing.Point(167, 66);
+            this.extraFuelTxtBox.Margin = new System.Windows.Forms.Padding(1);
+            this.extraFuelTxtBox.Name = "extraFuelTxtBox";
+            this.extraFuelTxtBox.Size = new System.Drawing.Size(89, 30);
+            this.extraFuelTxtBox.TabIndex = 3;
             // 
             // Label6
             // 
             this.Label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label6.AutoSize = true;
             this.Label6.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label6.Location = new System.Drawing.Point(5, 101);
+            this.Label6.Location = new System.Drawing.Point(5, 69);
             this.Label6.Margin = new System.Windows.Forms.Padding(5, 0, 50, 0);
             this.Label6.Name = "Label6";
             this.Label6.Size = new System.Drawing.Size(48, 23);
             this.Label6.TabIndex = 5;
             this.Label6.Text = "Extra";
+            // 
+            // Label25
+            // 
+            this.Label25.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Label25.AutoSize = true;
+            this.Label25.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label25.Location = new System.Drawing.Point(262, 37);
+            this.Label25.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.Label25.Name = "Label25";
+            this.Label25.Size = new System.Drawing.Size(43, 23);
+            this.Label25.TabIndex = 28;
+            this.Label25.Text = "Min.";
+            // 
+            // extraFuelLbl
+            // 
+            this.extraFuelLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.extraFuelLbl.AutoSize = true;
+            this.extraFuelLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.extraFuelLbl.Location = new System.Drawing.Point(262, 69);
+            this.extraFuelLbl.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.extraFuelLbl.Name = "extraFuelLbl";
+            this.extraFuelLbl.Size = new System.Drawing.Size(32, 23);
+            this.extraFuelLbl.TabIndex = 20;
+            this.extraFuelLbl.Text = "KG";
             // 
             // calculateBtn
             // 
@@ -450,7 +409,7 @@
             this.calculateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.calculateBtn.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.calculateBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.calculateBtn.Location = new System.Drawing.Point(795, 723);
+            this.calculateBtn.Location = new System.Drawing.Point(795, 691);
             this.calculateBtn.Margin = new System.Windows.Forms.Padding(5, 4, 15, 4);
             this.calculateBtn.Name = "calculateBtn";
             this.calculateBtn.Size = new System.Drawing.Size(295, 52);
@@ -673,6 +632,21 @@
             this.payloadLbl.TabIndex = 2;
             this.payloadLbl.Text = "KG";
             // 
+            // registrationComboBox
+            // 
+            this.registrationComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.registrationComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.registrationComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.registrationComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.registrationComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.registrationComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.registrationComboBox.FormattingEnabled = true;
+            this.registrationComboBox.Location = new System.Drawing.Point(155, 34);
+            this.registrationComboBox.Margin = new System.Windows.Forms.Padding(1);
+            this.registrationComboBox.Name = "registrationComboBox";
+            this.registrationComboBox.Size = new System.Drawing.Size(203, 31);
+            this.registrationComboBox.TabIndex = 1;
+            // 
             // oewLbl
             // 
             this.oewLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -728,6 +702,24 @@
             this.payloadTrackBar.Size = new System.Drawing.Size(220, 30);
             this.payloadTrackBar.TabIndex = 4;
             // 
+            // wtUnitComboBox
+            // 
+            this.wtUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.wtUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.wtUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.wtUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.wtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.wtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.wtUnitComboBox.FormattingEnabled = true;
+            this.wtUnitComboBox.Items.AddRange(new object[] {
+            "KG",
+            "LB"});
+            this.wtUnitComboBox.Location = new System.Drawing.Point(155, 68);
+            this.wtUnitComboBox.Margin = new System.Windows.Forms.Padding(1);
+            this.wtUnitComboBox.Name = "wtUnitComboBox";
+            this.wtUnitComboBox.Size = new System.Drawing.Size(79, 31);
+            this.wtUnitComboBox.TabIndex = 2;
+            // 
             // oewTxtBox
             // 
             this.oewTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -751,6 +743,21 @@
             this.label22.Size = new System.Drawing.Size(101, 23);
             this.label22.TabIndex = 40;
             this.label22.Text = "Registration";
+            // 
+            // acListComboBox
+            // 
+            this.acListComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.acListComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.acListComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.acListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.acListComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.acListComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acListComboBox.FormattingEnabled = true;
+            this.acListComboBox.Location = new System.Drawing.Point(155, 1);
+            this.acListComboBox.Margin = new System.Windows.Forms.Padding(1);
+            this.acListComboBox.Name = "acListComboBox";
+            this.acListComboBox.Size = new System.Drawing.Size(203, 31);
+            this.acListComboBox.TabIndex = 0;
             // 
             // label21
             // 
@@ -878,6 +885,34 @@
             this.origTxtBox.Size = new System.Drawing.Size(92, 30);
             this.origTxtBox.TabIndex = 0;
             this.origTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // origRwyComboBox
+            // 
+            this.origRwyComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.origRwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.origRwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.origRwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.origRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.origRwyComboBox.FormattingEnabled = true;
+            this.origRwyComboBox.Location = new System.Drawing.Point(104, 24);
+            this.origRwyComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.origRwyComboBox.Name = "origRwyComboBox";
+            this.origRwyComboBox.Size = new System.Drawing.Size(79, 31);
+            this.origRwyComboBox.TabIndex = 1;
+            // 
+            // sidComboBox
+            // 
+            this.sidComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.sidComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.sidComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.sidComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sidComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sidComboBox.FormattingEnabled = true;
+            this.sidComboBox.Location = new System.Drawing.Point(191, 24);
+            this.sidComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.sidComboBox.Name = "sidComboBox";
+            this.sidComboBox.Size = new System.Drawing.Size(153, 31);
+            this.sidComboBox.TabIndex = 2;
             // 
             // filterSidBtn
             // 
@@ -1017,6 +1052,34 @@
             this.filterStarBtn.Text = "Filter";
             this.filterStarBtn.UseVisualStyleBackColor = false;
             // 
+            // destRwyComboBox
+            // 
+            this.destRwyComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.destRwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.destRwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.destRwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.destRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.destRwyComboBox.FormattingEnabled = true;
+            this.destRwyComboBox.Location = new System.Drawing.Point(104, 24);
+            this.destRwyComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.destRwyComboBox.Name = "destRwyComboBox";
+            this.destRwyComboBox.Size = new System.Drawing.Size(79, 31);
+            this.destRwyComboBox.TabIndex = 1;
+            // 
+            // starComboBox
+            // 
+            this.starComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.starComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.starComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.starComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.starComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.starComboBox.FormattingEnabled = true;
+            this.starComboBox.Location = new System.Drawing.Point(191, 24);
+            this.starComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.starComboBox.Name = "starComboBox";
+            this.starComboBox.Size = new System.Drawing.Size(153, 31);
+            this.starComboBox.TabIndex = 2;
+            // 
             // tableLayoutPanel7
             // 
             this.tableLayoutPanel7.AutoSize = true;
@@ -1072,7 +1135,7 @@
             this.fuelReportGroupBox.BackColor = System.Drawing.Color.Transparent;
             this.fuelReportGroupBox.Controls.Add(this.fuelReportTxtBox);
             this.fuelReportGroupBox.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelReportGroupBox.Location = new System.Drawing.Point(2, 781);
+            this.fuelReportGroupBox.Location = new System.Drawing.Point(2, 749);
             this.fuelReportGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.fuelReportGroupBox.Name = "fuelReportGroupBox";
             this.fuelReportGroupBox.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -1118,110 +1181,6 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1105, 1253);
             this.tableLayoutPanel4.TabIndex = 48;
-            // 
-            // registrationComboBox
-            // 
-            this.registrationComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.registrationComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.registrationComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.registrationComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.registrationComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.registrationComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.registrationComboBox.FormattingEnabled = true;
-            this.registrationComboBox.Location = new System.Drawing.Point(155, 34);
-            this.registrationComboBox.Margin = new System.Windows.Forms.Padding(1);
-            this.registrationComboBox.Name = "registrationComboBox";
-            this.registrationComboBox.Size = new System.Drawing.Size(203, 31);
-            this.registrationComboBox.TabIndex = 1;
-            // 
-            // wtUnitComboBox
-            // 
-            this.wtUnitComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.wtUnitComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.wtUnitComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.wtUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.wtUnitComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.wtUnitComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wtUnitComboBox.FormattingEnabled = true;
-            this.wtUnitComboBox.Items.AddRange(new object[] {
-            "KG",
-            "LB"});
-            this.wtUnitComboBox.Location = new System.Drawing.Point(155, 68);
-            this.wtUnitComboBox.Margin = new System.Windows.Forms.Padding(1);
-            this.wtUnitComboBox.Name = "wtUnitComboBox";
-            this.wtUnitComboBox.Size = new System.Drawing.Size(79, 31);
-            this.wtUnitComboBox.TabIndex = 2;
-            // 
-            // acListComboBox
-            // 
-            this.acListComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.acListComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.acListComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.acListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.acListComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.acListComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.acListComboBox.FormattingEnabled = true;
-            this.acListComboBox.Location = new System.Drawing.Point(155, 1);
-            this.acListComboBox.Margin = new System.Windows.Forms.Padding(1);
-            this.acListComboBox.Name = "acListComboBox";
-            this.acListComboBox.Size = new System.Drawing.Size(203, 31);
-            this.acListComboBox.TabIndex = 0;
-            // 
-            // origRwyComboBox
-            // 
-            this.origRwyComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.origRwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.origRwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.origRwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.origRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.origRwyComboBox.FormattingEnabled = true;
-            this.origRwyComboBox.Location = new System.Drawing.Point(104, 24);
-            this.origRwyComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.origRwyComboBox.Name = "origRwyComboBox";
-            this.origRwyComboBox.Size = new System.Drawing.Size(79, 31);
-            this.origRwyComboBox.TabIndex = 1;
-            // 
-            // sidComboBox
-            // 
-            this.sidComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.sidComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.sidComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.sidComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.sidComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sidComboBox.FormattingEnabled = true;
-            this.sidComboBox.Location = new System.Drawing.Point(191, 24);
-            this.sidComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.sidComboBox.Name = "sidComboBox";
-            this.sidComboBox.Size = new System.Drawing.Size(153, 31);
-            this.sidComboBox.TabIndex = 2;
-            // 
-            // destRwyComboBox
-            // 
-            this.destRwyComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.destRwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.destRwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.destRwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.destRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.destRwyComboBox.FormattingEnabled = true;
-            this.destRwyComboBox.Location = new System.Drawing.Point(104, 24);
-            this.destRwyComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.destRwyComboBox.Name = "destRwyComboBox";
-            this.destRwyComboBox.Size = new System.Drawing.Size(79, 31);
-            this.destRwyComboBox.TabIndex = 1;
-            // 
-            // starComboBox
-            // 
-            this.starComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.starComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.starComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.starComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.starComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.starComboBox.FormattingEnabled = true;
-            this.starComboBox.Location = new System.Drawing.Point(191, 24);
-            this.starComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.starComboBox.Name = "starComboBox";
-            this.starComboBox.Size = new System.Drawing.Size(153, 31);
-            this.starComboBox.TabIndex = 2;
             // 
             // FuelPlanningControl
             // 
@@ -1274,11 +1233,9 @@
         internal System.Windows.Forms.Label Label6;
         internal System.Windows.Forms.TableLayoutPanel TableLayoutPanel1;
         internal System.Windows.Forms.Label Label25;
-        internal System.Windows.Forms.Label missedAppLbl;
         internal System.Windows.Forms.Label Label12;
         internal System.Windows.Forms.Label Label20;
         internal System.Windows.Forms.Label Label4;
-        internal System.Windows.Forms.Label Label5;
         internal System.Windows.Forms.GroupBox alternateGroupBox;
         internal System.Windows.Forms.RichTextBox mainRouteRichTxtBox;
         internal System.Windows.Forms.GroupBox groupBoxBasicInfo;
@@ -1332,7 +1289,6 @@
         private System.Windows.Forms.TextBox oewTxtBox;
         private System.Windows.Forms.TextBox zfwTxtBox;
         private System.Windows.Forms.TextBox extraFuelTxtBox;
-        private System.Windows.Forms.TextBox missedAppFuelTxtBox;
         private Controls.ComboBoxWithBorder wtUnitComboBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel altnLayoutPanel;

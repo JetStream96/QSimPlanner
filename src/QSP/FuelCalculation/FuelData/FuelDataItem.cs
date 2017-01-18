@@ -1,8 +1,8 @@
-﻿using System;
+﻿using QSP.FuelCalculation.FuelData.Corrections.Boeing;
 using QSP.LibraryExtension.XmlSerialization;
+using System;
 using System.Linq;
 using System.Xml.Linq;
-using QSP.FuelCalculation.FuelData.Corrections.Boeing;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 
 namespace QSP.FuelCalculation.FuelData
@@ -16,10 +16,6 @@ namespace QSP.FuelCalculation.FuelData
         public double HoldingFuelRefWt { get; private set; }
         public double TaxiFuelFlow { get; private set; }
         public double ApuFuelFlow { get; private set; }
-
-        // Fuel for 1 missed approach
-        public double MissedAppFuel { get; private set; }
-
         public double ClimbKias { get; private set; }
         public double DescendKias { get; private set; }
         public DataPoint DataPoint1 { get; private set; }
@@ -31,7 +27,6 @@ namespace QSP.FuelCalculation.FuelData
              double HoldingFuelRefWt,
              double TaxiFuelFlow,
              double ApuFuelFlow,
-             double MissedAppFuel,
              double ClimbKias,
              double DescendKias,
              DataPoint DataPoint1,
@@ -42,7 +37,6 @@ namespace QSP.FuelCalculation.FuelData
             this.HoldingFuelRefWt = HoldingFuelRefWt;
             this.TaxiFuelFlow = TaxiFuelFlow;
             this.ApuFuelFlow = ApuFuelFlow;
-            this.MissedAppFuel = MissedAppFuel;
             this.ClimbKias = ClimbKias;
             this.DescendKias = DescendKias;
             this.DataPoint1 = DataPoint1;
@@ -56,7 +50,6 @@ namespace QSP.FuelCalculation.FuelData
             private static string HoldingFuelRefWt = "HoldingFuelRefWt";
             private static string TaxiFuelFlow = "TaxiFuelFlow";
             private static string ApuFuelFlow = "ApuFuelFlow";
-            private static string MissedAppFuel = "MissedAppFuel";
             private static string ClimbKias = "ClimbIAS";
             private static string DescendKias = "DescentIAS";
             private static string DataPoint = "DataPoint";
@@ -72,7 +65,6 @@ namespace QSP.FuelCalculation.FuelData
                     elem.GetDouble(HoldingFuelRefWt),
                     elem.GetDouble(TaxiFuelFlow),
                     elem.GetDouble(ApuFuelFlow),
-                    elem.GetDouble(MissedAppFuel),
                     elem.GetDouble(ClimbKias),
                     elem.GetDouble(DescendKias),
                     deserializer.Deserialize(pts[0]),

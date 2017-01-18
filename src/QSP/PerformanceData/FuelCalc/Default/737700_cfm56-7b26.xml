@@ -7,7 +7,7 @@
        all altitudes in feet.
        all fuel flows (FF) in kg/min.
   -->
-  
+
   <!-- 26k with winglet -->
 
   <ProfileName>Boeing 737-700 CFM56-7B26</ProfileName>
@@ -15,7 +15,6 @@
   <HoldingFuelRefWt>60000</HoldingFuelRefWt>
   <TaxiFuelFlow>12.2</TaxiFuelFlow>
   <ApuFuelFlow>1.8</ApuFuelFlow>
-  <MissedAppFuel>600</MissedAppFuel>
   <ClimbIAS>250</ClimbIAS>
   <DescentIAS>250</DescentIAS>
 
@@ -28,7 +27,8 @@
     <DescentGrad>0.0517</DescentGrad>
     <DescentFF>12.2</DescentFF>
     <OptCruiseAlt>39500</OptCruiseAlt>
-    <EtopsCruiseTAS>0</EtopsCruiseTAS> <!-- Placeholder -->
+    <EtopsCruiseTAS>0</EtopsCruiseTAS>
+    <!-- Placeholder -->
     <EtopsCruiseFF>0</EtopsCruiseFF>
   </DataPoint>
 

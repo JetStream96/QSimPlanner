@@ -5,7 +5,6 @@ namespace QSP.FuelCalculation.FuelData
     {
         public double Zfw { get; }
         public double ContPercent { get; }
-        public double MissedAppFuel { get; }
         public double HoldingTime { get; }
         public double ExtraFuel { get; }
         public double ApuTime { get; }
@@ -16,7 +15,6 @@ namespace QSP.FuelCalculation.FuelData
         public FuelParameters(
              double Zfw,
              double ContPercent,
-             double MissedAppFuel,
              double HoldingTime,
              double ExtraFuel,
              double ApuTime,
@@ -27,7 +25,6 @@ namespace QSP.FuelCalculation.FuelData
         {
             this.Zfw = Zfw;
             this.ContPercent = ContPercent;
-            this.MissedAppFuel = MissedAppFuel;
             this.HoldingTime = HoldingTime;
             this.ExtraFuel = ExtraFuel;
             this.ApuTime = ApuTime;

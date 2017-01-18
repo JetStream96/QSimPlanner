@@ -17,6 +17,7 @@ using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
 using QSP.UI.MsgBox;
 using QSP.UI.UserControls.RouteActions;
+using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.Utilities;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
@@ -26,7 +27,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.UI.UserControls.TakeoffLanding.Common;
 using static QSP.AviationTools.Constants;
 using static QSP.AviationTools.SpeedConversion;
 using static QSP.MathTools.Numbers;
@@ -58,7 +58,6 @@ namespace QSP.UI.UserControls
         private RouteOptionContextMenu routeOptionMenu;
 
         public AlternateController AltnControl { get; private set; }
-        public WeightTextBoxController MissedApproach { get; private set; }
         public WeightTextBoxController Extra { get; private set; }
 
         // Do not set the values of these controllers directly. 
@@ -305,7 +304,6 @@ namespace QSP.UI.UserControls
             oew.Unit = unit;
             payload.Unit = unit;
             Zfw.Unit = unit;
-            MissedApproach.Unit = unit;
             Extra.Unit = unit;
         }
 
@@ -314,7 +312,6 @@ namespace QSP.UI.UserControls
             oew = new WeightTextBoxController(oewTxtBox, oewLbl);
             payload = new WeightTextBoxController(payloadTxtBox, payloadLbl);
             Zfw = new WeightTextBoxController(zfwTxtBox, zfwLbl);
-            MissedApproach = new WeightTextBoxController(missedAppFuelTxtBox, missedAppLbl);
             Extra = new WeightTextBoxController(extraFuelTxtBox, extraFuelLbl);
 
             WeightControl = new WeightController(oew, payload, Zfw, payloadTrackBar);
@@ -355,8 +352,6 @@ namespace QSP.UI.UserControls
             WeightControl.AircraftConfig = config;
             var maxPayloadKg = config.MaxZfwKg - config.OewKg;
             WeightControl.ZfwKg = config.OewKg + 0.5 * maxPayloadKg;
-
-            MissedApproach.SetWeight(GetFuelData().MissedAppFuel);
         }
 
         /// <summary>

@@ -13,7 +13,6 @@
   <HoldingFuelRefWt>240000</HoldingFuelRefWt>
   <TaxiFuelFlow>36</TaxiFuelFlow>
   <ApuFuelFlow>4</ApuFuelFlow>
-  <MissedAppFuel>3000</MissedAppFuel>
   <ClimbIAS>310</ClimbIAS>
   <DescentIAS>250</DescentIAS>
 
@@ -30,7 +29,7 @@
     <!-- Placeholder -->
     <EtopsCruiseFF>0</EtopsCruiseFF>
   </DataPoint>
-  
+
   <DataPoint>
     <Weight>360000</Weight>
     <CruiseFF>173.0</CruiseFF>
@@ -43,11 +42,11 @@
     <EtopsCruiseTAS>0</EtopsCruiseTAS>
     <EtopsCruiseFF>0</EtopsCruiseFF>
   </DataPoint>
-  
+
   <FuelTable>
     <Type>0</Type>
     <Text>
-          160000	170000	180000	190000	200000	210000	220000	230000	240000	250000	260000
+      160000	170000	180000	190000	200000	210000	220000	230000	240000	250000	260000
       50	1700	1750	1800	1850	1900	1950	2000	2050	2100	2150	2200
       100	2500	2550	2600	2700	2800	2850	2900	3000	3100	3150	3200
       150	3300	3350	3400	3500	3600	3700	3800	3900	4000	4100	4200

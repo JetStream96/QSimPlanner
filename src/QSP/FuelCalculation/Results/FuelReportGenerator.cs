@@ -59,8 +59,7 @@ namespace QSP.FuelCalculation.Results
             // Destination part.
             var fuelHold = f.HoldingFuelFlow * p.HoldingTime;
             var timeExtra = p.ExtraFuel / f.HoldingFuelFlow;
-            var destLandingFuel = fuelToAltn + fuelHold + p.ExtraFuel + 
-                finalRsvFuel + p.MissedAppFuel;
+            var destLandingFuel = fuelToAltn + fuelHold + p.ExtraFuel + finalRsvFuel;
             var destPlan = GetPlan(destLandingFuel, routeToDest).AllNodes[0];
             var fuelToDest = destPlan.FuelOnBoard - destLandingFuel;
             var timeToDest = destPlan.TimeRemaining;
