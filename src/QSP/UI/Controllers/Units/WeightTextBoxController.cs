@@ -10,8 +10,8 @@ namespace QSP.UI.Controllers.Units
     // Sync the weight unit with the text in TextBox.
     public class WeightTextBoxController
     {
-        public TextBox TxtBox { get; private set; }
-        public Label Lable { get; private set; }
+        public TextBox TxtBox { get; }
+        public Label Lable { get; }
         private string format;
         private WeightUnit _unit;
 

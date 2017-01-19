@@ -83,24 +83,19 @@ namespace QSP.UI.Controllers
 
         public List<string> GetSelectedProcedures()
         {
-            var proc = new List<string>();
-
             if (TerminalProceduresCBox.Text == AutoProcedureTxt)
             {
-                foreach (var i in TerminalProceduresCBox.Items)
-                {
-                    if ((string)i != AutoProcedureTxt)
-                    {
-                        proc.Add((string)i);
-                    }
-                }
-            }
-            else if (TerminalProceduresCBox.Text != NoProcedureTxt)
-            {
-                proc.Add(TerminalProceduresCBox.Text);
+                return TerminalProceduresCBox.Items.Cast<string>()
+                    .Where(s => s != AutoProcedureTxt)
+                    .ToList();
             }
 
-            return proc;
+            if (TerminalProceduresCBox.Text != NoProcedureTxt)
+            {
+                return new List<string>() { TerminalProceduresCBox.Text };
+            }
+
+            return new List<string>();
         }
 
         public void RefreshRwyComboBox()

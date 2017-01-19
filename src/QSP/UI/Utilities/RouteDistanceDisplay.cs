@@ -18,8 +18,7 @@ namespace QSP.UI.Utilities
         {
             double totalDis = route.TotalDistance();
             int disInt = RoundToInt(totalDis);
-            double directDis = route.FirstWaypoint.Distance(
-                route.LastWaypoint);
+            double directDis = route.FirstWaypoint.Distance(route.LastWaypoint);
             double percentDiff = (totalDis - directDis) / directDis * 100.0;
             string diffStr = percentDiff.ToString("0.0");
             

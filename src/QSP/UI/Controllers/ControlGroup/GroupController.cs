@@ -6,7 +6,7 @@ namespace QSP.UI.Controllers.ControlGroup
 {
     public class GroupController
     {
-        private List<ColorController> controllers;
+        private readonly List<ColorController> controllers;
 
         public GroupController(params ControlColorPair[] controlColors)
         {
@@ -46,9 +46,9 @@ namespace QSP.UI.Controllers.ControlGroup
             public Control Control { get; }
             public ColorGroup Colors { get; }
 
-            public ControlColorPair(Control Control, ColorGroup colors)
+            public ControlColorPair(Control control, ColorGroup colors)
             {
-                this.Control = Control;
+                this.Control = control;
                 this.Colors = colors;
             }
         }
