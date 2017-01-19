@@ -158,7 +158,6 @@
     <Compile Include="LibraryExtension\Sets\IReadOnlySet.cs" />
     <Compile Include="LibraryExtension\LinkedLists.cs" />
     <Compile Include="LibraryExtension\Locator.cs" />
-    <Compile Include="LibraryExtension\Regexes.cs" />
     <Compile Include="LibraryExtension\Sets\ReadOnlySet.cs" />
     <Compile Include="LibraryExtension\Xmls.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\Interfaces.cs" />

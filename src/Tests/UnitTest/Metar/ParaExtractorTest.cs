@@ -100,12 +100,10 @@ VVTS 150630Z 16004KT 090V170 9999 BKN017 FEW020TCU 37/22 Q1006 NOSIG "));
             var lightSnow = ParaExtractor.PrecipitationExists("EDDM -SN");
             Assert.IsTrue(lightSnow);
 
-            var lightShowerRain = 
-                ParaExtractor.PrecipitationExists("EDDM -SHRA");
+            var lightShowerRain = ParaExtractor.PrecipitationExists("EDDM -SHRA");
             Assert.IsTrue(lightShowerRain);
 
-            var showerRainInVicinity = 
-                ParaExtractor.PrecipitationExists("EDDM VCSHRA");
+            var showerRainInVicinity = ParaExtractor.PrecipitationExists("EDDM VCSHRA");
             Assert.IsTrue(showerRainInVicinity);
         }
     }

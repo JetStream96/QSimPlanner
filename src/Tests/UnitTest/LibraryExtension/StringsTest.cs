@@ -11,13 +11,9 @@ namespace UnitTest.LibraryExtension
         [Test]
         public void ReplaceAnyTest()
         {
-            Assert.IsTrue("".ReplaceAny(new[] { '0', '1' }, "abc") == "");
-
-            Assert.IsTrue("0123456789".ReplaceAny(new[] { '0', '1', '9' }, "ab")
-                == "abab2345678ab");
-
-            Assert.IsTrue("0123456789".ReplaceAny(new[] { '9', '1', '9', '0' }, "ab")
-                == "abab2345678ab");
+            Assert.IsTrue("".ReplaceAny("01", "abc") == "");
+            Assert.IsTrue("0123".ReplaceAny("013", "ab") == "abab2ab");
+            Assert.IsTrue("0123".ReplaceAny("3130", "ab") == "abab2ab");
         }
 
         [Test]

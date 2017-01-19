@@ -10,27 +10,25 @@ namespace QSP.LibraryExtension
     {
         public static string ShiftToRight(this string str, int steps)
         {
-            return new string(' ', steps) +
-                str.Replace("\n", "\n" + new string(' ', steps));
+            return new string(' ', steps) + str.Replace("\n", "\n" + new string(' ', steps));
         }
-
-        // TODO: Replace oldValue type.
+        
         public static string ReplaceAny(this string input,
             IEnumerable<char> oldValue, string newValue)
         {
-            var sb = new StringBuilder(input.Length);
-
-            foreach (var c in input)
+            var old = oldValue.ToHashSet();
+            var sb = new StringBuilder();
+            input.ForEach(c =>
             {
-                if (oldValue.Contains(c))
+                if (old.Contains(c))
                 {
-                    sb.Append(newValue);
+                    sb.Append(newValue); 
                 }
                 else
                 {
                     sb.Append(c);
                 }
-            }
+            });
 
             return sb.ToString();
         }

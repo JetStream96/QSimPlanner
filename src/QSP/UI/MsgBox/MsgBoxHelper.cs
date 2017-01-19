@@ -32,6 +32,7 @@ namespace QSP.UI.MsgBox
                 {
                     frm.StartPosition = FormStartPosition.CenterScreen;
                     frm.ShowInTaskbar = true;
+                    frm.TopMost = true;
                     frm.ShowDialog();
                 }
                 else

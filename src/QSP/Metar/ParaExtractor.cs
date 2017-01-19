@@ -1,7 +1,6 @@
 ﻿using QSP.Utilities.Units;
 using QSP.WindAloft;
 using System.Text.RegularExpressions;
-using static QSP.LibraryExtension.Regexes;
 
 namespace QSP.Metar
 {
@@ -99,6 +98,7 @@ namespace QSP.Metar
 				""	  // Moderate
 			*/
 
+            // Descriptor is optional.
             var descriptor = new[]
             {
                 "MI", //  Shallow
@@ -109,7 +109,6 @@ namespace QSP.Metar
 				"SH", //  Shower(s)
 				"TS", //  Thunderstorm
 				"FZ", //  Freezing
-                "",
             };
 
             var precipitation = new[]
@@ -126,10 +125,10 @@ namespace QSP.Metar
             };
 
             var patternPrefix = @"(-|\+|VC)?";
-            var patternDescriptor = PatternMatchAny(descriptor);
-            var patternPrecipitation = PatternMatchAny(precipitation);
+            var patternDescriptor = "(" + string.Join("|", descriptor) + ")?";
+            var patternPrecipitation = "(" + string.Join("|", precipitation) + ")";
             var pattern = @"(^|\s)" + patternPrefix + patternDescriptor +
-            patternPrecipitation + @"($|\s)";
+                patternPrecipitation + @"($|\s)";
 
             return Regex.Match(metar, pattern, RegexOptions.Multiline).Success;
         }

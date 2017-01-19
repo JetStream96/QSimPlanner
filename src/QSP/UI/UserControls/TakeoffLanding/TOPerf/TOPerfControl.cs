@@ -9,8 +9,6 @@ using QSP.LibraryExtension;
 using QSP.MathTools;
 using QSP.RouteFinding.Airports;
 using QSP.TOPerfCalculation;
-using QSP.UI.Controllers.Units;
-using QSP.UI.Controllers.WeightControl;
 using QSP.UI.ControlStates;
 using QSP.UI.Factories;
 using QSP.UI.MsgBox;
