@@ -156,7 +156,7 @@ namespace QSP.UI.Forms
             catch (Exception ex)
             {
                 Log(ex);
-                MsgBoxHelper.ShowWarning(
+                this.ShowWarning(
                     "An error occurred when copying profiles for the updated verison. Please " +
                     "back up any custom aircraft performance profiles to prevent data loss." +
                     $"\n\n(Error message:{ex.ToString()}");
