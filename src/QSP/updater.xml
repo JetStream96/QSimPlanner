@@ -4,7 +4,7 @@
 
   <InfoFiles>
     <!-- List of uri which contains the latest version info. -->
-    <Uri>F:\Programming\Projects\QSimPlanner\Updates\info.xml</Uri>
-    <Uri>C:\Data\Programming\Projects\QSimPlanner\Updates\info.xml</Uri>
+    <Uri>http://http://qsimplan.somee.com/updates/info.xml</Uri>
+    <Uri>https://qsimplanner.github.io/updates/info.xml</Uri>
   </InfoFiles>
 </root>
