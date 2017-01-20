@@ -126,8 +126,7 @@ namespace QSP.FuelCalculation.Results
 
             var wt = "ALL WEIGHTS IN " + WeightUnitToString(unit);
             return wt + "\n\n" + new string(' ', RightPad + LeftPad - 4) +
-                "FUEL  TIME\n" + joined +
-                LineFormat("FMC RSV", FormatFmcRsv(FuelFmcRsv));
+                "FUEL  TIME\n" + joined + LineFormat("FMC RSV", FormatFmcRsv(FuelFmcRsv));
         }
 
         private static string FormatFmcRsv(double value)

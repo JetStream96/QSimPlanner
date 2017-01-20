@@ -1,20 +1,24 @@
-﻿using QSP.FuelCalculation.Calculations;
+﻿using System;
+using QSP.FuelCalculation.Calculations;
+using QSP.FuelCalculation.Calculations.Corrections;
 using QSP.FuelCalculation.FuelData;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Routes;
 using QSP.WindAloft;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.FuelCalculation.Calculations.Corrections;
-using QSP.LibraryExtension;
 
 namespace QSP.FuelCalculation.Results
-{ 
+{
     // The units of variables used in this class is specified in 
     // VariableUnitStandard.txt.
 
     public class FuelReportGenerator
     {
+        // TODO: Add as an option?
+        private static readonly double minContTime = 5.0;
+
         private readonly AirportManager airportList;
         private readonly ICrzAltProvider altProvider;
         private readonly IWindTableCollection windTable;
@@ -63,7 +67,8 @@ namespace QSP.FuelCalculation.Results
             var destPlan = GetPlan(destLandingFuel, routeToDest).AllNodes[0];
             var fuelToDest = destPlan.FuelOnBoard - destLandingFuel;
             var timeToDest = destPlan.TimeRemaining;
-            var contFuel = fuelToDest * p.ContPercent / 100.0;
+            var timeCont = Math.Max(minContTime, timeToDest * p.ContPercent / 100.0);
+            var contFuel = fuelToDest * timeCont / timeToDest;
 
             return new FuelReport(
                 fuelToDest,
@@ -76,7 +81,7 @@ namespace QSP.FuelCalculation.Results
                 finalRsvFuel,
                 timeToDest,
                 timeToAltn,
-                timeToDest * p.ContPercent / 100.0,
+                timeCont,
                 timeExtra,
                 p.HoldingTime,
                 p.FinalRsvTime,
