@@ -76,7 +76,7 @@ namespace QSP.UI.UserControls.AircraftMenu
         {
             var cbox = elem.WeightUnitCBox;
             cbox.Items.Clear();
-            cbox.Items.AddRange(new string[] { "KG", "LB" });
+            cbox.Items.AddRange(new[] { "KG", "LB" });
             cbox.SelectedIndex = 0;
 
             cbox.SelectedIndexChanged += WtUnitChanged;
@@ -192,7 +192,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             currentConfig = null;
         }
 
-        private string selectedRegistration
+        private string SelectedRegistration
         {
             get
             {
@@ -237,7 +237,7 @@ namespace QSP.UI.UserControls.AircraftMenu
 
         public void EditConfig(object sender, EventArgs e)
         {
-            var reg = selectedRegistration;
+            var reg = SelectedRegistration;
 
             if (reg != null)
             {
@@ -259,6 +259,8 @@ namespace QSP.UI.UserControls.AircraftMenu
         // If false, then user is creating a new config.
         private bool InEditMode => currentConfig != null;
 
+        // If user is creating a new aircraft config, generate an appropriate file name.
+        // Otherwise, returns the old file name.
         /// <exception cref="NoFileNameAvailException"></exception>
         private string GetFileName()
         {
@@ -268,13 +270,8 @@ namespace QSP.UI.UserControls.AircraftMenu
             var nameBase = (elem.AcType.Text + "_" + elem.Registration.Text)
                 .RemoveIllegalChars();
 
-            var dir = InEditMode ? ConfigLoader.CustomFolderPath : ConfigLoader.DefaultFolderPath;
-
-            return FileNameGenerator.Generate(
-                dir,
-                nameBase,
-                ".ini",
-                (i) => "_" + i.ToString());
+            var dir = ConfigLoader.CustomFolderPath;
+            return FileNameGenerator.Generate(dir, nameBase, ".xml", (i) => "_" + i.ToString());
         }
 
         private AircraftConfigItem TryValidate()
@@ -309,7 +306,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             var config = TryValidate();
             if (config == null) return;
 
-            if (InEditMode == false &&
+            if (!InEditMode &&
                 profiles.AcConfigs.Find(config.Registration) != null)
             {
                 ParentControl.ShowWarning("Registration already exists. Please use another one.");
@@ -334,7 +331,7 @@ namespace QSP.UI.UserControls.AircraftMenu
 
         public void DeleteConfig(object sender, EventArgs e)
         {
-            var reg = selectedRegistration;
+            var reg = SelectedRegistration;
             if (reg == null) return;
 
             var configs = profiles.AcConfigs;
