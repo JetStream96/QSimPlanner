@@ -5,8 +5,7 @@ namespace QSP.LibraryExtension.JaggedArrays
 {
     public static class LengthChecker
     {
-        public static bool HasLength<T>(
-            object JaggedArray, params int[] lengths)
+        public static bool HasLength<T>(object JaggedArray, params int[] lengths)
         {
             var array = (Array)JaggedArray;
 

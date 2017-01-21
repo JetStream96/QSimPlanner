@@ -22,8 +22,7 @@ namespace QSP.LibraryExtension
             if (nameBase.ContainIllegalChar() ||
                 extension.ContainIllegalChar())
             {
-                throw new ArgumentException(
-                    "Illegal chars are not allowed.");
+                throw new ArgumentException("Illegal chars are not allowed.");
             }
 
             string fn = Path.Combine(directory, nameBase + extension);

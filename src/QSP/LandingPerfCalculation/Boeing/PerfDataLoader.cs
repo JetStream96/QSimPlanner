@@ -77,18 +77,17 @@ namespace QSP.LandingPerfCalculation.Boeing
             }
 
             return new BoeingPerfTable(
-                        wtRefKg,
-                        wtStepKg,
-                        brkSettingDry,
-                        brkSettingWet,
-                        flaps,
-                        reversers,
-                        new TableDry(tableDry),
-                        new TableWet(tableWet));
+                wtRefKg,
+                wtStepKg,
+                brkSettingDry,
+                brkSettingWet,
+                flaps,
+                reversers,
+                new TableDry(tableDry),
+                new TableWet(tableWet));
         }
 
-        private void ReadTableDry(double[][][] item,
-            int firstIndex, string value)
+        private void ReadTableDry(double[][][] item, int firstIndex, string value)
         {
             string[] lines = value.Split(new [] { '\r', '\n' },
                 StringSplitOptions.RemoveEmptyEntries);
@@ -125,8 +124,7 @@ namespace QSP.LandingPerfCalculation.Boeing
                 int columnCount = Math.Min(item[0][0][0].Length, words.Length);
                 for (int j = 0; j < columnCount; j++)
                 {
-                    item[firstIndex][secondIndex][i][j] =
-                        Convert.ToDouble(words[j]);
+                    item[firstIndex][secondIndex][i][j] = Convert.ToDouble(words[j]);
                 }
             }
         }
