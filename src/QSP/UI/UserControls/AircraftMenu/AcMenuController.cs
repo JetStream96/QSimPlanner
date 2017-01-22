@@ -337,7 +337,8 @@ namespace QSP.UI.UserControls.AircraftMenu
             var config = TryValidate();
             if (config == null) return;
 
-            if (profiles.AcConfigs.Find(config.Registration) != null)
+            // New profile must have a unique registration.
+            if (!InEditMode && profiles.AcConfigs.Find(config.Registration) != null)
             {
                 ParentControl.ShowWarning("Registration already exists. Please use another one.");
                 return;
