@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -11,10 +12,25 @@ using QSP.Common;
 using QSP.LibraryExtension;
 using QSP.MathTools;
 using QSP.UI.MsgBox;
+using QSP.Utilities;
 using QSP.Utilities.Units;
 
 namespace QSP.UI.UserControls.AircraftMenu
 {
+    // The aircraft configs are saved in PerformanceData/Aircrafts. They are split 
+    // into two folders, 'Custom' and 'Default'. This is to enable updater to add new configs or
+    // update configs that were never edited by the user. If two configs have the same 
+    // registration, the one in 'Custom' folder shadows the one in 'Default' folder.
+    // All configs shipped with this app is in 'Default' folder. 
+    //
+    // User actions:
+    // (1) When user creates a config, it's saved in 'Custom' folder.
+    // (2) When user deletes a config, the file is deleted. In addition, if it's in 'Custom' 
+    //     folder, we check the 'Default' folder for any file with the same registration, and load 
+    //     it if exists.
+    // (3) When user edits a config, the file is saved in 'Custom' folder and the original one
+    //     is deleted.
+
     public class AcMenuController
     {
         public const string NoToLdgProfileText = "None";
@@ -301,13 +317,28 @@ namespace QSP.UI.UserControls.AircraftMenu
             }
         }
 
+        private void DeleteCurrentConfigFile()
+        {
+            var file = currentConfig.FilePath;
+
+            try
+            {
+                File.Delete(file);
+            }
+            catch (Exception e)
+            {
+                LoggerInstance.Log(e);
+                ParentControl.ShowWarning("The config was saved but the old config cannot" +
+                    $"be deleted. Please manually delete {Path.GetFullPath(file)}.");
+            }
+        }
+
         public void SaveConfig(object sender, EventArgs e)
         {
             var config = TryValidate();
             if (config == null) return;
 
-            if (!InEditMode &&
-                profiles.AcConfigs.Find(config.Registration) != null)
+            if (profiles.AcConfigs.Find(config.Registration) != null)
             {
                 ParentControl.ShowWarning("Registration already exists. Please use another one.");
                 return;
@@ -318,6 +349,7 @@ namespace QSP.UI.UserControls.AircraftMenu
 
             if (TrySaveConfig(config, fn))
             {
+                if (InEditMode && fn != currentConfig.FilePath) DeleteCurrentConfigFile();
                 RemoveOldConfig();
                 profiles.AcConfigs.Add(new AircraftConfig(config, fn));
                 ShowSelectionGroupBox();
@@ -359,7 +391,7 @@ namespace QSP.UI.UserControls.AircraftMenu
         {
             var config = ConfigLoader.Find(registration);
             if (config == null) return;
-            
+
             // We skip the profile validation here. If fuel, takeoff or landing profile 
             // cannot be found, they will appear as 'None' when user edits it.
 
