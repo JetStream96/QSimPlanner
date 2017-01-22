@@ -932,7 +932,6 @@
     <Content Include="PerformanceData\Templates\TO\TOPerf_Template.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\noun_1329.png" />
     <None Include="Resources\delete-icon.png" />
     <None Include="Resources\red_light.png" />
     <None Include="Resources\Triangle_128.png" />
