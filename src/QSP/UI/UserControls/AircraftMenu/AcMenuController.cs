@@ -1,11 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using System.Xml.Linq;
-using QSP.AircraftProfiles;
+﻿using QSP.AircraftProfiles;
 using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
 using QSP.Common;
@@ -14,6 +7,12 @@ using QSP.MathTools;
 using QSP.UI.MsgBox;
 using QSP.Utilities;
 using QSP.Utilities.Units;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace QSP.UI.UserControls.AircraftMenu
 {
