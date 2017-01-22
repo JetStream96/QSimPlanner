@@ -11,7 +11,7 @@ namespace QSP.LibraryExtension
         /// name exists.
         /// </summary>
         /// <exception cref="NoFileNameAvailException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException">nameBase or extension contains illegal chars</exception>
         public static string Generate(
             string directory,
             string nameBase,
@@ -37,8 +37,7 @@ namespace QSP.LibraryExtension
                 if (File.Exists(file) == false) return file;
             }
 
-            throw new NoFileNameAvailException(
-                "No suitable file name can be generated.");
+            throw new NoFileNameAvailException("No suitable file name can be generated.");
         }
     }
 }

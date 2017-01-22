@@ -8,16 +8,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
+using QSP.LibraryExtension;
 using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.RouteFinding.FileExport
 {
     public class FileExporter
     {
-        private Route route;
-        private AirportManager airports;
-
-        private IEnumerable<ExportCommand> commands;
+        private readonly Route route;
+        private readonly AirportManager airports;
+        private readonly IEnumerable<ExportCommand> commands;
 
         public FileExporter(
             Route route,
@@ -36,34 +36,42 @@ namespace QSP.RouteFinding.FileExport
         public IEnumerable<Status> Export()
         {
             var cmdToExport = commands.Where(i => i.Enabled).ToList();
-            var nameBase = GetFileNameBase();
-            const int maxAttemptCount = 10000;
+            var nameBase = GetFileNameBase().RemoveIllegalChars();
 
             TryCreateDirectories();
-
-            for (int i = 1; i <= maxAttemptCount; i++)
-            {
-                if (cmdToExport.All(c => !FileExist(nameBase, c, i)))
-                {
-                    return cmdToExport.Select(c => Export(nameBase, c, i));
-                }
-            }
+            int num = FileNameNum(cmdToExport, nameBase);
+            if (num != -1) return cmdToExport.Select(c => Export(nameBase, c, num));
 
             throw new NoFileNameAvailException("No suitable file name can be generated.");
+        }
+
+        // Find a file name which allows us to export without name conflicts.
+        private int FileNameNum(IReadOnlyList<ExportCommand> cmdToExport, string nameBase)
+        {
+            const int maxAttemptCount = 10000;
+            for (int i = 1; i <= maxAttemptCount; i++)
+            {
+                if (cmdToExport.All(c => !FileExist(nameBase, c, i))) return i;
+            }
+
+            return -1;
         }
 
         private Status Export(string nameBase, ExportCommand c, int i)
         {
             var fileName = GetFileFullPath(nameBase, c, i);
-
-            var provider = ProviderFactory.GetProvider(
-                c.ProviderType,
-                route,
-                airports);
+            var provider = ProviderFactory.GetProvider(c.ProviderType, route, airports);
 
             try
             {
-                File.WriteAllText(fileName, provider.GetExportText());
+                // Although the file name has been checked to have no conflict, if the user choose
+                // to export multiple files to the same folder, the file names can still collide.
+                var newName = File.Exists(fileName)
+                    ? GenerateFileName(fileName, c)
+                    : fileName;
+
+                File.WriteAllText(newName, provider.GetExportText());
+                return new Status(fileName, true, "", false);
             }
             catch (Exception ex)
             {
@@ -71,14 +79,17 @@ namespace QSP.RouteFinding.FileExport
                 var mayBePermissionIssue = ex is UnauthorizedAccessException ||
                     ex is SecurityException;
 
-                return new Status(
-                    c.Directory, false, ex.Message, mayBePermissionIssue);
+                return new Status(c.Directory, false, ex.Message, mayBePermissionIssue);
             }
-
-            return new Status(fileName, true, "", false);
         }
 
-        private bool FileExist(string nameBase, ExportCommand cmd, int n)
+        private static string GenerateFileName(string fileName, ExportCommand c)
+        {
+            return FileNameGenerator.Generate(c.Directory.RemoveIllegalChars(),
+                fileName, c.Extension, n => n.ToString(), 1);
+        }
+
+        private static bool FileExist(string nameBase, ExportCommand cmd, int n)
         {
             var filePath = GetFileFullPath(nameBase, cmd, n);
             return File.Exists(filePath);
@@ -92,12 +103,10 @@ namespace QSP.RouteFinding.FileExport
             }
         }
 
-        private static string GetFileFullPath(
-            string nameBase, ExportCommand cmd, int n)
+        private static string GetFileFullPath(string nameBase, ExportCommand cmd, int n)
         {
-            var fileName =
-                nameBase + n.ToString().PadLeft(2, '0') + cmd.Extension;
-            return Path.Combine(cmd.Directory, fileName);
+            var fileName = nameBase + n.ToString().PadLeft(2, '0') + cmd.Extension;
+            return Path.Combine(cmd.Directory.RemoveIllegalChars(), fileName.RemoveIllegalChars());
         }
 
         private string GetFileNameBase()
@@ -109,13 +118,13 @@ namespace QSP.RouteFinding.FileExport
 
         public class Status
         {
-            public string FilePath { get; private set; }
-            public bool Successful { get; private set; }
-            public string Message { get; private set; }
-            public bool MayBePermissionIssue { get; private set; }
+            public string FilePath { get; }
+            public bool Successful { get; }
+            public string Message { get; }
+            public bool MayBePermissionIssue { get; }
 
-            public Status(string FilePath,
-                bool Successful, string Message, bool MayBePermissionIssue)
+            public Status(string FilePath, bool Successful, string Message,
+                bool MayBePermissionIssue)
             {
                 this.FilePath = FilePath;
                 this.Successful = Successful;

@@ -3,6 +3,7 @@ using QSP.LibraryExtension;
 using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.FileExport.Providers;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using FolderSelect;
 
@@ -10,13 +11,13 @@ namespace QSP.UI.Forms.Options
 {
     public class FlightPlanExportController
     {
-        private IEnumerable<RouteExportMatching> exports;
-        private Locator<AppOptions> appOptionsLocator;
+        private readonly IReadOnlyList<RouteExportMatching> exports;
+        private readonly Locator<AppOptions> appOptionsLocator;
 
         public AppOptions AppOptions => appOptionsLocator.Instance;
 
         public FlightPlanExportController(
-            IEnumerable<RouteExportMatching> exports,
+            IReadOnlyList<RouteExportMatching> exports,
             Locator<AppOptions> appOptionsLocator)
         {
             this.exports = exports;
@@ -37,18 +38,10 @@ namespace QSP.UI.Forms.Options
         /// <summary>
         /// Returns the commands as set by the user.
         /// </summary>
-        /// <returns></returns>
         public Dictionary<string, ExportCommand> GetCommands()
         {
-            var cmds = new Dictionary<string, ExportCommand>();
-
-            foreach (var i in exports)
-            {
-                var command = new ExportCommand(i.Type, i.TxtBox.Text, i.CheckBox.Checked);
-                cmds.Add(i.Key, command);
-            }
-
-            return cmds;
+            return exports.ToDictionary(i => i.Key,
+                i => new ExportCommand(i.Type, i.TxtBox.Text, i.CheckBox.Checked));
         }
 
         /// <summary>
@@ -108,11 +101,11 @@ namespace QSP.UI.Forms.Options
 
     public class RouteExportMatching
     {
-        public string Key { get; private set; }
-        public ProviderType Type { get; private set; }
-        public CheckBox CheckBox { get; private set; }
-        public TextBox TxtBox { get; private set; }
-        public Button BrowserBtn { get; private set; }
+        public string Key { get; }
+        public ProviderType Type { get; }
+        public CheckBox CheckBox { get; }
+        public TextBox TxtBox { get; }
+        public Button BrowserBtn { get; }
 
         public RouteExportMatching(
             string Key,

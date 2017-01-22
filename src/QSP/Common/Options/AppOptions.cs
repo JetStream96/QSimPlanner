@@ -19,8 +19,7 @@ namespace QSP.Common.Options
         public bool HideDctInRoute { get; private set; }
         public bool ShowTrackIdOnly { get; private set; }
         public bool AutoUpdate { get; private set; }
-        public IReadOnlyDictionary<string, ExportCommand> ExportCommands
-        { get; private set; }
+        public IReadOnlyDictionary<string, ExportCommand> ExportCommands { get; private set; }
 
         public AppOptions(
             string NavDataLocation,
