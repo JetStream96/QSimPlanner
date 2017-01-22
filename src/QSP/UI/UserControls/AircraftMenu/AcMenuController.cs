@@ -283,7 +283,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             if (InEditMode && !currentConfig.IsDefault) return currentConfig.FilePath;
 
             var nameBase = (elem.AcType.Text + "_" + elem.Registration.Text)
-                .RemoveIllegalChars();
+                .RemoveIllegalFileNameChars();
 
             var dir = ConfigLoader.CustomFolderPath;
             return FileNameGenerator.Generate(dir, nameBase, ".xml", (i) => "_" + i.ToString());

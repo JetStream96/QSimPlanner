@@ -19,8 +19,8 @@ namespace QSP.LibraryExtension
             Func<int, string> numberFormat,
             int startNumber = 1)
         {
-            if (nameBase.ContainIllegalChar() ||
-                extension.ContainIllegalChar())
+            if (nameBase.ContainIllegalFileNameChar() ||
+                extension.ContainIllegalFileNameChar())
             {
                 throw new ArgumentException("Illegal chars are not allowed.");
             }

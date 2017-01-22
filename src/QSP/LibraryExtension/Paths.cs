@@ -1,38 +1,44 @@
-﻿using System.Collections.Generic;
+﻿using QSP.LibraryExtension.Sets;
+using System;
 using System.IO;
 using System.Linq;
-using System;
 
 namespace QSP.LibraryExtension
 {
     public static class Paths
     {
-        public static HashSet<char> IllegalChars = GetIllegalChars();
+        public static readonly IReadOnlySet<char> IllegalFileNameChars =
+            new ReadOnlySet<char>(Path.GetInvalidFileNameChars().ToHashSet());
 
-        private static HashSet<char> GetIllegalChars()
-        {
-            var result = new HashSet<char>(Path.GetInvalidFileNameChars());
-            Path.GetInvalidPathChars().ForEach(c => result.Add(c));
-
-            return result;
-        }
+        public static readonly IReadOnlySet<char> IllegalPathChars =
+            new ReadOnlySet<char>(Path.GetInvalidPathChars().ToHashSet());
 
         /// <summary>
-        /// Returns whether the string contains any illegal char 
-        /// (of file system).
+        /// Returns whether the string contains any illegal char (of file system).
         /// </summary>
-        public static bool ContainIllegalChar(this string item)
+        public static bool ContainIllegalFileNameChar(this string item)
         {
-            return item.Any(c => IllegalChars.Contains(c));
+            return item.Any(c => IllegalFileNameChars.Contains(c));
+        }
+
+        public static bool ContainIllegalPathChar(this string item)
+        {
+            return item.Any(c => IllegalPathChars.Contains(c));
         }
 
         /// <summary>
         /// Remove any illegal char (of file system).
         /// </summary>
-        public static string RemoveIllegalChars(this string item)
+        public static string RemoveIllegalFileNameChars(this string item)
         {
-            return item.ReplaceAny(IllegalChars, "");
+            return item.ReplaceAny(IllegalFileNameChars, "");
         }
+
+        public static string RemoveIllegalPathChars(this string item)
+        {
+            return item.ReplaceAny(IllegalPathChars, "");
+        }
+
         /// <summary>
         /// Get uri from an absolute or relative path.
         /// </summary>
@@ -43,11 +49,11 @@ namespace QSP.LibraryExtension
 
         public static bool PathsAreSame(string path1, string path2)
         {
-           return string.Compare(
-                Path.GetFullPath(path1).TrimEnd('\\'),
-                Path.GetFullPath(path2).TrimEnd('\\'),
-                StringComparison.InvariantCultureIgnoreCase) == 0;
+            return string.Compare(
+                 Path.GetFullPath(path1).TrimEnd('\\'),
+                 Path.GetFullPath(path2).TrimEnd('\\'),
+                 StringComparison.InvariantCultureIgnoreCase) == 0;
         }
-        
+
     }
 }
