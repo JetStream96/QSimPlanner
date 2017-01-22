@@ -183,6 +183,7 @@
             this.msgLbl.AutoSize = true;
             this.msgLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.msgLbl.Location = new System.Drawing.Point(98, 52);
+            this.msgLbl.Margin = new System.Windows.Forms.Padding(3, 30, 3, 30);
             this.msgLbl.Name = "msgLbl";
             this.msgLbl.Size = new System.Drawing.Size(157, 23);
             this.msgLbl.TabIndex = 1;
