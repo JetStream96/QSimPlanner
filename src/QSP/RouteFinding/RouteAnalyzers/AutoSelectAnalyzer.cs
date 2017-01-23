@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace QSP.RouteFinding.RouteAnalyzers
 {
     // Automatically select the first waypoint when there are many with 
-    // the same ident. Utilizes the SimpleRouteAnalyzer to analyze a route 
+    // the same ident. Utilizes the BasicRouteAnalyzer to analyze a route 
     // represented as a string.
     // 
     // Because we only know the ident of the first waypoint and there is 

@@ -229,6 +229,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 item = starExtract.RemainingRoute;
             }
 
+            // TODO: We cannot autoselect here. The first waypoint must be deterministic.
             Route[] routes = { origRoute, GetAutoSelectRoute(item).Route, destRoute };
 
             return routes
