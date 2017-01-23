@@ -199,8 +199,7 @@ namespace QSP.UI.UserControls.RouteActions
             if (!reports.Any())
             {
                 parentForm.ShowInfo(
-                    "No route file to be exported. " +
-                    "Please select select export settings in options page.");
+                    "No route file to export. Please set export settings in options page.");
             }
             else
             {
