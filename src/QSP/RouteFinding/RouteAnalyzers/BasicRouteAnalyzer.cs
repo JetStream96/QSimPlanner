@@ -5,6 +5,7 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using System;
+using System.Linq;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.LibraryExtension.Lists;
 
@@ -39,9 +40,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
     public class BasicRouteAnalyzer
     {
-        private WaypointList wptList;
+        private readonly WaypointList wptList;
 
-        private RouteString routeInput;
+        private readonly RouteString routeInput;
 
         // Index in WptList. -1 if the last wpt is lat/lon.
         private int lastWpt;
@@ -60,8 +61,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
         {
             if (routeInput.Count == 0)
             {
-                throw new ArgumentException(
-                    "Route input should have at least 1 elements.");
+                throw new ArgumentException("Route input should have at least 1 elements.");
             }
 
             this.wptList = wptList;
@@ -74,16 +74,12 @@ namespace QSP.RouteFinding.RouteAnalyzers
         {
             if (index == -1)
             {
-                if (TryParseCoord(routeInput[0]))
-                {
-                    return;
-                }
+                if (TryParseCoord(routeInput[0])) return;
 
-                throw new ArgumentException(
-                    $"{routeInput[0]} is not a valid coordinate.");
+                throw new ArgumentException($"{routeInput[0]} is not a valid coordinate.");
             }
 
-            if (wptList.WaypointExists(index) == false)
+            if (!wptList.WaypointExists(index))
             {
                 throw new ArgumentException("Wrong first waypoint index.");
             }
@@ -96,6 +92,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                     "The first waypoint of the route does not match the " +
                     "specified index in WptList.");
             }
+
             lastWpt = index;
             rte.AddLastWaypoint(wpt);
         }
@@ -105,37 +102,33 @@ namespace QSP.RouteFinding.RouteAnalyzers
         {
             lastAwy = null;
 
-            for (int i = 1; i < routeInput.Count; i++)
+            routeInput.Skip(1).ForEach(i =>
             {
                 if (lastAwy == null)
                 {
-                    //this one may be awy or wpt
+                    // This one may be airway or waypoint.
 
-                    if (TryParseAwy(routeInput[i]) == false &&
-                        TryParseWpt(routeInput[i]) == false)
+                    if (!TryParseAwy(i) && !TryParseWpt(i))
                     {
                         throw new ArgumentException(
-                            $"{routeInput[i]} is not a valid waypoint or " +
-                            "airway identifier");
+                            $"{i} is not a valid waypoint or airway identifier");
                     }
                 }
                 else
                 {
                     //this one must be wpt
-                    if (TryParseWpt(routeInput[i]) == false)
+                    if (!TryParseWpt(i))
                     {
                         throw new ArgumentException(
-                            $"Cannot find waypoint {routeInput[i]} on " +
-                            $"airway {lastAwy}");
+                            $"Cannot find waypoint {i} on airway {lastAwy}");
                     }
                 }
-            }
+            });
 
             if (lastAwy != null)
             {
                 // That last string in routeInput is an airway.
-                throw new ArgumentException(
-                    $"There should be a waypoint after airway {lastAwy}.");
+                throw new ArgumentException($"There should be a waypoint after airway {lastAwy}.");
             }
 
             return rte;
@@ -150,6 +143,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 lastWpt = -1;
                 return TryAppendWpt(new Waypoint(ident, coord));
             }
+
             return false;
         }
 
@@ -166,23 +160,17 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 // Must be DCT.
                 return TryDirectWpt(ident);
             }
-            else
-            {
-                // Connected via airway
-                return TryConnectAirway(ident);
-            }
+
+            // Connected via airway
+            return TryConnectAirway(ident);
         }
 
         private bool TryConnectAirway(string ident)
         {
-            var nodeFinder =
-                new AirwayNodeFinder(lastWpt, lastAwy, ident, wptList);
+            var nodeFinder = new AirwayNodeFinder(lastWpt, lastAwy, ident, wptList);
             var intermediateWpt = nodeFinder.FindWaypoints();
 
-            if (intermediateWpt == null)
-            {
-                return false;
-            }
+            if (intermediateWpt == null) return false;
 
             foreach (var i in intermediateWpt)
             {
@@ -217,10 +205,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
         private bool TryParseAwy(string airway)
         {
-            if (lastWpt == -1)
-            {
-                return false;
-            }
+            if (lastWpt == -1) return false;
 
             foreach (var i in wptList.EdgesFrom(lastWpt))
             {

@@ -293,8 +293,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             {
                 if (index == analyzed.Count - 1)
                 {
-                    int wptFrom = wptList.FindByWaypoint(
-                        analyzed[index - 1].Route.LastWaypoint);
+                    int wptFrom = wptList.FindByWaypoint(analyzed[index - 1].Route.LastWaypoint);
 
                     return new RouteFinderFacade(wptList, airportList)
                          .FindRoute(wptFrom, destIcao, destRwy, stars, stars.GetStarList(destRwy));
