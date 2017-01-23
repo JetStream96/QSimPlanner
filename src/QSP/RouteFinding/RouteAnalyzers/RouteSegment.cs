@@ -5,9 +5,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
     // This class is immutable.
     public class RouteSegment
     {
-        public bool IsAuto { get; private set; }
-        public bool IsRand { get; private set; }
-        public RouteString RouteString { get; private set; }
+        public bool IsAuto { get; }
+        public bool IsRand { get; }
+        public RouteString RouteString { get; }
 
         public static RouteSegment Auto()
         {

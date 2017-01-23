@@ -5,9 +5,9 @@ namespace QSP.RouteFinding.RouteAnalyzers
     // This class is immutable.
     public class SubRoute
     {
-        public bool IsAuto { get; private set; }
-        public bool IsRand { get; private set; }
-        public Route Route { get; private set; }
+        public bool IsAuto { get; }
+        public bool IsRand { get; }
+        public Route Route { get; }
 
         public static SubRoute Auto()
         {

@@ -3,6 +3,7 @@ using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
+using QSP.RouteFinding.Finder;
 using QSP.RouteFinding.RandomRoutes;
 using QSP.RouteFinding.RouteAnalyzers.Extractors;
 using QSP.RouteFinding.Routes;
@@ -11,7 +12,6 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.RouteFinding.Finder;
 using static QSP.RouteFinding.Routes.RouteExtensions;
 
 namespace QSP.RouteFinding.RouteAnalyzers
@@ -60,16 +60,16 @@ namespace QSP.RouteFinding.RouteAnalyzers
     //
     public class AnalyzerWithCommands
     {
-        private WaypointList wptList;
-        private WaypointListEditor editor;
-        private AirportManager airportList;
-        private SidCollection sids;
-        private StarCollection stars;
+        private readonly WaypointList wptList;
+        private readonly WaypointListEditor editor;
+        private readonly AirportManager airportList;
+        private readonly SidCollection sids;
+        private readonly StarCollection stars;
 
-        private string origIcao;
-        private string origRwy;
-        private string destIcao;
-        private string destRwy;
+        private readonly string origIcao;
+        private readonly string origRwy;
+        private readonly string destIcao;
+        private readonly string destRwy;
         private RouteString route;
 
         private Waypoint origRwyWpt;
@@ -196,14 +196,14 @@ namespace QSP.RouteFinding.RouteAnalyzers
                 var routeStr = seg.RouteString;
                 if (index == 0) return ComputeTerminalRoute(routeStr, true, count == 1);
                 if (index == count - 1) return ComputeTerminalRoute(routeStr, false, true);
-                return GetAutoSelectRoute(routeStr);
+                return GetAutoSelectRoute(routeStr).ToSubRoute();
             }).ToList();
         }
 
-        private SubRoute GetAutoSelectRoute(RouteString r)
+        private Route GetAutoSelectRoute(RouteString r)
         {
             var analyzer = new AutoSelectAnalyzer(r, origRwyWpt, destRwyWpt, wptList);
-            return analyzer.Analyze().ToSubRoute();
+            return analyzer.Analyze();
         }
 
         private SubRoute ComputeTerminalRoute(RouteString item, bool isOrig, bool isDest)
@@ -213,8 +213,8 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             if (isOrig)
             {
-                var sidExtract = new SidExtractor(item,
-                    origRwy, origRwyWpt, wptList, sids).Extract();
+                var sidExtract = new SidExtractor(item, origRwy, origRwyWpt, wptList, sids)
+                    .Extract();
 
                 origRoute = sidExtract.OrigRoute;
                 item = sidExtract.RemainingRoute;
@@ -222,20 +222,27 @@ namespace QSP.RouteFinding.RouteAnalyzers
 
             if (isDest)
             {
-                var starExtract = new StarExtractor(item,
-                destRwy, destRwyWpt, wptList, stars).Extract();
+                var starExtract = new StarExtractor(item, destRwy, destRwyWpt, wptList, stars)
+                    .Extract();
 
                 destRoute = starExtract.DestRoute;
                 item = starExtract.RemainingRoute;
             }
 
-            // TODO: We cannot autoselect here. The first waypoint must be deterministic.
-            Route[] routes = { origRoute, GetAutoSelectRoute(item).Route, destRoute };
+            var remainRoute = origRoute == null
+                ? GetAutoSelectRoute(item)
+                : GetBasicRoute(item, wptList.FindByWaypoint(origRoute.LastWaypoint));
 
-            return routes
+            return new[] { origRoute, remainRoute, destRoute }
                 .Where(r => r != null)
                 .Connect()
                 .ToSubRoute();
+        }
+
+        private Route GetBasicRoute(RouteString r, int firstWptIndex)
+        {
+            var analyzer = new BasicRouteAnalyzer(r, wptList, firstWptIndex);
+            return analyzer.Analyze();
         }
 
         private List<Route> ComputeCommands(IReadOnlyList<SubRoute> analyzed)
