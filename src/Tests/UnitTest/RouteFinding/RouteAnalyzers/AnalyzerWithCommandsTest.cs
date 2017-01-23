@@ -9,7 +9,6 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
-using System.Collections.Generic;
 using static UnitTest.RouteFinding.Common;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers
@@ -26,23 +25,21 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             airportList = new AirportManager();
             airportList.Add(GetAirport("ABCD", GetRwyData("05L", 25.0, 121.0)));
             airportList.Add(GetAirport("EFGH", GetRwyData("07L", 22.0, 113.0)));
-            
-            sids = new SidCollection(
-                new List<SidEntry>() {
-                    new SidEntry(
-                        "05L",
-                        "SID1",
-                        new List<Waypoint>(){new Waypoint("P1",24.0,120.0)},
-                        EntryType.RwySpecific,
-                        false) });
 
-            stars = new StarCollection(
-                new List<StarEntry>() {
-                    new StarEntry(
-                        "07L",
-                        "STAR1",
-                        new List<Waypoint>(){new Waypoint("Q1",23.0,114.0)},
-                        EntryType.RwySpecific) });
+            sids = new SidCollection(new[] {
+                new SidEntry(
+                    "05L",
+                    "SID1",
+                    new[] {new Waypoint("P1",24.0,120.0)},
+                    EntryType.RwySpecific,
+                    false) });
+
+            stars = new StarCollection(new[] {
+                new StarEntry(
+                    "07L",
+                    "STAR1",
+                    new[] {new Waypoint("Q1",23.0,114.0)},
+                    EntryType.RwySpecific) });
         }
 
         #region Group 1 - Same route
@@ -82,9 +79,9 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
             var w4 = new Waypoint("EFGH07L", 22.0, 113.0);
 
             var n1 = new Neighbor(
-                "SID1", 
+                "SID1",
                 w1.Distance(w2),
-                new Waypoint[] { }, 
+                new Waypoint[] { },
                 InnerWaypointsType.Terminal);
 
             var n2 = new Neighbor("A1", w2.Distance(w3));
@@ -234,7 +231,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
         }
 
         #endregion
-        
+
         [Test]
         public void EmptyRouteShouldReturnDirectRoute()
         {
@@ -251,7 +248,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
 
             Assert.IsTrue(route.Equals(directRoute));
         }
-        
+
         [Test]
         public void RouteOfLatLonShouldAlsoWork()
         {
@@ -269,7 +266,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers
                 new LatLon(31.0, 110.0),
                 new LatLon(43.0, 107.0)
             }.TotalDistance();
-            
+
             Assert.AreEqual(expectedDistance, route.TotalDistance(), 1E-6);
         }
     }
