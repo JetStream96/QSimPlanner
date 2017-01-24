@@ -5,7 +5,7 @@ using QSP.MathTools;
 
 namespace QSP.UI.Utilities
 {
-    public static class ScrollBars
+    public static class ScrollBarsUtil
     {
         public static bool VScrollBarVisible(this Control c)
         {

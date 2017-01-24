@@ -73,7 +73,8 @@ namespace QSP.Updates
 
         public class UpdateStatus
         {
-            public bool Success; public string Message;
+            public bool Success { get; }
+            public string Message { get; }
 
             public UpdateStatus(bool Success, string Message)
             {

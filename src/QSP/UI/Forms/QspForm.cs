@@ -29,7 +29,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static QSP.Utilities.LoggerInstance;
-using ScrollBars = QSP.UI.Utilities.ScrollBars;
 
 namespace QSP.UI.Forms
 {
@@ -58,21 +57,15 @@ namespace QSP.UI.Forms
         private AppOptions appSettings => appOptionsLocator.Instance;
         private AirportManager airportList => airwayNetwork.AirportList;
 
-        private IEnumerable<UserControl> Pages
+        private IEnumerable<UserControl> Pages => new UserControl[]
         {
-            get
-            {
-                return new UserControl[]
-                {
-                    acMenu,
-                    fuelMenu,
-                    toMenu,
-                    ldgMenu,
-                    miscInfoMenu,
-                    aboutMenu
-                };
-            }
-        }
+            acMenu,
+            fuelMenu,
+            toMenu,
+            ldgMenu,
+            miscInfoMenu,
+            aboutMenu
+        };
 
         public QspForm()
         {
@@ -360,7 +353,7 @@ namespace QSP.UI.Forms
             windDataStatusLabel.Click += (s, e) => windFrm.ShowDialog();
             trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
             navBar.OptionLbl.Click += (s, e) => ShowOptionsForm();
-            ScrollBars.OverrideScrollBar(panel1, this);
+            ScrollBarsUtil.OverrideScrollBar(panel1, this);
         }
         
         private void SetCursorStatusLabel()
