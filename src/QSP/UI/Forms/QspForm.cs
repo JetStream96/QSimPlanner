@@ -179,13 +179,15 @@ namespace QSP.UI.Forms
 
         private static void ShowSplashWhile(Action action)
         {
-            var splash = new Splash();
-            splash.Show();
-            splash.Refresh();
+            using (var splash = new Splash())
+            {
+                splash.Show();
+                splash.Refresh();
 
-            action();
+                action();
 
-            splash.Close();
+                splash.Close();
+            }
         }
 
         private void InitData()
@@ -356,26 +358,9 @@ namespace QSP.UI.Forms
             windDataStatusLabel.Click += (s, e) => windFrm.ShowDialog();
             trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
             navBar.OptionLbl.Click += (s, e) => ShowOptionsForm();
-            OverrideScrollBar(this);
+            ScrollBarOverride.OverrideScrollBar(panel1, this);
         }
-
-        private void OverrideScrollBar(Control c)
-        {
-            c.Controls.Cast<Control>().ForEach(i => OverrideScrollBar(i));
-
-            c.MouseWheel += (s, e) =>
-            {
-                ((HandledMouseEventArgs)e).Handled = true;
-                var scroll = panel1.VerticalScroll;
-                if (scroll.Visible)
-                {
-                    scroll.Value = Numbers.LimitToRange(scroll.Value - e.Delta,
-                        scroll.Minimum, scroll.Maximum);
-                    panel1.PerformLayout();
-                }
-            };
-        }
-
+        
         private void SetCursorStatusLabel()
         {
             new[] { navDataStatusLabel, windDataStatusLabel, trackStatusLabel }.ForEach(i =>

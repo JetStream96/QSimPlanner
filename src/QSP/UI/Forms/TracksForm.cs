@@ -5,6 +5,7 @@ using QSP.RouteFinding.Tracks;
 using QSP.RouteFinding.Tracks.Actions;
 using QSP.RouteFinding.Tracks.Common;
 using QSP.UI.Controllers;
+using QSP.UI.MsgBox;
 using QSP.UI.Utilities;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using QSP.UI.MsgBox;
 using static QSP.RouteFinding.Tracks.AirwayNetwork;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
@@ -65,6 +65,7 @@ namespace QSP.UI.Forms
             airwayNetwork.TrackMessageUpdated += (s, e) => RefreshViewTrackBtns();
             airwayNetwork.StatusChanged += (s, e) => RefreshStatus(((TrackEventArg)e).TrackType);
             Closing += CloseForm;
+            ScrollBarOverride.OverrideScrollBar(panel1, this);
         }
 
         private void RefreshListViewColumnWidth()
