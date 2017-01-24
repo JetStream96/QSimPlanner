@@ -17,7 +17,7 @@ namespace QSP.Updates
 
         public Updater() { }
 
-        public UpdateStatus Update()
+        public UpdateResult Update()
         {
             IsUpdating = true;
             var status = DoUpdateActions();
@@ -25,7 +25,7 @@ namespace QSP.Updates
             return status;
         }
 
-        private UpdateStatus DoUpdateActions()
+        private UpdateResult DoUpdateActions()
         {
             UpdateInfo info = null;
 
@@ -35,13 +35,14 @@ namespace QSP.Updates
 
                 if (info == null)
                 {
-                    return new UpdateStatus(true, "Current version is up to date.");
+                    return new UpdateResult(Status.AlreadyUpToDate,
+                        "Current version is up to date.");
                 }
             }
             catch (Exception ex)
             {
                 Log(ex);
-                return new UpdateStatus(false, "Failed to obtain update info.");
+                return new UpdateResult(Status.Failed, "Failed to obtain update info.");
             }
 
             try
@@ -55,11 +56,11 @@ namespace QSP.Updates
             catch (Exception ex)
             {
                 Log(ex);
-                return new UpdateStatus(false, "Failed to install update.");
+                return new UpdateResult(Status.Failed, "Failed to install update.");
             }
 
-            return new UpdateStatus(true,
-                $"Successfully updated to version {info.Version}. " + 
+            return new UpdateResult(Status.Success,
+                $"Successfully updated to version {info.Version}. " +
                 "Changes will be in effect after restart.");
         }
 
@@ -71,14 +72,21 @@ namespace QSP.Updates
             File.WriteAllText(path, doc.ToString());
         }
 
-        public class UpdateStatus
+        public enum Status
         {
-            public bool Success { get; }
+            Success,
+            AlreadyUpToDate,
+            Failed
+        }
+
+        public class UpdateResult
+        {
+            public Status Status { get; }
             public string Message { get; }
 
-            public UpdateStatus(bool Success, string Message)
+            public UpdateResult(Status Status, string Message)
             {
-                this.Success = Success;
+                this.Status = Status;
                 this.Message = Message;
             }
         }

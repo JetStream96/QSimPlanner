@@ -12,7 +12,6 @@ using QSP.RouteFinding.Tracks;
 using QSP.UI.MsgBox;
 using QSP.Updates;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -392,7 +391,8 @@ contains Airports.txt.";
             updateStatusLbl.ForeColor = Color.Black;
             var status = await Task.Factory.StartNew(() => updater.Update());
             updateStatusLbl.Text = status.Message;
-            updateStatusLbl.ForeColor = status.Success ? Color.Green : Color.Red;
+            updateStatusLbl.ForeColor = status.Status == Updater.Status.Failed ?
+                Color.Red : Color.Green;
             updateBtn.Enabled = true;
         }
     }

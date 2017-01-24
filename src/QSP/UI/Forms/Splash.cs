@@ -10,9 +10,9 @@ namespace QSP.UI.Forms
             InitializeComponent();
         }
 
-        private void Splash_Load(object sender, EventArgs e)
+        public void ShowVersion()
         {
-            versionLbl.Text = "version " + AppProductVersion();
+            SmallTitleLbl.Text = "version " + AppProductVersion();
         }
 
         public static string AppProductVersion()

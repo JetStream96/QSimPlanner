@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -13,12 +15,12 @@ namespace Launcher
         {
             try
             {
-                StartApp();
+                StartApp(args.Contains("-wait"));
             }
             catch (Exception ex)
             {
                 Log(ex);
-                
+
                 MessageBox.Show("An error occurred:\n" + ex.Message,
                     "QSimPlanner launcher error",
                     MessageBoxButtons.OK,
@@ -26,16 +28,22 @@ namespace Launcher
             }
         }
 
-        private static void StartApp()
+        private static void StartApp(bool waitForExit)
         {
-            var ver = GetVersion();
-            var info = new ProcessStartInfo();
-            info.WorkingDirectory = ver;
-            info.FileName = "QSimPlanner.exe";
-
-            if (Environment.OSVersion.Version.Major >= 6)
+            var info = new ProcessStartInfo()
             {
-                info.Verb = "runas";
+                WorkingDirectory = GetVersion(),
+                FileName = "QSimPlanner.exe"
+            };
+
+            if (Environment.OSVersion.Version.Major >= 6) info.Verb = "runas";
+
+            if (waitForExit)
+            {
+                while (Process.GetProcesses().Any(p => p.ProcessName == "QSimPlanner"))
+                {
+                    Thread.Sleep(500);
+                }
             }
 
             Process.Start(info);

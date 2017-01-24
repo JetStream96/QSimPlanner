@@ -2,7 +2,6 @@
 using QSP.AircraftProfiles.Configs;
 using QSP.Common.Options;
 using QSP.LibraryExtension;
-using QSP.MathTools;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -177,6 +176,7 @@ namespace QSP.UI.Forms
             using (var splash = new Splash())
             {
                 splash.Show();
+                splash.ShowVersion();
                 splash.Refresh();
 
                 action();
