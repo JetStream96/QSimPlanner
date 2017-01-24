@@ -141,6 +141,7 @@ namespace QSP.UI.Forms
         {
             optionsForm.ShowInTaskbar = showInTaskbar;
             optionsForm.StartPosition = position;
+            optionsForm.SetControlsAsInOptions();
             if (autoDetectAiracFolder) optionsForm.DetectAndSetAiracFolder();
             optionsForm.ShowDialog();
         }

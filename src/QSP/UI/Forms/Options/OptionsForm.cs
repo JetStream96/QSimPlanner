@@ -127,49 +127,15 @@ namespace QSP.UI.Forms.Options
 
         private void InitExports()
         {
-            var exports = new List<RouteExportMatching>();
-
-            exports.Add(new RouteExportMatching(
-                "Fsx",
-                ProviderType.Fsx,
-                checkBox4,
-                textBox4,
-                button4));
-
-            exports.Add(new RouteExportMatching(
-                "P3d",
-                ProviderType.Fsx,
-                checkBox5,
-                textBox5,
-                button5));
-
-            exports.Add(new RouteExportMatching(
-                "Fs9",
-                ProviderType.Fs9,
-                checkBox6,
-                textBox6,
-                button6));
-
-            exports.Add(new RouteExportMatching(
-                "PmdgCommon",
-                ProviderType.Pmdg,
-                CheckBox1,
-                TextBox1,
-                Button1));
-
-            exports.Add(new RouteExportMatching(
-                "PmdgNGX",
-                ProviderType.Pmdg,
-                CheckBox2,
-                TextBox2,
-                Button2));
-
-            exports.Add(new RouteExportMatching(
-                "Pmdg777",
-                ProviderType.Pmdg,
-                CheckBox3,
-                TextBox3,
-                Button3));
+            var exports = new[]
+            {
+                new RouteExportMatching("Fsx", ProviderType.Fsx, checkBox1, textBox1, button1),
+                new RouteExportMatching("P3d", ProviderType.Fsx, checkBox2, textBox2, button2),
+                new RouteExportMatching("Fs9", ProviderType.Fs9, checkBox3, textBox3, button3),
+                new RouteExportMatching("PmdgCommon", ProviderType.Pmdg, checkBox4, textBox4, button4),
+                new RouteExportMatching("PmdgNGX", ProviderType.Pmdg, checkBox5, textBox5, button5),
+                new RouteExportMatching("Pmdg777", ProviderType.Pmdg, checkBox6, textBox6, button6)
+            };
 
             exportController = new FlightPlanExportController(exports, appSettingsLocator);
             exportController.Init();
