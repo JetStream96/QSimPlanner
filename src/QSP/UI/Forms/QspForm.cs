@@ -29,6 +29,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static QSP.Utilities.LoggerInstance;
+using ScrollBars = QSP.UI.Utilities.ScrollBars;
 
 namespace QSP.UI.Forms
 {
@@ -358,7 +359,7 @@ namespace QSP.UI.Forms
             windDataStatusLabel.Click += (s, e) => windFrm.ShowDialog();
             trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
             navBar.OptionLbl.Click += (s, e) => ShowOptionsForm();
-            ScrollBarOverride.OverrideScrollBar(panel1, this);
+            ScrollBars.OverrideScrollBar(panel1, this);
         }
         
         private void SetCursorStatusLabel()
