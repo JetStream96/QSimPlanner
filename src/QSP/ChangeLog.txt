@@ -1,4 +1,11 @@
-﻿version 0.2.3
+﻿version 0.3.0
+* Many bug fixes.
+* UI improvements.
+* Add 747-400/400F profiles.
+* Add automatic updater.
+* Change fuel consumption calculation model so that other aircrafts can be easily added.
+
+version 0.2.3
 * Fix unhandled exception when track download fails.
 * Fix the issue where AIRAC label color does not update.
 
