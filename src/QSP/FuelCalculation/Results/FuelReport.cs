@@ -109,10 +109,7 @@ namespace QSP.FuelCalculation.Results
                 TimeFinalRsv, TimeTakeoff, TimeApu, TimeTaxi, TimeTotal
             };
 
-            var linebreakCount = new[]
-            {
-                1, 1, 1, 1, 1, 2, 2, 1, 2, 1
-            };
+            var linebreakCount = new[]{1, 1, 1, 1, 1, 2, 2, 1, 2, 1};
 
             var ratio = unit == WeightUnit.KG ? 1.0 : KgLbRatio;
             var value = valuesKg.Select(x => (x * ratio).ToString("F0"));
@@ -126,7 +123,7 @@ namespace QSP.FuelCalculation.Results
 
             var wt = "ALL WEIGHTS IN " + WeightUnitToString(unit);
             return wt + "\n\n" + new string(' ', RightPad + LeftPad - 4) +
-                "FUEL  TIME\n" + joined + LineFormat("FMC RSV", FormatFmcRsv(FuelFmcRsv));
+                "FUEL  TIME\n" + joined + LineFormat("FMC RSV", FormatFmcRsv(FuelFmcRsv * ratio));
         }
 
         private static string FormatFmcRsv(double value)
