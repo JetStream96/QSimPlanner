@@ -10,6 +10,7 @@ using QSP.UI.MsgBox;
 using QSP.Utilities.Units;
 using QSP.TOPerfCalculation.Boeing;
 using QSP.AircraftProfiles.Configs;
+using static QSP.AviationTools.ConversionTools;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 {
@@ -151,11 +152,11 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
                 var para = new BoeingParameterValidator(elements).Validate();
                 var table = (BoeingPerfTable)acPerf.Item;
                 if (!CheckWeight(para)) return;
-                var report = new TOReportGenerator(table, para).TakeOffReport();
+                var tempUnit = (TemperatureUnit)elements.TempUnit.SelectedIndex;
+                var tempIncrement = tempUnit == TemperatureUnit.Celsius ? 1.0 : 2.0 / 1.8;
+                var report = new TOReportGenerator(table, para).TakeOffReport(tempIncrement);
 
-                var text = report.ToString(
-                    (TemperatureUnit)elements.TempUnit.SelectedIndex,
-                    (LengthUnit)elements.lengthUnit.SelectedIndex);
+                var text = report.ToString(tempUnit, (LengthUnit)elements.lengthUnit.SelectedIndex);
 
                 // To center the text in the richTxtBox
                 elements.Result.Text = text.ShiftToRight(15);

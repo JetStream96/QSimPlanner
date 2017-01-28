@@ -11,8 +11,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
     [TestFixture]
     public class TOReportGeneratorTest
     {
-        private static BoeingPerfTable perfTable =
-               new PerfDataLoader()
+        private static BoeingPerfTable perfTable = new PerfDataLoader()
                .ReadTable(XDocument.Parse(new TestData().PerfXml).Root);
 
         [Test]
@@ -34,9 +33,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
                    true,               // packs on
                    0);                 // flaps
 
-            var report = new TOReportGenerator(perfTable, para)
-                         .TakeOffReport();
-
+            var report = new TOReportGenerator(perfTable, para).TakeOffReport();
             var calc = new TOCalculator(perfTable, para);
 
             AssertReport(report, calc, para);
@@ -103,8 +100,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
                    0);                 // flaps
 
             Assert.Throws<RunwayTooShortException>(() =>
-            new TOReportGenerator(perfTable, para)
-            .TakeOffReport());
+                new TOReportGenerator(perfTable, para).TakeOffReport());
         }
 
         [Test]
@@ -133,8 +129,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
             PropertySetter.Set(para, "WeightKg", wt * 1000.0 + 1.0);
 
             Assert.Throws<PoorClimbPerformanceException>(() =>
-            new TOReportGenerator(perfTable, para)
-            .TakeOffReport());
+                new TOReportGenerator(perfTable, para).TakeOffReport());
         }
 
         [Test]
@@ -156,9 +151,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
                    true,               // packs on
                    0);                 // flaps
 
-            var report = new TOReportGenerator(perfTable, para)
-                         .TakeOffReport();
-
+            var report = new TOReportGenerator(perfTable, para).TakeOffReport();
             var calc = new TOCalculator(perfTable, para);
 
             AssertReport(report, calc, para);

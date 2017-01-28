@@ -9,22 +9,13 @@ namespace QSP.TOPerfCalculation
 {
     public class TOReport
     {
-        public DataRow PrimaryResult { get; private set; }
-        public List<DataRow> AssumedTemp { get; private set; }
+        public DataRow PrimaryResult { get; }
+        public IReadOnlyList<DataRow> AssumedTemp { get; }
 
-        public TOReport()
+        public TOReport(DataRow PrimaryResult, IReadOnlyList<DataRow> AssumedTemp)
         {
-            AssumedTemp = new List<DataRow>();
-        }
-
-        public void SetPrimaryResult(int OatCelsius, int RwyRequiredMeter, int RwyRemainingMeter)
-        {
-            PrimaryResult = new DataRow(OatCelsius, RwyRequiredMeter, RwyRemainingMeter);
-        }
-
-        public void AddAssumedTemp(int OatCelsius, int RwyRequiredMeter, int RwyRemainingMeter)
-        {
-            AssumedTemp.Add(new DataRow(OatCelsius, RwyRequiredMeter, RwyRemainingMeter));
+            this.PrimaryResult = PrimaryResult;
+            this.AssumedTemp = AssumedTemp;
         }
 
         public string ToString(TemperatureUnit tempUnit, LengthUnit lenUnit)
@@ -54,8 +45,7 @@ namespace QSP.TOPerfCalculation
             if (AssumedTemp.Count > 0)
             {
                 str.AppendLine("             ( ASSUMED TEMPERATURE )");
-                str.AppendLine("  Temp(" + tUnit +
-                    ")  Required distance   Runway remaining");
+                str.AppendLine($"  Temp({tUnit})  Required distance   Runway remaining");
 
                 foreach (var i in AssumedTemp)
                 {
@@ -78,27 +68,25 @@ namespace QSP.TOPerfCalculation
             return str.ToString();
         }
 
-        private int TempConvertUnit(int tempCelsuis, TemperatureUnit tempUnit)
+        private int TempConvertUnit(double tempCelsuis, TemperatureUnit tempUnit)
         {
-            return tempUnit == TemperatureUnit.Fahrenheit ?
-                Convert.ToInt32(ConversionTools.ToFahrenheit(tempCelsuis)) :
-                tempCelsuis;
+            return Convert.ToInt32(tempUnit == TemperatureUnit.Fahrenheit ?
+                ConversionTools.ToFahrenheit(tempCelsuis) : tempCelsuis);
         }
 
-        private int LengthConvertUnit(int lengthMeter, LengthUnit unit)
+        private int LengthConvertUnit(double lengthMeter, LengthUnit unit)
         {
-            return unit == LengthUnit.Feet ?
-                (int)(lengthMeter * MeterFtRatio) :
-                lengthMeter;
+            return Convert.ToInt32(unit == LengthUnit.Feet ?
+                lengthMeter * MeterFtRatio : lengthMeter);
         }
 
         public class DataRow
         {
-            public int OatCelsius { get; private set; }
-            public int RwyRequiredMeter { get; private set; }
-            public int RwyRemainingMeter { get; private set; }
+            public double OatCelsius { get; }
+            public double RwyRequiredMeter { get; }
+            public double RwyRemainingMeter { get; }
 
-            public DataRow(int OatCelsius, int RwyRequiredMeter, int RwyRemainingMeter)
+            public DataRow(double OatCelsius, double RwyRequiredMeter, double RwyRemainingMeter)
             {
                 this.OatCelsius = OatCelsius;
                 this.RwyRequiredMeter = RwyRequiredMeter;

@@ -1,4 +1,7 @@
-﻿using QSP.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using QSP.Common;
 using QSP.TOPerfCalculation.Boeing.PerfData;
 using QSP.MathTools;
 
@@ -6,9 +9,9 @@ namespace QSP.TOPerfCalculation.Boeing
 {
     public class TOReportGenerator
     {
-        private TOCalculator calc;
-        private IndividualPerfTable table;
-        private TOParameters para;
+        private readonly TOCalculator calc;
+        private readonly IndividualPerfTable table;
+        private readonly TOParameters para;
 
         public TOReportGenerator(BoeingPerfTable item, TOParameters para)
         {
@@ -21,39 +24,45 @@ namespace QSP.TOPerfCalculation.Boeing
         /// Computes runway length required for take off, 
         /// for user input and all available assumed temperatures.
         /// </summary>
+        /// <param name="tempIncrement">Temperature increment in Celsius.</param>
         /// <exception cref="RunwayTooShortException"></exception>
         /// <exception cref="PoorClimbPerformanceException"></exception>
-        public TOReport TakeOffReport()
+        public TOReport TakeOffReport(double tempIncrement = 1.0)
         {
-            var result = new TOReport();
+            double mainOat = para.OatCelsius;
+            double rwyRequired = calc.TakeoffDistanceMeter(mainOat);
+            var mainResult = ValidateMainResult(mainOat, rwyRequired);
+            var assumedTemp = AssumedTempResults(tempIncrement);
 
+            return new TOReport(mainResult, assumedTemp.ToList());
+        }
+
+        private IEnumerable<TOReport.DataRow> AssumedTempResults(double tempIncrement)
+        {
             var fieldLimitWtTable = para.SurfaceWet ?
                 table.WeightTableWet :
                 table.WeightTableDry;
 
-            int maxOat = Numbers.RoundToInt(fieldLimitWtTable.MaxOat);
-            const int tempIncrement = 1;
+            double maxOat = fieldLimitWtTable.MaxOat;
 
-            int mainOat = Numbers.RoundToInt(para.OatCelsius);
-            double rwyRequired = calc.TakeoffDistanceMeter(mainOat);
-            ValidateMainResult(result, mainOat, rwyRequired);
-
-            for (int oat = mainOat + 1; oat <= maxOat; oat += tempIncrement)
+            for (double oat = para.OatCelsius + tempIncrement; oat <= maxOat; oat += tempIncrement)
             {
-                rwyRequired = calc.TakeoffDistanceMeter(oat);
-                if (!TryAddResult(result, oat, rwyRequired)) return result;
+                var rwyRequired = calc.TakeoffDistanceMeter(oat);
+                var row = ValidateResult(oat, rwyRequired);
+                if (row == null) break;
+                yield return row;
             }
 
-            return result;
+            yield break;
         }
 
-        private void ValidateMainResult(TOReport result, int oat, double rwyRequired)
+        private TOReport.DataRow ValidateMainResult(double oat, double rwyRequired)
         {
             if (rwyRequired <= para.RwyLengthMeter)
             {
                 if (calc.ClimbLimitWeightTon(oat) * 1000.0 >= para.WeightKg)
                 {
-                    result.SetPrimaryResult(
+                    return new TOReport.DataRow(
                         Numbers.RoundToInt(para.OatCelsius),
                         Numbers.RoundToInt(rwyRequired),
                         Numbers.RoundToInt(para.RwyLengthMeter - rwyRequired));
@@ -69,23 +78,19 @@ namespace QSP.TOPerfCalculation.Boeing
             }
         }
 
-        // returns whether the result was successfully added.
-        private bool TryAddResult(TOReport result, int oat, double rwyRequired)
+        // Returns null if not valid.
+        private TOReport.DataRow ValidateResult(double oat, double rwyRequired)
         {
             if (rwyRequired <= para.RwyLengthMeter &&
                 calc.ClimbLimitWeightTon(oat) * 1000.0 >= para.WeightKg)
             {
-                result.AddAssumedTemp(
+                return new TOReport.DataRow(
                     oat,
                     Numbers.RoundToInt(rwyRequired),
                     Numbers.RoundToInt(para.RwyLengthMeter - rwyRequired));
+            }
 
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return null;
         }
     }
 }
