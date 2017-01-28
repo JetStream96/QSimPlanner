@@ -56,7 +56,8 @@ namespace QSP.UI.UserControls.AircraftMenu
                 propertyGroupBox,
                 newBtn,
                 editBtn,
-                deleteBtn);
+                deleteBtn,
+                new [] {wtUnitLbl1, wtUnitLbl2, wtUnitLbl3, wtUnitLbl4, wtUnitLbl5});
         }
 
         private void Subsribe()

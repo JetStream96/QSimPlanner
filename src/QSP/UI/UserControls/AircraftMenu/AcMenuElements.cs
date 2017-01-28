@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace QSP.UI.UserControls.AircraftMenu
 {
@@ -23,6 +24,7 @@ namespace QSP.UI.UserControls.AircraftMenu
         public Button NewBtn { get; }
         public Button EditBtn { get; }
         public Button DeleteBtn { get; }
+        public IReadOnlyList<Label> WeightUnitLbls { get; }
 
         public AcMenuElements(
             Control ParentControl,
@@ -43,7 +45,8 @@ namespace QSP.UI.UserControls.AircraftMenu
             GroupBox PropertyBox,
             Button NewBtn,
             Button EditBtn,
-            Button DeleteBtn)
+            Button DeleteBtn,
+            IReadOnlyList<Label> WeightUnitLbls)
         {
             this.ParentControl = ParentControl;
             this.AcListView = AcListView;
@@ -64,6 +67,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             this.NewBtn = NewBtn;
             this.EditBtn = EditBtn;
             this.DeleteBtn = DeleteBtn;
+            this.WeightUnitLbls = WeightUnitLbls;
         }
     }
 }

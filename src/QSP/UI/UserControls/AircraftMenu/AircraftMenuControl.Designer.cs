@@ -72,7 +72,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.label12 = new System.Windows.Forms.Label();
+            this.wtUnitLbl5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.selectionGroupBox.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -295,7 +295,7 @@
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel1, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanel6.Location = new System.Drawing.Point(6, 28);
-            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 3;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -390,7 +390,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.label6, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.wtUnitComboBox, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label12, 2, 8);
+            this.tableLayoutPanel2.Controls.Add(this.wtUnitLbl5, 2, 8);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 75);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -720,17 +720,17 @@
             this.wtUnitComboBox.Size = new System.Drawing.Size(274, 31);
             this.wtUnitComboBox.TabIndex = 0;
             // 
-            // label12
+            // wtUnitLbl5
             // 
-            this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(483, 286);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(32, 23);
-            this.label12.TabIndex = 13;
-            this.label12.Text = "KG";
+            this.wtUnitLbl5.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.wtUnitLbl5.AutoSize = true;
+            this.wtUnitLbl5.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.wtUnitLbl5.Location = new System.Drawing.Point(483, 286);
+            this.wtUnitLbl5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.wtUnitLbl5.Name = "wtUnitLbl5";
+            this.wtUnitLbl5.Size = new System.Drawing.Size(32, 23);
+            this.wtUnitLbl5.TabIndex = 13;
+            this.wtUnitLbl5.Text = "KG";
             // 
             // tableLayoutPanel4
             // 
@@ -742,7 +742,7 @@
             this.tableLayoutPanel4.Controls.Add(this.selectionGroupBox, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.propertyGroupBox, 1, 0);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -822,7 +822,7 @@
         private System.Windows.Forms.Label wtUnitLbl4;
         private System.Windows.Forms.TextBox maxFuelTxtBox;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label wtUnitLbl5;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox biasPercentTxtBox;
         private System.Windows.Forms.Label label13;

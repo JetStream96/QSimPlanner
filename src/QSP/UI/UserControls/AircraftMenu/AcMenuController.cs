@@ -102,7 +102,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             var factor = elem.WeightUnitCBox.SelectedIndex == 0 ?
                 Constants.LbKgRatio :
                 Constants.KgLbRatio;
-
+            
             var textBoxes = new[] { elem.Oew,
                 elem.MaxToWt, elem.MaxLdgWt, elem.MaxZfw, elem.MaxFuel };
 
@@ -115,6 +115,14 @@ namespace QSP.UI.UserControls.AircraftMenu
                     j.Text = Numbers.RoundToInt(wt * factor).ToString();
                 }
             }
+
+            SetWtUnitLabelText();
+        }
+
+        private void SetWtUnitLabelText()
+        {
+            var unit = (WeightUnit) elem.WeightUnitCBox.SelectedIndex;
+            elem.WeightUnitLbls.ForEach(i => i.Text = Conversions.WeightUnitToString(unit));
         }
 
         private void FillAcTypes()
