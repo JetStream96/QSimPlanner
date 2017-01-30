@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace QSP.Common
 {
-    [Serializable()]
+    [Serializable]
     public class InvalidUserInputException : ApplicationException
     {
         public InvalidUserInputException() { }
@@ -16,7 +16,7 @@ namespace QSP.Common
         { }
     }
 
-    [Serializable()]
+    [Serializable]
     public class RunwayTooShortException : Exception
     {
         public RunwayTooShortException() { }
@@ -29,7 +29,7 @@ namespace QSP.Common
         { }
     }
 
-    [Serializable()]
+    [Serializable]
     public class PoorClimbPerformanceException : Exception
     {
 

@@ -103,7 +103,7 @@
     <Compile Include="AircraftProfiles\Configs\AircraftConfigItem.cs" />
     <Compile Include="AircraftProfiles\Configs\ConfigComparers.cs" />
     <Compile Include="AircraftProfiles\Configs\ConfigLoader.cs" />
-    <Compile Include="AircraftProfiles\Configs\Exceptions.cs" />
+    <Compile Include="AircraftProfiles\Configs\DeletedDefaultAc.cs" />
     <Compile Include="AircraftProfiles\ProfileCollection.cs" />
     <Compile Include="AviationTools\Constants.cs" />
     <Compile Include="AviationTools\Coordinates\FormatDegreeMinuteSecond.cs" />

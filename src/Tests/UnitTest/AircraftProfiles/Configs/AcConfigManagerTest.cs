@@ -116,23 +116,22 @@ namespace UnitTest.AircraftProfiles.Configs
             var ldgFile = new QSP.LandingPerfCalculation.Entry("Boeing 777-300ER", "");
             var ldgTable = new QSP.LandingPerfCalculation.PerfTable(null, ldgFile);
 
-            manager.Validate(
+            Assert.IsNull(manager.Validate(
                 new[] { fuelTable },
                 new[] { toTable },
-                new[] { ldgTable });
+                new[] { ldgTable }));
         }
 
         [Test]
-        public void ValidateFileDoesNotExistShouldThrow()
+        public void ValidateFileDoesNotExistShouldReturnError()
         {
             var manager = new AcConfigManager();
             manager.Add(config1);
 
-            Assert.Throws<PerfFileNotFoundException>(() =>
-            manager.Validate(
+            Assert.IsNotNull(manager.Validate(
                 new FuelData[0],
-                new List<QSP.TOPerfCalculation.PerfTable>(),
-                new List<QSP.LandingPerfCalculation.PerfTable>()));
+                new QSP.TOPerfCalculation.PerfTable[0],
+                new QSP.LandingPerfCalculation.PerfTable[0]));
         }
     }
 }

@@ -15,19 +15,54 @@ namespace QSP.AircraftProfiles.Configs
         /// If two files have the same registration, the rules are:
         /// (1) The file in custom folder shadows file in default folder.
         /// (2) Only one of them is loaded.
+        /// (3) If a file is in default folder and the registration is in DeletedDefaultAc file,
+        ///     the file is not loaded.
         /// </summary>
-        public static IEnumerable<AircraftConfig> LoadAll()
+        public static LoadResult LoadAll()
+        {
+            var deleted = DeletedDefaultAc.DeletedRegistration();
+            if (deleted == null)
+            {
+                return new LoadResult()
+                {
+                    Result = LoadAll(new string[0]),
+                    ErrorMessage = DeletedDefaultAc.ErrorMessage
+                };
+            }
+
+            return new LoadResult() { Result = LoadAll(deleted), ErrorMessage = null };
+        }
+
+        public struct LoadResult
+        {
+            public IEnumerable<AircraftConfig> Result;
+            public string ErrorMessage;
+        }
+
+        private static IEnumerable<AircraftConfig> LoadAll(IEnumerable<string> deletedRegistration)
         {
             var configs = new Dictionary<string, AircraftConfig>();
 
-            foreach (var i in AllFiles)
+            foreach (var i in Directory.GetFiles(DefaultFolderPath))
             {
-                try
+                var loaded = Load(i);
+                if (loaded == null) continue;
+                var reg = loaded.Registration;
+                if (!configs.ContainsKey(reg) && !deletedRegistration.Contains(reg))
                 {
-                    var config = new AircraftConfig(Load(i), i);
-                    configs.Add(config.Config.Registration, config);
+                    configs.Add(reg, new AircraftConfig(loaded, i));
                 }
-                catch { }
+            }
+
+            foreach (var i in Directory.GetFiles(CustomFolderPath))
+            {
+                var loaded = Load(i);
+                if (loaded == null) continue;
+                var reg = loaded.Registration;
+                if (!configs.ContainsKey(reg))
+                {
+                    configs.Add(reg, new AircraftConfig(loaded, i));
+                }
             }
 
             return configs.Select(kv => kv.Value);
@@ -36,10 +71,18 @@ namespace QSP.AircraftProfiles.Configs
         private static IEnumerable<string> AllFiles =>
             Directory.GetFiles(CustomFolderPath).Concat(Directory.GetFiles(DefaultFolderPath));
 
+        // Returns null if failed.
         public static AircraftConfigItem Load(string filePath)
         {
-            var doc = XDocument.Load(filePath);
-            return new AircraftConfigItem.Serializer().Deserialize(doc.Root);
+            try
+            {
+                var doc = XDocument.Load(filePath);
+                return new AircraftConfigItem.Serializer().Deserialize(doc.Root);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>

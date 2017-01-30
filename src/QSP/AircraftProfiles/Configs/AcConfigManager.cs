@@ -69,10 +69,10 @@ namespace QSP.AircraftProfiles.Configs
         /// <summary>
         /// Check whether the takeoff and landing performance files exist
         /// for all aircraft configs. 
+        /// Returns error message or null.
         /// </summary>
-        /// <exception cref="PerfFileNotFoundException"></exception>
-        public void Validate(IEnumerable<FuelData> fuelTables, IEnumerable<TOTable> takeoffTables,
-            IEnumerable<LdgTable> ldgTables)
+        public string Validate(IEnumerable<FuelData> fuelTables, 
+            IEnumerable<TOTable> takeoffTables, IEnumerable<LdgTable> ldgTables)
         {
             var errors = new List<string>();
 
@@ -100,10 +100,7 @@ namespace QSP.AircraftProfiles.Configs
                 if (msg != null) errors.Add(msg);
             }
 
-            if (errors.Count > 0)
-            {
-                throw new PerfFileNotFoundException(string.Join("\n", errors));
-            }
+            return errors.Count > 0 ? string.Join("\n", errors) : null;
         }
 
         private static string GetError(AircraftConfigItem item,

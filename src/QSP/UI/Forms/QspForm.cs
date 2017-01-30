@@ -187,16 +187,12 @@ namespace QSP.UI.Forms
 
         private void InitData()
         {
-            try
+            // Aircraft data
+            profiles = new ProfileCollection();
+            var err = profiles.Initialize().ToList();
+            if (err.Count > 0)
             {
-                // Aircraft data
-                profiles = new ProfileCollection();
-                profiles.Initialize();
-            }
-            catch (PerfFileNotFoundException ex)
-            {
-                Log(ex);
-                this.ShowWarning(ex.Message, "Performance file loading warning");
+                this.ShowWarning(string.Join("\n", err), "Performance file loading warning");
             }
 
             try
@@ -355,7 +351,7 @@ namespace QSP.UI.Forms
             navBar.OptionLbl.Click += (s, e) => ShowOptionsForm();
             ScrollBarsUtil.OverrideScrollBar(panel1, this);
         }
-        
+
         private void SetCursorStatusLabel()
         {
             new[] { navDataStatusLabel, windDataStatusLabel, trackStatusLabel }.ForEach(i =>

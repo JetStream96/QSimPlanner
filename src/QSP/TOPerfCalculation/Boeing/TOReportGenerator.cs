@@ -56,6 +56,7 @@ namespace QSP.TOPerfCalculation.Boeing
             yield break;
         }
 
+        // TODO: Try to reduce code duplication.
         private TOReport.DataRow ValidateMainResult(double oat, double rwyRequired)
         {
             if (rwyRequired <= para.RwyLengthMeter)
