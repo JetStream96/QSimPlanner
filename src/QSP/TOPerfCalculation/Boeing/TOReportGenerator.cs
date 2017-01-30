@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using QSP.Common;
 using QSP.TOPerfCalculation.Boeing.PerfData;
-using QSP.MathTools;
+using QSP.Utilities;
 
 namespace QSP.TOPerfCalculation.Boeing
 {
@@ -31,7 +30,7 @@ namespace QSP.TOPerfCalculation.Boeing
         {
             double mainOat = para.OatCelsius;
             double rwyRequired = calc.TakeoffDistanceMeter(mainOat);
-            var mainResult = ValidateMainResult(mainOat, rwyRequired);
+            var mainResult = ValidateResult(mainOat, rwyRequired);
             var assumedTemp = AssumedTempResults(tempIncrement);
 
             return new TOReport(mainResult, assumedTemp.ToList());
@@ -48,7 +47,7 @@ namespace QSP.TOPerfCalculation.Boeing
             for (double oat = para.OatCelsius + tempIncrement; oat <= maxOat; oat += tempIncrement)
             {
                 var rwyRequired = calc.TakeoffDistanceMeter(oat);
-                var row = ValidateResult(oat, rwyRequired);
+                var row = TryValidateResult(oat, rwyRequired);
                 if (row == null) break;
                 yield return row;
             }
@@ -56,42 +55,18 @@ namespace QSP.TOPerfCalculation.Boeing
             yield break;
         }
 
-        // TODO: Try to reduce code duplication.
-        private TOReport.DataRow ValidateMainResult(double oat, double rwyRequired)
+        private TOReport.DataRow ValidateResult(double oat, double rwyRequired)
         {
-            if (rwyRequired <= para.RwyLengthMeter)
-            {
-                if (calc.ClimbLimitWeightTon(oat) * 1000.0 >= para.WeightKg)
-                {
-                    return new TOReport.DataRow(
-                        Numbers.RoundToInt(para.OatCelsius),
-                        Numbers.RoundToInt(rwyRequired),
-                        Numbers.RoundToInt(para.RwyLengthMeter - rwyRequired));
-                }
-                else
-                {
-                    throw new PoorClimbPerformanceException();
-                }
-            }
-            else
-            {
-                throw new RunwayTooShortException();
-            }
+            if (rwyRequired > para.RwyLengthMeter) throw new RunwayTooShortException();
+            var climbLim = calc.ClimbLimitWeightTon(oat) * 1000.0;
+            if (climbLim < para.WeightKg) throw new PoorClimbPerformanceException();
+            return new TOReport.DataRow(oat, rwyRequired, para.RwyLengthMeter - rwyRequired);
         }
 
         // Returns null if not valid.
-        private TOReport.DataRow ValidateResult(double oat, double rwyRequired)
+        private TOReport.DataRow TryValidateResult(double oat, double rwyRequired)
         {
-            if (rwyRequired <= para.RwyLengthMeter &&
-                calc.ClimbLimitWeightTon(oat) * 1000.0 >= para.WeightKg)
-            {
-                return new TOReport.DataRow(
-                    oat,
-                    Numbers.RoundToInt(rwyRequired),
-                    Numbers.RoundToInt(para.RwyLengthMeter - rwyRequired));
-            }
-
-            return null;
+            return ExceptionHelpers.DefaultIfThrows(() => ValidateResult(oat, rwyRequired));
         }
     }
 }

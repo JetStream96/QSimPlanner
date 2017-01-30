@@ -10,7 +10,6 @@ using QSP.UI.MsgBox;
 using QSP.Utilities.Units;
 using QSP.TOPerfCalculation.Boeing;
 using QSP.AircraftProfiles.Configs;
-using static QSP.AviationTools.ConversionTools;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 {

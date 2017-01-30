@@ -1,5 +1,4 @@
 ﻿using QSP.AircraftProfiles;
-using QSP.AircraftProfiles.Configs;
 using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.NavData.AAX;

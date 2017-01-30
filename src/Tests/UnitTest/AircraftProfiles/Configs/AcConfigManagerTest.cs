@@ -2,7 +2,6 @@
 using QSP.AircraftProfiles.Configs;
 using QSP.FuelCalculation.FuelData;
 using QSP.Utilities.Units;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace UnitTest.AircraftProfiles.Configs

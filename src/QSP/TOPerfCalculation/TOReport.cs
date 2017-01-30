@@ -1,8 +1,8 @@
 ﻿using QSP.AviationTools;
 using QSP.Utilities.Units;
-using System;
 using System.Collections.Generic;
 using System.Text;
+using QSP.MathTools;
 using static QSP.AviationTools.Constants;
 
 namespace QSP.TOPerfCalculation
@@ -70,13 +70,13 @@ namespace QSP.TOPerfCalculation
 
         private int TempConvertUnit(double tempCelsuis, TemperatureUnit tempUnit)
         {
-            return Convert.ToInt32(tempUnit == TemperatureUnit.Fahrenheit ?
+            return Numbers.RoundToInt(tempUnit == TemperatureUnit.Fahrenheit ?
                 ConversionTools.ToFahrenheit(tempCelsuis) : tempCelsuis);
         }
 
         private int LengthConvertUnit(double lengthMeter, LengthUnit unit)
         {
-            return Convert.ToInt32(unit == LengthUnit.Feet ?
+            return Numbers.RoundToInt(unit == LengthUnit.Feet ?
                 lengthMeter * MeterFtRatio : lengthMeter);
         }
 
