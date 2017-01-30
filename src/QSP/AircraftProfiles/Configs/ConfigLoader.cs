@@ -43,23 +43,23 @@ namespace QSP.AircraftProfiles.Configs
         {
             var configs = new Dictionary<string, AircraftConfig>();
 
-            foreach (var i in Directory.GetFiles(DefaultFolderPath))
-            {
-                var loaded = Load(i);
-                if (loaded == null) continue;
-                var reg = loaded.Registration;
-                if (!configs.ContainsKey(reg) && !deletedRegistration.Contains(reg))
-                {
-                    configs.Add(reg, new AircraftConfig(loaded, i));
-                }
-            }
-
             foreach (var i in Directory.GetFiles(CustomFolderPath))
             {
                 var loaded = Load(i);
                 if (loaded == null) continue;
                 var reg = loaded.Registration;
                 if (!configs.ContainsKey(reg))
+                {
+                    configs.Add(reg, new AircraftConfig(loaded, i));
+                }
+            }
+
+            foreach (var i in Directory.GetFiles(DefaultFolderPath))
+            {
+                var loaded = Load(i);
+                if (loaded == null) continue;
+                var reg = loaded.Registration;
+                if (!configs.ContainsKey(reg) && !deletedRegistration.Contains(reg))
                 {
                     configs.Add(reg, new AircraftConfig(loaded, i));
                 }

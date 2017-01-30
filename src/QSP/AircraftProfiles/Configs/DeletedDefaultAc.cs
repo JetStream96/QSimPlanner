@@ -8,6 +8,7 @@ using QSP.Utilities;
 
 namespace QSP.AircraftProfiles.Configs
 {
+    // TODO: Unit test.
     public static class DeletedDefaultAc
     {
         public static string DeletedAcFileName =

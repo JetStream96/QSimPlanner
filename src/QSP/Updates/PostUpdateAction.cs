@@ -50,11 +50,11 @@ namespace QSP.Updates
             CopyCustomConfigs(FuelDataLoader.CustomFolderPath);
             CopyCustomConfigs(TOTableLoader.CustomFolderPath);
             CopyCustomConfigs(LdgTableLoader.CustomFolderPath);
+            CopyFile(DeletedDefaultAc.DeletedAcFileName);
         }
 
         private void CopyCustomConfigs(string dir)
         {
-            
             IOMethods.CopyFilesInDirectory(
                 Path.Combine("..", backupVersion.ToString(), dir),
                 dir, 

@@ -24,11 +24,14 @@ namespace QSP.UI.UserControls.AircraftMenu
     //
     // User actions:
     // (1) When user creates a config, it's saved in 'Custom' folder.
-    // (2) When user deletes a config, the file is deleted. In addition, if it's in 'Custom' 
-    //     folder, we check the 'Default' folder for any file with the same registration, and load 
-    //     it if exists.
+    // (2) When user deletes a config, the file is deleted. In addition, we check the 'Default' 
+    //     and 'Custom' folders for any file with the same registration, and load 
+    //     it if exists. (This is because other files could have be shadowed by the deleted one.)
+    //     If the config is in 'Default' folder, the deleted registration is added to
+    //     DeltedDefaultAc list.
     // (3) When user edits a config, the file is saved in 'Custom' folder and the original one
-    //     is deleted.
+    //     is deleted. If the config is in 'Default' folder, the deleted registration is added to
+    //     DeltedDefaultAc list.
 
     public class AcMenuController
     {
@@ -102,7 +105,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             var factor = elem.WeightUnitCBox.SelectedIndex == 0 ?
                 Constants.LbKgRatio :
                 Constants.KgLbRatio;
-            
+
             var textBoxes = new[] { elem.Oew,
                 elem.MaxToWt, elem.MaxLdgWt, elem.MaxZfw, elem.MaxFuel };
 
@@ -121,7 +124,7 @@ namespace QSP.UI.UserControls.AircraftMenu
 
         private void SetWtUnitLabelText()
         {
-            var unit = (WeightUnit) elem.WeightUnitCBox.SelectedIndex;
+            var unit = (WeightUnit)elem.WeightUnitCBox.SelectedIndex;
             elem.WeightUnitLbls.ForEach(i => i.Text = Conversions.WeightUnitToString(unit));
         }
 
@@ -358,6 +361,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             if (TrySaveConfig(config, fn))
             {
                 if (InEditMode && fn != currentConfig.FilePath) DeleteCurrentConfigFile();
+                AddToDeletedDefaultAc(currentConfig.FilePath, currentConfig.Config.Registration);
                 RemoveOldConfig();
                 profiles.AcConfigs.Add(new AircraftConfig(config, fn));
                 ShowSelectionGroupBox();
@@ -389,9 +393,19 @@ namespace QSP.UI.UserControls.AircraftMenu
             if (result == MsgBoxResult.Button1 && TryDeleteConfig(path))
             {
                 configs.Remove(reg);
+                AddToDeletedDefaultAc(path, reg);
                 ReadShadowedProfile(reg);
                 RefreshListView();
                 AircraftsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        private void AddToDeletedDefaultAc(string path, string reg)
+        {
+            if (Paths.PathsAreSame(Path.GetDirectoryName(path), ConfigLoader.DefaultFolderPath))
+            {
+                var succeed = DeletedDefaultAc.Add(reg);
+                if (!succeed) ParentControl.ShowError(DeletedDefaultAc.ErrorMessage);
             }
         }
 
