@@ -562,7 +562,8 @@ namespace QSP.UI.UserControls
             if (windTableLocator.Instance is DefaultWindTableCollection)
             {
                 throw new InvalidUserInputException(
-                    "Wind data has not been downloaded or loaded from file.");
+                    "Wind data has not been downloaded or loaded from file.\n" +
+                    "You can disable wind-optimized route from Options > Route.");
             }
 
             var fuelData = GetFuelData();
