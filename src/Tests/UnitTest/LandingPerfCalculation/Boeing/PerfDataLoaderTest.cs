@@ -3,6 +3,8 @@ using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
 using System.Linq;
 using System.Xml.Linq;
+using static QSP.LibraryExtension.Arrays;
+using static QSP.LibraryExtension.IEnumerables;
 
 namespace UnitTest.LandingPerfCalculation.Boeing
 {
@@ -22,15 +24,13 @@ namespace UnitTest.LandingPerfCalculation.Boeing
             Assert.AreEqual(table.WeightStep, 5000.0, delta);
 
             Assert.IsTrue(table.BrakesAvailable(SurfaceCondition.Dry).SequenceEqual(
-                new[] { "MAX MANUAL", "MAX AUTO" }));
+                "MAX MANUAL", "MAX AUTO"));
 
             Assert.IsTrue(table.BrakesAvailable(SurfaceCondition.Good).SequenceEqual(
-               new[] { "MAX MANUAL" }));
+                "MAX MANUAL"));
 
-            Assert.IsTrue(table.Flaps.SequenceEqual(new[] { "30", "40" }));
-
-            Assert.IsTrue(table.Reversers.SequenceEqual(
-                new[] { "Both", "One Rev", "No Rev" }));
+            Assert.IsTrue(table.Flaps.SequenceEqual("30", "40"));
+            Assert.IsTrue(table.Reversers.SequenceEqual("Both", "One Rev", "No Rev"));
 
             Assert.IsTrue(table.DataDry.Equals(new TableDry(
                 new[]

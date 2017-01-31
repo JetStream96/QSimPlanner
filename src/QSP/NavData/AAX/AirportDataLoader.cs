@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+// TODO: Add unit test for this namespace.
 namespace QSP.NavData.AAX
 {
     /// <summary>
@@ -32,8 +33,7 @@ namespace QSP.NavData.AAX
             }
             catch (Exception ex)
             {
-                throw new ReadAirportFileException(
-                    $"Unable to read from {filepath}.", ex);
+                throw new ReadAirportFileException($"Unable to read from {filepath}.", ex);
             }
 
             Airport airport = null;

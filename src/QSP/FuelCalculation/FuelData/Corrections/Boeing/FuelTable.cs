@@ -8,7 +8,7 @@ namespace QSP.FuelCalculation.FuelData.Corrections.Boeing
 
     public class FuelTable
     {
-        private Table2D table;
+        private readonly Table2D table;
 
         public FuelTable(string text)
         {

@@ -55,16 +55,10 @@ namespace QSP.NavData.AAX
                         double dis = double.Parse(words[9]);
 
                         // Add second waypoint as required
-                        if (index2 <= 0)
-                        {
-                            index2 = wptList.AddWaypoint(secondWpt);
-                        }
-
+                        if (index2 <= 0) index2 = wptList.AddWaypoint(secondWpt);
+                        
                         // Add first waypoint as required
-                        if (index1 < 0)
-                        {
-                            index1 = wptList.AddWaypoint(firstWpt);
-                        }
+                        if (index1 < 0) index1 = wptList.AddWaypoint(firstWpt);
 
                         // Add the connection.
                         var neighbor = new Neighbor(currentAirway, dis);
@@ -76,9 +70,7 @@ namespace QSP.NavData.AAX
             catch (Exception ex)
             {
                 Log(ex);
-
-                throw new WaypointFileReadException(
-                    "Failed to load ats.txt.", ex);
+                throw new WaypointFileReadException("Failed to load ats.txt.", ex);
             }
         }
     }

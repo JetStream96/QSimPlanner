@@ -3,6 +3,7 @@ using QSP.RouteFinding.Airports;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -104,18 +105,17 @@ namespace QSP.UI.UserControls
         private string GenDesForcastString(string icao)
         {
             var airport = AirportList[icao];
-            int[] FLs = { 60, 90, 120, 180, 240, 300, 340, 390, 440, 490 };
-            var forcastGen = new DescendForcastGenerator(
-                windTableLocator.Instance, airport.Lat, airport.Lon, FLs);
-
-            Wind[] w = forcastGen.Generate();
+            double[] flightLevels = { 60, 90, 120, 180, 240, 300, 340, 390, 440, 490 };
+            var winds = DescendForcast.Generate(
+                windTableLocator.Instance, airport.Lat, airport.Lon, flightLevels).ToList();
+            
             var result = new StringBuilder("\n");
 
-            for (int i = 0; i < FLs.Length; i++)
+            for (int i = 0; i < flightLevels.Length; i++)
             {
-                var flightLevel = FLs[i].ToString().PadLeft(3, '0');
-                var direction = w[i].DirectionString();
-                int speed = RoundToInt(w[i].Speed);
+                var flightLevel = flightLevels[i].ToString().PadLeft(3, '0');
+                var direction = winds[i].DirectionString();
+                int speed = RoundToInt(winds[i].Speed);
 
                 result.AppendLine($"        FL{flightLevel}   {direction}/{speed}");
             }

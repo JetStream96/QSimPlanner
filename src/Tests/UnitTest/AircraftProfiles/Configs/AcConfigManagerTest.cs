@@ -3,43 +3,44 @@ using QSP.AircraftProfiles.Configs;
 using QSP.FuelCalculation.FuelData;
 using QSP.Utilities.Units;
 using System.Linq;
+using static QSP.LibraryExtension.Arrays;
+using TOTable = QSP.TOPerfCalculation.PerfTable;
+using LdgTable = QSP.LandingPerfCalculation.PerfTable;
 
 namespace UnitTest.AircraftProfiles.Configs
 {
     [TestFixture]
     public class AcConfigManagerTest
     {
-        private static AircraftConfig config1 =
-            new AircraftConfig(
-                new AircraftConfigItem("B777-300ER",
-                    "B-12345",
-                    "Boeing 777-300ER",
-                    "Boeing 777-300ER",
-                    "Boeing 777-300ER",
-                    123456.0,
-                    234567.0,
-                    345678.0,
-                    456789.0,
-                    567890.0,
-                    1.0,
-                    WeightUnit.KG),
-                "path");
+        private static AircraftConfig config1 = new AircraftConfig(
+            new AircraftConfigItem("B777-300ER",
+                "B-12345",
+                "Boeing 777-300ER",
+                "Boeing 777-300ER",
+                "Boeing 777-300ER",
+                123456.0,
+                234567.0,
+                345678.0,
+                456789.0,
+                567890.0,
+                1.0,
+                WeightUnit.KG),
+            "path");
 
-        private static AircraftConfig config2 =
-            new AircraftConfig(
-                new AircraftConfigItem("B777-300ER",
-                    "B-9876",
-                    "Boeing 777-300ER custom",
-                    "Boeing 777-300ER custom",
-                    "Boeing 777-300ER custom",
-                    23456.0,
-                    34567.0,
-                    45678.0,
-                    56789.0,
-                    567890.0,
-                    1.0,
-                    WeightUnit.KG),
-                "path");
+        private static AircraftConfig config2 = new AircraftConfig(
+            new AircraftConfigItem("B777-300ER",
+                "B-9876",
+                "Boeing 777-300ER custom",
+                "Boeing 777-300ER custom",
+                "Boeing 777-300ER custom",
+                23456.0,
+                34567.0,
+                45678.0,
+                56789.0,
+                567890.0,
+                1.0,
+                WeightUnit.KG),
+            "path");
 
         [Test]
         public void AddTest()
@@ -110,15 +111,13 @@ namespace UnitTest.AircraftProfiles.Configs
             var fuelTable = new FuelData(null, "Boeing 777-300ER", "");
 
             var toFile = new QSP.TOPerfCalculation.Entry("Boeing 777-300ER", "");
-            var toTable = new QSP.TOPerfCalculation.PerfTable(null, toFile);
+            var toTable = new TOTable(null, toFile);
 
             var ldgFile = new QSP.LandingPerfCalculation.Entry("Boeing 777-300ER", "");
-            var ldgTable = new QSP.LandingPerfCalculation.PerfTable(null, ldgFile);
+            var ldgTable = new LdgTable(null, ldgFile);
 
             Assert.IsNull(manager.Validate(
-                new[] { fuelTable },
-                new[] { toTable },
-                new[] { ldgTable }));
+                new[] { fuelTable }, new[] { toTable }, new[] { ldgTable }));
         }
 
         [Test]
@@ -128,9 +127,7 @@ namespace UnitTest.AircraftProfiles.Configs
             manager.Add(config1);
 
             Assert.IsNotNull(manager.Validate(
-                new FuelData[0],
-                new QSP.TOPerfCalculation.PerfTable[0],
-                new QSP.LandingPerfCalculation.PerfTable[0]));
+                new FuelData[0], new TOTable[0], new LdgTable[0]));
         }
     }
 }

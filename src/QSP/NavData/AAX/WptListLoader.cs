@@ -6,33 +6,28 @@ namespace QSP.NavData.AAX
 {
     public class WptListLoader
     {
-        private string navDataLocation;
+        private readonly string navDataLocation;
 
         public WptListLoader(string navDataLocation)
         {
             this.navDataLocation = navDataLocation;
         }
 
-        private string waypointsFilePath =>
-            Path.Combine(navDataLocation, "waypoints.txt"); 
+        private string waypointsFilePath => Path.Combine(navDataLocation, "waypoints.txt"); 
 
-        private string atsFilePath =>
-             Path.Combine(navDataLocation, "ats.txt"); 
+        private string atsFilePath => Path.Combine(navDataLocation, "ats.txt"); 
 
         /// <exception cref="WaypointFileReadException"></exception>
         /// <exception cref="LoadCountryNamesException"></exception>
         public LoadResult LoadFromFile()
         {
             var wptList = new WaypointList();
-
-            var countryCodes =
-                new FixesLoader(wptList).ReadFromFile(waypointsFilePath);
+            var countryCodes = new FixesLoader(wptList).ReadFromFile(waypointsFilePath);
 
             AtsFileLoader.ReadFromFile(wptList, atsFilePath);
 
             var countryFullNames = FullNamesLoader.Load();
-            var countryManager = new CountryCodeManager(
-                countryCodes, countryFullNames);
+            var countryManager = new CountryCodeManager(countryCodes, countryFullNames);
 
             return new LoadResult()
             {

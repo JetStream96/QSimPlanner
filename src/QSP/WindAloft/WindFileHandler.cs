@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using QSP.Utilities;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Numbers;
 
@@ -40,12 +41,7 @@ namespace QSP.WindAloft
 
         private static void TryDelete(string path)
         {
-            try
-            {
-                File.Delete(path);
-            }
-            catch
-            { }
+            ExceptionHelpers.IgnoreException(() => File.Delete(path));
         }
 
         private FilePaths[] GetPaths()
@@ -54,12 +50,11 @@ namespace QSP.WindAloft
             // For 200mb, u_table = wx3.csv, v_table = wx4.csv
             // ...
 
+            var dir = Constants.WxFileDownloadDirectory;
             var paths = new FilePaths[windTables.Length];
 
             for (int i = 0; i < windTables.Length; i++)
             {
-                var dir = Constants.WxFileDownloadDirectory;
-
                 var pathU = Path.Combine(dir, $"wx{i * 2 + 1}.csv");
                 var pathV = Path.Combine(dir, $"wx{i * 2 + 2}.csv");
 

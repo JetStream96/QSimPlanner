@@ -615,7 +615,7 @@
     <Compile Include="WindAloft\AvgWindCalculator.cs" />
     <Compile Include="WindAloft\AvgWindCalculatorExtension.cs" />
     <Compile Include="WindAloft\DefaultWindTableCollection.cs" />
-    <Compile Include="WindAloft\DescendForcastGenerator.cs" />
+    <Compile Include="WindAloft\DescendForcast.cs" />
     <Compile Include="WindAloft\Exceptions.cs" />
     <Compile Include="WindAloft\GribConverter.cs" />
     <Compile Include="WindAloft\GribDownloader.cs" />

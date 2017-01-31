@@ -18,14 +18,14 @@ namespace QSP.LibraryExtension
 
         public static List<T> CreateList<T>(params T[] items)
         {
-            return new List<T>(items);            
+            return new List<T>(items);
         }
 
         public static T Last<T>(this List<T> item)
         {
             return item[item.Count - 1];
         }
-        
+
         /// <summary>
         /// Returns a new list which contains all but the first and last 
         /// elements. The order of original elements is preserved.
