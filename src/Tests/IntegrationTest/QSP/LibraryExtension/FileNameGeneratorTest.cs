@@ -3,6 +3,7 @@ using QSP.Common;
 using System;
 using System.IO;
 using System.Reflection;
+using IntegrationTest.Util;
 using static QSP.LibraryExtension.FileNameGenerator;
 using static QSP.LibraryExtension.Paths;
 
@@ -13,7 +14,7 @@ namespace IntegrationTest.QSP.LibraryExtension
     {
         public static string FolderPath()
         {
-            var baseDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var baseDir = CommonUtil.AssemblyDirectory();
             return Path.Combine(baseDir, "QSP/LibraryExtension/FileNameGeneratorTesting");
         }
 

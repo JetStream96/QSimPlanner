@@ -20,17 +20,18 @@ namespace QSP.AircraftProfiles.Configs
         /// </summary>
         public static LoadResult LoadAll()
         {
-            var deleted = DeletedDefaultAc.DeletedRegistration();
-            if (deleted == null)
+            var deleted = new DeletedDefaultAc();
+            var reg = deleted.DeletedRegistration();
+            if (reg == null)
             {
                 return new LoadResult()
                 {
                     Result = LoadAll(new string[0]),
-                    ErrorMessage = DeletedDefaultAc.ErrorMessage
+                    ErrorMessage = deleted.ErrorMessage
                 };
             }
 
-            return new LoadResult() { Result = LoadAll(deleted), ErrorMessage = null };
+            return new LoadResult() { Result = LoadAll(reg), ErrorMessage = null };
         }
 
         public struct LoadResult

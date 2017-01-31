@@ -9,13 +9,22 @@ using QSP.Utilities;
 namespace QSP.AircraftProfiles.Configs
 {
     // TODO: Unit test.
-    public static class DeletedDefaultAc
+    public class DeletedDefaultAc
     {
         public static string DeletedAcFileName =
             Path.Combine(ConfigLoader.DefaultFolderPath, "DeletedDefaultAc.xml");
 
+        private readonly string filePath;
+
+        public DeletedDefaultAc() : this(DeletedAcFileName) { }
+
+        public DeletedDefaultAc(string filePath)
+        {
+            this.filePath = filePath;
+        }
+        
         // Returns null if failed to load or create file.
-        public static IEnumerable<string> DeletedRegistration()
+        public IEnumerable<string> DeletedRegistration()
         {
             var doc = LoadOrCreateFile();
             if (doc == null) return null;
@@ -23,7 +32,7 @@ namespace QSP.AircraftProfiles.Configs
         }
 
         // Returns whether the addition succeeds.
-        public static bool Add(string registration)
+        public bool Add(string registration)
         {
             var old = DeletedRegistration();
             if (old == null) return false;
@@ -32,7 +41,7 @@ namespace QSP.AircraftProfiles.Configs
 
             try
             {
-                File.WriteAllText(DeletedAcFileName, new XDocument(root).ToString());
+                File.WriteAllText(filePath, new XDocument(root).ToString());
                 return true;
             }
             catch (Exception e)
@@ -43,14 +52,14 @@ namespace QSP.AircraftProfiles.Configs
         }
 
         // Returns null if failed to load or create file.
-        private static XDocument LoadOrCreateFile()
+        private XDocument LoadOrCreateFile()
         {
-            if (File.Exists(DeletedAcFileName)) return XDocument.Load(DeletedAcFileName);
+            if (File.Exists(filePath)) return XDocument.Load(filePath);
 
             try
             {
                 var doc = CreateDoc();
-                File.WriteAllText(DeletedAcFileName, doc.ToString());
+                File.WriteAllText(filePath, doc.ToString());
                 return doc;
             }
             catch (Exception e)
@@ -62,7 +71,6 @@ namespace QSP.AircraftProfiles.Configs
 
         private static XDocument CreateDoc() => new XDocument(new XElement("Root"));
 
-        public static string ErrorMessage =>
-            $"Unable to access file {Path.GetFullPath(DeletedAcFileName)}";
+        public string ErrorMessage => $"Unable to access file {Path.GetFullPath(filePath)}";
     }
 }

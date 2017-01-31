@@ -404,8 +404,9 @@ namespace QSP.UI.UserControls.AircraftMenu
         {
             if (Paths.PathsAreSame(Path.GetDirectoryName(path), ConfigLoader.DefaultFolderPath))
             {
-                var succeed = DeletedDefaultAc.Add(reg);
-                if (!succeed) ParentControl.ShowError(DeletedDefaultAc.ErrorMessage);
+                var deleted = new DeletedDefaultAc();
+                var succeed = deleted.Add(reg);
+                if (!succeed) ParentControl.ShowError(deleted.ErrorMessage);
             }
         }
 
