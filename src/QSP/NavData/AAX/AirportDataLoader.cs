@@ -7,34 +7,33 @@ using System.Linq;
 // TODO: Add unit test for this namespace.
 namespace QSP.NavData.AAX
 {
-    /// <summary>
-    /// Read from file and reads the airport.txt into 
-    /// an instance of AirportDatabase.
-    /// </summary>
-    public class AirportDataLoader
+    public static class AirportDataLoader
     {
-        private string filepath;
-
-        public AirportDataLoader(string filepath)
-        {
-            this.filepath = filepath;
-        }
-
+        /// <summary>
+        /// Read from  airport.txt file and return an AirportDatabase.
+        /// </summary>
         /// <exception cref="RwyDataFormatException"></exception>
         /// <exception cref="ReadAirportFileException"></exception>
-        public AirportManager LoadFromFile()
+        public static AirportManager LoadFromFile(string filePath)
         {
-            var airportList = new AirportManager();
             IEnumerable<string> allLines = null;
 
             try
             {
-                allLines = File.ReadLines(filepath);
+                allLines = File.ReadLines(filePath);
             }
             catch (Exception ex)
             {
-                throw new ReadAirportFileException($"Unable to read from {filepath}.", ex);
+                throw new ReadAirportFileException($"Unable to read from {filePath}.", ex);
             }
+
+            return Load(allLines);
+        }
+
+        /// <exception cref="RwyDataFormatException"></exception>
+        public static AirportManager Load(IEnumerable<string> allLines)
+        {
+            var airportList = new AirportManager();
 
             Airport airport = null;
             List<RwyData> rwys = null;
@@ -44,7 +43,6 @@ namespace QSP.NavData.AAX
                 try
                 {
                     var words = i.Split(',').Select(s => s.Trim()).ToList();
-
                     if (words.Count == 0) continue;
 
                     if (words[0] == "A")
@@ -96,7 +94,7 @@ namespace QSP.NavData.AAX
             return airportList;
         }
 
-        private static string[] surfTypes = new string[]
+        private static IReadOnlyList<string> surfTypes = new[]
         {
             "Concrete",
             "Asphalt or Bitumen",

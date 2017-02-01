@@ -2,10 +2,10 @@
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
+using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using System;
 using System.Linq;
-using QSP.RouteFinding.Data.Interfaces;
 
 namespace UnitTest.RouteFinding
 {
@@ -35,7 +35,7 @@ namespace UnitTest.RouteFinding
                 var wpt = (Waypoint)para[i - 2];
 
                 if (dis < 0.0)
-                {                    
+                {
                     var prev = nodes.First.Value.Waypoint;
                     dis = prev.Distance(wpt);
                 }
@@ -51,26 +51,24 @@ namespace UnitTest.RouteFinding
         {
             return new AirportManager(items);
         }
-        
+
         public static Airport GetAirport(string icao, params RwyData[] rwys)
         {
-            return new Airport(
-            icao, "", 0.0, 0.0, 0, true, 0, 0, 0, rwys.ToList());
+            return new Airport(icao, "", 0.0, 0.0, 0, true, 0, 0, 0, rwys.ToList());
         }
 
         public static RwyData GetRwyData(string ident, double lat, double lon)
         {
-            return new RwyData(
-            ident, "", 0, 0, true, true, "", "", lat, lon, 0, 0.0, 0, "", 0);
+            return new RwyData(ident, "", 0, 0, true, true, "", "", lat, lon, 0, 0.0, 0, "", 0);
         }
 
-        public static void AddNeighbor(this WaypointList wptList, int index1, 
+        public static void AddNeighbor(this WaypointList wptList, int index1,
             string airway, int index2)
         {
             wptList.AddNeighbor(index1, index2,
                new Neighbor(airway, wptList.Distance(index1, index2)));
         }
-        
+
         public static WaypointList GetWptList(params Waypoint[] waypoints)
         {
             var wptList = new WaypointList();

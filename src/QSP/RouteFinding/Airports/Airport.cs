@@ -1,6 +1,7 @@
 using QSP.RouteFinding.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.Airports
 {
@@ -15,7 +16,7 @@ namespace QSP.RouteFinding.Airports
         public int TransAlt { get; private set; }
         public int TransLvl { get; private set; }
         public int LongestRwyLength { get; private set; }
-        public IReadOnlyList<RwyData> Rwys;
+        public IReadOnlyList<RwyData> Rwys { get; private set; }
 
         public Airport(
             string Icao,
@@ -67,14 +68,28 @@ namespace QSP.RouteFinding.Airports
                 return x.Icao.CompareTo(y.Icao);
             }
         }
-        
+
         public bool Equals(Airport other)
         {
-            return other != null && Icao == other.Icao;
+            return other != null &&
+                Icao == other.Icao &&
+                Name == other.Name &&
+                Lat == other.Lat &&
+                Lon == other.Lon &&
+                Elevation == other.Elevation &&
+                TransAvail == other.TransAvail &&
+                TransAlt == other.TransAlt &&
+                TransLvl == other.TransLvl &&
+                LongestRwyLength == other.LongestRwyLength &&
+                Rwys.SetEquals(other.Rwys);
         }
 
         public override int GetHashCode()
         {
+            return new object[]{Icao,Name,Lat,Lon,Elevation,TransAvail,TransAlt,TransLvl,
+             LongestRwyLength,
+             //symmetric hash func?
+            IReadOnlyList< RwyData > Rwys}
             return Icao.GetHashCode();
         }
     }

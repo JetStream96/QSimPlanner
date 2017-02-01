@@ -1,8 +1,9 @@
+using System;
 using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.RouteFinding.Airports
 {
-    public class RwyData : ICoordinate
+    public class RwyData : ICoordinate, IEquatable<RwyData>
     {
         public string RwyIdent { get; private set; }
         public string Heading { get; private set; }
@@ -54,22 +55,26 @@ namespace QSP.RouteFinding.Airports
             this.RwyStatus = RwyStatus;
         }
 
-        public RwyData(RwyData item)
+        public bool Equals(RwyData other)
         {
-            RwyIdent = item.RwyIdent;
-            Heading = item.Heading;
-            LengthFt = item.LengthFt;
-            WidthFt = item.WidthFt;
-            IlsAvail = item.IlsAvail;
-            IlsFreq = item.IlsFreq;
-            IlsHeading = item.IlsHeading;
-            Lat = item.Lat;
-            Lon = item.Lon;
-            Elevation = item.Elevation;
-            GlideslopeAngle = item.GlideslopeAngle;
-            ThresholdOverflyHeight = item.ThresholdOverflyHeight;
-            SurfaceType = item.SurfaceType;
-            RwyStatus = item.RwyStatus;
+            return other != null &&
+                RwyIdent == other.RwyIdent &&
+                Heading == other.Heading &&
+                LengthFt == other.LengthFt &&
+                WidthFt == other.WidthFt &&
+                HasIlsInfo == other.HasIlsInfo &&
+                IlsAvail == other.IlsAvail &&
+                IlsFreq == other.IlsFreq &&
+                IlsHeading == other.IlsHeading &&
+                Lat == other.Lat &&
+                Lon == other.Lon &&
+                Elevation == other.Elevation &&
+                GlideslopeAngle == other.GlideslopeAngle &&
+                ThresholdOverflyHeight == other.ThresholdOverflyHeight &&
+                SurfaceType == other.SurfaceType &&
+                RwyStatus == other.RwyStatus;
         }
+
+        
     }
 }

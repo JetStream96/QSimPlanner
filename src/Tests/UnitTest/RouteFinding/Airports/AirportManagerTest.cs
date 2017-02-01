@@ -27,7 +27,7 @@ namespace UnitTest.RouteFinding.Airports
         }
 
         [Test]
-        public void RemoveTest()
+        public void FindTest()
         {
             var airport = TestAirport();
             var col = new AirportManager();
@@ -41,7 +41,7 @@ namespace UnitTest.RouteFinding.Airports
         public void FindRwysTest()
         {
             var col = TestCollection();
-            var rwys = col.RwyIdentList("ABCD").ToList();
+            var rwys = col.RwyIdents("ABCD").ToList();
 
             Assert.AreEqual(2, rwys.Count);
             Assert.IsTrue(rwys.Contains("01") && rwys.Contains("19"));
@@ -66,7 +66,7 @@ namespace UnitTest.RouteFinding.Airports
 
             Assert.IsNull(col["ABCD"]);
             Assert.IsNull(col.FindRwy("ABCD", "01"));
-            Assert.IsNull(col.RwyIdentList("ABCD"));
+            Assert.IsNull(col.RwyIdents("ABCD"));
         }
         
         private AirportManager TestCollection()

@@ -67,5 +67,15 @@ namespace QSP.LibraryExtension
         {
             return source.SequenceEqual((IEnumerable<T>)items);
         }
+
+        public static bool SetEquals<T>(this IEnumerable<T> source, params T[] items)
+        {
+            return source.ToHashSet().SetEquals(items);
+        }
+
+        public static bool SetEquals<T>(this IEnumerable<T> source, IEnumerable<T> items)
+        {
+            return source.ToHashSet().SetEquals(items);
+        }
     }
 }

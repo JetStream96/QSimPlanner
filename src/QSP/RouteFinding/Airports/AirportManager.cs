@@ -1,8 +1,7 @@
 ﻿using QSP.RouteFinding.Data;
 using System.Collections.Generic;
 using System.Linq;
-using static QSP.RouteFinding.Data.LatLonSearcher<
-    QSP.RouteFinding.Airports.Airport>;
+using static QSP.RouteFinding.Data.LatLonSearcher<QSP.RouteFinding.Airports.Airport>;
 
 namespace QSP.RouteFinding.Airports
 {
@@ -36,11 +35,7 @@ namespace QSP.RouteFinding.Airports
             get
             {
                 Airport airport;
-                if (airportData.TryGetValue(icao, out airport))
-                {
-                    return airport;
-                }
-
+                if (airportData.TryGetValue(icao, out airport)) return airport;
                 return null;
             }
         }
@@ -53,7 +48,7 @@ namespace QSP.RouteFinding.Airports
         /// <summary>
         /// Returns null if the icao is not found.
         /// </summary>
-        public IEnumerable<string> RwyIdentList(string icao)
+        public IEnumerable<string> RwyIdents(string icao)
         {
             return this[icao]?.Rwys.Select(r => r.RwyIdent);
         }
@@ -63,9 +58,7 @@ namespace QSP.RouteFinding.Airports
         /// </summary>
         public RwyData FindRwy(string icao, string rwy)
         {
-            return this[icao]?
-                .Rwys
-                .FirstOrDefault(r => r.RwyIdent == rwy);
+            return this[icao]?.Rwys.FirstOrDefault(r => r.RwyIdent == rwy);
         }
 
         public int Count => airportData.Count;
@@ -91,7 +84,7 @@ namespace QSP.RouteFinding.Airports
         }
     }
 
-    public class DefaultAirportManager : AirportManager
+    public sealed class DefaultAirportManager : AirportManager
     {
         public DefaultAirportManager() : base() { }
     }
