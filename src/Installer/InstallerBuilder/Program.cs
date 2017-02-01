@@ -5,7 +5,7 @@ namespace InstallerBuilder
     class Program
     {
         public static readonly string OutputFolder = "../../../Output";
-        
+
         static void Main(string[] args)
         {
             try
@@ -14,12 +14,19 @@ namespace InstallerBuilder
                 gen.Build();
                 InstallerCreator.WriteFile(gen.Version);
 
-                Console.WriteLine("Build completed.");
+                Console.WriteLine(@"
+
+
+************************
+
+    Build completed.
+
+************************");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-            }            
+            }
         }
     }
 }

@@ -1,0 +1,1 @@
+Double click Launcher.exe to start the application.

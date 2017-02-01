@@ -87,9 +87,7 @@ namespace InstallerBuilder
 
         private static void CompileLauncher()
         {
-            var projFile = Path.Combine(RepositoryRoot(),
-                "src/Launcher/Launcher.csproj");
-
+            var projFile = Path.Combine(RepositoryRoot(), "src/Launcher/Launcher.csproj");
             Compile(projFile, OutputFolder);
         }
 
