@@ -3,7 +3,6 @@ using QSP.AircraftProfiles.Configs;
 using QSP.FuelCalculation.FuelData;
 using QSP.Utilities.Units;
 using System.Linq;
-using static QSP.LibraryExtension.Arrays;
 using TOTable = QSP.TOPerfCalculation.PerfTable;
 using LdgTable = QSP.LandingPerfCalculation.PerfTable;
 

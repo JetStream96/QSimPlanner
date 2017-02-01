@@ -1,6 +1,5 @@
 using QSP.MathTools.Interpolation;
 using System;
-using static QSP.LibraryExtension.Arrays;
 
 namespace QSP.WindAloft
 {

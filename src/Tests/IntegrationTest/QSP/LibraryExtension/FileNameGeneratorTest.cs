@@ -2,7 +2,6 @@
 using QSP.Common;
 using System;
 using System.IO;
-using System.Reflection;
 using IntegrationTest.Util;
 using static QSP.LibraryExtension.FileNameGenerator;
 using static QSP.LibraryExtension.Paths;

@@ -18,12 +18,12 @@ function isEmptyLine(s: string): boolean {
     return !/[^\s]/.test(s);
 }
 
-function arrayToHtml(array: Array<Array<string>>, firstRowIsHeader: boolean): string {
+function arrayToHtml(array: string[][], firstRowIsHeader: boolean): string {
     let tr = array.map(line => includeInTags(line, 'td'));
     if (firstRowIsHeader) tr[0] = includeInTags(array[0], 'th');
     return includeInTags(tr, 'tr');
 }
 
-function includeInTags(array: Array<string>, tagName: string): string {
+function includeInTags(array: string[], tagName: string): string {
     return array.map(s => `<${tagName}>${s}</${tagName}>`).join('');
 }
