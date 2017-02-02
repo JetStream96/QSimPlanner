@@ -1,4 +1,7 @@
-﻿version 0.3.0
+﻿version 0.3.1
+* Fix an bug preventing program from starting related to nav data path detection.
+
+version 0.3.0
 * Many bug fixes.
 * UI improvements.
 * Add 747-400/400F profiles.
