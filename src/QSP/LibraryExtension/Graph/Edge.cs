@@ -8,9 +8,9 @@
         public int ToNodeIndex { get; }
         public int ToIndexInList { get; }
 
-        public Edge() { }
+        private Edge() { }
 
-        public Edge(TEdge Value, int FromNodeIndex, int FromIndexInList, 
+        public Edge(TEdge Value, int FromNodeIndex, int FromIndexInList,
             int ToNodeIndex, int ToIndexInList)
         {
             this.Value = Value;
@@ -19,5 +19,7 @@
             this.ToNodeIndex = ToNodeIndex;
             this.ToIndexInList = ToIndexInList;
         }
+
+        public static Edge<TEdge> Empty => new Edge<TEdge>();
     }
 }

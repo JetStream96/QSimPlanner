@@ -14,7 +14,7 @@ namespace QSP.NavData.AAX
     public class FixesLoader
     {
         private readonly WaypointList wptList;
-        private readonly CountryCodeGenerator generator=new CountryCodeGenerator();
+        private readonly CountryCodeGenerator generator = new CountryCodeGenerator();
 
         public FixesLoader(WaypointList wptList)
         {
@@ -84,11 +84,11 @@ namespace QSP.NavData.AAX
             double lon = double.Parse(words[2]);
             string country = words.Length > 3 ? words[3].Trim() : "";
 
-            int countryCode =generator. GetCountryCode(country);
+            int countryCode = generator.GetCountryCode(country);
 
             wptList.AddWaypoint(new Waypoint(id, lat, lon, countryCode));
         }
-        
+
         private static bool IsEmptyLine(string s)
         {
             return s.All(c => c == ' ' || c == '\t');

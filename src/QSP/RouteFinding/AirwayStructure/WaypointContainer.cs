@@ -164,5 +164,8 @@ namespace QSP.RouteFinding.AirwayStructure
             return graph.GetEdge(edgeIndex);
         }
 
+        public IEnumerable<Waypoint> AllWaypoints => graph.AllNodes;
+
+        public IEnumerable<Neighbor> AllNeighbors => graph.AllEdges;
     }
 }

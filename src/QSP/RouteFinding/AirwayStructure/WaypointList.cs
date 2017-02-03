@@ -3,6 +3,7 @@ using QSP.MathTools;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
 using System.Collections.Generic;
+using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.RouteFinding.AirwayStructure
 {
@@ -104,8 +105,7 @@ namespace QSP.RouteFinding.AirwayStructure
             return _content.FindAllByWaypoint(wpt);
         }
 
-        public List<WptSeachWrapper> Find(
-            double lat, double lon, double distance)
+        public List<WptSeachWrapper> Find(double lat, double lon, double distance)
         {
             return _finder.Find(lat, lon, distance);
         }
@@ -117,17 +117,12 @@ namespace QSP.RouteFinding.AirwayStructure
 
         public double Distance(int index1, int index2)
         {
-            return GCDis.Distance(
-                this[index1].Lat, this[index1].Lon,
-                this[index2].Lat, this[index2].Lon);
+            return this[index1].Distance(this[index2]);
         }
 
         public void RemoveAt(int index)
         {
-            _finder.Remove(
-                new WptSeachWrapper(
-                    index, _content[index].Lat, _content[index].Lon));
-
+            _finder.Remove(new WptSeachWrapper(index, _content[index].Lat, _content[index].Lon));
             _content.RemoveAt(index);
         }
 
@@ -150,7 +145,11 @@ namespace QSP.RouteFinding.AirwayStructure
         {
             return _content.GetEdge(edgeIndex);
         }
+
+        public IEnumerable<Waypoint> AllWaypoints => _content.AllWaypoints;
+
+        public IEnumerable<Neighbor> AllNeighbors => _content.AllNeighbors;
     }
 
-    public class DefaultWaypointList : WaypointList { }
+    public sealed class DefaultWaypointList : WaypointList { }
 }

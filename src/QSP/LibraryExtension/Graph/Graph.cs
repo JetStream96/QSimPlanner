@@ -21,7 +21,7 @@ namespace QSP.LibraryExtension.Graph
 
         private FixedIndexList<Node> _nodes;
         private FixedIndexList<Edge<TEdge>> _edges;
-        private static Edge<TEdge> dummyEdge = new Edge<TEdge>();
+        private static Edge<TEdge> dummyEdge = Edge<TEdge>.Empty;
 
         public Graph()
         {
@@ -140,5 +140,9 @@ namespace QSP.LibraryExtension.Graph
         public int NodeIndexUpperBound => _nodes.IndexUpperBound;
 
         public int EdgeIndexUpperBound => _edges.IndexUpperBound;
+
+        public IEnumerable<TNode> AllNodes => _nodes.Select(n => n.value);
+
+        public IEnumerable<TEdge> AllEdges => _edges.Select(e => e.Value);
     }
 }

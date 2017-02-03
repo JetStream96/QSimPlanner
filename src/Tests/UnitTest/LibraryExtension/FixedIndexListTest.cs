@@ -15,19 +15,7 @@ namespace UnitTest.LibraryExtension
             Assert.IsTrue(item.IndexUpperBound <= 0);
         }
 
-        private FixedIndexList<double> CreateList()
-        {
-            var item = new FixedIndexList<double>();
-
-            for (int i = 0; i < 100000; i++)
-            {
-                item.Add(i);
-            }
-
-            return item;
-        }
-
-        private FixedIndexList<double> CreateList(int count)
+        private FixedIndexList<double> CreateList(int count = 100000)
         {
             var item = new FixedIndexList<double>();
 
@@ -35,6 +23,7 @@ namespace UnitTest.LibraryExtension
             {
                 item.Add(i);
             }
+
             return item;
         }
 
@@ -249,8 +238,8 @@ namespace UnitTest.LibraryExtension
             {
                 x.Add(i * i);
             }
-            Assert.AreEqual(575, x.Count);
 
+            Assert.AreEqual(575, x.Count);
         }
 
         [Test]
