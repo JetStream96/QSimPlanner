@@ -26,20 +26,14 @@ namespace QSP.RouteFinding.Containers
 
         public Waypoint(string ID, ICoordinate latLon) : this(ID, latLon.Lat, latLon.Lon) { }
 
-        public Waypoint(Waypoint waypoint)
-            : this(waypoint.ID,
-                  waypoint.Lat,
-                  waypoint.Lon,
-                  waypoint.CountryCode)
-        { }
+        public Waypoint(Waypoint w) : this(w.ID, w.Lat, w.Lon, w.CountryCode) { }
 
         /// <summary>
         /// Determines whether ID, Lat, and Lon match.
         /// </summary>
         public bool Equals(Waypoint x)
         {
-            return
-                x != null &&
+            return x != null &&
                 ID == x.ID &&
                 Lat == x.Lat &&
                 Lon == x.Lon;

@@ -6,31 +6,34 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using QSP.Utilities;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.NavData.AAX
 {
     public class FixesLoader
     {
-        private WaypointList wptList;
-        private BiDictionary<int, string> countryCodeLookup;
-        private int countryCode;
+        private readonly WaypointList wptList;
+        private readonly CountryCodeGenerator generator=new CountryCodeGenerator();
 
         public FixesLoader(WaypointList wptList)
         {
             this.wptList = wptList;
-            countryCodeLookup = new BiDictionary<int, string>();
-            countryCode = 0;
         }
 
         /// <summary>
         /// Loads all waypoints in waypoints.txt.
         /// </summary>
-        /// <param name="filepath">Location of waypoints.txt</param>
+        /// <param name="filePath">Path of waypoints.txt</param>
         /// <exception cref="WaypointFileReadException"></exception>
-        public BiDictionary<int, string> ReadFromFile(string filepath)
+        public IReadOnlyBiDictionary<int, string> ReadFromFile(string filePath)
         {
-            var allLines = ReadFile(filepath);
+            var allLines = ReadFile(filePath);
+            return Read(allLines);
+        }
+
+        public IReadOnlyBiDictionary<int, string> Read(IEnumerable<string> allLines)
+        {
             var failedLines = new List<string>();
 
             foreach (var i in allLines)
@@ -47,7 +50,7 @@ namespace QSP.NavData.AAX
             }
 
             LogFailures(failedLines);
-            return countryCodeLookup;
+            return generator.CountryCodeLookup;
         }
 
         private static void LogFailures(List<string> failedLines)
@@ -81,34 +84,11 @@ namespace QSP.NavData.AAX
             double lon = double.Parse(words[2]);
             string country = words.Length > 3 ? words[3].Trim() : "";
 
-            int countryCode = GetCountryCode(country);
+            int countryCode =generator. GetCountryCode(country);
 
             wptList.AddWaypoint(new Waypoint(id, lat, lon, countryCode));
         }
-
-        private int GetCountryCode(string letterCode)
-        {
-            if (letterCode == "")
-            {
-                return Waypoint.DefaultCountryCode;
-            }
-
-            int code;
-
-            if (countryCodeLookup.TryGetBySecond(letterCode, out code))
-            {
-                return code;
-            }
-
-            do
-            {
-                countryCode++;
-            } while (countryCode == Waypoint.DefaultCountryCode);
-
-            countryCodeLookup.Add(countryCode, letterCode);
-            return countryCode;
-        }
-
+        
         private static bool IsEmptyLine(string s)
         {
             return s.All(c => c == ' ' || c == '\t');

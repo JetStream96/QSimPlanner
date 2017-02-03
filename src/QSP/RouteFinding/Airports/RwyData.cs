@@ -1,4 +1,5 @@
 using System;
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Data.Interfaces;
 
 namespace QSP.RouteFinding.Airports
@@ -75,6 +76,26 @@ namespace QSP.RouteFinding.Airports
                 RwyStatus == other.RwyStatus;
         }
 
-        
+        public override int GetHashCode()
+        {
+            return new object[]
+            {
+                RwyIdent,
+                Heading,
+                LengthFt,
+                WidthFt,
+                HasIlsInfo,
+                IlsAvail,
+                IlsFreq,
+                IlsHeading,
+                Lat,
+                Lon,
+                Elevation,
+                GlideslopeAngle,
+                ThresholdOverflyHeight,
+                SurfaceType,
+                RwyStatus
+            }.HashCodeByElem();
+        }
     }
 }

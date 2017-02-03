@@ -1,7 +1,7 @@
+using QSP.LibraryExtension;
 using QSP.RouteFinding.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.Airports
 {
@@ -86,11 +86,14 @@ namespace QSP.RouteFinding.Airports
 
         public override int GetHashCode()
         {
-            return new object[]{Icao,Name,Lat,Lon,Elevation,TransAvail,TransAlt,TransLvl,
-             LongestRwyLength,
-             //symmetric hash func?
-            IReadOnlyList< RwyData > Rwys}
-            return Icao.GetHashCode();
+            var h1 = new object[]
+            {
+                Icao, Name, Lat, Lon, Elevation, TransAvail, TransAlt, TransLvl,
+                LongestRwyLength
+            }.HashCodeByElem();
+
+            var h2 = Rwys.HashCodeSymmetric();
+            return new[] { h1, h1 }.HashCodeByElem();
         }
     }
 }

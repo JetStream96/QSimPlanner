@@ -5,7 +5,7 @@ using static QSP.Utilities.ExceptionHelpers;
 namespace QSP.LibraryExtension
 {
     // A one-to-one map.
-    public class BiDictionary<TFirst, TSecond>
+    public class BiDictionary<TFirst, TSecond> : IReadOnlyBiDictionary<TFirst, TSecond>
     {
         private Dictionary<TFirst, TSecond> _firstToSecond;
         private Dictionary<TSecond, TFirst> _secondToFirst;

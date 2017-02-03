@@ -143,8 +143,7 @@ namespace QSP.NavData.OpenData
             }
             catch (Exception ex)
             {
-                throw new ReadAirportFileException(
-                    "Unable to read from " + path + ".", ex);
+                throw new ReadAirportFileException("Unable to read from " + path + ".", ex);
             }
 
             MultiMap<string, RwyData> rwyList;

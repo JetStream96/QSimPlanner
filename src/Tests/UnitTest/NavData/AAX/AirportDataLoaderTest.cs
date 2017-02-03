@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using QSP.LibraryExtension;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
+using System.Linq;
 
 namespace UnitTest.NavData.AAX
 {
@@ -27,8 +27,11 @@ R,18,183,2500,100,0,0.0,0,1.0,2.0,100,3.00,50,1,0
             Assert.AreEqual(2, airports.Count);
 
             var ap1 = airports["ABCD"];
-            var rwy09 = new RwyData("09",  "95", 3000, 150, true, false, "0.0", "0.0", 1.0, 2.0, 100, 3.0, 50, "1", 0);
-            var rwy27 = new RwyData("27", "275", 3000, 150, true, false, "0.0", "0.0", 1.0, 2.0, 100, 3.0, 50, "1", 0);
+            var rwy09 = new RwyData("09",  "95", 3000, 150, true, false, "0.0", "0", 1.0, 2.0, 
+                100, 3.0, 50, AirportDataLoader.SurfTypes[1], 0);
+            var rwy27 = new RwyData("27", "275", 3000, 150, true, false, "0.0", "0", 1.0, 2.0, 
+                100, 3.0, 50, AirportDataLoader.SurfTypes[1], 0);
+
             var expected1 = new Airport("ABCD", "NAME1", 1.0, 2.0, 100, true, 18000, 18000, 3000, 
                 new [] {rwy09, rwy27});
 

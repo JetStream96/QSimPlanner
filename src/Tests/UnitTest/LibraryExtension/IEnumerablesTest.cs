@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using QSP.LibraryExtension;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,7 +34,30 @@ namespace UnitTest.LibraryExtension
         [Test]
         public void SequenceEqualTest()
         {
-            Assert.IsTrue(new[] {3, 2, 0}.SequenceEqual(3, 2, 0));
+            Assert.IsTrue(new[] { 3, 2, 0 }.SequenceEqual(3, 2, 0));
+        }
+
+        [Test]
+        public void HashCodeSysmmetricTest()
+        {
+            object[] a = { 1, "xyz", null };
+            object[] b = { null, "xyz", 1 };
+            Assert.AreEqual(a.HashCodeSymmetric(), b.HashCodeSymmetric());
+        }
+
+        [Test]
+        public void HashCodeSysmmetricShouldThrowIfEmpty()
+        {
+            object[] a = { 1, "xyz", null };
+            object[] b = { null, "xyz", 1 };
+            Assert.That(() => new int[0].HashCodeSymmetric(), Throws.Exception);
+        }
+
+        [Test]
+        public void HashCodeByElemShouldAllowNull()
+        {
+            object[] a = { 1, "xyz", null };
+           Assert.DoesNotThrow(() => a.HashCodeSymmetric());
         }
     }
 }

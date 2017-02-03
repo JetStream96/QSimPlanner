@@ -52,6 +52,15 @@ namespace QSP.LibraryExtension
             return hash;
         }
 
+        /// <summary>
+        /// Returns a hash code which is independent of the order of elements.
+        /// Throws exception if item is empty.
+        /// </summary>
+        public static int HashCodeSymmetric<T>(this IEnumerable<T> item)
+        {
+            return item.Select(i => i == null ? 0 : i.GetHashCode()).Aggregate((x, y) => x ^ y);
+        }
+
         public static double[] ToDoubles(this IEnumerable<string> item)
         {
             return item.Select(s => Convert.ToDouble(s)).ToArray();
@@ -79,3 +88,4 @@ namespace QSP.LibraryExtension
         }
     }
 }
+

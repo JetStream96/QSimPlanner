@@ -1,5 +1,5 @@
 ﻿using System;
-using static QSP.LibraryExtension.Utilities;
+using static QSP.LibraryExtension.Util;
 
 namespace QSP.MathTools
 {

@@ -7,34 +7,16 @@ namespace QSP.RouteFinding.Containers.CountryCode
     public class CountryCodeManager
     {
         // CountryCode <=> LetterCode
-        private BiDictionary<int, string> letterCodeLookup;
+        private IReadOnlyBiDictionary<int, string> codeLookup;
 
         // LetterCode <=> FullName
         private Dictionary<string, string> _fullNameLookup;
 
-        public IReadOnlyDictionary<string, string> FullNameLookup
-        {
-            get
-            {
-                return _fullNameLookup;
-            }
-        }
+        public IReadOnlyDictionary<string, string> FullNameLookup => _fullNameLookup;
 
-        public IReadOnlyDictionary<int, string> CodeToLetterLookup
-        {
-            get
-            {
-                return letterCodeLookup.FirstToSecond;
-            }
-        }
+        public IReadOnlyDictionary<int, string> CodeToLetterLookup => codeLookup.FirstToSecond;
 
-        public IReadOnlyDictionary<string, int> LetterToCodeLookup
-        {
-            get
-            {
-                return letterCodeLookup.SecondToFirst;
-            }
-        }
+        public IReadOnlyDictionary<string, int> LetterToCodeLookup => codeLookup.SecondToFirst;
 
         public CountryCodeManager()
             : this(new BiDictionary<int, string>(),
@@ -43,10 +25,10 @@ namespace QSP.RouteFinding.Containers.CountryCode
 
         /// <exception cref="ArgumentException"></exception>
         public CountryCodeManager(
-            BiDictionary<int, string> letterCodeLookup,
+            IReadOnlyBiDictionary<int, string> codeLookup,
             Dictionary<string, string> fullNameLookup)
         {
-            this.letterCodeLookup = letterCodeLookup;
+            this.codeLookup = codeLookup;
             this._fullNameLookup = fullNameLookup;
             Validate();
         }
@@ -93,13 +75,13 @@ namespace QSP.RouteFinding.Containers.CountryCode
         /// <exception cref="ArgumentNullException"></exception>
         public int GetCountryCode(string letterCode)
         {
-            return letterCodeLookup.GetBySecond(letterCode);
+            return codeLookup.GetBySecond(letterCode);
         }
 
         /// <exception cref="ArgumentException"></exception>
         public string GetLetter(int code)
         {
-            return letterCodeLookup.GetByFirst(code);
+            return codeLookup.GetByFirst(code);
         }
     }
 }

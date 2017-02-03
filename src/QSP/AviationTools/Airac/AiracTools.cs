@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using static QSP.LibraryExtension.Dates;
 
 namespace QSP.AviationTools.Airac
 {
@@ -42,8 +43,8 @@ namespace QSP.AviationTools.Airac
             try
             {
                 var a = airacPeriod;
-                int monthStart = LibraryExtension.Utilities.MonthEnglishToNum(a.Substring(2, 3));
-                int monthEnd = LibraryExtension.Utilities.MonthEnglishToNum(a.Substring(7, 3));
+                int monthStart = MonthEnglishToNum(a.Substring(2, 3));
+                int monthEnd = MonthEnglishToNum(a.Substring(7, 3));
                 int dayStart = int.Parse(a.Substring(0, 2));
                 int dayEnd = int.Parse(a.Substring(5, 2));
                 int yearStart = int.Parse(a.Substring(11, 2));
@@ -61,4 +62,3 @@ namespace QSP.AviationTools.Airac
         }
     }
 }
-

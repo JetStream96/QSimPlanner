@@ -29,7 +29,7 @@ namespace QSP.NavData.AAX
 
             return Load(allLines);
         }
-
+        // TODO: Improve error handling.
         /// <exception cref="RwyDataFormatException"></exception>
         public static AirportManager Load(IEnumerable<string> allLines)
         {
@@ -94,7 +94,7 @@ namespace QSP.NavData.AAX
             return airportList;
         }
 
-        private static IReadOnlyList<string> surfTypes = new[]
+        public static readonly IReadOnlyList<string> SurfTypes = new[]
         {
             "Concrete",
             "Asphalt or Bitumen",
@@ -133,7 +133,7 @@ namespace QSP.NavData.AAX
                 Elevation,
                 GlideslopeAngle,
                 ThresholdOverflyHeight,
-                surfTypes[SurfaceType],
+                SurfTypes[SurfaceType],
                 RwyStatus);
         }
     }

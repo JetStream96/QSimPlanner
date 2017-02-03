@@ -150,10 +150,12 @@
     <Compile Include="Libraries\FolderSelectDialog\FolderSelectDialog.cs" />
     <Compile Include="Libraries\FolderSelectDialog\Reflector.cs" />
     <Compile Include="LibraryExtension\BiDictionary.cs" />
+    <Compile Include="LibraryExtension\Dates.cs" />
     <Compile Include="LibraryExtension\English.cs" />
     <Compile Include="LibraryExtension\Enums.cs" />
     <Compile Include="LibraryExtension\FileNameGenerator.cs" />
     <Compile Include="LibraryExtension\IOMethods.cs" />
+    <Compile Include="LibraryExtension\IReadOnlyBiDictionary.cs" />
     <Compile Include="LibraryExtension\IReadOnlyLists.cs" />
     <Compile Include="LibraryExtension\Sets\IReadOnlySet.cs" />
     <Compile Include="LibraryExtension\LinkedLists.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />
     <Compile Include="MathTools\Tables\TableUtil.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
+    <Compile Include="NavData\AAX\CountryCodeGenerator.cs" />
     <Compile Include="NavData\NavDataPath.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RouteFinding\Finder\DestInfo.cs" />
@@ -547,7 +550,7 @@
     <Compile Include="LandingPerfCalculation\LandingReport.cs" />
     <Compile Include="LandingPerfCalculation\Boeing\LandingParameters.cs" />
     <Compile Include="LibraryExtension\MultiMap.cs" />
-    <Compile Include="LibraryExtension\Utilities.cs" />
+    <Compile Include="LibraryExtension\Util.cs" />
     <Compile Include="LibraryExtension\Lists.cs" />
     <Compile Include="LibraryExtension\Strings.cs" />
     <Compile Include="LibraryExtension\TimeFormat.cs" />

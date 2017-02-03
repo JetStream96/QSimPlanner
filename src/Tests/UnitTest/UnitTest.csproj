@@ -78,6 +78,8 @@
     <Compile Include="MathTools\Tables\Readers\TableReader1DTest.cs" />
     <Compile Include="MathTools\Tables\TableUtilTest.cs" />
     <Compile Include="NavData\AAX\AirportDataLoaderTest.cs" />
+    <Compile Include="NavData\AAX\CountryCodeGeneratorTest.cs" />
+    <Compile Include="NavData\AAX\FixesLoaderTest.cs" />
     <Compile Include="RouteFinding\Airports\AirportManagerTest.cs" />
     <Compile Include="RouteFinding\AirwayNodeFinderTest.cs" />
     <Compile Include="AviationTools\Coordinates\Format5LetterTest.cs" />
