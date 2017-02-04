@@ -39,5 +39,24 @@ S,P2,0,1,P3,0,2,270,90,60.11
             Assert.IsTrue(wptList.GetEdge(wptList.EdgesFrom(i1).First()).Value.Equals(n));
             Assert.IsTrue(wptList.GetEdge(wptList.EdgesFrom(i2).First()).Value.Equals(n));
         }
+
+        [Test]
+        public void ReadErrorTest()
+        {
+            var txt = @"
+A,A1,3
+S,P1,0,0,P2,0,1,0,90,60.11
+S,P2,0,1,P3,$,2,270,90,60.11
+";
+
+            var w1 = new Waypoint("P1", 0.0, 0.0);
+            var w2 = new Waypoint("P2", 0.0, 1.0);
+
+            var wptList = new WaypointList();
+            var err = AtsFileLoader.Read(wptList, txt.Lines());
+
+            Assert.AreEqual(1, err.Count);
+            Assert.IsTrue(wptList.AllWaypoints.SequenceEqual(w1, w2));
+        }
     }
 }
