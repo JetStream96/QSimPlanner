@@ -23,15 +23,10 @@ A tool for fuel planning and take-off/landing performance calculations.
 ### Requirements
 To use QSimPlanner, an AIRAC cycle is required. You can purchase either [Aerosoft]'s NavDataPro or [Navigraph]'s FMS Data. Use the version of Aerosoft Airbus A318/A319/A320/A321.
 
-Also .NET framework 4.5 is required.
-
 ### Project Status
 Currently the aircrafts available are
-- 737-600
-- 737-700
-- 737-800
-- 737-900
-- 747-8F
+- 737-600/700/800/900
+- 747-400/400F/8/8F
 - 777-200LR
 - 777-300ER
 - 777F
@@ -51,4 +46,3 @@ MIT License
    [Screenshots]: <https://github.com/JetStream96/QSimPlanner/issues/2>
    [Aerosoft]: <http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688>
    [Navigraph]: <https://www.navigraph.com/FmsData.aspx>
-   [v0.2.2]:<https://github.com/JetStream96/QSimPlanner/releases/download/v0.2.2/QSimPlanner_setup.exe>
