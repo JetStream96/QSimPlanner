@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using QSP.LibraryExtension;
-using static QSP.Utilities.ExceptionHelpers;
-using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.NavData.AAX
 {
