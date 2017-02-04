@@ -4,9 +4,10 @@ namespace QSP.RouteFinding.Airports
 {
     public static class AirportExtensions
     {
-        public static int RwyElevationFt(this Airport airport, string ident)
+        // Returns null if not found.
+        public static RwyData FindRwy(this Airport airport, string ident)
         {
-            return airport.Rwys.First(r => r.RwyIdent == ident).Elevation;
+            return airport.Rwys.FirstOrDefault(r => r.RwyIdent == ident);
         }        
     }
 }

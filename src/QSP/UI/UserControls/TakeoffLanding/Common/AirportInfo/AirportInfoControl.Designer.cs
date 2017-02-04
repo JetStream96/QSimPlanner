@@ -194,7 +194,7 @@
             this.rwyComboBox.Name = "rwyComboBox";
             this.rwyComboBox.Size = new System.Drawing.Size(93, 31);
             this.rwyComboBox.TabIndex = 2;
-            this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.rwyComboBoxIndexChanged);
+            this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.RwyComboBoxIndexChanged);
             // 
             // Label89
             // 

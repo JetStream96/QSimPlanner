@@ -1,4 +1,7 @@
-﻿namespace QSP.NavData
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace QSP.NavData
 {
     public class ReadFileError
     {
@@ -9,6 +12,16 @@
         {
             this.LineNumber = LineNumber;
             this.Line = Line;
+        }
+    }
+
+    public static class ReadFileErrorMsg
+    {
+        public static string ErrorMsg(IReadOnlyList<ReadFileError> errors, string fileName)
+        {
+            if (errors.Count == 0) return null;
+            return $"Cannot parse the following lines of {fileName}:\n" +
+                string.Join("\n", errors.Select(e => $"Line {e.LineNumber}: {e.Line}"));
         }
     }
 }

@@ -97,7 +97,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             lengthTxtBox.Text = Numbers.RoundToInt(lengthFt * factor).ToString();
         }
 
-        private void rwyComboBoxIndexChanged(object sender, EventArgs e)
+        private void RwyComboBoxIndexChanged(object sender, EventArgs e)
         {
             if (rwyComboBox.Items.Count > 0)
             {
@@ -113,10 +113,21 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
                 var heading = takeoffAirport.Rwys[index].Heading;
                 rwyHeadingTxtBox.Text = heading.PadLeft(3, '0');
 
-                int elevationOppositeRwyFt = takeoffAirport.RwyElevationFt(
-                    RwyIdentConversion.RwyIdentOppositeDir(rwyComboBox.Text));
+                var oppositeId = RwyIdentConversion.RwyIdentOppositeDir(rwyComboBox.Text);
 
-                SetSlope((elevationOppositeRwyFt - elevationFt) * 100.0 / lengthFt);
+                if (oppositeId == null)
+                {
+                    SetSlope(0.0);
+                    return;
+                }
+
+                var opposite = takeoffAirport.FindRwy(oppositeId);
+
+                var slope = opposite == null
+                    ? 0.0
+                    : (opposite.Elevation - elevationFt) * 100.0 / lengthFt;
+
+                SetSlope(slope);
             }
         }
 

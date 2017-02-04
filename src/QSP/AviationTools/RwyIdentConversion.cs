@@ -7,9 +7,10 @@ namespace QSP.AviationTools
     public static class RwyIdentConversion
     {
         /// <summary>
-        /// Input examples: "05", "26", "14R", "25C", "36L"
+        /// Input examples: "05", "26", "14R", "25C", "36L".
+        /// Note that 3, 3L are not valid.
+        /// Returns null is input is invalid.
         /// </summary>
-        /// <exception cref="ArgumentException"></exception>
         public static string RwyIdentOppositeDir(string rwy)
         {
             try
@@ -20,7 +21,7 @@ namespace QSP.AviationTools
             }
             catch
             {
-                throw new ArgumentException("Incorrect runway ident format.");
+                return null;
             }
         }
 
@@ -31,7 +32,7 @@ namespace QSP.AviationTools
             return opposite.ToString().PadLeft(2, '0');
         }
 
-        private static IReadOnlyDictionary<string, string> oppositeDirection =
+        private static readonly IReadOnlyDictionary<string, string> oppositeDirection =
             new Dictionary<string, string>()
             {
                 [""] = "",

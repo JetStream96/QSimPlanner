@@ -22,7 +22,7 @@ namespace QSP.NavData.AAX
             {
                 var allLines = File.ReadLines(filepath);
                 var errors = Read(wptList, allLines);
-                return ErrorMsg(errors);
+                return ReadFileErrorMsg.ErrorMsg(errors, "ats.txt");
             }
             catch (Exception e)
             {
@@ -30,14 +30,7 @@ namespace QSP.NavData.AAX
             }
         }
 
-        private static string ErrorMsg(IReadOnlyList<ReadFileError> errors)
-        {
-            if (errors.Count == 0) return null;
-            return "Cannot parse the following lines of ats.txt:\n" +
-                string.Join("\n", errors.Select(e => $"Line {e.LineNumber}: {e.Line}"));
-        }
-
-        // Reads the ATS.txt into the given WaypointList.
+      // Reads the ATS.txt into the given WaypointList.
         // If the waypoints on a line is not found in wptList, it's added.
         // This method continues to read if an parsing error is encountered on a line.
         //

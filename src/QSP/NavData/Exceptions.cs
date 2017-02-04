@@ -13,19 +13,7 @@ namespace QSP.NavData
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }
     }
-
-    [Serializable]
-    public class RwyDataFormatException : Exception
-    {
-        public RwyDataFormatException() { }
-        public RwyDataFormatException(string message) : base(message) { }
-        public RwyDataFormatException(string message, Exception inner) : base(message, inner) { }
-        protected RwyDataFormatException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context) : base(info, context)
-        { }
-    }
-
+    
     [Serializable]
     public class WaypointFileReadException : Exception
     {

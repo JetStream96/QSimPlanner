@@ -22,24 +22,45 @@ R,36,003,2500,100,0,0.0,0,1.0,2.0,100,3.00,50,1,0
 R,18,183,2500,100,0,0.0,0,1.0,2.0,100,3.00,50,1,0
 ";
 
-            var airports = AirportDataLoader.Load(txt.Lines());
+            var result = AirportDataLoader.Load(txt.Lines());
+            var err = result.Errors;
+            var airports = result.Airports;
 
+            Assert.IsEmpty(err);
             Assert.AreEqual(2, airports.Count);
 
             var ap1 = airports["ABCD"];
-            var rwy09 = new RwyData("09",  "95", 3000, 150, true, false, "0.0", "0", 1.0, 2.0, 
+            var rwy09 = new RwyData("09", "95", 3000, 150, true, false, "0.0", "0", 1.0, 2.0,
                 100, 3.0, 50, AirportDataLoader.SurfTypes[1], 0);
-            var rwy27 = new RwyData("27", "275", 3000, 150, true, false, "0.0", "0", 1.0, 2.0, 
+            var rwy27 = new RwyData("27", "275", 3000, 150, true, false, "0.0", "0", 1.0, 2.0,
                 100, 3.0, 50, AirportDataLoader.SurfTypes[1], 0);
 
-            var expected1 = new Airport("ABCD", "NAME1", 1.0, 2.0, 100, true, 18000, 18000, 3000, 
-                new [] {rwy09, rwy27});
+            var expected1 = new Airport("ABCD", "NAME1", 1.0, 2.0, 100, true, 18000, 18000, 3000,
+                new[] { rwy09, rwy27 });
 
             Assert.IsTrue(expected1.Equals(ap1));
 
             var ap2 = airports["EFGH"];
-            Assert.AreEqual("NAME2",ap2.Name);
+            Assert.AreEqual("NAME2", ap2.Name);
             Assert.IsTrue(ap2.Rwys.Select(r => r.RwyIdent).SetEquals("18", "36"));
+        }
+
+        [Test]
+        public void LoadErrorTest()
+        {
+            var txt = @"
+A,ABCD,NAME1,1.0,2.0,100,18000,18000,3000,0
+R,09,95,#,150,0,0.0,0,1.0,2.0,100,3.00,50,1,0
+R,27,275,3000,150,0,0.0,0,1.0,2.0,100,3.00,50,1,0
+";
+
+            var result = AirportDataLoader.Load(txt.Lines());
+            var err = result.Errors;
+            var airports = result.Airports;
+
+            Assert.AreEqual(1, err.Count);
+            Assert.AreEqual(1, airports.Count);
+            Assert.AreEqual(1, airports["ABCD"].Rwys.Count);
         }
     }
 }

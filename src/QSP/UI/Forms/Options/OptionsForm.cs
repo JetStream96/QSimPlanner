@@ -211,7 +211,10 @@ namespace QSP.UI.Forms.Options
             {
                 var directory = pathTxtBox.Text;
                 var filePath = Path.Combine(directory, "Airports.txt");
-                return AirportDataLoader.LoadFromFile(filePath);
+                var loadResult =AirportDataLoader.LoadFromFile(filePath);
+                var err = loadResult.Errors;
+                if (err.Any()) Log(ReadFileErrorMsg.ErrorMsg(err, "ats.txt"));
+                return loadResult.Airports;
             }
             catch (Exception ex)
             {

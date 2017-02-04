@@ -56,7 +56,7 @@ S,P2,0,1,P3,$,2,270,90,60.11
             var err = AtsFileLoader.Read(wptList, txt.Lines());
 
             Assert.AreEqual(1, err.Count);
-            Assert.IsTrue(wptList.AllWaypoints.SequenceEqual(w1, w2));
+            Assert.IsTrue(wptList.AllWaypoints.SetEquals(w1, w2));
         }
     }
 }

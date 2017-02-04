@@ -26,7 +26,7 @@ namespace QSP.NavData.AAX
             var countryCodes = new FixesLoader(wptList).ReadFromFile(waypointsFilePath);
 
             var err = AtsFileLoader.ReadFromFile(wptList, atsFilePath);
-            if(err!=null) LoggerInstance.Log(err);
+            if (err != null) LoggerInstance.Log(err);
 
             var countryFullNames = FullNamesLoader.Load();
             var countryManager = new CountryCodeManager(countryCodes, countryFullNames);

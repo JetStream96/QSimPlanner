@@ -26,6 +26,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using QSP.NavData;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms
@@ -233,11 +234,14 @@ namespace QSP.UI.Forms
             string navDataPath = appSettings.NavDataLocation;
             var airportTxtPath = Path.Combine(navDataPath, "Airports.txt");
 
-            var airportList = AirportDataLoader.LoadFromFile(airportTxtPath);
+            var airportResult = AirportDataLoader.LoadFromFile(airportTxtPath);
+            var err = airportResult.Errors;
+            if (err.Any()) Log(ReadFileErrorMsg.ErrorMsg(err, "ats.txt"));
+            var airports = airportResult.Airports;
 
             var result = new WptListLoader(navDataPath).LoadFromFile();
             countryCodesLocator = result.CountryCodes.ToLocator();
-            airwayNetwork = new AirwayNetwork(result.WptList, airportList);
+            airwayNetwork = new AirwayNetwork(result.WptList, airports);
         }
 
         private void InitControls()
