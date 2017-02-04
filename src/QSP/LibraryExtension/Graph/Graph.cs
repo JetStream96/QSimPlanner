@@ -131,6 +131,8 @@ namespace QSP.LibraryExtension.Graph
 
         public int NodeCount => _nodes.Count;
 
+        public int EdgeCount => _edges.Count;
+
         public void Clear()
         {
             _nodes.Clear();
@@ -143,6 +145,6 @@ namespace QSP.LibraryExtension.Graph
 
         public IEnumerable<TNode> AllNodes => _nodes.Select(n => n.value);
 
-        public IEnumerable<TEdge> AllEdges => _edges.Select(e => e.Value);
+        public IEnumerable<Edge<TEdge>> AllEdges => _edges;
     }
 }

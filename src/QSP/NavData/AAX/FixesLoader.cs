@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using QSP.Utilities;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.NavData.AAX
@@ -71,7 +70,7 @@ namespace QSP.NavData.AAX
             }
             catch (Exception ex)
             {
-                throw new WaypointFileReadException(ex.Message, ex);
+                throw new WaypointFileReadException("Failed to read waypoints.txt.", ex);
             }
         }
 

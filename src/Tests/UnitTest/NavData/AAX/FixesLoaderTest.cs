@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 using QSP.LibraryExtension;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.AirwayStructure;
@@ -24,6 +25,20 @@ XY002,50.0,10.0,BB";
                 new Waypoint("XY000", 50.0, 10.0, 1),
                 new Waypoint("XY001", 50.0, 10.0, Waypoint.DefaultCountryCode),
                 new Waypoint("XY002", 50.0, 10.0, 2)));
+        }
+
+        [Test]
+        public void ReadShouldContinueIfALineIsInvalid()
+        {
+            var txt = @"
+XY000,50.0,10.0,AA
+XY001,50.0,abc,
+XY002,50.0,10.0,BB";
+
+            var wptList = new WaypointList();
+            var codes = new FixesLoader(wptList).Read(txt.Lines());
+
+            Assert.AreEqual(2, codes.FirstToSecond.Keys.Count());
         }
     }
 }

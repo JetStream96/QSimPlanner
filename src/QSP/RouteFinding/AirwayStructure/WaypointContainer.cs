@@ -53,7 +53,9 @@ namespace QSP.RouteFinding.AirwayStructure
             return graph.EdgesToCount(index);
         }
 
-        public int Count => graph.NodeCount;
+        public int WaypointCount => graph.NodeCount;
+
+        public int EdgeCount => graph.EdgeCount;
 
         /// <summary>
         /// The upper bound of indices of nodes. 
@@ -166,6 +168,6 @@ namespace QSP.RouteFinding.AirwayStructure
 
         public IEnumerable<Waypoint> AllWaypoints => graph.AllNodes;
 
-        public IEnumerable<Neighbor> AllNeighbors => graph.AllEdges;
+        public IEnumerable<Edge<Neighbor>> AllEdges => graph.AllEdges;
     }
 }

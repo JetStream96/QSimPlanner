@@ -1,8 +1,11 @@
 ﻿using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using QSP.LibraryExtension;
+using static QSP.Utilities.ExceptionHelpers;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.NavData.AAX
@@ -10,68 +13,93 @@ namespace QSP.NavData.AAX
     public static class AtsFileLoader
     {
         /// <summary>
-        /// Read all waypoints from ats.txt file.
+        /// Read all waypoints from ats.txt file. 
+        /// Returns the error message if failed to parse some lines, or null.
         /// </summary>
         /// <param name="filepath">Path of ats.txt</param>
         /// <exception cref="WaypointFileReadException"></exception>
-        public static void ReadFromFile(WaypointList wptList, string filepath)
+        public static string ReadFromFile(WaypointList wptList, string filepath)
         {
             try
             {
-                //TODO:add error handling
                 var allLines = File.ReadLines(filepath);
-                string currentAirway = "";
+                var errors = Read(wptList, allLines);
+                return ErrorMsg(errors);
+            }
+            catch (Exception e)
+            {
+                throw new WaypointFileReadException("Failed to read ats.txt.", e);
+            }
+        }
 
-                foreach (var i in allLines)
+        private static string ErrorMsg(IReadOnlyList<ReadFileError> errors)
+        {
+            if (errors.Count == 0) return null;
+            return "Cannot parse the following lines of ats.txt:\n" +
+                string.Join("\n", errors.Select(e => $"Line {e.LineNumber}: {e.Line}"));
+        }
+
+        // Reads the ATS.txt into the given WaypointList.
+        // If the waypoints on a line is not found in wptList, it's added.
+        // This method continues to read if an parsing error is encountered on a line.
+        //
+        public static IReadOnlyList<ReadFileError> Read(WaypointList wptList,
+            IEnumerable<string> allLines)
+        {
+            var errors = new List<ReadFileError>();
+            string currentAirway = "";
+
+            allLines.ForEach((line, index) =>
+            {
+                var lineNum = index + 1;
+                var words = line.Split(',').Select(s => s.Trim()).ToList();
+
+                if (words.Count > 0)
                 {
-                    var words = i.Split(',').Select(s => s.Trim()).ToList();
-
-                    if (words.Count == 0) continue;
-
-                    if (words[0] == "A")
+                    try
                     {
-                        // This line is an airway identifier
-                        currentAirway = words[1];
+                        if (words[0] == "A")
+                        {
+                            // This line is an airway identifier
+                            currentAirway = words[1];
+                        }
+                        else if (words[0] == "S")
+                        {
+                            // This line is waypoint
+                            Waypoint firstWpt = new Waypoint(
+                                words[1], double.Parse(words[2]), double.Parse(words[3]));
+
+                            Waypoint secondWpt = new Waypoint(
+                                words[4], double.Parse(words[5]), double.Parse(words[6]));
+
+                            int index1 = wptList.FindByWaypoint(firstWpt);
+                            int index2 = wptList.FindByWaypoint(secondWpt);
+
+                            // words[7] and words[8] are headings between two waypoints. 
+                            // Will be skipped.
+
+                            double dis = double.Parse(words[9]);
+
+                            // Add second waypoint as required
+                            if (index2 <= 0) index2 = wptList.AddWaypoint(secondWpt);
+
+                            // Add first waypoint as required
+                            if (index1 < 0) index1 = wptList.AddWaypoint(firstWpt);
+
+                            // Add the connection.
+                            var neighbor = new Neighbor(currentAirway, dis);
+
+                            wptList.AddNeighbor(index1, index2, neighbor);
+                        }
                     }
-                    else if (words[0] == "S")
+                    catch
                     {
-                        // This line is waypoint
-                        Waypoint firstWpt = new Waypoint(
-                            words[1],
-                            double.Parse(words[2]),
-                            double.Parse(words[3]));
-
-                        Waypoint secondWpt = new Waypoint(
-                            words[4],
-                            double.Parse(words[5]),
-                            double.Parse(words[6]));
-
-                        int index1 = wptList.FindByWaypoint(firstWpt);
-                        int index2 = wptList.FindByWaypoint(secondWpt);
-
-                        // The next two are headings between two wpts. 
-                        // Will be skipped.
-
-                        double dis = double.Parse(words[9]);
-
-                        // Add second waypoint as required
-                        if (index2 <= 0) index2 = wptList.AddWaypoint(secondWpt);
-                        
-                        // Add first waypoint as required
-                        if (index1 < 0) index1 = wptList.AddWaypoint(firstWpt);
-
-                        // Add the connection.
-                        var neighbor = new Neighbor(currentAirway, dis);
-
-                        wptList.AddNeighbor(index1, index2, neighbor);
+                        errors.Add(new ReadFileError(lineNum, line));
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Log(ex);
-                throw new WaypointFileReadException("Failed to load ats.txt.", ex);
-            }
+            });
+
+            return errors;
         }
     }
 }

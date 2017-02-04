@@ -53,7 +53,9 @@ namespace QSP.RouteFinding.AirwayStructure
             return _content.EdgesToCount(index);
         }
 
-        public int Count => _content.Count; 
+        public int WaypointCount => _content.WaypointCount;
+
+        public int EdgeCount => _content.EdgeCount;
 
         /// <summary>
         /// The upper bound of indices of nodes. 
@@ -148,7 +150,7 @@ namespace QSP.RouteFinding.AirwayStructure
 
         public IEnumerable<Waypoint> AllWaypoints => _content.AllWaypoints;
 
-        public IEnumerable<Neighbor> AllNeighbors => _content.AllNeighbors;
+        public IEnumerable<Edge<Neighbor>> AllEdges => _content.AllEdges;
     }
 
     public sealed class DefaultWaypointList : WaypointList { }

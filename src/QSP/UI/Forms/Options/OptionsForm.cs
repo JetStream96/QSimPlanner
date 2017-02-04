@@ -193,7 +193,7 @@ namespace QSP.UI.Forms.Options
             catch (WaypointFileReadException ex)
             {
                 Log(ex);
-                this.ShowError("Failed to load waypoints.txt.");
+                this.ShowError(ex.Message);
                 return null;
             }
             catch (LoadCountryNamesException ex)

@@ -171,6 +171,7 @@
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
     <Compile Include="NavData\AAX\CountryCodeGenerator.cs" />
     <Compile Include="NavData\NavDataPath.cs" />
+    <Compile Include="NavData\ReadFileError.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RouteFinding\Finder\DestInfo.cs" />
     <Compile Include="RouteFinding\Finder\OrigInfo.cs" />

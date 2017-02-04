@@ -11,7 +11,7 @@ namespace QSP.Utilities
 
     public class Logger : ILogger
     {
-        private string filePath;
+        private readonly string filePath;
 
         public Logger(string filePath = "Log.txt")
         {
