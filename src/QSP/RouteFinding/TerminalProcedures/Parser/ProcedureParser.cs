@@ -44,8 +44,7 @@ namespace QSP.RouteFinding.TerminalProcedures.Parser
         private static Waypoint GetWpt(string line)
         {
             var words = line.Split(',');
-            Debug.Assert(words.Length >= 4);
-
+            if (words.Length < 4) return null;
             var ident = words[1];
 
             double lat, lon;
