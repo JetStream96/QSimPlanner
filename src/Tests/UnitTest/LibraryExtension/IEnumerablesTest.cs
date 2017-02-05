@@ -56,7 +56,23 @@ namespace UnitTest.LibraryExtension
         public void HashCodeByElemShouldAllowNull()
         {
             object[] a = { 1, "xyz", null };
-           Assert.DoesNotThrow(() => a.HashCodeSymmetric());
+            Assert.DoesNotThrow(() => a.HashCodeSymmetric());
+        }
+
+        [Test]
+        public void AllEmptyCollectionTest()
+        {
+            int[] a = { };
+            Assert.IsTrue(a.All((item, index) => item + index == 42));
+        }
+
+        [Test]
+        public void AllTest()
+        {
+            int[] a = { 0, 1, 2 };
+            int[] b = { 0, 1, 3 };
+            Assert.IsTrue(a.All((item, index) => item == index));
+            Assert.IsFalse(b.All((item, index) => item == index));
         }
     }
 }

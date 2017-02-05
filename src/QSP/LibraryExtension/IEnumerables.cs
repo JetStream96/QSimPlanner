@@ -86,6 +86,20 @@ namespace QSP.LibraryExtension
         {
             return source.ToHashSet().SetEquals(items);
         }
+
+        /// <summary>
+        /// Equivalent to All in Linq but with index.
+        /// </summary>
+        public static bool All<T>(this IEnumerable<T> source, Func<T, int, bool> predicate)
+        {
+            var i = 0;
+            foreach (var e in source)
+            {
+                if (!predicate(e, i++)) return false;
+            };
+
+            return true;
+        }
     }
 }
 

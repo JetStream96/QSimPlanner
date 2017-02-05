@@ -34,9 +34,9 @@ namespace QSP.LibraryExtension
         private static readonly Entry[] emptyArray = new Entry[0];
 
         private Entry[] _items;
-        private int _size;
-        private int _free;  // Either -2, or the index of a removed item.
-        private int _count;
+        private int _size = 0;
+        private int _free = -2;  // Either -2, or the index of a removed item.
+        private int _count = 0;
 
         private struct Entry
         {
@@ -58,9 +58,6 @@ namespace QSP.LibraryExtension
         public FixedIndexList()
         {
             _items = emptyArray;
-            _size = 0;
-            _free = -2;
-            _count = 0;
         }
 
         public FixedIndexList(int capacity)
@@ -71,9 +68,6 @@ namespace QSP.LibraryExtension
             }
 
             _items = new Entry[capacity];
-            _size = 0;
-            _free = -2;
-            _count = 0;
         }
 
         public int Add(T item)
@@ -108,33 +102,26 @@ namespace QSP.LibraryExtension
 
         /// <summary>
         /// Try to add the item to a previously deleted place.
-        /// Returns the index at which the item is added, or -1 if the
-        /// insertion is unsuccessful.
+        /// Returns the index at which the item is added, or -1 if the insertion is unsuccessful.
         /// </summary>
         private int TryFillDeletedSpot(T item)
         {
             while (_free >= 0)
             {
-                if (_free < _size)
-                {
-                    int tmp = _free;
-                    _free = _items[_free].next;
-                    _items[tmp] = new Entry(-1, item);
-                    _count++;
+                int tmp = _free;
+                _free = _items[_free].next;
+                _items[tmp] = new Entry(-1, item);
+                _count++;
 
-                    return tmp;
-                }
-                else
-                {
-                    int tmp = _free;
-                    _free = _items[_free].next;
-                    _items[tmp].next = -1;
-                }
+                return tmp;
             }
 
             return -1;
         }
 
+        /// <summary>
+        /// Setting the capacity smaller than current one results in an ArgumentOutOfRangeException.
+        /// </summary>
         public int Capacity
         {
             get
@@ -143,7 +130,7 @@ namespace QSP.LibraryExtension
             }
             set
             {
-                if ((uint)value < (uint)_size)
+                if ((uint)value < (uint)Capacity)
                 {
                     throw new ArgumentOutOfRangeException();
                 }
@@ -228,50 +215,40 @@ namespace QSP.LibraryExtension
         {
             private FixedIndexList<T> list;
             private int index;
-            private T current;
 
             public Enumerator(FixedIndexList<T> item)
             {
                 list = item;
-                index = 0;
-                current = default(T);
+                index = -1;
             }
 
-            public T Current => current;
-
-            object IEnumerator.Current
+            public T Current
             {
                 get
                 {
-                    if (index == 0 || index == list._size + 1)
+                    try
+                    {
+                        return list[index];
+                    }
+                    catch
                     {
                         throw new InvalidOperationException("Cannot enumerate.");
                     }
-
-                    return Current;
                 }
             }
 
-            public void Dispose()
-            {
-            }
+            object IEnumerator.Current => Current;
+
+            public void Dispose() { }
 
             public bool MoveNext()
             {
-                FixedIndexList<T> localList = list;
+                index++;
 
-                while (((uint)index < (uint)localList._size))
+                while (((uint)index < (uint)list._size))
                 {
-                    if (localList.IsRemoved(index) == false)
-                    {
-                        current = localList._items[index].value;
-                        index++;
-                        return true;
-                    }
-                    else
-                    {
-                        index++;
-                    }
+                    if (list.ItemExists(index)) return true;
+                    index++;
                 }
 
                 return false;
@@ -279,8 +256,7 @@ namespace QSP.LibraryExtension
 
             public void Reset()
             {
-                index = 0;
-                current = default(T);
+                index = -1;
             }
         }
     }

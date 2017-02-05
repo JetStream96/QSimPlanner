@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using QSP.LibraryExtension;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace UnitTest.LibraryExtension
             Assert.IsTrue(item.IndexUpperBound <= 0);
         }
 
-        private FixedIndexList<double> CreateList(int count)
+        private static FixedIndexList<double> CreateList(int count)
         {
             var item = new FixedIndexList<double>();
             Enumerable.Range(0, count).ForEach(i => item.Add(i));
@@ -60,30 +61,14 @@ namespace UnitTest.LibraryExtension
         }
 
         [Test]
-        public void RemoveAtCorrectnessTest()
-        {
-            var item = CreateList(58200);
-
-            item.RemoveAt(35688);
-
-            for (int i = 0; i < 58200; i++)
-            {
-                if (i != 35688)
-                {
-                    Assert.AreEqual(i, item[i]);
-                }
-            }
-        }
-
-        [Test]
         public void AccessRemovedItemThrowException()
         {
-            var item = CreateList(58200);
-            item.RemoveAt(35688);
+            var item = CreateList(10);
+            item.RemoveAt(5);
 
             Assert.That(() =>
             {
-                var x = item[35688];
+                var x = item[5];
             }, Throws.Exception);
         }
 
@@ -97,133 +82,63 @@ namespace UnitTest.LibraryExtension
         }
 
         [Test]
-        public void SetCapacityShouldNotNeedResize()
+        public void CtorSetCapacityShouldNotNeedResize()
         {
             var list = new FixedIndexList<int>(10);
             Assert.AreEqual(10, list.Capacity);
             Enumerable.Range(0, 10).ForEach(i => list.Add(i));
+        }
 
+        [Test]
+        public void NegativeCapacityShouldThrow()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new FixedIndexList<int>(-1));
         }
 
         [Test]
         public void SetValueCorrectnessTest()
         {
-            var item = CreateList(1280);
-
-            for (int i = 0; i < 1280; i++)
-            {
-                item[i] = -i;
-            }
-
-            for (int i = 0; i < 1280; i++)
-            {
-                Assert.AreEqual(-i, item[i]);
-            }
+            var item = CreateList(10);
+            item[2] = 42;
+            Assert.AreEqual(42, item[2]);
         }
 
         [Test]
         public void SetRemovedItemThrowException()
         {
-            var item = CreateList(58200);
-            item.RemoveAt(35688);
+            var item = CreateList(5);
+            item.RemoveAt(2);
 
-            Assert.That(() =>
-            {
-                item[35688] = 123.005;
-            }, Throws.Exception);
+            Assert.That(() => item[2] = 0.0, Throws.Exception);
         }
 
         [Test]
         public void SetCapacityTest()
         {
-            var item = CreateList(1280);
-            item.Capacity = 1280;
+            var item = CreateList(5);
+            item.Capacity = 10;
+            Enumerable.Repeat(0, 5).ForEach(i => item.Add(i));
 
-            for (int i = 0; i < 1280; i++)
-            {
-                item[i] = -i;
-            }
-
-            for (int i = 0; i < 1280; i++)
-            {
-                Assert.AreEqual(-i, item[i]);
-            }
+            Assert.AreEqual(10, item.Capacity);
         }
 
         [Test]
         public void SetCapacityTooSmallThrowException()
         {
-            var item = CreateList(1280);
-
-            Assert.That(() =>
-            {
-                item.Capacity = 1279;
-            }, Throws.Exception);
+            var item = CreateList(5);
+            Assert.That(() => item.Capacity = 4, Throws.Exception);
         }
 
         [Test]
         public void InsertAfterRemovalTest()
         {
-            var item = CreateList(58200);
-            item.Capacity = 58200;
+            var list = new FixedIndexList<int>();
+            var indices = Enumerable.Range(0, 10).Select(i => list.Add(i)).ToList();
+            list.RemoveAt(indices[5]);
+            var i5 = list.Add(-1);
 
-            for (int i = 0; i < 582; i++)
-            {
-                item.RemoveAt(i * 100);
-            }
-
-            Assert.AreEqual(58200, item.Capacity);
-
-            for (int i = 0; i < 582; i++)
-            {
-                item.Add(10.0);
-            }
-
-            Assert.AreEqual(58200, item.Capacity);
-
-            for (int i = 0; i < 58200; i++)
-            {
-                if (i % 100 == 0)
-                {
-                    Assert.AreEqual(10.0, item[i], 0.000001);
-                }
-                else
-                {
-                    Assert.AreEqual(i, item[i], 0.000001);
-                }
-            }
-        }
-
-        [Test]
-        public void InsertionAfterRemovalHasCorrectValue()
-        {
-            var item = CreateList(58200);
-            item.Capacity = 58200;
-
-            for (int i = 0; i < 582; i++)
-            {
-                item.RemoveAt(i * 100);
-            }
-
-            var indices = new List<int>();
-
-            for (int i = 0; i < 582; i++)
-            {
-                // The ith item added to indices has value -i.
-                indices.Add(item.Add(-i));
-            }
-
-            for (int i = 0; i < 58200; i++)
-            {
-                if (i % 100 == 0)
-                {
-                    Assert.AreEqual(-i / 100, item[indices[i / 100]], 0.000001);
-                }
-                else
-                {
-                    Assert.AreEqual(i, item[i], 0.000001);
-                }
-            }
+            Assert.IsTrue(indices.All((index, n) => n == 5 || index == n));
+            Assert.IsTrue(list[i5] == -1);
         }
 
         [Test]
@@ -239,66 +154,35 @@ namespace UnitTest.LibraryExtension
         public void CountPropertyTest()
         {
             // New instance
-            var x = new FixedIndexList<int>();
-            Assert.AreEqual(0, x.Count);
+            var list = new FixedIndexList<int>();
+            Assert.AreEqual(0, list.Count);
 
             // Add elements
-            for (int i = 0; i < 580; i++)
-            {
-                x.Add(i % 10);
-            }
-            Assert.AreEqual(580, x.Count);
+            var indices = Enumerable.Repeat(0, 50).Select(i => list.Add(i)).ToList();
+            Assert.AreEqual(50, list.Count);
 
             // Remove elements
-            for (int i = 0; i < 8; i++)
-            {
-                x.RemoveAt(i * 15);
-            }
-            Assert.AreEqual(572, x.Count);
+            indices.Take(20).ForEach(index => list.RemoveAt(index));
+            Assert.AreEqual(30, list.Count);
 
             // Add into previously removed spots
-            for (int i = 0; i < 3; i++)
-            {
-                x.Add(i * i);
-            }
-
-            Assert.AreEqual(575, x.Count);
+            Enumerable.Repeat(0, 10).ForEach(i => list.Add(i));
+            Assert.AreEqual(40, list.Count);
         }
 
         [Test]
         public void ForeachTest()
         {
-            // Add and then remove some items.
-            var x = new FixedIndexList<int>();
+            var list = new FixedIndexList<int>();
+            var elem = Enumerable.Range(0, 10);
+            var indices = elem.Select(i => list.Add(i)).ToList();
 
-            for (int i = 0; i < 100; i++)
-            {
-                x.Add(i);
-            }
+            list.RemoveAt(indices[8]);
 
-            for (int i = 0; i < 10; i++)
-            {
-                x.RemoveAt(i * 10);
-            }
+            var set = new HashSet<int>();
+            foreach (var i in list) set.Add(i);
 
-            int counter = 1;
-
-            foreach (var item in x)
-            {
-                Assert.AreEqual(counter, item);
-
-                if (counter % 10 == 9)
-                {
-                    counter += 2;
-                }
-                else
-                {
-                    counter++;
-                }
-            }
-
-            // Check the number of loop excution is correct.
-            Assert.AreEqual(101, counter);
+            Assert.IsTrue(set.SetEquals(elem.Except(new[] { 8 })));
         }
 
     }
