@@ -23,7 +23,8 @@ namespace QSP.NavData.AAX
         public LoadResult LoadFromFile()
         {
             var wptList = new WaypointList();
-            var countryCodes = new FixesLoader(wptList).ReadFromFile(waypointsFilePath);
+            var countryCodes = new FixesLoader(wptList, Logger.Instance)
+                .ReadFromFile(waypointsFilePath);
 
             var err = AtsFileLoader.ReadFromFile(wptList, atsFilePath);
             if (err != null) LoggerInstance.Log(err);

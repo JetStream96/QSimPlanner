@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using QSP.LibraryExtension;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTest.LibraryExtension
 {
@@ -15,33 +16,28 @@ namespace UnitTest.LibraryExtension
             Assert.IsTrue(item.IndexUpperBound <= 0);
         }
 
-        private FixedIndexList<double> CreateList(int count = 100000)
+        private FixedIndexList<double> CreateList(int count)
         {
             var item = new FixedIndexList<double>();
-
-            for (int i = 0; i < count; i++)
-            {
-                item.Add(i);
-            }
-
+            Enumerable.Range(0, count).ForEach(i => item.Add(i));
             return item;
         }
 
         [Test]
         public void AddItemsTest()
         {
-            CreateList();
+            CreateList(100000);
         }
 
         [Test]
         public void ReadItemCorrectnessTest()
         {
-            var item = CreateList();
+            var list = new FixedIndexList<double>();
+            var elem = Enumerable.Range(0, 100000);
+            var indices = elem.Select(i => list.Add(i));
 
-            for (int i = 0; i < 100000; i++)
-            {
-                Assert.AreEqual(i, item[i]);
-            }
+            Assert.IsTrue(elem.Zip(indices, (item, index) => new { item, index })
+                .All(i => list[i.index] == i.item));
         }
 
         [Test]
@@ -89,6 +85,24 @@ namespace UnitTest.LibraryExtension
             {
                 var x = item[35688];
             }, Throws.Exception);
+        }
+
+        [Test]
+        public void RemoveAlreadyRemovedIndexShouldDoNothing()
+        {
+            var list = new FixedIndexList<int>();
+            var index = list.Add(0);
+            list.RemoveAt(index);
+            list.RemoveAt(index);
+        }
+
+        [Test]
+        public void SetCapacityShouldNotNeedResize()
+        {
+            var list = new FixedIndexList<int>(10);
+            Assert.AreEqual(10, list.Capacity);
+            Enumerable.Range(0, 10).ForEach(i => list.Add(i));
+
         }
 
         [Test]
@@ -210,6 +224,15 @@ namespace UnitTest.LibraryExtension
                     Assert.AreEqual(i, item[i], 0.000001);
                 }
             }
+        }
+
+        [Test]
+        public void ClearTest()
+        {
+            var list = new FixedIndexList<int>();
+            Enumerable.Range(0, 10).ForEach(i => list.Add(i));
+            list.Clear();
+            Assert.AreEqual(0, list.Count);
         }
 
         [Test]

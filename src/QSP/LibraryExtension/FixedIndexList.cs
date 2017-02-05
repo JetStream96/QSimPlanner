@@ -203,6 +203,7 @@ namespace QSP.LibraryExtension
             return !IsRemoved(index);
         }
 
+        // Removes the item at the given index. If the 
         public void RemoveAt(int index)
         {
             if (IsRemoved(index))
@@ -221,10 +222,7 @@ namespace QSP.LibraryExtension
             return new Enumerator(this);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return new Enumerator(this);
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public struct Enumerator : IEnumerator<T>, IEnumerator
         {

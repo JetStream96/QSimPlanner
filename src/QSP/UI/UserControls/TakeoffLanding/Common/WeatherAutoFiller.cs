@@ -48,7 +48,6 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             SetSurfCond(surfCond, precip);
 
             return true;
-
         }
 
         private static void SetSurfCond(ComboBox surfCond, bool precip)

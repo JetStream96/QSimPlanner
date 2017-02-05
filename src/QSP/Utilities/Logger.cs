@@ -9,7 +9,7 @@ namespace QSP.Utilities
         void Log(string msg);
     }
 
-    public class Logger : ILogger
+    public sealed class Logger : ILogger
     {
         private readonly string filePath;
 
@@ -28,5 +28,16 @@ namespace QSP.Utilities
             ExceptionHelpers.IgnoreException(() =>
                 File.AppendAllText(filePath, DateTime.Now.ToString() + ":\n" + msg + "\n\n"));
         }
+
+        public static Logger Instance = new Logger();
+    }
+
+    public sealed class EmptyLogger : ILogger
+    {
+        public static EmptyLogger Instance = new EmptyLogger();
+
+        public void Log(string msg) { }
+
+        public void Log(Exception ex) { }
     }
 }

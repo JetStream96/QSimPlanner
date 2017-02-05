@@ -6,18 +6,22 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using static QSP.Utilities.LoggerInstance;
+using QSP.Utilities;
 
 namespace QSP.NavData.AAX
 {
     public class FixesLoader
     {
         private readonly WaypointList wptList;
+        private readonly ILogger logger;
         private readonly CountryCodeGenerator generator = new CountryCodeGenerator();
 
-        public FixesLoader(WaypointList wptList)
+        public FixesLoader(WaypointList wptList) : this(wptList, EmptyLogger.Instance) { }
+
+        public FixesLoader(WaypointList wptList, ILogger logger)
         {
             this.wptList = wptList;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -52,13 +56,13 @@ namespace QSP.NavData.AAX
             return generator.CountryCodeLookup;
         }
 
-        private static void LogFailures(List<string> failedLines)
+        private void LogFailures(List<string> failedLines)
         {
             if (failedLines.Count == 0) return;
             var sb = new StringBuilder();
             sb.AppendLine("These lines in waypoints.txt cannot be parsed:");
             failedLines.ForEach(i => sb.AppendLine(i));
-            Log(sb.ToString());
+            logger.Log(sb.ToString());
         }
 
         /// <exception cref="WaypointFileReadException"></exception>
