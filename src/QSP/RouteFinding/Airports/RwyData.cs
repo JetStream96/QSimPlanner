@@ -11,9 +11,12 @@ namespace QSP.RouteFinding.Airports
         public int LengthFt { get; private set; }
         public int WidthFt { get; private set; }
         public bool HasIlsInfo { get; private set; }
+
+        // The following 3 values can be used only if HasIlsInfo is true.
         public bool IlsAvail { get; private set; }
         public string IlsFreq { get; private set; }
         public string IlsHeading { get; private set; }
+
         public double Lat { get; private set; }
         public double Lon { get; private set; }
         public int Elevation { get; private set; }
