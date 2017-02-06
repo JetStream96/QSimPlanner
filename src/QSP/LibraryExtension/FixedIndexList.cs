@@ -37,6 +37,7 @@ namespace QSP.LibraryExtension
         private int _size = 0;
         private int _free = -2;  // Either -2, or the index of a removed item.
         private int _count = 0;
+        private int version = 0;
 
         private struct Entry
         {
@@ -72,13 +73,11 @@ namespace QSP.LibraryExtension
 
         public int Add(T item)
         {
-            if (_free >= 0)
+            int index = TryFillDeletedSpot(item);
+            if (index >= 0)
             {
-                int index = TryFillDeletedSpot(item);
-                if (index >= 0)
-                {
-                    return index;
-                }
+                version++;
+                return index;
             }
 
             if (_size == _items.Length)
@@ -88,6 +87,7 @@ namespace QSP.LibraryExtension
 
             _items[_size] = new Entry(-1, item);
             _count++;
+            version++;
             return _size++;
         }
 
@@ -102,7 +102,7 @@ namespace QSP.LibraryExtension
 
         /// <summary>
         /// Try to add the item to a previously deleted place.
-        /// Returns the index at which the item is added, or -1 if the insertion is unsuccessful.
+        /// Returns the index at which the item is added, or -1 if no free spot is available.
         /// </summary>
         private int TryFillDeletedSpot(T item)
         {
@@ -169,6 +169,7 @@ namespace QSP.LibraryExtension
                 }
 
                 _items[index].value = value;
+                version++;
             }
         }
 
@@ -178,6 +179,7 @@ namespace QSP.LibraryExtension
             _free = -2;
             _size = 0;
             _count = 0;
+            version++;
         }
 
         private bool IsRemoved(int index)
@@ -190,7 +192,8 @@ namespace QSP.LibraryExtension
             return !IsRemoved(index);
         }
 
-        // Removes the item at the given index. If the 
+        // Removes the item at the given index. If the item at the index is already removed, 
+        // nothing is done.
         public void RemoveAt(int index)
         {
             if (IsRemoved(index))
@@ -202,6 +205,7 @@ namespace QSP.LibraryExtension
             _items[index].next = _free;
             _free = index;
             _count--;
+            version++;
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -214,11 +218,13 @@ namespace QSP.LibraryExtension
         public struct Enumerator : IEnumerator<T>, IEnumerator
         {
             private FixedIndexList<T> list;
+            private int version;
             private int index;
 
             public Enumerator(FixedIndexList<T> item)
             {
                 list = item;
+                version = item.version;
                 index = -1;
             }
 
@@ -243,9 +249,14 @@ namespace QSP.LibraryExtension
 
             public bool MoveNext()
             {
+                if (version != list.version)
+                {
+                    throw new InvalidOperationException("Collection is changed during enumeration.");
+                }
+
                 index++;
 
-                while (((uint)index < (uint)list._size))
+                while ((uint)index < (uint)list._size)
                 {
                     if (list.ItemExists(index)) return true;
                     index++;
@@ -261,3 +272,4 @@ namespace QSP.LibraryExtension
         }
     }
 }
+

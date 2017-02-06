@@ -60,10 +60,8 @@ namespace QSP.LibraryExtension.Graph
         public void RemoveNode(int index)
         {
             var node = _nodes[index];
-
-            foreach (var i in node.prev) RemoveEdge(i);
-            foreach (var j in node.next) RemoveEdge(j);
-
+            var edgedToRemove = node.prev.Concat(node.next).ToList();
+            edgedToRemove.ForEach(e => RemoveEdge(e));
             _nodes.RemoveAt(index);
         }
 

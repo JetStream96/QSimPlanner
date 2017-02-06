@@ -3,6 +3,7 @@ using NUnit.Framework;
 using QSP.LibraryExtension;
 using System.Collections.Generic;
 using System.Linq;
+using QSP.Utilities;
 
 namespace UnitTest.LibraryExtension
 {
@@ -185,5 +186,27 @@ namespace UnitTest.LibraryExtension
             Assert.IsTrue(set.SetEquals(elem.Except(new[] { 8 })));
         }
 
+        [Test]
+        public void ForeachShouldThrowIfListChanged()
+        {
+            var list = new FixedIndexList<int>();
+            Enumerable.Range(0, 10).ForEach(i => list.Add(i));
+
+            Assert.IsTrue(ForeachThrows(list, lst => lst.Add(0)));
+            Assert.IsTrue(ForeachThrows(list, lst => lst.RemoveAt(0)));
+            Assert.IsTrue(ForeachThrows(list, lst => lst[2] = 0));
+            Assert.IsTrue(ForeachThrows(list, lst => lst.Clear()));
+        }
+
+        private static bool ForeachThrows<T>(FixedIndexList<T> list, Action<FixedIndexList<T>> ac)
+        {
+            return ExceptionHelpers.Throws(() =>
+            {
+                foreach (var i in list)
+                {
+                    ac(list);
+                }
+            });
+        }
     }
 }
