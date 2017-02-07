@@ -49,9 +49,8 @@ namespace QSP
 
         private static void UpdateOnFirstRun()
         {
-            if (File.Exists(OptionManager.DefaultPath)) return;
+            if (!IsFirstLaunch()) return;
 
-            // Option file does not exist. Possibly this is the first time user lauches the app.
             using (var form = new Splash())
             {
                 form.ShowInTaskbar = true;
@@ -78,6 +77,25 @@ namespace QSP
                 };
 
                 form.ShowDialog();
+            }
+        }
+
+        // Returns whether this is the first time user starts the application.
+        // If failed to read files, returns false.
+        private static bool IsFirstLaunch()
+        {
+            if (File.Exists(OptionManager.DefaultPath)) return false;
+
+            // If option file does not exist, it can be:
+            // (1) This is the first time user lauches the app. or
+            // (2) The app just updated an the post-update action has not run.
+            try
+            {
+                return Updates.Utilities.GetVersions().Backup == "";
+            }
+            catch
+            {
+                return false;
             }
         }
 

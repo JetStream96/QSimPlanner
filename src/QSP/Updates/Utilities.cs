@@ -14,6 +14,7 @@ namespace QSP.Updates
         }
 
         // Backup is an empty string if the element does not exist.
+        // May throw exception.
         public static VersionInfo GetVersions()
         {
             var root = GetVersionXDoc().Root;
@@ -25,6 +26,7 @@ namespace QSP.Updates
             };
         }
 
+        // May throw exception.
         public static XDocument GetVersionXDoc()
         {
             return XDocument.Load(VersionXmlPath);
