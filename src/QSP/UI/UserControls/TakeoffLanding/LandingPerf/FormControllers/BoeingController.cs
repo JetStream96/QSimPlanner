@@ -58,7 +58,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
         private void SetDefaultSurfCond()
         {
-            var items = elements.surfCond.Items;
+            var surf = elements.surfCond;
+            var items = surf.Items;
+            var old = surf.Text;
 
             items.Clear();
             items.AddRange(new[] {
@@ -67,7 +69,8 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
                 "Medium Braking Action",
                 "Poor Braking Action"});
 
-            elements.surfCond.SelectedIndex = 0;
+            surf.SelectedIndex = 0;
+            surf.Text = old;
         }
 
         private void SetDefaultFlaps()
@@ -82,8 +85,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             elements.flaps.SelectedIndex = items.Count - 1;
         }
-
-
+        
         private void SetDefaultRevs()
         {
             var items = elements.reverser.Items;
