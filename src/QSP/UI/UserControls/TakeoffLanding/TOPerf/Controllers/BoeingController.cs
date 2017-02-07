@@ -106,11 +106,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 
         private void SetDefaultSurfCond()
         {
-            var items = elements.SurfCond.Items;
+            var surf = elements.SurfCond;
+            var items = surf.Items;
+            var old = surf.Text;
 
             items.Clear();
             items.AddRange(new[] { "Dry", "Wet" });
-            elements.SurfCond.SelectedIndex = 0;
+            surf.SelectedIndex = 0;
+            surf.Text = old;
         }
 
         private void SetDefaultFlaps()
