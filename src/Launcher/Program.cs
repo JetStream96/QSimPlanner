@@ -33,20 +33,36 @@ namespace Launcher
             var info = new ProcessStartInfo()
             {
                 WorkingDirectory = GetVersion(),
-                FileName = "QSimPlanner.exe"
+                FileName = "QSimPlanner.exe",
+                Arguments = "-launcher"
             };
 
             if (Environment.OSVersion.Version.Major >= 6) info.Verb = "runas";
+            if (!waitForExit) Process.Start(info);
 
-            if (waitForExit)
+            if (WaitAppToExit())
             {
-                while (Process.GetProcesses().Any(p => p.ProcessName == "QSimPlanner"))
-                {
-                    Thread.Sleep(500);
-                }
+                Process.Start(info);
+            }
+            else
+            {
+                MessageBox.Show("QSimPlanner is still running. Please close the application " +
+                    "before starting another instance.", "",
+                       MessageBoxButtons.OK,
+                       MessageBoxIcon.Error);
+            }
+        }
+
+        // Returns whether the app eventually exits.
+        private static bool WaitAppToExit()
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                if (!Process.GetProcesses().Any(p => p.ProcessName == "QSimPlanner")) return true;
+                Thread.Sleep(500);
             }
 
-            Process.Start(info);
+            return false;
         }
 
         private static string GetVersion()

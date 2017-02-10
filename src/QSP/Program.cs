@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -21,8 +22,18 @@ namespace QSP
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        internal static void Main()
+        internal static void Main(string[] args)
         {
+#if !DEBUG
+            // Only allows starting from launcher. Otherwise data loss might occur because of
+            // the updater.
+            if (!args.Contains("-launcher"))
+            {
+                MsgBoxHelper.ShowDialog(null, "Please start QSimPlanner via Launcher.exe.",
+                    MsgBoxIcon.Error, "", DefaultButton.Button1, "OK");
+                return;
+            }
+#endif
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 
             using (var mutex = new Mutex(false, $"Global\\{GetGuid()}"))
