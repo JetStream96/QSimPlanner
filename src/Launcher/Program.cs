@@ -38,7 +38,12 @@ namespace Launcher
             };
 
             if (Environment.OSVersion.Version.Major >= 6) info.Verb = "runas";
-            if (!waitForExit) Process.Start(info);
+
+            if (!waitForExit)
+            {
+                Process.Start(info);
+                return;
+            }
 
             if (WaitAppToExit())
             {
