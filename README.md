@@ -43,6 +43,6 @@ You are welcomed to submit pull requests to this repository. Feel free to leave 
 
 ### License
 MIT License
-   [Screenshots]: <https://github.com/JetStream96/QSimPlanner/issues/2>
+   [Screenshots]: <https://github.com/JetStream96/QSimPlanner/issues/4>
    [Aerosoft]: <http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688>
    [Navigraph]: <https://www.navigraph.com/FmsData.aspx>
