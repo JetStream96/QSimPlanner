@@ -8,6 +8,9 @@ using System.Xml.Linq;
 
 namespace Launcher
 {
+    // Caution: Do not change the behavior the launcher. It is NOT meant to be updated 
+    // and should stay exactly the same for all versions of the application.
+    // 
     class Program
     {
         [STAThread]
@@ -33,41 +36,20 @@ namespace Launcher
             var info = new ProcessStartInfo()
             {
                 WorkingDirectory = GetVersion(),
-                FileName = "QSimPlanner.exe",
-                Arguments = "-launcher"
+                FileName = "QSimPlanner.exe"
             };
 
             if (Environment.OSVersion.Version.Major >= 6) info.Verb = "runas";
 
-            if (!waitForExit)
+            if (waitForExit)
             {
-                Process.Start(info);
-                return;
+                while (Process.GetProcesses().Any(p => p.ProcessName == "QSimPlanner"))
+                {
+                    Thread.Sleep(500);
+                }
             }
 
-            if (WaitAppToExit())
-            {
-                Process.Start(info);
-            }
-            else
-            {
-                MessageBox.Show("QSimPlanner is still running. Please close the application " +
-                    "before starting another instance.", "",
-                       MessageBoxButtons.OK,
-                       MessageBoxIcon.Error);
-            }
-        }
-
-        // Returns whether the app eventually exits.
-        private static bool WaitAppToExit()
-        {
-            for (int i = 0; i < 50; i++)
-            {
-                if (!Process.GetProcesses().Any(p => p.ProcessName == "QSimPlanner")) return true;
-                Thread.Sleep(500);
-            }
-
-            return false;
+            Process.Start(info);
         }
 
         private static string GetVersion()

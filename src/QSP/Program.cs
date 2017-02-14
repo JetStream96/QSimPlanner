@@ -13,6 +13,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using static QSP.Updates.Utilities;
 
 namespace QSP
 {
@@ -56,6 +57,14 @@ namespace QSP
 
                 Application.Run(mainFrm);
             }
+        }
+
+        private static bool? IsLatestVersion()
+        {
+            var ver = ExceptionHelpers.DefaultIfThrows(() => GetVersions());
+            if (ver == null) return null;
+            
+
         }
 
         private static void UpdateOnFirstRun()
@@ -102,7 +111,7 @@ namespace QSP
             // (2) The app just updated an the post-update action has not run.
             try
             {
-                return Updates.Utilities.GetVersions().Backup == "";
+                return GetVersions().Backup == "";
             }
             catch
             {

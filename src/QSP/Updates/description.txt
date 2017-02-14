@@ -1,0 +1,19 @@
+The updater system contains two parts:
+
+1. Client side:
+(1) A version.xml, which records the current version and the last backup version. The version numbers are of the format major.minor.build. If the application is never updated, the backup version is an empty string.
+
+(2) A launcher, which reads and parses version.xml, and starts the 'current' version of the application.
+
+(3) The application folder. Every version of the application, along with the configuration files and aircraft profiles. 
+
+(4) Each version of application folder contains an updater.xml. It contains the URIs to the info.xml files on the server and whether the post-update action has been completed.
+
+2. Server side
+(1) A zip file of the updated version.
+(1) An info.xml file containing the lastest version number and the uri to the updated version zip file.
+
+
+Each version of the application are in different folders to simplify debugging. Also, all user settings, app state and aircraft profiles are also stored in their respective folder. This enables the developers to add new aircraft profiles into the new version, or update incorrect numbers in the profiles. However, those files need to be copied over every time the app is updated.
+
+Right now, 

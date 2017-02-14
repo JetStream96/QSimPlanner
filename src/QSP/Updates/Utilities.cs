@@ -12,9 +12,11 @@ namespace QSP.Updates
         {
             return Path.Combine("..", ver.ToString());
         }
-
+        
         // Backup is an empty string if the element does not exist.
         // May throw exception.
+        // The versions are strings of the format major.minor.build.
+        // Backup version may be empty string if the application was never updated.
         public static VersionInfo GetVersions()
         {
             var root = GetVersionXDoc().Root;
@@ -32,6 +34,6 @@ namespace QSP.Updates
             return XDocument.Load(VersionXmlPath);
         }
 
-        public struct VersionInfo { public string Backup, Current; }
+        public class VersionInfo { public string Backup, Current; }
     }
 }
