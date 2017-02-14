@@ -28,10 +28,18 @@ namespace QSP
 #if !DEBUG
             // Only allows starting from launcher. Otherwise data loss might occur because of
             // the updater.
-            if (!args.Contains("-launcher"))
+            try
             {
-                MsgBoxHelper.ShowDialog(null, "Please start QSimPlanner via Launcher.exe.",
-                    MsgBoxIcon.Error, "", DefaultButton.Button1, "OK");
+                var latest = UsingLatestVersion();
+                if (!latest)
+                {
+                    MsgBoxHelper.ShowError(null, "Please start QSimPlanner via Launcher.exe.");
+                    return;
+                }
+            }
+            catch (Exception e)
+            {
+                MsgBoxHelper.ShowError(null, "An error occurred.\n" + e.Message);
                 return;
             }
 #endif
@@ -41,8 +49,7 @@ namespace QSP
             {
                 if (!mutex.WaitOne(0, false))
                 {
-                    MsgBoxHelper.ShowDialog(null, "QSimPlanner is already running.",
-                        MsgBoxIcon.Error, "", DefaultButton.Button1, "OK");
+                    MsgBoxHelper.ShowError(null, "QSimPlanner is already running.");
                     return;
                 }
 
@@ -59,12 +66,12 @@ namespace QSP
             }
         }
 
-        private static bool? IsLatestVersion()
+        // May throw exceptions.
+        private static bool UsingLatestVersion()
         {
-            var ver = ExceptionHelpers.DefaultIfThrows(() => GetVersions());
-            if (ver == null) return null;
-            
-
+            var ver = GetVersions();
+            var dir = new DirectoryInfo(Path.GetFullPath(Directory.GetCurrentDirectory())).Name;
+            return ver.Backup == "" || ver.Current == dir;
         }
 
         private static void UpdateOnFirstRun()
