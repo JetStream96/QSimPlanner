@@ -11,9 +11,19 @@ The updater system contains two parts:
 
 2. Server side
 (1) A zip file of the updated version.
-(1) An info.xml file containing the lastest version number and the uri to the updated version zip file.
+(1) An info.xml file containing the latest version number and the uri to the updated version zip file.
 
 
 Each version of the application are in different folders to simplify debugging. Also, all user settings, app state and aircraft profiles are also stored in their respective folder. This enables the developers to add new aircraft profiles into the new version, or update incorrect numbers in the profiles. However, those files need to be copied over every time the app is updated.
 
-Right now, 
+Right now, the updating process works as follows if compiled in release mode (in debug mode many updater features are disabled):
+
+* When the application is started the first time, updates is checked while showing the splash screen. This ensures that all users who download an older version of the application can obtain the latest version. If an update does not exist, the app will start normally. If an update exists, installation of the update will be attempted. If the installation was successful, and app is restarted via the launcher. If failed, app will start normally.
+
+* If automatic update is enabled in options, the app will check for update asynchronously upon starting. If an update is found, the new version will be installed. If the installation is successful, the updater.xml of the new version will be marked as requiring post-update action. Then the version.xml will be updated. Then, the backup folder is deleted.
+
+* If an update is installed, the user will not be able to check for update again. This is because repeated updating will leave the files in an corrupted state and the user can lose the settings and aircraft configuration files. 
+
+* Every time the qsimplanner.exe starts, the updater.xml is checked to see if post-update action is necessary. If it is necessary, the saved app states in SavedStates folder and the option file in Preference folder are copied to the folder of the new version. All custom aircraft configs and DeletedDefaultAC are copied. 
+
+* It is important that the user starts the qsimplanner.exe from launcher. If not, installation of updates can lead to unexpeted behavior and/or loss of option and configuration files. (Suppose user has 0.3.0 and updated to 0.3.1, but the 0.3.1 is never started so that the post-update action is never run. When the user manually starts 0.3.0 and update to 0.3.2, the updater will fail to delete the currently running qsimplanner.exe but probably deleting a few config files by accident.)
