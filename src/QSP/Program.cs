@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -141,16 +140,10 @@ namespace QSP
 
         private static void SetExceptionHandler()
         {
-            AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
-            {
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
                 HandleException((Exception)e.ExceptionObject);
-            };
 
-            Application.ThreadException += (sender, e) =>
-            {
-                HandleException(e.Exception);
-            };
-
+            Application.ThreadException += (s, e) => HandleException(e.Exception);
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
         }
 
