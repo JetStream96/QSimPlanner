@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Xml.Linq;
+using QSP.LibraryExtension.XmlSerialization;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.ExceptionHelpers;
 using static QSP.Updates.Utilities;
@@ -148,8 +149,11 @@ namespace QSP.Updates
         {
             var doc = GetVersionXDoc();
             var root = doc.Root;
-            var backup = root.Element("current").Value;
-            IgnoreException(() => Directory.Delete(root.Element("backup").Value));
+            var backup = root.GetString("current");
+
+            var oldBackup = root.GetString("backup");
+            if (oldBackup != "") Directory.Delete(Path.Combine("..", oldBackup), true);
+
             root.Element("current").Value = version;
             root.Element("backup").Value = backup;
             File.WriteAllText(VersionXmlPath, doc.ToString());

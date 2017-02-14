@@ -12,6 +12,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using static QSP.Updates.Utilities;
 
 namespace QSP
 {
@@ -21,16 +22,33 @@ namespace QSP
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        internal static void Main()
+        internal static void Main(string[] args)
         {
+#if !DEBUG
+            // Only allows starting from launcher. Otherwise data loss might occur because of
+            // the updater.
+            try
+            {
+                var latest = UsingLatestVersion();
+                if (!latest)
+                {
+                    MsgBoxHelper.ShowError(null, "Please start QSimPlanner via Launcher.exe.");
+                    return;
+                }
+            }
+            catch (Exception e)
+            {
+                MsgBoxHelper.ShowError(null, "An error occurred.\n" + e.Message);
+                return;
+            }
+#endif
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 
             using (var mutex = new Mutex(false, $"Global\\{GetGuid()}"))
             {
                 if (!mutex.WaitOne(0, false))
                 {
-                    MsgBoxHelper.ShowDialog(null, "QSimPlanner is already running.",
-                        MsgBoxIcon.Error, "", DefaultButton.Button1, "OK");
+                    MsgBoxHelper.ShowError(null, "QSimPlanner is already running.");
                     return;
                 }
 
@@ -47,11 +65,18 @@ namespace QSP
             }
         }
 
+        // May throw exceptions.
+        private static bool UsingLatestVersion()
+        {
+            var ver = GetVersions();
+            var dir = new DirectoryInfo(Path.GetFullPath(Directory.GetCurrentDirectory())).Name;
+            return ver.Backup == "" || ver.Current == dir;
+        }
+
         private static void UpdateOnFirstRun()
         {
-            if (File.Exists(OptionManager.DefaultPath)) return;
+            if (!IsFirstLaunch()) return;
 
-            // Option file does not exist. Possibly this is the first time user lauches the app.
             using (var form = new Splash())
             {
                 form.ShowInTaskbar = true;
@@ -81,6 +106,25 @@ namespace QSP
             }
         }
 
+        // Returns whether this is the first time user starts the application.
+        // If failed to read files, returns false.
+        private static bool IsFirstLaunch()
+        {
+            if (File.Exists(OptionManager.DefaultPath)) return false;
+
+            // If option file does not exist, it can be:
+            // (1) This is the first time user lauches the app. or
+            // (2) The app just updated an the post-update action has not run.
+            try
+            {
+                return GetVersions().Backup == "";
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private static void StartLauncher()
         {
             var info = new ProcessStartInfo()
@@ -96,16 +140,10 @@ namespace QSP
 
         private static void SetExceptionHandler()
         {
-            AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
-            {
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
                 HandleException((Exception)e.ExceptionObject);
-            };
 
-            Application.ThreadException += (sender, e) =>
-            {
-                HandleException(e.Exception);
-            };
-
+            Application.ThreadException += (s, e) => HandleException(e.Exception);
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
         }
 

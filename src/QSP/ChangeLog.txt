@@ -1,4 +1,11 @@
-﻿version 0.3.0
+﻿version 0.3.2
+* Fix incorrect autobrake setting for wet runway in 747-400/400F.
+* Fix an issue where runway surface condition changes when aircraft is changed.
+
+version 0.3.1
+* Fix an bug preventing program from starting related to nav data path detection.
+
+version 0.3.0
 * Many bug fixes.
 * UI improvements.
 * Add 747-400/400F profiles.

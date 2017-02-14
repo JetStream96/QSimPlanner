@@ -395,7 +395,10 @@ contains Airports.txt.";
             updateStatusLbl.Text = status.Message;
             updateStatusLbl.ForeColor = status.Status == Updater.Status.Failed ?
                 Color.Red : Color.Green;
-            updateBtn.Enabled = true;
+
+            // If update succeeded, some files are already changed and further updating
+            // may not work as intended. So we disable this button.
+            updateBtn.Enabled = status.Status != Updater.Status.Success;
         }
     }
 }

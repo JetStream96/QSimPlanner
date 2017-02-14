@@ -8,6 +8,9 @@ using System.Xml.Linq;
 
 namespace Launcher
 {
+    // Caution: Do not change the behavior the launcher. It is NOT meant to be updated 
+    // and should stay exactly the same for all versions of the application.
+    // 
     class Program
     {
         [STAThread]

@@ -23,7 +23,7 @@ namespace QSP.NavData
             {
                 Directory = d,
                 Period = AiracTools.TryGetAiracCyclePeriod(d)
-            });
+            }).Where(a => a.Period != null).ToList();
 
             if (!airacs.Any()) return null;
 

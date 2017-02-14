@@ -16,10 +16,22 @@ namespace UnitTest.LibraryExtension
         }
 
         [Test]
+        public void MaxByOnlyOneElement()
+        {
+            Assert.AreEqual(5, new[] { 5 }.MaxBy(t => t));
+        }
+
+        [Test]
         public void MinByTest()
         {
             var x = new[] { 5.0, 3.0, -8.0 };
             Assert.AreEqual(3.0, x.MinBy(t => (t - 3.0) * (t - 3.0)));
+        }
+
+        [Test]
+        public void MinByOnlyOneElement()
+        {
+            Assert.AreEqual(3, new[] { 3 }.MinBy(t => t));
         }
 
         [Test]
