@@ -217,8 +217,7 @@ namespace QSP.RouteFinding.Finder
                             newDis,
                             InRange.Yes);
                     }
-                    else if (unvisited.ContainsKey(index) &&
-                        newDis < unvisited[index].Value)
+                    else if (unvisited.ContainsKey(index) && newDis < unvisited[index])
                     {
                         unvisited.ChangeValue(index, newDis);
                         wptData[index] = new RouteFindingData.WaypointStatus(
