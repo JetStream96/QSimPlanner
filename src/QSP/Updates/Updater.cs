@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Xml.Linq;
+using QSP.LibraryExtension;
 using QSP.LibraryExtension.XmlSerialization;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.ExceptionHelpers;
@@ -141,7 +142,11 @@ namespace QSP.Updates
                 client.DownloadFile(info.Uri, zipFilePath);
             }
 
+            IOMethods.ClearDirectory(extractDir);
+
+            // This creates extractDir if necessary.
             ZipFile.ExtractToDirectory(zipFilePath, extractDir);
+
             IgnoreException(() => File.Delete(zipFilePath));
         }
 
