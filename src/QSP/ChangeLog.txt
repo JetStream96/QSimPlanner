@@ -1,4 +1,7 @@
-﻿version 0.3.2
+﻿version 0.3.3
+* Fix a bug causing updates to fail to install if user already updated to that version previously but then uninstalled the app.
+
+version 0.3.2
 * Fix incorrect autobrake setting for wet runway in 747-400/400F.
 * Fix an issue where runway surface condition changes when aircraft is changed.
 
