@@ -19,14 +19,12 @@ using System.Xml.Linq;
 using static QSP.RouteFinding.Tracks.AirwayNetwork;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
-using static QSP.Utilities.ExceptionHelpers;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms
 {
     public partial class TracksForm
     {
-        private static readonly string trackFileFolder = "Tracks";
         private static readonly string trackFileExtension = ".track";
 
         private AirwayNetwork airwayNetwork;
@@ -336,11 +334,11 @@ namespace QSP.UI.Forms
                 return;
             }
 
-            IgnoreException(() => Directory.CreateDirectory(trackFileFolder));
+            var myDoc = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var saveFileDialog = new SaveFileDialog();
 
             saveFileDialog.Filter = GetFileDialogFilter();
-            saveFileDialog.InitialDirectory = Path.GetFullPath(trackFileFolder);
+            saveFileDialog.InitialDirectory = myDoc;
             saveFileDialog.RestoreDirectory = true;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -350,7 +348,6 @@ namespace QSP.UI.Forms
                 try
                 {
                     File.Delete(file);
-                    Directory.CreateDirectory(trackFileFolder);
                     TrackFiles.SaveToFile(msg, file);
                 }
                 catch (Exception ex)
@@ -364,9 +361,10 @@ namespace QSP.UI.Forms
         private void importBtn_Click(object sender, EventArgs e)
         {
             var openFileDialog = new OpenFileDialog();
-            
+
             openFileDialog.Filter = GetFileDialogFilter();
-            openFileDialog.InitialDirectory = Path.GetFullPath(trackFileFolder);
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(
+                Environment.SpecialFolder.MyDocuments);
             openFileDialog.RestoreDirectory = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)

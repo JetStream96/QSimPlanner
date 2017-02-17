@@ -91,13 +91,13 @@ namespace QSP.UI.Forms
         {
             var sourceFile = WindManager.DownloadFilePath;
 
-            if (windAvailable == false)
+            if (!windAvailable)
             {
                 this.ShowWarning("No wind data has been downloaded or loaded from file.");
                 return;
             }
 
-            if (File.Exists(sourceFile) == false)
+            if (!File.Exists(sourceFile))
             {
                 this.ShowWarning("The temporary wind data file was deleted. Unable to proceed.");
                 return;
