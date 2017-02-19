@@ -67,19 +67,22 @@ VVTS 150630Z 16004KT 090V170 9999 BKN017 FEW020TCU 37/22 Q1006 NOSIG "));
         [Test]
         public void GetPressTestNotFound()
         {
-            Assert.IsNull(ParaExtractor.GetPressure("RCTP ... ..."));
+            var (found, _, _) = ParaExtractor.GetPressure("RCTP ... ...");
+            Assert.False(found);
         }
 
         [Test]
         public void GetPressTest()
         {
-            var p = ParaExtractor.GetPressure("RCTP ... Q1015 ");
-            Assert.AreEqual(PressureUnit.Mb, p.PressUnit);
-            Assert.AreEqual(1015.0, p.Value, 1E-6);
+            var (found1, unit1, p1) = ParaExtractor.GetPressure("RCTP ... Q1015 ");
+            Assert.IsTrue(found1);
+            Assert.AreEqual(PressureUnit.Mb, unit1);
+            Assert.AreEqual(1015.0, p1, 1E-6);
 
-            var q = ParaExtractor.GetPressure("KLAX ... A3001");
-            Assert.AreEqual(PressureUnit.inHg, q.PressUnit);
-            Assert.AreEqual(30.01, q.Value, 1E-6);
+            var (found2, unit2, p2) = ParaExtractor.GetPressure("KLAX ... A3001");
+            Assert.IsTrue(found2);
+            Assert.AreEqual(PressureUnit.inHg, unit2);
+            Assert.AreEqual(30.01, p2, 1E-6);
         }
 
         [Test]

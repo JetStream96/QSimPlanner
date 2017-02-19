@@ -23,10 +23,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
         {
             var wind = ParaExtractor.GetWind(metar);
             int? temp = ParaExtractor.GetTemp(metar);
-            var press = ParaExtractor.GetPressure(metar);
+            var (pressFound, pUnit, press) = ParaExtractor.GetPressure(metar);
             bool precip = ParaExtractor.PrecipitationExists(metar);
 
-            if (wind == null || temp == null || press == null) return false;
+            if (wind == null || temp == null || !pressFound) return false;
 
             var w = wind.Value;
             windSpeed.Text = Numbers.RoundToInt(w.Speed).ToString();
@@ -39,11 +39,11 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
 
             tempUnit.SelectedIndex = 0;
             oat.Text = temp.Value.ToString();
-            pressUnit.SelectedIndex = (int)press.PressUnit;
+            pressUnit.SelectedIndex = (int) pUnit;
             altimeter.Text =
-                press.PressUnit == PressureUnit.inHg ?
-                Math.Round(press.Value, 2).ToString("0.00") :
-                Numbers.RoundToInt(press.Value).ToString();
+                pUnit == PressureUnit.inHg ?
+                Math.Round(press, 2).ToString("0.00") :
+                Numbers.RoundToInt(press).ToString();
 
             SetSurfCond(surfCond, precip);
 

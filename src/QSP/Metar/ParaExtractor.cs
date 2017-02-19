@@ -71,7 +71,7 @@ namespace QSP.Metar
         /// <summary>
         /// Matches Q1013, A3000.
         /// </summary>
-        public static PressureSetting GetPressure(string metar)
+        public static (bool success, PressureUnit unit, double value) GetPressure(string metar)
         {
             var match = Regex.Match(metar, @"(^|\s)[AQ]\d{4}($|\s)", RegexOptions.Multiline);
 
@@ -80,13 +80,13 @@ namespace QSP.Metar
                 var val = match.Value.Trim();
                 var unit = val.Contains("A") ?
                     PressureUnit.inHg : PressureUnit.Mb;
-
-                return new PressureSetting(unit,
+                
+                return (true, unit,
                     double.Parse(val.Substring(1, 4)) *
                     (unit == PressureUnit.inHg ? 0.01 : 1.0));
             }
 
-            return null;
+            return (false, PressureUnit.Mb, 0.0);
         }
 
         public static bool PrecipitationExists(string metar)
@@ -131,18 +131,6 @@ namespace QSP.Metar
                 patternPrecipitation + @"($|\s)";
 
             return Regex.Match(metar, pattern, RegexOptions.Multiline).Success;
-        }
-
-        public class PressureSetting
-        {
-            public PressureUnit PressUnit { get; }
-            public double Value { get; }
-
-            public PressureSetting(PressureUnit PressUnit, double Value)
-            {
-                this.PressUnit = PressUnit;
-                this.Value = Value;
-            }
         }
     }
 }
