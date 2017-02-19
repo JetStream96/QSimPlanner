@@ -22,7 +22,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
     {
         public const string FileName = "TakeoffPerfControl.xml";
 
-        private FormController controller;
+        private IFormController controller;
         private TOPerfElements elements;
         private AcConfigManager aircrafts;
         private List<PerfTable> tables;
@@ -217,7 +217,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             }
         }
 
-        private void Subscribe(FormController controller)
+        private void Subscribe(IFormController controller)
         {
             wtUnitComboBox.SelectedIndexChanged += controller.WeightUnitChanged;
             flapsComboBox.SelectedIndexChanged += controller.FlapsChanged;
@@ -226,7 +226,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             controller.CalculationCompleted += SaveState;
         }
 
-        private void UnSubscribe(FormController controller)
+        private void UnSubscribe(IFormController controller)
         {
             wtUnitComboBox.SelectedIndexChanged -= controller.WeightUnitChanged;
             flapsComboBox.SelectedIndexChanged -= controller.FlapsChanged;

@@ -13,18 +13,25 @@ using QSP.AircraftProfiles.Configs;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
 {
-    public class BoeingController : FormController
+    public class BoeingController : IFormController
     {
+        private Control parentControl;
+        private PerfTable acPerf;
+        private TOPerfElements elements;
         private AircraftConfigItem ac;
+
+        public event EventHandler CalculationCompleted;
 
         public BoeingController(AircraftConfigItem ac, PerfTable acPerf, TOPerfElements elements,
             Control parentControl)
-            : base(acPerf, elements, parentControl)
         {
+            this.acPerf = acPerf;
+            this.elements = elements;
+            this.parentControl = parentControl;
             this.ac = ac;
         }
 
-        public override void WeightUnitChanged(object sender, EventArgs e)
+        public void WeightUnitChanged(object sender, EventArgs e)
         {
             double wt;
 
@@ -45,7 +52,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
             }
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
             SetDefaultSurfCond();
             SetDefaultFlaps();
@@ -75,7 +82,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
             elements.AntiIce.SelectedIndex = 0;
         }
 
-        public override void FlapsChanged(object sender, EventArgs e)
+        public void FlapsChanged(object sender, EventArgs e)
         {
             SetDerate();
         }
@@ -147,7 +154,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
             return true;
         }
 
-        public override void Compute(object sender, EventArgs e)
+        public void Compute(object sender, EventArgs e)
         {
             try
             {
@@ -163,7 +170,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
                 // To center the text in the richTxtBox
                 elements.Result.Text = text.ShiftToRight(15);
 
-                OnCalculationComplete(EventArgs.Empty);
+                CalculationCompleted?.Invoke(this, EventArgs.Empty);
                 elements.Result.ForeColor = Color.Black;
             }
             catch (InvalidUserInputException ex)

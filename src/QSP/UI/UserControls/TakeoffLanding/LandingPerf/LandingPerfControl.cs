@@ -21,7 +21,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
     {
         public const string FileName = "LandingPerfControl.xml";
 
-        private FormController controller;
+        private IFormController controller;
         private LandingPerfElements elements;
         private List<PerfTable> tables;
         private AcConfigManager aircrafts;
@@ -241,7 +241,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             }
         }
 
-        private void Subscribe(FormController controller)
+        private void Subscribe(IFormController controller)
         {
             var c = controller;
             var w = weatherInfoControl;
@@ -256,7 +256,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             c.CalculationCompleted += SaveState;
         }
 
-        private void UnSubscribe(FormController controller)
+        private void UnSubscribe(IFormController controller)
         {
             var c = controller;
             var w = weatherInfoControl;

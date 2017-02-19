@@ -12,18 +12,25 @@ using QSP.AircraftProfiles.Configs;
 
 namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 {
-    public class BoeingController : FormController
+    public class BoeingController : IFormController
     {
+        private PerfTable acPerf;
+        private LandingPerfElements elements;
+        private Control parentControl;
         private AircraftConfigItem ac;
 
-        public BoeingController(AircraftConfigItem ac, PerfTable acPerf, LandingPerfElements elem,
-            Control parentControl)
-            : base(acPerf, elem, parentControl)
+        public event EventHandler CalculationCompleted;
+
+        public BoeingController(AircraftConfigItem ac, PerfTable acPerf,
+            LandingPerfElements elements, Control parentControl)
         {
+            this.acPerf = acPerf;
+            this.elements = elements;
+            this.parentControl = parentControl;
             this.ac = ac;
         }
 
-        public override void WeightUnitChanged(object sender, EventArgs e)
+        public void WeightUnitChanged(object sender, EventArgs e)
         {
             double wt;
 
@@ -44,14 +51,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
             }
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
             SetDefaultSurfCond();
             SetDefaultFlaps();
             SetDefaultRevs();
         }
 
-        public override void SurfCondChanged(object sender, EventArgs e)
+        public void SurfCondChanged(object sender, EventArgs e)
         {
             UpdateBrks();
         }
@@ -85,7 +92,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             elements.flaps.SelectedIndex = items.Count - 1;
         }
-        
+
         private void SetDefaultRevs()
         {
             var items = elements.reverser.Items;
@@ -118,7 +125,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
             brks.SelectedIndex = Math.Max(0, matchIndex);
         }
 
-        public override void Compute(object sender, EventArgs e)
+        public void Compute(object sender, EventArgs e)
         {
             try
             {
@@ -133,7 +140,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
                 // To center the text in the richTxtBox
                 elements.result.Text = text.ShiftToRight(14);
 
-                OnCalculationComplete(EventArgs.Empty);
+                CalculationCompleted?.Invoke(this, EventArgs.Empty);
                 elements.result.ForeColor = Color.Black;
             }
             catch (InvalidUserInputException ex)
@@ -163,5 +170,12 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             return true;
         }
+
+        // These methods do nothing.
+        public void FlapsChanged(object sender, EventArgs e) { }
+
+        public void ReverserChanged(object sender, EventArgs e) { }
+
+        public void BrakesChanged(object sender, EventArgs e) { }
     }
 }

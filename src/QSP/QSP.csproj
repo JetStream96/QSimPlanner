@@ -333,6 +333,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\UserControls\RouteActions\RouteActionController.cs" />
+    <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\IFormController.cs" />
     <Compile Include="UI\Utilities\ControlMover.cs" />
     <Compile Include="UI\Utilities\DoubleBufferUtil.cs" />
     <Compile Include="UI\Utilities\ImageUtil.cs" />
@@ -532,7 +533,6 @@
     </Compile>
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\BoeingController.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\BoeingParameterValidator.cs" />
-    <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\FormController.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\FormControllerFactory.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\ControlState.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\TOPerfElements.cs" />

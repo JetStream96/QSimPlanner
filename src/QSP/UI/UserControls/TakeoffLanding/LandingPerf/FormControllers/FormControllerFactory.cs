@@ -12,7 +12,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
     public static class FormControllerFactory
     {
-        public static FormController GetController(ControllerType type, AircraftConfigItem ac, 
+        public static IFormController GetController(ControllerType type, AircraftConfigItem ac, 
             PerfTable acPerf, LandingPerfElements elements, Control parentControl)
         {
             switch (type)
