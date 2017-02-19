@@ -8,13 +8,33 @@ namespace InstallerBuilder
 
         static void Main(string[] args)
         {
-            try
-            {
-                var gen = new FileOutputGenerator();
-                gen.Build();
-                InstallerCreator.WriteFile(gen.Version);
+            const int numTry = 3;
+            var asterisks = new string('*', 24);
 
-                Console.WriteLine(@"
+            for (int i = 1; i <= 3; i++)
+            {
+                Console.WriteLine($"\n\n\n{asterisks}\n\n    " +
+                    $"Build attempt {i}/{numTry}\n\n{asterisks}\n");
+
+                try
+                {
+                    BuildAttempt();
+                    return;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        }
+
+        public static void BuildAttempt()
+        {
+            var gen = new FileOutputGenerator();
+            gen.Build();
+            InstallerCreator.WriteFile(gen.Version);
+
+            Console.WriteLine(@"
 
 
 ************************
@@ -22,11 +42,6 @@ namespace InstallerBuilder
     Build completed.
 
 ************************");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
         }
     }
 }

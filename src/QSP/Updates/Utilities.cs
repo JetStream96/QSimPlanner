@@ -16,6 +16,8 @@ namespace QSP.Updates
         // May throw exception.
         // The versions are strings of the format major.minor.build.
         // Backup version is empty string if the application was never updated.
+        // Do NOT use reflection to get the current version so that it is easier to test the
+        // updater system.
         public static VersionInfo GetVersions()
         {
             var root = GetVersionXDoc().Root;
