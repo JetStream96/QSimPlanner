@@ -1,0 +1,26 @@
+The following manual tests need to pass before deploying. 
+
+1. When launching the app (via launcher) for the first time:
+1.1. When no update is available, app should start normally.
+1.2. When an update is available, it should automatically update at splash screen and then restart the new version.
+
+2. When launching the app for the second time or later:
+2.1. If the automatic update is enabled, the app should update after starting and a message should show in options page to indicate successful update installation. Then the user should no longer be able to check for update again before restarting the app.
+2.2. First make changes to options, fuel/takeoff/landing pages. Delete a default aircraft. Change the registration of a default aircraft. Change a property that is not registration of a default aircraft.
+2.3. Restart via the launcher.
+2.4. The new version should start. The options and fuel/takeoff/landing pages should appear in the same state after step 2.2. The deleted default aircraft in 2.2 should not show. The registration change and property change of aircrafts in 2.2 should persist. 
+2.5. Check for update again. It should indicate the current version is up-to-date.
+
+3. When user updated but never started the new version, and an update is available:
+3.1. The app should NOT update to the latest version at splash screen.
+
+4. When user updated to version Y from X, and then reinstalled version X (so that version Y folder still exists). 
+4.1. If the latest version is still Y, the updater should install successfully by overwriting files in version Y folder.
+
+**************************************
+
+The update system only use version.xml (in the same folder as the launcher.exe) for current assembly version. Therefore, deployment of new updates can be simulated as follows:
+
+1. Build the current version. 
+2. Zip the files according to the instructions in readme.txt, except make changes on local file system instead of the server. 
+3. The URIs in updater.xml needs to be replaced with the local file path.
