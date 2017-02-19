@@ -89,8 +89,7 @@ namespace UnitTest.RouteFinding.FileExport.Providers
 
         private static bool CanConvertToDouble(string s)
         {
-            double d;
-            return double.TryParse(s, out d);
+            return double.TryParse(s, out var d);
         }
 
         [Test]

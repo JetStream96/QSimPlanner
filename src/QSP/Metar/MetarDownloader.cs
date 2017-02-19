@@ -61,9 +61,8 @@ namespace QSP.Metar
         /// </summary>
         public static string GetMetarTaf(string icao)
         {
-            string metar, taf;
-            if (TryGetMetar(icao, out metar) &&
-                TryGetTaf(icao, out taf))
+            if (TryGetMetar(icao, out var metar) &&
+                TryGetTaf(icao, out var taf))
             {
                 return metar + "\n\n" + taf;
             }

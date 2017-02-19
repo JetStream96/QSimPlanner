@@ -58,10 +58,9 @@ namespace QSP.AviationTools.Coordinates
             var pattern = @"(\d\d)([NS])(\d\d\d)([EW])";
             var match = Regex.Match(item, pattern);
 
-            int lat, lon;
             if (match.Success &&
-                int.TryParse(match.Groups[1].Value, out lat) &&
-                int.TryParse(match.Groups[3].Value, out lon) &&
+                int.TryParse(match.Groups[1].Value, out int lat) &&
+                int.TryParse(match.Groups[3].Value, out int lon) &&
                 0 <= lat && lat <= 90 && 0 <= lon && lon <= 180)
             {
                 if (match.Groups[2].Value == "S") lat = -lat;

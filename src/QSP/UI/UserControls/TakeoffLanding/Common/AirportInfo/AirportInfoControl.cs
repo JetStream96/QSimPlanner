@@ -133,9 +133,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
 
         private void lengthUnitSelectedChanged(object sender, EventArgs e)
         {
-            double len;
-
-            if (double.TryParse(lengthTxtBox.Text, out len))
+            if (double.TryParse(lengthTxtBox.Text, out var len))
             {
                 len *= lengthUnitComboBox.SelectedIndex == 0 ?
                     Constants.FtMeterRatio :

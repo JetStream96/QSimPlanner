@@ -45,11 +45,10 @@ namespace QSP.RouteFinding.TerminalProcedures.Parser
             var words = line.Split(',');
             if (words.Length < 4) return null;
             var ident = words[1];
-
-            double lat, lon;
+            
             if (FixTypes.HasCorrds(words[0]) &&
-                double.TryParse(words[2], out lat) &&
-                double.TryParse(words[3], out lon))
+                double.TryParse(words[2], out var lat) &&
+                double.TryParse(words[3], out var lon))
             {
                 return new Waypoint(ident, lat, lon);
             }

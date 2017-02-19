@@ -25,10 +25,8 @@ namespace QSP.NavData.AAX
         //
         public int GetCountryCode(string letterCode)
         {
-            if (letterCode == "") return DefaultCode;
-
-            int code;
-            if (_countryCodeLookup.TryGetBySecond(letterCode, out code)) return code;
+            if (letterCode == "") return DefaultCode;            
+            if (_countryCodeLookup.TryGetBySecond(letterCode, out var code)) return code;
 
             do
             {

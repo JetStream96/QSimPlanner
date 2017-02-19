@@ -32,9 +32,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
         public void WeightUnitChanged(object sender, EventArgs e)
         {
-            double wt;
-
-            if (double.TryParse(elements.weight.Text, out wt))
+            if (double.TryParse(elements.weight.Text, out var wt))
             {
                 if (elements.wtUnit.SelectedIndex == 0)
                 {

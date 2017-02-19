@@ -7,13 +7,11 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
     {
         private static double? TryGetNumber(string s)
         {
-            int i;
-            double d;
-            if (s.Length == 2 && int.TryParse(s, out i)) return i;
+            if (s.Length == 2 && int.TryParse(s, out var i)) return i;
 
             if (s.Length > 2 &&
                 int.TryParse(s.Substring(0, 2), out i) &&
-                double.TryParse(s.Substring(2), out d))
+                double.TryParse(s.Substring(2), out var d))
             {
                 return i + d / 60.0;
             }

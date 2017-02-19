@@ -111,9 +111,7 @@ namespace QSP.UI.UserControls.AircraftMenu
 
             foreach (var j in textBoxes)
             {
-                double wt;
-
-                if (double.TryParse(j.Text, out wt))
+                if (double.TryParse(j.Text, out var wt))
                 {
                     j.Text = Numbers.RoundToInt(wt * factor).ToString();
                 }

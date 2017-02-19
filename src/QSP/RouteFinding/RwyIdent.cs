@@ -16,8 +16,7 @@ namespace QSP.RouteFinding
 
         private static bool ValidRwyNum(string s)
         {
-            int rwyNum;
-            return int.TryParse(s, out rwyNum) && 0 < rwyNum && rwyNum <= 36;
+            return int.TryParse(s, out var rwyNum) && 0 < rwyNum && rwyNum <= 36;
         }
     }
 }

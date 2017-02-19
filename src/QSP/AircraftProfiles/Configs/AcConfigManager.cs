@@ -31,9 +31,7 @@ namespace QSP.AircraftProfiles.Configs
 
         private void AddToAircraftList(AircraftConfig item)
         {
-            List<AircraftConfig> acSameType;
-
-            if (aircrafts.TryGetValue(item.Config.AC, out acSameType))
+            if (aircrafts.TryGetValue(item.Config.AC, out var acSameType))
             {
                 acSameType.Add(item);
             }
@@ -48,9 +46,7 @@ namespace QSP.AircraftProfiles.Configs
         /// </summary>
         public bool Remove(string registration)
         {
-            AircraftConfig config;
-
-            if (registrations.TryGetValue(registration, out config))
+            if (registrations.TryGetValue(registration, out var config))
             {
                 registrations.Remove(registration);
                 aircrafts[config.Config.AC].Remove(config);
@@ -123,16 +119,14 @@ namespace QSP.AircraftProfiles.Configs
         /// </summary>
         public AircraftConfig Find(string registration)
         {
-            AircraftConfig config;
-            return registrations.TryGetValue(registration, out config)
+            return registrations.TryGetValue(registration, out var config)
                 ? config
                 : null;
         }
 
         public IEnumerable<AircraftConfig> FindAircraft(string aircraft)
         {
-            List<AircraftConfig> configs;
-            return aircrafts.TryGetValue(aircraft, out configs)
+            return aircrafts.TryGetValue(aircraft, out var configs)
                 ? configs
                 : new List<AircraftConfig>();
         }

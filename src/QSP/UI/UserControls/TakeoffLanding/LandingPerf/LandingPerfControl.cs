@@ -275,9 +275,8 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
         {
             var ac = aircrafts?.Find(regComboBox.Text);
             var config = ac?.Config;
-            double wtKg;
 
-            if (config != null && double.TryParse(weightTxtBox.Text, out wtKg))
+            if (config != null && double.TryParse(weightTxtBox.Text, out var wtKg))
             {
                 if (wtUnitComboBox.SelectedIndex == 1)
                 {

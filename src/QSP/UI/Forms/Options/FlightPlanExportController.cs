@@ -51,9 +51,7 @@ namespace QSP.UI.Forms.Options
         {
             foreach (var i in exports)
             {
-                ExportCommand cmd;
-
-                if (AppOptions.ExportCommands.TryGetValue(i.Key, out cmd))
+                if (AppOptions.ExportCommands.TryGetValue(i.Key, out var cmd))
                 {
                     i.TxtBox.Text = cmd.Directory;
                     i.CheckBox.Checked = cmd.Enabled;

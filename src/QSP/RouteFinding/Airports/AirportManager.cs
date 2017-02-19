@@ -34,8 +34,7 @@ namespace QSP.RouteFinding.Airports
         {
             get
             {
-                Airport airport;
-                if (airportData.TryGetValue(icao, out airport)) return airport;
+                if (airportData.TryGetValue(icao, out var airport)) return airport;
                 return null;
             }
         }

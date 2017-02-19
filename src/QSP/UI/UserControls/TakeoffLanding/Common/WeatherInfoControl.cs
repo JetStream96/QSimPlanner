@@ -38,9 +38,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
 
         private void tempUnitComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            double temp;
-
-            if (double.TryParse(oatTxtBox.Text, out temp))
+            if (double.TryParse(oatTxtBox.Text, out var temp))
             {
                 if (tempUnitComboBox.SelectedIndex == 0)
                 {
@@ -59,9 +57,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
 
         private void pressUnitComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            double press;
-
-            if (double.TryParse(pressTxtBox.Text, out press))
+            if (double.TryParse(pressTxtBox.Text, out var press))
             {
                 if (pressUnitComboBox.SelectedIndex == 0)
                 {

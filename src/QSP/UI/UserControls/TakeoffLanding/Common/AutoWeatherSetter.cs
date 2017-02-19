@@ -80,10 +80,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             w.picBox.Image = Properties.Resources.errorIcon;
 
             string icao = airportControl.Icao;
-            metar = null;
-
+            
             bool metarAcquired = await Task.Run(
-                     () => MetarDownloader.TryGetMetar(icao, out metar));
+                () => MetarDownloader.TryGetMetar(icao, out var metar));
 
             if (metarAcquired)
             {

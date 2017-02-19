@@ -40,9 +40,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
 
         private void okBtn_Click(object sender, EventArgs e)
         {
-            double fuel;
-
-            if (double.TryParse(landingFuelTxtBox.Text, out fuel) &&
+            if (double.TryParse(landingFuelTxtBox.Text, out var fuel) &&
                 fuel >= 0.0)
             {
                 if (acRequest.WtUnit == WeightUnit.LB)

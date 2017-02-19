@@ -60,28 +60,24 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
             {
                 throw new InvalidUserInputException("Runway length is not valid.");
             }
-
-            double elevationFt;
-            if (!double.TryParse(elements.Elevation.Text, out elevationFt) ||
+            
+            if (!double.TryParse(elements.Elevation.Text, out var elevationFt) ||
                 elevationFt < -2000.0 || elevationFt > 25000.0)
             {
                 throw new InvalidUserInputException("Runway elevation is not valid.");
             }
-
-            double rwyHeading;
-            if (!double.TryParse(elements.RwyHeading.Text, out rwyHeading))
+            
+            if (!double.TryParse(elements.RwyHeading.Text, out var rwyHeading))
             {
                 throw new InvalidUserInputException("Runway heading is not valid.");
             }
-
-            double windHeading;
-            if (!double.TryParse(elements.WindDirection.Text, out windHeading))
+            
+            if (!double.TryParse(elements.WindDirection.Text, out var windHeading))
             {
                 throw new InvalidUserInputException("Wind direction is not valid.");
             }
 
-            double windSpeed;
-            if (!double.TryParse(elements.WindSpeed.Text, out windSpeed) ||
+            if (!double.TryParse(elements.WindSpeed.Text, out var windSpeed) ||
                 windSpeed < -200.0 || windSpeed > 200.0)
             {
                 throw new InvalidUserInputException("Wind speed is not valid.");
@@ -106,8 +102,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers
                 throw new InvalidUserInputException("Altimeter setting is not valid.");
             }
 
-            double slopePercent;
-            if (!double.TryParse(elements.Slope.Text, out slopePercent))
+            if (!double.TryParse(elements.Slope.Text, out var slopePercent))
             {
                 throw new InvalidUserInputException("Runway slope is not valid.");
             }

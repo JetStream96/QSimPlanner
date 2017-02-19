@@ -40,8 +40,7 @@ namespace QSP.LibraryExtension
         /// <exception cref="ArgumentNullException"></exception>
         public void RemoveByFirst(TFirst first)
         {
-            TSecond second;
-            if (TryGetByFirst(first, out second) == false) return;
+            if (!TryGetByFirst(first, out var second)) return;
 
             _firstToSecond.Remove(first);
             _secondToFirst.Remove(second);
@@ -50,8 +49,7 @@ namespace QSP.LibraryExtension
         /// <exception cref="ArgumentNullException"></exception>
         public void RemoveBySecond(TSecond second)
         {
-            TFirst first;
-            if (TryGetBySecond(second, out first) == false) return;
+            if (!TryGetBySecond(second, out var first)) return;
 
             _secondToFirst.Remove(second);
             _firstToSecond.Remove(first);

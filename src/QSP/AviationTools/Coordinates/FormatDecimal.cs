@@ -38,10 +38,9 @@ namespace QSP.AviationTools.Coordinates
             var pattern = @"^([NS])(.+?)([EW])(.+)$";
             var match = Regex.Match(item, pattern);
             if (!match.Success) return null;
-
-            double lat, lon;
-            if (double.TryParse(match.Groups[2].Value, out lat) &&
-                double.TryParse(match.Groups[4].Value, out lon) &&
+            
+            if (double.TryParse(match.Groups[2].Value, out var lat) &&
+                double.TryParse(match.Groups[4].Value, out var lon) &&
                 0.0 <= lat && lat <= 90.0 &&
                 0.0 <= lon && lon <= 180.0)
             {

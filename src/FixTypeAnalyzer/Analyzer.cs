@@ -32,12 +32,11 @@ namespace FixTypeAnalyzer
         private static IndividualEntry ToIndividualEntry(Airport a, string line)
         {
             var words = line.Split(',');
-
-            double lat, lon;
+            
             double? dis = null;
             if (words.Length >= 4 &&
-                double.TryParse(words[2], out lat) &&
-                double.TryParse(words[3], out lon) &&
+                double.TryParse(words[2], out var lat) &&
+                double.TryParse(words[3], out var lon) &&
                 -90.0 <= lat && lat <= 90.0 &&
                 -180.0 <= lon && lon <= 180.0)
             {
@@ -86,12 +85,11 @@ namespace FixTypeAnalyzer
             foreach (var s in lines)
             {
                 var words = s.Split(',');
-                double lat, lon;
 
                 if (words.Length >= 5 &&
                     words[0] == "A" &&
-                    double.TryParse(words[3], out lat) &&
-                    double.TryParse(words[4], out lon))
+                    double.TryParse(words[3], out var lat) &&
+                    double.TryParse(words[4], out var lon))
                 {
                     return new Airport()
                     {

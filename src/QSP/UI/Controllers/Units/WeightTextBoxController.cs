@@ -30,9 +30,7 @@ namespace QSP.UI.Controllers.Units
         /// <exception cref="InvalidOperationException"></exception>
         public double GetWeightKg()
         {
-            double num;
-
-            if (double.TryParse(TxtBox.Text.Trim(), out num))
+            if (double.TryParse(TxtBox.Text.Trim(), out var num))
             {
                 if (_unit == WeightUnit.KG)
                 {
