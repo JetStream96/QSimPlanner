@@ -77,7 +77,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             DisableDnBtn();
             var w = wxControl;
             w.picBox.Visible = false;
-            w.picBox.Image = Properties.Resources.errorIcon;
+            w.picBox.Image = Properties.Resources.RedLight;
 
             string icao = airportControl.Icao;
             
@@ -103,7 +103,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
                 }
                 else
                 {
-                    w.picBox.Image = Properties.Resources.okIcon;
+                    w.picBox.Image = Properties.Resources.GreenLight;
                 }
 
                 EnableViewBtn();

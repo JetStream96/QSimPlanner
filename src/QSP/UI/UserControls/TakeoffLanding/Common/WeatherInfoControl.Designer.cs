@@ -122,7 +122,7 @@
             // picBox
             // 
             this.picBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.picBox.Image = global::QSP.Properties.Resources.okIcon;
+            this.picBox.Image = global::QSP.Properties.Resources.GreenLight;
             this.picBox.Location = new System.Drawing.Point(231, 5);
             this.picBox.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.picBox.Name = "picBox";

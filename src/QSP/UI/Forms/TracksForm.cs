@@ -128,9 +128,9 @@ namespace QSP.UI.Forms
 
         private Image[] statusImages = new[]
         {
-            Properties.Resources.okIcon,
-            Properties.Resources.CautionIcon,
-            Properties.Resources.errorIcon
+            Properties.Resources.GreenLight,
+            Properties.Resources.YellowLight,
+            Properties.Resources.RedLight
         };
 
         private void InitImages()

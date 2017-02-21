@@ -97,8 +97,8 @@ namespace QSP.UI.MsgBox
             Image[] img =
             {
                 Properties.Resources.infoIcon,
-                Properties.Resources.CautionIcon,
-                Properties.Resources.errorIcon
+                Properties.Resources.YellowLight,
+                Properties.Resources.RedLight
             };
 
             var height = picBox.Size.Height - 3;
