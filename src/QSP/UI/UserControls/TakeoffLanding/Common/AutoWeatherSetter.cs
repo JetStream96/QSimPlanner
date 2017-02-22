@@ -82,7 +82,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             string icao = airportControl.Icao;
             
             bool metarAcquired = await Task.Run(
-                () => MetarDownloader.TryGetMetar(icao, out var metar));
+                () => MetarDownloader.TryGetMetar(icao, out metar));
 
             if (metarAcquired)
             {
