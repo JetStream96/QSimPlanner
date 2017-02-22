@@ -54,8 +54,7 @@ namespace QSP.UI.Forms
         {
             get
             {
-                return new WindDownloadStatus(
-                   "Loading from file ...", null);
+                return new WindDownloadStatus("Loading from file ...", null);
             }
         }
     }

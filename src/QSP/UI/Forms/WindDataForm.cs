@@ -78,6 +78,9 @@ namespace QSP.UI.Forms
             loadFileBtn.Enabled = true;
         }
 
+        private WindDownloadStatus GetWindStatus() => 
+            new WindDownloadStatus(toolStripLbl.Text, toolStripLbl.Image);
+
         private void ShowWindStatus(WindDownloadStatus item)
         {
             toolStripLbl.Text = item.Text;
@@ -142,6 +145,7 @@ namespace QSP.UI.Forms
                 var file = openFileDialog.FileName;
                 downloadBtn.Enabled = false;
                 loadFileBtn.Enabled = false;
+                var oldStatus = GetWindStatus();
 
                 try
                 {
@@ -162,6 +166,7 @@ namespace QSP.UI.Forms
                 {
                     Log(ex);
                     this.ShowWarning($"Failed to load file {file}");
+                    ShowWindStatus(oldStatus);
                 }
 
                 downloadBtn.Enabled = true;
