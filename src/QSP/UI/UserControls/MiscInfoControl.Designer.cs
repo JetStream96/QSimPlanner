@@ -31,193 +31,37 @@ namespace QSP.UI.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.TabControl1 = new MetroFramework.Controls.MetroTabControl();
-            this.TabPage1 = new System.Windows.Forms.TabPage();
-            this.TabPage2 = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.TabPage3 = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.destIcaoLbl = new System.Windows.Forms.Label();
-            this.updateDesForcastBtn = new System.Windows.Forms.Button();
-            this.desForcastLastUpdatedLbl = new System.Windows.Forms.Label();
-            this.desForcastRichTxtBox = new System.Windows.Forms.RichTextBox();
-            this.airportMapControl = new QSP.UI.UserControls.AirportMap.AirportMapControl();
-            this.metarViewer = new QSP.UI.UserControls.MetarViewer();
-            this.TabControl1.SuspendLayout();
-            this.TabPage1.SuspendLayout();
-            this.TabPage2.SuspendLayout();
-            this.TabPage3.SuspendLayout();
-            this.tableLayoutPanel7.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.miscInfoNavBar1 = new QSP.UI.UserControls.MiscInfoNavBar();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // TabControl1
+            // miscInfoNavBar1
             // 
-            this.TabControl1.Controls.Add(this.TabPage1);
-            this.TabControl1.Controls.Add(this.TabPage2);
-            this.TabControl1.Controls.Add(this.TabPage3);
-            this.TabControl1.FontWeight = MetroFramework.MetroTabControlWeight.Regular;
-            this.TabControl1.Location = new System.Drawing.Point(0, 0);
-            this.TabControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.TabControl1.Name = "TabControl1";
-            this.TabControl1.SelectedIndex = 0;
-            this.TabControl1.Size = new System.Drawing.Size(1099, 700);
-            this.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.TabControl1.TabIndex = 44;
-            this.TabControl1.UseSelectable = true;
+            this.miscInfoNavBar1.AutoSize = true;
+            this.miscInfoNavBar1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.miscInfoNavBar1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.miscInfoNavBar1.Location = new System.Drawing.Point(0, 0);
+            this.miscInfoNavBar1.Margin = new System.Windows.Forms.Padding(0);
+            this.miscInfoNavBar1.Name = "miscInfoNavBar1";
+            this.miscInfoNavBar1.Size = new System.Drawing.Size(337, 41);
+            this.miscInfoNavBar1.TabIndex = 45;
             // 
-            // TabPage1
+            // tableLayoutPanel2
             // 
-            this.TabPage1.Controls.Add(this.airportMapControl);
-            this.TabPage1.Location = new System.Drawing.Point(4, 38);
-            this.TabPage1.Margin = new System.Windows.Forms.Padding(12, 2, 12, 2);
-            this.TabPage1.Name = "TabPage1";
-            this.TabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.TabPage1.Size = new System.Drawing.Size(1091, 658);
-            this.TabPage1.TabIndex = 0;
-            this.TabPage1.Text = "Airport Data";
-            this.TabPage1.UseVisualStyleBackColor = true;
-            // 
-            // TabPage2
-            // 
-            this.TabPage2.Controls.Add(this.metarViewer);
-            this.TabPage2.Controls.Add(this.tableLayoutPanel1);
-            this.TabPage2.Location = new System.Drawing.Point(4, 38);
-            this.TabPage2.Margin = new System.Windows.Forms.Padding(12, 2, 12, 2);
-            this.TabPage2.Name = "TabPage2";
-            this.TabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.TabPage2.Size = new System.Drawing.Size(1091, 658);
-            this.TabPage2.TabIndex = 1;
-            this.TabPage2.Text = "METAR/TAF";
-            this.TabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(0, 0);
-            this.tableLayoutPanel1.TabIndex = 81;
-            // 
-            // TabPage3
-            // 
-            this.TabPage3.Controls.Add(this.tableLayoutPanel7);
-            this.TabPage3.Location = new System.Drawing.Point(4, 38);
-            this.TabPage3.Margin = new System.Windows.Forms.Padding(12, 2, 12, 2);
-            this.TabPage3.Name = "TabPage3";
-            this.TabPage3.Padding = new System.Windows.Forms.Padding(2);
-            this.TabPage3.Size = new System.Drawing.Size(1091, 658);
-            this.TabPage3.TabIndex = 2;
-            this.TabPage3.Text = "Des. Forcast";
-            this.TabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel7
-            // 
-            this.tableLayoutPanel7.ColumnCount = 1;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.desForcastRichTxtBox, 0, 1);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(10, 10);
-            this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 2;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(684, 395);
-            this.tableLayoutPanel7.TabIndex = 2;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.destIcaoLbl);
-            this.panel1.Controls.Add(this.updateDesForcastBtn);
-            this.panel1.Controls.Add(this.desForcastLastUpdatedLbl);
-            this.panel1.Location = new System.Drawing.Point(2, 2);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(678, 52);
-            this.panel1.TabIndex = 1;
-            // 
-            // destIcaoLbl
-            // 
-            this.destIcaoLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.destIcaoLbl.AutoSize = true;
-            this.destIcaoLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.destIcaoLbl.Location = new System.Drawing.Point(2, 12);
-            this.destIcaoLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.destIcaoLbl.Name = "destIcaoLbl";
-            this.destIcaoLbl.Size = new System.Drawing.Size(151, 23);
-            this.destIcaoLbl.TabIndex = 0;
-            this.destIcaoLbl.Text = "Destination : RCTP";
-            // 
-            // updateDesForcastBtn
-            // 
-            this.updateDesForcastBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.updateDesForcastBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updateDesForcastBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.updateDesForcastBtn.Location = new System.Drawing.Point(564, 2);
-            this.updateDesForcastBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.updateDesForcastBtn.Name = "updateDesForcastBtn";
-            this.updateDesForcastBtn.Size = new System.Drawing.Size(111, 41);
-            this.updateDesForcastBtn.TabIndex = 80;
-            this.updateDesForcastBtn.Text = "Refresh";
-            this.updateDesForcastBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.updateDesForcastBtn.UseVisualStyleBackColor = true;
-            // 
-            // desForcastLastUpdatedLbl
-            // 
-            this.desForcastLastUpdatedLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.desForcastLastUpdatedLbl.AutoSize = true;
-            this.desForcastLastUpdatedLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.desForcastLastUpdatedLbl.Location = new System.Drawing.Point(232, 12);
-            this.desForcastLastUpdatedLbl.Margin = new System.Windows.Forms.Padding(2);
-            this.desForcastLastUpdatedLbl.Name = "desForcastLastUpdatedLbl";
-            this.desForcastLastUpdatedLbl.Size = new System.Drawing.Size(290, 23);
-            this.desForcastLastUpdatedLbl.TabIndex = 81;
-            this.desForcastLastUpdatedLbl.Text = "Last Updated : 7/18/2016 6:55:48 PM";
-            // 
-            // desForcastRichTxtBox
-            // 
-            this.desForcastRichTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.desForcastRichTxtBox.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.desForcastRichTxtBox.Location = new System.Drawing.Point(2, 58);
-            this.desForcastRichTxtBox.Margin = new System.Windows.Forms.Padding(2);
-            this.desForcastRichTxtBox.Name = "desForcastRichTxtBox";
-            this.desForcastRichTxtBox.Size = new System.Drawing.Size(680, 335);
-            this.desForcastRichTxtBox.TabIndex = 1;
-            this.desForcastRichTxtBox.Text = "";
-            // 
-            // airportMapControl
-            // 
-            this.airportMapControl.Airports = null;
-            this.airportMapControl.AutoSize = true;
-            this.airportMapControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.airportMapControl.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.airportMapControl.BrowserEnabled = false;
-            this.airportMapControl.Location = new System.Drawing.Point(0, 0);
-            this.airportMapControl.Margin = new System.Windows.Forms.Padding(2);
-            this.airportMapControl.Name = "airportMapControl";
-            this.airportMapControl.Size = new System.Drawing.Size(1061, 268);
-            this.airportMapControl.StaticMapEnabled = false;
-            this.airportMapControl.TabIndex = 0;
-            // 
-            // metarViewer
-            // 
-            this.metarViewer.AutoSize = true;
-            this.metarViewer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.metarViewer.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.metarViewer.Location = new System.Drawing.Point(10, 10);
-            this.metarViewer.Margin = new System.Windows.Forms.Padding(2);
-            this.metarViewer.Name = "metarViewer";
-            this.metarViewer.Size = new System.Drawing.Size(1076, 102);
-            this.metarViewer.TabIndex = 82;
+            this.tableLayoutPanel2.AutoSize = true;
+            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Controls.Add(this.miscInfoNavBar1, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(5, 5);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(337, 41);
+            this.tableLayoutPanel2.TabIndex = 46;
             // 
             // MiscInfoControl
             // 
@@ -226,37 +70,20 @@ namespace QSP.UI.UserControls
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Controls.Add(this.TabControl1);
+            this.Controls.Add(this.tableLayoutPanel2);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MiscInfoControl";
-            this.Size = new System.Drawing.Size(1101, 702);
-            this.TabControl1.ResumeLayout(false);
-            this.TabPage1.ResumeLayout(false);
-            this.TabPage1.PerformLayout();
-            this.TabPage2.ResumeLayout(false);
-            this.TabPage2.PerformLayout();
-            this.TabPage3.ResumeLayout(false);
-            this.tableLayoutPanel7.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.Size = new System.Drawing.Size(345, 49);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        internal System.Windows.Forms.TabPage TabPage1;
-        internal System.Windows.Forms.TabPage TabPage2;
-        internal System.Windows.Forms.TabPage TabPage3;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        internal AirportMapControl airportMapControl;
-        internal MetroTabControl TabControl1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-        private System.Windows.Forms.Panel panel1;
-        internal System.Windows.Forms.Label destIcaoLbl;
-        internal System.Windows.Forms.Button updateDesForcastBtn;
-        private System.Windows.Forms.Label desForcastLastUpdatedLbl;
-        internal System.Windows.Forms.RichTextBox desForcastRichTxtBox;
-        private MetarViewer metarViewer;
+        private MiscInfoNavBar miscInfoNavBar1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
 }

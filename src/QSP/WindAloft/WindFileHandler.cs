@@ -118,4 +118,3 @@ namespace QSP.WindAloft
         }
     }
 }
-

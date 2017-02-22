@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QSP.UI.UserControls.AirportMap;
 using static QSP.MathTools.Numbers;
 using static QSP.Utilities.LoggerInstance;
 
@@ -14,9 +15,12 @@ namespace QSP.UI.UserControls
 {
     public partial class MiscInfoControl : UserControl
     {
+        private AirportMapControl airportMapControl = new AirportMapControl();
+        private MetarViewer metarViewer = new MetarViewer();
+        private DescentForcastDisplay desForcast = new DescentForcastDisplay();
+
         private Locator<IWindTableCollection> windTableLocator;
         private Func<string> destGetter;
-        private Panel outerPanel;
 
         private AirportManager _airportList;
         public AirportManager AirportList
@@ -26,7 +30,8 @@ namespace QSP.UI.UserControls
             set
             {
                 _airportList = value;
-                airportMapControl.Airports = _airportList;
+                airportMapControl.Airports = value;
+                desForcast.AirportList = value;
             }
         }
 
@@ -41,20 +46,16 @@ namespace QSP.UI.UserControls
             bool enableBrowser,
             Func<string> origGetter,
             Func<string> destGetter,
-            Func<IEnumerable<string>> altnGetter,
-            Panel outerPanel)
+            Func<IEnumerable<string>> altnGetter)
         {
             this._airportList = airportList;
             airportMapControl.Init(airportList);
             this.windTableLocator = windTableLocator;
             airportMapControl.BrowserEnabled = enableBrowser;
-            destIcaoLbl.Text = "";
-            desForcastLastUpdatedLbl.Text = "";
             this.destGetter = destGetter;
-            this.outerPanel = outerPanel;
 
             EnableTabControlAutosize();
-            updateDesForcastBtn.Click += (s, e) => UpdateDesForcast();
+            desForcast.Init(airportList, windTableLocator, destGetter);
             metarViewer.Init(origGetter, destGetter, altnGetter);
             TabControl1.SelectedIndex = 0;
         }
@@ -73,56 +74,7 @@ namespace QSP.UI.UserControls
         {
             airportMapControl.Altn = icao;
         }
-
-        private async Task UpdateDesForcast()
-        {
-            if (windTableLocator.Instance is DefaultWindTableCollection)
-            {
-                desForcastRichTxtBox.Text = "\n\n\n       Wind aloft has not been downloaded.";
-                return;
-            }
-
-            var dest = destGetter();
-
-            try
-            {
-                desForcastRichTxtBox.Text = "\n\n\n           Refreshing ...";
-                destIcaoLbl.Text = "Destination : " + dest;
-
-                desForcastRichTxtBox.Text =
-                    await Task.Factory.StartNew(() => GenDesForcastString(dest));
-
-                desForcastLastUpdatedLbl.Text = $"Last Updated : {DateTime.Now}";
-            }
-            catch (Exception ex)
-            {
-                Log(ex);
-                desForcastRichTxtBox.Text =
-                    "\n\n\n       Unable to get descent forcast for " + dest;
-            }
-        }
-
-        private string GenDesForcastString(string icao)
-        {
-            var airport = AirportList[icao];
-            double[] flightLevels = { 60, 90, 120, 180, 240, 300, 340, 390, 440, 490 };
-            var winds = DescendForcast.Generate(
-                windTableLocator.Instance, airport.Lat, airport.Lon, flightLevels).ToList();
-            
-            var result = new StringBuilder("\n");
-
-            for (int i = 0; i < flightLevels.Length; i++)
-            {
-                var flightLevel = flightLevels[i].ToString().PadLeft(3, '0');
-                var direction = winds[i].DirectionString();
-                int speed = RoundToInt(winds[i].Speed);
-
-                result.AppendLine($"        FL{flightLevel}   {direction}/{speed}");
-            }
-
-            return result.ToString();
-        }
-
+        
         private void EnableTabControlAutosize()
         {
             Control[] controls = { airportMapControl, metarViewer };

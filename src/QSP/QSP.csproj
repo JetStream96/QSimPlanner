@@ -226,6 +226,18 @@
     <Compile Include="UI\Controllers\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
+    <Compile Include="UI\UserControls\DescentForcastDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\DescentForcastDisplay.Designer.cs">
+      <DependentUpon>DescentForcastDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\MiscInfoNavBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\MiscInfoNavBar.Designer.cs">
+      <DependentUpon>MiscInfoNavBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserControls\NavBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -746,6 +758,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\qsp_icon.ico" />
+    <EmbeddedResource Include="UI\UserControls\DescentForcastDisplay.resx">
+      <DependentUpon>DescentForcastDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControls\MiscInfoNavBar.resx">
+      <DependentUpon>MiscInfoNavBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\NavBar.resx">
       <DependentUpon>NavBar.cs</DependentUpon>
     </EmbeddedResource>
