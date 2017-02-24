@@ -1,6 +1,7 @@
 ﻿using QSP.AircraftProfiles;
 using QSP.Common.Options;
 using QSP.LibraryExtension;
+using QSP.NavData;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -26,7 +27,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using QSP.NavData;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms
@@ -53,8 +53,8 @@ namespace QSP.UI.Forms
         private WindDataForm windFrm;
         private bool failedToLoadNavDataAtStartUp = false;
 
-        private AppOptions appSettings => appOptionsLocator.Instance;
-        private AirportManager airportList => airwayNetwork.AirportList;
+        private AppOptions AppSettings => appOptionsLocator.Instance;
+        private AirportManager AirportList => airwayNetwork.AirportList;
 
         private IEnumerable<UserControl> Pages => new UserControl[]
         {
@@ -89,7 +89,7 @@ namespace QSP.UI.Forms
 
             if (failedToLoadNavDataAtStartUp)
             {
-                if (appSettings.NavDataLocation == AppOptions.Default.NavDataLocation)
+                if (AppSettings.NavDataLocation == AppOptions.Default.NavDataLocation)
                 {
                     // User did not set the path. 
                     // Maybe its the first time the app starts.
@@ -199,8 +199,10 @@ namespace QSP.UI.Forms
             try
             {
                 // Load options.
-                appOptionsLocator = new Locator<AppOptions>();
-                appOptionsLocator.Instance = OptionManager.ReadOrCreateFile();
+                appOptionsLocator = new Locator<AppOptions>()
+                {
+                    Instance = OptionManager.ReadOrCreateFile()
+                };
             }
             catch (Exception ex)
             {
@@ -224,15 +226,17 @@ namespace QSP.UI.Forms
             }
 
             procFilter = new ProcedureFilter();
-            windTableLocator = new Locator<IWindTableCollection>();
-            windTableLocator.Instance = new DefaultWindTableCollection();
+            windTableLocator = new Locator<IWindTableCollection>()
+            {
+                Instance = new DefaultWindTableCollection()
+            };
             updater = new Updater();
         }
 
         /// <exception cref="Exception"></exception>
         private void InitAirportAndWaypoints()
         {
-            string navDataPath = appSettings.NavDataLocation;
+            string navDataPath = AppSettings.NavDataLocation;
             var airportTxtPath = Path.Combine(navDataPath, "Airports.txt");
 
             var airportResult = AirportDataLoader.LoadFromFile(airportTxtPath);
@@ -268,7 +272,7 @@ namespace QSP.UI.Forms
             toMenu.Init(
                 profiles.AcConfigs,
                 profiles.TOTables.ToList(),
-                airportList,
+                AirportList,
                 () => fuelMenu.AircraftRequest);
 
             toMenu.TryLoadState();
@@ -276,7 +280,7 @@ namespace QSP.UI.Forms
             ldgMenu.Init(
                 profiles.AcConfigs,
                 profiles.LdgTables.ToList(),
-                airportList,
+                AirportList,
                 () => fuelMenu.AircraftRequest);
 
             ldgMenu.TryLoadState();
@@ -296,9 +300,9 @@ namespace QSP.UI.Forms
             airwayNetwork.AirportListChanged += (s, e) =>
             {
                 fuelMenu.RefreshForAirportListChange();
-                toMenu.Airports = airportList;
-                ldgMenu.Airports = airportList;
-                miscInfoMenu.AirportList = airportList;
+                toMenu.Airports = AirportList;
+                ldgMenu.Airports = AirportList;
+                miscInfoMenu.AirportList = AirportList;
             };
 
             airwayNetwork.WptListChanged += (s, e) => fuelMenu.OnWptListChanged();
@@ -321,7 +325,7 @@ namespace QSP.UI.Forms
                 fuelMenu.AltnControl.Controls.Select(c => c.IcaoTxtBox.Text.Trim().ToUpper());
 
             miscInfoMenu.Init(
-                airportList,
+                AirportList,
                 windTableLocator,
                 true,
                 () => fuelMenu.origTxtBox.Text.Trim().ToUpper(),
@@ -425,12 +429,12 @@ namespace QSP.UI.Forms
         {
             trackStatusLabel.Image = Properties.Resources.YellowLight;
             trackStatusLabel.Text = "Tracks: Not downloaded";
-            if (appSettings.AutoDLTracks) trackFrm.DownloadAndEnableTracks();
+            if (AppSettings.AutoDLTracks) trackFrm.DownloadAndEnableTracks();
         }
 
         private async Task DownloadWindIfNeeded()
         {
-            if (appSettings.AutoDLWind)
+            if (AppSettings.AutoDLWind)
             {
                 await windFrm.DownloadWind();
             }
@@ -438,7 +442,7 @@ namespace QSP.UI.Forms
 
         private void CloseMain(object sender, CancelEventArgs e)
         {
-            if (appSettings.PromptBeforeExit)
+            if (AppSettings.PromptBeforeExit)
             {
                 var result = this.ShowDialog(
                     "Exit the application?",
