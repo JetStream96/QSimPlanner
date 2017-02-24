@@ -51,23 +51,14 @@ namespace QSP.UI.UserControls
 
             desForcast.Init(airportList, windTableLocator, destGetter);
             metarViewer.Init(origGetter, destGetter, altnGetter);
-            
+
             miscInfoNavBar1.Init(airportMapControl, metarViewer, desForcast, panel1);
         }
 
-        public void SetOrig(string icao)
-        {
-            airportMapControl.Orig = icao;
-        }
+        public void SetOrig(string icao) => airportMapControl.Orig = icao;
 
-        public void SetDest(string icao)
-        {
-            airportMapControl.Dest = icao;
-        }
+        public void SetDest(string icao) => airportMapControl.Dest = icao;
 
-        public void SetAltn(IEnumerable<string> icao)
-        {
-            airportMapControl.Altn = icao;
-        }
+        public void SetAltn(IEnumerable<string> icao) => airportMapControl.Altn = icao;
     }
 }

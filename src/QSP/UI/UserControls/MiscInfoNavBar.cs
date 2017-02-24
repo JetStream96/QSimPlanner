@@ -67,12 +67,12 @@ namespace QSP.UI.UserControls
         private ColorGroup ColorStyle => new ColorGroup(
             Color.Black, Color.White,
             Color.White, Color.DimGray,
-            Color.White, Color.FromArgb(0, 174, 219));
+            Color.FromArgb(0, 174, 219), Color.White);
 
         private void EnableControlColors()
         {
-            var pairs = new[] { pictureBox1, pictureBox2, pictureBox3 }
-                .Select(lbl => new ControlColorPair(lbl, ColorStyle));
+            var pairs = new[] { lbl1, lbl2, lbl3 }
+                .Select(p => new ControlColorPair(p, ColorStyle));
 
             btnControl = new GroupController(pairs.ToArray());
             btnControl.Initialize();
