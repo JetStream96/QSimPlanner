@@ -1,15 +1,10 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
+using QSP.UI.UserControls.AirportMap;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.UI.UserControls.AirportMap;
-using static QSP.MathTools.Numbers;
-using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.UserControls
 {
@@ -54,10 +49,10 @@ namespace QSP.UI.UserControls
             airportMapControl.BrowserEnabled = enableBrowser;
             this.destGetter = destGetter;
 
-            EnableTabControlAutosize();
             desForcast.Init(airportList, windTableLocator, destGetter);
             metarViewer.Init(origGetter, destGetter, altnGetter);
-            TabControl1.SelectedIndex = 0;
+            
+            miscInfoNavBar1.Init(airportMapControl, metarViewer, desForcast, panel1);
         }
 
         public void SetOrig(string icao)
@@ -73,28 +68,6 @@ namespace QSP.UI.UserControls
         public void SetAltn(IEnumerable<string> icao)
         {
             airportMapControl.Altn = icao;
-        }
-        
-        private void EnableTabControlAutosize()
-        {
-            Control[] controls = { airportMapControl, metarViewer };
-            EventHandler adjustHeight = (s, e) =>
-            {
-                TabControl1.Height = GetHeight();
-            };
-
-            TabControl1.SelectedIndexChanged += adjustHeight;
-            controls.ForEach(c => c.SizeChanged += adjustHeight);
-        }
-
-        private int GetHeight()
-        {
-            Control[] controls = { airportMapControl, metarViewer };
-            const int minHeight = 800;
-            int index = TabControl1.SelectedIndex;
-
-            if (index == 2) return minHeight;
-            return controls[index].Height + 100;
         }
     }
 }

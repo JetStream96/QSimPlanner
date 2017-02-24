@@ -84,6 +84,7 @@ namespace QSP.UI.Forms
                 InitOptionsForm();
                 DownloadWindIfNeeded();
                 DownloadTracksIfNeeded();
+                PrepareForUserInteration();
             });
 
             if (failedToLoadNavDataAtStartUp)
@@ -303,7 +304,7 @@ namespace QSP.UI.Forms
             airwayNetwork.WptListChanged += (s, e) => fuelMenu.OnWptListChanged();
 
             aboutMenu.Init("QSimPlanner");
-            navBar.Init(acMenu, fuelMenu, toMenu, ldgMenu, miscInfoMenu, aboutMenu, panel1, panel2);
+            navBar.Init(acMenu, fuelMenu, toMenu, ldgMenu, miscInfoMenu, aboutMenu, panel2);
 
             FormClosing += CloseMain;
             new ScrollBarWorkaround(panel1).Enable();
@@ -350,6 +351,10 @@ namespace QSP.UI.Forms
             windDataStatusLabel.Click += (s, e) => windFrm.ShowDialog();
             trackStatusLabel.Click += (s, e) => trackFrm.ShowDialog();
             navBar.OptionLbl.Click += (s, e) => ShowOptionsForm();
+        }
+
+        private void PrepareForUserInteration()
+        {
             ScrollBarsUtil.OverrideScrollBar(panel1, this);
         }
 

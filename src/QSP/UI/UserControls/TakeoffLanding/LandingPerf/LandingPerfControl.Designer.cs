@@ -144,7 +144,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(455, 245);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(463, 245);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
             // regComboBox
@@ -159,7 +159,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.regComboBox.Location = new System.Drawing.Point(162, 37);
             this.regComboBox.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.regComboBox.Name = "regComboBox";
-            this.regComboBox.Size = new System.Drawing.Size(152, 31);
+            this.regComboBox.Size = new System.Drawing.Size(180, 31);
             this.regComboBox.TabIndex = 2;
             this.regComboBox.TextChanged += new System.EventHandler(this.RegistrationChanged);
             // 
@@ -187,7 +187,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.brakeComboBox.Location = new System.Drawing.Point(162, 177);
             this.brakeComboBox.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.brakeComboBox.Name = "brakeComboBox";
-            this.brakeComboBox.Size = new System.Drawing.Size(152, 31);
+            this.brakeComboBox.Size = new System.Drawing.Size(180, 31);
             this.brakeComboBox.TabIndex = 7;
             // 
             // revThrustComboBox
@@ -202,7 +202,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.revThrustComboBox.Location = new System.Drawing.Point(162, 142);
             this.revThrustComboBox.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.revThrustComboBox.Name = "revThrustComboBox";
-            this.revThrustComboBox.Size = new System.Drawing.Size(152, 31);
+            this.revThrustComboBox.Size = new System.Drawing.Size(180, 31);
             this.revThrustComboBox.TabIndex = 6;
             // 
             // wtUnitComboBox
@@ -217,10 +217,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.wtUnitComboBox.Items.AddRange(new object[] {
             "KG",
             "LB"});
-            this.wtUnitComboBox.Location = new System.Drawing.Point(334, 72);
+            this.wtUnitComboBox.Location = new System.Drawing.Point(362, 72);
             this.wtUnitComboBox.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.wtUnitComboBox.Name = "wtUnitComboBox";
-            this.wtUnitComboBox.Size = new System.Drawing.Size(121, 31);
+            this.wtUnitComboBox.Size = new System.Drawing.Size(101, 31);
             this.wtUnitComboBox.TabIndex = 4;
             // 
             // flapsComboBox
@@ -235,7 +235,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.flapsComboBox.Location = new System.Drawing.Point(162, 107);
             this.flapsComboBox.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.flapsComboBox.Name = "flapsComboBox";
-            this.flapsComboBox.Size = new System.Drawing.Size(152, 31);
+            this.flapsComboBox.Size = new System.Drawing.Size(180, 31);
             this.flapsComboBox.TabIndex = 5;
             // 
             // acListComboBox
@@ -250,7 +250,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.acListComboBox.Location = new System.Drawing.Point(162, 2);
             this.acListComboBox.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.acListComboBox.Name = "acListComboBox";
-            this.acListComboBox.Size = new System.Drawing.Size(152, 31);
+            this.acListComboBox.Size = new System.Drawing.Size(180, 31);
             this.acListComboBox.TabIndex = 0;
             this.acListComboBox.SelectedIndexChanged += new System.EventHandler(this.RefreshRegistrations);
             // 
@@ -262,11 +262,11 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.requestBtn.BackColor = System.Drawing.SystemColors.Control;
             this.requestBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.requestBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.requestBtn.Location = new System.Drawing.Point(334, 0);
+            this.requestBtn.Location = new System.Drawing.Point(362, 0);
             this.requestBtn.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.requestBtn.Name = "requestBtn";
-            this.requestBtn.Padding = new System.Windows.Forms.Padding(19, 0, 19, 0);
-            this.requestBtn.Size = new System.Drawing.Size(121, 35);
+            this.requestBtn.Padding = new System.Windows.Forms.Padding(9, 0, 9, 0);
+            this.requestBtn.Size = new System.Drawing.Size(101, 35);
             this.requestBtn.TabIndex = 1;
             this.requestBtn.Text = "Request";
             this.requestBtn.UseVisualStyleBackColor = false;
@@ -290,7 +290,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.Label96.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label96.AutoSize = true;
             this.Label96.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label96.Location = new System.Drawing.Point(328, 216);
+            this.Label96.Location = new System.Drawing.Point(356, 216);
             this.Label96.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label96.Name = "Label96";
             this.Label96.Size = new System.Drawing.Size(31, 23);
@@ -316,7 +316,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.appSpdIncTxtBox.Location = new System.Drawing.Point(162, 212);
             this.appSpdIncTxtBox.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.appSpdIncTxtBox.Name = "appSpdIncTxtBox";
-            this.appSpdIncTxtBox.Size = new System.Drawing.Size(152, 30);
+            this.appSpdIncTxtBox.Size = new System.Drawing.Size(180, 30);
             this.appSpdIncTxtBox.TabIndex = 8;
             this.appSpdIncTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -375,7 +375,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.weightTxtBox.Location = new System.Drawing.Point(162, 72);
             this.weightTxtBox.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.weightTxtBox.Name = "weightTxtBox";
-            this.weightTxtBox.Size = new System.Drawing.Size(152, 30);
+            this.weightTxtBox.Size = new System.Drawing.Size(180, 30);
             this.weightTxtBox.TabIndex = 3;
             this.weightTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.weightTxtBox.TextChanged += new System.EventHandler(this.WeightTxtBoxChanged);

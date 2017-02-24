@@ -4,14 +4,13 @@ using System.Windows.Forms;
 
 namespace QSP.UI.Controllers.ControlGroup
 {
-    // Manages a group of UserControls, placed inside a panel which may have been set
-    // AutoScroll = True. For each UserControl, when its corresponding button (or label, or 
-    // any other controls) is clicked, only that UserControl is shown and all others are hidden.
+    // Manages a group of UserControls. For each UserControl, when its 
+    // corresponding button (or label, or any other controls) is clicked, only that 
+    // UserControl is shown and all others are hidden.
     //
     public class ControlSwitcher
     {
         private bool _subscribed;
-        private Panel outerPanel;
 
         public IEnumerable<ControlPair> Pairings { get; private set; }
 
@@ -24,7 +23,7 @@ namespace QSP.UI.Controllers.ControlGroup
 
             set
             {
-                if (_subscribed && value == false)
+                if (_subscribed && !value)
                 {
                     foreach (var i in Pairings)
                     {
@@ -32,7 +31,7 @@ namespace QSP.UI.Controllers.ControlGroup
                     }
                     _subscribed = false;
                 }
-                else if (_subscribed == false && value)
+                else if (!_subscribed && value)
                 {
                     foreach (var i in Pairings)
                     {
@@ -43,9 +42,8 @@ namespace QSP.UI.Controllers.ControlGroup
             }
         }
 
-        public ControlSwitcher(Panel outerPanel, params ControlPair[] pairings)
+        public ControlSwitcher(params ControlPair[] pairings)
         {
-            this.outerPanel = outerPanel;
             this.Pairings = pairings;
             _subscribed = false;
         }

@@ -24,9 +24,9 @@ namespace QSP.UI.UserControls
         }
 
         public void Init(
-           AirportManager airportList,
-           Locator<IWindTableCollection> windTableLocator,
-           Func<string> destGetter)
+            AirportManager airportList,
+            Locator<IWindTableCollection> windTableLocator,
+            Func<string> destGetter)
         {
             this.AirportList = airportList;
             this.windTableLocator = windTableLocator;

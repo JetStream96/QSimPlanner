@@ -33,6 +33,7 @@ namespace QSP.UI.UserControls
         {
             this.miscInfoNavBar1 = new QSP.UI.UserControls.MiscInfoNavBar();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,15 +54,24 @@ namespace QSP.UI.UserControls
             this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Controls.Add(this.miscInfoNavBar1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 1);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(5, 5);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(337, 41);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(337, 47);
             this.tableLayoutPanel2.TabIndex = 46;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSize = true;
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Location = new System.Drawing.Point(3, 44);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(0, 0);
+            this.panel1.TabIndex = 46;
             // 
             // MiscInfoControl
             // 
@@ -74,7 +84,7 @@ namespace QSP.UI.UserControls
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MiscInfoControl";
-            this.Size = new System.Drawing.Size(345, 49);
+            this.Size = new System.Drawing.Size(345, 55);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
@@ -85,5 +95,6 @@ namespace QSP.UI.UserControls
         #endregion
         private MiscInfoNavBar miscInfoNavBar1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Panel panel1;
     }
 }

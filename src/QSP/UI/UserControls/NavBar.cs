@@ -23,7 +23,6 @@ namespace QSP.UI.UserControls
         private LandingPerfControl ldgMenu;
         private MiscInfoControl miscInfoMenu;
         private AboutPageControl aboutMenu;
-        private Panel outerPanel;
         private Panel innerPanel;
 
         private GroupController btnControl;
@@ -45,7 +44,6 @@ namespace QSP.UI.UserControls
             LandingPerfControl ldgMenu,
             MiscInfoControl miscInfoMenu,
             AboutPageControl aboutMenu,
-            Panel outerPanel,
             Panel innerPanel)
         {
             this.acMenu = acMenu;
@@ -54,7 +52,6 @@ namespace QSP.UI.UserControls
             this.ldgMenu = ldgMenu;
             this.miscInfoMenu = miscInfoMenu;
             this.aboutMenu = aboutMenu;
-            this.outerPanel = outerPanel;
             this.innerPanel = innerPanel;
 
             EnableViewControl();
@@ -81,7 +78,6 @@ namespace QSP.UI.UserControls
         private void EnableViewControl()
         {
             viewControl = new ControlSwitcher(
-                outerPanel,
                 new ControlPair(acLbl, acMenu),
                 new ControlPair(fuelLbl, fuelMenu),
                 new ControlPair(tolbl, toMenu),
