@@ -80,7 +80,7 @@ namespace QSP.Metar
                 var val = match.Value.Trim();
                 var unit = val.Contains("A") ?
                     PressureUnit.inHg : PressureUnit.Mb;
-                
+
                 return (true, unit,
                     double.Parse(val.Substring(1, 4)) *
                     (unit == PressureUnit.inHg ? 0.01 : 1.0));
@@ -92,23 +92,23 @@ namespace QSP.Metar
         public static bool PrecipitationExists(string metar)
         {
             /* prefix: 
-				"-",  // Light
-				"+",  // Heavy
-				"VC", // In vicinity
-				""	  // Moderate
-			*/
+                "-",  // Light
+                "+",  // Heavy
+                "VC", // In vicinity
+                ""    // Moderate
+            */
 
             // Descriptor is optional.
             var descriptor = new[]
             {
                 "MI", //  Shallow
-				"PR", //  Partial
-				"BC", //  Patches
-				"DR", //  Low Drifting
-				"BL", //  Blowing
-				"SH", //  Shower(s)
-				"TS", //  Thunderstorm
-				"FZ", //  Freezing
+                "PR", //  Partial
+                "BC", //  Patches
+                "DR", //  Low Drifting
+                "BL", //  Blowing
+                "SH", //  Shower(s)
+                "TS", //  Thunderstorm
+                "FZ", //  Freezing
             };
 
             var precipitation = new[]
