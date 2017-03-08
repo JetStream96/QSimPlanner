@@ -958,11 +958,8 @@
     <Content Include="PerformanceData\Templates\TO\TOPerf_Template.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\delete-icon.png" />
     <None Include="Resources\red_light.png" />
-    <None Include="Resources\Triangle_128.png" />
     <None Include="Resources\green_light.png" />
-    <None Include="Resources\check-icon.png" />
     <None Include="Resources\yellow_light.png" />
   </ItemGroup>
   <ItemGroup>
