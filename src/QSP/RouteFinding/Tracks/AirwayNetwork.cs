@@ -155,7 +155,7 @@ namespace QSP.RouteFinding.Tracks
         }
 
         /// <summary>
-        /// Returns whether the NATs has been downloaded or imported from file.
+        /// Returns whether the tracks has been downloaded or imported from file.
         /// </summary>
         public bool TracksLoaded(TrackType type) => GetTrackMessage(type) != null;
 

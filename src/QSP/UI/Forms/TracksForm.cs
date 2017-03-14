@@ -200,21 +200,18 @@ namespace QSP.UI.Forms
             }
         }
 
-        private bool AllTracksAdded => TrackTypes.All(t => airwayNetwork.InWptList(t));
-
-        private bool AllTracksNotAdded => TrackTypes.All(t => !airwayNetwork.InWptList(t));
-
         private void SetMainFormTrackStatus(IEnumerable<Entry> records)
         {
-            var loadedTypes = TrackTypes.Where(t => airwayNetwork.TracksLoaded(t));
+            var loadedTypes = TrackTypes.Where(t => airwayNetwork.TracksLoaded(t)).ToList();
             var maxSeverity = loadedTypes.Select(t => MaxSeverity(records, t)).ToList();
 
-            if (maxSeverity.All(s => s == Severity.Advisory) && AllTracksAdded)
+            if (maxSeverity.All(s => s == Severity.Advisory) && 
+                loadedTypes.Count == TrackTypes.Count)
             {
                 statusLbl.Image = Properties.Resources.GreenLight;
                 statusLbl.Text = "Tracks: Ready";
             }
-            else if (maxSeverity.All(s => s == Severity.Critical) || AllTracksNotAdded)
+            else if (maxSeverity.All(s => s == Severity.Critical) || loadedTypes.Count == 0)
             {
                 statusLbl.Image = Properties.Resources.RedLight;
                 statusLbl.Text = "Tracks: Not Available";
