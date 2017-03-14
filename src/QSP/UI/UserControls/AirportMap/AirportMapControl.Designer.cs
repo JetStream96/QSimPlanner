@@ -70,10 +70,10 @@
             this.Elevation_Lbl1.AutoSize = true;
             this.Elevation_Lbl1.Font = new System.Drawing.Font("Arial", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Elevation_Lbl1.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.Elevation_Lbl1.Location = new System.Drawing.Point(443, 0);
+            this.Elevation_Lbl1.Location = new System.Drawing.Point(467, 0);
             this.Elevation_Lbl1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Elevation_Lbl1.Name = "Elevation_Lbl1";
-            this.Elevation_Lbl1.Size = new System.Drawing.Size(71, 22);
+            this.Elevation_Lbl1.Size = new System.Drawing.Size(76, 16);
             this.Elevation_Lbl1.TabIndex = 3;
             this.Elevation_Lbl1.Text = "Elevation:";
             // 
@@ -82,7 +82,7 @@
             this.elevationLbl.AutoSize = true;
             this.elevationLbl.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.elevationLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.elevationLbl.Location = new System.Drawing.Point(521, 0);
+            this.elevationLbl.Location = new System.Drawing.Point(547, 0);
             this.elevationLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.elevationLbl.Name = "elevationLbl";
             this.elevationLbl.Size = new System.Drawing.Size(53, 16);
@@ -97,7 +97,7 @@
             this.latLonLbl.Location = new System.Drawing.Point(277, 0);
             this.latLonLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.latLonLbl.Name = "latLonLbl";
-            this.latLonLbl.Size = new System.Drawing.Size(88, 22);
+            this.latLonLbl.Size = new System.Drawing.Size(164, 16);
             this.latLonLbl.TabIndex = 2;
             this.latLonLbl.Text = "25.080167 / 121.232222";
             // 
@@ -118,7 +118,7 @@
             this.transExistLbl.AutoSize = true;
             this.transExistLbl.Font = new System.Drawing.Font("Arial", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.transExistLbl.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.transExistLbl.Location = new System.Drawing.Point(601, 0);
+            this.transExistLbl.Location = new System.Drawing.Point(627, 0);
             this.transExistLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.transExistLbl.Name = "transExistLbl";
             this.transExistLbl.Size = new System.Drawing.Size(52, 16);
@@ -157,7 +157,7 @@
             this.transAltLbl.AutoSize = true;
             this.transAltLbl.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.transAltLbl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.transAltLbl.Location = new System.Drawing.Point(672, 0);
+            this.transAltLbl.Location = new System.Drawing.Point(683, 0);
             this.transAltLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.transAltLbl.Name = "transAltLbl";
             this.transAltLbl.Size = new System.Drawing.Size(100, 16);
@@ -168,12 +168,12 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 7;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 166F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 78F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 190F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 139F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.airportNameLbl, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.LatLon_lbl1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.latLonLbl, 2, 0);
@@ -186,7 +186,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(809, 22);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(830, 22);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // updateBtn
