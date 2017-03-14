@@ -174,6 +174,7 @@ namespace QSP.RouteFinding.Tracks
             var h = GetHandler(type);
             StatusRecorder.Clear(type);
             h.UndoEdit();
+
             h.GetAllTracks(new TrackMessageProvider(message), StatusRecorder);
             h.AddToWaypointList(StatusRecorder);
             InvokeTrackMessageUpdated();

@@ -462,8 +462,7 @@ namespace QSP.UI.Forms
             if (updater.IsUpdating)
             {
                 var result = this.ShowDialog(
-                    "The automatic update is in progress. " +
-                    "Wait for the update to finish?",
+                    "The automatic update is in progress. Wait for the update to finish?",
                     MsgBoxIcon.Info,
                     "",
                     DefaultButton.Button1,
@@ -518,10 +517,8 @@ namespace QSP.UI.Forms
             try
             {
                 var serializer = new WindowSize.Serializer();
-                var state = new WindowSize(
-                    WindowState == FormWindowState.Maximized,
-                    Width,
-                    Height);
+                var state = new WindowSize(WindowState == FormWindowState.Maximized,
+                    Width, Height);
 
                 var doc = new XDocument(serializer.Serialize(state, "root"));
                 File.WriteAllText(WindowSize.FileLocation, doc.ToString());
