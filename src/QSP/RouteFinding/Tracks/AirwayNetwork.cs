@@ -21,7 +21,7 @@ namespace QSP.RouteFinding.Tracks
     public class AirwayNetwork
     {
         private TrackTaskQueues queues = new TrackTaskQueues();
-
+        
         private TrackHandler<NorthAtlanticTrack> natsHandler;
         private TrackHandler<PacificTrack> pacotsHandler;
         private TrackHandler<AusTrack> ausotsHandler;

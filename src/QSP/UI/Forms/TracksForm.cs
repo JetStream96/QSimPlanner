@@ -153,22 +153,12 @@ namespace QSP.UI.Forms
             var records = airwayNetwork.StatusRecorder.Records;
             AddToListView(records);
             RefreshListViewColumnWidth();
-            SetPicBox(records, type);
             SetMainFormTrackStatus(records);
         }
 
         private void InitPicBoxes()
         {
             TrackTypes.ForEach(t => PicBox(t).Image = null);
-        }
-
-        private void SetPicBox(IEnumerable<Entry> records, TrackType t)
-        {
-            if (airwayNetwork.TracksLoaded(t))
-            {
-                var severity = (int)MaxSeverity(records, t);
-                PicBox(t).SetImageHighQuality(statusImages[severity]);
-            }
         }
 
         private static Severity MaxSeverity(IEnumerable<Entry> records, TrackType type)
@@ -261,6 +251,7 @@ namespace QSP.UI.Forms
         private void SetProcessingImage(TrackType t)
         {
             PicBox(t).SetImageHighQuality(Properties.Resources.processing);
+            PicBox(t).Refresh();
         }
 
         public void DownloadAndEnableTracks(TrackType t)
@@ -272,7 +263,12 @@ namespace QSP.UI.Forms
                     SetProcessingImage(t);
                     EnabledCBox(t).SelectedIndex = 0;
                 },
-                () => EnableUserInputs(t));
+                () =>
+                {
+                    PicBox(t).Image = null;
+                    PicBox(t).Refresh();
+                    EnableUserInputs(t);
+                });
 
             airwayNetwork.DownloadAndEnableTracks(t, action);
         }
