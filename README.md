@@ -1,7 +1,7 @@
 # QSimPlanner
 A tool for fuel planning and take-off/landing performance calculations.
 
-### [Screenshots]
+### [Screenshots](#https://github.com/JetStream96/QSimPlanner/issues/4)
 
 ### Features
 ##### Flight planner
@@ -21,7 +21,7 @@ A tool for fuel planning and take-off/landing performance calculations.
 - Landing calculation with custom flaps, autobrakes setting, and runway surface conditions.
 
 ### Requirements
-To use QSimPlanner, an AIRAC cycle is required. You can purchase either [Aerosoft]'s NavDataPro or [Navigraph]'s FMS Data. Use the version of Aerosoft Airbus A318/A319/A320/A321.
+To use QSimPlanner, an AIRAC cycle is required. You can purchase either [Aerosoft](#http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688)'s NavDataPro or [Navigraph](#https://www.navigraph.com/FmsData.aspx)'s FMS Data. Use the version of Aerosoft Airbus A318/A319/A320/A321.
 
 ### Project Status
 Currently the aircrafts available are
@@ -43,6 +43,3 @@ You are welcomed to submit pull requests to this repository. Feel free to leave 
 
 ### License
 MIT License
-   [Screenshots]: <https://github.com/JetStream96/QSimPlanner/issues/4>
-   [Aerosoft]: <http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688>
-   [Navigraph]: <https://www.navigraph.com/FmsData.aspx>
