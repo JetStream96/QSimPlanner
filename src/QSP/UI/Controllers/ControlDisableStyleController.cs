@@ -6,12 +6,10 @@ namespace QSP.UI.Controllers
 {
     public class ControlDisableStyleController
     {
-        private Control btn;
-        private ColorStyle style;
+        private readonly Control btn;
+        private readonly ColorStyle style;
 
-        public ControlDisableStyleController(
-            Control btn,
-            ColorStyle style)
+        public ControlDisableStyleController(Control btn, ColorStyle style)
         {
             this.btn = btn;
             this.style = style;
@@ -40,6 +38,8 @@ namespace QSP.UI.Controllers
                 btn.ForeColor = style.DisabledFore;
                 btn.BackColor = style.DisabledBack;
             }
+
+            btn.Refresh();
         }
 
         public class ColorStyle

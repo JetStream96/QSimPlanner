@@ -10,6 +10,7 @@ src/QSimPlanner.sln.DotSettings.user
 # visual studio profiler
 *.psess
 *.vsp
+*.vspx
 
 # Build results
 [Dd]ebug/

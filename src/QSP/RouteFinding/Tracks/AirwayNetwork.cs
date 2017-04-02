@@ -21,7 +21,7 @@ namespace QSP.RouteFinding.Tracks
     public class AirwayNetwork
     {
         private TrackTaskQueues queues = new TrackTaskQueues();
-
+        
         private TrackHandler<NorthAtlanticTrack> natsHandler;
         private TrackHandler<PacificTrack> pacotsHandler;
         private TrackHandler<AusTrack> ausotsHandler;
@@ -155,7 +155,7 @@ namespace QSP.RouteFinding.Tracks
         }
 
         /// <summary>
-        /// Returns whether the NATs has been downloaded or imported from file.
+        /// Returns whether the tracks has been downloaded or imported from file.
         /// </summary>
         public bool TracksLoaded(TrackType type) => GetTrackMessage(type) != null;
 
@@ -174,6 +174,7 @@ namespace QSP.RouteFinding.Tracks
             var h = GetHandler(type);
             StatusRecorder.Clear(type);
             h.UndoEdit();
+
             h.GetAllTracks(new TrackMessageProvider(message), StatusRecorder);
             h.AddToWaypointList(StatusRecorder);
             InvokeTrackMessageUpdated();

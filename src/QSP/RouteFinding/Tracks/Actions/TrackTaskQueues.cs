@@ -54,7 +54,7 @@ namespace QSP.RouteFinding.Tracks.Actions
         {
             queues[(int)type].Add(taskGetter);
         }
-        
+
         public async Task WaitForTasks()
         {
             while (queues.Any(q => q.IsRunning))
