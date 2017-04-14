@@ -93,7 +93,7 @@ namespace QSP.RouteFinding.Airports
             }.HashCodeByElem();
 
             var h2 = Rwys.HashCodeSymmetric();
-            return new[] { h1, h1 }.HashCodeByElem();
+            return new[] { h1, h2 }.HashCodeByElem();
         }
     }
 }
