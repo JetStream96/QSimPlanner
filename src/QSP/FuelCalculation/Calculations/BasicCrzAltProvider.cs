@@ -11,8 +11,7 @@ namespace QSP.FuelCalculation.Calculations
         // Westbound altitudes: 2000 4000 ... 40000 43000 47000
         // Eastbound altitudes: 3000 5000 ... 41000 45000 49000
 
-        public double ClosestAlt(
-            ICoordinate c, double heading, double alt)
+        public double ClosestAlt(ICoordinate c, double heading, double alt)
         {
             if (0.0 <= heading && heading < 180.0)
             {
@@ -31,8 +30,7 @@ namespace QSP.FuelCalculation.Calculations
             }
         }
 
-        public double ClosestAltBelow(
-            ICoordinate c, double heading, double alt)
+        public double ClosestAltBelow(ICoordinate c, double heading, double alt)
         {
             if (0.0 <= heading && heading < 180.0)
             {
@@ -58,8 +56,7 @@ namespace QSP.FuelCalculation.Calculations
             return result;
         }
 
-        public bool IsValidCrzAlt(
-            ICoordinate c, double heading, double altitude)
+        public bool IsValidCrzAlt(ICoordinate c, double heading, double altitude)
         {
             return Abs(ClosestAlt(c, heading, altitude) - altitude) < 1.0;
         }
