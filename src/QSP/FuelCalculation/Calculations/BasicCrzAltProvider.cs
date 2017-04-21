@@ -3,9 +3,13 @@ using static System.Math;
 
 namespace QSP.FuelCalculation.Calculations
 {
-    // TODO: Add new class for more sophisticated implementation.
-    // TODO: For metric system, i.e. China, it will be complicated.
-
+    // Note: Add new class for more sophisticated implementation.
+    // For metric system, i.e. China, it will be complicated.
+    // It seems that the shapefile for airspaces is not publically available*. Therefore 
+    // it may be impossible to detect the correct flight level system (meter vs ft) without manually 
+    // define the boundaries of countries' airspaces.
+    // 
+    // * see https://aviation.stackexchange.com/questions/35452/where-to-get-spatial-data-for-atc-airspace
     public class BasicCrzAltProvider : ICrzAltProvider
     {
         // Westbound altitudes: 2000 4000 ... 40000 43000 47000
