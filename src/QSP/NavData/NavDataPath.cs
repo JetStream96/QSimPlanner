@@ -37,7 +37,8 @@ namespace QSP.NavData
             public string Directory; public AiracPeriod Period;
         }
 
-        // Returns the detected paths, or null if not found or path is invalid.
+        // Returns an array of the detected paths.
+        // A path may be a string, or null if no path is found or path is invalid.
         // Does not throw exception.
         private static string[] SimulatorPaths()
         {
