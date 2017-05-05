@@ -1,4 +1,5 @@
-﻿using QSP.LibraryExtension;
+﻿using System;
+using QSP.LibraryExtension;
 using System.IO;
 using System.Linq;
 using QSP.AviationTools.Airac;
@@ -17,7 +18,7 @@ namespace QSP.NavData
         {
             var paths = SimulatorPaths()
                 .Where(p => p != null)
-                .SelectMany(p => new[] {GetNavDataProPath(p), GetNavigraphPath(p)});
+                .SelectMany(p => new[] { GetNavDataProPath(p), GetNavigraphPath(p) });
 
             var airacs = paths.Select(d => new AiracInfo()
             {
@@ -36,16 +37,24 @@ namespace QSP.NavData
             public string Directory; public AiracPeriod Period;
         }
 
+        // Returns the detected paths, or null if not found or path is invalid.
+        // Does not throw exception.
         private static string[] SimulatorPaths()
         {
-            return new[]
+            Func<string>[] pathGetters =
             {
-                FsxPath(),
-                FsxSteamPath(),
-                P3Dv3Path(),
-                P3Dv2Path(),
-                P3Dv1Path()
+                FsxPath,
+                FsxSteamPath,
+                P3Dv3Path,
+                P3Dv2Path,
+                P3Dv1Path
             };
+
+            return pathGetters.Select(f =>
+            {
+                var path = f();
+                return Paths.ContainIllegalPathChar(path) ? null : path;
+            }).ToArray();
         }
 
         // fsxPath can be the path to steam version or P3D versions.
