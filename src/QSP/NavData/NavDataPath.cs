@@ -54,7 +54,9 @@ namespace QSP.NavData
             return pathGetters.Select(f =>
             {
                 var path = f();
-                return Paths.ContainIllegalPathChar(path) ? null : path;
+
+                if (path != null && !Paths.ContainIllegalPathChar(path)) return path;
+                return null;
             }).ToArray();
         }
 
