@@ -211,7 +211,7 @@ namespace QSP.UI.Forms.Options
             {
                 var directory = pathTxtBox.Text;
                 var filePath = Path.Combine(directory, "Airports.txt");
-                var loadResult =AirportDataLoader.LoadFromFile(filePath);
+                var loadResult = AirportDataLoader.LoadFromFile(filePath);
                 var err = loadResult.Errors;
                 if (err.Any()) Log(ReadFileErrorMsg.ErrorMsg(err, "ats.txt"));
                 return loadResult.Airports;
@@ -286,7 +286,8 @@ namespace QSP.UI.Forms.Options
         {
             // This section is to determine whether the database
             // files are found or not.
-            string[] FilesToCheck = {
+            string[] FilesToCheck =
+            {
                 "airports.txt",
                 "ats.txt",
                 "cycle.txt",
