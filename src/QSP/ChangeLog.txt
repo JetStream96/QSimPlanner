@@ -1,4 +1,9 @@
-﻿version 0.3.3
+﻿version 0.3.4
+* Fix a bug that crashes the program when the detected FSX/P3D paths contain illegal characters.
+* Icons on the status bar is now colorblind-friendly.
+* Various bug fixes and small UI adjustments.
+
+version 0.3.3
 * Fix a bug causing updates to fail to install if user already updated to that version previously but then uninstalled the app.
 
 version 0.3.2

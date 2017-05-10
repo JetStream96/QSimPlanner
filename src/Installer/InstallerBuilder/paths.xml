@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
   <InnoSetupDirectory>C:\Program Files (x86)\Inno Setup 5</InnoSetupDirectory>
-  <MsBuildExePath>C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe</MsBuildExePath>
+  
+  <!-- Use this for VS2015: C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe-->
+  <MsBuildExePath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe</MsBuildExePath>
 </Root>
