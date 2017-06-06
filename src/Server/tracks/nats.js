@@ -1,4 +1,4 @@
-const http = require('http')
+const https = require('https')
 const xml2js = require('xml2js')
 
 /**
@@ -6,14 +6,14 @@ const xml2js = require('xml2js')
  */
 function downloadHtml(callback) {
     let options = {
-        host: 'https://www.notams.faa.gov',
-        port: 80,
-        path: '/common/nat.html?'
+        host: 'www.notams.faa.gov',
+        port: 443,
+        path: '/common/nat.html'
     };
 
     let content = ''
-    http.get(options, res => {
-        res.setEncoding("utf8");
+    https.get(options, res => {
+        res.setEncoding("utf8")
         res.on("data", chunk => content += chunk)
         res.on("end", () => callback(null, content))
     }).on('error', err => callback(err, null))
@@ -84,5 +84,4 @@ function toXml(obj)
 exports.downloadHtml = downloadHtml
 exports.getWestboundTracks = getWestboundTracks
 exports.getEastboundTracks = getEastboundTracks
-
-toXml({x:1, y:-987.1})
+exports.toXml = toXml

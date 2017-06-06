@@ -7,7 +7,7 @@ let westXml = ''
 let eastXml = ''
 
 function handleRequest(request, response) {
-    response.end("Hello world !!!!!!")
+    response.end(eastXml + '\n\n' + westXml)
 }
 
 /**
@@ -18,7 +18,7 @@ function updateXmls(callback) {
         if (err) {
             callback(err)
         } else {
-            callback(updateEastXml(html) || updateEastXml(html))
+            callback(updateEastXml(html) || updateWestXml(html))
         }
     }) 
 }
@@ -28,8 +28,11 @@ function updateXmls(callback) {
  */
 function updateEastXml(html) {
     try {
-        eastXml = nats.getEastboundTracks(html)
-        return null
+        let [success, newXml] = nats.getEastboundTracks(html)
+
+        if (success) {
+            eastXml = nats.toXml(newXml)
+        } 
     } catch (err) {
         return err
     }    
@@ -40,8 +43,10 @@ function updateEastXml(html) {
  */
 function updateWestXml(html, callback) {
     try {
-        westXml = nats.getWestboundTracks(html)
-        return null
+        let [success, newXml] = nats.getWestboundTracks(html)
+        if (success) {
+            westXml = nats.toXml(newXml)
+        }
     } catch (err) {
         return err
     }     
@@ -69,14 +74,16 @@ function repeat(func, interval) {
 // Script starts here.
 
 // Update xmls and schedule future tasks.
-repeat(() => updateXmls(err => log(err.toString(), () => {})), 5 * 60 * 1000)
-// TODO: Failure on logging needs handling.
-
+repeat(() => updateXmls(err => {
+    if (err) {
+        log(err.toString(), () => {})  // TODO: Failure on logging needs handling.
+    } 
+}), 5 * 60 * 1000)
 
 
 let server = http.createServer(handleRequest)
 server.listen(8080, '127.0.0.1', () => {
-    console.log('server is running!!!!!')
+    console.log('server started')
 })
 
 
