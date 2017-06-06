@@ -77,8 +77,12 @@ function toXml(obj)
 {
     let builder = new xml2js.Builder();
     let xml = builder.buildObject(obj);
+    console.log(xml)
     return xml
 }
 
+exports.downloadHtml = downloadHtml
 exports.getWestboundTracks = getWestboundTracks
 exports.getEastboundTracks = getEastboundTracks
+
+toXml({x:1, y:-987.1})
