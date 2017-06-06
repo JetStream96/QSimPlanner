@@ -21,45 +21,45 @@ function downloadHtml(callback) {
 
 function removeHtmlTags(str)
 {
-    str.replace(/<[^>]*>/, '')
+    return str.replace(/<[^>]*>/g, '')
 }
 
 /**
- * @returns {[bool, object]} bool: Whether westbound tracks part is found.
+ * @returns {[boolean, object]} bool: Whether westbound tracks part is found.
  * object: The content of westbound track xml.
  */
 function getWestboundTracks(html)
 {
-    let match = html.match(/\\n([^\\n]*?EGGXZOZX[\\s\\S]]*?)<\/td>/)
+    let match = html.match(/\n([^\n]*?EGGXZOZX[\s\S]*?)<\/td>/)
     if (!match) return [false, null];
-    let message = removeHtmlTags(match[0])
+    let message = removeHtmlTags(match[1])
     let [time, header] = _getGeneralInfo(html)
     
-    return { 
-        LastUpdated: time, 
-        Header: header,
-        Direction: 'West',
-        Message: message
-    }
+    return [true, { 
+        lastUpdated: time, 
+        header: header,
+        direction: 'West',
+        message: message
+    }]
 }
 
 /**
- * @returns {[bool, object]} bool: Whether eastbound tracks part is found.
+ * @returns {[boolean, object]} bool: Whether eastbound tracks part is found.
  * object: The content of eastbound track xml.
  */
 function getEastboundTracks(html)
 {
-    let match = html.match(/\\n([^\\n]*?CZQXZQZX.*?)<\/td>/)
+    let match = html.match(/\n([^\n]*?CZQXZQZX[\s\S]*?)<\/td>/)
     if (!match) return [false, null];
-    let message = removeHtmlTags(match[0])
+    let message = removeHtmlTags(match[1])
     let [time, header] = _getGeneralInfo(html)
     
-    return { 
-        LastUpdated: time, 
-        Header: header,
-        Direction: 'East',
-        Message: message
-    }
+    return [true, { 
+        lastUpdated: time, 
+        header: header,
+        direction: 'East',
+        message: message
+    }]
 }
 
 /**
@@ -70,7 +70,7 @@ function _getGeneralInfo(html)
 {
     let matchTime = html.match(/(Last updated.*?)<\//)
     let matchHeader = html.match(/(The following are active North Atlantic Tracks.*?)<\//)
-    return [matchTime[0], matchHeader[0]]
+    return [matchTime[1], matchHeader[1]]
 }
 
 function toXml(obj)
@@ -79,3 +79,6 @@ function toXml(obj)
     let xml = builder.buildObject(obj);
     return xml
 }
+
+exports.getWestboundTracks = getWestboundTracks
+exports.getEastboundTracks = getEastboundTracks
