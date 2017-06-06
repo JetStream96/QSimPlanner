@@ -41,19 +41,36 @@ namespace QSP.Utilities
             return lm ?? cu;
         }
 
+        public static string P3Dv4Path()
+        {
+            var lm = Registries.TryGetRegistry(
+                RegistryHive.LocalMachine,
+                @"SOFTWARE\Lockheed Martin\Prepar3D v4",
+                "SetupPath",
+                RegistryView.Registry64);   // P3Dv4 is 64-bit.
+
+            var cu = Registries.TryGetRegistry(
+                RegistryHive.CurrentUser,
+                @"SOFTWARE\Lockheed Martin\Prepar3D v4",
+                "AppPath",
+                RegistryView.Registry64);   // P3Dv4 is 64-bit.
+
+            return lm ?? cu;
+        }
+
         public static string P3Dv3Path()
         {
             var lm = Registries.TryGetRegistry(
                 RegistryHive.LocalMachine,
                 @"Software\Lockheed Martin\Prepar3d v3",
                 "SetupPath",
-                RegistryView.Registry32);   // P3Dv2 is 32-bit.
+                RegistryView.Registry32);   // P3Dv3 is 32-bit.
 
             var cu = Registries.TryGetRegistry(
                 RegistryHive.CurrentUser,
                 @"Software\Lockheed Martin\Prepar3D v3",
                 "AppPath",
-                RegistryView.Registry32);   // P3Dv2 is 32-bit.
+                RegistryView.Registry32);   // P3Dv3 is 32-bit.
 
             return lm ?? cu;
         }

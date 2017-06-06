@@ -46,6 +46,7 @@ namespace QSP.NavData
             {
                 FsxPath,
                 FsxSteamPath,
+                P3Dv4Path,
                 P3Dv3Path,
                 P3Dv2Path,
                 P3Dv1Path
