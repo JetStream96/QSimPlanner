@@ -7,8 +7,20 @@ const filePath = './log.txt'
 let westXml = ''
 let eastXml = ''
 
+/**
+ * 
+ * @param {*} request 
+ * @param {http.ServerRes} response 
+ */
 function handleRequest(request, response) {
-    response.end(eastXml + '\n\n' + westXml)
+    if (request.url === '/nats/Eastbound.xml') {
+        response.end(eastXml)
+    } else if (request.url === '/nats/Westbound.xml') {
+        response.end(westXml)
+    } else {
+        response.statusCode = 404;
+        response.end('404 Not found')
+    }    
 }
 
 /**
@@ -79,12 +91,11 @@ repeat(() => updateXmls(err => {
     if (err) {
         log(err.stack, () => {})  // TODO: Failure on logging needs handling.
     } 
-}), 5 * 60 * 1000)
+}), 5 * 60 * 1000) // Update every 5 min.
 
 
 let server = http.createServer(handleRequest)
 server.listen(8081, '127.0.0.1', () => {
     console.log('server started')
 })
-
 
