@@ -59,5 +59,10 @@ function* range(start, count) {
     }
 }
 
+function sanitizeFilename(name) {
+    return name.replace(/[^a-zA-Z0-9_\\-\\.]/g, '')    
+}
+
 exports.toXml = toXml
 exports.withoutInvalidXmlCharObj = withoutInvalidXmlCharObj
+exports.sanitizeFilename = sanitizeFilename

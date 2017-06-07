@@ -3,6 +3,7 @@ const fs = require('fs')
 const nats = require('./tracks/nats')
 const util = require('./util')
 const path = require('path')
+const mkdirp = require('mkdirp')
 
 const filePath = './log.txt'
 const savedDirectory = './saved/nats'
@@ -24,7 +25,7 @@ const reqHandler = {
 function handleRequest(request, response) {
     let res = reqHandler[request.url]
 
-    if (res === undefined) {
+    if (res !== undefined) {
         response.end(res())
     } else {
         response.statusCode = 404;
@@ -46,6 +47,28 @@ function updateXmls(callback) {
     })
 }
 
+function xmlFileName(lastUpdated) {
+    return util.sanitizeFilename(lastUpdated.match(/\d.+/)[0])
+}
+
+function saveXml(subDirectory, lastUpdated, xmlStr, callback) {
+    let dir = path.join(savedDirectory, subDirectory)
+    fs.exists(dir, exists => {
+        let p = path.join(dir, xmlFileName(lastUpdated) + '.txt')
+        if (!exists) {
+            mkdirp(dir, e => {
+                if (!e) {
+                    fs.writeFile(p, xmlStr, callback)
+                } else {
+                    callback(e)
+                }                
+            });
+        } else {
+            fs.writeFile(p, xmlStr, callback)
+        }
+    })
+}
+
 /**
  * @param {string} html
  * @param {Error => void}
@@ -58,8 +81,7 @@ function updateEastXml(html, callback) {
             let xmlStr = util.toXml(util.withoutInvalidXmlCharObj(newXml))
             if (xmlStr != eastXml) {
                 eastXml = xmlStr
-                let p = path.join(savedDirectory, 'east', newXml.time)
-                fs.writeFile(p, xmlStr, e => callback(e))
+                saveXml('east', newXml.LastUpdated, xmlStr, callback)
                 log('Eastbound updated.')
             } else {
                 log('No change in eastbound.')
@@ -86,8 +108,7 @@ function updateWestXml(html, callback) {
             let xmlStr = util.toXml(util.withoutInvalidXmlCharObj(newXml))
             if (xmlStr != westXml) {
                 westXml = xmlStr
-                let p = path.join(savedDirectory, 'west', newXml.time)
-                fs.writeFile(p, xmlStr, e => callback(e))
+                saveXml('west', newXml.LastUpdated, xmlStr, callback)
                 log('Westbound updated.')
             } else {
                 log('No change in westbound.')
@@ -109,7 +130,9 @@ function updateWestXml(html, callback) {
 function log(msg) {
     let data = new Date().toString() + msg + '\n'
     fs.appendFile(filePath, data, err => {
-        unloggedErrors += data + '\n\n' + err.stack + '\n\n'
+        if (err) {
+            unloggedErrors += data + '\n\n' + err.stack + '\n\n'
+        }
     })
 }
 
