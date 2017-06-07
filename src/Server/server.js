@@ -2,25 +2,34 @@ const http = require('http')
 const fs = require('fs')
 const nats = require('./tracks/nats')
 const util = require('./util')
+const path = require('path')
+
 const filePath = './log.txt'
+const savedDirectory = './saved/nats'
 
 let westXml = ''
 let eastXml = ''
+let unloggedErrors = ''
+
+const reqHandler = {
+    '/nats/Eastbound.xml': () => eastXml,
+    '/nats/Westbound.xml': () => westXml,
+    '/err': () => unloggedErrors
+}
 
 /**
- * 
  * @param {*} request 
  * @param {http.ServerRes} response 
  */
 function handleRequest(request, response) {
-    if (request.url === '/nats/Eastbound.xml') {
-        response.end(eastXml)
-    } else if (request.url === '/nats/Westbound.xml') {
-        response.end(westXml)
+    let res = reqHandler[request.url]
+
+    if (res === undefined) {
+        response.end(res())
     } else {
         response.statusCode = 404;
         response.end('404 Not found')
-    }    
+    }
 }
 
 /**
@@ -31,47 +40,77 @@ function updateXmls(callback) {
         if (err) {
             callback(err)
         } else {
-            callback(updateEastXml(html) || updateWestXml(html))
+            updateEastXml(html, callback)
+            updateWestXml(html, callback)
         }
-    }) 
+    })
 }
 
 /**
- * @returns {Error}
+ * @param {string} html
+ * @param {Error => void}
  */
-function updateEastXml(html) {
+function updateEastXml(html, callback) {
     try {
         let [success, newXml] = nats.getEastboundTracks(html)
 
         if (success) {
-            eastXml = util.toXml(util.withoutInvalidXmlCharObj(newXml))
-        } 
+            let xmlStr = util.toXml(util.withoutInvalidXmlCharObj(newXml))
+            if (xmlStr != eastXml) {
+                eastXml = xmlStr
+                let p = path.join(savedDirectory, 'east', newXml.time)
+                fs.writeFile(p, xmlStr, e => callback(e))
+                log('Eastbound updated.')
+            } else {
+                log('No change in eastbound.')
+            }
+        } else {
+            log('Cannot find eastbound part in html.')
+        }
+
+        callback(null)
     } catch (err) {
-        return err
-    }    
+        callback(err)
+    }
 }
 
 /**
- * @returns {Error}
+ * @param {string} html
+ * @param {Error => void}
  */
 function updateWestXml(html, callback) {
     try {
         let [success, newXml] = nats.getWestboundTracks(html)
+
         if (success) {
-            westXml = util.toXml(util.withoutInvalidXmlCharObj(newXml))
+            let xmlStr = util.toXml(util.withoutInvalidXmlCharObj(newXml))
+            if (xmlStr != westXml) {
+                westXml = xmlStr
+                let p = path.join(savedDirectory, 'west', newXml.time)
+                fs.writeFile(p, xmlStr, e => callback(e))
+                log('Westbound updated.')
+            } else {
+                log('No change in westbound.')
+            }
+        } else {
+            log('Cannot find westbound part in html.')
         }
+
+        callback(null)
     } catch (err) {
-        return err
-    }     
+        callback(err)
+    }
 }
 
 /**
  * Log the message with current time stamp.
  * @param {string} msg 
- * @param {err => void} callback 
  */
-function log(msg, callback) {
-    fs.appendFile(filePath, new Date().toString() + msg + '\n', callback)
+function log(msg) {
+    let data = new Date().toString() + msg + '\n'
+    fs.appendFile(filePath, data, err => {
+        unloggedErrors += data + '\n\n' + err.stack + '\n\n'
+    })
 }
 
 /**
@@ -89,13 +128,11 @@ function repeat(func, interval) {
 // Update xmls and schedule future tasks.
 repeat(() => updateXmls(err => {
     if (err) {
-        log(err.stack, () => {})  // TODO: Failure on logging needs handling.
-    } 
+        log(err.stack)
+    }
 }), 5 * 60 * 1000) // Update every 5 min.
-
 
 let server = http.createServer(handleRequest)
 server.listen(8081, '127.0.0.1', () => {
     console.log('server started')
 })
-
