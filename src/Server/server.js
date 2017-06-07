@@ -10,12 +10,16 @@ const savedDirectory = './saved/nats'
 
 let westXml = ''
 let eastXml = ''
+let lastWestObj = { Message: '' }
+let lastEastObj = { Message: '' }
+let lastWestDate = 0
+let lastEastDate = 0
 let unloggedErrors = ''
 
 const reqHandler = {
     '/nats/Eastbound.xml': () => eastXml,
     '/nats/Westbound.xml': () => westXml,
-    '/err': () => unloggedErrors
+    '/err': () => unloggedErrors === '' ? 'No unlogged error.' : unloggedErrors
 }
 
 /**
@@ -51,6 +55,15 @@ function xmlFileName(lastUpdated) {
     return util.sanitizeFilename(lastUpdated.match(/\d.+/)[0])
 }
 
+/**
+ * @param {string} lastUpdated Should include format like '2017/06/07 15:38 GMT'
+ * @returns {number} in ms 
+ */
+function parseDate(lastUpdated) {
+    let match = lastUpdated.match(/(\d{4})\D*(\d{1,2})\D*(\d{1,2})\D*(\d{1,2})\D*(\d{1,2})/)
+    return Date.UTC(match[1], match[2] - 1, match[3], match[4], match[5], 0, 0)
+}
+
 function saveXml(subDirectory, lastUpdated, xmlStr, callback) {
     let dir = path.join(savedDirectory, subDirectory)
     fs.exists(dir, exists => {
@@ -61,7 +74,7 @@ function saveXml(subDirectory, lastUpdated, xmlStr, callback) {
                     fs.writeFile(p, xmlStr, callback)
                 } else {
                     callback(e)
-                }                
+                }
             });
         } else {
             fs.writeFile(p, xmlStr, callback)
@@ -78,9 +91,12 @@ function updateEastXml(html, callback) {
         let [success, newXml] = nats.getEastboundTracks(html)
 
         if (success) {
-            let xmlStr = util.toXml(util.withoutInvalidXmlCharObj(newXml))
-            if (xmlStr != eastXml) {
+            let date = parseDate(newXml.LastUpdated)
+            if (date > lastEastDate && lastEastObj.Message !== newXml.Message) {
+                let xmlStr = util.toXml(util.withoutInvalidXmlCharObj(newXml))
                 eastXml = xmlStr
+                lastEastObj = newXml
+                lastEastDate = date
                 saveXml('east', newXml.LastUpdated, xmlStr, callback)
                 log('Eastbound updated.')
             } else {
@@ -105,9 +121,12 @@ function updateWestXml(html, callback) {
         let [success, newXml] = nats.getWestboundTracks(html)
 
         if (success) {
-            let xmlStr = util.toXml(util.withoutInvalidXmlCharObj(newXml))
-            if (xmlStr != westXml) {
+            let date = parseDate(newXml.LastUpdated)
+            if (date > lastWestDate && lastWestObj.Message !== newXml.Message) {
+                let xmlStr = util.toXml(util.withoutInvalidXmlCharObj(newXml))
                 westXml = xmlStr
+                lastWestObj = newXml
+                lastWestDate = date
                 saveXml('west', newXml.LastUpdated, xmlStr, callback)
                 log('Westbound updated.')
             } else {
@@ -158,4 +177,5 @@ repeat(() => updateXmls(err => {
 let server = http.createServer(handleRequest)
 server.listen(8081, '127.0.0.1', () => {
     console.log('server started')
+    log('server started')
 })
