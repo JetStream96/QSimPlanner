@@ -7,7 +7,7 @@ function downloadHtml(callback) {
     let options = {
         host: 'www.notams.faa.gov',
         port: 443,
-        path: '/common/nat.html'
+        path: '/common/nat.html?'
     };
 
     let content = ''
