@@ -1,5 +1,4 @@
 const https = require('https')
-const xml2js = require('xml2js')
 
 /**
  * @param {(err, html) => void} callback html is a string
@@ -36,10 +35,10 @@ function getWestboundTracks(html)
     let [time, header] = _getGeneralInfo(html)
     
     return [true, { 
-        lastUpdated: time, 
-        header: header,
-        direction: 'West',
-        message: message
+        LastUpdated: time, 
+        Header: header,
+        Direction: 'West',
+        Message: message
     }]
 }
 
@@ -55,10 +54,10 @@ function getEastboundTracks(html)
     let [time, header] = _getGeneralInfo(html)
     
     return [true, { 
-        lastUpdated: time, 
-        header: header,
-        direction: 'East',
-        message: message
+        LastUpdated: time, 
+        Header: header,
+        Direction: 'East',
+        Message: message
     }]
 }
 
@@ -73,15 +72,6 @@ function _getGeneralInfo(html)
     return [matchTime[1], matchHeader[1]]
 }
 
-function toXml(obj)
-{
-    let builder = new xml2js.Builder();
-    let xml = builder.buildObject(obj);
-    console.log(xml)
-    return xml
-}
-
 exports.downloadHtml = downloadHtml
 exports.getWestboundTracks = getWestboundTracks
 exports.getEastboundTracks = getEastboundTracks
-exports.toXml = toXml

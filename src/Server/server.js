@@ -1,6 +1,7 @@
 const http = require('http')
 const fs = require('fs')
 const nats = require('./tracks/nats')
+const util = require('./util')
 const filePath = './log.txt'
 
 let westXml = ''
@@ -31,7 +32,7 @@ function updateEastXml(html) {
         let [success, newXml] = nats.getEastboundTracks(html)
 
         if (success) {
-            eastXml = nats.toXml(newXml)
+            eastXml = util.toXml(util.withoutInvalidXmlCharObj(newXml))
         } 
     } catch (err) {
         return err
@@ -45,7 +46,7 @@ function updateWestXml(html, callback) {
     try {
         let [success, newXml] = nats.getWestboundTracks(html)
         if (success) {
-            westXml = nats.toXml(newXml)
+            westXml = util.toXml(util.withoutInvalidXmlCharObj(newXml))
         }
     } catch (err) {
         return err
@@ -76,13 +77,13 @@ function repeat(func, interval) {
 // Update xmls and schedule future tasks.
 repeat(() => updateXmls(err => {
     if (err) {
-        log(err.toString(), () => {})  // TODO: Failure on logging needs handling.
+        log(err.stack, () => {})  // TODO: Failure on logging needs handling.
     } 
 }), 5 * 60 * 1000)
 
 
 let server = http.createServer(handleRequest)
-server.listen(8080, '127.0.0.1', () => {
+server.listen(8081, '127.0.0.1', () => {
     console.log('server started')
 })
 
