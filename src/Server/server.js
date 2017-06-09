@@ -147,7 +147,7 @@ function updateWestXml(html, callback) {
  * @param {string} msg 
  */
 function log(msg) {
-    let data = new Date().toString() + msg + '\n'
+    let data = new Date().toISOString() + '   ' + msg + '\n'
     fs.appendFile(filePath, data, err => {
         if (err) {
             unloggedErrors += data + '\n\n' + err.stack + '\n\n'
