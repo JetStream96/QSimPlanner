@@ -6,9 +6,9 @@ const path = require('path')
 const mkdirp = require('mkdirp')
 const express = require('express')
 const bodyParser = require('body-parser')
-
-const filePath = './log.txt'
-const savedDirectory = './saved/nats'
+const SyncFileWriter = require('./sync-file-writer').SyncFileWriter
+const filePath = path.join(__dirname, 'log.txt')
+const savedDirectory = path.join(__dirname, 'saved/nats')
 
 let westXml = ''
 let eastXml = ''
@@ -18,16 +18,14 @@ let lastWestDate = 0
 let lastEastDate = 0
 let unloggedErrors = ''
 
-let app = express()
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+let errorReportWriter = new SyncFileWriter(
+    path.join(__dirname, 'error-report'), 'error-report.txt')
 
 const reqHandler = {
-    'nats' : {
+    'nats': {
         'Eastbound.xml': () => eastXml,
         'Westbound.xml': () => westXml,
-    },    
+    },
     'err': () => unloggedErrors === '' ? 'No unlogged error.' : unloggedErrors
 }
 
@@ -76,20 +74,14 @@ function xmlFileName(lastUpdated) {
 
 function saveXml(subDirectory, lastUpdated, xmlStr, callback) {
     let dir = path.join(savedDirectory, subDirectory)
-    fs.exists(dir, exists => {
-        let p = path.join(dir, xmlFileName(lastUpdated) + '.txt')
-        if (!exists) {
-            mkdirp(dir, e => {
-                if (!e) {
-                    fs.writeFile(p, xmlStr, callback)
-                } else {
-                    callback(e)
-                }
-            });
-        } else {
+    let p = path.join(dir, xmlFileName(lastUpdated) + '.txt')
+    mkdirp(dir, e => {
+        if (!e) {
             fs.writeFile(p, xmlStr, callback)
+        } else {
+            callback(e)
         }
-    })
+    });
 }
 
 /**
@@ -184,9 +176,25 @@ repeat(() => updateXmls(err => {
     }
 }), 5 * 60 * 1000) // Update every 5 min.
 
+let app = express()
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 setReqHandler(app, '', reqHandler)
+
+app.post('/error-report', (req, res) => {
+    errorReportWriter.add(JSON.stringify({
+        ip: req.ip,
+        text: req.body
+    }) + '\n')
+
+    res.send("OK")
+});
 
 let server = app.listen(8081, '127.0.0.1', () => {
     console.log('server started')
     log('server started')
 })
+
+exports.log = log
