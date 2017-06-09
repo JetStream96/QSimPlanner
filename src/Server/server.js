@@ -186,6 +186,7 @@ setReqHandler(app, '', reqHandler)
 app.post('/error-report', (req, res) => {
     errorReportWriter.add(JSON.stringify({
         ip: req.ip,
+        time: new Date(Date.now()),
         text: req.body
     }) + '\n')
 
