@@ -4,6 +4,8 @@ const nats = require('./tracks/nats')
 const util = require('./util')
 const path = require('path')
 const mkdirp = require('mkdirp')
+const express = require('express')
+const bodyParser = require('body-parser')
 
 const filePath = './log.txt'
 const savedDirectory = './saved/nats'
@@ -16,21 +18,38 @@ let lastWestDate = 0
 let lastEastDate = 0
 let unloggedErrors = ''
 
+let app = express()
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const reqHandler = {
-    '/nats/Eastbound.xml': () => eastXml,
-    '/nats/Westbound.xml': () => westXml,
-    '/err': () => unloggedErrors === '' ? 'No unlogged error.' : unloggedErrors
+    'nats' : {
+        'Eastbound.xml': () => eastXml,
+        'Westbound.xml': () => westXml,
+    },    
+    'err': () => unloggedErrors === '' ? 'No unlogged error.' : unloggedErrors
 }
 
-/**
- * @param {*} request 
- * @param {http.ServerRes} response 
- */
-function handleRequest(request, response) {
-    let res = reqHandler[request.url]
+function setReqHandler(app, parentPath, obj) {
+    Object.keys(obj).forEach(k => {
+        let val = obj[k]
+        if (typeof val === 'function') {
+            app.get(parentPath + '/:id', (req, res) => {
+                handleRequest(obj, req, res)
+            })
+        } else {
+            // Is an object
+            setReqHandler(app, parentPath + '/' + k, val)
+        }
+    })
+}
 
-    if (res !== undefined) {
-        response.end(res())
+function handleRequest(obj, request, response) {
+    let resGetter = obj[request.params.id]
+
+    if (resGetter !== undefined) {
+        response.end(resGetter())
     } else {
         response.statusCode = 404;
         response.end('404 Not found')
@@ -165,8 +184,9 @@ repeat(() => updateXmls(err => {
     }
 }), 5 * 60 * 1000) // Update every 5 min.
 
-let server = http.createServer(handleRequest)
-server.listen(8081, '127.0.0.1', () => {
+setReqHandler(app, '', reqHandler)
+
+let server = app.listen(8081, '127.0.0.1', () => {
     console.log('server started')
     log('server started')
 })
