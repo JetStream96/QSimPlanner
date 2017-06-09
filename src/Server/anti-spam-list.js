@@ -1,6 +1,6 @@
 const util = require('./util')
-const defaultTokenCount = 10
-const tokensPerHour = 60
+const defaultTokenCount = 120
+const tokensPerHour = 120
 
 class AntiSpamList {
     constructor() {
