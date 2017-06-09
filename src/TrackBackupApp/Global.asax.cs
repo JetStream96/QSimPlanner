@@ -1,9 +1,10 @@
-﻿using System;
-using System.Web;
+﻿using QSP.RouteFinding.Tracks.Nats;
+using System;
 using System.IO;
 using System.Net;
+using System.Web;
 using System.Web.Caching;
-using QSP.RouteFinding.Tracks.Nats;
+using System.Web.Hosting;
 
 namespace TrackBackupApp
 {
@@ -11,6 +12,9 @@ namespace TrackBackupApp
     {
         private const string DummyPageUrl = "http://qsimplan.somee.com/DummyPage.aspx";
         private const string DummyCacheItemKey = "dummyKey";
+
+        private DateTime lastUpdateTimeWest = new DateTime();
+        private DateTime lastUpdateTimeEast = new DateTime();
 
         private bool RegisterCacheEntry()
         {
@@ -33,7 +37,8 @@ namespace TrackBackupApp
             return true;
         }
 
-        public void CacheItemRemovedCallback(string key, object value, CacheItemRemovedReason reason)
+        public void CacheItemRemovedCallback(string key, object value, 
+            CacheItemRemovedReason reason)
         {
             HitPage();
             WriteToLog(" Cache item callback, Reason: " + reason.ToString());
@@ -67,36 +72,50 @@ namespace TrackBackupApp
                 " Cache item callback.",
                 " Cache Added."
             };
-            
+
             WriteToLog(msgs[para]);
         }
 
 
         public void WriteToLog(string msg)
         {
-            using (var wr = File.AppendText(System.Web.Hosting.HostingEnvironment.MapPath("~/log.txt")))
+            using (var wr = File.AppendText(HostingEnvironment.MapPath("~/log.txt")))
             {
                 wr.WriteLine(DateTime.Now.ToString() + " " + msg);
             }
         }
-        
+
         private void SaveNats()
         {
             var result = new NatsDownloader().DownloadFromNotam();
+            Directory.CreateDirectory(HostingEnvironment.MapPath("~/nats"));
 
             foreach (var i in result)
             {
-                string s = i.Direction == NatsDirection.East
-                         ? "Eastbound"
-                         : "Westbound";
-                
-                string filepath = "~/nats/" + s + ".xml";
-
-                Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath("~/nats"));
-
-                File.WriteAllText(System.Web.Hosting.HostingEnvironment.MapPath(filepath),
-                                  i.ConvertToXml().ToString());
+                if (i.Direction == NatsDirection.East)
+                {
+                    var filepath = "~/nats/Eastbound.xml";
+                    var (success, newTime) = NatsMessage.ParseDate(i.LastUpdated);
+                    if (success && newTime > lastUpdateTimeEast)
+                    {
+                        lastUpdateTimeEast = newTime;
+                        File.WriteAllText(HostingEnvironment.MapPath(filepath),
+                            i.ConvertToXml().ToString());
+                    }
+                }
+                else
+                {
+                    var filepath = "~/nats/Westbound.xml";
+                    var (success, newTime) = NatsMessage.ParseDate(i.LastUpdated);
+                    if (success && newTime > lastUpdateTimeWest)
+                    {
+                        lastUpdateTimeWest = newTime;
+                        File.WriteAllText(HostingEnvironment.MapPath(filepath),
+                            i.ConvertToXml().ToString());
+                    }
+                }
             }
+
             WriteToLog(1);
         }
 

@@ -1,6 +1,9 @@
-﻿using QSP.RouteFinding.Tracks.Common;
+﻿using System;
+using QSP.RouteFinding.Tracks.Common;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using System.Linq;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
@@ -45,6 +48,28 @@ namespace QSP.RouteFinding.Tracks.Nats
                     new XElement[] {
                         new XElement("Westbound", west.Elements()),
                         new XElement("Eastbound", east.Elements())}));
+        }
+
+        // lastUpdated Should include format like '2017/06/07 15:38 GMT'
+        public static (bool success, DateTime date) ParseDate(string lastUpdated)
+        {
+            try
+            {
+                var re = new Regex(@"(\d{4})\D+(\d{1,2})\D+(\d{1,2})\D+(\d{1,2})\D+(\d{1,2})");
+                var match = re.Match(lastUpdated);
+                var nums = match.Groups
+                    .Cast<Group>()
+                    .Skip(1)
+                    .Take(5)
+                    .Select(g => int.Parse(g.Value))
+                    .ToList();
+                return (true, new DateTime(nums[0], nums[1], nums[2], nums[3], nums[4],
+                    0, 0, DateTimeKind.Utc));
+            }
+            catch
+            {
+                return (false, new DateTime());
+            }
         }
     }
 }

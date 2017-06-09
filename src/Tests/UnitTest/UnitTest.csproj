@@ -155,6 +155,7 @@
     <Compile Include="RouteFinding\Tracks\Common\TrackAdderTest.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackReaderTest.cs" />
     <Compile Include="RouteFinding\Tracks\Interaction\StatusRecorderTest.cs" />
+    <Compile Include="RouteFinding\Tracks\Nats\NatsMessageTest.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\NatsParserTest.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Utilities\LatLonConverterTest.cs" />
     <Compile Include="RouteFinding\Tracks\Nats\Utilities\MessageSplitterTest.cs" />
