@@ -55,15 +55,6 @@ function xmlFileName(lastUpdated) {
     return util.sanitizeFilename(lastUpdated.match(/\d.+/)[0])
 }
 
-/**
- * @param {string} lastUpdated Should include format like '2017/06/07 15:38 GMT'
- * @returns {number} in ms 
- */
-function parseDate(lastUpdated) {
-    let match = lastUpdated.match(/(\d{4})\D*(\d{1,2})\D*(\d{1,2})\D*(\d{1,2})\D*(\d{1,2})/)
-    return Date.UTC(match[1], match[2] - 1, match[3], match[4], match[5], 0, 0)
-}
-
 function saveXml(subDirectory, lastUpdated, xmlStr, callback) {
     let dir = path.join(savedDirectory, subDirectory)
     fs.exists(dir, exists => {
@@ -91,7 +82,7 @@ function updateEastXml(html, callback) {
         let [success, newXml] = nats.getEastboundTracks(html)
 
         if (success) {
-            let date = parseDate(newXml.LastUpdated)
+            let date = util.parseDate(newXml.LastUpdated)
             if (date > lastEastDate && lastEastObj.Message !== newXml.Message) {
                 let xmlStr = util.toXml(util.withoutInvalidXmlCharObj(newXml))
                 eastXml = xmlStr
@@ -121,7 +112,7 @@ function updateWestXml(html, callback) {
         let [success, newXml] = nats.getWestboundTracks(html)
 
         if (success) {
-            let date = parseDate(newXml.LastUpdated)
+            let date = util.parseDate(newXml.LastUpdated)
             if (date > lastWestDate && lastWestObj.Message !== newXml.Message) {
                 let xmlStr = util.toXml(util.withoutInvalidXmlCharObj(newXml))
                 westXml = xmlStr

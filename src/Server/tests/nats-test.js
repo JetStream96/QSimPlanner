@@ -31,9 +31,9 @@ const html =
 test(() => {
     let [found, obj] = nats.getWestboundTracks(html)
     assertEquals(true, found)
-    assertEquals('Last updated at 2016/02/02 15:05 GMT', obj.lastUpdated)
-    assertEquals('The following are active North Atlantic Tracks issued by Shanwick Center (EGGX) ...', obj.header)
-    assertEquals('West', obj.direction)
+    assertEquals('Last updated at 2016/02/02 15:05 GMT', obj.LastUpdated)
+    assertEquals('The following are active North Atlantic Tracks issued by Shanwick Center (EGGX) ...', obj.Header)
+    assertEquals('West', obj.Direction)
     assertEquals(`012111 EGGXZOZX
 [Message W1]
 
@@ -41,16 +41,16 @@ test(() => {
 012112 EGGXZOZX
 [Message W2]
 
-`, obj.message)
+`, obj.Message)
 
 }, 'getWestboundTracks test')
 
 test(() => {
     let [found, obj] = nats.getEastboundTracks(html)
     assertEquals(true, found)
-    assertEquals('Last updated at 2016/02/02 15:05 GMT', obj.lastUpdated)
-    assertEquals('The following are active North Atlantic Tracks issued by Shanwick Center (EGGX) ...', obj.header)
-    assertEquals('East', obj.direction)
+    assertEquals('Last updated at 2016/02/02 15:05 GMT', obj.LastUpdated)
+    assertEquals('The following are active North Atlantic Tracks issued by Shanwick Center (EGGX) ...', obj.Header)
+    assertEquals('East', obj.Direction)
     assertEquals(`021356 CZQXZQZX
 [Message E1]
 
@@ -62,7 +62,7 @@ test(() => {
 021357 CZQXZQZX
 [Message E3]
 
-`, obj.message)
+`, obj.Message)
 
 }, 'getEastboundTracks test')
 

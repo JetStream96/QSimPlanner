@@ -63,6 +63,16 @@ function sanitizeFilename(name) {
     return name.replace(/[^a-zA-Z0-9_\\-\\.]/g, '')    
 }
 
+/**
+ * @param {string} lastUpdated Should include format like '2017/06/07 15:38 GMT'
+ * @returns {number} in ms 
+ */
+function parseDate(lastUpdated) {
+    let match = lastUpdated.match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})\D+(\d{1,2})\D+(\d{1,2})/)
+    return Date.UTC(match[1], match[2] - 1, match[3], match[4], match[5], 0, 0)
+}
+
 exports.toXml = toXml
 exports.withoutInvalidXmlCharObj = withoutInvalidXmlCharObj
 exports.sanitizeFilename = sanitizeFilename
+exports.parseDate = parseDate
