@@ -72,7 +72,19 @@ function parseDate(lastUpdated) {
     return Date.UTC(match[1], match[2] - 1, match[3], match[4], match[5], 0, 0)
 }
 
+/**
+ * Repeatedly calling the func with the specified interval. 
+ * @param {() => void} func 
+ * @param {number} interval in ms
+ */
+function repeat(func, interval) {
+    func()
+    setTimeout(() => repeat(func, interval), interval)
+}
+
+
 exports.toXml = toXml
 exports.withoutInvalidXmlCharObj = withoutInvalidXmlCharObj
 exports.sanitizeFilename = sanitizeFilename
 exports.parseDate = parseDate
+exports.repeat = repeat

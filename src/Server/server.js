@@ -9,6 +9,7 @@ const bodyParser = require('body-parser')
 const SyncFileWriter = require('./sync-file-writer').SyncFileWriter
 const filePath = path.join(__dirname, 'log.txt')
 const savedDirectory = path.join(__dirname, 'saved/nats')
+const AntiSpamList = require('./anti-spam-list').AntiSpamList
 
 let westXml = ''
 let eastXml = ''
@@ -20,6 +21,8 @@ let unloggedErrors = ''
 
 let errorReportWriter = new SyncFileWriter(
     path.join(__dirname, 'error-report'), 'error-report.txt')
+
+let userList = new AntiSpamList()
 
 const reqHandler = {
     'nats': {
@@ -157,20 +160,10 @@ function log(msg) {
     })
 }
 
-/**
- * Repeatedly calling the func with the specified interval. 
- * @param {() => void} func 
- * @param {number} interval in ms
- */
-function repeat(func, interval) {
-    func()
-    setTimeout(() => repeat(func, interval), interval)
-}
-
 // Script starts here.
 
 // Update xmls and schedule future tasks.
-repeat(() => updateXmls(err => {
+util.repeat(() => updateXmls(err => {
     if (err) {
         log(err.stack)
     }
@@ -184,11 +177,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 setReqHandler(app, '', reqHandler)
 
 app.post('/error-report', (req, res) => {
-    errorReportWriter.add(JSON.stringify({
-        ip: req.ip,
-        time: new Date(Date.now()),
-        text: req.body
-    }) + '\n')
+    let ip = req.ip
+    
+    if (!userList.decrementToken(ip)) {
+        errorReportWriter.add(JSON.stringify({
+            ip: req.ip,
+            time: new Date(Date.now()),
+            text: req.body
+        }) + '\n')
+    }
 
     res.send("OK")
 });
