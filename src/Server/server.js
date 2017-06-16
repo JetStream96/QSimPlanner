@@ -23,6 +23,7 @@ let errorReportWriter = new SyncFileWriter(
     path.join(__dirname, 'error-report'), 'error-report.txt')
 
 let userList = new AntiSpamList()
+let maxRequestBodySize = 100 * 1000
 
 const reqHandler = {
     'nats': {
@@ -52,7 +53,7 @@ function handleRequest(obj, request, response) {
     if (resGetter !== undefined) {
         response.end(resGetter())
     } else {
-        response.statusCode = 404;
+        response.statusCode = 404
         response.end('404 Not found')
     }
 }
@@ -84,7 +85,7 @@ function saveXml(subDirectory, lastUpdated, xmlStr, callback) {
         } else {
             callback(e)
         }
-    });
+    })
 }
 
 /**
@@ -171,15 +172,16 @@ util.repeat(() => updateXmls(err => {
 
 let app = express()
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 setReqHandler(app, '', reqHandler)
 
 app.post('/error-report', (req, res) => {
     let ip = req.ip
     
-    if (!userList.decrementToken(ip)) {
+    if (!userList.decrementToken(ip) && 
+        req.body.toString().length <= maxRequestBodySize) {
         errorReportWriter.add(JSON.stringify({
             ip: req.ip,
             time: new Date(Date.now()),
@@ -188,7 +190,7 @@ app.post('/error-report', (req, res) => {
     }
 
     res.send("OK")
-});
+})
 
 let server = app.listen(8081, '127.0.0.1', () => {
     console.log('server started')
