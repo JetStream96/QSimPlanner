@@ -11,7 +11,7 @@ version 0.3.2
 * Fix an issue where runway surface condition changes when aircraft is changed.
 
 version 0.3.1
-* Fix an bug preventing program from starting related to nav data path detection.
+* Fix a bug preventing program from starting related to nav data path detection.
 
 version 0.3.0
 * Many bug fixes.

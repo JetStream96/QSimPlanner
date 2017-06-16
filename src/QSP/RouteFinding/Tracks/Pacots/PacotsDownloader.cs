@@ -3,12 +3,14 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using QSP.RouteFinding.Tracks.Common;
+using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
     public class PacotsDownloader : ITrackMessageProvider
     {
-        private static readonly string url = "https://www.notams.faa.gov/dinsQueryWeb/advancedNotamMapAction.do";
+        private static readonly string url =
+            "https://www.notams.faa.gov/dinsQueryWeb/advancedNotamMapAction.do";
 
         /// <exception cref="Exception"></exception>
         public ITrackMessage GetMessage()
@@ -46,19 +48,8 @@ namespace QSP.RouteFinding.Tracks.Pacots
 
         private static HttpWebRequest GetRequest()
         {
-            byte[] buffer = Encoding.ASCII.GetBytes("queryType=pacificTracks&actionType=advancedNOTAMFunctions");
-            var webReq = (HttpWebRequest)WebRequest.Create(url);
-
-            webReq.Method = "POST";
-            webReq.ContentType = "application/x-www-form-urlencoded";
-            webReq.ContentLength = buffer.Length;
-
-            Stream postData = webReq.GetRequestStream();
-
-            postData.Write(buffer, 0, buffer.Length);
-            postData.Close();
-
-            return webReq;
+            return WebRequests.GetPostRequest(url,
+                "queryType=pacificTracks&actionType=advancedNOTAMFunctions");
         }
     }
 }
