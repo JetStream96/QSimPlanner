@@ -10,10 +10,10 @@
     <form id="form1" runat="server">
     <div>
     
-        <a href="http://qsimplan.somee.com/nats/Westbound.xml">Westbound Tracks</a></div>
+        <a href="./nats/Westbound.xml">Westbound Tracks</a></div>
     </form>
     <div>
     
-        <a href="http://qsimplan.somee.com/nats/Eastbound.xml">Eastbound Tracks</a></div>
+        <a href="./nats/Eastbound.xml">Eastbound Tracks</a></div>
     </body>
 </html>

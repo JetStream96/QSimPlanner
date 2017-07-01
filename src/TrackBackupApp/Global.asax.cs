@@ -10,7 +10,7 @@ namespace TrackBackupApp
 {
     public class Global : HttpApplication
     {
-        private const string DummyPageUrl = "http://qsimplan.somee.com/DummyPage.aspx";
+        private readonly string DummyPageUrl = HostingEnvironment.MapPath("~/DummyPage.aspx");
         private const string DummyCacheItemKey = "dummyKey";
 
         private DateTime lastUpdateTimeWest = new DateTime();
