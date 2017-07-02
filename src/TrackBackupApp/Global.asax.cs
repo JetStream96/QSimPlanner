@@ -10,11 +10,21 @@ namespace TrackBackupApp
 {
     public class Global : HttpApplication
     {
-        private readonly string DummyPageUrl = HostingEnvironment.MapPath("~/DummyPage.aspx");
+        private readonly double refreshIntervalMin = 1.0;
+        private readonly string DummyPageUrl = "/DummyPage.aspx";
         private const string DummyCacheItemKey = "dummyKey";
 
-        private DateTime lastUpdateTimeWest = new DateTime();
-        private DateTime lastUpdateTimeEast = new DateTime();
+        private static string serverUrl;
+        private static DateTime lastUpdateTimeWest = new DateTime();
+        private static DateTime lastUpdateTimeEast = new DateTime();
+
+        private void SetServerUrl()
+        {
+            if (serverUrl == null)
+            {
+                serverUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+            }
+        }
 
         private bool RegisterCacheEntry()
         {
@@ -28,7 +38,7 @@ namespace TrackBackupApp
             HttpContext.Current.Cache.Add(DummyCacheItemKey,
                                           "Test",
                                           null,
-                                          DateTime.Now.AddMinutes(15),
+                                          DateTime.Now.AddMinutes(refreshIntervalMin),
                                           Cache.NoSlidingExpiration,
                                           CacheItemPriority.Normal,
                                           onRemove);
@@ -37,18 +47,17 @@ namespace TrackBackupApp
             return true;
         }
 
-        public void CacheItemRemovedCallback(string key, object value, 
+        public void CacheItemRemovedCallback(string key, object value,
             CacheItemRemovedReason reason)
         {
-            HitPage();
             WriteToLog(" Cache item callback, Reason: " + reason.ToString());
             DoWork();
+            HitPage();
         }
 
         private void HitPage()
         {
-            WebClient client = new WebClient();
-            client.DownloadData(DummyPageUrl);
+            new WebClient().DownloadData(serverUrl + DummyPageUrl);
         }
 
         private void DoWork()
@@ -121,7 +130,10 @@ namespace TrackBackupApp
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            if (HttpContext.Current.Request.Url.ToString() == DummyPageUrl)
+            SetServerUrl();
+
+            if (HttpContext.Current.Request.Url.PathAndQuery.Equals(
+                DummyPageUrl, StringComparison.OrdinalIgnoreCase))
             {
                 // Add the item in cache And when succesful, do the work.
                 RegisterCacheEntry();
