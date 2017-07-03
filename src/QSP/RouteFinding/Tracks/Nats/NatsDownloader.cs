@@ -41,6 +41,7 @@ namespace QSP.RouteFinding.Tracks.Nats
             return await client.DownloadStringTaskAsync(natsUrl);
         }
 
+        // Given the existing messages, returns the URLs of the missing NAT message(s).
         private static string[] AdditionalDownloads(List<IndividualNatsMessage> msgs)
         {
             string[] addresses = { natsWest, natsEast };
