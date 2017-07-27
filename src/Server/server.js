@@ -198,7 +198,7 @@ app.post('/error-report', (req, res) => {
 })
 
 let config = readConfigFile()
-let server = app.listen(parseInt(config.port), config['server-ip'], () => {
+let server = app.listen(parseInt(config.port), config['host-name'], () => {
     console.log('server started')
     log('server started')
 })
