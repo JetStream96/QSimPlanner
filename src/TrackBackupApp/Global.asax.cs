@@ -5,6 +5,7 @@ using System.Net;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Hosting;
+using System.Xml.Linq;
 
 namespace TrackBackupApp
 {
@@ -13,6 +14,13 @@ namespace TrackBackupApp
         private readonly double refreshIntervalSec = 60 * 10;
         private readonly string dummyPageUrl = "/DummyPage.aspx";
         private const string dummyCacheItemKey = "dummyKey";
+
+        private static readonly string configFile =
+#if DEBUG 
+            "~/config_debug.xml";
+#else
+            "~/config.xml";
+#endif
 
         private static string serverUrl;
         private static string unloggedError = "";
@@ -197,8 +205,22 @@ namespace TrackBackupApp
         {
             // Fires when the application is started
             WriteToLog("Application started.");
+            TryAndLogIfFail(SetServerUrlFromConfigFile);
             SaveNats();
             RegisterCacheEntry();
+        }
+
+        private static void SetServerUrlFromConfigFile()
+        {
+            if (serverUrl == null) ReadConfigFile();
+        }
+
+        // Returns the server url.
+        private static string ReadConfigFile()
+        {
+            var path = HostingEnvironment.MapPath(configFile);
+            var root = XDocument.Load(path).Root;
+            return root.Element("ServerUrl").Value;
         }
 
         protected void Session_Start(object sender, EventArgs e)
