@@ -56,7 +56,7 @@ namespace QSP.UI.Forms
         private AppOptions AppSettings => appOptionsLocator.Instance;
         private AirportManager AirportList => airwayNetwork.AirportList;
 
-        private IEnumerable<UserControl> Pages => new UserControl[]
+        private IReadOnlyList<UserControl> Pages => new UserControl[]
         {
             acMenu,
             fuelMenu,
