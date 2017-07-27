@@ -10,6 +10,7 @@ const SyncFileWriter = require('./sync-file-writer').SyncFileWriter
 const filePath = path.join(__dirname, 'log.txt')
 const savedDirectory = path.join(__dirname, 'saved/nats')
 const AntiSpamList = require('./anti-spam-list').AntiSpamList
+const configFilePath = path.join(__dirname, 'config.json')
 
 let westXml = ''
 let eastXml = ''
@@ -161,6 +162,10 @@ function log(msg) {
     })
 }
 
+function readConfigFile() {
+    return JSON.parse(fs.readFileSync(configFilePath, 'utf-8'))
+}
+
 // Script starts here.
 
 // Update xmls and schedule future tasks.
@@ -179,8 +184,8 @@ setReqHandler(app, '', reqHandler)
 
 app.post('/error-report', (req, res) => {
     let ip = req.ip
-    
-    if (!userList.decrementToken(ip) && 
+
+    if (!userList.decrementToken(ip) &&
         req.body.toString().length <= maxRequestBodySize) {
         errorReportWriter.add(JSON.stringify({
             ip: req.ip,
@@ -192,7 +197,8 @@ app.post('/error-report', (req, res) => {
     res.send("OK")
 })
 
-let server = app.listen(8081, '127.0.0.1', () => {
+let config = readConfigFile()
+let server = app.listen(parseInt(config.port), config['server-ip'], () => {
     console.log('server started')
     log('server started')
 })
