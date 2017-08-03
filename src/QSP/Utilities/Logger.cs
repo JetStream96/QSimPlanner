@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using QSP.LibraryExtension;
 
 namespace QSP.Utilities
 {
@@ -26,7 +27,8 @@ namespace QSP.Utilities
         public void Log(string msg)
         {
             ExceptionHelpers.IgnoreException(() =>
-                File.AppendAllText(filePath, DateTime.Now.ToString() + ":\n" + msg + "\n\n"));
+                File.AppendAllText(filePath, DateTime.Now.ToStringWithUtc() + ":\n"
+                + msg + "\n\n"));
         }
 
         public static Logger Instance = new Logger();

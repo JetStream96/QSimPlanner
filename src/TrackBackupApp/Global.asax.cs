@@ -24,8 +24,6 @@ namespace TrackBackupApp
 
         private static string serverUrl;
         private static string unloggedError = "";
-        private static DateTime lastUpdateTimeWest = new DateTime();
-        private static DateTime lastUpdateTimeEast = new DateTime();
 
         private void SetServerUrl()
         {
@@ -65,7 +63,7 @@ namespace TrackBackupApp
         }
 
         // Does not throw exception.
-        private void TryAndLogIfFail(Action a)
+        public static void TryAndLogIfFail(Action a)
         {
             try
             {
@@ -89,7 +87,7 @@ namespace TrackBackupApp
         }
 
         // Does not throw exception.
-        public void WriteToLog(string msg)
+        public static void WriteToLog(string msg)
         {
             try
             {
@@ -101,7 +99,7 @@ namespace TrackBackupApp
             }
         }
 
-        private void WriteLogFile(string msg)
+        private static void WriteLogFile(string msg)
         {
             using (var wr = File.AppendText(HostingEnvironment.MapPath("~/log.txt")))
             {
@@ -109,9 +107,9 @@ namespace TrackBackupApp
             }
         }
 
-        private string AddTimeStamp(string msg)
+        private static string AddTimeStamp(string msg)
         {
-            return DateTime.Now.ToString() + "  " + msg;
+            return DateTime.UtcNow.ToString() + "  " + msg;
         }
 
         private void SaveNats()
@@ -133,6 +131,8 @@ namespace TrackBackupApp
                 }
             }
 
+            LastUpdateTime.Save();
+
             WriteToLog(SaveNatsMsg(westUpdated, eastUpdated));
         }
 
@@ -142,9 +142,9 @@ namespace TrackBackupApp
         {
             var filepath = "~/nats/Eastbound.xml";
             var (success, newTime) = NatsMessage.ParseDate(i.LastUpdated);
-            if (success && newTime > lastUpdateTimeEast)
+            if (success && newTime > LastUpdateTime.EastUtc)
             {
-                lastUpdateTimeEast = newTime;
+                LastUpdateTime.EastUtc = newTime;
                 File.WriteAllText(HostingEnvironment.MapPath(filepath),
                     i.ConvertToXml().ToString());
                 return true;
@@ -157,9 +157,9 @@ namespace TrackBackupApp
         {
             var filepath = "~/nats/Westbound.xml";
             var (success, newTime) = NatsMessage.ParseDate(i.LastUpdated);
-            if (success && newTime > lastUpdateTimeWest)
+            if (success && newTime > LastUpdateTime.WestUtc)
             {
-                lastUpdateTimeWest = newTime;
+                LastUpdateTime.WestUtc = newTime;
                 File.WriteAllText(HostingEnvironment.MapPath(filepath),
                     i.ConvertToXml().ToString());
                 return true;

@@ -33,5 +33,10 @@ namespace QSP.LibraryExtension
                 throw new ArgumentException("Input string is not a valid month identifier.");
             }
         }
+
+        public static string ToStringWithUtc(this DateTime d)
+        {
+            return d.ToString() + " (" + d.ToUniversalTime().ToString() + ")";
+        }
     }
 }
