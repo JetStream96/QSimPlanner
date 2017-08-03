@@ -8,7 +8,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
 {
     public static class RouteAnalyzerFacade
     {
-        // May throw exception.
+        // @Throws
         public static Route AnalyzeWithCommands(
             string route,
             string origIcao,

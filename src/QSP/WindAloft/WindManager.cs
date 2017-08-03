@@ -9,8 +9,8 @@ namespace QSP.WindAloft
             Path.Combine(Constants.WxFileDownloadDirectory, "wx.grib2");
 
         /// <summary>
+        /// @Throws
         /// Download, convert and read the files into WindTableCollection.
-        /// Can throw exception. 
         /// </summary>
         public static WindTableCollection LoadWind()
         {
@@ -23,7 +23,7 @@ namespace QSP.WindAloft
             return tables;
         }
 
-        // Can throw exception.
+        // @Throws
         public static async Task<WindTableCollection> LoadWindAsync()
         {
             return await Task.Factory.StartNew(LoadWind);

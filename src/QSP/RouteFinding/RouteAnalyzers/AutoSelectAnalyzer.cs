@@ -43,7 +43,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             this.wptList = wptList;
         }
 
-        // May throw exception.
+        // @Throws
         public Route Analyze()
         {
             if (route.Count == 0)

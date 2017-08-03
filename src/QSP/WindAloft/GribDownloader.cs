@@ -14,7 +14,7 @@ namespace QSP.WindAloft
         private string webPageUrl;
         private string webPageSrc;
 
-        // Can throw exception. 
+        // @Throws
         public void DownloadGribFile(string filePath)
         {
             var x = LastestDataSetFinder.Find();

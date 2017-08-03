@@ -59,7 +59,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 new Neighbor("DCT", dis));
         }
 
-        // Can throw exception.
+        // @Throws
         private void AddMainRoute(TrackNodes nodes)
         {
             var rte = nodes.MainRoute;

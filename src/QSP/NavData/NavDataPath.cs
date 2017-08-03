@@ -12,7 +12,7 @@ namespace QSP.NavData
     public static class NavDataPath
     {
         /// <summary>
-        /// If no valid AIRAC is detected, returns null. This method does not throw exception.
+        /// If no valid AIRAC is detected, returns null. @NoThrow
         /// </summary>
         public static AiracInfo DetectNavDataPath()
         {
@@ -37,9 +37,9 @@ namespace QSP.NavData
             public string Directory; public AiracPeriod Period;
         }
 
+        // @NoThrow
         // Returns an array of the detected paths.
         // A path may be a string, or null if no path is found or path is invalid.
-        // Does not throw exception.
         private static string[] SimulatorPaths()
         {
             Func<string>[] pathGetters =

@@ -94,8 +94,9 @@ namespace QSP.Updates
         }
 
         /// <summary>
+        /// @Throws
         /// Returns the uri of zip file for the newer version.
-        /// If no newer version is available, return null. May throw exception.
+        /// If no newer version is available, return null.
         /// </summary>
         public static UpdateInfo GetUpdateFileUri()
         {

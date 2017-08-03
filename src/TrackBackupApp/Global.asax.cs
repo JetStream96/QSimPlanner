@@ -62,7 +62,7 @@ namespace TrackBackupApp
             TryAndLogIfFail(HitPage);
         }
 
-        // Does not throw exception.
+        // @NoThrow
         public static void TryAndLogIfFail(Action a)
         {
             try
@@ -80,13 +80,13 @@ namespace TrackBackupApp
             new WebClient().DownloadData(serverUrl + dummyPageUrl);
         }
 
-        // Does not throw exception.
+        // @NoThrow
         private void DoWork()
         {
             TryAndLogIfFail(SaveNats);
         }
 
-        // Does not throw exception.
+        // @NoThrow
         public static void WriteToLog(string msg)
         {
             try

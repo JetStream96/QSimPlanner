@@ -57,6 +57,7 @@ namespace QSP.RouteFinding.RouteAnalyzers.Extractors
             this.sids = sids;
         }
 
+        // @Throws
         // May throw exception if input is not valid.
         public ExtractResult Extract()
         {

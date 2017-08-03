@@ -45,7 +45,7 @@ namespace QSP.FuelCalculation.Results
             this.maxAlt = maxAlt;
         }
 
-        // May throw exception.
+        // @Throws
         public FuelReport Generate()
         {
             var p = para;

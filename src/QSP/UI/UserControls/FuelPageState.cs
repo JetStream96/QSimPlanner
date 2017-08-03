@@ -49,7 +49,7 @@ namespace QSP.UI.UserControls
             File.WriteAllText(FileLocation, Save().ToString());
         }
 
-        // Does not throw exception.
+        // @NoThrow
         public XElement Save()
         {
             var c = control;
@@ -124,7 +124,7 @@ namespace QSP.UI.UserControls
             Load(XDocument.Load(FileLocation));
         }
 
-        // Does not throw exception.
+        // @NoThrow
         public void Load(XDocument doc)
         {
             var c = control;

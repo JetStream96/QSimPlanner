@@ -65,7 +65,7 @@ namespace QSP
             }
         }
 
-        // May throw exceptions.
+        // @Throws
         private static bool UsingLatestVersion()
         {
             var ver = GetVersions();

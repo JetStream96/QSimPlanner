@@ -31,7 +31,7 @@ namespace QSP.FuelCalculation.Calculations
         private readonly double landingFuel;
         private readonly double maxAlt;
 
-        // May throw exception.
+        // @Throws
         public FuelCalculator(
             AirportManager airportList,
             ICrzAltProvider altProvider,

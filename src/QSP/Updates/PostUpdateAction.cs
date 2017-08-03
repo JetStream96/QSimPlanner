@@ -25,7 +25,7 @@ namespace QSP.Updates
 
         public PostUpdateAction() { }
 
-        // May throw exception.
+        // @Throws
         public void DoAction()
         {
             var ver = GetVersions();

@@ -70,7 +70,7 @@ namespace QSP.RouteFinding.Tracks.Common
             UndoEdit();
         }
 
-        // Can throw exception.
+        // @Throws
         private void ReadMessage(StatusRecorder r)
         {
             var trks = Parse(r);
@@ -107,7 +107,7 @@ namespace QSP.RouteFinding.Tracks.Common
             }
         }
 
-        // Can throw exception.
+        // @Throws
         private void GetTracks(ITrackMessageProvider provider, StatusRecorder r)
         {
             try
@@ -121,7 +121,7 @@ namespace QSP.RouteFinding.Tracks.Common
             }
         }
 
-        // Can throw exception.
+        // @Throws
         private async Task GetTracksAsync(ITrackMessageProvider provider, StatusRecorder r)
         {
             try
@@ -143,7 +143,7 @@ namespace QSP.RouteFinding.Tracks.Common
                 type);
         }
 
-        // Can throw exception.
+        // @Throws
         private List<T> Parse(StatusRecorder r)
         {
             try

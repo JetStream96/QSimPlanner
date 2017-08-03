@@ -99,7 +99,7 @@ namespace QSP.UI.UserControls.RouteActions
             }
         }
 
-        // Can throw exceptions.
+        // @Throws
         private void FindRoute()
         {
             var orig = origController.Icao;

@@ -41,5 +41,8 @@ More aircrafts need to be added, especially the A320 and A330 families. It would
 ### Contributing
 You are welcomed to submit pull requests to this repository. Feel free to leave any questions or suggestions.
 
+### Coding style
+When it is not important to distinguish different exception types thrown in a method, it is preferred to mark the method with `@Throws`. If a method does not throw an exception, mark it with `@NoThrow`.
+
 ### License
 MIT License

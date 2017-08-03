@@ -9,9 +9,9 @@ namespace QSP.Common.Options
     {
         public const string DefaultPath = @"Preference\options.xml";
 
+        // @Throws
         // If the file does not exist, create one.
         // Then read the file into an AppOptions instance.
-        // May throw exceptions.
         // Return value is never null.
         public static AppOptions ReadOrCreateFile()
         {
