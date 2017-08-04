@@ -85,13 +85,21 @@ function xmlFileName(lastUpdated) {
 function saveXml(subDirectory, lastUpdated, xmlStr, callback) {
     let dir = path.join(savedDirectory, subDirectory)
     let p = path.join(dir, xmlFileName(lastUpdated) + '.txt')
+    let p1 = path.join(dir, 'latest.xml')
     mkdirp(dir, e => {
         if (!e) {
-            fs.writeFile(p, xmlStr, callback)
+            fs.writeFile(p, xmlStr, err => fs.writeFile(p1, xmlStr, callback))
         } else {
             callback(e)
         }
     })
+}
+
+function loadLatestXmls() {
+    try {
+        westXml = fs.readFileSync(path.join(savedDirectory, 'west/latest.xml'), 'utf-8')
+        eastXml = fs.readFileSync(path.join(savedDirectory, 'east/latest.xml'), 'utf-8')
+    } catch (e) { }
 }
 
 /**
@@ -160,6 +168,7 @@ function readConfigFile() {
 
 // Script starts here.
 
+loadLatestXmls();
 [lastWestDate, lastEastDate] = lastUpdatedTime.tryLoadFromFile()
 
 // Update xmls and schedule future tasks.

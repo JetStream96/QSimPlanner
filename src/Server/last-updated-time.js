@@ -7,13 +7,12 @@ const mkdirp = require('mkdirp')
 
 /**
  * @NoThrow
- * If either direction failed to load from file, returns 0 for time and log error.
+ * If either direction failed to load from file, returns 0 for time.
  */
 function tryLoadFromFile() {
     try {
         return loadFromFile()
     } catch (e) {
-        util.log(e.stack)
         return [0, 0]
     }
 }
