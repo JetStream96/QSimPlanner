@@ -124,14 +124,15 @@ namespace TrackBackupApp
                 if (i.Direction == NatsDirection.East)
                 {
                     eastUpdated = SaveEastbound(i);
+                    if (eastUpdated) LastUpdateTime.SaveEast();
                 }
                 else
                 {
                     westUpdated = SaveWestbound(i);
+                    if (westUpdated) LastUpdateTime.SaveWest();
                 }
             }
 
-            LastUpdateTime.Save();
 
             WriteToLog(SaveNatsMsg(westUpdated, eastUpdated));
         }

@@ -7,10 +7,10 @@ const mkdirp = require('mkdirp')
 const express = require('express')
 const bodyParser = require('body-parser')
 const SyncFileWriter = require('./sync-file-writer').SyncFileWriter
-const filePath = path.join(__dirname, 'log.txt')
 const savedDirectory = path.join(__dirname, 'saved/nats')
 const AntiSpamList = require('./anti-spam-list').AntiSpamList
 const configFilePath = path.join(__dirname, 'config.json')
+const lastUpdatedTime = require('./last-updated-time')
 
 let westXml = ''
 let eastXml = ''
@@ -67,8 +67,13 @@ function updateXmls(callback) {
         if (err) {
             callback(err)
         } else {
-            updateEastXml(html, callback)
-            updateWestXml(html, callback)
+            // No error
+            updateEastXml(html, (e, updated) => {
+                if (updated) lastUpdatedTime.saveFileEast(Date.now(), callback)
+            });
+            updateWestXml(html, (e, updated) => {
+                if (updated) lastUpdatedTime.saveFileWest(Date.now(), callback)
+            });
         }
     })
 }
@@ -91,7 +96,7 @@ function saveXml(subDirectory, lastUpdated, xmlStr, callback) {
 
 /**
  * @param {string} html
- * @param {Error => void}
+ * @param {(Error, updated: boolean) => void}
  */
 function updateEastXml(html, callback) {
     try {
@@ -104,24 +109,24 @@ function updateEastXml(html, callback) {
                 eastXml = xmlStr
                 lastEastObj = newXml
                 lastEastDate = date
-                saveXml('east', newXml.LastUpdated, xmlStr, callback)
-                log('Eastbound updated.')
+                saveXml('east', newXml.LastUpdated, xmlStr, e => callback(e, true))
+                util.log('Eastbound updated.')
             } else {
-                log('No change in eastbound.')
+                util.log('No change in eastbound.')
             }
         } else {
-            log('Cannot find eastbound part in html.')
+            util.log('Cannot find eastbound part in html.')
         }
 
-        callback(null)
+        callback(null, false)
     } catch (err) {
-        callback(err)
+        callback(err, false)
     }
 }
 
 /**
  * @param {string} html
- * @param {Error => void}
+ * @param {(Error, updated: boolean) => void}
  */
 function updateWestXml(html, callback) {
     try {
@@ -134,35 +139,19 @@ function updateWestXml(html, callback) {
                 westXml = xmlStr
                 lastWestObj = newXml
                 lastWestDate = date
-                saveXml('west', newXml.LastUpdated, xmlStr, callback)
-                log('Westbound updated.')
+                saveXml('west', newXml.LastUpdated, xmlStr, e => callback(e, true))
+                util.log('Westbound updated.')
             } else {
-                log('No change in westbound.')
+                util.log('No change in westbound.')
             }
         } else {
-            log('Cannot find westbound part in html.')
+            util.log('Cannot find westbound part in html.')
         }
 
-        callback(null)
+        callback(null, false)
     } catch (err) {
-        callback(err)
+        callback(err, false)
     }
-}
-
-/**
- * Log the message with current time stamp.
- * @param {string} msg 
- */
-function log(msg) {
-    let data = new Date().toISOString() + '   ' + msg + '\n'
-	
-	// appendFile automatically creates the given file.
-	// TODO: multiple writes at the same time?
-    fs.appendFile(filePath, data, err => {
-        if (err) {
-            unloggedErrors += data + '\n\n' + err.stack + '\n\n'
-        }
-    })
 }
 
 function readConfigFile() {
@@ -171,10 +160,12 @@ function readConfigFile() {
 
 // Script starts here.
 
+[lastWestDate, lastEastDate] = lastUpdatedTime.tryLoadFromFile()
+
 // Update xmls and schedule future tasks.
 util.repeat(() => updateXmls(err => {
     if (err) {
-        log(err.stack)
+        util.log(err.stack)
     }
 }), 5 * 60 * 1000) // Update every 5 min.
 
@@ -204,7 +195,5 @@ let config = readConfigFile()
 let port = process.env.PORT || parseInt(config.port)
 let server = app.listen(port, () => {
     console.log('server started')
-    log('server started')
+    util.log('server started')
 })
-
-exports.log = log

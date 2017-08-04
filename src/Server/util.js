@@ -1,4 +1,7 @@
 const xml2js = require('xml2js')
+const fs = require('fs')
+const path = require('path')
+const filePath = path.join(__dirname, 'log.txt')
 
 const validXmlChars = /[\u0009\u000a\u000d\u0020-\uD7FF\uE000-\uFFFD]/
 
@@ -16,7 +19,7 @@ function isValidXmlChar(c) {
  */
 function withoutInvalidXmlChar(str) {
     let result = []
-    
+
     for (let c of str) {
         if (isValidXmlChar(c)) {
             result.push(c)
@@ -33,14 +36,13 @@ function withoutInvalidXmlChar(str) {
  */
 function withoutInvalidXmlCharObj(obj) {
     let result = {}
-    Object.keys(obj).forEach((key,index) => {
+    Object.keys(obj).forEach((key, index) => {
         result[key] = withoutInvalidXmlChar(obj[key])
     });
     return result
 }
 
-function toXml(obj)
-{
+function toXml(obj) {
     let builder = new xml2js.Builder();
     let xml = builder.buildObject(obj);
     return xml
@@ -60,7 +62,7 @@ function* range(start, count) {
 }
 
 function sanitizeFilename(name) {
-    return name.replace(/[^a-zA-Z0-9_\\-\\.]/g, '')    
+    return name.replace(/[^a-zA-Z0-9_\\-\\.]/g, '')
 }
 
 /**
@@ -82,9 +84,26 @@ function repeat(func, interval) {
     setTimeout(() => repeat(func, interval), interval)
 }
 
+/**
+ * @NoThrow
+ * Log the message with current time stamp.
+ * @param {string} msg 
+ */
+function log(msg) {
+    let data = new Date().toISOString() + '   ' + msg + '\n'
+
+    // appendFile automatically creates the given file.
+    // TODO: multiple writes at the same time?
+    fs.appendFile(filePath, data, err => {
+        if (err) {
+            unloggedErrors += data + '\n\n' + err.stack + '\n\n'
+        }
+    })
+}
 
 exports.toXml = toXml
 exports.withoutInvalidXmlCharObj = withoutInvalidXmlCharObj
 exports.sanitizeFilename = sanitizeFilename
 exports.parseDate = parseDate
 exports.repeat = repeat
+exports.log = log

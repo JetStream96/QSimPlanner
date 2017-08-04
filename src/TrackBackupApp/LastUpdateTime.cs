@@ -42,9 +42,14 @@ namespace TrackBackupApp
         }
 
         // @NoThrow
-        public static void Save()
+        public static void SaveWest()
         {
             Global.TryAndLogIfFail(() => Save(() => WestUtc, fileWest));
+        }
+
+        // @NoThrow
+        public static void SaveEast()
+        {
             Global.TryAndLogIfFail(() => Save(() => EastUtc, fileEast));
         }
 
