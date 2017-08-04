@@ -1,14 +1,14 @@
 const https = require('https')
 
 /**
- * @param {(err, html) => void} callback html is a string
+ * @param {(err, html: string) => void} callback
  */
 function downloadHtml(callback) {
     let options = {
         host: 'www.notams.faa.gov',
         port: 443,
         path: '/common/nat.html?'
-    };
+    }
 
     let content = ''
     https.get(options, res => {
