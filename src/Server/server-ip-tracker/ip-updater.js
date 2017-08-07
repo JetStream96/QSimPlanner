@@ -7,6 +7,7 @@ const util = require('../util')
 const childProcess = require('child_process')
 const configFilePath = path.join(__dirname, 'config.json')
 const tmpDir = path.join(__dirname, 'tmp')
+const publicIp = require('public-ip')
 
 function log(msg) {
     util.log(msg, path.join(__dirname, 'log.txt'))
@@ -17,19 +18,20 @@ function readConfig(config) {
 }
 
 function updateIp(config) {
-    let newIp = ip.address()
-    util.httpsDownload(config['ip-file-host'], config['ip-file-path'], (ip, err) => {
-        if (err) {
-            log(err.stack)
-            return
-        } 
-        
-        if (newIp !== ip) {
-            log('Ip updated to ' + newIp)
-            pushUpdate(config, newIp)
-        } else {
-            log('No ip change.')
-        }
+    publicIp.v4().then(newIp => {
+        util.httpsDownload(config['ip-file-host'], config['ip-file-path'], (ip, err) => {
+            if (err) {
+                log(err.stack)
+                return
+            }
+
+            if (newIp !== ip) {
+                log('Ip updated to ' + newIp)
+                pushUpdate(config, newIp)
+            } else {
+                log('No ip change.')
+            }
+        })
     })
 }
 

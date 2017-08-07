@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "ip": "^1.1.5",
+    "public-ip": "^2.3.5",
     "quickly-copy-file": "^1.0.0"
   }
 }
