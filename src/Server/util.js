@@ -90,12 +90,12 @@ function repeat(func, interval) {
  * Log the message with current time stamp.
  * @param {string} msg 
  */
-function log(msg) {
+function log(msg, path = filePath) {
     let data = new Date().toISOString() + '   ' + msg + '\n'
 
     // appendFile automatically creates the given file.
     // TODO: multiple writes at the same time?
-    fs.appendFile(filePath, data, err => {
+    fs.appendFile(path, data, err => {
         if (err) {
             unloggedErrors += data + '\n\n' + err.stack + '\n\n'
         }

@@ -1,4 +1,4 @@
 {
     "remote": "https://github.com/qsimplanner/server-ip-tracker.gihub.io.git",
-    "ip-file": "server-ip-tracker.gihub.io/ip.txt"
+    "ip-file": "https://qsimplanner.github.io/server-ip-tracker/ip.txt"
 }

@@ -8,6 +8,10 @@ const childProcess = require('child_process')
 const configFilePath = path.join(__dirname, 'config.json')
 const tmpDir = path.join(__dirname, 'tmp')
 
+function log(msg) {
+    util.log(msg, path.join(__dirname, 'log.txt'))
+}
+
 function readConfig(config) {
     return JSON.parse(fs.readFileSync(configFilePath, 'utf-8'))
 }
@@ -16,12 +20,12 @@ function updateIp(config) {
     let newIp = ip.address()
     util.httpsDownloadUrl(config['ip-file'], (ip, err) => {
         if (err) {
-            util.log(err.stack)
+            log(err.stack)
         } else if (newIp !== ip) {
-            util.log('Ip updated to ' + newIp)
+            log('Ip updated to ' + newIp)
             pushUpdate(config, newIp)
         } else {
-            util.log('No ip change.')
+            log('No ip change.')
         }
     })
 }
@@ -35,7 +39,7 @@ function pushUpdate(config, ip) {
 
     childProcess.exec(cmd, () => {
         if (e) {
-            util.log(e.stack)
+            log(e.stack)
         }
     })
 }
