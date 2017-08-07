@@ -11,6 +11,7 @@ const savedDirectory = path.join(__dirname, 'saved/nats')
 const AntiSpamList = require('./anti-spam-list').AntiSpamList
 const configFilePath = path.join(__dirname, 'config.json')
 const lastUpdatedTime = require('./last-updated-time')
+const ipUpdater = require('./server-ip-tracker/ip-updater')
 
 let westXml = ''
 let eastXml = ''
@@ -40,7 +41,7 @@ function setReqHandler(app, parentPath, obj) {
         if (typeof val === 'function') {
             app.get(parentPath + '/:id', (req, res) => {
                 handleRequest(obj, req, res)
-               // res.end(val())
+                // res.end(val())
             })
         } else {
             // Is an object
@@ -169,7 +170,7 @@ function readConfigFile() {
 
 // Script starts here.
 
-loadLatestXmls();
+loadLatestXmls(); // Do not remove this semicolon.
 [lastWestDate, lastEastDate] = lastUpdatedTime.tryLoadFromFile()
 
 // Update xmls and schedule future tasks.

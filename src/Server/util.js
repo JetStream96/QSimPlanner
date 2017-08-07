@@ -2,6 +2,7 @@ const xml2js = require('xml2js')
 const fs = require('fs')
 const path = require('path')
 const filePath = path.join(__dirname, 'log.txt')
+const https = require('https')
 
 const validXmlChars = /[\u0009\u000a\u000d\u0020-\uD7FF\uE000-\uFFFD]/
 
@@ -101,9 +102,49 @@ function log(msg) {
     })
 }
 
+/**
+ * Downloads the webpage.
+ * @param {*} host E.g. www.google.com
+ * @param {*} path E.g. /xyz/123
+ * @param {(string, Error) => void} callback 
+ */
+function httpsDownload(host, path, callback) {
+    let options = {
+        host: host,
+        port: 443,
+        path: path
+    };
+
+    let content = ''
+    https.get(options, res => {
+        res.setEncoding("utf8")
+        res.on("data", chunk => { content += chunk; })
+        res.on("end", () => callback(content, undefined))
+    }).on('error', err => callback(undefined, err))
+}
+
+
+/**
+ * Downloads the webpage.
+ * @param {*} url E.g. www.google.com/xyz/123
+ * @param {(string, Error) => void} callback 
+ */
+function httpsDownloadUrl(url, callback) {
+    let [host, path] = splitHostQuery(url)
+    httpsDownload(host, path, callback)
+}
+
+function splitHostQuery(url) {
+    let i = url.indexOf('/')
+    return [url.substring(0, i), url.substring(i)]
+}
+
 exports.toXml = toXml
 exports.withoutInvalidXmlCharObj = withoutInvalidXmlCharObj
 exports.sanitizeFilename = sanitizeFilename
 exports.parseDate = parseDate
 exports.repeat = repeat
 exports.log = log
+exports.httpsDownload = httpsDownload
+exports.splitHostQuery = splitHostQuery
+exports.httpsDownloadUrl = httpsDownloadUrl
