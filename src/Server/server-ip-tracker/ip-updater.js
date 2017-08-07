@@ -14,7 +14,6 @@ function readConfig(config) {
 
 function updateIp(config) {
     let newIp = ip.address()
-    let config = readConfig()
     util.httpsDownloadUrl(config['ip-file'], (ip, err) => {
         if (err) {
             util.log(err.stack)

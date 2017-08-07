@@ -6,4 +6,4 @@ git remote add origin <remote>
 git add .
 git commit -m "first commit"
 git push origin master
-node ip-updater.js
+node ../ip-updater.js
