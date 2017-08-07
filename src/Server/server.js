@@ -31,7 +31,7 @@ const reqHandler = {
         'Eastbound.xml': () => eastXml,
         'Westbound.xml': () => westXml,
     },
-    'err': () => unloggedErrors === '' ? 'No unlogged error.' : unloggedErrors
+    'err': () => (unloggedErrors === '' ? 'No unlogged error.' : unloggedErrors)
 }
 
 function setReqHandler(app, parentPath, obj) {
@@ -40,6 +40,7 @@ function setReqHandler(app, parentPath, obj) {
         if (typeof val === 'function') {
             app.get(parentPath + '/:id', (req, res) => {
                 handleRequest(obj, req, res)
+               // res.end(val())
             })
         } else {
             // Is an object
@@ -51,7 +52,7 @@ function setReqHandler(app, parentPath, obj) {
 function handleRequest(obj, request, response) {
     let resGetter = obj[request.params.id]
 
-    if (resGetter !== undefined) {
+    if (typeof resGetter === 'function') {
         response.end(resGetter())
     } else {
         response.statusCode = 404
