@@ -32,7 +32,7 @@ function updateIp(config) {
                 log('No ip change.')
             }
         })
-    })
+    }).catch(reason => log(reason))
 }
 
 function pushUpdate(config, ip) {
