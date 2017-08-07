@@ -123,7 +123,6 @@ function httpsDownload(host, path, callback) {
     }).on('error', err => callback(undefined, err))
 }
 
-
 /**
  * Downloads the webpage.
  * @param {*} url E.g. www.google.com/xyz/123
