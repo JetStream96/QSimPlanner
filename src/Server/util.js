@@ -7,10 +7,7 @@ const https = require('https')
 const validXmlChars = /[\u0009\u000a\u000d\u0020-\uD7FF\uE000-\uFFFD]/
 
 function isValidXmlChar(c) {
-    if (c.length > 1) {
-        throw new Error()
-    }
-
+    if (c.length > 1) throw new Error()
     return validXmlChars.test(c)
 }
 
@@ -22,9 +19,7 @@ function withoutInvalidXmlChar(str) {
     let result = []
 
     for (let c of str) {
-        if (isValidXmlChar(c)) {
-            result.push(c)
-        }
+        if (isValidXmlChar(c)) result.push(c)
     }
 
     return result.join('')
@@ -111,7 +106,6 @@ function log(msg, path = filePath) {
 function httpsDownload(host, path, callback) {
     let options = {
         host: host,
-        port: 443,
         path: path
     };
 
@@ -123,21 +117,6 @@ function httpsDownload(host, path, callback) {
     }).on('error', err => callback(undefined, err))
 }
 
-/**
- * Downloads the webpage.
- * @param {*} url E.g. www.google.com/xyz/123
- * @param {(string, Error) => void} callback 
- */
-function httpsDownloadUrl(url, callback) {
-    let [host, path] = splitHostQuery(url)
-    httpsDownload(host, path, callback)
-}
-
-function splitHostQuery(url) {
-    let i = url.indexOf('/')
-    return [url.substring(0, i), url.substring(i)]
-}
-
 exports.toXml = toXml
 exports.withoutInvalidXmlCharObj = withoutInvalidXmlCharObj
 exports.sanitizeFilename = sanitizeFilename
@@ -145,5 +124,3 @@ exports.parseDate = parseDate
 exports.repeat = repeat
 exports.log = log
 exports.httpsDownload = httpsDownload
-exports.splitHostQuery = splitHostQuery
-exports.httpsDownloadUrl = httpsDownloadUrl

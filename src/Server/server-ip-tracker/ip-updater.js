@@ -18,10 +18,13 @@ function readConfig(config) {
 
 function updateIp(config) {
     let newIp = ip.address()
-    util.httpsDownloadUrl(config['ip-file'], (ip, err) => {
+    util.httpsDownload(config['ip-file-host'], config['ip-file-path'], (ip, err) => {
         if (err) {
             log(err.stack)
-        } else if (newIp !== ip) {
+            return
+        } 
+        
+        if (newIp !== ip) {
             log('Ip updated to ' + newIp)
             pushUpdate(config, newIp)
         } else {
@@ -32,14 +35,25 @@ function updateIp(config) {
 
 function pushUpdate(config, ip) {
     fs.writeFileSync(path.join(tmpDir, 'ip.txt'), ip)
-    let cmd = 'cd "' + tmpDir + '"\n' +
-        'git add .\n' +
-        'git commit -m "update"\n' +
-        'git push origin master'
+    execCmds(['cd "' + tmpDir + '"',
+        'git add .',
+        'git commit -m "update"',
+        'git push origin master'])
+}
 
-    childProcess.exec(cmd, () => {
+function execCmds(cmds) {
+    if (cmds.length === 1) {
+        childProcess.exec(cmds[0], e => {
+            if (e) log(e.stack)
+        })
+        return
+    }
+
+    childProcess.exec(cmds[0], e => {
         if (e) {
             log(e.stack)
+        } else {
+            execCmds(cmds.slice(1))
         }
     })
 }

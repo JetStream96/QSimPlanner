@@ -41,7 +41,6 @@ function setReqHandler(app, parentPath, obj) {
         if (typeof val === 'function') {
             app.get(parentPath + '/:id', (req, res) => {
                 handleRequest(obj, req, res)
-                // res.end(val())
             })
         } else {
             // Is an object
@@ -68,15 +67,16 @@ function updateXmls(callback) {
     nats.downloadHtml((err, html) => {
         if (err) {
             callback(err)
-        } else {
-            // No error
-            updateEastXml(html, (e, updated) => {
-                if (updated) lastUpdatedTime.saveFileEast(Date.now(), callback)
-            });
-            updateWestXml(html, (e, updated) => {
-                if (updated) lastUpdatedTime.saveFileWest(Date.now(), callback)
-            });
+            return
         }
+
+        // No error
+        updateEastXml(html, (e, updated) => {
+            if (updated) lastUpdatedTime.saveFileEast(Date.now(), callback)
+        });
+        updateWestXml(html, (e, updated) => {
+            if (updated) lastUpdatedTime.saveFileWest(Date.now(), callback)
+        });
     })
 }
 
@@ -192,11 +192,12 @@ app.post('/error-report', (req, res) => {
 
     if (!userList.decrementToken(ip) &&
         req.body.toString().length <= maxRequestBodySize) {
-        errorReportWriter.add(JSON.stringify({
+        let obj = {
             ip: req.ip,
             time: new Date(Date.now()),
             text: req.body
-        }) + '\n')
+        }
+        errorReportWriter.add(JSON.stringify(obj)) + '\n'
     }
 
     res.send("OK")
