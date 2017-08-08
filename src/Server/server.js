@@ -203,7 +203,7 @@ app.post('/error-report', (req, res) => {
 })
 
 let config = readConfigFile()
-let port = process.env.PORT || parseInt(config.port)
+let port = parseInt(config.port)
 let server = app.listen(port, () => {
     console.log('server started')
     util.log('server started')

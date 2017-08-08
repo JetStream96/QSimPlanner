@@ -23,6 +23,7 @@ mv /tmp/Server /opt/Server
 
 11. Run:
 cd /opt/Server/server-ip-tracker/tmp
+git config credential.helper store
 git push origin master
 
 12. Start the processes in background:
@@ -31,4 +32,7 @@ nohup node ip-updater.js > /dev/null 2>&1 &
 cd ..
 nohup node server.js > /dev/null 2>&1 &
 
-13. Make sure the processes are running.
+13. Exit the SSH session by typing:
+exit
+
+14. Make sure the processes are running.
