@@ -9,9 +9,11 @@ using System.Xml.Linq;
 
 namespace TrackBackupApp
 {
+    // TODO: Error reporting function. Hide /err and log.txt form public.
+
     public class Global : HttpApplication
     {
-        private readonly double refreshIntervalSec = 60 * 10;
+        private readonly double refreshIntervalSec = 60 * 5;
         private readonly string dummyPageUrl = "/DummyPage.aspx";
         private const string dummyCacheItemKey = "dummyKey";
 
@@ -190,7 +192,7 @@ namespace TrackBackupApp
                 // Add the item in cache and when succesful, do the work.
                 RegisterCacheEntry();
             }
-            else if (pq == "/unloggederr")
+            else if (pq == "/err")
             {
                 RespondWithUnloggedErrors();
             }
