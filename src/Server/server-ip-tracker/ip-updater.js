@@ -8,9 +8,12 @@ const childProcess = require('child_process')
 const configFilePath = path.join(__dirname, 'config.json')
 const tmpDir = path.join(__dirname, 'tmp')
 const publicIp = require('public-ip')
+const SyncFileWriter = require('../sync-file-writer').SyncFileWriter
+
+let ipUpdaterLogger = new SyncFileWriter(__dirname, 'log.txt')
 
 function log(msg) {
-    util.log(msg, path.join(__dirname, 'log.txt'))
+    ipUpdaterLogger.add(msg)
 }
 
 function readConfig(config) {

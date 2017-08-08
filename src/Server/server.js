@@ -23,6 +23,8 @@ let unloggedErrors = ''
 let errorReportWriter = new SyncFileWriter(
     path.join(__dirname, 'error-report'), 'error-report.txt')
 
+let logFileWriter = new SyncFileWriter(__dirname, 'log.txt')
+
 let userList = new AntiSpamList()
 let maxRequestBodySize = 100 * 1000
 
@@ -119,12 +121,12 @@ function updateEastXml(html, callback) {
                 lastEastObj = newXml
                 lastEastDate = date
                 saveXml('east', newXml.LastUpdated, xmlStr, e => callback(e, true))
-                util.log('Eastbound updated.')
+                logFileWriter.add('Eastbound updated.')
             } else {
-                util.log('No change in eastbound.')
+                logFileWriter.add('No change in eastbound.')
             }
         } else {
-            util.log('Cannot find eastbound part in html.')
+            logFileWriter.add('Cannot find eastbound part in html.')
         }
 
         callback(null, false)
@@ -149,12 +151,12 @@ function updateWestXml(html, callback) {
                 lastWestObj = newXml
                 lastWestDate = date
                 saveXml('west', newXml.LastUpdated, xmlStr, e => callback(e, true))
-                util.log('Westbound updated.')
+                logFileWriter.add('Westbound updated.')
             } else {
-                util.log('No change in westbound.')
+                logFileWriter.add('No change in westbound.')
             }
         } else {
-            util.log('Cannot find westbound part in html.')
+            logFileWriter.add('Cannot find westbound part in html.')
         }
 
         callback(null, false)
@@ -174,9 +176,7 @@ loadLatestXmls(); // Do not remove this semicolon.
 
 // Update xmls and schedule future tasks.
 util.repeat(() => updateXmls(err => {
-    if (err) {
-        util.log(err.stack)
-    }
+    if (err) logFileWriter.add(err.stack)
 }), 5 * 60 * 1000) // Update every 5 min.
 
 let app = express()
@@ -206,5 +206,5 @@ let config = readConfigFile()
 let port = parseInt(config.port)
 let server = app.listen(port, () => {
     console.log('server started')
-    util.log('server started')
+    logFileWriter.add('server started')
 })
