@@ -11,7 +11,6 @@ const savedDirectory = path.join(__dirname, 'saved/nats')
 const AntiSpamList = require('./anti-spam-list').AntiSpamList
 const configFilePath = path.join(__dirname, 'config.json')
 const lastUpdatedTime = require('./last-updated-time')
-const ipUpdater = require('./server-ip-tracker/ip-updater')
 
 let westXml = ''
 let eastXml = ''
