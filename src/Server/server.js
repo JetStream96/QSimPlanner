@@ -12,12 +12,14 @@ const AntiSpamList = require('./anti-spam-list').AntiSpamList
 const configFilePath = path.join(__dirname, 'config.json')
 const lastUpdatedTime = require('./last-updated-time')
 
-let westXml = ''
-let eastXml = ''
-let lastWestObj = { Message: '' }
-let lastEastObj = { Message: '' }
-let lastWestDate = 0
-let lastEastDate = 0
+const trackDir = {
+    Eastbound: 0,
+    Westbound: 1
+}
+
+let trackXmls = ['', '']
+let lastTrackObjs = [{ Message: '' }, { Message: '' }]
+let lastTrackDate = [0, 0]
 let unloggedErrors = ''
 
 let errorReportWriter = new SyncFileWriter(
@@ -30,8 +32,8 @@ let maxRequestBodySize = 100 * 1000
 
 const reqHandler = {
     'nats': {
-        'Eastbound.xml': () => eastXml,
-        'Westbound.xml': () => westXml,
+        'Eastbound.xml': () => trackXmls[trackDir.Eastbound],
+        'Westbound.xml': () => trackXmls[trackDir.Westbound],
     },
     'err': () => (unloggedErrors === '' ? 'No unlogged error.' : unloggedErrors)
 }
@@ -72,12 +74,11 @@ function updateXmls(callback) {
         }
 
         // No error
-        updateEastXml(html, (e, updated) => {
-            if (updated) lastUpdatedTime.saveFileEast(Date.now(), callback)
-        });
-        updateWestXml(html, (e, updated) => {
-            if (updated) lastUpdatedTime.saveFileWest(Date.now(), callback)
-        });
+        [0, 1].forEach(i => {
+            updateXml(html, i, (e, updated) => {
+                if (updated) lastUpdatedTime.saveFileEast(Date.now(), callback)
+            })
+        })
     })
 }
 
@@ -100,63 +101,40 @@ function saveXml(subDirectory, lastUpdated, xmlStr, callback) {
 
 function loadLatestXmls() {
     try {
-        westXml = fs.readFileSync(path.join(savedDirectory, 'west/latest.xml'), 'utf-8')
-        eastXml = fs.readFileSync(path.join(savedDirectory, 'east/latest.xml'), 'utf-8')
+        trackXmls[trackDir.Westbound] =
+            fs.readFileSync(path.join(savedDirectory, 'west/latest.xml'), 'utf-8')
+        trackXmls[trackDir.Eastbound] =
+            fs.readFileSync(path.join(savedDirectory, 'east/latest.xml'), 'utf-8')
     } catch (e) { }
 }
 
 /**
  * @param {string} html
+ * @param {number} direction Refer to trackDir object
  * @param {(Error, updated: boolean) => void}
  */
-function updateEastXml(html, callback) {
+function updateXml(html, direction, callback) {
     try {
-        let [success, newXml] = nats.getEastboundTracks(html)
+        let [success, newXml] = nats.getTracks(html, direction === trackDir.Eastbound)
+        let text = direction === trackDir.Eastbound ? 'east' : 'west'
+        let logText = text + 'bound'
 
         if (success) {
             let date = util.parseDate(newXml.LastUpdated)
-            if (date > lastEastDate && lastEastObj.Message !== newXml.Message) {
+            if (date > lastTrackDate[direction] &&
+                lastTrackObjs[direction].Message !== newXml.Message) {
                 let xmlStr = util.toXml(util.withoutInvalidXmlCharObj(newXml))
-                eastXml = xmlStr
-                lastEastObj = newXml
-                lastEastDate = date
-                saveXml('east', newXml.LastUpdated, xmlStr, e => callback(e, true))
-                logFileWriter.add('Eastbound updated.')
+                trackXmls[direction] = xmlStr
+                lastTrackObjs[direction] = newXml
+                lastTrackDate[direction] = date
+
+                saveXml(text, newXml.LastUpdated, xmlStr, e => callback(e, true))
+                logFileWriter.add(logText + ' updated.')
             } else {
-                logFileWriter.add('No change in eastbound.')
+                logFileWriter.add('No change in ' + logText + '.')
             }
         } else {
-            logFileWriter.add('Cannot find eastbound part in html.')
-        }
-
-        callback(null, false)
-    } catch (err) {
-        callback(err, false)
-    }
-}
-
-/**
- * @param {string} html
- * @param {(Error, updated: boolean) => void}
- */
-function updateWestXml(html, callback) {
-    try {
-        let [success, newXml] = nats.getWestboundTracks(html)
-
-        if (success) {
-            let date = util.parseDate(newXml.LastUpdated)
-            if (date > lastWestDate && lastWestObj.Message !== newXml.Message) {
-                let xmlStr = util.toXml(util.withoutInvalidXmlCharObj(newXml))
-                westXml = xmlStr
-                lastWestObj = newXml
-                lastWestDate = date
-                saveXml('west', newXml.LastUpdated, xmlStr, e => callback(e, true))
-                logFileWriter.add('Westbound updated.')
-            } else {
-                logFileWriter.add('No change in westbound.')
-            }
-        } else {
-            logFileWriter.add('Cannot find westbound part in html.')
+            logFileWriter.add('Cannot find ' + logText + ' part in html.')
         }
 
         callback(null, false)
@@ -171,8 +149,8 @@ function readConfigFile() {
 
 // Script starts here.
 
-loadLatestXmls(); // Do not remove this semicolon.
-[lastWestDate, lastEastDate] = lastUpdatedTime.tryLoadFromFile()
+loadLatestXmls()
+lastTrackDate = lastUpdatedTime.tryLoadFromFile()
 
 // Update xmls and schedule future tasks.
 util.repeat(() => updateXmls(err => {
