@@ -16,15 +16,19 @@ rm -rf Server
 9. On local machine, copy the copied directory to Server. E.g. on Windows:
 pscp -r "C:\Users\Xyz\Desktop\Server" pi@123.45.67.8:'/tmp/Server' 
 
+If an error occurs, remove the last pair of quotes and try again.
+
 Use scp instead of pscp on linux. Copying to /tmp is to prevent permission error.
 
 10. Via SSH, move the directory:
-mv /tmp/Server /opt/Server
+mv /tmp/Server /opt
 
 11. Run:
 cd /opt/Server/server-ip-tracker/tmp
 git config credential.helper store
 git push origin master
+
+At least push a commit to verify it works without manually typing the password.
 
 12. Start the processes in background:
 cd ..

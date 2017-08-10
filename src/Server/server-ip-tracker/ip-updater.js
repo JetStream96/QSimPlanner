@@ -40,21 +40,20 @@ function updateIp(config) {
 
 function pushUpdate(config, ip) {
     fs.writeFileSync(path.join(tmpDir, 'ip.txt'), ip)
-    execCmds(['cd "' + tmpDir + '"',
-        'git add .',
+    execCmds(['git add .',
         'git commit -m "update"',
         'git push origin master'])
 }
 
 function execCmds(cmds) {
     if (cmds.length === 1) {
-        childProcess.exec(cmds[0], e => {
+        childProcess.exec(cmds[0], { cwd: tmpDir }, e => {
             if (e) log(e.stack)
         })
         return
     }
 
-    childProcess.exec(cmds[0], e => {
+    childProcess.exec(cmds[0], { cwd: tmpDir }, e => {
         if (e) {
             log(e.stack)
         } else {
