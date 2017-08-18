@@ -86,7 +86,7 @@ function repeat(func, interval) {
  * @param {string} msg 
  */
 function log(msg, path = filePath) {
-    let data = new Date().toISOString() + '   ' + msg + '\n'
+    let data = addDate(msg)
 
     // appendFile automatically creates the given file.
     fs.appendFile(path, data, err => {
@@ -94,6 +94,10 @@ function log(msg, path = filePath) {
             unloggedErrors += data + '\n\n' + err.stack + '\n\n'
         }
     })
+}
+
+function addDate(msg) {
+    return new Date().toISOString() + '   ' + msg + '\n'
 }
 
 /**
@@ -123,3 +127,4 @@ exports.parseDate = parseDate
 exports.repeat = repeat
 exports.log = log
 exports.httpsDownload = httpsDownload
+exports.addDate = addDate

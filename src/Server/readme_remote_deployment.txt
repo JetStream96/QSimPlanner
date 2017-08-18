@@ -17,6 +17,7 @@ rm -rf Server
 pscp -r "C:\Users\Xyz\Desktop\Server" pi@123.45.67.8:'/tmp/Server' 
 
 If an error occurs, remove the last pair of quotes and try again.
+Alternatively, use WinSCP to copy files to/from the server. It's much easier to use.
 
 Use scp instead of pscp on linux. Copying to /tmp is to prevent permission error.
 

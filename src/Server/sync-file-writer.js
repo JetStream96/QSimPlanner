@@ -11,11 +11,13 @@ class SyncFileWriter {
         this.busy = false
     }
 
+    // @NoThrow
     add(content) {
         this.pending.push(content)
         this._startTask()
     }
 
+    // @NoThrow
     _startTask() {
         // Since node runs on a single thread, when file writing or directory
         // creation is in process, this.busy is guranteed to be true.
@@ -24,14 +26,14 @@ class SyncFileWriter {
         // _startTask to do nothing, the line 'this.busy = false' is guranteed to be
         // executed afterwards, which means the next line is executed and the writing 
         // will be eventually done.
-        
+
         if (this.pending.length > 0 && !this.busy) {
             this.busy = true
             let p = path.join(this.directory, this.fileName)
             mkdirp(this.directory, e => {
                 if (!e) {
-                    fs.appendFile(p, this.pending.pop(), e => {
-                        if (e) util.log(e.stack)
+                    fs.appendFile(p, this.pending.pop(), _e => {
+                        if (_e) util.log(_e.stack)
                     })
                 } else {
                     util.log(e)

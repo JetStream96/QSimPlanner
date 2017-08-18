@@ -129,12 +129,12 @@ function updateXml(html, direction, callback) {
                 lastTrackDate[direction] = date
 
                 saveXml(text, newXml.LastUpdated, xmlStr, e => callback(e, true))
-                logFileWriter.add(logText + ' updated.')
+                log(logText + ' updated.')
             } else {
-                logFileWriter.add('No change in ' + logText + '.')
+                log('No change in ' + logText + '.')
             }
         } else {
-            logFileWriter.add('Cannot find ' + logText + ' part in html.')
+            log('Cannot find ' + logText + ' part in html.')
         }
 
         callback(null, false)
@@ -147,6 +147,10 @@ function readConfigFile() {
     return JSON.parse(fs.readFileSync(configFilePath, 'utf-8'))
 }
 
+function log(msg) {
+    logFileWriter.add(util.addDate(msg))
+}
+
 // Script starts here.
 
 loadLatestXmls()
@@ -154,7 +158,7 @@ lastTrackDate = lastUpdatedTime.tryLoadFromFile()
 
 // Update xmls and schedule future tasks.
 util.repeat(() => updateXmls(err => {
-    if (err) logFileWriter.add(err.stack)
+    if (err) log(err.stack)
 }), 5 * 60 * 1000) // Update every 5 min.
 
 let app = express()
@@ -184,5 +188,5 @@ let config = readConfigFile()
 let port = parseInt(config.port)
 let server = app.listen(port, () => {
     console.log('server started')
-    logFileWriter.add('server started')
+    log('server started')
 })

@@ -13,7 +13,7 @@ const SyncFileWriter = require('../sync-file-writer').SyncFileWriter
 let ipUpdaterLogger = new SyncFileWriter(__dirname, 'log.txt')
 
 function log(msg) {
-    ipUpdaterLogger.add(msg)
+    ipUpdaterLogger.add(util.addDate( msg))
 }
 
 function readConfig(config) {
