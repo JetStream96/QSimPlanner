@@ -1,3 +1,5 @@
+<Another file ../readme_remote_deployment depends on this file. Update that file in case steps in this file is changed.>
+
 1. Make sure config.json is set.
 2. Delete log.txt if exists.
 3. Setup a remote git repository, if you haven't.

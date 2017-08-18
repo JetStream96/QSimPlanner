@@ -29,7 +29,8 @@ cd /opt/Server/server-ip-tracker/tmp
 git config credential.helper store
 git push origin master
 
-At least push a commit to verify it works without manually typing the password.
+At least push a commit to verify it works without manually typing the password. E.g. create an empty file and commit it:
+echo "" > file
 
 12. Start the processes in background:
 cd ..
@@ -37,7 +38,7 @@ nohup node ip-updater.js > /dev/null 2>&1 &
 cd ..
 nohup node server.js > /dev/null 2>&1 &
 
-13. Exit the SSH session by typing:
-exit
+13. Make sure the processes are running.
 
-14. Make sure the processes are running.
+14. Exit the SSH session by typing:
+exit
