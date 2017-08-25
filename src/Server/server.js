@@ -28,7 +28,7 @@ let errorReportWriter = new SyncFileWriter(
 let logFileWriter = new SyncFileWriter(__dirname, 'log.txt')
 
 let userList = new AntiSpamList()
-let maxRequestBodySize = 100 * 1000
+let maxRequestBodySize = 1000 * 1000
 
 const reqHandler = {
     'nats': {

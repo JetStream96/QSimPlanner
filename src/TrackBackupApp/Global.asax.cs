@@ -1,5 +1,6 @@
 ﻿using QSP.RouteFinding.Tracks.Nats;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Web;
@@ -9,7 +10,7 @@ using System.Xml.Linq;
 
 namespace TrackBackupApp
 {
-    // TODO: Error reporting function. Hide /err and log.txt form public.
+    // TODO: Error reporting function. Hide /err and log.txt from public.
 
     public class Global : HttpApplication
     {
@@ -26,6 +27,8 @@ namespace TrackBackupApp
 
         private static string serverUrl;
         private static string unloggedError = "";
+        private static AntiSpamList antiSpam = new AntiSpamList();
+        private static ErrorReportWriter errReportWriter = new ErrorReportWriter();
 
         private void SetServerUrl()
         {
@@ -184,8 +187,69 @@ namespace TrackBackupApp
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             SetServerUrl();
+            var rq = HttpContext.Current.Request;
 
-            var pq = HttpContext.Current.Request.Url.PathAndQuery.ToLower();
+            switch (rq.HttpMethod)
+            {
+                case "GET":
+                    HandleGetRequest(rq);
+                    break;
+
+                case "POST":
+                    HandlePostRequest(rq);
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+
+        // @NoThrow
+        private void HandlePostRequest(HttpRequest rq)
+        {
+            var pq = rq.Url.PathAndQuery.ToLower();
+
+            switch (pq)
+            {
+                case "/error-report":
+                    CollectErrorReport(rq);
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+
+        private void CollectErrorReport(HttpRequest rq)
+        {
+            var ip = rq.UserHostAddress;
+            var body = GetDocumentContents(rq);
+            if (!antiSpam.DecrementToken(ip) && body.Length < ErrorReportWriter.MaxBodaySize)
+            {
+                errReportWriter.Write(ip, body);
+            }
+
+            Response.Write("OK");
+            Response.End();
+        }
+
+        private static string GetDocumentContents(HttpRequest r)
+        {
+            using (var receiveStream = r.InputStream)
+            {
+                using (var readStream = new StreamReader(receiveStream, r.ContentEncoding))
+                {
+                    return readStream.ReadToEnd();
+                }
+            }
+        }
+
+        // @NoThrow
+        private void HandleGetRequest(HttpRequest rq)
+        {
+            var pq = rq.Url.PathAndQuery.ToLower();
 
             if (pq == dummyPageUrl.ToLower())
             {
@@ -194,7 +258,13 @@ namespace TrackBackupApp
             }
             else if (pq == "/err")
             {
+                //TODO:???
                 RespondWithUnloggedErrors();
+            }
+            else if (pq == "/log.txt")
+            {
+                //TODO:???
+                Response.End();
             }
         }
 
@@ -211,6 +281,7 @@ namespace TrackBackupApp
             TryAndLogIfFail(SetServerUrlFromConfigFile);
             SaveNats();
             RegisterCacheEntry();
+            antiSpam.Start();
         }
 
         private static void SetServerUrlFromConfigFile()
