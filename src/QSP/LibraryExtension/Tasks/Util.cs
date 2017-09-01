@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 
 namespace QSP.LibraryExtension.Tasks
 {
-   public static class Util
+    public static class Util
     {
+        // Wrap an async method returning a Task to 'async void'.
+        public static async void NoAwait(Func<Task> a)
+        {
+            await a();
+        }
+
         // Runs the action on the calling thread.
         public static async Task RunPeriodic(Action action, TimeSpan interval,
             CancellationToken cancellationToken)
@@ -21,7 +27,7 @@ namespace QSP.LibraryExtension.Tasks
         }
 
         // Runs the action on another thread.
-        public static async Task RunPeriodicAsync(Action action, TimeSpan interval, 
+        public static async Task RunPeriodicAsync(Action action, TimeSpan interval,
             CancellationToken cancellationToken)
         {
             while (true)

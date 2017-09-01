@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -110,6 +111,8 @@
     </Compile>
     <Compile Include="LastUpdateTime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stats\Helpers.cs" />
+    <Compile Include="Stats\Statistics.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QSP\QSP.csproj">

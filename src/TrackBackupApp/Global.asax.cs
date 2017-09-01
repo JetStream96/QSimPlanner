@@ -7,11 +7,11 @@ using System.Web;
 using System.Web.Caching;
 using System.Web.Hosting;
 using System.Xml.Linq;
+using TrackBackupApp.Stats;
+using static QSP.LibraryExtension.Tasks.Util;
 
 namespace TrackBackupApp
 {
-    // TODO: Error reporting function. Hide /err and log.txt from public.
-
     public class Global : HttpApplication
     {
         private readonly double refreshIntervalSec = 60 * 5;
@@ -25,10 +25,18 @@ namespace TrackBackupApp
             "~/config.xml";
 #endif
 
+        private static readonly int StatsSavePeriodMs =
+#if DEBUG
+            10 * 1000;
+#else
+            10*60*1000;
+#endif
+
         private static string serverUrl;
         private static string unloggedError = "";
         private static AntiSpamList antiSpam = new AntiSpamList();
         private static ErrorReportWriter errReportWriter = new ErrorReportWriter();
+        private static Statistics stats = Helpers.LoadFromFile();
 
         private void SetServerUrl()
         {
@@ -200,6 +208,7 @@ namespace TrackBackupApp
                     break;
 
                 default:
+                    RespondBadReq();
                     break;
             }
 
@@ -216,10 +225,30 @@ namespace TrackBackupApp
                     CollectErrorReport(rq);
                     break;
 
+                case "/westbound-download":
+                    stats.WestboundDownloads++;
+                    break;
+
+                case "/eastbound-download":
+                    stats.EastboundDownloads++;
+                    break;
+
+                case "/update-checks":
+                    stats.UpdateChecks++;
+                    break;
+
                 default:
+                    RespondBadReq();
                     break;
             }
 
+        }
+
+        private void RespondBadReq()
+        {
+            Response.StatusCode = 400;
+            Response.Write("400 bad request");
+            Response.End();
         }
 
         private void CollectErrorReport(HttpRequest rq)
@@ -249,12 +278,17 @@ namespace TrackBackupApp
         // @NoThrow
         private void HandleGetRequest(HttpRequest rq)
         {
+            // ISS is case-insensitive.
             var pq = rq.Url.PathAndQuery.ToLower();
 
             if (pq == dummyPageUrl.ToLower())
             {
                 // Add the item in cache and when succesful, do the work.
                 RegisterCacheEntry();
+            }
+            else if (pq == "/nats/Westbound.xml")
+            {
+
             }
             else if (pq == "/err")
             {
@@ -265,6 +299,10 @@ namespace TrackBackupApp
             {
                 //TODO:???
                 Response.End();
+            }
+            else
+            {
+                RespondBadReq();
             }
         }
 
@@ -282,6 +320,7 @@ namespace TrackBackupApp
             SaveNats();
             RegisterCacheEntry();
             antiSpam.Start();
+            NoAwait(() => Stats.Helpers.SavePeriodic(stats, StatsSavePeriodMs));
         }
 
         private static void SetServerUrlFromConfigFile()
