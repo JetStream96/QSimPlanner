@@ -15,6 +15,19 @@ namespace TrackBackupApp.Stats
     {
         public const string FilePath = "~/stats.xml";
 
+        // @Throws
+        public static Statistics LoadOrGenerateFile(string path = FilePath)
+        {
+            if (!File.Exists(HostingEnvironment.MapPath(path)))
+            {
+                var stats = new Statistics();
+                SaveToFile(stats, path);
+                return stats;
+            }
+
+            return LoadFromFile(path);
+        }
+
         // @NoThrow
         public static async Task SavePeriodic(Statistics stats, int periodMs)
         {
@@ -42,7 +55,7 @@ namespace TrackBackupApp.Stats
         public static void SaveToFile(Statistics stats, string path = FilePath)
         {
             var xElem = new Statistics.Serializer().Serialize(stats, "root");
-            File.WriteAllText(path, xElem.ToString());
+            File.WriteAllText(HostingEnvironment.MapPath(path), xElem.ToString());
         }
     }
 }

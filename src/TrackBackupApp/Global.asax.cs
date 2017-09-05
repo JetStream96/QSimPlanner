@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Hosting;
+using System.Web.Routing;
 using System.Xml.Linq;
 using TrackBackupApp.Stats;
 using static QSP.LibraryExtension.Tasks.Util;
@@ -17,6 +19,13 @@ namespace TrackBackupApp
         private readonly double refreshIntervalSec = 60 * 5;
         private readonly string dummyPageUrl = "/DummyPage.aspx";
         private const string dummyCacheItemKey = "dummyKey";
+
+        // Lower case only!
+        private static readonly List<string> PublicFiles = new List<string>
+        {
+            "/nats/westbound.xml",
+            "/nats/eastbound.xml"
+        };
 
         private static readonly string configFile =
 #if DEBUG 
@@ -36,7 +45,7 @@ namespace TrackBackupApp
         private static string unloggedError = "";
         private static AntiSpamList antiSpam = new AntiSpamList();
         private static ErrorReportWriter errReportWriter = new ErrorReportWriter();
-        private static Statistics stats = Helpers.LoadFromFile();
+        private static Statistics stats = Helpers.LoadOrGenerateFile();
 
         private void SetServerUrl()
         {
@@ -146,7 +155,6 @@ namespace TrackBackupApp
                 }
             }
 
-
             WriteToLog(SaveNatsMsg(westUpdated, eastUpdated));
         }
 
@@ -211,7 +219,6 @@ namespace TrackBackupApp
                     RespondBadReq();
                     break;
             }
-
         }
 
         // @NoThrow
@@ -225,23 +232,23 @@ namespace TrackBackupApp
                     CollectErrorReport(rq);
                     break;
 
-                case "/westbound-download":
-                    stats.WestboundDownloads++;
-                    break;
-
-                case "/eastbound-download":
-                    stats.EastboundDownloads++;
-                    break;
-
-                case "/update-checks":
-                    stats.UpdateChecks++;
-                    break;
-
                 default:
                     RespondBadReq();
                     break;
             }
+        }
 
+        private async void RespondWithFile(string relativePath)
+        {
+            var p = HostingEnvironment.MapPath(relativePath);
+            var content = await Task.Run(() => File.ReadAllText(p));
+            RespondWithContent(content);
+        }
+
+        private void RespondWithContent(string content)
+        {
+            Response.Write(content);
+            Response.End();
         }
 
         private void RespondBadReq()
@@ -286,9 +293,20 @@ namespace TrackBackupApp
                 // Add the item in cache and when succesful, do the work.
                 RegisterCacheEntry();
             }
-            else if (pq == "/nats/Westbound.xml")
+            else if (pq == "/nats/westbound.xml")
             {
-
+                RespondWithFile("~/nats/westbound.xml");
+                stats.WestboundDownloads++;
+            }
+            else if (pq == "/nats/eastbound.xml")
+            {
+                RespondWithFile("~/nats/eastbound.xml");
+                stats.EastboundDownloads++;
+            }
+            else if (pq == "/updates/info.xml")
+            {
+                RespondWithFile("~/updates/info.xml");
+                stats.UpdateChecks++;
             }
             else if (pq == "/err")
             {
@@ -321,6 +339,12 @@ namespace TrackBackupApp
             RegisterCacheEntry();
             antiSpam.Start();
             NoAwait(() => Stats.Helpers.SavePeriodic(stats, StatsSavePeriodMs));
+            RegisterRoutes(RouteTable.Routes);
+        }
+
+        private static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.MapPageRoute("", "{*a}", "~/Global.aspx");
         }
 
         private static void SetServerUrlFromConfigFile()
