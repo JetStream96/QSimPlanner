@@ -5,38 +5,35 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Hosting;
 
 namespace TrackBackupApp
 {
-    // This class is thread-safe.
-    public class ErrorReportWriter
+    // Thread-safe
+    public class Logger
     {
-        public static readonly int MaxBodaySize = 1_000_000;
-
         private TaskQueue queue = new TaskQueue();
         private string path;
 
-        public ErrorReportWriter(string path = "~/error-report/error-report.txt")
+        public Logger(string path = "~/log.txt")
         {
             this.path = path;
         }
 
         // @NoThrow
         // This method is thread-safe.
-        public void Write(string ip, string text)
+        public void Log(string msg)
         {
-            var str = "{ip:" + ip + ", time:" + DateTime.UtcNow.ToString() + ",text:" + text + "}";
+            var text = Global.AddTimeStamp(msg) + "\n";
             Func<Task> t = () => Task.Factory.StartNew(() =>
             {
                 try
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(path));
-                    File.AppendAllText(path, str + "\n");
+                    File.AppendAllText(path, text);
                 }
                 catch (Exception e)
                 {
-                    Shared.Logger.Log(e.ToString());
+                    Shared.UnloggedError.Modify(s => s + text + 
+                        Global.AddTimeStamp(e.ToString()) + "\n");
                 }
             });
 

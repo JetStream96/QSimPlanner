@@ -32,7 +32,7 @@ namespace TrackBackupApp
             }
             catch (Exception e)
             {
-                Global.WriteToLog(e.ToString());
+                Shared.Logger.Log(e.ToString());
                 setter(DateTime.UtcNow);
             }
         }

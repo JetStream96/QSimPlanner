@@ -17,9 +17,7 @@ namespace TrackBackupApp
     public class Global : HttpApplication
     {
         private readonly double refreshIntervalSec = 60 * 5;
-        private readonly string dummyPageUrl = "/DummyPage.aspx";
-        private const string dummyCacheItemKey = "dummyKey";
-
+     
         // Lower case only!
         private static readonly List<string> PublicFiles = new List<string>
         {
@@ -40,50 +38,7 @@ namespace TrackBackupApp
 #else
             10*60*1000;
 #endif
-
-        private static string serverUrl;
-        private static string unloggedError = "";
-        private static AntiSpamList antiSpam = new AntiSpamList();
-        private static ErrorReportWriter errReportWriter = new ErrorReportWriter();
-        private static Statistics stats = Helpers.LoadOrGenerateFile();
-
-        private void SetServerUrl()
-        {
-            if (serverUrl == null)
-            {
-                serverUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
-            }
-        }
-
-        private bool RegisterCacheEntry()
-        {
-            if (HttpContext.Current.Cache[dummyCacheItemKey] != null)
-            {
-                return false;
-            }
-
-            var onRemove = new CacheItemRemovedCallback(CacheItemRemovedCallback);
-
-            HttpContext.Current.Cache.Add(dummyCacheItemKey,
-                                          "Test",
-                                          null,
-                                          DateTime.Now.AddSeconds(refreshIntervalSec),
-                                          Cache.NoSlidingExpiration,
-                                          CacheItemPriority.Normal,
-                                          onRemove);
-
-            WriteToLog("Cache Added.");
-            return true;
-        }
-
-        public void CacheItemRemovedCallback(string key, object value,
-            CacheItemRemovedReason reason)
-        {
-            WriteToLog("Cache item callback, Reason: " + reason.ToString());
-            DoWork();
-            TryAndLogIfFail(HitPage);
-        }
-
+        
         // @NoThrow
         public static void TryAndLogIfFail(Action a)
         {
@@ -93,43 +48,11 @@ namespace TrackBackupApp
             }
             catch (Exception e)
             {
-                WriteToLog(e.ToString());
+                Shared.Logger.Log(e.ToString());
             }
         }
-
-        private void HitPage()
-        {
-            new WebClient().DownloadData(serverUrl + dummyPageUrl);
-        }
-
-        // @NoThrow
-        private void DoWork()
-        {
-            TryAndLogIfFail(SaveNats);
-        }
-
-        // @NoThrow
-        public static void WriteToLog(string msg)
-        {
-            try
-            {
-                WriteLogFile(msg);
-            }
-            catch (Exception e)
-            {
-                unloggedError += AddTimeStamp(msg) + "\n" + AddTimeStamp(e.ToString());
-            }
-        }
-
-        private static void WriteLogFile(string msg)
-        {
-            using (var wr = File.AppendText(HostingEnvironment.MapPath("~/log.txt")))
-            {
-                wr.WriteLine(AddTimeStamp(msg));
-            }
-        }
-
-        private static string AddTimeStamp(string msg)
+        
+        public static string AddTimeStamp(string msg)
         {
             return DateTime.UtcNow.ToString() + "  " + msg;
         }
@@ -155,7 +78,7 @@ namespace TrackBackupApp
                 }
             }
 
-            WriteToLog(SaveNatsMsg(westUpdated, eastUpdated));
+            Shared.Logger.Log(SaveNatsMsg(westUpdated, eastUpdated));
         }
 
         // Test if the eastbound track needs to be saved. If yes, saved the file and 
@@ -202,7 +125,6 @@ namespace TrackBackupApp
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            SetServerUrl();
             var rq = HttpContext.Current.Request;
 
             switch (rq.HttpMethod)
@@ -262,9 +184,10 @@ namespace TrackBackupApp
         {
             var ip = rq.UserHostAddress;
             var body = GetDocumentContents(rq);
-            if (!antiSpam.DecrementToken(ip) && body.Length < ErrorReportWriter.MaxBodaySize)
+            if (!Shared.AntiSpam.Value.DecrementToken(ip) &&
+                body.Length < ErrorReportWriter.MaxBodaySize)
             {
-                errReportWriter.Write(ip, body);
+                Shared.ErrReportWriter.Write(ip, body);
             }
 
             Response.Write("OK");
@@ -288,25 +211,20 @@ namespace TrackBackupApp
             // ISS is case-insensitive.
             var pq = rq.Url.PathAndQuery.ToLower();
 
-            if (pq == dummyPageUrl.ToLower())
-            {
-                // Add the item in cache and when succesful, do the work.
-                RegisterCacheEntry();
-            }
-            else if (pq == "/nats/westbound.xml")
+            if (pq == "/nats/westbound.xml")
             {
                 RespondWithFile("~/nats/westbound.xml");
-                stats.WestboundDownloads++;
+                Shared.Stats.Execute(s => s.WestboundDownloads++);
             }
             else if (pq == "/nats/eastbound.xml")
             {
                 RespondWithFile("~/nats/eastbound.xml");
-                stats.EastboundDownloads++;
+                Shared.Stats.Execute(s => s.EastboundDownloads++);
             }
             else if (pq == "/updates/info.xml")
             {
                 RespondWithFile("~/updates/info.xml");
-                stats.UpdateChecks++;
+                Shared.Stats.Execute(s => s.UpdateChecks++);
             }
             else if (pq == "/err")
             {
@@ -326,32 +244,21 @@ namespace TrackBackupApp
 
         private void RespondWithUnloggedErrors()
         {
-            Response.Write(unloggedError == "" ? "No unlogged error." : unloggedError);
+            var e = Shared.UnloggedError.Value;
+            Response.Write(e == "" ? "No unlogged error." : e);
             Response.End();
         }
 
         protected void Application_Start(object sender, EventArgs e)
         {
             // Fires when the application is started
-            WriteToLog("Application started.");
-            TryAndLogIfFail(SetServerUrlFromConfigFile);
+            Shared.Logger.Log("Application started.");
             SaveNats();
             RegisterCacheEntry();
-            antiSpam.Start();
+            Shared.AntiSpam.Execute(a => a.Start());
             NoAwait(() => Stats.Helpers.SavePeriodic(stats, StatsSavePeriodMs));
-            RegisterRoutes(RouteTable.Routes);
         }
-
-        private static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.MapPageRoute("", "{*a}", "~/Global.aspx");
-        }
-
-        private static void SetServerUrlFromConfigFile()
-        {
-            if (serverUrl == null) ReadConfigFile();
-        }
-
+        
         // Returns the server url.
         private static string ReadConfigFile()
         {

@@ -39,7 +39,7 @@ namespace TrackBackupApp.Stats
                 }
                 catch (Exception e)
                 {
-                    Global.WriteToLog(e.ToString());
+                    Shared.Logger.Log(e.ToString());
                 }
             }, new TimeSpan(0, 0, 0, 0, periodMs), new CancellationToken());
         }

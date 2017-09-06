@@ -110,7 +110,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LastUpdateTime.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared.cs" />
     <Compile Include="Stats\Helpers.cs" />
     <Compile Include="Stats\Statistics.cs" />
   </ItemGroup>
