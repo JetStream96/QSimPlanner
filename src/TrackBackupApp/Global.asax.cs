@@ -158,8 +158,8 @@ namespace TrackBackupApp
         private void RespondWithFile(string relativePath)
         {
             var p = HostingEnvironment.MapPath(relativePath);
-            var content = File.ReadAllText(p);
-            RespondWithContent(content);
+            Response.WriteFile(p);
+            Response.End();
         }
 
         private void RespondWithContent(string content)
