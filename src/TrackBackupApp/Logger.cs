@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Web.Hosting;
 
 namespace TrackBackupApp
 {
@@ -13,7 +14,7 @@ namespace TrackBackupApp
 
         public Logger(string path = "~/log.txt")
         {
-            this.path = path;
+            this.path = HostingEnvironment.MapPath(path);
         }
 
         // @NoThrow

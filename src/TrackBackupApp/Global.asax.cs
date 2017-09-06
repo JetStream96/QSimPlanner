@@ -211,20 +211,24 @@ namespace TrackBackupApp
             // ISS is case-insensitive.
             var pq = rq.Url.PathAndQuery.ToLower();
 
-            if (pq == "/nats/westbound.xml")
+            if (pq == "/")
             {
-                RespondWithFile("~/nats/westbound.xml");
+                RespondWithFile("~/Default.aspx");
+            }
+            else if (pq == "/nats/westbound.xml")
+            {
                 Shared.Stats.Execute(s => s.WestboundDownloads++);
+                RespondWithFile("~/nats/westbound.xml");
             }
             else if (pq == "/nats/eastbound.xml")
             {
-                RespondWithFile("~/nats/eastbound.xml");
                 Shared.Stats.Execute(s => s.EastboundDownloads++);
+                RespondWithFile("~/nats/eastbound.xml");
             }
             else if (pq == "/updates/info.xml")
             {
-                RespondWithFile("~/updates/info.xml");
                 Shared.Stats.Execute(s => s.UpdateChecks++);
+                RespondWithFile("~/updates/info.xml");
             }
             else if (pq == "/err")
             {

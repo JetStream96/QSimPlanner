@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Web.Hosting;
 
 namespace TrackBackupApp
 {
@@ -15,7 +16,7 @@ namespace TrackBackupApp
 
         public ErrorReportWriter(string path = "~/error-report/error-report.txt")
         {
-            this.path = path;
+            this.path = HostingEnvironment.MapPath(path);
         }
 
         // @NoThrow

@@ -76,7 +76,6 @@
     </Content>
     <Content Include="config_debug.xml" />
     <Content Include="Default.aspx" />
-    <Content Include="DummyPage.aspx" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -97,13 +96,6 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DummyPage.aspx.cs">
-      <DependentUpon>DummyPage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DummyPage.aspx.designer.cs">
-      <DependentUpon>DummyPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ErrorReportWriter.cs" />
     <Compile Include="Global.asax.cs">
