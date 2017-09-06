@@ -16,7 +16,7 @@ namespace TrackBackupApp
 {
     public class Global : HttpApplication
     {
-        private readonly double refreshIntervalSec = 60 * 5;
+        private readonly double RefreshIntervalSec = 60 * 5;
      
         // Lower case only!
         private static readonly List<string> PublicFiles = new List<string>

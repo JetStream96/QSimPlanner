@@ -1,2 +1,2 @@
-src/TrackBackupApp/nats
-src/TrackBackupApp/log.txt
+nats/
+log.txt
