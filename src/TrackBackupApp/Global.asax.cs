@@ -2,16 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Caching;
-using System.Web.Hosting;
-using System.Web.Routing;
-using System.Xml.Linq;
-using TrackBackupApp.Stats;
-using static QSP.LibraryExtension.Tasks.Util;
 using System.Threading;
+using System.Web;
+using System.Web.Hosting;
+using static QSP.LibraryExtension.Tasks.Util;
 
 namespace TrackBackupApp
 {
@@ -161,10 +155,10 @@ namespace TrackBackupApp
             }
         }
 
-        private async void RespondWithFile(string relativePath)
+        private void RespondWithFile(string relativePath)
         {
             var p = HostingEnvironment.MapPath(relativePath);
-            var content = await Task.Run(() => File.ReadAllText(p));
+            var content = File.ReadAllText(p);
             RespondWithContent(content);
         }
 
@@ -179,6 +173,11 @@ namespace TrackBackupApp
             Response.StatusCode = 400;
             Response.Write("400 bad request");
             Response.End();
+        }
+
+        private void RespondNotFound()
+        {
+            Response.StatusCode = 404;
         }
 
         private void CollectErrorReport(HttpRequest rq)
@@ -239,7 +238,7 @@ namespace TrackBackupApp
             }
             else
             {
-                RespondBadReq();
+                RespondNotFound();
             }
         }
 
@@ -255,7 +254,7 @@ namespace TrackBackupApp
             // Fires when the application is started
             Shared.Logger.Log("Application started.");
             SaveNats();
-            NoAwait(() => RunPeriodicAsync(SaveNats, 
+            NoAwait(() => RunPeriodicAsync(SaveNats,
                 new TimeSpan(0, 0, (int)RefreshIntervalSec), new CancellationToken()));
             Shared.AntiSpam.Execute(a => a.Start());
             NoAwait(() => Stats.Helpers.SavePeriodic(Shared.Stats.Value, StatsSavePeriodMs));
