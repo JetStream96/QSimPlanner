@@ -12,6 +12,8 @@ namespace TrackBackupApp
         public static LockedObj<string> UnloggedError = new LockedObj<string>("");
         public static LockedObj<AntiSpamList> AntiSpam =
             new LockedObj<AntiSpamList>(new AntiSpamList());
+
+        // Do not change the reference to Stats.Value.
         public static LockedObj<Statistics> Stats =
             new LockedObj<Statistics>(Helpers.LoadOrGenerateFile());
 

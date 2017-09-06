@@ -11,13 +11,14 @@ using System.Web.Routing;
 using System.Xml.Linq;
 using TrackBackupApp.Stats;
 using static QSP.LibraryExtension.Tasks.Util;
+using System.Threading;
 
 namespace TrackBackupApp
 {
     public class Global : HttpApplication
     {
         private readonly double RefreshIntervalSec = 60 * 5;
-     
+
         // Lower case only!
         private static readonly List<string> PublicFiles = new List<string>
         {
@@ -38,7 +39,7 @@ namespace TrackBackupApp
 #else
             10*60*1000;
 #endif
-        
+
         // @NoThrow
         public static void TryAndLogIfFail(Action a)
         {
@@ -51,7 +52,7 @@ namespace TrackBackupApp
                 Shared.Logger.Log(e.ToString());
             }
         }
-        
+
         public static string AddTimeStamp(string msg)
         {
             return DateTime.UtcNow.ToString() + "  " + msg;
@@ -254,42 +255,29 @@ namespace TrackBackupApp
             // Fires when the application is started
             Shared.Logger.Log("Application started.");
             SaveNats();
-            RegisterCacheEntry();
+            NoAwait(() => RunPeriodicAsync(SaveNats, 
+                new TimeSpan(0, 0, (int)RefreshIntervalSec), new CancellationToken()));
             Shared.AntiSpam.Execute(a => a.Start());
-            NoAwait(() => Stats.Helpers.SavePeriodic(stats, StatsSavePeriodMs));
+            NoAwait(() => Stats.Helpers.SavePeriodic(Shared.Stats.Value, StatsSavePeriodMs));
         }
-        
+
+        /*
         // Returns the server url.
         private static string ReadConfigFile()
         {
             var path = HostingEnvironment.MapPath(configFile);
             var root = XDocument.Load(path).Root;
             return root.Element("ServerUrl").Value;
-        }
+        }*/
 
-        protected void Session_Start(object sender, EventArgs e)
-        {
+        protected void Session_Start(object sender, EventArgs e) { }
 
-        }
+        protected void Application_AuthenticateRequest(object sender, EventArgs e) { }
 
-        protected void Application_AuthenticateRequest(object sender, EventArgs e)
-        {
+        protected void Application_Error(object sender, EventArgs e) { }
 
-        }
+        protected void Session_End(object sender, EventArgs e) { }
 
-        protected void Application_Error(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Session_End(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_End(object sender, EventArgs e)
-        {
-
-        }
+        protected void Application_End(object sender, EventArgs e) { }
     }
 }
