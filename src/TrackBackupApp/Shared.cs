@@ -1,5 +1,6 @@
 ﻿using QSP.LibraryExtension;
 using TrackBackupApp.Stats;
+using QSP.LibraryExtension.Sets;
 
 namespace TrackBackupApp
 {
@@ -16,5 +17,15 @@ namespace TrackBackupApp
         // Thread-safe 
         public static readonly ErrorReportWriter ErrReportWriter = new ErrorReportWriter();
         public static readonly Logger Logger = new Logger();
+
+        // Readonly
+        public static readonly string ConfigFile =
+#if DEBUG
+            "~/config_debug.xml";
+#else
+            "~/config.xml";
+#endif
+
+        public static readonly IReadOnlySet<string> HiddenFileSet = HiddenFiles.LoadFromFileAndLog();
     }
 }

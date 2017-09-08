@@ -1,3 +1,8 @@
-<Root>
+<root>
+  <!-- file hidden from the public -->
+  <hidden>/log.txt</hidden>
+  <hidden>/stats.txt</hidden>
+  <hidden>/config.xml</hidden>
+  <hidden>/config_debug.xml</hidden>
   
-</Root>
+</root>

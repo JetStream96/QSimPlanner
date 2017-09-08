@@ -20,13 +20,6 @@ namespace TrackBackupApp
             "/nats/eastbound.xml"
         };
 
-        private static readonly string configFile =
-#if DEBUG 
-            "~/config_debug.xml";
-#else
-            "~/config.xml";
-#endif
-
         private static readonly int StatsSavePeriodMs =
 #if DEBUG
             10 * 1000;
@@ -162,6 +155,13 @@ namespace TrackBackupApp
             Response.End();
         }
 
+        private void RespondWithWebPage(string relativePath)
+        {
+            var p = HostingEnvironment.MapPath(relativePath);
+            Response.Redirect(relativePath);
+            Response.End();
+        }
+
         private void RespondWithContent(string content)
         {
             Response.Write(content);
@@ -211,24 +211,21 @@ namespace TrackBackupApp
             // ISS is case-insensitive.
             var pq = rq.Url.PathAndQuery.ToLower();
 
-            if (pq == "/")
+            if (Shared.HiddenFileSet.Contains(pq))
             {
-                RespondWithFile("~/Default.aspx");
+                Response.StatusCode = 403;
             }
             else if (pq == "/nats/westbound.xml")
             {
                 Shared.Stats.Execute(s => s.WestboundDownloads++);
-                RespondWithFile("~/nats/westbound.xml");
             }
             else if (pq == "/nats/eastbound.xml")
             {
                 Shared.Stats.Execute(s => s.EastboundDownloads++);
-                RespondWithFile("~/nats/eastbound.xml");
             }
             else if (pq == "/updates/info.xml")
             {
                 Shared.Stats.Execute(s => s.UpdateChecks++);
-                RespondWithFile("~/updates/info.xml");
             }
             else if (pq == "/err")
             {
@@ -239,10 +236,6 @@ namespace TrackBackupApp
             {
                 //TODO:???
                 Response.End();
-            }
-            else
-            {
-                RespondNotFound();
             }
         }
 
