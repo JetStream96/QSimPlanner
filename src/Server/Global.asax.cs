@@ -126,7 +126,7 @@ namespace TrackBackupApp
                     break;
 
                 default:
-                    RespondBadReq();
+                    Response.StatusCode = 400;
                     break;
             }
         }
@@ -143,7 +143,7 @@ namespace TrackBackupApp
                     break;
 
                 default:
-                    RespondBadReq();
+                    Response.StatusCode = 400; 
                     break;
             }
         }
@@ -167,19 +167,7 @@ namespace TrackBackupApp
             Response.Write(content);
             Response.End();
         }
-
-        private void RespondBadReq()
-        {
-            Response.StatusCode = 400;
-            Response.Write("400 bad request");
-            Response.End();
-        }
-
-        private void RespondNotFound()
-        {
-            Response.StatusCode = 404;
-        }
-
+        
         private void CollectErrorReport(HttpRequest rq)
         {
             var ip = rq.UserHostAddress;

@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "Tests\UnitTest\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0F086D96-14AE-45B8-B9E1-CBA61B11E6DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackBackupApp", "TrackBackupApp\TrackBackupApp.csproj", "{623B608B-3455-4042-8955-D7D2643D9E6D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{623B608B-3455-4042-8955-D7D2643D9E6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTest", "Tests\IntegrationTest\IntegrationTest.csproj", "{F56577DD-5BFA-472B-B67C-38F4977029CC}"
 EndProject
