@@ -1,6 +1,5 @@
 ﻿using QSP.RouteFinding.Tracks.Nats;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Web;
@@ -235,7 +234,6 @@ namespace TrackBackupApp
                 }
             };
 
-            saveNatsWithLock();
             NoAwait(() => RunPeriodicAsync(saveNatsWithLock,
                 new TimeSpan(0, 0, (int)RefreshIntervalSec), new CancellationToken()));
             Shared.AntiSpam.Execute(a => a.Start());
