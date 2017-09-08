@@ -26,6 +26,10 @@ namespace TrackBackupApp
             "~/config.xml";
 #endif
 
-        public static readonly IReadOnlySet<string> HiddenFileSet = HiddenFiles.LoadFromFileAndLog();
+        public static readonly IReadOnlySet<string> HiddenFileSet = 
+            HiddenFiles.LoadFromFileAndLog();
+
+        public static readonly object StatsFileLock = new object();
+        public static readonly object NatsFileLock = new object();
     }
 }

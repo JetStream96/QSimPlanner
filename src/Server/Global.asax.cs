@@ -12,21 +12,14 @@ namespace TrackBackupApp
     public class Global : HttpApplication
     {
         private readonly double RefreshIntervalSec = 60 * 5;
-
-        // Lower case only!
-        private static readonly List<string> PublicFiles = new List<string>
-        {
-            "/nats/westbound.xml",
-            "/nats/eastbound.xml"
-        };
-
+        
         private static readonly int StatsSavePeriodMs =
 #if DEBUG
             10 * 1000;
 #else
-            10*60*1000;
+            10 * 60 * 1000;
 #endif
-
+        
         // @NoThrow
         public static void TryAndLogIfFail(Action a)
         {
@@ -220,11 +213,6 @@ namespace TrackBackupApp
                 //TODO:???
                 RespondWithUnloggedErrors();
             }
-            else if (pq == "/log.txt")
-            {
-                //TODO:???
-                Response.End();
-            }
         }
 
         private void RespondWithUnloggedErrors()
@@ -238,22 +226,23 @@ namespace TrackBackupApp
         {
             // Fires when the application is started
             Shared.Logger.Log("Application started.");
-            SaveNats();
-            NoAwait(() => RunPeriodicAsync(SaveNats,
+
+            Action saveNatsWithLock = () =>
+            {
+                lock (Shared.NatsFileLock)
+                {
+                    SaveNats();
+                }
+            };
+
+            saveNatsWithLock();
+            NoAwait(() => RunPeriodicAsync(saveNatsWithLock,
                 new TimeSpan(0, 0, (int)RefreshIntervalSec), new CancellationToken()));
             Shared.AntiSpam.Execute(a => a.Start());
-            NoAwait(() => Stats.Helpers.SavePeriodic(Shared.Stats.Value, StatsSavePeriodMs));
+            NoAwait(() => Stats.Helpers.SavePeriodic(Shared.Stats.Value, StatsSavePeriodMs,
+                Shared.StatsFileLock));
         }
-
-        /*
-        // Returns the server url.
-        private static string ReadConfigFile()
-        {
-            var path = HostingEnvironment.MapPath(configFile);
-            var root = XDocument.Load(path).Root;
-            return root.Element("ServerUrl").Value;
-        }*/
-
+        
         protected void Session_Start(object sender, EventArgs e) { }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e) { }

@@ -26,13 +26,13 @@ namespace TrackBackupApp.Stats
         }
 
         // @NoThrow
-        public static async Task SavePeriodic(Statistics stats, int periodMs)
+        public static async Task SavePeriodic(Statistics stats, int periodMs, object _lock)
         {
             await RunPeriodicAsync(() =>
             {
                 try
                 {
-                    SaveToFile(stats);
+                    lock (_lock) { SaveToFile(stats); }
                 }
                 catch (Exception e)
                 {
