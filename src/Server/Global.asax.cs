@@ -10,8 +10,13 @@ namespace TrackBackupApp
 {
     public class Global : HttpApplication
     {
-        private readonly double RefreshIntervalSec = 60 * 5;
-        
+        private readonly double RefreshIntervalSec =
+#if DEBUG
+            30;
+#else
+            60 * 5;
+#endif
+            
         private static readonly int StatsSavePeriodMs =
 #if DEBUG
             10 * 1000;
