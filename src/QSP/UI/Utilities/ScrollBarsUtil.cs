@@ -16,7 +16,7 @@ namespace QSP.UI.Utilities
         /// Disable all default scroll bar event handlers on any child controls of controlOverride.
         /// All mouse scrolls will cause the scroll bar on showScrollOn to change.
         /// </summary>
-        public static void OverrideScrollBar(ScrollableControl showScrollOn, 
+        public static void OverrideScrollBar(ScrollableControl showScrollOn,
             Control controlOverride)
         {
             controlOverride.Controls.Cast<Control>().ForEach(

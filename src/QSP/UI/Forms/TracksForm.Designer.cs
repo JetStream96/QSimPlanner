@@ -109,11 +109,12 @@ namespace QSP.UI.Forms
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(791, 558);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(791, 547);
             this.tableLayoutPanel2.TabIndex = 8;
             // 
             // groupBox2
             // 
+            this.groupBox2.AutoSize = true;
             this.groupBox2.Controls.Add(this.ListView1);
             this.groupBox2.Location = new System.Drawing.Point(2, 176);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
@@ -134,6 +135,7 @@ namespace QSP.UI.Forms
             this.ListView1.Location = new System.Drawing.Point(6, 20);
             this.ListView1.Margin = new System.Windows.Forms.Padding(2);
             this.ListView1.Name = "ListView1";
+            this.ListView1.Scrollable = false;
             this.ListView1.Size = new System.Drawing.Size(777, 147);
             this.ListView1.TabIndex = 7;
             this.ListView1.UseCompatibleStateImageBehavior = false;

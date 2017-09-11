@@ -152,8 +152,14 @@ namespace QSP.UI.Forms
         {
             var records = airwayNetwork.StatusRecorder.Records;
             AddToListView(records);
+            ResizeListViewHeight();
             RefreshListViewColumnWidth();
             SetMainFormTrackStatus(records);
+        }
+
+        private void ResizeListViewHeight()
+        {
+            ListView1.Height = ListView1.DisplayRectangle.Height + 10;
         }
 
         private void InitPicBoxes()
