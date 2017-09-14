@@ -1,4 +1,5 @@
 <!-- Config of the application. This is not meant to be changed. -->
 <root>
   <ErrorReportUrl>http://qsimplan.somee.com/error-report</ErrorReportUrl>
- </root>
+  <EnableErrorReportTest>False</EnableErrorReportTest>
+</root>

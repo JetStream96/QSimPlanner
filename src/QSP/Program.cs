@@ -1,4 +1,5 @@
 ﻿using QSP.Common.Options;
+using QSP.LibraryExtension.XmlSerialization;
 using QSP.Properties;
 using QSP.UI.Forms;
 using QSP.UI.MsgBox;
@@ -9,17 +10,19 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using static QSP.Updates.Utilities;
-using System.Reflection;
 using System.Xml.Linq;
+using static QSP.Updates.Utilities;
 
 namespace QSP
 {
     static class Program
     {
+        private static XElement config;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -54,6 +57,7 @@ namespace QSP
                     return;
                 }
 
+                config = XDocument.Load("./config.xml").Root;
                 SetExceptionHandler();
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
@@ -147,6 +151,11 @@ namespace QSP
 
             Application.ThreadException += (s, e) => HandleException(e.Exception);
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+
+            if (config.GetBool("EnableErrorReportTest"))
+            {
+                throw new Exception("Error report test. " + DateTime.UtcNow.ToString());
+            }
         }
 
         // @NoThrow
@@ -168,15 +177,15 @@ namespace QSP
         {
             try
             {
-                var root = XDocument.Load("./config.xml").Root;
-                var url = root.Element("ErrorReportUrl");
+                var url = config.GetString("ErrorReportUrl");
                 var assemblyLocation = Assembly.GetExecutingAssembly().Location;
 
                 var info = new ProcessStartInfo()
                 {
                     WorkingDirectory = Path.GetDirectoryName(assemblyLocation),
                     FileName = "ErrorReport.exe",
-                    Arguments = url + " " + message
+                    Arguments = url + " " + message,
+                    CreateNoWindow = true
                 };
 
                 if (Environment.OSVersion.Version.Major >= 6) info.Verb = "runas";

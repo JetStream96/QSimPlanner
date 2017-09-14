@@ -18,9 +18,11 @@ namespace InstallerBuilder
             Directory.CreateDirectory(tmpFolder);
             CompileApp(tmpFolder);
 
+            var errorReporterFolder = Path.Combine(OutputFolder, "tmperr");
             CompileErrorReport();
-            File.Move(Path.Combine(OutputFolder, "tmperr/ErrorReport.exe"),
+            File.Move(Path.Combine(errorReporterFolder, "ErrorReport.exe"),
                 Path.Combine(OutputFolder, "tmp/ErrorReport.exe"));
+            Directory.Delete(errorReporterFolder, true);
 
             Version = GetVersion(tmpFolder);
             var folder = Path.Combine(OutputFolder, Version);
