@@ -23,5 +23,11 @@ namespace QSP.LibraryExtension
 
             return webReq;
         }
+
+        public static string GetResponseString(this WebResponse response)
+        {
+            Stream answer = response.GetResponseStream();
+            return new StreamReader(answer).ReadToEnd();
+        }
     }
 }

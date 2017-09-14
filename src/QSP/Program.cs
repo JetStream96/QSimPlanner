@@ -13,6 +13,8 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using static QSP.Updates.Utilities;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace QSP
 {
@@ -147,15 +149,45 @@ namespace QSP
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
         }
 
+        // @NoThrow
         private static void HandleException(Exception ex)
         {
             LoggerInstance.Log(ex);
 
-            var frm = new UnhandledExceptionForm();
-            frm.Init(ex.ToString());
-            frm.ShowDialog();
+            var res = UnhandledExceptionForm.ShowModal(ex.ToString());
+            if (res == UnhandledExceptionForm.FormDialogResult.Yes)
+            {
+                ReportError(ex.ToString());
+            }
 
             Environment.Exit(1);
+        }
+
+        // @NoThrow
+        private static void ReportError(string message)
+        {
+            try
+            {
+                var root = XDocument.Load("./config.xml").Root;
+                var url = root.Element("ErrorReportUrl");
+                var assemblyLocation = Assembly.GetExecutingAssembly().Location;
+
+                var info = new ProcessStartInfo()
+                {
+                    WorkingDirectory = Path.GetDirectoryName(assemblyLocation),
+                    FileName = "ErrorReport.exe",
+                    Arguments = url + " " + message
+                };
+
+                if (Environment.OSVersion.Version.Major >= 6) info.Verb = "runas";
+                Process.Start(info);
+
+            }
+            catch (Exception e)
+            {
+                MsgBoxHelper.ShowError(null, "Faileed to report the error.");
+                LoggerInstance.Log(e);
+            }
         }
 
         private static string GetGuid()

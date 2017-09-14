@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSP", "QSP\QSP.csproj", "{182CA73B-6911-4D37-BA34-C86232FE37F1}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B748F", "FuelProfileConversion\B748F\B748F.csproj", "{3ED0087B-AE79-4F78-A0C5-D061D4B5B017}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixTypeAnalyzer", "FixTypeAnalyzer\FixTypeAnalyzer.csproj", "{21E4CE4D-BEAE-40DF-B66C-DA3618345432}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorReport", "ErrorReport\ErrorReport.csproj", "{85F5736F-35DD-459A-A0A7-30D3FA8BBE5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,9 +61,16 @@ Global
 		{21E4CE4D-BEAE-40DF-B66C-DA3618345432}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21E4CE4D-BEAE-40DF-B66C-DA3618345432}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21E4CE4D-BEAE-40DF-B66C-DA3618345432}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85F5736F-35DD-459A-A0A7-30D3FA8BBE5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85F5736F-35DD-459A-A0A7-30D3FA8BBE5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85F5736F-35DD-459A-A0A7-30D3FA8BBE5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85F5736F-35DD-459A-A0A7-30D3FA8BBE5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2D5CFDC-B745-4D0A-BE7A-E1BC9DBD8219}
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true

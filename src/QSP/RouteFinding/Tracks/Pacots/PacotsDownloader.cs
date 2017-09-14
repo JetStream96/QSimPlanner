@@ -29,20 +29,14 @@ namespace QSP.RouteFinding.Tracks.Pacots
         private static string GetPostMessage()
         {
             var webResp = (HttpWebResponse)GetRequest().GetResponse();
-            return GetResponseString(webResp);
+            return webResp.GetResponseString();
         }
 
         private static async Task<string> GetPostMessageAsync()
         {
             var req = GetRequest();
             var webResp = (HttpWebResponse)await req.GetResponseAsync();
-            return GetResponseString(webResp);
-        }
-
-        private static string GetResponseString(HttpWebResponse response)
-        {
-            Stream answer = response.GetResponseStream();
-            return new StreamReader(answer).ReadToEnd();
+            return webResp.GetResponseString();
         }
 
         private static HttpWebRequest GetRequest()
