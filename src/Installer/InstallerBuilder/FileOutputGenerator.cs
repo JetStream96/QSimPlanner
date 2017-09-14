@@ -18,6 +18,10 @@ namespace InstallerBuilder
             Directory.CreateDirectory(tmpFolder);
             CompileApp(tmpFolder);
 
+            CompileErrorReport();
+            File.Move(Path.Combine(OutputFolder, "tmperr/ErrorReport.exe"),
+                Path.Combine(OutputFolder, "tmp/ErrorReport.exe"));
+
             Version = GetVersion(tmpFolder);
             var folder = Path.Combine(OutputFolder, Version);
             Directory.CreateDirectory(OutputFolder);
@@ -33,6 +37,14 @@ namespace InstallerBuilder
             DeleteRedundantFiles(Version);
         }
 
+        private static void CompileErrorReport()
+        {
+            var errorReporterFolder = Path.Combine(OutputFolder, "tmperr");
+            Directory.CreateDirectory("tmperr");
+            var errProjectFile = Path.Combine(OutputFolder, "../../ErrorReport/ErrorReport.csproj");
+            Compile(errProjectFile, errorReporterFolder);
+        }
+
         private static void DeleteRedundantFiles(string version)
         {
             var mainDir = Path.Combine(OutputFolder, version);
@@ -43,12 +55,12 @@ namespace InstallerBuilder
         {
             var elem = new XElement("Root",
                 new XElement("current", version),
-                new XElement("backup",""));
+                new XElement("backup", ""));
 
             var path = Path.Combine(OutputFolder, "version.xml");
             File.WriteAllText(path, new XDocument(elem).ToString());
         }
-               
+
         private static string RepositoryRoot()
         {
             return Path.Combine(OutputFolder, "../../..");
@@ -111,7 +123,7 @@ namespace InstallerBuilder
                 .Element("MsBuildExePath")
                 .Value;
         }
-        
+
         private static void CopyDirectory(string source, string target)
         {
             var info = new ProcessStartInfo();
