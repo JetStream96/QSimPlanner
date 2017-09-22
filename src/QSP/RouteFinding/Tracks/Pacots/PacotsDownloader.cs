@@ -1,8 +1,8 @@
-using System.IO;
+using QSP.LibraryExtension;
+using QSP.RouteFinding.Tracks.Common;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using QSP.RouteFinding.Tracks.Common;
-using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
@@ -12,10 +12,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
             "https://www.notams.faa.gov/dinsQueryWeb/advancedNotamMapAction.do";
 
         /// <exception cref="Exception"></exception>
-        public ITrackMessage GetMessage()
-        {
-            return new PacotsMessage(GetPostMessage());
-        }
+        public ITrackMessage GetMessage() => new PacotsMessage(GetPostMessage());
 
         /// <exception cref="Exception"></exception>
         public async Task<ITrackMessage> GetMessageAsync()
@@ -32,17 +29,18 @@ namespace QSP.RouteFinding.Tracks.Pacots
             return webResp.GetResponseString();
         }
 
+
+        private static Dictionary<string, string> Query => new Dictionary<string, string>()
+        {
+            ["queryType"] = "pacificTracks",
+            ["actionType"] = "advancedNOTAMFunctions"
+        };
+
         private static async Task<string> GetPostMessageAsync()
         {
-            var req = GetRequest();
-            var webResp = (HttpWebResponse)await req.GetResponseAsync();
-            return webResp.GetResponseString();
+            return await WebRequests.PostRequestStringSync(url, Query);
         }
 
-        private static HttpWebRequest GetRequest()
-        {
-            return WebRequests.GetPostRequest(url,
-                "queryType=pacificTracks&actionType=advancedNOTAMFunctions");
-        }
+        private static HttpWebRequest GetRequest() => WebRequests.GetPostRequest(url, Query);
     }
 }

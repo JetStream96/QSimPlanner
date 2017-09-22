@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using QSP.LibraryExtension;
 using System.Threading;
 using TaskUtil = QSP.LibraryExtension.Tasks.Util;
+using System.Linq;
 
 namespace TrackBackupApp
 {
@@ -27,11 +28,10 @@ namespace TrackBackupApp
         private void IncrementToken()
         {
             var u = users;
-            u.Keys.ForEach(ip =>
-            {
-                if (u[ip]++ >= DefaultTokenCount) users.Remove(ip);
-            });
-
+            u.Keys.ForEach(ip=>u[ip]++)
+            var removeList = u.Keys.Where(ip => u[ip]++ >= DefaultTokenCount).ToList();
+            removeList.ForEach(ip => users.Remove(ip));
+            
         }
 
         // Returns whether the ip is spammer.

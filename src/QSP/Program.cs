@@ -184,17 +184,15 @@ namespace QSP
                 {
                     WorkingDirectory = Path.GetDirectoryName(assemblyLocation),
                     FileName = "ErrorReport.exe",
-                    Arguments = url + " " + message,
-                    CreateNoWindow = true
+                    Arguments = "\"" + url + "\"" + " " + "\"" + message + "\"",
+                    WindowStyle = ProcessWindowStyle.Hidden
                 };
 
-                if (Environment.OSVersion.Version.Major >= 6) info.Verb = "runas";
                 Process.Start(info);
-
             }
             catch (Exception e)
             {
-                MsgBoxHelper.ShowError(null, "Faileed to report the error.");
+                MsgBoxHelper.ShowError(null, "Failed to report the error.");
                 LoggerInstance.Log(e);
             }
         }

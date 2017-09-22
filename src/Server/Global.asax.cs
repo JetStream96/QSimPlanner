@@ -16,14 +16,14 @@ namespace TrackBackupApp
 #else
             60 * 5;
 #endif
-            
+
         private static readonly int StatsSavePeriodMs =
 #if DEBUG
             10 * 1000;
 #else
             10 * 60 * 1000;
 #endif
-        
+
         // @NoThrow
         public static void TryAndLogIfFail(Action a)
         {
@@ -131,44 +131,50 @@ namespace TrackBackupApp
         // @NoThrow
         private void HandlePostRequest(HttpRequest rq)
         {
-            var pq = rq.Url.PathAndQuery.ToLower();
+            var withoutquery = rq.Url.GetLeftPart(UriPartial.Path).ToLower();
+            var path = new Uri(withoutquery).PathAndQuery;
 
-            switch (pq)
+            switch (path)
             {
                 case "/error-report":
                     CollectErrorReport(rq);
                     break;
 
                 default:
-                    Response.StatusCode = 400; 
+                    Response.StatusCode = 400;
                     break;
             }
+        }
+
+        private void EndReq()
+        {
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
         }
 
         private void RespondWithFile(string relativePath)
         {
             var p = HostingEnvironment.MapPath(relativePath);
             Response.WriteFile(p);
-            Response.End();
+            EndReq();
         }
 
         private void RespondWithWebPage(string relativePath)
         {
             var p = HostingEnvironment.MapPath(relativePath);
             Response.Redirect(relativePath);
-            Response.End();
+            EndReq();
         }
 
         private void RespondWithContent(string content)
         {
             Response.Write(content);
-            Response.End();
+            EndReq();
         }
-        
+
         private void CollectErrorReport(HttpRequest rq)
         {
             var ip = rq.UserHostAddress;
-            var body = GetDocumentContents(rq);
+            var body = rq.QueryString["data"];
             if (!Shared.AntiSpam.Value.DecrementToken(ip) &&
                 body.Length < ErrorReportWriter.MaxBodaySize)
             {
@@ -176,18 +182,7 @@ namespace TrackBackupApp
             }
 
             Response.Write("OK");
-            Response.End();
-        }
-
-        private static string GetDocumentContents(HttpRequest r)
-        {
-            using (var receiveStream = r.InputStream)
-            {
-                using (var readStream = new StreamReader(receiveStream, r.ContentEncoding))
-                {
-                    return readStream.ReadToEnd();
-                }
-            }
+            EndReq();
         }
 
         // @NoThrow
@@ -223,7 +218,7 @@ namespace TrackBackupApp
         {
             var e = Shared.UnloggedError.Value;
             Response.Write(e == "" ? "No unlogged error." : e);
-            Response.End();
+            EndReq();
         }
 
         protected void Application_Start(object sender, EventArgs e)
@@ -245,7 +240,7 @@ namespace TrackBackupApp
             NoAwait(() => Stats.Helpers.SavePeriodic(Shared.Stats.Value, StatsSavePeriodMs,
                 Shared.StatsFileLock));
         }
-        
+
         protected void Session_Start(object sender, EventArgs e) { }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e) { }

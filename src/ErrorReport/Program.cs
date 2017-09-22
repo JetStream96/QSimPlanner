@@ -1,6 +1,7 @@
 ﻿using QSP.LibraryExtension;
 using QSP.Utilities;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using static QSP.LibraryExtension.WebRequests;
 
@@ -16,7 +17,10 @@ namespace ErrorReport
             {
                 var url = args[0];
                 var data = args[1];
-                var req = WebRequests.GetPostRequest(url, data);
+                var req = WebRequests.GetPostRequest(url, new Dictionary<string, string>()
+                {
+                    ["data"] = data
+                });
                 var str = req.GetResponse().GetResponseString();
                 if (str != "OK")
                 {
