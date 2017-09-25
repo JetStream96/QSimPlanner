@@ -17,10 +17,16 @@ namespace ErrorReport
             {
                 var url = args[0];
                 var data = args[1];
+
+                // TODO:
+                //File.AppendAllText("a.txt", url + "\n");
+                //File.AppendAllText("a.txt", data+ "\n");
+
                 var req = WebRequests.GetPostRequest(url, new Dictionary<string, string>()
                 {
                     ["data"] = data
                 });
+                File.AppendAllText("a.txt", req.GetRequestStream().ToString() + "\n");
                 var str = req.GetResponse().GetResponseString();
                 if (str != "OK")
                 {

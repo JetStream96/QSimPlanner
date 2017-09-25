@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using QSP.LibraryExtension;
+using System.Linq;
 using System.Threading;
 using TaskUtil = QSP.LibraryExtension.Tasks.Util;
-using System.Linq;
 
 namespace TrackBackupApp
 {
@@ -27,11 +26,17 @@ namespace TrackBackupApp
         // @NoThrow
         private void IncrementToken()
         {
+            // This code is complex because we cannot change dictionary while iterating.
+
             var u = users;
-            u.Keys.ForEach(ip=>u[ip]++)
-            var removeList = u.Keys.Where(ip => u[ip]++ >= DefaultTokenCount).ToList();
-            removeList.ForEach(ip => users.Remove(ip));
-            
+            var keys = u.Keys.ToList();
+
+            // Increment
+            keys.ForEach(ip => u[ip]++);
+
+            // Remove IPs exceeding DefaultTokenCount.
+            var removeList = keys.Where(ip => u[ip] >= DefaultTokenCount).ToList();
+            removeList.ForEach(ip => u.Remove(ip));
         }
 
         // Returns whether the ip is spammer.

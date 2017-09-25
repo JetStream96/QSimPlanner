@@ -184,7 +184,7 @@ namespace QSP
                 {
                     WorkingDirectory = Path.GetDirectoryName(assemblyLocation),
                     FileName = "ErrorReport.exe",
-                    Arguments = "\"" + url + "\"" + " " + "\"" + message + "\"",
+                    Arguments = "\"" + url + "\"" + " " + "\"" + message + "\"",  //TODO:
                     WindowStyle = ProcessWindowStyle.Hidden
                 };
 

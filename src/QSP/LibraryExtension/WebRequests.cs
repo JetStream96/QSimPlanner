@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -9,10 +10,11 @@ namespace QSP.LibraryExtension
 {
     public static class WebRequests
     {
+        // TODO: This uses form instead of urlencoded.
         // E.g. If query is { "a" : 1, "b" : 2 }, the corresponding query string is "a=1&b=2"
         public static HttpWebRequest GetPostRequest(string url, IDictionary<string, string> query)
         {
-            byte[] buffer = Encoding.ASCII.GetBytes(new FormUrlEncodedContent(query).ToString());
+            byte[] buffer = Encoding.ASCII.GetBytes(GetQuery(query));
             var webReq = (HttpWebRequest)WebRequest.Create(url);
 
             webReq.Method = "POST";
@@ -47,6 +49,12 @@ namespace QSP.LibraryExtension
         {
             Stream answer = response.GetResponseStream();
             return new StreamReader(answer).ReadToEnd();
+        }
+        
+        public static string GetQuery(IDictionary<string, string> query)
+        {
+            var content = new FormUrlEncodedContent(query);
+            return Task.Run(content.ReadAsStringAsync).Result;
         }
     }
 }
