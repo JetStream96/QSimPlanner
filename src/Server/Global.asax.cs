@@ -42,6 +42,7 @@ namespace TrackBackupApp
             return DateTime.UtcNow.ToString() + "  " + msg;
         }
 
+        // @Throws
         private void SaveNats()
         {
             var result = new NatsDownloader().DownloadFromNotam();
@@ -174,7 +175,7 @@ namespace TrackBackupApp
         private void CollectErrorReport(HttpRequest rq)
         {
             var ip = rq.UserHostAddress;
-            var body = rq.QueryString["data"];
+            var body = rq.Form["data"];
             if (!Shared.AntiSpam.Value.DecrementToken(ip) &&
                 body.Length < ErrorReportWriter.MaxBodaySize)
             {
@@ -230,7 +231,14 @@ namespace TrackBackupApp
             {
                 lock (Shared.NatsFileLock)
                 {
-                    SaveNats();
+                    try
+                    {
+                        SaveNats();
+                    }
+                    catch (Exception ex)
+                    {
+                        Shared.Logger.Log(ex.ToString());
+                    }                    
                 }
             };
 

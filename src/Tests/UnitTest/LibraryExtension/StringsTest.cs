@@ -55,5 +55,12 @@ namespace UnitTest.LibraryExtension
             var s2 = "  \n\t\n  \n456\n \n789\n\t";
             Assert.IsTrue("456\n \n789" == s2.TrimEmptyLines());
         }
+
+        [Test]
+        public void EscapeCommandLineArgTest()
+        {
+            Assert.AreEqual("\"123 456\"", EscapeCommandLineArg("123 456"));
+            Assert.AreEqual("\"a\"\"\"\"b\"", EscapeCommandLineArg("a\"\"b"));
+        }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web.Hosting;
+using Newtonsoft.Json.Linq;
 
 namespace TrackBackupApp
 {
@@ -23,13 +24,14 @@ namespace TrackBackupApp
         // This method is thread-safe.
         public void Write(string ip, string text)
         {
-            var str = "{ip:" + ip + ", time:" + DateTime.UtcNow.ToString() + ",text:" + text + "}";
+            var str = MakeJson(ip, text) + ",\n";
+
             Func<Task> t = () => Task.Factory.StartNew(() =>
             {
                 try
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(path));
-                    File.AppendAllText(path, str + "\n");
+                    File.AppendAllText(path, str);
                 }
                 catch (Exception e)
                 {
@@ -38,6 +40,18 @@ namespace TrackBackupApp
             });
 
             queue.Add(t);
+        }
+
+        private static string MakeJson(string ip, string text)
+        {
+            var o = new JObject()
+            {
+                { "ip", ip},
+                { "time", DateTime.UtcNow.ToString()},
+                { "text", text}
+            };
+
+            return o.ToString();
         }
     }
 }

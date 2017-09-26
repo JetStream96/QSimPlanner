@@ -44,7 +44,11 @@ namespace TrackBackupApp
         {
             var u = users;
 
-            if (!u.TryGetValue(ip, out var count)) u[ip] = DefaultTokenCount;
+            if (!u.TryGetValue(ip, out var count))
+            {
+                u[ip] = DefaultTokenCount;
+                count = DefaultTokenCount;
+            }
 
             if (count == 0) return true;
 

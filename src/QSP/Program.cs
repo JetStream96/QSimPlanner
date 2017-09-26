@@ -16,6 +16,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static QSP.Updates.Utilities;
+using QSP.LibraryExtension;
 
 namespace QSP
 {
@@ -184,7 +185,7 @@ namespace QSP
                 {
                     WorkingDirectory = Path.GetDirectoryName(assemblyLocation),
                     FileName = "ErrorReport.exe",
-                    Arguments = "\"" + url + "\"" + " " + "\"" + message + "\"",  //TODO:
+                    Arguments = Strings.EscapeCommandLineArg(url) + " " +Strings.EscapeCommandLineArg(message),
                     WindowStyle = ProcessWindowStyle.Hidden
                 };
 

@@ -12,7 +12,7 @@ namespace QSP.LibraryExtension
         {
             return new string(' ', steps) + str.Replace("\n", "\n" + new string(' ', steps));
         }
-        
+
         public static string ReplaceAny(this string input,
             IEnumerable<char> oldValue, string newValue)
         {
@@ -22,7 +22,7 @@ namespace QSP.LibraryExtension
             {
                 if (old.Contains(c))
                 {
-                    sb.Append(newValue); 
+                    sb.Append(newValue);
                 }
                 else
                 {
@@ -65,6 +65,13 @@ namespace QSP.LibraryExtension
             item = item.Replace("\r\n", "\n");
             other = other.Replace("\r\n", "\n");
             return item == other;
+        }
+
+        // Any double quotes in arg will be escaped as two quotes, and entire string will be 
+        // surrounded by double quotes.
+        public static string EscapeCommandLineArg(string arg)
+        {
+            return "\"" + arg.Replace("\"", "\"\"") + "\"";
         }
     }
 }

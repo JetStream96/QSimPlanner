@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -10,15 +9,16 @@ namespace QSP.LibraryExtension
 {
     public static class WebRequests
     {
-        // TODO: This uses form instead of urlencoded.
         // E.g. If query is { "a" : 1, "b" : 2 }, the corresponding query string is "a=1&b=2"
-        public static HttpWebRequest GetPostRequest(string url, IDictionary<string, string> query)
+        // Content type can also be "multipart/form-data", etc.
+        public static HttpWebRequest GetPostRequest(string url, IDictionary<string, string> query,
+            string contentType= "application/x-www-form-urlencoded")
         {
             byte[] buffer = Encoding.ASCII.GetBytes(GetQuery(query));
             var webReq = (HttpWebRequest)WebRequest.Create(url);
 
             webReq.Method = "POST";
-            webReq.ContentType = "application/x-www-form-urlencoded";
+            webReq.ContentType = contentType;
             webReq.ContentLength = buffer.Length;
 
             Stream postData = webReq.GetRequestStream();
