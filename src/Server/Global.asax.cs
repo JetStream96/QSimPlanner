@@ -198,15 +198,15 @@ namespace TrackBackupApp
             }
             else if (pq == "/nats/westbound.xml")
             {
-                Shared.Stats.Execute(s => s.WestboundDownloads++);
+                Shared.Logger.Log("Westbound download from " + rq.UserHostAddress + ".");
             }
             else if (pq == "/nats/eastbound.xml")
             {
-                Shared.Stats.Execute(s => s.EastboundDownloads++);
+                Shared.Logger.Log("Eastbound download from " + rq.UserHostAddress + ".");
             }
             else if (pq == "/updates/info.xml")
             {
-                Shared.Stats.Execute(s => s.UpdateChecks++);
+                Shared.Logger.Log("Update check from " + rq.UserHostAddress + ".");
             }
             else if (pq == "/err")
             {
@@ -245,8 +245,6 @@ namespace TrackBackupApp
             NoAwait(() => RunPeriodicAsync(saveNatsWithLock,
                 new TimeSpan(0, 0, (int)RefreshIntervalSec), new CancellationToken()));
             Shared.AntiSpam.Execute(a => a.Start());
-            NoAwait(() => Stats.Helpers.SavePeriodic(Shared.Stats.Value, StatsSavePeriodMs,
-                Shared.StatsFileLock));
         }
 
         protected void Session_Start(object sender, EventArgs e) { }
