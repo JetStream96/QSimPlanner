@@ -18,6 +18,7 @@ namespace QSP.LibraryExtension.Tasks
     //
     /// <summary>
     /// The tasks added to this queue are executed in the order of addition.
+    /// This class is not thread-safe.
     /// </summary>
     public class TaskQueue
     {

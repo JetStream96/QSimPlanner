@@ -9,7 +9,7 @@ namespace TrackBackupApp
     // Thread-safe
     public class Logger
     {
-        private TaskQueue queue = new TaskQueue();
+        private SyncTaskQueue queue = new SyncTaskQueue();
         private string path;
 
         public Logger(string path = "~/log.txt")
@@ -18,7 +18,7 @@ namespace TrackBackupApp
         }
 
         // @NoThrow
-        // This method is thread-safe.
+        // Thread-safe.
         public void Log(string msg)
         {
             var text = Global.AddTimeStamp(msg) + "\n";
@@ -30,12 +30,12 @@ namespace TrackBackupApp
                 }
                 catch (Exception e)
                 {
-                    Shared.UnloggedError.Modify(s => s + text + 
+                    Shared.UnloggedError.Modify(s => s + text +
                         Global.AddTimeStamp(e.ToString()) + "\n");
                 }
             });
 
-            queue.Add(t);
+          queue.Add(t);
         }
     }
 }

@@ -6,17 +6,18 @@ namespace TrackBackupApp
 {
     public static class Shared
     {
-        public static LockedObj<string> UnloggedError = new LockedObj<string>("");
-        public static LockedObj<AntiSpamList> AntiSpam =
+        public static readonly LockedObj<string> UnloggedError = new LockedObj<string>("");
+        public static readonly LockedObj<AntiSpamList> AntiSpam =
             new LockedObj<AntiSpamList>(new AntiSpamList());
 
         // Do not change the reference to Stats.Value.
         public static LockedObj<Statistics> Stats =
             new LockedObj<Statistics>(Helpers.LoadOrGenerateFile());
 
-        // Thread-safe 
+        // Thread-safe
         public static readonly ErrorReportWriter ErrReportWriter = new ErrorReportWriter();
         public static readonly Logger Logger = new Logger();
+
 
         // Readonly
         public static readonly string ConfigFile =
@@ -26,7 +27,7 @@ namespace TrackBackupApp
             "~/config.xml";
 #endif
 
-        public static readonly IReadOnlySet<string> HiddenFileSet = 
+        public static readonly IReadOnlySet<string> HiddenFileSet =
             HiddenFiles.LoadFromFileAndLog();
 
         public static readonly object StatsFileLock = new object();

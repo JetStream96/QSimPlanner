@@ -7,12 +7,12 @@ using Newtonsoft.Json.Linq;
 
 namespace TrackBackupApp
 {
-    // This class is thread-safe.
+    // Thread-safe.
     public class ErrorReportWriter
     {
         public static readonly int MaxBodaySize = 1_000_000;
 
-        private TaskQueue queue = new TaskQueue();
+        private SyncTaskQueue queue = new SyncTaskQueue();
         private string path;
 
         public ErrorReportWriter(string path = "~/error-report/error-report.txt")
@@ -21,7 +21,7 @@ namespace TrackBackupApp
         }
 
         // @NoThrow
-        // This method is thread-safe.
+        // Thread-safe.
         public void Write(string ip, string text)
         {
             var str = MakeJson(ip, text) + ",\n";
