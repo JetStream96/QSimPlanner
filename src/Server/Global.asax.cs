@@ -16,14 +16,7 @@ namespace TrackBackupApp
 #else
             60 * 5;
 #endif
-
-        private static readonly int StatsSavePeriodMs =
-#if DEBUG
-            10 * 1000;
-#else
-            10 * 60 * 1000;
-#endif
-
+        
         // @NoThrow
         public static void TryAndLogIfFail(Action a)
         {

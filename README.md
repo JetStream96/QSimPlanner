@@ -32,12 +32,6 @@ Currently the aircrafts available are
 - 777F
 - 787-8
 
-More aircrafts need to be added, especially the A320 and A330 families. It would be nice if more Boeing aircrafts can be added, but obtaining required performance data may be difficult.
-
-### Roadmap
-- Add more aircraft profiles, including A320/A330 series.
-- Add ETOPS planning and redispatch.
-
 ### Contributing
 You are welcomed to submit pull requests to this repository. Feel free to leave any questions or suggestions.
 
