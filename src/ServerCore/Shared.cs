@@ -1,5 +1,5 @@
-﻿using QSP.LibraryExtension;
-using QSP.LibraryExtension.Sets;
+﻿using LibraryExtension;
+using LibraryExtension.Sets;
 
 namespace ServerCore
 {
