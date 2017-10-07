@@ -2,8 +2,8 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Web.Hosting;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ServerCore
 {
@@ -15,9 +15,9 @@ namespace ServerCore
         private SyncTaskQueue queue = new SyncTaskQueue();
         private string path;
 
-        public ErrorReportWriter(string path = "~/error-report/error-report.txt")
+        public ErrorReportWriter(IHostingEnvironment env, string path = "error-report/error-report.txt")
         {
-            this.path = HostingEnvironment.MapPath(path);
+            this.path = Path.Combine(env.ContentRootPath, path);
         }
 
         // @NoThrow
@@ -46,9 +46,9 @@ namespace ServerCore
         {
             var o = new JObject()
             {
-                { "ip", ip},
-                { "time", DateTime.UtcNow.ToString()},
-                { "text", text}
+                { "ip", ip },
+                { "time", DateTime.UtcNow.ToString() },
+                { "text", text }
             };
 
             return o.ToString();

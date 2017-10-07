@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Web.Hosting;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ServerCore
 {
@@ -12,16 +12,16 @@ namespace ServerCore
         private SyncTaskQueue queue = new SyncTaskQueue();
         private string path;
 
-        public Logger(string path = "~/log.txt")
+        public Logger(IHostingEnvironment env, string path = "log.txt")
         {
-            this.path = HostingEnvironment.MapPath(path);
+            this.path =Util.MapPath(env,path);
         }
 
         // @NoThrow
         // Thread-safe.
         public void Log(string msg)
         {
-            var text = Global.AddTimeStamp(msg) + "\n";
+            var text = Util.AddTimeStamp(msg) + "\n";
             Func<Task> t = () => Task.Factory.StartNew(() =>
             {
                 try
@@ -31,7 +31,7 @@ namespace ServerCore
                 catch (Exception e)
                 {
                     Shared.UnloggedError.Modify(s => s + text +
-                        Global.AddTimeStamp(e.ToString()) + "\n");
+                        Util.AddTimeStamp(e.ToString()) + "\n");
                 }
             });
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Web.Hosting;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ServerCore
 {
@@ -15,16 +15,16 @@ namespace ServerCore
         // @NoThrow
         // If the file cannot be parsed correctly or is not found,
         // the current UTC time is set.
-        public static void LoadFromFile()
+        public static void LoadFromFile(IHostingEnvironment env)
         {
-            LoadFromFile(w => WestUtc = w, fileWest);
-            LoadFromFile(e => EastUtc = e, fileEast);
+            LoadFromFile(w => WestUtc = w, fileWest, env);
+            LoadFromFile(e => EastUtc = e, fileEast, env);
         }
 
         // @NoThrow
-        private static void LoadFromFile(Action<DateTime> setter, string file)
+        private static void LoadFromFile(Action<DateTime> setter, string file, IHostingEnvironment env)
         {
-            var path = HostingEnvironment.MapPath(file);
+            var path = Util.MapPath(env, file);
 
             try
             {
@@ -38,21 +38,21 @@ namespace ServerCore
         }
 
         // @NoThrow
-        public static void SaveWest()
+        public static void SaveWest(IHostingEnvironment env)
         {
-            Global.TryAndLogIfFail(() => Save(() => WestUtc, fileWest));
+            Util.TryAndLogIfFail(() => Save(() => WestUtc, fileWest, env));
         }
 
         // @NoThrow
-        public static void SaveEast()
+        public static void SaveEast(IHostingEnvironment env)
         {
-            Global.TryAndLogIfFail(() => Save(() => EastUtc, fileEast));
+            Util.TryAndLogIfFail(() => Save(() => EastUtc, fileEast, env));
         }
 
         // @Throws
-        private static void Save(Func<DateTime> getter, string file)
+        private static void Save(Func<DateTime> getter, string file, IHostingEnvironment env)
         {
-            var path = HostingEnvironment.MapPath(file);
+            var path = Util.MapPath(env, file);
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             File.WriteAllText(path, getter().ToBinary().ToString());
         }

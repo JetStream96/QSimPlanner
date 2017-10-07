@@ -1,8 +1,8 @@
 ﻿using LibraryExtension.Sets;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Hosting;
 using System.Xml.Linq;
 
 namespace ServerCore
@@ -11,11 +11,11 @@ namespace ServerCore
     {
         // @Throws
         // If this fails, the server should not start.
-        public static IReadOnlySet<string> LoadFromFileAndLog()
+        public static IReadOnlySet<string> LoadFromFileAndLog(IHostingEnvironment env)
         {
             try
             {
-                return LoadFromFile();
+                return LoadFromFile(env);
             }
             catch (Exception e)
             {
@@ -25,9 +25,9 @@ namespace ServerCore
         }
 
         // @Throws
-        public static IReadOnlySet<string> LoadFromFile()
+        public static IReadOnlySet<string> LoadFromFile(IHostingEnvironment env)
         {
-            var root = XDocument.Load(HostingEnvironment.MapPath(Shared.ConfigFile)).Root;
+            var root = XDocument.Load(Util.MapPath(env, Shared.ConfigFile)).Root;
             var strings = root.Elements("hidden").Select(s => s.Value.ToLower());
             return new ReadOnlySet<string>(new HashSet<string>(strings));
         }
