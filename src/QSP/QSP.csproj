@@ -164,13 +164,8 @@
     <Compile Include="LibraryExtension\IOMethods.cs" />
     <Compile Include="LibraryExtension\IReadOnlyBiDictionary.cs" />
     <Compile Include="LibraryExtension\IReadOnlyLists.cs" />
-    <Compile Include="LibraryExtension\Sets\IReadOnlySet.cs" />
     <Compile Include="LibraryExtension\LinkedLists.cs" />
     <Compile Include="LibraryExtension\Locator.cs" />
-    <Compile Include="LibraryExtension\Sets\ReadOnlySet.cs" />
-    <Compile Include="LibraryExtension\Tasks\SyncTaskQueue.cs" />
-    <Compile Include="LibraryExtension\Tasks\Util.cs" />
-    <Compile Include="LibraryExtension\LockedObj.cs" />
     <Compile Include="LibraryExtension\WebRequests.cs" />
     <Compile Include="LibraryExtension\Xmls.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\Interfaces.cs" />
@@ -373,7 +368,6 @@
     <Compile Include="AviationTools\Airac\AiracPeriod.cs" />
     <Compile Include="LibraryExtension\Registries.cs" />
     <Compile Include="Utilities\SimulatorPath.cs" />
-    <Compile Include="LibraryExtension\Tasks\TaskQueue.cs" />
     <Compile Include="Utilities\TimeIt.cs" />
     <Compile Include="Utilities\Units\Conversions.cs" />
     <Compile Include="Common\Options\OptionManager.cs" />

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using QSP.LibraryExtension.Tasks;
+using LibraryExtension.Tasks;
 
 namespace IntegrationTest.QSP.LibraryExtension.Tasks
 {

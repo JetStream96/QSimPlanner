@@ -1,5 +1,5 @@
 ﻿using QSP.LibraryExtension;
-using QSP.LibraryExtension.Sets;
+using LibraryExtension.Sets;
 
 namespace QSP.RouteFinding
 {

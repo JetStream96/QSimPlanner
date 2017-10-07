@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using QSP.LibraryExtension.Sets;
+using LibraryExtension.Sets;
 
 namespace QSP.LibraryExtension
 {

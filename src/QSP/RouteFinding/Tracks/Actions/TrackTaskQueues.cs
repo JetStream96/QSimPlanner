@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using QSP.LibraryExtension.Tasks;
+using LibraryExtension.Tasks;
 using QSP.RouteFinding.Tracks.Common;
 using static QSP.RouteFinding.Tracks.Common.Helpers;
 

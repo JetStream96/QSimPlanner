@@ -1,4 +1,4 @@
-﻿using QSP.LibraryExtension.Sets;
+﻿using LibraryExtension.Sets;
 using System;
 using System.IO;
 using System.Linq;

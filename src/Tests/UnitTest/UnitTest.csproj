@@ -76,7 +76,6 @@
     <Compile Include="LibraryExtension\IEnumerablesTest.cs" />
     <Compile Include="LibraryExtension\LinkedListsTest.cs" />
     <Compile Include="LibraryExtension\ListsTest.cs" />
-    <Compile Include="LibraryExtension\LockedObjTest.cs" />
     <Compile Include="LibraryExtension\WebRequestsTest.cs" />
     <Compile Include="MathTools\NumbersTest.cs" />
     <Compile Include="MathTools\ModuloTest.cs" />

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 using QSP.LibraryExtension;
-using QSP.LibraryExtension.Sets;
+using LibraryExtension.Sets;
 
 namespace FixTypeAnalyzer
 {
