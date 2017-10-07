@@ -10,11 +10,13 @@ namespace ServerCore
     public class Logger
     {
         private SyncTaskQueue queue = new SyncTaskQueue();
+        private SharedData shared;
         private string path;
 
         public Logger(IHostingEnvironment env, string path = "log.txt")
         {
-            this.path =Util.MapPath(env,path);
+            this.shared = SharedData.GetInstance(env);
+            this.path = shared.MapPath(path);
         }
 
         // @NoThrow
@@ -30,12 +32,12 @@ namespace ServerCore
                 }
                 catch (Exception e)
                 {
-                    Shared.UnloggedError.Modify(s => s + text +
+                    shared.UnloggedError.Modify(s => s + text +
                         Util.AddTimeStamp(e.ToString()) + "\n");
                 }
             });
 
-          queue.Add(t);
+            queue.Add(t);
         }
     }
 }

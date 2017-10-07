@@ -13,11 +13,13 @@ namespace ServerCore
         public static readonly int MaxBodaySize = 1_000_000;
 
         private SyncTaskQueue queue = new SyncTaskQueue();
+        private SharedData shared;
         private string path;
 
         public ErrorReportWriter(IHostingEnvironment env, string path = "error-report/error-report.txt")
         {
-            this.path = Path.Combine(env.ContentRootPath, path);
+            this.shared = SharedData.GetInstance(env);
+            this.path = shared.MapPath(path);
         }
 
         // @NoThrow
@@ -35,7 +37,7 @@ namespace ServerCore
                 }
                 catch (Exception e)
                 {
-                    Shared.Logger.Log(e.ToString());
+                    shared.Logger.Log(e.ToString());
                 }
             });
 

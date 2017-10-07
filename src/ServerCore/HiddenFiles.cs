@@ -13,21 +13,23 @@ namespace ServerCore
         // If this fails, the server should not start.
         public static IReadOnlySet<string> LoadFromFileAndLog(IHostingEnvironment env)
         {
+            var s = SharedData.GetInstance(env);
+
             try
             {
-                return LoadFromFile(env);
+                return LoadFromFile(s);
             }
             catch (Exception e)
             {
-                Shared.Logger.Log(e.ToString());
+                s.Logger.Log(e.ToString());
                 throw;
             }
         }
 
         // @Throws
-        public static IReadOnlySet<string> LoadFromFile(IHostingEnvironment env)
+        public static IReadOnlySet<string> LoadFromFile(SharedData sd)
         {
-            var root = XDocument.Load(Util.MapPath(env, Shared.ConfigFile)).Root;
+            var root = XDocument.Load(sd.MapPath(SharedData.ConfigFile)).Root;
             var strings = root.Elements("hidden").Select(s => s.Value.ToLower());
             return new ReadOnlySet<string>(new HashSet<string>(strings));
         }

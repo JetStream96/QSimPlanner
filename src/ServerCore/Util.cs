@@ -12,7 +12,7 @@ namespace ServerCore
         }
         
         // @NoThrow
-        public static void TryAndLogIfFail(Action a)
+        public static void TryAndLogIfFail(SharedData s, Action a)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace ServerCore
             }
             catch (Exception e)
             {
-                Shared.Logger.Log(e.ToString());
+                s.Logger.Log(e.ToString());
             }
         }
 

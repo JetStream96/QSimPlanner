@@ -4,8 +4,18 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace ServerCore
 {
-    public class Shared
+    public class SharedData
     {
+        // Singleton
+        private static SharedData instance;
+        public static SharedData GetInstance(IHostingEnvironment env)
+        {
+            if (instance == null) instance = new SharedData(env);
+            return instance;
+        }
+
+
+        public IHostingEnvironment HostingEnvironment { get; }
         public LockedObj<string> UnloggedError { get; } = new LockedObj<string>("");
         public LockedObj<AntiSpamList> AntiSpam { get; } =
             new LockedObj<AntiSpamList>(new AntiSpamList());
@@ -27,11 +37,14 @@ namespace ServerCore
         public object StatsFileLock { get; } = new object();
         public object NatsFileLock { get; } = new object();
 
-        public Shared(IHostingEnvironment env)
+        public SharedData(IHostingEnvironment env)
         {
+            HostingEnvironment = env;
             ErrReportWriter = new ErrorReportWriter(env);
             Logger = new Logger(env);
             HiddenFileSet = HiddenFiles.LoadFromFileAndLog(env);
         }
+
+        public string MapPath(string path) => Util.MapPath(HostingEnvironment, path);
     }
 }

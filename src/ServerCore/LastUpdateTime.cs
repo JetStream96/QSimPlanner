@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace ServerCore
 {
+    //TODO: To class.
     public static class LastUpdateTime
     {
         private static readonly string fileEast = "~/nats/LastUpdateTimeEast.txt";
@@ -15,16 +16,16 @@ namespace ServerCore
         // @NoThrow
         // If the file cannot be parsed correctly or is not found,
         // the current UTC time is set.
-        public static void LoadFromFile(IHostingEnvironment env)
+        public static void LoadFromFile(SharedData s)
         {
-            LoadFromFile(w => WestUtc = w, fileWest, env);
-            LoadFromFile(e => EastUtc = e, fileEast, env);
+            LoadFromFile(w => WestUtc = w, fileWest, s);
+            LoadFromFile(e => EastUtc = e, fileEast, s);
         }
 
         // @NoThrow
-        private static void LoadFromFile(Action<DateTime> setter, string file, IHostingEnvironment env)
+        private static void LoadFromFile(Action<DateTime> setter, string file, SharedData s)
         {
-            var path = Util.MapPath(env, file);
+            var path = s.MapPath(file);
 
             try
             {
@@ -32,27 +33,27 @@ namespace ServerCore
             }
             catch (Exception e)
             {
-                Shared.Logger.Log(e.ToString());
+                s.Logger.Log(e.ToString());
                 setter(DateTime.UtcNow);
             }
         }
 
         // @NoThrow
-        public static void SaveWest(IHostingEnvironment env)
+        public static void SaveWest(SharedData shared)
         {
-            Util.TryAndLogIfFail(() => Save(() => WestUtc, fileWest, env));
+            Util.TryAndLogIfFail(shared, () => Save(() => WestUtc, fileWest, shared));
         }
 
         // @NoThrow
-        public static void SaveEast(IHostingEnvironment env)
+        public static void SaveEast(SharedData shared)
         {
-            Util.TryAndLogIfFail(() => Save(() => EastUtc, fileEast, env));
+            Util.TryAndLogIfFail(shared, () => Save(() => EastUtc, fileEast, shared));
         }
 
         // @Throws
-        private static void Save(Func<DateTime> getter, string file, IHostingEnvironment env)
+        private static void Save(Func<DateTime> getter, string file, SharedData shared)
         {
-            var path = Util.MapPath(env, file);
+            var path = shared.MapPath( file);
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             File.WriteAllText(path, getter().ToBinary().ToString());
         }
