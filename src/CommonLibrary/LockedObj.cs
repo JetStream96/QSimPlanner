@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LibraryExtension
+namespace CommonLibrary
 {
     public class LockedObj<T>
     {

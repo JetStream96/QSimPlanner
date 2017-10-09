@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LibraryExtension.Tasks
+namespace CommonLibrary.LibraryExtension.Tasks
 {
     public static class Util
     {

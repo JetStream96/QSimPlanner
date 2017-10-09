@@ -976,9 +976,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LibraryExtension\LibraryExtension.csproj">
+    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
       <Project>{56c3bd11-e518-4454-8f74-94156b04ebad}</Project>
-      <Name>LibraryExtension</Name>
+      <Name>CommonLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

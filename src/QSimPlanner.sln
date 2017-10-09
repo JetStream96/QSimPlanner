@@ -25,9 +25,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorReport", "ErrorReport\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerCore", "ServerCore\ServerCore.csproj", "{55E19F9C-6DDC-444C-BB65-FA2122DE7DAB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryExtension", "LibraryExtension\LibraryExtension.csproj", "{56C3BD11-E518-4454-8F74-94156B04EBAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{56C3BD11-E518-4454-8F74-94156B04EBAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryExtensionTest", "LibraryExtensionTest\LibraryExtensionTest.csproj", "{F0B66E83-95A6-49C4-B2EE-0CD6E03F9451}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLibraryTest", "CommonLibraryTest\CommonLibraryTest.csproj", "{F0B66E83-95A6-49C4-B2EE-0CD6E03F9451}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

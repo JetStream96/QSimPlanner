@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace LibraryExtension.Sets
+namespace CommonLibrary.LibraryExtension.Sets
 {
     public class ReadOnlySet<T> : IReadOnlySet<T>
     {

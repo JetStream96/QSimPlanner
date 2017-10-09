@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LibraryExtension.Sets
+namespace CommonLibrary.LibraryExtension.Sets
 {
     public interface IReadOnlySet<T> : IEnumerable<T>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace LibraryExtension.Tasks
+namespace CommonLibrary.LibraryExtension.Tasks
 {
     // Execute the given tasks without blocking.
     public class SyncTaskQueue
