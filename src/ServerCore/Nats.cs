@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-/*
+
 namespace ServerCore
 {
 public class Nats
@@ -84,5 +84,3 @@ public class Nats
     }
 }
 }
-
-    */
