@@ -360,7 +360,7 @@ namespace QSP.UI.UserControls.AircraftMenu
             {
                 if (InEditMode)
                 {
-                    if(fn != currentConfig.FilePath) DeleteCurrentConfigFile();
+                    if (fn != currentConfig.FilePath) DeleteCurrentConfigFile();
                     AddToDeletedDefaultAc(currentConfig.FilePath, currentConfig.Config.Registration);
                 }
 

@@ -247,6 +247,12 @@ namespace QSP.UI.UserControls.RouteActions
 
         private void ShowMapClick(object sender, EventArgs e)
         {
+            if (Route == null)
+            {
+                MsgBoxHelper.ShowInfo(parentForm, "Please find a route first.");
+                return;
+            }
+
             ShowMapHelper.ShowMap(Route.Expanded, parentForm.Size, parentForm);
         }
     }
