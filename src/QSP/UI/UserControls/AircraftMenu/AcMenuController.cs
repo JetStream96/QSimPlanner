@@ -358,8 +358,12 @@ namespace QSP.UI.UserControls.AircraftMenu
 
             if (TrySaveConfig(config, fn))
             {
-                if (InEditMode && fn != currentConfig.FilePath) DeleteCurrentConfigFile();
-                AddToDeletedDefaultAc(currentConfig.FilePath, currentConfig.Config.Registration);
+                if (InEditMode)
+                {
+                    if(fn != currentConfig.FilePath) DeleteCurrentConfigFile();
+                    AddToDeletedDefaultAc(currentConfig.FilePath, currentConfig.Config.Registration);
+                }
+
                 RemoveOldConfig();
                 profiles.AcConfigs.Add(new AircraftConfig(config, fn));
                 ShowSelectionGroupBox();
