@@ -563,7 +563,8 @@ namespace QSP.UI.UserControls
             {
                 throw new InvalidUserInputException(
                     "Wind data has not been downloaded or loaded from file.\n" +
-                    "You can disable wind-optimized route from Options > Route.");
+                    "If you do not want to use wind-optimized route, it can be disabled " +
+                    "from Options > Route.");
             }
 
             var fuelData = GetFuelData();

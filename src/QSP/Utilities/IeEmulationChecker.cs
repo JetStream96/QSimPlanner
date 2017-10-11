@@ -93,31 +93,20 @@ namespace QSP.Utilities
                 string[] a = version.Split('.');
                 int v = Convert.ToInt32(a[0]);
 
-                if (v == 9)
-                {
-                    //IE 9,10,11, ...
+				if (v != 9) return v;
+				
+				//IE 9,10,11, ...
+				
+				if (Convert.ToInt32(a[1]) < 10) return 9; //IE 9 
+			   
+				version = Convert.ToString(
+					Microsoft.Win32.Registry.GetValue(
+						@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\" +
+						"Internet Explorer",
+						"svcVersion", ""));
 
-                    //IE 9 
-                    if (Convert.ToInt32(a[1]) < 10)
-                    {
-                        return 9;
-                    }
-                    else
-                    {
-                        version = Convert.ToString(
-                            Microsoft.Win32.Registry.GetValue(
-                                @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\" +
-                                "Internet Explorer",
-                                "svcVersion", ""));
-
-                        a = version.Split('.');
-                        return Convert.ToInt32(a[0]);
-                    }
-                }
-                else
-                {
-                    return v;
-                }
+				a = version.Split('.');
+				return Convert.ToInt32(a[0]);
             }
             catch
             {
