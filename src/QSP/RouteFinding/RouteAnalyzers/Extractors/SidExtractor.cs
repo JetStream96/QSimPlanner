@@ -1,4 +1,6 @@
-﻿using QSP.RouteFinding.AirwayStructure;
+﻿using CommonLibrary.LibraryExtension;
+using QSP.LibraryExtension;
+using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
@@ -6,7 +8,6 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.LibraryExtension;
 
 namespace QSP.RouteFinding.RouteAnalyzers.Extractors
 {

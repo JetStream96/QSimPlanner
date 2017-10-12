@@ -1,9 +1,9 @@
-﻿using QSP.RouteFinding.Airports;
+﻿using CommonLibrary.LibraryExtension;
+using QSP.RouteFinding.Airports;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using QSP.LibraryExtension;
 
 namespace QSP.NavData.AAX
 {

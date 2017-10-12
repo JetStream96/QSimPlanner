@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using static CommonLibrary.LibraryExtension.IEnumerables;
 
-namespace QSP.LibraryExtension
+namespace CommonLibrary.LibraryExtension
 {
     public static class Strings
     {
+        public static IEnumerable<char> CastStr(this string s) => s.Cast<char>();
+
         public static string ShiftToRight(this string str, int steps)
         {
             return new string(' ', steps) + str.Replace("\n", "\n" + new string(' ', steps));
@@ -18,7 +21,7 @@ namespace QSP.LibraryExtension
         {
             var old = oldValue.ToHashSet();
             var sb = new StringBuilder();
-            input.ForEach(c =>
+            input.CastStr().ForEach(c =>
             {
                 if (old.Contains(c))
                 {
@@ -57,7 +60,7 @@ namespace QSP.LibraryExtension
         private static IEnumerable<string> SkipEmptyLines(this IEnumerable<string> item)
         {
             char[] spaces = { ' ', '\t' };
-            return item.SkipWhile(s => s.All(c => spaces.Contains(c)));
+            return item.SkipWhile(s => s.CastStr().All(c => spaces.Contains(c)));
         }
 
         public static bool EqualsIgnoreNewlineStyle(this string item, string other)

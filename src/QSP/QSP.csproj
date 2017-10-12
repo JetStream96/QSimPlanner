@@ -387,7 +387,6 @@
     <Compile Include="LibraryExtension\FixedIndexList.cs" />
     <Compile Include="LibraryExtension\Graph\Graph.cs" />
     <Compile Include="LibraryExtension\DoubleArrayCompare.cs" />
-    <Compile Include="LibraryExtension\IEnumerables.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\JaggedArray.cs" />
     <Compile Include="LibraryExtension\JaggedArrays\LengthChecker.cs" />
     <Compile Include="LibraryExtension\Paths.cs" />
@@ -570,7 +569,6 @@
     <Compile Include="LibraryExtension\MultiMap.cs" />
     <Compile Include="LibraryExtension\Util.cs" />
     <Compile Include="LibraryExtension\Lists.cs" />
-    <Compile Include="LibraryExtension\Strings.cs" />
     <Compile Include="LibraryExtension\TimeFormat.cs" />
     <Compile Include="MathTools\GCDis.cs" />
     <Compile Include="MathTools\Matrix2by2.cs" />

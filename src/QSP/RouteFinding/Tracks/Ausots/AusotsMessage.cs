@@ -1,7 +1,7 @@
 ﻿using QSP.RouteFinding.Tracks.Common;
 using System.Xml.Linq;
 using QSP.LibraryExtension;
-using static QSP.LibraryExtension.Strings;
+using static CommonLibrary.LibraryExtension.Strings;
 
 namespace QSP.RouteFinding.Tracks.Ausots
 {

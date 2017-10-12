@@ -5,7 +5,7 @@ using QSP.Common;
 using QSP.LandingPerfCalculation;
 using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
-using QSP.LibraryExtension;
+using CommonLibrary.LibraryExtension;
 using QSP.UI.MsgBox;
 using QSP.Utilities.Units;
 using QSP.AircraftProfiles.Configs;

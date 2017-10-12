@@ -1,12 +1,12 @@
-﻿using QSP.LibraryExtension;
+﻿using CommonLibrary.LibraryExtension;
 using QSP.UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Math;
 using static QSP.Utilities.ExceptionHelpers;
+using static System.Math;
 
 namespace QSP.UI.MsgBox
 {

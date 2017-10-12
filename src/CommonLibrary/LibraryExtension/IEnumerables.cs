@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using CommonLibrary.LibraryExtension.Sets;
 
-namespace QSP.LibraryExtension
+namespace CommonLibrary.LibraryExtension
 {
     public static class IEnumerables
     {

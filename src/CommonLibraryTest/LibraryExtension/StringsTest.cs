@@ -1,13 +1,20 @@
-﻿using NUnit.Framework;
-using QSP.LibraryExtension;
+﻿using CommonLibrary.LibraryExtension;
+using NUnit.Framework;
 using System;
-using static QSP.LibraryExtension.Strings;
+using System.Linq;
+using static CommonLibrary.LibraryExtension.Strings;
 
-namespace UnitTest.LibraryExtension
+namespace CommonLibraryTest.LibraryExtension
 {
     [TestFixture]
     public class StringsTest
     {
+        [Test]
+        public void CastTest()
+        {
+            Assert.AreEqual("testabc", new string("testabc".CastStr().ToArray()));
+        }
+
         [Test]
         public void ReplaceAnyTest()
         {
@@ -22,7 +29,7 @@ namespace UnitTest.LibraryExtension
             Assert.IsTrue("<shouldRemoveThis>".RemoveHtmlTags() == "");
             Assert.IsTrue("123<456>789".RemoveHtmlTags() == "123789");
         }
-        
+
         [Test]
         public void ShiftToRightValidCount()
         {

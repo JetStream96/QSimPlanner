@@ -4,8 +4,8 @@ using QSP.FuelCalculation.Calculations;
 using QSP.FuelCalculation.Results.Nodes;
 using System.Collections.Generic;
 using System.Linq;
+using static CommonLibrary.LibraryExtension.IEnumerables;
 using static QSP.FuelCalculation.Calculations.NodeMarker;
-using static QSP.LibraryExtension.IEnumerables;
 
 namespace UnitTest.FuelCalculation.Calculations
 {

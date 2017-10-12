@@ -1,7 +1,7 @@
-﻿using QSP.FuelCalculation.Calculations;
+﻿using CommonLibrary.LibraryExtension;
+using QSP.FuelCalculation.Calculations;
 using QSP.FuelCalculation.Calculations.Corrections;
 using QSP.FuelCalculation.FuelData;
-using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Routes;
 using QSP.WindAloft;

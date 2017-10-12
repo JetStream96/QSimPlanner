@@ -1,86 +1,99 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 
 namespace ServerCore
 {
-public class Nats
-{
-    private readonly double RefreshIntervalSec =
+    public class Nats
+    {
+        private readonly double RefreshIntervalSec =
 #if DEBUG
         30;
 #else
         60 * 5;
 #endif
+        private SharedData shared;
 
-    // @Throws
-    private void SaveNats()
-    {
-        var result = new NatsDownloader().DownloadFromNotam();
-        Directory.CreateDirectory(HostingEnvironment.MapPath("~/nats"));
-        bool westUpdated = false;
-        bool eastUpdated = false;
-
-        foreach (var i in result)
+        public Nats(IHostingEnvironment env)
         {
-            if (i.Direction == NatsDirection.East)
+            shared = SharedData.GetInstance(env);
+        }
+
+        private static string DownloadNats()
+        {
+            var wc = new WebClient();
+            var str=wc.DownloadString("https://www.notams.faa.gov/common/nat.html?");
+
+        }
+
+        // @Throws
+        private void SaveNats()
+        {
+            var result = new NatsDownloader().DownloadFromNotam();
+            Directory.CreateDirectory(shared.MapPath("nats"));
+            bool westUpdated = false;
+            bool eastUpdated = false;
+
+            foreach (var i in result)
             {
-                eastUpdated = SaveEastbound(i);
-                if (eastUpdated) LastUpdateTime.SaveEast();
+                if (i.Direction == NatsDirection.East)
+                {
+                    eastUpdated = SaveEastbound(i);
+                    if (eastUpdated) LastUpdateTime.SaveEast(shared);
+                }
+                else
+                {
+                    westUpdated = SaveWestbound(i);
+                    if (westUpdated) LastUpdateTime.SaveWest(shared);
+                }
             }
-            else
+
+            shared.Logger.Log(SaveNatsMsg(westUpdated, eastUpdated));
+        }
+
+        // Test if the eastbound track needs to be saved. If yes, saved the file and 
+        // return true. Otherwise, returns false.
+        private bool SaveEastbound(IndividualNatsMessage i)
+        {
+            var filepath = "~/nats/Eastbound.xml";
+            var (success, newTime) = NatsMessage.ParseDate(i.LastUpdated);
+            if (success && newTime > LastUpdateTime.EastUtc)
             {
-                westUpdated = SaveWestbound(i);
-                if (westUpdated) LastUpdateTime.SaveWest();
+                LastUpdateTime.EastUtc = newTime;
+                File.WriteAllText(shared.MapPath(filepath), i.ConvertToXml().ToString());
+                return true;
             }
+
+            return false;
         }
 
-        Shared.Logger.Log(SaveNatsMsg(westUpdated, eastUpdated));
-    }
-
-    // Test if the eastbound track needs to be saved. If yes, saved the file and 
-    // return true. Otherwise, returns false.
-    private bool SaveEastbound(IndividualNatsMessage i)
-    {
-        var filepath = "~/nats/Eastbound.xml";
-        var (success, newTime) = NatsMessage.ParseDate(i.LastUpdated);
-        if (success && newTime > LastUpdateTime.EastUtc)
+        private bool SaveWestbound(IndividualNatsMessage i)
         {
-            LastUpdateTime.EastUtc = newTime;
-            File.WriteAllText(HostingEnvironment.MapPath(filepath),
-                i.ConvertToXml().ToString());
-            return true;
+            var filepath = "~/nats/Westbound.xml";
+            var (success, newTime) = NatsMessage.ParseDate(i.LastUpdated);
+            if (success && newTime > LastUpdateTime.WestUtc)
+            {
+                LastUpdateTime.WestUtc = newTime;
+                File.WriteAllText(shared.MapPath(filepath), i.ConvertToXml().ToString());
+                return true;
+            }
+
+            return false;
         }
 
-        return false;
-    }
-
-    private bool SaveWestbound(IndividualNatsMessage i)
-    {
-        var filepath = "~/nats/Westbound.xml";
-        var (success, newTime) = NatsMessage.ParseDate(i.LastUpdated);
-        if (success && newTime > LastUpdateTime.WestUtc)
+        private string SaveNatsMsg(bool westUpdated, bool eastUpdated)
         {
-            LastUpdateTime.WestUtc = newTime;
-            File.WriteAllText(HostingEnvironment.MapPath(filepath),
-                i.ConvertToXml().ToString());
-            return true;
+            if (westUpdated)
+            {
+                return eastUpdated ? "Both directions updated." : "Westbound updated.";
+            }
+
+            return eastUpdated ? "Eastbound updated." : "Neither direction updated.";
         }
-
-        return false;
     }
-
-    private string SaveNatsMsg(bool westUpdated, bool eastUpdated)
-    {
-        if (westUpdated)
-        {
-            return eastUpdated ? "Both directions updated." : "Westbound updated.";
-        }
-
-        return eastUpdated ? "Eastbound updated." : "Neither direction updated.";
-    }
-}
 }

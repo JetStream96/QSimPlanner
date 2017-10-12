@@ -1,4 +1,5 @@
-﻿using QSP.Common.Options;
+﻿using CommonLibrary.LibraryExtension;
+using QSP.Common.Options;
 using QSP.LibraryExtension.XmlSerialization;
 using QSP.Properties;
 using QSP.UI.Forms;
@@ -16,7 +17,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static QSP.Updates.Utilities;
-using QSP.LibraryExtension;
 
 namespace QSP
 {
