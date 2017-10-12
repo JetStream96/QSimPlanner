@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using QSP.LibraryExtension;
+using CommonLibrary.LibraryExtension;
 
 namespace QSP.RouteFinding.Tracks.Pacots
 {
@@ -48,7 +48,7 @@ namespace QSP.RouteFinding.Tracks.Pacots
         {
             try
             {
-                ParseHtml(htmlFile.ToValidXmlString());
+                ParseHtml(htmlFile.RemoveIllegalXmlChar());
             }
             catch (Exception ex)
             {

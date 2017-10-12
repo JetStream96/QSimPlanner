@@ -24,17 +24,17 @@ namespace ServerCore
             shared = SharedData.GetInstance(env);
         }
 
-        private static string DownloadNats()
+        private static List<IndividualNatsMessage> DownloadNats()
         {
             var wc = new WebClient();
             var str=wc.DownloadString("https://www.notams.faa.gov/common/nat.html?");
-
+            return new MessageSplitter(str).Split();
         }
 
         // @Throws
         private void SaveNats()
         {
-            var result = new NatsDownloader().DownloadFromNotam();
+            var result = DownloadNats();
             Directory.CreateDirectory(shared.MapPath("nats"));
             bool westUpdated = false;
             bool eastUpdated = false;

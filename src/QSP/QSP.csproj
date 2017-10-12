@@ -167,7 +167,6 @@
     <Compile Include="LibraryExtension\LinkedLists.cs" />
     <Compile Include="LibraryExtension\Locator.cs" />
     <Compile Include="LibraryExtension\WebRequests.cs" />
-    <Compile Include="LibraryExtension\Xmls.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\Interfaces.cs" />
     <Compile Include="LibraryExtension\XmlSerialization\SerializationHelper.cs" />
     <Compile Include="MathTools\EarthGeometry.cs" />

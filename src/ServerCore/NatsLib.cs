@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using CommonLibrary.LibraryExtension;
 
 namespace ServerCore
 {
@@ -147,7 +148,7 @@ namespace ServerCore
 
         public MessageSplitter(string html)
         {
-            this.html = html.ToValidXmlString();
+            this.html = html.RemoveIllegalXmlChar();
         }
 
         public List<IndividualNatsMessage> Split()

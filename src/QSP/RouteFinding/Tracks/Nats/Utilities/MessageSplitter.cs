@@ -1,5 +1,4 @@
 ﻿using CommonLibrary.LibraryExtension;
-using QSP.LibraryExtension;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -15,7 +14,7 @@ namespace QSP.RouteFinding.Tracks.Nats.Utilities
 
         public MessageSplitter(string html)
         {
-            this.html = html.ToValidXmlString();
+            this.html = html.RemoveIllegalXmlChar();
         }
 
         public List<IndividualNatsMessage> Split()

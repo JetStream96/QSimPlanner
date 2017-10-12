@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CommonLibrary.LibraryExtension;
+using QSP.RouteFinding;
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-using QSP.LibraryExtension;
-using QSP.RouteFinding;
 
 namespace FixTypeAnalyzer
 {

@@ -6,7 +6,8 @@ namespace QSP.LibraryExtension.XmlSerialization
     {
         public static XElement Serialize(this string value, string key)
         {
-            return new XElement(key, value.ToValidXmlString());
+            // The XElement escapes the chars automatically.
+            return new XElement(key, value);
         }
 
         public static XElement Serialize(this int value, string key)
