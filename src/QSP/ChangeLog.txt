@@ -1,4 +1,8 @@
-﻿version 0.3.5
+﻿version 0.3.6
+* Fix a bug where click on 'show map' without finding a route first results in NullReferenceException.
+* Fix a bug where saving new aircraft causes NullReferenceException.
+
+version 0.3.5
 * Add P3D v4 registry detection.
 * Fix the issue where two scroll bars appear in tracks page.
 * Add automatic error reporting.
