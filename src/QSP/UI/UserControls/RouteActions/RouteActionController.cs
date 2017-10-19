@@ -38,6 +38,7 @@ namespace QSP.UI.UserControls.RouteActions
         private IClickable analyzeRouteBtn;
         private IClickable exportBtn;
         private IClickable showMapBtn;
+        private IClickable showMapBrowserBtn;
         private Form parentForm;
 
         private AppOptions AppSettings => appOptionsLocator.Instance;
@@ -60,6 +61,7 @@ namespace QSP.UI.UserControls.RouteActions
             IClickable analyzeRouteBtn,
             IClickable exportBtn,
             IClickable showMapBtn,
+            IClickable showMapBrowserBtn,
             Form parentForm)
         {
             this.appOptionsLocator = appOptionsLocator;
@@ -76,6 +78,7 @@ namespace QSP.UI.UserControls.RouteActions
             this.analyzeRouteBtn = analyzeRouteBtn;
             this.exportBtn = exportBtn;
             this.showMapBtn = showMapBtn;
+            this.showMapBrowserBtn = showMapBrowserBtn;
             this.parentForm = parentForm;
         }
 
@@ -85,6 +88,7 @@ namespace QSP.UI.UserControls.RouteActions
             analyzeRouteBtn.Click += AnalyzeRouteClick;
             exportBtn.Click += ExportRouteFiles;
             showMapBtn.Click += ShowMapClick;
+            showMapBrowserBtn.Click += ShowMapBrowserClick;
         }
 
         private void FindRouteClick(object sender, EventArgs e)
@@ -147,7 +151,7 @@ namespace QSP.UI.UserControls.RouteActions
         {
             if (Route == null)
             {
-                parentForm.ShowWarning("Please find or analyze a route first.");
+                parentForm.ShowInfo("Please find or analyze a route first.");
                 return;
             }
 
@@ -254,6 +258,17 @@ namespace QSP.UI.UserControls.RouteActions
             }
 
             ShowMapHelper.ShowMap(Route.Expanded, parentForm.Size, parentForm);
+        }
+
+        private void ShowMapBrowserClick(object sender, EventArgs e)
+        {
+            if (Route == null)
+            {
+                MsgBoxHelper.ShowInfo(parentForm, "Please find a route first.");
+                return;
+            }
+
+            ShowMapHelper.ShowMap(Route.Expanded, parentForm.Size, parentForm, true, true);
         }
     }
 }

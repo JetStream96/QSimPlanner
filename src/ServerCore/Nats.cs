@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-
 namespace ServerCore
 {
     public class Nats

@@ -20,10 +20,11 @@ namespace QSP.UI.UserControls.RouteActions
         private ClickableToolStripMenuItem findToolStripMenuItem;
         private ClickableToolStripMenuItem analyzeToolStripMenuItem;
         private ClickableToolStripMenuItem mapToolStripMenuItem;
+        private ClickableToolStripMenuItem mapInBrowserToolStripMenuItem;
         private ClickableToolStripMenuItem exportToolStripMenuItem;
 
         public RouteGroup Route => controller.Route;
-        
+
         public ActionContextMenu(
             Locator<AppOptions> appOptionsLocator,
             AirwayNetwork airwayNetwork,
@@ -54,6 +55,7 @@ namespace QSP.UI.UserControls.RouteActions
                 analyzeToolStripMenuItem,
                 exportToolStripMenuItem,
                 mapToolStripMenuItem,
+                mapInBrowserToolStripMenuItem,
                 parentForm);
         }
 
@@ -61,7 +63,7 @@ namespace QSP.UI.UserControls.RouteActions
         {
             controller.Subscribe();
         }
-        
+
         private void Init()
         {
             // 
@@ -87,6 +89,13 @@ namespace QSP.UI.UserControls.RouteActions
             mapToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             mapToolStripMenuItem.Text = "Show Map";
             // 
+            // mapInBrowserToolStripMenuItem
+            // 
+            mapInBrowserToolStripMenuItem = new ClickableToolStripMenuItem();
+            mapInBrowserToolStripMenuItem.Name = "mapInBrowserToolStripMenuItem";
+            mapInBrowserToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            mapInBrowserToolStripMenuItem.Text = "Show Map (Open in browser)";
+            // 
             // exportToolStripMenuItem
             // 
             exportToolStripMenuItem = new ClickableToolStripMenuItem();
@@ -97,11 +106,15 @@ namespace QSP.UI.UserControls.RouteActions
             // contextMenuStrip1
             // 
             ImageScalingSize = new System.Drawing.Size(20, 20);
-            Items.AddRange(new ToolStripItem[] {
-            findToolStripMenuItem,
-            analyzeToolStripMenuItem,
-            mapToolStripMenuItem,
-            exportToolStripMenuItem});
+            Items.AddRange(new ToolStripItem[]
+            {
+                findToolStripMenuItem,
+                analyzeToolStripMenuItem,
+                mapToolStripMenuItem,
+                mapInBrowserToolStripMenuItem,
+                exportToolStripMenuItem
+            });
+
             Name = "contextMenuStrip1";
             Size = new System.Drawing.Size(182, 136);
         }
