@@ -1,4 +1,7 @@
-﻿version 0.3.6
+﻿version 0.3.7
+* Add option to view route in external browser.
+
+version 0.3.6
 * Fix a bug where click on 'show map' without finding a route first results in NullReferenceException.
 * Fix a bug where saving new aircraft causes NullReferenceException.
 
