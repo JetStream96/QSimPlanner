@@ -12,7 +12,7 @@ namespace QSP.GoogleMap
     public static class RouteDrawing
     {
         public static StringBuilder MapDrawString(
-            IReadOnlyList<Waypoint> route, int width, int height)
+            IReadOnlyList<Waypoint> route, int width=-1, int height=-1)
         {
             var mapHtml = new StringBuilder();
 
@@ -52,7 +52,7 @@ function initialize()
                     $"var wpt{index}=new google.maps.LatLng(" +
                     $"{wpt.Lat},{wpt.Lon});");
             });
-            
+
             // Center of map
             var center = GetCenter(route);
             mapHtml.AppendLine($"var centerP=new google.maps.LatLng({center.Lat},{center.Lon});");
@@ -87,7 +87,7 @@ var myTrip=[");
     flightPath.setMap(map);");
                 }
             });
-            
+
             route.ForEach((wpt, index) =>
             {
                 mapHtml.Append(string.Format(
@@ -110,7 +110,7 @@ var myTrip=[");
 
 ", index, wpt.ID));
             });
-            
+
             mapHtml.Append(@"}
             
             google.maps.event.addDomListener(window, 'load', initialize);
@@ -118,12 +118,18 @@ var myTrip=[");
             </head>
             
             <body>
-            <div id=""googleMap"" style=""width: " + width + "px;height:" + height + @"px;""></div>
+            <div id=""googleMap"" style=""" + GetDivStyle(width, height) + @"""></div>
             </body>
             </html>");
 
             return mapHtml;
+        }
 
+        private static string GetDivStyle(int width = -1, int height = -1)
+        {
+            return width < 0 ?
+                "position: absolute; top: 0; right: 0; bottom: 0; left: 0;" :
+                $"width:{width}px;height:{height}px;";
         }
 
         private static ICoordinate GetCenter(IReadOnlyList<Waypoint> route)

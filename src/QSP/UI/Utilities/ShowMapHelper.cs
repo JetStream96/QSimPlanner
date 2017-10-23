@@ -29,20 +29,24 @@ namespace QSP.UI.Utilities
             }
 
             // TODO: Do we need size in external browser?
-            var GoogleMapDrawRoute = RouteDrawing.MapDrawString(
-                Route.AllWaypoints().ToList(),
-                size.Width - 20,
-                size.Height - 30);
+            Func<bool, string> getHtml = inBroser =>
+            {
+                var s = inBroser ? new Size(0, 0) : size;
+                var GoogleMapDrawRoute = RouteDrawing.MapDrawString(
+                   Route.AllWaypoints().ToList(),
+                   s.Width - 20,
+                   s.Height - 30);
 
-            var html = GoogleMapDrawRoute.ToString();
+                return GoogleMapDrawRoute.ToString();
+            };
 
             if (openInBrowser)
             {
-                ShowInBrowser(html, parentControl);
+                ShowInBrowser(getHtml(true), parentControl);
             }
             else
             {
-                ShowInForm(size, html);
+                ShowInForm(size, getHtml(false));
             }
         }
 
