@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommonLibrary.AviationTools;
 
 namespace QSP.Metar
 {
+    // Case-insensitive for all ICAO codes.
     public class MetarCache
     {
         public TimeSpan ExpireTime { get; private set; }
@@ -18,30 +20,50 @@ namespace QSP.Metar
             this.ExpireTime = expireTime;
         }
 
-        // Returns null if the item does not exist.
+        // @NoThrow
+        public bool Contains(string icao) => GetItem(icao) != null;
+
+        // @NoThrow
+        // Returns null if the item already expired or does not exist.
         public MetarCacheItem GetItem(string icao)
         {
-            if (items.TryGetValue(icao, out var val))
+            var trimed = Icao.TrimIcao(icao);
+
+            if (items.TryGetValue(trimed, out var val))
             {
                 if (IsStillValid(val))
                 {
                     return val;
                 }
 
-                items.Remove(icao);
+                items.Remove(trimed);
             }
 
             return null;
         }
-
+        
         private bool IsStillValid(MetarCacheItem item)
         {
             return item.CreationTime + ExpireTime <= DateTime.UtcNow;
         }
 
-        public void AddItem(string icao, MetarCacheItem item)
+        // @Throws
+        // Throws exception if item is null.
+        public void AddOrUpdateItem(string icao, MetarCacheItem item)
         {
-            items.Add(icao, item);
+            // This is important for the correctness for Contains(icao) method. 
+            if (item == null) throw new ArgumentException();
+
+            var trimed = Icao.TrimIcao(icao);
+
+            if (items.ContainsKey(trimed))
+            {
+                items[trimed] = item;
+            }
+            else
+            {
+                items.Add(trimed, item);
+            }
         }
     }
 }

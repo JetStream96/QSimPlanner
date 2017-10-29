@@ -182,6 +182,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="RouteFinding\Finder\DestInfo.cs" />
     <Compile Include="RouteFinding\Finder\OrigInfo.cs" />
+    <Compile Include="RouteFinding\RunwaySelector.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Parser\ProcedureParser.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Parser\SectionSplitter.cs" />
     <Compile Include="RouteFinding\Tracks\Actions\NetworkUpdateAction.cs" />

@@ -36,6 +36,9 @@ using static QSP.UI.MsgBox.MsgBoxHelper;
 using static QSP.UI.Utilities.RouteDistanceDisplay;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.Units.Conversions;
+using QSP.Metar;
+using CommonLibrary.AviationTools;
+using System.Threading.Tasks;
 
 namespace QSP.UI.UserControls
 {
@@ -51,13 +54,14 @@ namespace QSP.UI.UserControls
         private RouteFinderSelection origController;
         private RouteFinderSelection destController;
         private DestinationSidSelection destSidProvider;
-        public WeightController WeightControl { get; private set; }
         private AdvancedRouteTool advancedRouteTool;
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
         private ActionContextMenu routeActionMenu;
         private RouteOptionContextMenu routeOptionMenu;
+        private MetarCache metarCache;
 
+        public WeightController WeightControl { get; private set; }
         public AlternateController AltnControl { get; private set; }
         public WeightTextBoxController Extra { get; private set; }
 
@@ -90,7 +94,8 @@ namespace QSP.UI.UserControls
             Locator<CountryCodeManager> countryCodeLocator,
             Locator<IWindTableCollection> windTableLocator,
             AcConfigManager aircrafts,
-            IEnumerable<FuelData> fuelData)
+            IEnumerable<FuelData> fuelData,
+            MetarCache metarCache)
         {
             this.appOptionsLocator = appOptionsLocator;
             this.airwayNetwork = airwayNetwork;
@@ -99,6 +104,7 @@ namespace QSP.UI.UserControls
             this.windTableLocator = windTableLocator;
             this.aircrafts = aircrafts;
             this.fuelData = fuelData;
+            this.metarCache = metarCache;
             checkedCodesLocator = new CountryCodeCollection().ToLocator();
 
             SetDefaultState();
@@ -109,6 +115,7 @@ namespace QSP.UI.UserControls
             SetWeightController();
             SetAircraftSelection();
             SetBtnColorStyles();
+            AddMetarCacheEvents();
 
             wtUnitComboBox.SelectedIndex = 0;
             SubscribeEventHandlers();
@@ -127,6 +134,32 @@ namespace QSP.UI.UserControls
             }
 
             LoadSavedState();
+        }
+
+        private void AddMetarCacheEvents()
+        {
+            Func<string, Task> updateCache = async (icao) =>
+            {
+                if (airportList[icao] != null && !metarCache.Contains(icao))
+                {
+                    string metar = null;
+                    if (await Task.Run(() => MetarDownloader.TryGetMetar(icao, out metar)))
+                    {
+                        metarCache.AddOrUpdateItem(icao, MetarCacheItem.Create(metar));
+                    }
+
+                }
+            };
+
+            new[] { origTxtBox, destTxtBox }.ForEach(i =>
+            {
+                i.TextChanged += async (s, e) => await updateCache(Icao.TrimIcao(i.Text));
+            });
+
+            AltnControl.AlternatesChanged += (s, e) =>
+             {
+                 AltnControl.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
+             };
         }
 
         private void SetBtnColorStyles()

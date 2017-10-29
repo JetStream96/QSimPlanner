@@ -2,6 +2,7 @@
 using QSP.AircraftProfiles;
 using QSP.Common.Options;
 using QSP.LibraryExtension;
+using QSP.Metar;
 using QSP.NavData;
 using QSP.NavData.AAX;
 using QSP.RouteFinding.Airports;
@@ -49,6 +50,7 @@ namespace QSP.UI.Forms
         private Locator<IWindTableCollection> windTableLocator;
         private Updater updater;
         private OptionsForm optionsForm;
+        private readonly MetarCache metarCache = new MetarCache();
 
         private TracksForm trackFrm;
         private WindDataForm windFrm;
@@ -268,7 +270,8 @@ namespace QSP.UI.Forms
                 countryCodesLocator,
                 windTableLocator,
                 profiles.AcConfigs,
-                profiles.FuelData);
+                profiles.FuelData,
+                metarCache);
 
             toMenu.Init(
                 profiles.AcConfigs,

@@ -28,7 +28,7 @@ namespace QSP.RouteFinding.Airports
         }
 
         /// <summary>
-        /// Returns null if the icao or rwy is not found.
+        /// Returns null if the icao is not found.
         /// </summary>
         public Airport this[string icao]
         {
