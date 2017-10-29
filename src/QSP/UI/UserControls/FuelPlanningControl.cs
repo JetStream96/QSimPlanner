@@ -147,7 +147,6 @@ namespace QSP.UI.UserControls
                     {
                         metarCache.AddOrUpdateItem(icao, MetarCacheItem.Create(metar));
                     }
-
                 }
             };
 
@@ -157,9 +156,9 @@ namespace QSP.UI.UserControls
             });
 
             AltnControl.AlternatesChanged += (s, e) =>
-             {
-                 AltnControl.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
-             };
+            {
+                AltnControl.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
+            };
         }
 
         private void SetBtnColorStyles()
