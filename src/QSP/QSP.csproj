@@ -184,6 +184,7 @@
     <Compile Include="NavData\NavDataPath.cs" />
     <Compile Include="NavData\ReadFileError.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="RouteFinding\Airports\IAirport.cs" />
     <Compile Include="RouteFinding\Airports\IRwyData.cs" />
     <Compile Include="RouteFinding\Finder\DestInfo.cs" />
     <Compile Include="RouteFinding\Finder\OrigInfo.cs" />
@@ -414,7 +415,7 @@
     <Compile Include="NavData\AAX\WptListLoader.cs" />
     <Compile Include="NavData\DataSource.cs" />
     <Compile Include="NavData\OpenData\AirportDataLoader.cs" />
-    <Compile Include="RouteFinding\Airports\AirportExtensions.cs" />
+    <Compile Include="RouteFinding\Airports\IAirportExtensions.cs" />
     <Compile Include="RouteFinding\Airports\AirportManager.cs" />
     <Compile Include="NavData\Exceptions.cs" />
     <Compile Include="NavData\AAX\AirportDataLoader.cs" />

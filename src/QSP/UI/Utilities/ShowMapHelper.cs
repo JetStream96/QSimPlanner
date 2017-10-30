@@ -28,10 +28,11 @@ namespace QSP.UI.Utilities
                 return;
             }
 
-            // TODO: Do we need size in external browser?
             Func<bool, string> getHtml = inBroser =>
             {
+                // No need for size in external browser.
                 var s = inBroser ? new Size(0, 0) : size;
+
                 var GoogleMapDrawRoute = RouteDrawing.MapDrawString(
                    Route.AllWaypoints().ToList(),
                    s.Width - 20,

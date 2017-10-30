@@ -49,7 +49,7 @@ namespace UnitTest.NavData.OpenData
             Assert.AreEqual(false, _7L.HasIlsInfo);
             Assert.AreEqual(22.3104, _7L.Lat, delta);
             Assert.AreEqual(113.896, _7L.Lon, delta);
-            Assert.AreEqual(22, _7L.Elevation);
+            Assert.AreEqual(22, _7L.ElevationFt);
             Assert.IsTrue("ASP" == _7L.SurfaceType);
 
             var _7R = rwys.Where(r => r.RwyIdent == "07R").First();
@@ -59,7 +59,7 @@ namespace UnitTest.NavData.OpenData
             Assert.AreEqual(false, _7R.HasIlsInfo);
             Assert.AreEqual(22.2962, _7R.Lat, delta);
             Assert.AreEqual(113.898, _7R.Lon, delta);
-            Assert.AreEqual(28, _7R.Elevation);
+            Assert.AreEqual(28, _7R.ElevationFt);
             Assert.IsTrue("ASP" == _7R.SurfaceType);
 
             var _25R = rwys.Where(r => r.RwyIdent == "25R").First();
@@ -69,7 +69,7 @@ namespace UnitTest.NavData.OpenData
             Assert.AreEqual(false, _25R.HasIlsInfo);
             Assert.AreEqual(22.3216, _25R.Lat, delta);
             Assert.AreEqual(113.931, _25R.Lon, delta);
-            Assert.AreEqual(23, _25R.Elevation);
+            Assert.AreEqual(23, _25R.ElevationFt);
             Assert.IsTrue("ASP" == _25R.SurfaceType);
 
             var _25L = rwys.Where(r => r.RwyIdent == "25L").First();
@@ -79,7 +79,7 @@ namespace UnitTest.NavData.OpenData
             Assert.AreEqual(false, _25L.HasIlsInfo);
             Assert.AreEqual(22.3074, _25L.Lat, delta);
             Assert.AreEqual(113.933, _25L.Lon, delta);
-            Assert.AreEqual(27, _25L.Elevation);
+            Assert.AreEqual(27, _25L.ElevationFt);
             Assert.IsTrue("ASP" == _25L.SurfaceType);
         }
 

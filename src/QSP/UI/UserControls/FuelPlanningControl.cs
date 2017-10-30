@@ -72,6 +72,10 @@ namespace QSP.UI.UserControls
         public WeightTextBoxController Zfw { get; private set; }
 
         /// <summary>
+        /// After the fuel calculation completes, the user can press 'request' button
+        /// in takeoff or landing calculation page to automatically fill some paramters of the 
+        /// selected aircraft. 
+        /// 
         /// Returns null if not available.
         /// </summary>
         public AircraftRequest AircraftRequest { get; private set; }

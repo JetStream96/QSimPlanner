@@ -15,7 +15,7 @@
 
         double Lat { get; }
         double Lon { get; }
-        int Elevation { get; }
+        int ElevationFt { get; }
         double GlideslopeAngle { get; }
         int ThresholdOverflyHeight { get; }
         string SurfaceType { get; }

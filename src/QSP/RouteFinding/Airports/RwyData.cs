@@ -19,7 +19,7 @@ namespace QSP.RouteFinding.Airports
 
         public double Lat { get; private set; }
         public double Lon { get; private set; }
-        public int Elevation { get; private set; }
+        public int ElevationFt { get; private set; }
         public double GlideslopeAngle { get; private set; }
         public int ThresholdOverflyHeight { get; private set; }
         public string SurfaceType { get; private set; }
@@ -36,7 +36,7 @@ namespace QSP.RouteFinding.Airports
             string IlsHeading,
             double Lat,
             double Lon,
-            int Elevation,
+            int ElevationFt,
             double GlideslopeAngle,
             int ThresholdOverflyHeight,
             string SurfaceType,
@@ -52,7 +52,7 @@ namespace QSP.RouteFinding.Airports
             this.IlsHeading = IlsHeading;
             this.Lat = Lat;
             this.Lon = Lon;
-            this.Elevation = Elevation;
+            this.ElevationFt = ElevationFt;
             this.GlideslopeAngle = GlideslopeAngle;
             this.ThresholdOverflyHeight = ThresholdOverflyHeight;
             this.SurfaceType = SurfaceType;
@@ -72,7 +72,7 @@ namespace QSP.RouteFinding.Airports
                 IlsHeading == other.IlsHeading &&
                 Lat == other.Lat &&
                 Lon == other.Lon &&
-                Elevation == other.Elevation &&
+                ElevationFt == other.ElevationFt &&
                 GlideslopeAngle == other.GlideslopeAngle &&
                 ThresholdOverflyHeight == other.ThresholdOverflyHeight &&
                 SurfaceType == other.SurfaceType &&
@@ -93,7 +93,7 @@ namespace QSP.RouteFinding.Airports
                 IlsHeading,
                 Lat,
                 Lon,
-                Elevation,
+                ElevationFt,
                 GlideslopeAngle,
                 ThresholdOverflyHeight,
                 SurfaceType,

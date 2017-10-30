@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QSP.Metar;
+using QSP.UI.UserControls.TakeoffLanding.Common;
+using QSP.TOPerfCalculation.Boeing;
+using QSP.AviationTools;
 
 namespace QSP.RouteFinding
 {
@@ -24,6 +27,23 @@ namespace QSP.RouteFinding
             // TODO:
             throw new Exception();
         }
+
+        /*
+
+        // @NoThrow
+        // Returns null if failed to calculate.
+        public static double? TakeOffDistanceMeter(Airport airport, string rwy, 
+            MetarCacheItem item, AircraftRequest aircraft)
+        {
+            var runway = airport.FindRwy(rwy);
+            if (runway == null) return null;
+            var para=new TOParameters(
+                runway.LengthFt*Constants.FtMeterRatio,
+                runway.ElevationFt,
+                runway.Heading,
+                runway.)
+        }
+        */
 
         public static IEnumerable<IReadOnlyList<IRwyData>> GroupIntoPairs(
             IEnumerable<IRwyData> rwys)

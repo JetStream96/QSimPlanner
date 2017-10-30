@@ -238,7 +238,7 @@ namespace QSP.UI.UserControls.AirportMap
                     airportDataGrid[7, i].Value = "";
                 }
 
-                airportDataGrid[8, i].Value = rwy.Elevation;
+                airportDataGrid[8, i].Value = rwy.ElevationFt;
                 airportDataGrid[9, i].Value = rwy.SurfaceType;
             }
             

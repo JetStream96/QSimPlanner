@@ -29,14 +29,14 @@ namespace QSP.TOPerfCalculation.Boeing
         {
             double correctedWtKG = para.WeightKg;
 
-            //correct weight for TO1/TO2, if applicable
+            // Correct the weight for TO1/TO2, if applicable.
             if (table.AltnRatingAvail && para.ThrustRating != 0)
             {
                 correctedWtKG = 1000 * ThrustRatingFieldCorrWt(correctedWtKG / 1000.0,
                     AltnThrustOption.GetEquivFullThrustWeight);
             }
 
-            //correct weight for packs, anti-ice, etc
+            // Correct the weight for packs, anti-ice, etc.
             correctedWtKG -= FieldLimitModificationKg();
 
             return correctedWtKG;
@@ -115,7 +115,7 @@ namespace QSP.TOPerfCalculation.Boeing
                 para.OatCelsius) +
                 FieldLimitModificationKg() / 1000.0;
 
-            //correct weight for TO1/TO2, if applicable
+            // Correct the weight for TO1/TO2, if applicable.
             if (table.AltnRatingAvail && para.ThrustRating != 0)
             {
                 return ThrustRatingFieldCorrWt(limitWtTon, AltnThrustOption.GetLimitWeight);
@@ -148,8 +148,7 @@ namespace QSP.TOPerfCalculation.Boeing
             if (table.AltnRatingAvail && para.ThrustRating != 0)
             {
                 return table.AlternateThrustTables[para.ThrustRating - 1]
-                    .CorrectedLimitWeight(limitWtTon,
-                             AlternateThrustTable.TableType.Climb);
+                    .CorrectedLimitWeight(limitWtTon, AlternateThrustTable.TableType.Climb);
             }
             else
             {
@@ -181,18 +180,11 @@ namespace QSP.TOPerfCalculation.Boeing
         {
             double correction = 0.0;
 
-            //correction for packs
+            // Correction for packs
 
-            if (para.PacksOn == false)
+            if (!para.PacksOn)
             {
-                if (para.SurfaceWet)
-                {
-                    correction += table.PacksOffWet;
-                }
-                else
-                {
-                    correction += table.PacksOffDry;
-                }
+                correction += para.SurfaceWet ? table.PacksOffWet : table.PacksOffDry;
             }
 
             //correction for anti-ice
@@ -265,6 +257,5 @@ namespace QSP.TOPerfCalculation.Boeing
         {
             return ConversionTools.PressureAltitudeFt(para.RwyElevationFt, para.QNH);
         }
-
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Airports
 {
-    public class Airport : ICoordinate, IEquatable<Airport>
+    public class Airport : ICoordinate, IEquatable<Airport>, IAirport
     {
         public string Icao { get; private set; }
         public string Name { get; private set; }
@@ -17,6 +17,8 @@ namespace QSP.RouteFinding.Airports
         public int TransLvl { get; private set; }
         public int LongestRwyLength { get; private set; }
         public IReadOnlyList<RwyData> Rwys { get; private set; }
+
+        IReadOnlyList<IRwyData> IAirport.Rwys => Rwys;
 
         public Airport(
             string Icao,
@@ -58,10 +60,10 @@ namespace QSP.RouteFinding.Airports
 
         public static IComparer<Airport> CompareIcao()
         {
-            return new compIcaoHelper();
+            return new CompIcaoHelper();
         }
 
-        private class compIcaoHelper : IComparer<Airport>
+        private class CompIcaoHelper : IComparer<Airport>
         {
             public int Compare(Airport x, Airport y)
             {
@@ -88,8 +90,7 @@ namespace QSP.RouteFinding.Airports
         {
             var h1 = new object[]
             {
-                Icao, Name, Lat, Lon, Elevation, TransAvail, TransAlt, TransLvl,
-                LongestRwyLength
+                Icao, Name, Lat, Lon, Elevation, TransAvail, TransAlt, TransLvl, LongestRwyLength
             }.HashCodeByElem();
 
             var h2 = Rwys.HashCodeSymmetric();
