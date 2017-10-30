@@ -4,7 +4,7 @@ using System;
 
 namespace QSP.RouteFinding.Airports
 {
-    public class RwyData : ICoordinate, IEquatable<RwyData>
+    public class RwyData : ICoordinate, IEquatable<RwyData>, IRwyData
     {
         public string RwyIdent { get; private set; }
         public string Heading { get; private set; }

@@ -22,23 +22,28 @@ namespace QSP.RouteFinding
             var groups = GroupIntoPairs(runways).ToList();
             if (groups.Count == 0) return (null, "No runway is available.");
             // TODO:
+            throw new Exception();
         }
 
-        public static IEnumerable<IEnumerable<RwyData>> GroupIntoPairs(IEnumerable<RwyData> rwys)
+        public static IEnumerable<IReadOnlyList<IRwyData>> GroupIntoPairs(
+            IEnumerable<IRwyData> rwys)
         {
             var rwyDict = rwys.ToDictionary(i => i.RwyIdent);
-            var dict = new Dictionary<string, List<RwyData>>();
+            var dict = new Dictionary<string, List<IRwyData>>();
 
             foreach (var kv in rwyDict)
             {
                 var runway = kv.Value;
                 var id = kv.Key;
                 var opposite = AviationTools.RwyIdentConversion.RwyIdentOppositeDir(id);
-                if (opposite == null) continue;
+                if (opposite == null || dict.ContainsKey(id) || dict.ContainsKey(opposite))
+                {
+                    continue;
+                }
 
                 if (rwyDict.TryGetValue(opposite, out var val))
                 {
-                    dict.Add(id, new List<RwyData>() { runway, val });
+                    dict.Add(id, new List<IRwyData>() { runway, val });
                 }
             }
 
