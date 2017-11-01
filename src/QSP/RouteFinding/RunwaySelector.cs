@@ -25,10 +25,18 @@ namespace QSP.RouteFinding
         private List<TO.PerfTable> takeoffTables;
         private List<Landing.PerfTable> landingTables;
 
-        public RunwaySelector(AirportManager airportManager, MetarCache cache)
+        public RunwaySelector(
+            AirportManager airportManager,
+            MetarCache cache,
+            AcConfigManager aircrafts,
+            List<TO.PerfTable> takeoffTables,
+            List<Landing.PerfTable> landingTables)
         {
             this.airportManager = airportManager;
             this.cache = cache;
+            this.aircrafts = aircrafts;
+            this.takeoffTables = takeoffTables;
+            this.landingTables = landingTables;
         }
 
         // @NoThrow
