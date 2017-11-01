@@ -47,8 +47,23 @@ namespace QSP.RouteFinding
             if (airport == null) return (null, "Airport not found.");
             var runways = airport.Rwys;
             if (runways.Count == 0) return (null, "No runway is available.");
-            var groups = GroupIntoPairs(runways).ToList();
-            if (groups.Count == 0) return (null, "No runway is available.");
+            
+                var wind = cache.GetItem(icao).Wind.Value;
+            // Eliminate the runways with tailwind.
+            var filtered = runways.Where(r => {
+                try
+                {
+                    return ConversionTools.HeadwindComponent(
+                        double.Parse(r.Heading), wind.Direction, wind.Speed) >= 0;
+                }
+                catchn
+                {
+
+                    throw;
+                }
+                //var (windHeading, windSpeed) = w.HasValue ? (w.Value.Direction, w.Value.Speed) : (0, 0);
+                
+                });
             // TODO:
             throw new Exception();
         }
@@ -148,30 +163,6 @@ namespace QSP.RouteFinding
             var rwyHeading = ConversionTools.ParseHeading(runway.Heading) ?? 0;
             return (true, runway, windHeading, windSpeed, rwyHeading, GetQNH());
         }
-
-        public static IEnumerable<IReadOnlyList<IRwyData>> GroupIntoPairs(
-            IEnumerable<IRwyData> rwys)
-        {
-            var rwyDict = rwys.ToDictionary(i => i.RwyIdent);
-            var dict = new Dictionary<string, List<IRwyData>>();
-
-            foreach (var kv in rwyDict)
-            {
-                var runway = kv.Value;
-                var id = kv.Key;
-                var opposite = RwyIdentConversion.RwyIdentOppositeDir(id);
-                if (opposite == null || dict.ContainsKey(id) || dict.ContainsKey(opposite))
-                {
-                    continue;
-                }
-
-                if (rwyDict.TryGetValue(opposite, out var val))
-                {
-                    dict.Add(id, new List<IRwyData>() { runway, val });
-                }
-            }
-
-            return dict.Values;
-        }
+        
     }
 }
