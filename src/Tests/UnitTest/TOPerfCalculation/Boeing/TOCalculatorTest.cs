@@ -61,7 +61,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
                 headWind, correctedLength);
 
             return table.SlopeCorrDry.FieldLengthRequired(
-                para.RwySlope, slopeCorrectedLength);
+                para.RwySlopePercent, slopeCorrectedLength);
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
                 headWind, correctedLength);
 
             return table.SlopeCorrWet.FieldLengthRequired(
-                para.RwySlope, slopeCorrectedLength);
+                para.RwySlopePercent, slopeCorrectedLength);
         }
 
         [Test]
@@ -184,7 +184,7 @@ namespace UnitTest.TOPerfCalculation.Boeing
                 Math.Cos(ToRadian(para.WindHeading - para.RwyHeading));
 
             double slopeCorrectedLength = table.SlopeCorrDry.CorrectedLength(
-                para.RwyLengthMeter, para.RwySlope);
+                para.RwyLengthMeter, para.RwySlopePercent);
 
             double windCorrectedLength = table.WindCorrDry.CorrectedLength(
                 slopeCorrectedLength, windSpd);

@@ -74,7 +74,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             SetWeatherBtnHandlers();
             requestBtn.SetToolTip("Use aircraft and weights calculated from 'Fuel' page.");
         }
-        
+
         private void UpdateAircraftList()
         {
             var items = acListComboBox.Items;
@@ -200,15 +200,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
                 controller = null;
             }
 
-            // set currentTable and controller
-            if (tables != null && tables.Count > 0)
+            var (ac, perf) = FindTable.Find(tables, aircrafts, regComboBox.Text);
+            if (ac != null && perf!=null)
             {
-                var ac = aircrafts.Find(regComboBox.Text).Config;
-                var profileName = ac.TOProfile;
-                currentTable = tables.First(t => t.Entry.ProfileName == profileName);
+                // Set currentTable and controller.
 
+                currentTable = perf;
                 controller = FormControllerFactory.GetController(
-                    ControllerType.Boeing, ac, currentTable, elements, this);
+                    ControllerType.Boeing, ac.Config, currentTable, elements, this);
                 // TODO: only correct for Boeing. 
 
                 Subscribe(controller);

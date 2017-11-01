@@ -62,7 +62,7 @@ namespace QSP.TOPerfCalculation.Boeing
             double slopeCorrLength = windTable.SlopeCorrectedLength(
                 HeadwindComp(), corrLength);
 
-            return slopeTable.FieldLengthRequired(para.RwySlope, slopeCorrLength);
+            return slopeTable.FieldLengthRequired(para.RwySlopePercent, slopeCorrLength);
         }
 
         private enum AltnThrustOption
@@ -105,7 +105,7 @@ namespace QSP.TOPerfCalculation.Boeing
         public double FieldLimitWeightTon()
         {
             double slopeCorrLength = slopeTable.CorrectedLength(
-                para.RwyLengthMeter, para.RwySlope);
+                para.RwyLengthMeter, para.RwySlopePercent);
 
             double windCorrLength = windTable.CorrectedLength(
                 slopeCorrLength, HeadwindComp());

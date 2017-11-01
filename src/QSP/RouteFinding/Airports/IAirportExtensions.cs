@@ -11,7 +11,6 @@ namespace QSP.RouteFinding.Airports
             return airport.Rwys.FirstOrDefault(r => r.RwyIdent == ident);
         }
 
-        // TODO: Add test.
         // Returns null if the runway or the opposite runway cannot be found.
         public static double? GetSlopePercent(this IAirport a, string runway)
         {
