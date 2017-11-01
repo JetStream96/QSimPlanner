@@ -1,3 +1,4 @@
+using QSP.MathTools;
 using System;
 using static QSP.Utilities.ExceptionHelpers;
 
@@ -52,6 +53,30 @@ namespace QSP.AviationTools
         public static double ToFahrenheit(double temp)
         {
             return temp * 9.0 / 5.0 + 32.0;
+        }
+
+        /// <summary>
+        /// The heading and wind direction should be in degrees. Unit of return value is identical
+        /// to the unit of windSpeed.
+        /// </summary>
+        public static double HeadwindComponent(double rwyHeading,double windDirection,
+            double windSpeed)
+        {
+            return Math.Cos(Angles.ToRadian(rwyHeading - windDirection) * windSpeed);
+        }
+
+        /// <summary>
+        /// Returns the heading converted to a number larger or equal to 0 and smaller than 360.
+        /// Returns null if the input is not a number.
+        /// </summary>
+        public static double? ParseHeading(string heading)
+        {
+            if (double.TryParse(heading, out var h))
+            {
+                return h.Mod(360.0);
+            }
+
+            return null;
         }
     }
 }

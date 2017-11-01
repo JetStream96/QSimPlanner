@@ -58,5 +58,19 @@ namespace UnitTest.AviationTools
             Assert.AreEqual(ToFahrenheit(-50.0), -58.0, 0.1);
         }
 
+        [Test]
+        public void ParseHeadingTest()
+        {
+            Assert.AreEqual(0.0, ParseHeading("0.0"), 1E-8);
+            Assert.AreEqual(350.0, ParseHeading("-10"), 1E-8);
+            Assert.AreEqual(160.0, ParseHeading("160"), 1E-8);
+            Assert.IsNull(ParseHeading("X"));
+        }
+
+        [Test]
+        public void HeadwindComponentTest()
+        {
+            Assert.AreEqual(17.6776695297, HeadwindComponent(10, 55, 25), 1E-6);
+        }
     }
 }

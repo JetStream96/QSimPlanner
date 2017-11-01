@@ -11,7 +11,11 @@ using QSP.TOPerfCalculation.Boeing;
 using QSP.AviationTools;
 using QSP.AircraftProfiles.Configs;
 using QSP.TOPerfCalculation;
+using TOPerf = QSP.TOPerfCalculation.Boeing.PerfData;
+using QSP.LandingPerfCalculation.Boeing;
+using LandingPerf = QSP.LandingPerfCalculation.Boeing.PerfData;
 using QSP.TOPerfCalculation.Boeing.PerfData;
+using QSP.LandingPerfCalculation.Boeing.PerfData;
 
 namespace QSP.RouteFinding
 {
@@ -61,13 +65,15 @@ namespace QSP.RouteFinding
                 (press.unit == Utilities.Units.PressureUnit.inHg ? 1013.2 / 29.92 : 1);
             }
 
+            var rwyHeading = ConversionTools.ParseHeading(runway.Heading) ?? 0;
+
             var (ac, perf) = FindTable.Find(tables, aircrafts, aircraft.Registration);
             if (ac == null || perf == null) return null;
-            var perfItem = (BoeingPerfTable)(perf.Item);
+            var perfItem = (TOPerf.BoeingPerfTable)(perf.Item);
             var para = new TOParameters(
                 runway.LengthFt * Constants.FtMeterRatio,
                 runway.ElevationFt,
-                double.Parse( runway.Heading),
+                rwyHeading,
                 airport.GetSlopePercent(rwy) ?? 0.0,
                 windHeading,
                 windSpeed,
@@ -80,11 +86,58 @@ namespace QSP.RouteFinding
                 true,
                 0);
 
-            var calc = new TOCalculator(perfItem, para);
+            try
+            {
+                return new TOCalculator(perfItem, para).TakeoffDistanceMeter();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
+        // @NoThrow
+        // Returns null if failed to calculate.
+        public double? LandingDistanceMeter(Airport airport, string rwy,
+            MetarCacheItem item, AircraftRequest aircraft)
+        {
+            var runway = airport.FindRwy(rwy);
+            if (runway == null) return null;
+
+            var w = item.Wind;
+            var (windHeading, windSpeed) = w.HasValue ? (w.Value.Direction, w.Value.Speed) : (0, 0);
+
+            double GetQNH()
+            {
+                var press = item.Pressure;
+                if (!press.hasValue) return 1013.2;
+                return press.value *
+                (press.unit == Utilities.Units.PressureUnit.inHg ? 1013.2 / 29.92 : 1);
+            }
+
+            var rwyHeading = ConversionTools.ParseHeading(runway.Heading) ?? 0;
+
+            var (ac, perf) = FindTable.Find(tables, aircrafts, aircraft.Registration);
+            if (ac == null || perf == null) return null;
+            var perfItem = (LandingPerf.BoeingPerfTable)(perf.Item);
+            var para = new LandingParameters(
+                aircraft.LandingWeightKg,
+                runway.LengthFt * Constants.FtMeterRatio,
+                runway.ElevationFt,
+                ConversionTools.HeadwindComponent(rwyHeading, windHeading, windSpeed),
+                airport.GetSlopePercent(rwy) ?? 0.0,
+                item.Temp.HasValue ? item.Temp.Value : 15,
+                GetQNH(),
+                5,
+                ReverserOption.Both,
+                item.PrecipitationExists ? SurfaceCondition.Good : SurfaceCondition.Dry,
+                0,
+                0);
 
             try
             {
-                return calc.TakeoffDistanceMeter();
+                return new LandingCalculator(perfItem, para).DistanceRequiredMeter();
             }
             catch
             {

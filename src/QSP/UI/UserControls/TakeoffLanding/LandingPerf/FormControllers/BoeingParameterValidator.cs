@@ -90,12 +90,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 
             try
             {
-                headwindKts =
-                    Math.Cos(
-                        Angles.ToRadian(
-                            Convert.ToDouble(e.rwyHeading.Text) -
-                            Convert.ToDouble(e.windDirection.Text)))
-                            * Convert.ToDouble(e.windSpeed.Text);
+                headwindKts = ConversionTools.HeadwindComponent(
+                   Convert.ToDouble(e.rwyHeading.Text),
+                   Convert.ToDouble(e.windDirection.Text),
+                   Convert.ToDouble(e.windSpeed.Text));
             }
             catch
             {
