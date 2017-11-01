@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QSP.TOPerfCalculation
+namespace QSP.LandingPerfCalculation
 {
     public static class FindTable
     {
@@ -27,3 +27,4 @@ namespace QSP.TOPerfCalculation
         }
     }
 }
+

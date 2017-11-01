@@ -158,6 +158,7 @@
     <Compile Include="FuelCalculation\Results\Nodes\ScNode.cs" />
     <Compile Include="FuelCalculation\Results\Nodes\TocNode.cs" />
     <Compile Include="FuelCalculation\Results\Nodes\TodNode.cs" />
+    <Compile Include="LandingPerfCalculation\FindTable.cs" />
     <Compile Include="Libraries\FolderSelectDialog\FolderSelectDialog.cs" />
     <Compile Include="Libraries\FolderSelectDialog\Reflector.cs" />
     <Compile Include="LibraryExtension\BiDictionary.cs" />
