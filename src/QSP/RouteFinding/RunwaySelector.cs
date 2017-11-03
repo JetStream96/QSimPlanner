@@ -38,7 +38,7 @@ namespace QSP.RouteFinding
             this.takeoffTables = takeoffTables;
             this.landingTables = landingTables;
         }
-
+        /*
         // @NoThrow
         // error is not null if and only if an error occurred.
         public (string runway, string error) SelectRunway(string icao)
@@ -66,7 +66,7 @@ namespace QSP.RouteFinding
                 });
             // TODO:
             throw new Exception();
-        }
+        }*/
 
         // @NoThrow
         // Returns null if failed to calculate.

@@ -101,13 +101,13 @@ namespace QSP.UI.Forms
                         "Please set the correct Nav Data location " +
                         "before using the application.",
                         MsgBoxIcon.Info,
-                        "",
+                        "QSimPlanner",
                         DefaultButton.Button1,
                         "OK");
                 }
                 else
                 {
-                    this.ShowWarning("Please set the correct Nav Data location.");
+                    MsgBoxHelper.ShowWarning(null, "Please set the correct Nav Data location.", "QSimPlanner");
                 }
 
                 ShowOptionsForm(FormStartPosition.CenterScreen, true, true);
