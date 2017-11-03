@@ -84,7 +84,7 @@ namespace QSP.UI.Forms.Options
                     MsgBoxIcon.Warning,
                     "",
                     DefaultButton.Button1,
-                    "Quit", "Back to options", "Cancel");
+                    "Quit", "Back to options");
 
                 if (result == MsgBoxResult.Button1) Environment.Exit(0);
             }
