@@ -2,6 +2,8 @@
 
 namespace QSP.RouteFinding.TerminalProcedures
 {
+    // Represents the SIDs/STARs that are blacklisted or whitelisted by the user.
+    //
     public class ProcedureFilter
     {
         private Dictionary<string, FilterEntry> items = new Dictionary<string, FilterEntry>();

@@ -16,6 +16,10 @@ using static QSP.UI.Factories.FormFactory;
 
 namespace QSP.UI.Controllers
 {
+    // Manages the selected SIDs/STARs by the user. 
+    // This class is responsible for the SID/STAR comboboxes, the filter button,
+    // and the instantiation of the filter form.
+    //
     public class RouteFinderSelection : ISelectedProcedureProvider
     {
         public static readonly string NoProcedureTxt = "NONE";
@@ -69,7 +73,7 @@ namespace QSP.UI.Controllers
         {
             IcaoTxtBox.TextChanged += IcaoChanged;
             RwyCBox.SelectedIndexChanged += RwyChanged;
-            FilterBtn.Click += filterSidStar;
+            FilterBtn.Click += FilterSidStar;
 
             FilterBtn.Enabled = false;
         }
@@ -78,7 +82,7 @@ namespace QSP.UI.Controllers
         {
             IcaoTxtBox.TextChanged -= IcaoChanged;
             RwyCBox.SelectedIndexChanged -= RwyChanged;
-            FilterBtn.Click -= filterSidStar;
+            FilterBtn.Click -= FilterSidStar;
         }
 
         public List<string> GetSelectedProcedures()
@@ -190,7 +194,7 @@ namespace QSP.UI.Controllers
             FilterBtn.Enabled = true;
         }
 
-        private void filterSidStar(object sender, EventArgs e)
+        private void FilterSidStar(object sender, EventArgs e)
         {
             var filter = new SidStarFilter();
 

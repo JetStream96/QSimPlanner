@@ -14,6 +14,7 @@ using Landing = QSP.LandingPerfCalculation;
 using LandingPerf = QSP.LandingPerfCalculation.Boeing.PerfData;
 using TO = QSP.TOPerfCalculation;
 using TOPerf = QSP.TOPerfCalculation.Boeing.PerfData;
+using CommonLibrary.LibraryExtension;
 
 namespace QSP.RouteFinding
 {
@@ -38,35 +39,73 @@ namespace QSP.RouteFinding
             this.takeoffTables = takeoffTables;
             this.landingTables = landingTables;
         }
-        /*
-        // @NoThrow
-        // error is not null if and only if an error occurred.
-        public (string runway, string error) SelectRunway(string icao)
+
+        // Return whether succeeded.
+        private bool DownloadMetarAndAddToCache(string icao)
+        {
+            if (!cache.Contains(icao) &&
+                MetarDownloader.TryGetMetar(icao, out var metar))
+            {
+                cache.AddOrUpdateItem(icao, MetarCacheItem.Create(metar));
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// @NoThrow
+        /// error is not null if and only if an error occurred.
+        /// This method may be slow if the metar is not in cache. 
+        /// </summary>
+        public (string runway, string error) SelectRunway(string icao, bool isTakeoff)
         {
             var airport = airportManager[icao];
             if (airport == null) return (null, "Airport not found.");
             var runways = airport.Rwys;
             if (runways.Count == 0) return (null, "No runway is available.");
-            
-                var wind = cache.GetItem(icao).Wind.Value;
-            // Eliminate the runways with tailwind.
-            var filtered = runways.Where(r => {
-                try
-                {
-                    return ConversionTools.HeadwindComponent(
-                        double.Parse(r.Heading), wind.Direction, wind.Speed) >= 0;
-                }
-                catchn
-                {
 
-                    throw;
-                }
-                //var (windHeading, windSpeed) = w.HasValue ? (w.Value.Direction, w.Value.Speed) : (0, 0);
-                
-                });
-            // TODO:
-            throw new Exception();
-        }*/
+            DownloadMetarAndAddToCache(icao);
+
+            var cacheItem = cache.GetItem(icao);
+            var wind = cacheItem.Wind.Value;
+
+            // Eliminate the runways with tailwind.
+            var filtered = runways
+                .Select(r =>
+                {
+                    if (double.TryParse(r.Heading, out var rwyHeading))
+                    {
+                        var comp = ConversionTools.HeadwindComponent(
+                            rwyHeading, wind.Direction, wind.Speed);
+                        return (Runway: r, CanParseHeading: true, HeadWind: comp);
+                    }
+
+                    return (r, false, 0);
+                })
+                .Where(i => i.CanParseHeading && i.HeadWind >= 0);
+
+            Func<string, double?> distanceGetter = runway =>
+                isTakeoff ?
+                TakeOffDistanceMeter(airport, runway, cacheItem, aircraft) :
+                LandingDistanceMeter(airport, runway, cacheItem, aircraft);
+
+            // Eliminate runways that are too short.
+            var longEnough = filtered.Where(i =>
+            {
+                var runway = i.Runway;
+                var dis = distanceGetter(runway.RwyIdent);
+                return dis != null && dis >= runway.LengthMeter();
+            }).ToList();
+
+            if (longEnough.Count > 0)
+            {
+                return (longEnough.MaxBy(i => i.HeadWind).Runway.RwyIdent, null);
+            }
+
+            return (null, "No runway is long enough for " +
+                (isTakeoff ? "takeoff." : "landing."));
+        }
 
         // @NoThrow
         // Returns null if failed to calculate.
@@ -163,6 +202,6 @@ namespace QSP.RouteFinding
             var rwyHeading = ConversionTools.ParseHeading(runway.Heading) ?? 0;
             return (true, runway, windHeading, windSpeed, rwyHeading, GetQNH());
         }
-        
+
     }
 }

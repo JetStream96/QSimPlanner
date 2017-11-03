@@ -44,7 +44,7 @@ namespace QSP.UI.RoutePlanning
             SetListView();
 
             showSelectedCheckBox.CheckedChanged +=
-                showSelectedCheckBoxChanged;
+                ShowSelectedCheckBoxChanged;
 
             okBtn.Click += UpdateFilter;
             cancelBtn.Click +=
@@ -112,22 +112,22 @@ namespace QSP.UI.RoutePlanning
             }
         }
 
-        private void filter(Func<ListViewItem, bool> predicate)
+        private void Filter(Func<ListViewItem, bool> predicate)
         {
             var selected = items.Where(predicate).ToArray();
             procListView.Items.Clear();
             procListView.Items.AddRange(selected);
         }
 
-        private void showSelectedCheckBoxChanged(object sender, EventArgs e)
+        private void ShowSelectedCheckBoxChanged(object sender, EventArgs e)
         {
             if (showSelectedCheckBox.Checked)
             {
-                filter(i => i.Checked);
+                Filter(i => i.Checked);
             }
             else
             {
-                filter(i => true);
+                Filter(i => true);
             }
         }
     }
