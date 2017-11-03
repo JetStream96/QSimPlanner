@@ -187,6 +187,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="RouteFinding\Airports\IAirport.cs" />
     <Compile Include="RouteFinding\Airports\IRwyData.cs" />
+    <Compile Include="RouteFinding\Airports\IRwyDataExtension.cs" />
     <Compile Include="RouteFinding\Finder\DestInfo.cs" />
     <Compile Include="RouteFinding\Finder\OrigInfo.cs" />
     <Compile Include="RouteFinding\RunwaySelector.cs" />

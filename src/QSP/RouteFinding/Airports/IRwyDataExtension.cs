@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using QSP.AviationTools;
 
 namespace QSP.RouteFinding.Airports
 {
-    class IRwyDataExtension
+    public static class IRwyDataExtension
     {
+        public static double LengthMeter(this IRwyData r) =>
+            r.ElevationFt * Constants.FtMeterRatio;
     }
 }
