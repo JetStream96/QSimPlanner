@@ -4,9 +4,7 @@ using QSP.AviationTools;
 using QSP.LandingPerfCalculation;
 using QSP.MathTools;
 using QSP.RouteFinding.Airports;
-using QSP.UI.ControlStates;
-using QSP.UI.Factories;
-using QSP.UI.MsgBox;
+using QSP.UI.Views.Factories;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers;
 using System;
@@ -14,6 +12,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using QSP.UI.Models.TakeoffLanding;
+using QSP.UI.Util;
 
 namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
 {
@@ -59,13 +59,13 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
 
         public void TryLoadState()
         {
-            var doc = StateManager.Load(FileName);
+            var doc = ViewStateSaver.Load(FileName);
             if (doc != null) new ControlState(this).Load(doc);
         }
 
         public void TrySaveState()
         {
-            StateManager.Save(FileName, new ControlState(this).Save());
+            ViewStateSaver.Save(FileName, new ControlState(this).Save());
         }
 
         private void SaveState(object sender, EventArgs e)

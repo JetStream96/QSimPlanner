@@ -1,6 +1,6 @@
+using QSP.Utilities;
 using System;
 using System.IO;
-using QSP.Utilities;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Numbers;
 
@@ -112,8 +112,7 @@ namespace QSP.WindAloft
             }
             catch (Exception ex)
             {
-                throw new ReadWindFileException(
-                    "Unable to retreive wind data from " + filename, ex);
+                throw new ReadWindFileException("Unable to retreive wind data from " + filename, ex);
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace QSP.UI.UserControls.AirportMap
+﻿using QSP.UI.Views;
+
+namespace QSP.UI.UserControls.AirportMap
 {
     partial class AirportMapControl
     {
@@ -41,7 +43,7 @@
             this.updateBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.icaoComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.icaoComboBox = new ComboBoxWithBorder();
             ((System.ComponentModel.ISupportInitialize)(this.airportDataGrid)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -281,7 +283,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         internal System.Windows.Forms.Button updateBtn;
         private System.Windows.Forms.Label label1;
-        internal Controls.ComboBoxWithBorder icaoComboBox;
+        internal ComboBoxWithBorder icaoComboBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
 }

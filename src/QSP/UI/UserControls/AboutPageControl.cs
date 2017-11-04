@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using QSP.UI.Utilities;
+using QSP.UI.Util;
 
 namespace QSP.UI.UserControls
 {

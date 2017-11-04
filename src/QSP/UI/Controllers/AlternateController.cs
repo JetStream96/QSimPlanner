@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static QSP.UI.Utilities.RouteDistanceDisplay;
+using static QSP.UI.Util.RouteDistanceDisplay;
 
 namespace QSP.UI.Controllers
 {

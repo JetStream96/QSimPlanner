@@ -1,4 +1,6 @@
-﻿namespace QSP.UI.UserControls.AircraftMenu
+﻿using QSP.UI.Views;
+
+namespace QSP.UI.UserControls.AircraftMenu
 {
     partial class AircraftMenuControl
     {
@@ -39,7 +41,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.registrationTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.acTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.acTypeComboBox = new ComboBoxWithBorder();
             this.label1 = new System.Windows.Forms.Label();
             this.propertyGroupBox = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
@@ -57,7 +59,7 @@
             this.wtUnitLbl3 = new System.Windows.Forms.Label();
             this.wtUnitLbl4 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.fuelProfileComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.fuelProfileComboBox = new ComboBoxWithBorder();
             this.label9 = new System.Windows.Forms.Label();
             this.maxZfwTxtBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -67,11 +69,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.oewTxtBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.ldgProfileComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.toProfileComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.ldgProfileComboBox = new ComboBoxWithBorder();
+            this.toProfileComboBox = new ComboBoxWithBorder();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.wtUnitComboBox = new ComboBoxWithBorder();
             this.wtUnitLbl5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.selectionGroupBox.SuspendLayout();
@@ -785,21 +787,21 @@
 
         private System.Windows.Forms.GroupBox selectionGroupBox;
         private System.Windows.Forms.Label label1;
-        private Controls.ComboBoxWithBorder acTypeComboBox;
+        private ComboBoxWithBorder acTypeComboBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button deleteBtn;
         private System.Windows.Forms.Button newBtn;
         private System.Windows.Forms.GroupBox propertyGroupBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private Controls.ComboBoxWithBorder ldgProfileComboBox;
+        private ComboBoxWithBorder ldgProfileComboBox;
         private System.Windows.Forms.Label label3;
-        private Controls.ComboBoxWithBorder toProfileComboBox;
+        private ComboBoxWithBorder toProfileComboBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox maxLdgWtTxtBox;
         private System.Windows.Forms.TextBox maxTOWtTxtBox;
         private System.Windows.Forms.TextBox oewTxtBox;
-        private Controls.ComboBoxWithBorder wtUnitComboBox;
+        private ComboBoxWithBorder wtUnitComboBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
@@ -813,7 +815,7 @@
         private System.Windows.Forms.Button editBtn;
         private System.Windows.Forms.TextBox maxZfwTxtBox;
         private System.Windows.Forms.Label label8;
-        private Controls.ComboBoxWithBorder fuelProfileComboBox;
+        private ComboBoxWithBorder fuelProfileComboBox;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label wtUnitLbl1;

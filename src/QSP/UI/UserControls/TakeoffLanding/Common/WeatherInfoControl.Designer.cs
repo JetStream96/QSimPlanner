@@ -1,4 +1,6 @@
-﻿namespace QSP.UI.UserControls.TakeoffLanding.Common
+﻿using QSP.UI.Views;
+
+namespace QSP.UI.UserControls.TakeoffLanding.Common
 {
     partial class WeatherInfoControl
     {
@@ -34,12 +36,12 @@
             this.ViewMetarBtn = new System.Windows.Forms.Button();
             this.picBox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.surfCondComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.surfCondComboBox = new ComboBoxWithBorder();
             this.Label105 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Label103 = new System.Windows.Forms.Label();
-            this.pressUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.tempUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.pressUnitComboBox = new ComboBoxWithBorder();
+            this.tempUnitComboBox = new ComboBoxWithBorder();
             this.windSpdTxtBox = new System.Windows.Forms.TextBox();
             this.Label108 = new System.Windows.Forms.Label();
             this.pressTxtBox = new System.Windows.Forms.TextBox();
@@ -386,12 +388,12 @@
         internal System.Windows.Forms.TextBox windDirTxtBox;
         internal System.Windows.Forms.Label Label104;
         internal System.Windows.Forms.Button GetMetarBtn;
-        internal Controls.ComboBoxWithBorder tempUnitComboBox;
-        internal Controls.ComboBoxWithBorder pressUnitComboBox;
+        internal ComboBoxWithBorder tempUnitComboBox;
+        internal ComboBoxWithBorder pressUnitComboBox;
         internal System.Windows.Forms.Button ViewMetarBtn;
         internal System.Windows.Forms.PictureBox picBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        internal Controls.ComboBoxWithBorder surfCondComboBox;
+        internal ComboBoxWithBorder surfCondComboBox;
         internal System.Windows.Forms.Label Label105;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;

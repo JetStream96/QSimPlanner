@@ -5,14 +5,14 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
-using QSP.UI.MsgBox;
-using QSP.UI.RoutePlanning;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static QSP.UI.Factories.FormFactory;
+using QSP.UI.Util;
+using QSP.UI.Views.Route;
+using static QSP.UI.Views.Factories.FormFactory;
 
 namespace QSP.UI.Controllers
 {
@@ -196,7 +196,7 @@ namespace QSP.UI.Controllers
 
         private void FilterSidStar(object sender, EventArgs e)
         {
-            var filter = new SidStarFilter();
+            var filter = new SidStarFilterControl();
 
             filter.Init(
                 Icao,

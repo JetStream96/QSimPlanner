@@ -1,4 +1,6 @@
-﻿namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
+﻿using QSP.UI.Views;
+
+namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
 {
     partial class AirportInfoControl
     {
@@ -29,13 +31,13 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lengthUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.slopeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.lengthUnitComboBox = new ComboBoxWithBorder();
+            this.slopeComboBox = new ComboBoxWithBorder();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.Label92 = new System.Windows.Forms.Label();
             this.reqAirportBtn = new System.Windows.Forms.Button();
             this.Label91 = new System.Windows.Forms.Label();
-            this.rwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.rwyComboBox = new ComboBoxWithBorder();
             this.Label89 = new System.Windows.Forms.Label();
             this.Label94 = new System.Windows.Forms.Label();
             this.Label88 = new System.Windows.Forms.Label();
@@ -362,8 +364,8 @@
         internal System.Windows.Forms.TextBox rwyHeadingTxtBox;
         internal System.Windows.Forms.TextBox lengthTxtBox;
         internal System.Windows.Forms.Label airportNameLbl;
-        internal Controls.ComboBoxWithBorder rwyComboBox;
-        internal Controls.ComboBoxWithBorder lengthUnitComboBox;
-        internal Controls.ComboBoxWithBorder slopeComboBox;
+        internal ComboBoxWithBorder rwyComboBox;
+        internal ComboBoxWithBorder lengthUnitComboBox;
+        internal ComboBoxWithBorder slopeComboBox;
     }
 }

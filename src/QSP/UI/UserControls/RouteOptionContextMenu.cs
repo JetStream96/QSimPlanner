@@ -3,7 +3,7 @@ using QSP.RouteFinding.Containers.CountryCode;
 using QSP.UI.RoutePlanning;
 using System.Drawing;
 using System.Windows.Forms;
-using static QSP.UI.Factories.FormFactory;
+using static QSP.UI.Views.Factories.FormFactory;
 
 namespace QSP.UI.UserControls
 {
@@ -27,24 +27,24 @@ namespace QSP.UI.UserControls
         {
             avoidCountryStripMenuItem.Click += (s, e) =>
             {
-                var countrySelection = new AvoidCountrySelection();
-                countrySelection.Init(countryCodesLocator.Instance);
-                countrySelection.Location = new Point(0, 0);
-                countrySelection.CheckedCodes = checkedCodesLocator.Instance;
+                var countrySelectionView = new AvoidCountryView();
+                countrySelectionView.Init(countryCodesLocator.Instance);
+                countrySelectionView.Location = new Point(0, 0);
+                countrySelectionView.CheckedCodes = checkedCodesLocator.Instance;
 
-                using (var frm = GetForm(countrySelection.Size))
+                using (var frm = GetForm(countrySelectionView.Size))
                 {
-                    frm.Controls.Add(countrySelection);
+                    frm.Controls.Add(countrySelectionView);
 
-                    countrySelection.CancelBtn.Click += (_sender, _e) =>
+                    countrySelectionView.CancelBtn.Click += (_sender, _e) =>
                     {
                         frm.Close();
                     };
 
-                    countrySelection.OkBtn.Click += (_sender, _e) =>
+                    countrySelectionView.OkBtn.Click += (_sender, _e) =>
                     {
                         checkedCodesLocator.Instance =
-                        countrySelection.CheckedCodes;
+                        countrySelectionView.CheckedCodes;
 
                         frm.Close();
                     };

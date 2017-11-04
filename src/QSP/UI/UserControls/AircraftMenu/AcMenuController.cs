@@ -4,7 +4,6 @@ using QSP.AviationTools;
 using QSP.Common;
 using QSP.LibraryExtension;
 using QSP.MathTools;
-using QSP.UI.MsgBox;
 using QSP.Utilities;
 using QSP.Utilities.Units;
 using System;
@@ -14,6 +13,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using CommonLibrary.LibraryExtension;
+using QSP.UI.Models.MsgBox;
+using QSP.UI.Util;
 
 namespace QSP.UI.UserControls.AircraftMenu
 {

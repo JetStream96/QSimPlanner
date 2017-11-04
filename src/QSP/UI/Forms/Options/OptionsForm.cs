@@ -9,7 +9,6 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport.Providers;
 using QSP.RouteFinding.Tracks;
-using QSP.UI.MsgBox;
 using QSP.Updates;
 using System;
 using System.Drawing;
@@ -17,7 +16,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static QSP.UI.MsgBox.MsgBoxHelper;
+using QSP.UI.Models.MsgBox;
+using static QSP.UI.Util.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms.Options

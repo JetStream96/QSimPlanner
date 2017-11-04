@@ -8,9 +8,10 @@ using QSP.GoogleMap;
 using QSP.MathTools;
 using QSP.Metar;
 using QSP.RouteFinding.Airports;
-using QSP.UI.Factories;
-using QSP.UI.Forms;
-using QSP.UI.Utilities;
+using QSP.UI.Views.Factories;
+using QSP.UI.Util;
+using QSP.UI.Util.ScrollBar;
+using QSP.UI.Views;
 
 namespace QSP.UI.UserControls.AirportMap
 {

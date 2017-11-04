@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using QSP.AviationTools;
-using QSP.UI.MsgBox;
 using QSP.UI.UserControls.TakeoffLanding.Common;
+using QSP.UI.Util;
 using QSP.Utilities.Units;
 
 namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf

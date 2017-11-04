@@ -1,7 +1,7 @@
 ﻿using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
 using QSP.Common;
-using QSP.UI.Utilities;
+using QSP.UI.Util;
 using QSP.Utilities.Units;
 
 namespace QSP.UI.UserControls.AircraftMenu

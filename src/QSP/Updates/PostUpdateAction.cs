@@ -4,14 +4,14 @@ using QSP.FuelCalculation.FuelData;
 using QSP.LandingPerfCalculation;
 using QSP.LibraryExtension;
 using QSP.TOPerfCalculation;
-using QSP.UI.ControlStates;
-using QSP.UI.Forms;
 using QSP.UI.UserControls;
 using QSP.UI.UserControls.TakeoffLanding.LandingPerf;
 using QSP.UI.UserControls.TakeoffLanding.TOPerf;
 using System;
 using System.IO;
 using System.Xml.Linq;
+using QSP.UI.Models;
+using QSP.UI.Models.TakeoffLanding;
 using static QSP.Updates.Utilities;
 using static QSP.Utilities.LoggerInstance;
 
@@ -92,8 +92,8 @@ namespace QSP.Updates
             Action[] actions =
             {
                 () => CopyFile(FuelPageState.FileLocation),
-                () => CopyFile(Path.Combine(StateManager.Directory, TOPerfControl.FileName)),
-                () => CopyFile(Path.Combine(StateManager.Directory, LandingPerfControl.FileName)),
+                () => CopyFile(Path.Combine(ViewStateSaver.Directory, TOPerfControl.FileName)),
+                () => CopyFile(Path.Combine(ViewStateSaver.Directory, LandingPerfControl.FileName)),
                 () => CopyFile(WindowSize.FileLocation)
             };
 

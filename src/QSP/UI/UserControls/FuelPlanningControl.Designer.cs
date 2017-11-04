@@ -1,4 +1,6 @@
-﻿namespace QSP.UI.UserControls
+﻿using QSP.UI.Views;
+
+namespace QSP.UI.UserControls
 {
     partial class FuelPlanningControl
     {
@@ -62,16 +64,16 @@
             this.zfwLbl = new System.Windows.Forms.Label();
             this.Label17 = new System.Windows.Forms.Label();
             this.payloadLbl = new System.Windows.Forms.Label();
-            this.registrationComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.registrationComboBox = new ComboBoxWithBorder();
             this.oewLbl = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.zfwTxtBox = new System.Windows.Forms.TextBox();
             this.payloadTxtBox = new System.Windows.Forms.TextBox();
             this.payloadTrackBar = new MetroFramework.Controls.MetroTrackBar();
-            this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.wtUnitComboBox = new ComboBoxWithBorder();
             this.oewTxtBox = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.acListComboBox = new ComboBoxWithBorder();
             this.label21 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -80,8 +82,8 @@
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.origTxtBox = new System.Windows.Forms.TextBox();
-            this.origRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.sidComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.origRwyComboBox = new ComboBoxWithBorder();
+            this.sidComboBox = new ComboBoxWithBorder();
             this.filterSidBtn = new System.Windows.Forms.Button();
             this.fromIdentLbl = new System.Windows.Forms.Label();
             this.fromRwyLbl = new System.Windows.Forms.Label();
@@ -92,8 +94,8 @@
             this.starLbl = new System.Windows.Forms.Label();
             this.destTxtBox = new System.Windows.Forms.TextBox();
             this.filterStarBtn = new System.Windows.Forms.Button();
-            this.destRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.starComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.destRwyComboBox = new ComboBoxWithBorder();
+            this.starComboBox = new ComboBoxWithBorder();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.showRouteActionsBtn = new System.Windows.Forms.Button();
             this.routeOptionBtn = new System.Windows.Forms.Button();
@@ -1278,18 +1280,18 @@
         public System.Windows.Forms.TextBox HoldTimeTxtBox;
         public System.Windows.Forms.ComboBox ContPercentComboBox;
         internal System.Windows.Forms.Button removeAltnBtn;
-        public Controls.ComboBoxWithBorder acListComboBox;
-        public Controls.ComboBoxWithBorder registrationComboBox;
+        public ComboBoxWithBorder acListComboBox;
+        public ComboBoxWithBorder registrationComboBox;
         public System.Windows.Forms.TextBox destTxtBox;
         public System.Windows.Forms.TextBox origTxtBox;
-        public Controls.ComboBoxWithBorder destRwyComboBox;
-        public Controls.ComboBoxWithBorder origRwyComboBox;
-        public Controls.ComboBoxWithBorder starComboBox;
-        public Controls.ComboBoxWithBorder sidComboBox;
+        public ComboBoxWithBorder destRwyComboBox;
+        public ComboBoxWithBorder origRwyComboBox;
+        public ComboBoxWithBorder starComboBox;
+        public ComboBoxWithBorder sidComboBox;
         private System.Windows.Forms.TextBox oewTxtBox;
         private System.Windows.Forms.TextBox zfwTxtBox;
         private System.Windows.Forms.TextBox extraFuelTxtBox;
-        private Controls.ComboBoxWithBorder wtUnitComboBox;
+        private ComboBoxWithBorder wtUnitComboBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel altnLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel addRemoveAltnBtnLayoutPanel;

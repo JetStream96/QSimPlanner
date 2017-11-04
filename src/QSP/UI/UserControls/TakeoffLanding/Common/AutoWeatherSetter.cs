@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Threading.Tasks;
 using QSP.Metar;
-using QSP.UI.Forms;
-using QSP.UI.MsgBox;
 using QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo;
+using QSP.UI.Util;
+using QSP.UI.Views;
 
 namespace QSP.UI.UserControls.TakeoffLanding.Common
 {

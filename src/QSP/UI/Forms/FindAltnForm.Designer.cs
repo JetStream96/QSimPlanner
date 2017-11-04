@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Linq;
 using System.Xml.Linq;
+using QSP.UI.Views;
 
 namespace QSP.UI.Forms
 {
@@ -44,7 +45,7 @@ namespace QSP.UI.Forms
             this.minRwyLengthTxtbox = new System.Windows.Forms.TextBox();
             this.findBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
-            this.lengthUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.lengthUnitComboBox = new ComboBoxWithBorder();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -245,7 +246,7 @@ namespace QSP.UI.Forms
         private TextBox minRwyLengthTxtbox;
         private Button findBtn;
         private Button CancelBtn;
-        private UI.Controls.ComboBoxWithBorder lengthUnitComboBox;
+        private ComboBoxWithBorder lengthUnitComboBox;
         private TableLayoutPanel tableLayoutPanel1;
     }
 }

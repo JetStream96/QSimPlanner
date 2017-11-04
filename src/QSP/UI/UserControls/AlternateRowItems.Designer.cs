@@ -1,4 +1,6 @@
-﻿namespace QSP.UI.UserControls
+﻿using QSP.UI.Views;
+
+namespace QSP.UI.UserControls
 {
     partial class AlternateRowItems
     {
@@ -33,7 +35,7 @@
             this.DisLbl = new System.Windows.Forms.Label();
             this.RouteTxtBox = new System.Windows.Forms.TextBox();
             this.RouteLbl = new System.Windows.Forms.Label();
-            this.RwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.RwyComboBox = new ComboBoxWithBorder();
             this.IcaoTxtBox = new System.Windows.Forms.TextBox();
             this.FindBtn = new System.Windows.Forms.Button();
             this.RwyLbl = new System.Windows.Forms.Label();
@@ -197,7 +199,7 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        public Controls.ComboBoxWithBorder RwyComboBox;
+        public ComboBoxWithBorder RwyComboBox;
         public System.Windows.Forms.TextBox IcaoTxtBox;
         public System.Windows.Forms.Label RouteLbl;
         public System.Windows.Forms.Button FindBtn;

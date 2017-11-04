@@ -1,5 +1,6 @@
 ﻿using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo;
+using QSP.UI.Views;
 
 namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
 {
@@ -35,13 +36,13 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             this.airportInfoControl = new QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo.AirportInfoControl();
             this.GroupBox14 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.regComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.regComboBox = new ComboBoxWithBorder();
             this.label1 = new System.Windows.Forms.Label();
-            this.brakeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.revThrustComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.flapsComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.brakeComboBox = new ComboBoxWithBorder();
+            this.revThrustComboBox = new ComboBoxWithBorder();
+            this.wtUnitComboBox = new ComboBoxWithBorder();
+            this.flapsComboBox = new ComboBoxWithBorder();
+            this.acListComboBox = new ComboBoxWithBorder();
             this.requestBtn = new System.Windows.Forms.Button();
             this.Label97 = new System.Windows.Forms.Label();
             this.Label96 = new System.Windows.Forms.Label();
@@ -537,12 +538,12 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         internal AirportInfoControl airportInfoControl;
         internal WeatherInfoControl weatherInfoControl;
-        internal Controls.ComboBoxWithBorder acListComboBox;
-        internal Controls.ComboBoxWithBorder flapsComboBox;
-        internal Controls.ComboBoxWithBorder wtUnitComboBox;
-        internal Controls.ComboBoxWithBorder revThrustComboBox;
-        internal Controls.ComboBoxWithBorder brakeComboBox;
-        internal Controls.ComboBoxWithBorder regComboBox;
+        internal ComboBoxWithBorder acListComboBox;
+        internal ComboBoxWithBorder flapsComboBox;
+        internal ComboBoxWithBorder wtUnitComboBox;
+        internal ComboBoxWithBorder revThrustComboBox;
+        internal ComboBoxWithBorder brakeComboBox;
+        internal ComboBoxWithBorder regComboBox;
         internal System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;

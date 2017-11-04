@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace QSP.RouteFinding.Containers.CountryCode
 {
+    // A class that enables conversion between letter code (e.g. EK), full name (e.g. 
+    // United Kindom), and an interger code.
     public class CountryCodeManager
     {
         // CountryCode <=> LetterCode

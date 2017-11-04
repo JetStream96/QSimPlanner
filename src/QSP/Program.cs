@@ -3,7 +3,6 @@ using QSP.Common.Options;
 using QSP.LibraryExtension.XmlSerialization;
 using QSP.Properties;
 using QSP.UI.Forms;
-using QSP.UI.MsgBox;
 using QSP.Updates;
 using QSP.Utilities;
 using System;
@@ -16,6 +15,8 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using QSP.UI.Util;
+using QSP.UI.Views;
 using static QSP.Updates.Utilities;
 
 namespace QSP

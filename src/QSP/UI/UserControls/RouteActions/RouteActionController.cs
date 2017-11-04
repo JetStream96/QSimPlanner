@@ -8,9 +8,7 @@ using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
-using QSP.UI.Controls;
-using QSP.UI.MsgBox;
-using QSP.UI.Utilities;
+using QSP.UI.Util;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
@@ -18,7 +16,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using static QSP.UI.Utilities.RouteDistanceDisplay;
+using QSP.UI.Views;
+using static QSP.UI.Util.RouteDistanceDisplay;
 
 namespace QSP.UI.UserControls.RouteActions
 {

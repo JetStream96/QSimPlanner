@@ -1,4 +1,6 @@
-﻿namespace QSP.UI.Forms.Options
+﻿using QSP.UI.Views;
+
+namespace QSP.UI.Forms.Options
 {
     partial class OptionsForm
     {
@@ -82,7 +84,7 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.updateStatusLbl = new System.Windows.Forms.Label();
             this.updateBtn = new System.Windows.Forms.Button();
-            this.updateFreqComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.updateFreqComboBox = new ComboBoxWithBorder();
             this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.tabPage3.SuspendLayout();
@@ -998,7 +1000,7 @@
         internal System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private Controls.ComboBoxWithBorder updateFreqComboBox;
+        private ComboBoxWithBorder updateFreqComboBox;
         private System.Windows.Forms.Button updateBtn;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label updateStatusLbl;

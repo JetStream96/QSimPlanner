@@ -1,0 +1,23 @@
+﻿using QSP.Common;
+using System.Windows.Forms;
+
+namespace QSP.UI.Util
+{
+    public static class InputValidator
+    {
+        /// <summary>
+        /// Parse the text of control to double and verify it's no smaller 
+        /// than 0. 
+        /// </summary>
+        /// <exception cref="InvalidUserInputException" ></exception>
+        public static double ParseNonNegative(Control control, string exceptionMsg)
+        {
+            if (!double.TryParse(control.Text, out var num) || num < 0.0)
+            {
+                throw new InvalidUserInputException(exceptionMsg);
+            }
+
+            return num;
+        }
+    }
+}

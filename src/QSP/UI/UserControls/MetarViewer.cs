@@ -5,9 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.LibraryExtension;
 using QSP.Metar;
-using QSP.UI.Utilities;
+using QSP.UI.Util;
 
 namespace QSP.UI.UserControls
 {

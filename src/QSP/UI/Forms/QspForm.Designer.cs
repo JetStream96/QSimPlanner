@@ -1,4 +1,5 @@
 ﻿using QSP.UI.UserControls;
+using QSP.UI.Views;
 
 namespace QSP.UI.Forms
 {
@@ -36,7 +37,7 @@ namespace QSP.UI.Forms
             this.ToolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.windDataStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.panel1 = new QSP.UI.Controls.PanelSilentScrollbar();
+            this.panel1 = new PanelSilentScrollbar();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.navBar = new QSP.UI.UserControls.NavBar();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -179,7 +180,7 @@ namespace QSP.UI.Forms
         internal System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel2;
         internal System.Windows.Forms.ToolStripStatusLabel windDataStatusLabel;
         private System.Windows.Forms.StatusStrip StatusStrip1;
-        private Controls.PanelSilentScrollbar panel1;
+        private PanelSilentScrollbar panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel2;
         private NavBar navBar;

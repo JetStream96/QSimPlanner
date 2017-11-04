@@ -1,7 +1,7 @@
 using QSP.Common;
 using QSP.FuelCalculation.FuelData;
 using QSP.UI.Controllers.Units;
-using static QSP.UI.Utilities.InputValidator;
+using static QSP.UI.Util.InputValidator;
 
 namespace QSP.UI.UserControls
 {

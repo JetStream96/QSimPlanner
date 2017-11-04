@@ -4,11 +4,11 @@ using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
-using QSP.UI.Controls;
 using QSP.WindAloft;
 using System;
 using System.Windows.Forms;
-using static QSP.UI.Utilities.RouteDistanceDisplay;
+using QSP.UI.Views;
+using static QSP.UI.Util.RouteDistanceDisplay;
 
 namespace QSP.UI.UserControls.RouteActions
 {

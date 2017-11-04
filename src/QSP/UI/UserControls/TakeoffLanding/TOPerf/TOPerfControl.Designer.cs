@@ -1,5 +1,6 @@
 ﻿using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo;
+using QSP.UI.Views;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
 {
@@ -37,20 +38,20 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.weightTxtBox = new System.Windows.Forms.TextBox();
             this.thrustRatingLbl = new System.Windows.Forms.Label();
-            this.wtUnitComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.packsComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.wtUnitComboBox = new ComboBoxWithBorder();
+            this.packsComboBox = new ComboBoxWithBorder();
             this.Label99 = new System.Windows.Forms.Label();
-            this.regComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.antiIceComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.regComboBox = new ComboBoxWithBorder();
+            this.antiIceComboBox = new ComboBoxWithBorder();
             this.Label102 = new System.Windows.Forms.Label();
             this.Label100 = new System.Windows.Forms.Label();
-            this.acListComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.acListComboBox = new ComboBoxWithBorder();
             this.label1 = new System.Windows.Forms.Label();
             this.Label97 = new System.Windows.Forms.Label();
             this.Label101 = new System.Windows.Forms.Label();
             this.requestBtn = new System.Windows.Forms.Button();
-            this.thrustRatingComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.flapsComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.thrustRatingComboBox = new ComboBoxWithBorder();
+            this.flapsComboBox = new ComboBoxWithBorder();
             this.calculateBtn = new System.Windows.Forms.Button();
             this.GroupBox16 = new System.Windows.Forms.GroupBox();
             this.resultsRichTxtBox = new System.Windows.Forms.RichTextBox();
@@ -523,11 +524,11 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
         internal System.Windows.Forms.GroupBox GroupBox13;
         internal AirportInfoControl airportInfoControl;
         internal System.Windows.Forms.GroupBox GroupBox14;
-        internal Controls.ComboBoxWithBorder packsComboBox;
-        internal Controls.ComboBoxWithBorder antiIceComboBox;
-        internal Controls.ComboBoxWithBorder wtUnitComboBox;
-        internal Controls.ComboBoxWithBorder flapsComboBox;
-        internal Controls.ComboBoxWithBorder acListComboBox;
+        internal ComboBoxWithBorder packsComboBox;
+        internal ComboBoxWithBorder antiIceComboBox;
+        internal ComboBoxWithBorder wtUnitComboBox;
+        internal ComboBoxWithBorder flapsComboBox;
+        internal ComboBoxWithBorder acListComboBox;
         internal System.Windows.Forms.Button requestBtn;
         internal System.Windows.Forms.Label Label97;
         internal System.Windows.Forms.Label Label102;
@@ -541,8 +542,8 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
         internal System.Windows.Forms.GroupBox GroupBox15;
         internal WeatherInfoControl weatherInfoControl;
         internal System.Windows.Forms.Label thrustRatingLbl;
-        internal Controls.ComboBoxWithBorder thrustRatingComboBox;
-        internal Controls.ComboBoxWithBorder regComboBox;
+        internal ComboBoxWithBorder thrustRatingComboBox;
+        internal ComboBoxWithBorder regComboBox;
         internal System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;

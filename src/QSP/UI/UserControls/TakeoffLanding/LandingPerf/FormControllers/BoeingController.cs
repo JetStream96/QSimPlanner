@@ -4,11 +4,12 @@ using QSP.Common;
 using QSP.LandingPerfCalculation;
 using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
-using QSP.UI.MsgBox;
 using QSP.Utilities.Units;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using QSP.UI.Models.MsgBox;
+using QSP.UI.Util;
 
 namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 {

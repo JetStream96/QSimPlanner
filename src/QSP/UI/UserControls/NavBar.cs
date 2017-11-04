@@ -11,7 +11,7 @@ using System.Linq;
 using System.Windows.Forms;
 using static QSP.UI.Controllers.ControlGroup.ControlSwitcher;
 using static QSP.UI.Controllers.ControlGroup.GroupController;
-using static QSP.UI.Utilities.OpenFileHelper;
+using static QSP.UI.Util.OpenFileHelper;
 
 namespace QSP.UI.UserControls
 {

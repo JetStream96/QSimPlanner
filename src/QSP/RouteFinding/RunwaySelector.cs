@@ -58,7 +58,8 @@ namespace QSP.RouteFinding
         /// error is not null if and only if an error occurred.
         /// This method may be slow if the metar is not in cache. 
         /// </summary>
-        public (string runway, string error) SelectRunway(string icao, bool isTakeoff)
+        public (string runway, string error) SelectRunway(string icao, bool isTakeoff, 
+            AircraftRequest aircraft)
         {
             var airport = airportManager[icao];
             if (airport == null) return (null, "Airport not found.");

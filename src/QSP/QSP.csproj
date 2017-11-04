@@ -230,13 +230,14 @@
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
     <Compile Include="TOPerfCalculation\FindTable.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />
-    <Compile Include="UI\Controllers\ControlDisableStyleController.cs" />
+    <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
+    <Compile Include="UI\Util\ControlDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\ColorGroup.cs" />
     <Compile Include="UI\Controllers\DestinationStarSelection.cs" />
     <Compile Include="UI\Controllers\ISelectedProcedureProvider.cs" />
-    <Compile Include="UI\Controllers\ListViewSortEnabler.cs" />
+    <Compile Include="UI\Util\ListViewSortEnabler.cs" />
     <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
-    <Compile Include="UI\Controllers\ScrollAnimation.cs" />
+    <Compile Include="UI\Util\ScrollBar\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
     <Compile Include="UI\UserControls\DescentForcastDisplay.cs">
@@ -264,51 +265,52 @@
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\Options\FlightPlanExportController.cs" />
-    <Compile Include="UI\Forms\UnhandledExceptionForm.cs">
+    <Compile Include="UI\Views\UnhandledExceptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\UnhandledExceptionForm.Designer.cs">
+    <Compile Include="UI\Views\UnhandledExceptionForm.Designer.cs">
       <DependentUpon>UnhandledExceptionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\WindDownloadStatus.cs" />
-    <Compile Include="UI\Controls\IClickable.cs" />
-    <Compile Include="UI\Controls\PanelSilentScrollbar.cs">
+    <Compile Include="UI\Models\Wind\WindDownloadStatus.cs" />
+    <Compile Include="UI\Views\IClickable.cs" />
+    <Compile Include="UI\Views\PanelSilentScrollbar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Factories\FormFactory.cs" />
+    <Compile Include="UI\Views\Factories\FormFactory.cs" />
     <Compile Include="UI\Forms\QspForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\Forms\QspForm.Designer.cs">
       <DependentUpon>QspForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\WindDataForm.cs">
+    <Compile Include="UI\Views\Wind\IWindDataView.cs" />
+    <Compile Include="UI\Views\Wind\WindDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\WindDataForm.Designer.cs">
+    <Compile Include="UI\Views\Wind\WindDataForm.Designer.cs">
       <DependentUpon>WindDataForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\WindowSize.cs" />
-    <Compile Include="UI\MsgBox\DefaultButton.cs" />
-    <Compile Include="UI\MsgBox\MsgBoxResult.cs" />
-    <Compile Include="UI\MsgBox\MsgBoxForm.cs">
+    <Compile Include="UI\Models\WindowSize.cs" />
+    <Compile Include="UI\Models\MsgBox\DefaultButton.cs" />
+    <Compile Include="UI\Models\MsgBox\MsgBoxResult.cs" />
+    <Compile Include="UI\Views\MsgBox\MsgBoxForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MsgBox\MsgBoxForm.Designer.cs">
+    <Compile Include="UI\Views\MsgBox\MsgBoxForm.Designer.cs">
       <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MsgBox\MsgBoxIcon.cs" />
-    <Compile Include="UI\RoutePlanning\AvoidCountrySelection.cs">
+    <Compile Include="UI\Models\MsgBox\MsgBoxIcon.cs" />
+    <Compile Include="UI\Views\Route\AvoidCountryControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\RoutePlanning\AvoidCountrySelection.Designer.cs">
-      <DependentUpon>AvoidCountrySelection.cs</DependentUpon>
+    <Compile Include="UI\Views\Route\AvoidCountryControl.Designer.cs">
+      <DependentUpon>AvoidCountryControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\RoutePlanning\SidStarFilter.cs">
+    <Compile Include="UI\Views\Route\SidStarFilterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\RoutePlanning\SidStarFilter.Designer.cs">
-      <DependentUpon>SidStarFilter.cs</DependentUpon>
+    <Compile Include="UI\Views\Route\SidStarFilterControl.Designer.cs">
+      <DependentUpon>SidStarFilterControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserControls\AboutPageControl.cs">
       <SubType>UserControl</SubType>
@@ -335,7 +337,7 @@
     <Compile Include="UI\UserControls\AdvancedRouteTool.Designer.cs">
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Factories\ToolTipFactory.cs" />
+    <Compile Include="UI\Views\Factories\ToolTipFactory.cs" />
     <Compile Include="UI\UserControls\AlternateRowItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -362,17 +364,17 @@
     </Compile>
     <Compile Include="UI\UserControls\RouteActions\RouteActionController.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\IFormController.cs" />
-    <Compile Include="UI\Utilities\ControlMover.cs" />
-    <Compile Include="UI\Utilities\DoubleBufferUtil.cs" />
-    <Compile Include="UI\Utilities\ImageUtil.cs" />
-    <Compile Include="UI\Utilities\InputControl.cs" />
-    <Compile Include="UI\Utilities\InputValidator.cs" />
-    <Compile Include="UI\Utilities\ControlFinder.cs" />
-    <Compile Include="UI\Utilities\OpenFileHelper.cs" />
-    <Compile Include="UI\Utilities\RouteDistanceDisplay.cs" />
-    <Compile Include="UI\Utilities\ScrollBarsUtil.cs" />
-    <Compile Include="UI\Utilities\ScrollBarWorkaround.cs" />
-    <Compile Include="UI\Utilities\ShowMapHelper.cs" />
+    <Compile Include="UI\Util\ControlMover.cs" />
+    <Compile Include="UI\Util\DoubleBufferUtil.cs" />
+    <Compile Include="UI\Util\ImageUtil.cs" />
+    <Compile Include="UI\Util\InputControl.cs" />
+    <Compile Include="UI\Util\InputValidator.cs" />
+    <Compile Include="UI\Util\ControlFinder.cs" />
+    <Compile Include="UI\Util\OpenFileHelper.cs" />
+    <Compile Include="UI\Util\RouteDistanceDisplay.cs" />
+    <Compile Include="UI\Util\ScrollBar\ScrollBarsUtil.cs" />
+    <Compile Include="UI\Util\ScrollBar\ScrollBarWorkaround.cs" />
+    <Compile Include="UI\Util\ShowMapHelper.cs" />
     <Compile Include="Updates\PostUpdateAction.cs" />
     <Compile Include="Updates\Updater.cs" />
     <Compile Include="Updates\Utilities.cs" />
@@ -503,7 +505,7 @@
     <Compile Include="UI\Controllers\ControlGroup\ColorController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\GroupController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\ControlSwitcher.cs" />
-    <Compile Include="UI\ControlStates\StateManager.cs" />
+    <Compile Include="UI\Models\TakeoffLanding\ViewStateSaver.cs" />
     <Compile Include="UI\UserControls\AircraftMenu\AcConfigValidator.cs" />
     <Compile Include="UI\UserControls\AircraftMenu\AcMenuController.cs" />
     <Compile Include="UI\UserControls\AircraftMenu\AcMenuElements.cs" />
@@ -522,7 +524,7 @@
     <Compile Include="GoogleMap\InteractiveMap.cs" />
     <Compile Include="GoogleMap\StaticMap.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\Common\AirportInfo\SlopeComboBoxController.cs" />
-    <Compile Include="UI\Controls\ComboBoxWithBorder.cs">
+    <Compile Include="UI\Views\ComboBoxWithBorder.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\UserControls\TakeoffLanding\Common\AirportInfo\AirportInfoControl.cs">
@@ -568,7 +570,7 @@
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\TOPerfControl.Designer.cs">
       <DependentUpon>TOPerfControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MsgBox\MsgBoxHelper.cs" />
+    <Compile Include="UI\Util\MsgBoxHelper.cs" />
     <Compile Include="Utilities\ExceptionHelpers.cs" />
     <Compile Include="Utilities\LoggerInstance.cs" />
     <Compile Include="Common\Exceptions.cs" />
@@ -622,16 +624,16 @@
     <Compile Include="UI\Forms\FindAltnForm.Designer.cs">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\MetarForm.cs">
+    <Compile Include="UI\Views\MetarForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\MetarForm.Designer.cs">
+    <Compile Include="UI\Views\MetarForm.Designer.cs">
       <DependentUpon>MetarForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\Splash.cs">
+    <Compile Include="UI\Views\Splash.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\Splash.Designer.cs">
+    <Compile Include="UI\Views\Splash.Designer.cs">
       <DependentUpon>Splash.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\TracksForm.cs">
@@ -780,13 +782,13 @@
     <EmbeddedResource Include="UI\Forms\Options\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\UnhandledExceptionForm.resx">
+    <EmbeddedResource Include="UI\Views\UnhandledExceptionForm.resx">
       <DependentUpon>UnhandledExceptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\WindDataForm.resx">
+    <EmbeddedResource Include="UI\Views\Wind\WindDataForm.resx">
       <DependentUpon>WindDataForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MsgBox\MsgBoxForm.resx">
+    <EmbeddedResource Include="UI\Views\MsgBox\MsgBoxForm.resx">
       <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\AlternateRowItems.resx">
@@ -804,11 +806,11 @@
     <EmbeddedResource Include="UI\Forms\QspForm.resx">
       <DependentUpon>QspForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\RoutePlanning\AvoidCountrySelection.resx">
-      <DependentUpon>AvoidCountrySelection.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Views\Route\AvoidCountryControl.resx">
+      <DependentUpon>AvoidCountryControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\RoutePlanning\SidStarFilter.resx">
-      <DependentUpon>SidStarFilter.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Views\Route\SidStarFilterControl.resx">
+      <DependentUpon>SidStarFilterControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\AdvancedRouteTool.resx">
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
@@ -846,10 +848,10 @@
     <EmbeddedResource Include="UI\UserControls\TakeoffLanding\LandingPerf\LandingPerfControl.resx">
       <DependentUpon>LandingPerfControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\MetarForm.resx">
+    <EmbeddedResource Include="UI\Views\MetarForm.resx">
       <DependentUpon>MetarForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\Splash.resx">
+    <EmbeddedResource Include="UI\Views\Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\TracksForm.resx">
@@ -990,6 +992,7 @@
       <Name>CommonLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

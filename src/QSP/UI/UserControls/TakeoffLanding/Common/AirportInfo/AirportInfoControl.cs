@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using QSP.AviationTools;
 using QSP.MathTools;
 using QSP.RouteFinding.Airports;
-using QSP.UI.Factories;
+using QSP.UI.Views.Factories;
 
 namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
 {

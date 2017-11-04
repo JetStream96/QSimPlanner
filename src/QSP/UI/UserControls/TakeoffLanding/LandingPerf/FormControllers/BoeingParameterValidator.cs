@@ -3,7 +3,6 @@ using QSP.AviationTools;
 using QSP.Common;
 using QSP.LandingPerfCalculation.Boeing;
 using QSP.LandingPerfCalculation.Boeing.PerfData;
-using QSP.MathTools;
 
 namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
 {

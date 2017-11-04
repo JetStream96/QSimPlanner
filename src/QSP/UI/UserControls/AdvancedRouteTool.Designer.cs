@@ -1,4 +1,6 @@
-﻿namespace QSP.UI.UserControls
+﻿using QSP.UI.Views;
+
+namespace QSP.UI.UserControls
 {
     partial class AdvancedRouteTool
     {
@@ -47,14 +49,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.routeOptionBtn = new System.Windows.Forms.Button();
             this.showRouteActionsBtn = new System.Windows.Forms.Button();
-            this.toWptComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.starComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.toRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.fromWptComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.sidComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.fromRwyComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.toTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.fromTypeComboBox = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.toWptComboBox = new ComboBoxWithBorder();
+            this.starComboBox = new ComboBoxWithBorder();
+            this.toRwyComboBox = new ComboBoxWithBorder();
+            this.fromWptComboBox = new ComboBoxWithBorder();
+            this.sidComboBox = new ComboBoxWithBorder();
+            this.fromRwyComboBox = new ComboBoxWithBorder();
+            this.toTypeComboBox = new ComboBoxWithBorder();
+            this.fromTypeComboBox = new ComboBoxWithBorder();
             this.SuspendLayout();
             // 
             // label1
@@ -417,19 +419,19 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private Controls.ComboBoxWithBorder fromTypeComboBox;
-        private Controls.ComboBoxWithBorder toTypeComboBox;
-        private Controls.ComboBoxWithBorder fromRwyComboBox;
+        private ComboBoxWithBorder fromTypeComboBox;
+        private ComboBoxWithBorder toTypeComboBox;
+        private ComboBoxWithBorder fromRwyComboBox;
         private System.Windows.Forms.Label fromRwyLbl;
-        private Controls.ComboBoxWithBorder sidComboBox;
+        private ComboBoxWithBorder sidComboBox;
         private System.Windows.Forms.Label sidLbl;
-        private Controls.ComboBoxWithBorder fromWptComboBox;
+        private ComboBoxWithBorder fromWptComboBox;
         private System.Windows.Forms.Label fromWptLbl;
-        private Controls.ComboBoxWithBorder toWptComboBox;
+        private ComboBoxWithBorder toWptComboBox;
         private System.Windows.Forms.Label toWptLbl;
-        private Controls.ComboBoxWithBorder starComboBox;
+        private ComboBoxWithBorder starComboBox;
         private System.Windows.Forms.Label starLbl;
-        private Controls.ComboBoxWithBorder toRwyComboBox;
+        private ComboBoxWithBorder toRwyComboBox;
         private System.Windows.Forms.Label toRwyLbl;
         private System.Windows.Forms.RichTextBox routeRichTxtBox;
         private System.Windows.Forms.Label routeSummaryLbl;

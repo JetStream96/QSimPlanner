@@ -15,10 +15,9 @@ using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
-using QSP.UI.MsgBox;
 using QSP.UI.UserControls.RouteActions;
 using QSP.UI.UserControls.TakeoffLanding.Common;
-using QSP.UI.Utilities;
+using QSP.UI.Util;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
 using CommonLibrary.LibraryExtension;
@@ -31,14 +30,16 @@ using System.Windows.Forms;
 using static QSP.AviationTools.Constants;
 using static QSP.AviationTools.SpeedConversion;
 using static QSP.MathTools.Numbers;
-using static QSP.UI.Factories.FormFactory;
-using static QSP.UI.MsgBox.MsgBoxHelper;
-using static QSP.UI.Utilities.RouteDistanceDisplay;
+using static QSP.UI.Views.Factories.FormFactory;
+using static QSP.UI.Util.MsgBoxHelper;
+using static QSP.UI.Util.RouteDistanceDisplay;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.Units.Conversions;
 using QSP.Metar;
 using CommonLibrary.AviationTools;
 using System.Threading.Tasks;
+using QSP.UI.Models.MsgBox;
+using QSP.UI.Util.ScrollBar;
 
 namespace QSP.UI.UserControls
 {

@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Linq;
 using System.Xml.Linq;
+using QSP.UI.Views;
 
 namespace QSP.UI.Forms
 {
@@ -39,7 +40,7 @@ namespace QSP.UI.Forms
         [System.Diagnostics.DebuggerStepThrough()]
         private void InitializeComponent()
         {
-            this.panel1 = new QSP.UI.Controls.PanelSilentScrollbar();
+            this.panel1 = new PanelSilentScrollbar();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ListView1 = new System.Windows.Forms.ListView();
@@ -66,9 +67,9 @@ namespace QSP.UI.Forms
             this.Label1 = new System.Windows.Forms.Label();
             this.Label2 = new System.Windows.Forms.Label();
             this.Label3 = new System.Windows.Forms.Label();
-            this.CBoxAusotsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.CBoxPacotsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
-            this.CBoxNatsEnabled = new QSP.UI.Controls.ComboBoxWithBorder();
+            this.CBoxAusotsEnabled = new ComboBoxWithBorder();
+            this.CBoxPacotsEnabled = new ComboBoxWithBorder();
+            this.CBoxNatsEnabled = new ComboBoxWithBorder();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -605,9 +606,9 @@ namespace QSP.UI.Forms
         private Button viewNatsBtn;
         private Button viewPacotsBtn;
         private Button viewAusotsBtn;
-        private QSP.UI.Controls.ComboBoxWithBorder CBoxPacotsEnabled;
-        private QSP.UI.Controls.ComboBoxWithBorder CBoxAusotsEnabled;
-        private QSP.UI.Controls.ComboBoxWithBorder CBoxNatsEnabled;
+        private ComboBoxWithBorder CBoxPacotsEnabled;
+        private ComboBoxWithBorder CBoxAusotsEnabled;
+        private ComboBoxWithBorder CBoxNatsEnabled;
         private PictureBox PicBoxPacots;
         private PictureBox PicBoxAusots;
         private PictureBox PicBoxNats;
@@ -625,6 +626,6 @@ namespace QSP.UI.Forms
         private Button importBtn;
         private Button downloadAllBtn;
         private Button saveBtn;
-        private Controls.PanelSilentScrollbar panel1;
+        private PanelSilentScrollbar panel1;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using QSP.AircraftProfiles;
-using QSP.UI.Utilities;
+using QSP.UI.Util;
 
 namespace QSP.UI.UserControls.AircraftMenu
 {
