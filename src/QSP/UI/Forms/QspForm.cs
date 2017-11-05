@@ -31,6 +31,7 @@ using System.Xml.Linq;
 using QSP.UI.Models;
 using QSP.UI.Models.MsgBox;
 using QSP.UI.Models.Wind;
+using QSP.UI.Presenters.Wind;
 using QSP.UI.Util.ScrollBar;
 using QSP.UI.Views;
 using static QSP.Utilities.LoggerInstance;
@@ -169,8 +170,8 @@ namespace QSP.UI.Forms
         private void InitWindForm()
         {
             windFrm = new WindDataForm();
-            windFrm.Init(windDataStatusLabel,
-                windTableLocator, WindDownloadStatus.WaitingManualDownload);
+            var presenter = new WindDataPresenter(windFrm, windTableLocator);
+            windFrm.Init(windDataStatusLabel, presenter, WindDownloadStatus.WaitingManualDownload);
         }
 
         private void InitTrackForm()

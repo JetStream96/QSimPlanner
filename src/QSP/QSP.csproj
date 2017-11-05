@@ -230,6 +230,7 @@
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
     <Compile Include="TOPerfCalculation\FindTable.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />
+    <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
     <Compile Include="UI\Util\ControlDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\ColorGroup.cs" />
@@ -265,6 +266,7 @@
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\Options\FlightPlanExportController.cs" />
+    <Compile Include="UI\Views\IAltnView.cs" />
     <Compile Include="UI\Views\UnhandledExceptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -618,10 +620,10 @@
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarHandler.cs" />
     <Compile Include="RouteFinding\RwyIdent.cs" />
     <Compile Include="TOPerfCalculation\TOReport.cs" />
-    <Compile Include="UI\Forms\FindAltnForm.cs">
+    <Compile Include="UI\Views\FindAltnForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FindAltnForm.Designer.cs">
+    <Compile Include="UI\Views\FindAltnForm.Designer.cs">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\MetarForm.cs">
@@ -839,7 +841,7 @@
     <EmbeddedResource Include="UI\UserControls\TakeoffLanding\Common\AirportInfo\AirportInfoControl.resx">
       <DependentUpon>AirportInfoControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\FindAltnForm.resx">
+    <EmbeddedResource Include="UI\Views\FindAltnForm.resx">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\TakeoffLanding\LandingPerf\CustomFuelForm.resx">

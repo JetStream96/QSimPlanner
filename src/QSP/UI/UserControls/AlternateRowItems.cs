@@ -1,5 +1,6 @@
 ﻿using QSP.RouteFinding.Airports;
-using QSP.UI.Forms;
+using QSP.UI.Presenters;
+using QSP.UI.Views;
 using System;
 using System.Windows.Forms;
 
@@ -14,7 +15,7 @@ namespace QSP.UI.UserControls
         {
             InitializeComponent();
         }
-        
+
         public void Init(Func<string> destIcaoGetter, Func<AirportManager> airportListGetter)
         {
             this.destIcaoGetter = destIcaoGetter;
@@ -30,7 +31,8 @@ namespace QSP.UI.UserControls
                     IcaoTxtBox.Text = frm.SelectedIcao;
                 };
 
-                frm.Init(destIcaoGetter(), airportListGetter());
+                var presenter = new FindAltnPresenter(frm, airportListGetter());
+                frm.Init(destIcaoGetter(), presenter);
                 frm.ShowDialog();
             }
         }

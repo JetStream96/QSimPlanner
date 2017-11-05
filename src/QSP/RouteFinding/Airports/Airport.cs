@@ -15,7 +15,7 @@ namespace QSP.RouteFinding.Airports
         public bool TransAvail { get; private set; }
         public int TransAlt { get; private set; }
         public int TransLvl { get; private set; }
-        public int LongestRwyLength { get; private set; }
+        public int LongestRwyLengthFt { get; private set; }
         public IReadOnlyList<RwyData> Rwys { get; private set; }
 
         IReadOnlyList<IRwyData> IAirport.Rwys => Rwys;
@@ -29,7 +29,7 @@ namespace QSP.RouteFinding.Airports
             bool TransAvail,
             int TransAlt,
             int TransLvl,
-            int LongestRwyLength,
+            int LongestRwyLengthFt,
             IReadOnlyList<RwyData> Rwys)
         {
             this.Icao = Icao;
@@ -40,7 +40,7 @@ namespace QSP.RouteFinding.Airports
             this.TransAvail = TransAvail;
             this.TransAlt = TransAlt;
             this.TransLvl = TransLvl;
-            this.LongestRwyLength = LongestRwyLength;
+            this.LongestRwyLengthFt = LongestRwyLengthFt;
             this.Rwys = Rwys;
         }
 
@@ -54,7 +54,7 @@ namespace QSP.RouteFinding.Airports
             TransAvail = item.TransAvail;
             TransAlt = item.TransAlt;
             TransLvl = item.TransLvl;
-            LongestRwyLength = item.LongestRwyLength;
+            LongestRwyLengthFt = item.LongestRwyLengthFt;
             Rwys = new List<RwyData>(item.Rwys);
         }
 
@@ -82,7 +82,7 @@ namespace QSP.RouteFinding.Airports
                 TransAvail == other.TransAvail &&
                 TransAlt == other.TransAlt &&
                 TransLvl == other.TransLvl &&
-                LongestRwyLength == other.LongestRwyLength &&
+                LongestRwyLengthFt == other.LongestRwyLengthFt &&
                 Rwys.SetEquals(other.Rwys);
         }
 
@@ -90,7 +90,8 @@ namespace QSP.RouteFinding.Airports
         {
             var h1 = new object[]
             {
-                Icao, Name, Lat, Lon, Elevation, TransAvail, TransAlt, TransLvl, LongestRwyLength
+                Icao, Name, Lat, Lon, Elevation, TransAvail,
+                TransAlt, TransLvl, LongestRwyLengthFt
             }.HashCodeByElem();
 
             var h2 = Rwys.HashCodeSymmetric();

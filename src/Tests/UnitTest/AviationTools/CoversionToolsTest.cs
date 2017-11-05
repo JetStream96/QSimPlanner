@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using QSP.Utilities.Units;
 using static QSP.AviationTools.ConversionTools;
 using static UnitTest.Common.Utilities;
 
@@ -71,6 +72,20 @@ namespace UnitTest.AviationTools
         public void HeadwindComponentTest()
         {
             Assert.AreEqual(17.6776695297, HeadwindComponent(10, 55, 25), 1E-6);
+        }
+
+        [Test]
+        public void GetLengthMeterTest()
+        {
+            Assert.AreEqual(3.048, GetLengthMeter(10, LengthUnit.Feet), 0.01);
+            Assert.AreEqual(8, GetLengthMeter(8, LengthUnit.Meter), 1e-6);
+        }
+
+        [Test]
+        public void GetLengthFtTest()
+        {
+            Assert.AreEqual(10, GetLengthFt(3.28, LengthUnit.Meter), 0.1);
+            Assert.AreEqual(8, GetLengthFt(8, LengthUnit.Feet), 1e-6);
         }
     }
 }

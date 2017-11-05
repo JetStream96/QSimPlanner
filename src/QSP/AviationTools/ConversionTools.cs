@@ -1,5 +1,6 @@
 using QSP.MathTools;
 using System;
+using QSP.Utilities.Units;
 using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.AviationTools
@@ -77,6 +78,22 @@ namespace QSP.AviationTools
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// The unit can be meter or feet.
+        /// </summary>
+        public static double GetLengthMeter(double length, LengthUnit unit)
+        {
+            return length * (unit == LengthUnit.Feet ? Constants.FtMeterRatio : 1);
+        }
+
+        /// <summary>
+        /// The unit can be meter or feet.
+        /// </summary>
+        public static double GetLengthFt(double length, LengthUnit unit)
+        {
+            return length * (unit == LengthUnit.Meter ? Constants.MeterFtRatio : 1);
         }
     }
 }

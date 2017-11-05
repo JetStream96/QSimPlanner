@@ -1,8 +1,6 @@
-﻿using QSP.LibraryExtension;
-using QSP.UI.Models.Wind;
+﻿using QSP.UI.Models.Wind;
 using QSP.UI.Presenters.Wind;
 using QSP.UI.Util;
-using QSP.WindAloft;
 using System;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -22,10 +20,10 @@ namespace QSP.UI.Forms
 
         public void Init(
             ToolStripStatusLabel toolStripLbl,
-            Locator<IWindTableCollection> windTableLocator,
+            WindDataPresenter presenter,
             WindDownloadStatus status)
         {
-            presenter = new WindDataPresenter(this, windTableLocator);
+            this.presenter = presenter;
             this.toolStripLbl = toolStripLbl;
             ShowWindStatus(status);
             SetButtonColorStyles();

@@ -36,7 +36,7 @@ namespace UnitTest.NavData.OpenData
             Assert.AreEqual(113.915000916, vhhh.Lon, delta);
             Assert.AreEqual(28, vhhh.Elevation);
             Assert.AreEqual(false, vhhh.TransAvail);
-            Assert.AreEqual(12467, vhhh.LongestRwyLength);
+            Assert.AreEqual(12467, vhhh.LongestRwyLengthFt);
         }
         private static void AssertVhhhRwys(Airport vhhh)
         {

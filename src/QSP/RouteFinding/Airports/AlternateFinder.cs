@@ -21,15 +21,14 @@ namespace QSP.RouteFinding.Airports
         //
         // The number of returned airports is no less than minCount, unless
         // there isn't enough in the airportList.
-        public List<Airport> GetListAltn(
-            string dest, int lengthFt, int minCount = 10)
+        public IList<Airport> GetListAltn(string dest, int lengthFt, int minCount = 10)
         {
             double distance = 100.0;
             const double disMultiplyFactor = 2.0;
             var destAirport = airportList[dest];
 
             Func<Airport, bool> selector = i =>
-            i.LongestRwyLength >= lengthFt && i.Icao != dest;
+                i.LongestRwyLengthFt >= lengthFt && i.Icao != dest;
 
             while (true)
             {
@@ -47,64 +46,41 @@ namespace QSP.RouteFinding.Airports
             }
         }
 
-        // return a list of altn, with:
-        // icao; name; max rwy length; dis from dest
-        public List<AlternateInfo> AltnInfo(string dest, int length)
+        /// <summary>
+        /// Returns a list of alternates. dest must be in airportList.
+        /// </summary>
+        public IList<AlternateInfo> AltnInfo(string dest, int length)
         {
-
             var altns = GetListAltn(dest, length);
-            var result = new List<AlternateInfo>();
-
-            foreach (var i in altns)
+            var result = altns.Select(i =>
             {
                 double distance = airportList[dest].Distance(i);
 
-                result.Add(
-                    new AlternateInfo(
-                        i.Icao, i.Name, i.LongestRwyLength,
-                        Numbers.RoundToInt(distance)));
-            }
+                return new AlternateInfo(i.Icao, i.Name, i.LongestRwyLengthFt,
+                    Numbers.RoundToInt(distance));
+            }).ToList();
 
-            result.Sort(AlternateInfo.AltnDisComparer());
             return result;
         }
-
-        #region Container Class
 
         public class AlternateInfo
         {
             public string Icao { get; private set; }
             public string AirportName { get; private set; }
-            public int LongestRwyLength { get; private set; }
+            public int LongestRwyLengthFt { get; private set; }
             public int Distance { get; private set; }
 
             public AlternateInfo(
                 string Icao,
                 string AirportName,
-                int LongestRwyLength,
+                int LongestRwyLengthFt,
                 int Distance)
             {
                 this.Icao = Icao;
                 this.AirportName = AirportName;
-                this.LongestRwyLength = LongestRwyLength;
+                this.LongestRwyLengthFt = LongestRwyLengthFt;
                 this.Distance = Distance;
             }
-
-            public static Comparer<AlternateInfo> AltnDisComparer()
-            {
-                return new altnDisSortHelper();
-            }
-
-            private class altnDisSortHelper : Comparer<AlternateInfo>
-            {
-                public override int Compare(AlternateInfo x, AlternateInfo y)
-                {
-                    return x.Distance.CompareTo(y.Distance);
-                }
-            }
         }
-
-        #endregion
-
     }
 }

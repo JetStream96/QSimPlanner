@@ -315,25 +315,25 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             return new AirportManager(collection);
         }
 
-        private static readonly IReadOnlyList<airwayEntry> airwayEntries = new[]
+        private static readonly IReadOnlyList<AirwayEntry> airwayEntries = new[]
         {
-            new airwayEntry("TUNTO","R595","SEDKU"),
-            new airwayEntry("OMOTO","R580","OATIS"),
-            new airwayEntry("MORAY","OTR15","SMOLT"),
-            new airwayEntry("NIPPI","R220","NANAC"),
-            new airwayEntry("CANAI","V75","NHC"),
-            new airwayEntry("ONION","OTR5","KALNA"),
+            new AirwayEntry("TUNTO","R595","SEDKU"),
+            new AirwayEntry("OMOTO","R580","OATIS"),
+            new AirwayEntry("MORAY","OTR15","SMOLT"),
+            new AirwayEntry("NIPPI","R220","NANAC"),
+            new AirwayEntry("CANAI","V75","NHC"),
+            new AirwayEntry("ONION","OTR5","KALNA"),
             
-        //  new airwayEntry("ONION","OTR5","ADNAP"),
-            new airwayEntry("KALNA","OTR5","ADNAP"),
+        //  new AirwayEntry("ONION","OTR5","ADNAP"),
+            new AirwayEntry("KALNA","OTR5","ADNAP"),
 
-            new airwayEntry("ADNAP","OTR7","EMRON"),
-            new airwayEntry("AVBET","OTR11","LEPKI"),
-            new airwayEntry("VACKY","OTR13","SEALS"),
-            new airwayEntry("MOLKA", "M750", "BUNGU"),
-            new airwayEntry("BUNGU", "Y81", "SYOYU"),
-            new airwayEntry("SYOYU", "Y809", "KAGIS"),
-            new airwayEntry("KAGIS", "OTR11", "LEPKI")
+            new AirwayEntry("ADNAP","OTR7","EMRON"),
+            new AirwayEntry("AVBET","OTR11","LEPKI"),
+            new AirwayEntry("VACKY","OTR13","SEALS"),
+            new AirwayEntry("MOLKA", "M750", "BUNGU"),
+            new AirwayEntry("BUNGU", "Y81", "SYOYU"),
+            new AirwayEntry("SYOYU", "Y809", "KAGIS"),
+            new AirwayEntry("KAGIS", "OTR11", "LEPKI")
         };
 
         private static int TryAddWpt(WaypointList wptList, string id)
@@ -361,13 +361,13 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Pacots
             }
         }
 
-        private class airwayEntry
+        private class AirwayEntry
         {
             public string StartWpt;
             public string Airway;
             public string EndWpt;
 
-            public airwayEntry(string StartWpt, string Airway, string EndWpt)
+            public AirwayEntry(string StartWpt, string Airway, string EndWpt)
             {
                 this.StartWpt = StartWpt;
                 this.Airway = Airway;

@@ -12,7 +12,7 @@ namespace QSP.RouteFinding.Airports
         bool TransAvail { get; }
         int TransAlt { get; }
         int TransLvl { get; }
-        int LongestRwyLength { get; }
+        int LongestRwyLengthFt { get; }
         IReadOnlyList<IRwyData> Rwys { get; }
     }
 }
