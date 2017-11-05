@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Moq;
 using NUnit.Framework;
 using QSP.FuelCalculation.Calculations;
 using QSP.MathTools;
@@ -7,6 +7,7 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using QSP.WindAloft;
+using System;
 using UnitTest.FuelCalculation.FuelData;
 using static UnitTest.RouteFinding.Common;
 
@@ -73,15 +74,17 @@ namespace UnitTest.FuelCalculation.Calculations
 
         public static AirportManager TestAirportManager()
         {
-            var abcd = GetAirport("ABCD", 0.0);
-            var efgh = GetAirport("EFGH", 3000.0);
+            var abcd = GetAirport("ABCD", 0);
+            var efgh = GetAirport("EFGH", 3000);
             return GetAirportManager(abcd, efgh);
         }
 
-        private static Airport GetAirport(string icao, double alt)
+        private static IAirport GetAirport(string icao, int alt)
         {
-            return new Airport(icao, null, 0.0, 0.0, (int)alt,
-                false, 0, 0, 0, null);
+            var mock = new Mock<IAirport>();
+            mock.Setup(i => i.Icao).Returns(icao);
+            mock.Setup(i => i.Elevation).Returns(alt);
+            return mock.Object;
         }
 
         public class WindCollectionStub : IWindTableCollection

@@ -110,7 +110,7 @@ namespace QSP.RouteFinding
 
         // @NoThrow
         // Returns null if failed to calculate.
-        public double? TakeOffDistanceMeter(Airport airport, string rwy,
+        public double? TakeOffDistanceMeter(IAirport airport, string rwy,
             MetarCacheItem item, AircraftRequest aircraft)
         {
             var (success, runway, windHeading, windSpeed, rwyHeading, qnh) =
@@ -148,7 +148,7 @@ namespace QSP.RouteFinding
 
         // @NoThrow
         // Returns null if failed to calculate.
-        public double? LandingDistanceMeter(Airport airport, string rwy,
+        public double? LandingDistanceMeter(IAirport airport, string rwy,
             MetarCacheItem item, AircraftRequest aircraft)
         {
             var (success, runway, windHeading, windSpeed, rwyHeading, qnh) =
@@ -184,7 +184,7 @@ namespace QSP.RouteFinding
 
         private static (bool success, IRwyData runway, double windHeading, double windSpeed,
             double rwyHeading, double QNH)
-            GetParameters(Airport airport, string rwy, MetarCacheItem item)
+            GetParameters(IAirport airport, string rwy, MetarCacheItem item)
         {
             var runway = airport.FindRwy(rwy);
             if (runway == null) return (false, null, 0, 0, 0, 0);

@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using QSP.RouteFinding.Data.Interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Airports
 {
-    public interface IAirport
+    public interface IAirport : ICoordinate, IEquatable<IAirport>
     {
         string Icao { get; }
         string Name { get; }
-        double Lat { get; }
-        double Lon { get; }
         int Elevation { get; }
         bool TransAvail { get; }
         int TransAlt { get; }

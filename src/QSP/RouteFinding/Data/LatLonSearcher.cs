@@ -153,7 +153,7 @@ namespace QSP.RouteFinding.Data
                 // Also checks if the node is visited.
                 foreach (var i in GridNeighbor(current))
                 {
-                    if (visited.IsVisited(i) == false &&
+                    if (!visited.IsVisited(i) &&
                         DistanceLowerBound(lat, lon, i) <= distance)
                     {
                         pending.Enqueue(i);

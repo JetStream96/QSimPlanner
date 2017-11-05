@@ -84,7 +84,7 @@ namespace UnitTest.AviationTools
         [Test]
         public void GetLengthFtTest()
         {
-            Assert.AreEqual(10, GetLengthFt(3.28, LengthUnit.Meter), 0.1);
+            Assert.AreEqual(10, GetLengthFt(3.048, LengthUnit.Meter), 0.1);
             Assert.AreEqual(8, GetLengthFt(8, LengthUnit.Feet), 1e-6);
         }
     }

@@ -1,11 +1,9 @@
 using CommonLibrary.LibraryExtension;
-using QSP.RouteFinding.Data.Interfaces;
-using System;
 using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Airports
 {
-    public class Airport : ICoordinate, IEquatable<Airport>, IAirport
+    public class Airport : IAirport
     {
         public string Icao { get; private set; }
         public string Name { get; private set; }
@@ -16,9 +14,7 @@ namespace QSP.RouteFinding.Airports
         public int TransAlt { get; private set; }
         public int TransLvl { get; private set; }
         public int LongestRwyLengthFt { get; private set; }
-        public IReadOnlyList<RwyData> Rwys { get; private set; }
-
-        IReadOnlyList<IRwyData> IAirport.Rwys => Rwys;
+        public IReadOnlyList<IRwyData> Rwys { get; private set; }
 
         public Airport(
             string Icao,
@@ -55,35 +51,12 @@ namespace QSP.RouteFinding.Airports
             TransAlt = item.TransAlt;
             TransLvl = item.TransLvl;
             LongestRwyLengthFt = item.LongestRwyLengthFt;
-            Rwys = new List<RwyData>(item.Rwys);
+            Rwys = new List<IRwyData>(item.Rwys);
         }
 
-        public static IComparer<Airport> CompareIcao()
+        public bool Equals(IAirport other)
         {
-            return new CompIcaoHelper();
-        }
-
-        private class CompIcaoHelper : IComparer<Airport>
-        {
-            public int Compare(Airport x, Airport y)
-            {
-                return x.Icao.CompareTo(y.Icao);
-            }
-        }
-
-        public bool Equals(Airport other)
-        {
-            return other != null &&
-                Icao == other.Icao &&
-                Name == other.Name &&
-                Lat == other.Lat &&
-                Lon == other.Lon &&
-                Elevation == other.Elevation &&
-                TransAvail == other.TransAvail &&
-                TransAlt == other.TransAlt &&
-                TransLvl == other.TransLvl &&
-                LongestRwyLengthFt == other.LongestRwyLengthFt &&
-                Rwys.SetEquals(other.Rwys);
+            return IAirportExtensions.Equals(this, other);
         }
 
         public override int GetHashCode()

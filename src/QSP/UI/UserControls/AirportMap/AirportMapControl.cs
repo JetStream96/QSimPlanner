@@ -172,7 +172,7 @@ namespace QSP.UI.UserControls.AirportMap
             updateBtn.Visible = true;
         }
 
-        private void SetAirport(Airport airport)
+        private void SetAirport(IAirport airport)
         {
             SetMetar(airport.Icao);
 
@@ -192,7 +192,7 @@ namespace QSP.UI.UserControls.AirportMap
             }
         }
 
-        private string TransitionAlts(Airport airport)
+        private string TransitionAlts(IAirport airport)
         {
             // If TL is 0, that means it's not a fixed value.
             // Show "-" instead.
@@ -207,7 +207,7 @@ namespace QSP.UI.UserControls.AirportMap
             }
         }
 
-        private void UpdateDataGrid(Airport airport)
+        private void UpdateDataGrid(IAirport airport)
         {
             var runways = airport.Rwys;
             airportDataGrid.Columns.Clear();

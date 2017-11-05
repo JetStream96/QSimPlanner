@@ -1,4 +1,5 @@
 ﻿using CommonLibrary.LibraryExtension;
+using Moq;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -48,19 +49,26 @@ namespace UnitTest.RouteFinding
             return route;
         }
 
-        public static AirportManager GetAirportManager(params Airport[] items)
+        public static AirportManager GetAirportManager(params IAirport[] items)
         {
             return new AirportManager(items);
         }
 
-        public static Airport GetAirport(string icao, params RwyData[] rwys)
+        public static IAirport GetAirport(string icao, params IRwyData[] rwys)
         {
-            return new Airport(icao, "", 0.0, 0.0, 0, true, 0, 0, 0, rwys.ToList());
+            var a = new Mock<IAirport>();
+            a.Setup(i => i.Icao).Returns(icao);
+            a.Setup(i => i.Rwys).Returns(rwys);
+            return a.Object;
         }
 
-        public static RwyData GetRwyData(string ident, double lat, double lon)
+        public static IRwyData GetRwyData(string ident, double lat, double lon)
         {
-            return new RwyData(ident, "", 0, 0, true, true, "", "", lat, lon, 0, 0.0, 0, "", 0);
+            var r = new Mock<IRwyData>();
+            r.Setup(i => i.RwyIdent).Returns(ident);
+            r.Setup(i => i.Lat).Returns(lat);
+            r.Setup(i => i.Lon).Returns(lon);
+            return r.Object;
         }
 
         public static void AddNeighbor(this WaypointList wptList, int index1,

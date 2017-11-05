@@ -1,10 +1,27 @@
 ﻿using QSP.AviationTools;
 using System.Linq;
+using CommonLibrary.LibraryExtension;
 
 namespace QSP.RouteFinding.Airports
 {
     public static class IAirportExtensions
     {
+        public static bool Equals(IAirport x, IAirport y)
+        {
+            return x != null &&
+                y != null &&
+                x.Icao == y.Icao &&
+                x.Name == y.Name &&
+                x.Lat == y.Lat &&
+                x.Lon == y.Lon &&
+                x.Elevation == y.Elevation &&
+                x.TransAvail == y.TransAvail &&
+                x.TransAlt == y.TransAlt &&
+                x.TransLvl == y.TransLvl &&
+                x.LongestRwyLengthFt == y.LongestRwyLengthFt &&
+                x.Rwys.SetEquals(y.Rwys);
+        }
+
         // Returns null if not found.
         public static IRwyData FindRwy(this IAirport airport, string ident)
         {

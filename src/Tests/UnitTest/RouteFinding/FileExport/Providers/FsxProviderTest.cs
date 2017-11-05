@@ -1,5 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.FileExport.Providers;
 using System.Linq;
@@ -14,8 +16,8 @@ namespace UnitTest.RouteFinding.FileExport.Providers
         [Test]
         public void GetExportTextTest()
         {
-            var abcd = Common.GetAirport("ABCD");
-            var efgh = Common.GetAirport("EFGH");
+            var abcd = GetAirport("ABCD", "Name A", 5, 10, 500);
+            var efgh = GetAirport("EFGH", "Name B", 50, 15, 1500);
             var manager = Common.GetAirportManager(abcd, efgh);
 
             var route = Common.GetRoute(
@@ -75,11 +77,23 @@ namespace UnitTest.RouteFinding.FileExport.Providers
                 wpts[1].Element("ATCWaypointType").Value == "Intersection" &&
                 wpts[1].Element("WorldPosition").Value == LatLonAlt(wpt, 0.0) &&
                 GetIdent(wpts[1]) == wpt.ID);
-            
+
             Assert.IsTrue(
                 wpts[2].Element("ATCWaypointType").Value == "Airport" &&
                 wpts[2].Element("WorldPosition").Value == destLatLonAlt &&
                 GetIdent(wpts[2]) == efgh.Icao);
+        }
+
+        private static IAirport GetAirport(string icao, string name,
+            double lat, double lon, int elevation)
+        {
+            var a = new Mock<IAirport>();
+            a.Setup(i => i.Icao).Returns(icao);
+            a.Setup(i => i.Name).Returns(name);
+            a.Setup(i => i.Lat).Returns(lat);
+            a.Setup(i => i.Lon).Returns(lon);
+            a.Setup(i => i.Elevation).Returns(elevation);
+            return a.Object;
         }
 
         private static string GetIdent(XElement node)

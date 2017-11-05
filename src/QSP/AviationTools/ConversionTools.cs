@@ -63,7 +63,7 @@ namespace QSP.AviationTools
         public static double HeadwindComponent(double rwyHeading,double windDirection,
             double windSpeed)
         {
-            return Math.Cos(Angles.ToRadian(rwyHeading - windDirection) * windSpeed);
+            return Math.Cos(Angles.ToRadian(rwyHeading - windDirection)) * windSpeed;
         }
 
         /// <summary>

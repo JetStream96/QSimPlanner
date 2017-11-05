@@ -1,9 +1,10 @@
-﻿using NUnit.Framework;
+﻿using CommonLibrary.LibraryExtension;
+using NUnit.Framework;
 using QSP.RouteFinding.Airports;
-using System.Collections.Generic;
-using System.Linq;
 using QSP.RouteFinding.Tracks.Pacots;
 using QSP.RouteFinding.Tracks.Pacots.Eastbound;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTest.RouteFinding.Tracks.Pacots.Eastbound
 {
@@ -40,9 +41,9 @@ JAPAN ROUTE : VACKY OTR13 SEALS
 21:00 2016. CREATED: 07 FEB 19:09 2016";
 
             var airports = new AirportManager();
-            airports.Add(new Airport("KSEA", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
-            airports.Add(new Airport("KPDX", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
-            airports.Add(new Airport("KLAX", "", 0.0, 0.0, 0, true, 0, 0, 0, null));
+            airports.Add(RouteFinding.Common.GetAirport("KSEA"));
+            airports.Add(RouteFinding.Common.GetAirport("KPDX"));
+            airports.Add(RouteFinding.Common.GetAirport("KLAX"));
 
             // Act
             var trks = new EastboundParser(airports)
@@ -56,22 +57,19 @@ JAPAN ROUTE : VACKY OTR13 SEALS
             var trk1 = GetTrack(trks, "1");
             Assert.AreEqual(PacotDirection.Eastbound, trk1.Direction);
 
-            Assert.IsTrue(trk1.MainRoute.SequenceEqual(
-                new[] { "EMRON", "40N160E", "41N170E", "43N180E", "45N170W", "47N160W", "48N150W",
-                        "49N140W", "PRETY"}));
+            Assert.IsTrue(trk1.MainRoute.SequenceEqual("EMRON", "40N160E", "41N170E", 
+                "43N180E", "45N170W", "47N160W", "48N150W", "49N140W", "PRETY"));
 
             Assert.AreEqual(1, trk1.RouteFrom.Count);
 
-            Assert.IsTrue(trk1.RouteFrom[0].SequenceEqual(
-               new[] { "ONION", "OTR5", "ADNAP", "OTR7", "EMRON" }));
+            Assert.IsTrue(trk1.RouteFrom[0].SequenceEqual("ONION", "OTR5", "ADNAP", "OTR7",
+                "EMRON"));
 
             Assert.AreEqual(2, trk1.RouteTo.Count);
 
-            Assert.IsTrue(trk1.RouteTo[0].SequenceEqual(
-               new[] { "PRETY", "TAMRU", "TOU", "MARNR" }));
+            Assert.IsTrue(trk1.RouteTo[0].SequenceEqual("PRETY", "TAMRU", "TOU", "MARNR"));
 
-            Assert.IsTrue(trk1.RouteTo[1].SequenceEqual(
-               new[] { "PRETY", "TAMRU", "TOU", "KEIKO" }));
+            Assert.IsTrue(trk1.RouteTo[1].SequenceEqual("PRETY", "TAMRU", "TOU", "KEIKO"));
 
             Assert.IsTrue(trk1.Remarks == @" ACFT LDG CYVR--48N150W 50N140W ORNAI SIMLU KEPKO YAZ
               FOCHE CYVR

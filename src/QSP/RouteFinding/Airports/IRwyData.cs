@@ -1,6 +1,9 @@
-﻿namespace QSP.RouteFinding.Airports
+﻿using QSP.RouteFinding.Data.Interfaces;
+using System;
+
+namespace QSP.RouteFinding.Airports
 {
-    public interface IRwyData
+    public interface IRwyData: ICoordinate, IEquatable<IRwyData>
     {
         string RwyIdent { get; }
         string Heading { get; }
@@ -12,9 +15,7 @@
         bool IlsAvail { get; }
         string IlsFreq { get; }
         string IlsHeading { get; }
-
-        double Lat { get; }
-        double Lon { get; }
+        
         int ElevationFt { get; }
         double GlideslopeAngle { get; }
         int ThresholdOverflyHeight { get; }

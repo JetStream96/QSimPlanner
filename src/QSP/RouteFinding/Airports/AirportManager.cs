@@ -1,7 +1,7 @@
 ﻿using QSP.RouteFinding.Data;
 using System.Collections.Generic;
 using System.Linq;
-using static QSP.RouteFinding.Data.LatLonSearcher<QSP.RouteFinding.Airports.Airport>;
+using static QSP.RouteFinding.Data.LatLonSearcher<QSP.RouteFinding.Airports.IAirport>;
 
 namespace QSP.RouteFinding.Airports
 {
@@ -10,12 +10,12 @@ namespace QSP.RouteFinding.Airports
     //
     public class AirportManager
     {
-        private Dictionary<string, Airport> airportData;
-        private LatLonSearcher<Airport> airportFinder;
+        private Dictionary<string, IAirport> airportData;
+        private LatLonSearcher<IAirport> airportFinder;
 
         public AirportManager() : this(new Airport[0]) { }
 
-        public AirportManager(IEnumerable<Airport> airportData)
+        public AirportManager(IEnumerable<IAirport> airportData)
         {
             this.airportData = airportData.ToDictionary(a => a.Icao);
             GenerateSearchGrids();
@@ -23,14 +23,14 @@ namespace QSP.RouteFinding.Airports
 
         private void GenerateSearchGrids()
         {
-            airportFinder = new LatLonSearcher<Airport>(GridSizeOption.Small);
+            airportFinder = new LatLonSearcher<IAirport>(GridSizeOption.Small);
             foreach (var i in airportData.Values) airportFinder.Add(i);
         }
 
         /// <summary>
         /// Returns null if the icao is not found.
         /// </summary>
-        public Airport this[string icao]
+        public IAirport this[string icao]
         {
             get
             {
@@ -39,7 +39,7 @@ namespace QSP.RouteFinding.Airports
             }
         }
 
-        public List<Airport> Find(double lat, double lon, double distance)
+        public List<IAirport> Find(double lat, double lon, double distance)
         {
             return airportFinder.Find(lat, lon, distance);
         }
@@ -55,14 +55,14 @@ namespace QSP.RouteFinding.Airports
         /// <summary>
         /// Returns null if the icao or rwy is not found.
         /// </summary>
-        public RwyData FindRwy(string icao, string rwy)
+        public IRwyData FindRwy(string icao, string rwy)
         {
             return this[icao]?.Rwys.FirstOrDefault(r => r.RwyIdent == rwy);
         }
 
         public int Count => airportData.Count;
 
-        public void Add(Airport item)
+        public void Add(IAirport item)
         {
             airportData.Add(item.Icao, item);
             airportFinder.Add(item);

@@ -21,13 +21,13 @@ namespace QSP.RouteFinding.Airports
         //
         // The number of returned airports is no less than minCount, unless
         // there isn't enough in the airportList.
-        public IList<Airport> GetListAltn(string dest, int lengthFt, int minCount = 10)
+        public IList<IAirport> GetListAltn(string dest, int lengthFt, int minCount = 10)
         {
             double distance = 100.0;
             const double disMultiplyFactor = 2.0;
             var destAirport = airportList[dest];
 
-            Func<Airport, bool> selector = i =>
+            Func<IAirport, bool> selector = i =>
                 i.LongestRwyLengthFt >= lengthFt && i.Icao != dest;
 
             while (true)

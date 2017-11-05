@@ -17,8 +17,7 @@ namespace IntegrationTest.QSP.RouteFinding.TestSetup
             return wptList;
         }
 
-        private static void AddWpts(
-            WaypointList wptList, IEnumerable<string> Idents)
+        private static void AddWpts(WaypointList wptList, IEnumerable<string> Idents)
         {
             var rd = new Random(123);
 
@@ -36,8 +35,7 @@ namespace IntegrationTest.QSP.RouteFinding.TestSetup
                 for (int lat = -90; lat <= 90; lat++)
                 {
                     wptList.AddWaypoint(
-                        new Waypoint(
-                            Format5Letter.To5LetterFormat(lat, lon), lat, lon));
+                        new Waypoint(Format5Letter.To5LetterFormat(lat, lon), lat, lon));
                 }
             }
         }

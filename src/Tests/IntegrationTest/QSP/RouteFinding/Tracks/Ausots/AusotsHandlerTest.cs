@@ -192,9 +192,7 @@ namespace IntegrationTest.QSP.RouteFinding.Tracks.Ausots
 
         private static AirportManager GetAirportList()
         {
-            var collection = airports.Select(i =>
-                new Airport(i, "", 0.0, 0.0, 0, true, 0, 0, 0, new RwyData[0]));
-
+            var collection = airports.Select(i => Mocks.GetAirport(i));
             return new AirportManager(collection);
         }
 

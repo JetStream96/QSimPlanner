@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using QSP.RouteFinding.Airports;
+using System.Linq;
 using static UnitTest.RouteFinding.Common;
 
 namespace UnitTest.RouteFinding.Airports
@@ -11,12 +11,12 @@ namespace UnitTest.RouteFinding.Airports
         [Test]
         public void FindRemoveTest()
         {
-            var airport = TestAirport();            
+            var airport = TestAirport();
             var col = new AirportManager();
             col.Add(airport);
 
             Assert.AreEqual(1, col.Count);
-            Assert.IsTrue(col["ABCD"].Equals(airport));
+            Assert.AreEqual(airport.Icao, col["ABCD"].Icao);
 
             Assert.IsFalse(col.Remove("XYZ"));
             Assert.AreEqual(1, col.Count);
@@ -34,7 +34,7 @@ namespace UnitTest.RouteFinding.Airports
             col.Add(airport);
 
             Assert.AreEqual(1, col.Count);
-            Assert.IsTrue(col["ABCD"].Equals(airport));
+            Assert.AreEqual(airport.Icao, col["ABCD"].Icao);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace UnitTest.RouteFinding.Airports
             Assert.IsNull(col.FindRwy("ABCD", "01"));
             Assert.IsNull(col.RwyIdents("ABCD"));
         }
-        
+
         private AirportManager TestCollection()
         {
             var col = new AirportManager();
@@ -76,7 +76,7 @@ namespace UnitTest.RouteFinding.Airports
             return col;
         }
 
-        private Airport TestAirport()
+        private IAirport TestAirport()
         {
             return GetAirport("ABCD",
                 GetRwyData("01", 1.0, 1.0),

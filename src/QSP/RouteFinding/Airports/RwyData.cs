@@ -1,10 +1,8 @@
 using CommonLibrary.LibraryExtension;
-using QSP.RouteFinding.Data.Interfaces;
-using System;
 
 namespace QSP.RouteFinding.Airports
 {
-    public class RwyData : ICoordinate, IEquatable<RwyData>, IRwyData
+    public class RwyData : IRwyData
     {
         public string RwyIdent { get; private set; }
         public string Heading { get; private set; }
@@ -59,7 +57,7 @@ namespace QSP.RouteFinding.Airports
             this.RwyStatus = RwyStatus;
         }
 
-        public bool Equals(RwyData other)
+        public bool Equals(IRwyData other)
         {
             return other != null &&
                 RwyIdent == other.RwyIdent &&
