@@ -34,6 +34,7 @@ using QSP.UI.Models.Wind;
 using QSP.UI.Presenters.Wind;
 using QSP.UI.Util.ScrollBar;
 using QSP.UI.Views;
+using QSP.UI.Views.MiscInfo;
 using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms

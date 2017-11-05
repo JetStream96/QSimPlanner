@@ -1,18 +1,22 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
+using QSP.UI.Presenters.MiscInfo;
 using QSP.UI.UserControls.AirportMap;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Views.MiscInfo
 {
+    // TODO: Split the presenter.
     public partial class MiscInfoControl : UserControl
     {
         private AirportMapControl airportMapControl = new AirportMapControl();
         private MetarViewer metarViewer = new MetarViewer();
-        private DescentForcastDisplay desForcast = new DescentForcastDisplay();
+
+        private DescentForcastControl desForcast = new DescentForcastControl();
+        private DescentForcastPresenter desPresenter;
 
         private Locator<IWindTableCollection> windTableLocator;
         private Func<string> destGetter;
@@ -26,7 +30,7 @@ namespace QSP.UI.UserControls
             {
                 _airportList = value;
                 airportMapControl.Airports = value;
-                desForcast.AirportList = value;
+                desPresenter.AirportList = value;
             }
         }
 
@@ -49,7 +53,10 @@ namespace QSP.UI.UserControls
             airportMapControl.BrowserEnabled = enableBrowser;
             this.destGetter = destGetter;
 
-            desForcast.Init(airportList, windTableLocator, destGetter);
+            desPresenter=new DescentForcastPresenter(desForcast,
+                airportList, windTableLocator, destGetter);
+            desForcast.Init(desPresenter);
+
             metarViewer.Init(origGetter, destGetter, altnGetter);
 
             miscInfoNavBar1.Init(airportMapControl, metarViewer, desForcast, panel1);

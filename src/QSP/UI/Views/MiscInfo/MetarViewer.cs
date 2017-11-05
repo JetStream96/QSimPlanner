@@ -1,14 +1,14 @@
-﻿using System;
+﻿using QSP.Metar;
+using QSP.UI.Util;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.Metar;
-using QSP.UI.Util;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Views.MiscInfo
 {
     public partial class MetarViewer : UserControl
     {

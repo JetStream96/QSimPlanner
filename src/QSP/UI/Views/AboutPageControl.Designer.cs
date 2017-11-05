@@ -1,4 +1,4 @@
-﻿namespace QSP.UI.UserControls
+﻿namespace QSP.UI.Views
 {
     partial class AboutPageControl
     {

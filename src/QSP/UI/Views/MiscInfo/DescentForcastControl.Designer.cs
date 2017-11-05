@@ -1,6 +1,6 @@
-﻿namespace QSP.UI.UserControls
+﻿namespace QSP.UI.Views.MiscInfo
 {
-    partial class DescentForcastDisplay
+    partial class DescentForcastControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -32,7 +32,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.destIcaoLbl = new System.Windows.Forms.Label();
             this.updateDesForcastBtn = new System.Windows.Forms.Button();
-            this.desForcastLastUpdatedLbl = new System.Windows.Forms.Label();
+            this.lastUpdatedLbl = new System.Windows.Forms.Label();
             this.desForcastRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel7.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -57,7 +57,7 @@
             // 
             this.panel1.Controls.Add(this.destIcaoLbl);
             this.panel1.Controls.Add(this.updateDesForcastBtn);
-            this.panel1.Controls.Add(this.desForcastLastUpdatedLbl);
+            this.panel1.Controls.Add(this.lastUpdatedLbl);
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
@@ -90,17 +90,17 @@
             this.updateDesForcastBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.updateDesForcastBtn.UseVisualStyleBackColor = true;
             // 
-            // desForcastLastUpdatedLbl
+            // lastUpdatedLbl
             // 
-            this.desForcastLastUpdatedLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.desForcastLastUpdatedLbl.AutoSize = true;
-            this.desForcastLastUpdatedLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.desForcastLastUpdatedLbl.Location = new System.Drawing.Point(232, 12);
-            this.desForcastLastUpdatedLbl.Margin = new System.Windows.Forms.Padding(2);
-            this.desForcastLastUpdatedLbl.Name = "desForcastLastUpdatedLbl";
-            this.desForcastLastUpdatedLbl.Size = new System.Drawing.Size(290, 23);
-            this.desForcastLastUpdatedLbl.TabIndex = 81;
-            this.desForcastLastUpdatedLbl.Text = "Last Updated : 7/18/2016 6:55:48 PM";
+            this.lastUpdatedLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lastUpdatedLbl.AutoSize = true;
+            this.lastUpdatedLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lastUpdatedLbl.Location = new System.Drawing.Point(232, 12);
+            this.lastUpdatedLbl.Margin = new System.Windows.Forms.Padding(2);
+            this.lastUpdatedLbl.Name = "lastUpdatedLbl";
+            this.lastUpdatedLbl.Size = new System.Drawing.Size(290, 23);
+            this.lastUpdatedLbl.TabIndex = 81;
+            this.lastUpdatedLbl.Text = "Last Updated : 7/18/2016 6:55:48 PM";
             // 
             // desForcastRichTxtBox
             // 
@@ -113,7 +113,7 @@
             this.desForcastRichTxtBox.TabIndex = 1;
             this.desForcastRichTxtBox.Text = "";
             // 
-            // DescentForcastDisplay
+            // DescentForcastControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -121,7 +121,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Controls.Add(this.tableLayoutPanel7);
-            this.Name = "DescentForcastDisplay";
+            this.Name = "DescentForcastControl";
             this.Size = new System.Drawing.Size(686, 397);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -136,7 +136,7 @@
         private System.Windows.Forms.Panel panel1;
         internal System.Windows.Forms.Label destIcaoLbl;
         internal System.Windows.Forms.Button updateDesForcastBtn;
-        private System.Windows.Forms.Label desForcastLastUpdatedLbl;
+        private System.Windows.Forms.Label lastUpdatedLbl;
         internal System.Windows.Forms.RichTextBox desForcastRichTxtBox;
     }
 }

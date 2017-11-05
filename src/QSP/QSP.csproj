@@ -231,6 +231,7 @@
     <Compile Include="TOPerfCalculation\FindTable.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
+    <Compile Include="UI\Presenters\MiscInfo\DescentForcastPresenter.cs" />
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
     <Compile Include="UI\Util\ControlDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\ColorGroup.cs" />
@@ -241,22 +242,23 @@
     <Compile Include="UI\Util\ScrollBar\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
-    <Compile Include="UI\UserControls\DescentForcastDisplay.cs">
+    <Compile Include="UI\Views\MiscInfo\DescentForcastControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\DescentForcastDisplay.Designer.cs">
-      <DependentUpon>DescentForcastDisplay.cs</DependentUpon>
+    <Compile Include="UI\Views\MiscInfo\DescentForcastControl.Designer.cs">
+      <DependentUpon>DescentForcastControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\MiscInfoNavBar.cs">
+    <Compile Include="UI\Views\MiscInfo\IDescentForcastView.cs" />
+    <Compile Include="UI\Views\MiscInfo\MiscInfoNavBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\MiscInfoNavBar.Designer.cs">
+    <Compile Include="UI\Views\MiscInfo\MiscInfoNavBar.Designer.cs">
       <DependentUpon>MiscInfoNavBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\NavBar.cs">
+    <Compile Include="UI\Views\NavBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\NavBar.Designer.cs">
+    <Compile Include="UI\Views\NavBar.Designer.cs">
       <DependentUpon>NavBar.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\Options\OptionsForm.cs">
@@ -266,7 +268,7 @@
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\Options\FlightPlanExportController.cs" />
-    <Compile Include="UI\Views\IAltnView.cs" />
+    <Compile Include="UI\Views\Route\IAltnView.cs" />
     <Compile Include="UI\Views\UnhandledExceptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -314,23 +316,23 @@
     <Compile Include="UI\Views\Route\SidStarFilterControl.Designer.cs">
       <DependentUpon>SidStarFilterControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\AboutPageControl.cs">
+    <Compile Include="UI\Views\AboutPageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\AboutPageControl.Designer.cs">
+    <Compile Include="UI\Views\AboutPageControl.Designer.cs">
       <DependentUpon>AboutPageControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserControls\TakeoffLanding\Common\AircraftRequest.cs" />
-    <Compile Include="UI\UserControls\MetarViewer.cs">
+    <Compile Include="UI\Views\MiscInfo\MetarViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\MetarViewer.Designer.cs">
+    <Compile Include="UI\Views\MiscInfo\MetarViewer.Designer.cs">
       <DependentUpon>MetarViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserControls\RouteActions\SimpleActionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\RouteOptionContextMenu.cs">
+    <Compile Include="UI\Views\Route\RouteOptionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\UserControls\AdvancedRouteTool.cs">
@@ -355,10 +357,10 @@
     <Compile Include="UI\UserControls\FuelPlanningControl.Designer.cs">
       <DependentUpon>FuelPlanningControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\MiscInfoControl.cs">
+    <Compile Include="UI\Views\MiscInfo\MiscInfoControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\MiscInfoControl.Designer.cs">
+    <Compile Include="UI\Views\MiscInfo\MiscInfoControl.Designer.cs">
       <DependentUpon>MiscInfoControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserControls\RouteActions\ActionContextMenu.cs">
@@ -620,10 +622,10 @@
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarHandler.cs" />
     <Compile Include="RouteFinding\RwyIdent.cs" />
     <Compile Include="TOPerfCalculation\TOReport.cs" />
-    <Compile Include="UI\Views\FindAltnForm.cs">
+    <Compile Include="UI\Views\Route\FindAltnForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Views\FindAltnForm.Designer.cs">
+    <Compile Include="UI\Views\Route\FindAltnForm.Designer.cs">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\MetarForm.cs">
@@ -772,13 +774,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\qsp_icon.ico" />
-    <EmbeddedResource Include="UI\UserControls\DescentForcastDisplay.resx">
-      <DependentUpon>DescentForcastDisplay.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Views\MiscInfo\DescentForcastControl.resx">
+      <DependentUpon>DescentForcastControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls\MiscInfoNavBar.resx">
+    <EmbeddedResource Include="UI\Views\MiscInfo\MiscInfoNavBar.resx">
       <DependentUpon>MiscInfoNavBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls\NavBar.resx">
+    <EmbeddedResource Include="UI\Views\NavBar.resx">
       <DependentUpon>NavBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\Options\OptionsForm.resx">
@@ -799,10 +801,10 @@
     <EmbeddedResource Include="UI\UserControls\FuelPlanningControl.resx">
       <DependentUpon>FuelPlanningControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls\MetarViewer.resx">
+    <EmbeddedResource Include="UI\Views\MiscInfo\MetarViewer.resx">
       <DependentUpon>MetarViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls\MiscInfoControl.resx">
+    <EmbeddedResource Include="UI\Views\MiscInfo\MiscInfoControl.resx">
       <DependentUpon>MiscInfoControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\QspForm.resx">
@@ -829,7 +831,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UI\UserControls\AboutPageControl.resx">
+    <EmbeddedResource Include="UI\Views\AboutPageControl.resx">
       <DependentUpon>AboutPageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\AircraftMenu\AircraftMenuControl.resx">
@@ -841,7 +843,7 @@
     <EmbeddedResource Include="UI\UserControls\TakeoffLanding\Common\AirportInfo\AirportInfoControl.resx">
       <DependentUpon>AirportInfoControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Views\FindAltnForm.resx">
+    <EmbeddedResource Include="UI\Views\Route\FindAltnForm.resx">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\TakeoffLanding\LandingPerf\CustomFuelForm.resx">

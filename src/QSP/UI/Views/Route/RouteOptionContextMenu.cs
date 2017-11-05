@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using static QSP.UI.Views.Factories.FormFactory;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Views.Route
 {
     public class RouteOptionContextMenu : ContextMenuStrip
     {

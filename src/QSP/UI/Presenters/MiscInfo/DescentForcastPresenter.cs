@@ -1,47 +1,41 @@
 ﻿using QSP.LibraryExtension;
+using QSP.MathTools;
 using QSP.RouteFinding.Airports;
+using QSP.UI.Views.MiscInfo;
 using QSP.WindAloft;
 using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using static QSP.MathTools.Numbers;
 using static QSP.Utilities.LoggerInstance;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Presenters.MiscInfo
 {
-    public partial class DescentForcastDisplay : UserControl
+    public class DescentForcastPresenter
     {
+        private IDescentForcastView view;
         private Locator<IWindTableCollection> windTableLocator;
         private Func<string> destGetter;
 
         public AirportManager AirportList { get; set; }
 
-        public DescentForcastDisplay()
-        {
-            InitializeComponent();
-        }
-
-        public void Init(
+        public DescentForcastPresenter(
+            IDescentForcastView view,
             AirportManager airportList,
             Locator<IWindTableCollection> windTableLocator,
             Func<string> destGetter)
         {
+            this.view = view;
             this.AirportList = airportList;
             this.windTableLocator = windTableLocator;
-            destIcaoLbl.Text = "";
-            desForcastLastUpdatedLbl.Text = "";
             this.destGetter = destGetter;
-
-            updateDesForcastBtn.Click += (s, e) => UpdateDesForcast();
         }
 
-        private async Task UpdateDesForcast()
+        public async Task UpdateForcast()
         {
             if (windTableLocator.Instance is DefaultWindTableCollection)
             {
-                desForcastRichTxtBox.Text = "\n\n\n       Wind aloft has not been downloaded.";
+                view.Forcast = "\n\n\n       Wind aloft has not been downloaded.";
                 return;
             }
 
@@ -49,19 +43,18 @@ namespace QSP.UI.UserControls
 
             try
             {
-                desForcastRichTxtBox.Text = "\n\n\n           Refreshing ...";
-                destIcaoLbl.Text = "Destination : " + dest;
+                view.Forcast = "\n\n\n           Refreshing ...";
+                view.DestinationIcao = dest;
 
-                desForcastRichTxtBox.Text =
+                view.Forcast =
                     await Task.Factory.StartNew(() => GenDesForcastString(dest));
 
-                desForcastLastUpdatedLbl.Text = $"Last Updated : {DateTime.Now}";
+                view.LastUpdateTime = DateTime.Now.ToString();
             }
             catch (Exception ex)
             {
                 Log(ex);
-                desForcastRichTxtBox.Text =
-                    "\n\n\n       Unable to get descent forcast for " + dest;
+                view.Forcast = "\n\n\n       Unable to get descent forcast for " + dest;
             }
         }
 
@@ -78,7 +71,7 @@ namespace QSP.UI.UserControls
             {
                 var flightLevel = flightLevels[i].ToString().PadLeft(3, '0');
                 var direction = winds[i].DirectionString();
-                int speed = RoundToInt(winds[i].Speed);
+                int speed = Numbers.RoundToInt(winds[i].Speed);
 
                 result.AppendLine($"        FL{flightLevel}   {direction}/{speed}");
             }

@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using QSP.UI.Util;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Views
 {
     public partial class AboutPageControl : UserControl
     {

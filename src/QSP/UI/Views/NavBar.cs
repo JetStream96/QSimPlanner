@@ -1,5 +1,6 @@
 ﻿using CommonLibrary.LibraryExtension;
 using QSP.UI.Controllers.ControlGroup;
+using QSP.UI.UserControls;
 using QSP.UI.UserControls.AircraftMenu;
 using QSP.UI.UserControls.TakeoffLanding.LandingPerf;
 using QSP.UI.UserControls.TakeoffLanding.TOPerf;
@@ -9,11 +10,12 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using QSP.UI.Views.MiscInfo;
 using static QSP.UI.Controllers.ControlGroup.ControlSwitcher;
 using static QSP.UI.Controllers.ControlGroup.GroupController;
 using static QSP.UI.Util.OpenFileHelper;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Views
 {
     public partial class NavBar : UserControl
     {

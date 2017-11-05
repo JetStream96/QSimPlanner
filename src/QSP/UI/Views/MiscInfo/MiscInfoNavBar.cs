@@ -1,4 +1,5 @@
 ﻿using QSP.UI.Controllers.ControlGroup;
+using QSP.UI.UserControls;
 using QSP.UI.UserControls.AirportMap;
 using System.Collections.Generic;
 using System.Data;
@@ -8,13 +9,13 @@ using System.Windows.Forms;
 using static QSP.UI.Controllers.ControlGroup.ControlSwitcher;
 using static QSP.UI.Controllers.ControlGroup.GroupController;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Views.MiscInfo
 {
     public partial class MiscInfoNavBar : UserControl
     {
         private AirportMapControl airportMapControl;
         private MetarViewer metarViewer;
-        private DescentForcastDisplay desForcast;
+        private DescentForcastControl desForcast;
 
         private GroupController btnControl;
         private ControlSwitcher viewControl;
@@ -32,7 +33,7 @@ namespace QSP.UI.UserControls
         }
 
         public void Init(AirportMapControl airportMapControl,
-            MetarViewer metarViewer, DescentForcastDisplay desForcast, Panel panel)
+            MetarViewer metarViewer, DescentForcastControl desForcast, Panel panel)
         {
             this.airportMapControl = airportMapControl;
             this.metarViewer = metarViewer;

@@ -2,7 +2,7 @@
 using QSP.Utilities.Units;
 using System.Collections.Generic;
 
-namespace QSP.UI.Views
+namespace QSP.UI.Views.Route
 {
     public interface IAltnView
     {

@@ -39,7 +39,7 @@ namespace QSP.UI.Forms
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panel1 = new PanelSilentScrollbar();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.navBar = new QSP.UI.UserControls.NavBar();
+            this.navBar = new NavBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.StatusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();

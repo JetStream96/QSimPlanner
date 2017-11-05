@@ -1,7 +1,6 @@
-﻿using MetroFramework.Controls;
-using QSP.UI.UserControls.AirportMap;
+﻿using QSP.UI.UserControls;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Views.MiscInfo
 {
     partial class MiscInfoControl
     {
@@ -31,7 +30,7 @@ namespace QSP.UI.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.miscInfoNavBar1 = new QSP.UI.UserControls.MiscInfoNavBar();
+            this.miscInfoNavBar1 = new MiscInfoNavBar();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2.SuspendLayout();
