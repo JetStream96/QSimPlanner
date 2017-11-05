@@ -30,22 +30,22 @@ namespace QSP.UI.Views.MiscInfo
         /// </summary>
         private void InitializeComponent()
         {
-            this.miscInfoNavBar1 = new MiscInfoNavBar();
+            this.infoNavBar = new InfoNavBar();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // miscInfoNavBar1
+            // infoNavBar
             // 
-            this.miscInfoNavBar1.AutoSize = true;
-            this.miscInfoNavBar1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.miscInfoNavBar1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.miscInfoNavBar1.Location = new System.Drawing.Point(0, 0);
-            this.miscInfoNavBar1.Margin = new System.Windows.Forms.Padding(0);
-            this.miscInfoNavBar1.Name = "miscInfoNavBar1";
-            this.miscInfoNavBar1.Size = new System.Drawing.Size(337, 41);
-            this.miscInfoNavBar1.TabIndex = 45;
+            this.infoNavBar.AutoSize = true;
+            this.infoNavBar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.infoNavBar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.infoNavBar.Location = new System.Drawing.Point(0, 0);
+            this.infoNavBar.Margin = new System.Windows.Forms.Padding(0);
+            this.infoNavBar.Name = "infoNavBar";
+            this.infoNavBar.Size = new System.Drawing.Size(337, 41);
+            this.infoNavBar.TabIndex = 45;
             // 
             // tableLayoutPanel2
             // 
@@ -53,7 +53,7 @@ namespace QSP.UI.Views.MiscInfo
             this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.miscInfoNavBar1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.infoNavBar, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 1);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(5, 5);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -92,7 +92,7 @@ namespace QSP.UI.Views.MiscInfo
         }
 
         #endregion
-        private MiscInfoNavBar miscInfoNavBar1;
+        private InfoNavBar infoNavBar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Panel panel1;
     }

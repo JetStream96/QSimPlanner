@@ -1,6 +1,6 @@
 ﻿namespace QSP.UI.Views.MiscInfo
 {
-    partial class MiscInfoNavBar
+    partial class InfoNavBar
     {
         /// <summary> 
         /// Required designer variable.

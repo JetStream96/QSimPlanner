@@ -1,6 +1,4 @@
-﻿using QSP.UI.Views;
-
-namespace QSP.UI.UserControls.AirportMap
+﻿namespace QSP.UI.Views.MiscInfo
 {
     partial class AirportMapControl
     {

@@ -12,6 +12,7 @@ namespace QSP.UI.Views.MiscInfo
     {
         private MetarViewerPresenter presenter;
         private Image processingImage;
+
         public MetarViewer()
         {
             InitializeComponent();

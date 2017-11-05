@@ -232,8 +232,10 @@
     <Compile Include="UI\Controllers\AlternateController.cs" />
     <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
+    <Compile Include="UI\Presenters\MiscInfo\AirportMapPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\DescentForcastPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\MetarViewerPresenter.cs" />
+    <Compile Include="UI\Presenters\MiscInfo\MiscInfoPresenter.cs" />
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
     <Compile Include="UI\Util\ControlDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\ColorGroup.cs" />
@@ -250,13 +252,15 @@
     <Compile Include="UI\Views\MiscInfo\DescentForcastControl.Designer.cs">
       <DependentUpon>DescentForcastControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Views\MiscInfo\IAirportMapView.cs" />
     <Compile Include="UI\Views\MiscInfo\IDescentForcastView.cs" />
     <Compile Include="UI\Views\MiscInfo\IMetarViewerView.cs" />
-    <Compile Include="UI\Views\MiscInfo\MiscInfoNavBar.cs">
+    <Compile Include="UI\Views\MiscInfo\IMiscInfoView.cs" />
+    <Compile Include="UI\Views\MiscInfo\InfoNavBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Views\MiscInfo\MiscInfoNavBar.Designer.cs">
-      <DependentUpon>MiscInfoNavBar.cs</DependentUpon>
+    <Compile Include="UI\Views\MiscInfo\InfoNavBar.Designer.cs">
+      <DependentUpon>InfoNavBar.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\NavBar.cs">
       <SubType>UserControl</SubType>
@@ -522,10 +526,10 @@
     <Compile Include="UI\UserControls\AircraftMenu\AircraftMenuControl.Designer.cs">
       <DependentUpon>AircraftMenuControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\AirportMap\AirportMapControl.cs">
+    <Compile Include="UI\Views\MiscInfo\AirportMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\AirportMap\AirportMapControl.Designer.cs">
+    <Compile Include="UI\Views\MiscInfo\AirportMapControl.Designer.cs">
       <DependentUpon>AirportMapControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GoogleMap\InteractiveMap.cs" />
@@ -780,8 +784,8 @@
     <EmbeddedResource Include="UI\Views\MiscInfo\DescentForcastControl.resx">
       <DependentUpon>DescentForcastControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Views\MiscInfo\MiscInfoNavBar.resx">
-      <DependentUpon>MiscInfoNavBar.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Views\MiscInfo\InfoNavBar.resx">
+      <DependentUpon>InfoNavBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Views\NavBar.resx">
       <DependentUpon>NavBar.cs</DependentUpon>
@@ -840,7 +844,7 @@
     <EmbeddedResource Include="UI\UserControls\AircraftMenu\AircraftMenuControl.resx">
       <DependentUpon>AircraftMenuControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls\AirportMap\AirportMapControl.resx">
+    <EmbeddedResource Include="UI\Views\MiscInfo\AirportMapControl.resx">
       <DependentUpon>AirportMapControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\TakeoffLanding\Common\AirportInfo\AirportInfoControl.resx">

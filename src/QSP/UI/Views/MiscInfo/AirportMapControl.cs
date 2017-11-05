@@ -8,30 +8,18 @@ using QSP.GoogleMap;
 using QSP.MathTools;
 using QSP.Metar;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Data.Interfaces;
+using QSP.UI.Presenters.MiscInfo;
 using QSP.UI.Views.Factories;
 using QSP.UI.Util;
 using QSP.UI.Util.ScrollBar;
-using QSP.UI.Views;
 
-namespace QSP.UI.UserControls.AirportMap
+namespace QSP.UI.Views.MiscInfo
 {
-    public partial class AirportMapControl : UserControl
+    public partial class AirportMapControl : UserControl, IAirportMapView
     {
-        private string _orig;
-        private string _dest;
-        private IEnumerable<string> _altn;
+        private AirportMapPresenter presenter;
         
-        private AirportManager _airports;
-        public AirportManager Airports
-        {
-            get { return _airports; }
-            set
-            {
-                _airports = value;
-                FindAirport();
-            }
-        }
-
         private string CurrentIcao => icaoComboBox.Text.Trim().ToUpper();
 
         public bool BrowserEnabled
@@ -67,47 +55,7 @@ namespace QSP.UI.UserControls.AirportMap
                 }
             }
         }
-
-        public string Orig
-        {
-            set
-            {
-                _orig = value;
-                SetIcaoItems();
-            }
-        }
-
-        public string Dest
-        {
-            set
-            {
-                _dest = value;
-                SetIcaoItems();
-            }
-        }
-
-        public IEnumerable<string> Altn
-        {
-            set
-            {
-                _altn = value;
-                SetIcaoItems();
-            }
-        }
-
-        private void SetIcaoItems()
-        {
-            icaoComboBox.Items.Clear();
-
-            var alternates = _altn ?? new string[] { null };
-
-            icaoComboBox.Items.AddRange(
-                new[] { _orig, _dest }
-                .Concat(alternates)
-                .Where(s => !string.IsNullOrEmpty(s))
-                .ToArray());
-        }
-
+        
         private PictureBox picBox;
         private WebBrowser browser;
 
@@ -116,13 +64,14 @@ namespace QSP.UI.UserControls.AirportMap
             InitializeComponent();
         }
 
-        public void Init(AirportManager airports)
+        public void Init(AirportMapPresenter presenter)
         {
+            this.presenter = presenter;
+
             ResetAirport();
             SetEmptyDataGrid();
 
             icaoComboBox.Text = "";
-            this._airports = airports;
 
             AddToolTip();
             SetUpdateBtnImage();
@@ -164,34 +113,13 @@ namespace QSP.UI.UserControls.AirportMap
             updateBtn.Visible = false;
         }
 
-        private async Task SetMetar(string icao)
+        private async Task SetMetar()
         {
-            metarLbl.Text = "Updating ...";
-            metarLbl.Text = await Task.Factory.StartNew(() => MetarDownloader.TryGetMetar(icao));
+            await presenter.SetMetar(); 
             metarLbl.Visible = true;
             updateBtn.Visible = true;
         }
-
-        private void SetAirport(IAirport airport)
-        {
-            SetMetar(airport.Icao);
-
-            airportNameLbl.Text = airport.Name;
-            latLonLbl.Text = airport.Lat.ToString("F6") + " / " + airport.Lon.ToString("F6");
-            elevationLbl.Text = airport.Elevation + " FT";
-
-            if (airport.TransAvail)
-            {
-                transExistLbl.Visible = true;
-                transAltLbl.Text = TransitionAlts(airport);
-            }
-            else
-            {
-                transExistLbl.Visible = false;
-                transAltLbl.Text = "";
-            }
-        }
-
+        
         private string TransitionAlts(IAirport airport)
         {
             // If TL is 0, that means it's not a fixed value.
@@ -273,8 +201,13 @@ namespace QSP.UI.UserControls.AirportMap
             airportDataGrid.Columns[8].Name = "Threshold altitude(FT)";
             airportDataGrid.Columns[9].Name = "Surface Type";
         }
+        
+        private void updateBtn_Click(object sender, EventArgs e)
+        {
+            SetMetar();
+        }
 
-        public void FindAirport()
+        private void icaoComboBox_TextChanged(object sender, EventArgs e)
         {
             ResetAirport();
             airportDataGrid.Rows.Clear();
@@ -288,20 +221,26 @@ namespace QSP.UI.UserControls.AirportMap
 
             if (airport != null && airport.Rwys.Count > 0)
             {
-                SetAirport(airport);
+                SetMetar(airport.Icao);
+
+                airportNameLbl.Text = airport.Name;
+                latLonLbl.Text = airport.Lat.ToString("F6") + " / " + airport.Lon.ToString("F6");
+                elevationLbl.Text = airport.Elevation + " FT";
+
+                if (airport.TransAvail)
+                {
+                    transExistLbl.Visible = true;
+                    transAltLbl.Text = TransitionAlts(airport);
+                }
+                else
+                {
+                    transExistLbl.Visible = false;
+                    transAltLbl.Text = "";
+                }
+
                 UpdateDataGrid(airport);
                 ShowMap(airport.Lat, airport.Lon);
             }
-        }
-
-        private void updateBtn_Click(object sender, EventArgs e)
-        {
-            SetMetar(CurrentIcao);
-        }
-
-        private void icaoComboBox_TextChanged(object sender, EventArgs e)
-        {
-            FindAirport();
         }
 
         private void metarLbl_Click(object sender, EventArgs e)
@@ -326,21 +265,39 @@ namespace QSP.UI.UserControls.AirportMap
 
         private Size MapSize => new Size(tableLayoutPanel2.Width, 800);
 
+        public string IcaoText => icaoComboBox.Text.Trim().ToUpper();
+
+        public IEnumerable<string> IcaoList
+        {
+            set
+            {
+                icaoComboBox.Items.Clear();
+                icaoComboBox.Items.AddRange(value.ToArray());
+            }
+        }
+
+        public string MetarText { set => throw new NotImplementedException(); }
+        public bool TransitionAltExist { set => throw new NotImplementedException(); }
+        public string AirportName { set => throw new NotImplementedException(); }
+        public string LatLon { set => throw new NotImplementedException(); }
+        public string Elevation { set => throw new NotImplementedException(); }
+        public string TransitionAltLevel { set => throw new NotImplementedException(); }
+
         private void DisableBrowser()
         {
             tableLayoutPanel2.Controls.Remove(browser);
             browser = null;
         }
 
-        public void ShowMap(double lat, double lon)
+        public void ShowMap(ICoordinate c)
         {
             if (BrowserEnabled)
             {
-                ShowMapBrowser(lat, lon);
+                ShowMapBrowser(c.Lat, c.Lon);
             }
             else if (StaticMapEnabled)
             {
-                ShowStaticMap(lat, lon);
+                ShowStaticMap(c.Lat, c.Lon);
             }
         }
 

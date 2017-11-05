@@ -1,7 +1,6 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.UI.Presenters.MiscInfo;
-using QSP.UI.UserControls.AirportMap;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
@@ -63,7 +62,7 @@ namespace QSP.UI.Views.MiscInfo
                 origGetter, destGetter, altnGetter);
             metarViewer.Init(metarPresenter);
 
-            miscInfoNavBar1.Init(airportMapControl, metarViewer, desForcast, panel1);
+            infoNavBar.Init(airportMapControl, metarViewer, desForcast, panel1);
         }
 
         public void SetOrig(string icao) => airportMapControl.Orig = icao;

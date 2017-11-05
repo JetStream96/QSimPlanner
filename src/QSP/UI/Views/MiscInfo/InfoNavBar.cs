@@ -1,6 +1,4 @@
 ﻿using QSP.UI.Controllers.ControlGroup;
-using QSP.UI.UserControls;
-using QSP.UI.UserControls.AirportMap;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -11,7 +9,7 @@ using static QSP.UI.Controllers.ControlGroup.GroupController;
 
 namespace QSP.UI.Views.MiscInfo
 {
-    public partial class MiscInfoNavBar : UserControl
+    public partial class InfoNavBar : UserControl
     {
         private AirportMapControl airportMapControl;
         private MetarViewer metarViewer;
@@ -27,7 +25,7 @@ namespace QSP.UI.Views.MiscInfo
             airportMapControl, metarViewer, desForcast
         };
 
-        public MiscInfoNavBar()
+        public InfoNavBar()
         {
             InitializeComponent();
         }
