@@ -230,8 +230,10 @@
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
     <Compile Include="TOPerfCalculation\FindTable.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />
+    <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\DescentForcastPresenter.cs" />
+    <Compile Include="UI\Presenters\MiscInfo\MetarViewerPresenter.cs" />
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
     <Compile Include="UI\Util\ControlDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\ColorGroup.cs" />
@@ -249,6 +251,7 @@
       <DependentUpon>DescentForcastControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\MiscInfo\IDescentForcastView.cs" />
+    <Compile Include="UI\Views\MiscInfo\IMetarViewerView.cs" />
     <Compile Include="UI\Views\MiscInfo\MiscInfoNavBar.cs">
       <SubType>UserControl</SubType>
     </Compile>

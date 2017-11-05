@@ -31,7 +31,7 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.metarLastUpdatedLbl = new System.Windows.Forms.Label();
+            this.lastUpdatedLbl = new System.Windows.Forms.Label();
             this.downloadAllBtn = new System.Windows.Forms.Button();
             this.IcaoTxtBox = new System.Windows.Forms.TextBox();
             this.statusPicBox = new System.Windows.Forms.PictureBox();
@@ -70,7 +70,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.metarLastUpdatedLbl, 4, 0);
+            this.tableLayoutPanel4.Controls.Add(this.lastUpdatedLbl, 4, 0);
             this.tableLayoutPanel4.Controls.Add(this.downloadAllBtn, 3, 0);
             this.tableLayoutPanel4.Controls.Add(this.IcaoTxtBox, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.statusPicBox, 2, 0);
@@ -94,17 +94,17 @@
             this.label1.TabIndex = 83;
             this.label1.Text = "ICAO";
             // 
-            // metarLastUpdatedLbl
+            // lastUpdatedLbl
             // 
-            this.metarLastUpdatedLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.metarLastUpdatedLbl.AutoSize = true;
-            this.metarLastUpdatedLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metarLastUpdatedLbl.Location = new System.Drawing.Point(291, 6);
-            this.metarLastUpdatedLbl.Margin = new System.Windows.Forms.Padding(2);
-            this.metarLastUpdatedLbl.Name = "metarLastUpdatedLbl";
-            this.metarLastUpdatedLbl.Size = new System.Drawing.Size(243, 19);
-            this.metarLastUpdatedLbl.TabIndex = 0;
-            this.metarLastUpdatedLbl.Text = "Last Updated : 7/18/2016 6:55:48 PM";
+            this.lastUpdatedLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lastUpdatedLbl.AutoSize = true;
+            this.lastUpdatedLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lastUpdatedLbl.Location = new System.Drawing.Point(291, 6);
+            this.lastUpdatedLbl.Margin = new System.Windows.Forms.Padding(2);
+            this.lastUpdatedLbl.Name = "lastUpdatedLbl";
+            this.lastUpdatedLbl.Size = new System.Drawing.Size(243, 19);
+            this.lastUpdatedLbl.TabIndex = 0;
+            this.lastUpdatedLbl.Text = "Last Updated : 7/18/2016 6:55:48 PM";
             // 
             // downloadAllBtn
             // 
@@ -187,7 +187,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.TextBox IcaoTxtBox;
-        private System.Windows.Forms.Label metarLastUpdatedLbl;
+        private System.Windows.Forms.Label lastUpdatedLbl;
         internal System.Windows.Forms.RichTextBox metarTafRichTxtBox;
         private System.Windows.Forms.PictureBox statusPicBox;
         internal System.Windows.Forms.Button downloadAllBtn;

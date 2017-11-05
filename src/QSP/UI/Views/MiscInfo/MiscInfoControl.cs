@@ -13,7 +13,9 @@ namespace QSP.UI.Views.MiscInfo
     public partial class MiscInfoControl : UserControl
     {
         private AirportMapControl airportMapControl = new AirportMapControl();
+
         private MetarViewer metarViewer = new MetarViewer();
+        private MetarViewerPresenter metarPresenter;
 
         private DescentForcastControl desForcast = new DescentForcastControl();
         private DescentForcastPresenter desPresenter;
@@ -53,11 +55,13 @@ namespace QSP.UI.Views.MiscInfo
             airportMapControl.BrowserEnabled = enableBrowser;
             this.destGetter = destGetter;
 
-            desPresenter=new DescentForcastPresenter(desForcast,
+            desPresenter = new DescentForcastPresenter(desForcast,
                 airportList, windTableLocator, destGetter);
             desForcast.Init(desPresenter);
 
-            metarViewer.Init(origGetter, destGetter, altnGetter);
+            metarPresenter = new MetarViewerPresenter(metarViewer,
+                origGetter, destGetter, altnGetter);
+            metarViewer.Init(metarPresenter);
 
             miscInfoNavBar1.Init(airportMapControl, metarViewer, desForcast, panel1);
         }
