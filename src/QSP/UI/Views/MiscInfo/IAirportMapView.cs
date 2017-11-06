@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Data.Interfaces;
-using QSP.RouteFinding.Airports;
+using System.Collections.Generic;
 
 namespace QSP.UI.Views.MiscInfo
 {
@@ -13,7 +13,7 @@ namespace QSP.UI.Views.MiscInfo
         string AirportName { set; }
         ICoordinate LatLon { set; }
         int ElevationFt { set; }
-        (int,int) TransitionAltLevel { set; }
+        (int, int) TransitionAltLevel { set; }
         void ShowMap(ICoordinate c);
         IReadOnlyList<IRwyData> Runways { set; }
         bool BrowserEnabled { set; }

@@ -70,11 +70,11 @@ namespace QSP.UI.Presenters.MiscInfo
                     .Where(s => !string.IsNullOrEmpty(s));
         }
 
-        public async Task SetMetar()
+        public async Task SetMetarText()
         {
+            var icao = view.IcaoText;
             view.MetarText = "Updating ...";
-            view.MetarText = await Task.Factory.StartNew(
-                () => MetarDownloader.TryGetMetar(view.IcaoText));
+            view.MetarText = await Task.Run(() => MetarDownloader.TryGetMetar(icao));
         }
 
         public void UpdateAirport()
@@ -86,7 +86,7 @@ namespace QSP.UI.Presenters.MiscInfo
 
             if (airport != null && airport.Rwys.Count > 0)
             {
-                SetMetar();
+                SetMetarText();
 
                 view.AirportName = airport.Name;
                 view.LatLon = airport;

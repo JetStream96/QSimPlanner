@@ -29,6 +29,10 @@ namespace QSP.UI.Presenters.MiscInfo
                 destGetter, altnGetter);
 
             MapPresenter.BrowserEnabled = enableBrowser;
+
+            Orig = origGetter();
+            Dest = destGetter();
+            Altn = altnGetter();
         }
 
         public AirportManager AirportList

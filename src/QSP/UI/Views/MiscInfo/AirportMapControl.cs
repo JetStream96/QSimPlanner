@@ -19,11 +19,9 @@ namespace QSP.UI.Views.MiscInfo
     {
         private AirportMapPresenter presenter;
 
-        private string CurrentIcao => icaoComboBox.Text.Trim().ToUpper();
-
         public bool BrowserEnabled
         {
-            get { return browser != null; }
+            get => browser != null; 
 
             set
             {
@@ -112,11 +110,9 @@ namespace QSP.UI.Views.MiscInfo
             updateBtn.Visible = false;
         }
 
-        private async Task SetMetar()
+        private void SetMetar()
         {
-            await presenter.SetMetar();
-            metarLbl.Visible = true;
-            updateBtn.Visible = true;
+            presenter.SetMetarText();
         }
 
         private string TransitionAlts((int, int) transAltLevel)
@@ -219,7 +215,7 @@ namespace QSP.UI.Views.MiscInfo
         private void metarLbl_Click(object sender, EventArgs e)
         {
             var frm = new MetarForm();
-            frm.icaoTxtBox.Text = CurrentIcao;
+            frm.icaoTxtBox.Text = IcaoText;
             frm.icaoTxtBox.Enabled = false;
             frm.resultRichTxtBox.Text = metarLbl.Text ?? "";
             frm.ShowDialog();
@@ -236,7 +232,7 @@ namespace QSP.UI.Views.MiscInfo
             browser = wb;
         }
 
-        private Size MapSize => new Size(tableLayoutPanel2.Width, 800);
+        private Size MapSize => new Size(tableLayoutPanel2.Width, 700);
 
         public string IcaoText => icaoComboBox.Text.Trim().ToUpper();
 
@@ -249,7 +245,16 @@ namespace QSP.UI.Views.MiscInfo
             }
         }
 
-        public string MetarText { set => metarLbl.Text = value; }
+        public string MetarText
+        {
+            set
+            {
+                metarLbl.Text = value;
+                metarLbl.Visible = true;
+                updateBtn.Visible = true;
+            }
+        }
+
         public string AirportName { set => airportNameLbl.Text = value; }
         public int ElevationFt { set => elevationLbl.Text = value + " FT"; }
         public bool TransitionAltExist { set => transExistLbl.Visible = value; }

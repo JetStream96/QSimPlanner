@@ -342,6 +342,8 @@ namespace QSP.UI.Forms
                 () => fuelMenu.origTxtBox.Text.Trim().ToUpper(),
                 () => fuelMenu.destTxtBox.Text.Trim().ToUpper(),
                 altnGetter);
+
+            miscInfoMenu.Init(miscInfoPresenter);
         }
 
         private void SubscribeEvents()
