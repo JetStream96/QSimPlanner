@@ -16,5 +16,6 @@ namespace QSP.UI.Views.MiscInfo
         (int,int) TransitionAltLevel { set; }
         void ShowMap(ICoordinate c);
         IReadOnlyList<IRwyData> Runways { set; }
+        bool BrowserEnabled { set; }
     }
 }

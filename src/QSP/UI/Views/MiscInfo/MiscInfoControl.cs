@@ -1,74 +1,30 @@
-﻿using QSP.LibraryExtension;
-using QSP.RouteFinding.Airports;
-using QSP.UI.Presenters.MiscInfo;
-using QSP.WindAloft;
-using System;
-using System.Collections.Generic;
+﻿using QSP.UI.Presenters.MiscInfo;
 using System.Windows.Forms;
 
 namespace QSP.UI.Views.MiscInfo
 {
-    // TODO: Split the presenter.
-    public partial class MiscInfoControl : UserControl
+    public partial class MiscInfoControl : UserControl, IMiscInfoView
     {
-        private AirportMapControl airportMapControl = new AirportMapControl();
+        private AirportMapControl map = new AirportMapControl();
+        private DescentForcastControl forcast = new DescentForcastControl();
+        private MetarViewer metar = new MetarViewer();
 
-        private MetarViewer metarViewer = new MetarViewer();
-        private MetarViewerPresenter metarPresenter;
-
-        private DescentForcastControl desForcast = new DescentForcastControl();
-        private DescentForcastPresenter desPresenter;
-
-        private Locator<IWindTableCollection> windTableLocator;
-        private Func<string> destGetter;
-
-        private AirportManager _airportList;
-        public AirportManager AirportList
-        {
-            get { return _airportList; }
-
-            set
-            {
-                _airportList = value;
-                airportMapControl.Airports = value;
-                desPresenter.AirportList = value;
-            }
-        }
+        public IAirportMapView AirportMapView => map;
+        public IDescentForcastView ForcastView => forcast;
+        public IMetarViewerView MetarView => metar;
 
         public MiscInfoControl()
         {
             InitializeComponent();
         }
 
-        public void Init(
-            AirportManager airportList,
-            Locator<IWindTableCollection> windTableLocator,
-            bool enableBrowser,
-            Func<string> origGetter,
-            Func<string> destGetter,
-            Func<IEnumerable<string>> altnGetter)
+        public void Init(MiscInfoPresenter p)
         {
-            this._airportList = airportList;
-            airportMapControl.Init(airportList);
-            this.windTableLocator = windTableLocator;
-            airportMapControl.BrowserEnabled = enableBrowser;
-            this.destGetter = destGetter;
+            map.Init(p.MapPresenter);
+            forcast.Init(p.ForcastPresenter);
+            metar.Init(p.MetarPresenter);
 
-            desPresenter = new DescentForcastPresenter(desForcast,
-                airportList, windTableLocator, destGetter);
-            desForcast.Init(desPresenter);
-
-            metarPresenter = new MetarViewerPresenter(metarViewer,
-                origGetter, destGetter, altnGetter);
-            metarViewer.Init(metarPresenter);
-
-            infoNavBar.Init(airportMapControl, metarViewer, desForcast, panel1);
+            infoNavBar.Init(map, metar, forcast, panel1);
         }
-
-        public void SetOrig(string icao) => airportMapControl.Orig = icao;
-
-        public void SetDest(string icao) => airportMapControl.Dest = icao;
-
-        public void SetAltn(IEnumerable<string> icao) => airportMapControl.Altn = icao;
     }
 }

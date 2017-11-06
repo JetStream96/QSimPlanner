@@ -36,6 +36,7 @@ using QSP.UI.Util.ScrollBar;
 using QSP.UI.Views;
 using QSP.UI.Views.MiscInfo;
 using static QSP.Utilities.LoggerInstance;
+using QSP.UI.Presenters.MiscInfo;
 
 namespace QSP.UI.Forms
 {
@@ -47,6 +48,8 @@ namespace QSP.UI.Forms
         private LandingPerfControl ldgMenu;
         private MiscInfoControl miscInfoMenu;
         private AboutPageControl aboutMenu;
+
+        private MiscInfoPresenter miscInfoPresenter;
 
         private ProfileCollection profiles;
         private AirwayNetwork airwayNetwork;
@@ -312,7 +315,7 @@ namespace QSP.UI.Forms
                 fuelMenu.RefreshForAirportListChange();
                 toMenu.Airports = AirportList;
                 ldgMenu.Airports = AirportList;
-                miscInfoMenu.AirportList = AirportList;
+                miscInfoPresenter.AirportList = AirportList;
             };
 
             airwayNetwork.WptListChanged += (s, e) => fuelMenu.OnWptListChanged();
@@ -326,7 +329,7 @@ namespace QSP.UI.Forms
 
         private void RefreshAirportInfoSelection()
         {
-            miscInfoMenu.SetAltn(fuelMenu.AltnControl.Alternates);
+            miscInfoPresenter.Altn = fuelMenu.AltnControl.Alternates;
         }
 
         private void InitMiscInfoMenu()
@@ -334,10 +337,8 @@ namespace QSP.UI.Forms
             Func<IEnumerable<string>> altnGetter = () =>
                 fuelMenu.AltnControl.Controls.Select(c => c.IcaoTxtBox.Text.Trim().ToUpper());
 
-            miscInfoMenu.Init(
-                AirportList,
-                windTableLocator,
-                true,
+            miscInfoPresenter = new MiscInfoPresenter(
+                miscInfoMenu, AirportList, windTableLocator, true,
                 () => fuelMenu.origTxtBox.Text.Trim().ToUpper(),
                 () => fuelMenu.destTxtBox.Text.Trim().ToUpper(),
                 altnGetter);
@@ -349,14 +350,14 @@ namespace QSP.UI.Forms
 
             origTxtBox.TextChanged += (sender, e) =>
             {
-                miscInfoMenu.SetOrig(origTxtBox.Text.Trim().ToUpper());
+                miscInfoPresenter.Orig = origTxtBox.Text.Trim().ToUpper();
             };
 
             var destTxtBox = fuelMenu.destTxtBox;
 
             destTxtBox.TextChanged += (sender, e) =>
             {
-                miscInfoMenu.SetDest(destTxtBox.Text.Trim().ToUpper());
+                miscInfoPresenter.Dest = destTxtBox.Text.Trim().ToUpper();
             };
 
             EnableAirportRequests();

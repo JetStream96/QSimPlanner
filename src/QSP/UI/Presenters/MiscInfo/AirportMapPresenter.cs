@@ -31,6 +31,11 @@ namespace QSP.UI.Presenters.MiscInfo
             this._airports = airports;
         }
 
+        public bool BrowserEnabled
+        {
+            set => view.BrowserEnabled = value;
+        }
+
         public string Orig
         {
             set

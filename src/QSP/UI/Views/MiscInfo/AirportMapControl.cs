@@ -40,7 +40,7 @@ namespace QSP.UI.Views.MiscInfo
 
         public bool StaticMapEnabled
         {
-            get { return picBox != null; }
+            get => picBox != null;
 
             set
             {
@@ -249,11 +249,11 @@ namespace QSP.UI.Views.MiscInfo
             }
         }
 
-        public string MetarText { set { metarLbl.Text = value; } }
-        public string AirportName { set { airportNameLbl.Text = value; } }
-        public int ElevationFt { set { elevationLbl.Text = value + " FT"; } }
-        public bool TransitionAltExist { set { transExistLbl.Visible = value; } }
-        public (int, int) TransitionAltLevel { set { transAltLbl.Text = TransitionAlts(value); } }
+        public string MetarText { set => metarLbl.Text = value; }
+        public string AirportName { set => airportNameLbl.Text = value; }
+        public int ElevationFt { set => elevationLbl.Text = value + " FT"; }
+        public bool TransitionAltExist { set => transExistLbl.Visible = value; }
+        public (int, int) TransitionAltLevel { set => transAltLbl.Text = TransitionAlts(value); }
 
         public ICoordinate LatLon
         {
