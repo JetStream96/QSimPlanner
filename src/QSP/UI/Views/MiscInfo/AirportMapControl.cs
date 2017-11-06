@@ -1,25 +1,24 @@
-﻿using System;
+﻿using QSP.GoogleMap;
+using QSP.MathTools;
+using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.Data.Interfaces;
+using QSP.UI.Presenters.MiscInfo;
+using QSP.UI.Util;
+using QSP.UI.Util.ScrollBar;
+using QSP.UI.Views.Factories;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.GoogleMap;
-using QSP.MathTools;
-using QSP.Metar;
-using QSP.RouteFinding.Airports;
-using QSP.RouteFinding.Data.Interfaces;
-using QSP.UI.Presenters.MiscInfo;
-using QSP.UI.Views.Factories;
-using QSP.UI.Util;
-using QSP.UI.Util.ScrollBar;
 
 namespace QSP.UI.Views.MiscInfo
 {
     public partial class AirportMapControl : UserControl, IAirportMapView
     {
         private AirportMapPresenter presenter;
-        
+
         private string CurrentIcao => icaoComboBox.Text.Trim().ToUpper();
 
         public bool BrowserEnabled
@@ -55,7 +54,7 @@ namespace QSP.UI.Views.MiscInfo
                 }
             }
         }
-        
+
         private PictureBox picBox;
         private WebBrowser browser;
 
@@ -84,7 +83,7 @@ namespace QSP.UI.Views.MiscInfo
             var size = new Size(oldSize.Width - 4, oldSize.Height - 4);
             updateBtn.BackgroundImage = ImageUtil.Resize(Properties.Resources.processing, size);
         }
-        
+
         private void AddToolTip()
         {
             var tp = ToolTipFactory.GetToolTip();
@@ -115,63 +114,67 @@ namespace QSP.UI.Views.MiscInfo
 
         private async Task SetMetar()
         {
-            await presenter.SetMetar(); 
+            await presenter.SetMetar();
             metarLbl.Visible = true;
             updateBtn.Visible = true;
         }
-        
-        private string TransitionAlts(IAirport airport)
+
+        private string TransitionAlts((int, int) transAltLevel)
         {
+            var (alt, level) = transAltLevel;
+
             // If TL is 0, that means it's not a fixed value.
             // Show "-" instead.
-            if (airport.TransLvl == 0)
+            if (level == 0)
             {
-                return airport.TransAlt.ToString() + " / -";
+                return alt.ToString() + " / -";
             }
             else
             {
-                return airport.TransAlt.ToString() + " / FL" +
-                    Numbers.RoundToInt(airport.TransLvl / 100.0).ToString();
+                return alt.ToString() + " / FL" + Numbers.RoundToInt(level / 100.0).ToString();
             }
         }
 
-        private void UpdateDataGrid(IAirport airport)
+        public IReadOnlyList<IRwyData> Runways
         {
-            var runways = airport.Rwys;
-            airportDataGrid.Columns.Clear();
-            airportDataGrid.Rows.Clear();
-            airportDataGrid.ColumnCount = 10;
-            airportDataGrid.RowCount = runways.Count;
-            SetColumnsLables();
-
-            for (int i = 0; i < runways.Count; i++)
+            set
             {
-                var rwy = runways[i];
+                var runways = value;
+                airportDataGrid.Columns.Clear();
+                airportDataGrid.Rows.Clear();
+                airportDataGrid.ColumnCount = 10;
+                airportDataGrid.RowCount = runways.Count;
+                SetColumnsLables();
 
-                airportDataGrid[0, i].Value = rwy.RwyIdent;
-                airportDataGrid[1, i].Value = rwy.LengthFt;
-                airportDataGrid[2, i].Value = rwy.Heading;
-                airportDataGrid[3, i].Value = rwy.Lat;
-                airportDataGrid[4, i].Value = rwy.Lon;
-
-                if (rwy.HasIlsInfo && rwy.IlsAvail)
+                for (int i = 0; i < runways.Count; i++)
                 {
-                    airportDataGrid[5, i].Value = rwy.IlsFreq;
-                    airportDataGrid[6, i].Value = rwy.IlsHeading;
-                    airportDataGrid[7, i].Value = rwy.GlideslopeAngle.ToString("0.0");
-                }
-                else
-                {
-                    airportDataGrid[5, i].Value = "";
-                    airportDataGrid[6, i].Value = "";
-                    airportDataGrid[7, i].Value = "";
+                    var rwy = runways[i];
+
+                    airportDataGrid[0, i].Value = rwy.RwyIdent;
+                    airportDataGrid[1, i].Value = rwy.LengthFt;
+                    airportDataGrid[2, i].Value = rwy.Heading;
+                    airportDataGrid[3, i].Value = rwy.Lat;
+                    airportDataGrid[4, i].Value = rwy.Lon;
+
+                    if (rwy.HasIlsInfo && rwy.IlsAvail)
+                    {
+                        airportDataGrid[5, i].Value = rwy.IlsFreq;
+                        airportDataGrid[6, i].Value = rwy.IlsHeading;
+                        airportDataGrid[7, i].Value = rwy.GlideslopeAngle.ToString("0.0");
+                    }
+                    else
+                    {
+                        airportDataGrid[5, i].Value = "";
+                        airportDataGrid[6, i].Value = "";
+                        airportDataGrid[7, i].Value = "";
+                    }
+
+                    airportDataGrid[8, i].Value = rwy.ElevationFt;
+                    airportDataGrid[9, i].Value = rwy.SurfaceType;
                 }
 
-                airportDataGrid[8, i].Value = rwy.ElevationFt;
-                airportDataGrid[9, i].Value = rwy.SurfaceType;
+                SetGridViewHeight();
             }
-            
-            SetGridViewHeight();
         }
 
         private void SetGridViewHeight()
@@ -201,7 +204,7 @@ namespace QSP.UI.Views.MiscInfo
             airportDataGrid.Columns[8].Name = "Threshold altitude(FT)";
             airportDataGrid.Columns[9].Name = "Surface Type";
         }
-        
+
         private void updateBtn_Click(object sender, EventArgs e)
         {
             SetMetar();
@@ -210,37 +213,7 @@ namespace QSP.UI.Views.MiscInfo
         private void icaoComboBox_TextChanged(object sender, EventArgs e)
         {
             ResetAirport();
-            airportDataGrid.Rows.Clear();
-
-            if (CurrentIcao.Length != 4 || Airports == null)
-            {
-                return;
-            }
-
-            var airport = Airports[CurrentIcao];
-
-            if (airport != null && airport.Rwys.Count > 0)
-            {
-                SetMetar(airport.Icao);
-
-                airportNameLbl.Text = airport.Name;
-                latLonLbl.Text = airport.Lat.ToString("F6") + " / " + airport.Lon.ToString("F6");
-                elevationLbl.Text = airport.Elevation + " FT";
-
-                if (airport.TransAvail)
-                {
-                    transExistLbl.Visible = true;
-                    transAltLbl.Text = TransitionAlts(airport);
-                }
-                else
-                {
-                    transExistLbl.Visible = false;
-                    transAltLbl.Text = "";
-                }
-
-                UpdateDataGrid(airport);
-                ShowMap(airport.Lat, airport.Lon);
-            }
+            presenter.UpdateAirport();
         }
 
         private void metarLbl_Click(object sender, EventArgs e)
@@ -258,7 +231,7 @@ namespace QSP.UI.Views.MiscInfo
 
             wb.Location = Point.Empty;
             wb.Size = MapSize;
-            
+
             tableLayoutPanel2.Controls.Add(wb, 0, 1);
             browser = wb;
         }
@@ -276,12 +249,19 @@ namespace QSP.UI.Views.MiscInfo
             }
         }
 
-        public string MetarText { set => throw new NotImplementedException(); }
-        public bool TransitionAltExist { set => throw new NotImplementedException(); }
-        public string AirportName { set => throw new NotImplementedException(); }
-        public string LatLon { set => throw new NotImplementedException(); }
-        public string Elevation { set => throw new NotImplementedException(); }
-        public string TransitionAltLevel { set => throw new NotImplementedException(); }
+        public string MetarText { set { metarLbl.Text = value; } }
+        public string AirportName { set { airportNameLbl.Text = value; } }
+        public int ElevationFt { set { elevationLbl.Text = value + " FT"; } }
+        public bool TransitionAltExist { set { transExistLbl.Visible = value; } }
+        public (int, int) TransitionAltLevel { set { transAltLbl.Text = TransitionAlts(value); } }
+
+        public ICoordinate LatLon
+        {
+            set
+            {
+                latLonLbl.Text = value.Lat.ToString("F6") + " / " + value.Lon.ToString("F6");
+            }
+        }
 
         private void DisableBrowser()
         {

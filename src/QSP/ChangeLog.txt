@@ -1,4 +1,7 @@
-﻿version 0.3.7
+﻿version 0.3.8
+* Fix a bug that causes the program to crash if the destination ICAO is invalid when finding alternate airports.
+
+version 0.3.7
 * Add option to view route in external browser.
 
 version 0.3.6

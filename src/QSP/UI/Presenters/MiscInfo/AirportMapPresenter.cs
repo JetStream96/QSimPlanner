@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QSP.Metar;
+﻿using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using QSP.UI.Views.MiscInfo;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace QSP.UI.Presenters.MiscInfo
 {
@@ -23,7 +21,7 @@ namespace QSP.UI.Presenters.MiscInfo
             set
             {
                 _airports = value;
-                FindAirport();
+                UpdateAirport();
             }
         }
 
@@ -76,7 +74,28 @@ namespace QSP.UI.Presenters.MiscInfo
 
         public void UpdateAirport()
         {
-            
+            view.Runways = new IRwyData[0];
+            var icao = view.IcaoText;
+            if (icao.Length != 4 || Airports == null) return;
+            var airport = Airports[icao];
+
+            if (airport != null && airport.Rwys.Count > 0)
+            {
+                SetMetar();
+
+                view.AirportName = airport.Name;
+                view.LatLon = airport;
+                view.ElevationFt = airport.Elevation;
+                view.TransitionAltExist = airport.TransAvail;
+
+                if (airport.TransAvail)
+                {
+                    view.TransitionAltLevel = (airport.TransAlt, airport.TransLvl);
+                }
+
+                view.Runways = airport.Rwys;
+                view.ShowMap(airport);
+            }
         }
     }
 }
