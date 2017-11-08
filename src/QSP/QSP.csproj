@@ -238,7 +238,10 @@
     <Compile Include="UI\Presenters\MiscInfo\MiscInfoPresenter.cs" />
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
     <Compile Include="UI\UserControls\FuelPlanningPresenter.cs" />
+    <Compile Include="UI\UserControls\AlternateRowPresenter.cs" />
+    <Compile Include="UI\UserControls\IAlternateRowView.cs" />
     <Compile Include="UI\UserControls\IFuelPlanningView.cs" />
+    <Compile Include="UI\Util\ComboBoxHelpers.cs" />
     <Compile Include="UI\Util\ControlDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\ColorGroup.cs" />
     <Compile Include="UI\Controllers\DestinationStarSelection.cs" />
@@ -351,11 +354,11 @@
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\Factories\ToolTipFactory.cs" />
-    <Compile Include="UI\UserControls\AlternateRowItems.cs">
+    <Compile Include="UI\UserControls\AlternateRowControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\AlternateRowItems.Designer.cs">
-      <DependentUpon>AlternateRowItems.cs</DependentUpon>
+    <Compile Include="UI\UserControls\AlternateRowControl.Designer.cs">
+      <DependentUpon>AlternateRowControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserControls\AlternateRowExtension.cs" />
     <Compile Include="UI\UserControls\FuelPageState.cs" />
@@ -804,8 +807,8 @@
     <EmbeddedResource Include="UI\Views\MsgBox\MsgBoxForm.resx">
       <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls\AlternateRowItems.resx">
-      <DependentUpon>AlternateRowItems.cs</DependentUpon>
+    <EmbeddedResource Include="UI\UserControls\AlternateRowControl.resx">
+      <DependentUpon>AlternateRowControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\FuelPlanningControl.resx">
       <DependentUpon>FuelPlanningControl.cs</DependentUpon>

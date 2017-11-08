@@ -7,7 +7,7 @@ namespace QSP.UI.UserControls
     public static class AlternateRowExtension
     {
         public static void AddToLayoutPanel(
-            this AlternateRowItems row, TableLayoutPanel altnLayoutPanel)
+            this AlternateRowControl row, TableLayoutPanel altnLayoutPanel)
         {
             altnLayoutPanel.RowCount += 1;
             MoveRowsDown(altnLayoutPanel);

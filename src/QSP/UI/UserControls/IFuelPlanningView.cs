@@ -12,6 +12,21 @@ namespace QSP.UI.UserControls
         IEnumerable<string> AircraftList { set; }
         IEnumerable<string> RegistrationList { set; }
         WeightUnit WeightUnit { set; }
-        double O
+        double OewKg { set; }
+        double MaxZfwKg { set; }
+
+        string OrigIcao { get; }
+        string DestIcao { get; }
+
+        // Can be "AUTO", or "AUTO (10)" if the runway is automatically computed.
+        IEnumerable<string> OrigRwyList { set; }
+        IEnumerable<string> DestRwyList { set; }
+
+        // Can be "AUTO" or "NONE".
+        IEnumerable<string> SidList { set; }
+        IEnumerable<string> StarList { set; }
+
+        string Route { get; set; }
+
     }
 }

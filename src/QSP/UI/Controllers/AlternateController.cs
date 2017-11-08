@@ -59,7 +59,7 @@ namespace QSP.UI.Controllers
 
         public void AddRow()
         {
-            var row = new AlternateRowItems();
+            var row = new AlternateRowControl();
             row.Init(() => destSidProvider.Icao, () => airwayNetwork.AirportList);
             row.AddToLayoutPanel(layoutPanel);
             row.IcaoTxtBox.TextChanged += (s, e) =>
@@ -109,20 +109,20 @@ namespace QSP.UI.Controllers
             }
         }
 
-        public IEnumerable<AlternateRowItems> Controls => rows.Select(r => r.Items);
+        public IEnumerable<AlternateRowControl> Controls => rows.Select(r => r.Items);
 
         public struct AltnRow
         {
-            public AlternateRowItems Items; public AltnRowControl Control;
+            public AlternateRowControl Items; public AltnRowControl Control;
         }
 
         public sealed class AltnRowControl : IDisposable
         {
-            public AlternateRowItems Row;
+            public AlternateRowControl Row;
             public RouteFinderSelection Controller;
             public ActionContextMenu OptionMenu;
             
-            public AltnRowControl(AlternateController Parent, AlternateRowItems row)
+            public AltnRowControl(AlternateController Parent, AlternateRowControl row)
             {
                 this.Row = row;
 
