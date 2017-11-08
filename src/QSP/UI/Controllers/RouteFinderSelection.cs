@@ -17,7 +17,7 @@ using static QSP.UI.Views.Factories.FormFactory;
 namespace QSP.UI.Controllers
 {
     // Manages the selected SIDs/STARs by the user. 
-    // This class is responsible for the SID/STAR comboboxes, the filter button,
+    // This class is responsible for the SID/STAR comboBoxes, the filter button,
     // and the instantiation of the filter form.
     //
     public class RouteFinderSelection : ISelectedProcedureProvider

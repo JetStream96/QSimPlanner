@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using QSP.UI.Presenters.FuelPlan;
 using QSP.UI.Views.FuelPlan;
 using QSP.UI.Views.Route.Actions;
 using static QSP.UI.Util.RouteDistanceDisplay;
@@ -35,13 +36,8 @@ namespace QSP.UI.Controllers
 
         public int RowCount => rows.Count;
 
-        public IEnumerable<string> Alternates
-        {
-            get
-            {
-                return rows.Select(r => r.Items.IcaoTxtBox.Text.Trim().ToUpper());
-            }
-        }
+        public IEnumerable<string> Alternates =>
+            rows.Select(r => r.Items.IcaoTxtBox.Text.Trim().ToUpper());
 
         public AlternateController(
             Locator<AppOptions> appOptionsLocator,
@@ -62,7 +58,9 @@ namespace QSP.UI.Controllers
         public void AddRow()
         {
             var row = new AlternateRowControl();
-            row.Init(() => destSidProvider.Icao, () => airwayNetwork.AirportList);
+            var presenter = new AlternateRowPresenter(
+                row, () => destSidProvider.Icao, () => airwayNetwork.AirportList);
+            row.Init(presenter);
             row.AddToLayoutPanel(layoutPanel);
             row.IcaoTxtBox.TextChanged += (s, e) =>
                 AlternatesChanged?.Invoke(this, EventArgs.Empty);
@@ -102,14 +100,8 @@ namespace QSP.UI.Controllers
             rows.ForEach(r => r.Control.Controller.RefreshProcedureComboBox());
         }
 
-        public Route[] Routes
-        {
-            get
-            {
-                return rows.Select(r => r.Control.OptionMenu.Route?.Expanded)
-                    .ToArray();
-            }
-        }
+        public Route[] Routes =>
+            rows.Select(r => r.Control.OptionMenu.Route?.Expanded).ToArray();
 
         public IEnumerable<AlternateRowControl> Controls => rows.Select(r => r.Items);
 
@@ -123,7 +115,7 @@ namespace QSP.UI.Controllers
             public AlternateRowControl Row;
             public RouteFinderSelection Controller;
             public ActionContextMenu OptionMenu;
-            
+
             public AltnRowControl(AlternateController Parent, AlternateRowControl row)
             {
                 this.Row = row;
@@ -139,7 +131,7 @@ namespace QSP.UI.Controllers
                     () => Parent.airwayNetwork.AirportList,
                     () => Parent.airwayNetwork.WptList,
                     new ProcedureFilter());
-                
+
                 OptionMenu = new ActionContextMenu(
                     Parent.appOptionsLocator,
                     Parent.airwayNetwork,

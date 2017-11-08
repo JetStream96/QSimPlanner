@@ -46,7 +46,7 @@ using static QSP.Utilities.Units.Conversions;
 
 namespace QSP.UI.Views.FuelPlan
 {
-    public partial class FuelPlanningControl : UserControl
+    public partial class FuelPlanningControl : UserControl, IFuelPlanningView
     {
         private AirwayNetwork airwayNetwork;
         private Locator<AppOptions> appOptionsLocator;
@@ -219,10 +219,25 @@ namespace QSP.UI.Views.FuelPlan
 
         public WeightUnit WeightUnit
         {
-            get { return (WeightUnit)wtUnitComboBox.SelectedIndex; }
+            get => (WeightUnit)wtUnitComboBox.SelectedIndex; 
 
-            set { wtUnitComboBox.SelectedIndex = (int)value; }
+            set => wtUnitComboBox.SelectedIndex = (int)value; 
         }
+
+        public IEnumerable<string> AircraftList { set => throw new NotImplementedException(); }
+        public IEnumerable<string> RegistrationList { set => throw new NotImplementedException(); }
+        public double OewKg { set => throw new NotImplementedException(); }
+        public double MaxZfwKg { set => throw new NotImplementedException(); }
+
+        public string OrigIcao => throw new NotImplementedException();
+
+        public string DestIcao => throw new NotImplementedException();
+
+        public IEnumerable<string> OrigRwyList { set => throw new NotImplementedException(); }
+        public IEnumerable<string> DestRwyList { set => throw new NotImplementedException(); }
+        public IEnumerable<string> SidList { set => throw new NotImplementedException(); }
+        public IEnumerable<string> StarList { set => throw new NotImplementedException(); }
+        public string Route { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void OnWptListChanged()
         {

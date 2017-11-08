@@ -235,6 +235,7 @@
     <Compile Include="UI\Controllers\AlternateController.cs" />
     <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
+    <Compile Include="UI\Presenters\FuelPlan\AlternatePresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\AirportMapPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\DescentForcastPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\MetarViewerPresenter.cs" />
@@ -242,7 +243,9 @@
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\FuelPlanningPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternateRowPresenter.cs" />
+    <Compile Include="UI\Views\FuelPlan\AlternateControl.cs" />
     <Compile Include="UI\Views\FuelPlan\IAlternateRowView.cs" />
+    <Compile Include="UI\Views\FuelPlan\IAlternateView.cs" />
     <Compile Include="UI\Views\FuelPlan\IFuelPlanningView.cs" />
     <Compile Include="UI\Util\ComboBoxHelpers.cs" />
     <Compile Include="UI\Util\ControlDisableStyleController.cs" />
@@ -283,7 +286,7 @@
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\Options\FlightPlanExportController.cs" />
-    <Compile Include="UI\Views\Route\IAltnView.cs" />
+    <Compile Include="UI\Views\Route\IFindAltnView.cs" />
     <Compile Include="UI\Views\UnhandledExceptionForm.cs">
       <SubType>Form</SubType>
     </Compile>

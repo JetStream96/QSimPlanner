@@ -11,7 +11,7 @@ using static QSP.AviationTools.Constants;
 
 namespace QSP.UI.Views.Route
 {
-    public partial class FindAltnForm : Form, IAltnView
+    public partial class FindAltnForm : Form, IFindAltnView
     {
         public event EventHandler AlternateSet;
 

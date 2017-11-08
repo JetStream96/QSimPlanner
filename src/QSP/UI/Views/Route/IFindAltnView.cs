@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace QSP.UI.Views.Route
 {
-    public interface IAltnView
+    public interface IFindAltnView
     {
         string ICAO { get; }
         string Length { get; }

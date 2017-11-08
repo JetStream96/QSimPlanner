@@ -7,10 +7,10 @@ namespace QSP.UI.Presenters
 {
     public class FindAltnPresenter
     {
-        private IAltnView view;
+        private IFindAltnView view;
         private AirportManager airportList;
 
-        public FindAltnPresenter(IAltnView view, AirportManager airportList)
+        public FindAltnPresenter(IFindAltnView view, AirportManager airportList)
         {
             this.view = view;
             this.airportList = airportList;

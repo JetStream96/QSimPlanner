@@ -15,7 +15,7 @@ namespace QSP.UI.Presenters.FuelPlan
         private Func<string> destIcaoGetter;
         private Func<AirportManager> airportListGetter;
 
-        public FindAltnPresenter FindAltnPresenter(IAltnView altnView)=>
+        public FindAltnPresenter FindAltnPresenter(IFindAltnView altnView)=>
             new FindAltnPresenter(altnView, airportListGetter());
 
         public string DestIcao => destIcaoGetter();
