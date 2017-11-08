@@ -14,9 +14,10 @@ namespace QSP.UI.Controllers.WeightControl
         private WeightTextBoxController payload;
         private WeightTextBoxController zfw;
         private MetroTrackBar payloadTrackBar;
-        private AircraftConfigItem _aircraftConfig;
         private bool _enabled;
         private bool _monitorWeightChange;
+        private double _oewKg;
+        private double _maxZfwKg;
 
         public WeightController(
             WeightTextBoxController oew,
@@ -32,30 +33,23 @@ namespace QSP.UI.Controllers.WeightControl
             _monitorWeightChange = false;
         }
 
-        public AircraftConfigItem AircraftConfig
+        public void SetAircraftWeights(double oewKg, double maxZfwKg)
         {
-            get
+            _oewKg = oewKg;
+            _maxZfwKg = maxZfwKg;
+
+            double maxPayload = maxZfwKg - oewKg;
+            payloadTrackBar.Maximum = (int)Ceiling(maxPayload);
+            payloadTrackBar.Minimum = 0;
+            oew.SetWeight(oewKg);
+
+            try
             {
-                return _aircraftConfig;
+                var oldZfw = ZfwKg;
+                ZfwKg = oldZfw;     // Set the value to check bounds.
+                SetControls();
             }
-
-            set
-            {
-                _aircraftConfig = value;
-
-                double maxPayload = _aircraftConfig.MaxZfwKg - _aircraftConfig.OewKg;
-                payloadTrackBar.Maximum = (int)Ceiling(maxPayload);
-                payloadTrackBar.Minimum = 0;
-                oew.SetWeight(AircraftConfig.OewKg);
-
-                try
-                {
-                    var oldZfw = ZfwKg;
-                    ZfwKg = oldZfw;     // Set the value to check bounds.
-                    SetControls();
-                }
-                catch { }
-            }
+            catch { }
         }
 
         // Set this after setting AircraftConfig.        
@@ -70,13 +64,13 @@ namespace QSP.UI.Controllers.WeightControl
             // Can throw NullReferenceException.
             set
             {
-                if (value > AircraftConfig.MaxZfwKg)
+                if (value > _maxZfwKg)
                 {
-                    zfw.SetWeight(AircraftConfig.MaxZfwKg);
+                    zfw.SetWeight(_maxZfwKg);
                 }
-                else if (value < AircraftConfig.OewKg)
+                else if (value < _oewKg)
                 {
-                    zfw.SetWeight(AircraftConfig.OewKg);
+                    zfw.SetWeight(_oewKg);
                 }
                 else
                 {
@@ -134,8 +128,8 @@ namespace QSP.UI.Controllers.WeightControl
 
             try
             {
-                if (AircraftConfig.OewKg <= ZfwKg + margin &&
-                    ZfwKg <= AircraftConfig.MaxZfwKg + margin)
+                if (_oewKg <= ZfwKg + margin &&
+                    ZfwKg <= _maxZfwKg + margin)
                 {
                     zfw.TxtBox.ForeColor = Color.DarkGreen;
                 }
@@ -204,8 +198,8 @@ namespace QSP.UI.Controllers.WeightControl
 
         private void SetControls()
         {
-            var payloadKg = ZfwKg - AircraftConfig.OewKg;
-            oew.SetWeight(AircraftConfig.OewKg);
+            var payloadKg = ZfwKg - _oewKg;
+            oew.SetWeight(_oewKg);
             payload.SetWeight(payloadKg);
             payloadTrackBar.Value = RoundToInt(payloadKg);
             zfw.SetWeight(ZfwKg);

@@ -390,7 +390,7 @@ namespace QSP.UI.UserControls
 
             var config = aircrafts.Find(registrationComboBox.Text).Config;
             WeightUnit = config.WtUnit;
-            WeightControl.AircraftConfig = config;
+            WeightControl.SetAircraftWeights(config.OewKg, config.MaxZfwKg);
             var maxPayloadKg = config.MaxZfwKg - config.OewKg;
             WeightControl.ZfwKg = config.OewKg + 0.5 * maxPayloadKg;
         }

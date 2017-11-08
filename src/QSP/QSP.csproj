@@ -237,6 +237,8 @@
     <Compile Include="UI\Presenters\MiscInfo\MetarViewerPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\MiscInfoPresenter.cs" />
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
+    <Compile Include="UI\UserControls\FuelPlanningPresenter.cs" />
+    <Compile Include="UI\UserControls\IFuelPlanningView.cs" />
     <Compile Include="UI\Util\ControlDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\ColorGroup.cs" />
     <Compile Include="UI\Controllers\DestinationStarSelection.cs" />
@@ -1003,7 +1005,9 @@
       <Name>CommonLibrary</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UI\Views\FuelPlan\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
