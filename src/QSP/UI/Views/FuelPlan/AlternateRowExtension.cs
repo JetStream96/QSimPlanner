@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Views.FuelPlan
 {
     public static class AlternateRowExtension
     {

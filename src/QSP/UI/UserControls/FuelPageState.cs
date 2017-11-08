@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using QSP.UI.Views.FuelPlan;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 using static QSP.Utilities.ExceptionHelpers;
 

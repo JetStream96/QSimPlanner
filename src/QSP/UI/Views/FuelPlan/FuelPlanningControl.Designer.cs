@@ -1,6 +1,4 @@
-﻿using QSP.UI.Views;
-
-namespace QSP.UI.UserControls
+﻿namespace QSP.UI.Views.FuelPlan
 {
     partial class FuelPlanningControl
     {

@@ -37,6 +37,7 @@ using QSP.UI.Views;
 using QSP.UI.Views.MiscInfo;
 using static QSP.Utilities.LoggerInstance;
 using QSP.UI.Presenters.MiscInfo;
+using QSP.UI.Views.FuelPlan;
 
 namespace QSP.UI.Forms
 {

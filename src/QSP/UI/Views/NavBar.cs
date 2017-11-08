@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using QSP.UI.Views.FuelPlan;
 using QSP.UI.Views.MiscInfo;
 using static QSP.UI.Controllers.ControlGroup.ControlSwitcher;
 using static QSP.UI.Controllers.ControlGroup.GroupController;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Views.FuelPlan
 {
     public interface IAlternateRowView
     {

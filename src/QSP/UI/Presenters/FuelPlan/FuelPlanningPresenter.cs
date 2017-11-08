@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QSP.UI.UserControls;
+using QSP.UI.Views.FuelPlan;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Presenters.FuelPlan
 {
     public class FuelPlanningPresenter
     {

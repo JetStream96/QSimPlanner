@@ -240,10 +240,10 @@
     <Compile Include="UI\Presenters\MiscInfo\MetarViewerPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\MiscInfoPresenter.cs" />
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
-    <Compile Include="UI\UserControls\FuelPlanningPresenter.cs" />
-    <Compile Include="UI\UserControls\AlternateRowPresenter.cs" />
-    <Compile Include="UI\UserControls\IAlternateRowView.cs" />
-    <Compile Include="UI\UserControls\IFuelPlanningView.cs" />
+    <Compile Include="UI\Presenters\FuelPlan\FuelPlanningPresenter.cs" />
+    <Compile Include="UI\Presenters\FuelPlan\AlternateRowPresenter.cs" />
+    <Compile Include="UI\Views\FuelPlan\IAlternateRowView.cs" />
+    <Compile Include="UI\Views\FuelPlan\IFuelPlanningView.cs" />
     <Compile Include="UI\Util\ComboBoxHelpers.cs" />
     <Compile Include="UI\Util\ControlDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\ColorGroup.cs" />
@@ -344,32 +344,32 @@
     <Compile Include="UI\Views\MiscInfo\MetarViewer.Designer.cs">
       <DependentUpon>MetarViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\RouteActions\SimpleActionContextMenu.cs">
+    <Compile Include="UI\Views\Route\Actions\SimpleActionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Views\Route\RouteOptionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\AdvancedRouteTool.cs">
+    <Compile Include="UI\Views\Route\AdvancedRouteTool.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\AdvancedRouteTool.Designer.cs">
+    <Compile Include="UI\Views\Route\AdvancedRouteTool.Designer.cs">
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\Factories\ToolTipFactory.cs" />
-    <Compile Include="UI\UserControls\AlternateRowControl.cs">
+    <Compile Include="UI\Views\FuelPlan\AlternateRowControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\AlternateRowControl.Designer.cs">
+    <Compile Include="UI\Views\FuelPlan\AlternateRowControl.Designer.cs">
       <DependentUpon>AlternateRowControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\AlternateRowExtension.cs" />
+    <Compile Include="UI\Views\FuelPlan\AlternateRowExtension.cs" />
     <Compile Include="UI\UserControls\FuelPageState.cs" />
     <Compile Include="UI\UserControls\FuelParameterValidator.cs" />
-    <Compile Include="UI\UserControls\FuelPlanningControl.cs">
+    <Compile Include="UI\Views\FuelPlan\FuelPlanningControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\FuelPlanningControl.Designer.cs">
+    <Compile Include="UI\Views\FuelPlan\FuelPlanningControl.Designer.cs">
       <DependentUpon>FuelPlanningControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\MiscInfo\MiscInfoControl.cs">
@@ -378,10 +378,10 @@
     <Compile Include="UI\Views\MiscInfo\MiscInfoControl.Designer.cs">
       <DependentUpon>MiscInfoControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\RouteActions\ActionContextMenu.cs">
+    <Compile Include="UI\Views\Route\Actions\ActionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\UserControls\RouteActions\RouteActionController.cs" />
+    <Compile Include="UI\Views\Route\Actions\RouteActionController.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\IFormController.cs" />
     <Compile Include="UI\Util\ControlMover.cs" />
     <Compile Include="UI\Util\DoubleBufferUtil.cs" />
@@ -810,10 +810,10 @@
     <EmbeddedResource Include="UI\Views\MsgBox\MsgBoxForm.resx">
       <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls\AlternateRowControl.resx">
+    <EmbeddedResource Include="UI\Views\FuelPlan\AlternateRowControl.resx">
       <DependentUpon>AlternateRowControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls\FuelPlanningControl.resx">
+    <EmbeddedResource Include="UI\Views\FuelPlan\FuelPlanningControl.resx">
       <DependentUpon>FuelPlanningControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Views\MiscInfo\MetarViewer.resx">
@@ -831,7 +831,7 @@
     <EmbeddedResource Include="UI\Views\Route\SidStarFilterControl.resx">
       <DependentUpon>SidStarFilterControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls\AdvancedRouteTool.resx">
+    <EmbeddedResource Include="UI\Views\Route\AdvancedRouteTool.resx">
       <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Resources\info.png" />
@@ -1011,9 +1011,7 @@
       <Name>CommonLibrary</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\Views\FuelPlan\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

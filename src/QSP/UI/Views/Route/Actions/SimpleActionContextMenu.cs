@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace QSP.UI.UserControls.RouteActions
+namespace QSP.UI.Views.Route.Actions
 {
     public class SimpleActionContextMenu : ContextMenuStrip
     {

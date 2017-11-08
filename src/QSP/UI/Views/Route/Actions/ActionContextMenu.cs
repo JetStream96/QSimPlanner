@@ -7,10 +7,10 @@ using QSP.UI.Controllers;
 using QSP.WindAloft;
 using System;
 using System.Windows.Forms;
-using QSP.UI.Views;
+using QSP.UI.UserControls.RouteActions;
 using static QSP.UI.Util.RouteDistanceDisplay;
 
-namespace QSP.UI.UserControls.RouteActions
+namespace QSP.UI.Views.Route.Actions
 {
     public class ActionContextMenu : ContextMenuStrip
     {

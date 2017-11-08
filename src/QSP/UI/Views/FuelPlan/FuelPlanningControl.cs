@@ -1,4 +1,6 @@
-﻿using QSP.AircraftProfiles.Configs;
+﻿using CommonLibrary.AviationTools;
+using CommonLibrary.LibraryExtension;
+using QSP.AircraftProfiles.Configs;
 using QSP.Common;
 using QSP.Common.Options;
 using QSP.FuelCalculation;
@@ -6,6 +8,7 @@ using QSP.FuelCalculation.Calculations;
 using QSP.FuelCalculation.FuelData;
 using QSP.FuelCalculation.Results;
 using QSP.LibraryExtension;
+using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Data.Interfaces;
@@ -15,34 +18,33 @@ using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
+using QSP.UI.Models.MsgBox;
 using QSP.UI.UserControls.RouteActions;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.Util;
+using QSP.UI.Util.ScrollBar;
+using QSP.UI.Views.Route;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
-using CommonLibrary.LibraryExtension;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using QSP.UI.UserControls;
+using QSP.UI.Views.Route.Actions;
 using static QSP.AviationTools.Constants;
 using static QSP.AviationTools.SpeedConversion;
 using static QSP.MathTools.Numbers;
-using static QSP.UI.Views.Factories.FormFactory;
 using static QSP.UI.Util.MsgBoxHelper;
 using static QSP.UI.Util.RouteDistanceDisplay;
+using static QSP.UI.Views.Factories.FormFactory;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.Units.Conversions;
-using QSP.Metar;
-using CommonLibrary.AviationTools;
-using System.Threading.Tasks;
-using QSP.UI.Models.MsgBox;
-using QSP.UI.Util.ScrollBar;
-using QSP.UI.Views.Route;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Views.FuelPlan
 {
     public partial class FuelPlanningControl : UserControl
     {

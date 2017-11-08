@@ -12,8 +12,8 @@ using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
-using QSP.UI.UserControls.RouteActions;
 using QSP.UI.Util;
+using QSP.UI.Views.Route.Actions;
 using QSP.WindAloft;
 using System;
 using System.Data;
@@ -21,11 +21,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using QSP.UI.Views.Route;
-using static QSP.UI.Views.Factories.ToolTipFactory;
 using static QSP.UI.Util.RouteDistanceDisplay;
+using static QSP.UI.Views.Factories.ToolTipFactory;
 
-namespace QSP.UI.UserControls
+namespace QSP.UI.Views.Route
 {
     public partial class AdvancedRouteTool : UserControl
     {
