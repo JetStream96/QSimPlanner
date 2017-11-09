@@ -243,7 +243,12 @@
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\FuelPlanningPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternateRowPresenter.cs" />
-    <Compile Include="UI\Views\FuelPlan\AlternateControl.cs" />
+    <Compile Include="UI\Views\FuelPlan\AlternateControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Views\FuelPlan\AlternateControl.Designer.cs">
+      <DependentUpon>AlternateControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Views\FuelPlan\IAlternateRowView.cs" />
     <Compile Include="UI\Views\FuelPlan\IAlternateView.cs" />
     <Compile Include="UI\Views\FuelPlan\IFuelPlanningView.cs" />
@@ -666,6 +671,7 @@
     </Compile>
     <Compile Include="Utilities\Logger.cs" />
     <Compile Include="Utilities\Units\Enums.cs" />
+    <Compile Include="Utilities\Version.cs" />
     <Compile Include="WindAloft\AvgWindCalculator.cs" />
     <Compile Include="WindAloft\AvgWindCalculatorExtension.cs" />
     <Compile Include="WindAloft\DefaultWindTableCollection.cs" />
@@ -792,6 +798,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\qsp_icon.ico" />
+    <EmbeddedResource Include="UI\Views\FuelPlan\AlternateControl.resx">
+      <DependentUpon>AlternateControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Views\MiscInfo\DescentForcastControl.resx">
       <DependentUpon>DescentForcastControl.cs</DependentUpon>
     </EmbeddedResource>

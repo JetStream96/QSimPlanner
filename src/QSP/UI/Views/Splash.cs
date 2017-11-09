@@ -1,4 +1,4 @@
-using System.Reflection;
+using QSP.Utilities;
 
 namespace QSP.UI.Views
 {
@@ -11,13 +11,7 @@ namespace QSP.UI.Views
 
         public void ShowVersion()
         {
-            SmallTitleLbl.Text = "version " + AppProductVersion();
-        }
-
-        public static string AppProductVersion()
-        {
-            var ver = Assembly.GetEntryAssembly().GetName().Version;
-            return $"{ver.Major}.{ver.Minor}.{ver.Build}";
+            SmallTitleLbl.Text = "version " + Version.AppProductVersion();
         }
     }
 }

@@ -18,10 +18,12 @@ namespace QSP.UI.Views.MiscInfo
     public partial class AirportMapControl : UserControl, IAirportMapView
     {
         private AirportMapPresenter presenter;
+        private PictureBox picBox;
+        private WebBrowser browser;
 
         public bool BrowserEnabled
         {
-            get => browser != null; 
+            get => browser != null;
 
             set
             {
@@ -52,9 +54,6 @@ namespace QSP.UI.Views.MiscInfo
                 }
             }
         }
-
-        private PictureBox picBox;
-        private WebBrowser browser;
 
         public AirportMapControl()
         {
@@ -262,10 +261,7 @@ namespace QSP.UI.Views.MiscInfo
 
         public ICoordinate LatLon
         {
-            set
-            {
-                latLonLbl.Text = value.Lat.ToString("F6") + " / " + value.Lon.ToString("F6");
-            }
+            set => latLonLbl.Text = value.Lat.ToString("F6") + " / " + value.Lon.ToString("F6");
         }
 
         private void DisableBrowser()

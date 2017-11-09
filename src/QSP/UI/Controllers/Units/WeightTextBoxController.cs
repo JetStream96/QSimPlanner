@@ -31,14 +31,8 @@ namespace QSP.UI.Controllers.Units
         {
             if (double.TryParse(TxtBox.Text.Trim(), out var num))
             {
-                if (_unit == WeightUnit.KG)
-                {
-                    return num;
-                }
-                else
-                {
-                    return num * LbKgRatio;
-                }
+                if (_unit == WeightUnit.KG) return num;
+                return num * LbKgRatio;
             }
 
             throw new InvalidOperationException();
@@ -59,17 +53,11 @@ namespace QSP.UI.Controllers.Units
 
         public WeightUnit Unit
         {
-            get
-            {
-                return _unit;
-            }
+            get => _unit;
 
             set
             {
-                if (value == _unit)
-                {
-                    return;
-                }
+                if (value == _unit) return;
 
                 var wt = TryGetWtKg();
                 _unit = value;
@@ -79,10 +67,7 @@ namespace QSP.UI.Controllers.Units
                     Lable.Text = Conversions.WeightUnitToString(_unit);
                 }
 
-                if (wt != null)
-                {
-                    SetWeight(wt.Value);
-                }                
+                if (wt != null) SetWeight(wt.Value);
             }
         }
 
@@ -92,7 +77,7 @@ namespace QSP.UI.Controllers.Units
             {
                 return GetWeightKg();
             }
-            catch 
+            catch
             {
                 return null;
             }

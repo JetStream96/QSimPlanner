@@ -117,7 +117,8 @@ namespace QSP.UI.Forms
                 }
                 else
                 {
-                    MsgBoxHelper.ShowWarning(null, "Please set the correct Nav Data location.", "QSimPlanner");
+                    MsgBoxHelper.ShowWarning(null, "Please set the correct Nav Data location.",
+                        "QSimPlanner");
                 }
 
                 ShowOptionsForm(FormStartPosition.CenterScreen, true, true);
@@ -326,6 +327,7 @@ namespace QSP.UI.Forms
 
             FormClosing += CloseMain;
             new ScrollBarWorkaround(panel1).Enable();
+            this.Text = $"QSimPlanner [version {Utilities.Version.AppProductVersion()}]";
         }
 
         private void RefreshAirportInfoSelection()

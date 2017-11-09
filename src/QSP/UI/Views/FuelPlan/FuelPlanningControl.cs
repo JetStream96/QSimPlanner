@@ -177,15 +177,12 @@ namespace QSP.UI.Views.FuelPlan
                 Color.White,
                 Color.LightGray);
 
-            var removeBtnStyle = new ControlDisableStyleController(removeAltnBtn, style);
-
             var filterSidStyle = new ControlDisableStyleController(filterSidBtn, style);
-
             var filterStarStyle = new ControlDisableStyleController(filterStarBtn, style);
 
-            removeBtnStyle.Activate();
             filterSidStyle.Activate();
             filterStarStyle.Activate();
+            alternateControl.SetBtnColorStyles(style);
         }
 
         private void SetRouteOptionControl()
@@ -219,9 +216,9 @@ namespace QSP.UI.Views.FuelPlan
 
         public WeightUnit WeightUnit
         {
-            get => (WeightUnit)wtUnitComboBox.SelectedIndex; 
+            get => (WeightUnit)wtUnitComboBox.SelectedIndex;
 
-            set => wtUnitComboBox.SelectedIndex = (int)value; 
+            set => wtUnitComboBox.SelectedIndex = (int)value;
         }
 
         public IEnumerable<string> AircraftList { set => throw new NotImplementedException(); }
@@ -606,14 +603,22 @@ namespace QSP.UI.Views.FuelPlan
             registrationComboBox.Text = reg;
         }
 
+        private AvgWindCalculator GetWindCalculator()
+        {
+            return GetWindCalculator(appSettings, windTableLocator, airportList,
+                origTxtBox.Text, destTxtBox.Text);
+        }
+
         /// <summary>
         /// Get AvgWindCalculator to approximate the wind.
         /// Returns null if user disabled wind optimization.
         /// </summary>
         /// <exception cref="InvalidUserInputException"></exception>
-        private AvgWindCalculator GetWindCalculator()
+        public static AvgWindCalculator GetWindCalculator(
+            AppOptions appSettings, Locator<IWindTableCollection> windTableLocator,
+            AirportManager airportList, string orig, string dest)
         {
-            if (appSettings.EnableWindOptimizedRoute == false) return null;
+            if (!appSettings.EnableWindOptimizedRoute) return null;
 
             if (windTableLocator.Instance is DefaultWindTableCollection)
             {
@@ -639,21 +644,21 @@ namespace QSP.UI.Views.FuelPlan
                 throw new InvalidUserInputException("Please enter a valid ZFW.");
             }
 
-            var orig = airportList[origTxtBox.Text.Trim().ToUpper()];
+            var origin = airportList[orig.Trim().ToUpper()];
 
             if (orig == null)
             {
                 throw new InvalidUserInputException("Cannot find origin airport.");
             }
 
-            var dest = airportList[destTxtBox.Text.Trim().ToUpper()];
+            var destination = airportList[dest.ToUpper()];
 
             if (dest == null)
             {
                 throw new InvalidUserInputException("Cannot find destination airport.");
             }
 
-            var dis = orig.Distance(dest);
+            var dis = origin.Distance(destination);
             var alt = fuelData.EstimatedCrzAlt(dis, zfw);
             var tas = Ktas(fuelData.CruiseKias(zfw), alt);
 

@@ -55,7 +55,7 @@ namespace QSP.UI.Controllers.WeightControl
         // Set this after setting AircraftConfig.        
         public double ZfwKg
         {
-            // Can throw InvalidOperationException.
+            // Can throw InvalidOperationException if the weight is not a number.
             get
             {
                 return zfw.GetWeightKg();
