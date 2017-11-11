@@ -233,6 +233,8 @@
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
     <Compile Include="TOPerfCalculation\FindTable.cs" />
     <Compile Include="UI\Controllers\AlternateController.cs" />
+    <Compile Include="UI\Models\ButtonColorStyle.cs" />
+    <Compile Include="UI\Models\FuelPlan\RouteDistanceDisplay.cs" />
     <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternatePresenter.cs" />
@@ -389,7 +391,6 @@
     <Compile Include="UI\Views\Route\Actions\ActionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Views\Route\Actions\RouteActionController.cs" />
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\IFormController.cs" />
     <Compile Include="UI\Util\ControlMover.cs" />
     <Compile Include="UI\Util\DoubleBufferUtil.cs" />
@@ -398,7 +399,6 @@
     <Compile Include="UI\Util\InputValidator.cs" />
     <Compile Include="UI\Util\ControlFinder.cs" />
     <Compile Include="UI\Util\OpenFileHelper.cs" />
-    <Compile Include="UI\Util\RouteDistanceDisplay.cs" />
     <Compile Include="UI\Util\ScrollBar\ScrollBarsUtil.cs" />
     <Compile Include="UI\Util\ScrollBar\ScrollBarWorkaround.cs" />
     <Compile Include="UI\Util\ShowMapHelper.cs" />

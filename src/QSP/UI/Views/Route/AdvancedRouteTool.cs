@@ -12,6 +12,7 @@ using QSP.RouteFinding.Routes.TrackInUse;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
+using QSP.UI.Models.FuelPlan;
 using QSP.UI.Util;
 using QSP.UI.Views.Route.Actions;
 using QSP.WindAloft;
@@ -21,7 +22,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using static QSP.UI.Util.RouteDistanceDisplay;
 using static QSP.UI.Views.Factories.ToolTipFactory;
 
 namespace QSP.UI.Views.Route
@@ -89,10 +89,10 @@ namespace QSP.UI.Views.Route
         {
             routeActionMenu = new SimpleActionContextMenu();
             routeActionMenu.FindToolStripMenuItem.Click += FindRouteBtnClick;
-            routeActionMenu.MapToolStripMenuItem.Click += (s, e) => 
+            routeActionMenu.MapToolStripMenuItem.Click += (s, e) =>
                 ShowMapHelper.ShowMap(
-                    Route.Expanded, 
-                    ParentForm.Owner.Size, 
+                    Route.Expanded,
+                    ParentForm.Owner.Size,
                     this,
                     false);
 
@@ -219,7 +219,7 @@ namespace QSP.UI.Views.Route
         {
             Route = new RouteGroup(
                 new RouteFinder(wptList, checkedCodesLocator.Instance)
-                .FindRoute(GetWptIndexFrom(), GetWptIndexTo()), 
+                .FindRoute(GetWptIndexFrom(), GetWptIndexTo()),
                 tracksInUse);
 
             ShowRoute();
@@ -244,7 +244,7 @@ namespace QSP.UI.Views.Route
         {
             var sids = fromGroup.controller.GetSelectedProcedures();
 
-            Route = new RouteGroup( 
+            Route = new RouteGroup(
                 GetRouteFinder().FindRoute(
                     origin,
                     fromRwyComboBox.Text,
@@ -309,13 +309,11 @@ namespace QSP.UI.Views.Route
         {
             var option = appOptionsLocator.Instance;
             var showDct = !option.HideDctInRoute;
-            var selected = option.ShowTrackIdOnly ? 
+            var selected = option.ShowTrackIdOnly ?
                 Route.Folded : Route.Expanded;
 
             routeRichTxtBox.Text = selected.ToString(showDct);
-
-            UpdateRouteDistanceLbl(
-                routeSummaryLbl, Route.Expanded, DistanceDisplayStyle.Long);
+            routeSummaryLbl.Text = RouteDistanceDisplay.GetDisplay(Route.Expanded, Style.Long);
         }
 
         /// <exception cref="InvalidUserInputException"></exception>

@@ -14,11 +14,15 @@ using QSP.Common.Options;
 using QSP.FuelCalculation.FuelData;
 using QSP.RouteFinding.Tracks;
 using QSP.WindAloft;
+using QSP.UI.Presenters.FuelPlan;
+using QSP.UI.Models;
 
 namespace QSP.UI.Views.FuelPlan
 {
     public partial class AlternateControl : UserControl, IAlternateView
     {
+        private AlternatePresenter presenter;
+
         private Locator<AppOptions> appOptionsLocator;
         private AirwayNetwork airwayNetwork;
         private Locator<IWindTableCollection> windTableLocator;
@@ -35,6 +39,12 @@ namespace QSP.UI.Views.FuelPlan
         public AlternateControl()
         {
             InitializeComponent();
+        }
+
+        public void Init(AlternatePresenter presenter)
+        {
+            this.presenter = presenter;
+            SetBtnColorStyles(ButtonColorStyle.Default);
         }
 
         public void Init(
@@ -61,7 +71,7 @@ namespace QSP.UI.Views.FuelPlan
                 (s, e) => removeAltnBtn.Enabled = AltnControl.RowCount > 1;
         }
 
-        public void SetBtnColorStyles(ControlDisableStyleController.ColorStyle style)
+        private void SetBtnColorStyles(ControlDisableStyleController.ColorStyle style)
         {
             var removeBtnStyle = new ControlDisableStyleController(removeAltnBtn, style);
             removeBtnStyle.Activate();

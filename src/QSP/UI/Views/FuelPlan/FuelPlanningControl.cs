@@ -19,7 +19,6 @@ using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
 using QSP.UI.Models.MsgBox;
-using QSP.UI.UserControls.RouteActions;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.Util;
 using QSP.UI.Util.ScrollBar;
@@ -43,6 +42,8 @@ using static QSP.UI.Util.RouteDistanceDisplay;
 using static QSP.UI.Views.Factories.FormFactory;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.Units.Conversions;
+using QSP.UI.Models;
+using QSP.UI.Presenters.Route.Actions;
 
 namespace QSP.UI.Views.FuelPlan
 {
@@ -109,7 +110,7 @@ namespace QSP.UI.Views.FuelPlan
         public string Route { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         private AirportManager airportList => airwayNetwork.AirportList;
-        private AppOptions appSettings => appOptionsLocator.Instance;
+        private AppOptions appOptions => appOptionsLocator.Instance;
         private RouteGroup RouteToDest => routeActionMenu.Route;
 
         public FuelPlanningControl()
@@ -193,18 +194,12 @@ namespace QSP.UI.Views.FuelPlan
 
         private void SetBtnColorStyles()
         {
-            var style = new ControlDisableStyleController.ColorStyle(
-                Color.DarkSlateGray,
-                Color.FromArgb(224, 224, 224),
-                Color.White,
-                Color.LightGray);
-
+            var style = ButtonColorStyle.Default;
             var filterSidStyle = new ControlDisableStyleController(filterSidBtn, style);
             var filterStarStyle = new ControlDisableStyleController(filterStarBtn, style);
 
             filterSidStyle.Activate();
             filterStarStyle.Activate();
-            alternateControl.SetBtnColorStyles(style);
         }
 
         private void SetRouteOptionControl()
@@ -218,7 +213,10 @@ namespace QSP.UI.Views.FuelPlan
 
         private void SetRouteActionControl()
         {
-            routeActionMenu = new ActionContextMenu(
+            routeActionMenu = new ActionContextMenu();
+
+            var presenter=new ActionContextMenuPresenter(
+                routeActionMenu,
                 appOptionsLocator,
                 airwayNetwork,
                 origController,
@@ -228,10 +226,9 @@ namespace QSP.UI.Views.FuelPlan
                 routeDisLbl,
                 DistanceDisplayStyle.Long,
                 () => mainRouteRichTxtBox.Text,
-                s => mainRouteRichTxtBox.Text = s,
-                ParentForm);
+                s => mainRouteRichTxtBox.Text = s);
 
-            routeActionMenu.Subscribe();
+            routeActionMenu.Init(presenter, ParentForm);
             showRouteActionsBtn.Click += (s, e) =>
                routeActionMenu.Show(showRouteActionsBtn, new Point(0, showRouteActionsBtn.Height));
         }
@@ -574,7 +571,7 @@ namespace QSP.UI.Views.FuelPlan
 
         private AvgWindCalculator GetWindCalculator()
         {
-            return GetWindCalculator(appSettings, windTableLocator, airportList, GetFuelData(),
+            return GetWindCalculator(appOptions, windTableLocator, airportList, GetFuelData(),
                 GetZfwTon(), origTxtBox.Text, destTxtBox.Text);
         }
 

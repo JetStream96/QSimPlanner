@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Routes= QSP.RouteFinding.Routes;
 
 namespace QSP.UI.Views.FuelPlan
 {
@@ -10,5 +11,11 @@ namespace QSP.UI.Views.FuelPlan
         IEnumerable<string> RunwayList { set; }
 
         string DistanceInfo { set; }
+        string Route { get; set; }
+
+        void ShowMap(Routes.Route route);
+        void ShowMapBrowser(Routes.Route route);
+        void ShowInfo(string info);
+        void ShowWarning(string warning);
     }
 }

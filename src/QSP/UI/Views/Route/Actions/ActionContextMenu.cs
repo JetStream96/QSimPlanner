@@ -1,14 +1,4 @@
-﻿using QSP.Common.Options;
-using QSP.LibraryExtension;
-using QSP.RouteFinding.Containers.CountryCode;
-using QSP.RouteFinding.Routes;
-using QSP.RouteFinding.Tracks;
-using QSP.UI.Controllers;
-using QSP.WindAloft;
-using System;
-using System.Windows.Forms;
-using QSP.UI.UserControls.RouteActions;
-using static QSP.UI.Util.RouteDistanceDisplay;
+﻿using System.Windows.Forms;
 
 namespace QSP.UI.Views.Route.Actions
 {
@@ -16,103 +6,66 @@ namespace QSP.UI.Views.Route.Actions
     {
         public class ClickableToolStripMenuItem : ToolStripMenuItem, IClickable { }
 
-        private RouteActionController controller;
-        private ClickableToolStripMenuItem findToolStripMenuItem;
-        private ClickableToolStripMenuItem analyzeToolStripMenuItem;
-        private ClickableToolStripMenuItem mapToolStripMenuItem;
-        private ClickableToolStripMenuItem mapInBrowserToolStripMenuItem;
-        private ClickableToolStripMenuItem exportToolStripMenuItem;
+        public ClickableToolStripMenuItem FindToolStripMenuItem;
+        public ClickableToolStripMenuItem AnalyzeToolStripMenuItem;
+        public ClickableToolStripMenuItem MapToolStripMenuItem;
+        public ClickableToolStripMenuItem MapInBrowserToolStripMenuItem;
+        public ClickableToolStripMenuItem ExportToolStripMenuItem;
 
-        public RouteGroup Route => controller.Route;
-
-        public ActionContextMenu(
-            Locator<AppOptions> appOptionsLocator,
-            AirwayNetwork airwayNetwork,
-            ISelectedProcedureProvider origController,
-            ISelectedProcedureProvider destController,
-            Locator<CountryCodeCollection> checkedCodesLocator,
-            Func<AvgWindCalculator> windCalcGetter,
-            Label routeDisLbl,
-            DistanceDisplayStyle displayStyle,
-            Func<string> routeTxtGetter,
-            Action<string> routeTxtSetter,
-            Form parentForm) : base()
+        public ActionContextMenu() : base()
         {
-            Init();
-
-            controller = new RouteActionController(
-                appOptionsLocator,
-                airwayNetwork,
-                origController,
-                destController,
-                checkedCodesLocator,
-                windCalcGetter,
-                routeDisLbl,
-                displayStyle,
-                routeTxtGetter,
-                routeTxtSetter,
-                findToolStripMenuItem,
-                analyzeToolStripMenuItem,
-                exportToolStripMenuItem,
-                mapToolStripMenuItem,
-                mapInBrowserToolStripMenuItem,
-                parentForm);
+            InitControls();
         }
 
-        public void Subscribe()
-        {
-            controller.Subscribe();
-        }
-
-        private void Init()
+        private void InitControls()
         {
             // 
             // findToolStripMenuItem
             // 
-            findToolStripMenuItem = new ClickableToolStripMenuItem();
-            findToolStripMenuItem.Name = "findToolStripMenuItem";
-            findToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            findToolStripMenuItem.Text = "Find Route";
-            findToolStripMenuItem.Visible = true;
+            FindToolStripMenuItem = new ClickableToolStripMenuItem();
+            FindToolStripMenuItem.Name = "findToolStripMenuItem";
+            FindToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            FindToolStripMenuItem.Text = "Find Route";
+            FindToolStripMenuItem.Visible = true;
             // 
             // analyzeToolStripMenuItem
             // 
-            analyzeToolStripMenuItem = new ClickableToolStripMenuItem();
-            analyzeToolStripMenuItem.Name = "analyzeToolStripMenuItem";
-            analyzeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            analyzeToolStripMenuItem.Text = "Analyze Route";
+            AnalyzeToolStripMenuItem = new ClickableToolStripMenuItem();
+            AnalyzeToolStripMenuItem.Name = "analyzeToolStripMenuItem";
+            AnalyzeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            AnalyzeToolStripMenuItem.Text = "Analyze Route";
             // 
             // mapToolStripMenuItem
             // 
-            mapToolStripMenuItem = new ClickableToolStripMenuItem();
-            mapToolStripMenuItem.Name = "mapToolStripMenuItem";
-            mapToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            mapToolStripMenuItem.Text = "Show Map";
+            MapToolStripMenuItem = new ClickableToolStripMenuItem();
+            MapToolStripMenuItem.Name = "mapToolStripMenuItem";
+            MapToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            MapToolStripMenuItem.Text = "Show Map";
             // 
             // mapInBrowserToolStripMenuItem
             // 
-            mapInBrowserToolStripMenuItem = new ClickableToolStripMenuItem();
-            mapInBrowserToolStripMenuItem.Name = "mapInBrowserToolStripMenuItem";
-            mapInBrowserToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            mapInBrowserToolStripMenuItem.Text = "Show Map (Open in browser)";
+            MapInBrowserToolStripMenuItem = new ClickableToolStripMenuItem();
+            MapInBrowserToolStripMenuItem.Name = "mapInBrowserToolStripMenuItem";
+            MapInBrowserToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            MapInBrowserToolStripMenuItem.Text = "Show Map (Open in browser)";
             // 
             // exportToolStripMenuItem
             // 
-            exportToolStripMenuItem = new ClickableToolStripMenuItem();
-            exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            exportToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            exportToolStripMenuItem.Text = "Export";
+            ExportToolStripMenuItem = new ClickableToolStripMenuItem();
+            ExportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            ExportToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            ExportToolStripMenuItem.Text = "Export";
             // 
             // contextMenuStrip1
             // 
             ImageScalingSize = new System.Drawing.Size(20, 20);
             Items.AddRange(new ToolStripItem[]
             {
-                findToolStripMenuItem,
-                analyzeToolStripMenuItem,
-                mapToolStripMenuItem,
-                mapInBrowserToolStripMenuItem,
-                exportToolStripMenuItem
+                FindToolStripMenuItem,
+                AnalyzeToolStripMenuItem,
+                MapToolStripMenuItem,
+                MapInBrowserToolStripMenuItem,
+                ExportToolStripMenuItem
             });
 
             Name = "contextMenuStrip1";

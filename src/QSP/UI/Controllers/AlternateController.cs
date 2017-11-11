@@ -5,7 +5,6 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.UserControls;
-using QSP.UI.UserControls.RouteActions;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
@@ -16,6 +15,7 @@ using QSP.UI.Presenters.FuelPlan;
 using QSP.UI.Views.FuelPlan;
 using QSP.UI.Views.Route.Actions;
 using static QSP.UI.Util.RouteDistanceDisplay;
+using QSP.UI.Presenters.Route.Actions;
 
 namespace QSP.UI.Controllers
 {
@@ -132,7 +132,10 @@ namespace QSP.UI.Controllers
                     () => Parent.airwayNetwork.WptList,
                     new ProcedureFilter());
 
-                OptionMenu = new ActionContextMenu(
+                OptionMenu = new ActionContextMenu();
+
+                var presenter = new ActionContextMenuPresenter(
+                    OptionMenu,
                     Parent.appOptionsLocator,
                     Parent.airwayNetwork,
                     Parent.destSidProvider,
@@ -142,15 +145,15 @@ namespace QSP.UI.Controllers
                     Row.DisLbl,
                     DistanceDisplayStyle.Short,
                     () => Row.RouteTxtBox.Text,
-                    (s) => Row.RouteTxtBox.Text = s,
-                    Parent.layoutPanel.FindForm());
+                    (s) => Row.RouteTxtBox.Text = s);
+
+                OptionMenu.Init(presenter, Parent.layoutPanel.FindForm());
             }
 
             public void Subsribe()
             {
                 Controller.Subscribe();
                 Row.ShowMoreBtn.Click += ShowBtns;
-                OptionMenu.Subscribe();
             }
 
             private void ShowBtns(object sender, EventArgs e)
