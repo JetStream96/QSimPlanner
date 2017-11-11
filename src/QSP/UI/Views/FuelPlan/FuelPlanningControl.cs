@@ -18,11 +18,14 @@ using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
+using QSP.UI.Models;
 using QSP.UI.Models.MsgBox;
+using QSP.UI.UserControls;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.Util;
 using QSP.UI.Util.ScrollBar;
 using QSP.UI.Views.Route;
+using QSP.UI.Views.Route.Actions;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
 using System;
@@ -32,18 +35,13 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.UI.UserControls;
-using QSP.UI.Views.Route.Actions;
 using static QSP.AviationTools.Constants;
 using static QSP.AviationTools.SpeedConversion;
 using static QSP.MathTools.Numbers;
 using static QSP.UI.Util.MsgBoxHelper;
-using static QSP.UI.Util.RouteDistanceDisplay;
 using static QSP.UI.Views.Factories.FormFactory;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.Units.Conversions;
-using QSP.UI.Models;
-using QSP.UI.Presenters.Route.Actions;
 
 namespace QSP.UI.Views.FuelPlan
 {
@@ -508,20 +506,20 @@ namespace QSP.UI.Views.FuelPlan
         }
 
         private static string InsufficientFuelMsg(
-            double fuelReqKG, double fuelCapacityKG, WeightUnit unit)
+            double fuelReqKg, double fuelCapacityKg, WeightUnit unit)
         {
             int fuelReqInt, fuelCapacityInt;
             string wtUnit = WeightUnitToString(unit);
 
             if (unit == WeightUnit.KG)
             {
-                fuelReqInt = RoundToInt(fuelReqKG);
-                fuelCapacityInt = RoundToInt(fuelCapacityKG);
+                fuelReqInt = RoundToInt(fuelReqKg);
+                fuelCapacityInt = RoundToInt(fuelCapacityKg);
             }
             else // WeightUnit.LB
             {
-                fuelReqInt = RoundToInt(fuelReqKG * KgLbRatio);
-                fuelCapacityInt = RoundToInt(fuelCapacityKG * KgLbRatio);
+                fuelReqInt = RoundToInt(fuelReqKg * KgLbRatio);
+                fuelCapacityInt = RoundToInt(fuelCapacityKg * KgLbRatio);
             }
 
             return
