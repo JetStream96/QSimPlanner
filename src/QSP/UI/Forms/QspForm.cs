@@ -355,14 +355,20 @@ namespace QSP.UI.Forms
 
             origTxtBox.TextChanged += (sender, e) =>
             {
-                miscInfoPresenter.Orig = origTxtBox.Text.Trim().ToUpper();
+                if (miscInfoPresenter != null)
+                {
+                    miscInfoPresenter.Orig = origTxtBox.Text.Trim().ToUpper();
+                }
             };
 
             var destTxtBox = fuelMenu.destTxtBox;
 
             destTxtBox.TextChanged += (sender, e) =>
             {
-                miscInfoPresenter.Dest = destTxtBox.Text.Trim().ToUpper();
+                if (miscInfoPresenter != null)
+                {
+                    miscInfoPresenter.Dest = destTxtBox.Text.Trim().ToUpper();
+                }
             };
 
             EnableAirportRequests();

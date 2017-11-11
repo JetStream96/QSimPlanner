@@ -66,8 +66,8 @@ namespace QSP.UI.Views.FuelPlan
         private MetarCache metarCache;
 
         public WeightController WeightControl { get; private set; }
-        public AlternateController AltnControl { get; private set; }
         public WeightTextBoxController Extra { get; private set; }
+        public AlternateController AltnControl => alternateControl.AltnControl;
 
         // Do not set the values of these controllers directly. 
         // Use WeightControl to interact with the weights.
@@ -85,6 +85,28 @@ namespace QSP.UI.Views.FuelPlan
         public AircraftRequest AircraftRequest { get; private set; }
 
         public event EventHandler AircraftRequestChanged;
+
+
+        public WeightUnit WeightUnit
+        {
+            get => (WeightUnit)wtUnitComboBox.SelectedIndex;
+
+            set => wtUnitComboBox.SelectedIndex = (int)value;
+        }
+
+        public IEnumerable<string> AircraftList { set => throw new NotImplementedException(); }
+        public IEnumerable<string> RegistrationList { set => throw new NotImplementedException(); }
+        public double OewKg { set => throw new NotImplementedException(); }
+        public double MaxZfwKg { set => throw new NotImplementedException(); }
+
+        public string OrigIcao => origController.Icao;
+        public string DestIcao => destController.Icao;
+
+        public IEnumerable<string> OrigRwyList { set => throw new NotImplementedException(); }
+        public IEnumerable<string> DestRwyList { set => throw new NotImplementedException(); }
+        public IEnumerable<string> SidList { set => throw new NotImplementedException(); }
+        public IEnumerable<string> StarList { set => throw new NotImplementedException(); }
+        public string Route { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         private AirportManager airportList => airwayNetwork.AirportList;
         private AppOptions appSettings => appOptionsLocator.Instance;
@@ -115,9 +137,11 @@ namespace QSP.UI.Views.FuelPlan
             this.metarCache = metarCache;
             checkedCodesLocator = new CountryCodeCollection().ToLocator();
 
+            alternateControl.Init(appOptionsLocator, airwayNetwork, windTableLocator,
+                destSidProvider, GetFuelData, GetZfwTon, () => OrigIcao, () => DestIcao);
+
             SetDefaultState();
             SetOrigDestControllers();
-            SetAltnController();
             SetRouteOptionControl();
             SetRouteActionControl();
             SetWeightController();
@@ -136,11 +160,8 @@ namespace QSP.UI.Views.FuelPlan
                 procFilter,
                 () => GetWindCalculator());
 
-            if (acListComboBox.Items.Count > 0)
-            {
-                acListComboBox.SelectedIndex = 0;
-            }
-
+            if (acListComboBox.Items.Count > 0) acListComboBox.SelectedIndex = 0;
+            
             LoadSavedState();
         }
 
@@ -163,9 +184,9 @@ namespace QSP.UI.Views.FuelPlan
                 i.TextChanged += async (s, e) => await updateCache(Icao.TrimIcao(i.Text));
             });
 
-            AltnControl.AlternatesChanged += (s, e) =>
+            alternateControl.AltnControl.AlternatesChanged += (s, e) =>
             {
-                AltnControl.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
+                alternateControl.AltnControl.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
             };
         }
 
@@ -214,44 +235,9 @@ namespace QSP.UI.Views.FuelPlan
                routeActionMenu.Show(showRouteActionsBtn, new Point(0, showRouteActionsBtn.Height));
         }
 
-        public WeightUnit WeightUnit
-        {
-            get => (WeightUnit)wtUnitComboBox.SelectedIndex;
-
-            set => wtUnitComboBox.SelectedIndex = (int)value;
-        }
-
-        public IEnumerable<string> AircraftList { set => throw new NotImplementedException(); }
-        public IEnumerable<string> RegistrationList { set => throw new NotImplementedException(); }
-        public double OewKg { set => throw new NotImplementedException(); }
-        public double MaxZfwKg { set => throw new NotImplementedException(); }
-
-        public string OrigIcao => throw new NotImplementedException();
-
-        public string DestIcao => throw new NotImplementedException();
-
-        public IEnumerable<string> OrigRwyList { set => throw new NotImplementedException(); }
-        public IEnumerable<string> DestRwyList { set => throw new NotImplementedException(); }
-        public IEnumerable<string> SidList { set => throw new NotImplementedException(); }
-        public IEnumerable<string> StarList { set => throw new NotImplementedException(); }
-        public string Route { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
         public void OnWptListChanged()
         {
             advancedRouteTool.OnWptListChanged();
-        }
-
-        private void SetAltnController()
-        {
-            AltnControl = new AlternateController(
-                appOptionsLocator,
-                airwayNetwork,
-                altnLayoutPanel,
-                destSidProvider,
-                () => GetWindCalculator());
-
-            removeAltnBtn.Enabled = false;
-            AddAltn(this, EventArgs.Empty);
         }
 
         private void SubscribeEventHandlers()
@@ -260,9 +246,6 @@ namespace QSP.UI.Views.FuelPlan
             acListComboBox.SelectedIndexChanged += RefreshRegistrations;
             registrationComboBox.SelectedIndexChanged += RegistrationChanged;
             calculateBtn.Click += Calculate;
-            addAltnBtn.Click += AddAltn;
-            removeAltnBtn.Click += RemoveAltn;
-            AltnControl.RowCountChanged += RowCountChanged;
             advancedToolLbl.Click += ShowAdvancedTool;
             mainRouteRichTxtBox.UpperCaseOnly();
         }
@@ -446,7 +429,7 @@ namespace QSP.UI.Views.FuelPlan
                 return;
             }
 
-            var altnRoutes = AltnControl.Routes;
+            var altnRoutes = alternateControl.AltnControl.Routes;
 
             if (altnRoutes.Any(r => r == null))
             {
@@ -548,21 +531,6 @@ namespace QSP.UI.Views.FuelPlan
                 $"Maximum fuel tank capacity is {fuelCapacityInt} {wtUnit}.";
         }
 
-        private void AddAltn(object sender, EventArgs e)
-        {
-            AltnControl.AddRow();
-        }
-
-        private void RemoveAltn(object sender, EventArgs e)
-        {
-            AltnControl.RemoveLastRow();
-        }
-
-        private void RowCountChanged(object sender, EventArgs e)
-        {
-            removeAltnBtn.Enabled = AltnControl.RowCount > 1;
-        }
-
         private void ShowAdvancedTool(object sender, EventArgs e)
         {
             var size = advancedRouteTool.Size;
@@ -605,8 +573,21 @@ namespace QSP.UI.Views.FuelPlan
 
         private AvgWindCalculator GetWindCalculator()
         {
-            return GetWindCalculator(appSettings, windTableLocator, airportList,
-                origTxtBox.Text, destTxtBox.Text);
+            return GetWindCalculator(appSettings, windTableLocator, airportList, GetFuelData(),
+                GetZfwTon(), origTxtBox.Text, destTxtBox.Text);
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+        private double GetZfwTon()
+        {
+            try
+            {
+                return Zfw.GetWeightKg() / 1000.0;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new InvalidUserInputException("Please enter a valid ZFW.");
+            }
         }
 
         /// <summary>
@@ -615,8 +596,13 @@ namespace QSP.UI.Views.FuelPlan
         /// </summary>
         /// <exception cref="InvalidUserInputException"></exception>
         public static AvgWindCalculator GetWindCalculator(
-            AppOptions appSettings, Locator<IWindTableCollection> windTableLocator,
-            AirportManager airportList, string orig, string dest)
+            AppOptions appSettings,
+            Locator<IWindTableCollection> windTableLocator,
+            AirportManager airportList,
+            FuelDataItem fuelData,
+            double zfwTon,
+            string orig,
+            string dest)
         {
             if (!appSettings.EnableWindOptimizedRoute) return null;
 
@@ -628,20 +614,9 @@ namespace QSP.UI.Views.FuelPlan
                     "from Options > Route.");
             }
 
-            var fuelData = GetFuelData();
             if (fuelData == null)
             {
                 throw new InvalidUserInputException("No aircraft is selected.");
-            }
-
-            double zfw = 0.0;
-            try
-            {
-                zfw = Zfw.GetWeightKg() / 1000.0;
-            }
-            catch (InvalidOperationException)
-            {
-                throw new InvalidUserInputException("Please enter a valid ZFW.");
             }
 
             var origin = airportList[orig.Trim().ToUpper()];
@@ -659,8 +634,8 @@ namespace QSP.UI.Views.FuelPlan
             }
 
             var dis = origin.Distance(destination);
-            var alt = fuelData.EstimatedCrzAlt(dis, zfw);
-            var tas = Ktas(fuelData.CruiseKias(zfw), alt);
+            var alt = fuelData.EstimatedCrzAlt(dis, zfwTon);
+            var tas = Ktas(fuelData.CruiseKias(zfwTon), alt);
 
             return new AvgWindCalculator(windTableLocator.Instance, tas, alt);
         }
@@ -669,14 +644,14 @@ namespace QSP.UI.Views.FuelPlan
         {
             origController.RefreshRwyComboBox();
             destController.RefreshRwyComboBox();
-            AltnControl.RefreshForAirportListChange();
+            alternateControl.AltnControl.RefreshForAirportListChange();
         }
 
         public void RefreshForNavDataLocationChange()
         {
             origController.RefreshProcedureComboBox();
             destController.RefreshProcedureComboBox();
-            AltnControl.RefreshForNavDataLocationChange();
+            alternateControl.AltnControl.RefreshForNavDataLocationChange();
         }
     }
 }

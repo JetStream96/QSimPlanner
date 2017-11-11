@@ -49,7 +49,7 @@
             this.altnLayoutPanel.Name = "altnLayoutPanel";
             this.altnLayoutPanel.RowCount = 1;
             this.altnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.altnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.altnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.altnLayoutPanel.Size = new System.Drawing.Size(128, 35);
             this.altnLayoutPanel.TabIndex = 76;
             // 
@@ -85,6 +85,7 @@
             this.addAltnBtn.TabIndex = 0;
             this.addAltnBtn.Text = "Add";
             this.addAltnBtn.UseVisualStyleBackColor = false;
+            this.addAltnBtn.Click += new System.EventHandler(this.addAltnBtn_Click);
             // 
             // removeAltnBtn
             // 
@@ -101,6 +102,7 @@
             this.removeAltnBtn.TabIndex = 1;
             this.removeAltnBtn.Text = "Remove";
             this.removeAltnBtn.UseVisualStyleBackColor = false;
+            this.removeAltnBtn.Click += new System.EventHandler(this.removeAltnBtn_Click);
             // 
             // AlternateControl
             // 

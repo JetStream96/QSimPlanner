@@ -1,10 +1,11 @@
-﻿using QSP.UI.Controllers.Units;
+﻿using CommonLibrary.Attributes;
+using QSP.UI.Controllers.Units;
+using QSP.UI.Views.FuelPlan;
 using QSP.Utilities.Units;
 using System;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using QSP.UI.Views.FuelPlan;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 using static QSP.Utilities.ExceptionHelpers;
 
@@ -50,7 +51,7 @@ namespace QSP.UI.UserControls
             File.WriteAllText(FileLocation, Save().ToString());
         }
 
-        // @NoThrow
+        [NoThrow]
         public XElement Save()
         {
             var c = control;
@@ -125,7 +126,7 @@ namespace QSP.UI.UserControls
             Load(XDocument.Load(FileLocation));
         }
 
-        // @NoThrow
+        [NoThrow]
         public void Load(XDocument doc)
         {
             var c = control;

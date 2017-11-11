@@ -18,6 +18,7 @@ using System.Xml.Linq;
 using QSP.UI.Util;
 using QSP.UI.Views;
 using static QSP.Updates.Utilities;
+using CommonLibrary.Attributes;
 
 namespace QSP
 {
@@ -160,12 +161,13 @@ namespace QSP
             }
         }
 
-        // @NoThrow
+        [NoThrow]
         private static void HandleException(Exception ex)
         {
             LoggerInstance.Log(ex);
 
             var res = UnhandledExceptionForm.ShowModal(ex.ToString());
+            
             if (res == UnhandledExceptionForm.FormDialogResult.Yes)
             {
                 ReportError(ex.ToString());
@@ -174,7 +176,7 @@ namespace QSP
             Environment.Exit(1);
         }
 
-        // @NoThrow
+        [NoThrow]
         private static void ReportError(string message)
         {
             try
