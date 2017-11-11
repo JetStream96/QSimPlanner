@@ -23,8 +23,6 @@ namespace QSP.UI.Presenters.FuelPlan
             new FindAltnPresenter(altnView, airwayNetwork.AirportList);
 
         public string DestIcao => destController.Icao;
-
-        // TODO: needed?
         public RouteGroup Route { get; private set; }
 
         public AlternateRowPresenter(

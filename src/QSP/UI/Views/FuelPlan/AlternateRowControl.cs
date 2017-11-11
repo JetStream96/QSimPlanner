@@ -9,10 +9,11 @@ using Routes = QSP.RouteFinding.Routes;
 
 namespace QSP.UI.Views.FuelPlan
 {
+    // TODO: is there need to dispose context menu?
     public partial class AlternateRowControl : UserControl, IAlternateRowView
     {
         private AlternateRowPresenter presenter;
-        private ActionContextMenu actionContextMenuView;
+        public ActionContextMenu ActionContextMenuView { get; private set; }
         private Form parentForm;
 
         public string ICAO { set => IcaoTxtBox.Text = value; }
@@ -46,7 +47,7 @@ namespace QSP.UI.Views.FuelPlan
 
         public void Init(AlternateRowPresenter presenter, Form parentForm)
         {
-            actionContextMenuView = new ActionContextMenu();
+            ActionContextMenuView = new ActionContextMenu();
 
             this.presenter = presenter;
             this.parentForm = parentForm;
@@ -54,7 +55,7 @@ namespace QSP.UI.Views.FuelPlan
 
         private void SubscribeActionMenuEvents()
         {
-            var a = actionContextMenuView;
+            var a = ActionContextMenuView;
             a.FindToolStripMenuItem.Click += (s, e) => presenter.FindRoute();
             a.AnalyzeToolStripMenuItem.Click += (s, e) => presenter.AnalyzeRoute();
             a.ExportToolStripMenuItem.Click += (s, e) => presenter.ExportRouteFiles();

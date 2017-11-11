@@ -4,24 +4,20 @@ using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
-using QSP.UI.UserControls;
+using QSP.UI.Presenters.FuelPlan;
+using QSP.UI.Views.FuelPlan;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.UI.Presenters.FuelPlan;
-using QSP.UI.Views.FuelPlan;
-using QSP.UI.Views.Route.Actions;
-using static QSP.UI.Util.RouteDistanceDisplay;
-using QSP.UI.Presenters.Route.Actions;
 
 namespace QSP.UI.Controllers
 {
     public class AlternateController
     {
-        private List<AltnRow> rows;
+        private List<Entry> alternates = new List<Entry>();
         private Locator<AppOptions> appOptionsLocator;
         private AirwayNetwork airwayNetwork;
         private TableLayoutPanel layoutPanel;
@@ -34,10 +30,10 @@ namespace QSP.UI.Controllers
         // Fires when the collection of alternates changes.
         public event EventHandler AlternatesChanged;
 
-        public int RowCount => rows.Count;
+        public int RowCount => alternates.Count;
 
         public IEnumerable<string> Alternates =>
-            rows.Select(r => r.Items.IcaoTxtBox.Text.Trim().ToUpper());
+            alternates.Select(r => r.View.IcaoTxtBox.Text.Trim().ToUpper());
 
         public AlternateController(
             Locator<AppOptions> appOptionsLocator,
@@ -51,24 +47,42 @@ namespace QSP.UI.Controllers
             this.layoutPanel = layoutPanel;
             this.destSidProvider = destSidProvider;
             this.windCalcGetter = windCalcGetter;
-
-            rows = new List<AltnRow>();
         }
 
         public void AddRow()
         {
-            var row = new AlternateRowControl();
+            var view = new AlternateRowControl();
+            var selection = new RouteFinderSelection(
+                view.IcaoTxtBox,
+                false,
+                view.RwyComboBox,
+                new ComboBox(),
+                new Button(),
+                view,
+                appOptionsLocator,
+                () => airwayNetwork.AirportList,
+                () => airwayNetwork.WptList,
+                new ProcedureFilter());
+
             var presenter = new AlternateRowPresenter(
-                row, () => destSidProvider.Icao, () => airwayNetwork.AirportList);
-            row.Init(presenter);
-            row.AddToLayoutPanel(layoutPanel);
-            row.IcaoTxtBox.TextChanged += (s, e) =>
+                view,
+                appOptionsLocator,
+                airwayNetwork,
+                destSidProvider,
+                selection,
+                new CountryCodeCollection().ToLocator(),
+                windCalcGetter);
+
+            view.Init(presenter, layoutPanel.FindForm());
+            view.AddToLayoutPanel(layoutPanel);
+            view.IcaoTxtBox.TextChanged += (s, e) =>
                 AlternatesChanged?.Invoke(this, EventArgs.Empty);
 
-            var controller = new AltnRowControl(this, row);
-            controller.Subsribe();
+            selection.Subscribe();
+            view.ActionBtn.Click +=
+                (s, e) => view.ActionContextMenuView.Show(view.ActionBtn, new Point(-100, 30));
 
-            rows.Add(new AltnRow() { Items = row, Control = controller });
+            alternates.Add(new Entry { View = view, Presenter = presenter, Selection = selection });
             RowCountChanged?.Invoke(this, EventArgs.Empty);
             AlternatesChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -76,95 +90,38 @@ namespace QSP.UI.Controllers
         /// <exception cref="InvalidOperationException"></exception>
         public void RemoveLastRow()
         {
-            if (rows.Count == 0)
+            if (alternates.Count == 0)
             {
                 throw new InvalidOperationException();
             }
 
-            var rowToRemove = rows[rows.Count - 1];
+            var rowToRemove = alternates[alternates.Count - 1];
 
-            rowToRemove.Items.Dispose();
-            rowToRemove.Control.Dispose();
-            rows.RemoveAt(rows.Count - 1);
+            rowToRemove.View.Dispose();
+            alternates.RemoveAt(alternates.Count - 1);
             RowCountChanged?.Invoke(this, EventArgs.Empty);
             AlternatesChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void RefreshForAirportListChange()
         {
-            rows.ForEach(r => r.Control.Controller.RefreshRwyComboBox());
+            alternates.ForEach(r => r.Selection.RefreshRwyComboBox());
         }
 
         public void RefreshForNavDataLocationChange()
         {
-            rows.ForEach(r => r.Control.Controller.RefreshProcedureComboBox());
+            alternates.ForEach(r => r.Selection.RefreshProcedureComboBox());
         }
 
-        public Route[] Routes =>
-            rows.Select(r => r.Control.OptionMenu.Route?.Expanded).ToArray();
+        public Route[] Routes => alternates.Select(r => r.Presenter.Route?.Expanded).ToArray();
 
-        public IEnumerable<AlternateRowControl> Controls => rows.Select(r => r.Items);
+        public IEnumerable<AlternateRowControl> Controls => alternates.Select(r => r.View);
 
-        public struct AltnRow
+        public struct Entry
         {
-            public AlternateRowControl Items; public AltnRowControl Control;
-        }
-
-        public sealed class AltnRowControl : IDisposable
-        {
-            public AlternateRowControl Row;
-            public RouteFinderSelection Controller;
-            public ActionContextMenu OptionMenu;
-
-            public AltnRowControl(AlternateController Parent, AlternateRowControl row)
-            {
-                this.Row = row;
-
-                Controller = new RouteFinderSelection(
-                    Row.IcaoTxtBox,
-                    false,
-                    Row.RwyComboBox,
-                    new ComboBox(),
-                    new Button(),
-                    row,
-                    Parent.appOptionsLocator,
-                    () => Parent.airwayNetwork.AirportList,
-                    () => Parent.airwayNetwork.WptList,
-                    new ProcedureFilter());
-
-                OptionMenu = new ActionContextMenu();
-
-                var presenter = new ActionContextMenuPresenter(
-                    OptionMenu,
-                    Parent.appOptionsLocator,
-                    Parent.airwayNetwork,
-                    Parent.destSidProvider,
-                    Controller,
-                    new CountryCodeCollection().ToLocator(),
-                    Parent.windCalcGetter,
-                    Row.DisLbl,
-                    DistanceDisplayStyle.Short,
-                    () => Row.RouteTxtBox.Text,
-                    (s) => Row.RouteTxtBox.Text = s);
-
-                OptionMenu.Init(presenter, Parent.layoutPanel.FindForm());
-            }
-
-            public void Subsribe()
-            {
-                Controller.Subscribe();
-                Row.ShowMoreBtn.Click += ShowBtns;
-            }
-
-            private void ShowBtns(object sender, EventArgs e)
-            {
-                OptionMenu.Show(Row.ShowMoreBtn, new Point(-100, 30));
-            }
-
-            public void Dispose()
-            {
-                OptionMenu.Dispose();
-            }
+            public AlternateRowControl View;
+            public AlternateRowPresenter Presenter;
+            public RouteFinderSelection Selection;
         }
     }
 }
