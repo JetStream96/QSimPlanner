@@ -137,11 +137,12 @@ namespace QSP.UI.Views.FuelPlan
             this.metarCache = metarCache;
             checkedCodesLocator = new CountryCodeCollection().ToLocator();
 
+            SetDefaultState();
+            SetOrigDestControllers();
+
             alternateControl.Init(appOptionsLocator, airwayNetwork, windTableLocator,
                 destSidProvider, GetFuelData, GetZfwTon, () => OrigIcao, () => DestIcao);
 
-            SetDefaultState();
-            SetOrigDestControllers();
             SetRouteOptionControl();
             SetRouteActionControl();
             SetWeightController();
