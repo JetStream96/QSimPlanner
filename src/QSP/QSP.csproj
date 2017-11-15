@@ -239,6 +239,7 @@
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternatePresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\Route\ActionContextMenuPresenter.cs" />
+    <Compile Include="UI\Presenters\FuelPlan\Route\FinderOptionPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\AirportMapPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\DescentForcastPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\MetarViewerPresenter.cs" />
@@ -296,6 +297,7 @@
     <Compile Include="UI\Forms\Options\FlightPlanExportController.cs" />
     <Compile Include="UI\Views\Route\Actions\ISupportActionContextMenu.cs" />
     <Compile Include="UI\Views\Route\IFindAltnView.cs" />
+    <Compile Include="UI\Views\Route\IFinderOptionView.cs" />
     <Compile Include="UI\Views\UnhandledExceptionForm.cs">
       <SubType>Form</SubType>
     </Compile>

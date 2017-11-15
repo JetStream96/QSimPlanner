@@ -2,6 +2,6 @@
 {
     public interface IAlternateView
     {
-        
+        void AddRow();
     }
 }

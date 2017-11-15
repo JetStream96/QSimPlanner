@@ -1,4 +1,9 @@
-﻿using QSP.Common.Options;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -7,61 +12,40 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.UI.Util;
 using QSP.UI.Views.Route;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using static QSP.UI.Views.Factories.FormFactory;
 
-namespace QSP.UI.Controllers
+namespace QSP.UI.Presenters.FuelPlan.Route
 {
-    // TODO: Delete this file.
-
-
     // Manages the selected SIDs/STARs by the user. 
     // This class is responsible for the SID/STAR ComboBoxes, the filter button,
     // and the instantiation of the filter form.
     //
-    public class RouteFinderSelection : ISelectedProcedureProvider
+    public class FinderOptionPresenter
     {
         public static readonly string NoProcedureTxt = "NONE";
         public static readonly string AutoProcedureTxt = "AUTO";
 
+        private IFinderOptionView view;
         private readonly Locator<AppOptions> appOptionsLocator;
         private readonly Func<WaypointList> wptListGetter;
         private readonly Func<AirportManager> airportListGetter;
-        private readonly Control parentControl;
 
         public ProcedureFilter ProcFilter { get; private set; }
-        public TextBox IcaoTxtBox { get; private set; }
-        public ComboBox RwyCBox { get; private set; }
-        public ComboBox TerminalProceduresCBox { get; private set; }
-        public Button FilterBtn { get; private set; }
         public bool IsDepartureAirport { get; private set; }
 
         public WaypointList WptList => wptListGetter();
         public AirportManager AirportList => airportListGetter();
         public string NavDataLocation => appOptionsLocator.Instance.NavDataLocation;
 
-        public RouteFinderSelection(
-            TextBox IcaoTxtBox,
+        public FinderOptionPresenter(
+            IFinderOptionView view,
             bool IsDepartureAirport,
-            ComboBox RwyCBox,
-            ComboBox TerminalProceduresCBox,
-            Button FilterBtn,
-            Control parentControl,
             Locator<AppOptions> appOptionsLocator,
             Func<AirportManager> airportListGetter,
             Func<WaypointList> wptListGetter,
             ProcedureFilter ProcFilter)
         {
-            this.IcaoTxtBox = IcaoTxtBox;
+            this.view = view;
             this.IsDepartureAirport = IsDepartureAirport;
-            this.RwyCBox = RwyCBox;
-            this.TerminalProceduresCBox = TerminalProceduresCBox;
-            this.FilterBtn = FilterBtn;
-            this.parentControl = parentControl;
             this.appOptionsLocator = appOptionsLocator;
             this.airportListGetter = airportListGetter;
             this.wptListGetter = wptListGetter;

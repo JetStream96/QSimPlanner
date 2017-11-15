@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using QSP.Common.Options;
 using QSP.FuelCalculation.FuelData;
 using QSP.LibraryExtension;
@@ -22,7 +23,22 @@ namespace QSP.UI.Presenters.FuelPlan
         private Func<string> orig;
         private Func<string> dest;
 
+        private Func<AvgWindCalculator> windCalcGetter;
+
         private AppOptions AppOptions => appOptionsLocator.Instance;
+
+        // Fires when the number of rows changes.
+        public event EventHandler RowCountChanged;
+
+        // Fires when the collection of alternates changes.
+        public event EventHandler AlternatesChanged;
+
+        public int RowCount => alternates.Count;
+
+        public IEnumerable<string> Alternates =>
+            alternates.Select(r => r.View.IcaoTxtBox.Text.Trim().ToUpper());
+
+        public AlternateController AltnControl { get; private set; }
 
         public AlternatePresenter(
             IAlternateView view,
@@ -45,10 +61,28 @@ namespace QSP.UI.Presenters.FuelPlan
             this.orig = orig;
             this.dest = dest;
 
+            // TODO: move it outside of FuelPlanningControl.
+            windCalcGetter =  () => FuelPlanningControl.GetWindCalculator(AppOptions,
+                    windTableLocator, airwayNetwork.AirportList, fuelData(),
+                    zfwTon(), orig(), dest());
+
             SetAltnController();
             AltnControl.RowCountChanged +=
                 (s, e) => removeAltnBtn.Enabled = AltnControl.RowCount > 1;
         }
 
+        private void SetAltnController()
+        {
+            AltnControl = new AlternateController(
+                appOptionsLocator,
+                airwayNetwork,
+                altnLayoutPanel,
+                destSidProvider,
+               
+
+
+            removeAltnBtn.Enabled = false;
+            AltnControl.AddRow();
+        }
     }
 }
