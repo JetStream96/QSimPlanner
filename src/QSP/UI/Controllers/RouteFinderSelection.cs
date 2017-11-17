@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using QSP.UI.Presenters.FuelPlan;
 using static QSP.UI.Views.Factories.FormFactory;
 
 namespace QSP.UI.Controllers
@@ -200,21 +201,22 @@ namespace QSP.UI.Controllers
         private void FilterSidStar(object sender, EventArgs e)
         {
             var filter = new SidStarFilterControl();
-
-            filter.Init(
+            var filterPresenter = new SidStarFileterPresenter(
+                filter,
                 Icao,
                 Rwy,
                 AvailableProcedures,
                 IsDepartureAirport,
                 ProcFilter);
 
+            filter.Init(filterPresenter);
             filter.Location = new Point(0, 0);
 
             using (var frm = GetForm(filter.Size))
             {
                 frm.Controls.Add(filter);
 
-                filter.FinishedSelection += (_s, _e) =>
+                filter.SelectionComplete += (_s, _e) =>
                 {
                     frm.Close();
                     RefreshProcedureComboBox();

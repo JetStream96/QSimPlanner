@@ -2,6 +2,8 @@
 
 namespace QSP.RouteFinding.TerminalProcedures
 {
+    // TODO: Add test.
+
     // Represents the SIDs/STARs that are blacklisted or whitelisted by the user.
     //
     public class ProcedureFilter
@@ -29,6 +31,16 @@ namespace QSP.RouteFinding.TerminalProcedures
         public bool Exists(string icao, string rwy)
         {
             return items.ContainsKey((icao + rwy).ToUpper());
+        }
+
+        /// <summary>
+        /// Returns null if cannot find entry.
+        /// </summary>
+        public FilterEntry TryGetEntry(string icao, string rwy)
+        {
+            var key = (icao + rwy).ToUpper();
+            if (items.TryGetValue(key, out var val)) return val;
+            return null;
         }
     }
 

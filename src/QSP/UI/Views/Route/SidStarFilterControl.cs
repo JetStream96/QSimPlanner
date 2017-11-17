@@ -1,113 +1,87 @@
-﻿using QSP.RouteFinding.TerminalProcedures;
+﻿using QSP.UI.Presenters.FuelPlan;
+using QSP.UI.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.UI.Util;
 
 namespace QSP.UI.Views.Route
 {
     // Load the ProcedureFilter, and let user choose the settings.
     // Then ProcedureFilter is modified.
     //
-    public partial class SidStarFilterControl : UserControl
+    public partial class SidStarFilterControl : UserControl, ISidStarFilterView
     {
-        public event EventHandler FinishedSelection;
-
-        private string icao;
-        private string rwy;
-        private List<string> procedures;
-        private bool isSid;
-        private ProcedureFilter procFilter;
+        private SidStarFileterPresenter presenter;
         private List<ListViewItem> items;
+
+        public event EventHandler SelectionComplete;
+        public bool IsBlacklist { get; set; }
+
+        public IEnumerable<ProcedureEntry> Procedures
+        {
+            get => procListView.Items
+                .Cast<ListViewItem>()
+                .Select(lvi => new ProcedureEntry() {Name = lvi.Text, Ticked = lvi.Checked});
+
+            set
+            {
+                var items = procListView.Items;
+                items.Clear();
+
+                foreach (var i in value)
+                {
+                    var lvi = new ListViewItem(i.Name) { Checked = i.Ticked };
+                    items.Add(lvi);
+                }
+
+                this.items = items.Cast<ListViewItem>().ToList();
+                procListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            }
+        }
 
         public SidStarFilterControl()
         {
             InitializeComponent();
         }
 
-        public void Init(
-            string icao,
-            string rwy,
-            List<string> procedures,
-            bool isSid,
-            ProcedureFilter procFilter)
+        public void Init(SidStarFileterPresenter presenter)
         {
-            this.icao = icao;
-            this.rwy = rwy;
-            this.procedures = procedures;
-            this.isSid = isSid;
-            this.procFilter = procFilter;
+            this.presenter = presenter;
 
             SetType();
             SetListView();
+            presenter.InitView();
 
             showSelectedCheckBox.CheckedChanged += ShowSelectedCheckBoxChanged;
 
             okBtn.Click += UpdateFilter;
-            cancelBtn.Click += (sender, e) => FinishedSelection?.Invoke(sender, e);
+            cancelBtn.Click += (sender, e) => SelectionComplete?.Invoke(sender, e);
 
             new ListViewSortEnabler(procListView).EnableSort();
         }
 
-        private IEnumerable<string> CheckedItems()
-        {
-            return items
-                .Where(i => i.Checked)
-                .Select(i => i.Text);
-        }
-
         private void UpdateFilter(object sender, EventArgs e)
         {
-            procFilter[icao, rwy] = new FilterEntry(
-                listTypeComboBox.SelectedIndex == 0,
-                CheckedItems().ToList());
-
-            FinishedSelection?.Invoke(sender, e);
+            presenter.UpdateFilter();
+            SelectionComplete?.Invoke(sender, e);
         }
 
         private void SetType()
         {
             listTypeComboBox.Items.Clear();
-            listTypeComboBox.Items.AddRange(new []{ "Blacklist", "Whitelist" });
+            listTypeComboBox.Items.AddRange(new[] { "Blacklist", "Whitelist" });
 
             listTypeComboBox.SelectedIndex = 0;
         }
 
         private void SetListView()
         {
-            procListView.Columns[0].Text = isSid ? "SID" : "STAR";
+            procListView.Columns[0].Text = presenter.IsSid ? "SID" : "STAR";
             procListView.CheckBoxes = true;
-
-            var items = procListView.Items;
-
-            items.Clear();
-
-            foreach (var i in procedures)
-            {
-                items.Add(new ListViewItem(i));
-            }
-
-            this.items = items.Cast<ListViewItem>().ToList();
-            procListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            TickCheckBoxes();
         }
-
-        private void TickCheckBoxes()
-        {
-            if (procFilter.Exists(icao, rwy))
-            {
-                var info = procFilter[icao, rwy];
-                listTypeComboBox.SelectedIndex = info.IsBlackList ? 0 : 1;
-
-                foreach (var i in items)
-                {
-                    i.Checked = info.Procedures.Contains(i.Text);
-                }
-            }
-        }
-
+        
         private void Filter(Func<ListViewItem, bool> predicate)
         {
             var selected = items.Where(predicate).ToArray();
