@@ -1,11 +1,19 @@
 ﻿using System.Windows.Forms;
 using QSP.UI.Models.MsgBox;
+using QSP.UI.Views;
 using QSP.UI.Views.MsgBox;
 
 namespace QSP.UI.Util
 {
     public static class MsgBoxHelper
     {
+        public static void ShowMessage(this Control c, string text, MessageLevel lvl,
+            string caption = "")
+        {
+            var icon = (MsgBoxIcon) ((int) lvl);
+            c.ShowDialog(text, icon, caption, DefaultButton.Button1, "OK");
+        }
+
         public static void ShowError(this Control control, string text, string caption = "")
         {
             control.ShowDialog(text, MsgBoxIcon.Error, caption, DefaultButton.Button1, "OK");

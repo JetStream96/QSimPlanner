@@ -27,8 +27,7 @@ namespace QSP.UI.Views.FuelPlan
             set => RouteTxtBox.Text = value;
         }
 
-        public void ShowInfo(string info) => parentForm.ShowInfo(info);
-        public void ShowWarning(string warning) => parentForm.ShowWarning(warning);
+        public void ShowMessage(string s, MessageLevel lvl) => parentForm.ShowMessage(s, lvl);
 
         // TODO: Why not use default ParentForm?
         public void ShowMap(Routes.Route route)

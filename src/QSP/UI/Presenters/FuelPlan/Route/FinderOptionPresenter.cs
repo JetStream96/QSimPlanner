@@ -181,24 +181,26 @@ namespace QSP.UI.Presenters.FuelPlan.Route
             FilterBtn.Enabled = true;
         }
 
+
         private void FilterSidStar(object sender, EventArgs e)
         {
             var filter = new SidStarFilterControl();
-
-            filter.Init(
+            var filterPresenter = new SidStarFileterPresenter(
+                filter,
                 Icao,
                 Rwy,
                 AvailableProcedures,
                 IsDepartureAirport,
                 ProcFilter);
 
+            filter.Init(filterPresenter);
             filter.Location = new Point(0, 0);
 
             using (var frm = GetForm(filter.Size))
             {
                 frm.Controls.Add(filter);
 
-                filter.FinishedSelection += (_s, _e) =>
+                filter.SelectionComplete += (_s, _e) =>
                 {
                     frm.Close();
                     RefreshProcedureComboBox();
