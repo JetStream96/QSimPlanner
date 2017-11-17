@@ -50,6 +50,7 @@
             this.extraFuelLbl = new System.Windows.Forms.Label();
             this.calculateBtn = new System.Windows.Forms.Button();
             this.alternateGroupBox = new System.Windows.Forms.GroupBox();
+            this.alternateControl = new QSP.UI.Views.FuelPlan.AlternateControl();
             this.routeDisLbl = new System.Windows.Forms.Label();
             this.advancedToolLbl = new System.Windows.Forms.Label();
             this.mainRouteRichTxtBox = new System.Windows.Forms.RichTextBox();
@@ -96,7 +97,6 @@
             this.fuelReportGroupBox = new System.Windows.Forms.GroupBox();
             this.fuelReportTxtBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.alternateControl = new QSP.UI.Views.FuelPlan.AlternateControl();
             this.fuelParaGroupBox.SuspendLayout();
             this.TableLayoutPanel1.SuspendLayout();
             this.alternateGroupBox.SuspendLayout();
@@ -430,6 +430,17 @@
             this.alternateGroupBox.TabStop = false;
             this.alternateGroupBox.Text = "Alternate";
             // 
+            // alternateControl
+            // 
+            this.alternateControl.AutoSize = true;
+            this.alternateControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.alternateControl.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.alternateControl.Location = new System.Drawing.Point(6, 16);
+            this.alternateControl.Margin = new System.Windows.Forms.Padding(4);
+            this.alternateControl.Name = "alternateControl";
+            this.alternateControl.Size = new System.Drawing.Size(136, 40);
+            this.alternateControl.TabIndex = 76;
+            // 
             // routeDisLbl
             // 
             this.routeDisLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -751,7 +762,7 @@
             this.tableLayoutPanel10.Controls.Add(this.routeDisLbl, 0, 2);
             this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel7, 0, 1);
             this.tableLayoutPanel10.Location = new System.Drawing.Point(7, 21);
-            this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 4;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -1012,7 +1023,7 @@
             this.tableLayoutPanel7.Controls.Add(this.showRouteActionsBtn, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.routeOptionBtn, 0, 0);
             this.tableLayoutPanel7.Location = new System.Drawing.Point(2, 58);
-            this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -1104,17 +1115,6 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(884, 1011);
             this.tableLayoutPanel4.TabIndex = 48;
-            // 
-            // alternateControl1
-            // 
-            this.alternateControl.AutoSize = true;
-            this.alternateControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.alternateControl.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.alternateControl.Location = new System.Drawing.Point(6, 16);
-            this.alternateControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.alternateControl.Name = "alternateControl1";
-            this.alternateControl.Size = new System.Drawing.Size(136, 40);
-            this.alternateControl.TabIndex = 76;
             // 
             // FuelPlanningControl
             // 

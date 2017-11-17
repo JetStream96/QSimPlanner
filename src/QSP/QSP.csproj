@@ -267,6 +267,7 @@
     <Compile Include="UI\Util\ScrollBar\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
+    <Compile Include="UI\Views\ICanShowUserMessage.cs" />
     <Compile Include="UI\Views\MiscInfo\DescentForcastControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -297,6 +298,12 @@
     </Compile>
     <Compile Include="UI\Forms\Options\FlightPlanExportController.cs" />
     <Compile Include="UI\Views\Route\Actions\ISupportActionContextMenu.cs" />
+    <Compile Include="UI\Views\Route\AirportSelectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Views\Route\AirportSelectionControl.Designer.cs">
+      <DependentUpon>AirportSelectionControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Views\Route\IFindAltnView.cs" />
     <Compile Include="UI\Views\Route\IFinderOptionView.cs" />
     <Compile Include="UI\Views\Route\ISidStarFilterView.cs" />
@@ -818,6 +825,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\Options\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Views\Route\AirportSelectionControl.resx">
+      <DependentUpon>AirportSelectionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Views\UnhandledExceptionForm.resx">
       <DependentUpon>UnhandledExceptionForm.cs</DependentUpon>

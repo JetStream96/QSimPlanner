@@ -49,7 +49,7 @@ namespace QSP.UI.Views.FuelPlan
     // The implementation of ISupportActionContextMenu is used to support the actions 
     // for the route from origin to destination.
 
-    public partial class FuelPlanningControl : UserControl, IFuelPlanningView, 
+    public partial class FuelPlanningControl : UserControl, IFuelPlanningView,
         ISupportActionContextMenu
     {
         private AirwayNetwork airwayNetwork;
@@ -68,8 +68,8 @@ namespace QSP.UI.Views.FuelPlan
         private ActionContextMenu routeActionMenu;
         private RouteOptionContextMenu routeOptionMenu;
         private MetarCache metarCache;
-     //   private ISupportActionContextMenu origMenu;
-       // private ISupportActionContextMenu destMenu;
+        //   private ISupportActionContextMenu origMenu;
+        // private ISupportActionContextMenu destMenu;
 
         public WeightController WeightControl { get; private set; }
         public WeightTextBoxController Extra { get; private set; }
@@ -425,7 +425,7 @@ namespace QSP.UI.Views.FuelPlan
             }
             catch (InvalidUserInputException ex)
             {
-                this.ShowWarning(ex.Message);
+                ShowMessage(ex.Message, MessageLevel.Warning);
                 return;
             }
 
@@ -433,13 +433,13 @@ namespace QSP.UI.Views.FuelPlan
 
             if (altnRoutes.Any(r => r == null))
             {
-                this.ShowWarning("All alternate routes must be entered.");
+                ShowMessage("All alternate routes must be entered.", MessageLevel.Warning);
                 return;
             }
 
             if (RouteToDest == null)
             {
-                this.ShowWarning("Route to destination must be entered.");
+                ShowMessage("Route to destination must be entered.", MessageLevel.Warning);
                 return;
             }
 
@@ -472,7 +472,7 @@ namespace QSP.UI.Views.FuelPlan
             }
             catch (InvalidPlanAltitudeException)
             {
-                this.ShowWarning("Cannot find a valid cruising altitude.");
+                ShowMessage("Cannot find a valid cruising altitude.", MessageLevel.Warning);
                 return;
             }
 
@@ -658,10 +658,8 @@ namespace QSP.UI.Views.FuelPlan
             ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm);
 
         public void ShowMapBrowser(RouteFinding.Routes.Route route) =>
-            ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm,true,true);
-
-        public void ShowInfo(string info) => ParentForm.ShowInfo(info);
-
-        public void ShowWarning(string warning) => ParentForm.ShowWarning(warning);
+            ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm, true, true);
+        
+        public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
     }
 }
