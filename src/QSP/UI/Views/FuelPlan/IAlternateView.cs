@@ -1,7 +1,11 @@
-﻿namespace QSP.UI.Views.FuelPlan
+﻿using System.Collections.Generic;
+
+namespace QSP.UI.Views.FuelPlan
 {
     public interface IAlternateView
     {
-        void AddRow();
+        IAlternateRowView AddRow();
+        void RemoveLastRow();
+        IReadOnlyList<IAlternateRowView> Views { get; }
     }
 }

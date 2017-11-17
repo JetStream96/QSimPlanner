@@ -5,9 +5,14 @@ namespace QSP.UI.Views.FuelPlan
 {
     public interface IAlternateRowView : ISupportActionContextMenu
     {
-        string ICAO { set; }
+        /// <summary>
+        /// Uppercase Icao code that contains no space.
+        /// </summary>
+        string ICAO { get; set; }
 
-        // Can be "AUTO", or "AUTO (10)" if the runway is automatically computed.
+        /// <summary>
+        /// Can be "AUTO", or "AUTO (10)" if the runway is automatically computed. 
+        /// </summary>
         IEnumerable<string> RunwayList { set; }
     }
 }

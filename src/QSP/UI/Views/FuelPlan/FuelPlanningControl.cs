@@ -42,10 +42,15 @@ using static QSP.UI.Util.MsgBoxHelper;
 using static QSP.UI.Views.Factories.FormFactory;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.Units.Conversions;
+using QSP.UI.Presenters.FuelPlan.Route;
 
 namespace QSP.UI.Views.FuelPlan
 {
-    public partial class FuelPlanningControl : UserControl, IFuelPlanningView
+    // The implementation of ISupportActionContextMenu is used to support the actions 
+    // for the route from origin to destination.
+
+    public partial class FuelPlanningControl : UserControl, IFuelPlanningView, 
+        ISupportActionContextMenu
     {
         private AirwayNetwork airwayNetwork;
         private Locator<AppOptions> appOptionsLocator;
@@ -63,6 +68,8 @@ namespace QSP.UI.Views.FuelPlan
         private ActionContextMenu routeActionMenu;
         private RouteOptionContextMenu routeOptionMenu;
         private MetarCache metarCache;
+     //   private ISupportActionContextMenu origMenu;
+       // private ISupportActionContextMenu destMenu;
 
         public WeightController WeightControl { get; private set; }
         public WeightTextBoxController Extra { get; private set; }
@@ -110,6 +117,8 @@ namespace QSP.UI.Views.FuelPlan
         private AirportManager airportList => airwayNetwork.AirportList;
         private AppOptions appOptions => appOptionsLocator.Instance;
         private RouteGroup RouteToDest => routeActionMenu.Route;
+
+        public string DistanceInfo { set => throw new NotImplementedException(); }
 
         public FuelPlanningControl()
         {
@@ -161,7 +170,7 @@ namespace QSP.UI.Views.FuelPlan
                 () => GetWindCalculator());
 
             if (acListComboBox.Items.Count > 0) acListComboBox.SelectedIndex = 0;
-            
+
             LoadSavedState();
         }
 
@@ -213,20 +222,15 @@ namespace QSP.UI.Views.FuelPlan
         {
             routeActionMenu = new ActionContextMenu();
 
-            var presenter=new ActionContextMenuPresenter(
-                routeActionMenu,
+            var presenter = new ActionContextMenuPresenter(
+                this,
                 appOptionsLocator,
                 airwayNetwork,
                 origController,
                 destController,
                 checkedCodesLocator,
-                () => GetWindCalculator(),
-                routeDisLbl,
-                DistanceDisplayStyle.Long,
-                () => mainRouteRichTxtBox.Text,
-                s => mainRouteRichTxtBox.Text = s);
+                () => GetWindCalculator()); // TODO: move this method
 
-            routeActionMenu.Init(presenter, ParentForm);
             showRouteActionsBtn.Click += (s, e) =>
                routeActionMenu.Show(showRouteActionsBtn, new Point(0, showRouteActionsBtn.Height));
         }
@@ -649,5 +653,15 @@ namespace QSP.UI.Views.FuelPlan
             destController.RefreshProcedureComboBox();
             alternateControl.AltnControl.RefreshForNavDataLocationChange();
         }
+
+        public void ShowMap(RouteFinding.Routes.Route route) =>
+            ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm);
+
+        public void ShowMapBrowser(RouteFinding.Routes.Route route) =>
+            ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm,true,true);
+
+        public void ShowInfo(string info) => ParentForm.ShowInfo(info);
+
+        public void ShowWarning(string warning) => ParentForm.ShowWarning(warning);
     }
 }

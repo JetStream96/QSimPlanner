@@ -2,6 +2,9 @@
 
 namespace QSP.UI.Controllers
 {
+    /// <summary>
+    /// Provides the airport information selected by the user.
+    /// </summary>
     public interface ISelectedProcedureProvider
     {
         string Icao { get; }

@@ -2,6 +2,7 @@
 
 namespace QSP.UI.Views.Route.Actions
 {
+    // Lazy view.
     public class ActionContextMenu : ContextMenuStrip
     {
         public class ClickableToolStripMenuItem : ToolStripMenuItem, IClickable { }

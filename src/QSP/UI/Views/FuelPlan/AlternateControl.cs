@@ -22,20 +22,7 @@ namespace QSP.UI.Views.FuelPlan
     public partial class AlternateControl : UserControl, IAlternateView
     {
         private AlternatePresenter presenter;
-
-        private Locator<AppOptions> appOptionsLocator;
-        private AirwayNetwork airwayNetwork;
-        private Locator<IWindTableCollection> windTableLocator;
-        private DestinationSidSelection destSidProvider;
-        private Func<FuelDataItem> fuelData;
-        private Func<double> zfwTon;
-        private Func<string> orig;
-        private Func<string> dest;
-
-        private AppOptions AppOptions => appOptionsLocator.Instance;
-
-        public AlternateController AltnControl { get; private set; }
-
+        
         public AlternateControl()
         {
             InitializeComponent();
@@ -44,62 +31,28 @@ namespace QSP.UI.Views.FuelPlan
         public void Init(AlternatePresenter presenter)
         {
             this.presenter = presenter;
+
+            removeAltnBtn.Enabled = false;
             SetBtnColorStyles(ButtonColorStyle.Default);
+            presenter.addrow
         }
-
-        public void Init(
-            Locator<AppOptions> appOptionsLocator,
-            AirwayNetwork airwayNetwork,
-            Locator<IWindTableCollection> windTableLocator,
-            DestinationSidSelection destSidProvider,
-            Func<FuelDataItem> fuelData,
-            Func<double> zfwTon,
-            Func<string> orig,
-            Func<string> dest)
-        {
-            this.appOptionsLocator = appOptionsLocator;
-            this.airwayNetwork = airwayNetwork;
-            this.windTableLocator = windTableLocator;
-            this.destSidProvider = destSidProvider;
-            this.fuelData = fuelData;
-            this.zfwTon = zfwTon;
-            this.orig = orig;
-            this.dest = dest;
-
-            SetAltnController();
-            AltnControl.RowCountChanged += 
-                (s, e) => removeAltnBtn.Enabled = AltnControl.RowCount > 1;
-        }
-
+        
         private void SetBtnColorStyles(ControlDisableStyleController.ColorStyle style)
         {
             var removeBtnStyle = new ControlDisableStyleController(removeAltnBtn, style);
             removeBtnStyle.Activate();
         }
-
-        public void SetAltnController()
-        {
-            AltnControl = new AlternateController(
-                appOptionsLocator,
-                airwayNetwork,
-                altnLayoutPanel,
-                destSidProvider,
-                () => FuelPlanningControl.GetWindCalculator(AppOptions,
-                    windTableLocator, airwayNetwork.AirportList, fuelData(),
-                    zfwTon(), orig(), dest()));
-
-            removeAltnBtn.Enabled = false;
-            AltnControl.AddRow();
-        }
-
+        
         private void addAltnBtn_Click(object sender, EventArgs e)
-        {
+        { 
+
             AltnControl.AddRow();
         }
 
         private void removeAltnBtn_Click(object sender, EventArgs e)
         {
             AltnControl.RemoveLastRow();
+            removeAltnBtn.Enabled = AltnControl.RowCount > 1;
         }
     }
 }

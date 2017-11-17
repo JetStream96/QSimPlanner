@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using QSP.Common.Options;
 using QSP.FuelCalculation.FuelData;
 using QSP.LibraryExtension;
@@ -7,12 +8,17 @@ using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Views.FuelPlan;
 using QSP.WindAloft;
+using System.Linq;
+using System.Windows.Forms;
+using QSP.RouteFinding.Containers.CountryCode;
+using QSP.RouteFinding.TerminalProcedures;
 
 namespace QSP.UI.Presenters.FuelPlan
 {
     public class AlternatePresenter
     {
         private IAlternateView view;
+        private List<AlternateRowPresenter> rowPresenters=new List<AlternateRowPresenter>();
 
         private Locator<AppOptions> appOptionsLocator;
         private AirwayNetwork airwayNetwork;
@@ -22,23 +28,20 @@ namespace QSP.UI.Presenters.FuelPlan
         private Func<double> zfwTon;
         private Func<string> orig;
         private Func<string> dest;
-
+        
         private Func<AvgWindCalculator> windCalcGetter;
 
         private AppOptions AppOptions => appOptionsLocator.Instance;
-
-        // Fires when the number of rows changes.
-        public event EventHandler RowCountChanged;
-
-        // Fires when the collection of alternates changes.
+        
+        /// Fires when the collection of alternates changes.
         public event EventHandler AlternatesChanged;
 
-        public int RowCount => alternates.Count;
+        public int RowCount => view.Views.Count;
 
-        public IEnumerable<string> Alternates =>
-            alternates.Select(r => r.View.IcaoTxtBox.Text.Trim().ToUpper());
-
-        public AlternateController AltnControl { get; private set; }
+        /// <summary>
+        /// Uppercase Icao codes of the alternates.
+        /// </summary>
+        public IEnumerable<string> Alternates => view.Views.Select(v => v.ICAO);
 
         public AlternatePresenter(
             IAlternateView view,
@@ -65,24 +68,44 @@ namespace QSP.UI.Presenters.FuelPlan
             windCalcGetter =  () => FuelPlanningControl.GetWindCalculator(AppOptions,
                     windTableLocator, airwayNetwork.AirportList, fuelData(),
                     zfwTon(), orig(), dest());
-
-            SetAltnController();
-            AltnControl.RowCountChanged +=
-                (s, e) => removeAltnBtn.Enabled = AltnControl.RowCount > 1;
         }
 
-        private void SetAltnController()
+        public void AddRow()
         {
-            AltnControl = new AlternateController(
+            var row = view.AddRow();
+
+            //var view = new AlternateRowControl();
+            var selection = new RouteFinderSelection(
+                view.IcaoTxtBox,
+                false,
+                view.RwyComboBox,
+                new ComboBox(),
+                new Button(),
+                view,
+                appOptionsLocator,
+                () => airwayNetwork.AirportList,
+                () => airwayNetwork.WptList,
+                new ProcedureFilter());
+
+            var presenter = new AlternateRowPresenter(
+                row,
                 appOptionsLocator,
                 airwayNetwork,
-                altnLayoutPanel,
                 destSidProvider,
-               
+                selection,
+                new CountryCodeCollection().ToLocator(),
+                windCalcGetter);
 
+            row.Init(presenter, view layoutPanel.FindForm());
+            row.IcaoTxtBox.TextChanged += (s, e) =>
+                AlternatesChanged?.Invoke(this, EventArgs.Empty);
 
-            removeAltnBtn.Enabled = false;
-            AltnControl.AddRow();
+            selection.Subscribe();
+            row.ActionBtn.Click +=
+                (s, e) => view.ActionContextMenuView.Show(view.ActionBtn, new Point(-100, 30));
+
+            rowPresenters.Add(presenter);
+            AlternatesChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

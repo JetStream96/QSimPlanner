@@ -1,4 +1,5 @@
-﻿using QSP.UI.Presenters.FuelPlan;
+﻿using CommonLibrary.AviationTools;
+using QSP.UI.Presenters.FuelPlan;
 using QSP.UI.Util;
 using QSP.UI.Views.Route;
 using QSP.UI.Views.Route.Actions;
@@ -16,7 +17,7 @@ namespace QSP.UI.Views.FuelPlan
         public ActionContextMenu ActionContextMenuView { get; private set; }
         private Form parentForm;
 
-        public string ICAO { set => IcaoTxtBox.Text = value; }
+        public string ICAO { get=>Icao.TrimIcao(IcaoTxtBox.Text );set => IcaoTxtBox.Text = value; }
         public IEnumerable<string> RunwayList { set => RwyComboBox.SetItems(value); }
         public string DistanceInfo { set => DisLbl.Text = value; }
 
