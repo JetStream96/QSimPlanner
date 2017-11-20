@@ -29,7 +29,6 @@ namespace QSP.UI.Presenters.FuelPlan
             IAlternateRowView view,
             Locator<AppOptions> appOptionsLocator,
             AirwayNetwork airwayNetwork,
-            ISelectedProcedureProvider origController,
             ISelectedProcedureProvider destController,
             Locator<CountryCodeCollection> checkedCodesLocator,
             Func<AvgWindCalculator> windCalcGetter)
@@ -40,8 +39,8 @@ namespace QSP.UI.Presenters.FuelPlan
                 view,
                 appOptionsLocator,
                 airwayNetwork,
-                origController,
                 destController,
+                view,
                 checkedCodesLocator,
                 windCalcGetter);
 

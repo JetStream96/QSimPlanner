@@ -15,6 +15,7 @@ using System.Windows.Forms;
 
 namespace QSP.UI.Controllers
 {
+    // TODO: Delete this.
     public class AlternateController
     {
         private List<Entry> alternates = new List<Entry>();

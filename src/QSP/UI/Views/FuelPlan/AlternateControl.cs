@@ -12,6 +12,7 @@ using QSP.UI.Controllers;
 using QSP.LibraryExtension;
 using QSP.Common.Options;
 using QSP.FuelCalculation.FuelData;
+using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
 using QSP.WindAloft;
 using QSP.UI.Presenters.FuelPlan;
@@ -22,7 +23,9 @@ namespace QSP.UI.Views.FuelPlan
     public partial class AlternateControl : UserControl, IAlternateView
     {
         private AlternatePresenter presenter;
-        
+
+        IReadOnlyList<IAlternateRowView> Views { get; }
+
         public AlternateControl()
         {
             InitializeComponent();
@@ -36,7 +39,19 @@ namespace QSP.UI.Views.FuelPlan
             SetBtnColorStyles(ButtonColorStyle.Default);
             presenter.addrow
         }
-        
+
+        public IAlternateRowView AddRow()
+        {
+            var view = new AlternateRowControl();
+            view.Init(,)
+        }
+
+        public void RemoveLastRow()
+        {
+            
+        }
+
+
         private void SetBtnColorStyles(ControlDisableStyleController.ColorStyle style)
         {
             var removeBtnStyle = new ControlDisableStyleController(removeAltnBtn, style);

@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using QSP.Common.Options;
+﻿using QSP.Common.Options;
 using QSP.FuelCalculation.FuelData;
 using QSP.LibraryExtension;
+using QSP.RouteFinding.Containers.CountryCode;
+using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Views.FuelPlan;
 using QSP.WindAloft;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.RouteFinding.Containers.CountryCode;
-using QSP.RouteFinding.TerminalProcedures;
 
 namespace QSP.UI.Presenters.FuelPlan
 {
     public class AlternatePresenter
     {
         private IAlternateView view;
-        private List<AlternateRowPresenter> rowPresenters=new List<AlternateRowPresenter>();
+        private List<AlternateRowPresenter> rowPresenters = new List<AlternateRowPresenter>();
 
         private Locator<AppOptions> appOptionsLocator;
         private AirwayNetwork airwayNetwork;
@@ -28,11 +28,11 @@ namespace QSP.UI.Presenters.FuelPlan
         private Func<double> zfwTon;
         private Func<string> orig;
         private Func<string> dest;
-        
+
         private Func<AvgWindCalculator> windCalcGetter;
 
         private AppOptions AppOptions => appOptionsLocator.Instance;
-        
+
         /// Fires when the collection of alternates changes.
         public event EventHandler AlternatesChanged;
 
@@ -41,7 +41,7 @@ namespace QSP.UI.Presenters.FuelPlan
         /// <summary>
         /// Uppercase Icao codes of the alternates.
         /// </summary>
-        public IEnumerable<string> Alternates => view.Views.Select(v => v.ICAO);
+        public IEnumerable<string> Alternates => view.Views.Select(v => v.Icao);
 
         public AlternatePresenter(
             IAlternateView view,
@@ -65,45 +65,26 @@ namespace QSP.UI.Presenters.FuelPlan
             this.dest = dest;
 
             // TODO: move it outside of FuelPlanningControl.
-            windCalcGetter =  () => FuelPlanningControl.GetWindCalculator(AppOptions,
-                    windTableLocator, airwayNetwork.AirportList, fuelData(),
-                    zfwTon(), orig(), dest());
+            windCalcGetter = () => FuelPlanningControl.GetWindCalculator(AppOptions,
+                   windTableLocator, airwayNetwork.AirportList, fuelData(),
+                   zfwTon(), orig(), dest());
         }
 
         public void AddRow()
         {
             var row = view.AddRow();
 
-            //var view = new AlternateRowControl();
-            var selection = new RouteFinderSelection(
-                view.IcaoTxtBox,
-                false,
-                view.RwyComboBox,
-                new ComboBox(),
-                new Button(),
-                view,
-                appOptionsLocator,
-                () => airwayNetwork.AirportList,
-                () => airwayNetwork.WptList,
-                new ProcedureFilter());
-
             var presenter = new AlternateRowPresenter(
                 row,
                 appOptionsLocator,
                 airwayNetwork,
                 destSidProvider,
-                selection,
                 new CountryCodeCollection().ToLocator(),
                 windCalcGetter);
 
             row.Init(presenter, view layoutPanel.FindForm());
-            row.IcaoTxtBox.TextChanged += (s, e) =>
-                AlternatesChanged?.Invoke(this, EventArgs.Empty);
 
-            selection.Subscribe();
-            row.ActionBtn.Click +=
-                (s, e) => view.ActionContextMenuView.Show(view.ActionBtn, new Point(-100, 30));
-
+            row.IcaoChanged += (s, e) => AlternatesChanged?.Invoke(s, e);
             rowPresenters.Add(presenter);
             AlternatesChanged?.Invoke(this, EventArgs.Empty);
         }

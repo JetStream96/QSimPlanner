@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using QSP.UI.Controllers;
 using static CommonLibrary.AviationTools.Icao;
 
 namespace QSP.UI.Views.Route
@@ -70,24 +71,7 @@ namespace QSP.UI.Views.Route
 
         public string SelectedRwy { get =>rwyComboBox.Text; set =>rwyComboBox.Text=value; }
 
-        public IEnumerable<string> SelectedProcedures
-        {
-            get
-            {
-                if (procComboBox.Text == FinderOptionPresenter.AutoProcedureTxt)
-                {
-                    return procComboBox.Items.Cast<string>()
-                        .Where(s => s != FinderOptionPresenter.AutoProcedureTxt);
-                }
-
-                if (procComboBox.Text != FinderOptionPresenter.NoProcedureTxt)
-                {
-                    return new[] { procComboBox.Text };
-                }
-
-                return new string[0];
-            }
-        }
+        public IEnumerable<string> SelectedProcedures => procComboBox.GetSelectedProcedures();
 
         public void ShowMessage(string msg, MessageLevel lvl)
         {

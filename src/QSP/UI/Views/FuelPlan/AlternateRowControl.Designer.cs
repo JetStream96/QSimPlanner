@@ -145,6 +145,7 @@
             this.IcaoTxtBox.Size = new System.Drawing.Size(57, 26);
             this.IcaoTxtBox.TabIndex = 0;
             this.IcaoTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.IcaoTxtBox.TextChanged += new System.EventHandler(this.IcaoTxtBox_TextChanged);
             // 
             // FindBtn
             // 

@@ -65,7 +65,7 @@ namespace QSP.UI.Presenters.FuelPlan.Route
             }
             catch (Exception ex)
             {
-                view.ShowWarning(ex.Message);
+                view.ShowMessage(ex.Message, Views.MessageLevel.Warning);
             }
         }
 
@@ -116,7 +116,7 @@ namespace QSP.UI.Presenters.FuelPlan.Route
         {
             if (Route == null)
             {
-                view.ShowInfo("Please find or analyze a route first.");
+                view.ShowMessage("Please find or analyze a route first.", Views.MessageLevel.Info);
                 return;
             }
 
@@ -131,7 +131,7 @@ namespace QSP.UI.Presenters.FuelPlan.Route
             }
             catch (Exception ex)
             {
-                view.ShowWarning(ex.Message);
+                view.ShowMessage(ex.Message, Views.MessageLevel.Warning);
                 return;
             }
 
@@ -159,7 +159,7 @@ namespace QSP.UI.Presenters.FuelPlan.Route
             }
             catch (Exception ex)
             {
-                view.ShowWarning(ex.Message);
+                view.ShowMessage(ex.Message, Views.MessageLevel.Warning);
             }
         }
 
@@ -167,7 +167,9 @@ namespace QSP.UI.Presenters.FuelPlan.Route
         {
             if (!reports.Any())
             {
-                view.ShowInfo("No route file to export. Please set export settings in options page.");
+                view.ShowMessage(
+                    "No route file to export. Please set export settings in options page.",
+                    Views.MessageLevel.Info);
                 return;
             }
 
@@ -204,11 +206,11 @@ namespace QSP.UI.Presenters.FuelPlan.Route
 
             if (errors.Any())
             {
-                view.ShowWarning(msg.ToString());
+                view.ShowMessage(msg.ToString(), Views.MessageLevel.Warning);
             }
             else
             {
-                view.ShowInfo(msg.ToString());
+                view.ShowMessage(msg.ToString(), Views.MessageLevel.Info);
             }
         }
 
@@ -216,7 +218,7 @@ namespace QSP.UI.Presenters.FuelPlan.Route
         {
             if (Route == null)
             {
-                view.ShowInfo("Please find a route first.");
+                view.ShowMessage("Please find a route first.", Views.MessageLevel.Info);
                 return;
             }
 
@@ -227,7 +229,7 @@ namespace QSP.UI.Presenters.FuelPlan.Route
         {
             if (Route == null)
             {
-                view.ShowInfo("Please find a route first.");
+                view.ShowMessage("Please find a route first.", Views.MessageLevel.Info);
                 return;
             }
 

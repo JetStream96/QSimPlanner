@@ -1,11 +1,14 @@
-﻿using CommonLibrary.AviationTools;
+﻿using QSP.UI.Controllers;
 using QSP.UI.Presenters.FuelPlan;
 using QSP.UI.Util;
 using QSP.UI.Views.Route;
 using QSP.UI.Views.Route.Actions;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using static CommonLibrary.AviationTools.Icao;
 using Routes = QSP.RouteFinding.Routes;
 
 namespace QSP.UI.Views.FuelPlan
@@ -17,7 +20,8 @@ namespace QSP.UI.Views.FuelPlan
         public ActionContextMenu ActionContextMenuView { get; private set; }
         private Form parentForm;
 
-        public string ICAO { get=>Icao.TrimIcao(IcaoTxtBox.Text );set => IcaoTxtBox.Text = value; }
+        public event EventHandler IcaoChanged;
+        public string Icao { get => TrimIcao(IcaoTxtBox.Text); set => IcaoTxtBox.Text = value; }
         public IEnumerable<string> RunwayList { set => RwyComboBox.SetItems(value); }
         public string DistanceInfo { set => DisLbl.Text = value; }
 
@@ -26,6 +30,8 @@ namespace QSP.UI.Views.FuelPlan
             get => RouteTxtBox.Text;
             set => RouteTxtBox.Text = value;
         }
+
+        public string Rwy => RwyComboBox.Text;
 
         public void ShowMessage(string s, MessageLevel lvl) => parentForm.ShowMessage(s, lvl);
 
@@ -61,6 +67,8 @@ namespace QSP.UI.Views.FuelPlan
             a.ExportToolStripMenuItem.Click += (s, e) => presenter.ExportRouteFiles();
             a.MapToolStripMenuItem.Click += (s, e) => presenter.ShowMap();
             a.MapInBrowserToolStripMenuItem.Click += (s, e) => presenter.ShowMapBrowser();
+
+            ActionBtn.Click += (s, e) => a.Show(ActionBtn, new Point(-100, 30));
         }
 
         private void FindBtnClick(object sender, EventArgs e)
@@ -73,6 +81,13 @@ namespace QSP.UI.Views.FuelPlan
                 frm.Init(presenter.DestIcao, altnPresenter);
                 frm.ShowDialog();
             }
+        }
+
+        public List<string> GetSelectedProcedures() => RwyComboBox.GetSelectedProcedures().ToList();
+
+        private void IcaoTxtBox_TextChanged(object sender, EventArgs e)
+        {
+            IcaoChanged.Invoke(sender, e);
         }
     }
 }

@@ -1,14 +1,13 @@
-﻿using QSP.UI.Views.Route.Actions;
+﻿using System;
+using QSP.UI.Controllers;
+using QSP.UI.Views.Route.Actions;
 using System.Collections.Generic;
 
 namespace QSP.UI.Views.FuelPlan
 {
-    public interface IAlternateRowView : ISupportActionContextMenu
+    public interface IAlternateRowView : ISupportActionContextMenu, ISelectedProcedureProvider
     {
-        /// <summary>
-        /// Uppercase Icao code that contains no space.
-        /// </summary>
-        string ICAO { get; set; }
+        event EventHandler IcaoChanged;
 
         /// <summary>
         /// Can be "AUTO", or "AUTO (10)" if the runway is automatically computed. 
