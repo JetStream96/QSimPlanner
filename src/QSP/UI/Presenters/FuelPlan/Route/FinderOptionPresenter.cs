@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using QSP.Common.Options;
+﻿using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
-using QSP.UI.Util;
+using QSP.UI.Controllers;
 using QSP.UI.Views.Route;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace QSP.UI.Presenters.FuelPlan.Route
 {
@@ -19,7 +17,7 @@ namespace QSP.UI.Presenters.FuelPlan.Route
     // This class is responsible for the SID/STAR ComboBoxes, the filter button,
     // and the instantiation of the filter form.
     //
-    public class FinderOptionPresenter
+    public class FinderOptionPresenter:ISelectedProcedureProvider
     {
         public static readonly string NoProcedureTxt = "NONE";
         public static readonly string AutoProcedureTxt = "AUTO";
@@ -50,74 +48,21 @@ namespace QSP.UI.Presenters.FuelPlan.Route
             this.airportListGetter = airportListGetter;
             this.wptListGetter = wptListGetter;
             this.ProcFilter = ProcFilter;
+
+            view.IsOrigin = IsDepartureAirport;
         }
 
-        public string Icao => IcaoTxtBox.Text.Trim().ToUpper();
-
-        public string Rwy => RwyCBox.Text;
-
-        public void Subscribe()
+        public string Icao => view.Icao;
+        public string Rwy => view.SelectedRwy;
+        public List<string> GetSelectedProcedures() => view.SelectedProcedures.ToList();
+        
+        public void UpdateRunways()
         {
-            IcaoTxtBox.TextChanged += IcaoChanged;
-            RwyCBox.SelectedIndexChanged += RwyChanged;
-            FilterBtn.Click += FilterSidStar;
-
-            FilterBtn.Enabled = false;
-        }
-
-        public void UnSubsribe()
-        {
-            IcaoTxtBox.TextChanged -= IcaoChanged;
-            RwyCBox.SelectedIndexChanged -= RwyChanged;
-            FilterBtn.Click -= FilterSidStar;
-        }
-
-        public List<string> GetSelectedProcedures()
-        {
-            if (TerminalProceduresCBox.Text == AutoProcedureTxt)
-            {
-                return TerminalProceduresCBox.Items.Cast<string>()
-                    .Where(s => s != AutoProcedureTxt)
-                    .ToList();
-            }
-
-            if (TerminalProceduresCBox.Text != NoProcedureTxt)
-            {
-                return new List<string>() { TerminalProceduresCBox.Text };
-            }
-
-            return new List<string>();
-        }
-
-        public void RefreshRwyComboBox()
-        {
-            var selected = Rwy;
-            IcaoChanged(this, EventArgs.Empty);
-            RwyCBox.Text = selected;
-        }
-
-        public void RefreshProcedureComboBox()
-        {
-            if (RwyCBox.Items.Count > 0)
-            {
-                var selected = TerminalProceduresCBox.Text;
-                RwyChanged(this, EventArgs.Empty);
-                TerminalProceduresCBox.Text = selected;
-            }
-        }
-
-        private void IcaoChanged(object sender, EventArgs e)
-        {
-            RwyCBox.Items.Clear();
-            TerminalProceduresCBox.Items.Clear();
-            FilterBtn.Enabled = false;
-
             var rwyList = AirportList.RwyIdents(Icao)?.ToArray();
 
             if (rwyList != null && rwyList.Length > 0)
             {
-                RwyCBox.Items.AddRange(rwyList);
-                RwyCBox.SelectedIndex = 0;
+                view.Runways = rwyList;
             }
         }
 
@@ -142,17 +87,15 @@ namespace QSP.UI.Presenters.FuelPlan.Route
             }
         }
 
-        private void RwyChanged(object sender, EventArgs e)
+        public void UpdateProcedures()
         {
-            FilterBtn.Enabled = false;
-
             try
             {
-                SetProcedures(AvailableProcedures.Where(ShouldShow).ToArray());
+                view.Procedures = AvailableProcedures.Where(ShouldShow);
             }
             catch (Exception ex)
             {
-                parentControl.ShowError(ex.Message);
+                view.ShowMessage(ex.Message, Views.MessageLevel.Error);
             }
         }
 
@@ -163,51 +106,17 @@ namespace QSP.UI.Presenters.FuelPlan.Route
             return info.Procedures.Contains(proc) ^ info.IsBlackList;
         }
 
-        private void SetProcedures(string[] proc)
+        public void ShowFilter(ISidStarFilterView v)
         {
-            TerminalProceduresCBox.Items.Clear();
-
-            if (proc.Length == 0)
-            {
-                TerminalProceduresCBox.Items.Add(NoProcedureTxt);
-            }
-            else
-            {
-                TerminalProceduresCBox.Items.Add(AutoProcedureTxt);
-                TerminalProceduresCBox.Items.AddRange(proc);
-            }
-
-            TerminalProceduresCBox.SelectedIndex = 0;
-            FilterBtn.Enabled = true;
-        }
-
-
-        private void FilterSidStar(object sender, EventArgs e)
-        {
-            var filter = new SidStarFilterControl();
-            var filterPresenter = new SidStarFileterPresenter(
-                filter,
+            var p = new SidStarFileterPresenter(
+                v,
                 Icao,
                 Rwy,
                 AvailableProcedures,
                 IsDepartureAirport,
                 ProcFilter);
 
-            filter.Init(filterPresenter);
-            filter.Location = new Point(0, 0);
-
-            using (var frm = GetForm(filter.Size))
-            {
-                frm.Controls.Add(filter);
-
-                filter.SelectionComplete += (_s, _e) =>
-                {
-                    frm.Close();
-                    RefreshProcedureComboBox();
-                };
-
-                frm.ShowDialog();
-            }
+            view.ShowFilter(p);
         }
     }
 }

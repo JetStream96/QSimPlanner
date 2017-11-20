@@ -9,6 +9,6 @@ namespace QSP.UI.Controllers
     {
         string Icao { get; }
         string Rwy { get; }
-        List<string> GetSelectedProcedures();
+        List<string> GetSelectedProcedures();//TODO:Use IEnumerable instead?
     }
 }

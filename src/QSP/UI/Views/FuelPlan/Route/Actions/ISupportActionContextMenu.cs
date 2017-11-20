@@ -5,7 +5,7 @@ namespace QSP.UI.Views.Route.Actions
     /// <summary>
     /// This inteface should be implemented for any view that supports ActionContextMenu.
     /// </summary>
-    public interface ISupportActionContextMenu : ICanShowUserMessage
+    public interface ISupportActionContextMenu : IMessageDisplay
     {
         string DistanceInfo { set; }
         string Route { get; set; }

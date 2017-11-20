@@ -1,6 +1,6 @@
 ﻿namespace QSP.UI.Views
 {
-    public interface ICanShowUserMessage
+    public interface IMessageDisplay
     {
         void ShowMessage(string s, MessageLevel lvl);
     }

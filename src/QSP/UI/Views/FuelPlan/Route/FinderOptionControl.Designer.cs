@@ -1,6 +1,6 @@
 ﻿namespace QSP.UI.Views.Route
 {
-    partial class AirportSelectionControl
+    partial class FinderOptionControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.origTxtBox = new System.Windows.Forms.TextBox();
-            this.origRwyComboBox = new QSP.UI.Views.ComboBoxWithBorder();
-            this.sidComboBox = new QSP.UI.Views.ComboBoxWithBorder();
-            this.filterSidBtn = new System.Windows.Forms.Button();
+            this.icaoTxtBox = new System.Windows.Forms.TextBox();
+            this.rwyComboBox = new QSP.UI.Views.ComboBoxWithBorder();
+            this.procComboBox = new QSP.UI.Views.ComboBoxWithBorder();
+            this.filterBtn = new System.Windows.Forms.Button();
             this.fromIdentLbl = new System.Windows.Forms.Label();
             this.fromRwyLbl = new System.Windows.Forms.Label();
             this.sidLbl = new System.Windows.Forms.Label();
@@ -48,10 +48,10 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.origTxtBox, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.origRwyComboBox, 1, 1);
-            this.tableLayoutPanel5.Controls.Add(this.sidComboBox, 2, 1);
-            this.tableLayoutPanel5.Controls.Add(this.filterSidBtn, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.icaoTxtBox, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.rwyComboBox, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.procComboBox, 2, 1);
+            this.tableLayoutPanel5.Controls.Add(this.filterBtn, 3, 1);
             this.tableLayoutPanel5.Controls.Add(this.fromIdentLbl, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.fromRwyLbl, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.sidLbl, 2, 0);
@@ -64,58 +64,61 @@
             this.tableLayoutPanel5.Size = new System.Drawing.Size(330, 48);
             this.tableLayoutPanel5.TabIndex = 1;
             // 
-            // origTxtBox
+            // icaoTxtBox
             // 
-            this.origTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.origTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.origTxtBox.Location = new System.Drawing.Point(3, 18);
-            this.origTxtBox.Name = "origTxtBox";
-            this.origTxtBox.Size = new System.Drawing.Size(74, 26);
-            this.origTxtBox.TabIndex = 0;
-            this.origTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.icaoTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.icaoTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.icaoTxtBox.Location = new System.Drawing.Point(3, 18);
+            this.icaoTxtBox.Name = "icaoTxtBox";
+            this.icaoTxtBox.Size = new System.Drawing.Size(74, 26);
+            this.icaoTxtBox.TabIndex = 0;
+            this.icaoTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.icaoTxtBox.TextChanged += new System.EventHandler(this.IcaoChanged);
             // 
             // origRwyComboBox
             // 
-            this.origRwyComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.origRwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.origRwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.origRwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.origRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.origRwyComboBox.FormattingEnabled = true;
-            this.origRwyComboBox.Location = new System.Drawing.Point(83, 18);
-            this.origRwyComboBox.Name = "origRwyComboBox";
-            this.origRwyComboBox.Size = new System.Drawing.Size(64, 27);
-            this.origRwyComboBox.TabIndex = 1;
+            this.rwyComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.rwyComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.rwyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rwyComboBox.FormattingEnabled = true;
+            this.rwyComboBox.Location = new System.Drawing.Point(83, 18);
+            this.rwyComboBox.Name = "origRwyComboBox";
+            this.rwyComboBox.Size = new System.Drawing.Size(64, 27);
+            this.rwyComboBox.TabIndex = 1;
+            this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.origRwyComboBox_SelectedIndexChanged);
             // 
-            // sidComboBox
+            // procComboBox
             // 
-            this.sidComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.sidComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.sidComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.sidComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.sidComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sidComboBox.FormattingEnabled = true;
-            this.sidComboBox.Location = new System.Drawing.Point(153, 18);
-            this.sidComboBox.Name = "sidComboBox";
-            this.sidComboBox.Size = new System.Drawing.Size(123, 27);
-            this.sidComboBox.TabIndex = 2;
+            this.procComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.procComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.procComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.procComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.procComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.procComboBox.FormattingEnabled = true;
+            this.procComboBox.Location = new System.Drawing.Point(153, 18);
+            this.procComboBox.Name = "procComboBox";
+            this.procComboBox.Size = new System.Drawing.Size(123, 27);
+            this.procComboBox.TabIndex = 2;
             // 
-            // filterSidBtn
+            // filterBtn
             // 
-            this.filterSidBtn.AutoSize = true;
-            this.filterSidBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.filterSidBtn.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.filterSidBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.filterSidBtn.Cursor = System.Windows.Forms.Cursors.Default;
-            this.filterSidBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.filterSidBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filterSidBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.filterSidBtn.Location = new System.Drawing.Point(282, 18);
-            this.filterSidBtn.Name = "filterSidBtn";
-            this.filterSidBtn.Size = new System.Drawing.Size(45, 27);
-            this.filterSidBtn.TabIndex = 3;
-            this.filterSidBtn.Text = "Filter";
-            this.filterSidBtn.UseVisualStyleBackColor = false;
+            this.filterBtn.AutoSize = true;
+            this.filterBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.filterBtn.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.filterBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.filterBtn.Cursor = System.Windows.Forms.Cursors.Default;
+            this.filterBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.filterBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filterBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.filterBtn.Location = new System.Drawing.Point(282, 18);
+            this.filterBtn.Name = "filterBtn";
+            this.filterBtn.Size = new System.Drawing.Size(45, 27);
+            this.filterBtn.TabIndex = 3;
+            this.filterBtn.Text = "Filter";
+            this.filterBtn.UseVisualStyleBackColor = false;
+            this.filterBtn.Click += new System.EventHandler(this.filterBtn_Click);
             // 
             // fromIdentLbl
             // 
@@ -150,7 +153,7 @@
             this.sidLbl.TabIndex = 56;
             this.sidLbl.Text = "SID";
             // 
-            // AirportSelectionControl
+            // FinderOptionControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -158,7 +161,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Controls.Add(this.tableLayoutPanel5);
-            this.Name = "AirportSelectionControl";
+            this.Name = "FinderOptionControl";
             this.Size = new System.Drawing.Size(354, 50);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
@@ -170,10 +173,10 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        public System.Windows.Forms.TextBox origTxtBox;
-        public ComboBoxWithBorder origRwyComboBox;
-        public ComboBoxWithBorder sidComboBox;
-        private System.Windows.Forms.Button filterSidBtn;
+        public System.Windows.Forms.TextBox icaoTxtBox;
+        public ComboBoxWithBorder rwyComboBox;
+        public ComboBoxWithBorder procComboBox;
+        private System.Windows.Forms.Button filterBtn;
         private System.Windows.Forms.Label fromIdentLbl;
         private System.Windows.Forms.Label fromRwyLbl;
         private System.Windows.Forms.Label sidLbl;
