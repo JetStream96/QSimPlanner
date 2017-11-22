@@ -13,7 +13,7 @@ namespace QSP.UI.Views.FuelPlan
         event EventHandler IcaoChanged;
 
         /// <summary>
-        /// Can be "AUTO", or "AUTO (10)" if the runway is automatically computed. 
+        /// Can be "AUTO".
         /// </summary>
         IEnumerable<string> RunwayList { set; }
     }

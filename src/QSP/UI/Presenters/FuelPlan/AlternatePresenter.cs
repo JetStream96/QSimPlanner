@@ -96,5 +96,15 @@ namespace QSP.UI.Presenters.FuelPlan
             rowPresenters.RemoveAt(RowCount - 1);
             AlternatesChanged?.Invoke(this, EventArgs.Empty);
         }
+
+        public void RefreshForAirportListChange()
+        {
+            alternates.ForEach(r => r.Selection.RefreshRwyComboBox());
+        }
+
+        public void RefreshForNavDataLocationChange()
+        {
+            alternates.ForEach(r => r.Selection.RefreshProcedureComboBox());
+        }
     }
 }
