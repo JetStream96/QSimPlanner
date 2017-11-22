@@ -1,8 +1,11 @@
-﻿using CommonLibrary.LibraryExtension;
+﻿using CommonLibrary.Attributes;
+using CommonLibrary.LibraryExtension;
 using QSP.Common.Options;
 using QSP.LibraryExtension.XmlSerialization;
 using QSP.Properties;
 using QSP.UI.Forms;
+using QSP.UI.Util;
+using QSP.UI.Views;
 using QSP.Updates;
 using QSP.Utilities;
 using System;
@@ -15,10 +18,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using QSP.UI.Util;
-using QSP.UI.Views;
 using static QSP.Updates.Utilities;
-using CommonLibrary.Attributes;
 
 namespace QSP
 {
@@ -61,7 +61,10 @@ namespace QSP
                 }
 
                 config = XDocument.Load("./config.xml").Root;
+#if !DEBUG
+                // We want the debugger to break when having an unhandled exception.
                 SetExceptionHandler();
+#endif
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 #if !DEBUG

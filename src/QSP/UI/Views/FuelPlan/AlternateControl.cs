@@ -1,22 +1,11 @@
-﻿using System;
+﻿using QSP.UI.Models;
+using QSP.UI.Presenters.FuelPlan;
+using QSP.UI.Util;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.UI.Util;
-using QSP.UI.Controllers;
-using QSP.LibraryExtension;
-using QSP.Common.Options;
-using QSP.FuelCalculation.FuelData;
-using QSP.RouteFinding.TerminalProcedures;
-using QSP.RouteFinding.Tracks;
-using QSP.WindAloft;
-using QSP.UI.Presenters.FuelPlan;
-using QSP.UI.Models;
 
 namespace QSP.UI.Views.FuelPlan
 {
@@ -24,8 +13,11 @@ namespace QSP.UI.Views.FuelPlan
     {
         private AlternatePresenter presenter;
 
-        public IEnumerable<IAlternateRowView> Views => 
-            layoutPanel.Controls.Cast<IAlternateRowView>();
+        public IEnumerable<IAlternateRowView> Views =>
+            // Skip the first row, which is a layout panel with buttons.
+            Enumerable.Range(1, layoutPanel.RowCount - 1)  
+                      .Select(i => layoutPanel.GetControlFromPosition(0, i))
+                      .Cast<IAlternateRowView>();
 
         public AlternateControl()
         {
@@ -53,18 +45,18 @@ namespace QSP.UI.Views.FuelPlan
             v.AddToLayoutPanel(layoutPanel);
             return v;
         }
-        
+
         private void SetBtnColorStyles(ControlDisableStyleController.ColorStyle style)
         {
             var removeBtnStyle = new ControlDisableStyleController(removeAltnBtn, style);
             removeBtnStyle.Activate();
         }
-        
+
         private void addAltnBtn_Click(object sender, EventArgs e)
         {
             presenter.AddRow();
         }
-        
+
         /// <exception cref="InvalidOperationException"></exception>
         private void removeAltnBtn_Click(object sender, EventArgs e)
         {

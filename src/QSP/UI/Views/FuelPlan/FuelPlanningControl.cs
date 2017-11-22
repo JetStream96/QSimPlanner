@@ -68,6 +68,7 @@ namespace QSP.UI.Views.FuelPlan
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
         private ActionContextMenu routeActionMenu;
+        private ActionContextMenuPresenter routeActionMenuPresenter;
         private RouteOptionContextMenu routeOptionMenu;
         private MetarCache metarCache;
         //   private ISupportActionContextMenu origMenu;
@@ -118,7 +119,7 @@ namespace QSP.UI.Views.FuelPlan
 
         private AirportManager AirportList => airwayNetwork.AirportList;
         private AppOptions AppOptions => appOptionsLocator.Instance;
-        private RouteGroup RouteToDest => routeActionMenu.Route;
+        private RouteGroup RouteToDest => routeActionMenuPresenter.Route;
 
         public string DistanceInfo { set => throw new NotImplementedException(); }
 
@@ -225,7 +226,7 @@ namespace QSP.UI.Views.FuelPlan
         {
             routeActionMenu = new ActionContextMenu();
 
-            var presenter = new ActionContextMenuPresenter(
+            routeActionMenuPresenter = new ActionContextMenuPresenter(
                 this,
                 appOptionsLocator,
                 airwayNetwork,

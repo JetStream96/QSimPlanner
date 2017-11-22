@@ -326,7 +326,7 @@ namespace QSP.UI.Forms
 
             FormClosing += CloseMain;
             new ScrollBarWorkaround(panel1).Enable();
-            this.Text = $"QSimPlanner [version {Utilities.Version.AppProductVersion()}]";
+            this.Text = $"QSimPlanner [v{Utilities.Version.AppProductVersion()}]";
         }
 
         private void RefreshAirportInfoSelection()
