@@ -1,4 +1,4 @@
-﻿namespace QSP.UI.Views.Route
+﻿namespace QSP.UI.Views.FuelPlan.Route
 {
     partial class AdvancedRouteTool
     {

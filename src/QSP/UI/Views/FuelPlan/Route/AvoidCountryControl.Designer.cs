@@ -1,4 +1,4 @@
-﻿namespace QSP.UI.RoutePlanning
+﻿namespace QSP.UI.Views.FuelPlan.Route
 {
     partial class AvoidCountryView
     {

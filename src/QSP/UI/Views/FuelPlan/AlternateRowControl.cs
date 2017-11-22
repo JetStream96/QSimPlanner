@@ -1,12 +1,12 @@
 ﻿using CommonLibrary.Attributes;
 using QSP.UI.Presenters.FuelPlan;
 using QSP.UI.Util;
-using QSP.UI.Views.Route;
-using QSP.UI.Views.Route.Actions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using QSP.UI.Views.FuelPlan.Route;
+using QSP.UI.Views.FuelPlan.Route.Actions;
 using static CommonLibrary.AviationTools.Icao;
 using Routes = QSP.RouteFinding.Routes;
 

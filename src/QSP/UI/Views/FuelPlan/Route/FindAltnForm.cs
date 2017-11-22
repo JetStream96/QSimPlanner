@@ -9,7 +9,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using static QSP.AviationTools.Constants;
 
-namespace QSP.UI.Views.Route
+namespace QSP.UI.Views.FuelPlan.Route
 {
     public partial class FindAltnForm : Form, IFindAltnView
     {

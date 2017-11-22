@@ -2,8 +2,7 @@
 using QSP.Utilities.Units;
 using System.Collections.Generic;
 
-// TODO: This namespace should be moved into FuelPlan.
-namespace QSP.UI.Views.Route
+namespace QSP.UI.Views.FuelPlan.Route
 {
     public interface IFindAltnView
     {

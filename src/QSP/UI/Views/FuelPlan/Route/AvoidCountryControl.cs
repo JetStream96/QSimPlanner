@@ -1,12 +1,12 @@
 ﻿using QSP.RouteFinding.Containers.CountryCode;
+using QSP.UI.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.UI.Util;
 
-namespace QSP.UI.RoutePlanning
+namespace QSP.UI.Views.FuelPlan.Route
 {
     public partial class AvoidCountryView : UserControl
     {

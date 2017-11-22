@@ -10,11 +10,11 @@ using QSP.UI.Controllers;
 using QSP.UI.Models.FuelPlan;
 using QSP.UI.Presenters.FuelPlan.Route;
 using QSP.UI.Views.FuelPlan;
-using QSP.UI.Views.Route;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using QSP.UI.Views.FuelPlan.Route;
 
 namespace QSP.UI.Presenters.FuelPlan
 {

@@ -10,13 +10,13 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Models.FuelPlan;
-using QSP.UI.Views.Route;
-using QSP.UI.Views.Route.Actions;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using QSP.UI.Views.FuelPlan.Route;
+using QSP.UI.Views.FuelPlan.Route.Actions;
 
 namespace QSP.UI.Presenters.FuelPlan.Route
 {

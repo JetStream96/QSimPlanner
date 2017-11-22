@@ -1,17 +1,16 @@
-﻿using QSP.UI.Presenters.FuelPlan;
+﻿using QSP.UI.Controllers;
+using QSP.UI.Presenters.FuelPlan;
 using QSP.UI.Presenters.FuelPlan.Route;
 using QSP.UI.Util;
 using QSP.UI.Views.Factories;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.UI.Controllers;
 using static CommonLibrary.AviationTools.Icao;
 
-namespace QSP.UI.Views.Route
+namespace QSP.UI.Views.FuelPlan.Route
 {
     public partial class FinderOptionControl : UserControl, IFinderOptionView
     {

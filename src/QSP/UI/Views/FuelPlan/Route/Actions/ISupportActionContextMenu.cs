@@ -1,6 +1,6 @@
 ﻿using Routes = QSP.RouteFinding.Routes;
 
-namespace QSP.UI.Views.Route.Actions
+namespace QSP.UI.Views.FuelPlan.Route.Actions
 {
     /// <summary>
     /// This inteface should be implemented for any view that supports ActionContextMenu.

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace QSP.UI.Views.Route
+namespace QSP.UI.Views.FuelPlan.Route
 {
 	partial class FindAltnForm : System.Windows.Forms.Form
 	{

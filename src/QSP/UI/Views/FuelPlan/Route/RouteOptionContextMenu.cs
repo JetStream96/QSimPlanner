@@ -1,11 +1,10 @@
 ﻿using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers.CountryCode;
-using QSP.UI.RoutePlanning;
 using System.Drawing;
 using System.Windows.Forms;
 using static QSP.UI.Views.Factories.FormFactory;
 
-namespace QSP.UI.Views.Route
+namespace QSP.UI.Views.FuelPlan.Route
 {
     public class RouteOptionContextMenu : ContextMenuStrip
     {
