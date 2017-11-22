@@ -24,7 +24,8 @@ namespace QSP.UI.Views.FuelPlan
     {
         private AlternatePresenter presenter;
 
-        IReadOnlyList<IAlternateRowView> Views { get; }
+        public IEnumerable<IAlternateRowView> Views => 
+            layoutPanel.Controls.Cast<IAlternateRowView>();
 
         public AlternateControl()
         {
@@ -37,21 +38,22 @@ namespace QSP.UI.Views.FuelPlan
 
             removeAltnBtn.Enabled = false;
             SetBtnColorStyles(ButtonColorStyle.Default);
-            presenter.addrow
+            presenter.AddRow();
         }
 
+        /// <summary>
+        /// Add a row with its presenter and initialize view of the row. 
+        /// Returns the view of the created row.
+        /// </summary>
         public IAlternateRowView AddRow()
         {
-            var view = new AlternateRowControl();
-            view.Init(,)
+            var v = new AlternateRowControl();
+            var p = presenter.GetRowPresenter(v);
+            v.Init(p, ParentForm);
+            v.AddToLayoutPanel(layoutPanel);
+            return v;
         }
-
-        public void RemoveLastRow()
-        {
-            
-        }
-
-
+        
         private void SetBtnColorStyles(ControlDisableStyleController.ColorStyle style)
         {
             var removeBtnStyle = new ControlDisableStyleController(removeAltnBtn, style);
@@ -59,15 +61,16 @@ namespace QSP.UI.Views.FuelPlan
         }
         
         private void addAltnBtn_Click(object sender, EventArgs e)
-        { 
-
-            AltnControl.AddRow();
+        {
+            presenter.AddRow();
         }
-
+        
+        /// <exception cref="InvalidOperationException"></exception>
         private void removeAltnBtn_Click(object sender, EventArgs e)
         {
-            AltnControl.RemoveLastRow();
-            removeAltnBtn.Enabled = AltnControl.RowCount > 1;
+            presenter.RemoveLastRow();
+            layoutPanel.RowCount--;
+            removeAltnBtn.Enabled = presenter.RowCount > 1;
         }
     }
 }

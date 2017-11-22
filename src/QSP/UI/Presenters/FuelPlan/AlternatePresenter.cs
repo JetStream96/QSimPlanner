@@ -36,7 +36,7 @@ namespace QSP.UI.Presenters.FuelPlan
         /// Fires when the collection of alternates changes.
         public event EventHandler AlternatesChanged;
 
-        public int RowCount => view.Views.Count;
+        public int RowCount => view.Views.Count();
 
         /// <summary>
         /// Uppercase Icao codes of the alternates.
@@ -70,22 +70,30 @@ namespace QSP.UI.Presenters.FuelPlan
                    zfwTon(), orig(), dest());
         }
 
-        public void AddRow()
+        public AlternateRowPresenter GetRowPresenter(IAlternateRowView v)
         {
-            var row = view.AddRow();
-
-            var presenter = new AlternateRowPresenter(
-                row,
+            return new AlternateRowPresenter(
+                v,
                 appOptionsLocator,
                 airwayNetwork,
                 destSidProvider,
                 new CountryCodeCollection().ToLocator(),
                 windCalcGetter);
+        }
 
-            row.Init(presenter, view layoutPanel.FindForm());
-
+        public void AddRow()
+        {
+            var row = view.AddRow();
             row.IcaoChanged += (s, e) => AlternatesChanged?.Invoke(s, e);
-            rowPresenters.Add(presenter);
+            rowPresenters.Add(row.Presenter);
+            AlternatesChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+        public void RemoveLastRow()
+        {
+            if (RowCount == 0) throw new InvalidOperationException();
+            rowPresenters.RemoveAt(RowCount - 1);
             AlternatesChanged?.Invoke(this, EventArgs.Empty);
         }
     }

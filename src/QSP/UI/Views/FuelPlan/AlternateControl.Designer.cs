@@ -28,30 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.altnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.layoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.addRemoveAltnBtnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.addAltnBtn = new System.Windows.Forms.Button();
             this.removeAltnBtn = new System.Windows.Forms.Button();
-            this.altnLayoutPanel.SuspendLayout();
+            this.layoutPanel.SuspendLayout();
             this.addRemoveAltnBtnLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // altnLayoutPanel
+            // layoutPanel
             // 
-            this.altnLayoutPanel.AutoSize = true;
-            this.altnLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.altnLayoutPanel.ColumnCount = 1;
-            this.altnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.altnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 16F));
-            this.altnLayoutPanel.Controls.Add(this.addRemoveAltnBtnLayoutPanel, 0, 0);
-            this.altnLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.altnLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
-            this.altnLayoutPanel.Name = "altnLayoutPanel";
-            this.altnLayoutPanel.RowCount = 1;
-            this.altnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.altnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.altnLayoutPanel.Size = new System.Drawing.Size(128, 35);
-            this.altnLayoutPanel.TabIndex = 76;
+            this.layoutPanel.AutoSize = true;
+            this.layoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.layoutPanel.ColumnCount = 1;
+            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 16F));
+            this.layoutPanel.Controls.Add(this.addRemoveAltnBtnLayoutPanel, 0, 0);
+            this.layoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.layoutPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.layoutPanel.Name = "layoutPanel";
+            this.layoutPanel.RowCount = 1;
+            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.layoutPanel.Size = new System.Drawing.Size(128, 35);
+            this.layoutPanel.TabIndex = 76;
             // 
             // addRemoveAltnBtnLayoutPanel
             // 
@@ -111,11 +111,11 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Controls.Add(this.altnLayoutPanel);
+            this.Controls.Add(this.layoutPanel);
             this.Name = "AlternateControl";
             this.Size = new System.Drawing.Size(130, 37);
-            this.altnLayoutPanel.ResumeLayout(false);
-            this.altnLayoutPanel.PerformLayout();
+            this.layoutPanel.ResumeLayout(false);
+            this.layoutPanel.PerformLayout();
             this.addRemoveAltnBtnLayoutPanel.ResumeLayout(false);
             this.addRemoveAltnBtnLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -125,7 +125,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel altnLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel layoutPanel;
         private System.Windows.Forms.TableLayoutPanel addRemoveAltnBtnLayoutPanel;
         internal System.Windows.Forms.Button addAltnBtn;
         internal System.Windows.Forms.Button removeAltnBtn;

@@ -16,7 +16,7 @@ namespace QSP.UI.Views.FuelPlan
     // TODO: is there need to dispose context menu?
     public partial class AlternateRowControl : UserControl, IAlternateRowView
     {
-        private AlternateRowPresenter presenter;
+        public AlternateRowPresenter Presenter { get; private set; }
         public ActionContextMenu ActionContextMenuView { get; private set; }
         private Form parentForm;
 
@@ -55,18 +55,18 @@ namespace QSP.UI.Views.FuelPlan
         {
             ActionContextMenuView = new ActionContextMenu();
 
-            this.presenter = presenter;
+            this.Presenter = presenter;
             this.parentForm = parentForm;
         }
 
         private void SubscribeActionMenuEvents()
         {
             var a = ActionContextMenuView;
-            a.FindToolStripMenuItem.Click += (s, e) => presenter.FindRoute();
-            a.AnalyzeToolStripMenuItem.Click += (s, e) => presenter.AnalyzeRoute();
-            a.ExportToolStripMenuItem.Click += (s, e) => presenter.ExportRouteFiles();
-            a.MapToolStripMenuItem.Click += (s, e) => presenter.ShowMap();
-            a.MapInBrowserToolStripMenuItem.Click += (s, e) => presenter.ShowMapBrowser();
+            a.FindToolStripMenuItem.Click += (s, e) => Presenter.FindRoute();
+            a.AnalyzeToolStripMenuItem.Click += (s, e) => Presenter.AnalyzeRoute();
+            a.ExportToolStripMenuItem.Click += (s, e) => Presenter.ExportRouteFiles();
+            a.MapToolStripMenuItem.Click += (s, e) => Presenter.ShowMap();
+            a.MapInBrowserToolStripMenuItem.Click += (s, e) => Presenter.ShowMapBrowser();
 
             ActionBtn.Click += (s, e) => a.Show(ActionBtn, new Point(-100, 30));
         }
@@ -77,8 +77,8 @@ namespace QSP.UI.Views.FuelPlan
             {
                 frm.AlternateSet += (_s, _e) => IcaoTxtBox.Text = frm.SelectedIcao;
 
-                var altnPresenter = presenter.FindAltnPresenter(frm);
-                frm.Init(presenter.DestIcao, altnPresenter);
+                var altnPresenter = Presenter.FindAltnPresenter(frm);
+                frm.Init(Presenter.DestIcao, altnPresenter);
                 frm.ShowDialog();
             }
         }

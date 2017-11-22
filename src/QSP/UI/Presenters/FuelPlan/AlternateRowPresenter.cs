@@ -14,7 +14,8 @@ namespace QSP.UI.Presenters.FuelPlan
 {
     public class AlternateRowPresenter
     {
-        private IAlternateRowView view;
+        public IAlternateRowView View { get; private set; }
+
         private ActionContextMenuPresenter contextMenuPresenter;
         private AirwayNetwork airwayNetwork;
         private ISelectedProcedureProvider destController;
@@ -33,7 +34,7 @@ namespace QSP.UI.Presenters.FuelPlan
             Locator<CountryCodeCollection> checkedCodesLocator,
             Func<AvgWindCalculator> windCalcGetter)
         {
-            this.view = view;
+            this.View = view;
 
             contextMenuPresenter = new ActionContextMenuPresenter(
                 view,
