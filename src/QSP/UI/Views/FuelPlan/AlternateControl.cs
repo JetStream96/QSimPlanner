@@ -14,8 +14,8 @@ namespace QSP.UI.Views.FuelPlan
         private AlternatePresenter presenter;
 
         public IEnumerable<IAlternateRowView> Views =>
-            // Skip the first row, which is a layout panel with buttons.
-            Enumerable.Range(1, layoutPanel.RowCount - 1)  
+            // Skip the last row, which is a layout panel with buttons.
+            Enumerable.Range(0, layoutPanel.RowCount - 1)  
                       .Select(i => layoutPanel.GetControlFromPosition(0, i))
                       .Cast<IAlternateRowView>();
 
@@ -39,10 +39,14 @@ namespace QSP.UI.Views.FuelPlan
         /// </summary>
         public IAlternateRowView AddRow()
         {
+            SuspendLayout();
+
             var v = new AlternateRowControl();
             var p = presenter.GetRowPresenter(v);
             v.Init(p, ParentForm);
             v.AddToLayoutPanel(layoutPanel);
+
+            ResumeLayout();
             return v;
         }
 

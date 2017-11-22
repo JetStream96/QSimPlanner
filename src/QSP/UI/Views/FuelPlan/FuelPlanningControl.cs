@@ -27,6 +27,8 @@ using QSP.UI.UserControls;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.Util;
 using QSP.UI.Util.ScrollBar;
+using QSP.UI.Views.FuelPlan.Route;
+using QSP.UI.Views.FuelPlan.Route.Actions;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
 using System;
@@ -36,8 +38,6 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.UI.Views.FuelPlan.Route;
-using QSP.UI.Views.FuelPlan.Route.Actions;
 using static QSP.AviationTools.Constants;
 using static QSP.AviationTools.SpeedConversion;
 using static QSP.MathTools.Numbers;
@@ -154,6 +154,8 @@ namespace QSP.UI.Views.FuelPlan
             AltnPresenter = new AlternatePresenter(
                 alternateControl, appOptionsLocator, airwayNetwork, windTableLocator,
                 destSidProvider, GetFuelData, GetZfwTon, () => OrigIcao, () => DestIcao);
+            alternateControl.Init(AltnPresenter);
+
 
             SetRouteOptionControl();
             SetRouteActionControl();
