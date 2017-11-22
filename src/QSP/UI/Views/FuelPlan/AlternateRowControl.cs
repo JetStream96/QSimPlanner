@@ -1,4 +1,4 @@
-﻿using QSP.UI.Controllers;
+﻿using CommonLibrary.Attributes;
 using QSP.UI.Presenters.FuelPlan;
 using QSP.UI.Util;
 using QSP.UI.Views.Route;
@@ -6,7 +6,6 @@ using QSP.UI.Views.Route.Actions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using static CommonLibrary.AviationTools.Icao;
 using Routes = QSP.RouteFinding.Routes;
@@ -21,7 +20,9 @@ namespace QSP.UI.Views.FuelPlan
         private Form parentForm;
 
         public event EventHandler IcaoChanged;
-        public string Icao { get => TrimIcao(IcaoTxtBox.Text); set => IcaoTxtBox.Text = value; }
+        public string Icao { get => TrimIcao(IcaoTxtBox.Text); }
+        public void SetIcao(string icao) => IcaoTxtBox.Text = icao;
+
         public IEnumerable<string> RunwayList { set => RwyComboBox.SetItems(value); }
         public string DistanceInfo { set => DisLbl.Text = value; }
 
@@ -32,6 +33,7 @@ namespace QSP.UI.Views.FuelPlan
         }
 
         public string Rwy => RwyComboBox.Text;
+        public void SetRwy(string rwy) => RwyComboBox.Text = rwy;
 
         public void ShowMessage(string s, MessageLevel lvl) => parentForm.ShowMessage(s, lvl);
 
@@ -83,10 +85,12 @@ namespace QSP.UI.Views.FuelPlan
             }
         }
 
-        public List<string> GetSelectedProcedures() => RwyComboBox.GetSelectedProcedures().ToList();
+        [Throws]
+        public List<string> GetSelectedProcedures() => Presenter.GetAllProcedures();
 
         private void IcaoTxtBox_TextChanged(object sender, EventArgs e)
         {
+            Presenter.UpdateRunways();
             IcaoChanged.Invoke(sender, e);
         }
     }

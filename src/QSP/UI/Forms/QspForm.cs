@@ -11,11 +11,19 @@ using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Forms.Options;
-using QSP.UI.UserControls;
+using QSP.UI.Models;
+using QSP.UI.Models.MsgBox;
+using QSP.UI.Models.Wind;
+using QSP.UI.Presenters.MiscInfo;
+using QSP.UI.Presenters.Wind;
 using QSP.UI.UserControls.AircraftMenu;
 using QSP.UI.UserControls.TakeoffLanding.LandingPerf;
 using QSP.UI.UserControls.TakeoffLanding.TOPerf;
 using QSP.UI.Util;
+using QSP.UI.Util.ScrollBar;
+using QSP.UI.Views;
+using QSP.UI.Views.FuelPlan;
+using QSP.UI.Views.MiscInfo;
 using QSP.Updates;
 using QSP.Utilities;
 using QSP.WindAloft;
@@ -28,16 +36,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using QSP.UI.Models;
-using QSP.UI.Models.MsgBox;
-using QSP.UI.Models.Wind;
-using QSP.UI.Presenters.Wind;
-using QSP.UI.Util.ScrollBar;
-using QSP.UI.Views;
-using QSP.UI.Views.MiscInfo;
 using static QSP.Utilities.LoggerInstance;
-using QSP.UI.Presenters.MiscInfo;
-using QSP.UI.Views.FuelPlan;
 
 namespace QSP.UI.Forms
 {
@@ -303,7 +302,7 @@ namespace QSP.UI.Forms
             InitMiscInfoMenu();
             RefreshAirportInfoSelection();
 
-            fuelMenu.AltnControl.AlternatesChanged += (s, e) => RefreshAirportInfoSelection();
+            fuelMenu.AltnPresenter.AlternatesChanged += (s, e) => RefreshAirportInfoSelection();
 
             fuelMenu.AircraftRequestChanged += (s, e) =>
             {
@@ -332,13 +331,12 @@ namespace QSP.UI.Forms
 
         private void RefreshAirportInfoSelection()
         {
-            miscInfoPresenter.Altn = fuelMenu.AltnControl.Alternates;
+            miscInfoPresenter.Altn = fuelMenu.AltnPresenter.Alternates;
         }
 
         private void InitMiscInfoMenu()
         {
-            Func<IEnumerable<string>> altnGetter = () =>
-                fuelMenu.AltnControl.Controls.Select(c => c.IcaoTxtBox.Text.Trim().ToUpper());
+            Func<IEnumerable<string>> altnGetter = () => fuelMenu.AltnPresenter.Alternates;
 
             miscInfoPresenter = new MiscInfoPresenter(
                 miscInfoMenu, AirportList, windTableLocator, true,

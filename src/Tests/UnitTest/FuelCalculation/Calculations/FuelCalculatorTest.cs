@@ -44,9 +44,7 @@ namespace UnitTest.FuelCalculation.Calculations
             Assert.AreEqual(9000.0, toc.Alt, 10.0);
         }
 
-        private static FuelCalculator GetCalculator(
-            IWindTableCollection w,
-            Route route)
+        private static FuelCalculator GetCalculator(IWindTableCollection w, Route route)
         {
             return new FuelCalculator(
                 TestAirportManager(),

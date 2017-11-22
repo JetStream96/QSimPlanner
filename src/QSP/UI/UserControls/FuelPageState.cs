@@ -80,33 +80,20 @@ namespace QSP.UI.UserControls
 
         private XElement[] GetAlternates()
         {
-            var altnInfo = control.AltnControl.Controls
-                .Select(c => new XElement(altnEntry,
-                    c.IcaoTxtBox.Text.Serialize(altnIcao),
-                    c.RwyComboBox.Text.Serialize(altnRwy)));
+            var altnInfo = control.AltnPresenter.GetAlternates()
+                .Select(a => new XElement(altnEntry,
+                    a.icao.Serialize(altnIcao),
+                    a.rwy.Serialize(altnRwy)));
 
             return altnInfo.ToArray();
         }
 
         private void SetAlternates(XElement node)
         {
-            var altns = node.Elements(altnEntry).ToList();
-            if (altns.Count == 0) return;
+            var icaoRwys = node.Elements(altnEntry)
+                .Select(e => (e.GetString(altnIcao), e.GetString(altnRwy)));
 
-            // Set number of alternates
-            while (control.AltnControl.RowCount < altns.Count)
-            {
-                control.AltnControl.AddRow();
-            }
-
-            var altnControls = control.AltnControl.Controls.ToList();
-
-            for (int i = 0; i < altns.Count; i++)
-            {
-                var c = altnControls[i];
-                c.IcaoTxtBox.Text = altns[i].Element(altnIcao).Value;
-                c.RwyComboBox.Text = altns[i].Element(altnRwy).Value;
-            }
+            control.AltnPresenter.SetAlternates(icaoRwys.ToList());
         }
 
         private static double TryGetWeightKg(WeightTextBoxController c)

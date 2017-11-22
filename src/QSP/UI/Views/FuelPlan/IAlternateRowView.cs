@@ -16,5 +16,8 @@ namespace QSP.UI.Views.FuelPlan
         /// Can be "AUTO".
         /// </summary>
         IEnumerable<string> RunwayList { set; }
+
+        void SetRwy(string rwy);
+        void SetIcao(string icao);
     }
 }

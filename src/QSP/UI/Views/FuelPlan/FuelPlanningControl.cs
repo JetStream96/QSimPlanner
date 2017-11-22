@@ -19,7 +19,10 @@ using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
 using QSP.UI.Models;
+using QSP.UI.Models.FuelPlan;
 using QSP.UI.Models.MsgBox;
+using QSP.UI.Presenters.FuelPlan;
+using QSP.UI.Presenters.FuelPlan.Route;
 using QSP.UI.UserControls;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.Util;
@@ -42,7 +45,6 @@ using static QSP.UI.Util.MsgBoxHelper;
 using static QSP.UI.Views.Factories.FormFactory;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.Units.Conversions;
-using QSP.UI.Presenters.FuelPlan.Route;
 
 namespace QSP.UI.Views.FuelPlan
 {
@@ -50,7 +52,7 @@ namespace QSP.UI.Views.FuelPlan
     // for the route from origin to destination.
 
     public partial class FuelPlanningControl : UserControl, IFuelPlanningView,
-        ISupportActionContextMenu
+        ISupportActionContextMenu, IRefreshForOptionChange
     {
         private AirwayNetwork airwayNetwork;
         private Locator<AppOptions> appOptionsLocator;
@@ -73,7 +75,7 @@ namespace QSP.UI.Views.FuelPlan
 
         public WeightController WeightControl { get; private set; }
         public WeightTextBoxController Extra { get; private set; }
-        public AlternateController AltnControl => alternateControl.AltnControl;
+        public AlternatePresenter AltnPresenter { get; private set; }
 
         // Do not set the values of these controllers directly. 
         // Use WeightControl to interact with the weights.
@@ -114,8 +116,8 @@ namespace QSP.UI.Views.FuelPlan
         public IEnumerable<string> StarList { set => throw new NotImplementedException(); }
         public string Route { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private AirportManager airportList => airwayNetwork.AirportList;
-        private AppOptions appOptions => appOptionsLocator.Instance;
+        private AirportManager AirportList => airwayNetwork.AirportList;
+        private AppOptions AppOptions => appOptionsLocator.Instance;
         private RouteGroup RouteToDest => routeActionMenu.Route;
 
         public string DistanceInfo { set => throw new NotImplementedException(); }
@@ -148,7 +150,8 @@ namespace QSP.UI.Views.FuelPlan
             SetDefaultState();
             SetOrigDestControllers();
 
-            alternateControl.Init(appOptionsLocator, airwayNetwork, windTableLocator,
+            AltnPresenter = new AlternatePresenter(
+                alternateControl, appOptionsLocator, airwayNetwork, windTableLocator,
                 destSidProvider, GetFuelData, GetZfwTon, () => OrigIcao, () => DestIcao);
 
             SetRouteOptionControl();
@@ -178,7 +181,7 @@ namespace QSP.UI.Views.FuelPlan
         {
             Func<string, Task> updateCache = async (icao) =>
             {
-                if (airportList[icao] != null && !metarCache.Contains(icao))
+                if (AirportList[icao] != null && !metarCache.Contains(icao))
                 {
                     string metar = null;
                     if (await Task.Run(() => MetarDownloader.TryGetMetar(icao, out metar)))
@@ -193,10 +196,10 @@ namespace QSP.UI.Views.FuelPlan
                 i.TextChanged += async (s, e) => await updateCache(Icao.TrimIcao(i.Text));
             });
 
-            alternateControl.AltnControl.AlternatesChanged += (s, e) =>
-            {
-                alternateControl.AltnControl.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
-            };
+            AltnPresenter.AlternatesChanged += (s, e) =>
+             {
+                 AltnPresenter.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
+             };
         }
 
         private void SetBtnColorStyles()
@@ -429,7 +432,7 @@ namespace QSP.UI.Views.FuelPlan
                 return;
             }
 
-            var altnRoutes = alternateControl.AltnControl.Routes;
+            var altnRoutes = AltnPresenter.Routes;
 
             if (altnRoutes.Any(r => r == null))
             {
@@ -463,11 +466,11 @@ namespace QSP.UI.Views.FuelPlan
             try
             {
                 fuelReport = new FuelReportGenerator(
-                    airportList,
+                    AirportList,
                     new BasicCrzAltProvider(),
                     windTables,
                     RouteToDest.Expanded,
-                    altnRoutes,
+                    AltnPresenter.Routes.Select(r => r.Expanded),
                     para).Generate();
             }
             catch (InvalidPlanAltitudeException)
@@ -573,7 +576,7 @@ namespace QSP.UI.Views.FuelPlan
 
         private AvgWindCalculator GetWindCalculator()
         {
-            return GetWindCalculator(appOptions, windTableLocator, airportList, GetFuelData(),
+            return GetWindCalculator(AppOptions, windTableLocator, AirportList, GetFuelData(),
                 GetZfwTon(), origTxtBox.Text, destTxtBox.Text);
         }
 
@@ -644,14 +647,14 @@ namespace QSP.UI.Views.FuelPlan
         {
             origController.RefreshRwyComboBox();
             destController.RefreshRwyComboBox();
-            alternateControl.AltnControl.RefreshForAirportListChange();
+            AltnPresenter.RefreshForAirportListChange();
         }
 
         public void RefreshForNavDataLocationChange()
         {
             origController.RefreshProcedureComboBox();
             destController.RefreshProcedureComboBox();
-            alternateControl.AltnControl.RefreshForNavDataLocationChange();
+            AltnPresenter.RefreshForNavDataLocationChange();
         }
 
         public void ShowMap(RouteFinding.Routes.Route route) =>
@@ -659,7 +662,7 @@ namespace QSP.UI.Views.FuelPlan
 
         public void ShowMapBrowser(RouteFinding.Routes.Route route) =>
             ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm, true, true);
-        
+
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
     }
 }

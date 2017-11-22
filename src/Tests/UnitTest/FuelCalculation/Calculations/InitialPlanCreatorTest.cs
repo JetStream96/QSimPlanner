@@ -96,32 +96,19 @@ namespace UnitTest.FuelCalculation.Calculations
                 this.wind = wind;
             }
 
-            public WindUV GetWindUV(double lat, double lon, double altitudeFt)
-            {
-                return wind;
-            }
+            public WindUV GetWindUV(double lat, double lon, double altitudeFt) => wind;
         }
 
         public class CrzAltProviderStub : ICrzAltProvider
         {
-            public double ClosestAlt(
-                ICoordinate c, double heading, double altitude)
-            {
-                return Math.Round(altitude / 1000.0) * 1000.0;
-            }
+            public double ClosestAlt(ICoordinate c, double heading, double altitude) =>
+                Math.Round(altitude / 1000.0) * 1000.0;
 
-            public double ClosestAltBelow(
-                ICoordinate c, double heading, double altitude)
-            {
-                return Math.Floor(altitude / 1000.0) * 1000.0;
-            }
+            public double ClosestAltBelow(ICoordinate c, double heading, double altitude) =>
+                Math.Floor(altitude / 1000.0) * 1000.0;
 
-            public bool IsValidCrzAlt(
-                ICoordinate c, double heading, double altitude)
-            {
-                return altitude.Mod(1000.0) < 1.0;
-            }
+            public bool IsValidCrzAlt(ICoordinate c, double heading, double altitude) =>
+                altitude.Mod(1000.0) < 1.0;
         }
-
     }
 }

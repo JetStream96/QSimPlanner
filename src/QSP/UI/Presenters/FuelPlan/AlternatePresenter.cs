@@ -2,20 +2,19 @@
 using QSP.FuelCalculation.FuelData;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers.CountryCode;
-using QSP.RouteFinding.TerminalProcedures;
+using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
+using QSP.UI.Models.FuelPlan;
 using QSP.UI.Views.FuelPlan;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace QSP.UI.Presenters.FuelPlan
 {
-    public class AlternatePresenter
+    public class AlternatePresenter : IRefreshForOptionChange
     {
         private IAlternateView view;
         private List<AlternateRowPresenter> rowPresenters = new List<AlternateRowPresenter>();
@@ -38,10 +37,15 @@ namespace QSP.UI.Presenters.FuelPlan
 
         public int RowCount => view.Views.Count();
 
+        public IEnumerable<RouteGroup> Routes => rowPresenters.Select(p => p.Route);
+
         /// <summary>
         /// Uppercase Icao codes of the alternates.
         /// </summary>
-        public IEnumerable<string> Alternates => view.Views.Select(v => v.Icao);
+        public IEnumerable<string> Alternates
+        {
+            get => view.Views.Select(v => v.Icao);
+        }
 
         public AlternatePresenter(
             IAlternateView view,
@@ -99,12 +103,38 @@ namespace QSP.UI.Presenters.FuelPlan
 
         public void RefreshForAirportListChange()
         {
-            alternates.ForEach(r => r.Selection.RefreshRwyComboBox());
+            rowPresenters.ForEach(r => r.RefreshForAirportListChange());
         }
 
         public void RefreshForNavDataLocationChange()
         {
-            alternates.ForEach(r => r.Selection.RefreshProcedureComboBox());
+            rowPresenters.ForEach(r => r.RefreshForNavDataLocationChange());
+        }
+
+        public void SetAlternates(IList<(string icao, string rwy)> alternates)
+        {
+            if (alternates.Count == 0) return;
+            
+            // Set number of alternates
+            while (RowCount < alternates.Count)
+            {
+                AddRow();
+            }
+
+            for (int i = 0; i < alternates.Count; i++)
+            {
+                rowPresenters[i].View.SetIcao(alternates[i].icao);
+                rowPresenters[i].View.SetRwy(alternates[i].rwy);
+            }
+        }
+
+        public IEnumerable<(string icao, string rwy)> GetAlternates()
+        {
+            return rowPresenters.Select(p =>
+            {
+                var view = p.View;
+                return (view.Icao, view.Rwy);
+            });
         }
     }
 }
