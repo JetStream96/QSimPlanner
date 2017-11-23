@@ -51,8 +51,9 @@ namespace QSP.UI.Views.FuelPlan
     // The implementation of ISupportActionContextMenu is used to support the actions 
     // for the route from origin to destination.
 
-    public partial class FuelPlanningControl : UserControl, IFuelPlanningView,
-        ISupportActionContextMenu, IRefreshForOptionChange
+    public partial class FuelPlanningControl : UserControl, IRefreshForOptionChange,
+        ISupportActionContextMenu
+        //, IFuelPlanningView,         
     {
         private AirwayNetwork airwayNetwork;
         private Locator<AppOptions> appOptionsLocator;
@@ -102,26 +103,16 @@ namespace QSP.UI.Views.FuelPlan
 
             set => wtUnitComboBox.SelectedIndex = (int)value;
         }
-
-        public IEnumerable<string> AircraftList { set => throw new NotImplementedException(); }
-        public IEnumerable<string> RegistrationList { set => throw new NotImplementedException(); }
-        public double OewKg { set => throw new NotImplementedException(); }
-        public double MaxZfwKg { set => throw new NotImplementedException(); }
-
+        
         public string OrigIcao => origController.Icao;
         public string DestIcao => destController.Icao;
-
-        public IEnumerable<string> OrigRwyList { set => throw new NotImplementedException(); }
-        public IEnumerable<string> DestRwyList { set => throw new NotImplementedException(); }
-        public IEnumerable<string> SidList { set => throw new NotImplementedException(); }
-        public IEnumerable<string> StarList { set => throw new NotImplementedException(); }
-        public string Route { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
+        
         private AirportManager AirportList => airwayNetwork.AirportList;
         private AppOptions AppOptions => appOptionsLocator.Instance;
         private RouteGroup RouteToDest => routeActionMenuPresenter.Route;
 
         public string DistanceInfo { set => throw new NotImplementedException(); }
+        public string Route { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public FuelPlanningControl()
         {
