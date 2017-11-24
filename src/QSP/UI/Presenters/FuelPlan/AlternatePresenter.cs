@@ -114,7 +114,7 @@ namespace QSP.UI.Presenters.FuelPlan
         public void SetAlternates(IList<(string icao, string rwy)> alternates)
         {
             if (alternates.Count == 0) return;
-            
+
             // Set number of alternates
             while (RowCount < alternates.Count)
             {
@@ -123,8 +123,8 @@ namespace QSP.UI.Presenters.FuelPlan
 
             for (int i = 0; i < alternates.Count; i++)
             {
-                rowPresenters[i].View.SetIcao(alternates[i].icao);
-                rowPresenters[i].View.SetRwy(alternates[i].rwy);
+                rowPresenters[i].View.Icao = alternates[i].icao;
+                rowPresenters[i].View.Rwy = alternates[i].rwy;
             }
         }
 

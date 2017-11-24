@@ -20,8 +20,7 @@ namespace QSP.UI.Views.FuelPlan
         private Form parentForm;
 
         public event EventHandler IcaoChanged;
-        public string Icao { get => TrimIcao(IcaoTxtBox.Text); }
-        public void SetIcao(string icao) => IcaoTxtBox.Text = icao;
+        public string Icao { get => TrimIcao(IcaoTxtBox.Text); set => IcaoTxtBox.Text = value; }
 
         public IEnumerable<string> RunwayList { set => RwyComboBox.SetItems(value); }
         public string DistanceInfo { set => DisLbl.Text = value; }
@@ -32,8 +31,7 @@ namespace QSP.UI.Views.FuelPlan
             set => RouteTxtBox.Text = value;
         }
 
-        public string Rwy => RwyComboBox.Text;
-        public void SetRwy(string rwy) => RwyComboBox.Text = rwy;
+        public string Rwy { get => RwyComboBox.Text; set => RwyComboBox.Text = value; }
 
         public void ShowMessage(string s, MessageLevel lvl) => parentForm.ShowMessage(s, lvl);
 

@@ -7,7 +7,7 @@ namespace QSP.UI.Views.FuelPlan.Route
     public interface IFinderOptionView : IMessageDisplay
     {
         bool IsOrigin { set; }
-        string Icao { get; }
+        string Icao { get; set; }
 
         // Can be "AUTO".
         IEnumerable<string> Runways { set; }
@@ -20,6 +20,9 @@ namespace QSP.UI.Views.FuelPlan.Route
         // There can be multiple or zero selected procedures. For example, when "AUTO" is selected,
         // every procedure is considered selected. When "NONE" is selected, the selection is empty.
         SelectedProcedures SelectedProcedures { get; set; }
+
+        // Can be "NONE" or "AUTO".
+        string SelectedProcedureText { get; set; }
 
         void ShowFilter(SidStarFileterPresenter presenter);
     }

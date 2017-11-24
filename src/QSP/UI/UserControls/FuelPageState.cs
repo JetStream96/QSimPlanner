@@ -55,6 +55,8 @@ namespace QSP.UI.UserControls
         public XElement Save()
         {
             var c = control;
+            var d = c.DestPresenter;
+            var o = c.OrigPresenter;
 
             return new XElement("FuelPlanningState", new XElement[]
             {
@@ -62,12 +64,12 @@ namespace QSP.UI.UserControls
                 c.registrationComboBox.Text.Serialize(registration),
                 ((int)c.WeightUnit).Serialize(wtUnit),
                 TryGetWeightKg(c.Zfw).Serialize(zfw),
-                c.origTxtBox.Text.Serialize(origin),
-                c.origRwyComboBox.Text.Serialize(originRwy),
-                c.sidComboBox.Text.Serialize(originSid),
-                c.destTxtBox.Text.Serialize(destination),
-                c.destRwyComboBox.Text.Serialize(destRwy),
-                c.starComboBox.Text.Serialize(destStar),
+                o.Icao.Serialize(origin),
+                o.Rwy.Serialize(originRwy),
+                o.SelectedProcedureText.Serialize(originSid),
+                d.Icao.Serialize(destination),
+                d.Rwy.Serialize(destRwy),
+                d.SelectedProcedureText.Serialize(destStar),
                 new XElement(alternates, GetAlternates()),
                 c.ContPercentComboBox.Text.Serialize(contPerc),
                 c.HoldTimeTxtBox.Text.Serialize(holdMin),
@@ -118,19 +120,21 @@ namespace QSP.UI.UserControls
         {
             var c = control;
             var r = doc.Root;
+            var d = c.DestPresenter;
+            var o = c.OrigPresenter;
 
             Action[] actions =
             {
                 () => c.acListComboBox.Text = r.GetString(aircraft),
                 () => c.registrationComboBox.Text = r.GetString(registration),
                 () => c.WeightUnit = (WeightUnit)r.GetInt(wtUnit),
-                () => c.WeightControl.ZfwKg =r.GetDouble(zfw),
-                () => c.origTxtBox.Text = r.GetString(origin),
-                () => c.origRwyComboBox.Text = r.GetString(originRwy),
-                () => c.sidComboBox.Text = r.GetString(originSid),
-                () => c.destTxtBox.Text = r.GetString(destination),
-                () => c.destRwyComboBox.Text = r.GetString(destRwy),
-                () => c.starComboBox.Text = r.GetString(destStar),
+                () => c.WeightControl.ZfwKg = r.GetDouble(zfw),
+                () => o.Icao = r.GetString(origin),
+                () => o.Rwy = r.GetString(originRwy),
+                () => o.SelectedProcedureText = r.GetString(originSid),
+                () => d.Icao = r.GetString(destination),
+                () => d.Rwy = r.GetString(destRwy),
+                () => d.SelectedProcedureText = r.GetString(destStar),
                 () => SetAlternates(r.Element(alternates)),
                 () => c.ContPercentComboBox.Text = r.GetString(contPerc),
                 () => c.HoldTimeTxtBox.Text = r.GetString(holdMin),

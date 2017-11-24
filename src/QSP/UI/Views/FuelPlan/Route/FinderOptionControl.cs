@@ -48,7 +48,7 @@ namespace QSP.UI.Views.FuelPlan.Route
             }
         }
 
-        public string Icao => TrimIcao(icaoTxtBox.Text);
+        public string Icao { get => TrimIcao(icaoTxtBox.Text); set => icaoTxtBox.Text = value; }
 
         public IEnumerable<string> Runways
         {
@@ -117,6 +117,11 @@ namespace QSP.UI.Views.FuelPlan.Route
                     c.Text = value.Strings[0];
                 }
             }
+        }
+
+        public string SelectedProcedureText
+        {
+            get => procComboBox.Text; set => procComboBox.Text = value;
         }
 
         public void ShowMessage(string msg, MessageLevel lvl)

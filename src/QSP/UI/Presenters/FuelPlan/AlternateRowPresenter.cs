@@ -88,7 +88,7 @@ namespace QSP.UI.Presenters.FuelPlan
         {
             var rwy = View.Rwy;
             UpdateRunways();
-            View.SetRwy(rwy);
+            View.Rwy=rwy;
         }
 
         public void RefreshForNavDataLocationChange()

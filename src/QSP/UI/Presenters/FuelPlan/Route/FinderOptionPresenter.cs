@@ -36,6 +36,10 @@ namespace QSP.UI.Presenters.FuelPlan.Route
         public WaypointList WptList => wptListGetter();
         public AirportManager AirportList => airportListGetter();
         public string NavDataLocation => appOptionsLocator.Instance.NavDataLocation;
+        public string SelectedProcedureText
+        {
+            get => view.SelectedProcedureText; set => view.SelectedProcedureText = value;
+        }
 
         public FinderOptionPresenter(
             IFinderOptionView view,
@@ -55,8 +59,8 @@ namespace QSP.UI.Presenters.FuelPlan.Route
             view.IsOrigin = IsDepartureAirport;
         }
 
-        public string Icao => view.Icao;
-        public string Rwy => view.SelectedRwy;
+        public string Icao { get => view.Icao; set => view.Icao = value; }
+        public string Rwy { get => view.SelectedRwy; set => view.SelectedRwy = value; }
         public List<string> GetSelectedProcedures() => view.SelectedProcedures.Strings.ToList();
 
         public void UpdateRunways()

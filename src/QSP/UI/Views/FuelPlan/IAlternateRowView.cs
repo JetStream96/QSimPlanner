@@ -17,7 +17,7 @@ namespace QSP.UI.Views.FuelPlan
         /// </summary>
         IEnumerable<string> RunwayList { set; }
 
-        void SetRwy(string rwy);
-        void SetIcao(string icao);
+        new string Rwy { get; set; }
+        new string Icao { get; set; }
     }
 }
