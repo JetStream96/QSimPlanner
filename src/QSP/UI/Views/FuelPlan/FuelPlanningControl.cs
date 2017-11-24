@@ -160,6 +160,8 @@ namespace QSP.UI.Views.FuelPlan
             wtUnitComboBox.SelectedIndex = 0;
             SubscribeEventHandlers();
             advancedRouteTool = new AdvancedRouteTool();
+
+            /* TODO
             advancedRouteTool.Init(
                 appOptionsLocator,
                 airwayNetwork,
@@ -167,7 +169,7 @@ namespace QSP.UI.Views.FuelPlan
                 checkedCodesLocator,
                 procFilter,
                 () => GetWindCalculator());
-
+                */
             if (acListComboBox.Items.Count > 0) acListComboBox.SelectedIndex = 0;
 
             LoadSavedState();
@@ -226,7 +228,7 @@ namespace QSP.UI.Views.FuelPlan
 
         public void OnWptListChanged()
         {
-            advancedRouteTool.OnWptListChanged();
+          /*  advancedRouteTool.OnWptListChanged();*/
         }
 
         private void SubscribeEventHandlers()

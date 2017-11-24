@@ -267,6 +267,13 @@
     <Compile Include="UI\Util\ScrollBar\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
+    <Compile Include="UI\Views\FuelPlan\Route\AdvancedRouteOptionRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Views\FuelPlan\Route\AdvancedRouteOptionRow.Designer.cs">
+      <DependentUpon>AdvancedRouteOptionRow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Views\FuelPlan\Route\IAdvancedRouteOptionRow.cs" />
     <Compile Include="UI\Views\IMessageDisplay.cs" />
     <Compile Include="UI\Views\MiscInfo\DescentForcastControl.cs">
       <SubType>UserControl</SubType>
@@ -813,6 +820,9 @@
     <None Include="Resources\qsp_icon.ico" />
     <EmbeddedResource Include="UI\Views\FuelPlan\AlternateControl.resx">
       <DependentUpon>AlternateControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Views\FuelPlan\Route\AdvancedRouteOptionRow.resx">
+      <DependentUpon>AdvancedRouteOptionRow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Views\MiscInfo\DescentForcastControl.resx">
       <DependentUpon>DescentForcastControl.cs</DependentUpon>

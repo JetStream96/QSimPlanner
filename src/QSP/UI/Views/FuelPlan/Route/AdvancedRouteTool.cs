@@ -28,6 +28,7 @@ namespace QSP.UI.Views.FuelPlan.Route
 {
     public partial class AdvancedRouteTool : UserControl
     {
+        /*
         private ControlGroup fromGroup;
         private ControlGroup toGroup;
         private SimpleActionContextMenu routeActionMenu;
@@ -44,11 +45,17 @@ namespace QSP.UI.Views.FuelPlan.Route
         private WaypointList wptList => airwayNetwork.WptList;
         private AirportManager airportList => airwayNetwork.AirportList;
         private TrackInUseCollection tracksInUse => airwayNetwork.TracksInUse;
-
+        */
         public AdvancedRouteTool()
         {
             InitializeComponent();
         }
+
+
+        // TODO: Rewrite this class.
+
+        /*
+        
 
         public void Init(
             Locator<AppOptions> appOptionsLocator,
@@ -382,7 +389,7 @@ namespace QSP.UI.Views.FuelPlan.Route
             public ProcedureFilter procFilter;
             public Button FilterBtn;
 
-            public RouteFinderSelection controller;
+            public ISelectedProcedureProvider provider;
 
             public ControlGroup(
                 AdvancedRouteTool owner,
@@ -416,6 +423,7 @@ namespace QSP.UI.Views.FuelPlan.Route
 
             public void Subsribe()
             {
+                provider 
                 controller = new RouteFinderSelection(
                     Ident,
                     IsDepartureAirport,
@@ -501,6 +509,6 @@ namespace QSP.UI.Views.FuelPlan.Route
                     TerminalProcedure.Items.Clear();
                 }
             }
-        }
+        }*/
     }
 }

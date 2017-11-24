@@ -122,7 +122,7 @@ namespace QSP.UI.Presenters.FuelPlan.Route
             view.ShowFilter(p);
         }
 
-        public void InvokeIcaoChangedEvent(object s, EventArgs e) => IcaoChanged?.Invoke(s, e);
+        public void OnIcaoChanged(object s, EventArgs e) => IcaoChanged?.Invoke(s, e);
 
         public void RefreshForAirportListChange()
         {

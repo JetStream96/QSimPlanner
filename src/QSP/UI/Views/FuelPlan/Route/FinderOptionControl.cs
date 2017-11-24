@@ -154,7 +154,7 @@ namespace QSP.UI.Views.FuelPlan.Route
             filterBtn.Enabled = false;
 
             presenter.UpdateRunways();
-            presenter.InvokeIcaoChangedEvent(sender, e);
+            presenter.OnIcaoChanged(sender, e);
         }
 
         private void origRwyComboBox_SelectedIndexChanged(object sender, EventArgs e)
