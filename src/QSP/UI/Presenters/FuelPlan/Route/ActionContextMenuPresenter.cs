@@ -25,15 +25,15 @@ namespace QSP.UI.Presenters.FuelPlan.Route
         private ISupportActionContextMenu view;
         private Locator<AppOptions> appOptionsLocator;
         private AirwayNetwork airwayNetwork;
-        private ISelectedProcedureProvider origController;
-        private ISelectedProcedureProvider destController;
+        private ISelectedProcedureProvider origProvider;
+        private ISelectedProcedureProvider destProvider;
         private Locator<CountryCodeCollection> checkedCodesLocator;
         private Func<AvgWindCalculator> windCalcGetter;
 
         public FindAltnPresenter FindAltnPresenter(IFindAltnView altnView) =>
             new FindAltnPresenter(altnView, airwayNetwork.AirportList);
 
-        public string DestIcao => destController.Icao;
+        public string DestIcao => destProvider.Icao;
         private AppOptions AppSettings => appOptionsLocator.Instance;
         private AirportManager AirportList => airwayNetwork.AirportList;
 
@@ -43,16 +43,16 @@ namespace QSP.UI.Presenters.FuelPlan.Route
             ISupportActionContextMenu view,
             Locator<AppOptions> appOptionsLocator,
             AirwayNetwork airwayNetwork,
-            ISelectedProcedureProvider origController,
-            ISelectedProcedureProvider destController,
+            ISelectedProcedureProvider origProvider,
+            ISelectedProcedureProvider destProvider,
             Locator<CountryCodeCollection> checkedCodesLocator,
             Func<AvgWindCalculator> windCalcGetter)
         {
             this.view = view;
             this.appOptionsLocator = appOptionsLocator;
             this.airwayNetwork = airwayNetwork;
-            this.origController = origController;
-            this.destController = destController;
+            this.origProvider = origProvider;
+            this.destProvider = destProvider;
             this.checkedCodesLocator = checkedCodesLocator;
             this.windCalcGetter = windCalcGetter;
         }
@@ -72,8 +72,8 @@ namespace QSP.UI.Presenters.FuelPlan.Route
         [Throws]
         private void FindRoutePrivate()
         {
-            var orig = origController.Icao;
-            var dest = destController.Icao;
+            var orig = origProvider.Icao;
+            var dest = destProvider.Icao;
 
             if (AirportList[orig] == null)
             {
@@ -85,8 +85,8 @@ namespace QSP.UI.Presenters.FuelPlan.Route
                 throw new ArgumentException("Cannot find destination airport in Nav Data.");
             }
 
-            var sid = origController.GetSelectedProcedures();
-            var star = destController.GetSelectedProcedures();
+            var sid = origProvider.GetSelectedProcedures();
+            var star = destProvider.GetSelectedProcedures();
 
             var finder = new RouteFinderFacade(
                 airwayNetwork.WptList,
@@ -97,8 +97,8 @@ namespace QSP.UI.Presenters.FuelPlan.Route
 
             Route = new RouteGroup(
                 finder.FindRoute(
-                    orig, origController.Rwy, sid,
-                    dest, destController.Rwy, star),
+                    orig, origProvider.Rwy, sid,
+                    dest, destProvider.Rwy, star),
                 airwayNetwork.TracksInUse);
 
             ShowRouteTxt();
@@ -146,10 +146,10 @@ namespace QSP.UI.Presenters.FuelPlan.Route
 
                 var result = RouteAnalyzerFacade.AnalyzeWithCommands(
                         input,
-                        origController.Icao,
-                        origController.Rwy,
-                        destController.Icao,
-                        destController.Rwy,
+                        origProvider.Icao,
+                        origProvider.Rwy,
+                        destProvider.Icao,
+                        destProvider.Rwy,
                         AppSettings.NavDataLocation,
                         airwayNetwork.AirportList,
                         airwayNetwork.WptList);

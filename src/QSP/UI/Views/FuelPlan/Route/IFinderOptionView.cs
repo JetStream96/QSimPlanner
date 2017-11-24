@@ -1,4 +1,5 @@
-﻿using QSP.UI.Presenters.FuelPlan;
+﻿using QSP.UI.Models.FuelPlan;
+using QSP.UI.Presenters.FuelPlan;
 using System.Collections.Generic;
 
 namespace QSP.UI.Views.FuelPlan.Route
@@ -18,7 +19,7 @@ namespace QSP.UI.Views.FuelPlan.Route
 
         // There can be multiple or zero selected procedures. For example, when "AUTO" is selected,
         // every procedure is considered selected. When "NONE" is selected, the selection is empty.
-        IEnumerable< string> SelectedProcedures { get; }
+        SelectedProcedures SelectedProcedures { get; set; }
 
         void ShowFilter(SidStarFileterPresenter presenter);
     }

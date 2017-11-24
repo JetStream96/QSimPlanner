@@ -1,4 +1,5 @@
-﻿using QSP.UI.Controllers;
+﻿using QSP.UI.Models;
+using QSP.UI.Models.FuelPlan;
 using QSP.UI.Presenters.FuelPlan;
 using QSP.UI.Presenters.FuelPlan.Route;
 using QSP.UI.Util;
@@ -27,6 +28,15 @@ namespace QSP.UI.Views.FuelPlan.Route
             filterBtn.Enabled = false;
             this.presenter = presenter;
             this.messageDisplay = messageDisplay;
+
+            SetButtonColorStyle();
+        }
+
+        private void SetButtonColorStyle()
+        {
+            var style = ButtonColorStyle.Default;
+            var c = new ControlDisableStyleController(filterBtn, style);
+            c.Activate();
         }
 
         public bool IsOrigin
@@ -68,9 +78,46 @@ namespace QSP.UI.Views.FuelPlan.Route
             }
         }
 
-        public string SelectedRwy { get =>rwyComboBox.Text; set =>rwyComboBox.Text=value; }
+        public string SelectedRwy { get => rwyComboBox.Text; set => rwyComboBox.Text = value; }
 
-        public IEnumerable<string> SelectedProcedures => procComboBox.GetSelectedProcedures();
+        public SelectedProcedures SelectedProcedures
+        {
+            get
+            {
+                var c = procComboBox;
+
+                if (c.Text == FinderOptionPresenter.AutoProcedureTxt)
+                {
+                    return SelectedProcedures.Auto(c.Items.Cast<string>()
+                        .Where(s => s != FinderOptionPresenter.AutoProcedureTxt).ToList());
+                }
+
+                if (c.Text != FinderOptionPresenter.NoProcedureTxt)
+                {
+                    return SelectedProcedures.Selected(c.Text);
+                }
+
+                return SelectedProcedures.None;
+            }
+
+            set
+            {
+                var c = procComboBox;
+
+                if (value.IsAuto)
+                {
+                    c.Text = FinderOptionPresenter.AutoProcedureTxt;
+                }
+                else if (value.IsNone)
+                {
+                    c.Text = FinderOptionPresenter.NoProcedureTxt;
+                }
+                else if (value.Strings.Count == 1)
+                {
+                    c.Text = value.Strings[0];
+                }
+            }
+        }
 
         public void ShowMessage(string msg, MessageLevel lvl)
         {
@@ -107,6 +154,7 @@ namespace QSP.UI.Views.FuelPlan.Route
             filterBtn.Enabled = false;
 
             presenter.UpdateRunways();
+            presenter.InvokeIcaoChangedEvent(sender, e);
         }
 
         private void origRwyComboBox_SelectedIndexChanged(object sender, EventArgs e)

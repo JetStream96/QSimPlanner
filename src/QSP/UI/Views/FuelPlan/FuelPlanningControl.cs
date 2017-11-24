@@ -53,8 +53,11 @@ namespace QSP.UI.Views.FuelPlan
 
     public partial class FuelPlanningControl : UserControl, IRefreshForOptionChange,
         ISupportActionContextMenu
-        //, IFuelPlanningView,         
+    //, IFuelPlanningView,         
     {
+        public event EventHandler OrigIcaoChanged;
+        public event EventHandler DestIcaoChanged;
+
         private AirwayNetwork airwayNetwork;
         private Locator<AppOptions> appOptionsLocator;
         private ProcedureFilter procFilter;
@@ -62,9 +65,6 @@ namespace QSP.UI.Views.FuelPlan
         private Locator<CountryCodeManager> countryCodeLocator;
         private Locator<CountryCodeCollection> checkedCodesLocator;
 
-        private RouteFinderSelection origController;
-        private RouteFinderSelection destController;
-        private DestinationSidSelection destSidProvider;
         private AdvancedRouteTool advancedRouteTool;
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
@@ -72,8 +72,12 @@ namespace QSP.UI.Views.FuelPlan
         private ActionContextMenuPresenter routeActionMenuPresenter;
         private RouteOptionContextMenu routeOptionMenu;
         private MetarCache metarCache;
-        //   private ISupportActionContextMenu origMenu;
-        // private ISupportActionContextMenu destMenu;
+
+        public FinderOptionPresenter OrigPresenter { get; private set; }
+        public FinderOptionPresenter DestPresenter { get; private set; }
+
+        // For alternate calculations.
+        private DestinationSidSelection destSidProvider;
 
         public WeightController WeightControl { get; private set; }
         public WeightTextBoxController Extra { get; private set; }
@@ -96,17 +100,16 @@ namespace QSP.UI.Views.FuelPlan
 
         public event EventHandler AircraftRequestChanged;
 
-
         public WeightUnit WeightUnit
         {
             get => (WeightUnit)wtUnitComboBox.SelectedIndex;
 
             set => wtUnitComboBox.SelectedIndex = (int)value;
         }
-        
-        public string OrigIcao => origController.Icao;
-        public string DestIcao => destController.Icao;
-        
+
+        public string OrigIcao => OrigPresenter.Icao;
+        public string DestIcao => DestPresenter.Icao;
+
         private AirportManager AirportList => airwayNetwork.AirportList;
         private AppOptions AppOptions => appOptionsLocator.Instance;
         private RouteGroup RouteToDest => routeActionMenuPresenter.Route;
@@ -140,7 +143,7 @@ namespace QSP.UI.Views.FuelPlan
             checkedCodesLocator = new CountryCodeCollection().ToLocator();
 
             SetDefaultState();
-            SetOrigDestControllers();
+            SetOrigDestPresenters();
 
             AltnPresenter = new AlternatePresenter(
                 alternateControl, appOptionsLocator, airwayNetwork, windTableLocator,
@@ -152,7 +155,6 @@ namespace QSP.UI.Views.FuelPlan
             SetRouteActionControl();
             SetWeightController();
             SetAircraftSelection();
-            SetBtnColorStyles();
             AddMetarCacheEvents();
 
             wtUnitComboBox.SelectedIndex = 0;
@@ -185,25 +187,15 @@ namespace QSP.UI.Views.FuelPlan
                 }
             };
 
-            new[] { origTxtBox, destTxtBox }.ForEach(i =>
-            {
-                i.TextChanged += async (s, e) => await updateCache(Icao.TrimIcao(i.Text));
-            });
+            new[] { OrigPresenter, DestPresenter }.ForEach(i =>
+             {
+                 i.IcaoChanged += async (s, e) => await updateCache(i.Icao);
+             });
 
             AltnPresenter.AlternatesChanged += (s, e) =>
              {
                  AltnPresenter.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
              };
-        }
-
-        private void SetBtnColorStyles()
-        {
-            var style = ButtonColorStyle.Default;
-            var filterSidStyle = new ControlDisableStyleController(filterSidBtn, style);
-            var filterStarStyle = new ControlDisableStyleController(filterStarBtn, style);
-
-            filterSidStyle.Activate();
-            filterStarStyle.Activate();
         }
 
         private void SetRouteOptionControl()
@@ -223,8 +215,8 @@ namespace QSP.UI.Views.FuelPlan
                 this,
                 appOptionsLocator,
                 airwayNetwork,
-                origController,
-                destController,
+                OrigPresenter,
+                DestPresenter,
                 checkedCodesLocator,
                 () => GetWindCalculator()); // TODO: move this method
 
@@ -301,36 +293,29 @@ namespace QSP.UI.Views.FuelPlan
             }
         }
 
-        private void SetOrigDestControllers()
+        private void SetOrigDestPresenters()
         {
-            origController = new RouteFinderSelection(
-               origTxtBox,
-               true,
-               origRwyComboBox,
-               sidComboBox,
-               filterSidBtn,
-               this,
-               appOptionsLocator,
-               () => airwayNetwork.AirportList,
-               () => airwayNetwork.WptList,
-               procFilter);
-
-            destController = new RouteFinderSelection(
-                destTxtBox,
-                false,
-                destRwyComboBox,
-                starComboBox,
-                filterStarBtn,
-                this,
+            OrigPresenter = new FinderOptionPresenter(
+                origFinderOptionControl,
+                true,
                 appOptionsLocator,
-                () => airwayNetwork.AirportList,
+                () => AirportList,
                 () => airwayNetwork.WptList,
                 procFilter);
 
-            destSidProvider = new DestinationSidSelection(destController);
+            DestPresenter = new FinderOptionPresenter(
+                destFinderOptionControl,
+                false,
+                appOptionsLocator,
+                () => AirportList,
+                () => airwayNetwork.WptList,
+                procFilter);
 
-            origController.Subscribe();
-            destController.Subscribe();
+            destSidProvider = new DestinationSidSelection(airwayNetwork, appOptionsLocator,
+                DestPresenter);
+
+            OrigPresenter.IcaoChanged += (s, e) => OrigIcaoChanged?.Invoke(s, e);
+            DestPresenter.IcaoChanged += (s, e) => DestIcaoChanged?.Invoke(s, e);
         }
 
         private void WtUnitChanged(object sender, EventArgs e)
@@ -571,7 +556,7 @@ namespace QSP.UI.Views.FuelPlan
         private AvgWindCalculator GetWindCalculator()
         {
             return GetWindCalculator(AppOptions, windTableLocator, AirportList, GetFuelData(),
-                GetZfwTon(), origTxtBox.Text, destTxtBox.Text);
+                GetZfwTon(), OrigPresenter.Icao, DestPresenter.Icao);
         }
 
         /// <exception cref="InvalidOperationException"></exception>
@@ -639,15 +624,15 @@ namespace QSP.UI.Views.FuelPlan
 
         public void RefreshForAirportListChange()
         {
-            origController.RefreshRwyComboBox();
-            destController.RefreshRwyComboBox();
+            OrigPresenter.RefreshForAirportListChange();
+            DestPresenter.RefreshForAirportListChange();
             AltnPresenter.RefreshForAirportListChange();
         }
 
         public void RefreshForNavDataLocationChange()
         {
-            origController.RefreshProcedureComboBox();
-            destController.RefreshProcedureComboBox();
+            OrigPresenter.RefreshForNavDataLocationChange();
+            DestPresenter.RefreshForNavDataLocationChange();
             AltnPresenter.RefreshForNavDataLocationChange();
         }
 

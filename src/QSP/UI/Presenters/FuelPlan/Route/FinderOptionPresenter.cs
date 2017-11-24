@@ -6,10 +6,11 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.UI.Controllers;
+using QSP.UI.Models.FuelPlan;
+using QSP.UI.Views.FuelPlan.Route;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.UI.Views.FuelPlan.Route;
 
 namespace QSP.UI.Presenters.FuelPlan.Route
 {
@@ -17,8 +18,10 @@ namespace QSP.UI.Presenters.FuelPlan.Route
     // This class is responsible for the SID/STAR ComboBoxes, the filter button,
     // and the instantiation of the filter form.
     //
-    public class FinderOptionPresenter:ISelectedProcedureProvider
+    public class FinderOptionPresenter : ISelectedProcedureProvider, IRefreshForOptionChange
     {
+        public event EventHandler IcaoChanged;
+
         public static readonly string NoProcedureTxt = "NONE";
         public static readonly string AutoProcedureTxt = "AUTO";
 
@@ -54,8 +57,8 @@ namespace QSP.UI.Presenters.FuelPlan.Route
 
         public string Icao => view.Icao;
         public string Rwy => view.SelectedRwy;
-        public List<string> GetSelectedProcedures() => view.SelectedProcedures.ToList();
-        
+        public List<string> GetSelectedProcedures() => view.SelectedProcedures.Strings.ToList();
+
         public void UpdateRunways()
         {
             var rwyList = AirportList.RwyIdents(Icao)?.ToArray();
@@ -117,6 +120,22 @@ namespace QSP.UI.Presenters.FuelPlan.Route
                 ProcFilter);
 
             view.ShowFilter(p);
+        }
+
+        public void InvokeIcaoChangedEvent(object s, EventArgs e) => IcaoChanged?.Invoke(s, e);
+
+        public void RefreshForAirportListChange()
+        {
+            var rwy = view.SelectedRwy;
+            var proc = view.SelectedProcedures;
+            UpdateRunways();
+            view.SelectedRwy = rwy;
+            view.SelectedProcedures = proc;
+        }
+
+        public void RefreshForNavDataLocationChange()
+        {
+            RefreshForNavDataLocationChange();
         }
     }
 }

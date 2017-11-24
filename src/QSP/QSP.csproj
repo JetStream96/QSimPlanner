@@ -235,6 +235,7 @@
     <Compile Include="UI\Models\ButtonColorStyle.cs" />
     <Compile Include="UI\Models\FuelPlan\IRefreshForOptionChange.cs" />
     <Compile Include="UI\Models\FuelPlan\RouteDistanceDisplay.cs" />
+    <Compile Include="UI\Models\FuelPlan\SelectedProcedures.cs" />
     <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternatePresenter.cs" />
@@ -263,7 +264,6 @@
     <Compile Include="UI\Controllers\DestinationStarSelection.cs" />
     <Compile Include="UI\Controllers\ISelectedProcedureProvider.cs" />
     <Compile Include="UI\Util\ListViewSortEnabler.cs" />
-    <Compile Include="UI\Controllers\RouteFinderSelection.cs" />
     <Compile Include="UI\Util\ScrollBar\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />

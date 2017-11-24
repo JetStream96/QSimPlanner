@@ -340,8 +340,8 @@ namespace QSP.UI.Forms
 
             miscInfoPresenter = new MiscInfoPresenter(
                 miscInfoMenu, AirportList, windTableLocator, true,
-                () => fuelMenu.origTxtBox.Text.Trim().ToUpper(),
-                () => fuelMenu.destTxtBox.Text.Trim().ToUpper(),
+                () => fuelMenu.OrigIcao,
+                () => fuelMenu.DestIcao,
                 altnGetter);
 
             miscInfoMenu.Init(miscInfoPresenter);
@@ -349,24 +349,16 @@ namespace QSP.UI.Forms
 
         private void SubscribeEvents()
         {
-            var origTxtBox = fuelMenu.origTxtBox;
+            var m = miscInfoPresenter;
 
-            origTxtBox.TextChanged += (sender, e) =>
+            fuelMenu.OrigIcaoChanged += (sender, e) =>
+              {
+                  if (m != null) m.Orig = fuelMenu.OrigIcao;
+              };
+
+            fuelMenu.DestIcaoChanged += (sender, e) =>
             {
-                if (miscInfoPresenter != null)
-                {
-                    miscInfoPresenter.Orig = origTxtBox.Text.Trim().ToUpper();
-                }
-            };
-
-            var destTxtBox = fuelMenu.destTxtBox;
-
-            destTxtBox.TextChanged += (sender, e) =>
-            {
-                if (miscInfoPresenter != null)
-                {
-                    miscInfoPresenter.Dest = destTxtBox.Text.Trim().ToUpper();
-                }
+                if (m != null) m.Dest = fuelMenu.DestIcao;
             };
 
             EnableAirportRequests();
@@ -397,16 +389,16 @@ namespace QSP.UI.Forms
             toControl.reqAirportBtn.Visible = true;
             toControl.reqAirportBtn.Click += (s, e) =>
             {
-                toControl.airportTxtBox.Text = fuelMenu.origTxtBox.Text;
-                toControl.rwyComboBox.Text = fuelMenu.origRwyComboBox.Text;
+                toControl.airportTxtBox.Text = fuelMenu.OrigIcao;
+                toControl.rwyComboBox.Text = fuelMenu.OrigPresenter.Rwy;
             };
 
             var ldgControl = ldgMenu.airportInfoControl;
             ldgControl.reqAirportBtn.Visible = true;
             ldgControl.reqAirportBtn.Click += (s, e) =>
             {
-                ldgControl.airportTxtBox.Text = fuelMenu.destTxtBox.Text;
-                ldgControl.rwyComboBox.Text = fuelMenu.destRwyComboBox.Text;
+                ldgControl.airportTxtBox.Text = fuelMenu.DestIcao;
+                ldgControl.rwyComboBox.Text = fuelMenu.DestPresenter.Rwy;
             };
         }
 

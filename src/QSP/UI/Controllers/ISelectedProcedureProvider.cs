@@ -14,23 +14,4 @@ namespace QSP.UI.Controllers
         string Rwy { get; }
         List<string> GetSelectedProcedures();//TODO:Use IEnumerable instead?
     }
-
-    public static class ISelectedProcedureProviderHelper
-    {
-        public static IEnumerable<string> GetSelectedProcedures(this ComboBox c)
-        {
-            if (c.Text == FinderOptionPresenter.AutoProcedureTxt)
-            {
-                return c.Items.Cast<string>()
-                    .Where(s => s != FinderOptionPresenter.AutoProcedureTxt);
-            }
-
-            if (c.Text != FinderOptionPresenter.NoProcedureTxt)
-            {
-                return new[] { c.Text };
-            }
-
-            return new string[0];
-        }
-    }
 }

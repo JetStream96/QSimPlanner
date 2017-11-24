@@ -1,29 +1,39 @@
-﻿using QSP.RouteFinding.TerminalProcedures.Sid;
+﻿using QSP.Common.Options;
+using QSP.LibraryExtension;
+using QSP.RouteFinding.TerminalProcedures.Sid;
+using QSP.RouteFinding.Tracks;
+using QSP.UI.Presenters.FuelPlan.Route;
 using System.Collections.Generic;
 
 namespace QSP.UI.Controllers
 {
     public class DestinationSidSelection : ISelectedProcedureProvider
     {
-        private RouteFinderSelection destination;
+        private AirwayNetwork airwayNetwork;
+        private Locator<AppOptions> appOptions;
+        private FinderOptionPresenter presenter;
 
-        public DestinationSidSelection(RouteFinderSelection destination)
+        public DestinationSidSelection(AirwayNetwork airwayNetwork,
+            Locator<AppOptions> appOptions,
+            FinderOptionPresenter presenter)
         {
-            this.destination = destination;
+            this.airwayNetwork = airwayNetwork;
+            this.appOptions = appOptions;
+            this.presenter = presenter;
         }
 
-        public string Icao => destination.Icao;
+        public string Icao => presenter.Icao;
 
-        public string Rwy => destination.Rwy;
+        public string Rwy => presenter.Rwy;
 
         public List<string> GetSelectedProcedures()
         {
             return SidHandlerFactory.GetHandler(
                 Icao,
-                destination.NavDataLocation,
-                destination.WptList,
-                destination.WptList.GetEditor(),
-                destination.AirportList)
+                appOptions.Instance.NavDataLocation,
+                airwayNetwork.WptList,
+                airwayNetwork.WptList.GetEditor(),
+                airwayNetwork.AirportList)
                 .GetSidList(Rwy);
         }
     }
