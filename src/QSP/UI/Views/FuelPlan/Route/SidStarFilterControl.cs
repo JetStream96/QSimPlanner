@@ -16,7 +16,13 @@ namespace QSP.UI.Views.FuelPlan.Route
         private SidStarFileterPresenter presenter;
 
         public event EventHandler SelectionComplete;
-        public bool IsBlacklist { get; set; }
+
+        public bool IsBlacklist
+        {
+            get => listTypeComboBox.SelectedIndex == 0;
+            set => listTypeComboBox.SelectedIndex = (value ? 0 : 1);
+        }
+
         private List<ListViewItem> items;
 
         public IEnumerable<ProcedureEntry> SelectedProcedures =>
@@ -35,7 +41,7 @@ namespace QSP.UI.Views.FuelPlan.Route
 
             SetType();
             SetListView();
-            presenter.InitView();
+            InitAllProcedures(presenter.AllProcedures());
 
             showSelectedCheckBox.CheckedChanged += ShowSelectedCheckBoxChanged;
 
@@ -85,7 +91,7 @@ namespace QSP.UI.Views.FuelPlan.Route
             }
         }
 
-        public void InitAllProcedures(IEnumerable<ProcedureEntry> e)
+        private void InitAllProcedures(IEnumerable<ProcedureEntry> e)
         {
             items = e.Select(i => new ListViewItem(i.Name) { Checked = i.Ticked }).ToList();
             procListView.Items.Clear();

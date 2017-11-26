@@ -8,9 +8,7 @@ namespace QSP.UI.Views.FuelPlan.Route
         bool IsBlacklist { get; set; }
        
         IEnumerable<ProcedureEntry> SelectedProcedures { get; }
-
-        void InitAllProcedures(IEnumerable<ProcedureEntry> e);
-
+        
         /// <summary>
         /// Fires when the user completes the selection. E.g. when the selection form closes.
         /// </summary>

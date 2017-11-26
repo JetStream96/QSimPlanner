@@ -1,8 +1,8 @@
 ﻿using CommonLibrary.LibraryExtension;
 using QSP.RouteFinding.TerminalProcedures;
+using QSP.UI.Views.FuelPlan.Route;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.UI.Views.FuelPlan.Route;
 
 namespace QSP.UI.Presenters.FuelPlan
 {
@@ -32,22 +32,20 @@ namespace QSP.UI.Presenters.FuelPlan
             this.procFilter = procFilter;
         }
 
-        public void InitView()
+        public IEnumerable<ProcedureEntry> AllProcedures()
         {
             var entry = procFilter.TryGetEntry(icao, rwy);
             if (entry != null)
             {
                 view.IsBlacklist = entry.IsBlackList;
                 var ticked = entry.Procedures.ToHashSet();
-                var proc = procedures.Select(
-                    p => new ProcedureEntry() { Name = p, Ticked = ticked.Contains(p) });
-                view.InitAllProcedures(proc);
+                return procedures.Select(
+                     p => new ProcedureEntry() { Name = p, Ticked = ticked.Contains(p) });
             }
             else
             {
-                var proc = procedures.Select(p =>
+                return procedures.Select(p =>
                      new ProcedureEntry() { Name = p, Ticked = false });
-                view.InitAllProcedures(proc);
             }
         }
 
