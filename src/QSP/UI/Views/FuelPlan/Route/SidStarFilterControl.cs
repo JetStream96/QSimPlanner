@@ -14,32 +14,15 @@ namespace QSP.UI.Views.FuelPlan.Route
     public partial class SidStarFilterControl : UserControl, ISidStarFilterView
     {
         private SidStarFileterPresenter presenter;
-        private List<ListViewItem> items;
 
         public event EventHandler SelectionComplete;
         public bool IsBlacklist { get; set; }
+        private List<ListViewItem> items;
 
-        public IEnumerable<ProcedureEntry> Procedures
-        {
-            get => procListView.Items
-                .Cast<ListViewItem>()
-                .Select(lvi => new ProcedureEntry() {Name = lvi.Text, Ticked = lvi.Checked});
-
-            set
-            {
-                var items = procListView.Items;
-                items.Clear();
-
-                foreach (var i in value)
-                {
-                    var lvi = new ListViewItem(i.Name) { Checked = i.Ticked };
-                    items.Add(lvi);
-                }
-
-                this.items = items.Cast<ListViewItem>().ToList();
-                procListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            }
-        }
+        public IEnumerable<ProcedureEntry> SelectedProcedures =>
+            procListView.Items
+            .Cast<ListViewItem>()
+            .Select(lvi => new ProcedureEntry() { Name = lvi.Text, Ticked = lvi.Checked });
 
         public SidStarFilterControl()
         {
@@ -78,13 +61,14 @@ namespace QSP.UI.Views.FuelPlan.Route
 
         private void SetListView()
         {
+            procListView.Columns.Add(new ColumnHeader());
             procListView.Columns[0].Text = presenter.IsSid ? "SID" : "STAR";
             procListView.CheckBoxes = true;
         }
-        
+
         private void Filter(Func<ListViewItem, bool> predicate)
         {
-            var selected = items.Where(predicate).ToArray();
+            var selected = items.Cast<ListViewItem>().Where(predicate).ToArray();
             procListView.Items.Clear();
             procListView.Items.AddRange(selected);
         }
@@ -99,6 +83,14 @@ namespace QSP.UI.Views.FuelPlan.Route
             {
                 Filter(i => true);
             }
+        }
+
+        public void InitAllProcedures(IEnumerable<ProcedureEntry> e)
+        {
+            items = e.Select(i => new ListViewItem(i.Name) { Checked = i.Ticked }).ToList();
+            procListView.Items.Clear();
+            procListView.Items.AddRange(items.ToArray());
+            procListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
     }
 }

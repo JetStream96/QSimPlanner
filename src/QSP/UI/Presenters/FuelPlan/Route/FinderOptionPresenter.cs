@@ -70,6 +70,7 @@ namespace QSP.UI.Presenters.FuelPlan.Route
             if (rwyList != null && rwyList.Length > 0)
             {
                 view.Runways = rwyList;
+                view.SelectedRwy = rwyList[0];
             }
         }
 

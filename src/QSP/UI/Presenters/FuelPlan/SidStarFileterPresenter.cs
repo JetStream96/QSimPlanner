@@ -39,18 +39,20 @@ namespace QSP.UI.Presenters.FuelPlan
             {
                 view.IsBlacklist = entry.IsBlackList;
                 var ticked = entry.Procedures.ToHashSet();
-                view.Procedures = procedures.Select(
+                var proc = procedures.Select(
                     p => new ProcedureEntry() { Name = p, Ticked = ticked.Contains(p) });
+                view.InitAllProcedures(proc);
             }
             else
             {
-                view.Procedures = procedures.Select(p =>
-                    new ProcedureEntry() { Name = p, Ticked = false });
+                var proc = procedures.Select(p =>
+                     new ProcedureEntry() { Name = p, Ticked = false });
+                view.InitAllProcedures(proc);
             }
         }
 
         private IEnumerable<string> GetSelectedProcedures() =>
-            view.Procedures.Where(p => p.Ticked).Select(p => p.Name);
+            view.SelectedProcedures.Where(p => p.Ticked).Select(p => p.Name);
 
         /// <summary>
         /// Update the procedure filter.

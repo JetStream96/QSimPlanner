@@ -318,6 +318,8 @@ namespace QSP.UI.Views.FuelPlan
 
             OrigPresenter.IcaoChanged += (s, e) => OrigIcaoChanged?.Invoke(s, e);
             DestPresenter.IcaoChanged += (s, e) => DestIcaoChanged?.Invoke(s, e);
+            origFinderOptionControl.Init(OrigPresenter, this);
+            destFinderOptionControl.Init(DestPresenter, this);
         }
 
         private void WtUnitChanged(object sender, EventArgs e)
