@@ -111,12 +111,15 @@ namespace InstallerBuilder
 
             info.UseShellExecute = false;
             info.FileName = GetMsbuildPath();
-            info.Arguments = $"{projectFile} /p:Configuration=Release " +
-                $"/p:OutputPath={Path.GetFullPath(outputFolder)}";
+            info.Arguments = $"\"{EscapeBackslash(Path.GetFullPath(projectFile))}\" " +
+                "/p:Configuration=Release " +
+                $"/p:OutputPath=\"{EscapeBackslash(Path.GetFullPath(outputFolder))}\"";
 
             var process = Process.Start(info);
             process.WaitForExit();
         }
+
+        private static string EscapeBackslash(string s) => s.Replace(@"\", @"\\");
 
         private static string GetMsbuildPath()
         {
