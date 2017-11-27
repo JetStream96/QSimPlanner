@@ -8,7 +8,7 @@ namespace QSP.UI.Presenters.FuelPlan
 {
     public class SidStarFileterPresenter
     {
-        private ISidStarFilterView view;
+        public ISidStarFilterView View { get; private set; }
 
         public bool IsSid { get; private set; }
         private string icao;
@@ -24,7 +24,7 @@ namespace QSP.UI.Presenters.FuelPlan
             bool isSid,
             ProcedureFilter procFilter)
         {
-            this.view = view;
+            this.View = view;
             this.icao = icao;
             this.rwy = rwy;
             this.procedures = procedures;
@@ -32,25 +32,26 @@ namespace QSP.UI.Presenters.FuelPlan
             this.procFilter = procFilter;
         }
 
-        public IEnumerable<ProcedureEntry> AllProcedures()
+        public (bool isBlacklist, IEnumerable<ProcedureEntry> e) AllProcedures()
         {
             var entry = procFilter.TryGetEntry(icao, rwy);
             if (entry != null)
             {
-                view.IsBlacklist = entry.IsBlackList;
                 var ticked = entry.Procedures.ToHashSet();
-                return procedures.Select(
-                     p => new ProcedureEntry() { Name = p, Ticked = ticked.Contains(p) });
+                var proc = procedures.Select(p =>
+                      new ProcedureEntry() { Name = p, Ticked = ticked.Contains(p) });
+                return (entry.IsBlackList, proc);
             }
             else
             {
-                return procedures.Select(p =>
+                var proc= procedures.Select(p =>
                      new ProcedureEntry() { Name = p, Ticked = false });
+                return (true, proc);
             }
         }
 
         private IEnumerable<string> GetSelectedProcedures() =>
-            view.SelectedProcedures.Where(p => p.Ticked).Select(p => p.Name);
+            View.SelectedProcedures().Where(p => p.Ticked).Select(p => p.Name);
 
         /// <summary>
         /// Update the procedure filter.
@@ -58,7 +59,7 @@ namespace QSP.UI.Presenters.FuelPlan
         public void UpdateFilter()
         {
             procFilter[icao, rwy] = new FilterEntry(
-                view.IsBlacklist,
+                View.IsBlacklist,
                 GetSelectedProcedures().ToList());
         }
     }

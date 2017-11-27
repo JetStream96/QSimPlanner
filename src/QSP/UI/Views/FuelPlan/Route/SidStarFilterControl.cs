@@ -14,6 +14,7 @@ namespace QSP.UI.Views.FuelPlan.Route
     public partial class SidStarFilterControl : UserControl, ISidStarFilterView
     {
         private SidStarFileterPresenter presenter;
+        private List<ListViewItem> items;
 
         public event EventHandler SelectionComplete;
 
@@ -23,12 +24,13 @@ namespace QSP.UI.Views.FuelPlan.Route
             set => listTypeComboBox.SelectedIndex = (value ? 0 : 1);
         }
 
-        private List<ListViewItem> items;
-
-        public IEnumerable<ProcedureEntry> SelectedProcedures =>
-            procListView.Items
-            .Cast<ListViewItem>()
-            .Select(lvi => new ProcedureEntry() { Name = lvi.Text, Ticked = lvi.Checked });
+        public IEnumerable<ProcedureEntry> SelectedProcedures()
+        {
+            return procListView.Items
+                .Cast<ListViewItem>()
+                .Where(lvi => lvi.Checked)
+                .Select(lvi => new ProcedureEntry() { Name = lvi.Text, Ticked = lvi.Checked });
+        }
 
         public SidStarFilterControl()
         {
@@ -67,8 +69,8 @@ namespace QSP.UI.Views.FuelPlan.Route
 
         private void SetListView()
         {
-            procListView.Columns.Add(new ColumnHeader());
-            procListView.Columns[0].Text = presenter.IsSid ? "SID" : "STAR";
+            //procListView.Columns.Add(new ColumnHeader());
+            //procListView.Columns[0].Text = presenter.IsSid ? "SID" : "STAR";
             procListView.CheckBoxes = true;
         }
 
@@ -91,9 +93,11 @@ namespace QSP.UI.Views.FuelPlan.Route
             }
         }
 
-        private void InitAllProcedures(IEnumerable<ProcedureEntry> e)
+        private void InitAllProcedures((bool, IEnumerable<ProcedureEntry>) p)
         {
-            items = e.Select(i => new ListViewItem(i.Name) { Checked = i.Ticked }).ToList();
+            var (isBlacklist, entries) = p;
+            this.IsBlacklist = isBlacklist;
+            items = entries.Select(i => new ListViewItem(i.Name) { Checked = i.Ticked }).ToList();
             procListView.Items.Clear();
             procListView.Items.AddRange(items.ToArray());
             procListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);

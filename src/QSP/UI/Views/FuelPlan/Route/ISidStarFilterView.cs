@@ -6,8 +6,8 @@ namespace QSP.UI.Views.FuelPlan.Route
     public interface ISidStarFilterView
     {
         bool IsBlacklist { get; set; }
-       
-        IEnumerable<ProcedureEntry> SelectedProcedures { get; }
+
+        IEnumerable<ProcedureEntry> SelectedProcedures();// { get; }
         
         /// <summary>
         /// Fires when the user completes the selection. E.g. when the selection form closes.

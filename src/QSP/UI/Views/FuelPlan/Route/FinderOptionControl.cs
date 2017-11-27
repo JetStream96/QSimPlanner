@@ -131,20 +131,23 @@ namespace QSP.UI.Views.FuelPlan.Route
 
         public void ShowFilter(SidStarFileterPresenter p)
         {
-            var filter = new SidStarFilterControl();
-            filter.Init(p);
-            filter.Location = new Point(0, 0);
+            // TODO: this is temporary
+
+            var filter = (SidStarFilterControl)p.View;
 
             using (var frm = FormFactory.GetForm(filter.Size))
             {
+                filter.Location = new Point(0, 0);
                 frm.Controls.Add(filter);
 
-                filter.SelectionComplete += (_s, _e) =>
+                filter.Init(p);
+
+                filter.SelectionComplete += (s, e) =>
                 {
                     frm.Close();
 
                     var selected = SelectedRwy;
-                    IcaoChanged(this, EventArgs.Empty);
+                    IcaoChanged(s, e);
                     SelectedRwy = selected;
                 };
 
