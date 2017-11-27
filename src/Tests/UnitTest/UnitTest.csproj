@@ -147,6 +147,7 @@
     <Compile Include="RouteFinding\Routes\RouteTest.cs" />
     <Compile Include="RouteFinding\RwyIdentTest.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Parser\SectionSplitterTest.cs" />
+    <Compile Include="RouteFinding\TerminalProcedures\ProcedureFilterTest.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidAdderTest.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidCollectionTest.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Sid\SidReaderTest.cs" />
