@@ -85,8 +85,8 @@ namespace QSP.UI.Presenters.FuelPlan.Route
                 throw new ArgumentException("Cannot find destination airport in Nav Data.");
             }
 
-            var sid = origProvider.GetSelectedProcedures();
-            var star = destProvider.GetSelectedProcedures();
+            var sid = origProvider.GetSelectedProcedures().ToList();
+            var star = destProvider.GetSelectedProcedures().ToList();
 
             var finder = new RouteFinderFacade(
                 airwayNetwork.WptList,

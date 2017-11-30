@@ -84,7 +84,7 @@ namespace QSP.UI.Views.FuelPlan
         }
 
         [Throws]
-        public List<string> GetSelectedProcedures() => Presenter.GetAllProcedures();
+        public IEnumerable<string> GetSelectedProcedures() => Presenter.GetAllProcedures();
 
         private void IcaoTxtBox_TextChanged(object sender, EventArgs e)
         {

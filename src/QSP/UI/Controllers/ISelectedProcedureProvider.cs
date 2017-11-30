@@ -1,7 +1,4 @@
-﻿using QSP.UI.Presenters.FuelPlan.Route;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System.Collections.Generic;
 
 namespace QSP.UI.Controllers
 {
@@ -12,6 +9,6 @@ namespace QSP.UI.Controllers
     {
         string Icao { get; }
         string Rwy { get; }
-        List<string> GetSelectedProcedures();//TODO:Use IEnumerable instead?
+        IEnumerable<string> GetSelectedProcedures();
     }
 }

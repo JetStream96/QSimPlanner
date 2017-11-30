@@ -1,6 +1,5 @@
 ﻿using QSP.UI.Models;
 using QSP.UI.Models.FuelPlan;
-using QSP.UI.Presenters.FuelPlan;
 using QSP.UI.Presenters.FuelPlan.Route;
 using QSP.UI.Util;
 using QSP.UI.Views.Factories;

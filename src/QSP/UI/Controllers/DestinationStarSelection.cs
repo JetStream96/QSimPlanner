@@ -26,7 +26,7 @@ namespace QSP.UI.Controllers
 
         public string Rwy => presenter.Rwy;
 
-        public List<string> GetSelectedProcedures()
+        public IEnumerable<string> GetSelectedProcedures()
         {
             return SidHandlerFactory.GetHandler(
                 Icao,
