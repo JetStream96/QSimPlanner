@@ -48,7 +48,7 @@ namespace UnitTest.RouteFinding.TerminalProcedures
             var entry = f["ABCD", "08R", true];
             Assert.IsFalse(entry.IsBlackList);
             Assert.AreEqual(1, entry.Procedures.Count);
-            Assert.IsTrue(entry.Procedures.Contains("SID1"));
+            Assert.IsTrue(entry.Procedures.Contains("SID0"));
         }
 
         [Test]
