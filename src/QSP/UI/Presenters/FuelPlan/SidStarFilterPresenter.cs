@@ -6,6 +6,10 @@ using System.Linq;
 
 namespace QSP.UI.Presenters.FuelPlan
 {
+    // It's important to note that some procedures in the ProcedureFilter may not exist 
+    // because user just changed the NavData version after starting the program. The implementation
+    // of this presenter and its corresponding views must handle this situation.
+
     public class SidStarFilterPresenter
     {
         public ISidStarFilterView View { get; private set; }
