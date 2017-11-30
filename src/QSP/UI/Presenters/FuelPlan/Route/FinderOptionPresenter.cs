@@ -109,8 +109,8 @@ namespace QSP.UI.Presenters.FuelPlan.Route
 
         private bool ShouldShow(string proc)
         {
-            if (!ProcFilter.Exists(Icao, Rwy)) return true;
-            var info = ProcFilter[Icao, Rwy];
+            if (!ProcFilter.Exists(Icao, Rwy, IsDepartureAirport)) return true;
+            var info = ProcFilter[Icao, Rwy, IsDepartureAirport];
             return info.Procedures.Contains(proc) ^ info.IsBlackList;
         }
         

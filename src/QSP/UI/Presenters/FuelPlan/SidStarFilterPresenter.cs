@@ -34,7 +34,7 @@ namespace QSP.UI.Presenters.FuelPlan
 
         public (bool isBlacklist, IEnumerable<ProcedureEntry> e) AllProcedures()
         {
-            var entry = procFilter.TryGetEntry(icao, rwy);
+            var entry = procFilter.TryGetEntry(icao, rwy, IsSid);
             if (entry != null)
             {
                 var ticked = entry.Procedures.ToHashSet();
@@ -58,9 +58,10 @@ namespace QSP.UI.Presenters.FuelPlan
         /// </summary>
         public void UpdateFilter()
         {
-            procFilter[icao, rwy] = new FilterEntry(
+            procFilter[icao, rwy, IsSid] = new FilterEntry(
                 View.IsBlacklist,
-                GetSelectedProcedures().ToList());
+                GetSelectedProcedures().ToList(),
+                IsSid);
         }
     }
 }

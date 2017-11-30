@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using CommonLibrary.Attributes;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.TerminalProcedures
 {
     // TODO: Add test.
-    // TODO: Does this work with SID AND STAR?
 
     // Represents the SIDs/STARs that are blacklisted or whitelisted by the user.
     //
@@ -13,35 +13,41 @@ namespace QSP.RouteFinding.TerminalProcedures
 
         public ProcedureFilter() { }
 
-        public FilterEntry this[string icao, string rwy]
+        public FilterEntry this[string icao, string rwy, bool isSid]
         {
             set
             {
-                var key = (icao + rwy).ToUpper();
+                var key = ToKey(icao, rwy, isSid);
                 items.Remove(key);
                 items.Add(key, value);
             }
-
+            
+            [Throws]
             get
             {
-                var key = (icao + rwy).ToUpper();
+                var key = ToKey(icao, rwy, isSid);
                 return items[key];
             }
         }
 
-        public bool Exists(string icao, string rwy)
+        public bool Exists(string icao, string rwy, bool isSid)
         {
-            return items.ContainsKey((icao + rwy).ToUpper());
+            return items.ContainsKey(ToKey(icao, rwy, isSid));
         }
 
         /// <summary>
         /// Returns null if cannot find entry.
         /// </summary>
-        public FilterEntry TryGetEntry(string icao, string rwy)
+        public FilterEntry TryGetEntry(string icao, string rwy, bool isSid)
         {
-            var key = (icao + rwy).ToUpper();
+            var key = ToKey(icao, rwy, isSid);
             if (items.TryGetValue(key, out var val)) return val;
             return null;
+        }
+
+        private static string ToKey(string icao, string rwy, bool isSid)
+        {
+            return (icao + rwy + (isSid ? "0" : "1")).ToUpper();
         }
     }
 
@@ -49,11 +55,13 @@ namespace QSP.RouteFinding.TerminalProcedures
     {
         public bool IsBlackList { get; }
         public IReadOnlyList<string> Procedures { get; }
+        public bool IsSid { get; }
 
-        public FilterEntry(bool IsBlackList, IReadOnlyList<string> Procedures)
+        public FilterEntry(bool IsBlackList, IReadOnlyList<string> Procedures, bool IsSid)
         {
             this.IsBlackList = IsBlackList;
             this.Procedures = Procedures;
+            this.IsSid = IsSid;
         }
     }
 }
