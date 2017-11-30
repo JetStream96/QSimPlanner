@@ -129,11 +129,10 @@ namespace QSP.UI.Views.FuelPlan.Route
             messageDisplay.ShowMessage(msg, lvl);
         }
 
-        public void ShowFilter(SidStarFileterPresenter p)
+        private void ShowFilter()
         {
-            // TODO: this is temporary
-
-            var filter = (SidStarFilterControl)p.View;
+            var filter = new SidStarFilterControl();
+            var p = presenter.GetFilterPresenter(filter);
 
             using (var frm = FormFactory.GetForm(filter.Size))
             {
@@ -154,7 +153,7 @@ namespace QSP.UI.Views.FuelPlan.Route
                 frm.ShowDialog();
             }
         }
-
+        
         private void IcaoChanged(object sender, EventArgs e)
         {
             Runways = new string[0];
@@ -173,7 +172,7 @@ namespace QSP.UI.Views.FuelPlan.Route
 
         private void filterBtn_Click(object sender, EventArgs e)
         {
-            presenter.ShowFilter(new SidStarFilterControl());
+            ShowFilter();
         }
     }
 }

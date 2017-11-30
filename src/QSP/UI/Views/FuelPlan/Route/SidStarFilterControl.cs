@@ -13,7 +13,7 @@ namespace QSP.UI.Views.FuelPlan.Route
     //
     public partial class SidStarFilterControl : UserControl, ISidStarFilterView
     {
-        private SidStarFileterPresenter presenter;
+        private SidStarFilterPresenter presenter;
         private List<ListViewItem> items;
 
         public event EventHandler SelectionComplete;
@@ -37,7 +37,7 @@ namespace QSP.UI.Views.FuelPlan.Route
             InitializeComponent();
         }
 
-        public void Init(SidStarFileterPresenter presenter)
+        public void Init(SidStarFilterPresenter presenter)
         {
             this.presenter = presenter;
 
@@ -69,8 +69,6 @@ namespace QSP.UI.Views.FuelPlan.Route
 
         private void SetListView()
         {
-            //procListView.Columns.Add(new ColumnHeader());
-            //procListView.Columns[0].Text = presenter.IsSid ? "SID" : "STAR";
             procListView.CheckBoxes = true;
         }
 

@@ -113,18 +113,16 @@ namespace QSP.UI.Presenters.FuelPlan.Route
             var info = ProcFilter[Icao, Rwy];
             return info.Procedures.Contains(proc) ^ info.IsBlackList;
         }
-
-        public void ShowFilter(ISidStarFilterView v)
+        
+        public SidStarFilterPresenter GetFilterPresenter(ISidStarFilterView v)
         {
-            var p = new SidStarFileterPresenter(
+            return new SidStarFilterPresenter(
                 v,
                 Icao,
                 Rwy,
                 AvailableProcedures,
                 IsDepartureAirport,
                 ProcFilter);
-
-            view.ShowFilter(p);
         }
 
         public void OnIcaoChanged(object s, EventArgs e) => IcaoChanged?.Invoke(s, e);

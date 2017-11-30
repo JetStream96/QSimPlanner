@@ -239,7 +239,7 @@
     <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternatePresenter.cs" />
-    <Compile Include="UI\Presenters\FuelPlan\SidStarFileterPresenter.cs" />
+    <Compile Include="UI\Presenters\FuelPlan\SidStarFilterPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\Route\ActionContextMenuPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\Route\FinderOptionPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\AirportMapPresenter.cs" />

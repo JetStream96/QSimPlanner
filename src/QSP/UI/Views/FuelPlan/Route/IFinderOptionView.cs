@@ -22,8 +22,6 @@ namespace QSP.UI.Views.FuelPlan.Route
         SelectedProcedures SelectedProcedures { get; set; }
 
         // Can be "NONE" or "AUTO".
-        string SelectedProcedureText { get; set; }
-
-        void ShowFilter(SidStarFileterPresenter presenter);
+        string SelectedProcedureText { get; set; }        
     }
 }

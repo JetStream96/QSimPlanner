@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace QSP.UI.Presenters.FuelPlan
 {
-    public class SidStarFileterPresenter
+    public class SidStarFilterPresenter
     {
         public ISidStarFilterView View { get; private set; }
 
@@ -16,7 +16,7 @@ namespace QSP.UI.Presenters.FuelPlan
         private List<string> procedures;
         private ProcedureFilter procFilter;
 
-        public SidStarFileterPresenter(
+        public SidStarFilterPresenter(
             ISidStarFilterView view,
             string icao,
             string rwy,
