@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 namespace QSP.RouteFinding.TerminalProcedures
 {
-    // TODO: Add test.
-
     // Represents the SIDs/STARs that are blacklisted or whitelisted by the user.
     //
     public class ProcedureFilter
