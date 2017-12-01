@@ -31,6 +31,7 @@ namespace QSP.UI.Views.FuelPlan
             removeAltnBtn.Enabled = false;
             SetBtnColorStyles(ButtonColorStyle.Default);
             presenter.AddRow();
+            UpdateRemoveBtnEnabled();
         }
 
         /// <summary>
@@ -59,14 +60,19 @@ namespace QSP.UI.Views.FuelPlan
         private void addAltnBtn_Click(object sender, EventArgs e)
         {
             presenter.AddRow();
+            UpdateRemoveBtnEnabled();
         }
 
         /// <exception cref="InvalidOperationException"></exception>
         private void removeAltnBtn_Click(object sender, EventArgs e)
         {
             presenter.RemoveLastRow();
+            layoutPanel.Controls.Remove(
+                layoutPanel.GetControlFromPosition(0, layoutPanel.RowCount - 2));
             layoutPanel.RowCount--;
-            removeAltnBtn.Enabled = presenter.RowCount > 1;
+            UpdateRemoveBtnEnabled();
         }
+
+        private void UpdateRemoveBtnEnabled() => removeAltnBtn.Enabled = presenter.RowCount > 1;
     }
 }
