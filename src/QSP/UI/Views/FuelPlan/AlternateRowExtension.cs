@@ -1,6 +1,4 @@
-﻿using CommonLibrary.LibraryExtension;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace QSP.UI.Views.FuelPlan
 {
@@ -10,19 +8,10 @@ namespace QSP.UI.Views.FuelPlan
             this AlternateRowControl row, TableLayoutPanel altnLayoutPanel)
         {
             altnLayoutPanel.RowCount += 1;
-            MoveRowsDown(altnLayoutPanel);
-            altnLayoutPanel.Controls.Add(row, 0, altnLayoutPanel.RowCount - 2);
+            altnLayoutPanel.Controls.Add(row, 0, altnLayoutPanel.RowCount - 1);
             SetRowSizes(altnLayoutPanel);
         }
-
-        private static void MoveRowsDown(TableLayoutPanel panel)
-        {
-            var addRemoveBtns = panel.Controls.Cast<Control>()
-                .Where(c => panel.GetRow(c) == panel.RowCount - 2);
-
-            addRemoveBtns.ForEach(i => panel.SetRow(i, panel.RowCount - 1));
-        }
-
+        
         private static void SetRowSizes(TableLayoutPanel panel)
         {
             var styles = panel.RowStyles;

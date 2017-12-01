@@ -14,8 +14,7 @@ namespace QSP.UI.Views.FuelPlan
         private AlternatePresenter presenter;
 
         public IEnumerable<IAlternateRowView> Views =>
-            // Skip the last row, which is a layout panel with buttons.
-            Enumerable.Range(0, layoutPanel.RowCount - 1)  
+            Enumerable.Range(0, layoutPanel.RowCount)  
                       .Select(i => layoutPanel.GetControlFromPosition(0, i))
                       .Cast<IAlternateRowView>();
 
@@ -68,7 +67,7 @@ namespace QSP.UI.Views.FuelPlan
         {
             presenter.RemoveLastRow();
             layoutPanel.Controls.Remove(
-                layoutPanel.GetControlFromPosition(0, layoutPanel.RowCount - 2));
+                layoutPanel.GetControlFromPosition(0, layoutPanel.RowCount - 1));
             layoutPanel.RowCount--;
             UpdateRemoveBtnEnabled();
         }
