@@ -5,11 +5,18 @@ namespace QSP.UI.Views.FuelPlan
     public static class AlternateRowExtension
     {
         public static void AddToLayoutPanel(
-            this AlternateRowControl row, TableLayoutPanel altnLayoutPanel)
+            this AlternateRowControl row, TableLayoutPanel p)
         {
-            altnLayoutPanel.RowCount += 1;
-            altnLayoutPanel.Controls.Add(row, 0, altnLayoutPanel.RowCount - 1);
-            SetRowSizes(altnLayoutPanel);
+            if (!(p.RowCount == 1 && p.Controls.Count == 0))
+            {
+                // Before initialization finished, p has one row but no AltenateRowControl
+                // is added to p.
+
+                p.RowCount += 1;
+            }
+
+            p.Controls.Add(row, 0, p.RowCount - 1);
+            SetRowSizes(p);
         }
         
         private static void SetRowSizes(TableLayoutPanel panel)

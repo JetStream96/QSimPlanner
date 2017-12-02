@@ -249,6 +249,7 @@
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\FuelPlanningPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternateRowPresenter.cs" />
+    <Compile Include="UI\Util\ControlDrawing.cs" />
     <Compile Include="UI\Views\FuelPlan\AlternateControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

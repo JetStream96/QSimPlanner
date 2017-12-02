@@ -35,7 +35,7 @@ namespace QSP.UI.Presenters.FuelPlan
         /// Fires when the collection of alternates changes.
         public event EventHandler AlternatesChanged;
 
-        public int RowCount => view.Views.Count();
+        public int RowCount => view.Subviews.Count();
 
         public IEnumerable<RouteGroup> Routes => rowPresenters.Select(p => p.Route);
 
@@ -44,7 +44,7 @@ namespace QSP.UI.Presenters.FuelPlan
         /// </summary>
         public IEnumerable<string> Alternates
         {
-            get => view.Views.Select(v => v.Icao);
+            get => view.Subviews.Select(v => v.Icao);
         }
 
         public AlternatePresenter(
@@ -85,9 +85,8 @@ namespace QSP.UI.Presenters.FuelPlan
                 windCalcGetter);
         }
 
-        public void AddRow()
+        public void SubsribeRowEventHandlers(IAlternateRowView row)
         {
-            var row = view.AddRow();
             row.IcaoChanged += (s, e) => AlternatesChanged?.Invoke(s, e);
             rowPresenters.Add(row.Presenter);
             AlternatesChanged?.Invoke(this, EventArgs.Empty);
@@ -118,7 +117,7 @@ namespace QSP.UI.Presenters.FuelPlan
             // Set number of alternates
             while (RowCount < alternates.Count)
             {
-                AddRow();
+                view.AddRow();
             }
 
             for (int i = 0; i < alternates.Count; i++)
