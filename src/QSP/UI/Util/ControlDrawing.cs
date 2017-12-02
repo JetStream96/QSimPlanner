@@ -22,6 +22,10 @@ namespace QSP.UI.Util
             c.Refresh();
         }
 
+        /// <summary>
+        /// The built-in SuspendDrawing and ResumeDrawing methods for Winform controls
+        /// does not entirely suspend re-drawing. Use this method instead.
+        /// </summary>
         public static void SuspendDrawingWhen(this Control c, Action a)
         {
             SuspendDrawing(c);
