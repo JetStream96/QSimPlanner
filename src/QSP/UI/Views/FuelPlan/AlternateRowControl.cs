@@ -1,12 +1,12 @@
 ﻿using CommonLibrary.Attributes;
 using QSP.UI.Presenters.FuelPlan;
 using QSP.UI.Util;
+using QSP.UI.Views.FuelPlan.Route;
+using QSP.UI.Views.FuelPlan.Route.Actions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using QSP.UI.Views.FuelPlan.Route;
-using QSP.UI.Views.FuelPlan.Route.Actions;
 using static CommonLibrary.AviationTools.Icao;
 using Routes = QSP.RouteFinding.Routes;
 
@@ -54,7 +54,7 @@ namespace QSP.UI.Views.FuelPlan
         public void Init(AlternateRowPresenter presenter, Form parentForm)
         {
             ActionContextMenuView = new ActionContextMenu();
-
+            ActionContextMenuView.Init(presenter.ContextMenuPresenter);
             this.Presenter = presenter;
             this.parentForm = parentForm;
         }
@@ -90,6 +90,11 @@ namespace QSP.UI.Views.FuelPlan
         {
             Presenter.UpdateRunways();
             IcaoChanged.Invoke(sender, e);
+        }
+
+        private void ActionBtn_Click(object sender, EventArgs e)
+        {
+            ActionContextMenuView.Show();
         }
     }
 }

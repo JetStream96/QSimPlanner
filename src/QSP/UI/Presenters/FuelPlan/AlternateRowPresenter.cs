@@ -21,9 +21,9 @@ namespace QSP.UI.Presenters.FuelPlan
     public class AlternateRowPresenter: IRefreshForOptionChange
     {
         public IAlternateRowView View { get; private set; }
+        public ActionContextMenuPresenter ContextMenuPresenter { get; private set; }
 
         private Locator<AppOptions> appOptions;
-        private ActionContextMenuPresenter contextMenuPresenter;
         private AirwayNetwork airwayNetwork;
         private ISelectedProcedureProvider destController;
 
@@ -31,7 +31,7 @@ namespace QSP.UI.Presenters.FuelPlan
             new FindAltnPresenter(altnView, airwayNetwork.AirportList);
 
         public string DestIcao => destController.Icao;
-        public RouteGroup Route => contextMenuPresenter.Route;
+        public RouteGroup Route => ContextMenuPresenter.Route;
 
         [Throws]
         public List<string> GetAllProcedures()
@@ -57,7 +57,7 @@ namespace QSP.UI.Presenters.FuelPlan
         {
             this.View = view;
 
-            contextMenuPresenter = new ActionContextMenuPresenter(
+            ContextMenuPresenter = new ActionContextMenuPresenter(
                 view,
                 appOptionsLocator,
                 airwayNetwork,
@@ -71,11 +71,11 @@ namespace QSP.UI.Presenters.FuelPlan
             this.destController = destController;
         }
         
-        public void FindRoute() => contextMenuPresenter.FindRoute();
-        public void ExportRouteFiles() => contextMenuPresenter.ExportRouteFiles();
-        public void AnalyzeRoute() => contextMenuPresenter.AnalyzeRoute();
-        public void ShowMap() => contextMenuPresenter.ShowMap();
-        public void ShowMapBrowser() => contextMenuPresenter.ShowMapBrowser();
+        public void FindRoute() => ContextMenuPresenter.FindRoute();
+        public void ExportRouteFiles() => ContextMenuPresenter.ExportRouteFiles();
+        public void AnalyzeRoute() => ContextMenuPresenter.AnalyzeRoute();
+        public void ShowMap() => ContextMenuPresenter.ShowMap();
+        public void ShowMapBrowser() => ContextMenuPresenter.ShowMapBrowser();
 
         public void UpdateRunways()
         {

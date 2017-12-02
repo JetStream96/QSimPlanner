@@ -85,6 +85,7 @@
             this.ActionBtn.TabIndex = 7;
             this.ActionBtn.Text = "Actions";
             this.ActionBtn.UseVisualStyleBackColor = false;
+            this.ActionBtn.Click += new System.EventHandler(this.ActionBtn_Click);
             // 
             // DisLbl
             // 
