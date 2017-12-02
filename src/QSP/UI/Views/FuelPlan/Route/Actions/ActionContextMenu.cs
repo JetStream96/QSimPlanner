@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using QSP.UI.Presenters.FuelPlan.Route;
+using System.Windows.Forms;
 
 namespace QSP.UI.Views.FuelPlan.Route.Actions
 {
@@ -16,6 +17,15 @@ namespace QSP.UI.Views.FuelPlan.Route.Actions
         public ActionContextMenu() : base()
         {
             InitControls();
+        }
+
+        public void Init(ActionContextMenuPresenter p)
+        {
+            FindToolStripMenuItem.Click += (s,e)=>p.FindRoute();
+            AnalyzeToolStripMenuItem.Click += (s, e) => p.AnalyzeRoute();
+            MapToolStripMenuItem.Click += (s, e) => p.ShowMap();
+            MapInBrowserToolStripMenuItem.Click += (s, e) => p.ShowMap();
+            ExportToolStripMenuItem.Click += (s, e) => p.ExportRouteFiles();
         }
 
         private void InitControls()

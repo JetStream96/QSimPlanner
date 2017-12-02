@@ -114,8 +114,12 @@ namespace QSP.UI.Views.FuelPlan
         private AppOptions AppOptions => appOptionsLocator.Instance;
         private RouteGroup RouteToDest => routeActionMenuPresenter.Route;
 
-        public string DistanceInfo { set => throw new NotImplementedException(); }
-        public string Route { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string DistanceInfo { set => routeDisLbl.Text = value; }
+
+        public string Route
+        {
+            get => mainRouteRichTxtBox.Text; set => mainRouteRichTxtBox.Text = value;
+        }
 
         public FuelPlanningControl()
         {
@@ -152,7 +156,7 @@ namespace QSP.UI.Views.FuelPlan
 
 
             SetRouteOptionControl();
-            SetRouteActionControl();
+            SetRouteActionMenu();
             SetWeightController();
             SetAircraftSelection();
             AddMetarCacheEvents();
@@ -209,10 +213,8 @@ namespace QSP.UI.Views.FuelPlan
                 routeOptionMenu.Show(routeOptionBtn, new Point(0, routeOptionBtn.Height));
         }
 
-        private void SetRouteActionControl()
+        private void SetRouteActionMenu()
         {
-            routeActionMenu = new ActionContextMenu();
-
             routeActionMenuPresenter = new ActionContextMenuPresenter(
                 this,
                 appOptionsLocator,
@@ -222,13 +224,16 @@ namespace QSP.UI.Views.FuelPlan
                 checkedCodesLocator,
                 () => GetWindCalculator()); // TODO: move this method
 
+            routeActionMenu = new ActionContextMenu();
+            routeActionMenu.Init(routeActionMenuPresenter);
+
             showRouteActionsBtn.Click += (s, e) =>
                routeActionMenu.Show(showRouteActionsBtn, new Point(0, showRouteActionsBtn.Height));
         }
 
         public void OnWptListChanged()
         {
-          /*  advancedRouteTool.OnWptListChanged();*/
+            /*  advancedRouteTool.OnWptListChanged();*/
         }
 
         private void SubscribeEventHandlers()
