@@ -17,7 +17,6 @@ namespace QSP.UI.Views.FuelPlan
     {
         public AlternateRowPresenter Presenter { get; private set; }
         public ActionContextMenu ActionContextMenuView { get; private set; }
-        private Form parentForm;
 
         public event EventHandler IcaoChanged;
         public string Icao { get => TrimIcao(IcaoTxtBox.Text); set => IcaoTxtBox.Text = value; }
@@ -33,17 +32,17 @@ namespace QSP.UI.Views.FuelPlan
 
         public string Rwy { get => RwyComboBox.Text; set => RwyComboBox.Text = value; }
 
-        public void ShowMessage(string s, MessageLevel lvl) => parentForm.ShowMessage(s, lvl);
+        public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
 
         // TODO: Why not use default ParentForm?
         public void ShowMap(Routes.Route route)
         {
-            ShowMapHelper.ShowMap(route, parentForm.Size, parentForm);
+            ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm);
         }
 
         public void ShowMapBrowser(Routes.Route route)
         {
-            ShowMapHelper.ShowMap(route, parentForm.Size, parentForm, true, true);
+            ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm, true, true);
         }
 
         public AlternateRowControl()
@@ -51,24 +50,11 @@ namespace QSP.UI.Views.FuelPlan
             InitializeComponent();
         }
 
-        public void Init(AlternateRowPresenter presenter, Form parentForm)
+        public void Init(AlternateRowPresenter presenter)
         {
             ActionContextMenuView = new ActionContextMenu();
             ActionContextMenuView.Init(presenter.ContextMenuPresenter);
             this.Presenter = presenter;
-            this.parentForm = parentForm;
-        }
-
-        private void SubscribeActionMenuEvents()
-        {
-            var a = ActionContextMenuView;
-            a.FindToolStripMenuItem.Click += (s, e) => Presenter.FindRoute();
-            a.AnalyzeToolStripMenuItem.Click += (s, e) => Presenter.AnalyzeRoute();
-            a.ExportToolStripMenuItem.Click += (s, e) => Presenter.ExportRouteFiles();
-            a.MapToolStripMenuItem.Click += (s, e) => Presenter.ShowMap();
-            a.MapInBrowserToolStripMenuItem.Click += (s, e) => Presenter.ShowMapBrowser();
-
-            ActionBtn.Click += (s, e) => a.Show(ActionBtn, new Point(-100, 30));
         }
 
         private void FindBtnClick(object sender, EventArgs e)
@@ -94,7 +80,7 @@ namespace QSP.UI.Views.FuelPlan
 
         private void ActionBtn_Click(object sender, EventArgs e)
         {
-            ActionContextMenuView.Show();
+            ActionContextMenuView.Show(ActionBtn, new Point(0, ActionBtn.Height));
         }
     }
 }

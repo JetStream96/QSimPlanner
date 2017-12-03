@@ -39,7 +39,7 @@ namespace QSP.UI.Views.FuelPlan
         {
             var v = new AlternateRowControl();
             var p = presenter.GetRowPresenter(v);
-            v.Init(p, ParentForm);
+            v.Init(p);
             v.AddToLayoutPanel(layoutPanel);
             presenter.SubsribeRowEventHandlers(v);
             UpdateRemoveBtnEnabled();

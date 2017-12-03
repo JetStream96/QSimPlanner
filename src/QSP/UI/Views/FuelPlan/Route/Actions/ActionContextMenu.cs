@@ -21,10 +21,10 @@ namespace QSP.UI.Views.FuelPlan.Route.Actions
 
         public void Init(ActionContextMenuPresenter p)
         {
-            FindToolStripMenuItem.Click += (s,e)=>p.FindRoute();
+            FindToolStripMenuItem.Click += (s, e) => p.FindRoute();
             AnalyzeToolStripMenuItem.Click += (s, e) => p.AnalyzeRoute();
             MapToolStripMenuItem.Click += (s, e) => p.ShowMap();
-            MapInBrowserToolStripMenuItem.Click += (s, e) => p.ShowMap();
+            MapInBrowserToolStripMenuItem.Click += (s, e) => p.ShowMapBrowser();
             ExportToolStripMenuItem.Click += (s, e) => p.ExportRouteFiles();
         }
 
