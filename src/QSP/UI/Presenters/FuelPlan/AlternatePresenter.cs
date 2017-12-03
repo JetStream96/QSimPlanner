@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace QSP.UI.Presenters.FuelPlan
 {
-    public class AlternatePresenter : IRefreshForOptionChange
+    public class AlternatePresenter : IRefreshForNavDataChange
     {
         private IAlternateView view;
         private List<AlternateRowPresenter> rowPresenters = new List<AlternateRowPresenter>();
@@ -99,15 +99,10 @@ namespace QSP.UI.Presenters.FuelPlan
             rowPresenters.RemoveAt(RowCount - 1);
             AlternatesChanged?.Invoke(this, EventArgs.Empty);
         }
-
-        public void RefreshForAirportListChange()
+        
+        public void OnNavDataChange()
         {
-            rowPresenters.ForEach(r => r.RefreshForAirportListChange());
-        }
-
-        public void RefreshForNavDataLocationChange()
-        {
-            rowPresenters.ForEach(r => r.RefreshForNavDataLocationChange());
+            rowPresenters.ForEach(r => r.OnNavDataChange());
         }
 
         public void SetAlternates(IList<(string icao, string rwy)> alternates)

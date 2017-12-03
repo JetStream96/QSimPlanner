@@ -51,7 +51,7 @@ namespace QSP.UI.Views.FuelPlan
     // The implementation of ISupportActionContextMenu is used to support the actions 
     // for the route from origin to destination.
 
-    public partial class FuelPlanningControl : UserControl, IRefreshForOptionChange,
+    public partial class FuelPlanningControl : UserControl, IRefreshForNavDataChange,
         ISupportActionContextMenu
     //, IFuelPlanningView,         
     {
@@ -630,19 +630,12 @@ namespace QSP.UI.Views.FuelPlan
 
             return new AvgWindCalculator(windTableLocator.Instance, tas, alt);
         }
-
-        public void RefreshForAirportListChange()
+        
+        public void OnNavDataChange()
         {
-            OrigPresenter.RefreshForAirportListChange();
-            DestPresenter.RefreshForAirportListChange();
-            AltnPresenter.RefreshForAirportListChange();
-        }
-
-        public void RefreshForNavDataLocationChange()
-        {
-            OrigPresenter.RefreshForNavDataLocationChange();
-            DestPresenter.RefreshForNavDataLocationChange();
-            AltnPresenter.RefreshForNavDataLocationChange();
+            OrigPresenter.OnNavDataChange();
+            DestPresenter.OnNavDataChange();
+            AltnPresenter.OnNavDataChange();
         }
 
         public void ShowMap(RouteFinding.Routes.Route route) =>

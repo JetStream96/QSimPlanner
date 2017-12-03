@@ -136,8 +136,9 @@ namespace QSP.UI.Forms
                appOptionsLocator,
                updater);
 
-            optionsForm.NavDataLocationChanged += (s, e) =>
-                fuelMenu.RefreshForNavDataLocationChange();
+            // TODO: Is this really needed? airwayNetwork.AirportListChanged gets called 
+            // when option changes as well ...
+            optionsForm.NavDataLocationChanged += (s, e) => fuelMenu.OnNavDataChange();
         }
 
         private void ShowOptionsForm(
@@ -313,7 +314,7 @@ namespace QSP.UI.Forms
 
             airwayNetwork.AirportListChanged += (s, e) =>
             {
-                fuelMenu.RefreshForAirportListChange();
+                fuelMenu.OnNavDataChange();
                 toMenu.Airports = AirportList;
                 ldgMenu.Airports = AirportList;
                 miscInfoPresenter.AirportList = AirportList;

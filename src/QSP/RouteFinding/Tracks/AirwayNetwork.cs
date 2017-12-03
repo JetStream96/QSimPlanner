@@ -85,7 +85,7 @@ namespace QSP.RouteFinding.Tracks
         }
 
         /// <summary>
-        /// Use this method when wptList and airportList are entirely change (probably
+        /// Use this method when wptList and airportList are entirely changed (probably
         /// due to loading a different nav data). The downloaded tracks will be reparsed
         /// and added to the wptList if the specific track system was enabled.
         /// </summary>

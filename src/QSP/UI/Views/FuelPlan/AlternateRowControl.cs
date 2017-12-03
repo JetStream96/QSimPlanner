@@ -12,7 +12,6 @@ using Routes = QSP.RouteFinding.Routes;
 
 namespace QSP.UI.Views.FuelPlan
 {
-    // TODO: is there need to dispose context menu?
     public partial class AlternateRowControl : UserControl, IAlternateRowView
     {
         public AlternateRowPresenter Presenter { get; private set; }
@@ -34,7 +33,6 @@ namespace QSP.UI.Views.FuelPlan
 
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
 
-        // TODO: Why not use default ParentForm?
         public void ShowMap(Routes.Route route)
         {
             ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm);
@@ -82,5 +80,20 @@ namespace QSP.UI.Views.FuelPlan
         {
             ActionContextMenuView.Show(ActionBtn, new Point(0, ActionBtn.Height));
         }
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+                ActionContextMenuView.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
     }
 }

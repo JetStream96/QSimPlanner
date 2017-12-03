@@ -18,7 +18,7 @@ using QSP.UI.Views.FuelPlan.Route;
 
 namespace QSP.UI.Presenters.FuelPlan
 {
-    public class AlternateRowPresenter: IRefreshForOptionChange
+    public class AlternateRowPresenter: IRefreshForNavDataChange
     {
         public IAlternateRowView View { get; private set; }
         public ActionContextMenuPresenter ContextMenuPresenter { get; private set; }
@@ -83,17 +83,12 @@ namespace QSP.UI.Presenters.FuelPlan
             if (airport == null) return;
             View.RunwayList = airport.Rwys.Select(r => r.RwyIdent);
         }
-
-        public void RefreshForAirportListChange()
+        
+        public void OnNavDataChange()
         {
             var rwy = View.Rwy;
             UpdateRunways();
-            View.Rwy=rwy;
-        }
-
-        public void RefreshForNavDataLocationChange()
-        {
-            RefreshForAirportListChange();
+            View.Rwy = rwy;
         }
     }
 }

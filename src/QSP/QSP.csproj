@@ -233,7 +233,7 @@
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
     <Compile Include="TOPerfCalculation\FindTable.cs" />
     <Compile Include="UI\Models\ButtonColorStyle.cs" />
-    <Compile Include="UI\Models\FuelPlan\IRefreshForOptionChange.cs" />
+    <Compile Include="UI\Models\FuelPlan\IRefreshForNavDataChange.cs" />
     <Compile Include="UI\Models\FuelPlan\RouteDistanceDisplay.cs" />
     <Compile Include="UI\Models\FuelPlan\SelectedProcedures.cs" />
     <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />

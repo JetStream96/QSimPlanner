@@ -18,7 +18,7 @@ namespace QSP.UI.Presenters.FuelPlan.Route
     // This class is responsible for the SID/STAR ComboBoxes, the filter button,
     // and the instantiation of the filter form.
     //
-    public class FinderOptionPresenter : ISelectedProcedureProvider, IRefreshForOptionChange
+    public class FinderOptionPresenter : ISelectedProcedureProvider, IRefreshForNavDataChange
     {
         public event EventHandler IcaoChanged;
 
@@ -126,19 +126,14 @@ namespace QSP.UI.Presenters.FuelPlan.Route
         }
 
         public void OnIcaoChanged(object s, EventArgs e) => IcaoChanged?.Invoke(s, e);
-
-        public void RefreshForAirportListChange()
+        
+        public void OnNavDataChange()
         {
             var rwy = view.SelectedRwy;
             var proc = view.SelectedProcedures;
             UpdateRunways();
             view.SelectedRwy = rwy;
             view.SelectedProcedures = proc;
-        }
-
-        public void RefreshForNavDataLocationChange()
-        {
-            RefreshForNavDataLocationChange();
         }
     }
 }

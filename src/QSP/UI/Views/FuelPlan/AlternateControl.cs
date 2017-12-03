@@ -62,9 +62,11 @@ namespace QSP.UI.Views.FuelPlan
             Parent.SuspendDrawingWhen(() =>
             {
                 presenter.RemoveLastRow();
-                layoutPanel.Controls.Remove(
-                    layoutPanel.GetControlFromPosition(0, layoutPanel.RowCount - 1));
+
+                var row = layoutPanel.GetControlFromPosition(0, layoutPanel.RowCount - 1);
+                layoutPanel.Controls.Remove(row);
                 layoutPanel.RowCount--;
+                row.Dispose();
                 UpdateRemoveBtnEnabled();
             });
         }
