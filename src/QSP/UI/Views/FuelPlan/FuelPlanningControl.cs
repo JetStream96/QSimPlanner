@@ -74,8 +74,8 @@ namespace QSP.UI.Views.FuelPlan
         private RouteOptionContextMenu routeOptionMenu;
         private MetarCache metarCache;
 
-        public FinderOptionPresenter OrigPresenter { get; private set; }
-        public FinderOptionPresenter DestPresenter { get; private set; }
+        public FinderOptionPresenter OrigPresenter => origFinderOptionControl.Presenter;
+        public FinderOptionPresenter DestPresenter => destFinderOptionControl.Presenter;
 
         // For alternate calculations.
         private DestinationSidSelection destSidProvider;
@@ -320,10 +320,10 @@ namespace QSP.UI.Views.FuelPlan
             destSidProvider = new DestinationSidSelection(airwayNetwork, appOptionsLocator,
                 DestPresenter);
 
-            OrigPresenter.IcaoChanged += (s, e) => OrigIcaoChanged?.Invoke(s, e);
-            DestPresenter.IcaoChanged += (s, e) => DestIcaoChanged?.Invoke(s, e);
             origFinderOptionControl.Init(origModel, this);
             destFinderOptionControl.Init(destModel, this);
+            OrigPresenter.IcaoChanged += (s, e) => OrigIcaoChanged?.Invoke(s, e);
+            DestPresenter.IcaoChanged += (s, e) => DestIcaoChanged?.Invoke(s, e);
         }
 
         private void WtUnitChanged(object sender, EventArgs e)

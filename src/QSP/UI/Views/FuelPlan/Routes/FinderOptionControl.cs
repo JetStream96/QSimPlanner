@@ -16,7 +16,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
     public partial class FinderOptionControl : UserControl, IFinderOptionView
     {
         private IMessageDisplay messageDisplay;
-        private FinderOptionPresenter presenter;
+        public FinderOptionPresenter Presenter { get; private set; }
 
         public FinderOptionControl()
         {
@@ -25,7 +25,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
         public void Init(IFinderOptionModel model, IMessageDisplay messageDisplay)
         {
-            presenter = new FinderOptionPresenter(this, model);
+            Presenter = new FinderOptionPresenter(this, model);
             this.messageDisplay = messageDisplay;
             filterBtn.Enabled = false;
 
@@ -132,7 +132,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
         private void ShowFilter()
         {
             var filter = new SidStarFilterControl();
-            var p = presenter.GetFilterPresenter(filter);
+            var p = Presenter.GetFilterPresenter(filter);
 
             using (var frm = FormFactory.GetForm(filter.Size))
             {
@@ -160,14 +160,14 @@ namespace QSP.UI.Views.FuelPlan.Routes
             Procedures = new string[0];
             filterBtn.Enabled = false;
 
-            presenter.UpdateRunways();
-            presenter.OnIcaoChanged(sender, e);
+            Presenter.UpdateRunways();
+            Presenter.OnIcaoChanged(sender, e);
         }
 
         private void origRwyComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             filterBtn.Enabled = false;
-            presenter.UpdateProcedures();
+            Presenter.UpdateProcedures();
         }
 
         private void filterBtn_Click(object sender, EventArgs e)

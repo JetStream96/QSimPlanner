@@ -34,10 +34,10 @@
             this.finderOptionControl = new QSP.UI.Views.FuelPlan.Routes.FinderOptionControl();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.identTxtBox = new System.Windows.Forms.TextBox();
             this.wptComboBox = new QSP.UI.Views.ComboBoxWithBorder();
             this.label2 = new System.Windows.Forms.Label();
             this.fromIdentLbl = new System.Windows.Forms.Label();
-            this.identTxtBox = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -140,6 +140,18 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(312, 46);
             this.tableLayoutPanel3.TabIndex = 31;
             // 
+            // identTxtBox
+            // 
+            this.identTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.identTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.identTxtBox.Location = new System.Drawing.Point(2, 17);
+            this.identTxtBox.Margin = new System.Windows.Forms.Padding(2);
+            this.identTxtBox.Name = "identTxtBox";
+            this.identTxtBox.Size = new System.Drawing.Size(74, 26);
+            this.identTxtBox.TabIndex = 21;
+            this.identTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.identTxtBox.TextChanged += new System.EventHandler(this.identTxtBox_TextChanged);
+            // 
             // wptComboBox
             // 
             this.wptComboBox.BorderColor = System.Drawing.Color.DimGray;
@@ -176,18 +188,7 @@
             this.fromIdentLbl.TabIndex = 20;
             this.fromIdentLbl.Text = "Ident";
             // 
-            // identTxtBox
-            // 
-            this.identTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.identTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.identTxtBox.Location = new System.Drawing.Point(2, 17);
-            this.identTxtBox.Margin = new System.Windows.Forms.Padding(2);
-            this.identTxtBox.Name = "identTxtBox";
-            this.identTxtBox.Size = new System.Drawing.Size(74, 26);
-            this.identTxtBox.TabIndex = 21;
-            this.identTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // AdvancedRouteOptionRow
+            // AdvancedToolRow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -195,7 +196,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Controls.Add(this.tableLayoutPanel2);
-            this.Name = "AdvancedRouteOptionRow";
+            this.Name = "AdvancedToolRow";
             this.Size = new System.Drawing.Size(787, 59);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

@@ -1,4 +1,5 @@
-﻿using QSP.UI.Views;
+﻿using QSP.UI.Models.FuelPlan.Routes;
+using QSP.UI.Views;
 using QSP.UI.Views.FuelPlan.Routes;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,13 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
     public class AdvancedToolRowPresenter
     {
         private IAdvancedRouteRowView view;
+        private FinderOptionModel model;
 
-        public AdvancedToolRowPresenter(
-            IAdvancedRouteRowView view,
-            FinderOptionPresenter finderPresenter,
-            IMessageDisplay display,
-            bool isDeparture)
+        public AdvancedToolRowPresenter(IAdvancedRouteRowView view, FinderOptionModel model)
         {
             this.view = view;
+            this.model = model;
         }
+        
     }
 }

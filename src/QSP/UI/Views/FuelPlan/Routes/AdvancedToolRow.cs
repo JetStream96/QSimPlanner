@@ -8,25 +8,48 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QSP.UI.Presenters.FuelPlan.Routes;
+using QSP.UI.Models.FuelPlan.Routes;
 
 namespace QSP.UI.Views.FuelPlan.Routes
 {
     public partial class AdvancedToolRow : UserControl, IAdvancedRouteRowView
     {
+        private FinderOptionModel model;
+
         public AdvancedToolRow()
         {
             InitializeComponent();
         }
 
-        public void Init(
-            FinderOptionPresenter finderPresenter,
-            IMessageDisplay display,
-            bool isDeparture)
+        public void Init(FinderOptionModel model, IMessageDisplay display)
         {
-            finderOptionControl.Init(finderPresenter, display);
-            finderOptionControl.IsOrigin = isDeparture;
+            this.model = model;
+            var p = new FinderOptionPresenter(finderOptionControl, model);
+            finderOptionControl.Init(model, display);
+        }
 
+        public void OnNavDataChange()
+        {
+            finderOptionControl.Presenter.OnNavDataChange();
+            RefreshWptListCBox();
+        }
 
+        private void RefreshWptListCBox()
+        {
+            var items = wptComboBox.Items;
+            items.Clear();
+            var wptList = model.WptList();
+            var indices = wptList.FindAllById(identTxtBox.Text);
+            if (indices.Count == 0) return;
+
+            items.AddRange(indices.Select(i =>
+            {
+                var wpt = wptList[i];
+                return "LAT/" + wpt.Lat.ToString("F4") +
+                  "  LON/" + wpt.Lon.ToString("F4");
+            }).ToArray());
+
+            wptComboBox.SelectedIndex = 0;
         }
 
         private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -35,6 +58,11 @@ namespace QSP.UI.Views.FuelPlan.Routes
             finderOptionControl.Enabled = isAirport;
             identTxtBox.Enabled = !isAirport;
             wptComboBox.Enabled = !isAirport;
+        }
+
+        private void identTxtBox_TextChanged(object sender, EventArgs e)
+        {
+            RefreshWptListCBox();
         }
     }
 }
