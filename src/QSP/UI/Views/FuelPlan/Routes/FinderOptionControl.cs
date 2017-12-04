@@ -1,6 +1,7 @@
 ﻿using QSP.UI.Models;
 using QSP.UI.Models.FuelPlan;
-using QSP.UI.Presenters.FuelPlan.Route;
+using QSP.UI.Models.FuelPlan.Routes;
+using QSP.UI.Presenters.FuelPlan.Routes;
 using QSP.UI.Util;
 using QSP.UI.Views.Factories;
 using System;
@@ -10,7 +11,7 @@ using System.Linq;
 using System.Windows.Forms;
 using static CommonLibrary.AviationTools.Icao;
 
-namespace QSP.UI.Views.FuelPlan.Route
+namespace QSP.UI.Views.FuelPlan.Routes
 {
     public partial class FinderOptionControl : UserControl, IFinderOptionView
     {
@@ -22,11 +23,11 @@ namespace QSP.UI.Views.FuelPlan.Route
             InitializeComponent();
         }
 
-        public void Init(FinderOptionPresenter presenter, IMessageDisplay messageDisplay)
+        public void Init(IFinderOptionModel model, IMessageDisplay messageDisplay)
         {
-            filterBtn.Enabled = false;
-            this.presenter = presenter;
+            presenter = new FinderOptionPresenter(this, model);
             this.messageDisplay = messageDisplay;
+            filterBtn.Enabled = false;
 
             SetButtonColorStyle();
         }

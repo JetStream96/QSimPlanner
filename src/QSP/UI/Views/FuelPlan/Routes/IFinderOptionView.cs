@@ -2,7 +2,7 @@
 using QSP.UI.Presenters.FuelPlan;
 using System.Collections.Generic;
 
-namespace QSP.UI.Views.FuelPlan.Route
+namespace QSP.UI.Views.FuelPlan.Routes
 {
     public interface IFinderOptionView : IMessageDisplay
     {

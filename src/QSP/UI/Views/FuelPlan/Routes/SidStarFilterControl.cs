@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace QSP.UI.Views.FuelPlan.Route
+namespace QSP.UI.Views.FuelPlan.Routes
 {
     // Load the ProcedureFilter, and let user choose the settings.
     // Then ProcedureFilter is modified.

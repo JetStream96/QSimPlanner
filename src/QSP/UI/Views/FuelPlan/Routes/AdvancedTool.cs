@@ -14,7 +14,7 @@ using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Models.FuelPlan;
 using QSP.UI.Util;
-using QSP.UI.Views.FuelPlan.Route.Actions;
+using QSP.UI.Views.FuelPlan.Routes.Actions;
 using QSP.WindAloft;
 using System;
 using System.Data;
@@ -24,9 +24,9 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static QSP.UI.Views.Factories.ToolTipFactory;
 
-namespace QSP.UI.Views.FuelPlan.Route
+namespace QSP.UI.Views.FuelPlan.Routes
 {
-    public partial class AdvancedRouteTool : UserControl
+    public partial class AdvancedTool : UserControl
     {
         /*
         private ControlGroup fromGroup;
@@ -46,17 +46,13 @@ namespace QSP.UI.Views.FuelPlan.Route
         private AirportManager airportList => airwayNetwork.AirportList;
         private TrackInUseCollection tracksInUse => airwayNetwork.TracksInUse;
         */
-        public AdvancedRouteTool()
+
+        public AdvancedTool()
         {
             InitializeComponent();
         }
-
-
-        // TODO: Rewrite this class.
-
-        /*
         
-
+        /*
         public void Init(
             Locator<AppOptions> appOptionsLocator,
             AirwayNetwork airwayNetwork,
@@ -375,7 +371,7 @@ namespace QSP.UI.Views.FuelPlan.Route
 
         private class ControlGroup
         {
-            public AdvancedRouteTool owner;
+            public AdvancedTool owner;
             public ComboBox TypeSelection;
             public Label IdentLbl;
             public TextBox Ident;
@@ -392,7 +388,7 @@ namespace QSP.UI.Views.FuelPlan.Route
             public ISelectedProcedureProvider provider;
 
             public ControlGroup(
-                AdvancedRouteTool owner,
+                AdvancedTool owner,
                 ComboBox TypeSelection,
                 Label IdentLbl,
                 TextBox Ident,

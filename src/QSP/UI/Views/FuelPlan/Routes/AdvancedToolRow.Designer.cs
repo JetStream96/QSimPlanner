@@ -1,6 +1,6 @@
-﻿namespace QSP.UI.Views.FuelPlan.Route
+﻿namespace QSP.UI.Views.FuelPlan.Routes
 {
-    partial class AdvancedRouteOptionRow
+    partial class AdvancedToolRow
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
             this.typeComboBox = new QSP.UI.Views.ComboBoxWithBorder();
-            this.finderOptionControl = new QSP.UI.Views.FuelPlan.Route.FinderOptionControl();
+            this.label1 = new System.Windows.Forms.Label();
+            this.finderOptionControl = new QSP.UI.Views.FuelPlan.Routes.FinderOptionControl();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
             this.wptComboBox = new QSP.UI.Views.ComboBoxWithBorder();
+            this.label2 = new System.Windows.Forms.Label();
+            this.fromIdentLbl = new System.Windows.Forms.Label();
+            this.identTxtBox = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -58,6 +60,24 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(100, 46);
             this.tableLayoutPanel1.TabIndex = 28;
             // 
+            // typeComboBox
+            // 
+            this.typeComboBox.BorderColor = System.Drawing.Color.DimGray;
+            this.typeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.typeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.typeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.typeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.typeComboBox.FormattingEnabled = true;
+            this.typeComboBox.Items.AddRange(new object[] {
+            "Airport",
+            "Waypoint"});
+            this.typeComboBox.Location = new System.Drawing.Point(2, 17);
+            this.typeComboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.typeComboBox.Name = "typeComboBox";
+            this.typeComboBox.Size = new System.Drawing.Size(96, 27);
+            this.typeComboBox.TabIndex = 2;
+            this.typeComboBox.SelectedIndexChanged += new System.EventHandler(this.typeComboBox_SelectedIndexChanged);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -69,27 +89,15 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "From";
             // 
-            // typeComboBox
-            // 
-            this.typeComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.typeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.typeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.typeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.typeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.typeComboBox.FormattingEnabled = true;
-            this.typeComboBox.Location = new System.Drawing.Point(2, 17);
-            this.typeComboBox.Margin = new System.Windows.Forms.Padding(2);
-            this.typeComboBox.Name = "typeComboBox";
-            this.typeComboBox.Size = new System.Drawing.Size(96, 27);
-            this.typeComboBox.TabIndex = 2;
-            // 
             // finderOptionControl
             // 
             this.finderOptionControl.AutoSize = true;
             this.finderOptionControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.finderOptionControl.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.finderOptionControl.Icao = "";
             this.finderOptionControl.Location = new System.Drawing.Point(109, 3);
             this.finderOptionControl.Name = "finderOptionControl";
+            this.finderOptionControl.SelectedProcedureText = "";
             this.finderOptionControl.SelectedRwy = "";
             this.finderOptionControl.Size = new System.Drawing.Size(354, 50);
             this.finderOptionControl.TabIndex = 29;
@@ -110,36 +118,27 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(706, 56);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(784, 56);
             this.tableLayoutPanel2.TabIndex = 30;
             // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.AutoSize = true;
             this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Controls.Add(this.wptComboBox, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.identTxtBox, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.wptComboBox, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label2, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.fromIdentLbl, 0, 0);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(469, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(234, 46);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(312, 46);
             this.tableLayoutPanel3.TabIndex = 31;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(2, 0);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 15);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Waypoint";
             // 
             // wptComboBox
             // 
@@ -149,11 +148,44 @@
             this.wptComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.wptComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wptComboBox.FormattingEnabled = true;
-            this.wptComboBox.Location = new System.Drawing.Point(2, 17);
+            this.wptComboBox.Location = new System.Drawing.Point(80, 17);
             this.wptComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.wptComboBox.Name = "wptComboBox";
             this.wptComboBox.Size = new System.Drawing.Size(230, 27);
             this.wptComboBox.TabIndex = 6;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(80, 0);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(58, 15);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Waypoint";
+            // 
+            // fromIdentLbl
+            // 
+            this.fromIdentLbl.AutoSize = true;
+            this.fromIdentLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fromIdentLbl.Location = new System.Drawing.Point(2, 0);
+            this.fromIdentLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.fromIdentLbl.Name = "fromIdentLbl";
+            this.fromIdentLbl.Size = new System.Drawing.Size(34, 15);
+            this.fromIdentLbl.TabIndex = 20;
+            this.fromIdentLbl.Text = "Ident";
+            // 
+            // identTxtBox
+            // 
+            this.identTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.identTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.identTxtBox.Location = new System.Drawing.Point(2, 17);
+            this.identTxtBox.Margin = new System.Windows.Forms.Padding(2);
+            this.identTxtBox.Name = "identTxtBox";
+            this.identTxtBox.Size = new System.Drawing.Size(74, 26);
+            this.identTxtBox.TabIndex = 21;
+            this.identTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // AdvancedRouteOptionRow
             // 
@@ -164,7 +196,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "AdvancedRouteOptionRow";
-            this.Size = new System.Drawing.Size(709, 59);
+            this.Size = new System.Drawing.Size(787, 59);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -186,5 +218,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label label2;
         private ComboBoxWithBorder wptComboBox;
+        private System.Windows.Forms.Label fromIdentLbl;
+        private System.Windows.Forms.TextBox identTxtBox;
     }
 }

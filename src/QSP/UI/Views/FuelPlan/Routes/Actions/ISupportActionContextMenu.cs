@@ -1,6 +1,6 @@
 ﻿using Routes = QSP.RouteFinding.Routes;
 
-namespace QSP.UI.Views.FuelPlan.Route.Actions
+namespace QSP.UI.Views.FuelPlan.Routes.Actions
 {
     /// <summary>
     /// This inteface should be implemented for any view that supports ActionContextMenu.
@@ -10,7 +10,7 @@ namespace QSP.UI.Views.FuelPlan.Route.Actions
         string DistanceInfo { set; }
         string Route { get; set; }
 
-        void ShowMap(Routes.Route route);
-        void ShowMapBrowser(Routes.Route route);
+        void ShowMap(RouteFinding.Routes.Route route);
+        void ShowMapBrowser(RouteFinding.Routes.Route route);
     }
 }

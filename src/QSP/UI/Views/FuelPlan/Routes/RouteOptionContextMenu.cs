@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using static QSP.UI.Views.Factories.FormFactory;
 
-namespace QSP.UI.Views.FuelPlan.Route
+namespace QSP.UI.Views.FuelPlan.Routes
 {
     public class RouteOptionContextMenu : ContextMenuStrip
     {

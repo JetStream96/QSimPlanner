@@ -1,6 +1,6 @@
-﻿namespace QSP.UI.Views.FuelPlan.Route
+﻿namespace QSP.UI.Views.FuelPlan.Routes
 {
-    partial class AdvancedRouteTool
+    partial class AdvancedTool
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.fromRwyLbl = new System.Windows.Forms.Label();
             this.sidLbl = new System.Windows.Forms.Label();
@@ -38,8 +37,6 @@
             this.toRwyLbl = new System.Windows.Forms.Label();
             this.routeRichTxtBox = new System.Windows.Forms.RichTextBox();
             this.routeSummaryLbl = new System.Windows.Forms.Label();
-            this.fromIdentLbl = new System.Windows.Forms.Label();
-            this.fromIdentTxtBox = new System.Windows.Forms.TextBox();
             this.toIdentTxtBox = new System.Windows.Forms.TextBox();
             this.toIdentLbl = new System.Windows.Forms.Label();
             this.filterStarBtn = new System.Windows.Forms.Button();
@@ -54,19 +51,8 @@
             this.sidComboBox = new QSP.UI.Views.ComboBoxWithBorder();
             this.fromRwyComboBox = new QSP.UI.Views.ComboBoxWithBorder();
             this.toTypeComboBox = new QSP.UI.Views.ComboBoxWithBorder();
-            this.fromTypeComboBox = new QSP.UI.Views.ComboBoxWithBorder();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(7, 5);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "From";
             // 
             // label2
             // 
@@ -150,7 +136,7 @@
             this.routeRichTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.routeRichTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.routeRichTxtBox.Location = new System.Drawing.Point(10, 182);
-            this.routeRichTxtBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.routeRichTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.routeRichTxtBox.Name = "routeRichTxtBox";
             this.routeRichTxtBox.Size = new System.Drawing.Size(635, 74);
             this.routeRichTxtBox.TabIndex = 14;
@@ -167,34 +153,12 @@
             this.routeSummaryLbl.TabIndex = 18;
             this.routeSummaryLbl.Text = "Distance: 459 NM (+3.5%)";
             // 
-            // fromIdentLbl
-            // 
-            this.fromIdentLbl.AutoSize = true;
-            this.fromIdentLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fromIdentLbl.Location = new System.Drawing.Point(118, 5);
-            this.fromIdentLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.fromIdentLbl.Name = "fromIdentLbl";
-            this.fromIdentLbl.Size = new System.Drawing.Size(35, 15);
-            this.fromIdentLbl.TabIndex = 19;
-            this.fromIdentLbl.Text = "ICAO";
-            // 
-            // fromIdentTxtBox
-            // 
-            this.fromIdentTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.fromIdentTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fromIdentTxtBox.Location = new System.Drawing.Point(121, 24);
-            this.fromIdentTxtBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.fromIdentTxtBox.Name = "fromIdentTxtBox";
-            this.fromIdentTxtBox.Size = new System.Drawing.Size(74, 26);
-            this.fromIdentTxtBox.TabIndex = 1;
-            this.fromIdentTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // toIdentTxtBox
             // 
             this.toIdentTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.toIdentTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toIdentTxtBox.Location = new System.Drawing.Point(121, 78);
-            this.toIdentTxtBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toIdentTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.toIdentTxtBox.Name = "toIdentTxtBox";
             this.toIdentTxtBox.Size = new System.Drawing.Size(74, 26);
             this.toIdentTxtBox.TabIndex = 7;
@@ -207,9 +171,9 @@
             this.toIdentLbl.Location = new System.Drawing.Point(118, 59);
             this.toIdentLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toIdentLbl.Name = "toIdentLbl";
-            this.toIdentLbl.Size = new System.Drawing.Size(35, 15);
+            this.toIdentLbl.Size = new System.Drawing.Size(34, 15);
             this.toIdentLbl.TabIndex = 21;
-            this.toIdentLbl.Text = "ICAO";
+            this.toIdentLbl.Text = "Ident";
             // 
             // filterStarBtn
             // 
@@ -220,7 +184,7 @@
             this.filterStarBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filterStarBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.filterStarBtn.Location = new System.Drawing.Point(369, 78);
-            this.filterStarBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.filterStarBtn.Margin = new System.Windows.Forms.Padding(2);
             this.filterStarBtn.Name = "filterStarBtn";
             this.filterStarBtn.Size = new System.Drawing.Size(43, 25);
             this.filterStarBtn.TabIndex = 10;
@@ -236,7 +200,7 @@
             this.filterSidBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filterSidBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.filterSidBtn.Location = new System.Drawing.Point(369, 23);
-            this.filterSidBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.filterSidBtn.Margin = new System.Windows.Forms.Padding(2);
             this.filterSidBtn.Name = "filterSidBtn";
             this.filterSidBtn.Size = new System.Drawing.Size(43, 25);
             this.filterSidBtn.TabIndex = 4;
@@ -264,7 +228,7 @@
             this.routeOptionBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.routeOptionBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.routeOptionBtn.Location = new System.Drawing.Point(10, 122);
-            this.routeOptionBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.routeOptionBtn.Margin = new System.Windows.Forms.Padding(2);
             this.routeOptionBtn.Name = "routeOptionBtn";
             this.routeOptionBtn.Size = new System.Drawing.Size(70, 31);
             this.routeOptionBtn.TabIndex = 12;
@@ -281,7 +245,7 @@
             this.showRouteActionsBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.showRouteActionsBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.showRouteActionsBtn.Location = new System.Drawing.Point(88, 122);
-            this.showRouteActionsBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.showRouteActionsBtn.Margin = new System.Windows.Forms.Padding(2);
             this.showRouteActionsBtn.Name = "showRouteActionsBtn";
             this.showRouteActionsBtn.Size = new System.Drawing.Size(66, 31);
             this.showRouteActionsBtn.TabIndex = 13;
@@ -297,7 +261,7 @@
             this.toWptComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toWptComboBox.FormattingEnabled = true;
             this.toWptComboBox.Location = new System.Drawing.Point(416, 78);
-            this.toWptComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toWptComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.toWptComboBox.Name = "toWptComboBox";
             this.toWptComboBox.Size = new System.Drawing.Size(230, 27);
             this.toWptComboBox.TabIndex = 11;
@@ -311,7 +275,7 @@
             this.starComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.starComboBox.FormattingEnabled = true;
             this.starComboBox.Location = new System.Drawing.Point(274, 78);
-            this.starComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.starComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.starComboBox.Name = "starComboBox";
             this.starComboBox.Size = new System.Drawing.Size(91, 27);
             this.starComboBox.TabIndex = 9;
@@ -325,7 +289,7 @@
             this.toRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toRwyComboBox.FormattingEnabled = true;
             this.toRwyComboBox.Location = new System.Drawing.Point(202, 78);
-            this.toRwyComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toRwyComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.toRwyComboBox.Name = "toRwyComboBox";
             this.toRwyComboBox.Size = new System.Drawing.Size(64, 27);
             this.toRwyComboBox.TabIndex = 8;
@@ -339,7 +303,7 @@
             this.fromWptComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fromWptComboBox.FormattingEnabled = true;
             this.fromWptComboBox.Location = new System.Drawing.Point(416, 23);
-            this.fromWptComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.fromWptComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.fromWptComboBox.Name = "fromWptComboBox";
             this.fromWptComboBox.Size = new System.Drawing.Size(230, 27);
             this.fromWptComboBox.TabIndex = 5;
@@ -353,7 +317,7 @@
             this.sidComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sidComboBox.FormattingEnabled = true;
             this.sidComboBox.Location = new System.Drawing.Point(274, 23);
-            this.sidComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.sidComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.sidComboBox.Name = "sidComboBox";
             this.sidComboBox.Size = new System.Drawing.Size(91, 27);
             this.sidComboBox.TabIndex = 3;
@@ -367,7 +331,7 @@
             this.fromRwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fromRwyComboBox.FormattingEnabled = true;
             this.fromRwyComboBox.Location = new System.Drawing.Point(202, 23);
-            this.fromRwyComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.fromRwyComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.fromRwyComboBox.Name = "fromRwyComboBox";
             this.fromRwyComboBox.Size = new System.Drawing.Size(64, 27);
             this.fromRwyComboBox.TabIndex = 2;
@@ -381,30 +345,29 @@
             this.toTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toTypeComboBox.FormattingEnabled = true;
             this.toTypeComboBox.Location = new System.Drawing.Point(10, 78);
-            this.toTypeComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toTypeComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.toTypeComboBox.Name = "toTypeComboBox";
             this.toTypeComboBox.Size = new System.Drawing.Size(104, 27);
             this.toTypeComboBox.TabIndex = 6;
             // 
-            // fromTypeComboBox
+            // tableLayoutPanel1
             // 
-            this.fromTypeComboBox.BorderColor = System.Drawing.Color.DimGray;
-            this.fromTypeComboBox.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.fromTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.fromTypeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.fromTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fromTypeComboBox.FormattingEnabled = true;
-            this.fromTypeComboBox.Location = new System.Drawing.Point(10, 23);
-            this.fromTypeComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.fromTypeComboBox.Name = "fromTypeComboBox";
-            this.fromTypeComboBox.Size = new System.Drawing.Size(104, 27);
-            this.fromTypeComboBox.TabIndex = 0;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(121, 291);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(468, 113);
+            this.tableLayoutPanel1.TabIndex = 29;
             // 
             // AdvancedRouteTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.routeOptionBtn);
             this.Controls.Add(this.showRouteActionsBtn);
             this.Controls.Add(this.label3);
@@ -412,8 +375,6 @@
             this.Controls.Add(this.filterSidBtn);
             this.Controls.Add(this.toIdentTxtBox);
             this.Controls.Add(this.toIdentLbl);
-            this.Controls.Add(this.fromIdentTxtBox);
-            this.Controls.Add(this.fromIdentLbl);
             this.Controls.Add(this.routeSummaryLbl);
             this.Controls.Add(this.routeRichTxtBox);
             this.Controls.Add(this.toWptComboBox);
@@ -429,23 +390,18 @@
             this.Controls.Add(this.fromRwyComboBox);
             this.Controls.Add(this.fromRwyLbl);
             this.Controls.Add(this.toTypeComboBox);
-            this.Controls.Add(this.fromTypeComboBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AdvancedRouteTool";
-            this.Size = new System.Drawing.Size(912, 414);
+            this.Size = new System.Drawing.Size(980, 543);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private ComboBoxWithBorder fromTypeComboBox;
         private ComboBoxWithBorder toTypeComboBox;
         private ComboBoxWithBorder fromRwyComboBox;
         private System.Windows.Forms.Label fromRwyLbl;
@@ -461,8 +417,6 @@
         private System.Windows.Forms.Label toRwyLbl;
         private System.Windows.Forms.RichTextBox routeRichTxtBox;
         private System.Windows.Forms.Label routeSummaryLbl;
-        private System.Windows.Forms.Label fromIdentLbl;
-        private System.Windows.Forms.TextBox fromIdentTxtBox;
         private System.Windows.Forms.TextBox toIdentTxtBox;
         private System.Windows.Forms.Label toIdentLbl;
         private System.Windows.Forms.Button filterSidBtn;
@@ -470,5 +424,6 @@
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.Button routeOptionBtn;
         public System.Windows.Forms.Button showRouteActionsBtn;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

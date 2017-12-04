@@ -1,18 +1,16 @@
-﻿using QSP.Common.Options;
-using QSP.LibraryExtension;
-using QSP.RouteFinding.Airports;
+﻿using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
-using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.UI.Controllers;
 using QSP.UI.Models.FuelPlan;
-using QSP.UI.Views.FuelPlan.Route;
+using QSP.UI.Models.FuelPlan.Routes;
+using QSP.UI.Views.FuelPlan.Routes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace QSP.UI.Presenters.FuelPlan.Route
+namespace QSP.UI.Presenters.FuelPlan.Routes
 {
     // Manages the selected SIDs/STARs by the user. 
     // This class is responsible for the SID/STAR ComboBoxes, the filter button,
@@ -25,38 +23,23 @@ namespace QSP.UI.Presenters.FuelPlan.Route
         public static readonly string NoProcedureTxt = "NONE";
         public static readonly string AutoProcedureTxt = "AUTO";
 
-        private IFinderOptionView view;
-        private readonly Locator<AppOptions> appOptionsLocator;
-        private readonly Func<WaypointList> wptListGetter;
-        private readonly Func<AirportManager> airportListGetter;
+        private readonly IFinderOptionView view;
+        private readonly IFinderOptionModel model;
 
-        public ProcedureFilter ProcFilter { get; private set; }
-        public bool IsDepartureAirport { get; private set; }
-
-        public WaypointList WptList => wptListGetter();
-        public AirportManager AirportList => airportListGetter();
-        public string NavDataLocation => appOptionsLocator.Instance.NavDataLocation;
+        public WaypointList WptList => model.WptList();
+        public AirportManager AirportList => model.AirportList();
+        public string NavDataLocation => model.AppOptions.Instance.NavDataLocation;
         public string SelectedProcedureText
         {
             get => view.SelectedProcedureText; set => view.SelectedProcedureText = value;
         }
 
-        public FinderOptionPresenter(
-            IFinderOptionView view,
-            bool IsDepartureAirport,
-            Locator<AppOptions> appOptionsLocator,
-            Func<AirportManager> airportListGetter,
-            Func<WaypointList> wptListGetter,
-            ProcedureFilter ProcFilter)
+        public FinderOptionPresenter(IFinderOptionView view, IFinderOptionModel model)
         {
             this.view = view;
-            this.IsDepartureAirport = IsDepartureAirport;
-            this.appOptionsLocator = appOptionsLocator;
-            this.airportListGetter = airportListGetter;
-            this.wptListGetter = wptListGetter;
-            this.ProcFilter = ProcFilter;
+            this.model = model;
 
-            view.IsOrigin = IsDepartureAirport;
+            view.IsOrigin = model.IsDepartureAirport;
         }
 
         public string Icao { get => view.Icao; set => view.Icao = value; }
@@ -80,7 +63,7 @@ namespace QSP.UI.Presenters.FuelPlan.Route
         {
             get
             {
-                if (IsDepartureAirport)
+                if (model.IsDepartureAirport)
                 {
                     return SidHandlerFactory.GetHandler(
                          Icao, NavDataLocation, WptList, WptList.GetEditor(), AirportList)
@@ -109,11 +92,14 @@ namespace QSP.UI.Presenters.FuelPlan.Route
 
         private bool ShouldShow(string proc)
         {
-            if (!ProcFilter.Exists(Icao, Rwy, IsDepartureAirport)) return true;
-            var info = ProcFilter[Icao, Rwy, IsDepartureAirport];
+            var filter = model.ProcFilter;
+            var isDep = model.IsDepartureAirport;
+
+            if (!filter.Exists(Icao, Rwy, isDep)) return true;
+            var info = filter[Icao, Rwy, isDep];
             return info.Procedures.Contains(proc) ^ info.IsBlackList;
         }
-        
+
         public SidStarFilterPresenter GetFilterPresenter(ISidStarFilterView v)
         {
             return new SidStarFilterPresenter(
@@ -121,12 +107,12 @@ namespace QSP.UI.Presenters.FuelPlan.Route
                 Icao,
                 Rwy,
                 AvailableProcedures,
-                IsDepartureAirport,
-                ProcFilter);
+                model.IsDepartureAirport,
+                model.ProcFilter);
         }
 
         public void OnIcaoChanged(object s, EventArgs e) => IcaoChanged?.Invoke(s, e);
-        
+
         public void OnNavDataChange()
         {
             var rwy = view.SelectedRwy;

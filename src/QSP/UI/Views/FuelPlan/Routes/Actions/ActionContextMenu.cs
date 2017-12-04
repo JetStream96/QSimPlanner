@@ -1,7 +1,7 @@
-﻿using QSP.UI.Presenters.FuelPlan.Route;
+﻿using QSP.UI.Presenters.FuelPlan.Routes;
 using System.Windows.Forms;
 
-namespace QSP.UI.Views.FuelPlan.Route.Actions
+namespace QSP.UI.Views.FuelPlan.Routes.Actions
 {
     // Lazy view.
     public class ActionContextMenu : ContextMenuStrip

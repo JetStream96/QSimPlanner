@@ -20,15 +20,16 @@ using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
 using QSP.UI.Models;
 using QSP.UI.Models.FuelPlan;
+using QSP.UI.Models.FuelPlan.Routes;
 using QSP.UI.Models.MsgBox;
 using QSP.UI.Presenters.FuelPlan;
-using QSP.UI.Presenters.FuelPlan.Route;
+using QSP.UI.Presenters.FuelPlan.Routes;
 using QSP.UI.UserControls;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.Util;
 using QSP.UI.Util.ScrollBar;
-using QSP.UI.Views.FuelPlan.Route;
-using QSP.UI.Views.FuelPlan.Route.Actions;
+using QSP.UI.Views.FuelPlan.Routes;
+using QSP.UI.Views.FuelPlan.Routes.Actions;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
 using System;
@@ -65,7 +66,7 @@ namespace QSP.UI.Views.FuelPlan
         private Locator<CountryCodeManager> countryCodeLocator;
         private Locator<CountryCodeCollection> checkedCodesLocator;
 
-        private AdvancedRouteTool advancedRouteTool;
+        private AdvancedTool advancedRouteTool;
         private AcConfigManager aircrafts;
         private IEnumerable<FuelData> fuelData;
         private ActionContextMenu routeActionMenu;
@@ -163,7 +164,7 @@ namespace QSP.UI.Views.FuelPlan
 
             wtUnitComboBox.SelectedIndex = 0;
             SubscribeEventHandlers();
-            advancedRouteTool = new AdvancedRouteTool();
+            advancedRouteTool = new AdvancedTool();
 
             /* TODO
             advancedRouteTool.Init(
@@ -302,16 +303,14 @@ namespace QSP.UI.Views.FuelPlan
 
         private void SetOrigDestPresenters()
         {
-            OrigPresenter = new FinderOptionPresenter(
-                origFinderOptionControl,
+            var origModel = new FinderOptionModel(
                 true,
                 appOptionsLocator,
                 () => AirportList,
                 () => airwayNetwork.WptList,
                 procFilter);
 
-            DestPresenter = new FinderOptionPresenter(
-                destFinderOptionControl,
+            var destModel =new FinderOptionModel(
                 false,
                 appOptionsLocator,
                 () => AirportList,
@@ -323,8 +322,8 @@ namespace QSP.UI.Views.FuelPlan
 
             OrigPresenter.IcaoChanged += (s, e) => OrigIcaoChanged?.Invoke(s, e);
             DestPresenter.IcaoChanged += (s, e) => DestIcaoChanged?.Invoke(s, e);
-            origFinderOptionControl.Init(OrigPresenter, this);
-            destFinderOptionControl.Init(DestPresenter, this);
+            origFinderOptionControl.Init(origModel, this);
+            destFinderOptionControl.Init(destModel, this);
         }
 
         private void WtUnitChanged(object sender, EventArgs e)

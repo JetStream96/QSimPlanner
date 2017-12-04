@@ -8,13 +8,13 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Models.FuelPlan;
-using QSP.UI.Presenters.FuelPlan.Route;
+using QSP.UI.Presenters.FuelPlan.Routes;
 using QSP.UI.Views.FuelPlan;
 using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.UI.Views.FuelPlan.Route;
+using QSP.UI.Views.FuelPlan.Routes;
 
 namespace QSP.UI.Presenters.FuelPlan
 {

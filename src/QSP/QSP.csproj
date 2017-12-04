@@ -235,13 +235,15 @@
     <Compile Include="UI\Models\ButtonColorStyle.cs" />
     <Compile Include="UI\Models\FuelPlan\IRefreshForNavDataChange.cs" />
     <Compile Include="UI\Models\FuelPlan\RouteDistanceDisplay.cs" />
+    <Compile Include="UI\Models\FuelPlan\Routes\IFinderOptionModel.cs" />
     <Compile Include="UI\Models\FuelPlan\SelectedProcedures.cs" />
     <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternatePresenter.cs" />
+    <Compile Include="UI\Presenters\FuelPlan\Routes\AdvancedToolRowPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\SidStarFilterPresenter.cs" />
-    <Compile Include="UI\Presenters\FuelPlan\Route\ActionContextMenuPresenter.cs" />
-    <Compile Include="UI\Presenters\FuelPlan\Route\FinderOptionPresenter.cs" />
+    <Compile Include="UI\Presenters\FuelPlan\Routes\ActionContextMenuPresenter.cs" />
+    <Compile Include="UI\Presenters\FuelPlan\Routes\FinderOptionPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\AirportMapPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\DescentForcastPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\MetarViewerPresenter.cs" />
@@ -268,13 +270,13 @@
     <Compile Include="UI\Util\ScrollBar\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
     <Compile Include="UI\Controllers\WeightControl\WeightController.cs" />
-    <Compile Include="UI\Views\FuelPlan\Route\AdvancedRouteOptionRow.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\AdvancedToolRow.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\AdvancedRouteOptionRow.Designer.cs">
-      <DependentUpon>AdvancedRouteOptionRow.cs</DependentUpon>
+    <Compile Include="UI\Views\FuelPlan\Routes\AdvancedToolRow.Designer.cs">
+      <DependentUpon>AdvancedToolRow.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\IAdvancedRouteOptionRow.cs" />
+    <Compile Include="UI\Views\FuelPlan\Routes\IAdvancedRouteRowView.cs" />
     <Compile Include="UI\Views\IMessageDisplay.cs" />
     <Compile Include="UI\Views\MiscInfo\DescentForcastControl.cs">
       <SubType>UserControl</SubType>
@@ -305,16 +307,16 @@
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\Options\FlightPlanExportController.cs" />
-    <Compile Include="UI\Views\FuelPlan\Route\Actions\ISupportActionContextMenu.cs" />
-    <Compile Include="UI\Views\FuelPlan\Route\FinderOptionControl.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\Actions\ISupportActionContextMenu.cs" />
+    <Compile Include="UI\Views\FuelPlan\Routes\FinderOptionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\FinderOptionControl.Designer.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\FinderOptionControl.Designer.cs">
       <DependentUpon>FinderOptionControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\IFindAltnView.cs" />
-    <Compile Include="UI\Views\FuelPlan\Route\IFinderOptionView.cs" />
-    <Compile Include="UI\Views\FuelPlan\Route\ISidStarFilterView.cs" />
+    <Compile Include="UI\Views\FuelPlan\Routes\IFindAltnView.cs" />
+    <Compile Include="UI\Views\FuelPlan\Routes\IFinderOptionView.cs" />
+    <Compile Include="UI\Views\FuelPlan\Routes\ISidStarFilterView.cs" />
     <Compile Include="UI\Views\UnhandledExceptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -350,16 +352,16 @@
       <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Models\MsgBox\MsgBoxIcon.cs" />
-    <Compile Include="UI\Views\FuelPlan\Route\AvoidCountryControl.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\AvoidCountryControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\AvoidCountryControl.Designer.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\AvoidCountryControl.Designer.cs">
       <DependentUpon>AvoidCountryControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\SidStarFilterControl.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\SidStarFilterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\SidStarFilterControl.Designer.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\SidStarFilterControl.Designer.cs">
       <DependentUpon>SidStarFilterControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\AboutPageControl.cs">
@@ -375,17 +377,17 @@
     <Compile Include="UI\Views\MiscInfo\MetarViewer.Designer.cs">
       <DependentUpon>MetarViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\Actions\SimpleActionContextMenu.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\Actions\SimpleActionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\RouteOptionContextMenu.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\RouteOptionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\AdvancedRouteTool.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\AdvancedTool.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\AdvancedRouteTool.Designer.cs">
-      <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
+    <Compile Include="UI\Views\FuelPlan\Routes\AdvancedTool.Designer.cs">
+      <DependentUpon>AdvancedTool.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\Factories\ToolTipFactory.cs" />
     <Compile Include="UI\Views\FuelPlan\AlternateRowControl.cs">
@@ -409,7 +411,7 @@
     <Compile Include="UI\Views\MiscInfo\MiscInfoControl.Designer.cs">
       <DependentUpon>MiscInfoControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\Actions\ActionContextMenu.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\Actions\ActionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\IFormController.cs" />
@@ -666,10 +668,10 @@
     <Compile Include="RouteFinding\TerminalProcedures\Star\StarHandler.cs" />
     <Compile Include="RouteFinding\RwyIdent.cs" />
     <Compile Include="TOPerfCalculation\TOReport.cs" />
-    <Compile Include="UI\Views\FuelPlan\Route\FindAltnForm.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\FindAltnForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Route\FindAltnForm.Designer.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\FindAltnForm.Designer.cs">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\MetarForm.cs">
@@ -822,8 +824,8 @@
     <EmbeddedResource Include="UI\Views\FuelPlan\AlternateControl.resx">
       <DependentUpon>AlternateControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Views\FuelPlan\Route\AdvancedRouteOptionRow.resx">
-      <DependentUpon>AdvancedRouteOptionRow.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Views\FuelPlan\Routes\AdvancedToolRow.resx">
+      <DependentUpon>AdvancedToolRow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Views\MiscInfo\DescentForcastControl.resx">
       <DependentUpon>DescentForcastControl.cs</DependentUpon>
@@ -837,7 +839,7 @@
     <EmbeddedResource Include="UI\Forms\Options\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Views\FuelPlan\Route\FinderOptionControl.resx">
+    <EmbeddedResource Include="UI\Views\FuelPlan\Routes\FinderOptionControl.resx">
       <DependentUpon>FinderOptionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Views\UnhandledExceptionForm.resx">
@@ -864,14 +866,14 @@
     <EmbeddedResource Include="UI\Forms\QspForm.resx">
       <DependentUpon>QspForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Views\FuelPlan\Route\AvoidCountryControl.resx">
+    <EmbeddedResource Include="UI\Views\FuelPlan\Routes\AvoidCountryControl.resx">
       <DependentUpon>AvoidCountryControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Views\FuelPlan\Route\SidStarFilterControl.resx">
+    <EmbeddedResource Include="UI\Views\FuelPlan\Routes\SidStarFilterControl.resx">
       <DependentUpon>SidStarFilterControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Views\FuelPlan\Route\AdvancedRouteTool.resx">
-      <DependentUpon>AdvancedRouteTool.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Views\FuelPlan\Routes\AdvancedTool.resx">
+      <DependentUpon>AdvancedTool.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Resources\info.png" />
     <None Include="Resources\chart3Faa.png" />
@@ -897,7 +899,7 @@
     <EmbeddedResource Include="UI\UserControls\TakeoffLanding\Common\AirportInfo\AirportInfoControl.resx">
       <DependentUpon>AirportInfoControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Views\FuelPlan\Route\FindAltnForm.resx">
+    <EmbeddedResource Include="UI\Views\FuelPlan\Routes\FindAltnForm.resx">
       <DependentUpon>FindAltnForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\TakeoffLanding\LandingPerf\CustomFuelForm.resx">

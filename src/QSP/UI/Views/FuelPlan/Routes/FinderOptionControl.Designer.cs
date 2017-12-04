@@ -1,4 +1,4 @@
-﻿namespace QSP.UI.Views.FuelPlan.Route
+﻿namespace QSP.UI.Views.FuelPlan.Routes
 {
     partial class FinderOptionControl
     {

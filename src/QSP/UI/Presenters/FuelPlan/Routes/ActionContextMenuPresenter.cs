@@ -15,10 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using QSP.UI.Views.FuelPlan.Route;
-using QSP.UI.Views.FuelPlan.Route.Actions;
+using QSP.UI.Views.FuelPlan.Routes;
+using QSP.UI.Views.FuelPlan.Routes.Actions;
 
-namespace QSP.UI.Presenters.FuelPlan.Route
+namespace QSP.UI.Presenters.FuelPlan.Routes
 {
     public class ActionContextMenuPresenter
     {

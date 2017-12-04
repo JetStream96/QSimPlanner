@@ -75,8 +75,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.origFinderOptionControl = new QSP.UI.Views.FuelPlan.Route.FinderOptionControl();
-            this.destFinderOptionControl = new QSP.UI.Views.FuelPlan.Route.FinderOptionControl();
+            this.origFinderOptionControl = new QSP.UI.Views.FuelPlan.Routes.FinderOptionControl();
+            this.destFinderOptionControl = new QSP.UI.Views.FuelPlan.Routes.FinderOptionControl();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.showRouteActionsBtn = new System.Windows.Forms.Button();
             this.routeOptionBtn = new System.Windows.Forms.Button();
@@ -991,7 +991,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private AlternateControl alternateControl;
-        private Route.FinderOptionControl origFinderOptionControl;
-        private Route.FinderOptionControl destFinderOptionControl;
+        private Routes.FinderOptionControl origFinderOptionControl;
+        private Routes.FinderOptionControl destFinderOptionControl;
     }
 }

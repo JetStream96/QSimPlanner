@@ -1,8 +1,8 @@
 ﻿using CommonLibrary.Attributes;
 using QSP.UI.Presenters.FuelPlan;
 using QSP.UI.Util;
-using QSP.UI.Views.FuelPlan.Route;
-using QSP.UI.Views.FuelPlan.Route.Actions;
+using QSP.UI.Views.FuelPlan.Routes;
+using QSP.UI.Views.FuelPlan.Routes.Actions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -33,12 +33,12 @@ namespace QSP.UI.Views.FuelPlan
 
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
 
-        public void ShowMap(Routes.Route route)
+        public void ShowMap(RouteFinding.Routes.Route route)
         {
             ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm);
         }
 
-        public void ShowMapBrowser(Routes.Route route)
+        public void ShowMapBrowser(RouteFinding.Routes.Route route)
         {
             ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm, true, true);
         }
