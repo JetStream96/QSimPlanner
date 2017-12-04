@@ -26,8 +26,10 @@ using static QSP.UI.Views.Factories.ToolTipFactory;
 
 namespace QSP.UI.Views.FuelPlan.Routes
 {
-    public partial class AdvancedTool : UserControl
+    public partial class AdvancedToolControl : UserControl
     {
+        
+
         /*
         private ControlGroup fromGroup;
         private ControlGroup toGroup;
@@ -47,7 +49,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
         private TrackInUseCollection tracksInUse => airwayNetwork.TracksInUse;
         */
 
-        public AdvancedTool()
+        public AdvancedToolControl()
         {
             InitializeComponent();
         }

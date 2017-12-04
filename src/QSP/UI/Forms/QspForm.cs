@@ -12,6 +12,7 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Forms.Options;
 using QSP.UI.Models;
+using QSP.UI.Models.FuelPlan.Routes;
 using QSP.UI.Models.MsgBox;
 using QSP.UI.Models.Wind;
 using QSP.UI.Presenters.MiscInfo;
@@ -273,6 +274,15 @@ namespace QSP.UI.Forms
             acMenu.AircraftsChanged += fuelMenu.RefreshAircrafts;
             acMenu.AircraftsChanged += toMenu.RefreshAircrafts;
             acMenu.AircraftsChanged += ldgMenu.RefreshAircrafts;
+
+            var fuelPlanningModel=new FuelPlanningModel(
+                airwayNetwork,
+                appOptionsLocator,
+                countryCodesLocator,
+                new CountryCodeCollection().ToLocator(),
+                procFilter,
+                windTableLocator,
+                
 
             fuelMenu.Init(
                 appOptionsLocator,

@@ -18,11 +18,11 @@ namespace QSP.UI.Models.FuelPlan.Routes
 
     public class FinderOptionModel : IFinderOptionModel
     {
-        public bool IsDepartureAirport { get; private set; }
-        public Locator<AppOptions> AppOptions { get; private set; }
-        public Func<AirportManager> AirportList { get; private set; }
-        public Func<WaypointList> WptList { get; private set; }
-        public ProcedureFilter ProcFilter { get; private set; }
+        public bool IsDepartureAirport { get; }
+        public Locator<AppOptions> AppOptions { get; }
+        public Func<AirportManager> AirportList { get; }
+        public Func<WaypointList> WptList { get; }
+        public ProcedureFilter ProcFilter { get; }
 
         public FinderOptionModel(
             bool IsDepartureAirport,

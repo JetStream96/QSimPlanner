@@ -236,6 +236,7 @@
     <Compile Include="UI\Models\FuelPlan\IRefreshForNavDataChange.cs" />
     <Compile Include="UI\Models\FuelPlan\RouteDistanceDisplay.cs" />
     <Compile Include="UI\Models\FuelPlan\Routes\IFinderOptionModel.cs" />
+    <Compile Include="UI\Models\FuelPlan\Routes\IFuelPlanningModel.cs" />
     <Compile Include="UI\Models\FuelPlan\SelectedProcedures.cs" />
     <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
@@ -383,11 +384,11 @@
     <Compile Include="UI\Views\FuelPlan\Routes\RouteOptionContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Routes\AdvancedTool.cs">
+    <Compile Include="UI\Views\FuelPlan\Routes\AdvancedToolControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Views\FuelPlan\Routes\AdvancedTool.Designer.cs">
-      <DependentUpon>AdvancedTool.cs</DependentUpon>
+    <Compile Include="UI\Views\FuelPlan\Routes\AdvancedToolControl.Designer.cs">
+      <DependentUpon>AdvancedToolControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\Factories\ToolTipFactory.cs" />
     <Compile Include="UI\Views\FuelPlan\AlternateRowControl.cs">
@@ -872,8 +873,8 @@
     <EmbeddedResource Include="UI\Views\FuelPlan\Routes\SidStarFilterControl.resx">
       <DependentUpon>SidStarFilterControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Views\FuelPlan\Routes\AdvancedTool.resx">
-      <DependentUpon>AdvancedTool.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Views\FuelPlan\Routes\AdvancedToolControl.resx">
+      <DependentUpon>AdvancedToolControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Resources\info.png" />
     <None Include="Resources\chart3Faa.png" />

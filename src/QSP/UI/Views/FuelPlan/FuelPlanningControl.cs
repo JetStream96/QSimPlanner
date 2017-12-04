@@ -10,6 +10,7 @@ using QSP.FuelCalculation.Results;
 using QSP.LibraryExtension;
 using QSP.Metar;
 using QSP.RouteFinding.Airports;
+using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
@@ -18,7 +19,6 @@ using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
-using QSP.UI.Models;
 using QSP.UI.Models.FuelPlan;
 using QSP.UI.Models.FuelPlan.Routes;
 using QSP.UI.Models.MsgBox;
@@ -59,20 +59,12 @@ namespace QSP.UI.Views.FuelPlan
         public event EventHandler OrigIcaoChanged;
         public event EventHandler DestIcaoChanged;
 
-        private AirwayNetwork airwayNetwork;
-        private Locator<AppOptions> appOptionsLocator;
-        private ProcedureFilter procFilter;
-        private Locator<IWindTableCollection> windTableLocator;
-        private Locator<CountryCodeManager> countryCodeLocator;
-        private Locator<CountryCodeCollection> checkedCodesLocator;
+        private IFuelPlanningModel model;
 
-        private AdvancedTool advancedRouteTool;
-        private AcConfigManager aircrafts;
-        private IEnumerable<FuelData> fuelData;
+        private AdvancedToolControl advancedRouteTool;
         private ActionContextMenu routeActionMenu;
         private ActionContextMenuPresenter routeActionMenuPresenter;
         private RouteOptionContextMenu routeOptionMenu;
-        private MetarCache metarCache;
 
         public FinderOptionPresenter OrigPresenter => origFinderOptionControl.Presenter;
         public FinderOptionPresenter DestPresenter => destFinderOptionControl.Presenter;
@@ -111,8 +103,9 @@ namespace QSP.UI.Views.FuelPlan
         public string OrigIcao => OrigPresenter.Icao;
         public string DestIcao => DestPresenter.Icao;
 
-        private AirportManager AirportList => airwayNetwork.AirportList;
-        private AppOptions AppOptions => appOptionsLocator.Instance;
+        private AirportManager AirportList => model.AirwayNetwork.AirportList;
+        private WaypointList WptList => model.AirwayNetwork.WptList;
+        private AppOptions AppOptions => model.AppOption.Instance;
         private RouteGroup RouteToDest => routeActionMenuPresenter.Route;
 
         public string DistanceInfo { set => routeDisLbl.Text = value; }
@@ -127,16 +120,10 @@ namespace QSP.UI.Views.FuelPlan
             InitializeComponent();
         }
 
-        public void Init(
-            Locator<AppOptions> appOptionsLocator,
-            AirwayNetwork airwayNetwork,
-            ProcedureFilter procFilter,
-            Locator<CountryCodeManager> countryCodeLocator,
-            Locator<IWindTableCollection> windTableLocator,
-            AcConfigManager aircrafts,
-            IEnumerable<FuelData> fuelData,
-            MetarCache metarCache)
+        public void Init(IFuelPlanningModel model)
         {
+            this.model = model;
+
             this.appOptionsLocator = appOptionsLocator;
             this.airwayNetwork = airwayNetwork;
             this.procFilter = procFilter;
@@ -151,7 +138,7 @@ namespace QSP.UI.Views.FuelPlan
             SetOrigDestPresenters();
 
             AltnPresenter = new AlternatePresenter(
-                alternateControl, appOptionsLocator, airwayNetwork, windTableLocator,
+                alternateControl, model.AppOption, model.AirwayNetwork, model.WindTables,
                 destSidProvider, GetFuelData, GetZfwTon, () => OrigIcao, () => DestIcao);
             alternateControl.Init(AltnPresenter);
 
@@ -164,7 +151,7 @@ namespace QSP.UI.Views.FuelPlan
 
             wtUnitComboBox.SelectedIndex = 0;
             SubscribeEventHandlers();
-            advancedRouteTool = new AdvancedTool();
+            advancedRouteTool = new AdvancedToolControl();
 
             /* TODO
             advancedRouteTool.Init(
@@ -182,6 +169,8 @@ namespace QSP.UI.Views.FuelPlan
 
         private void AddMetarCacheEvents()
         {
+            var metarCache = model.MetarCache;
+
             Func<string, Task> updateCache = async (icao) =>
             {
                 if (AirportList[icao] != null && !metarCache.Contains(icao))
@@ -207,7 +196,8 @@ namespace QSP.UI.Views.FuelPlan
 
         private void SetRouteOptionControl()
         {
-            routeOptionMenu = new RouteOptionContextMenu(checkedCodesLocator, countryCodeLocator);
+            routeOptionMenu = new RouteOptionContextMenu(model.CheckedCountryCodes,
+                model.CountryCodeManager);
 
             routeOptionMenu.Subscribe();
             routeOptionBtn.Click += (s, e) =>
@@ -218,11 +208,11 @@ namespace QSP.UI.Views.FuelPlan
         {
             routeActionMenuPresenter = new ActionContextMenuPresenter(
                 this,
-                appOptionsLocator,
-                airwayNetwork,
+                model.AppOption,
+                model.AirwayNetwork,
                 OrigPresenter,
                 DestPresenter,
-                checkedCodesLocator,
+                model.CheckedCountryCodes,
                 () => GetWindCalculator()); // TODO: move this method
 
             routeActionMenu = new ActionContextMenu();
@@ -249,9 +239,9 @@ namespace QSP.UI.Views.FuelPlan
 
         private string[] AvailAircraftTypes()
         {
-            var allProfileNames = fuelData.Select(t => t.ProfileName).ToHashSet();
+            var allProfileNames = model.FuelData.Select(t => t.ProfileName).ToHashSet();
 
-            return aircrafts
+            return model.Aircrafts
                 .Aircrafts
                 .Where(c => allProfileNames.Contains(c.Config.FuelProfile))
                 .Select(c => c.Config.AC)
@@ -305,20 +295,20 @@ namespace QSP.UI.Views.FuelPlan
         {
             var origModel = new FinderOptionModel(
                 true,
-                appOptionsLocator,
+                model.AppOption,
                 () => AirportList,
-                () => airwayNetwork.WptList,
-                procFilter);
+                () => WptList,
+                model.ProcFilter);
 
-            var destModel =new FinderOptionModel(
+            var destModel = new FinderOptionModel(
                 false,
-                appOptionsLocator,
+                model.AppOption,
                 () => AirportList,
-                () => airwayNetwork.WptList,
-                procFilter);
+                () => WptList,
+                model.ProcFilter);
 
-            destSidProvider = new DestinationSidSelection(airwayNetwork, appOptionsLocator,
-                DestPresenter);
+            destSidProvider = new DestinationSidSelection(
+                model.AirwayNetwork, model.AppOption, DestPresenter);
 
             origFinderOptionControl.Init(origModel, this);
             destFinderOptionControl.Init(destModel, this);
@@ -348,14 +338,14 @@ namespace QSP.UI.Views.FuelPlan
 
         private bool FuelProfileExists(string profileName)
         {
-            return fuelData.Any(c => c.ProfileName == profileName);
+            return model.FuelData.Any(c => c.ProfileName == profileName);
         }
 
         private void RefreshRegistrations(object sender, EventArgs e)
         {
             if (acListComboBox.SelectedIndex >= 0)
             {
-                var ac = aircrafts.FindAircraft(acListComboBox.Text);
+                var ac = model.Aircrafts.FindAircraft(acListComboBox.Text);
                 var items = registrationComboBox.Items;
                 items.Clear();
 
@@ -375,7 +365,7 @@ namespace QSP.UI.Views.FuelPlan
         {
             if (registrationComboBox.SelectedIndex < 0) return;
 
-            var config = aircrafts.Find(registrationComboBox.Text).Config;
+            var config = model.Aircrafts.Find(registrationComboBox.Text).Config;
             WeightUnit = config.WtUnit;
             WeightControl.SetAircraftWeights(config.OewKg, config.MaxZfwKg);
             var maxPayloadKg = config.MaxZfwKg - config.OewKg;
@@ -389,7 +379,7 @@ namespace QSP.UI.Views.FuelPlan
         public FuelDataItem GetFuelData()
         {
             var dataName = GetCurrentAircraft().Config.FuelProfile;
-            return fuelData.First(d => d.ProfileName == dataName).Data;
+            return model.FuelData.First(d => d.ProfileName == dataName).Data;
         }
 
         /// <summary>
@@ -398,7 +388,7 @@ namespace QSP.UI.Views.FuelPlan
         public AircraftConfig GetCurrentAircraft()
         {
             if (registrationComboBox.SelectedIndex < 0) return null;
-            return aircrafts.Find(registrationComboBox.Text);
+            return model.Aircrafts.Find(registrationComboBox.Text);
         }
 
         private void Calculate(object sender, EventArgs e)
@@ -433,7 +423,7 @@ namespace QSP.UI.Views.FuelPlan
                 return;
             }
 
-            var windTables = windTableLocator.Instance;
+            var windTables = model.WindTables.Instance;
 
             if (windTables is DefaultWindTableCollection)
             {
@@ -563,7 +553,7 @@ namespace QSP.UI.Views.FuelPlan
 
         private AvgWindCalculator GetWindCalculator()
         {
-            return GetWindCalculator(AppOptions, windTableLocator, AirportList, GetFuelData(),
+            return GetWindCalculator(AppOptions, model.WindTables, AirportList, GetFuelData(),
                 GetZfwTon(), OrigPresenter.Icao, DestPresenter.Icao);
         }
 
@@ -629,7 +619,7 @@ namespace QSP.UI.Views.FuelPlan
 
             return new AvgWindCalculator(windTableLocator.Instance, tas, alt);
         }
-        
+
         public void OnNavDataChange()
         {
             OrigPresenter.OnNavDataChange();

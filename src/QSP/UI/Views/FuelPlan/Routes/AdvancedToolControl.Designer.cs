@@ -1,6 +1,6 @@
 ﻿namespace QSP.UI.Views.FuelPlan.Routes
 {
-    partial class AdvancedTool
+    partial class AdvancedToolControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -34,8 +34,8 @@
             this.routeOptionBtn = new System.Windows.Forms.Button();
             this.showRouteActionsBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.advancedToolRow1 = new QSP.UI.Views.FuelPlan.Routes.AdvancedToolRow();
-            this.advancedToolRow2 = new QSP.UI.Views.FuelPlan.Routes.AdvancedToolRow();
+            this.origRow = new QSP.UI.Views.FuelPlan.Routes.AdvancedToolRow();
+            this.destRow = new QSP.UI.Views.FuelPlan.Routes.AdvancedToolRow();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
@@ -117,8 +117,8 @@
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.advancedToolRow1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.advancedToolRow2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.origRow, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.destRow, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -127,25 +127,25 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(793, 130);
             this.tableLayoutPanel1.TabIndex = 29;
             // 
-            // advancedToolRow1
+            // origRow
             // 
-            this.advancedToolRow1.AutoSize = true;
-            this.advancedToolRow1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.advancedToolRow1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.advancedToolRow1.Location = new System.Drawing.Point(3, 3);
-            this.advancedToolRow1.Name = "advancedToolRow1";
-            this.advancedToolRow1.Size = new System.Drawing.Size(787, 59);
-            this.advancedToolRow1.TabIndex = 0;
+            this.origRow.AutoSize = true;
+            this.origRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.origRow.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.origRow.Location = new System.Drawing.Point(3, 3);
+            this.origRow.Name = "origRow";
+            this.origRow.Size = new System.Drawing.Size(787, 59);
+            this.origRow.TabIndex = 0;
             // 
-            // advancedToolRow2
+            // destRow
             // 
-            this.advancedToolRow2.AutoSize = true;
-            this.advancedToolRow2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.advancedToolRow2.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.advancedToolRow2.Location = new System.Drawing.Point(3, 68);
-            this.advancedToolRow2.Name = "advancedToolRow2";
-            this.advancedToolRow2.Size = new System.Drawing.Size(787, 59);
-            this.advancedToolRow2.TabIndex = 1;
+            this.destRow.AutoSize = true;
+            this.destRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.destRow.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.destRow.Location = new System.Drawing.Point(3, 68);
+            this.destRow.Name = "destRow";
+            this.destRow.Size = new System.Drawing.Size(787, 59);
+            this.destRow.TabIndex = 1;
             // 
             // tableLayoutPanel2
             // 
@@ -185,7 +185,7 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(799, 289);
             this.tableLayoutPanel4.TabIndex = 32;
             // 
-            // AdvancedTool
+            // AdvancedToolControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -195,7 +195,7 @@
             this.Controls.Add(this.tableLayoutPanel4);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "AdvancedTool";
+            this.Name = "AdvancedToolControl";
             this.Size = new System.Drawing.Size(802, 292);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -215,8 +215,8 @@
         public System.Windows.Forms.Button routeOptionBtn;
         public System.Windows.Forms.Button showRouteActionsBtn;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private AdvancedToolRow advancedToolRow1;
-        private AdvancedToolRow advancedToolRow2;
+        private AdvancedToolRow origRow;
+        private AdvancedToolRow destRow;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
     }
