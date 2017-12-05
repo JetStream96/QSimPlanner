@@ -67,11 +67,10 @@ namespace QSP.UI.Presenters.FuelPlan
             this.zfwTon = zfwTon;
             this.orig = orig;
             this.dest = dest;
-
-            // TODO: move it outside of FuelPlanningControl.
-            windCalcGetter = () => FuelPlanningControl.GetWindCalculator(AppOptions,
-                   windTableLocator, airwayNetwork.AirportList, fuelData(),
-                   zfwTon(), orig(), dest());
+            
+            windCalcGetter = () => AvgWindCalculatorExtension.GetWindCalculator(
+                AppOptions, windTableLocator, airwayNetwork.AirportList,
+                fuelData(), zfwTon(), orig(), dest());
         }
 
         public AlternateRowPresenter GetRowPresenter(IAlternateRowView v)
@@ -99,7 +98,7 @@ namespace QSP.UI.Presenters.FuelPlan
             rowPresenters.RemoveAt(RowCount - 1);
             AlternatesChanged?.Invoke(this, EventArgs.Empty);
         }
-        
+
         public void OnNavDataChange()
         {
             rowPresenters.ForEach(r => r.OnNavDataChange());

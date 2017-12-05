@@ -7,7 +7,6 @@ using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
 using QSP.WindAloft;
-using System;
 using System.Collections.Generic;
 
 namespace QSP.UI.Models.FuelPlan.Routes
@@ -20,7 +19,6 @@ namespace QSP.UI.Models.FuelPlan.Routes
         Locator<CountryCodeCollection> CheckedCountryCodes { get; }
         ProcedureFilter ProcFilter { get; }
         Locator<IWindTableCollection> WindTables { get; }
-        Func<AvgWindCalculator> WindCalculator { get; }
         AcConfigManager Aircrafts { get; }
         IEnumerable<FuelData> FuelData { get; }
         MetarCache MetarCache { get; }
@@ -34,7 +32,6 @@ namespace QSP.UI.Models.FuelPlan.Routes
         public Locator<CountryCodeCollection> CheckedCountryCodes { get; }
         public ProcedureFilter ProcFilter { get; }
         public Locator<IWindTableCollection> WindTables { get; }
-        public Func<AvgWindCalculator> WindCalculator { get; }
         public AcConfigManager Aircrafts { get; }
         public IEnumerable<FuelData> FuelData { get; }
         public MetarCache MetarCache { get; }
@@ -46,7 +43,6 @@ namespace QSP.UI.Models.FuelPlan.Routes
             Locator<CountryCodeCollection> CheckedCountryCodes,
             ProcedureFilter ProcFilter,
             Locator<IWindTableCollection> WindTables,
-            Func<AvgWindCalculator> WindCalculator,
             AcConfigManager Aircrafts,
             IEnumerable<FuelData> FuelData,
             MetarCache MetarCache)
@@ -57,10 +53,23 @@ namespace QSP.UI.Models.FuelPlan.Routes
             this.CheckedCountryCodes = CheckedCountryCodes;
             this.ProcFilter = ProcFilter;
             this.WindTables = WindTables;
-            this.WindCalculator = WindCalculator;
             this.Aircrafts = Aircrafts;
             this.FuelData = FuelData;
             this.MetarCache = MetarCache;
+        }
+    }
+
+    public static class IFuelPlanningModelExtension
+    {
+        public static IFinderOptionModel ToIFinderOptionModel(this IFuelPlanningModel m, 
+            bool isDeparture)
+        {
+            return new FinderOptionModel(
+                isDeparture,
+                m.AppOption,
+                () => m.AirwayNetwork.AirportList,
+                () => m.AirwayNetwork.WptList,
+                m.ProcFilter);
         }
     }
 }

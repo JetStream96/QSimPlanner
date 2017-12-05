@@ -241,7 +241,7 @@
     <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternatePresenter.cs" />
-    <Compile Include="UI\Presenters\FuelPlan\Routes\AdvancedToolRowPresenter.cs" />
+    <Compile Include="UI\Presenters\FuelPlan\Routes\AdvancedToolPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\SidStarFilterPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\Routes\ActionContextMenuPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\Routes\FinderOptionPresenter.cs" />
@@ -278,6 +278,7 @@
       <DependentUpon>AdvancedToolRow.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\FuelPlan\Routes\IAdvancedRouteRowView.cs" />
+    <Compile Include="UI\Views\FuelPlan\Routes\IAdvancedRouteView.cs" />
     <Compile Include="UI\Views\IMessageDisplay.cs" />
     <Compile Include="UI\Views\MiscInfo\DescentForcastControl.cs">
       <SubType>UserControl</SubType>

@@ -275,24 +275,18 @@ namespace QSP.UI.Forms
             acMenu.AircraftsChanged += toMenu.RefreshAircrafts;
             acMenu.AircraftsChanged += ldgMenu.RefreshAircrafts;
 
-            var fuelPlanningModel=new FuelPlanningModel(
+            var fuelPlanningModel = new FuelPlanningModel(
                 airwayNetwork,
                 appOptionsLocator,
                 countryCodesLocator,
                 new CountryCodeCollection().ToLocator(),
                 procFilter,
                 windTableLocator,
-                
-
-            fuelMenu.Init(
-                appOptionsLocator,
-                airwayNetwork,
-                procFilter,
-                countryCodesLocator,
-                windTableLocator,
                 profiles.AcConfigs,
                 profiles.FuelData,
                 metarCache);
+
+            fuelMenu.Init(fuelPlanningModel);
 
             toMenu.Init(
                 profiles.AcConfigs,

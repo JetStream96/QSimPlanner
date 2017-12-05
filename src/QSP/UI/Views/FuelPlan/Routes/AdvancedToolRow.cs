@@ -14,18 +14,20 @@ namespace QSP.UI.Views.FuelPlan.Routes
 {
     public partial class AdvancedToolRow : UserControl, IAdvancedRouteRowView
     {
-        private FinderOptionModel model;
+        private IFinderOptionModel model;
 
         public AdvancedToolRow()
         {
             InitializeComponent();
         }
 
-        public void Init(FinderOptionModel model, IMessageDisplay display)
+        // TODO: Is the IMessageDisplay really needed?
+        public void Init(IFinderOptionModel model, IMessageDisplay display)
         {
             this.model = model;
             var p = new FinderOptionPresenter(finderOptionControl, model);
             finderOptionControl.Init(model, display);
+            typeComboBox.SelectedIndex = 0;
         }
 
         public void OnNavDataChange()

@@ -7,15 +7,10 @@ using QSP.FuelCalculation;
 using QSP.FuelCalculation.Calculations;
 using QSP.FuelCalculation.FuelData;
 using QSP.FuelCalculation.Results;
-using QSP.LibraryExtension;
 using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
-using QSP.RouteFinding.Containers.CountryCode;
-using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
-using QSP.RouteFinding.TerminalProcedures;
-using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
@@ -33,14 +28,12 @@ using QSP.UI.Views.FuelPlan.Routes.Actions;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.AviationTools.Constants;
-using static QSP.AviationTools.SpeedConversion;
 using static QSP.MathTools.Numbers;
 using static QSP.UI.Util.MsgBoxHelper;
 using static QSP.UI.Views.Factories.FormFactory;
@@ -124,16 +117,6 @@ namespace QSP.UI.Views.FuelPlan
         {
             this.model = model;
 
-            this.appOptionsLocator = appOptionsLocator;
-            this.airwayNetwork = airwayNetwork;
-            this.procFilter = procFilter;
-            this.countryCodeLocator = countryCodeLocator;
-            this.windTableLocator = windTableLocator;
-            this.aircrafts = aircrafts;
-            this.fuelData = fuelData;
-            this.metarCache = metarCache;
-            checkedCodesLocator = new CountryCodeCollection().ToLocator();
-
             SetDefaultState();
             SetOrigDestPresenters();
 
@@ -141,8 +124,7 @@ namespace QSP.UI.Views.FuelPlan
                 alternateControl, model.AppOption, model.AirwayNetwork, model.WindTables,
                 destSidProvider, GetFuelData, GetZfwTon, () => OrigIcao, () => DestIcao);
             alternateControl.Init(AltnPresenter);
-
-
+            
             SetRouteOptionControl();
             SetRouteActionMenu();
             SetWeightController();
@@ -151,8 +133,17 @@ namespace QSP.UI.Views.FuelPlan
 
             wtUnitComboBox.SelectedIndex = 0;
             SubscribeEventHandlers();
-            advancedRouteTool = new AdvancedToolControl();
+            InitAdvancedRouteTool();
 
+            if (acListComboBox.Items.Count > 0) acListComboBox.SelectedIndex = 0;
+
+            LoadSavedState();
+        }
+
+        private void InitAdvancedRouteTool()
+        {
+            advancedRouteTool = new AdvancedToolControl();
+            //advancedRouteTool.ini
             /* TODO
             advancedRouteTool.Init(
                 appOptionsLocator,
@@ -162,9 +153,6 @@ namespace QSP.UI.Views.FuelPlan
                 procFilter,
                 () => GetWindCalculator());
                 */
-            if (acListComboBox.Items.Count > 0) acListComboBox.SelectedIndex = 0;
-
-            LoadSavedState();
         }
 
         private void AddMetarCacheEvents()
@@ -213,7 +201,7 @@ namespace QSP.UI.Views.FuelPlan
                 OrigPresenter,
                 DestPresenter,
                 model.CheckedCountryCodes,
-                () => GetWindCalculator()); // TODO: move this method
+                () => GetWindCalculator());
 
             routeActionMenu = new ActionContextMenu();
             routeActionMenu.Init(routeActionMenuPresenter);
@@ -293,25 +281,12 @@ namespace QSP.UI.Views.FuelPlan
 
         private void SetOrigDestPresenters()
         {
-            var origModel = new FinderOptionModel(
-                true,
-                model.AppOption,
-                () => AirportList,
-                () => WptList,
-                model.ProcFilter);
-
-            var destModel = new FinderOptionModel(
-                false,
-                model.AppOption,
-                () => AirportList,
-                () => WptList,
-                model.ProcFilter);
+            origFinderOptionControl.Init(model.ToIFinderOptionModel(true), this);
+            destFinderOptionControl.Init(model.ToIFinderOptionModel(false), this);
 
             destSidProvider = new DestinationSidSelection(
                 model.AirwayNetwork, model.AppOption, DestPresenter);
 
-            origFinderOptionControl.Init(origModel, this);
-            destFinderOptionControl.Init(destModel, this);
             OrigPresenter.IcaoChanged += (s, e) => OrigIcaoChanged?.Invoke(s, e);
             DestPresenter.IcaoChanged += (s, e) => DestIcaoChanged?.Invoke(s, e);
         }
@@ -553,7 +528,8 @@ namespace QSP.UI.Views.FuelPlan
 
         private AvgWindCalculator GetWindCalculator()
         {
-            return GetWindCalculator(AppOptions, model.WindTables, AirportList, GetFuelData(),
+            return AvgWindCalculatorExtension.GetWindCalculator(
+                AppOptions, model.WindTables, AirportList, GetFuelData(),
                 GetZfwTon(), OrigPresenter.Icao, DestPresenter.Icao);
         }
 
@@ -569,57 +545,7 @@ namespace QSP.UI.Views.FuelPlan
                 throw new InvalidUserInputException("Please enter a valid ZFW.");
             }
         }
-
-        /// <summary>
-        /// Get AvgWindCalculator to approximate the wind.
-        /// Returns null if user disabled wind optimization.
-        /// </summary>
-        /// <exception cref="InvalidUserInputException"></exception>
-        public static AvgWindCalculator GetWindCalculator(
-            AppOptions appSettings,
-            Locator<IWindTableCollection> windTableLocator,
-            AirportManager airportList,
-            FuelDataItem fuelData,
-            double zfwTon,
-            string orig,
-            string dest)
-        {
-            if (!appSettings.EnableWindOptimizedRoute) return null;
-
-            if (windTableLocator.Instance is DefaultWindTableCollection)
-            {
-                throw new InvalidUserInputException(
-                    "Wind data has not been downloaded or loaded from file.\n" +
-                    "If you do not want to use wind-optimized route, it can be disabled " +
-                    "from Options > Route.");
-            }
-
-            if (fuelData == null)
-            {
-                throw new InvalidUserInputException("No aircraft is selected.");
-            }
-
-            var origin = airportList[orig.Trim().ToUpper()];
-
-            if (orig == null)
-            {
-                throw new InvalidUserInputException("Cannot find origin airport.");
-            }
-
-            var destination = airportList[dest.ToUpper()];
-
-            if (dest == null)
-            {
-                throw new InvalidUserInputException("Cannot find destination airport.");
-            }
-
-            var dis = origin.Distance(destination);
-            var alt = fuelData.EstimatedCrzAlt(dis, zfwTon);
-            var tas = Ktas(fuelData.CruiseKias(zfwTon), alt);
-
-            return new AvgWindCalculator(windTableLocator.Instance, tas, alt);
-        }
-
+        
         public void OnNavDataChange()
         {
             OrigPresenter.OnNavDataChange();
@@ -627,10 +553,10 @@ namespace QSP.UI.Views.FuelPlan
             AltnPresenter.OnNavDataChange();
         }
 
-        public void ShowMap(RouteFinding.Routes.Route route) =>
+        public void ShowMap(Route route) =>
             ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm);
 
-        public void ShowMapBrowser(RouteFinding.Routes.Route route) =>
+        public void ShowMapBrowser(Route route) =>
             ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm, true, true);
 
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
