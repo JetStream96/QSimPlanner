@@ -31,7 +31,7 @@
             this.typeLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.typeComboBox = new QSP.UI.Views.ComboBoxWithBorder();
             this.fromToLbl = new System.Windows.Forms.Label();
-            this.finderOptionControl = new QSP.UI.Views.FuelPlan.Routes.FinderOptionControl();
+            this.OptionControl = new QSP.UI.Views.FuelPlan.Routes.FinderOptionControl();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.wptLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.identTxtBox = new System.Windows.Forms.TextBox();
@@ -91,16 +91,16 @@
             // 
             // finderOptionControl
             // 
-            this.finderOptionControl.AutoSize = true;
-            this.finderOptionControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.finderOptionControl.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.finderOptionControl.Icao = "";
-            this.finderOptionControl.Location = new System.Drawing.Point(109, 3);
-            this.finderOptionControl.Name = "finderOptionControl";
-            this.finderOptionControl.SelectedProcedureText = "";
-            this.finderOptionControl.SelectedRwy = "";
-            this.finderOptionControl.Size = new System.Drawing.Size(354, 50);
-            this.finderOptionControl.TabIndex = 29;
+            this.OptionControl.AutoSize = true;
+            this.OptionControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.OptionControl.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.OptionControl.Icao = "";
+            this.OptionControl.Location = new System.Drawing.Point(109, 3);
+            this.OptionControl.Name = "finderOptionControl";
+            this.OptionControl.SelectedProcedureText = "";
+            this.OptionControl.SelectedRwy = "";
+            this.OptionControl.Size = new System.Drawing.Size(354, 50);
+            this.OptionControl.TabIndex = 29;
             // 
             // tableLayoutPanel2
             // 
@@ -112,7 +112,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.wptLayoutPanel, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.typeLayoutPanel, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.finderOptionControl, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.OptionControl, 1, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
@@ -188,7 +188,7 @@
             this.fromIdentLbl.TabIndex = 20;
             this.fromIdentLbl.Text = "Ident";
             // 
-            // AdvancedToolRow
+            // RouteFinderRow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -196,7 +196,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Controls.Add(this.tableLayoutPanel2);
-            this.Name = "AdvancedToolRow";
+            this.Name = "RouteFinderRow";
             this.Size = new System.Drawing.Size(787, 59);
             this.typeLayoutPanel.ResumeLayout(false);
             this.typeLayoutPanel.PerformLayout();
@@ -214,12 +214,12 @@
         private System.Windows.Forms.TableLayoutPanel typeLayoutPanel;
         private System.Windows.Forms.Label fromToLbl;
         private ComboBoxWithBorder typeComboBox;
-        private FinderOptionControl finderOptionControl;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel wptLayoutPanel;
         private System.Windows.Forms.Label label2;
         private ComboBoxWithBorder wptComboBox;
         private System.Windows.Forms.Label fromIdentLbl;
         private System.Windows.Forms.TextBox identTxtBox;
+        public FinderOptionControl OptionControl;
     }
 }

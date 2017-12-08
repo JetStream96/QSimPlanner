@@ -1,4 +1,4 @@
-﻿using Routes = QSP.RouteFinding.Routes;
+﻿using QSP.RouteFinding.Routes;
 
 namespace QSP.UI.Views.FuelPlan.Routes.Actions
 {
@@ -10,7 +10,7 @@ namespace QSP.UI.Views.FuelPlan.Routes.Actions
         string DistanceInfo { set; }
         string Route { get; set; }
 
-        void ShowMap(RouteFinding.Routes.Route route);
-        void ShowMapBrowser(RouteFinding.Routes.Route route);
+        void ShowMap(Route route);
+        void ShowMapBrowser(Route route);
     }
 }

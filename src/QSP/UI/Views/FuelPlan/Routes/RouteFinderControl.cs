@@ -13,6 +13,8 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Models.FuelPlan;
+using QSP.UI.Models.FuelPlan.Routes;
+using QSP.UI.Presenters.FuelPlan.Routes;
 using QSP.UI.Util;
 using QSP.UI.Views.FuelPlan.Routes.Actions;
 using QSP.WindAloft;
@@ -36,9 +38,9 @@ namespace QSP.UI.Views.FuelPlan.Routes
     //    landing weight at destination and A and B can generate different routes  
     //    when wind-optimized route is enabled.
 
-    public partial class RouteFinderControl : UserControl
+    public partial class RouteFinderControl : UserControl, IRouteFinderView
     {
-        
+
 
         /*
         private ControlGroup fromGroup;
@@ -54,14 +56,27 @@ namespace QSP.UI.Views.FuelPlan.Routes
         private Func<AvgWindCalculator> windCalcGetter;
         private RouteGroup Route;
 
-        private WaypointList wptList => airwayNetwork.WptList;
+        private WaypointList wptList => airwayNetwork.WptList;routed
         private AirportManager airportList => airwayNetwork.AirportList;
         private TrackInUseCollection tracksInUse => airwayNetwork.TracksInUse;
         */
 
+        private RouteFinderPresenter presenter;
+        private IFuelPlanningModel model;
+        private ActionContextMenu actionMenu;
+        private RouteOptionContextMenu optionMenu;
+
+        public ActionContextMenuPresenter ActionMenuPresenter => actionMenu.Presenter;
+
         public RouteFinderControl()
         {
             InitializeComponent();
+        }
+
+        public void Init(IFuelPlanningModel model)
+        {
+            this.model = model;
+            this.presenter =
         }
 
         public bool WaypointOptionEnabled
@@ -74,6 +89,46 @@ namespace QSP.UI.Views.FuelPlan.Routes
                 destRow.WaypointOptionEnabled = value;
             }
         }
+
+        public string DistanceInfo { set => routeSummaryLbl.Text = value; }
+        public string Route { get => routeRichTxtBox.Text; set => routeRichTxtBox.Text = value; }
+
+        private void SetRouteOptionControl()
+        {
+            optionMenu = new RouteOptionContextMenu(model.CheckedCountryCodes,
+                model.CountryCodeManager);
+
+            optionMenu.Subscribe();
+            routeOptionBtn.Click += (s, e) =>
+                optionMenu.Show(routeOptionBtn, new Point(0, routeOptionBtn.Height));
+        }
+
+        private void SetRouteActionMenu()
+        {
+            var p = new ActionContextMenuPresenter(
+                this,
+                model.AppOption,
+                model.AirwayNetwork,
+                origRow.OptionControl.Presenter,
+                destRow.OptionControl.Presenter,
+                model.CheckedCountryCodes,
+                () => model.GetWindCalculator(presenter));
+
+            actionMenu = new ActionContextMenu();
+            actionMenu.Init(p);
+
+            showRouteActionsBtn.Click += (s, e) =>
+               actionMenu.Show(showRouteActionsBtn, new Point(0, showRouteActionsBtn.Height));
+        }
+
+        public void ShowMap(Route route) =>
+           ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm);
+
+        public void ShowMapBrowser(Route route) =>
+            ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm, true, true);
+
+        public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
+
 
         /*
         public void Init(

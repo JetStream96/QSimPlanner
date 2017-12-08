@@ -56,7 +56,6 @@ namespace QSP.UI.Views.FuelPlan
 
         private RouteFinderControl advancedRouteTool;
         private ActionContextMenu routeActionMenu;
-        private ActionContextMenuPresenter routeActionMenuPresenter;
         private RouteOptionContextMenu routeOptionMenu;
 
         public FinderOptionPresenter OrigPresenter => origFinderOptionControl.Presenter;
@@ -99,7 +98,7 @@ namespace QSP.UI.Views.FuelPlan
         private AirportManager AirportList => model.AirwayNetwork.AirportList;
         private WaypointList WptList => model.AirwayNetwork.WptList;
         private AppOptions AppOptions => model.AppOption.Instance;
-        private RouteGroup RouteToDest => routeActionMenuPresenter.Route;
+        private RouteGroup RouteToDest => routeActionMenu.Presenter.Route;
 
         public string DistanceInfo { set => routeDisLbl.Text = value; }
 
@@ -194,7 +193,7 @@ namespace QSP.UI.Views.FuelPlan
 
         private void SetRouteActionMenu()
         {
-            routeActionMenuPresenter = new ActionContextMenuPresenter(
+            var p = new ActionContextMenuPresenter(
                 this,
                 model.AppOption,
                 model.AirwayNetwork,
@@ -204,7 +203,7 @@ namespace QSP.UI.Views.FuelPlan
                 () => GetWindCalculator());
 
             routeActionMenu = new ActionContextMenu();
-            routeActionMenu.Init(routeActionMenuPresenter);
+            routeActionMenu.Init(p);
 
             showRouteActionsBtn.Click += (s, e) =>
                routeActionMenu.Show(showRouteActionsBtn, new Point(0, showRouteActionsBtn.Height));

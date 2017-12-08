@@ -6,6 +6,7 @@ using QSP.Metar;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
+using QSP.UI.Presenters.FuelPlan.Routes;
 using QSP.WindAloft;
 using System.Collections.Generic;
 
@@ -70,6 +71,19 @@ namespace QSP.UI.Models.FuelPlan.Routes
                 () => m.AirwayNetwork.AirportList,
                 () => m.AirwayNetwork.WptList,
                 m.ProcFilter);
+        }
+
+        public static AvgWindCalculator GetWindCalculator(this IFuelPlanningModel m,
+            RouteFinderPresenter p)
+        {
+            return AvgWindCalculatorExtension.GetWindCalculator(
+                m.AppOption.Instance,
+                m.WindTables,
+                m.AirwayNetwork.AirportList,
+                p.SelectedFuelData,
+                p.ZfwTon,
+                p.OrigIcao,
+                p.DestIcao);
         }
     }
 }

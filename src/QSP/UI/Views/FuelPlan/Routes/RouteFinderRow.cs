@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
+﻿using QSP.UI.Models.FuelPlan.Routes;
+using QSP.UI.Presenters.FuelPlan.Routes;
+using System;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.UI.Presenters.FuelPlan.Routes;
-using QSP.UI.Models.FuelPlan.Routes;
 
 namespace QSP.UI.Views.FuelPlan.Routes
 {
@@ -37,15 +32,15 @@ namespace QSP.UI.Views.FuelPlan.Routes
         public void Init(IFinderOptionModel model, IMessageDisplay display)
         {
             this.model = model;
-            var p = new FinderOptionPresenter(finderOptionControl, model);
-            finderOptionControl.Init(model, display);
+            var p = new FinderOptionPresenter(OptionControl, model);
+            OptionControl.Init(model, display);
             typeComboBox.SelectedIndex = 0;
             fromToLbl.Text = model.IsDepartureAirport ? "From" : "To";
         }
 
         public void OnNavDataChange()
         {
-            finderOptionControl.Presenter.OnNavDataChange();
+            OptionControl.Presenter.OnNavDataChange();
             RefreshWptListCBox();
         }
 
@@ -70,7 +65,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
         private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var isAirport = typeComboBox.SelectedIndex == 0;
-            finderOptionControl.Enabled = isAirport;
+            OptionControl.Enabled = isAirport;
             identTxtBox.Enabled = !isAirport;
             wptComboBox.Enabled = !isAirport;
         }

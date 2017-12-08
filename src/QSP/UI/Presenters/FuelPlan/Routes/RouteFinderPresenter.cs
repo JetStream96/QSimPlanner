@@ -1,4 +1,6 @@
-﻿using QSP.UI.Models.FuelPlan.Routes;
+﻿using QSP.FuelCalculation.FuelData;
+using QSP.RouteFinding.Routes;
+using QSP.UI.Models.FuelPlan.Routes;
 using QSP.UI.Views;
 using QSP.UI.Views.FuelPlan.Routes;
 using System;
@@ -13,6 +15,14 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
     {
         private IRouteFinderView view;
         private FinderOptionModel model;
+
+        public RouteGroup Route => view.ActionMenuPresenter.Route;
+
+        //TODO:
+        public double ZfwTon => 0;
+        public string OrigIcao => "";
+        public string DestIcao => "";
+        public FuelDataItem SelectedFuelData => null;
 
         public RouteFinderPresenter(IRouteFinderView view, FinderOptionModel model)
         {
