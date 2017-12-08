@@ -26,6 +26,16 @@ using static QSP.UI.Views.Factories.ToolTipFactory;
 
 namespace QSP.UI.Views.FuelPlan.Routes
 {
+    // This is a general control used in both (A) main fuel calculation page and 
+    // (B) advanced route finder. The differences includes:
+    // 
+    // 1. Among the 4 options, only airport to airport is supported in A.
+    // 2. For B, the route export is enabled only when the selection option is 
+    //    airport to airport.
+    // 3. The fuel required to alternate is not considered in B. This affects the planned
+    //    landing weight at destination and A and B can generate different routes  
+    //    when wind-optimized route is enabled.
+
     public partial class AdvancedToolControl : UserControl
     {
         
@@ -53,7 +63,18 @@ namespace QSP.UI.Views.FuelPlan.Routes
         {
             InitializeComponent();
         }
-        
+
+        public bool WaypointOptionEnabled
+        {
+            get => origRow.WaypointOptionEnabled;
+
+            set
+            {
+                origRow.WaypointOptionEnabled = value;
+                destRow.WaypointOptionEnabled = value;
+            }
+        }
+
         /*
         public void Init(
             Locator<AppOptions> appOptionsLocator,

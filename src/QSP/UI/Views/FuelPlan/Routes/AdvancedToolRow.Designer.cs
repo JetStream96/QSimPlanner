@@ -28,37 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.typeLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.typeComboBox = new QSP.UI.Views.ComboBoxWithBorder();
-            this.label1 = new System.Windows.Forms.Label();
+            this.fromToLbl = new System.Windows.Forms.Label();
             this.finderOptionControl = new QSP.UI.Views.FuelPlan.Routes.FinderOptionControl();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.wptLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.identTxtBox = new System.Windows.Forms.TextBox();
             this.wptComboBox = new QSP.UI.Views.ComboBoxWithBorder();
             this.label2 = new System.Windows.Forms.Label();
             this.fromIdentLbl = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.typeLayoutPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
+            this.wptLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // typeLayoutPanel
             // 
-            this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.typeComboBox, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(100, 46);
-            this.tableLayoutPanel1.TabIndex = 28;
+            this.typeLayoutPanel.AutoSize = true;
+            this.typeLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.typeLayoutPanel.ColumnCount = 1;
+            this.typeLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.typeLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.typeLayoutPanel.Controls.Add(this.typeComboBox, 0, 1);
+            this.typeLayoutPanel.Controls.Add(this.fromToLbl, 0, 0);
+            this.typeLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.typeLayoutPanel.Name = "typeLayoutPanel";
+            this.typeLayoutPanel.RowCount = 2;
+            this.typeLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.typeLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.typeLayoutPanel.Size = new System.Drawing.Size(100, 46);
+            this.typeLayoutPanel.TabIndex = 28;
             // 
             // typeComboBox
             // 
@@ -78,16 +78,16 @@
             this.typeComboBox.TabIndex = 2;
             this.typeComboBox.SelectedIndexChanged += new System.EventHandler(this.typeComboBox_SelectedIndexChanged);
             // 
-            // label1
+            // fromToLbl
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(2, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "From";
+            this.fromToLbl.AutoSize = true;
+            this.fromToLbl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fromToLbl.Location = new System.Drawing.Point(2, 0);
+            this.fromToLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.fromToLbl.Name = "fromToLbl";
+            this.fromToLbl.Size = new System.Drawing.Size(35, 15);
+            this.fromToLbl.TabIndex = 1;
+            this.fromToLbl.Text = "From";
             // 
             // finderOptionControl
             // 
@@ -110,8 +110,8 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.wptLayoutPanel, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.typeLayoutPanel, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.finderOptionControl, 1, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -121,24 +121,24 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(784, 56);
             this.tableLayoutPanel2.TabIndex = 30;
             // 
-            // tableLayoutPanel3
+            // wptLayoutPanel
             // 
-            this.tableLayoutPanel3.AutoSize = true;
-            this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.identTxtBox, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.wptComboBox, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label2, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.fromIdentLbl, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(469, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(312, 46);
-            this.tableLayoutPanel3.TabIndex = 31;
+            this.wptLayoutPanel.AutoSize = true;
+            this.wptLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.wptLayoutPanel.ColumnCount = 2;
+            this.wptLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.wptLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.wptLayoutPanel.Controls.Add(this.identTxtBox, 0, 1);
+            this.wptLayoutPanel.Controls.Add(this.wptComboBox, 1, 1);
+            this.wptLayoutPanel.Controls.Add(this.label2, 1, 0);
+            this.wptLayoutPanel.Controls.Add(this.fromIdentLbl, 0, 0);
+            this.wptLayoutPanel.Location = new System.Drawing.Point(469, 3);
+            this.wptLayoutPanel.Name = "wptLayoutPanel";
+            this.wptLayoutPanel.RowCount = 2;
+            this.wptLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.wptLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.wptLayoutPanel.Size = new System.Drawing.Size(312, 46);
+            this.wptLayoutPanel.TabIndex = 31;
             // 
             // identTxtBox
             // 
@@ -198,12 +198,12 @@
             this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "AdvancedToolRow";
             this.Size = new System.Drawing.Size(787, 59);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.typeLayoutPanel.ResumeLayout(false);
+            this.typeLayoutPanel.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
+            this.wptLayoutPanel.ResumeLayout(false);
+            this.wptLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -211,12 +211,12 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TableLayoutPanel typeLayoutPanel;
+        private System.Windows.Forms.Label fromToLbl;
         private ComboBoxWithBorder typeComboBox;
         private FinderOptionControl finderOptionControl;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel wptLayoutPanel;
         private System.Windows.Forms.Label label2;
         private ComboBoxWithBorder wptComboBox;
         private System.Windows.Forms.Label fromIdentLbl;

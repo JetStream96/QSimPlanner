@@ -21,6 +21,18 @@ namespace QSP.UI.Views.FuelPlan.Routes
             InitializeComponent();
         }
 
+        public bool WaypointOptionEnabled
+        {
+            get => typeLayoutPanel.Visible;
+
+            set
+            {
+                if (!value) typeComboBox.SelectedIndex = 0;
+                typeLayoutPanel.Visible = value;
+                wptLayoutPanel.Visible = value;
+            }
+        }
+
         // TODO: Is the IMessageDisplay really needed?
         public void Init(IFinderOptionModel model, IMessageDisplay display)
         {
@@ -28,6 +40,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
             var p = new FinderOptionPresenter(finderOptionControl, model);
             finderOptionControl.Init(model, display);
             typeComboBox.SelectedIndex = 0;
+            fromToLbl.Text = model.IsDepartureAirport ? "From" : "To";
         }
 
         public void OnNavDataChange()
