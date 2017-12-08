@@ -1,6 +1,6 @@
 ﻿namespace QSP.UI.Views.FuelPlan.Routes
 {
-    partial class AdvancedToolRow
+    partial class RouteFinderRow
     {
         /// <summary> 
         /// Required designer variable.

@@ -1,6 +1,6 @@
 ﻿namespace QSP.UI.Views.FuelPlan.Routes
 {
-    partial class AdvancedToolControl
+    partial class RouteFinderControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -34,8 +34,8 @@
             this.routeOptionBtn = new System.Windows.Forms.Button();
             this.showRouteActionsBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.origRow = new QSP.UI.Views.FuelPlan.Routes.AdvancedToolRow();
-            this.destRow = new QSP.UI.Views.FuelPlan.Routes.AdvancedToolRow();
+            this.origRow = new QSP.UI.Views.FuelPlan.Routes.RouteFinderRow();
+            this.destRow = new QSP.UI.Views.FuelPlan.Routes.RouteFinderRow();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
@@ -220,8 +220,8 @@
         public System.Windows.Forms.Button routeOptionBtn;
         public System.Windows.Forms.Button showRouteActionsBtn;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private AdvancedToolRow origRow;
-        private AdvancedToolRow destRow;
+        private RouteFinderRow origRow;
+        private RouteFinderRow destRow;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
     }

@@ -12,11 +12,11 @@ using QSP.UI.Models.FuelPlan.Routes;
 
 namespace QSP.UI.Views.FuelPlan.Routes
 {
-    public partial class AdvancedToolRow : UserControl, IAdvancedRouteRowView
+    public partial class RouteFinderRow : UserControl, IRouteFinderRowView
     {
         private IFinderOptionModel model;
 
-        public AdvancedToolRow()
+        public RouteFinderRow()
         {
             InitializeComponent();
         }

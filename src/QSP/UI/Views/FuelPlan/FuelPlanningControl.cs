@@ -54,7 +54,7 @@ namespace QSP.UI.Views.FuelPlan
 
         private IFuelPlanningModel model;
 
-        private AdvancedToolControl advancedRouteTool;
+        private RouteFinderControl advancedRouteTool;
         private ActionContextMenu routeActionMenu;
         private ActionContextMenuPresenter routeActionMenuPresenter;
         private RouteOptionContextMenu routeOptionMenu;
@@ -142,7 +142,7 @@ namespace QSP.UI.Views.FuelPlan
 
         private void InitAdvancedRouteTool()
         {
-            advancedRouteTool = new AdvancedToolControl();
+            advancedRouteTool = new RouteFinderControl();
             //advancedRouteTool.ini
             /* TODO
             advancedRouteTool.Init(

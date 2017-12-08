@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace QSP.UI.Presenters.FuelPlan.Routes
 {
-    public class AdvancedToolPresenter
+    public class RouteFinderPresenter
     {
-        private IAdvancedRouteView view;
+        private IRouteFinderView view;
         private FinderOptionModel model;
 
-        public AdvancedToolPresenter(IAdvancedRouteView view, FinderOptionModel model)
+        public RouteFinderPresenter(IRouteFinderView view, FinderOptionModel model)
         {
             this.view = view;
             this.model = model;

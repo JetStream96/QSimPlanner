@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace QSP.UI.Views.FuelPlan.Routes
 {
-    public interface IAdvancedRouteRowView : IRefreshForNavDataChange
+    public interface IRouteFinderRowView : IRefreshForNavDataChange
     {
     }
 }

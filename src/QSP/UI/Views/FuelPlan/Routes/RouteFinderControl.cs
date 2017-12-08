@@ -36,7 +36,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
     //    landing weight at destination and A and B can generate different routes  
     //    when wind-optimized route is enabled.
 
-    public partial class AdvancedToolControl : UserControl
+    public partial class RouteFinderControl : UserControl
     {
         
 
@@ -59,7 +59,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
         private TrackInUseCollection tracksInUse => airwayNetwork.TracksInUse;
         */
 
-        public AdvancedToolControl()
+        public RouteFinderControl()
         {
             InitializeComponent();
         }
