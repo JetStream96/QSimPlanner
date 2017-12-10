@@ -11,10 +11,17 @@ namespace QSP.UI.Views.FuelPlan.Routes
     {
         private IFinderOptionModel model;
 
+        public event EventHandler IcaoChanged;
+
+        public IFinderOptionView OptionView => OptionControl;
+
         public RouteFinderRow()
         {
             InitializeComponent();
         }
+
+        public string Icao => OptionControl.Icao;
+        public string Rwy => OptionControl.SelectedRwy;
 
         public bool WaypointOptionEnabled
         {

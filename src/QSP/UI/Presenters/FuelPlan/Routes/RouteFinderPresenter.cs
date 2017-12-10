@@ -17,13 +17,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         private FinderOptionModel model;
 
         public RouteGroup Route => view.ActionMenuPresenter.Route;
-
-        //TODO:
-        public double ZfwTon => 0;
-        public string OrigIcao => "";
-        public string DestIcao => "";
-        public FuelDataItem SelectedFuelData => null;
-
+        
         public RouteFinderPresenter(IRouteFinderView view, FinderOptionModel model)
         {
             this.view = view;

@@ -41,6 +41,8 @@ namespace QSP.UI.Views.FuelPlan.Routes
     public partial class RouteFinderControl : UserControl, IRouteFinderView
     {
 
+        public event EventHandler OrigIcaoChanged;
+        public event EventHandler DestIcaoChanged;
 
         /*
         private ControlGroup fromGroup;
@@ -73,10 +75,26 @@ namespace QSP.UI.Views.FuelPlan.Routes
             InitializeComponent();
         }
 
+        public string OrigIcao => origRow.Icao;
+        public string DestIcao => destRow.Icao;
+        public string OrigRwy => origRow.Rwy;
+        public string DestRwy => destRow.Rwy;
+        public RouteGroup RouteGroup => actionMenu.Presenter.Route;
+
+        // For alternate calculations.
+        public DestinationSidSelection DestSidProvider { get; private set; }
+        
+        //TODO: Add  Func<AvgWindCalculator> windCalc to model.
         public void Init(IFuelPlanningModel model)
         {
             this.model = model;
-            this.presenter =
+            this.presenter = null;// TOOD:
+
+            InitOrigDestControls();
+            SetRouteActionMenu();
+            SetRouteOptionMenu();
+            routeRichTxtBox.UpperCaseOnly();
+            routeSummaryLbl.Text = "";
         }
 
         public bool WaypointOptionEnabled
@@ -93,7 +111,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
         public string DistanceInfo { set => routeSummaryLbl.Text = value; }
         public string Route { get => routeRichTxtBox.Text; set => routeRichTxtBox.Text = value; }
 
-        private void SetRouteOptionControl()
+        private void SetRouteOptionMenu()
         {
             optionMenu = new RouteOptionContextMenu(model.CheckedCountryCodes,
                 model.CountryCodeManager);
@@ -112,13 +130,25 @@ namespace QSP.UI.Views.FuelPlan.Routes
                 origRow.OptionControl.Presenter,
                 destRow.OptionControl.Presenter,
                 model.CheckedCountryCodes,
-                () => model.GetWindCalculator(presenter));
+                () => model.GetWindCalculator());
 
             actionMenu = new ActionContextMenu();
             actionMenu.Init(p);
 
             showRouteActionsBtn.Click += (s, e) =>
                actionMenu.Show(showRouteActionsBtn, new Point(0, showRouteActionsBtn.Height));
+        }
+
+        private void InitOrigDestControls()
+        {
+            origRow.Init(model.ToIFinderOptionModel(true), this);
+            destRow.Init(model.ToIFinderOptionModel(false), this);
+
+            DestSidProvider = new DestinationSidSelection(
+                model.AirwayNetwork, model.AppOption, destRow.OptionView);
+
+            origRow.IcaoChanged+= (s, e) => OrigIcaoChanged?.Invoke(s, e);
+            destRow.IcaoChanged += (s, e) => DestIcaoChanged?.Invoke(s, e);
         }
 
         public void ShowMap(Route route) =>
@@ -129,6 +159,11 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
 
+        public void OnNavDataChange()
+        {
+            origRow.OnNavDataChange();
+            destRow.OnNavDataChange();
+        }
 
         /*
         public void Init(

@@ -46,8 +46,7 @@ namespace QSP.UI.Views.FuelPlan
     // for the route from origin to destination.
 
     public partial class FuelPlanningControl : UserControl, IRefreshForNavDataChange,
-        ISupportActionContextMenu
-    //, IFuelPlanningView,         
+        IFuelPlanningView
     {
         public event EventHandler OrigIcaoChanged;
         public event EventHandler DestIcaoChanged;
@@ -55,14 +54,8 @@ namespace QSP.UI.Views.FuelPlan
         private IFuelPlanningModel model;
 
         private RouteFinderControl advancedRouteTool;
-        private ActionContextMenu routeActionMenu;
-        private RouteOptionContextMenu routeOptionMenu;
 
-        public FinderOptionPresenter OrigPresenter => origFinderOptionControl.Presenter;
-        public FinderOptionPresenter DestPresenter => destFinderOptionControl.Presenter;
-
-        // For alternate calculations.
-        private DestinationSidSelection destSidProvider;
+        public IRouteFinderView RouteFinderView => routeFinderControl;
 
         public WeightController WeightControl { get; private set; }
         public WeightTextBoxController Extra { get; private set; }
@@ -92,21 +85,16 @@ namespace QSP.UI.Views.FuelPlan
             set => wtUnitComboBox.SelectedIndex = (int)value;
         }
 
-        public string OrigIcao => OrigPresenter.Icao;
-        public string DestIcao => DestPresenter.Icao;
+        public string OrigIcao => routeFinderControl.OrigIcao;
+        public string DestIcao => routeFinderControl.DestIcao;
+        public string OrigRwy => routeFinderControl.OrigRwy;
+        public string DestRwy => routeFinderControl.DestRwy;
 
         private AirportManager AirportList => model.AirwayNetwork.AirportList;
         private WaypointList WptList => model.AirwayNetwork.WptList;
         private AppOptions AppOptions => model.AppOption.Instance;
-        private RouteGroup RouteToDest => routeActionMenu.Presenter.Route;
-
-        public string DistanceInfo { set => routeDisLbl.Text = value; }
-
-        public string Route
-        {
-            get => mainRouteRichTxtBox.Text; set => mainRouteRichTxtBox.Text = value;
-        }
-
+        private RouteGroup RouteToDest => routeFinderControl.RouteGroup;
+        
         public FuelPlanningControl()
         {
             InitializeComponent();
@@ -117,15 +105,14 @@ namespace QSP.UI.Views.FuelPlan
             this.model = model;
 
             SetDefaultState();
-            SetOrigDestPresenters();
+            SetOrigDestEvents();
 
             AltnPresenter = new AlternatePresenter(
                 alternateControl, model.AppOption, model.AirwayNetwork, model.WindTables,
-                destSidProvider, GetFuelData, GetZfwTon, () => OrigIcao, () => DestIcao);
+                routeFinderControl.DestSidProvider, GetFuelData, GetZfwTon,
+                () => OrigIcao, () => DestIcao);
             alternateControl.Init(AltnPresenter);
-            
-            SetRouteOptionControl();
-            SetRouteActionMenu();
+
             SetWeightController();
             SetAircraftSelection();
             AddMetarCacheEvents();
@@ -170,43 +157,13 @@ namespace QSP.UI.Views.FuelPlan
                 }
             };
 
-            new[] { OrigPresenter, DestPresenter }.ForEach(i =>
-             {
-                 i.IcaoChanged += async (s, e) => await updateCache(i.Icao);
-             });
+            OrigIcaoChanged += async (s, e) => await updateCache(OrigIcao);
+            DestIcaoChanged += async (s, e) => await updateCache(DestIcao);
 
             AltnPresenter.AlternatesChanged += (s, e) =>
-             {
-                 AltnPresenter.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
-             };
-        }
-
-        private void SetRouteOptionControl()
-        {
-            routeOptionMenu = new RouteOptionContextMenu(model.CheckedCountryCodes,
-                model.CountryCodeManager);
-
-            routeOptionMenu.Subscribe();
-            routeOptionBtn.Click += (s, e) =>
-                routeOptionMenu.Show(routeOptionBtn, new Point(0, routeOptionBtn.Height));
-        }
-
-        private void SetRouteActionMenu()
-        {
-            var p = new ActionContextMenuPresenter(
-                this,
-                model.AppOption,
-                model.AirwayNetwork,
-                OrigPresenter,
-                DestPresenter,
-                model.CheckedCountryCodes,
-                () => GetWindCalculator());
-
-            routeActionMenu = new ActionContextMenu();
-            routeActionMenu.Init(p);
-
-            showRouteActionsBtn.Click += (s, e) =>
-               routeActionMenu.Show(showRouteActionsBtn, new Point(0, showRouteActionsBtn.Height));
+            {
+                AltnPresenter.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
+            };
         }
 
         public void OnWptListChanged()
@@ -221,7 +178,6 @@ namespace QSP.UI.Views.FuelPlan
             registrationComboBox.SelectedIndexChanged += RegistrationChanged;
             calculateBtn.Click += Calculate;
             advancedToolLbl.Click += ShowAdvancedTool;
-            mainRouteRichTxtBox.UpperCaseOnly();
         }
 
         private string[] AvailAircraftTypes()
@@ -245,7 +201,6 @@ namespace QSP.UI.Views.FuelPlan
 
         private void SetDefaultState()
         {
-            routeDisLbl.Text = "";
             FinalReserveTxtBox.Text = "30";
             ContPercentComboBox.Text = "5";
             extraFuelTxtBox.Text = "0";
@@ -278,16 +233,10 @@ namespace QSP.UI.Views.FuelPlan
             }
         }
 
-        private void SetOrigDestPresenters()
+        private void SetOrigDestEvents()
         {
-            origFinderOptionControl.Init(model.ToIFinderOptionModel(true), this);
-            destFinderOptionControl.Init(model.ToIFinderOptionModel(false), this);
-
-            destSidProvider = new DestinationSidSelection(
-                model.AirwayNetwork, model.AppOption, DestPresenter);
-
-            OrigPresenter.IcaoChanged += (s, e) => OrigIcaoChanged?.Invoke(s, e);
-            DestPresenter.IcaoChanged += (s, e) => DestIcaoChanged?.Invoke(s, e);
+            routeFinderControl.OrigIcaoChanged += (s, e) => OrigIcaoChanged?.Invoke(s, e);
+            routeFinderControl.DestIcaoChanged += (s, e) => DestIcaoChanged?.Invoke(s, e);
         }
 
         private void WtUnitChanged(object sender, EventArgs e)
@@ -529,11 +478,11 @@ namespace QSP.UI.Views.FuelPlan
         {
             return AvgWindCalculatorExtension.GetWindCalculator(
                 AppOptions, model.WindTables, AirportList, GetFuelData(),
-                GetZfwTon(), OrigPresenter.Icao, DestPresenter.Icao);
+                GetZfwTon(), OrigIcao, DestIcao);
         }
 
         /// <exception cref="InvalidOperationException"></exception>
-        private double GetZfwTon()
+        public double GetZfwTon()
         {
             try
             {
@@ -544,11 +493,10 @@ namespace QSP.UI.Views.FuelPlan
                 throw new InvalidUserInputException("Please enter a valid ZFW.");
             }
         }
-        
+
         public void OnNavDataChange()
         {
-            OrigPresenter.OnNavDataChange();
-            DestPresenter.OnNavDataChange();
+            routeFinderControl.OnNavDataChange();
             AltnPresenter.OnNavDataChange();
         }
 

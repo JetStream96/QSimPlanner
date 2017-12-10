@@ -2,7 +2,7 @@
 using QSP.LibraryExtension;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.Tracks;
-using QSP.UI.Presenters.FuelPlan.Routes;
+using QSP.UI.Views.FuelPlan.Routes;
 using System.Collections.Generic;
 
 namespace QSP.UI.Controllers
@@ -11,20 +11,20 @@ namespace QSP.UI.Controllers
     {
         private AirwayNetwork airwayNetwork;
         private Locator<AppOptions> appOptions;
-        private FinderOptionPresenter presenter;
+        private IFinderOptionView option;
 
         public DestinationSidSelection(AirwayNetwork airwayNetwork,
             Locator<AppOptions> appOptions,
-            FinderOptionPresenter presenter)
+            IFinderOptionView option)
         {
             this.airwayNetwork = airwayNetwork;
             this.appOptions = appOptions;
-            this.presenter = presenter;
+            this.option = option;
         }
 
-        public string Icao => presenter.Icao;
+        public string Icao => option.Icao;
 
-        public string Rwy => presenter.Rwy;
+        public string Rwy => option.SelectedRwy;
 
         public IEnumerable<string> GetSelectedProcedures()
         {

@@ -357,9 +357,9 @@ namespace QSP.UI.Forms
             var m = miscInfoPresenter;
 
             fuelMenu.OrigIcaoChanged += (sender, e) =>
-              {
-                  if (m != null) m.Orig = fuelMenu.OrigIcao;
-              };
+            {
+                if (m != null) m.Orig = fuelMenu.OrigIcao;
+            };
 
             fuelMenu.DestIcaoChanged += (sender, e) =>
             {
@@ -395,7 +395,7 @@ namespace QSP.UI.Forms
             toControl.reqAirportBtn.Click += (s, e) =>
             {
                 toControl.airportTxtBox.Text = fuelMenu.OrigIcao;
-                toControl.rwyComboBox.Text = fuelMenu.OrigPresenter.Rwy;
+                toControl.rwyComboBox.Text = fuelMenu.OrigRwy;
             };
 
             var ldgControl = ldgMenu.airportInfoControl;
@@ -403,7 +403,7 @@ namespace QSP.UI.Forms
             ldgControl.reqAirportBtn.Click += (s, e) =>
             {
                 ldgControl.airportTxtBox.Text = fuelMenu.DestIcao;
-                ldgControl.rwyComboBox.Text = fuelMenu.DestPresenter.Rwy;
+                ldgControl.rwyComboBox.Text = fuelMenu.DestRwy;
             };
         }
 
