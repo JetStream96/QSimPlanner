@@ -103,6 +103,20 @@ namespace QSP.UI.Views.FuelPlan.Routes
             {
                 origRow.WaypointOptionEnabled = value;
                 destRow.WaypointOptionEnabled = value;
+
+                SuspendLayout();
+                tableLayoutPanel1.Controls.Remove(destRow);
+
+                if (value)
+                {
+                    tableLayoutPanel1.Controls.Add(destRow, 0, 1);
+                }
+                else
+                {
+                    tableLayoutPanel1.Controls.Add(destRow, 1, 0);
+                }
+
+                ResumeLayout();
             }
         }
 

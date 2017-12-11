@@ -104,6 +104,9 @@ namespace QSP.UI.Views.FuelPlan
             SetDefaultState();
             SetOrigDestEvents();
 
+            routeFinderControl.Init(
+                new RouteFinderModel(model, () => model.GetWindCalculator(this)));
+
             AltnPresenter = new AlternatePresenter(
                 alternateControl, model.AppOption, model.AirwayNetwork, model.WindTables,
                 routeFinderControl.DestSidProvider, GetFuelData, GetZfwTon,

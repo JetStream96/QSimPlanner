@@ -34,10 +34,10 @@
             this.routeOptionBtn = new System.Windows.Forms.Button();
             this.showRouteActionsBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.origRow = new QSP.UI.Views.FuelPlan.Routes.RouteFinderRow();
-            this.destRow = new QSP.UI.Views.FuelPlan.Routes.RouteFinderRow();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.origRow = new QSP.UI.Views.FuelPlan.Routes.RouteFinderRow();
+            this.destRow = new QSP.UI.Views.FuelPlan.Routes.RouteFinderRow();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -115,40 +115,19 @@
             // 
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.origRow, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.destRow, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 4);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(989, 172);
             this.tableLayoutPanel1.TabIndex = 29;
-            // 
-            // origRow
-            // 
-            this.origRow.AutoSize = true;
-            this.origRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.origRow.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.origRow.Location = new System.Drawing.Point(5, 5);
-            this.origRow.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.origRow.Name = "origRow";
-            this.origRow.Size = new System.Drawing.Size(979, 76);
-            this.origRow.TabIndex = 0;
-            // 
-            // destRow
-            // 
-            this.destRow.AutoSize = true;
-            this.destRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.destRow.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.destRow.Location = new System.Drawing.Point(5, 91);
-            this.destRow.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.destRow.Name = "destRow";
-            this.destRow.Size = new System.Drawing.Size(979, 76);
-            this.destRow.TabIndex = 1;
             // 
             // tableLayoutPanel2
             // 
@@ -160,7 +139,7 @@
             this.tableLayoutPanel2.Controls.Add(this.routeOptionBtn, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.showRouteActionsBtn, 1, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 184);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -179,7 +158,7 @@
             this.tableLayoutPanel4.Controls.Add(this.routeRichTxtBox, 0, 4);
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 5;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -190,7 +169,31 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(997, 374);
             this.tableLayoutPanel4.TabIndex = 32;
             // 
-            // AdvancedToolControl
+            // origRow
+            // 
+            this.origRow.AutoSize = true;
+            this.origRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.origRow.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.origRow.Location = new System.Drawing.Point(5, 5);
+            this.origRow.Margin = new System.Windows.Forms.Padding(5);
+            this.origRow.Name = "origRow";
+            this.origRow.Size = new System.Drawing.Size(979, 76);
+            this.origRow.TabIndex = 0;
+            this.origRow.WaypointOptionEnabled = true;
+            // 
+            // destRow
+            // 
+            this.destRow.AutoSize = true;
+            this.destRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.destRow.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.destRow.Location = new System.Drawing.Point(5, 91);
+            this.destRow.Margin = new System.Windows.Forms.Padding(5);
+            this.destRow.Name = "destRow";
+            this.destRow.Size = new System.Drawing.Size(979, 76);
+            this.destRow.TabIndex = 1;
+            this.destRow.WaypointOptionEnabled = true;
+            // 
+            // RouteFinderControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -200,7 +203,7 @@
             this.Controls.Add(this.tableLayoutPanel4);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "AdvancedToolControl";
+            this.Name = "RouteFinderControl";
             this.Size = new System.Drawing.Size(1001, 378);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
