@@ -30,8 +30,8 @@ namespace QSP.RouteFinding.Finder
         }
 
         public Route FindRoute(
-            string origIcao, string origRwy, List<string> sids,
-            string destIcao, string destRwy, List<string> stars)
+            string origIcao, string origRwy, IReadOnlyList<string> sids,
+            string destIcao, string destRwy, IReadOnlyList<string> stars)
         {
             var editor = wptList.GetEditor();
             var sidHandler = SidHandlerFactory.GetHandler(
@@ -58,11 +58,11 @@ namespace QSP.RouteFinding.Finder
             string origIcao,
             string origRwy,
             SidCollection sidCol,
-            List<string> sids,
+            IReadOnlyList<string> sids,
             string destIcao,
             string destRwy,
             StarCollection starCol,
-            List<string> stars)
+            IReadOnlyList<string> stars)
         {
             var editor = wptList.GetEditor();
             var sidHandler = new SidHandler(origIcao, sidCol, wptList, editor, airportList);
@@ -74,7 +74,7 @@ namespace QSP.RouteFinding.Finder
                 editor);
         }
 
-        public Route FindRoute(string icao, string rwy, List<string> sids, int wptIndex)
+        public Route FindRoute(string icao, string rwy, IReadOnlyList<string> sids, int wptIndex)
         {
             var editor = wptList.GetEditor();
             var sidHandler = SidHandlerFactory.GetHandler(
@@ -89,7 +89,7 @@ namespace QSP.RouteFinding.Finder
 
         public Route FindRoute(
             string icao, string rwy, SidCollection sidCol,
-            List<string> sids, int wptIndex)
+            IReadOnlyList<string> sids, int wptIndex)
         {
             var editor = wptList.GetEditor();
             var handler = new SidHandler(icao, sidCol, wptList, editor, airportList);
@@ -100,7 +100,7 @@ namespace QSP.RouteFinding.Finder
                 editor);
         }
 
-        public Route FindRoute(int wptIndex, string icao, string rwy, List<string> stars)
+        public Route FindRoute(int wptIndex, string icao, string rwy, IReadOnlyList<string> stars)
         {
             var editor = wptList.GetEditor();
             var starHandler = StarHandlerFactory.GetHandler(
@@ -115,7 +115,7 @@ namespace QSP.RouteFinding.Finder
 
         public Route FindRoute(
             int wptIndex, string icao, string rwy,
-            StarCollection starCol, List<string> stars)
+            StarCollection starCol, IReadOnlyList<string> stars)
         {
             var editor = wptList.GetEditor();
             var handler = new StarHandler(icao, starCol, wptList, editor, airportList);

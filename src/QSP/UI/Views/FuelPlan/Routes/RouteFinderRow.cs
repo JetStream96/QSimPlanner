@@ -1,9 +1,13 @@
-﻿using QSP.UI.Models.FuelPlan.Routes;
+﻿using QSP.AviationTools.Coordinates;
+using QSP.RouteFinding.Data.Interfaces;
+using QSP.UI.Models.FuelPlan.Routes;
 using QSP.UI.Presenters.FuelPlan.Routes;
 using System;
 using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using static CommonLibrary.LibraryExtension.IEnumerables;
 
 namespace QSP.UI.Views.FuelPlan.Routes
 {
@@ -35,6 +39,40 @@ namespace QSP.UI.Views.FuelPlan.Routes
             }
         }
 
+        public int? SelectedWaypointIndex
+        {
+            get
+            {
+                if (!WaypointOptionEnabled) return null;
+
+                try
+                {
+                    var latLon = ExtractLatLon(wptComboBox.Text);
+                    var wptList = model.WptList();
+                    return wptList.FindAllById(wptComboBox.Text)
+                        .MinBy(i => wptList[i].Distance(latLon));
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        // Gets the lat and lon.
+        // Inpute sample: "LAT/22.55201 LON/-121.3554"
+        private static LatLon ExtractLatLon(string s)
+        {
+            var matchLat = Regex.Match(s, @"LAT/-?([\d.]+) ");
+            double lat = double.Parse(matchLat.Groups[1].Value);
+
+            var matchLon = Regex.Match(s, @"LON/(-?[\d.]+)");
+            double lon = double.Parse(matchLon.Groups[1].Value);
+
+            return new LatLon(lat, lon);
+        }
+
+
         // TODO: Is the IMessageDisplay really needed?
         public void Init(IFinderOptionModel model, IMessageDisplay display)
         {
@@ -43,6 +81,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
             OptionControl.Init(model, display);
             typeComboBox.SelectedIndex = 0;
             fromToLbl.Text = model.IsDepartureAirport ? "From" : "To";
+            OptionControl.Presenter.IcaoChanged += (s, e) => IcaoChanged?.Invoke(s, e);
         }
 
         public void OnNavDataChange()

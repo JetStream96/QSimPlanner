@@ -6,5 +6,8 @@ namespace QSP.UI.Views.FuelPlan.Routes
     public interface IRouteFinderRowView : IRefreshForNavDataChange
     {
         event EventHandler IcaoChanged;
+        IFinderOptionView OptionView { get; }
+        bool WaypointOptionEnabled { get; }
+        int? SelectedWaypointIndex { get; }
     }
 }

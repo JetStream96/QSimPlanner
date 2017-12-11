@@ -237,6 +237,7 @@
     <Compile Include="UI\Models\FuelPlan\RouteDistanceDisplay.cs" />
     <Compile Include="UI\Models\FuelPlan\Routes\IFinderOptionModel.cs" />
     <Compile Include="UI\Models\FuelPlan\Routes\IFuelPlanningModel.cs" />
+    <Compile Include="UI\Models\FuelPlan\Routes\IRouteFinderModel.cs" />
     <Compile Include="UI\Models\FuelPlan\SelectedProcedures.cs" />
     <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />

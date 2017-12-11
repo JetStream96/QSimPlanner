@@ -40,7 +40,6 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
     public partial class RouteFinderControl : UserControl, IRouteFinderView
     {
-
         public event EventHandler OrigIcaoChanged;
         public event EventHandler DestIcaoChanged;
 
@@ -64,7 +63,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
         */
 
         private RouteFinderPresenter presenter;
-        private IFuelPlanningModel model;
+        private IRouteFinderModel model;
         private ActionContextMenu actionMenu;
         private RouteOptionContextMenu optionMenu;
 
@@ -83,12 +82,11 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
         // For alternate calculations.
         public DestinationSidSelection DestSidProvider { get; private set; }
-        
-        //TODO: Add  Func<AvgWindCalculator> windCalc to model.
-        public void Init(IFuelPlanningModel model)
+
+        public void Init(IRouteFinderModel model)
         {
             this.model = model;
-            this.presenter = null;// TOOD:
+            this.presenter = new RouteFinderPresenter(this, model);
 
             InitOrigDestControls();
             SetRouteActionMenu();
@@ -111,10 +109,15 @@ namespace QSP.UI.Views.FuelPlan.Routes
         public string DistanceInfo { set => routeSummaryLbl.Text = value; }
         public string Route { get => routeRichTxtBox.Text; set => routeRichTxtBox.Text = value; }
 
+        public IRouteFinderRowView OrigRow => origRow;
+        public IRouteFinderRowView DestRow => destRow;
+
         private void SetRouteOptionMenu()
         {
-            optionMenu = new RouteOptionContextMenu(model.CheckedCountryCodes,
-                model.CountryCodeManager);
+            var m = model.FuelPlanningModel;
+
+            optionMenu = new RouteOptionContextMenu(m.CheckedCountryCodes,
+                m.CountryCodeManager);
 
             optionMenu.Subscribe();
             routeOptionBtn.Click += (s, e) =>
@@ -123,14 +126,15 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
         private void SetRouteActionMenu()
         {
+            var m = model.FuelPlanningModel;
             var p = new ActionContextMenuPresenter(
                 this,
-                model.AppOption,
-                model.AirwayNetwork,
+                m.AppOption,
+                m.AirwayNetwork,
                 origRow.OptionControl.Presenter,
                 destRow.OptionControl.Presenter,
-                model.CheckedCountryCodes,
-                () => model.GetWindCalculator());
+                m.CheckedCountryCodes,
+                model.WindCalc);
 
             actionMenu = new ActionContextMenu();
             actionMenu.Init(p);
@@ -141,13 +145,14 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
         private void InitOrigDestControls()
         {
-            origRow.Init(model.ToIFinderOptionModel(true), this);
-            destRow.Init(model.ToIFinderOptionModel(false), this);
+            var m = model.FuelPlanningModel;
+            origRow.Init(m.ToIFinderOptionModel(true), this);
+            destRow.Init(m.ToIFinderOptionModel(false), this);
 
             DestSidProvider = new DestinationSidSelection(
-                model.AirwayNetwork, model.AppOption, destRow.OptionView);
+                m.AirwayNetwork, m.AppOption, destRow.OptionView);
 
-            origRow.IcaoChanged+= (s, e) => OrigIcaoChanged?.Invoke(s, e);
+            origRow.IcaoChanged += (s, e) => OrigIcaoChanged?.Invoke(s, e);
             destRow.IcaoChanged += (s, e) => DestIcaoChanged?.Invoke(s, e);
         }
 

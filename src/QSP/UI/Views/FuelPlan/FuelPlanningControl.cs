@@ -11,20 +11,17 @@ using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes;
-using QSP.UI.Controllers;
 using QSP.UI.Controllers.Units;
 using QSP.UI.Controllers.WeightControl;
 using QSP.UI.Models.FuelPlan;
 using QSP.UI.Models.FuelPlan.Routes;
 using QSP.UI.Models.MsgBox;
 using QSP.UI.Presenters.FuelPlan;
-using QSP.UI.Presenters.FuelPlan.Routes;
 using QSP.UI.UserControls;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.Util;
 using QSP.UI.Util.ScrollBar;
 using QSP.UI.Views.FuelPlan.Routes;
-using QSP.UI.Views.FuelPlan.Routes.Actions;
 using QSP.Utilities.Units;
 using QSP.WindAloft;
 using System;
@@ -474,13 +471,6 @@ namespace QSP.UI.Views.FuelPlan
             registrationComboBox.Text = reg;
         }
 
-        private AvgWindCalculator GetWindCalculator()
-        {
-            return AvgWindCalculatorExtension.GetWindCalculator(
-                AppOptions, model.WindTables, AirportList, GetFuelData(),
-                GetZfwTon(), OrigIcao, DestIcao);
-        }
-
         /// <exception cref="InvalidOperationException"></exception>
         public double GetZfwTon()
         {
@@ -499,12 +489,6 @@ namespace QSP.UI.Views.FuelPlan
             routeFinderControl.OnNavDataChange();
             AltnPresenter.OnNavDataChange();
         }
-
-        public void ShowMap(Route route) =>
-            ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm);
-
-        public void ShowMapBrowser(Route route) =>
-            ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm, true, true);
 
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
     }

@@ -55,8 +55,8 @@ namespace QSP.UI.UserControls
         public XElement Save()
         {
             var c = control;
-            var d = c.DestPresenter;
-            var o = c.OrigPresenter;
+            var d = c.RouteFinderView.DestRow.OptionView;
+            var o = c.RouteFinderView.OrigRow.OptionView;
 
             return new XElement("FuelPlanningState", new XElement[]
             {
@@ -65,10 +65,10 @@ namespace QSP.UI.UserControls
                 ((int)c.WeightUnit).Serialize(wtUnit),
                 TryGetWeightKg(c.Zfw).Serialize(zfw),
                 o.Icao.Serialize(origin),
-                o.Rwy.Serialize(originRwy),
+                o.SelectedRwy.Serialize(originRwy),
                 o.SelectedProcedureText.Serialize(originSid),
                 d.Icao.Serialize(destination),
-                d.Rwy.Serialize(destRwy),
+                d.SelectedRwy.Serialize(destRwy),
                 d.SelectedProcedureText.Serialize(destStar),
                 new XElement(alternates, GetAlternates()),
                 c.ContPercentComboBox.Text.Serialize(contPerc),
@@ -120,8 +120,8 @@ namespace QSP.UI.UserControls
         {
             var c = control;
             var r = doc.Root;
-            var d = c.DestPresenter;
-            var o = c.OrigPresenter;
+            var d = c.RouteFinderView.DestRow.OptionView;
+            var o = c.RouteFinderView.OrigRow.OptionView;
 
             Action[] actions =
             {
@@ -130,10 +130,10 @@ namespace QSP.UI.UserControls
                 () => c.WeightUnit = (WeightUnit)r.GetInt(wtUnit),
                 () => c.WeightControl.ZfwKg = r.GetDouble(zfw),
                 () => o.Icao = r.GetString(origin),
-                () => o.Rwy = r.GetString(originRwy),
+                () => o.SelectedRwy = r.GetString(originRwy),
                 () => o.SelectedProcedureText = r.GetString(originSid),
                 () => d.Icao = r.GetString(destination),
-                () => d.Rwy = r.GetString(destRwy),
+                () => d.SelectedRwy = r.GetString(destRwy),
                 () => d.SelectedProcedureText = r.GetString(destStar),
                 () => SetAlternates(r.Element(alternates)),
                 () => c.ContPercentComboBox.Text = r.GetString(contPerc),

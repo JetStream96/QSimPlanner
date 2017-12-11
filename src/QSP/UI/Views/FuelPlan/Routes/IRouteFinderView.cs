@@ -9,8 +9,14 @@ namespace QSP.UI.Views.FuelPlan.Routes
     {
         event EventHandler OrigIcaoChanged;
         event EventHandler DestIcaoChanged;
-        ActionContextMenuPresenter ActionMenuPresenter { get; }
+        
         string OrigIcao { get; }
         string DestIcao { get; }
+        string OrigRwy { get; }
+        string DestRwy { get; }
+
+        ActionContextMenuPresenter ActionMenuPresenter { get; }
+        IRouteFinderRowView OrigRow { get; }
+        IRouteFinderRowView DestRow { get; }
     }
 }
