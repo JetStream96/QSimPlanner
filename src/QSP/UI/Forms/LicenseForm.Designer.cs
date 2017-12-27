@@ -45,29 +45,29 @@
             this.tableLayoutPanel1.Controls.Add(this.richTextBox1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.agreeBtn, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(30, 30);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(38, 38);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel1.MaximumSize = new System.Drawing.Size(464, 400);
-            this.tableLayoutPanel1.MinimumSize = new System.Drawing.Size(464, 0);
+            this.tableLayoutPanel1.MaximumSize = new System.Drawing.Size(580, 500);
+            this.tableLayoutPanel1.MinimumSize = new System.Drawing.Size(580, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 300F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 375F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(464, 368);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(580, 457);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // richTextBox1
             // 
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(2, 31);
+            this.richTextBox1.Location = new System.Drawing.Point(2, 37);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(460, 296);
+            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox1.Size = new System.Drawing.Size(576, 371);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
-            this.richTextBox1.WordWrap = false;
             // 
             // agreeBtn
             // 
@@ -75,11 +75,11 @@
             this.agreeBtn.AutoSize = true;
             this.agreeBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.agreeBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.agreeBtn.Location = new System.Drawing.Point(374, 341);
-            this.agreeBtn.Margin = new System.Windows.Forms.Padding(2, 12, 2, 2);
+            this.agreeBtn.Location = new System.Drawing.Point(469, 425);
+            this.agreeBtn.Margin = new System.Windows.Forms.Padding(2, 15, 2, 2);
             this.agreeBtn.Name = "agreeBtn";
-            this.agreeBtn.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.agreeBtn.Size = new System.Drawing.Size(88, 25);
+            this.agreeBtn.Padding = new System.Windows.Forms.Padding(25, 0, 25, 0);
+            this.agreeBtn.Size = new System.Drawing.Size(109, 30);
             this.agreeBtn.TabIndex = 1;
             this.agreeBtn.Text = "Agree";
             this.agreeBtn.UseVisualStyleBackColor = true;
@@ -90,22 +90,23 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(2, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 10);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(421, 19);
+            this.label1.Size = new System.Drawing.Size(528, 23);
             this.label1.TabIndex = 1;
             this.label1.Text = "Please agree with the following license before using this application.";
             // 
             // LicenseForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(529, 429);
+            this.ClientSize = new System.Drawing.Size(661, 536);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LicenseForm";

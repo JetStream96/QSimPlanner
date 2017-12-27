@@ -53,7 +53,7 @@ namespace QSP.Updates
 
                 var ver = GetVersions();
                 var prevTxt = Path.Combine("..", ver.Backup, "LICENSE.txt");
-                return File.ReadAllText(prevTxt) == File.ReadAllText("LICENSE.txt");
+                return File.ReadAllText(prevTxt) != File.ReadAllText("LICENSE.txt");
             }
             catch
             {

@@ -76,7 +76,7 @@ namespace QSP
 
         private static void ShowLicenseIfNeeded()
         {
-            if ( ShouldShowLicense())
+            if (ShouldShowLicense())
             {
                 var frm = new LicenseForm()
                 {
@@ -202,7 +202,7 @@ namespace QSP
                 {
                     WorkingDirectory = Path.GetDirectoryName(assemblyLocation),
                     FileName = "ErrorReport.exe",
-                    Arguments = Strings.EscapeCommandLineArg(url) + " " +Strings.EscapeCommandLineArg(message),
+                    Arguments = Strings.EscapeCommandLineArg(url) + " " + Strings.EscapeCommandLineArg(message),
                     WindowStyle = ProcessWindowStyle.Hidden
                 };
 
