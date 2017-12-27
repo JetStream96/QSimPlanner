@@ -18,7 +18,8 @@ namespace InstallerBuilder
 
                 try
                 {
-                    BuildAttempt();
+                    var doNotCreateInstaller = args.Length >= 1 && args[0] == "--no-installer";
+                    BuildAttempt(!doNotCreateInstaller);
                     return;
                 }
                 catch (Exception e)
@@ -28,11 +29,12 @@ namespace InstallerBuilder
             }
         }
 
-        public static void BuildAttempt()
+        public static void BuildAttempt(bool createInstaller)
         {
             var gen = new FileOutputGenerator();
             gen.Build();
-            InstallerCreator.WriteFile(gen.Version);
+
+            if (createInstaller) InstallerCreator.WriteFile(gen.Version);
 
             Console.WriteLine(@"
 

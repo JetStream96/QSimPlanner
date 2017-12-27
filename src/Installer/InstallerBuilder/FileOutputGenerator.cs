@@ -11,12 +11,13 @@ namespace InstallerBuilder
     {
         public string Version { get; private set; }
 
+        public static string TmpOutputFolder => Path.Combine(OutputFolder, "tmp");
+
         public void Build()
         {
             ClearDirectory(OutputFolder);
-            var tmpFolder = Path.Combine(OutputFolder, "tmp");
-            Directory.CreateDirectory(tmpFolder);
-            CompileApp(tmpFolder);
+            Directory.CreateDirectory(TmpOutputFolder);
+            CompileApp(TmpOutputFolder);
 
             var errorReporterFolder = Path.Combine(OutputFolder, "tmperr");
             CompileErrorReport();
@@ -24,10 +25,12 @@ namespace InstallerBuilder
                 Path.Combine(OutputFolder, "tmp/ErrorReport.exe"));
             Directory.Delete(errorReporterFolder, true);
 
-            Version = GetVersion(tmpFolder);
+            AiracFile.CopyNavData();
+
+            Version = GetVersion(TmpOutputFolder);
             var folder = Path.Combine(OutputFolder, Version);
             Directory.CreateDirectory(OutputFolder);
-            Directory.Move(tmpFolder, folder);
+            Directory.Move(TmpOutputFolder, folder);
 
             WriteLicenseText(folder);
             CopyDirectory(Path.Combine(RepositoryRoot(), "manual"),
@@ -38,7 +41,7 @@ namespace InstallerBuilder
 
             DeleteRedundantFiles(Version);
         }
-
+        
         private static void CompileErrorReport()
         {
             var errorReporterFolder = Path.Combine(OutputFolder, "tmperr");
@@ -46,6 +49,8 @@ namespace InstallerBuilder
             var errProjectFile = Path.Combine(OutputFolder, "../../ErrorReport/ErrorReport.csproj");
             Compile(errProjectFile, errorReporterFolder);
         }
+
+        private static string EscapeBackslash(string s) => s.Replace(@"\", @"\\");
 
         private static void DeleteRedundantFiles(string version)
         {
@@ -63,10 +68,7 @@ namespace InstallerBuilder
             File.WriteAllText(path, new XDocument(elem).ToString());
         }
 
-        private static string RepositoryRoot()
-        {
-            return Path.Combine(OutputFolder, "../../..");
-        }
+        private static string RepositoryRoot() => Path.Combine(OutputFolder, "../../..");
 
         private static string ProjectFolder()
         {
@@ -74,19 +76,15 @@ namespace InstallerBuilder
             return Path.Combine(srcPath, "QSP");
         }
 
-        private static string ProjectFile()
-        {
-            return Path.Combine(ProjectFolder(), "QSP.csproj");
-        }
+        private static string ProjectFile() => Path.Combine(ProjectFolder(), "QSP.csproj");
 
         private static void WriteLicenseText(string folder)
         {
             var gen = new LicenseTextGenerator(RepositoryRoot());
 
-            File.WriteAllText(Path.Combine(folder, "LICENSE.txt"),
-               gen.Generate());
+            File.WriteAllText(Path.Combine(folder, "LICENSE.txt"), gen.Generate());
         }
-
+        
         private static string GetVersion(string folder)
         {
             var file = Path.Combine(folder, "QSimPlanner.exe");
@@ -107,12 +105,14 @@ namespace InstallerBuilder
 
         private static void Compile(string projectFile, string outputFolder)
         {
+            var p = Path.GetFullPath(projectFile);
             var info = new ProcessStartInfo();
 
             info.UseShellExecute = false;
             info.FileName = GetMsbuildPath();
-            info.Arguments = $"{projectFile} /p:Configuration=Release " +
-                $"/p:OutputPath={Path.GetFullPath(outputFolder)}";
+            info.Arguments = $"\"{EscapeBackslash(Path.GetFullPath(projectFile))}\" " +
+                "/p:Configuration=Release " +
+                $"/p:OutputPath=\"{EscapeBackslash(Path.GetFullPath(outputFolder))}\"";
 
             var process = Process.Start(info);
             process.WaitForExit();
