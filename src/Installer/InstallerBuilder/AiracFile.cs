@@ -23,11 +23,20 @@ namespace InstallerBuilder
             }
         }
 
+        private static void WriteReadmeFile()
+        {
+            var content = "All files in this folder is provided by Aerosoft and should not be " +
+                "distributed without permission.";
+            var path = Path.Combine(FileOutputGenerator.TmpOutputFolder, "NavData/readme.txt");
+            File.WriteAllText(path, content);
+        }
+
         public static void CopyNavData()
         {
             GetAirac();
             var dest = Path.Combine(FileOutputGenerator.TmpOutputFolder, "NavData");
             ZipFile.ExtractToDirectory(NavDataFilePath, dest);
+            WriteReadmeFile();
         }
     }
 }

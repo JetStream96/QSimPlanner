@@ -11,7 +11,7 @@ namespace InstallerBuilder
             const int numTry = 3;
             var asterisks = new string('*', 24);
 
-            for (int i = 1; i <= 3; i++)
+            for (int i = 1; i <= numTry; i++)
             {
                 Console.WriteLine($"\n\n\n{asterisks}\n\n    " +
                     $"Build attempt {i}/{numTry}\n\n{asterisks}\n");

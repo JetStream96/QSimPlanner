@@ -39,6 +39,6 @@ You are welcomed to submit pull requests to this repository. Feel free to leave 
 To Aerosoft for providing an AIRAC cycle for this program.
 
 ### License
-The navigation data shipped with this program is Aerosoft's property and shall not be copied, modified, or distributed without Aerosoft's permission. 
+The navigation data (all files in `/QSimPlanner/[Version]/NavData` folder) shipped with this program is Aerosoft's property and shall not be copied, modified, or distributed without Aerosoft's permission. 
 
 The rest of this software is under MIT License.
