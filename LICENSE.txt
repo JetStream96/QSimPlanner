@@ -1,4 +1,4 @@
-The navigation data (all files in /QSimPlanner/[Version]/NavData folder) 
+The navigation data (all files in /QSimPlanner/NavData folder) 
 shipped with this program is Aerosoft's property and is under Aerosoft's 
 NavDataPro license.
 

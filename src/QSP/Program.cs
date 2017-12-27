@@ -1,5 +1,6 @@
 ﻿using CommonLibrary.LibraryExtension;
 using QSP.Common.Options;
+using QSP.LibraryExtension;
 using QSP.LibraryExtension.XmlSerialization;
 using QSP.Properties;
 using QSP.UI.Forms;
@@ -67,6 +68,7 @@ namespace QSP
 #endif
 
                 ShowLicenseIfNeeded();
+                MoveNavData();
                 var mainFrm = new QspForm();
                 mainFrm.Init();
 
@@ -212,6 +214,16 @@ namespace QSP
             {
                 MsgBoxHelper.ShowError(null, "Failed to report the error.");
                 LoggerInstance.Log(e);
+            }
+        }
+
+        // See notes in InstallerBuilder/AiracFile.cs, CopyNavData() method.
+        private static void MoveNavData()
+        {
+            var dest = "../NavData";
+            if (!Directory.Exists(dest) || IOMethods.IsDirectoryEmpty(dest))
+            {
+                Directory.Move("NavData", dest);
             }
         }
 

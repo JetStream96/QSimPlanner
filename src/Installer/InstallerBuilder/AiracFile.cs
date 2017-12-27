@@ -22,7 +22,14 @@ namespace InstallerBuilder
                 throw new NotImplementedException();
             }
         }
-        
+
+        /// <summary>
+        /// Note: The consequence of this method means NavData is put into the 
+        /// same directory as QSimPlanner.exe. This is not where it's supposed 
+        /// to be, but it has to stay like this for compatibility with older 
+        /// version. When application starts, the NavData directory will be 
+        /// moved one level up. 
+        /// </summary>
         public static void CopyNavData()
         {
             GetAirac();

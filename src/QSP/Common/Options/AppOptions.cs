@@ -45,7 +45,7 @@ namespace QSP.Common.Options
         }
 
         public static AppOptions Default => new AppOptions(
-            Path.GetFullPath("NavData"),
+            Path.GetFullPath("../NavData"),
             true,
             true,
             true,
