@@ -1,6 +1,12 @@
+The navigation data shipped with this program is Aerosoft's property and shall not be copied, modified, or distributed without Aerosoft's permission. 
+
+The rest of this software is under MIT License.
+
+******************************************************************************
+
 The MIT License (MIT)
 
-Copyright (c) 2016 QSimPlanner contributors
+Copyright (c) 2017 QSimPlanner contributors
 
 Permission is hereby granted, free of
 charge, to any person obtaining a copy of this software and associated

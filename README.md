@@ -20,8 +20,8 @@ A tool for fuel planning and take-off/landing performance calculations.
 - Assumed temperature takeoff is supported. For some aircrafts fixed derate (TO1, TO2) is available.
 - Landing calculation with custom flaps, autobrakes setting, and runway surface conditions.
 
-### Requirements
-To use QSimPlanner, an AIRAC cycle is required. You can purchase either [Aerosoft](http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688)'s NavDataPro or [Navigraph](https://www.navigraph.com/FmsData.aspx)'s FMS Data. Use the version of Aerosoft Airbus A318/A319/A320/A321.
+### Nav Data
+Aerosoft kindly provided an AIRAC cycle to be bundled with this program. The NavData can be updated with [Aerosoft's NavDataPro](http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688) service. If you are using other sources such as Navigraph, use the version for Aerosoft Airbus A318/A319/A320/A321.
 
 ### Project Status
 Currently the aircrafts available are
@@ -35,8 +35,10 @@ Currently the aircrafts available are
 ### Contributing
 You are welcomed to submit pull requests to this repository. Feel free to leave any questions or suggestions.
 
-### Coding style
-When it is not important to distinguish different exception types thrown in a method, it is preferred to mark the method with `@Throws`. If a method does not throw an exception, mark it with `@NoThrow`.
+### Special thanks
+To Aerosoft for providing an AIRAC cycle for this program.
 
 ### License
-MIT License
+The navigation data shipped with this program is Aerosoft's property and shall not be copied, modified, or distributed without Aerosoft's permission. 
+
+The rest of this software is under MIT License.
