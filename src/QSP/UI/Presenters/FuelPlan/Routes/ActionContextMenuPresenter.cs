@@ -10,6 +10,7 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
 using QSP.UI.Models.FuelPlan;
+using QSP.UI.Views;
 using QSP.UI.Views.FuelPlan.Routes;
 using QSP.UI.Views.FuelPlan.Routes.Actions;
 using QSP.WindAloft;
@@ -29,10 +30,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         private ISelectedProcedureProvider destProvider;
         private Locator<CountryCodeCollection> checkedCodesLocator;
         private Func<AvgWindCalculator> windCalcGetter;
-
-        public FindAltnPresenter FindAltnPresenter(IFindAltnView altnView) =>
-            new FindAltnPresenter(altnView, airwayNetwork.AirportList);
-
+        
         public string DestIcao => destProvider.Icao;
         private AppOptions AppSettings => appOptionsLocator.Instance;
         private AirportManager AirportList => airwayNetwork.AirportList;
@@ -65,7 +63,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             }
             catch (Exception ex)
             {
-                view.ShowMessage(ex.Message, Views.MessageLevel.Warning);
+                view.ShowMessage(ex.Message, MessageLevel.Warning);
             }
         }
 
@@ -116,7 +114,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         {
             if (Route == null)
             {
-                view.ShowMessage("Please find or analyze a route first.", Views.MessageLevel.Info);
+                view.ShowMessage("Please find or analyze a route first.", MessageLevel.Info);
                 return;
             }
 
@@ -131,7 +129,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             }
             catch (Exception ex)
             {
-                view.ShowMessage(ex.Message, Views.MessageLevel.Warning);
+                view.ShowMessage(ex.Message, MessageLevel.Warning);
                 return;
             }
 
@@ -159,7 +157,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             }
             catch (Exception ex)
             {
-                view.ShowMessage(ex.Message, Views.MessageLevel.Warning);
+                view.ShowMessage(ex.Message, MessageLevel.Warning);
             }
         }
 
@@ -169,7 +167,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             {
                 view.ShowMessage(
                     "No route file to export. Please set export settings in options page.",
-                    Views.MessageLevel.Info);
+                    MessageLevel.Info);
                 return;
             }
 
@@ -206,11 +204,11 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
 
             if (errors.Any())
             {
-                view.ShowMessage(msg.ToString(), Views.MessageLevel.Warning);
+                view.ShowMessage(msg.ToString(), MessageLevel.Warning);
             }
             else
             {
-                view.ShowMessage(msg.ToString(), Views.MessageLevel.Info);
+                view.ShowMessage(msg.ToString(), MessageLevel.Info);
             }
         }
 
@@ -218,7 +216,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         {
             if (Route == null)
             {
-                view.ShowMessage("Please find a route first.", Views.MessageLevel.Info);
+                view.ShowMessage("Please find a route first.", MessageLevel.Info);
                 return;
             }
 
@@ -229,7 +227,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         {
             if (Route == null)
             {
-                view.ShowMessage("Please find a route first.", Views.MessageLevel.Info);
+                view.ShowMessage("Please find a route first.", MessageLevel.Info);
                 return;
             }
 
