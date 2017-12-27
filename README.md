@@ -21,7 +21,7 @@ A tool for fuel planning and take-off/landing performance calculations.
 - Landing calculation with custom flaps, autobrakes setting, and runway surface conditions.
 
 ### Nav Data
-Aerosoft kindly provided an AIRAC cycle to be bundled with this program. The NavData can be updated with [Aerosoft's NavDataPro](http://www.aerosoft.com/cgi-local/us/iboshop.cgi?showd,7411699320,D11688) service. If you are using other sources such as Navigraph, use the version for Aerosoft Airbus A318/A319/A320/A321.
+This program comes with the NavDataPro dataset by Aerosoft. The NavData can be updated with [Aerosoft's NavDataPro](https://www.aerosoft.com/en/fsxp3d/flight-simulator-2004/tools-missions/1750/navdatapro-one-year-subscription-13-datasets) service. If you are using other sources such as Navigraph, use the version for Aerosoft Airbus A318/A319/A320/A321.
 
 ### Project Status
 Currently the aircrafts available are
@@ -37,8 +37,3 @@ You are welcomed to submit pull requests to this repository. Feel free to leave 
 
 ### Special thanks
 To Aerosoft for providing an AIRAC cycle for this program.
-
-### License
-The navigation data (all files in `/QSimPlanner/[Version]/NavData` folder) shipped with this program is Aerosoft's property and shall not be copied, modified, or distributed without Aerosoft's permission. 
-
-The rest of this software is under MIT License.

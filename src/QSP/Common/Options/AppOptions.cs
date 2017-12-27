@@ -1,9 +1,10 @@
+using QSP.LibraryExtension.XmlSerialization;
 using QSP.RouteFinding.FileExport;
 using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
+using System.IO;
 using System.Linq;
-using QSP.LibraryExtension.XmlSerialization;
+using System.Xml.Linq;
 using static QSP.LibraryExtension.XmlSerialization.SerializationHelper;
 using static QSP.Utilities.ExceptionHelpers;
 
@@ -44,7 +45,7 @@ namespace QSP.Common.Options
         }
 
         public static AppOptions Default => new AppOptions(
-            "",
+            Path.GetFullPath("NavData"),
             true,
             true,
             true,

@@ -1,8 +1,34 @@
-The navigation data shipped with this program is Aerosoft's property and shall not be copied, modified, or distributed without Aerosoft's permission. 
+The navigation data (all files in `/QSimPlanner/[Version]/NavData` folder) 
+shipped with this program is Aerosoft's property and is under Aerosoft's 
+NavDataPro license.
 
-The rest of this software is under MIT License.
+All source code of this software is under MIT License.
 
-******************************************************************************
+*********************************************************************
+
+Aerosoft's NavDataPro license:
+
+Aerosoft NavDataPro
+
+Diese Navigationsdaten dürfen ausschließlich für die Flugsimulation verwendet werden und weichen von den aktuellen Navigationsdaten ab!
+Benutzen Sie diese Navigationsdaten in keinem Fall für die Navigation in der realen Luftfahrt!
+These navdata are intended for flight simulation use only and will vary from current aeronautical navdata!
+Do not use for real navigation!
+
+Diese Navigationsdaten, die Software und sonstiges zugehöriges Material sind durch Urheberrechtsgesetze geschützt. Die Navigationsdaten und die Software werden lizenziert, nicht verkauft.
+Sie dürfen eine Kopie der Navigationsdaten und der Software auf einem Computer für Ihre persönliche, nicht kommerzielle Nutzung installieren und verwenden.
+Die Navigationsdaten, die Software und alle anderen zugehörigen Materialien dürfen ohne vorherige, schriftliche Erlaubnis der Aerosoft GmbH weder kopiert, fotokopiert, übersetzt, zurückentwickelt, dekompiliert, diassembliert oder in anderer Form für elektronische Maschinen lesbar gemacht werden.
+
+These navdata, the software and all the related materials are protected by copyright laws. The navdata and the software is licensed, not sold.
+You may install and run one copy of the navdata and the software on one computer for your personal, non-commercial use.
+The navdata, the software and all related materials must not be copied, photocopied, translated, reverse engineered, decompiled or reduced to any electronic medium or machine legible form, neither completely nor in part, without the previous written permission of AEROSOFT GmbH. 
+
+© Copyright Aerosoft GmbH, alle Rechte vorbehalten, all rights reserved. 
+
+website: www.aerosoft.com
+support: http://forum.aerosoft.com/
+
+*********************************************************************
 
 The MIT License (MIT)
 
@@ -26,9 +52,8 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-*******************************************************************************
+*********************************************************************
 
-This application uses third-party packages. Their licenses are included in 
-\third-party folder.
+Licenses of third-party packages (included in /third-party folder)
 
-*******************************************************************************
+

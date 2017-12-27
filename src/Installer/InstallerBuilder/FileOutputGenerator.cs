@@ -33,7 +33,7 @@ namespace InstallerBuilder
             Directory.Move(TmpOutputFolder, folder);
 
             WriteLicenseText(folder);
-            CopyDirectory(Path.Combine(RepositoryRoot(), "manual"),
+            CopyDirectory(Path.Combine(RepositoryRoot, "manual"),
                 Path.Combine(folder, "manual"));
 
             CompileLauncher();
@@ -68,7 +68,7 @@ namespace InstallerBuilder
             File.WriteAllText(path, new XDocument(elem).ToString());
         }
 
-        private static string RepositoryRoot() => Path.Combine(OutputFolder, "../../..");
+        public static string RepositoryRoot => Path.Combine(OutputFolder, "../../..");
 
         private static string ProjectFolder()
         {
@@ -80,8 +80,7 @@ namespace InstallerBuilder
 
         private static void WriteLicenseText(string folder)
         {
-            var gen = new LicenseTextGenerator(RepositoryRoot());
-
+            var gen = new LicenseTextGenerator(RepositoryRoot);
             File.WriteAllText(Path.Combine(folder, "LICENSE.txt"), gen.Generate());
         }
         
@@ -99,7 +98,7 @@ namespace InstallerBuilder
 
         private static void CompileLauncher()
         {
-            var projFile = Path.Combine(RepositoryRoot(), "src/Launcher/Launcher.csproj");
+            var projFile = Path.Combine(RepositoryRoot, "src/Launcher/Launcher.csproj");
             Compile(projFile, OutputFolder);
         }
 
