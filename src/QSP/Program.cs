@@ -65,10 +65,27 @@ namespace QSP
 #if !DEBUG
                 UpdateOnFirstRun();
 #endif
+
+                ShowLicenseIfNeeded();
                 var mainFrm = new QspForm();
                 mainFrm.Init();
 
                 Application.Run(mainFrm);
+            }
+        }
+
+        private static void ShowLicenseIfNeeded()
+        {
+            if ( ShouldShowLicense())
+            {
+                var frm = new LicenseForm()
+                {
+                    StartPosition = FormStartPosition.CenterScreen
+                };
+
+                frm.Init();
+                frm.ShowDialog();
+                if (!frm.Agreed) Environment.Exit(0);
             }
         }
 
