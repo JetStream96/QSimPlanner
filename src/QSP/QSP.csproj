@@ -285,6 +285,12 @@
     <Compile Include="UI\Views\MiscInfo\DescentForcastControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="UI\Forms\LicenseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\LicenseForm.Designer.cs">
+      <DependentUpon>LicenseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Views\MiscInfo\DescentForcastControl.Designer.cs">
       <DependentUpon>DescentForcastControl.cs</DependentUpon>
     </Compile>
@@ -719,7 +725,7 @@
     <Content Include="ChangeLog.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="NavData\icao_nationality_code.txt">
+    <Content Include="navdata_additional\icao_nationality_code.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Libraries\MinMaxHeap.dll">
@@ -827,6 +833,9 @@
     <None Include="Resources\qsp_icon.ico" />
     <EmbeddedResource Include="UI\Views\FuelPlan\AlternateControl.resx">
       <DependentUpon>AlternateControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\LicenseForm.resx">
+      <DependentUpon>LicenseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Views\FuelPlan\Routes\RouteFinderRow.resx">
       <DependentUpon>RouteFinderRow.cs</DependentUpon>

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 
 namespace QSP.LibraryExtension
 {
@@ -38,6 +39,11 @@ namespace QSP.LibraryExtension
             }
 
             CopyFilesInDirectory(source, target, overwrite);
+        }
+
+        public static bool IsDirectoryEmpty(string path)
+        {
+            return !Directory.EnumerateFileSystemEntries(path).Any();
         }
     }
 }

@@ -355,7 +355,7 @@ namespace QSP.UI.Forms.Options
             panel.BackColor = Color.FromArgb(216, 244, 215);
             panel.BorderStyle = BorderStyle.FixedSingle;
             var pt = infoLbl.Location;
-            panel.Location = new Point(pt.X - 300, pt.Y + 100);
+            panel.Location = new Point(50, pt.Y + 100);
             panel.AutoSize = true;
             panel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
@@ -370,17 +370,12 @@ namespace QSP.UI.Forms.Options
             return panel;
         }
 
-        private static string LblTxt
-        {
-            get
-            {
-                return
-                @"Location of either Aerosoft's NavDataPro or Navigraph's
-FMS Data (both are payware). Use the version of Aerosoft
-Airbus A318/A319/A320/A321. Select the folder which
-contains Airports.txt.";
-            }
-        }
+        private static string LblTxt =>
+            "If you are using Aerosoft's NavDataPro:\n" +
+            "    you can update with Aerosoft's program since QSimPlanner is supported.\n" +
+            "If you are using Navigraph:\n" +
+            "    install the NavData version for Aerosoft Airbus A318/A319/A320/A321\n" +
+            "    and select the folder which contains Airports.txt.";
 
         private void updateBtn_Click(object sender, EventArgs e)
         {
@@ -400,6 +395,11 @@ contains Airports.txt.";
             // If update succeeded, some files are already changed and further updating
             // may not work as intended. So we disable this button.
             updateBtn.Enabled = status.Status != Updater.Status.Success;
+        }
+
+        private void useDefaultBtn_Click(object sender, EventArgs e)
+        {
+            pathTxtBox.Text = Path.GetFullPath(AppOptions.Default.NavDataLocation);
         }
     }
 }

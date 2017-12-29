@@ -11,14 +11,15 @@ namespace InstallerBuilder
             const int numTry = 3;
             var asterisks = new string('*', 24);
 
-            for (int i = 1; i <= 3; i++)
+            for (int i = 1; i <= numTry; i++)
             {
                 Console.WriteLine($"\n\n\n{asterisks}\n\n    " +
                     $"Build attempt {i}/{numTry}\n\n{asterisks}\n");
 
                 try
                 {
-                    BuildAttempt();
+                    var doNotCreateInstaller = args.Length >= 1 && args[0] == "--no-installer";
+                    BuildAttempt(!doNotCreateInstaller);
                     return;
                 }
                 catch (Exception e)
@@ -28,11 +29,12 @@ namespace InstallerBuilder
             }
         }
 
-        public static void BuildAttempt()
+        public static void BuildAttempt(bool createInstaller)
         {
             var gen = new FileOutputGenerator();
             gen.Build();
-            InstallerCreator.WriteFile(gen.Version);
+
+            if (createInstaller) InstallerCreator.WriteFile(gen.Version);
 
             Console.WriteLine(@"
 

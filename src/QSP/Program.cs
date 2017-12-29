@@ -1,6 +1,7 @@
 ﻿using CommonLibrary.Attributes;
 using CommonLibrary.LibraryExtension;
 using QSP.Common.Options;
+using QSP.LibraryExtension;
 using QSP.LibraryExtension.XmlSerialization;
 using QSP.Properties;
 using QSP.UI.Forms;
@@ -70,10 +71,28 @@ namespace QSP
 #if !DEBUG
                 UpdateOnFirstRun();
 #endif
+
+                ShowLicenseIfNeeded();
+                MoveNavData();
                 var mainFrm = new QspForm();
                 mainFrm.Init();
 
                 Application.Run(mainFrm);
+            }
+        }
+
+        private static void ShowLicenseIfNeeded()
+        {
+            if (ShouldShowLicense())
+            {
+                var frm = new LicenseForm()
+                {
+                    StartPosition = FormStartPosition.CenterScreen
+                };
+
+                frm.Init();
+                frm.ShowDialog();
+                if (!frm.Agreed) Environment.Exit(0);
             }
         }
 
@@ -191,7 +210,7 @@ namespace QSP
                 {
                     WorkingDirectory = Path.GetDirectoryName(assemblyLocation),
                     FileName = "ErrorReport.exe",
-                    Arguments = Strings.EscapeCommandLineArg(url) + " " +Strings.EscapeCommandLineArg(message),
+                    Arguments = Strings.EscapeCommandLineArg(url) + " " + Strings.EscapeCommandLineArg(message),
                     WindowStyle = ProcessWindowStyle.Hidden
                 };
 
@@ -201,6 +220,16 @@ namespace QSP
             {
                 MsgBoxHelper.ShowError(null, "Failed to report the error.");
                 LoggerInstance.Log(e);
+            }
+        }
+
+        // See notes in InstallerBuilder/AiracFile.cs, CopyNavData() method.
+        private static void MoveNavData()
+        {
+            var dest = "../NavData";
+            if (!Directory.Exists(dest) || IOMethods.IsDirectoryEmpty(dest))
+            {
+                Directory.Move("NavData", dest);
             }
         }
 
