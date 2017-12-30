@@ -3,21 +3,16 @@ using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Containers.CountryCode;
-using QSP.RouteFinding.FileExport;
 using QSP.RouteFinding.Finder;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Controllers;
-using QSP.UI.Models.FuelPlan;
 using QSP.UI.Views;
-using QSP.UI.Views.FuelPlan.Routes;
 using QSP.UI.Views.FuelPlan.Routes.Actions;
 using QSP.WindAloft;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace QSP.UI.Presenters.FuelPlan.Routes
 {
@@ -30,9 +25,9 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         private ISelectedProcedureProvider destProvider;
         private Locator<CountryCodeCollection> checkedCodesLocator;
         private Func<AvgWindCalculator> windCalcGetter;
-        
+
         public string DestIcao => destProvider.Icao;
-        private AppOptions AppSettings => appOptionsLocator.Instance;
+        private AppOptions AppOptions => appOptionsLocator.Instance;
         private AirportManager AirportList => airwayNetwork.AirportList;
 
         public RouteGroup Route { get; private set; }
@@ -89,7 +84,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             var finder = new RouteFinderFacade(
                 airwayNetwork.WptList,
                 airwayNetwork.AirportList,
-                AppSettings.NavDataLocation,
+                AppOptions.NavDataLocation,
                 checkedCodesLocator.Instance,
                 windCalcGetter());
 
@@ -99,41 +94,16 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
                     dest, destProvider.Rwy, star),
                 airwayNetwork.TracksInUse);
 
-            ShowRouteTxt();
-        }
-
-        private void ShowRouteTxt()
-        {
-            var selected = AppSettings.ShowTrackIdOnly ? Route.Folded : Route.Expanded;
-            var showDct = !AppSettings.HideDctInRoute;
-            view.Route = selected.ToString(showDct);
-            view.DistanceInfo = RouteDistanceDisplay.GetDisplay(Route.Expanded, Style.Long);
+            view.ShowRouteTxt(Route, AppOptions);
         }
 
         public void ExportRouteFiles()
         {
-            if (Route == null)
-            {
-                view.ShowMessage("Please find or analyze a route first.", MessageLevel.Info);
-                return;
-            }
-
-            var cmds = AppSettings.ExportCommands.Values;
-            var writer = new FileExporter(Route.Expanded, AirportList, cmds);
-
-            IEnumerable<FileExporter.Status> reports = null;
-
-            try
-            {
-                reports = writer.Export();
-            }
-            catch (Exception ex)
-            {
-                view.ShowMessage(ex.Message, MessageLevel.Warning);
-                return;
-            }
-
-            ShowReports(reports.ToList());
+            ActionContextMenuHelper.ExportRouteFiles(
+                view,
+                Route,
+                AppOptions.ExportCommands.Values,
+                AirportList);
         }
 
         public void AnalyzeRoute()
@@ -148,12 +118,12 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
                         origProvider.Rwy,
                         destProvider.Icao,
                         destProvider.Rwy,
-                        AppSettings.NavDataLocation,
+                        AppOptions.NavDataLocation,
                         airwayNetwork.AirportList,
                         airwayNetwork.WptList);
 
                 Route = new RouteGroup(result, airwayNetwork.TracksInUse);
-                ShowRouteTxt();
+                view.ShowRouteTxt(Route, AppOptions);
             }
             catch (Exception ex)
             {
@@ -161,77 +131,8 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             }
         }
 
-        private void ShowReports(List<FileExporter.Status> reports)
-        {
-            if (!reports.Any())
-            {
-                view.ShowMessage(
-                    "No route file to export. Please set export settings in options page.",
-                    MessageLevel.Info);
-                return;
-            }
+        public void ShowMap() => view.ShowMap(Route);
 
-            var msg = new StringBuilder();
-            var success = reports.Where(r => r.Successful).ToList();
-
-            if (success.Any())
-            {
-                msg.AppendLine($"{success.Count} company route(s) exported:");
-
-                foreach (var i in success)
-                {
-                    msg.AppendLine(i.FilePath);
-                }
-            }
-
-            var errors = reports.Where(r => !r.Successful).ToList();
-
-            if (errors.Any())
-            {
-                msg.AppendLine($"\n\nFailed to export {errors.Count} file(s) into:");
-
-                foreach (var j in errors)
-                {
-                    msg.AppendLine(j.FilePath);
-                }
-            }
-
-            if (errors.Any(e => e.MayBePermissionIssue))
-            {
-                msg.AppendLine("\nYou can try to run this application " +
-                    "as administrator.");
-            }
-
-            if (errors.Any())
-            {
-                view.ShowMessage(msg.ToString(), MessageLevel.Warning);
-            }
-            else
-            {
-                view.ShowMessage(msg.ToString(), MessageLevel.Info);
-            }
-        }
-
-        public void ShowMap()
-        {
-            if (Route == null)
-            {
-                view.ShowMessage("Please find a route first.", MessageLevel.Info);
-                return;
-            }
-
-            view.ShowMap(Route.Expanded);
-        }
-
-        public void ShowMapBrowser()
-        {
-            if (Route == null)
-            {
-                view.ShowMessage("Please find a route first.", MessageLevel.Info);
-                return;
-            }
-
-            view.ShowMapBrowser(Route.Expanded);
-        }
+        public void ShowMapBrowser() => view.ShowMapBrowser(Route);
     }
 }

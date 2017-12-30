@@ -1,13 +1,11 @@
-﻿using QSP.UI.Presenters.FuelPlan.Routes;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace QSP.UI.Views.FuelPlan.Routes.Actions
 {
+    // Passive view.
     public class ActionContextMenu : ContextMenuStrip
     {
         public class ClickableToolStripMenuItem : ToolStripMenuItem, IClickable { }
-
-        public ActionContextMenuPresenter Presenter { get; private set; }
 
         public ClickableToolStripMenuItem FindToolStripMenuItem;
         public ClickableToolStripMenuItem AnalyzeToolStripMenuItem;
@@ -18,17 +16,6 @@ namespace QSP.UI.Views.FuelPlan.Routes.Actions
         public ActionContextMenu() : base()
         {
             InitControls();
-        }
-
-        public void Init(ActionContextMenuPresenter p)
-        {
-            this.Presenter = p;
-
-            FindToolStripMenuItem.Click += (s, e) => p.FindRoute();
-            AnalyzeToolStripMenuItem.Click += (s, e) => p.AnalyzeRoute();
-            MapToolStripMenuItem.Click += (s, e) => p.ShowMap();
-            MapInBrowserToolStripMenuItem.Click += (s, e) => p.ShowMapBrowser();
-            ExportToolStripMenuItem.Click += (s, e) => p.ExportRouteFiles();
         }
 
         private void InitControls()

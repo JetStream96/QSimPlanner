@@ -50,7 +50,14 @@ namespace QSP.UI.Views.FuelPlan
         public void Init(AlternateRowPresenter presenter)
         {
             ActionContextMenuView = new ActionContextMenu();
-            ActionContextMenuView.Init(presenter.ContextMenuPresenter);
+
+            var a = ActionContextMenuView;
+            a.FindToolStripMenuItem.Click += (s, e) => presenter.FindRoute();
+            a.AnalyzeToolStripMenuItem.Click += (s, e) => presenter.AnalyzeRoute();
+            a.MapToolStripMenuItem.Click += (s, e) => presenter.ShowMap();
+            a.MapInBrowserToolStripMenuItem.Click += (s, e) => presenter.ShowMapBrowser();
+            a.ExportToolStripMenuItem.Click += (s, e) => presenter.ExportRouteFiles();
+
             this.Presenter = presenter;
         }
 

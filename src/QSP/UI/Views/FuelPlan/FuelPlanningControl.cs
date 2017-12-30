@@ -91,7 +91,7 @@ namespace QSP.UI.Views.FuelPlan
         private WaypointList WptList => model.AirwayNetwork.WptList;
         private AppOptions AppOptions => model.AppOption.Instance;
         private RouteGroup RouteToDest => routeFinderControl.RouteGroup;
-        
+
         public FuelPlanningControl()
         {
             InitializeComponent();
@@ -104,8 +104,8 @@ namespace QSP.UI.Views.FuelPlan
             SetDefaultState();
             SetOrigDestEvents();
 
-            routeFinderControl.Init(
-                new RouteFinderModel(model, () => model.GetWindCalculator(this)));
+            var routeFinderModel = new RouteFinderModel(model, () => model.GetWindCalculator(this));
+            routeFinderControl.Init(routeFinderModel);
 
             AltnPresenter = new AlternatePresenter(
                 alternateControl, model.AppOption, model.AirwayNetwork, model.WindTables,
@@ -119,26 +119,13 @@ namespace QSP.UI.Views.FuelPlan
 
             wtUnitComboBox.SelectedIndex = 0;
             SubscribeEventHandlers();
-            InitAdvancedRouteTool();
+
+            advancedRouteTool = new RouteFinderControl();
+            advancedRouteTool.Init(routeFinderModel);
 
             if (acListComboBox.Items.Count > 0) acListComboBox.SelectedIndex = 0;
 
             LoadSavedState();
-        }
-
-        private void InitAdvancedRouteTool()
-        {
-            advancedRouteTool = new RouteFinderControl();
-            //advancedRouteTool.ini
-            /* TODO
-            advancedRouteTool.Init(
-                appOptionsLocator,
-                airwayNetwork,
-                countryCodeLocator,
-                checkedCodesLocator,
-                procFilter,
-                () => GetWindCalculator());
-                */
         }
 
         private void AddMetarCacheEvents()
@@ -166,6 +153,7 @@ namespace QSP.UI.Views.FuelPlan
             };
         }
 
+        // TODO: ??
         public void OnWptListChanged()
         {
             /*  advancedRouteTool.OnWptListChanged();*/

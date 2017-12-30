@@ -14,9 +14,16 @@ namespace QSP.UI.Views.FuelPlan.Routes
         string DestIcao { get; }
         string OrigRwy { get; }
         string DestRwy { get; }
-
-        ActionContextMenuPresenter ActionMenuPresenter { get; }
+        
         IRouteFinderRowView OrigRow { get; }
         IRouteFinderRowView DestRow { get; }
+    }
+
+    public static class IRouteFinderViewExtension
+    {
+        public static bool IsAirportToAirport(this IRouteFinderView v)
+        {
+            return (!v.OrigRow.WaypointOptionEnabled) && (!v.DestRow.WaypointOptionEnabled);
+        }
     }
 }

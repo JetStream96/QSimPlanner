@@ -21,13 +21,4 @@ namespace QSP.UI.Models.FuelPlan.Routes
             this.WindCalc = WindCalc;
         }
     }
-    /*
-    public class IRouteFinderModelExtension
-    {
-        public static IActionContextMenuModel ToActionContextMenuModel(this IRouteFinderModel m)
-        {
-            return new ActionContextMenuModel(
-                )
-        }
-    }*/
 }

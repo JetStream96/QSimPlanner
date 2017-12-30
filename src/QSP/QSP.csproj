@@ -235,7 +235,6 @@
     <Compile Include="UI\Models\ButtonColorStyle.cs" />
     <Compile Include="UI\Models\FuelPlan\IRefreshForNavDataChange.cs" />
     <Compile Include="UI\Models\FuelPlan\RouteDistanceDisplay.cs" />
-    <Compile Include="UI\Models\FuelPlan\Routes\IActionContextMenuModel.cs" />
     <Compile Include="UI\Models\FuelPlan\Routes\IFinderOptionModel.cs" />
     <Compile Include="UI\Models\FuelPlan\Routes\IFuelPlanningModel.cs" />
     <Compile Include="UI\Models\FuelPlan\Routes\IRouteFinderModel.cs" />
@@ -243,9 +242,10 @@
     <Compile Include="UI\Models\MiscInfo\MetarViewStatus.cs" />
     <Compile Include="UI\Presenters\FindAltnPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternatePresenter.cs" />
+    <Compile Include="UI\Presenters\FuelPlan\Routes\ActionContextMenuHelper.cs" />
+    <Compile Include="UI\Presenters\FuelPlan\Routes\ActionContextMenuPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\Routes\RouteFinderPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\SidStarFilterPresenter.cs" />
-    <Compile Include="UI\Presenters\FuelPlan\Routes\ActionContextMenuPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\Routes\FinderOptionPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\AirportMapPresenter.cs" />
     <Compile Include="UI\Presenters\MiscInfo\DescentForcastPresenter.cs" />

@@ -70,10 +70,10 @@ namespace QSP
                 Application.SetCompatibleTextRenderingDefault(false);
 #if !DEBUG
                 UpdateOnFirstRun();
+                MoveNavData();
 #endif
 
                 ShowLicenseIfNeeded();
-                MoveNavData();
                 var mainFrm = new QspForm();
                 mainFrm.Init();
 
