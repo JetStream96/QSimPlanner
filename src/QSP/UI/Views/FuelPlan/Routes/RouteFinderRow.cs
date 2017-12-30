@@ -26,7 +26,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
         public string Icao => OptionControl.Icao;
         public string Rwy => OptionControl.SelectedRwy;
-
+        
         public bool WaypointOptionEnabled
         {
             get => typeLayoutPanel.Visible;
@@ -38,18 +38,18 @@ namespace QSP.UI.Views.FuelPlan.Routes
                 wptLayoutPanel.Visible = value;
             }
         }
-
+        
         public int? SelectedWaypointIndex
         {
             get
             {
-                if (!WaypointOptionEnabled) return null;
+                if (!WaypointOptionEnabled || IsAirport) return null;
 
                 try
                 {
                     var latLon = ExtractLatLon(wptComboBox.Text);
                     var wptList = model.WptList();
-                    return wptList.FindAllById(wptComboBox.Text)
+                    return wptList.FindAllById(identTxtBox.Text)
                         .MinBy(i => wptList[i].Distance(latLon));
                 }
                 catch
@@ -58,6 +58,8 @@ namespace QSP.UI.Views.FuelPlan.Routes
                 }
             }
         }
+
+        public bool IsAirport => typeComboBox.SelectedIndex == 0;
 
         // Gets the lat and lon.
         // Inpute sample: "LAT/22.55201 LON/-121.3554"

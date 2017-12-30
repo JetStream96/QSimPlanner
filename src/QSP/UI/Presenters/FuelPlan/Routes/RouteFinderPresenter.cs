@@ -51,16 +51,12 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             var o = view.OrigRow;
             var d = view.DestRow;
 
-            if (o.WaypointOptionEnabled)
+            if (o.IsAirport)
             {
-                return d.WaypointOptionEnabled ?
-                    GetRouteWaypointToWaypoint() :
-                    GetRouteWaypointToAirport();
+                return d.IsAirport ? GetRouteAirportToAirport() : GetRouteAirportToWaypoint();
             }
 
-            return d.WaypointOptionEnabled ?
-                    GetRouteAirportToWaypoint() :
-                    GetRouteAirportToAirport();
+            return d.IsAirport ? GetRouteWaypointToAirport() : GetRouteWaypointToWaypoint();
         }
 
         /// <exception cref="InvalidUserInputException"></exception>
@@ -117,7 +113,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
                      Sids.ToList(),
                      DestWaypointIndex);
         }
-        
+
         /// <exception cref="Exception"></exception>
         private Route GetRouteAirportToAirport()
         {
@@ -136,7 +132,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         public void ExportRouteFiles()
         {
             Debug.Assert(view.IsAirportToAirport());
-            
+
             var o = model.FuelPlanningModel.AppOption.Instance;
             var airportList = model.FuelPlanningModel.AirwayNetwork.AirportList;
             var cmds = o.ExportCommands.Values;

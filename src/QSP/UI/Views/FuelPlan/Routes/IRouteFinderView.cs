@@ -1,7 +1,6 @@
-﻿using System;
-using QSP.UI.Models.FuelPlan;
-using QSP.UI.Presenters.FuelPlan.Routes;
+﻿using QSP.UI.Models.FuelPlan;
 using QSP.UI.Views.FuelPlan.Routes.Actions;
+using System;
 
 namespace QSP.UI.Views.FuelPlan.Routes
 {
@@ -23,7 +22,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
     {
         public static bool IsAirportToAirport(this IRouteFinderView v)
         {
-            return (!v.OrigRow.WaypointOptionEnabled) && (!v.DestRow.WaypointOptionEnabled);
+            return v.OrigRow.IsAirport && v.DestRow.IsAirport;
         }
     }
 }

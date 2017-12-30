@@ -56,6 +56,10 @@ namespace QSP.UI.Views.FuelPlan.Routes
             routeSummaryLbl.Text = "";
         }
 
+        /// <summary>
+        /// This value represents whether the user is able to select waypoint
+        /// as origin or destination.
+        /// </summary>
         public bool WaypointOptionEnabled
         {
             get => origRow.WaypointOptionEnabled;
@@ -112,6 +116,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
                 model.WindCalc);
 
             actionMenu = new ActionContextMenu();
+            InitActionMenu();
 
             showRouteActionsBtn.Click += (s, e) =>
             {
