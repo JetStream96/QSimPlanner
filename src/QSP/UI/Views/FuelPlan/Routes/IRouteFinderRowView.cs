@@ -26,5 +26,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
         /// IsAirport is true, or selected waypoint is not found.
         /// </summary>
         int? SelectedWaypointIndex { get; }
+
+        string WaypointIdent { get; }
     }
 }

@@ -44,7 +44,6 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             }
         }
 
-        // TOOD: Is error message correct and helpful?
         /// <exception cref="Exception"></exception>
         public Route FindRoutePrivate()
         {
@@ -72,10 +71,41 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
                 model.WindCalc());
         }
 
+        /// <exception cref="ArgumentException"></exception>
+        private void WaypointThrowHelper(IRouteFinderRowView v)
+        {
+            if (!v.SelectedWaypointIndex.HasValue)
+            {
+                throw new ArgumentException(
+                    ActionContextMenuHelper.NonExistingWptMsg(v.WaypointIdent));
+            }
+        }
+
+        /// <exception cref="ArgumentException"></exception>
+        private void EnsureOrigWptExists() => WaypointThrowHelper(view.OrigRow);
+
+        /// <exception cref="ArgumentException"></exception>
+        private void EnsureDestWptExists() => WaypointThrowHelper(view.DestRow);
+
+        private void AirportThrowHelper(string icao)
+        {
+            if (model.FuelPlanningModel.AirwayNetwork.AirportList[icao] == null)
+            {
+                throw new ArgumentException(
+                    ActionContextMenuHelper.NonExistingAirportMsg(icao));
+            }
+        }
+
+        /// <exception cref="ArgumentException"></exception>
+        private void EnsureOrigAirportExists() => AirportThrowHelper(view.OrigIcao);
+
+        /// <exception cref="ArgumentException"></exception>
+        private void EnsureDestAirportExists() => AirportThrowHelper(view.DestIcao);
+
         private int OrigWaypointIndex => view.OrigRow.SelectedWaypointIndex.Value;
         private int DestWaypointIndex => view.DestRow.SelectedWaypointIndex.Value;
-        private IReadOnlyList<string> Sids => view.OrigRow.OptionView.SelectedProcedures.Strings;
-        private IReadOnlyList<string> Stars => view.DestRow.OptionView.SelectedProcedures.Strings;
+        private IReadOnlyList<string> Sids => view.OrigRow.OptionView.SelectedProcedures.ToList();
+        private IReadOnlyList<string> Stars => view.DestRow.OptionView.SelectedProcedures.ToList();
 
         private RouteGroup ToRouteGroup(Route r) => new RouteGroup(r, TracksInUse);
 
@@ -84,6 +114,9 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
 
         private Route GetRouteWaypointToWaypoint()
         {
+            EnsureOrigWptExists();
+            EnsureDestWptExists();
+
             var fuelModel = model.FuelPlanningModel;
 
             var finder = new RouteFinder(
@@ -97,29 +130,38 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         /// <exception cref="Exception"></exception>
         private Route GetRouteWaypointToAirport()
         {
+            EnsureOrigWptExists();
+            EnsureDestAirportExists();
+
             return GetRouteFinder().FindRoute(
-                    OrigWaypointIndex,
-                    view.DestIcao,
-                    view.DestRwy,
-                    Stars.ToList());
+                OrigWaypointIndex,
+                view.DestIcao,
+                view.DestRwy,
+                Stars.ToList());
         }
 
         /// <exception cref="Exception"></exception>
         private Route GetRouteAirportToWaypoint()
         {
+            EnsureOrigAirportExists();
+            EnsureDestWptExists();
+
             return GetRouteFinder().FindRoute(
-                     view.OrigIcao,
-                     view.OrigRwy,
-                     Sids.ToList(),
-                     DestWaypointIndex);
+                view.OrigIcao,
+                view.OrigRwy,
+                Sids.ToList(),
+                DestWaypointIndex);
         }
 
         /// <exception cref="Exception"></exception>
         private Route GetRouteAirportToAirport()
         {
+            EnsureOrigAirportExists();
+            EnsureDestAirportExists();
+
             return GetRouteFinder().FindRoute(
-                       view.OrigIcao, view.OrigRwy, Sids,
-                       view.DestIcao, view.DestRwy, Stars);
+                view.OrigIcao, view.OrigRwy, Sids,
+                view.DestIcao, view.DestRwy, Stars);
         }
 
         [NoThrow]

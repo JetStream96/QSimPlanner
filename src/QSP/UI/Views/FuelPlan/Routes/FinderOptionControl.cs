@@ -15,7 +15,6 @@ namespace QSP.UI.Views.FuelPlan.Routes
 {
     public partial class FinderOptionControl : UserControl, IFinderOptionView
     {
-        private IMessageDisplay messageDisplay;
         public FinderOptionPresenter Presenter { get; private set; }
 
         public FinderOptionControl()
@@ -23,10 +22,9 @@ namespace QSP.UI.Views.FuelPlan.Routes
             InitializeComponent();
         }
 
-        public void Init(IFinderOptionModel model, IMessageDisplay messageDisplay)
+        public void Init(IFinderOptionModel model)
         {
             Presenter = new FinderOptionPresenter(this, model);
-            this.messageDisplay = messageDisplay;
             filterBtn.Enabled = false;
 
             SetButtonColorStyle();
@@ -80,7 +78,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
         public string SelectedRwy { get => rwyComboBox.Text; set => rwyComboBox.Text = value; }
 
-        public SelectedProcedures SelectedProcedures
+        public IEnumerable<string> SelectedProcedures
         {
             get
             {
@@ -88,33 +86,31 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
                 if (c.Text == FinderOptionPresenter.AutoProcedureTxt)
                 {
-                    return SelectedProcedures.Auto(c.Items.Cast<string>()
-                        .Where(s => s != FinderOptionPresenter.AutoProcedureTxt).ToList());
+                    return c.Items.Cast<string>()
+                        .Where(s => s != FinderOptionPresenter.AutoProcedureTxt);
                 }
 
-                if (c.Text != FinderOptionPresenter.NoProcedureTxt)
-                {
-                    return SelectedProcedures.Selected(c.Text);
-                }
+                if (c.Text != FinderOptionPresenter.NoProcedureTxt) return new[] { c.Text };
 
-                return SelectedProcedures.None;
+                return new string[0];
             }
 
             set
             {
                 var c = procComboBox;
+                var val = value.ToList();
 
-                if (value.IsAuto)
+                if (val.Count > 1)
                 {
                     c.Text = FinderOptionPresenter.AutoProcedureTxt;
                 }
-                else if (value.IsNone)
+                else if (val.Count == 0)
                 {
                     c.Text = FinderOptionPresenter.NoProcedureTxt;
                 }
-                else if (value.Strings.Count == 1)
+                else
                 {
-                    c.Text = value.Strings[0];
+                    c.Text = val[0];
                 }
             }
         }
@@ -126,7 +122,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
         public void ShowMessage(string msg, MessageLevel lvl)
         {
-            messageDisplay.ShowMessage(msg, lvl);
+            ParentForm.ShowMessage(msg, lvl);
         }
 
         private void ShowFilter()
@@ -153,7 +149,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
                 frm.ShowDialog();
             }
         }
-        
+
         private void IcaoChanged(object sender, EventArgs e)
         {
             Runways = new string[0];

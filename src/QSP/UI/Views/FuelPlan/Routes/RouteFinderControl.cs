@@ -132,8 +132,8 @@ namespace QSP.UI.Views.FuelPlan.Routes
         private void InitOrigDestControls()
         {
             var m = model.FuelPlanningModel;
-            origRow.Init(m.ToIFinderOptionModel(true), this);
-            destRow.Init(m.ToIFinderOptionModel(false), this);
+            origRow.Init(m.ToIFinderOptionModel(true));
+            destRow.Init(m.ToIFinderOptionModel(false));
 
             DestSidProvider = new DestinationSidSelection(
                 m.AirwayNetwork, m.AppOption, destRow.OptionView);

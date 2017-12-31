@@ -70,12 +70,14 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
 
             if (AirportList[orig] == null)
             {
-                throw new ArgumentException("Cannot find origin airport in Nav Data.");
+                var msg = ActionContextMenuHelper.NonExistingAirportMsg(orig);
+                throw new ArgumentException(msg);
             }
 
             if (AirportList[dest] == null)
             {
-                throw new ArgumentException("Cannot find destination airport in Nav Data.");
+                var msg = ActionContextMenuHelper.NonExistingAirportMsg(dest);
+                throw new ArgumentException(msg);
             }
 
             var sid = origProvider.GetSelectedProcedures().ToList();

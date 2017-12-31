@@ -44,7 +44,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
 
         public string Icao { get => view.Icao; set => view.Icao = value; }
         public string Rwy { get => view.SelectedRwy; set => view.SelectedRwy = value; }
-        public IEnumerable<string> GetSelectedProcedures() => view.SelectedProcedures.Strings;
+        public IEnumerable<string> GetSelectedProcedures() => view.SelectedProcedures;
 
         public void UpdateRunways()
         {

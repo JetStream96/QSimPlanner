@@ -61,6 +61,8 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
         public bool IsAirport => typeComboBox.SelectedIndex == 0;
 
+        public string WaypointIdent => identTxtBox.Text;
+
         // Gets the lat and lon.
         // Inpute sample: "LAT/22.55201 LON/-121.3554"
         private static LatLon ExtractLatLon(string s)
@@ -76,11 +78,11 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
 
         // TODO: Is the IMessageDisplay really needed?
-        public void Init(IFinderOptionModel model, IMessageDisplay display)
+        public void Init(IFinderOptionModel model)
         {
             this.model = model;
             var p = new FinderOptionPresenter(OptionControl, model);
-            OptionControl.Init(model, display);
+            OptionControl.Init(model);
             typeComboBox.SelectedIndex = 0;
             fromToLbl.Text = model.IsDepartureAirport ? "From" : "To";
             OptionControl.Presenter.IcaoChanged += (s, e) => IcaoChanged?.Invoke(s, e);

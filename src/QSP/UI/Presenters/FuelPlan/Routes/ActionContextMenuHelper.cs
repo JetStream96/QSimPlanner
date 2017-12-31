@@ -118,5 +118,15 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             view.Route = selected.ToString(showDct);
             view.DistanceInfo = RouteDistanceDisplay.GetDisplay(route.Expanded, Style.Long);
         }
+
+        public static string NonExistingAirportMsg(string icao)
+        {
+            return "Cannot find airport '" + icao + "'.";
+        }
+
+        public static string NonExistingWptMsg(string ident)
+        {
+            return "Cannot find waypoint '" + ident + "'";
+        }
     }
 }
