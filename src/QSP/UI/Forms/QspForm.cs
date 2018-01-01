@@ -42,9 +42,14 @@ using static QSP.Utilities.LoggerInstance;
 namespace QSP.UI.Forms
 {
     // Requirements:
-    // * For route finding:
-    //   * From origin to destination:
-    //* When 
+    // * When NavData is changed,
+    //   * Runway and SID/STAR list should refresh.
+    //   * In advanced tool, the waypoints ComboBox should refresh.
+    //   * Route finder should find results using the new NavData.
+    //   * If a route has been found or analyzed before the NavData change,
+    //     when 'export', 'show map' or 'show map in browser' is clicked,
+    //     user should be prompted to find or analyze route again.
+    //
     public partial class QspForm : Form
     {
         private AircraftMenuControl acMenu;
