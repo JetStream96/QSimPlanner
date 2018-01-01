@@ -1,8 +1,8 @@
 using QSP.LibraryExtension.Graph;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data;
-using System.Collections.Generic;
 using QSP.RouteFinding.Data.Interfaces;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.AirwayStructure
 {
@@ -16,13 +16,13 @@ namespace QSP.RouteFinding.AirwayStructure
     {
         private WaypointContainer _content;
         private LatLonSearcher<WptSeachWrapper> _finder;
-        
+
         public WaypointList()
         {
             _content = new WaypointContainer();
             _finder = new LatLonSearcher<WptSeachWrapper>(1, 5);
         }
-        
+
         public int AddWaypoint(Waypoint item)
         {
             int index = _content.AddWpt(item);
@@ -41,7 +41,7 @@ namespace QSP.RouteFinding.AirwayStructure
         {
             return _content.ItemExists(WaypointIndex);
         }
-        
+
         public int EdgesFromCount(int index)
         {
             return _content.EdgesFromCount(index);
@@ -64,7 +64,7 @@ namespace QSP.RouteFinding.AirwayStructure
         public int EdgeIndexUpperBound => _content.EdgeIndexUpperBound;
 
         /// <summary>
-        /// Find the index of WptNeighbor by ident of a waypoint.
+        /// Find a index of waypoint matching the ident.
         /// Returns -1 if not found.
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
@@ -74,7 +74,7 @@ namespace QSP.RouteFinding.AirwayStructure
         }
 
         /// <summary>
-        /// Find all WptNeighbors by ident of a waypoint.
+        /// Find all indices of waypoints that matches the given ident.
         /// </summary> 
         public List<int> FindAllById(string ident)
         {
@@ -82,7 +82,7 @@ namespace QSP.RouteFinding.AirwayStructure
         }
 
         /// <summary>
-        /// Find the index of WptNeighbor matching the waypoint.
+        /// Find the index of waypoint matching the ident, lat and lon.
         /// </summary>
         public int FindByWaypoint(string ident, double lat, double lon)
         {
@@ -90,7 +90,7 @@ namespace QSP.RouteFinding.AirwayStructure
         }
 
         /// <summary>
-        /// Find the index of WptNeighbor matching the waypoint. 
+        /// Find the index of waypoint matching the given waypoint. 
         /// Returns -1 if no match is found.
         /// </summary>
         public int FindByWaypoint(Waypoint wpt)
@@ -99,7 +99,7 @@ namespace QSP.RouteFinding.AirwayStructure
         }
 
         /// <summary>
-        /// Find all occurences of WptNeighbor matching the waypoint.
+        /// Find all occurences of waypoints matching the given waypoint.
         /// </summary>
         public List<int> FindAllByWaypoint(Waypoint wpt)
         {
