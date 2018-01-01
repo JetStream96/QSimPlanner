@@ -13,10 +13,11 @@ using QSP.UI.Views.FuelPlan.Routes.Actions;
 using QSP.WindAloft;
 using System;
 using System.Linq;
+using QSP.UI.Models.FuelPlan;
 
 namespace QSP.UI.Presenters.FuelPlan.Routes
 {
-    public class ActionContextMenuPresenter
+    public class ActionContextMenuPresenter : IRefreshForNavDataChange
     {
         private ISupportActionContextMenu view;
         private Locator<AppOptions> appOptionsLocator;
@@ -136,5 +137,10 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         public void ShowMap() => view.ShowMap(Route);
 
         public void ShowMapBrowser() => view.ShowMapBrowser(Route);
+
+        public void OnNavDataChange()
+        {
+            Route = null;
+        }
     }
 }

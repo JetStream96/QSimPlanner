@@ -166,11 +166,6 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
 
-        public void OnNavDataChange()
-        {
-            origRow.OnNavDataChange();
-            destRow.OnNavDataChange();
-        }
-
+        public void OnNavDataChange() => presenter.OnNavDataChange();
     }
 }

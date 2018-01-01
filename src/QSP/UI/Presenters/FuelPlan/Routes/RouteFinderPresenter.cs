@@ -10,10 +10,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using QSP.UI.Models.FuelPlan;
 
 namespace QSP.UI.Presenters.FuelPlan.Routes
 {
-    public class RouteFinderPresenter
+    public class RouteFinderPresenter: IRefreshForNavDataChange
     {
         private IRouteFinderView view;
         private IRouteFinderModel model;
@@ -212,5 +213,12 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         public void ShowMap() => view.ShowMap(Route);
 
         public void ShowMapBrowser() => view.ShowMapBrowser(Route);
+
+        public void OnNavDataChange()
+        {
+            view.OrigRow.OnNavDataChange();
+            view.DestRow.OnNavDataChange();
+            Route = null;
+        }
     }
 }

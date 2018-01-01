@@ -47,8 +47,7 @@ namespace QSP.UI.Forms
     //   * In advanced tool, the waypoints ComboBox should refresh.
     //   * Route finder should find results using the new NavData.
     //   * If a route has been found or analyzed before the NavData change,
-    //     when 'export', 'show map' or 'show map in browser' is clicked,
-    //     user should be prompted to find or analyze route again.
+    //     user should be required to find or analyze route again.
     //
     public partial class QspForm : Form
     {

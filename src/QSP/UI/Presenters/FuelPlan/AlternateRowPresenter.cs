@@ -96,6 +96,8 @@ namespace QSP.UI.Presenters.FuelPlan
             var rwy = View.Rwy;
             UpdateRunways();
             View.Rwy = rwy;
+
+            ContextMenuPresenter.OnNavDataChange();
         }
     }
 }
