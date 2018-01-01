@@ -1,0 +1,3 @@
+http://nomads.ncep.noaa.gov/
+
+choose GFS 1.0*1.0, grib filter

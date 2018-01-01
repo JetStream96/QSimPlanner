@@ -1,0 +1,861 @@
+
+<!-- saved from url=(0047)http://www.nws.noaa.gov/mdl/degrib/tutorial.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>
+Degrib: Tutorial
+</title>
+<meta name="author" content="Arthur Taylor">
+<meta name="Description" content="National Digital Forecast Database GRIB2 Decoder.  The starting point for decoding the NDFD, and various World Meteorological Organization GRIB files.">
+<meta name="Keywords" content="degrib, NDFD, NDFD GRIB2 Decider, GRIB2 Decoder, GRIB Decoder, GRIB, GRIB2, WMO-GRIB, Forecasts, National Oceanic Atmospheric Administration, National Weather Service">
+<meta name="Date" content="October 2004">
+<meta name="Co-Publisher" content="A. Taylor">
+
+<link rel="stylesheet" type="text/css" href="./Degrib  Tutorial_files/main.css">
+<meta name="rating" content="general">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="robot" content="all">
+<meta name="Content-Language" content="en-US">
+<meta http-equiv="Window-target" content="_top">
+<!--<base target="_top">--><base href="." target="_top">
+
+</head>
+<body leftmargin="0" topmargin="0" rightmargin="0" marginwidth="0" marginheight="0" bgcolor="#FFFFFF" background="./Degrib  Tutorial_files/background1.gif" link="#38ACEC" vlink="#38ACEC" alink="#F0E68C">
+<!-- Start banner -->
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+  <tbody><tr>
+    <td width="85" rowspan="2"><a href="http://www.noaa.gov/"><img src="./Degrib  Tutorial_files/noaaleft.jpg" alt="NOAA logo-Select to go to the NOAA homepage" width="85" height="78" border="0"></a></td>
+    <td width="500" height="20" align="center" nowrap="nowrap" background="./Degrib  Tutorial_files/blank_title.jpg"><div class="source">NOAA / NWS's Meteorological Development Laboratory&nbsp;&nbsp;&nbsp;</div>
+    </td><td rowspan="2" background="./Degrib  Tutorial_files/wfo_bkgrnd.jpg">&nbsp;</td>
+    <td width="85" rowspan="2" align="right"><a href="http://www.nws.noaa.gov/"><img src="./Degrib  Tutorial_files/nwsright.jpg" alt="Select to go to the NWS homepage" width="85" height="78" border="0"></a></td>
+  </tr>
+  <tr>
+    <td width="500" height="58" align="center" nowrap="nowrap" background="./Degrib  Tutorial_files/blank_name.jpg">
+        <div class="location"><img src="./Degrib  Tutorial_files/grib1.gif" alt="GRIB1 logo" width="32" height="32" border="0" align="middle"> Degrib (NDFD GRIB2 Decoder) <img src="./Degrib  Tutorial_files/grib2.gif" alt="GRIB2 logo" width="32" height="32" border="0" align="middle"></div></td>
+  </tr>
+</tbody></table>
+<table cellspacing="0" cellpadding="0" border="0" background="./Degrib  Tutorial_files/navbkgrnd.gif" width="100%">
+  <tbody><tr>
+   <td align="left" valign="top" width="94"><img src="./Degrib  Tutorial_files/navbarleft.jpg" alt="" width="94" height="23" border="0"></td>
+   <td class="nav" width="15%" align="center" id="menuitem" nowrap="nowrap"><a href="http://weather.gov/ndfd/">NDFD Home</a></td>
+   <td class="nav" width="15%" align="center" id="menuitem" nowrap="nowrap"><a href="http://weather.gov/ndfd/verification/">Verification</a></td>
+   <td class="nav" width="15%" align="right" id="menuitem"><a href="http://weather.gov/pa/">News</a></td>
+   <td class="nav" width="20%" align="right" id="menuitem"><a href="http://weather.gov//organization.php">Organization</a></td>
+   <td width="5%">&nbsp;</td>
+   <td align="left" class="searchinput" width="20%" nowrap="nowrap"><!-- Begin search code -->
+     <form method="get" action="http://firstgovsearch.gov/search" style="margin-bottom:0; margin-top:0;">
+       <input type="hidden" name="v:project" value="firstgov">
+       <label for="query" class="yellow">Search&nbsp;&nbsp;</label>
+       <input type="text" name="query" id="query" size="10">
+       <input type="radio" name="affiliate" checked="checked" value="nws.noaa.gov" id="nws">
+       <label for="nws" class="yellow">NWS</label>
+       <input type="radio" name="affiliate" value="noaa.gov" id="noaa">
+       <label for="noaa" class="yellow">All NOAA</label>
+       <input type="submit" value="Go">
+     </form>
+     <!-- End search code -->
+   </td>
+
+   <td align="right" valign="bottom" width="24"><img src="./Degrib  Tutorial_files/navbarendcap.jpg" alt="" width="24" height="23" border="0"></td>
+  </tr>
+</tbody></table>
+
+<!-- end banner -->
+<table width="700" border="0" cellspacing="0" cellpadding="6">
+<tbody><tr>
+ <td width="119" valign="top">
+  <!-- start leftmenu -->
+  <!-- start leftmenu inc -->
+<table width="119" border="0" cellpadding="2" cellspacing="0" bgcolor="#0A2390">
+  <!-- ********** local forecast search ********** -->
+  <tbody><tr>
+    <td class="yellow" align="center" colspan="3">Local forecast by<br>
+"City, St"</td>
+  </tr>
+  <tr align="center" valign="top">
+    <td align="left" valign="bottom" nowrap="nowrap" class="searchinput" colspan="3"><form method="post" action="http://www.srh.noaa.gov/zipcity.php" style="margin-bottom:0; margin-top:0; ">
+        <div id="Layer2" style="position:absolute; width:200px;  height:115px; z-index:2; visibility: hidden">Search by city. Press enter or select the go button to submit request</div>
+        <input type="text" name="inputstring" size="9" value="City, St">
+        <input type="submit" name="Go2" value="Go">
+      </form></td>
+  </tr>
+  <!-- ********** end local forecast search ********** -->
+
+<!--
+  <tr><td colspan="3">&nbsp;</td></tr>
+  <tr valign=center>
+    <td><img src="./images/grib1.gif" alt="GRIB1 logo" width="32" height="32" border="0"/></td>
+    <td><font style="font-size: 12pt; font-style: bold; font-family: Arial, Helvetica, San Serif; color: yellow;"><b>Degrib</b></font></td>
+    <td><img src="./images/grib2.gif" alt="GRIB2 logo" width="32" height="32" border="0"/></td>
+  </tr>
+-->
+
+  <tr><td colspan="3">&nbsp;</td></tr>
+  <tr>
+    <td class="white" id="menuitem" colspan="3"><span class="yellow">About</span><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/index.php">Purpose</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/screen.php">Screen Shots</a><br>
+</td>
+  </tr>
+
+  <tr><td colspan="3">&nbsp;</td></tr>
+  <tr>
+    <td class="white" id="menuitem" colspan="3"><span class="yellow">Installation</span><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/howto.php">How to Install</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/compile.php?os=windows">Compile Windows</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/compile.php?os=unix">Compile Unix</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/testsuit.php">Testing</a><br>
+</td>
+  </tr>
+
+  <tr><td colspan="3">&nbsp;</td></tr>
+  <tr>
+    <td class="white" id="menuitem" colspan="3"><span class="yellow">Versions</span><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/register.php">Registration</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/register.php">Download</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/release.php">Release Notes</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=history.txt&dir=base">Change History</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/todo.php">To Do</a><br>
+</td>
+  </tr>
+
+  <tr><td colspan="3">&nbsp;</td></tr>
+  <tr>
+    <td class="white" id="menuitem" colspan="3"><span class="yellow">Documentation</span><br>
+&nbsp;<a href="./Degrib  Tutorial_files/Degrib  Tutorial.html">Man Pages</a><br>
+&nbsp;<a href="./Degrib  Tutorial_files/Degrib  Tutorial.html">Tutorial</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/appendix.php">Appendix</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/links.php">Links</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/ndfdfaq.php">NDFD FAQ</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/faq.php">Degrib FAQ</a><br>
+</td>
+  </tr>
+
+  <tr><td colspan="3">&nbsp;</td></tr>
+  <tr>
+    <td class="white" id="menuitem" colspan="3"><span class="yellow">NDFD / NDGD</span><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/dataloc.php">Data Locations</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/custmgrd.php">Custom Grids</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/ndfdwx.php">NDFD &amp; Weather</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/pastwx.php">Past Weather</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/gotcha.php">Gotcha's</a><br>
+</td>
+  </tr>
+
+  <tr><td colspan="3">&nbsp;</td></tr>
+  <tr>
+    <td class="white" id="menuitem" colspan="3"><span class="yellow">General Info</span><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/contact.php">Contact Us</a><br>
+&nbsp;<a href="http://www.nws.noaa.gov/mdl/degrib/contact.php">Acknowledgments</a><br>
+</td>
+  </tr>
+
+<!--
+    <td class="white" align="center" colspan="3">Careers</td>
+    <td class="white" align="center" colspan="3">Publications</td>
+    <td class="white" align="center" colspan="3">Glossary</td>
+-->
+  
+
+  <tr><td colspan="3">&nbsp;</td></tr>
+  <tr>
+    <td align="center" class="white" id="menuitem"><a href="http://www.firstgov.gov/"><img src="./Degrib  Tutorial_files/firstgov_logo_color_110w.gif" alt="FirstGov" width="110" height="30" border="0"></a></td>
+  </tr>
+
+</tbody></table>
+<!-- end leftmenu inc -->
+
+  <!-- end leftmenu -->
+ </td>
+<td width="525" valign="top">
+  <!-- start Actual content -->
+<br>
+
+
+<br><h2><center><b>Degrib</b>: Man Pages</center></h2>
+
+
+<p>Before I start the "tutorial", here are some links to "man pages" that
+I have put together to describe the functionality of <b>degrib</b> and
+<b>tkdegrib</b>.
+
+</p><ul>
+<li><a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base"><b>degrib</b> Man Page</a></li>
+<li><a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=tkdegrib.txt&dir=base"><b>tkdegrib</b> Man Page</a></li>
+<!--
+<li><b>In the future???</b><b>function list</b> Function List</li>
+-->
+
+</ul>
+
+
+<hr>
+
+
+<h2><center>Degrib: Tutorial</center></h2>
+
+
+<b>Table of Contents:</b>
+<ul>
+<li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#getData"><b>How do I get data?</b></a>
+</li><li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#customData"><b>What if I can't find a sector that I like?</b></a>
+</li><li>What can I do with the data?
+  <ul>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#viewData"><b>View the data.</b></a></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#inventoryData"><b>Inventory the data</b></a></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#probeData"><b>Probe the data</b></a></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#metaData"><b>Get Meta data about a message</b></a></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#diagnoseData"><b>Get Diagnostics about a message</b></a></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#CSV"><b>Convert a message to ASCII Comma Separated file</b></a></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#SHP"><b>Convert a message to ESRI Shapefile</b></a></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#FLT"><b>Convert a message to ESRI Spatial analyst or GrADS File format</b></a>
+    <ul>
+    <li>For more information on "Degrib and GrADS": <a href="http://www.nws.noaa.gov/mdl/degrib/grads.php"><b>Click here</b></a></li>
+    <li>For information on "FORTRAN or C access to .flt files": <a href="http://www.nws.noaa.gov/mdl/degrib/flt.php"><b>Click here</b></a></li>
+    </ul></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#NetCDF"><b>Convert a message to NetCDF</b></a></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#subgrid"><b>Convert a sub grid of certain types of GRIB2 files to GRIB2</b></a></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#createFlatFile"><b>Create a flat file database</b></a></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#probeFlatFile"><b>Probe a flat file database</b></a></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#StormTotal"><b>Calculate a StormTotal by combining GRIB messages together</b></a></li>
+  <li><a href="http://www.nws.noaa.gov/mdl/degrib/tutorial.php#outputXML"><b>Output NDFD data in XML</b></a></li>
+  </ul></li>
+<li><a href="http://www.nws.noaa.gov/mdl/degrib/appendix.php"><b>Appendix</b></a> (brief description of directiory structure, and output file types)</li>
+</ul>
+
+<hr>
+
+<h3><font color="#000099"><a name="getData">How do I get data?</a></font></h3>
+
+<p>Now that you've installed the program, you need to download some data.
+You can do this by manually transfering the data from wherever it is to your
+machine.</p>
+<p>If you are working with <b>NDFD</b> or <b>NDGD</b> data,
+<a href="http://www.nws.noaa.gov/mdl/degrib/dataloc.php">their URLs are located here</a>.  You could manually
+download the data from there, but the <b>degrib</b> program comes with two ways
+to automatically access those URLS.
+</p><ol>
+<li>On the "Download" tab of the <b>GUI (Graphical User Interface)</b> program
+<b>tkdegrib</b>, one can highlight the sector (see <a href="http://www.nws.noaa.gov/mdl/degrib/dataloc.php">NDFD/NDGD page</a> for the
+definition of a sector), or the specific weather element in the sector that one
+is interested in, and then click either the "Download by ftp"
+or the "Download by http" buttons.  At that point <b>tkdegrib</b> will contact the web
+and store the file in <b>/degrib/data/'data set'/'sector'</b>, where <b>'data set'</b> is
+either <b>NDFD</b> or <b>NDGD</b>, and <b>'sector'</b> is the abreviated name of the
+sector.</li><br><br>
+
+<li>From a command line or a script (<b>Note</b> in <b>MS-Windows</b> replace /degrib/ with
+c:\ndfd\degrib20\):
+<ul>
+<li><b>/degrib/bin/tcldegrib web.tcl ndfd midatlan,all</b><br>
+which should get from the <b>"ndfd"</b> data set <b>all</b> weather elements
+found in the <b>"midatlan"</b> sector.</li><br><br>
+<li><b>/degrib/bin/tcldegrib web.tcl ndfd conus,maxt,mint</b><br>
+which should get from the <b>"ndfd"</b> data set the <b>maxt</b> and
+<b>mint</b> weather elements found in the <b>"conus"</b> sector.</li><br><br>
+<li><b>/degrib/bin/tcldegrib web.tcl ndgd conus,ozone01</b><br>
+which should get from the <b>"ndgd"</b> data set the <b>ozone01</b> forecast
+found in the <b>"conus"</b> sector.</li><br><br>
+</ul>
+</li></ol>
+
+<h3><font color="#000099"><a name="customData">What if I can't find a sector that I like?</a></font></h3>
+
+<p>If you can't find an appropriate <b>NDFD sector</b>,
+the <b>NWS</b> is providing an <b>experimental</b> web service whose
+intent is to allow the user to get a cutom defined sector in <b>GRIB2</b>.
+It is currently limited to a maximum of 15 degrees by 15 degrees.  Click
+<a href="http://www.nws.noaa.gov/mdl/degrib/custmgrd.php"><b>here</b></a> for more information.</p>
+<ol>
+<li>To use the service from the <b>GUI tkdegrib</b>, go to the "File" menu, and
+select "Configure".  Then click on the "Custom" tab.  Enter in the coordinates
+that you are interested in and press "OK".  Now when you highlight the "custom"
+sector on the "Download tab", it will talk to the web service using your
+coordinates.</li><br><br>
+<li>To use the service from the command line, you need to first edit the file
+"/degrib/bin/ndfd.ini", to use your coordinates.  You are looking for the
+"[Custom_Sector]" section.<br>
+After modifying "/degrib/bin/ndfd.ini", you can talk to the web service using:<br>
+<ul><li><b>/degrib/bin/tcldegrib web.tcl ndfd custom,all</b></li></ul>
+</li></ol>
+
+<h3><font color="#000099">What can I do with the data?</font></h3>
+
+<b><a name="viewData">View the data:</a></b><br>
+To get an idea of what the data looks like, on "MS-Windows", you can use
+"tkdegrib" with "superImageGen" and "htmlmaker" to create images (.png)
+and a means of browsing those images with "MS-Internet Explorer".
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br>
+    Go to the "Download" tab, highlight the sector that you want
+    images of, and click "Generate Images".  That should cause tkdegrib to
+    convert the selected forecasts to "mosaic (*.tlf)" files (see
+    <a href="http://www.nws.noaa.gov/mdl/degrib/appendix.php">Appendix</a> for a definition).  Then tkdegrib calls
+    superImageGen to read the "mosaic (*.tlf)" files and draw the images.
+    Next htmlmaker is called to create html pages to help view the images,
+    and finally IE is called to browse the html.<br><br>
+    <b>Note 1:</b> Unfortunately, superImageGen is provided as an
+    executable which only works on <b>MS-Windows</b> machines.
+  </li><br><br>
+  <li><b>From the command line:</b><br>
+    Currently there is no way to do this from the command line.
+  </li>
+</ul>
+
+<b><a name="inventoryData">Inventory the data:</a></b><br>
+To see what messages are inside a GRIB file, you can use degrib to inventory it.
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br>
+    Click on the "GIS" tab, and browse for your file.  Double click on it in
+    the top half, and it should fill out the "message #, a short version of
+    the variable name, a long version of the variable name, the level or
+    surface, the reference time, the valid time, and the difference between
+    the valid time and the reference time" in the bottom.
+  </li><br><br>
+  <li><b>From the command line:</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -I</b><br>
+    where "GRIB file" is replaced with the name of your GRIB file.<br><br>
+    This should print out the message number, which byte it starts on, the
+    GRIB version, the variable name (both short and long forms of it), the
+    level or surface, the reference time, the valid time, and the forecast
+    projection.
+  </li>
+</ul>
+
+<b><a name="probeData">Probe the data:</a></b><br>
+To get a better feel for the data, you can use degrib to probe the file at a
+given lat/lon point, or a set of points in a "point file".
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br>
+    Currently there is no way to do this from the GUI.
+  </li><br><br>
+  <li><b>From the command line:</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -P -pnt 38,-76</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -P -pntFile "foo.txt"</b><br>
+    where "GRIB file" is replaced with the name of your GRIB file, and
+    "foo.txt" is replaced with a file that contains station ID, lat, lon.<br><br>
+    This should read the file, and extract each message in the file.  Then
+    it will either bi-linearly interpolate to the given lat/lon point, or find
+    the nearest neighbor, and output that data to stdout.  See the
+    <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a>
+    (particularly the "PROBE OPTIONS" section) for more details.
+  </li>
+</ul>
+
+<a name="metaData"><b>Get Meta data about a message:</b></a><br>
+To get "meta data" or information describing a GRIB message, you can use degrib
+to create a .txt file.  Amongst the "meta data" will be the maximum value,
+the minimum value, the number of missing values detected, etc.
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br>
+    Each time you "convert" a message from a file, the GUI automatically
+    creates a .txt file that contains the "meta data".  To convert a file,
+    click on the "GIS" tab, and browse for your file.  Double click on it in
+    the top half, and it should fill out the inventory part in the bottom half.
+    Select the message that you want in the bottom half, and choose the output
+    name (or press "Recommend" to have tkdegrib "recommend" one.  Next choose
+    an "File Type", and press the "Generate file" button at the bottom.
+  </li><br><br>
+  <li><b>From the command line:</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg 1</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg all</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -Met -msg 2 -out message2.txt</b><br>
+    where "GRIB file" is replaced with the name of your GRIB file.<br><br>
+    This should read the file, and extract the requested messages.  The -Met
+    option (on by default) tells it to create a .txt file with the meta data.
+    To turn off the "meta" file option, use -nMet.  See the
+    <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a>
+    (particularly the "CONVERT OPTIONS" section) for more details.
+  </li>
+</ul>
+
+<a name="diagnoseData"><b>Get Diagnostics about a message</b></a><br>
+To get some diagnostics about the message before it has been parsed by the
+code, you can create a ".is0" file.  This can be useful for diagnosing packing
+and unpacking routines, but you will need the
+<a href="http://www.wmo.ch/web/www/DPS/grib-2.html"><b>WMO</b> <b>GRIB2</b> Document FM92-X11 <b>GRIB</b></a>
+to understand the results.
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br>
+    Currently there is no way to do this from the GUI.
+  </li><br><br>
+  <li><b>From the command line:</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -nMet -IS0 -msg 1</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -IS0 -msg all</b><br>
+    where "GRIB file" is replaced with the name of your GRIB file.<br><br>
+  </li>
+</ul>
+
+<a name="CSV"><b>Convert a message to ASCII Comma Separated file:</b></a><br>
+You can use degrib to convert a given message to a .csv file, which is a
+comma delimited ASCII file that contains a x, y, lat, lon, value line for each
+cell in the grid.  This file can be imported into Excel (limited to the first
+65,536 lines), or read by other files to populate a SQL database.
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br>
+    Click on the "GIS" tab, and browse for your file.  Double click on it in
+    the top half, and it should fill out the inventory part in the bottom half.
+    Select the message that you want in the bottom half, and choose the output
+    name (or press "Recommend" to have tkdegrib "recommend" one.  Next choose
+    "CSV" for "File Type", and press the "Generate .csv file" button at the
+    bottom.
+  </li><br><br>
+  <li><b>From the command line:</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg 1 -Csv</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg all -nMet -Csv</b><br>
+    where "GRIB file" is replaced with the name of your GRIB file.<br><br>
+    This should read the file, and extract the requested messages.  The -Csv
+    option tells it to create the .csv file.  See the
+    <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a>
+    (particularly the "CONVERT OPTIONS" section) for more details.
+  </li>
+</ul>
+
+<a name="SHP"><b>Convert a message to ESRI Shapefile:</b><br></a>
+You can use degrib to convert a given message to three different types of ESRI
+Shapefiles.  The first type (Point), contains a lat/lon for the
+center of each cell, along with the value of that cell.  The second type
+(Small Polygon) contains a "small" 5 vertex polygon around the edge, along
+with the value of each cell.  The third type (Large Polygon) contains large
+polygons that were created by merging all the identical cells from the small
+polygons.
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br>
+    Click on the "GIS" tab, and browse for your file.  Double click on it in
+    the top half, and it should fill out the inventory part in the bottom half.
+    Select the message that you want in the bottom half, and choose the output
+    name (or press "Recommend" to have tkdegrib "recommend" one.  Next choose
+    "SHP" for "File Type".  Now choose the "Type of .shp file" (either point,
+    small polygon, or large polygon) and press the "Generate .shp file" button
+    at the bottom.
+  </li><br><br>
+  <li><b>From the command line:</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg 1 -Shp -poly 0</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg 1 -Shp -poly 1</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg 1 -Shp -poly small</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg 1 -Shp -poly 2</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg 1 -Shp -poly big</b><br>
+    where "GRIB file" is replaced with the name of your GRIB file.<br><br>
+    This should read the file, and extract the requested messages.  The -Shp
+    option tells it to create the .shp file.  The "-poly 0" says to create
+    a "point" shapefile, the "-poly 1" or "-poly small" says to create the
+    "small polygon" shapefile, while the "-poly 2" or "-poly big" says to create
+    the "large polygon" shapefile.  See the
+    <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a>
+    (particularly the "CONVERT OPTIONS" section and the "SHP SPECIFIC OPTIONS")
+    for more details.
+  </li>
+</ul>
+
+<a name="FLT"><b>Convert a message to ESRI Spatial analyst or GrADS File format:</b><br></a>
+You can use degrib to convert a given message to what I termed to be a ".flt"
+file.  The .flt file consists of NxM floats where N, and M are the dimensions
+of the grid.  The reason for the .flt name was because that (along with a
+".hdr" file) was what ESRI Spatial analyst appeared to need.  It turned out
+that "GrADS" used the same format except that in addition to the ".flt" file
+it required a control file (.ctl).
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br>
+    Click on the "GIS" tab, and browse for your file.  Double click on it in
+    the top half, and it should fill out the inventory part in the bottom half.
+    Select the message that you want in the bottom half, and choose the output
+    name (or press "Recommend" to have tkdegrib "recommend" one.  Next choose
+    "FLT" for "File Type".  Now if you want to create the GrADS ".ctl" file,
+    click on "Create GrADS .ctl file".  Then press the "Generate .flt file"
+    button at the bottom.
+  </li><br><br>
+  <li><b>From the command line:</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg 1 -Flt</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg 1 -Flt -Interp -GrADS</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg 1 -Flt -GrADS</b><br>
+    where "GRIB file" is replaced with the name of your GRIB file.<br><br>
+    This should read the file, and extract the requested messages.  The -Flt
+    option tells it to create the .flt file.  The "-GrADS" option
+    says to create the ".ctl" file.  The "-Interp" allows GrADS to work better
+    since it tells degrib to interpolate the grid to a lat/lon coverage grid,
+    which saves GrADS from having to do so.  See the
+    <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a>
+    (particularly the "CONVERT OPTIONS" section and the "FLT SPECIFIC OPTIONS")
+    for more details.
+  </li><br><br>
+  <li><b>For more information on "degrib and GrADS"</b>: <a href="http://www.nws.noaa.gov/mdl/degrib/grads.php"><b>click here</b></a></li>
+  <li><b>For information on "FORTRAN or C access to .flt files"</b>: <a href="http://www.nws.noaa.gov/mdl/degrib/flt.php"><b>Click here</b></a></li>
+  
+</ul>
+
+<a name="NetCDF"><b>Convert a message to NetCDF:</b></a><br>
+You can use degrib to convert a given message to a NetCDF file (".nc").
+For more information about the NetCDF format, see
+<a href="http://www.unidata.ucar.edu/packages/netcdf/">"NetCDF Specifications"</a>
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br>
+    Click on the "GIS" tab, and browse for your file.  Double click on it in
+    the top half, and it should fill out the inventory part in the bottom half.
+    Select the message that you want in the bottom half, and choose the output
+    name (or press "Recommend" to have tkdegrib "recommend" one.  Next choose
+    "NetCDF" for "File Type".  Then press the "Generate NetCDF .nc file"
+    button at the bottom.
+  </li><br><br>
+  <li><b>From the command line:</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg 1 -NetCDF 1</b><br>
+    where "GRIB file" is replaced with the name of your GRIB file.<br><br>
+    This should read the file, and extract the requested messages.  The "-NetCDF 1"
+    option tells it to create a NetCDF file using degrib's conventions version 1.
+    This attempts to use the
+    <a href="http://www.cgd.ucar.edu/cms/eaton/cf-metadata/index.html">"CF" convention</a>.
+    See the <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a>
+    (particularly the "CONVERT OPTIONS" section) for more details.
+  </li>
+</ul>
+
+<a name="subgrid"><b>Convert a sub grid of certain types of GRIB2 files to GRIB2:</b><br></a>
+You can use degrib to get a sub grid of certain types of GRIB2 files.  It only
+works for GRIB2 files that were packed using simple pack, complex pack, or
+complex pack with second order differencing (which NDFD uses, but NCEP does
+not), as those are the only forms that it knows how to pack.  <b>Note</b> you
+can't use this to convert a message from GRIB1 to GRIB2, because degrib
+currently doesn't have a mapping of the GRIB1 meta data to GRIB2 meta data.
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br>
+    Currently there is no way to do this from the GUI.
+  </li><br><br>
+  <li><b>From the command line:</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -C -msg 1 -Grib2 -lwlf 30,-105 -uprt 40,-85</b><br>
+    where "GRIB file" is replaced with the name of your GRIB file.<br><br>
+    This should read the file, and extract the requested messages.  The "-Grib2"
+    option tells it to create a GRIB2 message. The "-lwlf 30,-105" tells it
+    to use a subgrid with the lower left corner at lon=-105E, lat=30N.  The "-uprt 40,-85"
+    tells it to use a subgrid with the upper right corner at lon=-85E, lat=40N.
+    See the <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a>
+    (particularly the "CONVERT OPTIONS" section) for more details.
+  </li>
+</ul>
+
+<a name="createFlatFile"><b>Create a flat file database:</b><br></a>
+You can use degrib to create a flat file database which is made up of either
+a bunch of .flt files and an index file (.ind), or a single cube file (.dat)
+and an index file (.ind).  This is useful for CGI access to the NDFD, since
+probing the uncompressed form of the data is faster than probing the GRIB2
+files.
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br>
+    Currently there is no way to do this from the GUI.
+  </li><br><br>
+  <li><b>From the command line:</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -Data -Index simple.ind</b><br>
+    <b>/degrib/bin/degrib "GRIB file" -Data -Index simple.ind -out simple.dat</b><br>
+    where "GRIB file" is replaced with the name of your GRIB file.<br><br>
+    This should read the file, create a new file "simple.dat", append each
+    converted grid to simple.dat, and create an index file simple.ind.  The
+    "-Data" option tells it to create the "database", and the
+    "-Index simple.ind" tells it what to name the index file.  The
+    "-out simple.dat" tells it what to name the ".dat" file.  By default it
+    uses the index filename replacing the extension with ".dat".  See the
+    <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a>
+    (particularly the "DATABASE CREATE OPTIONS" section) for more details.
+  </li>
+</ul>
+
+<a name="probeFlatFile"><b>Probe a flat file database:</b><br></a>
+You can use degrib to probe a flat file database which is made up of either
+a bunch of .flt files and an index file (.ind), or a single cube file (.dat)
+and an index file (.ind).  This is useful for CGI access to the NDFD, since
+probing the uncompressed form of the data is faster than probing the GRIB2
+files.
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br>
+    Currently there is no way to do this from the GUI.
+  </li><br><br>
+  <li><b>From the command line:</b><br>
+    <b>/degrib/bin/degrib "index file" -DP -pnt 35,-76</b><br>
+    where "index file" is replaced with the name of the index file (.ind) that
+    you created when using the "-Data" command.<br><br>
+    This should read the index file, figure out where 35,-76 is, open the
+    (.dat) file or the set of (.flt) files, jump to and read that cell, and
+    return the results on the command line. See the
+    <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a>
+    (particularly the "DATABASE PROBE OPTIONS" section) for more details.
+  </li>
+</ul>
+
+<a name="StormTotal"><b>Calculate a StormTotal:</b><br></a>
+Calculate the total amounts from a specified range of time.  This is intented
+for QPF, SnowAmount, or IceAccum data when you want the total precipitation
+for an event.
+<ul>
+  <li><b>In the GUI tkedegrib</b>:<br>
+    Currently there is no way to do this from the GUI.
+  </li><br><br>
+  <li><b>/degrib/bin/degrib "GRIB file" -StormTotal -startTime "timestamp" -endTime "timestamp" -Grib2</b><br>
+    where "GRIB file" is the name of your GRIB file, and the two timestamps are replaced with times such as 2012-05-31T12:00:00 and 2012-06-01T00:00:00.<br><br>
+    This should create a new GRIB2 file by combining any GRIB messages in the original file between the specified points in time.  Keep in mind that the inventory option shows the end of the time frame and these times are exclusive.  For example if the data is for 6 hour chunks, then to include 2012-06-01T18:00:00 in the output, you'd need a start time of 2012-06-01T12:00:00.
+  </li>
+</ul>
+
+<a name="outputXML"><b>Output NDFD data in XML:</b><br></a>
+You can use degrib to convert National Digital Forecast Database (NDFD) GRIB files 
+into Extensible Markup Language (XML).  Currently, the only dialect of XML 
+supported is Digital Weather Markup Language (DWML).  You can find more information 
+about DWML by reviewing its
+<a href="http://www.weather.gov/mdl/XML/Design/MDL_XML_Design.pdf">specification 
+document</a> or its 
+<a href="http://www.weather.gov/forecasts/xml/DWMLgen/schema/DWML.xsd">schema</a>.
+You can tell degrib to format DWML encoded NDFD data and send it to standard output
+using the command line template below.
+<ul>
+  <li><b>In the GUI tkdegrib</b>:<br><br>
+     <ul>
+        Currently there is no way to do this from the GUI.
+     </ul><br>
+  </li>
+  <li>
+     <b>From the command line:</b><br><br>
+
+     <span style="font-size:16pt;font-weight:bold;color:green;">
+        Quick Start
+     </span><br><br>
+
+     <ul>
+        <span style="color:red;font-family:courier">
+           <i>executable&nbsp;&nbsp; GRIB_files_dir&nbsp;&nbsp; probeType&nbsp;&nbsp; </i> 
+           <b>-pnt</b> <i>latidute,longitude</i>&nbsp;&nbsp; 
+           <b>-XML</b> <i>optNum</i>&nbsp;&nbsp; 
+           <b>-ndfdConven</b> <i>optNum</i>&nbsp;&nbsp;  
+           <b>-ndfdVars</b> <i>elemList</i>&nbsp;&nbsp;  
+           <b>-Icon</b> <i>optNum</i>&nbsp;&nbsp; 
+           <b>-startTime</b> <i>timeString</i>&nbsp;&nbsp; 
+           <b>-endTime</b> <i>timeString</i>&nbsp;&nbsp;  
+           <b>-geoData</b> <i>GeoDataDir</i>
+        </span><br><br>
+
+        <b>Example:</b>  
+           <span style="font-family:courier">
+              /degrib/bin/degrib . -P -pnt 38.98,-77.07 -XML 1 -ndfdConven 2 -Icon 1 /degrib/data/geodata<br><br>
+           </span>
+
+        For more information on each command line option refer to the 
+        <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a><br><br>
+     </ul>
+
+     <span style="font-size:16pt;font-weight:bold;color:brown;">
+        Step-by-Step Instructions for Building the degrib Command to Generate DWML
+     </span><br><br>
+
+     <p>
+        We are going to use the command template shown in the "quick start" section to guide the building of 
+        a command to generate DWML encoded NDFD data.  Follow each step in the table below to build the degrib command.<br><br>
+        <table border="1" cellspacing="3" cellpadding="3">
+           <colgroup><col width="*">
+           <col width="130px">
+           <col width="200px">
+           </colgroup><tbody><tr>
+              <th>Steps to Build the degrib Command</th>
+              <th>Template Component</th>
+              <th>What your input might look like</th>
+           </tr>
+           <tr>
+              <td>Locate the degrib executable and note its path.  The executable name and path begin the 
+                  command line input.</td>
+              <td><i>executable</i></td>
+              <td>/degrib/bin/degrib /degrib/bin/degrib_DP</td>
+           </tr>
+           <tr>
+              <td>Locate the NDFD data.  The directory containing the data is <i>GRIB_files_dir</i> in the 
+                  command template.</td>
+              <td><i>GRIB_files_dir</i></td>
+              <td>/degrib/data</td>
+           </tr>
+           <tr>
+              <td>Determine how you must probe the data.  If you have files containing GRIB messages, 
+                  then you will use the <i>-P</i> option.  If, on the other hand, you have files called "data 
+                  cubes" that contain float values that have been decoded from the original GRIB files,
+                  then you will use the <i>-DP</i> option.</td>
+              <td><i>probeType</i></td>
+              <td><i>-P</i></td>
+           </tr>
+           <tr>
+              <td>Determine the latitude and longitude for each point that you want data for.  You can enter 
+                  more than one "-pnt latitude,longitude" option on the same command line if you 
+                  want to probe more than one point at a time.  You can also put all your points in file 
+                  and reference it using the -pntFile [File] option 
+                  (See <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a> for
+                  more details).</td>
+              <td><b>-pnt</b> <i>latidute,longitude</i></td>
+              <td><b>-pnt</b> <i>38.98,-77.07</i> <b>-pnt</b> <i>39.31,-77.83</i></td>
+           </tr>
+           <tr>
+              <td>Determine which DWML product/format is appropriate for your data needs.  The following samples may
+                  help you make the selection:<br><br>
+
+                  -XML 1 - <a href="http://www.weather.gov/forecasts/xml/DWMLgen/schema/latest_DWML.txt">time-series product containing all NDFD &amp; RTMA elements</a><br> 
+                  -XML 1 - <a href="http://www.weather.gov/forecasts/xml/DWMLgen/schema/latest_DWML_rtma.txt">time-series product containing RTMA elements &amp; errors</a><br> 
+                  -XML 2 - <a href="http://www.weather.gov/forecasts/xml/DWMLgen/schema/latest_DWML_glance.txt">glance product</a><br> 
+                  -XML 3 - <a href="http://www.weather.gov/forecasts/xml/DWMLgen/schema/latest_DWMLByDay12hr.txt">12 hourly summarization product</a><br> 
+                  -XML 4 - <a href="http://www.weather.gov/forecasts/xml/DWMLgen/schema/latest_DWML_ByDay24hr.txt">24 hourly summarization product</a><br><br> 
+
+                  In addition to the numbered -XML convention, the following can be used:<br><br>
+         
+
+                  -XML time-series<br> 
+                  -XML glance<br> 
+                  -XML "12 hourly"<br> 
+                  -XML "24 hourly"<br> 
+
+              </td><td><b>-XML</b> <i>optNum</i></td>
+              <td><b>-XML</b> <i>1</i><br><b>-XML</b> <i>"12 hourly"</i><br><b>-XML</b> <i>glance</i></td>
+           </tr>
+           <tr>
+              <td>Using the names of the data files, determine which ndfd naming convention you are following 
+                  (See <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a> for more details).</td>
+              <td><b>-ndfdConven</b> <i>optNum</i></td>
+              <td><b>-ndfdConven</b> <i>1</i></td>
+           </tr>
+           <tr>
+              <td>Using the names of the data files as the ndfd element name, determine which ndfd elements you want 
+                  in the output DWML. 
+                  (See <a href="http://www.nws.noaa.gov/mdl/degrib/txtview.php?file=degrib.txt&dir=base">"<b>degrib</b> Man Page"</a> the section on 
+                  -ndfdConven for a list of element names).  If you want all available ndfd elements in the DWML, then you 
+                  don't have to include this option. Note, the -ndfdVars option is only applicable for the time-series 
+                  (-XML 1) option.</td>
+              <td><b>-ndfdVars</b> <i>elemList</i></td>
+              <td><b>-ndfdVars</b> <i>wspd,temp,wx,sky,temp_r</i></td>
+           </tr>
+           <tr>
+              <td>Determine if you want to see icon elements in the output DWML. If so set the -Icon option to 1. 
+                  If you choose to format icon elements, be sure you have data files for probability of precipitation, 
+                  sky cover, temperature, weather, and wind speed. These data files are needed 
+                  by degrib to derive the icon elements. If you don't want icons in the DWML then you don't have to 
+                  include this option. Icons by default are formatted for the "glance" product (-XML 2) and the 
+ 
+                  "time-series" product (-XML 1) when there is no -ndfdVars argument.</td>
+              <td><b>-Icon</b> <i>optNum</i></td>
+              <td><b>-Icon</b> <i>1</i></td>
+           </tr>
+           <tr>
+              <td>Determine the time when degrib should start including NDFD in the output DWML. This is a UTC time. 
+                  If you want the data for all available times, then you don't have to include this or the -endTime option.</td>
+              <td><b>-startTime</b> <i>timeString</i></td>
+              <td><b>-startTime</b> <i>2006-12-25T23:00:00</i></td>
+           </tr>
+           <tr>
+              <td>Determine the time when degrib should stop including NDFD in the output DWML. This is a UTC time.
+                  If you want the data for all available times, then you don't have to include this or the -startTime option.</td>
+              <td><b>-endTime</b> <i>timeString</i></td>
+              <td><b>-endTime</b> <i>2007-01-01T08:00:00</i></td>
+           </tr>
+           <tr>
+              <td>Locate your geographical data files and substitute the path for <i>GeoDataDir</i></td>
+              <td><b>-geoData</b> <i>GeoDataDir</i></td>
+              <td><b>-geoData</b> <i>/degrib/data/geodata</i></td>
+           </tr>
+        </tbody></table><br><br>
+
+        Putting it all together, we would have the following command for the "time-series" product:<br><br>
+
+        <span style="font-family:courier">
+           /degrib/bin/degrib /degrib/data -P 
+           -pnt&nbsp;38.98,-77.07 -pnt&nbsp;39.31,-77.83
+           -XML&nbsp;1
+           -ndfdConven&nbsp;1
+           -ndfdVars&nbsp;maxt,mint,pop12,qpf,wdir,wspd,temp,wx,sky 
+           -Icon&nbsp;1
+           -startTime&nbsp;2006-12-25T23:00:00
+           -endTime&nbsp;2007-01-01T08:00:00
+           -geoData&nbsp;/degrib/data/geodata<br><br>  
+        </span>      
+     </p>
+
+     <span style="font-size:16pt;font-weight:bold;color:brown;">
+        Example degrib Commands
+     </span><br><br>
+
+     <ul>
+
+        <li>Uses degrib to format a time-series of all NDFD elements for all times:<br><br>
+
+            <span style="font-family:courier">
+               /degrib/bin/degrib /degrib/data -P 
+               -pnt 38.98,-77.07  
+               -XML 1 
+               -ndfdConven 2 
+               -geoData /degrib/data/geodata
+            </span>
+
+        </li><br><br>
+
+        <li>Uses degrib to format a glance product using NDFD data for all times:<br><br>
+
+            <span style="font-family:courier">
+               /degrib/bin/degrib /degrib/data -P 
+               -pnt 38.98,-77.07  
+               -XML 2 
+               -ndfdConven 2 
+               -geoData /degrib/data/geodata
+            </span>
+
+        </li><br><br>
+
+        <li>Uses degrib to format a 12 hourly summarization product using NDFD data for all times:<br><br>
+
+            <span style="font-family:courier">
+               /degrib/bin/degrib /degrib/data -P 
+               -pnt 38.98,-77.07  
+               -XML 12-hourly 
+               -ndfdConven 2 
+               -geoData /degrib/data/geodata
+            </span>
+
+        </li><br><br>
+
+        <li>Uses degrib to format a 24 hourly summarization product using NDFD data for all times:<br><br>
+
+            <span style="font-family:courier">
+               /degrib/bin/degrib /degrib/data -P 
+               -pnt 38.98,-77.07  
+               -XML "24 hourly" 
+               -ndfdConven 2 
+               -geoData /degrib/data/geodata
+            </span>
+
+        </li><br><br>
+
+     <ul>
+  
+</ul>
+
+  <!-- end Actual content -->
+  <table width="100%" border="0" cellpadding="2" cellspacing="0" bordercolor="#FFFFFF">
+   <tbody><tr>
+    <td colspan="3"><hr align="right" width="100%"></td>
+   </tr>
+   <tr valign="top">
+    <td align="left" nowrap="" class="gray">
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.doc.gov/"><span class="gray">US Dept of Commerce</span></a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.noaa.gov/"><span class="gray">National Oceanic and Atmospheric Administration</span></a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://weather.gov/"><span class="gray">National Weather Service</span></a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://weather.gov/mdl"><span class="gray">Meteorological Development Laboratory</span></a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="gray">1325 East West Highway</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="gray">Silver Spring, MD 20910</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="gray">Page last Modified: June 04, 2012.</span><br>
+</td>
+      <td align="left" nowrap="" class="gray">
+Degrib Questions? <a href="mailto:arthur.taylor@noaa.gov?subject=DEGRIB%20Comment">Arthur Taylor</a><br>
+NDFD Questions? <a href="mailto:nws.ndfd@noaa.gov,arthur.taylor@noaa.gov?subject=DEGRIB/NDFD%20Question">nws.ndfd@noaa.gov</a><br>
+XML Questions? <a href="mailto:paul.hershberg@noaa.gov,john.schattel@noaa.gov,arthur.taylor@noaa.gov?subject=DEGRIB/XML%20Question">Paul Hershberg &amp; John Schattel</a><br>
+<a href="http://www.weather.gov/disclaimer.php"><span class="gray">Disclaimer</span></a><br>
+<a href="http://www.cio.noaa.gov/Policy_Programs/info_quality.html"><span class="gray">Information Quality</span></a><br>
+<a href="http://www.weather.gov/credits.php"><span class="gray">Credits</span></a><br>
+<a href="http://www.weather.gov/glossary/"><span class="gray">Glossary</span></a><br>
+</td>
+    <td align="right" nowrap="" class="gray"><a href="http://weather.gov/privacy.php"><span class="gray">Privacy Policy</span></a><br>
+    <a href="http://www.rdc.noaa.gov/~foia/"><span class="gray">Freedom of Information Act (FOIA)</span></a><br>
+    <a href="http://www.weather.gov/admin.php"><span class="gray">About Us</span></a><br>
+    <a href="http://www.weather.gov/careers.php"><span class="gray">Career Opportunities</span></a><br>
+   </td></tr>
+  </tbody></table>
+ </ul></li></ul></td>
+</tr>
+</tbody></table>
+
+
+</body></html>
