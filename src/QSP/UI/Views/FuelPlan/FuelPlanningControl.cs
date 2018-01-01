@@ -152,13 +152,7 @@ namespace QSP.UI.Views.FuelPlan
                 AltnPresenter.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
             };
         }
-
-        // TODO: ??
-        public void OnWptListChanged()
-        {
-            /*  advancedRouteTool.OnWptListChanged();*/
-        }
-
+        
         private void SubscribeEventHandlers()
         {
             wtUnitComboBox.SelectedIndexChanged += WtUnitChanged;
@@ -479,6 +473,7 @@ namespace QSP.UI.Views.FuelPlan
         {
             routeFinderControl.OnNavDataChange();
             AltnPresenter.OnNavDataChange();
+            advancedRouteTool.OnNavDataChange();
         }
 
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);

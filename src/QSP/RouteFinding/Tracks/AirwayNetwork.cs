@@ -36,8 +36,10 @@ namespace QSP.RouteFinding.Tracks
         public TrackInUseCollection TracksInUse { get; private set; } = new TrackInUseCollection();
         public StatusRecorder StatusRecorder { get; private set; } = new StatusRecorder();
 
-        public event EventHandler WptListChanged;
-        public event EventHandler AirportListChanged;
+        /// <summary>
+        /// This event fires after nav data (WptList and AirportList) changed.
+        /// </summary>
+        public event EventHandler NavDataChanged;
 
         // Fires when any TrackMessage in the TrackHandlers changed.
         public event EventHandler TrackMessageUpdated;
@@ -121,9 +123,8 @@ namespace QSP.RouteFinding.Tracks
                     InvokeTrackMessageUpdated();
                 }
             }
-
-            WptListChanged?.Invoke(this, EventArgs.Empty);
-            AirportListChanged?.Invoke(this, EventArgs.Empty);
+            
+            NavDataChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void SetTrackEnabled(TrackType t, bool enabled)

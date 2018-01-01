@@ -303,16 +303,14 @@ namespace QSP.UI.Forms
                 ldgMenu.requestBtn.Visible = showReqBtn;
             };
 
-            airwayNetwork.AirportListChanged += (s, e) =>
+            airwayNetwork.NavDataChanged += (s, e) =>
             {
                 fuelMenu.OnNavDataChange();
                 toMenu.Airports = AirportList;
                 ldgMenu.Airports = AirportList;
                 miscInfoPresenter.AirportList = AirportList;
             };
-
-            airwayNetwork.WptListChanged += (s, e) => fuelMenu.OnWptListChanged();
-
+            
             aboutMenu.Init("QSimPlanner");
             navBar.Init(acMenu, fuelMenu, toMenu, ldgMenu, miscInfoMenu, aboutMenu, panel2);
 
