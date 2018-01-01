@@ -44,9 +44,15 @@ namespace QSP.UI.Views.FuelPlan.Routes
         // For alternate calculations.
         public DestinationSidSelection DestSidProvider { get; private set; }
 
-        public void Init(IRouteFinderModel model)
+        /// <summary>
+        /// This is only used is displaying maps.
+        /// </summary>
+        public Form MainForm { get; private set; }
+
+        public void Init(IRouteFinderModel model, Form MainForm)
         {
             this.model = model;
+            this.MainForm = MainForm;
             this.presenter = new RouteFinderPresenter(this, model);
 
             InitOrigDestControls();
@@ -153,10 +159,10 @@ namespace QSP.UI.Views.FuelPlan.Routes
         }
 
         public void ShowMap(Route route) =>
-           ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm);
+           ShowMapHelper.ShowMap(route, MainForm.Size, MainForm);
 
         public void ShowMapBrowser(Route route) =>
-            ShowMapHelper.ShowMap(route, ParentForm.Size, ParentForm, true, true);
+            ShowMapHelper.ShowMap(route, MainForm.Size, MainForm, true, true);
 
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
 

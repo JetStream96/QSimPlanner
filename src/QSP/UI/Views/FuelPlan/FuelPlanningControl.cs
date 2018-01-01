@@ -105,7 +105,7 @@ namespace QSP.UI.Views.FuelPlan
             SetOrigDestEvents();
 
             var routeFinderModel = new RouteFinderModel(model, () => model.GetWindCalculator(this));
-            routeFinderControl.Init(routeFinderModel);
+            routeFinderControl.Init(routeFinderModel, ParentForm);
 
             AltnPresenter = new AlternatePresenter(
                 alternateControl, model.AppOption, model.AirwayNetwork, model.WindTables,
@@ -121,7 +121,7 @@ namespace QSP.UI.Views.FuelPlan
             SubscribeEventHandlers();
 
             advancedRouteTool = new RouteFinderControl();
-            advancedRouteTool.Init(routeFinderModel);
+            advancedRouteTool.Init(routeFinderModel, ParentForm);
 
             if (acListComboBox.Items.Count > 0) acListComboBox.SelectedIndex = 0;
 
