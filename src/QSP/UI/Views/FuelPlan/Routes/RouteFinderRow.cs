@@ -76,8 +76,6 @@ namespace QSP.UI.Views.FuelPlan.Routes
             return new LatLon(lat, lon);
         }
 
-
-        // TODO: Is the IMessageDisplay really needed?
         public void Init(IFinderOptionModel model)
         {
             this.model = model;

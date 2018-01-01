@@ -61,7 +61,6 @@ namespace QSP.UI.Util
                 MsgBoxHelper.ShowError(parentControl,
                     "Failed to write to file: " + Path.GetFullPath(tmpFilePath));
             }
-
         }
 
         // Returns whether the creation was successful.

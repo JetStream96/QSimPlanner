@@ -41,6 +41,10 @@ using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.UI.Forms
 {
+    // Requirements:
+    // * For route finding:
+    //   * From origin to destination:
+    //* When 
     public partial class QspForm : Form
     {
         private AircraftMenuControl acMenu;

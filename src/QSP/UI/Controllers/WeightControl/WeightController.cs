@@ -1,8 +1,7 @@
-﻿using QSP.AircraftProfiles.Configs;
+﻿using MetroFramework.Controls;
 using QSP.UI.Controllers.Units;
 using System;
 using System.Drawing;
-using MetroFramework.Controls;
 using static QSP.MathTools.Numbers;
 using static System.Math;
 
