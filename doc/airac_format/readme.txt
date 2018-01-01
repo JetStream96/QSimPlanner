@@ -1,0 +1,1 @@
+The format described in the document is not exactly the same as the NavData we use, but it is mostly correct.

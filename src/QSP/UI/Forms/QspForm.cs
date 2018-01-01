@@ -127,10 +127,6 @@ namespace QSP.UI.Forms
                countryCodesLocator,
                appOptionsLocator,
                updater);
-
-            // TODO: Is this really needed? airwayNetwork.AirportListChanged gets called 
-            // when option changes as well ...
-            optionsForm.NavDataLocationChanged += (s, e) => fuelMenu.OnNavDataChange();
         }
 
         private void ShowOptionsForm(

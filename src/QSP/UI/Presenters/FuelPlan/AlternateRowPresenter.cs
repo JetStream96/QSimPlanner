@@ -18,7 +18,7 @@ using System.Linq;
 
 namespace QSP.UI.Presenters.FuelPlan
 {
-    public class AlternateRowPresenter: IRefreshForNavDataChange
+    public class AlternateRowPresenter : IRefreshForNavDataChange
     {
         public IAlternateRowView View { get; private set; }
         public ActionContextMenuPresenter ContextMenuPresenter { get; private set; }
@@ -70,7 +70,7 @@ namespace QSP.UI.Presenters.FuelPlan
             this.airwayNetwork = airwayNetwork;
             this.destController = destController;
         }
-        
+
         public void FindRoute() => ContextMenuPresenter.FindRoute();
         public void ExportRouteFiles() => ContextMenuPresenter.ExportRouteFiles();
         public void AnalyzeRoute() => ContextMenuPresenter.AnalyzeRoute();
@@ -80,10 +80,17 @@ namespace QSP.UI.Presenters.FuelPlan
         public void UpdateRunways()
         {
             var airport = airwayNetwork.AirportList[View.Icao];
-            if (airport == null) return;
-            View.RunwayList = airport.Rwys.Select(r => r.RwyIdent);
+            if (airport == null)
+            {
+                View.RunwayList = new string[0];
+                return;
+            }
+
+            var rwys = airport.Rwys.Select(r => r.RwyIdent).ToList();
+            View.RunwayList = rwys;
+            if (rwys.Any()) View.Rwy = rwys[0];
         }
-        
+
         public void OnNavDataChange()
         {
             var rwy = View.Rwy;

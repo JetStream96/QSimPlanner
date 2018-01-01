@@ -9,6 +9,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.FileExport.Providers;
 using QSP.RouteFinding.Tracks;
+using QSP.UI.Models.MsgBox;
 using QSP.Updates;
 using System;
 using System.Drawing;
@@ -16,7 +17,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QSP.UI.Models.MsgBox;
 using static QSP.UI.Util.MsgBoxHelper;
 using static QSP.Utilities.LoggerInstance;
 
@@ -163,6 +163,7 @@ namespace QSP.UI.Forms.Options
             saveBtn.Enabled = true;
         }
 
+        // Only called when nav data path changes.
         private async Task TryUpdateWptAndAirportsAndSaveOptions()
         {
             var wptList = TryLoadWpts();
@@ -175,6 +176,7 @@ namespace QSP.UI.Forms.Options
                 {
                     // Successful
                     await tracksForm.Update(wptList, airportList);
+                    NavDataLocationChanged?.Invoke(this, EventArgs.Empty);
                     Close();
                 }
             }
@@ -232,11 +234,6 @@ namespace QSP.UI.Forms.Options
             {
                 var oldSetting = appSettingsLocator.Instance;
                 appSettingsLocator.Instance = newSetting;
-
-                if (oldSetting.NavDataLocation != newSetting.NavDataLocation)
-                {
-                    NavDataLocationChanged?.Invoke(this, EventArgs.Empty);
-                }
 
                 return true;
             }

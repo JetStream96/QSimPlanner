@@ -55,6 +55,10 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
                 view.Runways = rwyList;
                 view.SelectedRwy = rwyList[0];
             }
+            else
+            {
+                view.Runways = new string[0];
+            }
         }
 
         /// <exception cref="LoadSidFileException"></exception>
@@ -84,10 +88,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             {
                 view.Procedures = AvailableProcedures.Where(ShouldShow);
             }
-            catch (Exception ex)
-            {
-                view.ShowMessage(ex.Message, Views.MessageLevel.Error);
-            }
+            catch { }
         }
 
         private bool ShouldShow(string proc)
