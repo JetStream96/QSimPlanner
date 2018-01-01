@@ -63,23 +63,24 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             }
         }
 
+        /// <exception cref="ArgumentException"></exception>
+        private void EnsureAirportExists(string icao)
+        {
+            if (AirportList[icao] == null)
+            {
+                var msg = ActionContextMenuHelper.NonExistingAirportMsg(icao);
+                throw new ArgumentException(msg);
+            }
+        }
+
         [Throws]
         private void FindRoutePrivate()
         {
             var orig = origProvider.Icao;
             var dest = destProvider.Icao;
 
-            if (AirportList[orig] == null)
-            {
-                var msg = ActionContextMenuHelper.NonExistingAirportMsg(orig);
-                throw new ArgumentException(msg);
-            }
-
-            if (AirportList[dest] == null)
-            {
-                var msg = ActionContextMenuHelper.NonExistingAirportMsg(dest);
-                throw new ArgumentException(msg);
-            }
+            EnsureAirportExists(orig);
+            EnsureAirportExists(dest);
 
             var sid = origProvider.GetSelectedProcedures().ToList();
             var star = destProvider.GetSelectedProcedures().ToList();
@@ -113,13 +114,19 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         {
             try
             {
+                var orig = origProvider.Icao;
+                var dest = destProvider.Icao;
+
+                EnsureAirportExists(orig);
+                EnsureAirportExists(dest);
+
                 var input = view.Route.ToUpper();
 
                 var result = RouteAnalyzerFacade.AnalyzeWithCommands(
                         input,
-                        origProvider.Icao,
+                        orig,
                         origProvider.Rwy,
-                        destProvider.Icao,
+                        dest,
                         destProvider.Rwy,
                         AppOptions.NavDataLocation,
                         airwayNetwork.AirportList,

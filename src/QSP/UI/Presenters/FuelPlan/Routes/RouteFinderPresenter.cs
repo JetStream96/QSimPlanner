@@ -188,6 +188,9 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
 
             try
             {
+                EnsureOrigAirportExists();
+                EnsureDestAirportExists();
+
                 var input = view.Route.ToUpper();
                 var airwayNetwork = model.FuelPlanningModel.AirwayNetwork;
 
