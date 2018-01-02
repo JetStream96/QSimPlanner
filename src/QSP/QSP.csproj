@@ -266,8 +266,8 @@
     <Compile Include="UI\Util\ComboBoxHelpers.cs" />
     <Compile Include="UI\Util\ControlDisableStyleController.cs" />
     <Compile Include="UI\Controllers\ControlGroup\ColorGroup.cs" />
-    <Compile Include="UI\Controllers\DestinationStarSelection.cs" />
-    <Compile Include="UI\Controllers\ISelectedProcedureProvider.cs" />
+    <Compile Include="UI\Models\FuelPlan\Routes\DestinationStarSelection.cs" />
+    <Compile Include="UI\Models\FuelPlan\Routes\ISelectedProcedureProvider.cs" />
     <Compile Include="UI\Util\ListViewSortEnabler.cs" />
     <Compile Include="UI\Util\ScrollBar\ScrollAnimation.cs" />
     <Compile Include="UI\Controllers\Units\WeightTextBoxController.cs" />
@@ -284,10 +284,10 @@
     <Compile Include="UI\Views\MiscInfo\DescentForcastControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Forms\LicenseForm.cs">
+    <Compile Include="UI\Views\LicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\LicenseForm.Designer.cs">
+    <Compile Include="UI\Views\LicenseForm.Designer.cs">
       <DependentUpon>LicenseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Views\MiscInfo\DescentForcastControl.Designer.cs">
@@ -833,7 +833,7 @@
     <EmbeddedResource Include="UI\Views\FuelPlan\AlternateControl.resx">
       <DependentUpon>AlternateControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\LicenseForm.resx">
+    <EmbeddedResource Include="UI\Views\LicenseForm.resx">
       <DependentUpon>LicenseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Views\FuelPlan\Routes\RouteFinderRow.resx">

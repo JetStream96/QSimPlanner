@@ -1,11 +1,11 @@
-﻿using QSP.Common.Options;
+﻿using System.Collections.Generic;
+using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Views.FuelPlan.Routes;
-using System.Collections.Generic;
 
-namespace QSP.UI.Controllers
+namespace QSP.UI.Models.FuelPlan.Routes
 {
     public class DestinationSidSelection : ISelectedProcedureProvider
     {

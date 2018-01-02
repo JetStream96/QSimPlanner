@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 
-namespace QSP.UI.Forms
+namespace QSP.UI.Views
 {
     public partial class LicenseForm : Form
     {

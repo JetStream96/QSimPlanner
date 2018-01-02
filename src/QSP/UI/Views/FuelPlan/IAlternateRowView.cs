@@ -2,6 +2,7 @@
 using QSP.UI.Presenters.FuelPlan;
 using System;
 using System.Collections.Generic;
+using QSP.UI.Models.FuelPlan.Routes;
 using QSP.UI.Views.FuelPlan.Routes.Actions;
 
 namespace QSP.UI.Views.FuelPlan

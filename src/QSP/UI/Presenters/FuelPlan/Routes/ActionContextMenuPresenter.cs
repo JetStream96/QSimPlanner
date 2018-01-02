@@ -14,6 +14,7 @@ using QSP.WindAloft;
 using System;
 using System.Linq;
 using QSP.UI.Models.FuelPlan;
+using QSP.UI.Models.FuelPlan.Routes;
 
 namespace QSP.UI.Presenters.FuelPlan.Routes
 {

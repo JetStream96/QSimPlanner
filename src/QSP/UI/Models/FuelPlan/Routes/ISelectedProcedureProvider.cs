@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace QSP.UI.Controllers
+namespace QSP.UI.Models.FuelPlan.Routes
 {
     /// <summary>
     /// Provides the airport information selected by the user.
