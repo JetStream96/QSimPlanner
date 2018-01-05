@@ -1,7 +1,7 @@
-﻿using QSP.LibraryExtension;
-using QSP.LibraryExtension.Sets;
+﻿using CommonLibrary;
+using CommonLibrary.LibraryExtension.Sets;
 
-namespace ServerCore
+namespace TrackBackupApp
 {
     public static class Shared
     {

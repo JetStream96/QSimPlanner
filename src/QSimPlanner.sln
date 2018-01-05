@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSP", "QSP\QSP.csproj", "{182CA73B-6911-4D37-BA34-C86232FE37F1}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{56C3BD11-E518-4454-8F74-94156B04EBAD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLibraryTest", "CommonLibraryTest\CommonLibraryTest.csproj", "{F0B66E83-95A6-49C4-B2EE-0CD6E03F9451}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{623B608B-3455-4042-8955-D7D2643D9E6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{F0B66E83-95A6-49C4-B2EE-0CD6E03F9451}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0B66E83-95A6-49C4-B2EE-0CD6E03F9451}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0B66E83-95A6-49C4-B2EE-0CD6E03F9451}.Release|Any CPU.Build.0 = Release|Any CPU
+		{623B608B-3455-4042-8955-D7D2643D9E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{623B608B-3455-4042-8955-D7D2643D9E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{623B608B-3455-4042-8955-D7D2643D9E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{623B608B-3455-4042-8955-D7D2643D9E6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
