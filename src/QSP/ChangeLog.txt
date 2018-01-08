@@ -1,6 +1,8 @@
 ﻿version 0.4.1
 * Fix a bug that causes the program to crash if the destination ICAO is invalid when finding alternate airports.
 * Add option to view route in external browser.
+* Fix a bug where finding a route from a runway to the same runway causes program to hang.
+
 
 ﻿version 0.4.0
 * Add Airac cycle from Aerosoft.
