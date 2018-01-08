@@ -4,6 +4,7 @@ using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Finder;
 using QSP.WindAloft;
+using System;
 using static UnitTest.RouteFinding.Common;
 
 namespace UnitTest.RouteFinding
@@ -17,6 +18,42 @@ namespace UnitTest.RouteFinding
             var w1 = new Waypoint("1", 0.0, 1.0);
             var w2 = new Waypoint("2", 0.0, 2.0);
             var w3 = new Waypoint("3", 0.0, 3.0);
+
+            var wptList = GetWptList(w1, w2, w3);
+            int i1 = wptList.FindByWaypoint(w1);
+            int i2 = wptList.FindByWaypoint(w2);
+            int i3 = wptList.FindByWaypoint(w3);
+            wptList.AddNeighbor(i1, "A", i2);
+            wptList.AddNeighbor(i2, "B", i3);
+
+            var expected = GetRoute(
+                w1, "A", -1.0,
+                w2, "B", -1.0,
+                w3);
+
+            var route = new RouteFinder(wptList).FindRoute(i1, i3);
+
+            Assert.IsTrue(expected.Equals(route));
+        }
+
+        [Test]
+        public void OriginDestinationWaypointsTheSameShouldThrow()
+        {
+            var w = new Waypoint("1", 0.0, 1.0);
+
+            var wptList = GetWptList(w);
+            int i = wptList.FindByWaypoint(w);
+            var finder = new RouteFinder(wptList);
+
+            Assert.Throws<ArgumentException>(() => finder.FindRoute(i, i));
+        }
+
+        [Test]
+        public void CanFindRouteBetweenTwoPointWithZeroDistance()
+        {
+            var w1 = new Waypoint("1", 0.0, 1.0);
+            var w2 = new Waypoint("2", 0.0, 2.0);
+            var w3 = new Waypoint("3", 0.0, 1.0);
 
             var wptList = GetWptList(w1, w2, w3);
             int i1 = wptList.FindByWaypoint(w1);
@@ -78,9 +115,9 @@ namespace UnitTest.RouteFinding
             int i2 = wptList.FindByWaypoint(w2);
             int i3 = wptList.FindByWaypoint(w3);
             var n = new Neighbor(
-                "03", 
-                new [] { w0, w1, w2 }.TotalDistance(), 
-                new [] { w1 }, InnerWaypointsType.Track);
+                "03",
+                new[] { w0, w1, w2 }.TotalDistance(),
+                new[] { w1 }, InnerWaypointsType.Track);
 
             wptList.AddNeighbor(i0, i2, n);
             wptList.AddNeighbor(i0, "02", i2);
@@ -126,7 +163,7 @@ namespace UnitTest.RouteFinding
 
             var expected = GetRoute(
                 w1, "14", -1.0,
-                w4, "45", -1.0, 
+                w4, "45", -1.0,
                 w5, "56", -1.0,
                 w6);
 

@@ -47,8 +47,10 @@ namespace QSP.RouteFinding.Finder
 
         /// <summary>
         /// Gets a route between two aiports, from ORIG to DEST.
+        /// ORIG cannot be the identical to DEST.
         /// </summary>
         /// <exception cref="RouteNotFoundException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public Route FindRoute(OrigInfo origInfo, DestInfo destInfo, WaypointListEditor editor)
         {
             int origIndex = AddSid(origInfo);
@@ -62,6 +64,8 @@ namespace QSP.RouteFinding.Finder
         /// <summary>
         /// Gets a route from an airport to a waypoint.
         /// </summary>
+        /// <exception cref="RouteNotFoundException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public Route FindRoute(OrigInfo origInfo, int wptIndex, WaypointListEditor editor)
         {
             int origIndex = AddSid(origInfo);
@@ -74,6 +78,8 @@ namespace QSP.RouteFinding.Finder
         /// <summary>
         /// Gets a route from a waypoint to an airport.
         /// </summary>
+        /// <exception cref="RouteNotFoundException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public Route FindRoute(int wptIndex, DestInfo destInfo, WaypointListEditor editor)
         {
             int endIndex = AddStar(destInfo);
@@ -84,7 +90,10 @@ namespace QSP.RouteFinding.Finder
 
         /// <summary>
         /// Gets a route from a waypoint to a waypoint.
+        /// Two waypoints cannot be identical.
         /// </summary>
+        /// <exception cref="RouteNotFoundException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public Route FindRoute(int wptIndex1, int wptIndex2)
         {
             var result = GetRoute(wptIndex1, wptIndex2);
@@ -119,15 +128,25 @@ namespace QSP.RouteFinding.Finder
 
         /// <summary>
         /// Finds a route from the waypoint in wptList with 
-        /// index startPtIndex, to endPtIndex.
+        /// index startPtIndex, to endPtIndex. 
+        /// The two indices must not be identical.
         /// </summary>
         /// <exception cref="RouteNotFoundException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         private Route GetRoute(int startPtIndex, int endPtIndex)
         {
+            if (startPtIndex == endPtIndex)
+            {
+                throw new ArgumentException("Start point cannot be the same as end point.");
+            }
+
             var FindRouteData = new RouteFindingData(wptList.NodeIndexUpperBound + 1);
             var region = new RouteSeachRegion(wptList, startPtIndex, endPtIndex);
 
-            region.MaxDistanceSum = region.DirectDistance * 1.25;
+            // The max distance must be larger than 0. Otherwise this method cannot
+            // find a route from between two different points with distance zero.
+            region.MaxDistanceSum = Math.Max(50.0, region.DirectDistance * 1.25);
+
             bool routeFound = false;
 
             while (!routeFound && region.MaxDistanceSum <= RouteSeachRegion.MaxPossibleDistanceSum)

@@ -99,7 +99,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             this.stars = stars;
         }
 
-        // @Throws
+        /// <exception cref="Exception"></exception>
         public Route Analyze()
         {
             SetRwyWpts();
@@ -275,6 +275,7 @@ namespace QSP.RouteFinding.RouteAnalyzers
             return randRoute;
         }
 
+        /// <exception cref="Exception"></exception>
         private Route FindRoute(IReadOnlyList<SubRoute> analyzed, int index)
         {
             var routeFinder = new RouteFinder(wptList);

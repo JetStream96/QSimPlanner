@@ -113,6 +113,8 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         private TrackInUseCollection TracksInUse =>
             model.FuelPlanningModel.AirwayNetwork.TracksInUse;
 
+        /// <exception cref="RouteNotFoundException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         private Route GetRouteWaypointToWaypoint()
         {
             EnsureOrigWptExists();
