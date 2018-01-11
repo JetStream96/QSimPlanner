@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using QSP.FuelCalculation.Calculations;
-using static UnitTest.FuelCalculation.Calculations.InitialPlanCreatorTest;
 using QSP.WindAloft;
 using UnitTest.FuelCalculation.FuelData;
+using static UnitTest.FuelCalculation.Calculations.InitialPlanCreatorTest;
 
 namespace UnitTest.FuelCalculation.Calculations
 {

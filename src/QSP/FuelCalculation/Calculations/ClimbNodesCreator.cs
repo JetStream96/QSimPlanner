@@ -32,6 +32,10 @@ namespace QSP.FuelCalculation.Calculations
             this.initPlan = initPlan;
         }
 
+        /// <exception cref="ElevationDifferenceTooLargeException">
+        /// Elevation difference between origin and destination is too large for
+        /// aircraft's climb or descent performance.
+        /// </exception>
         public List<IPlanNode> Create()
         {
             const int iterationCount = 2;
@@ -63,7 +67,11 @@ namespace QSP.FuelCalculation.Calculations
 
             return result;
         }
-
+        
+        /// <exception cref="ElevationDifferenceTooLargeException">
+        /// Elevation difference between origin and destination is too large for
+        /// aircraft's climb or descent performance.
+        /// </exception>
         private List<IPlanNode> NodeEstimation(double initGrossWt)
         {
             // We uses the node provided by initPlan.
@@ -93,7 +101,7 @@ namespace QSP.FuelCalculation.Calculations
             {
                 if (climbNodes.Count == initPlan.Count)
                 {
-                    throw new InvalidOperationException(
+                    throw new ElevationDifferenceTooLargeException(
                         "The altitude difference between origin and " +
                         "destination airports is too large for this route.");
                 }

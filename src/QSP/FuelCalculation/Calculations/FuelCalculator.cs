@@ -6,7 +6,6 @@ using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static QSP.AviationTools.Heading.HeadingCalculation;
 using static QSP.FuelCalculation.Calculations.NodeMarker;
 
 namespace QSP.FuelCalculation.Calculations
@@ -76,10 +75,10 @@ namespace QSP.FuelCalculation.Calculations
             while (true)
             {
                 var plan = Mark(GetPlan(altLimit));
-                var altResult = CruiseAltValid(plan);
-                if (altResult.IsValid) return new DetailedPlan(plan);
+                var (altValid, newAlt) = CalculationUtil.CruiseAltValid(altProvider, plan);
+                if (altValid) return new DetailedPlan(plan);
                 var minAlt = Math.Max(plan.First().Alt, plan.Last().Alt);
-                altLimit = altResult.NewAlt;
+                altLimit = newAlt;
                 if (altLimit <= minAlt) return new DetailedPlan(plan);
             }
         }
@@ -96,29 +95,21 @@ namespace QSP.FuelCalculation.Calculations
                   landingFuel,
                   altLimit).Create();
 
-            var climbNodes = new ClimbNodesCreator(
-                airportList, route, fuelData, initPlan).Create();
+            var climbCreator = new ClimbNodesCreator(airportList, route, fuelData, initPlan);
 
-            return climbNodes
-                .Concat(initPlan.Skip(climbNodes.Count))
-                .ToList();
-        }
+            try
+            {
+                var climbNodes = climbCreator.Create();
 
-        private AltResult CruiseAltValid(IReadOnlyList<IPlanNode> nodes)
-        {
-            int tocIndex = TocIndex(nodes);
-            var toc = nodes[tocIndex];
-            var heading = Heading(toc, nodes[tocIndex + 1]);
-            bool valid = altProvider.IsValidCrzAlt(toc, heading, toc.Alt);
-            double newAlt = valid ? toc.Alt :
-                altProvider.ClosestAltBelow(toc, heading, toc.Alt);
-            return new AltResult() { IsValid = valid, NewAlt = newAlt };
-        }
-
-        private struct AltResult
-        {
-            public bool IsValid;
-            public double NewAlt;
+                return climbNodes
+                    .Concat(initPlan.Skip(climbNodes.Count))
+                    .ToList();
+            }
+            catch (ElevationDifferenceTooLargeException e)
+            {
+                // TODO: what to do here?
+                throw;
+            }
         }
     }
 }
