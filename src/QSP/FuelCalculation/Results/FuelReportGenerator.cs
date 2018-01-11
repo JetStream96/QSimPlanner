@@ -44,8 +44,7 @@ namespace QSP.FuelCalculation.Results
             this.para = para;
             this.maxAlt = maxAlt;
         }
-
-        // @Throws
+        
         public FuelReport Generate()
         {
             var p = para;
@@ -89,7 +88,6 @@ namespace QSP.FuelCalculation.Results
                 p.TaxiTime);
         }
 
-        /// <exception cref="InvalidPlanAltitudeException"></exception>
         private DetailedPlan GetPlan(double landingFuel, Route r)
         {
             return new FuelCalculator(

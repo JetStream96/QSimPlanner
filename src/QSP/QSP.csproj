@@ -148,7 +148,6 @@
     <Content Include="FuelCalculation\Calculations\VariableUnitStandard.txt" />
     <Compile Include="FuelCalculation\Calculations\NodeMarker.cs" />
     <Compile Include="FuelCalculation\Calculations\PlanNode.cs" />
-    <Compile Include="FuelCalculation\Exceptions.cs" />
     <Compile Include="FuelCalculation\FuelData\Corrections\Boeing\FuelTable.cs" />
     <Compile Include="FuelCalculation\FuelData\DataPoint.cs" />
     <Compile Include="FuelCalculation\FuelData\DataPointExtension.cs" />

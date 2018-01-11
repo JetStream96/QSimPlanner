@@ -31,7 +31,7 @@ namespace QSP.FuelCalculation.Calculations
         private readonly double landingFuel;
         private readonly double maxAlt;
 
-        // @Throws
+        /// <exception cref="ArgumentException"></exception>
         public FuelCalculator(
             AirportManager airportList,
             ICrzAltProvider altProvider,
@@ -53,12 +53,26 @@ namespace QSP.FuelCalculation.Calculations
             this.landingFuel = landingFuel;
             this.maxAlt = maxAlt;
         }
-        
-        /// <exception cref="InvalidPlanAltitudeException"></exception>
+
         public DetailedPlan Create()
         {
             var altLimit = maxAlt;
 
+            // Try to find a valid cruising altitude.
+            // The GetPlan method returns a complete route with altitudes.
+            // However, this route is based on altLimit, e.g. 41000 feet.
+            // This may not be a valid cruising altitude, e.g. for westbound flights.
+            //
+            // In the above case, the next valid altitude below is used as altLimit for
+            // next iteration, i.e. 40000 feet. This does not alway work since on
+            // very short routes (e.g. 10 NM), the next valid altitude below may be
+            // lower than airport elevation. In this case, we do not attempt to find
+            // another altitude.
+            //
+            // This method does not handle the cases such as when flight turns 
+            // from westbound to eastbound. But overall this is a good approximation
+            // for fuel estimation purpose.
+            //
             while (true)
             {
                 var plan = Mark(GetPlan(altLimit));
@@ -66,7 +80,7 @@ namespace QSP.FuelCalculation.Calculations
                 if (altResult.IsValid) return new DetailedPlan(plan);
                 var minAlt = Math.Max(plan.First().Alt, plan.Last().Alt);
                 altLimit = altResult.NewAlt;
-                if (altLimit <= minAlt) throw new InvalidPlanAltitudeException();
+                if (altLimit <= minAlt) return new DetailedPlan(plan);
             }
         }
 

@@ -1,6 +1,6 @@
-﻿using System;
-using QSP.FuelCalculation.Results.Nodes;
+﻿using QSP.FuelCalculation.Results.Nodes;
 using QSP.RouteFinding.Routes;
+using System;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -19,6 +19,7 @@ namespace QSP.FuelCalculation.Calculations
 
         public double ClimbRate { get; }
 
+        /// <exception cref="ArgumentException">NodeType is not valid.</exception>
         public NextPlanNodeParameter(
             VerticalMode ModeVertical,
             Type NodeType,

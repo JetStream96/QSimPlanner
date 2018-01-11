@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using QSP.RouteFinding.Containers;
+﻿using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using QSP.WindAloft;
+using System.Collections.Generic;
 
 namespace QSP.FuelCalculation.Calculations
 {

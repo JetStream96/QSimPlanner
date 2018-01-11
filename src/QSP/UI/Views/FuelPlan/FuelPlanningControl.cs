@@ -355,9 +355,9 @@ namespace QSP.UI.Views.FuelPlan
                     AltnPresenter.Routes.Select(r => r.Expanded),
                     para).Generate();
             }
-            catch (InvalidPlanAltitudeException)
+            catch (Exception ex)
             {
-                ShowMessage("Cannot find a valid cruising altitude.", MessageLevel.Warning);
+                ShowMessage(ex.Message, MessageLevel.Warning);
                 return;
             }
 

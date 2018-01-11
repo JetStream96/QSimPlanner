@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using QSP.AviationTools.Heading;
+﻿using QSP.AviationTools.Heading;
 using QSP.FuelCalculation.FuelData;
 using QSP.FuelCalculation.Results.Nodes;
 using QSP.LibraryExtension;
@@ -10,11 +8,13 @@ using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
 using QSP.WindAloft;
+using System;
+using System.Collections.Generic;
 using static QSP.AviationTools.Constants;
+using static QSP.AviationTools.SpeedConversion;
+using static QSP.FuelCalculation.Calculations.NextPlanNodeParameter;
 using static QSP.MathTools.Numbers;
 using static System.Math;
-using static QSP.FuelCalculation.Calculations.NextPlanNodeParameter;
-using static QSP.AviationTools.SpeedConversion;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -22,8 +22,15 @@ namespace QSP.FuelCalculation.Calculations
     // VariableUnitStandard.txt.
 
     /// <summary>
-    /// Creates the list of PlanNodes for the route. The route starts at origin
+    /// Creates the list of PlanNodes for the route.
+    /// 
+    /// If the route is long enough so that the optimal cruising altitude can
+    /// be reached, the route starts at origin
     /// at its optimal cruising altitude (instead of the airport elevation).
+    /// 
+    /// If the optimal cruising altitude cannot be reached due to short route,
+    /// the route starts at an altitude that is highest in the entire route.
+    /// 
     /// Step climbs and descent to destination are included. 
     /// </summary>
     public class InitialPlanCreator
@@ -145,18 +152,9 @@ namespace QSP.FuelCalculation.Calculations
 
         private static VerticalMode GetMode(double altDiff)
         {
-            if (altDiff > AltDiffCriteria)
-            {
-                return VerticalMode.Climb;
-            }
-            else if (altDiff < -AltDiffCriteria)
-            {
-                return VerticalMode.Descent;
-            }
-            else
-            {
-                return VerticalMode.Cruise;
-            }
+            if (altDiff > AltDiffCriteria) return VerticalMode.Climb;
+            if (altDiff < -AltDiffCriteria) return VerticalMode.Descent;
+            return VerticalMode.Cruise;
         }
 
         private double FuelFlow(double grossWt, VerticalMode mode)
@@ -244,8 +242,7 @@ namespace QSP.FuelCalculation.Calculations
             return airportList[icao].Elevation;
         }
 
-        private static ICoordinate GetV(ICoordinate p1, ICoordinate p2,
-            double disNm)
+        private static ICoordinate GetV(ICoordinate p1, ICoordinate p2, double disNm)
         {
             return EarthGeometry.GetV(
                 p1.ToVector3D(),

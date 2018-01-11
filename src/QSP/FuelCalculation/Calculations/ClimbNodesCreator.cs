@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using QSP.FuelCalculation.FuelData;
+﻿using QSP.FuelCalculation.FuelData;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.Routes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using static QSP.AviationTools.Constants;
 using static QSP.AviationTools.SpeedConversion;
 
@@ -71,8 +71,8 @@ namespace QSP.FuelCalculation.Calculations
             // We estimate the gross weight at origin airport and compute
             // the climb segment.
             // 
-            // In climbNodes, the absolute values of the following parameters 
-            // are probably not correct but the relative values between nodes
+            // In climbNodes, the values of the following parameters are 
+            // probably not exactly correct, but the relative values between nodes
             // are accurate: GrossWt, FuelOnBoard, TimeRemaining.
             //
 

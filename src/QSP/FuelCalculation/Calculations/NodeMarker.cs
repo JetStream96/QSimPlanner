@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CommonLibrary.LibraryExtension;
 using QSP.FuelCalculation.Results.Nodes;
-using CommonLibrary.LibraryExtension;
-using static System.Math;
+using System;
+using System.Collections.Generic;
 using static QSP.FuelCalculation.Calculations.InitialPlanCreator;
+using static System.Math;
 
 namespace QSP.FuelCalculation.Calculations
 {
@@ -11,7 +11,7 @@ namespace QSP.FuelCalculation.Calculations
     {
         /// <summary>
         /// Gets the index of TOC (top of climb). i.e. The first node such that
-        /// the altitude no longer increases. The input (nodes) needs to
+        /// the altitude is the same as the next node. The input (nodes) needs to
         /// have at least 2 items. Throws exception if TOC is not found.
         /// </summary>
         public static int TocIndex(IReadOnlyList<IPlanNode> nodes)
