@@ -183,7 +183,7 @@ namespace QSP.UI.Forms
 
                 action();
 
-                splash.Close();
+                splash.Hide();
             }
         }
 

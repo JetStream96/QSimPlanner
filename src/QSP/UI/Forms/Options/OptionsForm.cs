@@ -265,12 +265,14 @@ namespace QSP.UI.Forms.Options
 
         private void BrowseBtnClick(object sender, EventArgs e)
         {
-            var dialog = new FolderSelectDialog();
-            dialog.InitialDirectory = pathTxtBox.Text;
-
-            if (dialog.ShowDialog())
+            using (var dialog = new FolderSelectDialog())
             {
-                pathTxtBox.Text = dialog.FileName;
+                dialog.InitialDirectory = pathTxtBox.Text;
+
+                if (dialog.ShowDialog())
+                {
+                    pathTxtBox.Text = dialog.FileName;
+                }
             }
         }
 
@@ -329,7 +331,7 @@ namespace QSP.UI.Forms.Options
             }
         }
 
-        private void infoLbl_MouseEnter(object sender, EventArgs e)
+        private void InfoLblMouseEnter(object sender, EventArgs e)
         {
             infoLbl.Font = new Font(infoLbl.Font, FontStyle.Underline);
 
@@ -338,7 +340,7 @@ namespace QSP.UI.Forms.Options
             popUpPanel.BringToFront();
         }
 
-        private void infoLbl_MouseLeave(object sender, EventArgs e)
+        private void InfoLblMouseLeave(object sender, EventArgs e)
         {
             infoLbl.Font = new Font(infoLbl.Font, FontStyle.Regular);
 
@@ -374,7 +376,7 @@ namespace QSP.UI.Forms.Options
             "    install the NavData version for Aerosoft Airbus A318/A319/A320/A321\n" +
             "    and select the folder which contains Airports.txt.";
 
-        private void updateBtn_Click(object sender, EventArgs e)
+        private void UpdateBtnClick(object sender, EventArgs e)
         {
             PerformUpdateNow();
         }
@@ -394,7 +396,7 @@ namespace QSP.UI.Forms.Options
             updateBtn.Enabled = status.Status != Updater.Status.Success;
         }
 
-        private void useDefaultBtn_Click(object sender, EventArgs e)
+        private void UseDefaultBtnClick(object sender, EventArgs e)
         {
             pathTxtBox.Text = Path.GetFullPath(AppOptions.Default.NavDataLocation);
         }

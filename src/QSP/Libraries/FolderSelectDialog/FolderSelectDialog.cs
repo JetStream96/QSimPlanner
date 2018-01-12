@@ -12,7 +12,7 @@ namespace FolderSelect
 	/// Wraps System.Windows.Forms.OpenFileDialog to make it present
 	/// a vista-style dialog.
 	/// </summary>
-	public class FolderSelectDialog
+	public sealed class FolderSelectDialog : IDisposable
 	{
 		// Wrapped dialog
 		System.Windows.Forms.OpenFileDialog ofd = null;
@@ -48,7 +48,7 @@ namespace FolderSelect
 		public string Title
 		{
 			get { return ofd.Title; }
-			set { ofd.Title = value == null ? "Select a folder" : value; }
+			set { ofd.Title = value ?? "Select a folder"; }
 		}
 
 		/// <summary>
@@ -59,15 +59,20 @@ namespace FolderSelect
 			get { return ofd.FileName; }
 		}
 
-		#endregion
+        public void Dispose()
+        {
+            if (ofd != null) ofd.Dispose();
+        }
 
-		#region Methods
+        #endregion
 
-		/// <summary>
-		/// Shows the dialog
-		/// </summary>
-		/// <returns>True if the user presses OK else false</returns>
-		public bool ShowDialog()
+        #region Methods
+
+        /// <summary>
+        /// Shows the dialog
+        /// </summary>
+        /// <returns>True if the user presses OK else false</returns>
+        public bool ShowDialog()
 		{
 			return ShowDialog(IntPtr.Zero);
 		}

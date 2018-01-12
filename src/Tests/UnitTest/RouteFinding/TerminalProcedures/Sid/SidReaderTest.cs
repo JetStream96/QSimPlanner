@@ -103,7 +103,7 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
         public void SidIsRwySpecificNotEndingWithVector()
         {
             Assert.IsTrue(
-                ContainResult(GetSidCollection(), "SID1", "18", sid1_Wpts(),
+                ContainResult(GetSidCollection(), "SID1", "18", Sid1(),
                 EntryType.RwySpecific, false));
         }
 
@@ -111,7 +111,7 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
         public void SidRwySpecificEndsWithVector()
         {
             Assert.IsTrue(
-                ContainResult(GetSidCollection(), "SID3", "18", sid3_Wpts(),
+                ContainResult(GetSidCollection(), "SID3", "18", Sid3(),
                 EntryType.RwySpecific, true));
         }
 
@@ -119,7 +119,7 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
         public void SidCommonPart()
         {
             Assert.IsTrue(
-                containResult_Common(GetSidCollection(), "SID5", sid5_Wpts(),
+                ContainResult(GetSidCollection(), "SID5", Sid5(),
                 false));
         }
 
@@ -128,24 +128,24 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
         {
             Assert.IsTrue(
                 ContainResult(GetSidCollection(), "SID5", "TRANS2",
-                sid5_Trans2_Wpts(), EntryType.Transition, false));
+                Sid5Trans2(), EntryType.Transition, false));
         }
 
-        private List<Waypoint> sid5_Trans2_Wpts()
+        private List<Waypoint> Sid5Trans2()
         {
             return List(
                 new Waypoint("N23E049", 23.0, 49.0),
                 new Waypoint("N24E049", 24.0, 49.0));
         }
 
-        private List<Waypoint> sid5_Wpts()
+        private List<Waypoint> Sid5()
         {
             return List(
                 new Waypoint("N24E049", 24.0, 49.0),
                 new Waypoint("N23E049", 23.0, 49.0));
         }
 
-        private List<Waypoint> sid3_Wpts()
+        private List<Waypoint> Sid3()
         {
             return List(
                 new Waypoint("WPT301", 24.9, 50.0),
@@ -154,7 +154,7 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
                 new Waypoint("WPT304", 24.6, 50.0));
         }
 
-        private List<Waypoint> sid1_Wpts()
+        private List<Waypoint> Sid1()
         {
             return List(
                 new Waypoint("WPT101", 25.0125, 50.0300),
@@ -163,7 +163,7 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
                 new Waypoint("WPT104", 25.0225, 50.1800));
         }
 
-        private bool containResult_Common(
+        private bool ContainResult(
             SidCollection collection,
             string sid,
             List<Waypoint> wpts,

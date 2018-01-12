@@ -625,8 +625,8 @@ namespace QSP.UI.Forms.Options
             this.infoLbl.Size = new System.Drawing.Size(31, 19);
             this.infoLbl.TabIndex = 2;
             this.infoLbl.Text = "[ ? ]";
-            this.infoLbl.MouseEnter += new System.EventHandler(this.infoLbl_MouseEnter);
-            this.infoLbl.MouseLeave += new System.EventHandler(this.infoLbl_MouseLeave);
+            this.infoLbl.MouseEnter += new System.EventHandler(this.InfoLblMouseEnter);
+            this.infoLbl.MouseLeave += new System.EventHandler(this.InfoLblMouseLeave);
             // 
             // button14
             // 
@@ -855,7 +855,7 @@ namespace QSP.UI.Forms.Options
             this.updateBtn.TabIndex = 1;
             this.updateBtn.Text = "Update now";
             this.updateBtn.UseVisualStyleBackColor = true;
-            this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
+            this.updateBtn.Click += new System.EventHandler(this.UpdateBtnClick);
             // 
             // updateFreqComboBox
             // 
@@ -916,7 +916,7 @@ namespace QSP.UI.Forms.Options
             this.useDefaultBtn.TabIndex = 6;
             this.useDefaultBtn.Text = "Use default";
             this.useDefaultBtn.UseVisualStyleBackColor = true;
-            this.useDefaultBtn.Click += new System.EventHandler(this.useDefaultBtn_Click);
+            this.useDefaultBtn.Click += new System.EventHandler(this.UseDefaultBtnClick);
             // 
             // OptionsForm
             // 

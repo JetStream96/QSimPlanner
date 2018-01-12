@@ -65,12 +65,14 @@ namespace QSP.UI.Forms.Options
             {
                 i.BrowserBtn.Click += (sender, e) =>
                 {
-                    var dialog = new FolderSelectDialog();
-                    dialog.InitialDirectory = i.TxtBox.Text;
-
-                    if (dialog.ShowDialog())
+                    using (var dialog = new FolderSelectDialog())
                     {
-                        i.TxtBox.Text = dialog.FileName;
+                        dialog.InitialDirectory = i.TxtBox.Text;
+
+                        if (dialog.ShowDialog())
+                        {
+                            i.TxtBox.Text = dialog.FileName;
+                        }
                     }
                 };
             }

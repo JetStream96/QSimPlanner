@@ -1,5 +1,6 @@
 ﻿using QSP.RouteFinding.Tracks.Nats;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Web;
@@ -16,7 +17,7 @@ namespace TrackBackupApp
 #else
             60 * 5;
 #endif
-        
+
         // @NoThrow
         public static void TryAndLogIfFail(Action a)
         {
@@ -35,10 +36,18 @@ namespace TrackBackupApp
             return DateTime.UtcNow.ToString() + "  " + msg;
         }
 
-        // @Throws
+        private static List<IndividualNatsMessage> DownloadMessage()
+        {
+            using (var downloader = new NatsDownloader())
+            {
+                return downloader.DownloadFromNotam();
+            }
+        }
+
+        /// <exception cref="Exception"></exception>
         private void SaveNats()
         {
-            var result = new NatsDownloader().DownloadFromNotam();
+            var result = DownloadMessage();
             Directory.CreateDirectory(HostingEnvironment.MapPath("~/nats"));
             bool westUpdated = false;
             bool eastUpdated = false;
@@ -231,7 +240,7 @@ namespace TrackBackupApp
                     catch (Exception ex)
                     {
                         Shared.Logger.Log(ex.ToString());
-                    }                    
+                    }
                 }
             };
 

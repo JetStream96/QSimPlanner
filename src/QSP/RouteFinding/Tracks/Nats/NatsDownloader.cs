@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using QSP.RouteFinding.Tracks.Common;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
-    public class NatsDownloader : ITrackMessageProvider
+    public sealed class NatsDownloader : ITrackMessageProvider, IDisposable
     {
         public static readonly string natsUrl = "https://www.notams.faa.gov/common/nat.html?";
         private static readonly string natsWest = "http://qsimplan.somee.com/nats/Westbound.xml";
@@ -89,6 +90,11 @@ namespace QSP.RouteFinding.Tracks.Nats
             int westIndex = msgs[0].Direction == NatsDirection.West ? 0 : 1;
             int eastIndex = 1 - westIndex;
             return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
+        }
+
+        public void Dispose()
+        {
+            client.Dispose();
         }
 
         ~NatsDownloader()
