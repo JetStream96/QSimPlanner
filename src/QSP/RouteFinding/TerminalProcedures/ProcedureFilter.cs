@@ -19,8 +19,8 @@ namespace QSP.RouteFinding.TerminalProcedures
                 items.Remove(key);
                 items.Add(key, value);
             }
-            
-            [Throws]
+
+            /// <exception cref="Exception">Entry not found.</exception>
             get
             {
                 var key = ToKey(icao, rwy, isSid);

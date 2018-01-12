@@ -73,7 +73,7 @@ namespace QSP.UI.Views.FuelPlan
             }
         }
 
-        [Throws]
+        /// <exception cref="Exception"></exception>
         public IEnumerable<string> GetSelectedProcedures() => Presenter.GetAllProcedures();
 
         private void IcaoTxtBox_TextChanged(object sender, EventArgs e)

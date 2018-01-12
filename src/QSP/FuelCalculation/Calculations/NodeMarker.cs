@@ -1,6 +1,5 @@
 ﻿using CommonLibrary.LibraryExtension;
 using QSP.FuelCalculation.Results.Nodes;
-using System;
 using System.Collections.Generic;
 using static QSP.FuelCalculation.Calculations.InitialPlanCreator;
 using static System.Math;

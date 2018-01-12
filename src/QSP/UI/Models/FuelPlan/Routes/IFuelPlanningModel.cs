@@ -77,8 +77,7 @@ namespace QSP.UI.Models.FuelPlan.Routes
                 m.ProcFilter);
         }
 
-        // TODO: Can this actually throw without causing issues in advanced tool?
-        [Throws]
+        /// <exception cref="InvalidUserInputException"></exception>
         public static AvgWindCalculator GetWindCalculator(this IFuelPlanningModel m,
             IFuelPlanningView v)
         {

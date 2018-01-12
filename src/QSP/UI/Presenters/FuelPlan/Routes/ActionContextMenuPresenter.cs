@@ -74,7 +74,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             }
         }
 
-        [Throws]
+        /// <exception cref="Exception"></exception>
         private void FindRoutePrivate()
         {
             var orig = origProvider.Icao;

@@ -34,7 +34,7 @@ namespace QSP.UI.Presenters.FuelPlan
         public string DestIcao => destController.Icao;
         public RouteGroup Route => ContextMenuPresenter.Route;
 
-        [Throws]
+        /// <exception cref="Exception"></exception>
         public List<string> GetAllProcedures()
         {
             var wptList = airwayNetwork.WptList;
