@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.FuelCalculation.Calculations;
 using QSP.FuelCalculation.Results.Nodes;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using static CommonLibrary.LibraryExtension.IEnumerables;
@@ -14,10 +14,10 @@ namespace UnitTest.FuelCalculation.Calculations
     public class NodeMarkerTest
     {
         [Test]
-        public void TocIndexNotExistShouldThrow()
+        public void TocIndexTest0()
         {
             var nodes = TransformNode(50.0, 1000.0, 3000.0);
-            Assert.Throws<ArgumentException>(() => TocIndex(nodes));
+            Assert.AreEqual(2, TocIndex(nodes));
         }
 
         [Test]
@@ -35,10 +35,10 @@ namespace UnitTest.FuelCalculation.Calculations
         }
 
         [Test]
-        public void TodIndexNotExistShouldThrow()
+        public void TodIndexTest0()
         {
-            var nodes = TransformNode(50.0, 1000.0, 3000.0);
-            Assert.Throws<ArgumentException>(() => TodIndex(nodes));
+            var nodes = TransformNode(3500.0, 3250.0, 3000.0);
+            Assert.AreEqual(0, TodIndex(nodes));
         }
 
         [Test]
@@ -72,8 +72,10 @@ namespace UnitTest.FuelCalculation.Calculations
         private static IPlanNode GetNode(double alt, double lat, double lon)
         {
             var val = new IntermediateNode(new LatLon(lat, lon));
-            return new PlanNode(val, null, null, null, alt,
-                0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            var mock = new Mock<IPlanNode>();
+            mock.Setup(n => n.NodeValue).Returns(val);
+            mock.Setup(n => n.Alt).Returns(alt);
+            return mock.Object;
         }
     }
 }

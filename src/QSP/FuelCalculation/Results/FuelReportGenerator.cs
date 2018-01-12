@@ -16,7 +16,7 @@ namespace QSP.FuelCalculation.Results
 
     public class FuelReportGenerator
     {
-        // TODO: Add as an option?
+        // Minimum time for contingency fuel.
         private static readonly double minContTime = 5.0;
 
         private readonly AirportManager airportList;
@@ -44,7 +44,9 @@ namespace QSP.FuelCalculation.Results
             this.para = para;
             this.maxAlt = maxAlt;
         }
-        
+
+        /// <exception cref="ElevationDifferenceTooLargeException"></exception>
+        /// <exception cref="Exception"></exception>
         public FuelReport Generate()
         {
             var p = para;
@@ -88,6 +90,8 @@ namespace QSP.FuelCalculation.Results
                 p.TaxiTime);
         }
 
+        /// <exception cref="ElevationDifferenceTooLargeException"></exception>
+        /// <exception cref="Exception"></exception>
         private DetailedPlan GetPlan(double landingFuel, Route r)
         {
             return new FuelCalculator(

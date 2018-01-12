@@ -53,11 +53,22 @@ namespace QSP.FuelCalculation.Calculations
             this.maxAlt = maxAlt;
         }
 
+        /// <summary>
+        /// Try to find a valid cruising altitude.
+        /// 
+        /// The fuel numbers in the climb segment is an estimation, because we 
+        /// do not know the takeoff weight of the aircraft.
+        /// 
+        /// The nodes in returned plan contains some nodes between waypoints.
+        /// Additionally, if TOC, TOD or SC are available, they will be in the nodes
+        /// as well.
+        /// </summary>
+        /// <exception cref="ElevationDifferenceTooLargeException"></exception>
+        /// <exception cref="Exception"></exception>
         public DetailedPlan Create()
         {
             var altLimit = maxAlt;
 
-            // Try to find a valid cruising altitude.
             // The GetPlan method returns a complete route with altitudes.
             // However, this route is based on altLimit, e.g. 41000 feet.
             // This may not be a valid cruising altitude, e.g. for westbound flights.
@@ -83,6 +94,8 @@ namespace QSP.FuelCalculation.Calculations
             }
         }
 
+        /// <exception cref="ElevationDifferenceTooLargeException"></exception>
+        /// <exception cref="Exception"></exception>
         private List<IPlanNode> GetPlan(double altLimit)
         {
             var initPlan = new InitialPlanCreator(
@@ -96,20 +109,11 @@ namespace QSP.FuelCalculation.Calculations
                   altLimit).Create();
 
             var climbCreator = new ClimbNodesCreator(airportList, route, fuelData, initPlan);
+            var climbNodes = climbCreator.Create();
 
-            try
-            {
-                var climbNodes = climbCreator.Create();
-
-                return climbNodes
-                    .Concat(initPlan.Skip(climbNodes.Count))
-                    .ToList();
-            }
-            catch (ElevationDifferenceTooLargeException e)
-            {
-                // TODO: what to do here?
-                throw;
-            }
+            return climbNodes
+                .Concat(initPlan.Skip(climbNodes.Count))
+                .ToList();
         }
     }
 }

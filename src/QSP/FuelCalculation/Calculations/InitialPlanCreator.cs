@@ -101,10 +101,8 @@ namespace QSP.FuelCalculation.Calculations
         {
             // Compute verical mode.
             double optCrzAlt = fuelData.OptCruiseAlt(node.GrossWt);
-            double heading = HeadingCalculation.Heading(
-                node.PrevWaypoint, node);
-            double atcAllowedAlt = altProvider.ClosestAlt(
-                node, heading, optCrzAlt);
+            double heading = HeadingCalculation.Heading(node.PrevWaypoint, node);
+            double atcAllowedAlt = altProvider.ClosestAlt(node, heading, optCrzAlt);
             double targetAlt = Min(atcAllowedAlt, maxAlt);
             double altDiff = node.Alt - targetAlt;
             VerticalMode mode = GetMode(altDiff);
@@ -132,6 +130,7 @@ namespace QSP.FuelCalculation.Calculations
             return new NextPlanNodeParameter(mode, nodeType, stepTime, climbRate);
         }
 
+        /// <exception cref="ArgumentException">Invalid vertical mode.</exception>
         private double ClimbGradient(double grossWt, VerticalMode mode)
         {
             switch (mode)
@@ -156,7 +155,8 @@ namespace QSP.FuelCalculation.Calculations
             if (altDiff < -AltDiffCriteria) return VerticalMode.Descent;
             return VerticalMode.Cruise;
         }
-
+        
+        /// <exception cref="ArgumentException">Invalid vertical mode.</exception>
         private double FuelFlow(double grossWt, VerticalMode mode)
         {
             switch (mode)

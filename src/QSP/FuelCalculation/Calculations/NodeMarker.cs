@@ -11,10 +11,11 @@ namespace QSP.FuelCalculation.Calculations
     {
         /// <summary>
         /// Gets the index of TOC (top of climb). i.e. The first node such that
-        /// the altitude is the same as the next node. The input (nodes) needs to
-        /// have at least 2 items. Throws exception if TOC is not found.
+        /// the altitude no longer increases. If the altitudes is an increasing
+        /// sequence, returns the index of last node.
+        /// 
+        /// The input (nodes) needs to have at least 2 items.
         /// </summary>
-        /// <exception cref="ArgumentException"></exception>
         public static int TocIndex(IReadOnlyList<IPlanNode> nodes)
         {
             for (int i = 0; i < nodes.Count - 1; i++)
@@ -22,7 +23,7 @@ namespace QSP.FuelCalculation.Calculations
                 if (nodes[i + 1].Alt - nodes[i].Alt < AltDiffCriteria) return i;
             }
 
-            throw new ArgumentException();
+            return nodes.Count - 1;
         }
 
         /// <summary>
@@ -32,8 +33,12 @@ namespace QSP.FuelCalculation.Calculations
         {
             for (int i = 1; i < n.Count - 1; i++)
             {
-                if (Abs(n[i - 1].Alt - n[i].Alt) < AltDiffCriteria &&
-                    n[i + 1].Alt - n[i].Alt > AltDiffCriteria)
+                var prev = n[i - 1].Alt;
+                var current = n[i].Alt;
+                var next = n[i + 1].Alt;
+
+                if (Abs(prev - current) < AltDiffCriteria &&
+                    next - current > AltDiffCriteria)
                 {
                     yield return i;
                 }
@@ -42,10 +47,11 @@ namespace QSP.FuelCalculation.Calculations
 
         /// <summary>
         /// Gets the index of TOD (top of descent). i.e. The last node such that
-        /// the altitude is the same as the previous node. The input (nodes) needs to
-        /// have at least 2 items. Throws exception if TOD is not found.
+        /// the altitude the altitude is no higher than the previous node. If the 
+        /// altitudes is an increasing sequence, returns the index of first node (i.e. 0).
+        /// 
+        /// The input (nodes) needs to have at least 2 items.
         /// </summary>
-        /// <exception cref="ArgumentException"></exception>
         public static int TodIndex(IReadOnlyList<IPlanNode> n)
         {
             for (int i = n.Count - 1; i > 0; i--)
@@ -53,13 +59,12 @@ namespace QSP.FuelCalculation.Calculations
                 if (n[i - 1].Alt - n[i].Alt < AltDiffCriteria) return i;
             }
 
-            throw new ArgumentException();
+            return 0;
         }
 
         /// <summary>
-        /// Mark the TOC, SC and TOD nodes.
+        /// Mark the TOC and TOD. If SC nodes exist, they are marked as well.
         /// </summary>
-        /// <exception cref="ArgumentException"></exception>
         public static IReadOnlyList<IPlanNode> Mark(IReadOnlyList<IPlanNode> n)
         {
             // TOC can be the same as TOD, but SC is never the same as TOC

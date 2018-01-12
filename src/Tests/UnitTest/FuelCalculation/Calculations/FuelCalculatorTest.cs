@@ -1,5 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
+using QSP.FuelCalculation;
 using QSP.FuelCalculation.Calculations;
 using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Routes;
@@ -51,24 +52,20 @@ namespace UnitTest.FuelCalculation.Calculations
         }
 
         [Test]
-        public void VeryShortRouteIfElevationDifferenceTooLargeShouldStillFindResult()
+        public void VeryShortRouteIfElevationDifferenceTooLargeShouldThrow()
         {
             var calc = GetCalculator(NoWind, VeryShortTestRoute1());
-            var plan = calc.Create();
-
-            var (isValidAlt, _) = CalculationUtil.CruiseAltValid(
-                new CrzAltProviderStub(), plan.AllNodes);
-            Assert.IsFalse(isValidAlt);
+            Assert.Throws<ElevationDifferenceTooLargeException>(() => calc.Create());
         }
 
-        private static IWindTableCollection NoWind 
+        private static IWindTableCollection NoWind
         {
             get
             {
                 var mock = new Mock<IWindTableCollection>();
 
-                mock.Setup(t => t.GetWindUV(It.IsAny<double>(), 
-                                            It.IsAny<double>(), 
+                mock.Setup(t => t.GetWindUV(It.IsAny<double>(),
+                                            It.IsAny<double>(),
                                             It.IsAny<double>()))
                     .Returns(new WindUV(0.0, 0.0));
 
@@ -108,7 +105,7 @@ namespace UnitTest.FuelCalculation.Calculations
         {
             return GetRoute(
                 new Waypoint("ABCD12R", 0.0, 0.0), "DCT", -1.0,
-                new Waypoint("EFGH", 0.1, 0.1));
+                new Waypoint("EFGH", 0.05, 0.05));
         }
     }
 }
