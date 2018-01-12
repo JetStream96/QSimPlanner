@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using static QSP.LibraryExtension.Lists;
-
 namespace UnitTest.LibraryExtension
 {
     [TestFixture]

@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using QSP.AviationTools.Coordinates;
-using QSP.LibraryExtension;
 using QSP.RouteFinding.TerminalProcedures.Parser;
 using static QSP.RouteFinding.TerminalProcedures.Parser.SectionSplitter;
 

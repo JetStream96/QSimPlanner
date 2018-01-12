@@ -9,7 +9,6 @@ using System;
 using System.Linq;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.LibraryExtension.Lists;
-
 namespace QSP.RouteFinding.RouteAnalyzers
 {
     // Designed to analyze a route consisting of a series of strings, 

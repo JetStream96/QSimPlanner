@@ -16,11 +16,6 @@ namespace QSP.LibraryExtension
             return true;
         }
 
-        public static List<T> CreateList<T>(params T[] items)
-        {
-            return new List<T>(items);
-        }
-
         public static T Last<T>(this List<T> item)
         {
             return item[item.Count - 1];

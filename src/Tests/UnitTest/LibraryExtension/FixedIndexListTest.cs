@@ -19,7 +19,7 @@ namespace UnitTest.LibraryExtension
             Assert.IsTrue(item.IndexUpperBound <= 0);
         }
 
-        private static FixedIndexList<double> CreateList(int count)
+        private static FixedIndexList<double> List(int count)
         {
             var item = new FixedIndexList<double>();
             Enumerable.Range(0, count).ForEach(i => item.Add(i));
@@ -29,7 +29,7 @@ namespace UnitTest.LibraryExtension
         [Test]
         public void AddItemsTest()
         {
-            CreateList(100000);
+            List(100000);
         }
 
         [Test]
@@ -46,26 +46,26 @@ namespace UnitTest.LibraryExtension
         [Test]
         public void SmallListCorrectSizeTest()
         {
-            Assert.AreEqual(4, CreateList(1).Capacity);
-            Assert.AreEqual(4, CreateList(2).Capacity);
-            Assert.AreEqual(4, CreateList(3).Capacity);
-            Assert.AreEqual(4, CreateList(4).Capacity);
+            Assert.AreEqual(4, List(1).Capacity);
+            Assert.AreEqual(4, List(2).Capacity);
+            Assert.AreEqual(4, List(3).Capacity);
+            Assert.AreEqual(4, List(4).Capacity);
         }
 
         [Test]
         public void LargeListCorrectSizeTest()
         {
-            int capacity = CreateList(150000).Capacity;
+            int capacity = List(150000).Capacity;
             Assert.IsTrue(capacity >= 150000 && capacity <= 150000 * 2);
 
-            capacity = CreateList(31000).Capacity;
+            capacity = List(31000).Capacity;
             Assert.IsTrue(capacity >= 31000 && capacity <= 31000 * 2);
         }
 
         [Test]
         public void AccessRemovedItemThrowException()
         {
-            var item = CreateList(10);
+            var item = List(10);
             item.RemoveAt(5);
 
             Assert.That(() =>
@@ -100,7 +100,7 @@ namespace UnitTest.LibraryExtension
         [Test]
         public void SetValueCorrectnessTest()
         {
-            var item = CreateList(10);
+            var item = List(10);
             item[2] = 42;
             Assert.AreEqual(42, item[2]);
         }
@@ -108,7 +108,7 @@ namespace UnitTest.LibraryExtension
         [Test]
         public void SetRemovedItemThrowException()
         {
-            var item = CreateList(5);
+            var item = List(5);
             item.RemoveAt(2);
 
             Assert.That(() => item[2] = 0.0, Throws.Exception);
@@ -117,7 +117,7 @@ namespace UnitTest.LibraryExtension
         [Test]
         public void SetCapacityTest()
         {
-            var item = CreateList(5);
+            var item = List(5);
             item.Capacity = 10;
             Enumerable.Repeat(0, 5).ForEach(i => item.Add(i));
 
@@ -127,7 +127,7 @@ namespace UnitTest.LibraryExtension
         [Test]
         public void SetCapacityTooSmallThrowException()
         {
-            var item = CreateList(5);
+            var item = List(5);
             Assert.That(() => item.Capacity = 4, Throws.Exception);
         }
 

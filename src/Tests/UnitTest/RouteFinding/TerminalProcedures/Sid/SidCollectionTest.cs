@@ -3,7 +3,7 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
-using static QSP.LibraryExtension.Lists;
+using static CommonLibrary.LibraryExtension.Types;
 
 namespace UnitTest.RouteFinding.TerminalProcedures.Sid
 {
@@ -17,13 +17,13 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Sid
         [Test]
         public void OnlyRwySpecificPart()
         {
-            onlyRwySpecificPart(true);
-            onlyRwySpecificPart(false);
+            OnlyRwySpecificPart(true);
+            OnlyRwySpecificPart(false);
         }
 
-        private void onlyRwySpecificPart(bool hasVector)
+        private void OnlyRwySpecificPart(bool hasVector)
         {
-            var sids = new SidCollection(CreateList(RwySpecificPart(hasVector)));
+            var sids = new SidCollection(List(RwySpecificPart(hasVector)));
 
             var info = sids.GetSidInfo("SID1", "05", runway05);
 
@@ -37,10 +37,9 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Sid
 
         private double DistanceRwySpecificPart()
         {
-            return CreateList(
-                runway05,
-                new Waypoint("WPT01", 10.0, 20.0),
-                new Waypoint("WPT02", 11.0, 20.0))
+            return List(runway05,
+                        new Waypoint("WPT01", 10.0, 20.0),
+                        new Waypoint("WPT02", 11.0, 20.0))
                 .TotalDistance();
         }
 
@@ -49,9 +48,8 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Sid
             return new SidEntry(
                 "05",
                 "SID1",
-                CreateList(
-                    new Waypoint("WPT01", 10.0, 20.0),
-                    new Waypoint("WPT02", 11.0, 20.0)),
+                List(new Waypoint("WPT01", 10.0, 20.0),
+                     new Waypoint("WPT02", 11.0, 20.0)),
                 EntryType.RwySpecific,
                 hasVector);
         }
@@ -63,14 +61,14 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Sid
         [Test]
         public void RwySpecificAndCommonPart()
         {
-            rwySpecificAndCommonPart(true);
-            rwySpecificAndCommonPart(false);
+            RwySpecificAndCommonPart(true);
+            RwySpecificAndCommonPart(false);
         }
 
-        private void rwySpecificAndCommonPart(bool hasVector)
+        private void RwySpecificAndCommonPart(bool hasVector)
         {
             var sids = new SidCollection(
-                CreateList(RwySpecificPart(!hasVector), CommonPart(hasVector)));
+                List(RwySpecificPart(!hasVector), CommonPart(hasVector)));
 
             var info = sids.GetSidInfo("SID1", "05", runway05);
             Assert.IsTrue(new Waypoint("WPTA", 12.0, 21.0).Equals(info.LastWaypoint));
@@ -85,20 +83,18 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Sid
             return new SidEntry(
                 "ALL",
                 "SID1",
-                CreateList(
-                    new Waypoint("WPT02", 11.0, 20.0),
-                    new Waypoint("WPTA", 12.0, 21.0)),
+                List(new Waypoint("WPT02", 11.0, 20.0),
+                     new Waypoint("WPTA", 12.0, 21.0)),
                 EntryType.Common,
                 hasVector);
         }
 
         private double DistanceRwySpecificAndCommonPart()
         {
-            return CreateList(
-                runway05,
-                new Waypoint("WPT01", 10.0, 20.0),
-                new Waypoint("WPT02", 11.0, 20.0),
-                new Waypoint("WPTA", 12.0, 21.0))
+            return List(runway05,
+                        new Waypoint("WPT01", 10.0, 20.0),
+                        new Waypoint("WPT02", 11.0, 20.0),
+                        new Waypoint("WPTA", 12.0, 21.0))
                 .TotalDistance();
         }
 
@@ -109,18 +105,15 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Sid
         [Test]
         public void RwySpecificAndCommonAndTransitionPart()
         {
-            rwySpecificAndCommonAndTransitionPart(true);
-            rwySpecificAndCommonAndTransitionPart(false);
+            RwySpecificAndCommonAndTransitionPart(true);
+            RwySpecificAndCommonAndTransitionPart(false);
         }
 
-        private void rwySpecificAndCommonAndTransitionPart(bool hasVector)
+        private void RwySpecificAndCommonAndTransitionPart(bool hasVector)
         {
-            var sids =
-                new SidCollection(
-                    CreateList(
-                        RwySpecificPart(!hasVector),
-                        CommonPart(!hasVector),
-                        TransitionPart(hasVector)));
+            var sids = new SidCollection(List(RwySpecificPart(!hasVector),
+                                              CommonPart(!hasVector),
+                                              TransitionPart(hasVector)));
 
             var info = sids.GetSidInfo("SID1.TRANS1", "05", runway05);
             Assert.IsTrue(new Waypoint("WPTCC", 13.0, 22.0).Equals(info.LastWaypoint));
@@ -135,23 +128,21 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Sid
             return new SidEntry(
                 "TRANS1",
                 "SID1",
-                CreateList(
-                    new Waypoint("WPTA", 12.0, 21.0),
-                    new Waypoint("WPTBB", 12.0, 22.0),
-                    new Waypoint("WPTCC", 13.0, 22.0)),
+                List(new Waypoint("WPTA", 12.0, 21.0),
+                     new Waypoint("WPTBB", 12.0, 22.0),
+                     new Waypoint("WPTCC", 13.0, 22.0)),
                 EntryType.Transition,
                 hasVector);
         }
 
         private double DistanceRwySpecificAndCommonAndTransitionPart()
         {
-            return CreateList(
-                runway05,
-                new Waypoint("WPT01", 10.0, 20.0),
-                new Waypoint("WPT02", 11.0, 20.0),
-                new Waypoint("WPTA", 12.0, 21.0),
-                new Waypoint("WPTBB", 12.0, 22.0),
-                new Waypoint("WPTCC", 13.0, 22.0))
+            return List(runway05,
+                        new Waypoint("WPT01", 10.0, 20.0),
+                        new Waypoint("WPT02", 11.0, 20.0),
+                        new Waypoint("WPTA", 12.0, 21.0),
+                        new Waypoint("WPTBB", 12.0, 22.0),
+                        new Waypoint("WPTCC", 13.0, 22.0))
                 .TotalDistance();
         }
 

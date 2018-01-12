@@ -1,5 +1,4 @@
-﻿using CommonLibrary.Attributes;
-using QSP.AircraftProfiles.Configs;
+﻿using QSP.AircraftProfiles.Configs;
 using QSP.Common.Options;
 using QSP.FuelCalculation.FuelData;
 using QSP.LibraryExtension;
@@ -7,11 +6,8 @@ using QSP.Metar;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.Tracks;
-using QSP.UI.Presenters.FuelPlan.Routes;
 using QSP.UI.Views.FuelPlan;
-using QSP.UI.Views.FuelPlan.Routes;
 using QSP.WindAloft;
-using System;
 using System.Collections.Generic;
 
 namespace QSP.UI.Models.FuelPlan.Routes

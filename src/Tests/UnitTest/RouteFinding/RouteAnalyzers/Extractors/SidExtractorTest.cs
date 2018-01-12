@@ -7,7 +7,7 @@ using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using System.Linq;
-using static QSP.LibraryExtension.Lists;
+using static CommonLibrary.LibraryExtension.Types;
 
 namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
 {
@@ -92,7 +92,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var neighbor = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor.Airway == sid.Name);
-            Assert.AreEqual(neighbor.Distance, CreateList(rwy, p1, wpt1).TotalDistance(), 1E-8);
+            Assert.AreEqual(neighbor.Distance, List(rwy, p1, wpt1).TotalDistance(), 1E-8);
             Assert.IsTrue(neighbor.InnerWaypoints.SequenceEqual(new[] { p1 }));
             Assert.AreEqual(InnerWaypointsType.Terminal, neighbor.Type);
 
@@ -139,7 +139,7 @@ namespace UnitTest.RouteFinding.RouteAnalyzers.Extractors
             var neighbor = node.Value.Neighbor;
             Assert.IsTrue(node.Value.Waypoint.Equals(rwy));
             Assert.IsTrue(neighbor.Airway == sid.Name);
-            Assert.AreEqual(neighbor.Distance, CreateList(rwy, p1, wpt1).TotalDistance(), 1E-8);
+            Assert.AreEqual(neighbor.Distance, List(rwy, p1, wpt1).TotalDistance(), 1E-8);
             Assert.IsTrue(neighbor.InnerWaypoints.SequenceEqual(new[] { p1 }));
             Assert.AreEqual(InnerWaypointsType.Terminal, neighbor.Type);
 

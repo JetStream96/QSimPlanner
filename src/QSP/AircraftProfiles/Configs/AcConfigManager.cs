@@ -2,6 +2,7 @@
 using System.Linq;
 using QSP.FuelCalculation.FuelData;
 using QSP.LibraryExtension;
+using static CommonLibrary.LibraryExtension.Types;
 using TOTable = QSP.TOPerfCalculation.PerfTable;
 using LdgTable = QSP.LandingPerfCalculation.PerfTable;
 
@@ -37,7 +38,7 @@ namespace QSP.AircraftProfiles.Configs
             }
             else
             {
-                aircrafts.Add(item.Config.AC, new List<AircraftConfig>() { item });
+                aircrafts.Add(item.Config.AC, List(item));
             }
         }
 
@@ -67,7 +68,7 @@ namespace QSP.AircraftProfiles.Configs
         /// for all aircraft configs. 
         /// Returns error message or null.
         /// </summary>
-        public string Validate(IEnumerable<FuelData> fuelTables, 
+        public string Validate(IEnumerable<FuelData> fuelTables,
             IEnumerable<TOTable> takeoffTables, IEnumerable<LdgTable> ldgTables)
         {
             var errors = new List<string>();

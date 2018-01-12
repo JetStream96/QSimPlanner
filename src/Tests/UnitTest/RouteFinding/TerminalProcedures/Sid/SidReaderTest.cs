@@ -5,7 +5,7 @@ using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using System.Collections.Generic;
 using System.Linq;
-using static QSP.LibraryExtension.Lists;
+using static CommonLibrary.LibraryExtension.Types;
 
 namespace UnitTest.RouteFinding.TerminalProcedures.Sid
 {
@@ -133,21 +133,21 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
 
         private List<Waypoint> sid5_Trans2_Wpts()
         {
-            return CreateList(
+            return List(
                 new Waypoint("N23E049", 23.0, 49.0),
                 new Waypoint("N24E049", 24.0, 49.0));
         }
 
         private List<Waypoint> sid5_Wpts()
         {
-            return CreateList(
+            return List(
                 new Waypoint("N24E049", 24.0, 49.0),
                 new Waypoint("N23E049", 23.0, 49.0));
         }
 
         private List<Waypoint> sid3_Wpts()
         {
-            return CreateList(
+            return List(
                 new Waypoint("WPT301", 24.9, 50.0),
                 new Waypoint("WPT302", 24.8, 50.0),
                 new Waypoint("WPT303", 24.7, 50.0),
@@ -156,7 +156,7 @@ TF,N24E049,24.0,49.0,0, ,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,";
 
         private List<Waypoint> sid1_Wpts()
         {
-            return CreateList(
+            return List(
                 new Waypoint("WPT101", 25.0125, 50.0300),
                 new Waypoint("WPT102", 25.0150, 50.0800),
                 new Waypoint("WPT103", 25.0175, 50.1300),

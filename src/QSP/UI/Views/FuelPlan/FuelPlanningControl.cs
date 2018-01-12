@@ -3,7 +3,6 @@ using CommonLibrary.LibraryExtension;
 using QSP.AircraftProfiles.Configs;
 using QSP.Common;
 using QSP.Common.Options;
-using QSP.FuelCalculation;
 using QSP.FuelCalculation.Calculations;
 using QSP.FuelCalculation.FuelData;
 using QSP.FuelCalculation.Results;

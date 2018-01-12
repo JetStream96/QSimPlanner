@@ -6,7 +6,6 @@ using System.Linq;
 using static QSP.AviationTools.Coordinates.Formatter;
 using static QSP.LibraryExtension.Arrays;
 using static QSP.LibraryExtension.Lists;
-
 namespace QSP.RouteFinding.Tracks.Common.TDM.Parser
 {
     public static class ConnectionRouteInterpreter

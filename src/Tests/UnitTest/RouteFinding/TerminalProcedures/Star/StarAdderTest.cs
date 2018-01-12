@@ -8,7 +8,7 @@ using QSP.RouteFinding.TerminalProcedures.Star;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static QSP.LibraryExtension.Lists;
+using static CommonLibrary.LibraryExtension.Types;
 using static UnitTest.Common.Constants;
 using static UnitTest.RouteFinding.Common;
 
@@ -90,17 +90,17 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Star
             var entry = new StarEntry(
                 "18",
                 "STAR1",
-                CreateList(wpt101, wpt102, wpt103, wpt104),
+                List(wpt101, wpt102, wpt103, wpt104),
                 EntryType.RwySpecific);
 
             var adder = new StarAdder(
                 "AXYZ",
-                new StarCollection(CreateList(entry)),
+                new StarCollection(List(entry)),
                 wptList,
                 wptList.GetEditor(),
                 GetAirportManager());
 
-            int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
+            int rwyIndex = adder.AddStarsToWptList("18", List("STAR1"));
 
             // Check the STAR1 has been added with correct total distance.
             var edges = wptList.EdgesTo(rwyIndex).ToList();
@@ -109,10 +109,10 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Star
             Assert.IsTrue(edges
                 .Select(e => wptList.GetEdge(e))
                 .All(e =>
-                    e.Value.InnerWaypoints.SequenceEqual(CreateList(wpt102, wpt103, wpt104)) &&
+                    e.Value.InnerWaypoints.SequenceEqual(List(wpt102, wpt103, wpt104)) &&
                     e.Value.Type == InnerWaypointsType.Terminal));
 
-            double dis = CreateList(wpt101, wpt102, wpt103, wpt104, rwy)
+            double dis = List(wpt101, wpt102, wpt103, wpt104, rwy)
                .TotalDistance();
 
             Assert.IsTrue(StarIsAdded(
@@ -154,27 +154,27 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Star
             var entry = new StarEntry(
                 "18",
                 "STAR1",
-                CreateList(wptCorrds, wpt01),
+                List(wptCorrds, wpt01),
                 EntryType.RwySpecific);
 
             var adder = new StarAdder(
                 "AXYZ",
-                new StarCollection(CreateList(entry)),
+                new StarCollection(List(entry)),
                 wptList,
                 wptList.GetEditor(),
                 GetAirportManager());
 
-            int rwyIndex = adder.AddStarsToWptList("18", CreateList("STAR1"));
+            int rwyIndex = adder.AddStarsToWptList("18", List("STAR1"));
 
             // Check the STAR1 has been added with correct total distance.
             var edges = wptList.EdgesTo(rwyIndex).ToList();
             Assert.AreEqual(1, edges.Count);
             var edge = wptList.GetEdge(edges[0]);
 
-            Assert.IsTrue(edge.Value.InnerWaypoints.SequenceEqual(CreateList(wpt01)));
+            Assert.IsTrue(edge.Value.InnerWaypoints.SequenceEqual(List(wpt01)));
             Assert.AreEqual(InnerWaypointsType.Terminal, edge.Value.Type);
 
-            double dis = CreateList(wptCorrds, wpt01, rwy).TotalDistance();
+            double dis = List(wptCorrds, wpt01, rwy).TotalDistance();
 
             Assert.IsTrue(StarIsAdded(
                 wptList.FindByWaypoint(wptCorrds),
@@ -187,7 +187,7 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Star
         {
             var rwy = GetRwyData("18", 25.0003, 50.0001);
             var airport = GetAirport("AXYZ", rwy);
-            return new AirportManager(new[] { airport });
+            return new AirportManager(List(airport));
         }
 
         private bool StarIsAdded(int fromIndex, string name, double dis, WaypointList wptList)

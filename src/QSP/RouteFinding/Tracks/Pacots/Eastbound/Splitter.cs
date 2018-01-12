@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using static QSP.LibraryExtension.Lists;
-
 namespace QSP.RouteFinding.Tracks.Pacots.Eastbound
 {
     // Split this into 3 messages:

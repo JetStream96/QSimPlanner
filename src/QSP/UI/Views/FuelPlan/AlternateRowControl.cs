@@ -1,5 +1,4 @@
-﻿using CommonLibrary.Attributes;
-using QSP.UI.Presenters.FuelPlan;
+﻿using QSP.UI.Presenters.FuelPlan;
 using QSP.UI.Util;
 using QSP.UI.Views.FuelPlan.Routes;
 using QSP.UI.Views.FuelPlan.Routes.Actions;

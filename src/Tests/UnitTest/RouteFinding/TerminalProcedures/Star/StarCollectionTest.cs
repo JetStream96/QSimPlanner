@@ -3,7 +3,7 @@ using QSP.RouteFinding.Containers;
 using QSP.RouteFinding.Data.Interfaces;
 using QSP.RouteFinding.TerminalProcedures;
 using QSP.RouteFinding.TerminalProcedures.Star;
-using static QSP.LibraryExtension.Lists;
+using static CommonLibrary.LibraryExtension.Types;
 using static UnitTest.Common.Constants;
 
 namespace UnitTest.RouteFinding.TerminalProcedures.Star
@@ -18,7 +18,7 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Star
         [Test]
         public void OnlyRwySpecificPart()
         {
-            var stars = new StarCollection(CreateList(RwySpecificPart()));
+            var stars = new StarCollection(List(RwySpecificPart()));
             var info = stars.GetStarInfo("STAR1", "05", runway05);
 
             Assert.AreEqual(new Waypoint("WPT01", 11.0, 20.0),
@@ -31,7 +31,7 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Star
 
         private double DistanceRwySpecificPart()
         {
-            return CreateList(
+            return List(
                 new Waypoint("WPT01", 11.0, 20.0),
                 new Waypoint("WPT02", 10.0, 20.0),
                 runway05)
@@ -43,10 +43,9 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Star
             return new StarEntry(
                 "05",
                 "STAR1",
-                CreateList(
-                    new Waypoint("WPT01", 11.0, 20.0),
-                    new Waypoint("WPT02", 10.0, 20.0),
-                    runway05),
+                List(new Waypoint("WPT01", 11.0, 20.0),
+                     new Waypoint("WPT02", 10.0, 20.0),
+                     runway05),
                 EntryType.RwySpecific);
         }
 
@@ -57,8 +56,7 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Star
         [Test]
         public void RwySpecificAndCommonPart()
         {
-            var info = new StarCollection(
-                CreateList(RwySpecificPart(), CommonPart()))
+            var info = new StarCollection(List(RwySpecificPart(), CommonPart()))
                 .GetStarInfo("STAR1", "05", runway05);
 
             Assert.AreEqual(new Waypoint("WPTA", 12.0, 21.0), info.FirstWaypoint);
@@ -73,19 +71,17 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Star
             return new StarEntry(
                 "ALL",
                 "STAR1",
-                CreateList(
-                    new Waypoint("WPTA", 12.0, 21.0),
-                    new Waypoint("WPT01", 11.0, 20.0)),
+                List(new Waypoint("WPTA", 12.0, 21.0),
+                     new Waypoint("WPT01", 11.0, 20.0)),
                 EntryType.Common);
         }
 
         private double DistanceRwySpecificAndCommonPart()
         {
-            return CreateList(
-                new Waypoint("WPTA", 12.0, 21.0),
-                new Waypoint("WPT01", 11.0, 20.0),
-                new Waypoint("WPT02", 10.0, 20.0),
-                runway05)
+            return List(new Waypoint("WPTA", 12.0, 21.0),
+                        new Waypoint("WPT01", 11.0, 20.0),
+                        new Waypoint("WPT02", 10.0, 20.0),
+                        runway05)
                 .TotalDistance();
         }
 
@@ -97,10 +93,9 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Star
         public void RwySpecificAndCommonAndTransitionPart()
         {
             var stars = new StarCollection(
-                CreateList(
-                    RwySpecificPart(),
-                    CommonPart(),
-                    TransitionPart()));
+                List(RwySpecificPart(),
+                     CommonPart(),
+                     TransitionPart()));
 
             var info = stars.GetStarInfo("STAR1.TRANS1", "05", runway05);
             Assert.AreEqual(new Waypoint("WPTBB", 12.0, 22.0), info.FirstWaypoint);
@@ -115,22 +110,20 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Star
             return new StarEntry(
                 "TRANS1",
                 "STAR1",
-                CreateList(
-                    new Waypoint("WPTBB", 12.0, 22.0),
-                    new Waypoint("WPTCC", 13.0, 22.0),
-                    new Waypoint("WPTA", 12.0, 21.0)),
+                List(new Waypoint("WPTBB", 12.0, 22.0),
+                     new Waypoint("WPTCC", 13.0, 22.0),
+                     new Waypoint("WPTA", 12.0, 21.0)),
                 EntryType.Transition);
         }
 
         private double DistanceRwySpecificAndCommonAndTransitionPart()
         {
-            return CreateList(
-                new Waypoint("WPTBB", 12.0, 22.0),
-                new Waypoint("WPTCC", 13.0, 22.0),
-                new Waypoint("WPTA", 12.0, 21.0),
-                new Waypoint("WPT01", 11.0, 20.0),
-                new Waypoint("WPT02", 10.0, 20.0),
-                runway05)
+            return List(new Waypoint("WPTBB", 12.0, 22.0),
+                        new Waypoint("WPTCC", 13.0, 22.0),
+                        new Waypoint("WPTA", 12.0, 21.0),
+                        new Waypoint("WPT01", 11.0, 20.0),
+                        new Waypoint("WPT02", 10.0, 20.0),
+                        runway05)
                 .TotalDistance();
         }
 

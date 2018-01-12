@@ -8,7 +8,7 @@ using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Tracks.Interaction;
 using System.Linq;
 using QSP.RouteFinding.Data.Interfaces;
-using static QSP.LibraryExtension.Lists;
+using static CommonLibrary.LibraryExtension.Types;
 
 namespace UnitTest.RouteFinding.Tracks.Common
 {
@@ -41,17 +41,17 @@ namespace UnitTest.RouteFinding.Tracks.Common
                 TrackType.Nats);
 
             // Act
-            adder.AddToWaypointList(new[] { nodes });
+            adder.AddToWaypointList(List(nodes));
 
             // Assert
             int indexP1 = wptList.FindByWaypoint(p1);
             Assert.AreEqual(1, wptList.EdgesFromCount(indexP1));
-            
+
             var edge = wptList.EdgesFrom(indexP1).First();
             var neighbor = wptList.GetEdge(edge).Value;
             Assert.IsTrue(neighbor.Airway == "NATA");
 
-            Assert.IsTrue(neighbor.InnerWaypoints.SequenceEqual(CreateList(p2)));
+            Assert.IsTrue(neighbor.InnerWaypoints.SequenceEqual(List(p2)));
             Assert.AreEqual(InnerWaypointsType.Track, neighbor.Type);
 
             var distance = p1.Distance(p2) + p2.Distance(p3);
@@ -81,7 +81,7 @@ namespace UnitTest.RouteFinding.Tracks.Common
                 TrackType.Nats);
 
             // Act
-            adder.AddToWaypointList(new[] { nodes });
+            adder.AddToWaypointList(List(nodes));
 
             // Assert
             Assert.AreEqual(1, recorder.Records.Count);

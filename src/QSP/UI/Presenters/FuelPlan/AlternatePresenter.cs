@@ -4,7 +4,6 @@ using QSP.LibraryExtension;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Tracks;
-using QSP.UI.Controllers;
 using QSP.UI.Models.FuelPlan;
 using QSP.UI.Views.FuelPlan;
 using QSP.WindAloft;

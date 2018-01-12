@@ -1,10 +1,4 @@
-﻿using QSP.Utilities.Units;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QSP.FuelCalculation.FuelData;
+﻿using QSP.FuelCalculation.FuelData;
 
 namespace QSP.UI.Views.FuelPlan
 {

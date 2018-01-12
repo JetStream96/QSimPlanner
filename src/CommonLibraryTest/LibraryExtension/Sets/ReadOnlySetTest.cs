@@ -1,9 +1,6 @@
 ﻿using CommonLibrary.LibraryExtension.Sets;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using static CommonLibrary.LibraryExtension.Types;
 
 namespace CommonLibraryTest.LibraryExtension.Sets
 {

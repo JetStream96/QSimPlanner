@@ -8,7 +8,7 @@ using QSP.RouteFinding.TerminalProcedures.Sid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static QSP.LibraryExtension.Lists;
+using static CommonLibrary.LibraryExtension.Types;
 using static UnitTest.Common.Constants;
 using static UnitTest.RouteFinding.Common;
 
@@ -75,20 +75,20 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Sid
             var entry = new SidEntry(
                 "18",
                 "SID1",
-                CreateList(wpt101, wpt102),
+                List(wpt101, wpt102),
                 EntryType.RwySpecific,
                 true);
 
             var adder = new SidAdder(
                 "AXYZ",
-                new SidCollection(CreateList(entry)),
+                new SidCollection(List(entry)),
                 wptList,
                 wptList.GetEditor(),
                 GetAirportManager());
 
-            int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
+            int rwyIndex = adder.AddSidsToWptList("18", List("SID1"));
 
-            var distance = CreateList(
+            var distance = List(
                 rwy,
                 wpt101,
                 wpt102)
@@ -123,7 +123,7 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Sid
             var entry = new SidEntry(
                 "18",
                 "SID1",
-                CreateList(wpt101, wpt102, wpt103, wpt104),
+                List(wpt101, wpt102, wpt103, wpt104),
                 EntryType.RwySpecific,
                 false);
 
@@ -131,22 +131,22 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Sid
                 new SidAdder(
                     "AXYZ",
                     new SidCollection(
-                        CreateList(entry)),
+                        List(entry)),
                         wptList,
                         wptList.GetEditor(),
                         GetAirportManager());
 
-            int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
+            int rwyIndex = adder.AddSidsToWptList("18", List("SID1"));
 
             // Check the SID has been added with correct total distance.
             var edges = wptList.EdgesFrom(rwyIndex).ToList();
             Assert.IsTrue(edges.Count > 0);
             Assert.IsTrue(edges.Select(e => wptList.GetEdge(e))
                 .All(e =>
-                    e.Value.InnerWaypoints.SequenceEqual(CreateList(wpt101, wpt102, wpt103)) &&
+                    e.Value.InnerWaypoints.SequenceEqual(List(wpt101, wpt102, wpt103)) &&
                     e.Value.Type == InnerWaypointsType.Terminal));
 
-            double dis = CreateList(rwy, wpt101, wpt102, wpt103, wpt104).TotalDistance();
+            double dis = List(rwy, wpt101, wpt102, wpt103, wpt104).TotalDistance();
 
             Assert.IsTrue(SidIsAdded(
                 rwyIndex,
@@ -217,18 +217,18 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Sid
             var entry = new SidEntry(
                 "18",
                 "SID1",
-                CreateList(wpt01, wptCoord),
+                List(wpt01, wptCoord),
                 EntryType.RwySpecific,
                 false);
 
             var adder = new SidAdder(
                 "AXYZ",
-                new SidCollection(CreateList(entry)),
+                new SidCollection(List(entry)),
                 wptList,
                 wptList.GetEditor(),
                 GetAirportManager());
 
-            int rwyIndex = adder.AddSidsToWptList("18", CreateList("SID1"));
+            int rwyIndex = adder.AddSidsToWptList("18", List("SID1"));
 
             // Check the SID1 has been added with correct total distance.
             var edges = wptList.EdgesFrom(rwyIndex).ToList();
@@ -238,7 +238,7 @@ namespace UnitTest.RouteFinding.TerminalProcedures.Sid
             Assert.IsTrue(edge.Value.InnerWaypoints.SequenceEqual(new[] { wpt01 }));
             Assert.AreEqual(InnerWaypointsType.Terminal, edge.Value.Type);
 
-            var dis = CreateList(rwy, wpt01, wptCoord).TotalDistance();
+            var dis = List(rwy, wpt01, wptCoord).TotalDistance();
 
             Assert.IsTrue(SidIsAdded(
                 rwyIndex,

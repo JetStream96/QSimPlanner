@@ -1,5 +1,4 @@
-﻿using CommonLibrary.Attributes;
-using QSP.Common.Options;
+﻿using QSP.Common.Options;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Containers.CountryCode;
@@ -7,7 +6,6 @@ using QSP.RouteFinding.Finder;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Tracks;
-using QSP.UI.Controllers;
 using QSP.UI.Views;
 using QSP.UI.Views.FuelPlan.Routes.Actions;
 using QSP.WindAloft;
