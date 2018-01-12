@@ -2,6 +2,7 @@
 using QSP.AviationTools.Coordinates;
 using QSP.FuelCalculation.Calculations;
 using QSP.FuelCalculation.Results.Nodes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using static CommonLibrary.LibraryExtension.IEnumerables;
@@ -12,6 +13,13 @@ namespace UnitTest.FuelCalculation.Calculations
     [TestFixture]
     public class NodeMarkerTest
     {
+        [Test]
+        public void TocIndexNotExistShouldThrow()
+        {
+            var nodes = TransformNode(50.0, 1000.0, 3000.0);
+            Assert.Throws<ArgumentException>(() => TocIndex(nodes));
+        }
+
         [Test]
         public void TocIndexTest1()
         {
@@ -24,6 +32,13 @@ namespace UnitTest.FuelCalculation.Calculations
         {
             var nodes = TransformNode(50.0, 10000.0, 3000.0);
             Assert.AreEqual(1, TocIndex(nodes));
+        }
+
+        [Test]
+        public void TodIndexNotExistShouldThrow()
+        {
+            var nodes = TransformNode(50.0, 1000.0, 3000.0);
+            Assert.Throws<ArgumentException>(() => TodIndex(nodes));
         }
 
         [Test]

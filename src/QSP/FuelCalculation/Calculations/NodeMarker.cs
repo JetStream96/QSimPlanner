@@ -14,6 +14,7 @@ namespace QSP.FuelCalculation.Calculations
         /// the altitude is the same as the next node. The input (nodes) needs to
         /// have at least 2 items. Throws exception if TOC is not found.
         /// </summary>
+        /// <exception cref="ArgumentException"></exception>
         public static int TocIndex(IReadOnlyList<IPlanNode> nodes)
         {
             for (int i = 0; i < nodes.Count - 1; i++)
@@ -24,6 +25,9 @@ namespace QSP.FuelCalculation.Calculations
             throw new ArgumentException();
         }
 
+        /// <summary>
+        /// Gets the index of SC (step climb).
+        /// </summary>
         public static IEnumerable<int> ScIndices(IReadOnlyList<IPlanNode> n)
         {
             for (int i = 1; i < n.Count - 1; i++)
@@ -36,6 +40,12 @@ namespace QSP.FuelCalculation.Calculations
             }
         }
 
+        /// <summary>
+        /// Gets the index of TOD (top of descent). i.e. The last node such that
+        /// the altitude is the same as the previous node. The input (nodes) needs to
+        /// have at least 2 items. Throws exception if TOD is not found.
+        /// </summary>
+        /// <exception cref="ArgumentException"></exception>
         public static int TodIndex(IReadOnlyList<IPlanNode> n)
         {
             for (int i = n.Count - 1; i > 0; i--)
@@ -49,6 +59,7 @@ namespace QSP.FuelCalculation.Calculations
         /// <summary>
         /// Mark the TOC, SC and TOD nodes.
         /// </summary>
+        /// <exception cref="ArgumentException"></exception>
         public static IReadOnlyList<IPlanNode> Mark(IReadOnlyList<IPlanNode> n)
         {
             // TOC can be the same as TOD, but SC is never the same as TOC
