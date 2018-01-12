@@ -195,6 +195,7 @@
     <Compile Include="RouteFinding\Airports\IAirport.cs" />
     <Compile Include="RouteFinding\Airports\IRwyData.cs" />
     <Compile Include="RouteFinding\Airports\IRwyDataExtension.cs" />
+    <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
     <Compile Include="RouteFinding\Finder\DestInfo.cs" />
     <Compile Include="RouteFinding\Finder\OrigInfo.cs" />
     <Compile Include="RouteFinding\RunwaySelector.cs" />
@@ -209,7 +210,6 @@
     <Compile Include="RouteFinding\Tracks\Common\ITrackMessage.cs" />
     <Compile Include="RouteFinding\Tracks\AirwayNetwork.cs" />
     <Compile Include="RouteFinding\AirwayStructure\EdgeExtension.cs" />
-    <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeManager.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\Exceptions.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\FullNamesLoader.cs" />

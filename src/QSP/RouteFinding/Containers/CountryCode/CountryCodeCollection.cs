@@ -1,37 +1,26 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using CommonLibrary.LibraryExtension.Sets;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace QSP.RouteFinding.Containers.CountryCode
 {
-    public class CountryCodeCollection
+    public class CountryCodeCollection : IReadOnlySet<int>
     {
-        private List<int> codeList;
-        private HashSet<int> codeSet;
+        private ReadOnlySet<int> codes;
 
         public CountryCodeCollection() : this(new int[0]) { }
 
         public CountryCodeCollection(IEnumerable<int> codes)
         {
-            if (codes.Count() <= 10)
-            {
-                codeList = codes.ToList();
-            }
-            else
-            {
-                codeSet = new HashSet<int>(codes);
-            }
+            this.codes = new ReadOnlySet<int>(new HashSet<int>(codes));
         }
 
-        public bool Contains(int code)
-        {
-            if (codeList == null)
-            {
-                return codeSet.Contains(code);
-            }
-            else
-            {
-                return codeList.Contains(code);
-            }
-        }
+        public int Count => codes.Count;
+
+        public bool Contains(int code) => codes.Contains(code);
+
+        public IEnumerator<int> GetEnumerator() => codes.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
