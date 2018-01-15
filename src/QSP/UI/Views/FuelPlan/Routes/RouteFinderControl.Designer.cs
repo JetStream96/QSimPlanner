@@ -34,10 +34,10 @@
             this.routeOptionBtn = new System.Windows.Forms.Button();
             this.showRouteActionsBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.origRow = new QSP.UI.Views.FuelPlan.Routes.RouteFinderRow();
             this.destRow = new QSP.UI.Views.FuelPlan.Routes.RouteFinderRow();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -106,9 +106,9 @@
             this.showRouteActionsBtn.Location = new System.Drawing.Point(88, 2);
             this.showRouteActionsBtn.Margin = new System.Windows.Forms.Padding(2);
             this.showRouteActionsBtn.Name = "showRouteActionsBtn";
-            this.showRouteActionsBtn.Size = new System.Drawing.Size(78, 35);
+            this.showRouteActionsBtn.Size = new System.Drawing.Size(168, 35);
             this.showRouteActionsBtn.TabIndex = 13;
-            this.showRouteActionsBtn.Text = "Actions";
+            this.showRouteActionsBtn.Text = "Select an action  ▼";
             this.showRouteActionsBtn.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel1
@@ -128,46 +128,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(989, 172);
             this.tableLayoutPanel1.TabIndex = 29;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.routeOptionBtn, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.showRouteActionsBtn, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 184);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(168, 39);
-            this.tableLayoutPanel2.TabIndex = 30;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.AutoSize = true;
-            this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.label3, 0, 3);
-            this.tableLayoutPanel4.Controls.Add(this.routeSummaryLbl, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel1, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.routeRichTxtBox, 0, 4);
-            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel2, 0, 1);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 5;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(997, 374);
-            this.tableLayoutPanel4.TabIndex = 32;
             // 
             // origRow
             // 
@@ -192,6 +152,46 @@
             this.destRow.Size = new System.Drawing.Size(979, 76);
             this.destRow.TabIndex = 1;
             this.destRow.WaypointOptionEnabled = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.AutoSize = true;
+            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.routeOptionBtn, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.showRouteActionsBtn, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 184);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(258, 39);
+            this.tableLayoutPanel2.TabIndex = 30;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.AutoSize = true;
+            this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.label3, 0, 3);
+            this.tableLayoutPanel4.Controls.Add(this.routeSummaryLbl, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel1, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.routeRichTxtBox, 0, 4);
+            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel2, 0, 1);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 5;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(997, 374);
+            this.tableLayoutPanel4.TabIndex = 32;
             // 
             // RouteFinderControl
             // 

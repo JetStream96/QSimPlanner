@@ -53,7 +53,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(858, 35);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1088, 39);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // ActionBtn
@@ -65,12 +65,12 @@
             this.ActionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ActionBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ActionBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ActionBtn.Location = new System.Drawing.Point(790, 2);
+            this.ActionBtn.Location = new System.Drawing.Point(918, 2);
             this.ActionBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ActionBtn.Name = "ActionBtn";
-            this.ActionBtn.Size = new System.Drawing.Size(66, 31);
+            this.ActionBtn.Size = new System.Drawing.Size(168, 35);
             this.ActionBtn.TabIndex = 7;
-            this.ActionBtn.Text = "Actions";
+            this.ActionBtn.Text = "Select an action  ▼";
             this.ActionBtn.UseVisualStyleBackColor = false;
             this.ActionBtn.Click += new System.EventHandler(this.ActionBtn_Click);
             // 
@@ -78,10 +78,10 @@
             // 
             this.DisLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.DisLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DisLbl.Location = new System.Drawing.Point(642, 8);
+            this.DisLbl.Location = new System.Drawing.Point(734, 8);
             this.DisLbl.Margin = new System.Windows.Forms.Padding(2);
             this.DisLbl.Name = "DisLbl";
-            this.DisLbl.Size = new System.Drawing.Size(144, 18);
+            this.DisLbl.Size = new System.Drawing.Size(180, 22);
             this.DisLbl.TabIndex = 6;
             // 
             // RouteTxtBox
@@ -89,10 +89,10 @@
             this.RouteTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.RouteTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.RouteTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RouteTxtBox.Location = new System.Drawing.Point(277, 4);
+            this.RouteTxtBox.Location = new System.Drawing.Point(330, 4);
             this.RouteTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.RouteTxtBox.Name = "RouteTxtBox";
-            this.RouteTxtBox.Size = new System.Drawing.Size(361, 26);
+            this.RouteTxtBox.Size = new System.Drawing.Size(400, 30);
             this.RouteTxtBox.TabIndex = 5;
             // 
             // RouteLbl
@@ -100,10 +100,10 @@
             this.RouteLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.RouteLbl.AutoSize = true;
             this.RouteLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RouteLbl.Location = new System.Drawing.Point(228, 8);
+            this.RouteLbl.Location = new System.Drawing.Point(271, 8);
             this.RouteLbl.Margin = new System.Windows.Forms.Padding(2);
             this.RouteLbl.Name = "RouteLbl";
-            this.RouteLbl.Size = new System.Drawing.Size(45, 19);
+            this.RouteLbl.Size = new System.Drawing.Size(55, 23);
             this.RouteLbl.TabIndex = 4;
             this.RouteLbl.Text = "Route";
             // 
@@ -116,10 +116,10 @@
             this.RwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RwyComboBox.FormattingEnabled = true;
-            this.RwyComboBox.Location = new System.Drawing.Point(175, 4);
+            this.RwyComboBox.Location = new System.Drawing.Point(207, 4);
             this.RwyComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.RwyComboBox.Name = "RwyComboBox";
-            this.RwyComboBox.Size = new System.Drawing.Size(49, 27);
+            this.RwyComboBox.Size = new System.Drawing.Size(60, 31);
             this.RwyComboBox.TabIndex = 3;
             // 
             // IcaoTxtBox
@@ -130,7 +130,7 @@
             this.IcaoTxtBox.Location = new System.Drawing.Point(2, 4);
             this.IcaoTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.IcaoTxtBox.Name = "IcaoTxtBox";
-            this.IcaoTxtBox.Size = new System.Drawing.Size(57, 26);
+            this.IcaoTxtBox.Size = new System.Drawing.Size(70, 30);
             this.IcaoTxtBox.TabIndex = 0;
             this.IcaoTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.IcaoTxtBox.TextChanged += new System.EventHandler(this.IcaoTxtBox_TextChanged);
@@ -144,10 +144,10 @@
             this.FindBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FindBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FindBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.FindBtn.Location = new System.Drawing.Point(63, 2);
+            this.FindBtn.Location = new System.Drawing.Point(76, 2);
             this.FindBtn.Margin = new System.Windows.Forms.Padding(2);
             this.FindBtn.Name = "FindBtn";
-            this.FindBtn.Size = new System.Drawing.Size(47, 31);
+            this.FindBtn.Size = new System.Drawing.Size(54, 35);
             this.FindBtn.TabIndex = 1;
             this.FindBtn.Text = "Find";
             this.FindBtn.UseVisualStyleBackColor = false;
@@ -158,16 +158,16 @@
             this.RwyLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.RwyLbl.AutoSize = true;
             this.RwyLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RwyLbl.Location = new System.Drawing.Point(114, 8);
+            this.RwyLbl.Location = new System.Drawing.Point(134, 8);
             this.RwyLbl.Margin = new System.Windows.Forms.Padding(2);
             this.RwyLbl.Name = "RwyLbl";
-            this.RwyLbl.Size = new System.Drawing.Size(57, 19);
+            this.RwyLbl.Size = new System.Drawing.Size(69, 23);
             this.RwyLbl.TabIndex = 2;
             this.RwyLbl.Text = "Runway";
             // 
             // AlternateRowControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -175,7 +175,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "AlternateRowControl";
-            this.Size = new System.Drawing.Size(860, 37);
+            this.Size = new System.Drawing.Size(1090, 41);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
