@@ -6,7 +6,7 @@ namespace QSP.MathTools
     public static class Numbers
     {
         public static bool IsInteger(double x, double epsilon) => Abs(x % 1) < epsilon;
-
+        
         public static int RoundToInt(double x) => (int)Round(x);
 
         public static int FloorInt(double x) => (int)Floor(x);

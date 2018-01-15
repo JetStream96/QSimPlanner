@@ -159,13 +159,13 @@ namespace QSP.UI.Views.FuelPlan.Routes
             Presenter.OnIcaoChanged(sender, e);
         }
 
-        private void origRwyComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void RwyComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             filterBtn.Enabled = false;
             Presenter.UpdateProcedures();
         }
 
-        private void filterBtn_Click(object sender, EventArgs e)
+        private void FilterBtnClick(object sender, EventArgs e)
         {
             ShowFilter();
         }

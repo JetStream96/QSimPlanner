@@ -12,6 +12,10 @@ namespace QSP.Metar
             return icao.Trim().ToUpper();
         }
         
+        /// <summary>
+        /// Downloads the metar.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public static string GetMetar(string icao)
         {
             using (var client = new WebClient())
@@ -20,11 +24,30 @@ namespace QSP.Metar
             }
         }
 
+        /// <summary>
+        /// Downloads the TAF.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public static string GetTaf(string icao)
         {
             using (var client = new WebClient())
             {
                 return client.DownloadString(tafUrl + TrimIcao(icao) + ".TXT");
+            }
+        }
+
+        /// <summary>
+        /// Returns whether downloading metar is successful. 
+        /// </summary>
+        public static (bool success, string metar) DownloadMetar(string icao)
+        {
+            try
+            {
+                return (true, GetMetar(icao));
+            }
+            catch
+            {
+                return (false, null);
             }
         }
 

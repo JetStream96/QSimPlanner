@@ -70,11 +70,22 @@ namespace CommonLibrary.LibraryExtension
             return item == other;
         }
 
-        // Any double quotes in arg will be escaped as two quotes, and entire string will be 
-        // surrounded by double quotes.
+        /// <summary>
+        /// Any double quotes in arg will be escaped as two quotes, and entire string will be 
+        /// surrounded by double quotes.
+        /// </summary>
+        /// <exception cref="ArgumentException">arg is the empty string ("")</exception>
         public static string EscapeCommandLineArg(string arg)
         {
             return "\"" + arg.Replace("\"", "\"\"") + "\"";
+        }
+
+        /// <summary>
+        /// Returns whether the string can be parsed as double.
+        /// </summary>
+        public static bool IsDouble(this string s)
+        {
+            return double.TryParse(s, out var a);
         }
     }
 }

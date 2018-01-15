@@ -87,7 +87,7 @@
             this.rwyComboBox.Name = "origRwyComboBox";
             this.rwyComboBox.Size = new System.Drawing.Size(64, 27);
             this.rwyComboBox.TabIndex = 1;
-            this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.origRwyComboBox_SelectedIndexChanged);
+            this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.RwyComboBoxSelectedIndexChanged);
             // 
             // procComboBox
             // 
@@ -118,7 +118,7 @@
             this.filterBtn.TabIndex = 3;
             this.filterBtn.Text = "Filter";
             this.filterBtn.UseVisualStyleBackColor = false;
-            this.filterBtn.Click += new System.EventHandler(this.filterBtn_Click);
+            this.filterBtn.Click += new System.EventHandler(this.FilterBtnClick);
             // 
             // fromIdentLbl
             // 

@@ -1,4 +1,5 @@
-﻿using QSP.RouteFinding.Airports;
+﻿using QSP.Metar;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.TerminalProcedures.Sid;
 using QSP.RouteFinding.TerminalProcedures.Star;
@@ -8,6 +9,9 @@ using QSP.UI.Views.FuelPlan.Routes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using CommonLibrary.LibraryExtension;
+using QSP.AviationTools;
 
 namespace QSP.UI.Presenters.FuelPlan.Routes
 {
@@ -45,14 +49,23 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         public string Rwy { get => view.SelectedRwy; set => view.SelectedRwy = value; }
         public IEnumerable<string> GetSelectedProcedures() => view.SelectedProcedures;
 
-        public void UpdateRunways()
+        /// <summary>
+        /// Update the runway list and automatically select one based on wind. 
+        /// </summary>
+        public async void UpdateRunways()
         {
+            var icaoBeforeAwait = Icao;
             var rwyList = AirportList.RwyIdents(Icao)?.ToArray();
 
             if (rwyList != null && rwyList.Length > 0)
             {
                 view.Runways = rwyList;
-                view.SelectedRwy = rwyList[0];
+                var runways = AirportList[icaoBeforeAwait].Rwys;
+                var (success, rwy) = await SelectRwyBasedOnWeather(runways);
+
+                // Only choose runway based on weather if the ICAO does not change
+                // during the await.
+                view.SelectedRwy = (success && icaoBeforeAwait == Icao) ? rwy : rwyList[0];
             }
             else
             {
@@ -60,6 +73,42 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             }
         }
 
+        private async Task<(bool success, string rwy)> SelectRwyBasedOnWeather(
+            IEnumerable<IRwyData> rwys)
+        {
+            int timeoutMs = 1000;
+            var task = Task.Factory.StartNew(() => MetarDownloader.DownloadMetar(view.Icao));
+
+            if (await Task.WhenAny(task, Task.Delay(timeoutMs)) == task)
+            {
+                // Task completed within timeout
+                var (downloaded, metar) = await task;
+                if (!downloaded) return (false, null);
+                var wind = ParaExtractor.GetWind(metar);
+                if (!wind.HasValue) return (false, null);
+                return (true, SelectRwy(rwys, wind.Value.Direction));
+            }
+            else
+            {
+                // Timeout
+                return (false, null);
+            }
+        }
+
+        // TODO: Move this.
+        private static string SelectRwy(IEnumerable<IRwyData> rwys, double windHeading)
+        {
+            return rwys
+                .Where(r => r.Heading.IsDouble())
+                .MaxBy(r => ConversionTools.HeadwindComponent(
+                    double.Parse(r.Heading), windHeading, 1.0))
+                .RwyIdent;
+        }
+
+        /// <summary>
+        /// A list of SID or STAR, depending on whether this is origin 
+        /// or destination airport.
+        /// </summary>
         /// <exception cref="LoadSidFileException"></exception>
         /// <exception cref="LoadStarFileException"></exception>
         public List<string> AvailableProcedures
