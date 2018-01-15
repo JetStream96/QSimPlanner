@@ -8,23 +8,23 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
     public class ControlState
     {
         // Strings for xml tags.
-        private string airportIcao = "AirportIcao";
-        private string rwy = "Runway";
-        private string lengthUnit = "LengthUnit";
-        private string windDir = "WindDir";
-        private string windSpeed = "WindSpeed";
-        private string tempUnit = "TempUnit";
-        private string oat = "OAT";
-        private string pressUnit = "PressUnit";
-        private string pressure = "Pressure";
-        private string surfCond = "SurfCond";
-        private string aircraft = "Aircraft";
-        private string wtUnit = "WeightUnit";
-        private string toWt = "TakeOffWeight";
-        private string flaps = "Flaps";
-        private string thrustRating = "ThrustRating";
-        private string antiIce = "AntiIce";
-        private string packs = "Packs";
+        private static readonly string airportIcao = "AirportIcao";
+        private static readonly string rwy = "Runway";
+        private static readonly string lengthUnit = "LengthUnit";
+        private static readonly string windDir = "WindDir";
+        private static readonly string windSpeed = "WindSpeed";
+        private static readonly string tempUnit = "TempUnit";
+        private static readonly string oat = "OAT";
+        private static readonly string pressUnit = "PressUnit";
+        private static readonly string pressure = "Pressure";
+        private static readonly string surfCond = "SurfCond";
+        private static readonly string aircraft = "Aircraft";
+        private static readonly string wtUnit = "WeightUnit";
+        private static readonly string toWt = "TakeOffWeight";
+        private static readonly string flaps = "Flaps";
+        private static readonly string thrustRating = "ThrustRating";
+        private static readonly string antiIce = "AntiIce";
+        private static readonly string packs = "Packs";
 
         private TOPerfControl control;
 
