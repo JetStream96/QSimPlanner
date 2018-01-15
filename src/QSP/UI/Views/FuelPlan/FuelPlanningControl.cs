@@ -41,6 +41,7 @@ namespace QSP.UI.Views.FuelPlan
     // The implementation of ISupportActionContextMenu is used to support the actions 
     // for the route from origin to destination.
 
+    // TODO: Separate presenter from this class.
     public partial class FuelPlanningControl : UserControl, IRefreshForNavDataChange,
         IFuelPlanningView
     {
@@ -151,7 +152,7 @@ namespace QSP.UI.Views.FuelPlan
                 AltnPresenter.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
             };
         }
-        
+
         private void SubscribeEventHandlers()
         {
             wtUnitComboBox.SelectedIndexChanged += WtUnitChanged;

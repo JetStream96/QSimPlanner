@@ -20,8 +20,9 @@ using static QSP.RouteFinding.Tracks.Common.Helpers;
 using static QSP.RouteFinding.Tracks.Interaction.StatusRecorder;
 using static QSP.Utilities.LoggerInstance;
 
-namespace QSP.UI.Forms
+namespace QSP.UI.Views
 {
+    // TODO: Separate presenter from this class.
     public partial class TracksForm
     {
         private static readonly string trackFileExtension = ".track";

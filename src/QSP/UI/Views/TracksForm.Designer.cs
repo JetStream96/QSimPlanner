@@ -8,9 +8,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Linq;
 using System.Xml.Linq;
-using QSP.UI.Views;
 
-namespace QSP.UI.Forms
+namespace QSP.UI.Views
 {
     partial class TracksForm : System.Windows.Forms.Form
     {
