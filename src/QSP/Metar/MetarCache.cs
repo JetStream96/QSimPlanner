@@ -4,7 +4,9 @@ using CommonLibrary.AviationTools;
 
 namespace QSP.Metar
 {
-    // Case-insensitive for all ICAO codes.
+    /// <summary>
+    /// Case-insensitive for all ICAO codes.
+    /// </summary>
     public class MetarCache
     {
         public TimeSpan ExpireTime { get; private set; }
@@ -17,11 +19,14 @@ namespace QSP.Metar
             this.ExpireTime = expireTime;
         }
 
-        // @NoThrow
+        /// <summary>
+        /// Returns whether the given icao is in the cache.
+        /// </summary>
         public bool Contains(string icao) => GetItem(icao) != null;
 
-        // @NoThrow
-        // Returns null if the item already expired or does not exist.
+        /// <summary>
+        /// Returns null if the item already expired or does not exist.
+        /// </summary>
         public MetarCacheItem GetItem(string icao)
         {
             var trimed = Icao.TrimIcao(icao);
@@ -38,18 +43,21 @@ namespace QSP.Metar
 
             return null;
         }
-        
+
         private bool IsStillValid(MetarCacheItem item)
         {
             return item.CreationTime + ExpireTime <= DateTime.UtcNow;
         }
 
-        // @Throws
-        // Throws exception if item is null.
+        /// <summary>
+        /// If the icao is already in cache, update the item. Otherwise, add
+        /// the item.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
         public void AddOrUpdateItem(string icao, MetarCacheItem item)
         {
             // This is important for the correctness for Contains(icao) method. 
-            if (item == null) throw new ArgumentException();
+            if (icao == null || item == null) throw new ArgumentException();
 
             var trimed = Icao.TrimIcao(icao);
 
