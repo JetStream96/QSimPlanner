@@ -10,14 +10,19 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
 {
     public class AutoWeatherSetter
     {
-        private WeatherInfoControl wxControl;
-        private AirportInfoControl airportControl;
+        private readonly WeatherInfoControl wxControl;
+        private readonly AirportInfoControl airportControl;
+        private readonly MetarCache metarCache;
         private string metar;
 
-        public AutoWeatherSetter(WeatherInfoControl wxControl, AirportInfoControl airportControl)
+        public AutoWeatherSetter(
+            WeatherInfoControl wxControl,
+            AirportInfoControl airportControl,
+            MetarCache metarCache)
         {
             this.wxControl = wxControl;
             this.airportControl = airportControl;
+            this.metarCache = metarCache;
             DisableViewBtn();
         }
 
@@ -25,11 +30,6 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
         {
             wxControl.GetMetarBtn.Click += (s, e) => GetMetarClicked(s, e);
             wxControl.ViewMetarBtn.Click += ViewMetarClicked;
-            airportControl.airportTxtBox.TextChanged += (sender, e) =>
-            {
-                wxControl.picBox.Visible = false;
-                DisableViewBtn();
-            };
         }
 
         private void EnableViewBtn()
@@ -71,8 +71,24 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             frm.ShowDialog();
         }
 
+        // Gets metar from MetarCache if it exists in the cache.
+        // Otherwise, download the metar from internet.
+        // this.metar is set if successful.
+        // icao should be all capital letters.
+        private async Task<bool> GetMetar(string icao)
+        {
+            if (metarCache.Contains(icao))
+            {
+                this.metar = metarCache.GetItem(icao).Metar;
+                return true;
+            }
+
+            return await Task.Run(
+                () => MetarDownloader.TryGetMetar(icao, out metar));
+        }
+
         // Get metar functions.
-        private async Task GetMetarClicked(object sender, EventArgs e)
+        public async Task GetMetarClicked(object sender, EventArgs e)
         {
             DisableDnBtn();
             var w = wxControl;
@@ -80,13 +96,15 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             w.picBox.Image = Properties.Resources.RedLight;
 
             string icao = airportControl.Icao;
-            
-            bool metarAcquired = await Task.Run(
-                () => MetarDownloader.TryGetMetar(icao, out metar));
 
-            if (metarAcquired)
+            bool metarAcquired = await GetMetar(icao);
+
+            // Because GetMetar method is asynchronous, it is neccessary to
+            // check whether the currently entered ICAO code is still the 
+            // same as before. If the ICAO changed, we do not need to update.
+            if (metarAcquired && icao == airportControl.Icao)
             {
-                if (WeatherAutoFiller.Fill(
+                if (!WeatherAutoFiller.Fill(
                     metar,
                     w.windDirTxtBox,
                     w.windSpdTxtBox,
@@ -94,7 +112,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
                     w.tempUnitComboBox,
                     w.pressTxtBox,
                     w.pressUnitComboBox,
-                    w.surfCondComboBox) == false)
+                    w.surfCondComboBox))
                 {
                     wxControl.ShowError(
                         @"Metar has been downloaded but the weather " +

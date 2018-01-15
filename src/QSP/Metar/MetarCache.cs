@@ -46,7 +46,7 @@ namespace QSP.Metar
 
         private bool IsStillValid(MetarCacheItem item)
         {
-            return item.CreationTime + ExpireTime <= DateTime.UtcNow;
+            return item.CreationTime + ExpireTime >= DateTime.UtcNow;
         }
 
         /// <summary>

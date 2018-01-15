@@ -238,7 +238,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.pressUnitComboBox.Name = "pressUnitComboBox";
             this.pressUnitComboBox.Size = new System.Drawing.Size(98, 31);
             this.pressUnitComboBox.TabIndex = 5;
-            this.pressUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.pressUnitComboBoxSelectedIndexChanged);
+            this.pressUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.PressUnitComboBoxSelectedIndexChanged);
             // 
             // tempUnitComboBox
             // 
@@ -257,7 +257,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.tempUnitComboBox.Name = "tempUnitComboBox";
             this.tempUnitComboBox.Size = new System.Drawing.Size(98, 31);
             this.tempUnitComboBox.TabIndex = 3;
-            this.tempUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.tempUnitComboBoxSelectedIndexChanged);
+            this.tempUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.TempUnitComboBoxSelectedIndexChanged);
             // 
             // windSpdTxtBox
             // 

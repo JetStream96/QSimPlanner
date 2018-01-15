@@ -83,7 +83,7 @@
             this.agreeBtn.TabIndex = 1;
             this.agreeBtn.Text = "Agree";
             this.agreeBtn.UseVisualStyleBackColor = true;
-            this.agreeBtn.Click += new System.EventHandler(this.agreeBtn_Click);
+            this.agreeBtn.Click += new System.EventHandler(this.AgreeBtnClick);
             // 
             // label1
             // 

@@ -28,6 +28,9 @@ namespace QSP.Metar
             }
         }
 
+        /// <summary>
+        /// Returns whether downloading metar is successful. 
+        /// </summary>
         public static bool TryGetMetar(string icao, out string metar)
         {
             try
@@ -42,6 +45,9 @@ namespace QSP.Metar
             }
         }
 
+        /// <summary>
+        /// Returns whether downloading TAF is successful. 
+        /// </summary>
         public static bool TryGetTaf(string icao, out string taf)
         {
             try

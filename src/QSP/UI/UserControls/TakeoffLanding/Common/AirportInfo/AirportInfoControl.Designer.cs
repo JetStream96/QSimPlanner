@@ -107,7 +107,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.lengthUnitComboBox.Name = "lengthUnitComboBox";
             this.lengthUnitComboBox.Size = new System.Drawing.Size(93, 31);
             this.lengthUnitComboBox.TabIndex = 4;
-            this.lengthUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.lengthUnitSelectedChanged);
+            this.lengthUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.LengthUnitSelectedChanged);
             // 
             // slopeComboBox
             // 
@@ -269,7 +269,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.airportTxtBox.Size = new System.Drawing.Size(93, 30);
             this.airportTxtBox.TabIndex = 1;
             this.airportTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.airportTxtBox.TextChanged += new System.EventHandler(this.airportTxtBox_TextChanged);
+            this.airportTxtBox.TextChanged += new System.EventHandler(this.AirportTxtBoxTextChanged);
             // 
             // elevationTxtBox
             // 

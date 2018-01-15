@@ -14,6 +14,7 @@ using System.Linq;
 using System.Windows.Forms;
 using QSP.UI.Models.TakeoffLanding;
 using QSP.UI.Util;
+using QSP.Metar;
 
 namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
 {
@@ -45,9 +46,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             InitializeComponent();
         }
 
-        private void setWeatherBtnHandlers()
+        private void SetWeatherBtnHandlers(MetarCache metarCache)
         {
-            wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl);
+            wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl, metarCache);
             wxSetter.Subscribe();
         }
 
@@ -107,7 +108,8 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             AcConfigManager aircrafts,
             List<PerfTable> tables,
             AirportManager airports,
-            Func<AircraftRequest> acRequestGetter)
+            Func<AircraftRequest> acRequestGetter,
+            MetarCache metarCache)
         {
             airportInfoControl.Init();
 
@@ -117,9 +119,12 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf
             // Set default values for the controls.
             InitializeControls();
 
-            setWeatherBtnHandlers();
+            SetWeatherBtnHandlers(metarCache);
 
             requestBtn.SetToolTip("Use aircraft and weights calculated from 'Fuel' page.");
+
+            // Automatically update weather
+            airportInfoControl.IcaoChanged += (s, e) => wxSetter.GetMetarClicked(s, e);
 
             this.aircrafts = aircrafts;
             this.tables = tables;

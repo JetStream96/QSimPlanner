@@ -9,6 +9,8 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
 {
     public partial class AirportInfoControl : UserControl
     {
+        public event EventHandler IcaoChanged;
+
         private SlopeComboBoxController slopeController;
 
         public AirportManager Airports { get; set; }
@@ -86,9 +88,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             }
         }
 
-        private void airportTxtBox_TextChanged(object sender, EventArgs e)
+        private void AirportTxtBoxTextChanged(object sender, EventArgs e)
         {
             RefreshAirportInfo();
+            IcaoChanged?.Invoke(sender, e);
         }
 
         private void SetLength(int lengthFt)
@@ -118,7 +121,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             }
         }
 
-        private void lengthUnitSelectedChanged(object sender, EventArgs e)
+        private void LengthUnitSelectedChanged(object sender, EventArgs e)
         {
             if (double.TryParse(lengthTxtBox.Text, out var len))
             {

@@ -36,7 +36,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             tp.SetToolTip(GetMetarBtn, "Download METAR and fill all weather info.");
         }
 
-        private void tempUnitComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        private void TempUnitComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             if (double.TryParse(oatTxtBox.Text, out var temp))
             {
@@ -55,7 +55,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             }
         }
 
-        private void pressUnitComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        private void PressUnitComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             if (double.TryParse(pressTxtBox.Text, out var press))
             {

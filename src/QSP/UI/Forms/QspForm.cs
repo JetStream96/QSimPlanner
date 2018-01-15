@@ -278,7 +278,8 @@ namespace QSP.UI.Forms
                 profiles.AcConfigs,
                 profiles.TOTables.ToList(),
                 AirportList,
-                () => fuelMenu.AircraftRequest);
+                () => fuelMenu.AircraftRequest,
+                metarCache);
 
             toMenu.TryLoadState();
 
@@ -286,7 +287,8 @@ namespace QSP.UI.Forms
                 profiles.AcConfigs,
                 profiles.LdgTables.ToList(),
                 AirportList,
-                () => fuelMenu.AircraftRequest);
+                () => fuelMenu.AircraftRequest,
+                metarCache);
 
             ldgMenu.TryLoadState();
 

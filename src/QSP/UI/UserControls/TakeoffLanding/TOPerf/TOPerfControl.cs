@@ -2,19 +2,20 @@
 using QSP.AircraftProfiles.Configs;
 using QSP.AviationTools;
 using QSP.MathTools;
+using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using QSP.TOPerfCalculation;
-using QSP.UI.Views.Factories;
+using QSP.UI.Models.TakeoffLanding;
 using QSP.UI.UserControls.TakeoffLanding.Common;
 using QSP.UI.UserControls.TakeoffLanding.TOPerf.Controllers;
+using QSP.UI.Util;
+using QSP.UI.Views.Factories;
 using QSP.Utilities.Units;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using QSP.UI.Models.TakeoffLanding;
-using QSP.UI.Util;
 
 namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
 {
@@ -50,9 +51,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             AcConfigManager aircrafts,
             List<PerfTable> tables,
             AirportManager airports,
-            Func<AircraftRequest> acRequestGetter)
+            Func<AircraftRequest> acRequestGetter,
+            MetarCache metarCache)
         {
-            InitControls();
+            InitControls(metarCache);
 
             this.aircrafts = aircrafts;
             this.tables = tables;
@@ -61,7 +63,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             this.acRequestGetter = acRequestGetter;
         }
 
-        private void InitControls()
+        private void InitControls(MetarCache metarCache)
         {
             airportInfoControl.Init();
 
@@ -71,8 +73,11 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             // Set default values for the controls.
             InitializeControls();
 
-            SetWeatherBtnHandlers();
+            SetWeatherBtnHandlers(metarCache);
             requestBtn.SetToolTip("Use aircraft and weights calculated from 'Fuel' page.");
+
+            // Automatically update weather
+            airportInfoControl.IcaoChanged += (s, e) => wxSetter.GetMetarClicked(s, e);
         }
 
         private void UpdateAircraftList()
@@ -143,9 +148,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             TrySaveState();
         }
 
-        private void SetWeatherBtnHandlers()
+        private void SetWeatherBtnHandlers(MetarCache metarCache)
         {
-            wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl);
+            wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl, metarCache);
             wxSetter.Subscribe();
         }
 
@@ -284,7 +289,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             RefreshWtColor();
         }
 
-        private void requestBtn_Click(object sender, EventArgs e)
+        private void RequestBtnClick(object sender, EventArgs e)
         {
             var ac = acRequestGetter();
 

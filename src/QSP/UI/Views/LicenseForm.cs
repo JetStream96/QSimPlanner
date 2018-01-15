@@ -26,7 +26,7 @@ namespace QSP.UI.Views
             }
         }
 
-        private void agreeBtn_Click(object sender, EventArgs e)
+        private void AgreeBtnClick(object sender, EventArgs e)
         {
             Agreed = true;
             this.Close();
