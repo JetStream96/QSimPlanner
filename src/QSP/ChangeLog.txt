@@ -3,6 +3,7 @@
 * Add option to view route in external browser.
 * Fix a bug where finding a route from a runway to the same runway causes program to hang.
 * Fix a bug that causes fuel calculator to fail to find a valid cruising altitude when the route is very short. (Thanks to Sandro for reporting this bug.)
+* Now takeoff and landing calculation pages automatically fill the weather info upon typing ICAO code.
 
 ﻿version 0.4.0
 * Add Airac cycle from Aerosoft.
