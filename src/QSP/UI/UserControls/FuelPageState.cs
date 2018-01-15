@@ -16,26 +16,26 @@ namespace QSP.UI.UserControls
         public static readonly string FileLocation = @"SavedStates\FuelPlanningControl.xml";
 
         // Strings for xml tags.
-        private string aircraft = "Aircraft";
-        private string registration = "Registration";
-        private string wtUnit = "WtUnit";
-        private string zfw = "Zfw";
-        private string origin = "Origin";
-        private string originRwy = "OriginRwy";
-        private string originSid = "OriginSid";
-        private string destination = "Destination";
-        private string destRwy = "DestinRwy";
-        private string destStar = "DestStar";
-        private string alternates = "Alternates";
-        private string altnEntry = "AltnEntry";
-        private string altnIcao = "AltnIcao";
-        private string altnRwy = "AltnRwy";
-        private string contPerc = "ContPerc";
-        private string holdMin = "HoldMin";
-        private string extraKg = "ExtraKg";
-        private string apuMin = "ApuMin";
-        private string taxiMin = "TaxiMin";
-        private string finalRsvMin = "FinalRsvMin";
+        private static readonly string aircraft = "Aircraft";
+        private static readonly string registration = "Registration";
+        private static readonly string wtUnit = "WtUnit";
+        private static readonly string zfw = "Zfw";
+        private static readonly string origin = "Origin";
+        private static readonly string originRwy = "OriginRwy";
+        private static readonly string originSid = "OriginSid";
+        private static readonly string destination = "Destination";
+        private static readonly string destRwy = "DestinRwy";
+        private static readonly string destStar = "DestStar";
+        private static readonly string alternates = "Alternates";
+        private static readonly string altnEntry = "AltnEntry";
+        private static readonly string altnIcao = "AltnIcao";
+        private static readonly string altnRwy = "AltnRwy";
+        private static readonly string contPerc = "ContPerc";
+        private static readonly string holdMin = "HoldMin";
+        private static readonly string extraKg = "ExtraKg";
+        private static readonly string apuMin = "ApuMin";
+        private static readonly string taxiMin = "TaxiMin";
+        private static readonly string finalRsvMin = "FinalRsvMin";
 
         private FuelPlanningControl control;
 
