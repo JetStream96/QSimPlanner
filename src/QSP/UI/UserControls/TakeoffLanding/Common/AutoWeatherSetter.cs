@@ -23,7 +23,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
 
         public void Subscribe()
         {
-            wxControl.GetMetarBtn.Click += (s, e) => GetMetarClicked(s, e);
+            wxControl.GetMetarBtn.Click += (s, e) => GetMetarAndFillWeather();
             wxControl.ViewMetarBtn.Click += ViewMetarClicked;
         }
 
@@ -65,9 +65,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             frm.resultRichTxtBox.Text = metar ?? "";
             frm.ShowDialog();
         }
-        
-        // Get metar functions.
-        public async Task GetMetarClicked(object sender, EventArgs e)
+
+        /// <summary>
+        /// Aquire the metar from the Internet and fills the WeatherInfoControl,
+        /// if the downloading is successful and metar can be parsed correctly.
+        /// This method is asynchronous. If the downloading finishes after ICAO 
+        /// text already changed, the weather update will not happen.            
+        /// </summary>
+        public async Task GetMetarAndFillWeather()
         {
             DisableDnBtn();
             var w = wxControl;

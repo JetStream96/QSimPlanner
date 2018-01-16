@@ -193,6 +193,7 @@
     <Compile Include="RouteFinding\Airports\IAirport.cs" />
     <Compile Include="RouteFinding\Airports\IRwyData.cs" />
     <Compile Include="RouteFinding\Airports\IRwyDataExtension.cs" />
+    <Compile Include="RouteFinding\Airports\RunwaySelect.cs" />
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
     <Compile Include="RouteFinding\Finder\DestInfo.cs" />
     <Compile Include="RouteFinding\Finder\OrigInfo.cs" />

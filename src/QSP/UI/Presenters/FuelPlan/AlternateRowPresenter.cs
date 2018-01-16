@@ -1,11 +1,13 @@
 ﻿using QSP.Common.Options;
 using QSP.LibraryExtension;
+using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Containers.CountryCode;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.TerminalProcedures.Star;
 using QSP.RouteFinding.Tracks;
 using QSP.UI.Models.FuelPlan;
+using QSP.UI.Models.FuelPlan.Routes;
 using QSP.UI.Presenters.FuelPlan.Routes;
 using QSP.UI.Views.FuelPlan;
 using QSP.UI.Views.FuelPlan.Routes;
@@ -13,7 +15,6 @@ using QSP.WindAloft;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QSP.UI.Models.FuelPlan.Routes;
 
 namespace QSP.UI.Presenters.FuelPlan
 {
@@ -78,16 +79,11 @@ namespace QSP.UI.Presenters.FuelPlan
 
         public void UpdateRunways()
         {
-            var airport = airwayNetwork.AirportList[View.Icao];
-            if (airport == null)
-            {
-                View.RunwayList = new string[0];
-                return;
-            }
-
-            var rwys = airport.Rwys.Select(r => r.RwyIdent).ToList();
-            View.RunwayList = rwys;
-            if (rwys.Any()) View.Rwy = rwys[0];
+            RunwaySelect.UpdateRunways(
+                () => View.Icao,
+                rwys => View.RunwayList = rwys,
+                rwy => View.Rwy = rwy,
+                airwayNetwork.AirportList);
         }
 
         public void OnNavDataChange()

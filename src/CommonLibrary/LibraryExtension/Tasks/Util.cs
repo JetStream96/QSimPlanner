@@ -23,7 +23,9 @@ namespace CommonLibrary.LibraryExtension.Tasks
             }
         }
 
-        // Runs the action on another thread.
+        /// <summary>
+        /// Runs the action on another thread.
+        /// </summary>
         public static async Task RunPeriodicAsync(Action action, TimeSpan interval,
             CancellationToken cancellationToken)
         {
@@ -31,6 +33,29 @@ namespace CommonLibrary.LibraryExtension.Tasks
             {
                 await Task.Factory.StartNew(action);
                 await Task.Delay(interval, cancellationToken);
+            }
+        }
+
+        /// <summary>
+        /// Runs the given Func<T> with a timeout. Returns the result if the task
+        /// finished before timeout.
+        /// 
+        /// Note that even if the Func<T> timed out, it is NOT cancelled.
+        /// </summary>
+        public static async Task<(bool timedout, T result)>
+            RunAsyncWithTimeout<T>(Func<T> func, int timeoutMs)
+        {
+            var task = Task.Run(() => func());
+
+            if (await Task.WhenAny(task, Task.Delay(timeoutMs)) == task)
+            {
+                // Task completed within timeout
+                return (false, await task);
+            }
+            else
+            {
+                // Timeout
+                return (true, default(T));
             }
         }
     }

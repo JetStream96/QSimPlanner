@@ -76,7 +76,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             requestBtn.SetToolTip("Use aircraft and weights calculated from 'Fuel' page.");
 
             // Automatically update weather
-            airportInfoControl.IcaoChanged += (s, e) => wxSetter.GetMetarClicked(s, e);
+            airportInfoControl.IcaoChanged += (s, e) => wxSetter.GetMetarAndFillWeather();
         }
 
         private void UpdateAircraftList()
