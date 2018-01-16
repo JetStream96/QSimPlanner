@@ -10,7 +10,7 @@ namespace QSP.UI.Util
         public static void ShowMessage(this Control c, string text, MessageLevel lvl,
             string caption = "")
         {
-            var icon = (MsgBoxIcon) ((int) lvl);
+            var icon = (MsgBoxIcon)((int)lvl);
             c.ShowDialog(text, icon, caption, DefaultButton.Button1, "OK");
         }
 
@@ -29,7 +29,7 @@ namespace QSP.UI.Util
             control.ShowDialog(text, MsgBoxIcon.Info, caption, DefaultButton.Button1, "OK");
         }
 
-        public static MsgBoxResult ShowDialog(this Control parentControl, string text, 
+        public static MsgBoxResult ShowDialog(this Control parentControl, string text,
             MsgBoxIcon icon, string caption, DefaultButton defaultBtn, params string[] buttonTxt)
         {
             using (var frm = new MsgBoxForm())
@@ -42,6 +42,16 @@ namespace QSP.UI.Util
                     frm.StartPosition = FormStartPosition.CenterScreen;
                     frm.ShowInTaskbar = true;
                     frm.TopMost = true;
+                    frm.ShowDialog();
+                }
+                else if (!parentForm.Visible ||
+                    parentForm.WindowState == FormWindowState.Minimized)
+                {
+                    // The a form is not shown (e.g. minimized) , the Location and Size 
+                    // cannot be trusted. Location can sometimes be a negative number.
+                    // Use CenterScreen is better than CenterParent, which can cause 
+                    // frm to show on top left corner.
+                    frm.StartPosition = FormStartPosition.CenterScreen;
                     frm.ShowDialog();
                 }
                 else
