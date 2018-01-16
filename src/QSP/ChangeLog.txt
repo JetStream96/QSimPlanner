@@ -6,6 +6,7 @@
 * Now takeoff and landing calculation pages automatically fill the weather info upon typing ICAO code.
 * On fuel planning page, the runway is now automatically selected based on headwind component.
 * When the alternating finding form opens, it automatically finds the alternates without clicking on 'find' button.
+* Fix a bug that causes the main window to start at very small size when it's last closed while minimized.
 
 ﻿version 0.4.0
 * Add Airac cycle from Aerosoft.
