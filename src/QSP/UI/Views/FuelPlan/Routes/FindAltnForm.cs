@@ -28,6 +28,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
             this.presenter = presenter;
             lengthUnitComboBox.SelectedIndex = (int)LengthUnit.Meter;
             minRwyLengthTxtbox.Text = "2500";
+            presenter.FindAlternates();
         }
 
         public string SelectedIcao
