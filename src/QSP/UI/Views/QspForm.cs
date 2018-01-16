@@ -518,8 +518,13 @@ namespace QSP.UI.Views
             try
             {
                 var serializer = new WindowSize.Serializer();
+
+                // This is needed because when the form is minimized, 
+                // the Width and Height have the size of only the title bar.
+                var bounds = RestoreBounds;
+
                 var state = new WindowSize(WindowState == FormWindowState.Maximized,
-                    Width, Height);
+                    bounds.Width, bounds.Height);
 
                 var doc = new XDocument(serializer.Serialize(state, "root"));
                 File.WriteAllText(WindowSize.FileLocation, doc.ToString());
