@@ -70,7 +70,6 @@ namespace QSP.UI.Views
         private Locator<IWindTableCollection> windTableLocator;
         private Updater updater;
         private OptionsForm optionsForm;
-        private readonly MetarCache metarCache = new MetarCache();
 
         private TracksForm trackFrm;
         private WindDataForm windFrm;
@@ -271,8 +270,7 @@ namespace QSP.UI.Views
                 procFilter,
                 windTableLocator,
                 profiles.AcConfigs,
-                profiles.FuelData,
-                metarCache);
+                profiles.FuelData);
 
             fuelMenu.Init(fuelPlanningModel);
 
@@ -280,8 +278,7 @@ namespace QSP.UI.Views
                 profiles.AcConfigs,
                 profiles.TOTables.ToList(),
                 AirportList,
-                () => fuelMenu.AircraftRequest,
-                metarCache);
+                () => fuelMenu.AircraftRequest);
 
             toMenu.TryLoadState();
 
@@ -289,8 +286,7 @@ namespace QSP.UI.Views
                 profiles.AcConfigs,
                 profiles.LdgTables.ToList(),
                 AirportList,
-                () => fuelMenu.AircraftRequest,
-                metarCache);
+                () => fuelMenu.AircraftRequest);
 
             ldgMenu.TryLoadState();
 

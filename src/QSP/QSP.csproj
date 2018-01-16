@@ -186,8 +186,6 @@
     <Compile Include="MathTools\Tables\Readers\TableReader1D.cs" />
     <Compile Include="MathTools\Tables\TableUtil.cs" />
     <Compile Include="MathTools\Vectors\Vector3DExtension.cs" />
-    <Compile Include="Metar\MetarCache.cs" />
-    <Compile Include="Metar\MetarCacheItem.cs" />
     <Compile Include="NavData\AAX\CountryCodeGenerator.cs" />
     <Compile Include="NavData\NavDataPath.cs" />
     <Compile Include="NavData\ReadFileError.cs" />
@@ -198,7 +196,6 @@
     <Compile Include="RouteFinding\Containers\CountryCode\CountryCodeCollection.cs" />
     <Compile Include="RouteFinding\Finder\DestInfo.cs" />
     <Compile Include="RouteFinding\Finder\OrigInfo.cs" />
-    <Compile Include="RouteFinding\RunwaySelector.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Parser\ProcedureParser.cs" />
     <Compile Include="RouteFinding\TerminalProcedures\Parser\SectionSplitter.cs" />
     <Compile Include="RouteFinding\Tracks\Actions\NetworkUpdateAction.cs" />

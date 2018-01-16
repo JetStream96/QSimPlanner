@@ -12,17 +12,12 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
     {
         private readonly WeatherInfoControl wxControl;
         private readonly AirportInfoControl airportControl;
-        private readonly MetarCache metarCache;
         private string metar;
 
-        public AutoWeatherSetter(
-            WeatherInfoControl wxControl,
-            AirportInfoControl airportControl,
-            MetarCache metarCache)
+        public AutoWeatherSetter(WeatherInfoControl wxControl, AirportInfoControl airportControl)
         {
             this.wxControl = wxControl;
             this.airportControl = airportControl;
-            this.metarCache = metarCache;
             DisableViewBtn();
         }
 
@@ -70,23 +65,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             frm.resultRichTxtBox.Text = metar ?? "";
             frm.ShowDialog();
         }
-
-        // Gets metar from MetarCache if it exists in the cache.
-        // Otherwise, download the metar from internet.
-        // this.metar is set if successful.
-        // icao should be all capital letters.
-        private async Task<bool> GetMetar(string icao)
-        {
-            if (metarCache.Contains(icao))
-            {
-                this.metar = metarCache.GetItem(icao).Metar;
-                return true;
-            }
-
-            return await Task.Run(
-                () => MetarDownloader.TryGetMetar(icao, out metar));
-        }
-
+        
         // Get metar functions.
         public async Task GetMetarClicked(object sender, EventArgs e)
         {
@@ -97,7 +76,8 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
 
             string icao = airportControl.Icao;
 
-            bool metarAcquired = await GetMetar(icao);
+            bool metarAcquired = await Task.Run(
+                () => MetarDownloader.TryGetMetar(icao, out metar));
 
             // Because GetMetar method is asynchronous, it is neccessary to
             // check whether the currently entered ICAO code is still the 

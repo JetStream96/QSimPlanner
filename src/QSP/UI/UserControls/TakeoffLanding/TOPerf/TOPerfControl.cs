@@ -51,10 +51,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             AcConfigManager aircrafts,
             List<PerfTable> tables,
             AirportManager airports,
-            Func<AircraftRequest> acRequestGetter,
-            MetarCache metarCache)
+            Func<AircraftRequest> acRequestGetter)
         {
-            InitControls(metarCache);
+            InitControls();
 
             this.aircrafts = aircrafts;
             this.tables = tables;
@@ -63,7 +62,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             this.acRequestGetter = acRequestGetter;
         }
 
-        private void InitControls(MetarCache metarCache)
+        private void InitControls()
         {
             airportInfoControl.Init();
 
@@ -73,7 +72,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             // Set default values for the controls.
             InitializeControls();
 
-            SetWeatherBtnHandlers(metarCache);
+            SetWeatherBtnHandlers();
             requestBtn.SetToolTip("Use aircraft and weights calculated from 'Fuel' page.");
 
             // Automatically update weather
@@ -148,9 +147,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.TOPerf
             TrySaveState();
         }
 
-        private void SetWeatherBtnHandlers(MetarCache metarCache)
+        private void SetWeatherBtnHandlers()
         {
-            wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl, metarCache);
+            wxSetter = new AutoWeatherSetter(weatherInfoControl, airportInfoControl);
             wxSetter.Subscribe();
         }
 

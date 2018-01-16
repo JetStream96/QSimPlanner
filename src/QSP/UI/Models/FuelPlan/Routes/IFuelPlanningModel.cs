@@ -22,7 +22,6 @@ namespace QSP.UI.Models.FuelPlan.Routes
         Locator<IWindTableCollection> WindTables { get; }
         AcConfigManager Aircrafts { get; }
         IEnumerable<FuelData> FuelData { get; }
-        MetarCache MetarCache { get; }
     }
 
     public class FuelPlanningModel : IFuelPlanningModel
@@ -35,7 +34,6 @@ namespace QSP.UI.Models.FuelPlan.Routes
         public Locator<IWindTableCollection> WindTables { get; }
         public AcConfigManager Aircrafts { get; }
         public IEnumerable<FuelData> FuelData { get; }
-        public MetarCache MetarCache { get; }
 
         public FuelPlanningModel(
             AirwayNetwork AirwayNetwork,
@@ -45,8 +43,7 @@ namespace QSP.UI.Models.FuelPlan.Routes
             ProcedureFilter ProcFilter,
             Locator<IWindTableCollection> WindTables,
             AcConfigManager Aircrafts,
-            IEnumerable<FuelData> FuelData,
-            MetarCache MetarCache)
+            IEnumerable<FuelData> FuelData)
         {
             this.AirwayNetwork = AirwayNetwork;
             this.AppOption = AppOption;
@@ -56,7 +53,6 @@ namespace QSP.UI.Models.FuelPlan.Routes
             this.WindTables = WindTables;
             this.Aircrafts = Aircrafts;
             this.FuelData = FuelData;
-            this.MetarCache = MetarCache;
         }
     }
 

@@ -115,7 +115,6 @@ namespace QSP.UI.Views.FuelPlan
 
             SetWeightController();
             SetAircraftSelection();
-            AddMetarCacheEvents();
 
             wtUnitComboBox.SelectedIndex = 0;
             SubscribeEventHandlers();
@@ -127,32 +126,7 @@ namespace QSP.UI.Views.FuelPlan
 
             LoadSavedState();
         }
-
-        private void AddMetarCacheEvents()
-        {
-            var metarCache = model.MetarCache;
-
-            Func<string, Task> updateCache = async (icao) =>
-            {
-                if (AirportList[icao] != null && !metarCache.Contains(icao))
-                {
-                    string metar = null;
-                    if (await Task.Run(() => MetarDownloader.TryGetMetar(icao, out metar)))
-                    {
-                        metarCache.AddOrUpdateItem(icao, MetarCacheItem.Create(metar));
-                    }
-                }
-            };
-
-            OrigIcaoChanged += async (s, e) => await updateCache(OrigIcao);
-            DestIcaoChanged += async (s, e) => await updateCache(DestIcao);
-
-            AltnPresenter.AlternatesChanged += (s, e) =>
-            {
-                AltnPresenter.Alternates.ForEach(async a => await updateCache(Icao.TrimIcao(a)));
-            };
-        }
-
+        
         private void SubscribeEventHandlers()
         {
             wtUnitComboBox.SelectedIndexChanged += WtUnitChanged;
