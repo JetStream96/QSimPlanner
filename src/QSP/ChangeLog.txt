@@ -4,6 +4,8 @@
 * Fix a bug where finding a route from a runway to the same runway causes program to hang.
 * Fix a bug that causes fuel calculator to fail to find a valid cruising altitude when the route is very short. (Thanks to Sandro for reporting this bug.)
 * Now takeoff and landing calculation pages automatically fill the weather info upon typing ICAO code.
+* On fuel planning page, the runway is now automatically selected based on headwind component.
+* When the alternating finding form opens, it automatically finds the alternates without clicking on 'find' button.
 
 ﻿version 0.4.0
 * Add Airac cycle from Aerosoft.

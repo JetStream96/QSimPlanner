@@ -1,3 +1,4 @@
+using CommonLibrary.LibraryExtension;
 using QSP.MathTools;
 using QSP.RouteFinding.Airports;
 using QSP.UI.Presenters;
@@ -29,6 +30,8 @@ namespace QSP.UI.Views.FuelPlan.Routes
             lengthUnitComboBox.SelectedIndex = (int)LengthUnit.Meter;
             minRwyLengthTxtbox.Text = "2500";
             presenter.FindAlternates();
+            icaoTxtbox.TextChanged += (s, e) => presenter.FindAlternates();
+            minRwyLengthTxtbox.TextChanged += (s, e) => presenter.FindAlternates();
         }
 
         public string SelectedIcao
@@ -116,15 +119,18 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
             return false;
         }
-
-        private void FindBtnClick(object sender, EventArgs e)
-        {
-            presenter.FindAlternates();
-        }
-
+        
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void LengthUnitComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!Length.IsFiniteDouble()) return;
+            var newLen = double.Parse(Length) *
+                (LengthUnit == LengthUnit.Meter ? FtMeterRatio : MeterFtRatio);
+            minRwyLengthTxtbox.Text = ((int)newLen).ToString();
         }
     }
 }

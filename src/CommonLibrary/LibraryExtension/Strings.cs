@@ -87,6 +87,17 @@ namespace CommonLibrary.LibraryExtension
         {
             return double.TryParse(s, out var a);
         }
+
+        // TODO: Add tests.
+        /// <summary>
+        /// Returns whether the string can be parsed as double, and is finite.
+        /// </summary>
+        public static bool IsFiniteDouble(this string s)
+        {
+            return double.TryParse(s, out var a) && 
+                !double.IsInfinity(a) &&
+                !double.IsNaN(a);
+        }
     }
 }
 

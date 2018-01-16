@@ -1,7 +1,7 @@
 ﻿using QSP.AviationTools;
 using QSP.RouteFinding.Airports;
-using System.Collections.ObjectModel;
 using QSP.UI.Views.FuelPlan.Routes;
+using System.Collections.ObjectModel;
 
 namespace QSP.UI.Presenters
 {
@@ -26,22 +26,19 @@ namespace QSP.UI.Presenters
             return null;
         }
 
+        /// <summary>
+        /// If the ICAO is found and the minimum runway length is a valid number,
+        /// update the list of alternates. Otherwise, clear the list of alternates.
+        /// </summary>
         public void FindAlternates()
         {
+            view.Alternates = new AlternateFinder.AlternateInfo[0];
             double? lengthFt = TryGetLengthFt();
 
-            if (lengthFt == null)
-            {
-                view.ShowWarning("Invalid runway length.");
-                return;
-            }
+            if (lengthFt == null) return;
 
             var icao = view.ICAO;
-            if (airportList[icao] == null)
-            {
-                view.ShowWarning($"ICAO '{icao}' cannot be found.");
-                return;
-            }
+            if (airportList[icao] == null) return;
 
             var finder = new AlternateFinder(airportList);
             view.Alternates = new ReadOnlyCollection<AlternateFinder.AlternateInfo>(
