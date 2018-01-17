@@ -38,5 +38,10 @@ namespace QSP.UI.Views
         {
             OpenFileHelper.TryOpenFile("https://github.com/JetStream96/QSimPlanner", this);
         }
+
+        private void changelogBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileHelper.TryOpenFile(Path.GetFullPath("ChangeLog.txt"), this);
+        }
     }
 }
