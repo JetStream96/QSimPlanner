@@ -24,22 +24,22 @@ namespace QSP.UI.Views
             tableLayoutPanel3.BackColor = Color.FromArgb(148, 255, 255, 255);
         }
         
-        private void licenseBtn_Click(object sender, EventArgs e)
+        private void LicenseBtnClick(object sender, EventArgs e)
         {
             OpenFileHelper.TryOpenFile(Path.GetFullPath("LICENSE.txt"), this);
         }
 
-        private void siteBtn_Click(object sender, EventArgs e)
+        private void SiteBtnClick(object sender, EventArgs e)
         {
             OpenFileHelper.TryOpenFile("https://qsimplan.wordpress.com/", this);
         }
 
-        private void githubBtn_Click(object sender, EventArgs e)
+        private void GithubBtnClick(object sender, EventArgs e)
         {
             OpenFileHelper.TryOpenFile("https://github.com/JetStream96/QSimPlanner", this);
         }
 
-        private void changelogBtn_Click(object sender, EventArgs e)
+        private void ChangelogBtnClick(object sender, EventArgs e)
         {
             OpenFileHelper.TryOpenFile(Path.GetFullPath("ChangeLog.txt"), this);
         }

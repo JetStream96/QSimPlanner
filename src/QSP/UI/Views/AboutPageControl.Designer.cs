@@ -116,7 +116,7 @@
             this.githubBtn.TabIndex = 2;
             this.githubBtn.Text = "Github";
             this.githubBtn.UseVisualStyleBackColor = true;
-            this.githubBtn.Click += new System.EventHandler(this.githubBtn_Click);
+            this.githubBtn.Click += new System.EventHandler(this.GithubBtnClick);
             // 
             // siteBtn
             // 
@@ -133,7 +133,7 @@
             this.siteBtn.TabIndex = 1;
             this.siteBtn.Text = "Website";
             this.siteBtn.UseVisualStyleBackColor = true;
-            this.siteBtn.Click += new System.EventHandler(this.siteBtn_Click);
+            this.siteBtn.Click += new System.EventHandler(this.SiteBtnClick);
             // 
             // licenseBtn
             // 
@@ -150,7 +150,7 @@
             this.licenseBtn.TabIndex = 0;
             this.licenseBtn.Text = "License";
             this.licenseBtn.UseVisualStyleBackColor = true;
-            this.licenseBtn.Click += new System.EventHandler(this.licenseBtn_Click);
+            this.licenseBtn.Click += new System.EventHandler(this.LicenseBtnClick);
             // 
             // tableLayoutPanel3
             // 
@@ -209,7 +209,7 @@
             this.changelogBtn.TabIndex = 10;
             this.changelogBtn.Text = "Change log";
             this.changelogBtn.UseVisualStyleBackColor = true;
-            this.changelogBtn.Click += new System.EventHandler(this.changelogBtn_Click);
+            this.changelogBtn.Click += new System.EventHandler(this.ChangelogBtnClick);
             // 
             // AboutPageControl
             // 

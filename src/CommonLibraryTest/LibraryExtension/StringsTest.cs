@@ -69,5 +69,25 @@ namespace CommonLibraryTest.LibraryExtension
             Assert.AreEqual("\"123 456\"", EscapeCommandLineArg("123 456"));
             Assert.AreEqual("\"a\"\"\"\"b\"", EscapeCommandLineArg("a\"\"b"));
         }
+
+        [Test]
+        public void IsDoubleTest()
+        {
+            Assert.True("15".IsDouble());
+            Assert.True("-1.5".IsDouble());
+            Assert.True(double.PositiveInfinity.ToString().IsDouble());
+            Assert.True(double.NaN.ToString().IsDouble());
+            Assert.False("15x".IsDouble());
+        }
+
+        [Test]
+        public void IsFiniteDoubleTest()
+        {
+            Assert.True("15".IsFiniteDouble());
+            Assert.True("-1.5".IsFiniteDouble());
+            Assert.False(double.PositiveInfinity.ToString().IsFiniteDouble());
+            Assert.False(double.NaN.ToString().IsFiniteDouble());
+            Assert.False("15x".IsFiniteDouble());
+        }
     }
 }

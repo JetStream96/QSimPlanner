@@ -11,8 +11,11 @@ namespace CommonLibrary.LibraryExtension.Tasks
         {
             await a();
         }
-
-        // Runs the action on the calling thread.
+        
+        /// <summary>
+        /// Periodically runs the action on the calling thread.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public static async Task RunPeriodic(Action action, TimeSpan interval,
             CancellationToken cancellationToken)
         {
@@ -24,8 +27,9 @@ namespace CommonLibrary.LibraryExtension.Tasks
         }
 
         /// <summary>
-        /// Runs the action on another thread.
+        /// Periodically runs the action on another thread.
         /// </summary>
+        /// /// <exception cref="Exception"></exception>
         public static async Task RunPeriodicAsync(Action action, TimeSpan interval,
             CancellationToken cancellationToken)
         {
