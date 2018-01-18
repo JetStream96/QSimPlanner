@@ -125,6 +125,9 @@ namespace QSP.AircraftProfiles.Configs
                 : null;
         }
 
+        /// <summary>
+        /// Gets all AircraftConfig that matches the given aircraft type.
+        /// </summary>
         public IEnumerable<AircraftConfig> FindAircraft(string aircraft)
         {
             return aircrafts.TryGetValue(aircraft, out var configs)

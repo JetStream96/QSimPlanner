@@ -6,7 +6,9 @@ namespace QSP.TOPerfCalculation
 {
     public static class FindTable
     {
-        // Returns null is not found.
+        /// <summary>
+        /// Return values are null if not found.
+        /// </summary>
         public static (AircraftConfig, PerfTable) Find(
             IReadOnlyList<PerfTable> tables,
             AcConfigManager aircrafts,
@@ -15,6 +17,7 @@ namespace QSP.TOPerfCalculation
             if (tables != null && tables.Count > 0)
             {
                 var config = aircrafts.Find(registration);
+                if (config == null) return (null, null);
                 var ac = config.Config;
                 var profileName = ac.TOProfile;
                 return (config, tables.First(t => t.Entry.ProfileName == profileName));
