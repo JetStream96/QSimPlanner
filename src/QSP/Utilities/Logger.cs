@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using QSP.LibraryExtension;
+using static QSP.Updates.Utilities;
 
 namespace QSP.Utilities
 {
@@ -24,14 +25,20 @@ namespace QSP.Utilities
             Log(ex.ToString());
         }
 
+        /// <summary>
+        /// Logs the message, along with current app version and UTC time.
+        /// </summary>
         public void Log(string msg)
         {
+            var contents = "Version: " + TryGetVersion() + "\n" +
+                DateTime.Now.ToStringWithUtc() + ":\n"
+                + msg + "\n\n";
+
             ExceptionHelpers.IgnoreException(() =>
-                File.AppendAllText(filePath, DateTime.Now.ToStringWithUtc() + ":\n"
-                + msg + "\n\n"));
+                File.AppendAllText(filePath, contents));
         }
 
-        public static Logger Instance = new Logger();
+        public static readonly Logger Instance = new Logger();
     }
 
     public sealed class EmptyLogger : ILogger

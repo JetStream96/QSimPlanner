@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Xml.Linq;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP.Updates
 {
@@ -59,6 +60,14 @@ namespace QSP.Updates
             {
                 return true;
             }
+        }
+
+        /// <summary>
+        /// Returns the current version. If failed, returns empty string.
+        /// </summary>
+        public static string TryGetVersion()
+        {
+            return DefaultIfThrows(() => GetVersions().Current, "");
         }
     }
 }

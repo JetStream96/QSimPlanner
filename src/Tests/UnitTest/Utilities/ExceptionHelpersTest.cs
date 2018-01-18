@@ -1,6 +1,7 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using QSP.Utilities;
+using System;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace UnitTest.Utilities
 {
@@ -22,14 +23,16 @@ namespace UnitTest.Utilities
         }
 
         [Test]
-        public void DefaultIfThrowsTest()
+        public void DefaultIfThrowsTestNoException()
         {
-            Assert.AreEqual(2, ExceptionHelpers.DefaultIfThrows(() => 1 + 1));
-            Assert.AreEqual(null, ExceptionHelpers.DefaultIfThrows(() =>
-            {
-                if ("".Length == 0) throw new ArgumentException();
-                return "abc";
-            }));
+            Assert.AreEqual(2, DefaultIfThrows(() => 1 + 1));
+        }
+
+        [Test]
+        public void DefaultIfThrowsTestException()
+        {
+            Assert.AreEqual(0, DefaultIfThrows(() => int.Parse("a")));
+            Assert.AreEqual(4, DefaultIfThrows(() => int.Parse("a"), 4));
         }
     }
 }

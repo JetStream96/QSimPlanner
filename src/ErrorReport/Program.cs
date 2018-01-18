@@ -9,16 +9,18 @@ namespace ErrorReport
 {
     class Program
     {
-        // args: [url, data]
-        // Returns 1 if reporting failed, or the response from server is not "OK".
+        /// <summary>
+        /// args: [url, data]
+        /// Returns 1 if reporting failed, or the response from server is not "OK".
+        /// </summary>
         static void Main(string[] args)
         {
             try
             {
                 var url = args[0];
                 var data = args[1];
-                
-                var req = WebRequests.GetPostRequest(url, new Dictionary<string, string>()
+
+                var req = GetPostRequest(url, new Dictionary<string, string>()
                 {
                     ["data"] = data
                 });

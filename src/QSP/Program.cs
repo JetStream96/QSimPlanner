@@ -20,6 +20,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static QSP.Updates.Utilities;
+using static QSP.Utilities.ExceptionHelpers;
 
 namespace QSP
 {
@@ -76,7 +77,7 @@ namespace QSP
                 ShowLicenseIfNeeded();
                 var mainFrm = new QspForm();
                 mainFrm.Init();
-
+                throw new Exception("Testing msg!!!");
                 Application.Run(mainFrm);
             }
         }
@@ -96,7 +97,12 @@ namespace QSP
             }
         }
 
-        // @Throws
+        /// <summary>
+        /// Returns whether this app instance is the latest version.
+        /// This is to prevent the user from manually starting the executable
+        /// in the backup directory.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         private static bool UsingLatestVersion()
         {
             var ver = GetVersions();
@@ -137,8 +143,10 @@ namespace QSP
             }
         }
 
-        // Returns whether this is the first time user starts the application.
-        // If failed to read files, returns false.
+        /// <summary>
+        /// Returns whether this is the first time user starts the application.
+        /// If failed to read files, returns false.
+        /// </summary>
         private static bool IsFirstLaunch()
         {
             if (File.Exists(OptionManager.DefaultPath)) return false;
@@ -146,14 +154,7 @@ namespace QSP
             // If option file does not exist, it can be:
             // (1) This is the first time user lauches the app. or
             // (2) The app just updated an the post-update action has not run.
-            try
-            {
-                return GetVersions().Backup == "";
-            }
-            catch
-            {
-                return false;
-            }
+            return DefaultIfThrows(() => GetVersions().Backup == "", false);
         }
 
         private static void StartLauncher()
@@ -188,11 +189,12 @@ namespace QSP
         {
             LoggerInstance.Log(ex);
 
+            var versionStr = "Version: " + Updates.Utilities.TryGetVersion();
             var res = UnhandledExceptionForm.ShowModal(ex.ToString());
-            
+
             if (res == UnhandledExceptionForm.FormDialogResult.Yes)
             {
-                ReportError(ex.ToString());
+                ReportError(versionStr + '\n' + ex.ToString());
             }
 
             Environment.Exit(1);
@@ -210,7 +212,8 @@ namespace QSP
                 {
                     WorkingDirectory = Path.GetDirectoryName(assemblyLocation),
                     FileName = "ErrorReport.exe",
-                    Arguments = Strings.EscapeCommandLineArg(url) + " " + Strings.EscapeCommandLineArg(message),
+                    Arguments = Strings.EscapeCommandLineArg(url) + " " +
+                        Strings.EscapeCommandLineArg(message),
                     WindowStyle = ProcessWindowStyle.Hidden
                 };
 

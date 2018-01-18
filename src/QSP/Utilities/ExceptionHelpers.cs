@@ -15,6 +15,9 @@ namespace QSP.Utilities
             Throws(action);
         }
 
+        /// <summary>
+        /// Start the action and returns whether exception is thrown.
+        /// </summary>
         public static bool Throws(Action action)
         {
             try
@@ -28,7 +31,13 @@ namespace QSP.Utilities
             }
         }
 
-        public static T DefaultIfThrows<T>(Func<T> func)
+        /// <summary>
+        /// Returns the result of func, if no exception is thrown.
+        /// Otherwise, return the default value.
+        /// 
+        /// Usage: var x = DefaultIfThrows(() => double.Parse(str), 10);
+        /// </summary>
+        public static T DefaultIfThrows<T>(Func<T> func, T defaultValue = default(T))
         {
             try
             {
@@ -36,7 +45,7 @@ namespace QSP.Utilities
             }
             catch
             {
-                return default(T);
+                return defaultValue;
             }
         }
     }
