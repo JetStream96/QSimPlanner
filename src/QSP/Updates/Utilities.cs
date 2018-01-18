@@ -4,6 +4,7 @@ using System.IO;
 using System.Xml.Linq;
 using static QSP.Utilities.ExceptionHelpers;
 using static QSP.Utilities.LoggerInstance;
+using static CommonLibrary.LibraryExtension.Strings;
 
 namespace QSP.Updates
 {
@@ -55,7 +56,11 @@ namespace QSP.Updates
                 var ver = GetVersions();
                 if (ver.Backup == "") return true;
                 var prevTxt = Path.Combine("..", ver.Backup, "LICENSE.txt");
-                return File.ReadAllText(prevTxt) != File.ReadAllText("LICENSE.txt");
+
+                // This is required because the installer may write files with 
+                // "\r\n" newlines instead of the original "\n".
+                return File.ReadAllText(prevTxt).EqualsIgnoreNewlineStyle(
+                    File.ReadAllText("LICENSE.txt"));
             }
             catch (Exception ex)
             {
