@@ -77,7 +77,6 @@ namespace QSP
                 ShowLicenseIfNeeded();
                 var mainFrm = new QspForm();
                 mainFrm.Init();
-                throw new Exception("Testing msg!!!");
                 Application.Run(mainFrm);
             }
         }
