@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using static QSP.LibraryExtension.WebRequests;
 
 namespace UnitTest.LibraryExtension
 {
@@ -21,6 +22,14 @@ namespace UnitTest.LibraryExtension
             var content = new FormUrlEncodedContent(query);
             var s = Task.Run(content.ReadAsStringAsync).Result;
             Assert.AreEqual("a+b+c=1+2&1%222=3", s);
+        }
+
+        [Test]
+        public void UriIsHttpOrHttpsTest()
+        {
+            Assert.IsTrue(UriIsHttpOrHttps("http://google.com"));
+            Assert.IsTrue(UriIsHttpOrHttps("https://google.com"));
+            Assert.IsFalse(UriIsHttpOrHttps("file://path/file.txt"));
         }
     }
 }

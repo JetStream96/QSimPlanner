@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -12,7 +13,7 @@ namespace QSP.LibraryExtension
         // E.g. If query is { "a" : 1, "b" : 2 }, the corresponding query string is "a=1&b=2"
         // Content type can also be "multipart/form-data", etc.
         public static HttpWebRequest GetPostRequest(string url, IDictionary<string, string> query,
-            string contentType= "application/x-www-form-urlencoded")
+            string contentType = "application/x-www-form-urlencoded")
         {
             byte[] buffer = Encoding.ASCII.GetBytes(GetQuery(query));
             var webReq = (HttpWebRequest)WebRequest.Create(url);
@@ -50,11 +51,18 @@ namespace QSP.LibraryExtension
             Stream answer = response.GetResponseStream();
             return new StreamReader(answer).ReadToEnd();
         }
-        
+
         public static string GetQuery(IDictionary<string, string> query)
         {
             var content = new FormUrlEncodedContent(query);
             return Task.Run(content.ReadAsStringAsync).Result;
+        }
+
+        public static bool UriIsHttpOrHttps(string uriName)
+        {
+            return Uri.TryCreate(uriName, UriKind.Absolute, out var uriResult) &&
+                   (uriResult.Scheme == Uri.UriSchemeHttp || 
+                   uriResult.Scheme == Uri.UriSchemeHttps);
         }
     }
 }
