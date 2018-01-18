@@ -59,7 +59,7 @@ namespace QSP.Updates
 
                 // This is required because the installer may write files with 
                 // "\r\n" newlines instead of the original "\n".
-                return File.ReadAllText(prevTxt).EqualsIgnoreNewlineStyle(
+                return !File.ReadAllText(prevTxt).EqualsIgnoreNewlineStyle(
                     File.ReadAllText("LICENSE.txt"));
             }
             catch (Exception ex)
