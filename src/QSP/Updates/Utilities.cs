@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Xml.Linq;
 using static QSP.Utilities.ExceptionHelpers;
+using static QSP.Utilities.LoggerInstance;
 
 namespace QSP.Updates
 {
@@ -40,8 +41,7 @@ namespace QSP.Updates
         }
 
         public class VersionInfo { public string Backup, Current; }
-
-        // @NoThrow
+        
         /// <summary>
         /// Shows the license only if the current version of application is never run,
         /// and the license text changed from the previous version which the user has.
@@ -53,11 +53,13 @@ namespace QSP.Updates
                 if (File.Exists(OptionManager.DefaultPath)) return false;
 
                 var ver = GetVersions();
+                if (ver.Backup == "") return true;
                 var prevTxt = Path.Combine("..", ver.Backup, "LICENSE.txt");
                 return File.ReadAllText(prevTxt) != File.ReadAllText("LICENSE.txt");
             }
-            catch
+            catch (Exception ex)
             {
+                Log(ex);
                 return true;
             }
         }

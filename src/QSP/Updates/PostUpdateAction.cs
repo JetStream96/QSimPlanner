@@ -4,14 +4,14 @@ using QSP.FuelCalculation.FuelData;
 using QSP.LandingPerfCalculation;
 using QSP.LibraryExtension;
 using QSP.TOPerfCalculation;
+using QSP.UI.Models;
+using QSP.UI.Models.TakeoffLanding;
 using QSP.UI.UserControls;
 using QSP.UI.UserControls.TakeoffLanding.LandingPerf;
 using QSP.UI.UserControls.TakeoffLanding.TOPerf;
 using System;
 using System.IO;
 using System.Xml.Linq;
-using QSP.UI.Models;
-using QSP.UI.Models.TakeoffLanding;
 using static QSP.Updates.Utilities;
 using static QSP.Utilities.LoggerInstance;
 
@@ -25,7 +25,7 @@ namespace QSP.Updates
 
         public PostUpdateAction() { }
 
-        // @Throws
+        /// <exception cref="Exception"></exception>
         public void DoAction()
         {
             var ver = GetVersions();
@@ -57,10 +57,10 @@ namespace QSP.Updates
         {
             IOMethods.CopyFilesInDirectory(
                 Path.Combine("..", backupVersion.ToString(), dir),
-                dir, 
+                dir,
                 true);
         }
-        
+
         private static bool RequireAction()
         {
             var doc = XDocument.Load("updater.xml");

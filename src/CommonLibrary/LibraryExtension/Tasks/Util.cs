@@ -6,12 +6,14 @@ namespace CommonLibrary.LibraryExtension.Tasks
 {
     public static class Util
     {
-        // Wrap an async method returning a Task to 'async void'.
+        /// <summary>
+        /// Wrap an async method returning a Task to 'async void'.
+        /// </summary>
         public static async void NoAwait(Func<Task> a)
         {
             await a();
         }
-        
+
         /// <summary>
         /// Periodically runs the action on the calling thread.
         /// </summary>

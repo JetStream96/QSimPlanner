@@ -30,6 +30,7 @@ namespace InstallerBuilder
         /// version. When application starts, the NavData directory will be 
         /// moved one level up. 
         /// </summary>
+        /// <exception cref="Exception"></exception>
         public static void CopyNavData()
         {
             GetAirac();
