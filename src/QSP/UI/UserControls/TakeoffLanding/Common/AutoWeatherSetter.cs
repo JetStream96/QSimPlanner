@@ -45,7 +45,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
 
             btn.Enabled = true;
             btn.BackColor = Color.DarkSlateGray;
-            btn.Text = "Import METAR";
+            btn.Text = "☀  Download METAR";
         }
 
         private void DisableDnBtn()
@@ -54,7 +54,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
 
             btn.Enabled = false;
             btn.BackColor = Color.FromArgb(224, 224, 224);
-            btn.Text = "Downloading ...";
+            btn.Text = "☀  Downloading ...";
         }
 
         private void ViewMetarClicked(object sender, EventArgs e)

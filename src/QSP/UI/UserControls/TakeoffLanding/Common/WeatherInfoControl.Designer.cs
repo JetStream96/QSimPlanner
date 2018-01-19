@@ -36,12 +36,12 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.ViewMetarBtn = new System.Windows.Forms.Button();
             this.picBox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.surfCondComboBox = new ComboBoxWithBorder();
+            this.surfCondComboBox = new QSP.UI.Views.ComboBoxWithBorder();
             this.Label105 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Label103 = new System.Windows.Forms.Label();
-            this.pressUnitComboBox = new ComboBoxWithBorder();
-            this.tempUnitComboBox = new ComboBoxWithBorder();
+            this.pressUnitComboBox = new QSP.UI.Views.ComboBoxWithBorder();
+            this.tempUnitComboBox = new QSP.UI.Views.ComboBoxWithBorder();
             this.windSpdTxtBox = new System.Windows.Forms.TextBox();
             this.Label108 = new System.Windows.Forms.Label();
             this.pressTxtBox = new System.Windows.Forms.TextBox();
@@ -73,14 +73,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(451, 184);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(365, 153);
             this.tableLayoutPanel.TabIndex = 2;
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 231F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 58F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 185F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.GetMetarBtn, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.ViewMetarBtn, 2, 0);
@@ -90,7 +90,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(390, 37);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(312, 30);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // GetMetarBtn
@@ -99,12 +99,12 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.GetMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GetMetarBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GetMetarBtn.ForeColor = System.Drawing.Color.White;
-            this.GetMetarBtn.Location = new System.Drawing.Point(15, 3);
-            this.GetMetarBtn.Margin = new System.Windows.Forms.Padding(15, 3, 0, 3);
+            this.GetMetarBtn.Location = new System.Drawing.Point(12, 2);
+            this.GetMetarBtn.Margin = new System.Windows.Forms.Padding(12, 2, 0, 2);
             this.GetMetarBtn.Name = "GetMetarBtn";
-            this.GetMetarBtn.Size = new System.Drawing.Size(191, 31);
+            this.GetMetarBtn.Size = new System.Drawing.Size(153, 25);
             this.GetMetarBtn.TabIndex = 0;
-            this.GetMetarBtn.Text = "Import METAR";
+            this.GetMetarBtn.Text = "☀  Download METAR";
             this.GetMetarBtn.UseVisualStyleBackColor = false;
             // 
             // ViewMetarBtn
@@ -113,10 +113,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.ViewMetarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ViewMetarBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ViewMetarBtn.ForeColor = System.Drawing.Color.White;
-            this.ViewMetarBtn.Location = new System.Drawing.Point(289, 3);
-            this.ViewMetarBtn.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.ViewMetarBtn.Location = new System.Drawing.Point(231, 2);
+            this.ViewMetarBtn.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.ViewMetarBtn.Name = "ViewMetarBtn";
-            this.ViewMetarBtn.Size = new System.Drawing.Size(82, 31);
+            this.ViewMetarBtn.Size = new System.Drawing.Size(66, 25);
             this.ViewMetarBtn.TabIndex = 1;
             this.ViewMetarBtn.Text = "View";
             this.ViewMetarBtn.UseVisualStyleBackColor = false;
@@ -125,10 +125,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             // 
             this.picBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.picBox.Image = global::QSP.Properties.Resources.GreenLight;
-            this.picBox.Location = new System.Drawing.Point(231, 5);
-            this.picBox.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.picBox.Location = new System.Drawing.Point(185, 4);
+            this.picBox.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(27, 27);
+            this.picBox.Size = new System.Drawing.Size(22, 22);
             this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picBox.TabIndex = 43;
             this.picBox.TabStop = false;
@@ -143,12 +143,12 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.surfCondComboBox, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.Label105, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 147);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 122);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(393, 37);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(316, 31);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // surfCondComboBox
@@ -160,10 +160,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.surfCondComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.surfCondComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.surfCondComboBox.FormattingEnabled = true;
-            this.surfCondComboBox.Location = new System.Drawing.Point(141, 3);
-            this.surfCondComboBox.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.surfCondComboBox.Location = new System.Drawing.Point(114, 2);
+            this.surfCondComboBox.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.surfCondComboBox.Name = "surfCondComboBox";
-            this.surfCondComboBox.Size = new System.Drawing.Size(247, 31);
+            this.surfCondComboBox.Size = new System.Drawing.Size(198, 27);
             this.surfCondComboBox.TabIndex = 0;
             // 
             // Label105
@@ -171,10 +171,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.Label105.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label105.AutoSize = true;
             this.Label105.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label105.Location = new System.Drawing.Point(15, 7);
-            this.Label105.Margin = new System.Windows.Forms.Padding(15, 0, 15, 0);
+            this.Label105.Location = new System.Drawing.Point(12, 6);
+            this.Label105.Margin = new System.Windows.Forms.Padding(12, 0, 12, 0);
             this.Label105.Name = "Label105";
-            this.Label105.Size = new System.Drawing.Size(106, 23);
+            this.Label105.Size = new System.Drawing.Size(86, 19);
             this.Label105.TabIndex = 11;
             this.Label105.Text = "RWY Surface";
             // 
@@ -199,14 +199,14 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.tableLayoutPanel1.Controls.Add(this.Label107, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.windDirTxtBox, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.Label106, 0, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 37);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 30);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(451, 110);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(365, 92);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // Label103
@@ -214,10 +214,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.Label103.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Label103.AutoSize = true;
             this.Label103.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label103.Location = new System.Drawing.Point(403, 6);
-            this.Label103.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.Label103.Location = new System.Drawing.Point(326, 5);
+            this.Label103.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.Label103.Name = "Label103";
-            this.Label103.Size = new System.Drawing.Size(38, 23);
+            this.Label103.Size = new System.Drawing.Size(31, 19);
             this.Label103.TabIndex = 36;
             this.Label103.Text = "KTS";
             // 
@@ -233,10 +233,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.pressUnitComboBox.Items.AddRange(new object[] {
             "hPa",
             "inHg"});
-            this.pressUnitComboBox.Location = new System.Drawing.Point(280, 76);
-            this.pressUnitComboBox.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.pressUnitComboBox.Location = new System.Drawing.Point(227, 63);
+            this.pressUnitComboBox.Margin = new System.Windows.Forms.Padding(12, 2, 12, 2);
             this.pressUnitComboBox.Name = "pressUnitComboBox";
-            this.pressUnitComboBox.Size = new System.Drawing.Size(98, 31);
+            this.pressUnitComboBox.Size = new System.Drawing.Size(79, 27);
             this.pressUnitComboBox.TabIndex = 5;
             this.pressUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.PressUnitComboBoxSelectedIndexChanged);
             // 
@@ -252,10 +252,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.tempUnitComboBox.Items.AddRange(new object[] {
             "°C",
             "°F"});
-            this.tempUnitComboBox.Location = new System.Drawing.Point(280, 39);
-            this.tempUnitComboBox.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.tempUnitComboBox.Location = new System.Drawing.Point(227, 32);
+            this.tempUnitComboBox.Margin = new System.Windows.Forms.Padding(12, 2, 12, 2);
             this.tempUnitComboBox.Name = "tempUnitComboBox";
-            this.tempUnitComboBox.Size = new System.Drawing.Size(98, 31);
+            this.tempUnitComboBox.Size = new System.Drawing.Size(79, 27);
             this.tempUnitComboBox.TabIndex = 3;
             this.tempUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.TempUnitComboBoxSelectedIndexChanged);
             // 
@@ -263,10 +263,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             // 
             this.windSpdTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.windSpdTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.windSpdTxtBox.Location = new System.Drawing.Point(280, 3);
-            this.windSpdTxtBox.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.windSpdTxtBox.Location = new System.Drawing.Point(227, 2);
+            this.windSpdTxtBox.Margin = new System.Windows.Forms.Padding(12, 2, 12, 2);
             this.windSpdTxtBox.Name = "windSpdTxtBox";
-            this.windSpdTxtBox.Size = new System.Drawing.Size(98, 30);
+            this.windSpdTxtBox.Size = new System.Drawing.Size(79, 26);
             this.windSpdTxtBox.TabIndex = 1;
             this.windSpdTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -275,10 +275,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.Label108.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label108.AutoSize = true;
             this.Label108.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label108.Location = new System.Drawing.Point(15, 6);
-            this.Label108.Margin = new System.Windows.Forms.Padding(15, 0, 15, 0);
+            this.Label108.Location = new System.Drawing.Point(12, 5);
+            this.Label108.Margin = new System.Windows.Forms.Padding(12, 0, 12, 0);
             this.Label108.Name = "Label108";
-            this.Label108.Size = new System.Drawing.Size(50, 23);
+            this.Label108.Size = new System.Drawing.Size(41, 19);
             this.Label108.TabIndex = 8;
             this.Label108.Text = "Wind";
             // 
@@ -286,10 +286,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             // 
             this.pressTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pressTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pressTxtBox.Location = new System.Drawing.Point(119, 76);
-            this.pressTxtBox.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.pressTxtBox.Location = new System.Drawing.Point(97, 63);
+            this.pressTxtBox.Margin = new System.Windows.Forms.Padding(12, 2, 12, 2);
             this.pressTxtBox.Name = "pressTxtBox";
-            this.pressTxtBox.Size = new System.Drawing.Size(98, 30);
+            this.pressTxtBox.Size = new System.Drawing.Size(79, 26);
             this.pressTxtBox.TabIndex = 4;
             this.pressTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -298,10 +298,9 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.Label104.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Label104.AutoSize = true;
             this.Label104.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label104.Location = new System.Drawing.Point(236, 6);
-            this.Label104.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label104.Location = new System.Drawing.Point(191, 5);
             this.Label104.Name = "Label104";
-            this.Label104.Size = new System.Drawing.Size(25, 23);
+            this.Label104.Size = new System.Drawing.Size(21, 19);
             this.Label104.TabIndex = 8;
             this.Label104.Text = "at";
             // 
@@ -309,10 +308,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             // 
             this.oatTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.oatTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.oatTxtBox.Location = new System.Drawing.Point(119, 39);
-            this.oatTxtBox.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.oatTxtBox.Location = new System.Drawing.Point(97, 32);
+            this.oatTxtBox.Margin = new System.Windows.Forms.Padding(12, 2, 12, 2);
             this.oatTxtBox.Name = "oatTxtBox";
-            this.oatTxtBox.Size = new System.Drawing.Size(98, 30);
+            this.oatTxtBox.Size = new System.Drawing.Size(79, 26);
             this.oatTxtBox.TabIndex = 2;
             this.oatTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -321,10 +320,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.Label107.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label107.AutoSize = true;
             this.Label107.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label107.Location = new System.Drawing.Point(15, 43);
-            this.Label107.Margin = new System.Windows.Forms.Padding(15, 0, 15, 0);
+            this.Label107.Location = new System.Drawing.Point(12, 36);
+            this.Label107.Margin = new System.Windows.Forms.Padding(12, 0, 12, 0);
             this.Label107.Name = "Label107";
-            this.Label107.Size = new System.Drawing.Size(43, 23);
+            this.Label107.Size = new System.Drawing.Size(35, 19);
             this.Label107.TabIndex = 9;
             this.Label107.Text = "OAT";
             // 
@@ -332,10 +331,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             // 
             this.windDirTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.windDirTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.windDirTxtBox.Location = new System.Drawing.Point(119, 3);
-            this.windDirTxtBox.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.windDirTxtBox.Location = new System.Drawing.Point(97, 2);
+            this.windDirTxtBox.Margin = new System.Windows.Forms.Padding(12, 2, 12, 2);
             this.windDirTxtBox.Name = "windDirTxtBox";
-            this.windDirTxtBox.Size = new System.Drawing.Size(98, 30);
+            this.windDirTxtBox.Size = new System.Drawing.Size(79, 26);
             this.windDirTxtBox.TabIndex = 0;
             this.windDirTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -344,24 +343,25 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common
             this.Label106.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label106.AutoSize = true;
             this.Label106.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label106.Location = new System.Drawing.Point(15, 80);
-            this.Label106.Margin = new System.Windows.Forms.Padding(15, 0, 15, 0);
+            this.Label106.Location = new System.Drawing.Point(12, 67);
+            this.Label106.Margin = new System.Windows.Forms.Padding(12, 0, 12, 0);
             this.Label106.Name = "Label106";
-            this.Label106.Size = new System.Drawing.Size(74, 23);
+            this.Label106.Size = new System.Drawing.Size(61, 19);
             this.Label106.TabIndex = 10;
             this.Label106.Text = "Pressure";
             // 
             // WeatherInfoControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Controls.Add(this.tableLayoutPanel);
             this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "WeatherInfoControl";
-            this.Size = new System.Drawing.Size(451, 184);
+            this.Size = new System.Drawing.Size(365, 153);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);

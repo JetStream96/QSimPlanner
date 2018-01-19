@@ -50,7 +50,7 @@
             this.tableLayoutPanel7.RowCount = 2;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(684, 395);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(513, 321);
             this.tableLayoutPanel7.TabIndex = 3;
             // 
             // panel1
@@ -61,7 +61,7 @@
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(678, 52);
+            this.panel1.Size = new System.Drawing.Size(508, 42);
             this.panel1.TabIndex = 1;
             // 
             // destIcaoLbl
@@ -69,10 +69,10 @@
             this.destIcaoLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.destIcaoLbl.AutoSize = true;
             this.destIcaoLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.destIcaoLbl.Location = new System.Drawing.Point(2, 12);
+            this.destIcaoLbl.Location = new System.Drawing.Point(2, 10);
             this.destIcaoLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.destIcaoLbl.Name = "destIcaoLbl";
-            this.destIcaoLbl.Size = new System.Drawing.Size(151, 23);
+            this.destIcaoLbl.Size = new System.Drawing.Size(122, 19);
             this.destIcaoLbl.TabIndex = 0;
             this.destIcaoLbl.Text = "Destination : RCTP";
             // 
@@ -81,10 +81,10 @@
             this.updateDesForcastBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateDesForcastBtn.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updateDesForcastBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.updateDesForcastBtn.Location = new System.Drawing.Point(564, 2);
+            this.updateDesForcastBtn.Location = new System.Drawing.Point(423, 2);
             this.updateDesForcastBtn.Margin = new System.Windows.Forms.Padding(2);
             this.updateDesForcastBtn.Name = "updateDesForcastBtn";
-            this.updateDesForcastBtn.Size = new System.Drawing.Size(111, 41);
+            this.updateDesForcastBtn.Size = new System.Drawing.Size(83, 33);
             this.updateDesForcastBtn.TabIndex = 80;
             this.updateDesForcastBtn.Text = "Refresh";
             this.updateDesForcastBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -95,10 +95,10 @@
             this.lastUpdatedLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lastUpdatedLbl.AutoSize = true;
             this.lastUpdatedLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lastUpdatedLbl.Location = new System.Drawing.Point(232, 12);
+            this.lastUpdatedLbl.Location = new System.Drawing.Point(174, 10);
             this.lastUpdatedLbl.Margin = new System.Windows.Forms.Padding(2);
             this.lastUpdatedLbl.Name = "lastUpdatedLbl";
-            this.lastUpdatedLbl.Size = new System.Drawing.Size(290, 23);
+            this.lastUpdatedLbl.Size = new System.Drawing.Size(243, 19);
             this.lastUpdatedLbl.TabIndex = 81;
             this.lastUpdatedLbl.Text = "Last Updated : 7/18/2016 6:55:48 PM";
             // 
@@ -106,23 +106,25 @@
             // 
             this.desForcastRichTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.desForcastRichTxtBox.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.desForcastRichTxtBox.Location = new System.Drawing.Point(2, 58);
+            this.desForcastRichTxtBox.Location = new System.Drawing.Point(2, 48);
             this.desForcastRichTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.desForcastRichTxtBox.Name = "desForcastRichTxtBox";
-            this.desForcastRichTxtBox.Size = new System.Drawing.Size(680, 335);
+            this.desForcastRichTxtBox.Size = new System.Drawing.Size(509, 271);
             this.desForcastRichTxtBox.TabIndex = 1;
             this.desForcastRichTxtBox.Text = "";
             // 
             // DescentForcastControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Controls.Add(this.tableLayoutPanel7);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "DescentForcastControl";
-            this.Size = new System.Drawing.Size(686, 397);
+            this.Size = new System.Drawing.Size(515, 323);
+            this.Load += new System.EventHandler(this.DescentForcastControl_Load);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

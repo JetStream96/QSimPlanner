@@ -46,7 +46,7 @@
             this.outerLayoutPanel.Controls.Add(this.addRemoveAltnBtnLayoutPanel, 0, 1);
             this.outerLayoutPanel.Controls.Add(this.layoutPanel, 0, 0);
             this.outerLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.outerLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.outerLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.outerLayoutPanel.Name = "outerLayoutPanel";
             this.outerLayoutPanel.RowCount = 2;
             this.outerLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -64,7 +64,7 @@
             this.addRemoveAltnBtnLayoutPanel.Controls.Add(this.addAltnBtn, 0, 0);
             this.addRemoveAltnBtnLayoutPanel.Controls.Add(this.removeAltnBtn, 1, 0);
             this.addRemoveAltnBtnLayoutPanel.Location = new System.Drawing.Point(2, 6);
-            this.addRemoveAltnBtnLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addRemoveAltnBtnLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.addRemoveAltnBtnLayoutPanel.Name = "addRemoveAltnBtnLayoutPanel";
             this.addRemoveAltnBtnLayoutPanel.RowCount = 1;
             this.addRemoveAltnBtnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -112,7 +112,7 @@
             this.layoutPanel.ColumnCount = 1;
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.layoutPanel.Location = new System.Drawing.Point(2, 2);
-            this.layoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.layoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.layoutPanel.Name = "layoutPanel";
             this.layoutPanel.RowCount = 1;
             this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));

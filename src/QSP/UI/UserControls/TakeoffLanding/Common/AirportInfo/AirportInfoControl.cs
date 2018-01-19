@@ -37,7 +37,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             lengthUnitComboBox.Items.AddRange(new[] { "M", "FT" });
             lengthUnitComboBox.SelectedIndex = 0; // Meter
 
-            reqAirportBtn.SetToolTip("Use airport and runway from 'Fuel' page.");
+            reqAirportBtn.SetToolTip("Request airport and runway from 'Fuel' page.");
         }
 
         private void UpdateSlopeItems()

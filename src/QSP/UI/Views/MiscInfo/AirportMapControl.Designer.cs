@@ -41,7 +41,7 @@
             this.updateBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.icaoComboBox = new ComboBoxWithBorder();
+            this.icaoComboBox = new QSP.UI.Views.ComboBoxWithBorder();
             ((System.ComponentModel.ISupportInitialize)(this.airportDataGrid)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -259,6 +259,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AirportMapControl";
             this.Size = new System.Drawing.Size(850, 216);
+            this.Load += new System.EventHandler(this.AirportMapControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.airportDataGrid)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

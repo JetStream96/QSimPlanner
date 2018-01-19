@@ -314,5 +314,10 @@ namespace QSP.UI.Views.MiscInfo
         {
             picBox.LoadAsync(StaticMap.GetMapUrl(lat, lon, picBox.Width, picBox.Height));
         }
+
+        private void AirportMapControl_Load(object sender, EventArgs e)
+        {
+            if (icaoComboBox.Items.Count > 0) icaoComboBox.SelectedIndex = 0;
+        }
     }
 }

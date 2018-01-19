@@ -81,5 +81,10 @@ namespace QSP.UI.Views.MiscInfo
             await presenter.UpdateAllMetarTaf();
             downloadAllBtn.Enabled = true;
         }
+
+        private void MetarViewer_Load(object sender, EventArgs e)
+        {
+            UpdateAllMetarTaf();
+        }
     }
 }

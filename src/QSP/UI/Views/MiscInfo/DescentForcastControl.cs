@@ -36,5 +36,10 @@ namespace QSP.UI.Views.MiscInfo
 
             updateDesForcastBtn.Click += (s, e) => presenter.UpdateForcast();
         }
+
+        private void DescentForcastControl_Load(object sender, System.EventArgs e)
+        {
+            presenter.UpdateForcast();
+        }
     }
 }

@@ -31,13 +31,13 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lengthUnitComboBox = new ComboBoxWithBorder();
-            this.slopeComboBox = new ComboBoxWithBorder();
+            this.lengthUnitComboBox = new QSP.UI.Views.ComboBoxWithBorder();
+            this.slopeComboBox = new QSP.UI.Views.ComboBoxWithBorder();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.Label92 = new System.Windows.Forms.Label();
             this.reqAirportBtn = new System.Windows.Forms.Button();
             this.Label91 = new System.Windows.Forms.Label();
-            this.rwyComboBox = new ComboBoxWithBorder();
+            this.rwyComboBox = new QSP.UI.Views.ComboBoxWithBorder();
             this.Label89 = new System.Windows.Forms.Label();
             this.Label94 = new System.Windows.Forms.Label();
             this.Label88 = new System.Windows.Forms.Label();
@@ -87,7 +87,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(456, 222);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(366, 186);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // lengthUnitComboBox
@@ -102,10 +102,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.lengthUnitComboBox.Items.AddRange(new object[] {
             "M",
             "FT"});
-            this.lengthUnitComboBox.Location = new System.Drawing.Point(265, 77);
+            this.lengthUnitComboBox.Location = new System.Drawing.Point(214, 64);
             this.lengthUnitComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.lengthUnitComboBox.Name = "lengthUnitComboBox";
-            this.lengthUnitComboBox.Size = new System.Drawing.Size(93, 31);
+            this.lengthUnitComboBox.Size = new System.Drawing.Size(75, 27);
             this.lengthUnitComboBox.TabIndex = 4;
             this.lengthUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.LengthUnitSelectedChanged);
             // 
@@ -118,10 +118,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.slopeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.slopeComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.slopeComboBox.FormattingEnabled = true;
-            this.slopeComboBox.Location = new System.Drawing.Point(167, 188);
-            this.slopeComboBox.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.slopeComboBox.Location = new System.Drawing.Point(135, 157);
+            this.slopeComboBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.slopeComboBox.Name = "slopeComboBox";
-            this.slopeComboBox.Size = new System.Drawing.Size(93, 31);
+            this.slopeComboBox.Size = new System.Drawing.Size(75, 27);
             this.slopeComboBox.TabIndex = 8;
             // 
             // tableLayoutPanel2
@@ -134,12 +134,12 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.Label92, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.reqAirportBtn, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(10, 0);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(8, 0);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(8, 0, 16, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(132, 37);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(107, 31);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // Label92
@@ -147,10 +147,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.Label92.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label92.AutoSize = true;
             this.Label92.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label92.Location = new System.Drawing.Point(0, 7);
-            this.Label92.Margin = new System.Windows.Forms.Padding(0, 7, 5, 7);
+            this.Label92.Location = new System.Drawing.Point(0, 6);
+            this.Label92.Margin = new System.Windows.Forms.Padding(0, 6, 4, 6);
             this.Label92.Name = "Label92";
-            this.Label92.Size = new System.Drawing.Size(63, 23);
+            this.Label92.Size = new System.Drawing.Size(52, 19);
             this.Label92.TabIndex = 22;
             this.Label92.Text = "Airport";
             // 
@@ -160,12 +160,12 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.reqAirportBtn.BackColor = System.Drawing.SystemColors.Control;
             this.reqAirportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.reqAirportBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reqAirportBtn.Location = new System.Drawing.Point(68, 2);
+            this.reqAirportBtn.Location = new System.Drawing.Point(56, 2);
             this.reqAirportBtn.Margin = new System.Windows.Forms.Padding(0);
             this.reqAirportBtn.Name = "reqAirportBtn";
-            this.reqAirportBtn.Size = new System.Drawing.Size(64, 32);
+            this.reqAirportBtn.Size = new System.Drawing.Size(51, 26);
             this.reqAirportBtn.TabIndex = 0;
-            this.reqAirportBtn.Text = "Req";
+            this.reqAirportBtn.Text = "Req.";
             this.reqAirportBtn.UseVisualStyleBackColor = false;
             this.reqAirportBtn.Visible = false;
             // 
@@ -174,10 +174,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.Label91.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label91.AutoSize = true;
             this.Label91.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label91.Location = new System.Drawing.Point(10, 44);
-            this.Label91.Margin = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.Label91.Location = new System.Drawing.Point(8, 37);
+            this.Label91.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.Label91.Name = "Label91";
-            this.Label91.Size = new System.Drawing.Size(45, 23);
+            this.Label91.Size = new System.Drawing.Size(38, 19);
             this.Label91.TabIndex = 24;
             this.Label91.Text = "RWY";
             // 
@@ -191,10 +191,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.rwyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rwyComboBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rwyComboBox.FormattingEnabled = true;
-            this.rwyComboBox.Location = new System.Drawing.Point(167, 40);
-            this.rwyComboBox.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.rwyComboBox.Location = new System.Drawing.Point(135, 33);
+            this.rwyComboBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.rwyComboBox.Name = "rwyComboBox";
-            this.rwyComboBox.Size = new System.Drawing.Size(93, 31);
+            this.rwyComboBox.Size = new System.Drawing.Size(75, 27);
             this.rwyComboBox.TabIndex = 2;
             this.rwyComboBox.SelectedIndexChanged += new System.EventHandler(this.RwyComboBoxIndexChanged);
             // 
@@ -203,10 +203,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.Label89.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label89.AutoSize = true;
             this.Label89.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label89.Location = new System.Drawing.Point(270, 192);
-            this.Label89.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Label89.Location = new System.Drawing.Point(218, 161);
+            this.Label89.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label89.Name = "Label89";
-            this.Label89.Size = new System.Drawing.Size(24, 23);
+            this.Label89.Size = new System.Drawing.Size(20, 19);
             this.Label89.TabIndex = 9;
             this.Label89.Text = "%";
             // 
@@ -215,10 +215,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.Label94.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label94.AutoSize = true;
             this.Label94.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label94.Location = new System.Drawing.Point(10, 81);
-            this.Label94.Margin = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.Label94.Location = new System.Drawing.Point(8, 68);
+            this.Label94.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.Label94.Name = "Label94";
-            this.Label94.Size = new System.Drawing.Size(136, 23);
+            this.Label94.Size = new System.Drawing.Size(110, 19);
             this.Label94.TabIndex = 19;
             this.Label94.Text = "Available Length";
             // 
@@ -227,10 +227,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.Label88.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label88.AutoSize = true;
             this.Label88.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label88.Location = new System.Drawing.Point(10, 118);
-            this.Label88.Margin = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.Label88.Location = new System.Drawing.Point(8, 99);
+            this.Label88.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.Label88.Name = "Label88";
-            this.Label88.Size = new System.Drawing.Size(79, 23);
+            this.Label88.Size = new System.Drawing.Size(64, 19);
             this.Label88.TabIndex = 30;
             this.Label88.Text = "Elevation";
             // 
@@ -239,10 +239,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.Label93.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label93.AutoSize = true;
             this.Label93.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label93.Location = new System.Drawing.Point(10, 155);
-            this.Label93.Margin = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.Label93.Location = new System.Drawing.Point(8, 130);
+            this.Label93.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.Label93.Name = "Label93";
-            this.Label93.Size = new System.Drawing.Size(74, 23);
+            this.Label93.Size = new System.Drawing.Size(60, 19);
             this.Label93.TabIndex = 20;
             this.Label93.Text = "Heading";
             // 
@@ -251,10 +251,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.Label90.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label90.AutoSize = true;
             this.Label90.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label90.Location = new System.Drawing.Point(10, 192);
-            this.Label90.Margin = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.Label90.Location = new System.Drawing.Point(8, 161);
+            this.Label90.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.Label90.Name = "Label90";
-            this.Label90.Size = new System.Drawing.Size(52, 23);
+            this.Label90.Size = new System.Drawing.Size(42, 19);
             this.Label90.TabIndex = 26;
             this.Label90.Text = "Slope";
             // 
@@ -263,10 +263,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.airportTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.airportTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.airportTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.airportTxtBox.Location = new System.Drawing.Point(167, 3);
-            this.airportTxtBox.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.airportTxtBox.Location = new System.Drawing.Point(135, 2);
+            this.airportTxtBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.airportTxtBox.Name = "airportTxtBox";
-            this.airportTxtBox.Size = new System.Drawing.Size(93, 30);
+            this.airportTxtBox.Size = new System.Drawing.Size(75, 26);
             this.airportTxtBox.TabIndex = 1;
             this.airportTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.airportTxtBox.TextChanged += new System.EventHandler(this.AirportTxtBoxTextChanged);
@@ -275,10 +275,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             // 
             this.elevationTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.elevationTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.elevationTxtBox.Location = new System.Drawing.Point(167, 114);
-            this.elevationTxtBox.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.elevationTxtBox.Location = new System.Drawing.Point(135, 95);
+            this.elevationTxtBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.elevationTxtBox.Name = "elevationTxtBox";
-            this.elevationTxtBox.Size = new System.Drawing.Size(93, 30);
+            this.elevationTxtBox.Size = new System.Drawing.Size(75, 26);
             this.elevationTxtBox.TabIndex = 5;
             this.elevationTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -286,10 +286,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             // 
             this.rwyHeadingTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rwyHeadingTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rwyHeadingTxtBox.Location = new System.Drawing.Point(167, 151);
-            this.rwyHeadingTxtBox.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.rwyHeadingTxtBox.Location = new System.Drawing.Point(135, 126);
+            this.rwyHeadingTxtBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.rwyHeadingTxtBox.Name = "rwyHeadingTxtBox";
-            this.rwyHeadingTxtBox.Size = new System.Drawing.Size(93, 30);
+            this.rwyHeadingTxtBox.Size = new System.Drawing.Size(75, 26);
             this.rwyHeadingTxtBox.TabIndex = 7;
             this.rwyHeadingTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -297,10 +297,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             // 
             this.lengthTxtBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lengthTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lengthTxtBox.Location = new System.Drawing.Point(167, 77);
-            this.lengthTxtBox.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lengthTxtBox.Location = new System.Drawing.Point(135, 64);
+            this.lengthTxtBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lengthTxtBox.Name = "lengthTxtBox";
-            this.lengthTxtBox.Size = new System.Drawing.Size(93, 30);
+            this.lengthTxtBox.Size = new System.Drawing.Size(75, 26);
             this.lengthTxtBox.TabIndex = 3;
             this.lengthTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -308,9 +308,10 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             // 
             this.airportNameLbl.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.airportNameLbl.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.airportNameLbl.Location = new System.Drawing.Point(268, 9);
+            this.airportNameLbl.Location = new System.Drawing.Point(216, 8);
+            this.airportNameLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.airportNameLbl.Name = "airportNameLbl";
-            this.airportNameLbl.Size = new System.Drawing.Size(185, 19);
+            this.airportNameLbl.Size = new System.Drawing.Size(148, 15);
             this.airportNameLbl.TabIndex = 34;
             this.airportNameLbl.Text = "   TAIWAN TAOYUAN INTL   ";
             // 
@@ -319,24 +320,25 @@ namespace QSP.UI.UserControls.TakeoffLanding.Common.AirportInfo
             this.Label87.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Label87.AutoSize = true;
             this.Label87.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label87.Location = new System.Drawing.Point(270, 118);
-            this.Label87.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.Label87.Location = new System.Drawing.Point(218, 99);
+            this.Label87.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Label87.Name = "Label87";
-            this.Label87.Size = new System.Drawing.Size(27, 23);
+            this.Label87.Size = new System.Drawing.Size(23, 19);
             this.Label87.TabIndex = 6;
             this.Label87.Text = "FT";
             // 
             // AirportInfoControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "AirportInfoControl";
-            this.Size = new System.Drawing.Size(456, 222);
+            this.Size = new System.Drawing.Size(366, 186);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);

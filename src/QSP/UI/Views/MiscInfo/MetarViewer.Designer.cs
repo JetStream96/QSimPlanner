@@ -171,6 +171,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MetarViewer";
             this.Size = new System.Drawing.Size(862, 90);
+            this.Load += new System.EventHandler(this.MetarViewer_Load);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
