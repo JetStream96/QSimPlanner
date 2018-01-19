@@ -89,7 +89,7 @@
       <HintPath>Libraries\MinMaxHeap.dll</HintPath>
     </Reference>
     <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.8.0\lib\net45\Moq.dll</HintPath>
+      <HintPath>..\packages\Moq.4.8.1\lib\net45\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -811,6 +811,7 @@
     <Content Include="PerformanceData\TO\Default\7878_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\processing.png" />
     <Content Include="updater.xml">
