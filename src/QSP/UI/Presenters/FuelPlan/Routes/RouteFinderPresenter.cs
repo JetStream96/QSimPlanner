@@ -38,6 +38,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             {
                 Route = ToRouteGroup(FindRoutePrivate());
                 ShowRouteTxt();
+                view.RouteIsValid = true;
             }
             catch (Exception e)
             {
@@ -208,6 +209,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
 
                 Route = ToRouteGroup(result);
                 ShowRouteTxt();
+                view.RouteIsValid = true;
             }
             catch (Exception ex)
             {
@@ -223,6 +225,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
         {
             view.OrigRow.OnNavDataChange();
             view.DestRow.OnNavDataChange();
+            view.RouteIsValid = false;
             Route = null;
         }
     }

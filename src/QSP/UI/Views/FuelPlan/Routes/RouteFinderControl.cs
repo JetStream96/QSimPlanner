@@ -29,6 +29,8 @@ namespace QSP.UI.Views.FuelPlan.Routes
         private ActionContextMenu actionMenu;
         private RouteOptionContextMenu optionMenu;
 
+        private bool userEditingRoute = true;
+
         public RouteFinderControl()
         {
             InitializeComponent();
@@ -91,7 +93,17 @@ namespace QSP.UI.Views.FuelPlan.Routes
         }
 
         public string DistanceInfo { set => routeSummaryLbl.Text = value; }
-        public string Route { get => routeRichTxtBox.Text; set => routeRichTxtBox.Text = value; }
+
+        public string Route
+        {
+            get => routeRichTxtBox.Text;
+            set
+            {
+                userEditingRoute = false;
+                routeRichTxtBox.Text = value;
+                userEditingRoute = true;
+            }
+        }
 
         public IRouteFinderRowView OrigRow => origRow;
         public IRouteFinderRowView DestRow => destRow;
@@ -110,16 +122,6 @@ namespace QSP.UI.Views.FuelPlan.Routes
 
         private void SetRouteActionMenu()
         {
-            var m = model.FuelPlanningModel;
-            var p = new ActionContextMenuPresenter(
-                this,
-                m.AppOption,
-                m.AirwayNetwork,
-                origRow.OptionControl.Presenter,
-                destRow.OptionControl.Presenter,
-                m.CheckedCountryCodes,
-                model.WindCalc);
-
             actionMenu = new ActionContextMenu();
             InitActionMenu();
 
@@ -166,5 +168,35 @@ namespace QSP.UI.Views.FuelPlan.Routes
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
 
         public void OnNavDataChange() => presenter.OnNavDataChange();
+
+        public bool RouteIsValid
+        {
+            set
+            {
+                // This flag is required here because editing the ForeColor of 
+                // RichTextBox triggers the TextChanged event as well.
+                userEditingRoute = false;
+
+                if (value)
+                {
+                    routeRichTxtBox.ForeColor = Color.DarkGreen;
+                    routeStatusLbl.ForeColor = Color.DarkGreen;
+                    routeStatusLbl.Text = "✓ This route is valid.";
+                }
+                else
+                {
+                    routeRichTxtBox.ForeColor = Color.Gray;
+                    routeStatusLbl.ForeColor = Color.Gray;
+                    routeStatusLbl.Text = "This route has not been analyzed.";
+                }
+
+                userEditingRoute = true;
+            }
+        }
+
+        private void routeRichTxtBox_TextChanged(object sender, EventArgs e)
+        {
+            if (userEditingRoute) RouteIsValid = false;
+        }
     }
 }

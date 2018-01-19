@@ -89,6 +89,7 @@
             this.RouteTxtBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.RouteTxtBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.RouteTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RouteTxtBox.ForeColor = System.Drawing.Color.Gray;
             this.RouteTxtBox.Location = new System.Drawing.Point(295, 4);
             this.RouteTxtBox.Margin = new System.Windows.Forms.Padding(2);
             this.RouteTxtBox.Name = "RouteTxtBox";

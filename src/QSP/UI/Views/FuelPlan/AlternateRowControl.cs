@@ -29,6 +29,11 @@ namespace QSP.UI.Views.FuelPlan
 
         public string Rwy { get => RwyComboBox.Text; set => RwyComboBox.Text = value; }
 
+        public bool RouteIsValid
+        {
+            set => RouteTxtBox.ForeColor = value ? Color.DarkGreen : Color.Gray;
+        }
+
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
 
         public void ShowMap(RouteFinding.Routes.Route route)

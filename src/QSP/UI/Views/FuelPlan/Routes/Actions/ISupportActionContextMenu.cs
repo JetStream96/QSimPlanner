@@ -12,5 +12,11 @@ namespace QSP.UI.Views.FuelPlan.Routes.Actions
 
         void ShowMap(Route route);
         void ShowMapBrowser(Route route);
+
+        /// <summary>
+        /// This should be set to true if the Route has been analyzed,
+        /// or the Route was generated.
+        /// </summary>
+        bool RouteIsValid { set; }
     }
 }
