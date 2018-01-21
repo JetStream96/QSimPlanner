@@ -23,13 +23,5 @@ namespace UnitTest.LibraryExtension
             var s = Task.Run(content.ReadAsStringAsync).Result;
             Assert.AreEqual("a+b+c=1+2&1%222=3", s);
         }
-
-        [Test]
-        public void UriIsHttpOrHttpsTest()
-        {
-            Assert.IsTrue(UriIsHttpOrHttps("http://google.com"));
-            Assert.IsTrue(UriIsHttpOrHttps("https://google.com"));
-            Assert.IsFalse(UriIsHttpOrHttps("file://path/file.txt"));
-        }
     }
 }

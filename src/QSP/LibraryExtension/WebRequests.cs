@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Cache;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,11 +58,45 @@ namespace QSP.LibraryExtension
             return Task.Run(content.ReadAsStringAsync).Result;
         }
 
-        public static bool UriIsHttpOrHttps(string uriName)
+        /// <summary>
+        /// Usage:
+        /// using (var wc = WebClientNoCache()) 
+        /// {
+        ///     ...
+        /// }
+        /// </summary>
+        public static WebClient WebClientNoCache()
         {
-            return Uri.TryCreate(uriName, UriKind.Absolute, out var uriResult) &&
-                   (uriResult.Scheme == Uri.UriSchemeHttp || 
-                   uriResult.Scheme == Uri.UriSchemeHttps);
+            return new WebClient()
+            {
+                CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
+            };
+        }
+
+        /// <summary>
+        /// Downloads the requested string at given uri. The returning result is 
+        /// not from cache.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        public static string DownloadString(string uri)
+        {
+            using (var wc = WebClientNoCache())
+            {
+                return wc.DownloadString(uri);
+            }
+        }
+
+        /// <summary>
+        /// Asynchronously Downloads the requested string at given uri. The returning result is 
+        /// not from cache.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        public static async Task<string> DownloadStringTaskAsync(string uri)
+        {
+            using (var wc = WebClientNoCache())
+            {
+                return await wc.DownloadStringTaskAsync(uri);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using static QSP.LibraryExtension.WebRequests;
 
 namespace QSP.Metar
 {
@@ -18,7 +19,7 @@ namespace QSP.Metar
         /// <exception cref="Exception"></exception>
         public static string GetMetar(string icao)
         {
-            using (var client = new WebClient())
+            using (var client = WebClientNoCache())
             {
                 return client.DownloadString(metarUrl + TrimIcao(icao) + ".TXT");
             }
@@ -30,7 +31,7 @@ namespace QSP.Metar
         /// <exception cref="Exception"></exception>
         public static string GetTaf(string icao)
         {
-            using (var client = new WebClient())
+            using (var client = WebClientNoCache())
             {
                 return client.DownloadString(tafUrl + TrimIcao(icao) + ".TXT");
             }

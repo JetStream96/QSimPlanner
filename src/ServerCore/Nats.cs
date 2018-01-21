@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Cache;
 
 namespace ServerCore
 {
@@ -22,8 +23,12 @@ namespace ServerCore
 
         private static List<IndividualNatsMessage> DownloadNats()
         {
-            var wc = new WebClient();
-            var str=wc.DownloadString("https://www.notams.faa.gov/common/nat.html?");
+            var wc = new WebClient()
+            {
+                CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
+            };
+
+            var str = wc.DownloadString("https://www.notams.faa.gov/common/nat.html?");
             return new MessageSplitter(str).Split();
         }
 

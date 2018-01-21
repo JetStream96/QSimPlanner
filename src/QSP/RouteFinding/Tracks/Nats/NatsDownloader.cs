@@ -1,20 +1,17 @@
-﻿using System;
+﻿using QSP.RouteFinding.Tracks.Common;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using QSP.RouteFinding.Tracks.Common;
+using static QSP.LibraryExtension.WebRequests;
 
 namespace QSP.RouteFinding.Tracks.Nats
 {
-    public sealed class NatsDownloader : ITrackMessageProvider, IDisposable
+    public sealed class NatsDownloader : ITrackMessageProvider
     {
         public static readonly string natsUrl = "https://www.notams.faa.gov/common/nat.html?";
         private static readonly string natsWest = "http://qsimplan.somee.com/nats/Westbound.xml";
         private static readonly string natsEast = "http://qsimplan.somee.com/nats/Eastbound.xml";
-
-        private WebClient client = new WebClient();
 
         public List<IndividualNatsMessage> DownloadFromNotam()
         {
@@ -35,11 +32,11 @@ namespace QSP.RouteFinding.Tracks.Nats
             return new Utilities.MessageSplitter(html).Split();
         }
 
-        private string GetNotamHtml() => client.DownloadString(natsUrl);
+        private string GetNotamHtml() => DownloadString(natsUrl);
 
         private async Task<string> GetNotamHtmlAsync()
         {
-            return await client.DownloadStringTaskAsync(natsUrl);
+            return await DownloadStringTaskAsync(natsUrl);
         }
 
         // Given the existing messages, returns the URLs of the missing NAT message(s).
@@ -66,7 +63,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         {
             var natMsg = DownloadFromNotam();
             var htmls = AdditionalDownloads(natMsg)
-                .Select(i => client.DownloadString(i));
+                .Select(i => DownloadString(i));
             var additional = htmls.Select(xml => new IndividualNatsMessage(XDocument.Parse(xml)));
 
             natMsg.AddRange(additional);
@@ -77,7 +74,7 @@ namespace QSP.RouteFinding.Tracks.Nats
         {
             var natMsg = await DownloadFromNotamAsync();
             var tasks = AdditionalDownloads(natMsg)
-                .Select(i => client.DownloadStringTaskAsync(i));
+                .Select(i => DownloadStringTaskAsync(i));
             var htmls = await Task.WhenAll(tasks);
             var additional = htmls.Select(xml => new IndividualNatsMessage(XDocument.Parse(xml)));
 
@@ -90,16 +87,6 @@ namespace QSP.RouteFinding.Tracks.Nats
             int westIndex = msgs[0].Direction == NatsDirection.West ? 0 : 1;
             int eastIndex = 1 - westIndex;
             return new NatsMessage(msgs[westIndex], msgs[eastIndex]);
-        }
-
-        public void Dispose()
-        {
-            client.Dispose();
-        }
-
-        ~NatsDownloader()
-        {
-            client.Dispose();
         }
     }
 }

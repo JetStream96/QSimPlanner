@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using static QSP.LibraryExtension.WebRequests;
 
 namespace QSP.WindAloft
 {
@@ -14,7 +15,7 @@ namespace QSP.WindAloft
         private string webPageUrl;
         private string webPageSrc;
 
-        // @Throws
+        /// <exception cref="Exception"></exception>
         public void DownloadGribFile(string filePath)
         {
             var x = LastestDataSetFinder.Find();
@@ -23,7 +24,7 @@ namespace QSP.WindAloft
 
             try
             {
-                using (var client = new WebClient())
+                using (var client = WebClientNoCache())
                 {
                     var dir = new FileInfo(filePath).DirectoryName;
                     Directory.CreateDirectory(dir);
@@ -76,7 +77,7 @@ namespace QSP.WindAloft
                 "toplat=90",
                 "bottomlat=-90"
             };
-            
+
             foreach (var i in Constants.FullWindDataSet)
             {
                 items.Add($"lev_{i}_mb=on");

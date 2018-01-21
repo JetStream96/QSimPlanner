@@ -10,6 +10,7 @@ using QSP.LibraryExtension.XmlSerialization;
 using static QSP.Utilities.LoggerInstance;
 using static QSP.Utilities.ExceptionHelpers;
 using static QSP.Updates.Utilities;
+using static QSP.LibraryExtension.WebRequests;
 
 namespace QSP.Updates
 {
@@ -111,7 +112,7 @@ namespace QSP.Updates
 
         private static string GetInfoFileContent()
         {
-            using (var client = new WebClient())
+            using (var client = WebClientNoCache())
             {
                 foreach (var i in FileUris())
                 {
@@ -138,7 +139,7 @@ namespace QSP.Updates
             var zipFilePath = info.Version + ".zip";
             var extractDir = Path.Combine("..", info.Version);
 
-            using (var client = new WebClient())
+            using (var client = WebClientNoCache())
             {
                 client.DownloadFile(info.Uri, zipFilePath);
             }

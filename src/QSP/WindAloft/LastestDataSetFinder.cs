@@ -2,6 +2,7 @@
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Linq;
+using static QSP.LibraryExtension.WebRequests;
 
 namespace QSP.WindAloft
 {
@@ -16,7 +17,7 @@ namespace QSP.WindAloft
         // @Throws
         public static FindResult Find()
         {
-            using (var client = new WebClient())
+            using (var client = WebClientNoCache())
             {
                 var mainPageSource = client.DownloadString(GribDownloader.HomePageUrl);
                 var urls = GetUrls(mainPageSource);

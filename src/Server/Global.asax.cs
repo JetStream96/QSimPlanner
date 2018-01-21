@@ -38,10 +38,7 @@ namespace TrackBackupApp
 
         private static List<IndividualNatsMessage> DownloadMessage()
         {
-            using (var downloader = new NatsDownloader())
-            {
-                return downloader.DownloadFromNotam();
-            }
+            return new NatsDownloader().DownloadFromNotam();
         }
 
         /// <exception cref="Exception"></exception>
