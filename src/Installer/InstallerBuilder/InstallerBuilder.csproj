@@ -53,7 +53,6 @@
     <Compile Include="InstallerCreator.cs" />
     <Compile Include="IOMethods.cs" />
     <Compile Include="LicenseTextGenerator.cs" />
-    <Compile Include="NavDataFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
