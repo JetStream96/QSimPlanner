@@ -1,12 +1,10 @@
-﻿using CommonLibrary.AviationTools;
-using CommonLibrary.LibraryExtension;
+﻿using CommonLibrary.LibraryExtension;
 using QSP.AircraftProfiles.Configs;
 using QSP.Common;
 using QSP.Common.Options;
 using QSP.FuelCalculation.Calculations;
 using QSP.FuelCalculation.FuelData;
 using QSP.FuelCalculation.Results;
-using QSP.Metar;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
 using QSP.RouteFinding.Routes;
@@ -27,7 +25,6 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QSP.AviationTools.Constants;
 using static QSP.MathTools.Numbers;
@@ -345,7 +342,7 @@ namespace QSP.UI.Views.FuelPlan
             }
 
             string outputText = fuelReport.ToString(WeightUnit);
-            fuelReportTxtBox.Text = "\n" + outputText.ShiftToRight(20);
+            fuelReportTxtBox.Text = "\n" + outputText.ShiftToRight(30);
 
             AircraftRequest = new AircraftRequest(
                 acListComboBox.Text,

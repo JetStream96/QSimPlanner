@@ -137,7 +137,7 @@ namespace QSP.UI.UserControls.TakeoffLanding.LandingPerf.FormControllers
                 var text = report.ToString((LengthUnit)elements.lengthUnit.SelectedIndex);
 
                 // To center the text in the richTxtBox
-                elements.result.Text = text.ShiftToRight(14);
+                elements.result.Text = text.ShiftToRight(15);
 
                 CalculationCompleted?.Invoke(this, EventArgs.Empty);
                 elements.result.ForeColor = Color.Black;
