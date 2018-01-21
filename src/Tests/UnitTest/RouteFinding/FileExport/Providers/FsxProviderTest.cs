@@ -1,4 +1,4 @@
-﻿using Moq;
+﻿using FakeItEasy;
 using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.RouteFinding.Airports;
@@ -87,13 +87,13 @@ namespace UnitTest.RouteFinding.FileExport.Providers
         private static IAirport GetAirport(string icao, string name,
             double lat, double lon, int elevation)
         {
-            var a = new Mock<IAirport>();
-            a.Setup(i => i.Icao).Returns(icao);
-            a.Setup(i => i.Name).Returns(name);
-            a.Setup(i => i.Lat).Returns(lat);
-            a.Setup(i => i.Lon).Returns(lon);
-            a.Setup(i => i.Elevation).Returns(elevation);
-            return a.Object;
+            var a = A.Fake<IAirport>();
+            A.CallTo(() => a.Icao).Returns(icao);
+            A.CallTo(() => a.Name).Returns(name);
+            A.CallTo(() => a.Lat).Returns(lat);
+            A.CallTo(() => a.Lon).Returns(lon);
+            A.CallTo(() => a.Elevation).Returns(elevation);
+            return a;
         }
 
         private static string GetIdent(XElement node)

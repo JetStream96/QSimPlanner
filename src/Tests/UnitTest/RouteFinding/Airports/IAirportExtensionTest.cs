@@ -1,6 +1,7 @@
-﻿using Moq;
+﻿using FakeItEasy;
 using NUnit.Framework;
 using QSP.RouteFinding.Airports;
+using static CommonLibrary.LibraryExtension.Types;
 using static QSP.RouteFinding.Airports.IAirportExtensions;
 
 namespace UnitTest.RouteFinding.Airports
@@ -11,48 +12,48 @@ namespace UnitTest.RouteFinding.Airports
         [Test]
         public void GetSlopePercentShouldComputeSlope()
         {
-            var rwy0 = new Mock<IRwyData>();
-            rwy0.Setup(r => r.RwyIdent).Returns("12");
-            rwy0.Setup(r => r.ElevationFt).Returns(-5);
-            rwy0.Setup(r => r.LengthFt).Returns(10000);
+            var rwy0 = A.Fake<IRwyData>();
+            A.CallTo(() => rwy0.RwyIdent).Returns("12");
+            A.CallTo(() => rwy0.ElevationFt).Returns(-5);
+            A.CallTo(() => rwy0.LengthFt).Returns(10000);
 
-            var rwy1 = new Mock<IRwyData>();
-            rwy1.Setup(r => r.RwyIdent).Returns("30");
-            rwy1.Setup(r => r.ElevationFt).Returns(-10);
-            rwy1.Setup(r => r.LengthFt).Returns(10000);
+            var rwy1 = A.Fake<IRwyData>();
+            A.CallTo(() => rwy1.RwyIdent).Returns("30");
+            A.CallTo(() => rwy1.ElevationFt).Returns(-10);
+            A.CallTo(() => rwy1.LengthFt).Returns(10000);
 
-            var airport = new Mock<IAirport>();
-            airport.Setup(a => a.Rwys).Returns(new[] { rwy0.Object, rwy1.Object });
+            var airport = A.Fake<IAirport>();
+            A.CallTo(() => airport.Rwys).Returns(List(rwy0, rwy1));
 
-            Assert.AreEqual(airport.Object.GetSlopePercent("30").Value, 5.0 / 10000.0 * 100, 0.0001);
+            Assert.AreEqual(airport.GetSlopePercent("30").Value, 5.0 / 10000.0 * 100, 0.0001);
 
-            var rwy2 = new Mock<IRwyData>();
-            rwy2.Setup(r => r.RwyIdent).Returns("33L");
-            rwy2.Setup(r => r.ElevationFt).Returns(10);
-            rwy2.Setup(r => r.LengthFt).Returns(10000);
+            var rwy2 = A.Fake<IRwyData>();
+            A.CallTo(() => rwy2.RwyIdent).Returns("33L");
+            A.CallTo(() => rwy2.ElevationFt).Returns(10);
+            A.CallTo(() => rwy2.LengthFt).Returns(10000);
         }
 
         [Test]
         public void GetSlopePercentCannotFindRunway()
         {
-            var airport = new Mock<IAirport>();
-            airport.Setup(a => a.Rwys).Returns(new IRwyData[0]);
+            var airport = A.Fake<IAirport>();
+            A.CallTo(() => airport.Rwys).Returns(new IRwyData[0]);
 
-            Assert.IsNull(airport.Object.GetSlopePercent("30"));
+            Assert.IsNull(airport.GetSlopePercent("30"));
         }
 
         [Test]
         public void GetSlopePercentCannotOppositeRunway()
         {
-            var rwy0 = new Mock<IRwyData>();
-            rwy0.Setup(r => r.RwyIdent).Returns("12");
-            rwy0.Setup(r => r.ElevationFt).Returns(-5);
-            rwy0.Setup(r => r.LengthFt).Returns(10000);
+            var rwy0 = A.Fake<IRwyData>();
+            A.CallTo(() => rwy0.RwyIdent).Returns("12");
+            A.CallTo(() => rwy0.ElevationFt).Returns(-5);
+            A.CallTo(() => rwy0.LengthFt).Returns(10000);
 
-            var airport = new Mock<IAirport>();
-            airport.Setup(a => a.Rwys).Returns(new[] { rwy0.Object });
+            var airport = A.Fake<IAirport>();
+            A.CallTo(() => airport.Rwys).Returns(List(rwy0));
 
-            Assert.IsNull(airport.Object.GetSlopePercent("12"));
+            Assert.IsNull(airport.GetSlopePercent("12"));
         }
     }
 }

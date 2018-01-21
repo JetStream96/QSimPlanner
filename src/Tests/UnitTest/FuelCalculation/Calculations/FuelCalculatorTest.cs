@@ -1,4 +1,4 @@
-﻿using Moq;
+﻿using FakeItEasy;
 using NUnit.Framework;
 using QSP.FuelCalculation;
 using QSP.FuelCalculation.Calculations;
@@ -62,14 +62,14 @@ namespace UnitTest.FuelCalculation.Calculations
         {
             get
             {
-                var mock = new Mock<IWindTableCollection>();
+                var table = A.Fake<IWindTableCollection>();
 
-                mock.Setup(t => t.GetWindUV(It.IsAny<double>(),
-                                            It.IsAny<double>(),
-                                            It.IsAny<double>()))
-                    .Returns(new WindUV(0.0, 0.0));
+                A.CallTo(() => table.GetWindUV(A<double>.Ignored,
+                                               A<double>.Ignored,
+                                               A<double>.Ignored))
+                 .Returns(new WindUV(0.0, 0.0));
 
-                return mock.Object;
+                return table;
             }
         }
 

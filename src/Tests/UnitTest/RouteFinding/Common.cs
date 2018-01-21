@@ -1,5 +1,5 @@
 ﻿using CommonLibrary.LibraryExtension;
-using Moq;
+using FakeItEasy;
 using QSP.LibraryExtension;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.AirwayStructure;
@@ -56,19 +56,19 @@ namespace UnitTest.RouteFinding
 
         public static IAirport GetAirport(string icao, params IRwyData[] rwys)
         {
-            var a = new Mock<IAirport>();
-            a.Setup(i => i.Icao).Returns(icao);
-            a.Setup(i => i.Rwys).Returns(rwys);
-            return a.Object;
+            var a = A.Fake<IAirport>();
+            A.CallTo(() => a.Icao).Returns(icao);
+            A.CallTo(() => a.Rwys).Returns(rwys);
+            return a;
         }
 
         public static IRwyData GetRwyData(string ident, double lat, double lon)
         {
-            var r = new Mock<IRwyData>();
-            r.Setup(i => i.RwyIdent).Returns(ident);
-            r.Setup(i => i.Lat).Returns(lat);
-            r.Setup(i => i.Lon).Returns(lon);
-            return r.Object;
+            var r = A.Fake<IRwyData>();
+            A.CallTo(() => r.RwyIdent).Returns(ident);
+            A.CallTo(() => r.Lat).Returns(lat);
+            A.CallTo(() => r.Lon).Returns(lon);
+            return r;
         }
 
         public static void AddNeighbor(this WaypointList wptList, int index1,

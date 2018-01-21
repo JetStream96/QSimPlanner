@@ -1,4 +1,4 @@
-﻿using Moq;
+﻿using FakeItEasy;
 using QSP.RouteFinding.Airports;
 
 namespace IntegrationTest.QSP.RouteFinding.TestSetup
@@ -7,9 +7,9 @@ namespace IntegrationTest.QSP.RouteFinding.TestSetup
     {
         public static IAirport GetAirport(string icao)
         {
-            var a = new Mock<IAirport>();
-            a.Setup(i => i.Icao).Returns(icao);
-            return a.Object;
+            var a = A.Fake<IAirport>();
+            A.CallTo(() => a.Icao).Returns(icao);
+            return a;
         }
     }
 }

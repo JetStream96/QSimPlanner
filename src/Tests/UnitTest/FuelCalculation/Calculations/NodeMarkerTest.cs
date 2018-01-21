@@ -1,4 +1,4 @@
-﻿using Moq;
+﻿using FakeItEasy;
 using NUnit.Framework;
 using QSP.AviationTools.Coordinates;
 using QSP.FuelCalculation.Calculations;
@@ -72,10 +72,10 @@ namespace UnitTest.FuelCalculation.Calculations
         private static IPlanNode GetNode(double alt, double lat, double lon)
         {
             var val = new IntermediateNode(new LatLon(lat, lon));
-            var mock = new Mock<IPlanNode>();
-            mock.Setup(n => n.NodeValue).Returns(val);
-            mock.Setup(n => n.Alt).Returns(alt);
-            return mock.Object;
+            var node = A.Fake<IPlanNode>();
+            A.CallTo(() => node.NodeValue).Returns(val);
+            A.CallTo(() => node.Alt).Returns(alt);
+            return node;
         }
     }
 }

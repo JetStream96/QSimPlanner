@@ -1,4 +1,4 @@
-﻿using Moq;
+﻿using FakeItEasy;
 using NUnit.Framework;
 using QSP.FuelCalculation.Calculations;
 using QSP.MathTools;
@@ -81,10 +81,10 @@ namespace UnitTest.FuelCalculation.Calculations
 
         private static IAirport GetAirport(string icao, int alt)
         {
-            var mock = new Mock<IAirport>();
-            mock.Setup(i => i.Icao).Returns(icao);
-            mock.Setup(i => i.Elevation).Returns(alt);
-            return mock.Object;
+            var airport = A.Fake<IAirport>();
+            A.CallTo(() => airport.Icao).Returns(icao);
+            A.CallTo(() => airport.Elevation).Returns(alt);
+            return airport;
         }
 
         public class WindCollectionStub : IWindTableCollection
