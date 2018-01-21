@@ -56,7 +56,7 @@
             this.routeRichTxtBox.MinimumSize = new System.Drawing.Size(4, 81);
             this.routeRichTxtBox.Name = "routeRichTxtBox";
             this.routeRichTxtBox.Size = new System.Drawing.Size(797, 81);
-            this.routeRichTxtBox.TabIndex = 14;
+            this.routeRichTxtBox.TabIndex = 2;
             this.routeRichTxtBox.Text = "";
             this.routeRichTxtBox.TextChanged += new System.EventHandler(this.routeRichTxtBox_TextChanged);
             // 
@@ -96,7 +96,7 @@
             this.routeOptionBtn.Margin = new System.Windows.Forms.Padding(2);
             this.routeOptionBtn.Name = "routeOptionBtn";
             this.routeOptionBtn.Size = new System.Drawing.Size(70, 31);
-            this.routeOptionBtn.TabIndex = 12;
+            this.routeOptionBtn.TabIndex = 0;
             this.routeOptionBtn.Text = "Options";
             this.routeOptionBtn.UseVisualStyleBackColor = false;
             // 
@@ -113,7 +113,7 @@
             this.showRouteActionsBtn.Margin = new System.Windows.Forms.Padding(2);
             this.showRouteActionsBtn.Name = "showRouteActionsBtn";
             this.showRouteActionsBtn.Size = new System.Drawing.Size(136, 31);
-            this.showRouteActionsBtn.TabIndex = 13;
+            this.showRouteActionsBtn.TabIndex = 1;
             this.showRouteActionsBtn.Text = "Select an action  ▼";
             this.showRouteActionsBtn.UseVisualStyleBackColor = false;
             // 
@@ -132,7 +132,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(795, 134);
-            this.tableLayoutPanel1.TabIndex = 29;
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // origRow
             // 
@@ -172,7 +172,7 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(214, 35);
-            this.tableLayoutPanel2.TabIndex = 30;
+            this.tableLayoutPanel2.TabIndex = 1;
             // 
             // tableLayoutPanel4
             // 
@@ -196,7 +196,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(801, 320);
-            this.tableLayoutPanel4.TabIndex = 32;
+            this.tableLayoutPanel4.TabIndex = 0;
             // 
             // routeStatusLbl
             // 

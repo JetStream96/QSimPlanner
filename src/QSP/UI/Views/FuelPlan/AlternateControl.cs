@@ -39,6 +39,7 @@ namespace QSP.UI.Views.FuelPlan
         {
             var v = new AlternateRowControl();
             var p = presenter.GetRowPresenter(v);
+            v.TabIndex = 0;
             v.Init(p);
             v.AddToLayoutPanel(layoutPanel);
             presenter.SubsribeRowEventHandlers(v);

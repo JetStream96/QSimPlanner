@@ -69,7 +69,7 @@
             this.addRemoveAltnBtnLayoutPanel.RowCount = 1;
             this.addRemoveAltnBtnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.addRemoveAltnBtnLayoutPanel.Size = new System.Drawing.Size(124, 31);
-            this.addRemoveAltnBtnLayoutPanel.TabIndex = 76;
+            this.addRemoveAltnBtnLayoutPanel.TabIndex = 1;
             // 
             // addAltnBtn
             // 
@@ -117,7 +117,7 @@
             this.layoutPanel.RowCount = 1;
             this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.layoutPanel.Size = new System.Drawing.Size(0, 0);
-            this.layoutPanel.TabIndex = 77;
+            this.layoutPanel.TabIndex = 0;
             // 
             // AlternateControl
             // 
