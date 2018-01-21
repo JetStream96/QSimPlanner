@@ -178,13 +178,14 @@ namespace QSP.UI.Views.FuelPlan.Routes
                 userEditingRoute = false;
 
                 if (value)
-                {
+                {                    
                     routeRichTxtBox.ForeColor = Color.DarkGreen;
                     routeStatusLbl.ForeColor = Color.DarkGreen;
                     routeStatusLbl.Text = "✓ This route is valid.";
                 }
                 else
                 {
+                    DistanceInfo = "";
                     routeRichTxtBox.ForeColor = Color.Gray;
                     routeStatusLbl.ForeColor = Color.Gray;
                     routeStatusLbl.Text = "This route has not been analyzed.";

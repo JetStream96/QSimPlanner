@@ -48,7 +48,7 @@
             // 
             this.routeRichTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.routeRichTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.routeRichTxtBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.routeRichTxtBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.routeRichTxtBox.ForeColor = System.Drawing.Color.Gray;
             this.routeRichTxtBox.Location = new System.Drawing.Point(2, 217);
             this.routeRichTxtBox.Margin = new System.Windows.Forms.Padding(2);

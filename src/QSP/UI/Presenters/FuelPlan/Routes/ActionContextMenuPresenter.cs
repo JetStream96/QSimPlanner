@@ -6,13 +6,13 @@ using QSP.RouteFinding.Finder;
 using QSP.RouteFinding.RouteAnalyzers;
 using QSP.RouteFinding.Routes;
 using QSP.RouteFinding.Tracks;
+using QSP.UI.Models.FuelPlan;
+using QSP.UI.Models.FuelPlan.Routes;
 using QSP.UI.Views;
 using QSP.UI.Views.FuelPlan.Routes.Actions;
 using QSP.WindAloft;
 using System;
 using System.Linq;
-using QSP.UI.Models.FuelPlan;
-using QSP.UI.Models.FuelPlan.Routes;
 
 namespace QSP.UI.Presenters.FuelPlan.Routes
 {
@@ -55,6 +55,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
             try
             {
                 FindRoutePrivate();
+                view.RouteIsValid = true;
             }
             catch (Exception ex)
             {
@@ -133,6 +134,7 @@ namespace QSP.UI.Presenters.FuelPlan.Routes
 
                 Route = new RouteGroup(result, airwayNetwork.TracksInUse);
                 view.ShowRouteTxt(Route, AppOptions);
+                view.RouteIsValid = true;
             }
             catch (Exception ex)
             {

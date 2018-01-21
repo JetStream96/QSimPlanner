@@ -12,6 +12,8 @@ namespace QSP.UI.Views.FuelPlan
 {
     public partial class AlternateRowControl : UserControl, IAlternateRowView
     {
+        private bool userEditingRoute = true;
+
         public AlternateRowPresenter Presenter { get; private set; }
         public ActionContextMenu ActionContextMenuView { get; private set; }
 
@@ -24,14 +26,30 @@ namespace QSP.UI.Views.FuelPlan
         public string Route
         {
             get => RouteTxtBox.Text;
-            set => RouteTxtBox.Text = value;
+            set
+            {
+                userEditingRoute = false;
+                RouteTxtBox.Text = value;
+                userEditingRoute = true;
+            }
         }
 
         public string Rwy { get => RwyComboBox.Text; set => RwyComboBox.Text = value; }
 
         public bool RouteIsValid
         {
-            set => RouteTxtBox.ForeColor = value ? Color.DarkGreen : Color.Gray;
+            set
+            {
+                if (value)
+                {
+                    RouteTxtBox.ForeColor = Color.DarkGreen;
+                }
+                else
+                {
+                    DistanceInfo = "";
+                    RouteTxtBox.ForeColor = Color.Gray;
+                }
+            }
         }
 
         public void ShowMessage(string s, MessageLevel lvl) => ParentForm.ShowMessage(s, lvl);
@@ -105,5 +123,9 @@ namespace QSP.UI.Views.FuelPlan
             base.Dispose(disposing);
         }
 
+        private void RouteTxtBox_TextChanged(object sender, EventArgs e)
+        {
+            if (userEditingRoute) RouteIsValid = false;
+        }
     }
 }
