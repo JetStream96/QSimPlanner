@@ -81,7 +81,9 @@ namespace QSP.UI.Util
                     // Use navigate instead of setting DocumentText, otherwise 
                     // relative paths in web page do not work.
                     wb.Navigate(Path.GetFullPath(tmpFilePath));
+                    wb.Dock = DockStyle.Fill;
 
+                    frm.FormBorderStyle = FormBorderStyle.Sizable;
                     frm.ShowDialog();
                 }
 

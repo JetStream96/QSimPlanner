@@ -18,7 +18,7 @@ namespace QSP.GoogleMap
 
             var latLons = string.Join(",", route.Select(r => $"[{r.Lat}, {r.Lon}]"));
             var texts = string.Join(",", 
-                route.Select(r => $"\"Ident: {r.ID}\\nLat:{r.Lat}\\nLon:{r.Lon}\""));
+                route.Select(r => $"\"<p>Ident: {r.ID}<br>Lat: {r.Lat}<br>Lon: {r.Lon}</p>\""));
             
             // Center of the map
             var center = GetCenter(route);

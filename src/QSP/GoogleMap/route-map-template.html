@@ -65,6 +65,7 @@
             });
 
             markers.map(function (m, index) {
+                google.maps.event.addListener(m, 'click', function () { infoWindows[index].open(map, m); });
                 google.maps.event.addListener(m, 'mouseover', function () { infoWindows[index].open(map, m); });
                 google.maps.event.addListener(m, 'mouseout', function () { infoWindows[index].close(map, m); });
             });
