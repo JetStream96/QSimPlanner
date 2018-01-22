@@ -81,18 +81,17 @@ namespace QSP.UI.Util
 
         private static void ShowInForm(Size size, string html)
         {
-            var wb = new WebBrowser()
+            using (var frm = FormFactory.GetForm(size))
             {
-                Size = size,
-                DocumentText = html
-            };
+                using (var wb = new WebBrowser() { Size = size })
+                {
+                    frm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+                    frm.StartPosition = FormStartPosition.CenterParent;
+                    frm.Controls.Add(wb);
+                    wb.Navigate(Path.GetFullPath(tmpFilePath));
+                    frm.ShowDialog();
+                }
 
-            using (var frm = FormFactory.GetForm(wb.Size))
-            {
-                frm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-                frm.StartPosition = FormStartPosition.CenterParent;
-                frm.Controls.Add(wb);
-                frm.ShowDialog();
             }
         }
     }

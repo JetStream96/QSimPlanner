@@ -37,7 +37,7 @@ namespace QSP.GoogleMap
     }
     </style>
     <script type = ""text/javascript"" src=""http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=False""></script>
-    <script type = ""text/javascript"" src=""../GoogleMap/Library/markerwithlabel.js""></script>
+    <script type = ""text/javascript"" src=""..\GoogleMap\Library\markerwithlabel.js""></script>
     <script type = ""text/javascript"">
 
 function initialize()
