@@ -27,40 +27,29 @@ namespace QSP.UI.Util
                 return;
             }
 
-            Func<bool, string> getHtml = inBroser =>
+            var mapHtml = RouteDrawing.MapDrawString(
+               Route.AllWaypoints().ToList());
+
+            if (!CreateTmpHtml(mapHtml))
             {
-                // No need for size in external browser.
-                var s = inBroser ? new Size(0, 0) : size;
-
-                var GoogleMapDrawRoute = RouteDrawing.MapDrawString(
-                   Route.AllWaypoints().ToList(),
-                   s.Width - 20,
-                   s.Height - 30);
-
-                return GoogleMapDrawRoute.ToString();
-            };
+                MsgBoxHelper.ShowError(parentControl,
+                    "Failed to write to file: " + Path.GetFullPath(tmpFilePath));
+                return;
+            }
 
             if (openInBrowser)
             {
-                ShowInBrowser(getHtml(true), parentControl);
+                ShowInBrowser(mapHtml, parentControl);
             }
             else
             {
-                ShowInForm(size, getHtml(false));
+                ShowInForm(size, mapHtml);
             }
         }
 
         private static void ShowInBrowser(string html, Control parentControl)
         {
-            if (CreateTmpHtml(html))
-            {
-                OpenFileHelper.TryOpenFile(Path.GetFullPath(tmpFilePath));
-            }
-            else
-            {
-                MsgBoxHelper.ShowError(parentControl,
-                    "Failed to write to file: " + Path.GetFullPath(tmpFilePath));
-            }
+            OpenFileHelper.TryOpenFile(Path.GetFullPath(tmpFilePath));
         }
 
         // Returns whether the creation was successful.
@@ -88,7 +77,11 @@ namespace QSP.UI.Util
                     frm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
                     frm.StartPosition = FormStartPosition.CenterParent;
                     frm.Controls.Add(wb);
+
+                    // Use navigate instead of setting DocumentText, otherwise 
+                    // relative paths in web page do not work.
                     wb.Navigate(Path.GetFullPath(tmpFilePath));
+
                     frm.ShowDialog();
                 }
 

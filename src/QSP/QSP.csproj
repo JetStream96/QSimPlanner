@@ -720,6 +720,9 @@
     <Content Include="ChangeLog.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GoogleMap\route-map-template.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="navdata_additional\icao_nationality_code.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -974,9 +977,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Degrib\degrib.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GoogleMap\Library\markerwithlabel.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PerformanceData\LDG\Default\737600_LDG.xml">
