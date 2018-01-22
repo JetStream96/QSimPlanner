@@ -17,8 +17,6 @@ namespace QSP.GoogleMap
             var mapHtml = new StringBuilder();
 
             string path = Assembly.GetExecutingAssembly().Location;
-            var scriptPath = Path.GetDirectoryName(path) +
-                @"\GoogleMap\Library\markerwithlabel.js";
 
             mapHtml.Append(
 @"<!DOCTYPE html>
@@ -39,7 +37,7 @@ namespace QSP.GoogleMap
     }
     </style>
     <script type = ""text/javascript"" src=""http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=False""></script>
-    <script type = ""text/javascript"" src=""" + scriptPath + @"""></script>
+    <script type = ""text/javascript"" src=""../GoogleMap/Library/markerwithlabel.js""></script>
     <script type = ""text/javascript"">
 
 function initialize()
@@ -57,15 +55,21 @@ function initialize()
             var center = GetCenter(route);
             mapHtml.AppendLine($"var centerP=new google.maps.LatLng({center.Lat},{center.Lon});");
 
-            const int zoomlevel = 6;
-
             mapHtml.Append(
-@"var mapProp = {
-center:centerP,
-zoom:" + zoomlevel.ToString() + @",
-mapTypeId:google.maps.MapTypeId.ROADMAP
-};
-var map=new google.maps.Map(document.getElementById(""googleMap""),mapProp);
+@"
+var map=new google.maps.Map(document.getElementById(""googleMap""),{
+	center: centerP,
+	zoom: 6,
+	fullscreenControl: false,
+	mapTypeControl: true,
+	scaleControl: true,
+	mapTypeControlOptions: {
+	    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+	    mapTypeIds: ['terrain', 'satellite']
+	},
+	mapTypeId: 'terrain'
+});
+
 var myTrip=[");
 
             route.ForEach((wpt, index) =>
