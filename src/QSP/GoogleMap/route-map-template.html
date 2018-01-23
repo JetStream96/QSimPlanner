@@ -48,9 +48,9 @@
                     position: w,
                     icon: {
                         path: google.maps.SymbolPath.CIRCLE,
-                        fillColor: 'orange',
+                        fillColor: '#ff9300',
                         fillOpacity: 1,
-                        strokeColor: 'orange',
+                        strokeColor: '#ff9300',
                         strokeOpacity: 0.9,
                         strokeWeight: 1,
                         scale: 7
@@ -69,9 +69,14 @@
                 google.maps.event.addListener(m, 'mouseover', function () { infoWindows[index].open(map, m); });
                 google.maps.event.addListener(m, 'mouseout', function () { infoWindows[index].close(map, m); });
             });
+
+            infoWindows[0].open(map, markers[0]);
+            var last = infoWindows.length - 1;
+            infoWindows[last].open(map, markers[last]);
         }
 
         google.maps.event.addDomListener(window, 'load', initialize);
+
     </script>
 </head>
 
