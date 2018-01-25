@@ -1,7 +1,9 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using static CommonLibrary.LibraryExtension.Tasks.Util;
 
 namespace CommonLibraryTest.LibraryExtension.Tasks
 {
@@ -9,39 +11,60 @@ namespace CommonLibraryTest.LibraryExtension.Tasks
     public class UtilTest
     {
         [Test]
-        public void RunPeriodicIndeedRunsAtInterval()
+        public async Task RunPeriodicIndeedRunsAtInterval()
         {
-            throw new NotImplementedException();
+            var list = new List<int>();
+
+            NoAwait(() => RunPeriodic(() => list.Add(0),
+                                      new TimeSpan(0, 0, 0, 0, 50),
+                                      new CancellationToken()));
+
+            await Task.Delay(200);
+
+            Assert.True(list.Count > 1);
         }
 
         [Test]
-        public void RunPeriodicRunsActionOnCurrentThread()
+        public async Task RunPeriodicAsyncIndeedRunsAtInterval()
         {
-            throw new NotImplementedException();
+            var list = new List<int>();
+
+            NoAwait(() => RunPeriodicAsync(() => list.Add(0),
+                new TimeSpan(0, 0, 0, 0, 50),
+                new CancellationToken()));
+
+            await Task.Delay(200);
+
+            Assert.True(list.Count > 1);
         }
 
         [Test]
-        public void RunPeriodicAsyncIndeedRunsAtInterval()
+        public async Task RunAsyncWithTimeoutTestFuncFinishes()
         {
-            throw new NotImplementedException();
+            Func<int> wait = () =>
+            {
+                Thread.Sleep(10);
+                return 4;
+            };
+
+            var (timedout, res) = await RunAsyncWithTimeout(wait, 200);
+
+            Assert.IsFalse(timedout);
+            Assert.AreEqual(4, res);
         }
 
         [Test]
-        public void RunPeriodicAsyncRunsActionOnOtherThreads()
+        public async Task RunAsyncWithTimeoutTestTimeout()
         {
-            throw new NotImplementedException();
-        }
+            Func<int> wait = () =>
+            {
+                Thread.Sleep(200);
+                return 4;
+            };
 
-        [Test]
-        public void RunAsyncWithTimeoutTestFuncFinishes()
-        {
-            throw new NotImplementedException();
-        }
+            var (timedout, res) = await RunAsyncWithTimeout(wait, 10);
 
-        [Test]
-        public void RunAsyncWithTimeoutTestTimeout()
-        {
-            throw new NotImplementedException();
+            Assert.IsTrue(timedout);
         }
     }
 }

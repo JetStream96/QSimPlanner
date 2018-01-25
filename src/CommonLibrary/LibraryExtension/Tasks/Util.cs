@@ -23,8 +23,9 @@ namespace CommonLibrary.LibraryExtension.Tasks
         {
             while (true)
             {
+                var delay = Task.Delay(interval, cancellationToken);
                 action();
-                await Task.Delay(interval, cancellationToken);
+                await delay;
             }
         }
 
@@ -37,8 +38,9 @@ namespace CommonLibrary.LibraryExtension.Tasks
         {
             while (true)
             {
-                await Task.Factory.StartNew(action);
-                await Task.Delay(interval, cancellationToken);
+                var delay = Task.Delay(interval, cancellationToken);
+                await Task.Run(action);
+                await delay;
             }
         }
 
