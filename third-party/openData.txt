@@ -1,3 +1,2 @@
-The files airports.csv and runways.csv in src\QspLite\NavData\OpenData 
-were modified work based on data from http://ourairports.com/, which are 
-in public domain. 
+This project uses files from http://ourairports.com/, which are in public domain.
+ 
