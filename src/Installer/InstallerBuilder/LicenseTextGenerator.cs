@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -17,7 +18,7 @@ namespace InstallerBuilder
         public string Generate()
         {
             var output = new StringBuilder(File.ReadAllText(license));
-            var files = Directory.GetFiles(thirdParty);
+            var files = IOMethods.AllFiles(thirdParty);
 
             foreach (var i in files)
             {
