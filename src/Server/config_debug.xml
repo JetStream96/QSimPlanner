@@ -1,8 +1,0 @@
-<Root>
-  <AntiSpamEnabled>True</AntiSpamEnabled>
-  
-  <!-- file hidden from the public -->
-  <hidden>/log.txt</hidden>
-  <hidden>/config.xml</hidden>
-  <hidden>/config_debug.xml</hidden>
-</Root>

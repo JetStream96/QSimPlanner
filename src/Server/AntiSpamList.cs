@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using TaskUtil = CommonLibrary.LibraryExtension.Tasks.Util;
 
-namespace TrackBackupApp
+namespace Server
 {
     public class AntiSpamList
     {

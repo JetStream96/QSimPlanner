@@ -2,7 +2,7 @@
 using System.IO;
 using System.Web.Hosting;
 
-namespace TrackBackupApp
+namespace Server
 {
     public static class LastUpdateTime
     {

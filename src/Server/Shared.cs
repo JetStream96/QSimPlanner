@@ -1,14 +1,14 @@
 ﻿using CommonLibrary;
-using CommonLibrary.LibraryExtension.Sets;
+using System.IO;
 
-namespace TrackBackupApp
+namespace Server
 {
     public static class Shared
     {
         public static readonly LockedObj<string> UnloggedError = new LockedObj<string>("");
         public static readonly LockedObj<AntiSpamList> AntiSpam =
             new LockedObj<AntiSpamList>(new AntiSpamList());
-        
+
         // Thread-safe
         public static readonly ErrorReportWriter ErrReportWriter = new ErrorReportWriter();
         public static readonly Logger Logger = new Logger();
@@ -17,15 +17,16 @@ namespace TrackBackupApp
         // Readonly
         public static readonly string ConfigFile =
 #if DEBUG
-            "~/config_debug.xml";
+            "~/App_Data/config_debug.xml";
 #else
-            "~/config.xml";
+            "~/App_Data/config.xml";
 #endif
-
-        public static readonly IReadOnlySet<string> HiddenFileSet =
-            HiddenFiles.LoadFromFileAndLog();
 
         public static readonly object StatsFileLock = new object();
         public static readonly object NatsFileLock = new object();
+
+        public static readonly string NatsDir = "~/nats";
+        public static readonly string WestNatsFile = Path.Combine(NatsDir, "Westbound.xml");
+        public static readonly string EastNatsFile = Path.Combine(NatsDir, "Eastbound.xml");
     }
 }

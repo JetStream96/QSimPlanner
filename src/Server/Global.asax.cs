@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Hosting;
 using static CommonLibrary.LibraryExtension.Tasks.Util;
 
-namespace TrackBackupApp
+namespace Server
 {
     public class Global : HttpApplication
     {
@@ -45,7 +45,7 @@ namespace TrackBackupApp
         private void SaveNats()
         {
             var result = DownloadMessage();
-            Directory.CreateDirectory(HostingEnvironment.MapPath("~/nats"));
+            Directory.CreateDirectory(HostingEnvironment.MapPath(Shared.NatsDir));
             bool westUpdated = false;
             bool eastUpdated = false;
 
@@ -70,7 +70,7 @@ namespace TrackBackupApp
         // return true. Otherwise, returns false.
         private bool SaveEastbound(IndividualNatsMessage i)
         {
-            var filepath = "~/nats/Eastbound.xml";
+            var filepath = Shared.EastNatsFile;
             var (success, newTime) = NatsMessage.ParseDate(i.LastUpdated);
             if (success && newTime > LastUpdateTime.EastUtc)
             {
@@ -85,7 +85,7 @@ namespace TrackBackupApp
 
         private bool SaveWestbound(IndividualNatsMessage i)
         {
-            var filepath = "~/nats/Westbound.xml";
+            var filepath = Shared.WestNatsFile;
             var (success, newTime) = NatsMessage.ParseDate(i.LastUpdated);
             if (success && newTime > LastUpdateTime.WestUtc)
             {
@@ -191,21 +191,20 @@ namespace TrackBackupApp
             // ISS is case-insensitive.
             var pq = rq.Url.PathAndQuery.ToLower();
 
-            if (Shared.HiddenFileSet.Contains(pq))
-            {
-                Response.StatusCode = 403;
-            }
-            else if (pq == "/nats/westbound.xml")
+            if (pq == "/nats/westbound.xml")
             {
                 Shared.Logger.Log("Westbound download from " + rq.UserHostAddress + ".");
+                RespondWithFile(Shared.WestNatsFile);
             }
             else if (pq == "/nats/eastbound.xml")
             {
                 Shared.Logger.Log("Eastbound download from " + rq.UserHostAddress + ".");
+                RespondWithFile(Shared.EastNatsFile);
             }
             else if (pq == "/updates/info.xml")
             {
                 Shared.Logger.Log("Update check from " + rq.UserHostAddress + ".");
+                // No file is returned for now. 
             }
             else if (pq == "/err")
             {

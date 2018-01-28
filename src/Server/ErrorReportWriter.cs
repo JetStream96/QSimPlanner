@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Hosting;
 using Newtonsoft.Json.Linq;
 
-namespace TrackBackupApp
+namespace Server
 {
     // Thread-safe.
     public class ErrorReportWriter
@@ -15,7 +15,7 @@ namespace TrackBackupApp
         private SyncTaskQueue queue = new SyncTaskQueue();
         private string path;
 
-        public ErrorReportWriter(string path = "~/error-report/error-report.txt")
+        public ErrorReportWriter(string path = "~/App_Data/error-report/error-report.txt")
         {
             this.path = HostingEnvironment.MapPath(path);
         }

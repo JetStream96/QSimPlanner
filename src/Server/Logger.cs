@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Web.Hosting;
 
-namespace TrackBackupApp
+namespace Server
 {
     // Thread-safe
     public class Logger
@@ -12,7 +12,7 @@ namespace TrackBackupApp
         private SyncTaskQueue queue = new SyncTaskQueue();
         private string path;
 
-        public Logger(string path = "~/log.txt")
+        public Logger(string path = "~/App_Data/log.txt")
         {
             this.path = HostingEnvironment.MapPath(path);
         }
