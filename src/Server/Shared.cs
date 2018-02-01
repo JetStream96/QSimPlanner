@@ -25,7 +25,7 @@ namespace Server
         public static readonly object StatsFileLock = new object();
         public static readonly object NatsFileLock = new object();
 
-        public static readonly string NatsDir = "~/nats";
+        public static readonly string NatsDir = "~/App_Data/nats";
         public static readonly string WestNatsFile = Path.Combine(NatsDir, "Westbound.xml");
         public static readonly string EastNatsFile = Path.Combine(NatsDir, "Eastbound.xml");
     }

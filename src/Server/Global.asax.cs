@@ -153,8 +153,25 @@ namespace Server
 
         private void RespondWithFile(string relativePath)
         {
-            var p = HostingEnvironment.MapPath(relativePath);
-            Response.WriteFile(p);
+            try
+            {
+                var p = HostingEnvironment.MapPath(relativePath);
+
+                if (File.Exists(p))
+                {
+                    Response.WriteFile(p);
+                }
+                else
+                {
+                    Response.StatusCode = 404;
+                }
+            }
+            catch (Exception e)
+            {
+                Shared.Logger.Log(e.ToString());
+                Response.StatusCode = 404;
+            }
+            
             EndReq();
         }
 
