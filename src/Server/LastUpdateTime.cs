@@ -6,8 +6,11 @@ namespace Server
 {
     public static class LastUpdateTime
     {
-        private static readonly string fileEast = "~/nats/LastUpdateTimeEast.txt";
-        private static readonly string fileWest = "~/nats/LastUpdateTimeWest.txt";
+        private static readonly string fileEast =
+            Path.Combine(Shared.NatsDir, "LastUpdateTimeEast.txt");
+
+        private static readonly string fileWest =
+            Path.Combine(Shared.NatsDir, "LastUpdateTimeWest.txt");
 
         public static DateTime WestUtc { get; set; }
         public static DateTime EastUtc { get; set; }
