@@ -100,7 +100,9 @@
   <ItemGroup>
     <Content Include="App_Data\config.xml" />
     <Content Include="App_Data\config_debug.xml" />
-    <Content Include="App_Data\updates\info.xml" />
+    <Content Include="updates\info.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="packages.config" />
     <Content Include="Default.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
