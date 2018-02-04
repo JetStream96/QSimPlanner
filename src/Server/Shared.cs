@@ -28,5 +28,7 @@ namespace Server
         public static readonly string NatsDir = "~/App_Data/nats";
         public static readonly string WestNatsFile = Path.Combine(NatsDir, "Westbound.xml");
         public static readonly string EastNatsFile = Path.Combine(NatsDir, "Eastbound.xml");
+
+        public static readonly string UpdateInfoFile = "~/App_Data/updates/info.xml";
     }
 }

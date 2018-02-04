@@ -192,10 +192,16 @@ namespace Server
         {
             var ip = rq.UserHostAddress;
             var body = rq.Form["data"];
+
             if (!Shared.AntiSpam.Value.DecrementToken(ip) &&
                 body.Length < ErrorReportWriter.MaxBodaySize)
             {
                 Shared.ErrReportWriter.Write(ip, body);
+                Shared.Logger.Log($"Error report from {ip} recorded.");
+            }
+            else
+            {
+                Shared.Logger.Log($"Error report from {ip} not recorded.");
             }
 
             Response.Write("OK");
@@ -211,17 +217,20 @@ namespace Server
             if (pq == "/nats/westbound.xml")
             {
                 Shared.Logger.Log("Westbound download from " + rq.UserHostAddress + ".");
+                Request.ContentType = "text/xml; encoding='utf-8'";
                 RespondWithFile(Shared.WestNatsFile);
             }
             else if (pq == "/nats/eastbound.xml")
             {
                 Shared.Logger.Log("Eastbound download from " + rq.UserHostAddress + ".");
+                Request.ContentType = "text/xml; encoding='utf-8'";
                 RespondWithFile(Shared.EastNatsFile);
             }
             else if (pq == "/updates/info.xml")
             {
                 Shared.Logger.Log("Update check from " + rq.UserHostAddress + ".");
-                // No file is returned for now. 
+                Request.ContentType = "text/xml; encoding='utf-8'";
+                RespondWithFile(Shared.UpdateInfoFile);
             }
             else if (pq == "/err")
             {

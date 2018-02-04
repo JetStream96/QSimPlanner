@@ -1,5 +1,5 @@
 <!-- Config of the application. This is not meant to be changed. -->
 <root>
-  <ErrorReportUrl>http://qsimplan.somee.com/error-report</ErrorReportUrl>
+  <ErrorReportUrl>http://qsimplanner.azurewebsites.net/error-report</ErrorReportUrl>
   <EnableErrorReportTest>False</EnableErrorReportTest>
 </root>

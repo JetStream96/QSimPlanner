@@ -10,8 +10,8 @@ namespace QSP.RouteFinding.Tracks.Nats
     public sealed class NatsDownloader : ITrackMessageProvider
     {
         public static readonly string natsUrl = "https://www.notams.faa.gov/common/nat.html?";
-        private static readonly string natsWest = "http://qsimplan.somee.com/nats/Westbound.xml";
-        private static readonly string natsEast = "http://qsimplan.somee.com/nats/Eastbound.xml";
+        private static readonly string natsWest = "http://qsimplanner.azurewebsites.net/nats/Westbound.xml";
+        private static readonly string natsEast = "http://qsimplanner.azurewebsites.net/nats/Eastbound.xml";
 
         public List<IndividualNatsMessage> DownloadFromNotam()
         {
