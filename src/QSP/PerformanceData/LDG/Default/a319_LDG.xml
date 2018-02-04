@@ -1,7 +1,7 @@
 <Root>
-    <!-- All lengths in ft. All weights in 1000 LB.-->
-   
-    <!-- 
+  <!-- All lengths in ft. All weights in 1000 LB.-->
+
+  <!-- 
         First row: landing weight
         Second row: Actual landing distance (dry)
         Third row: Actual landing distance (wet)
@@ -15,39 +15,39 @@
 
         headwind_dry and headwind_wet are 0 because of wind correction on approach speed.
     -->
-    <Table flaps="Full" autobrake="MAX" elevation_dry="3" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="20" tailwind_wet="26" both_reverser_dry="3" both_reverser_wet="6" speed_5kts="8">
-        88.106	96.916	105.727	114.537	123.348	132.159	140.969	149.78	158.59	167.401
-        2460	2427.2	2460	2624	2722.4	2820.8	2952	3148.8	3411.2	3706.4
-        2952	2952	3017.6	3247.2	3444	3640.8	3837.6	4067.2	4329.6	4592
-    </Table>
+  <Table flaps="Full" autobrake="MAX" elevation_dry="3" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="20" tailwind_wet="26" both_reverser_dry="3" both_reverser_wet="6" speed_5kts="8">
+    88.106  96.916  105.727  114.537  123.348  132.159  140.969  149.78  158.59  167.401
+    2460    2427.2  2460     2624     2722.4   2820.8   2952     3148.8  3411.2  3706.4
+    2952    2952    3017.6   3247.2   3444     3640.8   3837.6   4067.2  4329.6  4592
+  </Table>
 
-     <Table flaps="3" autobrake="MAX" elevation_dry="3" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="19" tailwind_wet="26" both_reverser_dry="4" both_reverser_wet="8" speed_5kts="8">
-        88.106	96.916	105.727	114.537	123.348	132.159	140.969	149.78	158.59	167.401
-        2460	2525.6	2656.8	2820.8	2952	3116	3280	3575.2	3903.2	4231.2
-        3017.6	3148.8	3411.2	3673.6	3903.2	4132.8	4395.2	4657.6	4985.6	5280.8
-    </Table>
+  <Table flaps="3" autobrake="MAX" elevation_dry="3" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="19" tailwind_wet="26" both_reverser_dry="4" both_reverser_wet="8" speed_5kts="8">
+    88.106  96.916  105.727  114.537  123.348  132.159  140.969  149.78  158.59  167.401
+    2460    2525.6  2656.8   2820.8   2952     3116     3280     3575.2  3903.2  4231.2
+    3017.6  3148.8  3411.2   3673.6   3903.2   4132.8   4395.2   4657.6  4985.6  5280.8
+  </Table>
 
-    <Table flaps="Full" autobrake="MED" elevation_dry="3" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="19" tailwind_wet="25" both_reverser_dry="0" both_reverser_wet="2" speed_5kts="8">
-        88.1057	110.1322	132.1586	154.185	176.2115
-        2919.2	3050.4  	3476.8  	3936	4395.2
-        3017.6	3214.4  	3739.2  	4296.8	4920
-    </Table>
+  <Table flaps="Full" autobrake="MED" elevation_dry="3" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="19" tailwind_wet="25" both_reverser_dry="0" both_reverser_wet="2" speed_5kts="8">
+    88.1057  110.1322  132.1586  154.185  176.2115
+    2919.2   3050.4    3476.8    3936     4395.2
+    3017.6   3214.4    3739.2    4296.8   4920
+  </Table>
 
-    <Table flaps="3" autobrake="MED" elevation_dry="3" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="19" tailwind_wet="26" both_reverser_dry="0" both_reverser_wet="3" speed_5kts="8">
-        88.1057	110.1322	132.1586	154.185	176.2115
-        2919.2	3312.8  	3804.8  	4329.6	4887.2
-        3083.2	3608	    4231.2  	4920	5674.4
-    </Table>
+  <Table flaps="3" autobrake="MED" elevation_dry="3" elevation_wet="4" headwind_dry="0" headwind_wet="0" tailwind_dry="19" tailwind_wet="26" both_reverser_dry="0" both_reverser_wet="3" speed_5kts="8">
+    88.1057  110.1322  132.1586  154.185  176.2115
+    2919.2   3312.8    3804.8    4329.6   4887.2
+    3083.2   3608      4231.2    4920     5674.4
+  </Table>
 
-    <Table flaps="Full" autobrake="LOW" elevation_dry="3" elevation_wet="3" headwind_dry="0" headwind_wet="0" tailwind_dry="20" tailwind_wet="20" both_reverser_dry="4" both_reverser_wet="3" speed_5kts="8">
-        88.1057	110.1322	132.1586	154.185	176.2115
-        4493.6	4788.8  	5444.8  	6133.6	6855.2
-        4493.6	4788.8  	5444.8  	6133.6	6855.2
-    </Table>
-    
-    <Table flaps="3" autobrake="LOW" elevation_dry="3" elevation_wet="3" headwind_dry="0" headwind_wet="0" tailwind_dry="19" tailwind_wet="19" both_reverser_dry="4" both_reverser_wet="4" speed_5kts="8">
-        88.1057	110.1322	132.1586	154.185	176.2115
-        4723.2	5346.4   	6100.8  	6920.8	7740.8
-        4723.2	5346.4  	6100.8  	6920.8	7740.8
-    </Table>
+  <Table flaps="Full" autobrake="LOW" elevation_dry="3" elevation_wet="3" headwind_dry="0" headwind_wet="0" tailwind_dry="20" tailwind_wet="20" both_reverser_dry="4" both_reverser_wet="3" speed_5kts="8">
+    88.1057  110.1322  132.1586  154.185  176.2115
+    4493.6   4788.8    5444.8    6133.6   6855.2
+    4493.6   4788.8    5444.8    6133.6   6855.2
+  </Table>
+
+  <Table flaps="3" autobrake="LOW" elevation_dry="3" elevation_wet="3" headwind_dry="0" headwind_wet="0" tailwind_dry="19" tailwind_wet="19" both_reverser_dry="4" both_reverser_wet="4" speed_5kts="8">
+    88.1057  110.1322  132.1586  154.185  176.2115
+    4723.2   5346.4    6100.8    6920.8   7740.8
+    4723.2   5346.4    6100.8    6920.8   7740.8
+  </Table>
 </Root>

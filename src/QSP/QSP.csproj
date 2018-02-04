@@ -795,6 +795,9 @@
     <Content Include="PerformanceData\LDG\Default\7478_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="PerformanceData\LDG\Default\a319_LDG.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="PerformanceData\Templates\FuelCalc\737800_new_format.xml" />
     <Content Include="PerformanceData\TO\Default\747400F_TO.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -811,6 +814,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\processing.png" />
+    <Content Include="PerformanceData\TO\Default\a320_200_CFM56_TO.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="updater.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
