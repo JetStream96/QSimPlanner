@@ -742,6 +742,7 @@
     </Content>
     <Content Include="PerformanceData\FuelCalc\Default\737600_cfm56-7b22.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\FuelCalc\Default\737700_cfm56-7b24.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -788,6 +789,7 @@
     </Content>
     <Content Include="PerformanceData\FuelCalc\Default\maybea319.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="PerformanceData\LDG\Default\747400F_LDG.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
