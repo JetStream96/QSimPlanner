@@ -1,6 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Root>
   <!-- All lengths and elevations in ft. All weights in 1000 LB.-->
-
+  
+  <Parameters>
+    <ProfileName>Airbus A320-200 CFM56</ProfileName>
+    
+    <!-- Here, 1 represents this takeoff performance data format. 
+         This node does not exist for the data format like 737-600. -->
+    <Format>1</Format>
+  </Parameters>
+  
   <!-- 
         Wind correction for runway length. 
         First row is runway length.

@@ -1,6 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <!-- All lengths in ft. All weights in 1000 LB.-->
+  
+  <Parameters>
+    <ProfileName>Airbus A319</ProfileName>
 
+    <!-- Here, 1 represents this landing performance data format. 
+         This node does not exist for the data format like 737-600. -->
+    <Format>1</Format>
+  </Parameters>
+  
   <!-- 
         First row: landing weight
         Second row: Actual landing distance (dry)
