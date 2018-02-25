@@ -44,8 +44,7 @@ namespace QSP.Updates
         public class VersionInfo { public string Backup, Current; }
         
         /// <summary>
-        /// Shows the license only if the current version of application is never run,
-        /// and the license text changed from the previous version which the user has.
+        /// Shows the license only if the current version of application is never run.
         /// </summary>
         public static bool ShouldShowLicense()
         {
@@ -54,13 +53,7 @@ namespace QSP.Updates
                 if (File.Exists(OptionManager.DefaultPath)) return false;
 
                 var ver = GetVersions();
-                if (ver.Backup == "") return true;
-                var prevTxt = Path.Combine("..", ver.Backup, "LICENSE.txt");
-
-                // This is required because the installer may write files with 
-                // "\r\n" newlines instead of the original "\n".
-                return !File.ReadAllText(prevTxt).EqualsIgnoreNewlineStyle(
-                    File.ReadAllText("LICENSE.txt"));
+                return ver.Backup == "";
             }
             catch (Exception ex)
             {
