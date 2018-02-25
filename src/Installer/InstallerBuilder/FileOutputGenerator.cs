@@ -110,7 +110,7 @@ namespace InstallerBuilder
             info.UseShellExecute = false;
             info.FileName = GetMsbuildPath();
             info.Arguments = $"\"{EscapeBackslash(Path.GetFullPath(projectFile))}\" " +
-                "/p:Configuration=Release " +
+                "/p:Configuration=Release " + "/property:Platform=x86 " +
                 $"/p:OutputPath=\"{EscapeBackslash(Path.GetFullPath(outputFolder))}\"";
 
             var process = Process.Start(info);

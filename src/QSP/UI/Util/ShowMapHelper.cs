@@ -1,4 +1,6 @@
-﻿using QSP.GoogleMap;
+﻿using CefSharp;
+using CefSharp.WinForms;
+using QSP.GoogleMap;
 using QSP.RouteFinding.Routes;
 using QSP.UI.Views.Factories;
 using QSP.Utilities;
@@ -72,21 +74,22 @@ namespace QSP.UI.Util
         {
             using (var frm = FormFactory.GetForm(size))
             {
-                using (var wb = new WebBrowser() { Size = size })
+                if (!Cef.IsInitialized)
+                {
+                    Cef.Initialize(new CefSettings());
+                }
+
+                using (var wb = new ChromiumWebBrowser(Path.GetFullPath(tmpFilePath)))
                 {
                     frm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
                     frm.StartPosition = FormStartPosition.CenterParent;
                     frm.Controls.Add(wb);
 
-                    // Use navigate instead of setting DocumentText, otherwise 
-                    // relative paths in web page do not work.
-                    wb.Navigate(Path.GetFullPath(tmpFilePath));
                     wb.Dock = DockStyle.Fill;
 
                     frm.FormBorderStyle = FormBorderStyle.Sizable;
                     frm.ShowDialog();
                 }
-
             }
         }
     }

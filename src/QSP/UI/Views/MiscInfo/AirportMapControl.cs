@@ -1,4 +1,6 @@
-﻿using QSP.GoogleMap;
+﻿using CefSharp;
+using CefSharp.WinForms;
+using QSP.GoogleMap;
 using QSP.MathTools;
 using QSP.RouteFinding.Airports;
 using QSP.RouteFinding.Data.Interfaces;
@@ -18,7 +20,7 @@ namespace QSP.UI.Views.MiscInfo
     {
         private AirportMapPresenter presenter;
         private PictureBox picBox;
-        private WebBrowser browser;
+        private ChromiumWebBrowser browser;
 
         public bool BrowserEnabled
         {
@@ -221,7 +223,12 @@ namespace QSP.UI.Views.MiscInfo
 
         private void EnableBrowser()
         {
-            var wb = new WebBrowser();
+            if (!Cef.IsInitialized)
+            {
+                Cef.Initialize(new CefSettings());
+            }
+
+            var wb = new ChromiumWebBrowser("http://rendering/");
 
             wb.Location = Point.Empty;
             wb.Size = MapSize;
@@ -283,9 +290,8 @@ namespace QSP.UI.Views.MiscInfo
 
         private void ShowMapBrowser(double lat, double lon)
         {
-            // This requires a registry fix. (IE emulation)
-
-            browser.DocumentText = InteractiveMap.GetHtml(lat, lon, browser.Width, browser.Height);
+            var html = InteractiveMap.GetHtml(lat, lon, browser.Width, browser.Height);
+            browser.LoadHtml(html, "http://rendering/");
         }
 
         private void EnableStaticMap()
