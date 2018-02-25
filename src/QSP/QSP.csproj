@@ -227,6 +227,9 @@
     <Compile Include="RouteFinding\Tracks\Actions\ActionSequence.cs" />
     <Compile Include="RouteFinding\Tracks\Common\TrackMessageProvider.cs" />
     <Compile Include="RouteFinding\Tracks\TrackFiles.cs" />
+    <Compile Include="TOPerfCalculation\Airbus\PerfData\AirbusPerfTable.cs" />
+    <Compile Include="TOPerfCalculation\Airbus\PerfData\TableDataNode.cs" />
+    <Compile Include="TOPerfCalculation\Airbus\TOCalculator.cs" />
     <Compile Include="TOPerfCalculation\FindTable.cs" />
     <Compile Include="UI\Models\ButtonColorStyle.cs" />
     <Compile Include="UI\Models\FuelPlan\IRefreshForNavDataChange.cs" />
@@ -249,6 +252,7 @@
     <Compile Include="UI\Presenters\Wind\WindDataPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\FuelPlanningPresenter.cs" />
     <Compile Include="UI\Presenters\FuelPlan\AlternateRowPresenter.cs" />
+    <Compile Include="UI\UserControls\TakeoffLanding\TOPerf\Controllers\AirbusController.cs" />
     <Compile Include="UI\Util\ControlDrawing.cs" />
     <Compile Include="UI\Views\FuelPlan\AlternateControl.cs">
       <SubType>UserControl</SubType>

@@ -164,7 +164,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
             this.lengthUnitComboBox.Location = new System.Drawing.Point(330, 36);
             this.lengthUnitComboBox.Margin = new System.Windows.Forms.Padding(10, 2, 10, 2);
             this.lengthUnitComboBox.Name = "lengthUnitComboBox";
-            this.lengthUnitComboBox.Size = new System.Drawing.Size(28, 31);
+            this.lengthUnitComboBox.Size = new System.Drawing.Size(100, 31);
             this.lengthUnitComboBox.TabIndex = 2;
             this.lengthUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.LengthUnitComboBoxSelectedIndexChanged);
             // 
@@ -188,7 +188,7 @@ namespace QSP.UI.Views.FuelPlan.Routes
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(368, 69);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(440, 69);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // FindAltnForm
