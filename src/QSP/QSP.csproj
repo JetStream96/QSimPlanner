@@ -653,7 +653,6 @@
     <Compile Include="Utilities\ExceptionHelpers.cs" />
     <Compile Include="Utilities\LoggerInstance.cs" />
     <Compile Include="Common\Exceptions.cs" />
-    <Compile Include="Utilities\IeEmulationChecker.cs" />
     <Compile Include="AviationTools\Airac\AiracTools.cs" />
     <Compile Include="LibraryExtension\Arrays.cs" />
     <Compile Include="LandingPerfCalculation\LandingReport.cs" />

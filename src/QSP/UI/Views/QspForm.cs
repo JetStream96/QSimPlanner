@@ -254,7 +254,6 @@ namespace QSP.UI.Views
         private void InitControls()
         {
             LoadSavedState();
-            CheckRegistry();
             SubscribeEvents();
 
             acMenu.Init(profiles);
@@ -407,25 +406,7 @@ namespace QSP.UI.Views
                 panel2.Controls.Add(i);
             }
         }
-
-        private static void CheckRegistry()
-        {
-            // Try to check/add registry so that google map works properly. 
-            var regChecker = new IeEmulationChecker();
-
-            try
-            {
-#if DEBUG
-                regChecker.DebugRun();
-#endif
-                regChecker.Run();
-            }
-            catch (Exception ex)
-            {
-                Log(ex);
-            }
-        }
-
+        
         private void DownloadTracksIfNeeded()
         {
             trackStatusLabel.Image = Properties.Resources.YellowLight;
