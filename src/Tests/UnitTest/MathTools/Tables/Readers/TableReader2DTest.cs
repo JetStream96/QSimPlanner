@@ -11,21 +11,21 @@ namespace UnitTest.MathTools.Tables.Readers
 
         private string format1 =
               @"
-              -40 10 14 
+                   -40  10   14 
               1500 51.2 47.0 46.7 
               1600 52.8 48.5 48.1
               1800 55.9 51.3 51.0 
               ";
 
         private string format2 =
-              @"-40 10 14 
+              @"   -40  10   14 
               1500 51.2 47.0 46.7
               1600 52.8 48.5 48.1
               1800 55.9 51.3 51.0";
 
         private string format3 =
               @"
-              -40 10 14 
+                   -40  10   14 
               1500 51.2 47.0 46.7
  
               1600 52.8 48.5 48.1

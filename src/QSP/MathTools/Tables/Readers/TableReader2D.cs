@@ -7,7 +7,7 @@ namespace QSP.MathTools.Tables.Readers
 {
     public static class TableReader2D
     {
-        private static char[] spaces = new char[] { ' ', '\t' };
+        private static char[] spaces = { ' ', '\t' };
 
         // See unit test for examples.
         public static Table2D Read(string source)
