@@ -17,7 +17,7 @@ namespace QSP.AviationTools
         {
             return 39.0 * mach * Sqrt(IsaTemp(altFt) + 273.0);
         }
-        
+
         public static double KtasToMach(double ktas, double altFt)
         {
             return ktas / (39.0 * Sqrt(IsaTemp(altFt) + 273.0));
@@ -63,9 +63,15 @@ namespace QSP.AviationTools
 
         public static double ConversionFactor(double delta, double mach)
         {
+            double FourthPower(double x)
+            {
+                var y = x * x;
+                return y * y;
+            }
+
             return 1.0 + 1.0 / 8.0 * (1.0 - delta) * mach * mach +
                     3.0 / 640.0 * (1.0 - 10.0 * delta + 9 * delta * delta)
-                    * Numbers.Pow(mach, 4);
+                    * FourthPower(mach);
         }
 
         /// <summary>
