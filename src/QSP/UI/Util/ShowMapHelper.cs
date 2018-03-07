@@ -81,6 +81,7 @@ namespace QSP.UI.Util
 
                 using (var wb = new ChromiumWebBrowser(Path.GetFullPath(tmpFilePath)))
                 {
+                    frm.ShowIcon = false;
                     frm.FormBorderStyle = FormBorderStyle.FixedToolWindow;
                     frm.StartPosition = FormStartPosition.CenterParent;
                     frm.Controls.Add(wb);
